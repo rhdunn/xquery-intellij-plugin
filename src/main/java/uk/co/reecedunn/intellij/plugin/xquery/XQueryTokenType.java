@@ -20,4 +20,5 @@ import com.intellij.psi.tree.IElementType;
 
 public interface XQueryTokenType extends TokenType {
     IElementType INTEGER_LITERAL = new IElementType("INTEGER_LITERAL", XQuery.INSTANCE);
+    IElementType DECIMAL_LITERAL = new IElementType("DECIMAL_LITERAL", XQuery.INSTANCE);
 }

@@ -98,6 +98,37 @@ public class XQueryLexerTest extends TestCase {
         checkIntegerLiteral(LanguageLevel.XQUERY_3_0);
         checkIntegerLiteral(LanguageLevel.XQUERY_3_1);
     }
+
+    // XQuery 1.0 -- A.2.1 [142] DecimalLiteral
+    // XQuery 3.0 -- A.2.1 [198] DecimalLiteral
+    // XQuery 3.1 -- A.2.1 [220] DecimalLiteral
+
+    public void checkDecimalLiteral(LanguageLevel level) {
+        XQueryLexer lexer = new XQueryLexer(level);
+
+        lexer.start("47.");
+        matchToken(lexer, "47.", 0, 0, 3, XQueryTokenType.DECIMAL_LITERAL);
+        matchToken(lexer, "",    0, 3, 3, null);
+
+        lexer.start("1.234");
+        matchToken(lexer, "1.234", 0, 0, 5, XQueryTokenType.DECIMAL_LITERAL);
+        matchToken(lexer, "",      0, 5, 5, null);
+
+        lexer.start(".25");
+        matchToken(lexer, ".25", 0, 0, 3, XQueryTokenType.DECIMAL_LITERAL);
+        matchToken(lexer, "",    0, 3, 3, null);
+
+        lexer.start(".1.2");
+        matchToken(lexer, ".1", 0, 0, 2, XQueryTokenType.DECIMAL_LITERAL);
+        matchToken(lexer, ".2", 0, 2, 4, XQueryTokenType.DECIMAL_LITERAL);
+        matchToken(lexer, "",   0, 4, 4, null);
+    }
+
+    public void testDecimalLiteral() {
+        checkDecimalLiteral(LanguageLevel.XQUERY_1_0);
+        checkDecimalLiteral(LanguageLevel.XQUERY_3_0);
+        checkDecimalLiteral(LanguageLevel.XQUERY_3_1);
+    }
 }
 
 /**

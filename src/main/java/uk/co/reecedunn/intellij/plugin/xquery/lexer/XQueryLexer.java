@@ -31,13 +31,14 @@ public class XQueryLexer extends LexerBase {
 
     private static final int WHITESPACE = 1;
     private static final int NUMBER = 2;
+    private static final int DOT = 3;
     private static final int END_OF_BUFFER = -1;
 
     private static final int mCharacterClasses[] = {
         //////// x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 xA xB xC xD xE xF
         /* 0x */ 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0,
         /* 1x */ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        /* 2x */ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        /* 2x */ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0,
         /* 3x */ 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0,
         /* 4x */ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         /* 5x */ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -76,18 +77,28 @@ public class XQueryLexer extends LexerBase {
     public final void advance() {
         mTokenStart = mTokenEnd;
         int mTokenNext = mTokenStart;
-        switch (getCharClass(mTokenNext)) {
+        int initialClass = getCharClass(mTokenNext);
+        switch (initialClass) {
             case WHITESPACE:
                 while (getCharClass(mTokenNext + 1) == WHITESPACE)
                     mTokenNext += 1;
                 mTokenEnd = mTokenNext + 1;
                 mType = XQueryTokenType.WHITE_SPACE;
                 break;
+            case DOT:
             case NUMBER:
                 while (getCharClass(mTokenNext + 1) == NUMBER)
                     mTokenNext += 1;
-                mTokenEnd = mTokenNext + 1;
-                mType = XQueryTokenType.INTEGER_LITERAL;
+                if (initialClass != DOT && getCharClass(mTokenNext + 1) == DOT) {
+                    mTokenNext += 1;
+                    while (getCharClass(mTokenNext + 1) == NUMBER)
+                        mTokenNext += 1;
+                    mTokenEnd = mTokenNext + 1;
+                    mType = XQueryTokenType.DECIMAL_LITERAL;
+                } else {
+                    mTokenEnd = mTokenNext + 1;
+                    mType = initialClass == DOT ? XQueryTokenType.DECIMAL_LITERAL : XQueryTokenType.INTEGER_LITERAL;
+                }
                 break;
             case END_OF_BUFFER:
                 mType = null;
