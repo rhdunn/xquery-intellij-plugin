@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.lexer;
 import com.intellij.lexer.LexerBase;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
+import uk.co.reecedunn.intellij.plugin.xquery.XQueryTokenType;
 
 public class XQueryLexer extends LexerBase {
     private CharSequence mBuffer;
@@ -26,6 +27,35 @@ public class XQueryLexer extends LexerBase {
     private int mEndOfBuffer;
     private int mState;
     private IElementType mType;
+
+    private static final int WHITESPACE = 1;
+    private static final int END_OF_BUFFER = -1;
+
+    private static final int mCharacterClasses[] = {
+        //////// x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 xA xB xC xD xE xF
+        /* 0x */ 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0,
+        /* 1x */ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        /* 2x */ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        /* 3x */ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        /* 4x */ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        /* 5x */ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        /* 6x */ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        /* 7x */ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        /* 8x */ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        /* 9x */ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        /* Ax */ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        /* Bx */ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        /* Cx */ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        /* Dx */ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        /* Ex */ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        /* Fx */ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+    };
+
+    private int getCharClass(int offset) {
+        if (offset >= mEndOfBuffer)
+            return END_OF_BUFFER;
+        return mCharacterClasses[mBuffer.charAt(offset)];
+    }
 
     @Override
     public final void start(@NotNull CharSequence buffer, int startOffset, int endOffset, int initialState) {
@@ -39,6 +69,23 @@ public class XQueryLexer extends LexerBase {
 
     @Override
     public final void advance() {
+        mTokenStart = mTokenEnd;
+        int mTokenNext = mTokenStart;
+        switch (getCharClass(mTokenNext)) {
+            case WHITESPACE:
+                while (getCharClass(mTokenNext + 1) == WHITESPACE)
+                    mTokenNext += 1;
+                mTokenEnd = mTokenNext + 1;
+                mType = XQueryTokenType.WHITE_SPACE;
+                break;
+            case END_OF_BUFFER:
+                mType = null;
+                break;
+            default:
+                mTokenEnd = mTokenStart + 1;
+                mType = XQueryTokenType.ERROR_ELEMENT;
+                break;
+        }
     }
 
     @Override
