@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.ast;
 
 import com.intellij.psi.tree.IElementType;
 import junit.framework.TestCase;
+import uk.co.reecedunn.intellij.plugin.xquery.LanguageLevel;
 import uk.co.reecedunn.intellij.plugin.xquery.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer;
 
@@ -33,16 +34,25 @@ public class XQueryLexerTest extends TestCase {
         assertThat(lexer.getTokenType(), is(type));
     }
 
-    public void testEmptyBuffer() {
-        XQueryLexer lexer = new XQueryLexer();
+    private void checkEmptyBuffer(LanguageLevel level) {
+        XQueryLexer lexer = new XQueryLexer(level);
 
         lexer.start("");
         matchToken(lexer, "", 0, 0, 0, null);
     }
 
+    public void testEmptyBuffer() {
+        checkEmptyBuffer(LanguageLevel.XQUERY_1_0);
+        checkEmptyBuffer(LanguageLevel.XQUERY_3_0);
+        checkEmptyBuffer(LanguageLevel.XQUERY_3_1);
+    }
+
     // XQuery 1.0 -- A.2.1 [156] S
-    public void testWhiteSpace() {
-        XQueryLexer lexer = new XQueryLexer();
+    // XQuery 3.0 -- A.2.1 [215] S
+    // XQuery 3.1 -- A.2.1 [237] S
+
+    public void checkWhiteSpace(LanguageLevel level) {
+        XQueryLexer lexer = new XQueryLexer(level);
 
         lexer.start(" ");
         matchToken(lexer, " ", 0, 0, 1, XQueryTokenType.WHITE_SPACE);
@@ -63,6 +73,12 @@ public class XQueryLexerTest extends TestCase {
         lexer.start("   \t  \r\n ");
         matchToken(lexer, "   \t  \r\n ", 0, 0, 9, XQueryTokenType.WHITE_SPACE);
         matchToken(lexer, "",             0, 9, 9, null);
+    }
+
+    public void testWhiteSpace() {
+        checkWhiteSpace(LanguageLevel.XQUERY_1_0);
+        checkWhiteSpace(LanguageLevel.XQUERY_3_0);
+        checkWhiteSpace(LanguageLevel.XQUERY_3_1);
     }
 }
 

@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.lexer;
 import com.intellij.lexer.LexerBase;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
+import uk.co.reecedunn.intellij.plugin.xquery.LanguageLevel;
 import uk.co.reecedunn.intellij.plugin.xquery.XQueryTokenType;
 
 public class XQueryLexer extends LexerBase {
@@ -50,6 +51,9 @@ public class XQueryLexer extends LexerBase {
         /* Ex */ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         /* Fx */ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     };
+
+    public XQueryLexer(@NotNull LanguageLevel level) {
+    }
 
     private int getCharClass(int offset) {
         if (offset >= mEndOfBuffer)
