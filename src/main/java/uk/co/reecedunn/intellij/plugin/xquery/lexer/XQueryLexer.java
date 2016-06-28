@@ -63,6 +63,12 @@ public class XQueryLexer extends LexerBase {
         return mCharacterClasses[mBuffer.charAt(offset)];
     }
 
+    private char getChar(int offset) {
+        if (offset >= mEndOfBuffer)
+            return '\0';
+        return mBuffer.charAt(offset);
+    }
+
     @Override
     public final void start(@NotNull CharSequence buffer, int startOffset, int endOffset, int initialState) {
         mBuffer = buffer;
@@ -78,6 +84,7 @@ public class XQueryLexer extends LexerBase {
         mTokenStart = mTokenEnd;
         int mTokenNext = mTokenStart;
         int initialClass = getCharClass(mTokenNext);
+        char c;
         switch (initialClass) {
             case WHITESPACE:
                 while (getCharClass(mTokenNext + 1) == WHITESPACE)
@@ -93,19 +100,29 @@ public class XQueryLexer extends LexerBase {
                     mTokenNext += 1;
                     while (getCharClass(mTokenNext + 1) == NUMBER)
                         mTokenNext += 1;
-                    mTokenEnd = mTokenNext + 1;
                     mType = XQueryTokenType.DECIMAL_LITERAL;
                 } else {
-                    mTokenEnd = mTokenNext + 1;
                     mType = initialClass == DOT ? XQueryTokenType.DECIMAL_LITERAL : XQueryTokenType.INTEGER_LITERAL;
                 }
+                c = getChar(mTokenNext + 1);
+                if (c == 'e' || c == 'E') {
+                    c = getChar(mTokenNext + 2);
+                    int offset = (c == '+' || c == '-') ? 3 : 2;
+                    if (getCharClass(mTokenNext + offset) == NUMBER) {
+                        mTokenNext += offset - 1;
+                        while (getCharClass(mTokenNext + 1) == NUMBER)
+                            mTokenNext += 1;
+                        mType = XQueryTokenType.DOUBLE_LITERAL;
+                    }
+                }
+                mTokenEnd = mTokenNext + 1;
                 break;
             case END_OF_BUFFER:
                 mType = null;
                 break;
             default:
                 mTokenEnd = mTokenStart + 1;
-                mType = XQueryTokenType.ERROR_ELEMENT;
+                mType = XQueryTokenType.BAD_CHARACTER;
                 break;
         }
     }

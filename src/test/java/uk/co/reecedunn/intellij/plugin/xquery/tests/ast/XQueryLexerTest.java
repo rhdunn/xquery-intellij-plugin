@@ -129,6 +129,146 @@ public class XQueryLexerTest extends TestCase {
         checkDecimalLiteral(LanguageLevel.XQUERY_3_0);
         checkDecimalLiteral(LanguageLevel.XQUERY_3_1);
     }
+
+    // XQuery 1.0 -- A.2.1 [143] DoubleLiteral
+    // XQuery 3.0 -- A.2.1 [199] DoubleLiteral
+    // XQuery 3.1 -- A.2.1 [221] DoubleLiteral
+
+    public void checkDoubleLiteral(LanguageLevel level) {
+        XQueryLexer lexer = new XQueryLexer(level);
+
+        lexer.start("3e7 3e+7 3e-7");
+        matchToken(lexer, "3e7",  0,  0,  3, XQueryTokenType.DOUBLE_LITERAL);
+        matchToken(lexer, " ",    0,  3,  4, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "3e+7", 0,  4,  8, XQueryTokenType.DOUBLE_LITERAL);
+        matchToken(lexer, " ",    0,  8,  9, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "3e-7", 0,  9, 13, XQueryTokenType.DOUBLE_LITERAL);
+        matchToken(lexer, "",     0, 13, 13, null);
+
+        lexer.start("43E22 43E+22 43E-22");
+        matchToken(lexer, "43E22",  0,  0,  5, XQueryTokenType.DOUBLE_LITERAL);
+        matchToken(lexer, " ",      0,  5,  6, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "43E+22", 0,  6, 12, XQueryTokenType.DOUBLE_LITERAL);
+        matchToken(lexer, " ",      0, 12, 13, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "43E-22", 0, 13, 19, XQueryTokenType.DOUBLE_LITERAL);
+        matchToken(lexer, "",       0, 19, 19, null);
+
+        lexer.start("2.1e3 2.1e+3 2.1e-3");
+        matchToken(lexer, "2.1e3",  0,  0,  5, XQueryTokenType.DOUBLE_LITERAL);
+        matchToken(lexer, " ",      0,  5,  6, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "2.1e+3", 0,  6, 12, XQueryTokenType.DOUBLE_LITERAL);
+        matchToken(lexer, " ",      0, 12, 13, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "2.1e-3", 0, 13, 19, XQueryTokenType.DOUBLE_LITERAL);
+        matchToken(lexer, "",       0, 19, 19, null);
+
+        lexer.start("1.7E99 1.7E+99 1.7E-99");
+        matchToken(lexer, "1.7E99",  0,  0,  6, XQueryTokenType.DOUBLE_LITERAL);
+        matchToken(lexer, " ",       0,  6,  7, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "1.7E+99", 0,  7, 14, XQueryTokenType.DOUBLE_LITERAL);
+        matchToken(lexer, " ",       0, 14, 15, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "1.7E-99", 0, 15, 22, XQueryTokenType.DOUBLE_LITERAL);
+        matchToken(lexer, "",        0, 22, 22, null);
+
+        lexer.start(".22e42 .22e+42 .22e-42");
+        matchToken(lexer, ".22e42",  0,  0,  6, XQueryTokenType.DOUBLE_LITERAL);
+        matchToken(lexer, " ",       0,  6,  7, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, ".22e+42", 0,  7, 14, XQueryTokenType.DOUBLE_LITERAL);
+        matchToken(lexer, " ",       0, 14, 15, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, ".22e-42", 0, 15, 22, XQueryTokenType.DOUBLE_LITERAL);
+        matchToken(lexer, "",        0, 22, 22, null);
+
+        lexer.start(".8E2 .8E+2 .8E-2");
+        matchToken(lexer, ".8E2",  0,  0,  4, XQueryTokenType.DOUBLE_LITERAL);
+        matchToken(lexer, " ",     0,  4,  5, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, ".8E+2", 0,  5, 10, XQueryTokenType.DOUBLE_LITERAL);
+        matchToken(lexer, " ",     0, 10, 11, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, ".8E-2", 0, 11, 16, XQueryTokenType.DOUBLE_LITERAL);
+        matchToken(lexer, "",      0, 16, 16, null);
+
+        lexer.start("1e 1e+ 1e-");
+        matchToken(lexer, "1", 0,  0,  1, XQueryTokenType.INTEGER_LITERAL);
+        matchToken(lexer, "e", 0,  1,  2, XQueryTokenType.BAD_CHARACTER);
+        matchToken(lexer, " ", 0,  2,  3, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "1", 0,  3,  4, XQueryTokenType.INTEGER_LITERAL);
+        matchToken(lexer, "e", 0,  4,  5, XQueryTokenType.BAD_CHARACTER);
+        matchToken(lexer, "+", 0,  5,  6, XQueryTokenType.BAD_CHARACTER);
+        matchToken(lexer, " ", 0,  6,  7, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "1", 0,  7,  8, XQueryTokenType.INTEGER_LITERAL);
+        matchToken(lexer, "e", 0,  8,  9, XQueryTokenType.BAD_CHARACTER);
+        matchToken(lexer, "-", 0,  9, 10, XQueryTokenType.BAD_CHARACTER);
+        matchToken(lexer, "",  0, 10, 10, null);
+
+        lexer.start("1E 1E+ 1E-");
+        matchToken(lexer, "1", 0,  0,  1, XQueryTokenType.INTEGER_LITERAL);
+        matchToken(lexer, "E", 0,  1,  2, XQueryTokenType.BAD_CHARACTER);
+        matchToken(lexer, " ", 0,  2,  3, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "1", 0,  3,  4, XQueryTokenType.INTEGER_LITERAL);
+        matchToken(lexer, "E", 0,  4,  5, XQueryTokenType.BAD_CHARACTER);
+        matchToken(lexer, "+", 0,  5,  6, XQueryTokenType.BAD_CHARACTER);
+        matchToken(lexer, " ", 0,  6,  7, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "1", 0,  7,  8, XQueryTokenType.INTEGER_LITERAL);
+        matchToken(lexer, "E", 0,  8,  9, XQueryTokenType.BAD_CHARACTER);
+        matchToken(lexer, "-", 0,  9, 10, XQueryTokenType.BAD_CHARACTER);
+        matchToken(lexer, "",  0, 10, 10, null);
+
+        lexer.start("8.9e 8.9e+ 8.9e-");
+        matchToken(lexer, "8.9", 0,  0,  3, XQueryTokenType.DECIMAL_LITERAL);
+        matchToken(lexer, "e",   0,  3,  4, XQueryTokenType.BAD_CHARACTER);
+        matchToken(lexer, " ",   0,  4,  5, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "8.9", 0,  5,  8, XQueryTokenType.DECIMAL_LITERAL);
+        matchToken(lexer, "e",   0,  8,  9, XQueryTokenType.BAD_CHARACTER);
+        matchToken(lexer, "+",   0,  9, 10, XQueryTokenType.BAD_CHARACTER);
+        matchToken(lexer, " ",   0, 10, 11, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "8.9", 0, 11, 14, XQueryTokenType.DECIMAL_LITERAL);
+        matchToken(lexer, "e",   0, 14, 15, XQueryTokenType.BAD_CHARACTER);
+        matchToken(lexer, "-",   0, 15, 16, XQueryTokenType.BAD_CHARACTER);
+        matchToken(lexer, "",    0, 16, 16, null);
+
+        lexer.start("8.9E 8.9E+ 8.9E-");
+        matchToken(lexer, "8.9", 0,  0,  3, XQueryTokenType.DECIMAL_LITERAL);
+        matchToken(lexer, "E",   0,  3,  4, XQueryTokenType.BAD_CHARACTER);
+        matchToken(lexer, " ",   0,  4,  5, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "8.9", 0,  5,  8, XQueryTokenType.DECIMAL_LITERAL);
+        matchToken(lexer, "E",   0,  8,  9, XQueryTokenType.BAD_CHARACTER);
+        matchToken(lexer, "+",   0,  9, 10, XQueryTokenType.BAD_CHARACTER);
+        matchToken(lexer, " ",   0, 10, 11, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "8.9", 0, 11, 14, XQueryTokenType.DECIMAL_LITERAL);
+        matchToken(lexer, "E",   0, 14, 15, XQueryTokenType.BAD_CHARACTER);
+        matchToken(lexer, "-",   0, 15, 16, XQueryTokenType.BAD_CHARACTER);
+        matchToken(lexer, "",    0, 16, 16, null);
+
+        lexer.start(".4e .4e+ .4e-");
+        matchToken(lexer, ".4", 0,  0,  2, XQueryTokenType.DECIMAL_LITERAL);
+        matchToken(lexer, "e",  0,  2,  3, XQueryTokenType.BAD_CHARACTER);
+        matchToken(lexer, " ",  0,  3,  4, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, ".4", 0,  4,  6, XQueryTokenType.DECIMAL_LITERAL);
+        matchToken(lexer, "e",  0,  6,  7, XQueryTokenType.BAD_CHARACTER);
+        matchToken(lexer, "+",  0,  7,  8, XQueryTokenType.BAD_CHARACTER);
+        matchToken(lexer, " ",  0,  8,  9, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, ".4", 0,  9, 11, XQueryTokenType.DECIMAL_LITERAL);
+        matchToken(lexer, "e",  0, 11, 12, XQueryTokenType.BAD_CHARACTER);
+        matchToken(lexer, "-",  0, 12, 13, XQueryTokenType.BAD_CHARACTER);
+        matchToken(lexer, "",   0, 13, 13, null);
+
+        lexer.start(".4E .4E+ .4E-");
+        matchToken(lexer, ".4", 0,  0,  2, XQueryTokenType.DECIMAL_LITERAL);
+        matchToken(lexer, "E",  0,  2,  3, XQueryTokenType.BAD_CHARACTER);
+        matchToken(lexer, " ",  0,  3,  4, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, ".4", 0,  4,  6, XQueryTokenType.DECIMAL_LITERAL);
+        matchToken(lexer, "E",  0,  6,  7, XQueryTokenType.BAD_CHARACTER);
+        matchToken(lexer, "+",  0,  7,  8, XQueryTokenType.BAD_CHARACTER);
+        matchToken(lexer, " ",  0,  8,  9, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, ".4", 0,  9, 11, XQueryTokenType.DECIMAL_LITERAL);
+        matchToken(lexer, "E",  0, 11, 12, XQueryTokenType.BAD_CHARACTER);
+        matchToken(lexer, "-",  0, 12, 13, XQueryTokenType.BAD_CHARACTER);
+        matchToken(lexer, "",   0, 13, 13, null);
+    }
+
+    public void testDoubleLiteral() {
+        checkDoubleLiteral(LanguageLevel.XQUERY_1_0);
+        checkDoubleLiteral(LanguageLevel.XQUERY_3_0);
+        checkDoubleLiteral(LanguageLevel.XQUERY_3_1);
+    }
 }
 
 /**
