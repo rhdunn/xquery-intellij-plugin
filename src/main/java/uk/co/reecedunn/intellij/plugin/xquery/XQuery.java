@@ -15,9 +15,17 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery;
 
-import com.intellij.psi.TokenType;
-import com.intellij.psi.tree.IElementType;
+import com.intellij.lang.Language;
 
-public interface XQueryTokenType extends TokenType {
-    IElementType INTEGER_LITERAL = new IElementType("INTEGER_LITERAL", XQuery.INSTANCE);
+public class XQuery extends Language {
+    public static final XQuery INSTANCE = new XQuery();
+
+    private XQuery() {
+        super("XQuery", "application/xquery");
+    }
+
+    @Override
+    public boolean isCaseSensitive() {
+        return true;
+    }
 }

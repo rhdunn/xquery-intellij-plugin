@@ -80,6 +80,24 @@ public class XQueryLexerTest extends TestCase {
         checkWhiteSpace(LanguageLevel.XQUERY_3_0);
         checkWhiteSpace(LanguageLevel.XQUERY_3_1);
     }
+
+    // XQuery 1.0 -- A.2.1 [141] IntegerLiteral
+    // XQuery 3.0 -- A.2.1 [197] IntegerLiteral
+    // XQuery 3.1 -- A.2.1 [219] IntegerLiteral
+
+    public void checkIntegerLiteral(LanguageLevel level) {
+        XQueryLexer lexer = new XQueryLexer(level);
+
+        lexer.start("1234");
+        matchToken(lexer, "1234", 0, 0, 4, XQueryTokenType.INTEGER_LITERAL);
+        matchToken(lexer, "",     0, 4, 4, null);
+    }
+
+    public void testIntegerLiteral() {
+        checkIntegerLiteral(LanguageLevel.XQUERY_1_0);
+        checkIntegerLiteral(LanguageLevel.XQUERY_3_0);
+        checkIntegerLiteral(LanguageLevel.XQUERY_3_1);
+    }
 }
 
 /**

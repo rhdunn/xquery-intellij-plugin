@@ -30,6 +30,7 @@ public class XQueryLexer extends LexerBase {
     private IElementType mType;
 
     private static final int WHITESPACE = 1;
+    private static final int NUMBER = 2;
     private static final int END_OF_BUFFER = -1;
 
     private static final int mCharacterClasses[] = {
@@ -37,7 +38,7 @@ public class XQueryLexer extends LexerBase {
         /* 0x */ 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0,
         /* 1x */ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         /* 2x */ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        /* 3x */ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        /* 3x */ 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0,
         /* 4x */ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         /* 5x */ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         /* 6x */ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -81,6 +82,12 @@ public class XQueryLexer extends LexerBase {
                     mTokenNext += 1;
                 mTokenEnd = mTokenNext + 1;
                 mType = XQueryTokenType.WHITE_SPACE;
+                break;
+            case NUMBER:
+                while (getCharClass(mTokenNext + 1) == NUMBER)
+                    mTokenNext += 1;
+                mTokenEnd = mTokenNext + 1;
+                mType = XQueryTokenType.INTEGER_LITERAL;
                 break;
             case END_OF_BUFFER:
                 mType = null;
