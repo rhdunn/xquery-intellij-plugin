@@ -1,0 +1,28 @@
+<idea-plugin version="2">
+  <id>uk.co.reecedunn.intellij.xquery</id>
+  <name>xquery</name>
+  <version>0.0.1</version>
+  <vendor email="msclrhd@gmail.com" url="http://reecedunn.co.uk">Reece H. Dunn</vendor>
+
+  <description><![CDATA[
+      XQuery Language Support
+  ]]></description>
+
+  <change-notes><![CDATA[
+      Release 0.0.1: Initial release.
+  ]]></change-notes>
+
+  <idea-version since-build="131"/>
+
+  <extensions defaultExtensionNs="com.intellij">
+  </extensions>
+
+  <application-components>
+  </application-components>
+
+  <project-components>
+  </project-components>
+
+  <actions>
+  </actions>
+</idea-plugin>
