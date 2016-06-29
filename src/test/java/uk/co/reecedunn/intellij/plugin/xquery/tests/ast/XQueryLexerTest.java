@@ -27,12 +27,12 @@ import static org.hamcrest.core.Is.is;
 
 public class XQueryLexerTest extends TestCase {
     private void matchToken(Lexer lexer, String text, int state, int start, int end, IElementType type) {
-        lexer.advance();
         assertThat(lexer.getTokenText(), is(text));
         assertThat(lexer.getState(), is(state));
         assertThat(lexer.getTokenStart(), is(start));
         assertThat(lexer.getTokenEnd(), is(end));
         assertThat(lexer.getTokenType(), is(type));
+        lexer.advance();
     }
 
     private void checkEmptyBuffer(LanguageLevel level) {

@@ -72,11 +72,10 @@ public class XQueryLexer extends LexerBase {
     @Override
     public final void start(@NotNull CharSequence buffer, int startOffset, int endOffset, int initialState) {
         mBuffer = buffer;
-        mTokenStart = startOffset;
         mTokenEnd = startOffset;
         mEndOfBuffer = endOffset;
         mState = initialState;
-        mType = null;
+        advance();
     }
 
     @Override
