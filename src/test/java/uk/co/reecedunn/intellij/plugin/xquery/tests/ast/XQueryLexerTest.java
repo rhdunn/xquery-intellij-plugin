@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.ast;
 
+import com.intellij.lexer.Lexer;
 import com.intellij.psi.tree.IElementType;
 import junit.framework.TestCase;
 import uk.co.reecedunn.intellij.plugin.xquery.LanguageLevel;
@@ -25,7 +26,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
 public class XQueryLexerTest extends TestCase {
-    private void matchToken(XQueryLexer lexer, String text, int state, int start, int end, IElementType type) {
+    private void matchToken(Lexer lexer, String text, int state, int start, int end, IElementType type) {
         lexer.advance();
         assertThat(lexer.getTokenText(), is(text));
         assertThat(lexer.getState(), is(state));
@@ -35,7 +36,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     private void checkEmptyBuffer(LanguageLevel level) {
-        XQueryLexer lexer = new XQueryLexer(level);
+        Lexer lexer = new XQueryLexer(level);
 
         lexer.start("");
         matchToken(lexer, "", 0, 0, 0, null);
@@ -52,7 +53,7 @@ public class XQueryLexerTest extends TestCase {
     // XQuery 3.1 -- A.2.1 [237] S
 
     public void checkWhiteSpace(LanguageLevel level) {
-        XQueryLexer lexer = new XQueryLexer(level);
+        Lexer lexer = new XQueryLexer(level);
 
         lexer.start(" ");
         matchToken(lexer, " ", 0, 0, 1, XQueryTokenType.WHITE_SPACE);
@@ -86,7 +87,7 @@ public class XQueryLexerTest extends TestCase {
     // XQuery 3.1 -- A.2.1 [219] IntegerLiteral
 
     public void checkIntegerLiteral(LanguageLevel level) {
-        XQueryLexer lexer = new XQueryLexer(level);
+        Lexer lexer = new XQueryLexer(level);
 
         lexer.start("1234");
         matchToken(lexer, "1234", 0, 0, 4, XQueryTokenType.INTEGER_LITERAL);
@@ -104,7 +105,7 @@ public class XQueryLexerTest extends TestCase {
     // XQuery 3.1 -- A.2.1 [220] DecimalLiteral
 
     public void checkDecimalLiteral(LanguageLevel level) {
-        XQueryLexer lexer = new XQueryLexer(level);
+        Lexer lexer = new XQueryLexer(level);
 
         lexer.start("47.");
         matchToken(lexer, "47.", 0, 0, 3, XQueryTokenType.DECIMAL_LITERAL);
@@ -135,7 +136,7 @@ public class XQueryLexerTest extends TestCase {
     // XQuery 3.1 -- A.2.1 [221] DoubleLiteral
 
     public void checkDoubleLiteral(LanguageLevel level) {
-        XQueryLexer lexer = new XQueryLexer(level);
+        Lexer lexer = new XQueryLexer(level);
 
         lexer.start("3e7 3e+7 3e-7");
         matchToken(lexer, "3e7",  0,  0,  3, XQueryTokenType.DOUBLE_LITERAL);
