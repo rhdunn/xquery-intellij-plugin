@@ -26,6 +26,8 @@ import javax.swing.*;
 public class XQueryFileType extends LanguageFileType {
     private static final Icon FILETYPE_ICON = IconLoader.getIcon("/icons/xquery.png");
 
+    public static final String EXTENSIONS = "xq;xqy;xquery";
+
     public static final XQueryFileType INSTANCE = new XQueryFileType();
 
     private XQueryFileType() {
