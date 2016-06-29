@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.filetypes;
 
 import com.intellij.openapi.fileTypes.LanguageFileType;
+import com.intellij.openapi.util.IconLoader;
 import com.intellij.openapi.vfs.VirtualFile;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.XQuery;
@@ -23,6 +24,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.XQuery;
 import javax.swing.*;
 
 public class XQueryFileType extends LanguageFileType {
+    private static final Icon FILETYPE_ICON = IconLoader.getIcon("/icons/xquery.png");
+
     public static final XQueryFileType INSTANCE = new XQueryFileType();
 
     private XQueryFileType() {
@@ -49,7 +52,7 @@ public class XQueryFileType extends LanguageFileType {
 
     @Override
     public Icon getIcon() {
-        return null;
+        return FILETYPE_ICON;
     }
 
     @Override
