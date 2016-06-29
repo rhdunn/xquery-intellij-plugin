@@ -16,11 +16,13 @@
 package uk.co.reecedunn.intellij.plugin.xquery.lexer;
 
 import com.intellij.lexer.Lexer;
+import com.intellij.openapi.editor.DefaultLanguageHighlighterColors;
 import com.intellij.openapi.editor.colors.TextAttributesKey;
 import com.intellij.openapi.fileTypes.SyntaxHighlighterBase;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.LanguageLevel;
+import uk.co.reecedunn.intellij.plugin.xquery.XQueryTokenType;
 
 public class SyntaxHighlighter extends SyntaxHighlighterBase {
     @NotNull
@@ -32,6 +34,11 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
     @NotNull
     @Override
     public TextAttributesKey[] getTokenHighlights(IElementType type) {
+        if (type == XQueryTokenType.INTEGER_LITERAL ||
+            type == XQueryTokenType.DECIMAL_LITERAL ||
+            type == XQueryTokenType.DOUBLE_LITERAL) {
+            return pack(DefaultLanguageHighlighterColors.NUMBER);
+        }
         return EMPTY;
     }
 }
