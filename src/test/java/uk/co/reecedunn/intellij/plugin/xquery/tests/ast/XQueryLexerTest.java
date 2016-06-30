@@ -240,10 +240,3 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "",   0, 13, 13, null);
     }
 }
-
-/**
- * References:
- *   XQuery 1.0 (2ed) -- https://www.w3.org/TR/2010/REC-xquery-20101214/
- *   XQuery 3.0       -- https://www.w3.org/TR/2014/REC-xquery-30-20140408/
- *   XQuery 3.1       -- https://www.w3.org/TR/2015/CR-xquery-31-20151217/
- */

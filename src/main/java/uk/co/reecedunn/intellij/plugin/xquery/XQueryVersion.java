@@ -19,21 +19,35 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public enum XQueryVersion {
-    XQUERY_0_9_MARKLOGIC("0.9-ml"),
-    XQUERY_1_0("1.0"),
-    XQUERY_1_0_MARKLOGIC("1.0-ml"),
-    XQUERY_3_0("3.0"),
-    XQUERY_3_1("3.1");
+    XQUERY_0_9_MARKLOGIC("0.9-ml", "MarkLogic 3.2 Compatibility Dialect", "https://docs.marklogic.com/guide/xquery/dialects#id_65735"),
+    XQUERY_1_0("1.0", "W3C Recommendation 14 December 2010", "https://www.w3.org/TR/2010/REC-xquery-20101214"),
+    XQUERY_1_0_MARKLOGIC("1.0-ml", "MarkLogic Dialect", "https://docs.marklogic.com/guide/xquery/dialects#id_63368"),
+    XQUERY_3_0("3.0", "W3C Recommendation 08 April 2014", "https://www.w3.org/TR/2014/REC-xquery-30-20140408"),
+    XQUERY_3_1("3.1", "W3C Candidate Recommendation 17 December 2015", "https://www.w3.org/TR/2015/CR-xquery-31-20151217");
 
-    private String mName;
+    private final String mName;
+    private final String mDescription;
+    private final String mReference;
 
-    XQueryVersion(@NotNull String name) {
+    XQueryVersion(@NotNull String name, @NotNull String description, @NotNull String reference) {
         mName = name;
+        mDescription = description;
+        mReference = reference;
     }
 
     @NotNull
     public String getName() {
         return mName;
+    }
+
+    @NotNull
+    public String getDescription() {
+        return mDescription;
+    }
+
+    @NotNull
+    public String getReference() {
+        return mReference;
     }
 
     @Nullable
