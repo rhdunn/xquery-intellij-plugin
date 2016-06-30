@@ -29,7 +29,9 @@ public class XQueryPropertiesUI {
 
     private void createUIComponents() {
         mLanguageLevel = new JComboBox<>();
+        mLanguageLevel.addItem(LanguageLevel.XQUERY_0_9_MARKLOGIC);
         mLanguageLevel.addItem(LanguageLevel.XQUERY_1_0);
+        mLanguageLevel.addItem(LanguageLevel.XQUERY_1_0_MARKLOGIC);
         mLanguageLevel.addItem(LanguageLevel.XQUERY_3_0);
         mLanguageLevel.addItem(LanguageLevel.XQUERY_3_1);
     }

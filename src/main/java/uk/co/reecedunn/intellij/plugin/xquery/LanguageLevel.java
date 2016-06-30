@@ -19,7 +19,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public enum LanguageLevel {
+    XQUERY_0_9_MARKLOGIC("0.9-ml"),
     XQUERY_1_0("1.0"),
+    XQUERY_1_0_MARKLOGIC("1.0-ml"),
     XQUERY_3_0("3.0"),
     XQUERY_3_1("3.1");
 
@@ -36,7 +38,9 @@ public enum LanguageLevel {
 
     @Nullable
     public static LanguageLevel parse(@Nullable String value) {
+        if ("0.9-ml".equals(value)) return XQUERY_0_9_MARKLOGIC;
         if ("1.0".equals(value)) return XQUERY_1_0;
+        if ("1.0-ml".equals(value)) return XQUERY_1_0_MARKLOGIC;
         if ("3.0".equals(value)) return XQUERY_3_0;
         if ("3.1".equals(value)) return XQUERY_3_1;
         return null;
