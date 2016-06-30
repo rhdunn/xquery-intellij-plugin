@@ -21,7 +21,6 @@ import com.intellij.openapi.editor.colors.TextAttributesKey;
 import com.intellij.openapi.fileTypes.SyntaxHighlighterBase;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.LanguageLevel;
 import uk.co.reecedunn.intellij.plugin.xquery.XQueryTokenType;
 
 public class SyntaxHighlighter extends SyntaxHighlighterBase {

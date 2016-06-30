@@ -15,12 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.settings;
 
-import uk.co.reecedunn.intellij.plugin.xquery.LanguageLevel;
+import uk.co.reecedunn.intellij.plugin.xquery.XQueryVersion;
 
 import javax.swing.*;
 
 public class XQueryPropertiesUI {
-    private JComboBox<LanguageLevel> mLanguageLevel;
+    private JComboBox<XQueryVersion> mVersion;
     private JPanel mPanel;
 
     public JPanel getPanel() {
@@ -28,11 +28,11 @@ public class XQueryPropertiesUI {
     }
 
     private void createUIComponents() {
-        mLanguageLevel = new JComboBox<>();
-        mLanguageLevel.addItem(LanguageLevel.XQUERY_0_9_MARKLOGIC);
-        mLanguageLevel.addItem(LanguageLevel.XQUERY_1_0);
-        mLanguageLevel.addItem(LanguageLevel.XQUERY_1_0_MARKLOGIC);
-        mLanguageLevel.addItem(LanguageLevel.XQUERY_3_0);
-        mLanguageLevel.addItem(LanguageLevel.XQUERY_3_1);
+        mVersion = new JComboBox<>();
+        mVersion.addItem(XQueryVersion.XQUERY_0_9_MARKLOGIC);
+        mVersion.addItem(XQueryVersion.XQUERY_1_0);
+        mVersion.addItem(XQueryVersion.XQUERY_1_0_MARKLOGIC);
+        mVersion.addItem(XQueryVersion.XQUERY_3_0);
+        mVersion.addItem(XQueryVersion.XQUERY_3_1);
     }
 }

@@ -18,7 +18,6 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.ast;
 import com.intellij.lexer.Lexer;
 import com.intellij.psi.tree.IElementType;
 import junit.framework.TestCase;
-import uk.co.reecedunn.intellij.plugin.xquery.LanguageLevel;
 import uk.co.reecedunn.intellij.plugin.xquery.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer;
 
