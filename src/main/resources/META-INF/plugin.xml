@@ -16,7 +16,9 @@
 
   <extensions defaultExtensionNs="com.intellij">
     <fileTypeFactory implementation="uk.co.reecedunn.intellij.plugin.xquery.filetypes.FileTypeFactory"/>
+
     <lang.syntaxHighlighterFactory language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.lexer.SyntaxHighlighterFactory"/>
+    <colorSettingsPage implementation="uk.co.reecedunn.intellij.plugin.xquery.settings.ColorSettingsPage"/>
   </extensions>
 
   <application-components>

@@ -25,6 +25,10 @@ import uk.co.reecedunn.intellij.plugin.xquery.LanguageLevel;
 import uk.co.reecedunn.intellij.plugin.xquery.XQueryTokenType;
 
 public class SyntaxHighlighter extends SyntaxHighlighterBase {
+    public static final TextAttributesKey NUMBER = TextAttributesKey.createTextAttributesKey("XQUERY_NUMBER", DefaultLanguageHighlighterColors.NUMBER);
+
+    private static final TextAttributesKey[] NUMBER_KEYS = pack(NUMBER);
+
     @NotNull
     @Override
     public Lexer getHighlightingLexer() {
@@ -37,7 +41,7 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
         if (type == XQueryTokenType.INTEGER_LITERAL ||
             type == XQueryTokenType.DECIMAL_LITERAL ||
             type == XQueryTokenType.DOUBLE_LITERAL) {
-            return pack(DefaultLanguageHighlighterColors.NUMBER);
+            return NUMBER_KEYS;
         }
         return EMPTY;
     }
