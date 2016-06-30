@@ -19,9 +19,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public enum LanguageLevel {
-    XQUERY_1_0("XQuery 1.0"),
-    XQUERY_3_0("XQuery 3.0"),
-    XQUERY_3_1("XQuery 3.1");
+    XQUERY_1_0("1.0"),
+    XQUERY_3_0("3.0"),
+    XQUERY_3_1("3.1");
 
     private String mName;
 
@@ -40,5 +40,11 @@ public enum LanguageLevel {
         if ("3.0".equals(value)) return XQUERY_3_0;
         if ("3.1".equals(value)) return XQUERY_3_1;
         return null;
+    }
+
+    @NotNull
+    @Override
+    public String toString() {
+        return getName();
     }
 }
