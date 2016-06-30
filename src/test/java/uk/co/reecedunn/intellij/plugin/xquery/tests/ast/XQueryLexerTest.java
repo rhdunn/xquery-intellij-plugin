@@ -35,25 +35,19 @@ public class XQueryLexerTest extends TestCase {
         lexer.advance();
     }
 
-    private void checkEmptyBuffer(LanguageLevel level) {
-        Lexer lexer = new XQueryLexer(level);
+    public void testEmptyBuffer() {
+        Lexer lexer = new XQueryLexer();
 
         lexer.start("");
         matchToken(lexer, "", 0, 0, 0, null);
-    }
-
-    public void testEmptyBuffer() {
-        checkEmptyBuffer(LanguageLevel.XQUERY_1_0);
-        checkEmptyBuffer(LanguageLevel.XQUERY_3_0);
-        checkEmptyBuffer(LanguageLevel.XQUERY_3_1);
     }
 
     // XQuery 1.0 -- A.2.1 [156] S
     // XQuery 3.0 -- A.2.1 [215] S
     // XQuery 3.1 -- A.2.1 [237] S
 
-    public void checkWhiteSpace(LanguageLevel level) {
-        Lexer lexer = new XQueryLexer(level);
+    public void testWhiteSpace() {
+        Lexer lexer = new XQueryLexer();
 
         lexer.start(" ");
         matchToken(lexer, " ", 0, 0, 1, XQueryTokenType.WHITE_SPACE);
@@ -76,36 +70,24 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "",             0, 9, 9, null);
     }
 
-    public void testWhiteSpace() {
-        checkWhiteSpace(LanguageLevel.XQUERY_1_0);
-        checkWhiteSpace(LanguageLevel.XQUERY_3_0);
-        checkWhiteSpace(LanguageLevel.XQUERY_3_1);
-    }
-
     // XQuery 1.0 -- A.2.1 [141] IntegerLiteral
     // XQuery 3.0 -- A.2.1 [197] IntegerLiteral
     // XQuery 3.1 -- A.2.1 [219] IntegerLiteral
 
-    public void checkIntegerLiteral(LanguageLevel level) {
-        Lexer lexer = new XQueryLexer(level);
+    public void testIntegerLiteral() {
+        Lexer lexer = new XQueryLexer();
 
         lexer.start("1234");
         matchToken(lexer, "1234", 0, 0, 4, XQueryTokenType.INTEGER_LITERAL);
         matchToken(lexer, "",     0, 4, 4, null);
     }
 
-    public void testIntegerLiteral() {
-        checkIntegerLiteral(LanguageLevel.XQUERY_1_0);
-        checkIntegerLiteral(LanguageLevel.XQUERY_3_0);
-        checkIntegerLiteral(LanguageLevel.XQUERY_3_1);
-    }
-
     // XQuery 1.0 -- A.2.1 [142] DecimalLiteral
     // XQuery 3.0 -- A.2.1 [198] DecimalLiteral
     // XQuery 3.1 -- A.2.1 [220] DecimalLiteral
 
-    public void checkDecimalLiteral(LanguageLevel level) {
-        Lexer lexer = new XQueryLexer(level);
+    public void testDecimalLiteral() {
+        Lexer lexer = new XQueryLexer();
 
         lexer.start("47.");
         matchToken(lexer, "47.", 0, 0, 3, XQueryTokenType.DECIMAL_LITERAL);
@@ -125,18 +107,12 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "",   0, 4, 4, null);
     }
 
-    public void testDecimalLiteral() {
-        checkDecimalLiteral(LanguageLevel.XQUERY_1_0);
-        checkDecimalLiteral(LanguageLevel.XQUERY_3_0);
-        checkDecimalLiteral(LanguageLevel.XQUERY_3_1);
-    }
-
     // XQuery 1.0 -- A.2.1 [143] DoubleLiteral
     // XQuery 3.0 -- A.2.1 [199] DoubleLiteral
     // XQuery 3.1 -- A.2.1 [221] DoubleLiteral
 
-    public void checkDoubleLiteral(LanguageLevel level) {
-        Lexer lexer = new XQueryLexer(level);
+    public void testDoubleLiteral() {
+        Lexer lexer = new XQueryLexer();
 
         lexer.start("3e7 3e+7 3e-7");
         matchToken(lexer, "3e7",  0,  0,  3, XQueryTokenType.DOUBLE_LITERAL);
@@ -263,12 +239,6 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "E",  0, 11, 12, XQueryTokenType.BAD_CHARACTER);
         matchToken(lexer, "-",  0, 12, 13, XQueryTokenType.BAD_CHARACTER);
         matchToken(lexer, "",   0, 13, 13, null);
-    }
-
-    public void testDoubleLiteral() {
-        checkDoubleLiteral(LanguageLevel.XQUERY_1_0);
-        checkDoubleLiteral(LanguageLevel.XQUERY_3_0);
-        checkDoubleLiteral(LanguageLevel.XQUERY_3_1);
     }
 }
 

@@ -54,7 +54,7 @@ public class XQueryLexer extends LexerBase {
         /* Fx */ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     };
 
-    public XQueryLexer(@NotNull LanguageLevel level) {
+    public XQueryLexer() {
     }
 
     private int getCharClass(int offset) {

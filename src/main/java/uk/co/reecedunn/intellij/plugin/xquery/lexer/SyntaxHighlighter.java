@@ -32,7 +32,7 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
     @NotNull
     @Override
     public Lexer getHighlightingLexer() {
-        return new XQueryLexer(LanguageLevel.XQUERY_1_0);
+        return new XQueryLexer();
     }
 
     @NotNull
