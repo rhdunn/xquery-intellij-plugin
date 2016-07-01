@@ -1,0 +1,66 @@
+/*
+ * Copyright (C) 2016 Reece H. Dunn
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package uk.co.reecedunn.intellij.plugin.xquery.tests.lexer;
+
+import junit.framework.TestCase;
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryCodePointRange;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.CoreMatchers.*;
+
+public class XQueryCodePointRangeTest extends TestCase {
+    public void testEmptyBuffer() {
+        XQueryCodePointRange range = new XQueryCodePointRange();
+
+        CharSequence sequence = "";
+        range.start(sequence, 0, 0);
+        assertThat(range.getBufferSequence(), is(sequence));
+        assertThat(range.getBufferEnd(), is(0));
+        assertThat(range.getStart(), is(0));
+        assertThat(range.getEnd(), is(0));
+    }
+
+    public void testBasicMultilingualPlane() {
+        XQueryCodePointRange range = new XQueryCodePointRange();
+
+        range.start("a\u1255\uD392", 0, 3);
+        assertThat(range.getBufferEnd(), is(3));
+
+        assertThat(range.getStart(), is(0));
+        assertThat(range.getEnd(), is(0));
+        assertThat(range.getCodePoint(), is((int)'a'));
+
+        range.match();
+        assertThat(range.getStart(), is(0));
+        assertThat(range.getEnd(), is(1));
+        assertThat(range.getCodePoint(), is(0x1255));
+
+        range.match();
+        assertThat(range.getStart(), is(0));
+        assertThat(range.getEnd(), is(2));
+        assertThat(range.getCodePoint(), is(0xD392));
+
+        range.match();
+        assertThat(range.getStart(), is(0));
+        assertThat(range.getEnd(), is(3));
+        assertThat(range.getCodePoint(), is(0));
+
+        range.match();
+        assertThat(range.getStart(), is(0));
+        assertThat(range.getEnd(), is(3));
+        assertThat(range.getCodePoint(), is(0));
+    }
+}
