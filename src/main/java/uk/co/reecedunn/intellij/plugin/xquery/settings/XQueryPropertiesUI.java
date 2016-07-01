@@ -15,6 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.settings;
 
+import com.intellij.openapi.options.ConfigurationException;
+import com.intellij.openapi.project.Project;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 
 import javax.swing.*;
@@ -22,6 +24,11 @@ import javax.swing.*;
 public class XQueryPropertiesUI {
     private JComboBox<XQueryVersion> mVersion;
     private JPanel mPanel;
+    private final XQueryProjectSettings mSettings;
+
+    public XQueryPropertiesUI(Project project) {
+        mSettings = XQueryProjectSettings.getInstance(project);
+    }
 
     public JPanel getPanel() {
         return mPanel;
@@ -34,5 +41,18 @@ public class XQueryPropertiesUI {
         mVersion.addItem(XQueryVersion.XQUERY_1_0_MARKLOGIC);
         mVersion.addItem(XQueryVersion.XQUERY_3_0);
         mVersion.addItem(XQueryVersion.XQUERY_3_1);
+    }
+
+    public boolean isModified() {
+        if (!mVersion.getSelectedItem().equals(mSettings.getXQueryVersion())) return true;
+        return false;
+    }
+
+    public void apply() throws ConfigurationException {
+        mSettings.setXQueryVersion((XQueryVersion)mVersion.getSelectedItem());
+    }
+
+    public void reset() {
+        mVersion.setSelectedItem(mSettings.getXQueryVersion());
     }
 }

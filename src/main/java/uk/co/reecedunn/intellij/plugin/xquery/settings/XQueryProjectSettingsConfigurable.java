@@ -27,7 +27,7 @@ public class XQueryProjectSettingsConfigurable implements Configurable {
     private XQueryPropertiesUI mPanel;
 
     public XQueryProjectSettingsConfigurable(Project project) {
-        mPanel = new XQueryPropertiesUI();
+        mPanel = new XQueryPropertiesUI(project);
     }
 
     @Nls
@@ -46,13 +46,15 @@ public class XQueryProjectSettingsConfigurable implements Configurable {
     }
 
     public boolean isModified() {
-        return false;
+        return mPanel.isModified();
     }
 
     public void apply() throws ConfigurationException {
+        mPanel.apply();
     }
 
     public void reset() {
+        mPanel.reset();
     }
 
     public void disposeUIResources() {

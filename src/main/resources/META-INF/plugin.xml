@@ -20,6 +20,8 @@
     <lang.syntaxHighlighterFactory language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.lexer.SyntaxHighlighterFactory"/>
     <colorSettingsPage implementation="uk.co.reecedunn.intellij.plugin.xquery.settings.ColorSettingsPage"/>
 
+    <projectService serviceInterface="uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings"
+                    serviceImplementation="uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings"/>
     <projectConfigurable groupId="language" displayName="XQuery" instance="uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettingsConfigurable"/>
   </extensions>
 
