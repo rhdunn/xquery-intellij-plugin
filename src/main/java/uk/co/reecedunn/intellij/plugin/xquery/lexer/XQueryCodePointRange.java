@@ -36,7 +36,13 @@ public class XQueryCodePointRange {
 
     public void match() {
         if (mEnd != mEndOfBuffer) {
-            mEnd += 1;
+            if (Character.isHighSurrogate(mBuffer.charAt(mEnd))) {
+                mEnd += 1;
+                if ((mEnd != mEndOfBuffer) && Character.isLowSurrogate(mBuffer.charAt(mEnd)))
+                    mEnd += 1;
+            } else {
+                mEnd += 1;
+            }
         }
     }
 
@@ -68,6 +74,13 @@ public class XQueryCodePointRange {
     public final int getCodePoint() {
         if (mEnd == mEndOfBuffer)
             return 0;
-        return mBuffer.charAt(mEnd);
+        char high = mBuffer.charAt(mEnd);
+        if (Character.isHighSurrogate(high) && (mEnd + 1) != mEndOfBuffer) {
+            char low = mBuffer.charAt(mEnd + 1);
+            if (Character.isLowSurrogate(low)) {
+                return Character.toCodePoint(high, low);
+            }
+        }
+        return high;
     }
 }

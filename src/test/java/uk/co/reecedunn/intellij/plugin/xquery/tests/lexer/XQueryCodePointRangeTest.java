@@ -33,7 +33,7 @@ public class XQueryCodePointRangeTest extends TestCase {
         assertThat(range.getEnd(), is(0));
     }
 
-    public void testBasicMultilingualPlane() {
+    public void testMatchingCodePoints() {
         XQueryCodePointRange range = new XQueryCodePointRange();
 
         range.start("a\u1255\uD392", 0, 3);
@@ -61,6 +61,37 @@ public class XQueryCodePointRangeTest extends TestCase {
         range.match();
         assertThat(range.getStart(), is(0));
         assertThat(range.getEnd(), is(3));
+        assertThat(range.getCodePoint(), is(0));
+    }
+
+    public void testMatchingSurrogatePairs() {
+        XQueryCodePointRange range = new XQueryCodePointRange();
+
+        range.start("\uD802\uDD07\uD802\uDDA3", 0, 4);
+        assertThat(range.getBufferEnd(), is(4));
+
+        assertThat(range.getStart(), is(0));
+        assertThat(range.getEnd(), is(0));
+        assertThat(range.getCodePoint(), is(0x10907));
+
+        range.match();
+        assertThat(range.getStart(), is(0));
+        assertThat(range.getEnd(), is(2));
+        assertThat(range.getCodePoint(), is(0x109A3));
+
+        range.match();
+        assertThat(range.getStart(), is(0));
+        assertThat(range.getEnd(), is(4));
+        assertThat(range.getCodePoint(), is(0));
+
+        range.match();
+        assertThat(range.getStart(), is(0));
+        assertThat(range.getEnd(), is(4));
+        assertThat(range.getCodePoint(), is(0));
+
+        range.match();
+        assertThat(range.getStart(), is(0));
+        assertThat(range.getEnd(), is(4));
         assertThat(range.getCodePoint(), is(0));
     }
 
