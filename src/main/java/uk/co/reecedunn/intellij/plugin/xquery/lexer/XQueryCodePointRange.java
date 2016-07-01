@@ -21,6 +21,7 @@ public class XQueryCodePointRange {
     private CharSequence mBuffer;
     private int mStart;
     private int mEnd;
+    private int mSaved;
     private int mEndOfBuffer;
 
     public void start(@NotNull CharSequence buffer, int startOffset, int endOffset) {
@@ -29,10 +30,22 @@ public class XQueryCodePointRange {
         mEndOfBuffer = endOffset;
     }
 
+    public void flush() {
+        mStart = mEnd;
+    }
+
     public void match() {
         if (mEnd != mEndOfBuffer) {
             mEnd += 1;
         }
+    }
+
+    public void save() {
+        mSaved = mEnd;
+    }
+
+    public void restore() {
+        mEnd = mSaved;
     }
 
     public final int getStart() {

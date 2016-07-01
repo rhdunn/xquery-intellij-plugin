@@ -63,4 +63,51 @@ public class XQueryCodePointRangeTest extends TestCase {
         assertThat(range.getEnd(), is(3));
         assertThat(range.getCodePoint(), is(0));
     }
+
+    public void testFlush() {
+        XQueryCodePointRange range = new XQueryCodePointRange();
+
+        range.start("abcd", 0, 4);
+        range.match();
+        range.match();
+
+        assertThat(range.getStart(), is(0));
+        assertThat(range.getEnd(), is(2));
+        assertThat(range.getBufferEnd(), is(4));
+
+        range.flush();
+
+        assertThat(range.getStart(), is(2));
+        assertThat(range.getEnd(), is(2));
+        assertThat(range.getBufferEnd(), is(4));
+    }
+
+    public void testSaveRestore() {
+        XQueryCodePointRange range = new XQueryCodePointRange();
+
+        range.start("abcd", 0, 4);
+        range.match();
+
+        assertThat(range.getStart(), is(0));
+        assertThat(range.getEnd(), is(1));
+        assertThat(range.getBufferEnd(), is(4));
+
+        range.save();
+
+        assertThat(range.getStart(), is(0));
+        assertThat(range.getEnd(), is(1));
+        assertThat(range.getBufferEnd(), is(4));
+
+        range.match();
+
+        assertThat(range.getStart(), is(0));
+        assertThat(range.getEnd(), is(2));
+        assertThat(range.getBufferEnd(), is(4));
+
+        range.restore();
+
+        assertThat(range.getStart(), is(0));
+        assertThat(range.getEnd(), is(1));
+        assertThat(range.getBufferEnd(), is(4));
+    }
 }

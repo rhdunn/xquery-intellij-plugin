@@ -20,10 +20,7 @@ import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 
 public class XQueryLexer extends LexerBase {
-    private CharSequence mBuffer;
-    private int mTokenStart;
-    private int mTokenEnd;
-    private int mEndOfBuffer;
+    private XQueryCodePointRange mTokenRange;
     private int mState;
     private IElementType mType;
 
@@ -34,7 +31,7 @@ public class XQueryLexer extends LexerBase {
 
     private static final int mCharacterClasses[] = {
         //////// x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 xA xB xC xD xE xF
-        /* 0x */ 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0,
+        /* 0x */ -1,0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0,
         /* 1x */ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         /* 2x */ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0,
         /* 3x */ 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0,
@@ -53,72 +50,72 @@ public class XQueryLexer extends LexerBase {
     };
 
     public XQueryLexer() {
+        mTokenRange = new XQueryCodePointRange();
     }
 
-    private int getCharClass(int offset) {
-        if (offset >= mEndOfBuffer)
-            return END_OF_BUFFER;
-        return mCharacterClasses[mBuffer.charAt(offset)];
-    }
-
-    private char getChar(int offset) {
-        if (offset >= mEndOfBuffer)
-            return '\0';
-        return mBuffer.charAt(offset);
+    private int getCharClass(int c) {
+        if (c <= 0xFF) {
+            return mCharacterClasses[c];
+        }
+        return 0;
     }
 
     @Override
     public final void start(@NotNull CharSequence buffer, int startOffset, int endOffset, int initialState) {
-        mBuffer = buffer;
-        mTokenEnd = startOffset;
-        mEndOfBuffer = endOffset;
+        mTokenRange.start(buffer, startOffset, endOffset);
         mState = initialState;
         advance();
     }
 
     @Override
     public final void advance() {
-        mTokenStart = mTokenEnd;
-        int mTokenNext = mTokenStart;
-        int initialClass = getCharClass(mTokenNext);
-        char c;
+        mTokenRange.flush();
+        int initialClass = getCharClass(mTokenRange.getCodePoint());
+        int c;
         switch (initialClass) {
             case WHITESPACE:
-                while (getCharClass(mTokenNext + 1) == WHITESPACE)
-                    mTokenNext += 1;
-                mTokenEnd = mTokenNext + 1;
+                mTokenRange.match();
+                while (getCharClass(mTokenRange.getCodePoint()) == WHITESPACE)
+                    mTokenRange.match();
                 mType = XQueryTokenType.WHITE_SPACE;
                 break;
             case DOT:
             case NUMBER:
-                while (getCharClass(mTokenNext + 1) == NUMBER)
-                    mTokenNext += 1;
-                if (initialClass != DOT && getCharClass(mTokenNext + 1) == DOT) {
-                    mTokenNext += 1;
-                    while (getCharClass(mTokenNext + 1) == NUMBER)
-                        mTokenNext += 1;
+                mTokenRange.match();
+                while (getCharClass(mTokenRange.getCodePoint()) == NUMBER)
+                    mTokenRange.match();
+                if (initialClass != DOT && getCharClass(mTokenRange.getCodePoint()) == DOT) {
+                    mTokenRange.match();
+                    while (getCharClass(mTokenRange.getCodePoint()) == NUMBER)
+                        mTokenRange.match();
                     mType = XQueryTokenType.DECIMAL_LITERAL;
                 } else {
                     mType = initialClass == DOT ? XQueryTokenType.DECIMAL_LITERAL : XQueryTokenType.INTEGER_LITERAL;
                 }
-                c = getChar(mTokenNext + 1);
+                c = mTokenRange.getCodePoint();
                 if (c == 'e' || c == 'E') {
-                    c = getChar(mTokenNext + 2);
-                    int offset = (c == '+' || c == '-') ? 3 : 2;
-                    if (getCharClass(mTokenNext + offset) == NUMBER) {
-                        mTokenNext += offset - 1;
-                        while (getCharClass(mTokenNext + 1) == NUMBER)
-                            mTokenNext += 1;
+                    mTokenRange.save();
+                    mTokenRange.match();
+                    c = mTokenRange.getCodePoint();
+                    if ((c == '+') || (c == '-')) {
+                        mTokenRange.match();
+                        c = mTokenRange.getCodePoint();
+                    }
+                    if (getCharClass(c) == NUMBER) {
+                        mTokenRange.match();
+                        while (getCharClass(mTokenRange.getCodePoint()) == NUMBER)
+                            mTokenRange.match();
                         mType = XQueryTokenType.DOUBLE_LITERAL;
+                    } else {
+                        mTokenRange.restore();
                     }
                 }
-                mTokenEnd = mTokenNext + 1;
                 break;
             case END_OF_BUFFER:
                 mType = null;
                 break;
             default:
-                mTokenEnd = mTokenStart + 1;
+                mTokenRange.match();
                 mType = XQueryTokenType.BAD_CHARACTER;
                 break;
         }
@@ -136,22 +133,22 @@ public class XQueryLexer extends LexerBase {
 
     @Override
     public final int getTokenStart() {
-        return mTokenStart;
+        return mTokenRange.getStart();
     }
 
     @Override
     public final int getTokenEnd() {
-        return mTokenEnd;
+        return mTokenRange.getEnd();
     }
 
     @NotNull
     @Override
     public CharSequence getBufferSequence() {
-        return mBuffer;
+        return mTokenRange.getBufferSequence();
     }
 
     @Override
     public final int getBufferEnd() {
-        return mEndOfBuffer;
+        return mTokenRange.getBufferEnd();
     }
 }
