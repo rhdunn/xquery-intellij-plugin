@@ -41,11 +41,7 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "", 0, 0, 0, null);
     }
 
-    // XQuery 1.0 -- A.2.1 [156] S
-    // XQuery 3.0 -- A.2.1 [215] S
-    // XQuery 3.1 -- A.2.1 [237] S
-
-    public void testWhiteSpace() {
+    public void testS() {
         Lexer lexer = new XQueryLexer();
 
         lexer.start(" ");
@@ -69,10 +65,6 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "",             0, 9, 9, null);
     }
 
-    // XQuery 1.0 -- A.2.1 [141] IntegerLiteral
-    // XQuery 3.0 -- A.2.1 [197] IntegerLiteral
-    // XQuery 3.1 -- A.2.1 [219] IntegerLiteral
-
     public void testIntegerLiteral() {
         Lexer lexer = new XQueryLexer();
 
@@ -80,10 +72,6 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "1234", 0, 0, 4, XQueryTokenType.INTEGER_LITERAL);
         matchToken(lexer, "",     0, 4, 4, null);
     }
-
-    // XQuery 1.0 -- A.2.1 [142] DecimalLiteral
-    // XQuery 3.0 -- A.2.1 [198] DecimalLiteral
-    // XQuery 3.1 -- A.2.1 [220] DecimalLiteral
 
     public void testDecimalLiteral() {
         Lexer lexer = new XQueryLexer();
@@ -105,10 +93,6 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, ".2", 0, 2, 4, XQueryTokenType.DECIMAL_LITERAL);
         matchToken(lexer, "",   0, 4, 4, null);
     }
-
-    // XQuery 1.0 -- A.2.1 [143] DoubleLiteral
-    // XQuery 3.0 -- A.2.1 [199] DoubleLiteral
-    // XQuery 3.1 -- A.2.1 [221] DoubleLiteral
 
     public void testDoubleLiteral() {
         Lexer lexer = new XQueryLexer();
