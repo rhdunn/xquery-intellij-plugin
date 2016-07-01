@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.ast;
 import com.intellij.lexer.Lexer;
 import com.intellij.psi.tree.IElementType;
 import junit.framework.TestCase;
-import uk.co.reecedunn.intellij.plugin.xquery.XQueryTokenType;
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer;
 
 import static org.hamcrest.MatcherAssert.assertThat;

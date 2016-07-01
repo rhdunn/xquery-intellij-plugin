@@ -18,7 +18,6 @@ package uk.co.reecedunn.intellij.plugin.xquery.lexer;
 import com.intellij.lexer.LexerBase;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.XQueryTokenType;
 
 public class XQueryLexer extends LexerBase {
     private CharSequence mBuffer;
