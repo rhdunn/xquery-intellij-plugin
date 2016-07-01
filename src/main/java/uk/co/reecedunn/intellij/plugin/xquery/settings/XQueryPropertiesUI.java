@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.settings;
 
-import uk.co.reecedunn.intellij.plugin.xquery.XQueryVersion;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 
 import javax.swing.*;
 

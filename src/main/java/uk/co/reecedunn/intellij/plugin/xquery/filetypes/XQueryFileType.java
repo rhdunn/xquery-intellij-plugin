@@ -19,7 +19,7 @@ import com.intellij.openapi.fileTypes.LanguageFileType;
 import com.intellij.openapi.util.IconLoader;
 import com.intellij.openapi.vfs.VirtualFile;
 import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.XQuery;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 
 import javax.swing.*;
 

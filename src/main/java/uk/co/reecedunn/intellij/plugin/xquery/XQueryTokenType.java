@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery;
 
 import com.intellij.psi.TokenType;
 import com.intellij.psi.tree.IElementType;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 
 public interface XQueryTokenType extends TokenType {
     IElementType INTEGER_LITERAL = new IElementType("INTEGER_LITERAL", XQuery.INSTANCE);
