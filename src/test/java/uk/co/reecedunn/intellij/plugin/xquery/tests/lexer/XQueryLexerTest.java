@@ -31,6 +31,12 @@ public class XQueryLexerTest extends TestCase {
         assertThat(lexer.getTokenStart(), is(start));
         assertThat(lexer.getTokenEnd(), is(end));
         assertThat(lexer.getTokenType(), is(type));
+
+        if (lexer.getTokenType() == null) {
+            assertThat(lexer.getBufferEnd(), is(start));
+            assertThat(lexer.getBufferEnd(), is(end));
+        }
+
         lexer.advance();
     }
 
