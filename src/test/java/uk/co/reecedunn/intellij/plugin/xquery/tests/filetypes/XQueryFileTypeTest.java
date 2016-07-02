@@ -27,6 +27,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class XQueryFileTypeTest extends TestCase {
@@ -105,6 +106,15 @@ public class XQueryFileTypeTest extends TestCase {
             return null;
         }
     };
+
+    public void testProperties() {
+        XQueryFileType fileType = XQueryFileType.INSTANCE;
+
+        assertThat(fileType.getName(), is("XQuery"));
+        assertThat(fileType.getDescription(), is("XQuery Language Support"));
+        assertThat(fileType.getDefaultExtension(), is("xqy"));
+        assertThat(fileType.getIcon(), is(notNullValue()));
+    }
 
     public void testDefaultEncoding() {
         XQueryFileType fileType = XQueryFileType.INSTANCE;
