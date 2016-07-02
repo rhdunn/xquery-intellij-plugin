@@ -22,9 +22,53 @@ import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 
 import javax.swing.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class XQueryFileType extends LanguageFileType {
+    private class ByteSequence implements CharSequence {
+        private final byte[] mData;
+        private final int mOffset;
+        private final int mLength;
+
+        public ByteSequence(byte[] data) {
+            this(data, 0, data.length);
+        }
+
+        public ByteSequence(byte[] data, int offset, int length) {
+            mData = data;
+            mOffset = offset;
+            mLength = length;
+        }
+
+        @Override
+        public int length() {
+            return mLength;
+        }
+
+        @Override
+        public char charAt(int index) {
+            if ((index < 0) || (index >= mLength))
+                throw new IndexOutOfBoundsException();
+            return (char)(mData[mOffset + index] & 0xFF);
+        }
+
+        @Override
+        public CharSequence subSequence(int start, int end) {
+            if ((start < 0) || (end < 0) || (end > mLength) || (start > end))
+                throw new IndexOutOfBoundsException();
+            return new ByteSequence(mData, start, end - start);
+        }
+
+        @NotNull
+        @Override
+        public String toString() {
+            return new String(mData, mOffset, mLength);
+        }
+    }
+
     private static final Icon FILETYPE_ICON = IconLoader.getIcon("/icons/xquery.png");
+    private static final Pattern ENCODING_PATTERN = Pattern.compile("^[ \r\n\t]*xquery[ \r\n\t]+version[ \r\n\t]+\"[^\"]*\"[ \r\n\t]+encoding[ \r\n\t]+\"([^\"]*)\"[ \r\n\t]*;");
 
     public static final String EXTENSIONS = "xq;xqy;xquery";
 
@@ -59,6 +103,10 @@ public class XQueryFileType extends LanguageFileType {
 
     @Override
     public String getCharset(@NotNull VirtualFile file, @NotNull final byte[] content) {
+        final Matcher matcher = ENCODING_PATTERN.matcher(new ByteSequence(content));
+        if (matcher.find()) {
+            return matcher.group(1);
+        }
         return "utf-8";
     }
 }
