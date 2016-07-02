@@ -70,7 +70,11 @@ public class XQueryFileType extends LanguageFileType {
     private static final Icon FILETYPE_ICON = IconLoader.getIcon("/icons/xquery.png");
     private static final Pattern ENCODING_PATTERN = Pattern.compile("^[ \r\n\t]*xquery[ \r\n\t]+version[ \r\n\t]+\"[^\"]*\"[ \r\n\t]+encoding[ \r\n\t]+\"([^\"]*)\"[ \r\n\t]*;");
 
-    public static final String EXTENSIONS = "xq;xqy;xquery";
+    // xq;xqy;xquery -- standard defined extensions
+    // xql           -- XQuery Language (main) file [eXist-db]
+    // xqm           -- XQuery Module file [eXist-db]
+    // xqws          -- XQuery Web Service [eXist-db]
+    public static final String EXTENSIONS = "xq;xqy;xquery;xql;xqm;xqws";
 
     public static final XQueryFileType INSTANCE = new XQueryFileType();
 
