@@ -19,8 +19,6 @@ import com.intellij.lang.Language;
 import org.jetbrains.annotations.NotNull;
 
 public class XQuery extends Language {
-    public static final String[] MIME_TYPES = new String[] { "application/xquery" };
-
     public static final XQuery INSTANCE = new XQuery();
 
     private XQuery() {
@@ -30,11 +28,5 @@ public class XQuery extends Language {
     @Override
     public boolean isCaseSensitive() {
         return true;
-    }
-
-    @NotNull
-    @Override
-    public String[] getMimeTypes() {
-        return MIME_TYPES;
     }
 }
