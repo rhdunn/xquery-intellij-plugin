@@ -52,15 +52,11 @@ public class XQueryFileType extends LanguageFileType {
 
         @Override
         public char charAt(int index) {
-            if ((index < 0) || (index >= mLength))
-                throw new IndexOutOfBoundsException();
             return (char)(mData[mOffset + index] & 0xFF);
         }
 
         @Override
         public CharSequence subSequence(int start, int end) {
-            if ((start < 0) || (end < 0) || (end > mLength) || (start > end))
-                throw new IndexOutOfBoundsException();
             return new ByteSequence(mData, start, end - start);
         }
 
