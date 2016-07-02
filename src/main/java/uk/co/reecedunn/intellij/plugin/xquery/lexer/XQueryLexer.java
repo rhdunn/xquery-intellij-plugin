@@ -24,6 +24,8 @@ public class XQueryLexer extends LexerBase {
     private int mState;
     private IElementType mType;
 
+    // Character Classes
+
     private static final int WHITESPACE = 1;
     private static final int NUMBER = 2;
     private static final int DOT = 3;
@@ -49,10 +51,6 @@ public class XQueryLexer extends LexerBase {
         /* Fx */ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     };
 
-    public XQueryLexer() {
-        mTokenRange = new XQueryCodePointRange();
-    }
-
     private int getCharClass(int c) {
         if (c <= 0xFF) {
             return mCharacterClasses[c];
@@ -60,16 +58,11 @@ public class XQueryLexer extends LexerBase {
         return 0;
     }
 
-    @Override
-    public final void start(@NotNull CharSequence buffer, int startOffset, int endOffset, int initialState) {
-        mTokenRange.start(buffer, startOffset, endOffset);
-        mState = initialState;
-        advance();
-    }
+    // States
 
-    @Override
-    public final void advance() {
-        mTokenRange.flush();
+    private static final int DEFAULT_STATE = 0;
+
+    private void stateDefault() {
         int initialClass = getCharClass(mTokenRange.getCodePoint());
         int c;
         switch (initialClass) {
@@ -117,6 +110,29 @@ public class XQueryLexer extends LexerBase {
             default:
                 mTokenRange.match();
                 mType = XQueryTokenType.BAD_CHARACTER;
+                break;
+        }
+    }
+
+    // Lexer implementation
+
+    public XQueryLexer() {
+        mTokenRange = new XQueryCodePointRange();
+    }
+
+    @Override
+    public final void start(@NotNull CharSequence buffer, int startOffset, int endOffset, int initialState) {
+        mTokenRange.start(buffer, startOffset, endOffset);
+        mState = initialState;
+        advance();
+    }
+
+    @Override
+    public final void advance() {
+        mTokenRange.flush();
+        switch (mState) {
+            case DEFAULT_STATE:
+                stateDefault();
                 break;
         }
     }
