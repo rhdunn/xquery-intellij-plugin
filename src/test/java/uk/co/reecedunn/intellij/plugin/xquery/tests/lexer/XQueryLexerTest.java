@@ -265,4 +265,16 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "\"",   1,  9, 10, XQueryTokenType.STRING_LITERAL_END);
         matchToken(lexer, "",     0, 10, 10, null);
     }
+
+    public void testStringLiteral_EscapeApos() {
+        Lexer lexer = new XQueryLexer();
+
+        lexer.start("'One''Two'");
+        matchToken(lexer, "'",    0,  0,  1, XQueryTokenType.STRING_LITERAL_START);
+        matchToken(lexer, "One",  2,  1,  4, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "''",   2,  4,  6, XQueryTokenType.STRING_LITERAL_ESCAPED_CHARACTER);
+        matchToken(lexer, "Two",  2,  6,  9, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "'",    2,  9, 10, XQueryTokenType.STRING_LITERAL_END);
+        matchToken(lexer, "",     0, 10, 10, null);
+    }
 }
