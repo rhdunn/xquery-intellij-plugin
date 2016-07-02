@@ -22,9 +22,10 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 public interface XQueryTokenType extends TokenType {
     IElementType INTEGER_LITERAL = new IElementType("INTEGER_LITERAL", XQuery.INSTANCE);
     IElementType DECIMAL_LITERAL = new IElementType("DECIMAL_LITERAL", XQuery.INSTANCE);
-    IElementType DOUBLE_LITERAL = new IElementType("DOUBLE_LITERAL",  XQuery.INSTANCE);
+    IElementType DOUBLE_LITERAL = new IElementType("DOUBLE_LITERAL", XQuery.INSTANCE);
 
-    IElementType STRING_LITERAL_START = new IElementType("STRING_LITERAL_START",  XQuery.INSTANCE);
-    IElementType STRING_LITERAL_CONTENTS = new IElementType("STRING_LITERAL_CONTENTS",  XQuery.INSTANCE);
-    IElementType STRING_LITERAL_END = new IElementType("STRING_LITERAL_END",  XQuery.INSTANCE);
+    IElementType STRING_LITERAL_START = new IElementType("STRING_LITERAL_START", XQuery.INSTANCE);
+    IElementType STRING_LITERAL_CONTENTS = new IElementType("STRING_LITERAL_CONTENTS", XQuery.INSTANCE);
+    IElementType STRING_LITERAL_END = new IElementType("STRING_LITERAL_END", XQuery.INSTANCE);
+    IElementType STRING_LITERAL_ESCAPED_CHARACTER = new IElementType("STRING_LITERAL_ESCAPED_CHARACTER", XQuery.INSTANCE);
 }

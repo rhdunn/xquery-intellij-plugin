@@ -28,6 +28,7 @@ import java.util.Map;
 
 public class ColorSettingsPage implements com.intellij.openapi.options.colors.ColorSettingsPage {
     private static final AttributesDescriptor[] DESCRIPTORS = new AttributesDescriptor[] {
+        new AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.escaped.character"), SyntaxHighlighter.ESCAPED_CHARACTER),
         new AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.number"), SyntaxHighlighter.NUMBER),
         new AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.string"), SyntaxHighlighter.STRING),
     };
@@ -47,7 +48,7 @@ public class ColorSettingsPage implements com.intellij.openapi.options.colors.Co
     @NotNull
     @Override
     public String getDemoText() {
-        return "1234";
+        return "(1234, \"One \"\" Two\")";
     }
 
     @Nullable

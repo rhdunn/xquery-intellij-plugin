@@ -23,9 +23,11 @@ import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 
 public class SyntaxHighlighter extends SyntaxHighlighterBase {
+    public static final TextAttributesKey ESCAPED_CHARACTER = TextAttributesKey.createTextAttributesKey("XQUERY_ESCAPED_CHARACTER", DefaultLanguageHighlighterColors.VALID_STRING_ESCAPE);
     public static final TextAttributesKey NUMBER = TextAttributesKey.createTextAttributesKey("XQUERY_NUMBER", DefaultLanguageHighlighterColors.NUMBER);
     public static final TextAttributesKey STRING = TextAttributesKey.createTextAttributesKey("XQUERY_STRING", DefaultLanguageHighlighterColors.STRING);
 
+    private static final TextAttributesKey[] ESCAPED_CHARACTER_KEYS = pack(ESCAPED_CHARACTER);
     private static final TextAttributesKey[] NUMBER_KEYS = pack(NUMBER);
     private static final TextAttributesKey[] STRING_KEYS = pack(STRING);
 
@@ -46,6 +48,8 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
                    type == XQueryTokenType.STRING_LITERAL_CONTENTS ||
                    type == XQueryTokenType.STRING_LITERAL_END) {
             return STRING_KEYS;
+        } else if (type == XQueryTokenType.STRING_LITERAL_ESCAPED_CHARACTER) {
+            return ESCAPED_CHARACTER_KEYS;
         }
         return EMPTY;
     }

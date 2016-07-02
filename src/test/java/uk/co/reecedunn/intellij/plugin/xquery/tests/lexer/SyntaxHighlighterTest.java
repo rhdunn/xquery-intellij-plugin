@@ -59,5 +59,8 @@ public class SyntaxHighlighterTest extends TestCase {
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.STRING_LITERAL_END).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.STRING_LITERAL_END)[0], is(SyntaxHighlighter.STRING));
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.STRING_LITERAL_ESCAPED_CHARACTER).length, is(1));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.STRING_LITERAL_ESCAPED_CHARACTER)[0], is(SyntaxHighlighter.ESCAPED_CHARACTER));
     }
 }

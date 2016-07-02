@@ -129,8 +129,13 @@ public class XQueryLexer extends LexerBase {
         int c = mTokenRange.getCodePoint();
         if (c == type) {
             mTokenRange.match();
-            mType = XQueryTokenType.STRING_LITERAL_END;
-            mNextState = STATE_DEFAULT;
+            if (mTokenRange.getCodePoint() == type) {
+                mTokenRange.match();
+                mType = XQueryTokenType.STRING_LITERAL_ESCAPED_CHARACTER;
+            } else {
+                mType = XQueryTokenType.STRING_LITERAL_END;
+                mNextState = STATE_DEFAULT;
+            }
         } else if (c == '\0') {
             mType = null;
         } else {
