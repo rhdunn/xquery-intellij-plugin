@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.lexer;
 
 import com.intellij.lexer.Lexer;
+import junit.framework.TestCase;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.SyntaxHighlighter;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.SyntaxHighlighterFactory;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer;
@@ -24,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class SyntaxHighlighterTest extends XQueryLexerTest {
+public class SyntaxHighlighterTest extends TestCase {
     public void testFactory() {
         SyntaxHighlighterFactory factory = new SyntaxHighlighterFactory();
         com.intellij.openapi.fileTypes.SyntaxHighlighter highlighter = factory.getSyntaxHighlighter(null, null);
