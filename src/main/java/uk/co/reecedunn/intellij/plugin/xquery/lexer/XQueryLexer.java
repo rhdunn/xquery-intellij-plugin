@@ -84,19 +84,32 @@ public class XQueryLexer extends LexerBase {
             if (c == 'x') {
                 mTokenRange.match();
                 c = mTokenRange.getCodePoint();
-                while (((c >= '0') && (c <= '9')) || ((c >= 'a') && (c <= 'f')) || ((c >= 'A') && (c <= 'f'))) {
-                    mTokenRange.match();
-                    c = mTokenRange.getCodePoint();
+                if (((c >= '0') && (c <= '9')) || ((c >= 'a') && (c <= 'f')) || ((c >= 'A') && (c <= 'F'))) {
+                    while (((c >= '0') && (c <= '9')) || ((c >= 'a') && (c <= 'f')) || ((c >= 'A') && (c <= 'F'))) {
+                        mTokenRange.match();
+                        c = mTokenRange.getCodePoint();
+                    }
+                    if (c == ';') {
+                        mTokenRange.match();
+                        mType = XQueryTokenType.CHARACTER_REFERENCE;
+                    } else {
+                        mType = XQueryTokenType.PARTIAL_ENTITY_REFERENCE;
+                    }
+                } else {
+                    mType = XQueryTokenType.PARTIAL_ENTITY_REFERENCE;
                 }
-            } else {
+            } else if ((c >= '0') && (c <= '9')) {
+                mTokenRange.match();
                 while ((c >= '0') && (c <= '9')) {
                     mTokenRange.match();
                     c = mTokenRange.getCodePoint();
                 }
-            }
-            if (c == ';') {
-                mTokenRange.match();
-                mType = XQueryTokenType.CHARACTER_REFERENCE;
+                if (c == ';') {
+                    mTokenRange.match();
+                    mType = XQueryTokenType.CHARACTER_REFERENCE;
+                } else {
+                    mType = XQueryTokenType.PARTIAL_ENTITY_REFERENCE;
+                }
             } else {
                 mType = XQueryTokenType.PARTIAL_ENTITY_REFERENCE;
             }
