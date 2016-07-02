@@ -129,4 +129,28 @@ public class XQueryFileTypeTest extends TestCase {
         assertThat(fileType.getCharset(file, "\r\nxquery\r\nversion\r\n\"1.0\"\r\nencoding\r\n\"UTF-8\"\r\n;".getBytes()), is("UTF-8"));
         assertThat(fileType.getCharset(file, "\t\txquery\t\tversion\t\t\"1.0\"\t\tencoding\t\t\"UTF-8\"\t\t;".getBytes()), is("UTF-8"));
     }
+
+    public void testDefaultEncodingFromContents() {
+        XQueryFileType fileType = XQueryFileType.INSTANCE;
+        MockVirtualFile file = new MockVirtualFile();
+
+        assertThat(fileType.extractCharsetFromFileContent(null, file, (CharSequence)"let $_ := 123").name(), is("UTF-8"));
+        assertThat(fileType.extractCharsetFromFileContent(null, file, (CharSequence)"xquery version \"1.0\";").name(), is("UTF-8"));
+        assertThat(fileType.extractCharsetFromFileContent(null, file, (CharSequence)"(::)xquery version \"1.0\" encoding \"latin1\";").name(), is("UTF-8"));
+        assertThat(fileType.extractCharsetFromFileContent(null, file, (CharSequence)"(::)\nxquery version \"1.0\" encoding \"latin1\";").name(), is("UTF-8"));
+    }
+
+    public void testFileEncodingFromContents() {
+        XQueryFileType fileType = XQueryFileType.INSTANCE;
+        MockVirtualFile file = new MockVirtualFile();
+
+        assertThat(fileType.extractCharsetFromFileContent(null, file, (CharSequence)"xquery version \"1.0\" encoding \"UTF-8\";").name(), is("UTF-8"));
+        assertThat(fileType.extractCharsetFromFileContent(null, file, (CharSequence)"xquery version \"1.0\" encoding \"latin1\";").name(), is("ISO-8859-1"));
+
+        assertThat(fileType.extractCharsetFromFileContent(null, file, (CharSequence)"    xquery    version    \"1.0\"    encoding    \"UTF-8\"    ;").name(), is("UTF-8"));
+        assertThat(fileType.extractCharsetFromFileContent(null, file, (CharSequence)"\r\rxquery\r\rversion\r\r\"1.0\"\r\rencoding\r\r\"UTF-8\"\r\r;").name(), is("UTF-8"));
+        assertThat(fileType.extractCharsetFromFileContent(null, file, (CharSequence)"\n\nxquery\n\nversion\n\n\"1.0\"\n\nencoding\n\n\"UTF-8\"\n\n;").name(), is("UTF-8"));
+        assertThat(fileType.extractCharsetFromFileContent(null, file, (CharSequence)"\r\nxquery\r\nversion\r\n\"1.0\"\r\nencoding\r\n\"UTF-8\"\r\n;").name(), is("UTF-8"));
+        assertThat(fileType.extractCharsetFromFileContent(null, file, (CharSequence)"\t\txquery\t\tversion\t\t\"1.0\"\t\tencoding\t\t\"UTF-8\"\t\t;").name(), is("UTF-8"));
+    }
 }

@@ -16,12 +16,15 @@
 package uk.co.reecedunn.intellij.plugin.xquery.filetypes;
 
 import com.intellij.openapi.fileTypes.LanguageFileType;
+import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.IconLoader;
 import com.intellij.openapi.vfs.VirtualFile;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 
 import javax.swing.*;
+import java.nio.charset.Charset;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -112,5 +115,14 @@ public class XQueryFileType extends LanguageFileType {
             return matcher.group(1);
         }
         return "utf-8";
+    }
+
+    @Override
+    public Charset extractCharsetFromFileContent(@Nullable Project project, @Nullable VirtualFile file, @NotNull CharSequence content) {
+        final Matcher matcher = ENCODING_PATTERN.matcher(content);
+        if (matcher.find()) {
+            return Charset.forName(matcher.group(1));
+        }
+        return Charset.forName("utf-8");
     }
 }
