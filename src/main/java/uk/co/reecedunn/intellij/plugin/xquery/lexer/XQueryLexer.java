@@ -34,13 +34,14 @@ public class XQueryLexer extends LexerBase {
     private static final int APOSTROPHE = 5;
     private static final int SEMICOLON = 6;
     private static final int LETTER = 7;
+    private static final int HASH = 8;
     private static final int END_OF_BUFFER = -1;
 
     private static final int mCharacterClasses[] = {
         //////// x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 xA xB xC xD xE xF
         /* 0x */ -1,0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0,
         /* 1x */ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        /* 2x */ 1, 0, 4, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 3, 0,
+        /* 2x */ 1, 0, 4, 8, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 3, 0,
         /* 3x */ 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 6, 0, 0, 0, 0,
         /* 4x */ 0, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
         /* 5x */ 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 0, 0, 0, 0, 0,
@@ -151,6 +152,28 @@ public class XQueryLexer extends LexerBase {
                 if (cc == SEMICOLON) {
                     mTokenRange.match();
                     mType = XQueryTokenType.PREDEFINED_ENTITY_REFERENCE;
+                } else {
+                    mType = XQueryTokenType.PARTIAL_ENTITY_REFERENCE;
+                }
+            } else if (cc == HASH) {
+                mTokenRange.match();
+                c = mTokenRange.getCodePoint();
+                if (c == 'x') {
+                    mTokenRange.match();
+                    c = mTokenRange.getCodePoint();
+                    while (((c >= '0') && (c <= '9')) || ((c >= 'a') && (c <= 'f')) || ((c >= 'A') && (c <= 'f'))) {
+                        mTokenRange.match();
+                        c = mTokenRange.getCodePoint();
+                    }
+                } else {
+                    while ((c >= '0') && (c <= '9')) {
+                        mTokenRange.match();
+                        c = mTokenRange.getCodePoint();
+                    }
+                }
+                if (c == ';') {
+                    mTokenRange.match();
+                    mType = XQueryTokenType.CHARACTER_REFERENCE;
                 } else {
                     mType = XQueryTokenType.PARTIAL_ENTITY_REFERENCE;
                 }

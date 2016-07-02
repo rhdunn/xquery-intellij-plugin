@@ -53,7 +53,8 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
             return STRING_KEYS;
         } else if (type == XQueryTokenType.STRING_LITERAL_ESCAPED_CHARACTER) {
             return ESCAPED_CHARACTER_KEYS;
-        } else if (type == XQueryTokenType.PREDEFINED_ENTITY_REFERENCE) {
+        } else if (type == XQueryTokenType.PREDEFINED_ENTITY_REFERENCE ||
+                   type == XQueryTokenType.CHARACTER_REFERENCE) {
             return ENTITY_REFERENCE_KEYS;
         }
         return EMPTY;
