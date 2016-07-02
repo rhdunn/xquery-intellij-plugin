@@ -21,6 +21,7 @@ import com.intellij.openapi.util.IconLoader;
 import com.intellij.openapi.vfs.VirtualFile;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import uk.co.reecedunn.intellij.plugin.xquery.XQueryBundle;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 
 import javax.swing.*;
@@ -94,7 +95,7 @@ public class XQueryFileType extends LanguageFileType {
     @Override
     @NotNull
     public String getDescription() {
-        return "XQuery Language Support";
+        return XQueryBundle.message("xquery.files.filetype.description");
     }
 
     @Override

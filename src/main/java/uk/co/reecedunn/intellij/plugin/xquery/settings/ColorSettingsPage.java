@@ -20,6 +20,7 @@ import com.intellij.openapi.options.colors.AttributesDescriptor;
 import com.intellij.openapi.options.colors.ColorDescriptor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import uk.co.reecedunn.intellij.plugin.xquery.XQueryBundle;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.SyntaxHighlighter;
 
 import javax.swing.*;
@@ -27,7 +28,7 @@ import java.util.Map;
 
 public class ColorSettingsPage implements com.intellij.openapi.options.colors.ColorSettingsPage {
     private static final AttributesDescriptor[] DESCRIPTORS = new AttributesDescriptor[] {
-        new AttributesDescriptor("Number", SyntaxHighlighter.NUMBER),
+        new AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.number"), SyntaxHighlighter.NUMBER),
     };
 
     @Nullable

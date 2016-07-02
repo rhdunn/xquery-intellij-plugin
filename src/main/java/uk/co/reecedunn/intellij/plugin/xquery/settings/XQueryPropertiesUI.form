@@ -14,7 +14,7 @@
         </constraints>
         <properties>
           <labelFor value="375db"/>
-          <text value="Default XQuery version:"/>
+          <text resource-bundle="messages/XQueryBundle" key="xquery.settings.project.default.version.label"/>
         </properties>
       </component>
       <vspacer id="fda1a">
