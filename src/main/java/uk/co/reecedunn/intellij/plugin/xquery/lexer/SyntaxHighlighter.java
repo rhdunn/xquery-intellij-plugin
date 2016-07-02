@@ -23,10 +23,12 @@ import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 
 public class SyntaxHighlighter extends SyntaxHighlighterBase {
+    public static final TextAttributesKey ENTITY_REFERENCE = TextAttributesKey.createTextAttributesKey("XQUERY_ENTITY_REFERENCE", DefaultLanguageHighlighterColors.VALID_STRING_ESCAPE);
     public static final TextAttributesKey ESCAPED_CHARACTER = TextAttributesKey.createTextAttributesKey("XQUERY_ESCAPED_CHARACTER", DefaultLanguageHighlighterColors.VALID_STRING_ESCAPE);
     public static final TextAttributesKey NUMBER = TextAttributesKey.createTextAttributesKey("XQUERY_NUMBER", DefaultLanguageHighlighterColors.NUMBER);
     public static final TextAttributesKey STRING = TextAttributesKey.createTextAttributesKey("XQUERY_STRING", DefaultLanguageHighlighterColors.STRING);
 
+    private static final TextAttributesKey[] ENTITY_REFERENCE_KEYS = pack(ENTITY_REFERENCE);
     private static final TextAttributesKey[] ESCAPED_CHARACTER_KEYS = pack(ESCAPED_CHARACTER);
     private static final TextAttributesKey[] NUMBER_KEYS = pack(NUMBER);
     private static final TextAttributesKey[] STRING_KEYS = pack(STRING);
@@ -46,10 +48,13 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
             return NUMBER_KEYS;
         } else if (type == XQueryTokenType.STRING_LITERAL_START ||
                    type == XQueryTokenType.STRING_LITERAL_CONTENTS ||
+                   type == XQueryTokenType.PARTIAL_ENTITY_REFERENCE ||
                    type == XQueryTokenType.STRING_LITERAL_END) {
             return STRING_KEYS;
         } else if (type == XQueryTokenType.STRING_LITERAL_ESCAPED_CHARACTER) {
             return ESCAPED_CHARACTER_KEYS;
+        } else if (type == XQueryTokenType.PREDEFINED_ENTITY_REFERENCE) {
+            return ENTITY_REFERENCE_KEYS;
         }
         return EMPTY;
     }

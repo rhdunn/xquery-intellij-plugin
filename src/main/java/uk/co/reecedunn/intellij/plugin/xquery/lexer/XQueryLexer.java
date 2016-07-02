@@ -32,6 +32,8 @@ public class XQueryLexer extends LexerBase {
     private static final int DOT = 3;
     private static final int QUOTE = 4;
     private static final int APOSTROPHE = 5;
+    private static final int SEMICOLON = 6;
+    private static final int LETTER = 7;
     private static final int END_OF_BUFFER = -1;
 
     private static final int mCharacterClasses[] = {
@@ -39,11 +41,11 @@ public class XQueryLexer extends LexerBase {
         /* 0x */ -1,0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0,
         /* 1x */ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         /* 2x */ 1, 0, 4, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 3, 0,
-        /* 3x */ 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0,
-        /* 4x */ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        /* 5x */ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        /* 6x */ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        /* 7x */ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        /* 3x */ 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 6, 0, 0, 0, 0,
+        /* 4x */ 0, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
+        /* 5x */ 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 0, 0, 0, 0, 0,
+        /* 6x */ 0, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
+        /* 7x */ 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 0, 0, 0, 0, 0,
         /* 8x */ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         /* 9x */ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         /* Ax */ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -136,10 +138,29 @@ public class XQueryLexer extends LexerBase {
                 mType = XQueryTokenType.STRING_LITERAL_END;
                 mNextState = STATE_DEFAULT;
             }
+        } else if (c == '&') {
+            mTokenRange.match();
+            int cc = getCharClass(mTokenRange.getCodePoint());
+            if (cc == LETTER) {
+                mTokenRange.match();
+                cc = getCharClass(mTokenRange.getCodePoint());
+                while (cc == LETTER || cc == NUMBER) {
+                    mTokenRange.match();
+                    cc = getCharClass(mTokenRange.getCodePoint());
+                }
+                if (cc == SEMICOLON) {
+                    mTokenRange.match();
+                    mType = XQueryTokenType.PREDEFINED_ENTITY_REFERENCE;
+                } else {
+                    mType = XQueryTokenType.PARTIAL_ENTITY_REFERENCE;
+                }
+            } else {
+                mType = XQueryTokenType.PARTIAL_ENTITY_REFERENCE;
+            }
         } else if (c == '\0') {
             mType = null;
         } else {
-            while (c != type && c != '\0') {
+            while (c != type && c != '\0' && c != '&') {
                 mTokenRange.match();
                 c = mTokenRange.getCodePoint();
             }

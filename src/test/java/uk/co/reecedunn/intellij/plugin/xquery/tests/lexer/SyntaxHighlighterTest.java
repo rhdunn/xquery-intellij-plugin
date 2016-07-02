@@ -62,5 +62,13 @@ public class SyntaxHighlighterTest extends TestCase {
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.STRING_LITERAL_ESCAPED_CHARACTER).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.STRING_LITERAL_ESCAPED_CHARACTER)[0], is(SyntaxHighlighter.ESCAPED_CHARACTER));
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.PREDEFINED_ENTITY_REFERENCE).length, is(1));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.PREDEFINED_ENTITY_REFERENCE)[0], is(SyntaxHighlighter.ENTITY_REFERENCE));
+
+        // NOTE: This token is for the parser, so that a parser error will be emitted for invalid entity references.
+        // From a syntax highlighting perspective, it appears like regular string literal contents.
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.PARTIAL_ENTITY_REFERENCE).length, is(1));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.PARTIAL_ENTITY_REFERENCE)[0], is(SyntaxHighlighter.STRING));
     }
 }
