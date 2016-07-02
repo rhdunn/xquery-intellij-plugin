@@ -62,6 +62,49 @@ public class XQueryLexer extends LexerBase {
     private static final int STATE_STRING_LITERAL_QUOTE = 1;
     private static final int STATE_STRING_LITERAL_APOSTROPHE = 2;
 
+    private void matchEntityReference() {
+        mTokenRange.match();
+        int cc = getCharClass(mTokenRange.getCodePoint());
+        if (cc == LETTER) {
+            mTokenRange.match();
+            cc = getCharClass(mTokenRange.getCodePoint());
+            while (cc == LETTER || cc == NUMBER) {
+                mTokenRange.match();
+                cc = getCharClass(mTokenRange.getCodePoint());
+            }
+            if (cc == SEMICOLON) {
+                mTokenRange.match();
+                mType = XQueryTokenType.PREDEFINED_ENTITY_REFERENCE;
+            } else {
+                mType = XQueryTokenType.PARTIAL_ENTITY_REFERENCE;
+            }
+        } else if (cc == HASH) {
+            mTokenRange.match();
+            int c = mTokenRange.getCodePoint();
+            if (c == 'x') {
+                mTokenRange.match();
+                c = mTokenRange.getCodePoint();
+                while (((c >= '0') && (c <= '9')) || ((c >= 'a') && (c <= 'f')) || ((c >= 'A') && (c <= 'f'))) {
+                    mTokenRange.match();
+                    c = mTokenRange.getCodePoint();
+                }
+            } else {
+                while ((c >= '0') && (c <= '9')) {
+                    mTokenRange.match();
+                    c = mTokenRange.getCodePoint();
+                }
+            }
+            if (c == ';') {
+                mTokenRange.match();
+                mType = XQueryTokenType.CHARACTER_REFERENCE;
+            } else {
+                mType = XQueryTokenType.PARTIAL_ENTITY_REFERENCE;
+            }
+        } else {
+            mType = XQueryTokenType.PARTIAL_ENTITY_REFERENCE;
+        }
+    }
+
     private void stateDefault() {
         int initialClass = getCharClass(mTokenRange.getCodePoint());
         int c;
@@ -132,46 +175,7 @@ public class XQueryLexer extends LexerBase {
                 mNextState = STATE_DEFAULT;
             }
         } else if (c == '&') {
-            mTokenRange.match();
-            int cc = getCharClass(mTokenRange.getCodePoint());
-            if (cc == LETTER) {
-                mTokenRange.match();
-                cc = getCharClass(mTokenRange.getCodePoint());
-                while (cc == LETTER || cc == NUMBER) {
-                    mTokenRange.match();
-                    cc = getCharClass(mTokenRange.getCodePoint());
-                }
-                if (cc == SEMICOLON) {
-                    mTokenRange.match();
-                    mType = XQueryTokenType.PREDEFINED_ENTITY_REFERENCE;
-                } else {
-                    mType = XQueryTokenType.PARTIAL_ENTITY_REFERENCE;
-                }
-            } else if (cc == HASH) {
-                mTokenRange.match();
-                c = mTokenRange.getCodePoint();
-                if (c == 'x') {
-                    mTokenRange.match();
-                    c = mTokenRange.getCodePoint();
-                    while (((c >= '0') && (c <= '9')) || ((c >= 'a') && (c <= 'f')) || ((c >= 'A') && (c <= 'f'))) {
-                        mTokenRange.match();
-                        c = mTokenRange.getCodePoint();
-                    }
-                } else {
-                    while ((c >= '0') && (c <= '9')) {
-                        mTokenRange.match();
-                        c = mTokenRange.getCodePoint();
-                    }
-                }
-                if (c == ';') {
-                    mTokenRange.match();
-                    mType = XQueryTokenType.CHARACTER_REFERENCE;
-                } else {
-                    mType = XQueryTokenType.PARTIAL_ENTITY_REFERENCE;
-                }
-            } else {
-                mType = XQueryTokenType.PARTIAL_ENTITY_REFERENCE;
-            }
+            matchEntityReference();
         } else if (c == '\0') {
             mType = null;
         } else {
