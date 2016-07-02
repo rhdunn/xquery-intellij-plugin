@@ -50,5 +50,14 @@ public class SyntaxHighlighterTest extends TestCase {
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.DOUBLE_LITERAL).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.DOUBLE_LITERAL)[0], is(SyntaxHighlighter.NUMBER));
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.STRING_LITERAL_START).length, is(1));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.STRING_LITERAL_START)[0], is(SyntaxHighlighter.STRING));
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.STRING_LITERAL_CONTENTS).length, is(1));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.STRING_LITERAL_CONTENTS)[0], is(SyntaxHighlighter.STRING));
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.STRING_LITERAL_END).length, is(1));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.STRING_LITERAL_END)[0], is(SyntaxHighlighter.STRING));
     }
 }

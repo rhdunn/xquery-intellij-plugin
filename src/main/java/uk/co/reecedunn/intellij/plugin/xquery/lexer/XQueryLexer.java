@@ -22,6 +22,7 @@ import org.jetbrains.annotations.NotNull;
 public class XQueryLexer extends LexerBase {
     private XQueryCodePointRange mTokenRange;
     private int mState;
+    private int mNextState;
     private IElementType mType;
 
     // Character Classes
@@ -29,13 +30,15 @@ public class XQueryLexer extends LexerBase {
     private static final int WHITESPACE = 1;
     private static final int NUMBER = 2;
     private static final int DOT = 3;
+    private static final int QUOTE = 4;
+    private static final int APOSTROPHE = 5;
     private static final int END_OF_BUFFER = -1;
 
     private static final int mCharacterClasses[] = {
         //////// x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 xA xB xC xD xE xF
         /* 0x */ -1,0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0,
         /* 1x */ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        /* 2x */ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0,
+        /* 2x */ 1, 0, 4, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 3, 0,
         /* 3x */ 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0,
         /* 4x */ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         /* 5x */ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -60,7 +63,9 @@ public class XQueryLexer extends LexerBase {
 
     // States
 
-    private static final int DEFAULT_STATE = 0;
+    private static final int STATE_DEFAULT = 0;
+    private static final int STATE_STRING_LITERAL_QUOTE = 1;
+    private static final int STATE_STRING_LITERAL_APOSTROPHE = 2;
 
     private void stateDefault() {
         int initialClass = getCharClass(mTokenRange.getCodePoint());
@@ -107,10 +112,33 @@ public class XQueryLexer extends LexerBase {
             case END_OF_BUFFER:
                 mType = null;
                 break;
+            case QUOTE:
+            case APOSTROPHE:
+                mTokenRange.match();
+                mType = XQueryTokenType.STRING_LITERAL_START;
+                mNextState = (initialClass == QUOTE) ? STATE_STRING_LITERAL_QUOTE : STATE_STRING_LITERAL_APOSTROPHE;
+                break;
             default:
                 mTokenRange.match();
                 mType = XQueryTokenType.BAD_CHARACTER;
                 break;
+        }
+    }
+
+    private void stateStringLiteral(char type) {
+        int c = mTokenRange.getCodePoint();
+        if (c == type) {
+            mTokenRange.match();
+            mType = XQueryTokenType.STRING_LITERAL_END;
+            mNextState = STATE_DEFAULT;
+        } else if (c == '\0') {
+            mType = null;
+        } else {
+            while (c != type && c != '\0') {
+                mTokenRange.match();
+                c = mTokenRange.getCodePoint();
+            }
+            mType = XQueryTokenType.STRING_LITERAL_CONTENTS;
         }
     }
 
@@ -123,16 +151,23 @@ public class XQueryLexer extends LexerBase {
     @Override
     public final void start(@NotNull CharSequence buffer, int startOffset, int endOffset, int initialState) {
         mTokenRange.start(buffer, startOffset, endOffset);
-        mState = initialState;
+        mNextState = initialState;
         advance();
     }
 
     @Override
     public final void advance() {
         mTokenRange.flush();
+        mState = mNextState;
         switch (mState) {
-            case DEFAULT_STATE:
+            case STATE_DEFAULT:
                 stateDefault();
+                break;
+            case STATE_STRING_LITERAL_QUOTE:
+                stateStringLiteral('"');
+                break;
+            case STATE_STRING_LITERAL_APOSTROPHE:
+                stateStringLiteral('\'');
                 break;
         }
     }

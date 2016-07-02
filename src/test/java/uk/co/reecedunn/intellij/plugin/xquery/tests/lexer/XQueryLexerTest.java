@@ -229,4 +229,28 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "-",  0, 12, 13, XQueryTokenType.BAD_CHARACTER);
         matchToken(lexer, "",   0, 13, 13, null);
     }
+
+    public void testStringLiteral() {
+        Lexer lexer = new XQueryLexer();
+
+        lexer.start("\"");
+        matchToken(lexer, "\"", 0, 0, 1, XQueryTokenType.STRING_LITERAL_START);
+        matchToken(lexer, "",   1, 1, 1, null);
+
+        lexer.start("\"Hello World\"");
+        matchToken(lexer, "\"",          0,  0,  1, XQueryTokenType.STRING_LITERAL_START);
+        matchToken(lexer, "Hello World", 1,  1, 12, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "\"",          1, 12, 13, XQueryTokenType.STRING_LITERAL_END);
+        matchToken(lexer, "",            0, 13, 13, null);
+
+        lexer.start("'");
+        matchToken(lexer, "'", 0, 0, 1, XQueryTokenType.STRING_LITERAL_START);
+        matchToken(lexer, "",  2, 1, 1, null);
+
+        lexer.start("'Hello World'");
+        matchToken(lexer, "'",           0,  0,  1, XQueryTokenType.STRING_LITERAL_START);
+        matchToken(lexer, "Hello World", 2,  1, 12, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "'",           2, 12, 13, XQueryTokenType.STRING_LITERAL_END);
+        matchToken(lexer, "",            0, 13, 13, null);
+    }
 }

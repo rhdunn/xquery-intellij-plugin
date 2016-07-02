@@ -24,8 +24,10 @@ import org.jetbrains.annotations.NotNull;
 
 public class SyntaxHighlighter extends SyntaxHighlighterBase {
     public static final TextAttributesKey NUMBER = TextAttributesKey.createTextAttributesKey("XQUERY_NUMBER", DefaultLanguageHighlighterColors.NUMBER);
+    public static final TextAttributesKey STRING = TextAttributesKey.createTextAttributesKey("XQUERY_STRING", DefaultLanguageHighlighterColors.STRING);
 
     private static final TextAttributesKey[] NUMBER_KEYS = pack(NUMBER);
+    private static final TextAttributesKey[] STRING_KEYS = pack(STRING);
 
     @NotNull
     @Override
@@ -40,6 +42,10 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
             type == XQueryTokenType.DECIMAL_LITERAL ||
             type == XQueryTokenType.DOUBLE_LITERAL) {
             return NUMBER_KEYS;
+        } else if (type == XQueryTokenType.STRING_LITERAL_START ||
+                   type == XQueryTokenType.STRING_LITERAL_CONTENTS ||
+                   type == XQueryTokenType.STRING_LITERAL_END) {
+            return STRING_KEYS;
         }
         return EMPTY;
     }
