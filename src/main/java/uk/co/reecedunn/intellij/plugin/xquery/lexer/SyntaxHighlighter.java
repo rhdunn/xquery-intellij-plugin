@@ -44,7 +44,8 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
     public TextAttributesKey[] getTokenHighlights(IElementType type) {
         if (type == XQueryTokenType.INTEGER_LITERAL ||
             type == XQueryTokenType.DECIMAL_LITERAL ||
-            type == XQueryTokenType.DOUBLE_LITERAL) {
+            type == XQueryTokenType.DOUBLE_LITERAL ||
+            type == XQueryTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT) {
             return NUMBER_KEYS;
         } else if (type == XQueryTokenType.STRING_LITERAL_START ||
                    type == XQueryTokenType.STRING_LITERAL_CONTENTS ||

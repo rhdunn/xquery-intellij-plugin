@@ -51,6 +51,11 @@ public class SyntaxHighlighterTest extends TestCase {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.DOUBLE_LITERAL).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.DOUBLE_LITERAL)[0], is(SyntaxHighlighter.NUMBER));
 
+        // NOTE: This token is for the parser, so that a parser error will be emitted for incomplete double literals.
+        // From a syntax highlighting perspective, it appears like regular double literal contents.
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT).length, is(1));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)[0], is(SyntaxHighlighter.NUMBER));
+
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.STRING_LITERAL_START).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.STRING_LITERAL_START)[0], is(SyntaxHighlighter.STRING));
 

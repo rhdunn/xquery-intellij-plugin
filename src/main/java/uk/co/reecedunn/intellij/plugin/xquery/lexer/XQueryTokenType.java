@@ -23,6 +23,7 @@ public interface XQueryTokenType extends TokenType {
     IElementType INTEGER_LITERAL = new IElementType("INTEGER_LITERAL", XQuery.INSTANCE);
     IElementType DECIMAL_LITERAL = new IElementType("DECIMAL_LITERAL", XQuery.INSTANCE);
     IElementType DOUBLE_LITERAL = new IElementType("DOUBLE_LITERAL", XQuery.INSTANCE);
+    IElementType PARTIAL_DOUBLE_LITERAL_EXPONENT = new IElementType("PARTIAL_DOUBLE_LITERAL_EXPONENT", XQuery.INSTANCE);
 
     IElementType STRING_LITERAL_START = new IElementType("STRING_LITERAL_START", XQuery.INSTANCE);
     IElementType STRING_LITERAL_CONTENTS = new IElementType("STRING_LITERAL_CONTENTS", XQuery.INSTANCE);

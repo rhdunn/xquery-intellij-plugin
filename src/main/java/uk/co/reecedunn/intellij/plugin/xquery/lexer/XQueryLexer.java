@@ -61,6 +61,7 @@ public class XQueryLexer extends LexerBase {
     private static final int STATE_DEFAULT = 0;
     private static final int STATE_STRING_LITERAL_QUOTE = 1;
     private static final int STATE_STRING_LITERAL_APOSTROPHE = 2;
+    private static final int STATE_DOUBLE_EXPONENT = 3;
 
     private void matchEntityReference() {
         mTokenRange.match();
@@ -156,6 +157,7 @@ public class XQueryLexer extends LexerBase {
                             mTokenRange.match();
                         mType = XQueryTokenType.DOUBLE_LITERAL;
                     } else {
+                        mNextState = STATE_DOUBLE_EXPONENT;
                         mTokenRange.restore();
                     }
                 }
@@ -200,6 +202,17 @@ public class XQueryLexer extends LexerBase {
         }
     }
 
+    private void stateDoubleExponent() {
+        mTokenRange.match();
+        int c = mTokenRange.getCodePoint();
+        if ((c == '+') || (c == '-')) {
+            mTokenRange.match();
+            c = mTokenRange.getCodePoint();
+        }
+        mType = XQueryTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT;
+        mNextState = STATE_DEFAULT;
+    }
+
     // Lexer implementation
 
     public XQueryLexer() {
@@ -226,6 +239,9 @@ public class XQueryLexer extends LexerBase {
                 break;
             case STATE_STRING_LITERAL_APOSTROPHE:
                 stateStringLiteral('\'');
+                break;
+            case STATE_DOUBLE_EXPONENT:
+                stateDoubleExponent();
                 break;
         }
     }
