@@ -25,37 +25,6 @@ public class XQueryLexer extends LexerBase {
     private int mNextState;
     private IElementType mType;
 
-    // Character Classes
-
-    private static final int WHITESPACE = 1;
-    private static final int NUMBER = 2;
-    private static final int DOT = 3;
-    private static final int QUOTE = 4;
-    private static final int APOSTROPHE = 5;
-    private static final int SEMICOLON = 6;
-    private static final int LETTER = 7;
-    private static final int HASH = 8;
-    private static final int END_OF_BUFFER = -1;
-
-    private static final int mCharacterClasses[] = {
-        //////// x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 xA xB xC xD xE xF
-        /* 0x */ -1,0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0,
-        /* 1x */ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        /* 2x */ 1, 0, 4, 8, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 3, 0,
-        /* 3x */ 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 6, 0, 0, 0, 0,
-        /* 4x */ 0, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
-        /* 5x */ 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 0, 0, 0, 0, 0,
-        /* 6x */ 0, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
-        /* 7x */ 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 0, 0, 0, 0, 0,
-    };
-
-    private int getCharClass(int c) {
-        if (c < mCharacterClasses.length) {
-            return mCharacterClasses[c];
-        }
-        return 0;
-    }
-
     // States
 
     private static final int STATE_DEFAULT = 0;
@@ -65,21 +34,21 @@ public class XQueryLexer extends LexerBase {
 
     private void matchEntityReference() {
         mTokenRange.match();
-        int cc = getCharClass(mTokenRange.getCodePoint());
-        if (cc == LETTER) {
+        int cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
+        if (cc == CharacterClass.LETTER) {
             mTokenRange.match();
-            cc = getCharClass(mTokenRange.getCodePoint());
-            while (cc == LETTER || cc == NUMBER) {
+            cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
+            while (cc == CharacterClass.LETTER || cc == CharacterClass.NUMBER) {
                 mTokenRange.match();
-                cc = getCharClass(mTokenRange.getCodePoint());
+                cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
             }
-            if (cc == SEMICOLON) {
+            if (cc == CharacterClass.SEMICOLON) {
                 mTokenRange.match();
                 mType = XQueryTokenType.PREDEFINED_ENTITY_REFERENCE;
             } else {
                 mType = XQueryTokenType.PARTIAL_ENTITY_REFERENCE;
             }
-        } else if (cc == HASH) {
+        } else if (cc == CharacterClass.HASH) {
             mTokenRange.match();
             int c = mTokenRange.getCodePoint();
             if (c == 'x') {
@@ -120,27 +89,27 @@ public class XQueryLexer extends LexerBase {
     }
 
     private void stateDefault() {
-        int initialClass = getCharClass(mTokenRange.getCodePoint());
+        int initialClass = CharacterClass.getCharClass(mTokenRange.getCodePoint());
         int c;
         switch (initialClass) {
-            case WHITESPACE:
+            case CharacterClass.WHITESPACE:
                 mTokenRange.match();
-                while (getCharClass(mTokenRange.getCodePoint()) == WHITESPACE)
+                while (CharacterClass.getCharClass(mTokenRange.getCodePoint()) == CharacterClass.WHITESPACE)
                     mTokenRange.match();
                 mType = XQueryTokenType.WHITE_SPACE;
                 break;
-            case DOT:
-            case NUMBER:
+            case CharacterClass.DOT:
+            case CharacterClass.NUMBER:
                 mTokenRange.match();
-                while (getCharClass(mTokenRange.getCodePoint()) == NUMBER)
+                while (CharacterClass.getCharClass(mTokenRange.getCodePoint()) == CharacterClass.NUMBER)
                     mTokenRange.match();
-                if (initialClass != DOT && getCharClass(mTokenRange.getCodePoint()) == DOT) {
+                if (initialClass != CharacterClass.DOT && CharacterClass.getCharClass(mTokenRange.getCodePoint()) == CharacterClass.DOT) {
                     mTokenRange.match();
-                    while (getCharClass(mTokenRange.getCodePoint()) == NUMBER)
+                    while (CharacterClass.getCharClass(mTokenRange.getCodePoint()) == CharacterClass.NUMBER)
                         mTokenRange.match();
                     mType = XQueryTokenType.DECIMAL_LITERAL;
                 } else {
-                    mType = initialClass == DOT ? XQueryTokenType.DECIMAL_LITERAL : XQueryTokenType.INTEGER_LITERAL;
+                    mType = initialClass == CharacterClass.DOT ? XQueryTokenType.DECIMAL_LITERAL : XQueryTokenType.INTEGER_LITERAL;
                 }
                 c = mTokenRange.getCodePoint();
                 if (c == 'e' || c == 'E') {
@@ -151,9 +120,9 @@ public class XQueryLexer extends LexerBase {
                         mTokenRange.match();
                         c = mTokenRange.getCodePoint();
                     }
-                    if (getCharClass(c) == NUMBER) {
+                    if (CharacterClass.getCharClass(c) == CharacterClass.NUMBER) {
                         mTokenRange.match();
-                        while (getCharClass(mTokenRange.getCodePoint()) == NUMBER)
+                        while (CharacterClass.getCharClass(mTokenRange.getCodePoint()) == CharacterClass.NUMBER)
                             mTokenRange.match();
                         mType = XQueryTokenType.DOUBLE_LITERAL;
                     } else {
@@ -162,14 +131,14 @@ public class XQueryLexer extends LexerBase {
                     }
                 }
                 break;
-            case END_OF_BUFFER:
+            case CharacterClass.END_OF_BUFFER:
                 mType = null;
                 break;
-            case QUOTE:
-            case APOSTROPHE:
+            case CharacterClass.QUOTE:
+            case CharacterClass.APOSTROPHE:
                 mTokenRange.match();
                 mType = XQueryTokenType.STRING_LITERAL_START;
-                mNextState = (initialClass == QUOTE) ? STATE_STRING_LITERAL_QUOTE : STATE_STRING_LITERAL_APOSTROPHE;
+                mNextState = (initialClass == CharacterClass.QUOTE) ? STATE_STRING_LITERAL_QUOTE : STATE_STRING_LITERAL_APOSTROPHE;
                 break;
             default:
                 mTokenRange.match();
