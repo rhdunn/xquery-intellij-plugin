@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.lexer;
 
 import junit.framework.TestCase;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.CharacterClass;
+import uk.co.reecedunn.intellij.plugin.xquery.tests.Specification;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
@@ -26,6 +27,8 @@ public class CharacterClassTest extends TestCase {
         assertThat(CharacterClass.getCharClass(0), is(CharacterClass.END_OF_BUFFER));
     }
 
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Char")
+    @Specification(name="XML 1.0 5ed", reference="https://www.w3.org/TR/2008/REC-xml-20081126/#NT-Char")
     public void testInvalidXmlChar() {
         // 1. excludes the ASCII control character codes
 
@@ -47,6 +50,8 @@ public class CharacterClassTest extends TestCase {
         assertThat(CharacterClass.getCharClass(0xFFFF), is(CharacterClass.INVALID));
     }
 
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-S")
+    @Specification(name="XML 1.0 5ed", reference="https://www.w3.org/TR/2008/REC-xml-20081126/#NT-S")
     public void testWhitespace() {
         assertThat(CharacterClass.getCharClass('\t'), is(CharacterClass.WHITESPACE));
         assertThat(CharacterClass.getCharClass('\r'), is(CharacterClass.WHITESPACE));
@@ -54,6 +59,7 @@ public class CharacterClassTest extends TestCase {
         assertThat(CharacterClass.getCharClass(' '), is(CharacterClass.WHITESPACE));
     }
 
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Digits")
     public void testDigit() {
         assertThat(CharacterClass.getCharClass('0'), is(CharacterClass.DIGIT));
         assertThat(CharacterClass.getCharClass('1'), is(CharacterClass.DIGIT));
@@ -67,6 +73,7 @@ public class CharacterClassTest extends TestCase {
         assertThat(CharacterClass.getCharClass('9'), is(CharacterClass.DIGIT));
     }
 
+    @Specification(name="XML 1.0 5ed", reference="https://www.w3.org/TR/2008/REC-xml-20081126/#NT-NameStartChar")
     public void testLetter() {
         assertThat(CharacterClass.getCharClass('a'), is(CharacterClass.LETTER));
         assertThat(CharacterClass.getCharClass('b'), is(CharacterClass.LETTER));

@@ -20,6 +20,7 @@ import com.intellij.psi.tree.IElementType;
 import junit.framework.TestCase;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer;
+import uk.co.reecedunn.intellij.plugin.xquery.tests.Specification;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
@@ -59,6 +60,8 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "",       0, 5, 5, null);
     }
 
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-S")
+    @Specification(name="XML 1.0 5ed", reference="https://www.w3.org/TR/2008/REC-xml-20081126/#NT-S")
     public void testS() {
         Lexer lexer = new XQueryLexer();
 
@@ -83,6 +86,7 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "",             0, 9, 9, null);
     }
 
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-IntegerLiteral")
     public void testIntegerLiteral() {
         Lexer lexer = new XQueryLexer();
 
@@ -91,6 +95,7 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "",     0, 4, 4, null);
     }
 
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DecimalLiteral")
     public void testDecimalLiteral() {
         Lexer lexer = new XQueryLexer();
 
@@ -112,6 +117,7 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "",   0, 4, 4, null);
     }
 
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DoubleLiteral")
     public void testDoubleLiteral() {
         Lexer lexer = new XQueryLexer();
 
@@ -230,6 +236,7 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "",   0, 13, 13, null);
     }
 
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
     public void testStringLiteral() {
         Lexer lexer = new XQueryLexer();
 
@@ -254,6 +261,8 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "",            0, 13, 13, null);
     }
 
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-EscapeQuot")
     public void testStringLiteral_EscapeQuot() {
         Lexer lexer = new XQueryLexer();
 
@@ -266,6 +275,8 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "",     0, 10, 10, null);
     }
 
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-EscapeApos")
     public void testStringLiteral_EscapeApos() {
         Lexer lexer = new XQueryLexer();
 
@@ -278,6 +289,8 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "",     0, 10, 10, null);
     }
 
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PredefinedEntityRef")
     public void testStringLiteral_PredefinedEntityRef() {
         Lexer lexer = new XQueryLexer();
 
@@ -342,6 +355,9 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "",     1, 5, 5, null);
     }
 
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CharRef")
+    @Specification(name="XML 1.0 5ed", reference="https://www.w3.org/TR/2008/REC-xml-20081126/#NT-CharRef")
     public void testStringLiteral_CharRef() {
         Lexer lexer = new XQueryLexer();
 
