@@ -52,7 +52,9 @@ public class XQueryParserDefinitionTest extends TestCase {
     public void testCommentTokens() {
         ParserDefinition parserDefinition = new XQueryParserDefinition();
         TokenSet tokens = parserDefinition.getCommentTokens();
-        assertThat(tokens.getTypes().length, is(0));
+        assertThat(tokens.getTypes().length, is(2));
+        assertThat(tokens.contains(XQueryTokenType.COMMENT), is(true));
+        assertThat(tokens.contains(XQueryTokenType.PARTIAL_COMMENT), is(true));
     }
 
     public void testStringLiteralElements() {

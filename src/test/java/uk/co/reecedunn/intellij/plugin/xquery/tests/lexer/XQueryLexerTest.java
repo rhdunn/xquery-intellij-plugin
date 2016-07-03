@@ -435,4 +435,41 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "g\u0330d", 0, 19, 22, XQueryTokenType.NCNAME);
         matchToken(lexer, "",         0, 22, 22, null);
     }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Comment")
+    public void testComment() {
+        Lexer lexer = new XQueryLexer();
+
+        lexer.start("(:");
+        matchToken(lexer, "(:", 0, 0, 2, XQueryTokenType.PARTIAL_COMMENT);
+        matchToken(lexer, "",   0, 2, 2, null);
+
+        lexer.start("(: Test");
+        matchToken(lexer, "(: Test", 0, 0, 7, XQueryTokenType.PARTIAL_COMMENT);
+        matchToken(lexer, "",        0, 7, 7, null);
+
+        lexer.start("(: Test :");
+        matchToken(lexer, "(: Test :", 0, 0, 9, XQueryTokenType.PARTIAL_COMMENT);
+        matchToken(lexer, "",          0, 9, 9, null);
+
+        lexer.start("(: Test :)");
+        matchToken(lexer, "(: Test :)", 0,  0, 10, XQueryTokenType.COMMENT);
+        matchToken(lexer, "",           0, 10, 10, null);
+
+        lexer.start("(:\nMultiline\nComment\n:)");
+        matchToken(lexer, "(:\nMultiline\nComment\n:)", 0,  0, 23, XQueryTokenType.COMMENT);
+        matchToken(lexer, "",                           0, 23, 23, null);
+
+        lexer.start("(: Outer (: Inner :) Outer :)");
+        matchToken(lexer, "(: Outer (: Inner :) Outer :)", 0,  0, 29, XQueryTokenType.COMMENT);
+        matchToken(lexer, "",                              0, 29, 29, null);
+
+        lexer.start("(: Outer ( : Inner :) Outer :)");
+        matchToken(lexer, "(: Outer ( : Inner :)", 0,  0, 21, XQueryTokenType.COMMENT);
+        matchToken(lexer, " ",                     0, 21, 22, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "Outer",                 0, 22, 27, XQueryTokenType.NCNAME);
+        matchToken(lexer, " ",                     0, 27, 28, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, ":)",                    0, 28, 30, XQueryTokenType.COMMENT_END_TAG);
+        matchToken(lexer, "",                      0, 30, 30, null);
+    }
 }

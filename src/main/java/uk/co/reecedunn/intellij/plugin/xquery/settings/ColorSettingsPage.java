@@ -29,6 +29,7 @@ import java.util.Map;
 public class ColorSettingsPage implements com.intellij.openapi.options.colors.ColorSettingsPage {
     private static final AttributesDescriptor[] DESCRIPTORS = new AttributesDescriptor[] {
         new AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.bad.character"), SyntaxHighlighter.BAD_CHARACTER),
+        new AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.comment"), SyntaxHighlighter.COMMENT),
         new AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.entity.reference"), SyntaxHighlighter.ENTITY_REFERENCE),
         new AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.escaped.character"), SyntaxHighlighter.ESCAPED_CHARACTER),
         new AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.identifier"), SyntaxHighlighter.IDENTIFIER),
@@ -51,7 +52,10 @@ public class ColorSettingsPage implements com.intellij.openapi.options.colors.Co
     @NotNull
     @Override
     public String getDemoText() {
-        return "(1234, \"One \"\" Two\")";
+        return
+            "(: Comment :)\n" +
+            "(1234, \"One \"\" Two &quot; Three\", value)\n" +
+            "%%~";
     }
 
     @Nullable

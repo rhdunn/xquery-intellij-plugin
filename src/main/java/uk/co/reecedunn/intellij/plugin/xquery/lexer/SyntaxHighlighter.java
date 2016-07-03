@@ -25,6 +25,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class SyntaxHighlighter extends SyntaxHighlighterBase {
     public static final TextAttributesKey BAD_CHARACTER = TextAttributesKey.createTextAttributesKey("XQUERY_BAD_CHARACTER", HighlighterColors.BAD_CHARACTER);
+    public static final TextAttributesKey COMMENT = TextAttributesKey.createTextAttributesKey("XQUERY_COMMENT", DefaultLanguageHighlighterColors.BLOCK_COMMENT);
     public static final TextAttributesKey ENTITY_REFERENCE = TextAttributesKey.createTextAttributesKey("XQUERY_ENTITY_REFERENCE", DefaultLanguageHighlighterColors.VALID_STRING_ESCAPE);
     public static final TextAttributesKey ESCAPED_CHARACTER = TextAttributesKey.createTextAttributesKey("XQUERY_ESCAPED_CHARACTER", DefaultLanguageHighlighterColors.VALID_STRING_ESCAPE);
     public static final TextAttributesKey IDENTIFIER = TextAttributesKey.createTextAttributesKey("XQUERY_IDENTIFIER", DefaultLanguageHighlighterColors.IDENTIFIER);
@@ -32,6 +33,7 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
     public static final TextAttributesKey STRING = TextAttributesKey.createTextAttributesKey("XQUERY_STRING", DefaultLanguageHighlighterColors.STRING);
 
     private static final TextAttributesKey[] BAD_CHARACTER_KEYS = pack(BAD_CHARACTER);
+    private static final TextAttributesKey[] COMMENT_KEYS = pack(COMMENT);
     private static final TextAttributesKey[] ENTITY_REFERENCE_KEYS = pack(ENTITY_REFERENCE);
     private static final TextAttributesKey[] ESCAPED_CHARACTER_KEYS = pack(ESCAPED_CHARACTER);
     private static final TextAttributesKey[] IDENTIFIER_KEYS = pack(IDENTIFIER);
@@ -66,6 +68,9 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
             return BAD_CHARACTER_KEYS;
         } else if (type == XQueryTokenType.NCNAME) {
             return IDENTIFIER_KEYS;
+        } else if (type == XQueryTokenType.COMMENT ||
+                   type == XQueryTokenType.PARTIAL_COMMENT) {
+            return COMMENT_KEYS;
         }
         return EMPTY;
     }

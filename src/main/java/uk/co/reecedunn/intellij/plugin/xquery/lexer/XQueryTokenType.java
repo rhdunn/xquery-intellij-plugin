@@ -21,6 +21,10 @@ import com.intellij.psi.tree.TokenSet;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 
 public interface XQueryTokenType extends TokenType {
+    IElementType COMMENT = new IElementType("XQUERY_COMMENT_TOKEN", XQuery.INSTANCE);
+    IElementType COMMENT_END_TAG = new IElementType("XQUERY_COMMENT_END_TAG_TOKEN", XQuery.INSTANCE);
+    IElementType PARTIAL_COMMENT = new IElementType("XQUERY_PARTIAL_COMMENT_TOKEN", XQuery.INSTANCE);
+
     IElementType INTEGER_LITERAL = new IElementType("XQUERY_INTEGER_LITERAL_TOKEN", XQuery.INSTANCE);
     IElementType DECIMAL_LITERAL = new IElementType("XQUERY_DECIMAL_LITERAL_TOKEN", XQuery.INSTANCE);
     IElementType DOUBLE_LITERAL = new IElementType("XQUERY_DOUBLE_LITERAL_TOKEN", XQuery.INSTANCE);
@@ -38,7 +42,7 @@ public interface XQueryTokenType extends TokenType {
     IElementType NCNAME = new IElementType("XQUERY_NCNAME_TOKEN", XQuery.INSTANCE);
 
     TokenSet WHITESPACE_TOKENS = TokenSet.create(WHITE_SPACE);
-    TokenSet COMMENT_TOKENS = TokenSet.EMPTY;
+    TokenSet COMMENT_TOKENS = TokenSet.create(COMMENT, PARTIAL_COMMENT);
     TokenSet STRING_LITERAL_TOKENS = TokenSet.create(
         STRING_LITERAL_START,
         STRING_LITERAL_CONTENTS,

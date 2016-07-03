@@ -34,6 +34,8 @@ public final class CharacterClass {
     public static final int HASH = 5;
     public static final int COLON = 6;
     public static final int HYPHEN_MINUS = 7;
+    public static final int PARENTHESIS_OPEN = 8;
+    public static final int PARENTHESIS_CLOSE = 9;
 
     private static final int APO = APOSTROPHE;
     private static final int CHR = CHAR;
@@ -44,6 +46,8 @@ public final class CharacterClass {
     private static final int INV = INVALID;
     private static final int MIN = HYPHEN_MINUS;
     private static final int NSC = NAME_START_CHAR;
+    private static final int PNC = PARENTHESIS_CLOSE;
+    private static final int PNO = PARENTHESIS_OPEN;
     private static final int QUO = QUOTE;
     private static final int SMC = SEMICOLON;
     private static final int WSP = WHITESPACE;
@@ -52,7 +56,7 @@ public final class CharacterClass {
         //////// x0   x1   x2   x3   x4   x5   x6   x7   x8   x9   xA   xB   xC   xD   xE   xF
         /* 0x */ EOB, INV, INV, INV, INV, INV, INV, INV, INV, WSP, WSP, INV, INV, WSP, INV, INV,
         /* 1x */ INV, INV, INV, INV, INV, INV, INV, INV, INV, INV, INV, INV, INV, INV, INV, INV,
-        /* 2x */ WSP, CHR, QUO, HSH, CHR, CHR, CHR, APO, CHR, CHR, CHR, CHR, CHR, MIN, DOT, CHR,
+        /* 2x */ WSP, CHR, QUO, HSH, CHR, CHR, CHR, APO, PNO, PNC, CHR, CHR, CHR, MIN, DOT, CHR,
         /* 3x */ DIG, DIG, DIG, DIG, DIG, DIG, DIG, DIG, DIG, DIG, CLN, SMC, CHR, CHR, CHR, CHR,
         /* 4x */ CHR, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC,
         /* 5x */ NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, CHR, CHR, CHR, CHR, NSC,

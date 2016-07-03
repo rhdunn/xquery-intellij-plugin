@@ -41,8 +41,6 @@ public class CharacterClassTest extends TestCase {
         assertThat(CharacterClass.getCharClass('$'), is(CharacterClass.CHAR));
         assertThat(CharacterClass.getCharClass('%'), is(CharacterClass.CHAR));
         assertThat(CharacterClass.getCharClass('&'), is(CharacterClass.CHAR));
-        assertThat(CharacterClass.getCharClass('('), is(CharacterClass.CHAR));
-        assertThat(CharacterClass.getCharClass(')'), is(CharacterClass.CHAR));
         assertThat(CharacterClass.getCharClass('*'), is(CharacterClass.CHAR));
         assertThat(CharacterClass.getCharClass('+'), is(CharacterClass.CHAR));
         assertThat(CharacterClass.getCharClass(','), is(CharacterClass.CHAR));
@@ -301,5 +299,13 @@ public class CharacterClassTest extends TestCase {
 
     public void testHyphenMinus() {
         assertThat(CharacterClass.getCharClass('-'), is(CharacterClass.HYPHEN_MINUS));
+    }
+
+    public void testParenthesisOpen() {
+        assertThat(CharacterClass.getCharClass('('), is(CharacterClass.PARENTHESIS_OPEN));
+    }
+
+    public void testParenthesisClose() {
+        assertThat(CharacterClass.getCharClass(')'), is(CharacterClass.PARENTHESIS_CLOSE));
     }
 }

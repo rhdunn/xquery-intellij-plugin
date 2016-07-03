@@ -88,6 +88,31 @@ public class XQueryLexer extends LexerBase {
         }
     }
 
+    private void matchComment() {
+        int depth = 1;
+        while (true) {
+            int c = mTokenRange.getCodePoint();
+            mTokenRange.match();
+            if (c == '\0') {
+                mType = XQueryTokenType.PARTIAL_COMMENT;
+                return;
+            } else if (c == '(') {
+                if (mTokenRange.getCodePoint() == ':') {
+                    mTokenRange.match();
+                    ++depth;
+                }
+            } else if (c == ':') {
+                if (mTokenRange.getCodePoint() == ')') {
+                    mTokenRange.match();
+                    if (--depth == 0) {
+                        mType = XQueryTokenType.COMMENT;
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
     private void stateDefault() {
         int cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
         int c;
@@ -152,6 +177,24 @@ public class XQueryLexer extends LexerBase {
                     cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
                 }
                 mType = XQueryTokenType.NCNAME;
+                break;
+            case CharacterClass.PARENTHESIS_OPEN:
+                mTokenRange.match();
+                if (mTokenRange.getCodePoint() == ':') {
+                    mTokenRange.match();
+                    matchComment();
+                } else {
+                    mType = XQueryTokenType.BAD_CHARACTER;
+                }
+                break;
+            case CharacterClass.COLON:
+                mTokenRange.match();
+                if (mTokenRange.getCodePoint() == ')') {
+                    mTokenRange.match();
+                    mType = XQueryTokenType.COMMENT_END_TAG;
+                } else {
+                    mType = XQueryTokenType.BAD_CHARACTER;
+                }
                 break;
             default:
                 mTokenRange.match();

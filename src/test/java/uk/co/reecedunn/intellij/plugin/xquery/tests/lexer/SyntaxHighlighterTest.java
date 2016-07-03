@@ -45,6 +45,18 @@ public class SyntaxHighlighterTest extends TestCase {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.BAD_CHARACTER).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.BAD_CHARACTER)[0], is(SyntaxHighlighter.BAD_CHARACTER));
 
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.COMMENT).length, is(1));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.COMMENT)[0], is(SyntaxHighlighter.COMMENT));
+
+        // NOTE: This token is for the parser, so that a parser error will be emitted for incomplete comments.
+        // From a syntax highlighting perspective, it appears like regular comment contents.
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.PARTIAL_COMMENT).length, is(1));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.PARTIAL_COMMENT)[0], is(SyntaxHighlighter.COMMENT));
+
+        // NOTE: This token is for the parser, so that a parser error will be emitted for lone closing tags.
+        // From a syntax highlighting perspective, it does not have any special styling.
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.COMMENT_END_TAG).length, is(0));
+
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.INTEGER_LITERAL).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.INTEGER_LITERAL)[0], is(SyntaxHighlighter.NUMBER));
 
