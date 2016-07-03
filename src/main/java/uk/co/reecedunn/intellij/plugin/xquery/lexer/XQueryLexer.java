@@ -35,10 +35,10 @@ public class XQueryLexer extends LexerBase {
     private void matchEntityReference() {
         mTokenRange.match();
         int cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
-        if (cc == CharacterClass.LETTER) {
+        if (cc == CharacterClass.NAME_START_CHAR) {
             mTokenRange.match();
             cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
-            while (cc == CharacterClass.LETTER || cc == CharacterClass.DIGIT) {
+            while (cc == CharacterClass.NAME_START_CHAR || cc == CharacterClass.DIGIT) {
                 mTokenRange.match();
                 cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
             }

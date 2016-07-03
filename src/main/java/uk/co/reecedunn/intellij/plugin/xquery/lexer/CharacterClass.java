@@ -23,7 +23,7 @@ public final class CharacterClass {
     public static final int END_OF_BUFFER = -1;
     public static final int WHITESPACE = -2;
     public static final int DIGIT = -3;
-    public static final int LETTER = -4;
+    public static final int NAME_START_CHAR = -4;
 
     public static final int DOT = 1;
     public static final int QUOTE = 2;
@@ -36,7 +36,7 @@ public final class CharacterClass {
     private static final int EOB = END_OF_BUFFER;
     private static final int HSH = HASH;
     private static final int INV = INVALID;
-    private static final int LET = LETTER;
+    private static final int NSC = NAME_START_CHAR;
     private static final int QUO = QUOTE;
     private static final int SMC = SEMICOLON;
     private static final int WSP = WHITESPACE;
@@ -47,10 +47,10 @@ public final class CharacterClass {
         /* 1x */ INV, INV, INV, INV, INV, INV, INV, INV, INV, INV, INV, INV, INV, INV, INV, INV,
         /* 2x */ WSP, 0,   QUO, HSH, 0,   0,   0,   APO, 0,   0,   0,   0,   0,   0,   DOT, 0,
         /* 3x */ DIG, DIG, DIG, DIG, DIG, DIG, DIG, DIG, DIG, DIG, 0,   SMC, 0,   0,   0,   0,
-        /* 4x */ 0,   LET, LET, LET, LET, LET, LET, LET, LET, LET, LET, LET, LET, LET, LET, LET,
-        /* 5x */ LET, LET, LET, LET, LET, LET, LET, LET, LET, LET, LET, 0,   0,   0,   0,   0,
-        /* 6x */ 0,   LET, LET, LET, LET, LET, LET, LET, LET, LET, LET, LET, LET, LET, LET, LET,
-        /* 7x */ LET, LET, LET, LET, LET, LET, LET, LET, LET, LET, LET, 0,   0,   0,   0,   INV,
+        /* 4x */ 0,   NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC,
+        /* 5x */ NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, 0,   0,   0,   0,   0,
+        /* 6x */ 0,   NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC,
+        /* 7x */ NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, 0,   0,   0,   0,   INV,
     };
 
     public static int getCharClass(int c) {
