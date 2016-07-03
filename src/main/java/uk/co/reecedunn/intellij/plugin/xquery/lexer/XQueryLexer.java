@@ -89,9 +89,9 @@ public class XQueryLexer extends LexerBase {
     }
 
     private void stateDefault() {
-        int initialClass = CharacterClass.getCharClass(mTokenRange.getCodePoint());
+        int cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
         int c;
-        switch (initialClass) {
+        switch (cc) {
             case CharacterClass.WHITESPACE:
                 mTokenRange.match();
                 while (CharacterClass.getCharClass(mTokenRange.getCodePoint()) == CharacterClass.WHITESPACE)
@@ -103,13 +103,13 @@ public class XQueryLexer extends LexerBase {
                 mTokenRange.match();
                 while (CharacterClass.getCharClass(mTokenRange.getCodePoint()) == CharacterClass.DIGIT)
                     mTokenRange.match();
-                if (initialClass != CharacterClass.DOT && CharacterClass.getCharClass(mTokenRange.getCodePoint()) == CharacterClass.DOT) {
+                if (cc != CharacterClass.DOT && CharacterClass.getCharClass(mTokenRange.getCodePoint()) == CharacterClass.DOT) {
                     mTokenRange.match();
                     while (CharacterClass.getCharClass(mTokenRange.getCodePoint()) == CharacterClass.DIGIT)
                         mTokenRange.match();
                     mType = XQueryTokenType.DECIMAL_LITERAL;
                 } else {
-                    mType = initialClass == CharacterClass.DOT ? XQueryTokenType.DECIMAL_LITERAL : XQueryTokenType.INTEGER_LITERAL;
+                    mType = (cc == CharacterClass.DOT) ? XQueryTokenType.DECIMAL_LITERAL : XQueryTokenType.INTEGER_LITERAL;
                 }
                 c = mTokenRange.getCodePoint();
                 if (c == 'e' || c == 'E') {
@@ -138,7 +138,20 @@ public class XQueryLexer extends LexerBase {
             case CharacterClass.APOSTROPHE:
                 mTokenRange.match();
                 mType = XQueryTokenType.STRING_LITERAL_START;
-                mNextState = (initialClass == CharacterClass.QUOTE) ? STATE_STRING_LITERAL_QUOTE : STATE_STRING_LITERAL_APOSTROPHE;
+                mNextState = (cc == CharacterClass.QUOTE) ? STATE_STRING_LITERAL_QUOTE : STATE_STRING_LITERAL_APOSTROPHE;
+                break;
+            case CharacterClass.NAME_START_CHAR:
+                mTokenRange.match();
+                cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
+                while (cc == CharacterClass.NAME_START_CHAR ||
+                       cc == CharacterClass.DIGIT ||
+                       cc == CharacterClass.DOT ||
+                       cc == CharacterClass.HYPHEN_MINUS ||
+                       cc == CharacterClass.NAME_CHAR) {
+                    mTokenRange.match();
+                    cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
+                }
+                mType = XQueryTokenType.NCNAME;
                 break;
             default:
                 mTokenRange.match();

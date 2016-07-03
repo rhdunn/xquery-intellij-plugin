@@ -415,4 +415,24 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "\"",   1, 20, 21, XQueryTokenType.STRING_LITERAL_END);
         matchToken(lexer, "",     0, 21, 21, null);
     }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-NCName")
+    @Specification(name="Namespaces in XML 1.0 3ed", reference="https://www.w3.org/TR/2009/REC-xml-names-20091208/#NT-NCName")
+    public void testNCName() {
+        Lexer lexer = new XQueryLexer();
+
+        lexer.start("test x b2b F.G a-b g\u0330d");
+        matchToken(lexer, "test",     0,  0,  4, XQueryTokenType.NCNAME);
+        matchToken(lexer, " ",        0,  4,  5, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "x",        0,  5,  6, XQueryTokenType.NCNAME);
+        matchToken(lexer, " ",        0,  6,  7, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "b2b",      0,  7, 10, XQueryTokenType.NCNAME);
+        matchToken(lexer, " ",        0, 10, 11, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "F.G",      0, 11, 14, XQueryTokenType.NCNAME);
+        matchToken(lexer, " ",        0, 14, 15, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "a-b",      0, 15, 18, XQueryTokenType.NCNAME);
+        matchToken(lexer, " ",        0, 18, 19, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "g\u0330d", 0, 19, 22, XQueryTokenType.NCNAME);
+        matchToken(lexer, "",         0, 22, 22, null);
+    }
 }

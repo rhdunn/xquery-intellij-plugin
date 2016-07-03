@@ -35,6 +35,8 @@ public interface XQueryTokenType extends TokenType {
     IElementType PREDEFINED_ENTITY_REFERENCE = new IElementType("PREDEFINED_ENTITY_REFERENCE", XQuery.INSTANCE);
     IElementType PARTIAL_ENTITY_REFERENCE = new IElementType("PARTIAL_ENTITY_REFERENCE", XQuery.INSTANCE);
 
+    IElementType NCNAME = new IElementType("NCNAME", XQuery.INSTANCE);
+
     TokenSet WHITESPACE_TOKENS = TokenSet.create(WHITE_SPACE);
     TokenSet COMMENT_TOKENS = TokenSet.EMPTY;
     TokenSet STRING_LITERAL_TOKENS = TokenSet.create(

@@ -81,5 +81,8 @@ public class SyntaxHighlighterTest extends TestCase {
         // From a syntax highlighting perspective, it appears like regular string literal contents.
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.PARTIAL_ENTITY_REFERENCE).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.PARTIAL_ENTITY_REFERENCE)[0], is(SyntaxHighlighter.STRING));
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.NCNAME).length, is(1));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.NCNAME)[0], is(SyntaxHighlighter.IDENTIFIER));
     }
 }
