@@ -38,7 +38,7 @@ public class XQueryLexer extends LexerBase {
         if (cc == CharacterClass.LETTER) {
             mTokenRange.match();
             cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
-            while (cc == CharacterClass.LETTER || cc == CharacterClass.NUMBER) {
+            while (cc == CharacterClass.LETTER || cc == CharacterClass.DIGIT) {
                 mTokenRange.match();
                 cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
             }
@@ -99,13 +99,13 @@ public class XQueryLexer extends LexerBase {
                 mType = XQueryTokenType.WHITE_SPACE;
                 break;
             case CharacterClass.DOT:
-            case CharacterClass.NUMBER:
+            case CharacterClass.DIGIT:
                 mTokenRange.match();
-                while (CharacterClass.getCharClass(mTokenRange.getCodePoint()) == CharacterClass.NUMBER)
+                while (CharacterClass.getCharClass(mTokenRange.getCodePoint()) == CharacterClass.DIGIT)
                     mTokenRange.match();
                 if (initialClass != CharacterClass.DOT && CharacterClass.getCharClass(mTokenRange.getCodePoint()) == CharacterClass.DOT) {
                     mTokenRange.match();
-                    while (CharacterClass.getCharClass(mTokenRange.getCodePoint()) == CharacterClass.NUMBER)
+                    while (CharacterClass.getCharClass(mTokenRange.getCodePoint()) == CharacterClass.DIGIT)
                         mTokenRange.match();
                     mType = XQueryTokenType.DECIMAL_LITERAL;
                 } else {
@@ -120,9 +120,9 @@ public class XQueryLexer extends LexerBase {
                         mTokenRange.match();
                         c = mTokenRange.getCodePoint();
                     }
-                    if (CharacterClass.getCharClass(c) == CharacterClass.NUMBER) {
+                    if (CharacterClass.getCharClass(c) == CharacterClass.DIGIT) {
                         mTokenRange.match();
-                        while (CharacterClass.getCharClass(mTokenRange.getCodePoint()) == CharacterClass.NUMBER)
+                        while (CharacterClass.getCharClass(mTokenRange.getCodePoint()) == CharacterClass.DIGIT)
                             mTokenRange.match();
                         mType = XQueryTokenType.DOUBLE_LITERAL;
                     } else {

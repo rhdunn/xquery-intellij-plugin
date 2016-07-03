@@ -22,7 +22,7 @@ public final class CharacterClass {
     public static final int INVALID = 0;
     public static final int END_OF_BUFFER = -1;
     public static final int WHITESPACE = -2;
-    public static final int NUMBER = -3;
+    public static final int DIGIT = -3;
     public static final int LETTER = -4;
 
     public static final int DOT = 1;
@@ -32,11 +32,11 @@ public final class CharacterClass {
     public static final int HASH = 5;
 
     private static final int APO = APOSTROPHE;
+    private static final int DIG = DIGIT;
     private static final int EOB = END_OF_BUFFER;
     private static final int HSH = HASH;
     private static final int INV = INVALID;
     private static final int LET = LETTER;
-    private static final int NUM = NUMBER;
     private static final int QUO = QUOTE;
     private static final int SMC = SEMICOLON;
     private static final int WSP = WHITESPACE;
@@ -46,7 +46,7 @@ public final class CharacterClass {
         /* 0x */ EOB, INV, INV, INV, INV, INV, INV, INV, INV, WSP, WSP, INV, INV, WSP, INV, INV,
         /* 1x */ INV, INV, INV, INV, INV, INV, INV, INV, INV, INV, INV, INV, INV, INV, INV, INV,
         /* 2x */ WSP, 0,   QUO, HSH, 0,   0,   0,   APO, 0,   0,   0,   0,   0,   0,   DOT, 0,
-        /* 3x */ NUM, NUM, NUM, NUM, NUM, NUM, NUM, NUM, NUM, NUM, 0,   SMC, 0,   0,   0,   0,
+        /* 3x */ DIG, DIG, DIG, DIG, DIG, DIG, DIG, DIG, DIG, DIG, 0,   SMC, 0,   0,   0,   0,
         /* 4x */ 0,   LET, LET, LET, LET, LET, LET, LET, LET, LET, LET, LET, LET, LET, LET, LET,
         /* 5x */ LET, LET, LET, LET, LET, LET, LET, LET, LET, LET, LET, 0,   0,   0,   0,   0,
         /* 6x */ 0,   LET, LET, LET, LET, LET, LET, LET, LET, LET, LET, LET, LET, LET, LET, LET,
