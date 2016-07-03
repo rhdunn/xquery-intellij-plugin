@@ -23,7 +23,8 @@ public final class CharacterClass {
     public static final int END_OF_BUFFER = -1;
     public static final int WHITESPACE = -2;
     public static final int DIGIT = -3;
-    public static final int NAME_START_CHAR = -4;
+    public static final int NAME_START_CHAR = -4; // Excluding ':'
+    public static final int NAME_CHAR = -5; // Excluding NameStartChar, '-', '.' and Digit
 
     public static final int DOT = 1;
     public static final int QUOTE = 2;
@@ -31,6 +32,7 @@ public final class CharacterClass {
     public static final int SEMICOLON = 4;
     public static final int HASH = 5;
     public static final int COLON = 6;
+    public static final int HYPHEN_MINUS = 7;
 
     private static final int APO = APOSTROPHE;
     private static final int CLN = COLON;
@@ -38,6 +40,7 @@ public final class CharacterClass {
     private static final int EOB = END_OF_BUFFER;
     private static final int HSH = HASH;
     private static final int INV = INVALID;
+    private static final int MIN = HYPHEN_MINUS;
     private static final int NSC = NAME_START_CHAR;
     private static final int QUO = QUOTE;
     private static final int SMC = SEMICOLON;
@@ -47,7 +50,7 @@ public final class CharacterClass {
         //////// x0   x1   x2   x3   x4   x5   x6   x7   x8   x9   xA   xB   xC   xD   xE   xF
         /* 0x */ EOB, INV, INV, INV, INV, INV, INV, INV, INV, WSP, WSP, INV, INV, WSP, INV, INV,
         /* 1x */ INV, INV, INV, INV, INV, INV, INV, INV, INV, INV, INV, INV, INV, INV, INV, INV,
-        /* 2x */ WSP, 0,   QUO, HSH, 0,   0,   0,   APO, 0,   0,   0,   0,   0,   0,   DOT, 0,
+        /* 2x */ WSP, 0,   QUO, HSH, 0,   0,   0,   APO, 0,   0,   0,   0,   0,   MIN, DOT, 0,
         /* 3x */ DIG, DIG, DIG, DIG, DIG, DIG, DIG, DIG, DIG, DIG, CLN, SMC, 0,   0,   0,   0,
         /* 4x */ 0,   NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC,
         /* 5x */ NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, 0,   0,   0,   0,   NSC,
@@ -58,8 +61,12 @@ public final class CharacterClass {
     public static int getCharClass(int c) {
         if (c < mCharacterClasses.length)
             return mCharacterClasses[c];
+        if (c == 0xB7)
+            return NAME_CHAR;
         if (c >= 0xC0 && c <= 0x2FF)
             return (c == 0xD7 || c == 0xF7) ? INVALID : NAME_START_CHAR;
+        if (c >= 0x300 && c <= 0x36F)
+            return NAME_CHAR;
         if (c >= 0x370 && c <= 0x1FFF)
             return (c == 0x37E) ? INVALID : NAME_START_CHAR;
         if (c == 0x200C || c == 0x200D)

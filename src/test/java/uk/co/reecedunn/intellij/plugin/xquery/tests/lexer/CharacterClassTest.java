@@ -221,6 +221,21 @@ public class CharacterClassTest extends TestCase {
         assertThat(CharacterClass.getCharClass(0x0F0000), is(CharacterClass.INVALID));
     }
 
+    @Specification(name="XML 1.0 5ed", reference="https://www.w3.org/TR/2008/REC-xml-20081126/#NT-NameChar")
+    public void testNameChar() {
+        // [#xB7]
+
+        assertThat(CharacterClass.getCharClass(0x0000B7), is(CharacterClass.NAME_CHAR));
+
+        // [#x0300-#x036F]
+
+        assertThat(CharacterClass.getCharClass(0x0002FF), is(CharacterClass.NAME_START_CHAR));
+        assertThat(CharacterClass.getCharClass(0x000300), is(CharacterClass.NAME_CHAR));
+        assertThat(CharacterClass.getCharClass(0x000346), is(CharacterClass.NAME_CHAR));
+        assertThat(CharacterClass.getCharClass(0x00036F), is(CharacterClass.NAME_CHAR));
+        assertThat(CharacterClass.getCharClass(0x000370), is(CharacterClass.NAME_START_CHAR));
+    }
+
     public void testDot() {
         assertThat(CharacterClass.getCharClass('.'), is(CharacterClass.DOT));
     }
@@ -243,5 +258,9 @@ public class CharacterClassTest extends TestCase {
 
     public void testHash() {
         assertThat(CharacterClass.getCharClass('#'), is(CharacterClass.HASH));
+    }
+
+    public void testHyphenMinus() {
+        assertThat(CharacterClass.getCharClass('-'), is(CharacterClass.HYPHEN_MINUS));
     }
 }
