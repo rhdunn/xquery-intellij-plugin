@@ -29,13 +29,45 @@ public class CharacterClassTest extends TestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Char")
     @Specification(name="XML 1.0 5ed", reference="https://www.w3.org/TR/2008/REC-xml-20081126/#NT-Char")
-    public void testInvalidXmlChar() {
-        // 1. excludes the ASCII control character codes
+    public void testChar() {
+        // Excludes the ASCII control character codes
 
         assertThat(CharacterClass.getCharClass(0x01), is(CharacterClass.INVALID));
         assertThat(CharacterClass.getCharClass(0x1F), is(CharacterClass.INVALID));
 
-        // 2. excludes the surrogate blocks [0xD800-0xDFFF]
+        // ASCII
+
+        assertThat(CharacterClass.getCharClass('!'), is(CharacterClass.CHAR));
+        assertThat(CharacterClass.getCharClass('$'), is(CharacterClass.CHAR));
+        assertThat(CharacterClass.getCharClass('%'), is(CharacterClass.CHAR));
+        assertThat(CharacterClass.getCharClass('&'), is(CharacterClass.CHAR));
+        assertThat(CharacterClass.getCharClass('('), is(CharacterClass.CHAR));
+        assertThat(CharacterClass.getCharClass(')'), is(CharacterClass.CHAR));
+        assertThat(CharacterClass.getCharClass('*'), is(CharacterClass.CHAR));
+        assertThat(CharacterClass.getCharClass('+'), is(CharacterClass.CHAR));
+        assertThat(CharacterClass.getCharClass(','), is(CharacterClass.CHAR));
+        assertThat(CharacterClass.getCharClass('/'), is(CharacterClass.CHAR));
+
+        assertThat(CharacterClass.getCharClass('<'), is(CharacterClass.CHAR));
+        assertThat(CharacterClass.getCharClass('='), is(CharacterClass.CHAR));
+        assertThat(CharacterClass.getCharClass('>'), is(CharacterClass.CHAR));
+        assertThat(CharacterClass.getCharClass('?'), is(CharacterClass.CHAR));
+
+        assertThat(CharacterClass.getCharClass('@'), is(CharacterClass.CHAR));
+
+        assertThat(CharacterClass.getCharClass('['), is(CharacterClass.CHAR));
+        assertThat(CharacterClass.getCharClass('\\'), is(CharacterClass.CHAR));
+        assertThat(CharacterClass.getCharClass(']'), is(CharacterClass.CHAR));
+        assertThat(CharacterClass.getCharClass('^'), is(CharacterClass.CHAR));
+
+        assertThat(CharacterClass.getCharClass('`'), is(CharacterClass.CHAR));
+
+        assertThat(CharacterClass.getCharClass('{'), is(CharacterClass.CHAR));
+        assertThat(CharacterClass.getCharClass('|'), is(CharacterClass.CHAR));
+        assertThat(CharacterClass.getCharClass('}'), is(CharacterClass.CHAR));
+        assertThat(CharacterClass.getCharClass('~'), is(CharacterClass.CHAR));
+
+        // Excludes the surrogate blocks [0xD800-0xDFFF]
 
         assertThat(CharacterClass.getCharClass(0xD800), is(CharacterClass.INVALID));
         assertThat(CharacterClass.getCharClass(0xD801), is(CharacterClass.INVALID));
@@ -43,10 +75,17 @@ public class CharacterClassTest extends TestCase {
         assertThat(CharacterClass.getCharClass(0xDFFE), is(CharacterClass.INVALID));
         assertThat(CharacterClass.getCharClass(0xDFFF), is(CharacterClass.INVALID));
 
-        // 3. excludes 0xFFFE and 0xFFFF
+        // Excludes 0xFFFE and 0xFFFF
 
         assertThat(CharacterClass.getCharClass(0xFFFE), is(CharacterClass.INVALID));
         assertThat(CharacterClass.getCharClass(0xFFFF), is(CharacterClass.INVALID));
+
+        // Excludes non-Unicode characters
+
+        assertThat(CharacterClass.getCharClass(0x10FFFF), is(CharacterClass.CHAR));
+        assertThat(CharacterClass.getCharClass(0x110000), is(CharacterClass.INVALID));
+        assertThat(CharacterClass.getCharClass(0x8FD347), is(CharacterClass.INVALID));
+        assertThat(CharacterClass.getCharClass(0xFFFFFF), is(CharacterClass.INVALID));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-S")
@@ -139,17 +178,17 @@ public class CharacterClassTest extends TestCase {
         // [#xC0-#xD6] | [#xD8-#xF6] | [#xF8-#x2FF]
 
         assertThat(CharacterClass.getCharClass(0x00007F), is(CharacterClass.INVALID));
-        assertThat(CharacterClass.getCharClass(0x000080), is(CharacterClass.INVALID));
-        assertThat(CharacterClass.getCharClass(0x0000A3), is(CharacterClass.INVALID));
-        assertThat(CharacterClass.getCharClass(0x0000BF), is(CharacterClass.INVALID));
+        assertThat(CharacterClass.getCharClass(0x000080), is(CharacterClass.CHAR));
+        assertThat(CharacterClass.getCharClass(0x0000A3), is(CharacterClass.CHAR));
+        assertThat(CharacterClass.getCharClass(0x0000BF), is(CharacterClass.CHAR));
         assertThat(CharacterClass.getCharClass(0x0000C0), is(CharacterClass.NAME_START_CHAR));
         assertThat(CharacterClass.getCharClass(0x0000C9), is(CharacterClass.NAME_START_CHAR));
         assertThat(CharacterClass.getCharClass(0x0000D6), is(CharacterClass.NAME_START_CHAR));
-        assertThat(CharacterClass.getCharClass(0x0000D7), is(CharacterClass.INVALID));
+        assertThat(CharacterClass.getCharClass(0x0000D7), is(CharacterClass.CHAR));
         assertThat(CharacterClass.getCharClass(0x0000D8), is(CharacterClass.NAME_START_CHAR));
         assertThat(CharacterClass.getCharClass(0x0000E5), is(CharacterClass.NAME_START_CHAR));
         assertThat(CharacterClass.getCharClass(0x0000F6), is(CharacterClass.NAME_START_CHAR));
-        assertThat(CharacterClass.getCharClass(0x0000F7), is(CharacterClass.INVALID));
+        assertThat(CharacterClass.getCharClass(0x0000F7), is(CharacterClass.CHAR));
         assertThat(CharacterClass.getCharClass(0x0000F8), is(CharacterClass.NAME_START_CHAR));
         assertThat(CharacterClass.getCharClass(0x00013C), is(CharacterClass.NAME_START_CHAR));
         assertThat(CharacterClass.getCharClass(0x0002FF), is(CharacterClass.NAME_START_CHAR));
@@ -159,38 +198,38 @@ public class CharacterClassTest extends TestCase {
         assertThat(CharacterClass.getCharClass(0x000370), is(CharacterClass.NAME_START_CHAR));
         assertThat(CharacterClass.getCharClass(0x000378), is(CharacterClass.NAME_START_CHAR));
         assertThat(CharacterClass.getCharClass(0x00037D), is(CharacterClass.NAME_START_CHAR));
-        assertThat(CharacterClass.getCharClass(0x00037E), is(CharacterClass.INVALID));
+        assertThat(CharacterClass.getCharClass(0x00037E), is(CharacterClass.CHAR));
         assertThat(CharacterClass.getCharClass(0x00037F), is(CharacterClass.NAME_START_CHAR));
         assertThat(CharacterClass.getCharClass(0x000525), is(CharacterClass.NAME_START_CHAR));
         assertThat(CharacterClass.getCharClass(0x001FFF), is(CharacterClass.NAME_START_CHAR));
-        assertThat(CharacterClass.getCharClass(0x002000), is(CharacterClass.INVALID));
+        assertThat(CharacterClass.getCharClass(0x002000), is(CharacterClass.CHAR));
 
         // [#x200C-#x200D]
 
-        assertThat(CharacterClass.getCharClass(0x00200B), is(CharacterClass.INVALID));
+        assertThat(CharacterClass.getCharClass(0x00200B), is(CharacterClass.CHAR));
         assertThat(CharacterClass.getCharClass(0x00200C), is(CharacterClass.NAME_START_CHAR));
         assertThat(CharacterClass.getCharClass(0x00200D), is(CharacterClass.NAME_START_CHAR));
-        assertThat(CharacterClass.getCharClass(0x00200E), is(CharacterClass.INVALID));
+        assertThat(CharacterClass.getCharClass(0x00200E), is(CharacterClass.CHAR));
 
         // [#x2070-#x218F]
 
-        assertThat(CharacterClass.getCharClass(0x00206F), is(CharacterClass.INVALID));
+        assertThat(CharacterClass.getCharClass(0x00206F), is(CharacterClass.CHAR));
         assertThat(CharacterClass.getCharClass(0x002070), is(CharacterClass.NAME_START_CHAR));
         assertThat(CharacterClass.getCharClass(0x002102), is(CharacterClass.NAME_START_CHAR));
         assertThat(CharacterClass.getCharClass(0x00218F), is(CharacterClass.NAME_START_CHAR));
-        assertThat(CharacterClass.getCharClass(0x002190), is(CharacterClass.INVALID));
+        assertThat(CharacterClass.getCharClass(0x002190), is(CharacterClass.CHAR));
 
         // [#x2C00-#x2FEF]
 
-        assertThat(CharacterClass.getCharClass(0x002BFF), is(CharacterClass.INVALID));
+        assertThat(CharacterClass.getCharClass(0x002BFF), is(CharacterClass.CHAR));
         assertThat(CharacterClass.getCharClass(0x002C00), is(CharacterClass.NAME_START_CHAR));
         assertThat(CharacterClass.getCharClass(0x002DA4), is(CharacterClass.NAME_START_CHAR));
         assertThat(CharacterClass.getCharClass(0x002FEF), is(CharacterClass.NAME_START_CHAR));
-        assertThat(CharacterClass.getCharClass(0x002FF0), is(CharacterClass.INVALID));
+        assertThat(CharacterClass.getCharClass(0x002FF0), is(CharacterClass.CHAR));
 
         // [#x3001-#xD7FF]
 
-        assertThat(CharacterClass.getCharClass(0x003000), is(CharacterClass.INVALID));
+        assertThat(CharacterClass.getCharClass(0x003000), is(CharacterClass.CHAR));
         assertThat(CharacterClass.getCharClass(0x003001), is(CharacterClass.NAME_START_CHAR));
         assertThat(CharacterClass.getCharClass(0x005F92), is(CharacterClass.NAME_START_CHAR));
         assertThat(CharacterClass.getCharClass(0x00D7FF), is(CharacterClass.NAME_START_CHAR));
@@ -198,15 +237,15 @@ public class CharacterClassTest extends TestCase {
 
         // [#xF900-#xFDCF]
 
-        assertThat(CharacterClass.getCharClass(0x00F8FF), is(CharacterClass.INVALID));
+        assertThat(CharacterClass.getCharClass(0x00F8FF), is(CharacterClass.CHAR));
         assertThat(CharacterClass.getCharClass(0x00F900), is(CharacterClass.NAME_START_CHAR));
         assertThat(CharacterClass.getCharClass(0x00FB04), is(CharacterClass.NAME_START_CHAR));
         assertThat(CharacterClass.getCharClass(0x00FDCF), is(CharacterClass.NAME_START_CHAR));
-        assertThat(CharacterClass.getCharClass(0x00FDD0), is(CharacterClass.INVALID));
+        assertThat(CharacterClass.getCharClass(0x00FDD0), is(CharacterClass.CHAR));
 
         // [#xFDF0-#xFFFD]
 
-        assertThat(CharacterClass.getCharClass(0x00FDEF), is(CharacterClass.INVALID));
+        assertThat(CharacterClass.getCharClass(0x00FDEF), is(CharacterClass.CHAR));
         assertThat(CharacterClass.getCharClass(0x00FDF0), is(CharacterClass.NAME_START_CHAR));
         assertThat(CharacterClass.getCharClass(0x00FE9C), is(CharacterClass.NAME_START_CHAR));
         assertThat(CharacterClass.getCharClass(0x00FFFD), is(CharacterClass.NAME_START_CHAR));
@@ -218,7 +257,7 @@ public class CharacterClassTest extends TestCase {
         assertThat(CharacterClass.getCharClass(0x010000), is(CharacterClass.NAME_START_CHAR));
         assertThat(CharacterClass.getCharClass(0x0204FD), is(CharacterClass.NAME_START_CHAR));
         assertThat(CharacterClass.getCharClass(0x0EFFFF), is(CharacterClass.NAME_START_CHAR));
-        assertThat(CharacterClass.getCharClass(0x0F0000), is(CharacterClass.INVALID));
+        assertThat(CharacterClass.getCharClass(0x0F0000), is(CharacterClass.CHAR));
     }
 
     @Specification(name="XML 1.0 5ed", reference="https://www.w3.org/TR/2008/REC-xml-20081126/#NT-NameChar")
