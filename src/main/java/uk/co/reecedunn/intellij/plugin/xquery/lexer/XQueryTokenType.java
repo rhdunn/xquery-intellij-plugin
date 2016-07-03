@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.lexer;
 
 import com.intellij.psi.TokenType;
 import com.intellij.psi.tree.IElementType;
+import com.intellij.psi.tree.TokenSet;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 
 public interface XQueryTokenType extends TokenType {
@@ -33,4 +34,15 @@ public interface XQueryTokenType extends TokenType {
     IElementType CHARACTER_REFERENCE = new IElementType("CHARACTER_REFERENCE", XQuery.INSTANCE);
     IElementType PREDEFINED_ENTITY_REFERENCE = new IElementType("PREDEFINED_ENTITY_REFERENCE", XQuery.INSTANCE);
     IElementType PARTIAL_ENTITY_REFERENCE = new IElementType("PARTIAL_ENTITY_REFERENCE", XQuery.INSTANCE);
+
+    TokenSet WHITESPACE_TOKENS = TokenSet.create(WHITE_SPACE);
+    TokenSet COMMENT_TOKENS = TokenSet.EMPTY;
+    TokenSet STRING_LITERAL_TOKENS = TokenSet.create(
+        STRING_LITERAL_START,
+        STRING_LITERAL_CONTENTS,
+        STRING_LITERAL_END,
+        STRING_LITERAL_ESCAPED_CHARACTER,
+        CHARACTER_REFERENCE,
+        PREDEFINED_ENTITY_REFERENCE,
+        PARTIAL_ENTITY_REFERENCE);
 }
