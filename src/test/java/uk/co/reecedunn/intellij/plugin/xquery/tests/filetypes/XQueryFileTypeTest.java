@@ -19,8 +19,6 @@ import com.intellij.openapi.fileTypes.FileNameMatcher;
 import com.intellij.openapi.fileTypes.FileType;
 import com.intellij.openapi.fileTypes.FileTypeConsumer;
 import com.intellij.openapi.util.Pair;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.openapi.vfs.VirtualFileSystem;
 import junit.framework.TestCase;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
@@ -28,9 +26,6 @@ import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.filetypes.FileTypeFactory;
 import uk.co.reecedunn.intellij.plugin.xquery.filetypes.XQueryFileType;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,82 +34,6 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class XQueryFileTypeTest extends TestCase {
-    public class MockVirtualFile extends VirtualFile {
-        @NotNull
-        @Override
-        public String getName() {
-            return null;
-        }
-
-        @NotNull
-        @Override
-        public VirtualFileSystem getFileSystem() {
-            return null;
-        }
-
-        @NotNull
-        @Override
-        public String getPath() {
-            return null;
-        }
-
-        @Override
-        public boolean isWritable() {
-            return false;
-        }
-
-        @Override
-        public boolean isDirectory() {
-            return false;
-        }
-
-        @Override
-        public boolean isValid() {
-            return false;
-        }
-
-        @Override
-        public VirtualFile getParent() {
-            return null;
-        }
-
-        @Override
-        public VirtualFile[] getChildren() {
-            return new VirtualFile[0];
-        }
-
-        @NotNull
-        @Override
-        public OutputStream getOutputStream(Object requestor, long newModificationStamp, long newTimeStamp) throws IOException {
-            return null;
-        }
-
-        @NotNull
-        @Override
-        public byte[] contentsToByteArray() throws IOException {
-            return new byte[0];
-        }
-
-        @Override
-        public long getTimeStamp() {
-            return 0;
-        }
-
-        @Override
-        public long getLength() {
-            return 0;
-        }
-
-        @Override
-        public void refresh(boolean asynchronous, boolean recursive, @Nullable Runnable postRunnable) {
-        }
-
-        @Override
-        public InputStream getInputStream() throws IOException {
-            return null;
-        }
-    };
-
     private class FileTypeToArrayConsumer implements FileTypeConsumer {
         List<Pair<FileType, String>> fileTypes = new ArrayList<>();
 
