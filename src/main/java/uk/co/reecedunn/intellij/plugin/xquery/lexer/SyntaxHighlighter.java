@@ -17,17 +17,20 @@ package uk.co.reecedunn.intellij.plugin.xquery.lexer;
 
 import com.intellij.lexer.Lexer;
 import com.intellij.openapi.editor.DefaultLanguageHighlighterColors;
+import com.intellij.openapi.editor.HighlighterColors;
 import com.intellij.openapi.editor.colors.TextAttributesKey;
 import com.intellij.openapi.fileTypes.SyntaxHighlighterBase;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 
 public class SyntaxHighlighter extends SyntaxHighlighterBase {
+    public static final TextAttributesKey BAD_CHARACTER = TextAttributesKey.createTextAttributesKey("XQUERY_BAD_CHARACTER", HighlighterColors.BAD_CHARACTER);
     public static final TextAttributesKey ENTITY_REFERENCE = TextAttributesKey.createTextAttributesKey("XQUERY_ENTITY_REFERENCE", DefaultLanguageHighlighterColors.VALID_STRING_ESCAPE);
     public static final TextAttributesKey ESCAPED_CHARACTER = TextAttributesKey.createTextAttributesKey("XQUERY_ESCAPED_CHARACTER", DefaultLanguageHighlighterColors.VALID_STRING_ESCAPE);
     public static final TextAttributesKey NUMBER = TextAttributesKey.createTextAttributesKey("XQUERY_NUMBER", DefaultLanguageHighlighterColors.NUMBER);
     public static final TextAttributesKey STRING = TextAttributesKey.createTextAttributesKey("XQUERY_STRING", DefaultLanguageHighlighterColors.STRING);
 
+    private static final TextAttributesKey[] BAD_CHARACTER_KEYS = pack(BAD_CHARACTER);
     private static final TextAttributesKey[] ENTITY_REFERENCE_KEYS = pack(ENTITY_REFERENCE);
     private static final TextAttributesKey[] ESCAPED_CHARACTER_KEYS = pack(ESCAPED_CHARACTER);
     private static final TextAttributesKey[] NUMBER_KEYS = pack(NUMBER);
@@ -57,6 +60,8 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
         } else if (type == XQueryTokenType.PREDEFINED_ENTITY_REFERENCE ||
                    type == XQueryTokenType.CHARACTER_REFERENCE) {
             return ENTITY_REFERENCE_KEYS;
+        } else if (type == XQueryTokenType.BAD_CHARACTER) {
+            return BAD_CHARACTER_KEYS;
         }
         return EMPTY;
     }

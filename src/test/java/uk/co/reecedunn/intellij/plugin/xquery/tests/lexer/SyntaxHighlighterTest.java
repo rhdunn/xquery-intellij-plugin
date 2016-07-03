@@ -42,6 +42,9 @@ public class SyntaxHighlighterTest extends TestCase {
 
         assertThat(highlighter.getTokenHighlights(null).length, is(0));
 
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.BAD_CHARACTER).length, is(1));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.BAD_CHARACTER)[0], is(SyntaxHighlighter.BAD_CHARACTER));
+
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.INTEGER_LITERAL).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.INTEGER_LITERAL)[0], is(SyntaxHighlighter.NUMBER));
 

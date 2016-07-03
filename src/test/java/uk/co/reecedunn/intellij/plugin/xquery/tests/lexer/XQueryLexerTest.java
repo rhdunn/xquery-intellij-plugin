@@ -47,6 +47,18 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "", 0, 0, 0, null);
     }
 
+    public void testBadCharacters() {
+        Lexer lexer = new XQueryLexer();
+
+        lexer.start("%%~\uFFFE\uFFFF");
+        matchToken(lexer, "%",      0, 0, 1, XQueryTokenType.BAD_CHARACTER);
+        matchToken(lexer, "%",      0, 1, 2, XQueryTokenType.BAD_CHARACTER);
+        matchToken(lexer, "~",      0, 2, 3, XQueryTokenType.BAD_CHARACTER);
+        matchToken(lexer, "\uFFFE", 0, 3, 4, XQueryTokenType.BAD_CHARACTER);
+        matchToken(lexer, "\uFFFF", 0, 4, 5, XQueryTokenType.BAD_CHARACTER);
+        matchToken(lexer, "",       0, 5, 5, null);
+    }
+
     public void testS() {
         Lexer lexer = new XQueryLexer();
 
