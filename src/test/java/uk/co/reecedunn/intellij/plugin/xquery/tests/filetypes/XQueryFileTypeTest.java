@@ -15,51 +15,15 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.filetypes;
 
-import com.intellij.openapi.fileTypes.FileNameMatcher;
-import com.intellij.openapi.fileTypes.FileType;
-import com.intellij.openapi.fileTypes.FileTypeConsumer;
-import com.intellij.openapi.util.Pair;
 import junit.framework.TestCase;
-import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.filetypes.FileTypeFactory;
 import uk.co.reecedunn.intellij.plugin.xquery.filetypes.XQueryFileType;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class XQueryFileTypeTest extends TestCase {
-    private class FileTypeToArrayConsumer implements FileTypeConsumer {
-        List<Pair<FileType, String>> fileTypes = new ArrayList<>();
-
-        @Override
-        public void consume(@NotNull FileType fileType) {
-            assertFalse("consume(FileType) should not be called.", true);
-        }
-
-        @Override
-        public void consume(@NotNull FileType fileType, @NonNls String extensions) {
-            fileTypes.add(Pair.create(fileType, extensions));
-        }
-
-        @Override
-        public void consume(@NotNull FileType fileType, @NotNull FileNameMatcher... matchers) {
-            assertFalse("consume(FileType, FileNameMatcher...) should not be called.", true);
-        }
-
-        @Nullable
-        @Override
-        public FileType getStandardFileTypeByName(@NonNls @NotNull String name) {
-            assertFalse("getStandardFileTypeByName should not be called.", true);
-            return null;
-        }
-    }
-
     public void testFactory() {
         FileTypeFactory factory = new FileTypeFactory();
         FileTypeToArrayConsumer consumer = new FileTypeToArrayConsumer();
@@ -68,6 +32,7 @@ public class XQueryFileTypeTest extends TestCase {
         assertThat(consumer.fileTypes.size(), is(1));
         assertThat(consumer.fileTypes.get(0).first.getClass().getName(), is(XQueryFileType.class.getName()));
         assertThat(consumer.fileTypes.get(0).second, is("xq;xqy;xquery;xql;xqm;xqws"));
+        assertThat(consumer.fileMatchers.size(), is(0));
     }
 
     public void testProperties() {
