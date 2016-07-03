@@ -78,7 +78,7 @@ public class XQueryParserDefinitionTest extends TestCase {
             parserDefinition.createElement(new MockASTNode(XQueryTokenType.INTEGER_LITERAL));
         } catch (AssertionError e) {
             thrown = true;
-            assertThat(e.getMessage(), is("Alien element type [INTEGER_LITERAL]. Can't create XQuery PsiElement for that."));
+            assertThat(e.getMessage(), is("Alien element type [XQUERY_INTEGER_LITERAL_TOKEN]. Can't create XQuery PsiElement for that."));
         } catch (Exception e) {
             // Unexpected exception.
         }
