@@ -29,16 +29,25 @@ public final class CharacterClass {
     public static final int HASH = 8;
     public static final int END_OF_BUFFER = -1;
 
+    private static final int APO = APOSTROPHE;
+    private static final int EOB = END_OF_BUFFER;
+    private static final int HSH = HASH;
+    private static final int LET = LETTER;
+    private static final int NUM = NUMBER;
+    private static final int QUO = QUOTE;
+    private static final int SMC = SEMICOLON;
+    private static final int WSP = WHITESPACE;
+
     private static final int mCharacterClasses[] = {
-        //////// x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 xA xB xC xD xE xF
-        /* 0x */ -1,0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0,
-        /* 1x */ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        /* 2x */ 1, 0, 4, 8, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 3, 0,
-        /* 3x */ 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 6, 0, 0, 0, 0,
-        /* 4x */ 0, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
-        /* 5x */ 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 0, 0, 0, 0, 0,
-        /* 6x */ 0, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
-        /* 7x */ 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 0, 0, 0, 0, 0,
+        //////// x0   x1   x2   x3   x4   x5   x6   x7   x8   x9   xA   xB   xC   xD   xE   xF
+        /* 0x */ EOB, 0,   0,   0,   0,   0,   0,   0,   0,   WSP, WSP, 0,   0,   WSP, 0,   0,
+        /* 1x */ 0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+        /* 2x */ WSP, 0,   QUO, HSH, 0,   0,   0,   APO, 0,   0,   0,   0,   0,   0,   DOT, 0,
+        /* 3x */ NUM, NUM, NUM, NUM, NUM, NUM, NUM, NUM, NUM, NUM, 0,   SMC, 0,   0,   0,   0,
+        /* 4x */ 0,   LET, LET, LET, LET, LET, LET, LET, LET, LET, LET, LET, LET, LET, LET, LET,
+        /* 5x */ LET, LET, LET, LET, LET, LET, LET, LET, LET, LET, LET, 0,   0,   0,   0,   0,
+        /* 6x */ 0,   LET, LET, LET, LET, LET, LET, LET, LET, LET, LET, LET, LET, LET, LET, LET,
+        /* 7x */ LET, LET, LET, LET, LET, LET, LET, LET, LET, LET, LET, 0,   0,   0,   0,   0,
     };
 
     public static int getCharClass(int c) {
