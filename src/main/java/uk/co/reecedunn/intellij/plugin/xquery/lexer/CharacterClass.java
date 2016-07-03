@@ -20,15 +20,16 @@ public final class CharacterClass {
     private static CharacterClass INSTANCE = new CharacterClass();
 
     public static final int INVALID = 0;
-    public static final int WHITESPACE = 1;
-    public static final int NUMBER = 2;
-    public static final int DOT = 3;
-    public static final int QUOTE = 4;
-    public static final int APOSTROPHE = 5;
-    public static final int SEMICOLON = 6;
-    public static final int LETTER = 7;
-    public static final int HASH = 8;
     public static final int END_OF_BUFFER = -1;
+    public static final int WHITESPACE = -2;
+    public static final int NUMBER = -3;
+    public static final int LETTER = -4;
+
+    public static final int DOT = 1;
+    public static final int QUOTE = 2;
+    public static final int APOSTROPHE = 3;
+    public static final int SEMICOLON = 4;
+    public static final int HASH = 5;
 
     private static final int APO = APOSTROPHE;
     private static final int EOB = END_OF_BUFFER;
