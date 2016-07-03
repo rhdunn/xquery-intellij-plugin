@@ -19,6 +19,7 @@ public final class CharacterClass {
     // The CharacterClass constructor is not used, but make sure code coverage reports it as covered.
     private static CharacterClass INSTANCE = new CharacterClass();
 
+    public static final int INVALID = 0;
     public static final int WHITESPACE = 1;
     public static final int NUMBER = 2;
     public static final int DOT = 3;
@@ -32,6 +33,7 @@ public final class CharacterClass {
     private static final int APO = APOSTROPHE;
     private static final int EOB = END_OF_BUFFER;
     private static final int HSH = HASH;
+    private static final int INV = INVALID;
     private static final int LET = LETTER;
     private static final int NUM = NUMBER;
     private static final int QUO = QUOTE;
@@ -40,20 +42,20 @@ public final class CharacterClass {
 
     private static final int mCharacterClasses[] = {
         //////// x0   x1   x2   x3   x4   x5   x6   x7   x8   x9   xA   xB   xC   xD   xE   xF
-        /* 0x */ EOB, 0,   0,   0,   0,   0,   0,   0,   0,   WSP, WSP, 0,   0,   WSP, 0,   0,
-        /* 1x */ 0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+        /* 0x */ EOB, INV, INV, INV, INV, INV, INV, INV, INV, WSP, WSP, INV, INV, WSP, INV, INV,
+        /* 1x */ INV, INV, INV, INV, INV, INV, INV, INV, INV, INV, INV, INV, INV, INV, INV, INV,
         /* 2x */ WSP, 0,   QUO, HSH, 0,   0,   0,   APO, 0,   0,   0,   0,   0,   0,   DOT, 0,
         /* 3x */ NUM, NUM, NUM, NUM, NUM, NUM, NUM, NUM, NUM, NUM, 0,   SMC, 0,   0,   0,   0,
         /* 4x */ 0,   LET, LET, LET, LET, LET, LET, LET, LET, LET, LET, LET, LET, LET, LET, LET,
         /* 5x */ LET, LET, LET, LET, LET, LET, LET, LET, LET, LET, LET, 0,   0,   0,   0,   0,
         /* 6x */ 0,   LET, LET, LET, LET, LET, LET, LET, LET, LET, LET, LET, LET, LET, LET, LET,
-        /* 7x */ LET, LET, LET, LET, LET, LET, LET, LET, LET, LET, LET, 0,   0,   0,   0,   0,
+        /* 7x */ LET, LET, LET, LET, LET, LET, LET, LET, LET, LET, LET, 0,   0,   0,   0,   INV,
     };
 
     public static int getCharClass(int c) {
         if (c < mCharacterClasses.length) {
             return mCharacterClasses[c];
         }
-        return 0;
+        return INVALID;
     }
 }
