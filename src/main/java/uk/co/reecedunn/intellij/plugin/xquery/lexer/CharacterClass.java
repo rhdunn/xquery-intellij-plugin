@@ -30,8 +30,10 @@ public final class CharacterClass {
     public static final int APOSTROPHE = 3;
     public static final int SEMICOLON = 4;
     public static final int HASH = 5;
+    public static final int COLON = 6;
 
     private static final int APO = APOSTROPHE;
+    private static final int CLN = COLON;
     private static final int DIG = DIGIT;
     private static final int EOB = END_OF_BUFFER;
     private static final int HSH = HASH;
@@ -46,17 +48,34 @@ public final class CharacterClass {
         /* 0x */ EOB, INV, INV, INV, INV, INV, INV, INV, INV, WSP, WSP, INV, INV, WSP, INV, INV,
         /* 1x */ INV, INV, INV, INV, INV, INV, INV, INV, INV, INV, INV, INV, INV, INV, INV, INV,
         /* 2x */ WSP, 0,   QUO, HSH, 0,   0,   0,   APO, 0,   0,   0,   0,   0,   0,   DOT, 0,
-        /* 3x */ DIG, DIG, DIG, DIG, DIG, DIG, DIG, DIG, DIG, DIG, 0,   SMC, 0,   0,   0,   0,
+        /* 3x */ DIG, DIG, DIG, DIG, DIG, DIG, DIG, DIG, DIG, DIG, CLN, SMC, 0,   0,   0,   0,
         /* 4x */ 0,   NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC,
-        /* 5x */ NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, 0,   0,   0,   0,   0,
+        /* 5x */ NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, 0,   0,   0,   0,   NSC,
         /* 6x */ 0,   NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC,
         /* 7x */ NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, 0,   0,   0,   0,   INV,
     };
 
     public static int getCharClass(int c) {
-        if (c < mCharacterClasses.length) {
+        if (c < mCharacterClasses.length)
             return mCharacterClasses[c];
-        }
+        if (c >= 0xC0 && c <= 0x2FF)
+            return (c == 0xD7 || c == 0xF7) ? INVALID : NAME_START_CHAR;
+        if (c >= 0x370 && c <= 0x1FFF)
+            return (c == 0x37E) ? INVALID : NAME_START_CHAR;
+        if (c == 0x200C || c == 0x200D)
+            return NAME_START_CHAR;
+        if (c >= 0x2070 && c <= 0x218F)
+            return NAME_START_CHAR;
+        if (c >= 0x2C00 && c <= 0x2FEF)
+            return NAME_START_CHAR;
+        if (c >= 0x3001 && c <= 0xD7FF)
+            return NAME_START_CHAR;
+        if (c >= 0xF900 && c <= 0xFDCF)
+            return NAME_START_CHAR;
+        if (c >= 0xFDF0 && c <= 0xFFFD)
+            return NAME_START_CHAR;
+        if (c >= 0x10000 && c <= 0xEFFFF)
+            return NAME_START_CHAR;
         return INVALID;
     }
 }
