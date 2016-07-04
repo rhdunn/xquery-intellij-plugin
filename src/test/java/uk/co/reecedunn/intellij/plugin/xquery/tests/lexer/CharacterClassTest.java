@@ -37,32 +37,9 @@ public class CharacterClassTest extends TestCase {
 
         // ASCII
 
-        assertThat(CharacterClass.getCharClass('!'), is(CharacterClass.CHAR));
-        assertThat(CharacterClass.getCharClass('$'), is(CharacterClass.CHAR));
-        assertThat(CharacterClass.getCharClass('%'), is(CharacterClass.CHAR));
-        assertThat(CharacterClass.getCharClass('&'), is(CharacterClass.CHAR));
-        assertThat(CharacterClass.getCharClass('*'), is(CharacterClass.CHAR));
-        assertThat(CharacterClass.getCharClass('+'), is(CharacterClass.CHAR));
-        assertThat(CharacterClass.getCharClass(','), is(CharacterClass.CHAR));
-        assertThat(CharacterClass.getCharClass('/'), is(CharacterClass.CHAR));
-
-        assertThat(CharacterClass.getCharClass('<'), is(CharacterClass.CHAR));
-        assertThat(CharacterClass.getCharClass('='), is(CharacterClass.CHAR));
-        assertThat(CharacterClass.getCharClass('>'), is(CharacterClass.CHAR));
-        assertThat(CharacterClass.getCharClass('?'), is(CharacterClass.CHAR));
-
-        assertThat(CharacterClass.getCharClass('@'), is(CharacterClass.CHAR));
-
-        assertThat(CharacterClass.getCharClass('['), is(CharacterClass.CHAR));
         assertThat(CharacterClass.getCharClass('\\'), is(CharacterClass.CHAR));
-        assertThat(CharacterClass.getCharClass(']'), is(CharacterClass.CHAR));
         assertThat(CharacterClass.getCharClass('^'), is(CharacterClass.CHAR));
-
         assertThat(CharacterClass.getCharClass('`'), is(CharacterClass.CHAR));
-
-        assertThat(CharacterClass.getCharClass('{'), is(CharacterClass.CHAR));
-        assertThat(CharacterClass.getCharClass('|'), is(CharacterClass.CHAR));
-        assertThat(CharacterClass.getCharClass('}'), is(CharacterClass.CHAR));
         assertThat(CharacterClass.getCharClass('~'), is(CharacterClass.CHAR));
 
         // Excludes the surrogate blocks [0xD800-0xDFFF]
@@ -307,5 +284,77 @@ public class CharacterClassTest extends TestCase {
 
     public void testParenthesisClose() {
         assertThat(CharacterClass.getCharClass(')'), is(CharacterClass.PARENTHESIS_CLOSE));
+    }
+
+    public void testExclamationMark() {
+        assertThat(CharacterClass.getCharClass('!'), is(CharacterClass.EXCLAMATION_MARK));
+    }
+
+    public void testEqual() {
+        assertThat(CharacterClass.getCharClass('='), is(CharacterClass.EQUAL));
+    }
+
+    public void testDollar() {
+        assertThat(CharacterClass.getCharClass('$'), is(CharacterClass.DOLLAR));
+    }
+
+    public void testAsterisk() {
+        assertThat(CharacterClass.getCharClass('*'), is(CharacterClass.ASTERISK));
+    }
+
+    public void testPlus() {
+        assertThat(CharacterClass.getCharClass('+'), is(CharacterClass.PLUS));
+    }
+
+    public void testLessThan() {
+        assertThat(CharacterClass.getCharClass('<'), is(CharacterClass.LESS_THAN));
+    }
+
+    public void testGreaterThan() {
+        assertThat(CharacterClass.getCharClass('>'), is(CharacterClass.GREATER_THAN));
+    }
+
+    public void testComma() {
+        assertThat(CharacterClass.getCharClass(','), is(CharacterClass.COMMA));
+    }
+
+    public void testCurlyBraceOpen() {
+        assertThat(CharacterClass.getCharClass('{'), is(CharacterClass.CURLY_BRACE_OPEN));
+    }
+
+    public void testCurlyBraceClose() {
+        assertThat(CharacterClass.getCharClass('}'), is(CharacterClass.CURLY_BRACE_CLOSE));
+    }
+
+    public void testQuestionMark() {
+        assertThat(CharacterClass.getCharClass('?'), is(CharacterClass.QUESTION_MARK));
+    }
+
+    public void testForwardSlash() {
+        assertThat(CharacterClass.getCharClass('/'), is(CharacterClass.FORWARD_SLASH));
+    }
+
+    public void testAtSign() {
+        assertThat(CharacterClass.getCharClass('@'), is(CharacterClass.AT_SIGN));
+    }
+
+    public void testSquareBraceOpen() {
+        assertThat(CharacterClass.getCharClass('['), is(CharacterClass.SQUARE_BRACE_OPEN));
+    }
+
+    public void testSquareBraceClose() {
+        assertThat(CharacterClass.getCharClass(']'), is(CharacterClass.SQUARE_BRACE_CLOSE));
+    }
+
+    public void testVerticalBar() {
+        assertThat(CharacterClass.getCharClass('|'), is(CharacterClass.VERTICAL_BAR));
+    }
+
+    public void testPercent() {
+        assertThat(CharacterClass.getCharClass('%'), is(CharacterClass.PERCENT));
+    }
+
+    public void testAmpersand() {
+        assertThat(CharacterClass.getCharClass('&'), is(CharacterClass.AMPERSAND));
     }
 }

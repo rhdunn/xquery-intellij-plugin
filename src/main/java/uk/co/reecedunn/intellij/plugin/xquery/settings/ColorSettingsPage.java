@@ -55,7 +55,7 @@ public class ColorSettingsPage implements com.intellij.openapi.options.colors.Co
         return
             "(: Comment :)\n" +
             "(1234, \"One \"\" Two &quot; Three\", value)\n" +
-            "%%~";
+            "~~~";
     }
 
     @Nullable

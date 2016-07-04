@@ -124,6 +124,21 @@ public class XQueryLexer extends LexerBase {
                 mType = XQueryTokenType.WHITE_SPACE;
                 break;
             case CharacterClass.DOT:
+                mTokenRange.save();
+                mTokenRange.match();
+                cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
+                if (cc == CharacterClass.DOT) {
+                    mTokenRange.match();
+                    mType = XQueryTokenType.PARENT_SELECTOR;
+                    break;
+                } else if (cc != CharacterClass.DIGIT) {
+                    mType = XQueryTokenType.DOT;
+                    break;
+                } else {
+                    mTokenRange.restore();
+                    cc = CharacterClass.DOT;
+                    // Fall Through
+                }
             case CharacterClass.DIGIT:
                 mTokenRange.match();
                 while (CharacterClass.getCharClass(mTokenRange.getCodePoint()) == CharacterClass.DIGIT)
@@ -180,21 +195,169 @@ public class XQueryLexer extends LexerBase {
                 break;
             case CharacterClass.PARENTHESIS_OPEN:
                 mTokenRange.match();
-                if (mTokenRange.getCodePoint() == ':') {
+                c = mTokenRange.getCodePoint();
+                if (c == ':') {
                     mTokenRange.match();
                     matchComment();
+                } else if (c == '#') {
+                    mTokenRange.match();
+                    mType = XQueryTokenType.PRAGMA_BEGIN;
                 } else {
-                    mType = XQueryTokenType.BAD_CHARACTER;
+                    mType = XQueryTokenType.PARENTHESIS_OPEN;
                 }
+                break;
+            case CharacterClass.PARENTHESIS_CLOSE:
+                mTokenRange.match();
+                mType = XQueryTokenType.PARENTHESIS_CLOSE;
                 break;
             case CharacterClass.COLON:
                 mTokenRange.match();
-                if (mTokenRange.getCodePoint() == ')') {
+                c = mTokenRange.getCodePoint();
+                if (c == ')') {
                     mTokenRange.match();
                     mType = XQueryTokenType.COMMENT_END_TAG;
+                } else if (c == ':') {
+                    mTokenRange.match();
+                    mType = XQueryTokenType.AXIS_SEPARATOR;
+                } else if (c == '=') {
+                    mTokenRange.match();
+                    mType = XQueryTokenType.ASSIGN_EQUAL;
                 } else {
-                    mType = XQueryTokenType.BAD_CHARACTER;
+                    mType = XQueryTokenType.QNAME_SEPARATOR;
                 }
+                break;
+            case CharacterClass.HASH:
+                mTokenRange.match();
+                if (mTokenRange.getCodePoint() == ')') {
+                    mTokenRange.match();
+                    mType = XQueryTokenType.PRAGMA_END;
+                } else {
+                    mType = XQueryTokenType.FUNCTION_REF_OPERATOR;
+                }
+                break;
+            case CharacterClass.EXCLAMATION_MARK:
+                mTokenRange.match();
+                if (mTokenRange.getCodePoint() == '=') {
+                    mTokenRange.match();
+                    mType = XQueryTokenType.NOT_EQUAL;
+                } else {
+                    mType = XQueryTokenType.MAP_OPERATOR; // XQuery 3.0
+                }
+                break;
+            case CharacterClass.DOLLAR:
+                mTokenRange.match();
+                mType = XQueryTokenType.VARIABLE_INDICATOR;
+                break;
+            case CharacterClass.ASTERISK:
+                mTokenRange.match();
+                mType = XQueryTokenType.STAR;
+                break;
+            case CharacterClass.PLUS:
+                mTokenRange.match();
+                mType = XQueryTokenType.PLUS;
+                break;
+            case CharacterClass.COMMA:
+                mTokenRange.match();
+                mType = XQueryTokenType.COMMA;
+                break;
+            case CharacterClass.HYPHEN_MINUS:
+                mTokenRange.match();
+                mType = XQueryTokenType.MINUS;
+                break;
+            case CharacterClass.SEMICOLON:
+                mTokenRange.match();
+                mType = XQueryTokenType.SEMICOLON;
+                break;
+            case CharacterClass.LESS_THAN:
+                mTokenRange.match();
+                c = mTokenRange.getCodePoint();
+                if (c == '/') {
+                    mTokenRange.match();
+                    mType = XQueryTokenType.CLOSE_XML_TAG;
+                } else if (c == '<') {
+                    mTokenRange.match();
+                    mType = XQueryTokenType.NODE_BEFORE;
+                } else if (c == '=') {
+                    mTokenRange.match();
+                    mType = XQueryTokenType.LESS_THAN_OR_EQUAL;
+                } else if (c == '?') {
+                    mTokenRange.match();
+                    mType = XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN;
+                } else {
+                    mType = XQueryTokenType.LESS_THAN;
+                }
+                break;
+            case CharacterClass.GREATER_THAN:
+                mTokenRange.match();
+                c = mTokenRange.getCodePoint();
+                if (c == '>') {
+                    mTokenRange.match();
+                    mType = XQueryTokenType.NODE_AFTER;
+                } else if (c == '=') {
+                    mTokenRange.match();
+                    mType = XQueryTokenType.GREATER_THAN_OR_EQUAL;
+                } else {
+                    mType = XQueryTokenType.GREATER_THAN;
+                }
+                break;
+            case CharacterClass.EQUAL:
+                mTokenRange.match();
+                mType = XQueryTokenType.EQUAL;
+                break;
+            case CharacterClass.CURLY_BRACE_OPEN:
+                mTokenRange.match();
+                mType = XQueryTokenType.BLOCK_OPEN;
+                break;
+            case CharacterClass.CURLY_BRACE_CLOSE:
+                mTokenRange.match();
+                mType = XQueryTokenType.BLOCK_CLOSE;
+                break;
+            case CharacterClass.VERTICAL_BAR:
+                mTokenRange.match();
+                mType = XQueryTokenType.UNION;
+                break;
+            case CharacterClass.FORWARD_SLASH:
+                mTokenRange.match();
+                c = mTokenRange.getCodePoint();
+                if (c == '/') {
+                    mTokenRange.match();
+                    mType = XQueryTokenType.ALL_DESCENDANTS_PATH;
+                } else if (c == '>') {
+                    mTokenRange.match();
+                    mType = XQueryTokenType.SELF_CLOSING_XML_TAG;
+                } else {
+                    mType = XQueryTokenType.DIRECT_DESCENDANTS_PATH;
+                }
+                break;
+            case CharacterClass.AT_SIGN:
+                mTokenRange.match();
+                mType = XQueryTokenType.ATTRIBUTE_SELECTOR;
+                break;
+            case CharacterClass.SQUARE_BRACE_OPEN:
+                mTokenRange.match();
+                mType = XQueryTokenType.PREDICATE_BEGIN;
+                break;
+            case CharacterClass.SQUARE_BRACE_CLOSE:
+                mTokenRange.match();
+                mType = XQueryTokenType.PREDICATE_END;
+                break;
+            case CharacterClass.QUESTION_MARK:
+                mTokenRange.match();
+                c = mTokenRange.getCodePoint();
+                if (c == '>') {
+                    mTokenRange.match();
+                    mType = XQueryTokenType.PROCESSING_INSTRUCTION_END;
+                } else {
+                    mType = XQueryTokenType.QUESTION;
+                }
+                break;
+            case CharacterClass.PERCENT:
+                mTokenRange.match();
+                mType = XQueryTokenType.ANNOTATION_INDICATOR;
+                break;
+            case CharacterClass.AMPERSAND:
+                mTokenRange.match();
+                mType = XQueryTokenType.ENTITY_REFERENCE_NOT_IN_STRING;
                 break;
             default:
                 mTokenRange.match();

@@ -36,32 +36,68 @@ public final class CharacterClass {
     public static final int HYPHEN_MINUS = 7;
     public static final int PARENTHESIS_OPEN = 8;
     public static final int PARENTHESIS_CLOSE = 9;
+    public static final int EXCLAMATION_MARK = 10;
+    public static final int EQUAL = 11;
+    public static final int DOLLAR = 12;
+    public static final int ASTERISK = 13;
+    public static final int PLUS = 14;
+    public static final int LESS_THAN = 15;
+    public static final int COMMA = 16;
+    public static final int CURLY_BRACE_OPEN = 17;
+    public static final int CURLY_BRACE_CLOSE = 18;
+    public static final int GREATER_THAN = 19;
+    public static final int VERTICAL_BAR = 20;
+    public static final int QUESTION_MARK = 21;
+    public static final int FORWARD_SLASH = 22;
+    public static final int AT_SIGN = 23;
+    public static final int SQUARE_BRACE_OPEN = 24;
+    public static final int SQUARE_BRACE_CLOSE = 25;
+    public static final int PERCENT = 26;
+    public static final int AMPERSAND = 27;
 
+    private static final int AMP = AMPERSAND;
     private static final int APO = APOSTROPHE;
+    private static final int AST = ASTERISK;
+    private static final int ATS = AT_SIGN;
+    private static final int CBC = CURLY_BRACE_CLOSE;
+    private static final int CBO = CURLY_BRACE_OPEN;
     private static final int CHR = CHAR;
     private static final int CLN = COLON;
+    private static final int COM = COMMA;
     private static final int DIG = DIGIT;
+    private static final int DOL = DOLLAR;
     private static final int EOB = END_OF_BUFFER;
+    private static final int EQL = EQUAL;
+    private static final int EMK = EXCLAMATION_MARK;
+    private static final int FSL = FORWARD_SLASH;
+    private static final int GTN = GREATER_THAN;
     private static final int HSH = HASH;
     private static final int INV = INVALID;
+    private static final int LTN = LESS_THAN;
     private static final int MIN = HYPHEN_MINUS;
     private static final int NSC = NAME_START_CHAR;
+    private static final int PCT = PERCENT;
+    private static final int PLS = PLUS;
     private static final int PNC = PARENTHESIS_CLOSE;
     private static final int PNO = PARENTHESIS_OPEN;
+    private static final int QMK = QUESTION_MARK;
     private static final int QUO = QUOTE;
+    private static final int SBC = SQUARE_BRACE_CLOSE;
+    private static final int SBO = SQUARE_BRACE_OPEN;
     private static final int SMC = SEMICOLON;
+    private static final int VTB = VERTICAL_BAR;
     private static final int WSP = WHITESPACE;
 
     private static final int mCharacterClasses[] = {
         //////// x0   x1   x2   x3   x4   x5   x6   x7   x8   x9   xA   xB   xC   xD   xE   xF
         /* 0x */ EOB, INV, INV, INV, INV, INV, INV, INV, INV, WSP, WSP, INV, INV, WSP, INV, INV,
         /* 1x */ INV, INV, INV, INV, INV, INV, INV, INV, INV, INV, INV, INV, INV, INV, INV, INV,
-        /* 2x */ WSP, CHR, QUO, HSH, CHR, CHR, CHR, APO, PNO, PNC, CHR, CHR, CHR, MIN, DOT, CHR,
-        /* 3x */ DIG, DIG, DIG, DIG, DIG, DIG, DIG, DIG, DIG, DIG, CLN, SMC, CHR, CHR, CHR, CHR,
-        /* 4x */ CHR, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC,
-        /* 5x */ NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, CHR, CHR, CHR, CHR, NSC,
+        /* 2x */ WSP, EMK, QUO, HSH, DOL, PCT, AMP, APO, PNO, PNC, AST, PLS, COM, MIN, DOT, FSL,
+        /* 3x */ DIG, DIG, DIG, DIG, DIG, DIG, DIG, DIG, DIG, DIG, CLN, SMC, LTN, EQL, GTN, QMK,
+        /* 4x */ ATS, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC,
+        /* 5x */ NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, SBO, CHR, SBC, CHR, NSC,
         /* 6x */ CHR, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC,
-        /* 7x */ NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, CHR, CHR, CHR, CHR, INV,
+        /* 7x */ NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, CBO, VTB, CBC, CHR, INV,
     };
 
     public static int getCharClass(int c) {
