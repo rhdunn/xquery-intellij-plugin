@@ -70,7 +70,9 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
         } else if (type == XQueryTokenType.NCNAME) {
             return IDENTIFIER_KEYS;
         } else if (type == XQueryTokenType.COMMENT ||
-                   type == XQueryTokenType.PARTIAL_COMMENT) {
+                   type == XQueryTokenType.PARTIAL_COMMENT ||
+                   type == XQueryTokenType.XML_COMMENT ||
+                   type == XQueryTokenType.PARTIAL_XML_COMMENT) {
             return COMMENT_KEYS;
         }
         return EMPTY;

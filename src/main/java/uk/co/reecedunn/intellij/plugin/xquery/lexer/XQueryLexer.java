@@ -113,6 +113,26 @@ public class XQueryLexer extends LexerBase {
         }
     }
 
+    private void matchXmlComment() {
+        while (true) {
+            int c = mTokenRange.getCodePoint();
+            mTokenRange.match();
+            if (c == '\0') {
+                mType = XQueryTokenType.PARTIAL_XML_COMMENT;
+                return;
+            } else if (c == '-') {
+                if (mTokenRange.getCodePoint() == '-') {
+                    mTokenRange.match();
+                    if (mTokenRange.getCodePoint() == '>') {
+                        mTokenRange.match();
+                        mType = XQueryTokenType.XML_COMMENT;
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
     private void stateDefault() {
         int cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
         int c;
@@ -262,7 +282,19 @@ public class XQueryLexer extends LexerBase {
                 break;
             case CharacterClass.HYPHEN_MINUS:
                 mTokenRange.match();
-                mType = XQueryTokenType.MINUS;
+                c = mTokenRange.getCodePoint();
+                if (c == '-') {
+                    mTokenRange.match();
+                    if (mTokenRange.getCodePoint() == '>') {
+                        mTokenRange.match();
+                        mType = XQueryTokenType.XML_COMMENT_END_TAG;
+                    } else {
+                        mTokenRange.match();
+                        mType = XQueryTokenType.MINUS_MINUS;
+                    }
+                } else {
+                    mType = XQueryTokenType.MINUS;
+                }
                 break;
             case CharacterClass.SEMICOLON:
                 mTokenRange.match();
@@ -283,6 +315,19 @@ public class XQueryLexer extends LexerBase {
                 } else if (c == '?') {
                     mTokenRange.match();
                     mType = XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN;
+                } else if (c == '!') {
+                    mTokenRange.match();
+                    if (mTokenRange.getCodePoint() == '-') {
+                        mTokenRange.match();
+                        if (mTokenRange.getCodePoint() == '-') {
+                            mTokenRange.match();
+                            matchXmlComment();
+                        } else {
+                            mType = XQueryTokenType.INCOMPLETE_XML_COMMENT_START_TAG;
+                        }
+                    } else {
+                        mType = XQueryTokenType.INCOMPLETE_XML_COMMENT_START_TAG;
+                    }
                 } else {
                     mType = XQueryTokenType.LESS_THAN;
                 }

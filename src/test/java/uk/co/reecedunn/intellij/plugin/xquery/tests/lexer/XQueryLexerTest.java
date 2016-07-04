@@ -475,6 +475,47 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "",                      0, 30, 30, null);
     }
 
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirCommentConstructor")
+    public void testDirCommentConstructor() {
+        Lexer lexer = new XQueryLexer();
+
+        lexer.start("<!");
+        matchToken(lexer, "<!", 0, 0, 2, XQueryTokenType.INCOMPLETE_XML_COMMENT_START_TAG);
+        matchToken(lexer, "",   0, 2, 2, null);
+
+        lexer.start("<!-");
+        matchToken(lexer, "<!-", 0, 0, 3, XQueryTokenType.INCOMPLETE_XML_COMMENT_START_TAG);
+        matchToken(lexer, "",    0, 3, 3, null);
+
+        lexer.start("<!--");
+        matchToken(lexer, "<!--", 0, 0, 4, XQueryTokenType.PARTIAL_XML_COMMENT);
+        matchToken(lexer, "",     0, 4, 4, null);
+
+        lexer.start("<!-- Test");
+        matchToken(lexer, "<!-- Test", 0, 0, 9, XQueryTokenType.PARTIAL_XML_COMMENT);
+        matchToken(lexer, "",          0, 9, 9, null);
+
+        lexer.start("<!-- Test --");
+        matchToken(lexer, "<!-- Test --", 0,  0, 12, XQueryTokenType.PARTIAL_XML_COMMENT);
+        matchToken(lexer, "",             0, 12, 12, null);
+
+        lexer.start("<!-- Test -->");
+        matchToken(lexer, "<!-- Test -->", 0,  0, 13, XQueryTokenType.XML_COMMENT);
+        matchToken(lexer, "",              0, 13, 13, null);
+
+        lexer.start("<!--\nMultiline\nComment\n-->");
+        matchToken(lexer, "<!--\nMultiline\nComment\n-->", 0,  0, 26, XQueryTokenType.XML_COMMENT);
+        matchToken(lexer, "",                              0, 26, 26, null);
+
+        lexer.start("--");
+        matchToken(lexer, "--", 0, 0, 2, XQueryTokenType.MINUS_MINUS);
+        matchToken(lexer, "",   0, 2, 2, null);
+
+        lexer.start("-->");
+        matchToken(lexer, "-->", 0, 0, 3, XQueryTokenType.XML_COMMENT_END_TAG);
+        matchToken(lexer, "",    0, 3, 3, null);
+    }
+
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#id-terminal-delimitation")
     public void testDelimitingTerminalSymbols() {
         Lexer lexer = new XQueryLexer();

@@ -25,6 +25,12 @@ public interface XQueryTokenType extends TokenType {
     IElementType COMMENT_END_TAG = new IElementType("XQUERY_COMMENT_END_TAG_TOKEN", XQuery.INSTANCE);
     IElementType PARTIAL_COMMENT = new IElementType("XQUERY_PARTIAL_COMMENT_TOKEN", XQuery.INSTANCE);
 
+    IElementType XML_COMMENT = new IElementType("XQUERY_XML_COMMENT_TOKEN", XQuery.INSTANCE);
+    IElementType INCOMPLETE_XML_COMMENT_START_TAG = new IElementType("XQUERY_INCOMPLETE_XML_COMMENT_START_TAG_TOKEN", XQuery.INSTANCE);
+    IElementType XML_COMMENT_END_TAG = new IElementType("XQUERY_XML_COMMENT_END_TAG_TOKEN", XQuery.INSTANCE);
+    IElementType PARTIAL_XML_COMMENT = new IElementType("XQUERY_XML_PARTIAL_COMMENT_TOKEN", XQuery.INSTANCE);
+    IElementType MINUS_MINUS = new IElementType("XQUERY_MINUS_MINUS_TOKEN", XQuery.INSTANCE); // Invalid (Partial) XML Close Tag
+
     IElementType INTEGER_LITERAL = new IElementType("XQUERY_INTEGER_LITERAL_TOKEN", XQuery.INSTANCE);
     IElementType DECIMAL_LITERAL = new IElementType("XQUERY_DECIMAL_LITERAL_TOKEN", XQuery.INSTANCE);
     IElementType DOUBLE_LITERAL = new IElementType("XQUERY_DOUBLE_LITERAL_TOKEN", XQuery.INSTANCE);
@@ -84,7 +90,7 @@ public interface XQueryTokenType extends TokenType {
     IElementType ANNOTATION_INDICATOR = new IElementType("XQUERY_ANNOTATION_INDICATOR_TOKEN", XQuery.INSTANCE); // XQuery 3.0
 
     TokenSet WHITESPACE_TOKENS = TokenSet.create(WHITE_SPACE);
-    TokenSet COMMENT_TOKENS = TokenSet.create(COMMENT, PARTIAL_COMMENT);
+    TokenSet COMMENT_TOKENS = TokenSet.create(COMMENT, PARTIAL_COMMENT, XML_COMMENT, PARTIAL_XML_COMMENT);
     TokenSet STRING_LITERAL_TOKENS = TokenSet.create(
         STRING_LITERAL_START,
         STRING_LITERAL_CONTENTS,
