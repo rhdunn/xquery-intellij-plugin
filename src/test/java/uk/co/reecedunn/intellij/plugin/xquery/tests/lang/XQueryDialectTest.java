@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.lang;
 
 import junit.framework.TestCase;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryDialect;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVendor;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -46,6 +47,18 @@ public class XQueryDialectTest extends TestCase {
         assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_6.getLanguageVersion(), is(XQueryVersion.XQUERY_1_0_MARKLOGIC));
         assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_7.getLanguageVersion(), is(XQueryVersion.XQUERY_1_0_MARKLOGIC));
         assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_8.getLanguageVersion(), is(XQueryVersion.XQUERY_1_0_MARKLOGIC));
+    }
+
+    public void testVendor() {
+        assertThat(XQueryDialect.XQUERY_1_0_W3C.getVendor(), is(XQueryVendor.W3C));
+        assertThat(XQueryDialect.XQUERY_3_0_W3C.getVendor(), is(XQueryVendor.W3C));
+        assertThat(XQueryDialect.XQUERY_3_1_W3C.getVendor(), is(XQueryVendor.W3C));
+
+        assertThat(XQueryDialect.XQUERY_0_9_MARKLOGIC_3_2.getVendor(), is(XQueryVendor.MARKLOGIC));
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_5.getVendor(), is(XQueryVendor.MARKLOGIC));
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_6.getVendor(), is(XQueryVendor.MARKLOGIC));
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_7.getVendor(), is(XQueryVendor.MARKLOGIC));
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_8.getVendor(), is(XQueryVendor.MARKLOGIC));
     }
 
     public void testDescription() {
