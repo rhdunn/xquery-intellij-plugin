@@ -30,7 +30,7 @@ public class XQueryImplementationTest extends TestCase {
     }
 
     public void testName() {
-        assertThat(XQueryImplementation.W3C.getName(), is("W3C Standard"));
+        assertThat(XQueryImplementation.W3C.getName(), is("W3C Specification"));
         assertThat(XQueryImplementation.MARKLOGIC.getName(), is("MarkLogic"));
     }
 
