@@ -78,8 +78,9 @@ public class XQueryPropertiesUI {
             }
         });
 
-        mImplementation.addItem(XQueryImplementation.W3C);
-        mImplementation.addItem(XQueryImplementation.MARKLOGIC);
+        for (XQueryImplementation implementation : XQueryImplementation.values()) {
+            mImplementation.addItem(implementation);
+        }
 
         mDialect1_0 = new JComboBox<>();
         mDialect1_0.setRenderer((list, value, index, isSelected, cellHasFocus) -> new JLabel(value.getName()));
