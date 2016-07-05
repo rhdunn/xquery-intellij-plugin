@@ -28,30 +28,60 @@ public class XQueryDialectTest extends TestCase {
         assertThat(XQueryDialect.XQUERY_1_0_W3C.getName(), is("1.0/W3C"));
         assertThat(XQueryDialect.XQUERY_3_0_W3C.getName(), is("3.0/W3C"));
         assertThat(XQueryDialect.XQUERY_3_1_W3C.getName(), is("3.1/W3C"));
+
+        assertThat(XQueryDialect.XQUERY_0_9_MARKLOGIC_3_2.getName(), is("0.9-ml/3.2"));
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_5.getName(), is("1.0-ml/5"));
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_6.getName(), is("1.0-ml/6"));
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_7.getName(), is("1.0-ml/7"));
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_8.getName(), is("1.0-ml/8"));
     }
 
     public void testLanguageVersion() {
         assertThat(XQueryDialect.XQUERY_1_0_W3C.getLanguageVersion(), is(XQueryVersion.XQUERY_1_0));
         assertThat(XQueryDialect.XQUERY_3_0_W3C.getLanguageVersion(), is(XQueryVersion.XQUERY_3_0));
         assertThat(XQueryDialect.XQUERY_3_1_W3C.getLanguageVersion(), is(XQueryVersion.XQUERY_3_1));
+
+        assertThat(XQueryDialect.XQUERY_0_9_MARKLOGIC_3_2.getLanguageVersion(), is(XQueryVersion.XQUERY_0_9_MARKLOGIC));
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_5.getLanguageVersion(), is(XQueryVersion.XQUERY_1_0_MARKLOGIC));
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_6.getLanguageVersion(), is(XQueryVersion.XQUERY_1_0_MARKLOGIC));
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_7.getLanguageVersion(), is(XQueryVersion.XQUERY_1_0_MARKLOGIC));
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_8.getLanguageVersion(), is(XQueryVersion.XQUERY_1_0_MARKLOGIC));
     }
 
     public void testDescription() {
         assertThat(XQueryDialect.XQUERY_1_0_W3C.getDescription(), is("XQuery 1.0 (W3C Recommendation 23 January 2007)"));
         assertThat(XQueryDialect.XQUERY_3_0_W3C.getDescription(), is("XQuery 3.0 (W3C Recommendation 08 April 2014)"));
         assertThat(XQueryDialect.XQUERY_3_1_W3C.getDescription(), is("XQuery 3.1 (W3C Candidate Recommendation 17 December 2015)"));
+
+        assertThat(XQueryDialect.XQUERY_0_9_MARKLOGIC_3_2.getDescription(), is("MarkLogic 3.2"));
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_5.getDescription(), is("MarkLogic 5"));
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_6.getDescription(), is("MarkLogic 6"));
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_7.getDescription(), is("MarkLogic 7"));
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_8.getDescription(), is("MarkLogic 8"));
     }
 
     public void testReference() {
         assertThat(XQueryDialect.XQUERY_1_0_W3C.getReference(), is("https://www.w3.org/TR/2007/REC-xquery-20070123/"));
         assertThat(XQueryDialect.XQUERY_3_0_W3C.getReference(), is("https://www.w3.org/TR/2014/REC-xquery-30-20140408/"));
         assertThat(XQueryDialect.XQUERY_3_1_W3C.getReference(), is("https://www.w3.org/TR/2015/CR-xquery-31-20151217/"));
+
+        assertThat(XQueryDialect.XQUERY_0_9_MARKLOGIC_3_2.getReference(), is("https://docs.marklogic.com/guide/xquery/dialects#id_65735"));
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_5.getReference(), is("https://docs.marklogic.com/5.0/guide/xquery/dialects"));
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_6.getReference(), is("https://docs.marklogic.com/6.0/guide/xquery/dialects"));
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_7.getReference(), is("https://docs.marklogic.com/7.0/guide/xquery/dialects"));
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_8.getReference(), is("https://docs.marklogic.com/8.0/guide/xquery/dialects"));
     }
 
     public void testToString() {
         assertThat(XQueryDialect.XQUERY_1_0_W3C.toString(), is("1.0/W3C"));
         assertThat(XQueryDialect.XQUERY_3_0_W3C.toString(), is("3.0/W3C"));
         assertThat(XQueryDialect.XQUERY_3_1_W3C.toString(), is("3.1/W3C"));
+
+        assertThat(XQueryDialect.XQUERY_0_9_MARKLOGIC_3_2.toString(), is("0.9-ml/3.2"));
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_5.toString(), is("1.0-ml/5"));
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_6.toString(), is("1.0-ml/6"));
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_7.toString(), is("1.0-ml/7"));
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_8.toString(), is("1.0-ml/8"));
     }
 
     public void testParse() {
@@ -61,6 +91,12 @@ public class XQueryDialectTest extends TestCase {
         assertThat(XQueryDialect.parse("3.0/W3C"), is(XQueryDialect.XQUERY_3_0_W3C));
         assertThat(XQueryDialect.parse("3.1/W3C"), is(XQueryDialect.XQUERY_3_1_W3C));
 
+        assertThat(XQueryDialect.parse("0.9-ml/3.2"), is(XQueryDialect.XQUERY_0_9_MARKLOGIC_3_2));
+        assertThat(XQueryDialect.parse("1.0-ml/5"), is(XQueryDialect.XQUERY_1_0_MARKLOGIC_5));
+        assertThat(XQueryDialect.parse("1.0-ml/6"), is(XQueryDialect.XQUERY_1_0_MARKLOGIC_6));
+        assertThat(XQueryDialect.parse("1.0-ml/7"), is(XQueryDialect.XQUERY_1_0_MARKLOGIC_7));
+        assertThat(XQueryDialect.parse("1.0-ml/8"), is(XQueryDialect.XQUERY_1_0_MARKLOGIC_8));
+
         assertThat(XQueryDialect.parse("0.9"), is(nullValue()));
         assertThat(XQueryDialect.parse("1.0"), is(nullValue()));
         assertThat(XQueryDialect.parse("1.1"), is(nullValue()));
@@ -68,6 +104,8 @@ public class XQueryDialectTest extends TestCase {
         assertThat(XQueryDialect.parse("3.0"), is(nullValue()));
         assertThat(XQueryDialect.parse("3.1"), is(nullValue()));
 
+        assertThat(XQueryDialect.parse("1.0-ml/6.2"), is(nullValue()));
+        assertThat(XQueryDialect.parse("1.1-ml/7"), is(nullValue()));
         assertThat(XQueryDialect.parse("1.0-und"), is(nullValue()));
         assertThat(XQueryDialect.parse("2.0/W3C"), is(nullValue()));
     }
