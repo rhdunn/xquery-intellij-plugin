@@ -21,6 +21,7 @@ import com.intellij.openapi.project.Project;
 import com.intellij.util.xmlb.XmlSerializerUtil;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.XQueryBundle;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryDialect;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryImplementation;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 
@@ -33,6 +34,10 @@ import java.io.File;
 public class XQueryProjectSettings implements PersistentStateComponent<XQueryProjectSettings>, ExportableComponent {
     private XQueryImplementation XQUERY_IMPLEMENTATION = XQueryImplementation.W3C;
     private XQueryVersion XQUERY_VERSION = XQueryVersion.XQUERY_3_0;
+    private XQueryDialect XQUERY_1_0_DIALECT = XQueryDialect.XQUERY_1_0_W3C;
+    private XQueryDialect XQUERY_3_0_DIALECT = XQueryDialect.XQUERY_3_0_W3C;
+    private XQueryDialect XQUERY_3_1_DIALECT = XQueryDialect.XQUERY_3_1_W3C;
+    private XQueryDialect XQUERY_MARKLOGIC_DIALECT = XQueryDialect.XQUERY_1_0_MARKLOGIC_8;
 
     public static XQueryProjectSettings getInstance(@NotNull Project project) {
         return ServiceManager.getService(project, XQueryProjectSettings.class);
@@ -73,5 +78,21 @@ public class XQueryProjectSettings implements PersistentStateComponent<XQueryPro
 
     public void setXQueryVersion(XQueryVersion version) {
         XQUERY_VERSION = version;
+    }
+
+    public XQueryDialect getXQueryDialectForVersion(XQueryVersion version) {
+        if (version == XQueryVersion.XQUERY_0_9_MARKLOGIC) return XQueryDialect.XQUERY_0_9_MARKLOGIC_3_2; // No other dialect.
+        if (version == XQueryVersion.XQUERY_1_0) return XQUERY_1_0_DIALECT;
+        if (version == XQueryVersion.XQUERY_1_0_MARKLOGIC) return XQUERY_MARKLOGIC_DIALECT;
+        if (version == XQueryVersion.XQUERY_3_0) return XQUERY_3_0_DIALECT;
+        if (version == XQueryVersion.XQUERY_3_1) return XQUERY_3_1_DIALECT;
+        throw new AssertionError("Unknown XQuery version: " + version);
+    }
+
+    public void setXQueryDialectForVersion(XQueryVersion version, XQueryDialect dialect) {
+        if (version == XQueryVersion.XQUERY_1_0) XQUERY_1_0_DIALECT = dialect;
+        if (version == XQueryVersion.XQUERY_1_0_MARKLOGIC) XQUERY_MARKLOGIC_DIALECT = dialect;
+        if (version == XQueryVersion.XQUERY_3_0) XQUERY_3_0_DIALECT = dialect;
+        if (version == XQueryVersion.XQUERY_3_1) XQUERY_3_1_DIALECT = dialect;
     }
 }
