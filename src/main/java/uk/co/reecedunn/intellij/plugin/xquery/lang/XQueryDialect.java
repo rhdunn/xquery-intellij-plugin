@@ -33,17 +33,19 @@ public enum XQueryDialect {
     XQUERY_3_0_W3C("3.0/W3C", XQueryVersion.XQUERY_3_0, XQueryImplementation.W3C, XQueryBundle.message("xquery.dialect.description.3.0/W3C"), "https://www.w3.org/TR/2014/REC-xquery-30-20140408/"),
     XQUERY_3_1_W3C("3.1/W3C", XQueryVersion.XQUERY_3_1, XQueryImplementation.W3C, XQueryBundle.message("xquery.dialect.description.3.1/W3C"), "https://www.w3.org/TR/2015/CR-xquery-31-20151217/");
 
+    private final String mID;
     private final String mName;
     private final XQueryVersion mVersion;
     private final XQueryImplementation mImplementation;
     private final String mDescription;
     private final String mReference;
 
-    XQueryDialect(@NotNull String name, @NotNull XQueryVersion version, @NotNull XQueryImplementation implementation, @NotNull String description, @NotNull String reference) {
+    XQueryDialect(@NotNull String id, @NotNull XQueryVersion version, @NotNull XQueryImplementation implementation, @NotNull String name, @NotNull String reference) {
+        mID = id;
         mName = name;
         mVersion = version;
         mImplementation = implementation;
-        mDescription = description;
+        mDescription = null;
         mReference = reference;
     }
 
@@ -62,7 +64,7 @@ public enum XQueryDialect {
         return mImplementation;
     }
 
-    @NotNull
+    @Nullable
     public String getDescription() {
         return mDescription;
     }
@@ -92,6 +94,6 @@ public enum XQueryDialect {
     @NotNull
     @Override
     public String toString() {
-        return getName();
+        return mID;
     }
 }

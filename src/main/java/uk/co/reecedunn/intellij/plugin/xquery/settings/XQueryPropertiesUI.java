@@ -82,15 +82,15 @@ public class XQueryPropertiesUI {
         mImplementation.addItem(XQueryImplementation.MARKLOGIC);
 
         mDialect1_0 = new JComboBox<>();
-        mDialect1_0.setRenderer((list, value, index, isSelected, cellHasFocus) -> new JLabel(value.getDescription()));
+        mDialect1_0.setRenderer((list, value, index, isSelected, cellHasFocus) -> new JLabel(value.getName()));
         createDialectOptions(mDialect1_0, XQueryVersion.XQUERY_1_0);
 
         mDialect3_0 = new JComboBox<>();
-        mDialect3_0.setRenderer((list, value, index, isSelected, cellHasFocus) -> new JLabel(value.getDescription()));
+        mDialect3_0.setRenderer((list, value, index, isSelected, cellHasFocus) -> new JLabel(value.getName()));
         createDialectOptions(mDialect3_0, XQueryVersion.XQUERY_3_0);
 
         mDialectMarkLogic = new JComboBox<>();
-        mDialectMarkLogic.setRenderer((list, value, index, isSelected, cellHasFocus) -> new JLabel(value.getDescription()));
+        mDialectMarkLogic.setRenderer((list, value, index, isSelected, cellHasFocus) -> new JLabel(value.getName()));
         createDialectOptions(mDialectMarkLogic, XQueryVersion.XQUERY_1_0_MARKLOGIC);
     }
 

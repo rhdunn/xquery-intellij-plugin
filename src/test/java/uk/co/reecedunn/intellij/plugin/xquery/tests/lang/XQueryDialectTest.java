@@ -26,21 +26,21 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class XQueryDialectTest extends TestCase {
     public void testName() {
-        assertThat(XQueryDialect.XQUERY_1_0_W3C.getName(), is("1.0/W3C"));
-        assertThat(XQueryDialect.XQUERY_3_0_W3C.getName(), is("3.0/W3C"));
-        assertThat(XQueryDialect.XQUERY_3_1_W3C.getName(), is("3.1/W3C"));
+        assertThat(XQueryDialect.XQUERY_1_0_W3C.getName(), is("XQuery 1.0 (W3C Recommendation 23 January 2007)"));
+        assertThat(XQueryDialect.XQUERY_3_0_W3C.getName(), is("XQuery 3.0 (W3C Recommendation 08 April 2014)"));
+        assertThat(XQueryDialect.XQUERY_3_1_W3C.getName(), is("XQuery 3.1 (W3C Candidate Recommendation 17 December 2015)"));
 
-        assertThat(XQueryDialect.XQUERY_1_0_UPDATE_W3C.getName(), is("1.0+update/W3C"));
-        assertThat(XQueryDialect.XQUERY_3_0_UPDATE_W3C.getName(), is("3.0+update/W3C"));
+        assertThat(XQueryDialect.XQUERY_1_0_UPDATE_W3C.getName(), is("XQuery and Update Facility 1.0 (W3C Recommendation 17 March 2011)"));
+        assertThat(XQueryDialect.XQUERY_3_0_UPDATE_W3C.getName(), is("XQuery and Update Facility 3.0 (W3C Last Call Working Draft 19 February 2015)"));
 
-        assertThat(XQueryDialect.XQUERY_1_0_FULL_TEXT_W3C.getName(), is("1.0+full-text/W3C"));
-        assertThat(XQueryDialect.XQUERY_3_0_FULL_TEXT_W3C.getName(), is("3.0+full-text/W3C"));
+        assertThat(XQueryDialect.XQUERY_1_0_FULL_TEXT_W3C.getName(), is("XQuery and Full Text 1.0 (W3C Recommendation 17 March 2011)"));
+        assertThat(XQueryDialect.XQUERY_3_0_FULL_TEXT_W3C.getName(), is("XQuery and Full Text 3.0 (W3C Recommendation 24 November 2015)"));
 
-        assertThat(XQueryDialect.XQUERY_0_9_MARKLOGIC_3_2.getName(), is("0.9-ml/3.2"));
-        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_5.getName(), is("1.0-ml/5"));
-        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_6.getName(), is("1.0-ml/6"));
-        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_7.getName(), is("1.0-ml/7"));
-        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_8.getName(), is("1.0-ml/8"));
+        assertThat(XQueryDialect.XQUERY_0_9_MARKLOGIC_3_2.getName(), is("MarkLogic 3.2"));
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_5.getName(), is("MarkLogic 5"));
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_6.getName(), is("MarkLogic 6"));
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_7.getName(), is("MarkLogic 7"));
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_8.getName(), is("MarkLogic 8"));
     }
 
     public void testLanguageVersion() {
@@ -80,21 +80,21 @@ public class XQueryDialectTest extends TestCase {
     }
 
     public void testDescription() {
-        assertThat(XQueryDialect.XQUERY_1_0_W3C.getDescription(), is("XQuery 1.0 (W3C Recommendation 23 January 2007)"));
-        assertThat(XQueryDialect.XQUERY_3_0_W3C.getDescription(), is("XQuery 3.0 (W3C Recommendation 08 April 2014)"));
-        assertThat(XQueryDialect.XQUERY_3_1_W3C.getDescription(), is("XQuery 3.1 (W3C Candidate Recommendation 17 December 2015)"));
+        assertThat(XQueryDialect.XQUERY_1_0_W3C.getDescription(), is(nullValue()));
+        assertThat(XQueryDialect.XQUERY_3_0_W3C.getDescription(), is(nullValue()));
+        assertThat(XQueryDialect.XQUERY_3_1_W3C.getDescription(), is(nullValue()));
 
-        assertThat(XQueryDialect.XQUERY_1_0_UPDATE_W3C.getDescription(), is("XQuery and Update Facility 1.0 (W3C Recommendation 17 March 2011)"));
-        assertThat(XQueryDialect.XQUERY_3_0_UPDATE_W3C.getDescription(), is("XQuery and Update Facility 3.0 (W3C Last Call Working Draft 19 February 2015)"));
+        assertThat(XQueryDialect.XQUERY_1_0_UPDATE_W3C.getDescription(), is(nullValue()));
+        assertThat(XQueryDialect.XQUERY_3_0_UPDATE_W3C.getDescription(), is(nullValue()));
 
-        assertThat(XQueryDialect.XQUERY_1_0_FULL_TEXT_W3C.getDescription(), is("XQuery and Full Text 1.0 (W3C Recommendation 17 March 2011)"));
-        assertThat(XQueryDialect.XQUERY_3_0_FULL_TEXT_W3C.getDescription(), is("XQuery and Full Text 3.0 (W3C Recommendation 24 November 2015)"));
+        assertThat(XQueryDialect.XQUERY_1_0_FULL_TEXT_W3C.getDescription(), is(nullValue()));
+        assertThat(XQueryDialect.XQUERY_3_0_FULL_TEXT_W3C.getDescription(), is(nullValue()));
 
-        assertThat(XQueryDialect.XQUERY_0_9_MARKLOGIC_3_2.getDescription(), is("MarkLogic 3.2"));
-        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_5.getDescription(), is("MarkLogic 5"));
-        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_6.getDescription(), is("MarkLogic 6"));
-        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_7.getDescription(), is("MarkLogic 7"));
-        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_8.getDescription(), is("MarkLogic 8"));
+        assertThat(XQueryDialect.XQUERY_0_9_MARKLOGIC_3_2.getDescription(), is(nullValue()));
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_5.getDescription(), is(nullValue()));
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_6.getDescription(), is(nullValue()));
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_7.getDescription(), is(nullValue()));
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_8.getDescription(), is(nullValue()));
     }
 
     public void testReference() {
