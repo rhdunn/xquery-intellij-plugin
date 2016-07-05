@@ -38,14 +38,6 @@ public class XQueryVersionTest extends TestCase {
         assertThat(XQueryVersion.XQUERY_3_1.getDescription(), is("W3C XQuery 3.1"));
     }
 
-    public void testReference() {
-        assertThat(XQueryVersion.XQUERY_0_9_MARKLOGIC.getReference(), is("https://docs.marklogic.com/guide/xquery/dialects#id_65735"));
-        assertThat(XQueryVersion.XQUERY_1_0.getReference(), is("https://www.w3.org/TR/2010/REC-xquery-20101214"));
-        assertThat(XQueryVersion.XQUERY_1_0_MARKLOGIC.getReference(), is("https://docs.marklogic.com/guide/xquery/dialects#id_63368"));
-        assertThat(XQueryVersion.XQUERY_3_0.getReference(), is("https://www.w3.org/TR/2014/REC-xquery-30-20140408"));
-        assertThat(XQueryVersion.XQUERY_3_1.getReference(), is("https://www.w3.org/TR/2015/CR-xquery-31-20151217"));
-    }
-
     public void testToString() {
         assertThat(XQueryVersion.XQUERY_0_9_MARKLOGIC.toString(), is("0.9-ml"));
         assertThat(XQueryVersion.XQUERY_1_0.toString(), is("1.0"));
