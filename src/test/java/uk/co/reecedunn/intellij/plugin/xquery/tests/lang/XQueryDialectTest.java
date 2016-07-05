@@ -55,19 +55,19 @@ public class XQueryDialectTest extends TestCase {
         assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_8.getLanguageVersion(), is(XQueryVersion.XQUERY_1_0_MARKLOGIC));
     }
 
-    public void testVendor() {
-        assertThat(XQueryDialect.XQUERY_1_0_W3C.getVendor(), is(XQueryImplementation.W3C));
-        assertThat(XQueryDialect.XQUERY_3_0_W3C.getVendor(), is(XQueryImplementation.W3C));
-        assertThat(XQueryDialect.XQUERY_3_1_W3C.getVendor(), is(XQueryImplementation.W3C));
+    public void testImplementation() {
+        assertThat(XQueryDialect.XQUERY_1_0_W3C.getImplementation(), is(XQueryImplementation.W3C));
+        assertThat(XQueryDialect.XQUERY_3_0_W3C.getImplementation(), is(XQueryImplementation.W3C));
+        assertThat(XQueryDialect.XQUERY_3_1_W3C.getImplementation(), is(XQueryImplementation.W3C));
 
-        assertThat(XQueryDialect.XQUERY_1_0_UPDATE_W3C.getVendor(), is(XQueryImplementation.W3C));
-        assertThat(XQueryDialect.XQUERY_3_0_UPDATE_W3C.getVendor(), is(XQueryImplementation.W3C));
+        assertThat(XQueryDialect.XQUERY_1_0_UPDATE_W3C.getImplementation(), is(XQueryImplementation.W3C));
+        assertThat(XQueryDialect.XQUERY_3_0_UPDATE_W3C.getImplementation(), is(XQueryImplementation.W3C));
 
-        assertThat(XQueryDialect.XQUERY_0_9_MARKLOGIC_3_2.getVendor(), is(XQueryImplementation.MARKLOGIC));
-        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_5.getVendor(), is(XQueryImplementation.MARKLOGIC));
-        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_6.getVendor(), is(XQueryImplementation.MARKLOGIC));
-        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_7.getVendor(), is(XQueryImplementation.MARKLOGIC));
-        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_8.getVendor(), is(XQueryImplementation.MARKLOGIC));
+        assertThat(XQueryDialect.XQUERY_0_9_MARKLOGIC_3_2.getImplementation(), is(XQueryImplementation.MARKLOGIC));
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_5.getImplementation(), is(XQueryImplementation.MARKLOGIC));
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_6.getImplementation(), is(XQueryImplementation.MARKLOGIC));
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_7.getImplementation(), is(XQueryImplementation.MARKLOGIC));
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_8.getImplementation(), is(XQueryImplementation.MARKLOGIC));
     }
 
     public void testDescription() {

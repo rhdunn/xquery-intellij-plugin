@@ -33,14 +33,14 @@ public enum XQueryDialect {
 
     private final String mName;
     private final XQueryVersion mVersion;
-    private final XQueryImplementation mVendor;
+    private final XQueryImplementation mImplementation;
     private final String mDescription;
     private final String mReference;
 
-    XQueryDialect(@NotNull String name, @NotNull XQueryVersion version, @NotNull XQueryImplementation vendor, @NotNull String description, @NotNull String reference) {
+    XQueryDialect(@NotNull String name, @NotNull XQueryVersion version, @NotNull XQueryImplementation implementation, @NotNull String description, @NotNull String reference) {
         mName = name;
         mVersion = version;
-        mVendor = vendor;
+        mImplementation = implementation;
         mDescription = description;
         mReference = reference;
     }
@@ -56,8 +56,8 @@ public enum XQueryDialect {
     }
 
     @NotNull
-    public XQueryImplementation getVendor() {
-        return mVendor;
+    public XQueryImplementation getImplementation() {
+        return mImplementation;
     }
 
     @NotNull
