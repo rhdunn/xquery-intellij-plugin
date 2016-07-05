@@ -31,11 +31,11 @@ public class XQueryVersionTest extends TestCase {
     }
 
     public void testDescription() {
-        assertThat(XQueryVersion.XQUERY_0_9_MARKLOGIC.getDescription(), is("MarkLogic 3.2 Compatibility Dialect"));
-        assertThat(XQueryVersion.XQUERY_1_0.getDescription(), is("W3C Recommendation 14 December 2010"));
-        assertThat(XQueryVersion.XQUERY_1_0_MARKLOGIC.getDescription(), is("MarkLogic Dialect"));
-        assertThat(XQueryVersion.XQUERY_3_0.getDescription(), is("W3C Recommendation 08 April 2014"));
-        assertThat(XQueryVersion.XQUERY_3_1.getDescription(), is("W3C Candidate Recommendation 17 December 2015"));
+        assertThat(XQueryVersion.XQUERY_0_9_MARKLOGIC.getDescription(), is("MarkLogic 3.2 Compatibility XQuery Dialect"));
+        assertThat(XQueryVersion.XQUERY_1_0.getDescription(), is("W3C XQuery 1.0"));
+        assertThat(XQueryVersion.XQUERY_1_0_MARKLOGIC.getDescription(), is("MarkLogic XQuery Dialect"));
+        assertThat(XQueryVersion.XQUERY_3_0.getDescription(), is("W3C XQuery 3.0"));
+        assertThat(XQueryVersion.XQUERY_3_1.getDescription(), is("W3C XQuery 3.1"));
     }
 
     public void testReference() {
