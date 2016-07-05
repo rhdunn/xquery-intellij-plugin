@@ -17,12 +17,19 @@ package uk.co.reecedunn.intellij.plugin.xquery.settings;
 
 import com.intellij.openapi.options.ConfigurationException;
 import com.intellij.openapi.project.Project;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryImplementation;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 public class XQueryPropertiesUI {
+    private JComboBox<XQueryImplementation> mImplementation;
     private JComboBox<XQueryVersion> mVersion;
+
     private JPanel mPanel;
     private final XQueryProjectSettings mSettings;
 
@@ -36,23 +43,44 @@ public class XQueryPropertiesUI {
 
     private void createUIComponents() {
         mVersion = new JComboBox<>();
-        mVersion.addItem(XQueryVersion.XQUERY_0_9_MARKLOGIC);
-        mVersion.addItem(XQueryVersion.XQUERY_1_0);
-        mVersion.addItem(XQueryVersion.XQUERY_1_0_MARKLOGIC);
-        mVersion.addItem(XQueryVersion.XQUERY_3_0);
-        mVersion.addItem(XQueryVersion.XQUERY_3_1);
+
+        mImplementation = new JComboBox<>();
+        mImplementation.addActionListener(e -> {
+            final XQueryImplementation implementation = (XQueryImplementation)((JComboBox)e.getSource()).getSelectedItem();
+
+            final XQueryVersion selectedVersion = (XQueryVersion)mVersion.getSelectedItem();
+            boolean foundVersion = false;
+
+            mVersion.removeAllItems();
+            for (XQueryVersion version : implementation.getVersions()) {
+                mVersion.addItem(version);
+                if (version == selectedVersion) {
+                    mVersion.setSelectedItem(version);
+                    foundVersion = true;
+                }
+            }
+            if (!foundVersion) {
+                mVersion.setSelectedItem(implementation.getDefaultVersion());
+            }
+        });
+
+        mImplementation.addItem(XQueryImplementation.W3C);
+        mImplementation.addItem(XQueryImplementation.MARKLOGIC);
     }
 
     public boolean isModified() {
+        if (!mImplementation.getSelectedItem().equals(mSettings.getXQueryImplementation())) return true;
         if (!mVersion.getSelectedItem().equals(mSettings.getXQueryVersion())) return true;
         return false;
     }
 
     public void apply() throws ConfigurationException {
+        mSettings.setXQueryImplementation((XQueryImplementation)mImplementation.getSelectedItem());
         mSettings.setXQueryVersion((XQueryVersion)mVersion.getSelectedItem());
     }
 
     public void reset() {
+        mImplementation.setSelectedItem(mSettings.getXQueryImplementation());
         mVersion.setSelectedItem(mSettings.getXQueryVersion());
     }
 }
