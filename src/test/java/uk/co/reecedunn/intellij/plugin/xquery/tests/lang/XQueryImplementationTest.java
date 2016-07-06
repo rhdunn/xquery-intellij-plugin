@@ -24,11 +24,6 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class XQueryImplementationTest extends TestCase {
-    public void testID() {
-        assertThat(XQueryImplementation.W3C.getID(), is("W3C"));
-        assertThat(XQueryImplementation.MARKLOGIC.getID(), is("MarkLogic"));
-    }
-
     public void testName() {
         assertThat(XQueryImplementation.W3C.getName(), is("W3C Specification"));
         assertThat(XQueryImplementation.MARKLOGIC.getName(), is("MarkLogic"));

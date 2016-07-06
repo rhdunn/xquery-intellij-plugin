@@ -42,11 +42,6 @@ public enum XQueryImplementation {
     }
 
     @NotNull
-    public String getID() {
-        return mID;
-    }
-
-    @NotNull
     public String getName() {
         return mName;
     }
@@ -66,7 +61,7 @@ public enum XQueryImplementation {
     @NotNull
     @Override
     public String toString() {
-        return getID();
+        return mID;
     }
 
     @NotNull
