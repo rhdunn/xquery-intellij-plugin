@@ -105,9 +105,8 @@ public class XQueryFileType extends LanguageFileType {
         return FILETYPE_ICON;
     }
 
-    @Override
-    public String getCharset(@NotNull VirtualFile file, @NotNull final byte[] content) {
-        final Matcher matcher = ENCODING_PATTERN.matcher(new ByteSequence(content));
+    private String getXQueryEncoding(CharSequence content) {
+        final Matcher matcher = ENCODING_PATTERN.matcher(content);
         if (matcher.find()) {
             return matcher.group(1);
         }
@@ -115,11 +114,12 @@ public class XQueryFileType extends LanguageFileType {
     }
 
     @Override
+    public String getCharset(@NotNull VirtualFile file, @NotNull final byte[] content) {
+        return getXQueryEncoding(new ByteSequence(content));
+    }
+
+    @Override
     public Charset extractCharsetFromFileContent(@Nullable Project project, @Nullable VirtualFile file, @NotNull CharSequence content) {
-        final Matcher matcher = ENCODING_PATTERN.matcher(content);
-        if (matcher.find()) {
-            return Charset.forName(matcher.group(1));
-        }
-        return Charset.forName("utf-8");
+        return Charset.forName(getXQueryEncoding(content));
     }
 }
