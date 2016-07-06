@@ -26,22 +26,17 @@ public enum XQueryVersion {
     XQUERY_3_0("3.0", XQueryBundle.message("xquery.version.description.3.0")),
     XQUERY_3_1("3.1", XQueryBundle.message("xquery.version.description.3.1"));
 
+    private final String mID;
     private final String mName;
-    private final String mDescription;
 
-    XQueryVersion(@NotNull String name, @NotNull String description) {
+    XQueryVersion(@NotNull String id, @NotNull String name) {
+        mID = id;
         mName = name;
-        mDescription = description;
     }
 
     @NotNull
     public String getName() {
         return mName;
-    }
-
-    @NotNull
-    public String getDescription() {
-        return mDescription;
     }
 
     @Nullable
@@ -57,6 +52,6 @@ public enum XQueryVersion {
     @NotNull
     @Override
     public String toString() {
-        return getName();
+        return mID;
     }
 }
