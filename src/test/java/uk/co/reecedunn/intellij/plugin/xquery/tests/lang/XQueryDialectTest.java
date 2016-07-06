@@ -61,24 +61,6 @@ public class XQueryDialectTest extends TestCase {
         assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_8.getLanguageVersion(), is(XQueryVersion.XQUERY_1_0_MARKLOGIC));
     }
 
-    public void testImplementation() {
-        assertThat(XQueryDialect.XQUERY_1_0_W3C.getImplementation(), is(XQueryImplementation.W3C));
-        assertThat(XQueryDialect.XQUERY_3_0_W3C.getImplementation(), is(XQueryImplementation.W3C));
-        assertThat(XQueryDialect.XQUERY_3_1_W3C.getImplementation(), is(XQueryImplementation.W3C));
-
-        assertThat(XQueryDialect.XQUERY_1_0_UPDATE_W3C.getImplementation(), is(XQueryImplementation.W3C));
-        assertThat(XQueryDialect.XQUERY_3_0_UPDATE_W3C.getImplementation(), is(XQueryImplementation.W3C));
-
-        assertThat(XQueryDialect.XQUERY_1_0_FULL_TEXT_W3C.getImplementation(), is(XQueryImplementation.W3C));
-        assertThat(XQueryDialect.XQUERY_3_0_FULL_TEXT_W3C.getImplementation(), is(XQueryImplementation.W3C));
-
-        assertThat(XQueryDialect.XQUERY_0_9_MARKLOGIC_3_2.getImplementation(), is(XQueryImplementation.MARKLOGIC));
-        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_5.getImplementation(), is(XQueryImplementation.MARKLOGIC));
-        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_6.getImplementation(), is(XQueryImplementation.MARKLOGIC));
-        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_7.getImplementation(), is(XQueryImplementation.MARKLOGIC));
-        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_8.getImplementation(), is(XQueryImplementation.MARKLOGIC));
-    }
-
     public void testDescription() {
         assertThat(XQueryDialect.XQUERY_1_0_W3C.getDescription(), is("W3C Recommendation 23 January 2007"));
         assertThat(XQueryDialect.XQUERY_3_0_W3C.getDescription(), is("W3C Recommendation 08 April 2014"));
