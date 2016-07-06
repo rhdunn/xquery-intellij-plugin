@@ -23,11 +23,11 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.XQueryBundle;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer;
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 
 import javax.swing.*;
 import java.nio.charset.Charset;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class XQueryFileType extends LanguageFileType {
     private class ByteSequence implements CharSequence {
@@ -68,7 +68,7 @@ public class XQueryFileType extends LanguageFileType {
     }
 
     private static final Icon FILETYPE_ICON = IconLoader.getIcon("/icons/xquery.png");
-    private static final Pattern ENCODING_PATTERN = Pattern.compile("^[ \r\n\t]*xquery[ \r\n\t]+version[ \r\n\t]+\"[^\"]*\"[ \r\n\t]+encoding[ \r\n\t]+\"([^\"]*)\"[ \r\n\t]*;");
+    private static final XQueryLexer sEncodingLexer = new XQueryLexer();
 
     // xq;xqy;xquery -- standard defined extensions
     // xql           -- XQuery Language (main) file [eXist-db]
@@ -105,12 +105,46 @@ public class XQueryFileType extends LanguageFileType {
         return FILETYPE_ICON;
     }
 
-    private String getXQueryEncoding(CharSequence content) {
-        final Matcher matcher = ENCODING_PATTERN.matcher(content);
-        if (matcher.find()) {
-            return matcher.group(1);
+    private boolean matchNCName(String name) {
+        boolean match = sEncodingLexer.getTokenType() == XQueryTokenType.NCNAME && sEncodingLexer.getTokenText().equals(name);
+        sEncodingLexer.advance();
+        return match;
+    }
+
+    private boolean matchWhiteSpace(boolean required) {
+        if (sEncodingLexer.getTokenType() == XQueryTokenType.WHITE_SPACE) {
+            sEncodingLexer.advance();
+            return true;
         }
-        return "utf-8";
+        return required;
+    }
+
+    private String matchString(String defaultValue) {
+        if (sEncodingLexer.getTokenType() != XQueryTokenType.STRING_LITERAL_START)
+            return defaultValue;
+        sEncodingLexer.advance();
+        if (sEncodingLexer.getTokenType() != XQueryTokenType.STRING_LITERAL_CONTENTS)
+            return defaultValue;
+        String match = sEncodingLexer.getTokenText();
+        sEncodingLexer.advance();
+        if (sEncodingLexer.getTokenType() != XQueryTokenType.STRING_LITERAL_END)
+            return defaultValue;
+        sEncodingLexer.advance();
+        return match;
+    }
+
+    private String getXQueryEncoding(CharSequence content) {
+        sEncodingLexer.start(content);
+        matchWhiteSpace(false);
+        if (!matchNCName("xquery"))    return "utf-8";
+        if (!matchWhiteSpace(true))    return "utf-8";
+        if (!matchNCName("version"))   return "utf-8";
+        if (!matchWhiteSpace(true))    return "utf-8";
+        if (matchString(null) == null) return "utf-8";
+        if (!matchWhiteSpace(true))    return "utf-8";
+        if (!matchNCName("encoding"))  return "utf-8";
+        if (!matchWhiteSpace(true))    return "utf-8";
+        return matchString("utf-8");
     }
 
     @Override

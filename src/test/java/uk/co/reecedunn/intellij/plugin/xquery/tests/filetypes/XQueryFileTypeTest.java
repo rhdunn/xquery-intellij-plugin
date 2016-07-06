@@ -49,23 +49,36 @@ public class XQueryFileTypeTest extends TestCase {
         MockVirtualFile file = new MockVirtualFile();
 
         assertThat(fileType.getCharset(file, "let $_ := 123".getBytes()), is("utf-8"));
+
         assertThat(fileType.getCharset(file, "xquery version \"1.0\";".getBytes()), is("utf-8"));
-        assertThat(fileType.getCharset(file, "(::)xquery version \"1.0\" encoding \"latin1\";".getBytes()), is("utf-8"));
-        assertThat(fileType.getCharset(file, "(::)\nxquery version \"1.0\" encoding \"latin1\";".getBytes()), is("utf-8"));
+
+        assertThat(fileType.getCharset(file, "(::)xquery version \"1.0\" encoding \"latin1\"".getBytes()), is("utf-8"));
+        assertThat(fileType.getCharset(file, "(::)\nxquery version \"1.0\" encoding \"latin1\"".getBytes()), is("utf-8"));
+
+        assertThat(fileType.getCharset(file, "xqwery version \"1.0\" encoding \"latin1\"".getBytes()), is("utf-8"));
+        assertThat(fileType.getCharset(file, "xquery+version \"1.0\" encoding \"latin1\"".getBytes()), is("utf-8"));
+        assertThat(fileType.getCharset(file, "xquery versjon \"1.0\" encoding \"latin1\"".getBytes()), is("utf-8"));
+        assertThat(fileType.getCharset(file, "xquery version+\"1.0\" encoding \"latin1\"".getBytes()), is("utf-8"));
+        assertThat(fileType.getCharset(file, "xquery version   1.0\" encoding \"latin1\"".getBytes()), is("utf-8"));
+        assertThat(fileType.getCharset(file, "xquery version \"".getBytes()), is("utf-8"));
+        assertThat(fileType.getCharset(file, "xquery version \"1.0".getBytes()), is("utf-8"));
+        assertThat(fileType.getCharset(file, "xquery version \"1.0\"+encoding \"latin1\"".getBytes()), is("utf-8"));
+        assertThat(fileType.getCharset(file, "xquery version \"1.0\" enkoding \"latin1\"".getBytes()), is("utf-8"));
+        assertThat(fileType.getCharset(file, "xquery version \"1.0\" encoding+\"latin1\"".getBytes()), is("utf-8"));
     }
 
     public void testFileEncoding() {
         XQueryFileType fileType = XQueryFileType.INSTANCE;
         MockVirtualFile file = new MockVirtualFile();
 
-        assertThat(fileType.getCharset(file, "xquery version \"1.0\" encoding \"UTF-8\";".getBytes()), is("UTF-8"));
-        assertThat(fileType.getCharset(file, "xquery version \"1.0\" encoding \"latin1\";".getBytes()), is("latin1"));
+        assertThat(fileType.getCharset(file, "xquery version \"1.0\" encoding \"UTF-8\"".getBytes()), is("UTF-8"));
+        assertThat(fileType.getCharset(file, "xquery version \"1.0\" encoding \"latin1\"".getBytes()), is("latin1"));
 
-        assertThat(fileType.getCharset(file, "    xquery    version    \"1.0\"    encoding    \"UTF-8\"    ;".getBytes()), is("UTF-8"));
-        assertThat(fileType.getCharset(file, "\r\rxquery\r\rversion\r\r\"1.0\"\r\rencoding\r\r\"UTF-8\"\r\r;".getBytes()), is("UTF-8"));
-        assertThat(fileType.getCharset(file, "\n\nxquery\n\nversion\n\n\"1.0\"\n\nencoding\n\n\"UTF-8\"\n\n;".getBytes()), is("UTF-8"));
-        assertThat(fileType.getCharset(file, "\r\nxquery\r\nversion\r\n\"1.0\"\r\nencoding\r\n\"UTF-8\"\r\n;".getBytes()), is("UTF-8"));
-        assertThat(fileType.getCharset(file, "\t\txquery\t\tversion\t\t\"1.0\"\t\tencoding\t\t\"UTF-8\"\t\t;".getBytes()), is("UTF-8"));
+        assertThat(fileType.getCharset(file, "    xquery    version    \"1.0\"    encoding    \"latin1\"".getBytes()), is("latin1"));
+        assertThat(fileType.getCharset(file, "\r\rxquery\r\rversion\r\r\"1.0\"\r\rencoding\r\r\"latin1\"\r\r".getBytes()), is("latin1"));
+        assertThat(fileType.getCharset(file, "\n\nxquery\n\nversion\n\n\"1.0\"\n\nencoding\n\n\"latin1\"\n\n".getBytes()), is("latin1"));
+        assertThat(fileType.getCharset(file, "\r\nxquery\r\nversion\r\n\"1.0\"\r\nencoding\r\n\"latin1\"\r\n".getBytes()), is("latin1"));
+        assertThat(fileType.getCharset(file, "\t\txquery\t\tversion\t\t\"1.0\"\t\tencoding\t\t\"latin1\"\t\t".getBytes()), is("latin1"));
     }
 
     public void testDefaultEncodingFromContents() {
@@ -73,22 +86,35 @@ public class XQueryFileTypeTest extends TestCase {
         MockVirtualFile file = new MockVirtualFile();
 
         assertThat(fileType.extractCharsetFromFileContent(null, file, (CharSequence)"let $_ := 123").name(), is("UTF-8"));
+
         assertThat(fileType.extractCharsetFromFileContent(null, file, (CharSequence)"xquery version \"1.0\";").name(), is("UTF-8"));
-        assertThat(fileType.extractCharsetFromFileContent(null, file, (CharSequence)"(::)xquery version \"1.0\" encoding \"latin1\";").name(), is("UTF-8"));
-        assertThat(fileType.extractCharsetFromFileContent(null, file, (CharSequence)"(::)\nxquery version \"1.0\" encoding \"latin1\";").name(), is("UTF-8"));
+
+        assertThat(fileType.extractCharsetFromFileContent(null, file, (CharSequence)"(::)xquery version \"1.0\" encoding \"latin1\"").name(), is("UTF-8"));
+        assertThat(fileType.extractCharsetFromFileContent(null, file, (CharSequence)"(::)\nxquery version \"1.0\" encoding \"latin1\"").name(), is("UTF-8"));
+
+        assertThat(fileType.extractCharsetFromFileContent(null, file, (CharSequence)"xqwery version \"1.0\" encoding \"latin1\"").name(), is("UTF-8"));
+        assertThat(fileType.extractCharsetFromFileContent(null, file, (CharSequence)"xquery+version \"1.0\" encoding \"latin1\"").name(), is("UTF-8"));
+        assertThat(fileType.extractCharsetFromFileContent(null, file, (CharSequence)"xquery versjon \"1.0\" encoding \"latin1\"").name(), is("UTF-8"));
+        assertThat(fileType.extractCharsetFromFileContent(null, file, (CharSequence)"xquery version+\"1.0\" encoding \"latin1\"").name(), is("UTF-8"));
+        assertThat(fileType.extractCharsetFromFileContent(null, file, (CharSequence)"xquery version   1.0\" encoding \"latin1\"").name(), is("UTF-8"));
+        assertThat(fileType.extractCharsetFromFileContent(null, file, (CharSequence)"xquery version \"").name(), is("UTF-8"));
+        assertThat(fileType.extractCharsetFromFileContent(null, file, (CharSequence)"xquery version \"1.0").name(), is("UTF-8"));
+        assertThat(fileType.extractCharsetFromFileContent(null, file, (CharSequence)"xquery version \"1.0\"+encoding \"latin1\"").name(), is("UTF-8"));
+        assertThat(fileType.extractCharsetFromFileContent(null, file, (CharSequence)"xquery version \"1.0\" enkoding \"latin1\"").name(), is("UTF-8"));
+        assertThat(fileType.extractCharsetFromFileContent(null, file, (CharSequence)"xquery version \"1.0\" encoding+\"latin1\"").name(), is("UTF-8"));
     }
 
     public void testFileEncodingFromContents() {
         XQueryFileType fileType = XQueryFileType.INSTANCE;
         MockVirtualFile file = new MockVirtualFile();
 
-        assertThat(fileType.extractCharsetFromFileContent(null, file, (CharSequence)"xquery version \"1.0\" encoding \"UTF-8\";").name(), is("UTF-8"));
-        assertThat(fileType.extractCharsetFromFileContent(null, file, (CharSequence)"xquery version \"1.0\" encoding \"latin1\";").name(), is("ISO-8859-1"));
+        assertThat(fileType.extractCharsetFromFileContent(null, file, (CharSequence)"xquery version \"1.0\" encoding \"UTF-8\"").name(), is("UTF-8"));
+        assertThat(fileType.extractCharsetFromFileContent(null, file, (CharSequence)"xquery version \"1.0\" encoding \"latin1\"").name(), is("ISO-8859-1"));
 
-        assertThat(fileType.extractCharsetFromFileContent(null, file, (CharSequence)"    xquery    version    \"1.0\"    encoding    \"UTF-8\"    ;").name(), is("UTF-8"));
-        assertThat(fileType.extractCharsetFromFileContent(null, file, (CharSequence)"\r\rxquery\r\rversion\r\r\"1.0\"\r\rencoding\r\r\"UTF-8\"\r\r;").name(), is("UTF-8"));
-        assertThat(fileType.extractCharsetFromFileContent(null, file, (CharSequence)"\n\nxquery\n\nversion\n\n\"1.0\"\n\nencoding\n\n\"UTF-8\"\n\n;").name(), is("UTF-8"));
-        assertThat(fileType.extractCharsetFromFileContent(null, file, (CharSequence)"\r\nxquery\r\nversion\r\n\"1.0\"\r\nencoding\r\n\"UTF-8\"\r\n;").name(), is("UTF-8"));
-        assertThat(fileType.extractCharsetFromFileContent(null, file, (CharSequence)"\t\txquery\t\tversion\t\t\"1.0\"\t\tencoding\t\t\"UTF-8\"\t\t;").name(), is("UTF-8"));
+        assertThat(fileType.extractCharsetFromFileContent(null, file, (CharSequence)"    xquery    version    \"1.0\"    encoding    \"latin1\"").name(), is("ISO-8859-1"));
+        assertThat(fileType.extractCharsetFromFileContent(null, file, (CharSequence)"\r\rxquery\r\rversion\r\r\"1.0\"\r\rencoding\r\r\"latin1\"\r\r").name(), is("ISO-8859-1"));
+        assertThat(fileType.extractCharsetFromFileContent(null, file, (CharSequence)"\n\nxquery\n\nversion\n\n\"1.0\"\n\nencoding\n\n\"latin1\"\n\n").name(), is("ISO-8859-1"));
+        assertThat(fileType.extractCharsetFromFileContent(null, file, (CharSequence)"\r\nxquery\r\nversion\r\n\"1.0\"\r\nencoding\r\n\"latin1\"\r\n").name(), is("ISO-8859-1"));
+        assertThat(fileType.extractCharsetFromFileContent(null, file, (CharSequence)"\t\txquery\t\tversion\t\t\"1.0\"\t\tencoding\t\t\"latin1\"\t\t").name(), is("ISO-8859-1"));
     }
 }
