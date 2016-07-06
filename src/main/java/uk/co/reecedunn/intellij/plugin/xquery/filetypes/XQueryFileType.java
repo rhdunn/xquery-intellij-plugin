@@ -111,12 +111,19 @@ public class XQueryFileType extends LanguageFileType {
         return match;
     }
 
-    private boolean matchWhiteSpace(boolean required) {
-        if (sEncodingLexer.getTokenType() == XQueryTokenType.WHITE_SPACE) {
-            sEncodingLexer.advance();
-            return true;
+    private boolean matchWhiteSpaceOrComment(boolean required) {
+        boolean matched = false;
+        while (true) {
+            if (sEncodingLexer.getTokenType() == XQueryTokenType.WHITE_SPACE) {
+                sEncodingLexer.advance();
+                matched = true;
+            } else if (sEncodingLexer.getTokenType() == XQueryTokenType.COMMENT) {
+                sEncodingLexer.advance();
+                matched = true;
+            } else {
+                return matched && required;
+            }
         }
-        return required;
     }
 
     private String matchString(String defaultValue) {
@@ -135,15 +142,15 @@ public class XQueryFileType extends LanguageFileType {
 
     private String getXQueryEncoding(CharSequence content) {
         sEncodingLexer.start(content);
-        matchWhiteSpace(false);
-        if (!matchNCName("xquery"))    return "utf-8";
-        if (!matchWhiteSpace(true))    return "utf-8";
-        if (!matchNCName("version"))   return "utf-8";
-        if (!matchWhiteSpace(true))    return "utf-8";
-        if (matchString(null) == null) return "utf-8";
-        if (!matchWhiteSpace(true))    return "utf-8";
-        if (!matchNCName("encoding"))  return "utf-8";
-        if (!matchWhiteSpace(true))    return "utf-8";
+        matchWhiteSpaceOrComment(false);
+        if (!matchNCName("xquery"))          return "utf-8";
+        if (!matchWhiteSpaceOrComment(true)) return "utf-8";
+        if (!matchNCName("version"))         return "utf-8";
+        if (!matchWhiteSpaceOrComment(true)) return "utf-8";
+        if (matchString(null) == null)       return "utf-8";
+        if (!matchWhiteSpaceOrComment(true)) return "utf-8";
+        if (!matchNCName("encoding"))        return "utf-8";
+        if (!matchWhiteSpaceOrComment(true)) return "utf-8";
         return matchString("utf-8");
     }
 
