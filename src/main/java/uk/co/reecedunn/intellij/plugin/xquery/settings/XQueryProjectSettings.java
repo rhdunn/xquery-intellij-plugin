@@ -34,7 +34,7 @@ import java.io.File;
 public class XQueryProjectSettings implements PersistentStateComponent<XQueryProjectSettings>, ExportableComponent {
     private XQueryImplementation XQUERY_IMPLEMENTATION = XQueryImplementation.W3C;
     private XQueryVersion XQUERY_VERSION = XQueryVersion.XQUERY_3_0;
-    private XQueryDialect XQUERY_1_0_DIALECT = XQueryDialect.XQUERY_1_0_W3C;
+    private XQueryDialect XQUERY_1_0_DIALECT = XQueryDialect.XQUERY_1_0_2ED_W3C;
     private XQueryDialect XQUERY_3_0_DIALECT = XQueryDialect.XQUERY_3_0_W3C;
     private XQueryDialect XQUERY_3_1_DIALECT = XQueryDialect.XQUERY_3_1_W3C;
     private XQueryDialect XQUERY_MARKLOGIC_DIALECT = XQueryDialect.XQUERY_1_0_MARKLOGIC_8;

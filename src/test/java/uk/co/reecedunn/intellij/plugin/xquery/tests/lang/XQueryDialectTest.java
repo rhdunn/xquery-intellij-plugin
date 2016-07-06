@@ -27,6 +27,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class XQueryDialectTest extends TestCase {
     public void testName() {
         assertThat(XQueryDialect.XQUERY_1_0_W3C.getName(), is("XQuery 1.0"));
+        assertThat(XQueryDialect.XQUERY_1_0_2ED_W3C.getName(), is("XQuery 1.0 (Second Edition)"));
         assertThat(XQueryDialect.XQUERY_3_0_W3C.getName(), is("XQuery 3.0"));
         assertThat(XQueryDialect.XQUERY_3_1_W3C.getName(), is("XQuery 3.1"));
 
@@ -45,6 +46,7 @@ public class XQueryDialectTest extends TestCase {
 
     public void testLanguageVersion() {
         assertThat(XQueryDialect.XQUERY_1_0_W3C.getLanguageVersion(), is(XQueryVersion.XQUERY_1_0));
+        assertThat(XQueryDialect.XQUERY_1_0_2ED_W3C.getLanguageVersion(), is(XQueryVersion.XQUERY_1_0));
         assertThat(XQueryDialect.XQUERY_3_0_W3C.getLanguageVersion(), is(XQueryVersion.XQUERY_3_0));
         assertThat(XQueryDialect.XQUERY_3_1_W3C.getLanguageVersion(), is(XQueryVersion.XQUERY_3_1));
 
@@ -63,6 +65,7 @@ public class XQueryDialectTest extends TestCase {
 
     public void testDescription() {
         assertThat(XQueryDialect.XQUERY_1_0_W3C.getDescription(), is("W3C Recommendation 23 January 2007"));
+        assertThat(XQueryDialect.XQUERY_1_0_2ED_W3C.getDescription(), is("W3C Recommendation 14 December 2010"));
         assertThat(XQueryDialect.XQUERY_3_0_W3C.getDescription(), is("W3C Recommendation 08 April 2014"));
         assertThat(XQueryDialect.XQUERY_3_1_W3C.getDescription(), is("W3C Candidate Recommendation 17 December 2015"));
 
@@ -81,6 +84,7 @@ public class XQueryDialectTest extends TestCase {
 
     public void testReference() {
         assertThat(XQueryDialect.XQUERY_1_0_W3C.getReference(), is("https://www.w3.org/TR/2007/REC-xquery-20070123/"));
+        assertThat(XQueryDialect.XQUERY_1_0_2ED_W3C.getReference(), is("https://www.w3.org/TR/2010/REC-xquery-20101214/"));
         assertThat(XQueryDialect.XQUERY_3_0_W3C.getReference(), is("https://www.w3.org/TR/2014/REC-xquery-30-20140408/"));
         assertThat(XQueryDialect.XQUERY_3_1_W3C.getReference(), is("https://www.w3.org/TR/2015/CR-xquery-31-20151217/"));
 
@@ -99,6 +103,7 @@ public class XQueryDialectTest extends TestCase {
 
     public void testToString() {
         assertThat(XQueryDialect.XQUERY_1_0_W3C.toString(), is("1.0/W3C"));
+        assertThat(XQueryDialect.XQUERY_1_0_2ED_W3C.toString(), is("1.0/W3C-2ed"));
         assertThat(XQueryDialect.XQUERY_3_0_W3C.toString(), is("3.0/W3C"));
         assertThat(XQueryDialect.XQUERY_3_1_W3C.toString(), is("3.1/W3C"));
 
@@ -119,6 +124,7 @@ public class XQueryDialectTest extends TestCase {
         assertThat(XQueryDialect.parse(null), is(nullValue()));
 
         assertThat(XQueryDialect.parse("1.0/W3C"), is(XQueryDialect.XQUERY_1_0_W3C));
+        assertThat(XQueryDialect.parse("1.0/W3C-2ed"), is(XQueryDialect.XQUERY_1_0_2ED_W3C));
         assertThat(XQueryDialect.parse("3.0/W3C"), is(XQueryDialect.XQUERY_3_0_W3C));
         assertThat(XQueryDialect.parse("3.1/W3C"), is(XQueryDialect.XQUERY_3_1_W3C));
 
