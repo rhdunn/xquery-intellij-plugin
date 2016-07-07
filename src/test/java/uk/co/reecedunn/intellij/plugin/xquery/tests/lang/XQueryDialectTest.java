@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.lang;
 import junit.framework.TestCase;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryDialect;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryImplementation;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuerySpecification;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -63,6 +64,209 @@ public class XQueryDialectTest extends TestCase {
         assertThat(XQueryDialect.XQUERY_0_9_MARKLOGIC_3_2.getLanguageVersion(), is(XQueryVersion.XQUERY_0_9_MARKLOGIC));
         assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_7.getLanguageVersion(), is(XQueryVersion.XQUERY_1_0_MARKLOGIC));
         assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_8.getLanguageVersion(), is(XQueryVersion.XQUERY_1_0_MARKLOGIC));
+    }
+
+    public void testConformsTo_XQuery() {
+        assertThat(XQueryDialect.XQUERY_1_0_W3C.conformsTo(XQuerySpecification.XQUERY_1_0_20030502), is(false));
+        assertThat(XQueryDialect.XQUERY_1_0_W3C.conformsTo(XQuerySpecification.XQUERY_1_0), is(true));
+        assertThat(XQueryDialect.XQUERY_1_0_W3C.conformsTo(XQuerySpecification.XQUERY_1_0_20101214), is(false));
+        assertThat(XQueryDialect.XQUERY_1_0_W3C.conformsTo(XQuerySpecification.XQUERY_3_0), is(false));
+        assertThat(XQueryDialect.XQUERY_1_0_W3C.conformsTo(XQuerySpecification.XQUERY_3_1), is(false));
+
+        assertThat(XQueryDialect.XQUERY_1_0_2ED_W3C.conformsTo(XQuerySpecification.XQUERY_1_0_20030502), is(false));
+        assertThat(XQueryDialect.XQUERY_1_0_2ED_W3C.conformsTo(XQuerySpecification.XQUERY_1_0), is(false));
+        assertThat(XQueryDialect.XQUERY_1_0_2ED_W3C.conformsTo(XQuerySpecification.XQUERY_1_0_20101214), is(true));
+        assertThat(XQueryDialect.XQUERY_1_0_2ED_W3C.conformsTo(XQuerySpecification.XQUERY_3_0), is(false));
+        assertThat(XQueryDialect.XQUERY_1_0_2ED_W3C.conformsTo(XQuerySpecification.XQUERY_3_1), is(false));
+
+        assertThat(XQueryDialect.XQUERY_3_0_W3C.conformsTo(XQuerySpecification.XQUERY_1_0_20030502), is(false));
+        assertThat(XQueryDialect.XQUERY_3_0_W3C.conformsTo(XQuerySpecification.XQUERY_1_0), is(false));
+        assertThat(XQueryDialect.XQUERY_3_0_W3C.conformsTo(XQuerySpecification.XQUERY_1_0_20101214), is(false));
+        assertThat(XQueryDialect.XQUERY_3_0_W3C.conformsTo(XQuerySpecification.XQUERY_3_0), is(true));
+        assertThat(XQueryDialect.XQUERY_3_0_W3C.conformsTo(XQuerySpecification.XQUERY_3_1), is(false));
+
+        assertThat(XQueryDialect.XQUERY_3_1_W3C.conformsTo(XQuerySpecification.XQUERY_1_0_20030502), is(false));
+        assertThat(XQueryDialect.XQUERY_3_1_W3C.conformsTo(XQuerySpecification.XQUERY_1_0), is(false));
+        assertThat(XQueryDialect.XQUERY_3_1_W3C.conformsTo(XQuerySpecification.XQUERY_1_0_20101214), is(false));
+        assertThat(XQueryDialect.XQUERY_3_1_W3C.conformsTo(XQuerySpecification.XQUERY_3_0), is(false));
+        assertThat(XQueryDialect.XQUERY_3_1_W3C.conformsTo(XQuerySpecification.XQUERY_3_1), is(true));
+
+        assertThat(XQueryDialect.XQUERY_1_0_UPDATE_W3C.conformsTo(XQuerySpecification.XQUERY_1_0_20030502), is(false));
+        assertThat(XQueryDialect.XQUERY_1_0_UPDATE_W3C.conformsTo(XQuerySpecification.XQUERY_1_0), is(true));
+        assertThat(XQueryDialect.XQUERY_1_0_UPDATE_W3C.conformsTo(XQuerySpecification.XQUERY_1_0_20101214), is(false));
+        assertThat(XQueryDialect.XQUERY_1_0_UPDATE_W3C.conformsTo(XQuerySpecification.XQUERY_3_0), is(false));
+        assertThat(XQueryDialect.XQUERY_1_0_UPDATE_W3C.conformsTo(XQuerySpecification.XQUERY_3_1), is(false));
+
+        assertThat(XQueryDialect.XQUERY_3_0_UPDATE_W3C.conformsTo(XQuerySpecification.XQUERY_1_0_20030502), is(false));
+        assertThat(XQueryDialect.XQUERY_3_0_UPDATE_W3C.conformsTo(XQuerySpecification.XQUERY_1_0), is(false));
+        assertThat(XQueryDialect.XQUERY_3_0_UPDATE_W3C.conformsTo(XQuerySpecification.XQUERY_1_0_20101214), is(false));
+        assertThat(XQueryDialect.XQUERY_3_0_UPDATE_W3C.conformsTo(XQuerySpecification.XQUERY_3_0), is(true));
+        assertThat(XQueryDialect.XQUERY_3_0_UPDATE_W3C.conformsTo(XQuerySpecification.XQUERY_3_1), is(false));
+
+        assertThat(XQueryDialect.XQUERY_1_0_FULL_TEXT_W3C.conformsTo(XQuerySpecification.XQUERY_1_0_20030502), is(false));
+        assertThat(XQueryDialect.XQUERY_1_0_FULL_TEXT_W3C.conformsTo(XQuerySpecification.XQUERY_1_0), is(true));
+        assertThat(XQueryDialect.XQUERY_1_0_FULL_TEXT_W3C.conformsTo(XQuerySpecification.XQUERY_1_0_20101214), is(false));
+        assertThat(XQueryDialect.XQUERY_1_0_FULL_TEXT_W3C.conformsTo(XQuerySpecification.XQUERY_3_0), is(false));
+        assertThat(XQueryDialect.XQUERY_1_0_FULL_TEXT_W3C.conformsTo(XQuerySpecification.XQUERY_3_1), is(false));
+
+        assertThat(XQueryDialect.XQUERY_3_0_FULL_TEXT_W3C.conformsTo(XQuerySpecification.XQUERY_1_0_20030502), is(false));
+        assertThat(XQueryDialect.XQUERY_3_0_FULL_TEXT_W3C.conformsTo(XQuerySpecification.XQUERY_1_0), is(false));
+        assertThat(XQueryDialect.XQUERY_3_0_FULL_TEXT_W3C.conformsTo(XQuerySpecification.XQUERY_1_0_20101214), is(false));
+        assertThat(XQueryDialect.XQUERY_3_0_FULL_TEXT_W3C.conformsTo(XQuerySpecification.XQUERY_3_0), is(true));
+        assertThat(XQueryDialect.XQUERY_3_0_FULL_TEXT_W3C.conformsTo(XQuerySpecification.XQUERY_3_1), is(false));
+
+        assertThat(XQueryDialect.XQUERY_1_0_SEMANTICS_W3C.conformsTo(XQuerySpecification.XQUERY_1_0_20030502), is(false));
+        assertThat(XQueryDialect.XQUERY_1_0_SEMANTICS_W3C.conformsTo(XQuerySpecification.XQUERY_1_0), is(true));
+        assertThat(XQueryDialect.XQUERY_1_0_SEMANTICS_W3C.conformsTo(XQuerySpecification.XQUERY_1_0_20101214), is(false));
+        assertThat(XQueryDialect.XQUERY_1_0_SEMANTICS_W3C.conformsTo(XQuerySpecification.XQUERY_3_0), is(false));
+        assertThat(XQueryDialect.XQUERY_1_0_SEMANTICS_W3C.conformsTo(XQuerySpecification.XQUERY_3_1), is(false));
+
+        assertThat(XQueryDialect.XQUERY_1_0_2ED_SEMANTICS_W3C.conformsTo(XQuerySpecification.XQUERY_1_0_20030502), is(false));
+        assertThat(XQueryDialect.XQUERY_1_0_2ED_SEMANTICS_W3C.conformsTo(XQuerySpecification.XQUERY_1_0), is(false));
+        assertThat(XQueryDialect.XQUERY_1_0_2ED_SEMANTICS_W3C.conformsTo(XQuerySpecification.XQUERY_1_0_20101214), is(true));
+        assertThat(XQueryDialect.XQUERY_1_0_2ED_SEMANTICS_W3C.conformsTo(XQuerySpecification.XQUERY_3_0), is(false));
+        assertThat(XQueryDialect.XQUERY_1_0_2ED_SEMANTICS_W3C.conformsTo(XQuerySpecification.XQUERY_3_1), is(false));
+
+        assertThat(XQueryDialect.XQUERY_0_9_MARKLOGIC_3_2.conformsTo(XQuerySpecification.XQUERY_1_0_20030502), is(true));
+        assertThat(XQueryDialect.XQUERY_0_9_MARKLOGIC_3_2.conformsTo(XQuerySpecification.XQUERY_1_0), is(false));
+        assertThat(XQueryDialect.XQUERY_0_9_MARKLOGIC_3_2.conformsTo(XQuerySpecification.XQUERY_1_0_20101214), is(false));
+        assertThat(XQueryDialect.XQUERY_0_9_MARKLOGIC_3_2.conformsTo(XQuerySpecification.XQUERY_3_0), is(false));
+        assertThat(XQueryDialect.XQUERY_0_9_MARKLOGIC_3_2.conformsTo(XQuerySpecification.XQUERY_3_1), is(false));
+
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_7.conformsTo(XQuerySpecification.XQUERY_1_0_20030502), is(false));
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_7.conformsTo(XQuerySpecification.XQUERY_1_0), is(true));
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_7.conformsTo(XQuerySpecification.XQUERY_1_0_20101214), is(false));
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_7.conformsTo(XQuerySpecification.XQUERY_3_0), is(false));
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_7.conformsTo(XQuerySpecification.XQUERY_3_1), is(false));
+
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_8.conformsTo(XQuerySpecification.XQUERY_1_0_20030502), is(false));
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_8.conformsTo(XQuerySpecification.XQUERY_1_0), is(true));
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_8.conformsTo(XQuerySpecification.XQUERY_1_0_20101214), is(false));
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_8.conformsTo(XQuerySpecification.XQUERY_3_0), is(false));
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_8.conformsTo(XQuerySpecification.XQUERY_3_1), is(false));
+    }
+
+    public void testConformsTo_Semantics() {
+        assertThat(XQueryDialect.XQUERY_1_0_W3C.conformsTo(XQuerySpecification.SEMANTICS_1_0), is(false));
+        assertThat(XQueryDialect.XQUERY_1_0_W3C.conformsTo(XQuerySpecification.SEMANTICS_1_0_20101214), is(false));
+
+        assertThat(XQueryDialect.XQUERY_1_0_2ED_W3C.conformsTo(XQuerySpecification.SEMANTICS_1_0), is(false));
+        assertThat(XQueryDialect.XQUERY_1_0_2ED_W3C.conformsTo(XQuerySpecification.SEMANTICS_1_0_20101214), is(false));
+
+        assertThat(XQueryDialect.XQUERY_3_0_W3C.conformsTo(XQuerySpecification.SEMANTICS_1_0), is(false));
+        assertThat(XQueryDialect.XQUERY_3_0_W3C.conformsTo(XQuerySpecification.SEMANTICS_1_0_20101214), is(false));
+
+        assertThat(XQueryDialect.XQUERY_3_1_W3C.conformsTo(XQuerySpecification.SEMANTICS_1_0), is(false));
+        assertThat(XQueryDialect.XQUERY_3_1_W3C.conformsTo(XQuerySpecification.SEMANTICS_1_0_20101214), is(false));
+
+        assertThat(XQueryDialect.XQUERY_1_0_UPDATE_W3C.conformsTo(XQuerySpecification.SEMANTICS_1_0), is(false));
+        assertThat(XQueryDialect.XQUERY_1_0_UPDATE_W3C.conformsTo(XQuerySpecification.SEMANTICS_1_0_20101214), is(false));
+
+        assertThat(XQueryDialect.XQUERY_3_0_UPDATE_W3C.conformsTo(XQuerySpecification.SEMANTICS_1_0), is(false));
+        assertThat(XQueryDialect.XQUERY_3_0_UPDATE_W3C.conformsTo(XQuerySpecification.SEMANTICS_1_0_20101214), is(false));
+
+        assertThat(XQueryDialect.XQUERY_1_0_FULL_TEXT_W3C.conformsTo(XQuerySpecification.SEMANTICS_1_0), is(false));
+        assertThat(XQueryDialect.XQUERY_1_0_FULL_TEXT_W3C.conformsTo(XQuerySpecification.SEMANTICS_1_0_20101214), is(false));
+
+        assertThat(XQueryDialect.XQUERY_3_0_FULL_TEXT_W3C.conformsTo(XQuerySpecification.SEMANTICS_1_0), is(false));
+        assertThat(XQueryDialect.XQUERY_3_0_FULL_TEXT_W3C.conformsTo(XQuerySpecification.SEMANTICS_1_0_20101214), is(false));
+
+        assertThat(XQueryDialect.XQUERY_1_0_SEMANTICS_W3C.conformsTo(XQuerySpecification.SEMANTICS_1_0), is(true));
+        assertThat(XQueryDialect.XQUERY_1_0_SEMANTICS_W3C.conformsTo(XQuerySpecification.SEMANTICS_1_0_20101214), is(false));
+
+        assertThat(XQueryDialect.XQUERY_1_0_2ED_SEMANTICS_W3C.conformsTo(XQuerySpecification.SEMANTICS_1_0), is(false));
+        assertThat(XQueryDialect.XQUERY_1_0_2ED_SEMANTICS_W3C.conformsTo(XQuerySpecification.SEMANTICS_1_0_20101214), is(true));
+
+        assertThat(XQueryDialect.XQUERY_0_9_MARKLOGIC_3_2.conformsTo(XQuerySpecification.SEMANTICS_1_0), is(false));
+        assertThat(XQueryDialect.XQUERY_0_9_MARKLOGIC_3_2.conformsTo(XQuerySpecification.SEMANTICS_1_0_20101214), is(false));
+
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_7.conformsTo(XQuerySpecification.SEMANTICS_1_0), is(false));
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_7.conformsTo(XQuerySpecification.SEMANTICS_1_0_20101214), is(false));
+
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_8.conformsTo(XQuerySpecification.SEMANTICS_1_0), is(false));
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_8.conformsTo(XQuerySpecification.SEMANTICS_1_0_20101214), is(false));
+    }
+
+    public void testConformsTo_FullText() {
+        assertThat(XQueryDialect.XQUERY_1_0_W3C.conformsTo(XQuerySpecification.FULL_TEXT_1_0), is(false));
+        assertThat(XQueryDialect.XQUERY_1_0_W3C.conformsTo(XQuerySpecification.FULL_TEXT_3_0), is(false));
+
+        assertThat(XQueryDialect.XQUERY_1_0_2ED_W3C.conformsTo(XQuerySpecification.FULL_TEXT_1_0), is(false));
+        assertThat(XQueryDialect.XQUERY_1_0_2ED_W3C.conformsTo(XQuerySpecification.FULL_TEXT_3_0), is(false));
+
+        assertThat(XQueryDialect.XQUERY_3_0_W3C.conformsTo(XQuerySpecification.FULL_TEXT_1_0), is(false));
+        assertThat(XQueryDialect.XQUERY_3_0_W3C.conformsTo(XQuerySpecification.FULL_TEXT_3_0), is(false));
+
+        assertThat(XQueryDialect.XQUERY_3_1_W3C.conformsTo(XQuerySpecification.FULL_TEXT_1_0), is(false));
+        assertThat(XQueryDialect.XQUERY_3_1_W3C.conformsTo(XQuerySpecification.FULL_TEXT_3_0), is(false));
+
+        assertThat(XQueryDialect.XQUERY_1_0_UPDATE_W3C.conformsTo(XQuerySpecification.FULL_TEXT_1_0), is(false));
+        assertThat(XQueryDialect.XQUERY_1_0_UPDATE_W3C.conformsTo(XQuerySpecification.FULL_TEXT_3_0), is(false));
+
+        assertThat(XQueryDialect.XQUERY_3_0_UPDATE_W3C.conformsTo(XQuerySpecification.FULL_TEXT_1_0), is(false));
+        assertThat(XQueryDialect.XQUERY_3_0_UPDATE_W3C.conformsTo(XQuerySpecification.FULL_TEXT_3_0), is(false));
+
+        assertThat(XQueryDialect.XQUERY_1_0_FULL_TEXT_W3C.conformsTo(XQuerySpecification.FULL_TEXT_1_0), is(true));
+        assertThat(XQueryDialect.XQUERY_1_0_FULL_TEXT_W3C.conformsTo(XQuerySpecification.FULL_TEXT_3_0), is(false));
+
+        assertThat(XQueryDialect.XQUERY_3_0_FULL_TEXT_W3C.conformsTo(XQuerySpecification.FULL_TEXT_1_0), is(false));
+        assertThat(XQueryDialect.XQUERY_3_0_FULL_TEXT_W3C.conformsTo(XQuerySpecification.FULL_TEXT_3_0), is(true));
+
+        assertThat(XQueryDialect.XQUERY_1_0_SEMANTICS_W3C.conformsTo(XQuerySpecification.FULL_TEXT_1_0), is(false));
+        assertThat(XQueryDialect.XQUERY_1_0_SEMANTICS_W3C.conformsTo(XQuerySpecification.FULL_TEXT_3_0), is(false));
+
+        assertThat(XQueryDialect.XQUERY_1_0_2ED_SEMANTICS_W3C.conformsTo(XQuerySpecification.FULL_TEXT_1_0), is(false));
+        assertThat(XQueryDialect.XQUERY_1_0_2ED_SEMANTICS_W3C.conformsTo(XQuerySpecification.FULL_TEXT_3_0), is(false));
+
+        assertThat(XQueryDialect.XQUERY_0_9_MARKLOGIC_3_2.conformsTo(XQuerySpecification.FULL_TEXT_1_0), is(false));
+        assertThat(XQueryDialect.XQUERY_0_9_MARKLOGIC_3_2.conformsTo(XQuerySpecification.FULL_TEXT_3_0), is(false));
+
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_7.conformsTo(XQuerySpecification.FULL_TEXT_1_0), is(false));
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_7.conformsTo(XQuerySpecification.FULL_TEXT_3_0), is(false));
+
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_8.conformsTo(XQuerySpecification.FULL_TEXT_1_0), is(false));
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_8.conformsTo(XQuerySpecification.FULL_TEXT_3_0), is(false));
+    }
+
+    public void testConformsTo_UpdateFacility() {
+        assertThat(XQueryDialect.XQUERY_1_0_W3C.conformsTo(XQuerySpecification.UPDATE_1_0), is(false));
+        assertThat(XQueryDialect.XQUERY_1_0_W3C.conformsTo(XQuerySpecification.UPDATE_3_0), is(false));
+
+        assertThat(XQueryDialect.XQUERY_1_0_2ED_W3C.conformsTo(XQuerySpecification.UPDATE_1_0), is(false));
+        assertThat(XQueryDialect.XQUERY_1_0_2ED_W3C.conformsTo(XQuerySpecification.UPDATE_3_0), is(false));
+
+        assertThat(XQueryDialect.XQUERY_3_0_W3C.conformsTo(XQuerySpecification.UPDATE_1_0), is(false));
+        assertThat(XQueryDialect.XQUERY_3_0_W3C.conformsTo(XQuerySpecification.UPDATE_3_0), is(false));
+
+        assertThat(XQueryDialect.XQUERY_3_1_W3C.conformsTo(XQuerySpecification.UPDATE_1_0), is(false));
+        assertThat(XQueryDialect.XQUERY_3_1_W3C.conformsTo(XQuerySpecification.UPDATE_3_0), is(false));
+
+        assertThat(XQueryDialect.XQUERY_1_0_UPDATE_W3C.conformsTo(XQuerySpecification.UPDATE_1_0), is(true));
+        assertThat(XQueryDialect.XQUERY_1_0_UPDATE_W3C.conformsTo(XQuerySpecification.UPDATE_3_0), is(false));
+
+        assertThat(XQueryDialect.XQUERY_3_0_UPDATE_W3C.conformsTo(XQuerySpecification.UPDATE_1_0), is(false));
+        assertThat(XQueryDialect.XQUERY_3_0_UPDATE_W3C.conformsTo(XQuerySpecification.UPDATE_3_0), is(true));
+
+        assertThat(XQueryDialect.XQUERY_1_0_FULL_TEXT_W3C.conformsTo(XQuerySpecification.UPDATE_1_0), is(false));
+        assertThat(XQueryDialect.XQUERY_1_0_FULL_TEXT_W3C.conformsTo(XQuerySpecification.UPDATE_3_0), is(false));
+
+        assertThat(XQueryDialect.XQUERY_3_0_FULL_TEXT_W3C.conformsTo(XQuerySpecification.UPDATE_1_0), is(false));
+        assertThat(XQueryDialect.XQUERY_3_0_FULL_TEXT_W3C.conformsTo(XQuerySpecification.UPDATE_3_0), is(false));
+
+        assertThat(XQueryDialect.XQUERY_1_0_SEMANTICS_W3C.conformsTo(XQuerySpecification.UPDATE_1_0), is(false));
+        assertThat(XQueryDialect.XQUERY_1_0_SEMANTICS_W3C.conformsTo(XQuerySpecification.UPDATE_3_0), is(false));
+
+        assertThat(XQueryDialect.XQUERY_1_0_2ED_SEMANTICS_W3C.conformsTo(XQuerySpecification.UPDATE_1_0), is(false));
+        assertThat(XQueryDialect.XQUERY_1_0_2ED_SEMANTICS_W3C.conformsTo(XQuerySpecification.UPDATE_3_0), is(false));
+
+        assertThat(XQueryDialect.XQUERY_0_9_MARKLOGIC_3_2.conformsTo(XQuerySpecification.UPDATE_1_0), is(false));
+        assertThat(XQueryDialect.XQUERY_0_9_MARKLOGIC_3_2.conformsTo(XQuerySpecification.UPDATE_3_0), is(false));
+
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_7.conformsTo(XQuerySpecification.UPDATE_1_0), is(false));
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_7.conformsTo(XQuerySpecification.UPDATE_3_0), is(false));
+
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_8.conformsTo(XQuerySpecification.UPDATE_1_0), is(false));
+        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_8.conformsTo(XQuerySpecification.UPDATE_3_0), is(false));
     }
 
     public void testToString() {

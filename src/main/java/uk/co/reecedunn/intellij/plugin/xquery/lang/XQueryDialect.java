@@ -19,6 +19,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.XQueryBundle;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public enum XQueryDialect {
     XQUERY_0_9_MARKLOGIC_3_2("0.9-ml/3.2",
         XQueryVersion.XQUERY_0_9_MARKLOGIC,
@@ -63,6 +66,32 @@ public enum XQueryDialect {
     private final String mID;
     private final String mName;
     private final XQueryVersion mVersion;
+    private final Set<XQuerySpecification> mConformsTo = new HashSet<>();
+
+    static {
+        XQUERY_0_9_MARKLOGIC_3_2.mConformsTo.add(XQuerySpecification.XQUERY_1_0_20030502);
+        XQUERY_1_0_FULL_TEXT_W3C.mConformsTo.add(XQuerySpecification.XQUERY_1_0);
+        XQUERY_1_0_SEMANTICS_W3C.mConformsTo.add(XQuerySpecification.XQUERY_1_0);
+        XQUERY_1_0_2ED_SEMANTICS_W3C.mConformsTo.add(XQuerySpecification.XQUERY_1_0_20101214);
+        XQUERY_1_0_UPDATE_W3C.mConformsTo.add(XQuerySpecification.XQUERY_1_0);
+        XQUERY_1_0_W3C.mConformsTo.add(XQuerySpecification.XQUERY_1_0);
+        XQUERY_1_0_2ED_W3C.mConformsTo.add(XQuerySpecification.XQUERY_1_0_20101214);
+        XQUERY_1_0_MARKLOGIC_7.mConformsTo.add(XQuerySpecification.XQUERY_1_0);
+        XQUERY_1_0_MARKLOGIC_8.mConformsTo.add(XQuerySpecification.XQUERY_1_0);
+        XQUERY_3_0_FULL_TEXT_W3C.mConformsTo.add(XQuerySpecification.XQUERY_3_0);
+        XQUERY_3_0_UPDATE_W3C.mConformsTo.add(XQuerySpecification.XQUERY_3_0);
+        XQUERY_3_0_W3C.mConformsTo.add(XQuerySpecification.XQUERY_3_0);
+        XQUERY_3_1_W3C.mConformsTo.add(XQuerySpecification.XQUERY_3_1);
+
+        XQUERY_1_0_SEMANTICS_W3C.mConformsTo.add(XQuerySpecification.SEMANTICS_1_0);
+        XQUERY_1_0_2ED_SEMANTICS_W3C.mConformsTo.add(XQuerySpecification.SEMANTICS_1_0_20101214);
+
+        XQUERY_1_0_FULL_TEXT_W3C.mConformsTo.add(XQuerySpecification.FULL_TEXT_1_0);
+        XQUERY_3_0_FULL_TEXT_W3C.mConformsTo.add(XQuerySpecification.FULL_TEXT_3_0);
+
+        XQUERY_1_0_UPDATE_W3C.mConformsTo.add(XQuerySpecification.UPDATE_1_0);
+        XQUERY_3_0_UPDATE_W3C.mConformsTo.add(XQuerySpecification.UPDATE_3_0);
+    }
 
     XQueryDialect(@NotNull String id, @NotNull XQueryVersion version, @NotNull String name) {
         mID = id;
@@ -78,6 +107,10 @@ public enum XQueryDialect {
     @NotNull
     public XQueryVersion getLanguageVersion() {
         return mVersion;
+    }
+
+    public boolean conformsTo(XQuerySpecification specification) {
+        return mConformsTo.contains(specification);
     }
 
     @Nullable
