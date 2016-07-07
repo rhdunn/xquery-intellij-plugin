@@ -55,16 +55,6 @@ public enum XQueryDialect {
         XQueryBundle.message("xquery.dialect.name.1.0/W3C-2ed"),
         XQueryBundle.message("xquery.dialect.description.1.0/W3C-2ed"),
         "https://www.w3.org/TR/2010/REC-xquery-20101214/"),
-    XQUERY_1_0_MARKLOGIC_5("1.0-ml/5",
-        XQueryVersion.XQUERY_1_0_MARKLOGIC,
-        XQueryBundle.message("xquery.dialect.name.1.0-ml/5"),
-        null,
-        "https://docs.marklogic.com/5.0/guide/xquery/dialects"),
-    XQUERY_1_0_MARKLOGIC_6("1.0-ml/6",
-        XQueryVersion.XQUERY_1_0_MARKLOGIC,
-        XQueryBundle.message("xquery.dialect.name.1.0-ml/6"),
-        null,
-        "https://docs.marklogic.com/6.0/guide/xquery/dialects"),
     XQUERY_1_0_MARKLOGIC_7("1.0-ml/7",
         XQueryVersion.XQUERY_1_0_MARKLOGIC,
         XQueryBundle.message("xquery.dialect.name.1.0-ml/7"),
@@ -139,8 +129,6 @@ public enum XQueryDialect {
         if ("1.0+formal-semantics/W3C".equals(value)) return XQUERY_1_0_SEMANTICS_W3C;
         if ("1.0+formal-semantics/W3C-2ed".equals(value)) return XQUERY_1_0_2ED_SEMANTICS_W3C;
         if ("1.0+update/W3C".equals(value)) return XQUERY_1_0_UPDATE_W3C;
-        if ("1.0-ml/5".equals(value)) return XQUERY_1_0_MARKLOGIC_5;
-        if ("1.0-ml/6".equals(value)) return XQUERY_1_0_MARKLOGIC_6;
         if ("1.0-ml/7".equals(value)) return XQUERY_1_0_MARKLOGIC_7;
         if ("1.0-ml/8".equals(value)) return XQUERY_1_0_MARKLOGIC_8;
         if ("3.0/W3C".equals(value)) return XQUERY_3_0_W3C;
