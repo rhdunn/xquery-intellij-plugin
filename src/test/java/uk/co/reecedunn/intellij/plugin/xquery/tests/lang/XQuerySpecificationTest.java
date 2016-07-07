@@ -25,6 +25,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class XQuerySpecificationTest extends TestCase {
     public void testName() {
+        assertThat(XQuerySpecification.XQUERY_1_0_WD_20030502.getName(), is("XQuery 1.0"));
         assertThat(XQuerySpecification.XQUERY_1_0.getName(), is("XQuery 1.0"));
         assertThat(XQuerySpecification.XQUERY_1_0_2ED.getName(), is("XQuery 1.0 (Second Edition)"));
         assertThat(XQuerySpecification.XQUERY_3_0.getName(), is("XQuery 3.0"));
@@ -41,6 +42,7 @@ public class XQuerySpecificationTest extends TestCase {
     }
 
     public void testDescription() {
+        assertThat(XQuerySpecification.XQUERY_1_0_WD_20030502.getDescription(), is("W3C Working Draft 02 May 2003"));
         assertThat(XQuerySpecification.XQUERY_1_0.getDescription(), is("W3C Recommendation 23 January 2007"));
         assertThat(XQuerySpecification.XQUERY_1_0_2ED.getDescription(), is("W3C Recommendation 14 December 2010"));
         assertThat(XQuerySpecification.XQUERY_3_0.getDescription(), is("W3C Recommendation 08 April 2014"));
@@ -57,6 +59,7 @@ public class XQuerySpecificationTest extends TestCase {
     }
 
     public void testReference() {
+        assertThat(XQuerySpecification.XQUERY_1_0_WD_20030502.getReference(), is("https://www.w3.org/TR/2003/WD-xquery-20030502/"));
         assertThat(XQuerySpecification.XQUERY_1_0.getReference(), is("https://www.w3.org/TR/2007/REC-xquery-20070123/"));
         assertThat(XQuerySpecification.XQUERY_1_0_2ED.getReference(), is("https://www.w3.org/TR/2010/REC-xquery-20101214/"));
         assertThat(XQuerySpecification.XQUERY_3_0.getReference(), is("https://www.w3.org/TR/2014/REC-xquery-30-20140408/"));
@@ -73,6 +76,7 @@ public class XQuerySpecificationTest extends TestCase {
     }
 
     public void testToString() {
+        assertThat(XQuerySpecification.XQUERY_1_0_WD_20030502.toString(), is("xquery-20030502"));
         assertThat(XQuerySpecification.XQUERY_1_0.toString(), is("xquery"));
         assertThat(XQuerySpecification.XQUERY_1_0_2ED.toString(), is("xquery/2ed"));
         assertThat(XQuerySpecification.XQUERY_3_0.toString(), is("xquery-30"));
@@ -91,6 +95,7 @@ public class XQuerySpecificationTest extends TestCase {
     public void testParse() {
         assertThat(XQueryDialect.parse(null), is(nullValue()));
 
+        assertThat(XQuerySpecification.parse("xquery-20030502"), is(XQuerySpecification.XQUERY_1_0_WD_20030502));
         assertThat(XQuerySpecification.parse("xquery"), is(XQuerySpecification.XQUERY_1_0));
         assertThat(XQuerySpecification.parse("xquery/2ed"), is(XQuerySpecification.XQUERY_1_0_2ED));
         assertThat(XQuerySpecification.parse("xquery-30"), is(XQuerySpecification.XQUERY_3_0));

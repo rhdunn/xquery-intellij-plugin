@@ -22,6 +22,10 @@ import uk.co.reecedunn.intellij.plugin.xquery.XQueryBundle;
 public enum XQuerySpecification {
     // XQuery: An XML Query Language
 
+    XQUERY_1_0_WD_20030502("xquery-20030502",
+        XQueryBundle.message("xquery.specification.name.xquery-20030502"),
+        XQueryBundle.message("xquery.specification.description.xquery-20030502"),
+        "https://www.w3.org/TR/2003/WD-xquery-20030502/"),
     XQUERY_1_0("xquery",
         XQueryBundle.message("xquery.dialect.name.1.0/W3C"),
         XQueryBundle.message("xquery.dialect.description.1.0/W3C"),
@@ -101,6 +105,7 @@ public enum XQuerySpecification {
 
     @Nullable
     public static XQuerySpecification parse(@Nullable String value) {
+        if ("xquery-20030502".equals(value)) return XQUERY_1_0_WD_20030502;
         if ("xquery".equals(value)) return XQUERY_1_0;
         if ("xquery/2ed".equals(value)) return XQUERY_1_0_2ED;
         if ("xquery-30".equals(value)) return XQUERY_3_0;
