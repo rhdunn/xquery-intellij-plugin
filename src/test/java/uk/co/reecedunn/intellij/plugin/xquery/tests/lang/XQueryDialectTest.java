@@ -37,6 +37,9 @@ public class XQueryDialectTest extends TestCase {
         assertThat(XQueryDialect.XQUERY_1_0_FULL_TEXT_W3C.getName(), is("XQuery and Full Text 1.0"));
         assertThat(XQueryDialect.XQUERY_3_0_FULL_TEXT_W3C.getName(), is("XQuery and Full Text 3.0"));
 
+        assertThat(XQueryDialect.XQUERY_1_0_SEMANTICS_W3C.getName(), is("XQuery and Formal Semantics 1.0"));
+        assertThat(XQueryDialect.XQUERY_1_0_2ED_SEMANTICS_W3C.getName(), is("XQuery and Formal Semantics 1.0 (Second Edition)"));
+
         assertThat(XQueryDialect.XQUERY_0_9_MARKLOGIC_3_2.getName(), is("MarkLogic 3.2"));
         assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_5.getName(), is("MarkLogic 5"));
         assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_6.getName(), is("MarkLogic 6"));
@@ -55,6 +58,9 @@ public class XQueryDialectTest extends TestCase {
 
         assertThat(XQueryDialect.XQUERY_1_0_FULL_TEXT_W3C.getLanguageVersion(), is(XQueryVersion.XQUERY_1_0));
         assertThat(XQueryDialect.XQUERY_3_0_FULL_TEXT_W3C.getLanguageVersion(), is(XQueryVersion.XQUERY_3_0));
+
+        assertThat(XQueryDialect.XQUERY_1_0_SEMANTICS_W3C.getLanguageVersion(), is(XQueryVersion.XQUERY_1_0));
+        assertThat(XQueryDialect.XQUERY_1_0_2ED_SEMANTICS_W3C.getLanguageVersion(), is(XQueryVersion.XQUERY_1_0));
 
         assertThat(XQueryDialect.XQUERY_0_9_MARKLOGIC_3_2.getLanguageVersion(), is(XQueryVersion.XQUERY_0_9_MARKLOGIC));
         assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_5.getLanguageVersion(), is(XQueryVersion.XQUERY_1_0_MARKLOGIC));
@@ -75,6 +81,9 @@ public class XQueryDialectTest extends TestCase {
         assertThat(XQueryDialect.XQUERY_1_0_FULL_TEXT_W3C.getDescription(), is("W3C Recommendation 17 March 2011"));
         assertThat(XQueryDialect.XQUERY_3_0_FULL_TEXT_W3C.getDescription(), is("W3C Recommendation 24 November 2015"));
 
+        assertThat(XQueryDialect.XQUERY_1_0_SEMANTICS_W3C.getDescription(), is("W3C Recommendation 23 January 2007"));
+        assertThat(XQueryDialect.XQUERY_1_0_2ED_SEMANTICS_W3C.getDescription(), is("W3C Recommendation 14 December 2010"));
+
         assertThat(XQueryDialect.XQUERY_0_9_MARKLOGIC_3_2.getDescription(), is(nullValue()));
         assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_5.getDescription(), is(nullValue()));
         assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_6.getDescription(), is(nullValue()));
@@ -94,6 +103,9 @@ public class XQueryDialectTest extends TestCase {
         assertThat(XQueryDialect.XQUERY_1_0_FULL_TEXT_W3C.getReference(), is("https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/"));
         assertThat(XQueryDialect.XQUERY_3_0_FULL_TEXT_W3C.getReference(), is("https://www.w3.org/TR/2015/REC-xpath-full-text-30-20151124/"));
 
+        assertThat(XQueryDialect.XQUERY_1_0_SEMANTICS_W3C.getReference(), is("https://www.w3.org/TR/2007/REC-xquery-semantics-20070123/"));
+        assertThat(XQueryDialect.XQUERY_1_0_2ED_SEMANTICS_W3C.getReference(), is("https://www.w3.org/TR/2010/REC-xquery-semantics-20101214/"));
+
         assertThat(XQueryDialect.XQUERY_0_9_MARKLOGIC_3_2.getReference(), is("https://docs.marklogic.com/guide/xquery/dialects#id_65735"));
         assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_5.getReference(), is("https://docs.marklogic.com/5.0/guide/xquery/dialects"));
         assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_6.getReference(), is("https://docs.marklogic.com/6.0/guide/xquery/dialects"));
@@ -112,6 +124,9 @@ public class XQueryDialectTest extends TestCase {
 
         assertThat(XQueryDialect.XQUERY_1_0_FULL_TEXT_W3C.toString(), is("1.0+full-text/W3C"));
         assertThat(XQueryDialect.XQUERY_3_0_FULL_TEXT_W3C.toString(), is("3.0+full-text/W3C"));
+
+        assertThat(XQueryDialect.XQUERY_1_0_SEMANTICS_W3C.toString(), is("1.0+formal-semantics/W3C"));
+        assertThat(XQueryDialect.XQUERY_1_0_2ED_SEMANTICS_W3C.toString(), is("1.0+formal-semantics/W3C-2ed"));
 
         assertThat(XQueryDialect.XQUERY_0_9_MARKLOGIC_3_2.toString(), is("0.9-ml/3.2"));
         assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_5.toString(), is("1.0-ml/5"));
@@ -133,6 +148,9 @@ public class XQueryDialectTest extends TestCase {
 
         assertThat(XQueryDialect.parse("1.0+full-text/W3C"), is(XQueryDialect.XQUERY_1_0_FULL_TEXT_W3C));
         assertThat(XQueryDialect.parse("3.0+full-text/W3C"), is(XQueryDialect.XQUERY_3_0_FULL_TEXT_W3C));
+
+        assertThat(XQueryDialect.parse("1.0+formal-semantics/W3C"), is(XQueryDialect.XQUERY_1_0_SEMANTICS_W3C));
+        assertThat(XQueryDialect.parse("1.0+formal-semantics/W3C-2ed"), is(XQueryDialect.XQUERY_1_0_2ED_SEMANTICS_W3C));
 
         assertThat(XQueryDialect.parse("0.9-ml/3.2"), is(XQueryDialect.XQUERY_0_9_MARKLOGIC_3_2));
         assertThat(XQueryDialect.parse("1.0-ml/5"), is(XQueryDialect.XQUERY_1_0_MARKLOGIC_5));

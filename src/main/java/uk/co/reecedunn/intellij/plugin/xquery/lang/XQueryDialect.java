@@ -30,6 +30,16 @@ public enum XQueryDialect {
         XQueryBundle.message("xquery.dialect.name.1.0+full-text/W3C"),
         XQueryBundle.message("xquery.dialect.description.1.0+full-text/W3C"),
         "https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/"),
+    XQUERY_1_0_SEMANTICS_W3C("1.0+formal-semantics/W3C",
+        XQueryVersion.XQUERY_1_0,
+        XQueryBundle.message("xquery.dialect.name.1.0+formal-semantics/W3C"),
+        XQueryBundle.message("xquery.dialect.description.1.0+formal-semantics/W3C"),
+        "https://www.w3.org/TR/2007/REC-xquery-semantics-20070123/"),
+    XQUERY_1_0_2ED_SEMANTICS_W3C("1.0+formal-semantics/W3C-2ed",
+        XQueryVersion.XQUERY_1_0,
+        XQueryBundle.message("xquery.dialect.name.1.0+formal-semantics/W3C-2ed"),
+        XQueryBundle.message("xquery.dialect.description.1.0+formal-semantics/W3C-2ed"),
+        "https://www.w3.org/TR/2010/REC-xquery-semantics-20101214/"),
     XQUERY_1_0_UPDATE_W3C("1.0+update/W3C",
         XQueryVersion.XQUERY_1_0,
         XQueryBundle.message("xquery.dialect.name.1.0+update/W3C"),
@@ -126,6 +136,8 @@ public enum XQueryDialect {
         if ("1.0/W3C".equals(value)) return XQUERY_1_0_W3C;
         if ("1.0/W3C-2ed".equals(value)) return XQUERY_1_0_2ED_W3C;
         if ("1.0+full-text/W3C".equals(value)) return XQUERY_1_0_FULL_TEXT_W3C;
+        if ("1.0+formal-semantics/W3C".equals(value)) return XQUERY_1_0_SEMANTICS_W3C;
+        if ("1.0+formal-semantics/W3C-2ed".equals(value)) return XQUERY_1_0_2ED_SEMANTICS_W3C;
         if ("1.0+update/W3C".equals(value)) return XQUERY_1_0_UPDATE_W3C;
         if ("1.0-ml/5".equals(value)) return XQUERY_1_0_MARKLOGIC_5;
         if ("1.0-ml/6".equals(value)) return XQUERY_1_0_MARKLOGIC_6;
