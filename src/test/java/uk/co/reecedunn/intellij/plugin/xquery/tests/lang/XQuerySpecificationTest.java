@@ -27,12 +27,12 @@ public class XQuerySpecificationTest extends TestCase {
     public void testName() {
         assertThat(XQuerySpecification.XQUERY_1_0_WD_20030502.getName(), is("XQuery 1.0"));
         assertThat(XQuerySpecification.XQUERY_1_0.getName(), is("XQuery 1.0"));
-        assertThat(XQuerySpecification.XQUERY_1_0_2ED.getName(), is("XQuery 1.0 (Second Edition)"));
+        assertThat(XQuerySpecification.XQUERY_1_0_20101214.getName(), is("XQuery 1.0 (Second Edition)"));
         assertThat(XQuerySpecification.XQUERY_3_0.getName(), is("XQuery 3.0"));
         assertThat(XQuerySpecification.XQUERY_3_1.getName(), is("XQuery 3.1"));
 
         assertThat(XQuerySpecification.SEMANTICS_1_0.getName(), is("XQuery and Formal Semantics 1.0"));
-        assertThat(XQuerySpecification.SEMANTICS_1_0_2ED.getName(), is("XQuery and Formal Semantics 1.0 (Second Edition)"));
+        assertThat(XQuerySpecification.SEMANTICS_1_0_20101214.getName(), is("XQuery and Formal Semantics 1.0 (Second Edition)"));
 
         assertThat(XQuerySpecification.FULL_TEXT_1_0.getName(), is("XQuery and Full Text 1.0"));
         assertThat(XQuerySpecification.FULL_TEXT_3_0.getName(), is("XQuery and Full Text 3.0"));
@@ -44,12 +44,12 @@ public class XQuerySpecificationTest extends TestCase {
     public void testDescription() {
         assertThat(XQuerySpecification.XQUERY_1_0_WD_20030502.getDescription(), is("W3C Working Draft 02 May 2003"));
         assertThat(XQuerySpecification.XQUERY_1_0.getDescription(), is("W3C Recommendation 23 January 2007"));
-        assertThat(XQuerySpecification.XQUERY_1_0_2ED.getDescription(), is("W3C Recommendation 14 December 2010"));
+        assertThat(XQuerySpecification.XQUERY_1_0_20101214.getDescription(), is("W3C Recommendation 14 December 2010"));
         assertThat(XQuerySpecification.XQUERY_3_0.getDescription(), is("W3C Recommendation 08 April 2014"));
         assertThat(XQuerySpecification.XQUERY_3_1.getDescription(), is("W3C Candidate Recommendation 17 December 2015"));
 
         assertThat(XQuerySpecification.SEMANTICS_1_0.getDescription(), is("W3C Recommendation 23 January 2007"));
-        assertThat(XQuerySpecification.SEMANTICS_1_0_2ED.getDescription(), is("W3C Recommendation 14 December 2010"));
+        assertThat(XQuerySpecification.SEMANTICS_1_0_20101214.getDescription(), is("W3C Recommendation 14 December 2010"));
 
         assertThat(XQuerySpecification.FULL_TEXT_1_0.getDescription(), is("W3C Recommendation 17 March 2011"));
         assertThat(XQuerySpecification.FULL_TEXT_3_0.getDescription(), is("W3C Recommendation 24 November 2015"));
@@ -61,12 +61,12 @@ public class XQuerySpecificationTest extends TestCase {
     public void testReference() {
         assertThat(XQuerySpecification.XQUERY_1_0_WD_20030502.getReference(), is("https://www.w3.org/TR/2003/WD-xquery-20030502/"));
         assertThat(XQuerySpecification.XQUERY_1_0.getReference(), is("https://www.w3.org/TR/2007/REC-xquery-20070123/"));
-        assertThat(XQuerySpecification.XQUERY_1_0_2ED.getReference(), is("https://www.w3.org/TR/2010/REC-xquery-20101214/"));
+        assertThat(XQuerySpecification.XQUERY_1_0_20101214.getReference(), is("https://www.w3.org/TR/2010/REC-xquery-20101214/"));
         assertThat(XQuerySpecification.XQUERY_3_0.getReference(), is("https://www.w3.org/TR/2014/REC-xquery-30-20140408/"));
         assertThat(XQuerySpecification.XQUERY_3_1.getReference(), is("https://www.w3.org/TR/2015/CR-xquery-31-20151217/"));
 
         assertThat(XQuerySpecification.SEMANTICS_1_0.getReference(), is("https://www.w3.org/TR/2007/REC-xquery-semantics-20070123/"));
-        assertThat(XQuerySpecification.SEMANTICS_1_0_2ED.getReference(), is("https://www.w3.org/TR/2010/REC-xquery-semantics-20101214/"));
+        assertThat(XQuerySpecification.SEMANTICS_1_0_20101214.getReference(), is("https://www.w3.org/TR/2010/REC-xquery-semantics-20101214/"));
 
         assertThat(XQuerySpecification.FULL_TEXT_1_0.getReference(), is("https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/"));
         assertThat(XQuerySpecification.FULL_TEXT_3_0.getReference(), is("https://www.w3.org/TR/2015/REC-xpath-full-text-30-20151124/"));
@@ -78,12 +78,12 @@ public class XQuerySpecificationTest extends TestCase {
     public void testToString() {
         assertThat(XQuerySpecification.XQUERY_1_0_WD_20030502.toString(), is("xquery-20030502"));
         assertThat(XQuerySpecification.XQUERY_1_0.toString(), is("xquery"));
-        assertThat(XQuerySpecification.XQUERY_1_0_2ED.toString(), is("xquery/2ed"));
+        assertThat(XQuerySpecification.XQUERY_1_0_20101214.toString(), is("xquery-20101214"));
         assertThat(XQuerySpecification.XQUERY_3_0.toString(), is("xquery-30"));
         assertThat(XQuerySpecification.XQUERY_3_1.toString(), is("xquery-31"));
 
         assertThat(XQuerySpecification.SEMANTICS_1_0.toString(), is("xquery-semantics"));
-        assertThat(XQuerySpecification.SEMANTICS_1_0_2ED.toString(), is("xquery-semantics/2ed"));
+        assertThat(XQuerySpecification.SEMANTICS_1_0_20101214.toString(), is("xquery-semantics-20101214"));
 
         assertThat(XQuerySpecification.FULL_TEXT_1_0.toString(), is("xpath-full-text-10"));
         assertThat(XQuerySpecification.FULL_TEXT_3_0.toString(), is("xpath-full-text-30"));
@@ -97,12 +97,12 @@ public class XQuerySpecificationTest extends TestCase {
 
         assertThat(XQuerySpecification.parse("xquery-20030502"), is(XQuerySpecification.XQUERY_1_0_WD_20030502));
         assertThat(XQuerySpecification.parse("xquery"), is(XQuerySpecification.XQUERY_1_0));
-        assertThat(XQuerySpecification.parse("xquery/2ed"), is(XQuerySpecification.XQUERY_1_0_2ED));
+        assertThat(XQuerySpecification.parse("xquery-20101214"), is(XQuerySpecification.XQUERY_1_0_20101214));
         assertThat(XQuerySpecification.parse("xquery-30"), is(XQuerySpecification.XQUERY_3_0));
         assertThat(XQuerySpecification.parse("xquery-31"), is(XQuerySpecification.XQUERY_3_1));
 
         assertThat(XQuerySpecification.parse("xquery-semantics"), is(XQuerySpecification.SEMANTICS_1_0));
-        assertThat(XQuerySpecification.parse("xquery-semantics/2ed"), is(XQuerySpecification.SEMANTICS_1_0_2ED));
+        assertThat(XQuerySpecification.parse("xquery-semantics-20101214"), is(XQuerySpecification.SEMANTICS_1_0_20101214));
 
         assertThat(XQuerySpecification.parse("xpath-full-text-10"), is(XQuerySpecification.FULL_TEXT_1_0));
         assertThat(XQuerySpecification.parse("xpath-full-text-30"), is(XQuerySpecification.FULL_TEXT_3_0));

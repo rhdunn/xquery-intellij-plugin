@@ -30,7 +30,7 @@ public enum XQuerySpecification {
         XQueryBundle.message("xquery.dialect.name.1.0/W3C"),
         XQueryBundle.message("xquery.dialect.description.1.0/W3C"),
         "https://www.w3.org/TR/2007/REC-xquery-20070123/"),
-    XQUERY_1_0_2ED("xquery/2ed",
+    XQUERY_1_0_20101214("xquery-20101214",
         XQueryBundle.message("xquery.dialect.name.1.0/W3C-2ed"),
         XQueryBundle.message("xquery.dialect.description.1.0/W3C-2ed"),
         "https://www.w3.org/TR/2010/REC-xquery-20101214/"),
@@ -49,7 +49,7 @@ public enum XQuerySpecification {
         XQueryBundle.message("xquery.dialect.name.1.0+formal-semantics/W3C"),
         XQueryBundle.message("xquery.dialect.description.1.0+formal-semantics/W3C"),
         "https://www.w3.org/TR/2007/REC-xquery-semantics-20070123/"),
-    SEMANTICS_1_0_2ED("xquery-semantics/2ed",
+    SEMANTICS_1_0_20101214("xquery-semantics-20101214",
         XQueryBundle.message("xquery.dialect.name.1.0+formal-semantics/W3C-2ed"),
         XQueryBundle.message("xquery.dialect.description.1.0+formal-semantics/W3C-2ed"),
         "https://www.w3.org/TR/2010/REC-xquery-semantics-20101214/"),
@@ -107,11 +107,11 @@ public enum XQuerySpecification {
     public static XQuerySpecification parse(@Nullable String value) {
         if ("xquery-20030502".equals(value)) return XQUERY_1_0_WD_20030502;
         if ("xquery".equals(value)) return XQUERY_1_0;
-        if ("xquery/2ed".equals(value)) return XQUERY_1_0_2ED;
+        if ("xquery-20101214".equals(value)) return XQUERY_1_0_20101214;
         if ("xquery-30".equals(value)) return XQUERY_3_0;
         if ("xquery-31".equals(value)) return XQUERY_3_1;
         if ("xquery-semantics".equals(value)) return SEMANTICS_1_0;
-        if ("xquery-semantics/2ed".equals(value)) return SEMANTICS_1_0_2ED;
+        if ("xquery-semantics-20101214".equals(value)) return SEMANTICS_1_0_20101214;
         if ("xpath-full-text-10".equals(value)) return FULL_TEXT_1_0;
         if ("xpath-full-text-30".equals(value)) return FULL_TEXT_3_0;
         if ("xquery-update-10".equals(value)) return UPDATE_1_0;
