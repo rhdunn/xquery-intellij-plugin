@@ -65,46 +65,6 @@ public class XQueryDialectTest extends TestCase {
         assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_8.getLanguageVersion(), is(XQueryVersion.XQUERY_1_0_MARKLOGIC));
     }
 
-    public void testDescription() {
-        assertThat(XQueryDialect.XQUERY_1_0_W3C.getDescription(), is("W3C Recommendation 23 January 2007"));
-        assertThat(XQueryDialect.XQUERY_1_0_2ED_W3C.getDescription(), is("W3C Recommendation 14 December 2010"));
-        assertThat(XQueryDialect.XQUERY_3_0_W3C.getDescription(), is("W3C Recommendation 08 April 2014"));
-        assertThat(XQueryDialect.XQUERY_3_1_W3C.getDescription(), is("W3C Candidate Recommendation 17 December 2015"));
-
-        assertThat(XQueryDialect.XQUERY_1_0_UPDATE_W3C.getDescription(), is("W3C Recommendation 17 March 2011"));
-        assertThat(XQueryDialect.XQUERY_3_0_UPDATE_W3C.getDescription(), is("W3C Last Call Working Draft 19 February 2015"));
-
-        assertThat(XQueryDialect.XQUERY_1_0_FULL_TEXT_W3C.getDescription(), is("W3C Recommendation 17 March 2011"));
-        assertThat(XQueryDialect.XQUERY_3_0_FULL_TEXT_W3C.getDescription(), is("W3C Recommendation 24 November 2015"));
-
-        assertThat(XQueryDialect.XQUERY_1_0_SEMANTICS_W3C.getDescription(), is("W3C Recommendation 23 January 2007"));
-        assertThat(XQueryDialect.XQUERY_1_0_2ED_SEMANTICS_W3C.getDescription(), is("W3C Recommendation 14 December 2010"));
-
-        assertThat(XQueryDialect.XQUERY_0_9_MARKLOGIC_3_2.getDescription(), is(nullValue()));
-        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_7.getDescription(), is(nullValue()));
-        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_8.getDescription(), is(nullValue()));
-    }
-
-    public void testReference() {
-        assertThat(XQueryDialect.XQUERY_1_0_W3C.getReference(), is("https://www.w3.org/TR/2007/REC-xquery-20070123/"));
-        assertThat(XQueryDialect.XQUERY_1_0_2ED_W3C.getReference(), is("https://www.w3.org/TR/2010/REC-xquery-20101214/"));
-        assertThat(XQueryDialect.XQUERY_3_0_W3C.getReference(), is("https://www.w3.org/TR/2014/REC-xquery-30-20140408/"));
-        assertThat(XQueryDialect.XQUERY_3_1_W3C.getReference(), is("https://www.w3.org/TR/2015/CR-xquery-31-20151217/"));
-
-        assertThat(XQueryDialect.XQUERY_1_0_UPDATE_W3C.getReference(), is("https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/"));
-        assertThat(XQueryDialect.XQUERY_3_0_UPDATE_W3C.getReference(), is("https://www.w3.org/TR/2015/WD-xquery-update-30-20150219/"));
-
-        assertThat(XQueryDialect.XQUERY_1_0_FULL_TEXT_W3C.getReference(), is("https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/"));
-        assertThat(XQueryDialect.XQUERY_3_0_FULL_TEXT_W3C.getReference(), is("https://www.w3.org/TR/2015/REC-xpath-full-text-30-20151124/"));
-
-        assertThat(XQueryDialect.XQUERY_1_0_SEMANTICS_W3C.getReference(), is("https://www.w3.org/TR/2007/REC-xquery-semantics-20070123/"));
-        assertThat(XQueryDialect.XQUERY_1_0_2ED_SEMANTICS_W3C.getReference(), is("https://www.w3.org/TR/2010/REC-xquery-semantics-20101214/"));
-
-        assertThat(XQueryDialect.XQUERY_0_9_MARKLOGIC_3_2.getReference(), is("https://docs.marklogic.com/guide/xquery/dialects#id_65735"));
-        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_7.getReference(), is("https://docs.marklogic.com/7.0/guide/xquery/dialects"));
-        assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_8.getReference(), is("https://docs.marklogic.com/8.0/guide/xquery/dialects"));
-    }
-
     public void testToString() {
         assertThat(XQueryDialect.XQUERY_1_0_W3C.toString(), is("1.0/W3C"));
         assertThat(XQueryDialect.XQUERY_1_0_2ED_W3C.toString(), is("1.0/W3C-2ed"));
