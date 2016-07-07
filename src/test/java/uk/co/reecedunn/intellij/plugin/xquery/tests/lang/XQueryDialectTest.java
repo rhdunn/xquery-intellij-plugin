@@ -66,7 +66,7 @@ public class XQueryDialectTest extends TestCase {
         assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_8.getLanguageVersion(), is(XQueryVersion.XQUERY_1_0_MARKLOGIC));
     }
 
-    public void testConformsTo_XQuery() {
+    public void testFeatureCheck_MinimalConformance() {
         assertThat(XQueryDialect.XQUERY_1_0_W3C.conformsTo(XQuerySpecification.XQUERY_1_0_20030502), is(false));
         assertThat(XQueryDialect.XQUERY_1_0_W3C.conformsTo(XQuerySpecification.XQUERY_1_0), is(true));
         assertThat(XQueryDialect.XQUERY_1_0_W3C.conformsTo(XQuerySpecification.XQUERY_1_0_20101214), is(false));
@@ -146,7 +146,7 @@ public class XQueryDialectTest extends TestCase {
         assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_8.conformsTo(XQuerySpecification.XQUERY_3_1), is(false));
     }
 
-    public void testConformsTo_Semantics() {
+    public void testFeatureCheck_StaticTyping() {
         assertThat(XQueryDialect.XQUERY_1_0_W3C.conformsTo(XQuerySpecification.SEMANTICS_1_0), is(false));
         assertThat(XQueryDialect.XQUERY_1_0_W3C.conformsTo(XQuerySpecification.SEMANTICS_1_0_20101214), is(false));
 
@@ -187,7 +187,7 @@ public class XQueryDialectTest extends TestCase {
         assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_8.conformsTo(XQuerySpecification.SEMANTICS_1_0_20101214), is(false));
     }
 
-    public void testConformsTo_FullText() {
+    public void testFeatureCheck_FullText() {
         assertThat(XQueryDialect.XQUERY_1_0_W3C.conformsTo(XQuerySpecification.FULL_TEXT_1_0), is(false));
         assertThat(XQueryDialect.XQUERY_1_0_W3C.conformsTo(XQuerySpecification.FULL_TEXT_3_0), is(false));
 
@@ -228,7 +228,7 @@ public class XQueryDialectTest extends TestCase {
         assertThat(XQueryDialect.XQUERY_1_0_MARKLOGIC_8.conformsTo(XQuerySpecification.FULL_TEXT_3_0), is(false));
     }
 
-    public void testConformsTo_UpdateFacility() {
+    public void testFeatureCheck_UpdateFacility() {
         assertThat(XQueryDialect.XQUERY_1_0_W3C.conformsTo(XQuerySpecification.UPDATE_1_0), is(false));
         assertThat(XQueryDialect.XQUERY_1_0_W3C.conformsTo(XQuerySpecification.UPDATE_3_0), is(false));
 
