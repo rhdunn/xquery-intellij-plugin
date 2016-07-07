@@ -20,23 +20,30 @@ import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.XQueryBundle;
 
 public enum XQueryVersion {
-    XQUERY_0_9_MARKLOGIC("0.9-ml", XQueryBundle.message("xquery.version.description.0.9-ml")),
-    XQUERY_1_0("1.0", XQueryBundle.message("xquery.version.description.1.0")),
-    XQUERY_1_0_MARKLOGIC("1.0-ml", XQueryBundle.message("xquery.version.description.1.0-ml")),
-    XQUERY_3_0("3.0", XQueryBundle.message("xquery.version.description.3.0")),
-    XQUERY_3_1("3.1", XQueryBundle.message("xquery.version.description.3.1"));
+    XQUERY_0_9_MARKLOGIC("0.9-ml", XQueryBundle.message("xquery.version.description.0.9-ml"), "https://docs.marklogic.com/5.0/guide/xquery/dialects"),
+    XQUERY_1_0("1.0", XQueryBundle.message("xquery.version.description.1.0"), "https://www.w3.org/TR/xquery/"),
+    XQUERY_1_0_MARKLOGIC("1.0-ml", XQueryBundle.message("xquery.version.description.1.0-ml"), "https://docs.marklogic.com/5.0/guide/xquery/dialects"),
+    XQUERY_3_0("3.0", XQueryBundle.message("xquery.version.description.3.0"), "https://www.w3.org/TR/xquery-30/"),
+    XQUERY_3_1("3.1", XQueryBundle.message("xquery.version.description.3.1"), "https://www.w3.org/TR/xquery-31/");
 
     private final String mID;
     private final String mName;
+    private final String mReference;
 
-    XQueryVersion(@NotNull String id, @NotNull String name) {
+    XQueryVersion(@NotNull String id, @NotNull String name, @NotNull String reference) {
         mID = id;
         mName = name;
+        mReference = reference;
     }
 
     @NotNull
     public String getName() {
         return mName;
+    }
+
+    @NotNull
+    public String getReference() {
+        return mReference;
     }
 
     @Nullable
