@@ -18,18 +18,13 @@ package uk.co.reecedunn.intellij.plugin.xquery.settings;
 import com.intellij.openapi.options.ConfigurationException;
 import com.intellij.openapi.project.Project;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryDialect;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryImplementation;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.Implementation;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 
 public class XQueryPropertiesUI {
-    private JComboBox<XQueryImplementation> mImplementation;
+    private JComboBox<Implementation> mImplementation;
     private JComboBox<XQueryVersion> mVersion;
     private JComboBox<XQueryDialect> mDialect1_0;
     private JComboBox<XQueryDialect> mDialect3_0;
@@ -60,7 +55,7 @@ public class XQueryPropertiesUI {
 
         mImplementation = new JComboBox<>();
         mImplementation.addActionListener(e -> {
-            final XQueryImplementation implementation = (XQueryImplementation)mImplementation.getSelectedItem();
+            final Implementation implementation = (Implementation)mImplementation.getSelectedItem();
 
             final XQueryVersion selectedVersion = (XQueryVersion)mVersion.getSelectedItem();
             boolean foundVersion = false;
@@ -78,7 +73,7 @@ public class XQueryPropertiesUI {
             }
         });
 
-        for (XQueryImplementation implementation : XQueryImplementation.values()) {
+        for (Implementation implementation : Implementation.values()) {
             mImplementation.addItem(implementation);
         }
 
@@ -105,7 +100,7 @@ public class XQueryPropertiesUI {
     }
 
     public void apply() throws ConfigurationException {
-        mSettings.setXQueryImplementation((XQueryImplementation)mImplementation.getSelectedItem());
+        mSettings.setXQueryImplementation((Implementation)mImplementation.getSelectedItem());
         mSettings.setXQueryVersion((XQueryVersion)mVersion.getSelectedItem());
         mSettings.setXQueryDialectForVersion(XQueryVersion.XQUERY_1_0, (XQueryDialect)mDialect1_0.getSelectedItem());
         mSettings.setXQueryDialectForVersion(XQueryVersion.XQUERY_3_0, (XQueryDialect)mDialect3_0.getSelectedItem());

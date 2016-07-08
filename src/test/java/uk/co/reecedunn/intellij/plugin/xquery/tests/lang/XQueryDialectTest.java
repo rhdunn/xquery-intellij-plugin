@@ -17,7 +17,6 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.lang;
 
 import junit.framework.TestCase;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryDialect;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryImplementation;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuerySpecification;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 

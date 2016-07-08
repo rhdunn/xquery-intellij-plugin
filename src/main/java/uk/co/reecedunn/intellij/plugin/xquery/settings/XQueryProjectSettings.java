@@ -22,7 +22,7 @@ import com.intellij.util.xmlb.XmlSerializerUtil;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.XQueryBundle;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryDialect;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryImplementation;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.Implementation;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 
 import java.io.File;
@@ -32,7 +32,7 @@ import java.io.File;
     storages = { @Storage(StoragePathMacros.WORKSPACE_FILE), @Storage("xquery_config.xml") }
 )
 public class XQueryProjectSettings implements PersistentStateComponent<XQueryProjectSettings>, ExportableComponent {
-    private XQueryImplementation XQUERY_IMPLEMENTATION = XQueryImplementation.W3C;
+    private Implementation XQUERY_IMPLEMENTATION = Implementation.W3C;
     private XQueryVersion XQUERY_VERSION = XQueryVersion.XQUERY_3_0;
     private XQueryDialect XQUERY_1_0_DIALECT = XQueryDialect.XQUERY_1_0_2ED_W3C;
     private XQueryDialect XQUERY_3_0_DIALECT = XQueryDialect.XQUERY_3_0_W3C;
@@ -64,11 +64,11 @@ public class XQueryProjectSettings implements PersistentStateComponent<XQueryPro
         return XQueryBundle.message("xquery.settings.project.title");
     }
 
-    public XQueryImplementation getXQueryImplementation() {
+    public Implementation getXQueryImplementation() {
         return XQUERY_IMPLEMENTATION;
     }
 
-    public void setXQueryImplementation(XQueryImplementation implementation) {
+    public void setXQueryImplementation(Implementation implementation) {
         XQUERY_IMPLEMENTATION = implementation;
     }
 

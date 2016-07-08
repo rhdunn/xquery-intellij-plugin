@@ -19,7 +19,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.XQueryBundle;
 
-public enum XQueryImplementation {
+public enum Implementation {
     W3C("W3C", XQueryBundle.message("xquery.implementation.description.w3c"), "https://www.w3.org/XML/Query/", XQueryVersion.XQUERY_3_0),
     MARKLOGIC("MarkLogic", XQueryBundle.message("xquery.implementation.description.ml"), "https://docs.marklogic.com", XQueryVersion.XQUERY_1_0_MARKLOGIC);
 
@@ -34,7 +34,7 @@ public enum XQueryImplementation {
     private final XQueryVersion mDefaultVersion;
     private XQueryVersion[] mVersions;
 
-    XQueryImplementation(@NotNull String id, @NotNull String name, @NotNull String reference, @NotNull XQueryVersion defaultVersion) {
+    Implementation(@NotNull String id, @NotNull String name, @NotNull String reference, @NotNull XQueryVersion defaultVersion) {
         mID = id;
         mName = name;
         mReference = reference;
@@ -52,7 +52,7 @@ public enum XQueryImplementation {
     }
 
     @Nullable
-    public static XQueryImplementation parse(@Nullable String value) {
+    public static Implementation parse(@Nullable String value) {
         if ("W3C".equals(value)) return W3C;
         if ("MarkLogic".equals(value)) return MARKLOGIC;
         return null;
