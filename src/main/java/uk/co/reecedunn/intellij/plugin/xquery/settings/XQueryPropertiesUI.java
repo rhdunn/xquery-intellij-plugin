@@ -17,7 +17,6 @@ package uk.co.reecedunn.intellij.plugin.xquery.settings;
 
 import com.intellij.openapi.options.ConfigurationException;
 import com.intellij.openapi.project.Project;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryDialect;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Implementation;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 
@@ -26,9 +25,6 @@ import javax.swing.*;
 public class XQueryPropertiesUI {
     private JComboBox<Implementation> mImplementation;
     private JComboBox<XQueryVersion> mVersion;
-    private JComboBox<XQueryDialect> mDialect1_0;
-    private JComboBox<XQueryDialect> mDialect3_0;
-    private JComboBox<XQueryDialect> mDialectMarkLogic;
 
     private JPanel mPanel;
     private final XQueryProjectSettings mSettings;
@@ -39,15 +35,6 @@ public class XQueryPropertiesUI {
 
     public JPanel getPanel() {
         return mPanel;
-    }
-
-    private void createDialectOptions(JComboBox<XQueryDialect> dialects, XQueryVersion version) {
-        dialects.removeAllItems();
-        for (XQueryDialect dialect : XQueryDialect.values()) {
-            if (dialect.getLanguageVersion() == version) {
-                dialects.addItem(dialect);
-            }
-        }
     }
 
     private void createUIComponents() {
@@ -76,42 +63,21 @@ public class XQueryPropertiesUI {
         for (Implementation implementation : Implementation.values()) {
             mImplementation.addItem(implementation);
         }
-
-        mDialect1_0 = new JComboBox<>();
-        mDialect1_0.setRenderer((list, value, index, isSelected, cellHasFocus) -> new JLabel(value.getName()));
-        createDialectOptions(mDialect1_0, XQueryVersion.XQUERY_1_0);
-
-        mDialect3_0 = new JComboBox<>();
-        mDialect3_0.setRenderer((list, value, index, isSelected, cellHasFocus) -> new JLabel(value.getName()));
-        createDialectOptions(mDialect3_0, XQueryVersion.XQUERY_3_0);
-
-        mDialectMarkLogic = new JComboBox<>();
-        mDialectMarkLogic.setRenderer((list, value, index, isSelected, cellHasFocus) -> new JLabel(value.getName()));
-        createDialectOptions(mDialectMarkLogic, XQueryVersion.XQUERY_1_0_MARKLOGIC);
     }
 
     public boolean isModified() {
         if (!mImplementation.getSelectedItem().equals(mSettings.getXQueryImplementation())) return true;
         if (!mVersion.getSelectedItem().equals(mSettings.getXQueryVersion())) return true;
-        if (!mDialect1_0.getSelectedItem().equals(mSettings.getXQueryDialectForVersion(XQueryVersion.XQUERY_1_0))) return true;
-        if (!mDialect3_0.getSelectedItem().equals(mSettings.getXQueryDialectForVersion(XQueryVersion.XQUERY_3_0))) return true;
-        if (!mDialectMarkLogic.getSelectedItem().equals(mSettings.getXQueryDialectForVersion(XQueryVersion.XQUERY_1_0_MARKLOGIC))) return true;
         return false;
     }
 
     public void apply() throws ConfigurationException {
         mSettings.setXQueryImplementation((Implementation)mImplementation.getSelectedItem());
         mSettings.setXQueryVersion((XQueryVersion)mVersion.getSelectedItem());
-        mSettings.setXQueryDialectForVersion(XQueryVersion.XQUERY_1_0, (XQueryDialect)mDialect1_0.getSelectedItem());
-        mSettings.setXQueryDialectForVersion(XQueryVersion.XQUERY_3_0, (XQueryDialect)mDialect3_0.getSelectedItem());
-        mSettings.setXQueryDialectForVersion(XQueryVersion.XQUERY_1_0_MARKLOGIC, (XQueryDialect)mDialectMarkLogic.getSelectedItem());
     }
 
     public void reset() {
         mImplementation.setSelectedItem(mSettings.getXQueryImplementation());
         mVersion.setSelectedItem(mSettings.getXQueryVersion());
-        mDialect1_0.setSelectedItem(mSettings.getXQueryDialectForVersion(XQueryVersion.XQUERY_1_0));
-        mDialect3_0.setSelectedItem(mSettings.getXQueryDialectForVersion(XQueryVersion.XQUERY_3_0));
-        mDialectMarkLogic.setSelectedItem(mSettings.getXQueryDialectForVersion(XQueryVersion.XQUERY_1_0_MARKLOGIC));
     }
 }

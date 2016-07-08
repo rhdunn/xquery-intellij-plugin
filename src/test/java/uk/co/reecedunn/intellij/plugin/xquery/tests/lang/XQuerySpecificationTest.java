@@ -16,7 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.lang;
 
 import junit.framework.TestCase;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryDialect;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuerySpecification;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -93,7 +92,7 @@ public class XQuerySpecificationTest extends TestCase {
     }
 
     public void testParse() {
-        assertThat(XQueryDialect.parse(null), is(nullValue()));
+        assertThat(XQuerySpecification.parse(null), is(nullValue()));
 
         assertThat(XQuerySpecification.parse("xquery-20030502"), is(XQuerySpecification.XQUERY_1_0_20030502));
         assertThat(XQuerySpecification.parse("xquery"), is(XQuerySpecification.XQUERY_1_0));
