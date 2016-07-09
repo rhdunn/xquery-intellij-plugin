@@ -41,9 +41,17 @@ public class SyntaxHighlighterTest extends TestCase {
         SyntaxHighlighter highlighter = new SyntaxHighlighter();
 
         assertThat(highlighter.getTokenHighlights(null).length, is(0));
+    }
+
+    public void testTokenHighlights_BadCharacter() {
+        SyntaxHighlighter highlighter = new SyntaxHighlighter();
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.BAD_CHARACTER).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.BAD_CHARACTER)[0], is(SyntaxHighlighter.BAD_CHARACTER));
+    }
+
+    public void testTokenHighlights_Comment() {
+        SyntaxHighlighter highlighter = new SyntaxHighlighter();
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.COMMENT).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.COMMENT)[0], is(SyntaxHighlighter.COMMENT));
@@ -62,10 +70,14 @@ public class SyntaxHighlighterTest extends TestCase {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.PARTIAL_XML_COMMENT).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.PARTIAL_XML_COMMENT)[0], is(SyntaxHighlighter.COMMENT));
 
-        // NOTE: This token is for the parser, so that a parser error will be emitted for lone closing tags.
+        // NOTE: These tokens are for the parser, so that a parser error will be emitted for lone closing tags.
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.INCOMPLETE_XML_COMMENT_START_TAG).length, is(0));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_COMMENT_END_TAG).length, is(0));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.MINUS_MINUS).length, is(0));
+    }
+
+    public void testTokenHighlights_Number() {
+        SyntaxHighlighter highlighter = new SyntaxHighlighter();
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.INTEGER_LITERAL).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.INTEGER_LITERAL)[0], is(SyntaxHighlighter.NUMBER));
@@ -79,6 +91,10 @@ public class SyntaxHighlighterTest extends TestCase {
         // NOTE: This token is for the parser, so that a parser error will be emitted for incomplete double literals.
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)[0], is(SyntaxHighlighter.NUMBER));
+    }
+
+    public void testTokenHighlights_String() {
+        SyntaxHighlighter highlighter = new SyntaxHighlighter();
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.STRING_LITERAL_START).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.STRING_LITERAL_START)[0], is(SyntaxHighlighter.STRING));
@@ -88,9 +104,17 @@ public class SyntaxHighlighterTest extends TestCase {
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.STRING_LITERAL_END).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.STRING_LITERAL_END)[0], is(SyntaxHighlighter.STRING));
+    }
+
+    public void testTokenHighlights_EscapedCharacter() {
+        SyntaxHighlighter highlighter = new SyntaxHighlighter();
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.STRING_LITERAL_ESCAPED_CHARACTER).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.STRING_LITERAL_ESCAPED_CHARACTER)[0], is(SyntaxHighlighter.ESCAPED_CHARACTER));
+    }
+
+    public void testTokenHighlights_EntityReference() {
+        SyntaxHighlighter highlighter = new SyntaxHighlighter();
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.PREDEFINED_ENTITY_REFERENCE).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.PREDEFINED_ENTITY_REFERENCE)[0], is(SyntaxHighlighter.ENTITY_REFERENCE));
@@ -104,9 +128,17 @@ public class SyntaxHighlighterTest extends TestCase {
         // NOTE: This token is for the parser, so that a parser error will be emitted for invalid entity references.
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.PARTIAL_ENTITY_REFERENCE).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.PARTIAL_ENTITY_REFERENCE)[0], is(SyntaxHighlighter.STRING));
+    }
+
+    public void testTokenHighlights_Identifier() {
+        SyntaxHighlighter highlighter = new SyntaxHighlighter();
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.NCNAME).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.NCNAME)[0], is(SyntaxHighlighter.IDENTIFIER));
+    }
+
+    public void testTokenHighlights_OtherToken() {
+        SyntaxHighlighter highlighter = new SyntaxHighlighter();
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.NOT_EQUAL).length, is(0));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.VARIABLE_INDICATOR).length, is(0));
