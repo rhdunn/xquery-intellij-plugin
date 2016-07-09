@@ -41,6 +41,13 @@ public class XQueryLexerTest extends TestCase {
         lexer.advance();
     }
 
+    private void matchSingleToken(Lexer lexer, String text, IElementType type) {
+        final int length = text.length();
+        lexer.start(text);
+        matchToken(lexer, text, 0, 0,      length, type);
+        matchToken(lexer, "",   0, length, length, null);
+    }
+
     public void testEmptyBuffer() {
         Lexer lexer = new XQueryLexer();
 
@@ -442,9 +449,8 @@ public class XQueryLexerTest extends TestCase {
     public void testComment() {
         Lexer lexer = new XQueryLexer();
 
-        lexer.start("(:");
-        matchToken(lexer, "(:", 0, 0, 2, XQueryTokenType.PARTIAL_COMMENT);
-        matchToken(lexer, "",   0, 2, 2, null);
+        matchSingleToken(lexer, "(:", XQueryTokenType.PARTIAL_COMMENT);
+        matchSingleToken(lexer, ":)", XQueryTokenType.COMMENT_END_TAG);
 
         lexer.start("(: Test");
         matchToken(lexer, "(: Test", 0, 0, 7, XQueryTokenType.PARTIAL_COMMENT);
@@ -479,17 +485,12 @@ public class XQueryLexerTest extends TestCase {
     public void testDirCommentConstructor() {
         Lexer lexer = new XQueryLexer();
 
-        lexer.start("<!");
-        matchToken(lexer, "<!", 0, 0, 2, XQueryTokenType.INCOMPLETE_XML_COMMENT_START_TAG);
-        matchToken(lexer, "",   0, 2, 2, null);
+        matchSingleToken(lexer, "<!",   XQueryTokenType.INCOMPLETE_XML_COMMENT_START_TAG);
+        matchSingleToken(lexer, "<!-",  XQueryTokenType.INCOMPLETE_XML_COMMENT_START_TAG);
+        matchSingleToken(lexer, "<!--", XQueryTokenType.PARTIAL_XML_COMMENT);
 
-        lexer.start("<!-");
-        matchToken(lexer, "<!-", 0, 0, 3, XQueryTokenType.INCOMPLETE_XML_COMMENT_START_TAG);
-        matchToken(lexer, "",    0, 3, 3, null);
-
-        lexer.start("<!--");
-        matchToken(lexer, "<!--", 0, 0, 4, XQueryTokenType.PARTIAL_XML_COMMENT);
-        matchToken(lexer, "",     0, 4, 4, null);
+        matchSingleToken(lexer, "--",  XQueryTokenType.MINUS_MINUS);
+        matchSingleToken(lexer, "-->", XQueryTokenType.XML_COMMENT_END_TAG);
 
         lexer.start("<!-- Test");
         matchToken(lexer, "<!-- Test", 0, 0, 9, XQueryTokenType.PARTIAL_XML_COMMENT);
@@ -506,71 +507,57 @@ public class XQueryLexerTest extends TestCase {
         lexer.start("<!--\nMultiline\nComment\n-->");
         matchToken(lexer, "<!--\nMultiline\nComment\n-->", 0,  0, 26, XQueryTokenType.XML_COMMENT);
         matchToken(lexer, "",                              0, 26, 26, null);
-
-        lexer.start("--");
-        matchToken(lexer, "--", 0, 0, 2, XQueryTokenType.MINUS_MINUS);
-        matchToken(lexer, "",   0, 2, 2, null);
-
-        lexer.start("-->");
-        matchToken(lexer, "-->", 0, 0, 3, XQueryTokenType.XML_COMMENT_END_TAG);
-        matchToken(lexer, "",    0, 3, 3, null);
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#id-terminal-delimitation")
     public void testDelimitingTerminalSymbols() {
         Lexer lexer = new XQueryLexer();
 
-        lexer.start("$()*+:|,-.;={}<>?/@[]");
-        matchToken(lexer, "$", 0,  0,  1, XQueryTokenType.VARIABLE_INDICATOR);
-        matchToken(lexer, "(", 0,  1,  2, XQueryTokenType.PARENTHESIS_OPEN);
-        matchToken(lexer, ")", 0,  2,  3, XQueryTokenType.PARENTHESIS_CLOSE);
-        matchToken(lexer, "*", 0,  3,  4, XQueryTokenType.STAR);
-        matchToken(lexer, "+", 0,  4,  5, XQueryTokenType.PLUS);
-        matchToken(lexer, ":", 0,  5,  6, XQueryTokenType.QNAME_SEPARATOR);
-        matchToken(lexer, "|", 0,  6,  7, XQueryTokenType.UNION);
-        matchToken(lexer, ",", 0,  7,  8, XQueryTokenType.COMMA);
-        matchToken(lexer, "-", 0,  8,  9, XQueryTokenType.MINUS);
-        matchToken(lexer, ".", 0,  9, 10, XQueryTokenType.DOT);
-        matchToken(lexer, ";", 0, 10, 11, XQueryTokenType.SEMICOLON);
-        matchToken(lexer, "=", 0, 11, 12, XQueryTokenType.EQUAL);
-        matchToken(lexer, "{", 0, 12, 13, XQueryTokenType.BLOCK_OPEN);
-        matchToken(lexer, "}", 0, 13, 14, XQueryTokenType.BLOCK_CLOSE);
-        matchToken(lexer, "<", 0, 14, 15, XQueryTokenType.LESS_THAN);
-        matchToken(lexer, ">", 0, 15, 16, XQueryTokenType.GREATER_THAN);
-        matchToken(lexer, "?", 0, 16, 17, XQueryTokenType.QUESTION);
-        matchToken(lexer, "/", 0, 17, 18, XQueryTokenType.DIRECT_DESCENDANTS_PATH);
-        matchToken(lexer, "@", 0, 18, 19, XQueryTokenType.ATTRIBUTE_SELECTOR);
-        matchToken(lexer, "[", 0, 19, 20, XQueryTokenType.PREDICATE_BEGIN);
-        matchToken(lexer, "]", 0, 20, 21, XQueryTokenType.PREDICATE_END);
-        matchToken(lexer, "",  0, 21, 21, null);
+        matchSingleToken(lexer, "$", XQueryTokenType.VARIABLE_INDICATOR);
+        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN);
+        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE);
+        matchSingleToken(lexer, "*", XQueryTokenType.STAR);
+        matchSingleToken(lexer, "+", XQueryTokenType.PLUS);
+        matchSingleToken(lexer, ":", XQueryTokenType.QNAME_SEPARATOR);
+        matchSingleToken(lexer, "|", XQueryTokenType.UNION);
+        matchSingleToken(lexer, ",", XQueryTokenType.COMMA);
+        matchSingleToken(lexer, "-", XQueryTokenType.MINUS);
+        matchSingleToken(lexer, ".", XQueryTokenType.DOT);
+        matchSingleToken(lexer, ";", XQueryTokenType.SEMICOLON);
+        matchSingleToken(lexer, "=", XQueryTokenType.EQUAL);
+        matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN);
+        matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE);
+        matchSingleToken(lexer, "<", XQueryTokenType.LESS_THAN);
+        matchSingleToken(lexer, ">", XQueryTokenType.GREATER_THAN);
+        matchSingleToken(lexer, "?", XQueryTokenType.QUESTION);
+        matchSingleToken(lexer, "/", XQueryTokenType.DIRECT_DESCENDANTS_PATH);
+        matchSingleToken(lexer, "@", XQueryTokenType.ATTRIBUTE_SELECTOR);
+        matchSingleToken(lexer, "[", XQueryTokenType.PREDICATE_BEGIN);
+        matchSingleToken(lexer, "]", XQueryTokenType.PREDICATE_END);
 
-        lexer.start("!=:=(##)::..//<//><<>><=>=<??>");
-        matchToken(lexer, "!=", 0,  0,  2, XQueryTokenType.NOT_EQUAL);
-        matchToken(lexer, ":=", 0,  2,  4, XQueryTokenType.ASSIGN_EQUAL);
-        matchToken(lexer, "(#", 0,  4,  6, XQueryTokenType.PRAGMA_BEGIN);
-        matchToken(lexer, "#)", 0,  6,  8, XQueryTokenType.PRAGMA_END);
-        matchToken(lexer, "::", 0,  8, 10, XQueryTokenType.AXIS_SEPARATOR);
-        matchToken(lexer, "..", 0, 10, 12, XQueryTokenType.PARENT_SELECTOR);
-        matchToken(lexer, "//", 0, 12, 14, XQueryTokenType.ALL_DESCENDANTS_PATH);
-        matchToken(lexer, "</", 0, 14, 16, XQueryTokenType.CLOSE_XML_TAG);
-        matchToken(lexer, "/>", 0, 16, 18, XQueryTokenType.SELF_CLOSING_XML_TAG);
-        matchToken(lexer, "<<", 0, 18, 20, XQueryTokenType.NODE_BEFORE);
-        matchToken(lexer, ">>", 0, 20, 22, XQueryTokenType.NODE_AFTER);
-        matchToken(lexer, "<=", 0, 22, 24, XQueryTokenType.LESS_THAN_OR_EQUAL);
-        matchToken(lexer, ">=", 0, 24, 26, XQueryTokenType.GREATER_THAN_OR_EQUAL);
-        matchToken(lexer, "<?", 0, 26, 28, XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN);
-        matchToken(lexer, "?>", 0, 28, 30, XQueryTokenType.PROCESSING_INSTRUCTION_END);
-        matchToken(lexer, "",   0, 30, 30, null);
+        matchSingleToken(lexer, "!=", XQueryTokenType.NOT_EQUAL);
+        matchSingleToken(lexer, ":=", XQueryTokenType.ASSIGN_EQUAL);
+        matchSingleToken(lexer, "(#", XQueryTokenType.PRAGMA_BEGIN);
+        matchSingleToken(lexer, "#)", XQueryTokenType.PRAGMA_END);
+        matchSingleToken(lexer, "::", XQueryTokenType.AXIS_SEPARATOR);
+        matchSingleToken(lexer, "..", XQueryTokenType.PARENT_SELECTOR);
+        matchSingleToken(lexer, "//", XQueryTokenType.ALL_DESCENDANTS_PATH);
+        matchSingleToken(lexer, "</", XQueryTokenType.CLOSE_XML_TAG);
+        matchSingleToken(lexer, "/>", XQueryTokenType.SELF_CLOSING_XML_TAG);
+        matchSingleToken(lexer, "<<", XQueryTokenType.NODE_BEFORE);
+        matchSingleToken(lexer, ">>", XQueryTokenType.NODE_AFTER);
+        matchSingleToken(lexer, "<=", XQueryTokenType.LESS_THAN_OR_EQUAL);
+        matchSingleToken(lexer, ">=", XQueryTokenType.GREATER_THAN_OR_EQUAL);
+        matchSingleToken(lexer, "<?", XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN);
+        matchSingleToken(lexer, "?>", XQueryTokenType.PROCESSING_INSTRUCTION_END);
     }
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#id-terminal-delimitation")
     public void testDelimitingTerminalSymbols_XQuery30() {
         Lexer lexer = new XQueryLexer();
 
-        lexer.start("!#%");
-        matchToken(lexer, "!", 0, 0, 1, XQueryTokenType.MAP_OPERATOR);
-        matchToken(lexer, "#", 0, 1, 2, XQueryTokenType.FUNCTION_REF_OPERATOR);
-        matchToken(lexer, "%", 0, 2, 3, XQueryTokenType.ANNOTATION_INDICATOR);
-        matchToken(lexer, "",  0, 3, 3, null);
+        matchSingleToken(lexer, "!", XQueryTokenType.MAP_OPERATOR);
+        matchSingleToken(lexer, "#", XQueryTokenType.FUNCTION_REF_OPERATOR);
+        matchSingleToken(lexer, "%", XQueryTokenType.ANNOTATION_INDICATOR);
     }
 }
