@@ -541,6 +541,15 @@ public class XQueryLexerTest extends TestCase {
     // endregion
     // region A.1 EBNF
 
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-VersionDecl")
+    public void testVersionDecl() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "xquery",   XQueryTokenType.K_XQUERY);
+        matchSingleToken(lexer, "version",  XQueryTokenType.K_VERSION);
+        matchSingleToken(lexer, "encoding", XQueryTokenType.K_ENCODING);
+    }
+
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirCommentConstructor")
     public void testDirCommentConstructor() {
         Lexer lexer = new XQueryLexer();

@@ -19,6 +19,7 @@ import com.intellij.openapi.fileTypes.LanguageFileType;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.IconLoader;
 import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.XQueryBundle;
@@ -105,8 +106,8 @@ public class XQueryFileType extends LanguageFileType {
         return FILETYPE_ICON;
     }
 
-    private boolean matchNCName(String name) {
-        boolean match = sEncodingLexer.getTokenType() == XQueryTokenType.NCNAME && sEncodingLexer.getTokenText().equals(name);
+    private boolean matchToken(IElementType type) {
+        boolean match = sEncodingLexer.getTokenType() == type;
         sEncodingLexer.advance();
         return match;
     }
@@ -143,13 +144,13 @@ public class XQueryFileType extends LanguageFileType {
     private String getXQueryEncoding(CharSequence content) {
         sEncodingLexer.start(content);
         matchWhiteSpaceOrComment(false);
-        if (!matchNCName("xquery"))          return "utf-8";
+        if (!matchToken(XQueryTokenType.K_XQUERY)) return "utf-8";
         if (!matchWhiteSpaceOrComment(true)) return "utf-8";
-        if (!matchNCName("version"))         return "utf-8";
+        if (!matchToken(XQueryTokenType.K_VERSION)) return "utf-8";
         if (!matchWhiteSpaceOrComment(true)) return "utf-8";
-        if (matchString(null) == null)       return "utf-8";
+        if (matchString(null) == null) return "utf-8";
         if (!matchWhiteSpaceOrComment(true)) return "utf-8";
-        if (!matchNCName("encoding"))        return "utf-8";
+        if (!matchToken(XQueryTokenType.K_ENCODING)) return "utf-8";
         if (!matchWhiteSpaceOrComment(true)) return "utf-8";
         return matchString("utf-8");
     }

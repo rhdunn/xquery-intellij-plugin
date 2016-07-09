@@ -19,7 +19,12 @@ import com.intellij.lexer.LexerBase;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class XQueryLexer extends LexerBase {
+    private static final Map<String, IElementType> sKeywords = new HashMap<>();
+
     private XQueryCodePointRange mTokenRange;
     private int mState;
     private int mNextState;
@@ -211,7 +216,7 @@ public class XQueryLexer extends LexerBase {
                     mTokenRange.match();
                     cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
                 }
-                mType = XQueryTokenType.NCNAME;
+                mType = sKeywords.getOrDefault(getTokenText(), XQueryTokenType.NCNAME);
                 break;
             case CharacterClass.PARENTHESIS_OPEN:
                 mTokenRange.match();
@@ -508,5 +513,11 @@ public class XQueryLexer extends LexerBase {
     @Override
     public final int getBufferEnd() {
         return mTokenRange.getBufferEnd();
+    }
+
+    static {
+        sKeywords.put("encoding", XQueryTokenType.K_ENCODING);
+        sKeywords.put("version", XQueryTokenType.K_VERSION);
+        sKeywords.put("xquery", XQueryTokenType.K_XQUERY);
     }
 }
