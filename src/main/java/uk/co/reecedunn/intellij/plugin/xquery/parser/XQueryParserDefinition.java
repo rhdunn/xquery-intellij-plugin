@@ -39,7 +39,7 @@ public class XQueryParserDefinition implements ParserDefinition {
 
     @Override
     public PsiParser createParser(Project project) {
-        return null;
+        return new XQueryParser();
     }
 
     @Override

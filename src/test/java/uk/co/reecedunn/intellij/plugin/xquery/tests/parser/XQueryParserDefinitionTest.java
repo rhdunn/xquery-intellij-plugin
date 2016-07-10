@@ -20,6 +20,7 @@ import com.intellij.psi.tree.TokenSet;
 import junit.framework.TestCase;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParser;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -34,7 +35,7 @@ public class XQueryParserDefinitionTest extends TestCase {
 
     public void testParser() {
         ParserDefinition parserDefinition = new XQueryParserDefinition();
-        assertThat(parserDefinition.createParser(null), is(nullValue()));
+        assertThat(parserDefinition.createParser(null).getClass().getName(), is(XQueryParser.class.getName()));
     }
 
     public void testFileNodeType() {
