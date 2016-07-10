@@ -25,7 +25,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParser;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class XQueryParserDefinitionTest extends TestCase {
@@ -89,11 +88,6 @@ public class XQueryParserDefinitionTest extends TestCase {
             // Unexpected exception.
         }
         assertTrue("createElement(null) should throw AssertionError.", thrown);
-    }
-
-    public void testCreateFile() {
-        ParserDefinition parserDefinition = new XQueryParserDefinition();
-        assertThat(parserDefinition.createFile(null), is(nullValue()));
     }
 
     public void testSpaceExistanceTypeBetweenTokens() {

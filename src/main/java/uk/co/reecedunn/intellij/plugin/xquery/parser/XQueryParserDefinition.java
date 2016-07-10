@@ -29,6 +29,7 @@ import com.intellij.psi.tree.TokenSet;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
+import uk.co.reecedunn.intellij.plugin.xquery.parser.psi.XQueryFile;
 
 public class XQueryParserDefinition implements ParserDefinition {
     @NotNull
@@ -73,8 +74,8 @@ public class XQueryParserDefinition implements ParserDefinition {
     }
 
     @Override
-    public PsiFile createFile(FileViewProvider viewProvider) {
-        return null;
+    public PsiFile createFile(@NotNull FileViewProvider viewProvider) {
+        return new XQueryFile(viewProvider);
     }
 
     @Override
