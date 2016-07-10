@@ -15,15 +15,26 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.filetypes;
 
+import com.intellij.openapi.fileTypes.FileTypeManager;
+import com.intellij.openapi.fileTypes.FileTypeRegistry;
+import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.testFramework.LightVirtualFile;
 import junit.framework.TestCase;
 import uk.co.reecedunn.intellij.plugin.xquery.filetypes.FileTypeFactory;
 import uk.co.reecedunn.intellij.plugin.xquery.filetypes.XQueryFileType;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class XQueryFileTypeTest extends TestCase {
+    protected void setUp() throws Exception {
+        super.setUp();
+
+        FileTypeRegistry.ourInstanceGetter = FileTypeManager::getInstance;
+    }
+
     public void testFactory() {
         FileTypeFactory factory = new FileTypeFactory();
         FileTypeToArrayConsumer consumer = new FileTypeToArrayConsumer();
@@ -46,7 +57,7 @@ public class XQueryFileTypeTest extends TestCase {
 
     public void testDefaultEncoding() {
         XQueryFileType fileType = XQueryFileType.INSTANCE;
-        MockVirtualFile file = new MockVirtualFile();
+        VirtualFile file = new LightVirtualFile("filetype-test.xqy", XQuery.INSTANCE, "");
 
         assertThat(fileType.getCharset(file, "let $_ := 123".getBytes()), is("utf-8"));
 
@@ -67,7 +78,7 @@ public class XQueryFileTypeTest extends TestCase {
 
     public void testFileEncoding() {
         XQueryFileType fileType = XQueryFileType.INSTANCE;
-        MockVirtualFile file = new MockVirtualFile();
+        VirtualFile file = new LightVirtualFile("filetype-test.xqy", XQuery.INSTANCE, "");
 
         assertThat(fileType.getCharset(file, "xquery version \"1.0\" encoding \"UTF-8\"".getBytes()), is("UTF-8"));
         assertThat(fileType.getCharset(file, "xquery version \"1.0\" encoding \"latin1\"".getBytes()), is("latin1"));
@@ -87,7 +98,7 @@ public class XQueryFileTypeTest extends TestCase {
 
     public void testDefaultEncodingFromContents() {
         XQueryFileType fileType = XQueryFileType.INSTANCE;
-        MockVirtualFile file = new MockVirtualFile();
+        VirtualFile file = new LightVirtualFile("filetype-test.xqy", XQuery.INSTANCE, "");
 
         assertThat(fileType.extractCharsetFromFileContent(null, file, (CharSequence)"let $_ := 123").name(), is("UTF-8"));
 
@@ -108,7 +119,7 @@ public class XQueryFileTypeTest extends TestCase {
 
     public void testFileEncodingFromContents() {
         XQueryFileType fileType = XQueryFileType.INSTANCE;
-        MockVirtualFile file = new MockVirtualFile();
+        VirtualFile file = new LightVirtualFile("filetype-test.xqy", XQuery.INSTANCE, "");
 
         assertThat(fileType.extractCharsetFromFileContent(null, file, (CharSequence)"xquery version \"1.0\" encoding \"UTF-8\"").name(), is("UTF-8"));
         assertThat(fileType.extractCharsetFromFileContent(null, file, (CharSequence)"xquery version \"1.0\" encoding \"latin1\"").name(), is("ISO-8859-1"));
