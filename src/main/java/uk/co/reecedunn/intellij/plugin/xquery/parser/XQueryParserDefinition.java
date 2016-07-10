@@ -44,7 +44,7 @@ public class XQueryParserDefinition implements ParserDefinition {
 
     @Override
     public IFileElementType getFileNodeType() {
-        return null;
+        return XQueryElementType.FILE;
     }
 
     @NotNull

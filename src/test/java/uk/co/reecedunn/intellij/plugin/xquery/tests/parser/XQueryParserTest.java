@@ -24,7 +24,7 @@ import com.intellij.openapi.progress.ProgressManager;
 import com.intellij.openapi.progress.impl.ProgressManagerImpl;
 import com.intellij.openapi.util.Disposer;
 import com.intellij.openapi.util.Pair;
-import com.intellij.psi.impl.source.tree.CompositeElement;
+import com.intellij.psi.impl.source.tree.*;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.tree.TokenSet;
 import com.intellij.testFramework.PlatformLiteFixture;
@@ -34,7 +34,7 @@ import org.picocontainer.PicoContainer;
 import org.picocontainer.PicoInitializationException;
 import org.picocontainer.PicoIntrospectionException;
 import org.picocontainer.defaults.AbstractComponentAdapter;
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition;
 
 import java.util.ArrayList;
@@ -93,7 +93,7 @@ public class XQueryParserTest extends PlatformLiteFixture {
         Lexer lexer = parserDefinition.createLexer(null);
         PsiBuilder builder = new PsiBuilderImpl(null, null, whitespaces, comments, lexer, null, text, null, null);
 
-        ASTNode node = parserDefinition.createParser(null).parse(XQueryTokenType.WHITE_SPACE, builder);
+        ASTNode node = parserDefinition.createParser(null).parse(parserDefinition.getFileNodeType(), builder);
         List<Pair<Integer, ASTNode>> nodes = new ArrayList<>();
         serializeASTNode(nodes, node, 0);
         assertThat(nodes.size(), is(size));
@@ -115,6 +115,6 @@ public class XQueryParserTest extends PlatformLiteFixture {
 
     public void testEmptyBuffer() {
         final List<Pair<Integer, ASTNode>> nodes = parseText("", 1);
-        matchASTNode(nodes.get(0), 0, CompositeElement.class, XQueryTokenType.WHITE_SPACE, 0, 0, "");
+        matchASTNode(nodes.get(0), 0, FileElement.class, XQueryElementType.FILE, 0, 0, "");
     }
 }

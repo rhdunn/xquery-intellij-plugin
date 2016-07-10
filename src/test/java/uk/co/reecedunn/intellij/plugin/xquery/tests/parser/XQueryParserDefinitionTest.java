@@ -20,6 +20,7 @@ import com.intellij.psi.tree.TokenSet;
 import junit.framework.TestCase;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParser;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition;
 
@@ -40,7 +41,7 @@ public class XQueryParserDefinitionTest extends TestCase {
 
     public void testFileNodeType() {
         ParserDefinition parserDefinition = new XQueryParserDefinition();
-        assertThat(parserDefinition.getFileNodeType(), is(nullValue()));
+        assertThat(parserDefinition.getFileNodeType(), is(XQueryElementType.FILE));
     }
 
     public void testWhitespaceTokens() {
