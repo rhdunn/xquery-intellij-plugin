@@ -26,6 +26,9 @@ public class XQueryParser implements PsiParser {
     @Override
     public ASTNode parse(@NotNull IElementType root, @NotNull PsiBuilder builder) {
         final PsiBuilder.Marker rootMarker = builder.mark();
+        while (builder.getTokenType() != null) {
+            builder.advanceLexer();
+        }
         rootMarker.done(root);
         return builder.getTreeBuilt();
     }

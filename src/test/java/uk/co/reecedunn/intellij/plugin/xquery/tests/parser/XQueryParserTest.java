@@ -34,6 +34,7 @@ import org.picocontainer.PicoContainer;
 import org.picocontainer.PicoInitializationException;
 import org.picocontainer.PicoIntrospectionException;
 import org.picocontainer.defaults.AbstractComponentAdapter;
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition;
 
@@ -116,5 +117,13 @@ public class XQueryParserTest extends PlatformLiteFixture {
     public void testEmptyBuffer() {
         final List<Pair<Integer, ASTNode>> nodes = parseText("", 1);
         matchASTNode(nodes.get(0), 0, FileElement.class, XQueryElementType.FILE, 0, 0, "");
+    }
+
+    public void testBadCharacters() {
+        final List<Pair<Integer, ASTNode>> nodes = parseText("~\uFFFE\uFFFF", 4);
+        matchASTNode(nodes.get(0), 0, FileElement.class, XQueryElementType.FILE, 0, 3, "~\uFFFE\uFFFF");
+        matchASTNode(nodes.get(1), 1, LeafPsiElement.class, XQueryTokenType.BAD_CHARACTER, 0, 1, "~");
+        matchASTNode(nodes.get(2), 1, LeafPsiElement.class, XQueryTokenType.BAD_CHARACTER, 1, 2, "\uFFFE");
+        matchASTNode(nodes.get(3), 1, LeafPsiElement.class, XQueryTokenType.BAD_CHARACTER, 2, 3, "\uFFFF");
     }
 }
