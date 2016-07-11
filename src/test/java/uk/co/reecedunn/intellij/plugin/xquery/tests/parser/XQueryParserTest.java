@@ -23,9 +23,7 @@ import com.intellij.openapi.extensions.Extensions;
 import com.intellij.openapi.progress.ProgressManager;
 import com.intellij.openapi.progress.impl.ProgressManagerImpl;
 import com.intellij.openapi.util.Disposer;
-import com.intellij.openapi.util.Pair;
 import com.intellij.psi.impl.source.tree.*;
-import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.tree.TokenSet;
 import com.intellij.testFramework.PlatformLiteFixture;
 import org.jetbrains.annotations.NotNull;
@@ -34,12 +32,7 @@ import org.picocontainer.PicoContainer;
 import org.picocontainer.PicoInitializationException;
 import org.picocontainer.PicoIntrospectionException;
 import org.picocontainer.defaults.AbstractComponentAdapter;
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
-import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -80,14 +73,36 @@ public class XQueryParserTest extends PlatformLiteFixture {
     // endregion
     // region Parser Test Helpers
 
-    private void serializeASTNode(@NotNull List<Pair<Integer, ASTNode>> nodes, ASTNode node, int depth) {
-        nodes.add(Pair.create(depth, node));
+    private void prettyPrintASTNode(@NotNull StringBuilder prettyPrinted, ASTNode node, int depth) {
+        for (int i = 0; i != depth; ++i) {
+            prettyPrinted.append("   ");
+        }
+
+        String[] names = node.getClass().getName().split("\\.");
+        prettyPrinted.append(names[names.length - 1]);
+        prettyPrinted.append('[');
+        prettyPrinted.append(node.getElementType());
+        prettyPrinted.append('(');
+        prettyPrinted.append(node.getTextRange().getStartOffset());
+        prettyPrinted.append(':');
+        prettyPrinted.append(node.getTextRange().getEndOffset());
+        prettyPrinted.append(')');
+        prettyPrinted.append(']');
+        if (!node.getClass().equals(FileElement.class)) {
+            prettyPrinted.append('(');
+            prettyPrinted.append('\'');
+            prettyPrinted.append(node.getText());
+            prettyPrinted.append('\'');
+            prettyPrinted.append(')');
+        }
+        prettyPrinted.append('\n');
+
         for (ASTNode child : node.getChildren(null)) {
-            serializeASTNode(nodes, child, depth + 1);
+            prettyPrintASTNode(prettyPrinted, child, depth + 1);
         }
     }
 
-    private @NotNull List<Pair<Integer, ASTNode>> parseText(@NotNull String text, int size) {
+    private @NotNull String parseText(@NotNull String text) {
         ParserDefinition parserDefinition = new XQueryParserDefinition();
         TokenSet whitespaces = parserDefinition.getWhitespaceTokens();
         TokenSet comments = parserDefinition.getCommentTokens();
@@ -95,36 +110,29 @@ public class XQueryParserTest extends PlatformLiteFixture {
         PsiBuilder builder = new PsiBuilderImpl(null, null, whitespaces, comments, lexer, null, text, null, null);
 
         ASTNode node = parserDefinition.createParser(null).parse(parserDefinition.getFileNodeType(), builder);
-        List<Pair<Integer, ASTNode>> nodes = new ArrayList<>();
-        serializeASTNode(nodes, node, 0);
-        assertThat(nodes.size(), is(size));
-        matchASTNode(nodes.get(0), 0, FileElement.class, XQueryElementType.FILE, 0, text.length(), text);
-        return nodes;
-    }
-
-    private void matchASTNode(@NotNull final Pair<Integer, ASTNode> node, int depth, Class nodeClass, IElementType type, int start, int end, String text) {
-        assertThat(node.getFirst(), is(depth));
-
-        assertThat(node.getSecond().getText(), is(text));
-        assertThat(node.getSecond().getElementType(), is(type));
-        assertThat(node.getSecond().getClass().getName(), is(nodeClass.getName()));
-
-        assertThat(node.getSecond().getTextRange().getStartOffset(), is(start));
-        assertThat(node.getSecond().getTextRange().getEndOffset(), is(end));
+        StringBuilder prettyPrinted = new StringBuilder();
+        prettyPrintASTNode(prettyPrinted, node, 0);
+        return prettyPrinted.toString();
     }
 
     // endregion
     // region Basic Parser Tests
 
     public void testEmptyBuffer() {
-        parseText("", 1);
+        final String expected
+                = "FileElement[FILE(0:0)]\n";
+
+        assertThat(parseText(""), is(expected));
     }
 
     public void testBadCharacters() {
-        final List<Pair<Integer, ASTNode>> nodes = parseText("~\uFFFE\uFFFF", 4);
-        matchASTNode(nodes.get(1), 1, LeafPsiElement.class, XQueryTokenType.BAD_CHARACTER, 0, 1, "~");
-        matchASTNode(nodes.get(2), 1, LeafPsiElement.class, XQueryTokenType.BAD_CHARACTER, 1, 2, "\uFFFE");
-        matchASTNode(nodes.get(3), 1, LeafPsiElement.class, XQueryTokenType.BAD_CHARACTER, 2, 3, "\uFFFF");
+        final String expected
+                = "FileElement[FILE(0:3)]\n"
+                + "   LeafPsiElement[BAD_CHARACTER(0:1)]('~')\n"
+                + "   LeafPsiElement[BAD_CHARACTER(1:2)]('\uFFFE')\n"
+                + "   LeafPsiElement[BAD_CHARACTER(2:3)]('\uFFFF')\n";
+
+        assertThat(parseText("~\uFFFE\uFFFF"), is(expected));
     }
 
     // endregion
