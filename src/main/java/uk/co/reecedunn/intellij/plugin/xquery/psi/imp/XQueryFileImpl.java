@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.parser.psi;
+package uk.co.reecedunn.intellij.plugin.xquery.psi.imp;
 
 import com.intellij.extapi.psi.PsiFileBase;
 import com.intellij.openapi.fileTypes.FileType;
@@ -22,8 +22,8 @@ import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.filetypes.XQueryFileType;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 
-public class XQueryFile extends PsiFileBase {
-    public XQueryFile(@NotNull FileViewProvider provider) {
+public class XQueryFileImpl extends PsiFileBase {
+    public XQueryFileImpl(@NotNull FileViewProvider provider) {
         super(provider, XQuery.INSTANCE);
     }
 
