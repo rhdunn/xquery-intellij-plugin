@@ -56,12 +56,12 @@ public class XQueryCodePointRangeTest extends TestCase {
         range.match();
         assertThat(range.getStart(), is(0));
         assertThat(range.getEnd(), is(3));
-        assertThat(range.getCodePoint(), is(0));
+        assertThat(range.getCodePoint(), is(XQueryCodePointRange.END_OF_BUFFER));
 
         range.match();
         assertThat(range.getStart(), is(0));
         assertThat(range.getEnd(), is(3));
-        assertThat(range.getCodePoint(), is(0));
+        assertThat(range.getCodePoint(), is(XQueryCodePointRange.END_OF_BUFFER));
     }
 
     public void testMatchingIncompleteSurrogatePairs() {
@@ -77,7 +77,7 @@ public class XQueryCodePointRangeTest extends TestCase {
         range.match();
         assertThat(range.getStart(), is(0));
         assertThat(range.getEnd(), is(1));
-        assertThat(range.getCodePoint(), is(0));
+        assertThat(range.getCodePoint(), is(XQueryCodePointRange.END_OF_BUFFER));
     }
 
     public void testMatchingSurrogatePairs() {
@@ -98,17 +98,17 @@ public class XQueryCodePointRangeTest extends TestCase {
         range.match();
         assertThat(range.getStart(), is(0));
         assertThat(range.getEnd(), is(4));
-        assertThat(range.getCodePoint(), is(0));
+        assertThat(range.getCodePoint(), is(XQueryCodePointRange.END_OF_BUFFER));
 
         range.match();
         assertThat(range.getStart(), is(0));
         assertThat(range.getEnd(), is(4));
-        assertThat(range.getCodePoint(), is(0));
+        assertThat(range.getCodePoint(), is(XQueryCodePointRange.END_OF_BUFFER));
 
         range.match();
         assertThat(range.getStart(), is(0));
         assertThat(range.getEnd(), is(4));
-        assertThat(range.getCodePoint(), is(0));
+        assertThat(range.getCodePoint(), is(XQueryCodePointRange.END_OF_BUFFER));
     }
 
     public void testFlush() {

@@ -98,7 +98,7 @@ public class XQueryLexer extends LexerBase {
         while (true) {
             int c = mTokenRange.getCodePoint();
             mTokenRange.match();
-            if (c == '\0') {
+            if (c == XQueryCodePointRange.END_OF_BUFFER) {
                 mType = XQueryTokenType.PARTIAL_COMMENT;
                 return;
             } else if (c == '(') {
@@ -122,7 +122,7 @@ public class XQueryLexer extends LexerBase {
         while (true) {
             int c = mTokenRange.getCodePoint();
             mTokenRange.match();
-            if (c == '\0') {
+            if (c == XQueryCodePointRange.END_OF_BUFFER) {
                 mType = XQueryTokenType.PARTIAL_XML_COMMENT;
                 return;
             } else if (c == '-') {
@@ -429,10 +429,10 @@ public class XQueryLexer extends LexerBase {
             }
         } else if (c == '&') {
             matchEntityReference();
-        } else if (c == '\0') {
+        } else if (c == XQueryCodePointRange.END_OF_BUFFER) {
             mType = null;
         } else {
-            while (c != type && c != '\0' && c != '&') {
+            while (c != type && c != XQueryCodePointRange.END_OF_BUFFER && c != '&') {
                 mTokenRange.match();
                 c = mTokenRange.getCodePoint();
             }

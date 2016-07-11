@@ -63,11 +63,12 @@ public class XQueryLexerTest extends TestCase {
     public void testBadCharacters() {
         Lexer lexer = new XQueryLexer();
 
-        lexer.start("~\uFFFE\uFFFF");
+        lexer.start("~\uFFFE\u0000\uFFFF");
         matchToken(lexer, "~",      0, 0, 1, XQueryTokenType.BAD_CHARACTER);
         matchToken(lexer, "\uFFFE", 0, 1, 2, XQueryTokenType.BAD_CHARACTER);
-        matchToken(lexer, "\uFFFF", 0, 2, 3, XQueryTokenType.BAD_CHARACTER);
-        matchToken(lexer, "",       0, 3, 3, null);
+        matchToken(lexer, "\u0000", 0, 2, 3, XQueryTokenType.BAD_CHARACTER);
+        matchToken(lexer, "\uFFFF", 0, 3, 4, XQueryTokenType.BAD_CHARACTER);
+        matchToken(lexer, "",       0, 4, 4, null);
     }
 
     // endregion

@@ -23,15 +23,12 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
 public class CharacterClassTest extends TestCase {
-    public void testEndOfBuffer() {
-        assertThat(CharacterClass.getCharClass(0), is(CharacterClass.END_OF_BUFFER));
-    }
-
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Char")
     @Specification(name="XML 1.0 5ed", reference="https://www.w3.org/TR/2008/REC-xml-20081126/#NT-Char")
     public void testChar() {
         // Excludes the ASCII control character codes
 
+        assertThat(CharacterClass.getCharClass(0x00), is(CharacterClass.INVALID));
         assertThat(CharacterClass.getCharClass(0x01), is(CharacterClass.INVALID));
         assertThat(CharacterClass.getCharClass(0x1F), is(CharacterClass.INVALID));
 

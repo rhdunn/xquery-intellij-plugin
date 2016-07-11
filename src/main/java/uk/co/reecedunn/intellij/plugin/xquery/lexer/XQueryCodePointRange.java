@@ -18,6 +18,8 @@ package uk.co.reecedunn.intellij.plugin.xquery.lexer;
 import org.jetbrains.annotations.NotNull;
 
 public class XQueryCodePointRange {
+    public static final int END_OF_BUFFER = -1;
+
     private CharSequence mBuffer;
     private int mStart;
     private int mEnd;
@@ -73,7 +75,7 @@ public class XQueryCodePointRange {
 
     public final int getCodePoint() {
         if (mEnd == mEndOfBuffer)
-            return 0;
+            return END_OF_BUFFER;
         char high = mBuffer.charAt(mEnd);
         if (Character.isHighSurrogate(high) && (mEnd + 1) != mEndOfBuffer) {
             char low = mBuffer.charAt(mEnd + 1);

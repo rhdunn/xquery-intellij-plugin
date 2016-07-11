@@ -90,7 +90,7 @@ public final class CharacterClass {
 
     private static final int mCharacterClasses[] = {
         //////// x0   x1   x2   x3   x4   x5   x6   x7   x8   x9   xA   xB   xC   xD   xE   xF
-        /* 0x */ EOB, INV, INV, INV, INV, INV, INV, INV, INV, WSP, WSP, INV, INV, WSP, INV, INV,
+        /* 0x */ INV, INV, INV, INV, INV, INV, INV, INV, INV, WSP, WSP, INV, INV, WSP, INV, INV,
         /* 1x */ INV, INV, INV, INV, INV, INV, INV, INV, INV, INV, INV, INV, INV, INV, INV, INV,
         /* 2x */ WSP, EMK, QUO, HSH, DOL, PCT, AMP, APO, PNO, PNC, AST, PLS, COM, MIN, DOT, FSL,
         /* 3x */ DIG, DIG, DIG, DIG, DIG, DIG, DIG, DIG, DIG, DIG, CLN, SMC, LTN, EQL, GTN, QMK,
@@ -101,8 +101,11 @@ public final class CharacterClass {
     };
 
     public static int getCharClass(int c) {
-        if (c < mCharacterClasses.length) // 0x0000-0x0079
+        if (c < mCharacterClasses.length) { // 0x0000-0x0079
+            if (c == XQueryCodePointRange.END_OF_BUFFER)
+                return END_OF_BUFFER;
             return mCharacterClasses[c];
+        }
         if (c <= 0xD7FF) { // 0x0080-0xD7FF
             if (c == 0xB7)
                 return NAME_CHAR;
