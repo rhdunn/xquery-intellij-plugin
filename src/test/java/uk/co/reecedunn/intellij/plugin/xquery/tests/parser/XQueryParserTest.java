@@ -114,6 +114,7 @@ public class XQueryParserTest extends PlatformLiteFixture {
     }
 
     // endregion
+    // region Basic Parser Tests
 
     public void testEmptyBuffer() {
         parseText("", 1);
@@ -125,4 +126,6 @@ public class XQueryParserTest extends PlatformLiteFixture {
         matchASTNode(nodes.get(2), 1, LeafPsiElement.class, XQueryTokenType.BAD_CHARACTER, 1, 2, "\uFFFE");
         matchASTNode(nodes.get(3), 1, LeafPsiElement.class, XQueryTokenType.BAD_CHARACTER, 2, 3, "\uFFFF");
     }
+
+    // endregion
 }

@@ -26,6 +26,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
 public class XQueryLexerTest extends TestCase {
+    // region Lexer Test Helpers
+
     private void matchToken(Lexer lexer, String text, int state, int start, int end, IElementType type) {
         assertThat(lexer.getTokenText(), is(text));
         assertThat(lexer.getState(), is(state));
@@ -48,6 +50,9 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "",   0, length, length, null);
     }
 
+    // endregion
+    // region Basic Lexer Tests
+
     public void testEmptyBuffer() {
         Lexer lexer = new XQueryLexer();
 
@@ -65,6 +70,7 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "",       0, 3, 3, null);
     }
 
+    // endregion
     // region A.2.1 Terminal Symbols
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-IntegerLiteral")
