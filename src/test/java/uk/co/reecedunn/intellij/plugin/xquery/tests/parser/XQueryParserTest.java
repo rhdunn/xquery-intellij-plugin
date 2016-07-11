@@ -98,6 +98,7 @@ public class XQueryParserTest extends PlatformLiteFixture {
         List<Pair<Integer, ASTNode>> nodes = new ArrayList<>();
         serializeASTNode(nodes, node, 0);
         assertThat(nodes.size(), is(size));
+        matchASTNode(nodes.get(0), 0, FileElement.class, XQueryElementType.FILE, 0, text.length(), text);
         return nodes;
     }
 
@@ -115,13 +116,11 @@ public class XQueryParserTest extends PlatformLiteFixture {
     // endregion
 
     public void testEmptyBuffer() {
-        final List<Pair<Integer, ASTNode>> nodes = parseText("", 1);
-        matchASTNode(nodes.get(0), 0, FileElement.class, XQueryElementType.FILE, 0, 0, "");
+        parseText("", 1);
     }
 
     public void testBadCharacters() {
         final List<Pair<Integer, ASTNode>> nodes = parseText("~\uFFFE\uFFFF", 4);
-        matchASTNode(nodes.get(0), 0, FileElement.class, XQueryElementType.FILE, 0, 3, "~\uFFFE\uFFFF");
         matchASTNode(nodes.get(1), 1, LeafPsiElement.class, XQueryTokenType.BAD_CHARACTER, 0, 1, "~");
         matchASTNode(nodes.get(2), 1, LeafPsiElement.class, XQueryTokenType.BAD_CHARACTER, 1, 2, "\uFFFE");
         matchASTNode(nodes.get(3), 1, LeafPsiElement.class, XQueryTokenType.BAD_CHARACTER, 2, 3, "\uFFFF");
