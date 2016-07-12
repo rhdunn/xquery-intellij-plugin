@@ -33,7 +33,9 @@ import org.picocontainer.PicoContainer;
 import org.picocontainer.PicoInitializationException;
 import org.picocontainer.PicoIntrospectionException;
 import org.picocontainer.defaults.AbstractComponentAdapter;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.imp.XQueryASTFactory;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.Specification;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -49,6 +51,11 @@ public class XQueryParserTest extends PlatformLiteFixture {
     private <T> void registerApplicationService(final Class<T> aClass, T object) {
         getApplication().registerService(aClass, object);
         Disposer.register(myProject, () -> getApplication().getPicoContainer().unregisterComponent(aClass.getName()));
+    }
+
+    private <T> void addExplicitExtension(final LanguageExtension<T> instance, final Language language, final T object) {
+        instance.addExplicitExtension(language, object);
+        Disposer.register(myProject, () -> instance.removeExplicitExtension(language, object));
     }
 
     protected void setUp() {
@@ -70,6 +77,7 @@ public class XQueryParserTest extends PlatformLiteFixture {
         Extensions.registerAreaClass("IDEA_PROJECT", null);
         myProject = new MockProjectEx(getTestRootDisposable());
         registerApplicationService(DefaultASTFactory.class, new DefaultASTFactoryImpl());
+        addExplicitExtension(LanguageASTFactory.INSTANCE, XQuery.INSTANCE, new XQueryASTFactory());
     }
 
     // endregion
