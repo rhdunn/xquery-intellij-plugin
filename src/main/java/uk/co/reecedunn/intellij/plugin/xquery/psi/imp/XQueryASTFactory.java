@@ -40,6 +40,10 @@ public class XQueryASTFactory extends ASTFactory {
         if (type == XQueryTokenType.COMMENT ||
             type == XQueryTokenType.PARTIAL_COMMENT) {
             return new PsiCommentImpl(type, text);
+        } else if (type == XQueryTokenType.INTEGER_LITERAL ||
+                   type == XQueryTokenType.DECIMAL_LITERAL ||
+                   type == XQueryTokenType.DOUBLE_LITERAL) {
+            return new XQueryNumericLiteralImpl(type, text);
         }
 
         return new LeafPsiElement(type, text);

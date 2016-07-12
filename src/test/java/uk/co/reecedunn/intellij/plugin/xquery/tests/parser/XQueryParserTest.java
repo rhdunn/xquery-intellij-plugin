@@ -159,7 +159,7 @@ public class XQueryParserTest extends PlatformLiteFixture {
     public void testIntegerLiteral() {
         final String expected
                 = "FileElement[FILE(0:4)]\n"
-                + "   LeafPsiElement[XQUERY_INTEGER_LITERAL_TOKEN(0:4)]('1234')\n";
+                + "   XQueryNumericLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:4)]('1234')\n";
 
         assertThat(parseText("1234"), is(expected));
     }
@@ -171,7 +171,7 @@ public class XQueryParserTest extends PlatformLiteFixture {
     public void testDecimalLiteral() {
         final String expected
                 = "FileElement[FILE(0:7)]\n"
-                + "   LeafPsiElement[XQUERY_DECIMAL_LITERAL_TOKEN(0:7)]('3.14159')\n";
+                + "   XQueryNumericLiteralImpl[XQUERY_DECIMAL_LITERAL_TOKEN(0:7)]('3.14159')\n";
 
         assertThat(parseText("3.14159"), is(expected));
     }
@@ -183,7 +183,7 @@ public class XQueryParserTest extends PlatformLiteFixture {
     public void testDoubleLiteral() {
         final String expected
                 = "FileElement[FILE(0:12)]\n"
-                + "   LeafPsiElement[XQUERY_DOUBLE_LITERAL_TOKEN(0:12)]('2.99792458e8')\n";
+                + "   XQueryNumericLiteralImpl[XQUERY_DOUBLE_LITERAL_TOKEN(0:12)]('2.99792458e8')\n";
 
         assertThat(parseText("2.99792458e8"), is(expected));
     }
@@ -192,7 +192,7 @@ public class XQueryParserTest extends PlatformLiteFixture {
     public void testDoubleLiteral_IncompleteExponent() {
         final String expected
                 = "FileElement[FILE(0:11)]\n"
-                + "   LeafPsiElement[XQUERY_DECIMAL_LITERAL_TOKEN(0:10)]('2.99792458')\n"
+                + "   XQueryNumericLiteralImpl[XQUERY_DECIMAL_LITERAL_TOKEN(0:10)]('2.99792458')\n"
                 + "   PsiErrorElementImpl[ERROR_ELEMENT(10:11)]('Incomplete double exponent.')\n"
                 + "      LeafPsiElement[XQUERY_PARTIAL_DOUBLE_LITERAL_EXPONENT_TOKEN(10:11)]('e')\n";
 
