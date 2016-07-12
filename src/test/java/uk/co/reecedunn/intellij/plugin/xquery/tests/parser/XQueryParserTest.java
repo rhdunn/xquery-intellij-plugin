@@ -154,6 +154,15 @@ public class XQueryParserTest extends PlatformLiteFixture {
         assertThat(parseText("1234"), is(expected));
     }
 
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DecimalLiteral")
+    public void testDecimalLiteral() {
+        final String expected
+                = "FileElement[FILE(0:7)]\n"
+                + "   LeafPsiElement[XQUERY_DECIMAL_LITERAL_TOKEN(0:7)]('3.14159')\n";
+
+        assertThat(parseText("3.14159"), is(expected));
+    }
+
     // region Comment
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Comment")
