@@ -20,6 +20,8 @@ import com.intellij.lang.PsiBuilder;
 import com.intellij.lang.PsiParser;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
+import uk.co.reecedunn.intellij.plugin.xquery.XQueryBundle;
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 
 public class XQueryParser implements PsiParser {
     @NotNull
@@ -27,9 +29,32 @@ public class XQueryParser implements PsiParser {
     public ASTNode parse(@NotNull IElementType root, @NotNull PsiBuilder builder) {
         final PsiBuilder.Marker rootMarker = builder.mark();
         while (builder.getTokenType() != null) {
-            builder.advanceLexer();
+            if (!skipWhiteSpaceAndCommentTokens(builder)) {
+                builder.advanceLexer();
+            }
         }
         rootMarker.done(root);
         return builder.getTreeBuilt();
+    }
+
+    private boolean skipWhiteSpaceAndCommentTokens(@NotNull PsiBuilder builder) {
+        boolean skipped = false;
+        while (true) {
+            if (builder.getTokenType() == XQueryTokenType.WHITE_SPACE ||
+                builder.getTokenType() == XQueryTokenType.COMMENT) {
+                skipped = true;
+                builder.advanceLexer();
+            } else if (builder.getTokenType() == XQueryTokenType.PARTIAL_COMMENT) {
+                skipped = true;
+                builder.advanceLexer();
+                builder.error(XQueryBundle.message("parser.error.incomplete-comment"));
+            } else if (builder.getTokenType() == XQueryTokenType.COMMENT_END_TAG) {
+                skipped = true;
+                builder.error(XQueryBundle.message("parser.error.end-of-comment-without-start"));
+                builder.advanceLexer();
+            } else {
+                return skipped;
+            }
+        }
     }
 }

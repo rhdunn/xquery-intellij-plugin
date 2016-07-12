@@ -51,13 +51,13 @@ public class XQueryParserDefinition implements ParserDefinition {
     @NotNull
     @Override
     public TokenSet getWhitespaceTokens() {
-        return XQueryTokenType.WHITESPACE_TOKENS;
+        return TokenSet.EMPTY;
     }
 
     @NotNull
     @Override
     public TokenSet getCommentTokens() {
-        return XQueryTokenType.COMMENT_TOKENS;
+        return TokenSet.EMPTY;
     }
 
     @NotNull

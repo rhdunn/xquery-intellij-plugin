@@ -23,6 +23,7 @@ import com.intellij.openapi.extensions.Extensions;
 import com.intellij.openapi.progress.ProgressManager;
 import com.intellij.openapi.progress.impl.ProgressManagerImpl;
 import com.intellij.openapi.util.Disposer;
+import com.intellij.psi.PsiErrorElement;
 import com.intellij.psi.impl.source.tree.*;
 import com.intellij.psi.tree.TokenSet;
 import com.intellij.testFramework.PlatformLiteFixture;
@@ -92,7 +93,12 @@ public class XQueryParserTest extends PlatformLiteFixture {
         if (!node.getClass().equals(FileElement.class)) {
             prettyPrinted.append('(');
             prettyPrinted.append('\'');
-            prettyPrinted.append(node.getText());
+            if (node instanceof PsiErrorElement) {
+                PsiErrorElement error = (PsiErrorElement)node;
+                prettyPrinted.append(error.getErrorDescription());
+            } else {
+                prettyPrinted.append(node.getText());
+            }
             prettyPrinted.append('\'');
             prettyPrinted.append(')');
         }
@@ -138,6 +144,39 @@ public class XQueryParserTest extends PlatformLiteFixture {
 
     // endregion
     // region A.2.1 Terminal Symbols
+
+    // region Comment
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Comment")
+    public void testComment() {
+        final String expected
+                = "FileElement[FILE(0:10)]\n"
+                + "   LeafPsiElement[XQUERY_COMMENT_TOKEN(0:10)]('(: Test :)')\n";
+
+        assertThat(parseText("(: Test :)"), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Comment")
+    public void testComment_UnclosedComment() {
+        final String expected
+                = "FileElement[FILE(0:7)]\n"
+                + "   LeafPsiElement[XQUERY_PARTIAL_COMMENT_TOKEN(0:7)]('(: Test')\n"
+                + "   PsiErrorElementImpl[ERROR_ELEMENT(7:7)]('Unclosed XQuery comment.')\n";
+
+        assertThat(parseText("(: Test"), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Comment")
+    public void testComment_UnexpectedCommentEndTag() {
+        final String expected
+                = "FileElement[FILE(0:2)]\n"
+                + "   PsiErrorElementImpl[ERROR_ELEMENT(0:0)]('End of XQuery comment marker found without a '(:' start of comment marker.')\n"
+                + "   LeafPsiElement[XQUERY_COMMENT_END_TAG_TOKEN(0:2)](':)')\n";
+
+        assertThat(parseText(":)"), is(expected));
+    }
+
+    // endregion
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-S")
     @Specification(name="XML 1.0 5ed", reference="https://www.w3.org/TR/2008/REC-xml-20081126/#NT-S")

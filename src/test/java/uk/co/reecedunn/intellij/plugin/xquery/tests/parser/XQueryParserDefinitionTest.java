@@ -46,18 +46,13 @@ public class XQueryParserDefinitionTest extends TestCase {
     public void testWhitespaceTokens() {
         ParserDefinition parserDefinition = new XQueryParserDefinition();
         TokenSet tokens = parserDefinition.getWhitespaceTokens();
-        assertThat(tokens.getTypes().length, is(1));
-        assertThat(tokens.contains(XQueryTokenType.WHITE_SPACE), is(true));
+        assertThat(tokens.getTypes().length, is(0));
     }
 
     public void testCommentTokens() {
         ParserDefinition parserDefinition = new XQueryParserDefinition();
         TokenSet tokens = parserDefinition.getCommentTokens();
-        assertThat(tokens.getTypes().length, is(4));
-        assertThat(tokens.contains(XQueryTokenType.COMMENT), is(true));
-        assertThat(tokens.contains(XQueryTokenType.PARTIAL_COMMENT), is(true));
-        assertThat(tokens.contains(XQueryTokenType.XML_COMMENT), is(true));
-        assertThat(tokens.contains(XQueryTokenType.PARTIAL_XML_COMMENT), is(true));
+        assertThat(tokens.getTypes().length, is(0));
     }
 
     public void testStringLiteralElements() {

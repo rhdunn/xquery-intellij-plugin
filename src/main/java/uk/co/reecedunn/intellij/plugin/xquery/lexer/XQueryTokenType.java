@@ -93,8 +93,6 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_VERSION = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_VERSION");
     IXQueryKeywordOrNCNameType K_XQUERY = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_XQUERY");
 
-    TokenSet WHITESPACE_TOKENS = TokenSet.create(WHITE_SPACE);
-    TokenSet COMMENT_TOKENS = TokenSet.create(COMMENT, PARTIAL_COMMENT, XML_COMMENT, PARTIAL_XML_COMMENT);
     TokenSet STRING_LITERAL_TOKENS = TokenSet.create(
         STRING_LITERAL_START,
         STRING_LITERAL_CONTENTS,
