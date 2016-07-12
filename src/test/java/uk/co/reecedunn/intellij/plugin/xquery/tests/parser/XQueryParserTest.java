@@ -35,7 +35,7 @@ import org.picocontainer.PicoIntrospectionException;
 import org.picocontainer.defaults.AbstractComponentAdapter;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.imp.XQueryASTFactory;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.imp.XQueryASTFactory;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.Specification;
 
 import static org.hamcrest.CoreMatchers.is;
