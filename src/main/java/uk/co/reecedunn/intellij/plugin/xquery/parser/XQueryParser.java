@@ -85,7 +85,8 @@ public class XQueryParser implements PsiParser {
             while (true) {
                 if (builder.getTokenType() == XQueryTokenType.STRING_LITERAL_CONTENTS ||
                     builder.getTokenType() == XQueryTokenType.PREDEFINED_ENTITY_REFERENCE ||
-                    builder.getTokenType() == XQueryTokenType.CHARACTER_REFERENCE) {
+                    builder.getTokenType() == XQueryTokenType.CHARACTER_REFERENCE ||
+                    builder.getTokenType() == XQueryTokenType.STRING_LITERAL_ESCAPED_CHARACTER) {
                     builder.advanceLexer();
                 } else if (builder.getTokenType() == XQueryTokenType.STRING_LITERAL_END) {
                     builder.advanceLexer();

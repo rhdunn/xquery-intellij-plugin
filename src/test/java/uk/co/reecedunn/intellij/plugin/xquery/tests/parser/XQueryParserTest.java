@@ -268,6 +268,38 @@ public class XQueryParserTest extends PlatformLiteFixture {
     }
 
     // endregion
+    // region EscapeQuot
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-EscapeQuot")
+    public void testStringLiteral_EscapeQuot() {
+        final String expected
+                = "FileElement[FILE(0:4)]\n"
+                + "   XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:4)]('\"\"\"\"')\n"
+                + "      LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
+                + "      XQueryEscapeCharacterImpl[XQUERY_STRING_LITERAL_ESCAPED_CHARACTER_TOKEN(1:3)]('\"\"')\n"
+                + "      LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(3:4)]('\"')\n";
+
+        assertThat(parseText("\"\"\"\""), is(expected));
+    }
+
+    // endregion
+    // region EscapeApos
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-EscapeApos")
+    public void testStringLiteral_EscapeApos() {
+        final String expected
+                = "FileElement[FILE(0:4)]\n"
+                + "   XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:4)]('''''')\n"
+                + "      LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)](''')\n"
+                + "      XQueryEscapeCharacterImpl[XQUERY_STRING_LITERAL_ESCAPED_CHARACTER_TOKEN(1:3)]('''')\n"
+                + "      LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(3:4)](''')\n";
+
+        assertThat(parseText("''''"), is(expected));
+    }
+
+    // endregion
     // region Comment
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Comment")
