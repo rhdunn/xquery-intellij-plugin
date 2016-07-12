@@ -145,6 +145,8 @@ public class XQueryParserTest extends PlatformLiteFixture {
     // endregion
     // region A.2.1 Terminal Symbols
 
+    // region IntegerLiteral
+
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-IntegerLiteral")
     public void testIntegerLiteral() {
         final String expected
@@ -153,6 +155,9 @@ public class XQueryParserTest extends PlatformLiteFixture {
 
         assertThat(parseText("1234"), is(expected));
     }
+
+    // endregion
+    // region DecimalLiteral
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DecimalLiteral")
     public void testDecimalLiteral() {
@@ -163,6 +168,30 @@ public class XQueryParserTest extends PlatformLiteFixture {
         assertThat(parseText("3.14159"), is(expected));
     }
 
+    // endregion
+    // region DoubleLiteral
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DoubleLiteral")
+    public void testDoubleLiteral() {
+        final String expected
+                = "FileElement[FILE(0:12)]\n"
+                + "   LeafPsiElement[XQUERY_DOUBLE_LITERAL_TOKEN(0:12)]('2.99792458e8')\n";
+
+        assertThat(parseText("2.99792458e8"), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DoubleLiteral")
+    public void testDoubleLiteral_IncompleteExponent() {
+        final String expected
+                = "FileElement[FILE(0:11)]\n"
+                + "   LeafPsiElement[XQUERY_DECIMAL_LITERAL_TOKEN(0:10)]('2.99792458')\n"
+                + "   PsiErrorElementImpl[ERROR_ELEMENT(10:10)]('Incomplete double exponent.')\n"
+                + "   LeafPsiElement[XQUERY_PARTIAL_DOUBLE_LITERAL_EXPONENT_TOKEN(10:11)]('e')\n";
+
+        assertThat(parseText("2.99792458e"), is(expected));
+    }
+
+    // endregion
     // region Comment
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Comment")
@@ -195,6 +224,7 @@ public class XQueryParserTest extends PlatformLiteFixture {
     }
 
     // endregion
+    // region S
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-S")
     @Specification(name="XML 1.0 5ed", reference="https://www.w3.org/TR/2008/REC-xml-20081126/#NT-S")
@@ -205,6 +235,8 @@ public class XQueryParserTest extends PlatformLiteFixture {
 
         assertThat(parseText(" \t\r\n"), is(expected));
     }
+
+    // endregion
 
     // endregion
 }
