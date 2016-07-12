@@ -145,6 +145,15 @@ public class XQueryParserTest extends PlatformLiteFixture {
     // endregion
     // region A.2.1 Terminal Symbols
 
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-IntegerLiteral")
+    public void testIntegerLiteral() {
+        final String expected
+                = "FileElement[FILE(0:4)]\n"
+                + "   LeafPsiElement[XQUERY_INTEGER_LITERAL_TOKEN(0:4)]('1234')\n";
+
+        assertThat(parseText("1234"), is(expected));
+    }
+
     // region Comment
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Comment")
