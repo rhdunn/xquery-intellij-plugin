@@ -49,6 +49,8 @@ public class XQueryASTFactory extends ASTFactory {
             return new XQueryNumericLiteralImpl(type, text);
         } else if (type == XQueryTokenType.PREDEFINED_ENTITY_REFERENCE) {
             return new XQueryPredefinedEntityRefImpl(type, text);
+        } else if (type == XQueryTokenType.CHARACTER_REFERENCE) {
+            return new XQueryCharRefImpl(type, text);
         }
 
         return new LeafPsiElement(type, text);

@@ -300,6 +300,36 @@ public class XQueryParserTest extends PlatformLiteFixture {
     }
 
     // endregion
+    // region CharRef
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CharRef")
+    public void testStringLiteral_CharRef() {
+        final String expected
+                = "FileElement[FILE(0:8)]\n"
+                + "   XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:8)]('\"&#xA0;\"')\n"
+                + "      LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
+                + "      XQueryCharRefImpl[XQUERY_CHARACTER_REFERENCE_TOKEN(1:7)]('&#xA0;')\n"
+                + "      LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(7:8)]('\"')\n";
+
+        assertThat(parseText("\"&#xA0;\""), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CharRef")
+    public void testStringLiteral_CharRef_IncompleteRef() {
+        final String expected
+                = "FileElement[FILE(0:4)]\n"
+                + "   XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:4)]('\"&#\"')\n"
+                + "      LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
+                + "      PsiErrorElementImpl[ERROR_ELEMENT(1:3)]('Entity reference is not closed (missing ';').')\n"
+                + "         LeafPsiElement[XQUERY_PARTIAL_ENTITY_REFERENCE_TOKEN(1:3)]('&#')\n"
+                + "      LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(3:4)]('\"')\n";
+
+        assertThat(parseText("\"&#\""), is(expected));
+    }
+
+    // endregion
     // region S
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-S")
