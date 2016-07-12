@@ -31,6 +31,7 @@ public class XQueryParser implements PsiParser {
         while (builder.getTokenType() != null) {
             if (skipWhiteSpaceAndCommentTokens(builder)) continue;
             if (parseNumericLiteral(builder)) continue;
+            if (parseStringLiteral(builder)) continue;
             builder.advanceLexer();
         }
         rootMarker.done(root);
@@ -72,6 +73,27 @@ public class XQueryParser implements PsiParser {
                 errorMarker.error(XQueryBundle.message("parser.error.incomplete-double-exponent"));
             }
             return true;
+        }
+        return false;
+    }
+
+    private boolean parseStringLiteral(@NotNull PsiBuilder builder) {
+        if (builder.getTokenType() == XQueryTokenType.STRING_LITERAL_START) {
+            final PsiBuilder.Marker stringMarker = builder.mark();
+            builder.advanceLexer();
+            while (true) {
+                if (builder.getTokenType() == XQueryTokenType.STRING_LITERAL_CONTENTS) {
+                    builder.advanceLexer();
+                } else if (builder.getTokenType() == XQueryTokenType.STRING_LITERAL_END) {
+                    builder.advanceLexer();
+                    stringMarker.done(XQueryElementType.STRING_LITERAL);
+                    return true;
+                } else {
+                    stringMarker.done(XQueryElementType.STRING_LITERAL);
+                    builder.error(XQueryBundle.message("parser.error.incomplete-string"));
+                    return true;
+                }
+            }
         }
         return false;
     }

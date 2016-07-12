@@ -30,6 +30,7 @@ import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.imp.XQueryFileImpl;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.XQueryStringLiteralPsiImpl;
 
 public class XQueryParserDefinition implements ParserDefinition {
     @NotNull
@@ -70,6 +71,9 @@ public class XQueryParserDefinition implements ParserDefinition {
     @Override
     public PsiElement createElement(ASTNode node) {
         final IElementType type = node.getElementType();
+        if (type == XQueryElementType.STRING_LITERAL) {
+            return new XQueryStringLiteralPsiImpl(node);
+        }
         throw new AssertionError("Alien element type [" + type + "]. Can't create XQuery PsiElement for that.");
     }
 

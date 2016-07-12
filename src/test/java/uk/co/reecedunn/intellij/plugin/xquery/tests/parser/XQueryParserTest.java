@@ -78,6 +78,7 @@ public class XQueryParserTest extends PlatformLiteFixture {
         myProject = new MockProjectEx(getTestRootDisposable());
         registerApplicationService(DefaultASTFactory.class, new DefaultASTFactoryImpl());
         addExplicitExtension(LanguageASTFactory.INSTANCE, XQuery.INSTANCE, new XQueryASTFactory());
+        addExplicitExtension(LanguageParserDefinitions.INSTANCE, XQuery.INSTANCE, new XQueryParserDefinition());
     }
 
     // endregion
@@ -197,6 +198,33 @@ public class XQueryParserTest extends PlatformLiteFixture {
                 + "      LeafPsiElement[XQUERY_PARTIAL_DOUBLE_LITERAL_EXPONENT_TOKEN(10:11)]('e')\n";
 
         assertThat(parseText("2.99792458e"), is(expected));
+    }
+
+    // endregion
+    // region StringLiteral
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
+    public void testStringLiteral() {
+        final String expected
+                = "FileElement[FILE(0:9)]\n"
+                + "   XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:9)]('\"One Two\"')\n"
+                + "      LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
+                + "      LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(1:8)]('One Two')\n"
+                + "      LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(8:9)]('\"')\n";
+
+        assertThat(parseText("\"One Two\""), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
+    public void testStringLiteral_UnclosedString() {
+        final String expected
+                = "FileElement[FILE(0:8)]\n"
+                + "   XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:8)]('\"One Two')\n"
+                + "      LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
+                + "      LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(1:8)]('One Two')\n"
+                + "   PsiErrorElementImpl[ERROR_ELEMENT(8:8)]('Unclosed string literal.')\n";
+
+        assertThat(parseText("\"One Two"), is(expected));
     }
 
     // endregion

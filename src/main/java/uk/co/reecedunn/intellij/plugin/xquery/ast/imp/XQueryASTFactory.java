@@ -22,6 +22,7 @@ import com.intellij.psi.tree.IFileElementType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 
 public class XQueryASTFactory extends ASTFactory {
     @Override
@@ -29,6 +30,8 @@ public class XQueryASTFactory extends ASTFactory {
     public CompositeElement createComposite(final IElementType type) {
         if (type instanceof IFileElementType) {
             return new FileElement(type, null);
+        } else if (type == XQueryElementType.STRING_LITERAL) {
+            return new XQueryStringLiteralImpl(type);
         }
 
         return new CompositeElement(type);
