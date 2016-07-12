@@ -15,5 +15,5 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast;
 
-public interface XQueryNumericLiteral {
+public interface XQueryNumericLiteral extends XQueryLiteral {
 }
