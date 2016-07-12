@@ -29,10 +29,9 @@ public class XQueryParser implements PsiParser {
     public ASTNode parse(@NotNull IElementType root, @NotNull PsiBuilder builder) {
         final PsiBuilder.Marker rootMarker = builder.mark();
         while (builder.getTokenType() != null) {
-            if (!skipWhiteSpaceAndCommentTokens(builder) &&
-                !parseNumericLiteral(builder)) {
-                builder.advanceLexer();
-            }
+            if (skipWhiteSpaceAndCommentTokens(builder)) continue;
+            if (parseNumericLiteral(builder)) continue;
+            builder.advanceLexer();
         }
         rootMarker.done(root);
         return builder.getTreeBuilt();
@@ -60,7 +59,8 @@ public class XQueryParser implements PsiParser {
     }
 
     private boolean parseNumericLiteral(@NotNull PsiBuilder builder) {
-        if (builder.getTokenType() == XQueryTokenType.INTEGER_LITERAL) {
+        if (builder.getTokenType() == XQueryTokenType.INTEGER_LITERAL ||
+            builder.getTokenType() == XQueryTokenType.DOUBLE_LITERAL) {
             builder.advanceLexer();
             return true;
         } else if (builder.getTokenType() == XQueryTokenType.DECIMAL_LITERAL) {
@@ -69,9 +69,6 @@ public class XQueryParser implements PsiParser {
                 builder.error(XQueryBundle.message("parser.error.incomplete-double-exponent"));
                 builder.advanceLexer();
             }
-            return true;
-        } else if (builder.getTokenType() == XQueryTokenType.DOUBLE_LITERAL) {
-            builder.advanceLexer();
             return true;
         }
         return false;
