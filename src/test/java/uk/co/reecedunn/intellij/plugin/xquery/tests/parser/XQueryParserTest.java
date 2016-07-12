@@ -228,6 +228,46 @@ public class XQueryParserTest extends PlatformLiteFixture {
     }
 
     // endregion
+    // region PredefinedEntityRef
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PredefinedEntityRef")
+    public void testStringLiteral_PredefinedEntityRef() {
+        final String expected
+                = "FileElement[FILE(0:7)]\n"
+                + "   XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:7)]('\"&amp;\"')\n"
+                + "      LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
+                + "      XQueryPredefinedEntityRefImpl[XQUERY_PREDEFINED_ENTITY_REFERENCE_TOKEN(1:6)]('&amp;')\n"
+                + "      LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(6:7)]('\"')\n";
+
+        assertThat(parseText("\"&amp;\""), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PredefinedEntityRef")
+    public void testStringLiteral_PredefinedEntityRef_IncompleteRef() {
+        final String expected
+                = "FileElement[FILE(0:7)]\n"
+                + "   XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:7)]('\"&quot\"')\n"
+                + "      LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
+                + "      PsiErrorElementImpl[ERROR_ELEMENT(1:6)]('Entity reference is not closed (missing ';').')\n"
+                + "         LeafPsiElement[XQUERY_PARTIAL_ENTITY_REFERENCE_TOKEN(1:6)]('&quot')\n"
+                + "      LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(6:7)]('\"')\n";
+
+        assertThat(parseText("\"&quot\""), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PredefinedEntityRef")
+    public void testPredefinedEntityRef_MisplacedEntityRef() {
+        final String expected
+                = "FileElement[FILE(0:1)]\n"
+                + "   PsiErrorElementImpl[ERROR_ELEMENT(0:1)]('Entity references are not allowed here.')\n"
+                + "      LeafPsiElement[XQUERY_ENTITY_REFERENCE_NOT_IN_STRING_TOKEN(0:1)]('&')\n";
+
+        assertThat(parseText("&"), is(expected));
+    }
+
+    // endregion
     // region Comment
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Comment")

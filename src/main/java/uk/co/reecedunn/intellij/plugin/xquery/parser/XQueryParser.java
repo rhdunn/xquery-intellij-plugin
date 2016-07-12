@@ -32,6 +32,7 @@ public class XQueryParser implements PsiParser {
             if (skipWhiteSpaceAndCommentTokens(builder)) continue;
             if (parseNumericLiteral(builder)) continue;
             if (parseStringLiteral(builder)) continue;
+            if (misplacedEntityReference(builder)) continue;
             builder.advanceLexer();
         }
         rootMarker.done(root);
@@ -82,18 +83,32 @@ public class XQueryParser implements PsiParser {
             final PsiBuilder.Marker stringMarker = builder.mark();
             builder.advanceLexer();
             while (true) {
-                if (builder.getTokenType() == XQueryTokenType.STRING_LITERAL_CONTENTS) {
+                if (builder.getTokenType() == XQueryTokenType.STRING_LITERAL_CONTENTS ||
+                    builder.getTokenType() == XQueryTokenType.PREDEFINED_ENTITY_REFERENCE) {
                     builder.advanceLexer();
                 } else if (builder.getTokenType() == XQueryTokenType.STRING_LITERAL_END) {
                     builder.advanceLexer();
                     stringMarker.done(XQueryElementType.STRING_LITERAL);
                     return true;
+                } else if (builder.getTokenType() == XQueryTokenType.PARTIAL_ENTITY_REFERENCE) {
+                    final PsiBuilder.Marker errorMarker = builder.mark();
+                    builder.advanceLexer();
+                    errorMarker.error(XQueryBundle.message("parser.error.incomplete-entity"));
                 } else {
                     stringMarker.done(XQueryElementType.STRING_LITERAL);
                     builder.error(XQueryBundle.message("parser.error.incomplete-string"));
                     return true;
                 }
             }
+        }
+        return false;
+    }
+
+    private boolean misplacedEntityReference(@NotNull PsiBuilder builder) {
+        if (builder.getTokenType() == XQueryTokenType.ENTITY_REFERENCE_NOT_IN_STRING) {
+            final PsiBuilder.Marker errorMarker = builder.mark();
+            builder.advanceLexer();
+            errorMarker.error(XQueryBundle.message("parser.error.misplaced-entity"));
         }
         return false;
     }

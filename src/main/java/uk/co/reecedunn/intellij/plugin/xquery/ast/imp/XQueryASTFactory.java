@@ -47,6 +47,8 @@ public class XQueryASTFactory extends ASTFactory {
                    type == XQueryTokenType.DECIMAL_LITERAL ||
                    type == XQueryTokenType.DOUBLE_LITERAL) {
             return new XQueryNumericLiteralImpl(type, text);
+        } else if (type == XQueryTokenType.PREDEFINED_ENTITY_REFERENCE) {
+            return new XQueryPredefinedEntityRefImpl(type, text);
         }
 
         return new LeafPsiElement(type, text);
