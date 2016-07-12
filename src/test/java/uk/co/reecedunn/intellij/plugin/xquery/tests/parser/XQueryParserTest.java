@@ -33,6 +33,7 @@ import org.picocontainer.PicoInitializationException;
 import org.picocontainer.PicoIntrospectionException;
 import org.picocontainer.defaults.AbstractComponentAdapter;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition;
+import uk.co.reecedunn.intellij.plugin.xquery.tests.Specification;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -133,6 +134,19 @@ public class XQueryParserTest extends PlatformLiteFixture {
                 + "   LeafPsiElement[BAD_CHARACTER(2:3)]('\uFFFF')\n";
 
         assertThat(parseText("~\uFFFE\uFFFF"), is(expected));
+    }
+
+    // endregion
+    // region A.2.1 Terminal Symbols
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-S")
+    @Specification(name="XML 1.0 5ed", reference="https://www.w3.org/TR/2008/REC-xml-20081126/#NT-S")
+    public void testS() {
+        final String expected
+                = "FileElement[FILE(0:4)]\n"
+                + "   PsiWhiteSpaceImpl[WHITE_SPACE(0:4)](' \t\r\n')\n";
+
+        assertThat(parseText(" \t\r\n"), is(expected));
     }
 
     // endregion
