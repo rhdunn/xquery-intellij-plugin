@@ -16,22 +16,32 @@
 package uk.co.reecedunn.intellij.plugin.xquery.psi.imp;
 
 import com.intellij.lang.ASTFactory;
-import com.intellij.psi.impl.source.tree.CompositeElement;
-import com.intellij.psi.impl.source.tree.LeafElement;
+import com.intellij.psi.impl.source.tree.*;
 import com.intellij.psi.tree.IElementType;
+import com.intellij.psi.tree.IFileElementType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 
 public class XQueryASTFactory extends ASTFactory {
     @Override
     @Nullable
     public CompositeElement createComposite(final IElementType type) {
-        return null;
+        if (type instanceof IFileElementType) {
+            return new FileElement(type, null);
+        }
+
+        return new CompositeElement(type);
     }
 
     @Override
     @Nullable
     public LeafElement createLeaf(@NotNull final IElementType type, @NotNull CharSequence text) {
-        return null;
+        if (type == XQueryTokenType.COMMENT ||
+            type == XQueryTokenType.PARTIAL_COMMENT) {
+            return new PsiCommentImpl(type, text);
+        }
+
+        return new LeafPsiElement(type, text);
     }
 }

@@ -206,7 +206,7 @@ public class XQueryParserTest extends PlatformLiteFixture {
     public void testComment() {
         final String expected
                 = "FileElement[FILE(0:10)]\n"
-                + "   LeafPsiElement[XQUERY_COMMENT_TOKEN(0:10)]('(: Test :)')\n";
+                + "   PsiCommentImpl[XQUERY_COMMENT_TOKEN(0:10)]('(: Test :)')\n";
 
         assertThat(parseText("(: Test :)"), is(expected));
     }
@@ -215,7 +215,7 @@ public class XQueryParserTest extends PlatformLiteFixture {
     public void testComment_UnclosedComment() {
         final String expected
                 = "FileElement[FILE(0:7)]\n"
-                + "   LeafPsiElement[XQUERY_PARTIAL_COMMENT_TOKEN(0:7)]('(: Test')\n"
+                + "   PsiCommentImpl[XQUERY_PARTIAL_COMMENT_TOKEN(0:7)]('(: Test')\n"
                 + "   PsiErrorElementImpl[ERROR_ELEMENT(7:7)]('Unclosed XQuery comment.')\n";
 
         assertThat(parseText("(: Test"), is(expected));
