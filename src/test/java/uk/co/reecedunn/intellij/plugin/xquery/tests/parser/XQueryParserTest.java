@@ -193,8 +193,8 @@ public class XQueryParserTest extends PlatformLiteFixture {
         final String expected
                 = "FileElement[FILE(0:11)]\n"
                 + "   LeafPsiElement[XQUERY_DECIMAL_LITERAL_TOKEN(0:10)]('2.99792458')\n"
-                + "   PsiErrorElementImpl[ERROR_ELEMENT(10:10)]('Incomplete double exponent.')\n"
-                + "   LeafPsiElement[XQUERY_PARTIAL_DOUBLE_LITERAL_EXPONENT_TOKEN(10:11)]('e')\n";
+                + "   PsiErrorElementImpl[ERROR_ELEMENT(10:11)]('Incomplete double exponent.')\n"
+                + "      LeafPsiElement[XQUERY_PARTIAL_DOUBLE_LITERAL_EXPONENT_TOKEN(10:11)]('e')\n";
 
         assertThat(parseText("2.99792458e"), is(expected));
     }
@@ -225,8 +225,8 @@ public class XQueryParserTest extends PlatformLiteFixture {
     public void testComment_UnexpectedCommentEndTag() {
         final String expected
                 = "FileElement[FILE(0:2)]\n"
-                + "   PsiErrorElementImpl[ERROR_ELEMENT(0:0)]('End of XQuery comment marker found without a '(:' start of comment marker.')\n"
-                + "   LeafPsiElement[XQUERY_COMMENT_END_TAG_TOKEN(0:2)](':)')\n";
+                + "   PsiErrorElementImpl[ERROR_ELEMENT(0:2)]('End of XQuery comment marker found without a '(:' start of comment marker.')\n"
+                + "      LeafPsiElement[XQUERY_COMMENT_END_TAG_TOKEN(0:2)](':)')\n";
 
         assertThat(parseText(":)"), is(expected));
     }

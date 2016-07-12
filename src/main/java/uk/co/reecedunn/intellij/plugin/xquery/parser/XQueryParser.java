@@ -50,8 +50,9 @@ public class XQueryParser implements PsiParser {
                 builder.error(XQueryBundle.message("parser.error.incomplete-comment"));
             } else if (builder.getTokenType() == XQueryTokenType.COMMENT_END_TAG) {
                 skipped = true;
-                builder.error(XQueryBundle.message("parser.error.end-of-comment-without-start"));
+                final PsiBuilder.Marker errorMarker = builder.mark();
                 builder.advanceLexer();
+                errorMarker.error(XQueryBundle.message("parser.error.end-of-comment-without-start"));
             } else {
                 return skipped;
             }
@@ -66,8 +67,9 @@ public class XQueryParser implements PsiParser {
         } else if (builder.getTokenType() == XQueryTokenType.DECIMAL_LITERAL) {
             builder.advanceLexer();
             if (builder.getTokenType() == XQueryTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT) {
-                builder.error(XQueryBundle.message("parser.error.incomplete-double-exponent"));
+                final PsiBuilder.Marker errorMarker = builder.mark();
                 builder.advanceLexer();
+                errorMarker.error(XQueryBundle.message("parser.error.incomplete-double-exponent"));
             }
             return true;
         }
