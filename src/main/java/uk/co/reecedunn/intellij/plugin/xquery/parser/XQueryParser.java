@@ -33,6 +33,7 @@ public class XQueryParser implements PsiParser {
             if (parseNumericLiteral(builder)) continue;
             if (parseStringLiteral(builder)) continue;
             if (misplacedEntityReference(builder)) continue;
+            if (parseQName(builder)) continue;
             builder.advanceLexer();
         }
         rootMarker.done(root);
@@ -111,6 +112,58 @@ public class XQueryParser implements PsiParser {
             final PsiBuilder.Marker errorMarker = builder.mark();
             builder.advanceLexer();
             errorMarker.error(XQueryBundle.message("parser.error.misplaced-entity"));
+        }
+        return false;
+    }
+
+    private boolean parseQName(@NotNull PsiBuilder builder) {
+        if (builder.getTokenType() == XQueryTokenType.NCNAME) {
+            final PsiBuilder.Marker qnameMarker = builder.mark();
+
+            builder.advanceLexer();
+            final PsiBuilder.Marker beforeMarker = builder.mark();
+            if (skipWhiteSpaceAndCommentTokens(builder) &&
+                builder.getTokenType() == XQueryTokenType.QNAME_SEPARATOR) {
+                beforeMarker.error(XQueryBundle.message("parser.error.qname.whitespace-before-local-part"));
+            } else {
+                beforeMarker.drop();
+            }
+
+            if (builder.getTokenType() == XQueryTokenType.QNAME_SEPARATOR) {
+                builder.advanceLexer();
+
+                final PsiBuilder.Marker afterMaker = builder.mark();
+                if (skipWhiteSpaceAndCommentTokens(builder)) {
+                    afterMaker.error(XQueryBundle.message("parser.error.qname.whitespace-after-local-part"));
+                } else {
+                    afterMaker.drop();
+                }
+
+                if (builder.getTokenType() == XQueryTokenType.NCNAME) {
+                    builder.advanceLexer();
+                    qnameMarker.done(XQueryElementType.QNAME);
+                    return true;
+                } else {
+                    qnameMarker.drop();
+
+                    final PsiBuilder.Marker errorMaker = builder.mark();
+                    builder.advanceLexer();
+                    errorMaker.error(XQueryBundle.message("parser.error.qname.missing-local-name"));
+                    return true;
+                }
+            } else {
+                qnameMarker.drop();
+            }
+            return true;
+        } else if (builder.getTokenType() == XQueryTokenType.QNAME_SEPARATOR) {
+            final PsiBuilder.Marker errorMaker = builder.mark();
+            builder.advanceLexer();
+            skipWhiteSpaceAndCommentTokens(builder);
+            if (builder.getTokenType() == XQueryTokenType.NCNAME) {
+                builder.advanceLexer();
+            }
+            errorMaker.error(XQueryBundle.message("parser.error.qname.missing-prefix"));
+            return true;
         }
         return false;
     }

@@ -216,11 +216,7 @@ public class XQueryLexer extends LexerBase {
                     mTokenRange.match();
                     cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
                 }
-                if (cc == CharacterClass.COLON) {
-                    mType = XQueryTokenType.QNAME_PREFIX;
-                } else {
-                    mType = sKeywords.getOrDefault(getTokenText(), XQueryTokenType.NCNAME);
-                }
+                mType = sKeywords.getOrDefault(getTokenText(), XQueryTokenType.NCNAME);
                 break;
             case CharacterClass.PARENTHESIS_OPEN:
                 mTokenRange.match();

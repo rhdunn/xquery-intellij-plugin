@@ -362,6 +362,117 @@ public class XQueryParserTest extends PlatformLiteFixture {
     }
 
     // endregion
+    // region QName
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
+    @Specification(name="Namespaces in XML 1.0 3ed", reference="https://www.w3.org/TR/2009/REC-xml-names-20091208/#NT-QName")
+    public void testQName() {
+        final String expected
+                = "FileElement[FILE(0:7)]\n"
+                + "   XQueryQNameImpl[XQUERY_QNAME(0:7)]('one:two')\n"
+                + "      XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(0:3)]('one')\n"
+                + "      LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(3:4)](':')\n"
+                + "      XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(4:7)]('two')\n";
+
+        assertThat(parseText("one:two"), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
+    @Specification(name="Namespaces in XML 1.0 3ed", reference="https://www.w3.org/TR/2009/REC-xml-names-20091208/#NT-QName")
+    public void testQName_SpaceBeforeColon() {
+        final String expected
+                = "FileElement[FILE(0:8)]\n"
+                + "   XQueryQNameImpl[XQUERY_QNAME(0:8)]('one :two')\n"
+                + "      XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(0:3)]('one')\n"
+                + "      PsiErrorElementImpl[ERROR_ELEMENT(3:4)]('Whitespace is not allowed before ':' in a qualified name.')\n"
+                + "         PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')\n"
+                + "      LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(4:5)](':')\n"
+                + "      XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(5:8)]('two')\n";
+
+        assertThat(parseText("one :two"), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
+    @Specification(name="Namespaces in XML 1.0 3ed", reference="https://www.w3.org/TR/2009/REC-xml-names-20091208/#NT-QName")
+    public void testQName_SpaceAfterColon() {
+        final String expected
+                = "FileElement[FILE(0:8)]\n"
+                + "   XQueryQNameImpl[XQUERY_QNAME(0:8)]('one: two')\n"
+                + "      XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(0:3)]('one')\n"
+                + "      LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(3:4)](':')\n"
+                + "      PsiErrorElementImpl[ERROR_ELEMENT(4:5)]('Whitespace is not allowed after ':' in a qualified name.')\n"
+                + "         PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')\n"
+                + "      XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(5:8)]('two')\n";
+
+        assertThat(parseText("one: two"), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
+    @Specification(name="Namespaces in XML 1.0 3ed", reference="https://www.w3.org/TR/2009/REC-xml-names-20091208/#NT-QName")
+    public void testQName_SpaceBeforeAndAfterColon() {
+        final String expected
+                = "FileElement[FILE(0:9)]\n"
+                + "   XQueryQNameImpl[XQUERY_QNAME(0:9)]('one : two')\n"
+                + "      XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(0:3)]('one')\n"
+                + "      PsiErrorElementImpl[ERROR_ELEMENT(3:4)]('Whitespace is not allowed before ':' in a qualified name.')\n"
+                + "         PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')\n"
+                + "      LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(4:5)](':')\n"
+                + "      PsiErrorElementImpl[ERROR_ELEMENT(5:6)]('Whitespace is not allowed after ':' in a qualified name.')\n"
+                + "         PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')\n"
+                + "      XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(6:9)]('two')\n";
+
+        assertThat(parseText("one : two"), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
+    @Specification(name="Namespaces in XML 1.0 3ed", reference="https://www.w3.org/TR/2009/REC-xml-names-20091208/#NT-QName")
+    public void testQName_NonNCNameLocalPart() {
+        final String expected
+                = "FileElement[FILE(0:7)]\n"
+                + "   XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(0:3)]('one')\n"
+                + "   LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(3:4)](':')\n"
+                + "   PsiErrorElementImpl[ERROR_ELEMENT(4:7)]('Missing local name after ':' in qualified name.')\n"
+                + "      XQueryNumericLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(4:7)]('234')\n";
+
+        assertThat(parseText("one:234"), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
+    @Specification(name="Namespaces in XML 1.0 3ed", reference="https://www.w3.org/TR/2009/REC-xml-names-20091208/#NT-QName")
+    public void testQName_MissingLocalPart() {
+        final String expected
+                = "FileElement[FILE(0:4)]\n"
+                + "   XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(0:3)]('one')\n"
+                + "   LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(3:4)](':')\n"
+                + "   PsiErrorElementImpl[ERROR_ELEMENT(4:4)]('Missing local name after ':' in qualified name.')\n";
+
+        assertThat(parseText("one:"), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
+    @Specification(name="Namespaces in XML 1.0 3ed", reference="https://www.w3.org/TR/2009/REC-xml-names-20091208/#NT-QName")
+    public void testQName_MissingPrefixPart() {
+        final String expected
+                = "FileElement[FILE(0:4)]\n"
+                + "   PsiErrorElementImpl[ERROR_ELEMENT(0:4)]('Missing prefix before ':' in qualified name.')\n"
+                + "      LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(0:1)](':')\n"
+                + "      XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(1:4)]('two')\n";
+
+        assertThat(parseText(":two"), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
+    @Specification(name="Namespaces in XML 1.0 3ed", reference="https://www.w3.org/TR/2009/REC-xml-names-20091208/#NT-QName")
+    public void testQName_MissingPrefixAndLocalPart() {
+        final String expected
+                = "FileElement[FILE(0:1)]\n"
+                + "   PsiErrorElementImpl[ERROR_ELEMENT(0:1)]('Missing prefix before ':' in qualified name.')\n"
+                + "      LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(0:1)](':')\n";
+
+        assertThat(parseText(":"), is(expected));
+    }
+
+    // endregion
     // region NCName
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-NCName")

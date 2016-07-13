@@ -18,9 +18,10 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.imp;
 import com.intellij.psi.impl.source.tree.LeafPsiElement;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryNumericLiteral;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryNCName;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryQName;
 
-public class XQueryNCNameImpl extends LeafPsiElement implements XQueryNumericLiteral {
+public class XQueryNCNameImpl extends LeafPsiElement implements XQueryNCName, XQueryQName {
     public XQueryNCNameImpl(@NotNull IElementType type, @NotNull CharSequence text) {
         super(type, text);
     }

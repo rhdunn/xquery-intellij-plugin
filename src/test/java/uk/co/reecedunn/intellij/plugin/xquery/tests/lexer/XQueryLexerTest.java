@@ -479,7 +479,7 @@ public class XQueryLexerTest extends TestCase {
         Lexer lexer = new XQueryLexer();
 
         lexer.start("one:two");
-        matchToken(lexer, "one", 0, 0, 3, XQueryTokenType.QNAME_PREFIX);
+        matchToken(lexer, "one", 0, 0, 3, XQueryTokenType.NCNAME);
         matchToken(lexer, ":",   0, 3, 4, XQueryTokenType.QNAME_SEPARATOR);
         matchToken(lexer, "two", 0, 4, 7, XQueryTokenType.NCNAME);
         matchToken(lexer, "",    0, 7, 7, null);

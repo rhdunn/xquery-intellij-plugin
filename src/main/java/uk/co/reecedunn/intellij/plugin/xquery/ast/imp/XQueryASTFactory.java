@@ -32,6 +32,8 @@ public class XQueryASTFactory extends ASTFactory {
             return new FileElement(type, null);
         } else if (type == XQueryElementType.STRING_LITERAL) {
             return new XQueryStringLiteralImpl(type);
+        } else if (type == XQueryElementType.QNAME) {
+            return new XQueryQNameImpl(type);
         }
 
         return new CompositeElement(type);
@@ -55,6 +57,8 @@ public class XQueryASTFactory extends ASTFactory {
             return new XQueryEscapeCharacterImpl(type, text);
         } else if (type == XQueryTokenType.NCNAME) {
             return new XQueryNCNameImpl(type, text);
+        } else if (type == XQueryTokenType.QNAME_PREFIX) {
+            return new XQueryQNamePrefixImpl(type, text);
         }
 
         return new LeafPsiElement(type, text);
