@@ -471,6 +471,21 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region QName
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
+    @Specification(name="Namespaces in XML 1.0 3ed", reference="https://www.w3.org/TR/2009/REC-xml-names-20091208/#NT-QName")
+    public void testQName() {
+        Lexer lexer = new XQueryLexer();
+
+        lexer.start("one:two");
+        matchToken(lexer, "one", 0, 0, 3, XQueryTokenType.QNAME_PREFIX);
+        matchToken(lexer, ":",   0, 3, 4, XQueryTokenType.QNAME_SEPARATOR);
+        matchToken(lexer, "two", 0, 4, 7, XQueryTokenType.NCNAME);
+        matchToken(lexer, "",    0, 7, 7, null);
+    }
+
+    // endregion
     // region NCName
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-NCName")
