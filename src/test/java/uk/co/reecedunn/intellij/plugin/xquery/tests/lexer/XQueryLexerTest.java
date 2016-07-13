@@ -74,6 +74,8 @@ public class XQueryLexerTest extends TestCase {
     // endregion
     // region A.2.1 Terminal Symbols
 
+    // region IntegerLiteral
+
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-IntegerLiteral")
     public void testIntegerLiteral() {
         Lexer lexer = new XQueryLexer();
@@ -82,6 +84,9 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "1234", 0, 0, 4, XQueryTokenType.INTEGER_LITERAL);
         matchToken(lexer, "",     0, 4, 4, null);
     }
+
+    // endregion
+    // region DecimalLiteral
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DecimalLiteral")
     public void testDecimalLiteral() {
@@ -104,6 +109,9 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, ".2", 0, 2, 4, XQueryTokenType.DECIMAL_LITERAL);
         matchToken(lexer, "",   0, 4, 4, null);
     }
+
+    // endregion
+    // region DoubleLiteral
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DoubleLiteral")
     public void testDoubleLiteral() {
@@ -224,6 +232,9 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "",   0, 13, 13, null);
     }
 
+    // endregion
+    // region StringLiteral
+
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
     public void testStringLiteral() {
         Lexer lexer = new XQueryLexer();
@@ -248,6 +259,9 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "'",           2, 12, 13, XQueryTokenType.STRING_LITERAL_END);
         matchToken(lexer, "",            0, 13, 13, null);
     }
+
+    // endregion
+    // region PredefinedEntityRef
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PredefinedEntityRef")
@@ -319,6 +333,9 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "",   0, 1, 1, null);
     }
 
+    // endregion
+    // region EscapeQuot
+
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-EscapeQuot")
     public void testStringLiteral_EscapeQuot() {
@@ -333,6 +350,9 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "",     0, 10, 10, null);
     }
 
+    // endregion
+    // region EscapeApos
+
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-EscapeApos")
     public void testStringLiteral_EscapeApos() {
@@ -346,6 +366,9 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "'",    2,  9, 10, XQueryTokenType.STRING_LITERAL_END);
         matchToken(lexer, "",     0, 10, 10, null);
     }
+
+    // endregion
+    // region Comment
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Comment")
     public void testComment() {
@@ -382,6 +405,9 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, ":)",                    0, 28, 30, XQueryTokenType.COMMENT_END_TAG);
         matchToken(lexer, "",                      0, 30, 30, null);
     }
+
+    // endregion
+    // region CharRef
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CharRef")
@@ -444,6 +470,9 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "",     0, 21, 21, null);
     }
 
+    // endregion
+    // region NCName
+
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-NCName")
     @Specification(name="Namespaces in XML 1.0 3ed", reference="https://www.w3.org/TR/2009/REC-xml-names-20091208/#NT-NCName")
     public void testNCName() {
@@ -463,6 +492,9 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "g\u0330d", 0, 19, 22, XQueryTokenType.NCNAME);
         matchToken(lexer, "",         0, 22, 22, null);
     }
+
+    // endregion
+    // region S
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-S")
     @Specification(name="XML 1.0 5ed", reference="https://www.w3.org/TR/2008/REC-xml-20081126/#NT-S")
@@ -489,6 +521,8 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "   \t  \r\n ", 0, 0, 9, XQueryTokenType.WHITE_SPACE);
         matchToken(lexer, "",             0, 9, 9, null);
     }
+
+    // endregion
 
     // endregion
     // region A.2.2 Terminal Delimitation
@@ -548,6 +582,8 @@ public class XQueryLexerTest extends TestCase {
     // endregion
     // region A.1 EBNF
 
+    // region VersionDecl
+
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-VersionDecl")
     public void testVersionDecl() {
         Lexer lexer = new XQueryLexer();
@@ -556,6 +592,9 @@ public class XQueryLexerTest extends TestCase {
         matchSingleToken(lexer, "version",  XQueryTokenType.K_VERSION);
         matchSingleToken(lexer, "encoding", XQueryTokenType.K_ENCODING);
     }
+
+    // endregion
+    // region DirCommentConstructor
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirCommentConstructor")
     public void testDirCommentConstructor() {
@@ -584,6 +623,8 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "<!--\nMultiline\nComment\n-->", 0,  0, 26, XQueryTokenType.XML_COMMENT);
         matchToken(lexer, "",                              0, 26, 26, null);
     }
+
+    // endregion
 
     // endregion
 }
