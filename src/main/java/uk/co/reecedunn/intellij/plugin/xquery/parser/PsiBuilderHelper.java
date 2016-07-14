@@ -58,6 +58,16 @@ public class PsiBuilderHelper {
         return false;
     }
 
+    public boolean errorOnTokenType(IElementType type, String message) {
+        if (mBuilder.getTokenType() == type) {
+            final PsiBuilder.Marker errorMarker = mBuilder.mark();
+            mBuilder.advanceLexer();
+            errorMarker.error(message);
+            return true;
+        }
+        return false;
+    }
+
     public PsiBuilder.Marker mark() {
         return mBuilder.mark();
     }

@@ -46,11 +46,7 @@ public class XQueryParser implements PsiParser {
             builder.matchTokenType(XQueryTokenType.DOUBLE_LITERAL)) {
             return true;
         } else if (builder.matchTokenType(XQueryTokenType.DECIMAL_LITERAL)) {
-            if (builder.getTokenType() == XQueryTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT) {
-                final PsiBuilder.Marker errorMarker = builder.mark();
-                builder.advanceLexer();
-                errorMarker.error(XQueryBundle.message("parser.error.incomplete-double-exponent"));
-            }
+            builder.errorOnTokenType(XQueryTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT, XQueryBundle.message("parser.error.incomplete-double-exponent"));
             return true;
         }
         return false;
@@ -69,11 +65,7 @@ public class XQueryParser implements PsiParser {
                 } else if (builder.matchTokenType(XQueryTokenType.STRING_LITERAL_END)) {
                     stringMarker.done(XQueryElementType.STRING_LITERAL);
                     return true;
-                } else if (builder.getTokenType() == XQueryTokenType.PARTIAL_ENTITY_REFERENCE) {
-                    final PsiBuilder.Marker errorMarker = builder.mark();
-                    builder.advanceLexer();
-                    errorMarker.error(XQueryBundle.message("parser.error.incomplete-entity"));
-                } else {
+                } else if (!builder.errorOnTokenType(XQueryTokenType.PARTIAL_ENTITY_REFERENCE, XQueryBundle.message("parser.error.incomplete-entity"))) {
                     stringMarker.done(XQueryElementType.STRING_LITERAL);
                     builder.error(XQueryBundle.message("parser.error.incomplete-string"));
                     return true;
@@ -84,12 +76,7 @@ public class XQueryParser implements PsiParser {
     }
 
     private boolean misplacedEntityReference(@NotNull PsiBuilderHelper builder) {
-        if (builder.getTokenType() == XQueryTokenType.ENTITY_REFERENCE_NOT_IN_STRING) {
-            final PsiBuilder.Marker errorMarker = builder.mark();
-            builder.advanceLexer();
-            errorMarker.error(XQueryBundle.message("parser.error.misplaced-entity"));
-        }
-        return false;
+        return builder.errorOnTokenType(XQueryTokenType.ENTITY_REFERENCE_NOT_IN_STRING, XQueryBundle.message("parser.error.misplaced-entity"));
     }
 
     private boolean parseQName(@NotNull PsiBuilderHelper builder) {
