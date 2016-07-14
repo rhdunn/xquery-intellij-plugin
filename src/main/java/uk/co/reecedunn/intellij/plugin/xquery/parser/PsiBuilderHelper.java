@@ -50,6 +50,14 @@ public class PsiBuilderHelper {
         }
     }
 
+    public boolean matchTokenType(IElementType type) {
+        if (mBuilder.getTokenType() == type) {
+            mBuilder.advanceLexer();
+            return true;
+        }
+        return false;
+    }
+
     public PsiBuilder.Marker mark() {
         return mBuilder.mark();
     }

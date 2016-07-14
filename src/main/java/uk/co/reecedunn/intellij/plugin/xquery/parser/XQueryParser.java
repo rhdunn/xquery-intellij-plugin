@@ -42,12 +42,10 @@ public class XQueryParser implements PsiParser {
     }
 
     private boolean parseNumericLiteral(@NotNull PsiBuilderHelper builder) {
-        if (builder.getTokenType() == XQueryTokenType.INTEGER_LITERAL ||
-            builder.getTokenType() == XQueryTokenType.DOUBLE_LITERAL) {
-            builder.advanceLexer();
+        if (builder.matchTokenType(XQueryTokenType.INTEGER_LITERAL) ||
+            builder.matchTokenType(XQueryTokenType.DOUBLE_LITERAL)) {
             return true;
-        } else if (builder.getTokenType() == XQueryTokenType.DECIMAL_LITERAL) {
-            builder.advanceLexer();
+        } else if (builder.matchTokenType(XQueryTokenType.DECIMAL_LITERAL)) {
             if (builder.getTokenType() == XQueryTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT) {
                 final PsiBuilder.Marker errorMarker = builder.mark();
                 builder.advanceLexer();
@@ -63,13 +61,12 @@ public class XQueryParser implements PsiParser {
             final PsiBuilder.Marker stringMarker = builder.mark();
             builder.advanceLexer();
             while (true) {
-                if (builder.getTokenType() == XQueryTokenType.STRING_LITERAL_CONTENTS ||
-                    builder.getTokenType() == XQueryTokenType.PREDEFINED_ENTITY_REFERENCE ||
-                    builder.getTokenType() == XQueryTokenType.CHARACTER_REFERENCE ||
-                    builder.getTokenType() == XQueryTokenType.STRING_LITERAL_ESCAPED_CHARACTER) {
-                    builder.advanceLexer();
-                } else if (builder.getTokenType() == XQueryTokenType.STRING_LITERAL_END) {
-                    builder.advanceLexer();
+                if (builder.matchTokenType(XQueryTokenType.STRING_LITERAL_CONTENTS) ||
+                    builder.matchTokenType(XQueryTokenType.PREDEFINED_ENTITY_REFERENCE) ||
+                    builder.matchTokenType(XQueryTokenType.CHARACTER_REFERENCE) ||
+                    builder.matchTokenType(XQueryTokenType.STRING_LITERAL_ESCAPED_CHARACTER)) {
+                    //
+                } else if (builder.matchTokenType(XQueryTokenType.STRING_LITERAL_END)) {
                     stringMarker.done(XQueryElementType.STRING_LITERAL);
                     return true;
                 } else if (builder.getTokenType() == XQueryTokenType.PARTIAL_ENTITY_REFERENCE) {
@@ -108,9 +105,7 @@ public class XQueryParser implements PsiParser {
                 beforeMarker.drop();
             }
 
-            if (builder.getTokenType() == XQueryTokenType.QNAME_SEPARATOR) {
-                builder.advanceLexer();
-
+            if (builder.matchTokenType(XQueryTokenType.QNAME_SEPARATOR)) {
                 final PsiBuilder.Marker afterMaker = builder.mark();
                 if (builder.skipWhiteSpaceAndCommentTokens()) {
                     afterMaker.error(XQueryBundle.message("parser.error.qname.whitespace-after-local-part"));
@@ -118,8 +113,7 @@ public class XQueryParser implements PsiParser {
                     afterMaker.drop();
                 }
 
-                if (builder.getTokenType() == XQueryTokenType.NCNAME) {
-                    builder.advanceLexer();
+                if (builder.matchTokenType(XQueryTokenType.NCNAME)) {
                     qnameMarker.done(XQueryElementType.QNAME);
                     return true;
                 } else {
