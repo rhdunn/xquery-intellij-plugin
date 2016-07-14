@@ -12,7 +12,7 @@
       Release 0.0.1: Initial release.
   ]]></change-notes>
 
-  <idea-version since-build="131"/>
+  <idea-version since-build="162"/>
 
   <extensions defaultExtensionNs="com.intellij">
     <fileTypeFactory implementation="uk.co.reecedunn.intellij.plugin.xquery.filetypes.FileTypeFactory"/>

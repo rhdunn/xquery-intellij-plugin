@@ -13,7 +13,7 @@ apply plugin: 'org.jetbrains.intellij'
 apply plugin: 'java'
 
 intellij {
-    version 'IC-2016.1.3' // IntelliJ IDEA dependency 
+    version 'IC-2016.2' // IntelliJ IDEA dependency
     plugins 'coverage'  // Bundled plugin dependencies
     pluginName 'xquery'
 }
