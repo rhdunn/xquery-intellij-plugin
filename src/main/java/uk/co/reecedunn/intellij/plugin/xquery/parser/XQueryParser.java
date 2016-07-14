@@ -26,7 +26,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 public class XQueryParser implements PsiParser {
     @NotNull
     @Override
-    public ASTNode parse(@NotNull IElementType root, @NotNull PsiBuilder builder) {
+    public ASTNode parse(@NotNull IElementType root, @NotNull PsiBuilder psiBuilder) {
+        final PsiBuilderHelper builder = new PsiBuilderHelper(psiBuilder);
         final PsiBuilder.Marker rootMarker = builder.mark();
         while (builder.getTokenType() != null) {
             if (skipWhiteSpaceAndCommentTokens(builder)) continue;
@@ -37,10 +38,10 @@ public class XQueryParser implements PsiParser {
             builder.advanceLexer();
         }
         rootMarker.done(root);
-        return builder.getTreeBuilt();
+        return psiBuilder.getTreeBuilt();
     }
 
-    private boolean skipWhiteSpaceAndCommentTokens(@NotNull PsiBuilder builder) {
+    private boolean skipWhiteSpaceAndCommentTokens(@NotNull PsiBuilderHelper builder) {
         boolean skipped = false;
         while (true) {
             if (builder.getTokenType() == XQueryTokenType.WHITE_SPACE ||
@@ -62,7 +63,7 @@ public class XQueryParser implements PsiParser {
         }
     }
 
-    private boolean parseNumericLiteral(@NotNull PsiBuilder builder) {
+    private boolean parseNumericLiteral(@NotNull PsiBuilderHelper builder) {
         if (builder.getTokenType() == XQueryTokenType.INTEGER_LITERAL ||
             builder.getTokenType() == XQueryTokenType.DOUBLE_LITERAL) {
             builder.advanceLexer();
@@ -79,7 +80,7 @@ public class XQueryParser implements PsiParser {
         return false;
     }
 
-    private boolean parseStringLiteral(@NotNull PsiBuilder builder) {
+    private boolean parseStringLiteral(@NotNull PsiBuilderHelper builder) {
         if (builder.getTokenType() == XQueryTokenType.STRING_LITERAL_START) {
             final PsiBuilder.Marker stringMarker = builder.mark();
             builder.advanceLexer();
@@ -107,7 +108,7 @@ public class XQueryParser implements PsiParser {
         return false;
     }
 
-    private boolean misplacedEntityReference(@NotNull PsiBuilder builder) {
+    private boolean misplacedEntityReference(@NotNull PsiBuilderHelper builder) {
         if (builder.getTokenType() == XQueryTokenType.ENTITY_REFERENCE_NOT_IN_STRING) {
             final PsiBuilder.Marker errorMarker = builder.mark();
             builder.advanceLexer();
@@ -116,7 +117,7 @@ public class XQueryParser implements PsiParser {
         return false;
     }
 
-    private boolean parseQName(@NotNull PsiBuilder builder) {
+    private boolean parseQName(@NotNull PsiBuilderHelper builder) {
         if (builder.getTokenType() == XQueryTokenType.NCNAME) {
             final PsiBuilder.Marker qnameMarker = builder.mark();
 
