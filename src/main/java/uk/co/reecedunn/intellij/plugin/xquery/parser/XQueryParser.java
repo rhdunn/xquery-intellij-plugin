@@ -30,7 +30,7 @@ public class XQueryParser implements PsiParser {
         final PsiBuilderHelper builder = new PsiBuilderHelper(psiBuilder);
         final PsiBuilder.Marker rootMarker = builder.mark();
         while (builder.getTokenType() != null) {
-            if (skipWhiteSpaceAndCommentTokens(builder)) continue;
+            if (builder.skipWhiteSpaceAndCommentTokens()) continue;
             if (parseNumericLiteral(builder)) continue;
             if (parseStringLiteral(builder)) continue;
             if (misplacedEntityReference(builder)) continue;
@@ -39,28 +39,6 @@ public class XQueryParser implements PsiParser {
         }
         rootMarker.done(root);
         return psiBuilder.getTreeBuilt();
-    }
-
-    private boolean skipWhiteSpaceAndCommentTokens(@NotNull PsiBuilderHelper builder) {
-        boolean skipped = false;
-        while (true) {
-            if (builder.getTokenType() == XQueryTokenType.WHITE_SPACE ||
-                builder.getTokenType() == XQueryTokenType.COMMENT) {
-                skipped = true;
-                builder.advanceLexer();
-            } else if (builder.getTokenType() == XQueryTokenType.PARTIAL_COMMENT) {
-                skipped = true;
-                builder.advanceLexer();
-                builder.error(XQueryBundle.message("parser.error.incomplete-comment"));
-            } else if (builder.getTokenType() == XQueryTokenType.COMMENT_END_TAG) {
-                skipped = true;
-                final PsiBuilder.Marker errorMarker = builder.mark();
-                builder.advanceLexer();
-                errorMarker.error(XQueryBundle.message("parser.error.end-of-comment-without-start"));
-            } else {
-                return skipped;
-            }
-        }
     }
 
     private boolean parseNumericLiteral(@NotNull PsiBuilderHelper builder) {
@@ -123,7 +101,7 @@ public class XQueryParser implements PsiParser {
 
             builder.advanceLexer();
             final PsiBuilder.Marker beforeMarker = builder.mark();
-            if (skipWhiteSpaceAndCommentTokens(builder) &&
+            if (builder.skipWhiteSpaceAndCommentTokens() &&
                 builder.getTokenType() == XQueryTokenType.QNAME_SEPARATOR) {
                 beforeMarker.error(XQueryBundle.message("parser.error.qname.whitespace-before-local-part"));
             } else {
@@ -134,7 +112,7 @@ public class XQueryParser implements PsiParser {
                 builder.advanceLexer();
 
                 final PsiBuilder.Marker afterMaker = builder.mark();
-                if (skipWhiteSpaceAndCommentTokens(builder)) {
+                if (builder.skipWhiteSpaceAndCommentTokens()) {
                     afterMaker.error(XQueryBundle.message("parser.error.qname.whitespace-after-local-part"));
                 } else {
                     afterMaker.drop();
@@ -159,7 +137,7 @@ public class XQueryParser implements PsiParser {
         } else if (builder.getTokenType() == XQueryTokenType.QNAME_SEPARATOR) {
             final PsiBuilder.Marker errorMaker = builder.mark();
             builder.advanceLexer();
-            skipWhiteSpaceAndCommentTokens(builder);
+            builder.skipWhiteSpaceAndCommentTokens();
             if (builder.getTokenType() == XQueryTokenType.NCNAME) {
                 builder.advanceLexer();
             }

@@ -18,12 +18,36 @@ package uk.co.reecedunn.intellij.plugin.xquery.parser;
 import com.intellij.lang.PsiBuilder;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
+import uk.co.reecedunn.intellij.plugin.xquery.XQueryBundle;
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 
 public class PsiBuilderHelper {
     private final PsiBuilder mBuilder;
 
     public PsiBuilderHelper(@NotNull PsiBuilder builder) {
         mBuilder = builder;
+    }
+
+    public boolean skipWhiteSpaceAndCommentTokens() {
+        boolean skipped = false;
+        while (true) {
+            if (mBuilder.getTokenType() == XQueryTokenType.WHITE_SPACE ||
+                mBuilder.getTokenType() == XQueryTokenType.COMMENT) {
+                skipped = true;
+                mBuilder.advanceLexer();
+            } else if (mBuilder.getTokenType() == XQueryTokenType.PARTIAL_COMMENT) {
+                skipped = true;
+                mBuilder.advanceLexer();
+                mBuilder.error(XQueryBundle.message("parser.error.incomplete-comment"));
+            } else if (mBuilder.getTokenType() == XQueryTokenType.COMMENT_END_TAG) {
+                skipped = true;
+                final PsiBuilder.Marker errorMarker = mBuilder.mark();
+                mBuilder.advanceLexer();
+                errorMarker.error(XQueryBundle.message("parser.error.end-of-comment-without-start"));
+            } else {
+                return skipped;
+            }
+        }
     }
 
     public PsiBuilder.Marker mark() {
