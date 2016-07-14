@@ -15,130 +15,19 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.parser;
 
-import com.intellij.lang.*;
-import com.intellij.lang.impl.PsiBuilderImpl;
-import com.intellij.lexer.Lexer;
-import com.intellij.mock.MockProjectEx;
-import com.intellij.openapi.extensions.Extensions;
-import com.intellij.openapi.progress.ProgressManager;
-import com.intellij.openapi.progress.impl.ProgressManagerImpl;
-import com.intellij.openapi.util.Disposer;
-import com.intellij.psi.PsiErrorElement;
-import com.intellij.psi.impl.source.tree.*;
-import com.intellij.psi.tree.TokenSet;
-import com.intellij.testFramework.PlatformLiteFixture;
-import org.jetbrains.annotations.NotNull;
-import org.picocontainer.ComponentAdapter;
-import org.picocontainer.PicoContainer;
-import org.picocontainer.PicoInitializationException;
-import org.picocontainer.PicoIntrospectionException;
-import org.picocontainer.defaults.AbstractComponentAdapter;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
-import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.imp.XQueryASTFactory;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.Specification;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class XQueryParserTest extends PlatformLiteFixture {
-    // region IntelliJ Platform Infrastructure
-
-    protected @Override boolean shouldContainTempFiles() {
-        return false;
-    }
-
-    private <T> void registerApplicationService(final Class<T> aClass, T object) {
-        getApplication().registerService(aClass, object);
-        Disposer.register(myProject, () -> getApplication().getPicoContainer().unregisterComponent(aClass.getName()));
-    }
-
-    private <T> void addExplicitExtension(final LanguageExtension<T> instance, final Language language, final T object) {
-        instance.addExplicitExtension(language, object);
-        Disposer.register(myProject, () -> instance.removeExplicitExtension(language, object));
-    }
-
-    protected void setUp() {
-        initApplication();
-        ComponentAdapter component = getApplication().getPicoContainer().getComponentAdapter(ProgressManager.class.getName());
-        if (component == null) {
-            getApplication().getPicoContainer().registerComponent(new AbstractComponentAdapter(ProgressManager.class.getName(), Object.class) {
-                @Override
-                public Object getComponentInstance(PicoContainer container) throws PicoInitializationException, PicoIntrospectionException {
-                    return new ProgressManagerImpl();
-                }
-
-                @Override
-                public void verify(PicoContainer container) throws PicoIntrospectionException {
-                }
-            });
-        }
-
-        Extensions.registerAreaClass("IDEA_PROJECT", null);
-        myProject = new MockProjectEx(getTestRootDisposable());
-        registerApplicationService(DefaultASTFactory.class, new DefaultASTFactoryImpl());
-        addExplicitExtension(LanguageASTFactory.INSTANCE, XQuery.INSTANCE, new XQueryASTFactory());
-        addExplicitExtension(LanguageParserDefinitions.INSTANCE, XQuery.INSTANCE, new XQueryParserDefinition());
-    }
-
-    // endregion
-    // region Parser Test Helpers
-
-    private void prettyPrintASTNode(@NotNull StringBuilder prettyPrinted, ASTNode node, int depth) {
-        for (int i = 0; i != depth; ++i) {
-            prettyPrinted.append("   ");
-        }
-
-        String[] names = node.getClass().getName().split("\\.");
-        prettyPrinted.append(names[names.length - 1]);
-        prettyPrinted.append('[');
-        prettyPrinted.append(node.getElementType());
-        prettyPrinted.append('(');
-        prettyPrinted.append(node.getTextRange().getStartOffset());
-        prettyPrinted.append(':');
-        prettyPrinted.append(node.getTextRange().getEndOffset());
-        prettyPrinted.append(')');
-        prettyPrinted.append(']');
-        if ((node instanceof LeafElement) || (node instanceof PsiErrorElement)) {
-            prettyPrinted.append('(');
-            prettyPrinted.append('\'');
-            if (node instanceof PsiErrorElement) {
-                PsiErrorElement error = (PsiErrorElement)node;
-                prettyPrinted.append(error.getErrorDescription());
-            } else {
-                prettyPrinted.append(node.getText());
-            }
-            prettyPrinted.append('\'');
-            prettyPrinted.append(')');
-        }
-        prettyPrinted.append('\n');
-
-        for (ASTNode child : node.getChildren(null)) {
-            prettyPrintASTNode(prettyPrinted, child, depth + 1);
-        }
-    }
-
-    private @NotNull String parseText(@NotNull String text) {
-        ParserDefinition parserDefinition = new XQueryParserDefinition();
-        TokenSet whitespaces = parserDefinition.getWhitespaceTokens();
-        TokenSet comments = parserDefinition.getCommentTokens();
-        Lexer lexer = parserDefinition.createLexer(null);
-        PsiBuilder builder = new PsiBuilderImpl(null, null, whitespaces, comments, lexer, null, text, null, null);
-
-        ASTNode node = parserDefinition.createParser(null).parse(parserDefinition.getFileNodeType(), builder);
-        StringBuilder prettyPrinted = new StringBuilder();
-        prettyPrintASTNode(prettyPrinted, node, 0);
-        return prettyPrinted.toString();
-    }
-
-    // endregion
+public class XQueryParserTest extends ParserTestCase {
     // region Basic Parser Tests
 
     public void testEmptyBuffer() {
         final String expected
                 = "FileElement[FILE(0:0)]\n";
 
-        assertThat(parseText(""), is(expected));
+        assertThat(prettyPrintASTNode(parseText("")), is(expected));
     }
 
     public void testBadCharacters() {
@@ -148,7 +37,7 @@ public class XQueryParserTest extends PlatformLiteFixture {
                 + "   LeafPsiElement[BAD_CHARACTER(1:2)]('\uFFFE')\n"
                 + "   LeafPsiElement[BAD_CHARACTER(2:3)]('\uFFFF')\n";
 
-        assertThat(parseText("~\uFFFE\uFFFF"), is(expected));
+        assertThat(prettyPrintASTNode(parseText("~\uFFFE\uFFFF")), is(expected));
     }
 
     // endregion
@@ -162,7 +51,7 @@ public class XQueryParserTest extends PlatformLiteFixture {
                 = "FileElement[FILE(0:4)]\n"
                 + "   XQueryNumericLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:4)]('1234')\n";
 
-        assertThat(parseText("1234"), is(expected));
+        assertThat(prettyPrintASTNode(parseText("1234")), is(expected));
     }
 
     // endregion
@@ -174,7 +63,7 @@ public class XQueryParserTest extends PlatformLiteFixture {
                 = "FileElement[FILE(0:7)]\n"
                 + "   XQueryNumericLiteralImpl[XQUERY_DECIMAL_LITERAL_TOKEN(0:7)]('3.14159')\n";
 
-        assertThat(parseText("3.14159"), is(expected));
+        assertThat(prettyPrintASTNode(parseText("3.14159")), is(expected));
     }
 
     // endregion
@@ -186,7 +75,7 @@ public class XQueryParserTest extends PlatformLiteFixture {
                 = "FileElement[FILE(0:12)]\n"
                 + "   XQueryNumericLiteralImpl[XQUERY_DOUBLE_LITERAL_TOKEN(0:12)]('2.99792458e8')\n";
 
-        assertThat(parseText("2.99792458e8"), is(expected));
+        assertThat(prettyPrintASTNode(parseText("2.99792458e8")), is(expected));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DoubleLiteral")
@@ -197,7 +86,7 @@ public class XQueryParserTest extends PlatformLiteFixture {
                 + "   PsiErrorElementImpl[ERROR_ELEMENT(10:11)]('Incomplete double exponent.')\n"
                 + "      LeafPsiElement[XQUERY_PARTIAL_DOUBLE_LITERAL_EXPONENT_TOKEN(10:11)]('e')\n";
 
-        assertThat(parseText("2.99792458e"), is(expected));
+        assertThat(prettyPrintASTNode(parseText("2.99792458e")), is(expected));
     }
 
     // endregion
@@ -212,7 +101,7 @@ public class XQueryParserTest extends PlatformLiteFixture {
                 + "      LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(1:8)]('One Two')\n"
                 + "      LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(8:9)]('\"')\n";
 
-        assertThat(parseText("\"One Two\""), is(expected));
+        assertThat(prettyPrintASTNode(parseText("\"One Two\"")), is(expected));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
@@ -224,7 +113,7 @@ public class XQueryParserTest extends PlatformLiteFixture {
                 + "      LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(1:8)]('One Two')\n"
                 + "   PsiErrorElementImpl[ERROR_ELEMENT(8:8)]('Unclosed string literal.')\n";
 
-        assertThat(parseText("\"One Two"), is(expected));
+        assertThat(prettyPrintASTNode(parseText("\"One Two")), is(expected));
     }
 
     // endregion
@@ -240,7 +129,7 @@ public class XQueryParserTest extends PlatformLiteFixture {
                 + "      XQueryPredefinedEntityRefImpl[XQUERY_PREDEFINED_ENTITY_REFERENCE_TOKEN(1:6)]('&amp;')\n"
                 + "      LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(6:7)]('\"')\n";
 
-        assertThat(parseText("\"&amp;\""), is(expected));
+        assertThat(prettyPrintASTNode(parseText("\"&amp;\"")), is(expected));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
@@ -254,7 +143,7 @@ public class XQueryParserTest extends PlatformLiteFixture {
                 + "         LeafPsiElement[XQUERY_PARTIAL_ENTITY_REFERENCE_TOKEN(1:6)]('&quot')\n"
                 + "      LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(6:7)]('\"')\n";
 
-        assertThat(parseText("\"&quot\""), is(expected));
+        assertThat(prettyPrintASTNode(parseText("\"&quot\"")), is(expected));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PredefinedEntityRef")
@@ -264,7 +153,7 @@ public class XQueryParserTest extends PlatformLiteFixture {
                 + "   PsiErrorElementImpl[ERROR_ELEMENT(0:1)]('Entity references are not allowed here.')\n"
                 + "      LeafPsiElement[XQUERY_ENTITY_REFERENCE_NOT_IN_STRING_TOKEN(0:1)]('&')\n";
 
-        assertThat(parseText("&"), is(expected));
+        assertThat(prettyPrintASTNode(parseText("&")), is(expected));
     }
 
     // endregion
@@ -280,7 +169,7 @@ public class XQueryParserTest extends PlatformLiteFixture {
                 + "      XQueryEscapeCharacterImpl[XQUERY_STRING_LITERAL_ESCAPED_CHARACTER_TOKEN(1:3)]('\"\"')\n"
                 + "      LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(3:4)]('\"')\n";
 
-        assertThat(parseText("\"\"\"\""), is(expected));
+        assertThat(prettyPrintASTNode(parseText("\"\"\"\"")), is(expected));
     }
 
     // endregion
@@ -296,7 +185,7 @@ public class XQueryParserTest extends PlatformLiteFixture {
                 + "      XQueryEscapeCharacterImpl[XQUERY_STRING_LITERAL_ESCAPED_CHARACTER_TOKEN(1:3)]('''')\n"
                 + "      LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(3:4)](''')\n";
 
-        assertThat(parseText("''''"), is(expected));
+        assertThat(prettyPrintASTNode(parseText("''''")), is(expected));
     }
 
     // endregion
@@ -308,7 +197,7 @@ public class XQueryParserTest extends PlatformLiteFixture {
                 = "FileElement[FILE(0:10)]\n"
                 + "   PsiCommentImpl[XQUERY_COMMENT_TOKEN(0:10)]('(: Test :)')\n";
 
-        assertThat(parseText("(: Test :)"), is(expected));
+        assertThat(prettyPrintASTNode(parseText("(: Test :)")), is(expected));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Comment")
@@ -318,7 +207,7 @@ public class XQueryParserTest extends PlatformLiteFixture {
                 + "   PsiCommentImpl[XQUERY_PARTIAL_COMMENT_TOKEN(0:7)]('(: Test')\n"
                 + "   PsiErrorElementImpl[ERROR_ELEMENT(7:7)]('Unclosed XQuery comment.')\n";
 
-        assertThat(parseText("(: Test"), is(expected));
+        assertThat(prettyPrintASTNode(parseText("(: Test")), is(expected));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Comment")
@@ -328,7 +217,7 @@ public class XQueryParserTest extends PlatformLiteFixture {
                 + "   PsiErrorElementImpl[ERROR_ELEMENT(0:2)]('End of XQuery comment marker found without a '(:' start of comment marker.')\n"
                 + "      LeafPsiElement[XQUERY_COMMENT_END_TAG_TOKEN(0:2)](':)')\n";
 
-        assertThat(parseText(":)"), is(expected));
+        assertThat(prettyPrintASTNode(parseText(":)")), is(expected));
     }
 
     // endregion
@@ -344,7 +233,7 @@ public class XQueryParserTest extends PlatformLiteFixture {
                 + "      XQueryCharRefImpl[XQUERY_CHARACTER_REFERENCE_TOKEN(1:7)]('&#xA0;')\n"
                 + "      LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(7:8)]('\"')\n";
 
-        assertThat(parseText("\"&#xA0;\""), is(expected));
+        assertThat(prettyPrintASTNode(parseText("\"&#xA0;\"")), is(expected));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
@@ -358,7 +247,7 @@ public class XQueryParserTest extends PlatformLiteFixture {
                 + "         LeafPsiElement[XQUERY_PARTIAL_ENTITY_REFERENCE_TOKEN(1:3)]('&#')\n"
                 + "      LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(3:4)]('\"')\n";
 
-        assertThat(parseText("\"&#\""), is(expected));
+        assertThat(prettyPrintASTNode(parseText("\"&#\"")), is(expected));
     }
 
     // endregion
@@ -374,7 +263,7 @@ public class XQueryParserTest extends PlatformLiteFixture {
                 + "      LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(3:4)](':')\n"
                 + "      XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(4:7)]('two')\n";
 
-        assertThat(parseText("one:two"), is(expected));
+        assertThat(prettyPrintASTNode(parseText("one:two")), is(expected));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
@@ -389,7 +278,7 @@ public class XQueryParserTest extends PlatformLiteFixture {
                 + "      LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(4:5)](':')\n"
                 + "      XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(5:8)]('two')\n";
 
-        assertThat(parseText("one :two"), is(expected));
+        assertThat(prettyPrintASTNode(parseText("one :two")), is(expected));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
@@ -404,7 +293,7 @@ public class XQueryParserTest extends PlatformLiteFixture {
                 + "         PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')\n"
                 + "      XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(5:8)]('two')\n";
 
-        assertThat(parseText("one: two"), is(expected));
+        assertThat(prettyPrintASTNode(parseText("one: two")), is(expected));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
@@ -421,7 +310,7 @@ public class XQueryParserTest extends PlatformLiteFixture {
                 + "         PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')\n"
                 + "      XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(6:9)]('two')\n";
 
-        assertThat(parseText("one : two"), is(expected));
+        assertThat(prettyPrintASTNode(parseText("one : two")), is(expected));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
@@ -434,7 +323,7 @@ public class XQueryParserTest extends PlatformLiteFixture {
                 + "   PsiErrorElementImpl[ERROR_ELEMENT(4:7)]('Missing local name after ':' in qualified name.')\n"
                 + "      XQueryNumericLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(4:7)]('234')\n";
 
-        assertThat(parseText("one:234"), is(expected));
+        assertThat(prettyPrintASTNode(parseText("one:234")), is(expected));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
@@ -446,7 +335,7 @@ public class XQueryParserTest extends PlatformLiteFixture {
                 + "   LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(3:4)](':')\n"
                 + "   PsiErrorElementImpl[ERROR_ELEMENT(4:4)]('Missing local name after ':' in qualified name.')\n";
 
-        assertThat(parseText("one:"), is(expected));
+        assertThat(prettyPrintASTNode(parseText("one:")), is(expected));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
@@ -458,7 +347,7 @@ public class XQueryParserTest extends PlatformLiteFixture {
                 + "      LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(0:1)](':')\n"
                 + "      XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(1:4)]('two')\n";
 
-        assertThat(parseText(":two"), is(expected));
+        assertThat(prettyPrintASTNode(parseText(":two")), is(expected));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
@@ -469,7 +358,7 @@ public class XQueryParserTest extends PlatformLiteFixture {
                 + "   PsiErrorElementImpl[ERROR_ELEMENT(0:1)]('Missing prefix before ':' in qualified name.')\n"
                 + "      LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(0:1)](':')\n";
 
-        assertThat(parseText(":"), is(expected));
+        assertThat(prettyPrintASTNode(parseText(":")), is(expected));
     }
 
     // endregion
@@ -482,7 +371,7 @@ public class XQueryParserTest extends PlatformLiteFixture {
                 = "FileElement[FILE(0:4)]\n"
                 + "   XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(0:4)]('test')\n";
 
-        assertThat(parseText("test"), is(expected));
+        assertThat(prettyPrintASTNode(parseText("test")), is(expected));
     }
 
     // endregion
@@ -495,7 +384,7 @@ public class XQueryParserTest extends PlatformLiteFixture {
                 = "FileElement[FILE(0:4)]\n"
                 + "   PsiWhiteSpaceImpl[WHITE_SPACE(0:4)](' \t\r\n')\n";
 
-        assertThat(parseText(" \t\r\n"), is(expected));
+        assertThat(prettyPrintASTNode(parseText(" \t\r\n")), is(expected));
     }
 
     // endregion
