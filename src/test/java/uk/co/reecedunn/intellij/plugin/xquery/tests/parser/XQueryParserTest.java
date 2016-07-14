@@ -99,7 +99,7 @@ public class XQueryParserTest extends PlatformLiteFixture {
         prettyPrinted.append(node.getTextRange().getEndOffset());
         prettyPrinted.append(')');
         prettyPrinted.append(']');
-        if (!node.getClass().equals(FileElement.class)) {
+        if ((node instanceof LeafElement) || (node instanceof PsiErrorElement)) {
             prettyPrinted.append('(');
             prettyPrinted.append('\'');
             if (node instanceof PsiErrorElement) {
@@ -207,7 +207,7 @@ public class XQueryParserTest extends PlatformLiteFixture {
     public void testStringLiteral() {
         final String expected
                 = "FileElement[FILE(0:9)]\n"
-                + "   XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:9)]('\"One Two\"')\n"
+                + "   XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:9)]\n"
                 + "      LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
                 + "      LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(1:8)]('One Two')\n"
                 + "      LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(8:9)]('\"')\n";
@@ -219,7 +219,7 @@ public class XQueryParserTest extends PlatformLiteFixture {
     public void testStringLiteral_UnclosedString() {
         final String expected
                 = "FileElement[FILE(0:8)]\n"
-                + "   XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:8)]('\"One Two')\n"
+                + "   XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:8)]\n"
                 + "      LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
                 + "      LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(1:8)]('One Two')\n"
                 + "   PsiErrorElementImpl[ERROR_ELEMENT(8:8)]('Unclosed string literal.')\n";
@@ -235,7 +235,7 @@ public class XQueryParserTest extends PlatformLiteFixture {
     public void testStringLiteral_PredefinedEntityRef() {
         final String expected
                 = "FileElement[FILE(0:7)]\n"
-                + "   XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:7)]('\"&amp;\"')\n"
+                + "   XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:7)]\n"
                 + "      LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
                 + "      XQueryPredefinedEntityRefImpl[XQUERY_PREDEFINED_ENTITY_REFERENCE_TOKEN(1:6)]('&amp;')\n"
                 + "      LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(6:7)]('\"')\n";
@@ -248,7 +248,7 @@ public class XQueryParserTest extends PlatformLiteFixture {
     public void testStringLiteral_PredefinedEntityRef_IncompleteRef() {
         final String expected
                 = "FileElement[FILE(0:7)]\n"
-                + "   XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:7)]('\"&quot\"')\n"
+                + "   XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:7)]\n"
                 + "      LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
                 + "      PsiErrorElementImpl[ERROR_ELEMENT(1:6)]('Entity reference is not closed (missing ';').')\n"
                 + "         LeafPsiElement[XQUERY_PARTIAL_ENTITY_REFERENCE_TOKEN(1:6)]('&quot')\n"
@@ -275,7 +275,7 @@ public class XQueryParserTest extends PlatformLiteFixture {
     public void testStringLiteral_EscapeQuot() {
         final String expected
                 = "FileElement[FILE(0:4)]\n"
-                + "   XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:4)]('\"\"\"\"')\n"
+                + "   XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:4)]\n"
                 + "      LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
                 + "      XQueryEscapeCharacterImpl[XQUERY_STRING_LITERAL_ESCAPED_CHARACTER_TOKEN(1:3)]('\"\"')\n"
                 + "      LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(3:4)]('\"')\n";
@@ -291,7 +291,7 @@ public class XQueryParserTest extends PlatformLiteFixture {
     public void testStringLiteral_EscapeApos() {
         final String expected
                 = "FileElement[FILE(0:4)]\n"
-                + "   XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:4)]('''''')\n"
+                + "   XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:4)]\n"
                 + "      LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)](''')\n"
                 + "      XQueryEscapeCharacterImpl[XQUERY_STRING_LITERAL_ESCAPED_CHARACTER_TOKEN(1:3)]('''')\n"
                 + "      LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(3:4)](''')\n";
@@ -339,7 +339,7 @@ public class XQueryParserTest extends PlatformLiteFixture {
     public void testStringLiteral_CharRef() {
         final String expected
                 = "FileElement[FILE(0:8)]\n"
-                + "   XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:8)]('\"&#xA0;\"')\n"
+                + "   XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:8)]\n"
                 + "      LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
                 + "      XQueryCharRefImpl[XQUERY_CHARACTER_REFERENCE_TOKEN(1:7)]('&#xA0;')\n"
                 + "      LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(7:8)]('\"')\n";
@@ -352,7 +352,7 @@ public class XQueryParserTest extends PlatformLiteFixture {
     public void testStringLiteral_CharRef_IncompleteRef() {
         final String expected
                 = "FileElement[FILE(0:4)]\n"
-                + "   XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:4)]('\"&#\"')\n"
+                + "   XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:4)]\n"
                 + "      LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
                 + "      PsiErrorElementImpl[ERROR_ELEMENT(1:3)]('Entity reference is not closed (missing ';').')\n"
                 + "         LeafPsiElement[XQUERY_PARTIAL_ENTITY_REFERENCE_TOKEN(1:3)]('&#')\n"
@@ -369,7 +369,7 @@ public class XQueryParserTest extends PlatformLiteFixture {
     public void testQName() {
         final String expected
                 = "FileElement[FILE(0:7)]\n"
-                + "   XQueryQNameImpl[XQUERY_QNAME(0:7)]('one:two')\n"
+                + "   XQueryQNameImpl[XQUERY_QNAME(0:7)]\n"
                 + "      XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(0:3)]('one')\n"
                 + "      LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(3:4)](':')\n"
                 + "      XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(4:7)]('two')\n";
@@ -382,7 +382,7 @@ public class XQueryParserTest extends PlatformLiteFixture {
     public void testQName_SpaceBeforeColon() {
         final String expected
                 = "FileElement[FILE(0:8)]\n"
-                + "   XQueryQNameImpl[XQUERY_QNAME(0:8)]('one :two')\n"
+                + "   XQueryQNameImpl[XQUERY_QNAME(0:8)]\n"
                 + "      XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(0:3)]('one')\n"
                 + "      PsiErrorElementImpl[ERROR_ELEMENT(3:4)]('Whitespace is not allowed before ':' in a qualified name.')\n"
                 + "         PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')\n"
@@ -397,7 +397,7 @@ public class XQueryParserTest extends PlatformLiteFixture {
     public void testQName_SpaceAfterColon() {
         final String expected
                 = "FileElement[FILE(0:8)]\n"
-                + "   XQueryQNameImpl[XQUERY_QNAME(0:8)]('one: two')\n"
+                + "   XQueryQNameImpl[XQUERY_QNAME(0:8)]\n"
                 + "      XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(0:3)]('one')\n"
                 + "      LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(3:4)](':')\n"
                 + "      PsiErrorElementImpl[ERROR_ELEMENT(4:5)]('Whitespace is not allowed after ':' in a qualified name.')\n"
@@ -412,7 +412,7 @@ public class XQueryParserTest extends PlatformLiteFixture {
     public void testQName_SpaceBeforeAndAfterColon() {
         final String expected
                 = "FileElement[FILE(0:9)]\n"
-                + "   XQueryQNameImpl[XQUERY_QNAME(0:9)]('one : two')\n"
+                + "   XQueryQNameImpl[XQUERY_QNAME(0:9)]\n"
                 + "      XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(0:3)]('one')\n"
                 + "      PsiErrorElementImpl[ERROR_ELEMENT(3:4)]('Whitespace is not allowed before ':' in a qualified name.')\n"
                 + "         PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')\n"
