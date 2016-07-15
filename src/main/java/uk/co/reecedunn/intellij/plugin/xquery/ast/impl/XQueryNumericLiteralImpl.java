@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.imp;
+package uk.co.reecedunn.intellij.plugin.xquery.ast.impl;
 
 import com.intellij.psi.impl.source.tree.LeafPsiElement;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryCharRef;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryNumericLiteral;
 
-public class XQueryCharRefImpl extends LeafPsiElement implements XQueryCharRef {
-    public XQueryCharRefImpl(@NotNull IElementType type, @NotNull CharSequence text) {
+public class XQueryNumericLiteralImpl extends LeafPsiElement implements XQueryNumericLiteral {
+    public XQueryNumericLiteralImpl(@NotNull IElementType type, @NotNull CharSequence text) {
         super(type, text);
     }
 }

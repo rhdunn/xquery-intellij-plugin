@@ -13,16 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.imp;
+package uk.co.reecedunn.intellij.plugin.xquery.ast.impl;
 
 import com.intellij.psi.impl.source.tree.LeafPsiElement;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryNCName;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryQName;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryQNamePrefix;
 
-public class XQueryNCNameImpl extends LeafPsiElement implements XQueryNCName, XQueryQName {
-    public XQueryNCNameImpl(@NotNull IElementType type, @NotNull CharSequence text) {
+public class XQueryQNamePrefixImpl extends LeafPsiElement implements XQueryQNamePrefix {
+    public XQueryQNamePrefixImpl(@NotNull IElementType type, @NotNull CharSequence text) {
         super(type, text);
     }
 }

@@ -33,7 +33,7 @@ import org.picocontainer.PicoContainer;
 import org.picocontainer.PicoInitializationException;
 import org.picocontainer.PicoIntrospectionException;
 import org.picocontainer.defaults.AbstractComponentAdapter;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.imp.XQueryASTFactory;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.impl.XQueryASTFactory;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition;
 

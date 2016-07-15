@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.imp;
+package uk.co.reecedunn.intellij.plugin.xquery.ast.impl;
 
-import com.intellij.psi.impl.source.tree.LeafPsiElement;
+import com.intellij.psi.impl.source.tree.CompositeElement;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryEscapeCharacter;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryStringLiteral;
 
-public class XQueryEscapeCharacterImpl extends LeafPsiElement implements XQueryEscapeCharacter {
-    public XQueryEscapeCharacterImpl(@NotNull IElementType type, @NotNull CharSequence text) {
-        super(type, text);
+public class XQueryStringLiteralImpl extends CompositeElement implements XQueryStringLiteral {
+    public XQueryStringLiteralImpl(@NotNull IElementType type) {
+        super(type);
     }
 }
