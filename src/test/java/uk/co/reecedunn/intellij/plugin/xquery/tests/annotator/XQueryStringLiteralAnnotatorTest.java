@@ -28,6 +28,9 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class XQueryStringLiteralAnnotatorTest extends ParserTestCase {
+    private static final String XML_ENTITIES
+            = "\"&lt;&gt;&amp;&quot;&apos;\"";
+
     private static final String HTML4_ENTITIES
             = "\""
             + "&Aacute;"
@@ -2156,8 +2159,8 @@ public class XQueryStringLiteralAnnotatorTest extends ParserTestCase {
             + "&zscr;"
             + "\"";
 
-    public void testXMLEntities() {
-        final ASTNode node = parseText("\"&lt;&gt;&amp;&quot;&apos;\"").getFirstChildNode();
+    public void checkSupportedEntities(String entities) {
+        final ASTNode node = parseText(entities).getFirstChildNode();
         assertThat(node.getElementType(), is(XQueryElementType.STRING_LITERAL));
 
         XQueryStringLiteralAnnotator annotator = new XQueryStringLiteralAnnotator();
@@ -2167,66 +2170,41 @@ public class XQueryStringLiteralAnnotatorTest extends ParserTestCase {
         assertThat(holder.annotations.size(), is(0));
     }
 
+    public void checkUnsupportedEntities(String entities, int annotationCount, String startsWith, String endsWith) {
+        final ASTNode node = parseText(entities).getFirstChildNode();
+        assertThat(node.getElementType(), is(XQueryElementType.STRING_LITERAL));
+
+        XQueryStringLiteralAnnotator annotator = new XQueryStringLiteralAnnotator();
+        AnnotationCollector holder = new AnnotationCollector();
+        annotator.annotate(new XQueryStringLiteralPsiImpl(node), holder);
+
+        assertThat(holder.annotations.size(), is(annotationCount));
+
+        for (Annotation annotation : holder.annotations) {
+            assertThat(annotation.getSeverity(), is(HighlightSeverity.ERROR));
+            assertThat(annotation.getMessage(), startsWith(startsWith));
+            assertThat(annotation.getMessage(), endsWith(endsWith));
+            assertThat(annotation.getTooltip(), is(nullValue()));
+        }
+    }
+
+    public void testXMLEntities() {
+        checkSupportedEntities(XML_ENTITIES);
+    }
+
     @Specification(name="HTML Latin 1 DTD", reference="http://www.w3.org/TR/xhtml1/DTD/xhtml-lat1.ent")
     @Specification(name="HTML Symbols DTD", reference="http://www.w3.org/TR/xhtml1/DTD/xhtml-symbol.ent")
     @Specification(name="HTML Special DTD", reference="http://www.w3.org/TR/xhtml1/DTD/xhtml-special.ent")
     public void testHTML4Entities() {
-        final ASTNode node = parseText(HTML4_ENTITIES).getFirstChildNode();
-        assertThat(node.getElementType(), is(XQueryElementType.STRING_LITERAL));
-
-        XQueryStringLiteralAnnotator annotator = new XQueryStringLiteralAnnotator();
-        AnnotationCollector holder = new AnnotationCollector();
-        annotator.annotate(new XQueryStringLiteralPsiImpl(node), holder);
-
-        assertThat(holder.annotations.size(), is(248));
-
-        for (Annotation annotation : holder.annotations) {
-            assertThat(annotation.getSeverity(), is(HighlightSeverity.ERROR));
-            assertThat(annotation.getMessage(), startsWith("HTML4 predefined entity '&"));
-            assertThat(annotation.getMessage(), endsWith(";' is not allowed in this XQuery version."));
-            assertThat(annotation.getTooltip(), is(nullValue()));
-        }
+        checkUnsupportedEntities(HTML4_ENTITIES, 248, "HTML4 predefined entity '&", ";' is not allowed in this XQuery version.");
     }
 
     @Specification(name="HTML 5", reference="https://www.w3.org/TR/html5/syntax.html#named-character-references")
     public void testHTML5Entities() {
-        final ASTNode node = parseText(HTML5_ENTITIES).getFirstChildNode();
-        assertThat(node.getElementType(), is(XQueryElementType.STRING_LITERAL));
-
-        XQueryStringLiteralAnnotator annotator = new XQueryStringLiteralAnnotator();
-        AnnotationCollector holder = new AnnotationCollector();
-        annotator.annotate(new XQueryStringLiteralPsiImpl(node), holder);
-
-        assertThat(holder.annotations.size(), is(1872));
-
-        for (Annotation annotation : holder.annotations) {
-            assertThat(annotation.getSeverity(), is(HighlightSeverity.ERROR));
-            assertThat(annotation.getMessage(), startsWith("HTML5 predefined entity '&"));
-            assertThat(annotation.getMessage(), endsWith(";' is not allowed in this XQuery version."));
-            assertThat(annotation.getTooltip(), is(nullValue()));
-        }
+        checkUnsupportedEntities(HTML5_ENTITIES, 1872, "HTML5 predefined entity '&", ";' is not allowed in this XQuery version.");
     }
 
     public void testUnknownEntities() {
-        final ASTNode node = parseText("\"&xyz;&ABC;\"").getFirstChildNode();
-        assertThat(node.getElementType(), is(XQueryElementType.STRING_LITERAL));
-
-        XQueryStringLiteralAnnotator annotator = new XQueryStringLiteralAnnotator();
-        AnnotationCollector holder = new AnnotationCollector();
-        annotator.annotate(new XQueryStringLiteralPsiImpl(node), holder);
-
-        assertThat(holder.annotations.size(), is(2));
-
-        assertThat(holder.annotations.get(0).getStartOffset(), is(1));
-        assertThat(holder.annotations.get(0).getEndOffset(), is(6));
-        assertThat(holder.annotations.get(0).getSeverity(), is(HighlightSeverity.ERROR));
-        assertThat(holder.annotations.get(0).getMessage(), is("Predefined entity '&xyz;' is not a known entity name."));
-        assertThat(holder.annotations.get(0).getTooltip(), is(nullValue()));
-
-        assertThat(holder.annotations.get(1).getStartOffset(), is(6));
-        assertThat(holder.annotations.get(1).getEndOffset(), is(11));
-        assertThat(holder.annotations.get(1).getSeverity(), is(HighlightSeverity.ERROR));
-        assertThat(holder.annotations.get(1).getMessage(), is("Predefined entity '&ABC;' is not a known entity name."));
-        assertThat(holder.annotations.get(1).getTooltip(), is(nullValue()));
+        checkUnsupportedEntities("\"&xyz;&ABC;\"", 2, "Predefined entity '&", ";' is not a known entity name.");
     }
 }
