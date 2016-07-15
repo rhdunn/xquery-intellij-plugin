@@ -16,7 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.xquery.annotator;
 
 import com.intellij.lang.ASTNode;
-import com.intellij.lang.annotation.Annotation;
 import com.intellij.lang.annotation.AnnotationHolder;
 import com.intellij.lang.annotation.Annotator;
 import com.intellij.lang.annotation.HighlightSeverity;
@@ -24,6 +23,7 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.tree.TokenSet;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.XQueryBundle;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.XQueryStringLiteralPsiImpl;
 
@@ -37,24 +37,38 @@ public class XQueryStringLiteralAnnotator implements Annotator {
     private static final Set<CharSequence> HTML4_ENTITIES = new HashSet<>();
     private static final Set<CharSequence> HTML5_ENTITIES = new HashSet<>();
 
+    private final XQueryVersion mDefaultVersion;
+
+    public XQueryStringLiteralAnnotator(XQueryVersion defaultVersion) {
+        mDefaultVersion = defaultVersion;
+    }
+
+    public XQueryStringLiteralAnnotator() {
+        this(null);
+    }
+
     @Override
     public void annotate(@NotNull PsiElement element, @NotNull AnnotationHolder holder) {
         if (!(element instanceof XQueryStringLiteralPsiImpl)) return;
 
         final ASTNode node = element.getNode();
         for (ASTNode child : node.getChildren(PREDEFINED_ENTITY_REFS)) {
-            checkPredefinedEntity(child.getChars(), child, holder);
+            checkPredefinedEntity(child.getChars(), child, holder, mDefaultVersion);
         }
     }
 
-    private void checkPredefinedEntity(@NotNull CharSequence entity, @NotNull ASTNode node, @NotNull AnnotationHolder holder) {
+    private void checkPredefinedEntity(@NotNull CharSequence entity, @NotNull ASTNode node, @NotNull AnnotationHolder holder, XQueryVersion version) {
         CharSequence name = entity.subSequence(1, entity.length() - 1);
         if (XML_ENTITIES.contains(name)) return;
 
         if (HTML4_ENTITIES.contains(name)) {
-            holder.createAnnotation(HighlightSeverity.ERROR, node.getTextRange(), XQueryBundle.message("annotator.string-literal.html4-entity", entity.toString()));
+            if (version != XQueryVersion.XQUERY_0_9_MARKLOGIC && version != XQueryVersion.XQUERY_1_0_MARKLOGIC) {
+                holder.createAnnotation(HighlightSeverity.ERROR, node.getTextRange(), XQueryBundle.message("annotator.string-literal.html4-entity", entity.toString()));
+            }
         } else if (HTML5_ENTITIES.contains(name)) {
-            holder.createAnnotation(HighlightSeverity.ERROR, node.getTextRange(), XQueryBundle.message("annotator.string-literal.html5-entity", entity.toString()));
+            if (version != XQueryVersion.XQUERY_0_9_MARKLOGIC && version != XQueryVersion.XQUERY_1_0_MARKLOGIC) {
+                holder.createAnnotation(HighlightSeverity.ERROR, node.getTextRange(), XQueryBundle.message("annotator.string-literal.html5-entity", entity.toString()));
+            }
         } else {
             holder.createAnnotation(HighlightSeverity.ERROR, node.getTextRange(), XQueryBundle.message("annotator.string-literal.unknown-xml-entity", entity.toString()));
         }

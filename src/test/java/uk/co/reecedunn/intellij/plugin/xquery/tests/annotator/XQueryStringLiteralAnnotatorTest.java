@@ -19,6 +19,7 @@ import com.intellij.lang.ASTNode;
 import com.intellij.lang.annotation.Annotation;
 import com.intellij.lang.annotation.HighlightSeverity;
 import uk.co.reecedunn.intellij.plugin.xquery.annotator.XQueryStringLiteralAnnotator;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.XQueryStringLiteralPsiImpl;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.Specification;
@@ -28,8 +29,62 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class XQueryStringLiteralAnnotatorTest extends ParserTestCase {
+    public void checkSupportedEntities(XQueryVersion version, String entities) {
+        final ASTNode node = parseText(entities).getFirstChildNode();
+        assertThat(node.getElementType(), is(XQueryElementType.STRING_LITERAL));
+
+        XQueryStringLiteralAnnotator annotator = new XQueryStringLiteralAnnotator(version);
+        AnnotationCollector holder = new AnnotationCollector();
+        annotator.annotate(new XQueryStringLiteralPsiImpl(node), holder);
+
+        assertThat(holder.annotations.size(), is(0));
+    }
+
+    public void checkUnsupportedEntities(XQueryVersion version, String entities, int annotationCount, String startsWith, String endsWith) {
+        final ASTNode node = parseText(entities).getFirstChildNode();
+        assertThat(node.getElementType(), is(XQueryElementType.STRING_LITERAL));
+
+        XQueryStringLiteralAnnotator annotator = new XQueryStringLiteralAnnotator(version);
+        AnnotationCollector holder = new AnnotationCollector();
+        annotator.annotate(new XQueryStringLiteralPsiImpl(node), holder);
+
+        assertThat(holder.annotations.size(), is(annotationCount));
+
+        for (Annotation annotation : holder.annotations) {
+            assertThat(annotation.getSeverity(), is(HighlightSeverity.ERROR));
+            assertThat(annotation.getMessage(), startsWith(startsWith));
+            assertThat(annotation.getMessage(), endsWith(endsWith));
+            assertThat(annotation.getTooltip(), is(nullValue()));
+        }
+    }
+
+    // region XML Entities
+
     private static final String XML_ENTITIES
             = "\"&lt;&gt;&amp;&quot;&apos;\"";
+
+    public void testXMLEntities_XQuery_0_9_ML() {
+        checkSupportedEntities(XQueryVersion.XQUERY_0_9_MARKLOGIC, XML_ENTITIES);
+    }
+
+    public void testXMLEntities_XQuery_1_0() {
+        checkSupportedEntities(XQueryVersion.XQUERY_1_0, XML_ENTITIES);
+    }
+
+    public void testXMLEntities_XQuery_1_0_ML() {
+        checkSupportedEntities(XQueryVersion.XQUERY_1_0_MARKLOGIC, XML_ENTITIES);
+    }
+
+    public void testXMLEntities_XQuery_3_0() {
+        checkSupportedEntities(XQueryVersion.XQUERY_3_0, XML_ENTITIES);
+    }
+
+    public void testXMLEntities_XQuery_3_1() {
+        checkSupportedEntities(XQueryVersion.XQUERY_3_1, XML_ENTITIES);
+    }
+
+    // endregion
+    // region HTML 4 Entities
 
     private static final String HTML4_ENTITIES
             = "\""
@@ -282,6 +337,44 @@ public class XQueryStringLiteralAnnotatorTest extends ParserTestCase {
             + "&zwj;"
             + "&zwnj;"
             + "\"";
+
+    @Specification(name="HTML Latin 1 DTD", reference="http://www.w3.org/TR/xhtml1/DTD/xhtml-lat1.ent")
+    @Specification(name="HTML Symbols DTD", reference="http://www.w3.org/TR/xhtml1/DTD/xhtml-symbol.ent")
+    @Specification(name="HTML Special DTD", reference="http://www.w3.org/TR/xhtml1/DTD/xhtml-special.ent")
+    public void testHTML4Entities_XQuery_0_9_ML() {
+        checkSupportedEntities(XQueryVersion.XQUERY_0_9_MARKLOGIC, HTML4_ENTITIES);
+    }
+
+    @Specification(name="HTML Latin 1 DTD", reference="http://www.w3.org/TR/xhtml1/DTD/xhtml-lat1.ent")
+    @Specification(name="HTML Symbols DTD", reference="http://www.w3.org/TR/xhtml1/DTD/xhtml-symbol.ent")
+    @Specification(name="HTML Special DTD", reference="http://www.w3.org/TR/xhtml1/DTD/xhtml-special.ent")
+    public void testHTML4Entities_XQuery_1_0() {
+        checkUnsupportedEntities(XQueryVersion.XQUERY_1_0, HTML4_ENTITIES, 248, "HTML4 predefined entity '&", ";' is not allowed in this XQuery version.");
+    }
+
+    @Specification(name="HTML Latin 1 DTD", reference="http://www.w3.org/TR/xhtml1/DTD/xhtml-lat1.ent")
+    @Specification(name="HTML Symbols DTD", reference="http://www.w3.org/TR/xhtml1/DTD/xhtml-symbol.ent")
+    @Specification(name="HTML Special DTD", reference="http://www.w3.org/TR/xhtml1/DTD/xhtml-special.ent")
+    public void testHTML4Entities_XQuery_1_0_ML() {
+        checkSupportedEntities(XQueryVersion.XQUERY_1_0_MARKLOGIC, HTML4_ENTITIES);
+    }
+
+    @Specification(name="HTML Latin 1 DTD", reference="http://www.w3.org/TR/xhtml1/DTD/xhtml-lat1.ent")
+    @Specification(name="HTML Symbols DTD", reference="http://www.w3.org/TR/xhtml1/DTD/xhtml-symbol.ent")
+    @Specification(name="HTML Special DTD", reference="http://www.w3.org/TR/xhtml1/DTD/xhtml-special.ent")
+    public void testHTML4Entities_XQuery_3_0() {
+        checkUnsupportedEntities(XQueryVersion.XQUERY_3_0, HTML4_ENTITIES, 248, "HTML4 predefined entity '&", ";' is not allowed in this XQuery version.");
+    }
+
+    @Specification(name="HTML Latin 1 DTD", reference="http://www.w3.org/TR/xhtml1/DTD/xhtml-lat1.ent")
+    @Specification(name="HTML Symbols DTD", reference="http://www.w3.org/TR/xhtml1/DTD/xhtml-symbol.ent")
+    @Specification(name="HTML Special DTD", reference="http://www.w3.org/TR/xhtml1/DTD/xhtml-special.ent")
+    public void testHTML4Entities_XQuery_3_1() {
+        checkUnsupportedEntities(XQueryVersion.XQUERY_3_1, HTML4_ENTITIES, 248, "HTML4 predefined entity '&", ";' is not allowed in this XQuery version.");
+    }
+
+    // endregion
+    // region HTML 5 Entities
 
     private static final String HTML5_ENTITIES
             = "\""
@@ -2159,52 +2252,53 @@ public class XQueryStringLiteralAnnotatorTest extends ParserTestCase {
             + "&zscr;"
             + "\"";
 
-    public void checkSupportedEntities(String entities) {
-        final ASTNode node = parseText(entities).getFirstChildNode();
-        assertThat(node.getElementType(), is(XQueryElementType.STRING_LITERAL));
-
-        XQueryStringLiteralAnnotator annotator = new XQueryStringLiteralAnnotator();
-        AnnotationCollector holder = new AnnotationCollector();
-        annotator.annotate(new XQueryStringLiteralPsiImpl(node), holder);
-
-        assertThat(holder.annotations.size(), is(0));
-    }
-
-    public void checkUnsupportedEntities(String entities, int annotationCount, String startsWith, String endsWith) {
-        final ASTNode node = parseText(entities).getFirstChildNode();
-        assertThat(node.getElementType(), is(XQueryElementType.STRING_LITERAL));
-
-        XQueryStringLiteralAnnotator annotator = new XQueryStringLiteralAnnotator();
-        AnnotationCollector holder = new AnnotationCollector();
-        annotator.annotate(new XQueryStringLiteralPsiImpl(node), holder);
-
-        assertThat(holder.annotations.size(), is(annotationCount));
-
-        for (Annotation annotation : holder.annotations) {
-            assertThat(annotation.getSeverity(), is(HighlightSeverity.ERROR));
-            assertThat(annotation.getMessage(), startsWith(startsWith));
-            assertThat(annotation.getMessage(), endsWith(endsWith));
-            assertThat(annotation.getTooltip(), is(nullValue()));
-        }
-    }
-
-    public void testXMLEntities() {
-        checkSupportedEntities(XML_ENTITIES);
-    }
-
-    @Specification(name="HTML Latin 1 DTD", reference="http://www.w3.org/TR/xhtml1/DTD/xhtml-lat1.ent")
-    @Specification(name="HTML Symbols DTD", reference="http://www.w3.org/TR/xhtml1/DTD/xhtml-symbol.ent")
-    @Specification(name="HTML Special DTD", reference="http://www.w3.org/TR/xhtml1/DTD/xhtml-special.ent")
-    public void testHTML4Entities() {
-        checkUnsupportedEntities(HTML4_ENTITIES, 248, "HTML4 predefined entity '&", ";' is not allowed in this XQuery version.");
+    @Specification(name="HTML 5", reference="https://www.w3.org/TR/html5/syntax.html#named-character-references")
+    public void testHTML5Entities_XQuery_0_9_ML() {
+        checkSupportedEntities(XQueryVersion.XQUERY_0_9_MARKLOGIC, HTML5_ENTITIES);
     }
 
     @Specification(name="HTML 5", reference="https://www.w3.org/TR/html5/syntax.html#named-character-references")
-    public void testHTML5Entities() {
-        checkUnsupportedEntities(HTML5_ENTITIES, 1872, "HTML5 predefined entity '&", ";' is not allowed in this XQuery version.");
+    public void testHTML5Entities_XQuery_1_0() {
+        checkUnsupportedEntities(XQueryVersion.XQUERY_1_0, HTML5_ENTITIES, 1872, "HTML5 predefined entity '&", ";' is not allowed in this XQuery version.");
     }
 
-    public void testUnknownEntities() {
-        checkUnsupportedEntities("\"&xyz;&ABC;\"", 2, "Predefined entity '&", ";' is not a known entity name.");
+    @Specification(name="HTML 5", reference="https://www.w3.org/TR/html5/syntax.html#named-character-references")
+    public void testHTML5Entities_XQuery_1_0_ML() {
+        checkSupportedEntities(XQueryVersion.XQUERY_1_0_MARKLOGIC, HTML5_ENTITIES);
     }
+
+    @Specification(name="HTML 5", reference="https://www.w3.org/TR/html5/syntax.html#named-character-references")
+    public void testHTML5Entities_XQuery_3_0() {
+        checkUnsupportedEntities(XQueryVersion.XQUERY_3_0, HTML5_ENTITIES, 1872, "HTML5 predefined entity '&", ";' is not allowed in this XQuery version.");
+    }
+
+    @Specification(name="HTML 5", reference="https://www.w3.org/TR/html5/syntax.html#named-character-references")
+    public void testHTML5Entities_XQuery_3_1() {
+        checkUnsupportedEntities(XQueryVersion.XQUERY_3_1, HTML5_ENTITIES, 1872, "HTML5 predefined entity '&", ";' is not allowed in this XQuery version.");
+    }
+
+    // endregion
+    // region Unknown Entities
+
+    public void testUnknownEntities_XQuery_0_9_ML() {
+        checkUnsupportedEntities(XQueryVersion.XQUERY_0_9_MARKLOGIC, "\"&xyz;&ABC;\"", 2, "Predefined entity '&", ";' is not a known entity name.");
+    }
+
+    public void testUnknownEntities_XQuery_1_0() {
+        checkUnsupportedEntities(XQueryVersion.XQUERY_1_0, "\"&xyz;&ABC;\"", 2, "Predefined entity '&", ";' is not a known entity name.");
+    }
+
+    public void testUnknownEntities_XQuery_1_0_ML() {
+        checkUnsupportedEntities(XQueryVersion.XQUERY_1_0_MARKLOGIC, "\"&xyz;&ABC;\"", 2, "Predefined entity '&", ";' is not a known entity name.");
+    }
+
+    public void testUnknownEntities_XQuery_3_0() {
+        checkUnsupportedEntities(XQueryVersion.XQUERY_3_0, "\"&xyz;&ABC;\"", 2, "Predefined entity '&", ";' is not a known entity name.");
+    }
+
+    public void testUnknownEntities_XQuery_3_1() {
+        checkUnsupportedEntities(XQueryVersion.XQUERY_3_1, "\"&xyz;&ABC;\"", 2, "Predefined entity '&", ";' is not a known entity name.");
+    }
+
+    // endregion
 }
