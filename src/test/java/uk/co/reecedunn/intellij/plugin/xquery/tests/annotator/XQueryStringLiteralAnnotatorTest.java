@@ -21,23 +21,21 @@ import com.intellij.lang.annotation.HighlightSeverity;
 import uk.co.reecedunn.intellij.plugin.xquery.annotator.XQueryStringLiteralAnnotator;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.XQueryStringLiteralPsiImpl;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.Specification;
-import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase;
+
+import java.util.List;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class XQueryStringLiteralAnnotatorTest extends ParserTestCase {
+public class XQueryStringLiteralAnnotatorTest extends AnnotatorTestCase {
     public void checkSupportedEntities(XQueryVersion version, String entities) {
         final ASTNode node = parseText(entities).getFirstChildNode();
         assertThat(node.getElementType(), is(XQueryElementType.STRING_LITERAL));
 
         XQueryStringLiteralAnnotator annotator = new XQueryStringLiteralAnnotator(version);
-        AnnotationCollector holder = new AnnotationCollector();
-        annotator.annotate(new XQueryStringLiteralPsiImpl(node), holder);
-
-        assertThat(holder.annotations.size(), is(0));
+        List<Annotation> annotations = annotateTree(node, annotator);
+        assertThat(annotations.size(), is(0));
     }
 
     public void checkUnsupportedEntities(XQueryVersion version, String entities, int annotationCount, String startsWith, String endsWith) {
@@ -45,12 +43,10 @@ public class XQueryStringLiteralAnnotatorTest extends ParserTestCase {
         assertThat(node.getElementType(), is(XQueryElementType.STRING_LITERAL));
 
         XQueryStringLiteralAnnotator annotator = new XQueryStringLiteralAnnotator(version);
-        AnnotationCollector holder = new AnnotationCollector();
-        annotator.annotate(new XQueryStringLiteralPsiImpl(node), holder);
+        List<Annotation> annotations = annotateTree(node, annotator);
+        assertThat(annotations.size(), is(annotationCount));
 
-        assertThat(holder.annotations.size(), is(annotationCount));
-
-        for (Annotation annotation : holder.annotations) {
+        for (Annotation annotation : annotations) {
             assertThat(annotation.getSeverity(), is(HighlightSeverity.ERROR));
             assertThat(annotation.getMessage(), startsWith(startsWith));
             assertThat(annotation.getMessage(), endsWith(endsWith));
