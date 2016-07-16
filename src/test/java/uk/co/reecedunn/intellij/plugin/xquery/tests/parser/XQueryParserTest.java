@@ -209,9 +209,10 @@ public class XQueryParserTest extends ParserTestCase {
     public void testComment() {
         final String expected
                 = "FileElement[FILE(0:10)]\n"
-                + "   LeafPsiElement[XQUERY_COMMENT_START_TAG_TOKEN(0:2)]('(:')\n"
-                + "   PsiCommentImpl[XQUERY_COMMENT_TOKEN(2:8)](' Test ')\n"
-                + "   LeafPsiElement[XQUERY_COMMENT_END_TAG_TOKEN(8:10)](':)')\n";
+                + "   XQueryCommentImpl[XQUERY_COMMENT(0:10)]\n"
+                + "      LeafPsiElement[XQUERY_COMMENT_START_TAG_TOKEN(0:2)]('(:')\n"
+                + "      PsiCommentImpl[XQUERY_COMMENT_TOKEN(2:8)](' Test ')\n"
+                + "      LeafPsiElement[XQUERY_COMMENT_END_TAG_TOKEN(8:10)](':)')\n";
 
         assertThat(prettyPrintASTNode(parseText("(: Test :)")), is(expected));
     }
@@ -220,8 +221,9 @@ public class XQueryParserTest extends ParserTestCase {
     public void testComment_UnclosedComment() {
         final String expected
                 = "FileElement[FILE(0:7)]\n"
-                + "   LeafPsiElement[XQUERY_COMMENT_START_TAG_TOKEN(0:2)]('(:')\n"
-                + "   PsiCommentImpl[XQUERY_COMMENT_TOKEN(2:7)](' Test')\n"
+                + "   XQueryCommentImpl[XQUERY_COMMENT(0:7)]\n"
+                + "      LeafPsiElement[XQUERY_COMMENT_START_TAG_TOKEN(0:2)]('(:')\n"
+                + "      PsiCommentImpl[XQUERY_COMMENT_TOKEN(2:7)](' Test')\n"
                 + "   PsiErrorElementImpl[ERROR_ELEMENT(7:7)]('XPST0003: Unclosed XQuery comment.')\n";
 
         assertThat(prettyPrintASTNode(parseText("(: Test")), is(expected));

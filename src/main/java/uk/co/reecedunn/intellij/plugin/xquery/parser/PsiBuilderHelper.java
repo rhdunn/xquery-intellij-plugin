@@ -36,13 +36,16 @@ public class PsiBuilderHelper {
                 mBuilder.advanceLexer();
             } else if (mBuilder.getTokenType() == XQueryTokenType.COMMENT_START_TAG) {
                 skipped = true;
+                final PsiBuilder.Marker commentMarker = mBuilder.mark();
                 mBuilder.advanceLexer();
                 if (mBuilder.getTokenType() == XQueryTokenType.COMMENT) {
                     mBuilder.advanceLexer();
                 }
                 if (mBuilder.getTokenType() == XQueryTokenType.COMMENT_END_TAG) {
                     mBuilder.advanceLexer();
+                    commentMarker.done(XQueryElementType.COMMENT);
                 } else {
+                    commentMarker.done(XQueryElementType.COMMENT);
                     mBuilder.error(XQueryBundle.message("parser.error.incomplete-comment"));
                 }
             } else if (mBuilder.getTokenType() == XQueryTokenType.COMMENT_END_TAG) {

@@ -34,6 +34,8 @@ public class XQueryASTFactory extends ASTFactory {
             return new XQueryStringLiteralImpl(type);
         } else if (type == XQueryElementType.QNAME) {
             return new XQueryQNameImpl(type);
+        } else if (type == XQueryElementType.COMMENT) {
+            return new XQueryCommentImpl(type);
         }
 
         return new CompositeElement(type);

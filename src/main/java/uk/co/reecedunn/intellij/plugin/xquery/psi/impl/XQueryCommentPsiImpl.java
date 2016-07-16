@@ -13,16 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.parser;
+package uk.co.reecedunn.intellij.plugin.xquery.psi.impl;
 
-import com.intellij.psi.tree.IElementType;
-import com.intellij.psi.tree.IFileElementType;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
+import com.intellij.extapi.psi.StubBasedPsiElementBase;
+import com.intellij.lang.ASTNode;
+import com.intellij.psi.stubs.StubElement;
+import org.jetbrains.annotations.NotNull;
 
-public interface XQueryElementType {
-    IFileElementType FILE = new IFileElementType(XQuery.INSTANCE);
-
-    IElementType COMMENT = new IElementType("XQUERY_COMMENT", XQuery.INSTANCE);
-    IElementType QNAME = new IElementType("XQUERY_QNAME", XQuery.INSTANCE);
-    IElementType STRING_LITERAL = new IElementType("XQUERY_STRING_LITERAL", XQuery.INSTANCE);
+public class XQueryCommentPsiImpl extends StubBasedPsiElementBase<StubElement> {
+    public XQueryCommentPsiImpl(@NotNull ASTNode node) {
+        super(node);
+    }
 }
