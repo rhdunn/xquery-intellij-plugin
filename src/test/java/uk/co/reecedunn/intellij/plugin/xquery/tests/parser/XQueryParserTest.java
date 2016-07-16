@@ -83,7 +83,7 @@ public class XQueryParserTest extends ParserTestCase {
         final String expected
                 = "FileElement[FILE(0:11)]\n"
                 + "   XQueryNumericLiteralImpl[XQUERY_DECIMAL_LITERAL_TOKEN(0:10)]('2.99792458')\n"
-                + "   PsiErrorElementImpl[ERROR_ELEMENT(10:11)]('Incomplete double exponent.')\n"
+                + "   PsiErrorElementImpl[ERROR_ELEMENT(10:11)]('XPST0003: Incomplete double exponent.')\n"
                 + "      LeafPsiElement[XQUERY_PARTIAL_DOUBLE_LITERAL_EXPONENT_TOKEN(10:11)]('e')\n";
 
         assertThat(prettyPrintASTNode(parseText("2.99792458e")), is(expected));
@@ -111,7 +111,7 @@ public class XQueryParserTest extends ParserTestCase {
                 + "   XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:8)]\n"
                 + "      LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
                 + "      LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(1:8)]('One Two')\n"
-                + "   PsiErrorElementImpl[ERROR_ELEMENT(8:8)]('Unclosed string literal.')\n";
+                + "   PsiErrorElementImpl[ERROR_ELEMENT(8:8)]('XPST0003: Unclosed string literal.')\n";
 
         assertThat(prettyPrintASTNode(parseText("\"One Two")), is(expected));
     }
@@ -139,7 +139,7 @@ public class XQueryParserTest extends ParserTestCase {
                 = "FileElement[FILE(0:7)]\n"
                 + "   XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:7)]\n"
                 + "      LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
-                + "      PsiErrorElementImpl[ERROR_ELEMENT(1:6)]('Entity reference is not closed (missing ';').')\n"
+                + "      PsiErrorElementImpl[ERROR_ELEMENT(1:6)]('XPST0003: Entity reference is not closed (missing ';').')\n"
                 + "         LeafPsiElement[XQUERY_PARTIAL_ENTITY_REFERENCE_TOKEN(1:6)]('&quot')\n"
                 + "      LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(6:7)]('\"')\n";
 
@@ -150,7 +150,7 @@ public class XQueryParserTest extends ParserTestCase {
     public void testPredefinedEntityRef_MisplacedEntityRef() {
         final String expected
                 = "FileElement[FILE(0:1)]\n"
-                + "   PsiErrorElementImpl[ERROR_ELEMENT(0:1)]('Entity references are not allowed here.')\n"
+                + "   PsiErrorElementImpl[ERROR_ELEMENT(0:1)]('XPST0003: Entity references are not allowed here.')\n"
                 + "      LeafPsiElement[XQUERY_ENTITY_REFERENCE_NOT_IN_STRING_TOKEN(0:1)]('&')\n";
 
         assertThat(prettyPrintASTNode(parseText("&")), is(expected));
@@ -205,7 +205,7 @@ public class XQueryParserTest extends ParserTestCase {
         final String expected
                 = "FileElement[FILE(0:7)]\n"
                 + "   PsiCommentImpl[XQUERY_PARTIAL_COMMENT_TOKEN(0:7)]('(: Test')\n"
-                + "   PsiErrorElementImpl[ERROR_ELEMENT(7:7)]('Unclosed XQuery comment.')\n";
+                + "   PsiErrorElementImpl[ERROR_ELEMENT(7:7)]('XPST0003: Unclosed XQuery comment.')\n";
 
         assertThat(prettyPrintASTNode(parseText("(: Test")), is(expected));
     }
@@ -214,7 +214,7 @@ public class XQueryParserTest extends ParserTestCase {
     public void testComment_UnexpectedCommentEndTag() {
         final String expected
                 = "FileElement[FILE(0:2)]\n"
-                + "   PsiErrorElementImpl[ERROR_ELEMENT(0:2)]('End of XQuery comment marker found without a '(:' start of comment marker.')\n"
+                + "   PsiErrorElementImpl[ERROR_ELEMENT(0:2)]('XPST0003: End of XQuery comment marker found without a '(:' start of comment marker.')\n"
                 + "      LeafPsiElement[XQUERY_COMMENT_END_TAG_TOKEN(0:2)](':)')\n";
 
         assertThat(prettyPrintASTNode(parseText(":)")), is(expected));
@@ -243,7 +243,7 @@ public class XQueryParserTest extends ParserTestCase {
                 = "FileElement[FILE(0:4)]\n"
                 + "   XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:4)]\n"
                 + "      LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
-                + "      PsiErrorElementImpl[ERROR_ELEMENT(1:3)]('Entity reference is not closed (missing ';').')\n"
+                + "      PsiErrorElementImpl[ERROR_ELEMENT(1:3)]('XPST0003: Entity reference is not closed (missing ';').')\n"
                 + "         LeafPsiElement[XQUERY_PARTIAL_ENTITY_REFERENCE_TOKEN(1:3)]('&#')\n"
                 + "      LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(3:4)]('\"')\n";
 
@@ -273,7 +273,7 @@ public class XQueryParserTest extends ParserTestCase {
                 = "FileElement[FILE(0:8)]\n"
                 + "   XQueryQNameImpl[XQUERY_QNAME(0:8)]\n"
                 + "      XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(0:3)]('one')\n"
-                + "      PsiErrorElementImpl[ERROR_ELEMENT(3:4)]('Whitespace is not allowed before ':' in a qualified name.')\n"
+                + "      PsiErrorElementImpl[ERROR_ELEMENT(3:4)]('XPST0003: Whitespace is not allowed before ':' in a qualified name.')\n"
                 + "         PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')\n"
                 + "      LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(4:5)](':')\n"
                 + "      XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(5:8)]('two')\n";
@@ -289,7 +289,7 @@ public class XQueryParserTest extends ParserTestCase {
                 + "   XQueryQNameImpl[XQUERY_QNAME(0:8)]\n"
                 + "      XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(0:3)]('one')\n"
                 + "      LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(3:4)](':')\n"
-                + "      PsiErrorElementImpl[ERROR_ELEMENT(4:5)]('Whitespace is not allowed after ':' in a qualified name.')\n"
+                + "      PsiErrorElementImpl[ERROR_ELEMENT(4:5)]('XPST0003: Whitespace is not allowed after ':' in a qualified name.')\n"
                 + "         PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')\n"
                 + "      XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(5:8)]('two')\n";
 
@@ -303,10 +303,10 @@ public class XQueryParserTest extends ParserTestCase {
                 = "FileElement[FILE(0:9)]\n"
                 + "   XQueryQNameImpl[XQUERY_QNAME(0:9)]\n"
                 + "      XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(0:3)]('one')\n"
-                + "      PsiErrorElementImpl[ERROR_ELEMENT(3:4)]('Whitespace is not allowed before ':' in a qualified name.')\n"
+                + "      PsiErrorElementImpl[ERROR_ELEMENT(3:4)]('XPST0003: Whitespace is not allowed before ':' in a qualified name.')\n"
                 + "         PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')\n"
                 + "      LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(4:5)](':')\n"
-                + "      PsiErrorElementImpl[ERROR_ELEMENT(5:6)]('Whitespace is not allowed after ':' in a qualified name.')\n"
+                + "      PsiErrorElementImpl[ERROR_ELEMENT(5:6)]('XPST0003: Whitespace is not allowed after ':' in a qualified name.')\n"
                 + "         PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')\n"
                 + "      XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(6:9)]('two')\n";
 
@@ -320,7 +320,7 @@ public class XQueryParserTest extends ParserTestCase {
                 = "FileElement[FILE(0:7)]\n"
                 + "   XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(0:3)]('one')\n"
                 + "   LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(3:4)](':')\n"
-                + "   PsiErrorElementImpl[ERROR_ELEMENT(4:7)]('Missing local name after ':' in qualified name.')\n"
+                + "   PsiErrorElementImpl[ERROR_ELEMENT(4:7)]('XPST0003: Missing local name after ':' in qualified name.')\n"
                 + "      XQueryNumericLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(4:7)]('234')\n";
 
         assertThat(prettyPrintASTNode(parseText("one:234")), is(expected));
@@ -333,7 +333,7 @@ public class XQueryParserTest extends ParserTestCase {
                 = "FileElement[FILE(0:4)]\n"
                 + "   XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(0:3)]('one')\n"
                 + "   LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(3:4)](':')\n"
-                + "   PsiErrorElementImpl[ERROR_ELEMENT(4:4)]('Missing local name after ':' in qualified name.')\n";
+                + "   PsiErrorElementImpl[ERROR_ELEMENT(4:4)]('XPST0003: Missing local name after ':' in qualified name.')\n";
 
         assertThat(prettyPrintASTNode(parseText("one:")), is(expected));
     }
@@ -343,7 +343,7 @@ public class XQueryParserTest extends ParserTestCase {
     public void testQName_MissingPrefixPart() {
         final String expected
                 = "FileElement[FILE(0:4)]\n"
-                + "   PsiErrorElementImpl[ERROR_ELEMENT(0:4)]('Missing prefix before ':' in qualified name.')\n"
+                + "   PsiErrorElementImpl[ERROR_ELEMENT(0:4)]('XPST0003: Missing prefix before ':' in qualified name.')\n"
                 + "      LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(0:1)](':')\n"
                 + "      XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(1:4)]('two')\n";
 
@@ -355,7 +355,7 @@ public class XQueryParserTest extends ParserTestCase {
     public void testQName_MissingPrefixAndLocalPart() {
         final String expected
                 = "FileElement[FILE(0:1)]\n"
-                + "   PsiErrorElementImpl[ERROR_ELEMENT(0:1)]('Missing prefix before ':' in qualified name.')\n"
+                + "   PsiErrorElementImpl[ERROR_ELEMENT(0:1)]('XPST0003: Missing prefix before ':' in qualified name.')\n"
                 + "      LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(0:1)](':')\n";
 
         assertThat(prettyPrintASTNode(parseText(":")), is(expected));

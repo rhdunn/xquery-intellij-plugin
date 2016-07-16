@@ -349,7 +349,7 @@ public class XQueryStringLiteralAnnotatorTest extends ParserTestCase {
     @Specification(name="HTML Symbols DTD", reference="http://www.w3.org/TR/xhtml1/DTD/xhtml-symbol.ent")
     @Specification(name="HTML Special DTD", reference="http://www.w3.org/TR/xhtml1/DTD/xhtml-special.ent")
     public void testHTML4Entities_XQuery_1_0() {
-        checkUnsupportedEntities(XQueryVersion.XQUERY_1_0, HTML4_ENTITIES, 248, "HTML4 predefined entity '&", ";' is not allowed in this XQuery version.");
+        checkUnsupportedEntities(XQueryVersion.XQUERY_1_0, HTML4_ENTITIES, 248, "XPST0003: HTML4 predefined entity '&", ";' is not allowed in this XQuery version.");
     }
 
     @Specification(name="HTML Latin 1 DTD", reference="http://www.w3.org/TR/xhtml1/DTD/xhtml-lat1.ent")
@@ -363,14 +363,14 @@ public class XQueryStringLiteralAnnotatorTest extends ParserTestCase {
     @Specification(name="HTML Symbols DTD", reference="http://www.w3.org/TR/xhtml1/DTD/xhtml-symbol.ent")
     @Specification(name="HTML Special DTD", reference="http://www.w3.org/TR/xhtml1/DTD/xhtml-special.ent")
     public void testHTML4Entities_XQuery_3_0() {
-        checkUnsupportedEntities(XQueryVersion.XQUERY_3_0, HTML4_ENTITIES, 248, "HTML4 predefined entity '&", ";' is not allowed in this XQuery version.");
+        checkUnsupportedEntities(XQueryVersion.XQUERY_3_0, HTML4_ENTITIES, 248, "XPST0003: HTML4 predefined entity '&", ";' is not allowed in this XQuery version.");
     }
 
     @Specification(name="HTML Latin 1 DTD", reference="http://www.w3.org/TR/xhtml1/DTD/xhtml-lat1.ent")
     @Specification(name="HTML Symbols DTD", reference="http://www.w3.org/TR/xhtml1/DTD/xhtml-symbol.ent")
     @Specification(name="HTML Special DTD", reference="http://www.w3.org/TR/xhtml1/DTD/xhtml-special.ent")
     public void testHTML4Entities_XQuery_3_1() {
-        checkUnsupportedEntities(XQueryVersion.XQUERY_3_1, HTML4_ENTITIES, 248, "HTML4 predefined entity '&", ";' is not allowed in this XQuery version.");
+        checkUnsupportedEntities(XQueryVersion.XQUERY_3_1, HTML4_ENTITIES, 248, "XPST0003: HTML4 predefined entity '&", ";' is not allowed in this XQuery version.");
     }
 
     // endregion
@@ -2259,7 +2259,7 @@ public class XQueryStringLiteralAnnotatorTest extends ParserTestCase {
 
     @Specification(name="HTML 5", reference="https://www.w3.org/TR/html5/syntax.html#named-character-references")
     public void testHTML5Entities_XQuery_1_0() {
-        checkUnsupportedEntities(XQueryVersion.XQUERY_1_0, HTML5_ENTITIES, 1872, "HTML5 predefined entity '&", ";' is not allowed in this XQuery version.");
+        checkUnsupportedEntities(XQueryVersion.XQUERY_1_0, HTML5_ENTITIES, 1872, "XPST0003: HTML5 predefined entity '&", ";' is not allowed in this XQuery version.");
     }
 
     @Specification(name="HTML 5", reference="https://www.w3.org/TR/html5/syntax.html#named-character-references")
@@ -2269,35 +2269,35 @@ public class XQueryStringLiteralAnnotatorTest extends ParserTestCase {
 
     @Specification(name="HTML 5", reference="https://www.w3.org/TR/html5/syntax.html#named-character-references")
     public void testHTML5Entities_XQuery_3_0() {
-        checkUnsupportedEntities(XQueryVersion.XQUERY_3_0, HTML5_ENTITIES, 1872, "HTML5 predefined entity '&", ";' is not allowed in this XQuery version.");
+        checkUnsupportedEntities(XQueryVersion.XQUERY_3_0, HTML5_ENTITIES, 1872, "XPST0003: HTML5 predefined entity '&", ";' is not allowed in this XQuery version.");
     }
 
     @Specification(name="HTML 5", reference="https://www.w3.org/TR/html5/syntax.html#named-character-references")
     public void testHTML5Entities_XQuery_3_1() {
-        checkUnsupportedEntities(XQueryVersion.XQUERY_3_1, HTML5_ENTITIES, 1872, "HTML5 predefined entity '&", ";' is not allowed in this XQuery version.");
+        checkUnsupportedEntities(XQueryVersion.XQUERY_3_1, HTML5_ENTITIES, 1872, "XPST0003: HTML5 predefined entity '&", ";' is not allowed in this XQuery version.");
     }
 
     // endregion
     // region Unknown Entities
 
     public void testUnknownEntities_XQuery_0_9_ML() {
-        checkUnsupportedEntities(XQueryVersion.XQUERY_0_9_MARKLOGIC, "\"&xyz;&ABC;\"", 2, "Predefined entity '&", ";' is not a known entity name.");
+        checkUnsupportedEntities(XQueryVersion.XQUERY_0_9_MARKLOGIC, "\"&xyz;&ABC;\"", 2, "XPST0003: Predefined entity '&", ";' is not a known entity name.");
     }
 
     public void testUnknownEntities_XQuery_1_0() {
-        checkUnsupportedEntities(XQueryVersion.XQUERY_1_0, "\"&xyz;&ABC;\"", 2, "Predefined entity '&", ";' is not a known entity name.");
+        checkUnsupportedEntities(XQueryVersion.XQUERY_1_0, "\"&xyz;&ABC;\"", 2, "XPST0003: Predefined entity '&", ";' is not a known entity name.");
     }
 
     public void testUnknownEntities_XQuery_1_0_ML() {
-        checkUnsupportedEntities(XQueryVersion.XQUERY_1_0_MARKLOGIC, "\"&xyz;&ABC;\"", 2, "Predefined entity '&", ";' is not a known entity name.");
+        checkUnsupportedEntities(XQueryVersion.XQUERY_1_0_MARKLOGIC, "\"&xyz;&ABC;\"", 2, "XPST0003: Predefined entity '&", ";' is not a known entity name.");
     }
 
     public void testUnknownEntities_XQuery_3_0() {
-        checkUnsupportedEntities(XQueryVersion.XQUERY_3_0, "\"&xyz;&ABC;\"", 2, "Predefined entity '&", ";' is not a known entity name.");
+        checkUnsupportedEntities(XQueryVersion.XQUERY_3_0, "\"&xyz;&ABC;\"", 2, "XPST0003: Predefined entity '&", ";' is not a known entity name.");
     }
 
     public void testUnknownEntities_XQuery_3_1() {
-        checkUnsupportedEntities(XQueryVersion.XQUERY_3_1, "\"&xyz;&ABC;\"", 2, "Predefined entity '&", ";' is not a known entity name.");
+        checkUnsupportedEntities(XQueryVersion.XQUERY_3_1, "\"&xyz;&ABC;\"", 2, "XPST0003: Predefined entity '&", ";' is not a known entity name.");
     }
 
     // endregion
