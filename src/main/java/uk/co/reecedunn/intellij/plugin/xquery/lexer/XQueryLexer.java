@@ -70,6 +70,9 @@ public class XQueryLexer extends LexerBase {
                     } else {
                         mType = XQueryTokenType.PARTIAL_ENTITY_REFERENCE;
                     }
+                } else if (c == ';') {
+                    mTokenRange.match();
+                    mType = XQueryTokenType.EMPTY_ENTITY_REFERENCE;
                 } else {
                     mType = XQueryTokenType.PARTIAL_ENTITY_REFERENCE;
                 }
@@ -85,9 +88,15 @@ public class XQueryLexer extends LexerBase {
                 } else {
                     mType = XQueryTokenType.PARTIAL_ENTITY_REFERENCE;
                 }
+            } else if (c == ';') {
+                mTokenRange.match();
+                mType = XQueryTokenType.EMPTY_ENTITY_REFERENCE;
             } else {
                 mType = XQueryTokenType.PARTIAL_ENTITY_REFERENCE;
             }
+        } else if (cc == CharacterClass.SEMICOLON) {
+            mTokenRange.match();
+            mType = XQueryTokenType.EMPTY_ENTITY_REFERENCE;
         } else {
             mType = XQueryTokenType.PARTIAL_ENTITY_REFERENCE;
         }

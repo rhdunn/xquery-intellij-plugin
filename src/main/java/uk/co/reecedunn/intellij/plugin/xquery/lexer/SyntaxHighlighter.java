@@ -63,6 +63,7 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
         } else if (type == XQueryTokenType.STRING_LITERAL_START ||
                    type == XQueryTokenType.STRING_LITERAL_CONTENTS ||
                    type == XQueryTokenType.PARTIAL_ENTITY_REFERENCE ||
+                   type == XQueryTokenType.EMPTY_ENTITY_REFERENCE ||
                    type == XQueryTokenType.STRING_LITERAL_END) {
             return STRING_KEYS;
         } else if (type == XQueryTokenType.STRING_LITERAL_ESCAPED_CHARACTER) {

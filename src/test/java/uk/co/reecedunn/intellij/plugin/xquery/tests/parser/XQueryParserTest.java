@@ -146,6 +146,20 @@ public class XQueryParserTest extends ParserTestCase {
         assertThat(prettyPrintASTNode(parseText("\"&quot\"")), is(expected));
     }
 
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PredefinedEntityRef")
+    public void testStringLiteral_PredefinedEntityRef_EmptyRef() {
+        final String expected
+                = "FileElement[FILE(0:4)]\n"
+                + "   XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:4)]\n"
+                + "      LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
+                + "      PsiErrorElementImpl[ERROR_ELEMENT(1:3)]('XPST0003: Entity references must not be empty.')\n"
+                + "         LeafPsiElement[XQUERY_EMPTY_ENTITY_REFERENCE_TOKEN(1:3)]('&;')\n"
+                + "      LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(3:4)]('\"')\n";
+
+        assertThat(prettyPrintASTNode(parseText("\"&;\"")), is(expected));
+    }
+
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PredefinedEntityRef")
     public void testPredefinedEntityRef_MisplacedEntityRef() {
         final String expected
@@ -248,6 +262,34 @@ public class XQueryParserTest extends ParserTestCase {
                 + "      LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(3:4)]('\"')\n";
 
         assertThat(prettyPrintASTNode(parseText("\"&#\"")), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PredefinedEntityRef")
+    public void testStringLiteral_CharRef_EmptyNumericRef() {
+        final String expected
+                = "FileElement[FILE(0:5)]\n"
+                + "   XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:5)]\n"
+                + "      LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
+                + "      PsiErrorElementImpl[ERROR_ELEMENT(1:4)]('XPST0003: Entity references must not be empty.')\n"
+                + "         LeafPsiElement[XQUERY_EMPTY_ENTITY_REFERENCE_TOKEN(1:4)]('&#;')\n"
+                + "      LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(4:5)]('\"')\n";
+
+        assertThat(prettyPrintASTNode(parseText("\"&#;\"")), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PredefinedEntityRef")
+    public void testStringLiteral_CharRef_EmptyHexidecimalRef() {
+        final String expected
+                = "FileElement[FILE(0:6)]\n"
+                + "   XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:6)]\n"
+                + "      LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
+                + "      PsiErrorElementImpl[ERROR_ELEMENT(1:5)]('XPST0003: Entity references must not be empty.')\n"
+                + "         LeafPsiElement[XQUERY_EMPTY_ENTITY_REFERENCE_TOKEN(1:5)]('&#x;')\n"
+                + "      LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(5:6)]('\"')\n";
+
+        assertThat(prettyPrintASTNode(parseText("\"&#x;\"")), is(expected));
     }
 
     // endregion

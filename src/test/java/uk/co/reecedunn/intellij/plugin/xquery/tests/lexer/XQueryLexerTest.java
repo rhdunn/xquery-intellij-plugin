@@ -328,6 +328,12 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "&abc", 1, 1, 5, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
         matchToken(lexer, "",     1, 5, 5, null);
 
+        lexer.start("\"&;\"");
+        matchToken(lexer, "\"", 0, 0, 1, XQueryTokenType.STRING_LITERAL_START);
+        matchToken(lexer, "&;", 1, 1, 3, XQueryTokenType.EMPTY_ENTITY_REFERENCE);
+        matchToken(lexer, "\"", 1, 3, 4, XQueryTokenType.STRING_LITERAL_END);
+        matchToken(lexer, "",   0, 4, 4, null);
+
         lexer.start("&");
         matchToken(lexer, "&",  0, 0, 1, XQueryTokenType.ENTITY_REFERENCE_NOT_IN_STRING);
         matchToken(lexer, "",   0, 1, 1, null);
@@ -458,10 +464,8 @@ public class XQueryLexerTest extends TestCase {
 
         lexer.start("\"&#;&#x;&#x2G;&#x2g;\"");
         matchToken(lexer, "\"",   0,  0,  1, XQueryTokenType.STRING_LITERAL_START);
-        matchToken(lexer, "&#",   1,  1,  3, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
-        matchToken(lexer, ";",    1,  3,  4, XQueryTokenType.STRING_LITERAL_CONTENTS);
-        matchToken(lexer, "&#x",  1,  4,  7, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
-        matchToken(lexer, ";",    1,  7,  8, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "&#;",  1,  1,  4, XQueryTokenType.EMPTY_ENTITY_REFERENCE);
+        matchToken(lexer, "&#x;", 1,  4,  8, XQueryTokenType.EMPTY_ENTITY_REFERENCE);
         matchToken(lexer, "&#x2", 1,  8, 12, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
         matchToken(lexer, "G;",   1, 12, 14, XQueryTokenType.STRING_LITERAL_CONTENTS);
         matchToken(lexer, "&#x2", 1, 14, 18, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);

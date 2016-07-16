@@ -128,6 +128,10 @@ public class SyntaxHighlighterTest extends TestCase {
         // NOTE: This token is for the parser, so that a parser error will be emitted for invalid entity references.
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.PARTIAL_ENTITY_REFERENCE).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.PARTIAL_ENTITY_REFERENCE)[0], is(SyntaxHighlighter.STRING));
+
+        // NOTE: This token is for the parser, so that a parser error will be emitted for invalid entity references.
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.EMPTY_ENTITY_REFERENCE).length, is(1));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.EMPTY_ENTITY_REFERENCE)[0], is(SyntaxHighlighter.STRING));
     }
 
     public void testTokenHighlights_Identifier() {
