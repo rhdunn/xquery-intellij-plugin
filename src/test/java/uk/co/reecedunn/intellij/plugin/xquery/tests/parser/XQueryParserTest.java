@@ -139,8 +139,8 @@ public class XQueryParserTest extends ParserTestCase {
                 = "FileElement[FILE(0:7)]\n"
                 + "   XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:7)]\n"
                 + "      LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
-                + "      PsiErrorElementImpl[ERROR_ELEMENT(1:6)]('XPST0003: Entity reference is not closed (missing ';').')\n"
-                + "         LeafPsiElement[XQUERY_PARTIAL_ENTITY_REFERENCE_TOKEN(1:6)]('&quot')\n"
+                + "      LeafPsiElement[XQUERY_PARTIAL_ENTITY_REFERENCE_TOKEN(1:6)]('&quot')\n"
+                + "      PsiErrorElementImpl[ERROR_ELEMENT(6:6)]('XPST0003: Invalid entity reference character.')\n"
                 + "      LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(6:7)]('\"')\n";
 
         assertThat(prettyPrintASTNode(parseText("\"&quot\"")), is(expected));
@@ -257,8 +257,8 @@ public class XQueryParserTest extends ParserTestCase {
                 = "FileElement[FILE(0:4)]\n"
                 + "   XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:4)]\n"
                 + "      LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
-                + "      PsiErrorElementImpl[ERROR_ELEMENT(1:3)]('XPST0003: Entity reference is not closed (missing ';').')\n"
-                + "         LeafPsiElement[XQUERY_PARTIAL_ENTITY_REFERENCE_TOKEN(1:3)]('&#')\n"
+                + "      LeafPsiElement[XQUERY_PARTIAL_ENTITY_REFERENCE_TOKEN(1:3)]('&#')\n"
+                + "      PsiErrorElementImpl[ERROR_ELEMENT(3:3)]('XPST0003: Invalid entity reference character.')\n"
                 + "      LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(3:4)]('\"')\n";
 
         assertThat(prettyPrintASTNode(parseText("\"&#\"")), is(expected));

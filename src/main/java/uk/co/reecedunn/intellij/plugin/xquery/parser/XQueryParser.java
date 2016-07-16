@@ -65,8 +65,9 @@ public class XQueryParser implements PsiParser {
                 } else if (builder.matchTokenType(XQueryTokenType.STRING_LITERAL_END)) {
                     stringMarker.done(XQueryElementType.STRING_LITERAL);
                     return true;
-                } else if (!builder.errorOnTokenType(XQueryTokenType.PARTIAL_ENTITY_REFERENCE, XQueryBundle.message("parser.error.incomplete-entity")) &&
-                           !builder.errorOnTokenType(XQueryTokenType.EMPTY_ENTITY_REFERENCE, XQueryBundle.message("parser.error.empty-entity"))) {
+                } else if (builder.matchTokenType(XQueryTokenType.PARTIAL_ENTITY_REFERENCE)) {
+                    builder.error(XQueryBundle.message("parser.error.incomplete-entity"));
+                } else if (!builder.errorOnTokenType(XQueryTokenType.EMPTY_ENTITY_REFERENCE, XQueryBundle.message("parser.error.empty-entity"))) {
                     stringMarker.done(XQueryElementType.STRING_LITERAL);
                     builder.error(XQueryBundle.message("parser.error.incomplete-string"));
                     return true;
