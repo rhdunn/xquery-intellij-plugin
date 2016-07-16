@@ -24,6 +24,8 @@ import com.intellij.openapi.progress.ProgressManager;
 import com.intellij.openapi.progress.impl.ProgressManagerImpl;
 import com.intellij.openapi.util.Disposer;
 import com.intellij.psi.PsiErrorElement;
+import com.intellij.psi.impl.source.tree.CompositeElement;
+import com.intellij.psi.impl.source.tree.FileElement;
 import com.intellij.psi.impl.source.tree.LeafElement;
 import com.intellij.psi.tree.TokenSet;
 import com.intellij.testFramework.PlatformLiteFixture;
@@ -36,6 +38,7 @@ import org.picocontainer.defaults.AbstractComponentAdapter;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.impl.XQueryASTFactory;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition;
+import uk.co.reecedunn.intellij.plugin.xquery.tests.mocks.MockFileViewProvider;
 
 public abstract class ParserTestCase extends PlatformLiteFixture {
     // region IntelliJ Platform Infrastructure
@@ -79,6 +82,21 @@ public abstract class ParserTestCase extends PlatformLiteFixture {
 
     // endregion
     // region Parser Test Helpers
+
+    private void buildPsi(@NotNull ParserDefinition parserDefinition, ASTNode node) {
+        if (node instanceof CompositeElement) {
+            CompositeElement element = (CompositeElement)node;
+            if (node instanceof FileElement) {
+                element.setPsi(parserDefinition.createFile(new MockFileViewProvider()));
+            } else if (!(node instanceof PsiErrorElement)) {
+                element.setPsi(parserDefinition.createElement(node));
+            }
+        }
+
+        for (ASTNode child : node.getChildren(null)) {
+            buildPsi(parserDefinition, child);
+        }
+    }
 
     private void prettyPrintASTNode(@NotNull StringBuilder prettyPrinted, ASTNode node, int depth) {
         for (int i = 0; i != depth; ++i) {
@@ -127,7 +145,9 @@ public abstract class ParserTestCase extends PlatformLiteFixture {
         Lexer lexer = parserDefinition.createLexer(null);
 
         PsiBuilder builder = new PsiBuilderImpl(null, null, whitespaces, comments, lexer, null, text, null, null);
-        return parserDefinition.createParser(null).parse(parserDefinition.getFileNodeType(), builder);
+        ASTNode node = parserDefinition.createParser(null).parse(parserDefinition.getFileNodeType(), builder);
+        buildPsi(parserDefinition, node);
+        return node;
     }
 
     // endregion
