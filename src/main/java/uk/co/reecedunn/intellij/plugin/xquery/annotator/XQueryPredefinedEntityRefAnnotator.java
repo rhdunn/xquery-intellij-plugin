@@ -23,14 +23,14 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.tree.TokenSet;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.XQueryBundle;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryPredefinedEntityRef;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.XQueryStringLiteralPsiImpl;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class XQueryStringLiteralAnnotator implements Annotator {
+public class XQueryPredefinedEntityRefAnnotator implements Annotator {
     private static final TokenSet PREDEFINED_ENTITY_REFS = TokenSet.create(XQueryTokenType.PREDEFINED_ENTITY_REFERENCE);
 
     private static final Set<CharSequence> XML_ENTITIES = new HashSet<>();
@@ -39,22 +39,20 @@ public class XQueryStringLiteralAnnotator implements Annotator {
 
     private final XQueryVersion mDefaultVersion;
 
-    public XQueryStringLiteralAnnotator(XQueryVersion defaultVersion) {
+    public XQueryPredefinedEntityRefAnnotator(XQueryVersion defaultVersion) {
         mDefaultVersion = defaultVersion;
     }
 
-    public XQueryStringLiteralAnnotator() {
+    public XQueryPredefinedEntityRefAnnotator() {
         this(null);
     }
 
     @Override
     public void annotate(@NotNull PsiElement element, @NotNull AnnotationHolder holder) {
-        if (!(element instanceof XQueryStringLiteralPsiImpl)) return;
+        if (!(element instanceof XQueryPredefinedEntityRef)) return;
 
         final ASTNode node = element.getNode();
-        for (ASTNode child : node.getChildren(PREDEFINED_ENTITY_REFS)) {
-            checkPredefinedEntity(child.getChars(), child, holder, mDefaultVersion);
-        }
+        checkPredefinedEntity(node.getChars(), node, holder, mDefaultVersion);
     }
 
     private void checkPredefinedEntity(@NotNull CharSequence entity, @NotNull ASTNode node, @NotNull AnnotationHolder holder, XQueryVersion version) {

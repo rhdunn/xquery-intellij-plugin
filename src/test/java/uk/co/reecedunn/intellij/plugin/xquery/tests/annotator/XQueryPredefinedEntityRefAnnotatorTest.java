@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.annotator;
 import com.intellij.lang.ASTNode;
 import com.intellij.lang.annotation.Annotation;
 import com.intellij.lang.annotation.HighlightSeverity;
-import uk.co.reecedunn.intellij.plugin.xquery.annotator.XQueryStringLiteralAnnotator;
+import uk.co.reecedunn.intellij.plugin.xquery.annotator.XQueryPredefinedEntityRefAnnotator;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.Specification;
@@ -28,12 +28,12 @@ import java.util.List;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class XQueryStringLiteralAnnotatorTest extends AnnotatorTestCase {
+public class XQueryPredefinedEntityRefAnnotatorTest extends AnnotatorTestCase {
     public void checkSupportedEntities(XQueryVersion version, String entities) {
         final ASTNode node = parseText(entities).getFirstChildNode();
         assertThat(node.getElementType(), is(XQueryElementType.STRING_LITERAL));
 
-        XQueryStringLiteralAnnotator annotator = new XQueryStringLiteralAnnotator(version);
+        XQueryPredefinedEntityRefAnnotator annotator = new XQueryPredefinedEntityRefAnnotator(version);
         List<Annotation> annotations = annotateTree(node, annotator);
         assertThat(annotations.size(), is(0));
     }
@@ -42,7 +42,7 @@ public class XQueryStringLiteralAnnotatorTest extends AnnotatorTestCase {
         final ASTNode node = parseText(entities).getFirstChildNode();
         assertThat(node.getElementType(), is(XQueryElementType.STRING_LITERAL));
 
-        XQueryStringLiteralAnnotator annotator = new XQueryStringLiteralAnnotator(version);
+        XQueryPredefinedEntityRefAnnotator annotator = new XQueryPredefinedEntityRefAnnotator(version);
         List<Annotation> annotations = annotateTree(node, annotator);
         assertThat(annotations.size(), is(annotationCount));
 

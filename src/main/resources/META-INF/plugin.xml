@@ -23,7 +23,7 @@
     <lang.ast.factory language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.ast.impl.XQueryASTFactory"/>
     <lang.parserDefinition language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition"/>
 
-    <annotator language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.annotator.XQueryStringLiteralAnnotator"/>
+    <annotator language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.annotator.XQueryPredefinedEntityRefAnnotator"/>
 
     <projectService serviceInterface="uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings"
                     serviceImplementation="uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings"/>
