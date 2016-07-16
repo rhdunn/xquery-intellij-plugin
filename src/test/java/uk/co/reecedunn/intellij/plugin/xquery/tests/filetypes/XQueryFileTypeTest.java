@@ -19,6 +19,7 @@ import com.intellij.openapi.vfs.VirtualFile;
 import junit.framework.TestCase;
 import uk.co.reecedunn.intellij.plugin.xquery.filetypes.FileTypeFactory;
 import uk.co.reecedunn.intellij.plugin.xquery.filetypes.XQueryFileType;
+import uk.co.reecedunn.intellij.plugin.xquery.tests.mocks.MockVirtualFile;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
