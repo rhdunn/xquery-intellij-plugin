@@ -42,8 +42,7 @@ public class XQueryASTFactory extends ASTFactory {
     @Override
     @Nullable
     public LeafElement createLeaf(@NotNull final IElementType type, @NotNull CharSequence text) {
-        if (type == XQueryTokenType.COMMENT ||
-            type == XQueryTokenType.PARTIAL_COMMENT) {
+        if (type == XQueryTokenType.COMMENT) {
             return new PsiCommentImpl(type, text);
         } else if (type == XQueryTokenType.INTEGER_LITERAL ||
                    type == XQueryTokenType.DECIMAL_LITERAL ||

@@ -77,8 +77,9 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
             return IDENTIFIER_KEYS;
         } else if (type == XQueryTokenType.QNAME_PREFIX) {
             return NAMESPACE_PREFIX_KEYS;
-        } else if (type == XQueryTokenType.COMMENT ||
-                   type == XQueryTokenType.PARTIAL_COMMENT ||
+        } else if (type == XQueryTokenType.COMMENT_START_TAG ||
+                   type == XQueryTokenType.COMMENT ||
+                   type == XQueryTokenType.COMMENT_END_TAG ||
                    type == XQueryTokenType.XML_COMMENT ||
                    type == XQueryTokenType.PARTIAL_XML_COMMENT) {
             return COMMENT_KEYS;

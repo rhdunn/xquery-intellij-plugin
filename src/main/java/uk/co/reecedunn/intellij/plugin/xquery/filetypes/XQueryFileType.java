@@ -118,8 +118,14 @@ public class XQueryFileType extends LanguageFileType {
             if (sEncodingLexer.getTokenType() == XQueryTokenType.WHITE_SPACE) {
                 sEncodingLexer.advance();
                 matched = true;
-            } else if (sEncodingLexer.getTokenType() == XQueryTokenType.COMMENT) {
+            } else if (sEncodingLexer.getTokenType() == XQueryTokenType.COMMENT_START_TAG) {
                 sEncodingLexer.advance();
+                if (sEncodingLexer.getTokenType() == XQueryTokenType.COMMENT) {
+                    sEncodingLexer.advance();
+                }
+                if (sEncodingLexer.getTokenType() == XQueryTokenType.COMMENT_END_TAG) {
+                    sEncodingLexer.advance();
+                }
                 matched = true;
             } else {
                 return matched && required;

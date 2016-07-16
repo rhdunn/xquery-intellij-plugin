@@ -31,14 +31,20 @@ public class PsiBuilderHelper {
     public boolean skipWhiteSpaceAndCommentTokens() {
         boolean skipped = false;
         while (true) {
-            if (mBuilder.getTokenType() == XQueryTokenType.WHITE_SPACE ||
-                mBuilder.getTokenType() == XQueryTokenType.COMMENT) {
+            if (mBuilder.getTokenType() == XQueryTokenType.WHITE_SPACE) {
                 skipped = true;
                 mBuilder.advanceLexer();
-            } else if (mBuilder.getTokenType() == XQueryTokenType.PARTIAL_COMMENT) {
+            } else if (mBuilder.getTokenType() == XQueryTokenType.COMMENT_START_TAG) {
                 skipped = true;
                 mBuilder.advanceLexer();
-                mBuilder.error(XQueryBundle.message("parser.error.incomplete-comment"));
+                if (mBuilder.getTokenType() == XQueryTokenType.COMMENT) {
+                    mBuilder.advanceLexer();
+                }
+                if (mBuilder.getTokenType() == XQueryTokenType.COMMENT_END_TAG) {
+                    mBuilder.advanceLexer();
+                } else {
+                    mBuilder.error(XQueryBundle.message("parser.error.incomplete-comment"));
+                }
             } else if (mBuilder.getTokenType() == XQueryTokenType.COMMENT_END_TAG) {
                 skipped = true;
                 final PsiBuilder.Marker errorMarker = mBuilder.mark();
