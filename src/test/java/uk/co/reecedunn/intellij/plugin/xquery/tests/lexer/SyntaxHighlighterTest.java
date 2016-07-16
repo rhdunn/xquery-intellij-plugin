@@ -62,16 +62,17 @@ public class SyntaxHighlighterTest extends TestCase {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.COMMENT_END_TAG).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.COMMENT_END_TAG)[0], is(SyntaxHighlighter.COMMENT));
 
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_COMMENT_START_TAG).length, is(1));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_COMMENT_START_TAG)[0], is(SyntaxHighlighter.COMMENT));
+
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_COMMENT).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_COMMENT)[0], is(SyntaxHighlighter.COMMENT));
 
-        // NOTE: This token is for the parser, so that a parser error will be emitted for incomplete comments.
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.PARTIAL_XML_COMMENT).length, is(1));
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.PARTIAL_XML_COMMENT)[0], is(SyntaxHighlighter.COMMENT));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_COMMENT_END_TAG).length, is(1));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_COMMENT_END_TAG)[0], is(SyntaxHighlighter.COMMENT));
 
         // NOTE: These tokens are for the parser, so that a parser error will be emitted for lone closing tags.
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.INCOMPLETE_XML_COMMENT_START_TAG).length, is(0));
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_COMMENT_END_TAG).length, is(0));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.MINUS_MINUS).length, is(0));
     }
 

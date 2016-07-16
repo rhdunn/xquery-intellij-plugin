@@ -634,28 +634,44 @@ public class XQueryLexerTest extends TestCase {
     public void testDirCommentConstructor() {
         Lexer lexer = new XQueryLexer();
 
-        matchSingleToken(lexer, "<!",   XQueryTokenType.INCOMPLETE_XML_COMMENT_START_TAG);
-        matchSingleToken(lexer, "<!-",  XQueryTokenType.INCOMPLETE_XML_COMMENT_START_TAG);
-        matchSingleToken(lexer, "<!--", XQueryTokenType.PARTIAL_XML_COMMENT);
+        matchSingleToken(lexer, "<!",   0, XQueryTokenType.INCOMPLETE_XML_COMMENT_START_TAG);
+        matchSingleToken(lexer, "<!-",  0, XQueryTokenType.INCOMPLETE_XML_COMMENT_START_TAG);
+        matchSingleToken(lexer, "<!--", 5, XQueryTokenType.XML_COMMENT_START_TAG);
 
         matchSingleToken(lexer, "--",  XQueryTokenType.MINUS_MINUS);
         matchSingleToken(lexer, "-->", XQueryTokenType.XML_COMMENT_END_TAG);
 
         lexer.start("<!-- Test");
-        matchToken(lexer, "<!-- Test", 0, 0, 9, XQueryTokenType.PARTIAL_XML_COMMENT);
-        matchToken(lexer, "",          0, 9, 9, null);
+        matchToken(lexer, "<!--",  0, 0, 4, XQueryTokenType.XML_COMMENT_START_TAG);
+        matchToken(lexer, " Test", 5, 4, 9, XQueryTokenType.XML_COMMENT);
+        matchToken(lexer, "",      5, 9, 9, null);
 
         lexer.start("<!-- Test --");
-        matchToken(lexer, "<!-- Test --", 0,  0, 12, XQueryTokenType.PARTIAL_XML_COMMENT);
-        matchToken(lexer, "",             0, 12, 12, null);
+        matchToken(lexer, "<!--",     0,  0,  4, XQueryTokenType.XML_COMMENT_START_TAG);
+        matchToken(lexer, " Test --", 5,  4, 12, XQueryTokenType.XML_COMMENT);
+        matchToken(lexer, "",         5, 12, 12, null);
 
         lexer.start("<!-- Test -->");
-        matchToken(lexer, "<!-- Test -->", 0,  0, 13, XQueryTokenType.XML_COMMENT);
-        matchToken(lexer, "",              0, 13, 13, null);
+        matchToken(lexer, "<!--",   0,  0,  4, XQueryTokenType.XML_COMMENT_START_TAG);
+        matchToken(lexer, " Test ", 5,  4, 10, XQueryTokenType.XML_COMMENT);
+        matchToken(lexer, "-->",    5, 10, 13, XQueryTokenType.XML_COMMENT_END_TAG);
+        matchToken(lexer, "",       0, 13, 13, null);
 
         lexer.start("<!--\nMultiline\nComment\n-->");
-        matchToken(lexer, "<!--\nMultiline\nComment\n-->", 0,  0, 26, XQueryTokenType.XML_COMMENT);
-        matchToken(lexer, "",                              0, 26, 26, null);
+        matchToken(lexer, "<!--",                   0,  0,  4, XQueryTokenType.XML_COMMENT_START_TAG);
+        matchToken(lexer, "\nMultiline\nComment\n", 5,  4, 23, XQueryTokenType.XML_COMMENT);
+        matchToken(lexer, "-->",                    5, 23, 26, XQueryTokenType.XML_COMMENT_END_TAG);
+        matchToken(lexer, "",                       0, 26, 26, null);
+
+        lexer.start("<!---");
+        matchToken(lexer, "<!--",  0, 0, 4, XQueryTokenType.XML_COMMENT_START_TAG);
+        matchToken(lexer, "-",     5, 4, 5, XQueryTokenType.XML_COMMENT);
+        matchToken(lexer, "",      5, 5, 5, null);
+
+        lexer.start("<!----");
+        matchToken(lexer, "<!--",  0, 0, 4, XQueryTokenType.XML_COMMENT_START_TAG);
+        matchToken(lexer, "--",    5, 4, 6, XQueryTokenType.XML_COMMENT);
+        matchToken(lexer, "",      5, 6, 6, null);
     }
 
     // endregion

@@ -28,7 +28,7 @@ public interface XQueryTokenType extends TokenType {
     IElementType XML_COMMENT = new IElementType("XQUERY_XML_COMMENT_TOKEN", XQuery.INSTANCE);
     IElementType INCOMPLETE_XML_COMMENT_START_TAG = new IElementType("XQUERY_INCOMPLETE_XML_COMMENT_START_TAG_TOKEN", XQuery.INSTANCE);
     IElementType XML_COMMENT_END_TAG = new IElementType("XQUERY_XML_COMMENT_END_TAG_TOKEN", XQuery.INSTANCE);
-    IElementType PARTIAL_XML_COMMENT = new IElementType("XQUERY_XML_PARTIAL_COMMENT_TOKEN", XQuery.INSTANCE);
+    IElementType XML_COMMENT_START_TAG = new IElementType("XQUERY_XML_COMMENT_START_TAG_TOKEN", XQuery.INSTANCE);
     IElementType MINUS_MINUS = new IElementType("XQUERY_MINUS_MINUS_TOKEN", XQuery.INSTANCE); // Invalid (Partial) XML Close Tag
 
     IElementType INTEGER_LITERAL = new IElementType("XQUERY_INTEGER_LITERAL_TOKEN", XQuery.INSTANCE);
