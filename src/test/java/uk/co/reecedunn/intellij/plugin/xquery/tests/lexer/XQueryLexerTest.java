@@ -478,7 +478,7 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "&#12", 1, 1, 5, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
         matchToken(lexer, "",     1, 5, 5, null);
 
-        lexer.start("\"&#;&#x;&#x2G;&#x2g;\"");
+        lexer.start("\"&#;&#x;&#x2G;&#x2g;&#xg2;\"");
         matchToken(lexer, "\"",   0,  0,  1, XQueryTokenType.STRING_LITERAL_START);
         matchToken(lexer, "&#;",  1,  1,  4, XQueryTokenType.EMPTY_ENTITY_REFERENCE);
         matchToken(lexer, "&#x;", 1,  4,  8, XQueryTokenType.EMPTY_ENTITY_REFERENCE);
@@ -486,8 +486,10 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "G;",   1, 12, 14, XQueryTokenType.STRING_LITERAL_CONTENTS);
         matchToken(lexer, "&#x2", 1, 14, 18, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
         matchToken(lexer, "g;",   1, 18, 20, XQueryTokenType.STRING_LITERAL_CONTENTS);
-        matchToken(lexer, "\"",   1, 20, 21, XQueryTokenType.STRING_LITERAL_END);
-        matchToken(lexer, "",     0, 21, 21, null);
+        matchToken(lexer, "&#x",  1, 20, 23, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "g2;",  1, 23, 26, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "\"",   1, 26, 27, XQueryTokenType.STRING_LITERAL_END);
+        matchToken(lexer, "",     0, 27, 27, null);
     }
 
     // endregion
