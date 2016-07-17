@@ -45,6 +45,7 @@ public class PsiBuilderHelper {
                     mBuilder.advanceLexer();
                     commentMarker.done(XQueryElementType.COMMENT);
                 } else {
+                    mBuilder.advanceLexer(); // XQueryTokenType.UNEXPECTED_END_OF_BLOCK
                     commentMarker.done(XQueryElementType.COMMENT);
                     mBuilder.error(XQueryBundle.message("parser.error.incomplete-comment"));
                 }

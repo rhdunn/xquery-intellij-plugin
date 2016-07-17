@@ -57,7 +57,7 @@ public class XQueryParserDefinition implements ParserDefinition {
     @NotNull
     @Override
     public TokenSet getCommentTokens() {
-        return TokenSet.EMPTY;
+        return XQueryTokenType.COMMENT_TOKENS;
     }
 
     @NotNull

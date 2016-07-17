@@ -21,6 +21,8 @@ import com.intellij.psi.tree.TokenSet;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 
 public interface XQueryTokenType extends TokenType {
+    IElementType UNEXPECTED_END_OF_BLOCK = new IElementType("XQUERY_UNEXPECTED_END_OF_BLOCK_TOKEN", XQuery.INSTANCE);
+
     IElementType COMMENT = new IElementType("XQUERY_COMMENT_TOKEN", XQuery.INSTANCE);
     IElementType COMMENT_START_TAG = new IElementType("XQUERY_COMMENT_START_TAG_TOKEN", XQuery.INSTANCE);
     IElementType COMMENT_END_TAG = new IElementType("XQUERY_COMMENT_END_TAG_TOKEN", XQuery.INSTANCE);
@@ -102,4 +104,6 @@ public interface XQueryTokenType extends TokenType {
         CHARACTER_REFERENCE,
         PREDEFINED_ENTITY_REFERENCE,
         PARTIAL_ENTITY_REFERENCE);
+
+    TokenSet COMMENT_TOKENS = TokenSet.create(COMMENT, XML_COMMENT);
 }

@@ -38,6 +38,7 @@ public class XQueryLexer extends LexerBase {
     private static final int STATE_DOUBLE_EXPONENT = 3;
     private static final int STATE_XQUERY_COMMENT = 4;
     private static final int STATE_XML_COMMENT = 5;
+    private static final int STATE_UNEXPECTED_END_OF_BLOCK = 6;
 
     private void matchEntityReference() {
         mTokenRange.match();
@@ -104,6 +105,11 @@ public class XQueryLexer extends LexerBase {
         }
     }
 
+    private void stateUnexpectedEndOfBlock() {
+        mType = XQueryTokenType.UNEXPECTED_END_OF_BLOCK;
+        mNextState = STATE_DEFAULT;
+    }
+
     private void stateXQueryComment() {
         int c = mTokenRange.getCodePoint();
         if (c == XQueryCodePointRange.END_OF_BUFFER) {
@@ -127,6 +133,7 @@ public class XQueryLexer extends LexerBase {
             if (c == XQueryCodePointRange.END_OF_BUFFER) {
                 mTokenRange.match();
                 mType = XQueryTokenType.COMMENT;
+                mNextState = STATE_UNEXPECTED_END_OF_BLOCK;
                 return;
             } else if (c == '(') {
                 mTokenRange.match();
@@ -179,6 +186,7 @@ public class XQueryLexer extends LexerBase {
             if (c == XQueryCodePointRange.END_OF_BUFFER) {
                 mTokenRange.match();
                 mType = XQueryTokenType.XML_COMMENT;
+                mNextState = STATE_UNEXPECTED_END_OF_BLOCK;
                 return;
             } else if (c == '-') {
                 mTokenRange.save();
@@ -548,6 +556,9 @@ public class XQueryLexer extends LexerBase {
                 break;
             case STATE_XML_COMMENT:
                 stateXmlComment();
+                break;
+            case STATE_UNEXPECTED_END_OF_BLOCK:
+                stateUnexpectedEndOfBlock();
                 break;
         }
     }

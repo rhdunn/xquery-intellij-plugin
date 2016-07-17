@@ -139,6 +139,7 @@ public class XQueryParser implements PsiParser {
             if (builder.matchTokenType(XQueryTokenType.XML_COMMENT_END_TAG)) {
                 commentMaker.done(XQueryElementType.DIR_COMMENT_CONSTRUCTOR);
             } else {
+                builder.advanceLexer(); // XQueryTokenType.UNEXPECTED_END_OF_BLOCK
                 commentMaker.done(XQueryElementType.DIR_COMMENT_CONSTRUCTOR);
                 builder.error(XQueryBundle.message("parser.error.incomplete-xml-comment"));
             }
