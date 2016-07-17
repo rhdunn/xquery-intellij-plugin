@@ -39,6 +39,7 @@ public class XQueryLexer extends LexerBase {
     private static final int STATE_XQUERY_COMMENT = 4;
     private static final int STATE_XML_COMMENT = 5;
     private static final int STATE_UNEXPECTED_END_OF_BLOCK = 6;
+    private static final int STATE_CDATA_SECTION = 7;
 
     private void matchEntityReference() {
         mTokenRange.match();
@@ -196,6 +197,53 @@ public class XQueryLexer extends LexerBase {
                     if (mTokenRange.getCodePoint() == '>') {
                         mTokenRange.restore();
                         mType = XQueryTokenType.XML_COMMENT;
+                        return;
+                    }
+                }
+            } else {
+                mTokenRange.match();
+            }
+            c = mTokenRange.getCodePoint();
+        }
+    }
+
+    private void stateCDataSection() {
+        int c = mTokenRange.getCodePoint();
+        if (c == XQueryCodePointRange.END_OF_BUFFER) {
+            mType = null;
+            return;
+        } else if (c == ']') {
+            mTokenRange.save();
+            mTokenRange.match();
+            if (mTokenRange.getCodePoint() == ']') {
+                mTokenRange.match();
+                if (mTokenRange.getCodePoint() == '>') {
+                    mTokenRange.match();
+                    mType = XQueryTokenType.CDATA_SECTION_END_TAG;
+                    mNextState = STATE_DEFAULT;
+                    return;
+                } else {
+                    mTokenRange.restore();
+                }
+            } else {
+                mTokenRange.restore();
+            }
+        }
+
+        while (true) {
+            if (c == XQueryCodePointRange.END_OF_BUFFER) {
+                mTokenRange.match();
+                mType = XQueryTokenType.CDATA_SECTION;
+                mNextState = STATE_UNEXPECTED_END_OF_BLOCK;
+                return;
+            } else if (c == ']') {
+                mTokenRange.save();
+                mTokenRange.match();
+                if (mTokenRange.getCodePoint() == ']') {
+                    mTokenRange.match();
+                    if (mTokenRange.getCodePoint() == '>') {
+                        mTokenRange.restore();
+                        mType = XQueryTokenType.CDATA_SECTION;
                         return;
                     }
                 }
@@ -400,6 +448,40 @@ public class XQueryLexer extends LexerBase {
                         } else {
                             mType = XQueryTokenType.INVALID;
                         }
+                    } else if (mTokenRange.getCodePoint() == '[') {
+                        mTokenRange.match();
+                        if (mTokenRange.getCodePoint() == 'C') {
+                            mTokenRange.match();
+                            if (mTokenRange.getCodePoint() == 'D') {
+                                mTokenRange.match();
+                                if (mTokenRange.getCodePoint() == 'A') {
+                                    mTokenRange.match();
+                                    if (mTokenRange.getCodePoint() == 'T') {
+                                        mTokenRange.match();
+                                        if (mTokenRange.getCodePoint() == 'A') {
+                                            mTokenRange.match();
+                                            if (mTokenRange.getCodePoint() == '[') {
+                                                mTokenRange.match();
+                                                mType = XQueryTokenType.CDATA_SECTION_START_TAG;
+                                                mNextState = STATE_CDATA_SECTION;
+                                            } else {
+                                                mType = XQueryTokenType.INVALID;
+                                            }
+                                        } else {
+                                            mType = XQueryTokenType.INVALID;
+                                        }
+                                    } else {
+                                        mType = XQueryTokenType.INVALID;
+                                    }
+                                } else {
+                                    mType = XQueryTokenType.INVALID;
+                                }
+                            } else {
+                                mType = XQueryTokenType.INVALID;
+                            }
+                        } else {
+                            mType = XQueryTokenType.INVALID;
+                        }
                     } else {
                         mType = XQueryTokenType.INVALID;
                     }
@@ -459,7 +541,19 @@ public class XQueryLexer extends LexerBase {
                 break;
             case CharacterClass.SQUARE_BRACE_CLOSE:
                 mTokenRange.match();
-                mType = XQueryTokenType.PREDICATE_END;
+                if (mTokenRange.getCodePoint() == ']') {
+                    mTokenRange.save();
+                    mTokenRange.match();
+                    if (mTokenRange.getCodePoint() == '>') {
+                        mTokenRange.match();
+                        mType = XQueryTokenType.CDATA_SECTION_END_TAG;
+                    } else {
+                        mTokenRange.restore();
+                        mType = XQueryTokenType.PREDICATE_END;
+                    }
+                } else {
+                    mType = XQueryTokenType.PREDICATE_END;
+                }
                 break;
             case CharacterClass.QUESTION_MARK:
                 mTokenRange.match();
@@ -559,6 +653,9 @@ public class XQueryLexer extends LexerBase {
                 break;
             case STATE_UNEXPECTED_END_OF_BLOCK:
                 stateUnexpectedEndOfBlock();
+                break;
+            case STATE_CDATA_SECTION:
+                stateCDataSection();
                 break;
         }
     }
