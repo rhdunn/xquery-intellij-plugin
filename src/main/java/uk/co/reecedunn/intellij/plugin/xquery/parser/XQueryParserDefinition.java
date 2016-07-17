@@ -29,10 +29,7 @@ import com.intellij.psi.tree.TokenSet;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.XQueryCommentPsiImpl;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.XQueryFileImpl;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.XQueryQNamePsiImpl;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.XQueryStringLiteralPsiImpl;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.*;
 
 public class XQueryParserDefinition implements ParserDefinition {
     @NotNull
@@ -79,6 +76,8 @@ public class XQueryParserDefinition implements ParserDefinition {
             return new XQueryQNamePsiImpl(node);
         } else if (type == XQueryElementType.COMMENT) {
             return new XQueryCommentPsiImpl(node);
+        } else if (type == XQueryElementType.DIR_COMMENT_CONSTRUCTOR) {
+            return new XQueryDirCommentConstructorPsiImpl(node);
         }
         throw new AssertionError("Alien element type [" + type + "]. Can't create XQuery PsiElement for that.");
     }

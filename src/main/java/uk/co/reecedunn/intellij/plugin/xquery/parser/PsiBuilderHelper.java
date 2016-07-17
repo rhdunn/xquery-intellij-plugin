@@ -52,7 +52,7 @@ public class PsiBuilderHelper {
                 skipped = true;
                 final PsiBuilder.Marker errorMarker = mBuilder.mark();
                 mBuilder.advanceLexer();
-                errorMarker.error(XQueryBundle.message("parser.error.end-of-comment-without-start"));
+                errorMarker.error(XQueryBundle.message("parser.error.end-of-comment-without-start", "(:"));
             } else {
                 return skipped;
             }

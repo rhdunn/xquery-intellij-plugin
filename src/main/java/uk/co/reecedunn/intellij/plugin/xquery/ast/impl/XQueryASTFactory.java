@@ -36,6 +36,8 @@ public class XQueryASTFactory extends ASTFactory {
             return new XQueryQNameImpl(type);
         } else if (type == XQueryElementType.COMMENT) {
             return new XQueryCommentImpl(type);
+        } else if (type == XQueryElementType.DIR_COMMENT_CONSTRUCTOR) {
+            return new XQueryDirCommentConstructorImpl(type);
         }
 
         return new CompositeElement(type);
@@ -44,7 +46,8 @@ public class XQueryASTFactory extends ASTFactory {
     @Override
     @Nullable
     public LeafElement createLeaf(@NotNull final IElementType type, @NotNull CharSequence text) {
-        if (type == XQueryTokenType.COMMENT) {
+        if (type == XQueryTokenType.COMMENT ||
+            type == XQueryTokenType.XML_COMMENT) {
             return new PsiCommentImpl(type, text);
         } else if (type == XQueryTokenType.INTEGER_LITERAL ||
                    type == XQueryTokenType.DECIMAL_LITERAL ||

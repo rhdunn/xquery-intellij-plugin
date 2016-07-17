@@ -233,7 +233,7 @@ public class XQueryParserTest extends ParserTestCase {
     public void testComment_UnexpectedCommentEndTag() {
         final String expected
                 = "FileElement[FILE(0:2)]\n"
-                + "   PsiErrorElementImpl[ERROR_ELEMENT(0:2)]('XPST0003: End of XQuery comment marker found without a '(:' start of comment marker.')\n"
+                + "   PsiErrorElementImpl[ERROR_ELEMENT(0:2)]('XPST0003: End of comment marker found without a '(:' start of comment marker.')\n"
                 + "      LeafPsiElement[XQUERY_COMMENT_END_TAG_TOKEN(0:2)](':)')\n";
 
         assertThat(prettyPrintASTNode(parseText(":)")), is(expected));
@@ -432,6 +432,67 @@ public class XQueryParserTest extends ParserTestCase {
                 + "   PsiWhiteSpaceImpl[WHITE_SPACE(0:4)](' \t\r\n')\n";
 
         assertThat(prettyPrintASTNode(parseText(" \t\r\n")), is(expected));
+    }
+
+    // endregion
+
+    // endregion
+    // region A.1 EBNF
+
+    // region DirCommentConstructor
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirCommentConstructor")
+    public void testDirCommentConstructor() {
+        final String expected
+                = "FileElement[FILE(0:13)]\n"
+                + "   XQueryDirCommentConstructorImpl[XQUERY_DIR_COMMENT_CONSTRUCTOR(0:13)]\n"
+                + "      LeafPsiElement[XQUERY_XML_COMMENT_START_TAG_TOKEN(0:4)]('<!--')\n"
+                + "      PsiCommentImpl[XQUERY_XML_COMMENT_TOKEN(4:10)](' Test ')\n"
+                + "      LeafPsiElement[XQUERY_XML_COMMENT_END_TAG_TOKEN(10:13)]('-->')\n";
+
+        assertThat(prettyPrintASTNode(parseText("<!-- Test -->")), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirCommentConstructor")
+    public void testDirCommentConstructor_UnclosedComment() {
+        final String expected
+                = "FileElement[FILE(0:10)]\n"
+                + "   XQueryDirCommentConstructorImpl[XQUERY_DIR_COMMENT_CONSTRUCTOR(0:10)]\n"
+                + "      LeafPsiElement[XQUERY_XML_COMMENT_START_TAG_TOKEN(0:4)]('<!--')\n"
+                + "      PsiCommentImpl[XQUERY_XML_COMMENT_TOKEN(4:10)](' Test ')\n"
+                + "   PsiErrorElementImpl[ERROR_ELEMENT(10:10)]('XPST0003: Unclosed XML comment.')\n";
+
+        assertThat(prettyPrintASTNode(parseText("<!-- Test ")), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirCommentConstructor")
+    public void testDirCommentConstructor_UnexpectedCommentEndTag() {
+        final String expected
+                = "FileElement[FILE(0:3)]\n"
+                + "   PsiErrorElementImpl[ERROR_ELEMENT(0:3)]('XPST0003: End of comment marker found without a '<!--' start of comment marker.')\n"
+                + "      LeafPsiElement[XQUERY_XML_COMMENT_END_TAG_TOKEN(0:3)]('-->')\n";
+
+        assertThat(prettyPrintASTNode(parseText("-->")), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirCommentConstructor")
+    public void testDirCommentConstructor_IncompleteStartTag() {
+        final String expected
+                = "FileElement[FILE(0:2)]\n"
+                + "   PsiErrorElementImpl[ERROR_ELEMENT(0:2)]('XPST0003: Unrecognized operator.')\n"
+                + "      LeafPsiElement[XQUERY_INCOMPLETE_XML_COMMENT_START_TAG_TOKEN(0:2)]('<!')\n";
+
+        assertThat(prettyPrintASTNode(parseText("<!")), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirCommentConstructor")
+    public void testDirCommentConstructor_IncompleteEndTag() {
+        final String expected
+                = "FileElement[FILE(0:2)]\n"
+                + "   PsiErrorElementImpl[ERROR_ELEMENT(0:2)]('XPST0003: Unrecognized operator.')\n"
+                + "      LeafPsiElement[XQUERY_MINUS_MINUS_TOKEN(0:2)]('--')\n";
+
+        assertThat(prettyPrintASTNode(parseText("--")), is(expected));
     }
 
     // endregion

@@ -35,6 +35,7 @@ public class XQueryParser implements PsiParser {
             if (parseStringLiteral(builder)) continue;
             if (misplacedEntityReference(builder)) continue;
             if (parseQName(builder)) continue;
+            if (parseDirCommentConstructor(builder)) continue;
             builder.advanceLexer();
         }
         rootMarker.done(root);
@@ -126,6 +127,25 @@ public class XQueryParser implements PsiParser {
             }
             errorMaker.error(XQueryBundle.message("parser.error.qname.missing-prefix"));
             return true;
+        }
+        return false;
+    }
+
+    private boolean parseDirCommentConstructor(@NotNull PsiBuilderHelper builder) {
+        if (builder.getTokenType() == XQueryTokenType.XML_COMMENT_START_TAG) {
+            final PsiBuilder.Marker commentMaker = builder.mark();
+            builder.advanceLexer();
+            builder.matchTokenType(XQueryTokenType.XML_COMMENT);
+            if (builder.matchTokenType(XQueryTokenType.XML_COMMENT_END_TAG)) {
+                commentMaker.done(XQueryElementType.DIR_COMMENT_CONSTRUCTOR);
+            } else {
+                commentMaker.done(XQueryElementType.DIR_COMMENT_CONSTRUCTOR);
+                builder.error(XQueryBundle.message("parser.error.incomplete-xml-comment"));
+            }
+            return true;
+        } else if (builder.errorOnTokenType(XQueryTokenType.XML_COMMENT_END_TAG, XQueryBundle.message("parser.error.end-of-comment-without-start", "<!--")) ||
+                   builder.errorOnTokenType(XQueryTokenType.MINUS_MINUS, XQueryBundle.message("parser.error.unrecognised-operator")) ||
+                   builder.errorOnTokenType(XQueryTokenType.INCOMPLETE_XML_COMMENT_START_TAG, XQueryBundle.message("parser.error.unrecognised-operator"))) {
         }
         return false;
     }
