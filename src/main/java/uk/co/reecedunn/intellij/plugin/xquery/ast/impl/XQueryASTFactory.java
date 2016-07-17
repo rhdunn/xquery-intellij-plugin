@@ -18,7 +18,6 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.impl;
 import com.intellij.lang.ASTFactory;
 import com.intellij.psi.impl.source.tree.*;
 import com.intellij.psi.tree.IElementType;
-import com.intellij.psi.tree.IFileElementType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
@@ -28,9 +27,7 @@ public class XQueryASTFactory extends ASTFactory {
     @Override
     @Nullable
     public CompositeElement createComposite(final IElementType type) {
-        if (type instanceof IFileElementType) {
-            return new FileElement(type, null);
-        } else if (type == XQueryElementType.STRING_LITERAL) {
+        if (type == XQueryElementType.STRING_LITERAL) {
             return new XQueryStringLiteralImpl(type);
         } else if (type == XQueryElementType.QNAME) {
             return new XQueryQNameImpl(type);
