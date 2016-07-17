@@ -48,7 +48,6 @@ public interface XQueryTokenType extends TokenType {
     IElementType EMPTY_ENTITY_REFERENCE = new IElementType("XQUERY_EMPTY_ENTITY_REFERENCE_TOKEN", XQuery.INSTANCE);
 
     IElementType NCNAME = new IElementType("XQUERY_NCNAME_TOKEN", XQuery.INSTANCE);
-    IElementType QNAME_PREFIX = new IElementType("XQUERY_QNAME_TOKEN", XQuery.INSTANCE);
     IElementType QNAME_SEPARATOR = new IElementType("XQUERY_QNAME_SEPARATOR_TOKEN", XQuery.INSTANCE);
 
     IElementType INVALID = new IElementType("XQUERY_INVALID_TOKEN", XQuery.INSTANCE);

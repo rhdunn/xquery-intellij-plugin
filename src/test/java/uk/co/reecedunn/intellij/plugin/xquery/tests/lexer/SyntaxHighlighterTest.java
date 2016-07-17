@@ -150,13 +150,6 @@ public class SyntaxHighlighterTest extends TestCase {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_XQUERY)[0], is(SyntaxHighlighter.KEYWORD));
     }
 
-    public void testTokenHighlights_NamespacePrefix() {
-        SyntaxHighlighter highlighter = new SyntaxHighlighter();
-
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.QNAME_PREFIX).length, is(1));
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.QNAME_PREFIX)[0], is(SyntaxHighlighter.NAMESPACE_PREFIX));
-    }
-
     public void testTokenHighlights_OtherToken() {
         SyntaxHighlighter highlighter = new SyntaxHighlighter();
 

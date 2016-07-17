@@ -58,8 +58,6 @@ public class XQueryASTFactory extends ASTFactory {
             return new XQueryEscapeCharacterImpl(type, text);
         } else if (type == XQueryTokenType.NCNAME) {
             return new XQueryNCNameImpl(type, text);
-        } else if (type == XQueryTokenType.QNAME_PREFIX) {
-            return new XQueryQNamePrefixImpl(type, text);
         }
 
         return new LeafPsiElement(type, text);

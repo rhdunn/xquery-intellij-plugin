@@ -75,8 +75,6 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
             return BAD_CHARACTER_KEYS;
         } else if (type == XQueryTokenType.NCNAME) {
             return IDENTIFIER_KEYS;
-        } else if (type == XQueryTokenType.QNAME_PREFIX) {
-            return NAMESPACE_PREFIX_KEYS;
         } else if (type == XQueryTokenType.COMMENT_START_TAG ||
                    type == XQueryTokenType.COMMENT ||
                    type == XQueryTokenType.COMMENT_END_TAG ||
