@@ -22,6 +22,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 public interface XQueryElementType {
     IFileElementType FILE = new IFileElementType(XQuery.INSTANCE);
 
+    IElementType CDATA_SECTION = new IElementType("XQUERY_CDATA_SECTION", XQuery.INSTANCE);
     IElementType COMMENT = new IElementType("XQUERY_COMMENT", XQuery.INSTANCE);
     IElementType DIR_COMMENT_CONSTRUCTOR = new IElementType("XQUERY_DIR_COMMENT_CONSTRUCTOR", XQuery.INSTANCE);
     IElementType QNAME = new IElementType("XQUERY_QNAME", XQuery.INSTANCE);

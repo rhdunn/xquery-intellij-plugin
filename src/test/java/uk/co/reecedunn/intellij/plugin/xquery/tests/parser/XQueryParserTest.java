@@ -485,6 +485,43 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region CDataSection
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CDataSection")
+    public void testCDataSection() {
+        final String expected
+                = "FileElement[FILE(0:18)]\n"
+                + "   XQueryCDataSectionImpl[XQUERY_CDATA_SECTION(0:18)]\n"
+                + "      LeafPsiElement[XQUERY_CDATA_SECTION_START_TAG_TOKEN(0:9)]('<![CDATA[')\n"
+                + "      LeafPsiElement[XQUERY_CDATA_SECTION_TOKEN(9:15)](' Test ')\n"
+                + "      LeafPsiElement[XQUERY_CDATA_SECTION_END_TAG_TOKEN(15:18)](']]>')\n";
+
+        assertThat(prettyPrintASTNode(parseText("<![CDATA[ Test ]]>")), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CDataSection")
+    public void testCDataSection_Unclosed() {
+        final String expected
+                = "FileElement[FILE(0:15)]\n"
+                + "   XQueryCDataSectionImpl[XQUERY_CDATA_SECTION(0:15)]\n"
+                + "      LeafPsiElement[XQUERY_CDATA_SECTION_START_TAG_TOKEN(0:9)]('<![CDATA[')\n"
+                + "      LeafPsiElement[XQUERY_CDATA_SECTION_TOKEN(9:15)](' Test ')\n"
+                + "   PsiErrorElementImpl[ERROR_ELEMENT(15:15)]('XPST0003: Unclosed CDATA section.')\n";
+
+        assertThat(prettyPrintASTNode(parseText("<![CDATA[ Test ")), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CDataSection")
+    public void testCDataSection_UnexpectedEndTag() {
+        final String expected
+                = "FileElement[FILE(0:3)]\n"
+                + "   PsiErrorElementImpl[ERROR_ELEMENT(0:3)]('XPST0003: End of CDATA section marker found without a '<![CDATA[' start of CDATA section marker.')\n" +
+                "      LeafPsiElement[XQUERY_CDATA_SECTION_END_TAG_TOKEN(0:3)](']]>')\n";
+
+        assertThat(prettyPrintASTNode(parseText("]]>")), is(expected));
+    }
+
+    // endregion
 
     // endregion
 }

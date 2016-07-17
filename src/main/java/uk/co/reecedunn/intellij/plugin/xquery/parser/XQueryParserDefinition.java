@@ -78,6 +78,8 @@ public class XQueryParserDefinition implements ParserDefinition {
             return new XQueryCommentPsiImpl(node);
         } else if (type == XQueryElementType.DIR_COMMENT_CONSTRUCTOR) {
             return new XQueryDirCommentConstructorPsiImpl(node);
+        } else if (type == XQueryElementType.CDATA_SECTION) {
+            return new XQueryCDataSectionPsiImpl(node);
         }
         throw new AssertionError("Alien element type [" + type + "]. Can't create XQuery PsiElement for that.");
     }

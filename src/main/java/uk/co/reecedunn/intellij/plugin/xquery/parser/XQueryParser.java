@@ -36,6 +36,7 @@ public class XQueryParser implements PsiParser {
             if (misplacedEntityReference(builder)) continue;
             if (parseQName(builder)) continue;
             if (parseDirCommentConstructor(builder)) continue;
+            if (parseCDataSection(builder)) continue;
             builder.advanceLexer();
         }
         rootMarker.done(root);
@@ -146,6 +147,25 @@ public class XQueryParser implements PsiParser {
             return true;
         } else if (builder.errorOnTokenType(XQueryTokenType.XML_COMMENT_END_TAG, XQueryBundle.message("parser.error.end-of-comment-without-start", "<!--")) ||
                    builder.errorOnTokenType(XQueryTokenType.INVALID, XQueryBundle.message("parser.error.invalid-token"))) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseCDataSection(@NotNull PsiBuilderHelper builder) {
+        if (builder.getTokenType() == XQueryTokenType.CDATA_SECTION_START_TAG) {
+            final PsiBuilder.Marker commentMaker = builder.mark();
+            builder.advanceLexer();
+            builder.matchTokenType(XQueryTokenType.CDATA_SECTION);
+            if (builder.matchTokenType(XQueryTokenType.CDATA_SECTION_END_TAG)) {
+                commentMaker.done(XQueryElementType.CDATA_SECTION);
+            } else {
+                builder.advanceLexer(); // XQueryTokenType.UNEXPECTED_END_OF_BLOCK
+                commentMaker.done(XQueryElementType.CDATA_SECTION);
+                builder.error(XQueryBundle.message("parser.error.incomplete-cdata-section"));
+            }
+            return true;
+        } else if (builder.errorOnTokenType(XQueryTokenType.CDATA_SECTION_END_TAG, XQueryBundle.message("parser.error.end-of-cdata-section-without-start"))) {
             return true;
         }
         return false;
