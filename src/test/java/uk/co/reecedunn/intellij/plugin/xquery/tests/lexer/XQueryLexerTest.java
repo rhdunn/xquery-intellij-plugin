@@ -634,11 +634,11 @@ public class XQueryLexerTest extends TestCase {
     public void testDirCommentConstructor() {
         Lexer lexer = new XQueryLexer();
 
-        matchSingleToken(lexer, "<!",   0, XQueryTokenType.INCOMPLETE_XML_COMMENT_START_TAG);
-        matchSingleToken(lexer, "<!-",  0, XQueryTokenType.INCOMPLETE_XML_COMMENT_START_TAG);
+        matchSingleToken(lexer, "<!",   0, XQueryTokenType.INVALID);
+        matchSingleToken(lexer, "<!-",  0, XQueryTokenType.INVALID);
         matchSingleToken(lexer, "<!--", 5, XQueryTokenType.XML_COMMENT_START_TAG);
 
-        matchSingleToken(lexer, "--",  XQueryTokenType.MINUS_MINUS);
+        matchSingleToken(lexer, "--",  XQueryTokenType.INVALID);
         matchSingleToken(lexer, "-->", XQueryTokenType.XML_COMMENT_END_TAG);
 
         lexer.start("<!-- Test");

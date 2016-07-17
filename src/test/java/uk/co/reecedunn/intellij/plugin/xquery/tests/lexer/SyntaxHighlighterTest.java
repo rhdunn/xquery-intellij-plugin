@@ -70,10 +70,6 @@ public class SyntaxHighlighterTest extends TestCase {
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_COMMENT_END_TAG).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_COMMENT_END_TAG)[0], is(SyntaxHighlighter.COMMENT));
-
-        // NOTE: These tokens are for the parser, so that a parser error will be emitted for lone closing tags.
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.INCOMPLETE_XML_COMMENT_START_TAG).length, is(0));
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.MINUS_MINUS).length, is(0));
     }
 
     public void testTokenHighlights_Number() {
@@ -163,6 +159,8 @@ public class SyntaxHighlighterTest extends TestCase {
 
     public void testTokenHighlights_OtherToken() {
         SyntaxHighlighter highlighter = new SyntaxHighlighter();
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.INVALID).length, is(0));
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.NOT_EQUAL).length, is(0));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.VARIABLE_INDICATOR).length, is(0));

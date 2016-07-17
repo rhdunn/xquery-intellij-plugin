@@ -40,6 +40,15 @@ public class XQueryParserTest extends ParserTestCase {
         assertThat(prettyPrintASTNode(parseText("~\uFFFE\uFFFF")), is(expected));
     }
 
+    public void testInvalidToken() {
+        final String expected
+                = "FileElement[FILE(0:2)]\n"
+                + "   PsiErrorElementImpl[ERROR_ELEMENT(0:2)]('XPST0003: Invalid XQuery symbol or operator.')\n"
+                + "      LeafPsiElement[XQUERY_INVALID_TOKEN(0:2)]('--')\n";
+
+        assertThat(prettyPrintASTNode(parseText("--")), is(expected));
+    }
+
     // endregion
     // region A.2.1 Terminal Symbols
 
@@ -473,26 +482,6 @@ public class XQueryParserTest extends ParserTestCase {
                 + "      LeafPsiElement[XQUERY_XML_COMMENT_END_TAG_TOKEN(0:3)]('-->')\n";
 
         assertThat(prettyPrintASTNode(parseText("-->")), is(expected));
-    }
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirCommentConstructor")
-    public void testDirCommentConstructor_IncompleteStartTag() {
-        final String expected
-                = "FileElement[FILE(0:2)]\n"
-                + "   PsiErrorElementImpl[ERROR_ELEMENT(0:2)]('XPST0003: Unrecognized operator.')\n"
-                + "      LeafPsiElement[XQUERY_INCOMPLETE_XML_COMMENT_START_TAG_TOKEN(0:2)]('<!')\n";
-
-        assertThat(prettyPrintASTNode(parseText("<!")), is(expected));
-    }
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirCommentConstructor")
-    public void testDirCommentConstructor_IncompleteEndTag() {
-        final String expected
-                = "FileElement[FILE(0:2)]\n"
-                + "   PsiErrorElementImpl[ERROR_ELEMENT(0:2)]('XPST0003: Unrecognized operator.')\n"
-                + "      LeafPsiElement[XQUERY_MINUS_MINUS_TOKEN(0:2)]('--')\n";
-
-        assertThat(prettyPrintASTNode(parseText("--")), is(expected));
     }
 
     // endregion

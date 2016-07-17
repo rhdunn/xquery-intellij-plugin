@@ -144,8 +144,8 @@ public class XQueryParser implements PsiParser {
             }
             return true;
         } else if (builder.errorOnTokenType(XQueryTokenType.XML_COMMENT_END_TAG, XQueryBundle.message("parser.error.end-of-comment-without-start", "<!--")) ||
-                   builder.errorOnTokenType(XQueryTokenType.MINUS_MINUS, XQueryBundle.message("parser.error.unrecognised-operator")) ||
-                   builder.errorOnTokenType(XQueryTokenType.INCOMPLETE_XML_COMMENT_START_TAG, XQueryBundle.message("parser.error.unrecognised-operator"))) {
+                   builder.errorOnTokenType(XQueryTokenType.INVALID, XQueryBundle.message("parser.error.invalid-token"))) {
+            return true;
         }
         return false;
     }

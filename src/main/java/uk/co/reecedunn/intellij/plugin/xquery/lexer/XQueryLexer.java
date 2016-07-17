@@ -356,7 +356,7 @@ public class XQueryLexer extends LexerBase {
                         mType = XQueryTokenType.XML_COMMENT_END_TAG;
                     } else {
                         mTokenRange.match();
-                        mType = XQueryTokenType.MINUS_MINUS;
+                        mType = XQueryTokenType.INVALID;
                     }
                 } else {
                     mType = XQueryTokenType.MINUS;
@@ -390,10 +390,10 @@ public class XQueryLexer extends LexerBase {
                             mType = XQueryTokenType.XML_COMMENT_START_TAG;
                             mNextState = STATE_XML_COMMENT;
                         } else {
-                            mType = XQueryTokenType.INCOMPLETE_XML_COMMENT_START_TAG;
+                            mType = XQueryTokenType.INVALID;
                         }
                     } else {
-                        mType = XQueryTokenType.INCOMPLETE_XML_COMMENT_START_TAG;
+                        mType = XQueryTokenType.INVALID;
                     }
                 } else {
                     mType = XQueryTokenType.LESS_THAN;
