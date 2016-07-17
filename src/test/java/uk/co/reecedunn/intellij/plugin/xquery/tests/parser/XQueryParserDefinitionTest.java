@@ -16,14 +16,18 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.parser;
 
 import com.intellij.lang.ParserDefinition;
+import com.intellij.psi.PsiFile;
 import com.intellij.psi.tree.TokenSet;
 import junit.framework.TestCase;
+import uk.co.reecedunn.intellij.plugin.xquery.filetypes.XQueryFileType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParser;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.XQueryFileImpl;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.mocks.MockASTNode;
+import uk.co.reecedunn.intellij.plugin.xquery.tests.mocks.MockFileViewProvider;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -86,6 +90,13 @@ public class XQueryParserDefinitionTest extends TestCase {
             // Unexpected exception.
         }
         assertTrue("createElement(null) should throw AssertionError.", thrown);
+    }
+
+    public void testCreateFile() {
+        ParserDefinition parserDefinition = new XQueryParserDefinition();
+        PsiFile file = parserDefinition.createFile(new MockFileViewProvider());
+        assertThat(file.getClass().getName(), is(XQueryFileImpl.class.getName()));
+        assertThat(file.getFileType(), is(XQueryFileType.INSTANCE));
     }
 
     public void testSpaceExistanceTypeBetweenTokens() {
