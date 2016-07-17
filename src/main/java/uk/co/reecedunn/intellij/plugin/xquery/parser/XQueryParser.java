@@ -135,7 +135,7 @@ public class XQueryParser implements PsiParser {
         if (builder.getTokenType() == XQueryTokenType.XML_COMMENT_START_TAG) {
             final PsiBuilder.Marker commentMaker = builder.mark();
             builder.advanceLexer();
-            builder.matchTokenType(XQueryTokenType.XML_COMMENT);
+            // NOTE: XQueryTokenType.XML_COMMENT is omitted by the PsiBuilder.
             if (builder.matchTokenType(XQueryTokenType.XML_COMMENT_END_TAG)) {
                 commentMaker.done(XQueryElementType.DIR_COMMENT_CONSTRUCTOR);
             } else {

@@ -38,9 +38,7 @@ public class PsiBuilderHelper {
                 skipped = true;
                 final PsiBuilder.Marker commentMarker = mBuilder.mark();
                 mBuilder.advanceLexer();
-                if (mBuilder.getTokenType() == XQueryTokenType.COMMENT) {
-                    mBuilder.advanceLexer();
-                }
+                // NOTE: XQueryTokenType.COMMENT is omitted by the PsiBuilder.
                 if (mBuilder.getTokenType() == XQueryTokenType.COMMENT_END_TAG) {
                     mBuilder.advanceLexer();
                     commentMarker.done(XQueryElementType.COMMENT);
