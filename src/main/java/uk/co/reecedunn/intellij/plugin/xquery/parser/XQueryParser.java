@@ -31,6 +31,7 @@ public class XQueryParser implements PsiParser {
         final PsiBuilder.Marker rootMarker = builder.mark();
         while (builder.getTokenType() != null) {
             if (builder.skipWhiteSpaceAndCommentTokens()) continue;
+            if (parseVersionDecl(builder)) continue;
             if (parseNumericLiteral(builder)) continue;
             if (parseStringLiteral(builder)) continue;
             if (misplacedEntityReference(builder)) continue;
@@ -127,6 +128,52 @@ public class XQueryParser implements PsiParser {
                 builder.advanceLexer();
             }
             errorMaker.error(XQueryBundle.message("parser.error.qname.missing-prefix"));
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseVersionDecl(@NotNull PsiBuilderHelper builder) {
+        if (builder.getTokenType() == XQueryTokenType.K_XQUERY) {
+            final PsiBuilder.Marker versionDeclMaker = builder.mark();
+            builder.advanceLexer();
+
+            builder.skipWhiteSpaceAndCommentTokens();
+            if (!builder.matchTokenType(XQueryTokenType.K_VERSION)) {
+                versionDeclMaker.done(XQueryElementType.VERSION_DECL);
+                builder.error(XQueryBundle.message("parser.error.expected-keyword", "version"));
+                return true;
+            }
+
+            builder.skipWhiteSpaceAndCommentTokens();
+            if (!parseStringLiteral(builder)) {
+                versionDeclMaker.done(XQueryElementType.VERSION_DECL);
+                builder.error(XQueryBundle.message("parser.error.expected-version-string"));
+                return true;
+            }
+
+            builder.skipWhiteSpaceAndCommentTokens();
+            if (builder.matchTokenType(XQueryTokenType.K_ENCODING)) {
+                builder.skipWhiteSpaceAndCommentTokens();
+                if (!parseStringLiteral(builder)) {
+                    versionDeclMaker.done(XQueryElementType.VERSION_DECL);
+                    builder.error(XQueryBundle.message("parser.error.expected-encoding-string"));
+                    return true;
+                }
+
+                builder.skipWhiteSpaceAndCommentTokens();
+            }
+
+            if (!builder.matchTokenType(XQueryTokenType.SEMICOLON)) {
+                versionDeclMaker.done(XQueryElementType.VERSION_DECL);
+                builder.error(XQueryBundle.message("parser.error.expected-semicolon"));
+                if (builder.getTokenType() == XQueryTokenType.QNAME_SEPARATOR) {
+                    builder.advanceLexer();
+                }
+                return true;
+            }
+
+            versionDeclMaker.done(XQueryElementType.VERSION_DECL);
             return true;
         }
         return false;

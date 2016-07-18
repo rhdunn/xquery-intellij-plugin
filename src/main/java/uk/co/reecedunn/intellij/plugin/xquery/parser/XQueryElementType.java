@@ -27,4 +27,5 @@ public interface XQueryElementType {
     IElementType DIR_COMMENT_CONSTRUCTOR = new IElementType("XQUERY_DIR_COMMENT_CONSTRUCTOR", XQuery.INSTANCE);
     IElementType QNAME = new IElementType("XQUERY_QNAME", XQuery.INSTANCE);
     IElementType STRING_LITERAL = new IElementType("XQUERY_STRING_LITERAL", XQuery.INSTANCE);
+    IElementType VERSION_DECL = new IElementType("XQUERY_VERSION_DECL", XQuery.INSTANCE);
 }
