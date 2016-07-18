@@ -29,8 +29,11 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 
 import javax.swing.*;
 import java.nio.charset.Charset;
+import java.nio.charset.UnsupportedCharsetException;
 
 public class XQueryFileType extends LanguageFileType {
+    private static final Charset UTF_8 = Charset.forName("UTF-8");
+
     private class ByteSequence implements CharSequence {
         private final byte[] mData;
         private final int mOffset;
@@ -147,27 +150,31 @@ public class XQueryFileType extends LanguageFileType {
         return match;
     }
 
-    private String getXQueryEncoding(CharSequence content) {
+    private Charset getXQueryEncoding(CharSequence content) {
         sEncodingLexer.start(content);
         matchWhiteSpaceOrComment(false);
-        if (!matchToken(XQueryTokenType.K_XQUERY)) return "utf-8";
-        if (!matchWhiteSpaceOrComment(true)) return "utf-8";
-        if (!matchToken(XQueryTokenType.K_VERSION)) return "utf-8";
-        if (!matchWhiteSpaceOrComment(true)) return "utf-8";
-        if (matchString(null) == null) return "utf-8";
-        if (!matchWhiteSpaceOrComment(true)) return "utf-8";
-        if (!matchToken(XQueryTokenType.K_ENCODING)) return "utf-8";
-        if (!matchWhiteSpaceOrComment(true)) return "utf-8";
-        return matchString("utf-8");
+        if (!matchToken(XQueryTokenType.K_XQUERY)) return UTF_8;
+        if (!matchWhiteSpaceOrComment(true)) return UTF_8;
+        if (!matchToken(XQueryTokenType.K_VERSION)) return UTF_8;
+        if (!matchWhiteSpaceOrComment(true)) return UTF_8;
+        if (matchString(null) == null) return UTF_8;
+        if (!matchWhiteSpaceOrComment(true)) return UTF_8;
+        if (!matchToken(XQueryTokenType.K_ENCODING)) return UTF_8;
+        if (!matchWhiteSpaceOrComment(true)) return UTF_8;
+        try {
+            return Charset.forName(matchString("utf-8"));
+        } catch (UnsupportedCharsetException e) {
+            return UTF_8;
+        }
     }
 
     @Override
     public String getCharset(@NotNull VirtualFile file, @NotNull final byte[] content) {
-        return getXQueryEncoding(new ByteSequence(content));
+        return getXQueryEncoding(new ByteSequence(content)).name();
     }
 
     @Override
     public Charset extractCharsetFromFileContent(@Nullable Project project, @Nullable VirtualFile file, @NotNull CharSequence content) {
-        return Charset.forName(getXQueryEncoding(content));
+        return getXQueryEncoding(content);
     }
 }
