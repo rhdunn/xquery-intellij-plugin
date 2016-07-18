@@ -15,5 +15,5 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast;
 
-public interface XQueryComment extends XQueryLiteral {
+public interface XQueryComment {
 }
