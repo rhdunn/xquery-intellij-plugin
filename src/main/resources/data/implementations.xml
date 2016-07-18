@@ -1,4 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright (C) 2016 Reece H. Dunn
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
 <implementations>
     <implementation id="saxon" name="Saxonica" localized="false" default="true">
         <version id="saxon/HE" name="xquery.implementation.home-edition" localized="true" default="true">
@@ -44,6 +59,75 @@
                 <feature ref="3.1/module" supported="true"/>
                 <feature ref="3.1/serialization" supported="true"/>
                 <feature ref="3.1/higher-order-function" supported="true"/>
+                <feature ref="3.1/fn:put" supported="false"/>
+            </dialect>
+        </version>
+        <version id="saxon/EE" name="xquery.implementation.enterprise-edition" localized="true" default="false">
+            <dialect id="saxon/EE/1.0" name="XQuery" xquery-version="1.0" localized="false" default="false">
+                <implements ref="https://www.w3.org/TR/2010/REC-xquery-20101214/"/>
+                <feature ref="1.0/minimal-conformance" supported="true"/>
+                <feature ref="1.0/schema-import" supported="true"/>
+                <feature ref="1.0/schema-validation" supported="true"/>
+                <feature ref="1.0/static-typing" supported="false"/>
+                <feature ref="1.0/full-axis" supported="true"/>
+                <feature ref="1.0/module" supported="true"/>
+                <feature ref="1.0/serialization" supported="true"/>
+            </dialect>
+            <dialect id="saxon/EE/1.0-update" name="xquery.implementation.xquery-update-10" xquery-version="1.0" localized="true" default="false">
+                <implements ref="https://www.w3.org/TR/2010/REC-xquery-20101214/"/>
+                <implements ref="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/"/>
+                <feature ref="1.0/minimal-conformance" supported="true"/>
+                <feature ref="1.0/schema-import" supported="true"/>
+                <feature ref="1.0/schema-validation" supported="true"/>
+                <feature ref="1.0/static-typing" supported="false"/>
+                <feature ref="1.0/full-axis" supported="true"/>
+                <feature ref="1.0/module" supported="true"/>
+                <feature ref="1.0/serialization" supported="true"/>
+            </dialect>
+            <dialect id="saxon/EE/3.0" name="XQuery" xquery-version="3.0" localized="false" default="true">
+                <implements ref="https://www.w3.org/TR/2014/REC-xquery-30-20140408/"/>
+                <feature ref="3.0/minimal-conformance" supported="true"/>
+                <feature ref="3.0/schema-aware" supported="true"/>
+                <feature ref="3.0/typed-data" supported="true"/>
+                <feature ref="3.0/static-typing" supported="false"/>
+                <feature ref="3.0/module" supported="true"/>
+                <feature ref="3.0/serialization" supported="true"/>
+                <feature ref="3.0/higher-order-function" supported="true"/>
+            </dialect>
+            <dialect id="saxon/EE/3.0-update" name="xquery.implementation.xquery-update-10" xquery-version="3.0" localized="true" default="true">
+                <implements ref="https://www.w3.org/TR/2014/REC-xquery-30-20140408/"/>
+                <implements ref="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/"/>
+                <feature ref="3.0/minimal-conformance" supported="true"/>
+                <feature ref="3.0/schema-aware" supported="true"/>
+                <feature ref="3.0/typed-data" supported="true"/>
+                <feature ref="3.0/static-typing" supported="false"/>
+                <feature ref="3.0/module" supported="true"/>
+                <feature ref="3.0/serialization" supported="true"/>
+                <feature ref="3.0/higher-order-function" supported="true"/>
+            </dialect>
+            <dialect id="saxon/EE/3.1" name="XQuery" xquery-version="3.1" localized="false" default="false">
+                <implements ref="https://www.w3.org/TR/2015/CR-xquery-31-20151217/"/>
+                <implements ref="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/"/>
+                <feature ref="3.1/minimal-conformance" supported="true"/>
+                <feature ref="3.1/schema-aware" supported="true"/>
+                <feature ref="3.1/typed-data" supported="true"/>
+                <feature ref="3.1/static-typing" supported="false"/>
+                <feature ref="3.1/module" supported="true"/>
+                <feature ref="3.1/serialization" supported="true"/>
+                <feature ref="3.1/higher-order-function" supported="true"/>
+                <feature ref="3.1/fn:put" supported="false"/>
+            </dialect>
+            <dialect id="saxon/EE/3.1-update" name="xquery.implementation.xquery-update-10" xquery-version="3.1" localized="true" default="false">
+                <implements ref="https://www.w3.org/TR/2015/CR-xquery-31-20151217/"/>
+                <implements ref="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/"/>
+                <feature ref="3.1/minimal-conformance" supported="true"/>
+                <feature ref="3.1/schema-aware" supported="true"/>
+                <feature ref="3.1/typed-data" supported="true"/>
+                <feature ref="3.1/static-typing" supported="false"/>
+                <feature ref="3.1/module" supported="true"/>
+                <feature ref="3.1/serialization" supported="true"/>
+                <feature ref="3.1/higher-order-function" supported="true"/>
+                <feature ref="3.1/fn:put" supported="false"/>
             </dialect>
         </version>
     </implementation>
