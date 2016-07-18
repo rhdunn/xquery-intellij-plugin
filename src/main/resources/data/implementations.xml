@@ -15,6 +15,40 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 <implementations>
+    <implementation id="marklogic" name="MarkLogic" localized="false" default="false">
+        <version id="marklogic/v6" name="MarkLogic 6" localized="false" default="true">
+            <dialect id="marklogic/v6/0.9-ml" name="XQuery" xquery-version="0.9-ml" localized="false" default="true">
+                <implements ref="https://www.w3.org/TR/2003/WD-xquery-20030502/"/>
+                <feature ref="1.0/minimal-conformance" supported="false"/>
+                <feature ref="1.0/schema-import" supported="true"/>
+                <feature ref="1.0/schema-validation" supported="true"/>
+                <feature ref="1.0/static-typing" supported="false"/>
+                <feature ref="1.0/full-axis" supported="true"/>
+                <feature ref="1.0/module" supported="true"/>
+                <feature ref="1.0/serialization" supported="false"/>
+            </dialect>
+            <dialect id="marklogic/v6/1.0" name="XQuery" xquery-version="1.0" localized="false" default="true">
+                <implements ref="https://www.w3.org/TR/2010/REC-xquery-20101214/"/>
+                <feature ref="1.0/minimal-conformance" supported="true"/>
+                <feature ref="1.0/schema-import" supported="true"/>
+                <feature ref="1.0/schema-validation" supported="true"/>
+                <feature ref="1.0/static-typing" supported="false"/>
+                <feature ref="1.0/full-axis" supported="true"/>
+                <feature ref="1.0/module" supported="true"/>
+                <feature ref="1.0/serialization" supported="false"/>
+            </dialect>
+            <dialect id="marklogic/v6/1.0-ml" name="XQuery" xquery-version="1.0-ml" localized="false" default="true">
+                <implements ref="https://www.w3.org/TR/2010/REC-xquery-20101214/"/>
+                <feature ref="1.0/minimal-conformance" supported="false"/>
+                <feature ref="1.0/schema-import" supported="true"/>
+                <feature ref="1.0/schema-validation" supported="true"/>
+                <feature ref="1.0/static-typing" supported="false"/>
+                <feature ref="1.0/full-axis" supported="true"/>
+                <feature ref="1.0/module" supported="true"/>
+                <feature ref="1.0/serialization" supported="false"/>
+            </dialect>
+        </version>
+    </implementation>
     <implementation id="saxon" name="Saxonica" localized="false" default="false">
         <version id="saxon/HE" name="xquery.implementation.home-edition" localized="true" default="true">
             <dialect id="saxon/HE/1.0" name="XQuery" xquery-version="1.0" localized="false" default="true">
