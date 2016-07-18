@@ -3,7 +3,7 @@
     <implementation id="saxon" name="Saxonica" localized="false" default="true">
         <version id="saxon/HE" name="xquery.implementation.home-edition" localized="true" default="true">
             <dialect id="saxon/HE/1.0" name="XQuery" xquery-version="1.0" localized="false" default="true">
-                <implements ref="http://www.w3.org/TR/2007/REC-xquery-20070123/"/>
+                <implements ref="https://www.w3.org/TR/2010/REC-xquery-20101214/"/>
                 <feature ref="1.0/minimal-conformance" supported="true"/>
                 <feature ref="1.0/schema-import" supported="false"/>
                 <feature ref="1.0/schema-validation" supported="false"/>
@@ -13,6 +13,38 @@
                 <feature ref="1.0/serialization" supported="true"/>
             </dialect>
             <!-- Saxon Home Edition does not support XQuery 3.0 nor 3.1 -->
+        </version>
+        <version id="saxon/PE" name="xquery.implementation.professional-edition" localized="true" default="false">
+            <dialect id="saxon/PE/1.0" name="XQuery" xquery-version="1.0" localized="false" default="false">
+                <implements ref="https://www.w3.org/TR/2010/REC-xquery-20101214/"/>
+                <feature ref="1.0/minimal-conformance" supported="true"/>
+                <feature ref="1.0/schema-import" supported="false"/>
+                <feature ref="1.0/schema-validation" supported="false"/>
+                <feature ref="1.0/static-typing" supported="false"/>
+                <feature ref="1.0/full-axis" supported="true"/>
+                <feature ref="1.0/module" supported="true"/>
+                <feature ref="1.0/serialization" supported="true"/>
+            </dialect>
+            <dialect id="saxon/PE/3.0" name="XQuery" xquery-version="3.0" localized="false" default="true">
+                <implements ref="https://www.w3.org/TR/2014/REC-xquery-30-20140408/"/>
+                <feature ref="3.0/minimal-conformance" supported="true"/>
+                <feature ref="3.0/schema-aware" supported="false"/>
+                <feature ref="3.0/typed-data" supported="false"/>
+                <feature ref="3.0/static-typing" supported="false"/>
+                <feature ref="3.0/module" supported="true"/>
+                <feature ref="3.0/serialization" supported="true"/>
+                <feature ref="3.0/higher-order-function" supported="true"/>
+            </dialect>
+            <dialect id="saxon/PE/3.1" name="XQuery" xquery-version="3.1" localized="false" default="false">
+                <implements ref="https://www.w3.org/TR/2015/CR-xquery-31-20151217/"/>
+                <feature ref="3.1/minimal-conformance" supported="true"/>
+                <feature ref="3.1/schema-aware" supported="false"/>
+                <feature ref="3.1/typed-data" supported="false"/>
+                <feature ref="3.1/static-typing" supported="false"/>
+                <feature ref="3.1/module" supported="true"/>
+                <feature ref="3.1/serialization" supported="true"/>
+                <feature ref="3.1/higher-order-function" supported="true"/>
+            </dialect>
         </version>
     </implementation>
 </implementations>
