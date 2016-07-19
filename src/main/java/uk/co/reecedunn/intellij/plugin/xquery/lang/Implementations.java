@@ -17,7 +17,6 @@ package uk.co.reecedunn.intellij.plugin.xquery.lang;
 
 import org.w3c.dom.*;
 import org.xml.sax.InputSource;
-import uk.co.reecedunn.intellij.plugin.xquery.XQueryBundle;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -26,42 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Implementations {
-    public static class Item {
-        private final String mID;
-        private final String mName;
-
-        Item() {
-            mID = null;
-            mName = null;
-        }
-
-        Item(Element element) {
-            final NamedNodeMap attributes = element.getAttributes();
-            mID = attributes.getNamedItem("id").getNodeValue();
-            if (attributes.getNamedItem("localized").getNodeValue().equals("true")) {
-                mName = XQueryBundle.message(attributes.getNamedItem("name").getNodeValue());
-            } else {
-                mName = attributes.getNamedItem("name").getNodeValue();
-            }
-        }
-
-        public String getID() {
-            return mID;
-        }
-
-        public String toString() {
-            return mName;
-        }
-
-        @Override
-        public boolean equals(Object other) {
-            if (!(other instanceof Item))
-                return false;
-            return ((Item)other).getID().equals(mID);
-        }
-    }
-
-    private static final Item NULL_ITEM = new Item();
+    private static final ImplementationItem NULL_ITEM = new ImplementationItem();
     private static final Element sImplementations = loadImplementations();
 
     private static Element loadImplementations() {
@@ -76,35 +40,35 @@ public class Implementations {
         }
     }
 
-    private static List<Item> getItemsByTagName(Element element, String tagName) {
-        final List<Item> items = new ArrayList<>();
+    private static List<ImplementationItem> getItemsByTagName(Element element, String tagName) {
+        final List<ImplementationItem> items = new ArrayList<>();
         if (element != null) {
             NodeList nodes = element.getElementsByTagName(tagName);
             for (int i = 0; i != nodes.getLength(); ++i) {
-                items.add(new Item((Element)nodes.item(i)));
+                items.add(new ImplementationItem((Element)nodes.item(i)));
             }
         }
         return items;
     }
 
-    private static Item getDefaultItemByTagName(Element element, String tagName) {
+    private static ImplementationItem getDefaultItemByTagName(Element element, String tagName) {
         if (element != null) {
             NodeList nodes = element.getElementsByTagName(tagName);
             for (int i = 0; i != nodes.getLength(); ++i) {
                 Node node = nodes.item(i);
                 if (node.getAttributes().getNamedItem("default").getNodeValue().equals("true")) {
-                    return new Item((Element)node);
+                    return new ImplementationItem((Element)node);
                 }
             }
         }
         return NULL_ITEM;
     }
 
-    public static List<Item> getImplementations() {
+    public static List<ImplementationItem> getImplementations() {
         return getItemsByTagName(sImplementations, "implementation");
     }
 
-    public static Item getDefaultImplementation() {
+    public static ImplementationItem getDefaultImplementation() {
         return getDefaultItemByTagName(sImplementations, "implementation");
     }
 }

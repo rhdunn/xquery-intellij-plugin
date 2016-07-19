@@ -21,6 +21,7 @@ import com.intellij.openapi.project.Project;
 import com.intellij.util.xmlb.XmlSerializerUtil;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.XQueryBundle;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Implementations;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 
@@ -31,7 +32,7 @@ import java.io.File;
     storages = { @Storage(StoragePathMacros.WORKSPACE_FILE), @Storage("xquery_config.xml") }
 )
 public class XQueryProjectSettings implements PersistentStateComponent<XQueryProjectSettings>, ExportableComponent {
-    private Implementations.Item IMPLEMENTATION = Implementations.getDefaultImplementation();
+    private ImplementationItem IMPLEMENTATION = Implementations.getDefaultImplementation();
     private XQueryVersion XQUERY_VERSION = XQueryVersion.XQUERY_3_0;
 
     public static XQueryProjectSettings getInstance(@NotNull Project project) {
@@ -59,11 +60,11 @@ public class XQueryProjectSettings implements PersistentStateComponent<XQueryPro
         return XQueryBundle.message("xquery.settings.project.title");
     }
 
-    public Implementations.Item getImplementation() {
+    public ImplementationItem getImplementation() {
         return IMPLEMENTATION;
     }
 
-    public void setImplementation(Implementations.Item implementation) {
+    public void setImplementation(ImplementationItem implementation) {
         IMPLEMENTATION = implementation;
     }
 

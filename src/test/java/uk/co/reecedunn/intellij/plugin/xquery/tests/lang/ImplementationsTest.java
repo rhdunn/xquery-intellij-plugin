@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.lang;
 
 import junit.framework.TestCase;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Implementations;
 
 import java.util.List;
@@ -25,7 +26,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ImplementationsTest extends TestCase {
     public void testImplementations() {
-        final List<Implementations.Item> implementations = Implementations.getImplementations();
+        final List<ImplementationItem> implementations = Implementations.getImplementations();
         assertThat(implementations.size(), is(3));
 
         assertThat(implementations.get(0).getID(), is("marklogic"));
@@ -43,7 +44,7 @@ public class ImplementationsTest extends TestCase {
     }
 
     public void testDefaultImplementation() {
-        Implementations.Item implementation = Implementations.getDefaultImplementation();
+        ImplementationItem implementation = Implementations.getDefaultImplementation();
         assertThat(implementation.getID(), is("w3c"));
         assertThat(implementation.toString(), is("W3C"));
     }
