@@ -22,6 +22,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.Implementations;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ImplementationsTest extends TestCase {
@@ -47,5 +48,41 @@ public class ImplementationsTest extends TestCase {
         ImplementationItem implementation = Implementations.getDefaultImplementation();
         assertThat(implementation.getID(), is("w3c"));
         assertThat(implementation.toString(), is("W3C"));
+    }
+
+    public void testDefaultItemForAnUnsupportedTagName() {
+        ImplementationItem implementation = Implementations.getImplementations().get(1);
+
+        ImplementationItem version = implementation.getDefaultItem("does-not-exist");
+        assertThat(version.getID(), is(nullValue()));
+        assertThat(version.toString(), is(nullValue()));
+    }
+
+    public void testImplementationVersion() {
+        ImplementationItem implementation = Implementations.getImplementations().get(1);
+
+        final List<ImplementationItem> versions = implementation.getItems(ImplementationItem.IMPLEMENTATION_VERSION);
+        assertThat(versions.size(), is(3));
+
+        assertThat(versions.get(0).getID(), is("saxon/HE"));
+        assertThat(versions.get(0).toString(), is("Home Edition"));
+
+        assertThat(versions.get(1).getID(), is("saxon/PE"));
+        assertThat(versions.get(1).toString(), is("Professional Edition"));
+
+        assertThat(versions.get(2).getID(), is("saxon/EE"));
+        assertThat(versions.get(2).toString(), is("Enterprise Edition"));
+
+        assertThat(versions.get(0).equals(versions.get(0)), is(true));
+        assertThat(versions.get(1).equals(versions.get(0)), is(false));
+        assertThat(versions.get(0).equals(versions.get(0).getID()), is(false));
+    }
+
+    public void testDefaultImplementationVersion() {
+        ImplementationItem implementation = Implementations.getImplementations().get(1);
+
+        ImplementationItem version = implementation.getDefaultItem(ImplementationItem.IMPLEMENTATION_VERSION);
+        assertThat(version.getID(), is("saxon/HE"));
+        assertThat(version.toString(), is("Home Edition"));
     }
 }

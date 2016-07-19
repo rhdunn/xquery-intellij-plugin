@@ -26,6 +26,7 @@ import javax.swing.*;
 public class XQueryPropertiesUI {
     private JComboBox<XQueryVersion> mVersion;
     private JComboBox<ImplementationItem> mImplementations;
+    private JComboBox<ImplementationItem> mImplementationVersions;
 
     private JPanel mPanel;
     private final XQueryProjectSettings mSettings;
@@ -39,7 +40,28 @@ public class XQueryPropertiesUI {
     }
 
     private void createUIComponents() {
+        mImplementationVersions = new JComboBox<>();
+
         mImplementations = new JComboBox<>();
+        mImplementations.addActionListener(e -> {
+            final ImplementationItem implementation = (ImplementationItem)mImplementations.getSelectedItem();
+
+            final ImplementationItem selected = (ImplementationItem)mImplementationVersions.getSelectedItem();
+            boolean found = false;
+
+            mImplementationVersions.removeAllItems();
+            for (ImplementationItem version : implementation.getItems(ImplementationItem.IMPLEMENTATION_VERSION)) {
+                mImplementationVersions.addItem(version);
+                if (version == selected) {
+                    mImplementationVersions.setSelectedItem(version);
+                    found = true;
+                }
+            }
+            if (!found) {
+                mImplementationVersions.setSelectedItem(implementation.getDefaultItem(ImplementationItem.IMPLEMENTATION_VERSION));
+            }
+        });
+
         for (ImplementationItem implementation : Implementations.getImplementations()) {
             mImplementations.addItem(implementation);
         }
@@ -52,17 +74,20 @@ public class XQueryPropertiesUI {
 
     public boolean isModified() {
         if (!mImplementations.getSelectedItem().equals(mSettings.getImplementation())) return true;
+        if (!mImplementationVersions.getSelectedItem().equals(mSettings.getImplementationVersion())) return true;
         if (!mVersion.getSelectedItem().equals(mSettings.getXQueryVersion())) return true;
         return false;
     }
 
     public void apply() throws ConfigurationException {
         mSettings.setImplementation((ImplementationItem)mImplementations.getSelectedItem());
+        mSettings.setImplementationVersion((ImplementationItem)mImplementationVersions.getSelectedItem());
         mSettings.setXQueryVersion((XQueryVersion)mVersion.getSelectedItem());
     }
 
     public void reset() {
         mImplementations.setSelectedItem(mSettings.getImplementation());
+        mImplementationVersions.setSelectedItem(mSettings.getImplementationVersion());
         mVersion.setSelectedItem(mSettings.getXQueryVersion());
     }
 }

@@ -21,7 +21,6 @@ import org.xml.sax.InputSource;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Implementations {
@@ -40,10 +39,10 @@ public class Implementations {
     }
 
     public static List<ImplementationItem> getImplementations() {
-        return sImplementations.getItemsByTagName("implementation");
+        return sImplementations.getItems("implementation");
     }
 
     public static ImplementationItem getDefaultImplementation() {
-        return sImplementations.getDefaultItemByTagName("implementation");
+        return sImplementations.getDefaultItem("implementation");
     }
 }

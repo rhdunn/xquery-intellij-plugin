@@ -25,6 +25,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ImplementationItem {
+    public static final String IMPLEMENTATION_VERSION = "version";
+
     private static final ImplementationItem NULL_ITEM = new ImplementationItem();
 
     private final Element mElement;
@@ -68,7 +70,7 @@ public class ImplementationItem {
         return ((ImplementationItem) other).getID().equals(mID);
     }
 
-    public List<ImplementationItem> getItemsByTagName(String tagName) {
+    public List<ImplementationItem> getItems(String tagName) {
         final List<ImplementationItem> items = new ArrayList<>();
         if (mElement != null) {
             NodeList nodes = mElement.getElementsByTagName(tagName);
@@ -79,7 +81,7 @@ public class ImplementationItem {
         return items;
     }
 
-    public ImplementationItem getDefaultItemByTagName(String tagName) {
+    public ImplementationItem getDefaultItem(String tagName) {
         if (mElement != null) {
             NodeList nodes = mElement.getElementsByTagName(tagName);
             for (int i = 0; i != nodes.getLength(); ++i) {
