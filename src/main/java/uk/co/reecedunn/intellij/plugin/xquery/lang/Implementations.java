@@ -35,8 +35,8 @@ public class Implementations {
             mName = null;
         }
 
-        Item(Node node) {
-            final NamedNodeMap attributes = node.getAttributes();
+        Item(Element element) {
+            final NamedNodeMap attributes = element.getAttributes();
             mID = attributes.getNamedItem("id").getNodeValue();
             if (attributes.getNamedItem("localized").getNodeValue().equals("true")) {
                 mName = XQueryBundle.message(attributes.getNamedItem("name").getNodeValue());
@@ -81,7 +81,7 @@ public class Implementations {
         if (sImplementations != null) {
             NodeList nodes = sImplementations.getElementsByTagName("implementation");
             for (int i = 0; i != nodes.getLength(); ++i) {
-                items.add(new Item(nodes.item(i)));
+                items.add(new Item((Element)nodes.item(i)));
             }
         }
         return items;
@@ -93,7 +93,7 @@ public class Implementations {
             for (int i = 0; i != nodes.getLength(); ++i) {
                 Node node = nodes.item(i);
                 if (node.getAttributes().getNamedItem("default").getNodeValue().equals("true")) {
-                    return new Item(node);
+                    return new Item((Element)node);
                 }
             }
         }
