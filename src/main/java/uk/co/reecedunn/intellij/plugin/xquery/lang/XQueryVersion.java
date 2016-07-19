@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.lang;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import uk.co.reecedunn.intellij.plugin.xquery.XQueryBundle;
+import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 
 public enum XQueryVersion {
     XQUERY_0_9_MARKLOGIC("0.9-ml", XQueryBundle.message("xquery.version.description.0.9-ml"), "https://docs.marklogic.com/5.0/guide/xquery/dialects"),
