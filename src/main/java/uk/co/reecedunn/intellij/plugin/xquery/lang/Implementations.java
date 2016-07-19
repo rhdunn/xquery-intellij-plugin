@@ -25,8 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Implementations {
-    private static final ImplementationItem NULL_ITEM = new ImplementationItem();
-    private static final Element sImplementations = loadImplementations();
+    private static final ImplementationItem sImplementations = new ImplementationItem(loadImplementations());
 
     private static Element loadImplementations() {
         ClassLoader loader = Implementations.class.getClassLoader();
@@ -40,35 +39,11 @@ public class Implementations {
         }
     }
 
-    private static List<ImplementationItem> getItemsByTagName(Element element, String tagName) {
-        final List<ImplementationItem> items = new ArrayList<>();
-        if (element != null) {
-            NodeList nodes = element.getElementsByTagName(tagName);
-            for (int i = 0; i != nodes.getLength(); ++i) {
-                items.add(new ImplementationItem((Element)nodes.item(i)));
-            }
-        }
-        return items;
-    }
-
-    private static ImplementationItem getDefaultItemByTagName(Element element, String tagName) {
-        if (element != null) {
-            NodeList nodes = element.getElementsByTagName(tagName);
-            for (int i = 0; i != nodes.getLength(); ++i) {
-                Node node = nodes.item(i);
-                if (node.getAttributes().getNamedItem("default").getNodeValue().equals("true")) {
-                    return new ImplementationItem((Element)node);
-                }
-            }
-        }
-        return NULL_ITEM;
-    }
-
     public static List<ImplementationItem> getImplementations() {
-        return getItemsByTagName(sImplementations, "implementation");
+        return sImplementations.getItemsByTagName("implementation");
     }
 
     public static ImplementationItem getDefaultImplementation() {
-        return getDefaultItemByTagName(sImplementations, "implementation");
+        return sImplementations.getDefaultItemByTagName("implementation");
     }
 }

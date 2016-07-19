@@ -17,24 +17,39 @@ package uk.co.reecedunn.intellij.plugin.xquery.lang;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import uk.co.reecedunn.intellij.plugin.xquery.XQueryBundle;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ImplementationItem {
+    private static final ImplementationItem NULL_ITEM = new ImplementationItem();
+
+    private final Element mElement;
     private final String mID;
     private final String mName;
 
-    ImplementationItem() {
+    private ImplementationItem() {
+        mElement = null;
         mID = null;
         mName = null;
     }
 
     ImplementationItem(Element element) {
+        mElement = element;
         final NamedNodeMap attributes = element.getAttributes();
-        mID = attributes.getNamedItem("id").getNodeValue();
-        if (attributes.getNamedItem("localized").getNodeValue().equals("true")) {
-            mName = XQueryBundle.message(attributes.getNamedItem("name").getNodeValue());
+        if (element.getTagName().equals("implementations")) {
+            mID = null;
+            mName = null;
         } else {
-            mName = attributes.getNamedItem("name").getNodeValue();
+            mID = attributes.getNamedItem("id").getNodeValue();
+            if (attributes.getNamedItem("localized").getNodeValue().equals("true")) {
+                mName = XQueryBundle.message(attributes.getNamedItem("name").getNodeValue());
+            } else {
+                mName = attributes.getNamedItem("name").getNodeValue();
+            }
         }
     }
 
@@ -51,5 +66,29 @@ public class ImplementationItem {
         if (!(other instanceof ImplementationItem))
             return false;
         return ((ImplementationItem) other).getID().equals(mID);
+    }
+
+    public List<ImplementationItem> getItemsByTagName(String tagName) {
+        final List<ImplementationItem> items = new ArrayList<>();
+        if (mElement != null) {
+            NodeList nodes = mElement.getElementsByTagName(tagName);
+            for (int i = 0; i != nodes.getLength(); ++i) {
+                items.add(new ImplementationItem((Element)nodes.item(i)));
+            }
+        }
+        return items;
+    }
+
+    public ImplementationItem getDefaultItemByTagName(String tagName) {
+        if (mElement != null) {
+            NodeList nodes = mElement.getElementsByTagName(tagName);
+            for (int i = 0; i != nodes.getLength(); ++i) {
+                Node node = nodes.item(i);
+                if (node.getAttributes().getNamedItem("default").getNodeValue().equals("true")) {
+                    return new ImplementationItem((Element)node);
+                }
+            }
+        }
+        return NULL_ITEM;
     }
 }
