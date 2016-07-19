@@ -15,10 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.lang;
 
-import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import org.w3c.dom.*;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 
 import java.util.ArrayList;
@@ -39,19 +36,20 @@ public class ImplementationItem {
         mName = null;
     }
 
+    ImplementationItem(Document document) {
+        mElement = document.getDocumentElement();
+        mID = null;
+        mName = null;
+    }
+
     ImplementationItem(Element element) {
-        mElement = element;
         final NamedNodeMap attributes = element.getAttributes();
-        if (element.getTagName().equals("implementations")) {
-            mID = null;
-            mName = null;
+        mElement = element;
+        mID = attributes.getNamedItem("id").getNodeValue();
+        if (attributes.getNamedItem("localized").getNodeValue().equals("true")) {
+            mName = XQueryBundle.message(attributes.getNamedItem("name").getNodeValue());
         } else {
-            mID = attributes.getNamedItem("id").getNodeValue();
-            if (attributes.getNamedItem("localized").getNodeValue().equals("true")) {
-                mName = XQueryBundle.message(attributes.getNamedItem("name").getNodeValue());
-            } else {
-                mName = attributes.getNamedItem("name").getNodeValue();
-            }
+            mName = attributes.getNamedItem("name").getNodeValue();
         }
     }
 

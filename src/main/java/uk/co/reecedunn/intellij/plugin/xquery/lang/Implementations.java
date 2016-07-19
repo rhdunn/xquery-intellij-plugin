@@ -15,28 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.lang;
 
-import org.w3c.dom.*;
-import org.xml.sax.InputSource;
+import uk.co.reecedunn.intellij.plugin.xquery.resources.Resources;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.InputStream;
 import java.util.List;
 
 public class Implementations {
-    private static final ImplementationItem sImplementations = new ImplementationItem(loadImplementations());
-
-    private static Element loadImplementations() {
-        ClassLoader loader = Implementations.class.getClassLoader();
-        InputStream input = loader.getResourceAsStream("data/implementations.xml");
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        try {
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            return builder.parse(new InputSource(input)).getDocumentElement();
-        } catch (Exception e) {
-            return null;
-        }
-    }
+    private static final ImplementationItem sImplementations = new ImplementationItem(Resources.loadXml("data/implementations.xml"));
 
     public static List<ImplementationItem> getImplementations() {
         return sImplementations.getItems("implementation");
