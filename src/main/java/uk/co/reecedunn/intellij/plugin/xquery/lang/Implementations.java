@@ -76,10 +76,10 @@ public class Implementations {
         }
     }
 
-    public static List<Item> getImplementations() {
+    private static List<Item> getItemsByTagName(Element element, String tagName) {
         final List<Item> items = new ArrayList<>();
-        if (sImplementations != null) {
-            NodeList nodes = sImplementations.getElementsByTagName("implementation");
+        if (element != null) {
+            NodeList nodes = element.getElementsByTagName(tagName);
             for (int i = 0; i != nodes.getLength(); ++i) {
                 items.add(new Item((Element)nodes.item(i)));
             }
@@ -87,9 +87,9 @@ public class Implementations {
         return items;
     }
 
-    public static Item getDefaultImplementation() {
-        if (sImplementations != null) {
-            NodeList nodes = sImplementations.getElementsByTagName("implementation");
+    private static Item getDefaultItemByTagName(Element element, String tagName) {
+        if (element != null) {
+            NodeList nodes = element.getElementsByTagName(tagName);
             for (int i = 0; i != nodes.getLength(); ++i) {
                 Node node = nodes.item(i);
                 if (node.getAttributes().getNamedItem("default").getNodeValue().equals("true")) {
@@ -98,5 +98,13 @@ public class Implementations {
             }
         }
         return NULL_ITEM;
+    }
+
+    public static List<Item> getImplementations() {
+        return getItemsByTagName(sImplementations, "implementation");
+    }
+
+    public static Item getDefaultImplementation() {
+        return getDefaultItemByTagName(sImplementations, "implementation");
     }
 }
