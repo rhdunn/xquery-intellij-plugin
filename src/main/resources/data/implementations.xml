@@ -334,7 +334,7 @@ limitations under the License.
             </dialect>
         </version>
         <version id="w3c/note" name="xquery.implementation.note" localized="true" default="false">
-            <dialect id="w3c/1.0-scripting" name="xquery.implementation.xquery-scripting" xquery-version="1.0" localized="true" default="true">
+            <dialect id="w3c/1.0-scripting" name="xquery.implementation.xquery-scripting-10" xquery-version="1.0" localized="true" default="true">
                 <implements ref="https://www.w3.org/TR/2010/REC-xquery-20101214/"/>
                 <implements ref="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/"/>
                 <feature ref="1.0/minimal-conformance" supported="true"/>
