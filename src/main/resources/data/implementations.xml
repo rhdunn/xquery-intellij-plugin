@@ -15,6 +15,34 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 <implementations>
+    <feature-set id="1.0" description="XQuery 1.0 Features">
+        <feature id="1.0/minimal-conformance" href="https://www.w3.org/TR/2010/REC-xquery-20101214/#id-minimal-conformance"/>
+        <feature id="1.0/schema-import" href="https://www.w3.org/TR/2010/REC-xquery-20101214/#id-schema-import-feature"/>
+        <feature id="1.0/schema-validation" href="https://www.w3.org/TR/2010/REC-xquery-20101214/#id-schema-validation-feature"/>
+        <feature id="1.0/static-typing" href="https://www.w3.org/TR/2010/REC-xquery-20101214/#id-static-typing-feature"/>
+        <feature id="1.0/full-axis" href="https://www.w3.org/TR/2010/REC-xquery-20101214/#id-full-axis-feature"/>
+        <feature id="1.0/module" href="https://www.w3.org/TR/2010/REC-xquery-20101214/#id-module-feature"/>
+        <feature id="1.0/serialization" href="https://www.w3.org/TR/2010/REC-xquery-20101214/#id-serialization-feature"/>
+    </feature-set>
+    <feature-set id="3.0" description="XQuery 3.0 Features">
+        <feature id="3.0/minimal-conformance" href="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#id-minimal-conformance"/>
+        <feature id="3.0/schema-aware" href="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#id-schema-aware-feature"/>
+        <feature id="3.0/typed-data" href="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#id-typed-data-feature"/>
+        <feature id="3.0/static-typing" href="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#id-static-typing-feature"/>
+        <feature id="3.0/module" href="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#id-module-feature"/>
+        <feature id="3.0/serialization" href="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#id-serialization-feature"/>
+        <feature id="3.0/higher-order-function" href="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#id-higher-order-function-feature"/>
+    </feature-set>
+    <feature-set id="3.1" description="XQuery 3.1 Features">
+        <feature id="3.1/minimal-conformance" href="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#id-minimal-conformance"/>
+        <feature id="3.1/schema-aware" href="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#id-schema-aware-feature"/>
+        <feature id="3.1/typed-data" href="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#id-typed-data-feature"/>
+        <feature id="3.1/static-typing" href="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#id-static-typing-feature"/>
+        <feature id="3.1/module" href="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#id-module-feature"/>
+        <feature id="3.1/serialization" href="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#id-serialization-feature"/>
+        <feature id="3.1/higher-order-function" href="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#id-higher-order-function-feature"/>
+        <feature id="3.1/fn:put" href="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#id-fnput-feature"/>
+    </feature-set>
     <implementation id="marklogic" name="MarkLogic" localized="false" default="false" href="http://www.marklogic.com/">
         <version id="marklogic/v6" name="MarkLogic 6" localized="false" default="false" href="https://docs.marklogic.com/6.0/">
             <xquery-version id="marklogic/v6/xquery.0.9-ml" name="0.9-ml" localized="false" default="false"/>
