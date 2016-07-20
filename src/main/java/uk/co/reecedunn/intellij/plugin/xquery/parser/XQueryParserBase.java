@@ -21,10 +21,10 @@ import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 
-public class PsiBuilderHelper {
+public class XQueryParserBase {
     private final PsiBuilder mBuilder;
 
-    public PsiBuilderHelper(@NotNull PsiBuilder builder) {
+    public XQueryParserBase(@NotNull PsiBuilder builder) {
         mBuilder = builder;
     }
 

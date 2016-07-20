@@ -27,7 +27,7 @@ public class XQueryParser implements PsiParser {
     @NotNull
     @Override
     public ASTNode parse(@NotNull IElementType root, @NotNull PsiBuilder psiBuilder) {
-        final PsiBuilderHelper builder = new PsiBuilderHelper(psiBuilder);
+        final XQueryParserBase builder = new XQueryParserBase(psiBuilder);
         final PsiBuilder.Marker rootMarker = builder.mark();
         while (builder.getTokenType() != null) {
             if (builder.skipWhiteSpaceAndCommentTokens()) continue;
@@ -44,7 +44,7 @@ public class XQueryParser implements PsiParser {
         return psiBuilder.getTreeBuilt();
     }
 
-    private boolean parseNumericLiteral(@NotNull PsiBuilderHelper builder) {
+    private boolean parseNumericLiteral(@NotNull XQueryParserBase builder) {
         if (builder.matchTokenType(XQueryTokenType.INTEGER_LITERAL) ||
             builder.matchTokenType(XQueryTokenType.DOUBLE_LITERAL)) {
             return true;
@@ -55,7 +55,7 @@ public class XQueryParser implements PsiParser {
         return false;
     }
 
-    private boolean parseStringLiteral(@NotNull PsiBuilderHelper builder) {
+    private boolean parseStringLiteral(@NotNull XQueryParserBase builder) {
         if (builder.getTokenType() == XQueryTokenType.STRING_LITERAL_START) {
             final PsiBuilder.Marker stringMarker = builder.mark();
             builder.advanceLexer();
@@ -80,11 +80,11 @@ public class XQueryParser implements PsiParser {
         return false;
     }
 
-    private boolean misplacedEntityReference(@NotNull PsiBuilderHelper builder) {
+    private boolean misplacedEntityReference(@NotNull XQueryParserBase builder) {
         return builder.errorOnTokenType(XQueryTokenType.ENTITY_REFERENCE_NOT_IN_STRING, XQueryBundle.message("parser.error.misplaced-entity"));
     }
 
-    private boolean parseQName(@NotNull PsiBuilderHelper builder) {
+    private boolean parseQName(@NotNull XQueryParserBase builder) {
         if (builder.getTokenType() == XQueryTokenType.NCNAME) {
             final PsiBuilder.Marker qnameMarker = builder.mark();
 
@@ -133,7 +133,7 @@ public class XQueryParser implements PsiParser {
         return false;
     }
 
-    private boolean parseVersionDecl(@NotNull PsiBuilderHelper builder) {
+    private boolean parseVersionDecl(@NotNull XQueryParserBase builder) {
         if (builder.getTokenType() == XQueryTokenType.K_XQUERY) {
             final PsiBuilder.Marker versionDeclMaker = builder.mark();
             builder.advanceLexer();
@@ -179,7 +179,7 @@ public class XQueryParser implements PsiParser {
         return false;
     }
 
-    private boolean parseDirCommentConstructor(@NotNull PsiBuilderHelper builder) {
+    private boolean parseDirCommentConstructor(@NotNull XQueryParserBase builder) {
         if (builder.getTokenType() == XQueryTokenType.XML_COMMENT_START_TAG) {
             final PsiBuilder.Marker commentMaker = builder.mark();
             builder.advanceLexer();
@@ -199,7 +199,7 @@ public class XQueryParser implements PsiParser {
         return false;
     }
 
-    private boolean parseCDataSection(@NotNull PsiBuilderHelper builder) {
+    private boolean parseCDataSection(@NotNull XQueryParserBase builder) {
         if (builder.getTokenType() == XQueryTokenType.CDATA_SECTION_START_TAG) {
             final PsiBuilder.Marker commentMaker = builder.mark();
             builder.advanceLexer();
