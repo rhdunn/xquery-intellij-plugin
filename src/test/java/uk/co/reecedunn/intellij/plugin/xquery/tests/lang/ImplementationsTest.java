@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.lang;
 import junit.framework.TestCase;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Implementations;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 
 import java.util.List;
 
@@ -90,5 +91,52 @@ public class ImplementationsTest extends TestCase {
         ImplementationItem version = implementation.getDefaultItem(ImplementationItem.IMPLEMENTATION_VERSION);
         assertThat(version.getID(), is("saxon/HE"));
         assertThat(version.toString(), is("Home Edition"));
+    }
+
+    public void testImplementationDialect() {
+        ImplementationItem implementation = Implementations.getImplementations().get(1);
+        ImplementationItem version = implementation.getItems(ImplementationItem.IMPLEMENTATION_VERSION).get(2);
+
+        final List<ImplementationItem> dialects = version.getItemsForXQueryVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryVersion.XQUERY_3_0);
+        assertThat(dialects.size(), is(2));
+
+        assertThat(dialects.get(0).getID(), is("saxon/EE/3.0"));
+        assertThat(dialects.get(0).toString(), is("XQuery"));
+
+        assertThat(dialects.get(1).getID(), is("saxon/EE/3.0-update"));
+        assertThat(dialects.get(1).toString(), is("XQuery Update Facility 1.0"));
+
+        assertThat(dialects.get(0).equals(dialects.get(0)), is(true));
+        assertThat(dialects.get(1).equals(dialects.get(0)), is(false));
+        assertThat(dialects.get(0).equals(dialects.get(0).getID()), is(false));
+
+        assertThat(dialects.get(0).equals(ImplementationItem.NULL_ITEM), is(false));
+        assertThat(ImplementationItem.NULL_ITEM.equals(ImplementationItem.NULL_ITEM), is(true));
+    }
+
+    public void testDefaultImplementationDialect() {
+        ImplementationItem implementation = Implementations.getImplementations().get(1);
+        ImplementationItem version = implementation.getItems(ImplementationItem.IMPLEMENTATION_VERSION).get(2);
+        ImplementationItem dialect = version.getDefaultItemForXQueryVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryVersion.XQUERY_3_0);
+
+        assertThat(dialect.getID(), is("saxon/EE/3.0-update"));
+        assertThat(dialect.toString(), is("XQuery Update Facility 1.0"));
+    }
+
+    public void testImplementationDialectForAnUnknownVersion() {
+        ImplementationItem implementation = Implementations.getImplementations().get(1);
+        ImplementationItem version = implementation.getItems(ImplementationItem.IMPLEMENTATION_VERSION).get(2);
+
+        final List<ImplementationItem> dialects = version.getItemsForXQueryVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryVersion.XQUERY_1_0_MARKLOGIC);
+        assertThat(dialects.size(), is(0));
+    }
+
+    public void testDefaultImplementationDialectForAnUnknownVersion() {
+        ImplementationItem implementation = Implementations.getImplementations().get(1);
+        ImplementationItem version = implementation.getItems(ImplementationItem.IMPLEMENTATION_VERSION).get(2);
+        ImplementationItem dialect = version.getDefaultItemForXQueryVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryVersion.XQUERY_1_0_MARKLOGIC);
+
+        assertThat(dialect.getID(), is(nullValue()));
+        assertThat(dialect.toString(), is(nullValue()));
     }
 }

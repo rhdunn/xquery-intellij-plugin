@@ -35,6 +35,9 @@ public class XQueryProjectSettings implements PersistentStateComponent<XQueryPro
     private ImplementationItem IMPLEMENTATION = Implementations.getDefaultImplementation();
     private ImplementationItem IMPLEMENTATION_VERSION = IMPLEMENTATION.getDefaultItem(ImplementationItem.IMPLEMENTATION_VERSION);
     private XQueryVersion XQUERY_VERSION = XQueryVersion.XQUERY_3_0;
+    private ImplementationItem XQUERY_1_0_DIALECT = IMPLEMENTATION_VERSION.getDefaultItemForXQueryVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryVersion.XQUERY_1_0);
+    private ImplementationItem XQUERY_3_0_DIALECT = IMPLEMENTATION_VERSION.getDefaultItemForXQueryVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryVersion.XQUERY_3_0);
+    private ImplementationItem XQUERY_3_1_DIALECT = IMPLEMENTATION_VERSION.getDefaultItemForXQueryVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryVersion.XQUERY_3_1);
 
     public static XQueryProjectSettings getInstance(@NotNull Project project) {
         return ServiceManager.getService(project, XQueryProjectSettings.class);
@@ -83,5 +86,26 @@ public class XQueryProjectSettings implements PersistentStateComponent<XQueryPro
 
     public void setXQueryVersion(XQueryVersion version) {
         XQUERY_VERSION = version;
+    }
+
+    public ImplementationItem getDialectForXQueryVersion(XQueryVersion version) {
+        if (version == XQueryVersion.XQUERY_1_0) {
+            return XQUERY_1_0_DIALECT;
+        } else if (version == XQueryVersion.XQUERY_3_0) {
+            return XQUERY_3_0_DIALECT;
+        } else if (version == XQueryVersion.XQUERY_3_1) {
+            return XQUERY_3_1_DIALECT;
+        }
+        return ImplementationItem.NULL_ITEM;
+    }
+
+    public void setDialectForXQueryVersion(XQueryVersion version, ImplementationItem dialect) {
+        if (version == XQueryVersion.XQUERY_1_0) {
+            XQUERY_1_0_DIALECT = dialect;
+        } else if (version == XQueryVersion.XQUERY_3_0) {
+            XQUERY_3_0_DIALECT = dialect;
+        } else if (version == XQueryVersion.XQUERY_3_1) {
+            XQUERY_3_1_DIALECT = dialect;
+        }
     }
 }

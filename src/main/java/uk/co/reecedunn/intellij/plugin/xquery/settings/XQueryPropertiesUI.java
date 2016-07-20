@@ -27,6 +27,9 @@ public class XQueryPropertiesUI {
     private JComboBox<XQueryVersion> mVersion;
     private JComboBox<ImplementationItem> mImplementations;
     private JComboBox<ImplementationItem> mImplementationVersions;
+    private JComboBox<ImplementationItem> mDialectForXQuery1_0;
+    private JComboBox<ImplementationItem> mDialectForXQuery3_0;
+    private JComboBox<ImplementationItem> mDialectForXQuery3_1;
 
     private JPanel mPanel;
     private final XQueryProjectSettings mSettings;
@@ -39,27 +42,61 @@ public class XQueryPropertiesUI {
         return mPanel;
     }
 
+    private void populateComboBox(JComboBox<ImplementationItem> control, ImplementationItem source, String filter) {
+        final ImplementationItem selected = (ImplementationItem)control.getSelectedItem();
+        boolean found = false;
+
+        control.removeAllItems();
+        for (ImplementationItem item : source.getItems(filter)) {
+            control.addItem(item);
+            if (item == selected) {
+                control.setSelectedItem(item);
+                found = true;
+            }
+        }
+        if (!found) {
+            control.setSelectedItem(source.getDefaultItem(filter));
+        }
+    }
+
+    private void populateComboBox(JComboBox<ImplementationItem> control, ImplementationItem source, String filter, XQueryVersion version) {
+        if (source == null) {
+            return;
+        }
+
+        final ImplementationItem selected = (ImplementationItem)control.getSelectedItem();
+        boolean found = false;
+
+        control.removeAllItems();
+        for (ImplementationItem item : source.getItemsForXQueryVersion(filter, version)) {
+            control.addItem(item);
+            if (item == selected) {
+                control.setSelectedItem(item);
+                found = true;
+            }
+        }
+        if (!found) {
+            control.setSelectedItem(source.getDefaultItemForXQueryVersion(filter, version));
+        }
+    }
+
     private void createUIComponents() {
+        mDialectForXQuery1_0 = new JComboBox<>();
+        mDialectForXQuery3_0 = new JComboBox<>();
+        mDialectForXQuery3_1 = new JComboBox<>();
+
         mImplementationVersions = new JComboBox<>();
+        mImplementationVersions.addActionListener(e -> {
+            final ImplementationItem version = (ImplementationItem)mImplementationVersions.getSelectedItem();
+            populateComboBox(mDialectForXQuery1_0, version, ImplementationItem.IMPLEMENTATION_DIALECT, XQueryVersion.XQUERY_1_0);
+            populateComboBox(mDialectForXQuery3_0, version, ImplementationItem.IMPLEMENTATION_DIALECT, XQueryVersion.XQUERY_3_0);
+            populateComboBox(mDialectForXQuery3_1, version, ImplementationItem.IMPLEMENTATION_DIALECT, XQueryVersion.XQUERY_3_1);
+        });
 
         mImplementations = new JComboBox<>();
         mImplementations.addActionListener(e -> {
             final ImplementationItem implementation = (ImplementationItem)mImplementations.getSelectedItem();
-
-            final ImplementationItem selected = (ImplementationItem)mImplementationVersions.getSelectedItem();
-            boolean found = false;
-
-            mImplementationVersions.removeAllItems();
-            for (ImplementationItem version : implementation.getItems(ImplementationItem.IMPLEMENTATION_VERSION)) {
-                mImplementationVersions.addItem(version);
-                if (version == selected) {
-                    mImplementationVersions.setSelectedItem(version);
-                    found = true;
-                }
-            }
-            if (!found) {
-                mImplementationVersions.setSelectedItem(implementation.getDefaultItem(ImplementationItem.IMPLEMENTATION_VERSION));
-            }
+            populateComboBox(mImplementationVersions, implementation, ImplementationItem.IMPLEMENTATION_VERSION);
         });
 
         for (ImplementationItem implementation : Implementations.getImplementations()) {

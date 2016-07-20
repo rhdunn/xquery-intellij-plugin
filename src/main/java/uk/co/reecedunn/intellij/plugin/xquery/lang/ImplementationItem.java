@@ -23,6 +23,7 @@ import java.util.List;
 
 public class ImplementationItem {
     public static final String IMPLEMENTATION_VERSION = "version";
+    public static final String IMPLEMENTATION_DIALECT = "dialect";
 
     public static final ImplementationItem NULL_ITEM = new ImplementationItem();
 
@@ -90,6 +91,37 @@ public class ImplementationItem {
                 Node node = nodes.item(i);
                 if (node.getAttributes().getNamedItem("default").getNodeValue().equals("true")) {
                     return new ImplementationItem((Element)node);
+                }
+            }
+        }
+        return NULL_ITEM;
+    }
+
+    public List<ImplementationItem> getItemsForXQueryVersion(String tagName, XQueryVersion version) {
+        final List<ImplementationItem> items = new ArrayList<>();
+        if (mElement != null) {
+            NodeList nodes = mElement.getElementsByTagName(tagName);
+            for (int i = 0; i != nodes.getLength(); ++i) {
+                Node node = nodes.item(i);
+                Node attr = node.getAttributes().getNamedItem("xquery-version");
+                if (attr != null && attr.getNodeValue().equals(version.toString())) {
+                    items.add(new ImplementationItem((Element) node));
+                }
+            }
+        }
+        return items;
+    }
+
+    public ImplementationItem getDefaultItemForXQueryVersion(String tagName, XQueryVersion version) {
+        if (mElement != null) {
+            NodeList nodes = mElement.getElementsByTagName(tagName);
+            for (int i = 0; i != nodes.getLength(); ++i) {
+                Node node = nodes.item(i);
+                if (node.getAttributes().getNamedItem("default").getNodeValue().equals("true")) {
+                    Node attr = node.getAttributes().getNamedItem("xquery-version");
+                    if (attr != null && attr.getNodeValue().equals(version.toString())) {
+                        return new ImplementationItem((Element) node);
+                    }
                 }
             }
         }
