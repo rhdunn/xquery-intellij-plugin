@@ -15,8 +15,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 <implementations>
-    <implementation id="marklogic" name="MarkLogic" localized="false" default="false">
-        <version id="marklogic/v6" name="MarkLogic 6" localized="false" default="false">
+    <implementation id="marklogic" name="MarkLogic" localized="false" default="false" href="http://www.marklogic.com/">
+        <version id="marklogic/v6" name="MarkLogic 6" localized="false" default="false" href="https://docs.marklogic.com/6.0/">
             <xquery-version id="marklogic/v6/xquery.0.9-ml" name="0.9-ml" localized="false" default="false"/>
             <xquery-version id="marklogic/v6/xquery.1.0" name="1.0" localized="false" default="false"/>
             <xquery-version id="marklogic/v6/xquery.1.0-ml" name="1.0-ml" localized="false" default="true"/>
@@ -51,7 +51,7 @@ limitations under the License.
                 <feature ref="1.0/serialization" supported="false"/>
             </dialect>
         </version>
-        <version id="marklogic/v7" name="MarkLogic 7" localized="false" default="false">
+        <version id="marklogic/v7" name="MarkLogic 7" localized="false" default="false" href="https://docs.marklogic.com/7.0/">
             <xquery-version id="marklogic/v7/xquery.0.9-ml" name="0.9-ml" localized="false" default="false"/>
             <xquery-version id="marklogic/v7/xquery.1.0" name="1.0" localized="false" default="false"/>
             <xquery-version id="marklogic/v7/xquery.1.0-ml" name="1.0-ml" localized="false" default="true"/>
@@ -86,7 +86,7 @@ limitations under the License.
                 <feature ref="1.0/serialization" supported="false"/>
             </dialect>
         </version>
-        <version id="marklogic/v8" name="MarkLogic 8" localized="false" default="true">
+        <version id="marklogic/v8" name="MarkLogic 8" localized="false" default="true" href="https://docs.marklogic.com/8.0/">
             <xquery-version id="marklogic/v8/xquery.0.9-ml" name="0.9-ml" localized="false" default="false"/>
             <xquery-version id="marklogic/v8/xquery.1.0" name="1.0" localized="false" default="false"/>
             <xquery-version id="marklogic/v8/xquery.1.0-ml" name="1.0-ml" localized="false" default="true"/>
@@ -122,7 +122,7 @@ limitations under the License.
             </dialect>
         </version>
     </implementation>
-    <implementation id="saxon" name="Saxonica" localized="false" default="false">
+    <implementation id="saxon" name="Saxonica" localized="false" default="false" href="http://www.saxonica.com">
         <version id="saxon/HE" name="xquery.implementation.home-edition" localized="true" default="true">
             <xquery-version id="saxon/HE/xquery.1.0" name="1.0" localized="false" default="true"/>
             <dialect id="saxon/HE/1.0" name="XQuery" xquery-version="1.0" localized="false" default="true">
@@ -243,7 +243,7 @@ limitations under the License.
             </dialect>
         </version>
     </implementation>
-    <implementation id="w3c" name="W3C" localized="false" default="true">
+    <implementation id="w3c" name="W3C" localized="false" default="true" href="https://www.w3.org/XML/Query/">
         <version id="w3c/spec" name="xquery.implementation.specification" localized="true" default="false">
             <xquery-version id="w3c/xquery.1.0" name="1.0" localized="false" default="false"/>
             <xquery-version id="w3c/xquery.3.0" name="3.0" localized="false" default="true"/>
