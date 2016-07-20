@@ -24,6 +24,7 @@ import java.util.List;
 public class ImplementationItem {
     public static final String IMPLEMENTATION_VERSION = "version";
     public static final String IMPLEMENTATION_DIALECT = "dialect";
+    public static final String XQUERY_VERSION = "xquery-version";
 
     public static final ImplementationItem NULL_ITEM = new ImplementationItem();
 

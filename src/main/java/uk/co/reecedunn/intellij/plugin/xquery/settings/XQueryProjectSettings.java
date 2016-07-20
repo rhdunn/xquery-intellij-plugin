@@ -34,7 +34,7 @@ import java.io.File;
 public class XQueryProjectSettings implements PersistentStateComponent<XQueryProjectSettings>, ExportableComponent {
     private ImplementationItem IMPLEMENTATION = Implementations.getDefaultImplementation();
     private ImplementationItem IMPLEMENTATION_VERSION = IMPLEMENTATION.getDefaultItem(ImplementationItem.IMPLEMENTATION_VERSION);
-    private XQueryVersion XQUERY_VERSION = XQueryVersion.XQUERY_3_0;
+    private XQueryVersion XQUERY_VERSION = XQueryVersion.parse(IMPLEMENTATION_VERSION.getDefaultItem(ImplementationItem.XQUERY_VERSION).toString());
     private ImplementationItem XQUERY_1_0_DIALECT = IMPLEMENTATION_VERSION.getDefaultItemForXQueryVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryVersion.XQUERY_1_0);
     private ImplementationItem XQUERY_3_0_DIALECT = IMPLEMENTATION_VERSION.getDefaultItemForXQueryVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryVersion.XQUERY_3_0);
     private ImplementationItem XQUERY_3_1_DIALECT = IMPLEMENTATION_VERSION.getDefaultItemForXQueryVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryVersion.XQUERY_3_1);

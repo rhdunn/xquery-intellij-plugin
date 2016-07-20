@@ -17,6 +17,9 @@ limitations under the License.
 <implementations>
     <implementation id="marklogic" name="MarkLogic" localized="false" default="false">
         <version id="marklogic/v6" name="MarkLogic 6" localized="false" default="false">
+            <xquery-version id="marklogic/v6/xquery.0.9-ml" name="0.9-ml" localized="false" default="false"/>
+            <xquery-version id="marklogic/v6/xquery.1.0" name="1.0" localized="false" default="false"/>
+            <xquery-version id="marklogic/v6/xquery.1.0-ml" name="1.0-ml" localized="false" default="true"/>
             <dialect id="marklogic/v6/0.9-ml" name="XQuery" xquery-version="0.9-ml" localized="false" default="true">
                 <implements ref="https://www.w3.org/TR/2003/WD-xquery-20030502/"/>
                 <feature ref="1.0/minimal-conformance" supported="false"/>
@@ -49,6 +52,9 @@ limitations under the License.
             </dialect>
         </version>
         <version id="marklogic/v7" name="MarkLogic 7" localized="false" default="false">
+            <xquery-version id="marklogic/v7/xquery.0.9-ml" name="0.9-ml" localized="false" default="false"/>
+            <xquery-version id="marklogic/v7/xquery.1.0" name="1.0" localized="false" default="false"/>
+            <xquery-version id="marklogic/v7/xquery.1.0-ml" name="1.0-ml" localized="false" default="true"/>
             <dialect id="marklogic/v7/0.9-ml" name="XQuery" xquery-version="0.9-ml" localized="false" default="false">
                 <implements ref="https://www.w3.org/TR/2003/WD-xquery-20030502/"/>
                 <feature ref="1.0/minimal-conformance" supported="false"/>
@@ -81,6 +87,9 @@ limitations under the License.
             </dialect>
         </version>
         <version id="marklogic/v8" name="MarkLogic 8" localized="false" default="true">
+            <xquery-version id="marklogic/v8/xquery.0.9-ml" name="0.9-ml" localized="false" default="false"/>
+            <xquery-version id="marklogic/v8/xquery.1.0" name="1.0" localized="false" default="false"/>
+            <xquery-version id="marklogic/v8/xquery.1.0-ml" name="1.0-ml" localized="false" default="true"/>
             <dialect id="marklogic/v8/0.9-ml" name="XQuery" xquery-version="0.9-ml" localized="false" default="false">
                 <implements ref="https://www.w3.org/TR/2003/WD-xquery-20030502/"/>
                 <feature ref="1.0/minimal-conformance" supported="false"/>
@@ -115,6 +124,7 @@ limitations under the License.
     </implementation>
     <implementation id="saxon" name="Saxonica" localized="false" default="false">
         <version id="saxon/HE" name="xquery.implementation.home-edition" localized="true" default="true">
+            <xquery-version id="saxon/HE/xquery.1.0" name="1.0" localized="false" default="true"/>
             <dialect id="saxon/HE/1.0" name="XQuery" xquery-version="1.0" localized="false" default="true">
                 <implements ref="https://www.w3.org/TR/2010/REC-xquery-20101214/"/>
                 <feature ref="1.0/minimal-conformance" supported="true"/>
@@ -127,6 +137,9 @@ limitations under the License.
             </dialect>
         </version>
         <version id="saxon/PE" name="xquery.implementation.professional-edition" localized="true" default="false">
+            <xquery-version id="saxon/PE/xquery.1.0" name="1.0" localized="false" default="false"/>
+            <xquery-version id="saxon/PE/xquery.3.0" name="3.0" localized="false" default="true"/>
+            <xquery-version id="saxon/PE/xquery.3.1" name="3.1" localized="false" default="false"/>
             <dialect id="saxon/PE/1.0" name="XQuery" xquery-version="1.0" localized="false" default="true">
                 <implements ref="https://www.w3.org/TR/2010/REC-xquery-20101214/"/>
                 <feature ref="1.0/minimal-conformance" supported="true"/>
@@ -160,6 +173,9 @@ limitations under the License.
             </dialect>
         </version>
         <version id="saxon/EE" name="xquery.implementation.enterprise-edition" localized="true" default="false">
+            <xquery-version id="saxon/EE/xquery.1.0" name="1.0" localized="false" default="false"/>
+            <xquery-version id="saxon/EE/xquery.3.0" name="3.0" localized="false" default="true"/>
+            <xquery-version id="saxon/EE/xquery.3.1" name="3.1" localized="false" default="false"/>
             <dialect id="saxon/EE/1.0" name="XQuery" xquery-version="1.0" localized="false" default="false">
                 <implements ref="https://www.w3.org/TR/2010/REC-xquery-20101214/"/>
                 <feature ref="1.0/minimal-conformance" supported="true"/>
@@ -229,6 +245,9 @@ limitations under the License.
     </implementation>
     <implementation id="w3c" name="W3C" localized="false" default="true">
         <version id="w3c/spec" name="xquery.implementation.specification" localized="true" default="false">
+            <xquery-version id="w3c/xquery.1.0" name="1.0" localized="false" default="false"/>
+            <xquery-version id="w3c/xquery.3.0" name="3.0" localized="false" default="true"/>
+            <xquery-version id="w3c/xquery.3.1" name="3.1" localized="false" default="false"/>
             <dialect id="w3c/1.0" name="XQuery" xquery-version="1.0" localized="false" default="true">
                 <implements ref="https://www.w3.org/TR/2010/REC-xquery-20101214/"/>
                 <feature ref="1.0/minimal-conformance" supported="true"/>

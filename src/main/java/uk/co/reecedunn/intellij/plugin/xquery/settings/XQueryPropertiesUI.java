@@ -42,7 +42,33 @@ public class XQueryPropertiesUI {
         return mPanel;
     }
 
+    private void populateXQueryVersionComboBox(JComboBox<XQueryVersion> control, ImplementationItem source, String filter) {
+        if (source == null) {
+            return;
+        }
+
+        final XQueryVersion selected = (XQueryVersion) control.getSelectedItem();
+        boolean found = false;
+
+        control.removeAllItems();
+        for (ImplementationItem item : source.getItems(filter)) {
+            XQueryVersion version = XQueryVersion.parse(item.toString());
+            control.addItem(version);
+            if (version == selected) {
+                control.setSelectedItem(version);
+                found = true;
+            }
+        }
+        if (!found) {
+            control.setSelectedItem(XQueryVersion.parse(source.getDefaultItem(filter).toString()));
+        }
+    }
+
     private void populateComboBox(JComboBox<ImplementationItem> control, ImplementationItem source, String filter) {
+        if (source == null) {
+            return;
+        }
+
         final ImplementationItem selected = (ImplementationItem)control.getSelectedItem();
         boolean found = false;
 
@@ -81,19 +107,21 @@ public class XQueryPropertiesUI {
     }
 
     private void createUIComponents() {
+        mImplementations = new JComboBox<>();
+        mImplementationVersions = new JComboBox<>();
+        mVersion = new JComboBox<>();
         mDialectForXQuery1_0 = new JComboBox<>();
         mDialectForXQuery3_0 = new JComboBox<>();
         mDialectForXQuery3_1 = new JComboBox<>();
 
-        mImplementationVersions = new JComboBox<>();
         mImplementationVersions.addActionListener(e -> {
             final ImplementationItem version = (ImplementationItem)mImplementationVersions.getSelectedItem();
+            populateXQueryVersionComboBox(mVersion, version, ImplementationItem.XQUERY_VERSION);
             populateComboBox(mDialectForXQuery1_0, version, ImplementationItem.IMPLEMENTATION_DIALECT, XQueryVersion.XQUERY_1_0);
             populateComboBox(mDialectForXQuery3_0, version, ImplementationItem.IMPLEMENTATION_DIALECT, XQueryVersion.XQUERY_3_0);
             populateComboBox(mDialectForXQuery3_1, version, ImplementationItem.IMPLEMENTATION_DIALECT, XQueryVersion.XQUERY_3_1);
         });
 
-        mImplementations = new JComboBox<>();
         mImplementations.addActionListener(e -> {
             final ImplementationItem implementation = (ImplementationItem)mImplementations.getSelectedItem();
             populateComboBox(mImplementationVersions, implementation, ImplementationItem.IMPLEMENTATION_VERSION);
@@ -101,11 +129,6 @@ public class XQueryPropertiesUI {
 
         for (ImplementationItem implementation : Implementations.getImplementations()) {
             mImplementations.addItem(implementation);
-        }
-
-        mVersion = new JComboBox<>();
-        for (XQueryVersion version : XQueryVersion.values()) {
-            mVersion.addItem(version);
         }
     }
 
