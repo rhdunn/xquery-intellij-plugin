@@ -81,6 +81,9 @@ public class ImplementationItem {
                 items.add(new ImplementationItem((Element)nodes.item(i)));
             }
         }
+        if (items.isEmpty()) {
+            items.add(ImplementationItem.NULL_ITEM);
+        }
         return items;
     }
 
@@ -108,6 +111,9 @@ public class ImplementationItem {
                     items.add(new ImplementationItem((Element) node));
                 }
             }
+        }
+        if (items.isEmpty()) {
+            items.add(ImplementationItem.NULL_ITEM);
         }
         return items;
     }

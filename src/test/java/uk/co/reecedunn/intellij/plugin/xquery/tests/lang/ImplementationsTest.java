@@ -59,6 +59,14 @@ public class ImplementationsTest extends TestCase {
         assertThat(implementation.toString(), is("W3C"));
     }
 
+    public void testItemsForAnUnsupportedTagName() {
+        ImplementationItem implementation = Implementations.getImplementations().get(1);
+
+        final List<ImplementationItem> versions = implementation.getItems("does-not-exist");
+        assertThat(versions.size(), is(1));
+        assertThat(versions.get(0), is(ImplementationItem.NULL_ITEM));
+    }
+
     public void testDefaultItemForAnUnsupportedTagName() {
         ImplementationItem implementation = Implementations.getImplementations().get(1);
 
@@ -130,7 +138,8 @@ public class ImplementationsTest extends TestCase {
         ImplementationItem version = implementation.getItems(ImplementationItem.IMPLEMENTATION_VERSION).get(2);
 
         final List<ImplementationItem> dialects = version.getItemsForXQueryVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryVersion.XQUERY_1_0_MARKLOGIC);
-        assertThat(dialects.size(), is(0));
+        assertThat(dialects.size(), is(1));
+        assertThat(dialects.get(0), is(ImplementationItem.NULL_ITEM));
     }
 
     public void testDefaultImplementationDialectForAnUnknownVersion() {
