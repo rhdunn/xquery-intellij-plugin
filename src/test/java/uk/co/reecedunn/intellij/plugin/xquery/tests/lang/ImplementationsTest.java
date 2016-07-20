@@ -42,6 +42,9 @@ public class ImplementationsTest extends TestCase {
         assertThat(implementations.get(0).equals(implementations.get(0)), is(true));
         assertThat(implementations.get(1).equals(implementations.get(0)), is(false));
         assertThat(implementations.get(0).equals(implementations.get(0).getID()), is(false));
+
+        assertThat(implementations.get(0).equals(ImplementationItem.NULL_ITEM), is(false));
+        assertThat(ImplementationItem.NULL_ITEM.equals(ImplementationItem.NULL_ITEM), is(true));
     }
 
     public void testDefaultImplementation() {
@@ -76,6 +79,9 @@ public class ImplementationsTest extends TestCase {
         assertThat(versions.get(0).equals(versions.get(0)), is(true));
         assertThat(versions.get(1).equals(versions.get(0)), is(false));
         assertThat(versions.get(0).equals(versions.get(0).getID()), is(false));
+
+        assertThat(versions.get(0).equals(ImplementationItem.NULL_ITEM), is(false));
+        assertThat(ImplementationItem.NULL_ITEM.equals(ImplementationItem.NULL_ITEM), is(true));
     }
 
     public void testDefaultImplementationVersion() {

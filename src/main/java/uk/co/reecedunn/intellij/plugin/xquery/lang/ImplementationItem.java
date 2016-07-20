@@ -24,7 +24,7 @@ import java.util.List;
 public class ImplementationItem {
     public static final String IMPLEMENTATION_VERSION = "version";
 
-    private static final ImplementationItem NULL_ITEM = new ImplementationItem();
+    public static final ImplementationItem NULL_ITEM = new ImplementationItem();
 
     private final Element mElement;
     private final String mID;
@@ -65,7 +65,11 @@ public class ImplementationItem {
     public boolean equals(Object other) {
         if (!(other instanceof ImplementationItem))
             return false;
-        return ((ImplementationItem) other).getID().equals(mID);
+        ImplementationItem otherItem = (ImplementationItem)other;
+        if (otherItem.getID() == null) {
+            return mID == null;
+        }
+        return otherItem.getID().equals(mID);
     }
 
     public List<ImplementationItem> getItems(String tagName) {
