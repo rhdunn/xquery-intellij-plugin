@@ -228,57 +228,7 @@ limitations under the License.
         </version>
     </implementation>
     <implementation id="w3c" name="W3C" localized="false" default="true">
-        <version id="w3c/wd" name="xquery.implementation.working-draft" localized="true" default="false">
-            <dialect id="w3c/3.0-update" name="xquery.implementation.xquery-update-30" xquery-version="3.0" localized="true" default="true">
-                <implements ref="https://www.w3.org/TR/2014/REC-xquery-30-20140408/"/>
-                <implements ref="https://www.w3.org/TR/2015/WD-xquery-update-30-20150219/"/>
-                <feature ref="3.0/minimal-conformance" supported="true"/>
-                <feature ref="3.0/schema-aware" supported="true"/>
-                <feature ref="3.0/typed-data" supported="true"/>
-                <feature ref="3.0/static-typing" supported="false"/>
-                <feature ref="3.0/module" supported="true"/>
-                <feature ref="3.0/serialization" supported="true"/>
-                <feature ref="3.0/higher-order-function" supported="true"/>
-            </dialect>
-            <dialect id="w3c/3.1-update" name="xquery.implementation.xquery-update-30" xquery-version="3.1" localized="true" default="true">
-                <implements ref="https://www.w3.org/TR/2015/CR-xquery-31-20151217/"/>
-                <implements ref="https://www.w3.org/TR/2015/WD-xquery-update-30-20150219/"/>
-                <feature ref="3.1/minimal-conformance" supported="true"/>
-                <feature ref="3.1/schema-aware" supported="true"/>
-                <feature ref="3.1/typed-data" supported="true"/>
-                <feature ref="3.1/static-typing" supported="false"/>
-                <feature ref="3.1/module" supported="true"/>
-                <feature ref="3.1/serialization" supported="true"/>
-                <feature ref="3.1/higher-order-function" supported="true"/>
-                <feature ref="3.1/fn:put" supported="true"/>
-            </dialect>
-        </version>
-        <version id="w3c/cr" name="xquery.implementation.candidate-recommendation" localized="true" default="false">
-            <dialect id="w3c/3.1" name="XQuery" xquery-version="3.1" localized="false" default="true">
-                <implements ref="https://www.w3.org/TR/2015/CR-xquery-31-20151217/"/>
-                <feature ref="3.1/minimal-conformance" supported="true"/>
-                <feature ref="3.1/schema-aware" supported="true"/>
-                <feature ref="3.1/typed-data" supported="true"/>
-                <feature ref="3.1/static-typing" supported="false"/>
-                <feature ref="3.1/module" supported="true"/>
-                <feature ref="3.1/serialization" supported="true"/>
-                <feature ref="3.1/higher-order-function" supported="true"/>
-                <feature ref="3.1/fn:put" supported="true"/>
-            </dialect>
-            <dialect id="w3c/3.1-full-text" name="xquery.implementation.xquery-full-text-30" xquery-version="3.1" localized="true" default="false">
-                <implements ref="https://www.w3.org/TR/2015/CR-xquery-31-20151217/"/>
-                <implements ref="https://www.w3.org/TR/2015/REC-xpath-full-text-30-20151124/"/>
-                <feature ref="3.1/minimal-conformance" supported="true"/>
-                <feature ref="3.1/schema-aware" supported="true"/>
-                <feature ref="3.1/typed-data" supported="true"/>
-                <feature ref="3.1/static-typing" supported="false"/>
-                <feature ref="3.1/module" supported="true"/>
-                <feature ref="3.1/serialization" supported="true"/>
-                <feature ref="3.1/higher-order-function" supported="true"/>
-                <feature ref="3.1/fn:put" supported="true"/>
-            </dialect>
-        </version>
-        <version id="w3c/rec" name="xquery.implementation.recommendation" localized="true" default="true">
+        <version id="w3c/spec" name="xquery.implementation.specification" localized="true" default="false">
             <dialect id="w3c/1.0" name="XQuery" xquery-version="1.0" localized="false" default="true">
                 <implements ref="https://www.w3.org/TR/2010/REC-xquery-20101214/"/>
                 <feature ref="1.0/minimal-conformance" supported="true"/>
@@ -292,6 +242,17 @@ limitations under the License.
             <dialect id="w3c/1.0-full-text" name="xquery.implementation.xquery-full-text-10" xquery-version="1.0" localized="true" default="false">
                 <implements ref="https://www.w3.org/TR/2010/REC-xquery-20101214/"/>
                 <implements ref="https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/"/>
+                <feature ref="1.0/minimal-conformance" supported="true"/>
+                <feature ref="1.0/schema-import" supported="true"/>
+                <feature ref="1.0/schema-validation" supported="true"/>
+                <feature ref="1.0/static-typing" supported="false"/>
+                <feature ref="1.0/full-axis" supported="true"/>
+                <feature ref="1.0/module" supported="true"/>
+                <feature ref="1.0/serialization" supported="true"/>
+            </dialect>
+            <dialect id="w3c/1.0-scripting" name="xquery.implementation.xquery-scripting-10" xquery-version="1.0" localized="true" default="false">
+                <implements ref="https://www.w3.org/TR/2010/REC-xquery-20101214/"/>
+                <implements ref="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/"/>
                 <feature ref="1.0/minimal-conformance" supported="true"/>
                 <feature ref="1.0/schema-import" supported="true"/>
                 <feature ref="1.0/schema-validation" supported="true"/>
@@ -332,18 +293,51 @@ limitations under the License.
                 <feature ref="3.0/serialization" supported="true"/>
                 <feature ref="3.0/higher-order-function" supported="true"/>
             </dialect>
-        </version>
-        <version id="w3c/note" name="xquery.implementation.note" localized="true" default="false">
-            <dialect id="w3c/1.0-scripting" name="xquery.implementation.xquery-scripting-10" xquery-version="1.0" localized="true" default="true">
-                <implements ref="https://www.w3.org/TR/2010/REC-xquery-20101214/"/>
-                <implements ref="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/"/>
-                <feature ref="1.0/minimal-conformance" supported="true"/>
-                <feature ref="1.0/schema-import" supported="true"/>
-                <feature ref="1.0/schema-validation" supported="true"/>
-                <feature ref="1.0/static-typing" supported="false"/>
-                <feature ref="1.0/full-axis" supported="true"/>
-                <feature ref="1.0/module" supported="true"/>
-                <feature ref="1.0/serialization" supported="true"/>
+            <dialect id="w3c/3.0-update" name="xquery.implementation.xquery-update-30" xquery-version="3.0" localized="true" default="false">
+                <implements ref="https://www.w3.org/TR/2014/REC-xquery-30-20140408/"/>
+                <implements ref="https://www.w3.org/TR/2015/WD-xquery-update-30-20150219/"/>
+                <feature ref="3.0/minimal-conformance" supported="true"/>
+                <feature ref="3.0/schema-aware" supported="true"/>
+                <feature ref="3.0/typed-data" supported="true"/>
+                <feature ref="3.0/static-typing" supported="false"/>
+                <feature ref="3.0/module" supported="true"/>
+                <feature ref="3.0/serialization" supported="true"/>
+                <feature ref="3.0/higher-order-function" supported="true"/>
+            </dialect>
+            <dialect id="w3c/3.1" name="XQuery" xquery-version="3.1" localized="false" default="true">
+                <implements ref="https://www.w3.org/TR/2015/CR-xquery-31-20151217/"/>
+                <feature ref="3.1/minimal-conformance" supported="true"/>
+                <feature ref="3.1/schema-aware" supported="true"/>
+                <feature ref="3.1/typed-data" supported="true"/>
+                <feature ref="3.1/static-typing" supported="false"/>
+                <feature ref="3.1/module" supported="true"/>
+                <feature ref="3.1/serialization" supported="true"/>
+                <feature ref="3.1/higher-order-function" supported="true"/>
+                <feature ref="3.1/fn:put" supported="true"/>
+            </dialect>
+            <dialect id="w3c/3.1-full-text" name="xquery.implementation.xquery-full-text-30" xquery-version="3.1" localized="true" default="false">
+                <implements ref="https://www.w3.org/TR/2015/CR-xquery-31-20151217/"/>
+                <implements ref="https://www.w3.org/TR/2015/REC-xpath-full-text-30-20151124/"/>
+                <feature ref="3.1/minimal-conformance" supported="true"/>
+                <feature ref="3.1/schema-aware" supported="true"/>
+                <feature ref="3.1/typed-data" supported="true"/>
+                <feature ref="3.1/static-typing" supported="false"/>
+                <feature ref="3.1/module" supported="true"/>
+                <feature ref="3.1/serialization" supported="true"/>
+                <feature ref="3.1/higher-order-function" supported="true"/>
+                <feature ref="3.1/fn:put" supported="true"/>
+            </dialect>
+            <dialect id="w3c/3.1-update" name="xquery.implementation.xquery-update-30" xquery-version="3.1" localized="true" default="false">
+                <implements ref="https://www.w3.org/TR/2015/CR-xquery-31-20151217/"/>
+                <implements ref="https://www.w3.org/TR/2015/WD-xquery-update-30-20150219/"/>
+                <feature ref="3.1/minimal-conformance" supported="true"/>
+                <feature ref="3.1/schema-aware" supported="true"/>
+                <feature ref="3.1/typed-data" supported="true"/>
+                <feature ref="3.1/static-typing" supported="false"/>
+                <feature ref="3.1/module" supported="true"/>
+                <feature ref="3.1/serialization" supported="true"/>
+                <feature ref="3.1/higher-order-function" supported="true"/>
+                <feature ref="3.1/fn:put" supported="true"/>
             </dialect>
         </version>
     </implementation>
