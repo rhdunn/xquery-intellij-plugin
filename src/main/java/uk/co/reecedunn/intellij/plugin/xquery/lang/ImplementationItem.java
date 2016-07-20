@@ -34,7 +34,7 @@ public class ImplementationItem {
     private ImplementationItem() {
         mElement = null;
         mID = null;
-        mName = null;
+        mName = XQueryBundle.message("xquery.implementation.not-supported");
     }
 
     ImplementationItem(Document document) {

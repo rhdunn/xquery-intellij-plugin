@@ -27,6 +27,13 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ImplementationsTest extends TestCase {
+    public void testNullImplementationItem() {
+        assertThat(ImplementationItem.NULL_ITEM.getID(), is(nullValue()));
+        assertThat(ImplementationItem.NULL_ITEM.toString(), is("Not Supported"));
+
+        assertThat(ImplementationItem.NULL_ITEM.equals(ImplementationItem.NULL_ITEM), is(true));
+    }
+
     public void testImplementations() {
         final List<ImplementationItem> implementations = Implementations.getImplementations();
         assertThat(implementations.size(), is(3));
@@ -43,9 +50,7 @@ public class ImplementationsTest extends TestCase {
         assertThat(implementations.get(0).equals(implementations.get(0)), is(true));
         assertThat(implementations.get(1).equals(implementations.get(0)), is(false));
         assertThat(implementations.get(0).equals(implementations.get(0).getID()), is(false));
-
         assertThat(implementations.get(0).equals(ImplementationItem.NULL_ITEM), is(false));
-        assertThat(ImplementationItem.NULL_ITEM.equals(ImplementationItem.NULL_ITEM), is(true));
     }
 
     public void testDefaultImplementation() {
@@ -58,8 +63,7 @@ public class ImplementationsTest extends TestCase {
         ImplementationItem implementation = Implementations.getImplementations().get(1);
 
         ImplementationItem version = implementation.getDefaultItem("does-not-exist");
-        assertThat(version.getID(), is(nullValue()));
-        assertThat(version.toString(), is(nullValue()));
+        assertThat(version, is(ImplementationItem.NULL_ITEM));
     }
 
     public void testImplementationVersion() {
@@ -82,7 +86,6 @@ public class ImplementationsTest extends TestCase {
         assertThat(versions.get(0).equals(versions.get(0).getID()), is(false));
 
         assertThat(versions.get(0).equals(ImplementationItem.NULL_ITEM), is(false));
-        assertThat(ImplementationItem.NULL_ITEM.equals(ImplementationItem.NULL_ITEM), is(true));
     }
 
     public void testDefaultImplementationVersion() {
@@ -111,7 +114,6 @@ public class ImplementationsTest extends TestCase {
         assertThat(dialects.get(0).equals(dialects.get(0).getID()), is(false));
 
         assertThat(dialects.get(0).equals(ImplementationItem.NULL_ITEM), is(false));
-        assertThat(ImplementationItem.NULL_ITEM.equals(ImplementationItem.NULL_ITEM), is(true));
     }
 
     public void testDefaultImplementationDialect() {
@@ -136,7 +138,6 @@ public class ImplementationsTest extends TestCase {
         ImplementationItem version = implementation.getItems(ImplementationItem.IMPLEMENTATION_VERSION).get(2);
         ImplementationItem dialect = version.getDefaultItemForXQueryVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryVersion.XQUERY_1_0_MARKLOGIC);
 
-        assertThat(dialect.getID(), is(nullValue()));
-        assertThat(dialect.toString(), is(nullValue()));
+        assertThat(dialect, is(ImplementationItem.NULL_ITEM));
     }
 }
