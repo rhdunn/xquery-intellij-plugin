@@ -15,31 +15,25 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 <implementations>
-    <feature-set id="1.0" description="XQuery 1.0 Features">
-        <feature id="1.0/minimal-conformance" href="https://www.w3.org/TR/2010/REC-xquery-20101214/#id-minimal-conformance"/>
-        <feature id="1.0/schema-import" href="https://www.w3.org/TR/2010/REC-xquery-20101214/#id-schema-import-feature"/>
-        <feature id="1.0/schema-validation" href="https://www.w3.org/TR/2010/REC-xquery-20101214/#id-schema-validation-feature"/>
-        <feature id="1.0/static-typing" href="https://www.w3.org/TR/2010/REC-xquery-20101214/#id-static-typing-feature"/>
-        <feature id="1.0/full-axis" href="https://www.w3.org/TR/2010/REC-xquery-20101214/#id-full-axis-feature"/>
-        <feature id="1.0/module" href="https://www.w3.org/TR/2010/REC-xquery-20101214/#id-module-feature"/>
-        <feature id="1.0/serialization" href="https://www.w3.org/TR/2010/REC-xquery-20101214/#id-serialization-feature"/>
-    </feature-set>
+    <features>
+        <feature id="minimal-conformance/1.0" href="https://www.w3.org/TR/2010/REC-xquery-20101214/#id-minimal-conformance"/>
+        <feature id="schema-import" href="https://www.w3.org/TR/2010/REC-xquery-20101214/#id-schema-import-feature"/>
+        <feature id="schema-validation" href="https://www.w3.org/TR/2010/REC-xquery-20101214/#id-schema-validation-feature"/>
+        <feature id="static-typing" href="https://www.w3.org/TR/2010/REC-xquery-20101214/#id-static-typing-feature"/>
+        <feature id="full-axis" href="https://www.w3.org/TR/2010/REC-xquery-20101214/#id-full-axis-feature"/>
+        <feature id="module" href="https://www.w3.org/TR/2010/REC-xquery-20101214/#id-module-feature"/>
+        <feature id="serialization" href="https://www.w3.org/TR/2010/REC-xquery-20101214/#id-serialization-feature"/>
+    </features>
     <feature-set id="3.0" description="XQuery 3.0 Features">
         <feature id="3.0/minimal-conformance" href="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#id-minimal-conformance"/>
         <feature id="3.0/schema-aware" href="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#id-schema-aware-feature"/>
         <feature id="3.0/typed-data" href="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#id-typed-data-feature"/>
-        <feature id="3.0/static-typing" href="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#id-static-typing-feature"/>
-        <feature id="3.0/module" href="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#id-module-feature"/>
-        <feature id="3.0/serialization" href="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#id-serialization-feature"/>
         <feature id="3.0/higher-order-function" href="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#id-higher-order-function-feature"/>
     </feature-set>
     <feature-set id="3.1" description="XQuery 3.1 Features">
         <feature id="3.1/minimal-conformance" href="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#id-minimal-conformance"/>
         <feature id="3.1/schema-aware" href="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#id-schema-aware-feature"/>
         <feature id="3.1/typed-data" href="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#id-typed-data-feature"/>
-        <feature id="3.1/static-typing" href="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#id-static-typing-feature"/>
-        <feature id="3.1/module" href="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#id-module-feature"/>
-        <feature id="3.1/serialization" href="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#id-serialization-feature"/>
         <feature id="3.1/higher-order-function" href="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#id-higher-order-function-feature"/>
         <feature id="3.1/fn:put" href="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#id-fnput-feature"/>
     </feature-set>
@@ -50,33 +44,33 @@ limitations under the License.
             <xquery-version id="marklogic/v6/xquery.1.0-ml" name="1.0-ml" localized="false" default="true"/>
             <dialect id="marklogic/v6/0.9-ml" name="XQuery" xquery-version="0.9-ml" localized="false" default="true">
                 <implements ref="https://www.w3.org/TR/2003/WD-xquery-20030502/"/>
-                <feature ref="1.0/minimal-conformance" supported="false"/>
-                <feature ref="1.0/schema-import" supported="true"/>
-                <feature ref="1.0/schema-validation" supported="true"/>
-                <feature ref="1.0/static-typing" supported="false"/>
-                <feature ref="1.0/full-axis" supported="true"/>
-                <feature ref="1.0/module" supported="true"/>
-                <feature ref="1.0/serialization" supported="false"/>
+                <feature ref="minimal-conformance/1.0" supported="false"/>
+                <feature ref="schema-import" supported="true"/>
+                <feature ref="schema-validation" supported="true"/>
+                <feature ref="static-typing" supported="false"/>
+                <feature ref="full-axis" supported="true"/>
+                <feature ref="module" supported="true"/>
+                <feature ref="serialization" supported="false"/>
             </dialect>
             <dialect id="marklogic/v6/1.0" name="XQuery" xquery-version="1.0" localized="false" default="true">
                 <implements ref="https://www.w3.org/TR/2010/REC-xquery-20101214/"/>
-                <feature ref="1.0/minimal-conformance" supported="true"/>
-                <feature ref="1.0/schema-import" supported="true"/>
-                <feature ref="1.0/schema-validation" supported="true"/>
-                <feature ref="1.0/static-typing" supported="false"/>
-                <feature ref="1.0/full-axis" supported="true"/>
-                <feature ref="1.0/module" supported="true"/>
-                <feature ref="1.0/serialization" supported="false"/>
+                <feature ref="minimal-conformance/1.0" supported="true"/>
+                <feature ref="schema-import" supported="true"/>
+                <feature ref="schema-validation" supported="true"/>
+                <feature ref="static-typing" supported="false"/>
+                <feature ref="full-axis" supported="true"/>
+                <feature ref="module" supported="true"/>
+                <feature ref="serialization" supported="false"/>
             </dialect>
             <dialect id="marklogic/v6/1.0-ml" name="XQuery" xquery-version="1.0-ml" localized="false" default="true">
                 <implements ref="https://www.w3.org/TR/2010/REC-xquery-20101214/"/>
-                <feature ref="1.0/minimal-conformance" supported="true"/>
-                <feature ref="1.0/schema-import" supported="true"/>
-                <feature ref="1.0/schema-validation" supported="true"/>
-                <feature ref="1.0/static-typing" supported="false"/>
-                <feature ref="1.0/full-axis" supported="true"/>
-                <feature ref="1.0/module" supported="true"/>
-                <feature ref="1.0/serialization" supported="false"/>
+                <feature ref="minimal-conformance/1.0" supported="true"/>
+                <feature ref="schema-import" supported="true"/>
+                <feature ref="schema-validation" supported="true"/>
+                <feature ref="static-typing" supported="false"/>
+                <feature ref="full-axis" supported="true"/>
+                <feature ref="module" supported="true"/>
+                <feature ref="serialization" supported="false"/>
             </dialect>
         </version>
         <version id="marklogic/v7" name="MarkLogic 7" localized="false" default="false" href="https://docs.marklogic.com/7.0/">
@@ -85,33 +79,33 @@ limitations under the License.
             <xquery-version id="marklogic/v7/xquery.1.0-ml" name="1.0-ml" localized="false" default="true"/>
             <dialect id="marklogic/v7/0.9-ml" name="XQuery" xquery-version="0.9-ml" localized="false" default="false">
                 <implements ref="https://www.w3.org/TR/2003/WD-xquery-20030502/"/>
-                <feature ref="1.0/minimal-conformance" supported="false"/>
-                <feature ref="1.0/schema-import" supported="true"/>
-                <feature ref="1.0/schema-validation" supported="true"/>
-                <feature ref="1.0/static-typing" supported="false"/>
-                <feature ref="1.0/full-axis" supported="true"/>
-                <feature ref="1.0/module" supported="true"/>
-                <feature ref="1.0/serialization" supported="false"/>
+                <feature ref="minimal-conformance/1.0" supported="false"/>
+                <feature ref="schema-import" supported="true"/>
+                <feature ref="schema-validation" supported="true"/>
+                <feature ref="static-typing" supported="false"/>
+                <feature ref="full-axis" supported="true"/>
+                <feature ref="module" supported="true"/>
+                <feature ref="serialization" supported="false"/>
             </dialect>
             <dialect id="marklogic/v7/1.0" name="XQuery" xquery-version="1.0" localized="false" default="false">
                 <implements ref="https://www.w3.org/TR/2010/REC-xquery-20101214/"/>
-                <feature ref="1.0/minimal-conformance" supported="true"/>
-                <feature ref="1.0/schema-import" supported="true"/>
-                <feature ref="1.0/schema-validation" supported="true"/>
-                <feature ref="1.0/static-typing" supported="false"/>
-                <feature ref="1.0/full-axis" supported="true"/>
-                <feature ref="1.0/module" supported="true"/>
-                <feature ref="1.0/serialization" supported="false"/>
+                <feature ref="minimal-conformance/1.0" supported="true"/>
+                <feature ref="schema-import" supported="true"/>
+                <feature ref="schema-validation" supported="true"/>
+                <feature ref="static-typing" supported="false"/>
+                <feature ref="full-axis" supported="true"/>
+                <feature ref="module" supported="true"/>
+                <feature ref="serialization" supported="false"/>
             </dialect>
             <dialect id="marklogic/v7/1.0-ml" name="XQuery" xquery-version="1.0-ml" localized="false" default="true">
                 <implements ref="https://www.w3.org/TR/2010/REC-xquery-20101214/"/>
-                <feature ref="1.0/minimal-conformance" supported="true"/>
-                <feature ref="1.0/schema-import" supported="true"/>
-                <feature ref="1.0/schema-validation" supported="true"/>
-                <feature ref="1.0/static-typing" supported="false"/>
-                <feature ref="1.0/full-axis" supported="true"/>
-                <feature ref="1.0/module" supported="true"/>
-                <feature ref="1.0/serialization" supported="false"/>
+                <feature ref="minimal-conformance/1.0" supported="true"/>
+                <feature ref="schema-import" supported="true"/>
+                <feature ref="schema-validation" supported="true"/>
+                <feature ref="static-typing" supported="false"/>
+                <feature ref="full-axis" supported="true"/>
+                <feature ref="module" supported="true"/>
+                <feature ref="serialization" supported="false"/>
             </dialect>
         </version>
         <version id="marklogic/v8" name="MarkLogic 8" localized="false" default="true" href="https://docs.marklogic.com/8.0/">
@@ -120,33 +114,33 @@ limitations under the License.
             <xquery-version id="marklogic/v8/xquery.1.0-ml" name="1.0-ml" localized="false" default="true"/>
             <dialect id="marklogic/v8/0.9-ml" name="XQuery" xquery-version="0.9-ml" localized="false" default="false">
                 <implements ref="https://www.w3.org/TR/2003/WD-xquery-20030502/"/>
-                <feature ref="1.0/minimal-conformance" supported="false"/>
-                <feature ref="1.0/schema-import" supported="true"/>
-                <feature ref="1.0/schema-validation" supported="true"/>
-                <feature ref="1.0/static-typing" supported="false"/>
-                <feature ref="1.0/full-axis" supported="true"/>
-                <feature ref="1.0/module" supported="true"/>
-                <feature ref="1.0/serialization" supported="false"/>
+                <feature ref="minimal-conformance/1.0" supported="false"/>
+                <feature ref="schema-import" supported="true"/>
+                <feature ref="schema-validation" supported="true"/>
+                <feature ref="static-typing" supported="false"/>
+                <feature ref="full-axis" supported="true"/>
+                <feature ref="module" supported="true"/>
+                <feature ref="serialization" supported="false"/>
             </dialect>
             <dialect id="marklogic/v8/1.0" name="XQuery" xquery-version="1.0" localized="false" default="false">
                 <implements ref="https://www.w3.org/TR/2010/REC-xquery-20101214/"/>
-                <feature ref="1.0/minimal-conformance" supported="true"/>
-                <feature ref="1.0/schema-import" supported="true"/>
-                <feature ref="1.0/schema-validation" supported="true"/>
-                <feature ref="1.0/static-typing" supported="false"/>
-                <feature ref="1.0/full-axis" supported="true"/>
-                <feature ref="1.0/module" supported="true"/>
-                <feature ref="1.0/serialization" supported="false"/>
+                <feature ref="minimal-conformance/1.0" supported="true"/>
+                <feature ref="schema-import" supported="true"/>
+                <feature ref="schema-validation" supported="true"/>
+                <feature ref="static-typing" supported="false"/>
+                <feature ref="full-axis" supported="true"/>
+                <feature ref="module" supported="true"/>
+                <feature ref="serialization" supported="false"/>
             </dialect>
             <dialect id="marklogic/v8/1.0-ml" name="XQuery" xquery-version="1.0-ml" localized="false" default="true">
                 <implements ref="https://www.w3.org/TR/2010/REC-xquery-20101214/"/>
-                <feature ref="1.0/minimal-conformance" supported="true"/>
-                <feature ref="1.0/schema-import" supported="true"/>
-                <feature ref="1.0/schema-validation" supported="true"/>
-                <feature ref="1.0/static-typing" supported="false"/>
-                <feature ref="1.0/full-axis" supported="true"/>
-                <feature ref="1.0/module" supported="true"/>
-                <feature ref="1.0/serialization" supported="false"/>
+                <feature ref="minimal-conformance/1.0" supported="true"/>
+                <feature ref="schema-import" supported="true"/>
+                <feature ref="schema-validation" supported="true"/>
+                <feature ref="static-typing" supported="false"/>
+                <feature ref="full-axis" supported="true"/>
+                <feature ref="module" supported="true"/>
+                <feature ref="serialization" supported="false"/>
             </dialect>
         </version>
     </implementation>
@@ -155,13 +149,13 @@ limitations under the License.
             <xquery-version id="saxon/HE/xquery.1.0" name="1.0" localized="false" default="true"/>
             <dialect id="saxon/HE/1.0" name="XQuery" xquery-version="1.0" localized="false" default="true">
                 <implements ref="https://www.w3.org/TR/2010/REC-xquery-20101214/"/>
-                <feature ref="1.0/minimal-conformance" supported="true"/>
-                <feature ref="1.0/schema-import" supported="false"/>
-                <feature ref="1.0/schema-validation" supported="false"/>
-                <feature ref="1.0/static-typing" supported="false"/>
-                <feature ref="1.0/full-axis" supported="true"/>
-                <feature ref="1.0/module" supported="true"/>
-                <feature ref="1.0/serialization" supported="true"/>
+                <feature ref="minimal-conformance/1.0" supported="true"/>
+                <feature ref="schema-import" supported="false"/>
+                <feature ref="schema-validation" supported="false"/>
+                <feature ref="static-typing" supported="false"/>
+                <feature ref="full-axis" supported="true"/>
+                <feature ref="module" supported="true"/>
+                <feature ref="serialization" supported="true"/>
             </dialect>
         </version>
         <version id="saxon/PE" name="xquery.implementation.professional-edition" localized="true" default="false">
@@ -170,22 +164,22 @@ limitations under the License.
             <xquery-version id="saxon/PE/xquery.3.1" name="3.1" localized="false" default="false"/>
             <dialect id="saxon/PE/1.0" name="XQuery" xquery-version="1.0" localized="false" default="true">
                 <implements ref="https://www.w3.org/TR/2010/REC-xquery-20101214/"/>
-                <feature ref="1.0/minimal-conformance" supported="true"/>
-                <feature ref="1.0/schema-import" supported="false"/>
-                <feature ref="1.0/schema-validation" supported="false"/>
-                <feature ref="1.0/static-typing" supported="false"/>
-                <feature ref="1.0/full-axis" supported="true"/>
-                <feature ref="1.0/module" supported="true"/>
-                <feature ref="1.0/serialization" supported="true"/>
+                <feature ref="minimal-conformance/1.0" supported="true"/>
+                <feature ref="schema-import" supported="false"/>
+                <feature ref="schema-validation" supported="false"/>
+                <feature ref="static-typing" supported="false"/>
+                <feature ref="full-axis" supported="true"/>
+                <feature ref="module" supported="true"/>
+                <feature ref="serialization" supported="true"/>
             </dialect>
             <dialect id="saxon/PE/3.0" name="XQuery" xquery-version="3.0" localized="false" default="true">
                 <implements ref="https://www.w3.org/TR/2014/REC-xquery-30-20140408/"/>
                 <feature ref="3.0/minimal-conformance" supported="true"/>
                 <feature ref="3.0/schema-aware" supported="false"/>
                 <feature ref="3.0/typed-data" supported="false"/>
-                <feature ref="3.0/static-typing" supported="false"/>
-                <feature ref="3.0/module" supported="true"/>
-                <feature ref="3.0/serialization" supported="true"/>
+                <feature ref="static-typing" supported="false"/>
+                <feature ref="module" supported="true"/>
+                <feature ref="serialization" supported="true"/>
                 <feature ref="3.0/higher-order-function" supported="true"/>
             </dialect>
             <dialect id="saxon/PE/3.1" name="XQuery" xquery-version="3.1" localized="false" default="true">
@@ -193,9 +187,9 @@ limitations under the License.
                 <feature ref="3.1/minimal-conformance" supported="true"/>
                 <feature ref="3.1/schema-aware" supported="false"/>
                 <feature ref="3.1/typed-data" supported="false"/>
-                <feature ref="3.1/static-typing" supported="false"/>
-                <feature ref="3.1/module" supported="true"/>
-                <feature ref="3.1/serialization" supported="true"/>
+                <feature ref="static-typing" supported="false"/>
+                <feature ref="module" supported="true"/>
+                <feature ref="serialization" supported="true"/>
                 <feature ref="3.1/higher-order-function" supported="true"/>
                 <feature ref="3.1/fn:put" supported="false"/>
             </dialect>
@@ -206,33 +200,33 @@ limitations under the License.
             <xquery-version id="saxon/EE/xquery.3.1" name="3.1" localized="false" default="false"/>
             <dialect id="saxon/EE/1.0" name="XQuery" xquery-version="1.0" localized="false" default="false">
                 <implements ref="https://www.w3.org/TR/2010/REC-xquery-20101214/"/>
-                <feature ref="1.0/minimal-conformance" supported="true"/>
-                <feature ref="1.0/schema-import" supported="true"/>
-                <feature ref="1.0/schema-validation" supported="true"/>
-                <feature ref="1.0/static-typing" supported="false"/>
-                <feature ref="1.0/full-axis" supported="true"/>
-                <feature ref="1.0/module" supported="true"/>
-                <feature ref="1.0/serialization" supported="true"/>
+                <feature ref="minimal-conformance/1.0" supported="true"/>
+                <feature ref="schema-import" supported="true"/>
+                <feature ref="schema-validation" supported="true"/>
+                <feature ref="static-typing" supported="false"/>
+                <feature ref="full-axis" supported="true"/>
+                <feature ref="module" supported="true"/>
+                <feature ref="serialization" supported="true"/>
             </dialect>
             <dialect id="saxon/EE/1.0-update" name="xquery.implementation.xquery-update-10" xquery-version="1.0" localized="true" default="true">
                 <implements ref="https://www.w3.org/TR/2010/REC-xquery-20101214/"/>
                 <implements ref="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/"/>
-                <feature ref="1.0/minimal-conformance" supported="true"/>
-                <feature ref="1.0/schema-import" supported="true"/>
-                <feature ref="1.0/schema-validation" supported="true"/>
-                <feature ref="1.0/static-typing" supported="false"/>
-                <feature ref="1.0/full-axis" supported="true"/>
-                <feature ref="1.0/module" supported="true"/>
-                <feature ref="1.0/serialization" supported="true"/>
+                <feature ref="minimal-conformance/1.0" supported="true"/>
+                <feature ref="schema-import" supported="true"/>
+                <feature ref="schema-validation" supported="true"/>
+                <feature ref="static-typing" supported="false"/>
+                <feature ref="full-axis" supported="true"/>
+                <feature ref="module" supported="true"/>
+                <feature ref="serialization" supported="true"/>
             </dialect>
             <dialect id="saxon/EE/3.0" name="XQuery" xquery-version="3.0" localized="false" default="false">
                 <implements ref="https://www.w3.org/TR/2014/REC-xquery-30-20140408/"/>
                 <feature ref="3.0/minimal-conformance" supported="true"/>
                 <feature ref="3.0/schema-aware" supported="true"/>
                 <feature ref="3.0/typed-data" supported="true"/>
-                <feature ref="3.0/static-typing" supported="false"/>
-                <feature ref="3.0/module" supported="true"/>
-                <feature ref="3.0/serialization" supported="true"/>
+                <feature ref="static-typing" supported="false"/>
+                <feature ref="module" supported="true"/>
+                <feature ref="serialization" supported="true"/>
                 <feature ref="3.0/higher-order-function" supported="true"/>
             </dialect>
             <dialect id="saxon/EE/3.0-update" name="xquery.implementation.xquery-update-10" xquery-version="3.0" localized="true" default="true">
@@ -241,9 +235,9 @@ limitations under the License.
                 <feature ref="3.0/minimal-conformance" supported="true"/>
                 <feature ref="3.0/schema-aware" supported="true"/>
                 <feature ref="3.0/typed-data" supported="true"/>
-                <feature ref="3.0/static-typing" supported="false"/>
-                <feature ref="3.0/module" supported="true"/>
-                <feature ref="3.0/serialization" supported="true"/>
+                <feature ref="static-typing" supported="false"/>
+                <feature ref="module" supported="true"/>
+                <feature ref="serialization" supported="true"/>
                 <feature ref="3.0/higher-order-function" supported="true"/>
             </dialect>
             <dialect id="saxon/EE/3.1" name="XQuery" xquery-version="3.1" localized="false" default="false">
@@ -251,9 +245,9 @@ limitations under the License.
                 <feature ref="3.1/minimal-conformance" supported="true"/>
                 <feature ref="3.1/schema-aware" supported="true"/>
                 <feature ref="3.1/typed-data" supported="true"/>
-                <feature ref="3.1/static-typing" supported="false"/>
-                <feature ref="3.1/module" supported="true"/>
-                <feature ref="3.1/serialization" supported="true"/>
+                <feature ref="static-typing" supported="false"/>
+                <feature ref="module" supported="true"/>
+                <feature ref="serialization" supported="true"/>
                 <feature ref="3.1/higher-order-function" supported="true"/>
                 <feature ref="3.1/fn:put" supported="false"/>
             </dialect>
@@ -263,9 +257,9 @@ limitations under the License.
                 <feature ref="3.1/minimal-conformance" supported="true"/>
                 <feature ref="3.1/schema-aware" supported="true"/>
                 <feature ref="3.1/typed-data" supported="true"/>
-                <feature ref="3.1/static-typing" supported="false"/>
-                <feature ref="3.1/module" supported="true"/>
-                <feature ref="3.1/serialization" supported="true"/>
+                <feature ref="static-typing" supported="false"/>
+                <feature ref="module" supported="true"/>
+                <feature ref="serialization" supported="true"/>
                 <feature ref="3.1/higher-order-function" supported="true"/>
                 <feature ref="3.1/fn:put" supported="false"/>
             </dialect>
@@ -278,55 +272,55 @@ limitations under the License.
             <xquery-version id="w3c/xquery.3.1" name="3.1" localized="false" default="false"/>
             <dialect id="w3c/1.0" name="XQuery" xquery-version="1.0" localized="false" default="true">
                 <implements ref="https://www.w3.org/TR/2010/REC-xquery-20101214/"/>
-                <feature ref="1.0/minimal-conformance" supported="true"/>
-                <feature ref="1.0/schema-import" supported="true"/>
-                <feature ref="1.0/schema-validation" supported="true"/>
-                <feature ref="1.0/static-typing" supported="false"/>
-                <feature ref="1.0/full-axis" supported="true"/>
-                <feature ref="1.0/module" supported="true"/>
-                <feature ref="1.0/serialization" supported="true"/>
+                <feature ref="minimal-conformance/1.0" supported="true"/>
+                <feature ref="schema-import" supported="true"/>
+                <feature ref="schema-validation" supported="true"/>
+                <feature ref="static-typing" supported="false"/>
+                <feature ref="full-axis" supported="true"/>
+                <feature ref="module" supported="true"/>
+                <feature ref="serialization" supported="true"/>
             </dialect>
             <dialect id="w3c/1.0-full-text" name="xquery.implementation.xquery-full-text-10" xquery-version="1.0" localized="true" default="false">
                 <implements ref="https://www.w3.org/TR/2010/REC-xquery-20101214/"/>
                 <implements ref="https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/"/>
-                <feature ref="1.0/minimal-conformance" supported="true"/>
-                <feature ref="1.0/schema-import" supported="true"/>
-                <feature ref="1.0/schema-validation" supported="true"/>
-                <feature ref="1.0/static-typing" supported="false"/>
-                <feature ref="1.0/full-axis" supported="true"/>
-                <feature ref="1.0/module" supported="true"/>
-                <feature ref="1.0/serialization" supported="true"/>
+                <feature ref="minimal-conformance/1.0" supported="true"/>
+                <feature ref="schema-import" supported="true"/>
+                <feature ref="schema-validation" supported="true"/>
+                <feature ref="static-typing" supported="false"/>
+                <feature ref="full-axis" supported="true"/>
+                <feature ref="module" supported="true"/>
+                <feature ref="serialization" supported="true"/>
             </dialect>
             <dialect id="w3c/1.0-scripting" name="xquery.implementation.xquery-scripting-10" xquery-version="1.0" localized="true" default="false">
                 <implements ref="https://www.w3.org/TR/2010/REC-xquery-20101214/"/>
                 <implements ref="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/"/>
-                <feature ref="1.0/minimal-conformance" supported="true"/>
-                <feature ref="1.0/schema-import" supported="true"/>
-                <feature ref="1.0/schema-validation" supported="true"/>
-                <feature ref="1.0/static-typing" supported="false"/>
-                <feature ref="1.0/full-axis" supported="true"/>
-                <feature ref="1.0/module" supported="true"/>
-                <feature ref="1.0/serialization" supported="true"/>
+                <feature ref="minimal-conformance/1.0" supported="true"/>
+                <feature ref="schema-import" supported="true"/>
+                <feature ref="schema-validation" supported="true"/>
+                <feature ref="static-typing" supported="false"/>
+                <feature ref="full-axis" supported="true"/>
+                <feature ref="module" supported="true"/>
+                <feature ref="serialization" supported="true"/>
             </dialect>
             <dialect id="w3c/1.0-update" name="xquery.implementation.xquery-update-10" xquery-version="1.0" localized="true" default="false">
                 <implements ref="https://www.w3.org/TR/2010/REC-xquery-20101214/"/>
                 <implements ref="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/"/>
-                <feature ref="1.0/minimal-conformance" supported="true"/>
-                <feature ref="1.0/schema-import" supported="true"/>
-                <feature ref="1.0/schema-validation" supported="true"/>
-                <feature ref="1.0/static-typing" supported="false"/>
-                <feature ref="1.0/full-axis" supported="true"/>
-                <feature ref="1.0/module" supported="true"/>
-                <feature ref="1.0/serialization" supported="true"/>
+                <feature ref="minimal-conformance/1.0" supported="true"/>
+                <feature ref="schema-import" supported="true"/>
+                <feature ref="schema-validation" supported="true"/>
+                <feature ref="static-typing" supported="false"/>
+                <feature ref="full-axis" supported="true"/>
+                <feature ref="module" supported="true"/>
+                <feature ref="serialization" supported="true"/>
             </dialect>
             <dialect id="w3c/3.0" name="XQuery" xquery-version="3.0" localized="false" default="true">
                 <implements ref="https://www.w3.org/TR/2014/REC-xquery-30-20140408/"/>
                 <feature ref="3.0/minimal-conformance" supported="true"/>
                 <feature ref="3.0/schema-aware" supported="true"/>
                 <feature ref="3.0/typed-data" supported="true"/>
-                <feature ref="3.0/static-typing" supported="false"/>
-                <feature ref="3.0/module" supported="true"/>
-                <feature ref="3.0/serialization" supported="true"/>
+                <feature ref="static-typing" supported="false"/>
+                <feature ref="module" supported="true"/>
+                <feature ref="serialization" supported="true"/>
                 <feature ref="3.0/higher-order-function" supported="true"/>
             </dialect>
             <dialect id="w3c/3.0-full-text" name="xquery.implementation.xquery-full-text-30" xquery-version="3.0" localized="true" default="false">
@@ -335,9 +329,9 @@ limitations under the License.
                 <feature ref="3.0/minimal-conformance" supported="true"/>
                 <feature ref="3.0/schema-aware" supported="true"/>
                 <feature ref="3.0/typed-data" supported="true"/>
-                <feature ref="3.0/static-typing" supported="false"/>
-                <feature ref="3.0/module" supported="true"/>
-                <feature ref="3.0/serialization" supported="true"/>
+                <feature ref="static-typing" supported="false"/>
+                <feature ref="module" supported="true"/>
+                <feature ref="serialization" supported="true"/>
                 <feature ref="3.0/higher-order-function" supported="true"/>
             </dialect>
             <dialect id="w3c/3.0-update" name="xquery.implementation.xquery-update-30" xquery-version="3.0" localized="true" default="false">
@@ -346,9 +340,9 @@ limitations under the License.
                 <feature ref="3.0/minimal-conformance" supported="true"/>
                 <feature ref="3.0/schema-aware" supported="true"/>
                 <feature ref="3.0/typed-data" supported="true"/>
-                <feature ref="3.0/static-typing" supported="false"/>
-                <feature ref="3.0/module" supported="true"/>
-                <feature ref="3.0/serialization" supported="true"/>
+                <feature ref="static-typing" supported="false"/>
+                <feature ref="module" supported="true"/>
+                <feature ref="serialization" supported="true"/>
                 <feature ref="3.0/higher-order-function" supported="true"/>
             </dialect>
             <dialect id="w3c/3.1" name="XQuery" xquery-version="3.1" localized="false" default="true">
@@ -356,9 +350,9 @@ limitations under the License.
                 <feature ref="3.1/minimal-conformance" supported="true"/>
                 <feature ref="3.1/schema-aware" supported="true"/>
                 <feature ref="3.1/typed-data" supported="true"/>
-                <feature ref="3.1/static-typing" supported="false"/>
-                <feature ref="3.1/module" supported="true"/>
-                <feature ref="3.1/serialization" supported="true"/>
+                <feature ref="static-typing" supported="false"/>
+                <feature ref="module" supported="true"/>
+                <feature ref="serialization" supported="true"/>
                 <feature ref="3.1/higher-order-function" supported="true"/>
                 <feature ref="3.1/fn:put" supported="true"/>
             </dialect>
@@ -368,9 +362,9 @@ limitations under the License.
                 <feature ref="3.1/minimal-conformance" supported="true"/>
                 <feature ref="3.1/schema-aware" supported="true"/>
                 <feature ref="3.1/typed-data" supported="true"/>
-                <feature ref="3.1/static-typing" supported="false"/>
-                <feature ref="3.1/module" supported="true"/>
-                <feature ref="3.1/serialization" supported="true"/>
+                <feature ref="static-typing" supported="false"/>
+                <feature ref="module" supported="true"/>
+                <feature ref="serialization" supported="true"/>
                 <feature ref="3.1/higher-order-function" supported="true"/>
                 <feature ref="3.1/fn:put" supported="true"/>
             </dialect>
@@ -380,9 +374,9 @@ limitations under the License.
                 <feature ref="3.1/minimal-conformance" supported="true"/>
                 <feature ref="3.1/schema-aware" supported="true"/>
                 <feature ref="3.1/typed-data" supported="true"/>
-                <feature ref="3.1/static-typing" supported="false"/>
-                <feature ref="3.1/module" supported="true"/>
-                <feature ref="3.1/serialization" supported="true"/>
+                <feature ref="static-typing" supported="false"/>
+                <feature ref="module" supported="true"/>
+                <feature ref="serialization" supported="true"/>
                 <feature ref="3.1/higher-order-function" supported="true"/>
                 <feature ref="3.1/fn:put" supported="true"/>
             </dialect>
