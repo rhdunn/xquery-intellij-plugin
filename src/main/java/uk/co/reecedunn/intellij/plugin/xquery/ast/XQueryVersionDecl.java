@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.ast;
 
 public interface XQueryVersionDecl {
-    CharSequence getVersion();
+    XQueryStringLiteral getVersion();
 
-    CharSequence getEncoding();
+    XQueryStringLiteral getEncoding();
 }

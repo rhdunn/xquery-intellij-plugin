@@ -20,6 +20,7 @@ import com.intellij.psi.impl.source.tree.CompositeElement;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.tree.TokenSet;
 import org.jetbrains.annotations.NotNull;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryStringLiteral;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryVersionDecl;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
@@ -32,7 +33,7 @@ public class XQueryVersionDeclImpl extends CompositeElement implements XQueryVer
         super(type);
     }
 
-    private CharSequence getStringValueAfterKeyword(IXQueryKeywordOrNCNameType type) {
+    private XQueryStringLiteral getStringValueAfterKeyword(IXQueryKeywordOrNCNameType type) {
         for (ASTNode child : getChildren(STRINGS)) {
             ASTNode previous = child.getTreePrev();
             while (previous.getElementType() == XQueryTokenType.WHITE_SPACE || previous.getElementType() == XQueryElementType.COMMENT) {
@@ -40,21 +41,17 @@ public class XQueryVersionDeclImpl extends CompositeElement implements XQueryVer
             }
 
             if (previous.getElementType() == type) {
-                ASTNode value = child.findChildByType(XQueryTokenType.STRING_LITERAL_CONTENTS);
-                if (value == null) {
-                    return null;
-                }
-                return value.getChars();
+                return (XQueryStringLiteral)child;
             }
         }
         return null;
     }
 
-    public CharSequence getVersion() {
+    public XQueryStringLiteral getVersion() {
         return getStringValueAfterKeyword(XQueryTokenType.K_VERSION);
     }
 
-    public CharSequence getEncoding() {
+    public XQueryStringLiteral getEncoding() {
         return getStringValueAfterKeyword(XQueryTokenType.K_ENCODING);
     }
 }

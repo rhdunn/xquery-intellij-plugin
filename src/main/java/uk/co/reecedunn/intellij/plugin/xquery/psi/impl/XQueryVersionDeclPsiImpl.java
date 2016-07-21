@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import org.jetbrains.annotations.NotNull;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryStringLiteral;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryVersionDecl;
 
 public class XQueryVersionDeclPsiImpl extends ASTWrapperPsiElement implements XQueryVersionDecl {
@@ -25,11 +26,11 @@ public class XQueryVersionDeclPsiImpl extends ASTWrapperPsiElement implements XQ
         super(node);
     }
 
-    public CharSequence getVersion() {
+    public XQueryStringLiteral getVersion() {
         return ((XQueryVersionDecl)getNode()).getVersion();
     }
 
-    public CharSequence getEncoding() {
+    public XQueryStringLiteral getEncoding() {
         return ((XQueryVersionDecl)getNode()).getEncoding();
     }
 }

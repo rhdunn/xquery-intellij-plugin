@@ -22,6 +22,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryVersionDecl;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.Specification;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -63,7 +64,8 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versionDecl.getElementType(), is(XQueryElementType.VERSION_DECL));
 
         XQueryVersionDecl versionDeclPsi = (XQueryVersionDecl)versionDecl.getPsi();
-        assertThat(versionDeclPsi.getVersion(), is("1.0"));
+        assertThat(versionDeclPsi.getVersion(), is(notNullValue()));
+        assertThat(versionDeclPsi.getVersion().getSimpleContents(), is("1.0"));
         assertThat(versionDeclPsi.getEncoding(), is(nullValue()));
     }
 
@@ -75,7 +77,8 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versionDecl.getElementType(), is(XQueryElementType.VERSION_DECL));
 
         XQueryVersionDecl versionDeclPsi = (XQueryVersionDecl)versionDecl.getPsi();
-        assertThat(versionDeclPsi.getVersion(), is(nullValue()));
+        assertThat(versionDeclPsi.getVersion(), is(notNullValue()));
+        assertThat(versionDeclPsi.getVersion().getSimpleContents(), is(nullValue()));
         assertThat(versionDeclPsi.getEncoding(), is(nullValue()));
     }
 
@@ -87,8 +90,10 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versionDecl.getElementType(), is(XQueryElementType.VERSION_DECL));
 
         XQueryVersionDecl versionDeclPsi = (XQueryVersionDecl)versionDecl.getPsi();
-        assertThat(versionDeclPsi.getVersion(), is("1.0"));
-        assertThat(versionDeclPsi.getEncoding(), is("latin1"));
+        assertThat(versionDeclPsi.getVersion(), is(notNullValue()));
+        assertThat(versionDeclPsi.getVersion().getSimpleContents(), is("1.0"));
+        assertThat(versionDeclPsi.getEncoding(), is(notNullValue()));
+        assertThat(versionDeclPsi.getEncoding().getSimpleContents(), is("latin1"));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VersionDecl")
@@ -99,8 +104,10 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versionDecl.getElementType(), is(XQueryElementType.VERSION_DECL));
 
         XQueryVersionDecl versionDeclPsi = (XQueryVersionDecl)versionDecl.getPsi();
-        assertThat(versionDeclPsi.getVersion(), is("1.0"));
-        assertThat(versionDeclPsi.getEncoding(), is(nullValue()));
+        assertThat(versionDeclPsi.getVersion(), is(notNullValue()));
+        assertThat(versionDeclPsi.getVersion().getSimpleContents(), is("1.0"));
+        assertThat(versionDeclPsi.getEncoding(), is(notNullValue()));
+        assertThat(versionDeclPsi.getEncoding().getSimpleContents(), is(nullValue()));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VersionDecl")
