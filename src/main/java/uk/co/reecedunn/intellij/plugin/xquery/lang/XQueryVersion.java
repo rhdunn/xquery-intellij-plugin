@@ -47,7 +47,7 @@ public enum XQueryVersion {
     }
 
     @Nullable
-    public static XQueryVersion parse(@Nullable String value) {
+    public static XQueryVersion parse(@Nullable CharSequence value) {
         if ("0.9-ml".equals(value)) return XQUERY_0_9_MARKLOGIC;
         if ("1.0".equals(value)) return XQUERY_1_0;
         if ("1.0-ml".equals(value)) return XQUERY_1_0_MARKLOGIC;
