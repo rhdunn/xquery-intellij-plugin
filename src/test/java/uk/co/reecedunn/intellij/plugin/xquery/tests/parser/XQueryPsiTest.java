@@ -79,13 +79,6 @@ public class XQueryPsiTest extends ParserTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VersionDecl")
     public void testVersionDecl_NoVersion() {
-        final String expected
-                = "FileElement[FILE(0:7)]\n"
-                + "   XQueryVersionDeclImpl[XQUERY_VERSION_DECL(0:6)]\n"
-                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_XQUERY(0:6)]('xquery')\n"
-                + "   PsiErrorElementImpl[ERROR_ELEMENT(6:6)]('XPST0003: Missing keyword 'version'.')\n"
-                + "   LeafPsiElement[XQUERY_SEMICOLON_TOKEN(6:7)](';')\n";
-
         ASTNode node = parseText("xquery;");
 
         ASTNode versionDecl = node.getFirstChildNode();
