@@ -15,9 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.psi.impl;
 
-import com.intellij.extapi.psi.StubBasedPsiElementBase;
+import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
-import com.intellij.psi.stubs.StubElement;
 import com.intellij.psi.tree.TokenSet;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType;
@@ -25,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVersionDeclPsi;
 
-public class XQueryVersionDeclPsiImpl extends StubBasedPsiElementBase<StubElement> implements XQueryVersionDeclPsi {
+public class XQueryVersionDeclPsiImpl extends ASTWrapperPsiElement implements XQueryVersionDeclPsi {
     private static final TokenSet STRINGS = TokenSet.create(XQueryElementType.STRING_LITERAL);
 
     public XQueryVersionDeclPsiImpl(@NotNull ASTNode node) {

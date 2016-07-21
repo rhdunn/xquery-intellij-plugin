@@ -15,12 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.psi.impl;
 
-import com.intellij.extapi.psi.StubBasedPsiElementBase;
+import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
-import com.intellij.psi.stubs.StubElement;
 import org.jetbrains.annotations.NotNull;
 
-public class XQueryQNamePsiImpl extends StubBasedPsiElementBase<StubElement> {
+public class XQueryQNamePsiImpl extends ASTWrapperPsiElement {
     public XQueryQNamePsiImpl(@NotNull ASTNode node) {
         super(node);
     }
