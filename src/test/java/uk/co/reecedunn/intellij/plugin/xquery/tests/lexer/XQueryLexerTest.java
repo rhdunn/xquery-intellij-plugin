@@ -578,7 +578,6 @@ public class XQueryLexerTest extends TestCase {
         matchSingleToken(lexer, ",", XQueryTokenType.COMMA);
         matchSingleToken(lexer, "-", XQueryTokenType.MINUS);
         matchSingleToken(lexer, ".", XQueryTokenType.DOT);
-        matchSingleToken(lexer, ";", XQueryTokenType.SEMICOLON);
         matchSingleToken(lexer, "=", XQueryTokenType.EQUAL);
         matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN);
         matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE);
@@ -640,6 +639,16 @@ public class XQueryLexerTest extends TestCase {
         matchSingleToken(lexer, "module",    XQueryTokenType.K_MODULE);
         matchSingleToken(lexer, "namespace", XQueryTokenType.K_NAMESPACE);
         matchSingleToken(lexer, "=",         XQueryTokenType.EQUAL);
+    }
+
+    // endregion
+    // region Separator
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-Separator")
+    public void testSeparator() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, ";", XQueryTokenType.SEPARATOR);
     }
 
     // endregion

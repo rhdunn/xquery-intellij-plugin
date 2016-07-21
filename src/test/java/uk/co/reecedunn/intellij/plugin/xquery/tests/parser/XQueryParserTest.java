@@ -463,7 +463,7 @@ public class XQueryParserTest extends ParserTestCase {
                 + "         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(15:16)]('\"')\n"
                 + "         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(16:19)]('1.0')\n"
                 + "         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(19:20)]('\"')\n"
-                + "      LeafPsiElement[XQUERY_SEMICOLON_TOKEN(20:21)](';')\n";
+                + "      LeafPsiElement[XQUERY_SEPARATOR_TOKEN(20:21)](';')\n";
 
         assertThat(prettyPrintASTNode(parseText("xquery version \"1.0\";")), is(expected));
     }
@@ -488,7 +488,7 @@ public class XQueryParserTest extends ParserTestCase {
                 "         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(30:31)]('\"')\n" +
                 "         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(31:37)]('latin1')\n" +
                 "         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(37:38)]('\"')\n" +
-                "      LeafPsiElement[XQUERY_SEMICOLON_TOKEN(38:39)](';')\n";
+                "      LeafPsiElement[XQUERY_SEPARATOR_TOKEN(38:39)](';')\n";
 
         assertThat(prettyPrintASTNode(parseText("xquery version \"1.0\" encoding \"latin1\";")), is(expected));
     }
@@ -500,7 +500,7 @@ public class XQueryParserTest extends ParserTestCase {
                 + "   XQueryVersionDeclImpl[XQUERY_VERSION_DECL(0:6)]\n"
                 + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_XQUERY(0:6)]('xquery')\n"
                 + "   PsiErrorElementImpl[ERROR_ELEMENT(6:6)]('XPST0003: Missing keyword 'version'.')\n"
-                + "   LeafPsiElement[XQUERY_SEMICOLON_TOKEN(6:7)](';')\n";
+                + "   LeafPsiElement[XQUERY_SEPARATOR_TOKEN(6:7)](';')\n";
 
         assertThat(prettyPrintASTNode(parseText("xquery;")), is(expected));
     }
@@ -514,7 +514,7 @@ public class XQueryParserTest extends ParserTestCase {
                 + "      PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')\n"
                 + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_VERSION(7:14)]('version')\n"
                 + "   PsiErrorElementImpl[ERROR_ELEMENT(14:14)]('XPST0003: Missing version string.')\n"
-                + "   LeafPsiElement[XQUERY_SEMICOLON_TOKEN(14:15)](';')\n";
+                + "   LeafPsiElement[XQUERY_SEPARATOR_TOKEN(14:15)](';')\n";
 
         assertThat(prettyPrintASTNode(parseText("xquery version;")), is(expected));
     }
@@ -554,7 +554,7 @@ public class XQueryParserTest extends ParserTestCase {
                 "      PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')\n" +
                 "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_ENCODING(21:29)]('encoding')\n" +
                 "   PsiErrorElementImpl[ERROR_ELEMENT(29:29)]('XPST0003: Missing encoding string.')\n" +
-                "   LeafPsiElement[XQUERY_SEMICOLON_TOKEN(29:30)](';')\n";
+                "   LeafPsiElement[XQUERY_SEPARATOR_TOKEN(29:30)](';')\n";
 
         assertThat(prettyPrintASTNode(parseText("xquery version \"1.0\" encoding;")), is(expected));
     }

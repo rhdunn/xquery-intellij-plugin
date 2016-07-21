@@ -420,7 +420,7 @@ public class XQueryLexer extends LexerBase {
                 break;
             case CharacterClass.SEMICOLON:
                 mTokenRange.match();
-                mType = XQueryTokenType.SEMICOLON;
+                mType = XQueryTokenType.SEPARATOR;
                 break;
             case CharacterClass.LESS_THAN:
                 mTokenRange.match();

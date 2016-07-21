@@ -179,7 +179,7 @@ public class SyntaxHighlighterTest extends TestCase {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.EQUAL).length, is(0));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.BLOCK_OPEN).length, is(0));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.BLOCK_CLOSE).length, is(0));
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.SEMICOLON).length, is(0));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.SEPARATOR).length, is(0));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.LESS_THAN).length, is(0));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.GREATER_THAN).length, is(0));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.LESS_THAN_OR_EQUAL).length, is(0));

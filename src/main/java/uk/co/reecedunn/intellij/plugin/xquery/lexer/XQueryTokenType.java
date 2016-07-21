@@ -65,7 +65,7 @@ public interface XQueryTokenType extends TokenType {
     IElementType COMMA = new IElementType("XQUERY_COMMA_TOKEN", XQuery.INSTANCE);
     IElementType MINUS = new IElementType("XQUERY_MINUS_TOKEN", XQuery.INSTANCE);
     IElementType DOT = new IElementType("XQUERY_DOT_TOKEN", XQuery.INSTANCE);
-    IElementType SEMICOLON = new IElementType("XQUERY_SEMICOLON_TOKEN", XQuery.INSTANCE);
+    IElementType SEPARATOR = new IElementType("XQUERY_SEPARATOR_TOKEN", XQuery.INSTANCE);
     IElementType PLUS = new IElementType("XQUERY_PLUS_TOKEN", XQuery.INSTANCE);
     IElementType EQUAL = new IElementType("XQUERY_EQUAL_TOKEN", XQuery.INSTANCE);
     IElementType BLOCK_OPEN = new IElementType("XQUERY_BLOCK_OPEN_TOKEN", XQuery.INSTANCE);

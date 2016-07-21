@@ -159,7 +159,7 @@ public class XQueryParserImpl extends XQueryParserBase {
                 skipWhiteSpaceAndCommentTokens();
             }
 
-            if (!matchTokenType(XQueryTokenType.SEMICOLON)) {
+            if (!matchTokenType(XQueryTokenType.SEPARATOR)) {
                 versionDeclMaker.done(XQueryElementType.VERSION_DECL);
                 error(XQueryBundle.message("parser.error.expected-semicolon"));
                 if (getTokenType() == XQueryTokenType.QNAME_SEPARATOR) {
