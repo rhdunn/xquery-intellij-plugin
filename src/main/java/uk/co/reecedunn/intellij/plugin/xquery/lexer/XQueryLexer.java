@@ -693,6 +693,8 @@ public class XQueryLexer extends LexerBase {
 
     static {
         sKeywords.put("encoding", XQueryTokenType.K_ENCODING);
+        sKeywords.put("module", XQueryTokenType.K_MODULE);
+        sKeywords.put("namespace", XQueryTokenType.K_NAMESPACE);
         sKeywords.put("version", XQueryTokenType.K_VERSION);
         sKeywords.put("xquery", XQueryTokenType.K_XQUERY);
     }

@@ -631,6 +631,18 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region ModuleDecl
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ModuleDecl")
+    public void testModuleDecl() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "module",    XQueryTokenType.K_MODULE);
+        matchSingleToken(lexer, "namespace", XQueryTokenType.K_NAMESPACE);
+        matchSingleToken(lexer, "=",         XQueryTokenType.EQUAL);
+    }
+
+    // endregion
     // region DirCommentConstructor
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirCommentConstructor")
