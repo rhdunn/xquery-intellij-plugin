@@ -18,9 +18,14 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import org.jetbrains.annotations.NotNull;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryStringLiteral;
 
-public class XQueryStringLiteralPsiImpl extends ASTWrapperPsiElement {
+public class XQueryStringLiteralPsiImpl extends ASTWrapperPsiElement implements XQueryStringLiteral {
     public XQueryStringLiteralPsiImpl(@NotNull ASTNode node) {
         super(node);
+    }
+
+    public CharSequence getSimpleContents() {
+        return ((XQueryStringLiteral)getNode()).getSimpleContents();
     }
 }

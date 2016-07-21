@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.parser;
 
 import com.intellij.lang.ASTNode;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryStringLiteral;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryVersionDecl;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.Specification;
@@ -25,6 +26,31 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class XQueryPsiTest extends ParserTestCase {
+    // region A.2.1 Terminal Symbols
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
+    public void testStringLiteral() {
+        ASTNode node = parseText("\"One Two\"");
+
+        ASTNode stringLiteral = node.getFirstChildNode();
+        assertThat(stringLiteral.getElementType(), is(XQueryElementType.STRING_LITERAL));
+
+        XQueryStringLiteral stringLiteralPsi = (XQueryStringLiteral) stringLiteral.getPsi();
+        assertThat(stringLiteralPsi.getSimpleContents(), is("One Two"));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
+    public void testStringLiteral_Empty() {
+        ASTNode node = parseText("\"\"");
+
+        ASTNode stringLiteral = node.getFirstChildNode();
+        assertThat(stringLiteral.getElementType(), is(XQueryElementType.STRING_LITERAL));
+
+        XQueryStringLiteral stringLiteralPsi = (XQueryStringLiteral) stringLiteral.getPsi();
+        assertThat(stringLiteralPsi.getSimpleContents(), is(nullValue()));
+    }
+
+    // endregion
     // region A.1 EBNF
 
     // region VersionDecl

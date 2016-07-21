@@ -16,4 +16,5 @@
 package uk.co.reecedunn.intellij.plugin.xquery.ast;
 
 public interface XQueryStringLiteral extends XQueryLiteral {
+    CharSequence getSimpleContents();
 }
