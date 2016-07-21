@@ -15,7 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.psi;
 
-public interface XQueryVersionDeclPsi {
+import com.intellij.psi.PsiElement;
+
+public interface XQueryVersionDeclPsi extends PsiElement {
     CharSequence getVersion();
 
     CharSequence getEncoding();
