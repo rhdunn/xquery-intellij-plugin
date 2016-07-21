@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.parser;
 
 import com.intellij.lang.ASTNode;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVersionDeclPsi;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryVersionDecl;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.Specification;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -36,7 +36,7 @@ public class XQueryPsiTest extends ParserTestCase {
         ASTNode versionDecl = node.getFirstChildNode();
         assertThat(versionDecl.getElementType(), is(XQueryElementType.VERSION_DECL));
 
-        XQueryVersionDeclPsi versionDeclPsi = (XQueryVersionDeclPsi)versionDecl.getPsi();
+        XQueryVersionDecl versionDeclPsi = (XQueryVersionDecl)versionDecl.getPsi();
         assertThat(versionDeclPsi.getVersion(), is("1.0"));
         assertThat(versionDeclPsi.getEncoding(), is(nullValue()));
     }
@@ -48,7 +48,7 @@ public class XQueryPsiTest extends ParserTestCase {
         ASTNode versionDecl = node.getFirstChildNode();
         assertThat(versionDecl.getElementType(), is(XQueryElementType.VERSION_DECL));
 
-        XQueryVersionDeclPsi versionDeclPsi = (XQueryVersionDeclPsi)versionDecl.getPsi();
+        XQueryVersionDecl versionDeclPsi = (XQueryVersionDecl)versionDecl.getPsi();
         assertThat(versionDeclPsi.getVersion(), is(nullValue()));
         assertThat(versionDeclPsi.getEncoding(), is(nullValue()));
     }
@@ -60,7 +60,7 @@ public class XQueryPsiTest extends ParserTestCase {
         ASTNode versionDecl = node.getFirstChildNode();
         assertThat(versionDecl.getElementType(), is(XQueryElementType.VERSION_DECL));
 
-        XQueryVersionDeclPsi versionDeclPsi = (XQueryVersionDeclPsi)versionDecl.getPsi();
+        XQueryVersionDecl versionDeclPsi = (XQueryVersionDecl)versionDecl.getPsi();
         assertThat(versionDeclPsi.getVersion(), is("1.0"));
         assertThat(versionDeclPsi.getEncoding(), is("latin1"));
     }
@@ -72,7 +72,7 @@ public class XQueryPsiTest extends ParserTestCase {
         ASTNode versionDecl = node.getFirstChildNode();
         assertThat(versionDecl.getElementType(), is(XQueryElementType.VERSION_DECL));
 
-        XQueryVersionDeclPsi versionDeclPsi = (XQueryVersionDeclPsi)versionDecl.getPsi();
+        XQueryVersionDecl versionDeclPsi = (XQueryVersionDecl)versionDecl.getPsi();
         assertThat(versionDeclPsi.getVersion(), is("1.0"));
         assertThat(versionDeclPsi.getEncoding(), is(nullValue()));
     }
@@ -91,7 +91,7 @@ public class XQueryPsiTest extends ParserTestCase {
         ASTNode versionDecl = node.getFirstChildNode();
         assertThat(versionDecl.getElementType(), is(XQueryElementType.VERSION_DECL));
 
-        XQueryVersionDeclPsi versionDeclPsi = (XQueryVersionDeclPsi)versionDecl.getPsi();
+        XQueryVersionDecl versionDeclPsi = (XQueryVersionDecl)versionDecl.getPsi();
         assertThat(versionDeclPsi.getVersion(), is(nullValue()));
         assertThat(versionDeclPsi.getEncoding(), is(nullValue()));
     }
