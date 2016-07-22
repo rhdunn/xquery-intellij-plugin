@@ -20,19 +20,15 @@ import com.intellij.lang.annotation.AnnotationHolder;
 import com.intellij.lang.annotation.Annotator;
 import com.intellij.lang.annotation.HighlightSeverity;
 import com.intellij.psi.PsiElement;
-import com.intellij.psi.tree.TokenSet;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryPredefinedEntityRef;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public class XQueryPredefinedEntityRefAnnotator implements Annotator {
-    private static final TokenSet PREDEFINED_ENTITY_REFS = TokenSet.create(XQueryTokenType.PREDEFINED_ENTITY_REFERENCE);
-
     private static final Set<CharSequence> XML_ENTITIES = new HashSet<>();
     private static final Set<CharSequence> HTML4_ENTITIES = new HashSet<>();
     private static final Set<CharSequence> HTML5_ENTITIES = new HashSet<>();
