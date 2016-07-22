@@ -82,6 +82,8 @@ public class XQueryParserDefinition implements ParserDefinition {
             return new XQueryCDataSectionPsiImpl(node);
         } else if (type == XQueryElementType.VERSION_DECL) {
             return new XQueryVersionDeclPsiImpl(node);
+        } else if (type == XQueryElementType.MODULE_DECL) {
+            return new XQueryModuleDeclPsiImpl(node);
         }
         throw new AssertionError("Alien element type [" + type + "]. Can't create XQuery PsiElement for that.");
     }
