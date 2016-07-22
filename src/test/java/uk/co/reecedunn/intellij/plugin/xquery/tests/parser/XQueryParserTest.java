@@ -575,7 +575,7 @@ public class XQueryParserTest extends ParserTestCase {
                 + "      PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')\n"
                 + "      LeafPsiElement[XQUERY_EQUAL_TOKEN(22:23)]('=')\n"
                 + "      PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')\n"
-                + "      XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(24:53)]\n"
+                + "      XQueryUriLiteralImpl[XQUERY_URI_LITERAL(24:53)]\n"
                 + "         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(24:25)]('\"')\n"
                 + "         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(25:52)]('http://www.example.com/test')\n"
                 + "         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(52:53)]('\"')\n"
@@ -627,7 +627,7 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ModuleDecl")
-    public void testModuleDecl_NoNamespaceUrl() {
+    public void testModuleDecl_NoNamespaceUri() {
         final String expected
                 = "FileElement[FILE(0:23)]\n"
                 + "   XQueryModuleDeclImpl[XQUERY_MODULE_DECL(0:22)]\n"
@@ -638,7 +638,7 @@ public class XQueryParserTest extends ParserTestCase {
                 + "      XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(17:20)]('one')\n"
                 + "      PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')\n"
                 + "      LeafPsiElement[XQUERY_EQUAL_TOKEN(21:22)]('=')\n"
-                + "   PsiErrorElementImpl[ERROR_ELEMENT(22:22)]('XPST0003: Missing URL string.')\n"
+                + "   PsiErrorElementImpl[ERROR_ELEMENT(22:22)]('XPST0003: Missing URI string.')\n"
                 + "   LeafPsiElement[XQUERY_SEPARATOR_TOKEN(22:23)](';')\n";
 
         assertThat(prettyPrintASTNode(parseText("module namespace one =;")), is(expected));
@@ -657,7 +657,7 @@ public class XQueryParserTest extends ParserTestCase {
                 + "      PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')\n"
                 + "      LeafPsiElement[XQUERY_EQUAL_TOKEN(22:23)]('=')\n"
                 + "      PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')\n"
-                + "      XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(24:53)]\n"
+                + "      XQueryUriLiteralImpl[XQUERY_URI_LITERAL(24:53)]\n"
                 + "         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(24:25)]('\"')\n"
                 + "         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(25:52)]('http://www.example.com/test')\n"
                 + "         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(52:53)]('\"')\n"

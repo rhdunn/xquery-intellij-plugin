@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.parser;
 
 import com.intellij.lang.PsiBuilder;
+import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
@@ -31,7 +32,7 @@ public class XQueryParserImpl extends XQueryParserBase {
             if (parseVersionDecl()) continue;
             if (parseModuleDecl()) continue;
             if (parseNumericLiteral()) continue;
-            if (parseStringLiteral()) continue;
+            if (parseStringLiteral(XQueryElementType.STRING_LITERAL)) continue;
             if (misplacedEntityReference()) continue;
             if (parseQName()) continue;
             if (parseDirCommentConstructor()) continue;
@@ -51,7 +52,7 @@ public class XQueryParserImpl extends XQueryParserBase {
         return false;
     }
 
-    private boolean parseStringLiteral() {
+    private boolean parseStringLiteral(IElementType type) {
         if (getTokenType() == XQueryTokenType.STRING_LITERAL_START) {
             final PsiBuilder.Marker stringMarker = mark();
             advanceLexer();
@@ -62,12 +63,12 @@ public class XQueryParserImpl extends XQueryParserBase {
                     matchTokenType(XQueryTokenType.STRING_LITERAL_ESCAPED_CHARACTER)) {
                     //
                 } else if (matchTokenType(XQueryTokenType.STRING_LITERAL_END)) {
-                    stringMarker.done(XQueryElementType.STRING_LITERAL);
+                    stringMarker.done(type);
                     return true;
                 } else if (matchTokenType(XQueryTokenType.PARTIAL_ENTITY_REFERENCE)) {
                     error(XQueryBundle.message("parser.error.incomplete-entity"));
                 } else if (!errorOnTokenType(XQueryTokenType.EMPTY_ENTITY_REFERENCE, XQueryBundle.message("parser.error.empty-entity"))) {
-                    stringMarker.done(XQueryElementType.STRING_LITERAL);
+                    stringMarker.done(type);
                     error(XQueryBundle.message("parser.error.incomplete-string"));
                     return true;
                 }
@@ -142,7 +143,7 @@ public class XQueryParserImpl extends XQueryParserBase {
             }
 
             skipWhiteSpaceAndCommentTokens();
-            if (!parseStringLiteral()) {
+            if (!parseStringLiteral(XQueryElementType.STRING_LITERAL)) {
                 versionDeclMaker.done(XQueryElementType.VERSION_DECL);
                 error(XQueryBundle.message("parser.error.expected-version-string"));
                 return true;
@@ -151,7 +152,7 @@ public class XQueryParserImpl extends XQueryParserBase {
             skipWhiteSpaceAndCommentTokens();
             if (matchTokenType(XQueryTokenType.K_ENCODING)) {
                 skipWhiteSpaceAndCommentTokens();
-                if (!parseStringLiteral()) {
+                if (!parseStringLiteral(XQueryElementType.STRING_LITERAL)) {
                     versionDeclMaker.done(XQueryElementType.VERSION_DECL);
                     error(XQueryBundle.message("parser.error.expected-encoding-string"));
                     return true;
@@ -202,9 +203,9 @@ public class XQueryParserImpl extends XQueryParserBase {
             }
 
             skipWhiteSpaceAndCommentTokens();
-            if (!parseStringLiteral()) {
+            if (!parseStringLiteral(XQueryElementType.URI_LITERAL)) {
                 moduleDeclMaker.done(XQueryElementType.MODULE_DECL);
-                error(XQueryBundle.message("parser.error.expected-url-string"));
+                error(XQueryBundle.message("parser.error.expected-uri-string"));
                 return true;
             }
 

@@ -26,6 +26,7 @@ public interface XQueryElementType {
     IElementType COMMENT = new IElementType("XQUERY_COMMENT", XQuery.INSTANCE);
     IElementType QNAME = new IElementType("XQUERY_QNAME", XQuery.INSTANCE);
     IElementType STRING_LITERAL = new IElementType("XQUERY_STRING_LITERAL", XQuery.INSTANCE);
+    IElementType URI_LITERAL = new IElementType("XQUERY_URI_LITERAL", XQuery.INSTANCE);
 
     IElementType VERSION_DECL = new IElementType("XQUERY_VERSION_DECL", XQuery.INSTANCE);
     IElementType MODULE_DECL = new IElementType("XQUERY_MODULE_DECL", XQuery.INSTANCE);

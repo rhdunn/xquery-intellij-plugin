@@ -72,6 +72,8 @@ public class XQueryParserDefinition implements ParserDefinition {
         final IElementType type = node.getElementType();
         if (type == XQueryElementType.STRING_LITERAL) {
             return new XQueryStringLiteralPsiImpl(node);
+        } else if (type == XQueryElementType.URI_LITERAL) {
+            return new XQueryUriLiteralPsiImpl(node);
         } else if (type == XQueryElementType.QNAME) {
             return new XQueryQNamePsiImpl(node);
         } else if (type == XQueryElementType.COMMENT) {

@@ -29,6 +29,8 @@ public class XQueryASTFactory extends ASTFactory {
     public CompositeElement createComposite(final IElementType type) {
         if (type == XQueryElementType.STRING_LITERAL) {
             return new XQueryStringLiteralImpl(type);
+        } else if (type == XQueryElementType.URI_LITERAL) {
+            return new XQueryUriLiteralImpl(type);
         } else if (type == XQueryElementType.QNAME) {
             return new XQueryQNameImpl(type);
         } else if (type == XQueryElementType.COMMENT) {
