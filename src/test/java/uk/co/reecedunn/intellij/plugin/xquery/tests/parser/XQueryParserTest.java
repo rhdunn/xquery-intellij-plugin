@@ -471,24 +471,24 @@ public class XQueryParserTest extends ParserTestCase {
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VersionDecl")
     public void testVersionDecl_WithEncoding() {
         final String expected
-                = "FileElement[FILE(0:39)]\n" +
-                "   XQueryVersionDeclImpl[XQUERY_VERSION_DECL(0:39)]\n" +
-                "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_XQUERY(0:6)]('xquery')\n" +
-                "      PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')\n" +
-                "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_VERSION(7:14)]('version')\n" +
-                "      PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')\n" +
-                "      XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(15:20)]\n" +
-                "         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(15:16)]('\"')\n" +
-                "         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(16:19)]('1.0')\n" +
-                "         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(19:20)]('\"')\n" +
-                "      PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')\n" +
-                "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_ENCODING(21:29)]('encoding')\n" +
-                "      PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')\n" +
-                "      XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(30:38)]\n" +
-                "         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(30:31)]('\"')\n" +
-                "         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(31:37)]('latin1')\n" +
-                "         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(37:38)]('\"')\n" +
-                "      LeafPsiElement[XQUERY_SEPARATOR_TOKEN(38:39)](';')\n";
+                = "FileElement[FILE(0:39)]\n"
+                + "   XQueryVersionDeclImpl[XQUERY_VERSION_DECL(0:39)]\n"
+                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_XQUERY(0:6)]('xquery')\n"
+                + "      PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')\n"
+                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_VERSION(7:14)]('version')\n"
+                + "      PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')\n"
+                + "      XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(15:20)]\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(15:16)]('\"')\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(16:19)]('1.0')\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(19:20)]('\"')\n"
+                + "      PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')\n"
+                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_ENCODING(21:29)]('encoding')\n"
+                + "      PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')\n"
+                + "      XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(30:38)]\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(30:31)]('\"')\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(31:37)]('latin1')\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(37:38)]('\"')\n"
+                + "      LeafPsiElement[XQUERY_SEPARATOR_TOKEN(38:39)](';')\n";
 
         assertThat(prettyPrintASTNode(parseText("xquery version \"1.0\" encoding \"latin1\";")), is(expected));
     }
@@ -522,18 +522,18 @@ public class XQueryParserTest extends ParserTestCase {
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VersionDecl")
     public void testVersionDecl_MissingSemicolon() {
         final String expected
-                = "FileElement[FILE(0:21)]\n" +
-                "   XQueryVersionDeclImpl[XQUERY_VERSION_DECL(0:20)]\n" +
-                "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_XQUERY(0:6)]('xquery')\n" +
-                "      PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')\n" +
-                "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_VERSION(7:14)]('version')\n" +
-                "      PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')\n" +
-                "      XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(15:20)]\n" +
-                "         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(15:16)]('\"')\n" +
-                "         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(16:19)]('1.0')\n" +
-                "         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(19:20)]('\"')\n" +
-                "   PsiErrorElementImpl[ERROR_ELEMENT(20:20)]('XPST0003: Missing semicolon.')\n" +
-                "   LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(20:21)](':')\n";
+                = "FileElement[FILE(0:21)]\n"
+                + "   XQueryVersionDeclImpl[XQUERY_VERSION_DECL(0:20)]\n"
+                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_XQUERY(0:6)]('xquery')\n"
+                + "      PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')\n"
+                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_VERSION(7:14)]('version')\n"
+                + "      PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')\n"
+                + "      XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(15:20)]\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(15:16)]('\"')\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(16:19)]('1.0')\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(19:20)]('\"')\n"
+                + "   PsiErrorElementImpl[ERROR_ELEMENT(20:20)]('XPST0003: Missing semicolon.')\n"
+                + "   LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(20:21)](':')\n";
 
         assertThat(prettyPrintASTNode(parseText("xquery version \"1.0\":")), is(expected));
     }
@@ -541,20 +541,20 @@ public class XQueryParserTest extends ParserTestCase {
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VersionDecl")
     public void testVersionDecl_MissingEncodingString() {
         final String expected
-                = "FileElement[FILE(0:30)]\n" +
-                "   XQueryVersionDeclImpl[XQUERY_VERSION_DECL(0:29)]\n" +
-                "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_XQUERY(0:6)]('xquery')\n" +
-                "      PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')\n" +
-                "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_VERSION(7:14)]('version')\n" +
-                "      PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')\n" +
-                "      XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(15:20)]\n" +
-                "         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(15:16)]('\"')\n" +
-                "         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(16:19)]('1.0')\n" +
-                "         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(19:20)]('\"')\n" +
-                "      PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')\n" +
-                "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_ENCODING(21:29)]('encoding')\n" +
-                "   PsiErrorElementImpl[ERROR_ELEMENT(29:29)]('XPST0003: Missing encoding string.')\n" +
-                "   LeafPsiElement[XQUERY_SEPARATOR_TOKEN(29:30)](';')\n";
+                = "FileElement[FILE(0:30)]\n"
+                + "   XQueryVersionDeclImpl[XQUERY_VERSION_DECL(0:29)]\n"
+                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_XQUERY(0:6)]('xquery')\n"
+                + "      PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')\n"
+                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_VERSION(7:14)]('version')\n"
+                + "      PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')\n"
+                + "      XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(15:20)]\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(15:16)]('\"')\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(16:19)]('1.0')\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(19:20)]('\"')\n"
+                + "      PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')\n"
+                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_ENCODING(21:29)]('encoding')\n"
+                + "   PsiErrorElementImpl[ERROR_ELEMENT(29:29)]('XPST0003: Missing encoding string.')\n"
+                + "   LeafPsiElement[XQUERY_SEPARATOR_TOKEN(29:30)](';')\n";
 
         assertThat(prettyPrintASTNode(parseText("xquery version \"1.0\" encoding;")), is(expected));
     }
@@ -627,8 +627,8 @@ public class XQueryParserTest extends ParserTestCase {
     public void testCDataSection_UnexpectedEndTag() {
         final String expected
                 = "FileElement[FILE(0:3)]\n"
-                + "   PsiErrorElementImpl[ERROR_ELEMENT(0:3)]('XPST0003: End of CDATA section marker found without a '<![CDATA[' start of CDATA section marker.')\n" +
-                "      LeafPsiElement[XQUERY_CDATA_SECTION_END_TAG_TOKEN(0:3)](']]>')\n";
+                + "   PsiErrorElementImpl[ERROR_ELEMENT(0:3)]('XPST0003: End of CDATA section marker found without a '<![CDATA[' start of CDATA section marker.')\n"
+                + "      LeafPsiElement[XQUERY_CDATA_SECTION_END_TAG_TOKEN(0:3)](']]>')\n";
 
         assertThat(prettyPrintASTNode(parseText("]]>")), is(expected));
     }
