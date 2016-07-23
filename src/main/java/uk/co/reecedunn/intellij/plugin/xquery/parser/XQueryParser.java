@@ -21,8 +21,8 @@ import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 
-public class XQueryParserImpl extends XQueryParserBase {
-    public XQueryParserImpl(@NotNull PsiBuilder builder) {
+public class XQueryParser extends XQueryParserBase {
+    public XQueryParser(@NotNull PsiBuilder builder) {
         super(builder);
     }
 
