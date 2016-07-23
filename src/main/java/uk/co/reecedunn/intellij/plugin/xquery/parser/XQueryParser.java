@@ -21,9 +21,13 @@ import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 
-public class XQueryParser extends XQueryParserBase {
+public class XQueryParser {
+    // region Main Interface
+
+    private final PsiBuilder mBuilder;
+
     public XQueryParser(@NotNull PsiBuilder builder) {
-        super(builder);
+        mBuilder = builder;
     }
 
     public void parse() {
@@ -40,6 +44,76 @@ public class XQueryParser extends XQueryParserBase {
             advanceLexer();
         }
     }
+
+    // endregion
+    // region Parser Helper Methods
+
+    public boolean skipWhiteSpaceAndCommentTokens() {
+        boolean skipped = false;
+        while (true) {
+            if (mBuilder.getTokenType() == XQueryTokenType.WHITE_SPACE) {
+                skipped = true;
+                mBuilder.advanceLexer();
+            } else if (mBuilder.getTokenType() == XQueryTokenType.COMMENT_START_TAG) {
+                skipped = true;
+                final PsiBuilder.Marker commentMarker = mBuilder.mark();
+                mBuilder.advanceLexer();
+                // NOTE: XQueryTokenType.COMMENT is omitted by the PsiBuilder.
+                if (mBuilder.getTokenType() == XQueryTokenType.COMMENT_END_TAG) {
+                    mBuilder.advanceLexer();
+                    commentMarker.done(XQueryElementType.COMMENT);
+                } else {
+                    mBuilder.advanceLexer(); // XQueryTokenType.UNEXPECTED_END_OF_BLOCK
+                    commentMarker.done(XQueryElementType.COMMENT);
+                    mBuilder.error(XQueryBundle.message("parser.error.incomplete-comment"));
+                }
+            } else if (mBuilder.getTokenType() == XQueryTokenType.COMMENT_END_TAG) {
+                skipped = true;
+                final PsiBuilder.Marker errorMarker = mBuilder.mark();
+                mBuilder.advanceLexer();
+                errorMarker.error(XQueryBundle.message("parser.error.end-of-comment-without-start", "(:"));
+            } else {
+                return skipped;
+            }
+        }
+    }
+
+    public boolean matchTokenType(IElementType type) {
+        if (mBuilder.getTokenType() == type) {
+            mBuilder.advanceLexer();
+            return true;
+        }
+        return false;
+    }
+
+    public boolean errorOnTokenType(IElementType type, String message) {
+        if (mBuilder.getTokenType() == type) {
+            final PsiBuilder.Marker errorMarker = mBuilder.mark();
+            mBuilder.advanceLexer();
+            errorMarker.error(message);
+            return true;
+        }
+        return false;
+    }
+
+    public PsiBuilder.Marker mark() {
+        return mBuilder.mark();
+    }
+
+    public IElementType getTokenType() {
+        return mBuilder.getTokenType();
+    }
+
+    public void advanceLexer() {
+        mBuilder.advanceLexer();
+    }
+
+    public void error(String message) {
+        mBuilder.error(message);
+    }
+
+    // endregion
+    // region Grammar
 
     private boolean parseNumericLiteral() {
         if (matchTokenType(XQueryTokenType.INTEGER_LITERAL) ||
@@ -262,4 +336,6 @@ public class XQueryParser extends XQueryParserBase {
         }
         return false;
     }
+
+    // endregion
 }
