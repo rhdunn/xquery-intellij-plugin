@@ -20,13 +20,20 @@ import com.intellij.lang.PsiBuilder;
 import com.intellij.lang.PsiParser;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
+import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings;
 
 public class XQueryPsiParser implements PsiParser {
+    private final XQueryProjectSettings mSettings;
+
+    XQueryPsiParser(@NotNull XQueryProjectSettings settings) {
+        mSettings = settings;
+    }
+
     @NotNull
     @Override
     public ASTNode parse(@NotNull IElementType root, @NotNull PsiBuilder builder) {
         final PsiBuilder.Marker rootMarker = builder.mark();
-        new XQueryParser(builder).parse();
+        new XQueryParser(builder, mSettings).parse();
         rootMarker.done(root);
         return builder.getTreeBuilt();
     }

@@ -20,14 +20,17 @@ import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
+import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings;
 
 public class XQueryParser {
     // region Main Interface
 
     private final PsiBuilder mBuilder;
+    private final XQueryProjectSettings mSettings;
 
-    public XQueryParser(@NotNull PsiBuilder builder) {
+    public XQueryParser(@NotNull PsiBuilder builder, @NotNull XQueryProjectSettings settings) {
         mBuilder = builder;
+        mSettings = settings;
     }
 
     public void parse() {

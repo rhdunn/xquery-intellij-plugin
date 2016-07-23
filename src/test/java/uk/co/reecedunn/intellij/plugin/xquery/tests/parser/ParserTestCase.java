@@ -38,6 +38,7 @@ import org.picocontainer.defaults.AbstractComponentAdapter;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.impl.XQueryASTFactory;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition;
+import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.mocks.MockFileViewProvider;
 
 public abstract class ParserTestCase extends PlatformLiteFixture {
@@ -76,6 +77,7 @@ public abstract class ParserTestCase extends PlatformLiteFixture {
         Extensions.registerAreaClass("IDEA_PROJECT", null);
         myProject = new MockProjectEx(getTestRootDisposable());
         registerApplicationService(DefaultASTFactory.class, new DefaultASTFactoryImpl());
+        registerApplicationService(XQueryProjectSettings.class, new XQueryProjectSettings());
         addExplicitExtension(LanguageASTFactory.INSTANCE, XQuery.INSTANCE, new XQueryASTFactory());
         addExplicitExtension(LanguageParserDefinitions.INSTANCE, XQuery.INSTANCE, new XQueryParserDefinition());
     }
