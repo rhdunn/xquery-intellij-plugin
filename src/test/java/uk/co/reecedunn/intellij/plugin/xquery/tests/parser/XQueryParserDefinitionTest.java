@@ -32,15 +32,15 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.mocks.MockFileViewProvider;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class XQueryParserDefinitionTest extends TestCase {
+public class XQueryParserDefinitionTest extends ParserTestCase {
     public void testLexer() {
         ParserDefinition parserDefinition = new XQueryParserDefinition();
-        assertThat(parserDefinition.createLexer(null).getClass().getName(), is(XQueryLexer.class.getName()));
+        assertThat(parserDefinition.createLexer(myProject).getClass().getName(), is(XQueryLexer.class.getName()));
     }
 
     public void testParser() {
         ParserDefinition parserDefinition = new XQueryParserDefinition();
-        assertThat(parserDefinition.createParser(null).getClass().getName(), is(XQueryParser.class.getName()));
+        assertThat(parserDefinition.createParser(myProject).getClass().getName(), is(XQueryParser.class.getName()));
     }
 
     public void testFileNodeType() {

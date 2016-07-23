@@ -142,10 +142,10 @@ public abstract class ParserTestCase extends PlatformLiteFixture {
         ParserDefinition parserDefinition = new XQueryParserDefinition();
         TokenSet whitespaces = parserDefinition.getWhitespaceTokens();
         TokenSet comments = parserDefinition.getCommentTokens();
-        Lexer lexer = parserDefinition.createLexer(null);
+        Lexer lexer = parserDefinition.createLexer(myProject);
 
-        PsiBuilder builder = new PsiBuilderImpl(null, null, whitespaces, comments, lexer, null, text, null, null);
-        ASTNode node = parserDefinition.createParser(null).parse(parserDefinition.getFileNodeType(), builder);
+        PsiBuilder builder = new PsiBuilderImpl(myProject, null, whitespaces, comments, lexer, null, text, null, null);
+        ASTNode node = parserDefinition.createParser(myProject).parse(parserDefinition.getFileNodeType(), builder);
         buildPsi(parserDefinition, node);
         return node;
     }
