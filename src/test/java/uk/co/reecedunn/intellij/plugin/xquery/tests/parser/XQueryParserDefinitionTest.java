@@ -18,12 +18,11 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.parser;
 import com.intellij.lang.ParserDefinition;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.tree.TokenSet;
-import junit.framework.TestCase;
 import uk.co.reecedunn.intellij.plugin.xquery.filetypes.XQueryFileType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
-import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParser;
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryPsiParser;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.XQueryFileImpl;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.mocks.MockASTNode;
@@ -40,7 +39,7 @@ public class XQueryParserDefinitionTest extends ParserTestCase {
 
     public void testParser() {
         ParserDefinition parserDefinition = new XQueryParserDefinition();
-        assertThat(parserDefinition.createParser(myProject).getClass().getName(), is(XQueryParser.class.getName()));
+        assertThat(parserDefinition.createParser(myProject).getClass().getName(), is(XQueryPsiParser.class.getName()));
     }
 
     public void testFileNodeType() {

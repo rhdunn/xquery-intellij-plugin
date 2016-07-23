@@ -21,7 +21,7 @@ import com.intellij.lang.PsiParser;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 
-public class XQueryParser implements PsiParser {
+public class XQueryPsiParser implements PsiParser {
     @NotNull
     @Override
     public ASTNode parse(@NotNull IElementType root, @NotNull PsiBuilder builder) {
