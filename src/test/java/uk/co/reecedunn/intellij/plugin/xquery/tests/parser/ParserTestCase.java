@@ -18,89 +18,45 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.parser;
 import com.intellij.lang.*;
 import com.intellij.lang.impl.PsiBuilderImpl;
 import com.intellij.lexer.Lexer;
-import com.intellij.mock.MockProjectEx;
-import com.intellij.mock.MockPsiManager;
-import com.intellij.openapi.extensions.Extensions;
-import com.intellij.openapi.progress.ProgressManager;
-import com.intellij.openapi.progress.impl.ProgressManagerImpl;
-import com.intellij.openapi.util.Disposer;
+import com.intellij.openapi.project.Project;
 import com.intellij.psi.FileViewProvider;
 import com.intellij.psi.PsiErrorElement;
+import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiManager;
 import com.intellij.psi.impl.source.tree.CompositeElement;
 import com.intellij.psi.impl.source.tree.FileElement;
 import com.intellij.psi.impl.source.tree.LeafElement;
 import com.intellij.psi.tree.TokenSet;
-import com.intellij.testFramework.PlatformLiteFixture;
+import com.intellij.testFramework.ParsingTestCase;
 import org.jetbrains.annotations.NotNull;
-import org.picocontainer.ComponentAdapter;
-import org.picocontainer.PicoContainer;
-import org.picocontainer.PicoInitializationException;
-import org.picocontainer.PicoIntrospectionException;
-import org.picocontainer.defaults.AbstractComponentAdapter;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.impl.XQueryASTFactory;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition;
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.mocks.MockFileViewProvider;
 
-public abstract class ParserTestCase extends PlatformLiteFixture {
-    // region IntelliJ Platform Infrastructure
-
-    private PsiManager mPsiManager;
-
-    protected @Override boolean shouldContainTempFiles() {
-        return false;
+public abstract class ParserTestCase extends ParsingTestCase {
+    public ParserTestCase() {
+        super("", ".xqy", new XQueryParserDefinition());
     }
 
-    private <T> void registerApplicationService(final Class<T> aClass, T object) {
-        getApplication().registerService(aClass, object);
-        Disposer.register(myProject, () -> getApplication().getPicoContainer().unregisterComponent(aClass.getName()));
-    }
-
-    private <T> void addExplicitExtension(final LanguageExtension<T> instance, final Language language, final T object) {
-        instance.addExplicitExtension(language, object);
-        Disposer.register(myProject, () -> instance.removeExplicitExtension(language, object));
-    }
-
-    protected void setUp() {
-        initApplication();
-        ComponentAdapter component = getApplication().getPicoContainer().getComponentAdapter(ProgressManager.class.getName());
-        if (component == null) {
-            getApplication().getPicoContainer().registerComponent(new AbstractComponentAdapter(ProgressManager.class.getName(), Object.class) {
-                @Override
-                public Object getComponentInstance(PicoContainer container) throws PicoInitializationException, PicoIntrospectionException {
-                    return new ProgressManagerImpl();
-                }
-
-                @Override
-                public void verify(PicoContainer container) throws PicoIntrospectionException {
-                }
-            });
-        }
-
-        Extensions.registerAreaClass("IDEA_PROJECT", null);
-        myProject = new MockProjectEx(getTestRootDisposable());
-        mPsiManager = new MockPsiManager(myProject);
-
-        registerApplicationService(DefaultASTFactory.class, new DefaultASTFactoryImpl());
+    protected void setUp() throws Exception {
+        super.setUp();
         registerApplicationService(XQueryProjectSettings.class, new XQueryProjectSettings());
         addExplicitExtension(LanguageASTFactory.INSTANCE, XQuery.INSTANCE, new XQueryASTFactory());
-        addExplicitExtension(LanguageParserDefinitions.INSTANCE, XQuery.INSTANCE, new XQueryParserDefinition());
     }
 
-    public FileViewProvider getFileViewProvider() {
-        return new MockFileViewProvider(mPsiManager);
+    public FileViewProvider getFileViewProvider(@NotNull Project project) {
+        return new MockFileViewProvider(PsiManager.getInstance(project));
     }
 
-    // endregion
     // region Parser Test Helpers
 
     private void buildPsi(@NotNull ParserDefinition parserDefinition, ASTNode node) {
         if (node instanceof CompositeElement) {
             CompositeElement element = (CompositeElement)node;
             if (node instanceof FileElement) {
-                element.setPsi(parserDefinition.createFile(getFileViewProvider()));
+                element.setPsi(parserDefinition.createFile(getFileViewProvider(myProject)));
             } else if (!(node instanceof PsiErrorElement)) {
                 element.setPsi(parserDefinition.createElement(node));
             }
