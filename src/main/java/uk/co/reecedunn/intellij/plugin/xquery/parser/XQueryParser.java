@@ -178,11 +178,11 @@ public class XQueryParser {
             }
 
             if (matchTokenType(XQueryTokenType.QNAME_SEPARATOR)) {
-                final PsiBuilder.Marker afterMaker = mark();
+                final PsiBuilder.Marker afterMarker = mark();
                 if (skipWhiteSpaceAndCommentTokens()) {
-                    afterMaker.error(XQueryBundle.message("parser.error.qname.whitespace-after-local-part"));
+                    afterMarker.error(XQueryBundle.message("parser.error.qname.whitespace-after-local-part"));
                 } else {
-                    afterMaker.drop();
+                    afterMarker.drop();
                 }
 
                 if (matchTokenType(XQueryTokenType.NCNAME)) {
@@ -191,9 +191,9 @@ public class XQueryParser {
                 } else {
                     qnameMarker.drop();
 
-                    final PsiBuilder.Marker errorMaker = mark();
+                    final PsiBuilder.Marker errorMarker = mark();
                     advanceLexer();
-                    errorMaker.error(XQueryBundle.message("parser.error.qname.missing-local-name"));
+                    errorMarker.error(XQueryBundle.message("parser.error.qname.missing-local-name"));
                     return true;
                 }
             } else {
@@ -201,13 +201,13 @@ public class XQueryParser {
             }
             return true;
         } else if (getTokenType() == XQueryTokenType.QNAME_SEPARATOR) {
-            final PsiBuilder.Marker errorMaker = mark();
+            final PsiBuilder.Marker errorMarker = mark();
             advanceLexer();
             skipWhiteSpaceAndCommentTokens();
             if (getTokenType() == XQueryTokenType.NCNAME) {
                 advanceLexer();
             }
-            errorMaker.error(XQueryBundle.message("parser.error.qname.missing-prefix"));
+            errorMarker.error(XQueryBundle.message("parser.error.qname.missing-prefix"));
             return true;
         }
         return false;
@@ -215,7 +215,7 @@ public class XQueryParser {
 
     private boolean parseVersionDecl() {
         if (getTokenType() == XQueryTokenType.K_XQUERY) {
-            final PsiBuilder.Marker versionDeclMaker = mark();
+            final PsiBuilder.Marker versionDeclMarker = mark();
             advanceLexer();
 
             skipWhiteSpaceAndCommentTokens();
@@ -229,7 +229,7 @@ public class XQueryParser {
 
                 skipWhiteSpaceAndCommentTokens();
                 if (!parseStringLiteral(XQueryElementType.STRING_LITERAL)) {
-                    versionDeclMaker.done(XQueryElementType.VERSION_DECL);
+                    versionDeclMarker.done(XQueryElementType.VERSION_DECL);
                     error(XQueryBundle.message("parser.error.expected-encoding-string"));
                     return true;
                 }
@@ -238,14 +238,14 @@ public class XQueryParser {
             } else {
                 versionDecl30Marker.drop();
                 if (!matchTokenType(XQueryTokenType.K_VERSION)) {
-                    versionDeclMaker.done(XQueryElementType.VERSION_DECL);
+                    versionDeclMarker.done(XQueryElementType.VERSION_DECL);
                     error(XQueryBundle.message("parser.error.expected-keyword", "version"));
                     return true;
                 }
 
                 skipWhiteSpaceAndCommentTokens();
                 if (!parseStringLiteral(XQueryElementType.STRING_LITERAL)) {
-                    versionDeclMaker.done(XQueryElementType.VERSION_DECL);
+                    versionDeclMarker.done(XQueryElementType.VERSION_DECL);
                     error(XQueryBundle.message("parser.error.expected-version-string"));
                     return true;
                 }
@@ -254,7 +254,7 @@ public class XQueryParser {
                 if (matchTokenType(XQueryTokenType.K_ENCODING)) {
                     skipWhiteSpaceAndCommentTokens();
                     if (!parseStringLiteral(XQueryElementType.STRING_LITERAL)) {
-                        versionDeclMaker.done(XQueryElementType.VERSION_DECL);
+                        versionDeclMarker.done(XQueryElementType.VERSION_DECL);
                         error(XQueryBundle.message("parser.error.expected-encoding-string"));
                         return true;
                     }
@@ -264,7 +264,7 @@ public class XQueryParser {
             }
 
             if (!matchTokenType(XQueryTokenType.SEPARATOR)) {
-                versionDeclMaker.done(XQueryElementType.VERSION_DECL);
+                versionDeclMarker.done(XQueryElementType.VERSION_DECL);
                 error(XQueryBundle.message("parser.error.expected-semicolon"));
                 if (getTokenType() == XQueryTokenType.QNAME_SEPARATOR) {
                     advanceLexer();
@@ -272,7 +272,7 @@ public class XQueryParser {
                 return true;
             }
 
-            versionDeclMaker.done(XQueryElementType.VERSION_DECL);
+            versionDeclMarker.done(XQueryElementType.VERSION_DECL);
             return true;
         }
         return false;
@@ -280,39 +280,39 @@ public class XQueryParser {
 
     private boolean parseModuleDecl() {
         if (getTokenType() == XQueryTokenType.K_MODULE) {
-            final PsiBuilder.Marker moduleDeclMaker = mark();
+            final PsiBuilder.Marker moduleDeclMarker = mark();
             advanceLexer();
 
             skipWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.K_NAMESPACE)) {
-                moduleDeclMaker.done(XQueryElementType.MODULE_DECL);
+                moduleDeclMarker.done(XQueryElementType.MODULE_DECL);
                 error(XQueryBundle.message("parser.error.expected-keyword", "namespace"));
                 return true;
             }
 
             skipWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.NCNAME)) {
-                moduleDeclMaker.done(XQueryElementType.MODULE_DECL);
+                moduleDeclMarker.done(XQueryElementType.MODULE_DECL);
                 error(XQueryBundle.message("parser.error.expected-ncname"));
                 return true;
             }
 
             skipWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.EQUAL)) {
-                moduleDeclMaker.done(XQueryElementType.MODULE_DECL);
+                moduleDeclMarker.done(XQueryElementType.MODULE_DECL);
                 error(XQueryBundle.message("parser.error.expected", "="));
                 return true;
             }
 
             skipWhiteSpaceAndCommentTokens();
             if (!parseStringLiteral(XQueryElementType.URI_LITERAL)) {
-                moduleDeclMaker.done(XQueryElementType.MODULE_DECL);
+                moduleDeclMarker.done(XQueryElementType.MODULE_DECL);
                 error(XQueryBundle.message("parser.error.expected-uri-string"));
                 return true;
             }
 
             if (!matchTokenType(XQueryTokenType.SEPARATOR)) {
-                moduleDeclMaker.done(XQueryElementType.MODULE_DECL);
+                moduleDeclMarker.done(XQueryElementType.MODULE_DECL);
                 error(XQueryBundle.message("parser.error.expected-semicolon"));
                 if (getTokenType() == XQueryTokenType.QNAME_SEPARATOR) {
                     advanceLexer();
@@ -320,7 +320,7 @@ public class XQueryParser {
                 return true;
             }
 
-            moduleDeclMaker.done(XQueryElementType.MODULE_DECL);
+            moduleDeclMarker.done(XQueryElementType.MODULE_DECL);
             return true;
         }
         return false;
@@ -328,14 +328,14 @@ public class XQueryParser {
 
     private boolean parseDirCommentConstructor() {
         if (getTokenType() == XQueryTokenType.XML_COMMENT_START_TAG) {
-            final PsiBuilder.Marker commentMaker = mark();
+            final PsiBuilder.Marker commentMarker = mark();
             advanceLexer();
             // NOTE: XQueryTokenType.XML_COMMENT is omitted by the PsiBuilder.
             if (matchTokenType(XQueryTokenType.XML_COMMENT_END_TAG)) {
-                commentMaker.done(XQueryElementType.DIR_COMMENT_CONSTRUCTOR);
+                commentMarker.done(XQueryElementType.DIR_COMMENT_CONSTRUCTOR);
             } else {
                 advanceLexer(); // XQueryTokenType.UNEXPECTED_END_OF_BLOCK
-                commentMaker.done(XQueryElementType.DIR_COMMENT_CONSTRUCTOR);
+                commentMarker.done(XQueryElementType.DIR_COMMENT_CONSTRUCTOR);
                 error(XQueryBundle.message("parser.error.incomplete-xml-comment"));
             }
             return true;
@@ -348,14 +348,14 @@ public class XQueryParser {
 
     private boolean parseCDataSection() {
         if (getTokenType() == XQueryTokenType.CDATA_SECTION_START_TAG) {
-            final PsiBuilder.Marker commentMaker = mark();
+            final PsiBuilder.Marker cdataMarker = mark();
             advanceLexer();
             matchTokenType(XQueryTokenType.CDATA_SECTION);
             if (matchTokenType(XQueryTokenType.CDATA_SECTION_END_TAG)) {
-                commentMaker.done(XQueryElementType.CDATA_SECTION);
+                cdataMarker.done(XQueryElementType.CDATA_SECTION);
             } else {
                 advanceLexer(); // XQueryTokenType.UNEXPECTED_END_OF_BLOCK
-                commentMaker.done(XQueryElementType.CDATA_SECTION);
+                cdataMarker.done(XQueryElementType.CDATA_SECTION);
                 error(XQueryBundle.message("parser.error.incomplete-cdata-section"));
             }
             return true;
