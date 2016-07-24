@@ -19,21 +19,20 @@ import com.intellij.lang.*;
 import com.intellij.lang.impl.PsiBuilderImpl;
 import com.intellij.lexer.Lexer;
 import com.intellij.openapi.project.Project;
-import com.intellij.psi.FileViewProvider;
-import com.intellij.psi.PsiErrorElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.PsiManager;
+import com.intellij.openapi.vfs.CharsetToolkit;
+import com.intellij.psi.*;
 import com.intellij.psi.impl.source.tree.CompositeElement;
 import com.intellij.psi.impl.source.tree.FileElement;
 import com.intellij.psi.impl.source.tree.LeafElement;
 import com.intellij.psi.tree.TokenSet;
+import com.intellij.testFramework.LightVirtualFile;
 import com.intellij.testFramework.ParsingTestCase;
+import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.impl.XQueryASTFactory;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition;
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings;
-import uk.co.reecedunn.intellij.plugin.xquery.tests.mocks.MockFileViewProvider;
 
 public abstract class ParserTestCase extends ParsingTestCase {
     public ParserTestCase() {
@@ -46,11 +45,21 @@ public abstract class ParserTestCase extends ParsingTestCase {
         addExplicitExtension(LanguageASTFactory.INSTANCE, XQuery.INSTANCE, new XQueryASTFactory());
     }
 
-    public FileViewProvider getFileViewProvider(@NotNull Project project) {
-        return new MockFileViewProvider(PsiManager.getInstance(project));
+    // region Parser Test Helpers
+
+    public LightVirtualFile createVirtualFile(@NonNls String name, String text) {
+        LightVirtualFile file = new LightVirtualFile(name, myLanguage, text);
+        file.setCharset(CharsetToolkit.UTF8_CHARSET);
+        return file;
     }
 
-    // region Parser Test Helpers
+    public FileViewProvider getFileViewProvider(@NotNull Project project, LightVirtualFile file, boolean physical) {
+        final PsiManager manager = PsiManager.getInstance(project);
+        final FileViewProviderFactory factory = LanguageFileViewProviders.INSTANCE.forLanguage(XQuery.INSTANCE);
+        FileViewProvider viewProvider = factory != null ? factory.createFileViewProvider(file, XQuery.INSTANCE, manager, physical) : null;
+        if (viewProvider == null) viewProvider = new SingleRootFileViewProvider(manager, file, physical);
+        return viewProvider;
+    }
 
     private void buildPsi(@NotNull ParserDefinition parserDefinition, ASTNode node, String text) {
         if (node instanceof CompositeElement) {

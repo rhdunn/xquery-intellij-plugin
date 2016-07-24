@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.parser;
 import com.intellij.lang.ParserDefinition;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.tree.TokenSet;
+import com.intellij.testFramework.LightVirtualFile;
 import uk.co.reecedunn.intellij.plugin.xquery.filetypes.XQueryFileType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
@@ -92,9 +93,10 @@ public class XQueryParserDefinitionTest extends ParserTestCase {
 
     public void testCreateFile() {
         ParserDefinition parserDefinition = new XQueryParserDefinition();
-        PsiFile file = parserDefinition.createFile(getFileViewProvider(myProject));
-        assertThat(file.getClass().getName(), is(XQueryFileImpl.class.getName()));
-        assertThat(file.getFileType(), is(XQueryFileType.INSTANCE));
+        LightVirtualFile file = createVirtualFile("test.xqy", "");
+        PsiFile psiFile = parserDefinition.createFile(getFileViewProvider(myProject, file, false));
+        assertThat(psiFile.getClass().getName(), is(XQueryFileImpl.class.getName()));
+        assertThat(psiFile.getFileType(), is(XQueryFileType.INSTANCE));
     }
 
     public void testSpaceExistanceTypeBetweenTokens() {
