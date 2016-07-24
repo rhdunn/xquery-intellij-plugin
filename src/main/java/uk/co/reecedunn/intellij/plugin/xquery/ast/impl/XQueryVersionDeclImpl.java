@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.impl;
 
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.impl.source.tree.CompositeElement;
+import com.intellij.psi.impl.source.tree.PsiErrorElementImpl;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.tree.TokenSet;
 import org.jetbrains.annotations.NotNull;
@@ -43,6 +44,10 @@ public class XQueryVersionDeclImpl extends CompositeElement implements XQueryVer
 
             if (previous.getElementType() == type) {
                 return (XQueryStringLiteral)child;
+            } else if (previous instanceof PsiErrorElementImpl) {
+                if (previous.getFirstChildNode().getElementType() == type) {
+                    return (XQueryStringLiteral)child;
+                }
             }
         }
         return null;

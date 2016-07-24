@@ -76,7 +76,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region A.2.1 Terminal Symbols
+    // region A.2.1 Terminal Symbols (XQuery 1.0)
 
     // region IntegerLiteral
 
@@ -616,7 +616,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region A.1 EBNF
+    // region A.1 EBNF (XQuery 1.0)
 
     // region VersionDecl
 

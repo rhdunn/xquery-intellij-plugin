@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.parser;
 import com.intellij.lang.PsiBuilder;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings;
@@ -31,6 +32,11 @@ public class XQueryParser {
     public XQueryParser(@NotNull PsiBuilder builder, @NotNull XQueryProjectSettings settings) {
         mBuilder = builder;
         mSettings = settings;
+    }
+
+    private boolean isXQuery30OrLater() {
+        XQueryVersion version = mSettings.getXQueryVersion();
+        return version == XQueryVersion.XQUERY_3_0 || version == XQueryVersion.XQUERY_3_1;
     }
 
     public void parse() {
@@ -213,21 +219,14 @@ public class XQueryParser {
             advanceLexer();
 
             skipWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.K_VERSION)) {
-                versionDeclMaker.done(XQueryElementType.VERSION_DECL);
-                error(XQueryBundle.message("parser.error.expected-keyword", "version"));
-                return true;
-            }
-
-            skipWhiteSpaceAndCommentTokens();
-            if (!parseStringLiteral(XQueryElementType.STRING_LITERAL)) {
-                versionDeclMaker.done(XQueryElementType.VERSION_DECL);
-                error(XQueryBundle.message("parser.error.expected-version-string"));
-                return true;
-            }
-
-            skipWhiteSpaceAndCommentTokens();
+            final PsiBuilder.Marker versionDecl30Marker = mark();
             if (matchTokenType(XQueryTokenType.K_ENCODING)) {
+                if (isXQuery30OrLater()) {
+                    versionDecl30Marker.drop();
+                } else {
+                    versionDecl30Marker.error(XQueryBundle.message("parser.error.version-decl.3.0"));
+                }
+
                 skipWhiteSpaceAndCommentTokens();
                 if (!parseStringLiteral(XQueryElementType.STRING_LITERAL)) {
                     versionDeclMaker.done(XQueryElementType.VERSION_DECL);
@@ -236,6 +235,32 @@ public class XQueryParser {
                 }
 
                 skipWhiteSpaceAndCommentTokens();
+            } else {
+                versionDecl30Marker.drop();
+                if (!matchTokenType(XQueryTokenType.K_VERSION)) {
+                    versionDeclMaker.done(XQueryElementType.VERSION_DECL);
+                    error(XQueryBundle.message("parser.error.expected-keyword", "version"));
+                    return true;
+                }
+
+                skipWhiteSpaceAndCommentTokens();
+                if (!parseStringLiteral(XQueryElementType.STRING_LITERAL)) {
+                    versionDeclMaker.done(XQueryElementType.VERSION_DECL);
+                    error(XQueryBundle.message("parser.error.expected-version-string"));
+                    return true;
+                }
+
+                skipWhiteSpaceAndCommentTokens();
+                if (matchTokenType(XQueryTokenType.K_ENCODING)) {
+                    skipWhiteSpaceAndCommentTokens();
+                    if (!parseStringLiteral(XQueryElementType.STRING_LITERAL)) {
+                        versionDeclMaker.done(XQueryElementType.VERSION_DECL);
+                        error(XQueryBundle.message("parser.error.expected-encoding-string"));
+                        return true;
+                    }
+
+                    skipWhiteSpaceAndCommentTokens();
+                }
             }
 
             if (!matchTokenType(XQueryTokenType.SEPARATOR)) {

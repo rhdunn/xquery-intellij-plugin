@@ -56,7 +56,7 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
-    // region A.2.1 Terminal Symbols
+    // region A.2.1 Terminal Symbols (XQuery 1.0)
 
     // region IntegerLiteral
 
@@ -452,7 +452,7 @@ public class XQuery10ParserTest extends ParserTestCase {
     // endregion
 
     // endregion
-    // region A.1 EBNF
+    // region A.1 EBNF (XQuery 1.0)
 
     // region VersionDecl
 
@@ -745,6 +745,67 @@ public class XQuery10ParserTest extends ParserTestCase {
                 + "      LeafPsiElement[XQUERY_CDATA_SECTION_END_TAG_TOKEN(0:3)](']]>')\n";
 
         assertThat(prettyPrintASTNode(parseText("]]>")), is(expected));
+    }
+
+    // endregion
+
+    // endregion
+    // region A.1 EBNF (XQuery 3.0)
+
+    // region VersionDecl
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-VersionDecl")
+    public void testVersionDecl_EncodingOnly() {
+        final String expected
+                = "FileElement[FILE(0:25)]\n"
+                + "   XQueryVersionDeclImpl[XQUERY_VERSION_DECL(0:25)]\n"
+                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_XQUERY(0:6)]('xquery')\n"
+                + "      PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')\n"
+                + "      PsiErrorElementImpl[ERROR_ELEMENT(7:15)]('XPST0003: Encoding-only xquery declarations require XQuery 3.0 or later.')\n"
+                + "         LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_ENCODING(7:15)]('encoding')\n"
+                + "      PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')\n"
+                + "      XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(16:24)]\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(16:17)]('\"')\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(17:23)]('latin1')\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(23:24)]('\"')\n"
+                + "      LeafPsiElement[XQUERY_SEPARATOR_TOKEN(24:25)](';')\n";
+
+        assertThat(prettyPrintASTNode(parseText("xquery encoding \"latin1\";")), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-VersionDecl")
+    public void testVersionDecl_NoEncodingString() {
+        final String expected
+                = "FileElement[FILE(0:16)]\n"
+                + "   XQueryVersionDeclImpl[XQUERY_VERSION_DECL(0:15)]\n"
+                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_XQUERY(0:6)]('xquery')\n"
+                + "      PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')\n"
+                + "      PsiErrorElementImpl[ERROR_ELEMENT(7:15)]('XPST0003: Encoding-only xquery declarations require XQuery 3.0 or later.')\n"
+                + "         LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_ENCODING(7:15)]('encoding')\n"
+                + "   PsiErrorElementImpl[ERROR_ELEMENT(15:15)]('XPST0003: Missing encoding string.')\n"
+                + "   LeafPsiElement[XQUERY_SEPARATOR_TOKEN(15:16)](';')\n";
+
+        assertThat(prettyPrintASTNode(parseText("xquery encoding;")), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-VersionDecl")
+    public void testVersionDecl_EncodingOnly_MissingSemicolon() {
+        final String expected
+                = "FileElement[FILE(0:25)]\n"
+                + "   XQueryVersionDeclImpl[XQUERY_VERSION_DECL(0:24)]\n"
+                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_XQUERY(0:6)]('xquery')\n"
+                + "      PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')\n"
+                + "      PsiErrorElementImpl[ERROR_ELEMENT(7:15)]('XPST0003: Encoding-only xquery declarations require XQuery 3.0 or later.')\n"
+                + "         LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_ENCODING(7:15)]('encoding')\n"
+                + "      PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')\n"
+                + "      XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(16:24)]\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(16:17)]('\"')\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(17:23)]('latin1')\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(23:24)]('\"')\n"
+                + "   PsiErrorElementImpl[ERROR_ELEMENT(24:24)]('XPST0003: Missing semicolon.')\n"
+                + "   LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(24:25)](':')\n";
+
+        assertThat(prettyPrintASTNode(parseText("xquery encoding \"latin1\":")), is(expected));
     }
 
     // endregion
