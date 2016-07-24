@@ -15,8 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast;
 
-public interface XQueryVersionDecl {
-    XQueryStringLiteral getVersion();
+import org.jetbrains.annotations.Nullable;
 
-    XQueryStringLiteral getEncoding();
+public interface XQueryVersionDecl {
+    @Nullable XQueryStringLiteral getVersion();
+
+    @Nullable XQueryStringLiteral getEncoding();
 }

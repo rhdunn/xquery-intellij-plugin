@@ -20,6 +20,7 @@ import com.intellij.psi.impl.source.tree.CompositeElement;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.tree.TokenSet;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryStringLiteral;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryVersionDecl;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType;
@@ -33,7 +34,7 @@ public class XQueryVersionDeclImpl extends CompositeElement implements XQueryVer
         super(type);
     }
 
-    private XQueryStringLiteral getStringValueAfterKeyword(IXQueryKeywordOrNCNameType type) {
+    private @Nullable XQueryStringLiteral getStringValueAfterKeyword(IXQueryKeywordOrNCNameType type) {
         for (ASTNode child : getChildren(STRINGS)) {
             ASTNode previous = child.getTreePrev();
             while (previous.getElementType() == XQueryTokenType.WHITE_SPACE || previous.getElementType() == XQueryElementType.COMMENT) {
@@ -47,11 +48,11 @@ public class XQueryVersionDeclImpl extends CompositeElement implements XQueryVer
         return null;
     }
 
-    public XQueryStringLiteral getVersion() {
+    public @Nullable XQueryStringLiteral getVersion() {
         return getStringValueAfterKeyword(XQueryTokenType.K_VERSION);
     }
 
-    public XQueryStringLiteral getEncoding() {
+    public @Nullable XQueryStringLiteral getEncoding() {
         return getStringValueAfterKeyword(XQueryTokenType.K_ENCODING);
     }
 }
