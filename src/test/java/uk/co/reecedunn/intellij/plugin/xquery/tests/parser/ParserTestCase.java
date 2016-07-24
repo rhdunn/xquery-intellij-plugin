@@ -30,6 +30,7 @@ import com.intellij.testFramework.ParsingTestCase;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.impl.XQueryASTFactory;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.Implementations;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition;
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings;
@@ -46,6 +47,10 @@ public abstract class ParserTestCase extends ParsingTestCase {
     }
 
     // region Parser Test Helpers
+
+    XQueryProjectSettings getSettings() {
+        return XQueryProjectSettings.getInstance(myProject);
+    }
 
     public LightVirtualFile createVirtualFile(@NonNls String name, String text) {
         LightVirtualFile file = new LightVirtualFile(name, myLanguage, text);

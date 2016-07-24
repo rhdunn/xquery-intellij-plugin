@@ -16,13 +16,21 @@
 package uk.co.reecedunn.intellij.plugin.xquery.psi.impl;
 
 import com.intellij.extapi.psi.PsiFileBase;
+import com.intellij.lang.ASTNode;
 import com.intellij.openapi.fileTypes.FileType;
 import com.intellij.psi.FileViewProvider;
 import org.jetbrains.annotations.NotNull;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryFile;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryStringLiteral;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryVersionDecl;
 import uk.co.reecedunn.intellij.plugin.xquery.filetypes.XQueryFileType;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
+import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings;
 
-public class XQueryFileImpl extends PsiFileBase {
+public class XQueryFileImpl extends PsiFileBase implements XQueryFile {
+    private XQueryVersion mVersion = null;
+
     public XQueryFileImpl(@NotNull FileViewProvider provider) {
         super(provider, XQuery.INSTANCE);
     }
@@ -31,5 +39,22 @@ public class XQueryFileImpl extends PsiFileBase {
     @Override
     public FileType getFileType() {
         return XQueryFileType.INSTANCE;
+    }
+
+    public XQueryVersion getXQueryVersion() {
+        if (mVersion == null) {
+            XQueryVersionDecl versionDecl = findChildByClass(XQueryVersionDecl.class);
+            if (versionDecl != null) {
+                XQueryStringLiteral version = versionDecl.getVersion();
+                if (version != null) {
+                    mVersion = XQueryVersion.parse(version.getSimpleContents());
+                }
+            }
+            if (mVersion == null) {
+                XQueryProjectSettings settings = XQueryProjectSettings.getInstance(getProject());
+                mVersion = settings.getXQueryVersion();
+            }
+        }
+        return mVersion;
     }
 }
