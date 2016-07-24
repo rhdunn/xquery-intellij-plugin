@@ -19,11 +19,14 @@ import com.intellij.lang.*;
 import com.intellij.lang.impl.PsiBuilderImpl;
 import com.intellij.lexer.Lexer;
 import com.intellij.mock.MockProjectEx;
+import com.intellij.mock.MockPsiManager;
 import com.intellij.openapi.extensions.Extensions;
 import com.intellij.openapi.progress.ProgressManager;
 import com.intellij.openapi.progress.impl.ProgressManagerImpl;
 import com.intellij.openapi.util.Disposer;
+import com.intellij.psi.FileViewProvider;
 import com.intellij.psi.PsiErrorElement;
+import com.intellij.psi.PsiManager;
 import com.intellij.psi.impl.source.tree.CompositeElement;
 import com.intellij.psi.impl.source.tree.FileElement;
 import com.intellij.psi.impl.source.tree.LeafElement;
@@ -43,6 +46,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.mocks.MockFileViewProvider;
 
 public abstract class ParserTestCase extends PlatformLiteFixture {
     // region IntelliJ Platform Infrastructure
+
+    private PsiManager mPsiManager;
 
     protected @Override boolean shouldContainTempFiles() {
         return false;
@@ -76,10 +81,16 @@ public abstract class ParserTestCase extends PlatformLiteFixture {
 
         Extensions.registerAreaClass("IDEA_PROJECT", null);
         myProject = new MockProjectEx(getTestRootDisposable());
+        mPsiManager = new MockPsiManager(myProject);
+
         registerApplicationService(DefaultASTFactory.class, new DefaultASTFactoryImpl());
         registerApplicationService(XQueryProjectSettings.class, new XQueryProjectSettings());
         addExplicitExtension(LanguageASTFactory.INSTANCE, XQuery.INSTANCE, new XQueryASTFactory());
         addExplicitExtension(LanguageParserDefinitions.INSTANCE, XQuery.INSTANCE, new XQueryParserDefinition());
+    }
+
+    public FileViewProvider getFileViewProvider() {
+        return new MockFileViewProvider(mPsiManager);
     }
 
     // endregion
@@ -89,7 +100,7 @@ public abstract class ParserTestCase extends PlatformLiteFixture {
         if (node instanceof CompositeElement) {
             CompositeElement element = (CompositeElement)node;
             if (node instanceof FileElement) {
-                element.setPsi(parserDefinition.createFile(new MockFileViewProvider()));
+                element.setPsi(parserDefinition.createFile(getFileViewProvider()));
             } else if (!(node instanceof PsiErrorElement)) {
                 element.setPsi(parserDefinition.createElement(node));
             }

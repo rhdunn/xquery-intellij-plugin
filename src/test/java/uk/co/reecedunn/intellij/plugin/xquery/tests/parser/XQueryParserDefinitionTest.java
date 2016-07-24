@@ -93,7 +93,7 @@ public class XQueryParserDefinitionTest extends ParserTestCase {
 
     public void testCreateFile() {
         ParserDefinition parserDefinition = new XQueryParserDefinition();
-        PsiFile file = parserDefinition.createFile(new MockFileViewProvider());
+        PsiFile file = parserDefinition.createFile(getFileViewProvider());
         assertThat(file.getClass().getName(), is(XQueryFileImpl.class.getName()));
         assertThat(file.getFileType(), is(XQueryFileType.INSTANCE));
     }

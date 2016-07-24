@@ -30,10 +30,11 @@ import java.util.List;
 import java.util.Set;
 
 public class MockFileViewProvider implements FileViewProvider {
-    private final PsiManager mPsiManager = new MockPsiManager();
+    private final PsiManager mPsiManager;
     private final Set<Language> mLanguages = new HashSet<>();
 
-    public MockFileViewProvider() {
+    public MockFileViewProvider(PsiManager psiManager) {
+        mPsiManager = psiManager;
         mLanguages.add(XQuery.INSTANCE);
     }
 
