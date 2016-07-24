@@ -15,12 +15,18 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.parser;
 
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
+import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.Specification;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class XQuery10ParserTest extends ParserTestCase {
+    public void initializeSettings(XQueryProjectSettings settings) {
+        settings.setXQueryVersion(XQueryVersion.XQUERY_1_0);
+    }
+
     // region Basic Parser Tests
 
     public void testEmptyBuffer() {

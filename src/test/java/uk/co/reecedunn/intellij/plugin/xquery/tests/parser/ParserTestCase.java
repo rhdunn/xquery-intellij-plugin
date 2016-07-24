@@ -48,6 +48,9 @@ public abstract class ParserTestCase extends ParsingTestCase {
 
     // region Parser Test Helpers
 
+    public void initializeSettings(XQueryProjectSettings settings) {
+    }
+
     public XQueryProjectSettings getSettings() {
         return XQueryProjectSettings.getInstance(myProject);
     }
@@ -122,6 +125,8 @@ public abstract class ParserTestCase extends ParsingTestCase {
     }
 
     public @NotNull ASTNode parseText(@NotNull String text) {
+        initializeSettings(getSettings());
+
         ParserDefinition parserDefinition = new XQueryParserDefinition();
         TokenSet whitespaces = parserDefinition.getWhitespaceTokens();
         TokenSet comments = parserDefinition.getCommentTokens();
