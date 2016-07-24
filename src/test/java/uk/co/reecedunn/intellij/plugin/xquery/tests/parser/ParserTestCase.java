@@ -52,18 +52,18 @@ public abstract class ParserTestCase extends ParsingTestCase {
 
     // region Parser Test Helpers
 
-    private void buildPsi(@NotNull ParserDefinition parserDefinition, ASTNode node) {
+    private void buildPsi(@NotNull ParserDefinition parserDefinition, ASTNode node, String text) {
         if (node instanceof CompositeElement) {
             CompositeElement element = (CompositeElement)node;
             if (node instanceof FileElement) {
-                element.setPsi(parserDefinition.createFile(getFileViewProvider(myProject)));
+                element.setPsi(createFile("testcase.xqy", text));
             } else if (!(node instanceof PsiErrorElement)) {
                 element.setPsi(parserDefinition.createElement(node));
             }
         }
 
         for (ASTNode child : node.getChildren(null)) {
-            buildPsi(parserDefinition, child);
+            buildPsi(parserDefinition, child, text);
         }
     }
 
@@ -115,7 +115,7 @@ public abstract class ParserTestCase extends ParsingTestCase {
 
         PsiBuilder builder = new PsiBuilderImpl(myProject, null, whitespaces, comments, lexer, null, text, null, null);
         ASTNode node = parserDefinition.createParser(myProject).parse(parserDefinition.getFileNodeType(), builder);
-        buildPsi(parserDefinition, node);
+        buildPsi(parserDefinition, node, text);
         return node;
     }
 
