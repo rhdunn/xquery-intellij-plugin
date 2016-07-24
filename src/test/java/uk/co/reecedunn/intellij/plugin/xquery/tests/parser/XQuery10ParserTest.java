@@ -20,7 +20,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.Specification;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class XQueryParserTest extends ParserTestCase {
+public class XQuery10ParserTest extends ParserTestCase {
     // region Basic Parser Tests
 
     public void testEmptyBuffer() {
