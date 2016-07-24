@@ -21,6 +21,8 @@ import com.intellij.lang.annotation.Annotator;
 import com.intellij.lang.annotation.HighlightSeverity;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryFile;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.PsiNavigation;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryPredefinedEntityRef;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
@@ -33,22 +35,14 @@ public class XQueryPredefinedEntityRefAnnotator implements Annotator {
     private static final Set<CharSequence> HTML4_ENTITIES = new HashSet<>();
     private static final Set<CharSequence> HTML5_ENTITIES = new HashSet<>();
 
-    private final XQueryVersion mDefaultVersion;
-
-    public XQueryPredefinedEntityRefAnnotator(XQueryVersion defaultVersion) {
-        mDefaultVersion = defaultVersion;
-    }
-
-    public XQueryPredefinedEntityRefAnnotator() {
-        this(null);
-    }
-
     @Override
     public void annotate(@NotNull PsiElement element, @NotNull AnnotationHolder holder) {
         if (!(element instanceof XQueryPredefinedEntityRef)) return;
 
+        XQueryFile file = (XQueryFile)PsiNavigation.getParentByClass(element, XQueryFile.class);
+
         final ASTNode node = element.getNode();
-        checkPredefinedEntity(node.getChars(), node, holder, mDefaultVersion);
+        checkPredefinedEntity(node.getChars(), node, holder, file.getXQueryVersion());
     }
 
     private void checkPredefinedEntity(@NotNull CharSequence entity, @NotNull ASTNode node, @NotNull AnnotationHolder holder, XQueryVersion version) {

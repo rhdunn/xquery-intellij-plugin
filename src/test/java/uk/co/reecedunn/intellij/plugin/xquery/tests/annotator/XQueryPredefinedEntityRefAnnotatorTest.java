@@ -30,19 +30,21 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class XQueryPredefinedEntityRefAnnotatorTest extends AnnotatorTestCase {
     public void checkSupportedEntities(XQueryVersion version, String entities) {
+        getSettings().setXQueryVersion(version);
         final ASTNode node = parseText(entities).getFirstChildNode();
         assertThat(node.getElementType(), is(XQueryElementType.STRING_LITERAL));
 
-        XQueryPredefinedEntityRefAnnotator annotator = new XQueryPredefinedEntityRefAnnotator(version);
+        XQueryPredefinedEntityRefAnnotator annotator = new XQueryPredefinedEntityRefAnnotator();
         List<Annotation> annotations = annotateTree(node, annotator);
         assertThat(annotations.size(), is(0));
     }
 
     public void checkUnsupportedEntities(XQueryVersion version, String entities, int annotationCount, String startsWith, String endsWith) {
+        getSettings().setXQueryVersion(version);
         final ASTNode node = parseText(entities).getFirstChildNode();
         assertThat(node.getElementType(), is(XQueryElementType.STRING_LITERAL));
 
-        XQueryPredefinedEntityRefAnnotator annotator = new XQueryPredefinedEntityRefAnnotator(version);
+        XQueryPredefinedEntityRefAnnotator annotator = new XQueryPredefinedEntityRefAnnotator();
         List<Annotation> annotations = annotateTree(node, annotator);
         assertThat(annotations.size(), is(annotationCount));
 

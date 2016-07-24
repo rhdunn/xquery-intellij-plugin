@@ -48,7 +48,7 @@ public abstract class ParserTestCase extends ParsingTestCase {
 
     // region Parser Test Helpers
 
-    XQueryProjectSettings getSettings() {
+    public XQueryProjectSettings getSettings() {
         return XQueryProjectSettings.getInstance(myProject);
     }
 
