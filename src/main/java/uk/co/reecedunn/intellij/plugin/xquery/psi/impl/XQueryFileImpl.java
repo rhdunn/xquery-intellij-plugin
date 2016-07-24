@@ -29,8 +29,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings;
 
 public class XQueryFileImpl extends PsiFileBase implements XQueryFile {
-    private XQueryVersion mVersion = null;
-
     public XQueryFileImpl(@NotNull FileViewProvider provider) {
         super(provider, XQuery.INSTANCE);
     }
@@ -42,19 +40,18 @@ public class XQueryFileImpl extends PsiFileBase implements XQueryFile {
     }
 
     public XQueryVersion getXQueryVersion() {
-        if (mVersion == null) {
-            XQueryVersionDecl versionDecl = findChildByClass(XQueryVersionDecl.class);
-            if (versionDecl != null) {
-                XQueryStringLiteral version = versionDecl.getVersion();
-                if (version != null) {
-                    mVersion = XQueryVersion.parse(version.getSimpleContents());
+        XQueryVersionDecl versionDecl = findChildByClass(XQueryVersionDecl.class);
+        if (versionDecl != null) {
+            XQueryStringLiteral version = versionDecl.getVersion();
+            if (version != null) {
+                XQueryVersion xqueryVersion = XQueryVersion.parse(version.getSimpleContents());
+                if (xqueryVersion != null) {
+                    return xqueryVersion;
                 }
             }
-            if (mVersion == null) {
-                XQueryProjectSettings settings = XQueryProjectSettings.getInstance(getProject());
-                mVersion = settings.getXQueryVersion();
-            }
         }
-        return mVersion;
+
+        XQueryProjectSettings settings = XQueryProjectSettings.getInstance(getProject());
+        return settings.getXQueryVersion();
     }
 }

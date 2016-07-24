@@ -31,7 +31,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class XQueryPsiTest extends ParserTestCase {
     // region File
 
-    public void testFile_XQuery30() {
+    public void testFile() {
         getSettings().setXQueryVersion(XQueryVersion.XQUERY_3_0);
 
         ASTNode node = parseText("123");
@@ -39,15 +39,8 @@ public class XQueryPsiTest extends ParserTestCase {
 
         XQueryFile file = (XQueryFile)node.getPsi();
         assertThat(file.getXQueryVersion(), is(XQueryVersion.XQUERY_3_0));
-    }
 
-    public void testFile_XQuery31() {
         getSettings().setXQueryVersion(XQueryVersion.XQUERY_3_1);
-
-        ASTNode node = parseText("123");
-        assertThat(node.getElementType(), is(XQueryElementType.FILE));
-
-        XQueryFile file = (XQueryFile)node.getPsi();
         assertThat(file.getXQueryVersion(), is(XQueryVersion.XQUERY_3_1));
     }
 
