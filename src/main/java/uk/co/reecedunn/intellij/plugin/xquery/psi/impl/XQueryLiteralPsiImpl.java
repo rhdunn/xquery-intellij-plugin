@@ -13,8 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast;
+package uk.co.reecedunn.intellij.plugin.xquery.psi.impl;
 
-public interface XQueryStringLiteral {
-    CharSequence getSimpleContents();
+import com.intellij.extapi.psi.ASTWrapperPsiElement;
+import com.intellij.lang.ASTNode;
+import org.jetbrains.annotations.NotNull;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryLiteral;
+
+public class XQueryLiteralPsiImpl extends ASTWrapperPsiElement implements XQueryLiteral {
+    public XQueryLiteralPsiImpl(@NotNull ASTNode node) {
+        super(node);
+    }
 }

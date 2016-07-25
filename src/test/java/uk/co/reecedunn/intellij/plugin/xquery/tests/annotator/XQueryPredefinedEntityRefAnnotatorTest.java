@@ -32,7 +32,6 @@ public class XQueryPredefinedEntityRefAnnotatorTest extends AnnotatorTestCase {
     public void checkSupportedEntities(XQueryVersion version, String entities) {
         getSettings().setXQueryVersion(version);
         final ASTNode node = parseText(entities).getFirstChildNode();
-        assertThat(node.getElementType(), is(XQueryElementType.STRING_LITERAL));
 
         XQueryPredefinedEntityRefAnnotator annotator = new XQueryPredefinedEntityRefAnnotator();
         List<Annotation> annotations = annotateTree(node, annotator);
@@ -42,7 +41,6 @@ public class XQueryPredefinedEntityRefAnnotatorTest extends AnnotatorTestCase {
     public void checkUnsupportedEntities(XQueryVersion version, String entities, int annotationCount, String startsWith, String endsWith) {
         getSettings().setXQueryVersion(version);
         final ASTNode node = parseText(entities).getFirstChildNode();
-        assertThat(node.getElementType(), is(XQueryElementType.STRING_LITERAL));
 
         XQueryPredefinedEntityRefAnnotator annotator = new XQueryPredefinedEntityRefAnnotator();
         List<Annotation> annotations = annotateTree(node, annotator);

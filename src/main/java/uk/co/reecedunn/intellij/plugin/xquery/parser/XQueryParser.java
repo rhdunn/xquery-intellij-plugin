@@ -45,8 +45,7 @@ public class XQueryParser {
             if (parseVersionDecl()) continue;
             if (parseModuleDecl()) continue;
             if (parseModuleImport()) continue;
-            if (parseNumericLiteral()) continue;
-            if (parseStringLiteral(XQueryElementType.STRING_LITERAL)) continue;
+            if (parseLiteral()) continue;
             if (misplacedEntityReference()) continue;
             if (parseQName()) continue;
             if (parseDirCommentConstructor()) continue;
@@ -124,6 +123,16 @@ public class XQueryParser {
 
     // endregion
     // region Grammar
+
+    private boolean parseLiteral() {
+        final PsiBuilder.Marker literalMarker = mark();
+        if (parseNumericLiteral() || parseStringLiteral(XQueryElementType.STRING_LITERAL)) {
+            literalMarker.done(XQueryElementType.LITERAL);
+            return true;
+        }
+        literalMarker.drop();
+        return false;
+    }
 
     private boolean parseNumericLiteral() {
         if (matchTokenType(XQueryTokenType.INTEGER_LITERAL) ||

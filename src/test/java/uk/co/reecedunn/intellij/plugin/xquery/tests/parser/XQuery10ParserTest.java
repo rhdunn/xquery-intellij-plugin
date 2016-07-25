@@ -64,7 +64,8 @@ public class XQuery10ParserTest extends ParserTestCase {
     public void testIntegerLiteral() {
         final String expected
                 = "FileElement[FILE(0:4)]\n"
-                + "   XQueryNumericLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:4)]('1234')\n";
+                + "   XQueryLiteralImpl[XQUERY_LITERAL(0:4)]\n"
+                + "      XQueryNumericLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:4)]('1234')\n";
 
         assertThat(prettyPrintASTNode(parseText("1234")), is(expected));
     }
@@ -76,7 +77,8 @@ public class XQuery10ParserTest extends ParserTestCase {
     public void testDecimalLiteral() {
         final String expected
                 = "FileElement[FILE(0:7)]\n"
-                + "   XQueryNumericLiteralImpl[XQUERY_DECIMAL_LITERAL_TOKEN(0:7)]('3.14159')\n";
+                + "   XQueryLiteralImpl[XQUERY_LITERAL(0:7)]\n"
+                + "      XQueryNumericLiteralImpl[XQUERY_DECIMAL_LITERAL_TOKEN(0:7)]('3.14159')\n";
 
         assertThat(prettyPrintASTNode(parseText("3.14159")), is(expected));
     }
@@ -88,7 +90,8 @@ public class XQuery10ParserTest extends ParserTestCase {
     public void testDoubleLiteral() {
         final String expected
                 = "FileElement[FILE(0:12)]\n"
-                + "   XQueryNumericLiteralImpl[XQUERY_DOUBLE_LITERAL_TOKEN(0:12)]('2.99792458e8')\n";
+                + "   XQueryLiteralImpl[XQUERY_LITERAL(0:12)]\n"
+                + "      XQueryNumericLiteralImpl[XQUERY_DOUBLE_LITERAL_TOKEN(0:12)]('2.99792458e8')\n";
 
         assertThat(prettyPrintASTNode(parseText("2.99792458e8")), is(expected));
     }
@@ -97,9 +100,10 @@ public class XQuery10ParserTest extends ParserTestCase {
     public void testDoubleLiteral_IncompleteExponent() {
         final String expected
                 = "FileElement[FILE(0:11)]\n"
-                + "   XQueryNumericLiteralImpl[XQUERY_DECIMAL_LITERAL_TOKEN(0:10)]('2.99792458')\n"
-                + "   PsiErrorElementImpl[ERROR_ELEMENT(10:11)]('XPST0003: Incomplete double exponent.')\n"
-                + "      LeafPsiElement[XQUERY_PARTIAL_DOUBLE_LITERAL_EXPONENT_TOKEN(10:11)]('e')\n";
+                + "   XQueryLiteralImpl[XQUERY_LITERAL(0:11)]\n"
+                + "      XQueryNumericLiteralImpl[XQUERY_DECIMAL_LITERAL_TOKEN(0:10)]('2.99792458')\n"
+                + "      PsiErrorElementImpl[ERROR_ELEMENT(10:11)]('XPST0003: Incomplete double exponent.')\n"
+                + "         LeafPsiElement[XQUERY_PARTIAL_DOUBLE_LITERAL_EXPONENT_TOKEN(10:11)]('e')\n";
 
         assertThat(prettyPrintASTNode(parseText("2.99792458e")), is(expected));
     }
@@ -111,10 +115,11 @@ public class XQuery10ParserTest extends ParserTestCase {
     public void testStringLiteral() {
         final String expected
                 = "FileElement[FILE(0:9)]\n"
-                + "   XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:9)]\n"
-                + "      LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
-                + "      LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(1:8)]('One Two')\n"
-                + "      LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(8:9)]('\"')\n";
+                + "   XQueryLiteralImpl[XQUERY_LITERAL(0:9)]\n"
+                + "      XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:9)]\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(1:8)]('One Two')\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(8:9)]('\"')\n";
 
         assertThat(prettyPrintASTNode(parseText("\"One Two\"")), is(expected));
     }
@@ -123,10 +128,11 @@ public class XQuery10ParserTest extends ParserTestCase {
     public void testStringLiteral_UnclosedString() {
         final String expected
                 = "FileElement[FILE(0:8)]\n"
-                + "   XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:8)]\n"
-                + "      LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
-                + "      LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(1:8)]('One Two')\n"
-                + "   PsiErrorElementImpl[ERROR_ELEMENT(8:8)]('XPST0003: Unclosed string literal.')\n";
+                + "   XQueryLiteralImpl[XQUERY_LITERAL(0:8)]\n"
+                + "      XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:8)]\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(1:8)]('One Two')\n"
+                + "      PsiErrorElementImpl[ERROR_ELEMENT(8:8)]('XPST0003: Unclosed string literal.')\n";
 
         assertThat(prettyPrintASTNode(parseText("\"One Two")), is(expected));
     }
@@ -139,10 +145,11 @@ public class XQuery10ParserTest extends ParserTestCase {
     public void testStringLiteral_PredefinedEntityRef() {
         final String expected
                 = "FileElement[FILE(0:7)]\n"
-                + "   XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:7)]\n"
-                + "      LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
-                + "      XQueryPredefinedEntityRefImpl[XQUERY_PREDEFINED_ENTITY_REFERENCE_TOKEN(1:6)]('&amp;')\n"
-                + "      LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(6:7)]('\"')\n";
+                + "   XQueryLiteralImpl[XQUERY_LITERAL(0:7)]\n"
+                + "      XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:7)]\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
+                + "         XQueryPredefinedEntityRefImpl[XQUERY_PREDEFINED_ENTITY_REFERENCE_TOKEN(1:6)]('&amp;')\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(6:7)]('\"')\n";
 
         assertThat(prettyPrintASTNode(parseText("\"&amp;\"")), is(expected));
     }
@@ -152,11 +159,12 @@ public class XQuery10ParserTest extends ParserTestCase {
     public void testStringLiteral_PredefinedEntityRef_IncompleteRef() {
         final String expected
                 = "FileElement[FILE(0:7)]\n"
-                + "   XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:7)]\n"
-                + "      LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
-                + "      LeafPsiElement[XQUERY_PARTIAL_ENTITY_REFERENCE_TOKEN(1:6)]('&quot')\n"
-                + "      PsiErrorElementImpl[ERROR_ELEMENT(6:6)]('XPST0003: Invalid entity reference character.')\n"
-                + "      LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(6:7)]('\"')\n";
+                + "   XQueryLiteralImpl[XQUERY_LITERAL(0:7)]\n"
+                + "      XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:7)]\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
+                + "         LeafPsiElement[XQUERY_PARTIAL_ENTITY_REFERENCE_TOKEN(1:6)]('&quot')\n"
+                + "         PsiErrorElementImpl[ERROR_ELEMENT(6:6)]('XPST0003: Invalid entity reference character.')\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(6:7)]('\"')\n";
 
         assertThat(prettyPrintASTNode(parseText("\"&quot\"")), is(expected));
     }
@@ -166,11 +174,12 @@ public class XQuery10ParserTest extends ParserTestCase {
     public void testStringLiteral_PredefinedEntityRef_EmptyRef() {
         final String expected
                 = "FileElement[FILE(0:4)]\n"
-                + "   XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:4)]\n"
-                + "      LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
-                + "      PsiErrorElementImpl[ERROR_ELEMENT(1:3)]('XPST0003: Entity references must not be empty.')\n"
-                + "         LeafPsiElement[XQUERY_EMPTY_ENTITY_REFERENCE_TOKEN(1:3)]('&;')\n"
-                + "      LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(3:4)]('\"')\n";
+                + "   XQueryLiteralImpl[XQUERY_LITERAL(0:4)]\n"
+                + "      XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:4)]\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
+                + "         PsiErrorElementImpl[ERROR_ELEMENT(1:3)]('XPST0003: Entity references must not be empty.')\n"
+                + "            LeafPsiElement[XQUERY_EMPTY_ENTITY_REFERENCE_TOKEN(1:3)]('&;')\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(3:4)]('\"')\n";
 
         assertThat(prettyPrintASTNode(parseText("\"&;\"")), is(expected));
     }
@@ -193,10 +202,11 @@ public class XQuery10ParserTest extends ParserTestCase {
     public void testStringLiteral_EscapeQuot() {
         final String expected
                 = "FileElement[FILE(0:4)]\n"
-                + "   XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:4)]\n"
-                + "      LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
-                + "      XQueryEscapeCharacterImpl[XQUERY_STRING_LITERAL_ESCAPED_CHARACTER_TOKEN(1:3)]('\"\"')\n"
-                + "      LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(3:4)]('\"')\n";
+                + "   XQueryLiteralImpl[XQUERY_LITERAL(0:4)]\n"
+                + "      XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:4)]\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
+                + "         XQueryEscapeCharacterImpl[XQUERY_STRING_LITERAL_ESCAPED_CHARACTER_TOKEN(1:3)]('\"\"')\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(3:4)]('\"')\n";
 
         assertThat(prettyPrintASTNode(parseText("\"\"\"\"")), is(expected));
     }
@@ -209,10 +219,11 @@ public class XQuery10ParserTest extends ParserTestCase {
     public void testStringLiteral_EscapeApos() {
         final String expected
                 = "FileElement[FILE(0:4)]\n"
-                + "   XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:4)]\n"
-                + "      LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)](''')\n"
-                + "      XQueryEscapeCharacterImpl[XQUERY_STRING_LITERAL_ESCAPED_CHARACTER_TOKEN(1:3)]('''')\n"
-                + "      LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(3:4)](''')\n";
+                + "   XQueryLiteralImpl[XQUERY_LITERAL(0:4)]\n"
+                + "      XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:4)]\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)](''')\n"
+                + "         XQueryEscapeCharacterImpl[XQUERY_STRING_LITERAL_ESCAPED_CHARACTER_TOKEN(1:3)]('''')\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(3:4)](''')\n";
 
         assertThat(prettyPrintASTNode(parseText("''''")), is(expected));
     }
@@ -262,10 +273,11 @@ public class XQuery10ParserTest extends ParserTestCase {
     public void testStringLiteral_CharRef() {
         final String expected
                 = "FileElement[FILE(0:8)]\n"
-                + "   XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:8)]\n"
-                + "      LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
-                + "      XQueryCharRefImpl[XQUERY_CHARACTER_REFERENCE_TOKEN(1:7)]('&#xA0;')\n"
-                + "      LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(7:8)]('\"')\n";
+                + "   XQueryLiteralImpl[XQUERY_LITERAL(0:8)]\n"
+                + "      XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:8)]\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
+                + "         XQueryCharRefImpl[XQUERY_CHARACTER_REFERENCE_TOKEN(1:7)]('&#xA0;')\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(7:8)]('\"')\n";
 
         assertThat(prettyPrintASTNode(parseText("\"&#xA0;\"")), is(expected));
     }
@@ -275,11 +287,12 @@ public class XQuery10ParserTest extends ParserTestCase {
     public void testStringLiteral_CharRef_IncompleteRef() {
         final String expected
                 = "FileElement[FILE(0:4)]\n"
-                + "   XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:4)]\n"
-                + "      LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
-                + "      LeafPsiElement[XQUERY_PARTIAL_ENTITY_REFERENCE_TOKEN(1:3)]('&#')\n"
-                + "      PsiErrorElementImpl[ERROR_ELEMENT(3:3)]('XPST0003: Invalid entity reference character.')\n"
-                + "      LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(3:4)]('\"')\n";
+                + "   XQueryLiteralImpl[XQUERY_LITERAL(0:4)]\n"
+                + "      XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:4)]\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
+                + "         LeafPsiElement[XQUERY_PARTIAL_ENTITY_REFERENCE_TOKEN(1:3)]('&#')\n"
+                + "         PsiErrorElementImpl[ERROR_ELEMENT(3:3)]('XPST0003: Invalid entity reference character.')\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(3:4)]('\"')\n";
 
         assertThat(prettyPrintASTNode(parseText("\"&#\"")), is(expected));
     }
@@ -289,11 +302,12 @@ public class XQuery10ParserTest extends ParserTestCase {
     public void testStringLiteral_CharRef_EmptyNumericRef() {
         final String expected
                 = "FileElement[FILE(0:5)]\n"
-                + "   XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:5)]\n"
-                + "      LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
-                + "      PsiErrorElementImpl[ERROR_ELEMENT(1:4)]('XPST0003: Entity references must not be empty.')\n"
-                + "         LeafPsiElement[XQUERY_EMPTY_ENTITY_REFERENCE_TOKEN(1:4)]('&#;')\n"
-                + "      LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(4:5)]('\"')\n";
+                + "   XQueryLiteralImpl[XQUERY_LITERAL(0:5)]\n"
+                + "      XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:5)]\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
+                + "         PsiErrorElementImpl[ERROR_ELEMENT(1:4)]('XPST0003: Entity references must not be empty.')\n"
+                + "            LeafPsiElement[XQUERY_EMPTY_ENTITY_REFERENCE_TOKEN(1:4)]('&#;')\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(4:5)]('\"')\n";
 
         assertThat(prettyPrintASTNode(parseText("\"&#;\"")), is(expected));
     }
@@ -303,11 +317,12 @@ public class XQuery10ParserTest extends ParserTestCase {
     public void testStringLiteral_CharRef_EmptyHexidecimalRef() {
         final String expected
                 = "FileElement[FILE(0:6)]\n"
-                + "   XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:6)]\n"
-                + "      LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
-                + "      PsiErrorElementImpl[ERROR_ELEMENT(1:5)]('XPST0003: Entity references must not be empty.')\n"
-                + "         LeafPsiElement[XQUERY_EMPTY_ENTITY_REFERENCE_TOKEN(1:5)]('&#x;')\n"
-                + "      LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(5:6)]('\"')\n";
+                + "   XQueryLiteralImpl[XQUERY_LITERAL(0:6)]\n"
+                + "      XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:6)]\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
+                + "         PsiErrorElementImpl[ERROR_ELEMENT(1:5)]('XPST0003: Entity references must not be empty.')\n"
+                + "            LeafPsiElement[XQUERY_EMPTY_ENTITY_REFERENCE_TOKEN(1:5)]('&#x;')\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(5:6)]('\"')\n";
 
         assertThat(prettyPrintASTNode(parseText("\"&#x;\"")), is(expected));
     }
@@ -888,10 +903,11 @@ public class XQuery10ParserTest extends ParserTestCase {
                 + "   PsiErrorElementImpl[ERROR_ELEMENT(24:24)]('XPST0003: Missing identifier.')\n"
                 + "   LeafPsiElement[XQUERY_EQUAL_TOKEN(24:25)]('=')\n"
                 + "   PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')\n"
-                + "   XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(26:55)]\n"
-                + "      LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(26:27)]('\"')\n"
-                + "      LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(27:54)]('http://www.example.com/test')\n"
-                + "      LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(54:55)]('\"')\n"
+                + "   XQueryLiteralImpl[XQUERY_LITERAL(26:55)]\n"
+                + "      XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(26:55)]\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(26:27)]('\"')\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(27:54)]('http://www.example.com/test')\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(54:55)]('\"')\n"
                 + "   LeafPsiElement[XQUERY_SEPARATOR_TOKEN(55:56)](';')\n";
 
         assertThat(prettyPrintASTNode(parseText("import module namespace = \"http://www.example.com/test\";")), is(expected));
@@ -911,10 +927,11 @@ public class XQuery10ParserTest extends ParserTestCase {
                 + "      XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(24:28)]('test')\n"
                 + "      PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')\n"
                 + "   PsiErrorElementImpl[ERROR_ELEMENT(29:29)]('XPST0003: Expected '='.')\n"
-                + "   XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(29:58)]\n"
-                + "      LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(29:30)]('\"')\n"
-                + "      LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(30:57)]('http://www.example.com/test')\n"
-                + "      LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(57:58)]('\"')\n"
+                + "   XQueryLiteralImpl[XQUERY_LITERAL(29:58)]\n"
+                + "      XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(29:58)]\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(29:30)]('\"')\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(30:57)]('http://www.example.com/test')\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(57:58)]('\"')\n"
                 + "   LeafPsiElement[XQUERY_SEPARATOR_TOKEN(58:59)](';')\n";
 
         assertThat(prettyPrintASTNode(parseText("import module namespace test \"http://www.example.com/test\";")), is(expected));

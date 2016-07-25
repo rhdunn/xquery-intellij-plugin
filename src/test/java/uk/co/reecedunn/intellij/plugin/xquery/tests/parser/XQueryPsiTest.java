@@ -51,7 +51,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testStringLiteral() {
         ASTNode node = parseText("\"One Two\"");
 
-        ASTNode stringLiteral = node.getFirstChildNode();
+        ASTNode stringLiteral = node.getFirstChildNode().getFirstChildNode();
         assertThat(stringLiteral.getElementType(), is(XQueryElementType.STRING_LITERAL));
 
         XQueryStringLiteral stringLiteralPsi = (XQueryStringLiteral) stringLiteral.getPsi();
@@ -62,7 +62,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testStringLiteral_Empty() {
         ASTNode node = parseText("\"\"");
 
-        ASTNode stringLiteral = node.getFirstChildNode();
+        ASTNode stringLiteral = node.getFirstChildNode().getFirstChildNode();
         assertThat(stringLiteral.getElementType(), is(XQueryElementType.STRING_LITERAL));
 
         XQueryStringLiteral stringLiteralPsi = (XQueryStringLiteral) stringLiteral.getPsi();

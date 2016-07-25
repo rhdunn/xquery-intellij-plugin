@@ -31,6 +31,8 @@ public class XQueryASTFactory extends ASTFactory {
             return new XQueryStringLiteralImpl(type);
         } else if (type == XQueryElementType.URI_LITERAL) {
             return new XQueryUriLiteralImpl(type);
+        } else if (type == XQueryElementType.LITERAL) {
+            return new XQueryLiteralImpl(type);
         } else if (type == XQueryElementType.QNAME) {
             return new XQueryQNameImpl(type);
         } else if (type == XQueryElementType.COMMENT) {
