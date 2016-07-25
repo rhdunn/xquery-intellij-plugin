@@ -45,7 +45,7 @@ public class XQueryParser {
             if (parseVersionDecl()) continue;
             if (parseModuleDecl()) continue;
             if (parseModuleImport()) continue;
-            if (parseLiteral()) continue;
+            if (parsePrimaryExpr()) continue;
             if (misplacedEntityReference()) continue;
             if (parseQName()) continue;
             if (parseDirCommentConstructor()) continue;
@@ -123,6 +123,10 @@ public class XQueryParser {
 
     // endregion
     // region Grammar
+
+    private boolean parsePrimaryExpr() {
+        return parseLiteral();
+    }
 
     private boolean parseLiteral() {
         final PsiBuilder.Marker literalMarker = mark();
