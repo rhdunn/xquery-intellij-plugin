@@ -140,8 +140,14 @@ public class SyntaxHighlighterTest extends TestCase {
     public void testTokenHighlights_Keywords() {
         SyntaxHighlighter highlighter = new SyntaxHighlighter();
 
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_AT).length, is(1));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_AT)[0], is(SyntaxHighlighter.KEYWORD));
+
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_ENCODING).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_ENCODING)[0], is(SyntaxHighlighter.KEYWORD));
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_IMPORT).length, is(1));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_IMPORT)[0], is(SyntaxHighlighter.KEYWORD));
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_MODULE).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_MODULE)[0], is(SyntaxHighlighter.KEYWORD));

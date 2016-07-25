@@ -95,7 +95,9 @@ public interface XQueryTokenType extends TokenType {
     IElementType FUNCTION_REF_OPERATOR = new IElementType("XQUERY_FUNCTION_REF_OPERATOR_TOKEN", XQuery.INSTANCE); // XQuery 3.0
     IElementType ANNOTATION_INDICATOR = new IElementType("XQUERY_ANNOTATION_INDICATOR_TOKEN", XQuery.INSTANCE); // XQuery 3.0
 
+    IXQueryKeywordOrNCNameType K_AT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_AT");
     IXQueryKeywordOrNCNameType K_ENCODING = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ENCODING");
+    IXQueryKeywordOrNCNameType K_IMPORT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_IMPORT");
     IXQueryKeywordOrNCNameType K_MODULE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_MODULE");
     IXQueryKeywordOrNCNameType K_NAMESPACE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NAMESPACE");
     IXQueryKeywordOrNCNameType K_VERSION = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_VERSION");

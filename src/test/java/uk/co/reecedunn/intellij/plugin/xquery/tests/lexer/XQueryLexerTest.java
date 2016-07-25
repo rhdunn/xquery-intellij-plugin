@@ -575,10 +575,8 @@ public class XQueryLexerTest extends TestCase {
         matchSingleToken(lexer, "+", XQueryTokenType.PLUS);
         matchSingleToken(lexer, ":", XQueryTokenType.QNAME_SEPARATOR);
         matchSingleToken(lexer, "|", XQueryTokenType.UNION);
-        matchSingleToken(lexer, ",", XQueryTokenType.COMMA);
         matchSingleToken(lexer, "-", XQueryTokenType.MINUS);
         matchSingleToken(lexer, ".", XQueryTokenType.DOT);
-        matchSingleToken(lexer, "=", XQueryTokenType.EQUAL);
         matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN);
         matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE);
         matchSingleToken(lexer, "<", XQueryTokenType.LESS_THAN);
@@ -649,6 +647,22 @@ public class XQueryLexerTest extends TestCase {
         Lexer lexer = new XQueryLexer();
 
         matchSingleToken(lexer, ";", XQueryTokenType.SEPARATOR);
+    }
+
+    // endregion
+    // region ModuleImport
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ModuleImport")
+    public void testModuleImport() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "import",    XQueryTokenType.K_IMPORT);
+        matchSingleToken(lexer, "module",    XQueryTokenType.K_MODULE);
+        matchSingleToken(lexer, "at",        XQueryTokenType.K_AT);
+        matchSingleToken(lexer, ",",         XQueryTokenType.COMMA);
+
+        matchSingleToken(lexer, "namespace", XQueryTokenType.K_NAMESPACE);
+        matchSingleToken(lexer, "=",         XQueryTokenType.EQUAL);
     }
 
     // endregion
