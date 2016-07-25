@@ -312,6 +312,7 @@ public class XQueryParser {
                 return true;
             }
 
+            skipWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.SEPARATOR)) {
                 moduleDeclMarker.done(XQueryElementType.MODULE_DECL);
                 error(XQueryBundle.message("parser.error.expected-semicolon"));
