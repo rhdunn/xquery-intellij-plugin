@@ -30,6 +30,7 @@ public interface XQueryElementType {
 
     IElementType VERSION_DECL = new IElementType("XQUERY_VERSION_DECL", XQuery.INSTANCE);
     IElementType MODULE_DECL = new IElementType("XQUERY_MODULE_DECL", XQuery.INSTANCE);
+    IElementType MODULE_IMPORT = new IElementType("XQUERY_MODULE_IMPORT", XQuery.INSTANCE);
 
     IElementType DIR_COMMENT_CONSTRUCTOR = new IElementType("XQUERY_DIR_COMMENT_CONSTRUCTOR", XQuery.INSTANCE);
 }

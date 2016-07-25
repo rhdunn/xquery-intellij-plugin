@@ -680,6 +680,247 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region ModuleImport
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ModuleImport")
+    public void testModuleImport() {
+        final String expected
+                = "FileElement[FILE(0:44)]\n"
+                + "   XQueryModuleImportImpl[XQUERY_MODULE_IMPORT(0:44)]\n"
+                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_IMPORT(0:6)]('import')\n"
+                + "      PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')\n"
+                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_MODULE(7:13)]('module')\n"
+                + "      PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')\n"
+                + "      XQueryUriLiteralImpl[XQUERY_URI_LITERAL(14:43)]\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(14:15)]('\"')\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(15:42)]('http://www.example.com/test')\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(42:43)]('\"')\n"
+                + "      LeafPsiElement[XQUERY_SEPARATOR_TOKEN(43:44)](';')\n";
+
+        assertThat(prettyPrintASTNode(parseText("import module \"http://www.example.com/test\";")), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ModuleImport")
+    public void testModuleImport_NoModuleKeyword() {
+        final String expected
+                = "FileElement[FILE(0:7)]\n"
+                + "   XQueryModuleDeclImpl[XQUERY_MODULE_DECL(0:6)]\n"
+                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_IMPORT(0:6)]('import')\n"
+                + "   PsiErrorElementImpl[ERROR_ELEMENT(6:6)]('XPST0003: Missing keyword 'module'.')\n"
+                + "   LeafPsiElement[XQUERY_SEPARATOR_TOKEN(6:7)](';')\n";
+
+        assertThat(prettyPrintASTNode(parseText("import;")), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ModuleImport")
+    public void testModuleImport_NoModuleUri() {
+        final String expected
+                = "FileElement[FILE(0:14)]\n"
+                + "   XQueryModuleImportImpl[XQUERY_MODULE_IMPORT(0:13)]\n"
+                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_IMPORT(0:6)]('import')\n"
+                + "      PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')\n"
+                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_MODULE(7:13)]('module')\n"
+                + "   PsiErrorElementImpl[ERROR_ELEMENT(13:13)]('XPST0003: Missing URI string.')\n"
+                + "   LeafPsiElement[XQUERY_SEPARATOR_TOKEN(13:14)](';')\n";
+
+        assertThat(prettyPrintASTNode(parseText("import module;")), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ModuleImport")
+    public void testModuleImport_MissingSemicolon() {
+        final String expected
+                = "FileElement[FILE(0:44)]\n"
+                + "   XQueryModuleImportImpl[XQUERY_MODULE_IMPORT(0:43)]\n"
+                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_IMPORT(0:6)]('import')\n"
+                + "      PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')\n"
+                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_MODULE(7:13)]('module')\n"
+                + "      PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')\n"
+                + "      XQueryUriLiteralImpl[XQUERY_URI_LITERAL(14:43)]\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(14:15)]('\"')\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(15:42)]('http://www.example.com/test')\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(42:43)]('\"')\n"
+                + "   PsiErrorElementImpl[ERROR_ELEMENT(43:43)]('XPST0003: Missing semicolon.')\n"
+                + "   LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(43:44)](':')\n";
+
+        assertThat(prettyPrintASTNode(parseText("import module \"http://www.example.com/test\":")), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ModuleImport")
+    public void testModuleImport_WithNamespace() {
+        final String expected
+                = "FileElement[FILE(0:61)]\n"
+                + "   XQueryModuleImportImpl[XQUERY_MODULE_IMPORT(0:61)]\n"
+                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_IMPORT(0:6)]('import')\n"
+                + "      PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')\n"
+                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_MODULE(7:13)]('module')\n"
+                + "      PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')\n"
+                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NAMESPACE(14:23)]('namespace')\n"
+                + "      PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')\n"
+                + "      XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(24:28)]('test')\n"
+                + "      PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')\n"
+                + "      LeafPsiElement[XQUERY_EQUAL_TOKEN(29:30)]('=')\n"
+                + "      PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')\n"
+                + "      XQueryUriLiteralImpl[XQUERY_URI_LITERAL(31:60)]\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(31:32)]('\"')\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(32:59)]('http://www.example.com/test')\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(59:60)]('\"')\n"
+                + "      LeafPsiElement[XQUERY_SEPARATOR_TOKEN(60:61)](';')\n";
+
+        assertThat(prettyPrintASTNode(parseText("import module namespace test = \"http://www.example.com/test\";")), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ModuleImport")
+    public void testModuleImport_WithNamespace_NoNCName() {
+        final String expected
+                = "FileElement[FILE(0:56)]\n"
+                + "   XQueryModuleImportImpl[XQUERY_MODULE_IMPORT(0:24)]\n"
+                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_IMPORT(0:6)]('import')\n"
+                + "      PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')\n"
+                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_MODULE(7:13)]('module')\n"
+                + "      PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')\n"
+                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NAMESPACE(14:23)]('namespace')\n"
+                + "      PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')\n"
+                + "   PsiErrorElementImpl[ERROR_ELEMENT(24:24)]('XPST0003: Missing identifier.')\n"
+                + "   LeafPsiElement[XQUERY_EQUAL_TOKEN(24:25)]('=')\n"
+                + "   PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')\n"
+                + "   XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(26:55)]\n"
+                + "      LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(26:27)]('\"')\n"
+                + "      LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(27:54)]('http://www.example.com/test')\n"
+                + "      LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(54:55)]('\"')\n"
+                + "   LeafPsiElement[XQUERY_SEPARATOR_TOKEN(55:56)](';')\n";
+
+        assertThat(prettyPrintASTNode(parseText("import module namespace = \"http://www.example.com/test\";")), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ModuleImport")
+    public void testModuleImport_WithNamespace_NoEquals() {
+        final String expected
+                = "FileElement[FILE(0:59)]\n"
+                + "   XQueryModuleImportImpl[XQUERY_MODULE_IMPORT(0:29)]\n"
+                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_IMPORT(0:6)]('import')\n"
+                + "      PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')\n"
+                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_MODULE(7:13)]('module')\n"
+                + "      PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')\n"
+                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NAMESPACE(14:23)]('namespace')\n"
+                + "      PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')\n"
+                + "      XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(24:28)]('test')\n"
+                + "      PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')\n"
+                + "   PsiErrorElementImpl[ERROR_ELEMENT(29:29)]('XPST0003: Expected '='.')\n"
+                + "   XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(29:58)]\n"
+                + "      LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(29:30)]('\"')\n"
+                + "      LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(30:57)]('http://www.example.com/test')\n"
+                + "      LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(57:58)]('\"')\n"
+                + "   LeafPsiElement[XQUERY_SEPARATOR_TOKEN(58:59)](';')\n";
+
+        assertThat(prettyPrintASTNode(parseText("import module namespace test \"http://www.example.com/test\";")), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ModuleImport")
+    public void testModuleImport_WithAtSequence() {
+        final String expected
+                = "FileElement[FILE(0:59)]\n"
+                + "   XQueryModuleImportImpl[XQUERY_MODULE_IMPORT(0:59)]\n"
+                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_IMPORT(0:6)]('import')\n"
+                + "      PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')\n"
+                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_MODULE(7:13)]('module')\n"
+                + "      PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')\n"
+                + "      XQueryUriLiteralImpl[XQUERY_URI_LITERAL(14:43)]\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(14:15)]('\"')\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(15:42)]('http://www.example.com/test')\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(42:43)]('\"')\n"
+                + "      PsiWhiteSpaceImpl[WHITE_SPACE(43:44)](' ')\n"
+                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_AT(44:46)]('at')\n"
+                + "      PsiWhiteSpaceImpl[WHITE_SPACE(46:47)](' ')\n"
+                + "      XQueryUriLiteralImpl[XQUERY_URI_LITERAL(47:58)]\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(47:48)]('\"')\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(48:57)]('/test.xqy')\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(57:58)]('\"')\n"
+                + "      LeafPsiElement[XQUERY_SEPARATOR_TOKEN(58:59)](';')\n";
+
+        assertThat(prettyPrintASTNode(parseText("import module \"http://www.example.com/test\" at \"/test.xqy\";")), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ModuleImport")
+    public void testModuleImport_WithAtSequence_MissingUri() {
+        final String expected
+                = "FileElement[FILE(0:47)]\n"
+                + "   XQueryModuleImportImpl[XQUERY_MODULE_IMPORT(0:46)]\n"
+                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_IMPORT(0:6)]('import')\n"
+                + "      PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')\n"
+                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_MODULE(7:13)]('module')\n"
+                + "      PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')\n"
+                + "      XQueryUriLiteralImpl[XQUERY_URI_LITERAL(14:43)]\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(14:15)]('\"')\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(15:42)]('http://www.example.com/test')\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(42:43)]('\"')\n"
+                + "      PsiWhiteSpaceImpl[WHITE_SPACE(43:44)](' ')\n"
+                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_AT(44:46)]('at')\n"
+                + "   PsiErrorElementImpl[ERROR_ELEMENT(46:46)]('XPST0003: Missing URI string.')\n"
+                + "   LeafPsiElement[XQUERY_SEPARATOR_TOKEN(46:47)](';')\n";
+
+        assertThat(prettyPrintASTNode(parseText("import module \"http://www.example.com/test\" at;")), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ModuleImport")
+    public void testModuleImport_WithAtSequence_Multiple() {
+        final String expected
+                = "FileElement[FILE(0:76)]\n"
+                + "   XQueryModuleImportImpl[XQUERY_MODULE_IMPORT(0:76)]\n"
+                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_IMPORT(0:6)]('import')\n"
+                + "      PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')\n"
+                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_MODULE(7:13)]('module')\n"
+                + "      PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')\n"
+                + "      XQueryUriLiteralImpl[XQUERY_URI_LITERAL(14:43)]\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(14:15)]('\"')\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(15:42)]('http://www.example.com/test')\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(42:43)]('\"')\n"
+                + "      PsiWhiteSpaceImpl[WHITE_SPACE(43:44)](' ')\n"
+                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_AT(44:46)]('at')\n"
+                + "      PsiWhiteSpaceImpl[WHITE_SPACE(46:47)](' ')\n"
+                + "      XQueryUriLiteralImpl[XQUERY_URI_LITERAL(47:58)]\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(47:48)]('\"')\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(48:57)]('/test.xqy')\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(57:58)]('\"')\n"
+                + "      LeafPsiElement[XQUERY_COMMA_TOKEN(58:59)](',')\n"
+                + "      PsiWhiteSpaceImpl[WHITE_SPACE(59:60)](' ')\n"
+                + "      XQueryUriLiteralImpl[XQUERY_URI_LITERAL(60:75)]\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(60:61)]('\"')\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(61:74)]('/app/test.xqy')\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(74:75)]('\"')\n"
+                + "      LeafPsiElement[XQUERY_SEPARATOR_TOKEN(75:76)](';')\n";
+
+        assertThat(prettyPrintASTNode(parseText("import module \"http://www.example.com/test\" at \"/test.xqy\", \"/app/test.xqy\";")), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ModuleImport")
+    public void testModuleImport_WithAtSequence_NoNCNameAfterComma() {
+        final String expected
+                = "FileElement[FILE(0:61)]\n"
+                + "   XQueryModuleImportImpl[XQUERY_MODULE_IMPORT(0:60)]\n"
+                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_IMPORT(0:6)]('import')\n"
+                + "      PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')\n"
+                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_MODULE(7:13)]('module')\n"
+                + "      PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')\n"
+                + "      XQueryUriLiteralImpl[XQUERY_URI_LITERAL(14:43)]\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(14:15)]('\"')\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(15:42)]('http://www.example.com/test')\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(42:43)]('\"')\n"
+                + "      PsiWhiteSpaceImpl[WHITE_SPACE(43:44)](' ')\n"
+                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_AT(44:46)]('at')\n"
+                + "      PsiWhiteSpaceImpl[WHITE_SPACE(46:47)](' ')\n"
+                + "      XQueryUriLiteralImpl[XQUERY_URI_LITERAL(47:58)]\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(47:48)]('\"')\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(48:57)]('/test.xqy')\n"
+                + "         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(57:58)]('\"')\n"
+                + "      LeafPsiElement[XQUERY_COMMA_TOKEN(58:59)](',')\n"
+                + "      PsiWhiteSpaceImpl[WHITE_SPACE(59:60)](' ')\n"
+                + "   PsiErrorElementImpl[ERROR_ELEMENT(60:60)]('XPST0003: Missing URI string.')\n"
+                + "   LeafPsiElement[XQUERY_SEPARATOR_TOKEN(60:61)](';')\n";
+
+        assertThat(prettyPrintASTNode(parseText("import module \"http://www.example.com/test\" at \"/test.xqy\", ;")), is(expected));
+    }
+
+    // endregion
     // region DirCommentConstructor
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirCommentConstructor")
