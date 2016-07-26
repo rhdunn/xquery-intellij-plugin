@@ -754,10 +754,10 @@ public class XQuery10ParserTest extends ParserTestCase {
     public void testModuleDecl_NoNamespaceKeyword() {
         final String expected
                 = "FileElement[FILE(0:7)]\n"
-                + "   XQueryModuleDeclImpl[XQUERY_MODULE_DECL(0:6)]\n"
+                + "   XQueryModuleDeclImpl[XQUERY_MODULE_DECL(0:7)]\n"
                 + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_MODULE(0:6)]('module')\n"
-                + "   PsiErrorElementImpl[ERROR_ELEMENT(6:6)]('XPST0003: Missing keyword 'namespace'.')\n"
-                + "   LeafPsiElement[XQUERY_SEPARATOR_TOKEN(6:7)](';')\n";
+                + "      PsiErrorElementImpl[ERROR_ELEMENT(6:6)]('XPST0003: Missing keyword 'namespace'.')\n"
+                + "      LeafPsiElement[XQUERY_SEPARATOR_TOKEN(6:7)](';')\n";
 
         assertThat(prettyPrintASTNode(parseText("module;")), is(expected));
     }
@@ -766,12 +766,12 @@ public class XQuery10ParserTest extends ParserTestCase {
     public void testModuleDecl_NoNamespaceName() {
         final String expected
                 = "FileElement[FILE(0:17)]\n"
-                + "   XQueryModuleDeclImpl[XQUERY_MODULE_DECL(0:16)]\n"
+                + "   XQueryModuleDeclImpl[XQUERY_MODULE_DECL(0:17)]\n"
                 + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_MODULE(0:6)]('module')\n"
                 + "      PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')\n"
                 + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NAMESPACE(7:16)]('namespace')\n"
-                + "   PsiErrorElementImpl[ERROR_ELEMENT(16:16)]('XPST0003: Missing identifier.')\n"
-                + "   LeafPsiElement[XQUERY_SEPARATOR_TOKEN(16:17)](';')\n";
+                + "      PsiErrorElementImpl[ERROR_ELEMENT(16:16)]('XPST0003: Missing identifier.')\n"
+                + "      LeafPsiElement[XQUERY_SEPARATOR_TOKEN(16:17)](';')\n";
 
         assertThat(prettyPrintASTNode(parseText("module namespace;")), is(expected));
     }
@@ -780,14 +780,14 @@ public class XQuery10ParserTest extends ParserTestCase {
     public void testModuleDecl_NoEqualsAfterName() {
         final String expected
                 = "FileElement[FILE(0:21)]\n"
-                + "   XQueryModuleDeclImpl[XQUERY_MODULE_DECL(0:20)]\n"
+                + "   XQueryModuleDeclImpl[XQUERY_MODULE_DECL(0:21)]\n"
                 + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_MODULE(0:6)]('module')\n"
                 + "      PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')\n"
                 + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NAMESPACE(7:16)]('namespace')\n"
                 + "      PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')\n"
                 + "      XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(17:20)]('one')\n"
-                + "   PsiErrorElementImpl[ERROR_ELEMENT(20:20)]('XPST0003: Expected '='.')\n"
-                + "   LeafPsiElement[XQUERY_SEPARATOR_TOKEN(20:21)](';')\n";
+                + "      PsiErrorElementImpl[ERROR_ELEMENT(20:20)]('XPST0003: Expected '='.')\n"
+                + "      LeafPsiElement[XQUERY_SEPARATOR_TOKEN(20:21)](';')\n";
 
         assertThat(prettyPrintASTNode(parseText("module namespace one;")), is(expected));
     }
@@ -796,7 +796,7 @@ public class XQuery10ParserTest extends ParserTestCase {
     public void testModuleDecl_NoNamespaceUri() {
         final String expected
                 = "FileElement[FILE(0:23)]\n"
-                + "   XQueryModuleDeclImpl[XQUERY_MODULE_DECL(0:22)]\n"
+                + "   XQueryModuleDeclImpl[XQUERY_MODULE_DECL(0:23)]\n"
                 + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_MODULE(0:6)]('module')\n"
                 + "      PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')\n"
                 + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NAMESPACE(7:16)]('namespace')\n"
@@ -804,8 +804,8 @@ public class XQuery10ParserTest extends ParserTestCase {
                 + "      XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(17:20)]('one')\n"
                 + "      PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')\n"
                 + "      LeafPsiElement[XQUERY_EQUAL_TOKEN(21:22)]('=')\n"
-                + "   PsiErrorElementImpl[ERROR_ELEMENT(22:22)]('XPST0003: Missing URI string.')\n"
-                + "   LeafPsiElement[XQUERY_SEPARATOR_TOKEN(22:23)](';')\n";
+                + "      PsiErrorElementImpl[ERROR_ELEMENT(22:22)]('XPST0003: Missing URI string.')\n"
+                + "      LeafPsiElement[XQUERY_SEPARATOR_TOKEN(22:23)](';')\n";
 
         assertThat(prettyPrintASTNode(parseText("module namespace one =;")), is(expected));
     }

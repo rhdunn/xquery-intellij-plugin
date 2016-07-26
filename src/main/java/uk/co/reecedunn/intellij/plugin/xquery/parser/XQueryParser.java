@@ -351,41 +351,40 @@ public class XQueryParser {
 
     private boolean parseModuleDecl() {
         if (getTokenType() == XQueryTokenType.K_MODULE) {
+            boolean haveErrors = false;
             final PsiBuilder.Marker moduleDeclMarker = mark();
             advanceLexer();
 
             skipWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.K_NAMESPACE)) {
-                moduleDeclMarker.done(XQueryElementType.MODULE_DECL);
                 error(XQueryBundle.message("parser.error.expected-keyword", "namespace"));
-                return true;
+                haveErrors = true;
             }
 
             skipWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.NCNAME)) {
-                moduleDeclMarker.done(XQueryElementType.MODULE_DECL);
+            if (!matchTokenType(XQueryTokenType.NCNAME) && !haveErrors) {
                 error(XQueryBundle.message("parser.error.expected-ncname"));
-                return true;
+                haveErrors = true;
             }
 
             skipWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.EQUAL)) {
-                moduleDeclMarker.done(XQueryElementType.MODULE_DECL);
+            if (!matchTokenType(XQueryTokenType.EQUAL) && !haveErrors) {
                 error(XQueryBundle.message("parser.error.expected", "="));
-                return true;
+                haveErrors = true;
             }
 
             skipWhiteSpaceAndCommentTokens();
-            if (!parseStringLiteral(XQueryElementType.URI_LITERAL)) {
-                moduleDeclMarker.done(XQueryElementType.MODULE_DECL);
+            if (!parseStringLiteral(XQueryElementType.URI_LITERAL) && !haveErrors) {
                 error(XQueryBundle.message("parser.error.expected-uri-string"));
-                return true;
+                haveErrors = true;
             }
 
             skipWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.SEPARATOR)) {
                 moduleDeclMarker.done(XQueryElementType.MODULE_DECL);
-                error(XQueryBundle.message("parser.error.expected-semicolon"));
+                if (!haveErrors) {
+                    error(XQueryBundle.message("parser.error.expected-semicolon"));
+                }
                 if (getTokenType() == XQueryTokenType.QNAME_SEPARATOR) {
                     advanceLexer();
                 }
