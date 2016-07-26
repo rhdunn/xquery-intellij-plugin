@@ -22,7 +22,7 @@ public class PsiNavigation {
     private static PsiNavigation INSTANCE = new PsiNavigation();
 
     @SuppressWarnings("unchecked")
-    public static <T> T getParentByClass(PsiElement element, Class<T> parent) {
+    public static <T> T findParentByClass(PsiElement element, Class<T> parent) {
         while (element != null && !parent.isInstance(element)) {
             element = element.getParent();
         }
@@ -30,7 +30,7 @@ public class PsiNavigation {
     }
 
     @SuppressWarnings("unchecked")
-    public static <T> T getFirstChildByClass(PsiElement element, Class<T> child) {
+    public static <T> T findFirstChildByClass(PsiElement element, Class<T> child) {
         while (element != null && !child.isInstance(element)) {
             element = element.getFirstChild();
         }
