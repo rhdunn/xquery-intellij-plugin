@@ -287,6 +287,7 @@ public class XQueryParser {
 
     private boolean parseVersionDecl() {
         if (getTokenType() == XQueryTokenType.K_XQUERY) {
+            boolean haveErrors = false;
             final PsiBuilder.Marker versionDeclMarker = mark();
             advanceLexer();
 
@@ -301,34 +302,30 @@ public class XQueryParser {
 
                 skipWhiteSpaceAndCommentTokens();
                 if (!parseStringLiteral(XQueryElementType.STRING_LITERAL)) {
-                    versionDeclMarker.done(XQueryElementType.VERSION_DECL);
                     error(XQueryBundle.message("parser.error.expected-encoding-string"));
-                    return true;
+                    haveErrors = true;
                 }
 
                 skipWhiteSpaceAndCommentTokens();
             } else {
                 versionDecl30Marker.drop();
                 if (!matchTokenType(XQueryTokenType.K_VERSION)) {
-                    versionDeclMarker.done(XQueryElementType.VERSION_DECL);
                     error(XQueryBundle.message("parser.error.expected-keyword", "version"));
-                    return true;
+                    haveErrors = true;
                 }
 
                 skipWhiteSpaceAndCommentTokens();
-                if (!parseStringLiteral(XQueryElementType.STRING_LITERAL)) {
-                    versionDeclMarker.done(XQueryElementType.VERSION_DECL);
+                if (!parseStringLiteral(XQueryElementType.STRING_LITERAL) && !haveErrors) {
                     error(XQueryBundle.message("parser.error.expected-version-string"));
-                    return true;
+                    haveErrors = true;
                 }
 
                 skipWhiteSpaceAndCommentTokens();
                 if (matchTokenType(XQueryTokenType.K_ENCODING)) {
                     skipWhiteSpaceAndCommentTokens();
-                    if (!parseStringLiteral(XQueryElementType.STRING_LITERAL)) {
-                        versionDeclMarker.done(XQueryElementType.VERSION_DECL);
+                    if (!parseStringLiteral(XQueryElementType.STRING_LITERAL) && !haveErrors) {
                         error(XQueryBundle.message("parser.error.expected-encoding-string"));
-                        return true;
+                        haveErrors = true;
                     }
 
                     skipWhiteSpaceAndCommentTokens();
@@ -337,7 +334,9 @@ public class XQueryParser {
 
             if (!matchTokenType(XQueryTokenType.SEPARATOR)) {
                 versionDeclMarker.done(XQueryElementType.VERSION_DECL);
-                error(XQueryBundle.message("parser.error.expected-semicolon"));
+                if (!haveErrors) {
+                    error(XQueryBundle.message("parser.error.expected-semicolon"));
+                }
                 if (getTokenType() == XQueryTokenType.QNAME_SEPARATOR) {
                     advanceLexer();
                 }

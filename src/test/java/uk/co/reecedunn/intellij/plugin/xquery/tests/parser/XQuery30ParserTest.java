@@ -71,12 +71,12 @@ public class XQuery30ParserTest extends XQuery10ParserTest {
     public void testVersionDecl_NoEncodingString() {
         final String expected
                 = "FileElement[FILE(0:16)]\n"
-                + "   XQueryVersionDeclImpl[XQUERY_VERSION_DECL(0:15)]\n"
+                + "   XQueryVersionDeclImpl[XQUERY_VERSION_DECL(0:16)]\n"
                 + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_XQUERY(0:6)]('xquery')\n"
                 + "      PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')\n"
                 + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_ENCODING(7:15)]('encoding')\n"
-                + "   PsiErrorElementImpl[ERROR_ELEMENT(15:15)]('XPST0003: Missing encoding string.')\n"
-                + "   LeafPsiElement[XQUERY_SEPARATOR_TOKEN(15:16)](';')\n";
+                + "      PsiErrorElementImpl[ERROR_ELEMENT(15:15)]('XPST0003: Missing encoding string.')\n"
+                + "      LeafPsiElement[XQUERY_SEPARATOR_TOKEN(15:16)](';')\n";
 
         assertThat(prettyPrintASTNode(parseText("xquery encoding;")), is(expected));
     }
