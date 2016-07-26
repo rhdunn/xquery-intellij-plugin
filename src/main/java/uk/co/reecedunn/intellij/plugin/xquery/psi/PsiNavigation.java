@@ -27,4 +27,11 @@ public class PsiNavigation {
         }
         return element;
     }
+
+    public static PsiElement getFirstChildByClass(PsiElement element, Class<?> child) {
+        while (element != null && !child.isInstance(element)) {
+            element = element.getFirstChild();
+        }
+        return element;
+    }
 }

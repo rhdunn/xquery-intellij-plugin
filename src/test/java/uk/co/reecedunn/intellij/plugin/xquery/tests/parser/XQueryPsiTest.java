@@ -16,11 +16,13 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.parser;
 
 import com.intellij.lang.ASTNode;
+import com.intellij.psi.PsiElement;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryFile;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryStringLiteral;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryVersionDecl;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.PsiNavigation;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.Specification;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -51,10 +53,8 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testStringLiteral() {
         ASTNode node = parseText("\"One Two\"");
 
-        ASTNode stringLiteral = node.getFirstChildNode().getFirstChildNode();
-        assertThat(stringLiteral.getElementType(), is(XQueryElementType.STRING_LITERAL));
-
-        XQueryStringLiteral stringLiteralPsi = (XQueryStringLiteral) stringLiteral.getPsi();
+        XQueryStringLiteral stringLiteralPsi = (XQueryStringLiteral)PsiNavigation.getFirstChildByClass(node.getPsi(), XQueryStringLiteral.class);
+        assertThat(stringLiteralPsi, is(notNullValue()));
         assertThat(stringLiteralPsi.getSimpleContents(), is("One Two"));
     }
 
@@ -62,10 +62,8 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testStringLiteral_Empty() {
         ASTNode node = parseText("\"\"");
 
-        ASTNode stringLiteral = node.getFirstChildNode().getFirstChildNode();
-        assertThat(stringLiteral.getElementType(), is(XQueryElementType.STRING_LITERAL));
-
-        XQueryStringLiteral stringLiteralPsi = (XQueryStringLiteral) stringLiteral.getPsi();
+        XQueryStringLiteral stringLiteralPsi = (XQueryStringLiteral)PsiNavigation.getFirstChildByClass(node.getPsi(), XQueryStringLiteral.class);
+        assertThat(stringLiteralPsi, is(notNullValue()));
         assertThat(stringLiteralPsi.getSimpleContents(), is(nullValue()));
     }
 
