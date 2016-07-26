@@ -71,7 +71,7 @@ public class XQuery10ParserTest extends ParserTestCase {
                 + "               XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:4)]\n"
                 + "                  XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:4)]\n"
                 + "                     XQueryLiteralImpl[XQUERY_LITERAL(0:4)]\n"
-                + "                        XQueryNumericLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:4)]('1234')\n";
+                + "                        XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:4)]('1234')\n";
 
         assertThat(prettyPrintASTNode(parseText("1234")), is(expected));
     }
@@ -90,7 +90,7 @@ public class XQuery10ParserTest extends ParserTestCase {
                 + "               XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:7)]\n"
                 + "                  XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:7)]\n"
                 + "                     XQueryLiteralImpl[XQUERY_LITERAL(0:7)]\n"
-                + "                        XQueryNumericLiteralImpl[XQUERY_DECIMAL_LITERAL_TOKEN(0:7)]('3.14159')\n";
+                + "                        XQueryDecimalLiteralImpl[XQUERY_DECIMAL_LITERAL_TOKEN(0:7)]('3.14159')\n";
 
         assertThat(prettyPrintASTNode(parseText("3.14159")), is(expected));
     }
@@ -109,7 +109,7 @@ public class XQuery10ParserTest extends ParserTestCase {
                 + "               XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:12)]\n"
                 + "                  XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:12)]\n"
                 + "                     XQueryLiteralImpl[XQUERY_LITERAL(0:12)]\n"
-                + "                        XQueryNumericLiteralImpl[XQUERY_DOUBLE_LITERAL_TOKEN(0:12)]('2.99792458e8')\n";
+                + "                        XQueryDoubleLiteralImpl[XQUERY_DOUBLE_LITERAL_TOKEN(0:12)]('2.99792458e8')\n";
 
         assertThat(prettyPrintASTNode(parseText("2.99792458e8")), is(expected));
     }
@@ -125,7 +125,7 @@ public class XQuery10ParserTest extends ParserTestCase {
                 + "               XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:11)]\n"
                 + "                  XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:11)]\n"
                 + "                     XQueryLiteralImpl[XQUERY_LITERAL(0:11)]\n"
-                + "                        XQueryNumericLiteralImpl[XQUERY_DECIMAL_LITERAL_TOKEN(0:10)]('2.99792458')\n"
+                + "                        XQueryDecimalLiteralImpl[XQUERY_DECIMAL_LITERAL_TOKEN(0:10)]('2.99792458')\n"
                 + "                        PsiErrorElementImpl[ERROR_ELEMENT(10:11)]('XPST0003: Incomplete double exponent.')\n"
                 + "                           LeafPsiElement[XQUERY_PARTIAL_DOUBLE_LITERAL_EXPONENT_TOKEN(10:11)]('e')\n";
 
@@ -488,7 +488,7 @@ public class XQuery10ParserTest extends ParserTestCase {
                 + "   XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(0:3)]('one')\n"
                 + "   LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(3:4)](':')\n"
                 + "   PsiErrorElementImpl[ERROR_ELEMENT(4:7)]('XPST0003: Missing local name after ':' in qualified name.')\n"
-                + "      XQueryNumericLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(4:7)]('234')\n";
+                + "      XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(4:7)]('234')\n";
 
         assertThat(prettyPrintASTNode(parseText("one:234")), is(expected));
     }

@@ -70,10 +70,12 @@ public class XQueryASTFactory extends ASTFactory {
         if (type == XQueryTokenType.COMMENT ||
             type == XQueryTokenType.XML_COMMENT) {
             return new PsiCommentImpl(type, text);
-        } else if (type == XQueryTokenType.INTEGER_LITERAL ||
-                   type == XQueryTokenType.DECIMAL_LITERAL ||
-                   type == XQueryTokenType.DOUBLE_LITERAL) {
-            return new XQueryNumericLiteralImpl(type, text);
+        } else if (type == XQueryTokenType.INTEGER_LITERAL) {
+            return new XQueryIntegerLiteralImpl(type, text);
+        } else if (type == XQueryTokenType.DECIMAL_LITERAL) {
+            return new XQueryDecimalLiteralImpl(type, text);
+        } else if (type == XQueryTokenType.DOUBLE_LITERAL) {
+            return new XQueryDoubleLiteralImpl(type, text);
         } else if (type == XQueryTokenType.PREDEFINED_ENTITY_REFERENCE) {
             return new XQueryPredefinedEntityRefImpl(type, text);
         } else if (type == XQueryTokenType.CHARACTER_REFERENCE) {
