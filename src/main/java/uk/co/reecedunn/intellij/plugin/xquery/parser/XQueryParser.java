@@ -399,49 +399,45 @@ public class XQueryParser {
 
     private boolean parseModuleImport() {
         if (getTokenType() == XQueryTokenType.K_IMPORT) {
+            boolean haveErrors = false;
             final PsiBuilder.Marker moduleImportMarker = mark();
             advanceLexer();
 
             skipWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.K_MODULE)) {
-                moduleImportMarker.done(XQueryElementType.MODULE_DECL);
                 error(XQueryBundle.message("parser.error.expected-keyword", "module"));
-                return true;
+                haveErrors = true;
             }
 
             skipWhiteSpaceAndCommentTokens();
             if (matchTokenType(XQueryTokenType.K_NAMESPACE)) {
                 skipWhiteSpaceAndCommentTokens();
-                if (!matchTokenType(XQueryTokenType.NCNAME)) {
-                    moduleImportMarker.done(XQueryElementType.MODULE_IMPORT);
+                if (!matchTokenType(XQueryTokenType.NCNAME) && !haveErrors) {
                     error(XQueryBundle.message("parser.error.expected-ncname"));
-                    return true;
+                    haveErrors = true;
                 }
 
                 skipWhiteSpaceAndCommentTokens();
-                if (!matchTokenType(XQueryTokenType.EQUAL)) {
-                    moduleImportMarker.done(XQueryElementType.MODULE_IMPORT);
+                if (!matchTokenType(XQueryTokenType.EQUAL) && !haveErrors) {
                     error(XQueryBundle.message("parser.error.expected", "="));
-                    return true;
+                    haveErrors = true;
                 }
 
                 skipWhiteSpaceAndCommentTokens();
             }
 
-            if (!parseStringLiteral(XQueryElementType.URI_LITERAL)) {
-                moduleImportMarker.done(XQueryElementType.MODULE_IMPORT);
+            if (!parseStringLiteral(XQueryElementType.URI_LITERAL) && !haveErrors) {
                 error(XQueryBundle.message("parser.error.expected-uri-string"));
-                return true;
+                haveErrors = true;
             }
 
             skipWhiteSpaceAndCommentTokens();
             if (matchTokenType(XQueryTokenType.K_AT)) {
                 do {
                     skipWhiteSpaceAndCommentTokens();
-                    if (!parseStringLiteral(XQueryElementType.URI_LITERAL)) {
-                        moduleImportMarker.done(XQueryElementType.MODULE_IMPORT);
+                    if (!parseStringLiteral(XQueryElementType.URI_LITERAL) && !haveErrors) {
                         error(XQueryBundle.message("parser.error.expected-uri-string"));
-                        return true;
+                        haveErrors = true;
                     }
                     skipWhiteSpaceAndCommentTokens();
                 } while (matchTokenType(XQueryTokenType.COMMA));
@@ -449,7 +445,9 @@ public class XQueryParser {
 
             if (!matchTokenType(XQueryTokenType.SEPARATOR)) {
                 moduleImportMarker.done(XQueryElementType.MODULE_IMPORT);
-                error(XQueryBundle.message("parser.error.expected-semicolon"));
+                if (!haveErrors) {
+                    error(XQueryBundle.message("parser.error.expected-semicolon"));
+                }
                 if (getTokenType() == XQueryTokenType.QNAME_SEPARATOR) {
                     advanceLexer();
                 }
