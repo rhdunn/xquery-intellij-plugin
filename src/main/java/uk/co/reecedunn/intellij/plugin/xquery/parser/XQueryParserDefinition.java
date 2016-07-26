@@ -86,6 +86,8 @@ public class XQueryParserDefinition implements ParserDefinition {
             return new XQueryPathExprPsiImpl(node);
         } else if (type == XQueryElementType.UNARY_EXPR) {
             return new XQueryUnaryExprPsiImpl(node);
+        } else if (type == XQueryElementType.CAST_EXPR) {
+            return new XQueryCastExprPsiImpl(node);
         } else if (type == XQueryElementType.QNAME) {
             return new XQueryQNamePsiImpl(node);
         } else if (type == XQueryElementType.COMMENT) {
