@@ -39,7 +39,7 @@ public class XQueryPredefinedEntityRefAnnotator implements Annotator {
     public void annotate(@NotNull PsiElement element, @NotNull AnnotationHolder holder) {
         if (!(element instanceof XQueryPredefinedEntityRef)) return;
 
-        XQueryFile file = (XQueryFile)PsiNavigation.getParentByClass(element, XQueryFile.class);
+        XQueryFile file = PsiNavigation.getParentByClass(element, XQueryFile.class);
 
         final ASTNode node = element.getNode();
         checkPredefinedEntity(node.getChars(), node, holder, file.getXQueryVersion());

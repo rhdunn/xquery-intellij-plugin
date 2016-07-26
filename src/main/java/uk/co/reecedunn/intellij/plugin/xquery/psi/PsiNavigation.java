@@ -21,17 +21,19 @@ public class PsiNavigation {
     // The PsiNavigation constructor is not used, but make sure code coverage reports it as covered.
     private static PsiNavigation INSTANCE = new PsiNavigation();
 
-    public static PsiElement getParentByClass(PsiElement element, Class<?> parent) {
+    @SuppressWarnings("unchecked")
+    public static <T> T getParentByClass(PsiElement element, Class<T> parent) {
         while (element != null && !parent.isInstance(element)) {
             element = element.getParent();
         }
-        return element;
+        return (T)element;
     }
 
-    public static PsiElement getFirstChildByClass(PsiElement element, Class<?> child) {
+    @SuppressWarnings("unchecked")
+    public static <T> T getFirstChildByClass(PsiElement element, Class<T> child) {
         while (element != null && !child.isInstance(element)) {
             element = element.getFirstChild();
         }
-        return element;
+        return (T)element;
     }
 }
