@@ -43,6 +43,8 @@ public class XQueryASTFactory extends ASTFactory {
             return new XQueryUnaryExprImpl(type);
         } else if (type == XQueryElementType.CAST_EXPR) {
             return new XQueryCastExprImpl(type);
+        } else if (type == XQueryElementType.CASTABLE_EXPR) {
+            return new XQueryCastableExprImpl(type);
         } else if (type == XQueryElementType.QNAME) {
             return new XQueryQNameImpl(type);
         } else if (type == XQueryElementType.COMMENT) {
