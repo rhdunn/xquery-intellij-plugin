@@ -37,6 +37,8 @@ public class XQueryASTFactory extends ASTFactory {
             return new XQueryFilterExprImpl(type);
         } else if (type == XQueryElementType.RELATIVE_PATH_EXPR) {
             return new XQueryRelativePathExprImpl(type);
+        } else if (type == XQueryElementType.PATH_EXPR) {
+            return new XQueryPathExprImpl(type);
         } else if (type == XQueryElementType.QNAME) {
             return new XQueryQNameImpl(type);
         } else if (type == XQueryElementType.COMMENT) {

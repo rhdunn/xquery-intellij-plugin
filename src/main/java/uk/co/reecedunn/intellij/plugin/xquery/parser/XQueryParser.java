@@ -45,7 +45,7 @@ public class XQueryParser {
             if (parseVersionDecl()) continue;
             if (parseModuleDecl()) continue;
             if (parseModuleImport()) continue;
-            if (parseRelativePathExpr()) continue;
+            if (parsePathExpr()) continue;
             if (misplacedEntityReference()) continue;
             if (parseQName()) continue;
             if (parseDirCommentConstructor()) continue;
@@ -123,6 +123,16 @@ public class XQueryParser {
 
     // endregion
     // region Grammar
+
+    private boolean parsePathExpr() {
+        final PsiBuilder.Marker pathExprMarker = mark();
+        if (parseRelativePathExpr()) {
+            pathExprMarker.done(XQueryElementType.PATH_EXPR);
+            return true;
+        }
+        pathExprMarker.drop();
+        return false;
+    }
 
     private boolean parseRelativePathExpr() {
         final PsiBuilder.Marker relativePathExprMarker = mark();
