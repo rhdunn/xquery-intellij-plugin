@@ -96,6 +96,8 @@ public class XQueryParserDefinition implements ParserDefinition {
             return new XQueryInstanceofExprPsiImpl(node);
         } else if (type == XQueryElementType.INTERSECT_EXCEPT_EXPR) {
             return new XQueryIntersectExceptExprPsiImpl(node);
+        } else if (type == XQueryElementType.UNION_EXPR) {
+            return new XQueryUnionExprPsiImpl(node);
         } else if (type == XQueryElementType.QNAME) {
             return new XQueryQNamePsiImpl(node);
         } else if (type == XQueryElementType.COMMENT) {

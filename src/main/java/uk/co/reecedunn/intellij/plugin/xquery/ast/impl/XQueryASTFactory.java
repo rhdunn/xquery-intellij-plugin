@@ -51,6 +51,8 @@ public class XQueryASTFactory extends ASTFactory {
             return new XQueryInstanceofExprImpl(type);
         } else if (type == XQueryElementType.INTERSECT_EXCEPT_EXPR) {
             return new XQueryIntersectExceptExprImpl(type);
+        } else if (type == XQueryElementType.UNION_EXPR) {
+            return new XQueryUnionExprImpl(type);
         } else if (type == XQueryElementType.QNAME) {
             return new XQueryQNameImpl(type);
         } else if (type == XQueryElementType.COMMENT) {
