@@ -98,6 +98,8 @@ public class XQueryParserDefinition implements ParserDefinition {
             return new XQueryIntersectExceptExprPsiImpl(node);
         } else if (type == XQueryElementType.UNION_EXPR) {
             return new XQueryUnionExprPsiImpl(node);
+        } else if (type == XQueryElementType.MULTIPLICATIVE_EXPR) {
+            return new XQueryMultiplicativeExprPsiImpl(node);
         } else if (type == XQueryElementType.QNAME) {
             return new XQueryQNamePsiImpl(node);
         } else if (type == XQueryElementType.COMMENT) {

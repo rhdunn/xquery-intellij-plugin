@@ -64,18 +64,19 @@ public class XQuery10ParserTest extends ParserTestCase {
     public void testIntegerLiteral() {
         final String expected
                 = "FileElement[FILE(0:4)]\n"
-                + "   XQueryUnionExprImpl[XQUERY_UNION_EXPR(0:4)]\n"
-                + "      XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:4)]\n"
-                + "         XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:4)]\n"
-                + "            XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:4)]\n"
-                + "               XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:4)]\n"
-                + "                  XQueryCastExprImpl[XQUERY_CAST_EXPR(0:4)]\n"
-                + "                     XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:4)]\n"
-                + "                        XQueryPathExprImpl[XQUERY_PATH_EXPR(0:4)]\n"
-                + "                           XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:4)]\n"
-                + "                              XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:4)]\n"
-                + "                                 XQueryLiteralImpl[XQUERY_LITERAL(0:4)]\n"
-                + "                                    XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:4)]('1234')\n";
+                + "   XQueryMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:4)]\n"
+                + "      XQueryUnionExprImpl[XQUERY_UNION_EXPR(0:4)]\n"
+                + "         XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:4)]\n"
+                + "            XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:4)]\n"
+                + "               XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:4)]\n"
+                + "                  XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:4)]\n"
+                + "                     XQueryCastExprImpl[XQUERY_CAST_EXPR(0:4)]\n"
+                + "                        XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:4)]\n"
+                + "                           XQueryPathExprImpl[XQUERY_PATH_EXPR(0:4)]\n"
+                + "                              XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:4)]\n"
+                + "                                 XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:4)]\n"
+                + "                                    XQueryLiteralImpl[XQUERY_LITERAL(0:4)]\n"
+                + "                                       XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:4)]('1234')\n";
 
         assertThat(prettyPrintASTNode(parseText("1234")), is(expected));
     }
@@ -87,18 +88,19 @@ public class XQuery10ParserTest extends ParserTestCase {
     public void testDecimalLiteral() {
         final String expected
                 = "FileElement[FILE(0:7)]\n"
-                + "   XQueryUnionExprImpl[XQUERY_UNION_EXPR(0:7)]\n"
-                + "      XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:7)]\n"
-                + "         XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:7)]\n"
-                + "            XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:7)]\n"
-                + "               XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:7)]\n"
-                + "                  XQueryCastExprImpl[XQUERY_CAST_EXPR(0:7)]\n"
-                + "                     XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:7)]\n"
-                + "                        XQueryPathExprImpl[XQUERY_PATH_EXPR(0:7)]\n"
-                + "                           XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:7)]\n"
-                + "                              XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:7)]\n"
-                + "                                 XQueryLiteralImpl[XQUERY_LITERAL(0:7)]\n"
-                + "                                    XQueryDecimalLiteralImpl[XQUERY_DECIMAL_LITERAL_TOKEN(0:7)]('3.14159')\n";
+                + "   XQueryMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:7)]\n"
+                + "      XQueryUnionExprImpl[XQUERY_UNION_EXPR(0:7)]\n"
+                + "         XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:7)]\n"
+                + "            XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:7)]\n"
+                + "               XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:7)]\n"
+                + "                  XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:7)]\n"
+                + "                     XQueryCastExprImpl[XQUERY_CAST_EXPR(0:7)]\n"
+                + "                        XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:7)]\n"
+                + "                           XQueryPathExprImpl[XQUERY_PATH_EXPR(0:7)]\n"
+                + "                              XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:7)]\n"
+                + "                                 XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:7)]\n"
+                + "                                    XQueryLiteralImpl[XQUERY_LITERAL(0:7)]\n"
+                + "                                       XQueryDecimalLiteralImpl[XQUERY_DECIMAL_LITERAL_TOKEN(0:7)]('3.14159')\n";
 
         assertThat(prettyPrintASTNode(parseText("3.14159")), is(expected));
     }
@@ -110,18 +112,19 @@ public class XQuery10ParserTest extends ParserTestCase {
     public void testDoubleLiteral() {
         final String expected
                 = "FileElement[FILE(0:12)]\n"
-                + "   XQueryUnionExprImpl[XQUERY_UNION_EXPR(0:12)]\n"
-                + "      XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:12)]\n"
-                + "         XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:12)]\n"
-                + "            XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:12)]\n"
-                + "               XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:12)]\n"
-                + "                  XQueryCastExprImpl[XQUERY_CAST_EXPR(0:12)]\n"
-                + "                     XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:12)]\n"
-                + "                        XQueryPathExprImpl[XQUERY_PATH_EXPR(0:12)]\n"
-                + "                           XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:12)]\n"
-                + "                              XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:12)]\n"
-                + "                                 XQueryLiteralImpl[XQUERY_LITERAL(0:12)]\n"
-                + "                                    XQueryDoubleLiteralImpl[XQUERY_DOUBLE_LITERAL_TOKEN(0:12)]('2.99792458e8')\n";
+                + "   XQueryMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:12)]\n"
+                + "      XQueryUnionExprImpl[XQUERY_UNION_EXPR(0:12)]\n"
+                + "         XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:12)]\n"
+                + "            XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:12)]\n"
+                + "               XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:12)]\n"
+                + "                  XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:12)]\n"
+                + "                     XQueryCastExprImpl[XQUERY_CAST_EXPR(0:12)]\n"
+                + "                        XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:12)]\n"
+                + "                           XQueryPathExprImpl[XQUERY_PATH_EXPR(0:12)]\n"
+                + "                              XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:12)]\n"
+                + "                                 XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:12)]\n"
+                + "                                    XQueryLiteralImpl[XQUERY_LITERAL(0:12)]\n"
+                + "                                       XQueryDoubleLiteralImpl[XQUERY_DOUBLE_LITERAL_TOKEN(0:12)]('2.99792458e8')\n";
 
         assertThat(prettyPrintASTNode(parseText("2.99792458e8")), is(expected));
     }
@@ -130,20 +133,21 @@ public class XQuery10ParserTest extends ParserTestCase {
     public void testDoubleLiteral_IncompleteExponent() {
         final String expected
                 = "FileElement[FILE(0:11)]\n"
-                + "   XQueryUnionExprImpl[XQUERY_UNION_EXPR(0:11)]\n"
-                + "      XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:11)]\n"
-                + "         XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:11)]\n"
-                + "            XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:11)]\n"
-                + "               XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:11)]\n"
-                + "                  XQueryCastExprImpl[XQUERY_CAST_EXPR(0:11)]\n"
-                + "                     XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:11)]\n"
-                + "                        XQueryPathExprImpl[XQUERY_PATH_EXPR(0:11)]\n"
-                + "                           XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:11)]\n"
-                + "                              XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:11)]\n"
-                + "                                 XQueryLiteralImpl[XQUERY_LITERAL(0:11)]\n"
-                + "                                    XQueryDecimalLiteralImpl[XQUERY_DECIMAL_LITERAL_TOKEN(0:10)]('2.99792458')\n"
-                + "                                    PsiErrorElementImpl[ERROR_ELEMENT(10:11)]('XPST0003: Incomplete double exponent.')\n"
-                + "                                       LeafPsiElement[XQUERY_PARTIAL_DOUBLE_LITERAL_EXPONENT_TOKEN(10:11)]('e')\n";
+                + "   XQueryMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:11)]\n"
+                + "      XQueryUnionExprImpl[XQUERY_UNION_EXPR(0:11)]\n"
+                + "         XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:11)]\n"
+                + "            XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:11)]\n"
+                + "               XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:11)]\n"
+                + "                  XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:11)]\n"
+                + "                     XQueryCastExprImpl[XQUERY_CAST_EXPR(0:11)]\n"
+                + "                        XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:11)]\n"
+                + "                           XQueryPathExprImpl[XQUERY_PATH_EXPR(0:11)]\n"
+                + "                              XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:11)]\n"
+                + "                                 XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:11)]\n"
+                + "                                    XQueryLiteralImpl[XQUERY_LITERAL(0:11)]\n"
+                + "                                       XQueryDecimalLiteralImpl[XQUERY_DECIMAL_LITERAL_TOKEN(0:10)]('2.99792458')\n"
+                + "                                       PsiErrorElementImpl[ERROR_ELEMENT(10:11)]('XPST0003: Incomplete double exponent.')\n"
+                + "                                          LeafPsiElement[XQUERY_PARTIAL_DOUBLE_LITERAL_EXPONENT_TOKEN(10:11)]('e')\n";
 
         assertThat(prettyPrintASTNode(parseText("2.99792458e")), is(expected));
     }
@@ -155,21 +159,22 @@ public class XQuery10ParserTest extends ParserTestCase {
     public void testStringLiteral() {
         final String expected
                 = "FileElement[FILE(0:9)]\n"
-                + "   XQueryUnionExprImpl[XQUERY_UNION_EXPR(0:9)]\n"
-                + "      XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:9)]\n"
-                + "         XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:9)]\n"
-                + "            XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:9)]\n"
-                + "               XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:9)]\n"
-                + "                  XQueryCastExprImpl[XQUERY_CAST_EXPR(0:9)]\n"
-                + "                     XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:9)]\n"
-                + "                        XQueryPathExprImpl[XQUERY_PATH_EXPR(0:9)]\n"
-                + "                           XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:9)]\n"
-                + "                              XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:9)]\n"
-                + "                                 XQueryLiteralImpl[XQUERY_LITERAL(0:9)]\n"
-                + "                                    XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:9)]\n"
-                + "                                       LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
-                + "                                       LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(1:8)]('One Two')\n"
-                + "                                       LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(8:9)]('\"')\n";
+                + "   XQueryMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:9)]\n"
+                + "      XQueryUnionExprImpl[XQUERY_UNION_EXPR(0:9)]\n"
+                + "         XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:9)]\n"
+                + "            XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:9)]\n"
+                + "               XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:9)]\n"
+                + "                  XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:9)]\n"
+                + "                     XQueryCastExprImpl[XQUERY_CAST_EXPR(0:9)]\n"
+                + "                        XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:9)]\n"
+                + "                           XQueryPathExprImpl[XQUERY_PATH_EXPR(0:9)]\n"
+                + "                              XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:9)]\n"
+                + "                                 XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:9)]\n"
+                + "                                    XQueryLiteralImpl[XQUERY_LITERAL(0:9)]\n"
+                + "                                       XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:9)]\n"
+                + "                                          LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
+                + "                                          LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(1:8)]('One Two')\n"
+                + "                                          LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(8:9)]('\"')\n";
 
         assertThat(prettyPrintASTNode(parseText("\"One Two\"")), is(expected));
     }
@@ -178,21 +183,22 @@ public class XQuery10ParserTest extends ParserTestCase {
     public void testStringLiteral_UnclosedString() {
         final String expected
                 = "FileElement[FILE(0:8)]\n"
-                + "   XQueryUnionExprImpl[XQUERY_UNION_EXPR(0:8)]\n"
-                + "      XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:8)]\n"
-                + "         XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:8)]\n"
-                + "            XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:8)]\n"
-                + "               XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:8)]\n"
-                + "                  XQueryCastExprImpl[XQUERY_CAST_EXPR(0:8)]\n"
-                + "                     XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:8)]\n"
-                + "                        XQueryPathExprImpl[XQUERY_PATH_EXPR(0:8)]\n"
-                + "                           XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:8)]\n"
-                + "                              XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:8)]\n"
-                + "                                 XQueryLiteralImpl[XQUERY_LITERAL(0:8)]\n"
-                + "                                    XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:8)]\n"
-                + "                                       LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
-                + "                                       LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(1:8)]('One Two')\n"
-                + "                                    PsiErrorElementImpl[ERROR_ELEMENT(8:8)]('XPST0003: Unclosed string literal.')\n";
+                + "   XQueryMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:8)]\n"
+                + "      XQueryUnionExprImpl[XQUERY_UNION_EXPR(0:8)]\n"
+                + "         XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:8)]\n"
+                + "            XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:8)]\n"
+                + "               XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:8)]\n"
+                + "                  XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:8)]\n"
+                + "                     XQueryCastExprImpl[XQUERY_CAST_EXPR(0:8)]\n"
+                + "                        XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:8)]\n"
+                + "                           XQueryPathExprImpl[XQUERY_PATH_EXPR(0:8)]\n"
+                + "                              XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:8)]\n"
+                + "                                 XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:8)]\n"
+                + "                                    XQueryLiteralImpl[XQUERY_LITERAL(0:8)]\n"
+                + "                                       XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:8)]\n"
+                + "                                          LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
+                + "                                          LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(1:8)]('One Two')\n"
+                + "                                       PsiErrorElementImpl[ERROR_ELEMENT(8:8)]('XPST0003: Unclosed string literal.')\n";
 
         assertThat(prettyPrintASTNode(parseText("\"One Two")), is(expected));
     }
@@ -205,21 +211,22 @@ public class XQuery10ParserTest extends ParserTestCase {
     public void testStringLiteral_PredefinedEntityRef() {
         final String expected
                 = "FileElement[FILE(0:7)]\n"
-                + "   XQueryUnionExprImpl[XQUERY_UNION_EXPR(0:7)]\n"
-                + "      XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:7)]\n"
-                + "         XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:7)]\n"
-                + "            XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:7)]\n"
-                + "               XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:7)]\n"
-                + "                  XQueryCastExprImpl[XQUERY_CAST_EXPR(0:7)]\n"
-                + "                     XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:7)]\n"
-                + "                        XQueryPathExprImpl[XQUERY_PATH_EXPR(0:7)]\n"
-                + "                           XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:7)]\n"
-                + "                              XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:7)]\n"
-                + "                                 XQueryLiteralImpl[XQUERY_LITERAL(0:7)]\n"
-                + "                                    XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:7)]\n"
-                + "                                       LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
-                + "                                       XQueryPredefinedEntityRefImpl[XQUERY_PREDEFINED_ENTITY_REFERENCE_TOKEN(1:6)]('&amp;')\n"
-                + "                                       LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(6:7)]('\"')\n";
+                + "   XQueryMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:7)]\n"
+                + "      XQueryUnionExprImpl[XQUERY_UNION_EXPR(0:7)]\n"
+                + "         XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:7)]\n"
+                + "            XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:7)]\n"
+                + "               XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:7)]\n"
+                + "                  XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:7)]\n"
+                + "                     XQueryCastExprImpl[XQUERY_CAST_EXPR(0:7)]\n"
+                + "                        XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:7)]\n"
+                + "                           XQueryPathExprImpl[XQUERY_PATH_EXPR(0:7)]\n"
+                + "                              XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:7)]\n"
+                + "                                 XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:7)]\n"
+                + "                                    XQueryLiteralImpl[XQUERY_LITERAL(0:7)]\n"
+                + "                                       XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:7)]\n"
+                + "                                          LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
+                + "                                          XQueryPredefinedEntityRefImpl[XQUERY_PREDEFINED_ENTITY_REFERENCE_TOKEN(1:6)]('&amp;')\n"
+                + "                                          LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(6:7)]('\"')\n";
 
         assertThat(prettyPrintASTNode(parseText("\"&amp;\"")), is(expected));
     }
@@ -229,22 +236,23 @@ public class XQuery10ParserTest extends ParserTestCase {
     public void testStringLiteral_PredefinedEntityRef_IncompleteRef() {
         final String expected
                 = "FileElement[FILE(0:7)]\n"
-                + "   XQueryUnionExprImpl[XQUERY_UNION_EXPR(0:7)]\n"
-                + "      XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:7)]\n"
-                + "         XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:7)]\n"
-                + "            XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:7)]\n"
-                + "               XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:7)]\n"
-                + "                  XQueryCastExprImpl[XQUERY_CAST_EXPR(0:7)]\n"
-                + "                     XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:7)]\n"
-                + "                        XQueryPathExprImpl[XQUERY_PATH_EXPR(0:7)]\n"
-                + "                           XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:7)]\n"
-                + "                              XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:7)]\n"
-                + "                                 XQueryLiteralImpl[XQUERY_LITERAL(0:7)]\n"
-                + "                                    XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:7)]\n"
-                + "                                       LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
-                + "                                       LeafPsiElement[XQUERY_PARTIAL_ENTITY_REFERENCE_TOKEN(1:6)]('&quot')\n"
-                + "                                       PsiErrorElementImpl[ERROR_ELEMENT(6:6)]('XPST0003: Invalid entity reference character.')\n"
-                + "                                       LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(6:7)]('\"')\n";
+                + "   XQueryMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:7)]\n"
+                + "      XQueryUnionExprImpl[XQUERY_UNION_EXPR(0:7)]\n"
+                + "         XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:7)]\n"
+                + "            XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:7)]\n"
+                + "               XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:7)]\n"
+                + "                  XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:7)]\n"
+                + "                     XQueryCastExprImpl[XQUERY_CAST_EXPR(0:7)]\n"
+                + "                        XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:7)]\n"
+                + "                           XQueryPathExprImpl[XQUERY_PATH_EXPR(0:7)]\n"
+                + "                              XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:7)]\n"
+                + "                                 XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:7)]\n"
+                + "                                    XQueryLiteralImpl[XQUERY_LITERAL(0:7)]\n"
+                + "                                       XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:7)]\n"
+                + "                                          LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
+                + "                                          LeafPsiElement[XQUERY_PARTIAL_ENTITY_REFERENCE_TOKEN(1:6)]('&quot')\n"
+                + "                                          PsiErrorElementImpl[ERROR_ELEMENT(6:6)]('XPST0003: Invalid entity reference character.')\n"
+                + "                                          LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(6:7)]('\"')\n";
 
         assertThat(prettyPrintASTNode(parseText("\"&quot\"")), is(expected));
     }
@@ -254,22 +262,23 @@ public class XQuery10ParserTest extends ParserTestCase {
     public void testStringLiteral_PredefinedEntityRef_EmptyRef() {
         final String expected
                 = "FileElement[FILE(0:4)]\n"
-                + "   XQueryUnionExprImpl[XQUERY_UNION_EXPR(0:4)]\n"
-                + "      XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:4)]\n"
-                + "         XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:4)]\n"
-                + "            XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:4)]\n"
-                + "               XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:4)]\n"
-                + "                  XQueryCastExprImpl[XQUERY_CAST_EXPR(0:4)]\n"
-                + "                     XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:4)]\n"
-                + "                        XQueryPathExprImpl[XQUERY_PATH_EXPR(0:4)]\n"
-                + "                           XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:4)]\n"
-                + "                              XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:4)]\n"
-                + "                                 XQueryLiteralImpl[XQUERY_LITERAL(0:4)]\n"
-                + "                                    XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:4)]\n"
-                + "                                       LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
-                + "                                       PsiErrorElementImpl[ERROR_ELEMENT(1:3)]('XPST0003: Entity references must not be empty.')\n"
-                + "                                          LeafPsiElement[XQUERY_EMPTY_ENTITY_REFERENCE_TOKEN(1:3)]('&;')\n"
-                + "                                       LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(3:4)]('\"')\n";
+                + "   XQueryMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:4)]\n"
+                + "      XQueryUnionExprImpl[XQUERY_UNION_EXPR(0:4)]\n"
+                + "         XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:4)]\n"
+                + "            XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:4)]\n"
+                + "               XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:4)]\n"
+                + "                  XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:4)]\n"
+                + "                     XQueryCastExprImpl[XQUERY_CAST_EXPR(0:4)]\n"
+                + "                        XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:4)]\n"
+                + "                           XQueryPathExprImpl[XQUERY_PATH_EXPR(0:4)]\n"
+                + "                              XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:4)]\n"
+                + "                                 XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:4)]\n"
+                + "                                    XQueryLiteralImpl[XQUERY_LITERAL(0:4)]\n"
+                + "                                       XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:4)]\n"
+                + "                                          LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
+                + "                                          PsiErrorElementImpl[ERROR_ELEMENT(1:3)]('XPST0003: Entity references must not be empty.')\n"
+                + "                                             LeafPsiElement[XQUERY_EMPTY_ENTITY_REFERENCE_TOKEN(1:3)]('&;')\n"
+                + "                                          LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(3:4)]('\"')\n";
 
         assertThat(prettyPrintASTNode(parseText("\"&;\"")), is(expected));
     }
@@ -292,21 +301,22 @@ public class XQuery10ParserTest extends ParserTestCase {
     public void testStringLiteral_EscapeQuot() {
         final String expected
                 = "FileElement[FILE(0:4)]\n"
-                + "   XQueryUnionExprImpl[XQUERY_UNION_EXPR(0:4)]\n"
-                + "      XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:4)]\n"
-                + "         XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:4)]\n"
-                + "            XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:4)]\n"
-                + "               XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:4)]\n"
-                + "                  XQueryCastExprImpl[XQUERY_CAST_EXPR(0:4)]\n"
-                + "                     XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:4)]\n"
-                + "                        XQueryPathExprImpl[XQUERY_PATH_EXPR(0:4)]\n"
-                + "                           XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:4)]\n"
-                + "                              XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:4)]\n"
-                + "                                 XQueryLiteralImpl[XQUERY_LITERAL(0:4)]\n"
-                + "                                    XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:4)]\n"
-                + "                                       LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
-                + "                                       XQueryEscapeCharacterImpl[XQUERY_STRING_LITERAL_ESCAPED_CHARACTER_TOKEN(1:3)]('\"\"')\n"
-                + "                                       LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(3:4)]('\"')\n";
+                + "   XQueryMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:4)]\n"
+                + "      XQueryUnionExprImpl[XQUERY_UNION_EXPR(0:4)]\n"
+                + "         XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:4)]\n"
+                + "            XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:4)]\n"
+                + "               XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:4)]\n"
+                + "                  XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:4)]\n"
+                + "                     XQueryCastExprImpl[XQUERY_CAST_EXPR(0:4)]\n"
+                + "                        XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:4)]\n"
+                + "                           XQueryPathExprImpl[XQUERY_PATH_EXPR(0:4)]\n"
+                + "                              XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:4)]\n"
+                + "                                 XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:4)]\n"
+                + "                                    XQueryLiteralImpl[XQUERY_LITERAL(0:4)]\n"
+                + "                                       XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:4)]\n"
+                + "                                          LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
+                + "                                          XQueryEscapeCharacterImpl[XQUERY_STRING_LITERAL_ESCAPED_CHARACTER_TOKEN(1:3)]('\"\"')\n"
+                + "                                          LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(3:4)]('\"')\n";
 
         assertThat(prettyPrintASTNode(parseText("\"\"\"\"")), is(expected));
     }
@@ -319,21 +329,22 @@ public class XQuery10ParserTest extends ParserTestCase {
     public void testStringLiteral_EscapeApos() {
         final String expected
                 = "FileElement[FILE(0:4)]\n"
-                + "   XQueryUnionExprImpl[XQUERY_UNION_EXPR(0:4)]\n"
-                + "      XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:4)]\n"
-                + "         XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:4)]\n"
-                + "            XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:4)]\n"
-                + "               XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:4)]\n"
-                + "                  XQueryCastExprImpl[XQUERY_CAST_EXPR(0:4)]\n"
-                + "                     XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:4)]\n"
-                + "                        XQueryPathExprImpl[XQUERY_PATH_EXPR(0:4)]\n"
-                + "                           XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:4)]\n"
-                + "                              XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:4)]\n"
-                + "                                 XQueryLiteralImpl[XQUERY_LITERAL(0:4)]\n"
-                + "                                    XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:4)]\n"
-                + "                                       LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)](''')\n"
-                + "                                       XQueryEscapeCharacterImpl[XQUERY_STRING_LITERAL_ESCAPED_CHARACTER_TOKEN(1:3)]('''')\n"
-                + "                                       LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(3:4)](''')\n";
+                + "   XQueryMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:4)]\n"
+                + "      XQueryUnionExprImpl[XQUERY_UNION_EXPR(0:4)]\n"
+                + "         XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:4)]\n"
+                + "            XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:4)]\n"
+                + "               XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:4)]\n"
+                + "                  XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:4)]\n"
+                + "                     XQueryCastExprImpl[XQUERY_CAST_EXPR(0:4)]\n"
+                + "                        XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:4)]\n"
+                + "                           XQueryPathExprImpl[XQUERY_PATH_EXPR(0:4)]\n"
+                + "                              XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:4)]\n"
+                + "                                 XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:4)]\n"
+                + "                                    XQueryLiteralImpl[XQUERY_LITERAL(0:4)]\n"
+                + "                                       XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:4)]\n"
+                + "                                          LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)](''')\n"
+                + "                                          XQueryEscapeCharacterImpl[XQUERY_STRING_LITERAL_ESCAPED_CHARACTER_TOKEN(1:3)]('''')\n"
+                + "                                          LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(3:4)](''')\n";
 
         assertThat(prettyPrintASTNode(parseText("''''")), is(expected));
     }
@@ -383,21 +394,22 @@ public class XQuery10ParserTest extends ParserTestCase {
     public void testStringLiteral_CharRef() {
         final String expected
                 = "FileElement[FILE(0:8)]\n"
-                + "   XQueryUnionExprImpl[XQUERY_UNION_EXPR(0:8)]\n"
-                + "      XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:8)]\n"
-                + "         XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:8)]\n"
-                + "            XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:8)]\n"
-                + "               XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:8)]\n"
-                + "                  XQueryCastExprImpl[XQUERY_CAST_EXPR(0:8)]\n"
-                + "                     XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:8)]\n"
-                + "                        XQueryPathExprImpl[XQUERY_PATH_EXPR(0:8)]\n"
-                + "                           XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:8)]\n"
-                + "                              XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:8)]\n"
-                + "                                 XQueryLiteralImpl[XQUERY_LITERAL(0:8)]\n"
-                + "                                    XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:8)]\n"
-                + "                                       LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
-                + "                                       XQueryCharRefImpl[XQUERY_CHARACTER_REFERENCE_TOKEN(1:7)]('&#xA0;')\n"
-                + "                                       LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(7:8)]('\"')\n";
+                + "   XQueryMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:8)]\n"
+                + "      XQueryUnionExprImpl[XQUERY_UNION_EXPR(0:8)]\n"
+                + "         XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:8)]\n"
+                + "            XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:8)]\n"
+                + "               XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:8)]\n"
+                + "                  XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:8)]\n"
+                + "                     XQueryCastExprImpl[XQUERY_CAST_EXPR(0:8)]\n"
+                + "                        XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:8)]\n"
+                + "                           XQueryPathExprImpl[XQUERY_PATH_EXPR(0:8)]\n"
+                + "                              XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:8)]\n"
+                + "                                 XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:8)]\n"
+                + "                                    XQueryLiteralImpl[XQUERY_LITERAL(0:8)]\n"
+                + "                                       XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:8)]\n"
+                + "                                          LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
+                + "                                          XQueryCharRefImpl[XQUERY_CHARACTER_REFERENCE_TOKEN(1:7)]('&#xA0;')\n"
+                + "                                          LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(7:8)]('\"')\n";
 
         assertThat(prettyPrintASTNode(parseText("\"&#xA0;\"")), is(expected));
     }
@@ -407,22 +419,23 @@ public class XQuery10ParserTest extends ParserTestCase {
     public void testStringLiteral_CharRef_IncompleteRef() {
         final String expected
                 = "FileElement[FILE(0:4)]\n"
-                + "   XQueryUnionExprImpl[XQUERY_UNION_EXPR(0:4)]\n"
-                + "      XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:4)]\n"
-                + "         XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:4)]\n"
-                + "            XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:4)]\n"
-                + "               XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:4)]\n"
-                + "                  XQueryCastExprImpl[XQUERY_CAST_EXPR(0:4)]\n"
-                + "                     XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:4)]\n"
-                + "                        XQueryPathExprImpl[XQUERY_PATH_EXPR(0:4)]\n"
-                + "                           XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:4)]\n"
-                + "                              XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:4)]\n"
-                + "                                 XQueryLiteralImpl[XQUERY_LITERAL(0:4)]\n"
-                + "                                    XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:4)]\n"
-                + "                                       LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
-                + "                                       LeafPsiElement[XQUERY_PARTIAL_ENTITY_REFERENCE_TOKEN(1:3)]('&#')\n"
-                + "                                       PsiErrorElementImpl[ERROR_ELEMENT(3:3)]('XPST0003: Invalid entity reference character.')\n"
-                + "                                       LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(3:4)]('\"')\n";
+                + "   XQueryMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:4)]\n"
+                + "      XQueryUnionExprImpl[XQUERY_UNION_EXPR(0:4)]\n"
+                + "         XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:4)]\n"
+                + "            XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:4)]\n"
+                + "               XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:4)]\n"
+                + "                  XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:4)]\n"
+                + "                     XQueryCastExprImpl[XQUERY_CAST_EXPR(0:4)]\n"
+                + "                        XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:4)]\n"
+                + "                           XQueryPathExprImpl[XQUERY_PATH_EXPR(0:4)]\n"
+                + "                              XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:4)]\n"
+                + "                                 XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:4)]\n"
+                + "                                    XQueryLiteralImpl[XQUERY_LITERAL(0:4)]\n"
+                + "                                       XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:4)]\n"
+                + "                                          LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
+                + "                                          LeafPsiElement[XQUERY_PARTIAL_ENTITY_REFERENCE_TOKEN(1:3)]('&#')\n"
+                + "                                          PsiErrorElementImpl[ERROR_ELEMENT(3:3)]('XPST0003: Invalid entity reference character.')\n"
+                + "                                          LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(3:4)]('\"')\n";
 
         assertThat(prettyPrintASTNode(parseText("\"&#\"")), is(expected));
     }
@@ -432,22 +445,23 @@ public class XQuery10ParserTest extends ParserTestCase {
     public void testStringLiteral_CharRef_EmptyNumericRef() {
         final String expected
                 = "FileElement[FILE(0:5)]\n"
-                + "   XQueryUnionExprImpl[XQUERY_UNION_EXPR(0:5)]\n"
-                + "      XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:5)]\n"
-                + "         XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:5)]\n"
-                + "            XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:5)]\n"
-                + "               XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:5)]\n"
-                + "                  XQueryCastExprImpl[XQUERY_CAST_EXPR(0:5)]\n"
-                + "                     XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:5)]\n"
-                + "                        XQueryPathExprImpl[XQUERY_PATH_EXPR(0:5)]\n"
-                + "                           XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:5)]\n"
-                + "                              XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:5)]\n"
-                + "                                 XQueryLiteralImpl[XQUERY_LITERAL(0:5)]\n"
-                + "                                    XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:5)]\n"
-                + "                                       LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
-                + "                                       PsiErrorElementImpl[ERROR_ELEMENT(1:4)]('XPST0003: Entity references must not be empty.')\n"
-                + "                                          LeafPsiElement[XQUERY_EMPTY_ENTITY_REFERENCE_TOKEN(1:4)]('&#;')\n"
-                + "                                       LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(4:5)]('\"')\n";
+                + "   XQueryMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:5)]\n"
+                + "      XQueryUnionExprImpl[XQUERY_UNION_EXPR(0:5)]\n"
+                + "         XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:5)]\n"
+                + "            XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:5)]\n"
+                + "               XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:5)]\n"
+                + "                  XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:5)]\n"
+                + "                     XQueryCastExprImpl[XQUERY_CAST_EXPR(0:5)]\n"
+                + "                        XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:5)]\n"
+                + "                           XQueryPathExprImpl[XQUERY_PATH_EXPR(0:5)]\n"
+                + "                              XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:5)]\n"
+                + "                                 XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:5)]\n"
+                + "                                    XQueryLiteralImpl[XQUERY_LITERAL(0:5)]\n"
+                + "                                       XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:5)]\n"
+                + "                                          LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
+                + "                                          PsiErrorElementImpl[ERROR_ELEMENT(1:4)]('XPST0003: Entity references must not be empty.')\n"
+                + "                                             LeafPsiElement[XQUERY_EMPTY_ENTITY_REFERENCE_TOKEN(1:4)]('&#;')\n"
+                + "                                          LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(4:5)]('\"')\n";
 
         assertThat(prettyPrintASTNode(parseText("\"&#;\"")), is(expected));
     }
@@ -457,22 +471,23 @@ public class XQuery10ParserTest extends ParserTestCase {
     public void testStringLiteral_CharRef_EmptyHexidecimalRef() {
         final String expected
                 = "FileElement[FILE(0:6)]\n"
-                + "   XQueryUnionExprImpl[XQUERY_UNION_EXPR(0:6)]\n"
-                + "      XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:6)]\n"
-                + "         XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:6)]\n"
-                + "            XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:6)]\n"
-                + "               XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:6)]\n"
-                + "                  XQueryCastExprImpl[XQUERY_CAST_EXPR(0:6)]\n"
-                + "                     XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:6)]\n"
-                + "                        XQueryPathExprImpl[XQUERY_PATH_EXPR(0:6)]\n"
-                + "                           XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:6)]\n"
-                + "                              XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:6)]\n"
-                + "                                 XQueryLiteralImpl[XQUERY_LITERAL(0:6)]\n"
-                + "                                    XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:6)]\n"
-                + "                                       LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
-                + "                                       PsiErrorElementImpl[ERROR_ELEMENT(1:5)]('XPST0003: Entity references must not be empty.')\n"
-                + "                                          LeafPsiElement[XQUERY_EMPTY_ENTITY_REFERENCE_TOKEN(1:5)]('&#x;')\n"
-                + "                                       LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(5:6)]('\"')\n";
+                + "   XQueryMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:6)]\n"
+                + "      XQueryUnionExprImpl[XQUERY_UNION_EXPR(0:6)]\n"
+                + "         XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:6)]\n"
+                + "            XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:6)]\n"
+                + "               XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:6)]\n"
+                + "                  XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:6)]\n"
+                + "                     XQueryCastExprImpl[XQUERY_CAST_EXPR(0:6)]\n"
+                + "                        XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:6)]\n"
+                + "                           XQueryPathExprImpl[XQUERY_PATH_EXPR(0:6)]\n"
+                + "                              XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:6)]\n"
+                + "                                 XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:6)]\n"
+                + "                                    XQueryLiteralImpl[XQUERY_LITERAL(0:6)]\n"
+                + "                                       XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:6)]\n"
+                + "                                          LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
+                + "                                          PsiErrorElementImpl[ERROR_ELEMENT(1:5)]('XPST0003: Entity references must not be empty.')\n"
+                + "                                             LeafPsiElement[XQUERY_EMPTY_ENTITY_REFERENCE_TOKEN(1:5)]('&#x;')\n"
+                + "                                          LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(5:6)]('\"')\n";
 
         assertThat(prettyPrintASTNode(parseText("\"&#x;\"")), is(expected));
     }
