@@ -46,7 +46,6 @@ public class XQueryParser {
             if (parseModuleDecl()) continue;
             if (parseModuleImport()) continue;
             if (parseInstanceofExpr()) continue;
-            if (misplacedEntityReference()) continue;
             if (parseQName()) continue;
             if (parseDirCommentConstructor()) continue;
             if (parseCDataSection()) continue;
@@ -81,6 +80,8 @@ public class XQueryParser {
                 final PsiBuilder.Marker errorMarker = mBuilder.mark();
                 mBuilder.advanceLexer();
                 errorMarker.error(XQueryBundle.message("parser.error.end-of-comment-without-start", "(:"));
+            } else if (errorOnTokenType(XQueryTokenType.ENTITY_REFERENCE_NOT_IN_STRING, XQueryBundle.message("parser.error.misplaced-entity"))) {
+                skipped = true;
             } else {
                 return skipped;
             }
@@ -260,10 +261,6 @@ public class XQueryParser {
             }
         }
         return false;
-    }
-
-    private boolean misplacedEntityReference() {
-        return errorOnTokenType(XQueryTokenType.ENTITY_REFERENCE_NOT_IN_STRING, XQueryBundle.message("parser.error.misplaced-entity"));
     }
 
     private boolean parseQName() {
