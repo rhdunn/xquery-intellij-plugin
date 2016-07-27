@@ -35,6 +35,7 @@ public interface XQueryElementType {
     IElementType UNARY_EXPR = new IElementType("XQUERY_UNARY_EXPR", XQuery.INSTANCE);
     IElementType CAST_EXPR = new IElementType("XQUERY_CAST_EXPR", XQuery.INSTANCE);
     IElementType CASTABLE_EXPR = new IElementType("XQUERY_CASTABLE_EXPR", XQuery.INSTANCE);
+    IElementType TREAT_EXPR = new IElementType("XQUERY_TREAT_EXPR", XQuery.INSTANCE);
 
     IElementType VERSION_DECL = new IElementType("XQUERY_VERSION_DECL", XQuery.INSTANCE);
     IElementType MODULE_DECL = new IElementType("XQUERY_MODULE_DECL", XQuery.INSTANCE);

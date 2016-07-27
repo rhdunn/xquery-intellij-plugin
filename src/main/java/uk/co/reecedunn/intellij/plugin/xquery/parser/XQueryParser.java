@@ -45,7 +45,7 @@ public class XQueryParser {
             if (parseVersionDecl()) continue;
             if (parseModuleDecl()) continue;
             if (parseModuleImport()) continue;
-            if (parseCastableExpr()) continue;
+            if (parseTreatExpr()) continue;
             if (misplacedEntityReference()) continue;
             if (parseQName()) continue;
             if (parseDirCommentConstructor()) continue;
@@ -123,6 +123,16 @@ public class XQueryParser {
 
     // endregion
     // region Grammar
+
+    private boolean parseTreatExpr() {
+        final PsiBuilder.Marker treatExprMarker = mark();
+        if (parseCastableExpr()) {
+            treatExprMarker.done(XQueryElementType.TREAT_EXPR);
+            return true;
+        }
+        treatExprMarker.drop();
+        return false;
+    }
 
     private boolean parseCastableExpr() {
         final PsiBuilder.Marker castableExprMarker = mark();
