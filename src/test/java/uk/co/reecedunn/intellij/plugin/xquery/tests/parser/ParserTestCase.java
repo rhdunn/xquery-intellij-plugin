@@ -27,13 +27,17 @@ import com.intellij.psi.impl.source.tree.LeafElement;
 import com.intellij.psi.tree.TokenSet;
 import com.intellij.testFramework.LightVirtualFile;
 import com.intellij.testFramework.ParsingTestCase;
+import org.apache.xmlbeans.impl.common.IOUtil;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.impl.XQueryASTFactory;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.Implementations;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition;
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings;
+
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.StringWriter;
 
 public abstract class ParserTestCase extends ParsingTestCase {
     public ParserTestCase() {
@@ -53,6 +57,18 @@ public abstract class ParserTestCase extends ParsingTestCase {
 
     public XQueryProjectSettings getSettings() {
         return XQueryProjectSettings.getInstance(myProject);
+    }
+
+    public String loadResource(String resource) {
+        ClassLoader loader = ParserTestCase.class.getClassLoader();
+        InputStream stream = loader.getResourceAsStream(resource);
+        StringWriter writer = new StringWriter();
+        try {
+            IOUtil.copyCompletely(new InputStreamReader(stream), writer);
+        } catch (Exception e) {
+            //
+        }
+        return writer.toString();
     }
 
     public LightVirtualFile createVirtualFile(@NonNls String name, String text) {
@@ -136,6 +152,10 @@ public abstract class ParserTestCase extends ParsingTestCase {
         ASTNode node = parserDefinition.createParser(myProject).parse(parserDefinition.getFileNodeType(), builder);
         buildPsi(parserDefinition, node, text);
         return node;
+    }
+
+    public @NotNull ASTNode parseResource(String resource) {
+        return parseText(loadResource(resource));
     }
 
     // endregion

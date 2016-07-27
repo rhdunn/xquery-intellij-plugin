@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.parser;
 
+import com.intellij.lang.ASTNode;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.Specification;
@@ -62,23 +63,9 @@ public class XQuery10ParserTest extends ParserTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-IntegerLiteral")
     public void testIntegerLiteral() {
-        final String expected
-                = "FileElement[FILE(0:4)]\n"
-                + "   XQueryMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:4)]\n"
-                + "      XQueryUnionExprImpl[XQUERY_UNION_EXPR(0:4)]\n"
-                + "         XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:4)]\n"
-                + "            XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:4)]\n"
-                + "               XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:4)]\n"
-                + "                  XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:4)]\n"
-                + "                     XQueryCastExprImpl[XQUERY_CAST_EXPR(0:4)]\n"
-                + "                        XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:4)]\n"
-                + "                           XQueryPathExprImpl[XQUERY_PATH_EXPR(0:4)]\n"
-                + "                              XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:4)]\n"
-                + "                                 XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:4)]\n"
-                + "                                    XQueryLiteralImpl[XQUERY_LITERAL(0:4)]\n"
-                + "                                       XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:4)]('1234')\n";
-
-        assertThat(prettyPrintASTNode(parseText("1234")), is(expected));
+        final String expected = loadResource("tests/parser/xquery-1.0/IntegerLiteral.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/IntegerLiteral.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     // endregion
