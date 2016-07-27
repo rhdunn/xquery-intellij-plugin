@@ -45,7 +45,7 @@ public class XQueryParser {
             if (parseVersionDecl()) continue;
             if (parseModuleDecl()) continue;
             if (parseModuleImport()) continue;
-            if (parseInstanceofExpr()) continue;
+            if (parseIntersectExceptExpr()) continue;
             if (parseQName()) continue;
             if (parseDirCommentConstructor()) continue;
             if (parseCDataSection()) continue;
@@ -124,6 +124,16 @@ public class XQueryParser {
 
     // endregion
     // region Grammar
+
+    private boolean parseIntersectExceptExpr() {
+        final PsiBuilder.Marker intersectExceptExprMarker = mark();
+        if (parseInstanceofExpr()) {
+            intersectExceptExprMarker.done(XQueryElementType.INTERSECT_EXCEPT_EXPR);
+            return true;
+        }
+        intersectExceptExprMarker.drop();
+        return false;
+    }
 
     private boolean parseInstanceofExpr() {
         final PsiBuilder.Marker instanceofExprMarker = mark();
