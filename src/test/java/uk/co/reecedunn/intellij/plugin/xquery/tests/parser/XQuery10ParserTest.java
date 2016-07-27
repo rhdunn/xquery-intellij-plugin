@@ -83,46 +83,16 @@ public class XQuery10ParserTest extends ParserTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DoubleLiteral")
     public void testDoubleLiteral() {
-        final String expected
-                = "FileElement[FILE(0:12)]\n"
-                + "   XQueryMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:12)]\n"
-                + "      XQueryUnionExprImpl[XQUERY_UNION_EXPR(0:12)]\n"
-                + "         XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:12)]\n"
-                + "            XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:12)]\n"
-                + "               XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:12)]\n"
-                + "                  XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:12)]\n"
-                + "                     XQueryCastExprImpl[XQUERY_CAST_EXPR(0:12)]\n"
-                + "                        XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:12)]\n"
-                + "                           XQueryPathExprImpl[XQUERY_PATH_EXPR(0:12)]\n"
-                + "                              XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:12)]\n"
-                + "                                 XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:12)]\n"
-                + "                                    XQueryLiteralImpl[XQUERY_LITERAL(0:12)]\n"
-                + "                                       XQueryDoubleLiteralImpl[XQUERY_DOUBLE_LITERAL_TOKEN(0:12)]('2.99792458e8')\n";
-
-        assertThat(prettyPrintASTNode(parseText("2.99792458e8")), is(expected));
+        final String expected = loadResource("tests/parser/xquery-1.0/DoubleLiteral.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/DoubleLiteral.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DoubleLiteral")
     public void testDoubleLiteral_IncompleteExponent() {
-        final String expected
-                = "FileElement[FILE(0:11)]\n"
-                + "   XQueryMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:11)]\n"
-                + "      XQueryUnionExprImpl[XQUERY_UNION_EXPR(0:11)]\n"
-                + "         XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:11)]\n"
-                + "            XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:11)]\n"
-                + "               XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:11)]\n"
-                + "                  XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:11)]\n"
-                + "                     XQueryCastExprImpl[XQUERY_CAST_EXPR(0:11)]\n"
-                + "                        XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:11)]\n"
-                + "                           XQueryPathExprImpl[XQUERY_PATH_EXPR(0:11)]\n"
-                + "                              XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:11)]\n"
-                + "                                 XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:11)]\n"
-                + "                                    XQueryLiteralImpl[XQUERY_LITERAL(0:11)]\n"
-                + "                                       XQueryDecimalLiteralImpl[XQUERY_DECIMAL_LITERAL_TOKEN(0:10)]('2.99792458')\n"
-                + "                                       PsiErrorElementImpl[ERROR_ELEMENT(10:11)]('XPST0003: Incomplete double exponent.')\n"
-                + "                                          LeafPsiElement[XQUERY_PARTIAL_DOUBLE_LITERAL_EXPONENT_TOKEN(10:11)]('e')\n";
-
-        assertThat(prettyPrintASTNode(parseText("2.99792458e")), is(expected));
+        final String expected = loadResource("tests/parser/xquery-1.0/DoubleLiteral_IncompleteExponent.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/DoubleLiteral_IncompleteExponent.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     // endregion
