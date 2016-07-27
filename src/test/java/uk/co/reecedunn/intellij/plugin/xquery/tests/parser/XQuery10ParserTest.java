@@ -73,23 +73,9 @@ public class XQuery10ParserTest extends ParserTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DecimalLiteral")
     public void testDecimalLiteral() {
-        final String expected
-                = "FileElement[FILE(0:7)]\n"
-                + "   XQueryMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:7)]\n"
-                + "      XQueryUnionExprImpl[XQUERY_UNION_EXPR(0:7)]\n"
-                + "         XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:7)]\n"
-                + "            XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:7)]\n"
-                + "               XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:7)]\n"
-                + "                  XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:7)]\n"
-                + "                     XQueryCastExprImpl[XQUERY_CAST_EXPR(0:7)]\n"
-                + "                        XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:7)]\n"
-                + "                           XQueryPathExprImpl[XQUERY_PATH_EXPR(0:7)]\n"
-                + "                              XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:7)]\n"
-                + "                                 XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:7)]\n"
-                + "                                    XQueryLiteralImpl[XQUERY_LITERAL(0:7)]\n"
-                + "                                       XQueryDecimalLiteralImpl[XQUERY_DECIMAL_LITERAL_TOKEN(0:7)]('3.14159')\n";
-
-        assertThat(prettyPrintASTNode(parseText("3.14159")), is(expected));
+        final String expected = loadResource("tests/parser/xquery-1.0/DecimalLiteral.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/DecimalLiteral.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     // endregion
