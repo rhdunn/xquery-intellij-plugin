@@ -300,11 +300,9 @@ public class XQuery10ParserTest extends ParserTestCase {
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-NCName")
     @Specification(name="Namespaces in XML 1.0 3ed", reference="https://www.w3.org/TR/2009/REC-xml-names-20091208/#NT-NCName")
     public void testNCName() {
-        final String expected
-                = "FileElement[FILE(0:4)]\n"
-                + "   XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(0:4)]('test')\n";
-
-        assertThat(prettyPrintASTNode(parseText("test")), is(expected));
+        final String expected = loadResource("tests/parser/xquery-1.0/NCName.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/NCName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     // endregion

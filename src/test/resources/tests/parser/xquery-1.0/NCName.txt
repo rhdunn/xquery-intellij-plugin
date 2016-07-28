@@ -1,0 +1,2 @@
+FileElement[FILE(0:4)]
+   XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(0:4)]('test')
