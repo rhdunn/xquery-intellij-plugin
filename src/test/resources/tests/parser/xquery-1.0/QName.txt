@@ -1,0 +1,5 @@
+FileElement[FILE(0:7)]
+   XQueryQNameImpl[XQUERY_QNAME(0:7)]
+      XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(0:3)]('one')
+      LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(3:4)](':')
+      XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(4:7)]('two')

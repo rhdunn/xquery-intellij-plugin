@@ -1,0 +1,5 @@
+FileElement[FILE(0:7)]
+   XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(0:3)]('one')
+   LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(3:4)](':')
+   PsiErrorElementImpl[ERROR_ELEMENT(4:7)]('XPST0003: Missing local name after ':' in qualified name.')
+      XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(4:7)]('234')

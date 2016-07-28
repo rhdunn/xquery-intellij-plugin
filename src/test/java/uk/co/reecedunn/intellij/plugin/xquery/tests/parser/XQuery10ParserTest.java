@@ -233,109 +233,65 @@ public class XQuery10ParserTest extends ParserTestCase {
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
     @Specification(name="Namespaces in XML 1.0 3ed", reference="https://www.w3.org/TR/2009/REC-xml-names-20091208/#NT-QName")
     public void testQName() {
-        final String expected
-                = "FileElement[FILE(0:7)]\n"
-                + "   XQueryQNameImpl[XQUERY_QNAME(0:7)]\n"
-                + "      XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(0:3)]('one')\n"
-                + "      LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(3:4)](':')\n"
-                + "      XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(4:7)]('two')\n";
-
-        assertThat(prettyPrintASTNode(parseText("one:two")), is(expected));
+        final String expected = loadResource("tests/parser/xquery-1.0/QName.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/QName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
     @Specification(name="Namespaces in XML 1.0 3ed", reference="https://www.w3.org/TR/2009/REC-xml-names-20091208/#NT-QName")
     public void testQName_SpaceBeforeColon() {
-        final String expected
-                = "FileElement[FILE(0:8)]\n"
-                + "   XQueryQNameImpl[XQUERY_QNAME(0:8)]\n"
-                + "      XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(0:3)]('one')\n"
-                + "      PsiErrorElementImpl[ERROR_ELEMENT(3:4)]('XPST0003: Whitespace is not allowed before ':' in a qualified name.')\n"
-                + "         PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')\n"
-                + "      LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(4:5)](':')\n"
-                + "      XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(5:8)]('two')\n";
-
-        assertThat(prettyPrintASTNode(parseText("one :two")), is(expected));
+        final String expected = loadResource("tests/parser/xquery-1.0/QName_SpaceBeforeColon.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/QName_SpaceBeforeColon.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
     @Specification(name="Namespaces in XML 1.0 3ed", reference="https://www.w3.org/TR/2009/REC-xml-names-20091208/#NT-QName")
     public void testQName_SpaceAfterColon() {
-        final String expected
-                = "FileElement[FILE(0:8)]\n"
-                + "   XQueryQNameImpl[XQUERY_QNAME(0:8)]\n"
-                + "      XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(0:3)]('one')\n"
-                + "      LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(3:4)](':')\n"
-                + "      PsiErrorElementImpl[ERROR_ELEMENT(4:5)]('XPST0003: Whitespace is not allowed after ':' in a qualified name.')\n"
-                + "         PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')\n"
-                + "      XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(5:8)]('two')\n";
-
-        assertThat(prettyPrintASTNode(parseText("one: two")), is(expected));
+        final String expected = loadResource("tests/parser/xquery-1.0/QName_SpaceAfterColon.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/QName_SpaceAfterColon.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
     @Specification(name="Namespaces in XML 1.0 3ed", reference="https://www.w3.org/TR/2009/REC-xml-names-20091208/#NT-QName")
     public void testQName_SpaceBeforeAndAfterColon() {
-        final String expected
-                = "FileElement[FILE(0:9)]\n"
-                + "   XQueryQNameImpl[XQUERY_QNAME(0:9)]\n"
-                + "      XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(0:3)]('one')\n"
-                + "      PsiErrorElementImpl[ERROR_ELEMENT(3:4)]('XPST0003: Whitespace is not allowed before ':' in a qualified name.')\n"
-                + "         PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')\n"
-                + "      LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(4:5)](':')\n"
-                + "      PsiErrorElementImpl[ERROR_ELEMENT(5:6)]('XPST0003: Whitespace is not allowed after ':' in a qualified name.')\n"
-                + "         PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')\n"
-                + "      XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(6:9)]('two')\n";
-
-        assertThat(prettyPrintASTNode(parseText("one : two")), is(expected));
+        final String expected = loadResource("tests/parser/xquery-1.0/QName_SpaceBeforeAndAfterColon.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/QName_SpaceBeforeAndAfterColon.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
     @Specification(name="Namespaces in XML 1.0 3ed", reference="https://www.w3.org/TR/2009/REC-xml-names-20091208/#NT-QName")
     public void testQName_NonNCNameLocalPart() {
-        final String expected
-                = "FileElement[FILE(0:7)]\n"
-                + "   XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(0:3)]('one')\n"
-                + "   LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(3:4)](':')\n"
-                + "   PsiErrorElementImpl[ERROR_ELEMENT(4:7)]('XPST0003: Missing local name after ':' in qualified name.')\n"
-                + "      XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(4:7)]('234')\n";
-
-        assertThat(prettyPrintASTNode(parseText("one:234")), is(expected));
+        final String expected = loadResource("tests/parser/xquery-1.0/QName_NonNCNameLocalPart.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/QName_NonNCNameLocalPart.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
     @Specification(name="Namespaces in XML 1.0 3ed", reference="https://www.w3.org/TR/2009/REC-xml-names-20091208/#NT-QName")
     public void testQName_MissingLocalPart() {
-        final String expected
-                = "FileElement[FILE(0:4)]\n"
-                + "   XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(0:3)]('one')\n"
-                + "   LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(3:4)](':')\n"
-                + "   PsiErrorElementImpl[ERROR_ELEMENT(4:4)]('XPST0003: Missing local name after ':' in qualified name.')\n";
-
-        assertThat(prettyPrintASTNode(parseText("one:")), is(expected));
+        final String expected = loadResource("tests/parser/xquery-1.0/QName_MissingLocalPart.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/QName_MissingLocalPart.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
     @Specification(name="Namespaces in XML 1.0 3ed", reference="https://www.w3.org/TR/2009/REC-xml-names-20091208/#NT-QName")
     public void testQName_MissingPrefixPart() {
-        final String expected
-                = "FileElement[FILE(0:4)]\n"
-                + "   PsiErrorElementImpl[ERROR_ELEMENT(0:4)]('XPST0003: Missing prefix before ':' in qualified name.')\n"
-                + "      LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(0:1)](':')\n"
-                + "      XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(1:4)]('two')\n";
-
-        assertThat(prettyPrintASTNode(parseText(":two")), is(expected));
+        final String expected = loadResource("tests/parser/xquery-1.0/QName_MissingPrefixPart.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/QName_MissingPrefixPart.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
     @Specification(name="Namespaces in XML 1.0 3ed", reference="https://www.w3.org/TR/2009/REC-xml-names-20091208/#NT-QName")
     public void testQName_MissingPrefixAndLocalPart() {
-        final String expected
-                = "FileElement[FILE(0:1)]\n"
-                + "   PsiErrorElementImpl[ERROR_ELEMENT(0:1)]('XPST0003: Missing prefix before ':' in qualified name.')\n"
-                + "      LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(0:1)](':')\n";
-
-        assertThat(prettyPrintASTNode(parseText(":")), is(expected));
+        final String expected = loadResource("tests/parser/xquery-1.0/QName_MissingPrefixAndLocalPart.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/QName_MissingPrefixAndLocalPart.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     // endregion
