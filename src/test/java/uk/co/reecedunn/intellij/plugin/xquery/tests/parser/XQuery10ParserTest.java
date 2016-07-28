@@ -311,11 +311,9 @@ public class XQuery10ParserTest extends ParserTestCase {
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-S")
     @Specification(name="XML 1.0 5ed", reference="https://www.w3.org/TR/2008/REC-xml-20081126/#NT-S")
     public void testS() {
-        final String expected
-                = "FileElement[FILE(0:4)]\n"
-                + "   PsiWhiteSpaceImpl[WHITE_SPACE(0:4)](' \t\r\n')\n";
-
-        assertThat(prettyPrintASTNode(parseText(" \t\r\n")), is(expected));
+        final String expected = loadResource("tests/parser/xquery-1.0/S.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/S.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     // endregion
