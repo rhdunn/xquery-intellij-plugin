@@ -1,1 +1,2 @@
-src/test/resources/tests text eol=lf
+src/test/resources/tests/parser/xquery-1.0/*.txt text eol=lf
+src/test/resources/tests/parser/xquery-1.0/*.xq text eol=lf
