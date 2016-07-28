@@ -152,26 +152,9 @@ public class XQuery10ParserTest extends ParserTestCase {
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-EscapeQuot")
     public void testStringLiteral_EscapeQuot() {
-        final String expected
-                = "FileElement[FILE(0:4)]\n"
-                + "   XQueryMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:4)]\n"
-                + "      XQueryUnionExprImpl[XQUERY_UNION_EXPR(0:4)]\n"
-                + "         XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:4)]\n"
-                + "            XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:4)]\n"
-                + "               XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:4)]\n"
-                + "                  XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:4)]\n"
-                + "                     XQueryCastExprImpl[XQUERY_CAST_EXPR(0:4)]\n"
-                + "                        XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:4)]\n"
-                + "                           XQueryPathExprImpl[XQUERY_PATH_EXPR(0:4)]\n"
-                + "                              XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:4)]\n"
-                + "                                 XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:4)]\n"
-                + "                                    XQueryLiteralImpl[XQUERY_LITERAL(0:4)]\n"
-                + "                                       XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:4)]\n"
-                + "                                          LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
-                + "                                          XQueryEscapeCharacterImpl[XQUERY_STRING_LITERAL_ESCAPED_CHARACTER_TOKEN(1:3)]('\"\"')\n"
-                + "                                          LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(3:4)]('\"')\n";
-
-        assertThat(prettyPrintASTNode(parseText("\"\"\"\"")), is(expected));
+        final String expected = loadResource("tests/parser/xquery-1.0/StringLiteral_EscapeQuot.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/StringLiteral_EscapeQuot.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     // endregion
