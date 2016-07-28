@@ -118,88 +118,32 @@ public class XQuery10ParserTest extends ParserTestCase {
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PredefinedEntityRef")
     public void testStringLiteral_PredefinedEntityRef() {
-        final String expected
-                = "FileElement[FILE(0:7)]\n"
-                + "   XQueryMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:7)]\n"
-                + "      XQueryUnionExprImpl[XQUERY_UNION_EXPR(0:7)]\n"
-                + "         XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:7)]\n"
-                + "            XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:7)]\n"
-                + "               XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:7)]\n"
-                + "                  XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:7)]\n"
-                + "                     XQueryCastExprImpl[XQUERY_CAST_EXPR(0:7)]\n"
-                + "                        XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:7)]\n"
-                + "                           XQueryPathExprImpl[XQUERY_PATH_EXPR(0:7)]\n"
-                + "                              XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:7)]\n"
-                + "                                 XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:7)]\n"
-                + "                                    XQueryLiteralImpl[XQUERY_LITERAL(0:7)]\n"
-                + "                                       XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:7)]\n"
-                + "                                          LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
-                + "                                          XQueryPredefinedEntityRefImpl[XQUERY_PREDEFINED_ENTITY_REFERENCE_TOKEN(1:6)]('&amp;')\n"
-                + "                                          LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(6:7)]('\"')\n";
-
-        assertThat(prettyPrintASTNode(parseText("\"&amp;\"")), is(expected));
+        final String expected = loadResource("tests/parser/xquery-1.0/StringLiteral_PredefinedEntityRef.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/StringLiteral_PredefinedEntityRef.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PredefinedEntityRef")
     public void testStringLiteral_PredefinedEntityRef_IncompleteRef() {
-        final String expected
-                = "FileElement[FILE(0:7)]\n"
-                + "   XQueryMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:7)]\n"
-                + "      XQueryUnionExprImpl[XQUERY_UNION_EXPR(0:7)]\n"
-                + "         XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:7)]\n"
-                + "            XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:7)]\n"
-                + "               XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:7)]\n"
-                + "                  XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:7)]\n"
-                + "                     XQueryCastExprImpl[XQUERY_CAST_EXPR(0:7)]\n"
-                + "                        XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:7)]\n"
-                + "                           XQueryPathExprImpl[XQUERY_PATH_EXPR(0:7)]\n"
-                + "                              XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:7)]\n"
-                + "                                 XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:7)]\n"
-                + "                                    XQueryLiteralImpl[XQUERY_LITERAL(0:7)]\n"
-                + "                                       XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:7)]\n"
-                + "                                          LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
-                + "                                          LeafPsiElement[XQUERY_PARTIAL_ENTITY_REFERENCE_TOKEN(1:6)]('&quot')\n"
-                + "                                          PsiErrorElementImpl[ERROR_ELEMENT(6:6)]('XPST0003: Invalid entity reference character.')\n"
-                + "                                          LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(6:7)]('\"')\n";
-
-        assertThat(prettyPrintASTNode(parseText("\"&quot\"")), is(expected));
+        final String expected = loadResource("tests/parser/xquery-1.0/StringLiteral_PredefinedEntityRef_IncompleteRef.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/StringLiteral_PredefinedEntityRef_IncompleteRef.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PredefinedEntityRef")
     public void testStringLiteral_PredefinedEntityRef_EmptyRef() {
-        final String expected
-                = "FileElement[FILE(0:4)]\n"
-                + "   XQueryMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:4)]\n"
-                + "      XQueryUnionExprImpl[XQUERY_UNION_EXPR(0:4)]\n"
-                + "         XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:4)]\n"
-                + "            XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:4)]\n"
-                + "               XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:4)]\n"
-                + "                  XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:4)]\n"
-                + "                     XQueryCastExprImpl[XQUERY_CAST_EXPR(0:4)]\n"
-                + "                        XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:4)]\n"
-                + "                           XQueryPathExprImpl[XQUERY_PATH_EXPR(0:4)]\n"
-                + "                              XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:4)]\n"
-                + "                                 XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:4)]\n"
-                + "                                    XQueryLiteralImpl[XQUERY_LITERAL(0:4)]\n"
-                + "                                       XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:4)]\n"
-                + "                                          LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
-                + "                                          PsiErrorElementImpl[ERROR_ELEMENT(1:3)]('XPST0003: Entity references must not be empty.')\n"
-                + "                                             LeafPsiElement[XQUERY_EMPTY_ENTITY_REFERENCE_TOKEN(1:3)]('&;')\n"
-                + "                                          LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(3:4)]('\"')\n";
-
-        assertThat(prettyPrintASTNode(parseText("\"&;\"")), is(expected));
+        final String expected = loadResource("tests/parser/xquery-1.0/StringLiteral_PredefinedEntityRef_EmptyRef.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/StringLiteral_PredefinedEntityRef_EmptyRef.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PredefinedEntityRef")
     public void testPredefinedEntityRef_MisplacedEntityRef() {
-        final String expected
-                = "FileElement[FILE(0:1)]\n"
-                + "   PsiErrorElementImpl[ERROR_ELEMENT(0:1)]('XPST0003: Entity references are not allowed here.')\n"
-                + "      LeafPsiElement[XQUERY_ENTITY_REFERENCE_NOT_IN_STRING_TOKEN(0:1)]('&')\n";
-
-        assertThat(prettyPrintASTNode(parseText("&")), is(expected));
+        final String expected = loadResource("tests/parser/xquery-1.0/PredefinedEntityRef_MisplacedEntityRef.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/PredefinedEntityRef_MisplacedEntityRef.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     // endregion
