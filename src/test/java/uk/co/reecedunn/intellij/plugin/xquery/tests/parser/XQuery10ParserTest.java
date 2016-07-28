@@ -100,50 +100,16 @@ public class XQuery10ParserTest extends ParserTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
     public void testStringLiteral() {
-        final String expected
-                = "FileElement[FILE(0:9)]\n"
-                + "   XQueryMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:9)]\n"
-                + "      XQueryUnionExprImpl[XQUERY_UNION_EXPR(0:9)]\n"
-                + "         XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:9)]\n"
-                + "            XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:9)]\n"
-                + "               XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:9)]\n"
-                + "                  XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:9)]\n"
-                + "                     XQueryCastExprImpl[XQUERY_CAST_EXPR(0:9)]\n"
-                + "                        XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:9)]\n"
-                + "                           XQueryPathExprImpl[XQUERY_PATH_EXPR(0:9)]\n"
-                + "                              XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:9)]\n"
-                + "                                 XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:9)]\n"
-                + "                                    XQueryLiteralImpl[XQUERY_LITERAL(0:9)]\n"
-                + "                                       XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:9)]\n"
-                + "                                          LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
-                + "                                          LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(1:8)]('One Two')\n"
-                + "                                          LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(8:9)]('\"')\n";
-
-        assertThat(prettyPrintASTNode(parseText("\"One Two\"")), is(expected));
+        final String expected = loadResource("tests/parser/xquery-1.0/StringLiteral.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/StringLiteral.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
     public void testStringLiteral_UnclosedString() {
-        final String expected
-                = "FileElement[FILE(0:8)]\n"
-                + "   XQueryMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:8)]\n"
-                + "      XQueryUnionExprImpl[XQUERY_UNION_EXPR(0:8)]\n"
-                + "         XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:8)]\n"
-                + "            XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:8)]\n"
-                + "               XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:8)]\n"
-                + "                  XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:8)]\n"
-                + "                     XQueryCastExprImpl[XQUERY_CAST_EXPR(0:8)]\n"
-                + "                        XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:8)]\n"
-                + "                           XQueryPathExprImpl[XQUERY_PATH_EXPR(0:8)]\n"
-                + "                              XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:8)]\n"
-                + "                                 XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:8)]\n"
-                + "                                    XQueryLiteralImpl[XQUERY_LITERAL(0:8)]\n"
-                + "                                       XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:8)]\n"
-                + "                                          LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('\"')\n"
-                + "                                          LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(1:8)]('One Two')\n"
-                + "                                       PsiErrorElementImpl[ERROR_ELEMENT(8:8)]('XPST0003: Unclosed string literal.')\n";
-
-        assertThat(prettyPrintASTNode(parseText("\"One Two")), is(expected));
+        final String expected = loadResource("tests/parser/xquery-1.0/StringLiteral_UnclosedString.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/StringLiteral_UnclosedString.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     // endregion
