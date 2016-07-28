@@ -173,36 +173,23 @@ public class XQuery10ParserTest extends ParserTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Comment")
     public void testComment() {
-        final String expected
-                = "FileElement[FILE(0:10)]\n"
-                + "   XQueryCommentImpl[XQUERY_COMMENT(0:10)]\n"
-                + "      LeafPsiElement[XQUERY_COMMENT_START_TAG_TOKEN(0:2)]('(:')\n"
-                + "      PsiCommentImpl[XQUERY_COMMENT_TOKEN(2:8)](' Test ')\n"
-                + "      LeafPsiElement[XQUERY_COMMENT_END_TAG_TOKEN(8:10)](':)')\n";
-
-        assertThat(prettyPrintASTNode(parseText("(: Test :)")), is(expected));
+        final String expected = loadResource("tests/parser/xquery-1.0/Comment.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/Comment.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Comment")
     public void testComment_UnclosedComment() {
-        final String expected
-                = "FileElement[FILE(0:7)]\n"
-                + "   XQueryCommentImpl[XQUERY_COMMENT(0:7)]\n"
-                + "      LeafPsiElement[XQUERY_COMMENT_START_TAG_TOKEN(0:2)]('(:')\n"
-                + "      PsiCommentImpl[XQUERY_COMMENT_TOKEN(2:7)](' Test')\n"
-                + "   PsiErrorElementImpl[ERROR_ELEMENT(7:7)]('XPST0003: Unclosed XQuery comment.')\n";
-
-        assertThat(prettyPrintASTNode(parseText("(: Test")), is(expected));
+        final String expected = loadResource("tests/parser/xquery-1.0/Comment_UnclosedComment.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/Comment_UnclosedComment.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Comment")
     public void testComment_UnexpectedCommentEndTag() {
-        final String expected
-                = "FileElement[FILE(0:2)]\n"
-                + "   PsiErrorElementImpl[ERROR_ELEMENT(0:2)]('XPST0003: End of comment marker found without a '(:' start of comment marker.')\n"
-                + "      LeafPsiElement[XQUERY_COMMENT_END_TAG_TOKEN(0:2)](':)')\n";
-
-        assertThat(prettyPrintASTNode(parseText(":)")), is(expected));
+        final String expected = loadResource("tests/parser/xquery-1.0/Comment.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/Comment.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     // endregion

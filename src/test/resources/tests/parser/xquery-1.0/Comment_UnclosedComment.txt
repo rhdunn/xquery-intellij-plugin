@@ -1,0 +1,5 @@
+FileElement[FILE(0:7)]
+   XQueryCommentImpl[XQUERY_COMMENT(0:7)]
+      LeafPsiElement[XQUERY_COMMENT_START_TAG_TOKEN(0:2)]('(:')
+      PsiCommentImpl[XQUERY_COMMENT_TOKEN(2:7)](' Test')
+   PsiErrorElementImpl[ERROR_ELEMENT(7:7)]('XPST0003: Unclosed XQuery comment.')
