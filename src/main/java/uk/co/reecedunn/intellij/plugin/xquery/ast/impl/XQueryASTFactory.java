@@ -55,6 +55,8 @@ public class XQueryASTFactory extends ASTFactory {
             return new XQueryUnionExprImpl(type);
         } else if (type == XQueryElementType.MULTIPLICATIVE_EXPR) {
             return new XQueryMultiplicativeExprImpl(type);
+        } else if (type == XQueryElementType.ADDITIVE_EXPR) {
+            return new XQueryAdditiveExprImpl(type);
         } else if (type == XQueryElementType.QNAME) {
             return new XQueryQNameImpl(type);
         } else if (type == XQueryElementType.COMMENT) {
