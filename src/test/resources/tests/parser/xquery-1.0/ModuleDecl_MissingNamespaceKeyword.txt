@@ -1,0 +1,5 @@
+FileElement[FILE(0:7)]
+   XQueryModuleDeclImpl[XQUERY_MODULE_DECL(0:7)]
+      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_MODULE(0:6)]('module')
+      PsiErrorElementImpl[ERROR_ELEMENT(6:6)]('XPST0003: Missing keyword 'namespace'.')
+      LeafPsiElement[XQUERY_SEPARATOR_TOKEN(6:7)](';')
