@@ -41,6 +41,7 @@ public interface XQueryElementType {
     IElementType UNION_EXPR = new IElementType("XQUERY_UNION_EXPR", XQuery.INSTANCE);
     IElementType MULTIPLICATIVE_EXPR = new IElementType("XQUERY_MULTIPLICATIVE_EXPR", XQuery.INSTANCE);
     IElementType ADDITIVE_EXPR = new IElementType("XQUERY_ADDITIVE_EXPR", XQuery.INSTANCE);
+    IElementType RANGE_EXPR = new IElementType("XQUERY_RANGE_EXPR", XQuery.INSTANCE);
 
     IElementType VERSION_DECL = new IElementType("XQUERY_VERSION_DECL", XQuery.INSTANCE);
     IElementType MODULE_DECL = new IElementType("XQUERY_MODULE_DECL", XQuery.INSTANCE);
