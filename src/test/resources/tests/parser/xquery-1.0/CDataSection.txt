@@ -1,0 +1,5 @@
+FileElement[FILE(0:18)]
+   XQueryCDataSectionImpl[XQUERY_CDATA_SECTION(0:18)]
+      LeafPsiElement[XQUERY_CDATA_SECTION_START_TAG_TOKEN(0:9)]('<![CDATA[')
+      LeafPsiElement[XQUERY_CDATA_SECTION_TOKEN(9:15)](' Test ')
+      LeafPsiElement[XQUERY_CDATA_SECTION_END_TAG_TOKEN(15:18)](']]>')

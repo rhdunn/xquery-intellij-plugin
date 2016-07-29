@@ -1,0 +1,3 @@
+FileElement[FILE(0:3)]
+   PsiErrorElementImpl[ERROR_ELEMENT(0:3)]('XPST0003: End of CDATA section marker found without a '<![CDATA[' start of CDATA section marker.')
+      LeafPsiElement[XQUERY_CDATA_SECTION_END_TAG_TOKEN(0:3)](']]>')
