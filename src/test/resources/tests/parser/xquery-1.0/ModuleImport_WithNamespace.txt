@@ -1,0 +1,18 @@
+FileElement[FILE(0:62)]
+   XQueryModuleImportImpl[XQUERY_MODULE_IMPORT(0:62)]
+      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_IMPORT(0:6)]('import')
+      PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
+      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_MODULE(7:13)]('module')
+      PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
+      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NAMESPACE(14:23)]('namespace')
+      PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
+      XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(24:28)]('test')
+      PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
+      LeafPsiElement[XQUERY_EQUAL_TOKEN(29:30)]('=')
+      PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')
+      XQueryUriLiteralImpl[XQUERY_URI_LITERAL(31:60)]
+         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(31:32)]('"')
+         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(32:59)]('http://www.example.com/test')
+         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(59:60)]('"')
+      PsiWhiteSpaceImpl[WHITE_SPACE(60:61)](' ')
+      LeafPsiElement[XQUERY_SEPARATOR_TOKEN(61:62)](';')

@@ -1,0 +1,1 @@
+import module "http://www.example.com/test" at "/test.xqy", ;
