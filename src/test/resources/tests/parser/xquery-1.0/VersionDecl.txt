@@ -1,0 +1,12 @@
+FileElement[FILE(0:22)]
+   XQueryVersionDeclImpl[XQUERY_VERSION_DECL(0:22)]
+      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_XQUERY(0:6)]('xquery')
+      PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
+      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_VERSION(7:14)]('version')
+      PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
+      XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(15:20)]
+         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(15:16)]('"')
+         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(16:19)]('1.0')
+         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(19:20)]('"')
+      PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
+      LeafPsiElement[XQUERY_SEPARATOR_TOKEN(21:22)](';')

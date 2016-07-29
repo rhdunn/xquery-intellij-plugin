@@ -1,0 +1,1 @@
+xquery encoding"latin1";

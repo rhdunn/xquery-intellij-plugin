@@ -1,0 +1,13 @@
+FileElement[FILE(0:26)]
+   XQueryVersionDeclImpl[XQUERY_VERSION_DECL(0:26)]
+      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_XQUERY(0:6)]('xquery')
+      PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
+      PsiErrorElementImpl[ERROR_ELEMENT(7:15)]('XPST0003: Encoding-only xquery declarations require XQuery 3.0 or later.')
+         LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_ENCODING(7:15)]('encoding')
+      PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
+      XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(16:24)]
+         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(16:17)]('"')
+         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(17:23)]('latin1')
+         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(23:24)]('"')
+      PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
+      LeafPsiElement[XQUERY_SEPARATOR_TOKEN(25:26)](';')

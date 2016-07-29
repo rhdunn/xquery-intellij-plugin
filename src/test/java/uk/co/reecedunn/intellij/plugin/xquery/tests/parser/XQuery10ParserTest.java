@@ -326,159 +326,65 @@ public class XQuery10ParserTest extends ParserTestCase {
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VersionDecl")
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-VersionDecl")
     public void testVersionDecl() {
-        final String expected
-                = "FileElement[FILE(0:22)]\n"
-                + "   XQueryVersionDeclImpl[XQUERY_VERSION_DECL(0:22)]\n"
-                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_XQUERY(0:6)]('xquery')\n"
-                + "      PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')\n"
-                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_VERSION(7:14)]('version')\n"
-                + "      PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')\n"
-                + "      XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(15:20)]\n"
-                + "         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(15:16)]('\"')\n"
-                + "         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(16:19)]('1.0')\n"
-                + "         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(19:20)]('\"')\n"
-                + "      PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')\n"
-                + "      LeafPsiElement[XQUERY_SEPARATOR_TOKEN(21:22)](';')\n";
-
-        assertThat(prettyPrintASTNode(parseText("xquery version \"1.0\" ;")), is(expected));
+        final String expected = loadResource("tests/parser/xquery-1.0/VersionDecl.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/VersionDecl.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VersionDecl")
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-VersionDecl")
     public void testVersionDecl_CompactWhitespace() {
-        final String expected
-                = "FileElement[FILE(0:20)]\n"
-                + "   XQueryVersionDeclImpl[XQUERY_VERSION_DECL(0:20)]\n"
-                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_XQUERY(0:6)]('xquery')\n"
-                + "      PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')\n"
-                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_VERSION(7:14)]('version')\n"
-                + "      XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(14:19)]\n"
-                + "         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(14:15)]('\"')\n"
-                + "         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(15:18)]('1.0')\n"
-                + "         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(18:19)]('\"')\n"
-                + "      LeafPsiElement[XQUERY_SEPARATOR_TOKEN(19:20)](';')\n";
-
-        assertThat(prettyPrintASTNode(parseText("xquery version\"1.0\";")), is(expected));
+        final String expected = loadResource("tests/parser/xquery-1.0/VersionDecl_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/VersionDecl_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VersionDecl")
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-VersionDecl")
     public void testVersionDecl_WithEncoding() {
-        final String expected
-                = "FileElement[FILE(0:40)]\n"
-                + "   XQueryVersionDeclImpl[XQUERY_VERSION_DECL(0:40)]\n"
-                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_XQUERY(0:6)]('xquery')\n"
-                + "      PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')\n"
-                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_VERSION(7:14)]('version')\n"
-                + "      PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')\n"
-                + "      XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(15:20)]\n"
-                + "         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(15:16)]('\"')\n"
-                + "         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(16:19)]('1.0')\n"
-                + "         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(19:20)]('\"')\n"
-                + "      PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')\n"
-                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_ENCODING(21:29)]('encoding')\n"
-                + "      PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')\n"
-                + "      XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(30:38)]\n"
-                + "         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(30:31)]('\"')\n"
-                + "         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(31:37)]('latin1')\n"
-                + "         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(37:38)]('\"')\n"
-                + "      PsiWhiteSpaceImpl[WHITE_SPACE(38:39)](' ')\n"
-                + "      LeafPsiElement[XQUERY_SEPARATOR_TOKEN(39:40)](';')\n";
-
-        assertThat(prettyPrintASTNode(parseText("xquery version \"1.0\" encoding \"latin1\" ;")), is(expected));
+        final String expected = loadResource("tests/parser/xquery-1.0/VersionDecl_WithEncoding.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/VersionDecl_WithEncoding.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VersionDecl")
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-VersionDecl")
     public void testVersionDecl_WithEncoding_CompactWhitespace() {
-        final String expected
-                = "FileElement[FILE(0:36)]\n"
-                + "   XQueryVersionDeclImpl[XQUERY_VERSION_DECL(0:36)]\n"
-                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_XQUERY(0:6)]('xquery')\n"
-                + "      PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')\n"
-                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_VERSION(7:14)]('version')\n"
-                + "      XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(14:19)]\n"
-                + "         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(14:15)]('\"')\n"
-                + "         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(15:18)]('1.0')\n"
-                + "         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(18:19)]('\"')\n"
-                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_ENCODING(19:27)]('encoding')\n"
-                + "      XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(27:35)]\n"
-                + "         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(27:28)]('\"')\n"
-                + "         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(28:34)]('latin1')\n"
-                + "         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(34:35)]('\"')\n"
-                + "      LeafPsiElement[XQUERY_SEPARATOR_TOKEN(35:36)](';')\n";
-
-        assertThat(prettyPrintASTNode(parseText("xquery version\"1.0\"encoding\"latin1\";")), is(expected));
+        final String expected = loadResource("tests/parser/xquery-1.0/VersionDecl_WithEncoding_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/VersionDecl_WithEncoding_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VersionDecl")
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-VersionDecl")
-    public void testVersionDecl_NoVersionKeyword() {
-        final String expected
-                = "FileElement[FILE(0:7)]\n"
-                + "   XQueryVersionDeclImpl[XQUERY_VERSION_DECL(0:7)]\n"
-                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_XQUERY(0:6)]('xquery')\n"
-                + "      PsiErrorElementImpl[ERROR_ELEMENT(6:6)]('XPST0003: Missing keyword 'version'.')\n"
-                + "      LeafPsiElement[XQUERY_SEPARATOR_TOKEN(6:7)](';')\n";
-
-        assertThat(prettyPrintASTNode(parseText("xquery;")), is(expected));
+    public void testVersionDecl_MissingVersionKeyword() {
+        final String expected = loadResource("tests/parser/xquery-1.0/VersionDecl_MissingVersionKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/VersionDecl_MissingVersionKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VersionDecl")
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-VersionDecl")
-    public void testVersionDecl_NoVersionString() {
-        final String expected
-                = "FileElement[FILE(0:15)]\n"
-                + "   XQueryVersionDeclImpl[XQUERY_VERSION_DECL(0:15)]\n"
-                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_XQUERY(0:6)]('xquery')\n"
-                + "      PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')\n"
-                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_VERSION(7:14)]('version')\n"
-                + "      PsiErrorElementImpl[ERROR_ELEMENT(14:14)]('XPST0003: Missing version string.')\n"
-                + "      LeafPsiElement[XQUERY_SEPARATOR_TOKEN(14:15)](';')\n";
-
-        assertThat(prettyPrintASTNode(parseText("xquery version;")), is(expected));
+    public void testVersionDecl_MissingVersionString() {
+        final String expected = loadResource("tests/parser/xquery-1.0/VersionDecl_MissingVersionString.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/VersionDecl_MissingVersionString.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VersionDecl")
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-VersionDecl")
     public void testVersionDecl_MissingSemicolon() {
-        final String expected
-                = "FileElement[FILE(0:21)]\n"
-                + "   XQueryVersionDeclImpl[XQUERY_VERSION_DECL(0:20)]\n"
-                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_XQUERY(0:6)]('xquery')\n"
-                + "      PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')\n"
-                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_VERSION(7:14)]('version')\n"
-                + "      PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')\n"
-                + "      XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(15:20)]\n"
-                + "         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(15:16)]('\"')\n"
-                + "         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(16:19)]('1.0')\n"
-                + "         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(19:20)]('\"')\n"
-                + "   PsiErrorElementImpl[ERROR_ELEMENT(20:20)]('XPST0003: Missing semicolon.')\n"
-                + "   LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(20:21)](':')\n";
-
-        assertThat(prettyPrintASTNode(parseText("xquery version \"1.0\":")), is(expected));
+        final String expected = loadResource("tests/parser/xquery-1.0/VersionDecl_MissingSemicolon.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/VersionDecl_MissingSemicolon.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VersionDecl")
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-VersionDecl")
     public void testVersionDecl_MissingEncodingString() {
-        final String expected
-                = "FileElement[FILE(0:30)]\n"
-                + "   XQueryVersionDeclImpl[XQUERY_VERSION_DECL(0:30)]\n"
-                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_XQUERY(0:6)]('xquery')\n"
-                + "      PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')\n"
-                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_VERSION(7:14)]('version')\n"
-                + "      PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')\n"
-                + "      XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(15:20)]\n"
-                + "         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(15:16)]('\"')\n"
-                + "         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(16:19)]('1.0')\n"
-                + "         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(19:20)]('\"')\n"
-                + "      PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')\n"
-                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_ENCODING(21:29)]('encoding')\n"
-                + "      PsiErrorElementImpl[ERROR_ELEMENT(29:29)]('XPST0003: Missing encoding string.')\n"
-                + "      LeafPsiElement[XQUERY_SEPARATOR_TOKEN(29:30)](';')\n";
-
-        assertThat(prettyPrintASTNode(parseText("xquery version \"1.0\" encoding;")), is(expected));
+        final String expected = loadResource("tests/parser/xquery-1.0/VersionDecl_MissingEncodingString.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/VersionDecl_MissingEncodingString.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     // endregion
@@ -1027,75 +933,30 @@ public class XQuery10ParserTest extends ParserTestCase {
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-VersionDecl")
     public void testVersionDecl_EncodingOnly() {
-        final String expected
-                = "FileElement[FILE(0:26)]\n"
-                + "   XQueryVersionDeclImpl[XQUERY_VERSION_DECL(0:26)]\n"
-                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_XQUERY(0:6)]('xquery')\n"
-                + "      PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')\n"
-                + "      PsiErrorElementImpl[ERROR_ELEMENT(7:15)]('XPST0003: Encoding-only xquery declarations require XQuery 3.0 or later.')\n"
-                + "         LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_ENCODING(7:15)]('encoding')\n"
-                + "      PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')\n"
-                + "      XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(16:24)]\n"
-                + "         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(16:17)]('\"')\n"
-                + "         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(17:23)]('latin1')\n"
-                + "         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(23:24)]('\"')\n"
-                + "      PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')\n"
-                + "      LeafPsiElement[XQUERY_SEPARATOR_TOKEN(25:26)](';')\n";
-
-        assertThat(prettyPrintASTNode(parseText("xquery encoding \"latin1\" ;")), is(expected));
+        final String expected = loadResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly10.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-VersionDecl")
     public void testVersionDecl_EncodingOnly_CompactWhitespace() {
-        final String expected
-                = "FileElement[FILE(0:24)]\n"
-                + "   XQueryVersionDeclImpl[XQUERY_VERSION_DECL(0:24)]\n"
-                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_XQUERY(0:6)]('xquery')\n"
-                + "      PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')\n"
-                + "      PsiErrorElementImpl[ERROR_ELEMENT(7:15)]('XPST0003: Encoding-only xquery declarations require XQuery 3.0 or later.')\n"
-                + "         LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_ENCODING(7:15)]('encoding')\n"
-                + "      XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(15:23)]\n"
-                + "         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(15:16)]('\"')\n"
-                + "         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(16:22)]('latin1')\n"
-                + "         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(22:23)]('\"')\n"
-                + "      LeafPsiElement[XQUERY_SEPARATOR_TOKEN(23:24)](';')\n";
-
-        assertThat(prettyPrintASTNode(parseText("xquery encoding\"latin1\";")), is(expected));
+        final String expected = loadResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly_CompactWhitespace10.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-VersionDecl")
-    public void testVersionDecl_NoEncodingString() {
-        final String expected
-                = "FileElement[FILE(0:16)]\n"
-                + "   XQueryVersionDeclImpl[XQUERY_VERSION_DECL(0:16)]\n"
-                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_XQUERY(0:6)]('xquery')\n"
-                + "      PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')\n"
-                + "      PsiErrorElementImpl[ERROR_ELEMENT(7:15)]('XPST0003: Encoding-only xquery declarations require XQuery 3.0 or later.')\n"
-                + "         LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_ENCODING(7:15)]('encoding')\n"
-                + "      PsiErrorElementImpl[ERROR_ELEMENT(15:15)]('XPST0003: Missing encoding string.')\n"
-                + "      LeafPsiElement[XQUERY_SEPARATOR_TOKEN(15:16)](';')\n";
-
-        assertThat(prettyPrintASTNode(parseText("xquery encoding;")), is(expected));
+    public void testVersionDecl_EncodingOnly_MissingEncodingString() {
+        final String expected = loadResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly_MissingEncodingString10.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly_MissingEncodingString.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-VersionDecl")
     public void testVersionDecl_EncodingOnly_MissingSemicolon() {
-        final String expected
-                = "FileElement[FILE(0:25)]\n"
-                + "   XQueryVersionDeclImpl[XQUERY_VERSION_DECL(0:24)]\n"
-                + "      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_XQUERY(0:6)]('xquery')\n"
-                + "      PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')\n"
-                + "      PsiErrorElementImpl[ERROR_ELEMENT(7:15)]('XPST0003: Encoding-only xquery declarations require XQuery 3.0 or later.')\n"
-                + "         LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_ENCODING(7:15)]('encoding')\n"
-                + "      PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')\n"
-                + "      XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(16:24)]\n"
-                + "         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(16:17)]('\"')\n"
-                + "         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(17:23)]('latin1')\n"
-                + "         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(23:24)]('\"')\n"
-                + "   PsiErrorElementImpl[ERROR_ELEMENT(24:24)]('XPST0003: Missing semicolon.')\n"
-                + "   LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(24:25)](':')\n";
-
-        assertThat(prettyPrintASTNode(parseText("xquery encoding \"latin1\":")), is(expected));
+        final String expected = loadResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly_MissingSemicolon10.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly_MissingSemicolon.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     // endregion
