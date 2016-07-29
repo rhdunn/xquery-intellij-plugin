@@ -778,36 +778,23 @@ public class XQuery10ParserTest extends ParserTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirCommentConstructor")
     public void testDirCommentConstructor() {
-        final String expected
-                = "FileElement[FILE(0:13)]\n"
-                + "   XQueryDirCommentConstructorImpl[XQUERY_DIR_COMMENT_CONSTRUCTOR(0:13)]\n"
-                + "      LeafPsiElement[XQUERY_XML_COMMENT_START_TAG_TOKEN(0:4)]('<!--')\n"
-                + "      PsiCommentImpl[XQUERY_XML_COMMENT_TOKEN(4:10)](' Test ')\n"
-                + "      LeafPsiElement[XQUERY_XML_COMMENT_END_TAG_TOKEN(10:13)]('-->')\n";
-
-        assertThat(prettyPrintASTNode(parseText("<!-- Test -->")), is(expected));
+        final String expected = loadResource("tests/parser/xquery-1.0/DirCommentConstructor.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/DirCommentConstructor.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirCommentConstructor")
     public void testDirCommentConstructor_UnclosedComment() {
-        final String expected
-                = "FileElement[FILE(0:10)]\n"
-                + "   XQueryDirCommentConstructorImpl[XQUERY_DIR_COMMENT_CONSTRUCTOR(0:10)]\n"
-                + "      LeafPsiElement[XQUERY_XML_COMMENT_START_TAG_TOKEN(0:4)]('<!--')\n"
-                + "      PsiCommentImpl[XQUERY_XML_COMMENT_TOKEN(4:10)](' Test ')\n"
-                + "   PsiErrorElementImpl[ERROR_ELEMENT(10:10)]('XPST0003: Unclosed XML comment.')\n";
-
-        assertThat(prettyPrintASTNode(parseText("<!-- Test ")), is(expected));
+        final String expected = loadResource("tests/parser/xquery-1.0/DirCommentConstructor_UnclosedComment.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/DirCommentConstructor_UnclosedComment.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirCommentConstructor")
     public void testDirCommentConstructor_UnexpectedCommentEndTag() {
-        final String expected
-                = "FileElement[FILE(0:3)]\n"
-                + "   PsiErrorElementImpl[ERROR_ELEMENT(0:3)]('XPST0003: End of comment marker found without a '<!--' start of comment marker.')\n"
-                + "      LeafPsiElement[XQUERY_XML_COMMENT_END_TAG_TOKEN(0:3)]('-->')\n";
-
-        assertThat(prettyPrintASTNode(parseText("-->")), is(expected));
+        final String expected = loadResource("tests/parser/xquery-1.0/DirCommentConstructor_UnexpectedCommentEndTag.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/DirCommentConstructor_UnexpectedCommentEndTag.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     // endregion
