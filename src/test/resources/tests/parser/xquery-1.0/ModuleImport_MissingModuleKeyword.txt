@@ -1,6 +1,8 @@
 FileElement[FILE(0:7)]
-   XQueryPrologImpl[XQUERY_PROLOG(0:7)]
-      XQueryModuleImportImpl[XQUERY_MODULE_IMPORT(0:6)]
-         LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_IMPORT(0:6)]('import')
-         PsiErrorElementImpl[ERROR_ELEMENT(6:6)]('XPST0003: Missing keyword 'module'.')
-      LeafPsiElement[XQUERY_SEPARATOR_TOKEN(6:7)](';')
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:7)]
+      XQueryPrologImpl[XQUERY_PROLOG(0:7)]
+         XQueryModuleImportImpl[XQUERY_MODULE_IMPORT(0:6)]
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_IMPORT(0:6)]('import')
+            PsiErrorElementImpl[ERROR_ELEMENT(6:6)]('XPST0003: Missing keyword 'module'.')
+         LeafPsiElement[XQUERY_SEPARATOR_TOKEN(6:7)](';')
+      PsiErrorElementImpl[ERROR_ELEMENT(7:7)]('XPST0003: Missing query body.')

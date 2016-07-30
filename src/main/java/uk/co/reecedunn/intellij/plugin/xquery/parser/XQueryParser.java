@@ -44,7 +44,6 @@ public class XQueryParser {
             if (skipWhiteSpaceAndCommentTokens()) continue;
             if (parseVersionDecl()) continue;
             if (parseModuleDecl()) continue;
-            if (parseProlog()) continue;
             if (parseMainModule()) continue;
             if (parseQName()) continue;
             if (parseDirCommentConstructor()) continue;
@@ -191,7 +190,14 @@ public class XQueryParser {
 
     private boolean parseMainModule() {
         final PsiBuilder.Marker mainModuleMarker = mark();
-        if (parseExpr(XQueryElementType.QUERY_BODY)) {
+        if (parseProlog()) {
+            skipWhiteSpaceAndCommentTokens();
+            if (!parseExpr(XQueryElementType.QUERY_BODY)) {
+                error(XQueryBundle.message("parser.error.expected-query-body"));
+            }
+            mainModuleMarker.done(XQueryElementType.MAIN_MODULE);
+            return true;
+        } else if (parseExpr(XQueryElementType.QUERY_BODY)) {
             mainModuleMarker.done(XQueryElementType.MAIN_MODULE);
             return true;
         }

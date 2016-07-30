@@ -122,7 +122,7 @@ public abstract class ParserTestCase extends ParsingTestCase {
                 PsiErrorElement error = (PsiErrorElement)node;
                 prettyPrinted.append(error.getErrorDescription());
             } else {
-                prettyPrinted.append(node.getText());
+                prettyPrinted.append(node.getText().replace("\n", "\\n"));
             }
             prettyPrinted.append('\'');
             prettyPrinted.append(')');

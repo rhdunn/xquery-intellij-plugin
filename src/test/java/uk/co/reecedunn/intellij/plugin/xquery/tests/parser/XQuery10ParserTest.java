@@ -388,6 +388,20 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region MainModule
+
+    // NOTE: The QueryBody-only and missing QueryBody test cases are covered by
+    // the IntegerLiteral and ModuleImport tests respectively.
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-MainModule")
+    public void testMainModule() {
+        final String expected = loadResource("tests/parser/xquery-1.0/MainModule.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/MainModule.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
+
     // region ModuleDecl
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ModuleDecl")
