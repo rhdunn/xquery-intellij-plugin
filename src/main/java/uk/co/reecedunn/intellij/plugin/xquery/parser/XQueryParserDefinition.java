@@ -104,6 +104,8 @@ public class XQueryParserDefinition implements ParserDefinition {
             return new XQueryAdditiveExprPsiImpl(node);
         } else if (type == XQueryElementType.RANGE_EXPR) {
             return new XQueryRangeExprPsiImpl(node);
+        } else if (type == XQueryElementType.COMPARISON_EXPR) {
+            return new XQueryComparisonExprPsiImpl(node);
         } else if (type == XQueryElementType.QNAME) {
             return new XQueryQNamePsiImpl(node);
         } else if (type == XQueryElementType.COMMENT) {

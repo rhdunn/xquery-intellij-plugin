@@ -45,7 +45,7 @@ public class XQueryParser {
             if (parseVersionDecl()) continue;
             if (parseModuleDecl()) continue;
             if (parseModuleImport()) continue;
-            if (parseRangeExpr()) continue;
+            if (parseComparisonExpr()) continue;
             if (parseQName()) continue;
             if (parseDirCommentConstructor()) continue;
             if (parseCDataSection()) continue;
@@ -124,6 +124,16 @@ public class XQueryParser {
 
     // endregion
     // region Grammar
+
+    private boolean parseComparisonExpr() {
+        final PsiBuilder.Marker comparisonExprMarker = mark();
+        if (parseRangeExpr()) {
+            comparisonExprMarker.done(XQueryElementType.COMPARISON_EXPR);
+            return true;
+        }
+        comparisonExprMarker.drop();
+        return false;
+    }
 
     private boolean parseRangeExpr() {
         final PsiBuilder.Marker rangeExprMarker = mark();

@@ -59,6 +59,8 @@ public class XQueryASTFactory extends ASTFactory {
             return new XQueryAdditiveExprImpl(type);
         } else if (type == XQueryElementType.RANGE_EXPR) {
             return new XQueryRangeExprImpl(type);
+        } else if (type == XQueryElementType.COMPARISON_EXPR) {
+            return new XQueryComparisonExprImpl(type);
         } else if (type == XQueryElementType.QNAME) {
             return new XQueryQNameImpl(type);
         } else if (type == XQueryElementType.COMMENT) {
