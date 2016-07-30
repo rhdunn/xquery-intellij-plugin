@@ -15,5 +15,13 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast;
 
+/**
+ * An XQuery 1.0 <code>ValueExpr</code> node in the XQuery AST.
+ *
+ * Because the child nodes of a <code>ValueExpr</code> are only referenced
+ * from the <code>ValueExpr</code> node in the grammar, the
+ * <code>ValueExpr</code> nodes are stored as instances of the child nodes
+ * instead of as distinct nodes themselves.
+ */
 public interface XQueryValueExpr {
 }

@@ -15,6 +15,19 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast;
 
+/**
+ * An XQuery 1.0 <code>StringLiteral</code> node in the XQuery AST.
+ *
+ * When the <code>StringLiteral</code> node is specialised (such as with
+ * <code>URILiteral</code>), the <code>StringLiteral</code> node is not stored
+ * directly in the AST. Instead, it is exposed as an instance of that
+ * specialised node.
+ */
 public interface XQueryStringLiteral {
+    /**
+     * Gets the value of the string when escaped characters nor entity references are expected.
+     *
+     * @return The first item in the string that is not an escaped character nor entity reference.
+     */
     CharSequence getSimpleContents();
 }

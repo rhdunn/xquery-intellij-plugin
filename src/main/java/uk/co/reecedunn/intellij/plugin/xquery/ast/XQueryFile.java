@@ -17,6 +17,21 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast;
 
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 
+/**
+ * An XQuery file.
+ *
+ * This interface is only implemented in the PSI tree as part of the XQuery
+ * file implementation. It is included here to keep the interfaces for
+ * navigating the parse trees together.
+ */
 public interface XQueryFile {
+    /**
+     * Gets the XQuery version of the file.
+     *
+     * If the file does not specify an XQuery version, this returns the XQuery
+     * version set in the IntelliJ XQuery settings page.
+     *
+     * @return The detected XQuery version.
+     */
     XQueryVersion getXQueryVersion();
 }

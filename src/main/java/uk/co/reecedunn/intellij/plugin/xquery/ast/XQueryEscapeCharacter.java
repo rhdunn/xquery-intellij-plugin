@@ -15,5 +15,19 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast;
 
+/**
+ * An XQuery 1.0 <code>EscapeQuot</code> or <code>EscapeApos</code> node in the XQuery AST.
+ *
+ * Because the <code>EscapeQuot</code> and <code>EscapeApos</code> nodes are
+ * escaping a single character in the same manner, they are implemented as
+ * instances of <code>EscapeCharacter</code>. This <code>EscapeCharacter</code>
+ * construct does not exist in the XQuery grammar, but is used for convenience
+ * here in implementing the AST.
+ *
+ * The entity reference nodes (<code>PredefinedEntityRef</code> and
+ * <code>CharRef</code>) are not implemented through this interface as they are
+ * providing different functionality where the entity may map to multiple
+ * characters.
+ */
 public interface XQueryEscapeCharacter {
 }

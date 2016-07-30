@@ -15,5 +15,21 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast;
 
+/**
+ * An XQuery 1.0 <code>MainModule</code> node in the XQuery AST.
+ *
+ * This implements a <code>MainModule</code> node as an instance of a
+ * <code>Module</code> node, which differs from the XQuery grammar, which
+ * has the <code>MainModule</code> as a child of <code>Module</code>.
+ * This has the effect of defining the <code>MainModule</code> EBNF as:
+ *
+ * <pre>{@code
+ *     Module     ::= LibraryModule | MainModule
+ *     MainModule ::= VersionDecl? Prolog QueryBody
+ * }</pre>
+ *
+ * This simplifies the AST tree and makes it easier to reason what the
+ * module type is from the {@link XQueryFile} node.
+ */
 public interface XQueryMainModule extends XQueryModule {
 }

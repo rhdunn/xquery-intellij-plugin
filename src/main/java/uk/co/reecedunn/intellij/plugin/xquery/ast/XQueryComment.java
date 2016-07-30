@@ -15,5 +15,14 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast;
 
+/**
+ * An XQuery 1.0 <code>Comment</code> node in the XQuery AST containing
+ * <code>CommentContents</code>.
+ *
+ * Nested comments are not exposed as inner comments within the AST. They are
+ * folded into the contents of the outermost comment. This is because the
+ * comment nesting is handled within the
+ * {@link uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer}.
+ */
 public interface XQueryComment {
 }
