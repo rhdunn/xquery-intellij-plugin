@@ -42,9 +42,7 @@ public class XQueryParser {
     public void parse() {
         while (getTokenType() != null) {
             if (skipWhiteSpaceAndCommentTokens()) continue;
-            if (parseVersionDecl()) continue;
-            if (parseLibraryModule()) continue;
-            if (parseMainModule()) continue;
+            if (parseModule()) continue;
             if (parseQName()) continue;
             if (parseDirCommentConstructor()) continue;
             if (parseCDataSection()) continue;
@@ -124,6 +122,30 @@ public class XQueryParser {
     // endregion
     // region Grammar
 
+    private boolean parseModule() {
+        final PsiBuilder.Marker moduleMarker = mark();
+        IElementType type = null;
+        if (parseVersionDecl()) {
+            type = XQueryElementType.MODULE;
+            skipWhiteSpaceAndCommentTokens();
+        }
+
+        if (parseLibraryModule()) {
+            type = XQueryElementType.LIBRARY_MODULE;
+        } else if (parseMainModule()) {
+            type = XQueryElementType.MAIN_MODULE;
+        } else if (type != null) {
+            error(XQueryBundle.message("parser.error.expected-module-type"));
+        }
+
+        if (type != null) {
+            moduleMarker.done(type);
+            return true;
+        }
+        moduleMarker.drop();
+        return false;
+    }
+
     private boolean parseVersionDecl() {
         if (getTokenType() == XQueryTokenType.K_XQUERY) {
             boolean haveErrors = false;
@@ -189,31 +211,22 @@ public class XQueryParser {
     }
 
     private boolean parseMainModule() {
-        final PsiBuilder.Marker mainModuleMarker = mark();
         if (parseProlog()) {
             skipWhiteSpaceAndCommentTokens();
             if (!parseExpr(XQueryElementType.QUERY_BODY)) {
                 error(XQueryBundle.message("parser.error.expected-query-body"));
             }
-            mainModuleMarker.done(XQueryElementType.MAIN_MODULE);
-            return true;
-        } else if (parseExpr(XQueryElementType.QUERY_BODY)) {
-            mainModuleMarker.done(XQueryElementType.MAIN_MODULE);
             return true;
         }
-        mainModuleMarker.drop();
-        return false;
+        return parseExpr(XQueryElementType.QUERY_BODY);
     }
 
     private boolean parseLibraryModule() {
-        final PsiBuilder.Marker libraryModuleMarker = mark();
         if (parseModuleDecl()) {
             skipWhiteSpaceAndCommentTokens();
             parseProlog();
-            libraryModuleMarker.done(XQueryElementType.LIBRARY_MODULE);
             return true;
         }
-        libraryModuleMarker.drop();
         return false;
     }
 

@@ -400,6 +400,14 @@ public class XQuery10ParserTest extends ParserTestCase {
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-MainModule")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Module")
+    public void testMainModule_WithVersionDecl() {
+        final String expected = loadResource("tests/parser/xquery-1.0/MainModule_WithVersionDecl.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/MainModule_WithVersionDecl.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
     // endregion
     // region LibraryModule
 
@@ -409,6 +417,14 @@ public class XQuery10ParserTest extends ParserTestCase {
     public void testLibraryModule() {
         final String expected = loadResource("tests/parser/xquery-1.0/LibraryModule.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/LibraryModule.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-MainModule")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Module")
+    public void testLibraryModule_WithVersionDecl() {
+        final String expected = loadResource("tests/parser/xquery-1.0/LibraryModule_WithVersionDecl.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/LibraryModule_WithVersionDecl.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 

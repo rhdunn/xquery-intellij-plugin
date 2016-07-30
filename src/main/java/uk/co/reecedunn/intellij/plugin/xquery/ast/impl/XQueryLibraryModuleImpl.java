@@ -15,12 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.impl;
 
-import com.intellij.psi.impl.source.tree.CompositeElement;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryLibraryModule;
 
-public class XQueryLibraryModuleImpl extends CompositeElement implements XQueryLibraryModule {
+public class XQueryLibraryModuleImpl extends XQueryModuleImpl implements XQueryLibraryModule {
     public XQueryLibraryModuleImpl(@NotNull IElementType type) {
         super(type);
     }

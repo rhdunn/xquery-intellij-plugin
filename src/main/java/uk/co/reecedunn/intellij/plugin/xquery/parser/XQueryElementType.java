@@ -56,6 +56,7 @@ public interface XQueryElementType {
     IElementType VERSION_DECL = new IElementType("XQUERY_VERSION_DECL", XQuery.INSTANCE);
     IElementType MAIN_MODULE = new IElementType("XQUERY_MAIN_MODULE", XQuery.INSTANCE);
     IElementType LIBRARY_MODULE = new IElementType("XQUERY_LIBRARY_MODULE", XQuery.INSTANCE);
+    IElementType MODULE = new IElementType("XQUERY_MODULE", XQuery.INSTANCE);
 
     IElementType DIR_COMMENT_CONSTRUCTOR = new IElementType("XQUERY_DIR_COMMENT_CONSTRUCTOR", XQuery.INSTANCE);
 }

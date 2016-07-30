@@ -1,5 +1,7 @@
 FileElement[FILE(0:7)]
-   XQueryVersionDeclImpl[XQUERY_VERSION_DECL(0:7)]
-      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_XQUERY(0:6)]('xquery')
-      PsiErrorElementImpl[ERROR_ELEMENT(6:6)]('XPST0003: Missing keyword 'version'.')
-      LeafPsiElement[XQUERY_SEPARATOR_TOKEN(6:7)](';')
+   XQueryModuleImpl[XQUERY_MODULE(0:7)]
+      XQueryVersionDeclImpl[XQUERY_VERSION_DECL(0:7)]
+         LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_XQUERY(0:6)]('xquery')
+         PsiErrorElementImpl[ERROR_ELEMENT(6:6)]('XPST0003: Missing keyword 'version'.')
+         LeafPsiElement[XQUERY_SEPARATOR_TOKEN(6:7)](';')
+      PsiErrorElementImpl[ERROR_ELEMENT(7:7)]('XPST0003: Missing library 'module' declaration or main module query body.')
