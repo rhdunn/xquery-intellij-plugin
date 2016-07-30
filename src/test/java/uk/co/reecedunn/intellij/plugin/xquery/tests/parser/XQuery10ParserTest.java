@@ -187,8 +187,8 @@ public class XQuery10ParserTest extends ParserTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Comment")
     public void testComment_UnexpectedCommentEndTag() {
-        final String expected = loadResource("tests/parser/xquery-1.0/Comment.txt");
-        final ASTNode actual = parseResource("tests/parser/xquery-1.0/Comment.xq");
+        final String expected = loadResource("tests/parser/xquery-1.0/Comment_UnexpectedCommentEndTag.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/Comment_UnexpectedCommentEndTag.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
