@@ -43,6 +43,7 @@ public interface XQueryElementType {
     IElementType ADDITIVE_EXPR = new IElementType("XQUERY_ADDITIVE_EXPR", XQuery.INSTANCE);
     IElementType RANGE_EXPR = new IElementType("XQUERY_RANGE_EXPR", XQuery.INSTANCE);
     IElementType COMPARISON_EXPR = new IElementType("XQUERY_COMPARISON_EXPR", XQuery.INSTANCE);
+    IElementType AND_EXPR = new IElementType("XQUERY_AND_EXPR", XQuery.INSTANCE);
 
     IElementType VERSION_DECL = new IElementType("XQUERY_VERSION_DECL", XQuery.INSTANCE);
     IElementType MODULE_DECL = new IElementType("XQUERY_MODULE_DECL", XQuery.INSTANCE);
