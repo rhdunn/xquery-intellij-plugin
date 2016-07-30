@@ -49,10 +49,11 @@ public interface XQueryElementType {
     IElementType EXPR = new IElementType("XQUERY_EXPR", XQuery.INSTANCE);
     IElementType QUERY_BODY = new IElementType("XQUERY_QUERY_BODY", XQuery.INSTANCE);
 
-    IElementType VERSION_DECL = new IElementType("XQUERY_VERSION_DECL", XQuery.INSTANCE);
-    IElementType MODULE_DECL = new IElementType("XQUERY_MODULE_DECL", XQuery.INSTANCE);
     IElementType MODULE_IMPORT = new IElementType("XQUERY_MODULE_IMPORT", XQuery.INSTANCE);
+    IElementType PROLOG = new IElementType("XQUERY_PROLOG", XQuery.INSTANCE);
 
+    IElementType MODULE_DECL = new IElementType("XQUERY_MODULE_DECL", XQuery.INSTANCE);
+    IElementType VERSION_DECL = new IElementType("XQUERY_VERSION_DECL", XQuery.INSTANCE);
     IElementType MAIN_MODULE = new IElementType("XQUERY_MAIN_MODULE", XQuery.INSTANCE);
 
     IElementType DIR_COMMENT_CONSTRUCTOR = new IElementType("XQUERY_DIR_COMMENT_CONSTRUCTOR", XQuery.INSTANCE);

@@ -77,12 +77,14 @@ public class XQueryASTFactory extends ASTFactory {
             return new XQueryDirCommentConstructorImpl(type);
         } else if (type == XQueryElementType.CDATA_SECTION) {
             return new XQueryCDataSectionImpl(type);
+        } else if (type == XQueryElementType.MODULE_IMPORT) {
+            return new XQueryModuleImportImpl(type);
+        } else if (type == XQueryElementType.PROLOG) {
+            return new XQueryPrologImpl(type);
         } else if (type == XQueryElementType.VERSION_DECL) {
             return new XQueryVersionDeclImpl(type);
         } else if (type == XQueryElementType.MODULE_DECL) {
             return new XQueryModuleDeclImpl(type);
-        } else if (type == XQueryElementType.MODULE_IMPORT) {
-            return new XQueryModuleImportImpl(type);
         } else if (type == XQueryElementType.MAIN_MODULE) {
             return new XQueryMainModuleImpl(type);
         }

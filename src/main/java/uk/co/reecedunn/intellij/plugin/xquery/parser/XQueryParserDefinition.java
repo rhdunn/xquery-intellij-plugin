@@ -122,12 +122,14 @@ public class XQueryParserDefinition implements ParserDefinition {
             return new XQueryDirCommentConstructorPsiImpl(node);
         } else if (type == XQueryElementType.CDATA_SECTION) {
             return new XQueryCDataSectionPsiImpl(node);
+        } else if (type == XQueryElementType.MODULE_IMPORT) {
+            return new XQueryModuleImportPsiImpl(node);
+        } else if (type == XQueryElementType.PROLOG) {
+            return new XQueryPrologPsiImpl(node);
         } else if (type == XQueryElementType.VERSION_DECL) {
             return new XQueryVersionDeclPsiImpl(node);
         } else if (type == XQueryElementType.MODULE_DECL) {
             return new XQueryModuleDeclPsiImpl(node);
-        } else if (type == XQueryElementType.MODULE_IMPORT) {
-            return new XQueryModuleImportPsiImpl(node);
         } else if (type == XQueryElementType.MAIN_MODULE) {
             return new XQueryMainModulePsiImpl(node);
         }
