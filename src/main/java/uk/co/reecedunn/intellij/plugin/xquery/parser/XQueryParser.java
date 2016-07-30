@@ -43,7 +43,7 @@ public class XQueryParser {
         while (getTokenType() != null) {
             if (skipWhiteSpaceAndCommentTokens()) continue;
             if (parseVersionDecl()) continue;
-            if (parseModuleDecl()) continue;
+            if (parseLibraryModule()) continue;
             if (parseMainModule()) continue;
             if (parseQName()) continue;
             if (parseDirCommentConstructor()) continue;
@@ -202,6 +202,18 @@ public class XQueryParser {
             return true;
         }
         mainModuleMarker.drop();
+        return false;
+    }
+
+    private boolean parseLibraryModule() {
+        final PsiBuilder.Marker libraryModuleMarker = mark();
+        if (parseModuleDecl()) {
+            skipWhiteSpaceAndCommentTokens();
+            parseProlog();
+            libraryModuleMarker.done(XQueryElementType.LIBRARY_MODULE);
+            return true;
+        }
+        libraryModuleMarker.drop();
         return false;
     }
 

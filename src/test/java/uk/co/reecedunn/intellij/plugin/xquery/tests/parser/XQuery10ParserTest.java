@@ -401,7 +401,18 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region LibraryModule
 
+    // NOTE: The optional Prolog test cases are covered by the ModuleDecl tests.
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-MainModule")
+    public void testLibraryModule() {
+        final String expected = loadResource("tests/parser/xquery-1.0/LibraryModule.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/LibraryModule.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region ModuleDecl
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ModuleDecl")
