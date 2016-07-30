@@ -83,6 +83,8 @@ public class XQueryASTFactory extends ASTFactory {
             return new XQueryModuleDeclImpl(type);
         } else if (type == XQueryElementType.MODULE_IMPORT) {
             return new XQueryModuleImportImpl(type);
+        } else if (type == XQueryElementType.MAIN_MODULE) {
+            return new XQueryMainModuleImpl(type);
         }
 
         return new CompositeElement(type);
