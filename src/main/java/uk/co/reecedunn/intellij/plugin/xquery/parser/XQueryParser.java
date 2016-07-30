@@ -44,7 +44,7 @@ public class XQueryParser {
             if (skipWhiteSpaceAndCommentTokens()) continue;
             if (parseVersionDecl()) continue;
             if (parseModuleDecl()) continue;
-            if (parseModuleImport()) continue;
+            if (parseImport()) continue;
             if (parseMainModule()) continue;
             if (parseQName()) continue;
             if (parseDirCommentConstructor()) continue;
@@ -526,6 +526,10 @@ public class XQueryParser {
             return true;
         }
         return false;
+    }
+
+    private boolean parseImport() {
+        return parseModuleImport();
     }
 
     private boolean parseModuleImport() {
