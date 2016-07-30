@@ -1,5 +1,5 @@
 FileElement[FILE(0:5)]
-   XQueryExprImpl[XQUERY_EXPR(0:5)]
+   XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:5)]
       XQueryOrExprImpl[XQUERY_OR_EXPR(0:5)]
          XQueryAndExprImpl[XQUERY_AND_EXPR(0:5)]
             XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:5)]
