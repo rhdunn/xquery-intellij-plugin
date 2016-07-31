@@ -609,7 +609,6 @@ public class XQueryLexer extends LexerBase {
         int c = mTokenRange.getCodePoint();
         if ((c == '+') || (c == '-')) {
             mTokenRange.match();
-            c = mTokenRange.getCodePoint();
         }
         mType = XQueryTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT;
         mNextState = STATE_DEFAULT;
