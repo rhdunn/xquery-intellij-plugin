@@ -16,7 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.parser;
 
 import com.intellij.lang.ASTNode;
-import com.intellij.psi.PsiElement;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryFile;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryStringLiteral;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;

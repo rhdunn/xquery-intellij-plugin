@@ -16,7 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.xquery.lang;
 
 import com.intellij.lang.Language;
-import org.jetbrains.annotations.NotNull;
 
 public class XQuery extends Language {
     public static final XQuery INSTANCE = new XQuery();

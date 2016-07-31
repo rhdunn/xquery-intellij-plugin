@@ -15,12 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.impl;
 
-import com.intellij.lang.ASTNode;
 import com.intellij.psi.impl.source.tree.CompositeElement;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryLiteral;
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 
 class XQueryLiteralImpl extends CompositeElement implements XQueryLiteral {
     public XQueryLiteralImpl(@NotNull IElementType type) {
