@@ -93,6 +93,15 @@ public class XQueryParser {
         return false;
     }
 
+    public PsiBuilder.Marker matchTokenTypeWithMarker(IElementType type) {
+        if (mBuilder.getTokenType() == type) {
+            final PsiBuilder.Marker marker = mBuilder.mark();
+            mBuilder.advanceLexer();
+            return marker;
+        }
+        return null;
+    }
+
     public boolean errorOnTokenType(IElementType type, String message) {
         if (mBuilder.getTokenType() == type) {
             final PsiBuilder.Marker errorMarker = mBuilder.mark();
@@ -147,10 +156,9 @@ public class XQueryParser {
     }
 
     private boolean parseVersionDecl() {
-        if (getTokenType() == XQueryTokenType.K_XQUERY) {
+        final PsiBuilder.Marker versionDeclMarker = matchTokenTypeWithMarker(XQueryTokenType.K_XQUERY);
+        if (versionDeclMarker != null) {
             boolean haveErrors = false;
-            final PsiBuilder.Marker versionDeclMarker = mark();
-            advanceLexer();
 
             skipWhiteSpaceAndCommentTokens();
             final PsiBuilder.Marker versionDecl30Marker = mark();
@@ -231,10 +239,9 @@ public class XQueryParser {
     }
 
     private boolean parseModuleDecl() {
-        if (getTokenType() == XQueryTokenType.K_MODULE) {
+        final PsiBuilder.Marker moduleDeclMarker = matchTokenTypeWithMarker(XQueryTokenType.K_MODULE);
+        if (moduleDeclMarker != null) {
             boolean haveErrors = false;
-            final PsiBuilder.Marker moduleDeclMarker = mark();
-            advanceLexer();
 
             skipWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.K_NAMESPACE)) {
@@ -302,10 +309,8 @@ public class XQueryParser {
     }
 
     private boolean parseImport() {
-        if (getTokenType() == XQueryTokenType.K_IMPORT) {
-            final PsiBuilder.Marker importMarker = mark();
-            advanceLexer();
-
+        final PsiBuilder.Marker importMarker = matchTokenTypeWithMarker(XQueryTokenType.K_IMPORT);
+        if (importMarker != null) {
             skipWhiteSpaceAndCommentTokens();
             if (parseSchemaImport()) {
                 importMarker.done(XQueryElementType.SCHEMA_IMPORT);
@@ -350,10 +355,8 @@ public class XQueryParser {
 
     private boolean parseSchemaPrefix() {
         boolean haveErrors = false;
-        if (getTokenType() == XQueryTokenType.K_NAMESPACE) {
-            final PsiBuilder.Marker schemaPrefixMarker = mark();
-            advanceLexer();
-
+        final PsiBuilder.Marker schemaPrefixMarker = matchTokenTypeWithMarker(XQueryTokenType.K_NAMESPACE);
+        if (schemaPrefixMarker != null) {
             skipWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.NCNAME)) {
                 error(XQueryBundle.message("parser.error.expected-ncname"));
@@ -368,10 +371,11 @@ public class XQueryParser {
 
             skipWhiteSpaceAndCommentTokens();
             schemaPrefixMarker.done(XQueryElementType.SCHEMA_PREFIX);
-        } else if (getTokenType() == XQueryTokenType.K_DEFAULT) {
-            final PsiBuilder.Marker schemaPrefixMarker = mark();
-            advanceLexer();
+            return haveErrors;
+        }
 
+        final PsiBuilder.Marker schemaPrefixDefaultMarker = matchTokenTypeWithMarker(XQueryTokenType.K_DEFAULT);
+        if (schemaPrefixDefaultMarker != null) {
             skipWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.K_ELEMENT)) {
                 error(XQueryBundle.message("parser.error.expected-keyword", "element"));
@@ -385,7 +389,7 @@ public class XQueryParser {
             }
 
             skipWhiteSpaceAndCommentTokens();
-            schemaPrefixMarker.done(XQueryElementType.SCHEMA_PREFIX);
+            schemaPrefixDefaultMarker.done(XQueryElementType.SCHEMA_PREFIX);
         }
         return haveErrors;
     }
@@ -641,9 +645,8 @@ public class XQueryParser {
     }
 
     private boolean parseStringLiteral(IElementType type) {
-        if (getTokenType() == XQueryTokenType.STRING_LITERAL_START) {
-            final PsiBuilder.Marker stringMarker = mark();
-            advanceLexer();
+        final PsiBuilder.Marker stringMarker = matchTokenTypeWithMarker(XQueryTokenType.STRING_LITERAL_START);
+        if (stringMarker != null) {
             while (true) {
                 if (matchTokenType(XQueryTokenType.STRING_LITERAL_CONTENTS) ||
                     matchTokenType(XQueryTokenType.PREDEFINED_ENTITY_REFERENCE) ||
@@ -666,10 +669,8 @@ public class XQueryParser {
     }
 
     private boolean parseQName() {
-        if (getTokenType() == XQueryTokenType.NCNAME) {
-            final PsiBuilder.Marker qnameMarker = mark();
-
-            advanceLexer();
+        final PsiBuilder.Marker qnameMarker = matchTokenTypeWithMarker(XQueryTokenType.NCNAME);
+        if (qnameMarker != null) {
             final PsiBuilder.Marker beforeMarker = mark();
             if (skipWhiteSpaceAndCommentTokens() &&
                 getTokenType() == XQueryTokenType.QNAME_SEPARATOR) {
@@ -701,9 +702,10 @@ public class XQueryParser {
                 qnameMarker.drop();
             }
             return true;
-        } else if (getTokenType() == XQueryTokenType.QNAME_SEPARATOR) {
-            final PsiBuilder.Marker errorMarker = mark();
-            advanceLexer();
+        }
+
+        final PsiBuilder.Marker errorMarker = matchTokenTypeWithMarker(XQueryTokenType.QNAME_SEPARATOR);
+        if (errorMarker != null) {
             skipWhiteSpaceAndCommentTokens();
             if (getTokenType() == XQueryTokenType.NCNAME) {
                 advanceLexer();
@@ -715,9 +717,8 @@ public class XQueryParser {
     }
 
     private boolean parseDirCommentConstructor() {
-        if (getTokenType() == XQueryTokenType.XML_COMMENT_START_TAG) {
-            final PsiBuilder.Marker commentMarker = mark();
-            advanceLexer();
+        final PsiBuilder.Marker commentMarker = matchTokenTypeWithMarker(XQueryTokenType.XML_COMMENT_START_TAG);
+        if (commentMarker != null) {
             // NOTE: XQueryTokenType.XML_COMMENT is omitted by the PsiBuilder.
             if (matchTokenType(XQueryTokenType.XML_COMMENT_END_TAG)) {
                 commentMarker.done(XQueryElementType.DIR_COMMENT_CONSTRUCTOR);
@@ -727,17 +728,15 @@ public class XQueryParser {
                 error(XQueryBundle.message("parser.error.incomplete-xml-comment"));
             }
             return true;
-        } else if (errorOnTokenType(XQueryTokenType.XML_COMMENT_END_TAG, XQueryBundle.message("parser.error.end-of-comment-without-start", "<!--")) ||
-                   errorOnTokenType(XQueryTokenType.INVALID, XQueryBundle.message("parser.error.invalid-token"))) {
-            return true;
         }
-        return false;
+
+        return errorOnTokenType(XQueryTokenType.XML_COMMENT_END_TAG, XQueryBundle.message("parser.error.end-of-comment-without-start", "<!--")) ||
+               errorOnTokenType(XQueryTokenType.INVALID, XQueryBundle.message("parser.error.invalid-token"));
     }
 
     private boolean parseCDataSection() {
-        if (getTokenType() == XQueryTokenType.CDATA_SECTION_START_TAG) {
-            final PsiBuilder.Marker cdataMarker = mark();
-            advanceLexer();
+        final PsiBuilder.Marker cdataMarker = matchTokenTypeWithMarker(XQueryTokenType.CDATA_SECTION_START_TAG);
+        if (cdataMarker != null) {
             matchTokenType(XQueryTokenType.CDATA_SECTION);
             if (matchTokenType(XQueryTokenType.CDATA_SECTION_END_TAG)) {
                 cdataMarker.done(XQueryElementType.CDATA_SECTION);
@@ -747,10 +746,9 @@ public class XQueryParser {
                 error(XQueryBundle.message("parser.error.incomplete-cdata-section"));
             }
             return true;
-        } else if (errorOnTokenType(XQueryTokenType.CDATA_SECTION_END_TAG, XQueryBundle.message("parser.error.end-of-cdata-section-without-start"))) {
-            return true;
         }
-        return false;
+
+        return errorOnTokenType(XQueryTokenType.CDATA_SECTION_END_TAG, XQueryBundle.message("parser.error.end-of-cdata-section-without-start"));
     }
 
     // endregion
