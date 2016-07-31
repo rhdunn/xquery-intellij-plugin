@@ -646,23 +646,21 @@ public class XQueryParser {
 
     private boolean parseStringLiteral(IElementType type) {
         final PsiBuilder.Marker stringMarker = matchTokenTypeWithMarker(XQueryTokenType.STRING_LITERAL_START);
-        if (stringMarker != null) {
-            while (true) {
-                if (matchTokenType(XQueryTokenType.STRING_LITERAL_CONTENTS) ||
-                    matchTokenType(XQueryTokenType.PREDEFINED_ENTITY_REFERENCE) ||
-                    matchTokenType(XQueryTokenType.CHARACTER_REFERENCE) ||
-                    matchTokenType(XQueryTokenType.STRING_LITERAL_ESCAPED_CHARACTER)) {
-                    //
-                } else if (matchTokenType(XQueryTokenType.STRING_LITERAL_END)) {
-                    stringMarker.done(type);
-                    return true;
-                } else if (matchTokenType(XQueryTokenType.PARTIAL_ENTITY_REFERENCE)) {
-                    error(XQueryBundle.message("parser.error.incomplete-entity"));
-                } else if (!errorOnTokenType(XQueryTokenType.EMPTY_ENTITY_REFERENCE, XQueryBundle.message("parser.error.empty-entity"))) {
-                    stringMarker.done(type);
-                    error(XQueryBundle.message("parser.error.incomplete-string"));
-                    return true;
-                }
+        while (stringMarker != null) {
+            if (matchTokenType(XQueryTokenType.STRING_LITERAL_CONTENTS) ||
+                matchTokenType(XQueryTokenType.PREDEFINED_ENTITY_REFERENCE) ||
+                matchTokenType(XQueryTokenType.CHARACTER_REFERENCE) ||
+                matchTokenType(XQueryTokenType.STRING_LITERAL_ESCAPED_CHARACTER)) {
+                //
+            } else if (matchTokenType(XQueryTokenType.STRING_LITERAL_END)) {
+                stringMarker.done(type);
+                return true;
+            } else if (matchTokenType(XQueryTokenType.PARTIAL_ENTITY_REFERENCE)) {
+                error(XQueryBundle.message("parser.error.incomplete-entity"));
+            } else if (!errorOnTokenType(XQueryTokenType.EMPTY_ENTITY_REFERENCE, XQueryBundle.message("parser.error.empty-entity"))) {
+                stringMarker.done(type);
+                error(XQueryBundle.message("parser.error.incomplete-string"));
+                return true;
             }
         }
         return false;
