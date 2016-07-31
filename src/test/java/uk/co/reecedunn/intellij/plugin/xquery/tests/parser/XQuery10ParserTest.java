@@ -727,9 +727,9 @@ public class XQuery10ParserTest extends ParserTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PredefinedEntityRef")
-    public void testStringLiteral_CharRef_EmptyHexidecimalRef() {
-        final String expected = loadResource("tests/parser/xquery-1.0/StringLiteral_CharRef_EmptyHexidecimalRef.txt");
-        final ASTNode actual = parseResource("tests/parser/xquery-1.0/StringLiteral_CharRef_EmptyHexidecimalRef.xq");
+    public void testStringLiteral_CharRef_EmptyHexadecimalRef() {
+        final String expected = loadResource("tests/parser/xquery-1.0/StringLiteral_CharRef_EmptyHexadecimalRef.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/StringLiteral_CharRef_EmptyHexadecimalRef.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
