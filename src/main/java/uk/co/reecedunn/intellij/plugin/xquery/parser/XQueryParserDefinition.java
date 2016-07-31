@@ -122,6 +122,8 @@ public class XQueryParserDefinition implements ParserDefinition {
             return new XQueryDirCommentConstructorPsiImpl(node);
         } else if (type == XQueryElementType.CDATA_SECTION) {
             return new XQueryCDataSectionPsiImpl(node);
+        } else if (type == XQueryElementType.SCHEMA_IMPORT) {
+            return new XQuerySchemaImportPsiImpl(node);
         } else if (type == XQueryElementType.MODULE_IMPORT) {
             return new XQueryModuleImportPsiImpl(node);
         } else if (type == XQueryElementType.PROLOG) {
@@ -136,6 +138,8 @@ public class XQueryParserDefinition implements ParserDefinition {
             return new XQueryLibraryModulePsiImpl(node);
         } else if (type == XQueryElementType.MODULE) {
             return new XQueryModulePsiImpl(node);
+        } else if (type == XQueryElementType.IMPORT) {
+            return new XQueryImportPsiImpl(node);
         }
         throw new AssertionError("Alien element type [" + type + "]. Can't create XQuery PsiElement for that.");
     }

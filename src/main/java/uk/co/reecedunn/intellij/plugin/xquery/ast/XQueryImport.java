@@ -22,6 +22,12 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast;
  * from the <code>Import</code> node in the grammar, the <code>Import</code>
  * nodes are stored as instances of the child nodes instead of as distinct
  * nodes themselves.
+ *
+ * In the case of an invalid <code>Import</code> declaration that has an
+ * <code>import</code> keyword that does not form a <code>SchemaImport</code>
+ * nor <code>ModuleImport</code>, an <code>Import</code> node is used directly.
+ * This is because there is not enough information to know what type of import
+ * declaration this is.
  */
 public interface XQueryImport {
 }

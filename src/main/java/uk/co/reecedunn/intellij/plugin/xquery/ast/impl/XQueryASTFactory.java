@@ -77,6 +77,8 @@ public class XQueryASTFactory extends ASTFactory {
             return new XQueryDirCommentConstructorImpl(type);
         } else if (type == XQueryElementType.CDATA_SECTION) {
             return new XQueryCDataSectionImpl(type);
+        } else if (type == XQueryElementType.SCHEMA_IMPORT) {
+            return new XQuerySchemaImportImpl(type);
         } else if (type == XQueryElementType.MODULE_IMPORT) {
             return new XQueryModuleImportImpl(type);
         } else if (type == XQueryElementType.PROLOG) {
@@ -91,6 +93,8 @@ public class XQueryASTFactory extends ASTFactory {
             return new XQueryLibraryModuleImpl(type);
         } else if (type == XQueryElementType.MODULE) {
             return new XQueryModuleImpl(type);
+        } else if (type == XQueryElementType.IMPORT) {
+            return new XQueryImportImpl(type);
         }
 
         return new CompositeElement(type);
