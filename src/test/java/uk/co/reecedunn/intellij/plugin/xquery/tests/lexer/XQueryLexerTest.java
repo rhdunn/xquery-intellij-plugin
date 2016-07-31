@@ -110,6 +110,34 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region SchemaImport
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-SchemaImport")
+    public void testSchemaImport() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "import", XQueryTokenType.K_IMPORT);
+        matchSingleToken(lexer, "schema", XQueryTokenType.K_SCHEMA);
+        matchSingleToken(lexer, "at",     XQueryTokenType.K_AT);
+        matchSingleToken(lexer, ",",      XQueryTokenType.COMMA);
+    }
+
+    // endregion
+    // region SchemaPrefix
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-SchemaPrefix")
+    public void testSchemaPrefix() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "namespace", XQueryTokenType.K_NAMESPACE);
+        matchSingleToken(lexer, "=",         XQueryTokenType.EQUAL);
+
+        matchSingleToken(lexer, "default",   XQueryTokenType.K_DEFAULT);
+        matchSingleToken(lexer, "element",   XQueryTokenType.K_ELEMENT);
+        matchSingleToken(lexer, "namespace", XQueryTokenType.K_NAMESPACE);
+    }
+
+    // endregion
     // region ModuleImport
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ModuleImport")
