@@ -322,10 +322,11 @@ public class XQueryParser {
 
     private boolean parseSchemaImport() {
         if (getTokenType() == XQueryTokenType.K_SCHEMA) {
-            boolean haveErrors = false;
             advanceLexer();
 
             skipWhiteSpaceAndCommentTokens();
+            boolean haveErrors = parseSchemaPrefix();
+
             if (!parseStringLiteral(XQueryElementType.URI_LITERAL)) {
                 error(XQueryBundle.message("parser.error.expected-uri-string"));
                 haveErrors = true;
@@ -345,6 +346,48 @@ public class XQueryParser {
             return true;
         }
         return false;
+    }
+
+    private boolean parseSchemaPrefix() {
+        boolean haveErrors = false;
+        if (getTokenType() == XQueryTokenType.K_NAMESPACE) {
+            final PsiBuilder.Marker schemaPrefixMarker = mark();
+            advanceLexer();
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.NCNAME)) {
+                error(XQueryBundle.message("parser.error.expected-ncname"));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.EQUAL) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", "="));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            schemaPrefixMarker.done(XQueryElementType.SCHEMA_PREFIX);
+        } else if (getTokenType() == XQueryTokenType.K_DEFAULT) {
+            final PsiBuilder.Marker schemaPrefixMarker = mark();
+            advanceLexer();
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_ELEMENT)) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "element"));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_NAMESPACE) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "namespace"));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            schemaPrefixMarker.done(XQueryElementType.SCHEMA_PREFIX);
+        }
+        return haveErrors;
     }
 
     private boolean parseModuleImport() {

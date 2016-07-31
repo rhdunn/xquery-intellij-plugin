@@ -1,0 +1,20 @@
+FileElement[FILE(0:69)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:69)]
+      XQueryPrologImpl[XQUERY_PROLOG(0:69)]
+         XQuerySchemaImportImpl[XQUERY_SCHEMA_IMPORT(0:68)]
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_IMPORT(0:6)]('import')
+            PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_SCHEMA(7:13)]('schema')
+            PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
+            XQuerySchemaPrefixImpl[XQUERY_SCHEMA_PREFIX(14:39)]
+               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DEFAULT(14:21)]('default')
+               PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
+               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_ELEMENT(22:29)]('element')
+               PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
+               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NAMESPACE(30:39)]('namespace')
+            XQueryUriLiteralImpl[XQUERY_URI_LITERAL(39:68)]
+               LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(39:40)]('"')
+               LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(40:67)]('http://www.example.com/test')
+               LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(67:68)]('"')
+         LeafPsiElement[XQUERY_SEPARATOR_TOKEN(68:69)](';')
+      PsiErrorElementImpl[ERROR_ELEMENT(69:69)]('XPST0003: Missing query body.')

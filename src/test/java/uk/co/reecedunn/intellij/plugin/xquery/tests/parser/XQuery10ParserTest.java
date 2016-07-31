@@ -349,6 +349,73 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region SchemaPrefix
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-SchemaImport")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-SchemaPrefix")
+    public void testSchemaPrefix() {
+        final String expected = loadResource("tests/parser/xquery-1.0/SchemaPrefix.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/SchemaPrefix.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-SchemaImport")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-SchemaPrefix")
+    public void testSchemaPrefix_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/SchemaPrefix_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/SchemaPrefix_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-SchemaImport")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-SchemaPrefix")
+    public void testSchemaPrefix_MissingNCName() {
+        final String expected = loadResource("tests/parser/xquery-1.0/SchemaPrefix_MissingNCName.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/SchemaPrefix_MissingNCName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-SchemaImport")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-SchemaPrefix")
+    public void testSchemaPrefix_MissingEquals() {
+        final String expected = loadResource("tests/parser/xquery-1.0/SchemaPrefix_MissingEquals.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/SchemaPrefix_MissingEquals.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-SchemaImport")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-SchemaPrefix")
+    public void testSchemaPrefix_Default() {
+        final String expected = loadResource("tests/parser/xquery-1.0/SchemaPrefix_Default.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/SchemaPrefix_Default.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-SchemaImport")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-SchemaPrefix")
+    public void testSchemaPrefix_Default_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/SchemaPrefix_Default_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/SchemaPrefix_Default_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-SchemaImport")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-SchemaPrefix")
+    public void testSchemaPrefix_Default_MissingNamespaceKeyword() {
+        final String expected = loadResource("tests/parser/xquery-1.0/SchemaPrefix_Default_MissingNamespaceKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/SchemaPrefix_Default_MissingNamespaceKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-SchemaImport")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-SchemaPrefix")
+    public void testSchemaPrefix_Default_MissingElementKeyword() {
+        final String expected = loadResource("tests/parser/xquery-1.0/SchemaPrefix_Default_MissingElementKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/SchemaPrefix_Default_MissingElementKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region ModuleImport
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ModuleImport")

@@ -1,0 +1,1 @@
+import schema default namespace "http://www.example.com/test" ;

@@ -1,0 +1,1 @@
+import schema default element "http://www.example.com/test" ;
