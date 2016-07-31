@@ -27,8 +27,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 class FileTypeToArrayConsumer implements FileTypeConsumer {
-    List<Pair<FileType, String>> fileTypes = new ArrayList<>();
-    List<Pair<FileType, FileNameMatcher>> fileMatchers = new ArrayList<>();
+    final List<Pair<FileType, String>> fileTypes = new ArrayList<>();
+    final List<Pair<FileType, FileNameMatcher>> fileMatchers = new ArrayList<>();
 
     @Override
     public void consume(@NotNull FileType fileType) {
