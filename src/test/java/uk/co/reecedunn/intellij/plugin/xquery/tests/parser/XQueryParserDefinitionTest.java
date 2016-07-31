@@ -88,7 +88,7 @@ public class XQueryParserDefinitionTest extends ParserTestCase {
         } catch (Exception e) {
             // Unexpected exception.
         }
-        assertTrue("createElement(null) should throw AssertionError.", thrown);
+        assertTrue("createElement(XQueryTokenType.INTEGER_LITERAL) should throw AssertionError.", thrown);
     }
 
     public void testCreateFile() {

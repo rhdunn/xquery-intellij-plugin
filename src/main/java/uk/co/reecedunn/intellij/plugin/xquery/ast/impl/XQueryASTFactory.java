@@ -99,7 +99,7 @@ public class XQueryASTFactory extends ASTFactory {
             return new XQueryImportImpl(type);
         }
 
-        return new CompositeElement(type);
+        throw new AssertionError("Alien element type [" + type + "]. Can't create XQuery AST Node for that.");
     }
 
     @Override
