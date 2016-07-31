@@ -20,7 +20,7 @@ import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryCharRef;
 
-public class XQueryCharRefImpl extends LeafPsiElement implements XQueryCharRef {
+class XQueryCharRefImpl extends LeafPsiElement implements XQueryCharRef {
     public XQueryCharRefImpl(@NotNull IElementType type, @NotNull CharSequence text) {
         super(type, text);
     }

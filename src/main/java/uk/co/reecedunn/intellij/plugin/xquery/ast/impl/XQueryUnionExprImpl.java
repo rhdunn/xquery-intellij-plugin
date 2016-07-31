@@ -20,7 +20,7 @@ import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryUnionExpr;
 
-public class XQueryUnionExprImpl extends CompositeElement implements XQueryUnionExpr {
+class XQueryUnionExprImpl extends CompositeElement implements XQueryUnionExpr {
     public XQueryUnionExprImpl(@NotNull IElementType type) {
         super(type);
     }

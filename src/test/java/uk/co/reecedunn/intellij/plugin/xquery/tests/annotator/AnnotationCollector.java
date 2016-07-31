@@ -25,7 +25,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AnnotationCollector implements AnnotationHolder {
+class AnnotationCollector implements AnnotationHolder {
     public final List<Annotation> annotations = new ArrayList<>();
 
     @Override

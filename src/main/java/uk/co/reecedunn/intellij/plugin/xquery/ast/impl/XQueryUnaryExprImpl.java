@@ -20,7 +20,7 @@ import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryUnaryExpr;
 
-public class XQueryUnaryExprImpl extends CompositeElement implements XQueryUnaryExpr {
+class XQueryUnaryExprImpl extends CompositeElement implements XQueryUnaryExpr {
     public XQueryUnaryExprImpl(@NotNull IElementType type) {
         super(type);
     }

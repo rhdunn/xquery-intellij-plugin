@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryNCName;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryQName;
 
-public class XQueryNCNameImpl extends LeafPsiElement implements XQueryNCName, XQueryQName {
+class XQueryNCNameImpl extends LeafPsiElement implements XQueryNCName, XQueryQName {
     public XQueryNCNameImpl(@NotNull IElementType type, @NotNull CharSequence text) {
         super(type, text);
     }

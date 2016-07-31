@@ -20,7 +20,7 @@ import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryProlog;
 
-public class XQueryPrologImpl extends CompositeElement implements XQueryProlog {
+class XQueryPrologImpl extends CompositeElement implements XQueryProlog {
     public XQueryPrologImpl(@NotNull IElementType type) {
         super(type);
     }

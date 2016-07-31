@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings;
 
-public class XQueryParser {
+class XQueryParser {
     // region Main Interface
 
     private final PsiBuilder mBuilder;
@@ -53,7 +53,7 @@ public class XQueryParser {
     // endregion
     // region Parser Helper Methods
 
-    public boolean skipWhiteSpaceAndCommentTokens() {
+    private boolean skipWhiteSpaceAndCommentTokens() {
         boolean skipped = false;
         while (true) {
             if (mBuilder.getTokenType() == XQueryTokenType.WHITE_SPACE) {
@@ -85,7 +85,7 @@ public class XQueryParser {
         }
     }
 
-    public boolean matchTokenType(IElementType type) {
+    private boolean matchTokenType(IElementType type) {
         if (mBuilder.getTokenType() == type) {
             mBuilder.advanceLexer();
             return true;
@@ -93,7 +93,7 @@ public class XQueryParser {
         return false;
     }
 
-    public PsiBuilder.Marker matchTokenTypeWithMarker(IElementType type) {
+    private PsiBuilder.Marker matchTokenTypeWithMarker(IElementType type) {
         if (mBuilder.getTokenType() == type) {
             final PsiBuilder.Marker marker = mBuilder.mark();
             mBuilder.advanceLexer();
@@ -102,7 +102,7 @@ public class XQueryParser {
         return null;
     }
 
-    public boolean errorOnTokenType(IElementType type, String message) {
+    private boolean errorOnTokenType(IElementType type, String message) {
         if (mBuilder.getTokenType() == type) {
             final PsiBuilder.Marker errorMarker = mBuilder.mark();
             mBuilder.advanceLexer();
@@ -112,19 +112,19 @@ public class XQueryParser {
         return false;
     }
 
-    public PsiBuilder.Marker mark() {
+    private PsiBuilder.Marker mark() {
         return mBuilder.mark();
     }
 
-    public IElementType getTokenType() {
+    private IElementType getTokenType() {
         return mBuilder.getTokenType();
     }
 
-    public void advanceLexer() {
+    private void advanceLexer() {
         mBuilder.advanceLexer();
     }
 
-    public void error(String message) {
+    private void error(String message) {
         mBuilder.error(message);
     }
 

@@ -52,14 +52,14 @@ public abstract class ParserTestCase extends ParsingTestCase {
 
     // region Parser Test Helpers
 
-    public void initializeSettings(XQueryProjectSettings settings) {
+    void initializeSettings(XQueryProjectSettings settings) {
     }
 
-    public XQueryProjectSettings getSettings() {
+    protected XQueryProjectSettings getSettings() {
         return XQueryProjectSettings.getInstance(myProject);
     }
 
-    public String loadResource(String resource) {
+    String loadResource(String resource) {
         ClassLoader loader = ParserTestCase.class.getClassLoader();
         InputStream stream = loader.getResourceAsStream(resource);
         StringWriter writer = new StringWriter();
@@ -71,13 +71,13 @@ public abstract class ParserTestCase extends ParsingTestCase {
         return writer.toString();
     }
 
-    public LightVirtualFile createVirtualFile(@NonNls String name, String text) {
+    LightVirtualFile createVirtualFile(@NonNls String name, String text) {
         LightVirtualFile file = new LightVirtualFile(name, myLanguage, text);
         file.setCharset(CharsetToolkit.UTF8_CHARSET);
         return file;
     }
 
-    public FileViewProvider getFileViewProvider(@NotNull Project project, LightVirtualFile file, boolean physical) {
+    FileViewProvider getFileViewProvider(@NotNull Project project, LightVirtualFile file, boolean physical) {
         final PsiManager manager = PsiManager.getInstance(project);
         final FileViewProviderFactory factory = LanguageFileViewProviders.INSTANCE.forLanguage(XQuery.INSTANCE);
         FileViewProvider viewProvider = factory != null ? factory.createFileViewProvider(file, XQuery.INSTANCE, manager, physical) : null;
@@ -134,13 +134,14 @@ public abstract class ParserTestCase extends ParsingTestCase {
         }
     }
 
-    public String prettyPrintASTNode(ASTNode node) {
+    String prettyPrintASTNode(ASTNode node) {
         StringBuilder prettyPrinted = new StringBuilder();
         prettyPrintASTNode(prettyPrinted, node, 0);
         return prettyPrinted.toString();
     }
 
-    public @NotNull ASTNode parseText(@NotNull String text) {
+    @NotNull
+    protected ASTNode parseText(@NotNull String text) {
         initializeSettings(getSettings());
 
         ParserDefinition parserDefinition = new XQueryParserDefinition();
@@ -154,7 +155,7 @@ public abstract class ParserTestCase extends ParsingTestCase {
         return node;
     }
 
-    public @NotNull ASTNode parseResource(String resource) {
+    @NotNull ASTNode parseResource(String resource) {
         return parseText(loadResource(resource));
     }
 

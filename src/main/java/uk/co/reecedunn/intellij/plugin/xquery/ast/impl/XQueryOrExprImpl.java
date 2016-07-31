@@ -20,7 +20,7 @@ import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryOrExpr;
 
-public class XQueryOrExprImpl extends CompositeElement implements XQueryOrExpr {
+class XQueryOrExprImpl extends CompositeElement implements XQueryOrExpr {
     public XQueryOrExprImpl(@NotNull IElementType type) {
         super(type);
     }

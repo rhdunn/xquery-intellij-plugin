@@ -20,7 +20,7 @@ import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryPathExpr;
 
-public class XQueryPathExprImpl extends CompositeElement implements XQueryPathExpr {
+class XQueryPathExprImpl extends CompositeElement implements XQueryPathExpr {
     public XQueryPathExprImpl(@NotNull IElementType type) {
         super(type);
     }

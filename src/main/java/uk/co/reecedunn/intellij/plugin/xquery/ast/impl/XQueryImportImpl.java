@@ -20,7 +20,7 @@ import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryImport;
 
-public class XQueryImportImpl extends CompositeElement implements XQueryImport {
+class XQueryImportImpl extends CompositeElement implements XQueryImport {
     public XQueryImportImpl(@NotNull IElementType type) {
         super(type);
     }

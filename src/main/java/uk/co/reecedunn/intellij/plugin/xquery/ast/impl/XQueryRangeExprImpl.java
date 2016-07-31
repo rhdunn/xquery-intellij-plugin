@@ -20,7 +20,7 @@ import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryRangeExpr;
 
-public class XQueryRangeExprImpl extends CompositeElement implements XQueryRangeExpr {
+class XQueryRangeExprImpl extends CompositeElement implements XQueryRangeExpr {
     public XQueryRangeExprImpl(@NotNull IElementType type) {
         super(type);
     }

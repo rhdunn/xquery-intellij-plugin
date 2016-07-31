@@ -20,7 +20,7 @@ import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryIntegerLiteral;
 
-public class XQueryIntegerLiteralImpl extends LeafPsiElement implements XQueryIntegerLiteral {
+class XQueryIntegerLiteralImpl extends LeafPsiElement implements XQueryIntegerLiteral {
     public XQueryIntegerLiteralImpl(@NotNull IElementType type, @NotNull CharSequence text) {
         super(type, text);
     }

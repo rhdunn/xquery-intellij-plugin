@@ -18,5 +18,5 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast;
 /**
  * An XQuery 1.0 <code>StepExpr</code> node in the XQuery AST.
  */
-public interface XQueryStepExpr {
+interface XQueryStepExpr {
 }

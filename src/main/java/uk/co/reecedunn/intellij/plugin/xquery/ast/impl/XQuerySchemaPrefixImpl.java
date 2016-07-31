@@ -20,7 +20,7 @@ import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.XQuerySchemaPrefix;
 
-public class XQuerySchemaPrefixImpl extends CompositeElement implements XQuerySchemaPrefix {
+class XQuerySchemaPrefixImpl extends CompositeElement implements XQuerySchemaPrefix {
     public XQuerySchemaPrefixImpl(@NotNull IElementType type) {
         super(type);
     }

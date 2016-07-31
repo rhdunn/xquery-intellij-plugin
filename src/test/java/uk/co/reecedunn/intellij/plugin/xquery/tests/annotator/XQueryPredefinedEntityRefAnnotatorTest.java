@@ -29,7 +29,7 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class XQueryPredefinedEntityRefAnnotatorTest extends AnnotatorTestCase {
-    public void checkSupportedEntities(XQueryVersion version, String entities) {
+    private void checkSupportedEntities(XQueryVersion version, String entities) {
         getSettings().setXQueryVersion(version);
         final ASTNode node = parseText(entities).getFirstChildNode();
 
@@ -38,7 +38,7 @@ public class XQueryPredefinedEntityRefAnnotatorTest extends AnnotatorTestCase {
         assertThat(annotations.size(), is(0));
     }
 
-    public void checkUnsupportedEntities(XQueryVersion version, String entities, int annotationCount, String startsWith, String endsWith) {
+    private void checkUnsupportedEntities(XQueryVersion version, String entities, int annotationCount, String startsWith, String endsWith) {
         getSettings().setXQueryVersion(version);
         final ASTNode node = parseText(entities).getFirstChildNode();
 

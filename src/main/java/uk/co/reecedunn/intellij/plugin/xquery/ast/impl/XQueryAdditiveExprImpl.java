@@ -20,7 +20,7 @@ import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryAdditiveExpr;
 
-public class XQueryAdditiveExprImpl extends CompositeElement implements XQueryAdditiveExpr {
+class XQueryAdditiveExprImpl extends CompositeElement implements XQueryAdditiveExpr {
     public XQueryAdditiveExprImpl(@NotNull IElementType type) {
         super(type);
     }

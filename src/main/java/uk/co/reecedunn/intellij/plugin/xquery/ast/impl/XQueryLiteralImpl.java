@@ -22,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryLiteral;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 
-public class XQueryLiteralImpl extends CompositeElement implements XQueryLiteral {
+class XQueryLiteralImpl extends CompositeElement implements XQueryLiteral {
     public XQueryLiteralImpl(@NotNull IElementType type) {
         super(type);
     }

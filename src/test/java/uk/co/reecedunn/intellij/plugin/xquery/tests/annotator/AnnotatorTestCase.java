@@ -27,7 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase;
 import java.util.List;
 
 public abstract class AnnotatorTestCase extends ParserTestCase {
-    public void annotateTree(@NotNull ASTNode node, @NotNull AnnotationHolder annotationHolder, @NotNull Annotator annotator) {
+    private void annotateTree(@NotNull ASTNode node, @NotNull AnnotationHolder annotationHolder, @NotNull Annotator annotator) {
         if (node instanceof CompositeElement) {
             CompositeElement element = (CompositeElement)node;
             annotator.annotate(element.getPsi(), annotationHolder);
@@ -40,7 +40,7 @@ public abstract class AnnotatorTestCase extends ParserTestCase {
         }
     }
 
-    public List<Annotation> annotateTree(@NotNull ASTNode node, @NotNull Annotator annotator) {
+    List<Annotation> annotateTree(@NotNull ASTNode node, @NotNull Annotator annotator) {
         AnnotationCollector annotationHolder = new AnnotationCollector();
         annotateTree(node, annotationHolder, annotator);
         return annotationHolder.annotations;

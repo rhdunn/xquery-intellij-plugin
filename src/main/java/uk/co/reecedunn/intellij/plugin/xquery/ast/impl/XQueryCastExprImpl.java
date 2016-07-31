@@ -20,7 +20,7 @@ import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryCastExpr;
 
-public class XQueryCastExprImpl extends CompositeElement implements XQueryCastExpr {
+class XQueryCastExprImpl extends CompositeElement implements XQueryCastExpr {
     public XQueryCastExprImpl(@NotNull IElementType type) {
         super(type);
     }

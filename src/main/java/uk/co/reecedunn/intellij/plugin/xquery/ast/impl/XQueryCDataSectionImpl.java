@@ -20,7 +20,7 @@ import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryCDataSection;
 
-public class XQueryCDataSectionImpl extends CompositeElement implements XQueryCDataSection {
+class XQueryCDataSectionImpl extends CompositeElement implements XQueryCDataSection {
     public XQueryCDataSectionImpl(@NotNull IElementType type) {
         super(type);
     }

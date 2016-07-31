@@ -44,7 +44,7 @@ public class ImplementationItem {
         mName = null;
     }
 
-    ImplementationItem(Element element) {
+    private ImplementationItem(Element element) {
         final NamedNodeMap attributes = element.getAttributes();
         mElement = element;
         mID = attributes.getNamedItem("id").getNodeValue();

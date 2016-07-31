@@ -23,7 +23,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.InputStream;
 
 public class Resources {
-    public static InputStream load(String resource) {
+    private static InputStream load(String resource) {
         ClassLoader loader = Resources.class.getClassLoader();
         return loader.getResourceAsStream(resource);
     }

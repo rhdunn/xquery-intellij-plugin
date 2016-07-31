@@ -23,5 +23,5 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast;
  * <code>PrimaryExpr</code> nodes are stored as instances of the child nodes
  * instead of as distinct nodes themselves.
  */
-public interface XQueryPrimaryExpr {
+interface XQueryPrimaryExpr {
 }

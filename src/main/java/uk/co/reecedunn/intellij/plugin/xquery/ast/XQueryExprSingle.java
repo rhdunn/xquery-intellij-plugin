@@ -23,5 +23,5 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast;
  * <code>ExprSingle</code> nodes are stored as instances of the child nodes
  * instead of as distinct nodes themselves.
  */
-public interface XQueryExprSingle {
+interface XQueryExprSingle {
 }

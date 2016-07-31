@@ -19,7 +19,7 @@ import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryQueryBody;
 
-public class XQueryQueryBodyImpl extends XQueryExprImpl implements XQueryQueryBody {
+class XQueryQueryBodyImpl extends XQueryExprImpl implements XQueryQueryBody {
     public XQueryQueryBodyImpl(@NotNull IElementType type) {
         super(type);
     }

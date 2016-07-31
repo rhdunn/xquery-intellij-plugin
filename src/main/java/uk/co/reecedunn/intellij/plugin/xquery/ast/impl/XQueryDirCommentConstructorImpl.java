@@ -20,7 +20,7 @@ import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryComment;
 
-public class XQueryDirCommentConstructorImpl extends CompositeElement implements XQueryComment {
+class XQueryDirCommentConstructorImpl extends CompositeElement implements XQueryComment {
     public XQueryDirCommentConstructorImpl(@NotNull IElementType type) {
         super(type);
     }

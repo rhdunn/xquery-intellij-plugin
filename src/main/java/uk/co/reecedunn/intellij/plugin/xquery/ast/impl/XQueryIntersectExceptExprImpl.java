@@ -20,7 +20,7 @@ import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryIntersectExceptExpr;
 
-public class XQueryIntersectExceptExprImpl extends CompositeElement implements XQueryIntersectExceptExpr {
+class XQueryIntersectExceptExprImpl extends CompositeElement implements XQueryIntersectExceptExpr {
     public XQueryIntersectExceptExprImpl(@NotNull IElementType type) {
         super(type);
     }

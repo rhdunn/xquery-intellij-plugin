@@ -20,7 +20,7 @@ import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryDecimalLiteral;
 
-public class XQueryDecimalLiteralImpl extends LeafPsiElement implements XQueryDecimalLiteral {
+class XQueryDecimalLiteralImpl extends LeafPsiElement implements XQueryDecimalLiteral {
     public XQueryDecimalLiteralImpl(@NotNull IElementType type, @NotNull CharSequence text) {
         super(type, text);
     }

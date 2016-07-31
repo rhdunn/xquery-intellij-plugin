@@ -20,7 +20,7 @@ import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryFilterExpr;
 
-public class XQueryFilterExprImpl extends CompositeElement implements XQueryFilterExpr {
+class XQueryFilterExprImpl extends CompositeElement implements XQueryFilterExpr {
     public XQueryFilterExprImpl(@NotNull IElementType type) {
         super(type);
     }

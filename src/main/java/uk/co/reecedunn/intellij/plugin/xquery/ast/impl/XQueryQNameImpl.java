@@ -20,7 +20,7 @@ import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryQName;
 
-public class XQueryQNameImpl extends CompositeElement implements XQueryQName {
+class XQueryQNameImpl extends CompositeElement implements XQueryQName {
     public XQueryQNameImpl(@NotNull IElementType type) {
         super(type);
     }

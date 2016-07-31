@@ -26,7 +26,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileTypeToArrayConsumer implements FileTypeConsumer {
+class FileTypeToArrayConsumer implements FileTypeConsumer {
     List<Pair<FileType, String>> fileTypes = new ArrayList<>();
     List<Pair<FileType, FileNameMatcher>> fileMatchers = new ArrayList<>();
 

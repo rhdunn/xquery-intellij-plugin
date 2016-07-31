@@ -33,7 +33,7 @@ public class XQueryFileTypeTest extends ParsingTestCase {
         super("", ".xqy", new XQueryParserDefinition());
     }
 
-    public LightVirtualFile createVirtualFile(@NonNls String name, String text) {
+    private LightVirtualFile createVirtualFile(@NonNls String name, String text) {
         LightVirtualFile file = new LightVirtualFile(name, myLanguage, text);
         file.setCharset(CharsetToolkit.UTF8_CHARSET);
         return file;

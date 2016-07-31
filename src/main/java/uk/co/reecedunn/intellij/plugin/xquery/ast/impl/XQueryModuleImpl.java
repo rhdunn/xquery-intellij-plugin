@@ -20,7 +20,7 @@ import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryModule;
 
-public class XQueryModuleImpl extends CompositeElement implements XQueryModule {
+class XQueryModuleImpl extends CompositeElement implements XQueryModule {
     public XQueryModuleImpl(@NotNull IElementType type) {
         super(type);
     }

@@ -20,7 +20,7 @@ import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryComparisonExpr;
 
-public class XQueryComparisonExprImpl extends CompositeElement implements XQueryComparisonExpr {
+class XQueryComparisonExprImpl extends CompositeElement implements XQueryComparisonExpr {
     public XQueryComparisonExprImpl(@NotNull IElementType type) {
         super(type);
     }

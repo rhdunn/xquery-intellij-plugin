@@ -20,7 +20,7 @@ import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryMultiplicativeExpr;
 
-public class XQueryMultiplicativeExprImpl extends CompositeElement implements XQueryMultiplicativeExpr {
+class XQueryMultiplicativeExprImpl extends CompositeElement implements XQueryMultiplicativeExpr {
     public XQueryMultiplicativeExprImpl(@NotNull IElementType type) {
         super(type);
     }

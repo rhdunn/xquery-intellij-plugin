@@ -20,7 +20,7 @@ import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryPredefinedEntityRef;
 
-public class XQueryPredefinedEntityRefImpl extends LeafPsiElement implements XQueryPredefinedEntityRef {
+class XQueryPredefinedEntityRefImpl extends LeafPsiElement implements XQueryPredefinedEntityRef {
     public XQueryPredefinedEntityRefImpl(@NotNull IElementType type, @NotNull CharSequence text) {
         super(type, text);
     }

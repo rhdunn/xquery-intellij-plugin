@@ -20,7 +20,7 @@ import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryDoubleLiteral;
 
-public class XQueryDoubleLiteralImpl extends LeafPsiElement implements XQueryDoubleLiteral {
+class XQueryDoubleLiteralImpl extends LeafPsiElement implements XQueryDoubleLiteral {
     public XQueryDoubleLiteralImpl(@NotNull IElementType type, @NotNull CharSequence text) {
         super(type, text);
     }
