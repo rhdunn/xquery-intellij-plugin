@@ -260,7 +260,7 @@ limitations under the License.
         </version>
     </implementation>
     <implementation id="w3c" name="W3C" localized="false" default="true" href="https://www.w3.org/XML/Query/">
-        <version id="w3c/spec" name="xquery.implementation.specification" localized="true" default="false">
+        <version id="w3c/spec" name="xquery.implementation.specification" localized="true" default="true">
             <xquery-version id="w3c/xquery.1.0" name="1.0" localized="false" default="false"/>
             <xquery-version id="w3c/xquery.3.0" name="3.0" localized="false" default="true"/>
             <xquery-version id="w3c/xquery.3.1" name="3.1" localized="false" default="false"/>

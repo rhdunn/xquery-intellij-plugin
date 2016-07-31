@@ -88,24 +88,48 @@ public class XQueryProjectSettings implements PersistentStateComponent<XQueryPro
         XQUERY_VERSION = version;
     }
 
+    public ImplementationItem getXQuery10Dialect() {
+        return XQUERY_1_0_DIALECT;
+    }
+
+    public void setXQuery10Dialect(ImplementationItem dialect) {
+        XQUERY_1_0_DIALECT = dialect;
+    }
+
+    public ImplementationItem getXQuery30Dialect() {
+        return XQUERY_3_0_DIALECT;
+    }
+
+    public void setXQuery30Dialect(ImplementationItem dialect) {
+        XQUERY_3_0_DIALECT = dialect;
+    }
+
+    public ImplementationItem getXQuery31Dialect() {
+        return XQUERY_3_1_DIALECT;
+    }
+
+    public void setXQuery31Dialect(ImplementationItem dialect) {
+        XQUERY_3_1_DIALECT = dialect;
+    }
+
     public ImplementationItem getDialectForXQueryVersion(XQueryVersion version) {
         if (version == XQueryVersion.XQUERY_1_0) {
-            return XQUERY_1_0_DIALECT;
+            return getXQuery10Dialect();
         } else if (version == XQueryVersion.XQUERY_3_0) {
-            return XQUERY_3_0_DIALECT;
+            return getXQuery30Dialect();
         } else if (version == XQueryVersion.XQUERY_3_1) {
-            return XQUERY_3_1_DIALECT;
+            return getXQuery31Dialect();
         }
         return ImplementationItem.NULL_ITEM;
     }
 
     public void setDialectForXQueryVersion(XQueryVersion version, ImplementationItem dialect) {
         if (version == XQueryVersion.XQUERY_1_0) {
-            XQUERY_1_0_DIALECT = dialect;
+            setXQuery10Dialect(dialect);
         } else if (version == XQueryVersion.XQUERY_3_0) {
-            XQUERY_3_0_DIALECT = dialect;
+            setXQuery30Dialect(dialect);
         } else if (version == XQueryVersion.XQUERY_3_1) {
-            XQUERY_3_1_DIALECT = dialect;
+            setXQuery31Dialect(dialect);
         }
     }
 }
