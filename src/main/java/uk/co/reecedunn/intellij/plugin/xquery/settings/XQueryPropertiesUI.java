@@ -143,7 +143,7 @@ public class XQueryPropertiesUI {
         return false;
     }
 
-    public void apply() throws ConfigurationException {
+    public void apply() {
         mSettings.setImplementation((ImplementationItem)mImplementations.getSelectedItem());
         mSettings.setImplementationVersion((ImplementationItem)mImplementationVersions.getSelectedItem());
         mSettings.setXQueryVersion((XQueryVersion)mVersion.getSelectedItem());
