@@ -143,8 +143,8 @@ public class XQueryPropertiesUI {
     }
 
     public void apply() {
-        mSettings.setImplementation((ImplementationItem)mImplementations.getSelectedItem());
-        mSettings.setImplementationVersion((ImplementationItem)mImplementationVersions.getSelectedItem());
+        mSettings.setImplementationItem((ImplementationItem)mImplementations.getSelectedItem());
+        mSettings.setImplementationVersionItem((ImplementationItem)mImplementationVersions.getSelectedItem());
         mSettings.setXQueryVersion((XQueryVersion)mVersion.getSelectedItem());
         mSettings.setDialectForXQueryVersion(XQueryVersion.XQUERY_1_0, (ImplementationItem)mDialectForXQuery1_0.getSelectedItem());
         mSettings.setDialectForXQueryVersion(XQueryVersion.XQUERY_3_0, (ImplementationItem)mDialectForXQuery3_0.getSelectedItem());

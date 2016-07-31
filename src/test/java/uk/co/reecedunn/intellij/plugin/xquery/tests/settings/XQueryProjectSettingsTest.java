@@ -16,7 +16,10 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.settings;
 
 import com.intellij.openapi.application.PathManager;
+import com.intellij.util.xmlb.XmlSerializer;
 import junit.framework.TestCase;
+import org.jdom.Element;
+import org.jdom.output.XMLOutputter;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Implementations;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
@@ -31,13 +34,15 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class XQueryProjectSettingsTest extends TestCase {
     public void testDefaultValues() {
         XQueryProjectSettings settings = new XQueryProjectSettings();
-        assertThat(settings.getImplementation().getID(), is("w3c"));
-        assertThat(settings.getImplementationVersion().getID(), is("w3c/spec"));
+        assertThat(settings.getImplementation(), is("w3c"));
+        assertThat(settings.getImplementationVersion(), is("w3c/spec"));
         assertThat(settings.getXQueryVersion(), is(XQueryVersion.XQUERY_3_0));
-        assertThat(settings.getXQuery10Dialect().getID(), is("w3c/1.0"));
-        assertThat(settings.getXQuery30Dialect().getID(), is("w3c/3.0"));
-        assertThat(settings.getXQuery31Dialect().getID(), is("w3c/3.1"));
+        assertThat(settings.getXQuery10Dialect(), is("w3c/1.0"));
+        assertThat(settings.getXQuery30Dialect(), is("w3c/3.0"));
+        assertThat(settings.getXQuery31Dialect(), is("w3c/3.1"));
 
+        assertThat(settings.getImplementationItem().getID(), is("w3c"));
+        assertThat(settings.getImplementationVersionItem().getID(), is("w3c/spec"));
         assertThat(settings.getDialectForXQueryVersion(XQueryVersion.XQUERY_0_9_MARKLOGIC).getID(), is(nullValue()));
         assertThat(settings.getDialectForXQueryVersion(XQueryVersion.XQUERY_1_0_MARKLOGIC).getID(), is(nullValue()));
         assertThat(settings.getDialectForXQueryVersion(XQueryVersion.XQUERY_1_0).getID(), is("w3c/1.0"));
@@ -56,23 +61,25 @@ public class XQueryProjectSettingsTest extends TestCase {
         List<ImplementationItem> implementationDialects = implementationVersion.getItems(ImplementationItem.IMPLEMENTATION_DIALECT);
 
         XQueryProjectSettings other = new XQueryProjectSettings();
-        other.setImplementation(implementation);
-        other.setImplementationVersion(implementationVersion);
+        other.setImplementation(implementation.getID());
+        other.setImplementationVersion(implementationVersion.getID());
         other.setXQueryVersion(XQueryVersion.XQUERY_0_9_MARKLOGIC);
-        other.setXQuery10Dialect(implementationDialects.get(0));
-        other.setXQuery30Dialect(implementationDialects.get(1));
-        other.setXQuery31Dialect(implementationDialects.get(2));
+        other.setXQuery10Dialect(implementationDialects.get(0).getID());
+        other.setXQuery30Dialect(implementationDialects.get(1).getID());
+        other.setXQuery31Dialect(implementationDialects.get(2).getID());
 
         XQueryProjectSettings settings = new XQueryProjectSettings();
         settings.loadState(other);
-        assertThat(settings.getImplementation().getID(), is("marklogic"));
-        assertThat(settings.getImplementationVersion().getID(), is("marklogic/v6"));
+        assertThat(settings.getImplementation(), is("marklogic"));
+        assertThat(settings.getImplementationVersion(), is("marklogic/v6"));
         assertThat(settings.getXQueryVersion(), is(XQueryVersion.XQUERY_0_9_MARKLOGIC));
-        assertThat(settings.getXQuery10Dialect().getID(), is("marklogic/v6/0.9-ml"));
-        assertThat(settings.getXQuery30Dialect().getID(), is("marklogic/v6/1.0"));
-        assertThat(settings.getXQuery31Dialect().getID(), is("marklogic/v6/1.0-ml"));
+        assertThat(settings.getXQuery10Dialect(), is("marklogic/v6/0.9-ml"));
+        assertThat(settings.getXQuery30Dialect(), is("marklogic/v6/1.0"));
+        assertThat(settings.getXQuery31Dialect(), is("marklogic/v6/1.0-ml"));
 
-        // Setting dialects via setXQuery**Dialect() updates the corresponding getDialectForXQueryVersion()...
+        // Setting via the bean properties updates the transient properties.
+        assertThat(settings.getImplementationItem().getID(), is("marklogic"));
+        assertThat(settings.getImplementationVersionItem().getID(), is("marklogic/v6"));
         assertThat(settings.getDialectForXQueryVersion(XQueryVersion.XQUERY_0_9_MARKLOGIC).getID(), is(nullValue()));
         assertThat(settings.getDialectForXQueryVersion(XQueryVersion.XQUERY_1_0_MARKLOGIC).getID(), is(nullValue()));
         assertThat(settings.getDialectForXQueryVersion(XQueryVersion.XQUERY_1_0).getID(), is("marklogic/v6/0.9-ml"));
@@ -92,25 +99,49 @@ public class XQueryProjectSettingsTest extends TestCase {
         assertThat(settings.getPresentableName(), is("XQuery Project Settings"));
     }
 
-    public void testDialectForXQueryVersion() {
+    public void testTransientProperties() {
         ImplementationItem implementation = Implementations.getImplementations().get(0);
         ImplementationItem implementationVersion = implementation.getItems(ImplementationItem.IMPLEMENTATION_VERSION).get(0);
         List<ImplementationItem> implementationDialects = implementationVersion.getItems(ImplementationItem.IMPLEMENTATION_DIALECT);
 
         XQueryProjectSettings settings = new XQueryProjectSettings();
+        settings.setImplementationItem(implementation);
+        settings.setImplementationVersionItem(implementationVersion);
         settings.setDialectForXQueryVersion(XQueryVersion.XQUERY_1_0, implementationDialects.get(0));
         settings.setDialectForXQueryVersion(XQueryVersion.XQUERY_3_0, implementationDialects.get(1));
         settings.setDialectForXQueryVersion(XQueryVersion.XQUERY_3_1, implementationDialects.get(2));
 
+        assertThat(settings.getImplementationItem().getID(), is("marklogic"));
+        assertThat(settings.getImplementationVersionItem().getID(), is("marklogic/v6"));
         assertThat(settings.getDialectForXQueryVersion(XQueryVersion.XQUERY_0_9_MARKLOGIC).getID(), is(nullValue()));
         assertThat(settings.getDialectForXQueryVersion(XQueryVersion.XQUERY_1_0_MARKLOGIC).getID(), is(nullValue()));
         assertThat(settings.getDialectForXQueryVersion(XQueryVersion.XQUERY_1_0).getID(), is("marklogic/v6/0.9-ml"));
         assertThat(settings.getDialectForXQueryVersion(XQueryVersion.XQUERY_3_0).getID(), is("marklogic/v6/1.0"));
         assertThat(settings.getDialectForXQueryVersion(XQueryVersion.XQUERY_3_1).getID(), is("marklogic/v6/1.0-ml"));
 
-        // Setting dialects via setDialectForXQueryVersion updates the corresponding setXQuery**Dialect()...
-        assertThat(settings.getXQuery10Dialect().getID(), is("marklogic/v6/0.9-ml"));
-        assertThat(settings.getXQuery30Dialect().getID(), is("marklogic/v6/1.0"));
-        assertThat(settings.getXQuery31Dialect().getID(), is("marklogic/v6/1.0-ml"));
+        // Setting via the transient properties updates the bean properties.
+        assertThat(settings.getImplementation(), is("marklogic"));
+        assertThat(settings.getImplementationVersion(), is("marklogic/v6"));
+        assertThat(settings.getXQuery10Dialect(), is("marklogic/v6/0.9-ml"));
+        assertThat(settings.getXQuery30Dialect(), is("marklogic/v6/1.0"));
+        assertThat(settings.getXQuery31Dialect(), is("marklogic/v6/1.0-ml"));
+    }
+
+    public void testSerialization() {
+        XQueryProjectSettings settings = new XQueryProjectSettings();
+        XMLOutputter outputter = new XMLOutputter();
+
+        final String expected
+                = "<XQueryProjectSettings>"
+                + "<option name=\"XQuery10Dialect\" value=\"w3c/1.0\" />"
+                + "<option name=\"XQuery30Dialect\" value=\"w3c/3.0\" />"
+                + "<option name=\"XQuery31Dialect\" value=\"w3c/3.1\" />"
+                + "<option name=\"XQueryVersion\" value=\"3.0\" />"
+                + "<option name=\"implementation\" value=\"w3c\" />"
+                + "<option name=\"implementationVersion\" value=\"w3c/spec\" />"
+                + "</XQueryProjectSettings>";
+
+        Element element = XmlSerializer.serialize(settings);
+        assertThat(outputter.outputString(element), is(expected));
     }
 }

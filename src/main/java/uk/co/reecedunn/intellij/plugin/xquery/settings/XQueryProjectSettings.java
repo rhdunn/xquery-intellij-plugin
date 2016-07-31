@@ -19,6 +19,7 @@ import com.intellij.openapi.application.PathManager;
 import com.intellij.openapi.components.*;
 import com.intellij.openapi.project.Project;
 import com.intellij.util.xmlb.XmlSerializerUtil;
+import com.intellij.util.xmlb.annotations.Transient;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
@@ -43,6 +44,7 @@ public class XQueryProjectSettings implements PersistentStateComponent<XQueryPro
         return ServiceManager.getService(project, XQueryProjectSettings.class);
     }
 
+    @Override
     public XQueryProjectSettings getState() {
         return this;
     }
@@ -64,20 +66,40 @@ public class XQueryProjectSettings implements PersistentStateComponent<XQueryPro
         return XQueryBundle.message("xquery.settings.project.title");
     }
 
-    public ImplementationItem getImplementation() {
+    @Transient
+    public ImplementationItem getImplementationItem() {
         return IMPLEMENTATION;
     }
 
-    public void setImplementation(ImplementationItem implementation) {
+    @Transient
+    public void setImplementationItem(ImplementationItem implementation) {
         IMPLEMENTATION = implementation;
     }
 
-    public ImplementationItem getImplementationVersion() {
+    public String getImplementation() {
+        return IMPLEMENTATION.getID();
+    }
+
+    public void setImplementation(String implementation) {
+        IMPLEMENTATION = Implementations.getItemById(implementation);
+    }
+
+    @Transient
+    public ImplementationItem getImplementationVersionItem() {
         return IMPLEMENTATION_VERSION;
     }
 
-    public void setImplementationVersion(ImplementationItem version) {
+    @Transient
+    public void setImplementationVersionItem(ImplementationItem version) {
         IMPLEMENTATION_VERSION = version;
+    }
+
+    public String getImplementationVersion() {
+        return IMPLEMENTATION_VERSION.getID();
+    }
+
+    public void setImplementationVersion(String version) {
+        IMPLEMENTATION_VERSION = Implementations.getItemById(version);
     }
 
     public XQueryVersion getXQueryVersion() {
@@ -88,48 +110,50 @@ public class XQueryProjectSettings implements PersistentStateComponent<XQueryPro
         XQUERY_VERSION = version;
     }
 
-    public ImplementationItem getXQuery10Dialect() {
-        return XQUERY_1_0_DIALECT;
+    public String getXQuery10Dialect() {
+        return XQUERY_1_0_DIALECT.getID();
     }
 
-    public void setXQuery10Dialect(ImplementationItem dialect) {
-        XQUERY_1_0_DIALECT = dialect;
+    public void setXQuery10Dialect(String dialect) {
+        XQUERY_1_0_DIALECT = Implementations.getItemById(dialect);
     }
 
-    public ImplementationItem getXQuery30Dialect() {
-        return XQUERY_3_0_DIALECT;
+    public String getXQuery30Dialect() {
+        return XQUERY_3_0_DIALECT.getID();
     }
 
-    public void setXQuery30Dialect(ImplementationItem dialect) {
-        XQUERY_3_0_DIALECT = dialect;
+    public void setXQuery30Dialect(String dialect) {
+        XQUERY_3_0_DIALECT = Implementations.getItemById(dialect);
     }
 
-    public ImplementationItem getXQuery31Dialect() {
-        return XQUERY_3_1_DIALECT;
+    public String getXQuery31Dialect() {
+        return XQUERY_3_1_DIALECT.getID();
     }
 
-    public void setXQuery31Dialect(ImplementationItem dialect) {
-        XQUERY_3_1_DIALECT = dialect;
+    public void setXQuery31Dialect(String dialect) {
+        XQUERY_3_1_DIALECT = Implementations.getItemById(dialect);
     }
 
+    @Transient
     public ImplementationItem getDialectForXQueryVersion(XQueryVersion version) {
         if (version == XQueryVersion.XQUERY_1_0) {
-            return getXQuery10Dialect();
+            return XQUERY_1_0_DIALECT;
         } else if (version == XQueryVersion.XQUERY_3_0) {
-            return getXQuery30Dialect();
+            return XQUERY_3_0_DIALECT;
         } else if (version == XQueryVersion.XQUERY_3_1) {
-            return getXQuery31Dialect();
+            return XQUERY_3_1_DIALECT;
         }
         return ImplementationItem.NULL_ITEM;
     }
 
+    @Transient
     public void setDialectForXQueryVersion(XQueryVersion version, ImplementationItem dialect) {
         if (version == XQueryVersion.XQUERY_1_0) {
-            setXQuery10Dialect(dialect);
+            XQUERY_1_0_DIALECT = dialect;
         } else if (version == XQueryVersion.XQUERY_3_0) {
-            setXQuery30Dialect(dialect);
+            XQUERY_3_0_DIALECT = dialect;
         } else if (version == XQueryVersion.XQUERY_3_1) {
-            setXQuery31Dialect(dialect);
+            XQUERY_3_1_DIALECT = dialect;
         }
     }
 }
