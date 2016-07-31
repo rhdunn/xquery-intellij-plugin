@@ -19,7 +19,11 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings;
 
 public class XQuery10MarkLogicParserTest extends XQuery10ParserTest {
+    // region Initialization
+
     public void initializeSettings(XQueryProjectSettings settings) {
         settings.setXQueryVersion(XQueryVersion.XQUERY_1_0_MARKLOGIC);
     }
+
+    // endregion
 }

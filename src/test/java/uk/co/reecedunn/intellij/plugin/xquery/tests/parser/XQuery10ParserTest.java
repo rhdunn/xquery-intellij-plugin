@@ -24,10 +24,13 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class XQuery10ParserTest extends ParserTestCase {
+    // region Initialization
+
     public void initializeSettings(XQueryProjectSettings settings) {
         settings.setXQueryVersion(XQueryVersion.XQUERY_1_0);
     }
 
+    // endregion
     // region Basic Parser Tests
 
     public void testEmptyBuffer() {
@@ -57,270 +60,6 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
-    // region A.2.1 Terminal Symbols (XQuery 1.0)
-
-    // region IntegerLiteral
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-IntegerLiteral")
-    public void testIntegerLiteral() {
-        final String expected = loadResource("tests/parser/xquery-1.0/IntegerLiteral.txt");
-        final ASTNode actual = parseResource("tests/parser/xquery-1.0/IntegerLiteral.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    // endregion
-    // region DecimalLiteral
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DecimalLiteral")
-    public void testDecimalLiteral() {
-        final String expected = loadResource("tests/parser/xquery-1.0/DecimalLiteral.txt");
-        final ASTNode actual = parseResource("tests/parser/xquery-1.0/DecimalLiteral.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    // endregion
-    // region DoubleLiteral
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DoubleLiteral")
-    public void testDoubleLiteral() {
-        final String expected = loadResource("tests/parser/xquery-1.0/DoubleLiteral.txt");
-        final ASTNode actual = parseResource("tests/parser/xquery-1.0/DoubleLiteral.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DoubleLiteral")
-    public void testDoubleLiteral_IncompleteExponent() {
-        final String expected = loadResource("tests/parser/xquery-1.0/DoubleLiteral_IncompleteExponent.txt");
-        final ASTNode actual = parseResource("tests/parser/xquery-1.0/DoubleLiteral_IncompleteExponent.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    // endregion
-    // region StringLiteral
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
-    public void testStringLiteral() {
-        final String expected = loadResource("tests/parser/xquery-1.0/StringLiteral.txt");
-        final ASTNode actual = parseResource("tests/parser/xquery-1.0/StringLiteral.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
-    public void testStringLiteral_UnclosedString() {
-        final String expected = loadResource("tests/parser/xquery-1.0/StringLiteral_UnclosedString.txt");
-        final ASTNode actual = parseResource("tests/parser/xquery-1.0/StringLiteral_UnclosedString.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    // endregion
-    // region PredefinedEntityRef
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PredefinedEntityRef")
-    public void testStringLiteral_PredefinedEntityRef() {
-        final String expected = loadResource("tests/parser/xquery-1.0/StringLiteral_PredefinedEntityRef.txt");
-        final ASTNode actual = parseResource("tests/parser/xquery-1.0/StringLiteral_PredefinedEntityRef.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PredefinedEntityRef")
-    public void testStringLiteral_PredefinedEntityRef_IncompleteRef() {
-        final String expected = loadResource("tests/parser/xquery-1.0/StringLiteral_PredefinedEntityRef_IncompleteRef.txt");
-        final ASTNode actual = parseResource("tests/parser/xquery-1.0/StringLiteral_PredefinedEntityRef_IncompleteRef.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PredefinedEntityRef")
-    public void testStringLiteral_PredefinedEntityRef_EmptyRef() {
-        final String expected = loadResource("tests/parser/xquery-1.0/StringLiteral_PredefinedEntityRef_EmptyRef.txt");
-        final ASTNode actual = parseResource("tests/parser/xquery-1.0/StringLiteral_PredefinedEntityRef_EmptyRef.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PredefinedEntityRef")
-    public void testPredefinedEntityRef_MisplacedEntityRef() {
-        final String expected = loadResource("tests/parser/xquery-1.0/PredefinedEntityRef_MisplacedEntityRef.txt");
-        final ASTNode actual = parseResource("tests/parser/xquery-1.0/PredefinedEntityRef_MisplacedEntityRef.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    // endregion
-    // region EscapeQuot
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-EscapeQuot")
-    public void testStringLiteral_EscapeQuot() {
-        final String expected = loadResource("tests/parser/xquery-1.0/StringLiteral_EscapeQuot.txt");
-        final ASTNode actual = parseResource("tests/parser/xquery-1.0/StringLiteral_EscapeQuot.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    // endregion
-    // region EscapeApos
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-EscapeApos")
-    public void testStringLiteral_EscapeApos() {
-        final String expected = loadResource("tests/parser/xquery-1.0/StringLiteral_EscapeApos.txt");
-        final ASTNode actual = parseResource("tests/parser/xquery-1.0/StringLiteral_EscapeApos.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    // endregion
-    // region Comment
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Comment")
-    public void testComment() {
-        final String expected = loadResource("tests/parser/xquery-1.0/Comment.txt");
-        final ASTNode actual = parseResource("tests/parser/xquery-1.0/Comment.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Comment")
-    public void testComment_UnclosedComment() {
-        final String expected = loadResource("tests/parser/xquery-1.0/Comment_UnclosedComment.txt");
-        final ASTNode actual = parseResource("tests/parser/xquery-1.0/Comment_UnclosedComment.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Comment")
-    public void testComment_UnexpectedCommentEndTag() {
-        final String expected = loadResource("tests/parser/xquery-1.0/Comment_UnexpectedCommentEndTag.txt");
-        final ASTNode actual = parseResource("tests/parser/xquery-1.0/Comment_UnexpectedCommentEndTag.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    // endregion
-    // region CharRef
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CharRef")
-    public void testStringLiteral_CharRef() {
-        final String expected = loadResource("tests/parser/xquery-1.0/StringLiteral_CharRef.txt");
-        final ASTNode actual = parseResource("tests/parser/xquery-1.0/StringLiteral_CharRef.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CharRef")
-    public void testStringLiteral_CharRef_IncompleteRef() {
-        final String expected = loadResource("tests/parser/xquery-1.0/StringLiteral_CharRef_IncompleteRef.txt");
-        final ASTNode actual = parseResource("tests/parser/xquery-1.0/StringLiteral_CharRef_IncompleteRef.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PredefinedEntityRef")
-    public void testStringLiteral_CharRef_EmptyNumericRef() {
-        final String expected = loadResource("tests/parser/xquery-1.0/StringLiteral_CharRef_EmptyNumericRef.txt");
-        final ASTNode actual = parseResource("tests/parser/xquery-1.0/StringLiteral_CharRef_EmptyNumericRef.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PredefinedEntityRef")
-    public void testStringLiteral_CharRef_EmptyHexidecimalRef() {
-        final String expected = loadResource("tests/parser/xquery-1.0/StringLiteral_CharRef_EmptyHexidecimalRef.txt");
-        final ASTNode actual = parseResource("tests/parser/xquery-1.0/StringLiteral_CharRef_EmptyHexidecimalRef.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    // endregion
-    // region QName
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
-    @Specification(name="Namespaces in XML 1.0 3ed", reference="https://www.w3.org/TR/2009/REC-xml-names-20091208/#NT-QName")
-    public void testQName() {
-        final String expected = loadResource("tests/parser/xquery-1.0/QName.txt");
-        final ASTNode actual = parseResource("tests/parser/xquery-1.0/QName.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
-    @Specification(name="Namespaces in XML 1.0 3ed", reference="https://www.w3.org/TR/2009/REC-xml-names-20091208/#NT-QName")
-    public void testQName_SpaceBeforeColon() {
-        final String expected = loadResource("tests/parser/xquery-1.0/QName_SpaceBeforeColon.txt");
-        final ASTNode actual = parseResource("tests/parser/xquery-1.0/QName_SpaceBeforeColon.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
-    @Specification(name="Namespaces in XML 1.0 3ed", reference="https://www.w3.org/TR/2009/REC-xml-names-20091208/#NT-QName")
-    public void testQName_SpaceAfterColon() {
-        final String expected = loadResource("tests/parser/xquery-1.0/QName_SpaceAfterColon.txt");
-        final ASTNode actual = parseResource("tests/parser/xquery-1.0/QName_SpaceAfterColon.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
-    @Specification(name="Namespaces in XML 1.0 3ed", reference="https://www.w3.org/TR/2009/REC-xml-names-20091208/#NT-QName")
-    public void testQName_SpaceBeforeAndAfterColon() {
-        final String expected = loadResource("tests/parser/xquery-1.0/QName_SpaceBeforeAndAfterColon.txt");
-        final ASTNode actual = parseResource("tests/parser/xquery-1.0/QName_SpaceBeforeAndAfterColon.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
-    @Specification(name="Namespaces in XML 1.0 3ed", reference="https://www.w3.org/TR/2009/REC-xml-names-20091208/#NT-QName")
-    public void testQName_NonNCNameLocalPart() {
-        final String expected = loadResource("tests/parser/xquery-1.0/QName_NonNCNameLocalPart.txt");
-        final ASTNode actual = parseResource("tests/parser/xquery-1.0/QName_NonNCNameLocalPart.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
-    @Specification(name="Namespaces in XML 1.0 3ed", reference="https://www.w3.org/TR/2009/REC-xml-names-20091208/#NT-QName")
-    public void testQName_MissingLocalPart() {
-        final String expected = loadResource("tests/parser/xquery-1.0/QName_MissingLocalPart.txt");
-        final ASTNode actual = parseResource("tests/parser/xquery-1.0/QName_MissingLocalPart.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
-    @Specification(name="Namespaces in XML 1.0 3ed", reference="https://www.w3.org/TR/2009/REC-xml-names-20091208/#NT-QName")
-    public void testQName_MissingPrefixPart() {
-        final String expected = loadResource("tests/parser/xquery-1.0/QName_MissingPrefixPart.txt");
-        final ASTNode actual = parseResource("tests/parser/xquery-1.0/QName_MissingPrefixPart.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
-    @Specification(name="Namespaces in XML 1.0 3ed", reference="https://www.w3.org/TR/2009/REC-xml-names-20091208/#NT-QName")
-    public void testQName_MissingPrefixAndLocalPart() {
-        final String expected = loadResource("tests/parser/xquery-1.0/QName_MissingPrefixAndLocalPart.txt");
-        final ASTNode actual = parseResource("tests/parser/xquery-1.0/QName_MissingPrefixAndLocalPart.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    // endregion
-    // region NCName
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-NCName")
-    @Specification(name="Namespaces in XML 1.0 3ed", reference="https://www.w3.org/TR/2009/REC-xml-names-20091208/#NT-NCName")
-    public void testNCName() {
-        final String expected = loadResource("tests/parser/xquery-1.0/NCName.txt");
-        final ASTNode actual = parseResource("tests/parser/xquery-1.0/NCName.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    // endregion
-    // region S
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-S")
-    @Specification(name="XML 1.0 5ed", reference="https://www.w3.org/TR/2008/REC-xml-20081126/#NT-S")
-    public void testS() {
-        final String expected = loadResource("tests/parser/xquery-1.0/S.txt");
-        final ASTNode actual = parseResource("tests/parser/xquery-1.0/S.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    // endregion
-
-    // endregion
-    // region A.1 EBNF (XQuery 1.0)
-
     // region VersionDecl
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VersionDecl")
@@ -384,6 +123,37 @@ public class XQuery10ParserTest extends ParserTestCase {
     public void testVersionDecl_MissingEncodingString() {
         final String expected = loadResource("tests/parser/xquery-1.0/VersionDecl_MissingEncodingString.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/VersionDecl_MissingEncodingString.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
+    // region VersionDecl (XQuery 3.0)
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-VersionDecl")
+    public void testVersionDecl_EncodingOnly() {
+        final String expected = loadResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly10.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-VersionDecl")
+    public void testVersionDecl_EncodingOnly_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly_CompactWhitespace10.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-VersionDecl")
+    public void testVersionDecl_EncodingOnly_MissingEncodingString() {
+        final String expected = loadResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly_MissingEncodingString10.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly_MissingEncodingString.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-VersionDecl")
+    public void testVersionDecl_EncodingOnly_MissingSemicolon() {
+        final String expected = loadResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly_MissingSemicolon10.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly_MissingSemicolon.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
@@ -650,41 +420,262 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region IntegerLiteral
 
-    // endregion
-    // region A.1 EBNF (XQuery 3.0)
-
-    // region VersionDecl
-
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-VersionDecl")
-    public void testVersionDecl_EncodingOnly() {
-        final String expected = loadResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly10.txt");
-        final ASTNode actual = parseResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-VersionDecl")
-    public void testVersionDecl_EncodingOnly_CompactWhitespace() {
-        final String expected = loadResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly_CompactWhitespace10.txt");
-        final ASTNode actual = parseResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly_CompactWhitespace.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-VersionDecl")
-    public void testVersionDecl_EncodingOnly_MissingEncodingString() {
-        final String expected = loadResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly_MissingEncodingString10.txt");
-        final ASTNode actual = parseResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly_MissingEncodingString.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-VersionDecl")
-    public void testVersionDecl_EncodingOnly_MissingSemicolon() {
-        final String expected = loadResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly_MissingSemicolon10.txt");
-        final ASTNode actual = parseResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly_MissingSemicolon.xq");
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-IntegerLiteral")
+    public void testIntegerLiteral() {
+        final String expected = loadResource("tests/parser/xquery-1.0/IntegerLiteral.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/IntegerLiteral.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     // endregion
+    // region DecimalLiteral
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DecimalLiteral")
+    public void testDecimalLiteral() {
+        final String expected = loadResource("tests/parser/xquery-1.0/DecimalLiteral.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/DecimalLiteral.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
+    // region DoubleLiteral
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DoubleLiteral")
+    public void testDoubleLiteral() {
+        final String expected = loadResource("tests/parser/xquery-1.0/DoubleLiteral.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/DoubleLiteral.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DoubleLiteral")
+    public void testDoubleLiteral_IncompleteExponent() {
+        final String expected = loadResource("tests/parser/xquery-1.0/DoubleLiteral_IncompleteExponent.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/DoubleLiteral_IncompleteExponent.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
+    // region StringLiteral
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
+    public void testStringLiteral() {
+        final String expected = loadResource("tests/parser/xquery-1.0/StringLiteral.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/StringLiteral.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
+    public void testStringLiteral_UnclosedString() {
+        final String expected = loadResource("tests/parser/xquery-1.0/StringLiteral_UnclosedString.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/StringLiteral_UnclosedString.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
+    // region PredefinedEntityRef
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PredefinedEntityRef")
+    public void testStringLiteral_PredefinedEntityRef() {
+        final String expected = loadResource("tests/parser/xquery-1.0/StringLiteral_PredefinedEntityRef.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/StringLiteral_PredefinedEntityRef.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PredefinedEntityRef")
+    public void testStringLiteral_PredefinedEntityRef_IncompleteRef() {
+        final String expected = loadResource("tests/parser/xquery-1.0/StringLiteral_PredefinedEntityRef_IncompleteRef.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/StringLiteral_PredefinedEntityRef_IncompleteRef.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PredefinedEntityRef")
+    public void testStringLiteral_PredefinedEntityRef_EmptyRef() {
+        final String expected = loadResource("tests/parser/xquery-1.0/StringLiteral_PredefinedEntityRef_EmptyRef.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/StringLiteral_PredefinedEntityRef_EmptyRef.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PredefinedEntityRef")
+    public void testPredefinedEntityRef_MisplacedEntityRef() {
+        final String expected = loadResource("tests/parser/xquery-1.0/PredefinedEntityRef_MisplacedEntityRef.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/PredefinedEntityRef_MisplacedEntityRef.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
+    // region EscapeQuot
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-EscapeQuot")
+    public void testStringLiteral_EscapeQuot() {
+        final String expected = loadResource("tests/parser/xquery-1.0/StringLiteral_EscapeQuot.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/StringLiteral_EscapeQuot.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
+    // region EscapeApos
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-EscapeApos")
+    public void testStringLiteral_EscapeApos() {
+        final String expected = loadResource("tests/parser/xquery-1.0/StringLiteral_EscapeApos.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/StringLiteral_EscapeApos.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
+    // region Comment
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Comment")
+    public void testComment() {
+        final String expected = loadResource("tests/parser/xquery-1.0/Comment.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/Comment.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Comment")
+    public void testComment_UnclosedComment() {
+        final String expected = loadResource("tests/parser/xquery-1.0/Comment_UnclosedComment.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/Comment_UnclosedComment.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Comment")
+    public void testComment_UnexpectedCommentEndTag() {
+        final String expected = loadResource("tests/parser/xquery-1.0/Comment_UnexpectedCommentEndTag.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/Comment_UnexpectedCommentEndTag.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
+    // region CharRef
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CharRef")
+    public void testStringLiteral_CharRef() {
+        final String expected = loadResource("tests/parser/xquery-1.0/StringLiteral_CharRef.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/StringLiteral_CharRef.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CharRef")
+    public void testStringLiteral_CharRef_IncompleteRef() {
+        final String expected = loadResource("tests/parser/xquery-1.0/StringLiteral_CharRef_IncompleteRef.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/StringLiteral_CharRef_IncompleteRef.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PredefinedEntityRef")
+    public void testStringLiteral_CharRef_EmptyNumericRef() {
+        final String expected = loadResource("tests/parser/xquery-1.0/StringLiteral_CharRef_EmptyNumericRef.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/StringLiteral_CharRef_EmptyNumericRef.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PredefinedEntityRef")
+    public void testStringLiteral_CharRef_EmptyHexidecimalRef() {
+        final String expected = loadResource("tests/parser/xquery-1.0/StringLiteral_CharRef_EmptyHexidecimalRef.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/StringLiteral_CharRef_EmptyHexidecimalRef.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
+    // region QName
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
+    @Specification(name="Namespaces in XML 1.0 3ed", reference="https://www.w3.org/TR/2009/REC-xml-names-20091208/#NT-QName")
+    public void testQName() {
+        final String expected = loadResource("tests/parser/xquery-1.0/QName.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/QName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
+    @Specification(name="Namespaces in XML 1.0 3ed", reference="https://www.w3.org/TR/2009/REC-xml-names-20091208/#NT-QName")
+    public void testQName_SpaceBeforeColon() {
+        final String expected = loadResource("tests/parser/xquery-1.0/QName_SpaceBeforeColon.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/QName_SpaceBeforeColon.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
+    @Specification(name="Namespaces in XML 1.0 3ed", reference="https://www.w3.org/TR/2009/REC-xml-names-20091208/#NT-QName")
+    public void testQName_SpaceAfterColon() {
+        final String expected = loadResource("tests/parser/xquery-1.0/QName_SpaceAfterColon.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/QName_SpaceAfterColon.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
+    @Specification(name="Namespaces in XML 1.0 3ed", reference="https://www.w3.org/TR/2009/REC-xml-names-20091208/#NT-QName")
+    public void testQName_SpaceBeforeAndAfterColon() {
+        final String expected = loadResource("tests/parser/xquery-1.0/QName_SpaceBeforeAndAfterColon.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/QName_SpaceBeforeAndAfterColon.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
+    @Specification(name="Namespaces in XML 1.0 3ed", reference="https://www.w3.org/TR/2009/REC-xml-names-20091208/#NT-QName")
+    public void testQName_NonNCNameLocalPart() {
+        final String expected = loadResource("tests/parser/xquery-1.0/QName_NonNCNameLocalPart.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/QName_NonNCNameLocalPart.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
+    @Specification(name="Namespaces in XML 1.0 3ed", reference="https://www.w3.org/TR/2009/REC-xml-names-20091208/#NT-QName")
+    public void testQName_MissingLocalPart() {
+        final String expected = loadResource("tests/parser/xquery-1.0/QName_MissingLocalPart.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/QName_MissingLocalPart.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
+    @Specification(name="Namespaces in XML 1.0 3ed", reference="https://www.w3.org/TR/2009/REC-xml-names-20091208/#NT-QName")
+    public void testQName_MissingPrefixPart() {
+        final String expected = loadResource("tests/parser/xquery-1.0/QName_MissingPrefixPart.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/QName_MissingPrefixPart.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
+    @Specification(name="Namespaces in XML 1.0 3ed", reference="https://www.w3.org/TR/2009/REC-xml-names-20091208/#NT-QName")
+    public void testQName_MissingPrefixAndLocalPart() {
+        final String expected = loadResource("tests/parser/xquery-1.0/QName_MissingPrefixAndLocalPart.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/QName_MissingPrefixAndLocalPart.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
+    // region NCName
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-NCName")
+    @Specification(name="Namespaces in XML 1.0 3ed", reference="https://www.w3.org/TR/2009/REC-xml-names-20091208/#NT-NCName")
+    public void testNCName() {
+        final String expected = loadResource("tests/parser/xquery-1.0/NCName.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/NCName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
+    // region S
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-S")
+    @Specification(name="XML 1.0 5ed", reference="https://www.w3.org/TR/2008/REC-xml-20081126/#NT-S")
+    public void testS() {
+        final String expected = loadResource("tests/parser/xquery-1.0/S.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/S.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
 
     // endregion
 }

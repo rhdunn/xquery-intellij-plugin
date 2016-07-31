@@ -76,8 +76,223 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region A.2.1 Terminal Symbols (XQuery 1.0)
+    // region VersionDecl
 
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-VersionDecl")
+    public void testVersionDecl() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "xquery",   XQueryTokenType.K_XQUERY);
+        matchSingleToken(lexer, "version",  XQueryTokenType.K_VERSION);
+        matchSingleToken(lexer, "encoding", XQueryTokenType.K_ENCODING);
+    }
+
+    // endregion
+    // region ModuleDecl
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ModuleDecl")
+    public void testModuleDecl() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "module",    XQueryTokenType.K_MODULE);
+        matchSingleToken(lexer, "namespace", XQueryTokenType.K_NAMESPACE);
+        matchSingleToken(lexer, "=",         XQueryTokenType.EQUAL);
+    }
+
+    // endregion
+    // region Separator
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-Separator")
+    public void testSeparator() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, ";", XQueryTokenType.SEPARATOR);
+    }
+
+    // endregion
+    // region ModuleImport
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ModuleImport")
+    public void testModuleImport() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "import",    XQueryTokenType.K_IMPORT);
+        matchSingleToken(lexer, "module",    XQueryTokenType.K_MODULE);
+        matchSingleToken(lexer, "at",        XQueryTokenType.K_AT);
+        matchSingleToken(lexer, ",",         XQueryTokenType.COMMA);
+
+        matchSingleToken(lexer, "namespace", XQueryTokenType.K_NAMESPACE);
+        matchSingleToken(lexer, "=",         XQueryTokenType.EQUAL);
+    }
+
+    // endregion
+    // region DirCommentConstructor
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirCommentConstructor")
+    public void testDirCommentConstructor() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "<",    0, XQueryTokenType.LESS_THAN);
+        matchSingleToken(lexer, "<!",   0, XQueryTokenType.INVALID);
+        matchSingleToken(lexer, "<!-",  0, XQueryTokenType.INVALID);
+        matchSingleToken(lexer, "<!--", 5, XQueryTokenType.XML_COMMENT_START_TAG);
+
+        matchSingleToken(lexer, "--",  XQueryTokenType.INVALID);
+        matchSingleToken(lexer, "-->", XQueryTokenType.XML_COMMENT_END_TAG);
+
+        lexer.start("<!-- Test");
+        matchToken(lexer, "<!--",  0, 0, 4, XQueryTokenType.XML_COMMENT_START_TAG);
+        matchToken(lexer, " Test", 5, 4, 9, XQueryTokenType.XML_COMMENT);
+        matchToken(lexer, "",      6, 9, 9, XQueryTokenType.UNEXPECTED_END_OF_BLOCK);
+        matchToken(lexer, "",      0, 9, 9, null);
+
+        lexer.start("<!-- Test --");
+        matchToken(lexer, "<!--",     0,  0,  4, XQueryTokenType.XML_COMMENT_START_TAG);
+        matchToken(lexer, " Test --", 5,  4, 12, XQueryTokenType.XML_COMMENT);
+        matchToken(lexer, "",         6, 12, 12, XQueryTokenType.UNEXPECTED_END_OF_BLOCK);
+        matchToken(lexer, "",         0, 12, 12, null);
+
+        lexer.start("<!-- Test -->");
+        matchToken(lexer, "<!--",   0,  0,  4, XQueryTokenType.XML_COMMENT_START_TAG);
+        matchToken(lexer, " Test ", 5,  4, 10, XQueryTokenType.XML_COMMENT);
+        matchToken(lexer, "-->",    5, 10, 13, XQueryTokenType.XML_COMMENT_END_TAG);
+        matchToken(lexer, "",       0, 13, 13, null);
+
+        lexer.start("<!--\nMultiline\nComment\n-->");
+        matchToken(lexer, "<!--",                   0,  0,  4, XQueryTokenType.XML_COMMENT_START_TAG);
+        matchToken(lexer, "\nMultiline\nComment\n", 5,  4, 23, XQueryTokenType.XML_COMMENT);
+        matchToken(lexer, "-->",                    5, 23, 26, XQueryTokenType.XML_COMMENT_END_TAG);
+        matchToken(lexer, "",                       0, 26, 26, null);
+
+        lexer.start("<!---");
+        matchToken(lexer, "<!--",  0, 0, 4, XQueryTokenType.XML_COMMENT_START_TAG);
+        matchToken(lexer, "-",     5, 4, 5, XQueryTokenType.XML_COMMENT);
+        matchToken(lexer, "",      6, 5, 5, XQueryTokenType.UNEXPECTED_END_OF_BLOCK);
+        matchToken(lexer, "",      0, 5, 5, null);
+
+        lexer.start("<!----");
+        matchToken(lexer, "<!--",  0, 0, 4, XQueryTokenType.XML_COMMENT_START_TAG);
+        matchToken(lexer, "--",    5, 4, 6, XQueryTokenType.XML_COMMENT);
+        matchToken(lexer, "",      6, 6, 6, XQueryTokenType.UNEXPECTED_END_OF_BLOCK);
+        matchToken(lexer, "",      0, 6, 6, null);
+    }
+
+    // endregion
+    // region CDataSection
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CDataSection")
+    public void testCDataSection() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "<",         0, XQueryTokenType.LESS_THAN);
+        matchSingleToken(lexer, "<!",        0, XQueryTokenType.INVALID);
+        matchSingleToken(lexer, "<![",       0, XQueryTokenType.INVALID);
+        matchSingleToken(lexer, "<![C",      0, XQueryTokenType.INVALID);
+        matchSingleToken(lexer, "<![CD",     0, XQueryTokenType.INVALID);
+        matchSingleToken(lexer, "<![CDA",    0, XQueryTokenType.INVALID);
+        matchSingleToken(lexer, "<![CDAT",   0, XQueryTokenType.INVALID);
+        matchSingleToken(lexer, "<![CDATA",  0, XQueryTokenType.INVALID);
+        matchSingleToken(lexer, "<![CDATA[", 7, XQueryTokenType.CDATA_SECTION_START_TAG);
+
+        matchSingleToken(lexer, "]",   XQueryTokenType.PREDICATE_END);
+
+        lexer.start("]]");
+        matchToken(lexer, "]", 0, 0, 1, XQueryTokenType.PREDICATE_END);
+        matchToken(lexer, "]", 0, 1, 2, XQueryTokenType.PREDICATE_END);
+        matchToken(lexer, "",  0, 2, 2, null);
+
+        matchSingleToken(lexer, "]]>", XQueryTokenType.CDATA_SECTION_END_TAG);
+
+        lexer.start("<![CDATA[ Test");
+        matchToken(lexer, "<![CDATA[", 0,  0,  9, XQueryTokenType.CDATA_SECTION_START_TAG);
+        matchToken(lexer, " Test",     7,  9, 14, XQueryTokenType.CDATA_SECTION);
+        matchToken(lexer, "",          6, 14, 14, XQueryTokenType.UNEXPECTED_END_OF_BLOCK);
+        matchToken(lexer, "",          0, 14, 14, null);
+
+        lexer.start("<![CDATA[ Test ]]");
+        matchToken(lexer, "<![CDATA[", 0,  0,  9, XQueryTokenType.CDATA_SECTION_START_TAG);
+        matchToken(lexer, " Test ]]",  7,  9, 17, XQueryTokenType.CDATA_SECTION);
+        matchToken(lexer, "",          6, 17, 17, XQueryTokenType.UNEXPECTED_END_OF_BLOCK);
+        matchToken(lexer, "",          0, 17, 17, null);
+
+        lexer.start("<![CDATA[ Test ]]>");
+        matchToken(lexer, "<![CDATA[", 0,  0,  9, XQueryTokenType.CDATA_SECTION_START_TAG);
+        matchToken(lexer, " Test ",    7,  9, 15, XQueryTokenType.CDATA_SECTION);
+        matchToken(lexer, "]]>",       7, 15, 18, XQueryTokenType.CDATA_SECTION_END_TAG);
+        matchToken(lexer, "",          0, 18, 18, null);
+
+        lexer.start("<![CDATA[\nMultiline\nComment\n]]>");
+        matchToken(lexer, "<![CDATA[",              0,  0,  9, XQueryTokenType.CDATA_SECTION_START_TAG);
+        matchToken(lexer, "\nMultiline\nComment\n", 7,  9, 28, XQueryTokenType.CDATA_SECTION);
+        matchToken(lexer, "]]>",                    7, 28, 31, XQueryTokenType.CDATA_SECTION_END_TAG);
+        matchToken(lexer, "",                       0, 31, 31, null);
+
+        lexer.start("<![CDATA[]");
+        matchToken(lexer, "<![CDATA[", 0,  0,  9, XQueryTokenType.CDATA_SECTION_START_TAG);
+        matchToken(lexer, "]",         7,  9, 10, XQueryTokenType.CDATA_SECTION);
+        matchToken(lexer, "",          6, 10, 10, XQueryTokenType.UNEXPECTED_END_OF_BLOCK);
+        matchToken(lexer, "",          0, 10, 10, null);
+
+        lexer.start("<![CDATA[]]");
+        matchToken(lexer, "<![CDATA[", 0,  0,  9, XQueryTokenType.CDATA_SECTION_START_TAG);
+        matchToken(lexer, "]]",        7,  9, 11, XQueryTokenType.CDATA_SECTION);
+        matchToken(lexer, "",          6, 11, 11, XQueryTokenType.UNEXPECTED_END_OF_BLOCK);
+        matchToken(lexer, "",          0, 11, 11, null);
+    }
+
+    // endregion
+    // region (A.2.2) Terminal Delimitation
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#id-terminal-delimitation")
+    public void testDelimitingTerminalSymbols() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "$", XQueryTokenType.VARIABLE_INDICATOR);
+        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN);
+        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE);
+        matchSingleToken(lexer, "*", XQueryTokenType.STAR);
+        matchSingleToken(lexer, "+", XQueryTokenType.PLUS);
+        matchSingleToken(lexer, ":", XQueryTokenType.QNAME_SEPARATOR);
+        matchSingleToken(lexer, "|", XQueryTokenType.UNION);
+        matchSingleToken(lexer, "-", XQueryTokenType.MINUS);
+        matchSingleToken(lexer, ".", XQueryTokenType.DOT);
+        matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN);
+        matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE);
+        matchSingleToken(lexer, "<", XQueryTokenType.LESS_THAN);
+        matchSingleToken(lexer, ">", XQueryTokenType.GREATER_THAN);
+        matchSingleToken(lexer, "?", XQueryTokenType.QUESTION);
+        matchSingleToken(lexer, "/", XQueryTokenType.DIRECT_DESCENDANTS_PATH);
+        matchSingleToken(lexer, "@", XQueryTokenType.ATTRIBUTE_SELECTOR);
+        matchSingleToken(lexer, "[", XQueryTokenType.PREDICATE_BEGIN);
+        matchSingleToken(lexer, "]", XQueryTokenType.PREDICATE_END);
+
+        matchSingleToken(lexer, "!=", XQueryTokenType.NOT_EQUAL);
+        matchSingleToken(lexer, ":=", XQueryTokenType.ASSIGN_EQUAL);
+        matchSingleToken(lexer, "(#", XQueryTokenType.PRAGMA_BEGIN);
+        matchSingleToken(lexer, "#)", XQueryTokenType.PRAGMA_END);
+        matchSingleToken(lexer, "::", XQueryTokenType.AXIS_SEPARATOR);
+        matchSingleToken(lexer, "..", XQueryTokenType.PARENT_SELECTOR);
+        matchSingleToken(lexer, "//", XQueryTokenType.ALL_DESCENDANTS_PATH);
+        matchSingleToken(lexer, "</", XQueryTokenType.CLOSE_XML_TAG);
+        matchSingleToken(lexer, "/>", XQueryTokenType.SELF_CLOSING_XML_TAG);
+        matchSingleToken(lexer, "<<", XQueryTokenType.NODE_BEFORE);
+        matchSingleToken(lexer, ">>", XQueryTokenType.NODE_AFTER);
+        matchSingleToken(lexer, "<=", XQueryTokenType.LESS_THAN_OR_EQUAL);
+        matchSingleToken(lexer, ">=", XQueryTokenType.GREATER_THAN_OR_EQUAL);
+        matchSingleToken(lexer, "<?", XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN);
+        matchSingleToken(lexer, "?>", XQueryTokenType.PROCESSING_INSTRUCTION_END);
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#id-terminal-delimitation")
+    public void testDelimitingTerminalSymbols_XQuery30() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "!", XQueryTokenType.MAP_OPERATOR);
+        matchSingleToken(lexer, "#", XQueryTokenType.FUNCTION_REF_OPERATOR);
+        matchSingleToken(lexer, "%", XQueryTokenType.ANNOTATION_INDICATOR);
+    }
+
+    // endregion
     // region IntegerLiteral
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-IntegerLiteral")
@@ -558,229 +773,6 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "   \t  \r\n ", 0, 0, 9, XQueryTokenType.WHITE_SPACE);
         matchToken(lexer, "",             0, 9, 9, null);
     }
-
-    // endregion
-
-    // endregion
-    // region A.2.2 Terminal Delimitation
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#id-terminal-delimitation")
-    public void testDelimitingTerminalSymbols() {
-        Lexer lexer = new XQueryLexer();
-
-        matchSingleToken(lexer, "$", XQueryTokenType.VARIABLE_INDICATOR);
-        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN);
-        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE);
-        matchSingleToken(lexer, "*", XQueryTokenType.STAR);
-        matchSingleToken(lexer, "+", XQueryTokenType.PLUS);
-        matchSingleToken(lexer, ":", XQueryTokenType.QNAME_SEPARATOR);
-        matchSingleToken(lexer, "|", XQueryTokenType.UNION);
-        matchSingleToken(lexer, "-", XQueryTokenType.MINUS);
-        matchSingleToken(lexer, ".", XQueryTokenType.DOT);
-        matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN);
-        matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE);
-        matchSingleToken(lexer, "<", XQueryTokenType.LESS_THAN);
-        matchSingleToken(lexer, ">", XQueryTokenType.GREATER_THAN);
-        matchSingleToken(lexer, "?", XQueryTokenType.QUESTION);
-        matchSingleToken(lexer, "/", XQueryTokenType.DIRECT_DESCENDANTS_PATH);
-        matchSingleToken(lexer, "@", XQueryTokenType.ATTRIBUTE_SELECTOR);
-        matchSingleToken(lexer, "[", XQueryTokenType.PREDICATE_BEGIN);
-        matchSingleToken(lexer, "]", XQueryTokenType.PREDICATE_END);
-
-        matchSingleToken(lexer, "!=", XQueryTokenType.NOT_EQUAL);
-        matchSingleToken(lexer, ":=", XQueryTokenType.ASSIGN_EQUAL);
-        matchSingleToken(lexer, "(#", XQueryTokenType.PRAGMA_BEGIN);
-        matchSingleToken(lexer, "#)", XQueryTokenType.PRAGMA_END);
-        matchSingleToken(lexer, "::", XQueryTokenType.AXIS_SEPARATOR);
-        matchSingleToken(lexer, "..", XQueryTokenType.PARENT_SELECTOR);
-        matchSingleToken(lexer, "//", XQueryTokenType.ALL_DESCENDANTS_PATH);
-        matchSingleToken(lexer, "</", XQueryTokenType.CLOSE_XML_TAG);
-        matchSingleToken(lexer, "/>", XQueryTokenType.SELF_CLOSING_XML_TAG);
-        matchSingleToken(lexer, "<<", XQueryTokenType.NODE_BEFORE);
-        matchSingleToken(lexer, ">>", XQueryTokenType.NODE_AFTER);
-        matchSingleToken(lexer, "<=", XQueryTokenType.LESS_THAN_OR_EQUAL);
-        matchSingleToken(lexer, ">=", XQueryTokenType.GREATER_THAN_OR_EQUAL);
-        matchSingleToken(lexer, "<?", XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN);
-        matchSingleToken(lexer, "?>", XQueryTokenType.PROCESSING_INSTRUCTION_END);
-    }
-
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#id-terminal-delimitation")
-    public void testDelimitingTerminalSymbols_XQuery30() {
-        Lexer lexer = new XQueryLexer();
-
-        matchSingleToken(lexer, "!", XQueryTokenType.MAP_OPERATOR);
-        matchSingleToken(lexer, "#", XQueryTokenType.FUNCTION_REF_OPERATOR);
-        matchSingleToken(lexer, "%", XQueryTokenType.ANNOTATION_INDICATOR);
-    }
-
-    // endregion
-    // region A.1 EBNF (XQuery 1.0)
-
-    // region VersionDecl
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-VersionDecl")
-    public void testVersionDecl() {
-        Lexer lexer = new XQueryLexer();
-
-        matchSingleToken(lexer, "xquery",   XQueryTokenType.K_XQUERY);
-        matchSingleToken(lexer, "version",  XQueryTokenType.K_VERSION);
-        matchSingleToken(lexer, "encoding", XQueryTokenType.K_ENCODING);
-    }
-
-    // endregion
-    // region ModuleDecl
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ModuleDecl")
-    public void testModuleDecl() {
-        Lexer lexer = new XQueryLexer();
-
-        matchSingleToken(lexer, "module",    XQueryTokenType.K_MODULE);
-        matchSingleToken(lexer, "namespace", XQueryTokenType.K_NAMESPACE);
-        matchSingleToken(lexer, "=",         XQueryTokenType.EQUAL);
-    }
-
-    // endregion
-    // region Separator
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-Separator")
-    public void testSeparator() {
-        Lexer lexer = new XQueryLexer();
-
-        matchSingleToken(lexer, ";", XQueryTokenType.SEPARATOR);
-    }
-
-    // endregion
-    // region ModuleImport
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ModuleImport")
-    public void testModuleImport() {
-        Lexer lexer = new XQueryLexer();
-
-        matchSingleToken(lexer, "import",    XQueryTokenType.K_IMPORT);
-        matchSingleToken(lexer, "module",    XQueryTokenType.K_MODULE);
-        matchSingleToken(lexer, "at",        XQueryTokenType.K_AT);
-        matchSingleToken(lexer, ",",         XQueryTokenType.COMMA);
-
-        matchSingleToken(lexer, "namespace", XQueryTokenType.K_NAMESPACE);
-        matchSingleToken(lexer, "=",         XQueryTokenType.EQUAL);
-    }
-
-    // endregion
-    // region DirCommentConstructor
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirCommentConstructor")
-    public void testDirCommentConstructor() {
-        Lexer lexer = new XQueryLexer();
-
-        matchSingleToken(lexer, "<",    0, XQueryTokenType.LESS_THAN);
-        matchSingleToken(lexer, "<!",   0, XQueryTokenType.INVALID);
-        matchSingleToken(lexer, "<!-",  0, XQueryTokenType.INVALID);
-        matchSingleToken(lexer, "<!--", 5, XQueryTokenType.XML_COMMENT_START_TAG);
-
-        matchSingleToken(lexer, "--",  XQueryTokenType.INVALID);
-        matchSingleToken(lexer, "-->", XQueryTokenType.XML_COMMENT_END_TAG);
-
-        lexer.start("<!-- Test");
-        matchToken(lexer, "<!--",  0, 0, 4, XQueryTokenType.XML_COMMENT_START_TAG);
-        matchToken(lexer, " Test", 5, 4, 9, XQueryTokenType.XML_COMMENT);
-        matchToken(lexer, "",      6, 9, 9, XQueryTokenType.UNEXPECTED_END_OF_BLOCK);
-        matchToken(lexer, "",      0, 9, 9, null);
-
-        lexer.start("<!-- Test --");
-        matchToken(lexer, "<!--",     0,  0,  4, XQueryTokenType.XML_COMMENT_START_TAG);
-        matchToken(lexer, " Test --", 5,  4, 12, XQueryTokenType.XML_COMMENT);
-        matchToken(lexer, "",         6, 12, 12, XQueryTokenType.UNEXPECTED_END_OF_BLOCK);
-        matchToken(lexer, "",         0, 12, 12, null);
-
-        lexer.start("<!-- Test -->");
-        matchToken(lexer, "<!--",   0,  0,  4, XQueryTokenType.XML_COMMENT_START_TAG);
-        matchToken(lexer, " Test ", 5,  4, 10, XQueryTokenType.XML_COMMENT);
-        matchToken(lexer, "-->",    5, 10, 13, XQueryTokenType.XML_COMMENT_END_TAG);
-        matchToken(lexer, "",       0, 13, 13, null);
-
-        lexer.start("<!--\nMultiline\nComment\n-->");
-        matchToken(lexer, "<!--",                   0,  0,  4, XQueryTokenType.XML_COMMENT_START_TAG);
-        matchToken(lexer, "\nMultiline\nComment\n", 5,  4, 23, XQueryTokenType.XML_COMMENT);
-        matchToken(lexer, "-->",                    5, 23, 26, XQueryTokenType.XML_COMMENT_END_TAG);
-        matchToken(lexer, "",                       0, 26, 26, null);
-
-        lexer.start("<!---");
-        matchToken(lexer, "<!--",  0, 0, 4, XQueryTokenType.XML_COMMENT_START_TAG);
-        matchToken(lexer, "-",     5, 4, 5, XQueryTokenType.XML_COMMENT);
-        matchToken(lexer, "",      6, 5, 5, XQueryTokenType.UNEXPECTED_END_OF_BLOCK);
-        matchToken(lexer, "",      0, 5, 5, null);
-
-        lexer.start("<!----");
-        matchToken(lexer, "<!--",  0, 0, 4, XQueryTokenType.XML_COMMENT_START_TAG);
-        matchToken(lexer, "--",    5, 4, 6, XQueryTokenType.XML_COMMENT);
-        matchToken(lexer, "",      6, 6, 6, XQueryTokenType.UNEXPECTED_END_OF_BLOCK);
-        matchToken(lexer, "",      0, 6, 6, null);
-    }
-
-    // endregion
-    // region CDataSection
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CDataSection")
-    public void testCDataSection() {
-        Lexer lexer = new XQueryLexer();
-
-        matchSingleToken(lexer, "<",         0, XQueryTokenType.LESS_THAN);
-        matchSingleToken(lexer, "<!",        0, XQueryTokenType.INVALID);
-        matchSingleToken(lexer, "<![",       0, XQueryTokenType.INVALID);
-        matchSingleToken(lexer, "<![C",      0, XQueryTokenType.INVALID);
-        matchSingleToken(lexer, "<![CD",     0, XQueryTokenType.INVALID);
-        matchSingleToken(lexer, "<![CDA",    0, XQueryTokenType.INVALID);
-        matchSingleToken(lexer, "<![CDAT",   0, XQueryTokenType.INVALID);
-        matchSingleToken(lexer, "<![CDATA",  0, XQueryTokenType.INVALID);
-        matchSingleToken(lexer, "<![CDATA[", 7, XQueryTokenType.CDATA_SECTION_START_TAG);
-
-        matchSingleToken(lexer, "]",   XQueryTokenType.PREDICATE_END);
-
-        lexer.start("]]");
-        matchToken(lexer, "]", 0, 0, 1, XQueryTokenType.PREDICATE_END);
-        matchToken(lexer, "]", 0, 1, 2, XQueryTokenType.PREDICATE_END);
-        matchToken(lexer, "",  0, 2, 2, null);
-
-        matchSingleToken(lexer, "]]>", XQueryTokenType.CDATA_SECTION_END_TAG);
-
-        lexer.start("<![CDATA[ Test");
-        matchToken(lexer, "<![CDATA[", 0,  0,  9, XQueryTokenType.CDATA_SECTION_START_TAG);
-        matchToken(lexer, " Test",     7,  9, 14, XQueryTokenType.CDATA_SECTION);
-        matchToken(lexer, "",          6, 14, 14, XQueryTokenType.UNEXPECTED_END_OF_BLOCK);
-        matchToken(lexer, "",          0, 14, 14, null);
-
-        lexer.start("<![CDATA[ Test ]]");
-        matchToken(lexer, "<![CDATA[", 0,  0,  9, XQueryTokenType.CDATA_SECTION_START_TAG);
-        matchToken(lexer, " Test ]]",  7,  9, 17, XQueryTokenType.CDATA_SECTION);
-        matchToken(lexer, "",          6, 17, 17, XQueryTokenType.UNEXPECTED_END_OF_BLOCK);
-        matchToken(lexer, "",          0, 17, 17, null);
-
-        lexer.start("<![CDATA[ Test ]]>");
-        matchToken(lexer, "<![CDATA[", 0,  0,  9, XQueryTokenType.CDATA_SECTION_START_TAG);
-        matchToken(lexer, " Test ",    7,  9, 15, XQueryTokenType.CDATA_SECTION);
-        matchToken(lexer, "]]>",       7, 15, 18, XQueryTokenType.CDATA_SECTION_END_TAG);
-        matchToken(lexer, "",          0, 18, 18, null);
-
-        lexer.start("<![CDATA[\nMultiline\nComment\n]]>");
-        matchToken(lexer, "<![CDATA[",              0,  0,  9, XQueryTokenType.CDATA_SECTION_START_TAG);
-        matchToken(lexer, "\nMultiline\nComment\n", 7,  9, 28, XQueryTokenType.CDATA_SECTION);
-        matchToken(lexer, "]]>",                    7, 28, 31, XQueryTokenType.CDATA_SECTION_END_TAG);
-        matchToken(lexer, "",                       0, 31, 31, null);
-
-        lexer.start("<![CDATA[]");
-        matchToken(lexer, "<![CDATA[", 0,  0,  9, XQueryTokenType.CDATA_SECTION_START_TAG);
-        matchToken(lexer, "]",         7,  9, 10, XQueryTokenType.CDATA_SECTION);
-        matchToken(lexer, "",          6, 10, 10, XQueryTokenType.UNEXPECTED_END_OF_BLOCK);
-        matchToken(lexer, "",          0, 10, 10, null);
-
-        lexer.start("<![CDATA[]]");
-        matchToken(lexer, "<![CDATA[", 0,  0,  9, XQueryTokenType.CDATA_SECTION_START_TAG);
-        matchToken(lexer, "]]",        7,  9, 11, XQueryTokenType.CDATA_SECTION);
-        matchToken(lexer, "",          6, 11, 11, XQueryTokenType.UNEXPECTED_END_OF_BLOCK);
-        matchToken(lexer, "",          0, 11, 11, null);
-    }
-
-    // endregion
 
     // endregion
 }

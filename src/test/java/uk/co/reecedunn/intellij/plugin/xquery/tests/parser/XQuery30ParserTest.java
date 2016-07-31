@@ -24,13 +24,14 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class XQuery30ParserTest extends XQuery10ParserTest {
+    // region Initialization
+
     public void initializeSettings(XQueryProjectSettings settings) {
         settings.setXQueryVersion(XQueryVersion.XQUERY_3_0);
     }
 
-    // region A.1 EBNF (XQuery 3.0)
-
-    // region VersionDecl
+    // endregion
+    // region VersionDecl (XQuery 3.0)
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-VersionDecl")
     public void testVersionDecl_EncodingOnly() {
@@ -59,8 +60,6 @@ public class XQuery30ParserTest extends XQuery10ParserTest {
         final ASTNode actual = parseResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly_MissingSemicolon.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
-
-    // endregion
 
     // endregion
 }
