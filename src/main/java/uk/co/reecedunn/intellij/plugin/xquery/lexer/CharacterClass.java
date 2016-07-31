@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.lexer;
 
 public final class CharacterClass {
     // The CharacterClass constructor is not used, but make sure code coverage reports it as covered.
+    @SuppressWarnings("unused")
     private static CharacterClass INSTANCE = new CharacterClass();
 
     public static final int INVALID = 0;
@@ -66,7 +67,6 @@ public final class CharacterClass {
     private static final int COM = COMMA;
     private static final int DIG = DIGIT;
     private static final int DOL = DOLLAR;
-    private static final int EOB = END_OF_BUFFER;
     private static final int EQL = EQUAL;
     private static final int EMK = EXCLAMATION_MARK;
     private static final int FSL = FORWARD_SLASH;

@@ -19,6 +19,7 @@ import com.intellij.psi.PsiElement;
 
 public class PsiNavigation {
     // The PsiNavigation constructor is not used, but make sure code coverage reports it as covered.
+    @SuppressWarnings("unused")
     private static PsiNavigation INSTANCE = new PsiNavigation();
 
     @SuppressWarnings("unchecked")

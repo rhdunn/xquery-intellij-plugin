@@ -32,7 +32,6 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
     public static final TextAttributesKey ESCAPED_CHARACTER = TextAttributesKey.createTextAttributesKey("XQUERY_ESCAPED_CHARACTER", DefaultLanguageHighlighterColors.VALID_STRING_ESCAPE);
     public static final TextAttributesKey IDENTIFIER = TextAttributesKey.createTextAttributesKey("XQUERY_IDENTIFIER", DefaultLanguageHighlighterColors.IDENTIFIER);
     public static final TextAttributesKey KEYWORD = TextAttributesKey.createTextAttributesKey("XQUERY_KEYWORD", DefaultLanguageHighlighterColors.KEYWORD);
-    public static final TextAttributesKey NAMESPACE_PREFIX = TextAttributesKey.createTextAttributesKey("XQUERY_NAMESPACE_PREFIX", XmlHighlighterColors.XML_NS_PREFIX);
     public static final TextAttributesKey NUMBER = TextAttributesKey.createTextAttributesKey("XQUERY_NUMBER", DefaultLanguageHighlighterColors.NUMBER);
     public static final TextAttributesKey STRING = TextAttributesKey.createTextAttributesKey("XQUERY_STRING", DefaultLanguageHighlighterColors.STRING);
 
@@ -42,7 +41,6 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
     private static final TextAttributesKey[] ESCAPED_CHARACTER_KEYS = pack(ESCAPED_CHARACTER);
     private static final TextAttributesKey[] IDENTIFIER_KEYS = pack(IDENTIFIER);
     private static final TextAttributesKey[] KEYWORD_KEYS = pack(KEYWORD);
-    private static final TextAttributesKey[] NAMESPACE_PREFIX_KEYS = pack(NAMESPACE_PREFIX);
     private static final TextAttributesKey[] NUMBER_KEYS = pack(NUMBER);
     private static final TextAttributesKey[] STRING_KEYS = pack(STRING);
 

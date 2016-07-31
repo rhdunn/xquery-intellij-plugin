@@ -21,6 +21,7 @@ import java.util.List;
 
 public class Implementations {
     // The Implementations constructor is not used, but make sure code coverage reports it as covered.
+    @SuppressWarnings("unused")
     private static Implementations INSTANCE = new Implementations();
 
     private static final ImplementationItem sImplementations = new ImplementationItem(Resources.loadXml("data/implementations.xml"));
