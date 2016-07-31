@@ -14,6 +14,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
+<!--suppress XmlUnboundNsPrefix -->
 <implementations>
     <features>
         <feature id="minimal-conformance/1.0" href="https://www.w3.org/TR/2010/REC-xquery-20101214/#id-minimal-conformance"/>

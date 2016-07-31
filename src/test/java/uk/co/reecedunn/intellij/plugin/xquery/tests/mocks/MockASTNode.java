@@ -24,6 +24,7 @@ import com.intellij.psi.tree.TokenSet;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+@SuppressWarnings({"CloneDoesntCallSuperClone", "SameParameterValue"})
 public class MockASTNode implements ASTNode {
     private final IElementType mElementType;
 
@@ -37,12 +38,14 @@ public class MockASTNode implements ASTNode {
         return mElementType;
     }
 
+    @SuppressWarnings("ConstantConditions")
     @NotNull
     @Override
     public String getText() {
         return null;
     }
 
+    @SuppressWarnings("ConstantConditions")
     @NotNull
     @Override
     public CharSequence getChars() {
@@ -132,6 +135,7 @@ public class MockASTNode implements ASTNode {
     public void addChildren(ASTNode firstChild, ASTNode firstChildToNotAdd, ASTNode anchorBefore) {
     }
 
+    @SuppressWarnings("ConstantConditions")
     @NotNull
     @Override
     public Object clone() {

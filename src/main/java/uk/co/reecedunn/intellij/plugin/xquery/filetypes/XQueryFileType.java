@@ -109,6 +109,7 @@ public class XQueryFileType extends LanguageFileType {
         return FILETYPE_ICON;
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     private boolean matchToken(IElementType type) {
         boolean match = sEncodingLexer.getTokenType() == type;
         sEncodingLexer.advance();

@@ -23,6 +23,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings;
 
+@SuppressWarnings({"SameParameterValue", "StatementWithEmptyBody"})
 class XQueryParser {
     // region Main Interface
 

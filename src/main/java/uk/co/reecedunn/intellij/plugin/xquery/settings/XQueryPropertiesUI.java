@@ -23,6 +23,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 
 import javax.swing.*;
 
+@SuppressWarnings({"RedundantIfStatement", "SameParameterValue"})
 public class XQueryPropertiesUI {
     private JComboBox<XQueryVersion> mVersion;
     private JComboBox<ImplementationItem> mImplementations;

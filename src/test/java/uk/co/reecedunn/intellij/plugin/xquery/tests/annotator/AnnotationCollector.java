@@ -100,6 +100,7 @@ class AnnotationCollector implements AnnotationHolder {
         return annotation;
     }
 
+    @SuppressWarnings("ConstantConditions")
     @NotNull
     @Override
     public AnnotationSession getCurrentAnnotationSession() {

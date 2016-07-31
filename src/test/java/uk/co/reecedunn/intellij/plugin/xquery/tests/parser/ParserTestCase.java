@@ -39,6 +39,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
 
+@SuppressWarnings("SameParameterValue")
 public abstract class ParserTestCase extends ParsingTestCase {
     public ParserTestCase() {
         super("", ".xqy", new XQueryParserDefinition());

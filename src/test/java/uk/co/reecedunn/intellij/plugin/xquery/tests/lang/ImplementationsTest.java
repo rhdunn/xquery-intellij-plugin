@@ -26,7 +26,9 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+@SuppressWarnings("EqualsBetweenInconvertibleTypes")
 public class ImplementationsTest extends TestCase {
+    @SuppressWarnings("EqualsWithItself")
     public void testNullImplementationItem() {
         assertThat(ImplementationItem.NULL_ITEM.getID(), is(nullValue()));
         assertThat(ImplementationItem.NULL_ITEM.toString(), is("Not Supported"));

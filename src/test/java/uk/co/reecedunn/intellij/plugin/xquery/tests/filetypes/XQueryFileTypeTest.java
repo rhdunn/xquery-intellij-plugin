@@ -28,6 +28,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+@SuppressWarnings("SameParameterValue")
 public class XQueryFileTypeTest extends ParsingTestCase {
     public XQueryFileTypeTest() {
         super("", ".xqy", new XQueryParserDefinition());

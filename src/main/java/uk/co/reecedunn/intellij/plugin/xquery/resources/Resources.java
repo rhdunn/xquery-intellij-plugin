@@ -22,6 +22,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.InputStream;
 
+@SuppressWarnings("SameParameterValue")
 public class Resources {
     private static InputStream load(String resource) {
         ClassLoader loader = Resources.class.getClassLoader();
