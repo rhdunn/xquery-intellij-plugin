@@ -290,6 +290,7 @@ public class XQueryParser {
                     advanceLexer();
                 }
             }
+            skipWhiteSpaceAndCommentTokens();
         }
 
         if (matched) {

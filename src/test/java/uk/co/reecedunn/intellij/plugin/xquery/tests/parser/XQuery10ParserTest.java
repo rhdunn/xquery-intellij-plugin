@@ -481,6 +481,19 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region Prolog
+
+    // NOTE: Test cases for the different items contained within the Prolog node
+    // are handled by the test cases for the items that make up a Prolog node.
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Prolog")
+    public void testProlog_MultipleImports() {
+        final String expected = loadResource("tests/parser/xquery-1.0/Prolog_MultipleImports.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/Prolog_MultipleImports.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region ModuleImport
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ModuleImport")

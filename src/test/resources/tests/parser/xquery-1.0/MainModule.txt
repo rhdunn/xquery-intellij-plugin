@@ -1,6 +1,6 @@
 FileElement[FILE(0:46)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:46)]
-      XQueryPrologImpl[XQUERY_PROLOG(0:44)]
+      XQueryPrologImpl[XQUERY_PROLOG(0:45)]
          XQueryModuleImportImpl[XQUERY_MODULE_IMPORT(0:43)]
             LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_IMPORT(0:6)]('import')
             PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
@@ -11,7 +11,7 @@ FileElement[FILE(0:46)]
                LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(15:42)]('http://www.example.com/test')
                LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(42:43)]('"')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(43:44)](';')
-      PsiWhiteSpaceImpl[WHITE_SPACE(44:45)]('\n')
+         PsiWhiteSpaceImpl[WHITE_SPACE(44:45)]('\n')
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(45:46)]
          XQueryOrExprImpl[XQUERY_OR_EXPR(45:46)]
             XQueryAndExprImpl[XQUERY_AND_EXPR(45:46)]
