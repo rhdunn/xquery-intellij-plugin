@@ -55,6 +55,7 @@ public class ColorSettingsPage implements com.intellij.openapi.options.colors.Co
     public String getDemoText() {
         return
             "(: Comment :)\n" +
+            "xquery version \"1.0\";\n" +
             "(1234, \"One \"\" Two &quot; Three\", value)\n" +
             "~~~";
     }
