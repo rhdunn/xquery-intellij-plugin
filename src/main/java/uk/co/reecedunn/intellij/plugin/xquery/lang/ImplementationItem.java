@@ -134,4 +134,30 @@ public class ImplementationItem {
         }
         return NULL_ITEM;
     }
+
+    public ImplementationItem getItemById(String id) {
+        if (mElement != null) {
+            return getItemById(mElement, id);
+        }
+        return NULL_ITEM;
+    }
+
+    private ImplementationItem getItemById(Element element, String id) {
+        NodeList nodes = element.getChildNodes();
+        for (int i = 0; i != nodes.getLength(); ++i) {
+            Node node = nodes.item(i);
+            if (node.getNodeType() != Node.ELEMENT_NODE) continue;
+
+            Node attributeId = node.getAttributes().getNamedItem("id");
+            if (attributeId != null && attributeId.getNodeValue().equals(id)) {
+                return new ImplementationItem((Element)node);
+            }
+
+            ImplementationItem item = getItemById((Element)node, id);
+            if (item != NULL_ITEM) {
+                return item;
+            }
+        }
+        return NULL_ITEM;
+    }
 }

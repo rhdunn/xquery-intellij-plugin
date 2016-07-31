@@ -33,4 +33,8 @@ public class Implementations {
     public static ImplementationItem getDefaultImplementation() {
         return sImplementations.getDefaultItem("implementation");
     }
+
+    public static ImplementationItem getItemById(String id) {
+        return sImplementations.getItemById(id);
+    }
 }

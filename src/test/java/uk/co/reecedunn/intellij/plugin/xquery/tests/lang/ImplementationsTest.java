@@ -183,4 +183,13 @@ public class ImplementationsTest extends TestCase {
         ImplementationItem dialect = version.getDefaultItemForXQueryVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryVersion.XQUERY_1_0_MARKLOGIC);
         assertThat(dialect, is(ImplementationItem.NULL_ITEM));
     }
+
+    public void testItemById() {
+        ImplementationItem item = Implementations.getItemById("marklogic/v7");
+        assertThat(item.getID(), is("marklogic/v7"));
+        assertThat(item.toString(), is("MarkLogic 7"));
+
+        assertThat(Implementations.getItemById("unknown"), is(ImplementationItem.NULL_ITEM));
+        assertThat(ImplementationItem.NULL_ITEM.getItemById("test"), is(ImplementationItem.NULL_ITEM));
+    }
 }
