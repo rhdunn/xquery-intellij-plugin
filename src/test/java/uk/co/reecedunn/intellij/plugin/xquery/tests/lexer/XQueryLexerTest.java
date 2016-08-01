@@ -110,6 +110,18 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region ModuleDecl
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-NamespaceDecl")
+    public void testNamespaceDecl() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "declare",   XQueryTokenType.K_DECLARE);
+        matchSingleToken(lexer, "namespace", XQueryTokenType.K_NAMESPACE);
+        matchSingleToken(lexer, "=",         XQueryTokenType.EQUAL);
+    }
+
+    // endregion
     // region SchemaImport
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-SchemaImport")

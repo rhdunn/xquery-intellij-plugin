@@ -692,6 +692,7 @@ public class XQueryLexer extends LexerBase {
 
     static {
         sKeywords.put("at", XQueryTokenType.K_AT);
+        sKeywords.put("declare", XQueryTokenType.K_DECLARE);
         sKeywords.put("default", XQueryTokenType.K_DEFAULT);
         sKeywords.put("element", XQueryTokenType.K_ELEMENT);
         sKeywords.put("encoding", XQueryTokenType.K_ENCODING);
