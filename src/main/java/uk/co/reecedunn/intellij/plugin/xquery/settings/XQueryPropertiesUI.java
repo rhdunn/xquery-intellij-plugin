@@ -65,24 +65,11 @@ public class XQueryPropertiesUI {
     }
 
     private void populateComboBox(JComboBox<ImplementationItem> control, ImplementationItem source, String filter) {
-        if (source == null) {
-            return;
-        }
-
-        final ImplementationItem selected = (ImplementationItem)control.getSelectedItem();
-        boolean found = false;
-
         control.removeAllItems();
         for (ImplementationItem item : source.getItems(filter)) {
             control.addItem(item);
-            if (item == selected) {
-                control.setSelectedItem(item);
-                found = true;
-            }
         }
-        if (!found) {
-            control.setSelectedItem(source.getDefaultItem(filter));
-        }
+        control.setSelectedItem(source.getDefaultItem(filter));
     }
 
     private void populateComboBox(JComboBox<ImplementationItem> control, ImplementationItem source, String filter, XQueryVersion version) {
@@ -96,7 +83,7 @@ public class XQueryPropertiesUI {
         control.removeAllItems();
         for (ImplementationItem item : source.getItemsForXQueryVersion(filter, version)) {
             control.addItem(item);
-            if (item == selected) {
+            if (selected != null && item.toString().equals(selected.toString())) {
                 control.setSelectedItem(item);
                 found = true;
             }
@@ -113,6 +100,13 @@ public class XQueryPropertiesUI {
         mDialectForXQuery1_0 = new JComboBox<>();
         mDialectForXQuery3_0 = new JComboBox<>();
         mDialectForXQuery3_1 = new JComboBox<>();
+
+        mImplementations.setName("Implementation");
+        mImplementationVersions.setName("ImplementationVersion");
+        mVersion.setName("XQueryVersion");
+        mDialectForXQuery1_0.setName("DialectForXQuery1.0");
+        mDialectForXQuery3_0.setName("DialectForXQuery3.0");
+        mDialectForXQuery3_1.setName("DialectForXQuery3.1");
 
         mImplementationVersions.addActionListener(e -> {
             final ImplementationItem version = (ImplementationItem)mImplementationVersions.getSelectedItem();
@@ -133,8 +127,8 @@ public class XQueryPropertiesUI {
     }
 
     public boolean isModified() {
-        if (!mImplementations.getSelectedItem().equals(mSettings.getImplementation())) return true;
-        if (!mImplementationVersions.getSelectedItem().equals(mSettings.getImplementationVersion())) return true;
+        if (!mImplementations.getSelectedItem().equals(mSettings.getImplementationItem())) return true;
+        if (!mImplementationVersions.getSelectedItem().equals(mSettings.getImplementationVersionItem())) return true;
         if (!mVersion.getSelectedItem().equals(mSettings.getXQueryVersion())) return true;
         if (!mDialectForXQuery1_0.getSelectedItem().equals(mSettings.getDialectForXQueryVersion(XQueryVersion.XQUERY_1_0))) return true;
         if (!mDialectForXQuery3_0.getSelectedItem().equals(mSettings.getDialectForXQueryVersion(XQueryVersion.XQUERY_3_0))) return true;
@@ -152,8 +146,8 @@ public class XQueryPropertiesUI {
     }
 
     public void reset() {
-        mImplementations.setSelectedItem(mSettings.getImplementation());
-        mImplementationVersions.setSelectedItem(mSettings.getImplementationVersion());
+        mImplementations.setSelectedItem(mSettings.getImplementationItem());
+        mImplementationVersions.setSelectedItem(mSettings.getImplementationVersionItem());
         mVersion.setSelectedItem(mSettings.getXQueryVersion());
         mDialectForXQuery1_0.setSelectedItem(mSettings.getDialectForXQueryVersion(XQueryVersion.XQUERY_1_0));
         mDialectForXQuery3_0.setSelectedItem(mSettings.getDialectForXQueryVersion(XQueryVersion.XQUERY_3_0));

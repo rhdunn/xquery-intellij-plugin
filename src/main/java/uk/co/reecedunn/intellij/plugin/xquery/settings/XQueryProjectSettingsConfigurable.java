@@ -28,6 +28,7 @@ public class XQueryProjectSettingsConfigurable implements Configurable {
 
     public XQueryProjectSettingsConfigurable(Project project) {
         mPanel = new XQueryPropertiesUI(project);
+        mPanel.reset();
     }
 
     @Nls
