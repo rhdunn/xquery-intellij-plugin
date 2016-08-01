@@ -290,7 +290,7 @@ class XQueryParser {
         boolean matched = false;
         final PsiBuilder.Marker prologMarker = mark();
 
-        while (parseImport()) {
+        while (parseNamespaceDecl() || parseImport()) {
             matched = true;
             if (!matchTokenType(XQueryTokenType.SEPARATOR)) {
                 error(XQueryBundle.message("parser.error.expected-semicolon"));
@@ -321,6 +321,41 @@ class XQueryParser {
                 error(XQueryBundle.message("parser.error.expected-keyword", "schema|module"));
                 importMarker.done(XQueryElementType.IMPORT);
             }
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseNamespaceDecl() {
+        final PsiBuilder.Marker namespaceDeclMarker = matchTokenTypeWithMarker(XQueryTokenType.K_DECLARE);
+        if (namespaceDeclMarker != null) {
+            boolean haveErrors = false;
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_NAMESPACE)) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "namespace"));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.NCNAME) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-ncname"));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.EQUAL) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", "="));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!parseStringLiteral(XQueryElementType.URI_LITERAL) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-uri-string"));
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            namespaceDeclMarker.done(XQueryElementType.NAMESPACE_DECL);
             return true;
         }
         return false;

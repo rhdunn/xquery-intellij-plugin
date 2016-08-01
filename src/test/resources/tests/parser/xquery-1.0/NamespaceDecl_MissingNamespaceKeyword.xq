@@ -1,0 +1,1 @@
+declare test = "http://www.example.org/test" ;

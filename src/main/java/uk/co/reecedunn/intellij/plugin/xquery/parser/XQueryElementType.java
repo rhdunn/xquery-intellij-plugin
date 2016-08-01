@@ -50,6 +50,7 @@ public interface XQueryElementType {
 
     IElementType IMPORT = new IElementType("XQUERY_IMPORT", XQuery.INSTANCE);
     IElementType SCHEMA_PREFIX = new IElementType("XQUERY_SCHEMA_PREFIX", XQuery.INSTANCE);
+    IElementType NAMESPACE_DECL = new IElementType("XQUERY_NAMESPACE_DECL", XQuery.INSTANCE);
     IElementType SCHEMA_IMPORT = new IElementType("XQUERY_SCHEMA_IMPORT", XQuery.INSTANCE);
     IElementType MODULE_IMPORT = new IElementType("XQUERY_MODULE_IMPORT", XQuery.INSTANCE);
     IElementType PROLOG = new IElementType("XQUERY_PROLOG", XQuery.INSTANCE);

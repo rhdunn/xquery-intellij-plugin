@@ -1,0 +1,1 @@
+declare namespace test = "http://www.example.org/test" ;
