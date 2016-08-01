@@ -46,7 +46,6 @@ public interface XQueryElementType {
     IElementType AND_EXPR = new IElementType("XQUERY_AND_EXPR", XQuery.INSTANCE);
     IElementType OR_EXPR = new IElementType("XQUERY_OR_EXPR", XQuery.INSTANCE);
 
-    IElementType EXPR = new IElementType("XQUERY_EXPR", XQuery.INSTANCE);
     IElementType QUERY_BODY = new IElementType("XQUERY_QUERY_BODY", XQuery.INSTANCE);
 
     IElementType IMPORT = new IElementType("XQUERY_IMPORT", XQuery.INSTANCE);

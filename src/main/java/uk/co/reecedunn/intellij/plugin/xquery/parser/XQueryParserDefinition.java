@@ -110,8 +110,6 @@ public class XQueryParserDefinition implements ParserDefinition {
             return new XQueryAndExprPsiImpl(node);
         } else if (type == XQueryElementType.OR_EXPR) {
             return new XQueryOrExprPsiImpl(node);
-        } else if (type == XQueryElementType.EXPR) {
-            return new XQueryExprPsiImpl(node);
         } else if (type == XQueryElementType.QUERY_BODY) {
             return new XQueryQueryBodyPsiImpl(node);
         } else if (type == XQueryElementType.QNAME) {

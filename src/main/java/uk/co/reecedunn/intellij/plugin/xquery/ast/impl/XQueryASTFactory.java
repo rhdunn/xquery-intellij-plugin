@@ -65,8 +65,6 @@ public class XQueryASTFactory extends ASTFactory {
             return new XQueryAndExprImpl(type);
         } else if (type == XQueryElementType.OR_EXPR) {
             return new XQueryOrExprImpl(type);
-        } else if (type == XQueryElementType.EXPR) {
-            return new XQueryExprImpl(type);
         } else if (type == XQueryElementType.QUERY_BODY) {
             return new XQueryQueryBodyImpl(type);
         } else if (type == XQueryElementType.QNAME) {
