@@ -110,7 +110,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region ModuleDecl
+    // region NamespaceDecl
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-NamespaceDecl")
     public void testNamespaceDecl() {
@@ -119,6 +119,19 @@ public class XQueryLexerTest extends TestCase {
         matchSingleToken(lexer, "declare",   XQueryTokenType.K_DECLARE);
         matchSingleToken(lexer, "namespace", XQueryTokenType.K_NAMESPACE);
         matchSingleToken(lexer, "=",         XQueryTokenType.EQUAL);
+    }
+
+    // endregion
+    // region BoundarySpaceDecl
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-BoundarySpaceDecl")
+    public void testBoundarySpaceDecl() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "declare",        XQueryTokenType.K_DECLARE);
+        matchSingleToken(lexer, "boundary-space", XQueryTokenType.K_BOUNDARY_SPACE);
+        matchSingleToken(lexer, "preserve",       XQueryTokenType.K_PRESERVE);
+        matchSingleToken(lexer, "strip",          XQueryTokenType.K_STRIP);
     }
 
     // endregion

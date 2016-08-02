@@ -692,6 +692,7 @@ public class XQueryLexer extends LexerBase {
 
     static {
         sKeywords.put("at", XQueryTokenType.K_AT);
+        sKeywords.put("boundary-space", XQueryTokenType.K_BOUNDARY_SPACE);
         sKeywords.put("declare", XQueryTokenType.K_DECLARE);
         sKeywords.put("default", XQueryTokenType.K_DEFAULT);
         sKeywords.put("element", XQueryTokenType.K_ELEMENT);
@@ -699,7 +700,9 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("import", XQueryTokenType.K_IMPORT);
         sKeywords.put("module", XQueryTokenType.K_MODULE);
         sKeywords.put("namespace", XQueryTokenType.K_NAMESPACE);
+        sKeywords.put("preserve", XQueryTokenType.K_PRESERVE);
         sKeywords.put("schema", XQueryTokenType.K_SCHEMA);
+        sKeywords.put("strip", XQueryTokenType.K_STRIP);
         sKeywords.put("version", XQueryTokenType.K_VERSION);
         sKeywords.put("xquery", XQueryTokenType.K_XQUERY);
     }
