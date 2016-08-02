@@ -332,11 +332,26 @@ class XQueryParser {
             skipWhiteSpaceAndCommentTokens();
             if (parseNamespaceDecl()) {
                 declMarker.done(XQueryElementType.NAMESPACE_DECL);
+            } else if (parseBoundarySpaceDecl()) {
+                declMarker.done(XQueryElementType.BOUNDARY_SPACE_DECL);
             } else {
-                error(XQueryBundle.message("parser.error.expected-keyword", "namespace"));
+                error(XQueryBundle.message("parser.error.expected-keyword", "boundary-space|namespace"));
                 parseUnknownDecl();
                 declMarker.done(XQueryElementType.UNKNOWN_DECL);
             }
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseBoundarySpaceDecl() {
+        if (matchTokenType(XQueryTokenType.K_BOUNDARY_SPACE)) {
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_PRESERVE) && !matchTokenType(XQueryTokenType.K_STRIP)) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "preserve|strip"));
+            }
+
+            skipWhiteSpaceAndCommentTokens();
             return true;
         }
         return false;
@@ -370,15 +385,14 @@ class XQueryParser {
     }
 
     private boolean parseUnknownDecl() {
-        skipWhiteSpaceAndCommentTokens();
-        matchTokenType(XQueryTokenType.NCNAME);
+        if (matchTokenType(XQueryTokenType.NCNAME)) {
+            skipWhiteSpaceAndCommentTokens();
+            matchTokenType(XQueryTokenType.EQUAL);
 
-        skipWhiteSpaceAndCommentTokens();
-        matchTokenType(XQueryTokenType.EQUAL);
-
-        skipWhiteSpaceAndCommentTokens();
-        parseStringLiteral(XQueryElementType.URI_LITERAL);
-
+            skipWhiteSpaceAndCommentTokens();
+            parseStringLiteral(XQueryElementType.URI_LITERAL);
+        } else if (matchTokenType(XQueryTokenType.K_PRESERVE) || matchTokenType(XQueryTokenType.K_STRIP)) {
+        }
         skipWhiteSpaceAndCommentTokens();
         return true;
     }
