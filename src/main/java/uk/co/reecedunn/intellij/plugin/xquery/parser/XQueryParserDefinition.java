@@ -142,6 +142,8 @@ public class XQueryParserDefinition implements ParserDefinition {
             return new XQueryModulePsiImpl(node);
         } else if (type == XQueryElementType.IMPORT) {
             return new XQueryImportPsiImpl(node);
+        } else if (type == XQueryElementType.UNKNOWN_DECL) {
+            return new XQueryUnknownDeclPsiImpl(node);
         }
         throw new AssertionError("Alien element type [" + type + "]. Can't create XQuery PsiElement for that.");
     }

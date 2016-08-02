@@ -97,6 +97,8 @@ public class XQueryASTFactory extends ASTFactory {
             return new XQueryModuleImpl(type);
         } else if (type == XQueryElementType.IMPORT) {
             return new XQueryImportImpl(type);
+        } else if (type == XQueryElementType.UNKNOWN_DECL) {
+            return new XQueryUnknownDeclImpl(type);
         }
 
         throw new AssertionError("Alien element type [" + type + "]. Can't create XQuery AST Node for that.");

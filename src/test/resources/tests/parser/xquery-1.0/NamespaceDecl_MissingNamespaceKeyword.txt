@@ -1,7 +1,7 @@
 FileElement[FILE(0:46)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:46)]
       XQueryPrologImpl[XQUERY_PROLOG(0:46)]
-         XQueryNamespaceDeclImpl[XQUERY_NAMESPACE_DECL(0:45)]
+         XQueryUnknownDeclImpl[XQUERY_UNKNOWN_DECL(0:45)]
             LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
             PsiErrorElementImpl[ERROR_ELEMENT(8:8)]('XPST0003: Missing keyword 'namespace'.')

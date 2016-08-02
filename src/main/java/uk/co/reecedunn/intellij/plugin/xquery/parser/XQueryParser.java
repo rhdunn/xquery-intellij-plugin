@@ -290,7 +290,7 @@ class XQueryParser {
         boolean matched = false;
         final PsiBuilder.Marker prologMarker = mark();
 
-        while (parseNamespaceDecl() || parseImport()) {
+        while (parseDecl() || parseImport()) {
             matched = true;
             if (!matchTokenType(XQueryTokenType.SEPARATOR)) {
                 error(XQueryBundle.message("parser.error.expected-semicolon"));
@@ -326,19 +326,28 @@ class XQueryParser {
         return false;
     }
 
+    private boolean parseDecl() {
+        final PsiBuilder.Marker declMarker = matchTokenTypeWithMarker(XQueryTokenType.K_DECLARE);
+        if (declMarker != null) {
+            skipWhiteSpaceAndCommentTokens();
+            if (parseNamespaceDecl()) {
+                declMarker.done(XQueryElementType.NAMESPACE_DECL);
+            } else {
+                error(XQueryBundle.message("parser.error.expected-keyword", "namespace"));
+                parseUnknownDecl();
+                declMarker.done(XQueryElementType.UNKNOWN_DECL);
+            }
+            return true;
+        }
+        return false;
+    }
+
     private boolean parseNamespaceDecl() {
-        final PsiBuilder.Marker namespaceDeclMarker = matchTokenTypeWithMarker(XQueryTokenType.K_DECLARE);
-        if (namespaceDeclMarker != null) {
+        if (matchTokenType(XQueryTokenType.K_NAMESPACE)) {
             boolean haveErrors = false;
 
             skipWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.K_NAMESPACE)) {
-                error(XQueryBundle.message("parser.error.expected-keyword", "namespace"));
-                haveErrors = true;
-            }
-
-            skipWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.NCNAME) && !haveErrors) {
+            if (!matchTokenType(XQueryTokenType.NCNAME)) {
                 error(XQueryBundle.message("parser.error.expected-ncname"));
                 haveErrors = true;
             }
@@ -355,10 +364,23 @@ class XQueryParser {
             }
 
             skipWhiteSpaceAndCommentTokens();
-            namespaceDeclMarker.done(XQueryElementType.NAMESPACE_DECL);
             return true;
         }
         return false;
+    }
+
+    private boolean parseUnknownDecl() {
+        skipWhiteSpaceAndCommentTokens();
+        matchTokenType(XQueryTokenType.NCNAME);
+
+        skipWhiteSpaceAndCommentTokens();
+        matchTokenType(XQueryTokenType.EQUAL);
+
+        skipWhiteSpaceAndCommentTokens();
+        parseStringLiteral(XQueryElementType.URI_LITERAL);
+
+        skipWhiteSpaceAndCommentTokens();
+        return true;
     }
 
     private boolean parseSchemaImport() {
