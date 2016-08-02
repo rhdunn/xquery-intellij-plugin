@@ -697,6 +697,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("default", XQueryTokenType.K_DEFAULT);
         sKeywords.put("element", XQueryTokenType.K_ELEMENT);
         sKeywords.put("encoding", XQueryTokenType.K_ENCODING);
+        sKeywords.put("function", XQueryTokenType.K_FUNCTION);
         sKeywords.put("import", XQueryTokenType.K_IMPORT);
         sKeywords.put("module", XQueryTokenType.K_MODULE);
         sKeywords.put("namespace", XQueryTokenType.K_NAMESPACE);
