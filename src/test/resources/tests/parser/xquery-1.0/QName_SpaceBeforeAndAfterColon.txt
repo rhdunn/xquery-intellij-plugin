@@ -1,9 +1,23 @@
-FileElement[FILE(0:9)]
-   XQueryQNameImpl[XQUERY_QNAME(0:9)]
-      XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(0:3)]('one')
-      PsiErrorElementImpl[ERROR_ELEMENT(3:4)]('XPST0003: Whitespace is not allowed before ':' in a qualified name.')
-         PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
-      LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(4:5)](':')
-      PsiErrorElementImpl[ERROR_ELEMENT(5:6)]('XPST0003: Whitespace is not allowed after ':' in a qualified name.')
-         PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
-      XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(6:9)]('two')
+FileElement[FILE(0:32)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:32)]
+      XQueryPrologImpl[XQUERY_PROLOG(0:32)]
+         XQueryOptionDeclImpl[XQUERY_OPTION_DECL(0:31)]
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
+            PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_OPTION(8:14)]('option')
+            PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
+            XQueryQNameImpl[XQUERY_QNAME(15:24)]
+               XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(15:18)]('one')
+               PsiErrorElementImpl[ERROR_ELEMENT(18:19)]('XPST0003: Whitespace is not allowed before ':' in a qualified name.')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
+               LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(19:20)](':')
+               PsiErrorElementImpl[ERROR_ELEMENT(20:21)]('XPST0003: Whitespace is not allowed after ':' in a qualified name.')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
+               XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(21:24)]('two')
+            PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
+            XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(25:31)]
+               LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(25:26)]('"')
+               LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(26:30)]('Test')
+               LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(30:31)]('"')
+         LeafPsiElement[XQUERY_SEPARATOR_TOKEN(31:32)](';')
+      PsiErrorElementImpl[ERROR_ELEMENT(32:32)]('XPST0003: Missing query body.')

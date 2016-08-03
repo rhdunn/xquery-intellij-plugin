@@ -1,1 +1,1 @@
-:two
+declare option :two "Test" ;

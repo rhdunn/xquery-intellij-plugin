@@ -1,1 +1,1 @@
-:
+declare option : "Test";

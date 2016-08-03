@@ -44,7 +44,6 @@ class XQueryParser {
         while (getTokenType() != null) {
             if (skipWhiteSpaceAndCommentTokens()) continue;
             if (parseModule()) continue;
-            if (parseQName()) continue;
             if (parseDirCommentConstructor()) continue;
             if (parseCDataSection()) continue;
             advanceLexer();
@@ -820,10 +819,13 @@ class XQueryParser {
                     return true;
                 } else {
                     qnameMarker.drop();
-
-                    final PsiBuilder.Marker errorMarker = mark();
-                    advanceLexer();
-                    errorMarker.error(XQueryBundle.message("parser.error.qname.missing-local-name"));
+                    if (getTokenType() == XQueryTokenType.STRING_LITERAL_START) {
+                        error(XQueryBundle.message("parser.error.qname.missing-local-name"));
+                    } else {
+                        final PsiBuilder.Marker errorMarker = mark();
+                        advanceLexer();
+                        errorMarker.error(XQueryBundle.message("parser.error.qname.missing-local-name"));
+                    }
                     return true;
                 }
             } else {
