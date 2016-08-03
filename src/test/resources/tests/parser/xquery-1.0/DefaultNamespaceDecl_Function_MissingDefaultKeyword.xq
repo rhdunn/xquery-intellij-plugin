@@ -1,0 +1,1 @@
+declare function namespace "http://www.example.org/test" ;

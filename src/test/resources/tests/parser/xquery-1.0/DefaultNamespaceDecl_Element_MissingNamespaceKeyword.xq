@@ -1,0 +1,1 @@
+declare default element "http://www.example.org/test" ;

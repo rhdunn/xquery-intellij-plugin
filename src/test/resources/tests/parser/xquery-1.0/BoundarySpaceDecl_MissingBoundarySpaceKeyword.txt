@@ -4,7 +4,7 @@ FileElement[FILE(0:18)]
          XQueryUnknownDeclImpl[XQUERY_UNKNOWN_DECL(0:17)]
             LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-            PsiErrorElementImpl[ERROR_ELEMENT(8:8)]('XPST0003: Missing keyword 'boundary-space|namespace'.')
+            PsiErrorElementImpl[ERROR_ELEMENT(8:8)]('XPST0003: Missing keyword 'boundary-space|default|namespace'.')
             LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_PRESERVE(8:16)]('preserve')
             PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(17:18)](';')

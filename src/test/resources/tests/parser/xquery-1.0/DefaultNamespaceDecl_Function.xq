@@ -1,0 +1,1 @@
+declare default function namespace "http://www.example.org/test" ;

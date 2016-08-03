@@ -1,0 +1,1 @@
+declare element namespace "http://www.example.org/test" ;

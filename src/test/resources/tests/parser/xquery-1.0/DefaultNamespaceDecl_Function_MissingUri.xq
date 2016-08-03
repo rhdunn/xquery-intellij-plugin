@@ -1,0 +1,1 @@
+declare default function namespace ;

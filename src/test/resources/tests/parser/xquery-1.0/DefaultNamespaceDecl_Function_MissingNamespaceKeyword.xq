@@ -1,0 +1,1 @@
+declare default function "http://www.example.org/test" ;
