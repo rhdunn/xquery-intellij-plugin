@@ -55,6 +55,7 @@ public interface XQueryElementType {
     IElementType MODULE_IMPORT = new IElementType("XQUERY_MODULE_IMPORT", XQuery.INSTANCE);
     IElementType PROLOG = new IElementType("XQUERY_PROLOG", XQuery.INSTANCE);
 
+    IElementType OPTION_DECL = new IElementType("XQUERY_OPTION_DECL", XQuery.INSTANCE);
     IElementType DEFAULT_NAMESPACE_DECL = new IElementType("XQUERY_DEFAULT_NAMESPACE_DECL", XQuery.INSTANCE);
     IElementType BOUNDARY_SPACE_DECL = new IElementType("XQUERY_BOUNDARY_SPACE_DECL", XQuery.INSTANCE);
     IElementType UNKNOWN_DECL = new IElementType("XQUERY_UNKNOWN_DECL", XQuery.INSTANCE);

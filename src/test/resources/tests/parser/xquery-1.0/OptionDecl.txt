@@ -1,0 +1,17 @@
+FileElement[FILE(0:33)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:33)]
+      XQueryPrologImpl[XQUERY_PROLOG(0:33)]
+         XQueryOptionDeclImpl[XQUERY_OPTION_DECL(0:32)]
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
+            PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_OPTION(8:14)]('option')
+            PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
+            XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(15:19)]('test')
+            PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
+            XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(20:31)]
+               LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(20:21)]('"')
+               LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(21:30)]('Test Case')
+               LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(30:31)]('"')
+            PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
+         LeafPsiElement[XQUERY_SEPARATOR_TOKEN(32:33)](';')
+      PsiErrorElementImpl[ERROR_ELEMENT(33:33)]('XPST0003: Missing query body.')

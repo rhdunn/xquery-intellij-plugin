@@ -4,12 +4,12 @@ FileElement[FILE(0:46)]
          XQueryUnknownDeclImpl[XQUERY_UNKNOWN_DECL(0:45)]
             LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-            PsiErrorElementImpl[ERROR_ELEMENT(8:8)]('XPST0003: Missing keyword 'boundary-space|default|namespace'.')
+            PsiErrorElementImpl[ERROR_ELEMENT(8:8)]('XPST0003: Missing keyword 'boundary-space|default|namespace|option'.')
             XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(8:12)]('test')
             PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
             LeafPsiElement[XQUERY_EQUAL_TOKEN(13:14)]('=')
             PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
-            XQueryUriLiteralImpl[XQUERY_URI_LITERAL(15:44)]
+            XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(15:44)]
                LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(15:16)]('"')
                LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(16:43)]('http://www.example.org/test')
                LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(43:44)]('"')

@@ -122,6 +122,8 @@ public class XQueryParserDefinition implements ParserDefinition {
             return new XQueryCDataSectionPsiImpl(node);
         } else if (type == XQueryElementType.SCHEMA_PREFIX) {
             return new XQuerySchemaPrefixPsiImpl(node);
+        } else if (type == XQueryElementType.OPTION_DECL) {
+            return new XQueryOptionDeclPsiImpl(node);
         } else if (type == XQueryElementType.DEFAULT_NAMESPACE_DECL) {
             return new XQueryDefaultNamespaceDeclPsiImpl(node);
         } else if (type == XQueryElementType.BOUNDARY_SPACE_DECL) {

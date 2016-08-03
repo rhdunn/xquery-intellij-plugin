@@ -336,8 +336,10 @@ class XQueryParser {
                 declMarker.done(XQueryElementType.BOUNDARY_SPACE_DECL);
             } else if (parseDefaultNamespaceDecl()) {
                 declMarker.done(XQueryElementType.DEFAULT_NAMESPACE_DECL);
+            } else if (parseOptionDecl()) {
+                declMarker.done(XQueryElementType.OPTION_DECL);
             } else {
-                error(XQueryBundle.message("parser.error.expected-keyword", "boundary-space|default|namespace"));
+                error(XQueryBundle.message("parser.error.expected-keyword", "boundary-space|default|namespace|option"));
                 parseUnknownDecl();
                 declMarker.done(XQueryElementType.UNKNOWN_DECL);
             }
@@ -413,13 +415,34 @@ class XQueryParser {
         return false;
     }
 
+    private boolean parseOptionDecl() {
+        if (matchTokenType(XQueryTokenType.K_OPTION)) {
+            boolean haveErrors = false;
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!parseQName()) {
+                error(XQueryBundle.message("parser.error.expected-qname"));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!parseStringLiteral(XQueryElementType.STRING_LITERAL) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-option-string"));
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            return true;
+        }
+        return false;
+    }
+
     private boolean parseUnknownDecl() {
         if (matchTokenType(XQueryTokenType.NCNAME)) {
             skipWhiteSpaceAndCommentTokens();
             matchTokenType(XQueryTokenType.EQUAL);
 
             skipWhiteSpaceAndCommentTokens();
-            parseStringLiteral(XQueryElementType.URI_LITERAL);
+            parseStringLiteral(XQueryElementType.STRING_LITERAL);
         } else if (matchTokenType(XQueryTokenType.K_PRESERVE) || matchTokenType(XQueryTokenType.K_STRIP)) {
         } else if (matchTokenType(XQueryTokenType.K_ELEMENT) || matchTokenType(XQueryTokenType.K_FUNCTION)) {
             skipWhiteSpaceAndCommentTokens();

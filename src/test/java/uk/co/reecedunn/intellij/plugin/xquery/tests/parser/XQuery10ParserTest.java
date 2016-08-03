@@ -432,6 +432,44 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region OptionDecl
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-OptionDecl")
+    public void testOptionDecl() {
+        final String expected = loadResource("tests/parser/xquery-1.0/OptionDecl.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/OptionDecl.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-OptionDecl")
+    public void testOptionDecl_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/OptionDecl_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/OptionDecl_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-OptionDecl")
+    public void testOptionDecl_MissingOptionValue() {
+        final String expected = loadResource("tests/parser/xquery-1.0/OptionDecl_MissingOptionValue.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/OptionDecl_MissingOptionValue.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-OptionDecl")
+    public void testOptionDecl_MissingOptionName() {
+        final String expected = loadResource("tests/parser/xquery-1.0/OptionDecl_MissingOptionName.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/OptionDecl_MissingOptionName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-OptionDecl")
+    public void testOptionDecl_MissingOptionKeyword() {
+        final String expected = loadResource("tests/parser/xquery-1.0/OptionDecl_MissingOptionKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/OptionDecl_MissingOptionKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region SchemaImport
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-SchemaImport")
