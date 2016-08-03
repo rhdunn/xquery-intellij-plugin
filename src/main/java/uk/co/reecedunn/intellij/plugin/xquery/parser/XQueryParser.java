@@ -814,20 +814,16 @@ class XQueryParser {
                     afterMarker.drop();
                 }
 
-                if (matchTokenType(XQueryTokenType.NCNAME)) {
-                    qnameMarker.done(XQueryElementType.QNAME);
-                    return true;
-                } else {
-                    qnameMarker.drop();
-                    if (getTokenType() == XQueryTokenType.STRING_LITERAL_START) {
-                        error(XQueryBundle.message("parser.error.qname.missing-local-name"));
-                    } else {
-                        final PsiBuilder.Marker errorMarker = mark();
-                        advanceLexer();
-                        errorMarker.error(XQueryBundle.message("parser.error.qname.missing-local-name"));
-                    }
-                    return true;
+                if (getTokenType() == XQueryTokenType.STRING_LITERAL_START) {
+                    error(XQueryBundle.message("parser.error.qname.missing-local-name"));
+                } else if (!matchTokenType(XQueryTokenType.NCNAME)) {
+                    final PsiBuilder.Marker errorMarker = mark();
+                    advanceLexer();
+                    errorMarker.error(XQueryBundle.message("parser.error.qname.missing-local-name"));
                 }
+
+                qnameMarker.done(XQueryElementType.QNAME);
+                return true;
             } else {
                 qnameMarker.drop();
             }
