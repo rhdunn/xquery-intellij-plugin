@@ -150,6 +150,17 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region OptionDecl
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-OptionDecl")
+    public void testOptionDecl() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "declare", XQueryTokenType.K_DECLARE);
+        matchSingleToken(lexer, "option",  XQueryTokenType.K_OPTION);
+    }
+
+    // endregion
     // region SchemaImport
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-SchemaImport")
