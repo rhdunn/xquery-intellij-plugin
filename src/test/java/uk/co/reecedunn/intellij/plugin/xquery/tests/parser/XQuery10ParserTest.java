@@ -501,6 +501,51 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region EmptyOrderDecl
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-EmptyOrderDecl")
+    public void testEmptyOrderDecl() {
+        final String expected = loadResource("tests/parser/xquery-1.0/EmptyOrderDecl.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/EmptyOrderDecl.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-EmptyOrderDecl")
+    public void testEmptyOrderDecl_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/EmptyOrderDecl_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/EmptyOrderDecl_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-EmptyOrderDecl")
+    public void testEmptyOrderDecl_MissingGreatestOrLeastKeyword() {
+        final String expected = loadResource("tests/parser/xquery-1.0/EmptyOrderDecl_MissingGreatestOrLeastKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/EmptyOrderDecl_MissingGreatestOrLeastKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-EmptyOrderDecl")
+    public void testEmptyOrderDecl_MissingEmptyKeyword() {
+        final String expected = loadResource("tests/parser/xquery-1.0/EmptyOrderDecl_MissingEmptyKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/EmptyOrderDecl_MissingEmptyKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-EmptyOrderDecl")
+    public void testEmptyOrderDecl_MissingOrderKeyword() {
+        final String expected = loadResource("tests/parser/xquery-1.0/EmptyOrderDecl_MissingOrderKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/EmptyOrderDecl_MissingOrderKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-EmptyOrderDecl")
+    public void testEmptyOrderDecl_MissingDefaultKeyword() {
+        final String expected = loadResource("tests/parser/xquery-1.0/EmptyOrderDecl_MissingDefaultKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/EmptyOrderDecl_MissingDefaultKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region SchemaImport
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-SchemaImport")

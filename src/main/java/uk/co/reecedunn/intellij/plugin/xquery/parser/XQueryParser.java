@@ -393,8 +393,10 @@ class XQueryParser {
             skipWhiteSpaceAndCommentTokens();
             if (parseDefaultNamespaceDecl()) {
                 defaultDeclMarker.done(XQueryElementType.DEFAULT_NAMESPACE_DECL);
+            } else if (parseEmptyOrderDecl()) {
+                defaultDeclMarker.done(XQueryElementType.EMPTY_ORDER_DECL);
             } else {
-                error(XQueryBundle.message("parser.error.expected-keyword", "element|function"));
+                error(XQueryBundle.message("parser.error.expected-keyword", "element|function|order"));
                 parseUnknownDecl();
                 defaultDeclMarker.done(XQueryElementType.UNKNOWN_DECL);
             }
@@ -458,6 +460,27 @@ class XQueryParser {
         return false;
     }
 
+    private boolean parseEmptyOrderDecl() {
+        if (matchTokenType(XQueryTokenType.K_ORDER)) {
+            boolean haveErrors = false;
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_EMPTY)) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "empty"));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_GREATEST) && !matchTokenType(XQueryTokenType.K_LEAST) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "greatest|least"));
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            return true;
+        }
+        return false;
+    }
+
     private boolean parseUnknownDecl() {
         if (matchTokenType(XQueryTokenType.NCNAME)) {
             skipWhiteSpaceAndCommentTokens();
@@ -476,6 +499,17 @@ class XQueryParser {
         } else if (matchTokenType(XQueryTokenType.K_NAMESPACE)) {
             skipWhiteSpaceAndCommentTokens();
             parseStringLiteral(XQueryElementType.URI_LITERAL);
+        } else if (matchTokenType(XQueryTokenType.K_EMPTY)) {
+            skipWhiteSpaceAndCommentTokens();
+            matchTokenType(XQueryTokenType.K_GREATEST);
+            matchTokenType(XQueryTokenType.K_LEAST);
+        } else if (matchTokenType(XQueryTokenType.K_ORDER)) {
+            skipWhiteSpaceAndCommentTokens();
+            matchTokenType(XQueryTokenType.K_EMPTY);
+
+            skipWhiteSpaceAndCommentTokens();
+            matchTokenType(XQueryTokenType.K_GREATEST);
+            matchTokenType(XQueryTokenType.K_LEAST);
         }
         skipWhiteSpaceAndCommentTokens();
         return true;

@@ -1,0 +1,1 @@
+declare default empty greatest ;
