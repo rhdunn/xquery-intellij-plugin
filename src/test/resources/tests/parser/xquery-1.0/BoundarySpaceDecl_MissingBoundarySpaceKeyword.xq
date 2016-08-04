@@ -1,1 +1,2 @@
 declare preserve ;
+declare strip ;

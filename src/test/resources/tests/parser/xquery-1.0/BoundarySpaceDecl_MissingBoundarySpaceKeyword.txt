@@ -1,6 +1,6 @@
-FileElement[FILE(0:18)]
-   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:18)]
-      XQueryPrologImpl[XQUERY_PROLOG(0:18)]
+FileElement[FILE(0:34)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:34)]
+      XQueryPrologImpl[XQUERY_PROLOG(0:34)]
          XQueryUnknownDeclImpl[XQUERY_UNKNOWN_DECL(0:17)]
             LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
@@ -8,4 +8,12 @@ FileElement[FILE(0:18)]
             LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_PRESERVE(8:16)]('preserve')
             PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(17:18)](';')
-      PsiErrorElementImpl[ERROR_ELEMENT(18:18)]('XPST0003: Missing query body.')
+         PsiWhiteSpaceImpl[WHITE_SPACE(18:19)]('\n')
+         XQueryUnknownDeclImpl[XQUERY_UNKNOWN_DECL(19:33)]
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(19:26)]('declare')
+            PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
+            PsiErrorElementImpl[ERROR_ELEMENT(27:27)]('XPST0003: Missing keyword 'boundary-space|default|namespace|option|ordering'.')
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_STRIP(27:32)]('strip')
+            PsiWhiteSpaceImpl[WHITE_SPACE(32:33)](' ')
+         LeafPsiElement[XQUERY_SEPARATOR_TOKEN(33:34)](';')
+      PsiErrorElementImpl[ERROR_ELEMENT(34:34)]('XPST0003: Missing query body.')
