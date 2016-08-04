@@ -100,12 +100,16 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_DECLARE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DECLARE");
     IXQueryKeywordOrNCNameType K_DEFAULT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DEFAULT");
     IXQueryKeywordOrNCNameType K_ELEMENT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ELEMENT");
+    IXQueryKeywordOrNCNameType K_EMPTY = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_EMPTY");
     IXQueryKeywordOrNCNameType K_ENCODING = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ENCODING");
     IXQueryKeywordOrNCNameType K_FUNCTION = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_FUNCTION");
+    IXQueryKeywordOrNCNameType K_GREATEST = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_GREATEST");
     IXQueryKeywordOrNCNameType K_IMPORT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_IMPORT");
+    IXQueryKeywordOrNCNameType K_LEAST = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_LEAST");
     IXQueryKeywordOrNCNameType K_MODULE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_MODULE");
     IXQueryKeywordOrNCNameType K_NAMESPACE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NAMESPACE");
     IXQueryKeywordOrNCNameType K_OPTION = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_OPTION");
+    IXQueryKeywordOrNCNameType K_ORDER = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ORDER");
     IXQueryKeywordOrNCNameType K_ORDERED = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ORDERED");
     IXQueryKeywordOrNCNameType K_ORDERING = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ORDERING");
     IXQueryKeywordOrNCNameType K_PRESERVE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PRESERVE");

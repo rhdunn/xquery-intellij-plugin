@@ -174,6 +174,21 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region EmptyOrderDecl
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-EmptyOrderDecl")
+    public void testEmptyOrderDecl() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "declare",  XQueryTokenType.K_DECLARE);
+        matchSingleToken(lexer, "default",  XQueryTokenType.K_DEFAULT);
+        matchSingleToken(lexer, "order",    XQueryTokenType.K_ORDER);
+        matchSingleToken(lexer, "empty",    XQueryTokenType.K_EMPTY);
+        matchSingleToken(lexer, "greatest", XQueryTokenType.K_GREATEST);
+        matchSingleToken(lexer, "least",    XQueryTokenType.K_LEAST);
+    }
+
+    // endregion
     // region SchemaImport
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-SchemaImport")

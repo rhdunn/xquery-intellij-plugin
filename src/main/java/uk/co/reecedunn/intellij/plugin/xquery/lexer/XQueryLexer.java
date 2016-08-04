@@ -696,12 +696,16 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("declare", XQueryTokenType.K_DECLARE);
         sKeywords.put("default", XQueryTokenType.K_DEFAULT);
         sKeywords.put("element", XQueryTokenType.K_ELEMENT);
+        sKeywords.put("empty", XQueryTokenType.K_EMPTY);
         sKeywords.put("encoding", XQueryTokenType.K_ENCODING);
         sKeywords.put("function", XQueryTokenType.K_FUNCTION);
+        sKeywords.put("greatest", XQueryTokenType.K_GREATEST);
         sKeywords.put("import", XQueryTokenType.K_IMPORT);
+        sKeywords.put("least", XQueryTokenType.K_LEAST);
         sKeywords.put("module", XQueryTokenType.K_MODULE);
         sKeywords.put("namespace", XQueryTokenType.K_NAMESPACE);
         sKeywords.put("option", XQueryTokenType.K_OPTION);
+        sKeywords.put("order", XQueryTokenType.K_ORDER);
         sKeywords.put("ordered", XQueryTokenType.K_ORDERED);
         sKeywords.put("ordering", XQueryTokenType.K_ORDERING);
         sKeywords.put("preserve", XQueryTokenType.K_PRESERVE);
