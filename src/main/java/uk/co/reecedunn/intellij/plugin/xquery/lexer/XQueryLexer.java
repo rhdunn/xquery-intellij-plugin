@@ -693,6 +693,7 @@ public class XQueryLexer extends LexerBase {
     static {
         sKeywords.put("at", XQueryTokenType.K_AT);
         sKeywords.put("boundary-space", XQueryTokenType.K_BOUNDARY_SPACE);
+        sKeywords.put("copy-namespaces", XQueryTokenType.K_COPY_NAMESPACES);
         sKeywords.put("declare", XQueryTokenType.K_DECLARE);
         sKeywords.put("default", XQueryTokenType.K_DEFAULT);
         sKeywords.put("element", XQueryTokenType.K_ELEMENT);
@@ -701,9 +702,12 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("function", XQueryTokenType.K_FUNCTION);
         sKeywords.put("greatest", XQueryTokenType.K_GREATEST);
         sKeywords.put("import", XQueryTokenType.K_IMPORT);
+        sKeywords.put("inherit", XQueryTokenType.K_INHERIT);
         sKeywords.put("least", XQueryTokenType.K_LEAST);
         sKeywords.put("module", XQueryTokenType.K_MODULE);
         sKeywords.put("namespace", XQueryTokenType.K_NAMESPACE);
+        sKeywords.put("no-inherit", XQueryTokenType.K_NO_INHERIT);
+        sKeywords.put("no-preserve", XQueryTokenType.K_NO_PRESERVE);
         sKeywords.put("option", XQueryTokenType.K_OPTION);
         sKeywords.put("order", XQueryTokenType.K_ORDER);
         sKeywords.put("ordered", XQueryTokenType.K_ORDERED);

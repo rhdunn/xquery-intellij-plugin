@@ -189,6 +189,40 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region CopyNamespacesDecl
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-CopyNamespacesDecl")
+    public void testCopyNamespacesDecl() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "declare",         XQueryTokenType.K_DECLARE);
+        matchSingleToken(lexer, "copy-namespaces", XQueryTokenType.K_COPY_NAMESPACES);
+        matchSingleToken(lexer, ",",               XQueryTokenType.COMMA);
+    }
+
+    // endregion
+    // region PreserveMode
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-PreserveMode")
+    public void testPreserveMode() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "preserve",    XQueryTokenType.K_PRESERVE);
+        matchSingleToken(lexer, "no-preserve", XQueryTokenType.K_NO_PRESERVE);
+    }
+
+    // endregion
+    // region InheritMode
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-InheritMode")
+    public void testInheritMode() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "inherit",    XQueryTokenType.K_INHERIT);
+        matchSingleToken(lexer, "no-inherit", XQueryTokenType.K_NO_INHERIT);
+    }
+
+    // endregion
     // region SchemaImport
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-SchemaImport")
