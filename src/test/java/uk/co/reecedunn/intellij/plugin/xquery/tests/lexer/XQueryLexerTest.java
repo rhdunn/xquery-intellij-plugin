@@ -161,6 +161,19 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region OrderingModeDecl
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-OrderingModeDecl")
+    public void testOrderingModeDecl() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "declare",   XQueryTokenType.K_DECLARE);
+        matchSingleToken(lexer, "ordering",  XQueryTokenType.K_ORDERING);
+        matchSingleToken(lexer, "ordered",   XQueryTokenType.K_ORDERED);
+        matchSingleToken(lexer, "unordered", XQueryTokenType.K_UNORDERED);
+    }
+
+    // endregion
     // region SchemaImport
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-SchemaImport")

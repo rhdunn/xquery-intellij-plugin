@@ -173,6 +173,12 @@ public class SyntaxHighlighterTest extends TestCase {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_OPTION).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_OPTION)[0], is(SyntaxHighlighter.KEYWORD));
 
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_ORDERED).length, is(1));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_ORDERED)[0], is(SyntaxHighlighter.KEYWORD));
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_ORDERING).length, is(1));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_ORDERING)[0], is(SyntaxHighlighter.KEYWORD));
+
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_PRESERVE).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_PRESERVE)[0], is(SyntaxHighlighter.KEYWORD));
 
@@ -181,6 +187,9 @@ public class SyntaxHighlighterTest extends TestCase {
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_STRIP).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_STRIP)[0], is(SyntaxHighlighter.KEYWORD));
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_UNORDERED).length, is(1));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_UNORDERED)[0], is(SyntaxHighlighter.KEYWORD));
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_VERSION).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_VERSION)[0], is(SyntaxHighlighter.KEYWORD));
