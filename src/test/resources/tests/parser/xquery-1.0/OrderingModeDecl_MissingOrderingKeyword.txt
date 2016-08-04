@@ -1,0 +1,11 @@
+FileElement[FILE(0:17)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:17)]
+      XQueryPrologImpl[XQUERY_PROLOG(0:17)]
+         XQueryUnknownDeclImpl[XQUERY_UNKNOWN_DECL(0:16)]
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
+            PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+            PsiErrorElementImpl[ERROR_ELEMENT(8:8)]('XPST0003: Missing keyword 'boundary-space|default|namespace|option|ordering'.')
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_ORDERED(8:15)]('ordered')
+            PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
+         LeafPsiElement[XQUERY_SEPARATOR_TOKEN(16:17)](';')
+      PsiErrorElementImpl[ERROR_ELEMENT(17:17)]('XPST0003: Missing query body.')

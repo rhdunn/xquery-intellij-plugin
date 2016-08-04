@@ -337,8 +337,10 @@ class XQueryParser {
                 declMarker.done(XQueryElementType.DEFAULT_NAMESPACE_DECL);
             } else if (parseOptionDecl()) {
                 declMarker.done(XQueryElementType.OPTION_DECL);
+            } else if (parseOrderingModeDecl()) {
+                declMarker.done(XQueryElementType.ORDERING_MODE_DECL);
             } else {
-                error(XQueryBundle.message("parser.error.expected-keyword", "boundary-space|default|namespace|option"));
+                error(XQueryBundle.message("parser.error.expected-keyword", "boundary-space|default|namespace|option|ordering"));
                 parseUnknownDecl();
                 declMarker.done(XQueryElementType.UNKNOWN_DECL);
             }
@@ -435,6 +437,19 @@ class XQueryParser {
         return false;
     }
 
+    private boolean parseOrderingModeDecl() {
+        if (matchTokenType(XQueryTokenType.K_ORDERING)) {
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_ORDERED) && !matchTokenType(XQueryTokenType.K_UNORDERED)) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "ordered|unordered"));
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            return true;
+        }
+        return false;
+    }
+
     private boolean parseUnknownDecl() {
         if (matchTokenType(XQueryTokenType.NCNAME)) {
             skipWhiteSpaceAndCommentTokens();
@@ -443,6 +458,7 @@ class XQueryParser {
             skipWhiteSpaceAndCommentTokens();
             parseStringLiteral(XQueryElementType.STRING_LITERAL);
         } else if (matchTokenType(XQueryTokenType.K_PRESERVE) || matchTokenType(XQueryTokenType.K_STRIP)) {
+        } else if (matchTokenType(XQueryTokenType.K_ORDERED) || matchTokenType(XQueryTokenType.K_UNORDERED)) {
         } else if (matchTokenType(XQueryTokenType.K_ELEMENT) || matchTokenType(XQueryTokenType.K_FUNCTION)) {
             skipWhiteSpaceAndCommentTokens();
             matchTokenType(XQueryTokenType.K_NAMESPACE);

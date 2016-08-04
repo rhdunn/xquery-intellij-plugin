@@ -77,6 +77,8 @@ public class XQueryASTFactory extends ASTFactory {
             return new XQueryCDataSectionImpl(type);
         } else if (type == XQueryElementType.SCHEMA_PREFIX) {
             return new XQuerySchemaPrefixImpl(type);
+        } else if (type == XQueryElementType.ORDERING_MODE_DECL) {
+            return new XQueryOrderingModeDeclImpl(type);
         } else if (type == XQueryElementType.OPTION_DECL) {
             return new XQueryOptionDeclImpl(type);
         } else if (type == XQueryElementType.DEFAULT_NAMESPACE_DECL) {
