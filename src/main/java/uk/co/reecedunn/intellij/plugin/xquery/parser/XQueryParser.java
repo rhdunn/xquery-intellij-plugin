@@ -333,8 +333,7 @@ class XQueryParser {
                 declMarker.done(XQueryElementType.NAMESPACE_DECL);
             } else if (parseBoundarySpaceDecl()) {
                 declMarker.done(XQueryElementType.BOUNDARY_SPACE_DECL);
-            } else if (parseDefaultNamespaceDecl()) {
-                declMarker.done(XQueryElementType.DEFAULT_NAMESPACE_DECL);
+            } else if (parseDefaultDecl(declMarker)) {
             } else if (parseOptionDecl()) {
                 declMarker.done(XQueryElementType.OPTION_DECL);
             } else if (parseOrderingModeDecl()) {
@@ -389,18 +388,27 @@ class XQueryParser {
         return false;
     }
 
-    private boolean parseDefaultNamespaceDecl() {
+    private boolean parseDefaultDecl(PsiBuilder.Marker defaultDeclMarker) {
         if (matchTokenType(XQueryTokenType.K_DEFAULT)) {
+            skipWhiteSpaceAndCommentTokens();
+            if (parseDefaultNamespaceDecl()) {
+                defaultDeclMarker.done(XQueryElementType.DEFAULT_NAMESPACE_DECL);
+            } else {
+                error(XQueryBundle.message("parser.error.expected-keyword", "element|function"));
+                parseUnknownDecl();
+                defaultDeclMarker.done(XQueryElementType.UNKNOWN_DECL);
+            }
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseDefaultNamespaceDecl() {
+        if (matchTokenType(XQueryTokenType.K_ELEMENT) || matchTokenType(XQueryTokenType.K_FUNCTION)) {
             boolean haveErrors = false;
 
             skipWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.K_ELEMENT) && !matchTokenType(XQueryTokenType.K_FUNCTION)) {
-                error(XQueryBundle.message("parser.error.expected-keyword", "element|function"));
-                haveErrors = true;
-            }
-
-            skipWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.K_NAMESPACE) && !haveErrors) {
+            if (!matchTokenType(XQueryTokenType.K_NAMESPACE)) {
                 error(XQueryBundle.message("parser.error.expected-keyword", "namespace"));
                 haveErrors = true;
             }
@@ -463,6 +471,9 @@ class XQueryParser {
             skipWhiteSpaceAndCommentTokens();
             matchTokenType(XQueryTokenType.K_NAMESPACE);
 
+            skipWhiteSpaceAndCommentTokens();
+            parseStringLiteral(XQueryElementType.URI_LITERAL);
+        } else if (matchTokenType(XQueryTokenType.K_NAMESPACE)) {
             skipWhiteSpaceAndCommentTokens();
             parseStringLiteral(XQueryElementType.URI_LITERAL);
         }
