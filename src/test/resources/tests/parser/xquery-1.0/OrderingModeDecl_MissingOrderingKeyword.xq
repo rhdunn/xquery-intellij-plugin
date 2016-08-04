@@ -1,1 +1,2 @@
 declare ordered ;
+declare unordered ;
