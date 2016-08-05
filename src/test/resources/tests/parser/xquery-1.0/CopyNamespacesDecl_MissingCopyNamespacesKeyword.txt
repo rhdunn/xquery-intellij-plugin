@@ -1,0 +1,27 @@
+FileElement[FILE(0:63)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:63)]
+      XQueryPrologImpl[XQUERY_PROLOG(0:63)]
+         XQueryUnknownDeclImpl[XQUERY_UNKNOWN_DECL(0:27)]
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
+            PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+            PsiErrorElementImpl[ERROR_ELEMENT(8:8)]('XPST0003: Missing keyword 'boundary-space|copy-namespaces|default|namespace|option|ordering'.')
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_PRESERVE(8:16)]('preserve')
+            PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
+            LeafPsiElement[XQUERY_COMMA_TOKEN(17:18)](',')
+            PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_INHERIT(19:26)]('inherit')
+            PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
+         LeafPsiElement[XQUERY_SEPARATOR_TOKEN(27:28)](';')
+         PsiWhiteSpaceImpl[WHITE_SPACE(28:29)]('\n')
+         XQueryUnknownDeclImpl[XQUERY_UNKNOWN_DECL(29:62)]
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(29:36)]('declare')
+            PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
+            PsiErrorElementImpl[ERROR_ELEMENT(37:37)]('XPST0003: Missing keyword 'boundary-space|copy-namespaces|default|namespace|option|ordering'.')
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NO_PRESERVE(37:48)]('no-preserve')
+            PsiWhiteSpaceImpl[WHITE_SPACE(48:49)](' ')
+            LeafPsiElement[XQUERY_COMMA_TOKEN(49:50)](',')
+            PsiWhiteSpaceImpl[WHITE_SPACE(50:51)](' ')
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NO_INHERIT(51:61)]('no-inherit')
+            PsiWhiteSpaceImpl[WHITE_SPACE(61:62)](' ')
+         LeafPsiElement[XQUERY_SEPARATOR_TOKEN(62:63)](';')
+      PsiErrorElementImpl[ERROR_ELEMENT(63:63)]('XPST0003: Missing query body.')

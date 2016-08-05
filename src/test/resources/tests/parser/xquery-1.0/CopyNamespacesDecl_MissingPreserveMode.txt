@@ -1,0 +1,15 @@
+FileElement[FILE(0:35)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:35)]
+      XQueryPrologImpl[XQUERY_PROLOG(0:35)]
+         XQueryCopyNamespacesDeclImpl[XQUERY_COPY_NAMESPACES_DECL(0:34)]
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
+            PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_COPY_NAMESPACES(8:23)]('copy-namespaces')
+            PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
+            PsiErrorElementImpl[ERROR_ELEMENT(24:24)]('XPST0003: Missing keyword 'preserve|no-preserve'.')
+            LeafPsiElement[XQUERY_COMMA_TOKEN(24:25)](',')
+            PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_INHERIT(26:33)]('inherit')
+            PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
+         LeafPsiElement[XQUERY_SEPARATOR_TOKEN(34:35)](';')
+      PsiErrorElementImpl[ERROR_ELEMENT(35:35)]('XPST0003: Missing query body.')

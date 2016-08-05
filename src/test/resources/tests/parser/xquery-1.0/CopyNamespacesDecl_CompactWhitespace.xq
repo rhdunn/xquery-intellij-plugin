@@ -1,0 +1,1 @@
+declare copy-namespaces no-preserve,no-inherit;
