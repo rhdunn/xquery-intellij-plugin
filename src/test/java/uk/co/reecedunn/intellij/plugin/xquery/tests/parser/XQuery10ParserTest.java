@@ -603,6 +603,51 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region DefaultCollationDecl
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DefaultCollationDecl")
+    public void testDefaultCollationDecl() {
+        final String expected = loadResource("tests/parser/xquery-1.0/DefaultCollationDecl.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/DefaultCollationDecl.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DefaultCollationDecl")
+    public void testDefaultCollationDecl_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/DefaultCollationDecl_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/DefaultCollationDecl_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DefaultCollationDecl")
+    public void testDefaultCollationDecl_MissingSemicolon() {
+        final String expected = loadResource("tests/parser/xquery-1.0/DefaultCollationDecl_MissingSemicolon.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/DefaultCollationDecl_MissingSemicolon.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DefaultCollationDecl")
+    public void testDefaultCollationDecl_MissingUri() {
+        final String expected = loadResource("tests/parser/xquery-1.0/DefaultCollationDecl_MissingUri.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/DefaultCollationDecl_MissingUri.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DefaultCollationDecl")
+    public void testDefaultCollationDecl_MissingCollationKeyword() {
+        final String expected = loadResource("tests/parser/xquery-1.0/DefaultCollationDecl_MissingCollationKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/DefaultCollationDecl_MissingCollationKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DefaultCollationDecl")
+    public void testDefaultCollationDecl_MissingDefaultKeyword() {
+        final String expected = loadResource("tests/parser/xquery-1.0/DefaultCollationDecl_MissingDefaultKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/DefaultCollationDecl_MissingDefaultKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region SchemaImport
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-SchemaImport")

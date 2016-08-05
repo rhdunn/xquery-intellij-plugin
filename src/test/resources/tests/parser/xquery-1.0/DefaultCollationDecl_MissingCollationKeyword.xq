@@ -1,0 +1,1 @@
+declare default "http://www.example.org/lang/es" ;

@@ -55,6 +55,7 @@ public interface XQueryElementType {
     IElementType MODULE_IMPORT = new IElementType("XQUERY_MODULE_IMPORT", XQuery.INSTANCE);
     IElementType PROLOG = new IElementType("XQUERY_PROLOG", XQuery.INSTANCE);
 
+    IElementType DEFAULT_COLLATION_DECL = new IElementType("XQUERY_DEFAULT_COLLATION_DECL", XQuery.INSTANCE);
     IElementType COPY_NAMESPACES_DECL = new IElementType("XQUERY_COPY_NAMESPACES_DECL", XQuery.INSTANCE);
     IElementType EMPTY_ORDER_DECL = new IElementType("XQUERY_EMPTY_ORDER_DECL", XQuery.INSTANCE);
     IElementType ORDERING_MODE_DECL = new IElementType("XQUERY_ORDERING_MODE_DECL", XQuery.INSTANCE);

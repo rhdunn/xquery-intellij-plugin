@@ -397,8 +397,10 @@ class XQueryParser {
                 defaultDeclMarker.done(XQueryElementType.DEFAULT_NAMESPACE_DECL);
             } else if (parseEmptyOrderDecl()) {
                 defaultDeclMarker.done(XQueryElementType.EMPTY_ORDER_DECL);
+            } else if (parseDefaultCollationDecl()) {
+                defaultDeclMarker.done(XQueryElementType.DEFAULT_COLLATION_DECL);
             } else {
-                error(XQueryBundle.message("parser.error.expected-keyword", "element|function|order"));
+                error(XQueryBundle.message("parser.error.expected-keyword", "collation|element|function|order"));
                 parseUnknownDecl();
                 defaultDeclMarker.done(XQueryElementType.UNKNOWN_DECL);
             }
@@ -510,6 +512,19 @@ class XQueryParser {
         return false;
     }
 
+    private boolean parseDefaultCollationDecl() {
+        if (matchTokenType(XQueryTokenType.K_COLLATION)) {
+            skipWhiteSpaceAndCommentTokens();
+            if (!parseStringLiteral(XQueryElementType.URI_LITERAL)) {
+                error(XQueryBundle.message("parser.error.expected-uri-string"));
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            return true;
+        }
+        return false;
+    }
+
     private boolean parseUnknownDecl() {
         while (true) {
             if (skipWhiteSpaceAndCommentTokens()) continue;
@@ -519,6 +534,7 @@ class XQueryParser {
             if (matchTokenType(XQueryTokenType.EQUAL)) continue;
             if (matchTokenType(XQueryTokenType.COMMA)) continue;
 
+            if (matchTokenType(XQueryTokenType.K_COLLATION)) continue;
             if (matchTokenType(XQueryTokenType.K_ELEMENT)) continue;
             if (matchTokenType(XQueryTokenType.K_EMPTY)) continue;
             if (matchTokenType(XQueryTokenType.K_FUNCTION)) continue;
