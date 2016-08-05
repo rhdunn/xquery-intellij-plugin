@@ -692,6 +692,7 @@ public class XQueryLexer extends LexerBase {
 
     static {
         sKeywords.put("at", XQueryTokenType.K_AT);
+        sKeywords.put("base-uri", XQueryTokenType.K_BASE_URI);
         sKeywords.put("boundary-space", XQueryTokenType.K_BOUNDARY_SPACE);
         sKeywords.put("collation", XQueryTokenType.K_COLLATION);
         sKeywords.put("copy-namespaces", XQueryTokenType.K_COPY_NAMESPACES);
