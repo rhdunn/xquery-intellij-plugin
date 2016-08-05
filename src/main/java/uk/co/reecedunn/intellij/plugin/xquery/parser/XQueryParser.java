@@ -482,37 +482,26 @@ class XQueryParser {
     }
 
     private boolean parseUnknownDecl() {
-        if (matchTokenType(XQueryTokenType.NCNAME)) {
-            skipWhiteSpaceAndCommentTokens();
-            matchTokenType(XQueryTokenType.EQUAL);
+        while (true) {
+            if (skipWhiteSpaceAndCommentTokens()) continue;
+            if (matchTokenType(XQueryTokenType.NCNAME)) continue;
+            if (parseStringLiteral(XQueryElementType.STRING_LITERAL)) continue;
 
-            skipWhiteSpaceAndCommentTokens();
-            parseStringLiteral(XQueryElementType.STRING_LITERAL);
-        } else if (matchTokenType(XQueryTokenType.K_PRESERVE) || matchTokenType(XQueryTokenType.K_STRIP)) {
-        } else if (matchTokenType(XQueryTokenType.K_ORDERED) || matchTokenType(XQueryTokenType.K_UNORDERED)) {
-        } else if (matchTokenType(XQueryTokenType.K_ELEMENT) || matchTokenType(XQueryTokenType.K_FUNCTION)) {
-            skipWhiteSpaceAndCommentTokens();
-            matchTokenType(XQueryTokenType.K_NAMESPACE);
+            if (matchTokenType(XQueryTokenType.EQUAL)) continue;
 
-            skipWhiteSpaceAndCommentTokens();
-            parseStringLiteral(XQueryElementType.URI_LITERAL);
-        } else if (matchTokenType(XQueryTokenType.K_NAMESPACE)) {
-            skipWhiteSpaceAndCommentTokens();
-            parseStringLiteral(XQueryElementType.URI_LITERAL);
-        } else if (matchTokenType(XQueryTokenType.K_EMPTY)) {
-            skipWhiteSpaceAndCommentTokens();
-            matchTokenType(XQueryTokenType.K_GREATEST);
-            matchTokenType(XQueryTokenType.K_LEAST);
-        } else if (matchTokenType(XQueryTokenType.K_ORDER)) {
-            skipWhiteSpaceAndCommentTokens();
-            matchTokenType(XQueryTokenType.K_EMPTY);
-
-            skipWhiteSpaceAndCommentTokens();
-            matchTokenType(XQueryTokenType.K_GREATEST);
-            matchTokenType(XQueryTokenType.K_LEAST);
+            if (matchTokenType(XQueryTokenType.K_PRESERVE)) continue;
+            if (matchTokenType(XQueryTokenType.K_STRIP)) continue;
+            if (matchTokenType(XQueryTokenType.K_ORDERED)) continue;
+            if (matchTokenType(XQueryTokenType.K_UNORDERED)) continue;
+            if (matchTokenType(XQueryTokenType.K_ELEMENT)) continue;
+            if (matchTokenType(XQueryTokenType.K_FUNCTION)) continue;
+            if (matchTokenType(XQueryTokenType.K_NAMESPACE)) continue;
+            if (matchTokenType(XQueryTokenType.K_ORDER)) continue;
+            if (matchTokenType(XQueryTokenType.K_EMPTY)) continue;
+            if (matchTokenType(XQueryTokenType.K_GREATEST)) continue;
+            if (matchTokenType(XQueryTokenType.K_LEAST)) continue;
+            return true;
         }
-        skipWhiteSpaceAndCommentTokens();
-        return true;
     }
 
     private boolean parseSchemaImport() {
