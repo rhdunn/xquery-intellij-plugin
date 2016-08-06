@@ -927,6 +927,79 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region VarDecl
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VarDecl")
+    public void testVarDecl() {
+        final String expected = loadResource("tests/parser/xquery-1.0/VarDecl.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/VarDecl.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VarDecl")
+    public void testVarDecl_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/VarDecl_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/VarDecl_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VarDecl")
+    public void testVarDecl_MissingExprSingle() {
+        final String expected = loadResource("tests/parser/xquery-1.0/VarDecl_MissingExprSingle.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/VarDecl_MissingExprSingle.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VarDecl")
+    public void testVarDecl_MissingAssignment() {
+        final String expected = loadResource("tests/parser/xquery-1.0/VarDecl_MissingAssignment.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/VarDecl_MissingAssignment.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VarDecl")
+    public void testVarDecl_MissingVariableName() {
+        final String expected = loadResource("tests/parser/xquery-1.0/VarDecl_MissingVariableName.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/VarDecl_MissingVariableName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VarDecl")
+    public void testVarDecl_MissingVariableMarker() {
+        final String expected = loadResource("tests/parser/xquery-1.0/VarDecl_MissingVariableMarker.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/VarDecl_MissingVariableMarker.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VarDecl")
+    public void testVarDecl_MissingVariableKeyword() {
+        final String expected = loadResource("tests/parser/xquery-1.0/VarDecl_MissingVariableKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/VarDecl_MissingVariableKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VarDecl")
+    public void testVarDecl_External() {
+        final String expected = loadResource("tests/parser/xquery-1.0/VarDecl_External.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/VarDecl_External.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VarDecl")
+    public void testVarDecl_External_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/VarDecl_External_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/VarDecl_External_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VarDecl")
+    public void testVarDecl_External_MissingVariableName() {
+        final String expected = loadResource("tests/parser/xquery-1.0/VarDecl_External_MissingVariableName.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/VarDecl_External_MissingVariableName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region DirCommentConstructor
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirCommentConstructor")

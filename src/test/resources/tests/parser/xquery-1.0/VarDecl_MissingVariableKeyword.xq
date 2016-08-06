@@ -1,0 +1,1 @@
+declare $ one := 1 ;

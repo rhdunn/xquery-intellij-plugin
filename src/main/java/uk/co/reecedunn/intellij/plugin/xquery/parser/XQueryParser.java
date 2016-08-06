@@ -19,6 +19,7 @@ import com.intellij.lang.PsiBuilder;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings;
@@ -342,8 +343,10 @@ class XQueryParser {
                 declMarker.done(XQueryElementType.OPTION_DECL);
             } else if (parseOrderingModeDecl()) {
                 declMarker.done(XQueryElementType.ORDERING_MODE_DECL);
+            } else if (parseVarDecl()) {
+                declMarker.done(XQueryElementType.VAR_DECL);
             } else {
-                error(XQueryBundle.message("parser.error.expected-keyword", "base-uri, boundary-space, copy-namespaces, default, namespace, option, ordering"));
+                error(XQueryBundle.message("parser.error.expected-keyword", "base-uri, boundary-space, copy-namespaces, default, namespace, option, ordering, variable"));
                 parseUnknownDecl();
                 declMarker.done(XQueryElementType.UNKNOWN_DECL);
             }
@@ -548,6 +551,8 @@ class XQueryParser {
 
             if (matchTokenType(XQueryTokenType.EQUAL)) continue;
             if (matchTokenType(XQueryTokenType.COMMA)) continue;
+            if (matchTokenType(XQueryTokenType.VARIABLE_INDICATOR)) continue;
+            if (matchTokenType(XQueryTokenType.ASSIGN_EQUAL)) continue;
 
             if (matchTokenType(XQueryTokenType.K_COLLATION)) continue;
             if (matchTokenType(XQueryTokenType.K_ELEMENT)) continue;
@@ -564,6 +569,8 @@ class XQueryParser {
             if (matchTokenType(XQueryTokenType.K_PRESERVE)) continue;
             if (matchTokenType(XQueryTokenType.K_STRIP)) continue;
             if (matchTokenType(XQueryTokenType.K_UNORDERED)) continue;
+
+            if (parseExprSingle()) continue;
             return true;
         }
     }
@@ -675,6 +682,42 @@ class XQueryParser {
                     skipWhiteSpaceAndCommentTokens();
                 } while (matchTokenType(XQueryTokenType.COMMA));
             }
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseVarDecl() {
+        if (matchTokenType(XQueryTokenType.K_VARIABLE)) {
+            boolean haveErrors = false;
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.VARIABLE_INDICATOR)) {
+                error(XQueryBundle.message("parser.error.expected", "$"));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!parseQName() && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-qname"));
+                haveErrors = true;
+            }
+
+            // TODO: TypeDeclaration?
+
+            skipWhiteSpaceAndCommentTokens();
+            if (matchTokenType(XQueryTokenType.ASSIGN_EQUAL)) {
+                skipWhiteSpaceAndCommentTokens();
+                if (!parseExprSingle() && !haveErrors) {
+                    error(XQueryBundle.message("parser.error.expected-expression"));
+                }
+            } else if (matchTokenType(XQueryTokenType.K_EXTERNAL)) {
+            } else {
+                error(XQueryBundle.message("parser.error.expected-variable-value"));
+                parseExprSingle();
+            }
+
+            skipWhiteSpaceAndCommentTokens();
             return true;
         }
         return false;
@@ -910,8 +953,10 @@ class XQueryParser {
     }
 
     private boolean parseQName() {
-        final PsiBuilder.Marker qnameMarker = matchTokenTypeWithMarker(XQueryTokenType.NCNAME);
-        if (qnameMarker != null) {
+        final PsiBuilder.Marker qnameMarker = mBuilder.mark();
+        if (getTokenType() == XQueryTokenType.NCNAME || getTokenType() instanceof IXQueryKeywordOrNCNameType) {
+            advanceLexer();
+
             final PsiBuilder.Marker beforeMarker = mark();
             if (skipWhiteSpaceAndCommentTokens() &&
                 getTokenType() == XQueryTokenType.QNAME_SEPARATOR) {
@@ -944,15 +989,16 @@ class XQueryParser {
             return true;
         }
 
-        final PsiBuilder.Marker errorMarker = matchTokenTypeWithMarker(XQueryTokenType.QNAME_SEPARATOR);
-        if (errorMarker != null) {
+        if (matchTokenType(XQueryTokenType.QNAME_SEPARATOR)) {
             skipWhiteSpaceAndCommentTokens();
             if (getTokenType() == XQueryTokenType.NCNAME) {
                 advanceLexer();
             }
-            errorMarker.error(XQueryBundle.message("parser.error.qname.missing-prefix"));
+            qnameMarker.error(XQueryBundle.message("parser.error.qname.missing-prefix"));
             return true;
         }
+
+        qnameMarker.drop();
         return false;
     }
 
