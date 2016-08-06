@@ -708,6 +708,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("greatest", XQueryTokenType.K_GREATEST);
         sKeywords.put("import", XQueryTokenType.K_IMPORT);
         sKeywords.put("inherit", XQueryTokenType.K_INHERIT);
+        sKeywords.put("item", XQueryTokenType.K_ITEM);
         sKeywords.put("least", XQueryTokenType.K_LEAST);
         sKeywords.put("module", XQueryTokenType.K_MODULE);
         sKeywords.put("namespace", XQueryTokenType.K_NAMESPACE);
