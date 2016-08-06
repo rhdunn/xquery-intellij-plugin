@@ -701,6 +701,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("element", XQueryTokenType.K_ELEMENT);
         sKeywords.put("empty", XQueryTokenType.K_EMPTY);
         sKeywords.put("encoding", XQueryTokenType.K_ENCODING);
+        sKeywords.put("external", XQueryTokenType.K_EXTERNAL);
         sKeywords.put("function", XQueryTokenType.K_FUNCTION);
         sKeywords.put("greatest", XQueryTokenType.K_GREATEST);
         sKeywords.put("import", XQueryTokenType.K_IMPORT);
@@ -718,6 +719,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("schema", XQueryTokenType.K_SCHEMA);
         sKeywords.put("strip", XQueryTokenType.K_STRIP);
         sKeywords.put("unordered", XQueryTokenType.K_UNORDERED);
+        sKeywords.put("variable", XQueryTokenType.K_VARIABLE);
         sKeywords.put("version", XQueryTokenType.K_VERSION);
         sKeywords.put("xquery", XQueryTokenType.K_XQUERY);
     }

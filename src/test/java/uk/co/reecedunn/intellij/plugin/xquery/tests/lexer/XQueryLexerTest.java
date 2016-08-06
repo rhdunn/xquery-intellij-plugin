@@ -290,6 +290,20 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region VarDecl
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-VarDecl")
+    public void testVarDecl() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "declare",  XQueryTokenType.K_DECLARE);
+        matchSingleToken(lexer, "variable", XQueryTokenType.K_VARIABLE);
+        matchSingleToken(lexer, "$",        XQueryTokenType.VARIABLE_INDICATOR);
+        matchSingleToken(lexer, ":=",       XQueryTokenType.ASSIGN_EQUAL);
+        matchSingleToken(lexer, "external", XQueryTokenType.K_EXTERNAL);
+    }
+
+    // endregion
     // region DirCommentConstructor
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirCommentConstructor")
@@ -411,7 +425,6 @@ public class XQueryLexerTest extends TestCase {
     public void testDelimitingTerminalSymbols() {
         Lexer lexer = new XQueryLexer();
 
-        matchSingleToken(lexer, "$", XQueryTokenType.VARIABLE_INDICATOR);
         matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN);
         matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE);
         matchSingleToken(lexer, "*", XQueryTokenType.STAR);
@@ -431,7 +444,6 @@ public class XQueryLexerTest extends TestCase {
         matchSingleToken(lexer, "]", XQueryTokenType.PREDICATE_END);
 
         matchSingleToken(lexer, "!=", XQueryTokenType.NOT_EQUAL);
-        matchSingleToken(lexer, ":=", XQueryTokenType.ASSIGN_EQUAL);
         matchSingleToken(lexer, "(#", XQueryTokenType.PRAGMA_BEGIN);
         matchSingleToken(lexer, "#)", XQueryTokenType.PRAGMA_END);
         matchSingleToken(lexer, "::", XQueryTokenType.AXIS_SEPARATOR);

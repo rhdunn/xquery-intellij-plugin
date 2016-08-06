@@ -105,6 +105,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_ELEMENT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ELEMENT");
     IXQueryKeywordOrNCNameType K_EMPTY = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_EMPTY");
     IXQueryKeywordOrNCNameType K_ENCODING = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ENCODING");
+    IXQueryKeywordOrNCNameType K_EXTERNAL = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_EXTERNAL");
     IXQueryKeywordOrNCNameType K_FUNCTION = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_FUNCTION");
     IXQueryKeywordOrNCNameType K_GREATEST = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_GREATEST");
     IXQueryKeywordOrNCNameType K_IMPORT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_IMPORT");
@@ -122,6 +123,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_SCHEMA = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SCHEMA");
     IXQueryKeywordOrNCNameType K_STRIP = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_STRIP");
     IXQueryKeywordOrNCNameType K_UNORDERED = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_UNORDERED");
+    IXQueryKeywordOrNCNameType K_VARIABLE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_VARIABLE");
     IXQueryKeywordOrNCNameType K_VERSION = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_VERSION");
     IXQueryKeywordOrNCNameType K_XQUERY = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_XQUERY");
 
