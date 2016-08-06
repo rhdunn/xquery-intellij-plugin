@@ -204,7 +204,7 @@ class XQueryParser {
             if (!matchTokenType(XQueryTokenType.SEPARATOR)) {
                 versionDeclMarker.done(XQueryElementType.VERSION_DECL);
                 if (!haveErrors) {
-                    error(XQueryBundle.message("parser.error.expected-semicolon"));
+                    error(XQueryBundle.message("parser.error.expected", ";"));
                 }
                 if (getTokenType() == XQueryTokenType.QNAME_SEPARATOR) {
                     advanceLexer();
@@ -271,7 +271,7 @@ class XQueryParser {
             if (!matchTokenType(XQueryTokenType.SEPARATOR)) {
                 moduleDeclMarker.done(XQueryElementType.MODULE_DECL);
                 if (!haveErrors) {
-                    error(XQueryBundle.message("parser.error.expected-semicolon"));
+                    error(XQueryBundle.message("parser.error.expected", ";"));
                 }
                 if (getTokenType() == XQueryTokenType.QNAME_SEPARATOR) {
                     advanceLexer();
@@ -292,7 +292,7 @@ class XQueryParser {
         while (parseDecl() || parseImport()) {
             matched = true;
             if (!matchTokenType(XQueryTokenType.SEPARATOR)) {
-                error(XQueryBundle.message("parser.error.expected-semicolon"));
+                error(XQueryBundle.message("parser.error.expected", ";"));
                 if (getTokenType() == XQueryTokenType.QNAME_SEPARATOR) {
                     advanceLexer();
                 }

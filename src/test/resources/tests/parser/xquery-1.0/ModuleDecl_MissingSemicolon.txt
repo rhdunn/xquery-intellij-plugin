@@ -13,5 +13,5 @@ FileElement[FILE(0:54)]
             LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(24:25)]('"')
             LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(25:52)]('http://www.example.com/test')
             LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(52:53)]('"')
-      PsiErrorElementImpl[ERROR_ELEMENT(53:53)]('XPST0003: Missing semicolon.')
+      PsiErrorElementImpl[ERROR_ELEMENT(53:53)]('XPST0003: Expected ';'.')
       LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(53:54)](':')
