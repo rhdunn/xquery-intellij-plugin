@@ -1,0 +1,1 @@
+declare "http://www.example.org" ;

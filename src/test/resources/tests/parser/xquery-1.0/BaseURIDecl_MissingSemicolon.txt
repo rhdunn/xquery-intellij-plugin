@@ -1,0 +1,13 @@
+FileElement[FILE(0:41)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:41)]
+      XQueryPrologImpl[XQUERY_PROLOG(0:41)]
+         XQueryBaseURIDeclImpl[XQUERY_BASE_URI_DECL(0:41)]
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
+            PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_BASE_URI(8:16)]('base-uri')
+            PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
+            XQueryUriLiteralImpl[XQUERY_URI_LITERAL(17:41)]
+               LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(17:18)]('"')
+               LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(18:40)]('http://www.example.org')
+               LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(40:41)]('"')
+         PsiErrorElementImpl[ERROR_ELEMENT(41:41)]('XPST0003: Expected ';'.')

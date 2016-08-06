@@ -648,6 +648,44 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region BaseURIDecl
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-BaseURIDecl")
+    public void testBaseURIDecl() {
+        final String expected = loadResource("tests/parser/xquery-1.0/BaseURIDecl.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/BaseURIDecl.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-BaseURIDecl")
+    public void testBaseURIDecl_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/BaseURIDecl_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/BaseURIDecl_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-BaseURIDecl")
+    public void testBaseURIDecl_MissingSemicolon() {
+        final String expected = loadResource("tests/parser/xquery-1.0/BaseURIDecl_MissingSemicolon.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/BaseURIDecl_MissingSemicolon.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-BaseURIDecl")
+    public void testBaseURIDecl_MissingUri() {
+        final String expected = loadResource("tests/parser/xquery-1.0/BaseURIDecl_MissingUri.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/BaseURIDecl_MissingUri.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-BaseURIDecl")
+    public void testBaseURIDecl_MissingBaseUriKeyword() {
+        final String expected = loadResource("tests/parser/xquery-1.0/BaseURIDecl_MissingBaseUriKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/BaseURIDecl_MissingBaseUriKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region SchemaImport
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-SchemaImport")

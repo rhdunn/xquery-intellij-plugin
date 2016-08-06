@@ -329,19 +329,21 @@ class XQueryParser {
         final PsiBuilder.Marker declMarker = matchTokenTypeWithMarker(XQueryTokenType.K_DECLARE);
         if (declMarker != null) {
             skipWhiteSpaceAndCommentTokens();
-            if (parseNamespaceDecl()) {
-                declMarker.done(XQueryElementType.NAMESPACE_DECL);
+            if (parseBaseURIDecl()) {
+                declMarker.done(XQueryElementType.BASE_URI_DECL);
             } else if (parseBoundarySpaceDecl()) {
                 declMarker.done(XQueryElementType.BOUNDARY_SPACE_DECL);
+            } else if (parseCopyNamespacesDecl()) {
+                declMarker.done(XQueryElementType.COPY_NAMESPACES_DECL);
             } else if (parseDefaultDecl(declMarker)) {
+            } else if (parseNamespaceDecl()) {
+                declMarker.done(XQueryElementType.NAMESPACE_DECL);
             } else if (parseOptionDecl()) {
                 declMarker.done(XQueryElementType.OPTION_DECL);
             } else if (parseOrderingModeDecl()) {
                 declMarker.done(XQueryElementType.ORDERING_MODE_DECL);
-            } else if (parseCopyNamespacesDecl()) {
-                declMarker.done(XQueryElementType.COPY_NAMESPACES_DECL);
             } else {
-                error(XQueryBundle.message("parser.error.expected-keyword", "boundary-space, copy-namespaces, default, namespace, option, ordering"));
+                error(XQueryBundle.message("parser.error.expected-keyword", "base-uri, boundary-space, copy-namespaces, default, namespace, option, ordering"));
                 parseUnknownDecl();
                 declMarker.done(XQueryElementType.UNKNOWN_DECL);
             }
@@ -514,6 +516,19 @@ class XQueryParser {
 
     private boolean parseDefaultCollationDecl() {
         if (matchTokenType(XQueryTokenType.K_COLLATION)) {
+            skipWhiteSpaceAndCommentTokens();
+            if (!parseStringLiteral(XQueryElementType.URI_LITERAL)) {
+                error(XQueryBundle.message("parser.error.expected-uri-string"));
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseBaseURIDecl() {
+        if (matchTokenType(XQueryTokenType.K_BASE_URI)) {
             skipWhiteSpaceAndCommentTokens();
             if (!parseStringLiteral(XQueryElementType.URI_LITERAL)) {
                 error(XQueryBundle.message("parser.error.expected-uri-string"));
