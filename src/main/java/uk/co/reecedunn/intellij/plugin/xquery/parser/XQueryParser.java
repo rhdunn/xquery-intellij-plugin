@@ -703,7 +703,8 @@ class XQueryParser {
                 haveErrors = true;
             }
 
-            // TODO: TypeDeclaration?
+            skipWhiteSpaceAndCommentTokens();
+            parseTypeDeclaration();
 
             skipWhiteSpaceAndCommentTokens();
             if (matchTokenType(XQueryTokenType.ASSIGN_EQUAL)) {
@@ -930,6 +931,55 @@ class XQueryParser {
         return false;
     }
 
+    private boolean parseDirCommentConstructor() {
+        final PsiBuilder.Marker commentMarker = matchTokenTypeWithMarker(XQueryTokenType.XML_COMMENT_START_TAG);
+        if (commentMarker != null) {
+            // NOTE: XQueryTokenType.XML_COMMENT is omitted by the PsiBuilder.
+            if (matchTokenType(XQueryTokenType.XML_COMMENT_END_TAG)) {
+                commentMarker.done(XQueryElementType.DIR_COMMENT_CONSTRUCTOR);
+            } else {
+                advanceLexer(); // XQueryTokenType.UNEXPECTED_END_OF_BLOCK
+                commentMarker.done(XQueryElementType.DIR_COMMENT_CONSTRUCTOR);
+                error(XQueryBundle.message("parser.error.incomplete-xml-comment"));
+            }
+            return true;
+        }
+
+        return errorOnTokenType(XQueryTokenType.XML_COMMENT_END_TAG, XQueryBundle.message("parser.error.end-of-comment-without-start", "<!--")) ||
+                errorOnTokenType(XQueryTokenType.INVALID, XQueryBundle.message("parser.error.invalid-token"));
+    }
+
+    private boolean parseCDataSection() {
+        final PsiBuilder.Marker cdataMarker = matchTokenTypeWithMarker(XQueryTokenType.CDATA_SECTION_START_TAG);
+        if (cdataMarker != null) {
+            matchTokenType(XQueryTokenType.CDATA_SECTION);
+            if (matchTokenType(XQueryTokenType.CDATA_SECTION_END_TAG)) {
+                cdataMarker.done(XQueryElementType.CDATA_SECTION);
+            } else {
+                advanceLexer(); // XQueryTokenType.UNEXPECTED_END_OF_BLOCK
+                cdataMarker.done(XQueryElementType.CDATA_SECTION);
+                error(XQueryBundle.message("parser.error.incomplete-cdata-section"));
+            }
+            return true;
+        }
+
+        return errorOnTokenType(XQueryTokenType.CDATA_SECTION_END_TAG, XQueryBundle.message("parser.error.end-of-cdata-section-without-start"));
+    }
+
+    private boolean parseTypeDeclaration() {
+        final PsiBuilder.Marker typeDeclarationMarker = matchTokenTypeWithMarker(XQueryTokenType.K_AS);
+        if (typeDeclarationMarker != null) {
+            skipWhiteSpaceAndCommentTokens();
+            if (!parseQName(XQueryElementType.QNAME)) {
+                error(XQueryBundle.message("parser.error.expected-qname"));
+            }
+
+            typeDeclarationMarker.done(XQueryElementType.TYPE_DECLARATION);
+            return true;
+        }
+        return false;
+    }
+
     private boolean parseStringLiteral(IElementType type) {
         final PsiBuilder.Marker stringMarker = matchTokenTypeWithMarker(XQueryTokenType.STRING_LITERAL_START);
         while (stringMarker != null) {
@@ -1014,41 +1064,6 @@ class XQueryParser {
 
         qnameMarker.drop();
         return false;
-    }
-
-    private boolean parseDirCommentConstructor() {
-        final PsiBuilder.Marker commentMarker = matchTokenTypeWithMarker(XQueryTokenType.XML_COMMENT_START_TAG);
-        if (commentMarker != null) {
-            // NOTE: XQueryTokenType.XML_COMMENT is omitted by the PsiBuilder.
-            if (matchTokenType(XQueryTokenType.XML_COMMENT_END_TAG)) {
-                commentMarker.done(XQueryElementType.DIR_COMMENT_CONSTRUCTOR);
-            } else {
-                advanceLexer(); // XQueryTokenType.UNEXPECTED_END_OF_BLOCK
-                commentMarker.done(XQueryElementType.DIR_COMMENT_CONSTRUCTOR);
-                error(XQueryBundle.message("parser.error.incomplete-xml-comment"));
-            }
-            return true;
-        }
-
-        return errorOnTokenType(XQueryTokenType.XML_COMMENT_END_TAG, XQueryBundle.message("parser.error.end-of-comment-without-start", "<!--")) ||
-               errorOnTokenType(XQueryTokenType.INVALID, XQueryBundle.message("parser.error.invalid-token"));
-    }
-
-    private boolean parseCDataSection() {
-        final PsiBuilder.Marker cdataMarker = matchTokenTypeWithMarker(XQueryTokenType.CDATA_SECTION_START_TAG);
-        if (cdataMarker != null) {
-            matchTokenType(XQueryTokenType.CDATA_SECTION);
-            if (matchTokenType(XQueryTokenType.CDATA_SECTION_END_TAG)) {
-                cdataMarker.done(XQueryElementType.CDATA_SECTION);
-            } else {
-                advanceLexer(); // XQueryTokenType.UNEXPECTED_END_OF_BLOCK
-                cdataMarker.done(XQueryElementType.CDATA_SECTION);
-                error(XQueryBundle.message("parser.error.incomplete-cdata-section"));
-            }
-            return true;
-        }
-
-        return errorOnTokenType(XQueryTokenType.CDATA_SECTION_END_TAG, XQueryBundle.message("parser.error.end-of-cdata-section-without-start"));
     }
 
     // endregion
