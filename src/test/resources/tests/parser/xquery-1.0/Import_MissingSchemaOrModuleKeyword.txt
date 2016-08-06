@@ -3,6 +3,6 @@ FileElement[FILE(0:7)]
       XQueryPrologImpl[XQUERY_PROLOG(0:7)]
          XQueryImportImpl[XQUERY_IMPORT(0:6)]
             LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_IMPORT(0:6)]('import')
-            PsiErrorElementImpl[ERROR_ELEMENT(6:6)]('XPST0003: Missing keyword 'schema|module'.')
+            PsiErrorElementImpl[ERROR_ELEMENT(6:6)]('XPST0003: Expected keyword: schema, module.')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(6:7)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(7:7)]('XPST0003: Missing query body.')

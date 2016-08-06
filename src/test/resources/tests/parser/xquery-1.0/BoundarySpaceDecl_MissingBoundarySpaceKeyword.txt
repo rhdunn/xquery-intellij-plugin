@@ -4,7 +4,7 @@ FileElement[FILE(0:34)]
          XQueryUnknownDeclImpl[XQUERY_UNKNOWN_DECL(0:17)]
             LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-            PsiErrorElementImpl[ERROR_ELEMENT(8:8)]('XPST0003: Missing keyword 'boundary-space|copy-namespaces|default|namespace|option|ordering'.')
+            PsiErrorElementImpl[ERROR_ELEMENT(8:8)]('XPST0003: Expected keyword: boundary-space, copy-namespaces, default, namespace, option, ordering.')
             LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_PRESERVE(8:16)]('preserve')
             PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(17:18)](';')
@@ -12,7 +12,7 @@ FileElement[FILE(0:34)]
          XQueryUnknownDeclImpl[XQUERY_UNKNOWN_DECL(19:33)]
             LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(19:26)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
-            PsiErrorElementImpl[ERROR_ELEMENT(27:27)]('XPST0003: Missing keyword 'boundary-space|copy-namespaces|default|namespace|option|ordering'.')
+            PsiErrorElementImpl[ERROR_ELEMENT(27:27)]('XPST0003: Expected keyword: boundary-space, copy-namespaces, default, namespace, option, ordering.')
             LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_STRIP(27:32)]('strip')
             PsiWhiteSpaceImpl[WHITE_SPACE(32:33)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(33:34)](';')

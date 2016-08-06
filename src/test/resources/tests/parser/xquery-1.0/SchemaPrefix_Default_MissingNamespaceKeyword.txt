@@ -11,7 +11,7 @@ FileElement[FILE(0:61)]
                PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
                LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_ELEMENT(22:29)]('element')
                PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
-               PsiErrorElementImpl[ERROR_ELEMENT(30:30)]('XPST0003: Missing keyword 'namespace'.')
+               PsiErrorElementImpl[ERROR_ELEMENT(30:30)]('XPST0003: Expected keyword: namespace.')
             XQueryUriLiteralImpl[XQUERY_URI_LITERAL(30:59)]
                LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(30:31)]('"')
                LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(31:58)]('http://www.example.com/test')

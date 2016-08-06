@@ -317,7 +317,7 @@ class XQueryParser {
             } else if (parseModuleImport()) {
                 importMarker.done(XQueryElementType.MODULE_IMPORT);
             } else {
-                error(XQueryBundle.message("parser.error.expected-keyword", "schema|module"));
+                error(XQueryBundle.message("parser.error.expected-keyword", "schema, module"));
                 importMarker.done(XQueryElementType.IMPORT);
             }
             return true;
@@ -341,7 +341,7 @@ class XQueryParser {
             } else if (parseCopyNamespacesDecl()) {
                 declMarker.done(XQueryElementType.COPY_NAMESPACES_DECL);
             } else {
-                error(XQueryBundle.message("parser.error.expected-keyword", "boundary-space|copy-namespaces|default|namespace|option|ordering"));
+                error(XQueryBundle.message("parser.error.expected-keyword", "boundary-space, copy-namespaces, default, namespace, option, ordering"));
                 parseUnknownDecl();
                 declMarker.done(XQueryElementType.UNKNOWN_DECL);
             }
@@ -381,7 +381,7 @@ class XQueryParser {
         if (matchTokenType(XQueryTokenType.K_BOUNDARY_SPACE)) {
             skipWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.K_PRESERVE) && !matchTokenType(XQueryTokenType.K_STRIP)) {
-                error(XQueryBundle.message("parser.error.expected-keyword", "preserve|strip"));
+                error(XQueryBundle.message("parser.error.expected-keyword", "preserve, strip"));
             }
 
             skipWhiteSpaceAndCommentTokens();
@@ -400,7 +400,7 @@ class XQueryParser {
             } else if (parseDefaultCollationDecl()) {
                 defaultDeclMarker.done(XQueryElementType.DEFAULT_COLLATION_DECL);
             } else {
-                error(XQueryBundle.message("parser.error.expected-keyword", "collation|element|function|order"));
+                error(XQueryBundle.message("parser.error.expected-keyword", "collation, element, function, order"));
                 parseUnknownDecl();
                 defaultDeclMarker.done(XQueryElementType.UNKNOWN_DECL);
             }
@@ -455,7 +455,7 @@ class XQueryParser {
         if (matchTokenType(XQueryTokenType.K_ORDERING)) {
             skipWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.K_ORDERED) && !matchTokenType(XQueryTokenType.K_UNORDERED)) {
-                error(XQueryBundle.message("parser.error.expected-keyword", "ordered|unordered"));
+                error(XQueryBundle.message("parser.error.expected-keyword", "ordered, unordered"));
             }
 
             skipWhiteSpaceAndCommentTokens();
@@ -476,7 +476,7 @@ class XQueryParser {
 
             skipWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.K_GREATEST) && !matchTokenType(XQueryTokenType.K_LEAST) && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected-keyword", "greatest|least"));
+                error(XQueryBundle.message("parser.error.expected-keyword", "greatest, least"));
             }
 
             skipWhiteSpaceAndCommentTokens();
@@ -491,7 +491,7 @@ class XQueryParser {
 
             skipWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.K_PRESERVE) && !matchTokenType(XQueryTokenType.K_NO_PRESERVE)) {
-                error(XQueryBundle.message("parser.error.expected-keyword", "preserve|no-preserve"));
+                error(XQueryBundle.message("parser.error.expected-keyword", "preserve, no-preserve"));
                 haveErrors = true;
             }
 
@@ -503,7 +503,7 @@ class XQueryParser {
 
             skipWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.K_INHERIT) && !matchTokenType(XQueryTokenType.K_NO_INHERIT) && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected-keyword", "inherit|no-inherit"));
+                error(XQueryBundle.message("parser.error.expected-keyword", "inherit, no-inherit"));
             }
 
             skipWhiteSpaceAndCommentTokens();

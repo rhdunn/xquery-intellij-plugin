@@ -9,6 +9,6 @@ FileElement[FILE(0:35)]
             LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_PRESERVE(24:32)]('preserve')
             PsiWhiteSpaceImpl[WHITE_SPACE(32:33)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(33:34)](',')
-            PsiErrorElementImpl[ERROR_ELEMENT(34:34)]('XPST0003: Missing keyword 'inherit|no-inherit'.')
+            PsiErrorElementImpl[ERROR_ELEMENT(34:34)]('XPST0003: Expected keyword: inherit, no-inherit.')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(34:35)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(35:35)]('XPST0003: Missing query body.')
