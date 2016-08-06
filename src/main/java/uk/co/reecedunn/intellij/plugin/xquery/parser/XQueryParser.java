@@ -998,12 +998,26 @@ class XQueryParser {
             sequenceTypeMarker.done(XQueryElementType.SEQUENCE_TYPE);
             return true;
         } else if (parseQName(XQueryElementType.QNAME)) {
+            skipWhiteSpaceAndCommentTokens();
+            parseOccurrenceIndicator();
+
             sequenceTypeMarker.done(XQueryElementType.SEQUENCE_TYPE);
             return true;
         }
 
         error(XQueryBundle.message("parser.error.expected-qname-or-keyword", "empty-sequence"));
         sequenceTypeMarker.drop();
+        return false;
+    }
+
+    private boolean parseOccurrenceIndicator() {
+        final PsiBuilder.Marker occurrenceIndicatorMarker = mBuilder.mark();
+        if (matchTokenType(XQueryTokenType.OPTIONAL) || matchTokenType(XQueryTokenType.STAR) || matchTokenType(XQueryTokenType.PLUS)) {
+            occurrenceIndicatorMarker.done(XQueryElementType.OCCURRENCE_INDICATOR);
+            return true;
+        }
+
+        occurrenceIndicatorMarker.drop();
         return false;
     }
 

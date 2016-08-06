@@ -1103,6 +1103,51 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region OccurrenceIndicator
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-OccurrenceIndicator")
+    public void testOccurrenceIndicator_Optional() {
+        final String expected = loadResource("tests/parser/xquery-1.0/OccurrenceIndicator_Optional.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/OccurrenceIndicator_Optional.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-OccurrenceIndicator")
+    public void testOccurrenceIndicator_Optional_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/OccurrenceIndicator_Optional_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/OccurrenceIndicator_Optional_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-OccurrenceIndicator")
+    public void testOccurrenceIndicator_ZeroOrMore() {
+        final String expected = loadResource("tests/parser/xquery-1.0/OccurrenceIndicator_ZeroOrMore.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/OccurrenceIndicator_ZeroOrMore.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-OccurrenceIndicator")
+    public void testOccurrenceIndicator_ZeroOrMore_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/OccurrenceIndicator_ZeroOrMore_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/OccurrenceIndicator_ZeroOrMore_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-OccurrenceIndicator")
+    public void testOccurrenceIndicator_OneOrMore() {
+        final String expected = loadResource("tests/parser/xquery-1.0/OccurrenceIndicator_OneOrMore.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/OccurrenceIndicator_OneOrMore.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-OccurrenceIndicator")
+    public void testOccurrenceIndicator_OneOrMore_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/OccurrenceIndicator_OneOrMore_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/OccurrenceIndicator_OneOrMore_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region IntegerLiteral
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-IntegerLiteral")

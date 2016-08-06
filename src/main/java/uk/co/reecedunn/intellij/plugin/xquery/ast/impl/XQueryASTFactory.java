@@ -79,10 +79,12 @@ public class XQueryASTFactory extends ASTFactory {
             return new XQueryCDataSectionImpl(type);
         } else if (type == XQueryElementType.SCHEMA_PREFIX) {
             return new XQuerySchemaPrefixImpl(type);
-        } else if (type == XQueryElementType.TYPE_DECLARATION) {
-            return new XQueryTypeDeclarationImpl(type);
+        } else if (type == XQueryElementType.OCCURRENCE_INDICATOR) {
+            return new XQueryOccurrenceIndicatorImpl(type);
         } else if (type == XQueryElementType.SEQUENCE_TYPE) {
             return new XQuerySequenceTypeImpl(type);
+        } else if (type == XQueryElementType.TYPE_DECLARATION) {
+            return new XQueryTypeDeclarationImpl(type);
         } else if (type == XQueryElementType.VAR_DECL) {
             return new XQueryVarDeclImpl(type);
         } else if (type == XQueryElementType.BASE_URI_DECL) {
