@@ -983,7 +983,9 @@ class XQueryParser {
 
                 if (getTokenType() == XQueryTokenType.STRING_LITERAL_START) {
                     error(XQueryBundle.message("parser.error.qname.missing-local-name"));
-                } else if (!matchTokenType(XQueryTokenType.NCNAME)) {
+                } else if (getTokenType() == XQueryTokenType.NCNAME || getTokenType() instanceof IXQueryKeywordOrNCNameType) {
+                    advanceLexer();
+                } else {
                     final PsiBuilder.Marker errorMarker = mark();
                     advanceLexer();
                     errorMarker.error(XQueryBundle.message("parser.error.qname.missing-local-name"));
@@ -999,7 +1001,7 @@ class XQueryParser {
 
         if (matchTokenType(XQueryTokenType.QNAME_SEPARATOR)) {
             skipWhiteSpaceAndCommentTokens();
-            if (getTokenType() == XQueryTokenType.NCNAME) {
+            if (getTokenType() == XQueryTokenType.NCNAME || getTokenType() instanceof IXQueryKeywordOrNCNameType) {
                 advanceLexer();
             }
             if (type == XQueryElementType.NCNAME) {

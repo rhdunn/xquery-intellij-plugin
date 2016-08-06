@@ -1283,6 +1283,30 @@ public class XQuery10ParserTest extends ParserTestCase {
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
+    @Specification(name="Namespaces in XML 1.0 3ed", reference="https://www.w3.org/TR/2009/REC-xml-names-20091208/#NT-QName")
+    public void testQName_KeywordPrefixPart() {
+        final String expected = loadResource("tests/parser/xquery-1.0/QName_KeywordPrefixPart.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/QName_KeywordPrefixPart.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
+    @Specification(name="Namespaces in XML 1.0 3ed", reference="https://www.w3.org/TR/2009/REC-xml-names-20091208/#NT-QName")
+    public void testQName_KeywordLocalPart() {
+        final String expected = loadResource("tests/parser/xquery-1.0/QName_KeywordLocalPart.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/QName_KeywordLocalPart.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
+    @Specification(name="Namespaces in XML 1.0 3ed", reference="https://www.w3.org/TR/2009/REC-xml-names-20091208/#NT-QName")
+    public void testQName_KeywordLocalPart_MissingPrefixPart() {
+        final String expected = loadResource("tests/parser/xquery-1.0/QName_KeywordLocalPart_MissingPrefixPart.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/QName_KeywordLocalPart_MissingPrefixPart.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
     // endregion
     // region NCName
 
@@ -1305,6 +1329,14 @@ public class XQuery10ParserTest extends ParserTestCase {
     public void testNCName_UnexpectedQName_MissingPrefixPart() {
         final String expected = loadResource("tests/parser/xquery-1.0/NCName_UnexpectedQName_MissingPrefixPart.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/NCName_UnexpectedQName_MissingPrefixPart.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-NCName")
+    @Specification(name="Namespaces in XML 1.0 3ed", reference="https://www.w3.org/TR/2009/REC-xml-names-20091208/#NT-NCName")
+    public void testNCName_Keyword() {
+        final String expected = loadResource("tests/parser/xquery-1.0/NCName_Keyword.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/NCName_Keyword.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
