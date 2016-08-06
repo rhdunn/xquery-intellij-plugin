@@ -970,13 +970,40 @@ class XQueryParser {
         final PsiBuilder.Marker typeDeclarationMarker = matchTokenTypeWithMarker(XQueryTokenType.K_AS);
         if (typeDeclarationMarker != null) {
             skipWhiteSpaceAndCommentTokens();
-            if (!parseQName(XQueryElementType.QNAME)) {
-                error(XQueryBundle.message("parser.error.expected-qname"));
-            }
+            parseSequenceType();
 
             typeDeclarationMarker.done(XQueryElementType.TYPE_DECLARATION);
             return true;
         }
+        return false;
+    }
+
+    private boolean parseSequenceType() {
+        final PsiBuilder.Marker sequenceTypeMarker = mBuilder.mark();
+        if (matchTokenType(XQueryTokenType.K_EMPTY_SEQUENCE)) {
+            boolean haveErrors = false;
+            skipWhiteSpaceAndCommentTokens();
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_OPEN)) {
+                error(XQueryBundle.message("parser.error.expected", "("));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", ")"));
+            }
+
+            sequenceTypeMarker.done(XQueryElementType.SEQUENCE_TYPE);
+            return true;
+        } else if (parseQName(XQueryElementType.QNAME)) {
+            sequenceTypeMarker.done(XQueryElementType.SEQUENCE_TYPE);
+            return true;
+        }
+
+        error(XQueryBundle.message("parser.error.expected-qname-or-keyword", "empty-sequence"));
+        sequenceTypeMarker.drop();
         return false;
     }
 

@@ -1072,6 +1072,37 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region SequenceType
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-SequenceType")
+    public void testSequenceType_Empty() {
+        final String expected = loadResource("tests/parser/xquery-1.0/SequenceType_Empty.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/SequenceType_Empty.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-SequenceType")
+    public void testSequenceType_Empty_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/SequenceType_Empty_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/SequenceType_Empty_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-SequenceType")
+    public void testSequenceType_Empty_MissingOpeningParenthesis() {
+        final String expected = loadResource("tests/parser/xquery-1.0/SequenceType_Empty_MissingOpeningParenthesis.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/SequenceType_Empty_MissingOpeningParenthesis.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-SequenceType")
+    public void testSequenceType_Empty_MissingClosingParenthesis() {
+        final String expected = loadResource("tests/parser/xquery-1.0/SequenceType_Empty_MissingClosingParenthesis.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/SequenceType_Empty_MissingClosingParenthesis.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region IntegerLiteral
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-IntegerLiteral")
