@@ -429,14 +429,24 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region SequenceType
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-SequenceType")
+    public void testSequenceType() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "empty-sequence", XQueryTokenType.K_EMPTY_SEQUENCE);
+        matchSingleToken(lexer, "(",              XQueryTokenType.PARENTHESIS_OPEN);
+        matchSingleToken(lexer, ")",              XQueryTokenType.PARENTHESIS_CLOSE);
+    }
+
+    // endregion
     // region (A.2.2) Terminal Delimitation
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#id-terminal-delimitation")
     public void testDelimitingTerminalSymbols() {
         Lexer lexer = new XQueryLexer();
 
-        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN);
-        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE);
         matchSingleToken(lexer, "*", XQueryTokenType.STAR);
         matchSingleToken(lexer, "+", XQueryTokenType.PLUS);
         matchSingleToken(lexer, ":", XQueryTokenType.QNAME_SEPARATOR);

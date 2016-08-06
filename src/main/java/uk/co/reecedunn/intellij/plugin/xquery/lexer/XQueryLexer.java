@@ -701,6 +701,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("default", XQueryTokenType.K_DEFAULT);
         sKeywords.put("element", XQueryTokenType.K_ELEMENT);
         sKeywords.put("empty", XQueryTokenType.K_EMPTY);
+        sKeywords.put("empty-sequence", XQueryTokenType.K_EMPTY_SEQUENCE);
         sKeywords.put("encoding", XQueryTokenType.K_ENCODING);
         sKeywords.put("external", XQueryTokenType.K_EXTERNAL);
         sKeywords.put("function", XQueryTokenType.K_FUNCTION);
