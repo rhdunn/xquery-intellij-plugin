@@ -75,7 +75,7 @@ public interface XQueryTokenType extends TokenType {
     IElementType LESS_THAN_OR_EQUAL = new IElementType("XQUERY_LESS_THAN_OR_EQUAL_TOKEN", XQuery.INSTANCE);
     IElementType GREATER_THAN_OR_EQUAL = new IElementType("XQUERY_GREATER_THAN_OR_EQUAL_TOKEN", XQuery.INSTANCE);
     IElementType UNION = new IElementType("XQUERY_UNION_TOKEN", XQuery.INSTANCE);
-    IElementType QUESTION = new IElementType("XQUERY_QUESTION_TOKEN", XQuery.INSTANCE);
+    IElementType OPTIONAL = new IElementType("XQUERY_OPTIONAL_TOKEN", XQuery.INSTANCE);
     IElementType AXIS_SEPARATOR = new IElementType("XQUERY_AXIS_SEPARATOR_TOKEN", XQuery.INSTANCE);
     IElementType ASSIGN_EQUAL = new IElementType("XQUERY_ASSIGN_EQUAL_TOKEN", XQuery.INSTANCE);
     IElementType DIRECT_DESCENDANTS_PATH = new IElementType("XQUERY_DIRECT_DESCENDANTS_PATH_TOKEN", XQuery.INSTANCE);

@@ -562,7 +562,7 @@ public class XQueryLexer extends LexerBase {
                     mTokenRange.match();
                     mType = XQueryTokenType.PROCESSING_INSTRUCTION_END;
                 } else {
-                    mType = XQueryTokenType.QUESTION;
+                    mType = XQueryTokenType.OPTIONAL;
                 }
                 break;
             case CharacterClass.PERCENT:

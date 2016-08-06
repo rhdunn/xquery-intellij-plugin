@@ -269,7 +269,7 @@ public class SyntaxHighlighterTest extends TestCase {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.LESS_THAN_OR_EQUAL).length, is(0));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.GREATER_THAN_OR_EQUAL).length, is(0));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.UNION).length, is(0));
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.QUESTION).length, is(0));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.OPTIONAL).length, is(0));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.AXIS_SEPARATOR).length, is(0));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.QNAME_SEPARATOR).length, is(0));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.ASSIGN_EQUAL).length, is(0));

@@ -441,14 +441,24 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region OccurrenceIndicator
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-OccurrenceIndicator")
+    public void testOccurrenceIndicator() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "?", XQueryTokenType.OPTIONAL);
+        matchSingleToken(lexer, "*", XQueryTokenType.STAR);
+        matchSingleToken(lexer, "+", XQueryTokenType.PLUS);
+    }
+
+    // endregion
     // region (A.2.2) Terminal Delimitation
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#id-terminal-delimitation")
     public void testDelimitingTerminalSymbols() {
         Lexer lexer = new XQueryLexer();
 
-        matchSingleToken(lexer, "*", XQueryTokenType.STAR);
-        matchSingleToken(lexer, "+", XQueryTokenType.PLUS);
         matchSingleToken(lexer, ":", XQueryTokenType.QNAME_SEPARATOR);
         matchSingleToken(lexer, "|", XQueryTokenType.UNION);
         matchSingleToken(lexer, "-", XQueryTokenType.MINUS);
@@ -457,7 +467,6 @@ public class XQueryLexerTest extends TestCase {
         matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE);
         matchSingleToken(lexer, "<", XQueryTokenType.LESS_THAN);
         matchSingleToken(lexer, ">", XQueryTokenType.GREATER_THAN);
-        matchSingleToken(lexer, "?", XQueryTokenType.QUESTION);
         matchSingleToken(lexer, "/", XQueryTokenType.DIRECT_DESCENDANTS_PATH);
         matchSingleToken(lexer, "@", XQueryTokenType.ATTRIBUTE_SELECTOR);
         matchSingleToken(lexer, "[", XQueryTokenType.PREDICATE_BEGIN);
