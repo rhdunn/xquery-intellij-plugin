@@ -6,10 +6,10 @@ FileElement[FILE(0:58)]
          LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NAMESPACE(7:16)]('namespace')
          PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
          XQueryQNameImpl[XQUERY_QNAME(17:24)]
-            XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(17:20)]('one')
+            LeafPsiElement[XQUERY_NCNAME_TOKEN(17:20)]('one')
             PsiErrorElementImpl[ERROR_ELEMENT(20:21)]('XPST0003: Expected an identifier not a qualified name.')
                LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(20:21)](':')
-            XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(21:24)]('two')
+            LeafPsiElement[XQUERY_NCNAME_TOKEN(21:24)]('two')
          PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
          LeafPsiElement[XQUERY_EQUAL_TOKEN(25:26)]('=')
          PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')

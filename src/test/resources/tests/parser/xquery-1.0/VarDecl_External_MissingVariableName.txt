@@ -8,8 +8,9 @@ FileElement[FILE(0:29)]
             PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
             LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(17:18)]('$')
             PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(19:27)]('external')
-            PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
+            XQueryNCNameImpl[XQUERY_NCNAME(19:28)]
+               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(19:27)]('external')
+               PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
             PsiErrorElementImpl[ERROR_ELEMENT(28:28)]('XPST0003: Missing ':=' variable assignment or 'external' keyword.')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(28:29)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(29:29)]('XPST0003: Missing query body.')

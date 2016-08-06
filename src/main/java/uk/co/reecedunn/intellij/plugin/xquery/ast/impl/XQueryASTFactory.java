@@ -67,6 +67,8 @@ public class XQueryASTFactory extends ASTFactory {
             return new XQueryOrExprImpl(type);
         } else if (type == XQueryElementType.QUERY_BODY) {
             return new XQueryQueryBodyImpl(type);
+        } else if (type == XQueryElementType.NCNAME) {
+            return new XQueryNCNameImpl(type);
         } else if (type == XQueryElementType.QNAME) {
             return new XQueryQNameImpl(type);
         } else if (type == XQueryElementType.COMMENT) {
@@ -140,8 +142,6 @@ public class XQueryASTFactory extends ASTFactory {
             return new XQueryCharRefImpl(type, text);
         } else if (type == XQueryTokenType.STRING_LITERAL_ESCAPED_CHARACTER) {
             return new XQueryEscapeCharacterImpl(type, text);
-        } else if (type == XQueryTokenType.NCNAME) {
-            return new XQueryNCNameImpl(type, text);
         }
 
         return new LeafPsiElement(type, text);

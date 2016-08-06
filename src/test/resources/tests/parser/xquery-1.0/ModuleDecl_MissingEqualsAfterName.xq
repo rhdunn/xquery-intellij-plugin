@@ -1,1 +1,1 @@
-module namespace one;
+module namespace one "http://www.example.com";

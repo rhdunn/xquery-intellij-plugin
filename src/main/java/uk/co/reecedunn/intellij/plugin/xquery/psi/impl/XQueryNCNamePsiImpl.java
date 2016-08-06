@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.impl;
+package uk.co.reecedunn.intellij.plugin.xquery.psi.impl;
 
-import com.intellij.psi.impl.source.tree.CompositeElement;
-import com.intellij.psi.tree.IElementType;
+import com.intellij.extapi.psi.ASTWrapperPsiElement;
+import com.intellij.lang.ASTNode;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryNCName;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.XQueryQName;
 
-class XQueryNCNameImpl extends CompositeElement implements XQueryNCName, XQueryQName {
-    public XQueryNCNameImpl(@NotNull IElementType type) {
-        super(type);
+public class XQueryNCNamePsiImpl extends ASTWrapperPsiElement implements XQueryNCName, XQueryQName {
+    public XQueryNCNamePsiImpl(@NotNull ASTNode node) {
+        super(node);
     }
 }

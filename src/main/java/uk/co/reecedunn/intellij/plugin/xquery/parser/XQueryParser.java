@@ -994,7 +994,7 @@ class XQueryParser {
                 qnameMarker.done(XQueryElementType.QNAME);
                 return true;
             } else {
-                qnameMarker.drop();
+                qnameMarker.done(XQueryElementType.NCNAME);
             }
             return true;
         }

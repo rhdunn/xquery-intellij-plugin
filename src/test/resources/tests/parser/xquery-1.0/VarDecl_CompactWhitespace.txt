@@ -6,7 +6,8 @@ FileElement[FILE(0:24)]
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
             LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_VARIABLE(8:16)]('variable')
             LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(16:17)]('$')
-            XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(17:20)]('one')
+            XQueryNCNameImpl[XQUERY_NCNAME(17:20)]
+               LeafPsiElement[XQUERY_NCNAME_TOKEN(17:20)]('one')
             LeafPsiElement[XQUERY_ASSIGN_EQUAL_TOKEN(20:22)](':=')
             XQueryOrExprImpl[XQUERY_OR_EXPR(22:23)]
                XQueryAndExprImpl[XQUERY_AND_EXPR(22:23)]

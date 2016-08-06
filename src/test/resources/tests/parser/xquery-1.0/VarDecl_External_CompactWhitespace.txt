@@ -6,8 +6,9 @@ FileElement[FILE(0:30)]
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
             LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_VARIABLE(8:16)]('variable')
             LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(16:17)]('$')
-            XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(17:20)]('one')
-            PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
+            XQueryNCNameImpl[XQUERY_NCNAME(17:21)]
+               LeafPsiElement[XQUERY_NCNAME_TOKEN(17:20)]('one')
+               PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
             LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(21:29)]('external')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(29:30)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(30:30)]('XPST0003: Missing query body.')

@@ -7,8 +7,9 @@ FileElement[FILE(0:27)]
             LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_VARIABLE(8:16)]('variable')
             PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
             PsiErrorElementImpl[ERROR_ELEMENT(17:17)]('XPST0003: Expected '$'.')
-            XQueryNCNameImpl[XQUERY_NCNAME_TOKEN(17:20)]('one')
-            PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
+            XQueryNCNameImpl[XQUERY_NCNAME(17:21)]
+               LeafPsiElement[XQUERY_NCNAME_TOKEN(17:20)]('one')
+               PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
             LeafPsiElement[XQUERY_ASSIGN_EQUAL_TOKEN(21:23)](':=')
             PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
             XQueryOrExprImpl[XQUERY_OR_EXPR(24:25)]
