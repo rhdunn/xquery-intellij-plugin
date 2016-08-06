@@ -24,6 +24,7 @@ public interface XQueryElementType {
 
     IElementType CDATA_SECTION = new IElementType("XQUERY_CDATA_SECTION", XQuery.INSTANCE);
     IElementType COMMENT = new IElementType("XQUERY_COMMENT", XQuery.INSTANCE);
+    IElementType NCNAME = new IElementType("XQUERY_NCNAME", XQuery.INSTANCE);
     IElementType QNAME = new IElementType("XQUERY_QNAME", XQuery.INSTANCE);
     IElementType LITERAL = new IElementType("XQUERY_LITERAL", XQuery.INSTANCE);
     IElementType STRING_LITERAL = new IElementType("XQUERY_STRING_LITERAL", XQuery.INSTANCE);

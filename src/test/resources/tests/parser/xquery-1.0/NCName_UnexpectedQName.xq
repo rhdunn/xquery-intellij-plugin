@@ -1,0 +1,1 @@
+module namespace one:two = "http://www.example.com/test" ;

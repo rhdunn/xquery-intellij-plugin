@@ -251,7 +251,7 @@ class XQueryParser {
             }
 
             skipWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.NCNAME) && !haveErrors) {
+            if (!parseQName(XQueryElementType.NCNAME) && !haveErrors) {
                 error(XQueryBundle.message("parser.error.expected-ncname"));
                 haveErrors = true;
             }
@@ -360,7 +360,7 @@ class XQueryParser {
             boolean haveErrors = false;
 
             skipWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.NCNAME)) {
+            if (!parseQName(XQueryElementType.NCNAME)) {
                 error(XQueryBundle.message("parser.error.expected-ncname"));
                 haveErrors = true;
             }
@@ -440,7 +440,7 @@ class XQueryParser {
             boolean haveErrors = false;
 
             skipWhiteSpaceAndCommentTokens();
-            if (!parseQName()) {
+            if (!parseQName(XQueryElementType.QNAME)) {
                 error(XQueryBundle.message("parser.error.expected-qname"));
                 haveErrors = true;
             }
@@ -608,7 +608,7 @@ class XQueryParser {
         final PsiBuilder.Marker schemaPrefixMarker = matchTokenTypeWithMarker(XQueryTokenType.K_NAMESPACE);
         if (schemaPrefixMarker != null) {
             skipWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.NCNAME)) {
+            if (!parseQName(XQueryElementType.NCNAME)) {
                 error(XQueryBundle.message("parser.error.expected-ncname"));
                 haveErrors = true;
             }
@@ -652,7 +652,7 @@ class XQueryParser {
             skipWhiteSpaceAndCommentTokens();
             if (matchTokenType(XQueryTokenType.K_NAMESPACE)) {
                 skipWhiteSpaceAndCommentTokens();
-                if (!matchTokenType(XQueryTokenType.NCNAME)) {
+                if (!parseQName(XQueryElementType.NCNAME)) {
                     error(XQueryBundle.message("parser.error.expected-ncname"));
                     haveErrors = true;
                 }
@@ -698,7 +698,7 @@ class XQueryParser {
             }
 
             skipWhiteSpaceAndCommentTokens();
-            if (!parseQName() && !haveErrors) {
+            if (!parseQName(XQueryElementType.QNAME) && !haveErrors) {
                 error(XQueryBundle.message("parser.error.expected-qname"));
                 haveErrors = true;
             }
@@ -952,7 +952,7 @@ class XQueryParser {
         return false;
     }
 
-    private boolean parseQName() {
+    private boolean parseQName(IElementType type) {
         final PsiBuilder.Marker qnameMarker = mBuilder.mark();
         if (getTokenType() == XQueryTokenType.NCNAME || getTokenType() instanceof IXQueryKeywordOrNCNameType) {
             advanceLexer();
@@ -965,7 +965,15 @@ class XQueryParser {
                 beforeMarker.drop();
             }
 
-            if (matchTokenType(XQueryTokenType.QNAME_SEPARATOR)) {
+            if (getTokenType() == XQueryTokenType.QNAME_SEPARATOR) {
+                if (type == XQueryElementType.NCNAME) {
+                    final PsiBuilder.Marker errorMarker = mark();
+                    advanceLexer();
+                    errorMarker.error(XQueryBundle.message("parser.error.expected-ncname-not-qname"));
+                } else {
+                    advanceLexer();
+                }
+
                 final PsiBuilder.Marker afterMarker = mark();
                 if (skipWhiteSpaceAndCommentTokens()) {
                     afterMarker.error(XQueryBundle.message("parser.error.qname.whitespace-after-local-part"));
@@ -994,7 +1002,11 @@ class XQueryParser {
             if (getTokenType() == XQueryTokenType.NCNAME) {
                 advanceLexer();
             }
-            qnameMarker.error(XQueryBundle.message("parser.error.qname.missing-prefix"));
+            if (type == XQueryElementType.NCNAME) {
+                qnameMarker.error(XQueryBundle.message("parser.error.expected-ncname-not-qname"));
+            } else {
+                qnameMarker.error(XQueryBundle.message("parser.error.qname.missing-prefix"));
+            }
             return true;
         }
 
