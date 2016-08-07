@@ -4,7 +4,7 @@ FileElement[FILE(0:37)]
          XQueryUnknownDeclImpl[XQUERY_UNKNOWN_DECL(0:16)]
             LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-            PsiErrorElementImpl[ERROR_ELEMENT(8:8)]('XPST0003: Expected keyword: base-uri, boundary-space, copy-namespaces, default, namespace, option, ordering, variable.')
+            PsiErrorElementImpl[ERROR_ELEMENT(8:8)]('XPST0003: Expected keyword: base-uri, boundary-space, construction, copy-namespaces, default, namespace, option, ordering, variable.')
             LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_ORDERED(8:15)]('ordered')
             PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(16:17)](';')
@@ -12,7 +12,7 @@ FileElement[FILE(0:37)]
          XQueryUnknownDeclImpl[XQUERY_UNKNOWN_DECL(18:36)]
             LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(18:25)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
-            PsiErrorElementImpl[ERROR_ELEMENT(26:26)]('XPST0003: Expected keyword: base-uri, boundary-space, copy-namespaces, default, namespace, option, ordering, variable.')
+            PsiErrorElementImpl[ERROR_ELEMENT(26:26)]('XPST0003: Expected keyword: base-uri, boundary-space, construction, copy-namespaces, default, namespace, option, ordering, variable.')
             LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_UNORDERED(26:35)]('unordered')
             PsiWhiteSpaceImpl[WHITE_SPACE(35:36)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(36:37)](';')

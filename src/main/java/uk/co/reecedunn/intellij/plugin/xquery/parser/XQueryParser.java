@@ -334,6 +334,8 @@ class XQueryParser {
                 declMarker.done(XQueryElementType.BASE_URI_DECL);
             } else if (parseBoundarySpaceDecl()) {
                 declMarker.done(XQueryElementType.BOUNDARY_SPACE_DECL);
+            } else if (parseConstructionDecl()) {
+                declMarker.done(XQueryElementType.CONSTRUCTION_DECL);
             } else if (parseCopyNamespacesDecl()) {
                 declMarker.done(XQueryElementType.COPY_NAMESPACES_DECL);
             } else if (parseDefaultDecl(declMarker)) {
@@ -346,7 +348,7 @@ class XQueryParser {
             } else if (parseVarDecl()) {
                 declMarker.done(XQueryElementType.VAR_DECL);
             } else {
-                error(XQueryBundle.message("parser.error.expected-keyword", "base-uri, boundary-space, copy-namespaces, default, namespace, option, ordering, variable"));
+                error(XQueryBundle.message("parser.error.expected-keyword", "base-uri, boundary-space, construction, copy-namespaces, default, namespace, option, ordering, variable"));
                 parseUnknownDecl();
                 declMarker.done(XQueryElementType.UNKNOWN_DECL);
             }
@@ -716,6 +718,19 @@ class XQueryParser {
             } else {
                 error(XQueryBundle.message("parser.error.expected-variable-value"));
                 parseExprSingle();
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseConstructionDecl() {
+        if (matchTokenType(XQueryTokenType.K_CONSTRUCTION)) {
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_PRESERVE) && !matchTokenType(XQueryTokenType.K_STRIP)) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "preserve, strip"));
             }
 
             skipWhiteSpaceAndCommentTokens();

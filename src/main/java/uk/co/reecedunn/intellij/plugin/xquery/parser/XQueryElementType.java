@@ -63,6 +63,7 @@ public interface XQueryElementType {
     IElementType TYPE_DECLARATION = new IElementType("XQUERY_TYPE_DECLARATION", XQuery.INSTANCE);
     IElementType SEQUENCE_TYPE = new IElementType("XQUERY_SEQUENCE_TYPE", XQuery.INSTANCE);
 
+    IElementType CONSTRUCTION_DECL = new IElementType("XQUERY_CONSTRUCTION_DECL", XQuery.INSTANCE);
     IElementType VAR_DECL = new IElementType("XQUERY_VAR_DECL", XQuery.INSTANCE);
     IElementType BASE_URI_DECL = new IElementType("XQUERY_BASE_URI_DECL", XQuery.INSTANCE);
     IElementType DEFAULT_COLLATION_DECL = new IElementType("XQUERY_DEFAULT_COLLATION_DECL", XQuery.INSTANCE);

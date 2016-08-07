@@ -136,6 +136,8 @@ public class XQueryParserDefinition implements ParserDefinition {
             return new XQuerySequenceTypePsiImpl(node);
         } else if (type == XQueryElementType.TYPE_DECLARATION) {
             return new XQueryTypeDeclarationPsiImpl(node);
+        } else if (type == XQueryElementType.CONSTRUCTION_DECL) {
+            return new XQueryConstructionDeclPsiImpl(node);
         } else if (type == XQueryElementType.VAR_DECL) {
             return new XQueryVarDeclPsiImpl(node);
         } else if (type == XQueryElementType.BASE_URI_DECL) {
