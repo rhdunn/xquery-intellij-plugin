@@ -16,7 +16,12 @@
 package uk.co.reecedunn.intellij.plugin.xquery.ast;
 
 /**
- * An XQuery 1.0 <code>BoundarySpaceDecl</code> node in the XQuery AST.
+ * An XQuery 1.0 <code>Setter</code> node in the XQuery AST.
+ *
+ * Because the child nodes of an <code>Setter</code> are only referenced from
+ * the <code>Setter</code> node in the grammar, the <code>Setter</code> nodes
+ * are stored as instances of the child nodes instead of as distinct nodes
+ * themselves.
  */
-public interface XQueryBoundarySpaceDecl extends XQuerySetter {
+public interface XQuerySetter {
 }

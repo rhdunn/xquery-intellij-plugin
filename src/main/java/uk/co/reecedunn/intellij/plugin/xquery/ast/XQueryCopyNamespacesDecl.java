@@ -21,5 +21,5 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast;
  * The <code>PreserveMode</code> and <code>InheritMode</code> grammar constructs
  * are not explicitly generated.
  */
-public interface XQueryCopyNamespacesDecl {
+public interface XQueryCopyNamespacesDecl extends XQuerySetter {
 }
