@@ -317,6 +317,21 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region FunctionDecl
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-FunctionDecl")
+    public void testFunctionDecl() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "declare",  XQueryTokenType.K_DECLARE);
+        matchSingleToken(lexer, "function", XQueryTokenType.K_FUNCTION);
+        matchSingleToken(lexer, "(",        XQueryTokenType.PARENTHESIS_OPEN);
+        matchSingleToken(lexer, ")",        XQueryTokenType.PARENTHESIS_CLOSE);
+        matchSingleToken(lexer, "as",       XQueryTokenType.K_AS);
+        matchSingleToken(lexer, "external", XQueryTokenType.K_EXTERNAL);
+    }
+
+    // endregion
     // region DirCommentConstructor
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirCommentConstructor")
