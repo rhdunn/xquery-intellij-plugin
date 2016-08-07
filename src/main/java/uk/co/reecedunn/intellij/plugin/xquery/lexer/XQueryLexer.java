@@ -714,6 +714,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("namespace", XQueryTokenType.K_NAMESPACE);
         sKeywords.put("no-inherit", XQueryTokenType.K_NO_INHERIT);
         sKeywords.put("no-preserve", XQueryTokenType.K_NO_PRESERVE);
+        sKeywords.put("node", XQueryTokenType.K_NODE);
         sKeywords.put("option", XQueryTokenType.K_OPTION);
         sKeywords.put("order", XQueryTokenType.K_ORDER);
         sKeywords.put("ordered", XQueryTokenType.K_ORDERED);
