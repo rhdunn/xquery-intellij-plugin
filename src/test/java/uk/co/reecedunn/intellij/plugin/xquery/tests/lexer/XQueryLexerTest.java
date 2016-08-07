@@ -536,6 +536,18 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region TextTest
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-TextTest")
+    public void testTextTest() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "text", XQueryTokenType.K_TEXT);
+        matchSingleToken(lexer, "(",    XQueryTokenType.PARENTHESIS_OPEN);
+        matchSingleToken(lexer, ")",    XQueryTokenType.PARENTHESIS_CLOSE);
+    }
+
+    // endregion
     // region (A.2.2) Terminal Delimitation
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#id-terminal-delimitation")
