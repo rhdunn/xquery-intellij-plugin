@@ -1179,6 +1179,37 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region AnyKindTest
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AnyKindTest")
+    public void testAnyKindTest() {
+        final String expected = loadResource("tests/parser/xquery-1.0/AnyKindTest.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/AnyKindTest.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AnyKindTest")
+    public void testAnyKindTest_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/AnyKindTest_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/AnyKindTest_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AnyKindTest")
+    public void testAnyKindTest_MissingOpeningParenthesis() {
+        final String expected = loadResource("tests/parser/xquery-1.0/AnyKindTest_MissingOpeningParenthesis.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/AnyKindTest_MissingOpeningParenthesis.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AnyKindTest")
+    public void testAnyKindTest_MissingClosingParenthesis() {
+        final String expected = loadResource("tests/parser/xquery-1.0/AnyKindTest_MissingClosingParenthesis.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/AnyKindTest_MissingClosingParenthesis.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region IntegerLiteral
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-IntegerLiteral")

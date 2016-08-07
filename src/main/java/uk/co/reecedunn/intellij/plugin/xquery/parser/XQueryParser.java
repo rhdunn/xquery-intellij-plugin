@@ -982,7 +982,6 @@ class XQueryParser {
         final PsiBuilder.Marker sequenceTypeMarker = mBuilder.mark();
         if (matchTokenType(XQueryTokenType.K_EMPTY_SEQUENCE)) {
             boolean haveErrors = false;
-            skipWhiteSpaceAndCommentTokens();
 
             skipWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.PARENTHESIS_OPEN)) {
@@ -1025,7 +1024,6 @@ class XQueryParser {
         final PsiBuilder.Marker itemTypeMarker = mBuilder.mark();
         if (matchTokenType(XQueryTokenType.K_ITEM)) {
             boolean haveErrors = false;
-            skipWhiteSpaceAndCommentTokens();
 
             skipWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.PARENTHESIS_OPEN)) {
@@ -1040,12 +1038,38 @@ class XQueryParser {
 
             itemTypeMarker.done(XQueryElementType.ITEM_TYPE);
             return true;
-        } else if (parseQName(XQueryElementType.ATOMIC_TYPE)) {
+        } else if (parseKindTest() || parseQName(XQueryElementType.ATOMIC_TYPE)) {
             itemTypeMarker.done(XQueryElementType.ITEM_TYPE);
             return true;
         }
 
         itemTypeMarker.drop();
+        return false;
+    }
+
+    private boolean parseKindTest() {
+        return parseAnyKindTest();
+    }
+
+    private boolean parseAnyKindTest() {
+        final PsiBuilder.Marker anyKindTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_NODE);
+        if (anyKindTestMarker != null) {
+            boolean haveErrors = false;
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_OPEN)) {
+                error(XQueryBundle.message("parser.error.expected", "("));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", ")"));
+            }
+
+            anyKindTestMarker.done(XQueryElementType.ANY_KIND_TEST);
+            return true;
+        }
         return false;
     }
 
