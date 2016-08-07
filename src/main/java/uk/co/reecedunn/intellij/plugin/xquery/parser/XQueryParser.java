@@ -767,6 +767,8 @@ class XQueryParser {
             }
 
             // TODO: ParamList?
+            skipWhiteSpaceAndCommentTokens();
+            parseParam();
 
             skipWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE) && !haveErrors) {
@@ -789,6 +791,34 @@ class XQueryParser {
             functionDeclMarker.done(XQueryElementType.FUNCTION_DECL);
             return true;
         }
+        return false;
+    }
+
+    private boolean parseParam() {
+        final PsiBuilder.Marker paramMarker = mBuilder.mark();
+        if (matchTokenType(XQueryTokenType.VARIABLE_INDICATOR)) {
+            skipWhiteSpaceAndCommentTokens();
+            if (!parseQName(XQueryElementType.QNAME)) {
+                error(XQueryBundle.message("parser.error.expected-qname"));
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            parseTypeDeclaration();
+
+            paramMarker.done(XQueryElementType.PARAM);
+            return true;
+        } else if (getTokenType() == XQueryTokenType.NCNAME || getTokenType() instanceof IXQueryKeywordOrNCNameType || getTokenType() == XQueryTokenType.QNAME_SEPARATOR) {
+            error(XQueryBundle.message("parser.error.expected", "$"));
+            parseQName(XQueryElementType.QNAME);
+
+            skipWhiteSpaceAndCommentTokens();
+            parseTypeDeclaration();
+
+            paramMarker.done(XQueryElementType.PARAM);
+            return true;
+        }
+
+        paramMarker.drop();
         return false;
     }
 

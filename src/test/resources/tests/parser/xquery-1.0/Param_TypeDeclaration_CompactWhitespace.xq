@@ -1,0 +1,1 @@
+declare function test($one as xs:string)external;

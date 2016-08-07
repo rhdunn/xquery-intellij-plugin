@@ -1097,6 +1097,51 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region Param
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Param")
+    public void testParam() {
+        final String expected = loadResource("tests/parser/xquery-1.0/Param.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/Param.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Param")
+    public void testParam_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/Param_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/Param_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Param")
+    public void testParam_MissingParameterName() {
+        final String expected = loadResource("tests/parser/xquery-1.0/Param_MissingParameterName.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/Param_MissingParameterName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Param")
+    public void testParam_MissingVariableMarker() {
+        final String expected = loadResource("tests/parser/xquery-1.0/Param_MissingVariableMarker.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/Param_MissingVariableMarker.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Param")
+    public void testParam_TypeDeclaration() {
+        final String expected = loadResource("tests/parser/xquery-1.0/Param_TypeDeclaration.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/Param_TypeDeclaration.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Param")
+    public void testParam_TypeDeclaration_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/Param_TypeDeclaration_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/Param_TypeDeclaration_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region DirCommentConstructor
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirCommentConstructor")
