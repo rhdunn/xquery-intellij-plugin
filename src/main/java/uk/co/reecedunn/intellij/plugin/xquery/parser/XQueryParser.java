@@ -1040,7 +1040,7 @@ class XQueryParser {
 
             itemTypeMarker.done(XQueryElementType.ITEM_TYPE);
             return true;
-        } else if (parseQName(XQueryElementType.QNAME)) {
+        } else if (parseQName(XQueryElementType.ATOMIC_TYPE)) {
             itemTypeMarker.done(XQueryElementType.ITEM_TYPE);
             return true;
         }
@@ -1110,7 +1110,7 @@ class XQueryParser {
                     errorMarker.error(XQueryBundle.message("parser.error.qname.missing-local-name"));
                 }
 
-                qnameMarker.done(XQueryElementType.QNAME);
+                qnameMarker.done(type == XQueryElementType.NCNAME ? XQueryElementType.QNAME : type);
                 return true;
             } else {
                 qnameMarker.done(XQueryElementType.NCNAME);

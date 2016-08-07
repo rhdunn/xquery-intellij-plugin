@@ -1048,7 +1048,7 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
-    // region TypeDeclaration
+    // region TypeDeclaration + AtomicType
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-TypeDeclaration")
     public void testTypeDeclaration() {
@@ -1233,7 +1233,7 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
-    // region PredefinedEntityRef
+    // region StringLiteral + PredefinedEntityRef
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PredefinedEntityRef")
@@ -1267,7 +1267,7 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
-    // region EscapeQuot
+    // region StringLiteral + EscapeQuot
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-EscapeQuot")
@@ -1278,7 +1278,7 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
-    // region EscapeApos
+    // region StringLiteral + EscapeApos
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-EscapeApos")
