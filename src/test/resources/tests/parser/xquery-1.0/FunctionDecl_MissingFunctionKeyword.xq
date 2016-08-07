@@ -1,0 +1,1 @@
+declare fn:true ( ) external ;

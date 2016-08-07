@@ -1,0 +1,17 @@
+FileElement[FILE(0:31)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:31)]
+      XQueryPrologImpl[XQUERY_PROLOG(0:31)]
+         XQueryFunctionDeclImpl[XQUERY_FUNCTION_DECL(0:30)]
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
+            PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_FUNCTION(8:16)]('function')
+            PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
+            PsiErrorElementImpl[ERROR_ELEMENT(17:17)]('XPST0003: Missing qualified name.')
+            LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(17:18)]('(')
+            PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
+            LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(19:20)](')')
+            PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(21:29)]('external')
+            PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
+         LeafPsiElement[XQUERY_SEPARATOR_TOKEN(30:31)](';')
+      PsiErrorElementImpl[ERROR_ELEMENT(31:31)]('XPST0003: Missing query body.')

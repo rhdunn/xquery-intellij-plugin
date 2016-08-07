@@ -338,7 +338,7 @@ class XQueryParser {
                 declMarker.done(XQueryElementType.CONSTRUCTION_DECL);
             } else if (parseCopyNamespacesDecl()) {
                 declMarker.done(XQueryElementType.COPY_NAMESPACES_DECL);
-            } else if (parseDefaultDecl(declMarker)) {
+            } else if (parseDefaultDecl(declMarker) || parseFunctionDecl(declMarker)) {
             } else if (parseNamespaceDecl()) {
                 declMarker.done(XQueryElementType.NAMESPACE_DECL);
             } else if (parseOptionDecl()) {
@@ -348,7 +348,7 @@ class XQueryParser {
             } else if (parseVarDecl()) {
                 declMarker.done(XQueryElementType.VAR_DECL);
             } else {
-                error(XQueryBundle.message("parser.error.expected-keyword", "base-uri, boundary-space, construction, copy-namespaces, default, namespace, option, ordering, variable"));
+                error(XQueryBundle.message("parser.error.expected-keyword", "base-uri, boundary-space, construction, copy-namespaces, default, function, namespace, option, ordering, variable"));
                 parseUnknownDecl();
                 declMarker.done(XQueryElementType.UNKNOWN_DECL);
             }
@@ -555,10 +555,14 @@ class XQueryParser {
             if (matchTokenType(XQueryTokenType.COMMA)) continue;
             if (matchTokenType(XQueryTokenType.VARIABLE_INDICATOR)) continue;
             if (matchTokenType(XQueryTokenType.ASSIGN_EQUAL)) continue;
+            if (matchTokenType(XQueryTokenType.QNAME_SEPARATOR)) continue;
+            if (matchTokenType(XQueryTokenType.PARENTHESIS_OPEN)) continue;
+            if (matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE)) continue;
 
             if (matchTokenType(XQueryTokenType.K_COLLATION)) continue;
             if (matchTokenType(XQueryTokenType.K_ELEMENT)) continue;
             if (matchTokenType(XQueryTokenType.K_EMPTY)) continue;
+            if (matchTokenType(XQueryTokenType.K_EXTERNAL)) continue;
             if (matchTokenType(XQueryTokenType.K_FUNCTION)) continue;
             if (matchTokenType(XQueryTokenType.K_GREATEST)) continue;
             if (matchTokenType(XQueryTokenType.K_INHERIT)) continue;
@@ -734,6 +738,55 @@ class XQueryParser {
             }
 
             skipWhiteSpaceAndCommentTokens();
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseFunctionDecl(PsiBuilder.Marker functionDeclMarker) {
+        if (matchTokenType(XQueryTokenType.K_FUNCTION)) {
+            boolean haveErrors = false;
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!parseQName(XQueryElementType.QNAME)) {
+                error(XQueryBundle.message("parser.error.expected-qname"));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (getTokenType() == XQueryTokenType.STRING_LITERAL_START) {
+                // DefaultNamespaceDecl with missing 'default' keyword.
+                error(XQueryBundle.message("parser.error.expected", "("));
+                parseStringLiteral(XQueryElementType.STRING_LITERAL);
+                skipWhiteSpaceAndCommentTokens();
+                functionDeclMarker.done(XQueryElementType.UNKNOWN_DECL);
+                return true;
+            } else if (!matchTokenType(XQueryTokenType.PARENTHESIS_OPEN) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", "("));
+                haveErrors = true;
+            }
+
+            // TODO: ParamList?
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", ")"));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (matchTokenType(XQueryTokenType.K_AS)) {
+                skipWhiteSpaceAndCommentTokens();
+                parseSequenceType();
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_EXTERNAL) && !haveErrors) { // TODO: EnclosedExpr | "external"
+                error(XQueryBundle.message("parser.error.expected-enclosed-expression-or-keyword", "external"));
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            functionDeclMarker.done(XQueryElementType.FUNCTION_DECL);
             return true;
         }
         return false;

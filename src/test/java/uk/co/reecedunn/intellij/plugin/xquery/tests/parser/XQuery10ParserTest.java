@@ -1031,6 +1031,72 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region FunctionDecl
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FunctionDecl")
+    public void testFunctionDecl() {
+        final String expected = loadResource("tests/parser/xquery-1.0/FunctionDecl.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/FunctionDecl.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FunctionDecl")
+    public void testFunctionDecl_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/FunctionDecl_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/FunctionDecl_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FunctionDecl")
+    public void testFunctionDecl_MissingFunctionKeyword() {
+        final String expected = loadResource("tests/parser/xquery-1.0/FunctionDecl_MissingFunctionKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/FunctionDecl_MissingFunctionKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FunctionDecl")
+    public void testFunctionDecl_MissingFunctionName() {
+        final String expected = loadResource("tests/parser/xquery-1.0/FunctionDecl_MissingFunctionName.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/FunctionDecl_MissingFunctionName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FunctionDecl")
+    public void testFunctionDecl_MissingOpeningParenthesis() {
+        final String expected = loadResource("tests/parser/xquery-1.0/FunctionDecl_MissingOpeningParenthesis.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/FunctionDecl_MissingOpeningParenthesis.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FunctionDecl")
+    public void testFunctionDecl_MissingClosingParenthesis() {
+        final String expected = loadResource("tests/parser/xquery-1.0/FunctionDecl_MissingClosingParenthesis.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/FunctionDecl_MissingClosingParenthesis.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FunctionDecl")
+    public void testFunctionDecl_MissingFunctionBody() {
+        final String expected = loadResource("tests/parser/xquery-1.0/FunctionDecl_MissingFunctionBody.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/FunctionDecl_MissingFunctionBody.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FunctionDecl")
+    public void testFunctionDecl_ReturnType() {
+        final String expected = loadResource("tests/parser/xquery-1.0/FunctionDecl_ReturnType.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/FunctionDecl_ReturnType.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FunctionDecl")
+    public void testFunctionDecl_ReturnType_MissingSequenceType() {
+        final String expected = loadResource("tests/parser/xquery-1.0/FunctionDecl_ReturnType_MissingSequenceType.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/FunctionDecl_ReturnType_MissingSequenceType.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region DirCommentConstructor
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirCommentConstructor")

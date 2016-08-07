@@ -1,0 +1,1 @@
+declare function fn:true ( ) as xs:boolean external ;

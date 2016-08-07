@@ -91,6 +91,8 @@ public class XQueryASTFactory extends ASTFactory {
             return new XQuerySequenceTypeImpl(type);
         } else if (type == XQueryElementType.TYPE_DECLARATION) {
             return new XQueryTypeDeclarationImpl(type);
+        } else if (type == XQueryElementType.FUNCTION_DECL) {
+            return new XQueryFunctionDeclImpl(type);
         } else if (type == XQueryElementType.CONSTRUCTION_DECL) {
             return new XQueryConstructionDeclImpl(type);
         } else if (type == XQueryElementType.VAR_DECL) {
