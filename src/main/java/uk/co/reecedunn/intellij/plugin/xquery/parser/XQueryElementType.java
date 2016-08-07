@@ -56,6 +56,7 @@ public interface XQueryElementType {
     IElementType MODULE_IMPORT = new IElementType("XQUERY_MODULE_IMPORT", XQuery.INSTANCE);
     IElementType PROLOG = new IElementType("XQUERY_PROLOG", XQuery.INSTANCE);
 
+    IElementType ITEM_TYPE = new IElementType("XQUERY_ITEM_TYPE", XQuery.INSTANCE);
     IElementType OCCURRENCE_INDICATOR = new IElementType("XQUERY_OCCURRENCE_INDICATOR", XQuery.INSTANCE);
     IElementType TYPE_DECLARATION = new IElementType("XQUERY_TYPE_DECLARATION", XQuery.INSTANCE);
     IElementType SEQUENCE_TYPE = new IElementType("XQUERY_SEQUENCE_TYPE", XQuery.INSTANCE);

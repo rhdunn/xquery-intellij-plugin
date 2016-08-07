@@ -15,10 +15,11 @@ FileElement[FILE(0:49)]
                LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_AS(23:25)]('as')
                PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
                XQuerySequenceTypeImpl[XQUERY_SEQUENCE_TYPE(26:38)]
-                  XQueryQNameImpl[XQUERY_QNAME(26:36)]
-                     LeafPsiElement[XQUERY_NCNAME_TOKEN(26:28)]('xs')
-                     LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(28:29)](':')
-                     LeafPsiElement[XQUERY_NCNAME_TOKEN(29:36)]('integer')
+                  XQueryItemTypeImpl[XQUERY_ITEM_TYPE(26:36)]
+                     XQueryQNameImpl[XQUERY_QNAME(26:36)]
+                        LeafPsiElement[XQUERY_NCNAME_TOKEN(26:28)]('xs')
+                        LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(28:29)](':')
+                        LeafPsiElement[XQUERY_NCNAME_TOKEN(29:36)]('integer')
                   PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
                   XQueryOccurrenceIndicatorImpl[XQUERY_OCCURRENCE_INDICATOR(37:38)]
                      LeafPsiElement[XQUERY_PLUS_TOKEN(37:38)]('+')
