@@ -782,8 +782,12 @@ class XQueryParser {
             }
 
             skipWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.K_EXTERNAL) && !haveErrors) { // TODO: EnclosedExpr | "external"
+            if (!matchTokenType(XQueryTokenType.K_EXTERNAL) && !parseEnclosedExpr() && !haveErrors) {
                 error(XQueryBundle.message("parser.error.expected-enclosed-expression-or-keyword", "external"));
+                parseExpr(XQueryElementType.EXPR);
+
+                skipWhiteSpaceAndCommentTokens();
+                matchTokenType(XQueryTokenType.BLOCK_CLOSE);
             }
 
             skipWhiteSpaceAndCommentTokens();
@@ -837,6 +841,30 @@ class XQueryParser {
         }
 
         paramMarker.drop();
+        return false;
+    }
+
+    private boolean parseEnclosedExpr() {
+        final PsiBuilder.Marker enclosedExprMarker = mark();
+        if (matchTokenType(XQueryTokenType.BLOCK_OPEN)) {
+            boolean haveErrors = false;
+            skipWhiteSpaceAndCommentTokens();
+
+            if (!parseExpr(XQueryElementType.EXPR)) {
+                error(XQueryBundle.message("parser.error.expected-expression"));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.BLOCK_CLOSE) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", "}"));
+            }
+
+            enclosedExprMarker.done(XQueryElementType.ENCLOSED_EXPR);
+            return true;
+        }
+
+        enclosedExprMarker.drop();
         return false;
     }
 

@@ -48,6 +48,8 @@ public interface XQueryElementType {
     IElementType OR_EXPR = new IElementType("XQUERY_OR_EXPR", XQuery.INSTANCE);
 
     IElementType QUERY_BODY = new IElementType("XQUERY_QUERY_BODY", XQuery.INSTANCE);
+    IElementType EXPR = new IElementType("XQUERY_EXPR", XQuery.INSTANCE);
+    IElementType ENCLOSED_EXPR = new IElementType("XQUERY_ENCLOSED_EXPR", XQuery.INSTANCE);
 
     IElementType IMPORT = new IElementType("XQUERY_IMPORT", XQuery.INSTANCE);
     IElementType SCHEMA_PREFIX = new IElementType("XQUERY_SCHEMA_PREFIX", XQuery.INSTANCE);
@@ -62,6 +64,7 @@ public interface XQueryElementType {
     IElementType OCCURRENCE_INDICATOR = new IElementType("XQUERY_OCCURRENCE_INDICATOR", XQuery.INSTANCE);
     IElementType TYPE_DECLARATION = new IElementType("XQUERY_TYPE_DECLARATION", XQuery.INSTANCE);
     IElementType SEQUENCE_TYPE = new IElementType("XQUERY_SEQUENCE_TYPE", XQuery.INSTANCE);
+
     IElementType PARAM = new IElementType("XQUERY_PARAM", XQuery.INSTANCE);
     IElementType PARAM_LIST = new IElementType("XQUERY_PARAM_LIST", XQuery.INSTANCE);
 
