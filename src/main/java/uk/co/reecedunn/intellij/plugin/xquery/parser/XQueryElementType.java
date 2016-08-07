@@ -63,6 +63,7 @@ public interface XQueryElementType {
     IElementType TYPE_DECLARATION = new IElementType("XQUERY_TYPE_DECLARATION", XQuery.INSTANCE);
     IElementType SEQUENCE_TYPE = new IElementType("XQUERY_SEQUENCE_TYPE", XQuery.INSTANCE);
     IElementType PARAM = new IElementType("XQUERY_PARAM", XQuery.INSTANCE);
+    IElementType PARAM_LIST = new IElementType("XQUERY_PARAM_LIST", XQuery.INSTANCE);
 
     IElementType FUNCTION_DECL = new IElementType("XQUERY_FUNCTION_DECL", XQuery.INSTANCE);
     IElementType CONSTRUCTION_DECL = new IElementType("XQUERY_CONSTRUCTION_DECL", XQuery.INSTANCE);

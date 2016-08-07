@@ -9,10 +9,11 @@ FileElement[FILE(0:37)]
             XQueryNCNameImpl[XQUERY_NCNAME(17:21)]
                LeafPsiElement[XQUERY_NCNAME_TOKEN(17:21)]('test')
             LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(21:22)]('(')
-            XQueryParamImpl[XQUERY_PARAM(22:26)]
-               LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(22:23)]('$')
-               XQueryNCNameImpl[XQUERY_NCNAME(23:26)]
-                  LeafPsiElement[XQUERY_NCNAME_TOKEN(23:26)]('one')
+            XQueryParamListImpl[XQUERY_PARAM_LIST(22:26)]
+               XQueryParamImpl[XQUERY_PARAM(22:26)]
+                  LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(22:23)]('$')
+                  XQueryNCNameImpl[XQUERY_NCNAME(23:26)]
+                     LeafPsiElement[XQUERY_NCNAME_TOKEN(23:26)]('one')
             LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(26:27)](')')
             PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
             LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(28:36)]('external')

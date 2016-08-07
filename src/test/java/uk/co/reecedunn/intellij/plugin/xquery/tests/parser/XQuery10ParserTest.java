@@ -1097,6 +1097,30 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region ParamList
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ParamList")
+    public void testParamList() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ParamList.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ParamList.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ParamList")
+    public void testParamList_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ParamList_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ParamList_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ParamList")
+    public void testParamList_MissingComma() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ParamList_MissingComma.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ParamList_MissingComma.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region Param
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Param")

@@ -138,6 +138,8 @@ public class XQueryParserDefinition implements ParserDefinition {
             return new XQueryTypeDeclarationPsiImpl(node);
         } else if (type == XQueryElementType.PARAM) {
             return new XQueryParamPsiImpl(node);
+        } else if (type == XQueryElementType.PARAM_LIST) {
+            return new XQueryParamListPsiImpl(node);
         } else if (type == XQueryElementType.FUNCTION_DECL) {
             return new XQueryFunctionDeclPsiImpl(node);
         } else if (type == XQueryElementType.CONSTRUCTION_DECL) {

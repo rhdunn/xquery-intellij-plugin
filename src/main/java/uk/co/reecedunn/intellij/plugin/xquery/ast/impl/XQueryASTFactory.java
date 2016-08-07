@@ -93,6 +93,8 @@ public class XQueryASTFactory extends ASTFactory {
             return new XQueryTypeDeclarationImpl(type);
         } else if (type == XQueryElementType.PARAM) {
             return new XQueryParamImpl(type);
+        } else if (type == XQueryElementType.PARAM_LIST) {
+            return new XQueryParamListImpl(type);
         } else if (type == XQueryElementType.FUNCTION_DECL) {
             return new XQueryFunctionDeclImpl(type);
         } else if (type == XQueryElementType.CONSTRUCTION_DECL) {

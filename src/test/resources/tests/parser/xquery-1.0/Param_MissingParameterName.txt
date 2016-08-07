@@ -11,10 +11,11 @@ FileElement[FILE(0:38)]
                PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
             LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(22:23)]('(')
             PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
-            XQueryParamImpl[XQUERY_PARAM(24:26)]
-               LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(24:25)]('$')
-               PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
-               PsiErrorElementImpl[ERROR_ELEMENT(26:26)]('XPST0003: Missing qualified name.')
+            XQueryParamListImpl[XQUERY_PARAM_LIST(24:26)]
+               XQueryParamImpl[XQUERY_PARAM(24:26)]
+                  LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(24:25)]('$')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
+                  PsiErrorElementImpl[ERROR_ELEMENT(26:26)]('XPST0003: Missing qualified name.')
             LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(26:27)](')')
             PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
             LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(28:36)]('external')
