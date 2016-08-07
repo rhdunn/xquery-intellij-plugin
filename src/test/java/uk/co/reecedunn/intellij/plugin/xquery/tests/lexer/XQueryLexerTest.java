@@ -352,6 +352,17 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region EnclosedExpr
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-EnclosedExpr")
+    public void testEnclosedExpr() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN);
+        matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE);
+    }
+
+    // endregion
     // region DirCommentConstructor
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirCommentConstructor")
@@ -531,12 +542,9 @@ public class XQueryLexerTest extends TestCase {
     public void testDelimitingTerminalSymbols() {
         Lexer lexer = new XQueryLexer();
 
-        matchSingleToken(lexer, ":", XQueryTokenType.QNAME_SEPARATOR);
         matchSingleToken(lexer, "|", XQueryTokenType.UNION);
         matchSingleToken(lexer, "-", XQueryTokenType.MINUS);
         matchSingleToken(lexer, ".", XQueryTokenType.DOT);
-        matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN);
-        matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE);
         matchSingleToken(lexer, "<", XQueryTokenType.LESS_THAN);
         matchSingleToken(lexer, ">", XQueryTokenType.GREATER_THAN);
         matchSingleToken(lexer, "/", XQueryTokenType.DIRECT_DESCENDANTS_PATH);
