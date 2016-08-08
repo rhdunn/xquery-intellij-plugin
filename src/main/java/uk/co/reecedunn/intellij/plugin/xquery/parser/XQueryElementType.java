@@ -58,6 +58,7 @@ public interface XQueryElementType {
     IElementType MODULE_IMPORT = new IElementType("XQUERY_MODULE_IMPORT", XQuery.INSTANCE);
     IElementType PROLOG = new IElementType("XQUERY_PROLOG", XQuery.INSTANCE);
 
+    IElementType TEXT_TEST = new IElementType("XQUERY_TEXT_TEST", XQuery.INSTANCE);
     IElementType ANY_KIND_TEST = new IElementType("XQUERY_ANY_KIND_TEST", XQuery.INSTANCE);
     IElementType ATOMIC_TYPE = new IElementType("XQUERY_ATOMIC_TYPE", XQuery.INSTANCE);
     IElementType ITEM_TYPE = new IElementType("XQUERY_ITEM_TYPE", XQuery.INSTANCE);

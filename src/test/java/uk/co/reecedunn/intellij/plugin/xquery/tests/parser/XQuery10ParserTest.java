@@ -1421,6 +1421,37 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region TextTest
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-TextTest")
+    public void testTextTest() {
+        final String expected = loadResource("tests/parser/xquery-1.0/TextTest.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/TextTest.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-TextTest")
+    public void testTextTest_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/TextTest_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/TextTest_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-TextTest")
+    public void testTextTest_MissingOpeningParenthesis() {
+        final String expected = loadResource("tests/parser/xquery-1.0/TextTest_MissingOpeningParenthesis.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/TextTest_MissingOpeningParenthesis.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-TextTest")
+    public void testTextTest_MissingClosingParenthesis() {
+        final String expected = loadResource("tests/parser/xquery-1.0/TextTest_MissingClosingParenthesis.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/TextTest_MissingClosingParenthesis.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region IntegerLiteral
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-IntegerLiteral")

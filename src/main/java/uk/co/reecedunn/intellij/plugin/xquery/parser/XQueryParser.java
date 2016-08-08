@@ -1148,7 +1148,7 @@ class XQueryParser {
             return true;
         }
 
-        error(XQueryBundle.message("parser.error.expected-qname-or-keyword", "empty-sequence"));
+        error(XQueryBundle.message("parser.error.expected-qname-or-keyword", "empty-sequence, item, node, text"));
         sequenceTypeMarker.drop();
         return false;
     }
@@ -1192,7 +1192,7 @@ class XQueryParser {
     }
 
     private boolean parseKindTest() {
-        return parseAnyKindTest();
+        return parseAnyKindTest() || parseTextTest();
     }
 
     private boolean parseAnyKindTest() {
@@ -1212,6 +1212,28 @@ class XQueryParser {
             }
 
             anyKindTestMarker.done(XQueryElementType.ANY_KIND_TEST);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseTextTest() {
+        final PsiBuilder.Marker textTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_TEXT);
+        if (textTestMarker != null) {
+            boolean haveErrors = false;
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_OPEN)) {
+                error(XQueryBundle.message("parser.error.expected", "("));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", ")"));
+            }
+
+            textTestMarker.done(XQueryElementType.TEXT_TEST);
             return true;
         }
         return false;
