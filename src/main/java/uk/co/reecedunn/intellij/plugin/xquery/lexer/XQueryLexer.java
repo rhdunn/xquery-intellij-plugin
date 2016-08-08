@@ -724,6 +724,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("preserve", XQueryTokenType.K_PRESERVE);
         sKeywords.put("processing-instruction", XQueryTokenType.K_PROCESSING_INSTRUCTION);
         sKeywords.put("schema", XQueryTokenType.K_SCHEMA);
+        sKeywords.put("schema-attribute", XQueryTokenType.K_SCHEMA_ATTRIBUTE);
         sKeywords.put("strip", XQueryTokenType.K_STRIP);
         sKeywords.put("text", XQueryTokenType.K_TEXT);
         sKeywords.put("unordered", XQueryTokenType.K_UNORDERED);
