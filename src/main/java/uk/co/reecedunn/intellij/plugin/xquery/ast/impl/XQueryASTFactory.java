@@ -84,6 +84,8 @@ public class XQueryASTFactory extends ASTFactory {
             return new XQueryCDataSectionImpl(type);
         } else if (type == XQueryElementType.SCHEMA_PREFIX) {
             return new XQuerySchemaPrefixImpl(type);
+        } else if (type == XQueryElementType.PI_TEST) {
+            return new XQueryPITestImpl(type);
         } else if (type == XQueryElementType.COMMENT_TEST) {
             return new XQueryCommentTestImpl(type);
         } else if (type == XQueryElementType.TEXT_TEST) {

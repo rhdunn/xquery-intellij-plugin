@@ -1,0 +1,1 @@
+declare variable $ one as processing-instruction ( ) external ;
