@@ -1304,24 +1304,21 @@ class XQueryParser {
             }
 
             skipWhiteSpaceAndCommentTokens();
-            if (!parseQName(XQueryElementType.QNAME) && !matchTokenType(XQueryTokenType.STAR) && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected-qname-or-token", "*"));
-                haveErrors = true;
-            }
-
-            skipWhiteSpaceAndCommentTokens();
-            if (matchTokenType(XQueryTokenType.COMMA)) {
+            if (parseQName(XQueryElementType.QNAME) || matchTokenType(XQueryTokenType.STAR)) {
                 skipWhiteSpaceAndCommentTokens();
-                if (!parseQName(XQueryElementType.QNAME) && !haveErrors) {
-                    error(XQueryBundle.message("parser.error.expected-qname"));
-                    haveErrors = true;
+                if (matchTokenType(XQueryTokenType.COMMA)) {
+                    skipWhiteSpaceAndCommentTokens();
+                    if (!parseQName(XQueryElementType.QNAME) && !haveErrors) {
+                        error(XQueryBundle.message("parser.error.expected-qname"));
+                        haveErrors = true;
+                    }
+                } else if (getTokenType() != XQueryTokenType.PARENTHESIS_CLOSE && getTokenType() != XQueryTokenType.K_EXTERNAL) {
+                    if (!haveErrors) {
+                        error(XQueryBundle.message("parser.error.expected", ","));
+                        haveErrors = true;
+                    }
+                    parseQName(XQueryElementType.QNAME);
                 }
-            } else if (getTokenType() != XQueryTokenType.PARENTHESIS_CLOSE && getTokenType() != XQueryTokenType.K_EXTERNAL) {
-                if (!haveErrors) {
-                    error(XQueryBundle.message("parser.error.expected", ","));
-                    haveErrors = true;
-                }
-                parseQName(XQueryElementType.QNAME);
             }
 
             skipWhiteSpaceAndCommentTokens();
