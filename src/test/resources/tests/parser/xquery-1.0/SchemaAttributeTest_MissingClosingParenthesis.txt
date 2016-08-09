@@ -21,7 +21,7 @@ FileElement[FILE(0:66)]
                         PsiWhiteSpaceImpl[WHITE_SPACE(42:43)](' ')
                         LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(43:44)]('(')
                         PsiWhiteSpaceImpl[WHITE_SPACE(44:45)](' ')
-                        XQueryQNameImpl[XQUERY_QNAME(45:55)]
+                        XQueryAttributeDeclarationImpl[XQUERY_ATTRIBUTE_DECLARATION(45:55)]
                            LeafPsiElement[XQUERY_NCNAME_TOKEN(45:47)]('xs')
                            LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(47:48)](':')
                            LeafPsiElement[XQUERY_NCNAME_TOKEN(48:55)]('boolean')
