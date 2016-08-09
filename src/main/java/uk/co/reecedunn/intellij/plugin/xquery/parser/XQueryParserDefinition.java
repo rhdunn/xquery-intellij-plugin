@@ -130,6 +130,8 @@ public class XQueryParserDefinition implements ParserDefinition {
             return new XQueryCDataSectionPsiImpl(node);
         } else if (type == XQueryElementType.SCHEMA_PREFIX) {
             return new XQuerySchemaPrefixPsiImpl(node);
+        } else if (type == XQueryElementType.ATTRIBUTE_TEST) {
+            return new XQueryAttributeTestPsiImpl(node);
         } else if (type == XQueryElementType.SCHEMA_ATTRIBUTE_TEST) {
             return new XQuerySchemaAttributeTestPsiImpl(node);
         } else if (type == XQueryElementType.PI_TEST) {

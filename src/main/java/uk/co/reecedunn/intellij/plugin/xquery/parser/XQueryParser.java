@@ -1192,7 +1192,8 @@ class XQueryParser {
     }
 
     private boolean parseKindTest() {
-        return parseSchemaAttributeTest()
+        return parseAttributeTest()
+            || parseSchemaAttributeTest()
             || parsePITest()
             || parseCommentTest()
             || parseTextTest()
@@ -1286,6 +1287,49 @@ class XQueryParser {
             }
 
             piTestMarker.done(XQueryElementType.PI_TEST);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseAttributeTest() {
+        final PsiBuilder.Marker piTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_ATTRIBUTE);
+        if (piTestMarker != null) {
+            boolean haveErrors = false;
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_OPEN)) {
+                error(XQueryBundle.message("parser.error.expected", "("));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!parseQName(XQueryElementType.QNAME) && !matchTokenType(XQueryTokenType.STAR) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-qname-or-token", "*"));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (matchTokenType(XQueryTokenType.COMMA)) {
+                skipWhiteSpaceAndCommentTokens();
+                if (!parseQName(XQueryElementType.QNAME) && !haveErrors) {
+                    error(XQueryBundle.message("parser.error.expected-qname"));
+                    haveErrors = true;
+                }
+            } else if (getTokenType() != XQueryTokenType.PARENTHESIS_CLOSE && getTokenType() != XQueryTokenType.K_EXTERNAL) {
+                if (!haveErrors) {
+                    error(XQueryBundle.message("parser.error.expected", ","));
+                    haveErrors = true;
+                }
+                parseQName(XQueryElementType.QNAME);
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", ")"));
+            }
+
+            piTestMarker.done(XQueryElementType.ATTRIBUTE_TEST);
             return true;
         }
         return false;

@@ -1,0 +1,1 @@
+declare variable $ one as attribute ( html:class ) external ;
