@@ -619,6 +619,16 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region ElementNameOrWildcard
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ElementNameOrWildcard")
+    public void testElementNameOrWildcard() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "*", XQueryTokenType.STAR);
+    }
+
+    // endregion
     // region SchemaElementTest
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-SchemaElementTest")
