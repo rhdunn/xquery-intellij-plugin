@@ -1193,6 +1193,7 @@ class XQueryParser {
 
     private boolean parseKindTest() {
         return parseAttributeTest()
+            || parseSchemaElementTest()
             || parseSchemaAttributeTest()
             || parsePITest()
             || parseCommentTest()
@@ -1343,8 +1344,8 @@ class XQueryParser {
     }
 
     private boolean parseSchemaAttributeTest() {
-        final PsiBuilder.Marker piTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_SCHEMA_ATTRIBUTE);
-        if (piTestMarker != null) {
+        final PsiBuilder.Marker schemaAttributeTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_SCHEMA_ATTRIBUTE);
+        if (schemaAttributeTestMarker != null) {
             boolean haveErrors = false;
 
             skipWhiteSpaceAndCommentTokens();
@@ -1364,7 +1365,35 @@ class XQueryParser {
                 error(XQueryBundle.message("parser.error.expected", ")"));
             }
 
-            piTestMarker.done(XQueryElementType.SCHEMA_ATTRIBUTE_TEST);
+            schemaAttributeTestMarker.done(XQueryElementType.SCHEMA_ATTRIBUTE_TEST);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseSchemaElementTest() {
+        final PsiBuilder.Marker schemaElementTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_SCHEMA_ELEMENT);
+        if (schemaElementTestMarker != null) {
+            boolean haveErrors = false;
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_OPEN)) {
+                error(XQueryBundle.message("parser.error.expected", "("));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!parseQName(XQueryElementType.QNAME) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-qname"));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", ")"));
+            }
+
+            schemaElementTestMarker.done(XQueryElementType.SCHEMA_ELEMENT_TEST);
             return true;
         }
         return false;

@@ -1681,6 +1681,44 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region SchemaElementTest
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-SchemaElementTest")
+    public void testSchemaElementTest() {
+        final String expected = loadResource("tests/parser/xquery-1.0/SchemaElementTest.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/SchemaElementTest.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-SchemaElementTest")
+    public void testSchemaElementTest_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/SchemaElementTest_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/SchemaElementTest_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-SchemaElementTest")
+    public void testSchemaElementTest_MissingOpeningParenthesis() {
+        final String expected = loadResource("tests/parser/xquery-1.0/SchemaElementTest_MissingOpeningParenthesis.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/SchemaElementTest_MissingOpeningParenthesis.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-SchemaElementTest")
+    public void testSchemaElementTest_MissingElementDeclaration() {
+        final String expected = loadResource("tests/parser/xquery-1.0/SchemaElementTest_MissingElementDeclaration.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/SchemaElementTest_MissingElementDeclaration.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-SchemaElementTest")
+    public void testSchemaElementTest_MissingClosingParenthesis() {
+        final String expected = loadResource("tests/parser/xquery-1.0/SchemaElementTest_MissingClosingParenthesis.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/SchemaElementTest_MissingClosingParenthesis.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region IntegerLiteral
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-IntegerLiteral")

@@ -94,6 +94,8 @@ public class XQueryASTFactory extends ASTFactory {
             return new XQuerySchemaPrefixImpl(type);
         } else if (type == XQueryElementType.ATTRIBUTE_TEST) {
             return new XQueryAttributeTestImpl(type);
+        } else if (type == XQueryElementType.SCHEMA_ELEMENT_TEST) {
+            return new XQuerySchemaElementTestImpl(type);
         } else if (type == XQueryElementType.SCHEMA_ATTRIBUTE_TEST) {
             return new XQuerySchemaAttributeTestImpl(type);
         } else if (type == XQueryElementType.PI_TEST) {
