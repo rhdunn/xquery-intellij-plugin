@@ -1681,6 +1681,107 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region ElementTest
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ElementTest")
+    public void testElementTest() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ElementTest.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ElementTest.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ElementTest")
+    public void testElementTest_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ElementTest_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ElementTest_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ElementTest")
+    public void testElementTest_MissingOpeningParenthesis() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ElementTest_MissingOpeningParenthesis.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ElementTest_MissingOpeningParenthesis.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ElementTest")
+    public void testElementTest_MissingElementNameOrWildcard() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ElementTest_MissingElementNameOrWildcard.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ElementTest_MissingElementNameOrWildcard.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ElementTest")
+    public void testElementTest_MissingClosingParenthesis() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ElementTest_MissingClosingParenthesis.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ElementTest_MissingClosingParenthesis.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ElementTest")
+    public void testElementTest_Wildcard() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ElementTest_Wildcard.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ElementTest_Wildcard.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ElementTest")
+    public void testElementTest_Wildcard_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ElementTest_Wildcard_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ElementTest_Wildcard_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ElementTest")
+    public void testElementTest_TypeName() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ElementTest_TypeName.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ElementTest_TypeName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ElementTest")
+    public void testElementTest_TypeName_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ElementTest_TypeName_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ElementTest_TypeName_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ElementTest")
+    public void testElementTest_TypeName_MissingTypeName() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ElementTest_TypeName_MissingTypeName.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ElementTest_TypeName_MissingTypeName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ElementTest")
+    public void testElementTest_TypeName_MissingComma() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ElementTest_TypeName_MissingComma.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ElementTest_TypeName_MissingComma.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ElementTest")
+    public void testElementTest_TypeName_Optional() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ElementTest_TypeName_Optional.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ElementTest_TypeName_Optional.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ElementTest")
+    public void testElementTest_TypeName_Optional_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ElementTest_TypeName_Optional_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ElementTest_TypeName_Optional_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ElementTest")
+    public void testElementTest_TypeName_Optional_MissingTypeName() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ElementTest_TypeName_Optional_MissingTypeName.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ElementTest_TypeName_Optional_MissingTypeName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region SchemaElementTest + ElementDeclaration
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-SchemaElementTest")

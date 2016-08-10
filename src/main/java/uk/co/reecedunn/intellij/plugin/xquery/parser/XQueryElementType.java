@@ -64,6 +64,7 @@ public interface XQueryElementType {
     IElementType ATTRIBUTE_NAME = new IElementType("XQUERY_ATTRIBUTE_NAME", XQuery.INSTANCE);
     IElementType ATTRIBUTE_DECLARATION = new IElementType("XQUERY_ATTRIBUTE_DECLARATION", XQuery.INSTANCE);
 
+    IElementType ELEMENT_TEST = new IElementType("XQUERY_ELEMENT_TEST", XQuery.INSTANCE);
     IElementType SCHEMA_ELEMENT_TEST = new IElementType("XQUERY_SCHEMA_ELEMENT_TEST", XQuery.INSTANCE);
     IElementType ATTRIBUTE_TEST = new IElementType("XQUERY_ATTRIBUTE_TEST", XQuery.INSTANCE);
     IElementType SCHEMA_ATTRIBUTE_TEST = new IElementType("XQUERY_SCHEMA_ATTRIBUTE_TEST", XQuery.INSTANCE);
