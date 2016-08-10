@@ -22,7 +22,7 @@ FileElement[FILE(0:61)]
                         LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(36:37)]('(')
                         PsiWhiteSpaceImpl[WHITE_SPACE(37:38)](' ')
                         XQueryAttribNameOrWildcardImpl[XQUERY_ATTRIB_NAME_OR_WILDCARD(38:48)]
-                           XQueryQNameImpl[XQUERY_QNAME(38:48)]
+                           XQueryAttributeNameImpl[XQUERY_ATTRIBUTE_NAME(38:48)]
                               LeafPsiElement[XQUERY_NCNAME_TOKEN(38:42)]('html')
                               LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(42:43)](':')
                               LeafPsiElement[XQUERY_NCNAME_TOKEN(43:48)]('class')

@@ -1542,7 +1542,7 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
-    // region AttributeTest + AttribNameOrWildcard
+    // region AttributeTest + AttribNameOrWildcard + AttributeName
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AttributeTest")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AttribNameOrWildcard")
