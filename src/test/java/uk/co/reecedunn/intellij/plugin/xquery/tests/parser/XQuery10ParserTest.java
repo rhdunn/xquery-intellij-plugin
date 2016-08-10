@@ -1574,9 +1574,9 @@ public class XQuery10ParserTest extends ParserTestCase {
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AttributeTest")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AttribNameOrWildcard")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AttributeName")
-    public void testAttributeTest_MissingAttribOrWildcard() {
-        final String expected = loadResource("tests/parser/xquery-1.0/AttributeTest_MissingAttribOrWildcard.txt");
-        final ASTNode actual = parseResource("tests/parser/xquery-1.0/AttributeTest_MissingAttribOrWildcard.xq");
+    public void testAttributeTest_MissingAttribNameOrWildcard() {
+        final String expected = loadResource("tests/parser/xquery-1.0/AttributeTest_MissingAttribNameOrWildcard.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/AttributeTest_MissingAttribNameOrWildcard.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
