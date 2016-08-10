@@ -606,6 +606,19 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region ElementTest
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ElementTest")
+    public void testElementTest() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "element", XQueryTokenType.K_ELEMENT);
+        matchSingleToken(lexer, "(",       XQueryTokenType.PARENTHESIS_OPEN);
+        matchSingleToken(lexer, ")",       XQueryTokenType.PARENTHESIS_CLOSE);
+        matchSingleToken(lexer, "?",       XQueryTokenType.OPTIONAL);
+    }
+
+    // endregion
     // region SchemaElementTest
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-SchemaElementTest")
