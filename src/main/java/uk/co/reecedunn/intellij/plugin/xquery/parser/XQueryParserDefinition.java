@@ -122,6 +122,8 @@ public class XQueryParserDefinition implements ParserDefinition {
             return new XQueryQNamePsiImpl(node);
         } else if (type == XQueryElementType.TYPE_NAME) {
             return new XQueryTypeNamePsiImpl(node);
+        } else if (type == XQueryElementType.ELEMENT_DECLARATION) {
+            return new XQueryElementDeclarationPsiImpl(node);
         } else if (type == XQueryElementType.ATTRIBUTE_DECLARATION) {
             return new XQueryAttributeDeclarationPsiImpl(node);
         } else if (type == XQueryElementType.ATTRIBUTE_NAME) {

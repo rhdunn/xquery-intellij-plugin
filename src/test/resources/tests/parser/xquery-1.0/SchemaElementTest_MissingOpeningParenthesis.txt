@@ -20,7 +20,7 @@ FileElement[FILE(0:64)]
                         LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_SCHEMA_ELEMENT(26:40)]('schema-element')
                         PsiWhiteSpaceImpl[WHITE_SPACE(40:41)](' ')
                         PsiErrorElementImpl[ERROR_ELEMENT(41:41)]('XPST0003: Expected '('.')
-                        XQueryQNameImpl[XQUERY_QNAME(41:51)]
+                        XQueryElementDeclarationImpl[XQUERY_ELEMENT_DECLARATION(41:51)]
                            LeafPsiElement[XQUERY_NCNAME_TOKEN(41:43)]('xs')
                            LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(43:44)](':')
                            LeafPsiElement[XQUERY_NCNAME_TOKEN(44:51)]('boolean')

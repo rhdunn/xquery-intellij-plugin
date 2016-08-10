@@ -59,6 +59,7 @@ public interface XQueryElementType {
     IElementType PROLOG = new IElementType("XQUERY_PROLOG", XQuery.INSTANCE);
 
     IElementType TYPE_NAME = new IElementType("XQUERY_TYPE_NAME", XQuery.INSTANCE);
+    IElementType ELEMENT_DECLARATION = new IElementType("XQUERY_ELEMENT_DECLARATION", XQuery.INSTANCE);
     IElementType ATTRIB_NAME_OR_WILDCARD = new IElementType("XQUERY_ATTRIB_NAME_OR_WILDCARD", XQuery.INSTANCE);
     IElementType ATTRIBUTE_NAME = new IElementType("XQUERY_ATTRIBUTE_NAME", XQuery.INSTANCE);
     IElementType ATTRIBUTE_DECLARATION = new IElementType("XQUERY_ATTRIBUTE_DECLARATION", XQuery.INSTANCE);

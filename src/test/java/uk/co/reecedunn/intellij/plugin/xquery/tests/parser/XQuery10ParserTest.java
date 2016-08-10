@@ -1681,9 +1681,10 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
-    // region SchemaElementTest
+    // region SchemaElementTest + ElementDeclaration
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-SchemaElementTest")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ElementDeclaration")
     public void testSchemaElementTest() {
         final String expected = loadResource("tests/parser/xquery-1.0/SchemaElementTest.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/SchemaElementTest.xq");
@@ -1691,6 +1692,7 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-SchemaElementTest")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ElementDeclaration")
     public void testSchemaElementTest_CompactWhitespace() {
         final String expected = loadResource("tests/parser/xquery-1.0/SchemaElementTest_CompactWhitespace.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/SchemaElementTest_CompactWhitespace.xq");
@@ -1698,6 +1700,7 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-SchemaElementTest")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ElementDeclaration")
     public void testSchemaElementTest_MissingOpeningParenthesis() {
         final String expected = loadResource("tests/parser/xquery-1.0/SchemaElementTest_MissingOpeningParenthesis.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/SchemaElementTest_MissingOpeningParenthesis.xq");
@@ -1705,6 +1708,7 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-SchemaElementTest")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ElementDeclaration")
     public void testSchemaElementTest_MissingElementDeclaration() {
         final String expected = loadResource("tests/parser/xquery-1.0/SchemaElementTest_MissingElementDeclaration.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/SchemaElementTest_MissingElementDeclaration.xq");
@@ -1712,6 +1716,7 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-SchemaElementTest")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ElementDeclaration")
     public void testSchemaElementTest_MissingClosingParenthesis() {
         final String expected = loadResource("tests/parser/xquery-1.0/SchemaElementTest_MissingClosingParenthesis.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/SchemaElementTest_MissingClosingParenthesis.xq");
