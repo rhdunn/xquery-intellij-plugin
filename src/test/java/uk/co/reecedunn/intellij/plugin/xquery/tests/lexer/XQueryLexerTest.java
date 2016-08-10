@@ -606,6 +606,18 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region SchemaElementTest
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-SchemaElementTest")
+    public void testSchemaElementTest() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "schema-element", XQueryTokenType.K_SCHEMA_ELEMENT);
+        matchSingleToken(lexer, "(",              XQueryTokenType.PARENTHESIS_OPEN);
+        matchSingleToken(lexer, ")",              XQueryTokenType.PARENTHESIS_CLOSE);
+    }
+
+    // endregion
     // region (A.2.2) Terminal Delimitation
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#id-terminal-delimitation")
