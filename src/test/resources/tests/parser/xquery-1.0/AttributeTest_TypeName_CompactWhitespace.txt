@@ -17,10 +17,11 @@ FileElement[FILE(0:65)]
                      XQueryAttributeTestImpl[XQUERY_ATTRIBUTE_TEST(24:56)]
                         LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_ATTRIBUTE(24:33)]('attribute')
                         LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(33:34)]('(')
-                        XQueryQNameImpl[XQUERY_QNAME(34:44)]
-                           LeafPsiElement[XQUERY_NCNAME_TOKEN(34:36)]('ns')
-                           LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(36:37)](':')
-                           LeafPsiElement[XQUERY_NCNAME_TOKEN(37:44)]('enabled')
+                        XQueryAttribNameOrWildcardImpl[XQUERY_ATTRIB_NAME_OR_WILDCARD(34:44)]
+                           XQueryQNameImpl[XQUERY_QNAME(34:44)]
+                              LeafPsiElement[XQUERY_NCNAME_TOKEN(34:36)]('ns')
+                              LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(36:37)](':')
+                              LeafPsiElement[XQUERY_NCNAME_TOKEN(37:44)]('enabled')
                         LeafPsiElement[XQUERY_COMMA_TOKEN(44:45)](',')
                         XQueryQNameImpl[XQUERY_QNAME(45:55)]
                            LeafPsiElement[XQUERY_NCNAME_TOKEN(45:47)]('xs')

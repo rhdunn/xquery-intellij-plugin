@@ -1293,8 +1293,8 @@ class XQueryParser {
     }
 
     private boolean parseAttributeTest() {
-        final PsiBuilder.Marker piTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_ATTRIBUTE);
-        if (piTestMarker != null) {
+        final PsiBuilder.Marker attributeTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_ATTRIBUTE);
+        if (attributeTestMarker != null) {
             boolean haveErrors = false;
 
             skipWhiteSpaceAndCommentTokens();
@@ -1304,7 +1304,7 @@ class XQueryParser {
             }
 
             skipWhiteSpaceAndCommentTokens();
-            if (parseQName(XQueryElementType.QNAME) || matchTokenType(XQueryTokenType.STAR)) {
+            if (parseAttribNameOrWildcard()) {
                 skipWhiteSpaceAndCommentTokens();
                 if (matchTokenType(XQueryTokenType.COMMA)) {
                     skipWhiteSpaceAndCommentTokens();
@@ -1326,9 +1326,19 @@ class XQueryParser {
                 error(XQueryBundle.message("parser.error.expected", ")"));
             }
 
-            piTestMarker.done(XQueryElementType.ATTRIBUTE_TEST);
+            attributeTestMarker.done(XQueryElementType.ATTRIBUTE_TEST);
             return true;
         }
+        return false;
+    }
+
+    private boolean parseAttribNameOrWildcard() {
+        final PsiBuilder.Marker attribNameOrWildcardMarker = mBuilder.mark();
+        if (parseQName(XQueryElementType.QNAME) || matchTokenType(XQueryTokenType.STAR)) {
+            attribNameOrWildcardMarker.done(XQueryElementType.ATTRIB_NAME_OR_WILDCARD);
+            return true;
+        }
+        attribNameOrWildcardMarker.drop();
         return false;
     }
 

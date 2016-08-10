@@ -1542,9 +1542,10 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
-    // region AttributeTest
+    // region AttributeTest + AttribNameOrWildcard
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AttributeTest")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AttribNameOrWildcard")
     public void testAttributeTest() {
         final String expected = loadResource("tests/parser/xquery-1.0/AttributeTest.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/AttributeTest.xq");
@@ -1552,6 +1553,7 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AttributeTest")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AttribNameOrWildcard")
     public void testAttributeTest_CompactWhitespace() {
         final String expected = loadResource("tests/parser/xquery-1.0/AttributeTest_CompactWhitespace.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/AttributeTest_CompactWhitespace.xq");
@@ -1559,6 +1561,7 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AttributeTest")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AttribNameOrWildcard")
     public void testAttributeTest_MissingOpeningParenthesis() {
         final String expected = loadResource("tests/parser/xquery-1.0/AttributeTest_MissingOpeningParenthesis.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/AttributeTest_MissingOpeningParenthesis.xq");
@@ -1566,6 +1569,7 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AttributeTest")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AttribNameOrWildcard")
     public void testAttributeTest_MissingAttribOrWildcard() {
         final String expected = loadResource("tests/parser/xquery-1.0/AttributeTest_MissingAttribOrWildcard.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/AttributeTest_MissingAttribOrWildcard.xq");
@@ -1573,6 +1577,7 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AttributeTest")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AttribNameOrWildcard")
     public void testAttributeTest_MissingClosingParenthesis() {
         final String expected = loadResource("tests/parser/xquery-1.0/AttributeTest_MissingClosingParenthesis.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/AttributeTest_MissingClosingParenthesis.xq");
@@ -1580,6 +1585,7 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AttributeTest")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AttribNameOrWildcard")
     public void testAttributeTest_Wildcard() {
         final String expected = loadResource("tests/parser/xquery-1.0/AttributeTest_Wildcard.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/AttributeTest_Wildcard.xq");
@@ -1587,6 +1593,7 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AttributeTest")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AttribNameOrWildcard")
     public void testAttributeTest_Wildcard_CompactWhitespace() {
         final String expected = loadResource("tests/parser/xquery-1.0/AttributeTest_Wildcard_CompactWhitespace.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/AttributeTest_Wildcard_CompactWhitespace.xq");
