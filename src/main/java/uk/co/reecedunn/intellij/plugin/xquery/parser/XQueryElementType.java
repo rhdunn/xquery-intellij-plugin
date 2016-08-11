@@ -60,6 +60,7 @@ public interface XQueryElementType {
 
     IElementType TYPE_NAME = new IElementType("XQUERY_TYPE_NAME", XQuery.INSTANCE);
     IElementType ELEMENT_NAME_OR_WILDCARD = new IElementType("XQUERY_ELEMENT_NAME_OR_WILDCARD", XQuery.INSTANCE);
+    IElementType ELEMENT_NAME = new IElementType("XQUERY_ELEMENT_NAME", XQuery.INSTANCE);
     IElementType ELEMENT_DECLARATION = new IElementType("XQUERY_ELEMENT_DECLARATION", XQuery.INSTANCE);
     IElementType ATTRIB_NAME_OR_WILDCARD = new IElementType("XQUERY_ATTRIB_NAME_OR_WILDCARD", XQuery.INSTANCE);
     IElementType ATTRIBUTE_NAME = new IElementType("XQUERY_ATTRIBUTE_NAME", XQuery.INSTANCE);

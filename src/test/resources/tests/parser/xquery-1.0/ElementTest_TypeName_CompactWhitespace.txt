@@ -18,7 +18,7 @@ FileElement[FILE(0:63)]
                         LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_ELEMENT(24:31)]('element')
                         LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(31:32)]('(')
                         XQueryElementNameOrWildcardImpl[XQUERY_ELEMENT_NAME_OR_WILDCARD(32:42)]
-                           XQueryQNameImpl[XQUERY_QNAME(32:42)]
+                           XQueryElementNameImpl[XQUERY_ELEMENT_NAME(32:42)]
                               LeafPsiElement[XQUERY_NCNAME_TOKEN(32:34)]('ns')
                               LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(34:35)](':')
                               LeafPsiElement[XQUERY_NCNAME_TOKEN(35:42)]('enabled')

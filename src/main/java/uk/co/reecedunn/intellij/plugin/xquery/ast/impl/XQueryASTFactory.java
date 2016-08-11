@@ -80,6 +80,8 @@ public class XQueryASTFactory extends ASTFactory {
             return new XQueryTypeNameImpl(type);
         } else if (type == XQueryElementType.ELEMENT_DECLARATION) {
             return new XQueryElementDeclarationImpl(type);
+        } else if (type == XQueryElementType.ELEMENT_NAME) {
+            return new XQueryElementNameImpl(type);
         } else if (type == XQueryElementType.ELEMENT_NAME_OR_WILDCARD) {
             return new XQueryElementNameOrWildcardImpl(type);
         } else if (type == XQueryElementType.ATTRIBUTE_DECLARATION) {
