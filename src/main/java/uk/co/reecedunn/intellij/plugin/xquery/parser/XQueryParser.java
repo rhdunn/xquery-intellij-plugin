@@ -1344,6 +1344,34 @@ class XQueryParser {
         return false;
     }
 
+    private boolean parseSchemaAttributeTest() {
+        final PsiBuilder.Marker schemaAttributeTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_SCHEMA_ATTRIBUTE);
+        if (schemaAttributeTestMarker != null) {
+            boolean haveErrors = false;
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_OPEN)) {
+                error(XQueryBundle.message("parser.error.expected", "("));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!parseQName(XQueryElementType.ATTRIBUTE_DECLARATION) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-qname"));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", ")"));
+            }
+
+            schemaAttributeTestMarker.done(XQueryElementType.SCHEMA_ATTRIBUTE_TEST);
+            return true;
+        }
+        return false;
+    }
+
     private boolean parseElementTest() {
         final PsiBuilder.Marker elementTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_ELEMENT);
         if (elementTestMarker != null) {
@@ -1356,7 +1384,7 @@ class XQueryParser {
             }
 
             skipWhiteSpaceAndCommentTokens();
-            if (parseQName(XQueryElementType.QNAME) || matchTokenType(XQueryTokenType.STAR)) {
+            if (parseElementNameOrWildcard()) {
                 skipWhiteSpaceAndCommentTokens();
                 if (matchTokenType(XQueryTokenType.COMMA)) {
                     skipWhiteSpaceAndCommentTokens();
@@ -1387,31 +1415,13 @@ class XQueryParser {
         return false;
     }
 
-    private boolean parseSchemaAttributeTest() {
-        final PsiBuilder.Marker schemaAttributeTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_SCHEMA_ATTRIBUTE);
-        if (schemaAttributeTestMarker != null) {
-            boolean haveErrors = false;
-
-            skipWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.PARENTHESIS_OPEN)) {
-                error(XQueryBundle.message("parser.error.expected", "("));
-                haveErrors = true;
-            }
-
-            skipWhiteSpaceAndCommentTokens();
-            if (!parseQName(XQueryElementType.ATTRIBUTE_DECLARATION) && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected-qname"));
-                haveErrors = true;
-            }
-
-            skipWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE) && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected", ")"));
-            }
-
-            schemaAttributeTestMarker.done(XQueryElementType.SCHEMA_ATTRIBUTE_TEST);
+    private boolean parseElementNameOrWildcard() {
+        final PsiBuilder.Marker elementNameOrWildcardMarker = mBuilder.mark();
+        if (parseQName(XQueryElementType.QNAME) || matchTokenType(XQueryTokenType.STAR)) {
+            elementNameOrWildcardMarker.done(XQueryElementType.ELEMENT_NAME_OR_WILDCARD);
             return true;
         }
+        elementNameOrWildcardMarker.drop();
         return false;
     }
 

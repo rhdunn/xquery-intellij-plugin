@@ -20,10 +20,11 @@ FileElement[FILE(0:57)]
                         LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_ELEMENT(26:33)]('element')
                         PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
                         PsiErrorElementImpl[ERROR_ELEMENT(34:34)]('XPST0003: Expected '('.')
-                        XQueryQNameImpl[XQUERY_QNAME(34:44)]
-                           LeafPsiElement[XQUERY_NCNAME_TOKEN(34:38)]('html')
-                           LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(38:39)](':')
-                           LeafPsiElement[XQUERY_NCNAME_TOKEN(39:44)]('class')
+                        XQueryElementNameOrWildcardImpl[XQUERY_ELEMENT_NAME_OR_WILDCARD(34:44)]
+                           XQueryQNameImpl[XQUERY_QNAME(34:44)]
+                              LeafPsiElement[XQUERY_NCNAME_TOKEN(34:38)]('html')
+                              LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(38:39)](':')
+                              LeafPsiElement[XQUERY_NCNAME_TOKEN(39:44)]('class')
                         PsiWhiteSpaceImpl[WHITE_SPACE(44:45)](' ')
                         LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(45:46)](')')
                   PsiWhiteSpaceImpl[WHITE_SPACE(46:47)](' ')
