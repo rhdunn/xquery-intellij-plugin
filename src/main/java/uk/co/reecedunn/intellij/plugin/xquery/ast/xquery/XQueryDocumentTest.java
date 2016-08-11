@@ -18,5 +18,5 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 /**
  * An XQuery 1.0 <code>DocumentTest</code> node in the XQuery AST.
  */
-public interface XQueryDocumentTest {
+public interface XQueryDocumentTest extends XQueryKindTest {
 }
