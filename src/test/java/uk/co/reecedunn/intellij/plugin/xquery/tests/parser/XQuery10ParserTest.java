@@ -1421,6 +1421,65 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region DocumentTest
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DocumentTest")
+    public void testDocumentTest_ElementTest() {
+        final String expected = loadResource("tests/parser/xquery-1.0/DocumentTest_ElementTest.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/DocumentTest_ElementTest.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DocumentTest")
+    public void testDocumentTest_ElementTest_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/DocumentTest_ElementTest_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/DocumentTest_ElementTest_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DocumentTest")
+    public void testDocumentTest_SchemaElementTest() {
+        final String expected = loadResource("tests/parser/xquery-1.0/DocumentTest_SchemaElementTest.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/DocumentTest_SchemaElementTest.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DocumentTest")
+    public void testDocumentTest_SchemaElementTest_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/DocumentTest_SchemaElementTest_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/DocumentTest_SchemaElementTest_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DocumentTest")
+    public void testDocumentTest_Empty() {
+        final String expected = loadResource("tests/parser/xquery-1.0/DocumentTest_Empty.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/DocumentTest_Empty.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DocumentTest")
+    public void testDocumentTest_Empty_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/DocumentTest_Empty_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/DocumentTest_Empty_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DocumentTest")
+    public void testDocumentTest_MissingOpeningParenthesis() {
+        final String expected = loadResource("tests/parser/xquery-1.0/DocumentTest_MissingOpeningParenthesis.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/DocumentTest_MissingOpeningParenthesis.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DocumentTest")
+    public void testDocumentTest_MissingClosingParenthesis() {
+        final String expected = loadResource("tests/parser/xquery-1.0/DocumentTest_MissingClosingParenthesis.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/DocumentTest_MissingClosingParenthesis.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region TextTest
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-TextTest")

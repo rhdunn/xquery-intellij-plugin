@@ -156,6 +156,8 @@ public class XQueryParserDefinition implements ParserDefinition {
             return new XQueryCommentTestPsiImpl(node);
         } else if (type == XQueryElementType.TEXT_TEST) {
             return new XQueryTextTestPsiImpl(node);
+        } else if (type == XQueryElementType.DOCUMENT_TEST) {
+            return new XQueryDocumentTestPsiImpl(node);
         } else if (type == XQueryElementType.ANY_KIND_TEST) {
             return new XQueryAnyKindTestPsiImpl(node);
         } else if (type == XQueryElementType.ATOMIC_TYPE) {
