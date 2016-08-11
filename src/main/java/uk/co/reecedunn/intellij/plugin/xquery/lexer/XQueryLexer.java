@@ -702,6 +702,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("copy-namespaces", XQueryTokenType.K_COPY_NAMESPACES);
         sKeywords.put("declare", XQueryTokenType.K_DECLARE);
         sKeywords.put("default", XQueryTokenType.K_DEFAULT);
+        sKeywords.put("document-node", XQueryTokenType.K_DOCUMENT_NODE);
         sKeywords.put("element", XQueryTokenType.K_ELEMENT);
         sKeywords.put("empty", XQueryTokenType.K_EMPTY);
         sKeywords.put("empty-sequence", XQueryTokenType.K_EMPTY_SEQUENCE);
