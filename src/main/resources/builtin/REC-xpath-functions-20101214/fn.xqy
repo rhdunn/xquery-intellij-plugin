@@ -8,10 +8,8 @@ xquery version "3.0";
 module  namespace fn = "http://www.w3.org/2005/xpath-functions";
 declare namespace xs = "http://www.w3.org/2001/XMLSchema";
 
-declare %private type numeric = ( xs:integer | xs:decimal | xs:float | xs:double );
-
 declare function fn:QName($paramURI as xs:string?, $paramQName as xs:string) as xs:QName external; (: §11.1.2 :)
-declare function fn:abs($arg as numeric?) as numeric? external; (: §6.4.1 :)
+declare function fn:abs($arg as xs:numeric?) as xs:numeric? external; (: §6.4.1 :)
 declare function fn:adjust-date-to-timezone($arg as xs:date?) as xs:date? external; (: §10.7.2 :)
 declare function fn:adjust-date-to-timezone($arg as xs:date?, $timezone as xs:dayTimeDuration?) as xs:date? external; (: §10.7.2 :)
 declare function fn:adjust-dateTime-to-timezone($arg as xs:dateTime?) as xs:dateTime? external; (: §10.7.1 :)
@@ -22,7 +20,7 @@ declare function fn:avg($arg as xs:anyAtomicType*) as xs:anyAtomicType? external
 declare function fn:base-uri() as xs:anyURI? external; (: §2.5 :)
 declare function fn:base-uri($arg as node()?) as xs:anyURI? external; (: §2.5 :)
 declare function fn:boolean($arg as item()*) as xs:boolean external; (: §15.1.1 :)
-declare function fn:ceiling($arg as numeric?) as numeric? external; (: §6.4.2 :)
+declare function fn:ceiling($arg as xs:numeric?) as xs:numeric? external; (: §6.4.2 :)
 declare function fn:codepoint-equal($comparand1 as xs:string?, $comparand2 as xs:string?) as xs:boolean? external; (: §7.3.3 :)
 declare function fn:codepoints-to-string($arg as xs:integer*) as xs:string external; (: §7.2.1 :)
 declare function fn:collection() as node()* external; (: §15.5.6 :)
@@ -63,7 +61,7 @@ declare function fn:escape-html-uri($uri as xs:string?) as xs:string external; (
 declare function fn:exactly-one($arg as item()*) as item() external; (: §15.2.3 :)
 declare function fn:exists($arg as item()*) as xs:boolean external; (: §15.1.5 :)
 declare function fn:false() as xs:boolean external; (: §9.1.2 :)
-declare function fn:floor($arg as numeric?) as numeric? external; (: §6.4.3 :)
+declare function fn:floor($arg as xs:numeric?) as xs:numeric? external; (: §6.4.3 :)
 declare function fn:hours-from-dateTime($arg as xs:dateTime?) as xs:integer? external; (: §10.5.10 :)
 declare function fn:hours-from-duration($arg as xs:duration?) as xs:integer? external; (: §10.5.4 :)
 declare function fn:hours-from-time($arg as xs:time?) as xs:integer? external; (: §10.5.18 :)
@@ -123,9 +121,9 @@ declare function fn:resolve-uri($relative as xs:string?, $base as xs:string) as 
 declare function fn:reverse($arg as item()*) as item()* external; (: §15.1.9 :)
 declare function fn:root() as node() external; (: §14.9 :)
 declare function fn:root($arg as node()?) as node()? external; (: §14.9 :)
-declare function fn:round($arg as numeric?) as numeric? external; (: §6.4.4 :)
-declare function fn:round-half-to-even($arg as numeric?) as numeric? external; (: §6.4.5 :)
-declare function fn:round-half-to-even($arg as numeric?, $precision as xs:integer) as numeric? external; (: §6.4.5 :)
+declare function fn:round($arg as xs:numeric?) as xs:numeric? external; (: §6.4.4 :)
+declare function fn:round-half-to-even($arg as xs:numeric?) as xs:numeric? external; (: §6.4.5 :)
+declare function fn:round-half-to-even($arg as xs:numeric?, $precision as xs:integer) as xs:numeric? external; (: §6.4.5 :)
 declare function fn:seconds-from-dateTime($arg as xs:dateTime?) as xs:decimal? external; (: §10.5.12 :)
 declare function fn:seconds-from-duration($arg as xs:duration?) as xs:decimal? external; (: §10.5.6 :)
 declare function fn:seconds-from-time($arg as xs:time?) as xs:decimal? external; (: §10.5.20 :)

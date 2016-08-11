@@ -8,8 +8,6 @@ xquery version "3.0";
 module  namespace math = "http://www.w3.org/2005/xpath-functions/math";
 declare namespace xs   = "http://www.w3.org/2001/XMLSchema";
 
-declare %private type numeric = ( xs:integer | xs:decimal | xs:float | xs:double );
-
 declare function math:acos($θ as xs:double?) as xs:double? external; (: §4.8.12 :)
 declare function math:asin($θ as xs:double?) as xs:double? external; (: §4.8.11 :)
 declare function math:atan($θ as xs:double?) as xs:double? external; (: §4.8.13 :)
@@ -20,7 +18,7 @@ declare function math:exp10($arg as xs:double?) as xs:double? external; (: §4.8
 declare function math:log($arg as xs:double?) as xs:double? external; (: §4.8.4 :)
 declare function math:log10($arg as xs:double?) as xs:double? external; (: §4.8.5 :)
 declare function math:pi() as xs:double external; (: §4.8.1 :)
-declare function math:pow($x as xs:double?, $y as numeric) as xs:double? external; (: §4.8.6 :)
+declare function math:pow($x as xs:double?, $y as xs:numeric) as xs:double? external; (: §4.8.6 :)
 declare function math:sin($θ as xs:double?) as xs:double? external; (: §4.8.8 :)
 declare function math:sqrt($arg as xs:double?) as xs:double? external; (: §4.8.7 :)
 declare function math:tan($θ as xs:double?) as xs:double? external; (: §4.8.10 :)
