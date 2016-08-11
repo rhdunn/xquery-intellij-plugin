@@ -29,7 +29,7 @@ FileElement[FILE(0:74)]
                         PsiWhiteSpaceImpl[WHITE_SPACE(46:47)](' ')
                         LeafPsiElement[XQUERY_COMMA_TOKEN(47:48)](',')
                         PsiWhiteSpaceImpl[WHITE_SPACE(48:49)](' ')
-                        XQueryQNameImpl[XQUERY_QNAME(49:59)]
+                        XQueryTypeNameImpl[XQUERY_TYPE_NAME(49:59)]
                            LeafPsiElement[XQUERY_NCNAME_TOKEN(49:51)]('xs')
                            LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(51:52)](':')
                            LeafPsiElement[XQUERY_NCNAME_TOKEN(52:59)]('boolean')

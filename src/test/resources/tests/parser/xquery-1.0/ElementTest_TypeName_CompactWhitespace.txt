@@ -23,7 +23,7 @@ FileElement[FILE(0:63)]
                               LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(34:35)](':')
                               LeafPsiElement[XQUERY_NCNAME_TOKEN(35:42)]('enabled')
                         LeafPsiElement[XQUERY_COMMA_TOKEN(42:43)](',')
-                        XQueryQNameImpl[XQUERY_QNAME(43:53)]
+                        XQueryTypeNameImpl[XQUERY_TYPE_NAME(43:53)]
                            LeafPsiElement[XQUERY_NCNAME_TOKEN(43:45)]('xs')
                            LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(45:46)](':')
                            LeafPsiElement[XQUERY_NCNAME_TOKEN(46:53)]('boolean')

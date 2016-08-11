@@ -1750,9 +1750,10 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
-    // region ElementTest
+    // region ElementTest + TypeName
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ElementTest")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-TypeName")
     public void testElementTest_TypeName() {
         final String expected = loadResource("tests/parser/xquery-1.0/ElementTest_TypeName.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/ElementTest_TypeName.xq");
@@ -1760,6 +1761,7 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ElementTest")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-TypeName")
     public void testElementTest_TypeName_CompactWhitespace() {
         final String expected = loadResource("tests/parser/xquery-1.0/ElementTest_TypeName_CompactWhitespace.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/ElementTest_TypeName_CompactWhitespace.xq");
@@ -1767,6 +1769,7 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ElementTest")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-TypeName")
     public void testElementTest_TypeName_MissingTypeName() {
         final String expected = loadResource("tests/parser/xquery-1.0/ElementTest_TypeName_MissingTypeName.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/ElementTest_TypeName_MissingTypeName.xq");
@@ -1774,6 +1777,7 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ElementTest")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-TypeName")
     public void testElementTest_TypeName_MissingComma() {
         final String expected = loadResource("tests/parser/xquery-1.0/ElementTest_TypeName_MissingComma.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/ElementTest_TypeName_MissingComma.xq");
@@ -1781,6 +1785,7 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ElementTest")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-TypeName")
     public void testElementTest_TypeName_Optional() {
         final String expected = loadResource("tests/parser/xquery-1.0/ElementTest_TypeName_Optional.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/ElementTest_TypeName_Optional.xq");
@@ -1788,6 +1793,7 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ElementTest")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-TypeName")
     public void testElementTest_TypeName_Optional_CompactWhitespace() {
         final String expected = loadResource("tests/parser/xquery-1.0/ElementTest_TypeName_Optional_CompactWhitespace.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/ElementTest_TypeName_Optional_CompactWhitespace.xq");
@@ -1795,6 +1801,7 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ElementTest")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-TypeName")
     public void testElementTest_TypeName_Optional_MissingTypeName() {
         final String expected = loadResource("tests/parser/xquery-1.0/ElementTest_TypeName_Optional_MissingTypeName.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/ElementTest_TypeName_Optional_MissingTypeName.xq");
