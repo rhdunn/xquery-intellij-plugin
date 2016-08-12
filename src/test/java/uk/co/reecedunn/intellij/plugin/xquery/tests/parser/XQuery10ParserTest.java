@@ -1396,6 +1396,17 @@ public class XQuery10ParserTest extends ParserTestCase {
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
+    // endregion
+    // region ContextItemExpr
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ContextItemExpr")
+    public void testContextItemExpr() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ContextItemExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ContextItemExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region DirCommentConstructor
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirCommentConstructor")

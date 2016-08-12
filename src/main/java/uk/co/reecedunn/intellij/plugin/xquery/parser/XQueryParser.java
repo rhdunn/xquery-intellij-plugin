@@ -1157,7 +1157,8 @@ class XQueryParser {
     private boolean parsePrimaryExpr() {
         return parseLiteral()
             || parseVarRef()
-            || parseParenthesizedExpr();
+            || parseParenthesizedExpr()
+            || parseContextItemExpr();
     }
 
     private boolean parseLiteral() {
@@ -1208,6 +1209,15 @@ class XQueryParser {
             }
 
             parenthesizedExprMarker.done(XQueryElementType.PARENTHESIZED_EXPR);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseContextItemExpr() {
+        final PsiBuilder.Marker contextItemExprMarker = matchTokenTypeWithMarker(XQueryTokenType.DOT);
+        if (contextItemExprMarker != null) {
+            contextItemExprMarker.done(XQueryElementType.CONTEXT_ITEM_EXPR);
             return true;
         }
         return false;
