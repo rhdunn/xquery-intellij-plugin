@@ -1663,7 +1663,7 @@ class XQueryParser {
                 qnameMarker.done(type == XQueryElementType.NCNAME ? XQueryElementType.QNAME : type);
                 return true;
             } else {
-                qnameMarker.done(XQueryElementType.NCNAME);
+                qnameMarker.done(type == XQueryElementType.QNAME ? XQueryElementType.NCNAME : type);
             }
             return true;
         }
