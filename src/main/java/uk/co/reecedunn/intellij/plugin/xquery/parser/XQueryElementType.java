@@ -32,6 +32,7 @@ public interface XQueryElementType {
     IElementType LITERAL = new IElementType("XQUERY_LITERAL", XQuery.INSTANCE);
     IElementType STRING_LITERAL = new IElementType("XQUERY_STRING_LITERAL", XQuery.INSTANCE);
     IElementType VAR_REF = new IElementType("XQUERY_VAR_REF", XQuery.INSTANCE);
+    IElementType PARENTHESIZED_EXPR = new IElementType("XQUERY_PARENTHESIZED_EXPR", XQuery.INSTANCE);
 
     IElementType FILTER_EXPR = new IElementType("XQUERY_FILTER_EXPR", XQuery.INSTANCE);
     IElementType RELATIVE_PATH_EXPR = new IElementType("XQUERY_RELATIVE_PATH_EXPR", XQuery.INSTANCE);

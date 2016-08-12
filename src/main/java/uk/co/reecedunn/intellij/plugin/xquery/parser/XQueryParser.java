@@ -1156,7 +1156,8 @@ class XQueryParser {
 
     private boolean parsePrimaryExpr() {
         return parseLiteral()
-            || parseVarRef();
+            || parseVarRef()
+            || parseParenthesizedExpr();
     }
 
     private boolean parseLiteral() {
@@ -1189,6 +1190,24 @@ class XQueryParser {
             }
 
             varRefMarker.done(XQueryElementType.VAR_REF);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseParenthesizedExpr() {
+        final PsiBuilder.Marker parenthesizedExprMarker = matchTokenTypeWithMarker(XQueryTokenType.PARENTHESIS_OPEN);
+        if (parenthesizedExprMarker != null) {
+            skipWhiteSpaceAndCommentTokens();
+            if (parseExpr(XQueryElementType.EXPR)) {
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE)) {
+                error(XQueryBundle.message("parser.error.expected", ")"));
+            }
+
+            parenthesizedExprMarker.done(XQueryElementType.PARENTHESIZED_EXPR);
             return true;
         }
         return false;
