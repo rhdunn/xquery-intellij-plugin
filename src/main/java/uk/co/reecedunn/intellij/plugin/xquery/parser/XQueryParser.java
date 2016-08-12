@@ -1155,7 +1155,8 @@ class XQueryParser {
     }
 
     private boolean parsePrimaryExpr() {
-        return parseLiteral();
+        return parseLiteral()
+            || parseVarRef();
     }
 
     private boolean parseLiteral() {
@@ -1174,6 +1175,20 @@ class XQueryParser {
             return true;
         } else if (matchTokenType(XQueryTokenType.DECIMAL_LITERAL)) {
             errorOnTokenType(XQueryTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT, XQueryBundle.message("parser.error.incomplete-double-exponent"));
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseVarRef() {
+        final PsiBuilder.Marker varRefMarker = matchTokenTypeWithMarker(XQueryTokenType.VARIABLE_INDICATOR);
+        if (varRefMarker != null) {
+            skipWhiteSpaceAndCommentTokens();
+            if (!parseQName(XQueryElementType.QNAME)) {
+                error(XQueryBundle.message("parser.error.expected-qname"));
+            }
+
+            varRefMarker.done(XQueryElementType.VAR_REF);
             return true;
         }
         return false;

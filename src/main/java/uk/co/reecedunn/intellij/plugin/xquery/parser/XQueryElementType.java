@@ -26,9 +26,11 @@ public interface XQueryElementType {
     IElementType COMMENT = new IElementType("XQUERY_COMMENT", XQuery.INSTANCE);
     IElementType NCNAME = new IElementType("XQUERY_NCNAME", XQuery.INSTANCE);
     IElementType QNAME = new IElementType("XQUERY_QNAME", XQuery.INSTANCE);
+    IElementType URI_LITERAL = new IElementType("XQUERY_URI_LITERAL", XQuery.INSTANCE);
+
     IElementType LITERAL = new IElementType("XQUERY_LITERAL", XQuery.INSTANCE);
     IElementType STRING_LITERAL = new IElementType("XQUERY_STRING_LITERAL", XQuery.INSTANCE);
-    IElementType URI_LITERAL = new IElementType("XQUERY_URI_LITERAL", XQuery.INSTANCE);
+    IElementType VAR_REF = new IElementType("XQUERY_VAR_REF", XQuery.INSTANCE);
 
     IElementType FILTER_EXPR = new IElementType("XQUERY_FILTER_EXPR", XQuery.INSTANCE);
     IElementType RELATIVE_PATH_EXPR = new IElementType("XQUERY_RELATIVE_PATH_EXPR", XQuery.INSTANCE);
