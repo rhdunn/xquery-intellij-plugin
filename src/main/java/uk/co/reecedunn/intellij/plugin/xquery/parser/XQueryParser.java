@@ -1184,7 +1184,7 @@ class XQueryParser {
         final PsiBuilder.Marker varRefMarker = matchTokenTypeWithMarker(XQueryTokenType.VARIABLE_INDICATOR);
         if (varRefMarker != null) {
             skipWhiteSpaceAndCommentTokens();
-            if (!parseQName(XQueryElementType.QNAME)) {
+            if (!parseQName(XQueryElementType.VAR_NAME)) {
                 error(XQueryBundle.message("parser.error.expected-qname"));
             }
 

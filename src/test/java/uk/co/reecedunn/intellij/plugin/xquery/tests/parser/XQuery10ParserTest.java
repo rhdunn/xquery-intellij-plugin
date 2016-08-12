@@ -1340,6 +1340,20 @@ public class XQuery10ParserTest extends ParserTestCase {
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VarRef")
+    public void testVarRef_NCName() {
+        final String expected = loadResource("tests/parser/xquery-1.0/VarRef_NCName.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/VarRef_NCName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VarRef")
+    public void testVarRef_NCName_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/VarRef_NCName_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/VarRef_NCName_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
     // endregion
     // region DirCommentConstructor
 
