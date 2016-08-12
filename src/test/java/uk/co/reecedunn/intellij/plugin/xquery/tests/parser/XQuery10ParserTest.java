@@ -1324,9 +1324,10 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
-    // region VarRef
+    // region VarRef + VarName
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VarRef")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VarName")
     public void testVarRef() {
         final String expected = loadResource("tests/parser/xquery-1.0/VarRef.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/VarRef.xq");
@@ -1334,6 +1335,7 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VarRef")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VarName")
     public void testVarRef_CompactWhitespace() {
         final String expected = loadResource("tests/parser/xquery-1.0/VarRef_CompactWhitespace.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/VarRef_CompactWhitespace.xq");
@@ -1341,6 +1343,7 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VarRef")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VarName")
     public void testVarRef_NCName() {
         final String expected = loadResource("tests/parser/xquery-1.0/VarRef_NCName.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/VarRef_NCName.xq");
@@ -1348,6 +1351,7 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VarRef")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VarName")
     public void testVarRef_NCName_CompactWhitespace() {
         final String expected = loadResource("tests/parser/xquery-1.0/VarRef_NCName_CompactWhitespace.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/VarRef_NCName_CompactWhitespace.xq");
