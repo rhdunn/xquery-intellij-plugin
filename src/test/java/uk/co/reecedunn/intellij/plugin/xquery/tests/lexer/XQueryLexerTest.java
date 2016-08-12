@@ -384,6 +384,16 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region ContextItemExpr
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ContextItemExpr")
+    public void testContextItemExpr() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, ".", XQueryTokenType.DOT);
+    }
+
+    // endregion
     // region DirCommentConstructor
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirCommentConstructor")
@@ -682,7 +692,6 @@ public class XQueryLexerTest extends TestCase {
 
         matchSingleToken(lexer, "|", XQueryTokenType.UNION);
         matchSingleToken(lexer, "-", XQueryTokenType.MINUS);
-        matchSingleToken(lexer, ".", XQueryTokenType.DOT);
         matchSingleToken(lexer, "<", XQueryTokenType.LESS_THAN);
         matchSingleToken(lexer, ">", XQueryTokenType.GREATER_THAN);
         matchSingleToken(lexer, "/", XQueryTokenType.DIRECT_DESCENDANTS_PATH);
