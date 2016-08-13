@@ -1159,7 +1159,8 @@ class XQueryParser {
             || parseVarRef()
             || parseParenthesizedExpr()
             || parseContextItemExpr()
-            || parseOrderedExpr();
+            || parseOrderedExpr()
+            || parseUnorderedExpr();
     }
 
     private boolean parseLiteral() {
@@ -1247,6 +1248,34 @@ class XQueryParser {
             }
 
             orderedExprMarker.done(XQueryElementType.ORDERED_EXPR);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseUnorderedExpr() {
+        final PsiBuilder.Marker unorderedExprMarker = matchTokenTypeWithMarker(XQueryTokenType.K_UNORDERED);
+        if (unorderedExprMarker != null) {
+            boolean haveErrors = false;
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.BLOCK_OPEN)) {
+                error(XQueryBundle.message("parser.error.expected", "{"));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!parseExpr(XQueryElementType.EXPR) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-expression"));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.BLOCK_CLOSE) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", "}"));
+            }
+
+            unorderedExprMarker.done(XQueryElementType.UNORDERED_EXPR);
             return true;
         }
         return false;

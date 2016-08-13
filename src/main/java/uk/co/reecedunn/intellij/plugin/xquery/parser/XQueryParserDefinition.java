@@ -76,6 +76,8 @@ public class XQueryParserDefinition implements ParserDefinition {
             return new XQueryStringLiteralPsiImpl(node);
         } else if (type == XQueryElementType.URI_LITERAL) {
             return new XQueryUriLiteralPsiImpl(node);
+        } else if (type == XQueryElementType.UNORDERED_EXPR) {
+            return new XQueryUnorderedExprPsiImpl(node);
         } else if (type == XQueryElementType.ORDERED_EXPR) {
             return new XQueryOrderedExprPsiImpl(node);
         } else if (type == XQueryElementType.CONTEXT_ITEM_EXPR) {
