@@ -556,6 +556,17 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region AdditiveExpr
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-AdditiveExpr")
+    public void testAdditiveExpr() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "+", XQueryTokenType.PLUS);
+        matchSingleToken(lexer, "-", XQueryTokenType.MINUS);
+    }
+
+    // endregion
     // region VarRef
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-VarRef")
@@ -920,7 +931,6 @@ public class XQueryLexerTest extends TestCase {
         Lexer lexer = new XQueryLexer();
 
         matchSingleToken(lexer, "|", XQueryTokenType.UNION);
-        matchSingleToken(lexer, "-", XQueryTokenType.MINUS);
         matchSingleToken(lexer, "<", XQueryTokenType.LESS_THAN);
         matchSingleToken(lexer, ">", XQueryTokenType.GREATER_THAN);
         matchSingleToken(lexer, "/", XQueryTokenType.DIRECT_DESCENDANTS_PATH);
