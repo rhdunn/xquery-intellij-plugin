@@ -657,6 +657,21 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region GeneralComp
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-GeneralComp")
+    public void testGeneralComp() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "=",  XQueryTokenType.EQUAL);
+        matchSingleToken(lexer, "!=", XQueryTokenType.NOT_EQUAL);
+        matchSingleToken(lexer, "<",  XQueryTokenType.LESS_THAN);
+        matchSingleToken(lexer, "<=", XQueryTokenType.LESS_THAN_OR_EQUAL);
+        matchSingleToken(lexer, ">",  XQueryTokenType.GREATER_THAN);
+        matchSingleToken(lexer, ">=", XQueryTokenType.GREATER_THAN_OR_EQUAL);
+    }
+
+    // endregion
     // region VarRef
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-VarRef")
@@ -1020,14 +1035,11 @@ public class XQueryLexerTest extends TestCase {
     public void testDelimitingTerminalSymbols() {
         Lexer lexer = new XQueryLexer();
 
-        matchSingleToken(lexer, "<", XQueryTokenType.LESS_THAN);
-        matchSingleToken(lexer, ">", XQueryTokenType.GREATER_THAN);
         matchSingleToken(lexer, "/", XQueryTokenType.DIRECT_DESCENDANTS_PATH);
         matchSingleToken(lexer, "@", XQueryTokenType.ATTRIBUTE_SELECTOR);
         matchSingleToken(lexer, "[", XQueryTokenType.PREDICATE_BEGIN);
         matchSingleToken(lexer, "]", XQueryTokenType.PREDICATE_END);
 
-        matchSingleToken(lexer, "!=", XQueryTokenType.NOT_EQUAL);
         matchSingleToken(lexer, "(#", XQueryTokenType.PRAGMA_BEGIN);
         matchSingleToken(lexer, "#)", XQueryTokenType.PRAGMA_END);
         matchSingleToken(lexer, "::", XQueryTokenType.AXIS_SEPARATOR);
@@ -1037,8 +1049,6 @@ public class XQueryLexerTest extends TestCase {
         matchSingleToken(lexer, "/>", XQueryTokenType.SELF_CLOSING_XML_TAG);
         matchSingleToken(lexer, "<<", XQueryTokenType.NODE_BEFORE);
         matchSingleToken(lexer, ">>", XQueryTokenType.NODE_AFTER);
-        matchSingleToken(lexer, "<=", XQueryTokenType.LESS_THAN_OR_EQUAL);
-        matchSingleToken(lexer, ">=", XQueryTokenType.GREATER_THAN_OR_EQUAL);
         matchSingleToken(lexer, "<?", XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN);
         matchSingleToken(lexer, "?>", XQueryTokenType.PROCESSING_INSTRUCTION_END);
     }
