@@ -469,6 +469,21 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region QuantifiedExpr
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-QuantifiedExpr")
+    public void testQuantifiedExpr() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "some",      XQueryTokenType.K_SOME);
+        matchSingleToken(lexer, "every",     XQueryTokenType.K_EVERY);
+        matchSingleToken(lexer, "$",         XQueryTokenType.VARIABLE_INDICATOR);
+        matchSingleToken(lexer, "in",        XQueryTokenType.K_IN);
+        matchSingleToken(lexer, ",",         XQueryTokenType.COMMA);
+        matchSingleToken(lexer, "satisfies", XQueryTokenType.K_SATISFIES);
+    }
+
+    // endregion
     // region VarRef
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-VarRef")

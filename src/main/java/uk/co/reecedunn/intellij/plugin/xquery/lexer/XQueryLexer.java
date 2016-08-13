@@ -710,6 +710,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("empty", XQueryTokenType.K_EMPTY);
         sKeywords.put("empty-sequence", XQueryTokenType.K_EMPTY_SEQUENCE);
         sKeywords.put("encoding", XQueryTokenType.K_ENCODING);
+        sKeywords.put("every", XQueryTokenType.K_EVERY);
         sKeywords.put("external", XQueryTokenType.K_EXTERNAL);
         sKeywords.put("for", XQueryTokenType.K_FOR);
         sKeywords.put("function", XQueryTokenType.K_FUNCTION);
@@ -732,9 +733,11 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("preserve", XQueryTokenType.K_PRESERVE);
         sKeywords.put("processing-instruction", XQueryTokenType.K_PROCESSING_INSTRUCTION);
         sKeywords.put("return", XQueryTokenType.K_RETURN);
+        sKeywords.put("satisfies", XQueryTokenType.K_SATISFIES);
         sKeywords.put("schema", XQueryTokenType.K_SCHEMA);
         sKeywords.put("schema-attribute", XQueryTokenType.K_SCHEMA_ATTRIBUTE);
         sKeywords.put("schema-element", XQueryTokenType.K_SCHEMA_ELEMENT);
+        sKeywords.put("some", XQueryTokenType.K_SOME);
         sKeywords.put("stable", XQueryTokenType.K_STABLE);
         sKeywords.put("strip", XQueryTokenType.K_STRIP);
         sKeywords.put("text", XQueryTokenType.K_TEXT);
