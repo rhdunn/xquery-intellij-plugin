@@ -104,6 +104,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_BOUNDARY_SPACE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_BOUNDARY_SPACE");
     IXQueryKeywordOrNCNameType K_BY = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_BY");
     IXQueryKeywordOrNCNameType K_CASE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_CASE");
+    IXQueryKeywordOrNCNameType K_CAST = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_CAST");
     IXQueryKeywordOrNCNameType K_CASTABLE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_CASTABLE");
     IXQueryKeywordOrNCNameType K_COLLATION = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_COLLATION");
     IXQueryKeywordOrNCNameType K_COMMENT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_COMMENT");

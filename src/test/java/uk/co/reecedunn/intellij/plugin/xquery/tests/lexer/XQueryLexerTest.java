@@ -635,6 +635,17 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region CastExpr
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-CastExpr")
+    public void testCastExpr() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "cast", XQueryTokenType.K_CAST);
+        matchSingleToken(lexer, "as",   XQueryTokenType.K_AS);
+    }
+
+    // endregion
     // region VarRef
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-VarRef")

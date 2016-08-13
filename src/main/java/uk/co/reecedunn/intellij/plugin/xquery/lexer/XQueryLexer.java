@@ -700,6 +700,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("boundary-space", XQueryTokenType.K_BOUNDARY_SPACE);
         sKeywords.put("by", XQueryTokenType.K_BY);
         sKeywords.put("case", XQueryTokenType.K_CASE);
+        sKeywords.put("cast", XQueryTokenType.K_CAST);
         sKeywords.put("castable", XQueryTokenType.K_CASTABLE);
         sKeywords.put("collation", XQueryTokenType.K_COLLATION);
         sKeywords.put("comment", XQueryTokenType.K_COMMENT);
