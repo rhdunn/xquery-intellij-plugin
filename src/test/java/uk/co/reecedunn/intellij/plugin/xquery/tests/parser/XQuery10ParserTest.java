@@ -1483,6 +1483,72 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region FunctionCall
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FunctionCall")
+    public void testFunctionCall() {
+        final String expected = loadResource("tests/parser/xquery-1.0/FunctionCall.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/FunctionCall.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FunctionCall")
+    public void testFunctionCall_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/FunctionCall_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/FunctionCall_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FunctionCall")
+    public void testFunctionCall_MissingOpeningParenthesis() {
+        final String expected = loadResource("tests/parser/xquery-1.0/FunctionCall_MissingOpeningParenthesis.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/FunctionCall_MissingOpeningParenthesis.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FunctionCall")
+    public void testFunctionCall_MissingClosingParenthesis() {
+        final String expected = loadResource("tests/parser/xquery-1.0/FunctionCall_MissingClosingParenthesis.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/FunctionCall_MissingClosingParenthesis.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FunctionCall")
+    public void testFunctionCall_SingleParam() {
+        final String expected = loadResource("tests/parser/xquery-1.0/FunctionCall_SingleParam.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/FunctionCall_SingleParam.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FunctionCall")
+    public void testFunctionCall_SingleParam_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/FunctionCall_SingleParam_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/FunctionCall_SingleParam_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FunctionCall")
+    public void testFunctionCall_MultipleParam() {
+        final String expected = loadResource("tests/parser/xquery-1.0/FunctionCall_MultipleParam.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/FunctionCall_MultipleParam.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FunctionCall")
+    public void testFunctionCall_MultipleParam_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/FunctionCall_MultipleParam_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/FunctionCall_MultipleParam_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FunctionCall")
+    public void testFunctionCall_MultipleParam_MissingExpr() {
+        final String expected = loadResource("tests/parser/xquery-1.0/FunctionCall_MultipleParam_MissingExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/FunctionCall_MultipleParam_MissingExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region DirCommentConstructor
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirCommentConstructor")
