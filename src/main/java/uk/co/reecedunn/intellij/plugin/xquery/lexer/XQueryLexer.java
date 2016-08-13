@@ -707,6 +707,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("declare", XQueryTokenType.K_DECLARE);
         sKeywords.put("default", XQueryTokenType.K_DEFAULT);
         sKeywords.put("descending", XQueryTokenType.K_DESCENDING);
+        sKeywords.put("div", XQueryTokenType.K_DIV);
         sKeywords.put("document-node", XQueryTokenType.K_DOCUMENT_NODE);
         sKeywords.put("element", XQueryTokenType.K_ELEMENT);
         sKeywords.put("else", XQueryTokenType.K_ELSE);
@@ -718,6 +719,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("for", XQueryTokenType.K_FOR);
         sKeywords.put("function", XQueryTokenType.K_FUNCTION);
         sKeywords.put("greatest", XQueryTokenType.K_GREATEST);
+        sKeywords.put("idiv", XQueryTokenType.K_IDIV);
         sKeywords.put("if", XQueryTokenType.K_IF);
         sKeywords.put("import", XQueryTokenType.K_IMPORT);
         sKeywords.put("in", XQueryTokenType.K_IN);
@@ -725,6 +727,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("item", XQueryTokenType.K_ITEM);
         sKeywords.put("least", XQueryTokenType.K_LEAST);
         sKeywords.put("let", XQueryTokenType.K_LET);
+        sKeywords.put("mod", XQueryTokenType.K_MOD);
         sKeywords.put("module", XQueryTokenType.K_MODULE);
         sKeywords.put("namespace", XQueryTokenType.K_NAMESPACE);
         sKeywords.put("no-inherit", XQueryTokenType.K_NO_INHERIT);

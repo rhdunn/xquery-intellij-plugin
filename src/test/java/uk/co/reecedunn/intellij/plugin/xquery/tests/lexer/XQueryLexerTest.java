@@ -567,6 +567,19 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region MultiplicativeExpr
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-MultiplicativeExpr")
+    public void testMultiplicativeExpr() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "*",    XQueryTokenType.STAR);
+        matchSingleToken(lexer, "div",  XQueryTokenType.K_DIV);
+        matchSingleToken(lexer, "idiv", XQueryTokenType.K_IDIV);
+        matchSingleToken(lexer, "mod",  XQueryTokenType.K_MOD);
+    }
+
+    // endregion
     // region VarRef
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-VarRef")
