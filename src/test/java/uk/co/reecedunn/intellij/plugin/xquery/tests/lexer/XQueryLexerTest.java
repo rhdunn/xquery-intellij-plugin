@@ -613,6 +613,17 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region TreatExpr
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-TreatExpr")
+    public void testTreatExpr() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "treat", XQueryTokenType.K_TREAT);
+        matchSingleToken(lexer, "as",    XQueryTokenType.K_AS);
+    }
+
+    // endregion
     // region VarRef
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-VarRef")
