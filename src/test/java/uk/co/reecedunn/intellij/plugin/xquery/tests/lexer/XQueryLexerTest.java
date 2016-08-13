@@ -383,6 +383,19 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region ForClause
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ForClause")
+    public void testForClause() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "for", XQueryTokenType.K_FOR);
+        matchSingleToken(lexer, "$",   XQueryTokenType.VARIABLE_INDICATOR);
+        matchSingleToken(lexer, "in",  XQueryTokenType.K_IN);
+        matchSingleToken(lexer, ",",   XQueryTokenType.COMMA);
+    }
+
+    // endregion
     // region VarRef
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-VarRef")

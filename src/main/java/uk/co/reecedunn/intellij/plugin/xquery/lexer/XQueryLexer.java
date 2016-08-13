@@ -708,9 +708,11 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("empty-sequence", XQueryTokenType.K_EMPTY_SEQUENCE);
         sKeywords.put("encoding", XQueryTokenType.K_ENCODING);
         sKeywords.put("external", XQueryTokenType.K_EXTERNAL);
+        sKeywords.put("for", XQueryTokenType.K_FOR);
         sKeywords.put("function", XQueryTokenType.K_FUNCTION);
         sKeywords.put("greatest", XQueryTokenType.K_GREATEST);
         sKeywords.put("import", XQueryTokenType.K_IMPORT);
+        sKeywords.put("in", XQueryTokenType.K_IN);
         sKeywords.put("inherit", XQueryTokenType.K_INHERIT);
         sKeywords.put("item", XQueryTokenType.K_ITEM);
         sKeywords.put("least", XQueryTokenType.K_LEAST);
