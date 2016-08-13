@@ -134,6 +134,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_NO_PRESERVE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NO_PRESERVE");
     IXQueryKeywordOrNCNameType K_NODE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NODE");
     IXQueryKeywordOrNCNameType K_OPTION = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_OPTION");
+    IXQueryKeywordOrNCNameType K_OR = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_OR");
     IXQueryKeywordOrNCNameType K_ORDER = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ORDER");
     IXQueryKeywordOrNCNameType K_ORDERED = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ORDERED");
     IXQueryKeywordOrNCNameType K_ORDERING = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ORDERING");

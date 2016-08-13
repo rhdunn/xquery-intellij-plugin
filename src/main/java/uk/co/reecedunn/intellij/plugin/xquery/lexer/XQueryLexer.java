@@ -730,6 +730,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("no-preserve", XQueryTokenType.K_NO_PRESERVE);
         sKeywords.put("node", XQueryTokenType.K_NODE);
         sKeywords.put("option", XQueryTokenType.K_OPTION);
+        sKeywords.put("or", XQueryTokenType.K_OR);
         sKeywords.put("order", XQueryTokenType.K_ORDER);
         sKeywords.put("ordered", XQueryTokenType.K_ORDERED);
         sKeywords.put("ordering", XQueryTokenType.K_ORDERING);
