@@ -708,6 +708,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("descending", XQueryTokenType.K_DESCENDING);
         sKeywords.put("document-node", XQueryTokenType.K_DOCUMENT_NODE);
         sKeywords.put("element", XQueryTokenType.K_ELEMENT);
+        sKeywords.put("else", XQueryTokenType.K_ELSE);
         sKeywords.put("empty", XQueryTokenType.K_EMPTY);
         sKeywords.put("empty-sequence", XQueryTokenType.K_EMPTY_SEQUENCE);
         sKeywords.put("encoding", XQueryTokenType.K_ENCODING);
@@ -716,6 +717,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("for", XQueryTokenType.K_FOR);
         sKeywords.put("function", XQueryTokenType.K_FUNCTION);
         sKeywords.put("greatest", XQueryTokenType.K_GREATEST);
+        sKeywords.put("if", XQueryTokenType.K_IF);
         sKeywords.put("import", XQueryTokenType.K_IMPORT);
         sKeywords.put("in", XQueryTokenType.K_IN);
         sKeywords.put("inherit", XQueryTokenType.K_INHERIT);
@@ -742,6 +744,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("stable", XQueryTokenType.K_STABLE);
         sKeywords.put("strip", XQueryTokenType.K_STRIP);
         sKeywords.put("text", XQueryTokenType.K_TEXT);
+        sKeywords.put("then", XQueryTokenType.K_THEN);
         sKeywords.put("typeswitch", XQueryTokenType.K_TYPESWITCH);
         sKeywords.put("unordered", XQueryTokenType.K_UNORDERED);
         sKeywords.put("variable", XQueryTokenType.K_VARIABLE);

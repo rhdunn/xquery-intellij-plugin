@@ -512,6 +512,20 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region IfExpr
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-IfExpr")
+    public void testIfExpr() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "if",   XQueryTokenType.K_IF);
+        matchSingleToken(lexer, "(",    XQueryTokenType.PARENTHESIS_OPEN);
+        matchSingleToken(lexer, ")",    XQueryTokenType.PARENTHESIS_CLOSE);
+        matchSingleToken(lexer, "then", XQueryTokenType.K_THEN);
+        matchSingleToken(lexer, "else", XQueryTokenType.K_ELSE);
+    }
+
+    // endregion
     // region VarRef
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-VarRef")
