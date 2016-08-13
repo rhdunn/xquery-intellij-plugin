@@ -692,6 +692,7 @@ public class XQueryLexer extends LexerBase {
 
     static {
         sKeywords.put("as", XQueryTokenType.K_AS);
+        sKeywords.put("ascending", XQueryTokenType.K_ASCENDING);
         sKeywords.put("at", XQueryTokenType.K_AT);
         sKeywords.put("attribute", XQueryTokenType.K_ATTRIBUTE);
         sKeywords.put("base-uri", XQueryTokenType.K_BASE_URI);
@@ -703,6 +704,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("copy-namespaces", XQueryTokenType.K_COPY_NAMESPACES);
         sKeywords.put("declare", XQueryTokenType.K_DECLARE);
         sKeywords.put("default", XQueryTokenType.K_DEFAULT);
+        sKeywords.put("descending", XQueryTokenType.K_DESCENDING);
         sKeywords.put("document-node", XQueryTokenType.K_DOCUMENT_NODE);
         sKeywords.put("element", XQueryTokenType.K_ELEMENT);
         sKeywords.put("empty", XQueryTokenType.K_EMPTY);
