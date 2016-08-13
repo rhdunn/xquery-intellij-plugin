@@ -499,6 +499,19 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region CaseClause
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-CaseClause")
+    public void testCaseClause() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "case",   XQueryTokenType.K_CASE);
+        matchSingleToken(lexer, "$",      XQueryTokenType.VARIABLE_INDICATOR);
+        matchSingleToken(lexer, "as",     XQueryTokenType.K_AS);
+        matchSingleToken(lexer, "return", XQueryTokenType.K_RETURN);
+    }
+
+    // endregion
     // region VarRef
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-VarRef")

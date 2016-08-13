@@ -698,6 +698,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("base-uri", XQueryTokenType.K_BASE_URI);
         sKeywords.put("boundary-space", XQueryTokenType.K_BOUNDARY_SPACE);
         sKeywords.put("by", XQueryTokenType.K_BY);
+        sKeywords.put("case", XQueryTokenType.K_CASE);
         sKeywords.put("collation", XQueryTokenType.K_COLLATION);
         sKeywords.put("comment", XQueryTokenType.K_COMMENT);
         sKeywords.put("construction", XQueryTokenType.K_CONSTRUCTION);
