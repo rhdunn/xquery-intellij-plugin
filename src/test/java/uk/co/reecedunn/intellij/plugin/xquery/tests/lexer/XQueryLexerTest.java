@@ -363,6 +363,16 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region Expr
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-Expr")
+    public void testExpr() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, ",", XQueryTokenType.COMMA);
+    }
+
+    // endregion
     // region VarRef
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-VarRef")
