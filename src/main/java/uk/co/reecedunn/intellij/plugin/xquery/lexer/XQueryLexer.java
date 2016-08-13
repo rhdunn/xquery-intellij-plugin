@@ -691,6 +691,7 @@ public class XQueryLexer extends LexerBase {
     }
 
     static {
+        sKeywords.put("and", XQueryTokenType.K_AND);
         sKeywords.put("as", XQueryTokenType.K_AS);
         sKeywords.put("ascending", XQueryTokenType.K_ASCENDING);
         sKeywords.put("at", XQueryTokenType.K_AT);
