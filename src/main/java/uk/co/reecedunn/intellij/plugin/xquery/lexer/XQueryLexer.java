@@ -747,6 +747,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("strip", XQueryTokenType.K_STRIP);
         sKeywords.put("text", XQueryTokenType.K_TEXT);
         sKeywords.put("then", XQueryTokenType.K_THEN);
+        sKeywords.put("to", XQueryTokenType.K_TO);
         sKeywords.put("typeswitch", XQueryTokenType.K_TYPESWITCH);
         sKeywords.put("unordered", XQueryTokenType.K_UNORDERED);
         sKeywords.put("variable", XQueryTokenType.K_VARIABLE);
