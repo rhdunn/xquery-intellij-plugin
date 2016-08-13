@@ -484,6 +484,21 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region TypeswitchExpr
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-TypeswitchExpr")
+    public void testTypeswitchExpr() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "typeswitch", XQueryTokenType.K_TYPESWITCH);
+        matchSingleToken(lexer, "(",          XQueryTokenType.PARENTHESIS_OPEN);
+        matchSingleToken(lexer, ")",          XQueryTokenType.PARENTHESIS_CLOSE);
+        matchSingleToken(lexer, "default",    XQueryTokenType.K_DEFAULT);
+        matchSingleToken(lexer, "$",          XQueryTokenType.VARIABLE_INDICATOR);
+        matchSingleToken(lexer, "return",     XQueryTokenType.K_RETURN);
+    }
+
+    // endregion
     // region VarRef
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-VarRef")

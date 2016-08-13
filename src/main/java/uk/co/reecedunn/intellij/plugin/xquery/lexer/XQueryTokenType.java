@@ -145,6 +145,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_STABLE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_STABLE");
     IXQueryKeywordOrNCNameType K_STRIP = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_STRIP");
     IXQueryKeywordOrNCNameType K_TEXT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TEXT");
+    IXQueryKeywordOrNCNameType K_TYPESWITCH = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TYPESWITCH");
     IXQueryKeywordOrNCNameType K_UNORDERED = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_UNORDERED");
     IXQueryKeywordOrNCNameType K_VARIABLE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_VARIABLE");
     IXQueryKeywordOrNCNameType K_VERSION = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_VERSION");
