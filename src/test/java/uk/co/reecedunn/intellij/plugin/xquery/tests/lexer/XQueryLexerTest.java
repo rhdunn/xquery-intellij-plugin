@@ -591,6 +591,17 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region IntersectExceptExpr
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-IntersectExceptExpr")
+    public void testIntersectExceptExpr() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "intersect", XQueryTokenType.K_INTERSECT);
+        matchSingleToken(lexer, "except",    XQueryTokenType.K_EXCEPT);
+    }
+
+    // endregion
     // region VarRef
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-VarRef")
