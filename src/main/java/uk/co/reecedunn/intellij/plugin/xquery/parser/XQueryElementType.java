@@ -34,6 +34,7 @@ public interface XQueryElementType {
     IElementType VAR_REF = new IElementType("XQUERY_VAR_REF", XQuery.INSTANCE);
     IElementType PARENTHESIZED_EXPR = new IElementType("XQUERY_PARENTHESIZED_EXPR", XQuery.INSTANCE);
     IElementType CONTEXT_ITEM_EXPR = new IElementType("XQUERY_CONTEXT_ITEM_EXPR", XQuery.INSTANCE);
+    IElementType ORDERED_EXPR = new IElementType("XQUERY_ORDERED_EXPR", XQuery.INSTANCE);
 
     IElementType FILTER_EXPR = new IElementType("XQUERY_FILTER_EXPR", XQuery.INSTANCE);
     IElementType RELATIVE_PATH_EXPR = new IElementType("XQUERY_RELATIVE_PATH_EXPR", XQuery.INSTANCE);
