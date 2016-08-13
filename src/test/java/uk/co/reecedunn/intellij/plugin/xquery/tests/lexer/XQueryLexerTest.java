@@ -396,6 +396,18 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region UnorderedExpr
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-UnorderedExpr")
+    public void testUnorderedExpr() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "unordered", XQueryTokenType.K_UNORDERED);
+        matchSingleToken(lexer, "{",         XQueryTokenType.BLOCK_OPEN);
+        matchSingleToken(lexer, "}",         XQueryTokenType.BLOCK_CLOSE);
+    }
+
+    // endregion
     // region ContextItemExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ContextItemExpr")
