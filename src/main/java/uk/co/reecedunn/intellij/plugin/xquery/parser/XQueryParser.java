@@ -984,6 +984,8 @@ class XQueryParser {
                     error(XQueryBundle.message("parser.error.expected-expression"));
                     haveErrors = true;
                 }
+
+                skipWhiteSpaceAndCommentTokens();
             }
             exprMarker.done(type);
             return true;
@@ -1312,6 +1314,8 @@ class XQueryParser {
                         error(XQueryBundle.message("parser.error.expected-expression"));
                         haveErrors = true;
                     }
+
+                    skipWhiteSpaceAndCommentTokens();
                 }
             }
 
