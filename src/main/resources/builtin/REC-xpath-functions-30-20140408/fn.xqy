@@ -9,7 +9,7 @@ module  namespace fn = "http://www.w3.org/2005/xpath-functions";
 declare namespace xs = "http://www.w3.org/2001/XMLSchema";
 
 declare function fn:QName($paramURI as xs:string?, $paramQName as xs:string) as xs:QName external; (: §10.1.2 :)
-declare function fn:abs($arg as xs:xs:numeric?) as xs:numeric? external; (: §4.4.1 :)
+declare function fn:abs($arg as xs:numeric?) as xs:numeric? external; (: §4.4.1 :)
 declare function fn:adjust-date-to-timezone($arg as xs:date?) as xs:date? external; (: §9.6.2 :)
 declare function fn:adjust-date-to-timezone($arg as xs:date?, $timezone as xs:dayTimeDuration?) as xs:date? external; (: §9.6.2 :)
 declare function fn:adjust-dateTime-to-timezone($arg as xs:dateTime?) as xs:dateTime? external; (: §9.6.1 :)
