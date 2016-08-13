@@ -602,6 +602,17 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region InstanceofExpr
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-InstanceofExpr")
+    public void testInstanceofExpr() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "instance", XQueryTokenType.K_INSTANCE);
+        matchSingleToken(lexer, "of",       XQueryTokenType.K_OF);
+    }
+
+    // endregion
     // region VarRef
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-VarRef")
