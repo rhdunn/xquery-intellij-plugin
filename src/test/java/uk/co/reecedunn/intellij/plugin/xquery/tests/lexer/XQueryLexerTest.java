@@ -580,6 +580,17 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region UnionExpr
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-UnionExpr")
+    public void testUnionExpr() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "union", XQueryTokenType.K_UNION);
+        matchSingleToken(lexer, "|",     XQueryTokenType.UNION);
+    }
+
+    // endregion
     // region VarRef
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-VarRef")
@@ -943,7 +954,6 @@ public class XQueryLexerTest extends TestCase {
     public void testDelimitingTerminalSymbols() {
         Lexer lexer = new XQueryLexer();
 
-        matchSingleToken(lexer, "|", XQueryTokenType.UNION);
         matchSingleToken(lexer, "<", XQueryTokenType.LESS_THAN);
         matchSingleToken(lexer, ">", XQueryTokenType.GREATER_THAN);
         matchSingleToken(lexer, "/", XQueryTokenType.DIRECT_DESCENDANTS_PATH);
