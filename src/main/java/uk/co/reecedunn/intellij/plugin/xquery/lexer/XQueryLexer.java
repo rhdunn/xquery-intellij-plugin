@@ -696,6 +696,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("attribute", XQueryTokenType.K_ATTRIBUTE);
         sKeywords.put("base-uri", XQueryTokenType.K_BASE_URI);
         sKeywords.put("boundary-space", XQueryTokenType.K_BOUNDARY_SPACE);
+        sKeywords.put("by", XQueryTokenType.K_BY);
         sKeywords.put("collation", XQueryTokenType.K_COLLATION);
         sKeywords.put("comment", XQueryTokenType.K_COMMENT);
         sKeywords.put("construction", XQueryTokenType.K_CONSTRUCTION);
@@ -732,6 +733,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("schema", XQueryTokenType.K_SCHEMA);
         sKeywords.put("schema-attribute", XQueryTokenType.K_SCHEMA_ATTRIBUTE);
         sKeywords.put("schema-element", XQueryTokenType.K_SCHEMA_ELEMENT);
+        sKeywords.put("stable", XQueryTokenType.K_STABLE);
         sKeywords.put("strip", XQueryTokenType.K_STRIP);
         sKeywords.put("text", XQueryTokenType.K_TEXT);
         sKeywords.put("unordered", XQueryTokenType.K_UNORDERED);

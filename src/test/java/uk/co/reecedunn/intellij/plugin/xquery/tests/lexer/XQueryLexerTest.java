@@ -430,6 +430,18 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region OrderByClause
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-OrderByClause")
+    public void testOrderByClause() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "stable", XQueryTokenType.K_STABLE);
+        matchSingleToken(lexer, "order",  XQueryTokenType.K_ORDER);
+        matchSingleToken(lexer, "by",     XQueryTokenType.K_BY);
+    }
+
+    // endregion
     // region VarRef
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-VarRef")
