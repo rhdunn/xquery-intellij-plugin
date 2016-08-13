@@ -975,6 +975,16 @@ class XQueryParser {
     private boolean parseExpr(IElementType type) {
         final PsiBuilder.Marker exprMarker = mark();
         if (parseExprSingle()) {
+            boolean haveErrors = false;
+
+            skipWhiteSpaceAndCommentTokens();
+            while (matchTokenType(XQueryTokenType.COMMA)) {
+                skipWhiteSpaceAndCommentTokens();
+                if (!parseExprSingle() && !haveErrors) {
+                    error(XQueryBundle.message("parser.error.expected-expression"));
+                    haveErrors = true;
+                }
+            }
             exprMarker.done(type);
             return true;
         }

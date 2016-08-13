@@ -20,7 +20,7 @@ FileElement[FILE(0:5)]
                                                          XQueryParenthesizedExprImpl[XQUERY_PARENTHESIZED_EXPR(0:5)]
                                                             LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(0:1)]('(')
                                                             PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
-                                                            XQueryExprImpl[XQUERY_EXPR(2:3)]
+                                                            XQueryExprImpl[XQUERY_EXPR(2:4)]
                                                                XQueryOrExprImpl[XQUERY_OR_EXPR(2:3)]
                                                                   XQueryAndExprImpl[XQUERY_AND_EXPR(2:3)]
                                                                      XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(2:3)]
@@ -39,5 +39,5 @@ FileElement[FILE(0:5)]
                                                                                                             XQueryFilterExprImpl[XQUERY_FILTER_EXPR(2:3)]
                                                                                                                XQueryLiteralImpl[XQUERY_LITERAL(2:3)]
                                                                                                                   XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(2:3)]('1')
-                                                            PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
+                                                               PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
                                                             LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(4:5)](')')

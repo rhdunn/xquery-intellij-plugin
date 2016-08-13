@@ -16,7 +16,7 @@ FileElement[FILE(0:39)]
             LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(27:28)](')')
             PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
             PsiErrorElementImpl[ERROR_ELEMENT(29:29)]('XPST0003: Missing enclosed expression start '{' or keyword: external.')
-            XQueryExprImpl[XQUERY_EXPR(29:35)]
+            XQueryExprImpl[XQUERY_EXPR(29:36)]
                XQueryOrExprImpl[XQUERY_OR_EXPR(29:35)]
                   XQueryAndExprImpl[XQUERY_AND_EXPR(29:35)]
                      XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(29:35)]
@@ -38,7 +38,7 @@ FileElement[FILE(0:39)]
                                                                      LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(29:30)]('"')
                                                                      LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(30:34)]('true')
                                                                      LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(34:35)]('"')
-            PsiWhiteSpaceImpl[WHITE_SPACE(35:36)](' ')
+               PsiWhiteSpaceImpl[WHITE_SPACE(35:36)](' ')
             LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(36:37)]('}')
             PsiWhiteSpaceImpl[WHITE_SPACE(37:38)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(38:39)](';')

@@ -21,7 +21,7 @@ FileElement[FILE(0:11)]
                                                             LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_ORDERED(0:7)]('ordered')
                                                             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
                                                             PsiErrorElementImpl[ERROR_ELEMENT(8:8)]('XPST0003: Expected '{'.')
-                                                            XQueryExprImpl[XQUERY_EXPR(8:9)]
+                                                            XQueryExprImpl[XQUERY_EXPR(8:10)]
                                                                XQueryOrExprImpl[XQUERY_OR_EXPR(8:9)]
                                                                   XQueryAndExprImpl[XQUERY_AND_EXPR(8:9)]
                                                                      XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(8:9)]
@@ -40,5 +40,5 @@ FileElement[FILE(0:11)]
                                                                                                             XQueryFilterExprImpl[XQUERY_FILTER_EXPR(8:9)]
                                                                                                                XQueryLiteralImpl[XQUERY_LITERAL(8:9)]
                                                                                                                   XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(8:9)]('1')
-                                                            PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
+                                                               PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
                                                             LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(10:11)]('}')

@@ -18,7 +18,7 @@ FileElement[FILE(0:41)]
             XQueryEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(29:39)]
                LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(29:30)]('{')
                PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')
-               XQueryExprImpl[XQUERY_EXPR(31:37)]
+               XQueryExprImpl[XQUERY_EXPR(31:38)]
                   XQueryOrExprImpl[XQUERY_OR_EXPR(31:37)]
                      XQueryAndExprImpl[XQUERY_AND_EXPR(31:37)]
                         XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(31:37)]
@@ -40,7 +40,7 @@ FileElement[FILE(0:41)]
                                                                         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(31:32)]('"')
                                                                         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(32:36)]('true')
                                                                         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(36:37)]('"')
-               PsiWhiteSpaceImpl[WHITE_SPACE(37:38)](' ')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(37:38)](' ')
                LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(38:39)]('}')
             PsiWhiteSpaceImpl[WHITE_SPACE(39:40)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(40:41)](';')
