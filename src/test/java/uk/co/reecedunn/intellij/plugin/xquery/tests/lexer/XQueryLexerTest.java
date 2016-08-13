@@ -384,6 +384,16 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region ContextItemExpr
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ContextItemExpr")
+    public void testContextItemExpr() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, ".", XQueryTokenType.DOT);
+    }
+
+    // endregion
     // region OrderedExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-OrderedExpr")
@@ -408,13 +418,15 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region ContextItemExpr
+    // region FunctionCall
 
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ContextItemExpr")
-    public void testContextItemExpr() {
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-FunctionCall")
+    public void testFunctionCall() {
         Lexer lexer = new XQueryLexer();
 
-        matchSingleToken(lexer, ".", XQueryTokenType.DOT);
+        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN);
+        matchSingleToken(lexer, ",", XQueryTokenType.COMMA);
+        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE);
     }
 
     // endregion
