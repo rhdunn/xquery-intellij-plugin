@@ -737,6 +737,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("unordered", XQueryTokenType.K_UNORDERED);
         sKeywords.put("variable", XQueryTokenType.K_VARIABLE);
         sKeywords.put("version", XQueryTokenType.K_VERSION);
+        sKeywords.put("where", XQueryTokenType.K_WHERE);
         sKeywords.put("xquery", XQueryTokenType.K_XQUERY);
     }
 }
