@@ -94,6 +94,8 @@ public class XQueryFileTypeTest extends ParsingTestCase {
         assertThat(fileType.getCharset(file, "\r\nxquery\r\nversion\r\n\"1.0\"\r\nencoding\r\n\"latin1\"\r\n".getBytes()), is("ISO-8859-1"));
         assertThat(fileType.getCharset(file, "\t\txquery\t\tversion\t\t\"1.0\"\t\tencoding\t\t\"latin1\"\t\t".getBytes()), is("ISO-8859-1"));
 
+        assertThat(fileType.getCharset(file, "(::)xquery(::)version(::)\"1.0\"(::)encoding(:\"latin1\"".getBytes()), is("UTF-8"));
+
         assertThat(fileType.getCharset(file, "(::)xquery(::)version(::)\"1.0\"(::)encoding(::)\"latin1\"".getBytes()), is("ISO-8859-1"));
         assertThat(fileType.getCharset(file, "(::)\nxquery version \"1.0\" encoding \"latin1\"".getBytes()), is("ISO-8859-1"));
         assertThat(fileType.getCharset(file, "(::)\n(:x:)\nxquery version \"1.0\" encoding \"latin1\"".getBytes()), is("ISO-8859-1"));
@@ -141,6 +143,8 @@ public class XQueryFileTypeTest extends ParsingTestCase {
         assertThat(fileType.extractCharsetFromFileContent(null, file, (CharSequence)"\n\nxquery\n\nversion\n\n\"1.0\"\n\nencoding\n\n\"latin1\"\n\n").name(), is("ISO-8859-1"));
         assertThat(fileType.extractCharsetFromFileContent(null, file, (CharSequence)"\r\nxquery\r\nversion\r\n\"1.0\"\r\nencoding\r\n\"latin1\"\r\n").name(), is("ISO-8859-1"));
         assertThat(fileType.extractCharsetFromFileContent(null, file, (CharSequence)"\t\txquery\t\tversion\t\t\"1.0\"\t\tencoding\t\t\"latin1\"\t\t").name(), is("ISO-8859-1"));
+
+        assertThat(fileType.extractCharsetFromFileContent(null, file, (CharSequence)"(::)xquery(::)version(::)\"1.0\"(::)encoding(:\"latin1\"").name(), is("UTF-8"));
 
         assertThat(fileType.extractCharsetFromFileContent(null, file, (CharSequence)"(::)xquery(::)version(::)\"1.0\"(::)encoding(::)\"latin1\"").name(), is("ISO-8859-1"));
         assertThat(fileType.extractCharsetFromFileContent(null, file, (CharSequence)"(::)\nxquery version \"1.0\" encoding \"latin1\"").name(), is("ISO-8859-1"));
