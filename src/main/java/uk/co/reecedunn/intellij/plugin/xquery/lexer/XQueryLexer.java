@@ -658,6 +658,8 @@ public class XQueryLexer extends LexerBase {
             case STATE_CDATA_SECTION:
                 stateCDataSection();
                 break;
+            default:
+                throw new AssertionError("Invalid state: " + mState);
         }
     }
 
