@@ -768,6 +768,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("typeswitch", XQueryTokenType.K_TYPESWITCH);
         sKeywords.put("union", XQueryTokenType.K_UNION);
         sKeywords.put("unordered", XQueryTokenType.K_UNORDERED);
+        sKeywords.put("validate", XQueryTokenType.K_VALIDATE);
         sKeywords.put("variable", XQueryTokenType.K_VARIABLE);
         sKeywords.put("version", XQueryTokenType.K_VERSION);
         sKeywords.put("where", XQueryTokenType.K_WHERE);

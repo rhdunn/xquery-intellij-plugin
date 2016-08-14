@@ -699,6 +699,18 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region ValidateExpr
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ValidateExpr")
+    public void testValidateExpr() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "validate", XQueryTokenType.K_VALIDATE);
+        matchSingleToken(lexer, "{",        XQueryTokenType.BLOCK_OPEN);
+        matchSingleToken(lexer, "}",        XQueryTokenType.BLOCK_CLOSE);
+    }
+
+    // endregion
     // region VarRef
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-VarRef")
