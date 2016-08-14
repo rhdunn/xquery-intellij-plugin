@@ -23,23 +23,16 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.expectThrows;
 
 public class XQueryASTFactoryTest extends TestCase {
+    @SuppressWarnings("ThrowableResultOfMethodCallIgnored")
     public void testCreateElement() {
         ASTFactory factory = new XQueryASTFactory();
 
         // foreign ASTNode
-
-        boolean thrown = false;
-        try {
-            factory.createComposite(XQueryTokenType.INTEGER_LITERAL);
-        } catch (AssertionError e) {
-            thrown = true;
-            assertThat(e.getMessage(), is("Alien element type [XQUERY_INTEGER_LITERAL_TOKEN]. Can't create XQuery AST Node for that."));
-        } catch (Exception e) {
-            // Unexpected exception.
-        }
-        assertTrue("createComposite(XQueryTokenType.INTEGER_LITERAL) should throw AssertionError.", thrown);
+        AssertionError e = expectThrows(AssertionError.class, () -> factory.createComposite(XQueryTokenType.INTEGER_LITERAL));
+        assertThat(e.getMessage(), is("Alien element type [XQUERY_INTEGER_LITERAL_TOKEN]. Can't create XQuery AST Node for that."));
     }
 
     public void testCreateLeaf() {

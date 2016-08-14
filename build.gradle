@@ -24,6 +24,10 @@ allprojects {
     }
 }
 
+dependencies {
+    testCompile 'org.junit.jupiter:junit-jupiter-api:5.0.0-M2'
+}
+
 intellij {
     def ideaVersion = System.getenv("IDEA_VERSION")
     version = ideaVersion ? ideaVersion : 'IC-2016.2' // IntelliJ IDEA dependency

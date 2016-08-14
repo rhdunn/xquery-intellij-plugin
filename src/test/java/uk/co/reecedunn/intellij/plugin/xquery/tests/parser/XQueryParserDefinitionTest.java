@@ -30,6 +30,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.mocks.MockASTNode;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.expectThrows;
 
 public class XQueryParserDefinitionTest extends ParserTestCase {
     public void testLexer() {
@@ -74,21 +75,13 @@ public class XQueryParserDefinitionTest extends ParserTestCase {
         assertThat(tokens.contains(XQueryTokenType.PARTIAL_ENTITY_REFERENCE), is(true));
     }
 
+    @SuppressWarnings("ThrowableResultOfMethodCallIgnored")
     public void testCreateElement() {
         ParserDefinition parserDefinition = new XQueryParserDefinition();
 
         // foreign ASTNode
-
-        boolean thrown = false;
-        try {
-            parserDefinition.createElement(new MockASTNode(XQueryTokenType.INTEGER_LITERAL));
-        } catch (AssertionError e) {
-            thrown = true;
-            assertThat(e.getMessage(), is("Alien element type [XQUERY_INTEGER_LITERAL_TOKEN]. Can't create XQuery PsiElement for that."));
-        } catch (Exception e) {
-            // Unexpected exception.
-        }
-        assertTrue("createElement(XQueryTokenType.INTEGER_LITERAL) should throw AssertionError.", thrown);
+        AssertionError e = expectThrows(AssertionError.class, () -> parserDefinition.createElement(new MockASTNode(XQueryTokenType.INTEGER_LITERAL)));
+        assertThat(e.getMessage(), is("Alien element type [XQUERY_INTEGER_LITERAL_TOKEN]. Can't create XQuery PsiElement for that."));
     }
 
     public void testCreateFile() {
