@@ -33,8 +33,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.*;
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings;
 
 public class XQueryParserDefinition implements ParserDefinition {
-    @NotNull
     @Override
+    @SuppressWarnings("NullableProblems") // jacoco Code Coverage reports an unchecked branch when @NotNull is used.
     public Lexer createLexer(Project project) {
         return new XQueryLexer();
     }
@@ -50,26 +50,26 @@ public class XQueryParserDefinition implements ParserDefinition {
         return XQueryElementType.FILE;
     }
 
-    @NotNull
     @Override
+    @SuppressWarnings("NullableProblems") // jacoco Code Coverage reports an unchecked branch when @NotNull is used.
     public TokenSet getWhitespaceTokens() {
         return TokenSet.EMPTY;
     }
 
-    @NotNull
     @Override
+    @SuppressWarnings("NullableProblems") // jacoco Code Coverage reports an unchecked branch when @NotNull is used.
     public TokenSet getCommentTokens() {
         return XQueryTokenType.COMMENT_TOKENS;
     }
 
-    @NotNull
     @Override
+    @SuppressWarnings("NullableProblems") // jacoco Code Coverage reports an unchecked branch when @NotNull is used.
     public TokenSet getStringLiteralElements() {
         return XQueryTokenType.STRING_LITERAL_TOKENS;
     }
 
-    @NotNull
     @Override
+    @SuppressWarnings("NullableProblems") // jacoco Code Coverage reports an unchecked branch when @NotNull is used.
     public PsiElement createElement(ASTNode node) {
         final IElementType type = node.getElementType();
         if (type == XQueryElementType.STRING_LITERAL) {

@@ -44,14 +44,14 @@ public class ColorSettingsPage implements com.intellij.openapi.options.colors.Co
         return null;
     }
 
-    @NotNull
     @Override
+    @SuppressWarnings("NullableProblems") // jacoco Code Coverage reports an unchecked branch when @NotNull is used.
     public com.intellij.openapi.fileTypes.SyntaxHighlighter getHighlighter() {
         return new SyntaxHighlighter();
     }
 
-    @NotNull
     @Override
+    @SuppressWarnings("NullableProblems") // jacoco Code Coverage reports an unchecked branch when @NotNull is used.
     public String getDemoText() {
         return
             "(: Comment :)\n" +
@@ -66,20 +66,20 @@ public class ColorSettingsPage implements com.intellij.openapi.options.colors.Co
         return null;
     }
 
-    @NotNull
     @Override
+    @SuppressWarnings("NullableProblems") // jacoco Code Coverage reports an unchecked branch when @NotNull is used.
     public AttributesDescriptor[] getAttributeDescriptors() {
         return DESCRIPTORS;
     }
 
-    @NotNull
     @Override
+    @SuppressWarnings("NullableProblems") // jacoco Code Coverage reports an unchecked branch when @NotNull is used.
     public ColorDescriptor[] getColorDescriptors() {
         return ColorDescriptor.EMPTY_ARRAY;
     }
 
-    @NotNull
     @Override
+    @SuppressWarnings("NullableProblems") // jacoco Code Coverage reports an unchecked branch when @NotNull is used.
     public String getDisplayName() {
         return "XQuery";
     }

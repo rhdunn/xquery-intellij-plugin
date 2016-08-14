@@ -33,8 +33,8 @@ public class XQueryFileImpl extends PsiFileBase implements XQueryFile {
         super(provider, XQuery.INSTANCE);
     }
 
-    @NotNull
     @Override
+    @SuppressWarnings("NullableProblems") // jacoco Code Coverage reports an unchecked branch when @NotNull is used.
     public FileType getFileType() {
         return XQueryFileType.INSTANCE;
     }

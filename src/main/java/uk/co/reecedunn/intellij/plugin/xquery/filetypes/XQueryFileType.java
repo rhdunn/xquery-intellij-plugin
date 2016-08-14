@@ -64,8 +64,8 @@ public class XQueryFileType extends LanguageFileType {
             return new ByteSequence(mData, start, end - start);
         }
 
-        @NotNull
         @Override
+        @SuppressWarnings("NullableProblems") // jacoco Code Coverage reports an unchecked branch when @NotNull is used.
         public String toString() {
             return new String(mData, mOffset, mLength);
         }
@@ -87,19 +87,19 @@ public class XQueryFileType extends LanguageFileType {
     }
 
     @Override
-    @NotNull
+    @SuppressWarnings("NullableProblems") // jacoco Code Coverage reports an unchecked branch when @NotNull is used.
     public String getName() {
         return "XQuery";
     }
 
     @Override
-    @NotNull
+    @SuppressWarnings("NullableProblems") // jacoco Code Coverage reports an unchecked branch when @NotNull is used.
     public String getDescription() {
         return XQueryBundle.message("xquery.files.filetype.description");
     }
 
     @Override
-    @NotNull
+    @SuppressWarnings("NullableProblems") // jacoco Code Coverage reports an unchecked branch when @NotNull is used.
     public String getDefaultExtension() {
         return "xqy";
     }

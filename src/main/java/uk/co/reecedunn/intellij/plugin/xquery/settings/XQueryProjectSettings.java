@@ -54,14 +54,14 @@ public class XQueryProjectSettings implements PersistentStateComponent<XQueryPro
         XmlSerializerUtil.copyBean(state, this);
     }
 
-    @NotNull
     @Override
+    @SuppressWarnings("NullableProblems") // jacoco Code Coverage reports an unchecked branch when @NotNull is used.
     public File[] getExportFiles() {
         return new File[]{ PathManager.getOptionsFile("xquery_project_settings") };
     }
 
-    @NotNull
     @Override
+    @SuppressWarnings("NullableProblems") // jacoco Code Coverage reports an unchecked branch when @NotNull is used.
     public String getPresentableName() {
         return XQueryBundle.message("xquery.settings.project.title");
     }

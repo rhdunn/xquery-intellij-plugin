@@ -29,8 +29,8 @@ public class XQueryPsiParser implements PsiParser {
         mSettings = settings;
     }
 
-    @NotNull
     @Override
+    @SuppressWarnings("NullableProblems") // jacoco Code Coverage reports an unchecked branch when @NotNull is used.
     public ASTNode parse(@NotNull IElementType root, @NotNull PsiBuilder builder) {
         final PsiBuilder.Marker rootMarker = builder.mark();
         new XQueryParser(builder, mSettings).parse();

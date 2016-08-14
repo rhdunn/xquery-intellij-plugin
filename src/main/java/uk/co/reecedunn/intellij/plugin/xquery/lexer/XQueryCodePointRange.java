@@ -64,7 +64,6 @@ public class XQueryCodePointRange {
         return mEnd;
     }
 
-    @NotNull
     public CharSequence getBufferSequence() {
         return mBuffer;
     }

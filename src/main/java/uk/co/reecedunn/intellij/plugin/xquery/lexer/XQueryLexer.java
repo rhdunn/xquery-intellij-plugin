@@ -681,8 +681,8 @@ public class XQueryLexer extends LexerBase {
         return mTokenRange.getEnd();
     }
 
-    @NotNull
     @Override
+    @SuppressWarnings("NullableProblems") // jacoco Code Coverage reports an unchecked branch when @NotNull is used.
     public CharSequence getBufferSequence() {
         return mTokenRange.getBufferSequence();
     }

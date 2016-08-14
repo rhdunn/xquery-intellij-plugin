@@ -36,12 +36,10 @@ public enum XQueryVersion {
         mReference = reference;
     }
 
-    @NotNull
     public String getName() {
         return mName;
     }
 
-    @NotNull
     public String getReference() {
         return mReference;
     }
@@ -56,7 +54,6 @@ public enum XQueryVersion {
         return null;
     }
 
-    @NotNull
     @Override
     public String toString() {
         return mID;

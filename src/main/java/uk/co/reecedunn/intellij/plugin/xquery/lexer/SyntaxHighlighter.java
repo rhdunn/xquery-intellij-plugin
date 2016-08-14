@@ -42,14 +42,14 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
     private static final TextAttributesKey[] NUMBER_KEYS = pack(NUMBER);
     private static final TextAttributesKey[] STRING_KEYS = pack(STRING);
 
-    @NotNull
     @Override
+    @SuppressWarnings("NullableProblems") // jacoco Code Coverage reports an unchecked branch when @NotNull is used.
     public Lexer getHighlightingLexer() {
         return new XQueryLexer();
     }
 
-    @NotNull
     @Override
+    @SuppressWarnings("NullableProblems") // jacoco Code Coverage reports an unchecked branch when @NotNull is used.
     public TextAttributesKey[] getTokenHighlights(IElementType type) {
         if (type == XQueryTokenType.INTEGER_LITERAL ||
             type == XQueryTokenType.DECIMAL_LITERAL ||
