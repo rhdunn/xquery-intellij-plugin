@@ -1575,26 +1575,24 @@ public class XQueryLexerTest extends TestCase {
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CharRef")
     @Specification(name="XML 1.0 5ed", reference="https://www.w3.org/TR/2008/REC-xml-20081126/#NT-CharRef")
-    public void testStringLiteral_CharRef() {
+    public void testStringLiteral_CharRef_Octal() {
         Lexer lexer = new XQueryLexer();
 
-        lexer.start("\"One&#20;&#xA0;Two\"");
+        lexer.start("\"One&#20;Two\"");
         matchToken(lexer, "\"",     0,  0,  1, XQueryTokenType.STRING_LITERAL_START);
         matchToken(lexer, "One",    1,  1,  4, XQueryTokenType.STRING_LITERAL_CONTENTS);
         matchToken(lexer, "&#20;",  1,  4,  9, XQueryTokenType.CHARACTER_REFERENCE);
-        matchToken(lexer, "&#xA0;", 1,  9, 15, XQueryTokenType.CHARACTER_REFERENCE);
-        matchToken(lexer, "Two",    1, 15, 18, XQueryTokenType.STRING_LITERAL_CONTENTS);
-        matchToken(lexer, "\"",     1, 18, 19, XQueryTokenType.STRING_LITERAL_END);
-        matchToken(lexer, "",       0, 19, 19, null);
+        matchToken(lexer, "Two",    1,  9, 12, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "\"",     1, 12, 13, XQueryTokenType.STRING_LITERAL_END);
+        matchToken(lexer, "",       0, 13, 13, null);
 
-        lexer.start("'One&#20;&#xA0;Two'");
+        lexer.start("'One&#20;Two'");
         matchToken(lexer, "'",      0,  0,  1, XQueryTokenType.STRING_LITERAL_START);
         matchToken(lexer, "One",    2,  1,  4, XQueryTokenType.STRING_LITERAL_CONTENTS);
         matchToken(lexer, "&#20;",  2,  4,  9, XQueryTokenType.CHARACTER_REFERENCE);
-        matchToken(lexer, "&#xA0;", 2,  9, 15, XQueryTokenType.CHARACTER_REFERENCE);
-        matchToken(lexer, "Two",    2, 15, 18, XQueryTokenType.STRING_LITERAL_CONTENTS);
-        matchToken(lexer, "'",      2, 18, 19, XQueryTokenType.STRING_LITERAL_END);
-        matchToken(lexer, "",       0, 19, 19, null);
+        matchToken(lexer, "Two",    2,  9, 12, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "'",      2, 12, 13, XQueryTokenType.STRING_LITERAL_END);
+        matchToken(lexer, "",       0, 13, 13, null);
 
         lexer.start("\"&#\"");
         matchToken(lexer, "\"", 0, 0, 1, XQueryTokenType.STRING_LITERAL_START);
@@ -1619,18 +1617,73 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "&#12", 1, 1, 5, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
         matchToken(lexer, "",     1, 5, 5, null);
 
-        lexer.start("\"&#;&#x;&#x2G;&#x2g;&#xg2;\"");
+        lexer.start("\"&#;\"");
+        matchToken(lexer, "\"",   0, 0, 1, XQueryTokenType.STRING_LITERAL_START);
+        matchToken(lexer, "&#;",  1, 1, 4, XQueryTokenType.EMPTY_ENTITY_REFERENCE);
+        matchToken(lexer, "\"",   1, 4, 5, XQueryTokenType.STRING_LITERAL_END);
+        matchToken(lexer, "",     0, 5, 5, null);
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CharRef")
+    @Specification(name="XML 1.0 5ed", reference="https://www.w3.org/TR/2008/REC-xml-20081126/#NT-CharRef")
+    public void testStringLiteral_CharRef_Hexadecimal() {
+        Lexer lexer = new XQueryLexer();
+
+        lexer.start("\"One&#x20;&#xae;&#xDC;Two\"");
+        matchToken(lexer, "\"",     0,  0,  1, XQueryTokenType.STRING_LITERAL_START);
+        matchToken(lexer, "One",    1,  1,  4, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "&#x20;", 1,  4, 10, XQueryTokenType.CHARACTER_REFERENCE);
+        matchToken(lexer, "&#xae;", 1, 10, 16, XQueryTokenType.CHARACTER_REFERENCE);
+        matchToken(lexer, "&#xDC;", 1, 16, 22, XQueryTokenType.CHARACTER_REFERENCE);
+        matchToken(lexer, "Two",    1, 22, 25, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "\"",     1, 25, 26, XQueryTokenType.STRING_LITERAL_END);
+        matchToken(lexer, "",       0, 26, 26, null);
+
+        lexer.start("'One&#x20;&#xae;&#xDC;Two'");
+        matchToken(lexer, "'",      0,  0,  1, XQueryTokenType.STRING_LITERAL_START);
+        matchToken(lexer, "One",    2,  1,  4, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "&#x20;", 2,  4, 10, XQueryTokenType.CHARACTER_REFERENCE);
+        matchToken(lexer, "&#xae;", 2, 10, 16, XQueryTokenType.CHARACTER_REFERENCE);
+        matchToken(lexer, "&#xDC;", 2, 16, 22, XQueryTokenType.CHARACTER_REFERENCE);
+        matchToken(lexer, "Two",    2, 22, 25, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "'",      2, 25, 26, XQueryTokenType.STRING_LITERAL_END);
+        matchToken(lexer, "",       0, 26, 26, null);
+
+        lexer.start("\"&#x\"");
+        matchToken(lexer, "\"",  0, 0, 1, XQueryTokenType.STRING_LITERAL_START);
+        matchToken(lexer, "&#x", 1, 1, 4, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "\"",  1, 4, 5, XQueryTokenType.STRING_LITERAL_END);
+        matchToken(lexer, "",    0, 5, 5, null);
+
+        lexer.start("\"&#x \"");
+        matchToken(lexer, "\"",  0, 0, 1, XQueryTokenType.STRING_LITERAL_START);
+        matchToken(lexer, "&#x", 1, 1, 4, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, " ",   1, 4, 5, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "\"",  1, 5, 6, XQueryTokenType.STRING_LITERAL_END);
+        matchToken(lexer, "",    0, 6, 6, null);
+
+        lexer.start("\"&#x");
+        matchToken(lexer, "\"",  0, 0, 1, XQueryTokenType.STRING_LITERAL_START);
+        matchToken(lexer, "&#x", 1, 1, 4, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "",    1, 4, 4, null);
+
+        lexer.start("\"&#x12");
+        matchToken(lexer, "\"",    0, 0, 1, XQueryTokenType.STRING_LITERAL_START);
+        matchToken(lexer, "&#x12", 1, 1, 6, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "",      1, 6, 6, null);
+
+        lexer.start("\"&#x;&#x2G;&#x2g;&#xg2;\"");
         matchToken(lexer, "\"",   0,  0,  1, XQueryTokenType.STRING_LITERAL_START);
-        matchToken(lexer, "&#;",  1,  1,  4, XQueryTokenType.EMPTY_ENTITY_REFERENCE);
-        matchToken(lexer, "&#x;", 1,  4,  8, XQueryTokenType.EMPTY_ENTITY_REFERENCE);
-        matchToken(lexer, "&#x2", 1,  8, 12, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
-        matchToken(lexer, "G;",   1, 12, 14, XQueryTokenType.STRING_LITERAL_CONTENTS);
-        matchToken(lexer, "&#x2", 1, 14, 18, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
-        matchToken(lexer, "g;",   1, 18, 20, XQueryTokenType.STRING_LITERAL_CONTENTS);
-        matchToken(lexer, "&#x",  1, 20, 23, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
-        matchToken(lexer, "g2;",  1, 23, 26, XQueryTokenType.STRING_LITERAL_CONTENTS);
-        matchToken(lexer, "\"",   1, 26, 27, XQueryTokenType.STRING_LITERAL_END);
-        matchToken(lexer, "",     0, 27, 27, null);
+        matchToken(lexer, "&#x;", 1,  1,  5, XQueryTokenType.EMPTY_ENTITY_REFERENCE);
+        matchToken(lexer, "&#x2", 1,  5,  9, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "G;",   1,  9, 11, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "&#x2", 1, 11, 15, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "g;",   1, 15, 17, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "&#x",  1, 17, 20, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "g2;",  1, 20, 23, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "\"",   1, 23, 24, XQueryTokenType.STRING_LITERAL_END);
+        matchToken(lexer, "",     0, 24, 24, null);
     }
 
     // endregion
