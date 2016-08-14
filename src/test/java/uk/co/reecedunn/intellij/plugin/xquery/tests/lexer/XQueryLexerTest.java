@@ -711,6 +711,17 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region ValidationMode
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ValidationMode")
+    public void testValidationMode() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "lax",    XQueryTokenType.K_LAX);
+        matchSingleToken(lexer, "strict", XQueryTokenType.K_STRICT);
+    }
+
+    // endregion
     // region VarRef
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-VarRef")

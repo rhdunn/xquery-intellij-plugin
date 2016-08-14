@@ -138,6 +138,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_INTERSECT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_INTERSECT");
     IXQueryKeywordOrNCNameType K_IS = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_IS");
     IXQueryKeywordOrNCNameType K_ITEM = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ITEM");
+    IXQueryKeywordOrNCNameType K_LAX = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_LAX");
     IXQueryKeywordOrNCNameType K_LE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_LE");
     IXQueryKeywordOrNCNameType K_LEAST = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_LEAST");
     IXQueryKeywordOrNCNameType K_LET = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_LET");
@@ -164,6 +165,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_SCHEMA_ELEMENT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SCHEMA_ELEMENT");
     IXQueryKeywordOrNCNameType K_SOME = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SOME");
     IXQueryKeywordOrNCNameType K_STABLE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_STABLE");
+    IXQueryKeywordOrNCNameType K_STRICT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_STRICT");
     IXQueryKeywordOrNCNameType K_STRIP = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_STRIP");
     IXQueryKeywordOrNCNameType K_TEXT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TEXT");
     IXQueryKeywordOrNCNameType K_THEN = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_THEN");

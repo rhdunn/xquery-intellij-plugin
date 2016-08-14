@@ -734,6 +734,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("intersect", XQueryTokenType.K_INTERSECT);
         sKeywords.put("is", XQueryTokenType.K_IS);
         sKeywords.put("item", XQueryTokenType.K_ITEM);
+        sKeywords.put("lax", XQueryTokenType.K_LAX);
         sKeywords.put("le", XQueryTokenType.K_LE);
         sKeywords.put("least", XQueryTokenType.K_LEAST);
         sKeywords.put("let", XQueryTokenType.K_LET);
@@ -760,6 +761,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("schema-element", XQueryTokenType.K_SCHEMA_ELEMENT);
         sKeywords.put("some", XQueryTokenType.K_SOME);
         sKeywords.put("stable", XQueryTokenType.K_STABLE);
+        sKeywords.put("strict", XQueryTokenType.K_STRICT);
         sKeywords.put("strip", XQueryTokenType.K_STRIP);
         sKeywords.put("text", XQueryTokenType.K_TEXT);
         sKeywords.put("then", XQueryTokenType.K_THEN);
