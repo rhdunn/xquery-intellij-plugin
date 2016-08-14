@@ -4,6 +4,7 @@ jdk:
 env:
   - IDEA_VERSION=LATEST-EAP-SNAPSHOT
   - IDEA_VERSION=IC-2016.2
+  - IDEA_VERSION=IC-2016.1.3
 
 # Code Coverage
 after_success:
