@@ -23,14 +23,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class XQueryLexer extends LexerBase {
-    private static final Map<String, IElementType> sKeywords = new HashMap<>();
-
     private XQueryCodePointRange mTokenRange;
     private int mState;
     private int mNextState;
     private IElementType mType;
 
-    // States
+    public XQueryLexer() {
+        mTokenRange = new XQueryCodePointRange();
+    }
+
+    // region States
 
     private static final int STATE_DEFAULT = 0;
     private static final int STATE_STRING_LITERAL_QUOTE = 1;
@@ -549,6 +551,9 @@ public class XQueryLexer extends LexerBase {
         }
     }
 
+    // endregion
+    // region Helper Functions
+
     private void matchEntityReference() {
         mTokenRange.match();
         int cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
@@ -614,11 +619,8 @@ public class XQueryLexer extends LexerBase {
         }
     }
 
-    // Lexer implementation
-
-    public XQueryLexer() {
-        mTokenRange = new XQueryCodePointRange();
-    }
+    // endregion
+    // region Lexer
 
     @Override
     public final void start(@NotNull CharSequence buffer, int startOffset, int endOffset, int initialState) {
@@ -689,6 +691,11 @@ public class XQueryLexer extends LexerBase {
     public final int getBufferEnd() {
         return mTokenRange.getBufferEnd();
     }
+
+    // endregion
+    // region Keywords
+
+    private static final Map<String, IElementType> sKeywords = new HashMap<>();
 
     static {
         sKeywords.put("and", XQueryTokenType.K_AND);
@@ -776,4 +783,6 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("where", XQueryTokenType.K_WHERE);
         sKeywords.put("xquery", XQueryTokenType.K_XQUERY);
     }
+
+    // endregion
 }
