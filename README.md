@@ -1,5 +1,7 @@
 # IntelliJ XQuery Plugin
 
+[![Build Status](https://travis-ci.org/rhdunn/xquery-intellij-plugin.svg)](https://travis-ci.org/rhdunn/xquery-intellij-plugin)
+
 This project provides XQuery support for the IntelliJ IDE.
 
 ## Features
