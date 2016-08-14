@@ -731,7 +731,22 @@ public class XQueryLexerTest extends TestCase {
         matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN);
         matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE);
     }
-    
+
+    // endregion
+    // region Pragma
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-Pragma")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-PragmaContents")
+    public void testPragma() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "(#", XQueryTokenType.PRAGMA_BEGIN);
+        matchSingleToken(lexer, "#)", XQueryTokenType.PRAGMA_END);
+
+        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN);
+        matchSingleToken(lexer, "#", XQueryTokenType.FUNCTION_REF_OPERATOR);
+    }
+
     // endregion
     // region VarRef
 
@@ -800,9 +815,10 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region DirCommentConstructor
+    // region DirCommentConstructor + DirCommentContents
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirCommentConstructor")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirCommentContents")
     public void testDirCommentConstructor() {
         Lexer lexer = new XQueryLexer();
 
@@ -852,9 +868,10 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region CDataSection
+    // region CDataSection + CDataSectionContents
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CDataSection")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CDataSectionContents")
     public void testCDataSection() {
         Lexer lexer = new XQueryLexer();
 
@@ -1101,8 +1118,6 @@ public class XQueryLexerTest extends TestCase {
         matchSingleToken(lexer, "[", XQueryTokenType.PREDICATE_BEGIN);
         matchSingleToken(lexer, "]", XQueryTokenType.PREDICATE_END);
 
-        matchSingleToken(lexer, "(#", XQueryTokenType.PRAGMA_BEGIN);
-        matchSingleToken(lexer, "#)", XQueryTokenType.PRAGMA_END);
         matchSingleToken(lexer, "::", XQueryTokenType.AXIS_SEPARATOR);
         matchSingleToken(lexer, "..", XQueryTokenType.PARENT_SELECTOR);
         matchSingleToken(lexer, "//", XQueryTokenType.ALL_DESCENDANTS_PATH);
@@ -1422,9 +1437,10 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region Comment
+    // region Comment + CommentContents
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Comment")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CommentContents")
     public void testComment() {
         Lexer lexer = new XQueryLexer();
 
