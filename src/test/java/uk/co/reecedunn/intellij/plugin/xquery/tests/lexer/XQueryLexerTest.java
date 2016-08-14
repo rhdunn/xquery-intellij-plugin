@@ -742,18 +742,86 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region Pragma
+    // region Pragma + PragmaContents
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-Pragma")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-PragmaContents")
     public void testPragma() {
         Lexer lexer = new XQueryLexer();
 
-        matchSingleToken(lexer, "(#", XQueryTokenType.PRAGMA_BEGIN);
-        matchSingleToken(lexer, "#)", XQueryTokenType.PRAGMA_END);
+        matchSingleToken(lexer, "(#", 8, XQueryTokenType.PRAGMA_BEGIN);
+        matchSingleToken(lexer, "#)", 0, XQueryTokenType.PRAGMA_END);
 
         matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN);
         matchSingleToken(lexer, "#", XQueryTokenType.FUNCTION_REF_OPERATOR);
+
+        lexer.start("(#  let:for  6^gkgw~*#g#)");
+        matchToken(lexer, "(#",          0,  0,  2, XQueryTokenType.PRAGMA_BEGIN);
+        matchToken(lexer, "  ",          8,  2,  4, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "let",         8,  4,  7, XQueryTokenType.NCNAME);
+        matchToken(lexer, ":",           9,  7,  8, XQueryTokenType.QNAME_SEPARATOR);
+        matchToken(lexer, "for",         9,  8, 11, XQueryTokenType.NCNAME);
+        matchToken(lexer, "  ",          9, 11, 13, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "6^gkgw~*#g", 10, 13, 23, XQueryTokenType.PRAGMA_CONTENTS);
+        matchToken(lexer, "#)",         10, 23, 25, XQueryTokenType.PRAGMA_END);
+        matchToken(lexer, "",            0, 25, 25, null);
+
+        lexer.start("(#let ##)");
+        matchToken(lexer, "(#",  0, 0, 2, XQueryTokenType.PRAGMA_BEGIN);
+        matchToken(lexer, "let", 8, 2, 5, XQueryTokenType.NCNAME);
+        matchToken(lexer, " ",   9, 5, 6, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "#",  10, 6, 7, XQueryTokenType.PRAGMA_CONTENTS);
+        matchToken(lexer, "#)", 10, 7, 9, XQueryTokenType.PRAGMA_END);
+        matchToken(lexer, "",    0, 9, 9, null);
+
+        lexer.start("(#let 2");
+        matchToken(lexer, "(#",  0, 0, 2, XQueryTokenType.PRAGMA_BEGIN);
+        matchToken(lexer, "let", 8, 2, 5, XQueryTokenType.NCNAME);
+        matchToken(lexer, " ",   9, 5, 6, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "2",  10, 6, 7, XQueryTokenType.PRAGMA_CONTENTS);
+        matchToken(lexer, "",    6, 7, 7, XQueryTokenType.UNEXPECTED_END_OF_BLOCK);
+        matchToken(lexer, "",    0, 7, 7, null);
+
+        lexer.start("(#let ");
+        matchToken(lexer, "(#",  0, 0, 2, XQueryTokenType.PRAGMA_BEGIN);
+        matchToken(lexer, "let", 8, 2, 5, XQueryTokenType.NCNAME);
+        matchToken(lexer, " ",   9, 5, 6, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "",   10, 6, 6, null);
+
+        lexer.start("(#let~~~#)");
+        matchToken(lexer, "(#",   0,  0,  2, XQueryTokenType.PRAGMA_BEGIN);
+        matchToken(lexer, "let",  8,  2,  5, XQueryTokenType.NCNAME);
+        matchToken(lexer, "~~~",  9,  5,  8, XQueryTokenType.PRAGMA_CONTENTS);
+        matchToken(lexer, "#)",  10,  8, 10, XQueryTokenType.PRAGMA_END);
+        matchToken(lexer, "",     0, 10, 10, null);
+
+        lexer.start("(#let~~~");
+        matchToken(lexer, "(#",  0, 0, 2, XQueryTokenType.PRAGMA_BEGIN);
+        matchToken(lexer, "let", 8, 2, 5, XQueryTokenType.NCNAME);
+        matchToken(lexer, "~~~", 9, 5, 8, XQueryTokenType.PRAGMA_CONTENTS);
+        matchToken(lexer, "",    6, 8, 8, XQueryTokenType.UNEXPECTED_END_OF_BLOCK);
+        matchToken(lexer, "",    0, 8, 8, null);
+
+        lexer.start("(#:let 2#)");
+        matchToken(lexer, "(#",   0,  0,  2, XQueryTokenType.PRAGMA_BEGIN);
+        matchToken(lexer, ":",    8,  2,  3, XQueryTokenType.QNAME_SEPARATOR);
+        matchToken(lexer, "let",  9,  3,  6, XQueryTokenType.NCNAME);
+        matchToken(lexer, " ",    9,  6,  7, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "2",   10,  7,  8, XQueryTokenType.PRAGMA_CONTENTS);
+        matchToken(lexer, "#)",  10,  8, 10, XQueryTokenType.PRAGMA_END);
+        matchToken(lexer, "",     0, 10, 10, null);
+
+        lexer.start("(#~~~#)");
+        matchToken(lexer, "(#",   0, 0, 2, XQueryTokenType.PRAGMA_BEGIN);
+        matchToken(lexer, "~~~",  8, 2, 5, XQueryTokenType.PRAGMA_CONTENTS);
+        matchToken(lexer, "#)",  10, 5, 7, XQueryTokenType.PRAGMA_END);
+        matchToken(lexer, "",     0, 7, 7, null);
+
+        lexer.start("(#~~~");
+        matchToken(lexer, "(#",  0, 0, 2, XQueryTokenType.PRAGMA_BEGIN);
+        matchToken(lexer, "~~~", 8, 2, 5, XQueryTokenType.PRAGMA_CONTENTS);
+        matchToken(lexer, "",    6, 5, 5, XQueryTokenType.UNEXPECTED_END_OF_BLOCK);
+        matchToken(lexer, "",    0, 5, 5, null);
     }
 
     // endregion

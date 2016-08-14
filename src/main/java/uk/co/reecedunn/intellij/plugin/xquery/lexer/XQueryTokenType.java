@@ -35,6 +35,10 @@ public interface XQueryTokenType extends TokenType {
     IElementType CDATA_SECTION_START_TAG = new IElementType("XQUERY_CDATA_SECTION_START_TAG_TOKEN", XQuery.INSTANCE);
     IElementType CDATA_SECTION_END_TAG = new IElementType("XQUERY_CDATA_SECTION_END_TAG_TOKEN", XQuery.INSTANCE);
 
+    IElementType PRAGMA_CONTENTS = new IElementType("XQUERY_PRAGMA_CONTENTS_TOKEN", XQuery.INSTANCE);
+    IElementType PRAGMA_BEGIN = new IElementType("XQUERY_PRAGMA_BEGIN_TOKEN", XQuery.INSTANCE);
+    IElementType PRAGMA_END = new IElementType("XQUERY_PRAGMA_END_TOKEN", XQuery.INSTANCE);
+
     IElementType INTEGER_LITERAL = new IElementType("XQUERY_INTEGER_LITERAL_TOKEN", XQuery.INSTANCE);
     IElementType DECIMAL_LITERAL = new IElementType("XQUERY_DECIMAL_LITERAL_TOKEN", XQuery.INSTANCE);
     IElementType DOUBLE_LITERAL = new IElementType("XQUERY_DOUBLE_LITERAL_TOKEN", XQuery.INSTANCE);
@@ -57,8 +61,6 @@ public interface XQueryTokenType extends TokenType {
     IElementType INVALID = new IElementType("XQUERY_INVALID_TOKEN", XQuery.INSTANCE);
     IElementType PARENTHESIS_OPEN = new IElementType("XQUERY_PARENTHESIS_OPEN_TOKEN", XQuery.INSTANCE);
     IElementType PARENTHESIS_CLOSE = new IElementType("XQUERY_PARENTHESIS_CLOSE_TOKEN", XQuery.INSTANCE);
-    IElementType PRAGMA_BEGIN = new IElementType("XQUERY_PRAGMA_BEGIN_TOKEN", XQuery.INSTANCE);
-    IElementType PRAGMA_END = new IElementType("XQUERY_PRAGMA_END_TOKEN", XQuery.INSTANCE);
     IElementType NOT_EQUAL = new IElementType("XQUERY_NOT_EQUAL_TOKEN", XQuery.INSTANCE);
     IElementType VARIABLE_INDICATOR = new IElementType("XQUERY_VARIABLE_INDICATOR_TOKEN", XQuery.INSTANCE);
     IElementType STAR = new IElementType("XQUERY_STAR_TOKEN", XQuery.INSTANCE);

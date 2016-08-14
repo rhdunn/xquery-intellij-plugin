@@ -51,6 +51,9 @@ public class XQueryLexer extends LexerBase {
     private static final int STATE_XML_COMMENT = 5;
     private static final int STATE_UNEXPECTED_END_OF_BLOCK = 6;
     private static final int STATE_CDATA_SECTION = 7;
+    private static final int STATE_PRAGMA_PRE_QNAME = 8;
+    private static final int STATE_PRAGMA_QNAME = 9;
+    private static final int STATE_PRAGMA_CONTENTS = 10;
 
     private void stateDefault() {
         int cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
@@ -123,10 +126,10 @@ public class XQueryLexer extends LexerBase {
                 mTokenRange.match();
                 cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
                 while (cc == CharacterClass.NAME_START_CHAR ||
-                        cc == CharacterClass.DIGIT ||
-                        cc == CharacterClass.DOT ||
-                        cc == CharacterClass.HYPHEN_MINUS ||
-                        cc == CharacterClass.NAME_CHAR) {
+                       cc == CharacterClass.DIGIT ||
+                       cc == CharacterClass.DOT ||
+                       cc == CharacterClass.HYPHEN_MINUS ||
+                       cc == CharacterClass.NAME_CHAR) {
                     mTokenRange.match();
                     cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
                 }
@@ -142,6 +145,7 @@ public class XQueryLexer extends LexerBase {
                 } else if (c == '#') {
                     mTokenRange.match();
                     mType = XQueryTokenType.PRAGMA_BEGIN;
+                    pushState(STATE_PRAGMA_PRE_QNAME);
                 } else {
                     mType = XQueryTokenType.PARENTHESIS_OPEN;
                 }
@@ -563,6 +567,120 @@ public class XQueryLexer extends LexerBase {
         }
     }
 
+    private void statePragmaPreQName() {
+        int cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
+        switch (cc) {
+            case CharacterClass.WHITESPACE:
+                mTokenRange.match();
+                while (CharacterClass.getCharClass(mTokenRange.getCodePoint()) == CharacterClass.WHITESPACE)
+                    mTokenRange.match();
+                mType = XQueryTokenType.WHITE_SPACE;
+                break;
+            case CharacterClass.COLON:
+                mTokenRange.match();
+                mType = XQueryTokenType.QNAME_SEPARATOR;
+                popState();
+                pushState(STATE_PRAGMA_QNAME);
+                break;
+            case CharacterClass.NAME_START_CHAR:
+                mTokenRange.match();
+                cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
+                while (cc == CharacterClass.NAME_START_CHAR ||
+                       cc == CharacterClass.DIGIT ||
+                       cc == CharacterClass.DOT ||
+                       cc == CharacterClass.HYPHEN_MINUS ||
+                       cc == CharacterClass.NAME_CHAR) {
+                    mTokenRange.match();
+                    cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
+                }
+                mType = XQueryTokenType.NCNAME;
+                popState();
+                pushState(STATE_PRAGMA_QNAME);
+                break;
+            default:
+                popState();
+                pushState(STATE_PRAGMA_CONTENTS);
+                statePragmaContents();
+                break;
+        }
+    }
+
+    private void statePragmaQName() {
+        int cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
+        switch (cc) {
+            case CharacterClass.WHITESPACE:
+                mTokenRange.match();
+                while (CharacterClass.getCharClass(mTokenRange.getCodePoint()) == CharacterClass.WHITESPACE)
+                    mTokenRange.match();
+                mType = XQueryTokenType.WHITE_SPACE;
+                popState();
+                pushState(STATE_PRAGMA_CONTENTS);
+                break;
+            case CharacterClass.COLON:
+                mTokenRange.match();
+                mType = XQueryTokenType.QNAME_SEPARATOR;
+                break;
+            case CharacterClass.NAME_START_CHAR:
+                mTokenRange.match();
+                cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
+                while (cc == CharacterClass.NAME_START_CHAR ||
+                        cc == CharacterClass.DIGIT ||
+                        cc == CharacterClass.DOT ||
+                        cc == CharacterClass.HYPHEN_MINUS ||
+                        cc == CharacterClass.NAME_CHAR) {
+                    mTokenRange.match();
+                    cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
+                }
+                mType = XQueryTokenType.NCNAME;
+                break;
+            default:
+                popState();
+                pushState(STATE_PRAGMA_CONTENTS);
+                statePragmaContents();
+                break;
+        }
+    }
+
+    private void statePragmaContents() {
+        int c = mTokenRange.getCodePoint();
+        if (c == XQueryCodePointRange.END_OF_BUFFER) {
+            mType = null;
+            return;
+        } else if (c == '#') {
+            mTokenRange.save();
+            mTokenRange.match();
+            if (mTokenRange.getCodePoint() == ')') {
+                mTokenRange.match();
+                mType = XQueryTokenType.PRAGMA_END;
+                popState();
+                return;
+            } else {
+                mTokenRange.restore();
+            }
+        }
+
+        while (true) {
+            if (c == XQueryCodePointRange.END_OF_BUFFER) {
+                mTokenRange.match();
+                mType = XQueryTokenType.PRAGMA_CONTENTS;
+                popState();
+                pushState(STATE_UNEXPECTED_END_OF_BLOCK);
+                return;
+            } else if (c == '#') {
+                mTokenRange.save();
+                mTokenRange.match();
+                if (mTokenRange.getCodePoint() == ')') {
+                    mTokenRange.restore();
+                    mType = XQueryTokenType.PRAGMA_CONTENTS;
+                    return;
+                }
+            } else {
+                mTokenRange.match();
+            }
+            c = mTokenRange.getCodePoint();
+        }
+    }
+
     // endregion
     // region Helper Functions
 
@@ -672,6 +790,15 @@ public class XQueryLexer extends LexerBase {
                 break;
             case STATE_CDATA_SECTION:
                 stateCDataSection();
+                break;
+            case STATE_PRAGMA_PRE_QNAME:
+                statePragmaPreQName();
+                break;
+            case STATE_PRAGMA_QNAME:
+                statePragmaQName();
+                break;
+            case STATE_PRAGMA_CONTENTS:
+                statePragmaContents();
                 break;
             default:
                 throw new AssertionError("Invalid state: " + mState);

@@ -393,12 +393,14 @@ public class SyntaxHighlighterTest extends TestCase {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.CDATA_SECTION).length, is(0));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.CDATA_SECTION_END_TAG).length, is(0));
 
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.PRAGMA_BEGIN).length, is(0));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.PRAGMA_CONTENTS).length, is(0));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.PRAGMA_END).length, is(0));
+
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.NOT_EQUAL).length, is(0));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.VARIABLE_INDICATOR).length, is(0));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.PARENTHESIS_OPEN).length, is(0));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.PARENTHESIS_CLOSE).length, is(0));
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.PRAGMA_BEGIN).length, is(0));
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.PRAGMA_END).length, is(0));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.STAR).length, is(0));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.PLUS).length, is(0));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.COMMA).length, is(0));
