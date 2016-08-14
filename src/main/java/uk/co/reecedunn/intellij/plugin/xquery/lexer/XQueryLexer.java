@@ -732,6 +732,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("inherit", XQueryTokenType.K_INHERIT);
         sKeywords.put("instance", XQueryTokenType.K_INSTANCE);
         sKeywords.put("intersect", XQueryTokenType.K_INTERSECT);
+        sKeywords.put("is", XQueryTokenType.K_IS);
         sKeywords.put("item", XQueryTokenType.K_ITEM);
         sKeywords.put("le", XQueryTokenType.K_LE);
         sKeywords.put("least", XQueryTokenType.K_LEAST);

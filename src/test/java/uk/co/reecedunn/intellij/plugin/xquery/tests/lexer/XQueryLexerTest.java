@@ -687,6 +687,18 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region NodeComp
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-NodeComp")
+    public void testNodeComp() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "is", XQueryTokenType.K_IS);
+        matchSingleToken(lexer, "<<", XQueryTokenType.NODE_BEFORE);
+        matchSingleToken(lexer, ">>", XQueryTokenType.NODE_AFTER);
+    }
+
+    // endregion
     // region VarRef
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-VarRef")
@@ -1062,8 +1074,6 @@ public class XQueryLexerTest extends TestCase {
         matchSingleToken(lexer, "//", XQueryTokenType.ALL_DESCENDANTS_PATH);
         matchSingleToken(lexer, "</", XQueryTokenType.CLOSE_XML_TAG);
         matchSingleToken(lexer, "/>", XQueryTokenType.SELF_CLOSING_XML_TAG);
-        matchSingleToken(lexer, "<<", XQueryTokenType.NODE_BEFORE);
-        matchSingleToken(lexer, ">>", XQueryTokenType.NODE_AFTER);
         matchSingleToken(lexer, "<?", XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN);
         matchSingleToken(lexer, "?>", XQueryTokenType.PROCESSING_INSTRUCTION_END);
     }
