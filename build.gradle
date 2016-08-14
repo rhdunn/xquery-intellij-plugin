@@ -13,6 +13,7 @@ apply plugin: 'org.jetbrains.intellij'
 allprojects {
     apply plugin: 'idea'
     apply plugin: 'java'
+    apply plugin: 'jacoco'
 
     group 'uk.co.reecedunn.intellij.plugin.xquery'
     version '0.0.1'
@@ -31,3 +32,12 @@ intellij {
     plugins 'coverage'  // Bundled plugin dependencies
     pluginName 'xquery-intellij-plugin'
 }
+
+jacocoTestReport {
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+}
+
+check.dependsOn jacocoTestReport
