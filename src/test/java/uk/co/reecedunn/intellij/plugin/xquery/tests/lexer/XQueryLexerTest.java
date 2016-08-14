@@ -867,6 +867,22 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "",      0, 6, 6, null);
     }
 
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirCommentConstructor")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirCommentContents")
+    public void testDirCommentConstructor_InitialState() {
+        Lexer lexer = new XQueryLexer();
+
+        lexer.start("<!-- Test", 4, 9, 5);
+        matchToken(lexer, " Test", 5, 4, 9, XQueryTokenType.XML_COMMENT);
+        matchToken(lexer, "",      6, 9, 9, XQueryTokenType.UNEXPECTED_END_OF_BLOCK);
+        matchToken(lexer, "",      0, 9, 9, null);
+
+        lexer.start("<!-- Test -->", 4, 13, 5);
+        matchToken(lexer, " Test ", 5,  4, 10, XQueryTokenType.XML_COMMENT);
+        matchToken(lexer, "-->",    5, 10, 13, XQueryTokenType.XML_COMMENT_END_TAG);
+        matchToken(lexer, "",       0, 13, 13, null);
+    }
+
     // endregion
     // region CDataSection + CDataSectionContents
 
@@ -929,6 +945,22 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "]]",        7,  9, 11, XQueryTokenType.CDATA_SECTION);
         matchToken(lexer, "",          6, 11, 11, XQueryTokenType.UNEXPECTED_END_OF_BLOCK);
         matchToken(lexer, "",          0, 11, 11, null);
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CDataSection")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CDataSectionContents")
+    public void testCDataSection_InitialState() {
+        Lexer lexer = new XQueryLexer();
+
+        lexer.start("<![CDATA[ Test", 9, 14, 7);
+        matchToken(lexer, " Test",     7,  9, 14, XQueryTokenType.CDATA_SECTION);
+        matchToken(lexer, "",          6, 14, 14, XQueryTokenType.UNEXPECTED_END_OF_BLOCK);
+        matchToken(lexer, "",          0, 14, 14, null);
+
+        lexer.start("<![CDATA[ Test ]]>", 9, 18, 7);
+        matchToken(lexer, " Test ",    7,  9, 15, XQueryTokenType.CDATA_SECTION);
+        matchToken(lexer, "]]>",       7, 15, 18, XQueryTokenType.CDATA_SECTION_END_TAG);
+        matchToken(lexer, "",          0, 18, 18, null);
     }
 
     // endregion
@@ -1295,6 +1327,15 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "",   0, 13, 13, null);
     }
 
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DoubleLiteral")
+    public void testDoubleLiteral_InitialState() {
+        Lexer lexer = new XQueryLexer();
+
+        lexer.start("1e", 1, 2, 3);
+        matchToken(lexer, "e",  3, 1, 2, XQueryTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT);
+        matchToken(lexer, "",   0, 2, 2, null);
+    }
+
     // endregion
     // region StringLiteral
 
@@ -1318,6 +1359,21 @@ public class XQueryLexerTest extends TestCase {
 
         lexer.start("'Hello World'");
         matchToken(lexer, "'",           0,  0,  1, XQueryTokenType.STRING_LITERAL_START);
+        matchToken(lexer, "Hello World", 2,  1, 12, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "'",           2, 12, 13, XQueryTokenType.STRING_LITERAL_END);
+        matchToken(lexer, "",            0, 13, 13, null);
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
+    public void testStringLiteral_InitialState() {
+        Lexer lexer = new XQueryLexer();
+
+        lexer.start("\"Hello World\"", 1, 13, 1);
+        matchToken(lexer, "Hello World", 1,  1, 12, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "\"",          1, 12, 13, XQueryTokenType.STRING_LITERAL_END);
+        matchToken(lexer, "",            0, 13, 13, null);
+
+        lexer.start("'Hello World'", 1, 13, 2);
         matchToken(lexer, "Hello World", 2,  1, 12, XQueryTokenType.STRING_LITERAL_CONTENTS);
         matchToken(lexer, "'",           2, 12, 13, XQueryTokenType.STRING_LITERAL_END);
         matchToken(lexer, "",            0, 13, 13, null);
@@ -1486,6 +1542,22 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, " ",                 0, 27, 28, XQueryTokenType.WHITE_SPACE);
         matchToken(lexer, ":)",                0, 28, 30, XQueryTokenType.COMMENT_END_TAG);
         matchToken(lexer, "",                  0, 30, 30, null);
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Comment")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CommentContents")
+    public void testComment_InitialState() {
+        Lexer lexer = new XQueryLexer();
+
+        lexer.start("(: Test :", 2, 9, 4);
+        matchToken(lexer, " Test :", 4, 2, 9, XQueryTokenType.COMMENT);
+        matchToken(lexer, "",        6, 9, 9, XQueryTokenType.UNEXPECTED_END_OF_BLOCK);
+        matchToken(lexer, "",        0, 9, 9, null);
+
+        lexer.start("(: Test :)", 2, 10, 4);
+        matchToken(lexer, " Test ", 4,  2,  8, XQueryTokenType.COMMENT);
+        matchToken(lexer, ":)",     4,  8, 10, XQueryTokenType.COMMENT_END_TAG);
+        matchToken(lexer, "",       0, 10, 10, null);
     }
 
     // endregion
