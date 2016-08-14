@@ -18,8 +18,8 @@ intellij {
     println "Building for IntelliJ version: ${version}"
 
     plugins 'coverage'  // Bundled plugin dependencies
-    pluginName 'xquery'
+    pluginName 'xquery-intellij-plugin'
 }
 
-group 'org.jetbrains'
+group 'uk.co.reecedunn.intellij.plugin.xquery'
 version '0.0.1' // Plugin version

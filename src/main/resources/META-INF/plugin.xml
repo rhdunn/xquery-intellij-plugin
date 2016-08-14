@@ -1,7 +1,7 @@
 <!--suppress XmlUnboundNsPrefix -->
 <idea-plugin version="2">
-  <id>uk.co.reecedunn.intellij.xquery</id>
-  <name>xquery</name>
+  <id>uk.co.reecedunn.intellij.plugin.xquery</id>
+  <name>xquery-intellij-plugin</name>
   <version>0.0.1</version>
   <vendor email="msclrhd@gmail.com" url="http://reecedunn.co.uk">Reece H. Dunn</vendor>
 
