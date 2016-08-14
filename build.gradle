@@ -1,6 +1,6 @@
 buildscript {
     repositories {
-        mavenCentral()
+        maven { url 'http://dl.bintray.com/jetbrains/intellij-plugin-service' }
     }
 }
 
@@ -8,9 +8,20 @@ plugins {
     id "org.jetbrains.intellij" version "0.1.10"
 }
 
-apply plugin: 'idea'
 apply plugin: 'org.jetbrains.intellij'
-apply plugin: 'java'
+
+allprojects {
+    apply plugin: 'idea'
+    apply plugin: 'java'
+
+    group 'uk.co.reecedunn.intellij.plugin.xquery'
+    version '0.0.1'
+
+    repositories {
+        mavenCentral()
+        mavenLocal()
+    }
+}
 
 intellij {
     def ideaVersion = System.getenv("IDEA_VERSION")
@@ -20,6 +31,3 @@ intellij {
     plugins 'coverage'  // Bundled plugin dependencies
     pluginName 'xquery-intellij-plugin'
 }
-
-group 'uk.co.reecedunn.intellij.plugin.xquery'
-version '0.0.1' // Plugin version
