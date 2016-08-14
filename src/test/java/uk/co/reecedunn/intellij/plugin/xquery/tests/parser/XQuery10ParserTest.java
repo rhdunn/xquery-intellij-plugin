@@ -1389,6 +1389,14 @@ public class XQuery10ParserTest extends ParserTestCase {
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VarRef")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VarName")
+    public void testVarRef_MissingVarName() {
+        final String expected = loadResource("tests/parser/xquery-1.0/VarRef_MissingVarName.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/VarRef_MissingVarName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
     // endregion
     // region ParenthesizedExpr
 
