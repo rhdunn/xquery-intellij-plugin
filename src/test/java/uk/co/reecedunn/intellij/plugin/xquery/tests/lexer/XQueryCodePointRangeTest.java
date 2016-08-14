@@ -67,8 +67,8 @@ public class XQueryCodePointRangeTest extends TestCase {
     public void testMatchingIncompleteSurrogatePairs() {
         XQueryCodePointRange range = new XQueryCodePointRange();
 
-        range.start("\uD802", 0, 1);
-        assertThat(range.getBufferEnd(), is(1));
+        range.start("\uD802\uD803", 0, 2);
+        assertThat(range.getBufferEnd(), is(2));
 
         assertThat(range.getStart(), is(0));
         assertThat(range.getEnd(), is(0));
@@ -77,6 +77,11 @@ public class XQueryCodePointRangeTest extends TestCase {
         range.match();
         assertThat(range.getStart(), is(0));
         assertThat(range.getEnd(), is(1));
+        assertThat(range.getCodePoint(), is(0xD803));
+
+        range.match();
+        assertThat(range.getStart(), is(0));
+        assertThat(range.getEnd(), is(2));
         assertThat(range.getCodePoint(), is(XQueryCodePointRange.END_OF_BUFFER));
     }
 
