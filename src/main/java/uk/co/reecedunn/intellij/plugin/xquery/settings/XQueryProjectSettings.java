@@ -154,6 +154,8 @@ public class XQueryProjectSettings implements PersistentStateComponent<XQueryPro
             XQUERY_3_0_DIALECT = dialect;
         } else if (version == XQueryVersion.XQUERY_3_1) {
             XQUERY_3_1_DIALECT = dialect;
+        } else {
+            throw new AssertionError("Unknown XQuery version: " + version);
         }
     }
 }

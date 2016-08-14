@@ -30,6 +30,7 @@ import java.util.List;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.expectThrows;
 
 public class XQueryProjectSettingsTest extends TestCase {
     public void testDefaultValues() {
@@ -99,6 +100,7 @@ public class XQueryProjectSettingsTest extends TestCase {
         assertThat(settings.getPresentableName(), is("XQuery Project Settings"));
     }
 
+    @SuppressWarnings("ThrowableResultOfMethodCallIgnored")
     public void testTransientProperties() {
         ImplementationItem implementation = Implementations.getImplementations().get(0);
         ImplementationItem implementationVersion = implementation.getItems(ImplementationItem.IMPLEMENTATION_VERSION).get(0);
@@ -110,6 +112,9 @@ public class XQueryProjectSettingsTest extends TestCase {
         settings.setDialectForXQueryVersion(XQueryVersion.XQUERY_1_0, implementationDialects.get(0));
         settings.setDialectForXQueryVersion(XQueryVersion.XQUERY_3_0, implementationDialects.get(1));
         settings.setDialectForXQueryVersion(XQueryVersion.XQUERY_3_1, implementationDialects.get(2));
+
+        AssertionError e = expectThrows(AssertionError.class, () -> settings.setDialectForXQueryVersion(null, implementationDialects.get(2)));
+        assertThat(e.getMessage(), is("Unknown XQuery version: null"));
 
         assertThat(settings.getImplementationItem().getID(), is("marklogic"));
         assertThat(settings.getImplementationVersionItem().getID(), is("marklogic/v6"));
