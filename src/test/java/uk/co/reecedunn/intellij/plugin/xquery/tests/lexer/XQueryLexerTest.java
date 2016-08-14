@@ -672,6 +672,21 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region ValueComp
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ValueComp")
+    public void testValueComp() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "eq", XQueryTokenType.K_EQ);
+        matchSingleToken(lexer, "ne", XQueryTokenType.K_NE);
+        matchSingleToken(lexer, "lt", XQueryTokenType.K_LT);
+        matchSingleToken(lexer, "le", XQueryTokenType.K_LE);
+        matchSingleToken(lexer, "gt", XQueryTokenType.K_GT);
+        matchSingleToken(lexer, "ge", XQueryTokenType.K_GE);
+    }
+
+    // endregion
     // region VarRef
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-VarRef")
