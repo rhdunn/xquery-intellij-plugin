@@ -41,219 +41,6 @@ public class XQueryLexer extends LexerBase {
     private static final int STATE_UNEXPECTED_END_OF_BLOCK = 6;
     private static final int STATE_CDATA_SECTION = 7;
 
-    private void matchEntityReference() {
-        mTokenRange.match();
-        int cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
-        if (cc == CharacterClass.NAME_START_CHAR) {
-            mTokenRange.match();
-            cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
-            while (cc == CharacterClass.NAME_START_CHAR || cc == CharacterClass.DIGIT) {
-                mTokenRange.match();
-                cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
-            }
-            if (cc == CharacterClass.SEMICOLON) {
-                mTokenRange.match();
-                mType = XQueryTokenType.PREDEFINED_ENTITY_REFERENCE;
-            } else {
-                mType = XQueryTokenType.PARTIAL_ENTITY_REFERENCE;
-            }
-        } else if (cc == CharacterClass.HASH) {
-            mTokenRange.match();
-            int c = mTokenRange.getCodePoint();
-            if (c == 'x') {
-                mTokenRange.match();
-                c = mTokenRange.getCodePoint();
-                if (((c >= '0') && (c <= '9')) || ((c >= 'a') && (c <= 'f')) || ((c >= 'A') && (c <= 'F'))) {
-                    while (((c >= '0') && (c <= '9')) || ((c >= 'a') && (c <= 'f')) || ((c >= 'A') && (c <= 'F'))) {
-                        mTokenRange.match();
-                        c = mTokenRange.getCodePoint();
-                    }
-                    if (c == ';') {
-                        mTokenRange.match();
-                        mType = XQueryTokenType.CHARACTER_REFERENCE;
-                    } else {
-                        mType = XQueryTokenType.PARTIAL_ENTITY_REFERENCE;
-                    }
-                } else if (c == ';') {
-                    mTokenRange.match();
-                    mType = XQueryTokenType.EMPTY_ENTITY_REFERENCE;
-                } else {
-                    mType = XQueryTokenType.PARTIAL_ENTITY_REFERENCE;
-                }
-            } else if ((c >= '0') && (c <= '9')) {
-                mTokenRange.match();
-                while ((c >= '0') && (c <= '9')) {
-                    mTokenRange.match();
-                    c = mTokenRange.getCodePoint();
-                }
-                if (c == ';') {
-                    mTokenRange.match();
-                    mType = XQueryTokenType.CHARACTER_REFERENCE;
-                } else {
-                    mType = XQueryTokenType.PARTIAL_ENTITY_REFERENCE;
-                }
-            } else if (c == ';') {
-                mTokenRange.match();
-                mType = XQueryTokenType.EMPTY_ENTITY_REFERENCE;
-            } else {
-                mType = XQueryTokenType.PARTIAL_ENTITY_REFERENCE;
-            }
-        } else if (cc == CharacterClass.SEMICOLON) {
-            mTokenRange.match();
-            mType = XQueryTokenType.EMPTY_ENTITY_REFERENCE;
-        } else {
-            mType = XQueryTokenType.PARTIAL_ENTITY_REFERENCE;
-        }
-    }
-
-    private void stateUnexpectedEndOfBlock() {
-        mType = XQueryTokenType.UNEXPECTED_END_OF_BLOCK;
-        mNextState = STATE_DEFAULT;
-    }
-
-    private void stateXQueryComment() {
-        int c = mTokenRange.getCodePoint();
-        if (c == XQueryCodePointRange.END_OF_BUFFER) {
-            mType = null;
-            return;
-        } else if (c == ':') {
-            mTokenRange.save();
-            mTokenRange.match();
-            if (mTokenRange.getCodePoint() == ')') {
-                mTokenRange.match();
-                mType = XQueryTokenType.COMMENT_END_TAG;
-                mNextState = STATE_DEFAULT;
-                return;
-            } else {
-                mTokenRange.restore();
-            }
-        }
-
-        int depth = 1;
-        while (true) {
-            if (c == XQueryCodePointRange.END_OF_BUFFER) {
-                mTokenRange.match();
-                mType = XQueryTokenType.COMMENT;
-                mNextState = STATE_UNEXPECTED_END_OF_BLOCK;
-                return;
-            } else if (c == '(') {
-                mTokenRange.match();
-                if (mTokenRange.getCodePoint() == ':') {
-                    mTokenRange.match();
-                    ++depth;
-                }
-            } else if (c == ':') {
-                mTokenRange.save();
-                mTokenRange.match();
-                if (mTokenRange.getCodePoint() == ')') {
-                    mTokenRange.match();
-                    if (--depth == 0) {
-                        mTokenRange.restore();
-                        mType = XQueryTokenType.COMMENT;
-                        return;
-                    }
-                }
-            } else {
-                mTokenRange.match();
-            }
-            c = mTokenRange.getCodePoint();
-        }
-    }
-
-    private void stateXmlComment() {
-        int c = mTokenRange.getCodePoint();
-        if (c == XQueryCodePointRange.END_OF_BUFFER) {
-            mType = null;
-            return;
-        } else if (c == '-') {
-            mTokenRange.save();
-            mTokenRange.match();
-            if (mTokenRange.getCodePoint() == '-') {
-                mTokenRange.match();
-                if (mTokenRange.getCodePoint() == '>') {
-                    mTokenRange.match();
-                    mType = XQueryTokenType.XML_COMMENT_END_TAG;
-                    mNextState = STATE_DEFAULT;
-                    return;
-                } else {
-                    mTokenRange.restore();
-                }
-            } else {
-                mTokenRange.restore();
-            }
-        }
-
-        while (true) {
-            if (c == XQueryCodePointRange.END_OF_BUFFER) {
-                mTokenRange.match();
-                mType = XQueryTokenType.XML_COMMENT;
-                mNextState = STATE_UNEXPECTED_END_OF_BLOCK;
-                return;
-            } else if (c == '-') {
-                mTokenRange.save();
-                mTokenRange.match();
-                if (mTokenRange.getCodePoint() == '-') {
-                    mTokenRange.match();
-                    if (mTokenRange.getCodePoint() == '>') {
-                        mTokenRange.restore();
-                        mType = XQueryTokenType.XML_COMMENT;
-                        return;
-                    }
-                }
-            } else {
-                mTokenRange.match();
-            }
-            c = mTokenRange.getCodePoint();
-        }
-    }
-
-    private void stateCDataSection() {
-        int c = mTokenRange.getCodePoint();
-        if (c == XQueryCodePointRange.END_OF_BUFFER) {
-            mType = null;
-            return;
-        } else if (c == ']') {
-            mTokenRange.save();
-            mTokenRange.match();
-            if (mTokenRange.getCodePoint() == ']') {
-                mTokenRange.match();
-                if (mTokenRange.getCodePoint() == '>') {
-                    mTokenRange.match();
-                    mType = XQueryTokenType.CDATA_SECTION_END_TAG;
-                    mNextState = STATE_DEFAULT;
-                    return;
-                } else {
-                    mTokenRange.restore();
-                }
-            } else {
-                mTokenRange.restore();
-            }
-        }
-
-        while (true) {
-            if (c == XQueryCodePointRange.END_OF_BUFFER) {
-                mTokenRange.match();
-                mType = XQueryTokenType.CDATA_SECTION;
-                mNextState = STATE_UNEXPECTED_END_OF_BLOCK;
-                return;
-            } else if (c == ']') {
-                mTokenRange.save();
-                mTokenRange.match();
-                if (mTokenRange.getCodePoint() == ']') {
-                    mTokenRange.match();
-                    if (mTokenRange.getCodePoint() == '>') {
-                        mTokenRange.restore();
-                        mType = XQueryTokenType.CDATA_SECTION;
-                        return;
-                    }
-                }
-            } else {
-                mTokenRange.match();
-            }
-            c = mTokenRange.getCodePoint();
-        }
-    }
-
     private void stateDefault() {
         int cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
         int c;
@@ -325,10 +112,10 @@ public class XQueryLexer extends LexerBase {
                 mTokenRange.match();
                 cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
                 while (cc == CharacterClass.NAME_START_CHAR ||
-                       cc == CharacterClass.DIGIT ||
-                       cc == CharacterClass.DOT ||
-                       cc == CharacterClass.HYPHEN_MINUS ||
-                       cc == CharacterClass.NAME_CHAR) {
+                        cc == CharacterClass.DIGIT ||
+                        cc == CharacterClass.DOT ||
+                        cc == CharacterClass.HYPHEN_MINUS ||
+                        cc == CharacterClass.NAME_CHAR) {
                     mTokenRange.match();
                     cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
                 }
@@ -612,6 +399,219 @@ public class XQueryLexer extends LexerBase {
         }
         mType = XQueryTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT;
         mNextState = STATE_DEFAULT;
+    }
+
+    private void stateXQueryComment() {
+        int c = mTokenRange.getCodePoint();
+        if (c == XQueryCodePointRange.END_OF_BUFFER) {
+            mType = null;
+            return;
+        } else if (c == ':') {
+            mTokenRange.save();
+            mTokenRange.match();
+            if (mTokenRange.getCodePoint() == ')') {
+                mTokenRange.match();
+                mType = XQueryTokenType.COMMENT_END_TAG;
+                mNextState = STATE_DEFAULT;
+                return;
+            } else {
+                mTokenRange.restore();
+            }
+        }
+
+        int depth = 1;
+        while (true) {
+            if (c == XQueryCodePointRange.END_OF_BUFFER) {
+                mTokenRange.match();
+                mType = XQueryTokenType.COMMENT;
+                mNextState = STATE_UNEXPECTED_END_OF_BLOCK;
+                return;
+            } else if (c == '(') {
+                mTokenRange.match();
+                if (mTokenRange.getCodePoint() == ':') {
+                    mTokenRange.match();
+                    ++depth;
+                }
+            } else if (c == ':') {
+                mTokenRange.save();
+                mTokenRange.match();
+                if (mTokenRange.getCodePoint() == ')') {
+                    mTokenRange.match();
+                    if (--depth == 0) {
+                        mTokenRange.restore();
+                        mType = XQueryTokenType.COMMENT;
+                        return;
+                    }
+                }
+            } else {
+                mTokenRange.match();
+            }
+            c = mTokenRange.getCodePoint();
+        }
+    }
+
+    private void stateXmlComment() {
+        int c = mTokenRange.getCodePoint();
+        if (c == XQueryCodePointRange.END_OF_BUFFER) {
+            mType = null;
+            return;
+        } else if (c == '-') {
+            mTokenRange.save();
+            mTokenRange.match();
+            if (mTokenRange.getCodePoint() == '-') {
+                mTokenRange.match();
+                if (mTokenRange.getCodePoint() == '>') {
+                    mTokenRange.match();
+                    mType = XQueryTokenType.XML_COMMENT_END_TAG;
+                    mNextState = STATE_DEFAULT;
+                    return;
+                } else {
+                    mTokenRange.restore();
+                }
+            } else {
+                mTokenRange.restore();
+            }
+        }
+
+        while (true) {
+            if (c == XQueryCodePointRange.END_OF_BUFFER) {
+                mTokenRange.match();
+                mType = XQueryTokenType.XML_COMMENT;
+                mNextState = STATE_UNEXPECTED_END_OF_BLOCK;
+                return;
+            } else if (c == '-') {
+                mTokenRange.save();
+                mTokenRange.match();
+                if (mTokenRange.getCodePoint() == '-') {
+                    mTokenRange.match();
+                    if (mTokenRange.getCodePoint() == '>') {
+                        mTokenRange.restore();
+                        mType = XQueryTokenType.XML_COMMENT;
+                        return;
+                    }
+                }
+            } else {
+                mTokenRange.match();
+            }
+            c = mTokenRange.getCodePoint();
+        }
+    }
+
+    private void stateUnexpectedEndOfBlock() {
+        mType = XQueryTokenType.UNEXPECTED_END_OF_BLOCK;
+        mNextState = STATE_DEFAULT;
+    }
+
+    private void stateCDataSection() {
+        int c = mTokenRange.getCodePoint();
+        if (c == XQueryCodePointRange.END_OF_BUFFER) {
+            mType = null;
+            return;
+        } else if (c == ']') {
+            mTokenRange.save();
+            mTokenRange.match();
+            if (mTokenRange.getCodePoint() == ']') {
+                mTokenRange.match();
+                if (mTokenRange.getCodePoint() == '>') {
+                    mTokenRange.match();
+                    mType = XQueryTokenType.CDATA_SECTION_END_TAG;
+                    mNextState = STATE_DEFAULT;
+                    return;
+                } else {
+                    mTokenRange.restore();
+                }
+            } else {
+                mTokenRange.restore();
+            }
+        }
+
+        while (true) {
+            if (c == XQueryCodePointRange.END_OF_BUFFER) {
+                mTokenRange.match();
+                mType = XQueryTokenType.CDATA_SECTION;
+                mNextState = STATE_UNEXPECTED_END_OF_BLOCK;
+                return;
+            } else if (c == ']') {
+                mTokenRange.save();
+                mTokenRange.match();
+                if (mTokenRange.getCodePoint() == ']') {
+                    mTokenRange.match();
+                    if (mTokenRange.getCodePoint() == '>') {
+                        mTokenRange.restore();
+                        mType = XQueryTokenType.CDATA_SECTION;
+                        return;
+                    }
+                }
+            } else {
+                mTokenRange.match();
+            }
+            c = mTokenRange.getCodePoint();
+        }
+    }
+
+    private void matchEntityReference() {
+        mTokenRange.match();
+        int cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
+        if (cc == CharacterClass.NAME_START_CHAR) {
+            mTokenRange.match();
+            cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
+            while (cc == CharacterClass.NAME_START_CHAR || cc == CharacterClass.DIGIT) {
+                mTokenRange.match();
+                cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
+            }
+            if (cc == CharacterClass.SEMICOLON) {
+                mTokenRange.match();
+                mType = XQueryTokenType.PREDEFINED_ENTITY_REFERENCE;
+            } else {
+                mType = XQueryTokenType.PARTIAL_ENTITY_REFERENCE;
+            }
+        } else if (cc == CharacterClass.HASH) {
+            mTokenRange.match();
+            int c = mTokenRange.getCodePoint();
+            if (c == 'x') {
+                mTokenRange.match();
+                c = mTokenRange.getCodePoint();
+                if (((c >= '0') && (c <= '9')) || ((c >= 'a') && (c <= 'f')) || ((c >= 'A') && (c <= 'F'))) {
+                    while (((c >= '0') && (c <= '9')) || ((c >= 'a') && (c <= 'f')) || ((c >= 'A') && (c <= 'F'))) {
+                        mTokenRange.match();
+                        c = mTokenRange.getCodePoint();
+                    }
+                    if (c == ';') {
+                        mTokenRange.match();
+                        mType = XQueryTokenType.CHARACTER_REFERENCE;
+                    } else {
+                        mType = XQueryTokenType.PARTIAL_ENTITY_REFERENCE;
+                    }
+                } else if (c == ';') {
+                    mTokenRange.match();
+                    mType = XQueryTokenType.EMPTY_ENTITY_REFERENCE;
+                } else {
+                    mType = XQueryTokenType.PARTIAL_ENTITY_REFERENCE;
+                }
+            } else if ((c >= '0') && (c <= '9')) {
+                mTokenRange.match();
+                while ((c >= '0') && (c <= '9')) {
+                    mTokenRange.match();
+                    c = mTokenRange.getCodePoint();
+                }
+                if (c == ';') {
+                    mTokenRange.match();
+                    mType = XQueryTokenType.CHARACTER_REFERENCE;
+                } else {
+                    mType = XQueryTokenType.PARTIAL_ENTITY_REFERENCE;
+                }
+            } else if (c == ';') {
+                mTokenRange.match();
+                mType = XQueryTokenType.EMPTY_ENTITY_REFERENCE;
+            } else {
+                mType = XQueryTokenType.PARTIAL_ENTITY_REFERENCE;
+            }
+        } else if (cc == CharacterClass.SEMICOLON) {
+            mTokenRange.match();
+            mType = XQueryTokenType.EMPTY_ENTITY_REFERENCE;
+        } else {
+            mType = XQueryTokenType.PARTIAL_ENTITY_REFERENCE;
+        }
     }
 
     // Lexer implementation
