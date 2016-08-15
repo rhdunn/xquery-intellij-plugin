@@ -1087,40 +1087,6 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region DirAttributeValue + EscapeQuot
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeValue")
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-EscapeQuot")
-    public void testDirAttributeValue_EscapeQuot() {
-        Lexer lexer = new XQueryLexer();
-
-        lexer.start("\"One\"\"Two\"", 0, 10, 11);
-        matchToken(lexer, "\"",   11,  0,  1, XQueryTokenType.STRING_LITERAL_START);
-        matchToken(lexer, "One",  13,  1,  4, XQueryTokenType.STRING_LITERAL_CONTENTS);
-        matchToken(lexer, "\"\"", 13,  4,  6, XQueryTokenType.STRING_LITERAL_ESCAPED_CHARACTER);
-        matchToken(lexer, "Two",  13,  6,  9, XQueryTokenType.STRING_LITERAL_CONTENTS);
-        matchToken(lexer, "\"",   13,  9, 10, XQueryTokenType.STRING_LITERAL_END);
-        matchToken(lexer, "",     11, 10, 10, null);
-    }
-
-    // endregion
-    // region DirAttributeValue + EscapeApos
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeValue")
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-EscapeApos")
-    public void testDirAttributeValue_EscapeApos() {
-        Lexer lexer = new XQueryLexer();
-
-        lexer.start("'One''Two'", 0, 10, 11);
-        matchToken(lexer, "'",    11,  0,  1, XQueryTokenType.STRING_LITERAL_START);
-        matchToken(lexer, "One",  14,  1,  4, XQueryTokenType.STRING_LITERAL_CONTENTS);
-        matchToken(lexer, "''",   14,  4,  6, XQueryTokenType.STRING_LITERAL_ESCAPED_CHARACTER);
-        matchToken(lexer, "Two",  14,  6,  9, XQueryTokenType.STRING_LITERAL_CONTENTS);
-        matchToken(lexer, "'",    14,  9, 10, XQueryTokenType.STRING_LITERAL_END);
-        matchToken(lexer, "",     11, 10, 10, null);
-    }
-
-    // endregion
     // region DirAttributeValue + PredefinedEntityRef
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeValue")
@@ -1193,6 +1159,157 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "&;", 13, 1, 3, XQueryTokenType.EMPTY_ENTITY_REFERENCE);
         matchToken(lexer, "\"", 13, 3, 4, XQueryTokenType.STRING_LITERAL_END);
         matchToken(lexer, "",   11, 4, 4, null);
+    }
+
+    // endregion
+    // region DirAttributeValue + EscapeQuot
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeValue")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-EscapeQuot")
+    public void testDirAttributeValue_EscapeQuot() {
+        Lexer lexer = new XQueryLexer();
+
+        lexer.start("\"One\"\"Two\"", 0, 10, 11);
+        matchToken(lexer, "\"",   11,  0,  1, XQueryTokenType.STRING_LITERAL_START);
+        matchToken(lexer, "One",  13,  1,  4, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "\"\"", 13,  4,  6, XQueryTokenType.STRING_LITERAL_ESCAPED_CHARACTER);
+        matchToken(lexer, "Two",  13,  6,  9, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "\"",   13,  9, 10, XQueryTokenType.STRING_LITERAL_END);
+        matchToken(lexer, "",     11, 10, 10, null);
+    }
+
+    // endregion
+    // region DirAttributeValue + EscapeApos
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeValue")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-EscapeApos")
+    public void testDirAttributeValue_EscapeApos() {
+        Lexer lexer = new XQueryLexer();
+
+        lexer.start("'One''Two'", 0, 10, 11);
+        matchToken(lexer, "'",    11,  0,  1, XQueryTokenType.STRING_LITERAL_START);
+        matchToken(lexer, "One",  14,  1,  4, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "''",   14,  4,  6, XQueryTokenType.STRING_LITERAL_ESCAPED_CHARACTER);
+        matchToken(lexer, "Two",  14,  6,  9, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "'",    14,  9, 10, XQueryTokenType.STRING_LITERAL_END);
+        matchToken(lexer, "",     11, 10, 10, null);
+    }
+
+    // endregion
+    // region DirAttributeValue + CharRef
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeValue")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CharRef")
+    @Specification(name="XML 1.0 5ed", reference="https://www.w3.org/TR/2008/REC-xml-20081126/#NT-CharRef")
+    public void testDirAttributeValue_CharRef_Octal() {
+        Lexer lexer = new XQueryLexer();
+
+        lexer.start("\"One&#20;Two\"", 0, 13, 11);
+        matchToken(lexer, "\"",    11,  0,  1, XQueryTokenType.STRING_LITERAL_START);
+        matchToken(lexer, "One",   13,  1,  4, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "&#20;", 13,  4,  9, XQueryTokenType.CHARACTER_REFERENCE);
+        matchToken(lexer, "Two",   13,  9, 12, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "\"",    13, 12, 13, XQueryTokenType.STRING_LITERAL_END);
+        matchToken(lexer, "",      11, 13, 13, null);
+
+        lexer.start("'One&#20;Two'", 0, 13, 11);
+        matchToken(lexer, "'",     11,  0,  1, XQueryTokenType.STRING_LITERAL_START);
+        matchToken(lexer, "One",   14,  1,  4, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "&#20;", 14,  4,  9, XQueryTokenType.CHARACTER_REFERENCE);
+        matchToken(lexer, "Two",   14,  9, 12, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "'",     14, 12, 13, XQueryTokenType.STRING_LITERAL_END);
+        matchToken(lexer, "",      11, 13, 13, null);
+
+        lexer.start("\"&#\"", 0, 4, 11);
+        matchToken(lexer, "\"", 11, 0, 1, XQueryTokenType.STRING_LITERAL_START);
+        matchToken(lexer, "&#", 13, 1, 3, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "\"", 13, 3, 4, XQueryTokenType.STRING_LITERAL_END);
+        matchToken(lexer, "",   11, 4, 4, null);
+
+        lexer.start("\"&# \"", 0, 5, 11);
+        matchToken(lexer, "\"", 11, 0, 1, XQueryTokenType.STRING_LITERAL_START);
+        matchToken(lexer, "&#", 13, 1, 3, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, " ",  13, 3, 4, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "\"", 13, 4, 5, XQueryTokenType.STRING_LITERAL_END);
+        matchToken(lexer, "",   11, 5, 5, null);
+
+        lexer.start("\"&#", 0, 3, 11);
+        matchToken(lexer, "\"", 11, 0, 1, XQueryTokenType.STRING_LITERAL_START);
+        matchToken(lexer, "&#", 13, 1, 3, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "",   13, 3, 3, null);
+
+        lexer.start("\"&#12", 0, 5, 11);
+        matchToken(lexer, "\"",   11, 0, 1, XQueryTokenType.STRING_LITERAL_START);
+        matchToken(lexer, "&#12", 13, 1, 5, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "",     13, 5, 5, null);
+
+        lexer.start("\"&#;\"", 0, 5, 11);
+        matchToken(lexer, "\"",   11, 0, 1, XQueryTokenType.STRING_LITERAL_START);
+        matchToken(lexer, "&#;",  13, 1, 4, XQueryTokenType.EMPTY_ENTITY_REFERENCE);
+        matchToken(lexer, "\"",   13, 4, 5, XQueryTokenType.STRING_LITERAL_END);
+        matchToken(lexer, "",     11, 5, 5, null);
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeValue")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CharRef")
+    @Specification(name="XML 1.0 5ed", reference="https://www.w3.org/TR/2008/REC-xml-20081126/#NT-CharRef")
+    public void testDirAttributeValue_CharRef_Hexadecimal() {
+        Lexer lexer = new XQueryLexer();
+
+        lexer.start("\"One&#x20;&#xae;&#xDC;Two\"", 0, 26, 11);
+        matchToken(lexer, "\"",     11,  0,  1, XQueryTokenType.STRING_LITERAL_START);
+        matchToken(lexer, "One",    13,  1,  4, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "&#x20;", 13,  4, 10, XQueryTokenType.CHARACTER_REFERENCE);
+        matchToken(lexer, "&#xae;", 13, 10, 16, XQueryTokenType.CHARACTER_REFERENCE);
+        matchToken(lexer, "&#xDC;", 13, 16, 22, XQueryTokenType.CHARACTER_REFERENCE);
+        matchToken(lexer, "Two",    13, 22, 25, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "\"",     13, 25, 26, XQueryTokenType.STRING_LITERAL_END);
+        matchToken(lexer, "",       11, 26, 26, null);
+
+        lexer.start("'One&#x20;&#xae;&#xDC;Two'", 0, 26, 11);
+        matchToken(lexer, "'",      11,  0,  1, XQueryTokenType.STRING_LITERAL_START);
+        matchToken(lexer, "One",    14,  1,  4, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "&#x20;", 14,  4, 10, XQueryTokenType.CHARACTER_REFERENCE);
+        matchToken(lexer, "&#xae;", 14, 10, 16, XQueryTokenType.CHARACTER_REFERENCE);
+        matchToken(lexer, "&#xDC;", 14, 16, 22, XQueryTokenType.CHARACTER_REFERENCE);
+        matchToken(lexer, "Two",    14, 22, 25, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "'",      14, 25, 26, XQueryTokenType.STRING_LITERAL_END);
+        matchToken(lexer, "",       11, 26, 26, null);
+
+        lexer.start("\"&#x\"", 0, 5, 11);
+        matchToken(lexer, "\"",  11, 0, 1, XQueryTokenType.STRING_LITERAL_START);
+        matchToken(lexer, "&#x", 13, 1, 4, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "\"",  13, 4, 5, XQueryTokenType.STRING_LITERAL_END);
+        matchToken(lexer, "",    11, 5, 5, null);
+
+        lexer.start("\"&#x \"", 0, 6, 11);
+        matchToken(lexer, "\"",  11, 0, 1, XQueryTokenType.STRING_LITERAL_START);
+        matchToken(lexer, "&#x", 13, 1, 4, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, " ",   13, 4, 5, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "\"",  13, 5, 6, XQueryTokenType.STRING_LITERAL_END);
+        matchToken(lexer, "",    11, 6, 6, null);
+
+        lexer.start("\"&#x", 0, 4, 11);
+        matchToken(lexer, "\"",  11, 0, 1, XQueryTokenType.STRING_LITERAL_START);
+        matchToken(lexer, "&#x", 13, 1, 4, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "",    13, 4, 4, null);
+
+        lexer.start("\"&#x12", 0, 6, 11);
+        matchToken(lexer, "\"",    11, 0, 1, XQueryTokenType.STRING_LITERAL_START);
+        matchToken(lexer, "&#x12", 13, 1, 6, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "",      13, 6, 6, null);
+
+        lexer.start("\"&#x;&#x2G;&#x2g;&#xg2;\"", 0, 24, 11);
+        matchToken(lexer, "\"",   11,  0,  1, XQueryTokenType.STRING_LITERAL_START);
+        matchToken(lexer, "&#x;", 13,  1,  5, XQueryTokenType.EMPTY_ENTITY_REFERENCE);
+        matchToken(lexer, "&#x2", 13,  5,  9, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "G;",   13,  9, 11, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "&#x2", 13, 11, 15, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "g;",   13, 15, 17, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "&#x",  13, 17, 20, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "g2;",  13, 20, 23, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "\"",   13, 23, 24, XQueryTokenType.STRING_LITERAL_END);
+        matchToken(lexer, "",     11, 24, 24, null);
     }
 
     // endregion
@@ -1937,75 +2054,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region Comment + CommentContents
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Comment")
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CommentContents")
-    public void testComment() {
-        Lexer lexer = new XQueryLexer();
-
-        matchSingleToken(lexer, "(:", 4, XQueryTokenType.COMMENT_START_TAG);
-        matchSingleToken(lexer, ":)", 0, XQueryTokenType.COMMENT_END_TAG);
-
-        lexer.start("(: Test :");
-        matchToken(lexer, "(:",      0, 0, 2, XQueryTokenType.COMMENT_START_TAG);
-        matchToken(lexer, " Test :", 4, 2, 9, XQueryTokenType.COMMENT);
-        matchToken(lexer, "",        6, 9, 9, XQueryTokenType.UNEXPECTED_END_OF_BLOCK);
-        matchToken(lexer, "",        0, 9, 9, null);
-
-        lexer.start("(: Test :)");
-        matchToken(lexer, "(:",     0,  0,  2, XQueryTokenType.COMMENT_START_TAG);
-        matchToken(lexer, " Test ", 4,  2,  8, XQueryTokenType.COMMENT);
-        matchToken(lexer, ":)",     4,  8, 10, XQueryTokenType.COMMENT_END_TAG);
-        matchToken(lexer, "",       0, 10, 10, null);
-
-        lexer.start("(::Test::)");
-        matchToken(lexer, "(:",     0,  0,  2, XQueryTokenType.COMMENT_START_TAG);
-        matchToken(lexer, ":Test:", 4,  2,  8, XQueryTokenType.COMMENT);
-        matchToken(lexer, ":)",     4,  8, 10, XQueryTokenType.COMMENT_END_TAG);
-        matchToken(lexer, "",       0, 10, 10, null);
-
-        lexer.start("(:\nMultiline\nComment\n:)");
-        matchToken(lexer, "(:",                     0,  0,  2, XQueryTokenType.COMMENT_START_TAG);
-        matchToken(lexer, "\nMultiline\nComment\n", 4,  2, 21, XQueryTokenType.COMMENT);
-        matchToken(lexer, ":)",                     4, 21, 23, XQueryTokenType.COMMENT_END_TAG);
-        matchToken(lexer, "",                       0, 23, 23, null);
-
-        lexer.start("(: Outer (: Inner :) Outer :)");
-        matchToken(lexer, "(:",                        0,  0,  2, XQueryTokenType.COMMENT_START_TAG);
-        matchToken(lexer, " Outer (: Inner :) Outer ", 4,  2, 27, XQueryTokenType.COMMENT);
-        matchToken(lexer, ":)",                        4, 27, 29, XQueryTokenType.COMMENT_END_TAG);
-        matchToken(lexer, "",                          0, 29, 29, null);
-
-        lexer.start("(: Outer ( : Inner :) Outer :)");
-        matchToken(lexer, "(:",                0,  0,  2, XQueryTokenType.COMMENT_START_TAG);
-        matchToken(lexer, " Outer ( : Inner ", 4,  2, 19, XQueryTokenType.COMMENT);
-        matchToken(lexer, ":)",                4, 19, 21, XQueryTokenType.COMMENT_END_TAG);
-        matchToken(lexer, " ",                 0, 21, 22, XQueryTokenType.WHITE_SPACE);
-        matchToken(lexer, "Outer",             0, 22, 27, XQueryTokenType.NCNAME);
-        matchToken(lexer, " ",                 0, 27, 28, XQueryTokenType.WHITE_SPACE);
-        matchToken(lexer, ":)",                0, 28, 30, XQueryTokenType.COMMENT_END_TAG);
-        matchToken(lexer, "",                  0, 30, 30, null);
-    }
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Comment")
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CommentContents")
-    public void testComment_InitialState() {
-        Lexer lexer = new XQueryLexer();
-
-        lexer.start("(: Test :", 2, 9, 4);
-        matchToken(lexer, " Test :", 4, 2, 9, XQueryTokenType.COMMENT);
-        matchToken(lexer, "",        6, 9, 9, XQueryTokenType.UNEXPECTED_END_OF_BLOCK);
-        matchToken(lexer, "",        0, 9, 9, null);
-
-        lexer.start("(: Test :)", 2, 10, 4);
-        matchToken(lexer, " Test ", 4,  2,  8, XQueryTokenType.COMMENT);
-        matchToken(lexer, ":)",     4,  8, 10, XQueryTokenType.COMMENT_END_TAG);
-        matchToken(lexer, "",       0, 10, 10, null);
-    }
-
-    // endregion
-    // region CharRef
+    // region StringLiteral + CharRef
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CharRef")
@@ -2119,6 +2168,74 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "g2;",  1, 20, 23, XQueryTokenType.STRING_LITERAL_CONTENTS);
         matchToken(lexer, "\"",   1, 23, 24, XQueryTokenType.STRING_LITERAL_END);
         matchToken(lexer, "",     0, 24, 24, null);
+    }
+
+    // endregion
+    // region Comment + CommentContents
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Comment")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CommentContents")
+    public void testComment() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "(:", 4, XQueryTokenType.COMMENT_START_TAG);
+        matchSingleToken(lexer, ":)", 0, XQueryTokenType.COMMENT_END_TAG);
+
+        lexer.start("(: Test :");
+        matchToken(lexer, "(:",      0, 0, 2, XQueryTokenType.COMMENT_START_TAG);
+        matchToken(lexer, " Test :", 4, 2, 9, XQueryTokenType.COMMENT);
+        matchToken(lexer, "",        6, 9, 9, XQueryTokenType.UNEXPECTED_END_OF_BLOCK);
+        matchToken(lexer, "",        0, 9, 9, null);
+
+        lexer.start("(: Test :)");
+        matchToken(lexer, "(:",     0,  0,  2, XQueryTokenType.COMMENT_START_TAG);
+        matchToken(lexer, " Test ", 4,  2,  8, XQueryTokenType.COMMENT);
+        matchToken(lexer, ":)",     4,  8, 10, XQueryTokenType.COMMENT_END_TAG);
+        matchToken(lexer, "",       0, 10, 10, null);
+
+        lexer.start("(::Test::)");
+        matchToken(lexer, "(:",     0,  0,  2, XQueryTokenType.COMMENT_START_TAG);
+        matchToken(lexer, ":Test:", 4,  2,  8, XQueryTokenType.COMMENT);
+        matchToken(lexer, ":)",     4,  8, 10, XQueryTokenType.COMMENT_END_TAG);
+        matchToken(lexer, "",       0, 10, 10, null);
+
+        lexer.start("(:\nMultiline\nComment\n:)");
+        matchToken(lexer, "(:",                     0,  0,  2, XQueryTokenType.COMMENT_START_TAG);
+        matchToken(lexer, "\nMultiline\nComment\n", 4,  2, 21, XQueryTokenType.COMMENT);
+        matchToken(lexer, ":)",                     4, 21, 23, XQueryTokenType.COMMENT_END_TAG);
+        matchToken(lexer, "",                       0, 23, 23, null);
+
+        lexer.start("(: Outer (: Inner :) Outer :)");
+        matchToken(lexer, "(:",                        0,  0,  2, XQueryTokenType.COMMENT_START_TAG);
+        matchToken(lexer, " Outer (: Inner :) Outer ", 4,  2, 27, XQueryTokenType.COMMENT);
+        matchToken(lexer, ":)",                        4, 27, 29, XQueryTokenType.COMMENT_END_TAG);
+        matchToken(lexer, "",                          0, 29, 29, null);
+
+        lexer.start("(: Outer ( : Inner :) Outer :)");
+        matchToken(lexer, "(:",                0,  0,  2, XQueryTokenType.COMMENT_START_TAG);
+        matchToken(lexer, " Outer ( : Inner ", 4,  2, 19, XQueryTokenType.COMMENT);
+        matchToken(lexer, ":)",                4, 19, 21, XQueryTokenType.COMMENT_END_TAG);
+        matchToken(lexer, " ",                 0, 21, 22, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "Outer",             0, 22, 27, XQueryTokenType.NCNAME);
+        matchToken(lexer, " ",                 0, 27, 28, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, ":)",                0, 28, 30, XQueryTokenType.COMMENT_END_TAG);
+        matchToken(lexer, "",                  0, 30, 30, null);
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Comment")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CommentContents")
+    public void testComment_InitialState() {
+        Lexer lexer = new XQueryLexer();
+
+        lexer.start("(: Test :", 2, 9, 4);
+        matchToken(lexer, " Test :", 4, 2, 9, XQueryTokenType.COMMENT);
+        matchToken(lexer, "",        6, 9, 9, XQueryTokenType.UNEXPECTED_END_OF_BLOCK);
+        matchToken(lexer, "",        0, 9, 9, null);
+
+        lexer.start("(: Test :)", 2, 10, 4);
+        matchToken(lexer, " Test ", 4,  2,  8, XQueryTokenType.COMMENT);
+        matchToken(lexer, ":)",     4,  8, 10, XQueryTokenType.COMMENT_END_TAG);
+        matchToken(lexer, "",       0, 10, 10, null);
     }
 
     // endregion
