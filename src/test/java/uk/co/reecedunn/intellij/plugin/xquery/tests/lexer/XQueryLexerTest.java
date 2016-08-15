@@ -863,6 +863,16 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region AbbrevForwardStep
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-AbbrevForwardStep")
+    public void testAbbrevForwardStep() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "@", XQueryTokenType.ATTRIBUTE_SELECTOR);
+    }
+
+    // endregion
     // region VarRef
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-VarRef")
@@ -1260,7 +1270,6 @@ public class XQueryLexerTest extends TestCase {
     public void testDelimitingTerminalSymbols() {
         Lexer lexer = new XQueryLexer();
 
-        matchSingleToken(lexer, "@", XQueryTokenType.ATTRIBUTE_SELECTOR);
         matchSingleToken(lexer, "[", XQueryTokenType.PREDICATE_BEGIN);
         matchSingleToken(lexer, "]", XQueryTokenType.PREDICATE_END);
 
