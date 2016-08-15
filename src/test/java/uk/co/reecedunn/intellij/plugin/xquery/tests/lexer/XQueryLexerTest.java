@@ -899,6 +899,17 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region Wildcard
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-Wildcard")
+    public void testWildcard() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "*", XQueryTokenType.STAR);
+        matchSingleToken(lexer, ":", XQueryTokenType.QNAME_SEPARATOR);
+    }
+
+    // endregion
     // region VarRef
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-VarRef")
