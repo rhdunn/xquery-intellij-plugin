@@ -1279,6 +1279,16 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region NamedFunctionRef (XQuery 3.0)
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-NamedFunctionRef")
+    public void testNamedFunctionRef() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "#", XQueryTokenType.FUNCTION_REF_OPERATOR);
+    }
+
+    // endregion
     // region TypeDeclaration
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-TypeDeclaration")
@@ -1451,16 +1461,6 @@ public class XQueryLexerTest extends TestCase {
         matchSingleToken(lexer, "schema-element", XQueryTokenType.K_SCHEMA_ELEMENT);
         matchSingleToken(lexer, "(",              XQueryTokenType.PARENTHESIS_OPEN);
         matchSingleToken(lexer, ")",              XQueryTokenType.PARENTHESIS_CLOSE);
-    }
-
-    // endregion
-    // region (A.2.2) Terminal Delimitation
-
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#id-terminal-delimitation")
-    public void testDelimitingTerminalSymbols_XQuery30() {
-        Lexer lexer = new XQueryLexer();
-
-        matchSingleToken(lexer, "#", XQueryTokenType.FUNCTION_REF_OPERATOR);
     }
 
     // endregion
