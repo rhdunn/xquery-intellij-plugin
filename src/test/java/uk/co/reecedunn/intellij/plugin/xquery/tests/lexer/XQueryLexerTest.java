@@ -860,6 +860,7 @@ public class XQueryLexerTest extends TestCase {
         matchSingleToken(lexer, "descendant-or-self", XQueryTokenType.K_DESCENDANT_OR_SELF);
         matchSingleToken(lexer, "following-sibling",  XQueryTokenType.K_FOLLOWING_SIBLING);
         matchSingleToken(lexer, "following",          XQueryTokenType.K_FOLLOWING);
+        matchSingleToken(lexer, "::",                 XQueryTokenType.AXIS_SEPARATOR);
     }
 
     // endregion
@@ -870,6 +871,21 @@ public class XQueryLexerTest extends TestCase {
         Lexer lexer = new XQueryLexer();
 
         matchSingleToken(lexer, "@", XQueryTokenType.ATTRIBUTE_SELECTOR);
+    }
+
+    // endregion
+    // region ReverseAxis
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ReverseAxis")
+    public void testReverseAxis() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "parent",            XQueryTokenType.K_PARENT);
+        matchSingleToken(lexer, "ancestor",          XQueryTokenType.K_ANCESTOR);
+        matchSingleToken(lexer, "preceding-sibling", XQueryTokenType.K_PRECEDING_SIBLING);
+        matchSingleToken(lexer, "preceding",         XQueryTokenType.K_PRECEDING);
+        matchSingleToken(lexer, "ancestor-or-self",  XQueryTokenType.K_ANCESTOR_OR_SELF);
+        matchSingleToken(lexer, "::",                XQueryTokenType.AXIS_SEPARATOR);
     }
 
     // endregion
@@ -1273,7 +1289,6 @@ public class XQueryLexerTest extends TestCase {
         matchSingleToken(lexer, "[", XQueryTokenType.PREDICATE_BEGIN);
         matchSingleToken(lexer, "]", XQueryTokenType.PREDICATE_END);
 
-        matchSingleToken(lexer, "::", XQueryTokenType.AXIS_SEPARATOR);
         matchSingleToken(lexer, "..", XQueryTokenType.PARENT_SELECTOR);
         matchSingleToken(lexer, "</", XQueryTokenType.CLOSE_XML_TAG);
         matchSingleToken(lexer, "/>", XQueryTokenType.SELF_CLOSING_XML_TAG);

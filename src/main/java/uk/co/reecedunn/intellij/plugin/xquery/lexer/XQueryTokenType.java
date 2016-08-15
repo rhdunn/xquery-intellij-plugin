@@ -97,6 +97,8 @@ public interface XQueryTokenType extends TokenType {
     IElementType FUNCTION_REF_OPERATOR = new IElementType("XQUERY_FUNCTION_REF_OPERATOR_TOKEN", XQuery.INSTANCE); // XQuery 3.0
     IElementType ANNOTATION_INDICATOR = new IElementType("XQUERY_ANNOTATION_INDICATOR_TOKEN", XQuery.INSTANCE); // XQuery 3.0
 
+    IXQueryKeywordOrNCNameType K_ANCESTOR = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ANCESTOR");
+    IXQueryKeywordOrNCNameType K_ANCESTOR_OR_SELF = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ANCESTOR_OR_SELF");
     IXQueryKeywordOrNCNameType K_AND = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_AND");
     IXQueryKeywordOrNCNameType K_AS = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_AS");
     IXQueryKeywordOrNCNameType K_ASCENDING = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ASCENDING");
@@ -163,6 +165,9 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_ORDER = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ORDER");
     IXQueryKeywordOrNCNameType K_ORDERED = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ORDERED");
     IXQueryKeywordOrNCNameType K_ORDERING = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ORDERING");
+    IXQueryKeywordOrNCNameType K_PARENT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PARENT");
+    IXQueryKeywordOrNCNameType K_PRECEDING = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PRECEDING");
+    IXQueryKeywordOrNCNameType K_PRECEDING_SIBLING = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PRECEDING_SIBLING");
     IXQueryKeywordOrNCNameType K_PRESERVE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PRESERVE");
     IXQueryKeywordOrNCNameType K_PROCESSING_INSTRUCTION = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PROCESSING_INSTRUCTION");
     IXQueryKeywordOrNCNameType K_RETURN = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_RETURN");

@@ -842,6 +842,8 @@ public class XQueryLexer extends LexerBase {
     private static final Map<String, IElementType> sKeywords = new HashMap<>();
 
     static {
+        sKeywords.put("ancestor", XQueryTokenType.K_ANCESTOR);
+        sKeywords.put("ancestor-or-self", XQueryTokenType.K_ANCESTOR_OR_SELF);
         sKeywords.put("and", XQueryTokenType.K_AND);
         sKeywords.put("as", XQueryTokenType.K_AS);
         sKeywords.put("ascending", XQueryTokenType.K_ASCENDING);
@@ -908,6 +910,9 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("order", XQueryTokenType.K_ORDER);
         sKeywords.put("ordered", XQueryTokenType.K_ORDERED);
         sKeywords.put("ordering", XQueryTokenType.K_ORDERING);
+        sKeywords.put("parent", XQueryTokenType.K_PARENT);
+        sKeywords.put("preceding", XQueryTokenType.K_PRECEDING);
+        sKeywords.put("preceding-sibling", XQueryTokenType.K_PRECEDING_SIBLING);
         sKeywords.put("preserve", XQueryTokenType.K_PRESERVE);
         sKeywords.put("processing-instruction", XQueryTokenType.K_PROCESSING_INSTRUCTION);
         sKeywords.put("return", XQueryTokenType.K_RETURN);
