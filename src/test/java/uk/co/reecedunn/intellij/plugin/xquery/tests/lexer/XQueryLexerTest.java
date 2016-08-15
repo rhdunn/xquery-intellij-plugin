@@ -1104,6 +1104,23 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region DirAttributeValue + EscapeApos
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeValue")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-EscapeApos")
+    public void testDirAttributeValue_EscapeApos() {
+        Lexer lexer = new XQueryLexer();
+
+        lexer.start("'One''Two'", 0, 10, 11);
+        matchToken(lexer, "'",    11,  0,  1, XQueryTokenType.STRING_LITERAL_START);
+        matchToken(lexer, "One",  14,  1,  4, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "''",   14,  4,  6, XQueryTokenType.STRING_LITERAL_ESCAPED_CHARACTER);
+        matchToken(lexer, "Two",  14,  6,  9, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "'",    14,  9, 10, XQueryTokenType.STRING_LITERAL_END);
+        matchToken(lexer, "",     11, 10, 10, null);
+    }
+
+    // endregion
     // region DirCommentConstructor + DirCommentContents
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirCommentConstructor")
