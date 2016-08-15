@@ -1121,6 +1121,81 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region DirAttributeValue + PredefinedEntityRef
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeValue")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PredefinedEntityRef")
+    public void testDirAttributeValue_PredefinedEntityRef() {
+        Lexer lexer = new XQueryLexer();
+
+        // NOTE: The predefined entity reference names are not validated by the lexer, as some
+        // XQuery processors support HTML predefined entities. Shifting the name validation to
+        // the parser allows proper validation errors to be generated.
+
+        lexer.start("\"One&abc;&aBc;&Abc;&ABC;&a4;&a;Two\"", 0, 35, 11);
+        matchToken(lexer, "\"",    11,  0,  1, XQueryTokenType.STRING_LITERAL_START);
+        matchToken(lexer, "One",   13,  1,  4, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "&abc;", 13,  4,  9, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE);
+        matchToken(lexer, "&aBc;", 13,  9, 14, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE);
+        matchToken(lexer, "&Abc;", 13, 14, 19, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE);
+        matchToken(lexer, "&ABC;", 13, 19, 24, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE);
+        matchToken(lexer, "&a4;",  13, 24, 28, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE);
+        matchToken(lexer, "&a;",   13, 28, 31, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE);
+        matchToken(lexer, "Two",   13, 31, 34, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "\"",    13, 34, 35, XQueryTokenType.STRING_LITERAL_END);
+        matchToken(lexer, "",      11, 35, 35, null);
+
+        lexer.start("'One&abc;&aBc;&Abc;&ABC;&a4;&a;Two'", 0, 35, 11);
+        matchToken(lexer, "'",     11,  0,  1, XQueryTokenType.STRING_LITERAL_START);
+        matchToken(lexer, "One",   14,  1,  4, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "&abc;", 14,  4,  9, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE);
+        matchToken(lexer, "&aBc;", 14,  9, 14, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE);
+        matchToken(lexer, "&Abc;", 14, 14, 19, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE);
+        matchToken(lexer, "&ABC;", 14, 19, 24, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE);
+        matchToken(lexer, "&a4;",  14, 24, 28, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE);
+        matchToken(lexer, "&a;",   14, 28, 31, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE);
+        matchToken(lexer, "Two",   14, 31, 34, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "'",     14, 34, 35, XQueryTokenType.STRING_LITERAL_END);
+        matchToken(lexer, "",      11, 35, 35, null);
+
+        lexer.start("\"&\"", 0, 3, 11);
+        matchToken(lexer, "\"", 11, 0, 1, XQueryTokenType.STRING_LITERAL_START);
+        matchToken(lexer, "&",  13, 1, 2, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "\"", 13, 2, 3, XQueryTokenType.STRING_LITERAL_END);
+        matchToken(lexer, "",   11, 3, 3, null);
+
+        lexer.start("\"&abc!\"", 0, 7, 11);
+        matchToken(lexer, "\"",   11, 0, 1, XQueryTokenType.STRING_LITERAL_START);
+        matchToken(lexer, "&abc", 13, 1, 5, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "!",    13, 5, 6, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "\"",   13, 6, 7, XQueryTokenType.STRING_LITERAL_END);
+        matchToken(lexer, "",     11, 7, 7, null);
+
+        lexer.start("\"& \"", 0, 4, 11);
+        matchToken(lexer, "\"", 11, 0, 1, XQueryTokenType.STRING_LITERAL_START);
+        matchToken(lexer, "&",  13, 1, 2, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, " ",  13, 2, 3, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "\"", 13, 3, 4, XQueryTokenType.STRING_LITERAL_END);
+        matchToken(lexer, "",   11, 4, 4, null);
+
+        lexer.start("\"&", 0, 2, 11);
+        matchToken(lexer, "\"", 11, 0, 1, XQueryTokenType.STRING_LITERAL_START);
+        matchToken(lexer, "&",  13, 1, 2, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "",   13, 2, 2, null);
+
+        lexer.start("\"&abc", 0, 5, 11);
+        matchToken(lexer, "\"",   11, 0, 1, XQueryTokenType.STRING_LITERAL_START);
+        matchToken(lexer, "&abc", 13, 1, 5, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "",     13, 5, 5, null);
+
+        lexer.start("\"&;\"", 0, 4, 11);
+        matchToken(lexer, "\"", 11, 0, 1, XQueryTokenType.STRING_LITERAL_START);
+        matchToken(lexer, "&;", 13, 1, 3, XQueryTokenType.EMPTY_ENTITY_REFERENCE);
+        matchToken(lexer, "\"", 13, 3, 4, XQueryTokenType.STRING_LITERAL_END);
+        matchToken(lexer, "",   11, 4, 4, null);
+    }
+
+    // endregion
     // region DirCommentConstructor + DirCommentContents
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirCommentConstructor")
