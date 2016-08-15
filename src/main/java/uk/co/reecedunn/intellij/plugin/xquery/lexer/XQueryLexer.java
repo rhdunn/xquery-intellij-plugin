@@ -54,6 +54,8 @@ public class XQueryLexer extends LexerBase {
     private static final int STATE_PRAGMA_PRE_QNAME = 8;
     private static final int STATE_PRAGMA_QNAME = 9;
     private static final int STATE_PRAGMA_CONTENTS = 10;
+    private static final int STATE_DIR_ELEM_CONSTRUCTOR = 11;
+    private static final int STATE_DIR_ELEM_CONSTRUCTOR_CLOSING = 12;
 
     private void stateDefault() {
         int cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
@@ -288,7 +290,12 @@ public class XQueryLexer extends LexerBase {
                         mType = XQueryTokenType.INVALID;
                     }
                 } else {
-                    mType = XQueryTokenType.LESS_THAN;
+                    if (CharacterClass.getCharClass(mTokenRange.getCodePoint()) == CharacterClass.NAME_START_CHAR) {
+                        mType = XQueryTokenType.OPEN_XML_TAG;
+                        pushState(STATE_DIR_ELEM_CONSTRUCTOR);
+                    } else {
+                        mType = XQueryTokenType.LESS_THAN;
+                    }
                 }
                 break;
             case CharacterClass.GREATER_THAN:
@@ -681,6 +688,68 @@ public class XQueryLexer extends LexerBase {
         }
     }
 
+    private void stateDirElemConstructor(int state) {
+        int cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
+        int c;
+        switch (cc) {
+            case CharacterClass.WHITESPACE:
+                mTokenRange.match();
+                while (CharacterClass.getCharClass(mTokenRange.getCodePoint()) == CharacterClass.WHITESPACE)
+                    mTokenRange.match();
+                mType = XQueryTokenType.WHITE_SPACE;
+                break;
+            case CharacterClass.COLON:
+                mTokenRange.match();
+                mType = XQueryTokenType.QNAME_SEPARATOR;
+                break;
+            case CharacterClass.NAME_START_CHAR:
+                mTokenRange.match();
+                cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
+                while (cc == CharacterClass.NAME_START_CHAR ||
+                       cc == CharacterClass.DIGIT ||
+                       cc == CharacterClass.DOT ||
+                       cc == CharacterClass.HYPHEN_MINUS ||
+                       cc == CharacterClass.NAME_CHAR) {
+                    mTokenRange.match();
+                    cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
+                }
+                mType = XQueryTokenType.NCNAME;
+                break;
+            case CharacterClass.LESS_THAN:
+                mTokenRange.match();
+                c = mTokenRange.getCodePoint();
+                if (c == '/') {
+                    mTokenRange.match();
+                    mType = XQueryTokenType.CLOSE_XML_TAG;
+                } else {
+                    mType = XQueryTokenType.LESS_THAN;
+                }
+                break;
+            case CharacterClass.GREATER_THAN:
+                mTokenRange.match();
+                mType = XQueryTokenType.END_XML_TAG;
+                popState();
+                if (state == STATE_DIR_ELEM_CONSTRUCTOR) {
+                    pushState(STATE_DIR_ELEM_CONSTRUCTOR_CLOSING);
+                }
+                break;
+            case CharacterClass.FORWARD_SLASH:
+                mTokenRange.match();
+                c = mTokenRange.getCodePoint();
+                if (c == '>') {
+                    mTokenRange.match();
+                    mType = XQueryTokenType.SELF_CLOSING_XML_TAG;
+                    popState();
+                } else {
+                    mType = XQueryTokenType.DIRECT_DESCENDANTS_PATH;
+                }
+                break;
+            default:
+                mType = null;
+                break;
+        }
+    }
+
     // endregion
     // region Helper Functions
 
@@ -799,6 +868,10 @@ public class XQueryLexer extends LexerBase {
                 break;
             case STATE_PRAGMA_CONTENTS:
                 statePragmaContents();
+                break;
+            case STATE_DIR_ELEM_CONSTRUCTOR:
+            case STATE_DIR_ELEM_CONSTRUCTOR_CLOSING:
+                stateDirElemConstructor(mState);
                 break;
             default:
                 throw new AssertionError("Invalid state: " + mState);

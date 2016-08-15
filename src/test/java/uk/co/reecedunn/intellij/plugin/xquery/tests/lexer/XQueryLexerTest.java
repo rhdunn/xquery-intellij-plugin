@@ -999,6 +999,28 @@ public class XQueryLexerTest extends TestCase {
 
         matchSingleToken(lexer, "</", XQueryTokenType.CLOSE_XML_TAG);
         matchSingleToken(lexer, "/>", XQueryTokenType.SELF_CLOSING_XML_TAG);
+
+        lexer.start("<one:two/>");
+        matchToken(lexer, "<",    0,  0,  1, XQueryTokenType.OPEN_XML_TAG);
+        matchToken(lexer, "one", 11,  1,  4, XQueryTokenType.NCNAME);
+        matchToken(lexer, ":",   11,  4,  5, XQueryTokenType.QNAME_SEPARATOR);
+        matchToken(lexer, "two", 11,  5,  8, XQueryTokenType.NCNAME);
+        matchToken(lexer, "/>",  11,  8, 10, XQueryTokenType.SELF_CLOSING_XML_TAG);
+        matchToken(lexer, "",     0, 10, 10, null);
+
+        lexer.start("<one:two></one:two  >");
+        matchToken(lexer, "<",    0,  0,  1, XQueryTokenType.OPEN_XML_TAG);
+        matchToken(lexer, "one", 11,  1,  4, XQueryTokenType.NCNAME);
+        matchToken(lexer, ":",   11,  4,  5, XQueryTokenType.QNAME_SEPARATOR);
+        matchToken(lexer, "two", 11,  5,  8, XQueryTokenType.NCNAME);
+        matchToken(lexer, ">",   11,  8,  9, XQueryTokenType.END_XML_TAG);
+        matchToken(lexer, "</",  12,  9, 11, XQueryTokenType.CLOSE_XML_TAG);
+        matchToken(lexer, "one", 12, 11, 14, XQueryTokenType.NCNAME);
+        matchToken(lexer, ":",   12, 14, 15, XQueryTokenType.QNAME_SEPARATOR);
+        matchToken(lexer, "two", 12, 15, 18, XQueryTokenType.NCNAME);
+        matchToken(lexer, "  ",  12, 18, 20, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, ">",   12, 20, 21, XQueryTokenType.END_XML_TAG);
+        matchToken(lexer, "",     0, 21, 21, null);
     }
 
     // endregion
