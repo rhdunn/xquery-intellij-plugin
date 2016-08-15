@@ -1071,6 +1071,17 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region DirPIConstructor
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirPIConstructor")
+    public void testDirPIConstructor() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "<?", XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN);
+        matchSingleToken(lexer, "?>", XQueryTokenType.PROCESSING_INSTRUCTION_END);
+    }
+
+    // endregion
     // region CDataSection + CDataSectionContents
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CDataSection")
@@ -1327,14 +1338,6 @@ public class XQueryLexerTest extends TestCase {
 
     // endregion
     // region (A.2.2) Terminal Delimitation
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#id-terminal-delimitation")
-    public void testDelimitingTerminalSymbols() {
-        Lexer lexer = new XQueryLexer();
-
-        matchSingleToken(lexer, "<?", XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN);
-        matchSingleToken(lexer, "?>", XQueryTokenType.PROCESSING_INSTRUCTION_END);
-    }
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#id-terminal-delimitation")
     public void testDelimitingTerminalSymbols_XQuery30() {
