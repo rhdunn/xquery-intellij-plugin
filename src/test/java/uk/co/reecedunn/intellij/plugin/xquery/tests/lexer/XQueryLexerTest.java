@@ -299,6 +299,19 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region Annotation (XQuery 3.0)
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-Annotation")
+    public void testAnnotation() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "%", XQueryTokenType.ANNOTATION_INDICATOR);
+        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN);
+        matchSingleToken(lexer, ",", XQueryTokenType.COMMA);
+        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE);
+    }
+
+    // endregion
     // region VarDecl
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-VarDecl")
@@ -1439,7 +1452,6 @@ public class XQueryLexerTest extends TestCase {
 
         matchSingleToken(lexer, "!", XQueryTokenType.MAP_OPERATOR);
         matchSingleToken(lexer, "#", XQueryTokenType.FUNCTION_REF_OPERATOR);
-        matchSingleToken(lexer, "%", XQueryTokenType.ANNOTATION_INDICATOR);
     }
 
     // endregion
