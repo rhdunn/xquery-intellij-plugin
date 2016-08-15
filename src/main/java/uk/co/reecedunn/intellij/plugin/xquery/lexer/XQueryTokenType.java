@@ -121,6 +121,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_DESCENDANT_OR_SELF = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DESCENDANT_OR_SELF");
     IXQueryKeywordOrNCNameType K_DESCENDING = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DESCENDING");
     IXQueryKeywordOrNCNameType K_DIV = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DIV");
+    IXQueryKeywordOrNCNameType K_DOCUMENT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DOCUMENT");
     IXQueryKeywordOrNCNameType K_DOCUMENT_NODE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DOCUMENT_NODE");
     IXQueryKeywordOrNCNameType K_ELEMENT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ELEMENT");
     IXQueryKeywordOrNCNameType K_ELSE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ELSE");

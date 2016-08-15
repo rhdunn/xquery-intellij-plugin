@@ -866,6 +866,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("descendant-or-self", XQueryTokenType.K_DESCENDANT_OR_SELF);
         sKeywords.put("descending", XQueryTokenType.K_DESCENDING);
         sKeywords.put("div", XQueryTokenType.K_DIV);
+        sKeywords.put("document", XQueryTokenType.K_DOCUMENT);
         sKeywords.put("document-node", XQueryTokenType.K_DOCUMENT_NODE);
         sKeywords.put("element", XQueryTokenType.K_ELEMENT);
         sKeywords.put("else", XQueryTokenType.K_ELSE);
