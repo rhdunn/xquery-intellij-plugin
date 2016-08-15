@@ -847,6 +847,22 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region ForwardAxis
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ForwardAxis")
+    public void testForwardAxis() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "child",              XQueryTokenType.K_CHILD);
+        matchSingleToken(lexer, "descendant",         XQueryTokenType.K_DESCENDANT);
+        matchSingleToken(lexer, "attribute",          XQueryTokenType.K_ATTRIBUTE);
+        matchSingleToken(lexer, "self",               XQueryTokenType.K_SELF);
+        matchSingleToken(lexer, "descendant-or-self", XQueryTokenType.K_DESCENDANT_OR_SELF);
+        matchSingleToken(lexer, "following-sibling",  XQueryTokenType.K_FOLLOWING_SIBLING);
+        matchSingleToken(lexer, "following",          XQueryTokenType.K_FOLLOWING);
+    }
+
+    // endregion
     // region VarRef
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-VarRef")

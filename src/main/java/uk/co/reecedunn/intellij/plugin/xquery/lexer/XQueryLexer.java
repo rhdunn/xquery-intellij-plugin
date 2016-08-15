@@ -853,12 +853,15 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("case", XQueryTokenType.K_CASE);
         sKeywords.put("cast", XQueryTokenType.K_CAST);
         sKeywords.put("castable", XQueryTokenType.K_CASTABLE);
+        sKeywords.put("child", XQueryTokenType.K_CHILD);
         sKeywords.put("collation", XQueryTokenType.K_COLLATION);
         sKeywords.put("comment", XQueryTokenType.K_COMMENT);
         sKeywords.put("construction", XQueryTokenType.K_CONSTRUCTION);
         sKeywords.put("copy-namespaces", XQueryTokenType.K_COPY_NAMESPACES);
         sKeywords.put("declare", XQueryTokenType.K_DECLARE);
         sKeywords.put("default", XQueryTokenType.K_DEFAULT);
+        sKeywords.put("descendant", XQueryTokenType.K_DESCENDANT);
+        sKeywords.put("descendant-or-self", XQueryTokenType.K_DESCENDANT_OR_SELF);
         sKeywords.put("descending", XQueryTokenType.K_DESCENDING);
         sKeywords.put("div", XQueryTokenType.K_DIV);
         sKeywords.put("document-node", XQueryTokenType.K_DOCUMENT_NODE);
@@ -871,6 +874,8 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("every", XQueryTokenType.K_EVERY);
         sKeywords.put("except", XQueryTokenType.K_EXCEPT);
         sKeywords.put("external", XQueryTokenType.K_EXTERNAL);
+        sKeywords.put("following", XQueryTokenType.K_FOLLOWING);
+        sKeywords.put("following-sibling", XQueryTokenType.K_FOLLOWING_SIBLING);
         sKeywords.put("for", XQueryTokenType.K_FOR);
         sKeywords.put("function", XQueryTokenType.K_FUNCTION);
         sKeywords.put("ge", XQueryTokenType.K_GE);
@@ -910,6 +915,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("schema", XQueryTokenType.K_SCHEMA);
         sKeywords.put("schema-attribute", XQueryTokenType.K_SCHEMA_ATTRIBUTE);
         sKeywords.put("schema-element", XQueryTokenType.K_SCHEMA_ELEMENT);
+        sKeywords.put("self", XQueryTokenType.K_SELF);
         sKeywords.put("some", XQueryTokenType.K_SOME);
         sKeywords.put("stable", XQueryTokenType.K_STABLE);
         sKeywords.put("strict", XQueryTokenType.K_STRICT);
