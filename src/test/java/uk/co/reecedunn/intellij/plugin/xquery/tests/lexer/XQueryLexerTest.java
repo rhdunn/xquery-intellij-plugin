@@ -889,6 +889,16 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region AbbrevReverseStep
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-AbbrevReverseStep")
+    public void testAbbrevReverseStep() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "..", XQueryTokenType.PARENT_SELECTOR);
+    }
+
+    // endregion
     // region VarRef
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-VarRef")
@@ -1289,7 +1299,6 @@ public class XQueryLexerTest extends TestCase {
         matchSingleToken(lexer, "[", XQueryTokenType.PREDICATE_BEGIN);
         matchSingleToken(lexer, "]", XQueryTokenType.PREDICATE_END);
 
-        matchSingleToken(lexer, "..", XQueryTokenType.PARENT_SELECTOR);
         matchSingleToken(lexer, "</", XQueryTokenType.CLOSE_XML_TAG);
         matchSingleToken(lexer, "/>", XQueryTokenType.SELF_CLOSING_XML_TAG);
         matchSingleToken(lexer, "<?", XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN);
