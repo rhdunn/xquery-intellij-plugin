@@ -1186,6 +1186,18 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region CompAttrConstructor
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-CompAttrConstructor")
+    public void testCompAttrConstructor() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "attribute", XQueryTokenType.K_ATTRIBUTE);
+        matchSingleToken(lexer, "{",         XQueryTokenType.BLOCK_OPEN);
+        matchSingleToken(lexer, "}",         XQueryTokenType.BLOCK_CLOSE);
+    }
+
+    // endregion
     // region TypeDeclaration
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-TypeDeclaration")
