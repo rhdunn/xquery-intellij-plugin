@@ -838,6 +838,16 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region SimpleMapExpr (XQuery 3.0)
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-SimpleMapExpr")
+    public void testSimpleMapExpr() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "!", XQueryTokenType.MAP_OPERATOR);
+    }
+
+    // endregion
     // region PathExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-PathExpr")
@@ -1450,7 +1460,6 @@ public class XQueryLexerTest extends TestCase {
     public void testDelimitingTerminalSymbols_XQuery30() {
         Lexer lexer = new XQueryLexer();
 
-        matchSingleToken(lexer, "!", XQueryTokenType.MAP_OPERATOR);
         matchSingleToken(lexer, "#", XQueryTokenType.FUNCTION_REF_OPERATOR);
     }
 
