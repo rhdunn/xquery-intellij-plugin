@@ -910,6 +910,17 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region Predicate
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-Predicate")
+    public void testPredicate() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "[", XQueryTokenType.PREDICATE_BEGIN);
+        matchSingleToken(lexer, "]", XQueryTokenType.PREDICATE_END);
+    }
+
+    // endregion
     // region VarRef
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-VarRef")
@@ -1306,9 +1317,6 @@ public class XQueryLexerTest extends TestCase {
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#id-terminal-delimitation")
     public void testDelimitingTerminalSymbols() {
         Lexer lexer = new XQueryLexer();
-
-        matchSingleToken(lexer, "[", XQueryTokenType.PREDICATE_BEGIN);
-        matchSingleToken(lexer, "]", XQueryTokenType.PREDICATE_END);
 
         matchSingleToken(lexer, "</", XQueryTokenType.CLOSE_XML_TAG);
         matchSingleToken(lexer, "/>", XQueryTokenType.SELF_CLOSING_XML_TAG);
