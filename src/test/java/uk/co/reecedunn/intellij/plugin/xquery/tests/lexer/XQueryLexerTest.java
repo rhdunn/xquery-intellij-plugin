@@ -1047,6 +1047,46 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region DirAttributeList + DirAttributeValue
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirAttributeList")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirAttributeValue")
+    public void testDirAttributeList() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "=", XQueryTokenType.EQUAL);
+
+        lexer.start("<one:two  a:b  =  \"One\"  c:d  =  'Two'  />");
+        matchToken(lexer, "<",    0,  0,  1, XQueryTokenType.OPEN_XML_TAG);
+        matchToken(lexer, "one", 11,  1,  4, XQueryTokenType.NCNAME);
+        matchToken(lexer, ":",   11,  4,  5, XQueryTokenType.QNAME_SEPARATOR);
+        matchToken(lexer, "two", 11,  5,  8, XQueryTokenType.NCNAME);
+        matchToken(lexer, "  ",  11,  8, 10, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "a",   11, 10, 11, XQueryTokenType.NCNAME);
+        matchToken(lexer, ":",   11, 11, 12, XQueryTokenType.QNAME_SEPARATOR);
+        matchToken(lexer, "b",   11, 12, 13, XQueryTokenType.NCNAME);
+        matchToken(lexer, "  ",  11, 13, 15, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "=",   11, 15, 16, XQueryTokenType.EQUAL);
+        matchToken(lexer, "  ",  11, 16, 18, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "\"",  11, 18, 19, XQueryTokenType.STRING_LITERAL_START);
+        matchToken(lexer, "One", 13, 19, 22, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "\"",  13, 22, 23, XQueryTokenType.STRING_LITERAL_END);
+        matchToken(lexer, "  ",  11, 23, 25, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "c",   11, 25, 26, XQueryTokenType.NCNAME);
+        matchToken(lexer, ":",   11, 26, 27, XQueryTokenType.QNAME_SEPARATOR);
+        matchToken(lexer, "d",   11, 27, 28, XQueryTokenType.NCNAME);
+        matchToken(lexer, "  ",  11, 28, 30, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "=",   11, 30, 31, XQueryTokenType.EQUAL);
+        matchToken(lexer, "  ",  11, 31, 33, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "'",   11, 33, 34, XQueryTokenType.STRING_LITERAL_START);
+        matchToken(lexer, "Two", 14, 34, 37, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "'",   14, 37, 38, XQueryTokenType.STRING_LITERAL_END);
+        matchToken(lexer, "  ",  11, 38, 40, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "/>",  11, 40, 42, XQueryTokenType.SELF_CLOSING_XML_TAG);
+        matchToken(lexer, "",     0, 42, 42, null);
+    }
+
+    // endregion
     // region DirCommentConstructor + DirCommentContents
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirCommentConstructor")

@@ -56,6 +56,8 @@ public class XQueryLexer extends LexerBase {
     private static final int STATE_PRAGMA_CONTENTS = 10;
     private static final int STATE_DIR_ELEM_CONSTRUCTOR = 11;
     private static final int STATE_DIR_ELEM_CONSTRUCTOR_CLOSING = 12;
+    private static final int STATE_XML_ATTRIBUTE_QUOTE = 13;
+    private static final int STATE_XML_ATTRIBUTE_APOSTROPHE = 14;
 
     private void stateDefault() {
         int cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
@@ -744,6 +746,16 @@ public class XQueryLexer extends LexerBase {
                     mType = XQueryTokenType.DIRECT_DESCENDANTS_PATH;
                 }
                 break;
+            case CharacterClass.EQUAL:
+                mTokenRange.match();
+                mType = XQueryTokenType.EQUAL;
+                break;
+            case CharacterClass.QUOTE:
+            case CharacterClass.APOSTROPHE:
+                mTokenRange.match();
+                mType = XQueryTokenType.STRING_LITERAL_START;
+                pushState((cc == CharacterClass.QUOTE) ? STATE_XML_ATTRIBUTE_QUOTE : STATE_XML_ATTRIBUTE_APOSTROPHE);
+                break;
             default:
                 mType = null;
                 break;
@@ -840,9 +852,11 @@ public class XQueryLexer extends LexerBase {
                 stateDefault();
                 break;
             case STATE_STRING_LITERAL_QUOTE:
+            case STATE_XML_ATTRIBUTE_QUOTE:
                 stateStringLiteral('"');
                 break;
             case STATE_STRING_LITERAL_APOSTROPHE:
+            case STATE_XML_ATTRIBUTE_APOSTROPHE:
                 stateStringLiteral('\'');
                 break;
             case STATE_DOUBLE_EXPONENT:
