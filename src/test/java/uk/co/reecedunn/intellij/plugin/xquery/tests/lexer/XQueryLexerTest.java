@@ -836,6 +836,17 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region RelativePathExpr
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-RelativePathExpr")
+    public void testRelativePathExpr() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "/",  XQueryTokenType.DIRECT_DESCENDANTS_PATH);
+        matchSingleToken(lexer, "//", XQueryTokenType.ALL_DESCENDANTS_PATH);
+    }
+
+    // endregion
     // region VarRef
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-VarRef")
