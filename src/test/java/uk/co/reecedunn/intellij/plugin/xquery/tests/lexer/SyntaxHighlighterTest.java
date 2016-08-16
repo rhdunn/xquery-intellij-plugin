@@ -105,8 +105,8 @@ public class SyntaxHighlighterTest extends TestCase {
     public void testTokenHighlights_EscapedCharacter() {
         SyntaxHighlighter highlighter = new SyntaxHighlighter();
 
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.STRING_LITERAL_ESCAPED_CHARACTER).length, is(1));
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.STRING_LITERAL_ESCAPED_CHARACTER)[0], is(SyntaxHighlighter.ESCAPED_CHARACTER));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.ESCAPED_CHARACTER).length, is(1));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.ESCAPED_CHARACTER)[0], is(SyntaxHighlighter.ESCAPED_CHARACTER));
     }
 
     public void testTokenHighlights_EntityReference() {
@@ -434,8 +434,10 @@ public class SyntaxHighlighterTest extends TestCase {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.PRAGMA_END).length, is(0));
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.OPEN_XML_TAG).length, is(0));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.END_XML_TAG).length, is(0));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.CLOSE_XML_TAG).length, is(0));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.SELF_CLOSING_XML_TAG).length, is(0));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_ELEMENT_CONTENTS).length, is(0));
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.NOT_EQUAL).length, is(0));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.VARIABLE_INDICATOR).length, is(0));

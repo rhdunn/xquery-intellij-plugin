@@ -21,7 +21,6 @@ import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.impl.xquery.*;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVarName;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 
@@ -210,7 +209,7 @@ public class XQueryASTFactory extends ASTFactory {
             return new XQueryPredefinedEntityRefImpl(type, text);
         } else if (type == XQueryTokenType.CHARACTER_REFERENCE) {
             return new XQueryCharRefImpl(type, text);
-        } else if (type == XQueryTokenType.STRING_LITERAL_ESCAPED_CHARACTER) {
+        } else if (type == XQueryTokenType.ESCAPED_CHARACTER) {
             return new XQueryEscapeCharacterImpl(type, text);
         }
 

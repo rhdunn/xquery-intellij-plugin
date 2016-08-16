@@ -79,7 +79,7 @@ public class ColorSettingsPageTest extends TestCase {
         matchToken(lexer, highlighter, XQueryTokenType.WHITE_SPACE, null);
         matchToken(lexer, highlighter, XQueryTokenType.STRING_LITERAL_START, SyntaxHighlighter.STRING);
         matchToken(lexer, highlighter, XQueryTokenType.STRING_LITERAL_CONTENTS, SyntaxHighlighter.STRING);
-        matchToken(lexer, highlighter, XQueryTokenType.STRING_LITERAL_ESCAPED_CHARACTER, SyntaxHighlighter.ESCAPED_CHARACTER);
+        matchToken(lexer, highlighter, XQueryTokenType.ESCAPED_CHARACTER, SyntaxHighlighter.ESCAPED_CHARACTER);
         matchToken(lexer, highlighter, XQueryTokenType.STRING_LITERAL_CONTENTS, SyntaxHighlighter.STRING);
         matchToken(lexer, highlighter, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE, SyntaxHighlighter.ENTITY_REFERENCE);
         matchToken(lexer, highlighter, XQueryTokenType.STRING_LITERAL_CONTENTS, SyntaxHighlighter.STRING);

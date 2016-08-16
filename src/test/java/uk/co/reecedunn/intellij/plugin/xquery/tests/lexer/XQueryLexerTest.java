@@ -1037,7 +1037,7 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, ":",   11,  4,  5, XQueryTokenType.QNAME_SEPARATOR);
         matchToken(lexer, "two", 11,  5,  8, XQueryTokenType.NCNAME);
         matchToken(lexer, ">",   11,  8,  9, XQueryTokenType.END_XML_TAG);
-        matchToken(lexer, "</",  12,  9, 11, XQueryTokenType.CLOSE_XML_TAG);
+        matchToken(lexer, "</",  17,  9, 11, XQueryTokenType.CLOSE_XML_TAG);
         matchToken(lexer, "one", 12, 11, 14, XQueryTokenType.NCNAME);
         matchToken(lexer, ":",   12, 14, 15, XQueryTokenType.QNAME_SEPARATOR);
         matchToken(lexer, "two", 12, 15, 18, XQueryTokenType.NCNAME);
@@ -1098,15 +1098,15 @@ public class XQueryLexerTest extends TestCase {
 
         lexer.start("\"{{}}\"", 0, 6, 11);
         matchToken(lexer, "\"",           11, 0, 1, XQueryTokenType.STRING_LITERAL_START);
-        matchToken(lexer, "{{",           13, 1, 3, XQueryTokenType.STRING_LITERAL_ESCAPED_CHARACTER);
-        matchToken(lexer, "}}",           13, 3, 5, XQueryTokenType.STRING_LITERAL_ESCAPED_CHARACTER);
+        matchToken(lexer, "{{",           13, 1, 3, XQueryTokenType.ESCAPED_CHARACTER);
+        matchToken(lexer, "}}",           13, 3, 5, XQueryTokenType.ESCAPED_CHARACTER);
         matchToken(lexer, "\"",           13, 5, 6, XQueryTokenType.STRING_LITERAL_END);
         matchToken(lexer, "",             11, 6, 6, null);
 
         lexer.start("'{{}}'", 0, 6, 11);
         matchToken(lexer, "'",            11, 0, 1, XQueryTokenType.STRING_LITERAL_START);
-        matchToken(lexer, "{{",           14, 1, 3, XQueryTokenType.STRING_LITERAL_ESCAPED_CHARACTER);
-        matchToken(lexer, "}}",           14, 3, 5, XQueryTokenType.STRING_LITERAL_ESCAPED_CHARACTER);
+        matchToken(lexer, "{{",           14, 1, 3, XQueryTokenType.ESCAPED_CHARACTER);
+        matchToken(lexer, "}}",           14, 3, 5, XQueryTokenType.ESCAPED_CHARACTER);
         matchToken(lexer, "'",            14, 5, 6, XQueryTokenType.STRING_LITERAL_END);
         matchToken(lexer, "",             11, 6, 6, null);
     }
@@ -1237,7 +1237,7 @@ public class XQueryLexerTest extends TestCase {
         lexer.start("\"One\"\"Two\"", 0, 10, 11);
         matchToken(lexer, "\"",   11,  0,  1, XQueryTokenType.STRING_LITERAL_START);
         matchToken(lexer, "One",  13,  1,  4, XQueryTokenType.STRING_LITERAL_CONTENTS);
-        matchToken(lexer, "\"\"", 13,  4,  6, XQueryTokenType.STRING_LITERAL_ESCAPED_CHARACTER);
+        matchToken(lexer, "\"\"", 13,  4,  6, XQueryTokenType.ESCAPED_CHARACTER);
         matchToken(lexer, "Two",  13,  6,  9, XQueryTokenType.STRING_LITERAL_CONTENTS);
         matchToken(lexer, "\"",   13,  9, 10, XQueryTokenType.STRING_LITERAL_END);
         matchToken(lexer, "",     11, 10, 10, null);
@@ -1254,7 +1254,7 @@ public class XQueryLexerTest extends TestCase {
         lexer.start("'One''Two'", 0, 10, 11);
         matchToken(lexer, "'",    11,  0,  1, XQueryTokenType.STRING_LITERAL_START);
         matchToken(lexer, "One",  14,  1,  4, XQueryTokenType.STRING_LITERAL_CONTENTS);
-        matchToken(lexer, "''",   14,  4,  6, XQueryTokenType.STRING_LITERAL_ESCAPED_CHARACTER);
+        matchToken(lexer, "''",   14,  4,  6, XQueryTokenType.ESCAPED_CHARACTER);
         matchToken(lexer, "Two",  14,  6,  9, XQueryTokenType.STRING_LITERAL_CONTENTS);
         matchToken(lexer, "'",    14,  9, 10, XQueryTokenType.STRING_LITERAL_END);
         matchToken(lexer, "",     11, 10, 10, null);
@@ -1375,6 +1375,31 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "g2;",  13, 20, 23, XQueryTokenType.STRING_LITERAL_CONTENTS);
         matchToken(lexer, "\"",   13, 23, 24, XQueryTokenType.STRING_LITERAL_END);
         matchToken(lexer, "",     11, 24, 24, null);
+    }
+
+    // endregion
+    // region DirElemContent + ElementContentChar
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirElemContent")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ElementContentChar")
+    public void testDirElemContent_ElementContentChar() {
+        Lexer lexer = new XQueryLexer();
+
+        lexer.start("<a>One {2}<& こんばんは。</a>");
+        matchToken(lexer, "<",             0,  0,  1, XQueryTokenType.OPEN_XML_TAG);
+        matchToken(lexer, "a",            11,  1,  2, XQueryTokenType.NCNAME);
+        matchToken(lexer, ">",            11,  2,  3, XQueryTokenType.END_XML_TAG);
+        matchToken(lexer, "One ",         17,  3,  7, XQueryTokenType.XML_ELEMENT_CONTENTS);
+        matchToken(lexer, "{",            17,  7,  8, XQueryTokenType.BLOCK_OPEN);
+        matchToken(lexer, "2",            18,  8,  9, XQueryTokenType.INTEGER_LITERAL);
+        matchToken(lexer, "}",            18,  9, 10, XQueryTokenType.BLOCK_CLOSE);
+        matchToken(lexer, "<",            17, 10, 11, XQueryTokenType.BAD_CHARACTER);
+        matchToken(lexer, "&",            17, 11, 12, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, " こんばんは。", 17, 12, 19, XQueryTokenType.XML_ELEMENT_CONTENTS);
+        matchToken(lexer, "</",           17, 19, 21, XQueryTokenType.CLOSE_XML_TAG);
+        matchToken(lexer, "a",            12, 21, 22, XQueryTokenType.NCNAME);
+        matchToken(lexer, ">",            12, 22, 23, XQueryTokenType.END_XML_TAG);
+        matchToken(lexer, "",              0, 23, 23, null);
     }
 
     // endregion
@@ -2095,7 +2120,7 @@ public class XQueryLexerTest extends TestCase {
         lexer.start("\"One\"\"Two\"");
         matchToken(lexer, "\"",   0,  0,  1, XQueryTokenType.STRING_LITERAL_START);
         matchToken(lexer, "One",  1,  1,  4, XQueryTokenType.STRING_LITERAL_CONTENTS);
-        matchToken(lexer, "\"\"", 1,  4,  6, XQueryTokenType.STRING_LITERAL_ESCAPED_CHARACTER);
+        matchToken(lexer, "\"\"", 1,  4,  6, XQueryTokenType.ESCAPED_CHARACTER);
         matchToken(lexer, "Two",  1,  6,  9, XQueryTokenType.STRING_LITERAL_CONTENTS);
         matchToken(lexer, "\"",   1,  9, 10, XQueryTokenType.STRING_LITERAL_END);
         matchToken(lexer, "",     0, 10, 10, null);
@@ -2112,7 +2137,7 @@ public class XQueryLexerTest extends TestCase {
         lexer.start("'One''Two'");
         matchToken(lexer, "'",    0,  0,  1, XQueryTokenType.STRING_LITERAL_START);
         matchToken(lexer, "One",  2,  1,  4, XQueryTokenType.STRING_LITERAL_CONTENTS);
-        matchToken(lexer, "''",   2,  4,  6, XQueryTokenType.STRING_LITERAL_ESCAPED_CHARACTER);
+        matchToken(lexer, "''",   2,  4,  6, XQueryTokenType.ESCAPED_CHARACTER);
         matchToken(lexer, "Two",  2,  6,  9, XQueryTokenType.STRING_LITERAL_CONTENTS);
         matchToken(lexer, "'",    2,  9, 10, XQueryTokenType.STRING_LITERAL_END);
         matchToken(lexer, "",     0, 10, 10, null);

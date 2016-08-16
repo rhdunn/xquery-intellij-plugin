@@ -69,7 +69,7 @@ public class XQueryParserDefinitionTest extends ParserTestCase {
         assertThat(tokens.contains(XQueryTokenType.STRING_LITERAL_START), is(true));
         assertThat(tokens.contains(XQueryTokenType.STRING_LITERAL_CONTENTS), is(true));
         assertThat(tokens.contains(XQueryTokenType.STRING_LITERAL_END), is(true));
-        assertThat(tokens.contains(XQueryTokenType.STRING_LITERAL_ESCAPED_CHARACTER), is(true));
+        assertThat(tokens.contains(XQueryTokenType.ESCAPED_CHARACTER), is(true));
         assertThat(tokens.contains(XQueryTokenType.CHARACTER_REFERENCE), is(true));
         assertThat(tokens.contains(XQueryTokenType.PREDEFINED_ENTITY_REFERENCE), is(true));
         assertThat(tokens.contains(XQueryTokenType.PARTIAL_ENTITY_REFERENCE), is(true));

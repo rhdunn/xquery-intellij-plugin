@@ -1743,7 +1743,7 @@ class XQueryParser {
             if (matchTokenType(XQueryTokenType.STRING_LITERAL_CONTENTS) ||
                 matchTokenType(XQueryTokenType.PREDEFINED_ENTITY_REFERENCE) ||
                 matchTokenType(XQueryTokenType.CHARACTER_REFERENCE) ||
-                matchTokenType(XQueryTokenType.STRING_LITERAL_ESCAPED_CHARACTER)) {
+                matchTokenType(XQueryTokenType.ESCAPED_CHARACTER)) {
                 //
             } else if (matchTokenType(XQueryTokenType.STRING_LITERAL_END)) {
                 stringMarker.done(type);

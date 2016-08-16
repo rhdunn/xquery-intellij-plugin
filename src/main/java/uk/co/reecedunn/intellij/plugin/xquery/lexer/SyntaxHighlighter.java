@@ -21,7 +21,6 @@ import com.intellij.openapi.editor.HighlighterColors;
 import com.intellij.openapi.editor.colors.TextAttributesKey;
 import com.intellij.openapi.fileTypes.SyntaxHighlighterBase;
 import com.intellij.psi.tree.IElementType;
-import org.jetbrains.annotations.NotNull;
 
 public class SyntaxHighlighter extends SyntaxHighlighterBase {
     public static final TextAttributesKey BAD_CHARACTER = TextAttributesKey.createTextAttributesKey("XQUERY_BAD_CHARACTER", HighlighterColors.BAD_CHARACTER);
@@ -62,7 +61,7 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
                    type == XQueryTokenType.EMPTY_ENTITY_REFERENCE ||
                    type == XQueryTokenType.STRING_LITERAL_END) {
             return STRING_KEYS;
-        } else if (type == XQueryTokenType.STRING_LITERAL_ESCAPED_CHARACTER) {
+        } else if (type == XQueryTokenType.ESCAPED_CHARACTER) {
             return ESCAPED_CHARACTER_KEYS;
         } else if (type == XQueryTokenType.PREDEFINED_ENTITY_REFERENCE ||
                    type == XQueryTokenType.CHARACTER_REFERENCE) {
