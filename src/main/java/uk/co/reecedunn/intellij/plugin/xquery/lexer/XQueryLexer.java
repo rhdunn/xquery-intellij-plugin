@@ -56,8 +56,8 @@ public class XQueryLexer extends LexerBase {
     private static final int STATE_PRAGMA_CONTENTS = 10;
     private static final int STATE_DIR_ELEM_CONSTRUCTOR = 11;
     private static final int STATE_DIR_ELEM_CONSTRUCTOR_CLOSING = 12;
-    private static final int STATE_XML_ATTRIBUTE_QUOTE = 13;
-    private static final int STATE_XML_ATTRIBUTE_APOSTROPHE = 14;
+    private static final int STATE_DIR_ATTRIBUTE_VALUE_QUOTE = 13;
+    private static final int STATE_DIR_ATTRIBUTE_VALUE_APOSTROPHE = 14;
 
     private void stateDefault() {
         int cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
@@ -754,11 +754,58 @@ public class XQueryLexer extends LexerBase {
             case CharacterClass.APOSTROPHE:
                 mTokenRange.match();
                 mType = XQueryTokenType.STRING_LITERAL_START;
-                pushState((cc == CharacterClass.QUOTE) ? STATE_XML_ATTRIBUTE_QUOTE : STATE_XML_ATTRIBUTE_APOSTROPHE);
+                pushState((cc == CharacterClass.QUOTE) ? STATE_DIR_ATTRIBUTE_VALUE_QUOTE : STATE_DIR_ATTRIBUTE_VALUE_APOSTROPHE);
                 break;
             default:
                 mType = null;
                 break;
+        }
+    }
+
+    private void stateDirAttributeValue(char type) {
+        int c = mTokenRange.getCodePoint();
+        if (c == type) {
+            mTokenRange.match();
+            if (mTokenRange.getCodePoint() == type) {
+                mTokenRange.match();
+                mType = XQueryTokenType.STRING_LITERAL_ESCAPED_CHARACTER;
+            } else {
+                mType = XQueryTokenType.STRING_LITERAL_END;
+                popState();
+            }
+        } else if (c == '{') {
+            mTokenRange.match();
+            mType = XQueryTokenType.BLOCK_OPEN;
+        } else if (c == '}') {
+            mTokenRange.match();
+            mType = XQueryTokenType.BLOCK_CLOSE;
+        } else if (c == '<') {
+            mTokenRange.match();
+            mType = XQueryTokenType.BAD_CHARACTER;
+        } else if (c == '&') {
+            matchEntityReference();
+        } else if (c == XQueryCodePointRange.END_OF_BUFFER) {
+            mType = null;
+        } else {
+            while (true) {
+                switch (c) {
+                    case XQueryCodePointRange.END_OF_BUFFER:
+                    case '{':
+                    case '}':
+                    case '<':
+                    case '&':
+                        mType = XQueryTokenType.STRING_LITERAL_CONTENTS;
+                        return;
+                    default:
+                        if (c == type) {
+                            mType = XQueryTokenType.STRING_LITERAL_CONTENTS;
+                            return;
+                        } else {
+                            mTokenRange.match();
+                            c = mTokenRange.getCodePoint();
+                        }
+                }
+            }
         }
     }
 
@@ -852,11 +899,9 @@ public class XQueryLexer extends LexerBase {
                 stateDefault();
                 break;
             case STATE_STRING_LITERAL_QUOTE:
-            case STATE_XML_ATTRIBUTE_QUOTE:
                 stateStringLiteral('"');
                 break;
             case STATE_STRING_LITERAL_APOSTROPHE:
-            case STATE_XML_ATTRIBUTE_APOSTROPHE:
                 stateStringLiteral('\'');
                 break;
             case STATE_DOUBLE_EXPONENT:
@@ -886,6 +931,12 @@ public class XQueryLexer extends LexerBase {
             case STATE_DIR_ELEM_CONSTRUCTOR:
             case STATE_DIR_ELEM_CONSTRUCTOR_CLOSING:
                 stateDirElemConstructor(mState);
+                break;
+            case STATE_DIR_ATTRIBUTE_VALUE_QUOTE:
+                stateDirAttributeValue('"');
+                break;
+            case STATE_DIR_ATTRIBUTE_VALUE_APOSTROPHE:
+                stateDirAttributeValue('\'');
                 break;
             default:
                 throw new AssertionError("Invalid state: " + mState);

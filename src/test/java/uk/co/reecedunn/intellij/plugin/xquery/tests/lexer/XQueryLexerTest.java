@@ -1047,6 +1047,26 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region DirAttributeValue + QuotAttrValueContent
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeValue")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QuotAttrValueContent")
+    public void testDirAttributeValue_QuotAttrValueContent() {
+        Lexer lexer = new XQueryLexer();
+
+        lexer.start("\"One {}<& こんばんは。\"", 0, 17, 11);
+        matchToken(lexer, "\"",           11,  0,  1, XQueryTokenType.STRING_LITERAL_START);
+        matchToken(lexer, "One ",         13,  1,  5, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "{",            13,  5,  6, XQueryTokenType.BLOCK_OPEN);
+        matchToken(lexer, "}",            13,  6,  7, XQueryTokenType.BLOCK_CLOSE);
+        matchToken(lexer, "<",            13,  7,  8, XQueryTokenType.BAD_CHARACTER);
+        matchToken(lexer, "&",            13,  8,  9, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, " こんばんは。", 13,  9, 16, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "\"",           13, 16, 17, XQueryTokenType.STRING_LITERAL_END);
+        matchToken(lexer, "",             11, 17, 17, null);
+    }
+
+    // endregion
     // region DirAttributeList + DirAttributeValue
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirAttributeList")
