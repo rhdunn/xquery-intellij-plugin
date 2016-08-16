@@ -41,6 +41,9 @@ public class XQueryLexer extends LexerBase {
 
     private void popState() {
         mStates.pop();
+        if (mStates.empty()) {
+            mStates.push(STATE_DEFAULT);
+        }
     }
 
     private static final int STATE_DEFAULT = 0;
@@ -58,8 +61,10 @@ public class XQueryLexer extends LexerBase {
     private static final int STATE_DIR_ELEM_CONSTRUCTOR_CLOSING = 12;
     private static final int STATE_DIR_ATTRIBUTE_VALUE_QUOTE = 13;
     private static final int STATE_DIR_ATTRIBUTE_VALUE_APOSTROPHE = 14;
+    private static final int STATE_DEFAULT_ATTRIBUTE_QUOT = 15;
+    private static final int STATE_DEFAULT_ATTRIBUTE_APOSTROPHE = 16;
 
-    private void stateDefault() {
+    private void stateDefault(int mState) {
         int cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
         int c;
         switch (cc) {
@@ -320,10 +325,12 @@ public class XQueryLexer extends LexerBase {
             case CharacterClass.CURLY_BRACE_OPEN:
                 mTokenRange.match();
                 mType = XQueryTokenType.BLOCK_OPEN;
+                pushState(mState);
                 break;
             case CharacterClass.CURLY_BRACE_CLOSE:
                 mTokenRange.match();
                 mType = XQueryTokenType.BLOCK_CLOSE;
+                popState();
                 break;
             case CharacterClass.VERTICAL_BAR:
                 mTokenRange.match();
@@ -780,6 +787,7 @@ public class XQueryLexer extends LexerBase {
                 mType = XQueryTokenType.STRING_LITERAL_ESCAPED_CHARACTER;
             } else {
                 mType = XQueryTokenType.BLOCK_OPEN;
+                pushState((type == '"') ? STATE_DEFAULT_ATTRIBUTE_QUOT : STATE_DEFAULT_ATTRIBUTE_APOSTROPHE);
             }
         } else if (c == '}') {
             mTokenRange.match();
@@ -906,7 +914,9 @@ public class XQueryLexer extends LexerBase {
         mState = mStates.peek();
         switch (mState) {
             case STATE_DEFAULT:
-                stateDefault();
+            case STATE_DEFAULT_ATTRIBUTE_QUOT:
+            case STATE_DEFAULT_ATTRIBUTE_APOSTROPHE:
+                stateDefault(mState);
                 break;
             case STATE_STRING_LITERAL_QUOTE:
                 stateStringLiteral('"');

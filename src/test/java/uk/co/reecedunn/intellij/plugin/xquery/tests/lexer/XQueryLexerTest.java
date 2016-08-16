@@ -1047,43 +1047,45 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region DirAttributeValue + QuotAttrValueContent
+    // region DirAttributeValue + QuotAttrValueContent + EnclosedExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeValue")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QuotAttrValueContent")
     public void testDirAttributeValue_QuotAttrValueContent() {
         Lexer lexer = new XQueryLexer();
 
-        lexer.start("\"One {}<& こんばんは。\"", 0, 17, 11);
+        lexer.start("\"One {2}<& こんばんは。\"", 0, 18, 11);
         matchToken(lexer, "\"",           11,  0,  1, XQueryTokenType.STRING_LITERAL_START);
         matchToken(lexer, "One ",         13,  1,  5, XQueryTokenType.STRING_LITERAL_CONTENTS);
         matchToken(lexer, "{",            13,  5,  6, XQueryTokenType.BLOCK_OPEN);
-        matchToken(lexer, "}",            13,  6,  7, XQueryTokenType.BLOCK_CLOSE);
-        matchToken(lexer, "<",            13,  7,  8, XQueryTokenType.BAD_CHARACTER);
-        matchToken(lexer, "&",            13,  8,  9, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
-        matchToken(lexer, " こんばんは。", 13,  9, 16, XQueryTokenType.STRING_LITERAL_CONTENTS);
-        matchToken(lexer, "\"",           13, 16, 17, XQueryTokenType.STRING_LITERAL_END);
-        matchToken(lexer, "",             11, 17, 17, null);
+        matchToken(lexer, "2",            15,  6,  7, XQueryTokenType.INTEGER_LITERAL);
+        matchToken(lexer, "}",            15,  7,  8, XQueryTokenType.BLOCK_CLOSE);
+        matchToken(lexer, "<",            13,  8,  9, XQueryTokenType.BAD_CHARACTER);
+        matchToken(lexer, "&",            13,  9, 10, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, " こんばんは。", 13, 10, 17, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "\"",           13, 17, 18, XQueryTokenType.STRING_LITERAL_END);
+        matchToken(lexer, "",             11, 18, 18, null);
     }
 
     // endregion
-    // region DirAttributeValue + AposAttrValueContent
+    // region DirAttributeValue + AposAttrValueContent + EnclosedExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeValue")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AposAttrValueContent")
     public void testDirAttributeValue_AposAttrValueContent() {
         Lexer lexer = new XQueryLexer();
 
-        lexer.start("'One {}<& こんばんは。'", 0, 17, 11);
+        lexer.start("'One {2}<& こんばんは。'", 0, 18, 11);
         matchToken(lexer, "'",            11,  0,  1, XQueryTokenType.STRING_LITERAL_START);
         matchToken(lexer, "One ",         14,  1,  5, XQueryTokenType.STRING_LITERAL_CONTENTS);
         matchToken(lexer, "{",            14,  5,  6, XQueryTokenType.BLOCK_OPEN);
-        matchToken(lexer, "}",            14,  6,  7, XQueryTokenType.BLOCK_CLOSE);
-        matchToken(lexer, "<",            14,  7,  8, XQueryTokenType.BAD_CHARACTER);
-        matchToken(lexer, "&",            14,  8,  9, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
-        matchToken(lexer, " こんばんは。", 14,  9, 16, XQueryTokenType.STRING_LITERAL_CONTENTS);
-        matchToken(lexer, "'",            14, 16, 17, XQueryTokenType.STRING_LITERAL_END);
-        matchToken(lexer, "",             11, 17, 17, null);
+        matchToken(lexer, "2",            16,  6,  7, XQueryTokenType.INTEGER_LITERAL);
+        matchToken(lexer, "}",            16,  7,  8, XQueryTokenType.BLOCK_CLOSE);
+        matchToken(lexer, "<",            14,  8,  9, XQueryTokenType.BAD_CHARACTER);
+        matchToken(lexer, "&",            14,  9, 10, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, " こんばんは。", 14, 10, 17, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "'",            14, 17, 18, XQueryTokenType.STRING_LITERAL_END);
+        matchToken(lexer, "",             11, 18, 18, null);
     }
 
     // endregion
