@@ -856,6 +856,9 @@ public class XQueryLexer extends LexerBase {
                 mType = XQueryTokenType.CLOSE_XML_TAG;
                 popState();
                 pushState(STATE_DIR_ELEM_CONSTRUCTOR_CLOSING);
+            } else if (CharacterClass.getCharClass(mTokenRange.getCodePoint()) == CharacterClass.NAME_START_CHAR) {
+                mType = XQueryTokenType.OPEN_XML_TAG;
+                pushState(STATE_DIR_ELEM_CONSTRUCTOR);
             } else {
                 mType = XQueryTokenType.BAD_CHARACTER;
             }

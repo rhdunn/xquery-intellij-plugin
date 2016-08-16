@@ -1403,6 +1403,33 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region DirElemContent + DirElemConstructor (DirectConstructor)
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirElemContent")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirElemConstructor")
+    public void testDirElemContent_DirElemConstructor() {
+        Lexer lexer = new XQueryLexer();
+
+        lexer.start("<a>One <b>Two</b> Three</a>");
+        matchToken(lexer, "<",       0,  0,  1, XQueryTokenType.OPEN_XML_TAG);
+        matchToken(lexer, "a",      11,  1,  2, XQueryTokenType.NCNAME);
+        matchToken(lexer, ">",      11,  2,  3, XQueryTokenType.END_XML_TAG);
+        matchToken(lexer, "One ",   17,  3,  7, XQueryTokenType.XML_ELEMENT_CONTENTS);
+        matchToken(lexer, "<",      17,  7,  8, XQueryTokenType.OPEN_XML_TAG);
+        matchToken(lexer, "b",      11,  8,  9, XQueryTokenType.NCNAME);
+        matchToken(lexer, ">",      11,  9, 10, XQueryTokenType.END_XML_TAG);
+        matchToken(lexer, "Two",    17, 10, 13, XQueryTokenType.XML_ELEMENT_CONTENTS);
+        matchToken(lexer, "</",     17, 13, 15, XQueryTokenType.CLOSE_XML_TAG);
+        matchToken(lexer, "b",      12, 15, 16, XQueryTokenType.NCNAME);
+        matchToken(lexer, ">",      12, 16, 17, XQueryTokenType.END_XML_TAG);
+        matchToken(lexer, " Three", 17, 17, 23, XQueryTokenType.XML_ELEMENT_CONTENTS);
+        matchToken(lexer, "</",     17, 23, 25, XQueryTokenType.CLOSE_XML_TAG);
+        matchToken(lexer, "a",      12, 25, 26, XQueryTokenType.NCNAME);
+        matchToken(lexer, ">",      12, 26, 27, XQueryTokenType.END_XML_TAG);
+        matchToken(lexer, "",        0, 27, 27, null);
+    }
+
+    // endregion
     // region DirCommentConstructor + DirCommentContents
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirCommentConstructor")
