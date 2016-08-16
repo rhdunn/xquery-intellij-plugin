@@ -775,10 +775,20 @@ public class XQueryLexer extends LexerBase {
             }
         } else if (c == '{') {
             mTokenRange.match();
-            mType = XQueryTokenType.BLOCK_OPEN;
+            if (mTokenRange.getCodePoint() == '{') {
+                mTokenRange.match();
+                mType = XQueryTokenType.STRING_LITERAL_ESCAPED_CHARACTER;
+            } else {
+                mType = XQueryTokenType.BLOCK_OPEN;
+            }
         } else if (c == '}') {
             mTokenRange.match();
-            mType = XQueryTokenType.BLOCK_CLOSE;
+            if (mTokenRange.getCodePoint() == '}') {
+                mTokenRange.match();
+                mType = XQueryTokenType.STRING_LITERAL_ESCAPED_CHARACTER;
+            } else {
+                mType = XQueryTokenType.BLOCK_CLOSE;
+            }
         } else if (c == '<') {
             mTokenRange.match();
             mType = XQueryTokenType.BAD_CHARACTER;

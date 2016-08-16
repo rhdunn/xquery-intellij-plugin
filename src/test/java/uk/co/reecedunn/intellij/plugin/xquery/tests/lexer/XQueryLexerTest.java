@@ -1087,6 +1087,29 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region DirAttributeValue + CommonContent
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeValue")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CommonContent")
+    public void testDirAttributeValue_CommonContent() {
+        Lexer lexer = new XQueryLexer();
+
+        lexer.start("\"{{}}\"", 0, 6, 11);
+        matchToken(lexer, "\"",           11, 0, 1, XQueryTokenType.STRING_LITERAL_START);
+        matchToken(lexer, "{{",           13, 1, 3, XQueryTokenType.STRING_LITERAL_ESCAPED_CHARACTER);
+        matchToken(lexer, "}}",           13, 3, 5, XQueryTokenType.STRING_LITERAL_ESCAPED_CHARACTER);
+        matchToken(lexer, "\"",           13, 5, 6, XQueryTokenType.STRING_LITERAL_END);
+        matchToken(lexer, "",             11, 6, 6, null);
+
+        lexer.start("'{{}}'", 0, 6, 11);
+        matchToken(lexer, "'",            11, 0, 1, XQueryTokenType.STRING_LITERAL_START);
+        matchToken(lexer, "{{",           14, 1, 3, XQueryTokenType.STRING_LITERAL_ESCAPED_CHARACTER);
+        matchToken(lexer, "}}",           14, 3, 5, XQueryTokenType.STRING_LITERAL_ESCAPED_CHARACTER);
+        matchToken(lexer, "'",            14, 5, 6, XQueryTokenType.STRING_LITERAL_END);
+        matchToken(lexer, "",             11, 6, 6, null);
+    }
+
+    // endregion
     // region DirAttributeList + DirAttributeValue
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirAttributeList")
