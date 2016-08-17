@@ -67,6 +67,8 @@ public class XQueryLexer extends LexerBase {
     private static final int STATE_DEFAULT_ELEM_CONTENT = 18;
     private static final int STATE_XML_COMMENT_ELEM_CONTENT = 19;
     private static final int STATE_CDATA_SECTION_ELEM_CONTENT = 20;
+    private static final int STATE_PROCESSING_INSTRUCTION = 21;
+    private static final int STATE_PROCESSING_INSTRUCTION_CONTENTS = 22;
 
     private void stateDefault(int mState) {
         int cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
@@ -252,6 +254,7 @@ public class XQueryLexer extends LexerBase {
                 } else if (c == '?') {
                     mTokenRange.match();
                     mType = XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN;
+                    pushState(STATE_PROCESSING_INSTRUCTION);
                 } else if (c == '!') {
                     mTokenRange.match();
                     if (mTokenRange.getCodePoint() == '-') {
@@ -934,6 +937,80 @@ public class XQueryLexer extends LexerBase {
         }
     }
 
+    private void stateProcessingInstruction() {
+        int cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
+        switch (cc) {
+            case CharacterClass.WHITESPACE:
+                mTokenRange.match();
+                while (CharacterClass.getCharClass(mTokenRange.getCodePoint()) == CharacterClass.WHITESPACE)
+                    mTokenRange.match();
+                mType = XQueryTokenType.WHITE_SPACE;
+                popState();
+                pushState(STATE_PROCESSING_INSTRUCTION_CONTENTS);
+                break;
+            case CharacterClass.NAME_START_CHAR:
+                mTokenRange.match();
+                cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
+                while (cc == CharacterClass.NAME_START_CHAR ||
+                        cc == CharacterClass.DIGIT ||
+                        cc == CharacterClass.DOT ||
+                        cc == CharacterClass.HYPHEN_MINUS ||
+                        cc == CharacterClass.NAME_CHAR) {
+                    mTokenRange.match();
+                    cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
+                }
+                mType = XQueryTokenType.NCNAME;
+                break;
+            case CharacterClass.END_OF_BUFFER:
+                mType = null;
+                break;
+            default:
+                mTokenRange.match();
+                mType = XQueryTokenType.BAD_CHARACTER;
+                break;
+        }
+    }
+
+    private void stateProcessingInstructionContents() {
+        int c = mTokenRange.getCodePoint();
+        if (c == XQueryCodePointRange.END_OF_BUFFER) {
+            mType = null;
+            return;
+        } else if (c == '?') {
+            mTokenRange.save();
+            mTokenRange.match();
+            if (mTokenRange.getCodePoint() == '>') {
+                mTokenRange.match();
+                mType = XQueryTokenType.PROCESSING_INSTRUCTION_END;
+                popState();
+                return;
+            } else {
+                mTokenRange.restore();
+            }
+        }
+
+        while (true) {
+            if (c == XQueryCodePointRange.END_OF_BUFFER) {
+                mTokenRange.match();
+                mType = XQueryTokenType.PROCESSING_INSTRUCTION_CONTENTS;
+                popState();
+                pushState(STATE_UNEXPECTED_END_OF_BLOCK);
+                return;
+            } else if (c == '?') {
+                mTokenRange.save();
+                mTokenRange.match();
+                if (mTokenRange.getCodePoint() == '>') {
+                    mTokenRange.restore();
+                    mType = XQueryTokenType.PROCESSING_INSTRUCTION_CONTENTS;
+                    return;
+                }
+            } else {
+                mTokenRange.match();
+            }
+            c = mTokenRange.getCodePoint();
+        }
+    }
+
     // endregion
     // region Helper Functions
 
@@ -1070,6 +1147,12 @@ public class XQueryLexer extends LexerBase {
                 break;
             case STATE_DIR_ELEM_CONTENT:
                 stateDirElemContent();
+                break;
+            case STATE_PROCESSING_INSTRUCTION:
+                stateProcessingInstruction();
+                break;
+            case STATE_PROCESSING_INSTRUCTION_CONTENTS:
+                stateProcessingInstructionContents();
                 break;
             default:
                 throw new AssertionError("Invalid state: " + mState);

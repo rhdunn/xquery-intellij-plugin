@@ -1805,8 +1805,17 @@ public class XQueryLexerTest extends TestCase {
     public void testDirPIConstructor() {
         Lexer lexer = new XQueryLexer();
 
-        matchSingleToken(lexer, "<?", XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN);
-        matchSingleToken(lexer, "?>", XQueryTokenType.PROCESSING_INSTRUCTION_END);
+        matchSingleToken(lexer, "<?", 21, XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN);
+        matchSingleToken(lexer, "?>",  0, XQueryTokenType.PROCESSING_INSTRUCTION_END);
+
+
+        lexer.start("<?for  6^gkgw~*?g?>");
+        matchToken(lexer, "<?",          0,  0,  2, XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN);
+        matchToken(lexer, "for",        21,  2,  5, XQueryTokenType.NCNAME);
+        matchToken(lexer, "  ",         21,  5,  7, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "6^gkgw~*?g", 22,  7, 17, XQueryTokenType.PROCESSING_INSTRUCTION_CONTENTS);
+        matchToken(lexer, "?>",         22, 17, 19, XQueryTokenType.PROCESSING_INSTRUCTION_END);
+        matchToken(lexer, "",            0, 19, 19, null);
     }
 
     // endregion
