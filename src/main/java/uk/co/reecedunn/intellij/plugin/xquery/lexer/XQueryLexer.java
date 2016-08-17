@@ -69,6 +69,8 @@ public class XQueryLexer extends LexerBase {
     private static final int STATE_CDATA_SECTION_ELEM_CONTENT = 20;
     private static final int STATE_PROCESSING_INSTRUCTION = 21;
     private static final int STATE_PROCESSING_INSTRUCTION_CONTENTS = 22;
+    private static final int STATE_PROCESSING_INSTRUCTION_ELEM_CONTENT = 23;
+    private static final int STATE_PROCESSING_INSTRUCTION_CONTENTS_ELEM_CONTENT = 24;
 
     private void stateDefault(int mState) {
         int cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
@@ -864,6 +866,10 @@ public class XQueryLexer extends LexerBase {
             } else if (CharacterClass.getCharClass(mTokenRange.getCodePoint()) == CharacterClass.NAME_START_CHAR) {
                 mType = XQueryTokenType.OPEN_XML_TAG;
                 pushState(STATE_DIR_ELEM_CONSTRUCTOR);
+            } else if (c == '?') {
+                mTokenRange.match();
+                mType = XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN;
+                pushState(STATE_PROCESSING_INSTRUCTION_ELEM_CONTENT);
             } else if (c == '!') {
                 mTokenRange.match();
                 if (mTokenRange.getCodePoint() == '-') {
@@ -937,7 +943,7 @@ public class XQueryLexer extends LexerBase {
         }
     }
 
-    private void stateProcessingInstruction() {
+    private void stateProcessingInstruction(int state) {
         int cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
         switch (cc) {
             case CharacterClass.WHITESPACE:
@@ -946,7 +952,7 @@ public class XQueryLexer extends LexerBase {
                     mTokenRange.match();
                 mType = XQueryTokenType.WHITE_SPACE;
                 popState();
-                pushState(STATE_PROCESSING_INSTRUCTION_CONTENTS);
+                pushState((state == STATE_PROCESSING_INSTRUCTION) ? STATE_PROCESSING_INSTRUCTION_CONTENTS : STATE_PROCESSING_INSTRUCTION_CONTENTS_ELEM_CONTENT);
                 break;
             case CharacterClass.NAME_START_CHAR:
                 mTokenRange.match();
@@ -1149,9 +1155,11 @@ public class XQueryLexer extends LexerBase {
                 stateDirElemContent();
                 break;
             case STATE_PROCESSING_INSTRUCTION:
-                stateProcessingInstruction();
+            case STATE_PROCESSING_INSTRUCTION_ELEM_CONTENT:
+                stateProcessingInstruction(mState);
                 break;
             case STATE_PROCESSING_INSTRUCTION_CONTENTS:
+            case STATE_PROCESSING_INSTRUCTION_CONTENTS_ELEM_CONTENT:
                 stateProcessingInstructionContents();
                 break;
             default:

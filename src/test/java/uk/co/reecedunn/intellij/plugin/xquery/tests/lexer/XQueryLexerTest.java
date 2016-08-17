@@ -1486,6 +1486,29 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region DirElemContent + DirPIConstructor (DirectConstructor)
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirElemContent")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirPIConstructor")
+    public void testDirElemContent_DirPIConstructor() {
+        Lexer lexer = new XQueryLexer();
+
+        lexer.start("<a><?for  6^gkgw~*?g?></a>");
+        matchToken(lexer, "<",           0,  0,  1, XQueryTokenType.OPEN_XML_TAG);
+        matchToken(lexer, "a",          11,  1,  2, XQueryTokenType.NCNAME);
+        matchToken(lexer, ">",          11,  2,  3, XQueryTokenType.END_XML_TAG);
+        matchToken(lexer, "<?",         17,  3,  5, XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN);
+        matchToken(lexer, "for",        23,  5,  8, XQueryTokenType.NCNAME);
+        matchToken(lexer, "  ",         23,  8, 10, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "6^gkgw~*?g", 24, 10, 20, XQueryTokenType.PROCESSING_INSTRUCTION_CONTENTS);
+        matchToken(lexer, "?>",         24, 20, 22, XQueryTokenType.PROCESSING_INSTRUCTION_END);
+        matchToken(lexer, "</",         17, 22, 24, XQueryTokenType.CLOSE_XML_TAG);
+        matchToken(lexer, "a",          12, 24, 25, XQueryTokenType.NCNAME);
+        matchToken(lexer, ">",          12, 25, 26, XQueryTokenType.END_XML_TAG);
+        matchToken(lexer, "",            0, 26, 26, null);
+    }
+
+    // endregion
     // region DirElemContent + CommonContent
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirElemContent")
@@ -1799,9 +1822,10 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region DirPIConstructor
+    // region DirPIConstructor + DirPIContents
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirPIConstructor")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirPIContents")
     public void testDirPIConstructor() {
         Lexer lexer = new XQueryLexer();
 
