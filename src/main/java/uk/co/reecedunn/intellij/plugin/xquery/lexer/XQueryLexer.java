@@ -733,16 +733,6 @@ public class XQueryLexer extends LexerBase {
                 }
                 mType = XQueryTokenType.NCNAME;
                 break;
-            case CharacterClass.LESS_THAN:
-                mTokenRange.match();
-                c = mTokenRange.getCodePoint();
-                if (c == '/') {
-                    mTokenRange.match();
-                    mType = XQueryTokenType.CLOSE_XML_TAG;
-                } else {
-                    mType = XQueryTokenType.LESS_THAN;
-                }
-                break;
             case CharacterClass.GREATER_THAN:
                 mTokenRange.match();
                 mType = XQueryTokenType.END_XML_TAG;
