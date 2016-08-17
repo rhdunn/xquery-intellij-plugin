@@ -1453,6 +1453,39 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region DirElemContent + CDataSection (DirectConstructor)
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirElemContent")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-CDataSection")
+    public void testDirElemContent_CDataSection() {
+        Lexer lexer = new XQueryLexer();
+
+        lexer.start("<!<![<![C<![CD<![CDA<![CDAT<![CDATA", 0, 35, 17);
+        matchToken(lexer, "<!",       17,  0,  2, XQueryTokenType.INVALID);
+        matchToken(lexer, "<![",      17,  2,  5, XQueryTokenType.INVALID);
+        matchToken(lexer, "<![C",     17,  5,  9, XQueryTokenType.INVALID);
+        matchToken(lexer, "<![CD",    17,  9, 14, XQueryTokenType.INVALID);
+        matchToken(lexer, "<![CDA",   17, 14, 20, XQueryTokenType.INVALID);
+        matchToken(lexer, "<![CDAT",  17, 20, 27, XQueryTokenType.INVALID);
+        matchToken(lexer, "<![CDATA", 17, 27, 35, XQueryTokenType.INVALID);
+        matchToken(lexer, "",         17, 35, 35, null);
+
+        lexer.start("<a>One <![CDATA[ 2 ]]> Three</a>");
+        matchToken(lexer, "<",          0,  0,  1, XQueryTokenType.OPEN_XML_TAG);
+        matchToken(lexer, "a",         11,  1,  2, XQueryTokenType.NCNAME);
+        matchToken(lexer, ">",         11,  2,  3, XQueryTokenType.END_XML_TAG);
+        matchToken(lexer, "One ",      17,  3,  7, XQueryTokenType.XML_ELEMENT_CONTENTS);
+        matchToken(lexer, "<![CDATA[", 17,  7, 16, XQueryTokenType.CDATA_SECTION_START_TAG);
+        matchToken(lexer, " 2 ",       20, 16, 19, XQueryTokenType.CDATA_SECTION);
+        matchToken(lexer, "]]>",       20, 19, 22, XQueryTokenType.CDATA_SECTION_END_TAG);
+        matchToken(lexer, " Three",    17, 22, 28, XQueryTokenType.XML_ELEMENT_CONTENTS);
+        matchToken(lexer, "</",        17, 28, 30, XQueryTokenType.CLOSE_XML_TAG);
+        matchToken(lexer, "a",         12, 30, 31, XQueryTokenType.NCNAME);
+        matchToken(lexer, ">",         12, 31, 32, XQueryTokenType.END_XML_TAG);
+        matchToken(lexer, "",           0, 32, 32, null);
+    }
+
+    // endregion
     // region DirElemContent + CommonContent
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirElemContent")

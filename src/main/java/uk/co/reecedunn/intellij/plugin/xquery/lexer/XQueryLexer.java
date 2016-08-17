@@ -66,6 +66,7 @@ public class XQueryLexer extends LexerBase {
     private static final int STATE_DIR_ELEM_CONTENT = 17;
     private static final int STATE_DEFAULT_ELEM_CONTENT = 18;
     private static final int STATE_XML_COMMENT_ELEM_CONTENT = 19;
+    private static final int STATE_CDATA_SECTION_ELEM_CONTENT = 20;
 
     private void stateDefault(int mState) {
         int cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
@@ -871,6 +872,40 @@ public class XQueryLexer extends LexerBase {
                     } else {
                         mType = XQueryTokenType.INVALID;
                     }
+                } else if (mTokenRange.getCodePoint() == '[') {
+                    mTokenRange.match();
+                    if (mTokenRange.getCodePoint() == 'C') {
+                        mTokenRange.match();
+                        if (mTokenRange.getCodePoint() == 'D') {
+                            mTokenRange.match();
+                            if (mTokenRange.getCodePoint() == 'A') {
+                                mTokenRange.match();
+                                if (mTokenRange.getCodePoint() == 'T') {
+                                    mTokenRange.match();
+                                    if (mTokenRange.getCodePoint() == 'A') {
+                                        mTokenRange.match();
+                                        if (mTokenRange.getCodePoint() == '[') {
+                                            mTokenRange.match();
+                                            mType = XQueryTokenType.CDATA_SECTION_START_TAG;
+                                            pushState(STATE_CDATA_SECTION_ELEM_CONTENT);
+                                        } else {
+                                            mType = XQueryTokenType.INVALID;
+                                        }
+                                    } else {
+                                        mType = XQueryTokenType.INVALID;
+                                    }
+                                } else {
+                                    mType = XQueryTokenType.INVALID;
+                                }
+                            } else {
+                                mType = XQueryTokenType.INVALID;
+                            }
+                        } else {
+                            mType = XQueryTokenType.INVALID;
+                        }
+                    } else {
+                        mType = XQueryTokenType.INVALID;
+                    }
                 } else {
                     mType = XQueryTokenType.INVALID;
                 }
@@ -1011,6 +1046,7 @@ public class XQueryLexer extends LexerBase {
                 stateUnexpectedEndOfBlock();
                 break;
             case STATE_CDATA_SECTION:
+            case STATE_CDATA_SECTION_ELEM_CONTENT:
                 stateCDataSection();
                 break;
             case STATE_PRAGMA_PRE_QNAME:
