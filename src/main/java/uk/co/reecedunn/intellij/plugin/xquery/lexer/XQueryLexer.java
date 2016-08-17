@@ -65,6 +65,7 @@ public class XQueryLexer extends LexerBase {
     private static final int STATE_DEFAULT_ATTRIBUTE_APOSTROPHE = 16;
     private static final int STATE_DIR_ELEM_CONTENT = 17;
     private static final int STATE_DEFAULT_ELEM_CONTENT = 18;
+    private static final int STATE_XML_COMMENT_ELEM_CONTENT = 19;
 
     private void stateDefault(int mState) {
         int cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
@@ -859,6 +860,20 @@ public class XQueryLexer extends LexerBase {
             } else if (CharacterClass.getCharClass(mTokenRange.getCodePoint()) == CharacterClass.NAME_START_CHAR) {
                 mType = XQueryTokenType.OPEN_XML_TAG;
                 pushState(STATE_DIR_ELEM_CONSTRUCTOR);
+            } else if (c == '!') {
+                mTokenRange.match();
+                if (mTokenRange.getCodePoint() == '-') {
+                    mTokenRange.match();
+                    if (mTokenRange.getCodePoint() == '-') {
+                        mTokenRange.match();
+                        mType = XQueryTokenType.XML_COMMENT_START_TAG;
+                        pushState(STATE_XML_COMMENT_ELEM_CONTENT);
+                    } else {
+                        mType = XQueryTokenType.INVALID;
+                    }
+                } else {
+                    mType = XQueryTokenType.INVALID;
+                }
             } else {
                 mType = XQueryTokenType.BAD_CHARACTER;
             }
@@ -989,6 +1004,7 @@ public class XQueryLexer extends LexerBase {
                 stateXQueryComment();
                 break;
             case STATE_XML_COMMENT:
+            case STATE_XML_COMMENT_ELEM_CONTENT:
                 stateXmlComment();
                 break;
             case STATE_UNEXPECTED_END_OF_BLOCK:

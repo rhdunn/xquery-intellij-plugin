@@ -1378,7 +1378,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region DirElemContent + ElementContentChar
+    // region DirElemContent + ElementContentChar + EnclosedExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirElemContent")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ElementContentChar")
@@ -1422,6 +1422,29 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "</",     17, 13, 15, XQueryTokenType.CLOSE_XML_TAG);
         matchToken(lexer, "b",      12, 15, 16, XQueryTokenType.NCNAME);
         matchToken(lexer, ">",      12, 16, 17, XQueryTokenType.END_XML_TAG);
+        matchToken(lexer, " Three", 17, 17, 23, XQueryTokenType.XML_ELEMENT_CONTENTS);
+        matchToken(lexer, "</",     17, 23, 25, XQueryTokenType.CLOSE_XML_TAG);
+        matchToken(lexer, "a",      12, 25, 26, XQueryTokenType.NCNAME);
+        matchToken(lexer, ">",      12, 26, 27, XQueryTokenType.END_XML_TAG);
+        matchToken(lexer, "",        0, 27, 27, null);
+    }
+
+    // endregion
+    // region DirElemContent + DirCommentConstructor (DirectConstructor)
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirElemContent")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirCommentConstructor")
+    public void testDirElemContent_DirCommentConstructor() {
+        Lexer lexer = new XQueryLexer();
+
+        lexer.start("<a>One <!-- 2 --> Three</a>");
+        matchToken(lexer, "<",       0,  0,  1, XQueryTokenType.OPEN_XML_TAG);
+        matchToken(lexer, "a",      11,  1,  2, XQueryTokenType.NCNAME);
+        matchToken(lexer, ">",      11,  2,  3, XQueryTokenType.END_XML_TAG);
+        matchToken(lexer, "One ",   17,  3,  7, XQueryTokenType.XML_ELEMENT_CONTENTS);
+        matchToken(lexer, "<!--",   17,  7, 11, XQueryTokenType.XML_COMMENT_START_TAG);
+        matchToken(lexer, " 2 ",    19, 11, 14, XQueryTokenType.XML_COMMENT);
+        matchToken(lexer, "-->",    19, 14, 17, XQueryTokenType.XML_COMMENT_END_TAG);
         matchToken(lexer, " Three", 17, 17, 23, XQueryTokenType.XML_ELEMENT_CONTENTS);
         matchToken(lexer, "</",     17, 23, 25, XQueryTokenType.CLOSE_XML_TAG);
         matchToken(lexer, "a",      12, 25, 26, XQueryTokenType.NCNAME);
