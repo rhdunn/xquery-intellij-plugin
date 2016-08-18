@@ -1550,6 +1550,20 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "a",          12, 12, 13, XQueryTokenType.NCNAME);
         matchToken(lexer, ">",          12, 13, 14, XQueryTokenType.END_XML_TAG);
         matchToken(lexer, "",            0, 14, 14, null);
+
+        lexer.start("<?a ?", 0, 5, 17);
+        matchToken(lexer, "<?",         17, 0, 2, XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN);
+        matchToken(lexer, "a",          23, 2, 3, XQueryTokenType.NCNAME);
+        matchToken(lexer, " ",          23, 3, 4, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "?",          24, 4, 5, XQueryTokenType.PROCESSING_INSTRUCTION_CONTENTS);
+        matchToken(lexer, "",            6, 5, 5, XQueryTokenType.UNEXPECTED_END_OF_BLOCK);
+        matchToken(lexer, "",           17, 5, 5, null);
+
+        lexer.start("<?a ", 0, 4, 17);
+        matchToken(lexer, "<?",         17, 0, 2, XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN);
+        matchToken(lexer, "a",          23, 2, 3, XQueryTokenType.NCNAME);
+        matchToken(lexer, " ",          23, 3, 4, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "",           24, 4, 4, null);
     }
 
     // endregion
@@ -1898,6 +1912,20 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "$",          21, 4, 5, XQueryTokenType.BAD_CHARACTER);
         matchToken(lexer, "?>",         21, 5, 7, XQueryTokenType.PROCESSING_INSTRUCTION_END);
         matchToken(lexer, "",            0, 7, 7, null);
+
+        lexer.start("<?a ?");
+        matchToken(lexer, "<?",          0, 0, 2, XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN);
+        matchToken(lexer, "a",          21, 2, 3, XQueryTokenType.NCNAME);
+        matchToken(lexer, " ",          21, 3, 4, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "?",          22, 4, 5, XQueryTokenType.PROCESSING_INSTRUCTION_CONTENTS);
+        matchToken(lexer, "",            6, 5, 5, XQueryTokenType.UNEXPECTED_END_OF_BLOCK);
+        matchToken(lexer, "",            0, 5, 5, null);
+
+        lexer.start("<?a ");
+        matchToken(lexer, "<?",          0, 0, 2, XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN);
+        matchToken(lexer, "a",          21, 2, 3, XQueryTokenType.NCNAME);
+        matchToken(lexer, " ",          21, 3, 4, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "",           22, 4, 4, null);
     }
 
     // endregion
