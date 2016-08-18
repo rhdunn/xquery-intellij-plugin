@@ -1450,6 +1450,11 @@ public class XQueryLexerTest extends TestCase {
     public void testDirElemContent_DirCommentConstructor() {
         Lexer lexer = new XQueryLexer();
 
+        lexer.start("<!<!-", 0, 5, 17);
+        matchToken(lexer, "<!",       17, 0, 2, XQueryTokenType.INVALID);
+        matchToken(lexer, "<!-",      17, 2, 5, XQueryTokenType.INVALID);
+        matchToken(lexer, "",         17, 5, 5, null);
+
         lexer.start("<a>One <!-- 2 --> Three</a>");
         matchToken(lexer, "<",       0,  0,  1, XQueryTokenType.OPEN_XML_TAG);
         matchToken(lexer, "a",      11,  1,  2, XQueryTokenType.NCNAME);
