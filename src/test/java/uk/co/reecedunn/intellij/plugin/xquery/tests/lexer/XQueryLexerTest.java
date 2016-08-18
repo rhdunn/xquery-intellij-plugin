@@ -1126,7 +1126,7 @@ public class XQueryLexerTest extends TestCase {
     public void testDirAttributeValue_AposAttrValueContent() {
         Lexer lexer = new XQueryLexer();
 
-        lexer.start("'One {2}<& こんばんは。'", 0, 18, 11);
+        lexer.start("'One {2}<& こんばんは。}'", 0, 19, 11);
         matchToken(lexer, "'",            11,  0,  1, XQueryTokenType.STRING_LITERAL_START);
         matchToken(lexer, "One ",         14,  1,  5, XQueryTokenType.STRING_LITERAL_CONTENTS);
         matchToken(lexer, "{",            14,  5,  6, XQueryTokenType.BLOCK_OPEN);
@@ -1135,8 +1135,9 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "<",            14,  8,  9, XQueryTokenType.BAD_CHARACTER);
         matchToken(lexer, "&",            14,  9, 10, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
         matchToken(lexer, " こんばんは。", 14, 10, 17, XQueryTokenType.STRING_LITERAL_CONTENTS);
-        matchToken(lexer, "'",            14, 17, 18, XQueryTokenType.STRING_LITERAL_END);
-        matchToken(lexer, "",             11, 18, 18, null);
+        matchToken(lexer, "}",            14, 17, 18, XQueryTokenType.BLOCK_CLOSE);
+        matchToken(lexer, "'",            14, 18, 19, XQueryTokenType.STRING_LITERAL_END);
+        matchToken(lexer, "",             11, 19, 19, null);
     }
 
     // endregion
