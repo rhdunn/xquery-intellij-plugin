@@ -1524,6 +1524,32 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "a",          12, 24, 25, XQueryTokenType.NCNAME);
         matchToken(lexer, ">",          12, 25, 26, XQueryTokenType.END_XML_TAG);
         matchToken(lexer, "",            0, 26, 26, null);
+
+        lexer.start("<a><?for?></a>");
+        matchToken(lexer, "<",           0,  0,  1, XQueryTokenType.OPEN_XML_TAG);
+        matchToken(lexer, "a",          11,  1,  2, XQueryTokenType.NCNAME);
+        matchToken(lexer, ">",          11,  2,  3, XQueryTokenType.END_XML_TAG);
+        matchToken(lexer, "<?",         17,  3,  5, XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN);
+        matchToken(lexer, "for",        23,  5,  8, XQueryTokenType.NCNAME);
+        matchToken(lexer, "?>",         23,  8, 10, XQueryTokenType.PROCESSING_INSTRUCTION_END);
+        matchToken(lexer, "</",         17, 10, 12, XQueryTokenType.CLOSE_XML_TAG);
+        matchToken(lexer, "a",          12, 12, 13, XQueryTokenType.NCNAME);
+        matchToken(lexer, ">",          12, 13, 14, XQueryTokenType.END_XML_TAG);
+        matchToken(lexer, "",            0, 14, 14, null);
+
+        lexer.start("<a><?*?$?></a>");
+        matchToken(lexer, "<",           0,  0,  1, XQueryTokenType.OPEN_XML_TAG);
+        matchToken(lexer, "a",          11,  1,  2, XQueryTokenType.NCNAME);
+        matchToken(lexer, ">",          11,  2,  3, XQueryTokenType.END_XML_TAG);
+        matchToken(lexer, "<?",         17,  3,  5, XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN);
+        matchToken(lexer, "*",          23,  5,  6, XQueryTokenType.BAD_CHARACTER);
+        matchToken(lexer, "?",          23,  6,  7, XQueryTokenType.INVALID);
+        matchToken(lexer, "$",          23,  7,  8, XQueryTokenType.BAD_CHARACTER);
+        matchToken(lexer, "?>",         23,  8, 10, XQueryTokenType.PROCESSING_INSTRUCTION_END);
+        matchToken(lexer, "</",         17, 10, 12, XQueryTokenType.CLOSE_XML_TAG);
+        matchToken(lexer, "a",          12, 12, 13, XQueryTokenType.NCNAME);
+        matchToken(lexer, ">",          12, 13, 14, XQueryTokenType.END_XML_TAG);
+        matchToken(lexer, "",            0, 14, 14, null);
     }
 
     // endregion
@@ -1858,6 +1884,20 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "6^gkgw~*?g", 22,  7, 17, XQueryTokenType.PROCESSING_INSTRUCTION_CONTENTS);
         matchToken(lexer, "?>",         22, 17, 19, XQueryTokenType.PROCESSING_INSTRUCTION_END);
         matchToken(lexer, "",            0, 19, 19, null);
+
+        lexer.start("<?for?>");
+        matchToken(lexer, "<?",          0, 0, 2, XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN);
+        matchToken(lexer, "for",        21, 2, 5, XQueryTokenType.NCNAME);
+        matchToken(lexer, "?>",         21, 5, 7, XQueryTokenType.PROCESSING_INSTRUCTION_END);
+        matchToken(lexer, "",            0, 7, 7, null);
+
+        lexer.start("<?*?$?>");
+        matchToken(lexer, "<?",          0, 0, 2, XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN);
+        matchToken(lexer, "*",          21, 2, 3, XQueryTokenType.BAD_CHARACTER);
+        matchToken(lexer, "?",          21, 3, 4, XQueryTokenType.INVALID);
+        matchToken(lexer, "$",          21, 4, 5, XQueryTokenType.BAD_CHARACTER);
+        matchToken(lexer, "?>",         21, 5, 7, XQueryTokenType.PROCESSING_INSTRUCTION_END);
+        matchToken(lexer, "",            0, 7, 7, null);
     }
 
     // endregion

@@ -961,6 +961,16 @@ public class XQueryLexer extends LexerBase {
                 }
                 mType = XQueryTokenType.NCNAME;
                 break;
+            case CharacterClass.QUESTION_MARK:
+                mTokenRange.match();
+                if (mTokenRange.getCodePoint() == '>') {
+                    mTokenRange.match();
+                    mType = XQueryTokenType.PROCESSING_INSTRUCTION_END;
+                    popState();
+                } else {
+                    mType = XQueryTokenType.INVALID;
+                }
+                break;
             case CharacterClass.END_OF_BUFFER:
                 mType = null;
                 break;
