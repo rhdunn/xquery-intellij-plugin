@@ -1044,6 +1044,17 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "  ",  12, 18, 20, XQueryTokenType.WHITE_SPACE);
         matchToken(lexer, ">",   12, 20, 21, XQueryTokenType.END_XML_TAG);
         matchToken(lexer, "",     0, 21, 21, null);
+
+        lexer.start("<one:two//*/>");
+        matchToken(lexer, "<",    0,  0,  1, XQueryTokenType.OPEN_XML_TAG);
+        matchToken(lexer, "one", 11,  1,  4, XQueryTokenType.NCNAME);
+        matchToken(lexer, ":",   11,  4,  5, XQueryTokenType.QNAME_SEPARATOR);
+        matchToken(lexer, "two", 11,  5,  8, XQueryTokenType.NCNAME);
+        matchToken(lexer, "/",   11,  8,  9, XQueryTokenType.INVALID);
+        matchToken(lexer, "/",   11,  9, 10, XQueryTokenType.INVALID);
+        matchToken(lexer, "*",   11, 10, 11, XQueryTokenType.BAD_CHARACTER);
+        matchToken(lexer, "/>",  11, 11, 13, XQueryTokenType.SELF_CLOSING_XML_TAG);
+        matchToken(lexer, "",     0, 13, 13, null);
     }
 
     // endregion

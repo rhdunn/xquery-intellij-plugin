@@ -749,7 +749,7 @@ public class XQueryLexer extends LexerBase {
                     mType = XQueryTokenType.SELF_CLOSING_XML_TAG;
                     popState();
                 } else {
-                    mType = XQueryTokenType.DIRECT_DESCENDANTS_PATH;
+                    mType = XQueryTokenType.INVALID;
                 }
                 break;
             case CharacterClass.EQUAL:
@@ -762,8 +762,12 @@ public class XQueryLexer extends LexerBase {
                 mType = XQueryTokenType.STRING_LITERAL_START;
                 pushState((cc == CharacterClass.QUOTE) ? STATE_DIR_ATTRIBUTE_VALUE_QUOTE : STATE_DIR_ATTRIBUTE_VALUE_APOSTROPHE);
                 break;
-            default:
+            case CharacterClass.END_OF_BUFFER:
                 mType = null;
+                break;
+            default:
+                mTokenRange.match();
+                mType = XQueryTokenType.BAD_CHARACTER;
                 break;
         }
     }
