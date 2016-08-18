@@ -1397,7 +1397,7 @@ public class XQueryLexerTest extends TestCase {
     public void testDirElemContent_ElementContentChar() {
         Lexer lexer = new XQueryLexer();
 
-        lexer.start("<a>One {2}<& こんばんは。</a>");
+        lexer.start("<a>One {2}<& こんばんは。}</a>");
         matchToken(lexer, "<",             0,  0,  1, XQueryTokenType.OPEN_XML_TAG);
         matchToken(lexer, "a",            11,  1,  2, XQueryTokenType.NCNAME);
         matchToken(lexer, ">",            11,  2,  3, XQueryTokenType.END_XML_TAG);
@@ -1408,10 +1408,11 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "<",            17, 10, 11, XQueryTokenType.BAD_CHARACTER);
         matchToken(lexer, "&",            17, 11, 12, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
         matchToken(lexer, " こんばんは。", 17, 12, 19, XQueryTokenType.XML_ELEMENT_CONTENTS);
-        matchToken(lexer, "</",           17, 19, 21, XQueryTokenType.CLOSE_XML_TAG);
-        matchToken(lexer, "a",            12, 21, 22, XQueryTokenType.NCNAME);
-        matchToken(lexer, ">",            12, 22, 23, XQueryTokenType.END_XML_TAG);
-        matchToken(lexer, "",              0, 23, 23, null);
+        matchToken(lexer, "}",            17, 19, 20, XQueryTokenType.BLOCK_CLOSE);
+        matchToken(lexer, "</",           17, 20, 22, XQueryTokenType.CLOSE_XML_TAG);
+        matchToken(lexer, "a",            12, 22, 23, XQueryTokenType.NCNAME);
+        matchToken(lexer, ">",            12, 23, 24, XQueryTokenType.END_XML_TAG);
+        matchToken(lexer, "",              0, 24, 24, null);
     }
 
     // endregion
