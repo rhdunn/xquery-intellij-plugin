@@ -30,10 +30,25 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class ImplementationsTest extends TestCase {
     @SuppressWarnings("EqualsWithItself")
     public void testNullImplementationItem() {
-        assertThat(ImplementationItem.NULL_ITEM.getID(), is(nullValue()));
-        assertThat(ImplementationItem.NULL_ITEM.toString(), is("Not Supported"));
+        final ImplementationItem item = ImplementationItem.NULL_ITEM;
 
-        assertThat(ImplementationItem.NULL_ITEM.equals(ImplementationItem.NULL_ITEM), is(true));
+        assertThat(item.getID(), is(nullValue()));
+        assertThat(item.toString(), is("Not Supported"));
+
+        assertThat(item.equals(item), is(true));
+
+        final List<?> items = item.getItems(ImplementationItem.IMPLEMENTATION_VERSION);
+        assertThat(items.size(), is(1));
+        assertThat(items.get(0), is(ImplementationItem.NULL_ITEM));
+
+        assertThat(item.getDefaultItem(ImplementationItem.IMPLEMENTATION_VERSION), is(ImplementationItem.NULL_ITEM));
+
+        final List<?> itemsForXQuery = item.getItemsForXQueryVersion(ImplementationItem.IMPLEMENTATION_VERSION, XQueryVersion.XQUERY_1_0);
+        assertThat(itemsForXQuery.size(), is(1));
+        assertThat(itemsForXQuery.get(0), is(ImplementationItem.NULL_ITEM));
+
+        assertThat(item.getDefaultItemForXQueryVersion(ImplementationItem.IMPLEMENTATION_VERSION, XQueryVersion.XQUERY_1_0),
+                   is(ImplementationItem.NULL_ITEM));
     }
 
     public void testImplementations() {
