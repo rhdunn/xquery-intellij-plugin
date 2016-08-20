@@ -13,15 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.impl.xquery;
+package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
-import com.intellij.psi.impl.source.tree.CompositeElement;
-import com.intellij.psi.tree.IElementType;
-import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirCommentConstructor;
-
-public class XQueryDirCommentConstructorImpl extends CompositeElement implements XQueryDirCommentConstructor {
-    public XQueryDirCommentConstructorImpl(@NotNull IElementType type) {
-        super(type);
-    }
+/**
+ * An XQuery 1.0 <code>DirCommentConstructor</code> node in the XQuery AST.
+ */
+public interface XQueryDirCommentConstructor {
 }

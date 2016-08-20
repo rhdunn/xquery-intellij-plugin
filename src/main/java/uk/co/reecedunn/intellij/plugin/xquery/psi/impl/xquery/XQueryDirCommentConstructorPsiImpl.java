@@ -18,8 +18,9 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import org.jetbrains.annotations.NotNull;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirCommentConstructor;
 
-public class XQueryDirCommentConstructorPsiImpl extends ASTWrapperPsiElement {
+public class XQueryDirCommentConstructorPsiImpl extends ASTWrapperPsiElement implements XQueryDirCommentConstructor {
     public XQueryDirCommentConstructorPsiImpl(@NotNull ASTNode node) {
         super(node);
     }
