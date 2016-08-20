@@ -45,8 +45,8 @@ class XQueryParser {
         while (getTokenType() != null) {
             if (skipWhiteSpaceAndCommentTokens()) continue;
             if (parseModule()) continue;
-            if (parseDirCommentConstructor()) continue;
             if (parseCDataSection()) continue;
+            if (errorOnTokenType(XQueryTokenType.INVALID, XQueryBundle.message("parser.error.invalid-token"))) continue;
             advanceLexer();
         }
     }
@@ -1185,7 +1185,8 @@ class XQueryParser {
             || parseContextItemExpr()
             || parseOrderedExpr()
             || parseUnorderedExpr()
-            || parseFunctionCall();
+            || parseFunctionCall()
+            || parseConstructor();
     }
 
     private boolean parseLiteral() {
@@ -1344,8 +1345,23 @@ class XQueryParser {
         return false;
     }
 
+    private boolean parseConstructor() {
+        final PsiBuilder.Marker constructorMarker = mBuilder.mark();
+        if (parseDirectConstructor()) {
+            constructorMarker.done(XQueryElementType.CONSTRUCTOR);
+            return true;
+        }
+
+        constructorMarker.drop();
+        return false;
+    }
+
     // endregion
     // region Grammar :: Expr :: OrExpr :: DirectConstructor
+
+    private boolean parseDirectConstructor() {
+        return parseDirCommentConstructor();
+    }
 
     private boolean parseDirCommentConstructor() {
         final PsiBuilder.Marker commentMarker = matchTokenTypeWithMarker(XQueryTokenType.XML_COMMENT_START_TAG);
@@ -1361,8 +1377,7 @@ class XQueryParser {
             return true;
         }
 
-        return errorOnTokenType(XQueryTokenType.XML_COMMENT_END_TAG, XQueryBundle.message("parser.error.end-of-comment-without-start", "<!--")) ||
-                errorOnTokenType(XQueryTokenType.INVALID, XQueryBundle.message("parser.error.invalid-token"));
+        return errorOnTokenType(XQueryTokenType.XML_COMMENT_END_TAG, XQueryBundle.message("parser.error.end-of-comment-without-start", "<!--"));
     }
 
     private boolean parseCDataSection() {

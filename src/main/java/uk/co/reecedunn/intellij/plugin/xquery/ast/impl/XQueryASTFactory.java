@@ -108,6 +108,8 @@ public class XQueryASTFactory extends ASTFactory {
             return new XQueryCommentImpl(type);
         } else if (type == XQueryElementType.DIR_COMMENT_CONSTRUCTOR) {
             return new XQueryDirCommentConstructorImpl(type);
+        } else if (type == XQueryElementType.CONSTRUCTOR) {
+            return new XQueryConstructorImpl(type);
         } else if (type == XQueryElementType.CDATA_SECTION) {
             return new XQueryCDataSectionImpl(type);
         } else if (type == XQueryElementType.SCHEMA_PREFIX) {
