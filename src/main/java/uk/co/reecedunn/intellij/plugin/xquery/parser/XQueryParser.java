@@ -130,14 +130,7 @@ class XQueryParser {
     }
 
     // endregion
-    // region Grammar
-
-    private enum PrologDeclState {
-        HEADER_STATEMENT,
-        BODY_STATEMENT,
-        UNKNOWN_STATEMENT,
-        NOT_MATCHED
-    };
+    // region Grammar :: Modules
 
     private boolean parseModule() {
         final PsiBuilder.Marker moduleMarker = mark();
@@ -292,6 +285,16 @@ class XQueryParser {
         }
         return false;
     }
+
+    // endregion
+    // region Grammar :: Prolog
+
+    private enum PrologDeclState {
+        HEADER_STATEMENT,
+        BODY_STATEMENT,
+        UNKNOWN_STATEMENT,
+        NOT_MATCHED
+    };
 
     private boolean parseProlog() {
         final PsiBuilder.Marker prologMarker = mark();
@@ -948,6 +951,9 @@ class XQueryParser {
         return false;
     }
 
+    // endregion
+    // region Grammar :: Expr
+
     private boolean parseEnclosedExpr() {
         final PsiBuilder.Marker enclosedExprMarker = mark();
         if (matchTokenType(XQueryTokenType.BLOCK_OPEN)) {
@@ -997,6 +1003,9 @@ class XQueryParser {
     private boolean parseExprSingle() {
         return parseOrExpr();
     }
+
+    // endregion
+    // region Grammar :: Expr :: OrExpr
 
     private boolean parseOrExpr() {
         final PsiBuilder.Marker orExprMarker = mark();
@@ -1166,6 +1175,9 @@ class XQueryParser {
         return false;
     }
 
+    // endregion
+    // region Grammar :: Expr :: OrExpr :: PrimaryExpr
+
     private boolean parsePrimaryExpr() {
         return parseLiteral()
             || parseVarRef()
@@ -1332,6 +1344,9 @@ class XQueryParser {
         return false;
     }
 
+    // endregion
+    // region Grammar :: Expr :: OrExpr :: DirectConstructor
+
     private boolean parseDirCommentConstructor() {
         final PsiBuilder.Marker commentMarker = matchTokenTypeWithMarker(XQueryTokenType.XML_COMMENT_START_TAG);
         if (commentMarker != null) {
@@ -1366,6 +1381,9 @@ class XQueryParser {
 
         return errorOnTokenType(XQueryTokenType.CDATA_SECTION_END_TAG, XQueryBundle.message("parser.error.end-of-cdata-section-without-start"));
     }
+
+    // endregion
+    // region Grammar :: TypeDeclaration
 
     private boolean parseTypeDeclaration() {
         final PsiBuilder.Marker typeDeclarationMarker = matchTokenTypeWithMarker(XQueryTokenType.K_AS);
@@ -1447,6 +1465,9 @@ class XQueryParser {
         itemTypeMarker.drop();
         return false;
     }
+
+    // endregion
+    // region Grammar :: TypeDeclaration :: KindTest
 
     private boolean parseKindTest() {
         return parseDocumentTest()
@@ -1736,6 +1757,9 @@ class XQueryParser {
         }
         return false;
     }
+
+    // endregion
+    // region Lexical Structure
 
     private boolean parseStringLiteral(IElementType type) {
         final PsiBuilder.Marker stringMarker = matchTokenTypeWithMarker(XQueryTokenType.STRING_LITERAL_START);
