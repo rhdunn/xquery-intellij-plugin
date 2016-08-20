@@ -16,7 +16,12 @@
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
 /**
- * An XQuery 1.0 <code>DirCommentConstructor</code> node in the XQuery AST.
+ * An XQuery 1.0 <code>DirectConstructor</code> node in the XQuery AST.
+ *
+ * Because the child nodes of a <code>DirectConstructor</code> are only referenced
+ * from the <code>DirectConstructor</code> node in the grammar, the
+ * <code>DirectConstructor</code> nodes are stored as instances of the child nodes
+ * instead of as distinct nodes themselves.
  */
-public interface XQueryDirCommentConstructor extends XQueryDirectConstructor {
+interface XQueryDirectConstructor {
 }
