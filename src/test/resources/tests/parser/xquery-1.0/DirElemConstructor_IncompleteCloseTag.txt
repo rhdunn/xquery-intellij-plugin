@@ -1,0 +1,33 @@
+FileElement[FILE(0:10)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:10)]
+      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:10)]
+         XQueryOrExprImpl[XQUERY_OR_EXPR(0:10)]
+            XQueryAndExprImpl[XQUERY_AND_EXPR(0:10)]
+               XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:10)]
+                  XQueryRangeExprImpl[XQUERY_RANGE_EXPR(0:10)]
+                     XQueryAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(0:10)]
+                        XQueryMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:10)]
+                           XQueryUnionExprImpl[XQUERY_UNION_EXPR(0:10)]
+                              XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:10)]
+                                 XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:10)]
+                                    XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:10)]
+                                       XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:10)]
+                                          XQueryCastExprImpl[XQUERY_CAST_EXPR(0:10)]
+                                             XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:10)]
+                                                XQueryPathExprImpl[XQUERY_PATH_EXPR(0:10)]
+                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:10)]
+                                                      XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:10)]
+                                                         XQueryConstructorImpl[XQUERY_CONSTRUCTOR(0:10)]
+                                                            XQueryDirElemConstructorImpl[XQUERY_DIR_ELEM_CONSTRUCTOR(0:10)]
+                                                               LeafPsiElement[XQUERY_OPEN_XML_TAG_TOKEN(0:1)]('<')
+                                                               XQueryQNameImpl[XQUERY_QNAME(1:4)]
+                                                                  LeafPsiElement[XQUERY_NCNAME_TOKEN(1:2)]('a')
+                                                                  LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(2:3)](':')
+                                                                  LeafPsiElement[XQUERY_NCNAME_TOKEN(3:4)]('b')
+                                                               LeafPsiElement[XQUERY_END_XML_TAG_TOKEN(4:5)]('>')
+                                                               LeafPsiElement[XQUERY_CLOSE_XML_TAG_TOKEN(5:7)]('</')
+                                                               XQueryQNameImpl[XQUERY_QNAME(7:10)]
+                                                                  LeafPsiElement[XQUERY_NCNAME_TOKEN(7:8)]('a')
+                                                                  LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(8:9)](':')
+                                                                  LeafPsiElement[XQUERY_NCNAME_TOKEN(9:10)]('b')
+                                                               PsiErrorElementImpl[ERROR_ELEMENT(10:10)]('XPST0003: Expected '>'.')

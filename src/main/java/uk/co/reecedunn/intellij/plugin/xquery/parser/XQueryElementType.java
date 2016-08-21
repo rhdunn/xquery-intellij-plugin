@@ -111,5 +111,6 @@ public interface XQueryElementType {
     IElementType MODULE = new IElementType("XQUERY_MODULE", XQuery.INSTANCE);
 
     IElementType CONSTRUCTOR = new IElementType("XQUERY_CONSTRUCTOR", XQuery.INSTANCE);
+    IElementType DIR_ELEM_CONSTRUCTOR = new IElementType("XQUERY_DIR_ELEM_CONSTRUCTOR", XQuery.INSTANCE);
     IElementType DIR_COMMENT_CONSTRUCTOR = new IElementType("XQUERY_DIR_COMMENT_CONSTRUCTOR", XQuery.INSTANCE);
 }

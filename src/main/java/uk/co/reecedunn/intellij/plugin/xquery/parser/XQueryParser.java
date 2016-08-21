@@ -1360,7 +1360,42 @@ class XQueryParser {
     // region Grammar :: Expr :: OrExpr :: DirectConstructor
 
     private boolean parseDirectConstructor() {
-        return parseDirCommentConstructor();
+        return parseDirElemConstructor()
+            || parseDirCommentConstructor();
+    }
+
+    private boolean parseDirElemConstructor() {
+        final PsiBuilder.Marker elementMarker = matchTokenTypeWithMarker(XQueryTokenType.OPEN_XML_TAG);
+        if (elementMarker != null) {
+            // NOTE: The XQueryLexer ensures that OPEN_XML_TAG is followed by an NCNAME/QNAME.
+            parseQName(XQueryElementType.QNAME);
+
+            // TODO: DirAttributeList
+            matchTokenType(XQueryTokenType.WHITE_SPACE);
+
+            if (matchTokenType(XQueryTokenType.SELF_CLOSING_XML_TAG)) {
+                //
+            } else if (matchTokenType(XQueryTokenType.END_XML_TAG)) {
+                // TODO: DirElemContent
+
+                if (matchTokenType(XQueryTokenType.CLOSE_XML_TAG)) {
+                    // NOTE: The XQueryLexer ensures that CLOSE_XML_TAG is followed by an NCNAME/QNAME.
+                    parseQName(XQueryElementType.QNAME);
+
+                    matchTokenType(XQueryTokenType.WHITE_SPACE);
+                    if (!matchTokenType(XQueryTokenType.END_XML_TAG)) {
+                        error(XQueryBundle.message("parser.error.expected", ">"));
+                    }
+                }
+            } else {
+                error(XQueryBundle.message("parser.error.incomplete-open-tag"));
+            }
+
+            elementMarker.done(XQueryElementType.DIR_ELEM_CONSTRUCTOR);
+            return true;
+        }
+
+        return false;
     }
 
     private boolean parseDirCommentConstructor() {

@@ -150,6 +150,8 @@ public class XQueryParserDefinition implements ParserDefinition {
             return new XQueryAttribNameOrWildcardPsiImpl(node);
         } else if (type == XQueryElementType.COMMENT) {
             return new XQueryCommentPsiImpl(node);
+        } else if (type == XQueryElementType.DIR_ELEM_CONSTRUCTOR) {
+            return new XQueryDirElemConstructorPsiImpl(node);
         } else if (type == XQueryElementType.DIR_COMMENT_CONSTRUCTOR) {
             return new XQueryDirCommentConstructorPsiImpl(node);
         } else if (type == XQueryElementType.CONSTRUCTOR) {

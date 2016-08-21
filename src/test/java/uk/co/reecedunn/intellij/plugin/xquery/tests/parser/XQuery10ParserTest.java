@@ -1619,6 +1619,51 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region DirElemConstructor
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirElemConstructor")
+    public void testDirElemConstructor() {
+        final String expected = loadResource("tests/parser/xquery-1.0/DirElemConstructor.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/DirElemConstructor.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirElemConstructor")
+    public void testDirElemConstructor_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/DirElemConstructor_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/DirElemConstructor_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirElemConstructor")
+    public void testDirElemConstructor_SelfClosing() {
+        final String expected = loadResource("tests/parser/xquery-1.0/DirElemConstructor_SelfClosing.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/DirElemConstructor_SelfClosing.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirElemConstructor")
+    public void testDirElemConstructor_SelfClosing_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/DirElemConstructor_SelfClosing_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/DirElemConstructor_SelfClosing_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirElemConstructor")
+    public void testDirElemConstructor_IncompleteOpenTag() {
+        final String expected = loadResource("tests/parser/xquery-1.0/DirElemConstructor_IncompleteOpenTag.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/DirElemConstructor_IncompleteOpenTag.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirElemConstructor")
+    public void testDirElemConstructor_IncompleteCloseTag() {
+        final String expected = loadResource("tests/parser/xquery-1.0/DirElemConstructor_IncompleteCloseTag.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/DirElemConstructor_IncompleteCloseTag.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region CDataSection
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CDataSection")
