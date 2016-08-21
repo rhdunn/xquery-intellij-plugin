@@ -1370,8 +1370,7 @@ class XQueryParser {
             // NOTE: The XQueryLexer ensures that OPEN_XML_TAG is followed by an NCNAME/QNAME.
             parseQName(XQueryElementType.QNAME);
 
-            // TODO: DirAttributeList
-            matchTokenType(XQueryTokenType.WHITE_SPACE);
+            parseDirAttributeList();
 
             if (matchTokenType(XQueryTokenType.SELF_CLOSING_XML_TAG)) {
                 //
@@ -1395,6 +1394,41 @@ class XQueryParser {
             return true;
         }
 
+        return false;
+    }
+
+    private boolean parseDirAttributeList() {
+        final PsiBuilder.Marker attributeListMarker = mBuilder.mark();
+        boolean haveErrors = false;
+
+        // NOTE: The XQuery grammar uses whitespace as the token to start the next iteration of the matching loop.
+        // Because the parseQName function can consume that whitespace during error handling, the QName tokens are
+        // used as the next iteration marker in this implementation.
+        boolean parsed = matchTokenType(XQueryTokenType.WHITE_SPACE);
+        while (parseQName(XQueryElementType.QNAME)) {
+            parsed = true;
+
+            matchTokenType(XQueryTokenType.WHITE_SPACE);
+            if (!matchTokenType(XQueryTokenType.EQUAL) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", "="));
+                haveErrors = true;
+            }
+
+            matchTokenType(XQueryTokenType.WHITE_SPACE);
+            if (!parseStringLiteral(XQueryElementType.STRING_LITERAL) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-attribute-string"));
+                haveErrors = true;
+            }
+
+            matchTokenType(XQueryTokenType.WHITE_SPACE);
+        }
+
+        if (parsed) {
+            attributeListMarker.done(XQueryElementType.DIR_ATTRIBUTE_LIST);
+            return true;
+        }
+
+        attributeListMarker.drop();
         return false;
     }
 

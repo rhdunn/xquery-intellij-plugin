@@ -1664,6 +1664,65 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region DirAttributeList
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeList")
+    public void testDirAttributeList() {
+        final String expected = loadResource("tests/parser/xquery-1.0/DirAttributeList.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/DirAttributeList.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeList")
+    public void testDirAttributeList_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/DirAttributeList_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/DirAttributeList_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeList")
+    public void testDirAttributeList_NCName() {
+        final String expected = loadResource("tests/parser/xquery-1.0/DirAttributeList_NCName.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/DirAttributeList_NCName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeList")
+    public void testDirAttributeList_NCName_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/DirAttributeList_NCName_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/DirAttributeList_NCName_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeList")
+    public void testDirAttributeList_Multiple() {
+        final String expected = loadResource("tests/parser/xquery-1.0/DirAttributeList_Multiple.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/DirAttributeList_Multiple.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeList")
+    public void testDirAttributeList_Multiple_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/DirAttributeList_Multiple_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/DirAttributeList_Multiple_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeList")
+    public void testDirAttributeList_MissingAttributeValue() {
+        final String expected = loadResource("tests/parser/xquery-1.0/DirAttributeList_MissingAttributeValue.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/DirAttributeList_MissingAttributeValue.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeList")
+    public void testDirAttributeList_MissingEquals() {
+        final String expected = loadResource("tests/parser/xquery-1.0/DirAttributeList_MissingEquals.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/DirAttributeList_MissingEquals.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region CDataSection
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CDataSection")

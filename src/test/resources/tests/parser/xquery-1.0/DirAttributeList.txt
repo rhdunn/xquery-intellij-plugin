@@ -1,0 +1,41 @@
+FileElement[FILE(0:23)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:23)]
+      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:23)]
+         XQueryOrExprImpl[XQUERY_OR_EXPR(0:23)]
+            XQueryAndExprImpl[XQUERY_AND_EXPR(0:23)]
+               XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:23)]
+                  XQueryRangeExprImpl[XQUERY_RANGE_EXPR(0:23)]
+                     XQueryAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(0:23)]
+                        XQueryMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:23)]
+                           XQueryUnionExprImpl[XQUERY_UNION_EXPR(0:23)]
+                              XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:23)]
+                                 XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:23)]
+                                    XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:23)]
+                                       XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:23)]
+                                          XQueryCastExprImpl[XQUERY_CAST_EXPR(0:23)]
+                                             XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:23)]
+                                                XQueryPathExprImpl[XQUERY_PATH_EXPR(0:23)]
+                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:23)]
+                                                      XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:23)]
+                                                         XQueryConstructorImpl[XQUERY_CONSTRUCTOR(0:23)]
+                                                            XQueryDirElemConstructorImpl[XQUERY_DIR_ELEM_CONSTRUCTOR(0:23)]
+                                                               LeafPsiElement[XQUERY_OPEN_XML_TAG_TOKEN(0:1)]('<')
+                                                               XQueryQNameImpl[XQUERY_QNAME(1:4)]
+                                                                  LeafPsiElement[XQUERY_NCNAME_TOKEN(1:2)]('a')
+                                                                  LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(2:3)](':')
+                                                                  LeafPsiElement[XQUERY_NCNAME_TOKEN(3:4)]('b')
+                                                               XQueryDirAttributeListImpl[XQUERY_DIR_ATTRIBUTE_LIST(4:21)]
+                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
+                                                                  XQueryQNameImpl[XQUERY_QNAME(5:11)]
+                                                                     LeafPsiElement[XQUERY_NCNAME_TOKEN(5:8)]('xml')
+                                                                     LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(8:9)](':')
+                                                                     LeafPsiElement[XQUERY_NCNAME_TOKEN(9:11)]('id')
+                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
+                                                                  LeafPsiElement[XQUERY_EQUAL_TOKEN(12:13)]('=')
+                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
+                                                                  XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(14:20)]
+                                                                     LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(14:15)]('"')
+                                                                     LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(15:19)]('test')
+                                                                     LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(19:20)]('"')
+                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
+                                                               LeafPsiElement[XQUERY_SELF_CLOSING_XML_TAG_TOKEN(21:23)]('/>')
