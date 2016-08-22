@@ -1664,9 +1664,10 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
-    // region DirAttributeList
+    // region DirAttributeList + DirAttributeValue
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeList")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeValue")
     public void testDirAttributeList() {
         final String expected = loadResource("tests/parser/xquery-1.0/DirAttributeList.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/DirAttributeList.xq");
@@ -1674,6 +1675,7 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeList")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeValue")
     public void testDirAttributeList_CompactWhitespace() {
         final String expected = loadResource("tests/parser/xquery-1.0/DirAttributeList_CompactWhitespace.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/DirAttributeList_CompactWhitespace.xq");
@@ -1681,6 +1683,7 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeList")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeValue")
     public void testDirAttributeList_NCName() {
         final String expected = loadResource("tests/parser/xquery-1.0/DirAttributeList_NCName.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/DirAttributeList_NCName.xq");
@@ -1688,6 +1691,7 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeList")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeValue")
     public void testDirAttributeList_NCName_CompactWhitespace() {
         final String expected = loadResource("tests/parser/xquery-1.0/DirAttributeList_NCName_CompactWhitespace.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/DirAttributeList_NCName_CompactWhitespace.xq");
@@ -1695,6 +1699,7 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeList")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeValue")
     public void testDirAttributeList_Multiple() {
         final String expected = loadResource("tests/parser/xquery-1.0/DirAttributeList_Multiple.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/DirAttributeList_Multiple.xq");
@@ -1702,6 +1707,7 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeList")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeValue")
     public void testDirAttributeList_Multiple_CompactWhitespace() {
         final String expected = loadResource("tests/parser/xquery-1.0/DirAttributeList_Multiple_CompactWhitespace.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/DirAttributeList_Multiple_CompactWhitespace.xq");
@@ -1716,6 +1722,7 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeList")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeValue")
     public void testDirAttributeList_MissingEquals() {
         final String expected = loadResource("tests/parser/xquery-1.0/DirAttributeList_MissingEquals.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/DirAttributeList_MissingEquals.xq");

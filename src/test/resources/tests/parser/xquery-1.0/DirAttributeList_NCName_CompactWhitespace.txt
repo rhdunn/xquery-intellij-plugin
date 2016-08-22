@@ -27,7 +27,7 @@ FileElement[FILE(0:14)]
                                                                   XQueryNCNameImpl[XQUERY_NCNAME(3:5)]
                                                                      LeafPsiElement[XQUERY_NCNAME_TOKEN(3:5)]('id')
                                                                   LeafPsiElement[XQUERY_EQUAL_TOKEN(5:6)]('=')
-                                                                  XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(6:12)]
+                                                                  XQueryDirAttributeValueImpl[XQUERY_DIR_ATTRIBUTE_VALUE(6:12)]
                                                                      LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(6:7)]('"')
                                                                      LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(7:11)]('test')
                                                                      LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(11:12)]('"')

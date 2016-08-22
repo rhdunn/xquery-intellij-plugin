@@ -154,6 +154,8 @@ public class XQueryParserDefinition implements ParserDefinition {
             return new XQueryDirElemConstructorPsiImpl(node);
         } else if (type == XQueryElementType.DIR_ATTRIBUTE_LIST) {
             return new XQueryDirAttributeListPsiImpl(node);
+        } else if (type == XQueryElementType.DIR_ATTRIBUTE_VALUE) {
+            return new XQueryDirAttributeValuePsiImpl(node);
         } else if (type == XQueryElementType.DIR_COMMENT_CONSTRUCTOR) {
             return new XQueryDirCommentConstructorPsiImpl(node);
         } else if (type == XQueryElementType.CONSTRUCTOR) {

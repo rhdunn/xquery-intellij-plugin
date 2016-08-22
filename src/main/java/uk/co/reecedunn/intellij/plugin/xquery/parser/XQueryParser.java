@@ -1415,7 +1415,7 @@ class XQueryParser {
             }
 
             matchTokenType(XQueryTokenType.WHITE_SPACE);
-            if (!parseStringLiteral(XQueryElementType.STRING_LITERAL) && !haveErrors) {
+            if (!parseStringLiteral(XQueryElementType.DIR_ATTRIBUTE_VALUE) && !haveErrors) {
                 error(XQueryBundle.message("parser.error.expected-attribute-string"));
                 haveErrors = true;
             }
