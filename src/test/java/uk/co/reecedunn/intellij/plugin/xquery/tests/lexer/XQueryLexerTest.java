@@ -1105,17 +1105,17 @@ public class XQueryLexerTest extends TestCase {
     public void testDirAttributeValue_QuotAttrValueContent() {
         Lexer lexer = new XQueryLexer();
 
-        lexer.start("\"One {2}<& こんばんは。\"", 0, 18, 11);
-        matchToken(lexer, "\"",           11,  0,  1, XQueryTokenType.STRING_LITERAL_START);
-        matchToken(lexer, "One ",         13,  1,  5, XQueryTokenType.STRING_LITERAL_CONTENTS);
-        matchToken(lexer, "{",            13,  5,  6, XQueryTokenType.BLOCK_OPEN);
-        matchToken(lexer, "2",            15,  6,  7, XQueryTokenType.INTEGER_LITERAL);
-        matchToken(lexer, "}",            15,  7,  8, XQueryTokenType.BLOCK_CLOSE);
-        matchToken(lexer, "<",            13,  8,  9, XQueryTokenType.BAD_CHARACTER);
-        matchToken(lexer, "&",            13,  9, 10, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
-        matchToken(lexer, " こんばんは。", 13, 10, 17, XQueryTokenType.STRING_LITERAL_CONTENTS);
-        matchToken(lexer, "\"",           13, 17, 18, XQueryTokenType.STRING_LITERAL_END);
-        matchToken(lexer, "",             11, 18, 18, null);
+        lexer.start("\"One {2}<& \u3053\u3093\u3070\u3093\u306F.\"", 0, 18, 11);
+        matchToken(lexer, "\"",                               11,  0,  1, XQueryTokenType.STRING_LITERAL_START);
+        matchToken(lexer, "One ",                             13,  1,  5, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "{",                                13,  5,  6, XQueryTokenType.BLOCK_OPEN);
+        matchToken(lexer, "2",                                15,  6,  7, XQueryTokenType.INTEGER_LITERAL);
+        matchToken(lexer, "}",                                15,  7,  8, XQueryTokenType.BLOCK_CLOSE);
+        matchToken(lexer, "<",                                13,  8,  9, XQueryTokenType.BAD_CHARACTER);
+        matchToken(lexer, "&",                                13,  9, 10, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, " \u3053\u3093\u3070\u3093\u306F.", 13, 10, 17, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "\"",                               13, 17, 18, XQueryTokenType.STRING_LITERAL_END);
+        matchToken(lexer, "",                                 11, 18, 18, null);
     }
 
     // endregion
@@ -1126,18 +1126,18 @@ public class XQueryLexerTest extends TestCase {
     public void testDirAttributeValue_AposAttrValueContent() {
         Lexer lexer = new XQueryLexer();
 
-        lexer.start("'One {2}<& こんばんは。}'", 0, 19, 11);
-        matchToken(lexer, "'",            11,  0,  1, XQueryTokenType.STRING_LITERAL_START);
-        matchToken(lexer, "One ",         14,  1,  5, XQueryTokenType.STRING_LITERAL_CONTENTS);
-        matchToken(lexer, "{",            14,  5,  6, XQueryTokenType.BLOCK_OPEN);
-        matchToken(lexer, "2",            16,  6,  7, XQueryTokenType.INTEGER_LITERAL);
-        matchToken(lexer, "}",            16,  7,  8, XQueryTokenType.BLOCK_CLOSE);
-        matchToken(lexer, "<",            14,  8,  9, XQueryTokenType.BAD_CHARACTER);
-        matchToken(lexer, "&",            14,  9, 10, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
-        matchToken(lexer, " こんばんは。", 14, 10, 17, XQueryTokenType.STRING_LITERAL_CONTENTS);
-        matchToken(lexer, "}",            14, 17, 18, XQueryTokenType.BLOCK_CLOSE);
-        matchToken(lexer, "'",            14, 18, 19, XQueryTokenType.STRING_LITERAL_END);
-        matchToken(lexer, "",             11, 19, 19, null);
+        lexer.start("'One {2}<& \u3053\u3093\u3070\u3093\u306F.}'", 0, 19, 11);
+        matchToken(lexer, "'",                                11,  0,  1, XQueryTokenType.STRING_LITERAL_START);
+        matchToken(lexer, "One ",                             14,  1,  5, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "{",                                14,  5,  6, XQueryTokenType.BLOCK_OPEN);
+        matchToken(lexer, "2",                                16,  6,  7, XQueryTokenType.INTEGER_LITERAL);
+        matchToken(lexer, "}",                                16,  7,  8, XQueryTokenType.BLOCK_CLOSE);
+        matchToken(lexer, "<",                                14,  8,  9, XQueryTokenType.BAD_CHARACTER);
+        matchToken(lexer, "&",                                14,  9, 10, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, " \u3053\u3093\u3070\u3093\u306F.", 14, 10, 17, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "}",                                14, 17, 18, XQueryTokenType.BLOCK_CLOSE);
+        matchToken(lexer, "'",                                14, 18, 19, XQueryTokenType.STRING_LITERAL_END);
+        matchToken(lexer, "",                                 11, 19, 19, null);
     }
 
     // endregion
@@ -1397,22 +1397,22 @@ public class XQueryLexerTest extends TestCase {
     public void testDirElemContent_ElementContentChar() {
         Lexer lexer = new XQueryLexer();
 
-        lexer.start("<a>One {2}<& こんばんは。}</a>");
-        matchToken(lexer, "<",             0,  0,  1, XQueryTokenType.OPEN_XML_TAG);
-        matchToken(lexer, "a",            11,  1,  2, XQueryTokenType.NCNAME);
-        matchToken(lexer, ">",            11,  2,  3, XQueryTokenType.END_XML_TAG);
-        matchToken(lexer, "One ",         17,  3,  7, XQueryTokenType.XML_ELEMENT_CONTENTS);
-        matchToken(lexer, "{",            17,  7,  8, XQueryTokenType.BLOCK_OPEN);
-        matchToken(lexer, "2",            18,  8,  9, XQueryTokenType.INTEGER_LITERAL);
-        matchToken(lexer, "}",            18,  9, 10, XQueryTokenType.BLOCK_CLOSE);
-        matchToken(lexer, "<",            17, 10, 11, XQueryTokenType.BAD_CHARACTER);
-        matchToken(lexer, "&",            17, 11, 12, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
-        matchToken(lexer, " こんばんは。", 17, 12, 19, XQueryTokenType.XML_ELEMENT_CONTENTS);
-        matchToken(lexer, "}",            17, 19, 20, XQueryTokenType.BLOCK_CLOSE);
-        matchToken(lexer, "</",           17, 20, 22, XQueryTokenType.CLOSE_XML_TAG);
-        matchToken(lexer, "a",            12, 22, 23, XQueryTokenType.NCNAME);
-        matchToken(lexer, ">",            12, 23, 24, XQueryTokenType.END_XML_TAG);
-        matchToken(lexer, "",              0, 24, 24, null);
+        lexer.start("<a>One {2}<& \u3053\u3093\u3070\u3093\u306F.}</a>");
+        matchToken(lexer, "<",                                 0,  0,  1, XQueryTokenType.OPEN_XML_TAG);
+        matchToken(lexer, "a",                                11,  1,  2, XQueryTokenType.NCNAME);
+        matchToken(lexer, ">",                                11,  2,  3, XQueryTokenType.END_XML_TAG);
+        matchToken(lexer, "One ",                             17,  3,  7, XQueryTokenType.XML_ELEMENT_CONTENTS);
+        matchToken(lexer, "{",                                17,  7,  8, XQueryTokenType.BLOCK_OPEN);
+        matchToken(lexer, "2",                                18,  8,  9, XQueryTokenType.INTEGER_LITERAL);
+        matchToken(lexer, "}",                                18,  9, 10, XQueryTokenType.BLOCK_CLOSE);
+        matchToken(lexer, "<",                                17, 10, 11, XQueryTokenType.BAD_CHARACTER);
+        matchToken(lexer, "&",                                17, 11, 12, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, " \u3053\u3093\u3070\u3093\u306F.", 17, 12, 19, XQueryTokenType.XML_ELEMENT_CONTENTS);
+        matchToken(lexer, "}",                                17, 19, 20, XQueryTokenType.BLOCK_CLOSE);
+        matchToken(lexer, "</",                               17, 20, 22, XQueryTokenType.CLOSE_XML_TAG);
+        matchToken(lexer, "a",                                12, 22, 23, XQueryTokenType.NCNAME);
+        matchToken(lexer, ">",                                12, 23, 24, XQueryTokenType.END_XML_TAG);
+        matchToken(lexer, "",                                  0, 24, 24, null);
     }
 
     // endregion
