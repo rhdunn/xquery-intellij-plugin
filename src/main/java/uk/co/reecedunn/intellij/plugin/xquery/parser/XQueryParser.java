@@ -1858,7 +1858,12 @@ class XQueryParser {
                 return true;
             } else if (matchTokenType(XQueryTokenType.PARTIAL_ENTITY_REFERENCE)) {
                 error(XQueryBundle.message("parser.error.incomplete-entity"));
-            } else if (!errorOnTokenType(XQueryTokenType.EMPTY_ENTITY_REFERENCE, XQueryBundle.message("parser.error.empty-entity"))) {
+            } else if (errorOnTokenType(XQueryTokenType.EMPTY_ENTITY_REFERENCE, XQueryBundle.message("parser.error.empty-entity"))) {
+                //
+            } else if (parseEnclosedExpr()) {
+                // NOTE: This is only accessible via DirAttributeValue strings. Other StringLiteral types handle the
+                // '{' and '}' characters as part of the string literal contents.
+            } else {
                 stringMarker.done(type);
                 error(XQueryBundle.message("parser.error.incomplete-string"));
                 return true;
