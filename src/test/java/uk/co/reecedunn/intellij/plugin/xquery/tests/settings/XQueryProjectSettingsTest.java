@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.Implementations;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings;
 
+import java.io.File;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -91,7 +92,7 @@ public class XQueryProjectSettingsTest extends TestCase {
     public void testExportedFiles() {
         XQueryProjectSettings settings = new XQueryProjectSettings();
         assertThat(settings.getExportFiles().length, is(1));
-        assertThat(settings.getExportFiles()[0].getParent(), is(PathManager.getOptionsPath()));
+        assertThat(settings.getExportFiles()[0].getParent(), is(new File(PathManager.getOptionsPath()).getAbsolutePath()));
         assertThat(settings.getExportFiles()[0].getName(), is("xquery_project_settings.xml"));
     }
 
