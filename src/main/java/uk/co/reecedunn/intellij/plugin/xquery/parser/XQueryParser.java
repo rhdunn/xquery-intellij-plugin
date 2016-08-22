@@ -1858,10 +1858,12 @@ class XQueryParser {
                 return true;
             } else if (matchTokenType(XQueryTokenType.PARTIAL_ENTITY_REFERENCE)) {
                 error(XQueryBundle.message("parser.error.incomplete-entity"));
-            } else if (errorOnTokenType(XQueryTokenType.EMPTY_ENTITY_REFERENCE, XQueryBundle.message("parser.error.empty-entity"))) {
+            } else if (errorOnTokenType(XQueryTokenType.EMPTY_ENTITY_REFERENCE, XQueryBundle.message("parser.error.empty-entity")) ||
+                       matchTokenType(XQueryTokenType.BAD_CHARACTER)) {
                 //
-            } else if (parseEnclosedExpr()) {
-                // NOTE: This is only accessible via DirAttributeValue strings. Other StringLiteral types handle the
+            } else if (parseEnclosedExpr() ||
+                       errorOnTokenType(XQueryTokenType.BLOCK_CLOSE, XQueryBundle.message("parser.error.mismatched-exclosed-expr"))) {
+                // NOTE: These are only accessible via DirAttributeValue strings. Other StringLiteral types handle the
                 // '{' and '}' characters as part of the string literal contents.
             } else {
                 stringMarker.done(type);

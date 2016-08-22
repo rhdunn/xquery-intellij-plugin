@@ -1664,7 +1664,7 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
-    // region DirAttributeList + DirAttributeValue
+    // region DirAttributeList + DirAttributeValue + (Quot|Apos)AttrValueContent
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeList")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeValue")
@@ -1748,6 +1748,18 @@ public class XQuery10ParserTest extends ParserTestCase {
     public void testDirAttributeValue_EscapeApos() {
         final String expected = loadResource("tests/parser/xquery-1.0/DirAttributeValue_EscapeApos.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/DirAttributeValue_EscapeApos.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
+    // region DirAttributeValue + (Quot|Apos)AttrContentChar
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeValue")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QuotAttrContentChar")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AposAttrContentChar")
+    public void testDirAttributeValue_AttrContentChar() {
+        final String expected = loadResource("tests/parser/xquery-1.0/DirAttributeValue_AttrContentChar.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/DirAttributeValue_AttrContentChar.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
