@@ -1741,6 +1741,17 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region DirAttributeValue + EscapeApos
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeValue")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-EscapeApos")
+    public void testDirAttributeValue_EscapeApos() {
+        final String expected = loadResource("tests/parser/xquery-1.0/DirAttributeValue_EscapeApos.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/DirAttributeValue_EscapeApos.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region CDataSection
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CDataSection")
