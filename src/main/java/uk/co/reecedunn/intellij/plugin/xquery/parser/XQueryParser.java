@@ -1495,7 +1495,8 @@ class XQueryParser {
         while (true) {
             if (matchTokenType(XQueryTokenType.XML_ELEMENT_CONTENTS) ||
                 matchTokenType(XQueryTokenType.BAD_CHARACTER) ||
-                matchTokenType(XQueryTokenType.BLOCK_CLOSE)) {
+                matchTokenType(XQueryTokenType.BLOCK_CLOSE) ||
+                matchTokenType(XQueryTokenType.ESCAPED_CHARACTER)) {
                 matched = true;
             } else {
                 if (matched) {
