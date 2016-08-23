@@ -18,7 +18,6 @@ package uk.co.reecedunn.intellij.plugin.xquery.parser;
 import com.intellij.lang.PsiBuilder;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
@@ -1377,7 +1376,7 @@ class XQueryParser {
             if (matchTokenType(XQueryTokenType.SELF_CLOSING_XML_TAG)) {
                 //
             } else if (matchTokenType(XQueryTokenType.END_XML_TAG)) {
-                parseDirElemContents();
+                parseDirElemContent();
 
                 if (matchTokenType(XQueryTokenType.CLOSE_XML_TAG)) {
                     // NOTE: The XQueryLexer ensures that CLOSE_XML_TAG is followed by an NCNAME/QNAME.
@@ -1489,7 +1488,7 @@ class XQueryParser {
         return false;
     }
 
-    private boolean parseDirElemContents() {
+    private boolean parseDirElemContent() {
         final PsiBuilder.Marker elemContentMarker = mBuilder.mark();
         boolean matched = false;
         while (true) {
@@ -1503,6 +1502,7 @@ class XQueryParser {
                 matched = true;
             } else if (matchTokenType(XQueryTokenType.PARTIAL_ENTITY_REFERENCE)) {
                 error(XQueryBundle.message("parser.error.incomplete-entity"));
+                matched = true;
             } else {
                 if (matched) {
                     elemContentMarker.done(XQueryElementType.DIR_ELEM_CONTENT);
