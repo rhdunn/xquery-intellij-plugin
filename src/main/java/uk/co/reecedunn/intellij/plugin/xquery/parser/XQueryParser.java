@@ -45,7 +45,6 @@ class XQueryParser {
         while (getTokenType() != null) {
             if (skipWhiteSpaceAndCommentTokens()) continue;
             if (parseModule()) continue;
-            if (parseCDataSection()) continue;
             if (errorOnTokenType(XQueryTokenType.INVALID, XQueryBundle.message("parser.error.invalid-token"))) continue;
             advanceLexer();
         }
@@ -1362,7 +1361,8 @@ class XQueryParser {
     private boolean parseDirectConstructor() {
         return parseDirElemConstructor()
             || parseDirCommentConstructor()
-            || parseDirPIConstructor();
+            || parseDirPIConstructor()
+            || parseCDataSection(null);
     }
 
     private boolean parseDirElemConstructor() {
@@ -1503,6 +1503,8 @@ class XQueryParser {
             } else if (matchTokenType(XQueryTokenType.PARTIAL_ENTITY_REFERENCE)) {
                 error(XQueryBundle.message("parser.error.incomplete-entity"));
                 matched = true;
+            } else if (parseCDataSection(XQueryElementType.DIR_ELEM_CONTENT)) {
+                matched = true;
             } else {
                 if (matched) {
                     elemContentMarker.done(XQueryElementType.DIR_ELEM_CONTENT);
@@ -1515,9 +1517,16 @@ class XQueryParser {
         }
     }
 
-    private boolean parseCDataSection() {
-        final PsiBuilder.Marker cdataMarker = matchTokenTypeWithMarker(XQueryTokenType.CDATA_SECTION_START_TAG);
-        if (cdataMarker != null) {
+    private boolean parseCDataSection(IElementType context) {
+        final PsiBuilder.Marker cdataMarker = mBuilder.mark();
+        final PsiBuilder.Marker errorMarker = mBuilder.mark();
+        if (matchTokenType(XQueryTokenType.CDATA_SECTION_START_TAG)) {
+            if (context == null) {
+                errorMarker.error(XQueryBundle.message("parser.error.cdata-section-not-in-element-content"));
+            } else {
+                errorMarker.drop();
+            }
+
             matchTokenType(XQueryTokenType.CDATA_SECTION);
             if (matchTokenType(XQueryTokenType.CDATA_SECTION_END_TAG)) {
                 cdataMarker.done(XQueryElementType.CDATA_SECTION);
@@ -1529,6 +1538,8 @@ class XQueryParser {
             return true;
         }
 
+        errorMarker.drop();
+        cdataMarker.drop();
         return errorOnTokenType(XQueryTokenType.CDATA_SECTION_END_TAG, XQueryBundle.message("parser.error.end-of-cdata-section-without-start"));
     }
 

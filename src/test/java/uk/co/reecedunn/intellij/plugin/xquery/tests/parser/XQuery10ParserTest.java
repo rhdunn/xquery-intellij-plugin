@@ -1923,6 +1923,33 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region DirElemContent + CDataSection
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirElemContent")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CDataSection")
+    public void testDirElemContent_CDataSection() {
+        final String expected = loadResource("tests/parser/xquery-1.0/DirElemContent_CDataSection.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/DirElemContent_CDataSection.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirElemContent")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CDataSection")
+    public void testDirElemContent_CDataSection_Unclosed() {
+        final String expected = loadResource("tests/parser/xquery-1.0/DirElemContent_CDataSection_Unclosed.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/DirElemContent_CDataSection_Unclosed.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirElemContent")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CDataSection")
+    public void testDirElemContent_CDataSection_UnexpectedEndTag() {
+        final String expected = loadResource("tests/parser/xquery-1.0/DirElemContent_CDataSection_UnexpectedEndTag.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/DirElemContent_CDataSection_UnexpectedEndTag.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region DirCommentConstructor
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirCommentConstructor")
