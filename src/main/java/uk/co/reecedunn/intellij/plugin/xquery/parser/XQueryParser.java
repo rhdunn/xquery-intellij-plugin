@@ -1504,7 +1504,8 @@ class XQueryParser {
                 error(XQueryBundle.message("parser.error.incomplete-entity"));
                 matched = true;
             } else if (parseEnclosedExpr() ||
-                       parseCDataSection(XQueryElementType.DIR_ELEM_CONTENT)) {
+                       parseCDataSection(XQueryElementType.DIR_ELEM_CONTENT) ||
+                       parseDirectConstructor()) {
                 matched = true;
             } else {
                 if (matched) {

@@ -1962,6 +1962,39 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region DirElemContent + DirElemConstructor (DirectConstructor)
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirElemContent")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirElemConstructor")
+    public void testDirElemContent_DirElemConstructor() {
+        final String expected = loadResource("tests/parser/xquery-1.0/DirElemContent_DirElemConstructor.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/DirElemContent_DirElemConstructor.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
+    // region DirElemContent + DirCommentConstructor (DirectConstructor)
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirElemContent")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirCommentConstructor")
+    public void testDirElemContent_DirCommentConstructor() {
+        final String expected = loadResource("tests/parser/xquery-1.0/DirElemContent_DirCommentConstructor.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/DirElemContent_DirCommentConstructor.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
+    // region DirElemContent + DirCommentConstructor (DirectConstructor)
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirElemContent")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirPIConstructor")
+    public void testDirElemContent_DirPIConstructor() {
+        final String expected = loadResource("tests/parser/xquery-1.0/DirElemContent_DirPIConstructor.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/DirElemContent_DirPIConstructor.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region DirCommentConstructor
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirCommentConstructor")
