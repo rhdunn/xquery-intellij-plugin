@@ -1496,8 +1496,12 @@ class XQueryParser {
             if (matchTokenType(XQueryTokenType.XML_ELEMENT_CONTENTS) ||
                 matchTokenType(XQueryTokenType.BAD_CHARACTER) ||
                 matchTokenType(XQueryTokenType.BLOCK_CLOSE) ||
-                matchTokenType(XQueryTokenType.ESCAPED_CHARACTER)) {
+                matchTokenType(XQueryTokenType.PREDEFINED_ENTITY_REFERENCE) ||
+                matchTokenType(XQueryTokenType.ESCAPED_CHARACTER) ||
+                errorOnTokenType(XQueryTokenType.EMPTY_ENTITY_REFERENCE, XQueryBundle.message("parser.error.empty-entity"))) {
                 matched = true;
+            } else if (matchTokenType(XQueryTokenType.PARTIAL_ENTITY_REFERENCE)) {
+                error(XQueryBundle.message("parser.error.incomplete-entity"));
             } else {
                 if (matched) {
                     elemContentMarker.done(XQueryElementType.DIR_ELEM_CONTENT);
