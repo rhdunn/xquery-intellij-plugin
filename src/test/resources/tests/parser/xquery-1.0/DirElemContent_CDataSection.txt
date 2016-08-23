@@ -30,5 +30,5 @@ FileElement[FILE(0:25)]
                                                                      LeafPsiElement[XQUERY_CDATA_SECTION_END_TAG_TOKEN(18:21)](']]>')
                                                                LeafPsiElement[XQUERY_CLOSE_XML_TAG_TOKEN(21:23)]('</')
                                                                XQueryNCNameImpl[XQUERY_NCNAME(23:24)]
-                                                                  LeafPsiElement[XQUERY_NCNAME_TOKEN(23:24)]('b')
+                                                                  LeafPsiElement[XQUERY_NCNAME_TOKEN(23:24)]('a')
                                                                LeafPsiElement[XQUERY_END_XML_TAG_TOKEN(24:25)]('>')
