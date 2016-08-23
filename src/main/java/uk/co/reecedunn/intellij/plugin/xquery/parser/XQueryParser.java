@@ -1503,7 +1503,8 @@ class XQueryParser {
             } else if (matchTokenType(XQueryTokenType.PARTIAL_ENTITY_REFERENCE)) {
                 error(XQueryBundle.message("parser.error.incomplete-entity"));
                 matched = true;
-            } else if (parseCDataSection(XQueryElementType.DIR_ELEM_CONTENT)) {
+            } else if (parseEnclosedExpr() ||
+                       parseCDataSection(XQueryElementType.DIR_ELEM_CONTENT)) {
                 matched = true;
             } else {
                 if (matched) {
