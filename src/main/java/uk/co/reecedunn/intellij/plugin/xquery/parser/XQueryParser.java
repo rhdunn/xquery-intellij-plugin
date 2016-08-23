@@ -1361,7 +1361,8 @@ class XQueryParser {
 
     private boolean parseDirectConstructor() {
         return parseDirElemConstructor()
-            || parseDirCommentConstructor();
+            || parseDirCommentConstructor()
+            || parseDirPIConstructor();
     }
 
     private boolean parseDirElemConstructor() {
@@ -1447,6 +1448,44 @@ class XQueryParser {
         }
 
         return errorOnTokenType(XQueryTokenType.XML_COMMENT_END_TAG, XQueryBundle.message("parser.error.end-of-comment-without-start", "<!--"));
+    }
+
+    private boolean parseDirPIConstructor() {
+        final PsiBuilder.Marker piMarker = matchTokenTypeWithMarker(XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN);
+        if (piMarker != null) {
+            boolean haveErrors = false;
+
+            if (matchTokenType(XQueryTokenType.WHITE_SPACE)) {
+                error(XQueryBundle.message("parser.error.unexpected-whitespace"));
+                haveErrors = true;
+            }
+
+            if (!parseQName(XQueryElementType.NCNAME) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-ncname"));
+                haveErrors = true;
+            }
+
+            matchTokenType(XQueryTokenType.WHITE_SPACE);
+            if (!matchTokenType(XQueryTokenType.PROCESSING_INSTRUCTION_CONTENTS) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-pi-contents"));
+                haveErrors = true;
+            }
+
+            while (matchTokenType(XQueryTokenType.BAD_CHARACTER) ||
+                   matchTokenType(XQueryTokenType.NCNAME) ||
+                   matchTokenType(XQueryTokenType.PROCESSING_INSTRUCTION_CONTENTS)) {
+                //
+            }
+
+            if (!matchTokenType(XQueryTokenType.PROCESSING_INSTRUCTION_END) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", "?>"));
+            }
+
+            piMarker.done(XQueryElementType.DIR_PI_CONSTRUCTOR);
+            return true;
+        }
+
+        return false;
     }
 
     private boolean parseCDataSection() {

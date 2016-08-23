@@ -1856,6 +1856,49 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region DirPIConstructor + DirPIContents
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirPIConstructor")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirPIContents")
+    public void testDirPIConstructor() {
+        final String expected = loadResource("tests/parser/xquery-1.0/DirPIConstructor.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/DirPIConstructor.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirPIConstructor")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirPIContents")
+    public void testDirPIConstructor_UnexpectedWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/DirPIConstructor_UnexpectedWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/DirPIConstructor_UnexpectedWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirPIConstructor")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirPIContents")
+    public void testDirPIConstructor_MissingNCName() {
+        final String expected = loadResource("tests/parser/xquery-1.0/DirPIConstructor_MissingNCName.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/DirPIConstructor_MissingNCName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirPIConstructor")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirPIContents")
+    public void testDirPIConstructor_MissingContents() {
+        final String expected = loadResource("tests/parser/xquery-1.0/DirPIConstructor_MissingContents.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/DirPIConstructor_MissingContents.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirPIConstructor")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirPIContents")
+    public void testDirPIConstructor_MissingEndTag() {
+        final String expected = loadResource("tests/parser/xquery-1.0/DirPIConstructor_MissingEndTag.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/DirPIConstructor_MissingEndTag.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region CDataSection
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CDataSection")

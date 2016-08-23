@@ -158,6 +158,8 @@ public class XQueryParserDefinition implements ParserDefinition {
             return new XQueryDirAttributeValuePsiImpl(node);
         } else if (type == XQueryElementType.DIR_COMMENT_CONSTRUCTOR) {
             return new XQueryDirCommentConstructorPsiImpl(node);
+        } else if (type == XQueryElementType.DIR_PI_CONSTRUCTOR) {
+            return new XQueryDirPIConstructorPsiImpl(node);
         } else if (type == XQueryElementType.CONSTRUCTOR) {
             return new XQueryConstructorPsiImpl(node);
         } else if (type == XQueryElementType.CDATA_SECTION) {
