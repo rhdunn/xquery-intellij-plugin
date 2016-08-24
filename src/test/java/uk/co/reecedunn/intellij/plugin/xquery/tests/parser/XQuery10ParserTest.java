@@ -2124,6 +2124,44 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region CompTextConstructor
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CompTextConstructor")
+    public void testCompTextConstructor() {
+        final String expected = loadResource("tests/parser/xquery-1.0/CompTextConstructor.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/CompTextConstructor.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CompTextConstructor")
+    public void testCompTextConstructor_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/CompTextConstructor_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/CompTextConstructor_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CompTextConstructor")
+    public void testCompTextConstructor_MissingOpeningBrace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/CompTextConstructor_MissingOpeningBrace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/CompTextConstructor_MissingOpeningBrace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CompTextConstructor")
+    public void testCompTextConstructor_MissingExpr() {
+        final String expected = loadResource("tests/parser/xquery-1.0/CompTextConstructor_MissingExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/CompTextConstructor_MissingExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CompTextConstructor")
+    public void testCompTextConstructor_MissingClosingBrace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/CompTextConstructor_MissingClosingBrace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/CompTextConstructor_MissingClosingBrace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region TypeDeclaration + AtomicType
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-TypeDeclaration")

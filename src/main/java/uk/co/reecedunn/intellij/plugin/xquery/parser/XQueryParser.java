@@ -1549,7 +1549,8 @@ class XQueryParser {
     // region Grammar :: Expr :: OrExpr :: ComputedConstructor
 
     private boolean parseComputedConstructor() {
-        return parseCompDocConstructor();
+        return parseCompDocConstructor()
+            || parseCompTextConstructor();
     }
 
     private boolean parseCompDocConstructor() {
@@ -1575,6 +1576,34 @@ class XQueryParser {
             }
 
             documentMarker.done(XQueryElementType.COMP_DOC_CONSTRUCTOR);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseCompTextConstructor() {
+        final PsiBuilder.Marker textMarker = matchTokenTypeWithMarker(XQueryTokenType.K_TEXT);
+        if (textMarker != null) {
+            boolean haveErrors = false;
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.BLOCK_OPEN)) {
+                error(XQueryBundle.message("parser.error.expected", "{"));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!parseExpr(XQueryElementType.EXPR) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-expression"));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.BLOCK_CLOSE) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", "}"));
+            }
+
+            textMarker.done(XQueryElementType.COMP_TEXT_CONSTRUCTOR);
             return true;
         }
         return false;

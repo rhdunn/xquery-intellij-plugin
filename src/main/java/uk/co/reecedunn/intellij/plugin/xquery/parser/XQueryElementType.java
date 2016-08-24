@@ -118,4 +118,5 @@ public interface XQueryElementType {
     IElementType DIR_PI_CONSTRUCTOR = new IElementType("XQUERY_DIR_PI_CONSTRUCTOR", XQuery.INSTANCE);
     IElementType DIR_ELEM_CONTENT = new IElementType("XQUERY_DIR_ELEM_CONTENT", XQuery.INSTANCE);
     IElementType COMP_DOC_CONSTRUCTOR = new IElementType("XQUERY_COMP_DOC_CONSTRUCTOR", XQuery.INSTANCE);
+    IElementType COMP_TEXT_CONSTRUCTOR = new IElementType("XQUERY_COMP_TEXT_CONSTRUCTOR", XQuery.INSTANCE);
 }
