@@ -1184,8 +1184,8 @@ class XQueryParser {
             || parseContextItemExpr()
             || parseOrderedExpr()
             || parseUnorderedExpr()
-            || parseFunctionCall()
-            || parseConstructor();
+            || parseConstructor()
+            || parseFunctionCall();
     }
 
     private boolean parseLiteral() {
@@ -1346,7 +1346,7 @@ class XQueryParser {
 
     private boolean parseConstructor() {
         final PsiBuilder.Marker constructorMarker = mBuilder.mark();
-        if (parseDirectConstructor()) {
+        if (parseDirectConstructor() || parseComputedConstructor()) {
             constructorMarker.done(XQueryElementType.CONSTRUCTOR);
             return true;
         }
@@ -1543,6 +1543,41 @@ class XQueryParser {
         errorMarker.drop();
         cdataMarker.drop();
         return errorOnTokenType(XQueryTokenType.CDATA_SECTION_END_TAG, XQueryBundle.message("parser.error.end-of-cdata-section-without-start"));
+    }
+
+    // endregion
+    // region Grammar :: Expr :: OrExpr :: ComputedConstructor
+
+    private boolean parseComputedConstructor() {
+        return parseCompDocConstructor();
+    }
+
+    private boolean parseCompDocConstructor() {
+        final PsiBuilder.Marker documentMarker = matchTokenTypeWithMarker(XQueryTokenType.K_DOCUMENT);
+        if (documentMarker != null) {
+            boolean haveErrors = false;
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.BLOCK_OPEN)) {
+                error(XQueryBundle.message("parser.error.expected", "{"));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!parseExpr(XQueryElementType.EXPR) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-expression"));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.BLOCK_CLOSE) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", "}"));
+            }
+
+            documentMarker.done(XQueryElementType.COMP_DOC_CONSTRUCTOR);
+            return true;
+        }
+        return false;
     }
 
     // endregion
