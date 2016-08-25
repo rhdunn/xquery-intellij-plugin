@@ -1550,6 +1550,7 @@ class XQueryParser {
 
     private boolean parseComputedConstructor() {
         return parseCompDocConstructor()
+            || parseCompElemConstructor()
             || parseCompTextConstructor()
             || parseCompCommentConstructor();
     }
@@ -1577,6 +1578,50 @@ class XQueryParser {
             }
 
             documentMarker.done(XQueryElementType.COMP_DOC_CONSTRUCTOR);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseCompElemConstructor() {
+        final PsiBuilder.Marker elementMarker = matchTokenTypeWithMarker(XQueryTokenType.K_ELEMENT);
+        if (elementMarker != null) {
+            boolean haveErrors = false;
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!parseQName(XQueryElementType.QNAME)) {
+                if (!matchTokenType(XQueryTokenType.BLOCK_OPEN)) {
+                    error(XQueryBundle.message("parser.error.expected-qname-or-token", "{"));
+                    haveErrors = true;
+                }
+
+                skipWhiteSpaceAndCommentTokens();
+                if (!parseExpr(XQueryElementType.EXPR) && !haveErrors) {
+                    error(XQueryBundle.message("parser.error.expected-expression"));
+                    haveErrors = true;
+                }
+
+                skipWhiteSpaceAndCommentTokens();
+                if (!matchTokenType(XQueryTokenType.BLOCK_CLOSE) && !haveErrors) {
+                    error(XQueryBundle.message("parser.error.expected", "}"));
+                }
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.BLOCK_OPEN) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", "{"));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            parseExpr(XQueryElementType.EXPR);
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.BLOCK_CLOSE) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", "}"));
+            }
+
+            elementMarker.done(XQueryElementType.COMP_ELEM_CONSTRUCTOR);
             return true;
         }
         return false;
