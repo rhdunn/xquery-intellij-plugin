@@ -1614,7 +1614,7 @@ class XQueryParser {
             }
 
             skipWhiteSpaceAndCommentTokens();
-            parseExpr(XQueryElementType.EXPR);
+            parseExpr(XQueryElementType.CONTENT_EXPR);
 
             skipWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.BLOCK_CLOSE) && !haveErrors) {

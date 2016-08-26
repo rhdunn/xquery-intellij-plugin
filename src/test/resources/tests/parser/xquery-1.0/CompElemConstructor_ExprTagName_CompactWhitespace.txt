@@ -45,7 +45,7 @@ FileElement[FILE(0:18)]
                                                                                                                         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(12:13)]('"')
                                                                LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(13:14)]('}')
                                                                LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(14:15)]('{')
-                                                               XQueryExprImpl[XQUERY_EXPR(15:17)]
+                                                               XQueryContentExprImpl[XQUERY_CONTENT_EXPR(15:17)]
                                                                   XQueryOrExprImpl[XQUERY_OR_EXPR(15:17)]
                                                                      XQueryAndExprImpl[XQUERY_AND_EXPR(15:17)]
                                                                         XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(15:17)]
