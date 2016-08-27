@@ -1551,6 +1551,7 @@ class XQueryParser {
     private boolean parseComputedConstructor() {
         return parseCompDocConstructor()
             || parseCompElemConstructor()
+            || parseCompAttrConstructor()
             || parseCompTextConstructor()
             || parseCompCommentConstructor();
     }
@@ -1622,6 +1623,50 @@ class XQueryParser {
             }
 
             elementMarker.done(XQueryElementType.COMP_ELEM_CONSTRUCTOR);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseCompAttrConstructor() {
+        final PsiBuilder.Marker elementMarker = matchTokenTypeWithMarker(XQueryTokenType.K_ATTRIBUTE);
+        if (elementMarker != null) {
+            boolean haveErrors = false;
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!parseQName(XQueryElementType.QNAME)) {
+                if (!matchTokenType(XQueryTokenType.BLOCK_OPEN)) {
+                    error(XQueryBundle.message("parser.error.expected-qname-or-token", "{"));
+                    haveErrors = true;
+                }
+
+                skipWhiteSpaceAndCommentTokens();
+                if (!parseExpr(XQueryElementType.EXPR) && !haveErrors) {
+                    error(XQueryBundle.message("parser.error.expected-expression"));
+                    haveErrors = true;
+                }
+
+                skipWhiteSpaceAndCommentTokens();
+                if (!matchTokenType(XQueryTokenType.BLOCK_CLOSE) && !haveErrors) {
+                    error(XQueryBundle.message("parser.error.expected", "}"));
+                }
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.BLOCK_OPEN) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", "{"));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            parseExpr(XQueryElementType.EXPR);
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.BLOCK_CLOSE) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", "}"));
+            }
+
+            elementMarker.done(XQueryElementType.COMP_ATTR_CONSTRUCTOR);
             return true;
         }
         return false;

@@ -166,6 +166,8 @@ public class XQueryParserDefinition implements ParserDefinition {
             return new XQueryCompDocConstructorPsiImpl(node);
         } else if (type == XQueryElementType.COMP_ELEM_CONSTRUCTOR) {
             return new XQueryCompElemConstructorPsiImpl(node);
+        } else if (type == XQueryElementType.COMP_ATTR_CONSTRUCTOR) {
+            return new XQueryCompAttrConstructorPsiImpl(node);
         } else if (type == XQueryElementType.COMP_TEXT_CONSTRUCTOR) {
             return new XQueryCompTextConstructorPsiImpl(node);
         } else if (type == XQueryElementType.COMP_COMMENT_CONSTRUCTOR) {
