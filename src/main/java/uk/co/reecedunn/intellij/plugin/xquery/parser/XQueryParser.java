@@ -1167,6 +1167,8 @@ class XQueryParser {
     private boolean parseFilterExpr() {
         final PsiBuilder.Marker filterExprMarker = mark();
         if (parsePrimaryExpr()) {
+            skipWhiteSpaceAndCommentTokens();
+
             filterExprMarker.done(XQueryElementType.FILTER_EXPR);
             return true;
         }
