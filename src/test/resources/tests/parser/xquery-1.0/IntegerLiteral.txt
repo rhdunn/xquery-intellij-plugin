@@ -19,3 +19,4 @@ FileElement[FILE(0:4)]
                                                       XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:4)]
                                                          XQueryLiteralImpl[XQUERY_LITERAL(0:4)]
                                                             XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:4)]('1234')
+                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(4:4)]

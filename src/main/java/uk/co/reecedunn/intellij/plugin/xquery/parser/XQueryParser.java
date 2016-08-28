@@ -1168,13 +1168,22 @@ class XQueryParser {
         final PsiBuilder.Marker filterExprMarker = mark();
         if (parsePrimaryExpr()) {
             skipWhiteSpaceAndCommentTokens();
-            parsePredicate();
+            parsePredicateList();
 
             filterExprMarker.done(XQueryElementType.FILTER_EXPR);
             return true;
         }
         filterExprMarker.drop();
         return false;
+    }
+
+    private boolean parsePredicateList() {
+        final PsiBuilder.Marker predicateListMarker = mark();
+        while (parsePredicate()) {
+            skipWhiteSpaceAndCommentTokens();
+        }
+        predicateListMarker.done(XQueryElementType.PREDICATE_LIST);
+        return true;
     }
 
     private boolean parsePredicate() {

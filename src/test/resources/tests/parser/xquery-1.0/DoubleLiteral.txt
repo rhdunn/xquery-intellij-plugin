@@ -19,3 +19,4 @@ FileElement[FILE(0:12)]
                                                       XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:12)]
                                                          XQueryLiteralImpl[XQUERY_LITERAL(0:12)]
                                                             XQueryDoubleLiteralImpl[XQUERY_DOUBLE_LITERAL_TOKEN(0:12)]('2.99792458e8')
+                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(12:12)]

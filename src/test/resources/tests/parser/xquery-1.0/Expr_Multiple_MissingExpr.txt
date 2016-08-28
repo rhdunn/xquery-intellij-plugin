@@ -20,5 +20,6 @@ FileElement[FILE(0:3)]
                                                          XQueryLiteralImpl[XQUERY_LITERAL(0:1)]
                                                             XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:1)]('1')
                                                          PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(2:2)]
          LeafPsiElement[XQUERY_COMMA_TOKEN(2:3)](',')
          PsiErrorElementImpl[ERROR_ELEMENT(3:3)]('XPST0003: Missing expression.')

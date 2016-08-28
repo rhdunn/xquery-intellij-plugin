@@ -29,3 +29,4 @@ FileElement[FILE(0:12)]
                                                                XQueryNCNameImpl[XQUERY_NCNAME(10:11)]
                                                                   LeafPsiElement[XQUERY_NCNAME_TOKEN(10:11)]('a')
                                                                LeafPsiElement[XQUERY_END_XML_TAG_TOKEN(11:12)]('>')
+                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(12:12)]

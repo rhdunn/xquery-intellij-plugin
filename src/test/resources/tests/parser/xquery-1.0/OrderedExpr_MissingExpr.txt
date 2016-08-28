@@ -24,3 +24,4 @@ FileElement[FILE(0:11)]
                                                             PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
                                                             PsiErrorElementImpl[ERROR_ELEMENT(10:10)]('XPST0003: Missing expression.')
                                                             LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(10:11)]('}')
+                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(11:11)]

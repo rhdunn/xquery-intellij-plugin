@@ -39,6 +39,7 @@ public interface XQueryElementType {
     IElementType FUNCTION_CALL = new IElementType("XQUERY_FUNCTION_CALL", XQuery.INSTANCE);
 
     IElementType FILTER_EXPR = new IElementType("XQUERY_FILTER_EXPR", XQuery.INSTANCE);
+    IElementType PREDICATE_LIST = new IElementType("XQUERY_PREDICATE_LIST", XQuery.INSTANCE);
     IElementType PREDICATE = new IElementType("XQUERY_PREDICATE", XQuery.INSTANCE);
 
     IElementType RELATIVE_PATH_EXPR = new IElementType("XQUERY_RELATIVE_PATH_EXPR", XQuery.INSTANCE);

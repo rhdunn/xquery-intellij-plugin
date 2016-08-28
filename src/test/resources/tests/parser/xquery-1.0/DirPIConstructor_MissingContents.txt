@@ -24,3 +24,4 @@ FileElement[FILE(0:5)]
                                                                   LeafPsiElement[XQUERY_NCNAME_TOKEN(2:3)]('a')
                                                                PsiErrorElementImpl[ERROR_ELEMENT(3:3)]('XPST0003: Processing instruction contents expected.')
                                                                LeafPsiElement[XQUERY_PROCESSING_INSTRUCTION_END_TOKEN(3:5)]('?>')
+                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(5:5)]

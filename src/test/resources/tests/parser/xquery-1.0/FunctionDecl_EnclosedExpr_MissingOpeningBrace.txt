@@ -39,6 +39,7 @@ FileElement[FILE(0:39)]
                                                                      LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(30:34)]('true')
                                                                      LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(34:35)]('"')
                                                                PsiWhiteSpaceImpl[WHITE_SPACE(35:36)](' ')
+                                                               XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(36:36)]
             LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(36:37)]('}')
             PsiWhiteSpaceImpl[WHITE_SPACE(37:38)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(38:39)](';')

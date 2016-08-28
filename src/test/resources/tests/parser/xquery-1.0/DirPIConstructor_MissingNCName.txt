@@ -24,3 +24,4 @@ FileElement[FILE(0:10)]
                                                                LeafPsiElement[BAD_CHARACTER(2:3)]('!')
                                                                LeafPsiElement[XQUERY_NCNAME_TOKEN(3:8)]('ipsum')
                                                                LeafPsiElement[XQUERY_PROCESSING_INSTRUCTION_END_TOKEN(8:10)]('?>')
+                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(10:10)]

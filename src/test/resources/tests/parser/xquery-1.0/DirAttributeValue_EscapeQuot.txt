@@ -32,3 +32,4 @@ FileElement[FILE(0:11)]
                                                                      XQueryEscapeCharacterImpl[XQUERY_ESCAPED_CHARACTER_TOKEN(6:8)]('""')
                                                                      LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(8:9)]('"')
                                                                LeafPsiElement[XQUERY_SELF_CLOSING_XML_TAG_TOKEN(9:11)]('/>')
+                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(11:11)]

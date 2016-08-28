@@ -160,9 +160,6 @@ public class XQuery10ParserTest extends ParserTestCase {
     // endregion
     // region MainModule
 
-    // NOTE: The QueryBody-only and missing QueryBody test cases are covered by
-    // the IntegerLiteral and ModuleImport tests respectively.
-
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-MainModule")
     public void testMainModule() {
         final String expected = loadResource("tests/parser/xquery-1.0/MainModule.txt");
@@ -1355,7 +1352,7 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
-    // region FilterExpr + Predicate
+    // region FilterExpr + PredicateList + Predicate
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FilterExpr")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PredicateList")
@@ -1390,6 +1387,15 @@ public class XQuery10ParserTest extends ParserTestCase {
     public void testFilterExpr_PredicateList_MissingClosingBrace() {
         final String expected = loadResource("tests/parser/xquery-1.0/FilterExpr_PredicateList_MissingClosingBrace.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/FilterExpr_PredicateList_MissingClosingBrace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FilterExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PredicateList")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Predicate")
+    public void testFilterExpr_PredicateList_Multiple() {
+        final String expected = loadResource("tests/parser/xquery-1.0/FilterExpr_PredicateList_Multiple.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/FilterExpr_PredicateList_Multiple.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
@@ -2023,7 +2029,7 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
-    // region DirElemContent + DirCommentConstructor (DirectConstructor)
+    // region DirElemContent + DirPIConstructor (DirectConstructor)
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirElemContent")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirPIConstructor")

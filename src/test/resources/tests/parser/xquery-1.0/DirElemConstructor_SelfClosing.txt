@@ -27,3 +27,4 @@ FileElement[FILE(0:8)]
                                                                XQueryDirAttributeListImpl[XQUERY_DIR_ATTRIBUTE_LIST(5:6)]
                                                                   PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
                                                                LeafPsiElement[XQUERY_SELF_CLOSING_XML_TAG_TOKEN(6:8)]('/>')
+                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(8:8)]

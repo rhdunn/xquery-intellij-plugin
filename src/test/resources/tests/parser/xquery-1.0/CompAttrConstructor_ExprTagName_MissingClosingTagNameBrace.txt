@@ -46,6 +46,7 @@ FileElement[FILE(0:27)]
                                                                                                                         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(13:15)]('id')
                                                                                                                         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(15:16)]('"')
                                                                                                                   PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
+                                                                                                                  XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(17:17)]
                                                                PsiErrorElementImpl[ERROR_ELEMENT(17:17)]('XPST0003: Expected '}'.')
                                                                LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(17:18)]('{')
                                                                PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
@@ -72,4 +73,6 @@ FileElement[FILE(0:27)]
                                                                                                                         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(20:24)]('test')
                                                                                                                         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(24:25)]('"')
                                                                                                                   PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
+                                                                                                                  XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(26:26)]
                                                                LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(26:27)]('}')
+                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(27:27)]

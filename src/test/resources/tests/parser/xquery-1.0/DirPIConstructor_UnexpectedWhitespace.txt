@@ -24,3 +24,4 @@ FileElement[FILE(0:19)]
                                                                PsiErrorElementImpl[ERROR_ELEMENT(3:3)]('XPST0003: Whitespace is not allowed here.')
                                                                LeafPsiElement[XQUERY_PROCESSING_INSTRUCTION_CONTENTS_TOKEN(3:17)]('a lorem!ipsum ')
                                                                LeafPsiElement[XQUERY_PROCESSING_INSTRUCTION_END_TOKEN(17:19)]('?>')
+                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(19:19)]

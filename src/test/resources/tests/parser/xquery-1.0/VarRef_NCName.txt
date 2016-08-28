@@ -22,3 +22,4 @@ FileElement[FILE(0:6)]
                                                             PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
                                                             XQueryVarNameImpl[XQUERY_VAR_NAME(2:6)]
                                                                LeafPsiElement[XQUERY_NCNAME_TOKEN(2:6)]('test')
+                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(6:6)]

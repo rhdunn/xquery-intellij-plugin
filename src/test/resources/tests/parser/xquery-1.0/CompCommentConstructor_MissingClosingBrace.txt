@@ -45,4 +45,6 @@ FileElement[FILE(0:16)]
                                                                                                                         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(10:11)]('"')
                                                                                                                         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(11:15)]('test')
                                                                                                                         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(15:16)]('"')
+                                                                                                                  XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(16:16)]
                                                                PsiErrorElementImpl[ERROR_ELEMENT(16:16)]('XPST0003: Expected '}'.')
+                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(16:16)]

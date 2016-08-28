@@ -19,3 +19,4 @@ FileElement[FILE(0:7)]
                                                       XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:7)]
                                                          XQueryLiteralImpl[XQUERY_LITERAL(0:7)]
                                                             XQueryDecimalLiteralImpl[XQUERY_DECIMAL_LITERAL_TOKEN(0:7)]('3.14159')
+                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(7:7)]
