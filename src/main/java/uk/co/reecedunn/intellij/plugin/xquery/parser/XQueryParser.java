@@ -1160,8 +1160,28 @@ class XQueryParser {
         return false;
     }
 
+    // endregion
+    // region Grammar :: Expr :: OrExpr :: StepExpr
+
     private boolean parseStepExpr() {
-        return parseFilterExpr();
+        return parseFilterExpr() || parseAxisStep();
+    }
+
+    private boolean parseAxisStep() {
+        return parseReverseStep();
+    }
+
+    private boolean parseReverseStep() {
+        return parseAbbrevReverseStep();
+    }
+
+    private boolean parseAbbrevReverseStep() {
+        final PsiBuilder.Marker abbrevReverseStepMarker = matchTokenTypeWithMarker(XQueryTokenType.PARENT_SELECTOR);
+        if (abbrevReverseStepMarker != null) {
+            abbrevReverseStepMarker.done(XQueryElementType.ABBREV_REVERSE_STEP);
+            return true;
+        }
+        return false;
     }
 
     private boolean parseFilterExpr() {

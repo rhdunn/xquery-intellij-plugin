@@ -1352,6 +1352,16 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region AbbrevReverseStep
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AbbrevReverseStep")
+    public void testAbbrevReverseStep() {
+        final String expected = loadResource("tests/parser/xquery-1.0/AbbrevReverseStep.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/AbbrevReverseStep.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region FilterExpr + PredicateList + Predicate
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FilterExpr")
