@@ -17,6 +17,11 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
 /**
  * An XQuery 1.0 <code>StepExpr</code> node in the XQuery AST.
+ *
+ * Because the child nodes of a <code>StepExpr</code> are only referenced
+ * from the <code>StepExpr</code> node in the grammar, the
+ * <code>StepExpr</code> nodes are stored as instances of the child nodes
+ * instead of as distinct nodes themselves.
  */
 interface XQueryStepExpr {
 }
