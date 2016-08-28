@@ -1172,7 +1172,14 @@ class XQueryParser {
     }
 
     private boolean parseReverseStep() {
-        return parseAbbrevReverseStep();
+        final PsiBuilder.Marker reverseStepMarker = mark();
+        if (parseAbbrevReverseStep()) {
+            reverseStepMarker.done(XQueryElementType.REVERSE_STEP);
+            return true;
+        }
+
+        reverseStepMarker.drop();
+        return false;
     }
 
     private boolean parseAbbrevReverseStep() {

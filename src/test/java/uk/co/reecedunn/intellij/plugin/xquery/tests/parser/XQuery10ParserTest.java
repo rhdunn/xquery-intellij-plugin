@@ -1352,7 +1352,7 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
-    // region AbbrevReverseStep
+    // region ReverseStep + AbbrevReverseStep
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AbbrevReverseStep")
     public void testAbbrevReverseStep() {

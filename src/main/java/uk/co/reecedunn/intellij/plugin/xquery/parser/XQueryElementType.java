@@ -38,6 +38,7 @@ public interface XQueryElementType {
     IElementType UNORDERED_EXPR = new IElementType("XQUERY_UNORDERED_EXPR", XQuery.INSTANCE);
     IElementType FUNCTION_CALL = new IElementType("XQUERY_FUNCTION_CALL", XQuery.INSTANCE);
 
+    IElementType REVERSE_STEP = new IElementType("XQUERY_REVERSE_STEP", XQuery.INSTANCE);
     IElementType ABBREV_REVERSE_STEP = new IElementType("XQUERY_ABBREV_REVERSE_STEP", XQuery.INSTANCE);
     IElementType FILTER_EXPR = new IElementType("XQUERY_FILTER_EXPR", XQuery.INSTANCE);
     IElementType PREDICATE_LIST = new IElementType("XQUERY_PREDICATE_LIST", XQuery.INSTANCE);

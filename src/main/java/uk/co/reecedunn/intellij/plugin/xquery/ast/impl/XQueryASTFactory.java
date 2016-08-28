@@ -48,6 +48,8 @@ public class XQueryASTFactory extends ASTFactory {
             return new XQueryVarRefImpl(type);
         } else if (type == XQueryElementType.LITERAL) {
             return new XQueryLiteralImpl(type);
+        } else if (type == XQueryElementType.REVERSE_STEP) {
+            return new XQueryReverseStepImpl(type);
         } else if (type == XQueryElementType.ABBREV_REVERSE_STEP) {
             return new XQueryAbbrevReverseStepImpl(type);
         } else if (type == XQueryElementType.FILTER_EXPR) {
