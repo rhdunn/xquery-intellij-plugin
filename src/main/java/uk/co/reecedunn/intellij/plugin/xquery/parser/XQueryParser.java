@@ -1168,7 +1168,17 @@ class XQueryParser {
     }
 
     private boolean parseAxisStep() {
-        return parseReverseStep();
+        final PsiBuilder.Marker axisStepMarker = mark();
+        if (parseReverseStep()) {
+            skipWhiteSpaceAndCommentTokens();
+            parsePredicateList();
+
+            axisStepMarker.done(XQueryElementType.AXIS_STEP);
+            return true;
+        }
+
+        axisStepMarker.drop();
+        return false;
     }
 
     private boolean parseReverseStep() {
