@@ -1095,6 +1095,8 @@ public class XQueryLexer extends LexerBase {
     @Override
     public final void start(@NotNull CharSequence buffer, int startOffset, int endOffset, int initialState) {
         mTokenRange.start(buffer, startOffset, endOffset);
+        mStates.clear();
+
         if (initialState != STATE_DEFAULT) {
             pushState(STATE_DEFAULT);
         }

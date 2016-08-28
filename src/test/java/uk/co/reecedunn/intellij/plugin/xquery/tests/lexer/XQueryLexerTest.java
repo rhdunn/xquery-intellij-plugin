@@ -56,14 +56,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region Basic Lexer Tests
-
-    public void testEmptyBuffer() {
-        Lexer lexer = new XQueryLexer();
-
-        lexer.start("");
-        matchToken(lexer, "", 0, 0, 0, null);
-    }
+    // region Lexer :: Invalid State
 
     @SuppressWarnings("ThrowableResultOfMethodCallIgnored")
     public void testInvalidState() {
@@ -72,6 +65,37 @@ public class XQueryLexerTest extends TestCase {
         AssertionError e = expectThrows(AssertionError.class, () -> lexer.start("123", 0, 3, -1));
         assertThat(e.getMessage(), is("Invalid state: -1"));
     }
+
+    // endregion
+    // region Lexer :: Restart With Existing State Stack
+
+    public void testRestartingWithExistingStateStack() {
+        Lexer lexer = new XQueryLexer();
+
+        lexer.start("\"Hello World\"");
+        lexer.advance();
+        assertThat(lexer.getState(), is(1));
+
+        lexer.start("} {\"");
+        matchToken(lexer, "}",  0, 0, 1, XQueryTokenType.BLOCK_CLOSE);
+        matchToken(lexer, " ",  0, 1, 2, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "{",  0, 2, 3, XQueryTokenType.BLOCK_OPEN);
+        matchToken(lexer, "\"", 0, 3, 4, XQueryTokenType.STRING_LITERAL_START);
+        matchToken(lexer, "",   1, 4, 4, null);
+    }
+
+    // endregion
+    // region Lexer :: Empty Buffer
+
+    public void testEmptyBuffer() {
+        Lexer lexer = new XQueryLexer();
+
+        lexer.start("");
+        matchToken(lexer, "", 0, 0, 0, null);
+    }
+
+    // endregion
+    // region Lexer :: Bad Characters
 
     public void testBadCharacters() {
         Lexer lexer = new XQueryLexer();
