@@ -1168,11 +1168,35 @@ class XQueryParser {
         final PsiBuilder.Marker filterExprMarker = mark();
         if (parsePrimaryExpr()) {
             skipWhiteSpaceAndCommentTokens();
+            parsePredicate();
 
             filterExprMarker.done(XQueryElementType.FILTER_EXPR);
             return true;
         }
         filterExprMarker.drop();
+        return false;
+    }
+
+    private boolean parsePredicate() {
+        final PsiBuilder.Marker predicateMarker = matchTokenTypeWithMarker(XQueryTokenType.PREDICATE_BEGIN);
+        if (predicateMarker != null) {
+            boolean haveErrors = false;
+            skipWhiteSpaceAndCommentTokens();
+
+            if (!parseExpr(XQueryElementType.EXPR)) {
+                error(XQueryBundle.message("parser.error.expected-expression"));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.PREDICATE_END) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", "]"));
+            }
+
+            predicateMarker.done(XQueryElementType.PREDICATE);
+            return true;
+        }
+
         return false;
     }
 

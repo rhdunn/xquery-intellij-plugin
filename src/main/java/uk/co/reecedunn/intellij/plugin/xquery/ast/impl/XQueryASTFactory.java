@@ -50,6 +50,8 @@ public class XQueryASTFactory extends ASTFactory {
             return new XQueryLiteralImpl(type);
         } else if (type == XQueryElementType.FILTER_EXPR) {
             return new XQueryFilterExprImpl(type);
+        } else if (type == XQueryElementType.PREDICATE) {
+            return new XQueryPredicateImpl(type);
         } else if (type == XQueryElementType.RELATIVE_PATH_EXPR) {
             return new XQueryRelativePathExprImpl(type);
         } else if (type == XQueryElementType.PATH_EXPR) {
