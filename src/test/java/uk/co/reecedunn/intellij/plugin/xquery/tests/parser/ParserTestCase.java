@@ -30,7 +30,7 @@ import com.intellij.testFramework.ParsingTestCase;
 import org.apache.xmlbeans.impl.common.IOUtil;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.impl.XQueryASTFactory;
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition;
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings;

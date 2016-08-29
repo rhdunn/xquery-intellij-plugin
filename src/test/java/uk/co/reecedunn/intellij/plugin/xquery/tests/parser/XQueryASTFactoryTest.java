@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.parser;
 import com.intellij.lang.ASTFactory;
 import com.intellij.psi.impl.source.tree.LeafPsiElement;
 import junit.framework.TestCase;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.impl.XQueryASTFactory;
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 
 import static org.hamcrest.CoreMatchers.is;
