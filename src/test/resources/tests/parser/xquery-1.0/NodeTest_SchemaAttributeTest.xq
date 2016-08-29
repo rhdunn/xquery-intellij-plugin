@@ -1,0 +1,1 @@
+schema-attribute ( xs:boolean )

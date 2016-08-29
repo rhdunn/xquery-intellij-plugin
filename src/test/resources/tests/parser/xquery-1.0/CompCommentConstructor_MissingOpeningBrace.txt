@@ -21,7 +21,7 @@ FileElement[FILE(0:16)]
                                                             XQueryCompCommentConstructorImpl[XQUERY_COMP_COMMENT_CONSTRUCTOR(0:16)]
                                                                LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_COMMENT(0:7)]('comment')
                                                                PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-                                                               PsiErrorElementImpl[ERROR_ELEMENT(8:8)]('XPST0003: Expected '{'.')
+                                                               PsiErrorElementImpl[ERROR_ELEMENT(8:8)]('XPST0003: Expected '{', '('.')
                                                                XQueryExprImpl[XQUERY_EXPR(8:15)]
                                                                   XQueryOrExprImpl[XQUERY_OR_EXPR(8:15)]
                                                                      XQueryAndExprImpl[XQUERY_AND_EXPR(8:15)]

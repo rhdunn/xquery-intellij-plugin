@@ -1386,7 +1386,82 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
-    // region Wildcard
+    // region NodeTest + KindTest
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-NodeTest")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-KindTest")
+    public void testKindTest_DocumentTest() {
+        final String expected = loadResource("tests/parser/xquery-1.0/NodeTest_DocumentTest.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/NodeTest_DocumentTest.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-NodeTest")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-KindTest")
+    public void testKindTest_ElementTest() {
+        final String expected = loadResource("tests/parser/xquery-1.0/NodeTest_ElementTest.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/NodeTest_ElementTest.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-NodeTest")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-KindTest")
+    public void testKindTest_AttributeTest() {
+        final String expected = loadResource("tests/parser/xquery-1.0/NodeTest_AttributeTest.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/NodeTest_AttributeTest.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-NodeTest")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-KindTest")
+    public void testKindTest_SchemaElementTest() {
+        final String expected = loadResource("tests/parser/xquery-1.0/NodeTest_SchemaElementTest.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/NodeTest_SchemaElementTest.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-NodeTest")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-KindTest")
+    public void testKindTest_SchemaAttributeTest() {
+        final String expected = loadResource("tests/parser/xquery-1.0/NodeTest_SchemaAttributeTest.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/NodeTest_SchemaAttributeTest.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-NodeTest")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-KindTest")
+    public void testKindTest_PITest() {
+        final String expected = loadResource("tests/parser/xquery-1.0/NodeTest_PITest.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/NodeTest_PITest.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-NodeTest")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-KindTest")
+    public void testKindTest_CommentTest() {
+        final String expected = loadResource("tests/parser/xquery-1.0/NodeTest_CommentTest.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/NodeTest_CommentTest.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-NodeTest")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-KindTest")
+    public void testKindTest_TextTest() {
+        final String expected = loadResource("tests/parser/xquery-1.0/NodeTest_TextTest.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/NodeTest_TextTest.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-NodeTest")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-KindTest")
+    public void testKindTest_AnyKindTest() {
+        final String expected = loadResource("tests/parser/xquery-1.0/NodeTest_AnyKindTest.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/NodeTest_AnyKindTest.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
+    // region NodeTest + NameTest + Wildcard
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Wildcard")
     public void testWildcard() {

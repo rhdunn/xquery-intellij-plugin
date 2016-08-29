@@ -21,7 +21,7 @@ FileElement[FILE(0:23)]
                                                             XQueryCompElemConstructorImpl[XQUERY_COMP_ELEM_CONSTRUCTOR(0:23)]
                                                                LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_ELEMENT(0:7)]('element')
                                                                PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-                                                               PsiErrorElementImpl[ERROR_ELEMENT(8:8)]('XPST0003: Missing qualified name or '{'.')
+                                                               PsiErrorElementImpl[ERROR_ELEMENT(8:8)]('XPST0003: Missing qualified name or '{', '('.')
                                                                XQueryExprImpl[XQUERY_EXPR(8:14)]
                                                                   XQueryOrExprImpl[XQUERY_OR_EXPR(8:14)]
                                                                      XQueryAndExprImpl[XQUERY_AND_EXPR(8:14)]

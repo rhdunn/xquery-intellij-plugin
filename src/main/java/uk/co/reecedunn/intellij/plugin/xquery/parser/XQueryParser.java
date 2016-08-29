@@ -1233,7 +1233,7 @@ class XQueryParser {
 
     private boolean parseNodeTest() {
         final PsiBuilder.Marker nodeTestMarker = mark();
-        if (parseNameTest()) {
+        if (parseKindTest() || parseNameTest()) {
             nodeTestMarker.done(XQueryElementType.NODE_TEST);
             return true;
         }
@@ -1717,7 +1717,12 @@ class XQueryParser {
             skipWhiteSpaceAndCommentTokens();
             if (!parseQName(XQueryElementType.QNAME)) {
                 if (!matchTokenType(XQueryTokenType.BLOCK_OPEN)) {
-                    error(XQueryBundle.message("parser.error.expected-qname-or-token", "{"));
+                    if (getTokenType() == XQueryTokenType.PARENTHESIS_OPEN) { // ElementTest (KindTest)
+                        elementMarker.rollbackTo();
+                        return false;
+                    }
+
+                    error(XQueryBundle.message("parser.error.expected-qname-or-token", "{', '(")); // CompElemConstructor | ElementTest
                     haveErrors = true;
                 }
 
@@ -1761,7 +1766,12 @@ class XQueryParser {
             skipWhiteSpaceAndCommentTokens();
             if (!parseQName(XQueryElementType.QNAME)) {
                 if (!matchTokenType(XQueryTokenType.BLOCK_OPEN)) {
-                    error(XQueryBundle.message("parser.error.expected-qname-or-token", "{"));
+                    if (getTokenType() == XQueryTokenType.PARENTHESIS_OPEN) { // AttributeTest (KindTest)
+                        attributeMarker.rollbackTo();
+                        return false;
+                    }
+
+                    error(XQueryBundle.message("parser.error.expected-qname-or-token", "{', '(")); // CompAttrConstructor | AttributeTest
                     haveErrors = true;
                 }
 
@@ -1804,7 +1814,12 @@ class XQueryParser {
 
             skipWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.BLOCK_OPEN)) {
-                error(XQueryBundle.message("parser.error.expected", "{"));
+                if (getTokenType() == XQueryTokenType.PARENTHESIS_OPEN) { // TextTest (KindTest)
+                    textMarker.rollbackTo();
+                    return false;
+                }
+
+                error(XQueryBundle.message("parser.error.expected", "{', '(")); // CompTextConstructor | TextTest
                 haveErrors = true;
             }
 
@@ -1832,7 +1847,12 @@ class XQueryParser {
 
             skipWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.BLOCK_OPEN)) {
-                error(XQueryBundle.message("parser.error.expected", "{"));
+                if (getTokenType() == XQueryTokenType.PARENTHESIS_OPEN) { // CommentTest (KindTest)
+                    commentMarker.rollbackTo();
+                    return false;
+                }
+
+                error(XQueryBundle.message("parser.error.expected", "{', '(")); // CompCommentConstructor | CommentTest
                 haveErrors = true;
             }
 
@@ -1861,7 +1881,12 @@ class XQueryParser {
             skipWhiteSpaceAndCommentTokens();
             if (!parseQName(XQueryElementType.NCNAME)) {
                 if (!matchTokenType(XQueryTokenType.BLOCK_OPEN)) {
-                    error(XQueryBundle.message("parser.error.expected-qname-or-token", "{"));
+                    if (getTokenType() == XQueryTokenType.PARENTHESIS_OPEN) { // PITest (KindTest)
+                        piMarker.rollbackTo();
+                        return false;
+                    }
+
+                    error(XQueryBundle.message("parser.error.expected-qname-or-token", "{', '(")); // CompPIConstructor | PITest
                     haveErrors = true;
                 }
 
