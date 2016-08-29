@@ -1182,7 +1182,14 @@ class XQueryParser {
     }
 
     private boolean parseForwardStep() {
-        return parseAbbrevForwardStep();
+        final PsiBuilder.Marker forwardStepMarker = mark();
+        if (parseAbbrevForwardStep()) {
+            forwardStepMarker.done(XQueryElementType.FORWARD_STEP);
+            return true;
+        }
+
+        forwardStepMarker.drop();
+        return false;
     }
 
     private boolean parseAbbrevForwardStep() {

@@ -94,6 +94,8 @@ public class XQueryParserDefinition implements ParserDefinition {
             return new XQueryLiteralPsiImpl(node);
         } else if (type == XQueryElementType.AXIS_STEP) {
             return new XQueryAxisStepPsiImpl(node);
+        } else if (type == XQueryElementType.FORWARD_STEP) {
+            return new XQueryForwardStepPsiImpl(node);
         } else if (type == XQueryElementType.ABBREV_FORWARD_STEP) {
             return new XQueryAbbrevForwardStepPsiImpl(node);
         } else if (type == XQueryElementType.REVERSE_STEP) {
