@@ -17,6 +17,6 @@ FileElement[FILE(0:33)]
             PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
             LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_AS(29:31)]('as')
             PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
-            PsiErrorElementImpl[ERROR_ELEMENT(32:32)]('XPST0003: Missing qualified name or keyword: comment, empty-sequence, item, node, text.')
+            PsiErrorElementImpl[ERROR_ELEMENT(32:32)]('XPST0003: Expected 'SequenceType'.')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(32:33)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(33:33)]('XPST0003: Missing query body.')

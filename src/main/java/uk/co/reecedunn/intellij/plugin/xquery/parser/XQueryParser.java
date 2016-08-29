@@ -1923,7 +1923,7 @@ class XQueryParser {
             return true;
         }
 
-        error(XQueryBundle.message("parser.error.expected-qname-or-keyword", "comment, empty-sequence, item, node, text"));
+        error(XQueryBundle.message("parser.error.expected", "SequenceType"));
         sequenceTypeMarker.drop();
         return false;
     }
