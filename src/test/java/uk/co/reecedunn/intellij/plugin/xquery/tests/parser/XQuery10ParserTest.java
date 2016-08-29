@@ -1352,6 +1352,30 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region ForwardStep + AbbrevForwardStep
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AbbrevForwardStep")
+    public void testAbbrevForwardStep() {
+        final String expected = loadResource("tests/parser/xquery-1.0/AbbrevForwardStep.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/AbbrevForwardStep.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AbbrevForwardStep")
+    public void testAbbrevForwardStep_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/AbbrevForwardStep_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/AbbrevForwardStep_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AbbrevForwardStep")
+    public void testAbbrevForwardStep_MissingNodeTest() {
+        final String expected = loadResource("tests/parser/xquery-1.0/AbbrevForwardStep_MissingNodeTest.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/AbbrevForwardStep_MissingNodeTest.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region ReverseStep + AbbrevReverseStep
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AbbrevReverseStep")

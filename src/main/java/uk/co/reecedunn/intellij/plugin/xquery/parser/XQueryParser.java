@@ -1169,7 +1169,7 @@ class XQueryParser {
 
     private boolean parseAxisStep() {
         final PsiBuilder.Marker axisStepMarker = mark();
-        if (parseReverseStep()) {
+        if (parseForwardStep() || parseReverseStep()) {
             skipWhiteSpaceAndCommentTokens();
             parsePredicateList();
 
@@ -1178,6 +1178,28 @@ class XQueryParser {
         }
 
         axisStepMarker.drop();
+        return false;
+    }
+
+    private boolean parseForwardStep() {
+        return parseAbbrevForwardStep();
+    }
+
+    private boolean parseAbbrevForwardStep() {
+        final PsiBuilder.Marker abbrevForwardStepMarker = mBuilder.mark();
+        boolean matched = matchTokenType(XQueryTokenType.ATTRIBUTE_SELECTOR);
+
+        skipWhiteSpaceAndCommentTokens();
+        if (parseNodeTest()) {
+            abbrevForwardStepMarker.done(XQueryElementType.ABBREV_FORWARD_STEP);
+            return true;
+        } else if (matched) {
+            error(XQueryBundle.message("parser.error.expected", "NodeTest"));
+
+            abbrevForwardStepMarker.done(XQueryElementType.ABBREV_FORWARD_STEP);
+            return true;
+        }
+        abbrevForwardStepMarker.drop();
         return false;
     }
 
@@ -1199,6 +1221,14 @@ class XQueryParser {
             return true;
         }
         return false;
+    }
+
+    private boolean parseNodeTest() {
+        return parseNameTest();
+    }
+
+    private boolean parseNameTest() {
+        return parseQName(XQueryElementType.QNAME);
     }
 
     private boolean parseFilterExpr() {
@@ -1385,8 +1415,8 @@ class XQueryParser {
 
             skipWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.PARENTHESIS_OPEN)) {
-                error(XQueryBundle.message("parser.error.expected", "("));
-                haveErrors = true;
+                functionCallMarker.rollbackTo();
+                return false;
             }
 
             skipWhiteSpaceAndCommentTokens();

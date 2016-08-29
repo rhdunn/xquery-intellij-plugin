@@ -39,6 +39,7 @@ public interface XQueryElementType {
     IElementType FUNCTION_CALL = new IElementType("XQUERY_FUNCTION_CALL", XQuery.INSTANCE);
 
     IElementType AXIS_STEP = new IElementType("XQUERY_AXIS_STEP", XQuery.INSTANCE);
+    IElementType ABBREV_FORWARD_STEP = new IElementType("XQUERY_ABBREV_FORWARD_STEP", XQuery.INSTANCE);
     IElementType REVERSE_STEP = new IElementType("XQUERY_REVERSE_STEP", XQuery.INSTANCE);
     IElementType ABBREV_REVERSE_STEP = new IElementType("XQUERY_ABBREV_REVERSE_STEP", XQuery.INSTANCE);
     IElementType FILTER_EXPR = new IElementType("XQUERY_FILTER_EXPR", XQuery.INSTANCE);
