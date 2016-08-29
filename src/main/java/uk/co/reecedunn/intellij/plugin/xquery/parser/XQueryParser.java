@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.parser;
 import com.intellij.lang.PsiBuilder;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryReservedFunctionNameOrNCNameType;
@@ -1184,12 +1185,52 @@ class XQueryParser {
 
     private boolean parseForwardStep() {
         final PsiBuilder.Marker forwardStepMarker = mark();
-        if (parseAbbrevForwardStep()) {
+        if (parseForwardAxis()) {
+            skipWhiteSpaceAndCommentTokens();
+            parseNodeTest();
+
+            forwardStepMarker.done(XQueryElementType.FORWARD_STEP);
+            return true;
+        } else if (parseAbbrevForwardStep()) {
             forwardStepMarker.done(XQueryElementType.FORWARD_STEP);
             return true;
         }
 
         forwardStepMarker.drop();
+        return false;
+    }
+
+    private boolean parseForwardAxis() {
+        final PsiBuilder.Marker forwardAxisMarker = mBuilder.mark();
+        if (matchTokenType(XQueryTokenType.K_CHILD) ||
+            matchTokenType(XQueryTokenType.K_DESCENDANT) ||
+            matchTokenType(XQueryTokenType.K_DESCENDANT_OR_SELF) ||
+            matchTokenType(XQueryTokenType.K_FOLLOWING) ||
+            matchTokenType(XQueryTokenType.K_FOLLOWING_SIBLING) ||
+            matchTokenType(XQueryTokenType.K_SELF)) {
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.AXIS_SEPARATOR)) {
+                error(XQueryBundle.message("parser.error.expected", "::"));
+            }
+
+            forwardAxisMarker.done(XQueryElementType.FORWARD_AXIS);
+            return true;
+        } else if (matchTokenType(XQueryTokenType.K_ATTRIBUTE)) {
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.AXIS_SEPARATOR)) {
+                if (getTokenType() == XQueryTokenType.BLOCK_OPEN || getTokenType() == XQueryTokenType.PARENTHESIS_OPEN) { // CompAttrConstructor | AttributeTest
+                    forwardAxisMarker.rollbackTo();
+                    return false;
+                }
+
+                error(XQueryBundle.message("parser.error.expected-qname-or-token", "{', '(', '::")); // CompAttrConstructor | AttributeTest | ForwardAxis
+            }
+
+            forwardAxisMarker.done(XQueryElementType.FORWARD_AXIS);
+            return true;
+        }
+        forwardAxisMarker.drop();
         return false;
     }
 
@@ -1766,12 +1807,13 @@ class XQueryParser {
             skipWhiteSpaceAndCommentTokens();
             if (!parseQName(XQueryElementType.QNAME)) {
                 if (!matchTokenType(XQueryTokenType.BLOCK_OPEN)) {
-                    if (getTokenType() == XQueryTokenType.PARENTHESIS_OPEN) { // AttributeTest (KindTest)
+                    skipWhiteSpaceAndCommentTokens();
+                    if (getTokenType() == XQueryTokenType.PARENTHESIS_OPEN || getTokenType() == XQueryTokenType.AXIS_SEPARATOR) { // AttributeTest (KindTest) | ForwardAxis
                         attributeMarker.rollbackTo();
                         return false;
                     }
 
-                    error(XQueryBundle.message("parser.error.expected-qname-or-token", "{', '(")); // CompAttrConstructor | AttributeTest
+                    error(XQueryBundle.message("parser.error.expected-qname-or-token", "{', '(', '::")); // CompAttrConstructor | AttributeTest | ForwardAxis
                     haveErrors = true;
                 }
 

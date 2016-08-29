@@ -1352,6 +1352,177 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region ForwardStep + ForwardAxis
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardStep")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardAxis")
+    public void testForwardAxis_Child() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_Child.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_Child.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardStep")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardAxis")
+    public void testForwardAxis_Child_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_Child_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_Child_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardStep")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardAxis")
+    public void testForwardAxis_Child_MissingAxisSeparator() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_Child_MissingAxisSeparator.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_Child_MissingAxisSeparator.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardStep")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardAxis")
+    public void testForwardAxis_Descendant() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_Descendant.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_Descendant.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardStep")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardAxis")
+    public void testForwardAxis_Descendant_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_Descendant_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_Descendant_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardStep")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardAxis")
+    public void testForwardAxis_Descendant_MissingAxisSeparator() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_Descendant_MissingAxisSeparator.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_Descendant_MissingAxisSeparator.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardStep")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardAxis")
+    public void testForwardAxis_Attribute() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_Attribute.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_Attribute.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardStep")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardAxis")
+    public void testForwardAxis_Attribute_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_Attribute_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_Attribute_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardStep")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardAxis")
+    public void testForwardAxis_Attribute_MissingAxisSeparator() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_Attribute_MissingAxisSeparator.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_Attribute_MissingAxisSeparator.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardStep")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardAxis")
+    public void testForwardAxis_Self() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_Self.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_Self.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardStep")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardAxis")
+    public void testForwardAxis_Self_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_Self_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_Self_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardStep")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardAxis")
+    public void testForwardAxis_Self_MissingAxisSeparator() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_Self_MissingAxisSeparator.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_Self_MissingAxisSeparator.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardStep")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardAxis")
+    public void testForwardAxis_DescendantOrSelf() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_DescendantOrSelf.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_DescendantOrSelf.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardStep")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardAxis")
+    public void testForwardAxis_DescendantOrSelf_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_DescendantOrSelf_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_DescendantOrSelf_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardStep")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardAxis")
+    public void testForwardAxis_DescendantOrSelf_MissingAxisSeparator() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_DescendantOrSelf_MissingAxisSeparator.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_DescendantOrSelf_MissingAxisSeparator.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardStep")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardAxis")
+    public void testForwardAxis_FollowingSibling() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_FollowingSibling.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_FollowingSibling.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardStep")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardAxis")
+    public void testForwardAxis_FollowingSibling_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_FollowingSibling_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_FollowingSibling_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardStep")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardAxis")
+    public void testForwardAxis_FollowingSibling_MissingAxisSeparator() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_FollowingSibling_MissingAxisSeparator.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_FollowingSibling_MissingAxisSeparator.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardStep")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardAxis")
+    public void testForwardAxis_Following() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_Following.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_Following.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardStep")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardAxis")
+    public void testForwardAxis_Following_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_Following_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_Following_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardStep")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardAxis")
+    public void testForwardAxis_Following_MissingAxisSeparator() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ForwardAxis_Following_MissingAxisSeparator.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ForwardAxis_Following_MissingAxisSeparator.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region ForwardStep + AbbrevForwardStep
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AbbrevForwardStep")

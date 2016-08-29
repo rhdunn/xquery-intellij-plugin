@@ -1,0 +1,30 @@
+FileElement[FILE(0:26)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:26)]
+      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:26)]
+         XQueryOrExprImpl[XQUERY_OR_EXPR(0:26)]
+            XQueryAndExprImpl[XQUERY_AND_EXPR(0:26)]
+               XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:26)]
+                  XQueryRangeExprImpl[XQUERY_RANGE_EXPR(0:26)]
+                     XQueryAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(0:26)]
+                        XQueryMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:26)]
+                           XQueryUnionExprImpl[XQUERY_UNION_EXPR(0:26)]
+                              XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:26)]
+                                 XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:26)]
+                                    XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:26)]
+                                       XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:26)]
+                                          XQueryCastExprImpl[XQUERY_CAST_EXPR(0:26)]
+                                             XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:26)]
+                                                XQueryPathExprImpl[XQUERY_PATH_EXPR(0:26)]
+                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:26)]
+                                                      XQueryAxisStepImpl[XQUERY_AXIS_STEP(0:26)]
+                                                         XQueryForwardStepImpl[XQUERY_FORWARD_STEP(0:26)]
+                                                            XQueryForwardAxisImpl[XQUERY_FORWARD_AXIS(0:21)]
+                                                               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DESCENDANT_OR_SELF(0:18)]('descendant-or-self')
+                                                               PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
+                                                               LeafPsiElement[XQUERY_AXIS_SEPARATOR_TOKEN(19:21)]('::')
+                                                            PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
+                                                            XQueryNodeTestImpl[XQUERY_NODE_TEST(22:26)]
+                                                               XQueryNameTestImpl[XQUERY_NAME_TEST(22:26)]
+                                                                  XQueryNCNameImpl[XQUERY_NCNAME(22:26)]
+                                                                     LeafPsiElement[XQUERY_NCNAME_TOKEN(22:26)]('para')
+                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(26:26)]
