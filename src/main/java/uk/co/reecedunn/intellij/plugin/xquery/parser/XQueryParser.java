@@ -20,6 +20,7 @@ import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType;
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryReservedFunctionNameOrNCNameType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings;
@@ -1431,7 +1432,7 @@ class XQueryParser {
 
     private boolean parseFunctionCall() {
         final PsiBuilder.Marker functionCallMarker = mBuilder.mark();
-        if (parseQName(XQueryElementType.QNAME)) {
+        if (parseQName(XQueryElementType.QNAME, true)) {
             boolean haveErrors = false;
 
             skipWhiteSpaceAndCommentTokens();
@@ -2305,9 +2306,15 @@ class XQueryParser {
     }
 
     private boolean parseQName(IElementType type) {
+        return parseQName(type, false);
+    }
+
+    private boolean parseQName(IElementType type, boolean excludeReservedFunctionNames) {
         final PsiBuilder.Marker qnameMarker = mBuilder.mark();
         boolean isWildcard = getTokenType() == XQueryTokenType.STAR;
         if (getTokenType() == XQueryTokenType.NCNAME || getTokenType() instanceof IXQueryKeywordOrNCNameType || isWildcard) {
+            boolean isReservedFunctionName = getTokenType() instanceof IXQueryReservedFunctionNameOrNCNameType;
+
             if (isWildcard && type != XQueryElementType.WILDCARD) {
                 error(XQueryBundle.message("parser.error.unexpected-wildcard"));
             }
@@ -2369,6 +2376,11 @@ class XQueryParser {
                 }
                 return true;
             } else {
+                if (isReservedFunctionName && excludeReservedFunctionNames) {
+                    qnameMarker.rollbackTo();
+                    return false;
+                }
+
                 if (type == XQueryElementType.WILDCARD) {
                     qnameMarker.done(isWildcard ? XQueryElementType.WILDCARD : XQueryElementType.NCNAME);
                 } else {
