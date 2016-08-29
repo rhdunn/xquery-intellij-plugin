@@ -1243,7 +1243,7 @@ class XQueryParser {
 
     private boolean parseNameTest() {
         final PsiBuilder.Marker nameTestMarker = mark();
-        if (parseQName(XQueryElementType.QNAME)) {
+        if (parseQName(XQueryElementType.WILDCARD)) { // QName | Wildcard
             nameTestMarker.done(XQueryElementType.NAME_TEST);
             return true;
         }
@@ -2155,7 +2155,7 @@ class XQueryParser {
 
     private boolean parseAttribNameOrWildcard() {
         final PsiBuilder.Marker attribNameOrWildcardMarker = mBuilder.mark();
-        if (parseQName(XQueryElementType.ATTRIBUTE_NAME) || matchTokenType(XQueryTokenType.STAR)) {
+        if (matchTokenType(XQueryTokenType.STAR) || parseQName(XQueryElementType.ATTRIBUTE_NAME)) {
             attribNameOrWildcardMarker.done(XQueryElementType.ATTRIB_NAME_OR_WILDCARD);
             return true;
         }
@@ -2236,7 +2236,7 @@ class XQueryParser {
 
     private boolean parseElementNameOrWildcard() {
         final PsiBuilder.Marker elementNameOrWildcardMarker = mBuilder.mark();
-        if (parseQName(XQueryElementType.ELEMENT_NAME) || matchTokenType(XQueryTokenType.STAR)) {
+        if (matchTokenType(XQueryTokenType.STAR) || parseQName(XQueryElementType.ELEMENT_NAME)) {
             elementNameOrWildcardMarker.done(XQueryElementType.ELEMENT_NAME_OR_WILDCARD);
             return true;
         }
@@ -2306,13 +2306,17 @@ class XQueryParser {
 
     private boolean parseQName(IElementType type) {
         final PsiBuilder.Marker qnameMarker = mBuilder.mark();
-        if (getTokenType() == XQueryTokenType.NCNAME || getTokenType() instanceof IXQueryKeywordOrNCNameType) {
+        boolean isWildcard = getTokenType() == XQueryTokenType.STAR;
+        if (getTokenType() == XQueryTokenType.NCNAME || getTokenType() instanceof IXQueryKeywordOrNCNameType || isWildcard) {
+            if (isWildcard && type != XQueryElementType.WILDCARD) {
+                error(XQueryBundle.message("parser.error.unexpected-wildcard"));
+            }
             advanceLexer();
 
             final PsiBuilder.Marker beforeMarker = mark();
             if (skipWhiteSpaceAndCommentTokens() &&
                 getTokenType() == XQueryTokenType.QNAME_SEPARATOR) {
-                beforeMarker.error(XQueryBundle.message("parser.error.qname.whitespace-before-local-part"));
+                beforeMarker.error(XQueryBundle.message(isWildcard ? "parser.error.wildcard.whitespace-before-local-part" : "parser.error.qname.whitespace-before-local-part"));
             } else {
                 beforeMarker.drop();
             }
@@ -2328,7 +2332,7 @@ class XQueryParser {
 
                 final PsiBuilder.Marker afterMarker = mark();
                 if (skipWhiteSpaceAndCommentTokens()) {
-                    afterMarker.error(XQueryBundle.message("parser.error.qname.whitespace-after-local-part"));
+                    afterMarker.error(XQueryBundle.message(isWildcard ? "parser.error.wildcard.whitespace-after-local-part" : "parser.error.qname.whitespace-after-local-part"));
                 } else {
                     afterMarker.drop();
                 }
@@ -2337,23 +2341,46 @@ class XQueryParser {
                     error(XQueryBundle.message("parser.error.qname.missing-local-name"));
                 } else if (getTokenType() == XQueryTokenType.NCNAME || getTokenType() instanceof IXQueryKeywordOrNCNameType) {
                     advanceLexer();
+                } else if (getTokenType() == XQueryTokenType.STAR) {
+                    if (type == XQueryElementType.WILDCARD) {
+                        if (isWildcard) {
+                            final PsiBuilder.Marker errorMarker = mark();
+                            advanceLexer();
+                            errorMarker.error(XQueryBundle.message("parser.error.wildcard.both-prefix-and-local-wildcard"));
+                        } else {
+                            advanceLexer();
+                        }
+                    } else {
+                        final PsiBuilder.Marker errorMarker = mark();
+                        advanceLexer();
+                        errorMarker.error(XQueryBundle.message("parser.error.qname.wildcard-local-name"));
+                    }
+                    isWildcard = true;
                 } else {
                     final PsiBuilder.Marker errorMarker = mark();
                     advanceLexer();
                     errorMarker.error(XQueryBundle.message("parser.error.qname.missing-local-name"));
                 }
 
-                qnameMarker.done(type == XQueryElementType.NCNAME ? XQueryElementType.QNAME : type);
+                if (type == XQueryElementType.WILDCARD) {
+                    qnameMarker.done(isWildcard ? XQueryElementType.WILDCARD : XQueryElementType.QNAME);
+                } else {
+                    qnameMarker.done(type == XQueryElementType.NCNAME ? XQueryElementType.QNAME : type);
+                }
                 return true;
             } else {
-                qnameMarker.done(type == XQueryElementType.QNAME ? XQueryElementType.NCNAME : type);
+                if (type == XQueryElementType.WILDCARD) {
+                    qnameMarker.done(isWildcard ? XQueryElementType.WILDCARD : XQueryElementType.NCNAME);
+                } else {
+                    qnameMarker.done(type == XQueryElementType.QNAME ? XQueryElementType.NCNAME : type);
+                }
             }
             return true;
         }
 
         if (matchTokenType(XQueryTokenType.QNAME_SEPARATOR)) {
             skipWhiteSpaceAndCommentTokens();
-            if (getTokenType() == XQueryTokenType.NCNAME || getTokenType() instanceof IXQueryKeywordOrNCNameType) {
+            if (getTokenType() == XQueryTokenType.NCNAME || getTokenType() instanceof IXQueryKeywordOrNCNameType || getTokenType() == XQueryTokenType.STAR) {
                 advanceLexer();
             }
             if (type == XQueryElementType.NCNAME) {

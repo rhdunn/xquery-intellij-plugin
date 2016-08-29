@@ -1386,6 +1386,79 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region Wildcard
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Wildcard")
+    public void testWildcard() {
+        final String expected = loadResource("tests/parser/xquery-1.0/Wildcard.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/Wildcard.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Wildcard")
+    public void testWildcard_SpaceBeforeColon() {
+        final String expected = loadResource("tests/parser/xquery-1.0/Wildcard_SpaceBeforeColon.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/Wildcard_SpaceBeforeColon.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Wildcard")
+    public void testWildcard_SpaceAfterColon() {
+        final String expected = loadResource("tests/parser/xquery-1.0/Wildcard_SpaceAfterColon.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/Wildcard_SpaceAfterColon.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Wildcard")
+    public void testWildcard_SpaceBeforeAndAfterColon() {
+        final String expected = loadResource("tests/parser/xquery-1.0/Wildcard_SpaceBeforeAndAfterColon.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/Wildcard_SpaceBeforeAndAfterColon.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Wildcard")
+    public void testWildcard_MissingPrefixPart() {
+        final String expected = loadResource("tests/parser/xquery-1.0/Wildcard_MissingPrefixPart.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/Wildcard_MissingPrefixPart.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Wildcard")
+    public void testWildcard_NCNamePrefixPart() {
+        final String expected = loadResource("tests/parser/xquery-1.0/Wildcard_NCNamePrefixPart.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/Wildcard_NCNamePrefixPart.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Wildcard")
+    public void testWildcard_NCNameLocalPart() {
+        final String expected = loadResource("tests/parser/xquery-1.0/Wildcard_NCNameLocalPart.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/Wildcard_NCNameLocalPart.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Wildcard")
+    public void testWildcard_KeywordPrefixPart() {
+        final String expected = loadResource("tests/parser/xquery-1.0/Wildcard_KeywordPrefixPart.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/Wildcard_KeywordPrefixPart.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Wildcard")
+    public void testWildcard_KeywordLocalPart() {
+        final String expected = loadResource("tests/parser/xquery-1.0/Wildcard_KeywordLocalPart.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/Wildcard_KeywordLocalPart.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Wildcard")
+    public void testWildcard_BothPrefixAndLocalPart() {
+        final String expected = loadResource("tests/parser/xquery-1.0/Wildcard_BothPrefixAndLocalPart.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/Wildcard_BothPrefixAndLocalPart.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region FilterExpr + PredicateList + Predicate
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FilterExpr")
@@ -3437,6 +3510,30 @@ public class XQuery10ParserTest extends ParserTestCase {
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
+    @Specification(name="Namespaces in XML 1.0 3ed", reference="https://www.w3.org/TR/2009/REC-xml-names-20091208/#NT-QName")
+    public void testQName_WildcardPrefixPart() {
+        final String expected = loadResource("tests/parser/xquery-1.0/QName_WildcardPrefixPart.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/QName_WildcardPrefixPart.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
+    @Specification(name="Namespaces in XML 1.0 3ed", reference="https://www.w3.org/TR/2009/REC-xml-names-20091208/#NT-QName")
+    public void testQName_WildcardLocalPart() {
+        final String expected = loadResource("tests/parser/xquery-1.0/QName_WildcardLocalPart.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/QName_WildcardLocalPart.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
+    @Specification(name="Namespaces in XML 1.0 3ed", reference="https://www.w3.org/TR/2009/REC-xml-names-20091208/#NT-QName")
+    public void testQName_WildcardLocalPart_MissingPrefixPart() {
+        final String expected = loadResource("tests/parser/xquery-1.0/QName_WildcardLocalPart_MissingPrefixPart.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/QName_WildcardLocalPart_MissingPrefixPart.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
     // endregion
     // region NCName
 
@@ -3467,6 +3564,14 @@ public class XQuery10ParserTest extends ParserTestCase {
     public void testNCName_Keyword() {
         final String expected = loadResource("tests/parser/xquery-1.0/NCName_Keyword.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/NCName_Keyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-NCName")
+    @Specification(name="Namespaces in XML 1.0 3ed", reference="https://www.w3.org/TR/2009/REC-xml-names-20091208/#NT-NCName")
+    public void testNCName_Wildcard() {
+        final String expected = loadResource("tests/parser/xquery-1.0/NCName_Wildcard.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/NCName_Wildcard.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 

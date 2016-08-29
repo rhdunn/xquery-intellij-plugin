@@ -1,0 +1,32 @@
+FileElement[FILE(0:8)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:8)]
+      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:8)]
+         XQueryOrExprImpl[XQUERY_OR_EXPR(0:8)]
+            XQueryAndExprImpl[XQUERY_AND_EXPR(0:8)]
+               XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:8)]
+                  XQueryRangeExprImpl[XQUERY_RANGE_EXPR(0:8)]
+                     XQueryAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(0:8)]
+                        XQueryMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:8)]
+                           XQueryUnionExprImpl[XQUERY_UNION_EXPR(0:8)]
+                              XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:8)]
+                                 XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:8)]
+                                    XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:8)]
+                                       XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:8)]
+                                          XQueryCastExprImpl[XQUERY_CAST_EXPR(0:8)]
+                                             XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:8)]
+                                                XQueryPathExprImpl[XQUERY_PATH_EXPR(0:8)]
+                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:8)]
+                                                      XQueryAxisStepImpl[XQUERY_AXIS_STEP(0:8)]
+                                                         XQueryForwardStepImpl[XQUERY_FORWARD_STEP(0:8)]
+                                                            XQueryAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:8)]
+                                                               XQueryNodeTestImpl[XQUERY_NODE_TEST(0:8)]
+                                                                  XQueryNameTestImpl[XQUERY_NAME_TEST(0:8)]
+                                                                     XQueryWildcardImpl[XQUERY_WILDCARD(0:8)]
+                                                                        LeafPsiElement[XQUERY_STAR_TOKEN(0:1)]('*')
+                                                                        PsiErrorElementImpl[ERROR_ELEMENT(1:2)]('XPST0003: Whitespace is not allowed before ':' in a wildcard.')
+                                                                           PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+                                                                        LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(2:3)](':')
+                                                                        PsiErrorElementImpl[ERROR_ELEMENT(3:4)]('XPST0003: Whitespace is not allowed after ':' in a wildcard.')
+                                                                           PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
+                                                                        LeafPsiElement[XQUERY_NCNAME_TOKEN(4:8)]('para')
+                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(8:8)]

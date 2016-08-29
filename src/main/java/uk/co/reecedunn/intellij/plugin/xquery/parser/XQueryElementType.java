@@ -47,6 +47,7 @@ public interface XQueryElementType {
     IElementType ABBREV_REVERSE_STEP = new ICompositeElementType("XQUERY_ABBREV_REVERSE_STEP", XQueryAbbrevReverseStepImpl.class, XQueryAbbrevReverseStepPsiImpl.class);
     IElementType NODE_TEST = new ICompositeElementType("XQUERY_NODE_TEST", XQueryNodeTestImpl.class, XQueryNodeTestPsiImpl.class);
     IElementType NAME_TEST = new ICompositeElementType("XQUERY_NAME_TEST", XQueryNameTestImpl.class, XQueryNameTestPsiImpl.class);
+    IElementType WILDCARD = new ICompositeElementType("XQUERY_WILDCARD", XQueryWildcardImpl.class, XQueryWildcardPsiImpl.class);
     IElementType FILTER_EXPR = new ICompositeElementType("XQUERY_FILTER_EXPR", XQueryFilterExprImpl.class, XQueryFilterExprPsiImpl.class);
     IElementType PREDICATE_LIST = new ICompositeElementType("XQUERY_PREDICATE_LIST", XQueryPredicateListImpl.class, XQueryPredicateListPsiImpl.class);
     IElementType PREDICATE = new ICompositeElementType("XQUERY_PREDICATE", XQueryPredicateImpl.class, XQueryPredicatePsiImpl.class);
