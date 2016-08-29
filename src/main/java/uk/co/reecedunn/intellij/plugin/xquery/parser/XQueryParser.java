@@ -1231,7 +1231,14 @@ class XQueryParser {
     }
 
     private boolean parseNodeTest() {
-        return parseNameTest();
+        final PsiBuilder.Marker nodeTestMarker = mark();
+        if (parseNameTest()) {
+            nodeTestMarker.done(XQueryElementType.NODE_TEST);
+            return true;
+        }
+
+        nodeTestMarker.drop();
+        return false;
     }
 
     private boolean parseNameTest() {

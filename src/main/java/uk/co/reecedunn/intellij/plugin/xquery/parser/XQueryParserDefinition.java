@@ -102,6 +102,8 @@ public class XQueryParserDefinition implements ParserDefinition {
             return new XQueryReverseStepPsiImpl(node);
         } else if (type == XQueryElementType.ABBREV_REVERSE_STEP) {
             return new XQueryAbbrevReverseStepPsiImpl(node);
+        } else if (type == XQueryElementType.NODE_TEST) {
+            return new XQueryNodeTestPsiImpl(node);
         } else if (type == XQueryElementType.NAME_TEST) {
             return new XQueryNameTestPsiImpl(node);
         } else if (type == XQueryElementType.FILTER_EXPR) {
