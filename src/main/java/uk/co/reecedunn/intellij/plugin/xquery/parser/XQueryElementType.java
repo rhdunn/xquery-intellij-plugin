@@ -43,6 +43,7 @@ public interface XQueryElementType {
     IElementType ABBREV_FORWARD_STEP = new IElementType("XQUERY_ABBREV_FORWARD_STEP", XQuery.INSTANCE);
     IElementType REVERSE_STEP = new IElementType("XQUERY_REVERSE_STEP", XQuery.INSTANCE);
     IElementType ABBREV_REVERSE_STEP = new IElementType("XQUERY_ABBREV_REVERSE_STEP", XQuery.INSTANCE);
+    IElementType NAME_TEST = new IElementType("XQUERY_NAME_TEST", XQuery.INSTANCE);
     IElementType FILTER_EXPR = new IElementType("XQUERY_FILTER_EXPR", XQuery.INSTANCE);
     IElementType PREDICATE_LIST = new IElementType("XQUERY_PREDICATE_LIST", XQuery.INSTANCE);
     IElementType PREDICATE = new IElementType("XQUERY_PREDICATE", XQuery.INSTANCE);

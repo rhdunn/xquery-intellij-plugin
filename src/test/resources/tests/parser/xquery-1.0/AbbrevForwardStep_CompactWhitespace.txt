@@ -20,6 +20,7 @@ FileElement[FILE(0:3)]
                                                          XQueryForwardStepImpl[XQUERY_FORWARD_STEP(0:3)]
                                                             XQueryAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:3)]
                                                                LeafPsiElement[XQUERY_ATTRIBUTE_SELECTOR_TOKEN(0:1)]('@')
-                                                               XQueryNCNameImpl[XQUERY_NCNAME(1:3)]
-                                                                  LeafPsiElement[XQUERY_NCNAME_TOKEN(1:3)]('id')
+                                                               XQueryNameTestImpl[XQUERY_NAME_TEST(1:3)]
+                                                                  XQueryNCNameImpl[XQUERY_NCNAME(1:3)]
+                                                                     LeafPsiElement[XQUERY_NCNAME_TOKEN(1:3)]('id')
                                                          XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(3:3)]

@@ -1235,7 +1235,14 @@ class XQueryParser {
     }
 
     private boolean parseNameTest() {
-        return parseQName(XQueryElementType.QNAME);
+        final PsiBuilder.Marker nameTestMarker = mark();
+        if (parseQName(XQueryElementType.QNAME)) {
+            nameTestMarker.done(XQueryElementType.NAME_TEST);
+            return true;
+        }
+
+        nameTestMarker.drop();
+        return false;
     }
 
     private boolean parseFilterExpr() {
