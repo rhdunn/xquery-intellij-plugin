@@ -1599,6 +1599,58 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region ForwardStep
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ReverseStep")
+    public void testReverseStep_KindTest() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ReverseStep_KindTest.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ReverseStep_KindTest.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ReverseStep")
+    public void testReverseStep_KindTest_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ReverseStep_KindTest_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ReverseStep_KindTest_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ReverseStep")
+    public void testReverseStep_QName() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ReverseStep_QName.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ReverseStep_QName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ReverseStep")
+    public void testReverseStep_QName_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ReverseStep_QName_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ReverseStep_QName_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ReverseStep")
+    public void testReverseStep_Wildcard() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ReverseStep_Wildcard.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ReverseStep_Wildcard.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ReverseStep")
+    public void testReverseStep_Wildcard_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ReverseStep_Wildcard_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ReverseStep_Wildcard_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ReverseStep")
+    public void testReverseStep_MissingNodeTest() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ReverseStep_MissingNodeTest.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ReverseStep_MissingNodeTest.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region ReverseStep + ReverseAxis
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ReverseStep")
