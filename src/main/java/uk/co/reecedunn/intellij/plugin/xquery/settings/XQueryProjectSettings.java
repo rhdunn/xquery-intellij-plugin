@@ -36,9 +36,9 @@ public class XQueryProjectSettings implements PersistentStateComponent<XQueryPro
     private ImplementationItem IMPLEMENTATION = Implementations.getDefaultImplementation();
     private ImplementationItem IMPLEMENTATION_VERSION = IMPLEMENTATION.getDefaultItem(ImplementationItem.IMPLEMENTATION_VERSION);
     private XQueryVersion XQUERY_VERSION = XQueryVersion.parse(IMPLEMENTATION_VERSION.getDefaultItem(ImplementationItem.XQUERY_VERSION).toString());
-    private ImplementationItem XQUERY_1_0_DIALECT = IMPLEMENTATION_VERSION.getDefaultItemForXQueryVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryVersion.XQUERY_1_0);
-    private ImplementationItem XQUERY_3_0_DIALECT = IMPLEMENTATION_VERSION.getDefaultItemForXQueryVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryVersion.XQUERY_3_0);
-    private ImplementationItem XQUERY_3_1_DIALECT = IMPLEMENTATION_VERSION.getDefaultItemForXQueryVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryVersion.XQUERY_3_1);
+    private ImplementationItem XQUERY_1_0_DIALECT = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, ImplementationItem.XQUERY, XQueryVersion.XQUERY_1_0.toString());
+    private ImplementationItem XQUERY_3_0_DIALECT = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, ImplementationItem.XQUERY, XQueryVersion.XQUERY_3_0.toString());
+    private ImplementationItem XQUERY_3_1_DIALECT = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, ImplementationItem.XQUERY, XQueryVersion.XQUERY_3_1.toString());
 
     public static XQueryProjectSettings getInstance(@NotNull Project project) {
         return ServiceManager.getService(project, XQueryProjectSettings.class);

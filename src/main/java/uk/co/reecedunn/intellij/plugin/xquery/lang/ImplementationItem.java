@@ -134,6 +134,22 @@ public class ImplementationItem {
         return items;
     }
 
+    public ImplementationItem getDefaultItemByVersion(String tagName, String featureName, String featureValue) {
+        if (mElement != null) {
+            NodeList nodes = mElement.getElementsByTagName(tagName);
+            for (int i = 0; i != nodes.getLength(); ++i) {
+                Node node = nodes.item(i);
+                if (node.getAttributes().getNamedItem("default").getNodeValue().equals("true")) {
+                    ImplementationItem item = new ImplementationItem((Element)nodes.item(i));
+                    if (featureValue.equals(item.getVersion(featureName))) {
+                        return item;
+                    }
+                }
+            }
+        }
+        return NULL_ITEM;
+    }
+
     public String getSpecification(String featureName) {
         if (mElement != null) {
             NodeList nodes = mElement.getElementsByTagName(featureName);
@@ -143,22 +159,6 @@ public class ImplementationItem {
             }
         }
         return null;
-    }
-
-    public ImplementationItem getDefaultItemForXQueryVersion(String tagName, XQueryVersion version) {
-        if (mElement != null) {
-            NodeList nodes = mElement.getElementsByTagName(tagName);
-            for (int i = 0; i != nodes.getLength(); ++i) {
-                Node node = nodes.item(i);
-                if (node.getAttributes().getNamedItem("default").getNodeValue().equals("true")) {
-                    Node attr = node.getAttributes().getNamedItem("xquery-version");
-                    if (attr != null && attr.getNodeValue().equals(version.toString())) {
-                        return new ImplementationItem((Element) node);
-                    }
-                }
-            }
-        }
-        return NULL_ITEM;
     }
 
     public ImplementationItem getItemById(String id) {

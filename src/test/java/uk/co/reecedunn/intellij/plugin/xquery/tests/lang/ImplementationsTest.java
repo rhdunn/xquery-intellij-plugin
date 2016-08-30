@@ -47,7 +47,7 @@ public class ImplementationsTest extends TestCase {
         assertThat(itemsForXQuery.size(), is(1));
         assertThat(itemsForXQuery.get(0), is(ImplementationItem.NULL_ITEM));
 
-        assertThat(item.getDefaultItemForXQueryVersion(ImplementationItem.IMPLEMENTATION_VERSION, XQueryVersion.XQUERY_1_0),
+        assertThat(item.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_VERSION, ImplementationItem.XQUERY, XQueryVersion.XQUERY_1_0.toString()),
                    is(ImplementationItem.NULL_ITEM));
     }
 
@@ -181,7 +181,7 @@ public class ImplementationsTest extends TestCase {
         ImplementationItem implementation = Implementations.getImplementations().get(1);
         ImplementationItem version = implementation.getItems(ImplementationItem.IMPLEMENTATION_VERSION).get(2);
 
-        ImplementationItem dialect = version.getDefaultItemForXQueryVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryVersion.XQUERY_3_0);
+        ImplementationItem dialect = version.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, ImplementationItem.XQUERY, XQueryVersion.XQUERY_3_0.toString());
         assertThat(dialect.getID(), is("saxon/EE/3.0-update"));
         assertThat(dialect.toString(), is("XQuery Update Facility 1.0"));
     }
@@ -231,7 +231,7 @@ public class ImplementationsTest extends TestCase {
         ImplementationItem implementation = Implementations.getImplementations().get(1);
         ImplementationItem version = implementation.getItems(ImplementationItem.IMPLEMENTATION_VERSION).get(2);
 
-        ImplementationItem dialect = version.getDefaultItemForXQueryVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryVersion.XQUERY_1_0_MARKLOGIC);
+        ImplementationItem dialect = version.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, ImplementationItem.XQUERY, XQueryVersion.XQUERY_1_0_MARKLOGIC.toString());
         assertThat(dialect, is(ImplementationItem.NULL_ITEM));
     }
 

@@ -89,7 +89,7 @@ public class XQueryPropertiesUI {
             }
         }
         if (!found) {
-            control.setSelectedItem(source.getDefaultItemForXQueryVersion(filter, version));
+            control.setSelectedItem(source.getDefaultItemByVersion(filter, ImplementationItem.XQUERY, version.toString()));
         }
     }
 
