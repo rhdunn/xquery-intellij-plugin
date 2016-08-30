@@ -1171,7 +1171,7 @@ class XQueryParser {
 
     private boolean parseAxisStep() {
         final PsiBuilder.Marker axisStepMarker = mark();
-        if (parseForwardStep() || parseReverseStep()) {
+        if (parseReverseStep() || parseForwardStep()) {
             skipWhiteSpaceAndCommentTokens();
             parsePredicateList();
 
@@ -1256,12 +1256,40 @@ class XQueryParser {
 
     private boolean parseReverseStep() {
         final PsiBuilder.Marker reverseStepMarker = mark();
-        if (parseAbbrevReverseStep()) {
+        if (parseReverseAxis()) {
+            skipWhiteSpaceAndCommentTokens();
+            if (!parseNodeTest()) {
+                error(XQueryBundle.message("parser.error.expected", "NodeTest"));
+            }
+
+            reverseStepMarker.done(XQueryElementType.REVERSE_STEP);
+            return true;
+        } else if (parseAbbrevReverseStep()) {
             reverseStepMarker.done(XQueryElementType.REVERSE_STEP);
             return true;
         }
 
         reverseStepMarker.drop();
+        return false;
+    }
+
+    private boolean parseReverseAxis() {
+        final PsiBuilder.Marker reverseAxisMarker = mBuilder.mark();
+        if (matchTokenType(XQueryTokenType.K_PARENT) ||
+            matchTokenType(XQueryTokenType.K_ANCESTOR) ||
+            matchTokenType(XQueryTokenType.K_ANCESTOR_OR_SELF) ||
+            matchTokenType(XQueryTokenType.K_PRECEDING) ||
+            matchTokenType(XQueryTokenType.K_PRECEDING_SIBLING)) {
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.AXIS_SEPARATOR)) {
+                error(XQueryBundle.message("parser.error.expected", "::"));
+            }
+
+            reverseAxisMarker.done(XQueryElementType.REVERSE_AXIS);
+            return true;
+        }
+        reverseAxisMarker.drop();
         return false;
     }
 
