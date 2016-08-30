@@ -165,6 +165,18 @@ public class ImplementationsTest extends TestCase {
         assertThat(dialects.get(0).getSpecification(ImplementationItem.SCRIPTING), is(nullValue()));
     }
 
+    public void testItemsByVersion() {
+        ImplementationItem implementation = Implementations.getItemById("marklogic/v7");
+
+        List<ImplementationItem> xquery = implementation.getItemsByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, ImplementationItem.XQUERY, "1.0-ml");
+        assertThat(xquery.size(), is(1));
+        assertThat(xquery.get(0).getID(), is("marklogic/v7/1.0-ml"));
+
+        List<ImplementationItem> scripting = implementation.getItemsByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, ImplementationItem.SCRIPTING, "1.0");
+        assertThat(scripting.size(), is(1));
+        assertThat(scripting.get(0), is(ImplementationItem.NULL_ITEM));
+    }
+
     public void testDefaultImplementationDialect() {
         ImplementationItem implementation = Implementations.getImplementations().get(1);
         ImplementationItem version = implementation.getItems(ImplementationItem.IMPLEMENTATION_VERSION).get(2);

@@ -117,6 +117,23 @@ public class ImplementationItem {
         return null;
     }
 
+    public List<ImplementationItem> getItemsByVersion(String tagName, String featureName, String featureValue) {
+        final List<ImplementationItem> items = new ArrayList<>();
+        if (mElement != null) {
+            NodeList nodes = mElement.getElementsByTagName(tagName);
+            for (int i = 0; i != nodes.getLength(); ++i) {
+                ImplementationItem item = new ImplementationItem((Element)nodes.item(i));
+                if (featureValue.equals(item.getVersion(featureName))) {
+                    items.add(item);
+                }
+            }
+        }
+        if (items.isEmpty()) {
+            items.add(ImplementationItem.NULL_ITEM);
+        }
+        return items;
+    }
+
     public String getSpecification(String featureName) {
         if (mElement != null) {
             NodeList nodes = mElement.getElementsByTagName(featureName);
