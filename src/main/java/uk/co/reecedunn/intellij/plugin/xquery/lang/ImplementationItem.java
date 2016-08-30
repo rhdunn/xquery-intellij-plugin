@@ -117,6 +117,17 @@ public class ImplementationItem {
         return null;
     }
 
+    public String getSpecification(String featureName) {
+        if (mElement != null) {
+            NodeList nodes = mElement.getElementsByTagName(featureName);
+            if (nodes.getLength() != 0) {
+                Node node = nodes.item(0);
+                return node.getAttributes().getNamedItem("specification").getNodeValue();
+            }
+        }
+        return null;
+    }
+
     public List<ImplementationItem> getItemsForXQueryVersion(String tagName, XQueryVersion version) {
         final List<ImplementationItem> items = new ArrayList<>();
         if (mElement != null) {
