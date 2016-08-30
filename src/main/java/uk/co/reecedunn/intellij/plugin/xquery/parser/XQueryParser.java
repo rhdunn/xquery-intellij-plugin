@@ -1187,7 +1187,9 @@ class XQueryParser {
         final PsiBuilder.Marker forwardStepMarker = mark();
         if (parseForwardAxis()) {
             skipWhiteSpaceAndCommentTokens();
-            parseNodeTest();
+            if (!parseNodeTest()) {
+                error(XQueryBundle.message("parser.error.expected", "NodeTest"));
+            }
 
             forwardStepMarker.done(XQueryElementType.FORWARD_STEP);
             return true;

@@ -1352,6 +1352,58 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region ForwardStep
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardStep")
+    public void testForwardStep_KindTest() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ForwardStep_KindTest.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ForwardStep_KindTest.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardStep")
+    public void testForwardStep_KindTest_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ForwardStep_KindTest_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ForwardStep_KindTest_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardStep")
+    public void testForwardStep_QName() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ForwardStep_QName.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ForwardStep_QName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardStep")
+    public void testForwardStep_QName_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ForwardStep_QName_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ForwardStep_QName_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardStep")
+    public void testForwardStep_Wildcard() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ForwardStep_Wildcard.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ForwardStep_Wildcard.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardStep")
+    public void testForwardStep_Wildcard_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ForwardStep_Wildcard_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ForwardStep_Wildcard_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardStep")
+    public void testForwardStep_MissingNodeTest() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ForwardStep_MissingNodeTest.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ForwardStep_MissingNodeTest.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region ForwardStep + ForwardAxis
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardStep")
