@@ -43,7 +43,7 @@ public class ImplementationsTest extends TestCase {
 
         assertThat(item.getDefaultItem(ImplementationItem.IMPLEMENTATION_VERSION), is(ImplementationItem.NULL_ITEM));
 
-        final List<?> itemsForXQuery = item.getItemsForXQueryVersion(ImplementationItem.IMPLEMENTATION_VERSION, XQueryVersion.XQUERY_1_0);
+        final List<?> itemsForXQuery = item.getItemsByVersion(ImplementationItem.IMPLEMENTATION_VERSION, ImplementationItem.XQUERY, XQueryVersion.XQUERY_1_0.toString());
         assertThat(itemsForXQuery.size(), is(1));
         assertThat(itemsForXQuery.get(0), is(ImplementationItem.NULL_ITEM));
 
@@ -125,7 +125,7 @@ public class ImplementationsTest extends TestCase {
         ImplementationItem implementation = Implementations.getImplementations().get(1);
         ImplementationItem version = implementation.getItems(ImplementationItem.IMPLEMENTATION_VERSION).get(2);
 
-        final List<ImplementationItem> dialects = version.getItemsForXQueryVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryVersion.XQUERY_3_0);
+        final List<ImplementationItem> dialects = version.getItemsByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, ImplementationItem.XQUERY, XQueryVersion.XQUERY_3_0.toString());
         assertThat(dialects.size(), is(2));
 
         assertThat(dialects.get(0).getID(), is("saxon/EE/3.0"));
@@ -222,7 +222,7 @@ public class ImplementationsTest extends TestCase {
         ImplementationItem implementation = Implementations.getImplementations().get(1);
         ImplementationItem version = implementation.getItems(ImplementationItem.IMPLEMENTATION_VERSION).get(2);
 
-        final List<ImplementationItem> dialects = version.getItemsForXQueryVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryVersion.XQUERY_1_0_MARKLOGIC);
+        final List<ImplementationItem> dialects = version.getItemsByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, ImplementationItem.XQUERY, XQueryVersion.XQUERY_1_0_MARKLOGIC.toString());
         assertThat(dialects.size(), is(1));
         assertThat(dialects.get(0), is(ImplementationItem.NULL_ITEM));
     }

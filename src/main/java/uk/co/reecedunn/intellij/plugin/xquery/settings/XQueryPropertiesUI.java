@@ -81,7 +81,7 @@ public class XQueryPropertiesUI {
         boolean found = false;
 
         control.removeAllItems();
-        for (ImplementationItem item : source.getItemsForXQueryVersion(filter, version)) {
+        for (ImplementationItem item : source.getItemsByVersion(filter, ImplementationItem.XQUERY, version.toString())) {
             control.addItem(item);
             if (selected != null && item.toString().equals(selected.toString())) {
                 control.setSelectedItem(item);

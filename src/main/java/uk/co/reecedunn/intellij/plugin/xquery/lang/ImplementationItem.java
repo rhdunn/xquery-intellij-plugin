@@ -145,24 +145,6 @@ public class ImplementationItem {
         return null;
     }
 
-    public List<ImplementationItem> getItemsForXQueryVersion(String tagName, XQueryVersion version) {
-        final List<ImplementationItem> items = new ArrayList<>();
-        if (mElement != null) {
-            NodeList nodes = mElement.getElementsByTagName(tagName);
-            for (int i = 0; i != nodes.getLength(); ++i) {
-                Node node = nodes.item(i);
-                Node attr = node.getAttributes().getNamedItem("xquery-version");
-                if (attr != null && attr.getNodeValue().equals(version.toString())) {
-                    items.add(new ImplementationItem((Element) node));
-                }
-            }
-        }
-        if (items.isEmpty()) {
-            items.add(ImplementationItem.NULL_ITEM);
-        }
-        return items;
-    }
-
     public ImplementationItem getDefaultItemForXQueryVersion(String tagName, XQueryVersion version) {
         if (mElement != null) {
             NodeList nodes = mElement.getElementsByTagName(tagName);
