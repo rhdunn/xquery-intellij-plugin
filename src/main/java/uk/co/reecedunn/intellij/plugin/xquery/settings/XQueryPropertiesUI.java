@@ -42,7 +42,7 @@ public class XQueryPropertiesUI {
         return mPanel;
     }
 
-    private void populateXQueryVersionComboBox(JComboBox<XQueryVersion> control, ImplementationItem source, String filter) {
+    private void populateVersionComboBox(JComboBox<XQueryVersion> control, ImplementationItem source, String filter) {
         if (source == null) {
             return;
         }
@@ -51,8 +51,8 @@ public class XQueryPropertiesUI {
         boolean found = false;
 
         control.removeAllItems();
-        for (ImplementationItem item : source.getItems(filter)) {
-            XQueryVersion version = XQueryVersion.parse(item.toString());
+        for (String item : source.getVersions(ImplementationItem.IMPLEMENTATION_DIALECT, filter)) {
+            XQueryVersion version = XQueryVersion.parse(item);
             control.addItem(version);
             if (version == selected) {
                 control.setSelectedItem(version);
@@ -60,7 +60,7 @@ public class XQueryPropertiesUI {
             }
         }
         if (!found) {
-            control.setSelectedItem(XQueryVersion.parse(source.getDefaultItem(filter).toString()));
+            control.setSelectedItem(XQueryVersion.parse(source.getDefaultVersion(ImplementationItem.IMPLEMENTATION_DIALECT, filter)));
         }
     }
 
@@ -110,7 +110,7 @@ public class XQueryPropertiesUI {
 
         mImplementationVersions.addActionListener(e -> {
             final ImplementationItem version = (ImplementationItem)mImplementationVersions.getSelectedItem();
-            populateXQueryVersionComboBox(mVersion, version, ImplementationItem.XQUERY_VERSION);
+            populateVersionComboBox(mVersion, version, ImplementationItem.XQUERY);
             populateComboBox(mDialectForXQuery1_0, version, ImplementationItem.IMPLEMENTATION_DIALECT, XQueryVersion.XQUERY_1_0);
             populateComboBox(mDialectForXQuery3_0, version, ImplementationItem.IMPLEMENTATION_DIALECT, XQueryVersion.XQUERY_3_0);
             populateComboBox(mDialectForXQuery3_1, version, ImplementationItem.IMPLEMENTATION_DIALECT, XQueryVersion.XQUERY_3_1);

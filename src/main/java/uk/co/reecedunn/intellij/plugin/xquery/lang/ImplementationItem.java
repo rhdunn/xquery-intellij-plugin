@@ -24,7 +24,6 @@ import java.util.List;
 public class ImplementationItem {
     public static final String IMPLEMENTATION_VERSION = "version";
     public static final String IMPLEMENTATION_DIALECT = "dialect";
-    public static final String XQUERY_VERSION = "xquery-version";
 
     public static final String XQUERY = "xquery";
     public static final String UPDATE_FACILITY = "update-facility";
@@ -148,6 +147,39 @@ public class ImplementationItem {
             }
         }
         return NULL_ITEM;
+    }
+
+    public List<String> getVersions(String tagName, String featureName) {
+        final List<String> items = new ArrayList<>();
+        if (mElement != null) {
+            NodeList nodes = mElement.getElementsByTagName(tagName);
+            for (int i = 0; i != nodes.getLength(); ++i) {
+                ImplementationItem item = new ImplementationItem((Element)nodes.item(i));
+                String version = item.getVersion(featureName);
+                if (!items.contains(version)) {
+                    items.add(version);
+                }
+            }
+        }
+        return items;
+    }
+
+    public String getDefaultVersion(String tagName, String featureName) {
+        if (mElement != null) {
+            NodeList nodes = mElement.getElementsByTagName(tagName);
+            for (int i = 0; i != nodes.getLength(); ++i) {
+                Element node = (Element)nodes.item(i);
+
+                NodeList versions = node.getElementsByTagName(featureName);
+                for (int j = 0; j != versions.getLength(); ++j) {
+                    Node version = versions.item(j);
+                    if (version.getAttributes().getNamedItem("default").getNodeValue().equals("true")) {
+                        return version.getAttributes().getNamedItem("version").getNodeValue();
+                    }
+                }
+            }
+        }
+        return null;
     }
 
     public String getSpecification(String featureName) {

@@ -186,36 +186,22 @@ public class ImplementationsTest extends TestCase {
         assertThat(dialect.toString(), is("XQuery Update Facility 1.0"));
     }
 
-    public void testXQueryVersion() {
+    public void testVersions() {
         ImplementationItem implementation = Implementations.getImplementations().get(2);
         ImplementationItem version = implementation.getItems(ImplementationItem.IMPLEMENTATION_VERSION).get(0);
 
-        final List<ImplementationItem> xquery = version.getItems(ImplementationItem.XQUERY_VERSION);
+        final List<String> xquery = version.getVersions(ImplementationItem.IMPLEMENTATION_DIALECT, ImplementationItem.XQUERY);
         assertThat(xquery.size(), is(3));
-
-        assertThat(xquery.get(0).getID(), is("w3c/xquery.1.0"));
-        assertThat(xquery.get(0).toString(), is("1.0"));
-
-        assertThat(xquery.get(1).getID(), is("w3c/xquery.3.0"));
-        assertThat(xquery.get(1).toString(), is("3.0"));
-
-        assertThat(xquery.get(2).getID(), is("w3c/xquery.3.1"));
-        assertThat(xquery.get(2).toString(), is("3.1"));
-
-        assertThat(xquery.get(0).equals(xquery.get(0)), is(true));
-        assertThat(xquery.get(1).equals(xquery.get(0)), is(false));
-        assertThat(xquery.get(0).equals(xquery.get(0).getID()), is(false));
-
-        assertThat(xquery.get(0).equals(ImplementationItem.NULL_ITEM), is(false));
+        assertThat(xquery.get(0), is("1.0"));
+        assertThat(xquery.get(1), is("3.0"));
+        assertThat(xquery.get(2), is("3.1"));
     }
 
-    public void testDefaultXQueryVersion() {
+    public void testDefaultVersion() {
         ImplementationItem implementation = Implementations.getImplementations().get(2);
         ImplementationItem version = implementation.getItems(ImplementationItem.IMPLEMENTATION_VERSION).get(0);
 
-        ImplementationItem xquery = version.getDefaultItem(ImplementationItem.XQUERY_VERSION);
-        assertThat(xquery.getID(), is("w3c/xquery.3.0"));
-        assertThat(xquery.toString(), is("3.0"));
+        assertThat(version.getDefaultVersion(ImplementationItem.IMPLEMENTATION_DIALECT, ImplementationItem.XQUERY), is("3.0"));
     }
 
     public void testImplementationDialectForAnUnknownVersion() {
