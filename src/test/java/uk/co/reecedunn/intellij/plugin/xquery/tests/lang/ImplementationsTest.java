@@ -141,6 +141,18 @@ public class ImplementationsTest extends TestCase {
         assertThat(dialects.get(0).equals(ImplementationItem.NULL_ITEM), is(false));
     }
 
+    public void testVersion() {
+        List<ImplementationItem> dialects = Implementations.getItemById("marklogic/v7").getItems(ImplementationItem.IMPLEMENTATION_DIALECT);
+
+        assertThat(dialects.get(0).getVersion(ImplementationItem.XQUERY), is("0.9-ml"));
+        assertThat(dialects.get(1).getVersion(ImplementationItem.XQUERY), is("1.0"));
+        assertThat(dialects.get(2).getVersion(ImplementationItem.XQUERY), is("1.0-ml"));
+
+        assertThat(dialects.get(0).getVersion(ImplementationItem.UPDATE_FACILITY), is(nullValue()));
+        assertThat(dialects.get(0).getVersion(ImplementationItem.FULL_TEXT), is(nullValue()));
+        assertThat(dialects.get(0).getVersion(ImplementationItem.SCRIPTING), is(nullValue()));
+    }
+
     public void testDefaultImplementationDialect() {
         ImplementationItem implementation = Implementations.getImplementations().get(1);
         ImplementationItem version = implementation.getItems(ImplementationItem.IMPLEMENTATION_VERSION).get(2);

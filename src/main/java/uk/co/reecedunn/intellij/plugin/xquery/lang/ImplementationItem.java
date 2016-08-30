@@ -26,6 +26,11 @@ public class ImplementationItem {
     public static final String IMPLEMENTATION_DIALECT = "dialect";
     public static final String XQUERY_VERSION = "xquery-version";
 
+    public static final String XQUERY = "xquery";
+    public static final String UPDATE_FACILITY = "update-facility";
+    public static final String FULL_TEXT = "full-text";
+    public static final String SCRIPTING = "scripting";
+
     public static final ImplementationItem NULL_ITEM = new ImplementationItem();
 
     private final Element mElement;
@@ -99,6 +104,17 @@ public class ImplementationItem {
             }
         }
         return NULL_ITEM;
+    }
+
+    public String getVersion(String featureName) {
+        if (mElement != null) {
+            NodeList nodes = mElement.getElementsByTagName(featureName);
+            if (nodes.getLength() != 0) {
+                Node node = nodes.item(0);
+                return node.getAttributes().getNamedItem("version").getNodeValue();
+            }
+        }
+        return null;
     }
 
     public List<ImplementationItem> getItemsForXQueryVersion(String tagName, XQueryVersion version) {
