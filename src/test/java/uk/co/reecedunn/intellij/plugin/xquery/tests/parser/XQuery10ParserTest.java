@@ -1352,6 +1352,51 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region PathExpr
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PathExpr")
+    public void testPathExpr_LeadingForwardSlash() {
+        final String expected = loadResource("tests/parser/xquery-1.0/PathExpr_LeadingForwardSlash.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/PathExpr_LeadingForwardSlash.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PathExpr")
+    public void testPathExpr_LeadingForwardSlash_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/PathExpr_LeadingForwardSlash_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/PathExpr_LeadingForwardSlash_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PathExpr")
+    public void testPathExpr_LeadingDoubleForwardSlash() {
+        final String expected = loadResource("tests/parser/xquery-1.0/PathExpr_LeadingDoubleForwardSlash.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/PathExpr_LeadingDoubleForwardSlash.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PathExpr")
+    public void testPathExpr_LeadingDoubleForwardSlash_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/PathExpr_LeadingDoubleForwardSlash_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/PathExpr_LeadingDoubleForwardSlash_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PathExpr")
+    public void testPathExpr_LoneForwardSlash() {
+        final String expected = loadResource("tests/parser/xquery-1.0/PathExpr_LoneForwardSlash.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/PathExpr_LoneForwardSlash.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PathExpr")
+    public void testPathExpr_LoneDoubleForwardSlash() {
+        final String expected = loadResource("tests/parser/xquery-1.0/PathExpr_LoneDoubleForwardSlash.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/PathExpr_LoneDoubleForwardSlash.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region RelativePathExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-RelativePathExpr")

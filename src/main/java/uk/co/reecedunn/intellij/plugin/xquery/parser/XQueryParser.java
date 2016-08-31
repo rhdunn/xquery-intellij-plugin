@@ -1146,7 +1146,21 @@ class XQueryParser {
 
     private boolean parsePathExpr() {
         final PsiBuilder.Marker pathExprMarker = mark();
-        if (parseRelativePathExpr()) {
+        if (matchTokenType(XQueryTokenType.DIRECT_DESCENDANTS_PATH)) {
+            skipWhiteSpaceAndCommentTokens();
+            parseRelativePathExpr();
+
+            pathExprMarker.done(XQueryElementType.PATH_EXPR);
+            return true;
+        } else if (matchTokenType(XQueryTokenType.ALL_DESCENDANTS_PATH)) {
+            skipWhiteSpaceAndCommentTokens();
+            if (!parseRelativePathExpr()) {
+                error(XQueryBundle.message("parser.error.expected", "RelativePathExpr"));
+            }
+
+            pathExprMarker.done(XQueryElementType.PATH_EXPR);
+            return true;
+        } else if (parseRelativePathExpr()) {
             pathExprMarker.done(XQueryElementType.PATH_EXPR);
             return true;
         }
