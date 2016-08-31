@@ -420,7 +420,7 @@ public class SyntaxHighlighterTest extends TestCase {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_XQUERY)[0], is(SyntaxHighlighter.KEYWORD));
     }
 
-    public void testTokenHighlights_XmlOperator() {
+    public void testTokenHighlights_XmlTag() {
         SyntaxHighlighter highlighter = new SyntaxHighlighter();
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.OPEN_XML_TAG).length, is(1));
@@ -434,9 +434,14 @@ public class SyntaxHighlighterTest extends TestCase {
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.SELF_CLOSING_XML_TAG).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.SELF_CLOSING_XML_TAG)[0], is(SyntaxHighlighter.XML_TAG));
+    }
 
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_EQUAL).length, is(1));
+    public void testTokenHighlights_XmlAttributeName() {
+        SyntaxHighlighter highlighter = new SyntaxHighlighter();
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_EQUAL).length, is(2));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_EQUAL)[0], is(SyntaxHighlighter.XML_TAG));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_EQUAL)[1], is(SyntaxHighlighter.XML_ATTRIBUTE_NAME));
     }
 
     public void testTokenHighlights_OtherToken() {

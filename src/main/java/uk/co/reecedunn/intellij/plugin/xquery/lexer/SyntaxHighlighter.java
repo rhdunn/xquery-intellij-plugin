@@ -34,6 +34,7 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
     public static final TextAttributesKey STRING = TextAttributesKey.createTextAttributesKey("XQUERY_STRING", DefaultLanguageHighlighterColors.STRING);
 
     public static final TextAttributesKey XML_TAG = TextAttributesKey.createTextAttributesKey("XQUERY_XML_TAG", XmlHighlighterColors.XML_TAG);
+    public static final TextAttributesKey XML_ATTRIBUTE_NAME = TextAttributesKey.createTextAttributesKey("XQUERY_XML_ATTRIBUTE_NAME", XmlHighlighterColors.XML_ATTRIBUTE_NAME);
 
     private static final TextAttributesKey[] BAD_CHARACTER_KEYS = pack(BAD_CHARACTER);
     private static final TextAttributesKey[] COMMENT_KEYS = pack(COMMENT);
@@ -45,6 +46,7 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
     private static final TextAttributesKey[] STRING_KEYS = pack(STRING);
 
     private static final TextAttributesKey[] XML_TAG_KEYS = pack(XML_TAG);
+    private static final TextAttributesKey[] XML_ATTRIBTE_NAME_KEYS = pack(XML_TAG, XML_ATTRIBUTE_NAME);
 
     @Override
     @SuppressWarnings("NullableProblems") // jacoco Code Coverage reports an unchecked branch when @NotNull is used.
@@ -87,9 +89,10 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
         } else if (type == XQueryTokenType.OPEN_XML_TAG ||
                    type == XQueryTokenType.END_XML_TAG ||
                    type == XQueryTokenType.CLOSE_XML_TAG ||
-                   type == XQueryTokenType.SELF_CLOSING_XML_TAG ||
-                   type == XQueryTokenType.XML_EQUAL) {
+                   type == XQueryTokenType.SELF_CLOSING_XML_TAG) {
             return XML_TAG_KEYS;
+        } else if (type == XQueryTokenType.XML_EQUAL) {
+            return XML_ATTRIBTE_NAME_KEYS;
         }
         return EMPTY;
     }
