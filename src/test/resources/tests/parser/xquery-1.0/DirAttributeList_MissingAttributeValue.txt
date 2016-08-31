@@ -31,7 +31,7 @@ FileElement[FILE(0:16)]
                                                                      LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(8:9)](':')
                                                                      LeafPsiElement[XQUERY_NCNAME_TOKEN(9:11)]('id')
                                                                   PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
-                                                                  LeafPsiElement[XQUERY_EQUAL_TOKEN(12:13)]('=')
+                                                                  LeafPsiElement[XQUERY_XML_EQUAL_TOKEN(12:13)]('=')
                                                                   PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
                                                                   PsiErrorElementImpl[ERROR_ELEMENT(14:14)]('XPST0003: Missing attribute string.')
                                                                LeafPsiElement[XQUERY_SELF_CLOSING_XML_TAG_TOKEN(14:16)]('/>')

@@ -40,6 +40,7 @@ public interface XQueryTokenType extends TokenType {
     IElementType CLOSE_XML_TAG = new IElementType("XQUERY_CLOSE_XML_TAG_TOKEN", XQuery.INSTANCE);
     IElementType SELF_CLOSING_XML_TAG = new IElementType("XQUERY_SELF_CLOSING_XML_TAG_TOKEN", XQuery.INSTANCE);
     IElementType XML_ELEMENT_CONTENTS = new IElementType("XQUERY_XML_ELEMENT_CONTENTS_TOKEN", XQuery.INSTANCE);
+    IElementType XML_EQUAL = new IElementType("XQUERY_XML_EQUAL_TOKEN", XQuery.INSTANCE);
 
     IElementType CDATA_SECTION = new IElementType("XQUERY_CDATA_SECTION_TOKEN", XQuery.INSTANCE);
     IElementType CDATA_SECTION_START_TAG = new IElementType("XQUERY_CDATA_SECTION_START_TAG_TOKEN", XQuery.INSTANCE);

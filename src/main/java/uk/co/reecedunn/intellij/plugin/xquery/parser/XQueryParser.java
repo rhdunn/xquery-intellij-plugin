@@ -1631,7 +1631,7 @@ class XQueryParser {
             parsed = true;
 
             matchTokenType(XQueryTokenType.WHITE_SPACE);
-            if (!matchTokenType(XQueryTokenType.EQUAL) && !haveErrors) {
+            if (!matchTokenType(XQueryTokenType.XML_EQUAL) && !haveErrors) {
                 error(XQueryBundle.message("parser.error.expected", "="));
                 haveErrors = true;
             }

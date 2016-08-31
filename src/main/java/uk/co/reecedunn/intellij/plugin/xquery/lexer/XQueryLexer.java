@@ -751,7 +751,7 @@ public class XQueryLexer extends LexerBase {
                 break;
             case CharacterClass.EQUAL:
                 mTokenRange.match();
-                mType = XQueryTokenType.EQUAL;
+                mType = XQueryTokenType.XML_EQUAL;
                 break;
             case CharacterClass.QUOTE:
             case CharacterClass.APOSTROPHE:

@@ -434,6 +434,9 @@ public class SyntaxHighlighterTest extends TestCase {
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.SELF_CLOSING_XML_TAG).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.SELF_CLOSING_XML_TAG)[0], is(SyntaxHighlighter.XML_OPERATOR));
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_EQUAL).length, is(1));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_EQUAL)[0], is(SyntaxHighlighter.XML_OPERATOR));
     }
 
     public void testTokenHighlights_OtherToken() {

@@ -31,7 +31,7 @@ FileElement[FILE(0:23)]
                                                                      LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(8:9)](':')
                                                                      LeafPsiElement[XQUERY_NCNAME_TOKEN(9:11)]('id')
                                                                   PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
-                                                                  LeafPsiElement[XQUERY_EQUAL_TOKEN(12:13)]('=')
+                                                                  LeafPsiElement[XQUERY_XML_EQUAL_TOKEN(12:13)]('=')
                                                                   PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
                                                                   XQueryDirAttributeValueImpl[XQUERY_DIR_ATTRIBUTE_VALUE(14:20)]
                                                                      LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(14:15)]('"')

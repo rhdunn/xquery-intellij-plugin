@@ -1101,7 +1101,7 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, ":",   11, 11, 12, XQueryTokenType.QNAME_SEPARATOR);
         matchToken(lexer, "b",   11, 12, 13, XQueryTokenType.NCNAME);
         matchToken(lexer, "  ",  11, 13, 15, XQueryTokenType.WHITE_SPACE);
-        matchToken(lexer, "=",   11, 15, 16, XQueryTokenType.EQUAL);
+        matchToken(lexer, "=",   11, 15, 16, XQueryTokenType.XML_EQUAL);
         matchToken(lexer, "  ",  11, 16, 18, XQueryTokenType.WHITE_SPACE);
         matchToken(lexer, "\"",  11, 18, 19, XQueryTokenType.STRING_LITERAL_START);
         matchToken(lexer, "One", 13, 19, 22, XQueryTokenType.STRING_LITERAL_CONTENTS);
@@ -1111,7 +1111,7 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, ":",   11, 26, 27, XQueryTokenType.QNAME_SEPARATOR);
         matchToken(lexer, "d",   11, 27, 28, XQueryTokenType.NCNAME);
         matchToken(lexer, "  ",  11, 28, 30, XQueryTokenType.WHITE_SPACE);
-        matchToken(lexer, "=",   11, 30, 31, XQueryTokenType.EQUAL);
+        matchToken(lexer, "=",   11, 30, 31, XQueryTokenType.XML_EQUAL);
         matchToken(lexer, "  ",  11, 31, 33, XQueryTokenType.WHITE_SPACE);
         matchToken(lexer, "'",   11, 33, 34, XQueryTokenType.STRING_LITERAL_START);
         matchToken(lexer, "Two", 14, 34, 37, XQueryTokenType.STRING_LITERAL_CONTENTS);

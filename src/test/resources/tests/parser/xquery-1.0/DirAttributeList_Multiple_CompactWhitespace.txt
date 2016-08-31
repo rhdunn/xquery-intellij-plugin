@@ -30,7 +30,7 @@ FileElement[FILE(0:35)]
                                                                      LeafPsiElement[XQUERY_NCNAME_TOKEN(5:8)]('xml')
                                                                      LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(8:9)](':')
                                                                      LeafPsiElement[XQUERY_NCNAME_TOKEN(9:11)]('id')
-                                                                  LeafPsiElement[XQUERY_EQUAL_TOKEN(11:12)]('=')
+                                                                  LeafPsiElement[XQUERY_XML_EQUAL_TOKEN(11:12)]('=')
                                                                   XQueryDirAttributeValueImpl[XQUERY_DIR_ATTRIBUTE_VALUE(12:18)]
                                                                      LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(12:13)]('"')
                                                                      LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(13:17)]('test')
@@ -38,7 +38,7 @@ FileElement[FILE(0:35)]
                                                                   PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
                                                                   XQueryNCNameImpl[XQUERY_NCNAME(19:24)]
                                                                      LeafPsiElement[XQUERY_NCNAME_TOKEN(19:24)]('class')
-                                                                  LeafPsiElement[XQUERY_EQUAL_TOKEN(24:25)]('=')
+                                                                  LeafPsiElement[XQUERY_XML_EQUAL_TOKEN(24:25)]('=')
                                                                   XQueryDirAttributeValueImpl[XQUERY_DIR_ATTRIBUTE_VALUE(25:33)]
                                                                      LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(25:26)]('"')
                                                                      LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(26:32)]('aclass')
