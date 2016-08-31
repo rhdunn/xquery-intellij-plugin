@@ -420,6 +420,22 @@ public class SyntaxHighlighterTest extends TestCase {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_XQUERY)[0], is(SyntaxHighlighter.KEYWORD));
     }
 
+    public void testTokenHighlights_XmlOperator() {
+        SyntaxHighlighter highlighter = new SyntaxHighlighter();
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.OPEN_XML_TAG).length, is(1));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.OPEN_XML_TAG)[0], is(SyntaxHighlighter.XML_OPERATOR));
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.END_XML_TAG).length, is(1));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.END_XML_TAG)[0], is(SyntaxHighlighter.XML_OPERATOR));
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.CLOSE_XML_TAG).length, is(1));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.CLOSE_XML_TAG)[0], is(SyntaxHighlighter.XML_OPERATOR));
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.SELF_CLOSING_XML_TAG).length, is(1));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.SELF_CLOSING_XML_TAG)[0], is(SyntaxHighlighter.XML_OPERATOR));
+    }
+
     public void testTokenHighlights_OtherToken() {
         SyntaxHighlighter highlighter = new SyntaxHighlighter();
 
@@ -433,15 +449,11 @@ public class SyntaxHighlighterTest extends TestCase {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.PRAGMA_CONTENTS).length, is(0));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.PRAGMA_END).length, is(0));
 
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.OPEN_XML_TAG).length, is(0));
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.END_XML_TAG).length, is(0));
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.CLOSE_XML_TAG).length, is(0));
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.SELF_CLOSING_XML_TAG).length, is(0));
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_ELEMENT_CONTENTS).length, is(0));
-
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN).length, is(0));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.PROCESSING_INSTRUCTION_END).length, is(0));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.PROCESSING_INSTRUCTION_CONTENTS).length, is(0));
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_ELEMENT_CONTENTS).length, is(0));
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.NOT_EQUAL).length, is(0));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.VARIABLE_INDICATOR).length, is(0));
