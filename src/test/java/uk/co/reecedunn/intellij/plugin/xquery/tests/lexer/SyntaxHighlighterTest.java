@@ -424,19 +424,19 @@ public class SyntaxHighlighterTest extends TestCase {
         SyntaxHighlighter highlighter = new SyntaxHighlighter();
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.OPEN_XML_TAG).length, is(1));
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.OPEN_XML_TAG)[0], is(SyntaxHighlighter.XML_OPERATOR));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.OPEN_XML_TAG)[0], is(SyntaxHighlighter.XML_TAG));
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.END_XML_TAG).length, is(1));
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.END_XML_TAG)[0], is(SyntaxHighlighter.XML_OPERATOR));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.END_XML_TAG)[0], is(SyntaxHighlighter.XML_TAG));
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.CLOSE_XML_TAG).length, is(1));
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.CLOSE_XML_TAG)[0], is(SyntaxHighlighter.XML_OPERATOR));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.CLOSE_XML_TAG)[0], is(SyntaxHighlighter.XML_TAG));
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.SELF_CLOSING_XML_TAG).length, is(1));
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.SELF_CLOSING_XML_TAG)[0], is(SyntaxHighlighter.XML_OPERATOR));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.SELF_CLOSING_XML_TAG)[0], is(SyntaxHighlighter.XML_TAG));
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_EQUAL).length, is(1));
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_EQUAL)[0], is(SyntaxHighlighter.XML_OPERATOR));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_EQUAL)[0], is(SyntaxHighlighter.XML_TAG));
     }
 
     public void testTokenHighlights_OtherToken() {
