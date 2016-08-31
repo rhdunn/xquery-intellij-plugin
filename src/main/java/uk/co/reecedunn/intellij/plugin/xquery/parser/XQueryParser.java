@@ -18,7 +18,6 @@ package uk.co.reecedunn.intellij.plugin.xquery.parser;
 import com.intellij.lang.PsiBuilder;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryReservedFunctionNameOrNCNameType;
@@ -1138,6 +1137,9 @@ class XQueryParser {
         return false;
     }
 
+    // endregion
+    // region Grammar :: Expr :: OrExpr :: ValueExpr
+
     private boolean parseValueExpr() {
         return parsePathExpr();
     }
@@ -1155,6 +1157,16 @@ class XQueryParser {
     private boolean parseRelativePathExpr() {
         final PsiBuilder.Marker relativePathExprMarker = mark();
         if (parseStepExpr()) {
+            skipWhiteSpaceAndCommentTokens();
+            while (matchTokenType(XQueryTokenType.DIRECT_DESCENDANTS_PATH) || matchTokenType(XQueryTokenType.ALL_DESCENDANTS_PATH)) {
+                skipWhiteSpaceAndCommentTokens();
+                if (!parseStepExpr()) {
+                    error(XQueryBundle.message("parser.error.expected", "StepExpr"));
+                }
+
+                skipWhiteSpaceAndCommentTokens();
+            }
+
             relativePathExprMarker.done(XQueryElementType.RELATIVE_PATH_EXPR);
             return true;
         }

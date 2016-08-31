@@ -1352,6 +1352,51 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region RelativePathExpr
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-RelativePathExpr")
+    public void testRelativePathExpr() {
+        final String expected = loadResource("tests/parser/xquery-1.0/RelativePathExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/RelativePathExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-RelativePathExpr")
+    public void testRelativePathExpr_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/RelativePathExpr_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/RelativePathExpr_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-RelativePathExpr")
+    public void testRelativePathExpr_AllDescendants() {
+        final String expected = loadResource("tests/parser/xquery-1.0/RelativePathExpr_AllDescendants.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/RelativePathExpr_AllDescendants.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-RelativePathExpr")
+    public void testRelativePathExpr_AllDescendants_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/RelativePathExpr_AllDescendants_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/RelativePathExpr_AllDescendants_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-RelativePathExpr")
+    public void testRelativePathExpr_MissingStepExpr() {
+        final String expected = loadResource("tests/parser/xquery-1.0/RelativePathExpr_MissingStepExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/RelativePathExpr_MissingStepExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-RelativePathExpr")
+    public void testRelativePathExpr_Multiple() {
+        final String expected = loadResource("tests/parser/xquery-1.0/RelativePathExpr_Multiple.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/RelativePathExpr_Multiple.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region AxisStep
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AxisStep")
