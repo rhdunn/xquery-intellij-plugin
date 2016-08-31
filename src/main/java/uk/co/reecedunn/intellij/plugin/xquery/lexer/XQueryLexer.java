@@ -41,9 +41,6 @@ public class XQueryLexer extends LexerBase {
 
     private void popState() {
         mStates.pop();
-        if (mStates.empty()) {
-            mStates.push(STATE_DEFAULT);
-        }
     }
 
     private static final int STATE_DEFAULT = 0;
@@ -1107,7 +1104,11 @@ public class XQueryLexer extends LexerBase {
     @Override
     public final void advance() {
         mTokenRange.flush();
-        mState = mStates.peek();
+        if (mStates.isEmpty()) {
+            mState = STATE_DEFAULT;
+        } else {
+            mState = mStates.peek();
+        }
         switch (mState) {
             case STATE_DEFAULT:
             case STATE_DEFAULT_ATTRIBUTE_QUOT:
