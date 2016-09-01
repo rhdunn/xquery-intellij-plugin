@@ -2446,14 +2446,18 @@ class XQueryParser {
             advanceLexer();
 
             final PsiBuilder.Marker beforeMarker = mark();
-            if (skipWhiteSpaceAndCommentTokens() &&
-                getTokenType() == XQueryTokenType.QNAME_SEPARATOR) {
+            if (skipWhiteSpaceAndCommentTokens() && (
+                getTokenType() == XQueryTokenType.QNAME_SEPARATOR ||
+                getTokenType() == XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR ||
+                getTokenType() == XQueryTokenType.XML_TAG_QNAME_SEPARATOR)) {
                 beforeMarker.error(XQueryBundle.message(isWildcard ? "parser.error.wildcard.whitespace-before-local-part" : "parser.error.qname.whitespace-before-local-part"));
             } else {
                 beforeMarker.drop();
             }
 
-            if (getTokenType() == XQueryTokenType.QNAME_SEPARATOR) {
+            if (getTokenType() == XQueryTokenType.QNAME_SEPARATOR ||
+                getTokenType() == XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR ||
+                getTokenType() == XQueryTokenType.XML_TAG_QNAME_SEPARATOR) {
                 if (type == XQueryElementType.NCNAME) {
                     final PsiBuilder.Marker errorMarker = mark();
                     advanceLexer();
@@ -2515,7 +2519,9 @@ class XQueryParser {
             return true;
         }
 
-        if (matchTokenType(XQueryTokenType.QNAME_SEPARATOR)) {
+        if (matchTokenType(XQueryTokenType.QNAME_SEPARATOR) ||
+            matchTokenType(XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR) ||
+            matchTokenType(XQueryTokenType.XML_TAG_QNAME_SEPARATOR)) {
             skipWhiteSpaceAndCommentTokens();
             if (getTokenType() instanceof INCNameType || getTokenType() == XQueryTokenType.STAR) {
                 advanceLexer();

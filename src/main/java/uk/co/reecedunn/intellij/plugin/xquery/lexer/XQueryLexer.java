@@ -720,7 +720,7 @@ public class XQueryLexer extends LexerBase {
                 break;
             case CharacterClass.COLON:
                 mTokenRange.match();
-                mType = XQueryTokenType.QNAME_SEPARATOR;
+                mType = (state == STATE_DIR_ATTRIBUTE_LIST) ? XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR : XQueryTokenType.XML_TAG_QNAME_SEPARATOR;
                 break;
             case CharacterClass.NAME_START_CHAR:
                 mTokenRange.match();

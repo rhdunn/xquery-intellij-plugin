@@ -94,10 +94,12 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
                    type == XQueryTokenType.SELF_CLOSING_XML_TAG ||
                    type == XQueryTokenType.XML_WHITE_SPACE) {
             return XML_TAG_KEYS;
-        } else if (type == XQueryTokenType.XML_TAG_NCNAME) {
+        } else if (type == XQueryTokenType.XML_TAG_NCNAME ||
+                   type == XQueryTokenType.XML_TAG_QNAME_SEPARATOR) {
             return XML_TAG_NAME_KEYS;
         } else if (type == XQueryTokenType.XML_EQUAL ||
-                   type == XQueryTokenType.XML_ATTRIBUTE_NCNAME) {
+                   type == XQueryTokenType.XML_ATTRIBUTE_NCNAME ||
+                   type == XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR) {
             return XML_ATTRIBTE_NAME_KEYS;
         }
         return EMPTY;

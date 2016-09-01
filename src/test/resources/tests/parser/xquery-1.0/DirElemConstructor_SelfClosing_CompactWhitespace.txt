@@ -22,7 +22,7 @@ FileElement[FILE(0:7)]
                                                                LeafPsiElement[XQUERY_OPEN_XML_TAG_TOKEN(0:1)]('<')
                                                                XQueryQNameImpl[XQUERY_QNAME(1:5)]
                                                                   LeafPsiElement[XQUERY_XML_TAG_NCNAME_TOKEN(1:2)]('h')
-                                                                  LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(2:3)](':')
+                                                                  LeafPsiElement[XQUERY_XML_TAG_QNAME_SEPARATOR_TOKEN(2:3)](':')
                                                                   LeafPsiElement[XQUERY_XML_TAG_NCNAME_TOKEN(3:5)]('br')
                                                                LeafPsiElement[XQUERY_SELF_CLOSING_XML_TAG_TOKEN(5:7)]('/>')
                                                          XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(7:7)]

@@ -22,13 +22,13 @@ FileElement[FILE(0:10)]
                                                                LeafPsiElement[XQUERY_OPEN_XML_TAG_TOKEN(0:1)]('<')
                                                                XQueryQNameImpl[XQUERY_QNAME(1:4)]
                                                                   LeafPsiElement[XQUERY_XML_TAG_NCNAME_TOKEN(1:2)]('a')
-                                                                  LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(2:3)](':')
+                                                                  LeafPsiElement[XQUERY_XML_TAG_QNAME_SEPARATOR_TOKEN(2:3)](':')
                                                                   LeafPsiElement[XQUERY_XML_TAG_NCNAME_TOKEN(3:4)]('b')
                                                                LeafPsiElement[XQUERY_END_XML_TAG_TOKEN(4:5)]('>')
                                                                LeafPsiElement[XQUERY_CLOSE_XML_TAG_TOKEN(5:7)]('</')
                                                                XQueryQNameImpl[XQUERY_QNAME(7:10)]
                                                                   LeafPsiElement[XQUERY_XML_TAG_NCNAME_TOKEN(7:8)]('a')
-                                                                  LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(8:9)](':')
+                                                                  LeafPsiElement[XQUERY_XML_TAG_QNAME_SEPARATOR_TOKEN(8:9)](':')
                                                                   LeafPsiElement[XQUERY_XML_TAG_NCNAME_TOKEN(9:10)]('b')
                                                                PsiErrorElementImpl[ERROR_ELEMENT(10:10)]('XPST0003: Expected '>'.')
                                                          XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(10:10)]

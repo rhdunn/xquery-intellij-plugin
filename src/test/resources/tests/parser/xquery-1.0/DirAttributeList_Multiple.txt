@@ -22,13 +22,13 @@ FileElement[FILE(0:40)]
                                                                LeafPsiElement[XQUERY_OPEN_XML_TAG_TOKEN(0:1)]('<')
                                                                XQueryQNameImpl[XQUERY_QNAME(1:4)]
                                                                   LeafPsiElement[XQUERY_XML_TAG_NCNAME_TOKEN(1:2)]('a')
-                                                                  LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(2:3)](':')
+                                                                  LeafPsiElement[XQUERY_XML_TAG_QNAME_SEPARATOR_TOKEN(2:3)](':')
                                                                   LeafPsiElement[XQUERY_XML_TAG_NCNAME_TOKEN(3:4)]('b')
                                                                XQueryDirAttributeListImpl[XQUERY_DIR_ATTRIBUTE_LIST(4:38)]
                                                                   XQueryDirWhiteSpaceImpl[XQUERY_XML_WHITE_SPACE_TOKEN(4:5)](' ')
                                                                   XQueryQNameImpl[XQUERY_QNAME(5:11)]
                                                                      LeafPsiElement[XQUERY_XML_ATTRIBUTE_NCNAME_TOKEN(5:8)]('xml')
-                                                                     LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(8:9)](':')
+                                                                     LeafPsiElement[XQUERY_XML_ATTRIBUTE_QNAME_SEPARATOR_TOKEN(8:9)](':')
                                                                      LeafPsiElement[XQUERY_XML_ATTRIBUTE_NCNAME_TOKEN(9:11)]('id')
                                                                   XQueryDirWhiteSpaceImpl[XQUERY_XML_WHITE_SPACE_TOKEN(11:12)](' ')
                                                                   LeafPsiElement[XQUERY_XML_EQUAL_TOKEN(12:13)]('=')
