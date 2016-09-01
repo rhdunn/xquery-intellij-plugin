@@ -68,6 +68,7 @@ public class XQueryLexer extends LexerBase {
     private static final int STATE_PROCESSING_INSTRUCTION_CONTENTS = 22;
     private static final int STATE_PROCESSING_INSTRUCTION_ELEM_CONTENT = 23;
     private static final int STATE_PROCESSING_INSTRUCTION_CONTENTS_ELEM_CONTENT = 24;
+    private static final int STATE_DIR_ATTRIBUTE_LIST = 25;
 
     private void stateDefault(int mState) {
         int cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
@@ -712,6 +713,10 @@ public class XQueryLexer extends LexerBase {
                 while (CharacterClass.getCharClass(mTokenRange.getCodePoint()) == CharacterClass.WHITESPACE)
                     mTokenRange.match();
                 mType = XQueryTokenType.XML_WHITE_SPACE;
+                if (state == STATE_DIR_ELEM_CONSTRUCTOR) {
+                    popState();
+                    pushState(STATE_DIR_ATTRIBUTE_LIST);
+                }
                 break;
             case CharacterClass.COLON:
                 mTokenRange.match();
@@ -734,7 +739,7 @@ public class XQueryLexer extends LexerBase {
                 mTokenRange.match();
                 mType = XQueryTokenType.END_XML_TAG;
                 popState();
-                if (state == STATE_DIR_ELEM_CONSTRUCTOR) {
+                if (state == STATE_DIR_ELEM_CONSTRUCTOR || state == STATE_DIR_ATTRIBUTE_LIST) {
                     pushState(STATE_DIR_ELEM_CONTENT);
                 }
                 break;
@@ -1150,6 +1155,7 @@ public class XQueryLexer extends LexerBase {
                 break;
             case STATE_DIR_ELEM_CONSTRUCTOR:
             case STATE_DIR_ELEM_CONSTRUCTOR_CLOSING:
+            case STATE_DIR_ATTRIBUTE_LIST:
                 stateDirElemConstructor(mState);
                 break;
             case STATE_DIR_ATTRIBUTE_VALUE_QUOTE:

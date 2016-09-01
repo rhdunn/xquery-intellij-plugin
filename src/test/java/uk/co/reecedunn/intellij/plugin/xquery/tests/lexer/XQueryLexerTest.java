@@ -1069,6 +1069,20 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, ">",   12, 20, 21, XQueryTokenType.END_XML_TAG);
         matchToken(lexer, "",     0, 21, 21, null);
 
+        lexer.start("<one:two  ></one:two>");
+        matchToken(lexer, "<",    0,  0,  1, XQueryTokenType.OPEN_XML_TAG);
+        matchToken(lexer, "one", 11,  1,  4, XQueryTokenType.NCNAME);
+        matchToken(lexer, ":",   11,  4,  5, XQueryTokenType.QNAME_SEPARATOR);
+        matchToken(lexer, "two", 11,  5,  8, XQueryTokenType.NCNAME);
+        matchToken(lexer, "  ",  11,  8, 10, XQueryTokenType.XML_WHITE_SPACE);
+        matchToken(lexer, ">",   25, 10, 11, XQueryTokenType.END_XML_TAG);
+        matchToken(lexer, "</",  17, 11, 13, XQueryTokenType.CLOSE_XML_TAG);
+        matchToken(lexer, "one", 12, 13, 16, XQueryTokenType.NCNAME);
+        matchToken(lexer, ":",   12, 16, 17, XQueryTokenType.QNAME_SEPARATOR);
+        matchToken(lexer, "two", 12, 17, 20, XQueryTokenType.NCNAME);
+        matchToken(lexer, ">",   12, 20, 21, XQueryTokenType.END_XML_TAG);
+        matchToken(lexer, "",     0, 21, 21, null);
+
         lexer.start("<one:two//*/>");
         matchToken(lexer, "<",    0,  0,  1, XQueryTokenType.OPEN_XML_TAG);
         matchToken(lexer, "one", 11,  1,  4, XQueryTokenType.NCNAME);
@@ -1097,27 +1111,27 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, ":",   11,  4,  5, XQueryTokenType.QNAME_SEPARATOR);
         matchToken(lexer, "two", 11,  5,  8, XQueryTokenType.NCNAME);
         matchToken(lexer, "  ",  11,  8, 10, XQueryTokenType.XML_WHITE_SPACE);
-        matchToken(lexer, "a",   11, 10, 11, XQueryTokenType.NCNAME);
-        matchToken(lexer, ":",   11, 11, 12, XQueryTokenType.QNAME_SEPARATOR);
-        matchToken(lexer, "b",   11, 12, 13, XQueryTokenType.NCNAME);
-        matchToken(lexer, "  ",  11, 13, 15, XQueryTokenType.XML_WHITE_SPACE);
-        matchToken(lexer, "=",   11, 15, 16, XQueryTokenType.XML_EQUAL);
-        matchToken(lexer, "  ",  11, 16, 18, XQueryTokenType.XML_WHITE_SPACE);
-        matchToken(lexer, "\"",  11, 18, 19, XQueryTokenType.STRING_LITERAL_START);
+        matchToken(lexer, "a",   25, 10, 11, XQueryTokenType.NCNAME);
+        matchToken(lexer, ":",   25, 11, 12, XQueryTokenType.QNAME_SEPARATOR);
+        matchToken(lexer, "b",   25, 12, 13, XQueryTokenType.NCNAME);
+        matchToken(lexer, "  ",  25, 13, 15, XQueryTokenType.XML_WHITE_SPACE);
+        matchToken(lexer, "=",   25, 15, 16, XQueryTokenType.XML_EQUAL);
+        matchToken(lexer, "  ",  25, 16, 18, XQueryTokenType.XML_WHITE_SPACE);
+        matchToken(lexer, "\"",  25, 18, 19, XQueryTokenType.STRING_LITERAL_START);
         matchToken(lexer, "One", 13, 19, 22, XQueryTokenType.STRING_LITERAL_CONTENTS);
         matchToken(lexer, "\"",  13, 22, 23, XQueryTokenType.STRING_LITERAL_END);
-        matchToken(lexer, "  ",  11, 23, 25, XQueryTokenType.XML_WHITE_SPACE);
-        matchToken(lexer, "c",   11, 25, 26, XQueryTokenType.NCNAME);
-        matchToken(lexer, ":",   11, 26, 27, XQueryTokenType.QNAME_SEPARATOR);
-        matchToken(lexer, "d",   11, 27, 28, XQueryTokenType.NCNAME);
-        matchToken(lexer, "  ",  11, 28, 30, XQueryTokenType.XML_WHITE_SPACE);
-        matchToken(lexer, "=",   11, 30, 31, XQueryTokenType.XML_EQUAL);
-        matchToken(lexer, "  ",  11, 31, 33, XQueryTokenType.XML_WHITE_SPACE);
-        matchToken(lexer, "'",   11, 33, 34, XQueryTokenType.STRING_LITERAL_START);
+        matchToken(lexer, "  ",  25, 23, 25, XQueryTokenType.XML_WHITE_SPACE);
+        matchToken(lexer, "c",   25, 25, 26, XQueryTokenType.NCNAME);
+        matchToken(lexer, ":",   25, 26, 27, XQueryTokenType.QNAME_SEPARATOR);
+        matchToken(lexer, "d",   25, 27, 28, XQueryTokenType.NCNAME);
+        matchToken(lexer, "  ",  25, 28, 30, XQueryTokenType.XML_WHITE_SPACE);
+        matchToken(lexer, "=",   25, 30, 31, XQueryTokenType.XML_EQUAL);
+        matchToken(lexer, "  ",  25, 31, 33, XQueryTokenType.XML_WHITE_SPACE);
+        matchToken(lexer, "'",   25, 33, 34, XQueryTokenType.STRING_LITERAL_START);
         matchToken(lexer, "Two", 14, 34, 37, XQueryTokenType.STRING_LITERAL_CONTENTS);
         matchToken(lexer, "'",   14, 37, 38, XQueryTokenType.STRING_LITERAL_END);
-        matchToken(lexer, "  ",  11, 38, 40, XQueryTokenType.XML_WHITE_SPACE);
-        matchToken(lexer, "/>",  11, 40, 42, XQueryTokenType.SELF_CLOSING_XML_TAG);
+        matchToken(lexer, "  ",  25, 38, 40, XQueryTokenType.XML_WHITE_SPACE);
+        matchToken(lexer, "/>",  25, 40, 42, XQueryTokenType.SELF_CLOSING_XML_TAG);
         matchToken(lexer, "",     0, 42, 42, null);
     }
 
