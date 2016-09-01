@@ -28,8 +28,8 @@ FileElement[FILE(0:14)]
                                                                      LeafPsiElement[XQUERY_XML_ATTRIBUTE_NCNAME_TOKEN(3:5)]('id')
                                                                   LeafPsiElement[XQUERY_XML_EQUAL_TOKEN(5:6)]('=')
                                                                   XQueryDirAttributeValueImpl[XQUERY_DIR_ATTRIBUTE_VALUE(6:12)]
-                                                                     LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(6:7)]('"')
-                                                                     LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(7:11)]('test')
-                                                                     LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(11:12)]('"')
+                                                                     LeafPsiElement[XQUERY_XML_ATTRIBUTE_VALUE_START_TOKEN(6:7)]('"')
+                                                                     LeafPsiElement[XQUERY_XML_ATTRIBUTE_VALUE_CONTENTS_TOKEN(7:11)]('test')
+                                                                     LeafPsiElement[XQUERY_XML_ATTRIBUTE_VALUE_END_TOKEN(11:12)]('"')
                                                                LeafPsiElement[XQUERY_SELF_CLOSING_XML_TAG_TOKEN(12:14)]('/>')
                                                          XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(14:14)]

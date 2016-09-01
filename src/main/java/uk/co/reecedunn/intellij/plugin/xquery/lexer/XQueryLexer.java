@@ -761,7 +761,7 @@ public class XQueryLexer extends LexerBase {
             case CharacterClass.QUOTE:
             case CharacterClass.APOSTROPHE:
                 mTokenRange.match();
-                mType = XQueryTokenType.STRING_LITERAL_START;
+                mType = XQueryTokenType.XML_ATTRIBUTE_VALUE_START;
                 pushState((cc == CharacterClass.QUOTE) ? STATE_DIR_ATTRIBUTE_VALUE_QUOTE : STATE_DIR_ATTRIBUTE_VALUE_APOSTROPHE);
                 break;
             case CharacterClass.END_OF_BUFFER:
@@ -782,7 +782,7 @@ public class XQueryLexer extends LexerBase {
                 mTokenRange.match();
                 mType = XQueryTokenType.ESCAPED_CHARACTER;
             } else {
-                mType = XQueryTokenType.STRING_LITERAL_END;
+                mType = XQueryTokenType.XML_ATTRIBUTE_VALUE_END;
                 popState();
             }
         } else if (c == '{') {
@@ -817,11 +817,11 @@ public class XQueryLexer extends LexerBase {
                     case '}':
                     case '<':
                     case '&':
-                        mType = XQueryTokenType.STRING_LITERAL_CONTENTS;
+                        mType = XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS;
                         return;
                     default:
                         if (c == type) {
-                            mType = XQueryTokenType.STRING_LITERAL_CONTENTS;
+                            mType = XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS;
                             return;
                         } else {
                             mTokenRange.match();

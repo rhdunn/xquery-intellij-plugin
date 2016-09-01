@@ -1639,7 +1639,7 @@ class XQueryParser {
             }
 
             matchTokenType(XQueryTokenType.XML_WHITE_SPACE);
-            if (!parseStringLiteral(XQueryElementType.DIR_ATTRIBUTE_VALUE) && !haveErrors) {
+            if (!parseDirAttributeValue() && !haveErrors) {
                 error(XQueryBundle.message("parser.error.expected-attribute-string"));
                 haveErrors = true;
             }
@@ -1653,6 +1653,34 @@ class XQueryParser {
         }
 
         attributeListMarker.drop();
+        return false;
+    }
+
+    private boolean parseDirAttributeValue() {
+        final PsiBuilder.Marker stringMarker = matchTokenTypeWithMarker(XQueryTokenType.XML_ATTRIBUTE_VALUE_START);
+        while (stringMarker != null) {
+            if (matchTokenType(XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS) ||
+                matchTokenType(XQueryTokenType.PREDEFINED_ENTITY_REFERENCE) ||
+                matchTokenType(XQueryTokenType.CHARACTER_REFERENCE) ||
+                matchTokenType(XQueryTokenType.ESCAPED_CHARACTER)) {
+                //
+            } else if (matchTokenType(XQueryTokenType.XML_ATTRIBUTE_VALUE_END)) {
+                stringMarker.done(XQueryElementType.DIR_ATTRIBUTE_VALUE);
+                return true;
+            } else if (matchTokenType(XQueryTokenType.PARTIAL_ENTITY_REFERENCE)) {
+                error(XQueryBundle.message("parser.error.incomplete-entity"));
+            } else if (errorOnTokenType(XQueryTokenType.EMPTY_ENTITY_REFERENCE, XQueryBundle.message("parser.error.empty-entity")) ||
+                       matchTokenType(XQueryTokenType.BAD_CHARACTER)) {
+                //
+            } else if (parseEnclosedExpr() ||
+                       errorOnTokenType(XQueryTokenType.BLOCK_CLOSE, XQueryBundle.message("parser.error.mismatched-exclosed-expr"))) {
+                //
+            } else {
+                stringMarker.done(XQueryElementType.DIR_ATTRIBUTE_VALUE);
+                error(XQueryBundle.message("parser.error.incomplete-attribute-value"));
+                return true;
+            }
+        }
         return false;
     }
 
@@ -2417,10 +2445,6 @@ class XQueryParser {
             } else if (errorOnTokenType(XQueryTokenType.EMPTY_ENTITY_REFERENCE, XQueryBundle.message("parser.error.empty-entity")) ||
                        matchTokenType(XQueryTokenType.BAD_CHARACTER)) {
                 //
-            } else if (parseEnclosedExpr() ||
-                       errorOnTokenType(XQueryTokenType.BLOCK_CLOSE, XQueryBundle.message("parser.error.mismatched-exclosed-expr"))) {
-                // NOTE: These are only accessible via DirAttributeValue strings. Other StringLiteral types handle the
-                // '{' and '}' characters as part of the string literal contents.
             } else {
                 stringMarker.done(type);
                 error(XQueryBundle.message("parser.error.incomplete-string"));

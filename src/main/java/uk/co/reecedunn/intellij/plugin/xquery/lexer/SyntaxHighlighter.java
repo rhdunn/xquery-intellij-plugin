@@ -36,6 +36,7 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
     public static final TextAttributesKey XML_TAG = TextAttributesKey.createTextAttributesKey("XQUERY_XML_TAG", XmlHighlighterColors.XML_TAG);
     public static final TextAttributesKey XML_TAG_NAME = TextAttributesKey.createTextAttributesKey("XQUERY_XML_TAG_NAME", XmlHighlighterColors.XML_TAG_NAME);
     public static final TextAttributesKey XML_ATTRIBUTE_NAME = TextAttributesKey.createTextAttributesKey("XQUERY_XML_ATTRIBUTE_NAME", XmlHighlighterColors.XML_ATTRIBUTE_NAME);
+    public static final TextAttributesKey XML_ATTRIBUTE_VALUE = TextAttributesKey.createTextAttributesKey("XQUERY_XML_ATTRIBUTE_VALUE", XmlHighlighterColors.XML_ATTRIBUTE_VALUE);
 
     private static final TextAttributesKey[] BAD_CHARACTER_KEYS = pack(BAD_CHARACTER);
     private static final TextAttributesKey[] COMMENT_KEYS = pack(COMMENT);
@@ -48,7 +49,8 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
 
     private static final TextAttributesKey[] XML_TAG_KEYS = pack(XML_TAG);
     private static final TextAttributesKey[] XML_TAG_NAME_KEYS = pack(XML_TAG, XML_TAG_NAME);
-    private static final TextAttributesKey[] XML_ATTRIBTE_NAME_KEYS = pack(XML_TAG, XML_ATTRIBUTE_NAME);
+    private static final TextAttributesKey[] XML_ATTRIBUTE_NAME_KEYS = pack(XML_TAG, XML_ATTRIBUTE_NAME);
+    private static final TextAttributesKey[] XML_ATTRIBUTE_VALUE_KEYS = pack(XML_TAG, XML_ATTRIBUTE_VALUE);
 
     @Override
     @SuppressWarnings("NullableProblems") // jacoco Code Coverage reports an unchecked branch when @NotNull is used.
@@ -100,7 +102,11 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
         } else if (type == XQueryTokenType.XML_EQUAL ||
                    type == XQueryTokenType.XML_ATTRIBUTE_NCNAME ||
                    type == XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR) {
-            return XML_ATTRIBTE_NAME_KEYS;
+            return XML_ATTRIBUTE_NAME_KEYS;
+        } else if (type == XQueryTokenType.XML_ATTRIBUTE_VALUE_START ||
+                   type == XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS ||
+                   type == XQueryTokenType.XML_ATTRIBUTE_VALUE_END) {
+            return XML_ATTRIBUTE_VALUE_KEYS;
         }
         return EMPTY;
     }

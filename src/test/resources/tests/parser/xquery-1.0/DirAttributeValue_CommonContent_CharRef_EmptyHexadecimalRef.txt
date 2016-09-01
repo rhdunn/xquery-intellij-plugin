@@ -28,9 +28,9 @@ FileElement[FILE(0:13)]
                                                                      LeafPsiElement[XQUERY_XML_ATTRIBUTE_NCNAME_TOKEN(3:4)]('b')
                                                                   LeafPsiElement[XQUERY_XML_EQUAL_TOKEN(4:5)]('=')
                                                                   XQueryDirAttributeValueImpl[XQUERY_DIR_ATTRIBUTE_VALUE(5:11)]
-                                                                     LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(5:6)]('"')
+                                                                     LeafPsiElement[XQUERY_XML_ATTRIBUTE_VALUE_START_TOKEN(5:6)]('"')
                                                                      PsiErrorElementImpl[ERROR_ELEMENT(6:10)]('XPST0003: Entity references must not be empty.')
                                                                         LeafPsiElement[XQUERY_EMPTY_ENTITY_REFERENCE_TOKEN(6:10)]('&#x;')
-                                                                     LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(10:11)]('"')
+                                                                     LeafPsiElement[XQUERY_XML_ATTRIBUTE_VALUE_END_TOKEN(10:11)]('"')
                                                                LeafPsiElement[XQUERY_SELF_CLOSING_XML_TAG_TOKEN(11:13)]('/>')
                                                          XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(13:13)]
