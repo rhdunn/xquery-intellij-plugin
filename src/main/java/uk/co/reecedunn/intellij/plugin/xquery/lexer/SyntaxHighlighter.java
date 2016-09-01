@@ -34,6 +34,7 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
     public static final TextAttributesKey STRING = TextAttributesKey.createTextAttributesKey("XQUERY_STRING", DefaultLanguageHighlighterColors.STRING);
 
     public static final TextAttributesKey XML_TAG = TextAttributesKey.createTextAttributesKey("XQUERY_XML_TAG", XmlHighlighterColors.XML_TAG);
+    public static final TextAttributesKey XML_TAG_NAME = TextAttributesKey.createTextAttributesKey("XQUERY_XML_TAG_NAME", XmlHighlighterColors.XML_TAG_NAME);
     public static final TextAttributesKey XML_ATTRIBUTE_NAME = TextAttributesKey.createTextAttributesKey("XQUERY_XML_ATTRIBUTE_NAME", XmlHighlighterColors.XML_ATTRIBUTE_NAME);
 
     private static final TextAttributesKey[] BAD_CHARACTER_KEYS = pack(BAD_CHARACTER);
@@ -46,6 +47,7 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
     private static final TextAttributesKey[] STRING_KEYS = pack(STRING);
 
     private static final TextAttributesKey[] XML_TAG_KEYS = pack(XML_TAG);
+    private static final TextAttributesKey[] XML_TAG_NAME_KEYS = pack(XML_TAG, XML_TAG_NAME);
     private static final TextAttributesKey[] XML_ATTRIBTE_NAME_KEYS = pack(XML_TAG, XML_ATTRIBUTE_NAME);
 
     @Override
@@ -92,7 +94,10 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
                    type == XQueryTokenType.SELF_CLOSING_XML_TAG ||
                    type == XQueryTokenType.XML_WHITE_SPACE) {
             return XML_TAG_KEYS;
-        } else if (type == XQueryTokenType.XML_EQUAL) {
+        } else if (type == XQueryTokenType.XML_TAG_NCNAME) {
+            return XML_TAG_NAME_KEYS;
+        } else if (type == XQueryTokenType.XML_EQUAL ||
+                   type == XQueryTokenType.XML_ATTRIBUTE_NCNAME) {
             return XML_ATTRIBTE_NAME_KEYS;
         }
         return EMPTY;

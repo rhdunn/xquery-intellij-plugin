@@ -439,8 +439,20 @@ public class SyntaxHighlighterTest extends TestCase {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_WHITE_SPACE)[0], is(SyntaxHighlighter.XML_TAG));
     }
 
+    public void testTokenHighlights_XmlTagName() {
+        SyntaxHighlighter highlighter = new SyntaxHighlighter();
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_TAG_NCNAME).length, is(2));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_TAG_NCNAME)[0], is(SyntaxHighlighter.XML_TAG));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_TAG_NCNAME)[1], is(SyntaxHighlighter.XML_TAG_NAME));
+    }
+
     public void testTokenHighlights_XmlAttributeName() {
         SyntaxHighlighter highlighter = new SyntaxHighlighter();
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_ATTRIBUTE_NCNAME).length, is(2));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_ATTRIBUTE_NCNAME)[0], is(SyntaxHighlighter.XML_TAG));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_ATTRIBUTE_NCNAME)[1], is(SyntaxHighlighter.XML_ATTRIBUTE_NAME));
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_EQUAL).length, is(2));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_EQUAL)[0], is(SyntaxHighlighter.XML_TAG));

@@ -20,8 +20,8 @@ import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 
-public class IXQueryKeywordOrNCNameType extends INCNameType {
-    public IXQueryKeywordOrNCNameType(@NotNull @NonNls String debugName) {
-        super(debugName);
+public class INCNameType extends IElementType {
+    public INCNameType(@NotNull @NonNls String debugName) {
+        super(debugName, XQuery.INSTANCE);
     }
 }

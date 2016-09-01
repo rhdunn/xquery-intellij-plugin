@@ -42,6 +42,8 @@ public interface XQueryTokenType extends TokenType {
     IElementType XML_ELEMENT_CONTENTS = new IElementType("XQUERY_XML_ELEMENT_CONTENTS_TOKEN", XQuery.INSTANCE);
     IElementType XML_EQUAL = new IElementType("XQUERY_XML_EQUAL_TOKEN", XQuery.INSTANCE);
     IElementType XML_WHITE_SPACE = new IElementType("XQUERY_XML_WHITE_SPACE_TOKEN", XQuery.INSTANCE);
+    IElementType XML_TAG_NCNAME = new INCNameType("XQUERY_XML_TAG_NCNAME_TOKEN");
+    IElementType XML_ATTRIBUTE_NCNAME = new INCNameType("XQUERY_XML_ATTRIBUTE_NCNAME_TOKEN");
 
     IElementType CDATA_SECTION = new IElementType("XQUERY_CDATA_SECTION_TOKEN", XQuery.INSTANCE);
     IElementType CDATA_SECTION_START_TAG = new IElementType("XQUERY_CDATA_SECTION_START_TAG_TOKEN", XQuery.INSTANCE);
@@ -67,7 +69,7 @@ public interface XQueryTokenType extends TokenType {
     IElementType ENTITY_REFERENCE_NOT_IN_STRING = new IElementType("XQUERY_ENTITY_REFERENCE_NOT_IN_STRING_TOKEN", XQuery.INSTANCE);
     IElementType EMPTY_ENTITY_REFERENCE = new IElementType("XQUERY_EMPTY_ENTITY_REFERENCE_TOKEN", XQuery.INSTANCE);
 
-    IElementType NCNAME = new IElementType("XQUERY_NCNAME_TOKEN", XQuery.INSTANCE);
+    IElementType NCNAME = new INCNameType("XQUERY_NCNAME_TOKEN");
     IElementType QNAME_SEPARATOR = new IElementType("XQUERY_QNAME_SEPARATOR_TOKEN", XQuery.INSTANCE);
 
     IElementType INVALID = new IElementType("XQUERY_INVALID_TOKEN", XQuery.INSTANCE);

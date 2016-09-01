@@ -733,7 +733,7 @@ public class XQueryLexer extends LexerBase {
                     mTokenRange.match();
                     cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
                 }
-                mType = XQueryTokenType.NCNAME;
+                mType = (state == STATE_DIR_ATTRIBUTE_LIST) ? XQueryTokenType.XML_ATTRIBUTE_NCNAME : XQueryTokenType.XML_TAG_NCNAME;
                 break;
             case CharacterClass.GREATER_THAN:
                 mTokenRange.match();

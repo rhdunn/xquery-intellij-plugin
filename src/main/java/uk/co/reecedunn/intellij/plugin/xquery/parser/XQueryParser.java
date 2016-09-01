@@ -19,6 +19,7 @@ import com.intellij.lang.PsiBuilder;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.INCNameType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryReservedFunctionNameOrNCNameType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
@@ -2436,7 +2437,7 @@ class XQueryParser {
     private boolean parseQName(IElementType type, boolean excludeReservedFunctionNames) {
         final PsiBuilder.Marker qnameMarker = mBuilder.mark();
         boolean isWildcard = getTokenType() == XQueryTokenType.STAR;
-        if (getTokenType() == XQueryTokenType.NCNAME || getTokenType() instanceof IXQueryKeywordOrNCNameType || isWildcard) {
+        if (getTokenType() instanceof INCNameType || isWildcard) {
             boolean isReservedFunctionName = getTokenType() instanceof IXQueryReservedFunctionNameOrNCNameType;
 
             if (isWildcard && type != XQueryElementType.WILDCARD) {
@@ -2470,7 +2471,7 @@ class XQueryParser {
 
                 if (getTokenType() == XQueryTokenType.STRING_LITERAL_START) {
                     error(XQueryBundle.message("parser.error.qname.missing-local-name"));
-                } else if (getTokenType() == XQueryTokenType.NCNAME || getTokenType() instanceof IXQueryKeywordOrNCNameType) {
+                } else if (getTokenType() instanceof INCNameType) {
                     advanceLexer();
                 } else if (getTokenType() == XQueryTokenType.STAR) {
                     if (type == XQueryElementType.WILDCARD) {
@@ -2516,7 +2517,7 @@ class XQueryParser {
 
         if (matchTokenType(XQueryTokenType.QNAME_SEPARATOR)) {
             skipWhiteSpaceAndCommentTokens();
-            if (getTokenType() == XQueryTokenType.NCNAME || getTokenType() instanceof IXQueryKeywordOrNCNameType || getTokenType() == XQueryTokenType.STAR) {
+            if (getTokenType() instanceof INCNameType || getTokenType() == XQueryTokenType.STAR) {
                 advanceLexer();
             }
             if (type == XQueryElementType.NCNAME) {
