@@ -711,7 +711,7 @@ public class XQueryLexer extends LexerBase {
                 mTokenRange.match();
                 while (CharacterClass.getCharClass(mTokenRange.getCodePoint()) == CharacterClass.WHITESPACE)
                     mTokenRange.match();
-                mType = XQueryTokenType.WHITE_SPACE;
+                mType = XQueryTokenType.XML_WHITE_SPACE;
                 break;
             case CharacterClass.COLON:
                 mTokenRange.match();

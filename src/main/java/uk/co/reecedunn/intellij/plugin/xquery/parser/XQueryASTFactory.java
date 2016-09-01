@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.impl.xquery.*;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.ICompositeElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.XQueryDirWhiteSpaceImpl;
 
 public class XQueryASTFactory extends ASTFactory {
     @Override
@@ -39,7 +40,9 @@ public class XQueryASTFactory extends ASTFactory {
     @Override
     @Nullable
     public LeafElement createLeaf(@NotNull final IElementType type, @NotNull CharSequence text) {
-        if (type == XQueryTokenType.COMMENT ||
+        if (type == XQueryTokenType.XML_WHITE_SPACE) {
+            return new XQueryDirWhiteSpaceImpl(text);
+        } else if (type == XQueryTokenType.COMMENT ||
             type == XQueryTokenType.XML_COMMENT) {
             return new PsiCommentImpl(type, text);
         } else if (type == XQueryTokenType.INTEGER_LITERAL) {

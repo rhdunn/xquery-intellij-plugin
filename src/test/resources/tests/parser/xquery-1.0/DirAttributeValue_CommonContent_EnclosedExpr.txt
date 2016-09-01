@@ -22,7 +22,7 @@ FileElement[FILE(0:16)]
                                                                LeafPsiElement[XQUERY_OPEN_XML_TAG_TOKEN(0:1)]('<')
                                                                XQueryNCNameImpl[XQUERY_NCNAME(1:3)]
                                                                   LeafPsiElement[XQUERY_NCNAME_TOKEN(1:2)]('a')
-                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
+                                                                  XQueryDirWhiteSpaceImpl[XQUERY_XML_WHITE_SPACE_TOKEN(2:3)](' ')
                                                                XQueryDirAttributeListImpl[XQUERY_DIR_ATTRIBUTE_LIST(3:14)]
                                                                   XQueryNCNameImpl[XQUERY_NCNAME(3:4)]
                                                                      LeafPsiElement[XQUERY_NCNAME_TOKEN(3:4)]('b')

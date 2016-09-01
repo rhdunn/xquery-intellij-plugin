@@ -57,7 +57,8 @@ class XQueryParser {
     private boolean skipWhiteSpaceAndCommentTokens() {
         boolean skipped = false;
         while (true) {
-            if (mBuilder.getTokenType() == XQueryTokenType.WHITE_SPACE) {
+            if (mBuilder.getTokenType() == XQueryTokenType.WHITE_SPACE ||
+                mBuilder.getTokenType() == XQueryTokenType.XML_WHITE_SPACE) {
                 skipped = true;
                 mBuilder.advanceLexer();
             } else if (mBuilder.getTokenType() == XQueryTokenType.COMMENT_START_TAG) {
@@ -1603,7 +1604,7 @@ class XQueryParser {
                     // NOTE: The XQueryLexer ensures that CLOSE_XML_TAG is followed by an NCNAME/QNAME.
                     parseQName(XQueryElementType.QNAME);
 
-                    matchTokenType(XQueryTokenType.WHITE_SPACE);
+                    matchTokenType(XQueryTokenType.XML_WHITE_SPACE);
                     if (!matchTokenType(XQueryTokenType.END_XML_TAG)) {
                         error(XQueryBundle.message("parser.error.expected", ">"));
                     }
@@ -1626,23 +1627,23 @@ class XQueryParser {
         // NOTE: The XQuery grammar uses whitespace as the token to start the next iteration of the matching loop.
         // Because the parseQName function can consume that whitespace during error handling, the QName tokens are
         // used as the next iteration marker in this implementation.
-        boolean parsed = matchTokenType(XQueryTokenType.WHITE_SPACE);
+        boolean parsed = matchTokenType(XQueryTokenType.XML_WHITE_SPACE);
         while (parseQName(XQueryElementType.QNAME)) {
             parsed = true;
 
-            matchTokenType(XQueryTokenType.WHITE_SPACE);
+            matchTokenType(XQueryTokenType.XML_WHITE_SPACE);
             if (!matchTokenType(XQueryTokenType.XML_EQUAL) && !haveErrors) {
                 error(XQueryBundle.message("parser.error.expected", "="));
                 haveErrors = true;
             }
 
-            matchTokenType(XQueryTokenType.WHITE_SPACE);
+            matchTokenType(XQueryTokenType.XML_WHITE_SPACE);
             if (!parseStringLiteral(XQueryElementType.DIR_ATTRIBUTE_VALUE) && !haveErrors) {
                 error(XQueryBundle.message("parser.error.expected-attribute-string"));
                 haveErrors = true;
             }
 
-            matchTokenType(XQueryTokenType.WHITE_SPACE);
+            matchTokenType(XQueryTokenType.XML_WHITE_SPACE);
         }
 
         if (parsed) {

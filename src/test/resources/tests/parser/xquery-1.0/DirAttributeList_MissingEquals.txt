@@ -25,17 +25,17 @@ FileElement[FILE(0:21)]
                                                                   LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(2:3)](':')
                                                                   LeafPsiElement[XQUERY_NCNAME_TOKEN(3:4)]('b')
                                                                XQueryDirAttributeListImpl[XQUERY_DIR_ATTRIBUTE_LIST(4:19)]
-                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
+                                                                  XQueryDirWhiteSpaceImpl[XQUERY_XML_WHITE_SPACE_TOKEN(4:5)](' ')
                                                                   XQueryQNameImpl[XQUERY_QNAME(5:11)]
                                                                      LeafPsiElement[XQUERY_NCNAME_TOKEN(5:8)]('xml')
                                                                      LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(8:9)](':')
                                                                      LeafPsiElement[XQUERY_NCNAME_TOKEN(9:11)]('id')
-                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
+                                                                  XQueryDirWhiteSpaceImpl[XQUERY_XML_WHITE_SPACE_TOKEN(11:12)](' ')
                                                                   PsiErrorElementImpl[ERROR_ELEMENT(12:12)]('XPST0003: Expected '='.')
                                                                   XQueryDirAttributeValueImpl[XQUERY_DIR_ATTRIBUTE_VALUE(12:18)]
                                                                      LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(12:13)]('"')
                                                                      LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(13:17)]('test')
                                                                      LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(17:18)]('"')
-                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
+                                                                  XQueryDirWhiteSpaceImpl[XQUERY_XML_WHITE_SPACE_TOKEN(18:19)](' ')
                                                                LeafPsiElement[XQUERY_SELF_CLOSING_XML_TAG_TOKEN(19:21)]('/>')
                                                          XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(21:21)]

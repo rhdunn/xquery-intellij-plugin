@@ -25,7 +25,7 @@ FileElement[FILE(0:35)]
                                                                   LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(2:3)](':')
                                                                   LeafPsiElement[XQUERY_NCNAME_TOKEN(3:4)]('b')
                                                                XQueryDirAttributeListImpl[XQUERY_DIR_ATTRIBUTE_LIST(4:33)]
-                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
+                                                                  XQueryDirWhiteSpaceImpl[XQUERY_XML_WHITE_SPACE_TOKEN(4:5)](' ')
                                                                   XQueryQNameImpl[XQUERY_QNAME(5:11)]
                                                                      LeafPsiElement[XQUERY_NCNAME_TOKEN(5:8)]('xml')
                                                                      LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(8:9)](':')
@@ -35,7 +35,7 @@ FileElement[FILE(0:35)]
                                                                      LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(12:13)]('"')
                                                                      LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(13:17)]('test')
                                                                      LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(17:18)]('"')
-                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
+                                                                  XQueryDirWhiteSpaceImpl[XQUERY_XML_WHITE_SPACE_TOKEN(18:19)](' ')
                                                                   XQueryNCNameImpl[XQUERY_NCNAME(19:24)]
                                                                      LeafPsiElement[XQUERY_NCNAME_TOKEN(19:24)]('class')
                                                                   LeafPsiElement[XQUERY_XML_EQUAL_TOKEN(24:25)]('=')

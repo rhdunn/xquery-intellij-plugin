@@ -89,7 +89,8 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
         } else if (type == XQueryTokenType.OPEN_XML_TAG ||
                    type == XQueryTokenType.END_XML_TAG ||
                    type == XQueryTokenType.CLOSE_XML_TAG ||
-                   type == XQueryTokenType.SELF_CLOSING_XML_TAG) {
+                   type == XQueryTokenType.SELF_CLOSING_XML_TAG ||
+                   type == XQueryTokenType.XML_WHITE_SPACE) {
             return XML_TAG_KEYS;
         } else if (type == XQueryTokenType.XML_EQUAL) {
             return XML_ATTRIBTE_NAME_KEYS;
