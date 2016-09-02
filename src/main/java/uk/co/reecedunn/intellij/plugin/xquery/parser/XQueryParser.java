@@ -1660,16 +1660,16 @@ class XQueryParser {
         final PsiBuilder.Marker stringMarker = matchTokenTypeWithMarker(XQueryTokenType.XML_ATTRIBUTE_VALUE_START);
         while (stringMarker != null) {
             if (matchTokenType(XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS) ||
-                matchTokenType(XQueryTokenType.PREDEFINED_ENTITY_REFERENCE) ||
-                matchTokenType(XQueryTokenType.CHARACTER_REFERENCE) ||
+                matchTokenType(XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE) ||
+                matchTokenType(XQueryTokenType.XML_CHARACTER_REFERENCE) ||
                 matchTokenType(XQueryTokenType.XML_ESCAPED_CHARACTER)) {
                 //
             } else if (matchTokenType(XQueryTokenType.XML_ATTRIBUTE_VALUE_END)) {
                 stringMarker.done(XQueryElementType.DIR_ATTRIBUTE_VALUE);
                 return true;
-            } else if (matchTokenType(XQueryTokenType.PARTIAL_ENTITY_REFERENCE)) {
+            } else if (matchTokenType(XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE)) {
                 error(XQueryBundle.message("parser.error.incomplete-entity"));
-            } else if (errorOnTokenType(XQueryTokenType.EMPTY_ENTITY_REFERENCE, XQueryBundle.message("parser.error.empty-entity")) ||
+            } else if (errorOnTokenType(XQueryTokenType.XML_EMPTY_ENTITY_REFERENCE, XQueryBundle.message("parser.error.empty-entity")) ||
                        matchTokenType(XQueryTokenType.BAD_CHARACTER)) {
                 //
             } else if (parseEnclosedExpr() ||

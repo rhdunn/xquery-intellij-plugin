@@ -37,6 +37,7 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
     public static final TextAttributesKey XML_TAG_NAME = TextAttributesKey.createTextAttributesKey("XQUERY_XML_TAG_NAME", XmlHighlighterColors.XML_TAG_NAME);
     public static final TextAttributesKey XML_ATTRIBUTE_NAME = TextAttributesKey.createTextAttributesKey("XQUERY_XML_ATTRIBUTE_NAME", XmlHighlighterColors.XML_ATTRIBUTE_NAME);
     public static final TextAttributesKey XML_ATTRIBUTE_VALUE = TextAttributesKey.createTextAttributesKey("XQUERY_XML_ATTRIBUTE_VALUE", XmlHighlighterColors.XML_ATTRIBUTE_VALUE);
+    public static final TextAttributesKey XML_ENTITY_REFERENCE = TextAttributesKey.createTextAttributesKey("XQUERY_XML_ENTITY_REFERENCE", DefaultLanguageHighlighterColors.MARKUP_ENTITY);
     public static final TextAttributesKey XML_ESCAPED_CHARACTER = TextAttributesKey.createTextAttributesKey("XQUERY_XML_ESCAPED_CHARACTER", DefaultLanguageHighlighterColors.VALID_STRING_ESCAPE);
 
     private static final TextAttributesKey[] BAD_CHARACTER_KEYS = pack(BAD_CHARACTER);
@@ -52,6 +53,7 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
     private static final TextAttributesKey[] XML_TAG_NAME_KEYS = pack(XML_TAG, XML_TAG_NAME);
     private static final TextAttributesKey[] XML_ATTRIBUTE_NAME_KEYS = pack(XML_TAG, XML_ATTRIBUTE_NAME);
     private static final TextAttributesKey[] XML_ATTRIBUTE_VALUE_KEYS = pack(XML_TAG, XML_ATTRIBUTE_VALUE);
+    private static final TextAttributesKey[] XML_ENTITY_REFERENCE_KEYS = pack(XML_TAG, XML_ENTITY_REFERENCE);
     private static final TextAttributesKey[] XML_ESCAPED_CHARACTER_KEYS = pack(XML_TAG, XML_ESCAPED_CHARACTER);
 
     @Override
@@ -107,10 +109,15 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
             return XML_ATTRIBUTE_NAME_KEYS;
         } else if (type == XQueryTokenType.XML_ATTRIBUTE_VALUE_START ||
                    type == XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS ||
+                   type == XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE ||
+                   type == XQueryTokenType.XML_EMPTY_ENTITY_REFERENCE ||
                    type == XQueryTokenType.XML_ATTRIBUTE_VALUE_END) {
             return XML_ATTRIBUTE_VALUE_KEYS;
         } else if (type == XQueryTokenType.XML_ESCAPED_CHARACTER) {
             return XML_ESCAPED_CHARACTER_KEYS;
+        } else if (type == XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE ||
+                   type == XQueryTokenType.XML_CHARACTER_REFERENCE) {
+            return XML_ENTITY_REFERENCE_KEYS;
         }
         return EMPTY;
     }

@@ -1150,7 +1150,7 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "2",                                15,  6,  7, XQueryTokenType.INTEGER_LITERAL);
         matchToken(lexer, "}",                                15,  7,  8, XQueryTokenType.BLOCK_CLOSE);
         matchToken(lexer, "<",                                13,  8,  9, XQueryTokenType.BAD_CHARACTER);
-        matchToken(lexer, "&",                                13,  9, 10, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "&",                                13,  9, 10, XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE);
         matchToken(lexer, " \u3053\u3093\u3070\u3093\u306F.", 13, 10, 17, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS);
         matchToken(lexer, "\"",                               13, 17, 18, XQueryTokenType.XML_ATTRIBUTE_VALUE_END);
         matchToken(lexer, "",                                 11, 18, 18, null);
@@ -1171,7 +1171,7 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "2",                                16,  6,  7, XQueryTokenType.INTEGER_LITERAL);
         matchToken(lexer, "}",                                16,  7,  8, XQueryTokenType.BLOCK_CLOSE);
         matchToken(lexer, "<",                                14,  8,  9, XQueryTokenType.BAD_CHARACTER);
-        matchToken(lexer, "&",                                14,  9, 10, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "&",                                14,  9, 10, XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE);
         matchToken(lexer, " \u3053\u3093\u3070\u3093\u306F.", 14, 10, 17, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS);
         matchToken(lexer, "}",                                14, 17, 18, XQueryTokenType.BLOCK_CLOSE);
         matchToken(lexer, "'",                                14, 18, 19, XQueryTokenType.XML_ATTRIBUTE_VALUE_END);
@@ -1216,12 +1216,12 @@ public class XQueryLexerTest extends TestCase {
         lexer.start("\"One&abc;&aBc;&Abc;&ABC;&a4;&a;Two\"", 0, 35, 11);
         matchToken(lexer, "\"",    11,  0,  1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START);
         matchToken(lexer, "One",   13,  1,  4, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS);
-        matchToken(lexer, "&abc;", 13,  4,  9, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE);
-        matchToken(lexer, "&aBc;", 13,  9, 14, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE);
-        matchToken(lexer, "&Abc;", 13, 14, 19, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE);
-        matchToken(lexer, "&ABC;", 13, 19, 24, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE);
-        matchToken(lexer, "&a4;",  13, 24, 28, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE);
-        matchToken(lexer, "&a;",   13, 28, 31, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE);
+        matchToken(lexer, "&abc;", 13,  4,  9, XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE);
+        matchToken(lexer, "&aBc;", 13,  9, 14, XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE);
+        matchToken(lexer, "&Abc;", 13, 14, 19, XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE);
+        matchToken(lexer, "&ABC;", 13, 19, 24, XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE);
+        matchToken(lexer, "&a4;",  13, 24, 28, XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE);
+        matchToken(lexer, "&a;",   13, 28, 31, XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE);
         matchToken(lexer, "Two",   13, 31, 34, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS);
         matchToken(lexer, "\"",    13, 34, 35, XQueryTokenType.XML_ATTRIBUTE_VALUE_END);
         matchToken(lexer, "",      11, 35, 35, null);
@@ -1229,49 +1229,49 @@ public class XQueryLexerTest extends TestCase {
         lexer.start("'One&abc;&aBc;&Abc;&ABC;&a4;&a;Two'", 0, 35, 11);
         matchToken(lexer, "'",     11,  0,  1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START);
         matchToken(lexer, "One",   14,  1,  4, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS);
-        matchToken(lexer, "&abc;", 14,  4,  9, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE);
-        matchToken(lexer, "&aBc;", 14,  9, 14, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE);
-        matchToken(lexer, "&Abc;", 14, 14, 19, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE);
-        matchToken(lexer, "&ABC;", 14, 19, 24, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE);
-        matchToken(lexer, "&a4;",  14, 24, 28, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE);
-        matchToken(lexer, "&a;",   14, 28, 31, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE);
+        matchToken(lexer, "&abc;", 14,  4,  9, XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE);
+        matchToken(lexer, "&aBc;", 14,  9, 14, XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE);
+        matchToken(lexer, "&Abc;", 14, 14, 19, XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE);
+        matchToken(lexer, "&ABC;", 14, 19, 24, XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE);
+        matchToken(lexer, "&a4;",  14, 24, 28, XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE);
+        matchToken(lexer, "&a;",   14, 28, 31, XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE);
         matchToken(lexer, "Two",   14, 31, 34, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS);
         matchToken(lexer, "'",     14, 34, 35, XQueryTokenType.XML_ATTRIBUTE_VALUE_END);
         matchToken(lexer, "",      11, 35, 35, null);
 
         lexer.start("\"&\"", 0, 3, 11);
         matchToken(lexer, "\"", 11, 0, 1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START);
-        matchToken(lexer, "&",  13, 1, 2, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "&",  13, 1, 2, XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE);
         matchToken(lexer, "\"", 13, 2, 3, XQueryTokenType.XML_ATTRIBUTE_VALUE_END);
         matchToken(lexer, "",   11, 3, 3, null);
 
         lexer.start("\"&abc!\"", 0, 7, 11);
         matchToken(lexer, "\"",   11, 0, 1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START);
-        matchToken(lexer, "&abc", 13, 1, 5, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "&abc", 13, 1, 5, XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE);
         matchToken(lexer, "!",    13, 5, 6, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS);
         matchToken(lexer, "\"",   13, 6, 7, XQueryTokenType.XML_ATTRIBUTE_VALUE_END);
         matchToken(lexer, "",     11, 7, 7, null);
 
         lexer.start("\"& \"", 0, 4, 11);
         matchToken(lexer, "\"", 11, 0, 1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START);
-        matchToken(lexer, "&",  13, 1, 2, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "&",  13, 1, 2, XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE);
         matchToken(lexer, " ",  13, 2, 3, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS);
         matchToken(lexer, "\"", 13, 3, 4, XQueryTokenType.XML_ATTRIBUTE_VALUE_END);
         matchToken(lexer, "",   11, 4, 4, null);
 
         lexer.start("\"&", 0, 2, 11);
         matchToken(lexer, "\"", 11, 0, 1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START);
-        matchToken(lexer, "&",  13, 1, 2, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "&",  13, 1, 2, XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE);
         matchToken(lexer, "",   13, 2, 2, null);
 
         lexer.start("\"&abc", 0, 5, 11);
         matchToken(lexer, "\"",   11, 0, 1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START);
-        matchToken(lexer, "&abc", 13, 1, 5, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "&abc", 13, 1, 5, XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE);
         matchToken(lexer, "",     13, 5, 5, null);
 
         lexer.start("\"&;\"", 0, 4, 11);
         matchToken(lexer, "\"", 11, 0, 1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START);
-        matchToken(lexer, "&;", 13, 1, 3, XQueryTokenType.EMPTY_ENTITY_REFERENCE);
+        matchToken(lexer, "&;", 13, 1, 3, XQueryTokenType.XML_EMPTY_ENTITY_REFERENCE);
         matchToken(lexer, "\"", 13, 3, 4, XQueryTokenType.XML_ATTRIBUTE_VALUE_END);
         matchToken(lexer, "",   11, 4, 4, null);
     }
@@ -1322,7 +1322,7 @@ public class XQueryLexerTest extends TestCase {
         lexer.start("\"One&#20;Two\"", 0, 13, 11);
         matchToken(lexer, "\"",    11,  0,  1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START);
         matchToken(lexer, "One",   13,  1,  4, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS);
-        matchToken(lexer, "&#20;", 13,  4,  9, XQueryTokenType.CHARACTER_REFERENCE);
+        matchToken(lexer, "&#20;", 13,  4,  9, XQueryTokenType.XML_CHARACTER_REFERENCE);
         matchToken(lexer, "Two",   13,  9, 12, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS);
         matchToken(lexer, "\"",    13, 12, 13, XQueryTokenType.XML_ATTRIBUTE_VALUE_END);
         matchToken(lexer, "",      11, 13, 13, null);
@@ -1330,37 +1330,37 @@ public class XQueryLexerTest extends TestCase {
         lexer.start("'One&#20;Two'", 0, 13, 11);
         matchToken(lexer, "'",     11,  0,  1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START);
         matchToken(lexer, "One",   14,  1,  4, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS);
-        matchToken(lexer, "&#20;", 14,  4,  9, XQueryTokenType.CHARACTER_REFERENCE);
+        matchToken(lexer, "&#20;", 14,  4,  9, XQueryTokenType.XML_CHARACTER_REFERENCE);
         matchToken(lexer, "Two",   14,  9, 12, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS);
         matchToken(lexer, "'",     14, 12, 13, XQueryTokenType.XML_ATTRIBUTE_VALUE_END);
         matchToken(lexer, "",      11, 13, 13, null);
 
         lexer.start("\"&#\"", 0, 4, 11);
         matchToken(lexer, "\"", 11, 0, 1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START);
-        matchToken(lexer, "&#", 13, 1, 3, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "&#", 13, 1, 3, XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE);
         matchToken(lexer, "\"", 13, 3, 4, XQueryTokenType.XML_ATTRIBUTE_VALUE_END);
         matchToken(lexer, "",   11, 4, 4, null);
 
         lexer.start("\"&# \"", 0, 5, 11);
         matchToken(lexer, "\"", 11, 0, 1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START);
-        matchToken(lexer, "&#", 13, 1, 3, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "&#", 13, 1, 3, XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE);
         matchToken(lexer, " ",  13, 3, 4, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS);
         matchToken(lexer, "\"", 13, 4, 5, XQueryTokenType.XML_ATTRIBUTE_VALUE_END);
         matchToken(lexer, "",   11, 5, 5, null);
 
         lexer.start("\"&#", 0, 3, 11);
         matchToken(lexer, "\"", 11, 0, 1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START);
-        matchToken(lexer, "&#", 13, 1, 3, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "&#", 13, 1, 3, XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE);
         matchToken(lexer, "",   13, 3, 3, null);
 
         lexer.start("\"&#12", 0, 5, 11);
         matchToken(lexer, "\"",   11, 0, 1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START);
-        matchToken(lexer, "&#12", 13, 1, 5, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "&#12", 13, 1, 5, XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE);
         matchToken(lexer, "",     13, 5, 5, null);
 
         lexer.start("\"&#;\"", 0, 5, 11);
         matchToken(lexer, "\"",   11, 0, 1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START);
-        matchToken(lexer, "&#;",  13, 1, 4, XQueryTokenType.EMPTY_ENTITY_REFERENCE);
+        matchToken(lexer, "&#;",  13, 1, 4, XQueryTokenType.XML_EMPTY_ENTITY_REFERENCE);
         matchToken(lexer, "\"",   13, 4, 5, XQueryTokenType.XML_ATTRIBUTE_VALUE_END);
         matchToken(lexer, "",     11, 5, 5, null);
     }
@@ -1374,9 +1374,9 @@ public class XQueryLexerTest extends TestCase {
         lexer.start("\"One&#x20;&#xae;&#xDC;Two\"", 0, 26, 11);
         matchToken(lexer, "\"",     11,  0,  1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START);
         matchToken(lexer, "One",    13,  1,  4, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS);
-        matchToken(lexer, "&#x20;", 13,  4, 10, XQueryTokenType.CHARACTER_REFERENCE);
-        matchToken(lexer, "&#xae;", 13, 10, 16, XQueryTokenType.CHARACTER_REFERENCE);
-        matchToken(lexer, "&#xDC;", 13, 16, 22, XQueryTokenType.CHARACTER_REFERENCE);
+        matchToken(lexer, "&#x20;", 13,  4, 10, XQueryTokenType.XML_CHARACTER_REFERENCE);
+        matchToken(lexer, "&#xae;", 13, 10, 16, XQueryTokenType.XML_CHARACTER_REFERENCE);
+        matchToken(lexer, "&#xDC;", 13, 16, 22, XQueryTokenType.XML_CHARACTER_REFERENCE);
         matchToken(lexer, "Two",    13, 22, 25, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS);
         matchToken(lexer, "\"",     13, 25, 26, XQueryTokenType.XML_ATTRIBUTE_VALUE_END);
         matchToken(lexer, "",       11, 26, 26, null);
@@ -1384,44 +1384,44 @@ public class XQueryLexerTest extends TestCase {
         lexer.start("'One&#x20;&#xae;&#xDC;Two'", 0, 26, 11);
         matchToken(lexer, "'",      11,  0,  1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START);
         matchToken(lexer, "One",    14,  1,  4, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS);
-        matchToken(lexer, "&#x20;", 14,  4, 10, XQueryTokenType.CHARACTER_REFERENCE);
-        matchToken(lexer, "&#xae;", 14, 10, 16, XQueryTokenType.CHARACTER_REFERENCE);
-        matchToken(lexer, "&#xDC;", 14, 16, 22, XQueryTokenType.CHARACTER_REFERENCE);
+        matchToken(lexer, "&#x20;", 14,  4, 10, XQueryTokenType.XML_CHARACTER_REFERENCE);
+        matchToken(lexer, "&#xae;", 14, 10, 16, XQueryTokenType.XML_CHARACTER_REFERENCE);
+        matchToken(lexer, "&#xDC;", 14, 16, 22, XQueryTokenType.XML_CHARACTER_REFERENCE);
         matchToken(lexer, "Two",    14, 22, 25, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS);
         matchToken(lexer, "'",      14, 25, 26, XQueryTokenType.XML_ATTRIBUTE_VALUE_END);
         matchToken(lexer, "",       11, 26, 26, null);
 
         lexer.start("\"&#x\"", 0, 5, 11);
         matchToken(lexer, "\"",  11, 0, 1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START);
-        matchToken(lexer, "&#x", 13, 1, 4, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "&#x", 13, 1, 4, XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE);
         matchToken(lexer, "\"",  13, 4, 5, XQueryTokenType.XML_ATTRIBUTE_VALUE_END);
         matchToken(lexer, "",    11, 5, 5, null);
 
         lexer.start("\"&#x \"", 0, 6, 11);
         matchToken(lexer, "\"",  11, 0, 1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START);
-        matchToken(lexer, "&#x", 13, 1, 4, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "&#x", 13, 1, 4, XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE);
         matchToken(lexer, " ",   13, 4, 5, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS);
         matchToken(lexer, "\"",  13, 5, 6, XQueryTokenType.XML_ATTRIBUTE_VALUE_END);
         matchToken(lexer, "",    11, 6, 6, null);
 
         lexer.start("\"&#x", 0, 4, 11);
         matchToken(lexer, "\"",  11, 0, 1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START);
-        matchToken(lexer, "&#x", 13, 1, 4, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "&#x", 13, 1, 4, XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE);
         matchToken(lexer, "",    13, 4, 4, null);
 
         lexer.start("\"&#x12", 0, 6, 11);
         matchToken(lexer, "\"",    11, 0, 1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START);
-        matchToken(lexer, "&#x12", 13, 1, 6, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "&#x12", 13, 1, 6, XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE);
         matchToken(lexer, "",      13, 6, 6, null);
 
         lexer.start("\"&#x;&#x2G;&#x2g;&#xg2;\"", 0, 24, 11);
         matchToken(lexer, "\"",   11,  0,  1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START);
-        matchToken(lexer, "&#x;", 13,  1,  5, XQueryTokenType.EMPTY_ENTITY_REFERENCE);
-        matchToken(lexer, "&#x2", 13,  5,  9, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "&#x;", 13,  1,  5, XQueryTokenType.XML_EMPTY_ENTITY_REFERENCE);
+        matchToken(lexer, "&#x2", 13,  5,  9, XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE);
         matchToken(lexer, "G;",   13,  9, 11, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS);
-        matchToken(lexer, "&#x2", 13, 11, 15, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "&#x2", 13, 11, 15, XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE);
         matchToken(lexer, "g;",   13, 15, 17, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS);
-        matchToken(lexer, "&#x",  13, 17, 20, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "&#x",  13, 17, 20, XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE);
         matchToken(lexer, "g2;",  13, 20, 23, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS);
         matchToken(lexer, "\"",   13, 23, 24, XQueryTokenType.XML_ATTRIBUTE_VALUE_END);
         matchToken(lexer, "",     11, 24, 24, null);

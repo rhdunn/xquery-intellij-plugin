@@ -481,6 +481,14 @@ public class SyntaxHighlighterTest extends TestCase {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_ATTRIBUTE_VALUE_END).length, is(2));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_ATTRIBUTE_VALUE_END)[0], is(SyntaxHighlighter.XML_TAG));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_ATTRIBUTE_VALUE_END)[1], is(SyntaxHighlighter.XML_ATTRIBUTE_VALUE));
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE).length, is(2));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE)[0], is(SyntaxHighlighter.XML_TAG));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE)[1], is(SyntaxHighlighter.XML_ATTRIBUTE_VALUE));
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_EMPTY_ENTITY_REFERENCE).length, is(2));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_EMPTY_ENTITY_REFERENCE)[0], is(SyntaxHighlighter.XML_TAG));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_EMPTY_ENTITY_REFERENCE)[1], is(SyntaxHighlighter.XML_ATTRIBUTE_VALUE));
     }
 
     public void testTokenHighlights_XmlEscapedCharacter() {
@@ -489,6 +497,18 @@ public class SyntaxHighlighterTest extends TestCase {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_ESCAPED_CHARACTER).length, is(2));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_ESCAPED_CHARACTER)[0], is(SyntaxHighlighter.XML_TAG));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_ESCAPED_CHARACTER)[1], is(SyntaxHighlighter.XML_ESCAPED_CHARACTER));
+    }
+
+    public void testTokenHighlights_XmlEntityReference() {
+        SyntaxHighlighter highlighter = new SyntaxHighlighter();
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE).length, is(2));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE)[0], is(SyntaxHighlighter.XML_TAG));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE)[1], is(SyntaxHighlighter.XML_ENTITY_REFERENCE));
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_CHARACTER_REFERENCE).length, is(2));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_CHARACTER_REFERENCE)[0], is(SyntaxHighlighter.XML_TAG));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_CHARACTER_REFERENCE)[1], is(SyntaxHighlighter.XML_ENTITY_REFERENCE));
     }
 
     public void testTokenHighlights_OtherToken() {

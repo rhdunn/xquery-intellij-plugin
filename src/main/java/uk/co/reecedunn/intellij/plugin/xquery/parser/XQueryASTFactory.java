@@ -51,9 +51,11 @@ public class XQueryASTFactory extends ASTFactory {
             return new XQueryDecimalLiteralImpl(type, text);
         } else if (type == XQueryTokenType.DOUBLE_LITERAL) {
             return new XQueryDoubleLiteralImpl(type, text);
-        } else if (type == XQueryTokenType.PREDEFINED_ENTITY_REFERENCE) {
+        } else if (type == XQueryTokenType.PREDEFINED_ENTITY_REFERENCE ||
+                   type == XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE) {
             return new XQueryPredefinedEntityRefImpl(type, text);
-        } else if (type == XQueryTokenType.CHARACTER_REFERENCE) {
+        } else if (type == XQueryTokenType.CHARACTER_REFERENCE ||
+                   type == XQueryTokenType.XML_CHARACTER_REFERENCE) {
             return new XQueryCharRefImpl(type, text);
         } else if (type == XQueryTokenType.ESCAPED_CHARACTER ||
                    type == XQueryTokenType.XML_ESCAPED_CHARACTER) {

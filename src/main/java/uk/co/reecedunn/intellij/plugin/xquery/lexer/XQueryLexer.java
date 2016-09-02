@@ -417,7 +417,7 @@ public class XQueryLexer extends LexerBase {
                 popState();
             }
         } else if (c == '&') {
-            matchEntityReference();
+            matchEntityReference(type == '"' ? STATE_STRING_LITERAL_QUOTE : STATE_STRING_LITERAL_APOSTROPHE);
         } else if (c == XQueryCodePointRange.END_OF_BUFFER) {
             mType = null;
         } else {
@@ -806,7 +806,7 @@ public class XQueryLexer extends LexerBase {
             mTokenRange.match();
             mType = XQueryTokenType.BAD_CHARACTER;
         } else if (c == '&') {
-            matchEntityReference();
+            matchEntityReference(type == '"' ? STATE_DIR_ATTRIBUTE_VALUE_QUOTE : STATE_DIR_ATTRIBUTE_VALUE_APOSTROPHE);
         } else if (c == XQueryCodePointRange.END_OF_BUFFER) {
             mType = null;
         } else {
@@ -918,7 +918,7 @@ public class XQueryLexer extends LexerBase {
                 mType = XQueryTokenType.BAD_CHARACTER;
             }
         } else if (c == '&') {
-            matchEntityReference();
+            matchEntityReference(STATE_DIR_ELEM_CONTENT);
         } else if (c == XQueryCodePointRange.END_OF_BUFFER) {
             mType = null;
         } else {
@@ -1026,7 +1026,8 @@ public class XQueryLexer extends LexerBase {
     // endregion
     // region Helper Functions
 
-    private void matchEntityReference() {
+    private void matchEntityReference(int state) {
+        boolean isAttributeValue = (state == STATE_DIR_ATTRIBUTE_VALUE_QUOTE) || (state == STATE_DIR_ATTRIBUTE_VALUE_APOSTROPHE);
         mTokenRange.match();
         int cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
         if (cc == CharacterClass.NAME_START_CHAR) {
@@ -1038,9 +1039,9 @@ public class XQueryLexer extends LexerBase {
             }
             if (cc == CharacterClass.SEMICOLON) {
                 mTokenRange.match();
-                mType = XQueryTokenType.PREDEFINED_ENTITY_REFERENCE;
+                mType = isAttributeValue ? XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE : XQueryTokenType.PREDEFINED_ENTITY_REFERENCE;
             } else {
-                mType = XQueryTokenType.PARTIAL_ENTITY_REFERENCE;
+                mType = isAttributeValue ? XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE : XQueryTokenType.PARTIAL_ENTITY_REFERENCE;
             }
         } else if (cc == CharacterClass.HASH) {
             mTokenRange.match();
@@ -1055,15 +1056,15 @@ public class XQueryLexer extends LexerBase {
                     }
                     if (c == ';') {
                         mTokenRange.match();
-                        mType = XQueryTokenType.CHARACTER_REFERENCE;
+                        mType = isAttributeValue ? XQueryTokenType.XML_CHARACTER_REFERENCE : XQueryTokenType.CHARACTER_REFERENCE;
                     } else {
-                        mType = XQueryTokenType.PARTIAL_ENTITY_REFERENCE;
+                        mType = isAttributeValue ? XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE : XQueryTokenType.PARTIAL_ENTITY_REFERENCE;
                     }
                 } else if (c == ';') {
                     mTokenRange.match();
-                    mType = XQueryTokenType.EMPTY_ENTITY_REFERENCE;
+                    mType = isAttributeValue ? XQueryTokenType.XML_EMPTY_ENTITY_REFERENCE : XQueryTokenType.EMPTY_ENTITY_REFERENCE;
                 } else {
-                    mType = XQueryTokenType.PARTIAL_ENTITY_REFERENCE;
+                    mType = isAttributeValue ? XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE : XQueryTokenType.PARTIAL_ENTITY_REFERENCE;
                 }
             } else if ((c >= '0') && (c <= '9')) {
                 mTokenRange.match();
@@ -1073,21 +1074,21 @@ public class XQueryLexer extends LexerBase {
                 }
                 if (c == ';') {
                     mTokenRange.match();
-                    mType = XQueryTokenType.CHARACTER_REFERENCE;
+                    mType = isAttributeValue ? XQueryTokenType.XML_CHARACTER_REFERENCE : XQueryTokenType.CHARACTER_REFERENCE;
                 } else {
-                    mType = XQueryTokenType.PARTIAL_ENTITY_REFERENCE;
+                    mType = isAttributeValue ? XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE : XQueryTokenType.PARTIAL_ENTITY_REFERENCE;
                 }
             } else if (c == ';') {
                 mTokenRange.match();
-                mType = XQueryTokenType.EMPTY_ENTITY_REFERENCE;
+                mType = isAttributeValue ? XQueryTokenType.XML_EMPTY_ENTITY_REFERENCE : XQueryTokenType.EMPTY_ENTITY_REFERENCE;
             } else {
-                mType = XQueryTokenType.PARTIAL_ENTITY_REFERENCE;
+                mType = isAttributeValue ? XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE : XQueryTokenType.PARTIAL_ENTITY_REFERENCE;
             }
         } else if (cc == CharacterClass.SEMICOLON) {
             mTokenRange.match();
-            mType = XQueryTokenType.EMPTY_ENTITY_REFERENCE;
+            mType = isAttributeValue ? XQueryTokenType.XML_EMPTY_ENTITY_REFERENCE : XQueryTokenType.EMPTY_ENTITY_REFERENCE;
         } else {
-            mType = XQueryTokenType.PARTIAL_ENTITY_REFERENCE;
+            mType = isAttributeValue ? XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE : XQueryTokenType.PARTIAL_ENTITY_REFERENCE;
         }
     }
 

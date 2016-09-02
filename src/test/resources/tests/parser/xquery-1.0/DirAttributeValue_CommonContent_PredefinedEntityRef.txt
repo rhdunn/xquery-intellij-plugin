@@ -29,7 +29,7 @@ FileElement[FILE(0:14)]
                                                                   LeafPsiElement[XQUERY_XML_EQUAL_TOKEN(4:5)]('=')
                                                                   XQueryDirAttributeValueImpl[XQUERY_DIR_ATTRIBUTE_VALUE(5:12)]
                                                                      LeafPsiElement[XQUERY_XML_ATTRIBUTE_VALUE_START_TOKEN(5:6)]('"')
-                                                                     XQueryPredefinedEntityRefImpl[XQUERY_PREDEFINED_ENTITY_REFERENCE_TOKEN(6:11)]('&amp;')
+                                                                     XQueryPredefinedEntityRefImpl[XQUERY_XML_PREDEFINED_ENTITY_REFERENCE_TOKEN(6:11)]('&amp;')
                                                                      LeafPsiElement[XQUERY_XML_ATTRIBUTE_VALUE_END_TOKEN(11:12)]('"')
                                                                LeafPsiElement[XQUERY_SELF_CLOSING_XML_TAG_TOKEN(12:14)]('/>')
                                                          XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(14:14)]
