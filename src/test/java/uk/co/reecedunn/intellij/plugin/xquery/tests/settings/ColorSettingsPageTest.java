@@ -59,7 +59,7 @@ public class ColorSettingsPageTest extends TestCase {
             lexer.advance();
         }
 
-        assertThat(keys.size(), is(8));
+        assertThat(keys.size(), is(14));
         assertThat(keys.contains(SyntaxHighlighter.COMMENT), is(true));
         assertThat(keys.contains(SyntaxHighlighter.IDENTIFIER), is(true));
         assertThat(keys.contains(SyntaxHighlighter.KEYWORD), is(true));
@@ -68,6 +68,12 @@ public class ColorSettingsPageTest extends TestCase {
         assertThat(keys.contains(SyntaxHighlighter.ESCAPED_CHARACTER), is(true));
         assertThat(keys.contains(SyntaxHighlighter.ENTITY_REFERENCE), is(true));
         assertThat(keys.contains(SyntaxHighlighter.BAD_CHARACTER), is(true));
+        assertThat(keys.contains(SyntaxHighlighter.XML_TAG), is(true));
+        assertThat(keys.contains(SyntaxHighlighter.XML_TAG_NAME), is(true));
+        assertThat(keys.contains(SyntaxHighlighter.XML_ATTRIBUTE_NAME), is(true));
+        assertThat(keys.contains(SyntaxHighlighter.XML_ATTRIBUTE_VALUE), is(true));
+        assertThat(keys.contains(SyntaxHighlighter.XML_ENTITY_REFERENCE), is(true));
+        assertThat(keys.contains(SyntaxHighlighter.XML_ESCAPED_CHARACTER), is(true));
     }
 
     public void testAdditionalHighlightingTagToDescriptorMap() {

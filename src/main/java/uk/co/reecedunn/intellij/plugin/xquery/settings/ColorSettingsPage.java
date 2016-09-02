@@ -62,7 +62,8 @@ public class ColorSettingsPage implements com.intellij.openapi.options.colors.Co
         return
             "(: Comment :)\n" +
             "xquery version \"1.0\";\n" +
-            "(1234, \"One \"\" Two &quot; Three\", value)\n" +
+            "let $_ := (1234, \"One \"\" Two &quot; Three\", value)\n" +
+            "return <test comment=\"One \"\" Two &quot; Three\">Lorem ipsum dolor.</test>\n" +
             "~~~";
     }
 
