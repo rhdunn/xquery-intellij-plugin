@@ -780,7 +780,7 @@ public class XQueryLexer extends LexerBase {
             mTokenRange.match();
             if (mTokenRange.getCodePoint() == type) {
                 mTokenRange.match();
-                mType = XQueryTokenType.ESCAPED_CHARACTER;
+                mType = XQueryTokenType.XML_ESCAPED_CHARACTER;
             } else {
                 mType = XQueryTokenType.XML_ATTRIBUTE_VALUE_END;
                 popState();
@@ -789,7 +789,7 @@ public class XQueryLexer extends LexerBase {
             mTokenRange.match();
             if (mTokenRange.getCodePoint() == '{') {
                 mTokenRange.match();
-                mType = XQueryTokenType.ESCAPED_CHARACTER;
+                mType = XQueryTokenType.XML_ESCAPED_CHARACTER;
             } else {
                 mType = XQueryTokenType.BLOCK_OPEN;
                 pushState((type == '"') ? STATE_DEFAULT_ATTRIBUTE_QUOT : STATE_DEFAULT_ATTRIBUTE_APOSTROPHE);
@@ -798,7 +798,7 @@ public class XQueryLexer extends LexerBase {
             mTokenRange.match();
             if (mTokenRange.getCodePoint() == '}') {
                 mTokenRange.match();
-                mType = XQueryTokenType.ESCAPED_CHARACTER;
+                mType = XQueryTokenType.XML_ESCAPED_CHARACTER;
             } else {
                 mType = XQueryTokenType.BLOCK_CLOSE;
             }

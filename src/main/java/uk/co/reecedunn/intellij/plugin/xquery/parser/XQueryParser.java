@@ -1662,7 +1662,7 @@ class XQueryParser {
             if (matchTokenType(XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS) ||
                 matchTokenType(XQueryTokenType.PREDEFINED_ENTITY_REFERENCE) ||
                 matchTokenType(XQueryTokenType.CHARACTER_REFERENCE) ||
-                matchTokenType(XQueryTokenType.ESCAPED_CHARACTER)) {
+                matchTokenType(XQueryTokenType.XML_ESCAPED_CHARACTER)) {
                 //
             } else if (matchTokenType(XQueryTokenType.XML_ATTRIBUTE_VALUE_END)) {
                 stringMarker.done(XQueryElementType.DIR_ATTRIBUTE_VALUE);

@@ -483,6 +483,14 @@ public class SyntaxHighlighterTest extends TestCase {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_ATTRIBUTE_VALUE_END)[1], is(SyntaxHighlighter.XML_ATTRIBUTE_VALUE));
     }
 
+    public void testTokenHighlights_XmlEscapedCharacter() {
+        SyntaxHighlighter highlighter = new SyntaxHighlighter();
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_ESCAPED_CHARACTER).length, is(2));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_ESCAPED_CHARACTER)[0], is(SyntaxHighlighter.XML_TAG));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_ESCAPED_CHARACTER)[1], is(SyntaxHighlighter.XML_ESCAPED_CHARACTER));
+    }
+
     public void testTokenHighlights_OtherToken() {
         SyntaxHighlighter highlighter = new SyntaxHighlighter();
 

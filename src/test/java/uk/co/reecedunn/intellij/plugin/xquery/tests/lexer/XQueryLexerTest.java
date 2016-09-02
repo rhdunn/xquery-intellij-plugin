@@ -1188,15 +1188,15 @@ public class XQueryLexerTest extends TestCase {
 
         lexer.start("\"{{}}\"", 0, 6, 11);
         matchToken(lexer, "\"",           11, 0, 1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START);
-        matchToken(lexer, "{{",           13, 1, 3, XQueryTokenType.ESCAPED_CHARACTER);
-        matchToken(lexer, "}}",           13, 3, 5, XQueryTokenType.ESCAPED_CHARACTER);
+        matchToken(lexer, "{{",           13, 1, 3, XQueryTokenType.XML_ESCAPED_CHARACTER);
+        matchToken(lexer, "}}",           13, 3, 5, XQueryTokenType.XML_ESCAPED_CHARACTER);
         matchToken(lexer, "\"",           13, 5, 6, XQueryTokenType.XML_ATTRIBUTE_VALUE_END);
         matchToken(lexer, "",             11, 6, 6, null);
 
         lexer.start("'{{}}'", 0, 6, 11);
         matchToken(lexer, "'",            11, 0, 1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START);
-        matchToken(lexer, "{{",           14, 1, 3, XQueryTokenType.ESCAPED_CHARACTER);
-        matchToken(lexer, "}}",           14, 3, 5, XQueryTokenType.ESCAPED_CHARACTER);
+        matchToken(lexer, "{{",           14, 1, 3, XQueryTokenType.XML_ESCAPED_CHARACTER);
+        matchToken(lexer, "}}",           14, 3, 5, XQueryTokenType.XML_ESCAPED_CHARACTER);
         matchToken(lexer, "'",            14, 5, 6, XQueryTokenType.XML_ATTRIBUTE_VALUE_END);
         matchToken(lexer, "",             11, 6, 6, null);
     }
@@ -1287,7 +1287,7 @@ public class XQueryLexerTest extends TestCase {
         lexer.start("\"One\"\"Two\"", 0, 10, 11);
         matchToken(lexer, "\"",   11,  0,  1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START);
         matchToken(lexer, "One",  13,  1,  4, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS);
-        matchToken(lexer, "\"\"", 13,  4,  6, XQueryTokenType.ESCAPED_CHARACTER);
+        matchToken(lexer, "\"\"", 13,  4,  6, XQueryTokenType.XML_ESCAPED_CHARACTER);
         matchToken(lexer, "Two",  13,  6,  9, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS);
         matchToken(lexer, "\"",   13,  9, 10, XQueryTokenType.XML_ATTRIBUTE_VALUE_END);
         matchToken(lexer, "",     11, 10, 10, null);
@@ -1304,7 +1304,7 @@ public class XQueryLexerTest extends TestCase {
         lexer.start("'One''Two'", 0, 10, 11);
         matchToken(lexer, "'",    11,  0,  1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START);
         matchToken(lexer, "One",  14,  1,  4, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS);
-        matchToken(lexer, "''",   14,  4,  6, XQueryTokenType.ESCAPED_CHARACTER);
+        matchToken(lexer, "''",   14,  4,  6, XQueryTokenType.XML_ESCAPED_CHARACTER);
         matchToken(lexer, "Two",  14,  6,  9, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS);
         matchToken(lexer, "'",    14,  9, 10, XQueryTokenType.XML_ATTRIBUTE_VALUE_END);
         matchToken(lexer, "",     11, 10, 10, null);
