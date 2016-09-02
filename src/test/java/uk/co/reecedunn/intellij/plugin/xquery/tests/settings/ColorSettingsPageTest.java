@@ -23,22 +23,14 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.SyntaxHighlighter;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.settings.ColorSettingsPage;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ColorSettingsPageTest extends TestCase {
-    private void matchToken(Lexer lexer, com.intellij.openapi.fileTypes.SyntaxHighlighter highlighter, IElementType type, TextAttributesKey key) {
-        assertThat(lexer.getTokenType(), is(type));
-        if (key == null) {
-            assertThat(highlighter.getTokenHighlights(type).length, is(0));
-        } else {
-            assertThat(highlighter.getTokenHighlights(type).length, is(1));
-            assertThat(highlighter.getTokenHighlights(type)[0], is(key));
-        }
-        lexer.advance();
-    }
-
     public void testIcon() {
         ColorSettingsPage settings = new ColorSettingsPage();
         assertThat(settings.getIcon(), is(nullValue()));
@@ -56,43 +48,26 @@ public class ColorSettingsPageTest extends TestCase {
         Lexer lexer = highlighter.getHighlightingLexer();
         lexer.start(settings.getDemoText());
 
-        // This is documenting the tokens that are generated from the demo text
-        // with their corresponding syntax highlighting group. This is to
-        // show that there is at least one matching token type in this text for
-        // each attribute descriptor.
-        matchToken(lexer, highlighter, XQueryTokenType.COMMENT_START_TAG, SyntaxHighlighter.COMMENT);
-        matchToken(lexer, highlighter, XQueryTokenType.COMMENT, SyntaxHighlighter.COMMENT);
-        matchToken(lexer, highlighter, XQueryTokenType.COMMENT_END_TAG, SyntaxHighlighter.COMMENT);
-        matchToken(lexer, highlighter, XQueryTokenType.WHITE_SPACE, null);
-        matchToken(lexer, highlighter, XQueryTokenType.K_XQUERY, SyntaxHighlighter.KEYWORD);
-        matchToken(lexer, highlighter, XQueryTokenType.WHITE_SPACE, null);
-        matchToken(lexer, highlighter, XQueryTokenType.K_VERSION, SyntaxHighlighter.KEYWORD);
-        matchToken(lexer, highlighter, XQueryTokenType.WHITE_SPACE, null);
-        matchToken(lexer, highlighter, XQueryTokenType.STRING_LITERAL_START, SyntaxHighlighter.STRING);
-        matchToken(lexer, highlighter, XQueryTokenType.STRING_LITERAL_CONTENTS, SyntaxHighlighter.STRING);
-        matchToken(lexer, highlighter, XQueryTokenType.STRING_LITERAL_END, SyntaxHighlighter.STRING);
-        matchToken(lexer, highlighter, XQueryTokenType.SEPARATOR, null);
-        matchToken(lexer, highlighter, XQueryTokenType.WHITE_SPACE, null);
-        matchToken(lexer, highlighter, XQueryTokenType.PARENTHESIS_OPEN, null);
-        matchToken(lexer, highlighter, XQueryTokenType.INTEGER_LITERAL, SyntaxHighlighter.NUMBER);
-        matchToken(lexer, highlighter, XQueryTokenType.COMMA, null);
-        matchToken(lexer, highlighter, XQueryTokenType.WHITE_SPACE, null);
-        matchToken(lexer, highlighter, XQueryTokenType.STRING_LITERAL_START, SyntaxHighlighter.STRING);
-        matchToken(lexer, highlighter, XQueryTokenType.STRING_LITERAL_CONTENTS, SyntaxHighlighter.STRING);
-        matchToken(lexer, highlighter, XQueryTokenType.ESCAPED_CHARACTER, SyntaxHighlighter.ESCAPED_CHARACTER);
-        matchToken(lexer, highlighter, XQueryTokenType.STRING_LITERAL_CONTENTS, SyntaxHighlighter.STRING);
-        matchToken(lexer, highlighter, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE, SyntaxHighlighter.ENTITY_REFERENCE);
-        matchToken(lexer, highlighter, XQueryTokenType.STRING_LITERAL_CONTENTS, SyntaxHighlighter.STRING);
-        matchToken(lexer, highlighter, XQueryTokenType.STRING_LITERAL_END, SyntaxHighlighter.STRING);
-        matchToken(lexer, highlighter, XQueryTokenType.COMMA, null);
-        matchToken(lexer, highlighter, XQueryTokenType.WHITE_SPACE, null);
-        matchToken(lexer, highlighter, XQueryTokenType.NCNAME, SyntaxHighlighter.IDENTIFIER);
-        matchToken(lexer, highlighter, XQueryTokenType.PARENTHESIS_CLOSE, null);
-        matchToken(lexer, highlighter, XQueryTokenType.WHITE_SPACE, null);
-        matchToken(lexer, highlighter, XQueryTokenType.BAD_CHARACTER, SyntaxHighlighter.BAD_CHARACTER);
-        matchToken(lexer, highlighter, XQueryTokenType.BAD_CHARACTER, SyntaxHighlighter.BAD_CHARACTER);
-        matchToken(lexer, highlighter, XQueryTokenType.BAD_CHARACTER, SyntaxHighlighter.BAD_CHARACTER);
-        matchToken(lexer, highlighter, null, null);
+        final List<TextAttributesKey> keys = new ArrayList<>();
+        while (lexer.getTokenType() != null) {
+            for (TextAttributesKey key : highlighter.getTokenHighlights(lexer.getTokenType())) {
+                if (!keys.contains(key)) {
+                    keys.add(key);
+                }
+            }
+
+            lexer.advance();
+        }
+
+        assertThat(keys.size(), is(8));
+        assertThat(keys.contains(SyntaxHighlighter.COMMENT), is(true));
+        assertThat(keys.contains(SyntaxHighlighter.IDENTIFIER), is(true));
+        assertThat(keys.contains(SyntaxHighlighter.KEYWORD), is(true));
+        assertThat(keys.contains(SyntaxHighlighter.NUMBER), is(true));
+        assertThat(keys.contains(SyntaxHighlighter.STRING), is(true));
+        assertThat(keys.contains(SyntaxHighlighter.ESCAPED_CHARACTER), is(true));
+        assertThat(keys.contains(SyntaxHighlighter.ENTITY_REFERENCE), is(true));
+        assertThat(keys.contains(SyntaxHighlighter.BAD_CHARACTER), is(true));
     }
 
     public void testAdditionalHighlightingTagToDescriptorMap() {
