@@ -36,6 +36,12 @@ public class ColorSettingsPage implements com.intellij.openapi.options.colors.Co
         new AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.keyword"), SyntaxHighlighter.KEYWORD),
         new AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.number"), SyntaxHighlighter.NUMBER),
         new AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.string"), SyntaxHighlighter.STRING),
+        new AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.xml.tag"), SyntaxHighlighter.XML_TAG),
+        new AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.xml.tag.name"), SyntaxHighlighter.XML_TAG_NAME),
+        new AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.xml.attribute.name"), SyntaxHighlighter.XML_ATTRIBUTE_NAME),
+        new AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.xml.attribute.value"), SyntaxHighlighter.XML_ATTRIBUTE_VALUE),
+        new AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.xml.entity.reference"), SyntaxHighlighter.XML_ENTITY_REFERENCE),
+        new AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.xml.escaped.character"), SyntaxHighlighter.XML_ESCAPED_CHARACTER)
     };
 
     @Nullable

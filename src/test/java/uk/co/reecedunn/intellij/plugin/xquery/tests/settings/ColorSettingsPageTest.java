@@ -102,7 +102,7 @@ public class ColorSettingsPageTest extends TestCase {
 
     public void testAttributeDescriptors() {
         ColorSettingsPage settings = new ColorSettingsPage();
-        assertThat(settings.getAttributeDescriptors().length, is(8));
+        assertThat(settings.getAttributeDescriptors().length, is(14));
         assertThat(settings.getAttributeDescriptors()[0].getDisplayName(), is("Invalid Character"));
         assertThat(settings.getAttributeDescriptors()[0].getKey(), is(SyntaxHighlighter.BAD_CHARACTER));
         assertThat(settings.getAttributeDescriptors()[1].getDisplayName(), is("Comment"));
@@ -119,6 +119,18 @@ public class ColorSettingsPageTest extends TestCase {
         assertThat(settings.getAttributeDescriptors()[6].getKey(), is(SyntaxHighlighter.NUMBER));
         assertThat(settings.getAttributeDescriptors()[7].getDisplayName(), is("String"));
         assertThat(settings.getAttributeDescriptors()[7].getKey(), is(SyntaxHighlighter.STRING));
+        assertThat(settings.getAttributeDescriptors()[8].getDisplayName(), is("Direct XML Construction//Tag"));
+        assertThat(settings.getAttributeDescriptors()[8].getKey(), is(SyntaxHighlighter.XML_TAG));
+        assertThat(settings.getAttributeDescriptors()[9].getDisplayName(), is("Direct XML Construction//Tag Name"));
+        assertThat(settings.getAttributeDescriptors()[9].getKey(), is(SyntaxHighlighter.XML_TAG_NAME));
+        assertThat(settings.getAttributeDescriptors()[10].getDisplayName(), is("Direct XML Construction//Attribute Name"));
+        assertThat(settings.getAttributeDescriptors()[10].getKey(), is(SyntaxHighlighter.XML_ATTRIBUTE_NAME));
+        assertThat(settings.getAttributeDescriptors()[11].getDisplayName(), is("Direct XML Construction//Attribute Value"));
+        assertThat(settings.getAttributeDescriptors()[11].getKey(), is(SyntaxHighlighter.XML_ATTRIBUTE_VALUE));
+        assertThat(settings.getAttributeDescriptors()[12].getDisplayName(), is("Direct XML Construction//Entity Reference"));
+        assertThat(settings.getAttributeDescriptors()[12].getKey(), is(SyntaxHighlighter.XML_ENTITY_REFERENCE));
+        assertThat(settings.getAttributeDescriptors()[13].getDisplayName(), is("Direct XML Construction//Escaped Character"));
+        assertThat(settings.getAttributeDescriptors()[13].getKey(), is(SyntaxHighlighter.XML_ESCAPED_CHARACTER));
     }
 
     public void testColorDescriptors() {
