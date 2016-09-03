@@ -1411,6 +1411,41 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region Pragma
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ExtensionExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Pragma")
+    public void testPragma() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ExtensionExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ExtensionExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ExtensionExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Pragma")
+    public void testPragma_MissingPragmaName() {
+        final String expected = loadResource("tests/parser/xquery-1.0/Pragma_MissingPragmaName.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/Pragma_MissingPragmaName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ExtensionExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Pragma")
+    public void testPragma_MissingPragmaContents() {
+        final String expected = loadResource("tests/parser/xquery-1.0/Pragma_MissingPragmaContents.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/Pragma_MissingPragmaContents.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ExtensionExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Pragma")
+    public void testPragma_UnclosedPragma() {
+        final String expected = loadResource("tests/parser/xquery-1.0/Pragma_UnclosedPragma.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/Pragma_UnclosedPragma.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region PathExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PathExpr")
