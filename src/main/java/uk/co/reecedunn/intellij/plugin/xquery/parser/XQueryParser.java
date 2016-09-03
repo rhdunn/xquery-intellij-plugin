@@ -1143,7 +1143,65 @@ class XQueryParser {
     // region Grammar :: Expr :: OrExpr :: ValueExpr
 
     private boolean parseValueExpr() {
-        return parsePathExpr();
+        return parseExtensionExpr() || parsePathExpr();
+    }
+
+    private boolean parseExtensionExpr() {
+        final PsiBuilder.Marker extensionExprMarker = mark();
+        boolean matched = false;
+        while (parsePragma()) {
+            matched = true;
+            skipWhiteSpaceAndCommentTokens();
+        }
+        if (matched) {
+            boolean haveErrors = false;
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.BLOCK_OPEN)) {
+                error(XQueryBundle.message("parser.error.expected", "{"));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            parseExpr(XQueryElementType.EXPR);
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.BLOCK_CLOSE) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", "}"));
+            }
+
+            extensionExprMarker.done(XQueryElementType.EXTENSION_EXPR);
+            return true;
+        }
+        extensionExprMarker.drop();
+        return false;
+    }
+
+    private boolean parsePragma() {
+        final PsiBuilder.Marker pragmaMarker = matchTokenTypeWithMarker(XQueryTokenType.PRAGMA_BEGIN);
+        if (pragmaMarker != null) {
+            boolean haveErrors = false;
+
+            matchTokenType(XQueryTokenType.WHITE_SPACE);
+            if (!parseQName(XQueryElementType.QNAME)) {
+                error(XQueryBundle.message("parser.error.expected-qname"));
+                haveErrors = true;
+            }
+
+            matchTokenType(XQueryTokenType.WHITE_SPACE);
+            if (!matchTokenType(XQueryTokenType.PRAGMA_CONTENTS) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-pragma-contents"));
+                haveErrors = true;
+            }
+
+            if (!matchTokenType(XQueryTokenType.PRAGMA_END) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", "#)"));
+            }
+
+            pragmaMarker.done(XQueryElementType.PRAGMA);
+            return true;
+        }
+        return false;
     }
 
     private boolean parsePathExpr() {

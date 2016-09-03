@@ -1352,6 +1352,65 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region ExtensionExpr
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ExtensionExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Pragma")
+    public void testExtensionExpr() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ExtensionExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ExtensionExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ExtensionExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Pragma")
+    public void testExtensionExpr_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ExtensionExpr_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ExtensionExpr_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ExtensionExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Pragma")
+    public void testExtensionExpr_MissingOpeningBrace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ExtensionExpr_MissingOpeningBrace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ExtensionExpr_MissingOpeningBrace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ExtensionExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Pragma")
+    public void testExtensionExpr_EmptyExpr() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ExtensionExpr_EmptyExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ExtensionExpr_EmptyExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ExtensionExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Pragma")
+    public void testExtensionExpr_MissingClosingBrace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ExtensionExpr_MissingClosingBrace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ExtensionExpr_MissingClosingBrace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ExtensionExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Pragma")
+    public void testExtensionExpr_MultiplePragmas() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ExtensionExpr_MultiplePragmas.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ExtensionExpr_MultiplePragmas.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ExtensionExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Pragma")
+    public void testExtensionExpr_MultiplePragmas_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ExtensionExpr_MultiplePragmas_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ExtensionExpr_MultiplePragmas_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region PathExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PathExpr")
