@@ -1352,9 +1352,37 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region ComparisonExpr + GeneralComp
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ComparisonExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-GeneralComp")
+    public void testComparisonExpr_GeneralComp() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ComparisonExpr_GeneralComp.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ComparisonExpr_GeneralComp.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ComparisonExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-GeneralComp")
+    public void testComparisonExpr_GeneralComp_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ComparisonExpr_GeneralComp_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ComparisonExpr_GeneralComp_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ComparisonExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-GeneralComp")
+    public void testComparisonExpr_GeneralComp_MissingRangeExpr() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ComparisonExpr_GeneralComp_MissingRangeExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ComparisonExpr_GeneralComp_MissingRangeExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region ComparisonExpr + ValueComp
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ComparisonExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ValueComp")
     public void testComparisonExpr_ValueComp() {
         final String expected = loadResource("tests/parser/xquery-1.0/ComparisonExpr_ValueComp.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/ComparisonExpr_ValueComp.xq");
@@ -1362,6 +1390,7 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ComparisonExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ValueComp")
     public void testComparisonExpr_ValueComp_MissingRangeExpr() {
         final String expected = loadResource("tests/parser/xquery-1.0/ComparisonExpr_ValueComp_MissingRangeExpr.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/ComparisonExpr_ValueComp_MissingRangeExpr.xq");
