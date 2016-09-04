@@ -1352,6 +1352,58 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region ValidateExpr + ValidationMode
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ValidateExpr")
+    public void testValidateExpr() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ValidateExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ValidateExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ValidateExpr")
+    public void testValidateExpr_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ValidateExpr_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ValidateExpr_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ValidateExpr")
+    public void testValidateExpr_ValidationMode() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ValidateExpr_ValidationMode.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ValidateExpr_ValidationMode.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ValidateExpr")
+    public void testValidateExpr_ValidationMode_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ValidateExpr_ValidationMode_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ValidateExpr_ValidationMode_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ValidateExpr")
+    public void testValidateExpr_MissingOpeningBrace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ValidateExpr_MissingOpeningBrace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ValidateExpr_MissingOpeningBrace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ValidateExpr")
+    public void testValidateExpr_MissingExpr() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ValidateExpr_MissingExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ValidateExpr_MissingExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ValidateExpr")
+    public void testValidateExpr_MissingClosingBrace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ValidateExpr_MissingClosingBrace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ValidateExpr_MissingClosingBrace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region ExtensionExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ExtensionExpr")

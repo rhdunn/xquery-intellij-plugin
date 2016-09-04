@@ -1143,7 +1143,40 @@ class XQueryParser {
     // region Grammar :: Expr :: OrExpr :: ValueExpr
 
     private boolean parseValueExpr() {
-        return parseExtensionExpr() || parsePathExpr();
+        return parseExtensionExpr() || parseValidateExpr() || parsePathExpr();
+    }
+
+    private boolean parseValidateExpr() {
+        final PsiBuilder.Marker validateExprMarker = matchTokenTypeWithMarker(XQueryTokenType.K_VALIDATE);
+        if (validateExprMarker != null) {
+            boolean haveErrors = false;
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_LAX) && !matchTokenType(XQueryTokenType.K_STRICT)) {
+                //
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.BLOCK_OPEN)) {
+                error(XQueryBundle.message("parser.error.expected", "{"));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!parseExpr(XQueryElementType.EXPR) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-expression"));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.BLOCK_CLOSE) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", "}"));
+            }
+
+            validateExprMarker.done(XQueryElementType.VALIDATE_EXPR);
+            return true;
+        }
+        return false;
     }
 
     private boolean parseExtensionExpr() {
