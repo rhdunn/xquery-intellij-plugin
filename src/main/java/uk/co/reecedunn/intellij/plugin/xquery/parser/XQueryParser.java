@@ -1092,6 +1092,28 @@ class XQueryParser {
     private boolean parseInstanceofExpr() {
         final PsiBuilder.Marker instanceofExprMarker = mark();
         if (parseTreatExpr()) {
+            skipWhiteSpaceAndCommentTokens();
+            if (matchTokenType(XQueryTokenType.K_INSTANCE)) {
+                boolean haveErrors = false;
+
+                skipWhiteSpaceAndCommentTokens();
+                if (!matchTokenType(XQueryTokenType.K_OF)) {
+                    haveErrors = true;
+                    error(XQueryBundle.message("parser.error.expected-keyword", "of"));
+                }
+
+                skipWhiteSpaceAndCommentTokens();
+                if (!parseSingleType() && !haveErrors) {
+                    error(XQueryBundle.message("parser.error.expected", "SingleType"));
+                }
+            } else if (getTokenType() == XQueryTokenType.K_OF) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "instance"));
+                advanceLexer();
+
+                skipWhiteSpaceAndCommentTokens();
+                parseSingleType();
+            }
+
             instanceofExprMarker.done(XQueryElementType.INSTANCEOF_EXPR);
             return true;
         }

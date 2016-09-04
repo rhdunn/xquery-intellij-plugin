@@ -1352,6 +1352,37 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region InstanceofExpr
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-InstanceofExpr")
+    public void testInstanceofExpr() {
+        final String expected = loadResource("tests/parser/xquery-1.0/InstanceofExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/InstanceofExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-InstanceofExpr")
+    public void testInstanceofExpr_MissingInstanceKeyword() {
+        final String expected = loadResource("tests/parser/xquery-1.0/InstanceofExpr_MissingInstanceKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/InstanceofExpr_MissingInstanceKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-InstanceofExpr")
+    public void testInstanceofExpr_MissingOfKeyword() {
+        final String expected = loadResource("tests/parser/xquery-1.0/InstanceofExpr_MissingOfKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/InstanceofExpr_MissingOfKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-InstanceofExpr")
+    public void testInstanceofExpr_MissingSingleType() {
+        final String expected = loadResource("tests/parser/xquery-1.0/InstanceofExpr_MissingSingleType.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/InstanceofExpr_MissingSingleType.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region TreatExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-TreatExpr")
@@ -1362,7 +1393,7 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-TreatExpr")
-    public void testTreatExpr_MissingCastKeyword() {
+    public void testTreatExpr_MissingTreatKeyword() {
         final String expected = loadResource("tests/parser/xquery-1.0/CastExpr_MissingCastKeyword.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/CastExpr_MissingCastKeyword.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
