@@ -1,0 +1,31 @@
+FileElement[FILE(0:21)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:21)]
+      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:21)]
+         XQueryOrExprImpl[XQUERY_OR_EXPR(0:21)]
+            XQueryAndExprImpl[XQUERY_AND_EXPR(0:21)]
+               XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:21)]
+                  XQueryRangeExprImpl[XQUERY_RANGE_EXPR(0:21)]
+                     XQueryAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(0:21)]
+                        XQueryMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:21)]
+                           XQueryUnionExprImpl[XQUERY_UNION_EXPR(0:21)]
+                              XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:21)]
+                                 XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:21)]
+                                    XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:21)]
+                                       XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:21)]
+                                          XQueryCastExprImpl[XQUERY_CAST_EXPR(0:3)]
+                                             XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:3)]
+                                                XQueryPathExprImpl[XQUERY_PATH_EXPR(0:3)]
+                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:3)]
+                                                      XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:3)]
+                                                         XQueryLiteralImpl[XQUERY_LITERAL(0:2)]
+                                                            XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:2)]('25')
+                                                         PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
+                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(3:3)]
+                                          LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_CASTABLE(3:11)]('castable')
+                                          PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
+                                          PsiErrorElementImpl[ERROR_ELEMENT(12:12)]('XPST0003: Expected keyword: as.')
+                                          XQuerySingleTypeImpl[XQUERY_SINGLE_TYPE(12:21)]
+                                             XQueryAtomicTypeImpl[XQUERY_ATOMIC_TYPE(12:21)]
+                                                LeafPsiElement[XQUERY_NCNAME_TOKEN(12:14)]('xs')
+                                                LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(14:15)](':')
+                                                LeafPsiElement[XQUERY_NCNAME_TOKEN(15:21)]('double')

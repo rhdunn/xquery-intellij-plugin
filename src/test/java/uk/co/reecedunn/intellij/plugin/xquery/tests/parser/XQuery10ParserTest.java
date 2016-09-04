@@ -1352,6 +1352,37 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region CastableExpr
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CastExpr")
+    public void testCastableExpr() {
+        final String expected = loadResource("tests/parser/xquery-1.0/CastableExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/CastableExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CastExpr")
+    public void testCastableExpr_MissingCastableKeyword() {
+        final String expected = loadResource("tests/parser/xquery-1.0/CastExpr_MissingCastKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/CastExpr_MissingCastKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CastExpr")
+    public void testCastableExpr_MissingAsKeyword() {
+        final String expected = loadResource("tests/parser/xquery-1.0/CastableExpr_MissingAsKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/CastableExpr_MissingAsKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CastExpr")
+    public void testCastableExpr_MissingSingleType() {
+        final String expected = loadResource("tests/parser/xquery-1.0/CastableExpr_MissingSingleType.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/CastableExpr_MissingSingleType.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region CastExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CastExpr")
