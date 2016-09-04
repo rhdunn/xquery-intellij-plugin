@@ -1,0 +1,27 @@
+FileElement[FILE(0:10)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:10)]
+      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:10)]
+         XQueryOrExprImpl[XQUERY_OR_EXPR(0:10)]
+            XQueryAndExprImpl[XQUERY_AND_EXPR(0:10)]
+               XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:10)]
+                  XQueryRangeExprImpl[XQUERY_RANGE_EXPR(0:10)]
+                     XQueryAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(0:10)]
+                        XQueryMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:10)]
+                           XQueryUnionExprImpl[XQUERY_UNION_EXPR(0:10)]
+                              XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:10)]
+                                 XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:10)]
+                                    XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:10)]
+                                       XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:10)]
+                                          XQueryCastExprImpl[XQUERY_CAST_EXPR(0:10)]
+                                             XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:3)]
+                                                XQueryPathExprImpl[XQUERY_PATH_EXPR(0:3)]
+                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:3)]
+                                                      XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:3)]
+                                                         XQueryLiteralImpl[XQUERY_LITERAL(0:2)]
+                                                            XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:2)]('25')
+                                                         PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
+                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(3:3)]
+                                             LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_CAST(3:7)]('cast')
+                                             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+                                             LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_AS(8:10)]('as')
+                                             PsiErrorElementImpl[ERROR_ELEMENT(10:10)]('XPST0003: Expected 'SingleType'.')

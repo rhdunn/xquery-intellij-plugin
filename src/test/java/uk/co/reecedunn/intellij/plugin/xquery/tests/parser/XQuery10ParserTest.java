@@ -1352,6 +1352,37 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region CastExpr
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CastExpr")
+    public void testCastExpr() {
+        final String expected = loadResource("tests/parser/xquery-1.0/CastExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/CastExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CastExpr")
+    public void testCastExpr_MissingCastKeyword() {
+        final String expected = loadResource("tests/parser/xquery-1.0/CastExpr_MissingCastKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/CastExpr_MissingCastKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CastExpr")
+    public void testCastExpr_MissingAsKeyword() {
+        final String expected = loadResource("tests/parser/xquery-1.0/CastExpr_MissingAsKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/CastExpr_MissingAsKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CastExpr")
+    public void testCastExpr_MissingSingleType() {
+        final String expected = loadResource("tests/parser/xquery-1.0/CastExpr_MissingSingleType.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/CastExpr_MissingSingleType.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region UnaryExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-UnaryExpr")
