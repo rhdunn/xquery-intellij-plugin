@@ -1073,7 +1073,7 @@ class XQueryParser {
         final PsiBuilder.Marker unionExprMarker = mark();
         if (parseIntersectExceptExpr()) {
             skipWhiteSpaceAndCommentTokens();
-            if (matchTokenType(XQueryTokenType.K_UNION) || matchTokenType(XQueryTokenType.UNION)) {
+            while (matchTokenType(XQueryTokenType.K_UNION) || matchTokenType(XQueryTokenType.UNION)) {
                 skipWhiteSpaceAndCommentTokens();
                 if (!parseIntersectExceptExpr()) {
                     error(XQueryBundle.message("parser.error.expected", "IntersectExceptExpr"));
@@ -1091,11 +1091,12 @@ class XQueryParser {
         final PsiBuilder.Marker intersectExceptExprMarker = mark();
         if (parseInstanceofExpr()) {
             skipWhiteSpaceAndCommentTokens();
-            if (matchTokenType(XQueryTokenType.K_INTERSECT) || matchTokenType(XQueryTokenType.K_EXCEPT)) {
+            while (matchTokenType(XQueryTokenType.K_INTERSECT) || matchTokenType(XQueryTokenType.K_EXCEPT)) {
                 skipWhiteSpaceAndCommentTokens();
                 if (!parseInstanceofExpr()) {
                     error(XQueryBundle.message("parser.error.expected", "InstanceofExpr"));
                 }
+                skipWhiteSpaceAndCommentTokens();
             }
 
             intersectExceptExprMarker.done(XQueryElementType.INTERSECT_EXCEPT_EXPR);

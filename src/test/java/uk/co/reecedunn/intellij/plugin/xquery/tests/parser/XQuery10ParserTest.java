@@ -1375,6 +1375,13 @@ public class XQuery10ParserTest extends ParserTestCase {
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-UnionExpr")
+    public void testUnionExpr_Multiple() {
+        final String expected = loadResource("tests/parser/xquery-1.0/UnionExpr_Multiple.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/UnionExpr_Multiple.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
     // endregion
     // region IntersectExceptExpr
 
@@ -1403,6 +1410,13 @@ public class XQuery10ParserTest extends ParserTestCase {
     public void testIntersectExceptExpr_Except_MissingInstanceofExpr() {
         final String expected = loadResource("tests/parser/xquery-1.0/IntersectExceptExpr_Except_MissingInstanceofExpr.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/IntersectExceptExpr_Except_MissingInstanceofExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-IntersectExceptExpr")
+    public void testIntersectExceptExpr_Multiple() {
+        final String expected = loadResource("tests/parser/xquery-1.0/IntersectExceptExpr_Multiple.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/IntersectExceptExpr_Multiple.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
