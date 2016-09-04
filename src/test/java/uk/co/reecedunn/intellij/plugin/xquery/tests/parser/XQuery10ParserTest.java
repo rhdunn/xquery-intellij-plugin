@@ -1352,6 +1352,30 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region UnionExpr
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-UnionExpr")
+    public void testUnionExpr() {
+        final String expected = loadResource("tests/parser/xquery-1.0/UnionExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/UnionExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-UnionExpr")
+    public void testUnionExpr_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/UnionExpr_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/UnionExpr_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-UnionExpr")
+    public void testUnionExpr_MissingIntersectExceptExpr() {
+        final String expected = loadResource("tests/parser/xquery-1.0/UnionExpr_MissingIntersectExceptExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/UnionExpr_MissingIntersectExceptExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region IntersectExceptExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-IntersectExceptExpr")

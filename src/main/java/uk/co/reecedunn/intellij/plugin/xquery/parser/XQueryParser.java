@@ -1072,6 +1072,14 @@ class XQueryParser {
     private boolean parseUnionExpr() {
         final PsiBuilder.Marker unionExprMarker = mark();
         if (parseIntersectExceptExpr()) {
+            skipWhiteSpaceAndCommentTokens();
+            if (matchTokenType(XQueryTokenType.K_UNION) || matchTokenType(XQueryTokenType.UNION)) {
+                skipWhiteSpaceAndCommentTokens();
+                if (!parseIntersectExceptExpr()) {
+                    error(XQueryBundle.message("parser.error.expected", "IntersectExceptExpr"));
+                }
+            }
+
             unionExprMarker.done(XQueryElementType.UNION_EXPR);
             return true;
         }
