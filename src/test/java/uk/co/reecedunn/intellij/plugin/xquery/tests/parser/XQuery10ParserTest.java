@@ -1352,6 +1352,37 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region IntersectExceptExpr
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-IntersectExceptExpr")
+    public void testIntersectExceptExpr_Intersect() {
+        final String expected = loadResource("tests/parser/xquery-1.0/IntersectExceptExpr_Intersect.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/IntersectExceptExpr_Intersect.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-IntersectExceptExpr")
+    public void testIntersectExceptExpr_Intersect_MissingInstanceofExpr() {
+        final String expected = loadResource("tests/parser/xquery-1.0/IntersectExceptExpr_Intersect_MissingInstanceofExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/IntersectExceptExpr_Intersect_MissingInstanceofExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-IntersectExceptExpr")
+    public void testIntersectExceptExpr_Except() {
+        final String expected = loadResource("tests/parser/xquery-1.0/IntersectExceptExpr_Except.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/IntersectExceptExpr_Except.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-IntersectExceptExpr")
+    public void testIntersectExceptExpr_Except_MissingInstanceofExpr() {
+        final String expected = loadResource("tests/parser/xquery-1.0/IntersectExceptExpr_Except_MissingInstanceofExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/IntersectExceptExpr_Except_MissingInstanceofExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region InstanceofExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-InstanceofExpr")

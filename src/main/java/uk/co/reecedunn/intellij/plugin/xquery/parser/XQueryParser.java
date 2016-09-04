@@ -1082,6 +1082,14 @@ class XQueryParser {
     private boolean parseIntersectExceptExpr() {
         final PsiBuilder.Marker intersectExceptExprMarker = mark();
         if (parseInstanceofExpr()) {
+            skipWhiteSpaceAndCommentTokens();
+            if (matchTokenType(XQueryTokenType.K_INTERSECT) || matchTokenType(XQueryTokenType.K_EXCEPT)) {
+                skipWhiteSpaceAndCommentTokens();
+                if (!parseInstanceofExpr()) {
+                    error(XQueryBundle.message("parser.error.expected", "InstanceofExpr"));
+                }
+            }
+
             intersectExceptExprMarker.done(XQueryElementType.INTERSECT_EXCEPT_EXPR);
             return true;
         }
