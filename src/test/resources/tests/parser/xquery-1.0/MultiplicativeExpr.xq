@@ -1,0 +1,1 @@
+a * b , a div b , a idiv b , a mod b

@@ -1062,6 +1062,17 @@ class XQueryParser {
     private boolean parseMultiplicativeExpr() {
         final PsiBuilder.Marker multiplicativeExprMarker = mark();
         if (parseUnionExpr()) {
+            skipWhiteSpaceAndCommentTokens();
+            while (matchTokenType(XQueryTokenType.STAR) ||
+                   matchTokenType(XQueryTokenType.K_DIV) ||
+                   matchTokenType(XQueryTokenType.K_IDIV) ||
+                   matchTokenType(XQueryTokenType.K_MOD)) {
+                skipWhiteSpaceAndCommentTokens();
+                if (!parseUnionExpr()) {
+                    error(XQueryBundle.message("parser.error.expected", "UnionExpr"));
+                }
+            }
+
             multiplicativeExprMarker.done(XQueryElementType.MULTIPLICATIVE_EXPR);
             return true;
         }
