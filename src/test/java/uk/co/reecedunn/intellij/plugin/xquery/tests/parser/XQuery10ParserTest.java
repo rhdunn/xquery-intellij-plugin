@@ -1398,6 +1398,33 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region ComparisonExpr + NodeComp
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ComparisonExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-NodeComp")
+    public void testComparisonExpr_NodeComp() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ComparisonExpr_NodeComp.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ComparisonExpr_NodeComp.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ComparisonExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-NodeComp")
+    public void testComparisonExpr_NodeComp_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ComparisonExpr_NodeComp_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ComparisonExpr_NodeComp_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ComparisonExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-NodeComp")
+    public void testComparisonExpr_NodeComp_MissingRangeExpr() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ComparisonExpr_NodeComp_MissingRangeExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ComparisonExpr_NodeComp_MissingRangeExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region RangeExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-RangeExpr")

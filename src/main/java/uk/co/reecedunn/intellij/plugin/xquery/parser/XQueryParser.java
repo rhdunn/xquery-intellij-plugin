@@ -1033,7 +1033,7 @@ class XQueryParser {
         final PsiBuilder.Marker comparisonExprMarker = mark();
         if (parseRangeExpr()) {
             skipWhiteSpaceAndCommentTokens();
-            if (parseGeneralComp() || parseValueComp()) {
+            if (parseGeneralComp() || parseValueComp() || parseNodeComp()) {
                 skipWhiteSpaceAndCommentTokens();
                 if (!parseRangeExpr()) {
                     error(XQueryBundle.message("parser.error.expected", "RangeExpr"));
@@ -1292,6 +1292,12 @@ class XQueryParser {
                matchTokenType(XQueryTokenType.K_LE) ||
                matchTokenType(XQueryTokenType.K_GT) ||
                matchTokenType(XQueryTokenType.K_GE);
+    }
+
+    private boolean parseNodeComp() {
+        return matchTokenType(XQueryTokenType.K_IS) ||
+               matchTokenType(XQueryTokenType.NODE_BEFORE) ||
+               matchTokenType(XQueryTokenType.NODE_AFTER);
     }
 
     private boolean parseSingleType() {
