@@ -1352,6 +1352,23 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region RangeExpr
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-RangeExpr")
+    public void testRangeExpr() {
+        final String expected = loadResource("tests/parser/xquery-1.0/RangeExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/RangeExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-RangeExpr")
+    public void testRangeExpr_MissingAdditiveExpr() {
+        final String expected = loadResource("tests/parser/xquery-1.0/RangeExpr_MissingAdditiveExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/RangeExpr_MissingAdditiveExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region AdditiveExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AdditiveExpr")

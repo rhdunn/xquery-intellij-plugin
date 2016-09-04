@@ -1042,6 +1042,14 @@ class XQueryParser {
     private boolean parseRangeExpr() {
         final PsiBuilder.Marker rangeExprMarker = mark();
         if (parseAdditiveExpr()) {
+            skipWhiteSpaceAndCommentTokens();
+            if (matchTokenType(XQueryTokenType.K_TO)) {
+                skipWhiteSpaceAndCommentTokens();
+                if (!parseAdditiveExpr()) {
+                    error(XQueryBundle.message("parser.error.expected", "AdditiveExpr"));
+                }
+            }
+
             rangeExprMarker.done(XQueryElementType.RANGE_EXPR);
             return true;
         }
