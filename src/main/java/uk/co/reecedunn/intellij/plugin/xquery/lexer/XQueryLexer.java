@@ -223,13 +223,14 @@ public class XQueryLexer extends LexerBase {
                 mTokenRange.match();
                 c = mTokenRange.getCodePoint();
                 if (c == '-') {
+                    mTokenRange.save();
                     mTokenRange.match();
                     if (mTokenRange.getCodePoint() == '>') {
                         mTokenRange.match();
                         mType = XQueryTokenType.XML_COMMENT_END_TAG;
                     } else {
-                        mTokenRange.match();
-                        mType = XQueryTokenType.INVALID;
+                        mTokenRange.restore();
+                        mType = XQueryTokenType.MINUS;
                     }
                 } else {
                     mType = XQueryTokenType.MINUS;

@@ -700,6 +700,16 @@ public class XQueryLexerTest extends TestCase {
 
         matchSingleToken(lexer, "+", XQueryTokenType.PLUS);
         matchSingleToken(lexer, "-", XQueryTokenType.MINUS);
+
+        lexer.start("++");
+        matchToken(lexer, "+", 0, 0, 1, XQueryTokenType.PLUS);
+        matchToken(lexer, "+", 0, 1, 2, XQueryTokenType.PLUS);
+        matchToken(lexer, "",  0, 2, 2, null);
+
+        lexer.start("--");
+        matchToken(lexer, "-", 0, 0, 1, XQueryTokenType.MINUS);
+        matchToken(lexer, "-", 0, 1, 2, XQueryTokenType.MINUS);
+        matchToken(lexer, "",  0, 2, 2, null);
     }
 
     // endregion
@@ -1861,7 +1871,12 @@ public class XQueryLexerTest extends TestCase {
         matchSingleToken(lexer, "<!-",  0, XQueryTokenType.INVALID);
         matchSingleToken(lexer, "<!--", 5, XQueryTokenType.XML_COMMENT_START_TAG);
 
-        matchSingleToken(lexer, "--",  XQueryTokenType.INVALID);
+        // Unary Minus
+        lexer.start("--");
+        matchToken(lexer, "-", 0, 0, 1, XQueryTokenType.MINUS);
+        matchToken(lexer, "-", 0, 1, 2, XQueryTokenType.MINUS);
+        matchToken(lexer, "",  0, 2, 2, null);
+
         matchSingleToken(lexer, "-->", XQueryTokenType.XML_COMMENT_END_TAG);
 
         lexer.start("<!-- Test");

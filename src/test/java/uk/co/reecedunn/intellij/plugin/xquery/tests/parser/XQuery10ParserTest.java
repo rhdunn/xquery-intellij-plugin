@@ -54,9 +54,9 @@ public class XQuery10ParserTest extends ParserTestCase {
         final String expected
                 = "FileElement[FILE(0:2)]\n"
                 + "   PsiErrorElementImpl[ERROR_ELEMENT(0:2)]('XPST0003: Invalid XQuery symbol or operator.')\n"
-                + "      LeafPsiElement[XQUERY_INVALID_TOKEN(0:2)]('--')\n";
+                + "      LeafPsiElement[XQUERY_INVALID_TOKEN(0:2)]('<!')\n";
 
-        assertThat(prettyPrintASTNode(parseText("--")), is(expected));
+        assertThat(prettyPrintASTNode(parseText("<!")), is(expected));
     }
 
     // endregion
@@ -1348,6 +1348,58 @@ public class XQuery10ParserTest extends ParserTestCase {
     public void testExpr_Multiple_SpaceBeforeNextComma() {
         final String expected = loadResource("tests/parser/xquery-1.0/Expr_Multiple_SpaceBeforeNextComma.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/Expr_Multiple_SpaceBeforeNextComma.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
+    // region UnaryExpr
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-UnaryExpr")
+    public void testUnaryExpr() {
+        final String expected = loadResource("tests/parser/xquery-1.0/UnaryExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/UnaryExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-UnaryExpr")
+    public void testUnaryExpr_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/UnaryExpr_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/UnaryExpr_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-UnaryExpr")
+    public void testUnaryExpr_Multiple() {
+        final String expected = loadResource("tests/parser/xquery-1.0/UnaryExpr_Multiple.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/UnaryExpr_Multiple.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-UnaryExpr")
+    public void testUnaryExpr_Multiple_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/UnaryExpr_Multiple_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/UnaryExpr_Multiple_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-UnaryExpr")
+    public void testUnaryExpr_Mixed() {
+        final String expected = loadResource("tests/parser/xquery-1.0/UnaryExpr_Mixed.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/UnaryExpr_Mixed.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-UnaryExpr")
+    public void testUnaryExpr_Mixed_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/UnaryExpr_Mixed_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/UnaryExpr_Mixed_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-UnaryExpr")
+    public void testUnaryExpr_MissingValueExpr() {
+        final String expected = loadResource("tests/parser/xquery-1.0/UnaryExpr_MissingValueExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/UnaryExpr_MissingValueExpr.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 

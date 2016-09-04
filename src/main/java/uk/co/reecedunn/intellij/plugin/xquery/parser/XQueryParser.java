@@ -1131,7 +1131,16 @@ class XQueryParser {
 
     private boolean parseUnaryExpr() {
         final PsiBuilder.Marker pathExprMarker = mark();
+        boolean matched = false;
+        while (matchTokenType(XQueryTokenType.PLUS) || matchTokenType(XQueryTokenType.MINUS)) {
+            skipWhiteSpaceAndCommentTokens();
+            matched = true;
+        }
         if (parseValueExpr()) {
+            pathExprMarker.done(XQueryElementType.UNARY_EXPR);
+            return true;
+        } else if (matched) {
+            error(XQueryBundle.message("parser.error.expected", "ValueExpr"));
             pathExprMarker.done(XQueryElementType.UNARY_EXPR);
             return true;
         }
