@@ -1352,6 +1352,30 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region AndExpr
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AndExpr")
+    public void testAndExpr() {
+        final String expected = loadResource("tests/parser/xquery-1.0/AndExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/AndExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AndExpr")
+    public void testAndExpr_MissingComparisonExpr() {
+        final String expected = loadResource("tests/parser/xquery-1.0/AndExpr_MissingComparisonExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/AndExpr_MissingComparisonExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AndExpr")
+    public void testAndExpr_Multiple() {
+        final String expected = loadResource("tests/parser/xquery-1.0/AndExpr_Multiple.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/AndExpr_Multiple.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region ComparisonExpr + GeneralComp
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ComparisonExpr")

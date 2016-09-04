@@ -1022,6 +1022,14 @@ class XQueryParser {
     private boolean parseAndExpr() {
         final PsiBuilder.Marker andExprMarker = mark();
         if (parseComparisonExpr()) {
+            skipWhiteSpaceAndCommentTokens();
+            while (matchTokenType(XQueryTokenType.K_AND)) {
+                skipWhiteSpaceAndCommentTokens();
+                if (!parseComparisonExpr()) {
+                    error(XQueryBundle.message("parser.error.expected", "ComparisonExpr"));
+                }
+            }
+
             andExprMarker.done(XQueryElementType.AND_EXPR);
             return true;
         }
