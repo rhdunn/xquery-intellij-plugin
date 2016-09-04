@@ -1052,6 +1052,14 @@ class XQueryParser {
     private boolean parseAdditiveExpr() {
         final PsiBuilder.Marker additiveExprMarker = mark();
         if (parseMultiplicativeExpr()) {
+            skipWhiteSpaceAndCommentTokens();
+            while (matchTokenType(XQueryTokenType.PLUS) || matchTokenType(XQueryTokenType.MINUS)) {
+                skipWhiteSpaceAndCommentTokens();
+                if (!parseMultiplicativeExpr()) {
+                    error(XQueryBundle.message("parser.error.expected", "MultiplicativeExpr"));
+                }
+            }
+
             additiveExprMarker.done(XQueryElementType.ADDITIVE_EXPR);
             return true;
         }

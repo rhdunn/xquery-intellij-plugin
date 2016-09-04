@@ -1352,6 +1352,37 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region AdditiveExpr
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AdditiveExpr")
+    public void testAdditiveExpr() {
+        final String expected = loadResource("tests/parser/xquery-1.0/AdditiveExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/AdditiveExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AdditiveExpr")
+    public void testAdditiveExpr_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/AdditiveExpr_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/AdditiveExpr_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AdditiveExpr")
+    public void testAdditiveExpr_MissingMultiplicativeExpr() {
+        final String expected = loadResource("tests/parser/xquery-1.0/AdditiveExpr_MissingMultiplicativeExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/AdditiveExpr_MissingMultiplicativeExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AdditiveExpr")
+    public void testAdditiveExpr_Multiple() {
+        final String expected = loadResource("tests/parser/xquery-1.0/AdditiveExpr_Multiple.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/AdditiveExpr_Multiple.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region MultiplicativeExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-MultiplicativeExpr")
