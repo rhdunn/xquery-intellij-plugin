@@ -1102,6 +1102,28 @@ class XQueryParser {
     private boolean parseTreatExpr() {
         final PsiBuilder.Marker treatExprMarker = mark();
         if (parseCastableExpr()) {
+            skipWhiteSpaceAndCommentTokens();
+            if (matchTokenType(XQueryTokenType.K_TREAT)) {
+                boolean haveErrors = false;
+
+                skipWhiteSpaceAndCommentTokens();
+                if (!matchTokenType(XQueryTokenType.K_AS)) {
+                    haveErrors = true;
+                    error(XQueryBundle.message("parser.error.expected-keyword", "as"));
+                }
+
+                skipWhiteSpaceAndCommentTokens();
+                if (!parseSingleType() && !haveErrors) {
+                    error(XQueryBundle.message("parser.error.expected", "SingleType"));
+                }
+            } else if (getTokenType() == XQueryTokenType.K_AS) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "cast, castable, treat"));
+                advanceLexer();
+
+                skipWhiteSpaceAndCommentTokens();
+                parseSingleType();
+            }
+
             treatExprMarker.done(XQueryElementType.TREAT_EXPR);
             return true;
         }
@@ -1126,12 +1148,6 @@ class XQueryParser {
                 if (!parseSingleType() && !haveErrors) {
                     error(XQueryBundle.message("parser.error.expected", "SingleType"));
                 }
-            } else if (getTokenType() == XQueryTokenType.K_AS) {
-                error(XQueryBundle.message("parser.error.expected-keyword", "cast, castable"));
-                advanceLexer();
-
-                skipWhiteSpaceAndCommentTokens();
-                parseSingleType();
             }
 
             castableExprMarker.done(XQueryElementType.CASTABLE_EXPR);

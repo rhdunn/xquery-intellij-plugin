@@ -11,7 +11,7 @@ FileElement[FILE(0:15)]
                               XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:15)]
                                  XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:15)]
                                     XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:15)]
-                                       XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:15)]
+                                       XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:3)]
                                           XQueryCastExprImpl[XQUERY_CAST_EXPR(0:3)]
                                              XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:3)]
                                                 XQueryPathExprImpl[XQUERY_PATH_EXPR(0:3)]
@@ -21,11 +21,11 @@ FileElement[FILE(0:15)]
                                                             XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:2)]('25')
                                                          PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
                                                          XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(3:3)]
-                                          PsiErrorElementImpl[ERROR_ELEMENT(3:3)]('XPST0003: Expected keyword: cast, castable.')
-                                          LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_AS(3:5)]('as')
-                                          PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
-                                          XQuerySingleTypeImpl[XQUERY_SINGLE_TYPE(6:15)]
-                                             XQueryAtomicTypeImpl[XQUERY_ATOMIC_TYPE(6:15)]
-                                                LeafPsiElement[XQUERY_NCNAME_TOKEN(6:8)]('xs')
-                                                LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(8:9)](':')
-                                                LeafPsiElement[XQUERY_NCNAME_TOKEN(9:15)]('double')
+                                       PsiErrorElementImpl[ERROR_ELEMENT(3:3)]('XPST0003: Expected keyword: cast, castable, treat.')
+                                       LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_AS(3:5)]('as')
+                                       PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
+                                       XQuerySingleTypeImpl[XQUERY_SINGLE_TYPE(6:15)]
+                                          XQueryAtomicTypeImpl[XQUERY_ATOMIC_TYPE(6:15)]
+                                             LeafPsiElement[XQUERY_NCNAME_TOKEN(6:8)]('xs')
+                                             LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(8:9)](':')
+                                             LeafPsiElement[XQUERY_NCNAME_TOKEN(9:15)]('double')

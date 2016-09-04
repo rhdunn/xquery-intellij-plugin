@@ -1352,30 +1352,61 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region TreatExpr
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-TreatExpr")
+    public void testTreatExpr() {
+        final String expected = loadResource("tests/parser/xquery-1.0/TreatExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/TreatExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-TreatExpr")
+    public void testTreatExpr_MissingCastKeyword() {
+        final String expected = loadResource("tests/parser/xquery-1.0/CastExpr_MissingCastKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/CastExpr_MissingCastKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-TreatExpr")
+    public void testTreatExpr_MissingAsKeyword() {
+        final String expected = loadResource("tests/parser/xquery-1.0/TreatExpr_MissingAsKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/TreatExpr_MissingAsKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-TreatExpr")
+    public void testTreatExpr_MissingSingleType() {
+        final String expected = loadResource("tests/parser/xquery-1.0/TreatExpr_MissingSingleType.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/TreatExpr_MissingSingleType.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region CastableExpr
 
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CastExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CastableExpr")
     public void testCastableExpr() {
         final String expected = loadResource("tests/parser/xquery-1.0/CastableExpr.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/CastableExpr.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CastExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CastableExpr")
     public void testCastableExpr_MissingCastableKeyword() {
         final String expected = loadResource("tests/parser/xquery-1.0/CastExpr_MissingCastKeyword.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/CastExpr_MissingCastKeyword.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CastExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CastableExpr")
     public void testCastableExpr_MissingAsKeyword() {
         final String expected = loadResource("tests/parser/xquery-1.0/CastableExpr_MissingAsKeyword.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/CastableExpr_MissingAsKeyword.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CastExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CastableExpr")
     public void testCastableExpr_MissingSingleType() {
         final String expected = loadResource("tests/parser/xquery-1.0/CastableExpr_MissingSingleType.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/CastableExpr_MissingSingleType.xq");
