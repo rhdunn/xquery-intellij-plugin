@@ -1032,6 +1032,14 @@ class XQueryParser {
     private boolean parseComparisonExpr() {
         final PsiBuilder.Marker comparisonExprMarker = mark();
         if (parseRangeExpr()) {
+            skipWhiteSpaceAndCommentTokens();
+            if (parseValueComp()) {
+                skipWhiteSpaceAndCommentTokens();
+                if (!parseRangeExpr()) {
+                    error(XQueryBundle.message("parser.error.expected", "RangeExpr"));
+                }
+            }
+
             comparisonExprMarker.done(XQueryElementType.COMPARISON_EXPR);
             return true;
         }
@@ -1266,6 +1274,15 @@ class XQueryParser {
         }
         pathExprMarker.drop();
         return false;
+    }
+
+    private boolean parseValueComp() {
+        return matchTokenType(XQueryTokenType.K_EQ) ||
+               matchTokenType(XQueryTokenType.K_NE) ||
+               matchTokenType(XQueryTokenType.K_LT) ||
+               matchTokenType(XQueryTokenType.K_LE) ||
+               matchTokenType(XQueryTokenType.K_GT) ||
+               matchTokenType(XQueryTokenType.K_GE);
     }
 
     private boolean parseSingleType() {
