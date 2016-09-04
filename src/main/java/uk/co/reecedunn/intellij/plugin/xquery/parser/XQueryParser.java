@@ -1171,7 +1171,16 @@ class XQueryParser {
     }
 
     private boolean parseSingleType() {
-        return parseQName(XQueryElementType.QNAME);
+        final PsiBuilder.Marker singleTypeMarker = mark();
+        if (parseQName(XQueryElementType.ATOMIC_TYPE)) {
+            skipWhiteSpaceAndCommentTokens();
+            matchTokenType(XQueryTokenType.OPTIONAL);
+
+            singleTypeMarker.done(XQueryElementType.SINGLE_TYPE);
+            return true;
+        }
+        singleTypeMarker.drop();
+        return false;
     }
 
     // endregion

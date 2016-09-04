@@ -3408,6 +3408,33 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region SingleType
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CastExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-SingleType")
+    public void testSingleType() {
+        final String expected = loadResource("tests/parser/xquery-1.0/CastExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/CastExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CastExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-SingleType")
+    public void testSingleType_Optional() {
+        final String expected = loadResource("tests/parser/xquery-1.0/SingleType_Optional.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/SingleType_Optional.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CastExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-SingleType")
+    public void testSingleType_Optional_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/SingleType_Optional_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/SingleType_Optional_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region TypeDeclaration + AtomicType
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-TypeDeclaration")
