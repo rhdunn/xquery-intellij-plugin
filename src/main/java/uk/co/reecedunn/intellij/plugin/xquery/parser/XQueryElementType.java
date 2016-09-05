@@ -75,6 +75,8 @@ public interface XQueryElementType {
     IElementType AND_EXPR = new ICompositeElementType("XQUERY_AND_EXPR", XQueryAndExprImpl.class, XQueryAndExprPsiImpl.class);
     IElementType OR_EXPR = new ICompositeElementType("XQUERY_OR_EXPR", XQueryOrExprImpl.class, XQueryOrExprPsiImpl.class);
 
+    IElementType IF_EXPR = new ICompositeElementType("XQUERY_IF_EXPR", XQueryIfExprImpl.class, XQueryIfExprPsiImpl.class);
+
     IElementType QUERY_BODY = new ICompositeElementType("XQUERY_QUERY_BODY", XQueryQueryBodyImpl.class, XQueryQueryBodyPsiImpl.class);
     IElementType EXPR = new ICompositeElementType("XQUERY_EXPR", XQueryExprImpl.class, XQueryExprPsiImpl.class);
     IElementType ENCLOSED_EXPR = new ICompositeElementType("XQUERY_ENCLOSED_EXPR", XQueryEnclosedExprImpl.class, XQueryEnclosedExprPsiImpl.class);

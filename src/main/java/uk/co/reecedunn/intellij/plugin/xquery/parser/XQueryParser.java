@@ -1003,7 +1003,63 @@ class XQueryParser {
     }
 
     private boolean parseExprSingle() {
-        return parseOrExpr();
+        return parseIfExpr() || parseOrExpr();
+    }
+
+    // endregion
+    // region Grammar :: Expr :: IfExpr
+
+    private boolean parseIfExpr() {
+        final PsiBuilder.Marker ifExprMarker = mark();
+        if (matchTokenType(XQueryTokenType.K_IF)) {
+            boolean haveErrors = false;
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_OPEN)) {
+                ifExprMarker.rollbackTo();
+                return false;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!parseExpr(XQueryElementType.EXPR)) {
+                error(XQueryBundle.message("parser.error.expected-expression"));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", ")"));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_THEN) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "then"));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!parseExprSingle() && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-expression"));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_ELSE) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "else"));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!parseExprSingle() && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-expression"));
+            }
+
+            ifExprMarker.done(XQueryElementType.IF_EXPR);
+            return true;
+        }
+        ifExprMarker.drop();
+        return false;
     }
 
     // endregion

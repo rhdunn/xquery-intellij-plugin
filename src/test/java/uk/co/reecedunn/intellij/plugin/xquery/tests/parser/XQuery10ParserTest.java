@@ -1352,6 +1352,72 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region IfExpr
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-IfExpr")
+    public void testIfExpr() {
+        final String expected = loadResource("tests/parser/xquery-1.0/IfExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/IfExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-IfExpr")
+    public void testIfExpr_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/IfExpr_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/IfExpr_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-IfExpr")
+    public void testIfExpr_MissingOpeningBrace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/IfExpr_MissingOpeningBrace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/IfExpr_MissingOpeningBrace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-IfExpr")
+    public void testIfExpr_MissingCondExpr() {
+        final String expected = loadResource("tests/parser/xquery-1.0/IfExpr_MissingCondExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/IfExpr_MissingCondExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-IfExpr")
+    public void testIfExpr_MissingClosingBrace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/IfExpr_MissingClosingBrace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/IfExpr_MissingClosingBrace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-IfExpr")
+    public void testIfExpr_MissingThenKeyword() {
+        final String expected = loadResource("tests/parser/xquery-1.0/IfExpr_MissingThenKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/IfExpr_MissingThenKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-IfExpr")
+    public void testIfExpr_MissingThenExpr() {
+        final String expected = loadResource("tests/parser/xquery-1.0/IfExpr_MissingThenExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/IfExpr_MissingThenExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-IfExpr")
+    public void testIfExpr_MissingElseKeyword() {
+        final String expected = loadResource("tests/parser/xquery-1.0/IfExpr_MissingElseKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/IfExpr_MissingElseKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-IfExpr")
+    public void testIfExpr_MissingElseExpr() {
+        final String expected = loadResource("tests/parser/xquery-1.0/IfExpr_MissingElseExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/IfExpr_MissingElseExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region OrExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-OrExpr")
