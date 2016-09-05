@@ -44,9 +44,18 @@ class XQueryParser {
     }
 
     public void parse() {
+        boolean matched = false;
+        boolean haveError = false;
         while (getTokenType() != null) {
             if (skipWhiteSpaceAndCommentTokens()) continue;
-            if (parseModule()) continue;
+            if (matched && !haveError) {
+                error(XQueryBundle.message("parser.error.expected-eof"));
+                haveError = true;
+            }
+            if (parseModule()) {
+                matched = true;
+                continue;
+            }
             if (errorOnTokenType(XQueryTokenType.INVALID, XQueryBundle.message("parser.error.invalid-token"))) continue;
             advanceLexer();
         }

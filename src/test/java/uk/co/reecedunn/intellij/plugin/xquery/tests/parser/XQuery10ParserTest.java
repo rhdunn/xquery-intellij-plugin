@@ -175,6 +175,13 @@ public class XQuery10ParserTest extends ParserTestCase {
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-MainModule")
+    public void testMainModule_TokensAfterExpr() {
+        final String expected = loadResource("tests/parser/xquery-1.0/MainModule_TokensAfterExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/MainModule_TokensAfterExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
     // endregion
     // region LibraryModule
 
