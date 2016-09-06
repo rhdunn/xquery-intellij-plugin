@@ -1453,6 +1453,73 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region CaseClause + TypeswitchExpr
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-TypeswitchExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CaseClause")
+    public void testCaseClauseExpr() {
+        final String expected = loadResource("tests/parser/xquery-1.0/TypeswitchExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/TypeswitchExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-TypeswitchExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CaseClause")
+    public void testCaseClauseExpr_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/TypeswitchExpr_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/TypeswitchExpr_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-TypeswitchExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CaseClause")
+    public void testCaseClauseExpr_MissingSequenceType() {
+        final String expected = loadResource("tests/parser/xquery-1.0/CaseClause_MissingSequenceType.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/CaseClause_MissingSequenceType.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-TypeswitchExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CaseClause")
+    public void testCaseClauseExpr_MissingReturnKeyword() {
+        final String expected = loadResource("tests/parser/xquery-1.0/CaseClause_MissingReturnKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/CaseClause_MissingReturnKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-TypeswitchExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CaseClause")
+    public void testCaseClauseExpr_MissingExpr() {
+        final String expected = loadResource("tests/parser/xquery-1.0/CaseClause_MissingExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/CaseClause_MissingExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-TypeswitchExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CaseClause")
+    public void testCaseClauseExpr_Variable() {
+        final String expected = loadResource("tests/parser/xquery-1.0/CaseClause_Variable.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/CaseClause_Variable.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-TypeswitchExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CaseClause")
+    public void testCaseClauseExpr_Variable_MissingAsKeyword() {
+        final String expected = loadResource("tests/parser/xquery-1.0/CaseClause_Variable_MissingAsKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/CaseClause_Variable_MissingAsKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-TypeswitchExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CaseClause")
+    public void testCaseClauseExpr_Variable_MissingVarName() {
+        final String expected = loadResource("tests/parser/xquery-1.0/CaseClause_Variable_MissingVarName.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/CaseClause_Variable_MissingVarName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region IfExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-IfExpr")

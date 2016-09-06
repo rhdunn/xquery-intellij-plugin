@@ -1090,10 +1090,23 @@ class XQueryParser {
         if (matchTokenType(XQueryTokenType.K_CASE)) {
             boolean haveErrors = false;
 
-            // TODO: ( "$" VarName as )?
+            skipWhiteSpaceAndCommentTokens();
+            if (matchTokenType(XQueryTokenType.VARIABLE_INDICATOR)) {
+                skipWhiteSpaceAndCommentTokens();
+                if (!parseQName(XQueryElementType.VAR_NAME)) {
+                    error(XQueryBundle.message("parser.error.expected-qname"));
+                    haveErrors = true;
+                }
+
+                skipWhiteSpaceAndCommentTokens();
+                if (!matchTokenType(XQueryTokenType.K_AS) && !haveErrors) {
+                    error(XQueryBundle.message("parser.error.expected-keyword", "as"));
+                    haveErrors = true;
+                }
+            }
 
             skipWhiteSpaceAndCommentTokens();
-            if (!parseSequenceType()) {
+            if (!parseSequenceType() && !haveErrors) {
                 error(XQueryBundle.message("parser.error.expected", "SequenceType"));
                 haveErrors = true;
             }
