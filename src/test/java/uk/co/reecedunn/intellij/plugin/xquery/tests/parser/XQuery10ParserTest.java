@@ -1359,6 +1359,100 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region TypeswitchExpr
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-TypeswitchExpr")
+    public void testTypeswitchExpr() {
+        final String expected = loadResource("tests/parser/xquery-1.0/TypeswitchExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/TypeswitchExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-TypeswitchExpr")
+    public void testTypeswitchExpr_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/TypeswitchExpr_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/TypeswitchExpr_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-TypeswitchExpr")
+    public void testTypeswitchExpr_MissingOpeningParenthesis() {
+        final String expected = loadResource("tests/parser/xquery-1.0/TypeswitchExpr_MissingOpeningParenthesis.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/TypeswitchExpr_MissingOpeningParenthesis.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-TypeswitchExpr")
+    public void testTypeswitchExpr_MissingTypeExpr() {
+        final String expected = loadResource("tests/parser/xquery-1.0/TypeswitchExpr_MissingTypeExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/TypeswitchExpr_MissingTypeExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-TypeswitchExpr")
+    public void testTypeswitchExpr_MissingClosingParenthesis() {
+        final String expected = loadResource("tests/parser/xquery-1.0/TypeswitchExpr_MissingClosingParenthesis.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/TypeswitchExpr_MissingClosingParenthesis.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-TypeswitchExpr")
+    public void testTypeswitchExpr_MissingCaseClause() {
+        final String expected = loadResource("tests/parser/xquery-1.0/TypeswitchExpr_MissingCaseClause.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/TypeswitchExpr_MissingCaseClause.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-TypeswitchExpr")
+    public void testTypeswitchExpr_MissingDefaultKeyword() {
+        final String expected = loadResource("tests/parser/xquery-1.0/TypeswitchExpr_MissingDefaultKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/TypeswitchExpr_MissingDefaultKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-TypeswitchExpr")
+    public void testTypeswitchExpr_MissingReturnKeyword() {
+        final String expected = loadResource("tests/parser/xquery-1.0/TypeswitchExpr_MissingReturnKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/TypeswitchExpr_MissingReturnKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-TypeswitchExpr")
+    public void testTypeswitchExpr_MissingReturnExpr() {
+        final String expected = loadResource("tests/parser/xquery-1.0/TypeswitchExpr_MissingReturnExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/TypeswitchExpr_MissingReturnExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-TypeswitchExpr")
+    public void testTypeswitchExpr_MultipleCaseClause() {
+        final String expected = loadResource("tests/parser/xquery-1.0/TypeswitchExpr_MultipleCaseClause.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/TypeswitchExpr_MultipleCaseClause.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-TypeswitchExpr")
+    public void testTypeswitchExpr_Variable() {
+        final String expected = loadResource("tests/parser/xquery-1.0/TypeswitchExpr_Variable.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/TypeswitchExpr_Variable.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-TypeswitchExpr")
+    public void testTypeswitchExpr_Variable_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/TypeswitchExpr_Variable_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/TypeswitchExpr_Variable_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-TypeswitchExpr")
+    public void testTypeswitchExpr_Variable_MissingVarName() {
+        final String expected = loadResource("tests/parser/xquery-1.0/TypeswitchExpr_Variable_MissingVarName.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/TypeswitchExpr_Variable_MissingVarName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region IfExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-IfExpr")

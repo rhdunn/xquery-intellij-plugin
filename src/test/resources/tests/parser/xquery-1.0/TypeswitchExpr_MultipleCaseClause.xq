@@ -1,0 +1,1 @@
+typeswitch ( $ x ) case node ( ) return 1 case item ( ) return 2 default return 3

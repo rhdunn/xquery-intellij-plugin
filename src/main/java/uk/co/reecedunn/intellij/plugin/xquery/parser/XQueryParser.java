@@ -1012,7 +1012,108 @@ class XQueryParser {
     }
 
     private boolean parseExprSingle() {
-        return parseIfExpr() || parseOrExpr();
+        return parseTypeswitchExpr() || parseIfExpr() || parseOrExpr();
+    }
+
+    // endregion
+    // region Grammar :: Expr :: TypeswitchExpr
+
+    private boolean parseTypeswitchExpr() {
+        final PsiBuilder.Marker typeswitchExprMarker = mark();
+        if (matchTokenType(XQueryTokenType.K_TYPESWITCH)) {
+            boolean haveErrors = false;
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_OPEN)) {
+                error(XQueryBundle.message("parser.error.expected", "("));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!parseExpr(XQueryElementType.EXPR) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-expression"));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", ")"));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            boolean matched = false;
+            while (parseCaseClause()) {
+                matched = true;
+                skipWhiteSpaceAndCommentTokens();
+            }
+            if (!matched) {
+                error(XQueryBundle.message("parser.error.expected", "CaseClause"));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_DEFAULT) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "case, default"));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (matchTokenType(XQueryTokenType.VARIABLE_INDICATOR)) {
+                skipWhiteSpaceAndCommentTokens();
+                if (!parseQName(XQueryElementType.VAR_NAME) && !haveErrors) {
+                    error(XQueryBundle.message("parser.error.expected-qname"));
+                    haveErrors = true;
+                }
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_RETURN) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-variable-reference-or-keyword", "return"));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!parseExprSingle() && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-expression"));
+            }
+
+            typeswitchExprMarker.done(XQueryElementType.TYPESWITCH_EXPR);
+            return true;
+        }
+        typeswitchExprMarker.drop();
+        return false;
+    }
+
+    private boolean parseCaseClause() {
+        final PsiBuilder.Marker caseClauseMarker = mark();
+        if (matchTokenType(XQueryTokenType.K_CASE)) {
+            boolean haveErrors = false;
+
+            // TODO: ( "$" VarName as )?
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!parseSequenceType()) {
+                error(XQueryBundle.message("parser.error.expected", "SequenceType"));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_RETURN) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "return"));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!parseExprSingle() && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-expression"));
+            }
+
+            caseClauseMarker.done(XQueryElementType.CASE_CLAUSE);
+            return true;
+        }
+        caseClauseMarker.drop();
+        return false;
     }
 
     // endregion

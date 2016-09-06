@@ -1,0 +1,1 @@
+typeswitch ( $ x ) case item ( ) return 1 return 2

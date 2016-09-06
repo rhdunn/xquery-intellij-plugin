@@ -1,0 +1,1 @@
+typeswitch($x) case item()return 1 default$y return 2

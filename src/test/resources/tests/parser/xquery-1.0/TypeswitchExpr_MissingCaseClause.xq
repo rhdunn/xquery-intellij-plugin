@@ -1,0 +1,1 @@
+typeswitch ( $ x ) default return 2
