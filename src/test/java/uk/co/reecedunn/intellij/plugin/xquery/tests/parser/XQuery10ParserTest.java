@@ -2530,6 +2530,13 @@ public class XQuery10ParserTest extends ParserTestCase {
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AbbrevForwardStep")
+    public void testAbbrevForwardStep_KeywordNCNames_XQuery10() {
+        final String expected = loadResource("tests/parser/xquery-1.0/AbbrevForwardStep_KeywordNCNames_XQuery10.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/AbbrevForwardStep_KeywordNCNames_XQuery10.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
     // endregion
     // region ForwardStep
 
