@@ -2554,14 +2554,6 @@ public class XQuery10ParserTest extends ParserTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ReverseStep")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ReverseAxis")
-    public void testReverseAxis_Parent_MissingAxisSeparator() {
-        final String expected = loadResource("tests/parser/xquery-1.0/ReverseAxis_Parent_MissingAxisSeparator.txt");
-        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ReverseAxis_Parent_MissingAxisSeparator.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ReverseStep")
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ReverseAxis")
     public void testReverseAxis_Ancestor() {
         final String expected = loadResource("tests/parser/xquery-1.0/ReverseAxis_Ancestor.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/ReverseAxis_Ancestor.xq");
@@ -2573,14 +2565,6 @@ public class XQuery10ParserTest extends ParserTestCase {
     public void testReverseAxis_Ancestor_CompactWhitespace() {
         final String expected = loadResource("tests/parser/xquery-1.0/ReverseAxis_Ancestor_CompactWhitespace.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/ReverseAxis_Ancestor_CompactWhitespace.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ReverseStep")
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ReverseAxis")
-    public void testReverseAxis_Ancestor_MissingAxisSeparator() {
-        final String expected = loadResource("tests/parser/xquery-1.0/ReverseAxis_Ancestor_MissingAxisSeparator.txt");
-        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ReverseAxis_Ancestor_MissingAxisSeparator.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
@@ -2602,14 +2586,6 @@ public class XQuery10ParserTest extends ParserTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ReverseStep")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ReverseAxis")
-    public void testReverseAxis_PrecedingSibling_MissingAxisSeparator() {
-        final String expected = loadResource("tests/parser/xquery-1.0/ReverseAxis_PrecedingSibling_MissingAxisSeparator.txt");
-        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ReverseAxis_PrecedingSibling_MissingAxisSeparator.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ReverseStep")
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ReverseAxis")
     public void testReverseAxis_Preceding() {
         final String expected = loadResource("tests/parser/xquery-1.0/ReverseAxis_Preceding.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/ReverseAxis_Preceding.xq");
@@ -2626,14 +2602,6 @@ public class XQuery10ParserTest extends ParserTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ReverseStep")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ReverseAxis")
-    public void testReverseAxis_Preceding_MissingAxisSeparator() {
-        final String expected = loadResource("tests/parser/xquery-1.0/ReverseAxis_Preceding_MissingAxisSeparator.txt");
-        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ReverseAxis_Preceding_MissingAxisSeparator.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ReverseStep")
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ReverseAxis")
     public void testReverseAxis_AncestorOrSelf() {
         final String expected = loadResource("tests/parser/xquery-1.0/ReverseAxis_AncestorOrSelf.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/ReverseAxis_AncestorOrSelf.xq");
@@ -2645,14 +2613,6 @@ public class XQuery10ParserTest extends ParserTestCase {
     public void testReverseAxis_AncestorOrSelf_CompactWhitespace() {
         final String expected = loadResource("tests/parser/xquery-1.0/ReverseAxis_AncestorOrSelf_CompactWhitespace.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/ReverseAxis_AncestorOrSelf_CompactWhitespace.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ReverseStep")
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ReverseAxis")
-    public void testReverseAxis_AncestorOrSelf_MissingAxisSeparator() {
-        final String expected = loadResource("tests/parser/xquery-1.0/ReverseAxis_AncestorOrSelf_MissingAxisSeparator.txt");
-        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ReverseAxis_AncestorOrSelf_MissingAxisSeparator.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 

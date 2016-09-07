@@ -1760,7 +1760,8 @@ class XQueryParser {
 
             skipWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.AXIS_SEPARATOR)) {
-                error(XQueryBundle.message("parser.error.expected", "::"));
+                reverseAxisMarker.rollbackTo();
+                return false;
             }
 
             reverseAxisMarker.done(XQueryElementType.REVERSE_AXIS);

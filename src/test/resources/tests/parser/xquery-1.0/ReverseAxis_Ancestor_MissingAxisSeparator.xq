@@ -1,1 +1,0 @@
-ancestor para
