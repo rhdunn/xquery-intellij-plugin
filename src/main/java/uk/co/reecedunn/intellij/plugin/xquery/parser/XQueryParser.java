@@ -1692,7 +1692,8 @@ class XQueryParser {
 
     private boolean parseForwardAxis() {
         final PsiBuilder.Marker forwardAxisMarker = mBuilder.mark();
-        if (matchTokenType(XQueryTokenType.K_CHILD) ||
+        if (matchTokenType(XQueryTokenType.K_ATTRIBUTE) ||
+            matchTokenType(XQueryTokenType.K_CHILD) ||
             matchTokenType(XQueryTokenType.K_DESCENDANT) ||
             matchTokenType(XQueryTokenType.K_DESCENDANT_OR_SELF) ||
             matchTokenType(XQueryTokenType.K_FOLLOWING) ||
@@ -1701,20 +1702,8 @@ class XQueryParser {
 
             skipWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.AXIS_SEPARATOR)) {
-                error(XQueryBundle.message("parser.error.expected", "::"));
-            }
-
-            forwardAxisMarker.done(XQueryElementType.FORWARD_AXIS);
-            return true;
-        } else if (matchTokenType(XQueryTokenType.K_ATTRIBUTE)) {
-            skipWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.AXIS_SEPARATOR)) {
-                if (getTokenType() == XQueryTokenType.BLOCK_OPEN || getTokenType() == XQueryTokenType.PARENTHESIS_OPEN) { // CompAttrConstructor | AttributeTest
-                    forwardAxisMarker.rollbackTo();
-                    return false;
-                }
-
-                error(XQueryBundle.message("parser.error.expected-qname-or-token", "{', '(', '::")); // CompAttrConstructor | AttributeTest | ForwardAxis
+                forwardAxisMarker.rollbackTo();
+                return false;
             }
 
             forwardAxisMarker.done(XQueryElementType.FORWARD_AXIS);

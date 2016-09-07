@@ -350,10 +350,12 @@ FileElement[FILE(0:951)]
                                                    XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(128:134)]
                                                       XQueryAxisStepImpl[XQUERY_AXIS_STEP(128:134)]
                                                          XQueryForwardStepImpl[XQUERY_FORWARD_STEP(128:134)]
-                                                            XQueryForwardAxisImpl[XQUERY_FORWARD_AXIS(128:134)]
-                                                               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_CHILD(128:133)]('child')
-                                                               PsiWhiteSpaceImpl[WHITE_SPACE(133:134)](' ')
-                                                               PsiErrorElementImpl[ERROR_ELEMENT(134:134)]('XPST0003: Expected '::'.')
+                                                            XQueryAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(128:134)]
+                                                               XQueryNodeTestImpl[XQUERY_NODE_TEST(128:134)]
+                                                                  XQueryNameTestImpl[XQUERY_NAME_TEST(128:134)]
+                                                                     XQueryNCNameImpl[XQUERY_NCNAME(128:134)]
+                                                                        LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_CHILD(128:133)]('child')
+                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(133:134)](' ')
                                                          XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(134:134)]
          LeafPsiElement[XQUERY_COMMA_TOKEN(134:135)](',')
          PsiWhiteSpaceImpl[WHITE_SPACE(135:136)]('\n')
@@ -528,10 +530,12 @@ FileElement[FILE(0:951)]
                                                    XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(211:222)]
                                                       XQueryAxisStepImpl[XQUERY_AXIS_STEP(211:222)]
                                                          XQueryForwardStepImpl[XQUERY_FORWARD_STEP(211:222)]
-                                                            XQueryForwardAxisImpl[XQUERY_FORWARD_AXIS(211:222)]
-                                                               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DESCENDANT(211:221)]('descendant')
-                                                               PsiWhiteSpaceImpl[WHITE_SPACE(221:222)](' ')
-                                                               PsiErrorElementImpl[ERROR_ELEMENT(222:222)]('XPST0003: Expected '::'.')
+                                                            XQueryAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(211:222)]
+                                                               XQueryNodeTestImpl[XQUERY_NODE_TEST(211:222)]
+                                                                  XQueryNameTestImpl[XQUERY_NAME_TEST(211:222)]
+                                                                     XQueryNCNameImpl[XQUERY_NCNAME(211:222)]
+                                                                        LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DESCENDANT(211:221)]('descendant')
+                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(221:222)](' ')
                                                          XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(222:222)]
          LeafPsiElement[XQUERY_COMMA_TOKEN(222:223)](',')
          PsiWhiteSpaceImpl[WHITE_SPACE(223:224)]('\n')
@@ -552,10 +556,12 @@ FileElement[FILE(0:951)]
                                                    XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(224:243)]
                                                       XQueryAxisStepImpl[XQUERY_AXIS_STEP(224:243)]
                                                          XQueryForwardStepImpl[XQUERY_FORWARD_STEP(224:243)]
-                                                            XQueryForwardAxisImpl[XQUERY_FORWARD_AXIS(224:243)]
-                                                               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DESCENDANT_OR_SELF(224:242)]('descendant-or-self')
-                                                               PsiWhiteSpaceImpl[WHITE_SPACE(242:243)](' ')
-                                                               PsiErrorElementImpl[ERROR_ELEMENT(243:243)]('XPST0003: Expected '::'.')
+                                                            XQueryAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(224:243)]
+                                                               XQueryNodeTestImpl[XQUERY_NODE_TEST(224:243)]
+                                                                  XQueryNameTestImpl[XQUERY_NAME_TEST(224:243)]
+                                                                     XQueryNCNameImpl[XQUERY_NCNAME(224:243)]
+                                                                        LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DESCENDANT_OR_SELF(224:242)]('descendant-or-self')
+                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(242:243)](' ')
                                                          XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(243:243)]
          LeafPsiElement[XQUERY_COMMA_TOKEN(243:244)](',')
          PsiWhiteSpaceImpl[WHITE_SPACE(244:245)]('\n')
@@ -910,10 +916,12 @@ FileElement[FILE(0:951)]
                                                    XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(377:387)]
                                                       XQueryAxisStepImpl[XQUERY_AXIS_STEP(377:387)]
                                                          XQueryForwardStepImpl[XQUERY_FORWARD_STEP(377:387)]
-                                                            XQueryForwardAxisImpl[XQUERY_FORWARD_AXIS(377:387)]
-                                                               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_FOLLOWING(377:386)]('following')
-                                                               PsiWhiteSpaceImpl[WHITE_SPACE(386:387)](' ')
-                                                               PsiErrorElementImpl[ERROR_ELEMENT(387:387)]('XPST0003: Expected '::'.')
+                                                            XQueryAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(377:387)]
+                                                               XQueryNodeTestImpl[XQUERY_NODE_TEST(377:387)]
+                                                                  XQueryNameTestImpl[XQUERY_NAME_TEST(377:387)]
+                                                                     XQueryNCNameImpl[XQUERY_NCNAME(377:387)]
+                                                                        LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_FOLLOWING(377:386)]('following')
+                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(386:387)](' ')
                                                          XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(387:387)]
          LeafPsiElement[XQUERY_COMMA_TOKEN(387:388)](',')
          PsiWhiteSpaceImpl[WHITE_SPACE(388:389)]('\n')
@@ -934,10 +942,12 @@ FileElement[FILE(0:951)]
                                                    XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(389:407)]
                                                       XQueryAxisStepImpl[XQUERY_AXIS_STEP(389:407)]
                                                          XQueryForwardStepImpl[XQUERY_FORWARD_STEP(389:407)]
-                                                            XQueryForwardAxisImpl[XQUERY_FORWARD_AXIS(389:407)]
-                                                               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_FOLLOWING_SIBLING(389:406)]('following-sibling')
-                                                               PsiWhiteSpaceImpl[WHITE_SPACE(406:407)](' ')
-                                                               PsiErrorElementImpl[ERROR_ELEMENT(407:407)]('XPST0003: Expected '::'.')
+                                                            XQueryAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(389:407)]
+                                                               XQueryNodeTestImpl[XQUERY_NODE_TEST(389:407)]
+                                                                  XQueryNameTestImpl[XQUERY_NAME_TEST(389:407)]
+                                                                     XQueryNCNameImpl[XQUERY_NCNAME(389:407)]
+                                                                        LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_FOLLOWING_SIBLING(389:406)]('following-sibling')
+                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(406:407)](' ')
                                                          XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(407:407)]
          LeafPsiElement[XQUERY_COMMA_TOKEN(407:408)](',')
          PsiWhiteSpaceImpl[WHITE_SPACE(408:409)]('\n')
@@ -2039,10 +2049,12 @@ FileElement[FILE(0:951)]
                                                    XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(805:810)]
                                                       XQueryAxisStepImpl[XQUERY_AXIS_STEP(805:810)]
                                                          XQueryForwardStepImpl[XQUERY_FORWARD_STEP(805:810)]
-                                                            XQueryForwardAxisImpl[XQUERY_FORWARD_AXIS(805:810)]
-                                                               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_SELF(805:809)]('self')
-                                                               PsiWhiteSpaceImpl[WHITE_SPACE(809:810)](' ')
-                                                               PsiErrorElementImpl[ERROR_ELEMENT(810:810)]('XPST0003: Expected '::'.')
+                                                            XQueryAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(805:810)]
+                                                               XQueryNodeTestImpl[XQUERY_NODE_TEST(805:810)]
+                                                                  XQueryNameTestImpl[XQUERY_NAME_TEST(805:810)]
+                                                                     XQueryNCNameImpl[XQUERY_NCNAME(805:810)]
+                                                                        LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_SELF(805:809)]('self')
+                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(809:810)](' ')
                                                          XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(810:810)]
          LeafPsiElement[XQUERY_COMMA_TOKEN(810:811)](',')
          PsiWhiteSpaceImpl[WHITE_SPACE(811:812)]('\n')
