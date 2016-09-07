@@ -1,1 +1,0 @@
-attribute xml:id "test" }
