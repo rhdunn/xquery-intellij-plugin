@@ -1025,12 +1025,12 @@ class XQueryParser {
 
             skipWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.PARENTHESIS_OPEN)) {
-                error(XQueryBundle.message("parser.error.expected", "("));
-                haveErrors = true;
+                typeswitchExprMarker.rollbackTo();
+                return false;
             }
 
             skipWhiteSpaceAndCommentTokens();
-            if (!parseExpr(XQueryElementType.EXPR) && !haveErrors) {
+            if (!parseExpr(XQueryElementType.EXPR)) {
                 error(XQueryBundle.message("parser.error.expected-expression"));
                 haveErrors = true;
             }
@@ -1527,12 +1527,12 @@ class XQueryParser {
 
             skipWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.BLOCK_OPEN)) {
-                error(XQueryBundle.message("parser.error.expected", "{"));
-                haveErrors = true;
+                validateExprMarker.rollbackTo();
+                return false;
             }
 
             skipWhiteSpaceAndCommentTokens();
-            if (!parseExpr(XQueryElementType.EXPR) && !haveErrors) {
+            if (!parseExpr(XQueryElementType.EXPR)) {
                 error(XQueryBundle.message("parser.error.expected-expression"));
                 haveErrors = true;
             }
@@ -1930,12 +1930,12 @@ class XQueryParser {
 
             skipWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.BLOCK_OPEN)) {
-                error(XQueryBundle.message("parser.error.expected", "{"));
-                haveErrors = true;
+                orderedExprMarker.rollbackTo();
+                return false;
             }
 
             skipWhiteSpaceAndCommentTokens();
-            if (!parseExpr(XQueryElementType.EXPR) && !haveErrors) {
+            if (!parseExpr(XQueryElementType.EXPR)) {
                 error(XQueryBundle.message("parser.error.expected-expression"));
                 haveErrors = true;
             }
@@ -1958,12 +1958,12 @@ class XQueryParser {
 
             skipWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.BLOCK_OPEN)) {
-                error(XQueryBundle.message("parser.error.expected", "{"));
-                haveErrors = true;
+                unorderedExprMarker.rollbackTo();
+                return false;
             }
 
             skipWhiteSpaceAndCommentTokens();
-            if (!parseExpr(XQueryElementType.EXPR) && !haveErrors) {
+            if (!parseExpr(XQueryElementType.EXPR)) {
                 error(XQueryBundle.message("parser.error.expected-expression"));
                 haveErrors = true;
             }

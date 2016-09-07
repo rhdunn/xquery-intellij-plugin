@@ -1376,13 +1376,6 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-TypeswitchExpr")
-    public void testTypeswitchExpr_MissingOpeningParenthesis() {
-        final String expected = loadResource("tests/parser/xquery-1.0/TypeswitchExpr_MissingOpeningParenthesis.txt");
-        final ASTNode actual = parseResource("tests/parser/xquery-1.0/TypeswitchExpr_MissingOpeningParenthesis.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-TypeswitchExpr")
     public void testTypeswitchExpr_MissingTypeExpr() {
         final String expected = loadResource("tests/parser/xquery-1.0/TypeswitchExpr_MissingTypeExpr.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/TypeswitchExpr_MissingTypeExpr.xq");
@@ -1533,13 +1526,6 @@ public class XQuery10ParserTest extends ParserTestCase {
     public void testIfExpr_CompactWhitespace() {
         final String expected = loadResource("tests/parser/xquery-1.0/IfExpr_CompactWhitespace.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/IfExpr_CompactWhitespace.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-IfExpr")
-    public void testIfExpr_MissingOpeningBrace() {
-        final String expected = loadResource("tests/parser/xquery-1.0/IfExpr_MissingOpeningBrace.txt");
-        final ASTNode actual = parseResource("tests/parser/xquery-1.0/IfExpr_MissingOpeningBrace.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
@@ -2058,13 +2044,6 @@ public class XQuery10ParserTest extends ParserTestCase {
     public void testValidateExpr_ValidationMode_CompactWhitespace() {
         final String expected = loadResource("tests/parser/xquery-1.0/ValidateExpr_ValidationMode_CompactWhitespace.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/ValidateExpr_ValidationMode_CompactWhitespace.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ValidateExpr")
-    public void testValidateExpr_MissingOpeningBrace() {
-        final String expected = loadResource("tests/parser/xquery-1.0/ValidateExpr_MissingOpeningBrace.txt");
-        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ValidateExpr_MissingOpeningBrace.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
@@ -2931,13 +2910,6 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-OrderedExpr")
-    public void testOrderedExpr_MissingOpeningBrace() {
-        final String expected = loadResource("tests/parser/xquery-1.0/OrderedExpr_MissingOpeningBrace.txt");
-        final ASTNode actual = parseResource("tests/parser/xquery-1.0/OrderedExpr_MissingOpeningBrace.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-OrderedExpr")
     public void testOrderedExpr_MissingExpr() {
         final String expected = loadResource("tests/parser/xquery-1.0/OrderedExpr_MissingExpr.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/OrderedExpr_MissingExpr.xq");
@@ -2965,13 +2937,6 @@ public class XQuery10ParserTest extends ParserTestCase {
     public void testUnorderedExpr_CompactWhitespace() {
         final String expected = loadResource("tests/parser/xquery-1.0/UnorderedExpr_CompactWhitespace.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/UnorderedExpr_CompactWhitespace.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-UnorderedExpr")
-    public void testUnorderedExpr_MissingOpeningBrace() {
-        final String expected = loadResource("tests/parser/xquery-1.0/UnorderedExpr_MissingOpeningBrace.txt");
-        final ASTNode actual = parseResource("tests/parser/xquery-1.0/UnorderedExpr_MissingOpeningBrace.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
