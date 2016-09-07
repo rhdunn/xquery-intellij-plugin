@@ -664,10 +664,10 @@ FileElement[FILE(0:951)]
                                                          XQueryForwardStepImpl[XQUERY_FORWARD_STEP(275:289)]
                                                             XQueryAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(275:289)]
                                                                XQueryNodeTestImpl[XQUERY_NODE_TEST(275:289)]
-                                                                  XQueryDocumentTestImpl[XQUERY_DOCUMENT_TEST(275:289)]
-                                                                     LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DOCUMENT_NODE(275:288)]('document-node')
-                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(288:289)](' ')
-                                                                     PsiErrorElementImpl[ERROR_ELEMENT(289:289)]('XPST0003: Expected '('.')
+                                                                  XQueryNameTestImpl[XQUERY_NAME_TEST(275:289)]
+                                                                     XQueryNCNameImpl[XQUERY_NCNAME(275:289)]
+                                                                        LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DOCUMENT_NODE(275:288)]('document-node')
+                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(288:289)](' ')
                                                          XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(289:289)]
          LeafPsiElement[XQUERY_COMMA_TOKEN(289:290)](',')
          PsiWhiteSpaceImpl[WHITE_SPACE(290:291)]('\n')
@@ -1624,10 +1624,10 @@ FileElement[FILE(0:951)]
                                                          XQueryForwardStepImpl[XQUERY_FORWARD_STEP(607:612)]
                                                             XQueryAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(607:612)]
                                                                XQueryNodeTestImpl[XQUERY_NODE_TEST(607:612)]
-                                                                  XQueryAnyKindTestImpl[XQUERY_ANY_KIND_TEST(607:612)]
-                                                                     LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NODE(607:611)]('node')
-                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(611:612)](' ')
-                                                                     PsiErrorElementImpl[ERROR_ELEMENT(612:612)]('XPST0003: Expected '('.')
+                                                                  XQueryNameTestImpl[XQUERY_NAME_TEST(607:612)]
+                                                                     XQueryNCNameImpl[XQUERY_NCNAME(607:612)]
+                                                                        LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NODE(607:611)]('node')
+                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(611:612)](' ')
                                                          XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(612:612)]
          LeafPsiElement[XQUERY_COMMA_TOKEN(612:613)](',')
          PsiWhiteSpaceImpl[WHITE_SPACE(613:614)]('\n')
@@ -2009,10 +2009,10 @@ FileElement[FILE(0:951)]
                                                          XQueryForwardStepImpl[XQUERY_FORWARD_STEP(769:786)]
                                                             XQueryAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(769:786)]
                                                                XQueryNodeTestImpl[XQUERY_NODE_TEST(769:786)]
-                                                                  XQuerySchemaAttributeTestImpl[XQUERY_SCHEMA_ATTRIBUTE_TEST(769:786)]
-                                                                     LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_SCHEMA_ATTRIBUTE(769:785)]('schema-attribute')
-                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(785:786)](' ')
-                                                                     PsiErrorElementImpl[ERROR_ELEMENT(786:786)]('XPST0003: Expected '('.')
+                                                                  XQueryNameTestImpl[XQUERY_NAME_TEST(769:786)]
+                                                                     XQueryNCNameImpl[XQUERY_NCNAME(769:786)]
+                                                                        LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_SCHEMA_ATTRIBUTE(769:785)]('schema-attribute')
+                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(785:786)](' ')
                                                          XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(786:786)]
          LeafPsiElement[XQUERY_COMMA_TOKEN(786:787)](',')
          PsiWhiteSpaceImpl[WHITE_SPACE(787:788)]('\n')
@@ -2035,10 +2035,10 @@ FileElement[FILE(0:951)]
                                                          XQueryForwardStepImpl[XQUERY_FORWARD_STEP(788:803)]
                                                             XQueryAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(788:803)]
                                                                XQueryNodeTestImpl[XQUERY_NODE_TEST(788:803)]
-                                                                  XQuerySchemaElementTestImpl[XQUERY_SCHEMA_ELEMENT_TEST(788:803)]
-                                                                     LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_SCHEMA_ELEMENT(788:802)]('schema-element')
-                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(802:803)](' ')
-                                                                     PsiErrorElementImpl[ERROR_ELEMENT(803:803)]('XPST0003: Expected '('.')
+                                                                  XQueryNameTestImpl[XQUERY_NAME_TEST(788:803)]
+                                                                     XQueryNCNameImpl[XQUERY_NCNAME(788:803)]
+                                                                        LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_SCHEMA_ELEMENT(788:802)]('schema-element')
+                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(802:803)](' ')
                                                          XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(803:803)]
          LeafPsiElement[XQUERY_COMMA_TOKEN(803:804)](',')
          PsiWhiteSpaceImpl[WHITE_SPACE(804:805)]('\n')

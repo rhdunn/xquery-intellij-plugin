@@ -1,1 +1,0 @@
-declare variable $ one as empty-sequence ) external ;
