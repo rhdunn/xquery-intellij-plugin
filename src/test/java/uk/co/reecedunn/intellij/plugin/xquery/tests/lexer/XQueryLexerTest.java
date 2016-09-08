@@ -123,7 +123,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region VersionDecl
+    // region XQuery 1.0 :: VersionDecl
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-VersionDecl")
     public void testVersionDecl() {
@@ -135,7 +135,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region ModuleDecl
+    // region XQuery 1.0 :: ModuleDecl
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ModuleDecl")
     public void testModuleDecl() {
@@ -147,7 +147,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region Separator
+    // region XQuery 1.0 :: Separator
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-Separator")
     public void testSeparator() {
@@ -157,7 +157,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region NamespaceDecl
+    // region XQuery 1.0 :: NamespaceDecl
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-NamespaceDecl")
     public void testNamespaceDecl() {
@@ -169,7 +169,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region BoundarySpaceDecl
+    // region XQuery 1.0 :: BoundarySpaceDecl
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-BoundarySpaceDecl")
     public void testBoundarySpaceDecl() {
@@ -182,7 +182,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region DefaultNamespaceDecl
+    // region XQuery 1.0 :: DefaultNamespaceDecl
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DefaultNamespaceDecl")
     public void testDefaultNamespaceDecl() {
@@ -197,7 +197,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region OptionDecl
+    // region XQuery 1.0 :: OptionDecl
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-OptionDecl")
     public void testOptionDecl() {
@@ -208,7 +208,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region OrderingModeDecl
+    // region XQuery 1.0 :: OrderingModeDecl
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-OrderingModeDecl")
     public void testOrderingModeDecl() {
@@ -221,7 +221,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region EmptyOrderDecl
+    // region XQuery 1.0 :: EmptyOrderDecl
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-EmptyOrderDecl")
     public void testEmptyOrderDecl() {
@@ -236,7 +236,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region CopyNamespacesDecl
+    // region XQuery 1.0 :: CopyNamespacesDecl
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-CopyNamespacesDecl")
     public void testCopyNamespacesDecl() {
@@ -248,7 +248,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region PreserveMode
+    // region XQuery 1.0 :: PreserveMode
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-PreserveMode")
     public void testPreserveMode() {
@@ -259,7 +259,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region InheritMode
+    // region XQuery 1.0 :: InheritMode
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-InheritMode")
     public void testInheritMode() {
@@ -270,7 +270,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region DefaultCollationDecl
+    // region XQuery 1.0 :: DefaultCollationDecl
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DefaultCollationDecl")
     public void testDefaultCollationDecl() {
@@ -282,7 +282,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region BaseURIDecl
+    // region XQuery 1.0 :: BaseURIDecl
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-BaseURIDecl")
     public void testBaseURIDecl() {
@@ -293,7 +293,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region SchemaImport
+    // region XQuery 1.0 :: SchemaImport
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-SchemaImport")
     public void testSchemaImport() {
@@ -306,7 +306,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region SchemaPrefix
+    // region XQuery 1.0 :: SchemaPrefix
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-SchemaPrefix")
     public void testSchemaPrefix() {
@@ -321,7 +321,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region ModuleImport
+    // region XQuery 1.0 :: ModuleImport
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ModuleImport")
     public void testModuleImport() {
@@ -337,20 +337,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region Annotation (XQuery 3.0)
-
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-Annotation")
-    public void testAnnotation() {
-        Lexer lexer = new XQueryLexer();
-
-        matchSingleToken(lexer, "%", XQueryTokenType.ANNOTATION_INDICATOR);
-        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN);
-        matchSingleToken(lexer, ",", XQueryTokenType.COMMA);
-        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE);
-    }
-
-    // endregion
-    // region VarDecl
+    // region XQuery 1.0 :: VarDecl
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-VarDecl")
     public void testVarDecl() {
@@ -364,7 +351,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region ConstructionDecl
+    // region XQuery 1.0 :: ConstructionDecl
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ConstructionDecl")
     public void testConstructionDecl() {
@@ -377,7 +364,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region FunctionDecl
+    // region XQuery 1.0 :: FunctionDecl
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-FunctionDecl")
     public void testFunctionDecl() {
@@ -392,7 +379,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region ParamList
+    // region XQuery 1.0 :: ParamList
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ParamList")
     public void testParamList() {
@@ -402,7 +389,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region Param
+    // region XQuery 1.0 :: Param
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-Param")
     public void testParam() {
@@ -412,7 +399,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region EnclosedExpr
+    // region XQuery 1.0 :: EnclosedExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-EnclosedExpr")
     public void testEnclosedExpr() {
@@ -423,7 +410,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region Expr
+    // region XQuery 1.0 :: Expr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-Expr")
     public void testExpr() {
@@ -433,7 +420,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region FLWORExpr
+    // region XQuery 1.0 :: FLWORExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-FLWORExpr")
     public void testFLWORExpr() {
@@ -443,7 +430,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region ForClause
+    // region XQuery 1.0 :: ForClause
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ForClause")
     public void testForClause() {
@@ -456,7 +443,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region PositionalVar
+    // region XQuery 1.0 :: PositionalVar
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-PositionalVar")
     public void testPositionalVar() {
@@ -467,7 +454,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region LetClause
+    // region XQuery 1.0 :: LetClause
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-LetClause")
     public void testLetClause() {
@@ -480,7 +467,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region WhereClause
+    // region XQuery 1.0 :: WhereClause
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-WhereClause")
     public void testWhereClause() {
@@ -490,7 +477,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region OrderByClause
+    // region XQuery 1.0 :: OrderByClause
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-OrderByClause")
     public void testOrderByClause() {
@@ -502,7 +489,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region OrderSpecList
+    // region XQuery 1.0 :: OrderSpecList
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-OrderSpecList")
     public void testOrderSpecList() {
@@ -512,7 +499,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region OrderModifier
+    // region XQuery 1.0 :: OrderModifier
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-OrderModifier")
     public void testOrderModifier() {
@@ -529,7 +516,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region QuantifiedExpr
+    // region XQuery 1.0 :: QuantifiedExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-QuantifiedExpr")
     public void testQuantifiedExpr() {
@@ -544,7 +531,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region TypeswitchExpr
+    // region XQuery 1.0 :: TypeswitchExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-TypeswitchExpr")
     public void testTypeswitchExpr() {
@@ -559,7 +546,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region CaseClause
+    // region XQuery 1.0 :: CaseClause
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-CaseClause")
     public void testCaseClause() {
@@ -572,7 +559,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region IfExpr
+    // region XQuery 1.0 :: IfExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-IfExpr")
     public void testIfExpr() {
@@ -586,7 +573,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region OrExpr
+    // region XQuery 1.0 :: OrExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-OrExpr")
     public void testOrExpr() {
@@ -596,7 +583,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region AndExpr
+    // region XQuery 1.0 :: AndExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-AndExpr")
     public void testAndExpr() {
@@ -606,7 +593,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region RangeExpr
+    // region XQuery 1.0 :: RangeExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-RangeExpr")
     public void testRangeExpr() {
@@ -616,7 +603,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region AdditiveExpr
+    // region XQuery 1.0 :: AdditiveExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-AdditiveExpr")
     public void testAdditiveExpr() {
@@ -627,7 +614,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region MultiplicativeExpr
+    // region XQuery 1.0 :: MultiplicativeExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-MultiplicativeExpr")
     public void testMultiplicativeExpr() {
@@ -640,7 +627,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region UnionExpr
+    // region XQuery 1.0 :: UnionExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-UnionExpr")
     public void testUnionExpr() {
@@ -651,7 +638,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region IntersectExceptExpr
+    // region XQuery 1.0 :: IntersectExceptExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-IntersectExceptExpr")
     public void testIntersectExceptExpr() {
@@ -662,7 +649,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region InstanceofExpr
+    // region XQuery 1.0 :: InstanceofExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-InstanceofExpr")
     public void testInstanceofExpr() {
@@ -673,7 +660,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region TreatExpr
+    // region XQuery 1.0 :: TreatExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-TreatExpr")
     public void testTreatExpr() {
@@ -684,7 +671,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region CastableExpr
+    // region XQuery 1.0 :: CastableExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-CastableExpr")
     public void testCastableExpr() {
@@ -695,7 +682,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region CastExpr
+    // region XQuery 1.0 :: CastExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-CastExpr")
     public void testCastExpr() {
@@ -706,7 +693,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region UnaryExpr
+    // region XQuery 1.0 :: UnaryExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-UnaryExpr")
     public void testUnaryExpr() {
@@ -727,7 +714,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region GeneralComp
+    // region XQuery 1.0 :: GeneralComp
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-GeneralComp")
     public void testGeneralComp() {
@@ -742,7 +729,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region ValueComp
+    // region XQuery 1.0 :: ValueComp
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ValueComp")
     public void testValueComp() {
@@ -757,7 +744,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region NodeComp
+    // region XQuery 1.0 :: NodeComp
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-NodeComp")
     public void testNodeComp() {
@@ -769,7 +756,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region ValidateExpr
+    // region XQuery 1.0 :: ValidateExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ValidateExpr")
     public void testValidateExpr() {
@@ -781,7 +768,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region ValidationMode
+    // region XQuery 1.0 :: ValidationMode
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ValidationMode")
     public void testValidationMode() {
@@ -792,7 +779,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region ExtensionExpr
+    // region XQuery 1.0 :: ExtensionExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ExtensionExpr")
     public void testExtensionExpr() {
@@ -803,7 +790,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region Pragma + PragmaContents
+    // region XQuery 1.0 :: Pragma + PragmaContents
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-Pragma")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-PragmaContents")
@@ -886,17 +873,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region SimpleMapExpr (XQuery 3.0)
-
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-SimpleMapExpr")
-    public void testSimpleMapExpr() {
-        Lexer lexer = new XQueryLexer();
-
-        matchSingleToken(lexer, "!", XQueryTokenType.MAP_OPERATOR);
-    }
-
-    // endregion
-    // region PathExpr
+    // region XQuery 1.0 :: PathExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-PathExpr")
     public void testPathExpr() {
@@ -907,7 +884,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region RelativePathExpr
+    // region XQuery 1.0 :: RelativePathExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-RelativePathExpr")
     public void testRelativePathExpr() {
@@ -918,7 +895,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region ForwardAxis
+    // region XQuery 1.0 :: ForwardAxis
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ForwardAxis")
     public void testForwardAxis() {
@@ -935,7 +912,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region AbbrevForwardStep
+    // region XQuery 1.0 :: AbbrevForwardStep
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-AbbrevForwardStep")
     public void testAbbrevForwardStep() {
@@ -945,7 +922,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region ReverseAxis
+    // region XQuery 1.0 :: ReverseAxis
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ReverseAxis")
     public void testReverseAxis() {
@@ -960,7 +937,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region AbbrevReverseStep
+    // region XQuery 1.0 :: AbbrevReverseStep
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-AbbrevReverseStep")
     public void testAbbrevReverseStep() {
@@ -970,7 +947,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region Wildcard
+    // region XQuery 1.0 :: Wildcard
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-Wildcard")
     public void testWildcard() {
@@ -981,7 +958,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region Predicate
+    // region XQuery 1.0 :: Predicate
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-Predicate")
     public void testPredicate() {
@@ -992,7 +969,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region VarRef
+    // region XQuery 1.0 :: VarRef
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-VarRef")
     public void testVarRef() {
@@ -1002,7 +979,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region ParenthesizedExpr
+    // region XQuery 1.0 :: ParenthesizedExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ParenthesizedExpr")
     public void testParenthesizedExpr() {
@@ -1013,7 +990,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region ContextItemExpr
+    // region XQuery 1.0 :: ContextItemExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ContextItemExpr")
     public void testContextItemExpr() {
@@ -1023,7 +1000,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region OrderedExpr
+    // region XQuery 1.0 :: OrderedExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-OrderedExpr")
     public void testOrderedExpr() {
@@ -1035,7 +1012,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region UnorderedExpr
+    // region XQuery 1.0 :: UnorderedExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-UnorderedExpr")
     public void testUnorderedExpr() {
@@ -1047,7 +1024,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region FunctionCall
+    // region XQuery 1.0 :: FunctionCall
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-FunctionCall")
     public void testFunctionCall() {
@@ -1059,7 +1036,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region DirElemConstructor
+    // region XQuery 1.0 :: DirElemConstructor
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirElemConstructor")
     public void testDirElemConstructor() {
@@ -1120,7 +1097,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region DirAttributeList + DirAttributeValue
+    // region XQuery 1.0 :: DirAttributeList + DirAttributeValue
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirAttributeList")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirAttributeValue")
@@ -1160,7 +1137,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region DirAttributeValue + QuotAttrValueContent + EnclosedExpr
+    // region XQuery 1.0 :: DirAttributeValue + QuotAttrValueContent + EnclosedExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeValue")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QuotAttrValueContent")
@@ -1181,7 +1158,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region DirAttributeValue + AposAttrValueContent + EnclosedExpr
+    // region XQuery 1.0 :: DirAttributeValue + AposAttrValueContent + EnclosedExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeValue")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AposAttrValueContent")
@@ -1203,7 +1180,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region DirAttributeValue + CommonContent
+    // region XQuery 1.0 :: DirAttributeValue + CommonContent
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeValue")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CommonContent")
@@ -1226,7 +1203,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region DirAttributeValue + PredefinedEntityRef
+    // region XQuery 1.0 :: DirAttributeValue + PredefinedEntityRef
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeValue")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PredefinedEntityRef")
@@ -1301,7 +1278,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region DirAttributeValue + EscapeQuot
+    // region XQuery 1.0 :: DirAttributeValue + EscapeQuot
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeValue")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-EscapeQuot")
@@ -1318,7 +1295,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region DirAttributeValue + EscapeApos
+    // region XQuery 1.0 :: DirAttributeValue + EscapeApos
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeValue")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-EscapeApos")
@@ -1335,7 +1312,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region DirAttributeValue + CharRef
+    // region XQuery 1.0 :: DirAttributeValue + CharRef
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeValue")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CharRef")
@@ -1452,7 +1429,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region DirElemContent + ElementContentChar + EnclosedExpr
+    // region XQuery 1.0 :: DirElemContent + ElementContentChar + EnclosedExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirElemContent")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ElementContentChar")
@@ -1478,7 +1455,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region DirElemContent + DirElemConstructor (DirectConstructor)
+    // region XQuery 1.0 :: DirElemContent + DirElemConstructor (DirectConstructor)
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirElemContent")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirElemConstructor")
@@ -1505,7 +1482,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region DirElemContent + DirCommentConstructor (DirectConstructor)
+    // region XQuery 1.0 :: DirElemContent + DirCommentConstructor (DirectConstructor)
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirElemContent")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirCommentConstructor")
@@ -1533,7 +1510,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region DirElemContent + CDataSection (DirectConstructor)
+    // region XQuery 1.0 :: DirElemContent + CDataSection (DirectConstructor)
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirElemContent")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-CDataSection")
@@ -1566,7 +1543,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region DirElemContent + DirPIConstructor (DirectConstructor)
+    // region XQuery 1.0 :: DirElemContent + DirPIConstructor (DirectConstructor)
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirElemContent")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirPIConstructor")
@@ -1629,7 +1606,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region DirElemContent + CommonContent
+    // region XQuery 1.0 :: DirElemContent + CommonContent
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirElemContent")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CommonContent")
@@ -1649,7 +1626,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region DirElemContent + PredefinedEntityRef
+    // region XQuery 1.0 :: DirElemContent + PredefinedEntityRef
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirElemContent")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-PredefinedEntityRef")
@@ -1734,7 +1711,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region DirElemContent + CharRef
+    // region XQuery 1.0 :: DirElemContent + CharRef
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirElemContent")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CharRef")
@@ -1873,7 +1850,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region DirCommentConstructor + DirCommentContents
+    // region XQuery 1.0 :: DirCommentConstructor + DirCommentContents
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirCommentConstructor")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirCommentContents")
@@ -1947,7 +1924,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region DirPIConstructor + DirPIContents
+    // region XQuery 1.0 :: DirPIConstructor + DirPIContents
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirPIConstructor")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirPIContents")
@@ -1996,7 +1973,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region CDataSection + CDataSectionContents
+    // region XQuery 1.0 :: CDataSection + CDataSectionContents
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CDataSection")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CDataSectionContents")
@@ -2076,7 +2053,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region CompDocConstructor
+    // region XQuery 1.0 :: CompDocConstructor
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-CompDocConstructor")
     public void testCompDocConstructor() {
@@ -2088,7 +2065,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region CompElemConstructor
+    // region XQuery 1.0 :: CompElemConstructor
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-CompElemConstructor")
     public void testCompElemConstructor() {
@@ -2100,7 +2077,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region CompAttrConstructor
+    // region XQuery 1.0 :: CompAttrConstructor
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-CompAttrConstructor")
     public void testCompAttrConstructor() {
@@ -2112,7 +2089,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region CompTextConstructor
+    // region XQuery 1.0 :: CompTextConstructor
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-CompTextConstructor")
     public void testCompTextConstructor() {
@@ -2124,7 +2101,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region CompCommentConstructor
+    // region XQuery 1.0 :: CompCommentConstructor
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-CompCommentConstructor")
     public void testCompCommentConstructor() {
@@ -2136,7 +2113,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region CompPIConstructor
+    // region XQuery 1.0 :: CompPIConstructor
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-CompPIConstructor")
     public void testCompPIConstructor() {
@@ -2148,17 +2125,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region NamedFunctionRef (XQuery 3.0)
-
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-NamedFunctionRef")
-    public void testNamedFunctionRef() {
-        Lexer lexer = new XQueryLexer();
-
-        matchSingleToken(lexer, "#", XQueryTokenType.FUNCTION_REF_OPERATOR);
-    }
-
-    // endregion
-    // region TypeDeclaration
+    // region XQuery 1.0 :: TypeDeclaration
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-TypeDeclaration")
     public void testTypeDeclaration() {
@@ -2168,7 +2135,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region SequenceType
+    // region XQuery 1.0 :: SequenceType
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-SequenceType")
     public void testSequenceType() {
@@ -2180,7 +2147,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region OccurrenceIndicator
+    // region XQuery 1.0 :: OccurrenceIndicator
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-OccurrenceIndicator")
     public void testOccurrenceIndicator() {
@@ -2192,7 +2159,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region ItemType
+    // region XQuery 1.0 :: ItemType
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ItemType")
     public void testItemType() {
@@ -2204,7 +2171,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region AnyKindTest
+    // region XQuery 1.0 :: AnyKindTest
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-AnyKindTest")
     public void testAnyKindTest() {
@@ -2216,7 +2183,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region DocumentTest
+    // region XQuery 1.0 :: DocumentTest
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DocumentTest")
     public void testDocumentTest() {
@@ -2228,7 +2195,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region TextTest
+    // region XQuery 1.0 :: TextTest
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-TextTest")
     public void testTextTest() {
@@ -2240,7 +2207,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region CommentTest
+    // region XQuery 1.0 :: CommentTest
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-CommentTest")
     public void testCommentTest() {
@@ -2252,7 +2219,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region PITest
+    // region XQuery 1.0 :: PITest
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-PITest")
     public void testPITest() {
@@ -2264,7 +2231,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region AttributeTest
+    // region XQuery 1.0 :: AttributeTest
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-AttributeTest")
     public void testAttributeTest() {
@@ -2276,7 +2243,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region AttribNameOrWildcard
+    // region XQuery 1.0 :: AttribNameOrWildcard
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-AttribNameOrWildcard")
     public void testAttribNameOrWildcard() {
@@ -2286,7 +2253,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region SchemaAttributeTest
+    // region XQuery 1.0 :: SchemaAttributeTest
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-SchemaAttributeTest")
     public void testSchemaAttributeTest() {
@@ -2298,7 +2265,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region ElementTest
+    // region XQuery 1.0 :: ElementTest
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ElementTest")
     public void testElementTest() {
@@ -2311,7 +2278,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region ElementNameOrWildcard
+    // region XQuery 1.0 :: ElementNameOrWildcard
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ElementNameOrWildcard")
     public void testElementNameOrWildcard() {
@@ -2321,7 +2288,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region SchemaElementTest
+    // region XQuery 1.0 :: SchemaElementTest
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-SchemaElementTest")
     public void testSchemaElementTest() {
@@ -2333,7 +2300,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region IntegerLiteral
+    // region XQuery 1.0 :: IntegerLiteral
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-IntegerLiteral")
     public void testIntegerLiteral() {
@@ -2345,7 +2312,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region DecimalLiteral
+    // region XQuery 1.0 :: DecimalLiteral
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DecimalLiteral")
     public void testDecimalLiteral() {
@@ -2370,7 +2337,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region DoubleLiteral
+    // region XQuery 1.0 :: DoubleLiteral
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DoubleLiteral")
     public void testDoubleLiteral() {
@@ -2501,7 +2468,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region StringLiteral
+    // region XQuery 1.0 :: StringLiteral
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
     public void testStringLiteral() {
@@ -2544,7 +2511,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region StringLiteral + PredefinedEntityRef
+    // region XQuery 1.0 :: StringLiteral + PredefinedEntityRef
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PredefinedEntityRef")
@@ -2623,7 +2590,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region StringLiteral + EscapeQuot
+    // region XQuery 1.0 :: StringLiteral + EscapeQuot
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-EscapeQuot")
@@ -2640,7 +2607,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region StringLiteral + EscapeApos
+    // region XQuery 1.0 :: StringLiteral + EscapeApos
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-EscapeApos")
@@ -2657,7 +2624,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region StringLiteral + CharRef
+    // region XQuery 1.0 :: StringLiteral + CharRef
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CharRef")
@@ -2774,7 +2741,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region Comment + CommentContents
+    // region XQuery 1.0 :: Comment + CommentContents
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Comment")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CommentContents")
@@ -2842,7 +2809,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region QName
+    // region XQuery 1.0 :: QName
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
     @Specification(name="Namespaces in XML 1.0 3ed", reference="https://www.w3.org/TR/2009/REC-xml-names-20091208/#NT-QName")
@@ -2857,7 +2824,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region NCName
+    // region XQuery 1.0 :: NCName
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-NCName")
     @Specification(name="Namespaces in XML 1.0 3ed", reference="https://www.w3.org/TR/2009/REC-xml-names-20091208/#NT-NCName")
@@ -2880,7 +2847,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region S
+    // region XQuery 1.0 :: S
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-S")
     @Specification(name="XML 1.0 5ed", reference="https://www.w3.org/TR/2008/REC-xml-20081126/#NT-S")
@@ -2906,6 +2873,39 @@ public class XQueryLexerTest extends TestCase {
         lexer.start("   \t  \r\n ");
         matchToken(lexer, "   \t  \r\n ", 0, 0, 9, XQueryTokenType.WHITE_SPACE);
         matchToken(lexer, "",             0, 9, 9, null);
+    }
+
+    // endregion
+    // region XQuery 3.0 :: Annotation
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-Annotation")
+    public void testAnnotation() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "%", XQueryTokenType.ANNOTATION_INDICATOR);
+        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN);
+        matchSingleToken(lexer, ",", XQueryTokenType.COMMA);
+        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE);
+    }
+
+    // endregion
+    // region XQuery 3.0 :: SimpleMapExpr
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-SimpleMapExpr")
+    public void testSimpleMapExpr() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "!", XQueryTokenType.MAP_OPERATOR);
+    }
+
+    // endregion
+    // region XQuery 3.0 :: NamedFunctionRef
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-NamedFunctionRef")
+    public void testNamedFunctionRef() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "#", XQueryTokenType.FUNCTION_REF_OPERATOR);
     }
 
     // endregion
