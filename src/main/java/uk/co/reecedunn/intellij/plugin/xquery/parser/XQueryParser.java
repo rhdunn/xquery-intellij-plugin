@@ -1012,10 +1012,31 @@ class XQueryParser {
     }
 
     private boolean parseExprSingle() {
-        return parseQuantifiedExpr()
+        return parseFLWORExpr()
+            || parseQuantifiedExpr()
             || parseTypeswitchExpr()
             || parseIfExpr()
             || parseOrExpr();
+    }
+
+    // endregion
+    // region Grammar :: Expr :: FLWORExpr
+
+    private boolean parseFLWORExpr() {
+        final PsiBuilder.Marker flworExprMarker = mark();
+        // TODO: (ForClause | LetClause)+ WhereClause? OrderByClause? return ExprSingle
+        if (errorOnTokenType(XQueryTokenType.K_RETURN, XQueryBundle.message("parser.error.return-without-flwor"))) {
+            skipWhiteSpaceAndCommentTokens();
+            if (getTokenType() != XQueryTokenType.PARENTHESIS_OPEN && parseExprSingle()) {
+                flworExprMarker.drop();
+                return true;
+            } else {
+                flworExprMarker.rollbackTo();
+                return false;
+            }
+        }
+        flworExprMarker.drop();
+        return false;
     }
 
     // endregion

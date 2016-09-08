@@ -1359,6 +1359,16 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region FLWORExpr
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FLWORExpr")
+    public void testFLWORExpr_ReturnOnly() {
+        final String expected = loadResource("tests/parser/xquery-1.0/FLWORExpr_ReturnOnly.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/FLWORExpr_ReturnOnly.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region QuantifiedExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QuantifiedExpr")
