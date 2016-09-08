@@ -67,9 +67,9 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region Lexer :: Restart With Existing State Stack
+    // region Lexer :: Empty Stack In Advance
 
-    public void testRestartingWithExistingStateStack() {
+    public void testEmptyStackInAdvance() {
         Lexer lexer = new XQueryLexer();
 
         lexer.start("\"Hello World\"");
@@ -82,6 +82,20 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "{",  0, 2, 3, XQueryTokenType.BLOCK_OPEN);
         matchToken(lexer, "\"", 0, 3, 4, XQueryTokenType.STRING_LITERAL_START);
         matchToken(lexer, "",   1, 4, 4, null);
+    }
+
+    // endregion
+    // region Lexer :: Empty Stack In Pop State
+
+    public void testEmptyStackInPopState() {
+        Lexer lexer = new XQueryLexer();
+
+        lexer.start("} } ");
+        matchToken(lexer, "}", 0, 0, 1, XQueryTokenType.BLOCK_CLOSE);
+        matchToken(lexer, " ", 0, 1, 2, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "}", 0, 2, 3, XQueryTokenType.BLOCK_CLOSE);
+        matchToken(lexer, " ", 0, 3, 4, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "",  0, 4, 4, null);
     }
 
     // endregion

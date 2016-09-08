@@ -40,7 +40,9 @@ public class XQueryLexer extends LexerBase {
     }
 
     private void popState() {
-        mStates.pop();
+        if (!mStates.empty()) {
+            mStates.pop();
+        }
     }
 
     private static final int STATE_DEFAULT = 0;
