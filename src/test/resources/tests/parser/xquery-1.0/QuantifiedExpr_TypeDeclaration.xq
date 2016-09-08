@@ -1,0 +1,1 @@
+some $ x as xs:string* in $ y satisfies $ x le 10 , every $ x as xs:string* in $ y satisfies $ x le 10

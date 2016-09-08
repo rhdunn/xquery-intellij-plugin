@@ -1359,6 +1359,86 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region QuantifiedExpr
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QuantifiedExpr")
+    public void testQuantifiedExpr() {
+        final String expected = loadResource("tests/parser/xquery-1.0/QuantifiedExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/QuantifiedExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QuantifiedExpr")
+    public void testQuantifiedExpr_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/QuantifiedExpr_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/QuantifiedExpr_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QuantifiedExpr")
+    public void testQuantifiedExpr_MissingVarName() {
+        final String expected = loadResource("tests/parser/xquery-1.0/QuantifiedExpr_MissingVarName.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/QuantifiedExpr_MissingVarName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QuantifiedExpr")
+    public void testQuantifiedExpr_MissingInKeyword() {
+        final String expected = loadResource("tests/parser/xquery-1.0/QuantifiedExpr_MissingInKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/QuantifiedExpr_MissingInKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QuantifiedExpr")
+    public void testQuantifiedExpr_MissingInExpr() {
+        final String expected = loadResource("tests/parser/xquery-1.0/QuantifiedExpr_MissingInExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/QuantifiedExpr_MissingInExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QuantifiedExpr")
+    public void testQuantifiedExpr_MissingSatisfiesKeyword() {
+        final String expected = loadResource("tests/parser/xquery-1.0/QuantifiedExpr_MissingSatisfiesKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/QuantifiedExpr_MissingSatisfiesKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QuantifiedExpr")
+    public void testQuantifiedExpr_MissingSatisfiesExpr() {
+        final String expected = loadResource("tests/parser/xquery-1.0/QuantifiedExpr_MissingSatisfiesExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/QuantifiedExpr_MissingSatisfiesExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QuantifiedExpr")
+    public void testQuantifiedExpr_TypeDeclaration() {
+        final String expected = loadResource("tests/parser/xquery-1.0/QuantifiedExpr_TypeDeclaration.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/QuantifiedExpr_TypeDeclaration.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QuantifiedExpr")
+    public void testQuantifiedExpr_MultipleVarName() {
+        final String expected = loadResource("tests/parser/xquery-1.0/QuantifiedExpr_MultipleVarName.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/QuantifiedExpr_MultipleVarName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QuantifiedExpr")
+    public void testQuantifiedExpr_MultipleVarName_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/QuantifiedExpr_MultipleVarName_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/QuantifiedExpr_MultipleVarName_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QuantifiedExpr")
+    public void testQuantifiedExpr_MultipleVarName_MissingVarIndicator() {
+        final String expected = loadResource("tests/parser/xquery-1.0/QuantifiedExpr_MultipleVarName_MissingVarIndicator.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/QuantifiedExpr_MultipleVarName_MissingVarIndicator.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region TypeswitchExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-TypeswitchExpr")

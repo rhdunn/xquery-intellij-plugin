@@ -1012,7 +1012,73 @@ class XQueryParser {
     }
 
     private boolean parseExprSingle() {
-        return parseTypeswitchExpr() || parseIfExpr() || parseOrExpr();
+        return parseQuantifiedExpr()
+            || parseTypeswitchExpr()
+            || parseIfExpr()
+            || parseOrExpr();
+    }
+
+    // endregion
+    // region Grammar :: Expr :: QuantifiedExpr
+
+    private boolean parseQuantifiedExpr() {
+        final PsiBuilder.Marker quantifiedExprMarker = mark();
+        if (matchTokenType(XQueryTokenType.K_SOME) || matchTokenType(XQueryTokenType.K_EVERY)) {
+            boolean haveErrors = false;
+            boolean isFirstVarName = true;
+            do {
+                skipWhiteSpaceAndCommentTokens();
+                if (!matchTokenType(XQueryTokenType.VARIABLE_INDICATOR) && !haveErrors) {
+                    if (isFirstVarName) {
+                        quantifiedExprMarker.rollbackTo();
+                        return false;
+                    } else {
+                        error(XQueryBundle.message("parser.error.expected", "$"));
+                        haveErrors = true;
+                    }
+                }
+
+                skipWhiteSpaceAndCommentTokens();
+                if (!parseQName(XQueryElementType.VAR_NAME) && !haveErrors) {
+                    error(XQueryBundle.message("parser.error.expected-qname"));
+                    haveErrors = true;
+                }
+
+                skipWhiteSpaceAndCommentTokens();
+                parseTypeDeclaration();
+
+                skipWhiteSpaceAndCommentTokens();
+                if (!matchTokenType(XQueryTokenType.K_IN) && !haveErrors) {
+                    error(XQueryBundle.message("parser.error.expected-keyword", "in"));
+                    haveErrors = true;
+                }
+
+                skipWhiteSpaceAndCommentTokens();
+                if (!parseExprSingle() && !haveErrors) {
+                    error(XQueryBundle.message("parser.error.expected-expression"));
+                }
+
+                isFirstVarName = false;
+                skipWhiteSpaceAndCommentTokens();
+            } while (matchTokenType(XQueryTokenType.COMMA));
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_SATISFIES) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "satisfies"));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!parseExprSingle() && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-expression"));
+            }
+
+            quantifiedExprMarker.done(XQueryElementType.QUANTIFIED_EXPR);
+            return true;
+        }
+
+        quantifiedExprMarker.drop();
+        return false;
     }
 
     // endregion

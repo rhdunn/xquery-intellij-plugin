@@ -1,0 +1,1 @@
+some $ x $ y satisfies $ x le 10 , every $ x $ y satisfies $ x le 10
