@@ -1,0 +1,1 @@
+for $ x as xs:string * in $ y return $ x

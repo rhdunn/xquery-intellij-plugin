@@ -1024,8 +1024,30 @@ class XQueryParser {
 
     private boolean parseFLWORExpr() {
         final PsiBuilder.Marker flworExprMarker = mark();
-        // TODO: (ForClause | LetClause)+ WhereClause? OrderByClause? return ExprSingle
-        if (errorOnTokenType(XQueryTokenType.K_RETURN, XQueryBundle.message("parser.error.return-without-flwor"))) {
+        boolean haveForLetClause = false;
+        while (parseForClause()) { // TODO: | LetClause
+            haveForLetClause = true;
+        }
+        if (haveForLetClause) {
+            boolean haveErrors = false;
+
+            // TODO: WhereClause?
+            // TODO: OrderByClause?
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_RETURN)) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "for, let, order, return, stable, where"));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!parseExprSingle() && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-expression"));
+            }
+
+            flworExprMarker.done(XQueryElementType.FLWOR_EXPR);
+            return true;
+        } else if (errorOnTokenType(XQueryTokenType.K_RETURN, XQueryBundle.message("parser.error.return-without-flwor"))) {
             skipWhiteSpaceAndCommentTokens();
             if (getTokenType() != XQueryTokenType.PARENTHESIS_OPEN && parseExprSingle()) {
                 flworExprMarker.drop();
@@ -1036,6 +1058,56 @@ class XQueryParser {
             }
         }
         flworExprMarker.drop();
+        return false;
+    }
+
+    private boolean parseForClause() {
+        final PsiBuilder.Marker forClauseMarker = mark();
+        if (matchTokenType(XQueryTokenType.K_FOR)) {
+            boolean haveErrors = false;
+            boolean isFirstVarName = true;
+            do {
+                skipWhiteSpaceAndCommentTokens();
+                if (!matchTokenType(XQueryTokenType.VARIABLE_INDICATOR) && !haveErrors) {
+                    if (isFirstVarName) {
+                        forClauseMarker.rollbackTo();
+                        return false;
+                    } else {
+                        error(XQueryBundle.message("parser.error.expected", "$"));
+                        haveErrors = true;
+                    }
+                }
+
+                skipWhiteSpaceAndCommentTokens();
+                if (!parseQName(XQueryElementType.VAR_NAME) && !haveErrors) {
+                    error(XQueryBundle.message("parser.error.expected-qname"));
+                    haveErrors = true;
+                }
+
+                skipWhiteSpaceAndCommentTokens();
+                boolean haveTypeDeclaration = parseTypeDeclaration();
+
+                // TODO: PositionalVar?
+
+                skipWhiteSpaceAndCommentTokens();
+                if (!matchTokenType(XQueryTokenType.K_IN) && !haveErrors) {
+                    error(XQueryBundle.message("parser.error.expected-keyword", haveTypeDeclaration ? "at, in" : "as, at, in"));
+                    haveErrors = true;
+                }
+
+                skipWhiteSpaceAndCommentTokens();
+                if (!parseExprSingle() && !haveErrors) {
+                    error(XQueryBundle.message("parser.error.expected-expression"));
+                }
+
+                isFirstVarName = false;
+                skipWhiteSpaceAndCommentTokens();
+            } while (matchTokenType(XQueryTokenType.COMMA));
+
+            forClauseMarker.done(XQueryElementType.FOR_CLAUSE);
+            return true;
+        }
+        forClauseMarker.drop();
         return false;
     }
 
