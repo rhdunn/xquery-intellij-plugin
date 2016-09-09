@@ -1087,11 +1087,16 @@ class XQueryParser {
                 skipWhiteSpaceAndCommentTokens();
                 boolean haveTypeDeclaration = parseTypeDeclaration();
 
-                // TODO: PositionalVar?
+                skipWhiteSpaceAndCommentTokens();
+                boolean havePositionalVar = parsePositionalVar();
 
                 skipWhiteSpaceAndCommentTokens();
                 if (!matchTokenType(XQueryTokenType.K_IN) && !haveErrors) {
-                    error(XQueryBundle.message("parser.error.expected-keyword", haveTypeDeclaration ? "at, in" : "as, at, in"));
+                    if (haveTypeDeclaration && !havePositionalVar) {
+                        error(XQueryBundle.message("parser.error.expected-keyword", "at, in"));
+                    } else {
+                        error(XQueryBundle.message("parser.error.expected-keyword", havePositionalVar ? "in" : "as, at, in"));
+                    }
                     haveErrors = true;
                 }
 
@@ -1108,6 +1113,28 @@ class XQueryParser {
             return true;
         }
         forClauseMarker.drop();
+        return false;
+    }
+
+    private boolean parsePositionalVar() {
+        final PsiBuilder.Marker positionalVarMarker = matchTokenTypeWithMarker(XQueryTokenType.K_AT);
+        if (positionalVarMarker != null) {
+            boolean haveErrors = false;
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.VARIABLE_INDICATOR)) {
+                error(XQueryBundle.message("parser.error.expected", "$"));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!parseQName(XQueryElementType.VAR_NAME) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-qname"));
+            }
+
+            positionalVarMarker.done(XQueryElementType.POSITIONAL_VAR);
+            return true;
+        }
         return false;
     }
 

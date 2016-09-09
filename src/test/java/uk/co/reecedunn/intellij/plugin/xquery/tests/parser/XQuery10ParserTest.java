@@ -1375,6 +1375,15 @@ public class XQuery10ParserTest extends ParserTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FLWORExpr")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForClause")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PositionalVar")
+    public void testForClause_MissingInKeyword_PositionalVar() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ForClause_MissingInKeyword_PositionalVar.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ForClause_MissingInKeyword_PositionalVar.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FLWORExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForClause")
     public void testForClause_MissingInExpr() {
         final String expected = loadResource("tests/parser/xquery-1.0/ForClause_MissingInExpr.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/ForClause_MissingInExpr.xq");
@@ -1415,6 +1424,15 @@ public class XQuery10ParserTest extends ParserTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FLWORExpr")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForClause")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PositionalVar")
+    public void testForClause_TypeDeclaration_MissingInKeyword_PositionalVar() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ForClause_TypeDeclaration_MissingInKeyword_PositionalVar.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ForClause_TypeDeclaration_MissingInKeyword_PositionalVar.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FLWORExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForClause")
     public void testForClause_MultipleVarName() {
         final String expected = loadResource("tests/parser/xquery-1.0/ForClause_MultipleVarName.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/ForClause_MultipleVarName.xq");
@@ -1434,6 +1452,45 @@ public class XQuery10ParserTest extends ParserTestCase {
     public void testForClause_MultipleVarName_MissingVarIndicator() {
         final String expected = loadResource("tests/parser/xquery-1.0/ForClause_MultipleVarName_MissingVarIndicator.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/ForClause_MultipleVarName_MissingVarIndicator.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
+    // region XQuery 1.0 :: PositionalVar + ForClause
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FLWORExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForClause")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PositionalVar")
+    public void testPositionalVar() {
+        final String expected = loadResource("tests/parser/xquery-1.0/PositionalVar.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/PositionalVar.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FLWORExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForClause")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PositionalVar")
+    public void testPositionalVar_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/PositionalVar_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/PositionalVar_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FLWORExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForClause")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PositionalVar")
+    public void testPositionalVar_MissingVarIndicator() {
+        final String expected = loadResource("tests/parser/xquery-1.0/PositionalVar_MissingVarIndicator.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/PositionalVar_MissingVarIndicator.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FLWORExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForClause")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PositionalVar")
+    public void testPositionalVar_MissingVarName() {
+        final String expected = loadResource("tests/parser/xquery-1.0/PositionalVar_MissingVarName.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/PositionalVar_MissingVarName.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
