@@ -1407,6 +1407,14 @@ public class XQuery10ParserTest extends ParserTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FLWORExpr")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForClause")
+    public void testForClause_TypeDeclaration_MissingInKeyword() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ForClause_TypeDeclaration_MissingInKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ForClause_TypeDeclaration_MissingInKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FLWORExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForClause")
     public void testForClause_MultipleVarName() {
         final String expected = loadResource("tests/parser/xquery-1.0/ForClause_MultipleVarName.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/ForClause_MultipleVarName.xq");
