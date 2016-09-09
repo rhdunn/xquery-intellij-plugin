@@ -1025,7 +1025,7 @@ class XQueryParser {
     private boolean parseFLWORExpr() {
         final PsiBuilder.Marker flworExprMarker = mark();
         boolean haveForLetClause = false;
-        while (parseForClause()) { // TODO: | LetClause
+        while (parseForClause() || parseLetClause()) {
             haveForLetClause = true;
         }
         if (haveForLetClause) {
@@ -1108,6 +1108,58 @@ class XQueryParser {
             return true;
         }
         forClauseMarker.drop();
+        return false;
+    }
+
+    private boolean parseLetClause() {
+        final PsiBuilder.Marker letClauseMarker = mark();
+        if (matchTokenType(XQueryTokenType.K_LET)) {
+            boolean haveErrors = false;
+            boolean isFirstVarName = true;
+            do {
+                skipWhiteSpaceAndCommentTokens();
+                if (!matchTokenType(XQueryTokenType.VARIABLE_INDICATOR) && !haveErrors) {
+                    if (isFirstVarName) {
+                        letClauseMarker.rollbackTo();
+                        return false;
+                    } else {
+                        error(XQueryBundle.message("parser.error.expected", "$"));
+                        haveErrors = true;
+                    }
+                }
+
+                skipWhiteSpaceAndCommentTokens();
+                if (!parseQName(XQueryElementType.VAR_NAME) && !haveErrors) {
+                    error(XQueryBundle.message("parser.error.expected-qname"));
+                    haveErrors = true;
+                }
+
+                skipWhiteSpaceAndCommentTokens();
+                boolean haveTypeDeclaration = parseTypeDeclaration();
+
+                skipWhiteSpaceAndCommentTokens();
+                if (!matchTokenType(XQueryTokenType.ASSIGN_EQUAL) && !haveErrors) {
+                    if (haveTypeDeclaration) {
+                        error(XQueryBundle.message("parser.error.expected", ":="));
+                    } else {
+                        error(XQueryBundle.message("parser.error.expected-variable-assign-or-keyword", "as"));
+                    }
+                    haveErrors = true;
+                }
+
+                skipWhiteSpaceAndCommentTokens();
+                if (!parseExprSingle() && !haveErrors) {
+                    error(XQueryBundle.message("parser.error.expected-expression"));
+                }
+
+                isFirstVarName = false;
+                skipWhiteSpaceAndCommentTokens();
+            } while (matchTokenType(XQueryTokenType.COMMA));
+
+            letClauseMarker.done(XQueryElementType.LET_CLAUSE);
+            return true;
+        }
+        letClauseMarker.drop();
         return false;
     }
 

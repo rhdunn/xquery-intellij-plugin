@@ -1430,6 +1430,105 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region XQuery 1.0 :: LetClause
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FLWORExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-LetClause")
+    public void testLetClause() {
+        final String expected = loadResource("tests/parser/xquery-1.0/LetClause.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/LetClause.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FLWORExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-LetClause")
+    public void testLetClause_MissingVarName() {
+        final String expected = loadResource("tests/parser/xquery-1.0/LetClause_MissingVarName.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/LetClause_MissingVarName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FLWORExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-LetClause")
+    public void testLetClause_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/LetClause_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/LetClause_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FLWORExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-LetClause")
+    public void testLetClause_MissingVarAssignOperator() {
+        final String expected = loadResource("tests/parser/xquery-1.0/LetClause_MissingVarAssignOperator.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/LetClause_MissingVarAssignOperator.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FLWORExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-LetClause")
+    public void testLetClause_MissingVarAssignExpr() {
+        final String expected = loadResource("tests/parser/xquery-1.0/LetClause_MissingVarAssignExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/LetClause_MissingVarAssignExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FLWORExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-LetClause")
+    public void testLetClause_MissingReturnKeyword() {
+        final String expected = loadResource("tests/parser/xquery-1.0/LetClause_MissingReturnKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/LetClause_MissingReturnKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FLWORExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-LetClause")
+    public void testLetClause_MissingReturnExpr() {
+        final String expected = loadResource("tests/parser/xquery-1.0/LetClause_MissingReturnExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/LetClause_MissingReturnExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FLWORExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-LetClause")
+    public void testLetClause_TypeDeclaration() {
+        final String expected = loadResource("tests/parser/xquery-1.0/LetClause_TypeDeclaration.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/LetClause_TypeDeclaration.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FLWORExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-LetClause")
+    public void testLetClause_TypeDeclaration_MissingVarIndicator() {
+        final String expected = loadResource("tests/parser/xquery-1.0/LetClause_TypeDeclaration_MissingVarIndicator.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/LetClause_TypeDeclaration_MissingVarIndicator.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FLWORExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-LetClause")
+    public void testLetClause_MultipleVarName() {
+        final String expected = loadResource("tests/parser/xquery-1.0/LetClause_MultipleVarName.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/LetClause_MultipleVarName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FLWORExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-LetClause")
+    public void testLetClause_MultipleVarName_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-1.0/LetClause_MultipleVarName_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/LetClause_MultipleVarName_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FLWORExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-LetClause")
+    public void testLetClause_MultipleVarName_MissingVarIndicator() {
+        final String expected = loadResource("tests/parser/xquery-1.0/LetClause_MultipleVarName_MissingVarIndicator.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/LetClause_MultipleVarName_MissingVarIndicator.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region XQuery 1.0 :: QuantifiedExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QuantifiedExpr")

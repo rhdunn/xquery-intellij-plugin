@@ -1,0 +1,1 @@
+let $ x as xs:string $ y return $ x
