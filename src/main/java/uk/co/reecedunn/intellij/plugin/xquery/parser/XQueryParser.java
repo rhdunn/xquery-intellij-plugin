@@ -1031,7 +1031,9 @@ class XQueryParser {
         if (haveForLetClause) {
             boolean haveErrors = false;
 
-            // TODO: WhereClause?
+            skipWhiteSpaceAndCommentTokens();
+            parseWhereClause();
+
             // TODO: OrderByClause?
 
             skipWhiteSpaceAndCommentTokens();
@@ -1187,6 +1189,20 @@ class XQueryParser {
             return true;
         }
         letClauseMarker.drop();
+        return false;
+    }
+
+    private boolean parseWhereClause() {
+        final PsiBuilder.Marker whereClauseMarker = matchTokenTypeWithMarker(XQueryTokenType.K_WHERE);
+        if (whereClauseMarker != null) {
+            skipWhiteSpaceAndCommentTokens();
+            if (!parseExprSingle()) {
+                error(XQueryBundle.message("parser.error.expected-expression"));
+            }
+
+            whereClauseMarker.done(XQueryElementType.WHERE_CLAUSE);
+            return true;
+        }
         return false;
     }
 
