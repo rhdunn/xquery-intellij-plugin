@@ -1034,7 +1034,8 @@ class XQueryParser {
             skipWhiteSpaceAndCommentTokens();
             parseWhereClause();
 
-            // TODO: OrderByClause?
+            skipWhiteSpaceAndCommentTokens();
+            parseOrderByClause();
 
             skipWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.K_RETURN)) {
@@ -1203,6 +1204,51 @@ class XQueryParser {
             whereClauseMarker.done(XQueryElementType.WHERE_CLAUSE);
             return true;
         }
+        return false;
+    }
+
+    private boolean parseOrderByClause() {
+        final PsiBuilder.Marker orderByClauseMarker = mBuilder.mark();
+        if (matchTokenType(XQueryTokenType.K_ORDER)) {
+            boolean haveErrors = false;
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_BY)) {
+                error(XQueryBundle.message("parser.error.expected", "by"));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!parseExprSingle() && !haveErrors) { // TODO: OrderSpecList
+                error(XQueryBundle.message("parser.error.expected", "OrderSpecList"));
+            }
+
+            orderByClauseMarker.done(XQueryElementType.ORDER_BY_CLAUSE);
+            return true;
+        } else if (matchTokenType(XQueryTokenType.K_STABLE)) {
+            boolean haveErrors = false;
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_ORDER)) {
+                error(XQueryBundle.message("parser.error.expected", "order"));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_BY) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", "by"));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!parseExprSingle() && !haveErrors) { // TODO: OrderSpecList
+                error(XQueryBundle.message("parser.error.expected", "OrderSpecList"));
+            }
+
+            orderByClauseMarker.done(XQueryElementType.ORDER_BY_CLAUSE);
+            return true;
+        }
+        orderByClauseMarker.drop();
         return false;
     }
 

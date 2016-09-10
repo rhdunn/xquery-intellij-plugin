@@ -1,0 +1,1 @@
+for $ x in $ y stable by $ x return $ x

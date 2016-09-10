@@ -1,0 +1,1 @@
+let $ x := $ y stable order by $ x return $ x

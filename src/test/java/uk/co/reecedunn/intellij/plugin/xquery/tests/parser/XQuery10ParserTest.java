@@ -1629,6 +1629,81 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region XQuery 1.0 :: OrderByClause
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FLWORExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-OrderByClause")
+    public void testOrderByClause_ForClause() {
+        final String expected = loadResource("tests/parser/xquery-1.0/OrderByClause_ForClause.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/OrderByClause_ForClause.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FLWORExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-OrderByClause")
+    public void testOrderByClause_LetClause() {
+        final String expected = loadResource("tests/parser/xquery-1.0/OrderByClause_LetClause.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/OrderByClause_LetClause.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FLWORExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-OrderByClause")
+    public void testOrderByClause_MissingByKeyword() {
+        final String expected = loadResource("tests/parser/xquery-1.0/OrderByClause_MissingByKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/OrderByClause_MissingByKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FLWORExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-OrderByClause")
+    public void testOrderByClause_MissingOrderSpecList() {
+        final String expected = loadResource("tests/parser/xquery-1.0/OrderByClause_MissingOrderSpecList.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/OrderByClause_MissingOrderSpecList.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FLWORExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-OrderByClause")
+    public void testOrderByClause_Stable_ForClause() {
+        final String expected = loadResource("tests/parser/xquery-1.0/OrderByClause_Stable_ForClause.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/OrderByClause_Stable_ForClause.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FLWORExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-OrderByClause")
+    public void testOrderByClause_Stable_LetClause() {
+        final String expected = loadResource("tests/parser/xquery-1.0/OrderByClause_Stable_LetClause.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/OrderByClause_Stable_LetClause.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FLWORExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-OrderByClause")
+    public void testOrderByClause_Stable_MissingOrderKeyword() {
+        final String expected = loadResource("tests/parser/xquery-1.0/OrderByClause_Stable_MissingOrderKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/OrderByClause_Stable_MissingOrderKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FLWORExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-OrderByClause")
+    public void testOrderByClause_Stable_MissingByKeyword() {
+        final String expected = loadResource("tests/parser/xquery-1.0/OrderByClause_Stable_MissingByKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/OrderByClause_Stable_MissingByKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FLWORExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-OrderByClause")
+    public void testOrderByClause_Stable_MissingOrderSpecList() {
+        final String expected = loadResource("tests/parser/xquery-1.0/OrderByClause_Stable_MissingOrderSpecList.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/OrderByClause_Stable_MissingOrderSpecList.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region XQuery 1.0 :: QuantifiedExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QuantifiedExpr")
