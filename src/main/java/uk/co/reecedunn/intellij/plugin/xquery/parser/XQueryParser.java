@@ -1275,12 +1275,40 @@ class XQueryParser {
     private boolean parseOrderSpec() {
         final PsiBuilder.Marker orderSpecMarker = mBuilder.mark();
         if (parseExprSingle()) {
-            // TODO: OrderModifier
+            skipWhiteSpaceAndCommentTokens();
+            parseOrderModifier();
 
             orderSpecMarker.done(XQueryElementType.ORDER_SPEC);
             return true;
         }
         orderSpecMarker.drop();
+        return false;
+    }
+
+    private boolean parseOrderModifier() {
+        final PsiBuilder.Marker orderModifierMarker = mBuilder.mark();
+
+        if (matchTokenType(XQueryTokenType.K_ASCENDING) || matchTokenType(XQueryTokenType.K_DESCENDING)) {
+            //
+        }
+
+        skipWhiteSpaceAndCommentTokens();
+        if (matchTokenType(XQueryTokenType.K_EMPTY)) {
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_GREATEST) && !matchTokenType(XQueryTokenType.K_LEAST)) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "greatest, least"));
+            }
+        }
+
+        skipWhiteSpaceAndCommentTokens();
+        if (matchTokenType(XQueryTokenType.K_COLLATION)) {
+            skipWhiteSpaceAndCommentTokens();
+            if (!parseStringLiteral(XQueryElementType.URI_LITERAL)) {
+                error(XQueryBundle.message("parser.error.expected-uri-string"));
+            }
+        }
+
+        orderModifierMarker.done(XQueryElementType.ORDER_MODIFIER);
         return false;
     }
 

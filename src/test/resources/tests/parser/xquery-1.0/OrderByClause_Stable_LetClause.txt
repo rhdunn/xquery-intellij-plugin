@@ -67,6 +67,7 @@ FileElement[FILE(0:45)]
                                                                            LeafPsiElement[XQUERY_NCNAME_TOKEN(33:34)]('x')
                                                                            PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
                                                                      XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(35:35)]
+                     XQueryOrderModifierImpl[XQUERY_ORDER_MODIFIER(35:35)]
             LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_RETURN(35:41)]('return')
             PsiWhiteSpaceImpl[WHITE_SPACE(41:42)](' ')
             XQueryOrExprImpl[XQUERY_OR_EXPR(42:45)]

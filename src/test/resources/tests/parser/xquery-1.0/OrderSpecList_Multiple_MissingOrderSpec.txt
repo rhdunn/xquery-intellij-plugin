@@ -65,5 +65,6 @@ FileElement[FILE(0:29)]
                                                                            LeafPsiElement[XQUERY_NCNAME_TOKEN(26:27)]('x')
                                                                            PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
                                                                      XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(28:28)]
+                     XQueryOrderModifierImpl[XQUERY_ORDER_MODIFIER(28:28)]
                   LeafPsiElement[XQUERY_COMMA_TOKEN(28:29)](',')
                   PsiErrorElementImpl[ERROR_ELEMENT(29:29)]('XPST0003: Expected 'OrderSpec'.')
