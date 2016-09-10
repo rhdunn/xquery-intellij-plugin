@@ -2,15 +2,19 @@
 <idea-plugin version="2">
   <id>uk.co.reecedunn.intellij.plugin.xquery</id>
   <name>xquery-intellij-plugin</name>
-  <version>0.0.1</version>
+  <version>0.1</version>
   <vendor email="msclrhd@gmail.com" url="http://reecedunn.co.uk">Reece H. Dunn</vendor>
 
   <description><![CDATA[
-      XQuery Language Support
+    XQuery Language Support
   ]]></description>
 
   <change-notes><![CDATA[
-      Release 0.0.1: Initial release.
+    <p>Release 0.1:</p>
+    <ul>
+      <li>XQuery file type support, including encoding detection.</li>
+      <li>Conforming XQuery 1.0 syntax highlighter and parser.</li>
+    </ul>
   ]]></change-notes>
 
   <idea-version since-build="161"/>
