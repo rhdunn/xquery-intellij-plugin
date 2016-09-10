@@ -76,6 +76,7 @@ public interface XQueryElementType {
     IElementType OR_EXPR = new ICompositeElementType("XQUERY_OR_EXPR", XQueryOrExprImpl.class, XQueryOrExprPsiImpl.class);
 
     IElementType ORDER_SPEC = new ICompositeElementType("XQUERY_ORDER_SPEC", XQueryOrderSpecImpl.class, XQueryOrderSpecPsiImpl.class);
+    IElementType ORDER_SPEC_LIST = new ICompositeElementType("XQUERY_ORDER_SPEC_LIST", XQueryOrderSpecListImpl.class, XQueryOrderSpecListPsiImpl.class);
     IElementType POSITIONAL_VAR = new ICompositeElementType("XQUERY_POSITIONAL_VAR", XQueryPositionalVarImpl.class, XQueryForClausePsiImpl.class);
     IElementType ORDER_BY_CLAUSE = new ICompositeElementType("XQUERY_ORDER_BY_CLAUSE", XQueryOrderByClauseImpl.class, XQueryOrderByClausePsiImpl.class);
     IElementType WHERE_CLAUSE = new ICompositeElementType("XQUERY_WHERE_CLAUSE", XQueryWhereClauseImpl.class, XQueryWhereClausePsiImpl.class);
