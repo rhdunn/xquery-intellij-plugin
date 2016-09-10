@@ -22,22 +22,6 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class XQueryVersionTest extends TestCase {
-    public void testName() {
-        assertThat(XQueryVersion.XQUERY_0_9_MARKLOGIC.getName(), is("MarkLogic 3.2 Compatibility XQuery Dialect"));
-        assertThat(XQueryVersion.XQUERY_1_0.getName(), is("W3C XQuery 1.0"));
-        assertThat(XQueryVersion.XQUERY_1_0_MARKLOGIC.getName(), is("MarkLogic XQuery Dialect"));
-        assertThat(XQueryVersion.XQUERY_3_0.getName(), is("W3C XQuery 3.0"));
-        assertThat(XQueryVersion.XQUERY_3_1.getName(), is("W3C XQuery 3.1"));
-    }
-
-    public void testReference() {
-        assertThat(XQueryVersion.XQUERY_0_9_MARKLOGIC.getReference(), is("https://docs.marklogic.com/5.0/guide/xquery/dialects"));
-        assertThat(XQueryVersion.XQUERY_1_0.getReference(), is("https://www.w3.org/TR/xquery/"));
-        assertThat(XQueryVersion.XQUERY_1_0_MARKLOGIC.getReference(), is("https://docs.marklogic.com/5.0/guide/xquery/dialects"));
-        assertThat(XQueryVersion.XQUERY_3_0.getReference(), is("https://www.w3.org/TR/xquery-30/"));
-        assertThat(XQueryVersion.XQUERY_3_1.getReference(), is("https://www.w3.org/TR/xquery-31/"));
-    }
-
     public void testToString() {
         assertThat(XQueryVersion.XQUERY_0_9_MARKLOGIC.toString(), is("0.9-ml"));
         assertThat(XQueryVersion.XQUERY_1_0.toString(), is("1.0"));
