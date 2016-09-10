@@ -1219,7 +1219,7 @@ class XQueryParser {
             }
 
             skipWhiteSpaceAndCommentTokens();
-            if (!parseExprSingle() && !haveErrors) { // TODO: OrderSpecList
+            if (!parseOrderSpecList() && !haveErrors) {
                 error(XQueryBundle.message("parser.error.expected", "OrderSpecList"));
             }
 
@@ -1241,7 +1241,7 @@ class XQueryParser {
             }
 
             skipWhiteSpaceAndCommentTokens();
-            if (!parseExprSingle() && !haveErrors) { // TODO: OrderSpecList
+            if (!parseOrderSpecList() && !haveErrors) {
                 error(XQueryBundle.message("parser.error.expected", "OrderSpecList"));
             }
 
@@ -1249,6 +1249,23 @@ class XQueryParser {
             return true;
         }
         orderByClauseMarker.drop();
+        return false;
+    }
+
+    private boolean parseOrderSpecList() {
+        // TODO: OrderSpec ("," OrderSpec)*
+        return parseOrderSpec();
+    }
+
+    private boolean parseOrderSpec() {
+        final PsiBuilder.Marker orderSpecListMarker = mBuilder.mark();
+        if (parseExprSingle()) {
+            // TODO: OrderModifier
+
+            orderSpecListMarker.done(XQueryElementType.ORDER_SPEC);
+            return true;
+        }
+        orderSpecListMarker.drop();
         return false;
     }
 
