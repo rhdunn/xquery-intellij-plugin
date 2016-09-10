@@ -126,10 +126,13 @@ public class ImplementationsTest extends TestCase {
         ImplementationItem version = implementation.getItems(ImplementationItem.IMPLEMENTATION_VERSION).get(2);
 
         final List<ImplementationItem> dialects = version.getItemsByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, ImplementationItem.XQUERY, XQueryVersion.XQUERY_1_0);
-        assertThat(dialects.size(), is(1));
+        assertThat(dialects.size(), is(2));
 
         assertThat(dialects.get(0).getID(), is("saxon/EE/1.0"));
         assertThat(dialects.get(0).toString(), is("XQuery"));
+
+        assertThat(dialects.get(1).getID(), is("saxon/EE/1.0-update"));
+        assertThat(dialects.get(1).toString(), is("XQuery Update Facility 1.0"));
 
         assertThat(dialects.get(0).equals(dialects.get(0)), is(true));
         assertThat(dialects.get(0).equals(dialects.get(0).getID()), is(false));
@@ -176,8 +179,8 @@ public class ImplementationsTest extends TestCase {
         ImplementationItem version = implementation.getItems(ImplementationItem.IMPLEMENTATION_VERSION).get(2);
 
         ImplementationItem dialect = version.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, ImplementationItem.XQUERY, XQueryVersion.XQUERY_1_0);
-        assertThat(dialect.getID(), is("saxon/EE/1.0"));
-        assertThat(dialect.toString(), is("XQuery"));
+        assertThat(dialect.getID(), is("saxon/EE/1.0-update"));
+        assertThat(dialect.toString(), is("XQuery Update Facility 1.0"));
     }
 
     public void testVersions() {
