@@ -8,6 +8,7 @@ This project provides XQuery support for the IntelliJ IDE.
 ## Features
 
 1.  XQuery file type support, including encoding detection.
+2.  Conforming XQuery 1.0 syntax highlighter and parser.
 
 ## License Information
 
