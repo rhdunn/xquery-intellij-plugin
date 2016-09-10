@@ -2909,9 +2909,25 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region Update Facility 1.0 :: FunctionDecl
+
+    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-FunctionDecl")
+    public void testFunctionDecl_UpdateFacility10() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "declare",  XQueryTokenType.K_DECLARE);
+        matchSingleToken(lexer, "updating", XQueryTokenType.K_UPDATING);
+        matchSingleToken(lexer, "function", XQueryTokenType.K_FUNCTION);
+        matchSingleToken(lexer, "(",        XQueryTokenType.PARENTHESIS_OPEN);
+        matchSingleToken(lexer, ")",        XQueryTokenType.PARENTHESIS_CLOSE);
+        matchSingleToken(lexer, "as",       XQueryTokenType.K_AS);
+        matchSingleToken(lexer, "external", XQueryTokenType.K_EXTERNAL);
+    }
+
+    // endregion
     // region Update Facility 1.0 :: RevalidationDecl
 
-    @Specification(name="Update Facility 1.0", reference="https://www.w3.org/TR/xquery-update-10/#prod-xquery-RevalidationDecl")
+    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-RevalidationDecl")
     public void testRevalidationDecl() {
         Lexer lexer = new XQueryLexer();
 
