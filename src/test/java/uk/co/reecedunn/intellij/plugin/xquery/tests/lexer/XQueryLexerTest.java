@@ -2939,4 +2939,19 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region Update Facility 1.0 :: InsertExprTargetChoice
+
+    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-InsertExprTargetChoice")
+    public void testInsertExprTargetChoice() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "as",     XQueryTokenType.K_AS);
+        matchSingleToken(lexer, "first",  XQueryTokenType.K_FIRST);
+        matchSingleToken(lexer, "last",   XQueryTokenType.K_LAST);
+        matchSingleToken(lexer, "into",   XQueryTokenType.K_INTO);
+        matchSingleToken(lexer, "after",  XQueryTokenType.K_AFTER);
+        matchSingleToken(lexer, "before", XQueryTokenType.K_BEFORE);
+    }
+
+    // endregion
 }

@@ -1221,6 +1221,7 @@ public class XQueryLexer extends LexerBase {
     private static final Map<String, IElementType> sKeywords = new HashMap<>();
 
     static {
+        sKeywords.put("after", XQueryTokenType.K_AFTER); // Update Facility 1.0
         sKeywords.put("ancestor", XQueryTokenType.K_ANCESTOR);
         sKeywords.put("ancestor-or-self", XQueryTokenType.K_ANCESTOR_OR_SELF);
         sKeywords.put("and", XQueryTokenType.K_AND);
@@ -1229,6 +1230,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("at", XQueryTokenType.K_AT);
         sKeywords.put("attribute", XQueryTokenType.K_ATTRIBUTE);
         sKeywords.put("base-uri", XQueryTokenType.K_BASE_URI);
+        sKeywords.put("before", XQueryTokenType.K_BEFORE); // Update Facility 1.0
         sKeywords.put("boundary-space", XQueryTokenType.K_BOUNDARY_SPACE);
         sKeywords.put("by", XQueryTokenType.K_BY);
         sKeywords.put("case", XQueryTokenType.K_CASE);
@@ -1256,6 +1258,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("every", XQueryTokenType.K_EVERY);
         sKeywords.put("except", XQueryTokenType.K_EXCEPT);
         sKeywords.put("external", XQueryTokenType.K_EXTERNAL);
+        sKeywords.put("first", XQueryTokenType.K_FIRST); // Update Facility 1.0
         sKeywords.put("following", XQueryTokenType.K_FOLLOWING);
         sKeywords.put("following-sibling", XQueryTokenType.K_FOLLOWING_SIBLING);
         sKeywords.put("for", XQueryTokenType.K_FOR);
@@ -1270,8 +1273,10 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("inherit", XQueryTokenType.K_INHERIT);
         sKeywords.put("instance", XQueryTokenType.K_INSTANCE);
         sKeywords.put("intersect", XQueryTokenType.K_INTERSECT);
+        sKeywords.put("into", XQueryTokenType.K_INTO); // Update Facility 1.0
         sKeywords.put("is", XQueryTokenType.K_IS);
         sKeywords.put("item", XQueryTokenType.K_ITEM);
+        sKeywords.put("last", XQueryTokenType.K_LAST); // Update Facility 1.0
         sKeywords.put("lax", XQueryTokenType.K_LAX);
         sKeywords.put("le", XQueryTokenType.K_LE);
         sKeywords.put("least", XQueryTokenType.K_LEAST);
