@@ -22,7 +22,9 @@ public class XQuery31ParserTest extends XQuery30ParserTest {
     // region Initialization
 
     public void initializeSettings(XQueryProjectSettings settings) {
+        settings.setImplementation("w3c");
         settings.setXQueryVersion(XQueryVersion.XQUERY_3_1);
+        settings.setXQuery10Dialect("w3c/3.1");
     }
 
     // endregion
