@@ -1296,11 +1296,13 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("preserve", XQueryTokenType.K_PRESERVE);
         sKeywords.put("processing-instruction", XQueryTokenType.K_PROCESSING_INSTRUCTION);
         sKeywords.put("return", XQueryTokenType.K_RETURN);
+        sKeywords.put("revalidation", XQueryTokenType.K_REVALIDATION); // Update Facility 1.0
         sKeywords.put("satisfies", XQueryTokenType.K_SATISFIES);
         sKeywords.put("schema", XQueryTokenType.K_SCHEMA);
         sKeywords.put("schema-attribute", XQueryTokenType.K_SCHEMA_ATTRIBUTE);
         sKeywords.put("schema-element", XQueryTokenType.K_SCHEMA_ELEMENT);
         sKeywords.put("self", XQueryTokenType.K_SELF);
+        sKeywords.put("skip", XQueryTokenType.K_SKIP); // Update Facility 1.0
         sKeywords.put("some", XQueryTokenType.K_SOME);
         sKeywords.put("stable", XQueryTokenType.K_STABLE);
         sKeywords.put("strict", XQueryTokenType.K_STRICT);

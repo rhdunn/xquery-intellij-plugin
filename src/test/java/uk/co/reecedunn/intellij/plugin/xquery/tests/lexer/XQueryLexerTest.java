@@ -2909,4 +2909,18 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region Update Facility 1.0 :: RevalidationDecl
+
+    @Specification(name="Update Facility 1.0", reference="https://www.w3.org/TR/xquery-update-10/#prod-xquery-RevalidationDecl")
+    public void testRevalidationDecl() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "declare",      XQueryTokenType.K_DECLARE);
+        matchSingleToken(lexer, "revalidation", XQueryTokenType.K_REVALIDATION);
+        matchSingleToken(lexer, "strict",       XQueryTokenType.K_STRICT);
+        matchSingleToken(lexer, "lax",          XQueryTokenType.K_LAX);
+        matchSingleToken(lexer, "skip",         XQueryTokenType.K_SKIP);
+    }
+
+    // endregion
 }

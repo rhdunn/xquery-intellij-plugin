@@ -194,11 +194,13 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_PRESERVE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PRESERVE");
     IXQueryReservedFunctionNameOrNCNameType K_PROCESSING_INSTRUCTION = new IXQueryReservedFunctionNameOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PROCESSING_INSTRUCTION");
     IXQueryKeywordOrNCNameType K_RETURN = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_RETURN");
+    IXQueryKeywordOrNCNameType K_REVALIDATION = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_REVALIDATION"); // Update Facility 1.0
     IXQueryKeywordOrNCNameType K_SATISFIES = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SATISFIES");
     IXQueryKeywordOrNCNameType K_SCHEMA = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SCHEMA");
     IXQueryReservedFunctionNameOrNCNameType K_SCHEMA_ATTRIBUTE = new IXQueryReservedFunctionNameOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SCHEMA_ATTRIBUTE");
     IXQueryReservedFunctionNameOrNCNameType K_SCHEMA_ELEMENT = new IXQueryReservedFunctionNameOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SCHEMA_ELEMENT");
     IXQueryKeywordOrNCNameType K_SELF = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SELF");
+    IXQueryKeywordOrNCNameType K_SKIP = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SKIP"); // Update Facility 1.0
     IXQueryKeywordOrNCNameType K_SOME = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SOME");
     IXQueryKeywordOrNCNameType K_STABLE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_STABLE");
     IXQueryKeywordOrNCNameType K_STRICT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_STRICT");
@@ -220,7 +222,7 @@ public interface XQueryTokenType extends TokenType {
         STRING_LITERAL_START,
         STRING_LITERAL_CONTENTS,
         STRING_LITERAL_END,
-            ESCAPED_CHARACTER,
+        ESCAPED_CHARACTER,
         CHARACTER_REFERENCE,
         PREDEFINED_ENTITY_REFERENCE,
         PARTIAL_ENTITY_REFERENCE);
