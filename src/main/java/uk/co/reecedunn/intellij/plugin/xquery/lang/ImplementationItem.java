@@ -105,24 +105,24 @@ public class ImplementationItem {
         return NULL_ITEM;
     }
 
-    public String getVersion(String featureName) {
+    public XQueryVersion getVersion(String featureName) {
         if (mElement != null) {
             NodeList nodes = mElement.getElementsByTagName(featureName);
             if (nodes.getLength() != 0) {
                 Node node = nodes.item(0);
-                return node.getAttributes().getNamedItem("version").getNodeValue();
+                return XQueryVersion.parse(node.getAttributes().getNamedItem("version").getNodeValue());
             }
         }
         return null;
     }
 
-    public List<ImplementationItem> getItemsByVersion(String tagName, String featureName, String featureValue) {
+    public List<ImplementationItem> getItemsByVersion(String tagName, String featureName, XQueryVersion featureVersion) {
         final List<ImplementationItem> items = new ArrayList<>();
         if (mElement != null) {
             NodeList nodes = mElement.getElementsByTagName(tagName);
             for (int i = 0; i != nodes.getLength(); ++i) {
                 ImplementationItem item = new ImplementationItem((Element)nodes.item(i));
-                if (featureValue.equals(item.getVersion(featureName))) {
+                if (featureVersion.equals(item.getVersion(featureName))) {
                     items.add(item);
                 }
             }
@@ -133,14 +133,14 @@ public class ImplementationItem {
         return items;
     }
 
-    public ImplementationItem getDefaultItemByVersion(String tagName, String featureName, String featureValue) {
+    public ImplementationItem getDefaultItemByVersion(String tagName, String featureName, XQueryVersion featureVersion) {
         if (mElement != null) {
             NodeList nodes = mElement.getElementsByTagName(tagName);
             for (int i = 0; i != nodes.getLength(); ++i) {
                 Node node = nodes.item(i);
                 if (node.getAttributes().getNamedItem("default").getNodeValue().equals("true")) {
                     ImplementationItem item = new ImplementationItem((Element)nodes.item(i));
-                    if (featureValue.equals(item.getVersion(featureName))) {
+                    if (featureVersion.equals(item.getVersion(featureName))) {
                         return item;
                     }
                 }
@@ -149,13 +149,13 @@ public class ImplementationItem {
         return NULL_ITEM;
     }
 
-    public List<String> getVersions(String tagName, String featureName) {
-        final List<String> items = new ArrayList<>();
+    public List<XQueryVersion> getVersions(String tagName, String featureName) {
+        final List<XQueryVersion> items = new ArrayList<>();
         if (mElement != null) {
             NodeList nodes = mElement.getElementsByTagName(tagName);
             for (int i = 0; i != nodes.getLength(); ++i) {
                 ImplementationItem item = new ImplementationItem((Element)nodes.item(i));
-                String version = item.getVersion(featureName);
+                XQueryVersion version = item.getVersion(featureName);
                 if (!items.contains(version)) {
                     items.add(version);
                 }
@@ -164,7 +164,7 @@ public class ImplementationItem {
         return items;
     }
 
-    public String getDefaultVersion(String tagName, String featureName) {
+    public XQueryVersion getDefaultVersion(String tagName, String featureName) {
         if (mElement != null) {
             NodeList nodes = mElement.getElementsByTagName(tagName);
             for (int i = 0; i != nodes.getLength(); ++i) {
@@ -174,7 +174,7 @@ public class ImplementationItem {
                 for (int j = 0; j != versions.getLength(); ++j) {
                     Node version = versions.item(j);
                     if (version.getAttributes().getNamedItem("default").getNodeValue().equals("true")) {
-                        return version.getAttributes().getNamedItem("version").getNodeValue();
+                        return XQueryVersion.parse(version.getAttributes().getNamedItem("version").getNodeValue());
                     }
                 }
             }

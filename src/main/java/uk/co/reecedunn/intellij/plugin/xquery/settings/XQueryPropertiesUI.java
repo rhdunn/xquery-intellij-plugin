@@ -51,8 +51,7 @@ public class XQueryPropertiesUI {
         boolean found = false;
 
         control.removeAllItems();
-        for (String item : source.getVersions(ImplementationItem.IMPLEMENTATION_DIALECT, filter)) {
-            XQueryVersion version = XQueryVersion.parse(item);
+        for (XQueryVersion version : source.getVersions(ImplementationItem.IMPLEMENTATION_DIALECT, filter)) {
             control.addItem(version);
             if (version == selected) {
                 control.setSelectedItem(version);
@@ -60,7 +59,7 @@ public class XQueryPropertiesUI {
             }
         }
         if (!found) {
-            control.setSelectedItem(XQueryVersion.parse(source.getDefaultVersion(ImplementationItem.IMPLEMENTATION_DIALECT, filter)));
+            control.setSelectedItem(source.getDefaultVersion(ImplementationItem.IMPLEMENTATION_DIALECT, filter));
         }
     }
 
@@ -81,7 +80,7 @@ public class XQueryPropertiesUI {
         boolean found = false;
 
         control.removeAllItems();
-        for (ImplementationItem item : source.getItemsByVersion(filter, ImplementationItem.XQUERY, version.toString())) {
+        for (ImplementationItem item : source.getItemsByVersion(filter, ImplementationItem.XQUERY, version)) {
             control.addItem(item);
             if (selected != null && item.toString().equals(selected.toString())) {
                 control.setSelectedItem(item);
@@ -89,7 +88,7 @@ public class XQueryPropertiesUI {
             }
         }
         if (!found) {
-            control.setSelectedItem(source.getDefaultItemByVersion(filter, ImplementationItem.XQUERY, version.toString()));
+            control.setSelectedItem(source.getDefaultItemByVersion(filter, ImplementationItem.XQUERY, version));
         }
     }
 
