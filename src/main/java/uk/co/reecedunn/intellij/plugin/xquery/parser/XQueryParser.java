@@ -1073,6 +1073,7 @@ class XQueryParser {
             || parseQuantifiedExpr()
             || parseTypeswitchExpr()
             || parseIfExpr()
+            || parseInsertExpr()
             || parseOrExpr();
     }
 
@@ -1599,6 +1600,52 @@ class XQueryParser {
             return true;
         }
         ifExprMarker.drop();
+        return false;
+    }
+
+    // endregion
+    // region Grammar :: Expr :: InsertExpr (Update Facility 1.0)
+
+    private boolean parseInsertExpr() {
+        final PsiBuilder.Marker insertExprMarker = mark();
+        if (getTokenType() == XQueryTokenType.K_INSERT) {
+            if (getUpdateFacilityVersion() != null) {
+                advanceLexer();
+            } else {
+                final PsiBuilder.Marker errorMarker = mark();
+                advanceLexer();
+                errorMarker.error(XQueryBundle.message("parser.error.update-facility.1.0"));
+            }
+
+            boolean haveErrors = false;
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_NODE) && !matchTokenType(XQueryTokenType.K_NODES)) {
+                insertExprMarker.rollbackTo();
+                return false;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!parseExprSingle()) { // TODO: SourceExpr
+                error(XQueryBundle.message("parser.error.expected-expression"));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_INTO) && !haveErrors) { // TODO: InsertExprTargetChoice
+                error(XQueryBundle.message("parser.error.expected", "InsertExprTargetChoice"));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!parseExprSingle() && !haveErrors) { // TODO: TargetExpr
+                error(XQueryBundle.message("parser.error.expected-expression"));
+            }
+
+            insertExprMarker.done(XQueryElementType.INSERT_EXPR);
+            return true;
+        }
+        insertExprMarker.drop();
         return false;
     }
 

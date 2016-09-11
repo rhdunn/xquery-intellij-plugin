@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
+package uk.co.reecedunn.intellij.plugin.xquery.ast.impl.update.facility;
 
-/**
- * An XQuery 1.0 <code>ExprSingle</code> node in the XQuery AST.
- *
- * Because the child nodes of an <code>ExprSingle</code> are only referenced
- * from the <code>ExprSingle</code> node in the grammar, the
- * <code>ExprSingle</code> nodes are stored as instances of the child nodes
- * instead of as distinct nodes themselves.
- */
-public interface XQueryExprSingle {
+import com.intellij.psi.impl.source.tree.CompositeElement;
+import com.intellij.psi.tree.IElementType;
+import org.jetbrains.annotations.NotNull;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.UpdateFacilityInsertExpr;
+
+public class UpdateFacilityInsertExprImpl extends CompositeElement implements UpdateFacilityInsertExpr {
+    public UpdateFacilityInsertExprImpl(@NotNull IElementType type) {
+        super(type);
+    }
 }

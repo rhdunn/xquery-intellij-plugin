@@ -95,4 +95,56 @@ public class UpdateFacility10ParserTest extends XQuery10ParserTest {
     }
 
     // endregion
+    // region Update Facility 1.0 :: InsertExpr
+
+    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-InsertExpr")
+    public void testInsertExpr_Node() {
+        final String expected = loadResource("tests/parser/xquery-update-1.0/InsertExpr_Node.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-update-1.0/InsertExpr_Node.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-InsertExpr")
+    public void testInsertExpr_Node_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-update-1.0/InsertExpr_Node_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-update-1.0/InsertExpr_Node_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-InsertExpr")
+    public void testInsertExpr_Nodes() {
+        final String expected = loadResource("tests/parser/xquery-update-1.0/InsertExpr_Nodes.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-update-1.0/InsertExpr_Nodes.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-InsertExpr")
+    public void testInsertExpr_Nodes_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-update-1.0/InsertExpr_Nodes_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-update-1.0/InsertExpr_Nodes_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-InsertExpr")
+    public void testInsertExpr_MissingSourceExpr() {
+        final String expected = loadResource("tests/parser/xquery-update-1.0/InsertExpr_MissingSourceExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-update-1.0/InsertExpr_MissingSourceExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-InsertExpr")
+    public void testInsertExpr_MissingInsertExprTargetChoice() {
+        final String expected = loadResource("tests/parser/xquery-update-1.0/InsertExpr_MissingInsertExprTargetChoice.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-update-1.0/InsertExpr_MissingInsertExprTargetChoice.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-InsertExpr")
+    public void testInsertExpr_MissingTargetExpr() {
+        final String expected = loadResource("tests/parser/xquery-update-1.0/InsertExpr_MissingTargetExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-update-1.0/InsertExpr_MissingTargetExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
 }
