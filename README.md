@@ -11,7 +11,8 @@
 
 This project provides XQuery support for the IntelliJ IDE.
 
-_Supported IntelliJ Platforms:_ IntelliJ IDEA Community, IntelliJ IDEA Ultimate, PhpStorm, WebStorm, PyCharm, RubyMine, AppCode, CLion, Rider, Android Studio
+_Supported IntelliJ Platforms:_ IntelliJ IDEA Community, IntelliJ IDEA Ultimate,
+PhpStorm, WebStorm, PyCharm, RubyMine, AppCode, CLion, Rider, Android Studio
 
 _Supported IntelliJ Versions:_ 2016.1 - 2016.2
 
@@ -23,7 +24,8 @@ _Supported XQuery Implementations:_ MarkLogic, Saxonica, W3C Specifications
 
 ### Language Support
 
-Conforming XQuery 1.0 syntax highlighter and parser with file encoding detection.
+Standard conforming XQuery 1.0 syntax highlighter and parser with file encoding
+detection.
 
 ![Syntax Highlighting](images/syntax-highlighting.png)
 
