@@ -1240,6 +1240,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("collation", XQueryTokenType.K_COLLATION);
         sKeywords.put("comment", XQueryTokenType.K_COMMENT);
         sKeywords.put("construction", XQueryTokenType.K_CONSTRUCTION);
+        sKeywords.put("copy", XQueryTokenType.K_COPY); // Update Facility 1.0
         sKeywords.put("copy-namespaces", XQueryTokenType.K_COPY_NAMESPACES);
         sKeywords.put("declare", XQueryTokenType.K_DECLARE);
         sKeywords.put("default", XQueryTokenType.K_DEFAULT);
@@ -1285,6 +1286,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("let", XQueryTokenType.K_LET);
         sKeywords.put("lt", XQueryTokenType.K_LT);
         sKeywords.put("mod", XQueryTokenType.K_MOD);
+        sKeywords.put("modify", XQueryTokenType.K_MODIFY); // Update Facility 1.0
         sKeywords.put("module", XQueryTokenType.K_MODULE);
         sKeywords.put("namespace", XQueryTokenType.K_NAMESPACE);
         sKeywords.put("ne", XQueryTokenType.K_NE);

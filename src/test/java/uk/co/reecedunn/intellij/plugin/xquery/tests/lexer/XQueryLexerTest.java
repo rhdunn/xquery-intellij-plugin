@@ -3004,4 +3004,19 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region Update Facility 1.0 :: TransformExpr
+
+    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-TransformExpr")
+    public void testTransformExpr() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "copy",   XQueryTokenType.K_COPY);
+        matchSingleToken(lexer, "$",      XQueryTokenType.VARIABLE_INDICATOR);
+        matchSingleToken(lexer, ":=",     XQueryTokenType.ASSIGN_EQUAL);
+        matchSingleToken(lexer, ",",      XQueryTokenType.COMMA);
+        matchSingleToken(lexer, "modify", XQueryTokenType.K_MODIFY);
+        matchSingleToken(lexer, "return", XQueryTokenType.K_RETURN);
+    }
+
+    // endregion
 }
