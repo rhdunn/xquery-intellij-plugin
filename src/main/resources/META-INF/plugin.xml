@@ -2,7 +2,7 @@
 <idea-plugin version="2">
   <id>uk.co.reecedunn.intellij.plugin.xquery</id>
   <name>xquery-intellij-plugin</name>
-  <version>0.1</version>
+  <version>VERSION</version>
   <vendor email="msclrhd@gmail.com" url="http://reecedunn.co.uk">Reece H. Dunn</vendor>
 
   <description><![CDATA[

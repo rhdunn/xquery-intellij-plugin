@@ -16,7 +16,7 @@ allprojects {
     apply plugin: 'jacoco'
 
     group 'uk.co.reecedunn.intellij.plugin.xquery'
-    version '0.1'
+    version '0.2-dev'
 
     repositories {
         mavenCentral()
