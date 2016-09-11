@@ -1,0 +1,30 @@
+FileElement[FILE(0:84)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:84)]
+      XQueryPrologImpl[XQUERY_PROLOG(0:84)]
+         UpdateFacilityRevalidationDeclImpl[XQUERY_REVALIDATION_DECL(0:28)]
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
+            PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_REVALIDATION(8:20)]('revalidation')
+            PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_STRICT(21:27)]('strict')
+            PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
+         LeafPsiElement[XQUERY_SEPARATOR_TOKEN(28:29)](';')
+         PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
+         UpdateFacilityRevalidationDeclImpl[XQUERY_REVALIDATION_DECL(30:55)]
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(30:37)]('declare')
+            PsiWhiteSpaceImpl[WHITE_SPACE(37:38)](' ')
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_REVALIDATION(38:50)]('revalidation')
+            PsiWhiteSpaceImpl[WHITE_SPACE(50:51)](' ')
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_LAX(51:54)]('lax')
+            PsiWhiteSpaceImpl[WHITE_SPACE(54:55)](' ')
+         LeafPsiElement[XQUERY_SEPARATOR_TOKEN(55:56)](';')
+         PsiWhiteSpaceImpl[WHITE_SPACE(56:57)](' ')
+         UpdateFacilityRevalidationDeclImpl[XQUERY_REVALIDATION_DECL(57:83)]
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(57:64)]('declare')
+            PsiWhiteSpaceImpl[WHITE_SPACE(64:65)](' ')
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_REVALIDATION(65:77)]('revalidation')
+            PsiWhiteSpaceImpl[WHITE_SPACE(77:78)](' ')
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_SKIP(78:82)]('skip')
+            PsiWhiteSpaceImpl[WHITE_SPACE(82:83)](' ')
+         LeafPsiElement[XQUERY_SEPARATOR_TOKEN(83:84)](';')
+      PsiErrorElementImpl[ERROR_ELEMENT(84:84)]('XPST0003: Missing query body.')

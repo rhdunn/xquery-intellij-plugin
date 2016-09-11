@@ -1,0 +1,1 @@
+declare revalidation strict ; declare revalidation lax ; declare revalidation skip ;

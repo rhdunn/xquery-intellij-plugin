@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.parser;
 import com.intellij.lang.PsiBuilder;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.INCNameType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType;
@@ -41,6 +42,10 @@ class XQueryParser {
     private boolean isXQuery30OrLater() {
         XQueryVersion version = mSettings.getXQueryVersion();
         return version == XQueryVersion.XQUERY_3_0 || version == XQueryVersion.XQUERY_3_1;
+    }
+
+    private XQueryVersion getUpdateFacilityVersion() {
+        return mSettings.getDialectForXQueryVersion(mSettings.getXQueryVersion()).getVersion(ImplementationItem.UPDATE_FACILITY);
     }
 
     public void parse() {
@@ -398,6 +403,8 @@ class XQueryParser {
                 return PrologDeclState.BODY_STATEMENT;
             } else if (parseOrderingModeDecl(state)) {
                 declMarker.done(XQueryElementType.ORDERING_MODE_DECL);
+            } else if (parseRevalidationDecl(state)) {
+                declMarker.done(XQueryElementType.REVALIDATION_DECL);
             } else if (parseVarDecl()) {
                 declMarker.done(XQueryElementType.VAR_DECL);
                 return PrologDeclState.BODY_STATEMENT;
@@ -580,6 +587,32 @@ class XQueryParser {
             skipWhiteSpaceAndCommentTokens();
             return true;
         }
+        return false;
+    }
+
+    private boolean parseRevalidationDecl(PrologDeclState state) {
+        final PsiBuilder.Marker errorMarker = mBuilder.mark();
+        if (matchTokenType(XQueryTokenType.K_REVALIDATION)) {
+            if (state == PrologDeclState.HEADER_STATEMENT) {
+                if (getUpdateFacilityVersion() != null) {
+                    errorMarker.drop();
+                } else {
+                    errorMarker.error(XQueryBundle.message("parser.error.update-facility.1.0"));
+                }
+            } else {
+                errorMarker.error(XQueryBundle.message("parser.error.expected-prolog-body"));
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_STRICT) && !matchTokenType(XQueryTokenType.K_LAX) && !matchTokenType(XQueryTokenType.K_SKIP)) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "lax, skip, strict"));
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            return true;
+        }
+
+        errorMarker.drop();
         return false;
     }
 

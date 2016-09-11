@@ -17,12 +17,16 @@ package uk.co.reecedunn.intellij.plugin.xquery.parser;
 
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.tree.IFileElementType;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.impl.update.facility.UpdateFacilityRevalidationDeclImpl;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.impl.xquery.*;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.update.facility.UpdateFacilityRevalidationDeclPsiImpl;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.*;
 
 public interface XQueryElementType {
     IFileElementType FILE = new IFileElementType(XQuery.INSTANCE);
+
+    // region XQuery 1.0
 
     IElementType CDATA_SECTION = new ICompositeElementType("XQUERY_CDATA_SECTION", XQueryCDataSectionImpl.class, XQueryCDataSectionPsiImpl.class);
     IElementType COMMENT = new ICompositeElementType("XQUERY_COMMENT", XQueryCommentImpl.class, XQueryCommentPsiImpl.class);
@@ -159,4 +163,11 @@ public interface XQueryElementType {
     IElementType COMP_TEXT_CONSTRUCTOR = new ICompositeElementType("XQUERY_COMP_TEXT_CONSTRUCTOR", XQueryCompTextConstructorImpl.class, XQueryCompTextConstructorPsiImpl.class);
     IElementType COMP_COMMENT_CONSTRUCTOR = new ICompositeElementType("XQUERY_COMP_COMMENT_CONSTRUCTOR", XQueryCompCommentConstructorImpl.class, XQueryCompCommentConstructorPsiImpl.class);
     IElementType COMP_PI_CONSTRUCTOR = new ICompositeElementType("XQUERY_COMP_PI_CONSTRUCTOR", XQueryCompPIConstructorImpl.class, XQueryCompPIConstructorPsiImpl.class);
+
+    // endregion
+    // region Update Facility 1.0
+
+    IElementType REVALIDATION_DECL = new ICompositeElementType("XQUERY_REVALIDATION_DECL", UpdateFacilityRevalidationDeclImpl.class, UpdateFacilityRevalidationDeclPsiImpl.class);
+
+    // endregion
 }
