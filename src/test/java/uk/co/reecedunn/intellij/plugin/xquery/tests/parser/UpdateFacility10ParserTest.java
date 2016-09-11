@@ -147,4 +147,63 @@ public class UpdateFacility10ParserTest extends XQuery10ParserTest {
     }
 
     // endregion
+    // region Update Facility 1.0 :: InsertExprTargetChoice
+
+    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-InsertExprTargetChoice")
+    public void testInsertExprTargetChoice_Into() {
+        final String expected = loadResource("tests/parser/xquery-update-1.0/InsertExpr_Node.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-update-1.0/InsertExpr_Node.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-InsertExprTargetChoice")
+    public void testInsertExprTargetChoice_First() {
+        final String expected = loadResource("tests/parser/xquery-update-1.0/InsertExprTargetChoice_First.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-update-1.0/InsertExprTargetChoice_First.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-InsertExprTargetChoice")
+    public void testInsertExprTargetChoice_Last() {
+        final String expected = loadResource("tests/parser/xquery-update-1.0/InsertExprTargetChoice_Last.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-update-1.0/InsertExprTargetChoice_Last.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-InsertExprTargetChoice")
+    public void testInsertExprTargetChoice_FirstLast_MissingAsKeyword() {
+        final String expected = loadResource("tests/parser/xquery-update-1.0/InsertExprTargetChoice_FirstLast_MissingAsKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-update-1.0/InsertExprTargetChoice_FirstLast_MissingAsKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-InsertExprTargetChoice")
+    public void testInsertExprTargetChoice_FirstLast_MissingFirstLastKeyword() {
+        final String expected = loadResource("tests/parser/xquery-update-1.0/InsertExprTargetChoice_FirstLast_MissingFirstLastKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-update-1.0/InsertExprTargetChoice_FirstLast_MissingFirstLastKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-InsertExprTargetChoice")
+    public void testInsertExprTargetChoice_FirstLast_MissingIntoKeyword() {
+        final String expected = loadResource("tests/parser/xquery-update-1.0/InsertExprTargetChoice_FirstLast_MissingIntoKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-update-1.0/InsertExprTargetChoice_FirstLast_MissingIntoKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-InsertExprTargetChoice")
+    public void testInsertExprTargetChoice_Before() {
+        final String expected = loadResource("tests/parser/xquery-update-1.0/InsertExprTargetChoice_Before.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-update-1.0/InsertExprTargetChoice_Before.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-InsertExprTargetChoice")
+    public void testInsertExprTargetChoice_After() {
+        final String expected = loadResource("tests/parser/xquery-update-1.0/InsertExprTargetChoice_After.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-update-1.0/InsertExprTargetChoice_After.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
 }

@@ -1069,12 +1069,16 @@ class XQueryParser {
     }
 
     private boolean parseExprSingle() {
+        return parseExprSingle(null);
+    }
+
+    private boolean parseExprSingle(IElementType type) {
         return parseFLWORExpr()
             || parseQuantifiedExpr()
             || parseTypeswitchExpr()
             || parseIfExpr()
             || parseInsertExpr()
-            || parseOrExpr();
+            || parseOrExpr(type);
     }
 
     // endregion
@@ -1632,8 +1636,8 @@ class XQueryParser {
             }
 
             skipWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.K_INTO) && !haveErrors) { // TODO: InsertExprTargetChoice
-                error(XQueryBundle.message("parser.error.expected", "InsertExprTargetChoice"));
+            if (!parseInsertExprTargetChoice() && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "after, as, before, into"));
                 haveErrors = true;
             }
 
@@ -1651,11 +1655,49 @@ class XQueryParser {
 
     private boolean parseSourceExpr() {
         final PsiBuilder.Marker sourceExprMarker = mark();
-        if (parseExprSingle()) {
+        if (parseExprSingle(XQueryElementType.SOURCE_EXPR)) {
             sourceExprMarker.done(XQueryElementType.SOURCE_EXPR);
             return true;
         }
         sourceExprMarker.drop();
+        return false;
+    }
+
+    private boolean parseInsertExprTargetChoice() {
+        final PsiBuilder.Marker insertExprTargetChoiceMarker = mark();
+        if (matchTokenType(XQueryTokenType.K_AS)) {
+            boolean haveErrors = false;
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_FIRST) && !matchTokenType(XQueryTokenType.K_LAST)) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "first, last"));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_INTO) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "into"));
+            }
+
+            insertExprTargetChoiceMarker.done(XQueryElementType.INSERT_EXPR_TARGET_CHOICE);
+            return true;
+        } else if (matchTokenType(XQueryTokenType.K_INTO) ||
+                   matchTokenType(XQueryTokenType.K_BEFORE) ||
+                   matchTokenType(XQueryTokenType.K_AFTER)) {
+            insertExprTargetChoiceMarker.done(XQueryElementType.INSERT_EXPR_TARGET_CHOICE);
+            return true;
+        } else if (getTokenType() == XQueryTokenType.K_FIRST || getTokenType() == XQueryTokenType.K_LAST) {
+            error(XQueryBundle.message("parser.error.expected-keyword", "as"));
+            advanceLexer();
+
+            skipWhiteSpaceAndCommentTokens();
+            matchTokenType(XQueryTokenType.K_INTO);
+
+            insertExprTargetChoiceMarker.done(XQueryElementType.INSERT_EXPR_TARGET_CHOICE);
+            return true;
+        }
+
+        insertExprTargetChoiceMarker.drop();
         return false;
     }
 
@@ -1672,13 +1714,13 @@ class XQueryParser {
     // endregion
     // region Grammar :: Expr :: OrExpr
 
-    private boolean parseOrExpr() {
+    private boolean parseOrExpr(IElementType type) {
         final PsiBuilder.Marker orExprMarker = mark();
-        if (parseAndExpr()) {
+        if (parseAndExpr(type)) {
             skipWhiteSpaceAndCommentTokens();
             while (matchTokenType(XQueryTokenType.K_OR)) {
                 skipWhiteSpaceAndCommentTokens();
-                if (!parseAndExpr()) {
+                if (!parseAndExpr(type)) {
                     error(XQueryBundle.message("parser.error.expected", "AndExpr"));
                 }
             }
@@ -1690,13 +1732,13 @@ class XQueryParser {
         return false;
     }
 
-    private boolean parseAndExpr() {
+    private boolean parseAndExpr(IElementType type) {
         final PsiBuilder.Marker andExprMarker = mark();
-        if (parseComparisonExpr()) {
+        if (parseComparisonExpr(type)) {
             skipWhiteSpaceAndCommentTokens();
             while (matchTokenType(XQueryTokenType.K_AND)) {
                 skipWhiteSpaceAndCommentTokens();
-                if (!parseComparisonExpr()) {
+                if (!parseComparisonExpr(type)) {
                     error(XQueryBundle.message("parser.error.expected", "ComparisonExpr"));
                 }
             }
@@ -1708,13 +1750,13 @@ class XQueryParser {
         return false;
     }
 
-    private boolean parseComparisonExpr() {
+    private boolean parseComparisonExpr(IElementType type) {
         final PsiBuilder.Marker comparisonExprMarker = mark();
-        if (parseRangeExpr()) {
+        if (parseRangeExpr(type)) {
             skipWhiteSpaceAndCommentTokens();
             if (parseGeneralComp() || parseValueComp() || parseNodeComp()) {
                 skipWhiteSpaceAndCommentTokens();
-                if (!parseRangeExpr()) {
+                if (!parseRangeExpr(type)) {
                     error(XQueryBundle.message("parser.error.expected", "RangeExpr"));
                 }
             }
@@ -1726,13 +1768,13 @@ class XQueryParser {
         return false;
     }
 
-    private boolean parseRangeExpr() {
+    private boolean parseRangeExpr(IElementType type) {
         final PsiBuilder.Marker rangeExprMarker = mark();
-        if (parseAdditiveExpr()) {
+        if (parseAdditiveExpr(type)) {
             skipWhiteSpaceAndCommentTokens();
             if (matchTokenType(XQueryTokenType.K_TO)) {
                 skipWhiteSpaceAndCommentTokens();
-                if (!parseAdditiveExpr()) {
+                if (!parseAdditiveExpr(type)) {
                     error(XQueryBundle.message("parser.error.expected", "AdditiveExpr"));
                 }
             }
@@ -1744,13 +1786,13 @@ class XQueryParser {
         return false;
     }
 
-    private boolean parseAdditiveExpr() {
+    private boolean parseAdditiveExpr(IElementType type) {
         final PsiBuilder.Marker additiveExprMarker = mark();
-        if (parseMultiplicativeExpr()) {
+        if (parseMultiplicativeExpr(type)) {
             skipWhiteSpaceAndCommentTokens();
             while (matchTokenType(XQueryTokenType.PLUS) || matchTokenType(XQueryTokenType.MINUS)) {
                 skipWhiteSpaceAndCommentTokens();
-                if (!parseMultiplicativeExpr()) {
+                if (!parseMultiplicativeExpr(type)) {
                     error(XQueryBundle.message("parser.error.expected", "MultiplicativeExpr"));
                 }
             }
@@ -1762,16 +1804,16 @@ class XQueryParser {
         return false;
     }
 
-    private boolean parseMultiplicativeExpr() {
+    private boolean parseMultiplicativeExpr(IElementType type) {
         final PsiBuilder.Marker multiplicativeExprMarker = mark();
-        if (parseUnionExpr()) {
+        if (parseUnionExpr(type)) {
             skipWhiteSpaceAndCommentTokens();
             while (matchTokenType(XQueryTokenType.STAR) ||
                    matchTokenType(XQueryTokenType.K_DIV) ||
                    matchTokenType(XQueryTokenType.K_IDIV) ||
                    matchTokenType(XQueryTokenType.K_MOD)) {
                 skipWhiteSpaceAndCommentTokens();
-                if (!parseUnionExpr()) {
+                if (!parseUnionExpr(type)) {
                     error(XQueryBundle.message("parser.error.expected", "UnionExpr"));
                 }
             }
@@ -1783,13 +1825,13 @@ class XQueryParser {
         return false;
     }
 
-    private boolean parseUnionExpr() {
+    private boolean parseUnionExpr(IElementType type) {
         final PsiBuilder.Marker unionExprMarker = mark();
-        if (parseIntersectExceptExpr()) {
+        if (parseIntersectExceptExpr(type)) {
             skipWhiteSpaceAndCommentTokens();
             while (matchTokenType(XQueryTokenType.K_UNION) || matchTokenType(XQueryTokenType.UNION)) {
                 skipWhiteSpaceAndCommentTokens();
-                if (!parseIntersectExceptExpr()) {
+                if (!parseIntersectExceptExpr(type)) {
                     error(XQueryBundle.message("parser.error.expected", "IntersectExceptExpr"));
                 }
             }
@@ -1801,13 +1843,13 @@ class XQueryParser {
         return false;
     }
 
-    private boolean parseIntersectExceptExpr() {
+    private boolean parseIntersectExceptExpr(IElementType type) {
         final PsiBuilder.Marker intersectExceptExprMarker = mark();
-        if (parseInstanceofExpr()) {
+        if (parseInstanceofExpr(type)) {
             skipWhiteSpaceAndCommentTokens();
             while (matchTokenType(XQueryTokenType.K_INTERSECT) || matchTokenType(XQueryTokenType.K_EXCEPT)) {
                 skipWhiteSpaceAndCommentTokens();
-                if (!parseInstanceofExpr()) {
+                if (!parseInstanceofExpr(type)) {
                     error(XQueryBundle.message("parser.error.expected", "InstanceofExpr"));
                 }
                 skipWhiteSpaceAndCommentTokens();
@@ -1820,9 +1862,9 @@ class XQueryParser {
         return false;
     }
 
-    private boolean parseInstanceofExpr() {
+    private boolean parseInstanceofExpr(IElementType type) {
         final PsiBuilder.Marker instanceofExprMarker = mark();
-        if (parseTreatExpr()) {
+        if (parseTreatExpr(type)) {
             skipWhiteSpaceAndCommentTokens();
             if (matchTokenType(XQueryTokenType.K_INSTANCE)) {
                 boolean haveErrors = false;
@@ -1852,7 +1894,7 @@ class XQueryParser {
         return false;
     }
 
-    private boolean parseTreatExpr() {
+    private boolean parseTreatExpr(IElementType type) {
         final PsiBuilder.Marker treatExprMarker = mark();
         if (parseCastableExpr()) {
             skipWhiteSpaceAndCommentTokens();
@@ -1869,7 +1911,7 @@ class XQueryParser {
                 if (!parseSingleType() && !haveErrors) {
                     error(XQueryBundle.message("parser.error.expected", "SingleType"));
                 }
-            } else if (getTokenType() == XQueryTokenType.K_AS) {
+            } else if (getTokenType() == XQueryTokenType.K_AS && type != XQueryElementType.SOURCE_EXPR) {
                 error(XQueryBundle.message("parser.error.expected-keyword", "cast, castable, treat"));
                 advanceLexer();
 
