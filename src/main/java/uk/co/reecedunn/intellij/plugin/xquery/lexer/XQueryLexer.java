@@ -1271,6 +1271,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("import", XQueryTokenType.K_IMPORT);
         sKeywords.put("in", XQueryTokenType.K_IN);
         sKeywords.put("inherit", XQueryTokenType.K_INHERIT);
+        sKeywords.put("insert", XQueryTokenType.K_INSERT); // Update Facility 1.0
         sKeywords.put("instance", XQueryTokenType.K_INSTANCE);
         sKeywords.put("intersect", XQueryTokenType.K_INTERSECT);
         sKeywords.put("into", XQueryTokenType.K_INTO); // Update Facility 1.0
@@ -1289,6 +1290,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("no-inherit", XQueryTokenType.K_NO_INHERIT);
         sKeywords.put("no-preserve", XQueryTokenType.K_NO_PRESERVE);
         sKeywords.put("node", XQueryTokenType.K_NODE);
+        sKeywords.put("nodes", XQueryTokenType.K_NODES); // Update Facility 1.0
         sKeywords.put("of", XQueryTokenType.K_OF);
         sKeywords.put("option", XQueryTokenType.K_OPTION);
         sKeywords.put("or", XQueryTokenType.K_OR);
