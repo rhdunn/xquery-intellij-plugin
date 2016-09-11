@@ -17,12 +17,10 @@ package uk.co.reecedunn.intellij.plugin.xquery.parser;
 
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.tree.IFileElementType;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.impl.update.facility.UpdateFacilityInsertExprImpl;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.impl.update.facility.UpdateFacilityRevalidationDeclImpl;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.impl.update.facility.*;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.impl.xquery.*;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.update.facility.UpdateFacilityInsertExprPsiImpl;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.update.facility.UpdateFacilityRevalidationDeclPsiImpl;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.update.facility.*;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.*;
 
 public interface XQueryElementType {
@@ -172,6 +170,7 @@ public interface XQueryElementType {
     IElementType REVALIDATION_DECL = new ICompositeElementType("XQUERY_REVALIDATION_DECL", UpdateFacilityRevalidationDeclImpl.class, UpdateFacilityRevalidationDeclPsiImpl.class);
 
     IElementType INSERT_EXPR = new ICompositeElementType("XQUERY_INSERT_EXPR", UpdateFacilityInsertExprImpl.class, UpdateFacilityInsertExprPsiImpl.class);
+    IElementType SOURCE_EXPR = new ICompositeElementType("XQUERY_SOURCE_EXPR", UpdateFacilitySourceExprImpl.class, UpdateFacilitySourceExprPsiImpl.class);
 
     // endregion
 }
