@@ -380,6 +380,9 @@ public class SyntaxHighlighterTest extends TestCase {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_PROCESSING_INSTRUCTION).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_PROCESSING_INSTRUCTION)[0], is(SyntaxHighlighter.KEYWORD));
 
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_REPLACE).length, is(1));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_REPLACE)[0], is(SyntaxHighlighter.KEYWORD));
+
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_RETURN).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_RETURN)[0], is(SyntaxHighlighter.KEYWORD));
 
@@ -440,6 +443,9 @@ public class SyntaxHighlighterTest extends TestCase {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_VALIDATE).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_VALIDATE)[0], is(SyntaxHighlighter.KEYWORD));
 
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_VALUE).length, is(1));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_VALUE)[0], is(SyntaxHighlighter.KEYWORD));
+
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_VARIABLE).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_VARIABLE)[0], is(SyntaxHighlighter.KEYWORD));
 
@@ -448,6 +454,9 @@ public class SyntaxHighlighterTest extends TestCase {
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_WHERE).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_WHERE)[0], is(SyntaxHighlighter.KEYWORD));
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_WITH).length, is(1));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_WITH)[0], is(SyntaxHighlighter.KEYWORD));
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_XQUERY).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_XQUERY)[0], is(SyntaxHighlighter.KEYWORD));

@@ -1303,6 +1303,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("preceding-sibling", XQueryTokenType.K_PRECEDING_SIBLING);
         sKeywords.put("preserve", XQueryTokenType.K_PRESERVE);
         sKeywords.put("processing-instruction", XQueryTokenType.K_PROCESSING_INSTRUCTION);
+        sKeywords.put("replace", XQueryTokenType.K_REPLACE); // Update Facility 1.0
         sKeywords.put("return", XQueryTokenType.K_RETURN);
         sKeywords.put("revalidation", XQueryTokenType.K_REVALIDATION); // Update Facility 1.0
         sKeywords.put("satisfies", XQueryTokenType.K_SATISFIES);
@@ -1324,9 +1325,11 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("unordered", XQueryTokenType.K_UNORDERED);
         sKeywords.put("updating", XQueryTokenType.K_UPDATING); // Update Facility 1.0
         sKeywords.put("validate", XQueryTokenType.K_VALIDATE);
+        sKeywords.put("value", XQueryTokenType.K_VALUE); // Update Facility 1.0
         sKeywords.put("variable", XQueryTokenType.K_VARIABLE);
         sKeywords.put("version", XQueryTokenType.K_VERSION);
         sKeywords.put("where", XQueryTokenType.K_WHERE);
+        sKeywords.put("with", XQueryTokenType.K_WITH); // Update Facility 1.0
         sKeywords.put("xquery", XQueryTokenType.K_XQUERY);
     }
 

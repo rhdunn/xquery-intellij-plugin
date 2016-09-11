@@ -2978,4 +2978,18 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region Update Facility 1.0 :: ReplaceExpr
+
+    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-ReplaceExpr")
+    public void testReplaceExpr() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "replace", XQueryTokenType.K_REPLACE);
+        matchSingleToken(lexer, "value",   XQueryTokenType.K_VALUE);
+        matchSingleToken(lexer, "of",      XQueryTokenType.K_OF);
+        matchSingleToken(lexer, "node",    XQueryTokenType.K_NODE);
+        matchSingleToken(lexer, "with",    XQueryTokenType.K_WITH);
+    }
+
+    // endregion
 }
