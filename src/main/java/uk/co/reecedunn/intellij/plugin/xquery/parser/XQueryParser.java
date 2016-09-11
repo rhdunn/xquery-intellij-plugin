@@ -1638,7 +1638,7 @@ class XQueryParser {
             }
 
             skipWhiteSpaceAndCommentTokens();
-            if (!parseExprSingle() && !haveErrors) { // TODO: TargetExpr
+            if (!parseTargetExpr() && !haveErrors) {
                 error(XQueryBundle.message("parser.error.expected-expression"));
             }
 
@@ -1656,6 +1656,16 @@ class XQueryParser {
             return true;
         }
         sourceExprMarker.drop();
+        return false;
+    }
+
+    private boolean parseTargetExpr() {
+        final PsiBuilder.Marker targetExprMarker = mark();
+        if (parseExprSingle()) {
+            targetExprMarker.done(XQueryElementType.TARGET_EXPR);
+            return true;
+        }
+        targetExprMarker.drop();
         return false;
     }
 

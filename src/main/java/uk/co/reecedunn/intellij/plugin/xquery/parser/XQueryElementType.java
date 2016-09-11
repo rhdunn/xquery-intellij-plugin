@@ -171,6 +171,7 @@ public interface XQueryElementType {
 
     IElementType INSERT_EXPR = new ICompositeElementType("XQUERY_INSERT_EXPR", UpdateFacilityInsertExprImpl.class, UpdateFacilityInsertExprPsiImpl.class);
     IElementType SOURCE_EXPR = new ICompositeElementType("XQUERY_SOURCE_EXPR", UpdateFacilitySourceExprImpl.class, UpdateFacilitySourceExprPsiImpl.class);
+    IElementType TARGET_EXPR = new ICompositeElementType("XQUERY_TARGET_EXPR", UpdateFacilityTargetExprImpl.class, UpdateFacilityTargetExprPsiImpl.class);
 
     // endregion
 }
