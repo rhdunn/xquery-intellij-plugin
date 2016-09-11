@@ -3562,6 +3562,13 @@ public class XQuery10ParserTest extends ParserTestCase {
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FunctionCall")
+    public void testFunctionCall_KeywordNCNames_UpdateFacility10() {
+        final String expected = loadResource("tests/parser/xquery-update-1.0/FunctionCall_KeywordNCNames_UpdateFacility10.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-update-1.0/FunctionCall_KeywordNCNames_UpdateFacility10.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
     // endregion
     // region XQuery 1.0 :: DirElemConstructor
 
