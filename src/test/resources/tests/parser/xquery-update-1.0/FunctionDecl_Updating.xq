@@ -1,0 +1,1 @@
+declare updating function test() external;

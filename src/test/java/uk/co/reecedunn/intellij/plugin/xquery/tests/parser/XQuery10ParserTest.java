@@ -5322,6 +5322,23 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region Update Facility 1.0 :: FunctionDecl
+
+    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-FunctionDecl")
+    public void testFunctionDecl_Updating() {
+        final String expected = loadResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating_XQuery10.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-FunctionDecl")
+    public void testFunctionDecl_Updating_MissingFunctionKeyword() {
+        final String expected = loadResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating_MissingFunctionKeyword_XQuery10.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating_MissingFunctionKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region Update Facility 1.0 :: RevalidationDecl
 
     @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-RevalidationDecl")
