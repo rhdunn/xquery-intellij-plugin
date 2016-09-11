@@ -1303,6 +1303,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("preceding-sibling", XQueryTokenType.K_PRECEDING_SIBLING);
         sKeywords.put("preserve", XQueryTokenType.K_PRESERVE);
         sKeywords.put("processing-instruction", XQueryTokenType.K_PROCESSING_INSTRUCTION);
+        sKeywords.put("rename", XQueryTokenType.K_RENAME); // Update Facility 1.0
         sKeywords.put("replace", XQueryTokenType.K_REPLACE); // Update Facility 1.0
         sKeywords.put("return", XQueryTokenType.K_RETURN);
         sKeywords.put("revalidation", XQueryTokenType.K_REVALIDATION); // Update Facility 1.0
