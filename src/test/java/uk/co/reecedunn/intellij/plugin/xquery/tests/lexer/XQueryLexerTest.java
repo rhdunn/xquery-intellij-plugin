@@ -2966,4 +2966,16 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region Update Facility 1.0 :: DeleteExpr
+
+    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-DeleteExpr")
+    public void testDeleteExpr() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "delete", XQueryTokenType.K_DELETE);
+        matchSingleToken(lexer, "node",   XQueryTokenType.K_NODE);
+        matchSingleToken(lexer, "nodes",  XQueryTokenType.K_NODES);
+    }
+
+    // endregion
 }

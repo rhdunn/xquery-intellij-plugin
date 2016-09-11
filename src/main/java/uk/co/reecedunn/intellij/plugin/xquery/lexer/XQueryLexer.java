@@ -1243,6 +1243,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("copy-namespaces", XQueryTokenType.K_COPY_NAMESPACES);
         sKeywords.put("declare", XQueryTokenType.K_DECLARE);
         sKeywords.put("default", XQueryTokenType.K_DEFAULT);
+        sKeywords.put("delete", XQueryTokenType.K_DELETE); // Update Facility 1.0
         sKeywords.put("descendant", XQueryTokenType.K_DESCENDANT);
         sKeywords.put("descendant-or-self", XQueryTokenType.K_DESCENDANT_OR_SELF);
         sKeywords.put("descending", XQueryTokenType.K_DESCENDING);
