@@ -50,11 +50,11 @@ public class XQueryPredefinedEntityRefAnnotator implements Annotator {
         if (XML_ENTITIES.contains(name)) return;
 
         if (HTML4_ENTITIES.contains(name)) {
-            if (version != XQueryVersion.XQUERY_0_9_MARKLOGIC && version != XQueryVersion.XQUERY_1_0_MARKLOGIC) {
+            if (version != XQueryVersion.VERSION_0_9_MARKLOGIC && version != XQueryVersion.VERSION_1_0_MARKLOGIC) {
                 holder.createAnnotation(HighlightSeverity.ERROR, node.getTextRange(), XQueryBundle.message("annotator.string-literal.html4-entity", entity.toString()));
             }
         } else if (HTML5_ENTITIES.contains(name)) {
-            if (version != XQueryVersion.XQUERY_0_9_MARKLOGIC && version != XQueryVersion.XQUERY_1_0_MARKLOGIC) {
+            if (version != XQueryVersion.VERSION_0_9_MARKLOGIC && version != XQueryVersion.VERSION_1_0_MARKLOGIC) {
                 holder.createAnnotation(HighlightSeverity.ERROR, node.getTextRange(), XQueryBundle.message("annotator.string-literal.html5-entity", entity.toString()));
             }
         } else {

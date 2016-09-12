@@ -23,7 +23,7 @@ public class XQuery10MarkLogicParserTest extends XQuery10ParserTest {
 
     public void initializeSettings(XQueryProjectSettings settings) {
         settings.setImplementation("marklogic");
-        settings.setXQueryVersion(XQueryVersion.XQUERY_1_0_MARKLOGIC);
+        settings.setXQueryVersion(XQueryVersion.VERSION_1_0_MARKLOGIC);
     }
 
     // endregion

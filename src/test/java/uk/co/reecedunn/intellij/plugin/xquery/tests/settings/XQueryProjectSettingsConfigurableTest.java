@@ -81,7 +81,7 @@ public class XQueryProjectSettingsConfigurableTest extends ParserTestCase {
 
         assertThat(getSelectedItem(component, "Implementation").toString(), is("W3C"));
         assertThat(getSelectedItem(component, "ImplementationVersion").toString(), is("Specification"));
-        assertThat(getSelectedItem(component, "XQueryVersion"), is(XQueryVersion.XQUERY_1_0));
+        assertThat(getSelectedItem(component, "XQueryVersion"), is(XQueryVersion.VERSION_1_0));
         assertThat(getSelectedItem(component, "DialectForXQuery1.0").toString(), is("XQuery"));
         assertThat(getSelectedItem(component, "DialectForXQuery3.0").toString(), is("Not Supported"));
         assertThat(getSelectedItem(component, "DialectForXQuery3.1").toString(), is("Not Supported"));
@@ -98,7 +98,7 @@ public class XQueryProjectSettingsConfigurableTest extends ParserTestCase {
 
         assertThat(getSelectedItem(component, "Implementation").toString(), is("MarkLogic"));
         assertThat(getSelectedItem(component, "ImplementationVersion").toString(), is("MarkLogic 8"));
-        assertThat(getSelectedItem(component, "XQueryVersion"), is(XQueryVersion.XQUERY_1_0));
+        assertThat(getSelectedItem(component, "XQueryVersion"), is(XQueryVersion.VERSION_1_0));
         assertThat(getSelectedItem(component, "DialectForXQuery1.0").toString(), is("XQuery"));
         assertThat(getSelectedItem(component, "DialectForXQuery3.0").toString(), is("Not Supported"));
         assertThat(getSelectedItem(component, "DialectForXQuery3.1").toString(), is("Not Supported"));
@@ -109,7 +109,7 @@ public class XQueryProjectSettingsConfigurableTest extends ParserTestCase {
         XQueryProjectSettings settings = XQueryProjectSettings.getInstance(myProject);
         assertThat(settings.getImplementation(), is("marklogic"));
         assertThat(settings.getImplementationVersion(), is("marklogic/v8"));
-        assertThat(settings.getXQueryVersion(), is(XQueryVersion.XQUERY_1_0));
+        assertThat(settings.getXQueryVersion(), is(XQueryVersion.VERSION_1_0));
         assertThat(settings.getXQuery10Dialect(), is("marklogic/v8/1.0"));
         assertThat(settings.getXQuery30Dialect(), is(nullValue()));
         assertThat(settings.getXQuery31Dialect(), is(nullValue()));
@@ -127,7 +127,7 @@ public class XQueryProjectSettingsConfigurableTest extends ParserTestCase {
 
         assertThat(getSelectedItem(component, "Implementation").toString(), is("W3C"));
         assertThat(getSelectedItem(component, "ImplementationVersion").toString(), is("Specification"));
-        assertThat(getSelectedItem(component, "XQueryVersion"), is(XQueryVersion.XQUERY_1_0));
+        assertThat(getSelectedItem(component, "XQueryVersion"), is(XQueryVersion.VERSION_1_0));
         assertThat(getSelectedItem(component, "DialectForXQuery1.0").toString(), is("XQuery"));
         assertThat(getSelectedItem(component, "DialectForXQuery3.0").toString(), is("Not Supported"));
         assertThat(getSelectedItem(component, "DialectForXQuery3.1").toString(), is("Not Supported"));
@@ -143,19 +143,19 @@ public class XQueryProjectSettingsConfigurableTest extends ParserTestCase {
         JComponent component = configurable.createComponent();
 
         assertThat(getSelectedItem(component, "Implementation").toString(), is("W3C"));
-        assertThat(getSelectedItem(component, "XQueryVersion"), is(XQueryVersion.XQUERY_1_0));
+        assertThat(getSelectedItem(component, "XQueryVersion"), is(XQueryVersion.VERSION_1_0));
 
         setSelectedItem(component, "Implementation", Implementations.getItemById("marklogic"));
         assertThat(getSelectedItem(component, "Implementation").toString(), is("MarkLogic"));
-        assertThat(getSelectedItem(component, "XQueryVersion"), is(XQueryVersion.XQUERY_1_0));
+        assertThat(getSelectedItem(component, "XQueryVersion"), is(XQueryVersion.VERSION_1_0));
 
-        setSelectedItem(component, "XQueryVersion", XQueryVersion.XQUERY_1_0);
+        setSelectedItem(component, "XQueryVersion", XQueryVersion.VERSION_1_0);
         assertThat(getSelectedItem(component, "Implementation").toString(), is("MarkLogic"));
-        assertThat(getSelectedItem(component, "XQueryVersion"), is(XQueryVersion.XQUERY_1_0));
+        assertThat(getSelectedItem(component, "XQueryVersion"), is(XQueryVersion.VERSION_1_0));
 
         setSelectedItem(component, "Implementation", Implementations.getItemById("w3c"));
         assertThat(getSelectedItem(component, "Implementation").toString(), is("W3C"));
-        assertThat(getSelectedItem(component, "XQueryVersion"), is(XQueryVersion.XQUERY_1_0));
+        assertThat(getSelectedItem(component, "XQueryVersion"), is(XQueryVersion.VERSION_1_0));
 
         configurable.disposeUIResources();
     }

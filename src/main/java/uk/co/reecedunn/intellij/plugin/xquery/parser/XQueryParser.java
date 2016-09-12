@@ -41,7 +41,7 @@ class XQueryParser {
 
     private boolean isXQuery30OrLater() {
         XQueryVersion version = mSettings.getXQueryVersion();
-        return version == XQueryVersion.XQUERY_3_0 || version == XQueryVersion.XQUERY_3_1;
+        return version == XQueryVersion.VERSION_3_0 || version == XQueryVersion.VERSION_3_1;
     }
 
     private XQueryVersion getUpdateFacilityVersion() {

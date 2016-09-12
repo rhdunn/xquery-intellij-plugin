@@ -23,21 +23,21 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class XQueryVersionTest extends TestCase {
     public void testToString() {
-        assertThat(XQueryVersion.XQUERY_0_9_MARKLOGIC.toString(), is("0.9-ml"));
-        assertThat(XQueryVersion.XQUERY_1_0.toString(), is("1.0"));
-        assertThat(XQueryVersion.XQUERY_1_0_MARKLOGIC.toString(), is("1.0-ml"));
-        assertThat(XQueryVersion.XQUERY_3_0.toString(), is("3.0"));
-        assertThat(XQueryVersion.XQUERY_3_1.toString(), is("3.1"));
+        assertThat(XQueryVersion.VERSION_0_9_MARKLOGIC.toString(), is("0.9-ml"));
+        assertThat(XQueryVersion.VERSION_1_0.toString(), is("1.0"));
+        assertThat(XQueryVersion.VERSION_1_0_MARKLOGIC.toString(), is("1.0-ml"));
+        assertThat(XQueryVersion.VERSION_3_0.toString(), is("3.0"));
+        assertThat(XQueryVersion.VERSION_3_1.toString(), is("3.1"));
     }
 
     public void testParse() {
         assertThat(XQueryVersion.parse(null), is(nullValue()));
 
-        assertThat(XQueryVersion.parse("0.9-ml"), is(XQueryVersion.XQUERY_0_9_MARKLOGIC));
-        assertThat(XQueryVersion.parse("1.0"), is(XQueryVersion.XQUERY_1_0));
-        assertThat(XQueryVersion.parse("1.0-ml"), is(XQueryVersion.XQUERY_1_0_MARKLOGIC));
-        assertThat(XQueryVersion.parse("3.0"), is(XQueryVersion.XQUERY_3_0));
-        assertThat(XQueryVersion.parse("3.1"), is(XQueryVersion.XQUERY_3_1));
+        assertThat(XQueryVersion.parse("0.9-ml"), is(XQueryVersion.VERSION_0_9_MARKLOGIC));
+        assertThat(XQueryVersion.parse("1.0"), is(XQueryVersion.VERSION_1_0));
+        assertThat(XQueryVersion.parse("1.0-ml"), is(XQueryVersion.VERSION_1_0_MARKLOGIC));
+        assertThat(XQueryVersion.parse("3.0"), is(XQueryVersion.VERSION_3_0));
+        assertThat(XQueryVersion.parse("3.1"), is(XQueryVersion.VERSION_3_1));
 
         assertThat(XQueryVersion.parse("0.9"), is(nullValue()));
         assertThat(XQueryVersion.parse("1.0-und"), is(nullValue()));

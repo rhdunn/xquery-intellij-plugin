@@ -111,9 +111,9 @@ public class XQueryPropertiesUI {
         mImplementationVersions.addActionListener(e -> {
             final ImplementationItem version = (ImplementationItem)mImplementationVersions.getSelectedItem();
             populateVersionComboBox(mVersion, version, XQueryLanguageType.XQUERY);
-            populateComboBox(mDialectForXQuery1_0, version, ImplementationItem.IMPLEMENTATION_DIALECT, XQueryVersion.XQUERY_1_0);
-            populateComboBox(mDialectForXQuery3_0, version, ImplementationItem.IMPLEMENTATION_DIALECT, XQueryVersion.XQUERY_3_0);
-            populateComboBox(mDialectForXQuery3_1, version, ImplementationItem.IMPLEMENTATION_DIALECT, XQueryVersion.XQUERY_3_1);
+            populateComboBox(mDialectForXQuery1_0, version, ImplementationItem.IMPLEMENTATION_DIALECT, XQueryVersion.VERSION_1_0);
+            populateComboBox(mDialectForXQuery3_0, version, ImplementationItem.IMPLEMENTATION_DIALECT, XQueryVersion.VERSION_3_0);
+            populateComboBox(mDialectForXQuery3_1, version, ImplementationItem.IMPLEMENTATION_DIALECT, XQueryVersion.VERSION_3_1);
         });
 
         mImplementations.addActionListener(e -> {
@@ -130,9 +130,9 @@ public class XQueryPropertiesUI {
         if (!mImplementations.getSelectedItem().equals(mSettings.getImplementationItem())) return true;
         if (!mImplementationVersions.getSelectedItem().equals(mSettings.getImplementationVersionItem())) return true;
         if (!mVersion.getSelectedItem().equals(mSettings.getXQueryVersion())) return true;
-        if (!mDialectForXQuery1_0.getSelectedItem().equals(mSettings.getDialectForXQueryVersion(XQueryVersion.XQUERY_1_0))) return true;
-        if (!mDialectForXQuery3_0.getSelectedItem().equals(mSettings.getDialectForXQueryVersion(XQueryVersion.XQUERY_3_0))) return true;
-        if (!mDialectForXQuery3_1.getSelectedItem().equals(mSettings.getDialectForXQueryVersion(XQueryVersion.XQUERY_3_1))) return true;
+        if (!mDialectForXQuery1_0.getSelectedItem().equals(mSettings.getDialectForXQueryVersion(XQueryVersion.VERSION_1_0))) return true;
+        if (!mDialectForXQuery3_0.getSelectedItem().equals(mSettings.getDialectForXQueryVersion(XQueryVersion.VERSION_3_0))) return true;
+        if (!mDialectForXQuery3_1.getSelectedItem().equals(mSettings.getDialectForXQueryVersion(XQueryVersion.VERSION_3_1))) return true;
         return false;
     }
 
@@ -140,17 +140,17 @@ public class XQueryPropertiesUI {
         mSettings.setImplementationItem((ImplementationItem)mImplementations.getSelectedItem());
         mSettings.setImplementationVersionItem((ImplementationItem)mImplementationVersions.getSelectedItem());
         mSettings.setXQueryVersion((XQueryVersion)mVersion.getSelectedItem());
-        mSettings.setDialectForXQueryVersion(XQueryVersion.XQUERY_1_0, (ImplementationItem)mDialectForXQuery1_0.getSelectedItem());
-        mSettings.setDialectForXQueryVersion(XQueryVersion.XQUERY_3_0, (ImplementationItem)mDialectForXQuery3_0.getSelectedItem());
-        mSettings.setDialectForXQueryVersion(XQueryVersion.XQUERY_3_1, (ImplementationItem)mDialectForXQuery3_1.getSelectedItem());
+        mSettings.setDialectForXQueryVersion(XQueryVersion.VERSION_1_0, (ImplementationItem)mDialectForXQuery1_0.getSelectedItem());
+        mSettings.setDialectForXQueryVersion(XQueryVersion.VERSION_3_0, (ImplementationItem)mDialectForXQuery3_0.getSelectedItem());
+        mSettings.setDialectForXQueryVersion(XQueryVersion.VERSION_3_1, (ImplementationItem)mDialectForXQuery3_1.getSelectedItem());
     }
 
     public void reset() {
         mImplementations.setSelectedItem(mSettings.getImplementationItem());
         mImplementationVersions.setSelectedItem(mSettings.getImplementationVersionItem());
         mVersion.setSelectedItem(mSettings.getXQueryVersion());
-        mDialectForXQuery1_0.setSelectedItem(mSettings.getDialectForXQueryVersion(XQueryVersion.XQUERY_1_0));
-        mDialectForXQuery3_0.setSelectedItem(mSettings.getDialectForXQueryVersion(XQueryVersion.XQUERY_3_0));
-        mDialectForXQuery3_1.setSelectedItem(mSettings.getDialectForXQueryVersion(XQueryVersion.XQUERY_3_1));
+        mDialectForXQuery1_0.setSelectedItem(mSettings.getDialectForXQueryVersion(XQueryVersion.VERSION_1_0));
+        mDialectForXQuery3_0.setSelectedItem(mSettings.getDialectForXQueryVersion(XQueryVersion.VERSION_3_0));
+        mDialectForXQuery3_1.setSelectedItem(mSettings.getDialectForXQueryVersion(XQueryVersion.VERSION_3_1));
     }
 }

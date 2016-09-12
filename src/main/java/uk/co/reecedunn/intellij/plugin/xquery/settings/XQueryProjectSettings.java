@@ -37,9 +37,9 @@ public class XQueryProjectSettings implements PersistentStateComponent<XQueryPro
     private ImplementationItem IMPLEMENTATION = Implementations.getDefaultImplementation();
     private ImplementationItem IMPLEMENTATION_VERSION = IMPLEMENTATION.getDefaultItem(ImplementationItem.IMPLEMENTATION_VERSION);
     private XQueryVersion XQUERY_VERSION = IMPLEMENTATION_VERSION.getDefaultVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryLanguageType.XQUERY);
-    private ImplementationItem XQUERY_1_0_DIALECT = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryLanguageType.XQUERY, XQueryVersion.XQUERY_1_0);
-    private ImplementationItem XQUERY_3_0_DIALECT = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryLanguageType.XQUERY, XQueryVersion.XQUERY_3_0);
-    private ImplementationItem XQUERY_3_1_DIALECT = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryLanguageType.XQUERY, XQueryVersion.XQUERY_3_1);
+    private ImplementationItem XQUERY_1_0_DIALECT = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryLanguageType.XQUERY, XQueryVersion.VERSION_1_0);
+    private ImplementationItem XQUERY_3_0_DIALECT = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryLanguageType.XQUERY, XQueryVersion.VERSION_3_0);
+    private ImplementationItem XQUERY_3_1_DIALECT = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryLanguageType.XQUERY, XQueryVersion.VERSION_3_1);
 
     public static XQueryProjectSettings getInstance(@NotNull Project project) {
         return ServiceManager.getService(project, XQueryProjectSettings.class);
@@ -137,11 +137,11 @@ public class XQueryProjectSettings implements PersistentStateComponent<XQueryPro
 
     @Transient
     public ImplementationItem getDialectForXQueryVersion(XQueryVersion version) {
-        if (version == XQueryVersion.XQUERY_1_0) {
+        if (version == XQueryVersion.VERSION_1_0) {
             return XQUERY_1_0_DIALECT;
-        } else if (version == XQueryVersion.XQUERY_3_0) {
+        } else if (version == XQueryVersion.VERSION_3_0) {
             return XQUERY_3_0_DIALECT;
-        } else if (version == XQueryVersion.XQUERY_3_1) {
+        } else if (version == XQueryVersion.VERSION_3_1) {
             return XQUERY_3_1_DIALECT;
         }
         return ImplementationItem.NULL_ITEM;
@@ -149,11 +149,11 @@ public class XQueryProjectSettings implements PersistentStateComponent<XQueryPro
 
     @Transient
     public void setDialectForXQueryVersion(XQueryVersion version, ImplementationItem dialect) {
-        if (version == XQueryVersion.XQUERY_1_0) {
+        if (version == XQueryVersion.VERSION_1_0) {
             XQUERY_1_0_DIALECT = dialect;
-        } else if (version == XQueryVersion.XQUERY_3_0) {
+        } else if (version == XQueryVersion.VERSION_3_0) {
             XQUERY_3_0_DIALECT = dialect;
-        } else if (version == XQueryVersion.XQUERY_3_1) {
+        } else if (version == XQueryVersion.VERSION_3_1) {
             XQUERY_3_1_DIALECT = dialect;
         } else {
             throw new AssertionError("Unknown XQuery version: " + version);

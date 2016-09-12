@@ -34,16 +34,16 @@ public class XQueryPsiTest extends ParserTestCase {
     // region File
 
     public void testFile() {
-        getSettings().setXQueryVersion(XQueryVersion.XQUERY_3_0);
+        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
 
         ASTNode node = parseText("123");
         assertThat(node.getElementType(), is(XQueryElementType.FILE));
 
         XQueryFile file = (XQueryFile)node.getPsi();
-        assertThat(file.getXQueryVersion(), is(XQueryVersion.XQUERY_3_0));
+        assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_3_0));
 
-        getSettings().setXQueryVersion(XQueryVersion.XQUERY_3_1);
-        assertThat(file.getXQueryVersion(), is(XQueryVersion.XQUERY_3_1));
+        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_1);
+        assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_3_1));
     }
 
     // endregion
@@ -74,7 +74,7 @@ public class XQueryPsiTest extends ParserTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VersionDecl")
     public void testVersionDecl() {
-        getSettings().setXQueryVersion(XQueryVersion.XQUERY_3_0);
+        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
 
         ASTNode node = parseText("xquery version \"1.0\";");
 
@@ -84,12 +84,12 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versionDeclPsi.getEncoding(), is(nullValue()));
 
         XQueryFile file = (XQueryFile)node.getPsi();
-        assertThat(file.getXQueryVersion(), is(XQueryVersion.XQUERY_1_0));
+        assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_1_0));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VersionDecl")
     public void testVersionDecl_EmptyVersion() {
-        getSettings().setXQueryVersion(XQueryVersion.XQUERY_3_0);
+        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
 
         ASTNode node = parseText("xquery version \"\";");
 
@@ -99,12 +99,12 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versionDeclPsi.getEncoding(), is(nullValue()));
 
         XQueryFile file = (XQueryFile)node.getPsi();
-        assertThat(file.getXQueryVersion(), is(XQueryVersion.XQUERY_3_0));
+        assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_3_0));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VersionDecl")
     public void testVersionDecl_WithEncoding() {
-        getSettings().setXQueryVersion(XQueryVersion.XQUERY_3_0);
+        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
 
         ASTNode node = parseText("xquery version \"1.0\" encoding \"latin1\";");
 
@@ -115,12 +115,12 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versionDeclPsi.getEncoding().getSimpleContents(), is("latin1"));
 
         XQueryFile file = (XQueryFile)node.getPsi();
-        assertThat(file.getXQueryVersion(), is(XQueryVersion.XQUERY_1_0));
+        assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_1_0));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VersionDecl")
     public void testVersionDecl_WithEncoding_CommentsAsWhitespace() {
-        getSettings().setXQueryVersion(XQueryVersion.XQUERY_3_0);
+        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
 
         ASTNode node = parseText("xquery(: A :)version(: B :)\"1.0\"(: C :)encoding(: D :)\"latin1\";");
 
@@ -131,12 +131,12 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versionDeclPsi.getEncoding().getSimpleContents(), is("latin1"));
 
         XQueryFile file = (XQueryFile)node.getPsi();
-        assertThat(file.getXQueryVersion(), is(XQueryVersion.XQUERY_1_0));
+        assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_1_0));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VersionDecl")
     public void testVersionDecl_WithEmptyEncoding() {
-        getSettings().setXQueryVersion(XQueryVersion.XQUERY_3_0);
+        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
 
         ASTNode node = parseText("xquery version \"1.0\" encoding \"\";");
 
@@ -147,12 +147,12 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versionDeclPsi.getEncoding().getSimpleContents(), is(nullValue()));
 
         XQueryFile file = (XQueryFile)node.getPsi();
-        assertThat(file.getXQueryVersion(), is(XQueryVersion.XQUERY_1_0));
+        assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_1_0));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VersionDecl")
     public void testVersionDecl_NoVersion() {
-        getSettings().setXQueryVersion(XQueryVersion.XQUERY_3_0);
+        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
 
         ASTNode node = parseText("xquery;");
 
@@ -161,12 +161,12 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versionDeclPsi.getEncoding(), is(nullValue()));
 
         XQueryFile file = (XQueryFile)node.getPsi();
-        assertThat(file.getXQueryVersion(), is(XQueryVersion.XQUERY_3_0));
+        assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_3_0));
     }
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-VersionDecl")
     public void testVersionDecl_EncodingOnly() {
-        getSettings().setXQueryVersion(XQueryVersion.XQUERY_3_0);
+        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
 
         ASTNode node = parseText("xquery encoding \"latin1\";");
 
@@ -176,12 +176,12 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versionDeclPsi.getEncoding().getSimpleContents(), is("latin1"));
 
         XQueryFile file = (XQueryFile)node.getPsi();
-        assertThat(file.getXQueryVersion(), is(XQueryVersion.XQUERY_3_0));
+        assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_3_0));
     }
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-VersionDecl")
     public void testVersionDecl_EncodingOnly_EmptyEncoding() {
-        getSettings().setXQueryVersion(XQueryVersion.XQUERY_3_0);
+        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
 
         ASTNode node = parseText("xquery encoding \"\";");
 
@@ -191,12 +191,12 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versionDeclPsi.getEncoding().getSimpleContents(), is(nullValue()));
 
         XQueryFile file = (XQueryFile)node.getPsi();
-        assertThat(file.getXQueryVersion(), is(XQueryVersion.XQUERY_3_0));
+        assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_3_0));
     }
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-VersionDecl")
     public void testVersionDecl_EncodingOnly_AsXQuery10() {
-        getSettings().setXQueryVersion(XQueryVersion.XQUERY_1_0);
+        getSettings().setXQueryVersion(XQueryVersion.VERSION_1_0);
 
         ASTNode node = parseText("xquery encoding \"latin1\";");
 
@@ -206,7 +206,7 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versionDeclPsi.getEncoding().getSimpleContents(), is("latin1"));
 
         XQueryFile file = (XQueryFile)node.getPsi();
-        assertThat(file.getXQueryVersion(), is(XQueryVersion.XQUERY_1_0));
+        assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_1_0));
     }
 
     // endregion
