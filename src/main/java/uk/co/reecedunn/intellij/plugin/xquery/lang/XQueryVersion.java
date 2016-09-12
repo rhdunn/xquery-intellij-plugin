@@ -58,4 +58,8 @@ public enum XQueryVersion {
     public double toDouble() {
         return mValue;
     }
+
+    public boolean supportsVersion(XQueryVersion version) {
+        return version != null && toDouble() >= version.toDouble();
+    }
 }
