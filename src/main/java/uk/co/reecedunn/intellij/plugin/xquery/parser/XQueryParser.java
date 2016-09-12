@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.parser;
 import com.intellij.lang.PsiBuilder;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryLanguageType;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.INCNameType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType;
@@ -45,7 +45,7 @@ class XQueryParser {
     }
 
     private XQueryVersion getUpdateFacilityVersion() {
-        return mSettings.getDialectForXQueryVersion(mSettings.getXQueryVersion()).getVersion(ImplementationItem.UPDATE_FACILITY);
+        return mSettings.getDialectForXQueryVersion(mSettings.getXQueryVersion()).getVersion(XQueryLanguageType.UPDATE_FACILITY_EXTENSION);
     }
 
     public void parse() {
