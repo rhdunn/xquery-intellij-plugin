@@ -314,34 +314,5 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.XQUERY).getNode().getElementType(), is(XQueryTokenType.K_ENCODING));
     }
 
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-VersionDecl")
-    public void testVersionDecl_EncodingOnly_AsXQuery10() {
-        getSettings().setXQueryVersion(XQueryVersion.VERSION_1_0);
-
-        ASTNode node = parseText("xquery encoding \"latin1\";");
-
-        XQueryVersionDecl versionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryVersionDecl.class);
-        assertThat(versionDeclPsi.getVersion(), is(nullValue()));
-        assertThat(versionDeclPsi.getEncoding(), is(notNullValue()));
-        assertThat(versionDeclPsi.getEncoding().getSimpleContents(), is("latin1"));
-
-        XQueryFile file = (XQueryFile)node.getPsi();
-        assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_1_0));
-
-        XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)versionDeclPsi;
-
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.XQUERY), is(XQueryVersion.VERSION_1_0));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.UPDATE_FACILITY_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.FULL_TEXT_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.SCRIPTING_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.MARKLOGIC_EXTENSION), is(nullValue()));
-
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.XQUERY), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.UPDATE_FACILITY_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.FULL_TEXT_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.SCRIPTING_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.MARKLOGIC_EXTENSION), is(nullValue()));
-    }
-
     // endregion
 }

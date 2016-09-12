@@ -39,11 +39,6 @@ class XQueryParser {
         mSettings = settings;
     }
 
-    private boolean isXQuery30OrLater() {
-        XQueryVersion version = mSettings.getXQueryVersion();
-        return version == XQueryVersion.VERSION_3_0 || version == XQueryVersion.VERSION_3_1;
-    }
-
     private XQueryVersion getUpdateFacilityVersion() {
         return mSettings.getDialectForXQueryVersion(mSettings.getXQueryVersion()).getVersion(XQueryLanguageType.UPDATE_FACILITY_EXTENSION);
     }
@@ -178,14 +173,7 @@ class XQueryParser {
             boolean haveErrors = false;
 
             skipWhiteSpaceAndCommentTokens();
-            final PsiBuilder.Marker versionDecl30Marker = mark();
             if (matchTokenType(XQueryTokenType.K_ENCODING)) {
-                if (isXQuery30OrLater()) {
-                    versionDecl30Marker.drop();
-                } else {
-                    versionDecl30Marker.error(XQueryBundle.message("parser.error.version-decl.3.0"));
-                }
-
                 skipWhiteSpaceAndCommentTokens();
                 if (!parseStringLiteral(XQueryElementType.STRING_LITERAL)) {
                     error(XQueryBundle.message("parser.error.expected-encoding-string"));
@@ -194,7 +182,6 @@ class XQueryParser {
 
                 skipWhiteSpaceAndCommentTokens();
             } else {
-                versionDecl30Marker.drop();
                 if (!matchTokenType(XQueryTokenType.K_VERSION)) {
                     error(XQueryBundle.message("parser.error.expected-keyword", "version"));
                     haveErrors = true;

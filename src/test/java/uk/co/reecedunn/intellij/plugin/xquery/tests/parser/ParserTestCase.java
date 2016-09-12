@@ -156,7 +156,7 @@ public abstract class ParserTestCase extends ParsingTestCase {
         return node;
     }
 
-    @NotNull ASTNode parseResource(String resource) {
+    protected @NotNull ASTNode parseResource(String resource) {
         return parseText(loadResource(resource));
     }
 
