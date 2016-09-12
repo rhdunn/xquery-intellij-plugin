@@ -54,4 +54,17 @@ public class XQueryVersionTest extends TestCase {
         assertThat(XQueryVersion.parse("1.1"), is(nullValue()));
         assertThat(XQueryVersion.parse("2.0"), is(nullValue()));
     }
+
+    public void testToDouble() {
+        assertThat(XQueryVersion.VERSION_0_9_MARKLOGIC.toDouble(), is(0.9));
+        assertThat(XQueryVersion.VERSION_1_0.toDouble(), is(1.0));
+        assertThat(XQueryVersion.VERSION_1_0_MARKLOGIC.toDouble(), is(1.0));
+        assertThat(XQueryVersion.VERSION_3_0.toDouble(), is(3.0));
+        assertThat(XQueryVersion.VERSION_3_1.toDouble(), is(3.1));
+
+        // MarkLogic Extensions:
+        assertThat(XQueryVersion.VERSION_6_0.toDouble(), is(6.0));
+        assertThat(XQueryVersion.VERSION_7_0.toDouble(), is(7.0));
+        assertThat(XQueryVersion.VERSION_8_0.toDouble(), is(8.0));
+    }
 }

@@ -19,20 +19,22 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public enum XQueryVersion {
-    VERSION_0_9_MARKLOGIC("0.9-ml"),
-    VERSION_1_0("1.0"),
-    VERSION_1_0_MARKLOGIC("1.0-ml"),
-    VERSION_3_0("3.0"),
-    VERSION_3_1("3.1"),
+    VERSION_0_9_MARKLOGIC("0.9-ml", 0.9),
+    VERSION_1_0("1.0", 1.0),
+    VERSION_1_0_MARKLOGIC("1.0-ml", 1.0),
+    VERSION_3_0("3.0", 3.0),
+    VERSION_3_1("3.1", 3.1),
     // MarkLogic Extensions:
-    VERSION_6_0("6.0"),
-    VERSION_7_0("7.0"),
-    VERSION_8_0("8.0");
+    VERSION_6_0("6.0", 6.0),
+    VERSION_7_0("7.0", 7.0),
+    VERSION_8_0("8.0", 8.0);
 
     private final String mID;
+    private final double mValue;
 
-    XQueryVersion(@NotNull String id) {
+    XQueryVersion(@NotNull String id, double value) {
         mID = id;
+        mValue = value;
     }
 
     @Nullable
@@ -51,5 +53,9 @@ public enum XQueryVersion {
     @Override
     public String toString() {
         return mID;
+    }
+
+    public double toDouble() {
+        return mValue;
     }
 }
