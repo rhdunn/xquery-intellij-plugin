@@ -39,10 +39,6 @@ class XQueryParser {
         mSettings = settings;
     }
 
-    private XQueryVersion getUpdateFacilityVersion() {
-        return mSettings.getDialectForXQueryVersion(mSettings.getXQueryVersion()).getVersion(XQueryLanguageType.UPDATE_FACILITY_EXTENSION);
-    }
-
     public void parse() {
         boolean matched = false;
         boolean haveError = false;
@@ -581,11 +577,7 @@ class XQueryParser {
         final PsiBuilder.Marker errorMarker = mBuilder.mark();
         if (matchTokenType(XQueryTokenType.K_REVALIDATION)) {
             if (state == PrologDeclState.HEADER_STATEMENT) {
-                if (getUpdateFacilityVersion() != null) {
-                    errorMarker.drop();
-                } else {
-                    errorMarker.error(XQueryBundle.message("parser.error.update-facility.1.0"));
-                }
+                errorMarker.drop();
             } else {
                 errorMarker.error(XQueryBundle.message("parser.error.expected-prolog-body"));
             }
@@ -882,20 +874,10 @@ class XQueryParser {
     }
 
     private boolean parseFunctionDecl(PsiBuilder.Marker functionDeclMarker) {
-        final PsiBuilder.Marker errorMarker = mBuilder.mark();
-
         boolean haveAnnotation = false;
         if (matchTokenType(XQueryTokenType.K_UPDATING)) {
-            if (getUpdateFacilityVersion() != null) {
-                errorMarker.drop();
-            } else {
-                errorMarker.error(XQueryBundle.message("parser.error.update-facility.1.0"));
-            }
-
             haveAnnotation = true;
             skipWhiteSpaceAndCommentTokens();
-        } else {
-            errorMarker.drop();
         }
 
         if (getTokenType() == XQueryTokenType.K_FUNCTION || haveAnnotation) {
@@ -1601,15 +1583,7 @@ class XQueryParser {
 
     private boolean parseInsertExpr() {
         final PsiBuilder.Marker insertExprMarker = mark();
-        if (getTokenType() == XQueryTokenType.K_INSERT) {
-            if (getUpdateFacilityVersion() != null) {
-                advanceLexer();
-            } else {
-                final PsiBuilder.Marker errorMarker = mark();
-                advanceLexer();
-                errorMarker.error(XQueryBundle.message("parser.error.update-facility.1.0"));
-            }
-
+        if (matchTokenType(XQueryTokenType.K_INSERT)) {
             boolean haveErrors = false;
 
             skipWhiteSpaceAndCommentTokens();
@@ -1705,15 +1679,7 @@ class XQueryParser {
 
     private boolean parseDeleteExpr() {
         final PsiBuilder.Marker deleteExprMarker = mark();
-        if (getTokenType() == XQueryTokenType.K_DELETE) {
-            if (getUpdateFacilityVersion() != null) {
-                advanceLexer();
-            } else {
-                final PsiBuilder.Marker errorMarker = mark();
-                advanceLexer();
-                errorMarker.error(XQueryBundle.message("parser.error.update-facility.1.0"));
-            }
-
+        if (matchTokenType(XQueryTokenType.K_DELETE)) {
             skipWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.K_NODE) && !matchTokenType(XQueryTokenType.K_NODES)) {
                 deleteExprMarker.rollbackTo();
@@ -1737,15 +1703,7 @@ class XQueryParser {
 
     private boolean parseReplaceExpr() {
         final PsiBuilder.Marker deleteExprMarker = mark();
-        if (getTokenType() == XQueryTokenType.K_REPLACE) {
-            if (getUpdateFacilityVersion() != null) {
-                advanceLexer();
-            } else {
-                final PsiBuilder.Marker errorMarker = mark();
-                advanceLexer();
-                errorMarker.error(XQueryBundle.message("parser.error.update-facility.1.0"));
-            }
-
+        if (matchTokenType(XQueryTokenType.K_REPLACE)) {
             boolean haveErrors = false;
             boolean haveValueOf = false;
 
