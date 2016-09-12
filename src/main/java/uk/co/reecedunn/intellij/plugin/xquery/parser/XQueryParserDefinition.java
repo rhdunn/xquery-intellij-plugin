@@ -30,7 +30,6 @@ import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.*;
-import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings;
 
 public class XQueryParserDefinition implements ParserDefinition {
     @Override
@@ -41,8 +40,7 @@ public class XQueryParserDefinition implements ParserDefinition {
 
     @Override
     public PsiParser createParser(@NotNull Project project) {
-        final XQueryProjectSettings settings = XQueryProjectSettings.getInstance(project);
-        return new XQueryPsiParser(settings);
+        return new XQueryPsiParser();
     }
 
     @Override

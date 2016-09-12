@@ -18,25 +18,20 @@ package uk.co.reecedunn.intellij.plugin.xquery.parser;
 import com.intellij.lang.PsiBuilder;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryLanguageType;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.INCNameType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryReservedFunctionNameOrNCNameType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
-import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings;
 
 @SuppressWarnings({"SameParameterValue", "StatementWithEmptyBody"})
 class XQueryParser {
     // region Main Interface
 
     private final PsiBuilder mBuilder;
-    private final XQueryProjectSettings mSettings;
 
-    public XQueryParser(@NotNull PsiBuilder builder, @NotNull XQueryProjectSettings settings) {
+    public XQueryParser(@NotNull PsiBuilder builder) {
         mBuilder = builder;
-        mSettings = settings;
     }
 
     public void parse() {
