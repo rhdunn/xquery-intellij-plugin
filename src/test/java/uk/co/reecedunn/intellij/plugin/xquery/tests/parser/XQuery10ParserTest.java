@@ -5519,4 +5519,56 @@ public class XQuery10ParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region Update Facility 1.0 :: ReplaceExpr
+
+    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-ReplaceExpr")
+    public void testReplaceExpr() {
+        final String expected = loadResource("tests/parser/xquery-update-1.0/ReplaceExpr_XQuery10.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-update-1.0/ReplaceExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-ReplaceExpr")
+    public void testReplaceExpr_MissingTargetExpr() {
+        final String expected = loadResource("tests/parser/xquery-update-1.0/ReplaceExpr_MissingTargetExpr_XQuery10.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-update-1.0/ReplaceExpr_MissingTargetExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-ReplaceExpr")
+    public void testReplaceExpr_MissingWithKeyword() {
+        final String expected = loadResource("tests/parser/xquery-update-1.0/ReplaceExpr_MissingWithKeyword_XQuery10.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-update-1.0/ReplaceExpr_MissingWithKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-ReplaceExpr")
+    public void testReplaceExpr_MissingReplaceExpr() {
+        final String expected = loadResource("tests/parser/xquery-update-1.0/ReplaceExpr_MissingReplaceExpr_XQuery10.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-update-1.0/ReplaceExpr_MissingReplaceExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-ReplaceExpr")
+    public void testReplaceExpr_ValueOf() {
+        final String expected = loadResource("tests/parser/xquery-update-1.0/ReplaceExpr_ValueOf_XQuery10.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-update-1.0/ReplaceExpr_ValueOf.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-ReplaceExpr")
+    public void testReplaceExpr_ValueOf_MissingNodeKeyword() {
+        final String expected = loadResource("tests/parser/xquery-update-1.0/ReplaceExpr_ValueOf_MissingNodeKeyword_XQuery10.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-update-1.0/ReplaceExpr_ValueOf_MissingNodeKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-ReplaceExpr")
+    public void testReplaceExpr_ValueOf_MissingOfKeyword() {
+        final String expected = loadResource("tests/parser/xquery-update-1.0/ReplaceExpr_ValueOf_MissingOfKeyword_XQuery10.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-update-1.0/ReplaceExpr_ValueOf_MissingOfKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
 }

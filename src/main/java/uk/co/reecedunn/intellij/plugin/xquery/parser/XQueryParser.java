@@ -1079,6 +1079,7 @@ class XQueryParser {
             || parseIfExpr()
             || parseInsertExpr() // Update Facility 1.0
             || parseDeleteExpr() // Update Facility 1.0
+            || parseReplaceExpr() // Update Facility 1.0
             || parseOrExpr(type);
     }
 
@@ -1738,6 +1739,69 @@ class XQueryParser {
             }
 
             deleteExprMarker.done(XQueryElementType.DELETE_EXPR);
+            return true;
+        }
+        deleteExprMarker.drop();
+        return false;
+    }
+
+    // endregion
+    // region Grammar :: Expr :: ReplaceExpr (Update Facility 1.0)
+
+    private boolean parseReplaceExpr() {
+        final PsiBuilder.Marker deleteExprMarker = mark();
+        if (getTokenType() == XQueryTokenType.K_REPLACE) {
+            if (getUpdateFacilityVersion() != null) {
+                advanceLexer();
+            } else {
+                final PsiBuilder.Marker errorMarker = mark();
+                advanceLexer();
+                errorMarker.error(XQueryBundle.message("parser.error.update-facility.1.0"));
+            }
+
+            boolean haveErrors = false;
+            boolean haveValueOf = false;
+
+            skipWhiteSpaceAndCommentTokens();
+            if (matchTokenType(XQueryTokenType.K_VALUE)) {
+                skipWhiteSpaceAndCommentTokens();
+                if (!matchTokenType(XQueryTokenType.K_OF)) {
+                    error(XQueryBundle.message("parser.error.expected-keyword", "of"));
+                    haveErrors = true;
+                }
+                haveValueOf = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_NODE)) {
+                if (!haveValueOf) {
+                    deleteExprMarker.rollbackTo();
+                    return false;
+                }
+                if (!haveErrors) {
+                    error(XQueryBundle.message("parser.error.expected-keyword", "node"));
+                    haveErrors = true;
+                }
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!parseTargetExpr()) {
+                error(XQueryBundle.message("parser.error.expected-expression"));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_WITH) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "with"));
+                haveErrors = true;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!parseExprSingle() && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-expression"));
+            }
+
+            deleteExprMarker.done(XQueryElementType.REPLACE_EXPR);
             return true;
         }
         deleteExprMarker.drop();
