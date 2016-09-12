@@ -170,6 +170,8 @@ public interface XQueryElementType {
     IElementType REVALIDATION_DECL = new ICompositeElementType("XQUERY_REVALIDATION_DECL", UpdateFacilityRevalidationDeclImpl.class, UpdateFacilityRevalidationDeclPsiImpl.class);
 
     IElementType INSERT_EXPR = new ICompositeElementType("XQUERY_INSERT_EXPR", UpdateFacilityInsertExprImpl.class, UpdateFacilityInsertExprPsiImpl.class);
+    IElementType DELETE_EXPR = new ICompositeElementType("XQUERY_DELETE_EXPR", UpdateFacilityDeleteExprImpl.class, UpdateFacilityDeleteExprPsiImpl.class);
+
     IElementType SOURCE_EXPR = new ICompositeElementType("XQUERY_SOURCE_EXPR", UpdateFacilitySourceExprImpl.class, UpdateFacilitySourceExprPsiImpl.class);
     IElementType TARGET_EXPR = new ICompositeElementType("XQUERY_TARGET_EXPR", UpdateFacilityTargetExprImpl.class, UpdateFacilityTargetExprPsiImpl.class);
     IElementType INSERT_EXPR_TARGET_CHOICE = new ICompositeElementType("XQUERY_INSERT_EXPR_TARGET_CHOICE", UpdateFacilityInsertExprTargetChoiceImpl.class, UpdateFacilityInsertExprTargetChoicePsiImpl.class);

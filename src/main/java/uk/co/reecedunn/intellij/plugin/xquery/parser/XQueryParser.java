@@ -1077,7 +1077,8 @@ class XQueryParser {
             || parseQuantifiedExpr()
             || parseTypeswitchExpr()
             || parseIfExpr()
-            || parseInsertExpr()
+            || parseInsertExpr() // Update Facility 1.0
+            || parseDeleteExpr() // Update Facility 1.0
             || parseOrExpr(type);
     }
 
@@ -1708,6 +1709,38 @@ class XQueryParser {
             return true;
         }
         targetExprMarker.drop();
+        return false;
+    }
+
+    // endregion
+    // region Grammar :: Expr :: DeleteExpr (Update Facility 1.0)
+
+    private boolean parseDeleteExpr() {
+        final PsiBuilder.Marker deleteExprMarker = mark();
+        if (getTokenType() == XQueryTokenType.K_DELETE) {
+            if (getUpdateFacilityVersion() != null) {
+                advanceLexer();
+            } else {
+                final PsiBuilder.Marker errorMarker = mark();
+                advanceLexer();
+                errorMarker.error(XQueryBundle.message("parser.error.update-facility.1.0"));
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_NODE) && !matchTokenType(XQueryTokenType.K_NODES)) {
+                deleteExprMarker.rollbackTo();
+                return false;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!parseTargetExpr()) {
+                error(XQueryBundle.message("parser.error.expected-expression"));
+            }
+
+            deleteExprMarker.done(XQueryElementType.DELETE_EXPR);
+            return true;
+        }
+        deleteExprMarker.drop();
         return false;
     }
 
