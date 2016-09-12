@@ -23,7 +23,11 @@ public enum XQueryVersion {
     VERSION_1_0("1.0"),
     VERSION_1_0_MARKLOGIC("1.0-ml"),
     VERSION_3_0("3.0"),
-    VERSION_3_1("3.1");
+    VERSION_3_1("3.1"),
+    // MarkLogic Extensions:
+    VERSION_6_0("6.0"),
+    VERSION_7_0("7.0"),
+    VERSION_8_0("8.0");
 
     private final String mID;
 
@@ -38,6 +42,9 @@ public enum XQueryVersion {
         if ("1.0-ml".equals(value)) return VERSION_1_0_MARKLOGIC;
         if ("3.0".equals(value)) return VERSION_3_0;
         if ("3.1".equals(value)) return VERSION_3_1;
+        if ("6.0".equals(value)) return VERSION_6_0;
+        if ("7.0".equals(value)) return VERSION_7_0;
+        if ("8.0".equals(value)) return VERSION_8_0;
         return null;
     }
 

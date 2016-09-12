@@ -28,6 +28,11 @@ public class XQueryVersionTest extends TestCase {
         assertThat(XQueryVersion.VERSION_1_0_MARKLOGIC.toString(), is("1.0-ml"));
         assertThat(XQueryVersion.VERSION_3_0.toString(), is("3.0"));
         assertThat(XQueryVersion.VERSION_3_1.toString(), is("3.1"));
+
+        // MarkLogic Extensions:
+        assertThat(XQueryVersion.VERSION_6_0.toString(), is("6.0"));
+        assertThat(XQueryVersion.VERSION_7_0.toString(), is("7.0"));
+        assertThat(XQueryVersion.VERSION_8_0.toString(), is("8.0"));
     }
 
     public void testParse() {
@@ -38,6 +43,11 @@ public class XQueryVersionTest extends TestCase {
         assertThat(XQueryVersion.parse("1.0-ml"), is(XQueryVersion.VERSION_1_0_MARKLOGIC));
         assertThat(XQueryVersion.parse("3.0"), is(XQueryVersion.VERSION_3_0));
         assertThat(XQueryVersion.parse("3.1"), is(XQueryVersion.VERSION_3_1));
+
+        // MarkLogic Extensions:
+        assertThat(XQueryVersion.parse("6.0"), is(XQueryVersion.VERSION_6_0));
+        assertThat(XQueryVersion.parse("7.0"), is(XQueryVersion.VERSION_7_0));
+        assertThat(XQueryVersion.parse("8.0"), is(XQueryVersion.VERSION_8_0));
 
         assertThat(XQueryVersion.parse("0.9"), is(nullValue()));
         assertThat(XQueryVersion.parse("1.0-und"), is(nullValue()));

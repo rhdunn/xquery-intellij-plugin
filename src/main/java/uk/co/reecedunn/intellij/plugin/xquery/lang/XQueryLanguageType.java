@@ -21,7 +21,8 @@ public enum XQueryLanguageType {
     XQUERY("xquery"),
     UPDATE_FACILITY_EXTENSION("update-facility"),
     FULL_TEXT_EXTENSION("full-text"),
-    SCRIPTING_EXTENSION("scripting");
+    SCRIPTING_EXTENSION("scripting"),
+    MARKLOGIC_EXTENSION("marklogic");
 
     private final String mID;
 
