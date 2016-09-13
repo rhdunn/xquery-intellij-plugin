@@ -20,11 +20,13 @@ import com.intellij.lang.annotation.Annotator;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryLanguageType;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.PsiNavigation;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVersionedConstruct;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
+import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings;
 
 public class XQuerySupportedConstructAnnotator implements Annotator {
     @Override
@@ -32,12 +34,34 @@ public class XQuerySupportedConstructAnnotator implements Annotator {
         if (!(element instanceof XQueryVersionedConstruct)) return;
         XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)element;
 
-        XQueryVersion version = versioned.getLanguageTypeVersion(XQueryLanguageType.XQUERY);
+        XQueryVersion xqueryVersion = PsiNavigation.findParentByClass(element, XQueryFile.class).getXQueryVersion();
+        XQueryProjectSettings settings = XQueryProjectSettings.getInstance(element.getProject());
+        ImplementationItem dialect = settings.getDialectForXQueryVersion(xqueryVersion);
+
+        checkVersion(holder, versioned, XQueryLanguageType.XQUERY, xqueryVersion, "annotator.requires.xquery.version");
+        checkVersion(holder, versioned, XQueryLanguageType.UPDATE_FACILITY_EXTENSION, dialect, "annotator.requires.update-facility.version");
+    }
+
+    private void checkVersion(AnnotationHolder holder, XQueryVersionedConstruct versioned, XQueryLanguageType type, ImplementationItem dialect, String key) {
+        XQueryVersion version = dialect.getVersion(type);
+        if (version == null) {
+            XQueryVersion typeVersion = versioned.getLanguageTypeVersion(type);
+            if (typeVersion != null) {
+                final PsiElement node = versioned.getLanguageTypeElement(type);
+                final String message = XQueryBundle.message(key, typeVersion.toString());
+                holder.createWarningAnnotation(node, message);
+            }
+        } else {
+            checkVersion(holder, versioned, type, version, key);
+        }
+    }
+
+    private void checkVersion(AnnotationHolder holder, XQueryVersionedConstruct versioned, XQueryLanguageType type, XQueryVersion xqueryVersion, String key) {
+        XQueryVersion version = versioned.getLanguageTypeVersion(type);
         if (version != null) {
-            XQueryVersion fileVersion = PsiNavigation.findParentByClass(element, XQueryFile.class).getXQueryVersion();
-            if (!fileVersion.supportsVersion(version)) {
-                final PsiElement node = versioned.getLanguageTypeElement(XQueryLanguageType.XQUERY);
-                final String message = XQueryBundle.message("annotator.requires.xquery.version", version.toString());
+            if (!xqueryVersion.supportsVersion(version)) {
+                final PsiElement node = versioned.getLanguageTypeElement(type);
+                final String message = XQueryBundle.message(key, version.toString());
                 holder.createWarningAnnotation(node, message);
             }
         }

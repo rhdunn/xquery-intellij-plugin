@@ -17,7 +17,6 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.annotator;
 
 import com.intellij.lang.ASTNode;
 import com.intellij.lang.annotation.Annotation;
-import com.intellij.lang.annotation.Annotator;
 import com.intellij.lang.annotation.HighlightSeverity;
 import uk.co.reecedunn.intellij.plugin.xquery.annotator.XQuerySupportedConstructAnnotator;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
@@ -28,6 +27,8 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class XQuerySupportedConstructAnnotatorTest extends AnnotatorTestCase {
+    // region XQuery
+
     public void testXQuery30VersionDeclInXQuery10() {
         getSettings().setXQueryVersion(XQueryVersion.VERSION_1_0);
         final ASTNode node = parseResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly.xq");
@@ -43,7 +44,7 @@ public class XQuerySupportedConstructAnnotatorTest extends AnnotatorTestCase {
         assertThat(annotations.get(0).getEndOffset(), is(15));
     }
 
-    public void testXQuery30VersionDeclInXQuery30() {
+    public void testXQuery30VersionDecl() {
         getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
         final ASTNode node = parseResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly.xq");
 
@@ -51,4 +52,35 @@ public class XQuerySupportedConstructAnnotatorTest extends AnnotatorTestCase {
         List<Annotation> annotations = annotateTree(node, annotator);
         assertThat(annotations.size(), is(0));
     }
+
+    // endregion
+    // region Update Facility
+
+    public void testUpdateFacility10InsertExprInXQuery10() {
+        getSettings().setXQueryVersion(XQueryVersion.VERSION_1_0);
+        final ASTNode node = parseResource("tests/parser/xquery-update-1.0/InsertExpr_Node.xq");
+
+        XQuerySupportedConstructAnnotator annotator = new XQuerySupportedConstructAnnotator();
+        List<Annotation> annotations = annotateTree(node, annotator);
+        assertThat(annotations.size(), is(1));
+
+        assertThat(annotations.get(0).getSeverity(), is(HighlightSeverity.WARNING));
+        assertThat(annotations.get(0).getMessage(), is("XPST0003: This expression requires Update Facility 1.0 or later."));
+        assertThat(annotations.get(0).getTooltip(), is(nullValue()));
+        assertThat(annotations.get(0).getStartOffset(), is(0));
+        assertThat(annotations.get(0).getEndOffset(), is(6));
+    }
+
+    public void testUpdateFacility10InsertExpr() {
+        getSettings().setXQueryVersion(XQueryVersion.VERSION_1_0);
+        getSettings().setImplementation("w3c");
+        getSettings().setXQuery10Dialect("w3c/1.0-update");
+        final ASTNode node = parseResource("tests/parser/xquery-update-1.0/InsertExpr_Node.xq");
+
+        XQuerySupportedConstructAnnotator annotator = new XQuerySupportedConstructAnnotator();
+        List<Annotation> annotations = annotateTree(node, annotator);
+        assertThat(annotations.size(), is(0));
+    }
+
+    // endregion
 }
