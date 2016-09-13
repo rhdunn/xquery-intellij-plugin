@@ -173,6 +173,7 @@ public interface XQueryElementType {
     IElementType DELETE_EXPR = new ICompositeElementType("XQUERY_DELETE_EXPR", UpdateFacilityDeleteExprImpl.class, UpdateFacilityDeleteExprPsiImpl.class);
     IElementType REPLACE_EXPR = new ICompositeElementType("XQUERY_REPLACE_EXPR", UpdateFacilityReplaceExprImpl.class, UpdateFacilityReplaceExprPsiImpl.class);
     IElementType RENAME_EXPR = new ICompositeElementType("XQUERY_RENAME_EXPR", UpdateFacilityRenameExprImpl.class, UpdateFacilityRenameExprPsiImpl.class);
+    IElementType TRANSFORM_EXPR = new ICompositeElementType("XQUERY_TRANSFORM_EXPR", UpdateFacilityTransformExprImpl.class, UpdateFacilityTransformExprPsiImpl.class);
 
     IElementType NEW_NAME_EXPR = new ICompositeElementType("XQUERY_NEW_NAME_EXPR", UpdateFacilityNewNameExprImpl.class, UpdateFacilityNewNameExprPsiImpl.class);
     IElementType SOURCE_EXPR = new ICompositeElementType("XQUERY_SOURCE_EXPR", UpdateFacilitySourceExprImpl.class, UpdateFacilitySourceExprPsiImpl.class);

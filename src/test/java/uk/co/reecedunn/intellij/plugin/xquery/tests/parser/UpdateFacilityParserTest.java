@@ -313,4 +313,91 @@ public class UpdateFacilityParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region Update Facility 1.0 :: TransformExpr
+
+    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-TransformExpr")
+    public void testTransformExpr() {
+        final String expected = loadResource("tests/parser/xquery-update-1.0/TransformExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-update-1.0/TransformExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-TransformExpr")
+    public void testTransformExpr_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-update-1.0/TransformExpr_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-update-1.0/TransformExpr_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-TransformExpr")
+    public void testTransformExpr_MissingVarName() {
+        final String expected = loadResource("tests/parser/xquery-update-1.0/TransformExpr_MissingVarName.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-update-1.0/TransformExpr_MissingVarName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-TransformExpr")
+    public void testTransformExpr_MissingVarAssignOperator() {
+        final String expected = loadResource("tests/parser/xquery-update-1.0/TransformExpr_MissingVarAssignOperator.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-update-1.0/TransformExpr_MissingVarAssignOperator.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-TransformExpr")
+    public void testTransformExpr_MissingVarAssignExpr() {
+        final String expected = loadResource("tests/parser/xquery-update-1.0/TransformExpr_MissingVarAssignExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-update-1.0/TransformExpr_MissingVarAssignExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-TransformExpr")
+    public void testTransformExpr_MissingModifyKeyword() {
+        final String expected = loadResource("tests/parser/xquery-update-1.0/TransformExpr_MissingModifyKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-update-1.0/TransformExpr_MissingModifyKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-TransformExpr")
+    public void testTransformExpr_MissingModifyExpr() {
+        final String expected = loadResource("tests/parser/xquery-update-1.0/TransformExpr_MissingModifyExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-update-1.0/TransformExpr_MissingModifyExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-TransformExpr")
+    public void testTransformExpr_MissingReturnKeyword() {
+        final String expected = loadResource("tests/parser/xquery-update-1.0/TransformExpr_MissingReturnKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-update-1.0/TransformExpr_MissingReturnKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-TransformExpr")
+    public void testTransformExpr_MissingReturnExpr() {
+        final String expected = loadResource("tests/parser/xquery-update-1.0/TransformExpr_MissingReturnExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-update-1.0/TransformExpr_MissingReturnExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-TransformExpr")
+    public void testTransformExpr_MultipleVarName() {
+        final String expected = loadResource("tests/parser/xquery-update-1.0/TransformExpr_MultipleVarName.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-update-1.0/TransformExpr_MultipleVarName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-TransformExpr")
+    public void testTransformExpr_MultipleVarName_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-update-1.0/TransformExpr_MultipleVarName_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-update-1.0/TransformExpr_MultipleVarName_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-TransformExpr")
+    public void testTransformExpr_MultipleVarName_MissingVarIndicator() {
+        final String expected = loadResource("tests/parser/xquery-update-1.0/TransformExpr_MultipleVarName_MissingVarIndicator.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-update-1.0/TransformExpr_MultipleVarName_MissingVarIndicator.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
 }
