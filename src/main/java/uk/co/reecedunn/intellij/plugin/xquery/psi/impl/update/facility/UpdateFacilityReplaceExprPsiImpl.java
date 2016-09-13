@@ -17,11 +17,33 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.update.facility;
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
+import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.UpdateFacilityReplaceExpr;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryLanguageType;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVersionedConstruct;
 
-public class UpdateFacilityReplaceExprPsiImpl extends ASTWrapperPsiElement implements UpdateFacilityReplaceExpr {
+public class UpdateFacilityReplaceExprPsiImpl extends ASTWrapperPsiElement implements UpdateFacilityReplaceExpr, XQueryVersionedConstruct {
     public UpdateFacilityReplaceExprPsiImpl(@NotNull ASTNode node) {
         super(node);
+    }
+
+    @Override
+    public XQueryVersion getLanguageTypeVersion(XQueryLanguageType type) {
+        if (type == XQueryLanguageType.UPDATE_FACILITY_EXTENSION) {
+            return XQueryVersion.VERSION_1_0;
+        }
+        return null;
+    }
+
+    @Override
+    public PsiElement getLanguageTypeElement(XQueryLanguageType type) {
+        if (type == XQueryLanguageType.UPDATE_FACILITY_EXTENSION) {
+            final ASTNode node = getNode().findChildByType(XQueryTokenType.K_REPLACE);
+            return node == null ? null : node.getPsi();
+        }
+        return null;
     }
 }
