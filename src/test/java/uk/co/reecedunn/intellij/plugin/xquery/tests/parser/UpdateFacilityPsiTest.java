@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.parser;
 
 import com.intellij.lang.ASTNode;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.UpdateFacilityDeleteExpr;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.UpdateFacilityInsertExpr;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryLanguageType;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
@@ -52,6 +53,32 @@ public class UpdateFacilityPsiTest extends ParserTestCase {
 
         assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.UPDATE_FACILITY_EXTENSION).getNode().getElementType(),
                    is(XQueryTokenType.K_INSERT));
+    }
+
+    // endregion
+    // region Update Facility 1.0 :: DeleteExpr
+
+    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-DeleteExpr")
+    public void testDeleteExpr() {
+        final ASTNode node = parseResource("tests/parser/xquery-update-1.0/DeleteExpr_Node.xq");
+
+        UpdateFacilityDeleteExpr insertExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), UpdateFacilityDeleteExpr.class);
+        XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)insertExprPsi;
+
+        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.XQUERY), is(nullValue()));
+        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.UPDATE_FACILITY_EXTENSION), is(XQueryVersion.VERSION_1_0));
+        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.FULL_TEXT_EXTENSION), is(nullValue()));
+        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.SCRIPTING_EXTENSION), is(nullValue()));
+        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.MARKLOGIC_EXTENSION), is(nullValue()));
+
+        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.XQUERY), is(nullValue()));
+        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.UPDATE_FACILITY_EXTENSION), is(notNullValue()));
+        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.FULL_TEXT_EXTENSION), is(nullValue()));
+        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.SCRIPTING_EXTENSION), is(nullValue()));
+        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.MARKLOGIC_EXTENSION), is(nullValue()));
+
+        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.UPDATE_FACILITY_EXTENSION).getNode().getElementType(),
+                is(XQueryTokenType.K_DELETE));
     }
 
     // endregion
