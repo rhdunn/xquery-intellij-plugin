@@ -1776,7 +1776,7 @@ class XQueryParser {
             }
 
             skipWhiteSpaceAndCommentTokens();
-            if (!parseExprSingle() && !haveErrors) {
+            if (!parseNewNameExpr() && !haveErrors) {
                 error(XQueryBundle.message("parser.error.expected-expression"));
             }
 
@@ -1784,6 +1784,16 @@ class XQueryParser {
             return true;
         }
         renameExprMarker.drop();
+        return false;
+    }
+
+    private boolean parseNewNameExpr() {
+        final PsiBuilder.Marker newNameExprMarker = mark();
+        if (parseExprSingle()) {
+            newNameExprMarker.done(XQueryElementType.NEW_NAME_EXPR);
+            return true;
+        }
+        newNameExprMarker.drop();
         return false;
     }
 
