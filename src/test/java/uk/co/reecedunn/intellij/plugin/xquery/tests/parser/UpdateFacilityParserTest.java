@@ -282,4 +282,35 @@ public class UpdateFacilityParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region Update Facility 1.0 :: RenameExpr
+
+    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-RenameExpr")
+    public void testRenameExpr() {
+        final String expected = loadResource("tests/parser/xquery-update-1.0/RenameExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-update-1.0/RenameExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-RenameExpr")
+    public void testRenameExpr_MissingTargetExpr() {
+        final String expected = loadResource("tests/parser/xquery-update-1.0/RenameExpr_MissingTargetExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-update-1.0/RenameExpr_MissingTargetExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-RenameExpr")
+    public void testRenameExpr_MissingAsKeyword() {
+        final String expected = loadResource("tests/parser/xquery-update-1.0/RenameExpr_MissingAsKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-update-1.0/RenameExpr_MissingAsKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-RenameExpr")
+    public void testRenameExpr_MissingNewNameExpr() {
+        final String expected = loadResource("tests/parser/xquery-update-1.0/RenameExpr_MissingNewNameExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-update-1.0/RenameExpr_MissingNewNameExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
 }
