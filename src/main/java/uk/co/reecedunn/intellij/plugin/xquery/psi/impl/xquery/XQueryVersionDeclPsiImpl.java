@@ -18,28 +18,32 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.impl.source.tree.PsiErrorElementImpl;
+import com.intellij.psi.tree.TokenSet;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.impl.xquery.XQueryVersionDeclImpl;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryStringLiteral;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVersionDecl;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryLanguageType;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVersionedConstruct;
 
 public class XQueryVersionDeclPsiImpl extends ASTWrapperPsiElement implements XQueryVersionDecl, XQueryVersionedConstruct {
+    private static final TokenSet STRINGS = TokenSet.create(XQueryElementType.STRING_LITERAL);
+
     public XQueryVersionDeclPsiImpl(@NotNull ASTNode node) {
         super(node);
     }
 
     public @Nullable XQueryStringLiteral getVersion() {
-        return ((XQueryVersionDeclImpl)getNode()).getVersion();
+        return getStringValueAfterKeyword(XQueryTokenType.K_VERSION);
     }
 
     public @Nullable XQueryStringLiteral getEncoding() {
-        return ((XQueryVersionDeclImpl)getNode()).getEncoding();
+        return getStringValueAfterKeyword(XQueryTokenType.K_ENCODING);
     }
 
     @Override
@@ -54,6 +58,24 @@ public class XQueryVersionDeclPsiImpl extends ASTWrapperPsiElement implements XQ
     public PsiElement getLanguageTypeElement(XQueryLanguageType type) {
         if (type == XQueryLanguageType.XQUERY) {
             return getXQuery30Encoding();
+        }
+        return null;
+    }
+
+    private @Nullable XQueryStringLiteral getStringValueAfterKeyword(IXQueryKeywordOrNCNameType type) {
+        for (ASTNode child : getNode().getChildren(STRINGS)) {
+            ASTNode previous = child.getTreePrev();
+            while (previous.getElementType() == XQueryTokenType.WHITE_SPACE || previous.getElementType() == XQueryElementType.COMMENT) {
+                previous = previous.getTreePrev();
+            }
+
+            if (previous.getElementType() == type) {
+                return (XQueryStringLiteral)child.getPsi();
+            } else if (previous instanceof PsiErrorElementImpl) {
+                if (previous.getFirstChildNode().getElementType() == type) {
+                    return (XQueryStringLiteral)child.getPsi();
+                }
+            }
         }
         return null;
     }
