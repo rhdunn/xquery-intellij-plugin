@@ -18,8 +18,8 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.impl.xquery.XQueryStringLiteralImpl;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryStringLiteral;
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 
 public class XQueryStringLiteralPsiImpl extends ASTWrapperPsiElement implements XQueryStringLiteral {
     public XQueryStringLiteralPsiImpl(@NotNull ASTNode node) {
@@ -27,6 +27,10 @@ public class XQueryStringLiteralPsiImpl extends ASTWrapperPsiElement implements 
     }
 
     public CharSequence getSimpleContents() {
-        return ((XQueryStringLiteralImpl)getNode()).getSimpleContents();
+        ASTNode value = findChildByType(XQueryTokenType.STRING_LITERAL_CONTENTS);
+        if (value == null) {
+            return null;
+        }
+        return value.getChars();
     }
 }

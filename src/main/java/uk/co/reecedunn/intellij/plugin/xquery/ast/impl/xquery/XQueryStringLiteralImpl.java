@@ -15,22 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.impl.xquery;
 
-import com.intellij.lang.ASTNode;
 import com.intellij.psi.impl.source.tree.CompositeElement;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 
 public class XQueryStringLiteralImpl extends CompositeElement {
     public XQueryStringLiteralImpl(@NotNull IElementType type) {
         super(type);
-    }
-
-    public CharSequence getSimpleContents() {
-        ASTNode value = findChildByType(XQueryTokenType.STRING_LITERAL_CONTENTS);
-        if (value == null) {
-            return null;
-        }
-        return value.getChars();
     }
 }
