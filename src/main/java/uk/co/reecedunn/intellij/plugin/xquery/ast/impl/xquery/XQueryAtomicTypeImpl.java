@@ -17,9 +17,8 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.impl.xquery;
 
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAtomicType;
 
-public class XQueryAtomicTypeImpl extends XQueryQNameImpl implements XQueryAtomicType {
+public class XQueryAtomicTypeImpl extends XQueryQNameImpl {
     public XQueryAtomicTypeImpl(@NotNull IElementType type) {
         super(type);
     }

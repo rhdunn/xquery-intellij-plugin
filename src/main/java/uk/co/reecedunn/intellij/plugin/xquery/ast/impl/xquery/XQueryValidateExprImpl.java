@@ -18,9 +18,8 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.impl.xquery;
 import com.intellij.psi.impl.source.tree.CompositeElement;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryValidateExpr;
 
-public class XQueryValidateExprImpl extends CompositeElement implements XQueryValidateExpr {
+public class XQueryValidateExprImpl extends CompositeElement {
     public XQueryValidateExprImpl(@NotNull IElementType type) {
         super(type);
     }

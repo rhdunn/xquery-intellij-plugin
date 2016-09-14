@@ -18,9 +18,8 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.impl.update.facility;
 import com.intellij.psi.impl.source.tree.CompositeElement;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.UpdateFacilityRenameExpr;
 
-public class UpdateFacilityRenameExprImpl extends CompositeElement implements UpdateFacilityRenameExpr {
+public class UpdateFacilityRenameExprImpl extends CompositeElement {
     public UpdateFacilityRenameExprImpl(@NotNull IElementType type) {
         super(type);
     }

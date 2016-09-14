@@ -18,10 +18,8 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.impl.xquery;
 import com.intellij.psi.impl.source.tree.CompositeElement;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryNCName;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryQName;
 
-public class XQueryNCNameImpl extends CompositeElement implements XQueryNCName, XQueryQName {
+public class XQueryNCNameImpl extends CompositeElement {
     public XQueryNCNameImpl(@NotNull IElementType type) {
         super(type);
     }

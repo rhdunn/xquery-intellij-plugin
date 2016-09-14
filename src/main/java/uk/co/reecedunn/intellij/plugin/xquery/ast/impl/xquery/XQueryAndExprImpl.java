@@ -18,9 +18,8 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.impl.xquery;
 import com.intellij.psi.impl.source.tree.CompositeElement;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAndExpr;
 
-public class XQueryAndExprImpl extends CompositeElement implements XQueryAndExpr {
+public class XQueryAndExprImpl extends CompositeElement {
     public XQueryAndExprImpl(@NotNull IElementType type) {
         super(type);
     }

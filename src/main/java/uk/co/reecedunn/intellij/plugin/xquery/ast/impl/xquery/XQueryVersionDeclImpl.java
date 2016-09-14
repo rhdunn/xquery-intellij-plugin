@@ -23,12 +23,11 @@ import com.intellij.psi.tree.TokenSet;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryStringLiteral;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVersionDecl;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 
-public class XQueryVersionDeclImpl extends CompositeElement implements XQueryVersionDecl {
+public class XQueryVersionDeclImpl extends CompositeElement {
     private static final TokenSet STRINGS = TokenSet.create(XQueryElementType.STRING_LITERAL);
 
     public XQueryVersionDeclImpl(@NotNull IElementType type) {
@@ -43,10 +42,10 @@ public class XQueryVersionDeclImpl extends CompositeElement implements XQueryVer
             }
 
             if (previous.getElementType() == type) {
-                return (XQueryStringLiteral)child;
+                return (XQueryStringLiteral)child.getPsi();
             } else if (previous instanceof PsiErrorElementImpl) {
                 if (previous.getFirstChildNode().getElementType() == type) {
-                    return (XQueryStringLiteral)child;
+                    return (XQueryStringLiteral)child.getPsi();
                 }
             }
         }

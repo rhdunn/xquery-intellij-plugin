@@ -18,9 +18,8 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.impl.update.facility;
 import com.intellij.psi.impl.source.tree.CompositeElement;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.UpdateFacilityTransformExpr;
 
-public class UpdateFacilityTransformExprImpl extends CompositeElement implements UpdateFacilityTransformExpr {
+public class UpdateFacilityTransformExprImpl extends CompositeElement {
     public UpdateFacilityTransformExprImpl(@NotNull IElementType type) {
         super(type);
     }

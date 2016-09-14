@@ -18,9 +18,8 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.impl.update.facility;
 import com.intellij.psi.impl.source.tree.CompositeElement;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.UpdateFacilityRevalidationDecl;
 
-public class UpdateFacilityRevalidationDeclImpl extends CompositeElement implements UpdateFacilityRevalidationDecl {
+public class UpdateFacilityRevalidationDeclImpl extends CompositeElement {
     public UpdateFacilityRevalidationDeclImpl(@NotNull IElementType type) {
         super(type);
     }

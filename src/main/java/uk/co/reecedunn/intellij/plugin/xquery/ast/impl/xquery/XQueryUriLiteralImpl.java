@@ -17,9 +17,8 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.impl.xquery;
 
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryUriLiteral;
 
-public class XQueryUriLiteralImpl extends XQueryStringLiteralImpl implements XQueryUriLiteral {
+public class XQueryUriLiteralImpl extends XQueryStringLiteralImpl {
     public XQueryUriLiteralImpl(@NotNull IElementType type) {
         super(type);
     }

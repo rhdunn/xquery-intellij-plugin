@@ -18,9 +18,8 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.impl.xquery;
 import com.intellij.psi.impl.source.tree.CompositeElement;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySingleType;
 
-public class XQuerySingleTypeImpl extends CompositeElement implements XQuerySingleType {
+public class XQuerySingleTypeImpl extends CompositeElement {
     public XQuerySingleTypeImpl(@NotNull IElementType type) {
         super(type);
     }

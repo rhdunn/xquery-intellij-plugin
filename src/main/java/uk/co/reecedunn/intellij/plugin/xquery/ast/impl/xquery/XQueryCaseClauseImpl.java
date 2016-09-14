@@ -18,9 +18,8 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.impl.xquery;
 import com.intellij.psi.impl.source.tree.CompositeElement;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCaseClause;
 
-public class XQueryCaseClauseImpl extends CompositeElement implements XQueryCaseClause {
+public class XQueryCaseClauseImpl extends CompositeElement {
     public XQueryCaseClauseImpl(@NotNull IElementType type) {
         super(type);
     }

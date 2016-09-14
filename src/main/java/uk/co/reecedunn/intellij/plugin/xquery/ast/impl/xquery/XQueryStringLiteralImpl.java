@@ -19,10 +19,9 @@ import com.intellij.lang.ASTNode;
 import com.intellij.psi.impl.source.tree.CompositeElement;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryStringLiteral;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 
-public class XQueryStringLiteralImpl extends CompositeElement implements XQueryStringLiteral {
+public class XQueryStringLiteralImpl extends CompositeElement {
     public XQueryStringLiteralImpl(@NotNull IElementType type) {
         super(type);
     }

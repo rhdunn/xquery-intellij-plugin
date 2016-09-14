@@ -18,9 +18,8 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.impl.xquery;
 import com.intellij.psi.impl.source.tree.CompositeElement;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryConstructionDecl;
 
-public class XQueryConstructionDeclImpl extends CompositeElement implements XQueryConstructionDecl {
+public class XQueryConstructionDeclImpl extends CompositeElement {
     public XQueryConstructionDeclImpl(@NotNull IElementType type) {
         super(type);
     }

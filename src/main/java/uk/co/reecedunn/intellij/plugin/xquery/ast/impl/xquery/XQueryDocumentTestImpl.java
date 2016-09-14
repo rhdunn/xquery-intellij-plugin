@@ -18,9 +18,8 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.impl.xquery;
 import com.intellij.psi.impl.source.tree.CompositeElement;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDocumentTest;
 
-public class XQueryDocumentTestImpl extends CompositeElement implements XQueryDocumentTest {
+public class XQueryDocumentTestImpl extends CompositeElement {
     public XQueryDocumentTestImpl(@NotNull IElementType type) {
         super(type);
     }

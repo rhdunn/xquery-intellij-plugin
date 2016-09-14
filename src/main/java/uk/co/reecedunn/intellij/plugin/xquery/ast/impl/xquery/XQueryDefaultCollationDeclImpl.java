@@ -18,9 +18,8 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.impl.xquery;
 import com.intellij.psi.impl.source.tree.CompositeElement;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDefaultCollationDecl;
 
-public class XQueryDefaultCollationDeclImpl extends CompositeElement implements XQueryDefaultCollationDecl {
+public class XQueryDefaultCollationDeclImpl extends CompositeElement {
     public XQueryDefaultCollationDeclImpl(@NotNull IElementType type) {
         super(type);
     }

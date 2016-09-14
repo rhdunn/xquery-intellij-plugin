@@ -17,9 +17,8 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.impl.xquery;
 
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryMainModule;
 
-public class XQueryMainModuleImpl extends XQueryModuleImpl implements XQueryMainModule {
+public class XQueryMainModuleImpl extends XQueryModuleImpl {
     public XQueryMainModuleImpl(@NotNull IElementType type) {
         super(type);
     }
