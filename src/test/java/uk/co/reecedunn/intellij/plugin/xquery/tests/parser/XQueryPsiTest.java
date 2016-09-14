@@ -59,7 +59,7 @@ public class XQueryPsiTest extends ParserTestCase {
 
         XQueryStringLiteral stringLiteralPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryStringLiteral.class);
         assertThat(stringLiteralPsi, is(notNullValue()));
-        assertThat(stringLiteralPsi.getSimpleContents(), is("One Two"));
+        assertThat(stringLiteralPsi.getStringValue(), is("One Two"));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
@@ -68,7 +68,7 @@ public class XQueryPsiTest extends ParserTestCase {
 
         XQueryStringLiteral stringLiteralPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryStringLiteral.class);
         assertThat(stringLiteralPsi, is(notNullValue()));
-        assertThat(stringLiteralPsi.getSimpleContents(), is(nullValue()));
+        assertThat(stringLiteralPsi.getStringValue(), is(nullValue()));
     }
 
     // endregion
@@ -81,7 +81,7 @@ public class XQueryPsiTest extends ParserTestCase {
 
         XQueryVersionDecl versionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryVersionDecl.class);
         assertThat(versionDeclPsi.getVersion(), is(notNullValue()));
-        assertThat(versionDeclPsi.getVersion().getSimpleContents(), is("1.0"));
+        assertThat(versionDeclPsi.getVersion().getStringValue(), is("1.0"));
         assertThat(versionDeclPsi.getEncoding(), is(nullValue()));
 
         XQueryFile file = (XQueryFile)node.getPsi();
@@ -109,7 +109,7 @@ public class XQueryPsiTest extends ParserTestCase {
 
         XQueryVersionDecl versionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryVersionDecl.class);
         assertThat(versionDeclPsi.getVersion(), is(notNullValue()));
-        assertThat(versionDeclPsi.getVersion().getSimpleContents(), is(nullValue()));
+        assertThat(versionDeclPsi.getVersion().getStringValue(), is(nullValue()));
         assertThat(versionDeclPsi.getEncoding(), is(nullValue()));
 
         XQueryFile file = (XQueryFile)node.getPsi();
@@ -137,9 +137,9 @@ public class XQueryPsiTest extends ParserTestCase {
 
         XQueryVersionDecl versionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryVersionDecl.class);
         assertThat(versionDeclPsi.getVersion(), is(notNullValue()));
-        assertThat(versionDeclPsi.getVersion().getSimpleContents(), is("1.0"));
+        assertThat(versionDeclPsi.getVersion().getStringValue(), is("1.0"));
         assertThat(versionDeclPsi.getEncoding(), is(notNullValue()));
-        assertThat(versionDeclPsi.getEncoding().getSimpleContents(), is("latin1"));
+        assertThat(versionDeclPsi.getEncoding().getStringValue(), is("latin1"));
 
         XQueryFile file = (XQueryFile)node.getPsi();
         assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_1_0));
@@ -166,9 +166,9 @@ public class XQueryPsiTest extends ParserTestCase {
 
         XQueryVersionDecl versionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryVersionDecl.class);
         assertThat(versionDeclPsi.getVersion(), is(notNullValue()));
-        assertThat(versionDeclPsi.getVersion().getSimpleContents(), is("1.0"));
+        assertThat(versionDeclPsi.getVersion().getStringValue(), is("1.0"));
         assertThat(versionDeclPsi.getEncoding(), is(notNullValue()));
-        assertThat(versionDeclPsi.getEncoding().getSimpleContents(), is("latin1"));
+        assertThat(versionDeclPsi.getEncoding().getStringValue(), is("latin1"));
 
         XQueryFile file = (XQueryFile)node.getPsi();
         assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_1_0));
@@ -195,9 +195,9 @@ public class XQueryPsiTest extends ParserTestCase {
 
         XQueryVersionDecl versionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryVersionDecl.class);
         assertThat(versionDeclPsi.getVersion(), is(notNullValue()));
-        assertThat(versionDeclPsi.getVersion().getSimpleContents(), is("1.0"));
+        assertThat(versionDeclPsi.getVersion().getStringValue(), is("1.0"));
         assertThat(versionDeclPsi.getEncoding(), is(notNullValue()));
-        assertThat(versionDeclPsi.getEncoding().getSimpleContents(), is(nullValue()));
+        assertThat(versionDeclPsi.getEncoding().getStringValue(), is(nullValue()));
 
         XQueryFile file = (XQueryFile)node.getPsi();
         assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_1_0));
@@ -278,7 +278,7 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryVersionDecl versionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryVersionDecl.class);
         assertThat(versionDeclPsi.getVersion(), is(nullValue()));
         assertThat(versionDeclPsi.getEncoding(), is(notNullValue()));
-        assertThat(versionDeclPsi.getEncoding().getSimpleContents(), is("latin1"));
+        assertThat(versionDeclPsi.getEncoding().getStringValue(), is("latin1"));
 
         XQueryFile file = (XQueryFile)node.getPsi();
         assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_3_0));
@@ -308,7 +308,7 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryVersionDecl versionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryVersionDecl.class);
         assertThat(versionDeclPsi.getVersion(), is(nullValue()));
         assertThat(versionDeclPsi.getEncoding(), is(notNullValue()));
-        assertThat(versionDeclPsi.getEncoding().getSimpleContents(), is(nullValue()));
+        assertThat(versionDeclPsi.getEncoding().getStringValue(), is(nullValue()));
 
         XQueryFile file = (XQueryFile)node.getPsi();
         assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_3_0));

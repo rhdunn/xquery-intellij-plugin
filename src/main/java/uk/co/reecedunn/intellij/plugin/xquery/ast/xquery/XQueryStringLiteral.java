@@ -29,5 +29,5 @@ public interface XQueryStringLiteral {
      *
      * @return The first item in the string that is not an escaped character nor entity reference.
      */
-    CharSequence getSimpleContents();
+    CharSequence getStringValue();
 }
