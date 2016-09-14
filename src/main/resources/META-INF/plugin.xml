@@ -31,6 +31,9 @@
     <lang.ast.factory language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory"/>
     <lang.parserDefinition language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition"/>
 
+    <lang.elementManipulator forClass="uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryUriLiteralPsiImpl"
+                             implementationClass="uk.co.reecedunn.intellij.plugin.xquery.resolve.manipulator.XQueryUriLiteralManipulator"/>
+
     <annotator language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.annotator.XQueryPredefinedEntityRefAnnotator"/>
     <annotator language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.annotator.XQuerySupportedConstructAnnotator"/>
 
