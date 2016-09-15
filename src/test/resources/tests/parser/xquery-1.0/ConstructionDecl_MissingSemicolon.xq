@@ -1,0 +1,1 @@
+declare construction strip

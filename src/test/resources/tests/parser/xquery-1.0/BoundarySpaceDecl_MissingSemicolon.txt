@@ -1,0 +1,10 @@
+FileElement[FILE(0:28)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:28)]
+      XQueryPrologImpl[XQUERY_PROLOG(0:28)]
+         XQueryBoundarySpaceDeclImpl[XQUERY_BOUNDARY_SPACE_DECL(0:28)]
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
+            PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_BOUNDARY_SPACE(8:22)]('boundary-space')
+            PsiWhiteSpaceImpl[WHITE_SPACE(22:23)](' ')
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_STRIP(23:28)]('strip')
+         PsiErrorElementImpl[ERROR_ELEMENT(28:28)]('XPST0003: Expected ';'.')

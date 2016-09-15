@@ -286,6 +286,13 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-NamespaceDecl")
+    public void testNamespaceDecl_MissingSemicolon() {
+        final String expected = loadResource("tests/parser/xquery-1.0/NamespaceDecl_MissingSemicolon.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/NamespaceDecl_MissingSemicolon.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-NamespaceDecl")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Prolog")
     public void testNamespaceDecl_PrologBodyStatementsAfter() {
         final String expected = loadResource("tests/parser/xquery-1.0/NamespaceDecl_PrologBodyStatementsAfter.txt");
@@ -321,6 +328,13 @@ public class XQueryParserTest extends ParserTestCase {
     public void testBoundarySpaceDecl_MissingBoundarySpaceKeyword() {
         final String expected = loadResource("tests/parser/xquery-1.0/BoundarySpaceDecl_MissingBoundarySpaceKeyword.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/BoundarySpaceDecl_MissingBoundarySpaceKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-BoundarySpaceDecl")
+    public void testBoundarySpaceDecl_MissingSemicolon() {
+        final String expected = loadResource("tests/parser/xquery-1.0/BoundarySpaceDecl_MissingSemicolon.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/BoundarySpaceDecl_MissingSemicolon.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
@@ -413,6 +427,20 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DefaultNamespaceDecl")
+    public void testDefaultNamespaceDecl_Element_MissingSemicolon() {
+        final String expected = loadResource("tests/parser/xquery-1.0/DefaultNamespaceDecl_Element_MissingSemicolon.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/DefaultNamespaceDecl_Element_MissingSemicolon.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DefaultNamespaceDecl")
+    public void testDefaultNamespaceDecl_Function_MissingSemicolon() {
+        final String expected = loadResource("tests/parser/xquery-1.0/DefaultNamespaceDecl_Function_MissingSemicolon.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/DefaultNamespaceDecl_Function_MissingSemicolon.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DefaultNamespaceDecl")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Prolog")
     public void testDefaultNamespaceDecl_PrologBodyStatementsAfter() {
         final String expected = loadResource("tests/parser/xquery-1.0/DefaultNamespaceDecl_PrologBodyStatementsAfter.txt");
@@ -459,6 +487,13 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-OptionDecl")
+    public void testOptionDecl_MissingSemicolon() {
+        final String expected = loadResource("tests/parser/xquery-1.0/OptionDecl_MissingSemicolon.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/OptionDecl_MissingSemicolon.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-OptionDecl")
     public void testOptionDecl_PrologHeaderStatementsAfter() {
         final String expected = loadResource("tests/parser/xquery-1.0/OptionDecl_PrologHeaderStatementsAfter.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/OptionDecl_PrologHeaderStatementsAfter.xq");
@@ -493,6 +528,13 @@ public class XQueryParserTest extends ParserTestCase {
     public void testOrderingModeDecl_MissingOrderingKeyword() {
         final String expected = loadResource("tests/parser/xquery-1.0/OrderingModeDecl_MissingOrderingKeyword.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/OrderingModeDecl_MissingOrderingKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-OrderingModeDecl")
+    public void testOrderingModeDecl_MissingSemicolon() {
+        final String expected = loadResource("tests/parser/xquery-1.0/OrderingModeDecl_MissingSemicolon.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/OrderingModeDecl_MissingSemicolon.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
@@ -546,6 +588,13 @@ public class XQueryParserTest extends ParserTestCase {
     public void testEmptyOrderDecl_MissingDefaultKeyword() {
         final String expected = loadResource("tests/parser/xquery-1.0/EmptyOrderDecl_MissingDefaultKeyword.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/EmptyOrderDecl_MissingDefaultKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-EmptyOrderDecl")
+    public void testEmptyOrderDecl_MissingSemicolon() {
+        final String expected = loadResource("tests/parser/xquery-1.0/EmptyOrderDecl_MissingSemicolon.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/EmptyOrderDecl_MissingSemicolon.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
@@ -611,6 +660,15 @@ public class XQueryParserTest extends ParserTestCase {
     public void testCopyNamespacesDecl_MissingCopyNamespacesKeyword() {
         final String expected = loadResource("tests/parser/xquery-1.0/CopyNamespacesDecl_MissingCopyNamespacesKeyword.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/CopyNamespacesDecl_MissingCopyNamespacesKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CopyNamespacesDecl")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PreserveMode")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-InheritMode")
+    public void testCopyNamespacesDecl_MissingSemicolon() {
+        final String expected = loadResource("tests/parser/xquery-1.0/CopyNamespacesDecl_MissingSemicolon.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/CopyNamespacesDecl_MissingSemicolon.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
@@ -1054,6 +1112,13 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VarDecl")
+    public void testVarDecl_MissingSemicolon() {
+        final String expected = loadResource("tests/parser/xquery-1.0/VarDecl_MissingSemicolon.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/VarDecl_MissingSemicolon.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VarDecl")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Prolog")
     public void testVarDecl_PrologHeaderStatementsAfter() {
         final String expected = loadResource("tests/parser/xquery-1.0/VarDecl_PrologHeaderStatementsAfter.txt");
@@ -1089,6 +1154,13 @@ public class XQueryParserTest extends ParserTestCase {
     public void testConstructionDecl_MissingConstructionKeyword() {
         final String expected = loadResource("tests/parser/xquery-1.0/BoundarySpaceDecl_MissingBoundarySpaceKeyword.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/BoundarySpaceDecl_MissingBoundarySpaceKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ConstructionDecl")
+    public void testConstructionDecl_MissingSemicolon() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ConstructionDecl_MissingSemicolon.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ConstructionDecl_MissingSemicolon.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
@@ -1177,6 +1249,13 @@ public class XQueryParserTest extends ParserTestCase {
     public void testFunctionDecl_ReturnType_MissingSequenceType() {
         final String expected = loadResource("tests/parser/xquery-1.0/FunctionDecl_ReturnType_MissingSequenceType.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/FunctionDecl_ReturnType_MissingSequenceType.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FunctionDecl")
+    public void testFunctionDecl_MissingSemicolon() {
+        final String expected = loadResource("tests/parser/xquery-1.0/FunctionDecl_MissingSemicolon.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/FunctionDecl_MissingSemicolon.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
