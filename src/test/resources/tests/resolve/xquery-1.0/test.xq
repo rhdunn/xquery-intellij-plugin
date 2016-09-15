@@ -1,0 +1,1 @@
+module namespace test = "http://example.com/test";
