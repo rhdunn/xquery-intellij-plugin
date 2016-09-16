@@ -5,6 +5,8 @@
 
 - [Features](#features)
   - [Language Support](#language-support)
+  - [Warnings and Errors](#warnings-and-errors)
+  - [References and Resolve](#references-and-resolve)
 - [License Information](#license-information)
 
 ----------
@@ -18,6 +20,8 @@ _Supported IntelliJ Versions:_ 2016.1 - 2016.2
 
 _Supported XQuery Versions:_ XQuery 1.0
 
+_Supported XQuery Extensions:_ Update Facility 1.0
+
 _Supported XQuery Implementations:_ MarkLogic, Saxonica, W3C Specifications
 
 ## Features
@@ -29,13 +33,26 @@ detection.
 
 ![Syntax Highlighting](images/syntax-highlighting.png)
 
+Control over how XQuery dialects are interpreted.
+
+![XQuery Settings](images/xquery-settings.png)
+
+## Warnings and Errors
+
 Helpful error messages for invalid XQuery constructs.
 
 ![Error Messages](images/error-messages.png)
 
-Control over how XQuery dialects are interpreted.
+Warnings for XQuery constructs that are valid in a different version or extension
+to the one configured in the project.
 
-![XQuery Settings](images/xquery-settings.png)
+![Require Different Version](images/require-different-version.png)
+
+## References and Resolve
+
+Resolve URI string literals to the files they reference.
+
+![Resolve URI Literals](images/resolve-uriliteral.png)
 
 ## License Information
 
