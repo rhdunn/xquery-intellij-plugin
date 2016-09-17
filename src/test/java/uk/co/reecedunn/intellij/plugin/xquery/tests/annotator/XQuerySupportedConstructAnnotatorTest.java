@@ -83,4 +83,33 @@ public class XQuerySupportedConstructAnnotatorTest extends AnnotatorTestCase {
     }
 
     // endregion
+    // region MarkLogic
+
+    public void testMarkLogicForwardAxisInXQuery10() {
+        getSettings().setXQueryVersion(XQueryVersion.VERSION_1_0);
+        final ASTNode node = parseResource("tests/parser/marklogic/ForwardAxis_Namespace.xq");
+
+        XQuerySupportedConstructAnnotator annotator = new XQuerySupportedConstructAnnotator();
+        List<Annotation> annotations = annotateTree(node, annotator);
+        assertThat(annotations.size(), is(1));
+
+        assertThat(annotations.get(0).getSeverity(), is(HighlightSeverity.WARNING));
+        assertThat(annotations.get(0).getMessage(), is("XPST0003: This expression requires MarkLogic 6.0 or later with XQuery version '1.0-ml'."));
+        assertThat(annotations.get(0).getTooltip(), is(nullValue()));
+        assertThat(annotations.get(0).getStartOffset(), is(0));
+        assertThat(annotations.get(0).getEndOffset(), is(9));
+    }
+
+    public void testMarkLogicForwardAxis() {
+        getSettings().setXQueryVersion(XQueryVersion.VERSION_1_0_MARKLOGIC);
+        getSettings().setImplementation("marklogic");
+        getSettings().setImplementationVersion("marklogic/v6");
+        final ASTNode node = parseResource("tests/parser/marklogic/ForwardAxis_Namespace.xq");
+
+        XQuerySupportedConstructAnnotator annotator = new XQuerySupportedConstructAnnotator();
+        List<Annotation> annotations = annotateTree(node, annotator);
+        assertThat(annotations.size(), is(0));
+    }
+
+    // endregion
 }

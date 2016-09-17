@@ -40,6 +40,7 @@ public class XQuerySupportedConstructAnnotator implements Annotator {
 
         checkVersion(holder, versioned, XQueryLanguageType.XQUERY, xqueryVersion, "annotator.requires.xquery.version");
         checkVersion(holder, versioned, XQueryLanguageType.UPDATE_FACILITY_EXTENSION, dialect, "annotator.requires.update-facility.version");
+        checkVersion(holder, versioned, XQueryLanguageType.MARKLOGIC_EXTENSION, dialect, "annotator.requires.marklogic.version");
     }
 
     private void checkVersion(AnnotationHolder holder, XQueryVersionedConstruct versioned, XQueryLanguageType type, ImplementationItem dialect, String key) {
