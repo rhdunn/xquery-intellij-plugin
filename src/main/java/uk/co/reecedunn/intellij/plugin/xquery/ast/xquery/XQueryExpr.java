@@ -15,6 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
+import com.intellij.psi.PsiElement;
+
 /**
  * An XQuery 1.0 <code>Expr</code> node in the XQuery AST.
  *
@@ -22,5 +24,5 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
  * <code>QueryBody</code>), the <code>Expr</code> node is not stored directly
  * in the AST. Instead, it is exposed as an instance of that specialised node.
  */
-public interface XQueryExpr {
+public interface XQueryExpr extends PsiElement {
 }

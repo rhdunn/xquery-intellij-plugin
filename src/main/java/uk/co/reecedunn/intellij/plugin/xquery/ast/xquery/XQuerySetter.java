@@ -15,6 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
+import com.intellij.psi.PsiElement;
+
 /**
  * An XQuery 1.0 <code>Setter</code> node in the XQuery AST.
  *
@@ -23,5 +25,5 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
  * are stored as instances of the child nodes instead of as distinct nodes
  * themselves.
  */
-public interface XQuerySetter {
+public interface XQuerySetter extends PsiElement {
 }

@@ -15,6 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
+import com.intellij.psi.PsiElement;
+
 /**
  * An XQuery 1.0 <code>Import</code> node in the XQuery AST.
  *
@@ -29,5 +31,5 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
  * This is because there is not enough information to know what type of import
  * declaration this is.
  */
-public interface XQueryImport {
+public interface XQueryImport extends PsiElement {
 }

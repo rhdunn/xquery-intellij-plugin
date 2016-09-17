@@ -15,8 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
+import com.intellij.psi.PsiElement;
+
 /**
  * An XQuery 1.0 <code>AbbrevReverseStep</code> node in the XQuery AST.
  */
-public interface XQueryAbbrevReverseStep {
+public interface XQueryAbbrevReverseStep extends PsiElement {
 }

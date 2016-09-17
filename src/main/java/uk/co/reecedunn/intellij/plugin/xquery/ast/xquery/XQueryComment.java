@@ -15,6 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
+import com.intellij.psi.PsiElement;
+
 /**
  * An XQuery 1.0 <code>Comment</code> node in the XQuery AST containing
  * <code>CommentContents</code>.
@@ -24,5 +26,5 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
  * comment nesting is handled within the
  * {@link uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer}.
  */
-public interface XQueryComment {
+public interface XQueryComment extends PsiElement {
 }

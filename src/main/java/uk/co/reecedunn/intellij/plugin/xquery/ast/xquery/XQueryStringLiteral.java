@@ -15,6 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
+import com.intellij.psi.PsiElement;
+
 /**
  * An XQuery 1.0 <code>StringLiteral</code> node in the XQuery AST.
  *
@@ -23,7 +25,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
  * directly in the AST. Instead, it is exposed as an instance of that
  * specialised node.
  */
-public interface XQueryStringLiteral {
+public interface XQueryStringLiteral extends PsiElement {
     /**
      * Gets the value of the string when escaped characters nor entity references are expected.
      *

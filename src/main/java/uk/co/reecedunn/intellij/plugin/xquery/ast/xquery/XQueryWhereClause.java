@@ -15,8 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
+import com.intellij.psi.PsiElement;
+
 /**
  * An XQuery 1.0 <code>WhereClause</code> node in the XQuery AST.
  */
-public interface XQueryWhereClause {
+public interface XQueryWhereClause extends PsiElement {
 }

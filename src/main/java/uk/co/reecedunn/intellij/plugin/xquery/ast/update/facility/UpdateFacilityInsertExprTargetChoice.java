@@ -15,8 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility;
 
+import com.intellij.psi.PsiElement;
+
 /**
  * An XQuery Update Facility 1.0 <code>InsertExprTargetChoice</code> node in the XQuery AST.
  */
-public interface UpdateFacilityInsertExprTargetChoice {
+public interface UpdateFacilityInsertExprTargetChoice extends PsiElement {
 }

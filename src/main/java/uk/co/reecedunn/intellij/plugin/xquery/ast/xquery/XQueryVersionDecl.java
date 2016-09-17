@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
+import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -27,7 +28,7 @@ import org.jetbrains.annotations.Nullable;
  * <code>VersionDecl</code> nodes. Validation is handled by the
  * {@link uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParser}.
  */
-public interface XQueryVersionDecl {
+public interface XQueryVersionDecl extends PsiElement {
     /**
      * Gets the XQuery version specified in this declaration.
      *

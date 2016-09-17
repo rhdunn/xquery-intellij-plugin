@@ -15,8 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
+import com.intellij.psi.PsiElement;
+
 /**
  * An XQuery 1.0 <code>TreatExpr</code> node in the XQuery AST.
  */
-public interface XQueryTreatExpr {
+public interface XQueryTreatExpr extends PsiElement {
 }

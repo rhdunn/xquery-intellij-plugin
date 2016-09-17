@@ -15,8 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility;
 
+import com.intellij.psi.PsiElement;
+
 /**
  * An XQuery Update Facility 1.0 <code>SourceExpr</code> node in the XQuery AST.
  */
-public interface UpdateFacilitySourceExpr {
+public interface UpdateFacilitySourceExpr extends PsiElement {
 }

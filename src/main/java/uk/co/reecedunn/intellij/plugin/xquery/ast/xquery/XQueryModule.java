@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
+import com.intellij.psi.PsiElement;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile;
 
 /**
@@ -42,5 +43,5 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile;
  * This is because there is not enough information to know what module type
  * the XQuery file is implementing.
  */
-public interface XQueryModule {
+public interface XQueryModule extends PsiElement {
 }

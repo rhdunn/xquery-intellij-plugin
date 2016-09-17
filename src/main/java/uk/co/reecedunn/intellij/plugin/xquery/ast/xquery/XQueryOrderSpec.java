@@ -15,8 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
+import com.intellij.psi.PsiElement;
+
 /**
  * An XQuery 1.0 <code>OrderSpec</code> node in the XQuery AST.
  */
-public interface XQueryOrderSpec {
+public interface XQueryOrderSpec extends PsiElement {
 }

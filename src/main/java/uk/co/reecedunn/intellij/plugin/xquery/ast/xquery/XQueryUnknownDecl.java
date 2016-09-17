@@ -15,6 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
+import com.intellij.psi.PsiElement;
+
 /**
  * An unknown XQuery declaration node in the XQuery AST.
  *
@@ -25,5 +27,5 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
  * The intention behind this is to try and recover declaration parsing into a
  * valid state so that parsing can continue.
  */
-public interface XQueryUnknownDecl {
+public interface XQueryUnknownDecl extends PsiElement {
 }

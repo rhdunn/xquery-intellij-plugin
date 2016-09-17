@@ -15,8 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
+import com.intellij.psi.PsiElement;
+
 /**
  * An XQuery 1.0 <code>ItemType</code> node in the XQuery AST.
  */
-public interface XQueryItemType {
+public interface XQueryItemType extends PsiElement {
 }

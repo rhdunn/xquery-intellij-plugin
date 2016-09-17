@@ -15,8 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
+import com.intellij.psi.PsiElement;
+
 /**
  * An XQuery 1.0 <code>DirAttributeList</code> node in the XQuery AST.
  */
-public interface XQueryDirAttributeList {
+public interface XQueryDirAttributeList extends PsiElement {
 }

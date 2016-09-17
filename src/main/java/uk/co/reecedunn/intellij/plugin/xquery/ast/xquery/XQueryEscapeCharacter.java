@@ -15,6 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
+import com.intellij.psi.PsiElement;
+
 /**
  * An XQuery 1.0 <code>EscapeQuot</code> or <code>EscapeApos</code> node in the XQuery AST.
  *
@@ -29,5 +31,5 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
  * providing different functionality where the entity may map to multiple
  * characters.
  */
-public interface XQueryEscapeCharacter {
+public interface XQueryEscapeCharacter extends PsiElement {
 }
