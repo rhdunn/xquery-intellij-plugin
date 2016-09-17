@@ -143,9 +143,10 @@ public class ImplementationsTest extends TestCase {
 
     public void testVersion() {
         List<ImplementationItem> dialects = Implementations.getItemById("marklogic/v7").getItems(ImplementationItem.IMPLEMENTATION_DIALECT);
-        assertThat(dialects.size(), is(1));
+        assertThat(dialects.size(), is(2));
 
         assertThat(dialects.get(0).getVersion(XQueryLanguageType.XQUERY), is(XQueryVersion.VERSION_1_0));
+        assertThat(dialects.get(1).getVersion(XQueryLanguageType.XQUERY), is(XQueryVersion.VERSION_1_0_MARKLOGIC));
 
         assertThat(dialects.get(0).getVersion(XQueryLanguageType.UPDATE_FACILITY_EXTENSION), is(nullValue()));
         assertThat(dialects.get(0).getVersion(XQueryLanguageType.FULL_TEXT_EXTENSION), is(nullValue()));
@@ -154,9 +155,10 @@ public class ImplementationsTest extends TestCase {
 
     public void testSpecification() {
         List<ImplementationItem> dialects = Implementations.getItemById("marklogic/v7").getItems(ImplementationItem.IMPLEMENTATION_DIALECT);
-        assertThat(dialects.size(), is(1));
+        assertThat(dialects.size(), is(2));
 
         assertThat(dialects.get(0).getSpecification(XQueryLanguageType.XQUERY), is("https://www.w3.org/TR/2010/REC-xquery-20101214/"));
+        assertThat(dialects.get(1).getSpecification(XQueryLanguageType.XQUERY), is("https://www.w3.org/TR/2010/REC-xquery-20101214/"));
 
         assertThat(dialects.get(0).getSpecification(XQueryLanguageType.UPDATE_FACILITY_EXTENSION), is(nullValue()));
         assertThat(dialects.get(0).getSpecification(XQueryLanguageType.FULL_TEXT_EXTENSION), is(nullValue()));
