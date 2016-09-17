@@ -17,11 +17,37 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
+import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryForwardAxis;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryLanguageType;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVersionedConstruct;
 
-public class XQueryForwardAxisPsiImpl extends ASTWrapperPsiElement implements XQueryForwardAxis {
+public class XQueryForwardAxisPsiImpl extends ASTWrapperPsiElement implements XQueryForwardAxis, XQueryVersionedConstruct {
     public XQueryForwardAxisPsiImpl(@NotNull ASTNode node) {
         super(node);
+    }
+
+    @Override
+    public XQueryVersion getLanguageTypeVersion(XQueryLanguageType type) {
+        if (type == XQueryLanguageType.XQUERY) {
+            final ASTNode node = getNode().findChildByType(XQueryTokenType.K_NAMESPACE);
+            return node == null ? XQueryVersion.VERSION_1_0 : null;
+        } else if (type == XQueryLanguageType.MARKLOGIC_EXTENSION) {
+            final ASTNode node = getNode().findChildByType(XQueryTokenType.K_NAMESPACE);
+            return node == null ? null : XQueryVersion.VERSION_6_0;
+        }
+        return null;
+    }
+
+    @Override
+    public PsiElement getLanguageTypeElement(XQueryLanguageType type) {
+        if (type == XQueryLanguageType.MARKLOGIC_EXTENSION) {
+            final ASTNode node = getNode().findChildByType(XQueryTokenType.K_NAMESPACE);
+            return node == null ? null : node.getPsi();
+        }
+        return null;
     }
 }
