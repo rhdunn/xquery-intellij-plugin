@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.psi;
 
 import com.intellij.lang.ASTNode;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic.MarkLogicBinaryKindTest;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryLanguageType;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
@@ -71,6 +72,34 @@ public class MarkLogicPsiTest extends ParserTestCase {
         assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.MARKLOGIC_EXTENSION), is(notNullValue()));
 
         assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.MARKLOGIC_EXTENSION).getNode().getElementType(), is(XQueryTokenType.K_PROPERTY));
+    }
+
+    // endregion
+    // region MarkLogic :: BinaryKindTest
+
+    public void testBinaryKindTest() {
+        final ASTNode node = parseResource("tests/parser/marklogic/BinaryKindTest.xq");
+
+        XQueryVarDecl varDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryVarDecl.class);
+        XQueryTypeDeclaration typeDeclarationPsi = PsiNavigation.findChildrenByClass(varDeclPsi, XQueryTypeDeclaration.class).get(0);
+        XQuerySequenceType sequenceTypePsi = PsiNavigation.findChildrenByClass(typeDeclarationPsi, XQuerySequenceType.class).get(0);
+        MarkLogicBinaryKindTest binaryKindTestPsi = PsiNavigation.findFirstChildByClass(sequenceTypePsi, MarkLogicBinaryKindTest.class);
+
+        XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)binaryKindTestPsi;
+
+        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.XQUERY), is(nullValue()));
+        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.UPDATE_FACILITY_EXTENSION), is(nullValue()));
+        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.FULL_TEXT_EXTENSION), is(nullValue()));
+        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.SCRIPTING_EXTENSION), is(nullValue()));
+        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.MARKLOGIC_EXTENSION), is(XQueryVersion.VERSION_6_0));
+
+        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.XQUERY), is(nullValue()));
+        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.UPDATE_FACILITY_EXTENSION), is(nullValue()));
+        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.FULL_TEXT_EXTENSION), is(nullValue()));
+        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.SCRIPTING_EXTENSION), is(nullValue()));
+        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.MARKLOGIC_EXTENSION), is(notNullValue()));
+
+        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.MARKLOGIC_EXTENSION).getNode().getElementType(), is(XQueryTokenType.K_BINARY));
     }
 
     // endregion

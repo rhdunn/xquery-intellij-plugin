@@ -129,6 +129,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryReservedFunctionNameOrNCNameType K_ATTRIBUTE = new IXQueryReservedFunctionNameOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ATTRIBUTE");
     IXQueryKeywordOrNCNameType K_BASE_URI = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_BASE_URI");
     IXQueryKeywordOrNCNameType K_BEFORE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_BEFORE"); // Update Facility 1.0
+    IXQueryKeywordOrNCNameType K_BINARY = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_BINARY"); // MarkLogic
     IXQueryKeywordOrNCNameType K_BOUNDARY_SPACE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_BOUNDARY_SPACE");
     IXQueryKeywordOrNCNameType K_BY = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_BY");
     IXQueryKeywordOrNCNameType K_CASE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_CASE");

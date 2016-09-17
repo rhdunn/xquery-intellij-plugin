@@ -3031,4 +3031,15 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region MarkLogic :: BinaryKindTest
+
+    public void testBinaryKindTest() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "binary", XQueryTokenType.K_BINARY);
+        matchSingleToken(lexer, "(",      XQueryTokenType.PARENTHESIS_OPEN);
+        matchSingleToken(lexer, ")",      XQueryTokenType.PARENTHESIS_CLOSE);
+    }
+
+    // endregion
 }

@@ -3255,7 +3255,8 @@ class XQueryParser {
             || parsePITest()
             || parseCommentTest()
             || parseTextTest()
-            || parseAnyKindTest();
+            || parseAnyKindTest()
+            || parseBinaryKindTest(); // MarkLogic
     }
 
     private boolean parseAnyKindTest() {
@@ -3516,6 +3517,26 @@ class XQueryParser {
             }
 
             schemaElementTestMarker.done(XQueryElementType.SCHEMA_ELEMENT_TEST);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseBinaryKindTest() {
+        final PsiBuilder.Marker binaryKindTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_BINARY);
+        if (binaryKindTestMarker != null) {
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_OPEN)) {
+                binaryKindTestMarker.rollbackTo();
+                return false;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE)) {
+                error(XQueryBundle.message("parser.error.expected", ")"));
+            }
+
+            binaryKindTestMarker.done(XQueryElementType.BINARY_KIND_TEST);
             return true;
         }
         return false;

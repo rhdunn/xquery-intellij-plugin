@@ -21,7 +21,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class MarkLogicParserTest extends ParserTestCase {
-    // region MarkLogic :: ForwardAxis
+    // region MarkLogic 6.0 :: ForwardAxis
 
     public void testForwardAxis_Namespace() {
         final String expected = loadResource("tests/parser/marklogic/ForwardAxis_Namespace.txt");
@@ -44,6 +44,27 @@ public class MarkLogicParserTest extends ParserTestCase {
     public void testForwardAxis_Property_CompactWhitespace() {
         final String expected = loadResource("tests/parser/marklogic/ForwardAxis_Property_CompactWhitespace.txt");
         final ASTNode actual = parseResource("tests/parser/marklogic/ForwardAxis_Property_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
+    // region MarkLogic 6.0 :: BinaryKindTest
+
+    public void testBinaryKindTest() {
+        final String expected = loadResource("tests/parser/marklogic/BinaryKindTest.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic/BinaryKindTest.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testBinaryKindTest_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/marklogic/BinaryKindTest_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic/BinaryKindTest_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testBinaryKindTest_MissingClosingParenthesis() {
+        final String expected = loadResource("tests/parser/marklogic/BinaryKindTest_MissingClosingParenthesis.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic/BinaryKindTest_MissingClosingParenthesis.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
