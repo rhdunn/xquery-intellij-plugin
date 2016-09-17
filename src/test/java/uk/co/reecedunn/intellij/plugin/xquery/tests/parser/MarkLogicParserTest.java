@@ -35,5 +35,17 @@ public class MarkLogicParserTest extends ParserTestCase {
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
+    public void testForwardAxis_Property() {
+        final String expected = loadResource("tests/parser/marklogic/ForwardAxis_Property.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic/ForwardAxis_Property.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testForwardAxis_Property_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/marklogic/ForwardAxis_Property_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic/ForwardAxis_Property_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
     // endregion
 }

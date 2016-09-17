@@ -2,10 +2,16 @@
 
 ## (In Development)
 
-1.  Support for the Update Facility 1.0 extension.
-2.  Use an annotator -- not the parser -- to check and report constructs from a
+Language Support:
+
+1.  Use an annotator -- not the parser -- to check and report constructs from a
     different XQuery version or extension.
-3.  Support for Reference and Resolve of URILiteral strings.
+2.  Support for the Update Facility 1.0 extension.
+3.  Support for MarkLogic `namespace::` and `property::` axis queries.
+
+Reference and Resolve Support:
+
+3.  Support for resolving URILiteral string references.
 
 ## 0.1 - 2016-09-10
 

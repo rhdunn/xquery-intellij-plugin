@@ -2385,7 +2385,8 @@ class XQueryParser {
             matchTokenType(XQueryTokenType.K_DESCENDANT_OR_SELF) ||
             matchTokenType(XQueryTokenType.K_FOLLOWING) ||
             matchTokenType(XQueryTokenType.K_FOLLOWING_SIBLING) ||
-            matchTokenType(XQueryTokenType.K_NAMESPACE) ||
+            matchTokenType(XQueryTokenType.K_NAMESPACE) || // MarkLogic
+            matchTokenType(XQueryTokenType.K_PROPERTY) || // MarkLogic
             matchTokenType(XQueryTokenType.K_SELF)) {
 
             skipWhiteSpaceAndCommentTokens();
