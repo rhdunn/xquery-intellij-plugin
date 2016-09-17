@@ -40,10 +40,10 @@ public class XQueryReferenceTest extends ParserTestCase {
         XQueryModuleImport moduleImportPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryModuleImport.class);
         assertThat(moduleImportPsi, is(notNullValue()));
 
-        List<XQueryUriLiteral> uriLiterals = PsiNavigation.findChildrenByClass((PsiElement)moduleImportPsi, XQueryUriLiteral.class);
+        List<XQueryUriLiteral> uriLiterals = PsiNavigation.findChildrenByClass(moduleImportPsi, XQueryUriLiteral.class);
         assertThat(uriLiterals.size(), is(2));
 
-        PsiReference httpUriRef = ((PsiElement)uriLiterals.get(0)).getReference();
+        PsiReference httpUriRef = uriLiterals.get(0).getReference();
         assertThat(httpUriRef.getCanonicalText(), is("http://example.com/test"));
         assertThat(httpUriRef.getVariants().length, is(0));
 
