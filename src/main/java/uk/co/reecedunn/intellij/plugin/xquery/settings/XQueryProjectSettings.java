@@ -21,11 +21,8 @@ import com.intellij.openapi.project.Project;
 import com.intellij.util.xmlb.XmlSerializerUtil;
 import com.intellij.util.xmlb.annotations.Transient;
 import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryLanguageType;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.*;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.Implementations;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 
 import java.io.File;
 
@@ -144,7 +141,7 @@ public class XQueryProjectSettings implements PersistentStateComponent<XQueryPro
         } else if (version == XQueryVersion.VERSION_3_1) {
             return XQUERY_3_1_DIALECT;
         }
-        return ImplementationItem.NULL_ITEM;
+        return IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryLanguageType.XQUERY, version);
     }
 
     @Transient

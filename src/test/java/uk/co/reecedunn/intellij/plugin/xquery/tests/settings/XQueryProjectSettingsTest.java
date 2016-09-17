@@ -83,7 +83,7 @@ public class XQueryProjectSettingsTest extends TestCase {
         assertThat(settings.getImplementationItem().getID(), is("marklogic"));
         assertThat(settings.getImplementationVersionItem().getID(), is("marklogic/v6"));
         assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_0_9_MARKLOGIC).getID(), is(nullValue()));
-        assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_1_0_MARKLOGIC).getID(), is(nullValue()));
+        assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_1_0_MARKLOGIC).getID(), is("marklogic/v6/1.0-ml"));
         assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_1_0).getID(), is("marklogic/v6/1.0"));
         assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_3_0).getID(), is("marklogic/v6/1.0"));
         assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_3_1).getID(), is("marklogic/v6/1.0"));
@@ -120,7 +120,7 @@ public class XQueryProjectSettingsTest extends TestCase {
         assertThat(settings.getImplementationItem().getID(), is("marklogic"));
         assertThat(settings.getImplementationVersionItem().getID(), is("marklogic/v6"));
         assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_0_9_MARKLOGIC).getID(), is(nullValue()));
-        assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_1_0_MARKLOGIC).getID(), is(nullValue()));
+        assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_1_0_MARKLOGIC).getID(), is("marklogic/v6/1.0-ml"));
         assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_1_0).getID(), is("marklogic/v6/1.0"));
         assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_3_0).getID(), is("marklogic/v6/1.0"));
         assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_3_1).getID(), is("marklogic/v6/1.0"));
