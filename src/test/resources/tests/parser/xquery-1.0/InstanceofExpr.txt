@@ -25,8 +25,9 @@ FileElement[FILE(0:24)]
                                     PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
                                     LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_OF(12:14)]('of')
                                     PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
-                                    XQuerySingleTypeImpl[XQUERY_SINGLE_TYPE(15:24)]
-                                       XQueryAtomicTypeImpl[XQUERY_ATOMIC_TYPE(15:24)]
-                                          LeafPsiElement[XQUERY_NCNAME_TOKEN(15:17)]('xs')
-                                          LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(17:18)](':')
-                                          LeafPsiElement[XQUERY_NCNAME_TOKEN(18:24)]('double')
+                                    XQuerySequenceTypeImpl[XQUERY_SEQUENCE_TYPE(15:24)]
+                                       XQueryItemTypeImpl[XQUERY_ITEM_TYPE(15:24)]
+                                          XQueryAtomicTypeImpl[XQUERY_ATOMIC_TYPE(15:24)]
+                                             LeafPsiElement[XQUERY_NCNAME_TOKEN(15:17)]('xs')
+                                             LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(17:18)](':')
+                                             LeafPsiElement[XQUERY_NCNAME_TOKEN(18:24)]('double')

@@ -2034,8 +2034,8 @@ class XQueryParser {
                 }
 
                 skipWhiteSpaceAndCommentTokens();
-                if (!parseSingleType() && !haveErrors) {
-                    error(XQueryBundle.message("parser.error.expected", "SingleType"));
+                if (!parseSequenceType() && !haveErrors) {
+                    error(XQueryBundle.message("parser.error.expected", "SequenceType"));
                 }
             } else if (getTokenType() == XQueryTokenType.K_OF) {
                 error(XQueryBundle.message("parser.error.expected-keyword", "instance"));

@@ -8,7 +8,8 @@ Language Support:
     different XQuery version or extension.
 2.  Support for the Update Facility 1.0 extension.
 3.  Support for MarkLogic `namespace::` and `property::` axis queries.
-4.  Fix `TreatExpr` -- it expects a `SequenceType`, not a `SingleType`.
+4.  Fix `InstanceofExpr` and `TreatExpr` -- they expect a `SequenceType`, not a
+    `SingleType`.
 
 Reference and Resolve Support:
 
