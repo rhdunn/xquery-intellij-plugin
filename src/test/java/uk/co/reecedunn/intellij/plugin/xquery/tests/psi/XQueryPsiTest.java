@@ -245,8 +245,8 @@ public class XQueryPsiTest extends ParserTestCase {
     // endregion
     // region XQuery 1.0 :: FunctionDecl
 
-    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-FunctionDecl")
-    public void testFunctionDecl_Updating() {
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FunctionDecl")
+    public void testFunctionDecl() {
         final ASTNode node = parseResource("tests/parser/xquery-1.0/FunctionDecl.xq");
 
         XQueryFunctionDecl functionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFunctionDecl.class);
