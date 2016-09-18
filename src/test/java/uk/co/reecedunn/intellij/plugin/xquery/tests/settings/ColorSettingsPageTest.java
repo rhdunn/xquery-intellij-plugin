@@ -17,10 +17,8 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.settings;
 
 import com.intellij.lexer.Lexer;
 import com.intellij.openapi.editor.colors.TextAttributesKey;
-import com.intellij.psi.tree.IElementType;
 import junit.framework.TestCase;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.SyntaxHighlighter;
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.settings.ColorSettingsPage;
 
 import java.util.ArrayList;
@@ -59,10 +57,11 @@ public class ColorSettingsPageTest extends TestCase {
             lexer.advance();
         }
 
-        assertThat(keys.size(), is(14));
+        assertThat(keys.size(), is(15));
         assertThat(keys.contains(SyntaxHighlighter.COMMENT), is(true));
         assertThat(keys.contains(SyntaxHighlighter.IDENTIFIER), is(true));
         assertThat(keys.contains(SyntaxHighlighter.KEYWORD), is(true));
+        assertThat(keys.contains(SyntaxHighlighter.ANNOTATION), is(true));
         assertThat(keys.contains(SyntaxHighlighter.NUMBER), is(true));
         assertThat(keys.contains(SyntaxHighlighter.STRING), is(true));
         assertThat(keys.contains(SyntaxHighlighter.ESCAPED_CHARACTER), is(true));
@@ -83,7 +82,7 @@ public class ColorSettingsPageTest extends TestCase {
 
     public void testAttributeDescriptors() {
         ColorSettingsPage settings = new ColorSettingsPage();
-        assertThat(settings.getAttributeDescriptors().length, is(14));
+        assertThat(settings.getAttributeDescriptors().length, is(15));
         assertThat(settings.getAttributeDescriptors()[0].getDisplayName(), is("Invalid Character"));
         assertThat(settings.getAttributeDescriptors()[0].getKey(), is(SyntaxHighlighter.BAD_CHARACTER));
         assertThat(settings.getAttributeDescriptors()[1].getDisplayName(), is("Comment"));
@@ -96,22 +95,24 @@ public class ColorSettingsPageTest extends TestCase {
         assertThat(settings.getAttributeDescriptors()[4].getKey(), is(SyntaxHighlighter.IDENTIFIER));
         assertThat(settings.getAttributeDescriptors()[5].getDisplayName(), is("Keyword"));
         assertThat(settings.getAttributeDescriptors()[5].getKey(), is(SyntaxHighlighter.KEYWORD));
-        assertThat(settings.getAttributeDescriptors()[6].getDisplayName(), is("Number"));
-        assertThat(settings.getAttributeDescriptors()[6].getKey(), is(SyntaxHighlighter.NUMBER));
-        assertThat(settings.getAttributeDescriptors()[7].getDisplayName(), is("String"));
-        assertThat(settings.getAttributeDescriptors()[7].getKey(), is(SyntaxHighlighter.STRING));
-        assertThat(settings.getAttributeDescriptors()[8].getDisplayName(), is("Direct XML Construction//Tag"));
-        assertThat(settings.getAttributeDescriptors()[8].getKey(), is(SyntaxHighlighter.XML_TAG));
-        assertThat(settings.getAttributeDescriptors()[9].getDisplayName(), is("Direct XML Construction//Tag Name"));
-        assertThat(settings.getAttributeDescriptors()[9].getKey(), is(SyntaxHighlighter.XML_TAG_NAME));
-        assertThat(settings.getAttributeDescriptors()[10].getDisplayName(), is("Direct XML Construction//Attribute Name"));
-        assertThat(settings.getAttributeDescriptors()[10].getKey(), is(SyntaxHighlighter.XML_ATTRIBUTE_NAME));
-        assertThat(settings.getAttributeDescriptors()[11].getDisplayName(), is("Direct XML Construction//Attribute Value"));
-        assertThat(settings.getAttributeDescriptors()[11].getKey(), is(SyntaxHighlighter.XML_ATTRIBUTE_VALUE));
-        assertThat(settings.getAttributeDescriptors()[12].getDisplayName(), is("Direct XML Construction//Entity Reference"));
-        assertThat(settings.getAttributeDescriptors()[12].getKey(), is(SyntaxHighlighter.XML_ENTITY_REFERENCE));
-        assertThat(settings.getAttributeDescriptors()[13].getDisplayName(), is("Direct XML Construction//Escaped Character"));
-        assertThat(settings.getAttributeDescriptors()[13].getKey(), is(SyntaxHighlighter.XML_ESCAPED_CHARACTER));
+        assertThat(settings.getAttributeDescriptors()[6].getDisplayName(), is("Annotation"));
+        assertThat(settings.getAttributeDescriptors()[6].getKey(), is(SyntaxHighlighter.ANNOTATION));
+        assertThat(settings.getAttributeDescriptors()[7].getDisplayName(), is("Number"));
+        assertThat(settings.getAttributeDescriptors()[7].getKey(), is(SyntaxHighlighter.NUMBER));
+        assertThat(settings.getAttributeDescriptors()[8].getDisplayName(), is("String"));
+        assertThat(settings.getAttributeDescriptors()[8].getKey(), is(SyntaxHighlighter.STRING));
+        assertThat(settings.getAttributeDescriptors()[9].getDisplayName(), is("Direct XML Construction//Tag"));
+        assertThat(settings.getAttributeDescriptors()[9].getKey(), is(SyntaxHighlighter.XML_TAG));
+        assertThat(settings.getAttributeDescriptors()[10].getDisplayName(), is("Direct XML Construction//Tag Name"));
+        assertThat(settings.getAttributeDescriptors()[10].getKey(), is(SyntaxHighlighter.XML_TAG_NAME));
+        assertThat(settings.getAttributeDescriptors()[11].getDisplayName(), is("Direct XML Construction//Attribute Name"));
+        assertThat(settings.getAttributeDescriptors()[11].getKey(), is(SyntaxHighlighter.XML_ATTRIBUTE_NAME));
+        assertThat(settings.getAttributeDescriptors()[12].getDisplayName(), is("Direct XML Construction//Attribute Value"));
+        assertThat(settings.getAttributeDescriptors()[12].getKey(), is(SyntaxHighlighter.XML_ATTRIBUTE_VALUE));
+        assertThat(settings.getAttributeDescriptors()[13].getDisplayName(), is("Direct XML Construction//Entity Reference"));
+        assertThat(settings.getAttributeDescriptors()[13].getKey(), is(SyntaxHighlighter.XML_ENTITY_REFERENCE));
+        assertThat(settings.getAttributeDescriptors()[14].getDisplayName(), is("Direct XML Construction//Escaped Character"));
+        assertThat(settings.getAttributeDescriptors()[14].getKey(), is(SyntaxHighlighter.XML_ESCAPED_CHARACTER));
     }
 
     public void testColorDescriptors() {

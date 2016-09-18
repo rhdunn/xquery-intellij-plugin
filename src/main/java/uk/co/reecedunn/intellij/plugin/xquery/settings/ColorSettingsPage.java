@@ -34,6 +34,7 @@ public class ColorSettingsPage implements com.intellij.openapi.options.colors.Co
         new AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.escaped.character"), SyntaxHighlighter.ESCAPED_CHARACTER),
         new AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.identifier"), SyntaxHighlighter.IDENTIFIER),
         new AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.keyword"), SyntaxHighlighter.KEYWORD),
+        new AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.annotation"), SyntaxHighlighter.ANNOTATION),
         new AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.number"), SyntaxHighlighter.NUMBER),
         new AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.string"), SyntaxHighlighter.STRING),
         new AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.xml.tag"), SyntaxHighlighter.XML_TAG),
@@ -62,6 +63,7 @@ public class ColorSettingsPage implements com.intellij.openapi.options.colors.Co
         return
             "(: Comment :)\n" +
             "xquery version \"1.0\";\n" +
+            "declare updating function update() external;\n" +
             "let $_ := (1234, \"One \"\" Two &quot; Three\", value)\n" +
             "return <test comment=\"One \"\" Two &quot; Three\">Lorem ipsum dolor.</test>\n" +
             "~~~";

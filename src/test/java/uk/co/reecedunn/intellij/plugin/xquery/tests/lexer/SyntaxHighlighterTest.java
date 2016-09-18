@@ -452,9 +452,6 @@ public class SyntaxHighlighterTest extends TestCase {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_UNORDERED).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_UNORDERED)[0], is(SyntaxHighlighter.KEYWORD));
 
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_UPDATING).length, is(1));
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_UPDATING)[0], is(SyntaxHighlighter.KEYWORD));
-
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_VALIDATE).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_VALIDATE)[0], is(SyntaxHighlighter.KEYWORD));
 
@@ -475,6 +472,13 @@ public class SyntaxHighlighterTest extends TestCase {
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_XQUERY).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_XQUERY)[0], is(SyntaxHighlighter.KEYWORD));
+    }
+
+    public void testTokenHighlights_Annotation() {
+        SyntaxHighlighter highlighter = new SyntaxHighlighter();
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_UPDATING).length, is(1));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_UPDATING)[0], is(SyntaxHighlighter.ANNOTATION));
     }
 
     public void testTokenHighlights_XmlTag() {
