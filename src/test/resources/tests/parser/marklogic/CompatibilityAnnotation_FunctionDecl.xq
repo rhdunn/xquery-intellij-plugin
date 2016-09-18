@@ -1,0 +1,1 @@
+declare private function test() external;

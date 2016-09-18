@@ -3029,6 +3029,15 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region MarkLogic 6.0 :: CompatibilityAnnotation
+
+    public void testCompatibilityAnnotation_MarkLogic() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "private", XQueryTokenType.K_PRIVATE);
+    }
+
+    // endregion
     // region MarkLogic 6.0 :: ForwardAxis
 
     public void testForwardAxis_MarkLogic() {

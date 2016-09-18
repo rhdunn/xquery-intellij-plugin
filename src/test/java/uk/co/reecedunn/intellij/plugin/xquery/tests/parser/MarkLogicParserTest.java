@@ -21,6 +21,33 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class MarkLogicParserTest extends ParserTestCase {
+    // region MarkLogic 6.0 :: CompatibilityAnnotation
+
+    public void testCompatibilityAnnotation_FunctionDecl() {
+        final String expected = loadResource("tests/parser/marklogic/CompatibilityAnnotation_FunctionDecl.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic/CompatibilityAnnotation_FunctionDecl.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testCompatibilityAnnotation_FunctionDecl_MissingFunctionKeyword() {
+        final String expected = loadResource("tests/parser/marklogic/CompatibilityAnnotation_FunctionDecl_MissingFunctionKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic/CompatibilityAnnotation_FunctionDecl_MissingFunctionKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testCompatibilityAnnotation_VarDecl() {
+        final String expected = loadResource("tests/parser/marklogic/CompatibilityAnnotation_VarDecl.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic/CompatibilityAnnotation_VarDecl.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testCompatibilityAnnotation_VarDecl_MissingVariableKeyword() {
+        final String expected = loadResource("tests/parser/marklogic/CompatibilityAnnotation_VarDecl_MissingVariableKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic/CompatibilityAnnotation_VarDecl_MissingVariableKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region MarkLogic 6.0 :: ForwardAxis
 
     public void testForwardAxis_Namespace() {

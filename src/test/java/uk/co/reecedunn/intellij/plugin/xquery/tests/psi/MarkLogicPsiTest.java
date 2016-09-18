@@ -16,8 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.psi;
 
 import com.intellij.lang.ASTNode;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic.MarkLogicBinaryExpr;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic.MarkLogicBinaryKindTest;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic.*;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryLanguageType;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
@@ -31,6 +30,55 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 @SuppressWarnings("ConstantConditions")
 public class MarkLogicPsiTest extends ParserTestCase {
+    // region MarkLogic 6.0 :: CompatibilityAnnotation
+
+    public void testCompatibilityAnnotation_FunctionDecl() {
+        final ASTNode node = parseResource("tests/parser/marklogic/CompatibilityAnnotation_FunctionDecl.xq");
+
+        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryAnnotatedDecl.class);
+        MarkLogicCompatibilityAnnotation compatibilityAnnotationPsi = PsiNavigation.findChildrenByClass(annotatedDeclPsi, MarkLogicCompatibilityAnnotation.class).get(0);
+        XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)compatibilityAnnotationPsi;
+
+        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.XQUERY), is(nullValue()));
+        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.UPDATE_FACILITY_EXTENSION), is(nullValue()));
+        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.FULL_TEXT_EXTENSION), is(nullValue()));
+        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.SCRIPTING_EXTENSION), is(nullValue()));
+        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.MARKLOGIC_EXTENSION), is(XQueryVersion.VERSION_6_0));
+
+        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.XQUERY), is(nullValue()));
+        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.UPDATE_FACILITY_EXTENSION), is(nullValue()));
+        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.FULL_TEXT_EXTENSION), is(nullValue()));
+        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.SCRIPTING_EXTENSION), is(nullValue()));
+        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.MARKLOGIC_EXTENSION), is(notNullValue()));
+
+        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.MARKLOGIC_EXTENSION).getNode().getElementType(),
+                is(XQueryTokenType.K_PRIVATE));
+    }
+
+    public void testCompatibilityAnnotation_VarDecl() {
+        final ASTNode node = parseResource("tests/parser/marklogic/CompatibilityAnnotation_VarDecl.xq");
+
+        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryAnnotatedDecl.class);
+        MarkLogicCompatibilityAnnotation compatibilityAnnotationPsi = PsiNavigation.findChildrenByClass(annotatedDeclPsi, MarkLogicCompatibilityAnnotation.class).get(0);
+        XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)compatibilityAnnotationPsi;
+
+        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.XQUERY), is(nullValue()));
+        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.UPDATE_FACILITY_EXTENSION), is(nullValue()));
+        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.FULL_TEXT_EXTENSION), is(nullValue()));
+        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.SCRIPTING_EXTENSION), is(nullValue()));
+        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.MARKLOGIC_EXTENSION), is(XQueryVersion.VERSION_6_0));
+
+        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.XQUERY), is(nullValue()));
+        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.UPDATE_FACILITY_EXTENSION), is(nullValue()));
+        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.FULL_TEXT_EXTENSION), is(nullValue()));
+        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.SCRIPTING_EXTENSION), is(nullValue()));
+        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.MARKLOGIC_EXTENSION), is(notNullValue()));
+
+        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.MARKLOGIC_EXTENSION).getNode().getElementType(),
+                is(XQueryTokenType.K_PRIVATE));
+    }
+
+    // endregion
     // region MarkLogic 6.0 :: ForwardAxis
 
     public void testForwardAxis_Namespace() {

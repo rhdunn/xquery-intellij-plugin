@@ -193,8 +193,9 @@ public interface XQueryElementType {
     IElementType COMPATIBILITY_ANNOTATION = new ICompositeElementType("XQUERY_COMPATIBILITY_ANNOTATION", UpdateFacilityCompatibilityAnnotationImpl.class, UpdateFacilityCompatibilityAnnotationPsiImpl.class);
 
     // endregion
-    // region MarkLogic
+    // region MarkLogic 6.0
 
+    IElementType COMPATIBILITY_ANNOTATION_MARKLOGIC = new ICompositeElementType("XQUERY_COMPATIBILITY_ANNOTATION_MARKLOGIC", MarkLogicCompatibilityAnnotationImpl.class, MarkLogicCompatibilityAnnotationPsiImpl.class);
     IElementType BINARY_EXPR = new ICompositeElementType("XQUERY_BINARY_EXPR", MarkLogicBinaryExprImpl.class, MarkLogicBinaryExprPsiImpl.class);
     IElementType BINARY_KIND_TEST = new ICompositeElementType("XQUERY_BINARY_KIND_TEST", MarkLogicBinaryKindTestImpl.class, MarkLogicBinaryKindTestPsiImpl.class);
 

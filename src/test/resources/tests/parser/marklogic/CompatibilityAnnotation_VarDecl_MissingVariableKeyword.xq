@@ -1,0 +1,1 @@
+declare private $x external;

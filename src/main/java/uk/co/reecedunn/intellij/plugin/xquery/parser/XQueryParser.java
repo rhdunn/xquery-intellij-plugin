@@ -423,6 +423,9 @@ class XQueryParser {
         if (matchTokenType(XQueryTokenType.K_UPDATING)) {
             compatibilityAnnotationMarker.done(XQueryElementType.COMPATIBILITY_ANNOTATION);
             return true;
+        } else if (matchTokenType(XQueryTokenType.K_PRIVATE)) {
+            compatibilityAnnotationMarker.done(XQueryElementType.COMPATIBILITY_ANNOTATION_MARKLOGIC);
+            return true;
         }
         compatibilityAnnotationMarker.drop();
         return false;

@@ -1,0 +1,1 @@
+declare private test() external;
