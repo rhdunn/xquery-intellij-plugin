@@ -396,14 +396,35 @@ class XQueryParser {
     }
 
     private boolean parseAnnotatedDecl() {
+        boolean haveAnnotations = false;
+        while (parseCompatibilityAnnotationDecl()) {
+            skipWhiteSpaceAndCommentTokens();
+            haveAnnotations = true;
+        }
+
         final PsiBuilder.Marker declMarker = mBuilder.mark();
         if (parseVarDecl()) {
             declMarker.done(XQueryElementType.VAR_DECL);
             return true;
         } else if (parseFunctionDecl(declMarker)) {
             return true;
+        } else if (haveAnnotations) {
+            error(XQueryBundle.message("parser.error.expected-keyword", "function, variable"));
+            parseUnknownDecl();
+            declMarker.done(XQueryElementType.UNKNOWN_DECL);
+            return true;
         }
         declMarker.drop();
+        return false;
+    }
+
+    private boolean parseCompatibilityAnnotationDecl() {
+        final PsiBuilder.Marker compatibilityAnnotationMarker = mBuilder.mark();
+        if (matchTokenType(XQueryTokenType.K_UPDATING)) {
+            compatibilityAnnotationMarker.done(XQueryElementType.COMPATIBILITY_ANNOTATION);
+            return true;
+        }
+        compatibilityAnnotationMarker.drop();
         return false;
     }
 
@@ -879,13 +900,7 @@ class XQueryParser {
     }
 
     private boolean parseFunctionDecl(PsiBuilder.Marker functionDeclMarker) {
-        boolean haveAnnotation = false;
-        if (matchTokenType(XQueryTokenType.K_UPDATING)) {
-            haveAnnotation = true;
-            skipWhiteSpaceAndCommentTokens();
-        }
-
-        if (getTokenType() == XQueryTokenType.K_FUNCTION || haveAnnotation) {
+        if (getTokenType() == XQueryTokenType.K_FUNCTION) {
             boolean haveErrors = false;
 
             if (getTokenType() == XQueryTokenType.K_FUNCTION) {

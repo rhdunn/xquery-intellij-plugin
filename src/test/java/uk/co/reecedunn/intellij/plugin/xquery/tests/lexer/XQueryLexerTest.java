@@ -3019,6 +3019,16 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region Update Facility 3.0 :: CompatibilityAnnotation
+
+    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2015/WD-xquery-update-30-20150219/#prod-xquery30-CompatibilityAnnotation")
+    public void testCompatibilityAnnotation() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "updating", XQueryTokenType.K_UPDATING);
+    }
+
+    // endregion
     // region MarkLogic 6.0 :: ForwardAxis
 
     public void testForwardAxis_MarkLogic() {

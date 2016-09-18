@@ -1,0 +1,17 @@
+FileElement[FILE(0:29)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:29)]
+      XQueryPrologImpl[XQUERY_PROLOG(0:29)]
+         XQueryAnnotatedDeclImpl[XQUERY_ANNOTATED_DECL(0:28)]
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
+            PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+            UpdateFacilityCompatibilityAnnotationImpl[XQUERY_COMPATIBILITY_ANNOTATION(8:16)]
+               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_UPDATING(8:16)]('updating')
+            PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
+            XQueryUnknownDeclImpl[XQUERY_UNKNOWN_DECL(17:28)]
+               PsiErrorElementImpl[ERROR_ELEMENT(17:17)]('XPST0003: Expected keyword: function, variable.')
+               LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(17:18)]('$')
+               LeafPsiElement[XQUERY_NCNAME_TOKEN(18:19)]('x')
+               PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
+               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(20:28)]('external')
+         LeafPsiElement[XQUERY_SEPARATOR_TOKEN(28:29)](';')
+      PsiErrorElementImpl[ERROR_ELEMENT(29:29)]('XPST0003: Missing query body.')

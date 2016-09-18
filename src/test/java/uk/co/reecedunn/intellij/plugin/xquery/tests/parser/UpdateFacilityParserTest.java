@@ -400,4 +400,35 @@ public class UpdateFacilityParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region Update Facility 3.0 :: CompatibilityAnnotation
+
+    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2015/WD-xquery-update-30-20150219/#prod-xquery30-CompatibilityAnnotation")
+    public void testCompatibilityAnnotation_FunctionDecl() {
+        final String expected = loadResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2015/WD-xquery-update-30-20150219/#prod-xquery30-CompatibilityAnnotation")
+    public void testCompatibilityAnnotation_FunctionDecl_MissingFunctionKeyword() {
+        final String expected = loadResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating_MissingFunctionKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating_MissingFunctionKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2015/WD-xquery-update-30-20150219/#prod-xquery30-CompatibilityAnnotation")
+    public void testCompatibilityAnnotation_VarDecl() {
+        final String expected = loadResource("tests/parser/xquery-update-3.0/CompatibilityAnnotation_VarDecl.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-update-3.0/CompatibilityAnnotation_VarDecl.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2015/WD-xquery-update-30-20150219/#prod-xquery30-CompatibilityAnnotation")
+    public void testCompatibilityAnnotation_VarDecl_MissingVariableKeyword() {
+        final String expected = loadResource("tests/parser/xquery-update-3.0/CompatibilityAnnotation_VarDecl_MissingVariableKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-update-3.0/CompatibilityAnnotation_VarDecl_MissingVariableKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
 }

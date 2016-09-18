@@ -13,15 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
+package uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility;
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
-import com.intellij.lang.ASTNode;
-import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl;
+import com.intellij.psi.PsiElement;
 
-public class XQueryFunctionDeclPsiImpl extends ASTWrapperPsiElement implements XQueryFunctionDecl {
-    public XQueryFunctionDeclPsiImpl(@NotNull ASTNode node) {
-        super(node);
-    }
+/**
+ * An XQuery Update Facility 3.0 <code>CompatibilityAnnotation</code> node in the XQuery AST.
+ */
+public interface UpdateFacilityCompatibilityAnnotation extends PsiElement {
 }

@@ -188,6 +188,11 @@ public interface XQueryElementType {
     IElementType INSERT_EXPR_TARGET_CHOICE = new ICompositeElementType("XQUERY_INSERT_EXPR_TARGET_CHOICE", UpdateFacilityInsertExprTargetChoiceImpl.class, UpdateFacilityInsertExprTargetChoicePsiImpl.class);
 
     // endregion
+    // region Update Facility 3.0
+
+    IElementType COMPATIBILITY_ANNOTATION = new ICompositeElementType("XQUERY_COMPATIBILITY_ANNOTATION", UpdateFacilityCompatibilityAnnotationImpl.class, UpdateFacilityCompatibilityAnnotationPsiImpl.class);
+
+    // endregion
     // region MarkLogic
 
     IElementType BINARY_EXPR = new ICompositeElementType("XQUERY_BINARY_EXPR", MarkLogicBinaryExprImpl.class, MarkLogicBinaryExprPsiImpl.class);

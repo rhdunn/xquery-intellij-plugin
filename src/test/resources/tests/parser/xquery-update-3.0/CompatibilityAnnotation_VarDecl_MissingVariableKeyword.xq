@@ -1,0 +1,1 @@
+declare updating $x external;
