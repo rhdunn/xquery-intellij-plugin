@@ -1,25 +1,26 @@
 FileElement[FILE(0:34)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:34)]
       XQueryPrologImpl[XQUERY_PROLOG(0:34)]
-         XQueryFunctionDeclImpl[XQUERY_FUNCTION_DECL(0:33)]
+         XQueryAnnotatedDeclImpl[XQUERY_ANNOTATED_DECL(0:33)]
             LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_FUNCTION(8:16)]('function')
-            PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
-            XQueryQNameImpl[XQUERY_QNAME(17:24)]
-               LeafPsiElement[XQUERY_NCNAME_TOKEN(17:19)]('fn')
-               LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(19:20)](':')
-               LeafPsiElement[XQUERY_NCNAME_TOKEN(20:24)]('true')
-            PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
-            LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(25:26)]('(')
-            PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
-            LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(27:28)](')')
-            PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
-            XQueryEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(29:32)]
-               LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(29:30)]('{')
-               PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')
-               PsiErrorElementImpl[ERROR_ELEMENT(31:31)]('XPST0003: Missing expression.')
-               LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(31:32)]('}')
-            PsiWhiteSpaceImpl[WHITE_SPACE(32:33)](' ')
+            XQueryFunctionDeclImpl[XQUERY_FUNCTION_DECL(8:33)]
+               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_FUNCTION(8:16)]('function')
+               PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
+               XQueryQNameImpl[XQUERY_QNAME(17:24)]
+                  LeafPsiElement[XQUERY_NCNAME_TOKEN(17:19)]('fn')
+                  LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(19:20)](':')
+                  LeafPsiElement[XQUERY_NCNAME_TOKEN(20:24)]('true')
+               PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
+               LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(25:26)]('(')
+               PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
+               LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(27:28)](')')
+               PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
+               XQueryEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(29:32)]
+                  LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(29:30)]('{')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')
+                  PsiErrorElementImpl[ERROR_ELEMENT(31:31)]('XPST0003: Missing expression.')
+                  LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(31:32)]('}')
+               PsiWhiteSpaceImpl[WHITE_SPACE(32:33)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(33:34)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(34:34)]('XPST0003: Missing query body.')

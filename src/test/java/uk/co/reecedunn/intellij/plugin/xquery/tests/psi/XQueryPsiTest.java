@@ -249,7 +249,8 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testFunctionDecl() {
         final ASTNode node = parseResource("tests/parser/xquery-1.0/FunctionDecl.xq");
 
-        XQueryFunctionDecl functionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFunctionDecl.class);
+        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryAnnotatedDecl.class);
+        XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildrenByClass(annotatedDeclPsi, XQueryFunctionDecl.class).get(0);
         XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)functionDeclPsi;
 
         assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.XQUERY), is(XQueryVersion.VERSION_1_0));

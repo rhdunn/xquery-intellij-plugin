@@ -1,46 +1,47 @@
 FileElement[FILE(0:39)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:39)]
       XQueryPrologImpl[XQUERY_PROLOG(0:39)]
-         XQueryFunctionDeclImpl[XQUERY_FUNCTION_DECL(0:38)]
+         XQueryAnnotatedDeclImpl[XQUERY_ANNOTATED_DECL(0:38)]
             LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_FUNCTION(8:16)]('function')
-            PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
-            XQueryQNameImpl[XQUERY_QNAME(17:24)]
-               LeafPsiElement[XQUERY_NCNAME_TOKEN(17:19)]('fn')
-               LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(19:20)](':')
-               LeafPsiElement[XQUERY_NCNAME_TOKEN(20:24)]('true')
-            PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
-            LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(25:26)]('(')
-            PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
-            LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(27:28)](')')
-            PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
-            PsiErrorElementImpl[ERROR_ELEMENT(29:29)]('XPST0003: Missing enclosed expression start '{' or keyword: external.')
-            XQueryExprImpl[XQUERY_EXPR(29:36)]
-               XQueryOrExprImpl[XQUERY_OR_EXPR(29:36)]
-                  XQueryAndExprImpl[XQUERY_AND_EXPR(29:36)]
-                     XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(29:36)]
-                        XQueryRangeExprImpl[XQUERY_RANGE_EXPR(29:36)]
-                           XQueryAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(29:36)]
-                              XQueryMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(29:36)]
-                                 XQueryUnionExprImpl[XQUERY_UNION_EXPR(29:36)]
-                                    XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(29:36)]
-                                       XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(29:36)]
-                                          XQueryTreatExprImpl[XQUERY_TREAT_EXPR(29:36)]
-                                             XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(29:36)]
-                                                XQueryCastExprImpl[XQUERY_CAST_EXPR(29:36)]
-                                                   XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(29:36)]
-                                                      XQueryPathExprImpl[XQUERY_PATH_EXPR(29:36)]
-                                                         XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(29:36)]
-                                                            XQueryFilterExprImpl[XQUERY_FILTER_EXPR(29:36)]
-                                                               XQueryLiteralImpl[XQUERY_LITERAL(29:35)]
-                                                                  XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(29:35)]
-                                                                     LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(29:30)]('"')
-                                                                     LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(30:34)]('true')
-                                                                     LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(34:35)]('"')
-                                                               PsiWhiteSpaceImpl[WHITE_SPACE(35:36)](' ')
-                                                               XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(36:36)]
-            LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(36:37)]('}')
-            PsiWhiteSpaceImpl[WHITE_SPACE(37:38)](' ')
+            XQueryFunctionDeclImpl[XQUERY_FUNCTION_DECL(8:38)]
+               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_FUNCTION(8:16)]('function')
+               PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
+               XQueryQNameImpl[XQUERY_QNAME(17:24)]
+                  LeafPsiElement[XQUERY_NCNAME_TOKEN(17:19)]('fn')
+                  LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(19:20)](':')
+                  LeafPsiElement[XQUERY_NCNAME_TOKEN(20:24)]('true')
+               PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
+               LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(25:26)]('(')
+               PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
+               LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(27:28)](')')
+               PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
+               PsiErrorElementImpl[ERROR_ELEMENT(29:29)]('XPST0003: Missing enclosed expression start '{' or keyword: external.')
+               XQueryExprImpl[XQUERY_EXPR(29:36)]
+                  XQueryOrExprImpl[XQUERY_OR_EXPR(29:36)]
+                     XQueryAndExprImpl[XQUERY_AND_EXPR(29:36)]
+                        XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(29:36)]
+                           XQueryRangeExprImpl[XQUERY_RANGE_EXPR(29:36)]
+                              XQueryAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(29:36)]
+                                 XQueryMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(29:36)]
+                                    XQueryUnionExprImpl[XQUERY_UNION_EXPR(29:36)]
+                                       XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(29:36)]
+                                          XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(29:36)]
+                                             XQueryTreatExprImpl[XQUERY_TREAT_EXPR(29:36)]
+                                                XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(29:36)]
+                                                   XQueryCastExprImpl[XQUERY_CAST_EXPR(29:36)]
+                                                      XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(29:36)]
+                                                         XQueryPathExprImpl[XQUERY_PATH_EXPR(29:36)]
+                                                            XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(29:36)]
+                                                               XQueryFilterExprImpl[XQUERY_FILTER_EXPR(29:36)]
+                                                                  XQueryLiteralImpl[XQUERY_LITERAL(29:35)]
+                                                                     XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(29:35)]
+                                                                        LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(29:30)]('"')
+                                                                        LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(30:34)]('true')
+                                                                        LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(34:35)]('"')
+                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(35:36)](' ')
+                                                                  XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(36:36)]
+               LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(36:37)]('}')
+               PsiWhiteSpaceImpl[WHITE_SPACE(37:38)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(38:39)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(39:39)]('XPST0003: Missing query body.')

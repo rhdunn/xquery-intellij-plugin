@@ -372,8 +372,6 @@ class XQueryParser {
             } else if (parseCopyNamespacesDecl(state)) {
                 declMarker.done(XQueryElementType.COPY_NAMESPACES_DECL);
             } else if (parseDefaultDecl(declMarker, state)) {
-            } else if (parseFunctionDecl(declMarker)) {
-                return PrologDeclState.BODY_STATEMENT;
             } else if (parseNamespaceDecl(state)) {
                 declMarker.done(XQueryElementType.NAMESPACE_DECL);
             } else if (parseOptionDecl()) {
@@ -401,6 +399,8 @@ class XQueryParser {
         final PsiBuilder.Marker declMarker = mBuilder.mark();
         if (parseVarDecl()) {
             declMarker.done(XQueryElementType.VAR_DECL);
+            return true;
+        } else if (parseFunctionDecl(declMarker)) {
             return true;
         }
         declMarker.drop();
