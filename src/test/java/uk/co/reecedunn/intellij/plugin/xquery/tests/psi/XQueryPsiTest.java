@@ -101,6 +101,35 @@ public class XQueryPsiTest extends ParserTestCase {
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VersionDecl")
+    public void testVersionDecl_CommentBeforeDecl() {
+        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
+        final ASTNode node = parseResource("tests/psi/xquery-1.0/VersionDecl_CommentBeforeDecl.xq");
+
+        XQueryModule modulePsi = PsiNavigation.findChildrenByClass(node.getPsi(), XQueryModule.class).get(0);
+        XQueryVersionDecl versionDeclPsi = PsiNavigation.findFirstChildByClass(modulePsi, XQueryVersionDecl.class);
+        assertThat(versionDeclPsi.getVersion(), is(notNullValue()));
+        assertThat(versionDeclPsi.getVersion().getStringValue(), is("1.0"));
+        assertThat(versionDeclPsi.getEncoding(), is(nullValue()));
+
+        XQueryFile file = (XQueryFile)node.getPsi();
+        assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_1_0));
+
+        XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)versionDeclPsi;
+
+        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.XQUERY), is(XQueryVersion.VERSION_1_0));
+        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.UPDATE_FACILITY_EXTENSION), is(nullValue()));
+        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.FULL_TEXT_EXTENSION), is(nullValue()));
+        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.SCRIPTING_EXTENSION), is(nullValue()));
+        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.MARKLOGIC_EXTENSION), is(nullValue()));
+
+        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.XQUERY), is(nullValue()));
+        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.UPDATE_FACILITY_EXTENSION), is(nullValue()));
+        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.FULL_TEXT_EXTENSION), is(nullValue()));
+        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.SCRIPTING_EXTENSION), is(nullValue()));
+        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.MARKLOGIC_EXTENSION), is(nullValue()));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VersionDecl")
     public void testVersionDecl_EmptyVersion() {
         getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
         final ASTNode node = parseResource("tests/psi/xquery-1.0/VersionDecl_EmptyVersion.xq");

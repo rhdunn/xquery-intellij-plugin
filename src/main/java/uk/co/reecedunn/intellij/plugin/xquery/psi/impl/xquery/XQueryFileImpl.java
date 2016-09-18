@@ -20,6 +20,7 @@ import com.intellij.openapi.fileTypes.FileType;
 import com.intellij.psi.FileViewProvider;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryStringLiteral;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVersionDecl;
 import uk.co.reecedunn.intellij.plugin.xquery.filetypes.XQueryFileType;
@@ -40,7 +41,8 @@ public class XQueryFileImpl extends PsiFileBase implements XQueryFile {
     }
 
     public XQueryVersion getXQueryVersion() {
-        XQueryVersionDecl versionDecl = PsiNavigation.findFirstChildByClass(this, XQueryVersionDecl.class);
+        XQueryModule module = PsiNavigation.findChildrenByClass(this, XQueryModule.class).get(0);
+        XQueryVersionDecl versionDecl = PsiNavigation.findFirstChildByClass(module, XQueryVersionDecl.class);
         if (versionDecl != null) {
             XQueryStringLiteral version = versionDecl.getVersion();
             if (version != null) {
