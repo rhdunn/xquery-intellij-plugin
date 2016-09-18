@@ -383,8 +383,8 @@ class XQueryParser {
                 declMarker.done(XQueryElementType.ORDERING_MODE_DECL);
             } else if (parseRevalidationDecl(state)) {
                 declMarker.done(XQueryElementType.REVALIDATION_DECL);
-            } else if (parseVarDecl()) {
-                declMarker.done(XQueryElementType.VAR_DECL);
+            } else if (parseAnnotatedDecl()) {
+                declMarker.done(XQueryElementType.ANNOTATED_DECL);
                 return PrologDeclState.BODY_STATEMENT;
             } else {
                 error(XQueryBundle.message("parser.error.expected-keyword", "base-uri, boundary-space, construction, copy-namespaces, default, function, namespace, option, ordering, variable"));
@@ -395,6 +395,16 @@ class XQueryParser {
             return PrologDeclState.HEADER_STATEMENT;
         }
         return PrologDeclState.NOT_MATCHED;
+    }
+
+    private boolean parseAnnotatedDecl() {
+        final PsiBuilder.Marker declMarker = mBuilder.mark();
+        if (parseVarDecl()) {
+            declMarker.done(XQueryElementType.VAR_DECL);
+            return true;
+        }
+        declMarker.drop();
+        return false;
     }
 
     private boolean parseNamespaceDecl(PrologDeclState state) {

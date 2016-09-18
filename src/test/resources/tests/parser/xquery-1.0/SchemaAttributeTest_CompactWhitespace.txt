@@ -1,27 +1,28 @@
 FileElement[FILE(0:61)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:61)]
       XQueryPrologImpl[XQUERY_PROLOG(0:61)]
-         XQueryVarDeclImpl[XQUERY_VAR_DECL(0:60)]
+         XQueryAnnotatedDeclImpl[XQUERY_ANNOTATED_DECL(0:60)]
             LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_VARIABLE(8:16)]('variable')
-            LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(16:17)]('$')
-            XQueryNCNameImpl[XQUERY_NCNAME(17:21)]
-               LeafPsiElement[XQUERY_NCNAME_TOKEN(17:20)]('one')
-               PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
-            XQueryTypeDeclarationImpl[XQUERY_TYPE_DECLARATION(21:52)]
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_AS(21:23)]('as')
-               PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
-               XQuerySequenceTypeImpl[XQUERY_SEQUENCE_TYPE(24:52)]
-                  XQueryItemTypeImpl[XQUERY_ITEM_TYPE(24:52)]
-                     XQuerySchemaAttributeTestImpl[XQUERY_SCHEMA_ATTRIBUTE_TEST(24:52)]
-                        LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_SCHEMA_ATTRIBUTE(24:40)]('schema-attribute')
-                        LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(40:41)]('(')
-                        XQueryAttributeDeclarationImpl[XQUERY_ATTRIBUTE_DECLARATION(41:51)]
-                           LeafPsiElement[XQUERY_NCNAME_TOKEN(41:43)]('xs')
-                           LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(43:44)](':')
-                           LeafPsiElement[XQUERY_NCNAME_TOKEN(44:51)]('boolean')
-                        LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(51:52)](')')
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(52:60)]('external')
+            XQueryVarDeclImpl[XQUERY_VAR_DECL(8:60)]
+               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_VARIABLE(8:16)]('variable')
+               LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(16:17)]('$')
+               XQueryNCNameImpl[XQUERY_NCNAME(17:21)]
+                  LeafPsiElement[XQUERY_NCNAME_TOKEN(17:20)]('one')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
+               XQueryTypeDeclarationImpl[XQUERY_TYPE_DECLARATION(21:52)]
+                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_AS(21:23)]('as')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
+                  XQuerySequenceTypeImpl[XQUERY_SEQUENCE_TYPE(24:52)]
+                     XQueryItemTypeImpl[XQUERY_ITEM_TYPE(24:52)]
+                        XQuerySchemaAttributeTestImpl[XQUERY_SCHEMA_ATTRIBUTE_TEST(24:52)]
+                           LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_SCHEMA_ATTRIBUTE(24:40)]('schema-attribute')
+                           LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(40:41)]('(')
+                           XQueryAttributeDeclarationImpl[XQUERY_ATTRIBUTE_DECLARATION(41:51)]
+                              LeafPsiElement[XQUERY_NCNAME_TOKEN(41:43)]('xs')
+                              LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(43:44)](':')
+                              LeafPsiElement[XQUERY_NCNAME_TOKEN(44:51)]('boolean')
+                           LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(51:52)](')')
+               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(52:60)]('external')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(60:61)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(61:61)]('XPST0003: Missing query body.')

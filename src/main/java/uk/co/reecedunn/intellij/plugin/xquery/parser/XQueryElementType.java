@@ -167,6 +167,11 @@ public interface XQueryElementType {
     IElementType COMP_PI_CONSTRUCTOR = new ICompositeElementType("XQUERY_COMP_PI_CONSTRUCTOR", XQueryCompPIConstructorImpl.class, XQueryCompPIConstructorPsiImpl.class);
 
     // endregion
+    // region XQuery 3.0
+
+    IElementType ANNOTATED_DECL = new ICompositeElementType("XQUERY_ANNOTATED_DECL", XQueryAnnotatedDeclImpl.class, XQueryAnnotatedDeclPsiImpl.class);
+
+    // endregion
     // region Update Facility 1.0
 
     IElementType REVALIDATION_DECL = new ICompositeElementType("XQUERY_REVALIDATION_DECL", UpdateFacilityRevalidationDeclImpl.class, UpdateFacilityRevalidationDeclPsiImpl.class);
