@@ -129,7 +129,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryReservedFunctionNameOrNCNameType K_ATTRIBUTE = new IXQueryReservedFunctionNameOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ATTRIBUTE");
     IXQueryKeywordOrNCNameType K_BASE_URI = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_BASE_URI");
     IXQueryKeywordOrNCNameType K_BEFORE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_BEFORE"); // Update Facility 1.0
-    IXQueryKeywordOrNCNameType K_BINARY = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_BINARY"); // MarkLogic
+    IXQueryKeywordOrNCNameType K_BINARY = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_BINARY"); // MarkLogic 6.0
     IXQueryKeywordOrNCNameType K_BOUNDARY_SPACE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_BOUNDARY_SPACE");
     IXQueryKeywordOrNCNameType K_BY = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_BY");
     IXQueryKeywordOrNCNameType K_CASE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_CASE");
@@ -204,7 +204,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_PRECEDING_SIBLING = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PRECEDING_SIBLING");
     IXQueryKeywordOrNCNameType K_PRESERVE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PRESERVE");
     IXQueryReservedFunctionNameOrNCNameType K_PROCESSING_INSTRUCTION = new IXQueryReservedFunctionNameOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PROCESSING_INSTRUCTION");
-    IXQueryKeywordOrNCNameType K_PROPERTY = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PROPERTY"); // MarkLogic
+    IXQueryKeywordOrNCNameType K_PROPERTY = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PROPERTY"); // MarkLogic 6.0
     IXQueryKeywordOrNCNameType K_RENAME = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_RENAME"); // Update Facility 1.0
     IXQueryKeywordOrNCNameType K_REPLACE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_REPLACE"); // Update Facility 1.0
     IXQueryKeywordOrNCNameType K_RETURN = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_RETURN");

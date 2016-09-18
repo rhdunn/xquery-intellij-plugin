@@ -17,11 +17,11 @@ package uk.co.reecedunn.intellij.plugin.xquery.parser;
 
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.tree.IFileElementType;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.impl.marklogic.MarkLogicBinaryKindTestImpl;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.impl.marklogic.*;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.impl.update.facility.*;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.impl.xquery.*;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.marklogic.MarkLogicBinaryKindTestPsiImpl;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.marklogic.*;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.update.facility.*;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.*;
 
@@ -185,6 +185,7 @@ public interface XQueryElementType {
     // endregion
     // region MarkLogic
 
+    IElementType BINARY_EXPR = new ICompositeElementType("XQUERY_BINARY_EXPR", MarkLogicBinaryExprImpl.class, MarkLogicBinaryExprPsiImpl.class);
     IElementType BINARY_KIND_TEST = new ICompositeElementType("XQUERY_BINARY_KIND_TEST", MarkLogicBinaryKindTestImpl.class, MarkLogicBinaryKindTestPsiImpl.class);
 
     // endregion

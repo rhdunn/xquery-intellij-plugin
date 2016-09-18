@@ -1231,7 +1231,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("attribute", XQueryTokenType.K_ATTRIBUTE);
         sKeywords.put("base-uri", XQueryTokenType.K_BASE_URI);
         sKeywords.put("before", XQueryTokenType.K_BEFORE); // Update Facility 1.0
-        sKeywords.put("binary", XQueryTokenType.K_BINARY); // MarkLogic
+        sKeywords.put("binary", XQueryTokenType.K_BINARY); // MarkLogic 6.0
         sKeywords.put("boundary-space", XQueryTokenType.K_BOUNDARY_SPACE);
         sKeywords.put("by", XQueryTokenType.K_BY);
         sKeywords.put("case", XQueryTokenType.K_CASE);
@@ -1306,7 +1306,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("preceding-sibling", XQueryTokenType.K_PRECEDING_SIBLING);
         sKeywords.put("preserve", XQueryTokenType.K_PRESERVE);
         sKeywords.put("processing-instruction", XQueryTokenType.K_PROCESSING_INSTRUCTION);
-        sKeywords.put("property", XQueryTokenType.K_PROPERTY); // MarkLogic
+        sKeywords.put("property", XQueryTokenType.K_PROPERTY); // MarkLogic 6.0
         sKeywords.put("rename", XQueryTokenType.K_RENAME); // Update Facility 1.0
         sKeywords.put("replace", XQueryTokenType.K_REPLACE); // Update Facility 1.0
         sKeywords.put("return", XQueryTokenType.K_RETURN);

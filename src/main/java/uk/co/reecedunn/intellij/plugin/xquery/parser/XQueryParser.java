@@ -2385,8 +2385,8 @@ class XQueryParser {
             matchTokenType(XQueryTokenType.K_DESCENDANT_OR_SELF) ||
             matchTokenType(XQueryTokenType.K_FOLLOWING) ||
             matchTokenType(XQueryTokenType.K_FOLLOWING_SIBLING) ||
-            matchTokenType(XQueryTokenType.K_NAMESPACE) || // MarkLogic
-            matchTokenType(XQueryTokenType.K_PROPERTY) || // MarkLogic
+            matchTokenType(XQueryTokenType.K_NAMESPACE) || // MarkLogic 6.0
+            matchTokenType(XQueryTokenType.K_PROPERTY) || // MarkLogic 6.0
             matchTokenType(XQueryTokenType.K_SELF)) {
 
             skipWhiteSpaceAndCommentTokens();
@@ -2547,6 +2547,7 @@ class XQueryParser {
             || parseOrderedExpr()
             || parseUnorderedExpr()
             || parseConstructor()
+            || parseBinaryExpr() // MarkLogic 6.0
             || parseFunctionCall();
     }
 
@@ -2714,6 +2715,32 @@ class XQueryParser {
         }
 
         constructorMarker.drop();
+        return false;
+    }
+
+    // endregion
+    // region Grammar :: Expr :: OrExpr :: PrimaryExpr :: MarkLogic 6.0
+
+    private boolean parseBinaryExpr() {
+        final PsiBuilder.Marker binaryExprMarker = matchTokenTypeWithMarker(XQueryTokenType.K_BINARY);
+        if (binaryExprMarker != null) {
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.BLOCK_OPEN)) {
+                binaryExprMarker.rollbackTo();
+                return false;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            parseExpr(XQueryElementType.EXPR);
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.BLOCK_CLOSE)) {
+                error(XQueryBundle.message("parser.error.expected", "}"));
+            }
+
+            binaryExprMarker.done(XQueryElementType.BINARY_EXPR);
+            return true;
+        }
         return false;
     }
 
@@ -3256,7 +3283,7 @@ class XQueryParser {
             || parseCommentTest()
             || parseTextTest()
             || parseAnyKindTest()
-            || parseBinaryKindTest(); // MarkLogic
+            || parseBinaryKindTest(); // MarkLogic 6.0
     }
 
     private boolean parseAnyKindTest() {
@@ -3521,6 +3548,9 @@ class XQueryParser {
         }
         return false;
     }
+
+    // endregion
+    // region Grammar :: TypeDeclaration :: KindTest :: MarkLogic 6.0
 
     private boolean parseBinaryKindTest() {
         final PsiBuilder.Marker binaryKindTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_BINARY);

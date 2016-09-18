@@ -3019,9 +3019,8 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region MarkLogic :: ForwardAxis
+    // region MarkLogic 6.0 :: ForwardAxis
 
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ForwardAxis")
     public void testForwardAxis_MarkLogic() {
         Lexer lexer = new XQueryLexer();
 
@@ -3031,7 +3030,18 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region MarkLogic :: BinaryKindTest
+    // region MarkLogic 6.0 :: BinaryExpr
+
+    public void testBinaryExpr() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "binary", XQueryTokenType.K_BINARY);
+        matchSingleToken(lexer, "(",      XQueryTokenType.PARENTHESIS_OPEN);
+        matchSingleToken(lexer, ")",      XQueryTokenType.PARENTHESIS_CLOSE);
+    }
+
+    // endregion
+    // region MarkLogic 6.0 :: BinaryKindTest
 
     public void testBinaryKindTest() {
         Lexer lexer = new XQueryLexer();

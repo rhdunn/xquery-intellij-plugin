@@ -48,6 +48,33 @@ public class MarkLogicParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region MarkLogic 6.0 :: BinaryExpr
+
+    public void testBinaryExpr() {
+        final String expected = loadResource("tests/parser/marklogic/BinaryExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic/BinaryExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testBinaryExpr_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/marklogic/BinaryExpr_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic/BinaryExpr_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testBinaryExpr_NoExpr() {
+        final String expected = loadResource("tests/parser/marklogic/BinaryExpr_NoExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic/BinaryExpr_NoExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testBinaryExpr_MissingClosingBrace() {
+        final String expected = loadResource("tests/parser/marklogic/BinaryExpr_MissingClosingBrace.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic/BinaryExpr_MissingClosingBrace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region MarkLogic 6.0 :: BinaryKindTest
 
     public void testBinaryKindTest() {

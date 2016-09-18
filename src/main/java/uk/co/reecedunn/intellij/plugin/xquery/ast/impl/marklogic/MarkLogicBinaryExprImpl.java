@@ -13,17 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
+package uk.co.reecedunn.intellij.plugin.xquery.ast.impl.marklogic;
 
-import com.intellij.psi.PsiElement;
+import com.intellij.psi.impl.source.tree.CompositeElement;
+import com.intellij.psi.tree.IElementType;
+import org.jetbrains.annotations.NotNull;
 
-/**
- * An XQuery 1.0 <code>PrimaryExpr</code> node in the XQuery AST.
- *
- * Because the child nodes of a <code>PrimaryExpr</code> are only referenced
- * from the <code>PrimaryExpr</code> node in the grammar, the
- * <code>PrimaryExpr</code> nodes are stored as instances of the child nodes
- * instead of as distinct nodes themselves.
- */
-public interface XQueryPrimaryExpr extends PsiElement {
+public class MarkLogicBinaryExprImpl extends CompositeElement {
+    public MarkLogicBinaryExprImpl(@NotNull IElementType type) {
+        super(type);
+    }
 }

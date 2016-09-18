@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.psi;
 
 import com.intellij.lang.ASTNode;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic.MarkLogicBinaryExpr;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic.MarkLogicBinaryKindTest;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryLanguageType;
@@ -30,7 +31,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 @SuppressWarnings("ConstantConditions")
 public class MarkLogicPsiTest extends ParserTestCase {
-    // region MarkLogic :: ForwardAxis
+    // region MarkLogic 6.0 :: ForwardAxis
 
     public void testForwardAxis_Namespace() {
         final ASTNode node = parseResource("tests/parser/marklogic/ForwardAxis_Namespace.xq");
@@ -75,7 +76,31 @@ public class MarkLogicPsiTest extends ParserTestCase {
     }
 
     // endregion
-    // region MarkLogic :: BinaryKindTest
+    // region MarkLogic 6.0 :: BinaryExpr
+
+    public void testBinaryExpr() {
+        final ASTNode node = parseResource("tests/parser/marklogic/BinaryExpr.xq");
+
+        MarkLogicBinaryExpr binaryKindTestPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), MarkLogicBinaryExpr.class);
+        XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)binaryKindTestPsi;
+
+        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.XQUERY), is(nullValue()));
+        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.UPDATE_FACILITY_EXTENSION), is(nullValue()));
+        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.FULL_TEXT_EXTENSION), is(nullValue()));
+        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.SCRIPTING_EXTENSION), is(nullValue()));
+        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.MARKLOGIC_EXTENSION), is(XQueryVersion.VERSION_6_0));
+
+        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.XQUERY), is(nullValue()));
+        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.UPDATE_FACILITY_EXTENSION), is(nullValue()));
+        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.FULL_TEXT_EXTENSION), is(nullValue()));
+        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.SCRIPTING_EXTENSION), is(nullValue()));
+        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.MARKLOGIC_EXTENSION), is(notNullValue()));
+
+        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.MARKLOGIC_EXTENSION).getNode().getElementType(), is(XQueryTokenType.K_BINARY));
+    }
+
+    // endregion
+    // region MarkLogic 6.0 :: BinaryKindTest
 
     public void testBinaryKindTest() {
         final ASTNode node = parseResource("tests/parser/marklogic/BinaryKindTest.xq");
