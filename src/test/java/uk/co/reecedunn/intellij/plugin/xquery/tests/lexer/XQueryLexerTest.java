@@ -3038,6 +3038,18 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region MarkLogic 6.0 :: ValidateExpr
+
+    public void testValidateExpr_ValidateAs() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "validate", XQueryTokenType.K_VALIDATE);
+        matchSingleToken(lexer, "as",       XQueryTokenType.K_AS);
+        matchSingleToken(lexer, "{",        XQueryTokenType.BLOCK_OPEN);
+        matchSingleToken(lexer, "}",        XQueryTokenType.BLOCK_CLOSE);
+    }
+
+    // endregion
     // region MarkLogic 6.0 :: ForwardAxis
 
     public void testForwardAxis_MarkLogic() {

@@ -48,6 +48,33 @@ public class MarkLogicParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region MarkLogic 6.0 :: ValidateExpr
+
+    public void testValidateExpr_ValidateAs() {
+        final String expected = loadResource("tests/parser/marklogic/ValidateExpr_ValidateAs.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic/ValidateExpr_ValidateAs.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testValidateExpr_ValidateAs_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/marklogic/ValidateExpr_ValidateAs_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic/ValidateExpr_ValidateAs_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testValidateExpr_ValidateAs_MissingAtomicType() {
+        final String expected = loadResource("tests/parser/marklogic/ValidateExpr_ValidateAs_MissingAtomicType.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic/ValidateExpr_ValidateAs_MissingAtomicType.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testValidateExpr_ValidateAs_MissingOpeningBrace() {
+        final String expected = loadResource("tests/parser/marklogic/ValidateExpr_ValidateAs_MissingOpeningBrace.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic/ValidateExpr_ValidateAs_MissingOpeningBrace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region MarkLogic 6.0 :: ForwardAxis
 
     public void testForwardAxis_Namespace() {

@@ -2233,7 +2233,18 @@ class XQueryParser {
             boolean haveErrors = false;
 
             skipWhiteSpaceAndCommentTokens();
-            boolean haveValidationMode = matchTokenType(XQueryTokenType.K_LAX) || matchTokenType(XQueryTokenType.K_STRICT);
+            boolean haveValidationMode = false;
+            if (matchTokenType(XQueryTokenType.K_LAX) || matchTokenType(XQueryTokenType.K_STRICT)) {
+                haveValidationMode = true;
+            } else if (matchTokenType(XQueryTokenType.K_AS)) { // MarkLogic 6.0
+                haveValidationMode = true;
+
+                skipWhiteSpaceAndCommentTokens();
+                if (!parseSingleType()) {
+                    error(XQueryBundle.message("parser.error.expected", "SingleType"));
+                    haveErrors = true;
+                }
+            }
 
             skipWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.BLOCK_OPEN)) {
