@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.lang;
 import org.jetbrains.annotations.NotNull;
 
 public enum XQueryConformance {
-    MINIMAL_CONFORMANCE("xquery"),
+    MINIMAL_CONFORMANCE("minimal-conformance"),
     UPDATE_FACILITY("update-facility"),
     FULL_TEXT("full-text"),
     SCRIPTING("scripting"),
