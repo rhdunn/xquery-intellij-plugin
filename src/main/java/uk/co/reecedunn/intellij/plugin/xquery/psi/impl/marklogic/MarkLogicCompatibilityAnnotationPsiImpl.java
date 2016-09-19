@@ -31,7 +31,7 @@ public class MarkLogicCompatibilityAnnotationPsiImpl extends ASTWrapperPsiElemen
 
     @Override
     public XQueryVersion getConformanceVersion(XQueryConformance type) {
-        if (type == XQueryConformance.MARKLOGIC_EXTENSION) {
+        if (type == XQueryConformance.MARKLOGIC) {
             return XQueryVersion.VERSION_6_0;
         }
         return null;
@@ -39,7 +39,7 @@ public class MarkLogicCompatibilityAnnotationPsiImpl extends ASTWrapperPsiElemen
 
     @Override
     public PsiElement getConformanceElement(XQueryConformance type) {
-        if (type == XQueryConformance.MARKLOGIC_EXTENSION) {
+        if (type == XQueryConformance.MARKLOGIC) {
             return getFirstChild();
         }
         return null;

@@ -32,7 +32,7 @@ public class XQueryAnnotationPsiImpl extends ASTWrapperPsiElement implements XQu
 
     @Override
     public XQueryVersion getConformanceVersion(XQueryConformance type) {
-        if (type == XQueryConformance.XQUERY) {
+        if (type == XQueryConformance.MINIMAL_CONFORMANCE) {
             return XQueryVersion.VERSION_3_0;
         }
         return null;
@@ -40,7 +40,7 @@ public class XQueryAnnotationPsiImpl extends ASTWrapperPsiElement implements XQu
 
     @Override
     public PsiElement getConformanceElement(XQueryConformance type) {
-        if (type == XQueryConformance.XQUERY) {
+        if (type == XQueryConformance.MINIMAL_CONFORMANCE) {
             return findChildByType(XQueryTokenType.ANNOTATION_INDICATOR);
         }
         return null;

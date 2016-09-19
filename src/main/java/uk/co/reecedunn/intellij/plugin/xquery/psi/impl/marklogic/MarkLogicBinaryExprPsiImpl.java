@@ -32,7 +32,7 @@ public class MarkLogicBinaryExprPsiImpl extends ASTWrapperPsiElement implements 
 
     @Override
     public XQueryVersion getConformanceVersion(XQueryConformance type) {
-        if (type == XQueryConformance.MARKLOGIC_EXTENSION) {
+        if (type == XQueryConformance.MARKLOGIC) {
             return XQueryVersion.VERSION_6_0;
         }
         return null;
@@ -40,7 +40,7 @@ public class MarkLogicBinaryExprPsiImpl extends ASTWrapperPsiElement implements 
 
     @Override
     public PsiElement getConformanceElement(XQueryConformance type) {
-        if (type == XQueryConformance.MARKLOGIC_EXTENSION) {
+        if (type == XQueryConformance.MARKLOGIC) {
             final ASTNode node = getNode().findChildByType(XQueryTokenType.K_BINARY);
             return node == null ? null : node.getPsi();
         }

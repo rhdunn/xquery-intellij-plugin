@@ -81,7 +81,7 @@ public class XQueryPropertiesUI {
         boolean found = false;
 
         control.removeAllItems();
-        for (ImplementationItem item : source.getItemsByVersion(filter, XQueryConformance.XQUERY, version)) {
+        for (ImplementationItem item : source.getItemsByVersion(filter, XQueryConformance.MINIMAL_CONFORMANCE, version)) {
             control.addItem(item);
             if (selected != null && item.toString().equals(selected.toString())) {
                 control.setSelectedItem(item);
@@ -89,7 +89,7 @@ public class XQueryPropertiesUI {
             }
         }
         if (!found) {
-            control.setSelectedItem(source.getDefaultItemByVersion(filter, XQueryConformance.XQUERY, version));
+            control.setSelectedItem(source.getDefaultItemByVersion(filter, XQueryConformance.MINIMAL_CONFORMANCE, version));
         }
     }
 
@@ -110,7 +110,7 @@ public class XQueryPropertiesUI {
 
         mImplementationVersions.addActionListener(e -> {
             final ImplementationItem version = (ImplementationItem)mImplementationVersions.getSelectedItem();
-            populateVersionComboBox(mVersion, version, XQueryConformance.XQUERY);
+            populateVersionComboBox(mVersion, version, XQueryConformance.MINIMAL_CONFORMANCE);
             populateComboBox(mDialectForXQuery1_0, version, ImplementationItem.IMPLEMENTATION_DIALECT, XQueryVersion.VERSION_1_0);
             populateComboBox(mDialectForXQuery3_0, version, ImplementationItem.IMPLEMENTATION_DIALECT, XQueryVersion.VERSION_3_0);
             populateComboBox(mDialectForXQuery3_1, version, ImplementationItem.IMPLEMENTATION_DIALECT, XQueryVersion.VERSION_3_1);

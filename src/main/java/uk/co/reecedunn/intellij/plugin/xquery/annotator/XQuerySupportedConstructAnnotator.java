@@ -38,9 +38,9 @@ public class XQuerySupportedConstructAnnotator implements Annotator {
         XQueryProjectSettings settings = XQueryProjectSettings.getInstance(element.getProject());
         ImplementationItem dialect = settings.getDialectForXQueryVersion(xqueryVersion);
 
-        checkVersion(holder, versioned, XQueryConformance.XQUERY, xqueryVersion, "annotator.requires.xquery.version");
-        checkVersion(holder, versioned, XQueryConformance.UPDATE_FACILITY_EXTENSION, dialect, "annotator.requires.update-facility.version");
-        checkVersion(holder, versioned, XQueryConformance.MARKLOGIC_EXTENSION, dialect, "annotator.requires.marklogic.version");
+        checkVersion(holder, versioned, XQueryConformance.MINIMAL_CONFORMANCE, xqueryVersion, "annotator.requires.xquery.version");
+        checkVersion(holder, versioned, XQueryConformance.UPDATE_FACILITY, dialect, "annotator.requires.update-facility.version");
+        checkVersion(holder, versioned, XQueryConformance.MARKLOGIC, dialect, "annotator.requires.marklogic.version");
     }
 
     private void checkVersion(AnnotationHolder holder, XQueryVersionedConstruct versioned, XQueryConformance type, ImplementationItem dialect, String key) {

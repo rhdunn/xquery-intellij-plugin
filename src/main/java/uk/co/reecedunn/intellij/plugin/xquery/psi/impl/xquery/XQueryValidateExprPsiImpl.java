@@ -32,10 +32,10 @@ public class XQueryValidateExprPsiImpl extends ASTWrapperPsiElement implements X
 
     @Override
     public XQueryVersion getConformanceVersion(XQueryConformance type) {
-        if (type == XQueryConformance.XQUERY) {
+        if (type == XQueryConformance.MINIMAL_CONFORMANCE) {
             final ASTNode as = getNode().findChildByType(XQueryTokenType.K_AS);
             return as == null ? XQueryVersion.VERSION_1_0 : null;
-        } else if (type == XQueryConformance.MARKLOGIC_EXTENSION) {
+        } else if (type == XQueryConformance.MARKLOGIC) {
             final ASTNode as = getNode().findChildByType(XQueryTokenType.K_AS);
             return as == null ? null : XQueryVersion.VERSION_6_0;
         }
@@ -44,7 +44,7 @@ public class XQueryValidateExprPsiImpl extends ASTWrapperPsiElement implements X
 
     @Override
     public PsiElement getConformanceElement(XQueryConformance type) {
-        if (type == XQueryConformance.MARKLOGIC_EXTENSION) {
+        if (type == XQueryConformance.MARKLOGIC) {
             final ASTNode as = getNode().findChildByType(XQueryTokenType.K_AS);
             return as == null ? null : as.getPsi();
         }

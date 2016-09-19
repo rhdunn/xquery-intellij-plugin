@@ -44,11 +44,11 @@ public class ImplementationsTest extends TestCase {
 
         assertThat(item.getDefaultItem(ImplementationItem.IMPLEMENTATION_VERSION), is(ImplementationItem.NULL_ITEM));
 
-        final List<?> itemsForXQuery = item.getItemsByVersion(ImplementationItem.IMPLEMENTATION_VERSION, XQueryConformance.XQUERY, XQueryVersion.VERSION_1_0);
+        final List<?> itemsForXQuery = item.getItemsByVersion(ImplementationItem.IMPLEMENTATION_VERSION, XQueryConformance.MINIMAL_CONFORMANCE, XQueryVersion.VERSION_1_0);
         assertThat(itemsForXQuery.size(), is(1));
         assertThat(itemsForXQuery.get(0), is(ImplementationItem.NULL_ITEM));
 
-        assertThat(item.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_VERSION, XQueryConformance.XQUERY, XQueryVersion.VERSION_1_0),
+        assertThat(item.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_VERSION, XQueryConformance.MINIMAL_CONFORMANCE, XQueryVersion.VERSION_1_0),
                    is(ImplementationItem.NULL_ITEM));
     }
 
@@ -126,7 +126,7 @@ public class ImplementationsTest extends TestCase {
         ImplementationItem implementation = Implementations.getImplementations().get(1);
         ImplementationItem version = implementation.getItems(ImplementationItem.IMPLEMENTATION_VERSION).get(2);
 
-        final List<ImplementationItem> dialects = version.getItemsByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryConformance.XQUERY, XQueryVersion.VERSION_1_0);
+        final List<ImplementationItem> dialects = version.getItemsByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryConformance.MINIMAL_CONFORMANCE, XQueryVersion.VERSION_1_0);
         assertThat(dialects.size(), is(2));
 
         assertThat(dialects.get(0).getID(), is("saxon/EE/1.0"));
@@ -145,34 +145,34 @@ public class ImplementationsTest extends TestCase {
         List<ImplementationItem> dialects = Implementations.getItemById("marklogic/v7").getItems(ImplementationItem.IMPLEMENTATION_DIALECT);
         assertThat(dialects.size(), is(2));
 
-        assertThat(dialects.get(0).getVersion(XQueryConformance.XQUERY), is(XQueryVersion.VERSION_1_0));
-        assertThat(dialects.get(1).getVersion(XQueryConformance.XQUERY), is(XQueryVersion.VERSION_1_0_MARKLOGIC));
+        assertThat(dialects.get(0).getVersion(XQueryConformance.MINIMAL_CONFORMANCE), is(XQueryVersion.VERSION_1_0));
+        assertThat(dialects.get(1).getVersion(XQueryConformance.MINIMAL_CONFORMANCE), is(XQueryVersion.VERSION_1_0_MARKLOGIC));
 
-        assertThat(dialects.get(0).getVersion(XQueryConformance.UPDATE_FACILITY_EXTENSION), is(nullValue()));
-        assertThat(dialects.get(0).getVersion(XQueryConformance.FULL_TEXT_EXTENSION), is(nullValue()));
-        assertThat(dialects.get(0).getVersion(XQueryConformance.SCRIPTING_EXTENSION), is(nullValue()));
+        assertThat(dialects.get(0).getVersion(XQueryConformance.UPDATE_FACILITY), is(nullValue()));
+        assertThat(dialects.get(0).getVersion(XQueryConformance.FULL_TEXT), is(nullValue()));
+        assertThat(dialects.get(0).getVersion(XQueryConformance.SCRIPTING), is(nullValue()));
     }
 
     public void testSpecification() {
         List<ImplementationItem> dialects = Implementations.getItemById("marklogic/v7").getItems(ImplementationItem.IMPLEMENTATION_DIALECT);
         assertThat(dialects.size(), is(2));
 
-        assertThat(dialects.get(0).getSpecification(XQueryConformance.XQUERY), is("https://www.w3.org/TR/2010/REC-xquery-20101214/"));
-        assertThat(dialects.get(1).getSpecification(XQueryConformance.XQUERY), is("https://www.w3.org/TR/2010/REC-xquery-20101214/"));
+        assertThat(dialects.get(0).getSpecification(XQueryConformance.MINIMAL_CONFORMANCE), is("https://www.w3.org/TR/2010/REC-xquery-20101214/"));
+        assertThat(dialects.get(1).getSpecification(XQueryConformance.MINIMAL_CONFORMANCE), is("https://www.w3.org/TR/2010/REC-xquery-20101214/"));
 
-        assertThat(dialects.get(0).getSpecification(XQueryConformance.UPDATE_FACILITY_EXTENSION), is(nullValue()));
-        assertThat(dialects.get(0).getSpecification(XQueryConformance.FULL_TEXT_EXTENSION), is(nullValue()));
-        assertThat(dialects.get(0).getSpecification(XQueryConformance.SCRIPTING_EXTENSION), is(nullValue()));
+        assertThat(dialects.get(0).getSpecification(XQueryConformance.UPDATE_FACILITY), is(nullValue()));
+        assertThat(dialects.get(0).getSpecification(XQueryConformance.FULL_TEXT), is(nullValue()));
+        assertThat(dialects.get(0).getSpecification(XQueryConformance.SCRIPTING), is(nullValue()));
     }
 
     public void testItemsByVersion() {
         ImplementationItem implementation = Implementations.getItemById("marklogic/v7");
 
-        List<ImplementationItem> xquery = implementation.getItemsByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryConformance.XQUERY, XQueryVersion.VERSION_1_0);
+        List<ImplementationItem> xquery = implementation.getItemsByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryConformance.MINIMAL_CONFORMANCE, XQueryVersion.VERSION_1_0);
         assertThat(xquery.size(), is(1));
         assertThat(xquery.get(0).getID(), is("marklogic/v7/1.0"));
 
-        List<ImplementationItem> scripting = implementation.getItemsByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryConformance.SCRIPTING_EXTENSION, XQueryVersion.VERSION_1_0);
+        List<ImplementationItem> scripting = implementation.getItemsByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryConformance.SCRIPTING, XQueryVersion.VERSION_1_0);
         assertThat(scripting.size(), is(1));
         assertThat(scripting.get(0), is(ImplementationItem.NULL_ITEM));
     }
@@ -181,7 +181,7 @@ public class ImplementationsTest extends TestCase {
         ImplementationItem implementation = Implementations.getImplementations().get(1);
         ImplementationItem version = implementation.getItems(ImplementationItem.IMPLEMENTATION_VERSION).get(2);
 
-        ImplementationItem dialect = version.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryConformance.XQUERY, XQueryVersion.VERSION_1_0);
+        ImplementationItem dialect = version.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryConformance.MINIMAL_CONFORMANCE, XQueryVersion.VERSION_1_0);
         assertThat(dialect.getID(), is("saxon/EE/1.0-update"));
         assertThat(dialect.toString(), is("XQuery Update Facility 1.0"));
     }
@@ -190,7 +190,7 @@ public class ImplementationsTest extends TestCase {
         ImplementationItem implementation = Implementations.getImplementations().get(2);
         ImplementationItem version = implementation.getItems(ImplementationItem.IMPLEMENTATION_VERSION).get(0);
 
-        final List<XQueryVersion> xquery = version.getVersions(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryConformance.XQUERY);
+        final List<XQueryVersion> xquery = version.getVersions(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryConformance.MINIMAL_CONFORMANCE);
         assertThat(xquery.size(), is(1));
         assertThat(xquery.get(0), is(XQueryVersion.VERSION_1_0));
     }
@@ -199,14 +199,14 @@ public class ImplementationsTest extends TestCase {
         ImplementationItem implementation = Implementations.getImplementations().get(2);
         ImplementationItem version = implementation.getItems(ImplementationItem.IMPLEMENTATION_VERSION).get(0);
 
-        assertThat(version.getDefaultVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryConformance.XQUERY), is(XQueryVersion.VERSION_1_0));
+        assertThat(version.getDefaultVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryConformance.MINIMAL_CONFORMANCE), is(XQueryVersion.VERSION_1_0));
     }
 
     public void testImplementationDialectForAnUnknownVersion() {
         ImplementationItem implementation = Implementations.getImplementations().get(1);
         ImplementationItem version = implementation.getItems(ImplementationItem.IMPLEMENTATION_VERSION).get(2);
 
-        final List<ImplementationItem> dialects = version.getItemsByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryConformance.XQUERY, XQueryVersion.VERSION_1_0_MARKLOGIC);
+        final List<ImplementationItem> dialects = version.getItemsByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryConformance.MINIMAL_CONFORMANCE, XQueryVersion.VERSION_1_0_MARKLOGIC);
         assertThat(dialects.size(), is(1));
         assertThat(dialects.get(0), is(ImplementationItem.NULL_ITEM));
     }
@@ -215,7 +215,7 @@ public class ImplementationsTest extends TestCase {
         ImplementationItem implementation = Implementations.getImplementations().get(1);
         ImplementationItem version = implementation.getItems(ImplementationItem.IMPLEMENTATION_VERSION).get(2);
 
-        ImplementationItem dialect = version.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryConformance.XQUERY, XQueryVersion.VERSION_1_0_MARKLOGIC);
+        ImplementationItem dialect = version.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryConformance.MINIMAL_CONFORMANCE, XQueryVersion.VERSION_1_0_MARKLOGIC);
         assertThat(dialect, is(ImplementationItem.NULL_ITEM));
     }
 

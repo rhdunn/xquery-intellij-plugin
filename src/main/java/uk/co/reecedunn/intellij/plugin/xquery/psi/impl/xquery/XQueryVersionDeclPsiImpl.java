@@ -48,7 +48,7 @@ public class XQueryVersionDeclPsiImpl extends ASTWrapperPsiElement implements XQ
 
     @Override
     public XQueryVersion getConformanceVersion(XQueryConformance type) {
-        if (type == XQueryConformance.XQUERY) {
+        if (type == XQueryConformance.MINIMAL_CONFORMANCE) {
             return getXQuery30Encoding() == null ? XQueryVersion.VERSION_1_0 : XQueryVersion.VERSION_3_0;
         }
         return null;
@@ -56,7 +56,7 @@ public class XQueryVersionDeclPsiImpl extends ASTWrapperPsiElement implements XQ
 
     @Override
     public PsiElement getConformanceElement(XQueryConformance type) {
-        if (type == XQueryConformance.XQUERY) {
+        if (type == XQueryConformance.MINIMAL_CONFORMANCE) {
             return getXQuery30Encoding();
         }
         return null;

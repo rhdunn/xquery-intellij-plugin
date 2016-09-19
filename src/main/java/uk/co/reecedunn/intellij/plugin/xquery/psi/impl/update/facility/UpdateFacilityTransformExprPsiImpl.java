@@ -32,7 +32,7 @@ public class UpdateFacilityTransformExprPsiImpl extends ASTWrapperPsiElement imp
 
     @Override
     public XQueryVersion getConformanceVersion(XQueryConformance type) {
-        if (type == XQueryConformance.UPDATE_FACILITY_EXTENSION) {
+        if (type == XQueryConformance.UPDATE_FACILITY) {
             return XQueryVersion.VERSION_1_0;
         }
         return null;
@@ -40,7 +40,7 @@ public class UpdateFacilityTransformExprPsiImpl extends ASTWrapperPsiElement imp
 
     @Override
     public PsiElement getConformanceElement(XQueryConformance type) {
-        if (type == XQueryConformance.UPDATE_FACILITY_EXTENSION) {
+        if (type == XQueryConformance.UPDATE_FACILITY) {
             final ASTNode node = getNode().findChildByType(XQueryTokenType.K_COPY);
             return node == null ? null : node.getPsi();
         }

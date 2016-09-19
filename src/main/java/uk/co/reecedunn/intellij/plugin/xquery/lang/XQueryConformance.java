@@ -18,11 +18,11 @@ package uk.co.reecedunn.intellij.plugin.xquery.lang;
 import org.jetbrains.annotations.NotNull;
 
 public enum XQueryConformance {
-    XQUERY("xquery"),
-    UPDATE_FACILITY_EXTENSION("update-facility"),
-    FULL_TEXT_EXTENSION("full-text"),
-    SCRIPTING_EXTENSION("scripting"),
-    MARKLOGIC_EXTENSION("marklogic");
+    MINIMAL_CONFORMANCE("xquery"),
+    UPDATE_FACILITY("update-facility"),
+    FULL_TEXT("full-text"),
+    SCRIPTING("scripting"),
+    MARKLOGIC("marklogic");
 
     private final String mID;
 
