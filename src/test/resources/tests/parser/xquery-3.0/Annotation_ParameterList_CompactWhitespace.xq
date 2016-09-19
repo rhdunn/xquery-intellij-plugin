@@ -1,0 +1,1 @@
+declare%test(1)function test()external;

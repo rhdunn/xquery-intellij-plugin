@@ -477,6 +477,9 @@ public class SyntaxHighlighterTest extends TestCase {
     public void testTokenHighlights_Annotation() {
         SyntaxHighlighter highlighter = new SyntaxHighlighter();
 
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.ANNOTATION_INDICATOR).length, is(1));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.ANNOTATION_INDICATOR)[0], is(SyntaxHighlighter.ANNOTATION));
+
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_UPDATING).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_UPDATING)[0], is(SyntaxHighlighter.ANNOTATION));
 
@@ -627,6 +630,5 @@ public class SyntaxHighlighterTest extends TestCase {
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.MAP_OPERATOR).length, is(0));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.FUNCTION_REF_OPERATOR).length, is(0));
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.ANNOTATION_INDICATOR).length, is(0));
     }
 }

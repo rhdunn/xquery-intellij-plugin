@@ -95,7 +95,8 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
                    type == XQueryTokenType.XML_COMMENT_START_TAG) {
             return COMMENT_KEYS;
         } else if (type == XQueryTokenType.K_UPDATING ||
-                   type == XQueryTokenType.K_PRIVATE) {
+                   type == XQueryTokenType.K_PRIVATE ||
+                   type == XQueryTokenType.ANNOTATION_INDICATOR) {
             return ANNOTATION_KEYS;
         } else if (type instanceof IXQueryKeywordOrNCNameType) {
             return KEYWORD_KEYS;

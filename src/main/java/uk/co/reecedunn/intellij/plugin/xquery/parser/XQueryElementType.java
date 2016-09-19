@@ -170,6 +170,7 @@ public interface XQueryElementType {
     // region XQuery 3.0
 
     IElementType ANNOTATED_DECL = new ICompositeElementType("XQUERY_ANNOTATED_DECL", XQueryAnnotatedDeclImpl.class, XQueryAnnotatedDeclPsiImpl.class);
+    IElementType ANNOTATION = new ICompositeElementType("XQUERY_ANNOTATION", XQueryAnnotationImpl.class, XQueryAnnotationPsiImpl.class);
 
     // endregion
     // region Update Facility 1.0

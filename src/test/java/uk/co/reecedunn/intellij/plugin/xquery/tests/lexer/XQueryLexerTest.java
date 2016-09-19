@@ -2876,6 +2876,16 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region XQuery 3.0 :: AnnotationDecl
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-AnnotationDecl")
+    public void testAnnotationDecl() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "declare", XQueryTokenType.K_DECLARE);
+    }
+
+    // endregion
     // region XQuery 3.0 :: Annotation
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-Annotation")

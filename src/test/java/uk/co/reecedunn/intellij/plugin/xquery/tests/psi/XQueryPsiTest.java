@@ -501,4 +501,31 @@ public class XQueryPsiTest extends ParserTestCase {
     }
 
     // endregion
+    // region XQuery 3.0 :: Annotation
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Annotation")
+    public void testAnnotation() {
+        final ASTNode node = parseResource("tests/parser/xquery-3.0/Annotation.xq");
+
+        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryAnnotatedDecl.class);
+        XQueryAnnotation annotationPsi = PsiNavigation.findChildrenByClass(annotatedDeclPsi, XQueryAnnotation.class).get(0);
+        XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)annotationPsi;
+
+        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.XQUERY), is(XQueryVersion.VERSION_3_0));
+        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.UPDATE_FACILITY_EXTENSION), is(nullValue()));
+        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.FULL_TEXT_EXTENSION), is(nullValue()));
+        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.SCRIPTING_EXTENSION), is(nullValue()));
+        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.MARKLOGIC_EXTENSION), is(nullValue()));
+
+        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.XQUERY), is(notNullValue()));
+        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.UPDATE_FACILITY_EXTENSION), is(nullValue()));
+        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.FULL_TEXT_EXTENSION), is(nullValue()));
+        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.SCRIPTING_EXTENSION), is(nullValue()));
+        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.MARKLOGIC_EXTENSION), is(nullValue()));
+
+        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.XQUERY).getNode().getElementType(),
+                is(XQueryTokenType.ANNOTATION_INDICATOR));
+    }
+
+    // endregion
 }

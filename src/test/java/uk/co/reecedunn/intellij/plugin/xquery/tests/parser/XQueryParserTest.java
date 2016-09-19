@@ -5390,4 +5390,63 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region XQuery 3.0 :: AnnotatedDecl + Annotation
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-AnnotatedDecl")
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-Annotation")
+    public void testAnnotation() {
+        final String expected = loadResource("tests/parser/xquery-3.0/Annotation.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/Annotation.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-AnnotatedDecl")
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-Annotation")
+    public void testAnnotation_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-3.0/Annotation_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/Annotation_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-AnnotatedDecl")
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-Annotation")
+    public void testAnnotation_MissingQName() {
+        final String expected = loadResource("tests/parser/xquery-3.0/Annotation_MissingQName.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/Annotation_MissingQName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-AnnotatedDecl")
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-Annotation")
+    public void testAnnotation_ParameterList() {
+        final String expected = loadResource("tests/parser/xquery-3.0/Annotation_ParameterList.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/Annotation_ParameterList.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-AnnotatedDecl")
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-Annotation")
+    public void testAnnotation_ParameterList_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-3.0/Annotation_ParameterList_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/Annotation_ParameterList_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-AnnotatedDecl")
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-Annotation")
+    public void testAnnotation_ParameterList_MissingLiteral() {
+        final String expected = loadResource("tests/parser/xquery-3.0/Annotation_ParameterList_MissingLiteral.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/Annotation_ParameterList_MissingLiteral.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-AnnotatedDecl")
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-Annotation")
+    public void testAnnotation_ParameterList_Multiple() {
+        final String expected = loadResource("tests/parser/xquery-3.0/Annotation_ParameterList_Multiple.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/Annotation_ParameterList_Multiple.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
 }

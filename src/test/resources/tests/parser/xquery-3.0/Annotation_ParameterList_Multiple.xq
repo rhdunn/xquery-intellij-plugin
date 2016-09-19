@@ -1,0 +1,1 @@
+declare % test ( 1 , 2.0 , 3e8 , "four" ) function test ( ) external ;
