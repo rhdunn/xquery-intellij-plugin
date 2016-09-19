@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.lang;
 
 import org.jetbrains.annotations.NotNull;
 
-public enum XQueryLanguageType {
+public enum XQueryConformance {
     XQUERY("xquery"),
     UPDATE_FACILITY_EXTENSION("update-facility"),
     FULL_TEXT_EXTENSION("full-text"),
@@ -26,7 +26,7 @@ public enum XQueryLanguageType {
 
     private final String mID;
 
-    XQueryLanguageType(@NotNull String id) {
+    XQueryConformance(@NotNull String id) {
         mID = id;
     }
 

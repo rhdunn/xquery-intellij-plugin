@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.settings;
 import com.intellij.openapi.project.Project;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Implementations;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryLanguageType;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 
 import javax.swing.*;
@@ -43,7 +43,7 @@ public class XQueryPropertiesUI {
         return mPanel;
     }
 
-    private void populateVersionComboBox(JComboBox<XQueryVersion> control, ImplementationItem source, XQueryLanguageType filter) {
+    private void populateVersionComboBox(JComboBox<XQueryVersion> control, ImplementationItem source, XQueryConformance filter) {
         if (source == null) {
             return;
         }
@@ -81,7 +81,7 @@ public class XQueryPropertiesUI {
         boolean found = false;
 
         control.removeAllItems();
-        for (ImplementationItem item : source.getItemsByVersion(filter, XQueryLanguageType.XQUERY, version)) {
+        for (ImplementationItem item : source.getItemsByVersion(filter, XQueryConformance.XQUERY, version)) {
             control.addItem(item);
             if (selected != null && item.toString().equals(selected.toString())) {
                 control.setSelectedItem(item);
@@ -89,7 +89,7 @@ public class XQueryPropertiesUI {
             }
         }
         if (!found) {
-            control.setSelectedItem(source.getDefaultItemByVersion(filter, XQueryLanguageType.XQUERY, version));
+            control.setSelectedItem(source.getDefaultItemByVersion(filter, XQueryConformance.XQUERY, version));
         }
     }
 
@@ -110,7 +110,7 @@ public class XQueryPropertiesUI {
 
         mImplementationVersions.addActionListener(e -> {
             final ImplementationItem version = (ImplementationItem)mImplementationVersions.getSelectedItem();
-            populateVersionComboBox(mVersion, version, XQueryLanguageType.XQUERY);
+            populateVersionComboBox(mVersion, version, XQueryConformance.XQUERY);
             populateComboBox(mDialectForXQuery1_0, version, ImplementationItem.IMPLEMENTATION_DIALECT, XQueryVersion.VERSION_1_0);
             populateComboBox(mDialectForXQuery3_0, version, ImplementationItem.IMPLEMENTATION_DIALECT, XQueryVersion.VERSION_3_0);
             populateComboBox(mDialectForXQuery3_1, version, ImplementationItem.IMPLEMENTATION_DIALECT, XQueryVersion.VERSION_3_1);

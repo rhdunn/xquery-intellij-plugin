@@ -20,7 +20,7 @@ import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic.MarkLogicBinaryExpr;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryLanguageType;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVersionedConstruct;
@@ -31,16 +31,16 @@ public class MarkLogicBinaryExprPsiImpl extends ASTWrapperPsiElement implements 
     }
 
     @Override
-    public XQueryVersion getLanguageTypeVersion(XQueryLanguageType type) {
-        if (type == XQueryLanguageType.MARKLOGIC_EXTENSION) {
+    public XQueryVersion getConformanceVersion(XQueryConformance type) {
+        if (type == XQueryConformance.MARKLOGIC_EXTENSION) {
             return XQueryVersion.VERSION_6_0;
         }
         return null;
     }
 
     @Override
-    public PsiElement getLanguageTypeElement(XQueryLanguageType type) {
-        if (type == XQueryLanguageType.MARKLOGIC_EXTENSION) {
+    public PsiElement getConformanceElement(XQueryConformance type) {
+        if (type == XQueryConformance.MARKLOGIC_EXTENSION) {
             final ASTNode node = getNode().findChildByType(XQueryTokenType.K_BINARY);
             return node == null ? null : node.getPsi();
         }

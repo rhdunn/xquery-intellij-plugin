@@ -21,7 +21,7 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.tree.TokenSet;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryForwardAxis;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryLanguageType;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVersionedConstruct;
@@ -34,11 +34,11 @@ public class XQueryForwardAxisPsiImpl extends ASTWrapperPsiElement implements XQ
     }
 
     @Override
-    public XQueryVersion getLanguageTypeVersion(XQueryLanguageType type) {
-        if (type == XQueryLanguageType.XQUERY) {
+    public XQueryVersion getConformanceVersion(XQueryConformance type) {
+        if (type == XQueryConformance.XQUERY) {
             final ASTNode node = getNode().findChildByType(MARKLOGIC_AXIS);
             return node == null ? XQueryVersion.VERSION_1_0 : null;
-        } else if (type == XQueryLanguageType.MARKLOGIC_EXTENSION) {
+        } else if (type == XQueryConformance.MARKLOGIC_EXTENSION) {
             final ASTNode node = getNode().findChildByType(MARKLOGIC_AXIS);
             return node == null ? null : XQueryVersion.VERSION_6_0;
         }
@@ -46,8 +46,8 @@ public class XQueryForwardAxisPsiImpl extends ASTWrapperPsiElement implements XQ
     }
 
     @Override
-    public PsiElement getLanguageTypeElement(XQueryLanguageType type) {
-        if (type == XQueryLanguageType.MARKLOGIC_EXTENSION) {
+    public PsiElement getConformanceElement(XQueryConformance type) {
+        if (type == XQueryConformance.MARKLOGIC_EXTENSION) {
             final ASTNode node = getNode().findChildByType(MARKLOGIC_AXIS);
             return node == null ? null : node.getPsi();
         }

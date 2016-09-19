@@ -33,10 +33,10 @@ import java.io.File;
 public class XQueryProjectSettings implements PersistentStateComponent<XQueryProjectSettings>, ExportableComponent {
     private ImplementationItem IMPLEMENTATION = Implementations.getDefaultImplementation();
     private ImplementationItem IMPLEMENTATION_VERSION = IMPLEMENTATION.getDefaultItem(ImplementationItem.IMPLEMENTATION_VERSION);
-    private XQueryVersion XQUERY_VERSION = IMPLEMENTATION_VERSION.getDefaultVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryLanguageType.XQUERY);
-    private ImplementationItem XQUERY_1_0_DIALECT = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryLanguageType.XQUERY, XQueryVersion.VERSION_1_0);
-    private ImplementationItem XQUERY_3_0_DIALECT = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryLanguageType.XQUERY, XQueryVersion.VERSION_3_0);
-    private ImplementationItem XQUERY_3_1_DIALECT = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryLanguageType.XQUERY, XQueryVersion.VERSION_3_1);
+    private XQueryVersion XQUERY_VERSION = IMPLEMENTATION_VERSION.getDefaultVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryConformance.XQUERY);
+    private ImplementationItem XQUERY_1_0_DIALECT = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryConformance.XQUERY, XQueryVersion.VERSION_1_0);
+    private ImplementationItem XQUERY_3_0_DIALECT = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryConformance.XQUERY, XQueryVersion.VERSION_3_0);
+    private ImplementationItem XQUERY_3_1_DIALECT = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryConformance.XQUERY, XQueryVersion.VERSION_3_1);
 
     public static XQueryProjectSettings getInstance(@NotNull Project project) {
         return ServiceManager.getService(project, XQueryProjectSettings.class);
@@ -141,7 +141,7 @@ public class XQueryProjectSettings implements PersistentStateComponent<XQueryPro
         } else if (version == XQueryVersion.VERSION_3_1) {
             return XQUERY_3_1_DIALECT;
         }
-        return IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryLanguageType.XQUERY, version);
+        return IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryConformance.XQUERY, version);
     }
 
     @Transient

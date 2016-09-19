@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.psi;
 
 import com.intellij.lang.ASTNode;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryLanguageType;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
@@ -87,17 +87,17 @@ public class XQueryPsiTest extends ParserTestCase {
 
         XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)versionDeclPsi;
 
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.XQUERY), is(XQueryVersion.VERSION_1_0));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.UPDATE_FACILITY_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.FULL_TEXT_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.SCRIPTING_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.MARKLOGIC_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.XQUERY), is(XQueryVersion.VERSION_1_0));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.UPDATE_FACILITY_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.FULL_TEXT_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.SCRIPTING_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.MARKLOGIC_EXTENSION), is(nullValue()));
 
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.XQUERY), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.UPDATE_FACILITY_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.FULL_TEXT_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.SCRIPTING_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.MARKLOGIC_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.XQUERY), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.UPDATE_FACILITY_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.FULL_TEXT_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.SCRIPTING_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.MARKLOGIC_EXTENSION), is(nullValue()));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VersionDecl")
@@ -116,17 +116,17 @@ public class XQueryPsiTest extends ParserTestCase {
 
         XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)versionDeclPsi;
 
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.XQUERY), is(XQueryVersion.VERSION_1_0));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.UPDATE_FACILITY_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.FULL_TEXT_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.SCRIPTING_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.MARKLOGIC_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.XQUERY), is(XQueryVersion.VERSION_1_0));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.UPDATE_FACILITY_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.FULL_TEXT_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.SCRIPTING_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.MARKLOGIC_EXTENSION), is(nullValue()));
 
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.XQUERY), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.UPDATE_FACILITY_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.FULL_TEXT_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.SCRIPTING_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.MARKLOGIC_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.XQUERY), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.UPDATE_FACILITY_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.FULL_TEXT_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.SCRIPTING_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.MARKLOGIC_EXTENSION), is(nullValue()));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VersionDecl")
@@ -144,17 +144,17 @@ public class XQueryPsiTest extends ParserTestCase {
 
         XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)versionDeclPsi;
 
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.XQUERY), is(XQueryVersion.VERSION_1_0));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.UPDATE_FACILITY_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.FULL_TEXT_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.SCRIPTING_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.MARKLOGIC_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.XQUERY), is(XQueryVersion.VERSION_1_0));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.UPDATE_FACILITY_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.FULL_TEXT_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.SCRIPTING_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.MARKLOGIC_EXTENSION), is(nullValue()));
 
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.XQUERY), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.UPDATE_FACILITY_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.FULL_TEXT_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.SCRIPTING_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.MARKLOGIC_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.XQUERY), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.UPDATE_FACILITY_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.FULL_TEXT_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.SCRIPTING_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.MARKLOGIC_EXTENSION), is(nullValue()));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VersionDecl")
@@ -173,17 +173,17 @@ public class XQueryPsiTest extends ParserTestCase {
 
         XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)versionDeclPsi;
 
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.XQUERY), is(XQueryVersion.VERSION_1_0));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.UPDATE_FACILITY_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.FULL_TEXT_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.SCRIPTING_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.MARKLOGIC_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.XQUERY), is(XQueryVersion.VERSION_1_0));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.UPDATE_FACILITY_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.FULL_TEXT_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.SCRIPTING_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.MARKLOGIC_EXTENSION), is(nullValue()));
 
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.XQUERY), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.UPDATE_FACILITY_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.FULL_TEXT_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.SCRIPTING_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.MARKLOGIC_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.XQUERY), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.UPDATE_FACILITY_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.FULL_TEXT_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.SCRIPTING_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.MARKLOGIC_EXTENSION), is(nullValue()));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VersionDecl")
@@ -202,17 +202,17 @@ public class XQueryPsiTest extends ParserTestCase {
 
         XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)versionDeclPsi;
 
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.XQUERY), is(XQueryVersion.VERSION_1_0));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.UPDATE_FACILITY_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.FULL_TEXT_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.SCRIPTING_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.MARKLOGIC_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.XQUERY), is(XQueryVersion.VERSION_1_0));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.UPDATE_FACILITY_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.FULL_TEXT_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.SCRIPTING_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.MARKLOGIC_EXTENSION), is(nullValue()));
 
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.XQUERY), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.UPDATE_FACILITY_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.FULL_TEXT_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.SCRIPTING_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.MARKLOGIC_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.XQUERY), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.UPDATE_FACILITY_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.FULL_TEXT_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.SCRIPTING_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.MARKLOGIC_EXTENSION), is(nullValue()));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VersionDecl")
@@ -231,17 +231,17 @@ public class XQueryPsiTest extends ParserTestCase {
 
         XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)versionDeclPsi;
 
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.XQUERY), is(XQueryVersion.VERSION_1_0));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.UPDATE_FACILITY_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.FULL_TEXT_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.SCRIPTING_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.MARKLOGIC_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.XQUERY), is(XQueryVersion.VERSION_1_0));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.UPDATE_FACILITY_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.FULL_TEXT_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.SCRIPTING_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.MARKLOGIC_EXTENSION), is(nullValue()));
 
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.XQUERY), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.UPDATE_FACILITY_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.FULL_TEXT_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.SCRIPTING_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.MARKLOGIC_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.XQUERY), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.UPDATE_FACILITY_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.FULL_TEXT_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.SCRIPTING_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.MARKLOGIC_EXTENSION), is(nullValue()));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VersionDecl")
@@ -258,17 +258,17 @@ public class XQueryPsiTest extends ParserTestCase {
 
         XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)versionDeclPsi;
 
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.XQUERY), is(XQueryVersion.VERSION_1_0));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.UPDATE_FACILITY_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.FULL_TEXT_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.SCRIPTING_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.MARKLOGIC_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.XQUERY), is(XQueryVersion.VERSION_1_0));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.UPDATE_FACILITY_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.FULL_TEXT_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.SCRIPTING_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.MARKLOGIC_EXTENSION), is(nullValue()));
 
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.XQUERY), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.UPDATE_FACILITY_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.FULL_TEXT_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.SCRIPTING_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.MARKLOGIC_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.XQUERY), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.UPDATE_FACILITY_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.FULL_TEXT_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.SCRIPTING_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.MARKLOGIC_EXTENSION), is(nullValue()));
     }
 
     // endregion
@@ -281,17 +281,17 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryValidateExpr validateExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryValidateExpr.class);
         XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)validateExprPsi;
 
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.XQUERY), is(XQueryVersion.VERSION_1_0));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.UPDATE_FACILITY_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.FULL_TEXT_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.SCRIPTING_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.MARKLOGIC_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.XQUERY), is(XQueryVersion.VERSION_1_0));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.UPDATE_FACILITY_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.FULL_TEXT_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.SCRIPTING_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.MARKLOGIC_EXTENSION), is(nullValue()));
 
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.XQUERY), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.UPDATE_FACILITY_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.FULL_TEXT_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.SCRIPTING_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.MARKLOGIC_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.XQUERY), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.UPDATE_FACILITY_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.FULL_TEXT_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.SCRIPTING_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.MARKLOGIC_EXTENSION), is(nullValue()));
     }
 
     // endregion
@@ -304,17 +304,17 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryForwardAxis forwardAxisPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryForwardAxis.class);
         XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)forwardAxisPsi;
 
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.XQUERY), is(XQueryVersion.VERSION_1_0));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.UPDATE_FACILITY_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.FULL_TEXT_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.SCRIPTING_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.MARKLOGIC_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.XQUERY), is(XQueryVersion.VERSION_1_0));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.UPDATE_FACILITY_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.FULL_TEXT_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.SCRIPTING_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.MARKLOGIC_EXTENSION), is(nullValue()));
 
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.XQUERY), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.UPDATE_FACILITY_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.FULL_TEXT_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.SCRIPTING_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.MARKLOGIC_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.XQUERY), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.UPDATE_FACILITY_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.FULL_TEXT_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.SCRIPTING_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.MARKLOGIC_EXTENSION), is(nullValue()));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardAxis")
@@ -324,17 +324,17 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryForwardAxis forwardAxisPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryForwardAxis.class);
         XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)forwardAxisPsi;
 
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.XQUERY), is(XQueryVersion.VERSION_1_0));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.UPDATE_FACILITY_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.FULL_TEXT_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.SCRIPTING_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.MARKLOGIC_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.XQUERY), is(XQueryVersion.VERSION_1_0));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.UPDATE_FACILITY_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.FULL_TEXT_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.SCRIPTING_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.MARKLOGIC_EXTENSION), is(nullValue()));
 
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.XQUERY), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.UPDATE_FACILITY_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.FULL_TEXT_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.SCRIPTING_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.MARKLOGIC_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.XQUERY), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.UPDATE_FACILITY_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.FULL_TEXT_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.SCRIPTING_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.MARKLOGIC_EXTENSION), is(nullValue()));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardAxis")
@@ -344,17 +344,17 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryForwardAxis forwardAxisPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryForwardAxis.class);
         XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)forwardAxisPsi;
 
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.XQUERY), is(XQueryVersion.VERSION_1_0));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.UPDATE_FACILITY_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.FULL_TEXT_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.SCRIPTING_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.MARKLOGIC_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.XQUERY), is(XQueryVersion.VERSION_1_0));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.UPDATE_FACILITY_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.FULL_TEXT_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.SCRIPTING_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.MARKLOGIC_EXTENSION), is(nullValue()));
 
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.XQUERY), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.UPDATE_FACILITY_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.FULL_TEXT_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.SCRIPTING_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.MARKLOGIC_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.XQUERY), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.UPDATE_FACILITY_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.FULL_TEXT_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.SCRIPTING_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.MARKLOGIC_EXTENSION), is(nullValue()));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardAxis")
@@ -364,17 +364,17 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryForwardAxis forwardAxisPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryForwardAxis.class);
         XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)forwardAxisPsi;
 
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.XQUERY), is(XQueryVersion.VERSION_1_0));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.UPDATE_FACILITY_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.FULL_TEXT_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.SCRIPTING_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.MARKLOGIC_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.XQUERY), is(XQueryVersion.VERSION_1_0));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.UPDATE_FACILITY_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.FULL_TEXT_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.SCRIPTING_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.MARKLOGIC_EXTENSION), is(nullValue()));
 
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.XQUERY), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.UPDATE_FACILITY_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.FULL_TEXT_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.SCRIPTING_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.MARKLOGIC_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.XQUERY), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.UPDATE_FACILITY_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.FULL_TEXT_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.SCRIPTING_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.MARKLOGIC_EXTENSION), is(nullValue()));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardAxis")
@@ -384,17 +384,17 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryForwardAxis forwardAxisPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryForwardAxis.class);
         XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)forwardAxisPsi;
 
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.XQUERY), is(XQueryVersion.VERSION_1_0));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.UPDATE_FACILITY_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.FULL_TEXT_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.SCRIPTING_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.MARKLOGIC_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.XQUERY), is(XQueryVersion.VERSION_1_0));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.UPDATE_FACILITY_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.FULL_TEXT_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.SCRIPTING_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.MARKLOGIC_EXTENSION), is(nullValue()));
 
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.XQUERY), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.UPDATE_FACILITY_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.FULL_TEXT_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.SCRIPTING_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.MARKLOGIC_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.XQUERY), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.UPDATE_FACILITY_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.FULL_TEXT_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.SCRIPTING_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.MARKLOGIC_EXTENSION), is(nullValue()));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardAxis")
@@ -404,17 +404,17 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryForwardAxis forwardAxisPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryForwardAxis.class);
         XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)forwardAxisPsi;
 
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.XQUERY), is(XQueryVersion.VERSION_1_0));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.UPDATE_FACILITY_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.FULL_TEXT_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.SCRIPTING_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.MARKLOGIC_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.XQUERY), is(XQueryVersion.VERSION_1_0));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.UPDATE_FACILITY_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.FULL_TEXT_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.SCRIPTING_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.MARKLOGIC_EXTENSION), is(nullValue()));
 
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.XQUERY), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.UPDATE_FACILITY_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.FULL_TEXT_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.SCRIPTING_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.MARKLOGIC_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.XQUERY), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.UPDATE_FACILITY_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.FULL_TEXT_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.SCRIPTING_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.MARKLOGIC_EXTENSION), is(nullValue()));
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardAxis")
@@ -424,17 +424,17 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryForwardAxis forwardAxisPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryForwardAxis.class);
         XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)forwardAxisPsi;
 
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.XQUERY), is(XQueryVersion.VERSION_1_0));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.UPDATE_FACILITY_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.FULL_TEXT_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.SCRIPTING_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.MARKLOGIC_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.XQUERY), is(XQueryVersion.VERSION_1_0));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.UPDATE_FACILITY_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.FULL_TEXT_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.SCRIPTING_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.MARKLOGIC_EXTENSION), is(nullValue()));
 
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.XQUERY), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.UPDATE_FACILITY_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.FULL_TEXT_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.SCRIPTING_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.MARKLOGIC_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.XQUERY), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.UPDATE_FACILITY_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.FULL_TEXT_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.SCRIPTING_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.MARKLOGIC_EXTENSION), is(nullValue()));
     }
 
     // endregion
@@ -455,19 +455,19 @@ public class XQueryPsiTest extends ParserTestCase {
 
         XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)versionDeclPsi;
 
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.XQUERY), is(XQueryVersion.VERSION_3_0));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.UPDATE_FACILITY_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.FULL_TEXT_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.SCRIPTING_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.MARKLOGIC_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.XQUERY), is(XQueryVersion.VERSION_3_0));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.UPDATE_FACILITY_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.FULL_TEXT_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.SCRIPTING_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.MARKLOGIC_EXTENSION), is(nullValue()));
 
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.XQUERY), is(notNullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.UPDATE_FACILITY_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.FULL_TEXT_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.SCRIPTING_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.MARKLOGIC_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.XQUERY), is(notNullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.UPDATE_FACILITY_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.FULL_TEXT_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.SCRIPTING_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.MARKLOGIC_EXTENSION), is(nullValue()));
 
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.XQUERY).getNode().getElementType(), is(XQueryTokenType.K_ENCODING));
+        assertThat(versioned.getConformanceElement(XQueryConformance.XQUERY).getNode().getElementType(), is(XQueryTokenType.K_ENCODING));
     }
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-VersionDecl")
@@ -485,19 +485,19 @@ public class XQueryPsiTest extends ParserTestCase {
 
         XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)versionDeclPsi;
 
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.XQUERY), is(XQueryVersion.VERSION_3_0));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.UPDATE_FACILITY_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.FULL_TEXT_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.SCRIPTING_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.MARKLOGIC_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.XQUERY), is(XQueryVersion.VERSION_3_0));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.UPDATE_FACILITY_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.FULL_TEXT_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.SCRIPTING_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.MARKLOGIC_EXTENSION), is(nullValue()));
 
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.XQUERY), is(notNullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.UPDATE_FACILITY_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.FULL_TEXT_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.SCRIPTING_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.MARKLOGIC_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.XQUERY), is(notNullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.UPDATE_FACILITY_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.FULL_TEXT_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.SCRIPTING_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.MARKLOGIC_EXTENSION), is(nullValue()));
 
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.XQUERY).getNode().getElementType(), is(XQueryTokenType.K_ENCODING));
+        assertThat(versioned.getConformanceElement(XQueryConformance.XQUERY).getNode().getElementType(), is(XQueryTokenType.K_ENCODING));
     }
 
     // endregion
@@ -511,19 +511,19 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryAnnotation annotationPsi = PsiNavigation.findChildrenByClass(annotatedDeclPsi, XQueryAnnotation.class).get(0);
         XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)annotationPsi;
 
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.XQUERY), is(XQueryVersion.VERSION_3_0));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.UPDATE_FACILITY_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.FULL_TEXT_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.SCRIPTING_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeVersion(XQueryLanguageType.MARKLOGIC_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.XQUERY), is(XQueryVersion.VERSION_3_0));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.UPDATE_FACILITY_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.FULL_TEXT_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.SCRIPTING_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceVersion(XQueryConformance.MARKLOGIC_EXTENSION), is(nullValue()));
 
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.XQUERY), is(notNullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.UPDATE_FACILITY_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.FULL_TEXT_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.SCRIPTING_EXTENSION), is(nullValue()));
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.MARKLOGIC_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.XQUERY), is(notNullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.UPDATE_FACILITY_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.FULL_TEXT_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.SCRIPTING_EXTENSION), is(nullValue()));
+        assertThat(versioned.getConformanceElement(XQueryConformance.MARKLOGIC_EXTENSION), is(nullValue()));
 
-        assertThat(versioned.getLanguageTypeElement(XQueryLanguageType.XQUERY).getNode().getElementType(),
+        assertThat(versioned.getConformanceElement(XQueryConformance.XQUERY).getNode().getElementType(),
                 is(XQueryTokenType.ANNOTATION_INDICATOR));
     }
 

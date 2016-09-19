@@ -100,7 +100,7 @@ public class ImplementationItem {
         return NULL_ITEM;
     }
 
-    public XQueryVersion getVersion(XQueryLanguageType featureName) {
+    public XQueryVersion getVersion(XQueryConformance featureName) {
         if (mElement != null) {
             NodeList nodes = mElement.getElementsByTagName(featureName.toString());
             if (nodes.getLength() != 0) {
@@ -111,7 +111,7 @@ public class ImplementationItem {
         return null;
     }
 
-    public List<ImplementationItem> getItemsByVersion(String tagName, XQueryLanguageType featureName, XQueryVersion featureVersion) {
+    public List<ImplementationItem> getItemsByVersion(String tagName, XQueryConformance featureName, XQueryVersion featureVersion) {
         final List<ImplementationItem> items = new ArrayList<>();
         if (mElement != null) {
             NodeList nodes = mElement.getElementsByTagName(tagName);
@@ -128,7 +128,7 @@ public class ImplementationItem {
         return items;
     }
 
-    public ImplementationItem getDefaultItemByVersion(String tagName, XQueryLanguageType featureName, XQueryVersion featureVersion) {
+    public ImplementationItem getDefaultItemByVersion(String tagName, XQueryConformance featureName, XQueryVersion featureVersion) {
         if (mElement != null) {
             NodeList nodes = mElement.getElementsByTagName(tagName);
             for (int i = 0; i != nodes.getLength(); ++i) {
@@ -144,7 +144,7 @@ public class ImplementationItem {
         return NULL_ITEM;
     }
 
-    public List<XQueryVersion> getVersions(String tagName, XQueryLanguageType featureName) {
+    public List<XQueryVersion> getVersions(String tagName, XQueryConformance featureName) {
         final List<XQueryVersion> items = new ArrayList<>();
         if (mElement != null) {
             NodeList nodes = mElement.getElementsByTagName(tagName);
@@ -159,7 +159,7 @@ public class ImplementationItem {
         return items;
     }
 
-    public XQueryVersion getDefaultVersion(String tagName, XQueryLanguageType featureName) {
+    public XQueryVersion getDefaultVersion(String tagName, XQueryConformance featureName) {
         if (mElement != null) {
             NodeList nodes = mElement.getElementsByTagName(tagName);
             for (int i = 0; i != nodes.getLength(); ++i) {
@@ -177,7 +177,7 @@ public class ImplementationItem {
         return null;
     }
 
-    public String getSpecification(XQueryLanguageType featureName) {
+    public String getSpecification(XQueryConformance featureName) {
         if (mElement != null) {
             NodeList nodes = mElement.getElementsByTagName(featureName.toString());
             if (nodes.getLength() != 0) {

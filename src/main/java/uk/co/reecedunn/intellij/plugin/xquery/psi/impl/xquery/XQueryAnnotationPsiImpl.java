@@ -20,7 +20,7 @@ import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotation;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryLanguageType;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVersionedConstruct;
@@ -31,16 +31,16 @@ public class XQueryAnnotationPsiImpl extends ASTWrapperPsiElement implements XQu
     }
 
     @Override
-    public XQueryVersion getLanguageTypeVersion(XQueryLanguageType type) {
-        if (type == XQueryLanguageType.XQUERY) {
+    public XQueryVersion getConformanceVersion(XQueryConformance type) {
+        if (type == XQueryConformance.XQUERY) {
             return XQueryVersion.VERSION_3_0;
         }
         return null;
     }
 
     @Override
-    public PsiElement getLanguageTypeElement(XQueryLanguageType type) {
-        if (type == XQueryLanguageType.XQUERY) {
+    public PsiElement getConformanceElement(XQueryConformance type) {
+        if (type == XQueryConformance.XQUERY) {
             return findChildByType(XQueryTokenType.ANNOTATION_INDICATOR);
         }
         return null;

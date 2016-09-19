@@ -20,7 +20,7 @@ import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.UpdateFacilityCompatibilityAnnotation;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryLanguageType;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVersionedConstruct;
@@ -31,8 +31,8 @@ public class UpdateFacilityCompatibilityAnnotationPsiImpl extends ASTWrapperPsiE
     }
 
     @Override
-    public XQueryVersion getLanguageTypeVersion(XQueryLanguageType type) {
-        if (type == XQueryLanguageType.UPDATE_FACILITY_EXTENSION) {
+    public XQueryVersion getConformanceVersion(XQueryConformance type) {
+        if (type == XQueryConformance.UPDATE_FACILITY_EXTENSION) {
             final ASTNode varDecl = getParent().getNode().findChildByType(XQueryElementType.VAR_DECL);
             return varDecl == null ? XQueryVersion.VERSION_1_0 : XQueryVersion.VERSION_3_0;
         }
@@ -40,8 +40,8 @@ public class UpdateFacilityCompatibilityAnnotationPsiImpl extends ASTWrapperPsiE
     }
 
     @Override
-    public PsiElement getLanguageTypeElement(XQueryLanguageType type) {
-        if (type == XQueryLanguageType.UPDATE_FACILITY_EXTENSION) {
+    public PsiElement getConformanceElement(XQueryConformance type) {
+        if (type == XQueryConformance.UPDATE_FACILITY_EXTENSION) {
             return getFirstChild();
         }
         return null;

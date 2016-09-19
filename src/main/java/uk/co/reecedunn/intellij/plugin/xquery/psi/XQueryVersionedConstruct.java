@@ -16,11 +16,11 @@
 package uk.co.reecedunn.intellij.plugin.xquery.psi;
 
 import com.intellij.psi.PsiElement;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryLanguageType;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 
 public interface XQueryVersionedConstruct {
-    XQueryVersion getLanguageTypeVersion(XQueryLanguageType type);
+    XQueryVersion getConformanceVersion(XQueryConformance type);
 
-    PsiElement getLanguageTypeElement(XQueryLanguageType type);
+    PsiElement getConformanceElement(XQueryConformance type);
 }
