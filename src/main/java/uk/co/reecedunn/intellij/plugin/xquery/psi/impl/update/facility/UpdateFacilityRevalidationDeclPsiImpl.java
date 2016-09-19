@@ -39,11 +39,7 @@ public class UpdateFacilityRevalidationDeclPsiImpl extends ASTWrapperPsiElement 
     }
 
     @Override
-    public PsiElement getConformanceElement(XQueryConformance type) {
-        if (type == XQueryConformance.UPDATE_FACILITY) {
-            final ASTNode node = getNode().findChildByType(XQueryTokenType.K_REVALIDATION);
-            return node == null ? null : node.getPsi();
-        }
-        return null;
+    public PsiElement getConformanceElement() {
+        return findChildByType(XQueryTokenType.K_REVALIDATION);
     }
 }

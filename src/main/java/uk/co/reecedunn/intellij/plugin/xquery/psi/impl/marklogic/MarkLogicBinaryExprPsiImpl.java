@@ -22,7 +22,6 @@ import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic.MarkLogicBinaryExpr;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVersionedConstruct;
 
 public class MarkLogicBinaryExprPsiImpl extends ASTWrapperPsiElement implements MarkLogicBinaryExpr, XQueryVersionedConstruct {
@@ -39,11 +38,7 @@ public class MarkLogicBinaryExprPsiImpl extends ASTWrapperPsiElement implements 
     }
 
     @Override
-    public PsiElement getConformanceElement(XQueryConformance type) {
-        if (type == XQueryConformance.MARKLOGIC) {
-            final ASTNode node = getNode().findChildByType(XQueryTokenType.K_BINARY);
-            return node == null ? null : node.getPsi();
-        }
-        return null;
+    public PsiElement getConformanceElement() {
+        return getFirstChild();
     }
 }

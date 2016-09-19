@@ -47,13 +47,8 @@ public class UpdateFacilityPsiTest extends ParserTestCase {
         assertThat(versioned.getConformanceVersion(XQueryConformance.SCRIPTING), is(nullValue()));
         assertThat(versioned.getConformanceVersion(XQueryConformance.MARKLOGIC), is(nullValue()));
 
-        assertThat(versioned.getConformanceElement(XQueryConformance.MINIMAL_CONFORMANCE), is(nullValue()));
-        assertThat(versioned.getConformanceElement(XQueryConformance.UPDATE_FACILITY), is(notNullValue()));
-        assertThat(versioned.getConformanceElement(XQueryConformance.FULL_TEXT), is(nullValue()));
-        assertThat(versioned.getConformanceElement(XQueryConformance.SCRIPTING), is(nullValue()));
-        assertThat(versioned.getConformanceElement(XQueryConformance.MARKLOGIC), is(nullValue()));
-
-        assertThat(versioned.getConformanceElement(XQueryConformance.UPDATE_FACILITY).getNode().getElementType(),
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
                 is(XQueryTokenType.K_UPDATING));
     }
 
@@ -73,13 +68,8 @@ public class UpdateFacilityPsiTest extends ParserTestCase {
         assertThat(versioned.getConformanceVersion(XQueryConformance.SCRIPTING), is(nullValue()));
         assertThat(versioned.getConformanceVersion(XQueryConformance.MARKLOGIC), is(nullValue()));
 
-        assertThat(versioned.getConformanceElement(XQueryConformance.MINIMAL_CONFORMANCE), is(nullValue()));
-        assertThat(versioned.getConformanceElement(XQueryConformance.UPDATE_FACILITY), is(notNullValue()));
-        assertThat(versioned.getConformanceElement(XQueryConformance.FULL_TEXT), is(nullValue()));
-        assertThat(versioned.getConformanceElement(XQueryConformance.SCRIPTING), is(nullValue()));
-        assertThat(versioned.getConformanceElement(XQueryConformance.MARKLOGIC), is(nullValue()));
-
-        assertThat(versioned.getConformanceElement(XQueryConformance.UPDATE_FACILITY).getNode().getElementType(),
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
                 is(XQueryTokenType.K_REVALIDATION));
     }
 
@@ -99,13 +89,8 @@ public class UpdateFacilityPsiTest extends ParserTestCase {
         assertThat(versioned.getConformanceVersion(XQueryConformance.SCRIPTING), is(nullValue()));
         assertThat(versioned.getConformanceVersion(XQueryConformance.MARKLOGIC), is(nullValue()));
 
-        assertThat(versioned.getConformanceElement(XQueryConformance.MINIMAL_CONFORMANCE), is(nullValue()));
-        assertThat(versioned.getConformanceElement(XQueryConformance.UPDATE_FACILITY), is(notNullValue()));
-        assertThat(versioned.getConformanceElement(XQueryConformance.FULL_TEXT), is(nullValue()));
-        assertThat(versioned.getConformanceElement(XQueryConformance.SCRIPTING), is(nullValue()));
-        assertThat(versioned.getConformanceElement(XQueryConformance.MARKLOGIC), is(nullValue()));
-
-        assertThat(versioned.getConformanceElement(XQueryConformance.UPDATE_FACILITY).getNode().getElementType(),
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
                 is(XQueryTokenType.K_INSERT));
     }
 
@@ -125,13 +110,8 @@ public class UpdateFacilityPsiTest extends ParserTestCase {
         assertThat(versioned.getConformanceVersion(XQueryConformance.SCRIPTING), is(nullValue()));
         assertThat(versioned.getConformanceVersion(XQueryConformance.MARKLOGIC), is(nullValue()));
 
-        assertThat(versioned.getConformanceElement(XQueryConformance.MINIMAL_CONFORMANCE), is(nullValue()));
-        assertThat(versioned.getConformanceElement(XQueryConformance.UPDATE_FACILITY), is(notNullValue()));
-        assertThat(versioned.getConformanceElement(XQueryConformance.FULL_TEXT), is(nullValue()));
-        assertThat(versioned.getConformanceElement(XQueryConformance.SCRIPTING), is(nullValue()));
-        assertThat(versioned.getConformanceElement(XQueryConformance.MARKLOGIC), is(nullValue()));
-
-        assertThat(versioned.getConformanceElement(XQueryConformance.UPDATE_FACILITY).getNode().getElementType(),
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
                 is(XQueryTokenType.K_DELETE));
     }
 
@@ -151,13 +131,8 @@ public class UpdateFacilityPsiTest extends ParserTestCase {
         assertThat(versioned.getConformanceVersion(XQueryConformance.SCRIPTING), is(nullValue()));
         assertThat(versioned.getConformanceVersion(XQueryConformance.MARKLOGIC), is(nullValue()));
 
-        assertThat(versioned.getConformanceElement(XQueryConformance.MINIMAL_CONFORMANCE), is(nullValue()));
-        assertThat(versioned.getConformanceElement(XQueryConformance.UPDATE_FACILITY), is(notNullValue()));
-        assertThat(versioned.getConformanceElement(XQueryConformance.FULL_TEXT), is(nullValue()));
-        assertThat(versioned.getConformanceElement(XQueryConformance.SCRIPTING), is(nullValue()));
-        assertThat(versioned.getConformanceElement(XQueryConformance.MARKLOGIC), is(nullValue()));
-
-        assertThat(versioned.getConformanceElement(XQueryConformance.UPDATE_FACILITY).getNode().getElementType(),
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
                 is(XQueryTokenType.K_REPLACE));
     }
 
@@ -177,13 +152,8 @@ public class UpdateFacilityPsiTest extends ParserTestCase {
         assertThat(versioned.getConformanceVersion(XQueryConformance.SCRIPTING), is(nullValue()));
         assertThat(versioned.getConformanceVersion(XQueryConformance.MARKLOGIC), is(nullValue()));
 
-        assertThat(versioned.getConformanceElement(XQueryConformance.MINIMAL_CONFORMANCE), is(nullValue()));
-        assertThat(versioned.getConformanceElement(XQueryConformance.UPDATE_FACILITY), is(notNullValue()));
-        assertThat(versioned.getConformanceElement(XQueryConformance.FULL_TEXT), is(nullValue()));
-        assertThat(versioned.getConformanceElement(XQueryConformance.SCRIPTING), is(nullValue()));
-        assertThat(versioned.getConformanceElement(XQueryConformance.MARKLOGIC), is(nullValue()));
-
-        assertThat(versioned.getConformanceElement(XQueryConformance.UPDATE_FACILITY).getNode().getElementType(),
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
                 is(XQueryTokenType.K_RENAME));
     }
 
@@ -203,13 +173,8 @@ public class UpdateFacilityPsiTest extends ParserTestCase {
         assertThat(versioned.getConformanceVersion(XQueryConformance.SCRIPTING), is(nullValue()));
         assertThat(versioned.getConformanceVersion(XQueryConformance.MARKLOGIC), is(nullValue()));
 
-        assertThat(versioned.getConformanceElement(XQueryConformance.MINIMAL_CONFORMANCE), is(nullValue()));
-        assertThat(versioned.getConformanceElement(XQueryConformance.UPDATE_FACILITY), is(notNullValue()));
-        assertThat(versioned.getConformanceElement(XQueryConformance.FULL_TEXT), is(nullValue()));
-        assertThat(versioned.getConformanceElement(XQueryConformance.SCRIPTING), is(nullValue()));
-        assertThat(versioned.getConformanceElement(XQueryConformance.MARKLOGIC), is(nullValue()));
-
-        assertThat(versioned.getConformanceElement(XQueryConformance.UPDATE_FACILITY).getNode().getElementType(),
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
                 is(XQueryTokenType.K_COPY));
     }
 
@@ -230,13 +195,8 @@ public class UpdateFacilityPsiTest extends ParserTestCase {
         assertThat(versioned.getConformanceVersion(XQueryConformance.SCRIPTING), is(nullValue()));
         assertThat(versioned.getConformanceVersion(XQueryConformance.MARKLOGIC), is(nullValue()));
 
-        assertThat(versioned.getConformanceElement(XQueryConformance.MINIMAL_CONFORMANCE), is(nullValue()));
-        assertThat(versioned.getConformanceElement(XQueryConformance.UPDATE_FACILITY), is(notNullValue()));
-        assertThat(versioned.getConformanceElement(XQueryConformance.FULL_TEXT), is(nullValue()));
-        assertThat(versioned.getConformanceElement(XQueryConformance.SCRIPTING), is(nullValue()));
-        assertThat(versioned.getConformanceElement(XQueryConformance.MARKLOGIC), is(nullValue()));
-
-        assertThat(versioned.getConformanceElement(XQueryConformance.UPDATE_FACILITY).getNode().getElementType(),
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
                 is(XQueryTokenType.K_UPDATING));
     }
 
@@ -254,13 +214,8 @@ public class UpdateFacilityPsiTest extends ParserTestCase {
         assertThat(versioned.getConformanceVersion(XQueryConformance.SCRIPTING), is(nullValue()));
         assertThat(versioned.getConformanceVersion(XQueryConformance.MARKLOGIC), is(nullValue()));
 
-        assertThat(versioned.getConformanceElement(XQueryConformance.MINIMAL_CONFORMANCE), is(nullValue()));
-        assertThat(versioned.getConformanceElement(XQueryConformance.UPDATE_FACILITY), is(notNullValue()));
-        assertThat(versioned.getConformanceElement(XQueryConformance.FULL_TEXT), is(nullValue()));
-        assertThat(versioned.getConformanceElement(XQueryConformance.SCRIPTING), is(nullValue()));
-        assertThat(versioned.getConformanceElement(XQueryConformance.MARKLOGIC), is(nullValue()));
-
-        assertThat(versioned.getConformanceElement(XQueryConformance.UPDATE_FACILITY).getNode().getElementType(),
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
                 is(XQueryTokenType.K_UPDATING));
     }
 

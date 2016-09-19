@@ -40,10 +40,7 @@ public class UpdateFacilityCompatibilityAnnotationPsiImpl extends ASTWrapperPsiE
     }
 
     @Override
-    public PsiElement getConformanceElement(XQueryConformance type) {
-        if (type == XQueryConformance.UPDATE_FACILITY) {
-            return getFirstChild();
-        }
-        return null;
+    public PsiElement getConformanceElement() {
+        return getFirstChild();
     }
 }

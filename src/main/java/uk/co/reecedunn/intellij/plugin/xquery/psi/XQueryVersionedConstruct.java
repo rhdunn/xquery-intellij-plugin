@@ -22,5 +22,10 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 public interface XQueryVersionedConstruct {
     XQueryVersion getConformanceVersion(XQueryConformance type);
 
-    PsiElement getConformanceElement(XQueryConformance type);
+    /**
+     * Gets the element on which to report any conformance errors.
+     *
+     * @return The element to report errors on.
+     */
+    PsiElement getConformanceElement();
 }

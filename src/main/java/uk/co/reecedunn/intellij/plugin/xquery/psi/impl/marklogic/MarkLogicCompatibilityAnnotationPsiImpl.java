@@ -38,10 +38,7 @@ public class MarkLogicCompatibilityAnnotationPsiImpl extends ASTWrapperPsiElemen
     }
 
     @Override
-    public PsiElement getConformanceElement(XQueryConformance type) {
-        if (type == XQueryConformance.MARKLOGIC) {
-            return getFirstChild();
-        }
-        return null;
+    public PsiElement getConformanceElement() {
+        return getFirstChild();
     }
 }

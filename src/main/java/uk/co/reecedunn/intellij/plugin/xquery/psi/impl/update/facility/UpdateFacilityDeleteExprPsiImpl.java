@@ -22,7 +22,6 @@ import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.UpdateFacilityDeleteExpr;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVersionedConstruct;
 
 public class UpdateFacilityDeleteExprPsiImpl extends ASTWrapperPsiElement implements UpdateFacilityDeleteExpr, XQueryVersionedConstruct {
@@ -39,11 +38,7 @@ public class UpdateFacilityDeleteExprPsiImpl extends ASTWrapperPsiElement implem
     }
 
     @Override
-    public PsiElement getConformanceElement(XQueryConformance type) {
-        if (type == XQueryConformance.UPDATE_FACILITY) {
-            final ASTNode node = getNode().findChildByType(XQueryTokenType.K_DELETE);
-            return node == null ? null : node.getPsi();
-        }
-        return null;
+    public PsiElement getConformanceElement() {
+        return getFirstChild();
     }
 }

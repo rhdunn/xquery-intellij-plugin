@@ -46,11 +46,7 @@ public class XQueryForwardAxisPsiImpl extends ASTWrapperPsiElement implements XQ
     }
 
     @Override
-    public PsiElement getConformanceElement(XQueryConformance type) {
-        if (type == XQueryConformance.MARKLOGIC) {
-            final ASTNode node = getNode().findChildByType(MARKLOGIC_AXIS);
-            return node == null ? null : node.getPsi();
-        }
-        return null;
+    public PsiElement getConformanceElement() {
+        return getFirstChild();
     }
 }

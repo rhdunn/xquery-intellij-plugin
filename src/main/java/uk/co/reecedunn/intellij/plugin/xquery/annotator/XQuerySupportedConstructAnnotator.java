@@ -48,7 +48,7 @@ public class XQuerySupportedConstructAnnotator implements Annotator {
         if (version == null) {
             XQueryVersion typeVersion = versioned.getConformanceVersion(type);
             if (typeVersion != null) {
-                final PsiElement node = versioned.getConformanceElement(type);
+                final PsiElement node = versioned.getConformanceElement();
                 final String message = XQueryBundle.message(key, typeVersion.toString());
                 holder.createWarningAnnotation(node, message);
             }
@@ -61,7 +61,7 @@ public class XQuerySupportedConstructAnnotator implements Annotator {
         XQueryVersion version = versioned.getConformanceVersion(type);
         if (version != null) {
             if (!xqueryVersion.supportsVersion(version)) {
-                final PsiElement node = versioned.getConformanceElement(type);
+                final PsiElement node = versioned.getConformanceElement();
                 final String message = XQueryBundle.message(key, version.toString());
                 holder.createWarningAnnotation(node, message);
             }

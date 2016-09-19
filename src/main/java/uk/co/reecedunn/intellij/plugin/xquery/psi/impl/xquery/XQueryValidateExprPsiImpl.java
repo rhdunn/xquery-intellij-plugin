@@ -43,11 +43,8 @@ public class XQueryValidateExprPsiImpl extends ASTWrapperPsiElement implements X
     }
 
     @Override
-    public PsiElement getConformanceElement(XQueryConformance type) {
-        if (type == XQueryConformance.MARKLOGIC) {
-            final ASTNode as = getNode().findChildByType(XQueryTokenType.K_AS);
-            return as == null ? null : as.getPsi();
-        }
-        return null;
+    public PsiElement getConformanceElement() {
+        PsiElement as = findChildByType(XQueryTokenType.K_AS);
+        return as == null ? getFirstChild() : as;
     }
 }

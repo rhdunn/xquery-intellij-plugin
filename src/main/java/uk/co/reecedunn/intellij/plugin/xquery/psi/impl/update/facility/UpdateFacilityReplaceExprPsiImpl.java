@@ -22,7 +22,6 @@ import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.UpdateFacilityReplaceExpr;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVersionedConstruct;
 
 public class UpdateFacilityReplaceExprPsiImpl extends ASTWrapperPsiElement implements UpdateFacilityReplaceExpr, XQueryVersionedConstruct {
@@ -39,11 +38,7 @@ public class UpdateFacilityReplaceExprPsiImpl extends ASTWrapperPsiElement imple
     }
 
     @Override
-    public PsiElement getConformanceElement(XQueryConformance type) {
-        if (type == XQueryConformance.UPDATE_FACILITY) {
-            final ASTNode node = getNode().findChildByType(XQueryTokenType.K_REPLACE);
-            return node == null ? null : node.getPsi();
-        }
-        return null;
+    public PsiElement getConformanceElement() {
+        return getFirstChild();
     }
 }

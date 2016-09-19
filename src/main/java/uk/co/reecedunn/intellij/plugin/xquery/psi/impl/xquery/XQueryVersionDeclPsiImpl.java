@@ -49,17 +49,24 @@ public class XQueryVersionDeclPsiImpl extends ASTWrapperPsiElement implements XQ
     @Override
     public XQueryVersion getConformanceVersion(XQueryConformance type) {
         if (type == XQueryConformance.MINIMAL_CONFORMANCE) {
-            return getXQuery30Encoding() == null ? XQueryVersion.VERSION_1_0 : XQueryVersion.VERSION_3_0;
+            return getConformanceElement() == getFirstChild() ? XQueryVersion.VERSION_1_0 : XQueryVersion.VERSION_3_0;
         }
         return null;
     }
 
     @Override
-    public PsiElement getConformanceElement(XQueryConformance type) {
-        if (type == XQueryConformance.MINIMAL_CONFORMANCE) {
-            return getXQuery30Encoding();
+    public PsiElement getConformanceElement() {
+        ASTNode encoding = getNode().findChildByType(XQueryTokenType.K_ENCODING);
+        if (encoding == null) {
+            return getFirstChild();
         }
-        return null;
+
+        ASTNode previous = encoding.getTreePrev();
+        while (previous.getElementType() == XQueryTokenType.WHITE_SPACE || previous.getElementType() == XQueryElementType.COMMENT) {
+            previous = previous.getTreePrev();
+        }
+
+        return previous.getElementType() == XQueryTokenType.K_XQUERY ? encoding.getPsi() : getFirstChild();
     }
 
     private @Nullable XQueryStringLiteral getStringValueAfterKeyword(IXQueryKeywordOrNCNameType type) {
@@ -78,19 +85,5 @@ public class XQueryVersionDeclPsiImpl extends ASTWrapperPsiElement implements XQ
             }
         }
         return null;
-    }
-
-    private PsiElement getXQuery30Encoding() {
-        ASTNode encoding = getNode().findChildByType(XQueryTokenType.K_ENCODING);
-        if (encoding == null) {
-            return null;
-        }
-
-        ASTNode previous = encoding.getTreePrev();
-        while (previous.getElementType() == XQueryTokenType.WHITE_SPACE || previous.getElementType() == XQueryElementType.COMMENT) {
-            previous = previous.getTreePrev();
-        }
-
-        return previous.getElementType() == XQueryTokenType.K_XQUERY ? encoding.getPsi() : null;
     }
 }

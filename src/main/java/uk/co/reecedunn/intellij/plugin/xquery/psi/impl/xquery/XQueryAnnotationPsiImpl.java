@@ -39,10 +39,7 @@ public class XQueryAnnotationPsiImpl extends ASTWrapperPsiElement implements XQu
     }
 
     @Override
-    public PsiElement getConformanceElement(XQueryConformance type) {
-        if (type == XQueryConformance.MINIMAL_CONFORMANCE) {
-            return findChildByType(XQueryTokenType.ANNOTATION_INDICATOR);
-        }
-        return null;
+    public PsiElement getConformanceElement() {
+        return findChildByType(XQueryTokenType.ANNOTATION_INDICATOR);
     }
 }
