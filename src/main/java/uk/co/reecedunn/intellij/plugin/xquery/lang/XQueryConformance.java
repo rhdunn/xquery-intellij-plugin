@@ -18,7 +18,13 @@ package uk.co.reecedunn.intellij.plugin.xquery.lang;
 import org.jetbrains.annotations.NotNull;
 
 public enum XQueryConformance {
-    MINIMAL_CONFORMANCE("minimal-conformance"),
+    FULL_AXIS("full-axis"), // XQuery 1.0
+    MINIMAL_CONFORMANCE("minimal-conformance"), // XQuery 1.0
+    MODULE("module"), // XQuery 1.0
+    SCHEMA_IMPORT("schema-import"), // XQuery 1.0
+    SCHEMA_VALIDATION("schema-validation"), // XQuery 1.0
+    SERIALIZATION("serialization"), // XQuery 1.0
+    STATIC_TYPING("static-typing"), // XQuery 1.0
     UPDATE_FACILITY("update-facility"),
     FULL_TEXT("full-text"),
     SCRIPTING("scripting"),
