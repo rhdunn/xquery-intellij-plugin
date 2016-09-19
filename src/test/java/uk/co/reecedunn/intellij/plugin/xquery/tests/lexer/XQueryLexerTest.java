@@ -3067,8 +3067,8 @@ public class XQueryLexerTest extends TestCase {
         Lexer lexer = new XQueryLexer();
 
         matchSingleToken(lexer, "binary", XQueryTokenType.K_BINARY);
-        matchSingleToken(lexer, "(",      XQueryTokenType.PARENTHESIS_OPEN);
-        matchSingleToken(lexer, ")",      XQueryTokenType.PARENTHESIS_CLOSE);
+        matchSingleToken(lexer, "{",      XQueryTokenType.BLOCK_OPEN);
+        matchSingleToken(lexer, "}",      XQueryTokenType.BLOCK_CLOSE);
     }
 
     // endregion
