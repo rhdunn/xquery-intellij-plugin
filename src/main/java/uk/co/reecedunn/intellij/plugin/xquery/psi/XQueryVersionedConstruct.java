@@ -16,11 +16,14 @@
 package uk.co.reecedunn.intellij.plugin.xquery.psi;
 
 import com.intellij.psi.PsiElement;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 
 public interface XQueryVersionedConstruct {
     XQueryVersion getConformanceVersion(XQueryConformance type);
+
+    boolean conformsTo(ImplementationItem implementation);
 
     /**
      * Gets the element on which to report any conformance errors.

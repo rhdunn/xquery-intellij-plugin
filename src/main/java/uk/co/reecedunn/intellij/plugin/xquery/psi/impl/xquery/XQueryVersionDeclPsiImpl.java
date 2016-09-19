@@ -24,6 +24,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryStringLiteral;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVersionDecl;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType;
@@ -52,6 +53,13 @@ public class XQueryVersionDeclPsiImpl extends ASTWrapperPsiElement implements XQ
             return getConformanceElement() == getFirstChild() ? XQueryVersion.VERSION_1_0 : XQueryVersion.VERSION_3_0;
         }
         return null;
+    }
+
+    @Override
+    public boolean conformsTo(ImplementationItem implementation) {
+        PsiElement element = getConformanceElement();
+        final XQueryVersion version = implementation.getVersion(XQueryConformance.MINIMAL_CONFORMANCE);
+        return version != null && version.supportsVersion(element == getFirstChild() ? XQueryVersion.VERSION_1_0 : XQueryVersion.VERSION_3_0);
     }
 
     @Override

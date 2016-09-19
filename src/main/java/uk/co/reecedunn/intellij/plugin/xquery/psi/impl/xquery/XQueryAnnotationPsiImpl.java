@@ -20,6 +20,7 @@ import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotation;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
@@ -36,6 +37,11 @@ public class XQueryAnnotationPsiImpl extends ASTWrapperPsiElement implements XQu
             return XQueryVersion.VERSION_3_0;
         }
         return null;
+    }
+
+    @Override
+    public boolean conformsTo(ImplementationItem implementation) {
+        return false;
     }
 
     @Override

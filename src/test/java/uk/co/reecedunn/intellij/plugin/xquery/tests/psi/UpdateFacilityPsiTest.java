@@ -18,6 +18,8 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.psi;
 import com.intellij.lang.ASTNode;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.*;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.Implementations;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
@@ -41,11 +43,8 @@ public class UpdateFacilityPsiTest extends ParserTestCase {
         UpdateFacilityCompatibilityAnnotation compatibilityAnnotationPsi = PsiNavigation.findChildrenByClass(annotatedDeclPsi, UpdateFacilityCompatibilityAnnotation.class).get(0);
         XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)compatibilityAnnotationPsi;
 
-        assertThat(versioned.getConformanceVersion(XQueryConformance.MINIMAL_CONFORMANCE), is(nullValue()));
-        assertThat(versioned.getConformanceVersion(XQueryConformance.UPDATE_FACILITY), is(XQueryVersion.VERSION_1_0));
-        assertThat(versioned.getConformanceVersion(XQueryConformance.FULL_TEXT), is(nullValue()));
-        assertThat(versioned.getConformanceVersion(XQueryConformance.SCRIPTING), is(nullValue()));
-        assertThat(versioned.getConformanceVersion(XQueryConformance.MARKLOGIC), is(nullValue()));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
 
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
@@ -62,11 +61,8 @@ public class UpdateFacilityPsiTest extends ParserTestCase {
         UpdateFacilityRevalidationDecl revalidationDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), UpdateFacilityRevalidationDecl.class);
         XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)revalidationDeclPsi;
 
-        assertThat(versioned.getConformanceVersion(XQueryConformance.MINIMAL_CONFORMANCE), is(nullValue()));
-        assertThat(versioned.getConformanceVersion(XQueryConformance.UPDATE_FACILITY), is(XQueryVersion.VERSION_1_0));
-        assertThat(versioned.getConformanceVersion(XQueryConformance.FULL_TEXT), is(nullValue()));
-        assertThat(versioned.getConformanceVersion(XQueryConformance.SCRIPTING), is(nullValue()));
-        assertThat(versioned.getConformanceVersion(XQueryConformance.MARKLOGIC), is(nullValue()));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
 
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
@@ -83,11 +79,8 @@ public class UpdateFacilityPsiTest extends ParserTestCase {
         UpdateFacilityInsertExpr insertExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), UpdateFacilityInsertExpr.class);
         XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)insertExprPsi;
 
-        assertThat(versioned.getConformanceVersion(XQueryConformance.MINIMAL_CONFORMANCE), is(nullValue()));
-        assertThat(versioned.getConformanceVersion(XQueryConformance.UPDATE_FACILITY), is(XQueryVersion.VERSION_1_0));
-        assertThat(versioned.getConformanceVersion(XQueryConformance.FULL_TEXT), is(nullValue()));
-        assertThat(versioned.getConformanceVersion(XQueryConformance.SCRIPTING), is(nullValue()));
-        assertThat(versioned.getConformanceVersion(XQueryConformance.MARKLOGIC), is(nullValue()));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
 
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
@@ -104,11 +97,8 @@ public class UpdateFacilityPsiTest extends ParserTestCase {
         UpdateFacilityDeleteExpr deleteExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), UpdateFacilityDeleteExpr.class);
         XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)deleteExprPsi;
 
-        assertThat(versioned.getConformanceVersion(XQueryConformance.MINIMAL_CONFORMANCE), is(nullValue()));
-        assertThat(versioned.getConformanceVersion(XQueryConformance.UPDATE_FACILITY), is(XQueryVersion.VERSION_1_0));
-        assertThat(versioned.getConformanceVersion(XQueryConformance.FULL_TEXT), is(nullValue()));
-        assertThat(versioned.getConformanceVersion(XQueryConformance.SCRIPTING), is(nullValue()));
-        assertThat(versioned.getConformanceVersion(XQueryConformance.MARKLOGIC), is(nullValue()));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
 
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
@@ -125,11 +115,8 @@ public class UpdateFacilityPsiTest extends ParserTestCase {
         UpdateFacilityReplaceExpr replaceExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), UpdateFacilityReplaceExpr.class);
         XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)replaceExprPsi;
 
-        assertThat(versioned.getConformanceVersion(XQueryConformance.MINIMAL_CONFORMANCE), is(nullValue()));
-        assertThat(versioned.getConformanceVersion(XQueryConformance.UPDATE_FACILITY), is(XQueryVersion.VERSION_1_0));
-        assertThat(versioned.getConformanceVersion(XQueryConformance.FULL_TEXT), is(nullValue()));
-        assertThat(versioned.getConformanceVersion(XQueryConformance.SCRIPTING), is(nullValue()));
-        assertThat(versioned.getConformanceVersion(XQueryConformance.MARKLOGIC), is(nullValue()));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
 
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
@@ -146,11 +133,8 @@ public class UpdateFacilityPsiTest extends ParserTestCase {
         UpdateFacilityRenameExpr renameExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), UpdateFacilityRenameExpr.class);
         XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)renameExprPsi;
 
-        assertThat(versioned.getConformanceVersion(XQueryConformance.MINIMAL_CONFORMANCE), is(nullValue()));
-        assertThat(versioned.getConformanceVersion(XQueryConformance.UPDATE_FACILITY), is(XQueryVersion.VERSION_1_0));
-        assertThat(versioned.getConformanceVersion(XQueryConformance.FULL_TEXT), is(nullValue()));
-        assertThat(versioned.getConformanceVersion(XQueryConformance.SCRIPTING), is(nullValue()));
-        assertThat(versioned.getConformanceVersion(XQueryConformance.MARKLOGIC), is(nullValue()));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
 
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
@@ -167,11 +151,8 @@ public class UpdateFacilityPsiTest extends ParserTestCase {
         UpdateFacilityTransformExpr transformExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), UpdateFacilityTransformExpr.class);
         XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)transformExprPsi;
 
-        assertThat(versioned.getConformanceVersion(XQueryConformance.MINIMAL_CONFORMANCE), is(nullValue()));
-        assertThat(versioned.getConformanceVersion(XQueryConformance.UPDATE_FACILITY), is(XQueryVersion.VERSION_1_0));
-        assertThat(versioned.getConformanceVersion(XQueryConformance.FULL_TEXT), is(nullValue()));
-        assertThat(versioned.getConformanceVersion(XQueryConformance.SCRIPTING), is(nullValue()));
-        assertThat(versioned.getConformanceVersion(XQueryConformance.MARKLOGIC), is(nullValue()));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
 
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
@@ -189,11 +170,8 @@ public class UpdateFacilityPsiTest extends ParserTestCase {
         UpdateFacilityCompatibilityAnnotation compatibilityAnnotationPsi = PsiNavigation.findChildrenByClass(annotatedDeclPsi, UpdateFacilityCompatibilityAnnotation.class).get(0);
         XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)compatibilityAnnotationPsi;
 
-        assertThat(versioned.getConformanceVersion(XQueryConformance.MINIMAL_CONFORMANCE), is(nullValue()));
-        assertThat(versioned.getConformanceVersion(XQueryConformance.UPDATE_FACILITY), is(XQueryVersion.VERSION_1_0));
-        assertThat(versioned.getConformanceVersion(XQueryConformance.FULL_TEXT), is(nullValue()));
-        assertThat(versioned.getConformanceVersion(XQueryConformance.SCRIPTING), is(nullValue()));
-        assertThat(versioned.getConformanceVersion(XQueryConformance.MARKLOGIC), is(nullValue()));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
 
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
@@ -208,11 +186,8 @@ public class UpdateFacilityPsiTest extends ParserTestCase {
         UpdateFacilityCompatibilityAnnotation compatibilityAnnotationPsi = PsiNavigation.findChildrenByClass(annotatedDeclPsi, UpdateFacilityCompatibilityAnnotation.class).get(0);
         XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)compatibilityAnnotationPsi;
 
-        assertThat(versioned.getConformanceVersion(XQueryConformance.MINIMAL_CONFORMANCE), is(nullValue()));
-        assertThat(versioned.getConformanceVersion(XQueryConformance.UPDATE_FACILITY), is(XQueryVersion.VERSION_3_0));
-        assertThat(versioned.getConformanceVersion(XQueryConformance.FULL_TEXT), is(nullValue()));
-        assertThat(versioned.getConformanceVersion(XQueryConformance.SCRIPTING), is(nullValue()));
-        assertThat(versioned.getConformanceVersion(XQueryConformance.MARKLOGIC), is(nullValue()));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
 
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),

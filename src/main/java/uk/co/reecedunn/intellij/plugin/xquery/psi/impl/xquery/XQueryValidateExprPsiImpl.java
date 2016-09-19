@@ -20,6 +20,7 @@ import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryValidateExpr;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
@@ -40,6 +41,16 @@ public class XQueryValidateExprPsiImpl extends ASTWrapperPsiElement implements X
             return as == null ? null : XQueryVersion.VERSION_6_0;
         }
         return null;
+    }
+
+    @Override
+    public boolean conformsTo(ImplementationItem implementation) {
+        final ASTNode node = getNode().findChildByType(XQueryTokenType.K_AS);
+        if (node != null) {
+            final XQueryVersion version = implementation.getVersion(XQueryConformance.MARKLOGIC);
+            return version != null && version.supportsVersion(XQueryVersion.VERSION_6_0);
+        }
+        return true;
     }
 
     @Override

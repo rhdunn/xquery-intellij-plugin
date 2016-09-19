@@ -20,6 +20,7 @@ import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.UpdateFacilityRevalidationDecl;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
@@ -36,6 +37,12 @@ public class UpdateFacilityRevalidationDeclPsiImpl extends ASTWrapperPsiElement 
             return XQueryVersion.VERSION_1_0;
         }
         return null;
+    }
+
+    @Override
+    public boolean conformsTo(ImplementationItem implementation) {
+        final XQueryVersion version = implementation.getVersion(XQueryConformance.UPDATE_FACILITY);
+        return version != null && version.supportsVersion(XQueryVersion.VERSION_1_0);
     }
 
     @Override

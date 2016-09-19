@@ -21,6 +21,7 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.tree.TokenSet;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryForwardAxis;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
@@ -43,6 +44,16 @@ public class XQueryForwardAxisPsiImpl extends ASTWrapperPsiElement implements XQ
             return node == null ? null : XQueryVersion.VERSION_6_0;
         }
         return null;
+    }
+
+    @Override
+    public boolean conformsTo(ImplementationItem implementation) {
+        final ASTNode node = getNode().findChildByType(MARKLOGIC_AXIS);
+        if (node != null) {
+            final XQueryVersion version = implementation.getVersion(XQueryConformance.MARKLOGIC);
+            return version != null && version.supportsVersion(XQueryVersion.VERSION_6_0);
+        }
+        return true;
     }
 
     @Override
