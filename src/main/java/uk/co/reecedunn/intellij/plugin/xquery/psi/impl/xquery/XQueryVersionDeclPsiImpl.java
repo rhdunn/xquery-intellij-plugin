@@ -49,14 +49,6 @@ public class XQueryVersionDeclPsiImpl extends ASTWrapperPsiElement implements XQ
     }
 
     @Override
-    public XQueryVersion getConformanceVersion(XQueryConformance type) {
-        if (type == XQueryConformance.MINIMAL_CONFORMANCE) {
-            return getConformanceElement() == getFirstChild() ? XQueryVersion.VERSION_1_0 : XQueryVersion.VERSION_3_0;
-        }
-        return null;
-    }
-
-    @Override
     public boolean conformsTo(ImplementationItem implementation) {
         PsiElement element = getConformanceElement();
         final XQueryVersion version = implementation.getVersion(XQueryConformance.MINIMAL_CONFORMANCE);

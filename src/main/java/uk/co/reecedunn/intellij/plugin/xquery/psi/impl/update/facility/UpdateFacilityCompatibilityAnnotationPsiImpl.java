@@ -33,15 +33,6 @@ public class UpdateFacilityCompatibilityAnnotationPsiImpl extends ASTWrapperPsiE
     }
 
     @Override
-    public XQueryVersion getConformanceVersion(XQueryConformance type) {
-        if (type == XQueryConformance.UPDATE_FACILITY) {
-            final ASTNode varDecl = getParent().getNode().findChildByType(XQueryElementType.VAR_DECL);
-            return varDecl == null ? XQueryVersion.VERSION_1_0 : XQueryVersion.VERSION_3_0;
-        }
-        return null;
-    }
-
-    @Override
     public boolean conformsTo(ImplementationItem implementation) {
         final XQueryVersion version = implementation.getVersion(XQueryConformance.UPDATE_FACILITY);
         if (version != null) {

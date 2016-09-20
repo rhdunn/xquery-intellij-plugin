@@ -32,14 +32,6 @@ public class MarkLogicCompatibilityAnnotationPsiImpl extends ASTWrapperPsiElemen
     }
 
     @Override
-    public XQueryVersion getConformanceVersion(XQueryConformance type) {
-        if (type == XQueryConformance.MARKLOGIC) {
-            return XQueryVersion.VERSION_6_0;
-        }
-        return null;
-    }
-
-    @Override
     public boolean conformsTo(ImplementationItem implementation) {
         final XQueryVersion version = implementation.getVersion(XQueryConformance.MARKLOGIC);
         return version != null && version.supportsVersion(XQueryVersion.VERSION_6_0);

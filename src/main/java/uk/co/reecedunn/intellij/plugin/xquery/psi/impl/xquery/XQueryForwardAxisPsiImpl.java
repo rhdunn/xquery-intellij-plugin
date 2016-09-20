@@ -36,18 +36,6 @@ public class XQueryForwardAxisPsiImpl extends ASTWrapperPsiElement implements XQ
     }
 
     @Override
-    public XQueryVersion getConformanceVersion(XQueryConformance type) {
-        if (type == XQueryConformance.MINIMAL_CONFORMANCE) {
-            final ASTNode node = getNode().findChildByType(MARKLOGIC_AXIS);
-            return node == null ? XQueryVersion.VERSION_1_0 : null;
-        } else if (type == XQueryConformance.MARKLOGIC) {
-            final ASTNode node = getNode().findChildByType(MARKLOGIC_AXIS);
-            return node == null ? null : XQueryVersion.VERSION_6_0;
-        }
-        return null;
-    }
-
-    @Override
     public boolean conformsTo(ImplementationItem implementation) {
         // TODO: full-axis conformance checks
         final ASTNode node = getNode().findChildByType(MARKLOGIC_AXIS);
