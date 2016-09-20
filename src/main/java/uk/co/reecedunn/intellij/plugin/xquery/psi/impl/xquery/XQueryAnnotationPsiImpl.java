@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVersionedConstruct;
+import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 
 public class XQueryAnnotationPsiImpl extends ASTWrapperPsiElement implements XQueryAnnotation, XQueryVersionedConstruct {
     public XQueryAnnotationPsiImpl(@NotNull ASTNode node) {
@@ -47,5 +48,10 @@ public class XQueryAnnotationPsiImpl extends ASTWrapperPsiElement implements XQu
     @Override
     public PsiElement getConformanceElement() {
         return findChildByType(XQueryTokenType.ANNOTATION_INDICATOR);
+    }
+
+    @Override
+    public String getConformanceErrorMessage() {
+        return XQueryBundle.message("requires.feature.minimal-conformance.version", XQueryVersion.VERSION_3_0);
     }
 }

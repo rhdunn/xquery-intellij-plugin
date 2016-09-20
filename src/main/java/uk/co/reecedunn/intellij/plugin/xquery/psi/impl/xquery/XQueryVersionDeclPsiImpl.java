@@ -31,6 +31,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVersionedConstruct;
+import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 
 public class XQueryVersionDeclPsiImpl extends ASTWrapperPsiElement implements XQueryVersionDecl, XQueryVersionedConstruct {
     private static final TokenSet STRINGS = TokenSet.create(XQueryElementType.STRING_LITERAL);
@@ -75,6 +76,12 @@ public class XQueryVersionDeclPsiImpl extends ASTWrapperPsiElement implements XQ
         }
 
         return previous.getElementType() == XQueryTokenType.K_XQUERY ? encoding.getPsi() : getFirstChild();
+    }
+
+    @Override
+    public String getConformanceErrorMessage() {
+        final XQueryVersion version = getConformanceElement() == getFirstChild() ? XQueryVersion.VERSION_1_0 : XQueryVersion.VERSION_3_0;
+        return XQueryBundle.message("requires.feature.minimal-conformance.version", version);
     }
 
     private @Nullable XQueryStringLiteral getStringValueAfterKeyword(IXQueryKeywordOrNCNameType type) {

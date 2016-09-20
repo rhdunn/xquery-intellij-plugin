@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVersionedConstruct;
+import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 
 public class MarkLogicBinaryKindTestPsiImpl extends ASTWrapperPsiElement implements MarkLogicBinaryKindTest, XQueryVersionedConstruct {
     public MarkLogicBinaryKindTestPsiImpl(@NotNull ASTNode node) {
@@ -47,5 +48,10 @@ public class MarkLogicBinaryKindTestPsiImpl extends ASTWrapperPsiElement impleme
     @Override
     public PsiElement getConformanceElement() {
         return getFirstChild();
+    }
+
+    @Override
+    public String getConformanceErrorMessage() {
+        return XQueryBundle.message("requires.feature.marklogic.version", XQueryVersion.VERSION_6_0);
     }
 }

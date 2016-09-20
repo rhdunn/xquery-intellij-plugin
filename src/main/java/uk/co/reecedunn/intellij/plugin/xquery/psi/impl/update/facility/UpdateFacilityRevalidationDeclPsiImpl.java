@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVersionedConstruct;
+import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 
 public class UpdateFacilityRevalidationDeclPsiImpl extends ASTWrapperPsiElement implements UpdateFacilityRevalidationDecl, XQueryVersionedConstruct {
     public UpdateFacilityRevalidationDeclPsiImpl(@NotNull ASTNode node) {
@@ -48,5 +49,10 @@ public class UpdateFacilityRevalidationDeclPsiImpl extends ASTWrapperPsiElement 
     @Override
     public PsiElement getConformanceElement() {
         return findChildByType(XQueryTokenType.K_REVALIDATION);
+    }
+
+    @Override
+    public String getConformanceErrorMessage() {
+        return XQueryBundle.message("requires.feature.update-facility.version", XQueryVersion.VERSION_1_0);
     }
 }

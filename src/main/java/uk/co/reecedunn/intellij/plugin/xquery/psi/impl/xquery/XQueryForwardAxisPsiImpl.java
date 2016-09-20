@@ -26,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVersionedConstruct;
+import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 
 public class XQueryForwardAxisPsiImpl extends ASTWrapperPsiElement implements XQueryForwardAxis, XQueryVersionedConstruct {
     private TokenSet MARKLOGIC_AXIS = TokenSet.create(XQueryTokenType.K_NAMESPACE, XQueryTokenType.K_PROPERTY);
@@ -48,6 +49,7 @@ public class XQueryForwardAxisPsiImpl extends ASTWrapperPsiElement implements XQ
 
     @Override
     public boolean conformsTo(ImplementationItem implementation) {
+        // TODO: full-axis conformance checks
         final ASTNode node = getNode().findChildByType(MARKLOGIC_AXIS);
         if (node != null) {
             final XQueryVersion version = implementation.getVersion(XQueryConformance.MARKLOGIC);
@@ -59,5 +61,15 @@ public class XQueryForwardAxisPsiImpl extends ASTWrapperPsiElement implements XQ
     @Override
     public PsiElement getConformanceElement() {
         return getFirstChild();
+    }
+
+    @Override
+    public String getConformanceErrorMessage() {
+        // TODO: full-axis conformance checks
+        final ASTNode node = getNode().findChildByType(MARKLOGIC_AXIS);
+        if (node != null) {
+            return XQueryBundle.message("requires.feature.marklogic.version", XQueryVersion.VERSION_6_0);
+        }
+        return XQueryBundle.message("requires.feature.minimal-conformance.version", XQueryVersion.VERSION_1_0);
     }
 }

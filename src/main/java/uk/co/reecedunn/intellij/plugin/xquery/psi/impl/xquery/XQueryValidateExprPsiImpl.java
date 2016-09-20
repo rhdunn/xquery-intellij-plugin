@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVersionedConstruct;
+import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 
 public class XQueryValidateExprPsiImpl extends ASTWrapperPsiElement implements XQueryValidateExpr, XQueryVersionedConstruct {
     public XQueryValidateExprPsiImpl(@NotNull ASTNode node) {
@@ -45,6 +46,7 @@ public class XQueryValidateExprPsiImpl extends ASTWrapperPsiElement implements X
 
     @Override
     public boolean conformsTo(ImplementationItem implementation) {
+        // TODO: schema-validation feature check
         final ASTNode node = getNode().findChildByType(XQueryTokenType.K_AS);
         if (node != null) {
             final XQueryVersion version = implementation.getVersion(XQueryConformance.MARKLOGIC);
@@ -57,5 +59,15 @@ public class XQueryValidateExprPsiImpl extends ASTWrapperPsiElement implements X
     public PsiElement getConformanceElement() {
         PsiElement as = findChildByType(XQueryTokenType.K_AS);
         return as == null ? getFirstChild() : as;
+    }
+
+    @Override
+    public String getConformanceErrorMessage() {
+        // TODO: schema-validation feature check
+        final ASTNode as = getNode().findChildByType(XQueryTokenType.K_AS);
+        if (as != null) {
+            return XQueryBundle.message("requires.feature.marklogic.version", XQueryVersion.VERSION_6_0);
+        }
+        return XQueryBundle.message("requires.feature.minimal-conformance.version", XQueryVersion.VERSION_1_0);
     }
 }

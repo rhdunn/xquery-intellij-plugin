@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVersionedConstruct;
+import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 
 public class UpdateFacilityCompatibilityAnnotationPsiImpl extends ASTWrapperPsiElement implements UpdateFacilityCompatibilityAnnotation, XQueryVersionedConstruct {
     public UpdateFacilityCompatibilityAnnotationPsiImpl(@NotNull ASTNode node) {
@@ -53,5 +54,12 @@ public class UpdateFacilityCompatibilityAnnotationPsiImpl extends ASTWrapperPsiE
     @Override
     public PsiElement getConformanceElement() {
         return getFirstChild();
+    }
+
+    @Override
+    public String getConformanceErrorMessage() {
+        final ASTNode varDecl = getParent().getNode().findChildByType(XQueryElementType.VAR_DECL);
+        final XQueryVersion version = varDecl == null ? XQueryVersion.VERSION_1_0 : XQueryVersion.VERSION_3_0;
+        return XQueryBundle.message("requires.feature.update-facility.version", version);
     }
 }

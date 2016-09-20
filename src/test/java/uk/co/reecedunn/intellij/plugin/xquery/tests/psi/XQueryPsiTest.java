@@ -18,7 +18,6 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.psi;
 import com.intellij.lang.ASTNode;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Implementations;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
@@ -91,6 +90,9 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
 
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 1.0 or later."));
+
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
                 is(XQueryTokenType.K_XQUERY));
@@ -115,6 +117,9 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
 
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 1.0 or later."));
+
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
                 is(XQueryTokenType.K_XQUERY));
@@ -137,6 +142,9 @@ public class XQueryPsiTest extends ParserTestCase {
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 1.0 or later."));
 
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
@@ -162,6 +170,9 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
 
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 1.0 or later."));
+
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
                 is(XQueryTokenType.K_XQUERY));
@@ -185,6 +196,9 @@ public class XQueryPsiTest extends ParserTestCase {
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 1.0 or later."));
 
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
@@ -210,6 +224,9 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
 
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 1.0 or later."));
+
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
                 is(XQueryTokenType.K_XQUERY));
@@ -232,6 +249,9 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
 
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 1.0 or later."));
+
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
                 is(XQueryTokenType.K_XQUERY));
@@ -249,6 +269,9 @@ public class XQueryPsiTest extends ParserTestCase {
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 1.0 or later."));
 
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
@@ -268,6 +291,9 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
 
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 1.0 or later."));
+
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
                 is(XQueryTokenType.K_ATTRIBUTE));
@@ -282,6 +308,9 @@ public class XQueryPsiTest extends ParserTestCase {
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 1.0 or later."));
 
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
@@ -298,6 +327,9 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
 
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 1.0 or later."));
+
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
                 is(XQueryTokenType.K_DESCENDANT));
@@ -312,6 +344,9 @@ public class XQueryPsiTest extends ParserTestCase {
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 1.0 or later."));
 
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
@@ -328,6 +363,9 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
 
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 1.0 or later."));
+
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
                 is(XQueryTokenType.K_FOLLOWING));
@@ -343,6 +381,9 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
 
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 1.0 or later."));
+
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
                 is(XQueryTokenType.K_FOLLOWING_SIBLING));
@@ -357,6 +398,9 @@ public class XQueryPsiTest extends ParserTestCase {
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 1.0 or later."));
 
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
@@ -384,6 +428,9 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
 
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 3.0 or later."));
+
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
                 is(XQueryTokenType.K_ENCODING));
@@ -407,6 +454,9 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
 
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 3.0 or later."));
+
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
                 is(XQueryTokenType.K_ENCODING));
@@ -425,6 +475,9 @@ public class XQueryPsiTest extends ParserTestCase {
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 3.0 or later."));
 
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),

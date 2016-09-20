@@ -18,10 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.psi;
 import com.intellij.lang.ASTNode;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.*;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Implementations;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.PsiNavigation;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVersionedConstruct;
@@ -46,6 +43,9 @@ public class UpdateFacilityPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
 
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires Update Facility 1.0 or later."));
+
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
                 is(XQueryTokenType.K_UPDATING));
@@ -63,6 +63,9 @@ public class UpdateFacilityPsiTest extends ParserTestCase {
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires Update Facility 1.0 or later."));
 
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
@@ -82,6 +85,9 @@ public class UpdateFacilityPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
 
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires Update Facility 1.0 or later."));
+
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
                 is(XQueryTokenType.K_INSERT));
@@ -99,6 +105,9 @@ public class UpdateFacilityPsiTest extends ParserTestCase {
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires Update Facility 1.0 or later."));
 
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
@@ -118,6 +127,9 @@ public class UpdateFacilityPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
 
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires Update Facility 1.0 or later."));
+
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
                 is(XQueryTokenType.K_REPLACE));
@@ -136,6 +148,9 @@ public class UpdateFacilityPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
 
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires Update Facility 1.0 or later."));
+
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
                 is(XQueryTokenType.K_RENAME));
@@ -153,6 +168,9 @@ public class UpdateFacilityPsiTest extends ParserTestCase {
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires Update Facility 1.0 or later."));
 
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
@@ -173,6 +191,9 @@ public class UpdateFacilityPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
 
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires Update Facility 1.0 or later."));
+
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
                 is(XQueryTokenType.K_UPDATING));
@@ -188,6 +209,9 @@ public class UpdateFacilityPsiTest extends ParserTestCase {
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires Update Facility 3.0 or later."));
 
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),

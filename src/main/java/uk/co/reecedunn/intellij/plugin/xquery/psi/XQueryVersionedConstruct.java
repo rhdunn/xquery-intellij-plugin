@@ -31,4 +31,11 @@ public interface XQueryVersionedConstruct {
      * @return The element to report errors on.
      */
     PsiElement getConformanceElement();
+
+    /**
+     * Gets the message to display on conformance errors.
+     *
+     * @return The conformance error message.
+     */
+    String getConformanceErrorMessage();
 }

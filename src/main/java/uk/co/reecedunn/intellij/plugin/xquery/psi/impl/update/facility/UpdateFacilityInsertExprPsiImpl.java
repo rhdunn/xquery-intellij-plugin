@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVersionedConstruct;
+import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 
 public class UpdateFacilityInsertExprPsiImpl extends ASTWrapperPsiElement implements UpdateFacilityInsertExpr, XQueryVersionedConstruct {
     public UpdateFacilityInsertExprPsiImpl(@NotNull ASTNode node) {
@@ -47,5 +48,10 @@ public class UpdateFacilityInsertExprPsiImpl extends ASTWrapperPsiElement implem
     @Override
     public PsiElement getConformanceElement() {
         return getFirstChild();
+    }
+
+    @Override
+    public String getConformanceErrorMessage() {
+        return XQueryBundle.message("requires.feature.update-facility.version", XQueryVersion.VERSION_1_0);
     }
 }

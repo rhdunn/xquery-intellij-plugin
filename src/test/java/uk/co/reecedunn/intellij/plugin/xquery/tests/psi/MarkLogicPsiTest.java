@@ -19,8 +19,6 @@ import com.intellij.lang.ASTNode;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic.*;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Implementations;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.PsiNavigation;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVersionedConstruct;
@@ -49,6 +47,9 @@ public class MarkLogicPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
 
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires MarkLogic 6.0 or later with XQuery version '1.0-ml'."));
+
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
                 is(XQueryTokenType.K_PRIVATE));
@@ -69,6 +70,9 @@ public class MarkLogicPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires MarkLogic 6.0 or later with XQuery version '1.0-ml'."));
 
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
@@ -93,6 +97,9 @@ public class MarkLogicPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
 
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires MarkLogic 6.0 or later with XQuery version '1.0-ml'."));
+
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
                 is(XQueryTokenType.K_NAMESPACE));
@@ -112,6 +119,9 @@ public class MarkLogicPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires MarkLogic 6.0 or later with XQuery version '1.0-ml'."));
 
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
@@ -136,6 +146,9 @@ public class MarkLogicPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
 
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires MarkLogic 6.0 or later with XQuery version '1.0-ml'."));
+
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
                 is(XQueryTokenType.K_AS));
@@ -158,6 +171,9 @@ public class MarkLogicPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires MarkLogic 6.0 or later with XQuery version '1.0-ml'."));
 
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
@@ -186,6 +202,9 @@ public class MarkLogicPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires MarkLogic 6.0 or later with XQuery version '1.0-ml'."));
 
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
