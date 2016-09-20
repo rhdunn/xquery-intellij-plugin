@@ -21,7 +21,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Implementations;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.PsiNavigation;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVersionedConstruct;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase;
 
 import static org.hamcrest.CoreMatchers.*;
@@ -36,7 +36,7 @@ public class MarkLogicPsiTest extends ParserTestCase {
 
         XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryAnnotatedDecl.class);
         MarkLogicCompatibilityAnnotation compatibilityAnnotationPsi = PsiNavigation.findChildrenByClass(annotatedDeclPsi, MarkLogicCompatibilityAnnotation.class).get(0);
-        XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)compatibilityAnnotationPsi;
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)compatibilityAnnotationPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
@@ -60,7 +60,7 @@ public class MarkLogicPsiTest extends ParserTestCase {
 
         XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryAnnotatedDecl.class);
         MarkLogicCompatibilityAnnotation compatibilityAnnotationPsi = PsiNavigation.findChildrenByClass(annotatedDeclPsi, MarkLogicCompatibilityAnnotation.class).get(0);
-        XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)compatibilityAnnotationPsi;
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)compatibilityAnnotationPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
@@ -86,7 +86,7 @@ public class MarkLogicPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/parser/marklogic/ForwardAxis_Namespace.xq");
 
         XQueryForwardAxis forwardAxisPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryForwardAxis.class);
-        XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)forwardAxisPsi;
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)forwardAxisPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
@@ -109,7 +109,7 @@ public class MarkLogicPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/parser/marklogic/ForwardAxis_Property.xq");
 
         XQueryForwardAxis forwardAxisPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryForwardAxis.class);
-        XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)forwardAxisPsi;
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)forwardAxisPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
@@ -135,7 +135,7 @@ public class MarkLogicPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/parser/marklogic/ValidateExpr_ValidateAs.xq");
 
         XQueryValidateExpr validateExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryValidateExpr.class);
-        XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)validateExprPsi;
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)validateExprPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
@@ -161,7 +161,7 @@ public class MarkLogicPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/parser/marklogic/BinaryExpr.xq");
 
         MarkLogicBinaryExpr binaryKindTestPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), MarkLogicBinaryExpr.class);
-        XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)binaryKindTestPsi;
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)binaryKindTestPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
@@ -192,7 +192,7 @@ public class MarkLogicPsiTest extends ParserTestCase {
         XQuerySequenceType sequenceTypePsi = PsiNavigation.findChildrenByClass(typeDeclarationPsi, XQuerySequenceType.class).get(0);
         MarkLogicBinaryKindTest binaryKindTestPsi = PsiNavigation.findFirstChildByClass(sequenceTypePsi, MarkLogicBinaryKindTest.class);
 
-        XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)binaryKindTestPsi;
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)binaryKindTestPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));

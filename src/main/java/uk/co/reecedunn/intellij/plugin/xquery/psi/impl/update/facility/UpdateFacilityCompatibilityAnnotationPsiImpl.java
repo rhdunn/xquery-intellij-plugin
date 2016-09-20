@@ -24,10 +24,10 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVersionedConstruct;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 
-public class UpdateFacilityCompatibilityAnnotationPsiImpl extends ASTWrapperPsiElement implements UpdateFacilityCompatibilityAnnotation, XQueryVersionedConstruct {
+public class UpdateFacilityCompatibilityAnnotationPsiImpl extends ASTWrapperPsiElement implements UpdateFacilityCompatibilityAnnotation, XQueryConformanceCheck {
     public UpdateFacilityCompatibilityAnnotationPsiImpl(@NotNull ASTNode node) {
         super(node);
     }

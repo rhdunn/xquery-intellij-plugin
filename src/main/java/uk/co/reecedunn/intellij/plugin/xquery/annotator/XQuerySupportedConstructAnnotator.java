@@ -23,14 +23,14 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.PsiNavigation;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVersionedConstruct;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings;
 
 public class XQuerySupportedConstructAnnotator implements Annotator {
     @Override
     public void annotate(@NotNull PsiElement element, @NotNull AnnotationHolder holder) {
-        if (!(element instanceof XQueryVersionedConstruct)) return;
-        XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)element;
+        if (!(element instanceof XQueryConformanceCheck)) return;
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)element;
 
         XQueryVersion xqueryVersion = PsiNavigation.findParentByClass(element, XQueryFile.class).getXQueryVersion();
         XQueryProjectSettings settings = XQueryProjectSettings.getInstance(element.getProject());

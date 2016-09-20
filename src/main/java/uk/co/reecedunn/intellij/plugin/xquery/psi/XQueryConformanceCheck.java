@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi;
 import com.intellij.psi.PsiElement;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
 
-public interface XQueryVersionedConstruct {
+public interface XQueryConformanceCheck {
     boolean conformsTo(ImplementationItem implementation);
 
     /**

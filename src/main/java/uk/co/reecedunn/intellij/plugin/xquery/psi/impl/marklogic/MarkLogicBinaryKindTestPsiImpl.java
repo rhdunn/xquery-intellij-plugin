@@ -23,10 +23,10 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic.MarkLogicBinaryKindT
 import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVersionedConstruct;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 
-public class MarkLogicBinaryKindTestPsiImpl extends ASTWrapperPsiElement implements MarkLogicBinaryKindTest, XQueryVersionedConstruct {
+public class MarkLogicBinaryKindTestPsiImpl extends ASTWrapperPsiElement implements MarkLogicBinaryKindTest, XQueryConformanceCheck {
     public MarkLogicBinaryKindTestPsiImpl(@NotNull ASTNode node) {
         super(node);
     }

@@ -23,10 +23,10 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.UpdateFacility
 import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVersionedConstruct;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 
-public class UpdateFacilityDeleteExprPsiImpl extends ASTWrapperPsiElement implements UpdateFacilityDeleteExpr, XQueryVersionedConstruct {
+public class UpdateFacilityDeleteExprPsiImpl extends ASTWrapperPsiElement implements UpdateFacilityDeleteExpr, XQueryConformanceCheck {
     public UpdateFacilityDeleteExprPsiImpl(@NotNull ASTNode node) {
         super(node);
     }

@@ -30,10 +30,10 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVersionedConstruct;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 
-public class XQueryVersionDeclPsiImpl extends ASTWrapperPsiElement implements XQueryVersionDecl, XQueryVersionedConstruct {
+public class XQueryVersionDeclPsiImpl extends ASTWrapperPsiElement implements XQueryVersionDecl, XQueryConformanceCheck {
     private static final TokenSet STRINGS = TokenSet.create(XQueryElementType.STRING_LITERAL);
 
     public XQueryVersionDeclPsiImpl(@NotNull ASTNode node) {

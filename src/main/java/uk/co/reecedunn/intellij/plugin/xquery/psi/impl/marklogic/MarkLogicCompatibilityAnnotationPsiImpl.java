@@ -23,10 +23,10 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic.MarkLogicCompatibili
 import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVersionedConstruct;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 
-public class MarkLogicCompatibilityAnnotationPsiImpl extends ASTWrapperPsiElement implements MarkLogicCompatibilityAnnotation, XQueryVersionedConstruct {
+public class MarkLogicCompatibilityAnnotationPsiImpl extends ASTWrapperPsiElement implements MarkLogicCompatibilityAnnotation, XQueryConformanceCheck {
     public MarkLogicCompatibilityAnnotationPsiImpl(@NotNull ASTNode node) {
         super(node);
     }

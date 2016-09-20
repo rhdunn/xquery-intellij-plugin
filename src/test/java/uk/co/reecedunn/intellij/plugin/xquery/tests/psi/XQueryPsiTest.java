@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.PsiNavigation;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVersionedConstruct;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.Specification;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase;
 
@@ -85,7 +85,7 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryFile file = (XQueryFile)node.getPsi();
         assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_1_0));
 
-        XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)versionDeclPsi;
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)versionDeclPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
@@ -112,7 +112,7 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryFile file = (XQueryFile)node.getPsi();
         assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_1_0));
 
-        XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)versionDeclPsi;
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)versionDeclPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
@@ -138,7 +138,7 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryFile file = (XQueryFile)node.getPsi();
         assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_3_0));
 
-        XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)versionDeclPsi;
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)versionDeclPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
@@ -165,7 +165,7 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryFile file = (XQueryFile)node.getPsi();
         assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_1_0));
 
-        XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)versionDeclPsi;
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)versionDeclPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
@@ -192,7 +192,7 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryFile file = (XQueryFile)node.getPsi();
         assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_1_0));
 
-        XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)versionDeclPsi;
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)versionDeclPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
@@ -219,7 +219,7 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryFile file = (XQueryFile)node.getPsi();
         assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_1_0));
 
-        XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)versionDeclPsi;
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)versionDeclPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
@@ -244,7 +244,7 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryFile file = (XQueryFile)node.getPsi();
         assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_3_0));
 
-        XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)versionDeclPsi;
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)versionDeclPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
@@ -265,7 +265,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/parser/xquery-1.0/ValidateExpr.xq");
 
         XQueryValidateExpr validateExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryValidateExpr.class);
-        XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)validateExprPsi;
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)validateExprPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
@@ -286,7 +286,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/parser/xquery-1.0/ForwardAxis_Attribute.xq");
 
         XQueryForwardAxis forwardAxisPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryForwardAxis.class);
-        XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)forwardAxisPsi;
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)forwardAxisPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
@@ -304,7 +304,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/parser/xquery-1.0/ForwardAxis_Child.xq");
 
         XQueryForwardAxis forwardAxisPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryForwardAxis.class);
-        XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)forwardAxisPsi;
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)forwardAxisPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
@@ -322,7 +322,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/parser/xquery-1.0/ForwardAxis_Descendant.xq");
 
         XQueryForwardAxis forwardAxisPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryForwardAxis.class);
-        XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)forwardAxisPsi;
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)forwardAxisPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
@@ -340,7 +340,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/parser/xquery-1.0/ForwardAxis_DescendantOrSelf.xq");
 
         XQueryForwardAxis forwardAxisPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryForwardAxis.class);
-        XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)forwardAxisPsi;
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)forwardAxisPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
@@ -358,7 +358,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/parser/xquery-1.0/ForwardAxis_Following.xq");
 
         XQueryForwardAxis forwardAxisPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryForwardAxis.class);
-        XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)forwardAxisPsi;
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)forwardAxisPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
@@ -376,7 +376,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/parser/xquery-1.0/ForwardAxis_FollowingSibling.xq");
 
         XQueryForwardAxis forwardAxisPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryForwardAxis.class);
-        XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)forwardAxisPsi;
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)forwardAxisPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
@@ -394,7 +394,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/parser/xquery-1.0/ForwardAxis_Self.xq");
 
         XQueryForwardAxis forwardAxisPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryForwardAxis.class);
-        XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)forwardAxisPsi;
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)forwardAxisPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
@@ -423,7 +423,7 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryFile file = (XQueryFile)node.getPsi();
         assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_3_0));
 
-        XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)versionDeclPsi;
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)versionDeclPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
@@ -449,7 +449,7 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryFile file = (XQueryFile)node.getPsi();
         assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_3_0));
 
-        XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)versionDeclPsi;
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)versionDeclPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
@@ -471,7 +471,7 @@ public class XQueryPsiTest extends ParserTestCase {
 
         XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryAnnotatedDecl.class);
         XQueryAnnotation annotationPsi = PsiNavigation.findChildrenByClass(annotatedDeclPsi, XQueryAnnotation.class).get(0);
-        XQueryVersionedConstruct versioned = (XQueryVersionedConstruct)annotationPsi;
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)annotationPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
