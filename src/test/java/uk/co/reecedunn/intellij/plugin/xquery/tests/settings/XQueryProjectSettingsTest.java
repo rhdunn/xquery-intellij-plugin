@@ -40,7 +40,7 @@ public class XQueryProjectSettingsTest extends TestCase {
         assertThat(settings.getImplementationVersion(), is("w3c/spec"));
         assertThat(settings.getXQueryVersion(), is(XQueryVersion.VERSION_1_0));
         assertThat(settings.getXQuery10Dialect(), is("w3c/1.0"));
-        assertThat(settings.getXQuery30Dialect(), is(nullValue()));
+        assertThat(settings.getXQuery30Dialect(), is("w3c/3.0"));
         assertThat(settings.getXQuery31Dialect(), is(nullValue()));
 
         assertThat(settings.getImplementationItem().getID(), is("w3c"));
@@ -48,7 +48,7 @@ public class XQueryProjectSettingsTest extends TestCase {
         assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_0_9_MARKLOGIC).getID(), is(nullValue()));
         assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_1_0_MARKLOGIC).getID(), is(nullValue()));
         assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_1_0).getID(), is("w3c/1.0"));
-        assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_3_0).getID(), is(nullValue()));
+        assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_3_0).getID(), is("w3c/3.0"));
         assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_3_1).getID(), is(nullValue()));
     }
 
@@ -140,7 +140,7 @@ public class XQueryProjectSettingsTest extends TestCase {
         final String expected
                 = "<XQueryProjectSettings>"
                 + "<option name=\"XQuery10Dialect\" value=\"w3c/1.0\" />"
-                + "<option name=\"XQuery30Dialect\" />"
+                + "<option name=\"XQuery30Dialect\" value=\"w3c/3.0\" />"
                 + "<option name=\"XQuery31Dialect\" />"
                 + "<option name=\"XQueryVersion\" value=\"1.0\" />"
                 + "<option name=\"implementation\" value=\"w3c\" />"

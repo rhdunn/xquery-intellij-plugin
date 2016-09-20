@@ -83,7 +83,7 @@ public class XQueryProjectSettingsConfigurableTest extends ParserTestCase {
         assertThat(getSelectedItem(component, "ImplementationVersion").toString(), is("Specification"));
         assertThat(getSelectedItem(component, "XQueryVersion"), is(XQueryVersion.VERSION_1_0));
         assertThat(getSelectedItem(component, "DialectForXQuery1.0").toString(), is("XQuery"));
-        assertThat(getSelectedItem(component, "DialectForXQuery3.0").toString(), is("Not Supported"));
+        assertThat(getSelectedItem(component, "DialectForXQuery3.0").toString(), is("XQuery"));
         assertThat(getSelectedItem(component, "DialectForXQuery3.1").toString(), is("Not Supported"));
 
         assertThat(configurable.isModified(), is(false));
@@ -129,7 +129,7 @@ public class XQueryProjectSettingsConfigurableTest extends ParserTestCase {
         assertThat(getSelectedItem(component, "ImplementationVersion").toString(), is("Specification"));
         assertThat(getSelectedItem(component, "XQueryVersion"), is(XQueryVersion.VERSION_1_0));
         assertThat(getSelectedItem(component, "DialectForXQuery1.0").toString(), is("XQuery"));
-        assertThat(getSelectedItem(component, "DialectForXQuery3.0").toString(), is("Not Supported"));
+        assertThat(getSelectedItem(component, "DialectForXQuery3.0").toString(), is("XQuery"));
         assertThat(getSelectedItem(component, "DialectForXQuery3.1").toString(), is("Not Supported"));
 
         assertThat(configurable.isModified(), is(false));

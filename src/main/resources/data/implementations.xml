@@ -121,7 +121,6 @@ limitations under the License.
                 <full-axis version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <module version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
             </dialect>
-            <!--
             <dialect id="saxon/PE/3.0" name="XQuery" localized="false" default="true">
                 <minimal-conformance version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <higher-order-function version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
@@ -136,7 +135,6 @@ limitations under the License.
                 <full-axis version="3.1" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <module version="3.1" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
             </dialect>
-            -->
         </version>
         <version id="saxon/EE" name="xquery.implementation.enterprise-edition" localized="true" default="false">
             <dialect id="saxon/EE/1.0" name="XQuery" localized="false" default="false">
@@ -158,7 +156,6 @@ limitations under the License.
                 <module version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <update-facility version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="true"/>
             </dialect>
-            <!--
             <dialect id="saxon/EE/3.0" name="XQuery" localized="false" default="false">
                 <minimal-conformance version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <higher-order-function version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
@@ -178,6 +175,7 @@ limitations under the License.
                 <schema-validation version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <update-facility version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="true"/>
             </dialect>
+            <!--
             <dialect id="saxon/EE/3.1" name="XQuery" localized="false" default="false">
                 <minimal-conformance version="3.1" specification="https://www.w3.org/TR/2015/CR-xquery-31-20151217/" default="false"/>
                 <higher-order-function version="3.1" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
@@ -240,7 +238,6 @@ limitations under the License.
                 <full-axis version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <update-facility version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="false"/>
             </dialect>
-            <!--
             <dialect id="w3c/3.0" name="XQuery" localized="false" default="true">
                 <minimal-conformance version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <higher-order-function version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
@@ -250,6 +247,7 @@ limitations under the License.
                 <schema-import version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <schema-validation version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
             </dialect>
+            <!--
             <dialect id="w3c/3.0-full-text" name="xquery.implementation.xquery-full-text-30" localized="true" default="false">
                 <minimal-conformance version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <higher-order-function version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
