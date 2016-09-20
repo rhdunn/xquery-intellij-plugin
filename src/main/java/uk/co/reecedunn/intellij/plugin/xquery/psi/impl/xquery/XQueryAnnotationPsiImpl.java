@@ -34,8 +34,10 @@ public class XQueryAnnotationPsiImpl extends ASTWrapperPsiElement implements XQu
 
     @Override
     public boolean conformsTo(ImplementationItem implementation) {
-        final XQueryVersion version = implementation.getVersion(XQueryConformance.MINIMAL_CONFORMANCE);
-        return version != null && version.supportsVersion(XQueryVersion.VERSION_3_0);
+        final XQueryVersion minimalConformance = implementation.getVersion(XQueryConformance.MINIMAL_CONFORMANCE);
+        final XQueryVersion marklogic = implementation.getVersion(XQueryConformance.MARKLOGIC);
+        return (minimalConformance != null && minimalConformance.supportsVersion(XQueryVersion.VERSION_3_0))
+            || (marklogic != null && marklogic.supportsVersion(XQueryVersion.VERSION_6_0));
     }
 
     @Override
