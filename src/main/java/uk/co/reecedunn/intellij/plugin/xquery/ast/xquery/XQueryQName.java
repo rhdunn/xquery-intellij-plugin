@@ -15,8 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
-import com.intellij.psi.PsiElement;
-
 /**
  * An XQuery 1.0 <code>QName</code> node in the XQuery AST.
  *
@@ -24,5 +22,5 @@ import com.intellij.psi.PsiElement;
  * <code>VarName</code>), the <code>QName</code> node is not stored directly
  * in the AST. Instead, it is exposed as an instance of that specialised node.
  */
-public interface XQueryQName extends PsiElement {
+public interface XQueryQName extends XQueryEQName {
 }

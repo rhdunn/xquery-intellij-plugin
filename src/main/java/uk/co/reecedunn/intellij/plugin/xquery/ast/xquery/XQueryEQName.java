@@ -15,8 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
+import com.intellij.psi.PsiElement;
+
 /**
- * An XQuery 3.0 <code>URIQualifiedName</code> node in the XQuery AST.
+ * An XQuery 3.0 <code>EQName</code> node in the XQuery AST.
  */
-public interface XQueryURIQualifiedName extends XQueryEQName {
+public interface XQueryEQName extends PsiElement {
 }
