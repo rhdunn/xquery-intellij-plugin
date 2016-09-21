@@ -5449,4 +5449,35 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region XQuery 3.0 :: ValidateExpr
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-ValidateExpr")
+    public void testValidateExpr_Type() {
+        final String expected = loadResource("tests/parser/xquery-3.0/ValidateExpr_Type.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/ValidateExpr_Type.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-ValidateExpr")
+    public void testValidateExpr_Type_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-3.0/ValidateExpr_Type_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/ValidateExpr_Type_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-ValidateExpr")
+    public void testValidateExpr_Type_MissingTypeName() {
+        final String expected = loadResource("tests/parser/xquery-3.0/ValidateExpr_Type_MissingTypeName.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/ValidateExpr_Type_MissingTypeName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-ValidateExpr")
+    public void testValidateExpr_Type_MissingOpeningBrace() {
+        final String expected = loadResource("tests/parser/xquery-3.0/ValidateExpr_Type_MissingOpeningBrace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/ValidateExpr_Type_MissingOpeningBrace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
 }

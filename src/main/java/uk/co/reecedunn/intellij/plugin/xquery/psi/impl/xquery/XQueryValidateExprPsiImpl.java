@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.tree.TokenSet;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryValidateExpr;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
@@ -28,6 +29,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 
 public class XQueryValidateExprPsiImpl extends ASTWrapperPsiElement implements XQueryValidateExpr, XQueryConformanceCheck {
+    private TokenSet VALIDATE_BY_TYPENAME = TokenSet.create(XQueryTokenType.K_AS, XQueryTokenType.K_TYPE);
+
     public XQueryValidateExprPsiImpl(@NotNull ASTNode node) {
         super(node);
     }
@@ -35,26 +38,32 @@ public class XQueryValidateExprPsiImpl extends ASTWrapperPsiElement implements X
     @Override
     public boolean conformsTo(ImplementationItem implementation) {
         // TODO: schema-validation feature check
-        final ASTNode node = getNode().findChildByType(XQueryTokenType.K_AS);
-        if (node != null) {
-            final XQueryVersion version = implementation.getVersion(XQueryConformance.MARKLOGIC);
-            return version != null && version.supportsVersion(XQueryVersion.VERSION_6_0);
+        PsiElement element = getConformanceElement();
+        if (element != getFirstChild()) {
+            final XQueryVersion minimalConformance = implementation.getVersion(XQueryConformance.MINIMAL_CONFORMANCE);
+            final XQueryVersion marklogic = implementation.getVersion(XQueryConformance.MARKLOGIC);
+            if (element.getNode().getElementType() == XQueryTokenType.K_TYPE) {
+                return (minimalConformance != null && minimalConformance.supportsVersion(XQueryVersion.VERSION_3_0))
+                    || (marklogic != null && marklogic.supportsVersion(XQueryVersion.VERSION_6_0));
+            }
+            return marklogic != null && marklogic.supportsVersion(XQueryVersion.VERSION_6_0);
         }
         return true;
     }
 
     @Override
     public PsiElement getConformanceElement() {
-        PsiElement as = findChildByType(XQueryTokenType.K_AS);
-        return as == null ? getFirstChild() : as;
+        PsiElement validateByTypeName = findChildByType(VALIDATE_BY_TYPENAME);
+        return validateByTypeName == null ? getFirstChild() : validateByTypeName;
     }
 
     @Override
     public String getConformanceErrorMessage() {
         // TODO: schema-validation feature check
-        final ASTNode as = getNode().findChildByType(XQueryTokenType.K_AS);
-        if (as != null) {
+        if (getNode().findChildByType(XQueryTokenType.K_AS) != null) {
             return XQueryBundle.message("requires.feature.marklogic.version", XQueryVersion.VERSION_6_0);
+        } else if (getNode().findChildByType(XQueryTokenType.K_TYPE) != null) {
+            return XQueryBundle.message("requires.feature.marklogic-xquery.version");
         }
         return XQueryBundle.message("requires.feature.minimal-conformance.version", XQueryVersion.VERSION_1_0);
     }

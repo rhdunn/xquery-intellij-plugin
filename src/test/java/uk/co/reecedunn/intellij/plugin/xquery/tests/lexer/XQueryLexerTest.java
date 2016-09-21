@@ -2899,6 +2899,19 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region XQuery 3.0 :: ValidateExpr
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ValidateExpr")
+    public void testValidateExpr_Type() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "validate", XQueryTokenType.K_VALIDATE);
+        matchSingleToken(lexer, "type",     XQueryTokenType.K_TYPE);
+        matchSingleToken(lexer, "{",        XQueryTokenType.BLOCK_OPEN);
+        matchSingleToken(lexer, "}",        XQueryTokenType.BLOCK_CLOSE);
+    }
+
+    // endregion
     // region XQuery 3.0 :: SimpleMapExpr
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-SimpleMapExpr")

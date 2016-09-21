@@ -1326,6 +1326,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("then", XQueryTokenType.K_THEN);
         sKeywords.put("to", XQueryTokenType.K_TO);
         sKeywords.put("treat", XQueryTokenType.K_TREAT);
+        sKeywords.put("type", XQueryTokenType.K_TYPE); // XQuery 3.0
         sKeywords.put("typeswitch", XQueryTokenType.K_TYPESWITCH);
         sKeywords.put("union", XQueryTokenType.K_UNION);
         sKeywords.put("unordered", XQueryTokenType.K_UNORDERED);

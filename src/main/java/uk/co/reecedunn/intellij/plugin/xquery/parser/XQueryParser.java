@@ -2269,12 +2269,12 @@ class XQueryParser {
             boolean haveValidationMode = false;
             if (matchTokenType(XQueryTokenType.K_LAX) || matchTokenType(XQueryTokenType.K_STRICT)) {
                 haveValidationMode = true;
-            } else if (matchTokenType(XQueryTokenType.K_AS)) { // MarkLogic 6.0
+            } else if (matchTokenType(XQueryTokenType.K_AS) || matchTokenType(XQueryTokenType.K_TYPE)) { // MarkLogic 6.0 || XQuery 3.0
                 haveValidationMode = true;
 
                 skipWhiteSpaceAndCommentTokens();
-                if (!parseSingleType()) {
-                    error(XQueryBundle.message("parser.error.expected", "SingleType"));
+                if (!parseQName(XQueryElementType.TYPE_NAME)) {
+                    error(XQueryBundle.message("parser.error.expected", "TypeName"));
                     haveErrors = true;
                 }
             }

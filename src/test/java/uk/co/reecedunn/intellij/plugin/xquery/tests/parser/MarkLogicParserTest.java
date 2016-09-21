@@ -62,9 +62,9 @@ public class MarkLogicParserTest extends ParserTestCase {
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    public void testValidateExpr_ValidateAs_MissingAtomicType() {
-        final String expected = loadResource("tests/parser/marklogic/ValidateExpr_ValidateAs_MissingAtomicType.txt");
-        final ASTNode actual = parseResource("tests/parser/marklogic/ValidateExpr_ValidateAs_MissingAtomicType.xq");
+    public void testValidateExpr_ValidateAs_MissingTypeName() {
+        final String expected = loadResource("tests/parser/marklogic/ValidateExpr_ValidateAs_MissingTypeName.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic/ValidateExpr_ValidateAs_MissingTypeName.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 

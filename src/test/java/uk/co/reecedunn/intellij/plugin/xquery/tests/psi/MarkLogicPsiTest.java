@@ -129,7 +129,7 @@ public class MarkLogicPsiTest extends ParserTestCase {
     }
 
     // endregion
-    // region XQuery 1.0 :: ValidateExpr
+    // region MarkLogic 6.0 :: ValidateExpr
 
     public void testValidateExpr_ValidateAs() {
         final ASTNode node = parseResource("tests/parser/marklogic/ValidateExpr_ValidateAs.xq");

@@ -443,6 +443,9 @@ public class SyntaxHighlighterTest extends TestCase {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_TREAT).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_TREAT)[0], is(SyntaxHighlighter.KEYWORD));
 
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_TYPE).length, is(1));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_TYPE)[0], is(SyntaxHighlighter.KEYWORD));
+
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_TYPESWITCH).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_TYPESWITCH)[0], is(SyntaxHighlighter.KEYWORD));
 
