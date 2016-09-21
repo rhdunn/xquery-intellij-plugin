@@ -13,15 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
+package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
-import com.intellij.lang.ASTNode;
-import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryNCName;
+import com.intellij.psi.PsiElement;
 
-public class XQueryNCNamePsiImpl extends ASTWrapperPsiElement implements XQueryNCName {
-    public XQueryNCNamePsiImpl(@NotNull ASTNode node) {
-        super(node);
-    }
+/**
+ * An XQuery 3.0 <code>URIQualifiedName</code> node in the XQuery AST.
+ */
+public interface XQueryURIQualifiedName extends PsiElement {
 }
