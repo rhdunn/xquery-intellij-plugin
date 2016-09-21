@@ -169,6 +169,8 @@ public interface XQueryElementType {
     // endregion
     // region XQuery 3.0
 
+    IElementType BRACED_URI_LITERAL = new ICompositeElementType("XQUERY_BRACED_URI_LITERAL", XQueryBracedURILiteralImpl.class, XQueryBracedURILiteralPsiImpl.class);
+
     IElementType ANNOTATED_DECL = new ICompositeElementType("XQUERY_ANNOTATED_DECL", XQueryAnnotatedDeclImpl.class, XQueryAnnotatedDeclPsiImpl.class);
     IElementType ANNOTATION = new ICompositeElementType("XQUERY_ANNOTATION", XQueryAnnotationImpl.class, XQueryAnnotationPsiImpl.class);
 

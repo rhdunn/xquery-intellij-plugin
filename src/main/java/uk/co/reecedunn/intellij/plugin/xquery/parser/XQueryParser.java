@@ -576,8 +576,8 @@ class XQueryParser {
             boolean haveErrors = false;
 
             skipWhiteSpaceAndCommentTokens();
-            if (!parseQName(XQueryElementType.QNAME)) {
-                error(XQueryBundle.message("parser.error.expected-qname"));
+            if (!parseEQName(XQueryElementType.QNAME)) {
+                error(XQueryBundle.message("parser.error.expected-eqname"));
                 haveErrors = true;
             }
 
@@ -3645,7 +3645,7 @@ class XQueryParser {
     }
 
     // endregion
-    // region Lexical Structure
+    // region Lexical Structure :: Terminal Symbols
 
     private boolean parseStringLiteral(IElementType type) {
         final PsiBuilder.Marker stringMarker = matchTokenTypeWithMarker(XQueryTokenType.STRING_LITERAL_START);
@@ -3670,6 +3670,14 @@ class XQueryParser {
             }
         }
         return false;
+    }
+
+    private boolean parseEQName(IElementType type) {
+        return parseEQName(type, false);
+    }
+
+    private boolean parseEQName(IElementType type, boolean excludeReservedFunctionNames) {
+        return parseQName(type, excludeReservedFunctionNames) || parseBracedURILiteral();
     }
 
     private boolean parseQName(IElementType type) {
@@ -3777,6 +3785,33 @@ class XQueryParser {
         }
 
         qnameMarker.drop();
+        return false;
+    }
+
+    private boolean parseBracedURILiteral() {
+        final PsiBuilder.Marker stringMarker = matchTokenTypeWithMarker(XQueryTokenType.BRACED_URI_LITERAL_START);
+        while (stringMarker != null) {
+            if (matchTokenType(XQueryTokenType.STRING_LITERAL_CONTENTS) ||
+                matchTokenType(XQueryTokenType.PREDEFINED_ENTITY_REFERENCE) ||
+                matchTokenType(XQueryTokenType.CHARACTER_REFERENCE)) {
+                //
+            } else if (matchTokenType(XQueryTokenType.BRACED_URI_LITERAL_END)) {
+                if (!matchTokenType(XQueryTokenType.NCNAME)) {
+                    error(XQueryBundle.message("parser.error.expected-ncname"));
+                }
+                stringMarker.done(XQueryElementType.BRACED_URI_LITERAL);
+                return true;
+            } else if (matchTokenType(XQueryTokenType.PARTIAL_ENTITY_REFERENCE)) {
+                error(XQueryBundle.message("parser.error.incomplete-entity"));
+            } else if (errorOnTokenType(XQueryTokenType.EMPTY_ENTITY_REFERENCE, XQueryBundle.message("parser.error.empty-entity")) ||
+                       matchTokenType(XQueryTokenType.BAD_CHARACTER)) {
+                //
+            } else {
+                stringMarker.done(XQueryElementType.BRACED_URI_LITERAL);
+                error(XQueryBundle.message("parser.error.incomplete-braced-uri-literal"));
+                return true;
+            }
+        }
         return false;
     }
 

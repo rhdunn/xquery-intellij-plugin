@@ -469,6 +469,7 @@ public class XQueryPsiTest extends ParserTestCase {
     // endregion
     // region XQuery 3.0 :: ValidateExpr
 
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-ValidateExpr")
     public void testValidateExpr_Type() {
         final ASTNode node = parseResource("tests/parser/xquery-3.0/ValidateExpr_Type.xq");
 
@@ -498,7 +499,7 @@ public class XQueryPsiTest extends ParserTestCase {
     // endregion
     // region XQuery 3.0 :: Annotation
 
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Annotation")
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-ValidateExpr")
     public void testAnnotation() {
         final ASTNode node = parseResource("tests/parser/xquery-3.0/Annotation.xq");
 
@@ -524,6 +525,37 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
                 is(XQueryTokenType.ANNOTATION_INDICATOR));
+    }
+
+    // endregion
+    // region XQuery 3.0 :: BracedURILiteral
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-BracedURILiteral")
+    public void testBracedURILiteral() {
+        final ASTNode node = parseResource("tests/parser/xquery-3.0/BracedURILiteral.xq");
+
+        XQueryOptionDecl optionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryOptionDecl.class);
+        XQueryBracedURILiteral bracedURILiteralPsi = PsiNavigation.findChildrenByClass(optionDeclPsi, XQueryBracedURILiteral.class).get(0);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)bracedURILiteralPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 3.0 or later, or MarkLogic 6.0 or later with XQuery version '1.0-ml'."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.BRACED_URI_LITERAL_START));
     }
 
     // endregion

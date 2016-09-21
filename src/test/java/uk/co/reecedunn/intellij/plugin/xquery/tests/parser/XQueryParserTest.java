@@ -5480,4 +5480,90 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region XQuery 3.0 :: BracedURILiteral
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-BracedURILiteral")
+    public void testBracedURILiteral() {
+        final String expected = loadResource("tests/parser/xquery-3.0/BracedURILiteral.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/BracedURILiteral.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-BracedURILiteral")
+    public void testBracedURILiteral_MissingLocalName() {
+        final String expected = loadResource("tests/parser/xquery-3.0/BracedURILiteral_MissingLocalName.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/BracedURILiteral_MissingLocalName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-BracedURILiteral")
+    public void testBracedURILiteral_IncompleteLiteral() {
+        final String expected = loadResource("tests/parser/xquery-3.0/BracedURILiteral_IncompleteLiteral.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/BracedURILiteral_IncompleteLiteral.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
+    // region XQuery 3.0 :: BracedURILiteral + PredefinedEntityRef
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-BracedURILiteral")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PredefinedEntityRef")
+    public void testBracedURILiteral_PredefinedEntityRef() {
+        final String expected = loadResource("tests/parser/xquery-3.0/BracedURILiteral_PredefinedEntityRef.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/BracedURILiteral_PredefinedEntityRef.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-BracedURILiteral")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PredefinedEntityRef")
+    public void testBracedURILiteral_PredefinedEntityRef_IncompleteRef() {
+        final String expected = loadResource("tests/parser/xquery-3.0/BracedURILiteral_PredefinedEntityRef_IncompleteRef.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/BracedURILiteral_PredefinedEntityRef_IncompleteRef.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-BracedURILiteral")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PredefinedEntityRef")
+    public void testBracedURILiteral_PredefinedEntityRef_EmptyRef() {
+        final String expected = loadResource("tests/parser/xquery-3.0/BracedURILiteral_PredefinedEntityRef_EmptyRef.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/BracedURILiteral_PredefinedEntityRef_EmptyRef.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
+    // region XQuery 3.0 :: BracedURILiteral + CharRef
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-BracedURILiteral")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CharRef")
+    public void testBracedURILiteral_CharRef() {
+        final String expected = loadResource("tests/parser/xquery-3.0/BracedURILiteral_CharRef.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/BracedURILiteral_CharRef.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-BracedURILiteral")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CharRef")
+    public void testBracedURILiteral_CharRef_IncompleteRef() {
+        final String expected = loadResource("tests/parser/xquery-3.0/BracedURILiteral_CharRef_IncompleteRef.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/BracedURILiteral_CharRef_IncompleteRef.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-BracedURILiteral")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CharRef")
+    public void testBracedURILiteral_CharRef_EmptyNumericRef() {
+        final String expected = loadResource("tests/parser/xquery-3.0/BracedURILiteral_CharRef_EmptyNumericRef.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/BracedURILiteral_CharRef_EmptyNumericRef.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-BracedURILiteral")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CharRef")
+    public void testBracedURILiteral_CharRef_EmptyHexadecimalRef() {
+        final String expected = loadResource("tests/parser/xquery-3.0/BracedURILiteral_CharRef_EmptyHexadecimalRef.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/BracedURILiteral_CharRef_EmptyHexadecimalRef.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
 }

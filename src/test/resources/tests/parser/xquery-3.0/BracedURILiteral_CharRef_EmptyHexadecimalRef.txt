@@ -1,0 +1,23 @@
+FileElement[FILE(0:41)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:41)]
+      XQueryPrologImpl[XQUERY_PROLOG(0:41)]
+         XQueryOptionDeclImpl[XQUERY_OPTION_DECL(0:40)]
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
+            PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_OPTION(8:14)]('option')
+            PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
+            XQueryBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(15:33)]
+               LeafPsiElement[XQUERY_BRACED_URI_LITERAL_START_TOKEN(15:17)]('Q{')
+               LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(17:20)]('one')
+               PsiErrorElementImpl[ERROR_ELEMENT(20:24)]('XPST0003: Entity references must not be empty.')
+                  LeafPsiElement[XQUERY_EMPTY_ENTITY_REFERENCE_TOKEN(20:24)]('&#x;')
+               LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(24:27)]('two')
+               LeafPsiElement[XQUERY_BRACED_URI_LITERAL_END_TOKEN(27:28)]('}')
+               LeafPsiElement[XQUERY_NCNAME_TOKEN(28:33)]('three')
+            PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
+            XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(34:40)]
+               LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(34:35)]('"')
+               LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(35:39)]('Test')
+               LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(39:40)]('"')
+         LeafPsiElement[XQUERY_SEPARATOR_TOKEN(40:41)](';')
+      PsiErrorElementImpl[ERROR_ELEMENT(41:41)]('XPST0003: Missing query body.')
