@@ -170,6 +170,7 @@ public interface XQueryElementType {
     // region XQuery 3.0
 
     IElementType BRACED_URI_LITERAL = new ICompositeElementType("XQUERY_BRACED_URI_LITERAL", XQueryBracedURILiteralImpl.class, XQueryBracedURILiteralPsiImpl.class);
+    IElementType URI_QUALIFIED_NAME = new ICompositeElementType("XQUERY_URI_QUALIFIED_NAME", XQueryURIQualifiedNameImpl.class, XQueryURIQualifiedNamePsiImpl.class);
 
     IElementType ANNOTATED_DECL = new ICompositeElementType("XQUERY_ANNOTATED_DECL", XQueryAnnotatedDeclImpl.class, XQueryAnnotatedDeclPsiImpl.class);
     IElementType ANNOTATION = new ICompositeElementType("XQUERY_ANNOTATION", XQueryAnnotationImpl.class, XQueryAnnotationPsiImpl.class);

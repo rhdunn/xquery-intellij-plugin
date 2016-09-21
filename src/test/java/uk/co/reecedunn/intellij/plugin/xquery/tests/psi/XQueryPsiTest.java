@@ -535,7 +535,8 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/parser/xquery-3.0/BracedURILiteral.xq");
 
         XQueryOptionDecl optionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryOptionDecl.class);
-        XQueryBracedURILiteral bracedURILiteralPsi = PsiNavigation.findChildrenByClass(optionDeclPsi, XQueryBracedURILiteral.class).get(0);
+        XQueryURIQualifiedName qnamePsi = PsiNavigation.findChildrenByClass(optionDeclPsi, XQueryURIQualifiedName.class).get(0);
+        XQueryBracedURILiteral bracedURILiteralPsi = PsiNavigation.findFirstChildByClass(qnamePsi, XQueryBracedURILiteral.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)bracedURILiteralPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));

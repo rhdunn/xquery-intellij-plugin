@@ -5480,31 +5480,31 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     // endregion
-    // region XQuery 3.0 :: BracedURILiteral
+    // region XQuery 3.0 :: URIQualifiedName + BracedURILiteral
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-BracedURILiteral")
-    public void testBracedURILiteral() {
+    public void testURIQualifiedName() {
         final String expected = loadResource("tests/parser/xquery-3.0/BracedURILiteral.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-3.0/BracedURILiteral.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-BracedURILiteral")
-    public void testBracedURILiteral_MissingLocalName() {
+    public void testURIQualifiedName_MissingLocalName() {
         final String expected = loadResource("tests/parser/xquery-3.0/BracedURILiteral_MissingLocalName.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-3.0/BracedURILiteral_MissingLocalName.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-BracedURILiteral")
-    public void testBracedURILiteral_IncompleteLiteral() {
+    public void testURIQualifiedName_IncompleteLiteral() {
         final String expected = loadResource("tests/parser/xquery-3.0/BracedURILiteral_IncompleteLiteral.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-3.0/BracedURILiteral_IncompleteLiteral.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     // endregion
-    // region XQuery 3.0 :: BracedURILiteral + PredefinedEntityRef
+    // region XQuery 3.0 :: URIQualifiedName + BracedURILiteral + PredefinedEntityRef
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-BracedURILiteral")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PredefinedEntityRef")
@@ -5531,7 +5531,7 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     // endregion
-    // region XQuery 3.0 :: BracedURILiteral + CharRef
+    // region XQuery 3.0 :: URIQualifiedName + BracedURILiteral + CharRef
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-BracedURILiteral")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CharRef")

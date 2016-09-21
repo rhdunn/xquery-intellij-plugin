@@ -3677,7 +3677,7 @@ class XQueryParser {
     }
 
     private boolean parseEQName(IElementType type, boolean excludeReservedFunctionNames) {
-        return parseQName(type, excludeReservedFunctionNames) || parseBracedURILiteral();
+        return parseQName(type, excludeReservedFunctionNames) || parseURIQualifiedName();
     }
 
     private boolean parseQName(IElementType type) {
@@ -3796,9 +3796,6 @@ class XQueryParser {
                 matchTokenType(XQueryTokenType.CHARACTER_REFERENCE)) {
                 //
             } else if (matchTokenType(XQueryTokenType.BRACED_URI_LITERAL_END)) {
-                if (!matchTokenType(XQueryTokenType.NCNAME)) {
-                    error(XQueryBundle.message("parser.error.expected-ncname"));
-                }
                 stringMarker.done(XQueryElementType.BRACED_URI_LITERAL);
                 return true;
             } else if (matchTokenType(XQueryTokenType.PARTIAL_ENTITY_REFERENCE)) {
@@ -3812,6 +3809,19 @@ class XQueryParser {
                 return true;
             }
         }
+        return false;
+    }
+
+    private boolean parseURIQualifiedName() {
+        final PsiBuilder.Marker qnameMarker = mBuilder.mark();
+        if (parseBracedURILiteral()) {
+            if (!matchTokenType(XQueryTokenType.NCNAME)) {
+                error(XQueryBundle.message("parser.error.expected-ncname"));
+            }
+            qnameMarker.done(XQueryElementType.URI_QUALIFIED_NAME);
+            return true;
+        }
+        qnameMarker.drop();
         return false;
     }
 

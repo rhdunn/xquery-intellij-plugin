@@ -6,13 +6,14 @@ FileElement[FILE(0:39)]
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
             LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_OPTION(8:14)]('option')
             PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
-            XQueryBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(15:31)]
-               LeafPsiElement[XQUERY_BRACED_URI_LITERAL_START_TOKEN(15:17)]('Q{')
-               LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(17:20)]('one')
-               PsiErrorElementImpl[ERROR_ELEMENT(20:22)]('XPST0003: Entity references must not be empty.')
-                  LeafPsiElement[XQUERY_EMPTY_ENTITY_REFERENCE_TOKEN(20:22)]('&;')
-               LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(22:25)]('two')
-               LeafPsiElement[XQUERY_BRACED_URI_LITERAL_END_TOKEN(25:26)]('}')
+            XQueryURIQualifiedNameImpl[XQUERY_URI_QUALIFIED_NAME(15:31)]
+               XQueryBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(15:26)]
+                  LeafPsiElement[XQUERY_BRACED_URI_LITERAL_START_TOKEN(15:17)]('Q{')
+                  LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(17:20)]('one')
+                  PsiErrorElementImpl[ERROR_ELEMENT(20:22)]('XPST0003: Entity references must not be empty.')
+                     LeafPsiElement[XQUERY_EMPTY_ENTITY_REFERENCE_TOKEN(20:22)]('&;')
+                  LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(22:25)]('two')
+                  LeafPsiElement[XQUERY_BRACED_URI_LITERAL_END_TOKEN(25:26)]('}')
                LeafPsiElement[XQUERY_NCNAME_TOKEN(26:31)]('three')
             PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
             XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(32:38)]
