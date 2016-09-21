@@ -100,6 +100,12 @@ public class SyntaxHighlighterTest extends TestCase {
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.STRING_LITERAL_END).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.STRING_LITERAL_END)[0], is(SyntaxHighlighter.STRING));
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.BRACED_URI_LITERAL_START).length, is(1));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.BRACED_URI_LITERAL_START)[0], is(SyntaxHighlighter.STRING));
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.BRACED_URI_LITERAL_END).length, is(1));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.BRACED_URI_LITERAL_END)[0], is(SyntaxHighlighter.STRING));
     }
 
     public void testTokenHighlights_EscapedCharacter() {

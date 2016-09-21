@@ -71,10 +71,11 @@ public class XQueryLexer extends LexerBase {
     private static final int STATE_PROCESSING_INSTRUCTION_ELEM_CONTENT = 23;
     private static final int STATE_PROCESSING_INSTRUCTION_CONTENTS_ELEM_CONTENT = 24;
     private static final int STATE_DIR_ATTRIBUTE_LIST = 25;
+    private static final int STATE_BRACED_URI_LITERAL = 26;
 
     private void stateDefault(int mState) {
-        int cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
-        int c;
+        int c = mTokenRange.getCodePoint();
+        int cc = CharacterClass.getCharClass(c);
         switch (cc) {
             case CharacterClass.WHITESPACE:
                 mTokenRange.match();
@@ -142,15 +143,21 @@ public class XQueryLexer extends LexerBase {
             case CharacterClass.NAME_START_CHAR:
                 mTokenRange.match();
                 cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
-                while (cc == CharacterClass.NAME_START_CHAR ||
-                       cc == CharacterClass.DIGIT ||
-                       cc == CharacterClass.DOT ||
-                       cc == CharacterClass.HYPHEN_MINUS ||
-                       cc == CharacterClass.NAME_CHAR) {
+                if (c == 'Q' && cc == CharacterClass.CURLY_BRACE_OPEN) {
                     mTokenRange.match();
-                    cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
+                    mType = XQueryTokenType.BRACED_URI_LITERAL_START;
+                    pushState(STATE_BRACED_URI_LITERAL);
+                } else {
+                    while (cc == CharacterClass.NAME_START_CHAR ||
+                           cc == CharacterClass.DIGIT ||
+                           cc == CharacterClass.DOT ||
+                           cc == CharacterClass.HYPHEN_MINUS ||
+                           cc == CharacterClass.NAME_CHAR) {
+                        mTokenRange.match();
+                        cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
+                    }
+                    mType = sKeywords.getOrDefault(getTokenText(), XQueryTokenType.NCNAME);
                 }
-                mType = sKeywords.getOrDefault(getTokenText(), XQueryTokenType.NCNAME);
                 break;
             case CharacterClass.PARENTHESIS_OPEN:
                 mTokenRange.match();
@@ -412,19 +419,22 @@ public class XQueryLexer extends LexerBase {
         int c = mTokenRange.getCodePoint();
         if (c == type) {
             mTokenRange.match();
-            if (mTokenRange.getCodePoint() == type) {
+            if (mTokenRange.getCodePoint() == type && type != '}') {
                 mTokenRange.match();
                 mType = XQueryTokenType.ESCAPED_CHARACTER;
             } else {
-                mType = XQueryTokenType.STRING_LITERAL_END;
+                mType = type == '}' ? XQueryTokenType.BRACED_URI_LITERAL_END : XQueryTokenType.STRING_LITERAL_END;
                 popState();
             }
         } else if (c == '&') {
             matchEntityReference(type == '"' ? STATE_STRING_LITERAL_QUOTE : STATE_STRING_LITERAL_APOSTROPHE);
+        } else if (c == '{' && type == '}') {
+            mTokenRange.match();
+            mType = XQueryTokenType.BAD_CHARACTER;
         } else if (c == XQueryCodePointRange.END_OF_BUFFER) {
             mType = null;
         } else {
-            while (c != type && c != XQueryCodePointRange.END_OF_BUFFER && c != '&') {
+            while (c != type && c != XQueryCodePointRange.END_OF_BUFFER && c != '&' && !(type == '}' && c == '{')) {
                 mTokenRange.match();
                 c = mTokenRange.getCodePoint();
             }
@@ -1178,6 +1188,9 @@ public class XQueryLexer extends LexerBase {
             case STATE_PROCESSING_INSTRUCTION_CONTENTS:
             case STATE_PROCESSING_INSTRUCTION_CONTENTS_ELEM_CONTENT:
                 stateProcessingInstructionContents();
+                break;
+            case STATE_BRACED_URI_LITERAL:
+                stateStringLiteral('}');
                 break;
             default:
                 throw new AssertionError("Invalid state: " + mState);

@@ -2932,6 +2932,200 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region XQuery 3.0 :: BracedURILiteral
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-BracedURILiteral")
+    public void testBracedURILiteral() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "Q", XQueryTokenType.NCNAME);
+
+        lexer.start("Q{");
+        matchToken(lexer, "Q{",  0, 0, 2, XQueryTokenType.BRACED_URI_LITERAL_START);
+        matchToken(lexer, "",   26, 2, 2, null);
+
+        lexer.start("Q{Hello World}");
+        matchToken(lexer, "Q{",           0,  0,  2, XQueryTokenType.BRACED_URI_LITERAL_START);
+        matchToken(lexer, "Hello World", 26,  2, 13, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "}",           26, 13, 14, XQueryTokenType.BRACED_URI_LITERAL_END);
+        matchToken(lexer, "",             0, 14, 14, null);
+
+        // NOTE: "", '', {{ and }} are used as escaped characters in string and attribute literals.
+        lexer.start("Q{A\"\"B''C{{D}}E}");
+        matchToken(lexer, "Q{",         0,  0,  2, XQueryTokenType.BRACED_URI_LITERAL_START);
+        matchToken(lexer, "A\"\"B''C", 26,  2,  9, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "{",         26,  9, 10, XQueryTokenType.BAD_CHARACTER);
+        matchToken(lexer, "{",         26, 10, 11, XQueryTokenType.BAD_CHARACTER);
+        matchToken(lexer, "D",         26, 11, 12, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "}",         26, 12, 13, XQueryTokenType.BRACED_URI_LITERAL_END);
+        matchToken(lexer, "}",          0, 13, 14, XQueryTokenType.BLOCK_CLOSE);
+        matchToken(lexer, "E",          0, 14, 15, XQueryTokenType.NCNAME);
+        matchToken(lexer, "}",          0, 15, 16, XQueryTokenType.BLOCK_CLOSE);
+        matchToken(lexer, "",           0, 16, 16, null);
+    }
+
+    // endregion
+    // region XQuery 3.0 :: BracedURILiteral + PredefinedEntityRef
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-BracedURILiteral")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PredefinedEntityRef")
+    public void testBracedURILiteral_PredefinedEntityRef() {
+        Lexer lexer = new XQueryLexer();
+
+        // NOTE: The predefined entity reference names are not validated by the lexer, as some
+        // XQuery processors support HTML predefined entities. Shifting the name validation to
+        // the parser allows proper validation errors to be generated.
+
+        lexer.start("Q{One&abc;&aBc;&Abc;&ABC;&a4;&a;Two}");
+        matchToken(lexer, "Q{",     0,  0,  2, XQueryTokenType.BRACED_URI_LITERAL_START);
+        matchToken(lexer, "One",   26,  2,  5, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "&abc;", 26,  5, 10, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE);
+        matchToken(lexer, "&aBc;", 26, 10, 15, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE);
+        matchToken(lexer, "&Abc;", 26, 15, 20, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE);
+        matchToken(lexer, "&ABC;", 26, 20, 25, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE);
+        matchToken(lexer, "&a4;",  26, 25, 29, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE);
+        matchToken(lexer, "&a;",   26, 29, 32, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE);
+        matchToken(lexer, "Two",   26, 32, 35, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "}",     26, 35, 36, XQueryTokenType.BRACED_URI_LITERAL_END);
+        matchToken(lexer, "",       0, 36, 36, null);
+
+        lexer.start("Q{&}");
+        matchToken(lexer, "Q{",  0, 0, 2, XQueryTokenType.BRACED_URI_LITERAL_START);
+        matchToken(lexer, "&",  26, 2, 3, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "}",  26, 3, 4, XQueryTokenType.BRACED_URI_LITERAL_END);
+        matchToken(lexer, "",    0, 4, 4, null);
+
+        lexer.start("Q{&abc!}");
+        matchToken(lexer, "Q{",    0, 0, 2, XQueryTokenType.BRACED_URI_LITERAL_START);
+        matchToken(lexer, "&abc", 26, 2, 6, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "!",    26, 6, 7, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "}",    26, 7, 8, XQueryTokenType.BRACED_URI_LITERAL_END);
+        matchToken(lexer, "",      0, 8, 8, null);
+
+        lexer.start("Q{& }");
+        matchToken(lexer, "Q{",  0, 0, 2, XQueryTokenType.BRACED_URI_LITERAL_START);
+        matchToken(lexer, "&",  26, 2, 3, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, " ",  26, 3, 4, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "}",  26, 4, 5, XQueryTokenType.BRACED_URI_LITERAL_END);
+        matchToken(lexer, "",    0, 5, 5, null);
+
+        lexer.start("Q{&");
+        matchToken(lexer, "Q{",  0, 0, 2, XQueryTokenType.BRACED_URI_LITERAL_START);
+        matchToken(lexer, "&",  26, 2, 3, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "",   26, 3, 3, null);
+
+        lexer.start("Q{&abc");
+        matchToken(lexer, "Q{",    0, 0, 2, XQueryTokenType.BRACED_URI_LITERAL_START);
+        matchToken(lexer, "&abc", 26, 2, 6, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "",     26, 6, 6, null);
+
+        lexer.start("Q{&;}");
+        matchToken(lexer, "Q{",  0, 0, 2, XQueryTokenType.BRACED_URI_LITERAL_START);
+        matchToken(lexer, "&;", 26, 2, 4, XQueryTokenType.EMPTY_ENTITY_REFERENCE);
+        matchToken(lexer, "}",  26, 4, 5, XQueryTokenType.BRACED_URI_LITERAL_END);
+        matchToken(lexer, "",    0, 5, 5, null);
+    }
+
+    // endregion
+    // region XQuery 3.0 :: BracedURILiteral + CharRef
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-BracedURILiteral")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CharRef")
+    @Specification(name="XML 1.0 5ed", reference="https://www.w3.org/TR/2008/REC-xml-20081126/#NT-CharRef")
+    public void testBracedURILiteral_CharRef_Octal() {
+        Lexer lexer = new XQueryLexer();
+
+        lexer.start("Q{One&#20;Two}");
+        matchToken(lexer, "Q{",     0,  0,  2, XQueryTokenType.BRACED_URI_LITERAL_START);
+        matchToken(lexer, "One",   26,  2,  5, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "&#20;", 26,  5, 10, XQueryTokenType.CHARACTER_REFERENCE);
+        matchToken(lexer, "Two",   26, 10, 13, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "}",     26, 13, 14, XQueryTokenType.BRACED_URI_LITERAL_END);
+        matchToken(lexer, "",       0, 14, 14, null);
+
+        lexer.start("Q{&#}");
+        matchToken(lexer, "Q{",  0, 0, 2, XQueryTokenType.BRACED_URI_LITERAL_START);
+        matchToken(lexer, "&#", 26, 2, 4, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "}",  26, 4, 5, XQueryTokenType.BRACED_URI_LITERAL_END);
+        matchToken(lexer, "",    0, 5, 5, null);
+
+        lexer.start("Q{&# }");
+        matchToken(lexer, "Q{",  0, 0, 2, XQueryTokenType.BRACED_URI_LITERAL_START);
+        matchToken(lexer, "&#", 26, 2, 4, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, " ",  26, 4, 5, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "}",  26, 5, 6, XQueryTokenType.BRACED_URI_LITERAL_END);
+        matchToken(lexer, "",    0, 6, 6, null);
+
+        lexer.start("Q{&#");
+        matchToken(lexer, "Q{",  0, 0, 2, XQueryTokenType.BRACED_URI_LITERAL_START);
+        matchToken(lexer, "&#", 26, 2, 4, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "",   26, 4, 4, null);
+
+        lexer.start("Q{&#12");
+        matchToken(lexer, "Q{",    0, 0, 2, XQueryTokenType.BRACED_URI_LITERAL_START);
+        matchToken(lexer, "&#12", 26, 2, 6, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "",     26, 6, 6, null);
+
+        lexer.start("Q{&#;}");
+        matchToken(lexer, "Q{",   0, 0, 2, XQueryTokenType.BRACED_URI_LITERAL_START);
+        matchToken(lexer, "&#;", 26, 2, 5, XQueryTokenType.EMPTY_ENTITY_REFERENCE);
+        matchToken(lexer, "}",   26, 5, 6, XQueryTokenType.BRACED_URI_LITERAL_END);
+        matchToken(lexer, "",     0, 6, 6, null);
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-BracedURILiteral")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CharRef")
+    @Specification(name="XML 1.0 5ed", reference="https://www.w3.org/TR/2008/REC-xml-20081126/#NT-CharRef")
+    public void testBracedURILiteral_CharRef_Hexadecimal() {
+        Lexer lexer = new XQueryLexer();
+
+        lexer.start("Q{One&#x20;&#xae;&#xDC;Two}");
+        matchToken(lexer, "Q{",      0,  0,  2, XQueryTokenType.BRACED_URI_LITERAL_START);
+        matchToken(lexer, "One",    26,  2,  5, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "&#x20;", 26,  5, 11, XQueryTokenType.CHARACTER_REFERENCE);
+        matchToken(lexer, "&#xae;", 26, 11, 17, XQueryTokenType.CHARACTER_REFERENCE);
+        matchToken(lexer, "&#xDC;", 26, 17, 23, XQueryTokenType.CHARACTER_REFERENCE);
+        matchToken(lexer, "Two",    26, 23, 26, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "}",      26, 26, 27, XQueryTokenType.BRACED_URI_LITERAL_END);
+        matchToken(lexer, "",        0, 27, 27, null);
+
+        lexer.start("Q{&#x}");
+        matchToken(lexer, "Q{",   0, 0, 2, XQueryTokenType.BRACED_URI_LITERAL_START);
+        matchToken(lexer, "&#x", 26, 2, 5, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "}",   26, 5, 6, XQueryTokenType.BRACED_URI_LITERAL_END);
+        matchToken(lexer, "",     0, 6, 6, null);
+
+        lexer.start("Q{&#x }");
+        matchToken(lexer, "Q{",   0, 0, 2, XQueryTokenType.BRACED_URI_LITERAL_START);
+        matchToken(lexer, "&#x", 26, 2, 5, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, " ",   26, 5, 6, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "}",   26, 6, 7, XQueryTokenType.BRACED_URI_LITERAL_END);
+        matchToken(lexer, "",     0, 7, 7, null);
+
+        lexer.start("Q{&#x");
+        matchToken(lexer, "Q{",   0, 0, 2, XQueryTokenType.BRACED_URI_LITERAL_START);
+        matchToken(lexer, "&#x", 26, 2, 5, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "",    26, 5, 5, null);
+
+        lexer.start("Q{&#x12");
+        matchToken(lexer, "Q{",     0, 0, 2, XQueryTokenType.BRACED_URI_LITERAL_START);
+        matchToken(lexer, "&#x12", 26, 2, 7, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "",      26, 7, 7, null);
+
+        lexer.start("Q{&#x;&#x2G;&#x2g;&#xg2;}");
+        matchToken(lexer, "Q{",    0,  0,  2, XQueryTokenType.BRACED_URI_LITERAL_START);
+        matchToken(lexer, "&#x;", 26,  2,  6, XQueryTokenType.EMPTY_ENTITY_REFERENCE);
+        matchToken(lexer, "&#x2", 26,  6, 10, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "G;",   26, 10, 12, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "&#x2", 26, 12, 16, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "g;",   26, 16, 18, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "&#x",  26, 18, 21, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "g2;",  26, 21, 24, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "}",    26, 24, 25, XQueryTokenType.BRACED_URI_LITERAL_END);
+        matchToken(lexer, "",      0, 25, 25, null);
+    }
+
+    // endregion
     // region Update Facility 1.0 :: FunctionDecl
 
     @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-FunctionDecl")

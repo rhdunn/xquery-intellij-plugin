@@ -76,7 +76,9 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
                    type == XQueryTokenType.STRING_LITERAL_CONTENTS ||
                    type == XQueryTokenType.PARTIAL_ENTITY_REFERENCE ||
                    type == XQueryTokenType.EMPTY_ENTITY_REFERENCE ||
-                   type == XQueryTokenType.STRING_LITERAL_END) {
+                   type == XQueryTokenType.STRING_LITERAL_END ||
+                   type == XQueryTokenType.BRACED_URI_LITERAL_START ||
+                   type == XQueryTokenType.BRACED_URI_LITERAL_END) {
             return STRING_KEYS;
         } else if (type == XQueryTokenType.ESCAPED_CHARACTER) {
             return ESCAPED_CHARACTER_KEYS;
