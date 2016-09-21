@@ -519,7 +519,7 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
 
         assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires XQuery 3.0 or later."));
+                is("XPST0003: This expression requires XQuery 3.0 or later, or MarkLogic 6.0 or later with XQuery version '1.0-ml'."));
 
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),

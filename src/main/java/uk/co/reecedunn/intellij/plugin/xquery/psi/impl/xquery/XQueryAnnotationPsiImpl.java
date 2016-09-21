@@ -47,6 +47,6 @@ public class XQueryAnnotationPsiImpl extends ASTWrapperPsiElement implements XQu
 
     @Override
     public String getConformanceErrorMessage() {
-        return XQueryBundle.message("requires.feature.minimal-conformance.version", XQueryVersion.VERSION_3_0);
+        return XQueryBundle.message("requires.feature.marklogic-xquery.version");
     }
 }
