@@ -3585,7 +3585,7 @@ class XQueryParser {
 
     private boolean parseElementNameOrWildcard() {
         final PsiBuilder.Marker elementNameOrWildcardMarker = mBuilder.mark();
-        if (matchTokenType(XQueryTokenType.STAR) || parseQName(XQueryElementType.ELEMENT_NAME)) {
+        if (matchTokenType(XQueryTokenType.STAR) || parseEQName(XQueryElementType.ELEMENT_NAME)) {
             elementNameOrWildcardMarker.done(XQueryElementType.ELEMENT_NAME_OR_WILDCARD);
             return true;
         }
