@@ -30,7 +30,7 @@ FileElement[FILE(0:61)]
                            PsiWhiteSpaceImpl[WHITE_SPACE(46:47)](' ')
                            LeafPsiElement[XQUERY_COMMA_TOKEN(47:48)](',')
                            PsiWhiteSpaceImpl[WHITE_SPACE(48:49)](' ')
-                           PsiErrorElementImpl[ERROR_ELEMENT(49:49)]('XPST0003: Missing qualified name.')
+                           PsiErrorElementImpl[ERROR_ELEMENT(49:49)]('XPST0003: Missing qualified name or braced URI qualified name.')
                            LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(49:50)](')')
                      PsiWhiteSpaceImpl[WHITE_SPACE(50:51)](' ')
                LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(51:59)]('external')

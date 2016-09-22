@@ -3558,8 +3558,8 @@ class XQueryParser {
                 skipWhiteSpaceAndCommentTokens();
                 if (matchTokenType(XQueryTokenType.COMMA)) {
                     skipWhiteSpaceAndCommentTokens();
-                    if (!parseQName(XQueryElementType.TYPE_NAME)) {
-                        error(XQueryBundle.message("parser.error.expected-qname"));
+                    if (!parseEQName(XQueryElementType.TYPE_NAME)) {
+                        error(XQueryBundle.message("parser.error.expected-eqname"));
                         haveErrors = true;
                     }
 
