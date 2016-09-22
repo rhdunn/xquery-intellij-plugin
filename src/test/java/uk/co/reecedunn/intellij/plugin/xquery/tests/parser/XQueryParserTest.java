@@ -5498,6 +5498,16 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region XQuery 1.0 :: SingleType
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-SingleType")
+    public void testSingleType_EQName() {
+        final String expected = loadResource("tests/parser/xquery-3.0/SingleType_EQName.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/SingleType_EQName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region XQuery 3.0 :: AttributeTest + AttribNameOrWildcard + AttributeName
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AttributeTest")
@@ -5510,7 +5520,7 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     // endregion
-    // region XQuery 1.0 :: AttributeTest + TypeName
+    // region XQuery 3.0 :: AttributeTest + TypeName
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AttributeTest")
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-TypeName")
@@ -5533,7 +5543,7 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     // endregion
-    // region XQuery 1.0 :: ElementTest + TypeName
+    // region XQuery 3.0 :: ElementTest + TypeName
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ElementTest")
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-TypeName")
