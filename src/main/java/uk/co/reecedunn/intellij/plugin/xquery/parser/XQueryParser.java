@@ -2273,7 +2273,7 @@ class XQueryParser {
                 haveValidationMode = true;
 
                 skipWhiteSpaceAndCommentTokens();
-                if (!parseQName(XQueryElementType.TYPE_NAME)) {
+                if (!parseEQName(XQueryElementType.TYPE_NAME)) {
                     error(XQueryBundle.message("parser.error.expected", "TypeName"));
                     haveErrors = true;
                 }

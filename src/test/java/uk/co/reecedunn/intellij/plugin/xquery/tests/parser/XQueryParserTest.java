@@ -5457,7 +5457,7 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     // endregion
-    // region XQuery 1.0 :: OptionDecl
+    // region XQuery 3.0 :: OptionDecl
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-OptionDecl")
     public void testOptionDecl_EQName() {
@@ -5497,8 +5497,15 @@ public class XQueryParserTest extends ParserTestCase {
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-ValidateExpr")
+    public void testValidateExpr_Type_EQName() {
+        final String expected = loadResource("tests/parser/xquery-3.0/ValidateExpr_Type_EQName.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/ValidateExpr_Type_EQName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
     // endregion
-    // region XQuery 1.0 :: SingleType
+    // region XQuery 3.0 :: SingleType
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-SingleType")
     public void testSingleType_EQName() {

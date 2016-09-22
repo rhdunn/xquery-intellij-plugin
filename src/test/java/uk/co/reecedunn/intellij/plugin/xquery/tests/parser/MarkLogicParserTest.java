@@ -74,6 +74,12 @@ public class MarkLogicParserTest extends ParserTestCase {
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
+    public void testValidateExpr_ValidateAs_EQName() {
+        final String expected = loadResource("tests/parser/marklogic/ValidateExpr_ValidateAs_EQName.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic/ValidateExpr_ValidateAs_EQName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
     // endregion
     // region MarkLogic 6.0 :: ForwardAxis
 
