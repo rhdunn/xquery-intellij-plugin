@@ -5498,6 +5498,18 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region XQuery 3.0 :: AttributeTest + AttribNameOrWildcard + AttributeName
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AttributeTest")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AttribNameOrWildcard")
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-AttributeName")
+    public void testAttributeTest_EQName() {
+        final String expected = loadResource("tests/parser/xquery-3.0/AttributeTest_EQName.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/AttributeTest_EQName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region XQuery 3.0 :: URIQualifiedName + BracedURILiteral
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-BracedURILiteral")
