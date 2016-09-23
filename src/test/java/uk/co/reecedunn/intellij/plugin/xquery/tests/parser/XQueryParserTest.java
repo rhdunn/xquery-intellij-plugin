@@ -5630,6 +5630,16 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region XQuery 3.0 :: CompElemConstructor + ContentExpr
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-CompElemConstructor")
+    public void testCompElemConstructor_EQName() {
+        final String expected = loadResource("tests/parser/xquery-3.0/CompElemConstructor_EQName.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/CompElemConstructor_EQName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region XQuery 3.0 :: SingleType
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-SingleType")
