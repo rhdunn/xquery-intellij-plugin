@@ -2554,7 +2554,7 @@ class XQueryParser {
 
     private boolean parseNameTest() {
         final PsiBuilder.Marker nameTestMarker = mark();
-        if (parseQName(XQueryElementType.WILDCARD)) { // QName | Wildcard
+        if (parseEQName(XQueryElementType.WILDCARD)) { // QName | Wildcard
             nameTestMarker.done(XQueryElementType.NAME_TEST);
             return true;
         }

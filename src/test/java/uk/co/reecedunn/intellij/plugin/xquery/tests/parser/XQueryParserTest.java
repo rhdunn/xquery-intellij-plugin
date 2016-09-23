@@ -3057,7 +3057,7 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     // endregion
-    // region XQuery 1.0 :: ForwardStep
+    // region XQuery 1.0 :: ReverseStep
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ReverseStep")
     public void testReverseStep_KindTest() {
@@ -5477,16 +5477,6 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     // endregion
-    // region XQuery 3.0 :: Pragma
-
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-Pragma")
-    public void testPragma_EQName() {
-        final String expected = loadResource("tests/parser/xquery-3.0/Pragma_EQName.txt");
-        final ASTNode actual = parseResource("tests/parser/xquery-3.0/Pragma_EQName.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    // endregion
     // region XQuery 3.0 :: OptionDecl
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-OptionDecl")
@@ -5595,6 +5585,26 @@ public class XQueryParserTest extends ParserTestCase {
     public void testValidateExpr_Type_EQName() {
         final String expected = loadResource("tests/parser/xquery-3.0/ValidateExpr_Type_EQName.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-3.0/ValidateExpr_Type_EQName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
+    // region XQuery 3.0 :: Pragma
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-Pragma")
+    public void testPragma_EQName() {
+        final String expected = loadResource("tests/parser/xquery-3.0/Pragma_EQName.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/Pragma_EQName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
+    // region XQuery 3.0 :: ForwardStep
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-ForwardStep")
+    public void testForwardStep_EQName() {
+        final String expected = loadResource("tests/parser/xquery-3.0/ForwardStep_EQName.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/ForwardStep_EQName.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
