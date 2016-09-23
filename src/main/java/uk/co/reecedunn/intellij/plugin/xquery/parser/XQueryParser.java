@@ -1222,8 +1222,8 @@ class XQueryParser {
             }
 
             skipWhiteSpaceAndCommentTokens();
-            if (!parseQName(XQueryElementType.VAR_NAME) && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected-qname"));
+            if (!parseEQName(XQueryElementType.VAR_NAME) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-eqname"));
             }
 
             positionalVarMarker.done(XQueryElementType.POSITIONAL_VAR);
