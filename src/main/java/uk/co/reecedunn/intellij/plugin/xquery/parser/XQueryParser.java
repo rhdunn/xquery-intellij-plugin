@@ -3676,7 +3676,7 @@ class XQueryParser {
         }
 
         final PsiBuilder.Marker eqnameMarker = mBuilder.mark();
-        if (parseURIQualifiedName()) {
+        if (parseURIQualifiedName(type)) {
             if (type == XQueryElementType.QNAME) {
                 eqnameMarker.drop();
             } else {
@@ -3820,11 +3820,17 @@ class XQueryParser {
         return false;
     }
 
-    private boolean parseURIQualifiedName() {
+    private boolean parseURIQualifiedName(IElementType type) {
         final PsiBuilder.Marker qnameMarker = mBuilder.mark();
         if (parseBracedURILiteral()) {
             if (!matchTokenType(XQueryTokenType.NCNAME)) {
-                error(XQueryBundle.message("parser.error.expected-ncname"));
+                if (matchTokenType(XQueryTokenType.STAR)) {
+                    if (type != XQueryElementType.WILDCARD) {
+                        error(XQueryBundle.message("parser.error.eqname.wildcard-local-name"));
+                    }
+                } else {
+                    error(XQueryBundle.message("parser.error.expected-ncname"));
+                }
             }
             qnameMarker.done(XQueryElementType.URI_QUALIFIED_NAME);
             return true;
