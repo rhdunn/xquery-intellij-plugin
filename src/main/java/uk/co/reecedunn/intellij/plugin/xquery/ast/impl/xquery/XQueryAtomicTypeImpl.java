@@ -15,10 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.impl.xquery;
 
+import com.intellij.psi.impl.source.tree.CompositeElement;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 
-public class XQueryAtomicTypeImpl extends XQueryQNameImpl {
+public class XQueryAtomicTypeImpl extends CompositeElement {
     public XQueryAtomicTypeImpl(@NotNull IElementType type) {
         super(type);
     }

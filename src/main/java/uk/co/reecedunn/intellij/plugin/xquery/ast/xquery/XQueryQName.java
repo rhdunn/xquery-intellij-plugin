@@ -17,10 +17,6 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
 /**
  * An XQuery 1.0 <code>QName</code> node in the XQuery AST.
- *
- * When the <code>QName</code> node is specialised (such as with
- * <code>VarName</code>), the <code>QName</code> node is not stored directly
- * in the AST. Instead, it is exposed as an instance of that specialised node.
  */
 public interface XQueryQName extends XQueryEQName {
 }

@@ -23,5 +23,5 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
  * not stored directly in the AST. Instead, it is exposed as an instance of
  * that specialised node.
  */
-public interface XQueryElementName extends XQueryQName {
+public interface XQueryElementName extends XQueryEQName {
 }

@@ -19,6 +19,13 @@ import com.intellij.psi.PsiElement;
 
 /**
  * An XQuery 3.0 <code>EQName</code> node in the XQuery AST.
+ *
+ * When the <code>EQName</code> node is specialised (such as with
+ * <code>VarName</code>), the <code>EQName</code> node is not stored directly
+ * in the AST. Instead, it is exposed as an instance of that specialised node.
+ *
+ * This may be an instance of an <code>NCName</code>, <code>QName</code> or
+ * <code>URIQualifiedName</code>.
  */
 public interface XQueryEQName extends PsiElement {
 }
