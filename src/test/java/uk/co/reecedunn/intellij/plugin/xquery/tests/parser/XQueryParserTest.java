@@ -4457,6 +4457,7 @@ public class XQueryParserTest extends ParserTestCase {
     // region XQuery 1.0 :: TypeDeclaration + AtomicType
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-TypeDeclaration")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AtomicType")
     public void testTypeDeclaration() {
         final String expected = loadResource("tests/parser/xquery-1.0/TypeDeclaration.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/TypeDeclaration.xq");
@@ -4464,6 +4465,7 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-TypeDeclaration")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AtomicType")
     public void testTypeDeclaration_CompactWhitespace() {
         final String expected = loadResource("tests/parser/xquery-1.0/TypeDeclaration_CompactWhitespace.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/TypeDeclaration_CompactWhitespace.xq");
@@ -4471,6 +4473,7 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-TypeDeclaration")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AtomicType")
     public void testTypeDeclaration_MissingSequenceType() {
         final String expected = loadResource("tests/parser/xquery-1.0/TypeDeclaration_MissingSequenceType.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/TypeDeclaration_MissingSequenceType.xq");
@@ -5656,6 +5659,17 @@ public class XQueryParserTest extends ParserTestCase {
     public void testSingleType_EQName() {
         final String expected = loadResource("tests/parser/xquery-3.0/SingleType_EQName.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-3.0/SingleType_EQName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
+    // region XQuery 3.0 :: TypeDeclaration + AtomicOrUnionType
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-TypeDeclaration")
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-AtomicOrUnionType")
+    public void testTypeDeclaration_EQName() {
+        final String expected = loadResource("tests/parser/xquery-3.0/TypeDeclaration_EQName.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/TypeDeclaration_EQName.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 

@@ -3330,7 +3330,7 @@ class XQueryParser {
 
             itemTypeMarker.done(XQueryElementType.ITEM_TYPE);
             return true;
-        } else if (parseKindTest() || parseQName(XQueryElementType.ATOMIC_OR_UNION_TYPE)) {
+        } else if (parseKindTest() || parseEQName(XQueryElementType.ATOMIC_OR_UNION_TYPE)) {
             itemTypeMarker.done(XQueryElementType.ITEM_TYPE);
             return true;
         }

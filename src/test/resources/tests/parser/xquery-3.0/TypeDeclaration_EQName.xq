@@ -1,0 +1,1 @@
+declare variable $ one as Q{http://www.example.com/test#}name external ;
