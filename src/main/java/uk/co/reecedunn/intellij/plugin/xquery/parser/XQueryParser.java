@@ -2242,7 +2242,7 @@ class XQueryParser {
 
     private boolean parseSingleType() {
         final PsiBuilder.Marker singleTypeMarker = mark();
-        if (parseEQName(XQueryElementType.ATOMIC_TYPE)) {
+        if (parseEQName(XQueryElementType.SIMPLE_TYPE_NAME)) {
             skipWhiteSpaceAndCommentTokens();
             matchTokenType(XQueryTokenType.OPTIONAL);
 

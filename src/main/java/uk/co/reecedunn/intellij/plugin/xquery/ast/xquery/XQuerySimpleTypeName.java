@@ -16,11 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
 /**
- * An XQuery 1.0 <code>AtomicType</code> node in the XQuery AST.
- *
- * This is not used directly. It was split into <code>SimpleTypeName</code> and
- * <code>AtomicOrUnionType</code> grammar constructs in XQuery 3.0, so those
- * are used instead.
+ * An XQuery 3.0 <code>SimpleTypeName</code> node in the XQuery AST.
  */
-public interface XQueryAtomicType extends XQueryEQName {
+public interface XQuerySimpleTypeName extends XQueryTypeName {
 }

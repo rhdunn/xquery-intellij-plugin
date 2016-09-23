@@ -25,7 +25,7 @@ FileElement[FILE(0:21)]
                                           PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
                                           PsiErrorElementImpl[ERROR_ELEMENT(12:12)]('XPST0003: Expected keyword: as.')
                                           XQuerySingleTypeImpl[XQUERY_SINGLE_TYPE(12:21)]
-                                             XQueryAtomicTypeImpl[XQUERY_ATOMIC_TYPE(12:21)]
+                                             XQuerySimpleTypeNameImpl[XQUERY_SIMPLE_TYPE_NAME(12:21)]
                                                 LeafPsiElement[XQUERY_NCNAME_TOKEN(12:14)]('xs')
                                                 LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(14:15)](':')
                                                 LeafPsiElement[XQUERY_NCNAME_TOKEN(15:21)]('double')

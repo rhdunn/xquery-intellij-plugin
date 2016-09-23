@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
+package uk.co.reecedunn.intellij.plugin.xquery.ast.impl.xquery;
 
-/**
- * An XQuery 1.0 <code>AtomicType</code> node in the XQuery AST.
- *
- * This is not used directly. It was split into <code>SimpleTypeName</code> and
- * <code>AtomicOrUnionType</code> grammar constructs in XQuery 3.0, so those
- * are used instead.
- */
-public interface XQueryAtomicType extends XQueryEQName {
+import com.intellij.psi.impl.source.tree.CompositeElement;
+import com.intellij.psi.tree.IElementType;
+import org.jetbrains.annotations.NotNull;
+
+public class XQuerySimpleTypeNameImpl extends CompositeElement {
+    public XQuerySimpleTypeNameImpl(@NotNull IElementType type) {
+        super(type);
+    }
 }
