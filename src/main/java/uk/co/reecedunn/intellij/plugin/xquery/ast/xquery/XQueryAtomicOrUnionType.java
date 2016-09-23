@@ -13,14 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
+package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
-import com.intellij.lang.ASTNode;
-import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAtomicType;
-
-public class XQueryAtomicTypePsiImpl extends XQueryQNamePsiImpl implements XQueryAtomicType {
-    public XQueryAtomicTypePsiImpl(@NotNull ASTNode node) {
-        super(node);
-    }
+/**
+ * An XQuery 3.0 <code>AtomicOrUnionType</code> node in the XQuery AST.
+ */
+public interface XQueryAtomicOrUnionType extends XQueryEQName {
 }

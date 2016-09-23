@@ -19,8 +19,8 @@ import com.intellij.psi.impl.source.tree.CompositeElement;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 
-public class XQueryAtomicTypeImpl extends CompositeElement {
-    public XQueryAtomicTypeImpl(@NotNull IElementType type) {
+public class XQueryAtomicOrUnionTypeImpl extends CompositeElement {
+    public XQueryAtomicOrUnionTypeImpl(@NotNull IElementType type) {
         super(type);
     }
 }

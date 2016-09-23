@@ -66,7 +66,7 @@ public interface XQueryElementType {
     IElementType EXTENSION_EXPR = new ICompositeElementType("XQUERY_EXTENSION_EXPR", XQueryExtensionExprImpl.class, XQueryExtensionExprPsiImpl.class);
     IElementType VALIDATE_EXPR = new ICompositeElementType("XQUERY_VALIDATE_EXPR", XQueryValidateExprImpl.class, XQueryValidateExprPsiImpl.class);
 
-    IElementType SINGLE_TYPE = new ICompositeElementType("XQUERY_SINGLE_TYPE", XQuerySingleTypeImpl.class, XQueryAtomicTypePsiImpl.class);
+    IElementType SINGLE_TYPE = new ICompositeElementType("XQUERY_SINGLE_TYPE", XQuerySingleTypeImpl.class, XQueryAtomicOrUnionTypePsiImpl.class);
     IElementType UNARY_EXPR = new ICompositeElementType("XQUERY_UNARY_EXPR", XQueryUnaryExprImpl.class, XQueryUnaryExprPsiImpl.class);
     IElementType CAST_EXPR = new ICompositeElementType("XQUERY_CAST_EXPR", XQueryCastExprImpl.class, XQueryCastExprPsiImpl.class);
     IElementType CASTABLE_EXPR = new ICompositeElementType("XQUERY_CASTABLE_EXPR", XQueryCastableExprImpl.class, XQueryCastableExprPsiImpl.class);
@@ -124,7 +124,6 @@ public interface XQueryElementType {
     IElementType COMMENT_TEST = new ICompositeElementType("XQUERY_COMMENT_TEST", XQueryCommentTestImpl.class, XQueryCommentTestPsiImpl.class);
     IElementType TEXT_TEST = new ICompositeElementType("XQUERY_TEXT_TEST", XQueryTextTestImpl.class, XQueryTextTestPsiImpl.class);
     IElementType ANY_KIND_TEST = new ICompositeElementType("XQUERY_ANY_KIND_TEST", XQueryAnyKindTestImpl.class, XQueryAnyKindTestPsiImpl.class);
-    IElementType ATOMIC_TYPE = new ICompositeElementType("XQUERY_ATOMIC_TYPE", XQueryAtomicTypeImpl.class, XQueryAtomicTypePsiImpl.class);
     IElementType ITEM_TYPE = new ICompositeElementType("XQUERY_ITEM_TYPE", XQueryItemTypeImpl.class, XQueryItemTypePsiImpl.class);
     IElementType OCCURRENCE_INDICATOR = new ICompositeElementType("XQUERY_OCCURRENCE_INDICATOR", XQueryOccurrenceIndicatorImpl.class, XQueryOccurrenceIndicatorPsiImpl.class);
     IElementType TYPE_DECLARATION = new ICompositeElementType("XQUERY_TYPE_DECLARATION", XQueryTypeDeclarationImpl.class, XQueryTypeDeclarationPsiImpl.class);
@@ -172,6 +171,7 @@ public interface XQueryElementType {
     IElementType BRACED_URI_LITERAL = new ICompositeElementType("XQUERY_BRACED_URI_LITERAL", XQueryBracedURILiteralImpl.class, XQueryBracedURILiteralPsiImpl.class);
     IElementType URI_QUALIFIED_NAME = new ICompositeElementType("XQUERY_URI_QUALIFIED_NAME", XQueryURIQualifiedNameImpl.class, XQueryURIQualifiedNamePsiImpl.class);
 
+    IElementType ATOMIC_OR_UNION_TYPE = new ICompositeElementType("XQUERY_ATOMIC_OR_UNION_TYPE", XQueryAtomicOrUnionTypeImpl.class, XQueryAtomicOrUnionTypePsiImpl.class);
     IElementType SIMPLE_TYPE_NAME = new ICompositeElementType("XQUERY_SIMPLE_TYPE_NAME", XQuerySimpleTypeNameImpl.class, XQuerySimpleTypeNamePsiImpl.class);
 
     IElementType ANNOTATED_DECL = new ICompositeElementType("XQUERY_ANNOTATED_DECL", XQueryAnnotatedDeclImpl.class, XQueryAnnotatedDeclPsiImpl.class);

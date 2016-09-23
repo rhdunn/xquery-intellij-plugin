@@ -20,7 +20,7 @@ FileElement[FILE(0:53)]
                PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
                XQuerySequenceTypeImpl[XQUERY_SEQUENCE_TYPE(32:43)]
                   XQueryItemTypeImpl[XQUERY_ITEM_TYPE(32:42)]
-                     XQueryAtomicTypeImpl[XQUERY_ATOMIC_TYPE(32:42)]
+                     XQueryAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(32:42)]
                         LeafPsiElement[XQUERY_NCNAME_TOKEN(32:34)]('xs')
                         LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(34:35)](':')
                         LeafPsiElement[XQUERY_NCNAME_TOKEN(35:42)]('boolean')
