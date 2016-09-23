@@ -26,9 +26,10 @@ FileElement[FILE(0:46)]
                                              LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_AS(8:10)]('as')
                                              PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
                                              XQuerySingleTypeImpl[XQUERY_SINGLE_TYPE(11:46)]
-                                                XQueryURIQualifiedNameImpl[XQUERY_URI_QUALIFIED_NAME(11:46)]
-                                                   XQueryBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(11:42)]
-                                                      LeafPsiElement[XQUERY_BRACED_URI_LITERAL_START_TOKEN(11:13)]('Q{')
-                                                      LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(13:41)]('http://www.example.com/test#')
-                                                      LeafPsiElement[XQUERY_BRACED_URI_LITERAL_END_TOKEN(41:42)]('}')
-                                                   LeafPsiElement[XQUERY_NCNAME_TOKEN(42:46)]('name')
+                                                XQueryAtomicTypeImpl[XQUERY_ATOMIC_TYPE(11:46)]
+                                                   XQueryURIQualifiedNameImpl[XQUERY_URI_QUALIFIED_NAME(11:46)]
+                                                      XQueryBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(11:42)]
+                                                         LeafPsiElement[XQUERY_BRACED_URI_LITERAL_START_TOKEN(11:13)]('Q{')
+                                                         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(13:41)]('http://www.example.com/test#')
+                                                         LeafPsiElement[XQUERY_BRACED_URI_LITERAL_END_TOKEN(41:42)]('}')
+                                                      LeafPsiElement[XQUERY_NCNAME_TOKEN(42:46)]('name')

@@ -3677,7 +3677,21 @@ class XQueryParser {
     }
 
     private boolean parseEQName(IElementType type, boolean excludeReservedFunctionNames) {
-        return parseQName(type, excludeReservedFunctionNames) || parseURIQualifiedName();
+        if (parseQName(type, excludeReservedFunctionNames)) {
+            return true;
+        }
+
+        final PsiBuilder.Marker eqnameMarker = mBuilder.mark();
+        if (parseURIQualifiedName()) {
+            if (type == XQueryElementType.QNAME) {
+                eqnameMarker.drop();
+            } else {
+                eqnameMarker.done(type);
+            }
+            return true;
+        }
+        eqnameMarker.drop();
+        return false;
     }
 
     private boolean parseQName(IElementType type) {
