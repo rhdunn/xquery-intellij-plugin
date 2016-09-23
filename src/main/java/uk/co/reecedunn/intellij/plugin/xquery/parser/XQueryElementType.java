@@ -66,7 +66,7 @@ public interface XQueryElementType {
     IElementType EXTENSION_EXPR = new ICompositeElementType("XQUERY_EXTENSION_EXPR", XQueryExtensionExprImpl.class, XQueryExtensionExprPsiImpl.class);
     IElementType VALIDATE_EXPR = new ICompositeElementType("XQUERY_VALIDATE_EXPR", XQueryValidateExprImpl.class, XQueryValidateExprPsiImpl.class);
 
-    IElementType SINGLE_TYPE = new ICompositeElementType("XQUERY_SINGLE_TYPE", XQuerySingleTypeImpl.class, XQueryAtomicOrUnionTypePsiImpl.class);
+    IElementType SINGLE_TYPE = new ICompositeElementType("XQUERY_SINGLE_TYPE", XQuerySingleTypeImpl.class, XQuerySingleTypePsiImpl.class);
     IElementType UNARY_EXPR = new ICompositeElementType("XQUERY_UNARY_EXPR", XQueryUnaryExprImpl.class, XQueryUnaryExprPsiImpl.class);
     IElementType CAST_EXPR = new ICompositeElementType("XQUERY_CAST_EXPR", XQueryCastExprImpl.class, XQueryCastExprPsiImpl.class);
     IElementType CASTABLE_EXPR = new ICompositeElementType("XQUERY_CASTABLE_EXPR", XQueryCastableExprImpl.class, XQueryCastableExprPsiImpl.class);
