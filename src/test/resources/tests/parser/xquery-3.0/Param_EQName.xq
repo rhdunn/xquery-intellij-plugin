@@ -1,0 +1,1 @@
+declare function test ( $ Q{http://www.example.com/test#}name ) external ;

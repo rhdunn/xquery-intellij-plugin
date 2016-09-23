@@ -1020,8 +1020,8 @@ class XQueryParser {
         final PsiBuilder.Marker paramMarker = mBuilder.mark();
         if (matchTokenType(XQueryTokenType.VARIABLE_INDICATOR)) {
             skipWhiteSpaceAndCommentTokens();
-            if (!parseQName(XQueryElementType.QNAME)) {
-                error(XQueryBundle.message("parser.error.expected-qname"));
+            if (!parseEQName(XQueryElementType.QNAME)) {
+                error(XQueryBundle.message("parser.error.expected-eqname"));
             }
 
             skipWhiteSpaceAndCommentTokens();
@@ -1031,7 +1031,7 @@ class XQueryParser {
             return true;
         } else if (getTokenType() == XQueryTokenType.NCNAME || getTokenType() instanceof IXQueryKeywordOrNCNameType || getTokenType() == XQueryTokenType.QNAME_SEPARATOR) {
             error(XQueryBundle.message("parser.error.expected", "$"));
-            parseQName(XQueryElementType.QNAME);
+            parseEQName(XQueryElementType.QNAME);
 
             skipWhiteSpaceAndCommentTokens();
             parseTypeDeclaration();
