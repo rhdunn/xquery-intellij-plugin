@@ -2743,7 +2743,7 @@ class XQueryParser {
 
     private boolean parseFunctionCall() {
         final PsiBuilder.Marker functionCallMarker = mBuilder.mark();
-        if (parseQName(XQueryElementType.QNAME, true)) {
+        if (parseEQName(XQueryElementType.QNAME, true)) {
             boolean haveErrors = false;
 
             skipWhiteSpaceAndCommentTokens();

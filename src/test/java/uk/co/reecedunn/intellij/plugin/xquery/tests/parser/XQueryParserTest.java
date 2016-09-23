@@ -5620,6 +5620,16 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region XQuery 3.0 :: FunctionCall
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-FunctionCall")
+    public void testFunctionCall_EQName() {
+        final String expected = loadResource("tests/parser/xquery-3.0/FunctionCall_EQName.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/FunctionCall_EQName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region XQuery 3.0 :: SingleType
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-SingleType")
