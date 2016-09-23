@@ -399,6 +399,14 @@ public class UpdateFacilityParserTest extends ParserTestCase {
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
+    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-TransformExpr")
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-VarName")
+    public void testTransformExpr_EQName() {
+        final String expected = loadResource("tests/parser/xquery-update-1.0/TransformExpr_EQName.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-update-1.0/TransformExpr_EQName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
     // endregion
     // region Update Facility 3.0 :: CompatibilityAnnotation
 
