@@ -3121,7 +3121,7 @@ class XQueryParser {
             boolean haveErrors = false;
 
             skipWhiteSpaceAndCommentTokens();
-            if (!parseQName(XQueryElementType.QNAME)) {
+            if (!parseEQName(XQueryElementType.QNAME)) {
                 if (!matchTokenType(XQueryTokenType.BLOCK_OPEN)) {
                     attributeMarker.rollbackTo();
                     return false;
