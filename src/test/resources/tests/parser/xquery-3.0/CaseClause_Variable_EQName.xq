@@ -1,0 +1,1 @@
+typeswitch ( $ x ) case $ Q{http://www.example.com/test#}name as item ( ) return 1 default return 2

@@ -36,4 +36,4 @@ FileElement[FILE(0:25)]
                LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_CASE(19:23)]('case')
                PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
                LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(24:25)]('$')
-               PsiErrorElementImpl[ERROR_ELEMENT(25:25)]('XPST0003: Missing qualified name.')
+               PsiErrorElementImpl[ERROR_ELEMENT(25:25)]('XPST0003: Missing qualified name or braced URI qualified name.')
