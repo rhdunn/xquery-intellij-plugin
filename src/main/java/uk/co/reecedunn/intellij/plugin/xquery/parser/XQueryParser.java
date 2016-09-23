@@ -947,8 +947,8 @@ class XQueryParser {
             }
 
             skipWhiteSpaceAndCommentTokens();
-            if (!parseQName(XQueryElementType.QNAME) && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected-qname"));
+            if (!parseEQName(XQueryElementType.QNAME) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-eqname"));
                 haveErrors = true;
             }
 
