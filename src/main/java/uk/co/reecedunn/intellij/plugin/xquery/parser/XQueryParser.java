@@ -1512,8 +1512,8 @@ class XQueryParser {
             skipWhiteSpaceAndCommentTokens();
             if (matchTokenType(XQueryTokenType.VARIABLE_INDICATOR)) {
                 skipWhiteSpaceAndCommentTokens();
-                if (!parseQName(XQueryElementType.VAR_NAME) && !haveErrors) {
-                    error(XQueryBundle.message("parser.error.expected-qname"));
+                if (!parseEQName(XQueryElementType.VAR_NAME) && !haveErrors) {
+                    error(XQueryBundle.message("parser.error.expected-eqname"));
                     haveErrors = true;
                 }
             }
