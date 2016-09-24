@@ -145,12 +145,14 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_COPY = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_COPY"); // Update Facility 1.0
     IXQueryKeywordOrNCNameType K_COPY_NAMESPACES = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_COPY_NAMESPACES");
     IXQueryKeywordOrNCNameType K_DECIMAL_FORMAT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DECIMAL_FORMAT"); // XQuery 3.0
+    IXQueryKeywordOrNCNameType K_DECIMAL_SEPARATOR = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DECIMAL_SEPARATOR"); // XQuery 3.0
     IXQueryKeywordOrNCNameType K_DECLARE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DECLARE");
     IXQueryKeywordOrNCNameType K_DEFAULT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DEFAULT");
     IXQueryKeywordOrNCNameType K_DELETE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DELETE"); // Update Facility 1.0
     IXQueryKeywordOrNCNameType K_DESCENDANT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DESCENDANT");
     IXQueryKeywordOrNCNameType K_DESCENDANT_OR_SELF = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DESCENDANT_OR_SELF");
     IXQueryKeywordOrNCNameType K_DESCENDING = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DESCENDING");
+    IXQueryKeywordOrNCNameType K_DIGIT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DIGIT"); // XQuery 3.0
     IXQueryKeywordOrNCNameType K_DIV = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DIV");
     IXQueryKeywordOrNCNameType K_DOCUMENT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DOCUMENT");
     IXQueryReservedFunctionNameOrNCNameType K_DOCUMENT_NODE = new IXQueryReservedFunctionNameOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DOCUMENT_NODE");
@@ -170,11 +172,13 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_FUNCTION = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_FUNCTION");
     IXQueryKeywordOrNCNameType K_GE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_GE");
     IXQueryKeywordOrNCNameType K_GREATEST = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_GREATEST");
+    IXQueryKeywordOrNCNameType K_GROUPING_SEPARATOR = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_GROUPING_SEPARATOR"); // XQuery 3.0
     IXQueryKeywordOrNCNameType K_GT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_GT");
     IXQueryKeywordOrNCNameType K_IDIV = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_IDIV");
     IXQueryReservedFunctionNameOrNCNameType K_IF = new IXQueryReservedFunctionNameOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_IF");
     IXQueryKeywordOrNCNameType K_IMPORT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_IMPORT");
     IXQueryKeywordOrNCNameType K_IN = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_IN");
+    IXQueryKeywordOrNCNameType K_INFINITY = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_INFINITY"); // XQuery 3.0
     IXQueryKeywordOrNCNameType K_INHERIT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_INHERIT");
     IXQueryKeywordOrNCNameType K_INSERT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_INSERT"); // Update Facility 1.0
     IXQueryKeywordOrNCNameType K_INSTANCE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_INSTANCE");
@@ -188,10 +192,12 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_LEAST = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_LEAST");
     IXQueryKeywordOrNCNameType K_LET = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_LET");
     IXQueryKeywordOrNCNameType K_LT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_LT");
+    IXQueryKeywordOrNCNameType K_MINUS_SIGN = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_MINUS_SIGN"); // XQuery 3.0
     IXQueryKeywordOrNCNameType K_MOD = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_MOD");
     IXQueryKeywordOrNCNameType K_MODIFY = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_MODIFY"); // Update Facility 1.0
     IXQueryKeywordOrNCNameType K_MODULE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_MODULE");
     IXQueryKeywordOrNCNameType K_NAMESPACE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NAMESPACE");
+    IXQueryKeywordOrNCNameType K_NAN = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NAN"); // XQuery 3.0
     IXQueryKeywordOrNCNameType K_NE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NE");
     IXQueryKeywordOrNCNameType K_NO_INHERIT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NO_INHERIT");
     IXQueryKeywordOrNCNameType K_NO_PRESERVE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NO_PRESERVE");
@@ -204,6 +210,9 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_ORDERED = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ORDERED");
     IXQueryKeywordOrNCNameType K_ORDERING = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ORDERING");
     IXQueryKeywordOrNCNameType K_PARENT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PARENT");
+    IXQueryKeywordOrNCNameType K_PATTERN_SEPARATOR = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PATTERN_SEPARATOR"); // XQuery 3.0
+    IXQueryKeywordOrNCNameType K_PER_MILLE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PER_MILLE"); // XQuery 3.0
+    IXQueryKeywordOrNCNameType K_PERCENT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PERCENT"); // XQuery 3.0
     IXQueryKeywordOrNCNameType K_PRECEDING = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PRECEDING");
     IXQueryKeywordOrNCNameType K_PRECEDING_SIBLING = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PRECEDING_SIBLING");
     IXQueryKeywordOrNCNameType K_PRESERVE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PRESERVE");
@@ -240,6 +249,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_WHERE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_WHERE");
     IXQueryKeywordOrNCNameType K_WITH = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_WITH"); // Update Facility 1.0
     IXQueryKeywordOrNCNameType K_XQUERY = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_XQUERY");
+    IXQueryKeywordOrNCNameType K_ZERO_DIGIT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ZERO_DIGIT"); // XQuery 3.0
 
     TokenSet STRING_LITERAL_TOKENS = TokenSet.create(
         STRING_LITERAL_START,

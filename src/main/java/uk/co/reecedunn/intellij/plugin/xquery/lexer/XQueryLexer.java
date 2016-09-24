@@ -1257,12 +1257,14 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("copy", XQueryTokenType.K_COPY); // Update Facility 1.0
         sKeywords.put("copy-namespaces", XQueryTokenType.K_COPY_NAMESPACES);
         sKeywords.put("decimal-format", XQueryTokenType.K_DECIMAL_FORMAT); // XQuery 3.0
+        sKeywords.put("decimal-separator", XQueryTokenType.K_DECIMAL_SEPARATOR); // XQuery 3.0
         sKeywords.put("declare", XQueryTokenType.K_DECLARE);
         sKeywords.put("default", XQueryTokenType.K_DEFAULT);
         sKeywords.put("delete", XQueryTokenType.K_DELETE); // Update Facility 1.0
         sKeywords.put("descendant", XQueryTokenType.K_DESCENDANT);
         sKeywords.put("descendant-or-self", XQueryTokenType.K_DESCENDANT_OR_SELF);
         sKeywords.put("descending", XQueryTokenType.K_DESCENDING);
+        sKeywords.put("digit", XQueryTokenType.K_DIGIT); // XQuery 3.0
         sKeywords.put("div", XQueryTokenType.K_DIV);
         sKeywords.put("document", XQueryTokenType.K_DOCUMENT);
         sKeywords.put("document-node", XQueryTokenType.K_DOCUMENT_NODE);
@@ -1282,11 +1284,13 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("function", XQueryTokenType.K_FUNCTION);
         sKeywords.put("ge", XQueryTokenType.K_GE);
         sKeywords.put("greatest", XQueryTokenType.K_GREATEST);
+        sKeywords.put("grouping-separator", XQueryTokenType.K_GROUPING_SEPARATOR); // XQuery 3.0
         sKeywords.put("gt", XQueryTokenType.K_GT);
         sKeywords.put("idiv", XQueryTokenType.K_IDIV);
         sKeywords.put("if", XQueryTokenType.K_IF);
         sKeywords.put("import", XQueryTokenType.K_IMPORT);
         sKeywords.put("in", XQueryTokenType.K_IN);
+        sKeywords.put("infinity", XQueryTokenType.K_INFINITY); // XQuery 3.0
         sKeywords.put("inherit", XQueryTokenType.K_INHERIT);
         sKeywords.put("insert", XQueryTokenType.K_INSERT); // Update Facility 1.0
         sKeywords.put("instance", XQueryTokenType.K_INSTANCE);
@@ -1300,10 +1304,12 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("least", XQueryTokenType.K_LEAST);
         sKeywords.put("let", XQueryTokenType.K_LET);
         sKeywords.put("lt", XQueryTokenType.K_LT);
+        sKeywords.put("minus-sign", XQueryTokenType.K_MINUS_SIGN); // XQuery 3.0
         sKeywords.put("mod", XQueryTokenType.K_MOD);
         sKeywords.put("modify", XQueryTokenType.K_MODIFY); // Update Facility 1.0
         sKeywords.put("module", XQueryTokenType.K_MODULE);
         sKeywords.put("namespace", XQueryTokenType.K_NAMESPACE);
+        sKeywords.put("NaN", XQueryTokenType.K_NAN); // XQuery 3.0
         sKeywords.put("ne", XQueryTokenType.K_NE);
         sKeywords.put("no-inherit", XQueryTokenType.K_NO_INHERIT);
         sKeywords.put("no-preserve", XQueryTokenType.K_NO_PRESERVE);
@@ -1316,6 +1322,9 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("ordered", XQueryTokenType.K_ORDERED);
         sKeywords.put("ordering", XQueryTokenType.K_ORDERING);
         sKeywords.put("parent", XQueryTokenType.K_PARENT);
+        sKeywords.put("pattern-separator", XQueryTokenType.K_PATTERN_SEPARATOR); // XQuery 3.0
+        sKeywords.put("per-mille", XQueryTokenType.K_PER_MILLE); // XQuery 3.0
+        sKeywords.put("percent", XQueryTokenType.K_PERCENT); // XQuery 3.0
         sKeywords.put("preceding", XQueryTokenType.K_PRECEDING);
         sKeywords.put("preceding-sibling", XQueryTokenType.K_PRECEDING_SIBLING);
         sKeywords.put("preserve", XQueryTokenType.K_PRESERVE);
@@ -1352,6 +1361,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("where", XQueryTokenType.K_WHERE);
         sKeywords.put("with", XQueryTokenType.K_WITH); // Update Facility 1.0
         sKeywords.put("xquery", XQueryTokenType.K_XQUERY);
+        sKeywords.put("zero-digit", XQueryTokenType.K_ZERO_DIGIT); // XQuery 3.0
     }
 
     // endregion
