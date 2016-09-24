@@ -380,6 +380,9 @@ public class SyntaxHighlighterTest extends TestCase {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_NE).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_NE)[0], is(SyntaxHighlighter.KEYWORD));
 
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_NEXT).length, is(1));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_NEXT)[0], is(SyntaxHighlighter.KEYWORD));
+
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_NO_INHERIT).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_NO_INHERIT)[0], is(SyntaxHighlighter.KEYWORD));
 
@@ -433,6 +436,9 @@ public class SyntaxHighlighterTest extends TestCase {
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_PRESERVE).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_PRESERVE)[0], is(SyntaxHighlighter.KEYWORD));
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_PREVIOUS).length, is(1));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_PREVIOUS)[0], is(SyntaxHighlighter.KEYWORD));
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_PROCESSING_INSTRUCTION).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_PROCESSING_INSTRUCTION)[0], is(SyntaxHighlighter.KEYWORD));

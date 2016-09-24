@@ -1314,6 +1314,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("namespace", XQueryTokenType.K_NAMESPACE);
         sKeywords.put("NaN", XQueryTokenType.K_NAN); // XQuery 3.0
         sKeywords.put("ne", XQueryTokenType.K_NE);
+        sKeywords.put("next", XQueryTokenType.K_NEXT); // XQuery 3.0
         sKeywords.put("no-inherit", XQueryTokenType.K_NO_INHERIT);
         sKeywords.put("no-preserve", XQueryTokenType.K_NO_PRESERVE);
         sKeywords.put("node", XQueryTokenType.K_NODE);
@@ -1332,6 +1333,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("preceding", XQueryTokenType.K_PRECEDING);
         sKeywords.put("preceding-sibling", XQueryTokenType.K_PRECEDING_SIBLING);
         sKeywords.put("preserve", XQueryTokenType.K_PRESERVE);
+        sKeywords.put("previous", XQueryTokenType.K_PREVIOUS); // XQuery 3.0
         sKeywords.put("private", XQueryTokenType.K_PRIVATE); // MarkLogic 6.0
         sKeywords.put("processing-instruction", XQueryTokenType.K_PROCESSING_INSTRUCTION);
         sKeywords.put("property", XQueryTokenType.K_PROPERTY); // MarkLogic 6.0
