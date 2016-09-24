@@ -3138,6 +3138,18 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region XQuery 3.0 :: CatchClause
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-CatchClause")
+    public void testCatchClause() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "catch", XQueryTokenType.K_CATCH);
+        matchSingleToken(lexer, "{",     XQueryTokenType.BLOCK_OPEN);
+        matchSingleToken(lexer, "}",     XQueryTokenType.BLOCK_CLOSE);
+    }
+
+    // endregion
     // region XQuery 3.0 :: ValidateExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ValidateExpr")

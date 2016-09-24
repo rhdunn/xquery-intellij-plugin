@@ -1251,6 +1251,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("case", XQueryTokenType.K_CASE);
         sKeywords.put("cast", XQueryTokenType.K_CAST);
         sKeywords.put("castable", XQueryTokenType.K_CASTABLE);
+        sKeywords.put("catch", XQueryTokenType.K_CATCH); // XQuery 3.0
         sKeywords.put("child", XQueryTokenType.K_CHILD);
         sKeywords.put("collation", XQueryTokenType.K_COLLATION);
         sKeywords.put("comment", XQueryTokenType.K_COMMENT);

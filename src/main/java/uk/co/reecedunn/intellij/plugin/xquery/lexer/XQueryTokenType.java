@@ -139,6 +139,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_CASE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_CASE");
     IXQueryKeywordOrNCNameType K_CAST = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_CAST");
     IXQueryKeywordOrNCNameType K_CASTABLE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_CASTABLE");
+    IXQueryKeywordOrNCNameType K_CATCH = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_CATCH"); // XQuery 3.0
     IXQueryKeywordOrNCNameType K_CHILD = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_CHILD");
     IXQueryKeywordOrNCNameType K_COLLATION = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_COLLATION");
     IXQueryReservedFunctionNameOrNCNameType K_COMMENT = new IXQueryReservedFunctionNameOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_COMMENT");
