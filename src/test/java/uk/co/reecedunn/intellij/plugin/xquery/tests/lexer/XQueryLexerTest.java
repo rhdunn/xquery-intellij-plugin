@@ -2931,6 +2931,21 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region XQuery 3.0 :: ContextItemDecl
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-ContextItemDecl")
+    public void testContextItemDecl() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "declare",  XQueryTokenType.K_DECLARE);
+        matchSingleToken(lexer, "context",  XQueryTokenType.K_CONTEXT);
+        matchSingleToken(lexer, "item",     XQueryTokenType.K_ITEM);
+        matchSingleToken(lexer, "as",       XQueryTokenType.K_AS);
+        matchSingleToken(lexer, "external", XQueryTokenType.K_EXTERNAL);
+        matchSingleToken(lexer, ":=",       XQueryTokenType.ASSIGN_EQUAL);
+    }
+
+    // endregion
     // region XQuery 3.0 :: ValidateExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ValidateExpr")
