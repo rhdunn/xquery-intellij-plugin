@@ -1346,6 +1346,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("sliding", XQueryTokenType.K_SLIDING); // XQuery 3.0
         sKeywords.put("some", XQueryTokenType.K_SOME);
         sKeywords.put("stable", XQueryTokenType.K_STABLE);
+        sKeywords.put("start", XQueryTokenType.K_START); // XQuery 3.0
         sKeywords.put("strict", XQueryTokenType.K_STRICT);
         sKeywords.put("strip", XQueryTokenType.K_STRIP);
         sKeywords.put("text", XQueryTokenType.K_TEXT);
@@ -1362,6 +1363,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("value", XQueryTokenType.K_VALUE); // Update Facility 1.0
         sKeywords.put("variable", XQueryTokenType.K_VARIABLE);
         sKeywords.put("version", XQueryTokenType.K_VERSION);
+        sKeywords.put("when", XQueryTokenType.K_WHEN); // XQuery 3.0
         sKeywords.put("where", XQueryTokenType.K_WHERE);
         sKeywords.put("window", XQueryTokenType.K_WINDOW); // XQuery 3.0
         sKeywords.put("with", XQueryTokenType.K_WITH); // Update Facility 1.0
