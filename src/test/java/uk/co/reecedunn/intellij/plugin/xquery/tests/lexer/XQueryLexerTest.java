@@ -3289,6 +3289,17 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region XQuery 3.0 :: ParenthesizedItemType
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-ParenthesizedItemType")
+    public void testParenthesizedItemType() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN);
+        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE);
+    }
+
+    // endregion
     // region XQuery 3.0 :: BracedURILiteral
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-BracedURILiteral")
