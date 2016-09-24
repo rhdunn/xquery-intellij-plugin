@@ -3105,6 +3105,17 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region XQuery 3.0 :: SwitchCaseClause
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-SwitchCaseClause")
+    public void testSwitchCaseClause() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "case",   XQueryTokenType.K_CASE);
+        matchSingleToken(lexer, "return", XQueryTokenType.K_RETURN);
+    }
+
+    // endregion
     // region XQuery 3.0 :: ValidateExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ValidateExpr")
