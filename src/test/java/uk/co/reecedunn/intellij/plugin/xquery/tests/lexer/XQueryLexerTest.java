@@ -3071,6 +3071,16 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region XQuery 3.0 :: GroupingVariable
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-GroupingVariable")
+    public void testGroupingVariable() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "$", XQueryTokenType.VARIABLE_INDICATOR);
+    }
+
+    // endregion
     // region XQuery 3.0 :: ValidateExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ValidateExpr")
