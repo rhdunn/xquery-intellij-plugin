@@ -1351,6 +1351,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("then", XQueryTokenType.K_THEN);
         sKeywords.put("to", XQueryTokenType.K_TO);
         sKeywords.put("treat", XQueryTokenType.K_TREAT);
+        sKeywords.put("tumbling", XQueryTokenType.K_TUMBLING); // XQuery 3.0
         sKeywords.put("type", XQueryTokenType.K_TYPE); // XQuery 3.0
         sKeywords.put("typeswitch", XQueryTokenType.K_TYPESWITCH);
         sKeywords.put("union", XQueryTokenType.K_UNION);
@@ -1361,6 +1362,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("variable", XQueryTokenType.K_VARIABLE);
         sKeywords.put("version", XQueryTokenType.K_VERSION);
         sKeywords.put("where", XQueryTokenType.K_WHERE);
+        sKeywords.put("window", XQueryTokenType.K_WINDOW); // XQuery 3.0
         sKeywords.put("with", XQueryTokenType.K_WITH); // Update Facility 1.0
         sKeywords.put("xquery", XQueryTokenType.K_XQUERY);
         sKeywords.put("zero-digit", XQueryTokenType.K_ZERO_DIGIT); // XQuery 3.0

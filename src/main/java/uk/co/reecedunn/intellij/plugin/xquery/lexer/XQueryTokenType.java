@@ -239,6 +239,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_THEN = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_THEN");
     IXQueryKeywordOrNCNameType K_TO = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TO");
     IXQueryKeywordOrNCNameType K_TREAT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TREAT");
+    IXQueryKeywordOrNCNameType K_TUMBLING = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TUMBLING"); // XQuery 3.0
     IXQueryKeywordOrNCNameType K_TYPE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TYPE"); // XQuery 3.0
     IXQueryReservedFunctionNameOrNCNameType K_TYPESWITCH = new IXQueryReservedFunctionNameOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TYPESWITCH");
     IXQueryKeywordOrNCNameType K_UNION = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_UNION");
@@ -249,6 +250,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_VARIABLE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_VARIABLE");
     IXQueryKeywordOrNCNameType K_VERSION = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_VERSION");
     IXQueryKeywordOrNCNameType K_WHERE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_WHERE");
+    IXQueryKeywordOrNCNameType K_WINDOW = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_WINDOW"); // XQuery 3.0
     IXQueryKeywordOrNCNameType K_WITH = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_WITH"); // Update Facility 1.0
     IXQueryKeywordOrNCNameType K_XQUERY = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_XQUERY");
     IXQueryKeywordOrNCNameType K_ZERO_DIGIT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ZERO_DIGIT"); // XQuery 3.0
