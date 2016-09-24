@@ -3262,6 +3262,19 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region XQuery 3.0 :: AnyFunctionTest
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-AnyFunctionTest")
+    public void testAnyFunctionTest() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "function", XQueryTokenType.K_FUNCTION);
+        matchSingleToken(lexer, "(",        XQueryTokenType.PARENTHESIS_OPEN);
+        matchSingleToken(lexer, "*",        XQueryTokenType.STAR);
+        matchSingleToken(lexer, ")",        XQueryTokenType.PARENTHESIS_CLOSE);
+    }
+
+    // endregion
     // region XQuery 3.0 :: BracedURILiteral
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-BracedURILiteral")
