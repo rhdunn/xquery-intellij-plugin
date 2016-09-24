@@ -146,6 +146,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_CONTEXT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_CONTEXT"); // XQuery 3.0
     IXQueryKeywordOrNCNameType K_COPY = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_COPY"); // Update Facility 1.0
     IXQueryKeywordOrNCNameType K_COPY_NAMESPACES = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_COPY_NAMESPACES");
+    IXQueryKeywordOrNCNameType K_COUNT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_COUNT"); // XQuery 3.0
     IXQueryKeywordOrNCNameType K_DECIMAL_FORMAT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DECIMAL_FORMAT"); // XQuery 3.0
     IXQueryKeywordOrNCNameType K_DECIMAL_SEPARATOR = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DECIMAL_SEPARATOR"); // XQuery 3.0
     IXQueryKeywordOrNCNameType K_DECLARE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DECLARE");

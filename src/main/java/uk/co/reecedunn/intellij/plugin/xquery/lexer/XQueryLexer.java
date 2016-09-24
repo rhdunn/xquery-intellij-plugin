@@ -1258,6 +1258,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("context", XQueryTokenType.K_CONTEXT); // XQuery 3.0
         sKeywords.put("copy", XQueryTokenType.K_COPY); // Update Facility 1.0
         sKeywords.put("copy-namespaces", XQueryTokenType.K_COPY_NAMESPACES);
+        sKeywords.put("count", XQueryTokenType.K_COUNT); // XQuery 3.0
         sKeywords.put("decimal-format", XQueryTokenType.K_DECIMAL_FORMAT); // XQuery 3.0
         sKeywords.put("decimal-separator", XQueryTokenType.K_DECIMAL_SEPARATOR); // XQuery 3.0
         sKeywords.put("declare", XQueryTokenType.K_DECLARE);

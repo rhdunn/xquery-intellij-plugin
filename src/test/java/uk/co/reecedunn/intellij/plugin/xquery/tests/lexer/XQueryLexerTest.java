@@ -3028,6 +3028,17 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region XQuery 3.0 :: CountClause
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-CountClause")
+    public void testCountClause() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "count", XQueryTokenType.K_COUNT);
+        matchSingleToken(lexer, "$",     XQueryTokenType.VARIABLE_INDICATOR);
+    }
+
+    // endregion
     // region XQuery 3.0 :: ValidateExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ValidateExpr")
