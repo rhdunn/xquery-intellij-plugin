@@ -2980,6 +2980,19 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region XQuery 3.0 :: SlidingWindowClause
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-SlidingWindowClause")
+    public void testSlidingWindowClause() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "sliding", XQueryTokenType.K_SLIDING);
+        matchSingleToken(lexer, "window",  XQueryTokenType.K_WINDOW);
+        matchSingleToken(lexer, "$",       XQueryTokenType.VARIABLE_INDICATOR);
+        matchSingleToken(lexer, "in",      XQueryTokenType.K_IN);
+    }
+
+    // endregion
     // region XQuery 3.0 :: ValidateExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ValidateExpr")

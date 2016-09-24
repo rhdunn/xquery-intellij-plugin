@@ -1343,6 +1343,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("schema-element", XQueryTokenType.K_SCHEMA_ELEMENT);
         sKeywords.put("self", XQueryTokenType.K_SELF);
         sKeywords.put("skip", XQueryTokenType.K_SKIP); // Update Facility 1.0
+        sKeywords.put("sliding", XQueryTokenType.K_SLIDING); // XQuery 3.0
         sKeywords.put("some", XQueryTokenType.K_SOME);
         sKeywords.put("stable", XQueryTokenType.K_STABLE);
         sKeywords.put("strict", XQueryTokenType.K_STRICT);
