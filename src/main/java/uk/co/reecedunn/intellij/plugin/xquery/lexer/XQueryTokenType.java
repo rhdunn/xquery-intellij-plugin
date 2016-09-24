@@ -118,6 +118,7 @@ public interface XQueryTokenType extends TokenType {
     IElementType NODE_BEFORE = new IElementType("XQUERY_NODE_BEFORE_TOKEN", XQuery.INSTANCE);
     IElementType NODE_AFTER = new IElementType("XQUERY_NODE_AFTER_TOKEN", XQuery.INSTANCE);
 
+    IElementType CONCATENATION = new IElementType("XQUERY_CONCATENATION", XQuery.INSTANCE); // XQuery 3.0
     IElementType MAP_OPERATOR = new IElementType("XQUERY_MAP_OPERATOR_TOKEN", XQuery.INSTANCE); // XQuery 3.0
     IElementType FUNCTION_REF_OPERATOR = new IElementType("XQUERY_FUNCTION_REF_OPERATOR_TOKEN", XQuery.INSTANCE); // XQuery 3.0
     IElementType ANNOTATION_INDICATOR = new IElementType("XQUERY_ANNOTATION_INDICATOR_TOKEN", XQuery.INSTANCE); // XQuery 3.0

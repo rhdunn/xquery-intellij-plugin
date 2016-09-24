@@ -351,7 +351,12 @@ public class XQueryLexer extends LexerBase {
                 break;
             case CharacterClass.VERTICAL_BAR:
                 mTokenRange.match();
-                mType = XQueryTokenType.UNION;
+                if (mTokenRange.getCodePoint() == '|') {
+                    mTokenRange.match();
+                    mType = XQueryTokenType.CONCATENATION;
+                } else {
+                    mType = XQueryTokenType.UNION;
+                }
                 break;
             case CharacterClass.FORWARD_SLASH:
                 mTokenRange.match();
