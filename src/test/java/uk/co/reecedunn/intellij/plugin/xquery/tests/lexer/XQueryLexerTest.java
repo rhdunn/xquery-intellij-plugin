@@ -2876,6 +2876,19 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region XQuery 3.0 :: DecimalFormatDecl
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-DecimalFormatDecl")
+    public void testDecimalFormatDecl() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "declare",        XQueryTokenType.K_DECLARE);
+        matchSingleToken(lexer, "decimal-format", XQueryTokenType.K_DECIMAL_FORMAT);
+        matchSingleToken(lexer, "default",        XQueryTokenType.K_DEFAULT);
+        matchSingleToken(lexer, "=",              XQueryTokenType.EQUAL);
+    }
+
+    // endregion
     // region XQuery 3.0 :: AnnotationDecl
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-AnnotationDecl")

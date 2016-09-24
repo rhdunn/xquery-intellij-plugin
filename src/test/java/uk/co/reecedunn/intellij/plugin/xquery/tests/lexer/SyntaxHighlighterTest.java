@@ -212,6 +212,9 @@ public class SyntaxHighlighterTest extends TestCase {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_COPY_NAMESPACES).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_COPY_NAMESPACES)[0], is(SyntaxHighlighter.KEYWORD));
 
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_DECIMAL_FORMAT).length, is(1));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_DECIMAL_FORMAT)[0], is(SyntaxHighlighter.KEYWORD));
+
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_DECLARE).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_DECLARE)[0], is(SyntaxHighlighter.KEYWORD));
 

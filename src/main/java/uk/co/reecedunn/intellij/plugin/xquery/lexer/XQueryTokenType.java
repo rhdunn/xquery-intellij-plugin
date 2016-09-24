@@ -144,6 +144,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_CONSTRUCTION = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_CONSTRUCTION");
     IXQueryKeywordOrNCNameType K_COPY = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_COPY"); // Update Facility 1.0
     IXQueryKeywordOrNCNameType K_COPY_NAMESPACES = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_COPY_NAMESPACES");
+    IXQueryKeywordOrNCNameType K_DECIMAL_FORMAT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DECIMAL_FORMAT"); // XQuery 3.0
     IXQueryKeywordOrNCNameType K_DECLARE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DECLARE");
     IXQueryKeywordOrNCNameType K_DEFAULT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DEFAULT");
     IXQueryKeywordOrNCNameType K_DELETE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DELETE"); // Update Facility 1.0

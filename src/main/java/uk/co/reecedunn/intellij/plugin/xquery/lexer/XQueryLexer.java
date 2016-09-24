@@ -1256,6 +1256,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("construction", XQueryTokenType.K_CONSTRUCTION);
         sKeywords.put("copy", XQueryTokenType.K_COPY); // Update Facility 1.0
         sKeywords.put("copy-namespaces", XQueryTokenType.K_COPY_NAMESPACES);
+        sKeywords.put("decimal-format", XQueryTokenType.K_DECIMAL_FORMAT); // XQuery 3.0
         sKeywords.put("declare", XQueryTokenType.K_DECLARE);
         sKeywords.put("default", XQueryTokenType.K_DEFAULT);
         sKeywords.put("delete", XQueryTokenType.K_DELETE); // Update Facility 1.0
