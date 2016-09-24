@@ -3250,6 +3250,18 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region XQuery 3.0 :: NamespaceNodeTest
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-NamespaceNodeTest")
+    public void testNamespaceNodeTest() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "namespace-node", XQueryTokenType.K_NAMESPACE_NODE);
+        matchSingleToken(lexer, "(",              XQueryTokenType.PARENTHESIS_OPEN);
+        matchSingleToken(lexer, ")",              XQueryTokenType.PARENTHESIS_CLOSE);
+    }
+
+    // endregion
     // region XQuery 3.0 :: BracedURILiteral
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-BracedURILiteral")

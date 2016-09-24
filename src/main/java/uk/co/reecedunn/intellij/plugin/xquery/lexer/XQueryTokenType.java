@@ -204,6 +204,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_MODIFY = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_MODIFY"); // Update Facility 1.0
     IXQueryKeywordOrNCNameType K_MODULE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_MODULE");
     IXQueryKeywordOrNCNameType K_NAMESPACE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NAMESPACE");
+    IXQueryKeywordOrNCNameType K_NAMESPACE_NODE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NAMESPACE_NODE"); // XQuery 3.0
     IXQueryKeywordOrNCNameType K_NAN = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NAN"); // XQuery 3.0
     IXQueryKeywordOrNCNameType K_NE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NE");
     IXQueryKeywordOrNCNameType K_NEXT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NEXT"); // XQuery 3.0

@@ -1320,6 +1320,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("modify", XQueryTokenType.K_MODIFY); // Update Facility 1.0
         sKeywords.put("module", XQueryTokenType.K_MODULE);
         sKeywords.put("namespace", XQueryTokenType.K_NAMESPACE);
+        sKeywords.put("namespace-node", XQueryTokenType.K_NAMESPACE_NODE); // XQuery 3.0
         sKeywords.put("NaN", XQueryTokenType.K_NAN); // XQuery 3.0
         sKeywords.put("ne", XQueryTokenType.K_NE);
         sKeywords.put("next", XQueryTokenType.K_NEXT); // XQuery 3.0
