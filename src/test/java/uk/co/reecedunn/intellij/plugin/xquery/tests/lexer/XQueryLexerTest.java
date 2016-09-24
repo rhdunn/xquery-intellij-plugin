@@ -3091,6 +3091,20 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region XQuery 3.0 :: SwitchExpr
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-SwitchExpr")
+    public void testSwitchExpr() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "switch",  XQueryTokenType.K_SWITCH);
+        matchSingleToken(lexer, "(",       XQueryTokenType.PARENTHESIS_OPEN);
+        matchSingleToken(lexer, ")",       XQueryTokenType.PARENTHESIS_CLOSE);
+        matchSingleToken(lexer, "default", XQueryTokenType.K_DEFAULT);
+        matchSingleToken(lexer, "return",  XQueryTokenType.K_RETURN);
+    }
+
+    // endregion
     // region XQuery 3.0 :: ValidateExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ValidateExpr")
