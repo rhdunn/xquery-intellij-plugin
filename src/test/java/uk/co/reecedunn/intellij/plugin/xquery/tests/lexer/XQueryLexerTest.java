@@ -3215,6 +3215,18 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region XQuery 3.0 :: CompNamespaceConstructor
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-CompNamespaceConstructor")
+    public void testCompNamespaceConstructor() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "namespace", XQueryTokenType.K_NAMESPACE);
+        matchSingleToken(lexer, "{",         XQueryTokenType.BLOCK_OPEN);
+        matchSingleToken(lexer, "}",         XQueryTokenType.BLOCK_CLOSE);
+    }
+
+    // endregion
     // region XQuery 3.0 :: NamedFunctionRef
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-NamedFunctionRef")
