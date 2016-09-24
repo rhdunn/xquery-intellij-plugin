@@ -3205,6 +3205,16 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region XQuery 3.0 :: ArgumentPlaceholder
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-ArgumentPlaceholder")
+    public void testArgumentPlaceholder() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "?", XQueryTokenType.OPTIONAL);
+    }
+
+    // endregion
     // region XQuery 3.0 :: NamedFunctionRef
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-NamedFunctionRef")
