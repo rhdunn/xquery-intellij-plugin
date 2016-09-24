@@ -1235,6 +1235,7 @@ public class XQueryLexer extends LexerBase {
 
     static {
         sKeywords.put("after", XQueryTokenType.K_AFTER); // Update Facility 1.0
+        sKeywords.put("allowing", XQueryTokenType.K_ALLOWING); // XQuery 3.0
         sKeywords.put("ancestor", XQueryTokenType.K_ANCESTOR);
         sKeywords.put("ancestor-or-self", XQueryTokenType.K_ANCESTOR_OR_SELF);
         sKeywords.put("and", XQueryTokenType.K_AND);
