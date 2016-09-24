@@ -1275,6 +1275,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("empty", XQueryTokenType.K_EMPTY);
         sKeywords.put("empty-sequence", XQueryTokenType.K_EMPTY_SEQUENCE);
         sKeywords.put("encoding", XQueryTokenType.K_ENCODING);
+        sKeywords.put("end", XQueryTokenType.K_END); // XQuery 3.0
         sKeywords.put("eq", XQueryTokenType.K_EQ);
         sKeywords.put("every", XQueryTokenType.K_EVERY);
         sKeywords.put("except", XQueryTokenType.K_EXCEPT);
@@ -1318,6 +1319,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("node", XQueryTokenType.K_NODE);
         sKeywords.put("nodes", XQueryTokenType.K_NODES); // Update Facility 1.0
         sKeywords.put("of", XQueryTokenType.K_OF);
+        sKeywords.put("only", XQueryTokenType.K_ONLY); // XQuery 3.0
         sKeywords.put("option", XQueryTokenType.K_OPTION);
         sKeywords.put("or", XQueryTokenType.K_OR);
         sKeywords.put("order", XQueryTokenType.K_ORDER);

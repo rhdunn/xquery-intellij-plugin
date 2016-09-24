@@ -3004,6 +3004,18 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region XQuery 3.0 :: WindowEndCondition
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-WindowEndCondition")
+    public void testWindowEndCondition() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "only", XQueryTokenType.K_ONLY);
+        matchSingleToken(lexer, "end",  XQueryTokenType.K_END);
+        matchSingleToken(lexer, "when", XQueryTokenType.K_WHEN);
+    }
+
+    // endregion
     // region XQuery 3.0 :: ValidateExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ValidateExpr")
