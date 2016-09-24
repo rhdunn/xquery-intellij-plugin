@@ -3060,6 +3060,17 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region XQuery 3.0 :: GroupingSpec
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-GroupingSpec")
+    public void testGroupingSpec() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, ":=",        XQueryTokenType.ASSIGN_EQUAL);
+        matchSingleToken(lexer, "collation", XQueryTokenType.K_COLLATION);
+    }
+
+    // endregion
     // region XQuery 3.0 :: ValidateExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ValidateExpr")
