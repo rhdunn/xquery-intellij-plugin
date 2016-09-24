@@ -3039,6 +3039,17 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region XQuery 3.0 :: GroupByClause
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-GroupByClause")
+    public void testGroupByClause() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "group", XQueryTokenType.K_GROUP);
+        matchSingleToken(lexer, "by",    XQueryTokenType.K_BY);
+    }
+
+    // endregion
     // region XQuery 3.0 :: ValidateExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ValidateExpr")

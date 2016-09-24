@@ -176,6 +176,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_FUNCTION = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_FUNCTION");
     IXQueryKeywordOrNCNameType K_GE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_GE");
     IXQueryKeywordOrNCNameType K_GREATEST = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_GREATEST");
+    IXQueryKeywordOrNCNameType K_GROUP = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_GROUP"); // XQuery 3.0
     IXQueryKeywordOrNCNameType K_GROUPING_SEPARATOR = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_GROUPING_SEPARATOR"); // XQuery 3.0
     IXQueryKeywordOrNCNameType K_GT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_GT");
     IXQueryKeywordOrNCNameType K_IDIV = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_IDIV");

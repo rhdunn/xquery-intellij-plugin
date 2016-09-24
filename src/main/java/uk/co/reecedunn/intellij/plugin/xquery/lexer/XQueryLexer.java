@@ -1288,6 +1288,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("function", XQueryTokenType.K_FUNCTION);
         sKeywords.put("ge", XQueryTokenType.K_GE);
         sKeywords.put("greatest", XQueryTokenType.K_GREATEST);
+        sKeywords.put("group", XQueryTokenType.K_GROUP); // XQuery 3.0
         sKeywords.put("grouping-separator", XQueryTokenType.K_GROUPING_SEPARATOR); // XQuery 3.0
         sKeywords.put("gt", XQueryTokenType.K_GT);
         sKeywords.put("idiv", XQueryTokenType.K_IDIV);
