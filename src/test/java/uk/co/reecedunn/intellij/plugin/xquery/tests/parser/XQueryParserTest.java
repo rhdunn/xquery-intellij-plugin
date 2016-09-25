@@ -37,7 +37,8 @@ public class XQueryParserTest extends ParserTestCase {
     public void testBadCharacters() {
         final String expected
                 = "FileElement[FILE(0:3)]\n"
-                + "   LeafPsiElement[BAD_CHARACTER(0:1)]('~')\n"
+                + "   PsiErrorElementImpl[ERROR_ELEMENT(0:1)]('XPST0003: Unexpected token.')\n"
+                + "      LeafPsiElement[BAD_CHARACTER(0:1)]('~')\n"
                 + "   LeafPsiElement[BAD_CHARACTER(1:2)]('\uFFFE')\n"
                 + "   LeafPsiElement[BAD_CHARACTER(2:3)]('\uFFFF')\n";
 
@@ -50,7 +51,7 @@ public class XQueryParserTest extends ParserTestCase {
     public void testInvalidToken() {
         final String expected
                 = "FileElement[FILE(0:2)]\n"
-                + "   PsiErrorElementImpl[ERROR_ELEMENT(0:2)]('XPST0003: Invalid XQuery symbol or operator.')\n"
+                + "   PsiErrorElementImpl[ERROR_ELEMENT(0:2)]('XPST0003: Unexpected token.')\n"
                 + "      LeafPsiElement[XQUERY_INVALID_TOKEN(0:2)]('<!')\n";
 
         assertThat(prettyPrintASTNode(parseText("<!")), is(expected));

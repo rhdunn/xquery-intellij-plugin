@@ -43,12 +43,20 @@ class XQueryParser {
                 error(XQueryBundle.message("parser.error.expected-eof"));
                 haveError = true;
             }
+
             if (parseModule()) {
                 matched = true;
                 continue;
             }
-            if (errorOnTokenType(XQueryTokenType.INVALID, XQueryBundle.message("parser.error.invalid-token"))) continue;
-            advanceLexer();
+
+            if (haveError) {
+                advanceLexer();
+            } else {
+                final PsiBuilder.Marker errorMarker = mark();
+                advanceLexer();
+                errorMarker.error(XQueryBundle.message("parser.error.unexpected-token"));
+                haveError = true;
+            }
         }
     }
 
