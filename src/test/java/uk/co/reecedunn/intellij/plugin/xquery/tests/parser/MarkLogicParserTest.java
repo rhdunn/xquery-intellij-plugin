@@ -24,32 +24,32 @@ public class MarkLogicParserTest extends ParserTestCase {
     // region MarkLogic 6.0 :: Transactions + TransactionSeparator
 
     public void testTransactions() {
-        final String expected = loadResource("tests/parser/marklogic/Transactions.txt");
-        final ASTNode actual = parseResource("tests/parser/marklogic/Transactions.xq");
+        final String expected = loadResource("tests/parser/marklogic-6.0/Transactions.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-6.0/Transactions.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testTransactions_CompactWhitespace() {
-        final String expected = loadResource("tests/parser/marklogic/Transactions_CompactWhitespace.txt");
-        final ASTNode actual = parseResource("tests/parser/marklogic/Transactions_CompactWhitespace.xq");
+        final String expected = loadResource("tests/parser/marklogic-6.0/Transactions_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-6.0/Transactions_CompactWhitespace.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testTransactions_WithVersionDecl() {
-        final String expected = loadResource("tests/parser/marklogic/Transactions_WithVersionDecl.txt");
-        final ASTNode actual = parseResource("tests/parser/marklogic/Transactions_WithVersionDecl.xq");
+        final String expected = loadResource("tests/parser/marklogic-6.0/Transactions_WithVersionDecl.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-6.0/Transactions_WithVersionDecl.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testTransactions_MissingMainModule() {
-        final String expected = loadResource("tests/parser/marklogic/Transactions_MissingMainModule.txt");
-        final ASTNode actual = parseResource("tests/parser/marklogic/Transactions_MissingMainModule.xq");
+        final String expected = loadResource("tests/parser/marklogic-6.0/Transactions_MissingMainModule.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-6.0/Transactions_MissingMainModule.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testTransactions_LibraryModule() {
-        final String expected = loadResource("tests/parser/marklogic/Transactions_LibraryModule.txt");
-        final ASTNode actual = parseResource("tests/parser/marklogic/Transactions_LibraryModule.xq");
+        final String expected = loadResource("tests/parser/marklogic-6.0/Transactions_LibraryModule.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-6.0/Transactions_LibraryModule.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
@@ -57,26 +57,26 @@ public class MarkLogicParserTest extends ParserTestCase {
     // region MarkLogic 6.0 :: CompatibilityAnnotation
 
     public void testCompatibilityAnnotation_FunctionDecl() {
-        final String expected = loadResource("tests/parser/marklogic/CompatibilityAnnotation_FunctionDecl.txt");
-        final ASTNode actual = parseResource("tests/parser/marklogic/CompatibilityAnnotation_FunctionDecl.xq");
+        final String expected = loadResource("tests/parser/marklogic-6.0/CompatibilityAnnotation_FunctionDecl.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-6.0/CompatibilityAnnotation_FunctionDecl.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testCompatibilityAnnotation_FunctionDecl_MissingFunctionKeyword() {
-        final String expected = loadResource("tests/parser/marklogic/CompatibilityAnnotation_FunctionDecl_MissingFunctionKeyword.txt");
-        final ASTNode actual = parseResource("tests/parser/marklogic/CompatibilityAnnotation_FunctionDecl_MissingFunctionKeyword.xq");
+        final String expected = loadResource("tests/parser/marklogic-6.0/CompatibilityAnnotation_FunctionDecl_MissingFunctionKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-6.0/CompatibilityAnnotation_FunctionDecl_MissingFunctionKeyword.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testCompatibilityAnnotation_VarDecl() {
-        final String expected = loadResource("tests/parser/marklogic/CompatibilityAnnotation_VarDecl.txt");
-        final ASTNode actual = parseResource("tests/parser/marklogic/CompatibilityAnnotation_VarDecl.xq");
+        final String expected = loadResource("tests/parser/marklogic-6.0/CompatibilityAnnotation_VarDecl.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-6.0/CompatibilityAnnotation_VarDecl.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testCompatibilityAnnotation_VarDecl_MissingVariableKeyword() {
-        final String expected = loadResource("tests/parser/marklogic/CompatibilityAnnotation_VarDecl_MissingVariableKeyword.txt");
-        final ASTNode actual = parseResource("tests/parser/marklogic/CompatibilityAnnotation_VarDecl_MissingVariableKeyword.xq");
+        final String expected = loadResource("tests/parser/marklogic-6.0/CompatibilityAnnotation_VarDecl_MissingVariableKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-6.0/CompatibilityAnnotation_VarDecl_MissingVariableKeyword.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
@@ -84,26 +84,26 @@ public class MarkLogicParserTest extends ParserTestCase {
     // region MarkLogic 6.0 :: StylesheetImport
 
     public void testStylesheetImport() {
-        final String expected = loadResource("tests/parser/marklogic/StylesheetImport.txt");
-        final ASTNode actual = parseResource("tests/parser/marklogic/StylesheetImport.xq");
+        final String expected = loadResource("tests/parser/marklogic-6.0/StylesheetImport.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-6.0/StylesheetImport.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testStylesheetImport_CompactWhitespace() {
-        final String expected = loadResource("tests/parser/marklogic/StylesheetImport_CompactWhitespace.txt");
-        final ASTNode actual = parseResource("tests/parser/marklogic/StylesheetImport_CompactWhitespace.xq");
+        final String expected = loadResource("tests/parser/marklogic-6.0/StylesheetImport_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-6.0/StylesheetImport_CompactWhitespace.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testStylesheetImport_MissingAtKeyword() {
-        final String expected = loadResource("tests/parser/marklogic/StylesheetImport_MissingAtKeyword.txt");
-        final ASTNode actual = parseResource("tests/parser/marklogic/StylesheetImport_MissingAtKeyword.xq");
+        final String expected = loadResource("tests/parser/marklogic-6.0/StylesheetImport_MissingAtKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-6.0/StylesheetImport_MissingAtKeyword.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testStylesheetImport_MissingUriLiteral() {
-        final String expected = loadResource("tests/parser/marklogic/StylesheetImport_MissingUriLiteral.txt");
-        final ASTNode actual = parseResource("tests/parser/marklogic/StylesheetImport_MissingUriLiteral.xq");
+        final String expected = loadResource("tests/parser/marklogic-6.0/StylesheetImport_MissingUriLiteral.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-6.0/StylesheetImport_MissingUriLiteral.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
@@ -111,44 +111,44 @@ public class MarkLogicParserTest extends ParserTestCase {
     // region MarkLogic 6.0 :: CatchClause + TryCatchExpr
 
     public void testCatchClause() {
-        final String expected = loadResource("tests/parser/marklogic/CatchClause.txt");
-        final ASTNode actual = parseResource("tests/parser/marklogic/CatchClause.xq");
+        final String expected = loadResource("tests/parser/marklogic-6.0/CatchClause.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-6.0/CatchClause.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testCatchClause_CompactWhitespace() {
-        final String expected = loadResource("tests/parser/marklogic/CatchClause_CompactWhitespace.txt");
-        final ASTNode actual = parseResource("tests/parser/marklogic/CatchClause_CompactWhitespace.xq");
+        final String expected = loadResource("tests/parser/marklogic-6.0/CatchClause_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-6.0/CatchClause_CompactWhitespace.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testCatchClause_MissingVariableIndicator() {
-        final String expected = loadResource("tests/parser/marklogic/CatchClause_MissingVariableIndicator.txt");
-        final ASTNode actual = parseResource("tests/parser/marklogic/CatchClause_MissingVariableIndicator.xq");
+        final String expected = loadResource("tests/parser/marklogic-6.0/CatchClause_MissingVariableIndicator.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-6.0/CatchClause_MissingVariableIndicator.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testCatchClause_MissingVarName() {
-        final String expected = loadResource("tests/parser/marklogic/CatchClause_MissingVarName.txt");
-        final ASTNode actual = parseResource("tests/parser/marklogic/CatchClause_MissingVarName.xq");
+        final String expected = loadResource("tests/parser/marklogic-6.0/CatchClause_MissingVarName.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-6.0/CatchClause_MissingVarName.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testCatchClause_MissingClosingParenthesis() {
-        final String expected = loadResource("tests/parser/marklogic/CatchClause_MissingClosingParenthesis.txt");
-        final ASTNode actual = parseResource("tests/parser/marklogic/CatchClause_MissingClosingParenthesis.xq");
+        final String expected = loadResource("tests/parser/marklogic-6.0/CatchClause_MissingClosingParenthesis.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-6.0/CatchClause_MissingClosingParenthesis.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testCatchClause_EmptyExpr() {
-        final String expected = loadResource("tests/parser/marklogic/CatchClause_EmptyExpr.txt");
-        final ASTNode actual = parseResource("tests/parser/marklogic/CatchClause_EmptyExpr.xq");
+        final String expected = loadResource("tests/parser/marklogic-6.0/CatchClause_EmptyExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-6.0/CatchClause_EmptyExpr.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testCatchClause_Multiple() {
-        final String expected = loadResource("tests/parser/marklogic/CatchClause_Multiple.txt");
-        final ASTNode actual = parseResource("tests/parser/marklogic/CatchClause_Multiple.xq");
+        final String expected = loadResource("tests/parser/marklogic-6.0/CatchClause_Multiple.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-6.0/CatchClause_Multiple.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
@@ -156,32 +156,32 @@ public class MarkLogicParserTest extends ParserTestCase {
     // region MarkLogic 6.0 :: ValidateExpr
 
     public void testValidateExpr_ValidateAs() {
-        final String expected = loadResource("tests/parser/marklogic/ValidateExpr_ValidateAs.txt");
-        final ASTNode actual = parseResource("tests/parser/marklogic/ValidateExpr_ValidateAs.xq");
+        final String expected = loadResource("tests/parser/marklogic-6.0/ValidateExpr_ValidateAs.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-6.0/ValidateExpr_ValidateAs.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testValidateExpr_ValidateAs_CompactWhitespace() {
-        final String expected = loadResource("tests/parser/marklogic/ValidateExpr_ValidateAs_CompactWhitespace.txt");
-        final ASTNode actual = parseResource("tests/parser/marklogic/ValidateExpr_ValidateAs_CompactWhitespace.xq");
+        final String expected = loadResource("tests/parser/marklogic-6.0/ValidateExpr_ValidateAs_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-6.0/ValidateExpr_ValidateAs_CompactWhitespace.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testValidateExpr_ValidateAs_MissingTypeName() {
-        final String expected = loadResource("tests/parser/marklogic/ValidateExpr_ValidateAs_MissingTypeName.txt");
-        final ASTNode actual = parseResource("tests/parser/marklogic/ValidateExpr_ValidateAs_MissingTypeName.xq");
+        final String expected = loadResource("tests/parser/marklogic-6.0/ValidateExpr_ValidateAs_MissingTypeName.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-6.0/ValidateExpr_ValidateAs_MissingTypeName.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testValidateExpr_ValidateAs_MissingOpeningBrace() {
-        final String expected = loadResource("tests/parser/marklogic/ValidateExpr_ValidateAs_MissingOpeningBrace.txt");
-        final ASTNode actual = parseResource("tests/parser/marklogic/ValidateExpr_ValidateAs_MissingOpeningBrace.xq");
+        final String expected = loadResource("tests/parser/marklogic-6.0/ValidateExpr_ValidateAs_MissingOpeningBrace.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-6.0/ValidateExpr_ValidateAs_MissingOpeningBrace.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testValidateExpr_ValidateAs_EQName() {
-        final String expected = loadResource("tests/parser/marklogic/ValidateExpr_ValidateAs_EQName.txt");
-        final ASTNode actual = parseResource("tests/parser/marklogic/ValidateExpr_ValidateAs_EQName.xq");
+        final String expected = loadResource("tests/parser/marklogic-6.0/ValidateExpr_ValidateAs_EQName.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-6.0/ValidateExpr_ValidateAs_EQName.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
@@ -189,26 +189,26 @@ public class MarkLogicParserTest extends ParserTestCase {
     // region MarkLogic 6.0 :: ForwardAxis
 
     public void testForwardAxis_Namespace() {
-        final String expected = loadResource("tests/parser/marklogic/ForwardAxis_Namespace.txt");
-        final ASTNode actual = parseResource("tests/parser/marklogic/ForwardAxis_Namespace.xq");
+        final String expected = loadResource("tests/parser/marklogic-6.0/ForwardAxis_Namespace.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-6.0/ForwardAxis_Namespace.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testForwardAxis_Namespace_CompactWhitespace() {
-        final String expected = loadResource("tests/parser/marklogic/ForwardAxis_Namespace_CompactWhitespace.txt");
-        final ASTNode actual = parseResource("tests/parser/marklogic/ForwardAxis_Namespace_CompactWhitespace.xq");
+        final String expected = loadResource("tests/parser/marklogic-6.0/ForwardAxis_Namespace_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-6.0/ForwardAxis_Namespace_CompactWhitespace.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testForwardAxis_Property() {
-        final String expected = loadResource("tests/parser/marklogic/ForwardAxis_Property.txt");
-        final ASTNode actual = parseResource("tests/parser/marklogic/ForwardAxis_Property.xq");
+        final String expected = loadResource("tests/parser/marklogic-6.0/ForwardAxis_Property.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-6.0/ForwardAxis_Property.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testForwardAxis_Property_CompactWhitespace() {
-        final String expected = loadResource("tests/parser/marklogic/ForwardAxis_Property_CompactWhitespace.txt");
-        final ASTNode actual = parseResource("tests/parser/marklogic/ForwardAxis_Property_CompactWhitespace.xq");
+        final String expected = loadResource("tests/parser/marklogic-6.0/ForwardAxis_Property_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-6.0/ForwardAxis_Property_CompactWhitespace.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
@@ -216,26 +216,26 @@ public class MarkLogicParserTest extends ParserTestCase {
     // region MarkLogic 6.0 :: CompBinaryConstructor
 
     public void testBinaryExpr() {
-        final String expected = loadResource("tests/parser/marklogic/CompBinaryConstructor.txt");
-        final ASTNode actual = parseResource("tests/parser/marklogic/CompBinaryConstructor.xq");
+        final String expected = loadResource("tests/parser/marklogic-6.0/CompBinaryConstructor.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-6.0/CompBinaryConstructor.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testBinaryExpr_CompactWhitespace() {
-        final String expected = loadResource("tests/parser/marklogic/CompBinaryConstructor_CompactWhitespace.txt");
-        final ASTNode actual = parseResource("tests/parser/marklogic/CompBinaryConstructor_CompactWhitespace.xq");
+        final String expected = loadResource("tests/parser/marklogic-6.0/CompBinaryConstructor_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-6.0/CompBinaryConstructor_CompactWhitespace.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testBinaryExpr_NoExpr() {
-        final String expected = loadResource("tests/parser/marklogic/CompBinaryConstructor_NoExpr.txt");
-        final ASTNode actual = parseResource("tests/parser/marklogic/CompBinaryConstructor_NoExpr.xq");
+        final String expected = loadResource("tests/parser/marklogic-6.0/CompBinaryConstructor_NoExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-6.0/CompBinaryConstructor_NoExpr.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testBinaryExpr_MissingClosingBrace() {
-        final String expected = loadResource("tests/parser/marklogic/CompBinaryConstructor_MissingClosingBrace.txt");
-        final ASTNode actual = parseResource("tests/parser/marklogic/CompBinaryConstructor_MissingClosingBrace.xq");
+        final String expected = loadResource("tests/parser/marklogic-6.0/CompBinaryConstructor_MissingClosingBrace.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-6.0/CompBinaryConstructor_MissingClosingBrace.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
@@ -243,20 +243,20 @@ public class MarkLogicParserTest extends ParserTestCase {
     // region MarkLogic 6.0 :: BinaryKindTest
 
     public void testBinaryKindTest() {
-        final String expected = loadResource("tests/parser/marklogic/BinaryKindTest.txt");
-        final ASTNode actual = parseResource("tests/parser/marklogic/BinaryKindTest.xq");
+        final String expected = loadResource("tests/parser/marklogic-6.0/BinaryKindTest.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-6.0/BinaryKindTest.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testBinaryKindTest_CompactWhitespace() {
-        final String expected = loadResource("tests/parser/marklogic/BinaryKindTest_CompactWhitespace.txt");
-        final ASTNode actual = parseResource("tests/parser/marklogic/BinaryKindTest_CompactWhitespace.xq");
+        final String expected = loadResource("tests/parser/marklogic-6.0/BinaryKindTest_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-6.0/BinaryKindTest_CompactWhitespace.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testBinaryKindTest_MissingClosingParenthesis() {
-        final String expected = loadResource("tests/parser/marklogic/BinaryKindTest_MissingClosingParenthesis.txt");
-        final ASTNode actual = parseResource("tests/parser/marklogic/BinaryKindTest_MissingClosingParenthesis.xq");
+        final String expected = loadResource("tests/parser/marklogic-6.0/BinaryKindTest_MissingClosingParenthesis.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-6.0/BinaryKindTest_MissingClosingParenthesis.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 

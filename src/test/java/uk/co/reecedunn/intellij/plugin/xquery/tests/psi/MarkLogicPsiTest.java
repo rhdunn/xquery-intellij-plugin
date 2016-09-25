@@ -32,7 +32,7 @@ public class MarkLogicPsiTest extends ParserTestCase {
     // region MarkLogic 6.0 :: Transactions + TransactionSeparator
 
     public void testTransactions() {
-        final ASTNode node = parseResource("tests/parser/marklogic/Transactions.xq");
+        final ASTNode node = parseResource("tests/parser/marklogic-6.0/Transactions.xq");
 
         MarkLogicTransactionSeparator transactionSeparatorPsi = PsiNavigation.findChildrenByClass(node.getPsi(), MarkLogicTransactionSeparator.class).get(0);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)transactionSeparatorPsi;
@@ -58,7 +58,7 @@ public class MarkLogicPsiTest extends ParserTestCase {
     // region MarkLogic 6.0 :: CompatibilityAnnotation
 
     public void testCompatibilityAnnotation_FunctionDecl() {
-        final ASTNode node = parseResource("tests/parser/marklogic/CompatibilityAnnotation_FunctionDecl.xq");
+        final ASTNode node = parseResource("tests/parser/marklogic-6.0/CompatibilityAnnotation_FunctionDecl.xq");
 
         XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryAnnotatedDecl.class);
         MarkLogicCompatibilityAnnotation compatibilityAnnotationPsi = PsiNavigation.findChildrenByClass(annotatedDeclPsi, MarkLogicCompatibilityAnnotation.class).get(0);
@@ -82,7 +82,7 @@ public class MarkLogicPsiTest extends ParserTestCase {
     }
 
     public void testCompatibilityAnnotation_VarDecl() {
-        final ASTNode node = parseResource("tests/parser/marklogic/CompatibilityAnnotation_VarDecl.xq");
+        final ASTNode node = parseResource("tests/parser/marklogic-6.0/CompatibilityAnnotation_VarDecl.xq");
 
         XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryAnnotatedDecl.class);
         MarkLogicCompatibilityAnnotation compatibilityAnnotationPsi = PsiNavigation.findChildrenByClass(annotatedDeclPsi, MarkLogicCompatibilityAnnotation.class).get(0);
@@ -109,7 +109,7 @@ public class MarkLogicPsiTest extends ParserTestCase {
     // region MarkLogic 6.0 :: StylesheetImport
 
     public void testStylesheetImport() {
-        final ASTNode node = parseResource("tests/parser/marklogic/StylesheetImport.xq");
+        final ASTNode node = parseResource("tests/parser/marklogic-6.0/StylesheetImport.xq");
 
         MarkLogicStylesheetImport stylesheetImportPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), MarkLogicStylesheetImport.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)stylesheetImportPsi;
@@ -135,7 +135,7 @@ public class MarkLogicPsiTest extends ParserTestCase {
     // region MarkLogic 6.0 :: CatchClause
 
     public void testCatchClause() {
-        final ASTNode node = parseResource("tests/parser/marklogic/CatchClause.xq");
+        final ASTNode node = parseResource("tests/parser/marklogic-6.0/CatchClause.xq");
 
         XQueryTryCatchExpr tryCatchExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryTryCatchExpr.class);
         XQueryCatchClause catchClausePsi = PsiNavigation.findChildrenByClass(tryCatchExprPsi, XQueryCatchClause.class).get(0);
@@ -165,7 +165,7 @@ public class MarkLogicPsiTest extends ParserTestCase {
     // region MarkLogic 6.0 :: ForwardAxis
 
     public void testForwardAxis_Namespace() {
-        final ASTNode node = parseResource("tests/parser/marklogic/ForwardAxis_Namespace.xq");
+        final ASTNode node = parseResource("tests/parser/marklogic-6.0/ForwardAxis_Namespace.xq");
 
         XQueryForwardAxis forwardAxisPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryForwardAxis.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)forwardAxisPsi;
@@ -188,7 +188,7 @@ public class MarkLogicPsiTest extends ParserTestCase {
     }
 
     public void testForwardAxis_Property() {
-        final ASTNode node = parseResource("tests/parser/marklogic/ForwardAxis_Property.xq");
+        final ASTNode node = parseResource("tests/parser/marklogic-6.0/ForwardAxis_Property.xq");
 
         XQueryForwardAxis forwardAxisPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryForwardAxis.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)forwardAxisPsi;
@@ -214,7 +214,7 @@ public class MarkLogicPsiTest extends ParserTestCase {
     // region MarkLogic 6.0 :: ValidateExpr
 
     public void testValidateExpr_ValidateAs() {
-        final ASTNode node = parseResource("tests/parser/marklogic/ValidateExpr_ValidateAs.xq");
+        final ASTNode node = parseResource("tests/parser/marklogic-6.0/ValidateExpr_ValidateAs.xq");
 
         XQueryValidateExpr validateExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryValidateExpr.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)validateExprPsi;
@@ -240,7 +240,7 @@ public class MarkLogicPsiTest extends ParserTestCase {
     // region MarkLogic 6.0 :: BinaryExpr
 
     public void testBinaryExpr() {
-        final ASTNode node = parseResource("tests/parser/marklogic/CompBinaryConstructor.xq");
+        final ASTNode node = parseResource("tests/parser/marklogic-6.0/CompBinaryConstructor.xq");
 
         MarkLogicCompBinaryConstructor binaryKindTestPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), MarkLogicCompBinaryConstructor.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)binaryKindTestPsi;
@@ -266,7 +266,7 @@ public class MarkLogicPsiTest extends ParserTestCase {
     // region MarkLogic 6.0 :: BinaryKindTest
 
     public void testBinaryKindTest() {
-        final ASTNode node = parseResource("tests/parser/marklogic/BinaryKindTest.xq");
+        final ASTNode node = parseResource("tests/parser/marklogic-6.0/BinaryKindTest.xq");
 
         XQueryAnnotatedDecl annotationDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryAnnotatedDecl.class);
         XQueryVarDecl varDeclPsi = PsiNavigation.findChildrenByClass(annotationDeclPsi, XQueryVarDecl.class).get(0);

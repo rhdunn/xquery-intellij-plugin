@@ -87,7 +87,7 @@ public class XQuerySupportedConstructAnnotatorTest extends AnnotatorTestCase {
 
     public void testMarkLogicForwardAxisInXQuery10() {
         getSettings().setXQueryVersion(XQueryVersion.VERSION_1_0);
-        final ASTNode node = parseResource("tests/parser/marklogic/ForwardAxis_Namespace.xq");
+        final ASTNode node = parseResource("tests/parser/marklogic-6.0/ForwardAxis_Namespace.xq");
 
         XQuerySupportedConstructAnnotator annotator = new XQuerySupportedConstructAnnotator();
         List<Annotation> annotations = annotateTree(node, annotator);
@@ -104,7 +104,7 @@ public class XQuerySupportedConstructAnnotatorTest extends AnnotatorTestCase {
         getSettings().setXQueryVersion(XQueryVersion.VERSION_1_0_MARKLOGIC);
         getSettings().setImplementation("marklogic");
         getSettings().setImplementationVersion("marklogic/v6");
-        final ASTNode node = parseResource("tests/parser/marklogic/ForwardAxis_Namespace.xq");
+        final ASTNode node = parseResource("tests/parser/marklogic-6.0/ForwardAxis_Namespace.xq");
 
         XQuerySupportedConstructAnnotator annotator = new XQuerySupportedConstructAnnotator();
         List<Annotation> annotations = annotateTree(node, annotator);
