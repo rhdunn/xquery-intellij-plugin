@@ -1647,17 +1647,23 @@ class XQueryParser {
     // region Grammar :: Expr :: TryCatchExpr
 
     private boolean parseTryCatchExpr() {
-        return parseTryClause();
+        final PsiBuilder.Marker tryExprMarker = mark();
+        if (parseTryClause()) {
+            tryExprMarker.done(XQueryElementType.TRY_CATCH_EXPR);
+            return true;
+        }
+        tryExprMarker.drop();
+        return false;
     }
 
     private boolean parseTryClause() {
-        final PsiBuilder.Marker tryExprMarker = matchTokenTypeWithMarker(XQueryTokenType.K_TRY);
-        if (tryExprMarker != null) {
+        final PsiBuilder.Marker tryClauseMarker = matchTokenTypeWithMarker(XQueryTokenType.K_TRY);
+        if (tryClauseMarker != null) {
             boolean haveErrors = false;
 
             parseWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.BLOCK_OPEN)) {
-                tryExprMarker.rollbackTo();
+                tryClauseMarker.rollbackTo();
                 return false;
             }
 
@@ -1672,7 +1678,7 @@ class XQueryParser {
                 error(XQueryBundle.message("parser.error.expected", "}"));
             }
 
-            tryExprMarker.done(XQueryElementType.TRY_CLAUSE);
+            tryClauseMarker.done(XQueryElementType.TRY_CLAUSE);
             return true;
         }
         return false;

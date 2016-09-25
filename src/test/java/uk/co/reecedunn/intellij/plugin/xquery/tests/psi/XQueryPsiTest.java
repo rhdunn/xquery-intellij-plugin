@@ -528,6 +528,36 @@ public class XQueryPsiTest extends ParserTestCase {
     }
 
     // endregion
+    // region XQuery 3.0 :: TryCatchExpr
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-TryCatchExpr")
+    public void testTryCatchExpr() {
+        final ASTNode node = parseResource("tests/parser/xquery-3.0/TryClause.xq");
+
+        XQueryTryCatchExpr tryCatchExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryTryCatchExpr.class);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)tryCatchExprPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(false));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 3.0 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_TRY));
+    }
+
+    // endregion
     // region XQuery 3.0 :: BracedURILiteral
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-BracedURILiteral")
