@@ -17,35 +17,11 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
-import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryTryCatchExpr;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
-import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
-import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 
-public class XQueryTryCatchExprPsiImpl extends ASTWrapperPsiElement implements XQueryTryCatchExpr, XQueryConformanceCheck {
+public class XQueryTryCatchExprPsiImpl extends ASTWrapperPsiElement implements XQueryTryCatchExpr {
     public XQueryTryCatchExprPsiImpl(@NotNull ASTNode node) {
         super(node);
-    }
-
-    @Override
-    public boolean conformsTo(ImplementationItem implementation) {
-        final XQueryVersion minimalConformance = implementation.getVersion(XQueryConformance.MINIMAL_CONFORMANCE);
-        return minimalConformance != null && minimalConformance.supportsVersion(XQueryVersion.VERSION_3_0);
-    }
-
-    @SuppressWarnings("ConstantConditions")
-    @Override
-    public PsiElement getConformanceElement() {
-        return findChildByType(XQueryElementType.TRY_CLAUSE).getFirstChild();
-    }
-
-    @Override
-    public String getConformanceErrorMessage() {
-        return XQueryBundle.message("requires.feature.minimal-conformance.version", XQueryVersion.VERSION_3_0);
     }
 }

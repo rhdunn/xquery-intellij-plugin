@@ -528,14 +528,14 @@ public class XQueryPsiTest extends ParserTestCase {
     }
 
     // endregion
-    // region XQuery 3.0 :: TryCatchExpr
+    // region XQuery 3.0 :: TryClause
 
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-TryCatchExpr")
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-TryClause")
     public void testTryCatchExpr() {
         final ASTNode node = parseResource("tests/parser/xquery-3.0/CatchClause.xq");
 
-        XQueryTryCatchExpr tryCatchExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryTryCatchExpr.class);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)tryCatchExprPsi;
+        XQueryTryClause tryClausePsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryTryClause.class);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)tryClausePsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
