@@ -3646,9 +3646,9 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region MarkLogic 6.0 :: BinaryExpr
+    // region MarkLogic 6.0 :: CompBinaryConstructor
 
-    public void testBinaryExpr() {
+    public void testCompBinaryConstructor() {
         Lexer lexer = new XQueryLexer();
 
         matchSingleToken(lexer, "binary", XQueryTokenType.K_BINARY);
