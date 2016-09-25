@@ -29,6 +29,32 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 @SuppressWarnings("ConstantConditions")
 public class MarkLogicPsiTest extends ParserTestCase {
+    // region MarkLogic 6.0 :: Transactions + TransactionSeparator
+
+    public void testTransactions() {
+        final ASTNode node = parseResource("tests/parser/marklogic/Transactions.xq");
+
+        MarkLogicTransactionSeparator transactionSeparatorPsi = PsiNavigation.findChildrenByClass(node.getPsi(), MarkLogicTransactionSeparator.class).get(0);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)transactionSeparatorPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires MarkLogic 6.0 or later with XQuery version '1.0-ml'."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.SEPARATOR));
+    }
+
+    // endregion
     // region MarkLogic 6.0 :: CompatibilityAnnotation
 
     public void testCompatibilityAnnotation_FunctionDecl() {

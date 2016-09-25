@@ -1,0 +1,1 @@
+xquery version "1.0-ml"; 2 ; xquery version "1.0-ml"; 3

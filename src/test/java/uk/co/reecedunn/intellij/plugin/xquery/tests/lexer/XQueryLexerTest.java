@@ -3614,6 +3614,15 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region MarkLogic 6.0 :: TransactionSeparator
+
+    public void testTransactionSeparator() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, ";", XQueryTokenType.SEPARATOR);
+    }
+
+    // endregion
     // region MarkLogic 6.0 :: CompatibilityAnnotation
 
     public void testCompatibilityAnnotation_MarkLogic() {

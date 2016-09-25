@@ -44,7 +44,7 @@ class XQueryParser {
                 haveError = true;
             }
 
-            if (parseModule()) {
+            if (parseTransactions()) {
                 matched = true;
                 continue;
             }
@@ -108,6 +108,30 @@ class XQueryParser {
 
     // endregion
     // region Grammar :: Modules
+
+    private boolean parseTransactions() {
+        if (parseModule()) {
+            parseWhiteSpaceAndCommentTokens();
+            while (parseTransactionSeparator()) {
+                parseWhiteSpaceAndCommentTokens();
+                if (!parseModule()) { // NOTE: Handles error cases for VersionDecl-only and library modules.
+                    error(XQueryBundle.message("parser.error.expected", "MainModule"));
+                }
+                parseWhiteSpaceAndCommentTokens();
+            }
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseTransactionSeparator() {
+        final PsiBuilder.Marker transactionSeparatorMarker = matchTokenTypeWithMarker(XQueryTokenType.SEPARATOR);
+        if (transactionSeparatorMarker != null) {
+            transactionSeparatorMarker.done(XQueryElementType.TRANSACTION_SEPARATOR);
+            return true;
+        }
+        return false;
+    }
 
     private boolean parseModule() {
         final PsiBuilder.Marker moduleMarker = mark();

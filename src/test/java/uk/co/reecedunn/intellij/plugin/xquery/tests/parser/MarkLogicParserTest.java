@@ -21,6 +21,39 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class MarkLogicParserTest extends ParserTestCase {
+    // region MarkLogic 6.0 :: Transactions + TransactionSeparator
+
+    public void testTransactions() {
+        final String expected = loadResource("tests/parser/marklogic/Transactions.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic/Transactions.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testTransactions_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/marklogic/Transactions_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic/Transactions_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testTransactions_WithVersionDecl() {
+        final String expected = loadResource("tests/parser/marklogic/Transactions_WithVersionDecl.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic/Transactions_WithVersionDecl.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testTransactions_MissingMainModule() {
+        final String expected = loadResource("tests/parser/marklogic/Transactions_MissingMainModule.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic/Transactions_MissingMainModule.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testTransactions_LibraryModule() {
+        final String expected = loadResource("tests/parser/marklogic/Transactions_LibraryModule.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic/Transactions_LibraryModule.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region MarkLogic 6.0 :: CompatibilityAnnotation
 
     public void testCompatibilityAnnotation_FunctionDecl() {

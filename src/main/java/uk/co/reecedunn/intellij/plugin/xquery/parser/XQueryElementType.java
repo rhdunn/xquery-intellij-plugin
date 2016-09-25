@@ -201,7 +201,10 @@ public interface XQueryElementType {
     // endregion
     // region MarkLogic 6.0
 
+    IElementType TRANSACTION_SEPARATOR = new ICompositeElementType("XQUERY_TRANSACTION_SEPARATOR", MarkLogicTransactionSeparatorImpl.class, MarkLogicTransactionSeparatorPsiImpl.class);
+
     IElementType COMPATIBILITY_ANNOTATION_MARKLOGIC = new ICompositeElementType("XQUERY_COMPATIBILITY_ANNOTATION_MARKLOGIC", MarkLogicCompatibilityAnnotationImpl.class, MarkLogicCompatibilityAnnotationPsiImpl.class);
+
     IElementType COMP_BINARY_CONSTRUCTOR = new ICompositeElementType("XQUERY_BINARY_EXPR", MarkLogicCompBinaryConstructorImpl.class, MarkLogicCompBinaryConstructorPsiImpl.class);
     IElementType BINARY_KIND_TEST = new ICompositeElementType("XQUERY_BINARY_KIND_TEST", MarkLogicBinaryKindTestImpl.class, MarkLogicBinaryKindTestPsiImpl.class);
 
