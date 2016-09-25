@@ -350,10 +350,12 @@ class XQueryParser {
             parseWhiteSpaceAndCommentTokens();
             if (parseSchemaImport()) {
                 importMarker.done(XQueryElementType.SCHEMA_IMPORT);
+            } else if (parseStylesheetImport()) {
+                importMarker.done(XQueryElementType.STYLESHEET_IMPORT);
             } else if (parseModuleImport()) {
                 importMarker.done(XQueryElementType.MODULE_IMPORT);
             } else {
-                error(XQueryBundle.message("parser.error.expected-keyword", "schema, module"));
+                error(XQueryBundle.message("parser.error.expected-keyword", "schema, stylesheet, module"));
                 importMarker.done(XQueryElementType.IMPORT);
                 return PrologDeclState.UNKNOWN_STATEMENT;
             }
@@ -1047,6 +1049,28 @@ class XQueryParser {
         }
 
         paramMarker.drop();
+        return false;
+    }
+
+    private boolean parseStylesheetImport() {
+        if (getTokenType() == XQueryTokenType.K_STYLESHEET) {
+            boolean haveErrors = false;
+            advanceLexer();
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_AT)) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "at"));
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseStringLiteral(XQueryElementType.URI_LITERAL) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-uri-string"));
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            return true;
+        }
         return false;
     }
 

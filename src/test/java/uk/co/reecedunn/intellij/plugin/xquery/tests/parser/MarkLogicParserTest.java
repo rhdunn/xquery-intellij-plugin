@@ -81,6 +81,33 @@ public class MarkLogicParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region MarkLogic 6.0 :: StylesheetImport
+
+    public void testStylesheetImport() {
+        final String expected = loadResource("tests/parser/marklogic/StylesheetImport.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic/StylesheetImport.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testStylesheetImport_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/marklogic/StylesheetImport_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic/StylesheetImport_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testStylesheetImport_MissingAtKeyword() {
+        final String expected = loadResource("tests/parser/marklogic/StylesheetImport_MissingAtKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic/StylesheetImport_MissingAtKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testStylesheetImport_MissingUriLiteral() {
+        final String expected = loadResource("tests/parser/marklogic/StylesheetImport_MissingUriLiteral.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic/StylesheetImport_MissingUriLiteral.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region MarkLogic 6.0 :: CatchClause + TryCatchExpr
 
     public void testCatchClause() {

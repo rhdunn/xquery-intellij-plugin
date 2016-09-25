@@ -3632,6 +3632,17 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region MarkLogic 6.0 :: StylesheetImport
+
+    public void testStylesheetImport() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "import",     XQueryTokenType.K_IMPORT);
+        matchSingleToken(lexer, "stylesheet", XQueryTokenType.K_STYLESHEET);
+        matchSingleToken(lexer, "at",         XQueryTokenType.K_AT);
+    }
+
+    // endregion
     // region MarkLogic 6.0 :: ValidateExpr
 
     public void testValidateExpr_ValidateAs() {
