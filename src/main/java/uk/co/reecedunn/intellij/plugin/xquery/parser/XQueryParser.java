@@ -2794,7 +2794,6 @@ class XQueryParser {
             || parseOrderedExpr()
             || parseUnorderedExpr()
             || parseConstructor()
-            || parseMarkLogicComputedConstructor()
             || parseFunctionCall();
     }
 
@@ -3192,7 +3191,8 @@ class XQueryParser {
             || parseCompAttrConstructor()
             || parseCompTextConstructor()
             || parseCompCommentConstructor()
-            || parseCompPIConstructor();
+            || parseCompPIConstructor()
+            || parseCompBinaryConstructor();
     }
 
     private boolean parseCompDocConstructor() {
@@ -3409,13 +3409,6 @@ class XQueryParser {
             return true;
         }
         return false;
-    }
-
-    // endregion
-    // region Grammar :: Expr :: OrExpr :: MarkLogicComputedConstructor
-
-    private boolean parseMarkLogicComputedConstructor() {
-        return parseCompBinaryConstructor();
     }
 
     private boolean parseCompBinaryConstructor() {

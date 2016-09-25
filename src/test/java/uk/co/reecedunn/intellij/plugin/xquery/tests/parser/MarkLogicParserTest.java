@@ -215,25 +215,25 @@ public class MarkLogicParserTest extends ParserTestCase {
     // endregion
     // region MarkLogic 6.0 :: CompBinaryConstructor
 
-    public void testBinaryExpr() {
+    public void testCompBinaryConstructor() {
         final String expected = loadResource("tests/parser/marklogic-6.0/CompBinaryConstructor.txt");
         final ASTNode actual = parseResource("tests/parser/marklogic-6.0/CompBinaryConstructor.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    public void testBinaryExpr_CompactWhitespace() {
+    public void testCompBinaryConstructor_CompactWhitespace() {
         final String expected = loadResource("tests/parser/marklogic-6.0/CompBinaryConstructor_CompactWhitespace.txt");
         final ASTNode actual = parseResource("tests/parser/marklogic-6.0/CompBinaryConstructor_CompactWhitespace.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    public void testBinaryExpr_NoExpr() {
+    public void testCompBinaryConstructor_NoExpr() {
         final String expected = loadResource("tests/parser/marklogic-6.0/CompBinaryConstructor_NoExpr.txt");
         final ASTNode actual = parseResource("tests/parser/marklogic-6.0/CompBinaryConstructor_NoExpr.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    public void testBinaryExpr_MissingClosingBrace() {
+    public void testCompBinaryConstructor_MissingClosingBrace() {
         final String expected = loadResource("tests/parser/marklogic-6.0/CompBinaryConstructor_MissingClosingBrace.txt");
         final ASTNode actual = parseResource("tests/parser/marklogic-6.0/CompBinaryConstructor_MissingClosingBrace.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
