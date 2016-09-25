@@ -1,7 +1,7 @@
-FileElement[FILE(0:34)]
-   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:34)]
-      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:34)]
-         XQueryTryCatchExprImpl[XQUERY_TRY_CATCH_EXPR(0:34)]
+FileElement[FILE(0:38)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:38)]
+      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:38)]
+         XQueryTryCatchExprImpl[XQUERY_TRY_CATCH_EXPR(0:38)]
             XQueryTryClauseImpl[XQUERY_TRY_CLAUSE(0:9)]
                LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_TRY(0:3)]('try')
                PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
@@ -30,17 +30,40 @@ FileElement[FILE(0:34)]
                                                                   XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(8:8)]
                LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(8:9)]('}')
             PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
-            XQueryCatchClauseImpl[XQUERY_CATCH_CLAUSE(10:34)]
+            XQueryCatchClauseImpl[XQUERY_CATCH_CLAUSE(10:38)]
                LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_CATCH(10:15)]('catch')
                PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
-               XQueryCatchErrorListImpl[XQUERY_CATCH_ERROR_LIST(16:31)]
+               XQueryCatchErrorListImpl[XQUERY_CATCH_ERROR_LIST(16:33)]
                   XQueryNameTestImpl[XQUERY_NAME_TEST(16:30)]
                      XQueryQNameImpl[XQUERY_QNAME(16:30)]
                         LeafPsiElement[XQUERY_NCNAME_TOKEN(16:21)]('error')
                         LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(21:22)](':')
                         LeafPsiElement[XQUERY_NCNAME_TOKEN(22:30)]('XQST0084')
                   PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')
-               LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(31:32)]('{')
-               PsiWhiteSpaceImpl[WHITE_SPACE(32:33)](' ')
-               PsiErrorElementImpl[ERROR_ELEMENT(33:33)]('XPST0003: Missing expression.')
-               LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(33:34)]('}')
+                  LeafPsiElement[XQUERY_UNION_TOKEN(31:32)]('|')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(32:33)](' ')
+                  PsiErrorElementImpl[ERROR_ELEMENT(33:33)]('XPST0003: Expected 'NameTest'.')
+               LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(33:34)]('{')
+               PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
+               XQueryExprImpl[XQUERY_EXPR(35:37)]
+                  XQueryOrExprImpl[XQUERY_OR_EXPR(35:37)]
+                     XQueryAndExprImpl[XQUERY_AND_EXPR(35:37)]
+                        XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(35:37)]
+                           XQueryRangeExprImpl[XQUERY_RANGE_EXPR(35:37)]
+                              XQueryAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(35:37)]
+                                 XQueryMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(35:37)]
+                                    XQueryUnionExprImpl[XQUERY_UNION_EXPR(35:37)]
+                                       XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(35:37)]
+                                          XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(35:37)]
+                                             XQueryTreatExprImpl[XQUERY_TREAT_EXPR(35:37)]
+                                                XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(35:37)]
+                                                   XQueryCastExprImpl[XQUERY_CAST_EXPR(35:37)]
+                                                      XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(35:37)]
+                                                         XQueryPathExprImpl[XQUERY_PATH_EXPR(35:37)]
+                                                            XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(35:37)]
+                                                               XQueryFilterExprImpl[XQUERY_FILTER_EXPR(35:37)]
+                                                                  XQueryLiteralImpl[XQUERY_LITERAL(35:36)]
+                                                                     XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(35:36)]('2')
+                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
+                                                                  XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(37:37)]
+               LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(37:38)]('}')

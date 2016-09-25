@@ -1,0 +1,1 @@
+try{2}catch error:XQST0084|error:XQST0085{2}

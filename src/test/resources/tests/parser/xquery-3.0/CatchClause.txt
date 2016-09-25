@@ -33,12 +33,13 @@ FileElement[FILE(0:36)]
             XQueryCatchClauseImpl[XQUERY_CATCH_CLAUSE(10:36)]
                LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_CATCH(10:15)]('catch')
                PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
-               XQueryNameTestImpl[XQUERY_NAME_TEST(16:30)]
-                  XQueryQNameImpl[XQUERY_QNAME(16:30)]
-                     LeafPsiElement[XQUERY_NCNAME_TOKEN(16:21)]('error')
-                     LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(21:22)](':')
-                     LeafPsiElement[XQUERY_NCNAME_TOKEN(22:30)]('XQST0084')
-               PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')
+               XQueryCatchErrorListImpl[XQUERY_CATCH_ERROR_LIST(16:31)]
+                  XQueryNameTestImpl[XQUERY_NAME_TEST(16:30)]
+                     XQueryQNameImpl[XQUERY_QNAME(16:30)]
+                        LeafPsiElement[XQUERY_NCNAME_TOKEN(16:21)]('error')
+                        LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(21:22)](':')
+                        LeafPsiElement[XQUERY_NCNAME_TOKEN(22:30)]('XQST0084')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')
                LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(31:32)]('{')
                PsiWhiteSpaceImpl[WHITE_SPACE(32:33)](' ')
                XQueryExprImpl[XQUERY_EXPR(33:35)]

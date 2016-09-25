@@ -1702,7 +1702,7 @@ class XQueryParser {
             boolean haveErrors = false;
 
             parseWhiteSpaceAndCommentTokens();
-            if (!parseNameTest()) {
+            if (!parseCatchErrorList()) {
                 error(XQueryBundle.message("parser.error.expected", "CatchErrorList"));
                 haveErrors = true;
             }
@@ -1727,6 +1727,24 @@ class XQueryParser {
             catchClauseMarker.done(XQueryElementType.CATCH_CLAUSE);
             return true;
         }
+        return false;
+    }
+
+    private boolean parseCatchErrorList() {
+        final PsiBuilder.Marker catchErrorListMarker = mark();
+        if (parseNameTest()) {
+            parseWhiteSpaceAndCommentTokens();
+            while (matchTokenType(XQueryTokenType.UNION)) {
+                parseWhiteSpaceAndCommentTokens();
+                if (!parseNameTest()) {
+                    error(XQueryBundle.message("parser.error.expected", "NameTest"));
+                }
+                parseWhiteSpaceAndCommentTokens();
+            }
+            catchErrorListMarker.done(XQueryElementType.CATCH_ERROR_LIST);
+            return true;
+        }
+        catchErrorListMarker.drop();
         return false;
     }
 
