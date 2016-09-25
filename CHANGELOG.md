@@ -10,7 +10,7 @@ Language Support:
 
 1.  Partial support for XQuery 3.0 constructs.
 2.  Complete support for Update Facility 1.0 extensions.
-3.  Partial support MarkLogic 1.0-ml extensions.
+3.  Complete support for MarkLogic 1.0-ml extensions in MarkLogic 6.0.
 4.  Fix `InstanceofExpr` and `TreatExpr` -- they expect a `SequenceType`, not a
     `SingleType`.
 

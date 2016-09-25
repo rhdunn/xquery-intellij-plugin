@@ -3071,6 +3071,13 @@ public class XQueryParserTest extends ParserTestCase {
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AbbrevForwardStep")
+    public void testAbbrevForwardStep_KeywordNCNames_MarkLogic60() {
+        final String expected = loadResource("tests/parser/marklogic-6.0/AbbrevForwardStep_KeywordNCNames_MarkLogic60.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-6.0/AbbrevForwardStep_KeywordNCNames_MarkLogic60.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
     // endregion
     // region XQuery 1.0 :: ReverseStep
 
@@ -3656,6 +3663,13 @@ public class XQueryParserTest extends ParserTestCase {
     public void testFunctionCall_KeywordNCNames_UpdateFacility10() {
         final String expected = loadResource("tests/parser/xquery-update-1.0/FunctionCall_KeywordNCNames_UpdateFacility10.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-update-1.0/FunctionCall_KeywordNCNames_UpdateFacility10.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FunctionCall")
+    public void testFunctionCall_KeywordNCNames_MarkLogic60() {
+        final String expected = loadResource("tests/parser/marklogic-6.0/FunctionCall_KeywordNCNames_MarkLogic60.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-6.0/FunctionCall_KeywordNCNames_MarkLogic60.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
