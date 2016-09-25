@@ -177,6 +177,8 @@ public interface XQueryElementType {
     IElementType ANNOTATED_DECL = new ICompositeElementType("XQUERY_ANNOTATED_DECL", XQueryAnnotatedDeclImpl.class, XQueryAnnotatedDeclPsiImpl.class);
     IElementType ANNOTATION = new ICompositeElementType("XQUERY_ANNOTATION", XQueryAnnotationImpl.class, XQueryAnnotationPsiImpl.class);
 
+    IElementType TRY_CLAUSE = new ICompositeElementType("XQUERY_TRY_CLAUSE", XQueryTryClauseImpl.class, XQueryTryClausePsiImpl.class);
+
     // endregion
     // region Update Facility 1.0
 

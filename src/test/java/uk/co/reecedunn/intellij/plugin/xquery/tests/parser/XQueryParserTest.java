@@ -5576,6 +5576,30 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region XQuery 3.0 :: TryClause + TryCatchExpr
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-TryCatchExpr")
+    public void testTryClause() {
+        final String expected = loadResource("tests/parser/xquery-3.0/TryClause.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/TryClause.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-TryCatchExpr")
+    public void testTryClause_MissingExpr() {
+        final String expected = loadResource("tests/parser/xquery-3.0/TryClause_MissingExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/TryClause_MissingExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-TryCatchExpr")
+    public void testTryClause_MissingClosingBrace() {
+        final String expected = loadResource("tests/parser/xquery-3.0/TryClause_MissingClosingBrace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/TryClause_MissingClosingBrace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region XQuery 3.0 :: ValidateExpr
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-ValidateExpr")

@@ -1,0 +1,29 @@
+FileElement[FILE(0:7)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:7)]
+      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:7)]
+         XQueryTryClauseImpl[XQUERY_TRY_CLAUSE(0:7)]
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_TRY(0:3)]('try')
+            PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
+            LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(4:5)]('{')
+            PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
+            XQueryExprImpl[XQUERY_EXPR(6:7)]
+               XQueryOrExprImpl[XQUERY_OR_EXPR(6:7)]
+                  XQueryAndExprImpl[XQUERY_AND_EXPR(6:7)]
+                     XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(6:7)]
+                        XQueryRangeExprImpl[XQUERY_RANGE_EXPR(6:7)]
+                           XQueryAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(6:7)]
+                              XQueryMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(6:7)]
+                                 XQueryUnionExprImpl[XQUERY_UNION_EXPR(6:7)]
+                                    XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(6:7)]
+                                       XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(6:7)]
+                                          XQueryTreatExprImpl[XQUERY_TREAT_EXPR(6:7)]
+                                             XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(6:7)]
+                                                XQueryCastExprImpl[XQUERY_CAST_EXPR(6:7)]
+                                                   XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(6:7)]
+                                                      XQueryPathExprImpl[XQUERY_PATH_EXPR(6:7)]
+                                                         XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(6:7)]
+                                                            XQueryFilterExprImpl[XQUERY_FILTER_EXPR(6:7)]
+                                                               XQueryLiteralImpl[XQUERY_LITERAL(6:7)]
+                                                                  XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(6:7)]('2')
+                                                               XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(7:7)]
+            PsiErrorElementImpl[ERROR_ELEMENT(7:7)]('XPST0003: Expected '}'.')

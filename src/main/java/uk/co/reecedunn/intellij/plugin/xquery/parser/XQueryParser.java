@@ -1108,6 +1108,7 @@ class XQueryParser {
             || parseQuantifiedExpr()
             || parseTypeswitchExpr()
             || parseIfExpr()
+            || parseTryCatchExpr()
             || parseInsertExpr()
             || parseDeleteExpr()
             || parseRenameExpr()
@@ -1639,6 +1640,41 @@ class XQueryParser {
             return true;
         }
         ifExprMarker.drop();
+        return false;
+    }
+
+    // endregion
+    // region Grammar :: Expr :: TryCatchExpr
+
+    private boolean parseTryCatchExpr() {
+        return parseTryClause();
+    }
+
+    private boolean parseTryClause() {
+        final PsiBuilder.Marker tryExprMarker = matchTokenTypeWithMarker(XQueryTokenType.K_TRY);
+        if (tryExprMarker != null) {
+            boolean haveErrors = false;
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.BLOCK_OPEN)) {
+                tryExprMarker.rollbackTo();
+                return false;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseExpr(XQueryElementType.EXPR)) {
+                error(XQueryBundle.message("parser.error.expected-expression"));
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.BLOCK_CLOSE) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", "}"));
+            }
+
+            tryExprMarker.done(XQueryElementType.TRY_CLAUSE);
+            return true;
+        }
         return false;
     }
 
