@@ -180,6 +180,7 @@ public interface XQueryElementType {
     IElementType TRY_CATCH_EXPR = new ICompositeElementType("XQUERY_TRY_CATCH_EXPR", XQueryTryCatchExprImpl.class, XQueryTryCatchExprPsiImpl.class);
     IElementType TRY_CLAUSE = new ICompositeElementType("XQUERY_TRY_CLAUSE", XQueryTryClauseImpl.class, XQueryTryClausePsiImpl.class);
     IElementType TRY_TARGET_EXPR = new ICompositeElementType("XQUERY_TRY_TARGET_EXPR", XQueryTryTargetExprImpl.class, XQueryTryTargetExprPsiImpl.class);
+    IElementType CATCH_CLAUSE = new ICompositeElementType("XQUERY_CATCH_CLAUSE", XQueryCatchClauseImpl.class, XQueryCaseClausePsiImpl.class);
 
     // endregion
     // region Update Facility 1.0

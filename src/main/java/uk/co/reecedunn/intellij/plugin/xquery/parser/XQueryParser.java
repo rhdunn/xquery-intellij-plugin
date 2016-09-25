@@ -1649,6 +1649,18 @@ class XQueryParser {
     private boolean parseTryCatchExpr() {
         final PsiBuilder.Marker tryExprMarker = mark();
         if (parseTryClause()) {
+            boolean haveCatchClause = false;
+
+            parseWhiteSpaceAndCommentTokens();
+            while (parseCatchClause()) {
+                parseWhiteSpaceAndCommentTokens();
+                haveCatchClause = true;
+            }
+
+            if (!haveCatchClause) {
+                error(XQueryBundle.message("parser.error.expected", "CatchClause"));
+            }
+
             tryExprMarker.done(XQueryElementType.TRY_CATCH_EXPR);
             return true;
         }
@@ -1679,6 +1691,40 @@ class XQueryParser {
             }
 
             tryClauseMarker.done(XQueryElementType.TRY_CLAUSE);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseCatchClause() {
+        final PsiBuilder.Marker catchClauseMarker = matchTokenTypeWithMarker(XQueryTokenType.K_CATCH);
+        if (catchClauseMarker != null) {
+            boolean haveErrors = false;
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseNameTest()) {
+                error(XQueryBundle.message("parser.error.expected", "CatchErrorList"));
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.BLOCK_OPEN)) {
+                error(XQueryBundle.message("parser.error.expected", "{"));
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseExpr(XQueryElementType.EXPR)) {
+                error(XQueryBundle.message("parser.error.expected-expression"));
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.BLOCK_CLOSE) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", "}"));
+            }
+
+            catchClauseMarker.done(XQueryElementType.CATCH_CLAUSE);
             return true;
         }
         return false;
