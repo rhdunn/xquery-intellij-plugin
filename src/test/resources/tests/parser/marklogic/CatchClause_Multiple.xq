@@ -1,0 +1,1 @@
+try { 2 } catch ( $ e ) { 2 } catch ( $ e ) { 2 }

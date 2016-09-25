@@ -532,7 +532,7 @@ public class XQueryPsiTest extends ParserTestCase {
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-TryCatchExpr")
     public void testTryCatchExpr() {
-        final ASTNode node = parseResource("tests/parser/xquery-3.0/TryClause.xq");
+        final ASTNode node = parseResource("tests/parser/xquery-3.0/CatchClause.xq");
 
         XQueryTryCatchExpr tryCatchExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryTryCatchExpr.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)tryCatchExprPsi;

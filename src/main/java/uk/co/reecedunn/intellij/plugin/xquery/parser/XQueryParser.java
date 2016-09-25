@@ -1646,23 +1646,33 @@ class XQueryParser {
     // endregion
     // region Grammar :: Expr :: TryCatchExpr
 
+    private enum CatchClauseType {
+        NONE,
+        XQUERY_30,
+        MARK_LOGIC
+    };
+
     private boolean parseTryCatchExpr() {
         final PsiBuilder.Marker tryExprMarker = mark();
         if (parseTryClause()) {
-            boolean haveCatchClause = false;
+            CatchClauseType type = CatchClauseType.NONE;
 
             parseWhiteSpaceAndCommentTokens();
-            while (parseCatchClause()) {
+            while (true) {
+                CatchClauseType nextType = parseCatchClause(type);
+                if (nextType == CatchClauseType.NONE) {
+                    if (type == CatchClauseType.NONE) {
+                        error(XQueryBundle.message("parser.error.expected", "CatchClause"));
+                    }
+
+                    tryExprMarker.done(XQueryElementType.TRY_CATCH_EXPR);
+                    return true;
+                } else if (type != CatchClauseType.MARK_LOGIC) {
+                    type = nextType;
+                }
+
                 parseWhiteSpaceAndCommentTokens();
-                haveCatchClause = true;
             }
-
-            if (!haveCatchClause) {
-                error(XQueryBundle.message("parser.error.expected", "CatchClause"));
-            }
-
-            tryExprMarker.done(XQueryElementType.TRY_CATCH_EXPR);
-            return true;
         }
         tryExprMarker.drop();
         return false;
@@ -1696,25 +1706,54 @@ class XQueryParser {
         return false;
     }
 
-    private boolean parseCatchClause() {
+    private CatchClauseType parseCatchClause(CatchClauseType type) {
         final PsiBuilder.Marker catchClauseMarker = matchTokenTypeWithMarker(XQueryTokenType.K_CATCH);
+
         if (catchClauseMarker != null) {
             boolean haveErrors = false;
+            CatchClauseType nextType = CatchClauseType.XQUERY_30;
 
             parseWhiteSpaceAndCommentTokens();
-            if (!parseCatchErrorList()) {
+            if (parseCatchErrorList()) {
+                //
+            } else if (getTokenType() == XQueryTokenType.PARENTHESIS_OPEN) {
+                if (type == CatchClauseType.MARK_LOGIC) {
+                    error(XQueryBundle.message("parser.error.multiple-marklogic-catch-clause"));
+                }
+                advanceLexer();
+
+                nextType = CatchClauseType.MARK_LOGIC;
+
+                parseWhiteSpaceAndCommentTokens();
+                if (!matchTokenType(XQueryTokenType.VARIABLE_INDICATOR)) {
+                    error(XQueryBundle.message("parser.error.expected", "$"));
+                    haveErrors = true;
+                }
+
+                parseWhiteSpaceAndCommentTokens();
+                if (!parseEQName(XQueryElementType.VAR_NAME) && !haveErrors) {
+                    error(XQueryBundle.message("parser.error.expected", "VarName"));
+                    haveErrors = true;
+                }
+
+                parseWhiteSpaceAndCommentTokens();
+                if (!matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE) && !haveErrors) {
+                    error(XQueryBundle.message("parser.error.expected", ")"));
+                    haveErrors = true;
+                }
+            } else {
                 error(XQueryBundle.message("parser.error.expected", "CatchErrorList"));
                 haveErrors = true;
             }
 
             parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.BLOCK_OPEN)) {
+            if (!matchTokenType(XQueryTokenType.BLOCK_OPEN) && !haveErrors) {
                 error(XQueryBundle.message("parser.error.expected", "{"));
                 haveErrors = true;
             }
 
             parseWhiteSpaceAndCommentTokens();
-            if (!parseExpr(XQueryElementType.EXPR)) {
+            if (!parseExpr(XQueryElementType.EXPR) && !haveErrors && nextType != CatchClauseType.MARK_LOGIC) {
                 error(XQueryBundle.message("parser.error.expected-expression"));
                 haveErrors = true;
             }
@@ -1725,9 +1764,9 @@ class XQueryParser {
             }
 
             catchClauseMarker.done(XQueryElementType.CATCH_CLAUSE);
-            return true;
+            return nextType;
         }
-        return false;
+        return CatchClauseType.NONE;
     }
 
     private boolean parseCatchErrorList() {

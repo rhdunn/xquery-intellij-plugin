@@ -81,6 +81,51 @@ public class MarkLogicParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region MarkLogic 6.0 :: CatchClause + TryCatchExpr
+
+    public void testCatchClause() {
+        final String expected = loadResource("tests/parser/marklogic/CatchClause.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic/CatchClause.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testCatchClause_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/marklogic/CatchClause_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic/CatchClause_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testCatchClause_MissingVariableIndicator() {
+        final String expected = loadResource("tests/parser/marklogic/CatchClause_MissingVariableIndicator.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic/CatchClause_MissingVariableIndicator.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testCatchClause_MissingVarName() {
+        final String expected = loadResource("tests/parser/marklogic/CatchClause_MissingVarName.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic/CatchClause_MissingVarName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testCatchClause_MissingClosingParenthesis() {
+        final String expected = loadResource("tests/parser/marklogic/CatchClause_MissingClosingParenthesis.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic/CatchClause_MissingClosingParenthesis.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testCatchClause_EmptyExpr() {
+        final String expected = loadResource("tests/parser/marklogic/CatchClause_EmptyExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic/CatchClause_EmptyExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testCatchClause_Multiple() {
+        final String expected = loadResource("tests/parser/marklogic/CatchClause_Multiple.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic/CatchClause_Multiple.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region MarkLogic 6.0 :: ValidateExpr
 
     public void testValidateExpr_ValidateAs() {
