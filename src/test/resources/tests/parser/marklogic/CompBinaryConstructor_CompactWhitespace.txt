@@ -17,7 +17,7 @@ FileElement[FILE(0:12)]
                                                 XQueryPathExprImpl[XQUERY_PATH_EXPR(0:12)]
                                                    XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:12)]
                                                       XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:12)]
-                                                         MarkLogicBinaryExprImpl[XQUERY_BINARY_EXPR(0:12)]
+                                                         MarkLogicCompBinaryConstructorImpl[XQUERY_BINARY_EXPR(0:12)]
                                                             LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_BINARY(0:6)]('binary')
                                                             LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(6:7)]('{')
                                                             XQueryExprImpl[XQUERY_EXPR(7:11)]

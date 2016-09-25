@@ -13,12 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic;
+package uk.co.reecedunn.intellij.plugin.xquery.ast.impl.marklogic;
 
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPrimaryExpr;
+import com.intellij.psi.impl.source.tree.CompositeElement;
+import com.intellij.psi.tree.IElementType;
+import org.jetbrains.annotations.NotNull;
 
-/**
- * A MarkLogic <code>BinaryBinary</code> node in the XQuery AST.
- */
-public interface MarkLogicBinaryExpr extends XQueryPrimaryExpr {
+public class MarkLogicCompBinaryConstructorImpl extends CompositeElement {
+    public MarkLogicCompBinaryConstructorImpl(@NotNull IElementType type) {
+        super(type);
+    }
 }

@@ -158,9 +158,9 @@ public class MarkLogicPsiTest extends ParserTestCase {
     // region MarkLogic 6.0 :: BinaryExpr
 
     public void testBinaryExpr() {
-        final ASTNode node = parseResource("tests/parser/marklogic/BinaryExpr.xq");
+        final ASTNode node = parseResource("tests/parser/marklogic/CompBinaryConstructor.xq");
 
-        MarkLogicBinaryExpr binaryKindTestPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), MarkLogicBinaryExpr.class);
+        MarkLogicCompBinaryConstructor binaryKindTestPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), MarkLogicCompBinaryConstructor.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)binaryKindTestPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));

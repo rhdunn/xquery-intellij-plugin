@@ -19,15 +19,15 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic.MarkLogicBinaryExpr;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic.MarkLogicCompBinaryConstructor;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 
-public class MarkLogicBinaryExprPsiImpl extends ASTWrapperPsiElement implements MarkLogicBinaryExpr, XQueryConformanceCheck {
-    public MarkLogicBinaryExprPsiImpl(@NotNull ASTNode node) {
+public class MarkLogicCompBinaryConstructorPsiImpl extends ASTWrapperPsiElement implements MarkLogicCompBinaryConstructor, XQueryConformanceCheck {
+    public MarkLogicCompBinaryConstructorPsiImpl(@NotNull ASTNode node) {
         super(node);
     }
 

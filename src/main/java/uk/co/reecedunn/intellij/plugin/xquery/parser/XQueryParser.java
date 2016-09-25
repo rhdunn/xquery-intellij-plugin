@@ -2619,7 +2619,7 @@ class XQueryParser {
             || parseOrderedExpr()
             || parseUnorderedExpr()
             || parseConstructor()
-            || parseBinaryExpr()
+            || parseMarkLogicComputedConstructor()
             || parseFunctionCall();
     }
 
@@ -2787,29 +2787,6 @@ class XQueryParser {
         }
 
         constructorMarker.drop();
-        return false;
-    }
-
-    private boolean parseBinaryExpr() {
-        final PsiBuilder.Marker binaryExprMarker = matchTokenTypeWithMarker(XQueryTokenType.K_BINARY);
-        if (binaryExprMarker != null) {
-            skipWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.BLOCK_OPEN)) {
-                binaryExprMarker.rollbackTo();
-                return false;
-            }
-
-            skipWhiteSpaceAndCommentTokens();
-            parseExpr(XQueryElementType.EXPR);
-
-            skipWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.BLOCK_CLOSE)) {
-                error(XQueryBundle.message("parser.error.expected", "}"));
-            }
-
-            binaryExprMarker.done(XQueryElementType.BINARY_EXPR);
-            return true;
-        }
         return false;
     }
 
@@ -3254,6 +3231,36 @@ class XQueryParser {
             }
 
             piMarker.done(XQueryElementType.COMP_PI_CONSTRUCTOR);
+            return true;
+        }
+        return false;
+    }
+
+    // endregion
+    // region Grammar :: Expr :: OrExpr :: MarkLogicComputedConstructor
+
+    private boolean parseMarkLogicComputedConstructor() {
+        return parseCompBinaryConstructor();
+    }
+
+    private boolean parseCompBinaryConstructor() {
+        final PsiBuilder.Marker compBinaryConstructor = matchTokenTypeWithMarker(XQueryTokenType.K_BINARY);
+        if (compBinaryConstructor != null) {
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.BLOCK_OPEN)) {
+                compBinaryConstructor.rollbackTo();
+                return false;
+            }
+
+            skipWhiteSpaceAndCommentTokens();
+            parseExpr(XQueryElementType.EXPR);
+
+            skipWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.BLOCK_CLOSE)) {
+                error(XQueryBundle.message("parser.error.expected", "}"));
+            }
+
+            compBinaryConstructor.done(XQueryElementType.COMP_BINARY_CONSTRUCTOR);
             return true;
         }
         return false;
