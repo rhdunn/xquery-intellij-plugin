@@ -5576,7 +5576,7 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     // endregion
-    // region XQuery 3.0 :: TryClause + TryCatchExpr
+    // region XQuery 3.0 :: TryClause + TryTargetExpr + TryCatchExpr
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-TryCatchExpr")
     public void testTryClause() {
