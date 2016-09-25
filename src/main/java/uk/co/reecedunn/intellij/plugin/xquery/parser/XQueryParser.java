@@ -189,7 +189,7 @@ class XQueryParser {
     }
 
     private boolean parseMainModule() {
-        if (parseProlog()) {
+        if (parseProlog(false)) {
             parseWhiteSpaceAndCommentTokens();
             if (!parseExpr(XQueryElementType.QUERY_BODY)) {
                 error(XQueryBundle.message("parser.error.expected-query-body"));
@@ -202,7 +202,7 @@ class XQueryParser {
     private boolean parseLibraryModule() {
         if (parseModuleDecl()) {
             parseWhiteSpaceAndCommentTokens();
-            parseProlog();
+            parseProlog(true);
             return true;
         }
         return false;
@@ -265,7 +265,7 @@ class XQueryParser {
         NOT_MATCHED
     };
 
-    private boolean parseProlog() {
+    private boolean parseProlog(boolean parseInvalidConstructs) {
         final PsiBuilder.Marker prologMarker = mark();
 
         PrologDeclState state = PrologDeclState.NOT_MATCHED;
@@ -277,12 +277,19 @@ class XQueryParser {
 
             switch (nextState) {
                 case NOT_MATCHED:
-                    if (state == PrologDeclState.NOT_MATCHED) {
-                        prologMarker.drop();
-                        return false;
+                    if (parseInvalidConstructs && getTokenType() != null) {
+                        if (parseWhiteSpaceAndCommentTokens()) continue;
+                        if (parseExprSingle()) continue;
+                        advanceLexer();
+                        continue;
+                    } else {
+                        if (state == PrologDeclState.NOT_MATCHED) {
+                            prologMarker.drop();
+                            return false;
+                        }
+                        prologMarker.done(XQueryElementType.PROLOG);
+                        return true;
                     }
-                    prologMarker.done(XQueryElementType.PROLOG);
-                    return true;
                 case HEADER_STATEMENT:
                 case UNKNOWN_STATEMENT:
                     if (state == PrologDeclState.NOT_MATCHED) {
