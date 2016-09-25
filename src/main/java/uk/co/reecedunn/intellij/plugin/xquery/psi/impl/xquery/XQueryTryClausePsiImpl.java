@@ -34,7 +34,9 @@ public class XQueryTryClausePsiImpl extends ASTWrapperPsiElement implements XQue
     @Override
     public boolean conformsTo(ImplementationItem implementation) {
         final XQueryVersion minimalConformance = implementation.getVersion(XQueryConformance.MINIMAL_CONFORMANCE);
-        return minimalConformance != null && minimalConformance.supportsVersion(XQueryVersion.VERSION_3_0);
+        final XQueryVersion marklogic = implementation.getVersion(XQueryConformance.MARKLOGIC);
+        return (minimalConformance != null && minimalConformance.supportsVersion(XQueryVersion.VERSION_3_0))
+            || (marklogic != null && marklogic.supportsVersion(XQueryVersion.VERSION_6_0));
     }
 
     @Override
@@ -44,6 +46,6 @@ public class XQueryTryClausePsiImpl extends ASTWrapperPsiElement implements XQue
 
     @Override
     public String getConformanceErrorMessage() {
-        return XQueryBundle.message("requires.feature.minimal-conformance.version", XQueryVersion.VERSION_3_0);
+        return XQueryBundle.message("requires.feature.marklogic-xquery.version");
     }
 }
