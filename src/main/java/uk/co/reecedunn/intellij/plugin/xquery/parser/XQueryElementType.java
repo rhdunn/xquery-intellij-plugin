@@ -219,6 +219,7 @@ public interface XQueryElementType {
     // region MarkLogic 8.0
 
     IElementType COMP_NULL_CONSTRUCTOR = new ICompositeElementType("XQUERY_COMP_NULL_CONSTRUCTOR", MarkLogicCompNullConstructorImpl.class, MarkLogicCompNullConstructorPsiImpl.class);
+    IElementType NULL_TEST = new ICompositeElementType("XQUERY_NULL_TEST", MarkLogicNullTestImpl.class, MarkLogicNullTestPsiImpl.class);
 
     // endregion
 }

@@ -3711,4 +3711,15 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region MarkLogic 8.0 :: NullTest
+
+    public void testNullTest() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "null-node", XQueryTokenType.K_NULL_NODE);
+        matchSingleToken(lexer, "(",         XQueryTokenType.PARENTHESIS_OPEN);
+        matchSingleToken(lexer, ")",         XQueryTokenType.PARENTHESIS_CLOSE);
+    }
+
+    // endregion
 }

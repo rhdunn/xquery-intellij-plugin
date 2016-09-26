@@ -1,0 +1,26 @@
+FileElement[FILE(0:45)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:45)]
+      XQueryPrologImpl[XQUERY_PROLOG(0:45)]
+         XQueryAnnotatedDeclImpl[XQUERY_ANNOTATED_DECL(0:44)]
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
+            PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+            XQueryVarDeclImpl[XQUERY_VAR_DECL(8:44)]
+               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_VARIABLE(8:16)]('variable')
+               LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(16:17)]('$')
+               XQueryNCNameImpl[XQUERY_NCNAME(17:21)]
+                  LeafPsiElement[XQUERY_NCNAME_TOKEN(17:20)]('one')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
+               XQueryTypeDeclarationImpl[XQUERY_TYPE_DECLARATION(21:36)]
+                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_AS(21:23)]('as')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
+                  XQuerySequenceTypeImpl[XQUERY_SEQUENCE_TYPE(24:36)]
+                     XQueryItemTypeImpl[XQUERY_ITEM_TYPE(24:36)]
+                        MarkLogicNullTestImpl[XQUERY_NULL_TEST(24:36)]
+                           LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NULL_NODE(24:33)]('null-node')
+                           LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(33:34)]('(')
+                           PsiErrorElementImpl[ERROR_ELEMENT(34:35)]('XPST0003: Expected 'StringLiteral' or ')'.')
+                              LeafPsiElement[XQUERY_STAR_TOKEN(34:35)]('*')
+                           LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(35:36)](')')
+               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(36:44)]('external')
+         LeafPsiElement[XQUERY_SEPARATOR_TOKEN(44:45)](';')
+      PsiErrorElementImpl[ERROR_ELEMENT(45:45)]('XPST0003: Missing query body.')
