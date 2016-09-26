@@ -1,5 +1,7 @@
-src/test/resources/tests/parser/marklogic/*.txt text eol=lf
-src/test/resources/tests/parser/marklogic/*.xq text eol=lf
+src/test/resources/tests/parser/marklogic-6.0/*.txt text eol=lf
+src/test/resources/tests/parser/marklogic-6.0/*.xq text eol=lf
+src/test/resources/tests/parser/marklogic-8.0/*.txt text eol=lf
+src/test/resources/tests/parser/marklogic-8.0/*.xq text eol=lf
 src/test/resources/tests/parser/xquery-1.0/*.txt text eol=lf
 src/test/resources/tests/parser/xquery-1.0/*.xq text eol=lf
 src/test/resources/tests/parser/xquery-3.0/*.txt text eol=lf

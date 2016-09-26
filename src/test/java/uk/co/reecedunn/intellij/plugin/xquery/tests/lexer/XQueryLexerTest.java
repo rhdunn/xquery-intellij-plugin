@@ -3688,4 +3688,16 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region MarkLogic 8.0 :: AnyKindTest
+
+    public void testAnyKindTest_MarkLogic() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "node", XQueryTokenType.K_NODE);
+        matchSingleToken(lexer, "(",    XQueryTokenType.PARENTHESIS_OPEN);
+        matchSingleToken(lexer, "*",    XQueryTokenType.STAR);
+        matchSingleToken(lexer, ")",    XQueryTokenType.PARENTHESIS_CLOSE);
+    }
+
+    // endregion
 }

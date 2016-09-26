@@ -3540,6 +3540,11 @@ class XQueryParser {
             }
 
             parseWhiteSpaceAndCommentTokens();
+            if (parseStringLiteral(XQueryElementType.STRING_LITERAL) || matchTokenType(XQueryTokenType.STAR)) { // MarkLogic 8.0
+                //
+            }
+
+            parseWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE)) {
                 error(XQueryBundle.message("parser.error.expected", ")"));
             }
