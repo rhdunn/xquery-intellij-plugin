@@ -264,16 +264,16 @@ public class MarkLogicPsiTest extends ParserTestCase {
     }
 
     // endregion
-    // region MarkLogic 6.0 :: BinaryKindTest
+    // region MarkLogic 6.0 :: BinaryTest
 
-    public void testBinaryKindTest() {
-        final ASTNode node = parseResource("tests/parser/marklogic-6.0/BinaryKindTest.xq");
+    public void testBinaryTest() {
+        final ASTNode node = parseResource("tests/parser/marklogic-6.0/BinaryTest.xq");
 
         XQueryAnnotatedDecl annotationDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryAnnotatedDecl.class);
         XQueryVarDecl varDeclPsi = PsiNavigation.findChildrenByClass(annotationDeclPsi, XQueryVarDecl.class).get(0);
         XQueryTypeDeclaration typeDeclarationPsi = PsiNavigation.findChildrenByClass(varDeclPsi, XQueryTypeDeclaration.class).get(0);
         XQuerySequenceType sequenceTypePsi = PsiNavigation.findChildrenByClass(typeDeclarationPsi, XQuerySequenceType.class).get(0);
-        MarkLogicBinaryKindTest binaryKindTestPsi = PsiNavigation.findFirstChildByClass(sequenceTypePsi, MarkLogicBinaryKindTest.class);
+        MarkLogicBinaryTest binaryKindTestPsi = PsiNavigation.findFirstChildByClass(sequenceTypePsi, MarkLogicBinaryTest.class);
 
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)binaryKindTestPsi;
 

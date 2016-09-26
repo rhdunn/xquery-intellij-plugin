@@ -13,14 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.impl.marklogic;
+package uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic;
 
-import com.intellij.psi.impl.source.tree.CompositeElement;
-import com.intellij.psi.tree.IElementType;
-import org.jetbrains.annotations.NotNull;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryKindTest;
 
-public class MarkLogicBinaryKindTestImpl extends CompositeElement {
-    public MarkLogicBinaryKindTestImpl(@NotNull IElementType type) {
-        super(type);
-    }
+/**
+ * A MarkLogic <code>BinaryTest</code> node in the XQuery AST.
+ */
+public interface MarkLogicBinaryTest extends XQueryKindTest {
 }

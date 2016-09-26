@@ -3677,6 +3677,17 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region MarkLogic 6.0 :: BinaryTest
+
+    public void testBinaryTest() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "binary", XQueryTokenType.K_BINARY);
+        matchSingleToken(lexer, "(",      XQueryTokenType.PARENTHESIS_OPEN);
+        matchSingleToken(lexer, ")",      XQueryTokenType.PARENTHESIS_CLOSE);
+    }
+
+    // endregion
     // region MarkLogic 8.0 :: CompNullConstructor
 
     public void testCompNullConstructor() {
@@ -3685,17 +3696,6 @@ public class XQueryLexerTest extends TestCase {
         matchSingleToken(lexer, "null-node", XQueryTokenType.K_NULL_NODE);
         matchSingleToken(lexer, "{",         XQueryTokenType.BLOCK_OPEN);
         matchSingleToken(lexer, "}",         XQueryTokenType.BLOCK_CLOSE);
-    }
-
-    // endregion
-    // region MarkLogic 6.0 :: BinaryKindTest
-
-    public void testBinaryKindTest() {
-        Lexer lexer = new XQueryLexer();
-
-        matchSingleToken(lexer, "binary", XQueryTokenType.K_BINARY);
-        matchSingleToken(lexer, "(",      XQueryTokenType.PARENTHESIS_OPEN);
-        matchSingleToken(lexer, ")",      XQueryTokenType.PARENTHESIS_CLOSE);
     }
 
     // endregion

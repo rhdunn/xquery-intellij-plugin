@@ -240,23 +240,23 @@ public class MarkLogicParserTest extends ParserTestCase {
     }
 
     // endregion
-    // region MarkLogic 6.0 :: BinaryKindTest
+    // region MarkLogic 6.0 :: BinaryTest
 
-    public void testBinaryKindTest() {
-        final String expected = loadResource("tests/parser/marklogic-6.0/BinaryKindTest.txt");
-        final ASTNode actual = parseResource("tests/parser/marklogic-6.0/BinaryKindTest.xq");
+    public void testBinaryTest() {
+        final String expected = loadResource("tests/parser/marklogic-6.0/BinaryTest.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-6.0/BinaryTest.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    public void testBinaryKindTest_CompactWhitespace() {
-        final String expected = loadResource("tests/parser/marklogic-6.0/BinaryKindTest_CompactWhitespace.txt");
-        final ASTNode actual = parseResource("tests/parser/marklogic-6.0/BinaryKindTest_CompactWhitespace.xq");
+    public void testBinaryTest_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/marklogic-6.0/BinaryTest_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-6.0/BinaryTest_CompactWhitespace.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    public void testBinaryKindTest_MissingClosingParenthesis() {
-        final String expected = loadResource("tests/parser/marklogic-6.0/BinaryKindTest_MissingClosingParenthesis.txt");
-        final ASTNode actual = parseResource("tests/parser/marklogic-6.0/BinaryKindTest_MissingClosingParenthesis.xq");
+    public void testBinaryTest_MissingClosingParenthesis() {
+        final String expected = loadResource("tests/parser/marklogic-6.0/BinaryTest_MissingClosingParenthesis.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-6.0/BinaryTest_MissingClosingParenthesis.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 

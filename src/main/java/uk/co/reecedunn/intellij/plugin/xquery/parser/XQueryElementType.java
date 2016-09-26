@@ -213,7 +213,7 @@ public interface XQueryElementType {
     IElementType STYLESHEET_IMPORT = new ICompositeElementType("XQUERY_STYLESHEET_IMPORT", MarkLogicStylesheetImportImpl.class, MarkLogicStylesheetImportPsiImpl.class);
 
     IElementType COMP_BINARY_CONSTRUCTOR = new ICompositeElementType("XQUERY_COMP_BINARY_CONSTRUCTOR", MarkLogicCompBinaryConstructorImpl.class, MarkLogicCompBinaryConstructorPsiImpl.class);
-    IElementType BINARY_KIND_TEST = new ICompositeElementType("XQUERY_BINARY_KIND_TEST", MarkLogicBinaryKindTestImpl.class, MarkLogicBinaryKindTestPsiImpl.class);
+    IElementType BINARY_TEST = new ICompositeElementType("XQUERY_BINARY_TEST", MarkLogicBinaryTestImpl.class, MarkLogicBinaryTestPsiImpl.class);
 
     // endregion
     // region MarkLogic 8.0

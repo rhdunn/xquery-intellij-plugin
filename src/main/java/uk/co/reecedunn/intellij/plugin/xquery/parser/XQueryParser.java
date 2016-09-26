@@ -3840,7 +3840,7 @@ class XQueryParser {
                 error(XQueryBundle.message("parser.error.expected", ")"));
             }
 
-            binaryKindTestMarker.done(XQueryElementType.BINARY_KIND_TEST);
+            binaryKindTestMarker.done(XQueryElementType.BINARY_TEST);
             return true;
         }
         return false;
