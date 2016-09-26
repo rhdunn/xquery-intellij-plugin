@@ -13,12 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic;
+package uk.co.reecedunn.intellij.plugin.xquery.ast.impl.marklogic;
 
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryComputedConstructor;
+import com.intellij.psi.impl.source.tree.CompositeElement;
+import com.intellij.psi.tree.IElementType;
+import org.jetbrains.annotations.NotNull;
 
-/**
- * A MarkLogic <code>CompBinaryConstructor</code> node in the XQuery AST.
- */
-public interface MarkLogicCompBinaryConstructor extends XQueryComputedConstructor {
+public class MarkLogicCompNullConstructorImpl extends CompositeElement {
+    public MarkLogicCompNullConstructorImpl(@NotNull IElementType type) {
+        super(type);
+    }
 }

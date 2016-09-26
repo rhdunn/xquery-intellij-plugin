@@ -1328,6 +1328,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("no-preserve", XQueryTokenType.K_NO_PRESERVE);
         sKeywords.put("node", XQueryTokenType.K_NODE);
         sKeywords.put("nodes", XQueryTokenType.K_NODES); // Update Facility 1.0
+        sKeywords.put("null-node", XQueryTokenType.K_NULL_NODE); // MarkLogic 8.0
         sKeywords.put("of", XQueryTokenType.K_OF);
         sKeywords.put("only", XQueryTokenType.K_ONLY); // XQuery 3.0
         sKeywords.put("option", XQueryTokenType.K_OPTION);

@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryComputedConstructor;
 
 /**
- * A MarkLogic <code>CompBinaryConstructor</code> node in the XQuery AST.
+ * A MarkLogic 8.0 <code>CompNullConstructor</code> node in the XQuery AST.
  */
-public interface MarkLogicCompBinaryConstructor extends XQueryComputedConstructor {
+public interface MarkLogicCompNullConstructor extends XQueryComputedConstructor {
 }

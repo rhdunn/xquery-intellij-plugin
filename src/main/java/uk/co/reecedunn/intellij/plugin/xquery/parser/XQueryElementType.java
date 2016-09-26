@@ -216,4 +216,9 @@ public interface XQueryElementType {
     IElementType BINARY_KIND_TEST = new ICompositeElementType("XQUERY_BINARY_KIND_TEST", MarkLogicBinaryKindTestImpl.class, MarkLogicBinaryKindTestPsiImpl.class);
 
     // endregion
+    // region MarkLogic 8.0
+
+    IElementType COMP_NULL_CONSTRUCTOR = new ICompositeElementType("XQUERY_COMP_NULL_CONSTRUCTOR", MarkLogicCompNullConstructorImpl.class, MarkLogicCompNullConstructorPsiImpl.class);
+
+    // endregion
 }

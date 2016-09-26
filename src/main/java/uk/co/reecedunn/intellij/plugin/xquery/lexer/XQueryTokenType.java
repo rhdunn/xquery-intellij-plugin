@@ -212,6 +212,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_NO_PRESERVE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NO_PRESERVE");
     IXQueryReservedFunctionNameOrNCNameType K_NODE = new IXQueryReservedFunctionNameOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NODE");
     IXQueryKeywordOrNCNameType K_NODES = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NODES"); // Update Facility 1.0
+    IXQueryKeywordOrNCNameType K_NULL_NODE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NULL_NODE"); // MarkLogic 8.0
     IXQueryKeywordOrNCNameType K_OF = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_OF");
     IXQueryKeywordOrNCNameType K_ONLY = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ONLY"); // XQuery 3.0
     IXQueryKeywordOrNCNameType K_OPTION = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_OPTION");

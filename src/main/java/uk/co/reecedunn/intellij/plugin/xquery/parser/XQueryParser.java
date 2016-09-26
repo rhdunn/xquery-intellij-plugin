@@ -3192,7 +3192,8 @@ class XQueryParser {
             || parseCompTextConstructor()
             || parseCompCommentConstructor()
             || parseCompPIConstructor()
-            || parseCompBinaryConstructor();
+            || parseCompBinaryConstructor()
+            || parseCompNullConstructor();
     }
 
     private boolean parseCompDocConstructor() {
@@ -3429,6 +3430,26 @@ class XQueryParser {
             }
 
             compBinaryConstructor.done(XQueryElementType.COMP_BINARY_CONSTRUCTOR);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseCompNullConstructor() {
+        final PsiBuilder.Marker compNullConstructor = matchTokenTypeWithMarker(XQueryTokenType.K_NULL_NODE);
+        if (compNullConstructor != null) {
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.BLOCK_OPEN)) {
+                compNullConstructor.rollbackTo();
+                return false;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.BLOCK_CLOSE)) {
+                error(XQueryBundle.message("parser.error.expected", "}"));
+            }
+
+            compNullConstructor.done(XQueryElementType.COMP_NULL_CONSTRUCTOR);
             return true;
         }
         return false;

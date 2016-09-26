@@ -238,9 +238,9 @@ public class MarkLogicPsiTest extends ParserTestCase {
     }
 
     // endregion
-    // region MarkLogic 6.0 :: BinaryExpr
+    // region MarkLogic 6.0 :: CompBinaryConstructor
 
-    public void testBinaryExpr() {
+    public void testCompBinaryConstructor() {
         final ASTNode node = parseResource("tests/parser/marklogic-6.0/CompBinaryConstructor.xq");
 
         MarkLogicCompBinaryConstructor binaryKindTestPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), MarkLogicCompBinaryConstructor.class);
@@ -295,7 +295,33 @@ public class MarkLogicPsiTest extends ParserTestCase {
     }
 
     // endregion
-    // region XQuery 8.0 :: AnyKindTest
+    // region MarkLogic 8.0 :: CompNullConstructor
+
+    public void testCompNullConstructor() {
+        final ASTNode node = parseResource("tests/parser/marklogic-8.0/CompNullConstructor.xq");
+
+        MarkLogicCompNullConstructor nullKindTestPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), MarkLogicCompNullConstructor.class);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)nullKindTestPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires MarkLogic 8.0 or later with XQuery version '1.0-ml'."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_NULL_NODE));
+    }
+
+    // endregion
+    // region MarkLogic 8.0 :: AnyKindTest
 
     public void testAnyKindTest_KeyName() {
         final ASTNode node = parseResource("tests/parser/marklogic-8.0/AnyKindTest_KeyName.xq");
@@ -354,7 +380,7 @@ public class MarkLogicPsiTest extends ParserTestCase {
     }
 
     // endregion
-    // region XQuery 8.0 :: TextTest
+    // region MarkLogic 8.0 :: TextTest
 
     public void testTextTest_KeyName() {
         final ASTNode node = parseResource("tests/parser/marklogic-8.0/TextTest_KeyName.xq");

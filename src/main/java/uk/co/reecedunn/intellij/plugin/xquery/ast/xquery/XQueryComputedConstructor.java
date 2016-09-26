@@ -25,5 +25,5 @@ import com.intellij.psi.PsiElement;
  * <code>ComputedConstructor</code> nodes are stored as instances of the child nodes
  * instead of as distinct nodes themselves.
  */
-interface XQueryComputedConstructor extends PsiElement {
+public interface XQueryComputedConstructor extends PsiElement {
 }
