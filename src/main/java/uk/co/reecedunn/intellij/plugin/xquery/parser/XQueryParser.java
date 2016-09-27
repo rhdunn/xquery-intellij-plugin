@@ -3193,6 +3193,7 @@ class XQueryParser {
             || parseCompCommentConstructor()
             || parseCompPIConstructor()
             || parseCompBinaryConstructor()
+            || parseCompBooleanConstructor()
             || parseCompNullConstructor();
     }
 
@@ -3430,6 +3431,34 @@ class XQueryParser {
             }
 
             compBinaryConstructor.done(XQueryElementType.COMP_BINARY_CONSTRUCTOR);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseCompBooleanConstructor() {
+        final PsiBuilder.Marker compBooleanConstructor = matchTokenTypeWithMarker(XQueryTokenType.K_BOOLEAN_NODE);
+        if (compBooleanConstructor != null) {
+            boolean haveErrors = false;
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.BLOCK_OPEN)) {
+                compBooleanConstructor.rollbackTo();
+                return false;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseExpr(XQueryElementType.EXPR)) {
+                error(XQueryBundle.message("parser.error.expected-expression"));
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.BLOCK_CLOSE) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", "}"));
+            }
+
+            compBooleanConstructor.done(XQueryElementType.COMP_BOOLEAN_CONSTRUCTOR);
             return true;
         }
         return false;
