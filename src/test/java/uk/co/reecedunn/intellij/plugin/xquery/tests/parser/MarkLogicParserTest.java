@@ -480,4 +480,49 @@ public class MarkLogicParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region MarkLogic 8.0 :: NumberTest
+
+    public void testNumberTest() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/NumberTest.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-8.0/NumberTest.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testNumberTest_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/NumberTest_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-8.0/NumberTest_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testNumberTest_MissingClosingParenthesis() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/NumberTest_MissingClosingParenthesis.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-8.0/NumberTest_MissingClosingParenthesis.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testNumberTest_KeyName() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/NumberTest_KeyName.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-8.0/NumberTest_KeyName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testNumberTest_KeyName_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/NumberTest_KeyName_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-8.0/NumberTest_KeyName_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testNumberTest_Wildcard() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/NumberTest_Wildcard.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-8.0/NumberTest_Wildcard.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testNumberTest_Wildcard_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/NumberTest_Wildcard_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-8.0/NumberTest_Wildcard_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
 }

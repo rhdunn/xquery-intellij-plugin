@@ -3755,4 +3755,15 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region MarkLogic 8.0 :: NumberTest
+
+    public void testNumberTest() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "number-node", XQueryTokenType.K_NUMBER_NODE);
+        matchSingleToken(lexer, "(",           XQueryTokenType.PARENTHESIS_OPEN);
+        matchSingleToken(lexer, ")",           XQueryTokenType.PARENTHESIS_CLOSE);
+    }
+
+    // endregion
 }
