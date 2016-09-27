@@ -309,6 +309,33 @@ public class MarkLogicParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region MarkLogic 8.0 :: CompNumberConstructor
+
+    public void testCompNumberConstructor() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/CompNumberConstructor.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-8.0/CompNumberConstructor.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testCompNumberConstructor_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/CompNumberConstructor_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-8.0/CompNumberConstructor_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testCompNumberConstructor_MissingExpr() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/CompNumberConstructor_MissingExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-8.0/CompNumberConstructor_MissingExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testCompNumberConstructor_MissingClosingBrace() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/CompNumberConstructor_MissingClosingBrace.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-8.0/CompNumberConstructor_MissingClosingBrace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region MarkLogic 8.0 :: AnyKindTest
 
     public void testAnyKindTest_KeyName() {

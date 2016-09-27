@@ -224,5 +224,7 @@ public interface XQueryElementType {
     IElementType COMP_NULL_CONSTRUCTOR = new ICompositeElementType("XQUERY_COMP_NULL_CONSTRUCTOR", MarkLogicCompNullConstructorImpl.class, MarkLogicCompNullConstructorPsiImpl.class);
     IElementType NULL_TEST = new ICompositeElementType("XQUERY_NULL_TEST", MarkLogicNullTestImpl.class, MarkLogicNullTestPsiImpl.class);
 
+    IElementType COMP_NUMBER_CONSTRUCTOR = new ICompositeElementType("XQUERY_COMP_NUMBER_CONSTRUCTOR", MarkLogicCompNumberConstructorImpl.class, MarkLogicCompNumberConstructorPsiImpl.class);
+
     // endregion
 }

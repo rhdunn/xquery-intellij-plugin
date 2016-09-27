@@ -3710,6 +3710,17 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region MarkLogic 8.0 :: CompNumberConstructor
+
+    public void testCompNumberConstructor() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "number-node", XQueryTokenType.K_NUMBER_NODE);
+        matchSingleToken(lexer, "{",           XQueryTokenType.BLOCK_OPEN);
+        matchSingleToken(lexer, "}",           XQueryTokenType.BLOCK_CLOSE);
+    }
+
+    // endregion
     // region MarkLogic 8.0 :: AnyKindTest
 
     public void testAnyKindTest_MarkLogic() {
