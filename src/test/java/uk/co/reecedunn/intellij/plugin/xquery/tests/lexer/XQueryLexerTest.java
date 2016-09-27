@@ -3688,17 +3688,6 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region MarkLogic 8.0 :: CompNullConstructor
-
-    public void testCompNullConstructor() {
-        Lexer lexer = new XQueryLexer();
-
-        matchSingleToken(lexer, "null-node", XQueryTokenType.K_NULL_NODE);
-        matchSingleToken(lexer, "{",         XQueryTokenType.BLOCK_OPEN);
-        matchSingleToken(lexer, "}",         XQueryTokenType.BLOCK_CLOSE);
-    }
-
-    // endregion
     // region MarkLogic 8.0 :: CompBooleanConstructor
 
     public void testCompBooleanConstructor() {
@@ -3707,6 +3696,17 @@ public class XQueryLexerTest extends TestCase {
         matchSingleToken(lexer, "boolean-node", XQueryTokenType.K_BOOLEAN_NODE);
         matchSingleToken(lexer, "{",            XQueryTokenType.BLOCK_OPEN);
         matchSingleToken(lexer, "}",            XQueryTokenType.BLOCK_CLOSE);
+    }
+
+    // endregion
+    // region MarkLogic 8.0 :: CompNullConstructor
+
+    public void testCompNullConstructor() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "null-node", XQueryTokenType.K_NULL_NODE);
+        matchSingleToken(lexer, "{",         XQueryTokenType.BLOCK_OPEN);
+        matchSingleToken(lexer, "}",         XQueryTokenType.BLOCK_CLOSE);
     }
 
     // endregion
@@ -3719,6 +3719,17 @@ public class XQueryLexerTest extends TestCase {
         matchSingleToken(lexer, "(",    XQueryTokenType.PARENTHESIS_OPEN);
         matchSingleToken(lexer, "*",    XQueryTokenType.STAR);
         matchSingleToken(lexer, ")",    XQueryTokenType.PARENTHESIS_CLOSE);
+    }
+
+    // endregion
+    // region MarkLogic 8.0 :: BooleanTest
+
+    public void testBooleanTest() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "boolean-node", XQueryTokenType.K_BOOLEAN_NODE);
+        matchSingleToken(lexer, "(",            XQueryTokenType.PARENTHESIS_OPEN);
+        matchSingleToken(lexer, ")",            XQueryTokenType.PARENTHESIS_CLOSE);
     }
 
     // endregion
