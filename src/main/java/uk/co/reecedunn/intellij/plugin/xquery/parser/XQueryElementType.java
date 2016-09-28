@@ -232,6 +232,7 @@ public interface XQueryElementType {
 
     IElementType COMP_OBJECT_CONSTRUCTOR = new ICompositeElementType("XQUERY_COMP_OBJECT_CONSTRUCTOR", MarkLogicCompObjectConstructorImpl.class, MarkLogicCompObjectConstructorPsiImpl.class);
     IElementType OBJECT_KEY_VALUE = new ICompositeElementType("XQUERY_OBJECT_KEY_VALUE", MarkLogicObjectKeyValueImpl.class, MarkLogicObjectKeyValuePsiImpl.class);
+    IElementType OBJECT_TEST = new ICompositeElementType("XQUERY_OBJECT_TEST", MarkLogicObjectTestImpl.class, MarkLogicObjectTestPsiImpl.class);
 
     // endregion
 }

@@ -3802,4 +3802,15 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region MarkLogic 8.0 :: ObjectTest
+
+    public void testObjectTest() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "object-node", XQueryTokenType.K_OBJECT_NODE);
+        matchSingleToken(lexer, "(",           XQueryTokenType.PARENTHESIS_OPEN);
+        matchSingleToken(lexer, ")",           XQueryTokenType.PARENTHESIS_CLOSE);
+    }
+
+    // endregion
 }
