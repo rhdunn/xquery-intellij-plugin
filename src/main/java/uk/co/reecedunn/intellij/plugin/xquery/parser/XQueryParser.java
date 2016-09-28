@@ -3546,6 +3546,8 @@ class XQueryParser {
     private boolean parseCompObjectConstructor() {
         final PsiBuilder.Marker compObjectConstructor = matchTokenTypeWithMarker(XQueryTokenType.K_OBJECT_NODE);
         if (compObjectConstructor != null) {
+            boolean haveErrors = false;
+
             parseWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.BLOCK_OPEN)) {
                 compObjectConstructor.rollbackTo();
@@ -3553,13 +3555,49 @@ class XQueryParser {
             }
 
             parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.BLOCK_CLOSE)) {
+            if (parseObjectKeyValue()) {
+                parseWhiteSpaceAndCommentTokens();
+                while (matchTokenType(XQueryTokenType.COMMA)) {
+                    parseWhiteSpaceAndCommentTokens();
+                    if (!parseObjectKeyValue() && !haveErrors) {
+                        error(XQueryBundle.message("parser.error.expected", "ObjectKeyValue"));
+                        haveErrors = true;
+                    }
+                    parseWhiteSpaceAndCommentTokens();
+                }
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.BLOCK_CLOSE) && !haveErrors) {
                 error(XQueryBundle.message("parser.error.expected", "}"));
             }
 
             compObjectConstructor.done(XQueryElementType.COMP_OBJECT_CONSTRUCTOR);
             return true;
         }
+        return false;
+    }
+
+    private boolean parseObjectKeyValue() {
+        final PsiBuilder.Marker objectKeyValue = mBuilder.mark();
+        if (parseExprSingle()) {
+            boolean haveError = false;
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.QNAME_SEPARATOR)) {
+                error(XQueryBundle.message("parser.error.expected", ":"));
+                haveError = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseExprSingle() && !haveError) {
+                error(XQueryBundle.message("parser.error.expected-expression"));
+            }
+
+            objectKeyValue.done(XQueryElementType.OBJECT_KEY_VALUE);
+            return true;
+        }
+        objectKeyValue.drop();
         return false;
     }
 

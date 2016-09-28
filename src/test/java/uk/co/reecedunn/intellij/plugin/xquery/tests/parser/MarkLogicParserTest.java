@@ -402,6 +402,51 @@ public class MarkLogicParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region MarkLogic 8.0 :: ObjectKeyValue + CompObjectConstructor
+
+    public void testObjectKeyValue() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/ObjectKeyValue.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-8.0/ObjectKeyValue.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testObjectKeyValue_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/ObjectKeyValue_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-8.0/ObjectKeyValue_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testObjectKeyValue_MissingSeparator() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/ObjectKeyValue_MissingSeparator.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-8.0/ObjectKeyValue_MissingSeparator.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testObjectKeyValue_MissingValueExpr() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/ObjectKeyValue_MissingValueExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-8.0/ObjectKeyValue_MissingValueExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testObjectKeyValue_Multiple() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/ObjectKeyValue_Multiple.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-8.0/ObjectKeyValue_Multiple.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testObjectKeyValue_Multiple_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/ObjectKeyValue_Multiple_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-8.0/ObjectKeyValue_Multiple_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testObjectKeyValue_Multiple_MissingObjectKeyValue() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/ObjectKeyValue_Multiple_MissingObjectKeyValue.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-8.0/ObjectKeyValue_Multiple_MissingObjectKeyValue.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region MarkLogic 8.0 :: AnyKindTest
 
     public void testAnyKindTest_KeyName() {
