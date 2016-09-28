@@ -726,4 +726,37 @@ public class MarkLogicParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region MarkLogic 8.0 :: NodeTest + KindTest
+
+    public void testKindTest_ArrayTest() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/NodeTest_ArrayTest.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-8.0/NodeTest_ArrayTest.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testKindTest_BooleanTest() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/NodeTest_BooleanTest.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-8.0/NodeTest_BooleanTest.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testKindTest_NullTest() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/NodeTest_NullTest.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-8.0/NodeTest_NullTest.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testKindTest_NumberTest() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/NodeTest_NumberTest.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-8.0/NodeTest_NumberTest.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testKindTest_ObjectTest() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/NodeTest_ObjectTest.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-8.0/NodeTest_ObjectTest.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
 }
