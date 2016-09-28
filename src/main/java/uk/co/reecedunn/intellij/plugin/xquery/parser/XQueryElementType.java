@@ -219,6 +219,7 @@ public interface XQueryElementType {
     // region MarkLogic 8.0
 
     IElementType COMP_ARRAY_CONSTRUCTOR = new ICompositeElementType("XQUERY_COMP_ARRAY_CONSTRUCTOR", MarkLogicCompArrayConstructorImpl.class, MarkLogicCompArrayConstructorPsiImpl.class);
+    IElementType ARRAY_TEST = new ICompositeElementType("XQUERY_ARRAY_TEST", MarkLogicArrayTestImpl.class, MarkLogicArrayTestPsiImpl.class);
 
     IElementType COMP_BOOLEAN_CONSTRUCTOR = new ICompositeElementType("XQUERY_COMP_BOOLEAN_CONSTRUCTOR", MarkLogicCompBooleanConstructorImpl.class, MarkLogicCompBooleanConstructorPsiImpl.class);
     IElementType BOOLEAN_TEST = new ICompositeElementType("XQUERY_BOOLEAN_TEST", MarkLogicNullTestImpl.class, MarkLogicNullTestPsiImpl.class);

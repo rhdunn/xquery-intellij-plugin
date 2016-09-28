@@ -1,0 +1,1 @@
+declare variable $ one as array-node ( * ) external ;

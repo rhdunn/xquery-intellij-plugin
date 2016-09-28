@@ -3745,6 +3745,17 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region MarkLogic 8.0 :: ArrayTest
+
+    public void testArrayTest() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "array-node", XQueryTokenType.K_ARRAY_NODE);
+        matchSingleToken(lexer, "(",          XQueryTokenType.PARENTHESIS_OPEN);
+        matchSingleToken(lexer, ")",          XQueryTokenType.PARENTHESIS_CLOSE);
+    }
+
+    // endregion
     // region MarkLogic 8.0 :: BooleanTest
 
     public void testBooleanTest() {
