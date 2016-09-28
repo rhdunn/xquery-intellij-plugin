@@ -222,7 +222,7 @@ public interface XQueryElementType {
     IElementType ARRAY_TEST = new ICompositeElementType("XQUERY_ARRAY_TEST", MarkLogicArrayTestImpl.class, MarkLogicArrayTestPsiImpl.class);
 
     IElementType COMP_BOOLEAN_CONSTRUCTOR = new ICompositeElementType("XQUERY_COMP_BOOLEAN_CONSTRUCTOR", MarkLogicCompBooleanConstructorImpl.class, MarkLogicCompBooleanConstructorPsiImpl.class);
-    IElementType BOOLEAN_TEST = new ICompositeElementType("XQUERY_BOOLEAN_TEST", MarkLogicNullTestImpl.class, MarkLogicNullTestPsiImpl.class);
+    IElementType BOOLEAN_TEST = new ICompositeElementType("XQUERY_BOOLEAN_TEST", MarkLogicBooleanTestImpl.class, MarkLogicBooleanTestPsiImpl.class);
 
     IElementType COMP_NULL_CONSTRUCTOR = new ICompositeElementType("XQUERY_COMP_NULL_CONSTRUCTOR", MarkLogicCompNullConstructorImpl.class, MarkLogicCompNullConstructorPsiImpl.class);
     IElementType NULL_TEST = new ICompositeElementType("XQUERY_NULL_TEST", MarkLogicNullTestImpl.class, MarkLogicNullTestPsiImpl.class);

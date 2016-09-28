@@ -15,7 +15,7 @@ FileElement[FILE(0:52)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
                   XQuerySequenceTypeImpl[XQUERY_SEQUENCE_TYPE(24:43)]
                      XQueryItemTypeImpl[XQUERY_ITEM_TYPE(24:43)]
-                        MarkLogicNullTestImpl[XQUERY_BOOLEAN_TEST(24:43)]
+                        MarkLogicBooleanTestImpl[XQUERY_BOOLEAN_TEST(24:43)]
                            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_BOOLEAN_NODE(24:36)]('boolean-node')
                            LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(36:37)]('(')
                            XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(37:42)]

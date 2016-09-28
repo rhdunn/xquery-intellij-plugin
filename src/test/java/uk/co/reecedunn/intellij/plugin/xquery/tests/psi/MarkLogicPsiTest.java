@@ -529,9 +529,9 @@ public class MarkLogicPsiTest extends ParserTestCase {
         XQueryVarDecl varDeclPsi = PsiNavigation.findChildrenByClass(annotationDeclPsi, XQueryVarDecl.class).get(0);
         XQueryTypeDeclaration typeDeclarationPsi = PsiNavigation.findChildrenByClass(varDeclPsi, XQueryTypeDeclaration.class).get(0);
         XQuerySequenceType sequenceTypePsi = PsiNavigation.findChildrenByClass(typeDeclarationPsi, XQuerySequenceType.class).get(0);
-        MarkLogicNullTest nullTestPsi = PsiNavigation.findFirstChildByClass(sequenceTypePsi, MarkLogicNullTest.class);
+        MarkLogicBooleanTest booleanTestPsi = PsiNavigation.findFirstChildByClass(sequenceTypePsi, MarkLogicBooleanTest.class);
 
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)nullTestPsi;
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)booleanTestPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
