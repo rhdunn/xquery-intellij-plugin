@@ -15,13 +15,28 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.lexer;
 
-import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 
 public class IXQueryKeywordOrNCNameType extends INCNameType {
+    private KeywordType mType;
+
+    public enum KeywordType {
+        KEYWORD,
+        RESERVED_FUNCTION_NAME,
+    }
+
     public IXQueryKeywordOrNCNameType(@NotNull @NonNls String debugName) {
         super(debugName);
+        mType = KeywordType.KEYWORD;
+    }
+
+    public IXQueryKeywordOrNCNameType(@NotNull @NonNls String debugName, @NotNull KeywordType type) {
+        super(debugName);
+        mType = type;
+    }
+
+    public KeywordType getKeywordType() {
+        return mType;
     }
 }

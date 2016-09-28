@@ -20,7 +20,6 @@ import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.INCNameType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType;
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryReservedFunctionNameOrNCNameType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 
@@ -2916,8 +2915,11 @@ class XQueryParser {
     }
 
     private boolean parseFunctionCall() {
-        if (getTokenType() instanceof IXQueryReservedFunctionNameOrNCNameType) {
-            return false;
+        if (getTokenType() instanceof IXQueryKeywordOrNCNameType) {
+            IXQueryKeywordOrNCNameType.KeywordType type = ((IXQueryKeywordOrNCNameType)getTokenType()).getKeywordType();
+            if (type == IXQueryKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME) {
+                return false;
+            }
         }
 
         final PsiBuilder.Marker functionCallMarker = mBuilder.mark();
