@@ -1244,6 +1244,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("ancestor", XQueryTokenType.K_ANCESTOR);
         sKeywords.put("ancestor-or-self", XQueryTokenType.K_ANCESTOR_OR_SELF);
         sKeywords.put("and", XQueryTokenType.K_AND);
+        sKeywords.put("array-node", XQueryTokenType.K_ARRAY_NODE); // MarkLogic 8.0
         sKeywords.put("as", XQueryTokenType.K_AS);
         sKeywords.put("ascending", XQueryTokenType.K_ASCENDING);
         sKeywords.put("at", XQueryTokenType.K_AT);

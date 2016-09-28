@@ -128,6 +128,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_ANCESTOR = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ANCESTOR");
     IXQueryKeywordOrNCNameType K_ANCESTOR_OR_SELF = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ANCESTOR_OR_SELF");
     IXQueryKeywordOrNCNameType K_AND = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_AND");
+    IXQueryKeywordOrNCNameType K_ARRAY_NODE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ARRAY_NODE"); // MarkLogic 8.0
     IXQueryKeywordOrNCNameType K_AS = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_AS");
     IXQueryKeywordOrNCNameType K_ASCENDING = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ASCENDING");
     IXQueryKeywordOrNCNameType K_AT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_AT");

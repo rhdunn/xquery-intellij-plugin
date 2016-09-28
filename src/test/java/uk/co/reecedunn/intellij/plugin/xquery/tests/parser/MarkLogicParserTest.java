@@ -261,6 +261,51 @@ public class MarkLogicParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region MarkLogic 8.0 :: CompArrayConstructor
+
+    public void testCompArrayConstructor() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/CompArrayConstructor.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-8.0/CompArrayConstructor.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testCompArrayConstructor_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/CompArrayConstructor_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-8.0/CompArrayConstructor_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testCompArrayConstructor_MissingExpr() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/CompArrayConstructor_MissingExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-8.0/CompArrayConstructor_MissingExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testCompArrayConstructor_MissingClosingBrace() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/CompArrayConstructor_MissingClosingBrace.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-8.0/CompArrayConstructor_MissingClosingBrace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testCompArrayConstructor_Multiple() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/CompArrayConstructor_Multiple.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-8.0/CompArrayConstructor_Multiple.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testCompArrayConstructor_Multiple_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/CompArrayConstructor_Multiple_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-8.0/CompArrayConstructor_Multiple_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testCompArrayConstructor_Multiple_MissingExpr() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/CompArrayConstructor_Multiple_MissingExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-8.0/CompArrayConstructor_Multiple_MissingExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region MarkLogic 8.0 :: CompBooleanConstructor
 
     public void testCompBooleanConstructor() {

@@ -3688,6 +3688,18 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region MarkLogic 8.0 :: CompArrayConstructor
+
+    public void testCompArrayConstructor() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "array-node", XQueryTokenType.K_ARRAY_NODE);
+        matchSingleToken(lexer, "{",          XQueryTokenType.BLOCK_OPEN);
+        matchSingleToken(lexer, ",",          XQueryTokenType.COMMA);
+        matchSingleToken(lexer, "}",          XQueryTokenType.BLOCK_CLOSE);
+    }
+
+    // endregion
     // region MarkLogic 8.0 :: CompBooleanConstructor
 
     public void testCompBooleanConstructor() {
