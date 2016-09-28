@@ -2916,8 +2916,12 @@ class XQueryParser {
     }
 
     private boolean parseFunctionCall() {
+        if (getTokenType() instanceof IXQueryReservedFunctionNameOrNCNameType) {
+            return false;
+        }
+
         final PsiBuilder.Marker functionCallMarker = mBuilder.mark();
-        if (parseEQName(XQueryElementType.QNAME, true)) {
+        if (parseEQName(XQueryElementType.QNAME)) {
             boolean haveErrors = false;
 
             parseWhiteSpaceAndCommentTokens();
@@ -4155,11 +4159,7 @@ class XQueryParser {
     }
 
     private boolean parseEQName(IElementType type) {
-        return parseEQName(type, false);
-    }
-
-    private boolean parseEQName(IElementType type, boolean excludeReservedFunctionNames) {
-        if (parseQName(type, excludeReservedFunctionNames)) {
+        if (parseQName(type)) {
             return true;
         }
 
@@ -4177,15 +4177,9 @@ class XQueryParser {
     }
 
     private boolean parseQName(IElementType type) {
-        return parseQName(type, false);
-    }
-
-    private boolean parseQName(IElementType type, boolean excludeReservedFunctionNames) {
         final PsiBuilder.Marker qnameMarker = mBuilder.mark();
         boolean isWildcard = getTokenType() == XQueryTokenType.STAR;
         if (getTokenType() instanceof INCNameType || isWildcard) {
-            boolean isReservedFunctionName = getTokenType() instanceof IXQueryReservedFunctionNameOrNCNameType;
-
             if (isWildcard && type != XQueryElementType.WILDCARD) {
                 error(XQueryBundle.message("parser.error.unexpected-wildcard"));
             }
@@ -4251,11 +4245,6 @@ class XQueryParser {
                 }
                 return true;
             } else {
-                if (isReservedFunctionName && excludeReservedFunctionNames) {
-                    qnameMarker.rollbackTo();
-                    return false;
-                }
-
                 if (type == XQueryElementType.WILDCARD) {
                     qnameMarker.done(isWildcard ? XQueryElementType.WILDCARD : XQueryElementType.NCNAME);
                 } else {
