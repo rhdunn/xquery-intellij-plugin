@@ -381,6 +381,27 @@ public class MarkLogicParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region MarkLogic 8.0 :: CompObjectConstructor
+
+    public void testCompObjectConstructor() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/CompObjectConstructor.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-8.0/CompObjectConstructor.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testCompObjectConstructor_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/CompObjectConstructor_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-8.0/CompObjectConstructor_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testCompObjectConstructor_MissingClosingBrace() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/CompObjectConstructor_MissingClosingBrace.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-8.0/CompObjectConstructor_MissingClosingBrace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region MarkLogic 8.0 :: AnyKindTest
 
     public void testAnyKindTest_KeyName() {

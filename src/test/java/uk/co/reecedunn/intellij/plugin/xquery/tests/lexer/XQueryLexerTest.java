@@ -3733,6 +3733,19 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region MarkLogic 8.0 :: CompObjectConstructor
+
+    public void testCompObjectConstructor() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "object-node", XQueryTokenType.K_OBJECT_NODE);
+        matchSingleToken(lexer, "{",           XQueryTokenType.BLOCK_OPEN);
+        matchSingleToken(lexer, ":",           XQueryTokenType.QNAME_SEPARATOR);
+        matchSingleToken(lexer, ",",           XQueryTokenType.COMMA);
+        matchSingleToken(lexer, "}",           XQueryTokenType.BLOCK_CLOSE);
+    }
+
+    // endregion
     // region MarkLogic 8.0 :: AnyKindTest
 
     public void testAnyKindTest_MarkLogic() {

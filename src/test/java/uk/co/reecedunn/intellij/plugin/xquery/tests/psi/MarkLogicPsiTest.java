@@ -399,6 +399,32 @@ public class MarkLogicPsiTest extends ParserTestCase {
     }
 
     // endregion
+    // region MarkLogic 8.0 :: CompObjectConstructor
+
+    public void testCompObjectConstructor() {
+        final ASTNode node = parseResource("tests/parser/marklogic-8.0/CompObjectConstructor.xq");
+
+        MarkLogicCompObjectConstructor objectConstructorPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), MarkLogicCompObjectConstructor.class);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)objectConstructorPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires MarkLogic 8.0 or later with XQuery version '1.0-ml'."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_OBJECT_NODE));
+    }
+
+    // endregion
     // region MarkLogic 8.0 :: AnyKindTest
 
     public void testAnyKindTest_KeyName() {
