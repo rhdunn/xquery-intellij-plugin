@@ -72,7 +72,7 @@ class XQueryParser {
 
     private PsiBuilder.Marker matchTokenTypeWithMarker(IElementType type) {
         if (mBuilder.getTokenType() == type) {
-            final PsiBuilder.Marker marker = mBuilder.mark();
+            final PsiBuilder.Marker marker = mark();
             mBuilder.advanceLexer();
             return marker;
         }
@@ -81,7 +81,7 @@ class XQueryParser {
 
     private boolean errorOnTokenType(IElementType type, String message) {
         if (mBuilder.getTokenType() == type) {
-            final PsiBuilder.Marker errorMarker = mBuilder.mark();
+            final PsiBuilder.Marker errorMarker = mark();
             mBuilder.advanceLexer();
             errorMarker.error(message);
             return true;
@@ -337,8 +337,8 @@ class XQueryParser {
     }
 
     private PrologDeclState parseImport(PrologDeclState state) {
-        final PsiBuilder.Marker importMarker = mBuilder.mark();
-        final PsiBuilder.Marker errorMarker = mBuilder.mark();
+        final PsiBuilder.Marker importMarker = mark();
+        final PsiBuilder.Marker errorMarker = mark();
         if (matchTokenType(XQueryTokenType.K_IMPORT)) {
             if (state == PrologDeclState.HEADER_STATEMENT) {
                 errorMarker.drop();
@@ -409,7 +409,7 @@ class XQueryParser {
             haveAnnotations = true;
         }
 
-        final PsiBuilder.Marker declMarker = mBuilder.mark();
+        final PsiBuilder.Marker declMarker = mark();
         if (parseVarDecl()) {
             declMarker.done(XQueryElementType.VAR_DECL);
             return true;
@@ -459,7 +459,7 @@ class XQueryParser {
     }
 
     private boolean parseCompatibilityAnnotationDecl() {
-        final PsiBuilder.Marker compatibilityAnnotationMarker = mBuilder.mark();
+        final PsiBuilder.Marker compatibilityAnnotationMarker = mark();
         if (matchTokenType(XQueryTokenType.K_UPDATING)) {
             compatibilityAnnotationMarker.done(XQueryElementType.COMPATIBILITY_ANNOTATION);
             return true;
@@ -472,7 +472,7 @@ class XQueryParser {
     }
 
     private boolean parseNamespaceDecl(PrologDeclState state) {
-        final PsiBuilder.Marker errorMarker = mBuilder.mark();
+        final PsiBuilder.Marker errorMarker = mark();
         if (matchTokenType(XQueryTokenType.K_NAMESPACE)) {
             if (state == PrologDeclState.HEADER_STATEMENT) {
                 errorMarker.drop();
@@ -508,7 +508,7 @@ class XQueryParser {
     }
 
     private boolean parseBoundarySpaceDecl(PrologDeclState state) {
-        final PsiBuilder.Marker errorMarker = mBuilder.mark();
+        final PsiBuilder.Marker errorMarker = mark();
         if (matchTokenType(XQueryTokenType.K_BOUNDARY_SPACE)) {
             if (state == PrologDeclState.HEADER_STATEMENT) {
                 errorMarker.drop();
@@ -530,7 +530,7 @@ class XQueryParser {
     }
 
     private boolean parseDefaultDecl(PsiBuilder.Marker defaultDeclMarker, PrologDeclState state) {
-        final PsiBuilder.Marker errorMarker = mBuilder.mark();
+        final PsiBuilder.Marker errorMarker = mark();
         if (matchTokenType(XQueryTokenType.K_DEFAULT)) {
             if (state == PrologDeclState.HEADER_STATEMENT) {
                 errorMarker.drop();
@@ -600,7 +600,7 @@ class XQueryParser {
     }
 
     private boolean parseOrderingModeDecl(PrologDeclState state) {
-        final PsiBuilder.Marker errorMarker = mBuilder.mark();
+        final PsiBuilder.Marker errorMarker = mark();
         if (matchTokenType(XQueryTokenType.K_ORDERING)) {
             if (state == PrologDeclState.HEADER_STATEMENT) {
                 errorMarker.drop();
@@ -643,7 +643,7 @@ class XQueryParser {
     }
 
     private boolean parseRevalidationDecl(PrologDeclState state) {
-        final PsiBuilder.Marker errorMarker = mBuilder.mark();
+        final PsiBuilder.Marker errorMarker = mark();
         if (matchTokenType(XQueryTokenType.K_REVALIDATION)) {
             if (state == PrologDeclState.HEADER_STATEMENT) {
                 errorMarker.drop();
@@ -665,7 +665,7 @@ class XQueryParser {
     }
 
     private boolean parseCopyNamespacesDecl(PrologDeclState state) {
-        final PsiBuilder.Marker errorMarker = mBuilder.mark();
+        final PsiBuilder.Marker errorMarker = mark();
         if (matchTokenType(XQueryTokenType.K_COPY_NAMESPACES)) {
             if (state == PrologDeclState.HEADER_STATEMENT) {
                 errorMarker.drop();
@@ -714,7 +714,7 @@ class XQueryParser {
     }
 
     private boolean parseBaseURIDecl(PrologDeclState state) {
-        final PsiBuilder.Marker errorMarker = mBuilder.mark();
+        final PsiBuilder.Marker errorMarker = mark();
         if (matchTokenType(XQueryTokenType.K_BASE_URI)) {
             if (state == PrologDeclState.HEADER_STATEMENT) {
                 errorMarker.drop();
@@ -921,7 +921,7 @@ class XQueryParser {
     }
 
     private boolean parseConstructionDecl(PrologDeclState state) {
-        final PsiBuilder.Marker errorMarker = mBuilder.mark();
+        final PsiBuilder.Marker errorMarker = mark();
         if (matchTokenType(XQueryTokenType.K_CONSTRUCTION)) {
             if (state == PrologDeclState.HEADER_STATEMENT) {
                 errorMarker.drop();
@@ -1024,7 +1024,7 @@ class XQueryParser {
     }
 
     private boolean parseParam() {
-        final PsiBuilder.Marker paramMarker = mBuilder.mark();
+        final PsiBuilder.Marker paramMarker = mark();
         if (matchTokenType(XQueryTokenType.VARIABLE_INDICATOR)) {
             parseWhiteSpaceAndCommentTokens();
             if (!parseEQName(XQueryElementType.QNAME)) {
@@ -1341,7 +1341,7 @@ class XQueryParser {
     }
 
     private boolean parseOrderByClause() {
-        final PsiBuilder.Marker orderByClauseMarker = mBuilder.mark();
+        final PsiBuilder.Marker orderByClauseMarker = mark();
         if (matchTokenType(XQueryTokenType.K_ORDER)) {
             boolean haveErrors = false;
 
@@ -1386,7 +1386,7 @@ class XQueryParser {
     }
 
     private boolean parseOrderSpecList() {
-        final PsiBuilder.Marker orderSpecListMarker = mBuilder.mark();
+        final PsiBuilder.Marker orderSpecListMarker = mark();
         if (parseOrderSpec()) {
             parseWhiteSpaceAndCommentTokens();
             while (matchTokenType(XQueryTokenType.COMMA)) {
@@ -1406,7 +1406,7 @@ class XQueryParser {
     }
 
     private boolean parseOrderSpec() {
-        final PsiBuilder.Marker orderSpecMarker = mBuilder.mark();
+        final PsiBuilder.Marker orderSpecMarker = mark();
         if (parseExprSingle()) {
             parseWhiteSpaceAndCommentTokens();
             parseOrderModifier();
@@ -1419,7 +1419,7 @@ class XQueryParser {
     }
 
     private boolean parseOrderModifier() {
-        final PsiBuilder.Marker orderModifierMarker = mBuilder.mark();
+        final PsiBuilder.Marker orderModifierMarker = mark();
 
         if (matchTokenType(XQueryTokenType.K_ASCENDING) || matchTokenType(XQueryTokenType.K_DESCENDING)) {
             //
@@ -2636,7 +2636,7 @@ class XQueryParser {
     }
 
     private boolean parseForwardAxis() {
-        final PsiBuilder.Marker forwardAxisMarker = mBuilder.mark();
+        final PsiBuilder.Marker forwardAxisMarker = mark();
         if (matchTokenType(XQueryTokenType.K_ATTRIBUTE) ||
             matchTokenType(XQueryTokenType.K_CHILD) ||
             matchTokenType(XQueryTokenType.K_DESCENDANT) ||
@@ -2661,7 +2661,7 @@ class XQueryParser {
     }
 
     private boolean parseAbbrevForwardStep() {
-        final PsiBuilder.Marker abbrevForwardStepMarker = mBuilder.mark();
+        final PsiBuilder.Marker abbrevForwardStepMarker = mark();
         boolean matched = matchTokenType(XQueryTokenType.ATTRIBUTE_SELECTOR);
 
         parseWhiteSpaceAndCommentTokens();
@@ -2698,7 +2698,7 @@ class XQueryParser {
     }
 
     private boolean parseReverseAxis() {
-        final PsiBuilder.Marker reverseAxisMarker = mBuilder.mark();
+        final PsiBuilder.Marker reverseAxisMarker = mark();
         if (matchTokenType(XQueryTokenType.K_PARENT) ||
             matchTokenType(XQueryTokenType.K_ANCESTOR) ||
             matchTokenType(XQueryTokenType.K_ANCESTOR_OR_SELF) ||
@@ -2934,7 +2934,7 @@ class XQueryParser {
             }
         }
 
-        final PsiBuilder.Marker functionCallMarker = mBuilder.mark();
+        final PsiBuilder.Marker functionCallMarker = mark();
         if (parseEQName(XQueryElementType.QNAME)) {
             boolean haveErrors = false;
 
@@ -2972,7 +2972,7 @@ class XQueryParser {
     }
 
     private boolean parseConstructor() {
-        final PsiBuilder.Marker constructorMarker = mBuilder.mark();
+        final PsiBuilder.Marker constructorMarker = mark();
         if (parseDirectConstructor() || parseComputedConstructor()) {
             constructorMarker.done(XQueryElementType.CONSTRUCTOR);
             return true;
@@ -3026,7 +3026,7 @@ class XQueryParser {
     }
 
     private boolean parseDirAttributeList() {
-        final PsiBuilder.Marker attributeListMarker = mBuilder.mark();
+        final PsiBuilder.Marker attributeListMarker = mark();
         boolean haveErrors = false;
 
         // NOTE: The XQuery grammar uses whitespace as the token to start the next iteration of the matching loop.
@@ -3144,7 +3144,7 @@ class XQueryParser {
     }
 
     private boolean parseDirElemContent() {
-        final PsiBuilder.Marker elemContentMarker = mBuilder.mark();
+        final PsiBuilder.Marker elemContentMarker = mark();
         boolean matched = false;
         while (true) {
             if (matchTokenType(XQueryTokenType.XML_ELEMENT_CONTENTS) ||
@@ -3175,8 +3175,8 @@ class XQueryParser {
     }
 
     private boolean parseCDataSection(IElementType context) {
-        final PsiBuilder.Marker cdataMarker = mBuilder.mark();
-        final PsiBuilder.Marker errorMarker = mBuilder.mark();
+        final PsiBuilder.Marker cdataMarker = mark();
+        final PsiBuilder.Marker errorMarker = mark();
         if (matchTokenType(XQueryTokenType.CDATA_SECTION_START_TAG)) {
             if (context == null) {
                 errorMarker.error(XQueryBundle.message("parser.error.cdata-section-not-in-element-content"));
@@ -3597,7 +3597,7 @@ class XQueryParser {
     }
 
     private boolean parseObjectKeyValue() {
-        final PsiBuilder.Marker objectKeyValue = mBuilder.mark();
+        final PsiBuilder.Marker objectKeyValue = mark();
         if (parseExprSingle()) {
             boolean haveError = false;
 
@@ -3635,7 +3635,7 @@ class XQueryParser {
     }
 
     private boolean parseSequenceType() {
-        final PsiBuilder.Marker sequenceTypeMarker = mBuilder.mark();
+        final PsiBuilder.Marker sequenceTypeMarker = mark();
         if (matchTokenType(XQueryTokenType.K_EMPTY_SEQUENCE)) {
             parseWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.PARENTHESIS_OPEN)) {
@@ -3664,7 +3664,7 @@ class XQueryParser {
     }
 
     private boolean parseOccurrenceIndicator() {
-        final PsiBuilder.Marker occurrenceIndicatorMarker = mBuilder.mark();
+        final PsiBuilder.Marker occurrenceIndicatorMarker = mark();
         if (matchTokenType(XQueryTokenType.OPTIONAL) || matchTokenType(XQueryTokenType.STAR) || matchTokenType(XQueryTokenType.PLUS)) {
             occurrenceIndicatorMarker.done(XQueryElementType.OCCURRENCE_INDICATOR);
             return true;
@@ -3675,7 +3675,7 @@ class XQueryParser {
     }
 
     private boolean parseItemType() {
-        final PsiBuilder.Marker itemTypeMarker = mBuilder.mark();
+        final PsiBuilder.Marker itemTypeMarker = mark();
         if (matchTokenType(XQueryTokenType.K_ITEM)) {
             parseWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.PARENTHESIS_OPEN)) {
@@ -3878,7 +3878,7 @@ class XQueryParser {
     }
 
     private boolean parseAttribNameOrWildcard() {
-        final PsiBuilder.Marker attribNameOrWildcardMarker = mBuilder.mark();
+        final PsiBuilder.Marker attribNameOrWildcardMarker = mark();
         if (matchTokenType(XQueryTokenType.STAR) || parseEQName(XQueryElementType.ATTRIBUTE_NAME)) {
             attribNameOrWildcardMarker.done(XQueryElementType.ATTRIB_NAME_OR_WILDCARD);
             return true;
@@ -3957,7 +3957,7 @@ class XQueryParser {
     }
 
     private boolean parseElementNameOrWildcard() {
-        final PsiBuilder.Marker elementNameOrWildcardMarker = mBuilder.mark();
+        final PsiBuilder.Marker elementNameOrWildcardMarker = mark();
         if (matchTokenType(XQueryTokenType.STAR) || parseEQName(XQueryElementType.ELEMENT_NAME)) {
             elementNameOrWildcardMarker.done(XQueryElementType.ELEMENT_NAME_OR_WILDCARD);
             return true;
@@ -4177,7 +4177,7 @@ class XQueryParser {
             return true;
         }
 
-        final PsiBuilder.Marker eqnameMarker = mBuilder.mark();
+        final PsiBuilder.Marker eqnameMarker = mark();
         if (parseURIQualifiedName(type)) {
             if (type == XQueryElementType.QNAME) {
                 eqnameMarker.drop();
@@ -4191,7 +4191,7 @@ class XQueryParser {
     }
 
     private boolean parseQName(IElementType type) {
-        final PsiBuilder.Marker qnameMarker = mBuilder.mark();
+        final PsiBuilder.Marker qnameMarker = mark();
         boolean isWildcard = getTokenType() == XQueryTokenType.STAR;
         if (getTokenType() instanceof INCNameType || isWildcard) {
             if (isWildcard && type != XQueryElementType.WILDCARD) {
@@ -4312,7 +4312,7 @@ class XQueryParser {
     }
 
     private boolean parseURIQualifiedName(IElementType type) {
-        final PsiBuilder.Marker qnameMarker = mBuilder.mark();
+        final PsiBuilder.Marker qnameMarker = mark();
         if (parseBracedURILiteral()) {
             if (!matchTokenType(XQueryTokenType.NCNAME)) {
                 if (matchTokenType(XQueryTokenType.STAR)) {
@@ -4339,7 +4339,7 @@ class XQueryParser {
                 mBuilder.advanceLexer();
             } else if (mBuilder.getTokenType() == XQueryTokenType.COMMENT_START_TAG) {
                 skipped = true;
-                final PsiBuilder.Marker commentMarker = mBuilder.mark();
+                final PsiBuilder.Marker commentMarker = mark();
                 mBuilder.advanceLexer();
                 // NOTE: XQueryTokenType.COMMENT is omitted by the PsiBuilder.
                 if (mBuilder.getTokenType() == XQueryTokenType.COMMENT_END_TAG) {
@@ -4352,7 +4352,7 @@ class XQueryParser {
                 }
             } else if (mBuilder.getTokenType() == XQueryTokenType.COMMENT_END_TAG) {
                 skipped = true;
-                final PsiBuilder.Marker errorMarker = mBuilder.mark();
+                final PsiBuilder.Marker errorMarker = mark();
                 mBuilder.advanceLexer();
                 errorMarker.error(XQueryBundle.message("parser.error.end-of-comment-without-start", "(:"));
             } else if (errorOnTokenType(XQueryTokenType.ENTITY_REFERENCE_NOT_IN_STRING, XQueryBundle.message("parser.error.misplaced-entity"))) {
