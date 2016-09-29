@@ -79,6 +79,15 @@ class XQueryParser {
         return null;
     }
 
+    private PsiBuilder.Marker matchTokenTypeWithMarker(IElementType type1, IElementType type2) {
+        if (mBuilder.getTokenType() == type1 || mBuilder.getTokenType() == type2) {
+            final PsiBuilder.Marker marker = mark();
+            mBuilder.advanceLexer();
+            return marker;
+        }
+        return null;
+    }
+
     private boolean errorOnTokenType(IElementType type, String message) {
         if (mBuilder.getTokenType() == type) {
             final PsiBuilder.Marker errorMarker = mark();
@@ -472,8 +481,8 @@ class XQueryParser {
     }
 
     private boolean parseNamespaceDecl(PrologDeclState state) {
-        final PsiBuilder.Marker errorMarker = mark();
-        if (matchTokenType(XQueryTokenType.K_NAMESPACE)) {
+        final PsiBuilder.Marker errorMarker = matchTokenTypeWithMarker(XQueryTokenType.K_NAMESPACE);
+        if (errorMarker != null) {
             if (state == PrologDeclState.HEADER_STATEMENT) {
                 errorMarker.drop();
             } else {
@@ -502,14 +511,12 @@ class XQueryParser {
             parseWhiteSpaceAndCommentTokens();
             return true;
         }
-
-        errorMarker.drop();
         return false;
     }
 
     private boolean parseBoundarySpaceDecl(PrologDeclState state) {
-        final PsiBuilder.Marker errorMarker = mark();
-        if (matchTokenType(XQueryTokenType.K_BOUNDARY_SPACE)) {
+        final PsiBuilder.Marker errorMarker = matchTokenTypeWithMarker(XQueryTokenType.K_BOUNDARY_SPACE);
+        if (errorMarker != null) {
             if (state == PrologDeclState.HEADER_STATEMENT) {
                 errorMarker.drop();
             } else {
@@ -524,14 +531,12 @@ class XQueryParser {
             parseWhiteSpaceAndCommentTokens();
             return true;
         }
-
-        errorMarker.drop();
         return false;
     }
 
     private boolean parseDefaultDecl(PsiBuilder.Marker defaultDeclMarker, PrologDeclState state) {
-        final PsiBuilder.Marker errorMarker = mark();
-        if (matchTokenType(XQueryTokenType.K_DEFAULT)) {
+        final PsiBuilder.Marker errorMarker = matchTokenTypeWithMarker(XQueryTokenType.K_DEFAULT);
+        if (errorMarker != null) {
             if (state == PrologDeclState.HEADER_STATEMENT) {
                 errorMarker.drop();
             } else {
@@ -552,8 +557,6 @@ class XQueryParser {
             }
             return true;
         }
-
-        errorMarker.drop();
         return false;
     }
 
@@ -600,8 +603,8 @@ class XQueryParser {
     }
 
     private boolean parseOrderingModeDecl(PrologDeclState state) {
-        final PsiBuilder.Marker errorMarker = mark();
-        if (matchTokenType(XQueryTokenType.K_ORDERING)) {
+        final PsiBuilder.Marker errorMarker = matchTokenTypeWithMarker(XQueryTokenType.K_ORDERING);
+        if (errorMarker != null) {
             if (state == PrologDeclState.HEADER_STATEMENT) {
                 errorMarker.drop();
             } else {
@@ -616,8 +619,6 @@ class XQueryParser {
             parseWhiteSpaceAndCommentTokens();
             return true;
         }
-
-        errorMarker.drop();
         return false;
     }
 
@@ -643,8 +644,8 @@ class XQueryParser {
     }
 
     private boolean parseRevalidationDecl(PrologDeclState state) {
-        final PsiBuilder.Marker errorMarker = mark();
-        if (matchTokenType(XQueryTokenType.K_REVALIDATION)) {
+        final PsiBuilder.Marker errorMarker = matchTokenTypeWithMarker(XQueryTokenType.K_REVALIDATION);
+        if (errorMarker != null) {
             if (state == PrologDeclState.HEADER_STATEMENT) {
                 errorMarker.drop();
             } else {
@@ -659,14 +660,12 @@ class XQueryParser {
             parseWhiteSpaceAndCommentTokens();
             return true;
         }
-
-        errorMarker.drop();
         return false;
     }
 
     private boolean parseCopyNamespacesDecl(PrologDeclState state) {
-        final PsiBuilder.Marker errorMarker = mark();
-        if (matchTokenType(XQueryTokenType.K_COPY_NAMESPACES)) {
+        final PsiBuilder.Marker errorMarker = matchTokenTypeWithMarker(XQueryTokenType.K_COPY_NAMESPACES);
+        if (errorMarker != null) {
             if (state == PrologDeclState.HEADER_STATEMENT) {
                 errorMarker.drop();
             } else {
@@ -695,8 +694,6 @@ class XQueryParser {
             parseWhiteSpaceAndCommentTokens();
             return true;
         }
-
-        errorMarker.drop();
         return false;
     }
 
@@ -714,8 +711,8 @@ class XQueryParser {
     }
 
     private boolean parseBaseURIDecl(PrologDeclState state) {
-        final PsiBuilder.Marker errorMarker = mark();
-        if (matchTokenType(XQueryTokenType.K_BASE_URI)) {
+        final PsiBuilder.Marker errorMarker = matchTokenTypeWithMarker(XQueryTokenType.K_BASE_URI);
+        if (errorMarker != null) {
             if (state == PrologDeclState.HEADER_STATEMENT) {
                 errorMarker.drop();
             } else {
@@ -730,8 +727,6 @@ class XQueryParser {
             parseWhiteSpaceAndCommentTokens();
             return true;
         }
-
-        errorMarker.drop();
         return false;
     }
 
@@ -921,8 +916,8 @@ class XQueryParser {
     }
 
     private boolean parseConstructionDecl(PrologDeclState state) {
-        final PsiBuilder.Marker errorMarker = mark();
-        if (matchTokenType(XQueryTokenType.K_CONSTRUCTION)) {
+        final PsiBuilder.Marker errorMarker = matchTokenTypeWithMarker(XQueryTokenType.K_CONSTRUCTION);
+        if (errorMarker != null) {
             if (state == PrologDeclState.HEADER_STATEMENT) {
                 errorMarker.drop();
             } else {
@@ -937,8 +932,6 @@ class XQueryParser {
             parseWhiteSpaceAndCommentTokens();
             return true;
         }
-
-        errorMarker.drop();
         return false;
     }
 
@@ -1077,8 +1070,8 @@ class XQueryParser {
     // region Grammar :: Expr
 
     private boolean parseEnclosedExpr() {
-        final PsiBuilder.Marker enclosedExprMarker = mark();
-        if (matchTokenType(XQueryTokenType.BLOCK_OPEN)) {
+        final PsiBuilder.Marker enclosedExprMarker = matchTokenTypeWithMarker(XQueryTokenType.BLOCK_OPEN);
+        if (enclosedExprMarker != null) {
             boolean haveErrors = false;
             parseWhiteSpaceAndCommentTokens();
 
@@ -1095,8 +1088,6 @@ class XQueryParser {
             enclosedExprMarker.done(XQueryElementType.ENCLOSED_EXPR);
             return true;
         }
-
-        enclosedExprMarker.drop();
         return false;
     }
 
@@ -1449,8 +1440,8 @@ class XQueryParser {
     // region Grammar :: Expr :: QuantifiedExpr
 
     private boolean parseQuantifiedExpr() {
-        final PsiBuilder.Marker quantifiedExprMarker = mark();
-        if (matchTokenType(XQueryTokenType.K_SOME) || matchTokenType(XQueryTokenType.K_EVERY)) {
+        final PsiBuilder.Marker quantifiedExprMarker = matchTokenTypeWithMarker(XQueryTokenType.K_SOME, XQueryTokenType.K_EVERY);
+        if (quantifiedExprMarker != null) {
             boolean haveErrors = false;
             boolean isFirstVarName = true;
             do {
@@ -1503,8 +1494,6 @@ class XQueryParser {
             quantifiedExprMarker.done(XQueryElementType.QUANTIFIED_EXPR);
             return true;
         }
-
-        quantifiedExprMarker.drop();
         return false;
     }
 
@@ -1512,8 +1501,8 @@ class XQueryParser {
     // region Grammar :: Expr :: TypeswitchExpr
 
     private boolean parseTypeswitchExpr() {
-        final PsiBuilder.Marker typeswitchExprMarker = mark();
-        if (matchTokenType(XQueryTokenType.K_TYPESWITCH)) {
+        final PsiBuilder.Marker typeswitchExprMarker = matchTokenTypeWithMarker(XQueryTokenType.K_TYPESWITCH);
+        if (typeswitchExprMarker != null) {
             boolean haveErrors = false;
 
             parseWhiteSpaceAndCommentTokens();
@@ -1574,13 +1563,12 @@ class XQueryParser {
             typeswitchExprMarker.done(XQueryElementType.TYPESWITCH_EXPR);
             return true;
         }
-        typeswitchExprMarker.drop();
         return false;
     }
 
     private boolean parseCaseClause() {
-        final PsiBuilder.Marker caseClauseMarker = mark();
-        if (matchTokenType(XQueryTokenType.K_CASE)) {
+        final PsiBuilder.Marker caseClauseMarker = matchTokenTypeWithMarker(XQueryTokenType.K_CASE);
+        if (caseClauseMarker != null) {
             boolean haveErrors = false;
 
             parseWhiteSpaceAndCommentTokens();
@@ -1618,7 +1606,6 @@ class XQueryParser {
             caseClauseMarker.done(XQueryElementType.CASE_CLAUSE);
             return true;
         }
-        caseClauseMarker.drop();
         return false;
     }
 
@@ -1626,8 +1613,8 @@ class XQueryParser {
     // region Grammar :: Expr :: IfExpr
 
     private boolean parseIfExpr() {
-        final PsiBuilder.Marker ifExprMarker = mark();
-        if (matchTokenType(XQueryTokenType.K_IF)) {
+        final PsiBuilder.Marker ifExprMarker = matchTokenTypeWithMarker(XQueryTokenType.K_IF);
+        if (ifExprMarker != null) {
             boolean haveErrors = false;
 
             parseWhiteSpaceAndCommentTokens();
@@ -1674,7 +1661,6 @@ class XQueryParser {
             ifExprMarker.done(XQueryElementType.IF_EXPR);
             return true;
         }
-        ifExprMarker.drop();
         return false;
     }
 
@@ -1743,7 +1729,6 @@ class XQueryParser {
 
     private CatchClauseType parseCatchClause(CatchClauseType type) {
         final PsiBuilder.Marker catchClauseMarker = matchTokenTypeWithMarker(XQueryTokenType.K_CATCH);
-
         if (catchClauseMarker != null) {
             boolean haveErrors = false;
             CatchClauseType nextType = CatchClauseType.XQUERY_30;
@@ -1826,8 +1811,8 @@ class XQueryParser {
     // region Grammar :: Expr :: InsertExpr
 
     private boolean parseInsertExpr() {
-        final PsiBuilder.Marker insertExprMarker = mark();
-        if (matchTokenType(XQueryTokenType.K_INSERT)) {
+        final PsiBuilder.Marker insertExprMarker = matchTokenTypeWithMarker(XQueryTokenType.K_INSERT);
+        if (insertExprMarker != null) {
             boolean haveErrors = false;
 
             parseWhiteSpaceAndCommentTokens();
@@ -1856,7 +1841,6 @@ class XQueryParser {
             insertExprMarker.done(XQueryElementType.INSERT_EXPR);
             return true;
         }
-        insertExprMarker.drop();
         return false;
     }
 
@@ -1922,8 +1906,8 @@ class XQueryParser {
     // region Grammar :: Expr :: DeleteExpr
 
     private boolean parseDeleteExpr() {
-        final PsiBuilder.Marker deleteExprMarker = mark();
-        if (matchTokenType(XQueryTokenType.K_DELETE)) {
+        final PsiBuilder.Marker deleteExprMarker = matchTokenTypeWithMarker(XQueryTokenType.K_DELETE);
+        if (deleteExprMarker != null) {
             parseWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.K_NODE) && !matchTokenType(XQueryTokenType.K_NODES)) {
                 deleteExprMarker.rollbackTo();
@@ -1938,7 +1922,6 @@ class XQueryParser {
             deleteExprMarker.done(XQueryElementType.DELETE_EXPR);
             return true;
         }
-        deleteExprMarker.drop();
         return false;
     }
 
@@ -1946,8 +1929,8 @@ class XQueryParser {
     // region Grammar :: Expr :: ReplaceExpr
 
     private boolean parseReplaceExpr() {
-        final PsiBuilder.Marker deleteExprMarker = mark();
-        if (matchTokenType(XQueryTokenType.K_REPLACE)) {
+        final PsiBuilder.Marker replaceExprMarker = matchTokenTypeWithMarker(XQueryTokenType.K_REPLACE);
+        if (replaceExprMarker != null) {
             boolean haveErrors = false;
             boolean haveValueOf = false;
 
@@ -1964,7 +1947,7 @@ class XQueryParser {
             parseWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.K_NODE)) {
                 if (!haveValueOf) {
-                    deleteExprMarker.rollbackTo();
+                    replaceExprMarker.rollbackTo();
                     return false;
                 }
                 if (!haveErrors) {
@@ -1990,10 +1973,9 @@ class XQueryParser {
                 error(XQueryBundle.message("parser.error.expected-expression"));
             }
 
-            deleteExprMarker.done(XQueryElementType.REPLACE_EXPR);
+            replaceExprMarker.done(XQueryElementType.REPLACE_EXPR);
             return true;
         }
-        deleteExprMarker.drop();
         return false;
     }
 
@@ -2001,8 +1983,8 @@ class XQueryParser {
     // region Grammar :: Expr :: RenameExpr
 
     private boolean parseRenameExpr() {
-        final PsiBuilder.Marker renameExprMarker = mark();
-        if (matchTokenType(XQueryTokenType.K_RENAME)) {
+        final PsiBuilder.Marker renameExprMarker = matchTokenTypeWithMarker(XQueryTokenType.K_RENAME);
+        if (renameExprMarker != null) {
             boolean haveErrors = false;
 
             parseWhiteSpaceAndCommentTokens();
@@ -2031,7 +2013,6 @@ class XQueryParser {
             renameExprMarker.done(XQueryElementType.RENAME_EXPR);
             return true;
         }
-        renameExprMarker.drop();
         return false;
     }
 
@@ -2049,8 +2030,8 @@ class XQueryParser {
     // region Grammar :: Expr :: TransformExpr
 
     private boolean parseTransformExpr() {
-        final PsiBuilder.Marker transformExprMarker = mark();
-        if (matchTokenType(XQueryTokenType.K_COPY)) {
+        final PsiBuilder.Marker transformExprMarker = matchTokenTypeWithMarker(XQueryTokenType.K_COPY);
+        if (transformExprMarker != null) {
             boolean haveErrors = false;
             boolean isFirstVarName = true;
             do {
@@ -2112,7 +2093,6 @@ class XQueryParser {
             transformExprMarker.done(XQueryElementType.TRANSFORM_EXPR);
             return true;
         }
-        transformExprMarker.drop();
         return false;
     }
 
