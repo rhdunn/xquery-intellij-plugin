@@ -183,6 +183,8 @@ public interface XQueryElementType {
     IElementType CATCH_CLAUSE = new ICompositeElementType("XQUERY_CATCH_CLAUSE", XQueryCatchClauseImpl.class, XQueryCatchClausePsiImpl.class);
     IElementType CATCH_ERROR_LIST = new ICompositeElementType("XQUERY_CATCH_ERROR_LIST", XQueryCatchErrorListImpl.class, XQueryCatchErrorListPsiImpl.class);
 
+    IElementType FOR_BINDING = new ICompositeElementType("XQUERY_FOR_BINDING", XQueryForBindingImpl.class, XQueryForBindingPsiImpl.class);
+
     // endregion
     // region Update Facility 1.0
 

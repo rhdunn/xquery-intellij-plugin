@@ -1188,48 +1188,15 @@ class XQueryParser {
     private boolean parseForClause() {
         final PsiBuilder.Marker forClauseMarker = mark();
         if (matchTokenType(XQueryTokenType.K_FOR)) {
-            boolean haveErrors = false;
-            boolean isFirstVarName = true;
+            boolean isFirst = true;
             do {
                 parseWhiteSpaceAndCommentTokens();
-                if (!matchTokenType(XQueryTokenType.VARIABLE_INDICATOR) && !haveErrors) {
-                    if (isFirstVarName) {
-                        forClauseMarker.rollbackTo();
-                        return false;
-                    } else {
-                        error(XQueryBundle.message("parser.error.expected", "$"));
-                        haveErrors = true;
-                    }
+                if (!parseForBinding(isFirst) && isFirst) {
+                    forClauseMarker.rollbackTo();
+                    return false;
                 }
 
-                parseWhiteSpaceAndCommentTokens();
-                if (!parseEQName(XQueryElementType.VAR_NAME) && !haveErrors) {
-                    error(XQueryBundle.message("parser.error.expected-eqname"));
-                    haveErrors = true;
-                }
-
-                parseWhiteSpaceAndCommentTokens();
-                boolean haveTypeDeclaration = parseTypeDeclaration();
-
-                parseWhiteSpaceAndCommentTokens();
-                boolean havePositionalVar = parsePositionalVar();
-
-                parseWhiteSpaceAndCommentTokens();
-                if (!matchTokenType(XQueryTokenType.K_IN) && !haveErrors) {
-                    if (haveTypeDeclaration && !havePositionalVar) {
-                        error(XQueryBundle.message("parser.error.expected-keyword", "at, in"));
-                    } else {
-                        error(XQueryBundle.message("parser.error.expected-keyword", havePositionalVar ? "in" : "as, at, in"));
-                    }
-                    haveErrors = true;
-                }
-
-                parseWhiteSpaceAndCommentTokens();
-                if (!parseExprSingle() && !haveErrors) {
-                    error(XQueryBundle.message("parser.error.expected-expression"));
-                }
-
-                isFirstVarName = false;
+                isFirst = false;
                 parseWhiteSpaceAndCommentTokens();
             } while (matchTokenType(XQueryTokenType.COMMA));
 
@@ -1237,6 +1204,51 @@ class XQueryParser {
             return true;
         }
         forClauseMarker.drop();
+        return false;
+    }
+
+    private boolean parseForBinding(boolean isFirst) {
+        final PsiBuilder.Marker forBindingMarker = mark();
+
+        boolean haveErrors = false;
+        boolean matched = matchTokenType(XQueryTokenType.VARIABLE_INDICATOR);
+        if (!matched) {
+            error(XQueryBundle.message("parser.error.expected", "$"));
+            haveErrors = true;
+        }
+
+        if (matched || !isFirst) {
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseEQName(XQueryElementType.VAR_NAME)) {
+                error(XQueryBundle.message("parser.error.expected-eqname"));
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            boolean haveTypeDeclaration = parseTypeDeclaration();
+
+            parseWhiteSpaceAndCommentTokens();
+            boolean havePositionalVar = parsePositionalVar();
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_IN) && !haveErrors) {
+                if (haveTypeDeclaration && !havePositionalVar) {
+                    error(XQueryBundle.message("parser.error.expected-keyword", "at, in"));
+                } else {
+                    error(XQueryBundle.message("parser.error.expected-keyword", havePositionalVar ? "in" : "as, at, in"));
+                }
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseExprSingle() && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-expression"));
+            }
+
+            forBindingMarker.done(XQueryElementType.FOR_BINDING);
+            return true;
+        }
+        forBindingMarker.drop();
         return false;
     }
 
