@@ -734,9 +734,33 @@ public class MarkLogicParserTest extends ParserTestCase {
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
+    public void testKindTest_ArrayTest_StringLiteral() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/NodeTest_ArrayTest_StringLiteral.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-8.0/NodeTest_ArrayTest_StringLiteral.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testKindTest_ArrayTest_FunctionCallLike() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/NodeTest_ArrayTest_FunctionCallLike.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-8.0/NodeTest_ArrayTest_FunctionCallLike.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
     public void testKindTest_BooleanTest() {
         final String expected = loadResource("tests/parser/marklogic-8.0/NodeTest_BooleanTest.txt");
         final ASTNode actual = parseResource("tests/parser/marklogic-8.0/NodeTest_BooleanTest.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testKindTest_BooleanTest_StringLiteral() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/NodeTest_BooleanTest_StringLiteral.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-8.0/NodeTest_BooleanTest_StringLiteral.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testKindTest_BooleanTest_FunctionCallLike() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/NodeTest_BooleanTest_FunctionCallLike.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-8.0/NodeTest_BooleanTest_FunctionCallLike.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
@@ -746,15 +770,51 @@ public class MarkLogicParserTest extends ParserTestCase {
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
+    public void testKindTest_NullTest_StringLiteral() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/NodeTest_NullTest_StringLiteral.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-8.0/NodeTest_NullTest_StringLiteral.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testKindTest_NullTest_FunctionCallLike() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/NodeTest_NullTest_FunctionCallLike.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-8.0/NodeTest_NullTest_FunctionCallLike.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
     public void testKindTest_NumberTest() {
         final String expected = loadResource("tests/parser/marklogic-8.0/NodeTest_NumberTest.txt");
         final ASTNode actual = parseResource("tests/parser/marklogic-8.0/NodeTest_NumberTest.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
+    public void testKindTest_NumberTest_StringLiteral() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/NodeTest_NumberTest_StringLiteral.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-8.0/NodeTest_NumberTest_StringLiteral.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testKindTest_NumberTest_FunctionCallLike() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/NodeTest_NumberTest_FunctionCallLike.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-8.0/NodeTest_NumberTest_FunctionCallLike.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
     public void testKindTest_ObjectTest() {
         final String expected = loadResource("tests/parser/marklogic-8.0/NodeTest_ObjectTest.txt");
         final ASTNode actual = parseResource("tests/parser/marklogic-8.0/NodeTest_ObjectTest.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testKindTest_ObjectTest_StringLiteral() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/NodeTest_ObjectTest_StringLiteral.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-8.0/NodeTest_ObjectTest_StringLiteral.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testKindTest_ObjectTest_FunctionCallLike() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/NodeTest_ObjectTest_FunctionCallLike.txt");
+        final ASTNode actual = parseResource("tests/parser/marklogic-8.0/NodeTest_ObjectTest_FunctionCallLike.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
