@@ -62,6 +62,12 @@ class XQueryParser {
     // endregion
     // region Parser Helper Methods
 
+    private enum ParseStatus {
+        MATCHED,
+        MATCHED_WITH_ERRORS,
+        NOT_MATCHED,
+    };
+
     private boolean matchTokenType(IElementType type) {
         if (mBuilder.getTokenType() == type) {
             mBuilder.advanceLexer();
@@ -3693,11 +3699,7 @@ class XQueryParser {
             || parseTextTest()
             || parseAnyKindTest()
             || parseBinaryTest()
-            || parseArrayTest()
-            || parseBooleanTest()
-            || parseNullTest()
-            || parseNumberTest()
-            || parseObjectTest();
+            || parseJsonKindTest() != ParseStatus.NOT_MATCHED;
     }
 
     private boolean parseAnyKindTest() {
@@ -3994,134 +3996,168 @@ class XQueryParser {
         return false;
     }
 
-    private boolean parseArrayTest() {
+    private ParseStatus parseJsonKindTest() {
+        ParseStatus status = parseArrayTest();
+        if (status == ParseStatus.NOT_MATCHED) status = parseBooleanTest();
+        if (status == ParseStatus.NOT_MATCHED) status = parseNullTest();
+        if (status == ParseStatus.NOT_MATCHED) status = parseNumberTest();
+        if (status == ParseStatus.NOT_MATCHED) status = parseObjectTest();
+        return status;
+    }
+
+    private ParseStatus parseArrayTest() {
         final PsiBuilder.Marker arrayTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_ARRAY_NODE);
         if (arrayTestMarker != null) {
+            ParseStatus status = ParseStatus.MATCHED;
+
             parseWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.PARENTHESIS_OPEN)) {
                 arrayTestMarker.rollbackTo();
-                return false;
+                return ParseStatus.NOT_MATCHED;
             }
 
             parseWhiteSpaceAndCommentTokens();
-            if (parseStringLiteral(XQueryElementType.STRING_LITERAL) ||
-                errorOnTokenType(XQueryTokenType.STAR, XQueryBundle.message("parser.error.expected-either", "StringLiteral", ")"))) {
+            if (parseStringLiteral(XQueryElementType.STRING_LITERAL)) {
                 //
+            } else if (getTokenType() != XQueryTokenType.PARENTHESIS_CLOSE) {
+                errorOnTokenType(XQueryTokenType.STAR, XQueryBundle.message("parser.error.expected-either", "StringLiteral", ")"));
+                status = ParseStatus.MATCHED_WITH_ERRORS;
             }
 
             parseWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE)) {
                 error(XQueryBundle.message("parser.error.expected", ")"));
+                status = ParseStatus.MATCHED_WITH_ERRORS;
             }
 
             arrayTestMarker.done(XQueryElementType.ARRAY_TEST);
-            return true;
+            return status;
         }
-        return false;
+        return ParseStatus.NOT_MATCHED;
     }
 
-    private boolean parseBooleanTest() {
+    private ParseStatus parseBooleanTest() {
         final PsiBuilder.Marker booleanTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_BOOLEAN_NODE);
         if (booleanTestMarker != null) {
+            ParseStatus status = ParseStatus.MATCHED;
+
             parseWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.PARENTHESIS_OPEN)) {
                 booleanTestMarker.rollbackTo();
-                return false;
+                return ParseStatus.NOT_MATCHED;
             }
 
             parseWhiteSpaceAndCommentTokens();
-            if (parseStringLiteral(XQueryElementType.STRING_LITERAL) ||
-                errorOnTokenType(XQueryTokenType.STAR, XQueryBundle.message("parser.error.expected-either", "StringLiteral", ")"))) {
+            if (parseStringLiteral(XQueryElementType.STRING_LITERAL)) {
                 //
+            } else if (getTokenType() != XQueryTokenType.PARENTHESIS_CLOSE) {
+                errorOnTokenType(XQueryTokenType.STAR, XQueryBundle.message("parser.error.expected-either", "StringLiteral", ")"));
+                status = ParseStatus.MATCHED_WITH_ERRORS;
             }
 
             parseWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE)) {
                 error(XQueryBundle.message("parser.error.expected", ")"));
+                status = ParseStatus.MATCHED_WITH_ERRORS;
             }
 
             booleanTestMarker.done(XQueryElementType.BOOLEAN_TEST);
-            return true;
+            return status;
         }
-        return false;
+        return ParseStatus.NOT_MATCHED;
     }
 
-    private boolean parseNullTest() {
+    private ParseStatus parseNullTest() {
         final PsiBuilder.Marker nullTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_NULL_NODE);
         if (nullTestMarker != null) {
+            ParseStatus status = ParseStatus.MATCHED;
+
             parseWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.PARENTHESIS_OPEN)) {
                 nullTestMarker.rollbackTo();
-                return false;
+                return ParseStatus.NOT_MATCHED;
             }
 
             parseWhiteSpaceAndCommentTokens();
-            if (parseStringLiteral(XQueryElementType.STRING_LITERAL) ||
-                errorOnTokenType(XQueryTokenType.STAR, XQueryBundle.message("parser.error.expected-either", "StringLiteral", ")"))) {
+            if (parseStringLiteral(XQueryElementType.STRING_LITERAL)) {
                 //
+            } else if (getTokenType() != XQueryTokenType.PARENTHESIS_CLOSE) {
+                errorOnTokenType(XQueryTokenType.STAR, XQueryBundle.message("parser.error.expected-either", "StringLiteral", ")"));
+                status = ParseStatus.MATCHED_WITH_ERRORS;
             }
 
             parseWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE)) {
                 error(XQueryBundle.message("parser.error.expected", ")"));
+                status = ParseStatus.MATCHED_WITH_ERRORS;
             }
 
             nullTestMarker.done(XQueryElementType.NULL_TEST);
-            return true;
+            return status;
         }
-        return false;
+        return ParseStatus.NOT_MATCHED;
     }
 
-    private boolean parseNumberTest() {
+    private ParseStatus parseNumberTest() {
         final PsiBuilder.Marker numberTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_NUMBER_NODE);
         if (numberTestMarker != null) {
+            ParseStatus status = ParseStatus.MATCHED;
+
             parseWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.PARENTHESIS_OPEN)) {
                 numberTestMarker.rollbackTo();
-                return false;
+                return ParseStatus.NOT_MATCHED;
             }
 
             parseWhiteSpaceAndCommentTokens();
-            if (parseStringLiteral(XQueryElementType.STRING_LITERAL) ||
-                errorOnTokenType(XQueryTokenType.STAR, XQueryBundle.message("parser.error.expected-either", "StringLiteral", ")"))) {
+            if (parseStringLiteral(XQueryElementType.STRING_LITERAL)) {
                 //
+            } else if (getTokenType() != XQueryTokenType.PARENTHESIS_CLOSE) {
+                errorOnTokenType(XQueryTokenType.STAR, XQueryBundle.message("parser.error.expected-either", "StringLiteral", ")"));
+                status = ParseStatus.MATCHED_WITH_ERRORS;
             }
 
             parseWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE)) {
                 error(XQueryBundle.message("parser.error.expected", ")"));
+                status = ParseStatus.MATCHED_WITH_ERRORS;
             }
 
             numberTestMarker.done(XQueryElementType.NUMBER_TEST);
-            return true;
+            return status;
         }
-        return false;
+        return ParseStatus.NOT_MATCHED;
     }
 
-    private boolean parseObjectTest() {
+    private ParseStatus parseObjectTest() {
         final PsiBuilder.Marker objectTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_OBJECT_NODE);
         if (objectTestMarker != null) {
+            ParseStatus status = ParseStatus.MATCHED;
+
             parseWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.PARENTHESIS_OPEN)) {
                 objectTestMarker.rollbackTo();
-                return false;
+                return ParseStatus.NOT_MATCHED;
             }
 
             parseWhiteSpaceAndCommentTokens();
-            if (parseStringLiteral(XQueryElementType.STRING_LITERAL) ||
-                errorOnTokenType(XQueryTokenType.STAR, XQueryBundle.message("parser.error.expected-either", "StringLiteral", ")"))) {
+            if (parseStringLiteral(XQueryElementType.STRING_LITERAL)) {
                 //
+            } else if (getTokenType() != XQueryTokenType.PARENTHESIS_CLOSE) {
+                errorOnTokenType(XQueryTokenType.STAR, XQueryBundle.message("parser.error.expected-either", "StringLiteral", ")"));
+                status = ParseStatus.MATCHED_WITH_ERRORS;
             }
 
             parseWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE)) {
                 error(XQueryBundle.message("parser.error.expected", ")"));
+                status = ParseStatus.MATCHED_WITH_ERRORS;
             }
 
             objectTestMarker.done(XQueryElementType.OBJECT_TEST);
-            return true;
+            return status;
         }
-        return false;
+        return ParseStatus.NOT_MATCHED;
     }
 
     // endregion
