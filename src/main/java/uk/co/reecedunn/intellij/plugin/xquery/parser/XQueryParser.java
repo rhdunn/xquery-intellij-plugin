@@ -2914,9 +2914,27 @@ class XQueryParser {
 
     private boolean parseFunctionCall() {
         if (getTokenType() instanceof IXQueryKeywordOrNCNameType) {
-            IXQueryKeywordOrNCNameType.KeywordType type = ((IXQueryKeywordOrNCNameType)getTokenType()).getKeywordType();
-            if (type == IXQueryKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME) {
-                return false;
+            IXQueryKeywordOrNCNameType type = (IXQueryKeywordOrNCNameType)getTokenType();
+            switch (type.getKeywordType()) {
+                case KEYWORD:
+                    break;
+                case RESERVED_FUNCTION_NAME:
+                    return false;
+                case MARKLOGIC_RESERVED_FUNCTION_NAME:
+                    // Don't keep the MarkLogic JSON parseTree here as KindTest is not anchored to the correct parent
+                    // at this point.
+                    final PsiBuilder.Marker testMarker = mark();
+                    ParseStatus status = parseJsonKindTest();
+                    testMarker.rollbackTo();
+
+                    // If this is a valid MarkLogic JSON KindTest, return false here to parse it as a KindTest.
+                    if (status == ParseStatus.MATCHED) {
+                        return false;
+                    }
+
+                    // Otherwise, fall through to the FunctionCall parser to parse it as a FunctionCall to allow
+                    // standard XQuery to use these keywords as function names.
+                    break;
             }
         }
 
