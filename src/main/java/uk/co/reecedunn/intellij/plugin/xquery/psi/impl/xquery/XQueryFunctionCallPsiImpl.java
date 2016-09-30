@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionCall;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
@@ -49,8 +50,9 @@ public class XQueryFunctionCallPsiImpl extends ASTWrapperPsiElement implements X
         PsiElement name = getFirstChild();
         if (name.getNode().getElementType() == XQueryElementType.NCNAME) {
             PsiElement localname = name.getFirstChild();
-            IXQueryKeywordOrNCNameType type = (IXQueryKeywordOrNCNameType)localname.getNode().getElementType();
-            if (type.getKeywordType() == IXQueryKeywordOrNCNameType.KeywordType.MARKLOGIC_RESERVED_FUNCTION_NAME) {
+            IElementType type = localname.getNode().getElementType();
+            if (type instanceof IXQueryKeywordOrNCNameType &&
+                ((IXQueryKeywordOrNCNameType)type).getKeywordType() == IXQueryKeywordOrNCNameType.KeywordType.MARKLOGIC_RESERVED_FUNCTION_NAME) {
                 return localname;
             }
         }
