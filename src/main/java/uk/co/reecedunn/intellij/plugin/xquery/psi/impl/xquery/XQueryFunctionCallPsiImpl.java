@@ -17,11 +17,49 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
+import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionCall;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType;
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
+import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 
-public class XQueryFunctionCallPsiImpl extends ASTWrapperPsiElement implements XQueryFunctionCall {
+public class XQueryFunctionCallPsiImpl extends ASTWrapperPsiElement implements XQueryFunctionCall, XQueryConformanceCheck {
     public XQueryFunctionCallPsiImpl(@NotNull ASTNode node) {
         super(node);
+    }
+
+    @Override
+    public boolean conformsTo(ImplementationItem implementation) {
+        PsiElement element = getConformanceElement();
+        if (element == getFirstChild()) {
+            return true;
+        }
+
+        final XQueryVersion version = implementation.getVersion(XQueryConformance.MARKLOGIC);
+        return version == null || !version.supportsVersion(XQueryVersion.VERSION_8_0);
+    }
+
+    @Override
+    public PsiElement getConformanceElement() {
+        PsiElement name = getFirstChild();
+        if (name.getNode().getElementType() == XQueryElementType.NCNAME) {
+            PsiElement localname = name.getFirstChild();
+            IXQueryKeywordOrNCNameType type = (IXQueryKeywordOrNCNameType)localname.getNode().getElementType();
+            if (type.getKeywordType() == IXQueryKeywordOrNCNameType.KeywordType.MARKLOGIC_RESERVED_FUNCTION_NAME) {
+                return localname;
+            }
+        }
+
+        return name;
+    }
+
+    @Override
+    public String getConformanceErrorMessage() {
+        return XQueryBundle.message("requires.error.marklogic-json-keyword-as-function-name", XQueryVersion.VERSION_8_0);
     }
 }

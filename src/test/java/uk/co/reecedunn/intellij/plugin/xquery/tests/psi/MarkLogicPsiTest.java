@@ -425,6 +425,124 @@ public class MarkLogicPsiTest extends ParserTestCase {
     }
 
     // endregion
+    // region MarkLogic 8.0 :: FunctionCall
+
+    public void testFunctionCall_ArrayNode() {
+        final ASTNode node = parseResource("tests/parser/marklogic-8.0/NodeTest_ArrayTest_FunctionCallLike.xq");
+
+        XQueryFunctionCall functionCallPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFunctionCall.class);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)functionCallPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(false));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This function name conflicts with MarkLogic JSON KindTest keywords."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_ARRAY_NODE));
+    }
+
+    public void testFunctionCall_BooleanNode() {
+        final ASTNode node = parseResource("tests/parser/marklogic-8.0/NodeTest_BooleanTest_FunctionCallLike.xq");
+
+        XQueryFunctionCall functionCallPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFunctionCall.class);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)functionCallPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(false));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This function name conflicts with MarkLogic JSON KindTest keywords."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_BOOLEAN_NODE));
+    }
+
+    public void testFunctionCall_NullNode() {
+        final ASTNode node = parseResource("tests/parser/marklogic-8.0/NodeTest_NullTest_FunctionCallLike.xq");
+
+        XQueryFunctionCall functionCallPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFunctionCall.class);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)functionCallPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(false));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This function name conflicts with MarkLogic JSON KindTest keywords."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_NULL_NODE));
+    }
+
+    public void testFunctionCall_NumberNode() {
+        final ASTNode node = parseResource("tests/parser/marklogic-8.0/NodeTest_NumberTest_FunctionCallLike.xq");
+
+        XQueryFunctionCall functionCallPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFunctionCall.class);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)functionCallPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(false));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This function name conflicts with MarkLogic JSON KindTest keywords."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_NUMBER_NODE));
+    }
+
+    public void testFunctionCall_ObjectNode() {
+        final ASTNode node = parseResource("tests/parser/marklogic-8.0/NodeTest_ObjectTest_FunctionCallLike.xq");
+
+        XQueryFunctionCall functionCallPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFunctionCall.class);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)functionCallPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(false));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This function name conflicts with MarkLogic JSON KindTest keywords."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_OBJECT_NODE));
+    }
+
+    // endregion
     // region MarkLogic 8.0 :: AnyKindTest
 
     public void testAnyKindTest_KeyName() {
