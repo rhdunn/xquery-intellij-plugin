@@ -13,52 +13,84 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.annotator;
+package uk.co.reecedunn.intellij.plugin.xquery.inspections.XPST0003;
 
+import com.intellij.codeInspection.*;
 import com.intellij.lang.ASTNode;
-import com.intellij.lang.annotation.AnnotationHolder;
-import com.intellij.lang.annotation.Annotator;
 import com.intellij.lang.annotation.HighlightSeverity;
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiFile;
+import com.intellij.util.SmartList;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.PsiNavigation;
-import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPredefinedEntityRef;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
+import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
-public class XQueryPredefinedEntityRefAnnotator implements Annotator {
+public class PredefinedEntityRefInspection extends LocalInspectionTool {
     private static final Set<CharSequence> XML_ENTITIES = new HashSet<>();
     private static final Set<CharSequence> HTML4_ENTITIES = new HashSet<>();
     private static final Set<CharSequence> HTML5_ENTITIES = new HashSet<>();
 
-    @Override
-    public void annotate(@NotNull PsiElement element, @NotNull AnnotationHolder holder) {
-        if (!(element instanceof XQueryPredefinedEntityRef)) return;
-
-        XQueryFile file = PsiNavigation.findParentByClass(element, XQueryFile.class);
-
-        final ASTNode node = element.getNode();
-        checkPredefinedEntity(node.getChars(), node, holder, file.getXQueryVersion());
+    @NotNull
+    public String getDisplayName() {
+        return XQueryBundle.message("inspection.XPST0003.predefined-entity.display-name");
     }
 
-    private void checkPredefinedEntity(@NotNull CharSequence entity, @NotNull ASTNode node, @NotNull AnnotationHolder holder, XQueryVersion version) {
-        CharSequence name = entity.subSequence(1, entity.length() - 1);
-        if (XML_ENTITIES.contains(name)) return;
+    @Nullable
+    @Override
+    public String getStaticDescription() {
+        return XQueryBundle.message("inspection.XPST0003.predefined-entity.description");
+    }
 
-        if (HTML4_ENTITIES.contains(name)) {
-            if (version != XQueryVersion.VERSION_0_9_MARKLOGIC && version != XQueryVersion.VERSION_1_0_MARKLOGIC) {
-                holder.createAnnotation(HighlightSeverity.ERROR, node.getTextRange(), XQueryBundle.message("annotator.string-literal.html4-entity", entity.toString()));
+    public ProblemDescriptor[] checkFile(@NotNull PsiFile file, @NotNull final InspectionManager manager, final boolean isOnTheFly) {
+        if (!(file instanceof XQueryFile)) return null;
+
+        XQueryVersion version = ((XQueryFile)file).getXQueryVersion();
+
+        final List<ProblemDescriptor> descriptors = new SmartList<>();
+        checkElement(file, version, manager, descriptors, isOnTheFly);
+        return descriptors.toArray(new ProblemDescriptor[descriptors.size()]);
+    }
+
+    private void checkElement(@NotNull PsiElement element,
+                              @NotNull final XQueryVersion version,
+                              @NotNull final InspectionManager manager,
+                              @NotNull final List<ProblemDescriptor> descriptors,
+                              boolean isOnTheFly) {
+        if (element instanceof XQueryPredefinedEntityRef) {
+            final ASTNode node = element.getNode();
+            final CharSequence entity = node.getChars();
+
+            CharSequence name = entity.subSequence(1, entity.length() - 1);
+            if (XML_ENTITIES.contains(name)) return;
+
+            if (HTML4_ENTITIES.contains(name)) {
+                if (version != XQueryVersion.VERSION_0_9_MARKLOGIC && version != XQueryVersion.VERSION_1_0_MARKLOGIC) {
+                    String description = XQueryBundle.message("annotator.string-literal.html4-entity", entity.toString());
+                    descriptors.add(manager.createProblemDescriptor(element, description, (LocalQuickFix)null, ProblemHighlightType.GENERIC_ERROR_OR_WARNING, isOnTheFly));
+                }
+            } else if (HTML5_ENTITIES.contains(name)) {
+                if (version != XQueryVersion.VERSION_0_9_MARKLOGIC && version != XQueryVersion.VERSION_1_0_MARKLOGIC) {
+                    String description = XQueryBundle.message("annotator.string-literal.html5-entity", entity.toString());
+                    descriptors.add(manager.createProblemDescriptor(element, description, (LocalQuickFix)null, ProblemHighlightType.GENERIC_ERROR_OR_WARNING, isOnTheFly));
+                }
+            } else {
+                String description = XQueryBundle.message("annotator.string-literal.unknown-xml-entity", entity.toString());
+                descriptors.add(manager.createProblemDescriptor(element, description, (LocalQuickFix)null, ProblemHighlightType.ERROR, isOnTheFly));
             }
-        } else if (HTML5_ENTITIES.contains(name)) {
-            if (version != XQueryVersion.VERSION_0_9_MARKLOGIC && version != XQueryVersion.VERSION_1_0_MARKLOGIC) {
-                holder.createAnnotation(HighlightSeverity.ERROR, node.getTextRange(), XQueryBundle.message("annotator.string-literal.html5-entity", entity.toString()));
-            }
-        } else {
-            holder.createAnnotation(HighlightSeverity.ERROR, node.getTextRange(), XQueryBundle.message("annotator.string-literal.unknown-xml-entity", entity.toString()));
+        }
+
+        element = element.getFirstChild();
+        while (element != null) {
+            checkElement(element, version, manager, descriptors, isOnTheFly);
+            element = element.getNextSibling();
         }
     }
 

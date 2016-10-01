@@ -37,7 +37,7 @@ public class UnsupportedConstructInspectionTest extends InspectionTestCase {
 
     public void testDescription() {
         UnsupportedConstructInspection inspection = new UnsupportedConstructInspection();
-        assertThat(inspection.loadDescription(), is("The unsupported construct inspection reports warnings for XQuery constructs that are not supported by the specified XQuery dialect. These constructs would raise XPST0003 errors on that XQuery processor."));
+        assertThat(inspection.loadDescription(), is("This inspection reports warnings for XQuery constructs that are not supported by the specified XQuery dialect. These constructs would raise XPST0003 errors on that XQuery processor."));
     }
 
     // endregion

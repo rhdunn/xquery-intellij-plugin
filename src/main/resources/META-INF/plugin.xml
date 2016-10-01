@@ -34,12 +34,15 @@
     <lang.elementManipulator forClass="uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryUriLiteralPsiImpl"
                              implementationClass="uk.co.reecedunn.intellij.plugin.xquery.resolve.manipulator.XQueryUriLiteralManipulator"/>
 
-    <annotator language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.annotator.XQueryPredefinedEntityRefAnnotator"/>
-
     <localInspection language="XQuery" shortName="UnsupportedConstruct" bundle="messages.XQueryBundle"
                      key="inspection.XPST0003.unsupported-construct.display-name" hasStaticDescription="true"
                      groupKey="inspection.group.display-name" enabledByDefault="true" level="WARNING"
                      implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.XPST0003.UnsupportedConstructInspection"/>
+
+    <localInspection language="XQuery" shortName="PredefinedEntityRef" bundle="messages.XQueryBundle"
+                     key="inspection.XPST0003.predefined-entity.display-name" hasStaticDescription="true"
+                     groupKey="inspection.group.display-name" enabledByDefault="true" level="ERROR"
+                     implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.XPST0003.PredefinedEntityRefInspection"/>
 
     <projectService serviceInterface="uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings"
                     serviceImplementation="uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings"/>

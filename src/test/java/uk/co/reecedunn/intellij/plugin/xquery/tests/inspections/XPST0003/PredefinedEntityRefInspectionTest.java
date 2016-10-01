@@ -13,46 +13,64 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.tests.annotator;
+package uk.co.reecedunn.intellij.plugin.xquery.tests.inspections.XPST0003;
 
+import com.intellij.codeInspection.ProblemDescriptor;
+import com.intellij.codeInspection.ProblemHighlightType;
 import com.intellij.lang.ASTNode;
-import com.intellij.lang.annotation.Annotation;
-import com.intellij.lang.annotation.HighlightSeverity;
-import uk.co.reecedunn.intellij.plugin.xquery.annotator.XQueryPredefinedEntityRefAnnotator;
+import uk.co.reecedunn.intellij.plugin.xquery.inspections.XPST0003.PredefinedEntityRefInspection;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.Specification;
-
-import java.util.List;
+import uk.co.reecedunn.intellij.plugin.xquery.tests.inspections.InspectionTestCase;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class XQueryPredefinedEntityRefAnnotatorTest extends AnnotatorTestCase {
-    private void checkSupportedEntities(XQueryVersion version, String entities) {
-        getSettings().setXQueryVersion(version);
-        final ASTNode node = parseText(entities).getFirstChildNode();
+public class PredefinedEntityRefInspectionTest extends InspectionTestCase {
+    // region Inspection Details
 
-        XQueryPredefinedEntityRefAnnotator annotator = new XQueryPredefinedEntityRefAnnotator();
-        List<Annotation> annotations = annotateTree(node, annotator);
-        assertThat(annotations.size(), is(0));
+    public void testDisplayName() {
+        PredefinedEntityRefInspection inspection = new PredefinedEntityRefInspection();
+        assertThat(inspection.getDisplayName(), is("Predefined entities"));
     }
 
-    private void checkUnsupportedEntities(XQueryVersion version, String entities, int annotationCount, String startsWith, String endsWith) {
+    public void testDescription() {
+        PredefinedEntityRefInspection inspection = new PredefinedEntityRefInspection();
+        assertThat(inspection.loadDescription(), is("This inspection checks for invalid predefined entities. These entities would raise XPST0003 errors in the XQuery processor. HTML4 and HTML5 entities are only valid in the MarkLogic 1.0-ml extended syntax."));
+    }
+
+    // endregion
+    // region Helper Functions
+
+    private void checkSupportedEntities(XQueryVersion version, String entities) {
         getSettings().setXQueryVersion(version);
-        final ASTNode node = parseText(entities).getFirstChildNode();
+        final ASTNode node = parseText(entities);
 
-        XQueryPredefinedEntityRefAnnotator annotator = new XQueryPredefinedEntityRefAnnotator();
-        List<Annotation> annotations = annotateTree(node, annotator);
-        assertThat(annotations.size(), is(annotationCount));
+        final ProblemDescriptor[] problems = inspect(node, new PredefinedEntityRefInspection());
+        assertThat(problems, is(notNullValue()));
+        assertThat(problems.length, is(0));
+    }
 
-        for (Annotation annotation : annotations) {
-            assertThat(annotation.getSeverity(), is(HighlightSeverity.ERROR));
-            assertThat(annotation.getMessage(), startsWith(startsWith));
-            assertThat(annotation.getMessage(), endsWith(endsWith));
-            assertThat(annotation.getTooltip(), is(nullValue()));
+    private void checkUnsupportedEntities(XQueryVersion version, String entities, int inspectionCount, String startsWith, String endsWith) {
+        checkUnsupportedEntities(version, entities, inspectionCount, startsWith, endsWith, ProblemHighlightType.GENERIC_ERROR_OR_WARNING);
+    }
+
+    private void checkUnsupportedEntities(XQueryVersion version, String entities, int inspectionCount, String startsWith, String endsWith, ProblemHighlightType type) {
+        getSettings().setXQueryVersion(version);
+        final ASTNode node = parseText(entities);
+
+        final ProblemDescriptor[] problems = inspect(node, new PredefinedEntityRefInspection());
+        assertThat(problems, is(notNullValue()));
+        assertThat(problems.length, is(inspectionCount));
+
+        for (ProblemDescriptor problem : problems) {
+            assertThat(problems[0].getHighlightType(), is(type));
+            assertThat(problem.getDescriptionTemplate(), startsWith(startsWith));
+            assertThat(problem.getDescriptionTemplate(), endsWith(endsWith));
         }
     }
 
+    // endregion
     // region XML Entities
 
     private static final String XML_ENTITIES
@@ -2276,23 +2294,23 @@ public class XQueryPredefinedEntityRefAnnotatorTest extends AnnotatorTestCase {
     // region Unknown Entities
 
     public void testUnknownEntities_XQuery_0_9_ML() {
-        checkUnsupportedEntities(XQueryVersion.VERSION_0_9_MARKLOGIC, "\"&xyz;&ABC;\"", 2, "XPST0003: Predefined entity '&", ";' is not a known entity name.");
+        checkUnsupportedEntities(XQueryVersion.VERSION_0_9_MARKLOGIC, "\"&xyz;&ABC;\"", 2, "XPST0003: Predefined entity '&", ";' is not a known entity name.", ProblemHighlightType.ERROR);
     }
 
     public void testUnknownEntities_XQuery_1_0() {
-        checkUnsupportedEntities(XQueryVersion.VERSION_1_0, "\"&xyz;&ABC;\"", 2, "XPST0003: Predefined entity '&", ";' is not a known entity name.");
+        checkUnsupportedEntities(XQueryVersion.VERSION_1_0, "\"&xyz;&ABC;\"", 2, "XPST0003: Predefined entity '&", ";' is not a known entity name.", ProblemHighlightType.ERROR);
     }
 
     public void testUnknownEntities_XQuery_1_0_ML() {
-        checkUnsupportedEntities(XQueryVersion.VERSION_1_0_MARKLOGIC, "\"&xyz;&ABC;\"", 2, "XPST0003: Predefined entity '&", ";' is not a known entity name.");
+        checkUnsupportedEntities(XQueryVersion.VERSION_1_0_MARKLOGIC, "\"&xyz;&ABC;\"", 2, "XPST0003: Predefined entity '&", ";' is not a known entity name.", ProblemHighlightType.ERROR);
     }
 
     public void testUnknownEntities_XQuery_3_0() {
-        checkUnsupportedEntities(XQueryVersion.VERSION_3_0, "\"&xyz;&ABC;\"", 2, "XPST0003: Predefined entity '&", ";' is not a known entity name.");
+        checkUnsupportedEntities(XQueryVersion.VERSION_3_0, "\"&xyz;&ABC;\"", 2, "XPST0003: Predefined entity '&", ";' is not a known entity name.", ProblemHighlightType.ERROR);
     }
 
     public void testUnknownEntities_XQuery_3_1() {
-        checkUnsupportedEntities(XQueryVersion.VERSION_3_1, "\"&xyz;&ABC;\"", 2, "XPST0003: Predefined entity '&", ";' is not a known entity name.");
+        checkUnsupportedEntities(XQueryVersion.VERSION_3_1, "\"&xyz;&ABC;\"", 2, "XPST0003: Predefined entity '&", ";' is not a known entity name.", ProblemHighlightType.ERROR);
     }
 
     // endregion
