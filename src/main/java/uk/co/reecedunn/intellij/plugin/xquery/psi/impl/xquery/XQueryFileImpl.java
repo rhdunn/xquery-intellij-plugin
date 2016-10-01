@@ -29,6 +29,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.PsiNavigation;
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings;
 
+import java.util.List;
+
 public class XQueryFileImpl extends PsiFileBase implements XQueryFile {
     public XQueryFileImpl(@NotNull FileViewProvider provider) {
         super(provider, XQuery.INSTANCE);
@@ -41,14 +43,16 @@ public class XQueryFileImpl extends PsiFileBase implements XQueryFile {
     }
 
     public XQueryVersion getXQueryVersion() {
-        XQueryModule module = PsiNavigation.findChildrenByClass(this, XQueryModule.class).get(0);
-        XQueryVersionDecl versionDecl = PsiNavigation.findFirstChildByClass(module, XQueryVersionDecl.class);
-        if (versionDecl != null) {
-            XQueryStringLiteral version = versionDecl.getVersion();
-            if (version != null) {
-                XQueryVersion xqueryVersion = XQueryVersion.parse(version.getStringValue());
-                if (xqueryVersion != null) {
-                    return xqueryVersion;
+        List<XQueryModule> modules = PsiNavigation.findChildrenByClass(this, XQueryModule.class);
+        if (!modules.isEmpty()) {
+            XQueryVersionDecl versionDecl = PsiNavigation.findFirstChildByClass(modules.get(0), XQueryVersionDecl.class);
+            if (versionDecl != null) {
+                XQueryStringLiteral version = versionDecl.getVersion();
+                if (version != null) {
+                    XQueryVersion xqueryVersion = XQueryVersion.parse(version.getStringValue());
+                    if (xqueryVersion != null) {
+                        return xqueryVersion;
+                    }
                 }
             }
         }

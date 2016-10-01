@@ -35,6 +35,19 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class XQueryPsiTest extends ParserTestCase {
     // region File
 
+    public void testFile_Empty() {
+        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
+        final ASTNode node = parseText("");
+
+        assertThat(node.getElementType(), is(XQueryElementType.FILE));
+
+        XQueryFile file = (XQueryFile)node.getPsi();
+        assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_3_0));
+
+        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_1);
+        assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_3_1));
+    }
+
     public void testFile() {
         getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
         final ASTNode node = parseResource("tests/parser/xquery-1.0/IntegerLiteral.xq");
