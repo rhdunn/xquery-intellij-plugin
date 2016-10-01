@@ -17,11 +17,59 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType;
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.PsiNavigation;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
+import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 
-public class XQueryFunctionDeclPsiImpl extends ASTWrapperPsiElement implements XQueryFunctionDecl {
+public class XQueryFunctionDeclPsiImpl extends ASTWrapperPsiElement implements XQueryFunctionDecl, XQueryConformanceCheck {
     public XQueryFunctionDeclPsiImpl(@NotNull ASTNode node) {
         super(node);
+    }
+
+    @Override
+    public boolean conformsTo(ImplementationItem implementation) {
+        IElementType type = getConformanceElement().getNode().getElementType();
+        if (type instanceof IXQueryKeywordOrNCNameType) {
+            switch (((IXQueryKeywordOrNCNameType)type).getKeywordType()) {
+                case KEYWORD:
+                    return true;
+                case RESERVED_FUNCTION_NAME:
+                    return false;
+                case MARKLOGIC_RESERVED_FUNCTION_NAME:
+                    final XQueryVersion marklogicVersion = implementation.getVersion(XQueryConformance.MARKLOGIC);
+                    return marklogicVersion == null || !marklogicVersion.supportsVersion(XQueryVersion.VERSION_8_0);
+                case XQUERY30_RESERVED_FUNCTION_NAME:
+                    final XQueryVersion marklogic = implementation.getVersion(XQueryConformance.MARKLOGIC);
+                    final XQueryVersion xquery = implementation.getVersion(XQueryConformance.MINIMAL_CONFORMANCE);
+                    return xquery == null ||
+                           (!xquery.supportsVersion(XQueryVersion.VERSION_3_0) &&
+                            (marklogic == null || !marklogic.supportsVersion(XQueryVersion.VERSION_6_0)));
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public PsiElement getConformanceElement() {
+        PsiElement name = PsiNavigation.findChildrenByClass(this, XQueryEQName.class).get(0);
+        if (name.getNode().getElementType() == XQueryElementType.NCNAME) {
+            return name.getFirstChild();
+        }
+        return name;
+    }
+
+    @Override
+    public String getConformanceErrorMessage() {
+        return XQueryBundle.message("requires.error.reserved-keyword-as-function-name");
     }
 }

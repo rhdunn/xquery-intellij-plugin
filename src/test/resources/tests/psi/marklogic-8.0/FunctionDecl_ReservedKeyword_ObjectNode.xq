@@ -1,0 +1,1 @@
+declare function object-node() external;

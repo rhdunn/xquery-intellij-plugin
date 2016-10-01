@@ -1,0 +1,1 @@
+declare function boolean-node() external;
