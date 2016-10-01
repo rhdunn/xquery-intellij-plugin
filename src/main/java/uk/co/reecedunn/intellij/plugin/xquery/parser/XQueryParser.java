@@ -2919,6 +2919,7 @@ class XQueryParser {
                 case KEYWORD:
                     break;
                 case RESERVED_FUNCTION_NAME:
+                case XQUERY30_RESERVED_FUNCTION_NAME:
                     return false;
                 case MARKLOGIC_RESERVED_FUNCTION_NAME:
                     // Don't keep the MarkLogic JSON parseTree here as KindTest is not anchored to the correct parent

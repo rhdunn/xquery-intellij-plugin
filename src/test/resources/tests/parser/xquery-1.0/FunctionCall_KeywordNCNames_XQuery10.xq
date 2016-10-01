@@ -36,7 +36,7 @@ external() ,
 following() ,
 following-sibling() ,
 for() ,
-function() ,
+(: Reserved Function Name (XQuery 3.0) -- function :)
 ge() ,
 greatest() ,
 gt() ,

@@ -24,6 +24,7 @@ public class IXQueryKeywordOrNCNameType extends INCNameType {
     public enum KeywordType {
         KEYWORD,
         RESERVED_FUNCTION_NAME,
+        XQUERY30_RESERVED_FUNCTION_NAME,
         MARKLOGIC_RESERVED_FUNCTION_NAME,
     }
 
