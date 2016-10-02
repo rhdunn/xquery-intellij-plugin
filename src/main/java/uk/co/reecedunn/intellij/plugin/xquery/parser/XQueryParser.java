@@ -2991,12 +2991,12 @@ class XQueryParser {
             boolean haveErrors = false;
 
             parseWhiteSpaceAndCommentTokens();
-            if (parseExprSingle()) {
+            if (parseArgument()) {
                 parseWhiteSpaceAndCommentTokens();
                 while (matchTokenType(XQueryTokenType.COMMA)) {
                     parseWhiteSpaceAndCommentTokens();
-                    if (!parseExprSingle() && !haveErrors) {
-                        error(XQueryBundle.message("parser.error.expected-expression"));
+                    if (!parseArgument() && !haveErrors) {
+                        error(XQueryBundle.message("parser.error.expected-either", "ExprSingle", "?"));
                         haveErrors = true;
                     }
 
@@ -3012,6 +3012,16 @@ class XQueryParser {
             argumentListMarker.done(XQueryElementType.ARGUMENT_LIST);
             return true;
         }
+        return false;
+    }
+
+    private boolean parseArgument() {
+        final PsiBuilder.Marker argumentMarker = mark();
+        if (parseExprSingle()) {
+            argumentMarker.done(XQueryElementType.ARGUMENT);
+            return true;
+        }
+        argumentMarker.drop();
         return false;
     }
 

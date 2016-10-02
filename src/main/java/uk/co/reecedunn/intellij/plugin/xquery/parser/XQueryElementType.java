@@ -190,6 +190,7 @@ public interface XQueryElementType {
     IElementType NAMED_FUNCTION_REF = new ICompositeElementType("XQUERY_NAMED_FUNCTION_REF", XQueryNamedFunctionRefImpl.class, XQueryNamedFunctionRefPsiImpl.class);
 
     IElementType ARGUMENT_LIST = new ICompositeElementType("XQUERY_ARGUMENT_LIST", XQueryArgumentListImpl.class, XQueryArgumentListPsiImpl.class);
+    IElementType ARGUMENT = new ICompositeElementType("XQUERY_ARGUMENT", XQueryArgumentImpl.class, XQueryArgumentPsiImpl.class);
 
     // endregion
     // region Update Facility 1.0
