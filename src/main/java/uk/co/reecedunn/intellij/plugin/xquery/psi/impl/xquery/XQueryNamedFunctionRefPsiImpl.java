@@ -26,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType;
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
@@ -41,7 +42,7 @@ public class XQueryNamedFunctionRefPsiImpl extends ASTWrapperPsiElement implemen
         if (type instanceof IXQueryKeywordOrNCNameType) {
             switch (((IXQueryKeywordOrNCNameType)type).getKeywordType()) {
                 case KEYWORD:
-                    return true;
+                    break;
                 case RESERVED_FUNCTION_NAME:
                     return false;
                 case MARKLOGIC_RESERVED_FUNCTION_NAME:
@@ -55,7 +56,11 @@ public class XQueryNamedFunctionRefPsiImpl extends ASTWrapperPsiElement implemen
                             (marklogic == null || !marklogic.supportsVersion(XQueryVersion.VERSION_6_0)));
             }
         }
-        return true;
+
+        final XQueryVersion minimalConformance = implementation.getVersion(XQueryConformance.MINIMAL_CONFORMANCE);
+        final XQueryVersion marklogic = implementation.getVersion(XQueryConformance.MARKLOGIC);
+        return (minimalConformance != null && minimalConformance.supportsVersion(XQueryVersion.VERSION_3_0))
+            || (marklogic != null && marklogic.supportsVersion(XQueryVersion.VERSION_6_0));
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -63,13 +68,35 @@ public class XQueryNamedFunctionRefPsiImpl extends ASTWrapperPsiElement implemen
     public PsiElement getConformanceElement() {
         PsiElement name = findChildByClass(XQueryEQName.class);
         if (name.getNode().getElementType() == XQueryElementType.NCNAME) {
-            return name.getFirstChild();
+            name = name.getFirstChild();
+            IElementType type = name.getNode().getElementType();
+            if (type instanceof IXQueryKeywordOrNCNameType) {
+                switch (((IXQueryKeywordOrNCNameType)type).getKeywordType()) {
+                    case KEYWORD:
+                        break;
+                    case RESERVED_FUNCTION_NAME:
+                    case MARKLOGIC_RESERVED_FUNCTION_NAME:
+                    case XQUERY30_RESERVED_FUNCTION_NAME:
+                        return name;
+                }
+            }
         }
-        return name;
+        return findChildByType(XQueryTokenType.FUNCTION_REF_OPERATOR);
     }
 
     @Override
     public String getConformanceErrorMessage() {
-        return XQueryBundle.message("requires.error.reserved-keyword-as-function-name");
+        IElementType type = getConformanceElement().getNode().getElementType();
+        if (type instanceof IXQueryKeywordOrNCNameType) {
+            switch (((IXQueryKeywordOrNCNameType)type).getKeywordType()) {
+                case KEYWORD:
+                    break;
+                case RESERVED_FUNCTION_NAME:
+                case MARKLOGIC_RESERVED_FUNCTION_NAME:
+                case XQUERY30_RESERVED_FUNCTION_NAME:
+                    return XQueryBundle.message("requires.error.reserved-keyword-as-function-name");
+            }
+        }
+        return XQueryBundle.message("requires.feature.marklogic-xquery.version");
     }
 }
