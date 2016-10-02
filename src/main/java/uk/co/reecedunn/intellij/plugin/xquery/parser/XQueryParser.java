@@ -2971,13 +2971,24 @@ class XQueryParser {
 
         final PsiBuilder.Marker functionCallMarker = mark();
         if (parseEQName(XQueryElementType.QNAME)) {
-            boolean haveErrors = false;
-
             parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.PARENTHESIS_OPEN)) {
+            if (!parseArgumentList()) {
                 functionCallMarker.rollbackTo();
                 return false;
             }
+
+            functionCallMarker.done(XQueryElementType.FUNCTION_CALL);
+            return true;
+        }
+
+        functionCallMarker.drop();
+        return false;
+    }
+
+    private boolean parseArgumentList() {
+        final PsiBuilder.Marker argumentListMarker = matchTokenTypeWithMarker(XQueryTokenType.PARENTHESIS_OPEN);
+        if (argumentListMarker != null) {
+            boolean haveErrors = false;
 
             parseWhiteSpaceAndCommentTokens();
             if (parseExprSingle()) {
@@ -2998,11 +3009,9 @@ class XQueryParser {
                 error(XQueryBundle.message("parser.error.expected", ")"));
             }
 
-            functionCallMarker.done(XQueryElementType.FUNCTION_CALL);
+            argumentListMarker.done(XQueryElementType.ARGUMENT_LIST);
             return true;
         }
-
-        functionCallMarker.drop();
         return false;
     }
 

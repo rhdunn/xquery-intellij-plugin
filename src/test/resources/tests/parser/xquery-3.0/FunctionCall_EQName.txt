@@ -26,7 +26,8 @@ FileElement[FILE(0:39)]
                                                                      LeafPsiElement[XQUERY_BRACED_URI_LITERAL_END_TOKEN(30:31)]('}')
                                                                   LeafPsiElement[XQUERY_NCNAME_TOKEN(31:35)]('name')
                                                                PsiWhiteSpaceImpl[WHITE_SPACE(35:36)](' ')
-                                                               LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(36:37)]('(')
-                                                               PsiWhiteSpaceImpl[WHITE_SPACE(37:38)](' ')
-                                                               LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(38:39)](')')
+                                                               XQueryArgumentListImpl[XQUERY_ARGUMENT_LIST(36:39)]
+                                                                  LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(36:37)]('(')
+                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(37:38)](' ')
+                                                                  LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(38:39)](')')
                                                             XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(39:39)]

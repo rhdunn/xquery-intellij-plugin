@@ -32,7 +32,8 @@ FileElement[FILE(0:19)]
                                                                XQueryNCNameImpl[XQUERY_NCNAME(9:16)]
                                                                   LeafPsiElement[XQUERY_NCNAME_TOKEN(9:15)]('string')
                                                                   PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
-                                                               LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(16:17)]('(')
-                                                               PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
-                                                               LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(18:19)](')')
+                                                               XQueryArgumentListImpl[XQUERY_ARGUMENT_LIST(16:19)]
+                                                                  LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(16:17)]('(')
+                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
+                                                                  LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(18:19)](')')
                                                             XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(19:19)]
