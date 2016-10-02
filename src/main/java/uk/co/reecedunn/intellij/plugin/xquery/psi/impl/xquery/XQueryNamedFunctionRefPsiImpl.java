@@ -21,7 +21,7 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryNamedFunctionRef;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
@@ -30,8 +30,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 
-public class XQueryFunctionDeclPsiImpl extends ASTWrapperPsiElement implements XQueryFunctionDecl, XQueryConformanceCheck {
-    public XQueryFunctionDeclPsiImpl(@NotNull ASTNode node) {
+public class XQueryNamedFunctionRefPsiImpl extends ASTWrapperPsiElement implements XQueryNamedFunctionRef, XQueryConformanceCheck {
+    public XQueryNamedFunctionRefPsiImpl(@NotNull ASTNode node) {
         super(node);
     }
 

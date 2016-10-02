@@ -187,6 +187,8 @@ public interface XQueryElementType {
 
     IElementType STRING_CONCAT_EXPR = new ICompositeElementType("XQUERY_STRING_CONCAT_EXPR", XQueryStringConcatExprImpl.class, XQueryStringConcatExprPsiImpl.class);
 
+    IElementType NAMED_FUNCTION_REF = new ICompositeElementType("XQUERY_NAMED_FUNCTION_REF", XQueryNamedFunctionRefImpl.class, XQueryNamedFunctionRefPsiImpl.class);
+
     // endregion
     // region Update Facility 1.0
 

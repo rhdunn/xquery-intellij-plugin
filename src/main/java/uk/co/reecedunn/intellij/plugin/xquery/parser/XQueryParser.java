@@ -23,6 +23,16 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 
+/**
+ * A unified XQuery parser for different XQuery dialects.
+ *
+ * This parser supports:
+ *    -  XQuery 1.0
+ *    -  XQuery 3.0 (Partial Support)
+ *    -  Update Facility 1.0
+ *    -  MarkLogic 1.0-ml Extensions for MarkLogic 6.0
+ *    -  MarkLogic 1.0-ml Extensions for MarkLogic 8.0
+ */
 @SuppressWarnings({"SameParameterValue", "StatementWithEmptyBody"})
 class XQueryParser {
     // region Main Interface
@@ -2810,6 +2820,7 @@ class XQueryParser {
             || parseOrderedExpr()
             || parseUnorderedExpr()
             || parseConstructor()
+            || parseFunctionItemExpr()
             || parseFunctionCall();
     }
 
@@ -3003,6 +3014,32 @@ class XQueryParser {
         }
 
         constructorMarker.drop();
+        return false;
+    }
+
+    private boolean parseFunctionItemExpr() {
+        return parseNamedFunctionRef();
+    }
+
+    private boolean parseNamedFunctionRef() {
+        final PsiBuilder.Marker namedFunctionRefMarker = mark();
+        if (parseEQName(XQueryElementType.QNAME)) {
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.FUNCTION_REF_OPERATOR)) {
+                namedFunctionRefMarker.rollbackTo();
+                return false;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.INTEGER_LITERAL)) {
+                error(XQueryBundle.message("parser.error.expected", "IntegerLiteral"));
+            }
+
+            namedFunctionRefMarker.done(XQueryElementType.NAMED_FUNCTION_REF);
+            return true;
+        }
+
+        namedFunctionRefMarker.drop();
         return false;
     }
 

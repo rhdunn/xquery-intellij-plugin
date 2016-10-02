@@ -5869,6 +5869,30 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region XQuery 3.0 :: NamedFunctionRef
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-NamedFunctionRef")
+    public void testNamedFunctionRef() {
+        final String expected = loadResource("tests/parser/xquery-3.0/NamedFunctionRef.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/NamedFunctionRef.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-NamedFunctionRef")
+    public void testNamedFunctionRef_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-3.0/NamedFunctionRef_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/NamedFunctionRef_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-NamedFunctionRef")
+    public void testNamedFunctionRef_MissingArity() {
+        final String expected = loadResource("tests/parser/xquery-3.0/NamedFunctionRef_MissingArity.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/NamedFunctionRef_MissingArity.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region XQuery 3.0 :: SingleType
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-SingleType")

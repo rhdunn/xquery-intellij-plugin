@@ -271,7 +271,7 @@ public class XQueryPsiTest extends ParserTestCase {
     }
 
     // endregion
-    // region XQuery 1.0 :: FunctionCall
+    // region XQuery 1.0 :: FunctionDecl
 
     public void testFunctionDecl_QName() {
         final ASTNode node = parseResource("tests/parser/xquery-1.0/FunctionDecl.xq");
@@ -753,7 +753,7 @@ public class XQueryPsiTest extends ParserTestCase {
     }
 
     // endregion
-    // region XQuery 3.0 :: FunctionCall
+    // region XQuery 3.0 :: FunctionDecl
 
     public void testFunctionDecl_ReservedKeyword_Function() {
         final ASTNode node = parseResource("tests/psi/xquery-3.0/FunctionDecl_ReservedKeyword_Function.xq");
@@ -959,6 +959,182 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
                 is(XQueryTokenType.K_CATCH));
+    }
+
+    // endregion
+    // region XQuery 3.0 :: NamedFunctionRef
+
+    public void testNamedFunctionRef_QName() {
+        final ASTNode node = parseResource("tests/psi/xquery-3.0/NamedFunctionRef_QName.xq");
+
+        XQueryNamedFunctionRef namedFunctionRefPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryNamedFunctionRef.class);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)namedFunctionRefPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: Reserved keyword used as a function name."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryElementType.QNAME));
+    }
+
+    public void testNamedFunctionRef_NCName() {
+        final ASTNode node = parseResource("tests/parser/xquery-3.0/NamedFunctionRef.xq");
+
+        XQueryNamedFunctionRef namedFunctionRefPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryNamedFunctionRef.class);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)namedFunctionRefPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: Reserved keyword used as a function name."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.NCNAME));
+    }
+
+    public void testNamedFunctionRef_Keyword() {
+        final ASTNode node = parseResource("tests/psi/xquery-3.0/NamedFunctionRef_Keyword.xq");
+
+        XQueryNamedFunctionRef namedFunctionRefPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryNamedFunctionRef.class);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)namedFunctionRefPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: Reserved keyword used as a function name."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_WHERE));
+    }
+
+    public void testNamedFunctionRef_ReservedKeyword() {
+        final ASTNode node = parseResource("tests/psi/xquery-3.0/NamedFunctionRef_ReservedKeyword.xq");
+
+        XQueryNamedFunctionRef namedFunctionRefPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryNamedFunctionRef.class);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)namedFunctionRefPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(false));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: Reserved keyword used as a function name."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_IF));
+    }
+
+    public void testNamedFunctionRef_ReservedKeyword_Function() {
+        final ASTNode node = parseResource("tests/psi/xquery-3.0/NamedFunctionRef_ReservedKeyword_Function.xq");
+
+        XQueryNamedFunctionRef namedFunctionRefPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryNamedFunctionRef.class);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)namedFunctionRefPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(false));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: Reserved keyword used as a function name."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_FUNCTION));
+    }
+
+    public void testNamedFunctionRef_ReservedKeyword_NamespaceNode() {
+        final ASTNode node = parseResource("tests/psi/xquery-3.0/NamedFunctionRef_ReservedKeyword_NamespaceNode.xq");
+
+        XQueryNamedFunctionRef namedFunctionRefPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryNamedFunctionRef.class);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)namedFunctionRefPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(false));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: Reserved keyword used as a function name."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_NAMESPACE_NODE));
+    }
+
+    public void testNamedFunctionRef_ReservedKeyword_Switch() {
+        final ASTNode node = parseResource("tests/psi/xquery-3.0/NamedFunctionRef_ReservedKeyword_Switch.xq");
+
+        XQueryNamedFunctionRef namedFunctionRefPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryNamedFunctionRef.class);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)namedFunctionRefPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(false));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: Reserved keyword used as a function name."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_SWITCH));
     }
 
     // endregion
