@@ -3017,11 +3017,20 @@ class XQueryParser {
 
     private boolean parseArgument() {
         final PsiBuilder.Marker argumentMarker = mark();
-        if (parseExprSingle()) {
+        if (parseExprSingle() || parseArgumentPlaceholder()) {
             argumentMarker.done(XQueryElementType.ARGUMENT);
             return true;
         }
         argumentMarker.drop();
+        return false;
+    }
+
+    private boolean parseArgumentPlaceholder() {
+        final PsiBuilder.Marker argumentPlaceholderMarker = matchTokenTypeWithMarker(XQueryTokenType.OPTIONAL);
+        if (argumentPlaceholderMarker != null) {
+            argumentPlaceholderMarker.done(XQueryElementType.ARGUMENT_PLACEHOLDER);
+            return true;
+        }
         return false;
     }
 

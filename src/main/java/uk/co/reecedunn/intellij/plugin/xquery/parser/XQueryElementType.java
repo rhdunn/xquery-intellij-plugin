@@ -191,6 +191,7 @@ public interface XQueryElementType {
 
     IElementType ARGUMENT_LIST = new ICompositeElementType("XQUERY_ARGUMENT_LIST", XQueryArgumentListImpl.class, XQueryArgumentListPsiImpl.class);
     IElementType ARGUMENT = new ICompositeElementType("XQUERY_ARGUMENT", XQueryArgumentImpl.class, XQueryArgumentPsiImpl.class);
+    IElementType ARGUMENT_PLACEHOLDER = new ICompositeElementType("XQUERY_ARGUMENT_PLACEHOLDER", XQueryArgumentPlaceholderImpl.class, XQueryArgumentPlaceholderPsiImpl.class);
 
     // endregion
     // region Update Facility 1.0
