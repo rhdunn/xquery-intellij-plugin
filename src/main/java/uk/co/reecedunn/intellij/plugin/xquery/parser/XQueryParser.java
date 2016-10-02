@@ -2143,12 +2143,12 @@ class XQueryParser {
 
     private boolean parseComparisonExpr(IElementType type) {
         final PsiBuilder.Marker comparisonExprMarker = mark();
-        if (parseRangeExpr(type)) {
+        if (parseStringConcatExpr(type)) {
             parseWhiteSpaceAndCommentTokens();
             if (parseGeneralComp() || parseValueComp() || parseNodeComp()) {
                 parseWhiteSpaceAndCommentTokens();
-                if (!parseRangeExpr(type)) {
-                    error(XQueryBundle.message("parser.error.expected", "RangeExpr"));
+                if (!parseStringConcatExpr(type)) {
+                    error(XQueryBundle.message("parser.error.expected", "StringConcatExpr"));
                 }
             }
 
@@ -2156,6 +2156,17 @@ class XQueryParser {
             return true;
         }
         comparisonExprMarker.drop();
+        return false;
+    }
+
+    private boolean parseStringConcatExpr(IElementType type) {
+        final PsiBuilder.Marker stringConcatExprMarker = mark();
+        if (parseRangeExpr(type)) {
+            // TODO: ("||" RangeExpr)*
+            stringConcatExprMarker.done(XQueryElementType.STRING_CONCAT_EXPR);
+            return true;
+        }
+        stringConcatExprMarker.drop();
         return false;
     }
 

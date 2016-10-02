@@ -4,33 +4,35 @@ FileElement[FILE(0:5)]
          XQueryOrExprImpl[XQUERY_OR_EXPR(0:2)]
             XQueryAndExprImpl[XQUERY_AND_EXPR(0:2)]
                XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:2)]
-                  XQueryRangeExprImpl[XQUERY_RANGE_EXPR(0:2)]
-                     XQueryAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(0:2)]
-                        XQueryMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:2)]
-                           XQueryUnionExprImpl[XQUERY_UNION_EXPR(0:2)]
-                              XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:2)]
-                                 XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:2)]
-                                    XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:2)]
-                                       XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:2)]
-                                          XQueryCastExprImpl[XQUERY_CAST_EXPR(0:2)]
-                                             XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:2)]
-                                                LeafPsiElement[XQUERY_PLUS_TOKEN(0:1)]('+')
-                                                PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
-                                                PsiErrorElementImpl[ERROR_ELEMENT(2:2)]('XPST0003: Expected 'ValueExpr'.')
+                  XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(0:2)]
+                     XQueryRangeExprImpl[XQUERY_RANGE_EXPR(0:2)]
+                        XQueryAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(0:2)]
+                           XQueryMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:2)]
+                              XQueryUnionExprImpl[XQUERY_UNION_EXPR(0:2)]
+                                 XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:2)]
+                                    XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:2)]
+                                       XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:2)]
+                                          XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:2)]
+                                             XQueryCastExprImpl[XQUERY_CAST_EXPR(0:2)]
+                                                XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:2)]
+                                                   LeafPsiElement[XQUERY_PLUS_TOKEN(0:1)]('+')
+                                                   PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+                                                   PsiErrorElementImpl[ERROR_ELEMENT(2:2)]('XPST0003: Expected 'ValueExpr'.')
          LeafPsiElement[XQUERY_COMMA_TOKEN(2:3)](',')
          PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
          XQueryOrExprImpl[XQUERY_OR_EXPR(4:5)]
             XQueryAndExprImpl[XQUERY_AND_EXPR(4:5)]
                XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(4:5)]
-                  XQueryRangeExprImpl[XQUERY_RANGE_EXPR(4:5)]
-                     XQueryAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(4:5)]
-                        XQueryMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(4:5)]
-                           XQueryUnionExprImpl[XQUERY_UNION_EXPR(4:5)]
-                              XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(4:5)]
-                                 XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(4:5)]
-                                    XQueryTreatExprImpl[XQUERY_TREAT_EXPR(4:5)]
-                                       XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(4:5)]
-                                          XQueryCastExprImpl[XQUERY_CAST_EXPR(4:5)]
-                                             XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(4:5)]
-                                                LeafPsiElement[XQUERY_MINUS_TOKEN(4:5)]('-')
-                                                PsiErrorElementImpl[ERROR_ELEMENT(5:5)]('XPST0003: Expected 'ValueExpr'.')
+                  XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(4:5)]
+                     XQueryRangeExprImpl[XQUERY_RANGE_EXPR(4:5)]
+                        XQueryAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(4:5)]
+                           XQueryMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(4:5)]
+                              XQueryUnionExprImpl[XQUERY_UNION_EXPR(4:5)]
+                                 XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(4:5)]
+                                    XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(4:5)]
+                                       XQueryTreatExprImpl[XQUERY_TREAT_EXPR(4:5)]
+                                          XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(4:5)]
+                                             XQueryCastExprImpl[XQUERY_CAST_EXPR(4:5)]
+                                                XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(4:5)]
+                                                   LeafPsiElement[XQUERY_MINUS_TOKEN(4:5)]('-')
+                                                   PsiErrorElementImpl[ERROR_ELEMENT(5:5)]('XPST0003: Expected 'ValueExpr'.')

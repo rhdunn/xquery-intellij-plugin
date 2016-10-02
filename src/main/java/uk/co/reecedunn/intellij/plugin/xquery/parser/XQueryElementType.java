@@ -185,6 +185,8 @@ public interface XQueryElementType {
 
     IElementType FOR_BINDING = new ICompositeElementType("XQUERY_FOR_BINDING", XQueryForBindingImpl.class, XQueryForBindingPsiImpl.class);
 
+    IElementType STRING_CONCAT_EXPR = new ICompositeElementType("XQUERY_STRING_CONCAT_EXPR", XQueryStringConcatExprImpl.class, XQueryStringConcatExprPsiImpl.class);
+
     // endregion
     // region Update Facility 1.0
 
