@@ -2162,7 +2162,15 @@ class XQueryParser {
     private boolean parseStringConcatExpr(IElementType type) {
         final PsiBuilder.Marker stringConcatExprMarker = mark();
         if (parseRangeExpr(type)) {
-            // TODO: ("||" RangeExpr)*
+            parseWhiteSpaceAndCommentTokens();
+            while (matchTokenType(XQueryTokenType.CONCATENATION)) {
+                parseWhiteSpaceAndCommentTokens();
+                if (!parseRangeExpr(type)) {
+                    error(XQueryBundle.message("parser.error.expected", "RangeExpr"));
+                }
+                parseWhiteSpaceAndCommentTokens();
+            }
+
             stringConcatExprMarker.done(XQueryElementType.STRING_CONCAT_EXPR);
             return true;
         }
