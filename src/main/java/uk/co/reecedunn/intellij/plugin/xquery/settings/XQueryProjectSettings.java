@@ -134,14 +134,37 @@ public class XQueryProjectSettings implements PersistentStateComponent<XQueryPro
 
     @Transient
     public ImplementationItem getDialectForXQueryVersion(XQueryVersion version) {
-        if (version == XQueryVersion.VERSION_1_0) {
-            return XQUERY_1_0_DIALECT;
-        } else if (version == XQueryVersion.VERSION_3_0) {
-            return XQUERY_3_0_DIALECT;
-        } else if (version == XQueryVersion.VERSION_3_1) {
-            return XQUERY_3_1_DIALECT;
+        switch (version) {
+            case VERSION_1_0:
+                if (XQUERY_1_0_DIALECT == ImplementationItem.NULL_ITEM) {
+                    return Implementations.getItemById("w3c/1.0");
+                }
+                return XQUERY_1_0_DIALECT;
+            case VERSION_3_0:
+                if (XQUERY_3_0_DIALECT == ImplementationItem.NULL_ITEM) {
+                    return Implementations.getItemById("w3c/3.0");
+                }
+                return XQUERY_3_0_DIALECT;
+            case VERSION_3_1:
+                if (XQUERY_3_1_DIALECT == ImplementationItem.NULL_ITEM) {
+                    return Implementations.getItemById("w3c/3.1");
+                }
+                return XQUERY_3_1_DIALECT;
+            case VERSION_0_9_MARKLOGIC:
+                final ImplementationItem default09ml = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryConformance.MINIMAL_CONFORMANCE, version);
+                if (default09ml == ImplementationItem.NULL_ITEM) {
+                    return Implementations.getItemById("marklogic/v8/0.9-ml");
+                }
+                return default09ml;
+            case VERSION_1_0_MARKLOGIC:
+                final ImplementationItem default10ml = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryConformance.MINIMAL_CONFORMANCE, version);
+                if (default10ml == ImplementationItem.NULL_ITEM) {
+                    return Implementations.getItemById("marklogic/v8/1.0-ml");
+                }
+                return default10ml;
+            default:
+                return ImplementationItem.NULL_ITEM;
         }
-        return IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryConformance.MINIMAL_CONFORMANCE, version);
     }
 
     @Transient
