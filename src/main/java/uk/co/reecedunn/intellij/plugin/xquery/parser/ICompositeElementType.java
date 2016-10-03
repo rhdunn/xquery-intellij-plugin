@@ -26,29 +26,14 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 import java.lang.reflect.Constructor;
 
 public class ICompositeElementType extends IElementType {
-    private Constructor<?> mAstConstructor;
     private Constructor<?> mPsiConstructor;
 
     public ICompositeElementType(@NotNull @NonNls String debugName, Class<?> astClass, Class<?> psiClass) {
         super(debugName, XQuery.INSTANCE);
         try {
-            mAstConstructor = astClass.getConstructor(IElementType.class);
-        } catch (NoSuchMethodException e) {
-            throw new AssertionError("Cannot find the appropriate constructor for " + astClass.getName());
-        }
-        try {
             mPsiConstructor = psiClass.getConstructor(ASTNode.class);
         } catch (NoSuchMethodException e) {
             throw new AssertionError("Cannot find the appropriate constructor for " + psiClass.getName());
-        }
-    }
-
-    public CompositeElement createAstElement() {
-        try {
-            final Object[] arguments = new Object[]{ this };
-            return (CompositeElement)mAstConstructor.newInstance(arguments);
-        } catch (Exception e) {
-            throw new AssertionError("Cannot create XQuery AST Node for " + this, e);
         }
     }
 

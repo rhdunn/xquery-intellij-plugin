@@ -22,19 +22,13 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.impl.xquery.*;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
-import uk.co.reecedunn.intellij.plugin.xquery.parser.ICompositeElementType;
-import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.XQueryDirWhiteSpaceImpl;
 
 public class XQueryASTFactory extends ASTFactory {
     @Override
     @Nullable
     public CompositeElement createComposite(final IElementType type) {
-        if (type instanceof ICompositeElementType) {
-            return ((ICompositeElementType)type).createAstElement();
-        }
-
-        throw new AssertionError("Alien element type [" + type + "]. Can't create XQuery AST Node for that.");
+        return new CompositeElement(type);
     }
 
     @Override

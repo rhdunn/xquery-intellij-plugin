@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.parser;
 
 import com.intellij.lang.ASTFactory;
+import com.intellij.psi.impl.source.tree.CompositeElement;
 import com.intellij.psi.impl.source.tree.LeafPsiElement;
 import junit.framework.TestCase;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory;
@@ -23,18 +24,15 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.expectThrows;
 
 public class XQueryASTFactoryTest extends TestCase {
-    @SuppressWarnings("ThrowableResultOfMethodCallIgnored")
+    @SuppressWarnings("ConstantConditions")
     public void testCreateElement() {
         ASTFactory factory = new XQueryASTFactory();
-
-        // foreign ASTNode
-        AssertionError e = expectThrows(AssertionError.class, () -> factory.createComposite(XQueryTokenType.INTEGER_LITERAL));
-        assertThat(e.getMessage(), is("Alien element type [XQUERY_INTEGER_LITERAL_TOKEN]. Can't create XQuery AST Node for that."));
+        assertThat(factory.createComposite(XQueryTokenType.INTEGER_LITERAL).getClass().getName(), is(CompositeElement.class.getName()));
     }
 
+    @SuppressWarnings("ConstantConditions")
     public void testCreateLeaf() {
         ASTFactory factory = new XQueryASTFactory();
         assertThat(factory.createLeaf(XQueryTokenType.COMMA, ",").getClass().getName(), is(LeafPsiElement.class.getName()));
