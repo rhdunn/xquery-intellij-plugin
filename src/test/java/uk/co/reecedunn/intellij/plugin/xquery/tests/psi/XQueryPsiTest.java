@@ -633,6 +633,71 @@ public class XQueryPsiTest extends ParserTestCase {
     }
 
     // endregion
+    // region XQuery 1.0 :: QName
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-TextTest")
+    public void testQName() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/QName.xq");
+
+        XQueryOptionDecl optionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryOptionDecl.class);
+        XQueryQName qnamePsi = PsiNavigation.findChildrenByClass(optionDeclPsi, XQueryQName.class).get(0);
+
+        assertThat(qnamePsi.getPrefix(), is(notNullValue()));
+        assertThat(qnamePsi.getPrefix().getNode().getElementType(), is(XQueryTokenType.NCNAME));
+        assertThat(qnamePsi.getPrefix().getText(), is("one"));
+
+        assertThat(qnamePsi.getLocalName(), is(notNullValue()));
+        assertThat(qnamePsi.getLocalName().getNode().getElementType(), is(XQueryTokenType.NCNAME));
+        assertThat(qnamePsi.getLocalName().getText(), is("two"));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-TextTest")
+    public void testQName_KeywordLocalPart() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/QName_KeywordLocalPart.xq");
+
+        XQueryOptionDecl optionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryOptionDecl.class);
+        XQueryQName qnamePsi = PsiNavigation.findChildrenByClass(optionDeclPsi, XQueryQName.class).get(0);
+
+        assertThat(qnamePsi.getPrefix(), is(notNullValue()));
+        assertThat(qnamePsi.getPrefix().getNode().getElementType(), is(XQueryTokenType.NCNAME));
+        assertThat(qnamePsi.getPrefix().getText(), is("sort"));
+
+        assertThat(qnamePsi.getLocalName(), is(notNullValue()));
+        assertThat(qnamePsi.getLocalName().getNode().getElementType(), is(XQueryTokenType.K_LEAST));
+        assertThat(qnamePsi.getLocalName().getText(), is("least"));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-TextTest")
+    public void testQName_MissingLocalPart() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/QName_MissingLocalPart.xq");
+
+        XQueryOptionDecl optionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryOptionDecl.class);
+        XQueryQName qnamePsi = PsiNavigation.findChildrenByClass(optionDeclPsi, XQueryQName.class).get(0);
+
+        assertThat(qnamePsi.getPrefix(), is(notNullValue()));
+        assertThat(qnamePsi.getPrefix().getNode().getElementType(), is(XQueryTokenType.NCNAME));
+        assertThat(qnamePsi.getPrefix().getText(), is("one"));
+
+        assertThat(qnamePsi.getLocalName(), is(nullValue()));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-TextTest")
+    public void testQName_KeywordPrefixPart() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/QName_KeywordPrefixPart.xq");
+
+        XQueryOptionDecl optionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryOptionDecl.class);
+        XQueryQName qnamePsi = PsiNavigation.findChildrenByClass(optionDeclPsi, XQueryQName.class).get(0);
+
+        assertThat(qnamePsi.getPrefix(), is(notNullValue()));
+        assertThat(qnamePsi.getPrefix().getNode().getElementType(), is(XQueryTokenType.K_ORDER));
+        assertThat(qnamePsi.getPrefix().getText(), is("order"));
+
+        assertThat(qnamePsi.getLocalName(), is(notNullValue()));
+        assertThat(qnamePsi.getLocalName().getNode().getElementType(), is(XQueryTokenType.NCNAME));
+        assertThat(qnamePsi.getLocalName().getText(), is("two"));
+    }
+
+    // endregion
     // region XQuery 3.0 :: VersionDecl
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-VersionDecl")
