@@ -235,6 +235,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_PREVIOUS = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PREVIOUS"); // XQuery 3.0
     IXQueryKeywordOrNCNameType K_PROCESSING_INSTRUCTION = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PROCESSING_INSTRUCTION", IXQueryKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME);
     IXQueryKeywordOrNCNameType K_PROPERTY = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PROPERTY"); // MarkLogic 6.0
+    IXQueryKeywordOrNCNameType K_PUBLIC = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PUBLIC"); // XQuery 3.0 (§4.15 -- Annotations)
     IXQueryKeywordOrNCNameType K_RENAME = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_RENAME"); // Update Facility 1.0
     IXQueryKeywordOrNCNameType K_REPLACE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_REPLACE"); // Update Facility 1.0
     IXQueryKeywordOrNCNameType K_RETURN = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_RETURN");

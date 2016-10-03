@@ -2928,6 +2928,9 @@ public class XQueryLexerTest extends TestCase {
         matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN);
         matchSingleToken(lexer, ",", XQueryTokenType.COMMA);
         matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE);
+
+        matchSingleToken(lexer, "public",  XQueryTokenType.K_PUBLIC);
+        matchSingleToken(lexer, "private", XQueryTokenType.K_PRIVATE);
     }
 
     // endregion

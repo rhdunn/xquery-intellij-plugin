@@ -98,6 +98,7 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
             return COMMENT_KEYS;
         } else if (type == XQueryTokenType.K_UPDATING ||
                    type == XQueryTokenType.K_PRIVATE ||
+                   type == XQueryTokenType.K_PUBLIC ||
                    type == XQueryTokenType.ANNOTATION_INDICATOR) {
             return ANNOTATION_KEYS;
         } else if (type instanceof IXQueryKeywordOrNCNameType) {

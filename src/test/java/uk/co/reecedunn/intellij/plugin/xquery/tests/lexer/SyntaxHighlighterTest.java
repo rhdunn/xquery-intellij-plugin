@@ -594,6 +594,9 @@ public class SyntaxHighlighterTest extends TestCase {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_UPDATING).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_UPDATING)[0], is(SyntaxHighlighter.ANNOTATION));
 
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_PUBLIC).length, is(1));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_PUBLIC)[0], is(SyntaxHighlighter.ANNOTATION));
+
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_PRIVATE).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_PRIVATE)[0], is(SyntaxHighlighter.ANNOTATION));
     }

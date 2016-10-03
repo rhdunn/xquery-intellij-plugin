@@ -1351,6 +1351,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("private", XQueryTokenType.K_PRIVATE); // MarkLogic 6.0
         sKeywords.put("processing-instruction", XQueryTokenType.K_PROCESSING_INSTRUCTION);
         sKeywords.put("property", XQueryTokenType.K_PROPERTY); // MarkLogic 6.0
+        sKeywords.put("public", XQueryTokenType.K_PUBLIC); // XQuery 3.0 (§4.15 -- Annotations)
         sKeywords.put("rename", XQueryTokenType.K_RENAME); // Update Facility 1.0
         sKeywords.put("replace", XQueryTokenType.K_REPLACE); // Update Facility 1.0
         sKeywords.put("return", XQueryTokenType.K_RETURN);
