@@ -106,8 +106,13 @@ public abstract class ParserTestCase extends ParsingTestCase {
             prettyPrinted.append("   ");
         }
 
-        String[] names = node.getClass().getName().split("\\.");
-        prettyPrinted.append(names[names.length - 1]);
+        if (node instanceof FileElement) {
+            prettyPrinted.append("FileElement");
+        } else {
+            String[] names = node.getPsi().getClass().getName().split("\\.");
+            prettyPrinted.append(names[names.length - 1].replace("PsiImpl", "Impl"));
+        }
+
         prettyPrinted.append('[');
         prettyPrinted.append(node.getElementType());
         prettyPrinted.append('(');
