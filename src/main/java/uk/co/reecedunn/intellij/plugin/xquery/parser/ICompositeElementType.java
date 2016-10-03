@@ -28,7 +28,7 @@ import java.lang.reflect.Constructor;
 public class ICompositeElementType extends IElementType {
     private Constructor<?> mPsiConstructor;
 
-    public ICompositeElementType(@NotNull @NonNls String debugName, Class<?> astClass, Class<?> psiClass) {
+    public ICompositeElementType(@NotNull @NonNls String debugName, Class<?> psiClass) {
         super(debugName, XQuery.INSTANCE);
         try {
             mPsiConstructor = psiClass.getConstructor(ASTNode.class);
