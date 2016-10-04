@@ -713,6 +713,23 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(qnamePsi.getLocalName().getText(), is("b"));
     }
 
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
+    public void testQName_DirAttributeList() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/DirAttributeList.xq");
+
+        XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryDirElemConstructor.class);
+        XQueryDirAttributeList dirAttributeListPsi = PsiNavigation.findChildrenByClass(dirElemConstructorPsi, XQueryDirAttributeList.class).get(0);
+        XQueryQName qnamePsi = PsiNavigation.findChildrenByClass(dirAttributeListPsi, XQueryQName.class).get(0);
+
+        assertThat(qnamePsi.getPrefix(), is(notNullValue()));
+        assertThat(qnamePsi.getPrefix().getNode().getElementType(), is(XQueryTokenType.XML_ATTRIBUTE_NCNAME));
+        assertThat(qnamePsi.getPrefix().getText(), is("xml"));
+
+        assertThat(qnamePsi.getLocalName(), is(notNullValue()));
+        assertThat(qnamePsi.getLocalName().getNode().getElementType(), is(XQueryTokenType.XML_ATTRIBUTE_NCNAME));
+        assertThat(qnamePsi.getLocalName().getText(), is("id"));
+    }
+
     // endregion
     // region XQuery 3.0 :: VersionDecl
 

@@ -27,7 +27,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 public class XQueryQNamePsiImpl extends ASTWrapperPsiElement implements XQueryQName {
     private static TokenSet QNAME_SEPARATORS = TokenSet.create(
         XQueryTokenType.QNAME_SEPARATOR,
-        XQueryTokenType.XML_TAG_QNAME_SEPARATOR);
+        XQueryTokenType.XML_TAG_QNAME_SEPARATOR,
+        XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR);
 
     public XQueryQNamePsiImpl(@NotNull ASTNode node) {
         super(node);
