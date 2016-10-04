@@ -17,11 +17,31 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
+import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryURIQualifiedName;
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.INCNameType;
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 
 public class XQueryURIQualifiedNamePsiImpl extends ASTWrapperPsiElement implements XQueryURIQualifiedName {
     public XQueryURIQualifiedNamePsiImpl(@NotNull ASTNode node) {
         super(node);
+    }
+
+    @Override
+    public PsiElement getPrefix() {
+        return findChildByType(XQueryElementType.BRACED_URI_LITERAL);
+    }
+
+    @Override
+    public PsiElement getLocalName() {
+        PsiElement element = getFirstChild();
+        while (element != null) {
+            if (element.getNode().getElementType() instanceof INCNameType) {
+                return element;
+            }
+            element = element.getNextSibling();
+        }
+        return null;
     }
 }

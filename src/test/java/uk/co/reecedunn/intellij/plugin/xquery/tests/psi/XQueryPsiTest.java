@@ -1303,6 +1303,25 @@ public class XQueryPsiTest extends ParserTestCase {
     }
 
     // endregion
+    // region XQuery 3.0 :: URIQualifiedName
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-URIQualifiedName")
+    public void testURIQualifiedName() {
+        final ASTNode node = parseResource("tests/parser/xquery-3.0/BracedURILiteral.xq");
+
+        XQueryOptionDecl optionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryOptionDecl.class);
+        XQueryURIQualifiedName qnamePsi = PsiNavigation.findChildrenByClass(optionDeclPsi, XQueryURIQualifiedName.class).get(0);
+
+        assertThat(qnamePsi.getPrefix(), is(notNullValue()));
+        assertThat(qnamePsi.getPrefix().getNode().getElementType(), is(XQueryElementType.BRACED_URI_LITERAL));
+        assertThat(qnamePsi.getPrefix().getText(), is("Q{one{two}"));
+
+        assertThat(qnamePsi.getLocalName(), is(notNullValue()));
+        assertThat(qnamePsi.getLocalName().getNode().getElementType(), is(XQueryTokenType.NCNAME));
+        assertThat(qnamePsi.getLocalName().getText(), is("three"));
+    }
+
+    // endregion
     // region XQuery 3.0 :: BracedURILiteral
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-BracedURILiteral")
