@@ -17,11 +17,22 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
+import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryNCName;
 
 public class XQueryNCNamePsiImpl extends ASTWrapperPsiElement implements XQueryNCName {
     public XQueryNCNamePsiImpl(@NotNull ASTNode node) {
         super(node);
+    }
+
+    @Override
+    public PsiElement getPrefix() {
+        return null;
+    }
+
+    @Override
+    public PsiElement getLocalName() {
+        return getFirstChild();
     }
 }

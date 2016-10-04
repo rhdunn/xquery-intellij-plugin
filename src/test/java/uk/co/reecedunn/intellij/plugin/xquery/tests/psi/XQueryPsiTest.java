@@ -731,6 +731,23 @@ public class XQueryPsiTest extends ParserTestCase {
     }
 
     // endregion
+    // region XQuery 1.0 :: NCName
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-NCName")
+    public void testNCName() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/NCName_Keyword.xq");
+
+        XQueryOptionDecl optionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryOptionDecl.class);
+        XQueryNCName ncnamePsi = PsiNavigation.findChildrenByClass(optionDeclPsi, XQueryNCName.class).get(0);
+
+        assertThat(ncnamePsi.getPrefix(), is(nullValue()));
+
+        assertThat(ncnamePsi.getLocalName(), is(notNullValue()));
+        assertThat(ncnamePsi.getLocalName().getNode().getElementType(), is(XQueryTokenType.K_COLLATION));
+        assertThat(ncnamePsi.getLocalName().getText(), is("collation"));
+    }
+
+    // endregion
     // region XQuery 3.0 :: VersionDecl
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-VersionDecl")
