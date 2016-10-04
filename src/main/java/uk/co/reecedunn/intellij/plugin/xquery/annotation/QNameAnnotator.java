@@ -31,15 +31,23 @@ public class QNameAnnotator implements Annotator {
         if (!(element instanceof XQueryQName)) return;
         XQueryQName qname = (XQueryQName)element;
 
+        boolean xmlns = false;
         PsiElement prefix = qname.getPrefix();
         if (prefix != null) {
-            Annotation annotation = holder.createAnnotation(HighlightSeverity.INFORMATION, prefix.getTextRange(), null);
-            annotation.setTextAttributes(SyntaxHighlighter.NS_PREFIX);
+            if (prefix.getText().equals("xmlns")) {
+                xmlns = true;
+            } else {
+                Annotation annotation = holder.createAnnotation(HighlightSeverity.INFORMATION, prefix.getTextRange(), null);
+                annotation.setTextAttributes(SyntaxHighlighter.NS_PREFIX);
+            }
         }
 
         PsiElement localname = qname.getLocalName();
         if (localname != null) {
-            if (localname.getNode().getElementType() instanceof IXQueryKeywordOrNCNameType) {
+            if (xmlns) {
+                Annotation annotation = holder.createAnnotation(HighlightSeverity.INFORMATION, localname.getTextRange(), null);
+                annotation.setTextAttributes(SyntaxHighlighter.NS_PREFIX);
+            } else if (localname.getNode().getElementType() instanceof IXQueryKeywordOrNCNameType) {
                 Annotation annotation = holder.createAnnotation(HighlightSeverity.INFORMATION, localname.getTextRange(), null);
                 annotation.setTextAttributes(SyntaxHighlighter.IDENTIFIER);
             }

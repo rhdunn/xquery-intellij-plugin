@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.annotator;
 
-import com.intellij.codeInspection.ProblemHighlightType;
 import com.intellij.lang.ASTNode;
 import com.intellij.lang.annotation.Annotation;
 import com.intellij.lang.annotation.HighlightSeverity;
@@ -92,5 +91,25 @@ public class QNameAnnotatorTest extends AnnotatorTestCase {
         assertThat(annotations.get(0).getMessage(), is(nullValue()));
         assertThat(annotations.get(0).getEnforcedTextAttributes(), is(nullValue()));
         assertThat(annotations.get(0).getTextAttributes(), is(SyntaxHighlighter.NS_PREFIX));
+    }
+
+    public void testDirAttributeList_XmlnsAttribute() {
+        final ASTNode node = parseResource("tests/psi/xquery-1.0/DirAttributeList_XmlnsAttribute.xq");
+        final List<Annotation> annotations = annotateTree(node, new QNameAnnotator());
+        assertThat(annotations.size(), is(2));
+
+        assertThat(annotations.get(0).getSeverity(), is(HighlightSeverity.INFORMATION));
+        assertThat(annotations.get(0).getStartOffset(), is(1));
+        assertThat(annotations.get(0).getEndOffset(), is(2));
+        assertThat(annotations.get(0).getMessage(), is(nullValue()));
+        assertThat(annotations.get(0).getEnforcedTextAttributes(), is(nullValue()));
+        assertThat(annotations.get(0).getTextAttributes(), is(SyntaxHighlighter.NS_PREFIX));
+
+        assertThat(annotations.get(1).getSeverity(), is(HighlightSeverity.INFORMATION));
+        assertThat(annotations.get(1).getStartOffset(), is(11));
+        assertThat(annotations.get(1).getEndOffset(), is(12));
+        assertThat(annotations.get(1).getMessage(), is(nullValue()));
+        assertThat(annotations.get(1).getEnforcedTextAttributes(), is(nullValue()));
+        assertThat(annotations.get(1).getTextAttributes(), is(SyntaxHighlighter.NS_PREFIX));
     }
 }
