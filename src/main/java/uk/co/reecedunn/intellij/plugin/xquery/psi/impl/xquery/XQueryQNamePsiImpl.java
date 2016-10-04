@@ -18,12 +18,17 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.tree.TokenSet;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryQName;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.INCNameType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 
 public class XQueryQNamePsiImpl extends ASTWrapperPsiElement implements XQueryQName {
+    private static TokenSet QNAME_SEPARATORS = TokenSet.create(
+        XQueryTokenType.QNAME_SEPARATOR,
+        XQueryTokenType.XML_TAG_QNAME_SEPARATOR);
+
     public XQueryQNamePsiImpl(@NotNull ASTNode node) {
         super(node);
     }
@@ -34,7 +39,7 @@ public class XQueryQNamePsiImpl extends ASTWrapperPsiElement implements XQueryQN
         while (element != null) {
             if (element.getNode().getElementType() instanceof INCNameType) {
                 return element;
-            } else if (element.getNode().getElementType() == XQueryTokenType.QNAME_SEPARATOR) {
+            } else if (QNAME_SEPARATORS.contains(element.getNode().getElementType())) {
                 return null;
             }
             element = element.getNextSibling();
@@ -44,7 +49,7 @@ public class XQueryQNamePsiImpl extends ASTWrapperPsiElement implements XQueryQN
 
     @Override
     public PsiElement getLocalName() {
-        PsiElement element = findChildByType(XQueryTokenType.QNAME_SEPARATOR);
+        PsiElement element = findChildByType(QNAME_SEPARATORS);
         while (element != null) {
             if (element.getNode().getElementType() instanceof INCNameType) {
                 return element;
