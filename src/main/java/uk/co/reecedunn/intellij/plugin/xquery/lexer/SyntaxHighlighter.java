@@ -33,6 +33,7 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
     public static final TextAttributesKey ANNOTATION = TextAttributesKey.createTextAttributesKey("XQUERY_ANNOTATION", DefaultLanguageHighlighterColors.METADATA);
     public static final TextAttributesKey NUMBER = TextAttributesKey.createTextAttributesKey("XQUERY_NUMBER", DefaultLanguageHighlighterColors.NUMBER);
     public static final TextAttributesKey STRING = TextAttributesKey.createTextAttributesKey("XQUERY_STRING", DefaultLanguageHighlighterColors.STRING);
+    public static final TextAttributesKey NS_PREFIX = TextAttributesKey.createTextAttributesKey("XQUERY_NS_PREFIX", DefaultLanguageHighlighterColors.INSTANCE_FIELD);
 
     public static final TextAttributesKey XML_TAG = TextAttributesKey.createTextAttributesKey("XQUERY_XML_TAG", XmlHighlighterColors.XML_TAG);
     public static final TextAttributesKey XML_TAG_NAME = TextAttributesKey.createTextAttributesKey("XQUERY_XML_TAG_NAME", XmlHighlighterColors.XML_TAG_NAME);

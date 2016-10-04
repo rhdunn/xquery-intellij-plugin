@@ -34,6 +34,8 @@
     <lang.elementManipulator forClass="uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryUriLiteralPsiImpl"
                              implementationClass="uk.co.reecedunn.intellij.plugin.xquery.resolve.manipulator.XQueryUriLiteralManipulator"/>
 
+    <annotator language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.annotation.QNameAnnotator"/>
+
     <localInspection language="XQuery" shortName="UnsupportedConstruct" bundle="messages.XQueryBundle"
                      key="inspection.XPST0003.unsupported-construct.display-name" hasStaticDescription="true"
                      groupKey="inspection.group.display-name" enabledByDefault="true" level="WARNING"
