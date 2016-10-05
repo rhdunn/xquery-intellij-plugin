@@ -1303,6 +1303,119 @@ public class XQueryPsiTest extends ParserTestCase {
     }
 
     // endregion
+    // region XQuery 1.0 :: EQName
+
+    @SuppressWarnings("RedundantCast")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-EQName")
+    public void testEQName_QName() {
+        final ASTNode node = parseResource("tests/psi/xquery-3.0/SimpleTypeName_QName.xq");
+
+        XQueryCastExpr castExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryCastExpr.class);
+        XQuerySingleType singleTypePsi = PsiNavigation.findChildrenByClass(castExprPsi, XQuerySingleType.class).get(0);
+        XQuerySimpleTypeName simpleTypeNamePsi = PsiNavigation.findFirstChildByClass(singleTypePsi, XQuerySimpleTypeName.class);
+        XQueryEQName eqnamePsi = (XQueryEQName)simpleTypeNamePsi;
+
+        assertThat(eqnamePsi.getPrefix(), is(notNullValue()));
+        assertThat(eqnamePsi.getPrefix().getNode().getElementType(), is(XQueryTokenType.NCNAME));
+        assertThat(eqnamePsi.getPrefix().getText(), is("xs"));
+
+        assertThat(eqnamePsi.getLocalName(), is(notNullValue()));
+        assertThat(eqnamePsi.getLocalName().getNode().getElementType(), is(XQueryTokenType.NCNAME));
+        assertThat(eqnamePsi.getLocalName().getText(), is("double"));
+    }
+
+    @SuppressWarnings("RedundantCast")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-EQName")
+    public void testEQName_KeywordLocalPart() {
+        final ASTNode node = parseResource("tests/psi/xquery-3.0/SimpleTypeName_QName_KeywordLocalPart.xq");
+
+        XQueryCastExpr castExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryCastExpr.class);
+        XQuerySingleType singleTypePsi = PsiNavigation.findChildrenByClass(castExprPsi, XQuerySingleType.class).get(0);
+        XQuerySimpleTypeName simpleTypeNamePsi = PsiNavigation.findFirstChildByClass(singleTypePsi, XQuerySimpleTypeName.class);
+        XQueryEQName eqnamePsi = (XQueryEQName)simpleTypeNamePsi;
+
+        assertThat(eqnamePsi.getPrefix(), is(notNullValue()));
+        assertThat(eqnamePsi.getPrefix().getNode().getElementType(), is(XQueryTokenType.NCNAME));
+        assertThat(eqnamePsi.getPrefix().getText(), is("sort"));
+
+        assertThat(eqnamePsi.getLocalName(), is(notNullValue()));
+        assertThat(eqnamePsi.getLocalName().getNode().getElementType(), is(XQueryTokenType.K_LEAST));
+        assertThat(eqnamePsi.getLocalName().getText(), is("least"));
+    }
+
+    @SuppressWarnings("RedundantCast")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-EQName")
+    public void testEQName_MissingLocalPart() {
+        final ASTNode node = parseResource("tests/psi/xquery-3.0/SimpleTypeName_QName_MissingLocalPart.xq");
+
+        XQueryCastExpr castExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryCastExpr.class);
+        XQuerySingleType singleTypePsi = PsiNavigation.findChildrenByClass(castExprPsi, XQuerySingleType.class).get(0);
+        XQuerySimpleTypeName simpleTypeNamePsi = PsiNavigation.findFirstChildByClass(singleTypePsi, XQuerySimpleTypeName.class);
+        XQueryEQName eqnamePsi = (XQueryEQName)simpleTypeNamePsi;
+
+        assertThat(eqnamePsi.getPrefix(), is(notNullValue()));
+        assertThat(eqnamePsi.getPrefix().getNode().getElementType(), is(XQueryTokenType.NCNAME));
+        assertThat(eqnamePsi.getPrefix().getText(), is("xs"));
+
+        assertThat(eqnamePsi.getLocalName(), is(nullValue()));
+    }
+
+    @SuppressWarnings("RedundantCast")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-EQName")
+    public void testEQName_KeywordPrefixPart() {
+        final ASTNode node = parseResource("tests/psi/xquery-3.0/SimpleTypeName_QName_KeywordPrefixPart.xq");
+
+        XQueryCastExpr castExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryCastExpr.class);
+        XQuerySingleType singleTypePsi = PsiNavigation.findChildrenByClass(castExprPsi, XQuerySingleType.class).get(0);
+        XQuerySimpleTypeName simpleTypeNamePsi = PsiNavigation.findFirstChildByClass(singleTypePsi, XQuerySimpleTypeName.class);
+        XQueryEQName eqnamePsi = (XQueryEQName)simpleTypeNamePsi;
+
+        assertThat(eqnamePsi.getPrefix(), is(notNullValue()));
+        assertThat(eqnamePsi.getPrefix().getNode().getElementType(), is(XQueryTokenType.K_ORDER));
+        assertThat(eqnamePsi.getPrefix().getText(), is("order"));
+
+        assertThat(eqnamePsi.getLocalName(), is(notNullValue()));
+        assertThat(eqnamePsi.getLocalName().getNode().getElementType(), is(XQueryTokenType.NCNAME));
+        assertThat(eqnamePsi.getLocalName().getText(), is("column"));
+    }
+
+    @SuppressWarnings("RedundantCast")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-EQName")
+    public void testEQName_NCName() {
+        final ASTNode node = parseResource("tests/psi/xquery-3.0/SimpleTypeName_NCName.xq");
+
+        XQueryCastExpr castExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryCastExpr.class);
+        XQuerySingleType singleTypePsi = PsiNavigation.findChildrenByClass(castExprPsi, XQuerySingleType.class).get(0);
+        XQuerySimpleTypeName simpleTypeNamePsi = PsiNavigation.findFirstChildByClass(singleTypePsi, XQuerySimpleTypeName.class);
+        XQueryEQName eqnamePsi = (XQueryEQName)simpleTypeNamePsi;
+
+        assertThat(eqnamePsi.getPrefix(), is(nullValue()));
+
+        assertThat(eqnamePsi.getLocalName(), is(notNullValue()));
+        assertThat(eqnamePsi.getLocalName().getNode().getElementType(), is(XQueryTokenType.NCNAME));
+        assertThat(eqnamePsi.getLocalName().getText(), is("double"));
+    }
+
+    @SuppressWarnings("RedundantCast")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-EQName")
+    public void testEQName_URIQualifiedName() {
+        final ASTNode node = parseResource("tests/psi/xquery-3.0/SimpleTypeName_URIQualifiedName.xq");
+
+        XQueryCastExpr castExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryCastExpr.class);
+        XQuerySingleType singleTypePsi = PsiNavigation.findChildrenByClass(castExprPsi, XQuerySingleType.class).get(0);
+        XQuerySimpleTypeName simpleTypeNamePsi = PsiNavigation.findFirstChildByClass(singleTypePsi, XQuerySimpleTypeName.class);
+        XQueryEQName eqnamePsi = (XQueryEQName)simpleTypeNamePsi;
+
+        assertThat(eqnamePsi.getPrefix(), is(notNullValue()));
+        assertThat(eqnamePsi.getPrefix().getNode().getElementType(), is(XQueryElementType.BRACED_URI_LITERAL));
+        assertThat(eqnamePsi.getPrefix().getText(), is("Q{http://www.w3.org/2001/XMLSchema}"));
+
+        assertThat(eqnamePsi.getLocalName(), is(notNullValue()));
+        assertThat(eqnamePsi.getLocalName().getNode().getElementType(), is(XQueryTokenType.NCNAME));
+        assertThat(eqnamePsi.getLocalName().getText(), is("double"));
+    }
+
+    // endregion
     // region XQuery 3.0 :: URIQualifiedName
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-URIQualifiedName")

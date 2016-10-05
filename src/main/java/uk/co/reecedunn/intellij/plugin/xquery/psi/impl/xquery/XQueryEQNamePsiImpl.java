@@ -20,6 +20,9 @@ import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.INCNameType;
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 
 public class XQueryEQNamePsiImpl extends ASTWrapperPsiElement implements XQueryEQName {
     public XQueryEQNamePsiImpl(@NotNull ASTNode node) {
@@ -28,11 +31,46 @@ public class XQueryEQNamePsiImpl extends ASTWrapperPsiElement implements XQueryE
 
     @Override
     public PsiElement getPrefix() {
+        PsiElement element = getFirstChild();
+        if (element.getNode().getElementType() == XQueryElementType.URI_QUALIFIED_NAME) {
+            return ((XQueryEQName)element).getPrefix();
+        }
+
+        PsiElement match = null;
+        while (element != null) {
+            if (element.getNode().getElementType() instanceof INCNameType) {
+                match = element;
+            } else if (element.getNode().getElementType() == XQueryTokenType.QNAME_SEPARATOR) {
+                return match;
+            }
+            element = element.getNextSibling();
+        }
         return null;
     }
 
     @Override
     public PsiElement getLocalName() {
+        PsiElement element = findChildByType(XQueryTokenType.QNAME_SEPARATOR);
+        if (element == null) { // NCName | URIQualifiedName
+            element = getFirstChild();
+            if (element.getNode().getElementType() == XQueryElementType.URI_QUALIFIED_NAME) {
+                return ((XQueryEQName)element).getLocalName();
+            }
+
+            while (element != null) {
+                if (element.getNode().getElementType() instanceof INCNameType) {
+                    return element;
+                }
+                element = element.getNextSibling();
+            }
+        } else { // QName
+            while (element != null) {
+                if (element.getNode().getElementType() instanceof INCNameType) {
+                    return element;
+                }
+                element = element.getNextSibling();
+            }
+        }
         return null;
     }
 }
