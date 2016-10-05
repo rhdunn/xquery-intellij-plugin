@@ -20,7 +20,7 @@ import com.intellij.lang.ASTNode;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAttributeDeclaration;
 
-public class XQueryAttributeDeclarationPsiImpl extends ASTWrapperPsiElement implements XQueryAttributeDeclaration {
+public class XQueryAttributeDeclarationPsiImpl extends XQueryAttributeNamePsiImpl implements XQueryAttributeDeclaration {
     public XQueryAttributeDeclarationPsiImpl(@NotNull ASTNode node) {
         super(node);
     }

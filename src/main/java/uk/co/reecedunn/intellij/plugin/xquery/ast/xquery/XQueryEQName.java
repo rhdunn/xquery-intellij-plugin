@@ -28,4 +28,7 @@ import com.intellij.psi.PsiElement;
  * <code>URIQualifiedName</code>.
  */
 public interface XQueryEQName extends PsiElement {
+    PsiElement getPrefix();
+
+    PsiElement getLocalName();
 }
