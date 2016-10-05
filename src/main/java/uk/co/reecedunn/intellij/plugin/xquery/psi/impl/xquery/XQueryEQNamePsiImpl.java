@@ -15,13 +15,13 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
 
+import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAtomicType;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySimpleTypeName;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
 
-public class XQuerySimpleTypeNamePsiImpl extends XQueryTypeNamePsiImpl implements XQuerySimpleTypeName, XQueryAtomicType {
-    public XQuerySimpleTypeNamePsiImpl(@NotNull ASTNode node) {
+public class XQueryEQNamePsiImpl extends ASTWrapperPsiElement implements XQueryEQName {
+    public XQueryEQNamePsiImpl(@NotNull ASTNode node) {
         super(node);
     }
 }

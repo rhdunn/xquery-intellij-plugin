@@ -20,7 +20,7 @@ import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAtomicOrUnionType;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAtomicType;
 
-public class XQueryAtomicOrUnionTypePsiImpl extends XQueryQNamePsiImpl implements XQueryAtomicOrUnionType, XQueryAtomicType {
+public class XQueryAtomicOrUnionTypePsiImpl extends XQueryEQNamePsiImpl implements XQueryAtomicOrUnionType, XQueryAtomicType {
     public XQueryAtomicOrUnionTypePsiImpl(@NotNull ASTNode node) {
         super(node);
     }
