@@ -21,19 +21,20 @@ import com.intellij.lang.annotation.Annotator;
 import com.intellij.lang.annotation.HighlightSeverity;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryQName;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryBracedURILiteral;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.SyntaxHighlighter;
 
 public class QNameAnnotator implements Annotator {
     @Override
     public void annotate(@NotNull PsiElement element, @NotNull AnnotationHolder holder) {
-        if (!(element instanceof XQueryQName)) return;
-        XQueryQName qname = (XQueryQName)element;
+        if (!(element instanceof XQueryEQName)) return;
+        XQueryEQName qname = (XQueryEQName)element;
 
         boolean xmlns = false;
         PsiElement prefix = qname.getPrefix();
-        if (prefix != null) {
+        if (prefix != null && !(prefix instanceof XQueryBracedURILiteral)) {
             if (prefix.getText().equals("xmlns")) {
                 xmlns = true;
             } else {

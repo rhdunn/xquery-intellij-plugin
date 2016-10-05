@@ -28,6 +28,30 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class QNameAnnotatorTest extends AnnotatorTestCase {
+    // region NCName
+
+    public void testNCName() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/OptionDecl.xq");
+        final List<Annotation> annotations = annotateTree(node, new QNameAnnotator());
+        assertThat(annotations.size(), is(0));
+    }
+
+    public void testNCName_Keyword() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/NCName_Keyword.xq");
+        final List<Annotation> annotations = annotateTree(node, new QNameAnnotator());
+        assertThat(annotations.size(), is(1));
+
+        assertThat(annotations.get(0).getSeverity(), is(HighlightSeverity.INFORMATION));
+        assertThat(annotations.get(0).getStartOffset(), is(15));
+        assertThat(annotations.get(0).getEndOffset(), is(24));
+        assertThat(annotations.get(0).getMessage(), is(nullValue()));
+        assertThat(annotations.get(0).getEnforcedTextAttributes(), is(nullValue()));
+        assertThat(annotations.get(0).getTextAttributes(), is(SyntaxHighlighter.IDENTIFIER));
+    }
+
+    // endregion
+    // region QName
+
     public void testQName() {
         final ASTNode node = parseResource("tests/parser/xquery-1.0/QName.xq");
         final List<Annotation> annotations = annotateTree(node, new QNameAnnotator());
@@ -93,6 +117,31 @@ public class QNameAnnotatorTest extends AnnotatorTestCase {
         assertThat(annotations.get(0).getTextAttributes(), is(SyntaxHighlighter.NS_PREFIX));
     }
 
+    // endregion
+    // region URIQualifiedName
+
+    public void testURIQualifiedName() {
+        final ASTNode node = parseResource("tests/parser/xquery-3.0/BracedURILiteral.xq");
+        final List<Annotation> annotations = annotateTree(node, new QNameAnnotator());
+        assertThat(annotations.size(), is(0));
+    }
+
+    public void testURIQualifiedName_Keyword() {
+        final ASTNode node = parseResource("tests/parser/xquery-3.0/BracedURILiteral_KeywordLocalName.xq");
+        final List<Annotation> annotations = annotateTree(node, new QNameAnnotator());
+        assertThat(annotations.size(), is(1));
+
+        assertThat(annotations.get(0).getSeverity(), is(HighlightSeverity.INFORMATION));
+        assertThat(annotations.get(0).getStartOffset(), is(21));
+        assertThat(annotations.get(0).getEndOffset(), is(25));
+        assertThat(annotations.get(0).getMessage(), is(nullValue()));
+        assertThat(annotations.get(0).getEnforcedTextAttributes(), is(nullValue()));
+        assertThat(annotations.get(0).getTextAttributes(), is(SyntaxHighlighter.IDENTIFIER));
+    }
+
+    // endregion
+    // region xmlns
+
     public void testDirAttributeList_XmlnsAttribute() {
         final ASTNode node = parseResource("tests/psi/xquery-1.0/DirAttributeList_XmlnsAttribute.xq");
         final List<Annotation> annotations = annotateTree(node, new QNameAnnotator());
@@ -112,4 +161,6 @@ public class QNameAnnotatorTest extends AnnotatorTestCase {
         assertThat(annotations.get(1).getEnforcedTextAttributes(), is(nullValue()));
         assertThat(annotations.get(1).getTextAttributes(), is(SyntaxHighlighter.NS_PREFIX));
     }
+
+    // endregion
 }
