@@ -13,16 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
+package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
-import com.intellij.lang.ASTNode;
-import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFilterExpr;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPostfixExpr;
-
-public class XQueryFilterExprPsiImpl extends ASTWrapperPsiElement implements XQueryFilterExpr, XQueryPostfixExpr {
-    public XQueryFilterExprPsiImpl(@NotNull ASTNode node) {
-        super(node);
-    }
+/**
+ * An XQuery 3.0 <code>PostfixExpr</code> node in the XQuery AST.
+ *
+ * This is a replacement for the XQuery 1.0 <code>FilterExpr</code> grammar
+ * construct.
+ */
+public interface XQueryPostfixExpr extends XQueryFilterExpr {
 }

@@ -2768,7 +2768,7 @@ class XQueryParser {
         final PsiBuilder.Marker filterExprMarker = mark();
         if (parsePrimaryExpr()) {
             parseWhiteSpaceAndCommentTokens();
-            while (parsePredicate()) {
+            while (parsePredicate() || parseArgumentList()) {
                 parseWhiteSpaceAndCommentTokens();
             }
 

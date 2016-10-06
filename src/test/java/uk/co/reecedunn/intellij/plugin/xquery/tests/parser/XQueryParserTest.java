@@ -5828,6 +5828,37 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region XQuery 3.0 :: PostfixExpr
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-PostfixExpr")
+    public void testPostfixExpr_ArgumentList() {
+        final String expected = loadResource("tests/parser/xquery-3.0/PostfixExpr_ArgumentList.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/PostfixExpr_ArgumentList.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-PostfixExpr")
+    public void testPostfixExpr_ArgumentList_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-3.0/PostfixExpr_ArgumentList_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/PostfixExpr_ArgumentList_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-PostfixExpr")
+    public void testPostfixExpr_Mixed() {
+        final String expected = loadResource("tests/parser/xquery-3.0/PostfixExpr_Mixed.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/PostfixExpr_Mixed.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-PostfixExpr")
+    public void testPostfixExpr_Mixed_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-3.0/PostfixExpr_Mixed_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/PostfixExpr_Mixed_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region XQuery 3.0 :: VarRef + VarName
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VarRef")
