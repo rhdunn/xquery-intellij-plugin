@@ -163,4 +163,40 @@ public class QNameAnnotatorTest extends AnnotatorTestCase {
     }
 
     // endregion
+    // region Annotation
+
+    public void testAnnotation() {
+        final ASTNode node = parseResource("tests/parser/xquery-3.0/Annotation.xq");
+        final List<Annotation> annotations = annotateTree(node, new QNameAnnotator());
+        assertThat(annotations.size(), is(1));
+
+        assertThat(annotations.get(0).getSeverity(), is(HighlightSeverity.INFORMATION));
+        assertThat(annotations.get(0).getStartOffset(), is(10));
+        assertThat(annotations.get(0).getEndOffset(), is(17));
+        assertThat(annotations.get(0).getMessage(), is(nullValue()));
+        assertThat(annotations.get(0).getEnforcedTextAttributes(), is(nullValue()));
+        assertThat(annotations.get(0).getTextAttributes(), is(SyntaxHighlighter.ANNOTATION));
+    }
+
+    public void testAnnotation_QName() {
+        final ASTNode node = parseResource("tests/psi/xquery-3.0/Annotation_QName.xq");
+        final List<Annotation> annotations = annotateTree(node, new QNameAnnotator());
+        assertThat(annotations.size(), is(2));
+
+        assertThat(annotations.get(0).getSeverity(), is(HighlightSeverity.INFORMATION));
+        assertThat(annotations.get(0).getStartOffset(), is(10));
+        assertThat(annotations.get(0).getEndOffset(), is(12));
+        assertThat(annotations.get(0).getMessage(), is(nullValue()));
+        assertThat(annotations.get(0).getEnforcedTextAttributes(), is(nullValue()));
+        assertThat(annotations.get(0).getTextAttributes(), is(SyntaxHighlighter.NS_PREFIX));
+
+        assertThat(annotations.get(1).getSeverity(), is(HighlightSeverity.INFORMATION));
+        assertThat(annotations.get(1).getStartOffset(), is(13));
+        assertThat(annotations.get(1).getEndOffset(), is(19));
+        assertThat(annotations.get(1).getMessage(), is(nullValue()));
+        assertThat(annotations.get(1).getEnforcedTextAttributes(), is(nullValue()));
+        assertThat(annotations.get(1).getTextAttributes(), is(SyntaxHighlighter.ANNOTATION));
+    }
+
+    // endregion
 }

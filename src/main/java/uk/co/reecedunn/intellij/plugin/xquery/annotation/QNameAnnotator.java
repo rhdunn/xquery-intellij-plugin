@@ -21,6 +21,7 @@ import com.intellij.lang.annotation.Annotator;
 import com.intellij.lang.annotation.HighlightSeverity;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotation;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryBracedURILiteral;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType;
@@ -48,6 +49,9 @@ public class QNameAnnotator implements Annotator {
             if (xmlns) {
                 Annotation annotation = holder.createAnnotation(HighlightSeverity.INFORMATION, localname.getTextRange(), null);
                 annotation.setTextAttributes(SyntaxHighlighter.NS_PREFIX);
+            } else if (qname.getParent() instanceof XQueryAnnotation) {
+                Annotation annotation = holder.createAnnotation(HighlightSeverity.INFORMATION, localname.getTextRange(), null);
+                annotation.setTextAttributes(SyntaxHighlighter.ANNOTATION);
             } else if (localname.getNode().getElementType() instanceof IXQueryKeywordOrNCNameType) {
                 Annotation annotation = holder.createAnnotation(HighlightSeverity.INFORMATION, localname.getTextRange(), null);
                 annotation.setTextAttributes(SyntaxHighlighter.IDENTIFIER);

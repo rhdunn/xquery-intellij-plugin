@@ -1,0 +1,1 @@
+declare % xs:string function test ( ) external ;
