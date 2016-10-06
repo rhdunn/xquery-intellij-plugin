@@ -30,7 +30,6 @@ FileElement[FILE(0:81)]
                                                                      XQueryVarNameImpl[XQUERY_VAR_NAME(15:17)]
                                                                         LeafPsiElement[XQUERY_NCNAME_TOKEN(15:16)]('x')
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
-                                                                  XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(17:17)]
             LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(17:18)](')')
             PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
             XQueryCaseClauseImpl[XQUERY_CASE_CLAUSE(19:42)]
@@ -67,7 +66,6 @@ FileElement[FILE(0:81)]
                                                                   XQueryLiteralImpl[XQUERY_LITERAL(40:41)]
                                                                      XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(40:41)]('1')
                                                                   PsiWhiteSpaceImpl[WHITE_SPACE(41:42)](' ')
-                                                                  XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(42:42)]
             XQueryCaseClauseImpl[XQUERY_CASE_CLAUSE(42:65)]
                LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_CASE(42:46)]('case')
                PsiWhiteSpaceImpl[WHITE_SPACE(46:47)](' ')
@@ -101,7 +99,6 @@ FileElement[FILE(0:81)]
                                                                   XQueryLiteralImpl[XQUERY_LITERAL(63:64)]
                                                                      XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(63:64)]('2')
                                                                   PsiWhiteSpaceImpl[WHITE_SPACE(64:65)](' ')
-                                                                  XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(65:65)]
             LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DEFAULT(65:72)]('default')
             PsiWhiteSpaceImpl[WHITE_SPACE(72:73)](' ')
             LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_RETURN(73:79)]('return')
@@ -125,4 +122,3 @@ FileElement[FILE(0:81)]
                                                             XQueryFilterExprImpl[XQUERY_FILTER_EXPR(80:81)]
                                                                XQueryLiteralImpl[XQUERY_LITERAL(80:81)]
                                                                   XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(80:81)]('3')
-                                                               XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(81:81)]

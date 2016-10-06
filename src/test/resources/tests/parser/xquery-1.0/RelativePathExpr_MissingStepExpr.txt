@@ -24,6 +24,5 @@ FileElement[FILE(0:8)]
                                                                XQueryVarNameImpl[XQUERY_VAR_NAME(2:7)]
                                                                   LeafPsiElement[XQUERY_NCNAME_TOKEN(2:6)]('test')
                                                                   PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
-                                                            XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(7:7)]
                                                          LeafPsiElement[XQUERY_DIRECT_DESCENDANTS_PATH_TOKEN(7:8)]('/')
                                                          PsiErrorElementImpl[ERROR_ELEMENT(8:8)]('XPST0003: Expected 'StepExpr'.')

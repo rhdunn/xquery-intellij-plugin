@@ -33,5 +33,4 @@ FileElement[FILE(0:27)]
                                                                XQueryFilterExprImpl[XQUERY_FILTER_EXPR(26:27)]
                                                                   XQueryLiteralImpl[XQUERY_LITERAL(26:27)]
                                                                      XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(26:27)]('1')
-                                                                  XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(27:27)]
          PsiErrorElementImpl[ERROR_ELEMENT(27:27)]('XPST0003: Expected ';'.')

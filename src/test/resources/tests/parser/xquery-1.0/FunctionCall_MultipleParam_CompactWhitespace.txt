@@ -45,7 +45,6 @@ FileElement[FILE(0:13)]
                                                                                                                      XQueryFilterExprImpl[XQUERY_FILTER_EXPR(9:10)]
                                                                                                                         XQueryLiteralImpl[XQUERY_LITERAL(9:10)]
                                                                                                                            XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(9:10)]('2')
-                                                                                                                        XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(10:10)]
                                                                   LeafPsiElement[XQUERY_COMMA_TOKEN(10:11)](',')
                                                                   XQueryArgumentImpl[XQUERY_ARGUMENT(11:12)]
                                                                      XQueryOrExprImpl[XQUERY_OR_EXPR(11:12)]
@@ -67,6 +66,4 @@ FileElement[FILE(0:13)]
                                                                                                                      XQueryFilterExprImpl[XQUERY_FILTER_EXPR(11:12)]
                                                                                                                         XQueryLiteralImpl[XQUERY_LITERAL(11:12)]
                                                                                                                            XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(11:12)]('8')
-                                                                                                                        XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(12:12)]
                                                                   LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(12:13)](')')
-                                                            XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(13:13)]

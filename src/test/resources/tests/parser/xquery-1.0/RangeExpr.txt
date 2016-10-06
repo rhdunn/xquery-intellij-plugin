@@ -21,7 +21,6 @@ FileElement[FILE(0:7)]
                                                             XQueryLiteralImpl[XQUERY_LITERAL(0:1)]
                                                                XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:1)]('1')
                                                             PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
-                                                            XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(2:2)]
                         LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_TO(2:4)]('to')
                         PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
                         XQueryAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(5:7)]
@@ -38,4 +37,3 @@ FileElement[FILE(0:7)]
                                                          XQueryFilterExprImpl[XQUERY_FILTER_EXPR(5:7)]
                                                             XQueryLiteralImpl[XQUERY_LITERAL(5:7)]
                                                                XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(5:7)]('10')
-                                                            XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(7:7)]

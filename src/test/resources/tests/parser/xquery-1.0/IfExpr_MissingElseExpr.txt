@@ -27,7 +27,6 @@ FileElement[FILE(0:20)]
                                                                   XQueryLiteralImpl[XQUERY_LITERAL(5:6)]
                                                                      XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(5:6)]('1')
                                                                   PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
-                                                                  XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(7:7)]
             LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(7:8)](')')
             PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
             LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_THEN(9:13)]('then')
@@ -52,6 +51,5 @@ FileElement[FILE(0:20)]
                                                                XQueryLiteralImpl[XQUERY_LITERAL(14:15)]
                                                                   XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(14:15)]('2')
                                                                PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
-                                                               XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(16:16)]
             LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_ELSE(16:20)]('else')
             PsiErrorElementImpl[ERROR_ELEMENT(20:20)]('XPST0003: Missing expression.')

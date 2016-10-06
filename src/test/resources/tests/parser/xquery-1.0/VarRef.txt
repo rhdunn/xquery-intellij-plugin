@@ -25,4 +25,3 @@ FileElement[FILE(0:9)]
                                                                   LeafPsiElement[XQUERY_NCNAME_TOKEN(2:5)]('one')
                                                                   LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(5:6)](':')
                                                                   LeafPsiElement[XQUERY_NCNAME_TOKEN(6:9)]('two')
-                                                            XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(9:9)]

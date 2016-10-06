@@ -36,4 +36,3 @@ FileElement[FILE(0:17)]
                                                                         LeafPsiElement[XQUERY_XML_ATTRIBUTE_VALUE_END_TOKEN(13:14)]('"')
                                                                      XQueryDirWhiteSpaceImpl[XQUERY_XML_WHITE_SPACE_TOKEN(14:15)](' ')
                                                                   LeafPsiElement[XQUERY_SELF_CLOSING_XML_TAG_TOKEN(15:17)]('/>')
-                                                            XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(17:17)]

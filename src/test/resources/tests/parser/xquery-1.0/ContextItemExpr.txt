@@ -20,4 +20,3 @@ FileElement[FILE(0:1)]
                                                          XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:1)]
                                                             XQueryContextItemExprImpl[XQUERY_CONTEXT_ITEM_EXPR(0:1)]
                                                                LeafPsiElement[XQUERY_DOT_TOKEN(0:1)]('.')
-                                                            XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(1:1)]

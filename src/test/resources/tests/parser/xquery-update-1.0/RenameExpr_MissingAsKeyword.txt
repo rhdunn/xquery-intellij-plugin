@@ -30,7 +30,6 @@ FileElement[FILE(0:19)]
                                                                      XQueryVarNameImpl[XQUERY_VAR_NAME(14:16)]
                                                                         LeafPsiElement[XQUERY_NCNAME_TOKEN(14:15)]('x')
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
-                                                                  XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(16:16)]
             PsiErrorElementImpl[ERROR_ELEMENT(16:16)]('XPST0003: Expected keyword: as.')
             UpdateFacilityNewNameExprImpl[XQUERY_NEW_NAME_EXPR(16:19)]
                XQueryOrExprImpl[XQUERY_OR_EXPR(16:19)]
@@ -55,4 +54,3 @@ FileElement[FILE(0:19)]
                                                                      PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
                                                                      XQueryVarNameImpl[XQUERY_VAR_NAME(18:19)]
                                                                         LeafPsiElement[XQUERY_NCNAME_TOKEN(18:19)]('y')
-                                                                  XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(19:19)]

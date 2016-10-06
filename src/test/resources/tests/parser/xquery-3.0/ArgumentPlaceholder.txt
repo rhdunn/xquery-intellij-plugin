@@ -29,4 +29,3 @@ FileElement[FILE(0:11)]
                                                                      XQueryArgumentPlaceholderImpl[XQUERY_ARGUMENT_PLACEHOLDER(9:10)]
                                                                         LeafPsiElement[XQUERY_OPTIONAL_TOKEN(9:10)]('?')
                                                                   LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(10:11)](')')
-                                                            XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(11:11)]

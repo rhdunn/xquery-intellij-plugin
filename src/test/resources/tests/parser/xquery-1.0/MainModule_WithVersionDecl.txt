@@ -43,4 +43,3 @@ FileElement[FILE(0:68)]
                                                          XQueryFilterExprImpl[XQUERY_FILTER_EXPR(67:68)]
                                                             XQueryLiteralImpl[XQUERY_LITERAL(67:68)]
                                                                XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(67:68)]('2')
-                                                            XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(68:68)]

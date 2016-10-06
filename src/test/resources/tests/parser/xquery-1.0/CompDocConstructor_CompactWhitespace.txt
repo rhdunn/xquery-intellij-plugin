@@ -43,6 +43,4 @@ FileElement[FILE(0:12)]
                                                                                                                         XQueryParenthesizedExprImpl[XQUERY_PARENTHESIZED_EXPR(9:11)]
                                                                                                                            LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(9:10)]('(')
                                                                                                                            LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(10:11)](')')
-                                                                                                                        XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(11:11)]
                                                                   LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(11:12)]('}')
-                                                            XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(12:12)]

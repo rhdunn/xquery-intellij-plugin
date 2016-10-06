@@ -46,5 +46,4 @@ FileElement[FILE(0:34)]
                                                                                                          XQueryFilterExprImpl[XQUERY_FILTER_EXPR(32:33)]
                                                                                                             XQueryLiteralImpl[XQUERY_LITERAL(32:33)]
                                                                                                                XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(32:33)]('2')
-                                                                                                            XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(33:33)]
                                                       LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(33:34)]('}')

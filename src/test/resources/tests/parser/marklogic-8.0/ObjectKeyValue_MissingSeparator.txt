@@ -48,7 +48,6 @@ FileElement[FILE(0:25)]
                                                                                                                               LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(15:16)]('1')
                                                                                                                               LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(16:17)]('"')
                                                                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
-                                                                                                                        XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(18:18)]
                                                                      PsiErrorElementImpl[ERROR_ELEMENT(18:18)]('XPST0003: Expected ':'.')
                                                                      XQueryOrExprImpl[XQUERY_OR_EXPR(18:24)]
                                                                         XQueryAndExprImpl[XQUERY_AND_EXPR(18:24)]
@@ -73,6 +72,4 @@ FileElement[FILE(0:25)]
                                                                                                                               LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(19:22)]('one')
                                                                                                                               LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(22:23)]('"')
                                                                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
-                                                                                                                        XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(24:24)]
                                                                   LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(24:25)]('}')
-                                                            XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(25:25)]

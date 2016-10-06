@@ -25,7 +25,6 @@ FileElement[FILE(0:48)]
                                                                   LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(6:7)]('(')
                                                                   LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(7:8)](')')
                                                             PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
-                                                            XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(9:9)]
          LeafPsiElement[XQUERY_COMMA_TOKEN(9:10)](',')
          PsiWhiteSpaceImpl[WHITE_SPACE(10:11)]('\n')
          XQueryOrExprImpl[XQUERY_OR_EXPR(11:21)]
@@ -52,7 +51,6 @@ FileElement[FILE(0:48)]
                                                                   LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(18:19)]('(')
                                                                   LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(19:20)](')')
                                                             PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
-                                                            XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(21:21)]
          LeafPsiElement[XQUERY_COMMA_TOKEN(21:22)](',')
          PsiWhiteSpaceImpl[WHITE_SPACE(22:23)]('\n')
          XQueryOrExprImpl[XQUERY_OR_EXPR(23:34)]
@@ -79,7 +77,6 @@ FileElement[FILE(0:48)]
                                                                   LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(31:32)]('(')
                                                                   LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(32:33)](')')
                                                             PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
-                                                            XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(34:34)]
          LeafPsiElement[XQUERY_COMMA_TOKEN(34:35)](',')
          PsiWhiteSpaceImpl[WHITE_SPACE(35:36)]('\n')
          XQueryOrExprImpl[XQUERY_OR_EXPR(36:48)]
@@ -105,4 +102,3 @@ FileElement[FILE(0:48)]
                                                                XQueryArgumentListImpl[XQUERY_ARGUMENT_LIST(46:48)]
                                                                   LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(46:47)]('(')
                                                                   LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(47:48)](')')
-                                                            XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(48:48)]

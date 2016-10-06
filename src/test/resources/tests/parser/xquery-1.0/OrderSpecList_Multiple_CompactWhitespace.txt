@@ -32,7 +32,6 @@ FileElement[FILE(0:33)]
                                                                         XQueryVarNameImpl[XQUERY_VAR_NAME(9:11)]
                                                                            LeafPsiElement[XQUERY_NCNAME_TOKEN(9:10)]('y')
                                                                            PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
-                                                                     XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(11:11)]
             XQueryOrderByClauseImpl[XQUERY_ORDER_BY_CLAUSE(11:25)]
                LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_ORDER(11:16)]('order')
                PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
@@ -60,7 +59,6 @@ FileElement[FILE(0:33)]
                                                                            LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(19:20)]('$')
                                                                            XQueryVarNameImpl[XQUERY_VAR_NAME(20:21)]
                                                                               LeafPsiElement[XQUERY_NCNAME_TOKEN(20:21)]('x')
-                                                                        XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(21:21)]
                      XQueryOrderModifierImpl[XQUERY_ORDER_MODIFIER(21:21)]
                   LeafPsiElement[XQUERY_COMMA_TOKEN(21:22)](',')
                   XQueryOrderSpecImpl[XQUERY_ORDER_SPEC(22:25)]
@@ -86,7 +84,6 @@ FileElement[FILE(0:33)]
                                                                            XQueryVarNameImpl[XQUERY_VAR_NAME(23:25)]
                                                                               LeafPsiElement[XQUERY_NCNAME_TOKEN(23:24)]('y')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
-                                                                        XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(25:25)]
                      XQueryOrderModifierImpl[XQUERY_ORDER_MODIFIER(25:25)]
             LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_RETURN(25:31)]('return')
             XQueryOrExprImpl[XQUERY_OR_EXPR(31:33)]
@@ -110,4 +107,3 @@ FileElement[FILE(0:33)]
                                                                   LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(31:32)]('$')
                                                                   XQueryVarNameImpl[XQUERY_VAR_NAME(32:33)]
                                                                      LeafPsiElement[XQUERY_NCNAME_TOKEN(32:33)]('x')
-                                                               XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(33:33)]

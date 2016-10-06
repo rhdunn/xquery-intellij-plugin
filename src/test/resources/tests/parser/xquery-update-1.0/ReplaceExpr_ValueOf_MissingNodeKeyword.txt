@@ -33,7 +33,6 @@ FileElement[FILE(0:29)]
                                                                      XQueryVarNameImpl[XQUERY_VAR_NAME(19:21)]
                                                                         LeafPsiElement[XQUERY_NCNAME_TOKEN(19:20)]('x')
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
-                                                                  XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(21:21)]
             LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_WITH(21:25)]('with')
             PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
             XQueryOrExprImpl[XQUERY_OR_EXPR(26:29)]
@@ -58,4 +57,3 @@ FileElement[FILE(0:29)]
                                                                   PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
                                                                   XQueryVarNameImpl[XQUERY_VAR_NAME(28:29)]
                                                                      LeafPsiElement[XQUERY_NCNAME_TOKEN(28:29)]('y')
-                                                               XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(29:29)]

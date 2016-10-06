@@ -45,7 +45,6 @@ FileElement[FILE(0:32)]
                                                                                                                               LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(12:13)]('"')
                                                                                                                               LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(13:14)]('1')
                                                                                                                               LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(14:15)]('"')
-                                                                                                                        XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(15:15)]
                                                                      LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(15:16)](':')
                                                                      XQueryOrExprImpl[XQUERY_OR_EXPR(16:21)]
                                                                         XQueryAndExprImpl[XQUERY_AND_EXPR(16:21)]
@@ -69,7 +68,6 @@ FileElement[FILE(0:32)]
                                                                                                                               LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(16:17)]('"')
                                                                                                                               LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(17:20)]('one')
                                                                                                                               LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(20:21)]('"')
-                                                                                                                        XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(21:21)]
                                                                   LeafPsiElement[XQUERY_COMMA_TOKEN(21:22)](',')
                                                                   MarkLogicObjectKeyValueImpl[XQUERY_OBJECT_KEY_VALUE(22:31)]
                                                                      XQueryOrExprImpl[XQUERY_OR_EXPR(22:25)]
@@ -94,7 +92,6 @@ FileElement[FILE(0:32)]
                                                                                                                               LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(22:23)]('"')
                                                                                                                               LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(23:24)]('2')
                                                                                                                               LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(24:25)]('"')
-                                                                                                                        XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(25:25)]
                                                                      LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(25:26)](':')
                                                                      XQueryOrExprImpl[XQUERY_OR_EXPR(26:31)]
                                                                         XQueryAndExprImpl[XQUERY_AND_EXPR(26:31)]
@@ -118,6 +115,4 @@ FileElement[FILE(0:32)]
                                                                                                                               LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(26:27)]('"')
                                                                                                                               LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(27:30)]('two')
                                                                                                                               LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(30:31)]('"')
-                                                                                                                        XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(31:31)]
                                                                   LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(31:32)]('}')
-                                                            XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(32:32)]

@@ -25,7 +25,6 @@ FileElement[FILE(0:44)]
                                                                   XQueryFilterExprImpl[XQUERY_FILTER_EXPR(4:5)]
                                                                      XQueryLiteralImpl[XQUERY_LITERAL(4:5)]
                                                                         XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(4:5)]('2')
-                                                                     XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(5:5)]
                LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(5:6)]('}')
             XQueryCatchClauseImpl[XQUERY_CATCH_CLAUSE(6:44)]
                LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_CATCH(6:11)]('catch')
@@ -63,5 +62,4 @@ FileElement[FILE(0:44)]
                                                                   XQueryFilterExprImpl[XQUERY_FILTER_EXPR(42:43)]
                                                                      XQueryLiteralImpl[XQUERY_LITERAL(42:43)]
                                                                         XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(42:43)]('2')
-                                                                     XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(43:43)]
                LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(43:44)]('}')

@@ -22,4 +22,3 @@ FileElement[FILE(0:3)]
                                                                LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(0:1)]('(')
                                                                PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
                                                                LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(2:3)](')')
-                                                            XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(3:3)]

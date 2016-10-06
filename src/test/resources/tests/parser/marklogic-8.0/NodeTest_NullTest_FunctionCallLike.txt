@@ -49,4 +49,3 @@ FileElement[FILE(0:12)]
                                                                                                                                        LeafPsiElement[XQUERY_STAR_TOKEN(10:11)]('*')
                                                                                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(11:11)]
                                                                   LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(11:12)](')')
-                                                            XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(12:12)]

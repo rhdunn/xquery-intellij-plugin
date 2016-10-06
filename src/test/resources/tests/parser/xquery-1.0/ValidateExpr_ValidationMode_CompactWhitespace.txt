@@ -43,7 +43,6 @@ FileElement[FILE(0:44)]
                                                                                                                   LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(13:14)]('"')
                                                                                                                   LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(14:18)]('true')
                                                                                                                   LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(18:19)]('"')
-                                                                                                            XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(19:19)]
                                                       LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(19:20)]('}')
          LeafPsiElement[XQUERY_COMMA_TOKEN(20:21)](',')
          XQueryOrExprImpl[XQUERY_OR_EXPR(21:44)]
@@ -88,5 +87,4 @@ FileElement[FILE(0:44)]
                                                                                                                   LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(37:38)]('"')
                                                                                                                   LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(38:42)]('true')
                                                                                                                   LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(42:43)]('"')
-                                                                                                            XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(43:43)]
                                                       LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(43:44)]('}')

@@ -52,6 +52,4 @@ FileElement[FILE(0:22)]
                                                                                                                            PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
                                                                                                                            LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(19:20)](')')
                                                                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
-                                                                                                                        XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(21:21)]
                                                                   LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(21:22)]('}')
-                                                            XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(22:22)]

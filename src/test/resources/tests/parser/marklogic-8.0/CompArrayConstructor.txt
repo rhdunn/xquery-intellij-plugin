@@ -45,6 +45,4 @@ FileElement[FILE(0:16)]
                                                                                                                         XQueryLiteralImpl[XQUERY_LITERAL(13:14)]
                                                                                                                            XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(13:14)]('1')
                                                                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
-                                                                                                                        XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(15:15)]
                                                                   LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(15:16)]('}')
-                                                            XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(16:16)]

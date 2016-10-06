@@ -29,4 +29,3 @@ FileElement[FILE(0:22)]
                                                                         LeafPsiElement[XQUERY_CDATA_SECTION_START_TAG_TOKEN(3:12)]('<![CDATA[')
                                                                         LeafPsiElement[XQUERY_CDATA_SECTION_TOKEN(12:22)](' Test </a>')
                                                                      PsiErrorElementImpl[ERROR_ELEMENT(22:22)]('XPST0003: Unclosed CDATA section.')
-                                                            XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(22:22)]

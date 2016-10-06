@@ -28,7 +28,6 @@ FileElement[FILE(0:63)]
                                                                      XQueryLiteralImpl[XQUERY_LITERAL(6:7)]
                                                                         XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(6:7)]('2')
                                                                      PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-                                                                     XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(8:8)]
                LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(8:9)]('}')
             PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
             XQueryCatchClauseImpl[XQUERY_CATCH_CLAUSE(10:36)]
@@ -64,7 +63,6 @@ FileElement[FILE(0:63)]
                                                                      XQueryLiteralImpl[XQUERY_LITERAL(33:34)]
                                                                         XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(33:34)]('2')
                                                                      PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
-                                                                     XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(35:35)]
                LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(35:36)]('}')
             PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
             XQueryCatchClauseImpl[XQUERY_CATCH_CLAUSE(37:63)]
@@ -100,5 +98,4 @@ FileElement[FILE(0:63)]
                                                                      XQueryLiteralImpl[XQUERY_LITERAL(60:61)]
                                                                         XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(60:61)]('2')
                                                                      PsiWhiteSpaceImpl[WHITE_SPACE(61:62)](' ')
-                                                                     XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(62:62)]
                LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(62:63)]('}')

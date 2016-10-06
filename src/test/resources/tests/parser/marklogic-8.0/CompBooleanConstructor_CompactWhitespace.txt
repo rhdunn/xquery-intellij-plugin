@@ -45,6 +45,4 @@ FileElement[FILE(0:20)]
                                                                                                                               LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(13:14)]('"')
                                                                                                                               LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(14:18)]('true')
                                                                                                                               LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(18:19)]('"')
-                                                                                                                        XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(19:19)]
                                                                   LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(19:20)]('}')
-                                                            XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(20:20)]
