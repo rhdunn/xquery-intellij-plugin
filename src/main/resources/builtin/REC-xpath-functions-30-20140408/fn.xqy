@@ -78,7 +78,7 @@ declare function fn:format-date($value as xs:date?, $picture as xs:string, $lang
 declare function fn:format-dateTime($value as xs:dateTime?, $picture as xs:string) as xs:string? external; (: §9.8.1 :)
 declare function fn:format-dateTime($value as xs:dateTime?, $picture as xs:string, $language as xs:string?, $calendar as xs:string?, $place as xs:string?) as xs:string? external; (: §9.8.1 :)
 declare function fn:format-integer($value as xs:integer?, $picture as xs:string) as xs:string external; (: §4.6.1 :)
-declare function fn:format-integer($value as xs:integer?, $picture as xs:string, $lang as xs:string?) as xs:string external (: §4.6.1 :)
+declare function fn:format-integer($value as xs:integer?, $picture as xs:string, $lang as xs:string?) as xs:string external; (: §4.6.1 :)
 declare function fn:format-number($value as xs:numeric?, $picture as xs:string) as xs:string external; (: §4.7.2 :)
 declare function fn:format-number($value as xs:numeric?, $picture as xs:string, $decimal-format-name as xs:string?) as xs:string external; (: §4.7.2 :)
 declare function fn:format-time($value as xs:time?, $picture as xs:string) as xs:string? external; (: §9.8.3 :)
