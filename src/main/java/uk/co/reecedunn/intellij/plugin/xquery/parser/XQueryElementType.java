@@ -171,6 +171,8 @@ public interface XQueryElementType {
     IElementType ATOMIC_OR_UNION_TYPE = new ICompositeElementType("XQUERY_ATOMIC_OR_UNION_TYPE", XQueryAtomicOrUnionTypePsiImpl.class);
     IElementType SIMPLE_TYPE_NAME = new ICompositeElementType("XQUERY_SIMPLE_TYPE_NAME", XQuerySimpleTypeNamePsiImpl.class);
 
+    IElementType ANY_FUNCTION_TEST = new ICompositeElementType("XQUERY_ANY_FUNCTION_TEST", XQueryAnyFunctionTestPsiImpl.class);
+
     IElementType ANNOTATED_DECL = new ICompositeElementType("XQUERY_ANNOTATED_DECL", XQueryAnnotatedDeclPsiImpl.class);
     IElementType ANNOTATION = new ICompositeElementType("XQUERY_ANNOTATION", XQueryAnnotationPsiImpl.class);
 

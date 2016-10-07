@@ -6001,6 +6001,37 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region XQuery 3.0 :: AnyFunctionTest
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-AnyFunctionTest")
+    public void testAnyFunctionTest() {
+        final String expected = loadResource("tests/parser/xquery-3.0/AnyFunctionTest.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/AnyFunctionTest.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-AnyFunctionTest")
+    public void testAnyFunctionTest_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-3.0/AnyFunctionTest_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/AnyFunctionTest_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-AnyFunctionTest")
+    public void testAnyFunctionTest_MissingWildcard() {
+        final String expected = loadResource("tests/parser/xquery-3.0/AnyFunctionTest_MissingWildcard.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/AnyFunctionTest_MissingWildcard.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-AnyFunctionTest")
+    public void testAnyFunctionTest_MissingClosingParenthesis() {
+        final String expected = loadResource("tests/parser/xquery-3.0/AnyFunctionTest_MissingClosingParenthesis.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/AnyFunctionTest_MissingClosingParenthesis.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region XQuery 3.0 :: URIQualifiedName + BracedURILiteral
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-BracedURILiteral")
