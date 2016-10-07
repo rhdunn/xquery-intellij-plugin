@@ -6001,6 +6001,37 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region XQuery 3.0 :: FunctionTest
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-FunctionTest")
+    public void testFunctionTest() {
+        final String expected = loadResource("tests/parser/xquery-3.0/FunctionTest.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/FunctionTest.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-FunctionTest")
+    public void testFunctionTest_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-3.0/FunctionTest_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/FunctionTest_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-FunctionTest")
+    public void testFunctionTest_MultipleAnnotations() {
+        final String expected = loadResource("tests/parser/xquery-3.0/FunctionTest_MultipleAnnotations.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/FunctionTest_MultipleAnnotations.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-FunctionTest")
+    public void testFunctionTest_MultipleAnnotations_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-3.0/FunctionTest_MultipleAnnotations_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/FunctionTest_MultipleAnnotations_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region XQuery 3.0 :: AnyFunctionTest
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-AnyFunctionTest")

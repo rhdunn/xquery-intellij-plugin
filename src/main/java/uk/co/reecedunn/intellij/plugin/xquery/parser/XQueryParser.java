@@ -3781,12 +3781,35 @@ class XQueryParser {
 
             itemTypeMarker.done(XQueryElementType.ITEM_TYPE);
             return true;
-        } else if (parseKindTest() || parseAnyFunctionTest() || parseEQName(XQueryElementType.ATOMIC_OR_UNION_TYPE)) {
+        } else if (parseKindTest() || parseFunctionTest() || parseEQName(XQueryElementType.ATOMIC_OR_UNION_TYPE)) {
             itemTypeMarker.done(XQueryElementType.ITEM_TYPE);
             return true;
         }
 
         itemTypeMarker.drop();
+        return false;
+    }
+
+    private boolean parseFunctionTest() {
+        final PsiBuilder.Marker functionTestMarker = mark();
+
+        boolean haveAnnotations = false;
+        while (parseAnnotation()) {
+            parseWhiteSpaceAndCommentTokens();
+            haveAnnotations = true;
+        }
+
+        if (parseAnyFunctionTest()) {
+            functionTestMarker.done(XQueryElementType.FUNCTION_TEST);
+            return true;
+        } else if (haveAnnotations) {
+            error(XQueryBundle.message("parser.error.expected", "AnyFunctionTest"));
+
+            functionTestMarker.done(XQueryElementType.FUNCTION_TEST);
+            return true;
+        }
+
+        functionTestMarker.drop();
         return false;
     }
 

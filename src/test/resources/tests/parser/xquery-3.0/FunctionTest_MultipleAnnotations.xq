@@ -1,0 +1,1 @@
+declare variable $ one as % private % test function ( * ) external ;
