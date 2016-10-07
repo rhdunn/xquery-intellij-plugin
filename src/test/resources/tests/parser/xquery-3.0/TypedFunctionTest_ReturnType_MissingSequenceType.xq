@@ -1,0 +1,1 @@
+declare variable $ one as function ( item ( ) ) as

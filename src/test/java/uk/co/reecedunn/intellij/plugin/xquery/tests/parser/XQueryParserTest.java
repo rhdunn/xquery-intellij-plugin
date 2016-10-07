@@ -6062,6 +6062,72 @@ public class XQueryParserTest extends ParserTestCase {
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-AnyFunctionTest")
+    public void testAnyFunctionTest_UnexpectedReturnType() {
+        final String expected = loadResource("tests/parser/xquery-3.0/AnyFunctionTest_UnexpectedReturnType.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/AnyFunctionTest_UnexpectedReturnType.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
+    // region XQuery 3.0 :: TypedFunctionTest
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-TypedFunctionTest")
+    public void testTypedFunctionTest() {
+        final String expected = loadResource("tests/parser/xquery-3.0/TypedFunctionTest.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/TypedFunctionTest.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-TypedFunctionTest")
+    public void testTypedFunctionTest_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-3.0/TypedFunctionTest_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/TypedFunctionTest_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-TypedFunctionTest")
+    public void testTypedFunctionTest_Multiple() {
+        final String expected = loadResource("tests/parser/xquery-3.0/TypedFunctionTest_Multiple.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/TypedFunctionTest_Multiple.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-TypedFunctionTest")
+    public void testTypedFunctionTest_Multiple_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-3.0/TypedFunctionTest_Multiple_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/TypedFunctionTest_Multiple_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-TypedFunctionTest")
+    public void testTypedFunctionTest_Multiple_MissingSequenceType() {
+        final String expected = loadResource("tests/parser/xquery-3.0/TypedFunctionTest_Multiple_MissingSequenceType.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/TypedFunctionTest_Multiple_MissingSequenceType.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-TypedFunctionTest")
+    public void testTypedFunctionTest_ReturnType() {
+        final String expected = loadResource("tests/parser/xquery-3.0/TypedFunctionTest_ReturnType.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/TypedFunctionTest_ReturnType.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-TypedFunctionTest")
+    public void testTypedFunctionTest_ReturnType_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-3.0/TypedFunctionTest_ReturnType_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/TypedFunctionTest_ReturnType_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-TypedFunctionTest")
+    public void testTypedFunctionTest_ReturnType_MissingSequenceType() {
+        final String expected = loadResource("tests/parser/xquery-3.0/TypedFunctionTest_ReturnType_MissingSequenceType.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/TypedFunctionTest_ReturnType_MissingSequenceType.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
     // endregion
     // region XQuery 3.0 :: URIQualifiedName + BracedURILiteral
 

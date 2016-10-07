@@ -993,7 +993,10 @@ class XQueryParser {
             parseWhiteSpaceAndCommentTokens();
             if (matchTokenType(XQueryTokenType.K_AS)) {
                 parseWhiteSpaceAndCommentTokens();
-                parseSequenceType();
+                if (!parseSequenceType()) {
+                    error(XQueryBundle.message("parser.error.expected", "SequenceType"));
+                    haveErrors = true;
+                }
             }
 
             parseWhiteSpaceAndCommentTokens();
@@ -3717,7 +3720,9 @@ class XQueryParser {
         final PsiBuilder.Marker typeDeclarationMarker = matchTokenTypeWithMarker(XQueryTokenType.K_AS);
         if (typeDeclarationMarker != null) {
             parseWhiteSpaceAndCommentTokens();
-            parseSequenceType();
+            if (!parseSequenceType()) {
+                error(XQueryBundle.message("parser.error.expected", "SequenceType"));
+            }
 
             typeDeclarationMarker.done(XQueryElementType.TYPE_DECLARATION);
             return true;
@@ -3749,7 +3754,6 @@ class XQueryParser {
             return true;
         }
 
-        error(XQueryBundle.message("parser.error.expected", "SequenceType"));
         sequenceTypeMarker.drop();
         return false;
     }
@@ -3799,7 +3803,7 @@ class XQueryParser {
             haveAnnotations = true;
         }
 
-        if (parseAnyFunctionTest()) {
+        if (parseAnyOrTypedFunctionTest()) {
             functionTestMarker.done(XQueryElementType.FUNCTION_TEST);
             return true;
         } else if (haveAnnotations) {
@@ -3813,29 +3817,61 @@ class XQueryParser {
         return false;
     }
 
-    private boolean parseAnyFunctionTest() {
-        final PsiBuilder.Marker anyFunctionTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_FUNCTION);
-        if (anyFunctionTestMarker != null) {
+    private boolean parseAnyOrTypedFunctionTest() {
+        final PsiBuilder.Marker functionTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_FUNCTION);
+        if (functionTestMarker != null) {
+            IElementType type = XQueryElementType.ANY_FUNCTION_TEST;
             boolean haveErrors = false;
 
             parseWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.PARENTHESIS_OPEN)) {
-                anyFunctionTestMarker.rollbackTo();
+                functionTestMarker.rollbackTo();
                 return false;
             }
 
             parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.STAR)) {
-                error(XQueryBundle.message("parser.error.expected", "*"));
+            if (matchTokenType(XQueryTokenType.STAR)) {
+                //
+            } else if (parseSequenceType()) {
+                type = XQueryElementType.TYPED_FUNCTION_TEST;
+
+                parseWhiteSpaceAndCommentTokens();
+                while (matchTokenType(XQueryTokenType.COMMA)) {
+                    parseWhiteSpaceAndCommentTokens();
+                    if (!parseSequenceType() && !haveErrors) {
+                        error(XQueryBundle.message("parser.error.expected", "SequenceType"));
+                        haveErrors = true;
+                    }
+                }
+            } else {
+                error(XQueryBundle.message("parser.error.expected-either", "*", "SequenceType"));
                 haveErrors = true;
             }
 
             parseWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE) && !haveErrors) {
                 error(XQueryBundle.message("parser.error.expected", ")"));
+                haveErrors = true;
             }
 
-            anyFunctionTestMarker.done(XQueryElementType.ANY_FUNCTION_TEST);
+            parseWhiteSpaceAndCommentTokens();
+            if (getTokenType() == XQueryTokenType.K_AS) {
+                if (type == XQueryElementType.ANY_FUNCTION_TEST && !haveErrors) {
+                    final PsiBuilder.Marker errorMarker = mark();
+                    advanceLexer();
+                    errorMarker.error(XQueryBundle.message("parser.error.as-not-supported-in-test", "AnyFunctionTest"));
+                    haveErrors = true;
+                } else {
+                    advanceLexer();
+                }
+
+                parseWhiteSpaceAndCommentTokens();
+                if (!parseSequenceType() && !haveErrors) {
+                    error(XQueryBundle.message("parser.error.expected", "SequenceType"));
+                }
+            }
+
+            functionTestMarker.done(type);
             return true;
         }
         return false;
