@@ -19,14 +19,14 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnyFunctionTest;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryTypedFunctionTest;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 
-public class XQueryTypedFunctionTestPsiImpl extends ASTWrapperPsiElement implements XQueryAnyFunctionTest, XQueryConformanceCheck {
+public class XQueryTypedFunctionTestPsiImpl extends ASTWrapperPsiElement implements XQueryTypedFunctionTest, XQueryConformanceCheck {
     public XQueryTypedFunctionTestPsiImpl(@NotNull ASTNode node) {
         super(node);
     }
