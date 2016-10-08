@@ -15,10 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
-import com.intellij.psi.PsiElement;
-
 /**
  * An XQuery 1.0 <code>LetClause</code> node in the XQuery AST.
  */
-public interface XQueryLetClause extends PsiElement {
+public interface XQueryLetClause extends XQueryInitialClause {
 }

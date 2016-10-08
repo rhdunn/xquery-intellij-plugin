@@ -1155,12 +1155,10 @@ class XQueryParser {
 
     private boolean parseFLWORExpr() {
         final PsiBuilder.Marker flworExprMarker = mark();
-        boolean haveForLetClause = false;
-        while (parseForClause() || parseLetClause()) {
-            haveForLetClause = true;
-        }
-        if (haveForLetClause) {
-            boolean haveErrors = false;
+        if (parseInitialClause()) {
+            while (parseInitialClause()) {
+                //
+            }
 
             parseWhiteSpaceAndCommentTokens();
             parseWhereClause();
@@ -1189,6 +1187,10 @@ class XQueryParser {
         }
         flworExprMarker.drop();
         return false;
+    }
+
+    private boolean parseInitialClause() {
+        return parseForClause() || parseLetClause();
     }
 
     private boolean parseReturnClause() {

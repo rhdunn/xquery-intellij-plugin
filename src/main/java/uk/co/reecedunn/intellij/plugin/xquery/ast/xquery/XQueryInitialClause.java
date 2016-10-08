@@ -15,8 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
+import com.intellij.psi.PsiElement;
+
 /**
- * An XQuery 1.0 <code>ForClause</code> node in the XQuery AST.
+ * An XQuery 3.0 <code>InitialClause</code> node in the XQuery AST.
  */
-public interface XQueryForClause extends XQueryInitialClause {
+public interface XQueryInitialClause extends PsiElement {
 }
