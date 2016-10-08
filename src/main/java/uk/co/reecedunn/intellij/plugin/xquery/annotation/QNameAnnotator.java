@@ -19,6 +19,7 @@ import com.intellij.lang.annotation.Annotation;
 import com.intellij.lang.annotation.AnnotationHolder;
 import com.intellij.lang.annotation.Annotator;
 import com.intellij.lang.annotation.HighlightSeverity;
+import com.intellij.openapi.editor.markup.TextAttributes;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotation;
@@ -39,6 +40,7 @@ public class QNameAnnotator implements Annotator {
             if (prefix.getText().equals("xmlns")) {
                 xmlns = true;
             } else {
+                holder.createInfoAnnotation(prefix, null).setEnforcedTextAttributes(TextAttributes.ERASE_MARKER);
                 holder.createInfoAnnotation(prefix, null).setTextAttributes(SyntaxHighlighter.NS_PREFIX);
             }
         }
@@ -46,10 +48,13 @@ public class QNameAnnotator implements Annotator {
         PsiElement localname = qname.getLocalName();
         if (localname != null) {
             if (xmlns) {
+                holder.createInfoAnnotation(localname, null).setEnforcedTextAttributes(TextAttributes.ERASE_MARKER);
                 holder.createInfoAnnotation(localname, null).setTextAttributes(SyntaxHighlighter.NS_PREFIX);
             } else if (qname.getParent() instanceof XQueryAnnotation) {
+                holder.createInfoAnnotation(localname, null).setEnforcedTextAttributes(TextAttributes.ERASE_MARKER);
                 holder.createInfoAnnotation(localname, null).setTextAttributes(SyntaxHighlighter.ANNOTATION);
             } else if (localname.getNode().getElementType() instanceof IXQueryKeywordOrNCNameType) {
+                holder.createInfoAnnotation(localname, null).setEnforcedTextAttributes(TextAttributes.ERASE_MARKER);
                 holder.createInfoAnnotation(localname, null).setTextAttributes(SyntaxHighlighter.IDENTIFIER);
             }
         }
