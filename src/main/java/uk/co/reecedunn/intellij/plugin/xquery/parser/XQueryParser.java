@@ -1000,7 +1000,7 @@ class XQueryParser {
             }
 
             parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.K_EXTERNAL) && !parseEnclosedExpr() && !haveErrors) {
+            if (!matchTokenType(XQueryTokenType.K_EXTERNAL) && !parseEnclosedExpr(XQueryElementType.FUNCTION_BODY) && !haveErrors) {
                 error(XQueryBundle.message("parser.error.expected-enclosed-expression-or-keyword", "external"));
                 parseExpr(XQueryElementType.EXPR);
 
@@ -1088,7 +1088,7 @@ class XQueryParser {
     // endregion
     // region Grammar :: Expr
 
-    private boolean parseEnclosedExpr() {
+    private boolean parseEnclosedExpr(IElementType type) {
         final PsiBuilder.Marker enclosedExprMarker = matchTokenTypeWithMarker(XQueryTokenType.BLOCK_OPEN);
         if (enclosedExprMarker != null) {
             boolean haveErrors = false;
@@ -1104,7 +1104,7 @@ class XQueryParser {
                 error(XQueryBundle.message("parser.error.expected", "}"));
             }
 
-            enclosedExprMarker.done(XQueryElementType.ENCLOSED_EXPR);
+            enclosedExprMarker.done(type);
             return true;
         }
         return false;
@@ -3170,7 +3170,7 @@ class XQueryParser {
             } else if (errorOnTokenType(XQueryTokenType.XML_EMPTY_ENTITY_REFERENCE, XQueryBundle.message("parser.error.empty-entity")) ||
                        matchTokenType(XQueryTokenType.BAD_CHARACTER)) {
                 //
-            } else if (parseEnclosedExpr() ||
+            } else if (parseEnclosedExpr(XQueryElementType.ENCLOSED_EXPR) ||
                        errorOnTokenType(XQueryTokenType.BLOCK_CLOSE, XQueryBundle.message("parser.error.mismatched-exclosed-expr"))) {
                 //
             } else {
@@ -3252,7 +3252,7 @@ class XQueryParser {
             } else if (matchTokenType(XQueryTokenType.PARTIAL_ENTITY_REFERENCE)) {
                 error(XQueryBundle.message("parser.error.incomplete-entity"));
                 matched = true;
-            } else if (parseEnclosedExpr() ||
+            } else if (parseEnclosedExpr(XQueryElementType.ENCLOSED_EXPR) ||
                        parseCDataSection(XQueryElementType.DIR_ELEM_CONTENT) ||
                        parseDirectConstructor()) {
                 matched = true;
