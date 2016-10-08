@@ -188,6 +188,7 @@ public interface XQueryElementType {
     IElementType CATCH_ERROR_LIST = new ICompositeElementType("XQUERY_CATCH_ERROR_LIST", XQueryCatchErrorListPsiImpl.class);
 
     IElementType FOR_BINDING = new ICompositeElementType("XQUERY_FOR_BINDING", XQueryForBindingPsiImpl.class);
+    IElementType LET_BINDING = new ICompositeElementType("XQUERY_LET_BINDING", XQueryLetBindingPsiImpl.class);
 
     IElementType STRING_CONCAT_EXPR = new ICompositeElementType("XQUERY_STRING_CONCAT_EXPR", XQueryStringConcatExprPsiImpl.class);
 

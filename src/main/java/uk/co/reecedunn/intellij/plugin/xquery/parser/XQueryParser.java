@@ -1287,45 +1287,15 @@ class XQueryParser {
     private boolean parseLetClause() {
         final PsiBuilder.Marker letClauseMarker = mark();
         if (matchTokenType(XQueryTokenType.K_LET)) {
-            boolean haveErrors = false;
-            boolean isFirstVarName = true;
+            boolean isFirst = true;
             do {
                 parseWhiteSpaceAndCommentTokens();
-                if (!matchTokenType(XQueryTokenType.VARIABLE_INDICATOR) && !haveErrors) {
-                    if (isFirstVarName) {
-                        letClauseMarker.rollbackTo();
-                        return false;
-                    } else {
-                        error(XQueryBundle.message("parser.error.expected", "$"));
-                        haveErrors = true;
-                    }
+                if (!parseLetBinding(isFirst) && isFirst) {
+                    letClauseMarker.rollbackTo();
+                    return false;
                 }
 
-                parseWhiteSpaceAndCommentTokens();
-                if (!parseEQName(XQueryElementType.VAR_NAME) && !haveErrors) {
-                    error(XQueryBundle.message("parser.error.expected-eqname"));
-                    haveErrors = true;
-                }
-
-                parseWhiteSpaceAndCommentTokens();
-                boolean haveTypeDeclaration = parseTypeDeclaration();
-
-                parseWhiteSpaceAndCommentTokens();
-                if (!matchTokenType(XQueryTokenType.ASSIGN_EQUAL) && !haveErrors) {
-                    if (haveTypeDeclaration) {
-                        error(XQueryBundle.message("parser.error.expected", ":="));
-                    } else {
-                        error(XQueryBundle.message("parser.error.expected-variable-assign-or-keyword", "as"));
-                    }
-                    haveErrors = true;
-                }
-
-                parseWhiteSpaceAndCommentTokens();
-                if (!parseExprSingle() && !haveErrors) {
-                    error(XQueryBundle.message("parser.error.expected-expression"));
-                }
-
-                isFirstVarName = false;
+                isFirst = false;
                 parseWhiteSpaceAndCommentTokens();
             } while (matchTokenType(XQueryTokenType.COMMA));
 
@@ -1333,6 +1303,48 @@ class XQueryParser {
             return true;
         }
         letClauseMarker.drop();
+        return false;
+    }
+
+    private boolean parseLetBinding(boolean isFirst) {
+        final PsiBuilder.Marker letBindingMarker = mark();
+
+        boolean haveErrors = false;
+        boolean matched = matchTokenType(XQueryTokenType.VARIABLE_INDICATOR);
+        if (!matched) {
+            error(XQueryBundle.message("parser.error.expected", "$"));
+            haveErrors = true;
+        }
+
+        if (matched || !isFirst) {
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseEQName(XQueryElementType.VAR_NAME)) {
+                error(XQueryBundle.message("parser.error.expected-eqname"));
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            boolean haveTypeDeclaration = parseTypeDeclaration();
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.ASSIGN_EQUAL) && !haveErrors) {
+                if (haveTypeDeclaration) {
+                    error(XQueryBundle.message("parser.error.expected", ":="));
+                } else {
+                    error(XQueryBundle.message("parser.error.expected-variable-assign-or-keyword", "as"));
+                }
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseExprSingle() && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-expression"));
+            }
+
+            letBindingMarker.done(XQueryElementType.LET_BINDING);
+            return true;
+        }
+        letBindingMarker.drop();
         return false;
     }
 
