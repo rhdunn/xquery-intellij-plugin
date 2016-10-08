@@ -1169,14 +1169,10 @@ class XQueryParser {
             parseOrderByClause();
 
             parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.K_RETURN)) {
+            if (!parseReturnClause()) {
                 error(XQueryBundle.message("parser.error.expected-keyword", "for, let, order, return, stable, where"));
-                haveErrors = true;
-            }
-
-            parseWhiteSpaceAndCommentTokens();
-            if (!parseExprSingle() && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected-expression"));
+                parseWhiteSpaceAndCommentTokens();
+                parseExprSingle();
             }
 
             flworExprMarker.done(XQueryElementType.FLWOR_EXPR);
@@ -1192,6 +1188,21 @@ class XQueryParser {
             }
         }
         flworExprMarker.drop();
+        return false;
+    }
+
+    private boolean parseReturnClause() {
+        final PsiBuilder.Marker returnClauseMarker = mark();
+        if (matchTokenType(XQueryTokenType.K_RETURN)) {
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseExprSingle()) {
+                error(XQueryBundle.message("parser.error.expected-expression"));
+            }
+
+            returnClauseMarker.done(XQueryElementType.RETURN_CLAUSE);
+            return true;
+        }
+        returnClauseMarker.drop();
         return false;
     }
 
