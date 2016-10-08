@@ -6136,13 +6136,6 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-AnyFunctionTest")
-    public void testAnyFunctionTest_MissingWildcard() {
-        final String expected = loadResource("tests/parser/xquery-3.0/AnyFunctionTest_MissingWildcard.txt");
-        final ASTNode actual = parseResource("tests/parser/xquery-3.0/AnyFunctionTest_MissingWildcard.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-AnyFunctionTest")
     public void testAnyFunctionTest_MissingClosingParenthesis() {
         final String expected = loadResource("tests/parser/xquery-3.0/AnyFunctionTest_MissingClosingParenthesis.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-3.0/AnyFunctionTest_MissingClosingParenthesis.xq");
@@ -6212,6 +6205,13 @@ public class XQueryParserTest extends ParserTestCase {
     public void testTypedFunctionTest_ReturnType_MissingSequenceType() {
         final String expected = loadResource("tests/parser/xquery-3.0/TypedFunctionTest_ReturnType_MissingSequenceType.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-3.0/TypedFunctionTest_ReturnType_MissingSequenceType.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-TypedFunctionTest")
+    public void testTypedFunctionTest_EmptyTypeList() {
+        final String expected = loadResource("tests/parser/xquery-3.0/TypedFunctionTest_EmptyTypeList.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/TypedFunctionTest_EmptyTypeList.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 

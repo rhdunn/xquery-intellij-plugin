@@ -3907,8 +3907,7 @@ class XQueryParser {
                     }
                 }
             } else {
-                error(XQueryBundle.message("parser.error.expected-either", "*", "SequenceType"));
-                haveErrors = true;
+                type = XQueryElementType.TYPED_FUNCTION_TEST;
             }
 
             parseWhiteSpaceAndCommentTokens();
