@@ -1,0 +1,1 @@
+function ( ) as xs:integer { 2 }

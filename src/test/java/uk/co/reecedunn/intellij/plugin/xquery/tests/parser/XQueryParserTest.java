@@ -5934,6 +5934,93 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region XQuery 3.0 :: InlineFunctionExpr
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-InlineFunctionExpr")
+    public void testInlineFunctionExpr() {
+        final String expected = loadResource("tests/parser/xquery-3.0/InlineFunctionExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/InlineFunctionExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-InlineFunctionExpr")
+    public void testInlineFunctionExpr_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-3.0/InlineFunctionExpr_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/InlineFunctionExpr_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-InlineFunctionExpr")
+    public void testInlineFunctionExpr_MissingClosingParenthesis() {
+        final String expected = loadResource("tests/parser/xquery-3.0/InlineFunctionExpr_MissingClosingParenthesis.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/InlineFunctionExpr_MissingClosingParenthesis.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-InlineFunctionExpr")
+    public void testInlineFunctionExpr_MissingOpeningBrace() {
+        final String expected = loadResource("tests/parser/xquery-3.0/InlineFunctionExpr_MissingOpeningBrace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/InlineFunctionExpr_MissingOpeningBrace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-InlineFunctionExpr")
+    public void testInlineFunctionExpr_MissingFunctionBody() {
+        final String expected = loadResource("tests/parser/xquery-3.0/InlineFunctionExpr_MissingFunctionBody.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/InlineFunctionExpr_MissingFunctionBody.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-InlineFunctionExpr")
+    public void testInlineFunctionExpr_Annotation() {
+        final String expected = loadResource("tests/parser/xquery-3.0/InlineFunctionExpr_Annotation.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/InlineFunctionExpr_Annotation.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-InlineFunctionExpr")
+    public void testInlineFunctionExpr_Annotation_Multiple() {
+        final String expected = loadResource("tests/parser/xquery-3.0/InlineFunctionExpr_Annotation_Multiple.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/InlineFunctionExpr_Annotation_Multiple.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-InlineFunctionExpr")
+    public void testInlineFunctionExpr_Annotation_MissingFunctionKeyword() {
+        final String expected = loadResource("tests/parser/xquery-3.0/InlineFunctionExpr_Annotation_MissingFunctionKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/InlineFunctionExpr_Annotation_MissingFunctionKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-InlineFunctionExpr")
+    public void testInlineFunctionExpr_Annotation_MissingOpeningParenthesis() {
+        final String expected = loadResource("tests/parser/xquery-3.0/InlineFunctionExpr_Annotation_MissingOpeningParenthesis.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/InlineFunctionExpr_Annotation_MissingOpeningParenthesis.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-InlineFunctionExpr")
+    public void testInlineFunctionExpr_ParamList() {
+        final String expected = loadResource("tests/parser/xquery-3.0/InlineFunctionExpr_ParamList.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/InlineFunctionExpr_ParamList.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-InlineFunctionExpr")
+    public void testInlineFunctionExpr_ReturnType() {
+        final String expected = loadResource("tests/parser/xquery-3.0/InlineFunctionExpr_ReturnType.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/InlineFunctionExpr_ReturnType.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-InlineFunctionExpr")
+    public void testInlineFunctionExpr_ReturnType_MissingSequenceType() {
+        final String expected = loadResource("tests/parser/xquery-3.0/InlineFunctionExpr_ReturnType_MissingSequenceType.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/InlineFunctionExpr_ReturnType_MissingSequenceType.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region XQuery 3.0 :: SingleType
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-SingleType")

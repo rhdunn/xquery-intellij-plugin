@@ -3051,7 +3051,7 @@ class XQueryParser {
     }
 
     private boolean parseFunctionItemExpr() {
-        return parseNamedFunctionRef();
+        return parseNamedFunctionRef() || parseInlineFunctionExpr();
     }
 
     private boolean parseNamedFunctionRef() {
@@ -3073,6 +3073,69 @@ class XQueryParser {
         }
 
         namedFunctionRefMarker.drop();
+        return false;
+    }
+
+    private boolean parseInlineFunctionExpr() {
+        final PsiBuilder.Marker inlineFunctionExprMarker = mark();
+
+        boolean haveAnnotations = false;
+        while (parseAnnotation()) {
+            parseWhiteSpaceAndCommentTokens();
+            haveAnnotations = true;
+        }
+
+        if (matchTokenType(XQueryTokenType.K_FUNCTION)) {
+            boolean haveErrors = false;
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_OPEN)) {
+                if (!haveAnnotations) {
+                    inlineFunctionExprMarker.rollbackTo();
+                    return false;
+                }
+
+                error(XQueryBundle.message("parser.error.expected", "("));
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            parseParamList();
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", ")"));
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (matchTokenType(XQueryTokenType.K_AS)) {
+                parseWhiteSpaceAndCommentTokens();
+                if (!parseSequenceType()) {
+                    error(XQueryBundle.message("parser.error.expected", "SequenceType"));
+                    haveErrors = true;
+                }
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseEnclosedExpr(XQueryElementType.FUNCTION_BODY) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", "{"));
+                parseExpr(XQueryElementType.EXPR);
+
+                parseWhiteSpaceAndCommentTokens();
+                matchTokenType(XQueryTokenType.BLOCK_CLOSE);
+            }
+
+            inlineFunctionExprMarker.done(XQueryElementType.INLINE_FUNCTION_EXPR);
+            return true;
+        } else if (haveAnnotations) {
+            error(XQueryBundle.message("parser.error.expected-keyword", "function"));
+
+            inlineFunctionExprMarker.done(XQueryElementType.INLINE_FUNCTION_EXPR);
+            return true;
+        }
+
+        inlineFunctionExprMarker.drop();
         return false;
     }
 
