@@ -174,6 +174,7 @@ public interface XQueryElementType {
     IElementType FUNCTION_TEST = new ICompositeElementType("XQUERY_FUNCTION_TEST", XQueryFunctionTestPsiImpl.class);
     IElementType ANY_FUNCTION_TEST = new ICompositeElementType("XQUERY_ANY_FUNCTION_TEST", XQueryAnyFunctionTestPsiImpl.class);
     IElementType TYPED_FUNCTION_TEST = new ICompositeElementType("XQUERY_TYPED_FUNCTION_TEST", XQueryTypedFunctionTestPsiImpl.class);
+    IElementType PARENTHESIZED_ITEM_TYPE = new ICompositeElementType("XQUERY_PARENTHESIZED_ITEM_TYPE", XQueryParenthesizedItemTypePsiImpl.class);
 
     IElementType ANNOTATED_DECL = new ICompositeElementType("XQUERY_ANNOTATED_DECL", XQueryAnnotatedDeclPsiImpl.class);
     IElementType ANNOTATION = new ICompositeElementType("XQUERY_ANNOTATION", XQueryAnnotationPsiImpl.class);
