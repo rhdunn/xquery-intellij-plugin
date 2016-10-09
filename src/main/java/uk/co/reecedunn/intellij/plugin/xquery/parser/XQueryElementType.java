@@ -193,6 +193,7 @@ public interface XQueryElementType {
     IElementType RETURN_CLAUSE = new ICompositeElementType("XQUERY_RETURN_CLAUSE", XQueryReturnClausePsiImpl.class);
 
     IElementType STRING_CONCAT_EXPR = new ICompositeElementType("XQUERY_STRING_CONCAT_EXPR", XQueryStringConcatExprPsiImpl.class);
+    IElementType SIMPLE_MAP_EXPR = new ICompositeElementType("XQUERY_SIMPLE_MAP_EXPR", XQuerySimpleMapExprPsiImpl.class);
 
     IElementType INLINE_FUNCTION_EXPR = new ICompositeElementType("XQUERY_INLINE_FUNCTION_EXPR", XQueryInlineFunctionExprPsiImpl.class);
     IElementType NAMED_FUNCTION_REF = new ICompositeElementType("XQUERY_NAMED_FUNCTION_REF", XQueryNamedFunctionRefPsiImpl.class);

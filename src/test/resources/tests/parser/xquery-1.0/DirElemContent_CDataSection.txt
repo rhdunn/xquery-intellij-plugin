@@ -15,21 +15,22 @@ FileElement[FILE(0:25)]
                                           XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:25)]
                                              XQueryCastExprImpl[XQUERY_CAST_EXPR(0:25)]
                                                 XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:25)]
-                                                   XQueryPathExprImpl[XQUERY_PATH_EXPR(0:25)]
-                                                      XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:25)]
-                                                         XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:25)]
-                                                            XQueryConstructorImpl[XQUERY_CONSTRUCTOR(0:25)]
-                                                               XQueryDirElemConstructorImpl[XQUERY_DIR_ELEM_CONSTRUCTOR(0:25)]
-                                                                  LeafPsiElement[XQUERY_OPEN_XML_TAG_TOKEN(0:1)]('<')
-                                                                  XQueryNCNameImpl[XQUERY_NCNAME(1:2)]
-                                                                     LeafPsiElement[XQUERY_XML_TAG_NCNAME_TOKEN(1:2)]('a')
-                                                                  LeafPsiElement[XQUERY_END_XML_TAG_TOKEN(2:3)]('>')
-                                                                  XQueryDirElemContentImpl[XQUERY_DIR_ELEM_CONTENT(3:21)]
-                                                                     XQueryCDataSectionImpl[XQUERY_CDATA_SECTION(3:21)]
-                                                                        LeafPsiElement[XQUERY_CDATA_SECTION_START_TAG_TOKEN(3:12)]('<![CDATA[')
-                                                                        LeafPsiElement[XQUERY_CDATA_SECTION_TOKEN(12:18)](' Test ')
-                                                                        LeafPsiElement[XQUERY_CDATA_SECTION_END_TAG_TOKEN(18:21)](']]>')
-                                                                  LeafPsiElement[XQUERY_CLOSE_XML_TAG_TOKEN(21:23)]('</')
-                                                                  XQueryNCNameImpl[XQUERY_NCNAME(23:24)]
-                                                                     LeafPsiElement[XQUERY_XML_TAG_NCNAME_TOKEN(23:24)]('a')
-                                                                  LeafPsiElement[XQUERY_END_XML_TAG_TOKEN(24:25)]('>')
+                                                   XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:25)]
+                                                      XQueryPathExprImpl[XQUERY_PATH_EXPR(0:25)]
+                                                         XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:25)]
+                                                            XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:25)]
+                                                               XQueryConstructorImpl[XQUERY_CONSTRUCTOR(0:25)]
+                                                                  XQueryDirElemConstructorImpl[XQUERY_DIR_ELEM_CONSTRUCTOR(0:25)]
+                                                                     LeafPsiElement[XQUERY_OPEN_XML_TAG_TOKEN(0:1)]('<')
+                                                                     XQueryNCNameImpl[XQUERY_NCNAME(1:2)]
+                                                                        LeafPsiElement[XQUERY_XML_TAG_NCNAME_TOKEN(1:2)]('a')
+                                                                     LeafPsiElement[XQUERY_END_XML_TAG_TOKEN(2:3)]('>')
+                                                                     XQueryDirElemContentImpl[XQUERY_DIR_ELEM_CONTENT(3:21)]
+                                                                        XQueryCDataSectionImpl[XQUERY_CDATA_SECTION(3:21)]
+                                                                           LeafPsiElement[XQUERY_CDATA_SECTION_START_TAG_TOKEN(3:12)]('<![CDATA[')
+                                                                           LeafPsiElement[XQUERY_CDATA_SECTION_TOKEN(12:18)](' Test ')
+                                                                           LeafPsiElement[XQUERY_CDATA_SECTION_END_TAG_TOKEN(18:21)](']]>')
+                                                                     LeafPsiElement[XQUERY_CLOSE_XML_TAG_TOKEN(21:23)]('</')
+                                                                     XQueryNCNameImpl[XQUERY_NCNAME(23:24)]
+                                                                        LeafPsiElement[XQUERY_XML_TAG_NCNAME_TOKEN(23:24)]('a')
+                                                                     LeafPsiElement[XQUERY_END_XML_TAG_TOKEN(24:25)]('>')

@@ -15,19 +15,20 @@ FileElement[FILE(0:17)]
                                           XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:17)]
                                              XQueryCastExprImpl[XQUERY_CAST_EXPR(0:17)]
                                                 XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:17)]
-                                                   XQueryPathExprImpl[XQUERY_PATH_EXPR(0:17)]
-                                                      XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:17)]
-                                                         XQueryAxisStepImpl[XQUERY_AXIS_STEP(0:17)]
-                                                            XQueryReverseStepImpl[XQUERY_REVERSE_STEP(0:17)]
-                                                               XQueryReverseAxisImpl[XQUERY_REVERSE_AXIS(0:9)]
-                                                                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_PARENT(0:6)]('parent')
-                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
-                                                                  LeafPsiElement[XQUERY_AXIS_SEPARATOR_TOKEN(7:9)]('::')
-                                                               PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
-                                                               XQueryNodeTestImpl[XQUERY_NODE_TEST(10:17)]
-                                                                  XQueryNameTestImpl[XQUERY_NAME_TEST(10:17)]
-                                                                     XQueryQNameImpl[XQUERY_QNAME(10:17)]
-                                                                        LeafPsiElement[XQUERY_NCNAME_TOKEN(10:12)]('xh')
-                                                                        LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(12:13)](':')
-                                                                        LeafPsiElement[XQUERY_NCNAME_TOKEN(13:17)]('body')
-                                                            XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(17:17)]
+                                                   XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:17)]
+                                                      XQueryPathExprImpl[XQUERY_PATH_EXPR(0:17)]
+                                                         XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:17)]
+                                                            XQueryAxisStepImpl[XQUERY_AXIS_STEP(0:17)]
+                                                               XQueryReverseStepImpl[XQUERY_REVERSE_STEP(0:17)]
+                                                                  XQueryReverseAxisImpl[XQUERY_REVERSE_AXIS(0:9)]
+                                                                     LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_PARENT(0:6)]('parent')
+                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
+                                                                     LeafPsiElement[XQUERY_AXIS_SEPARATOR_TOKEN(7:9)]('::')
+                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
+                                                                  XQueryNodeTestImpl[XQUERY_NODE_TEST(10:17)]
+                                                                     XQueryNameTestImpl[XQUERY_NAME_TEST(10:17)]
+                                                                        XQueryQNameImpl[XQUERY_QNAME(10:17)]
+                                                                           LeafPsiElement[XQUERY_NCNAME_TOKEN(10:12)]('xh')
+                                                                           LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(12:13)](':')
+                                                                           LeafPsiElement[XQUERY_NCNAME_TOKEN(13:17)]('body')
+                                                               XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(17:17)]

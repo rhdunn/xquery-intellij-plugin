@@ -15,22 +15,23 @@ FileElement[FILE(0:43)]
                                           XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:43)]
                                              XQueryCastExprImpl[XQUERY_CAST_EXPR(0:43)]
                                                 XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:43)]
-                                                   XQueryPathExprImpl[XQUERY_PATH_EXPR(0:43)]
-                                                      XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:43)]
-                                                         XQueryAxisStepImpl[XQUERY_AXIS_STEP(0:43)]
-                                                            XQueryForwardStepImpl[XQUERY_FORWARD_STEP(0:43)]
-                                                               XQueryForwardAxisImpl[XQUERY_FORWARD_AXIS(0:7)]
-                                                                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_SELF(0:4)]('self')
-                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
-                                                                  LeafPsiElement[XQUERY_AXIS_SEPARATOR_TOKEN(5:7)]('::')
-                                                               PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-                                                               XQueryNodeTestImpl[XQUERY_NODE_TEST(8:43)]
-                                                                  XQueryNameTestImpl[XQUERY_NAME_TEST(8:43)]
-                                                                     XQueryWildcardImpl[XQUERY_WILDCARD(8:43)]
-                                                                        XQueryURIQualifiedNameImpl[XQUERY_URI_QUALIFIED_NAME(8:43)]
-                                                                           XQueryBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(8:39)]
-                                                                              LeafPsiElement[XQUERY_BRACED_URI_LITERAL_START_TOKEN(8:10)]('Q{')
-                                                                              LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(10:38)]('http://www.example.com/test#')
-                                                                              LeafPsiElement[XQUERY_BRACED_URI_LITERAL_END_TOKEN(38:39)]('}')
-                                                                           LeafPsiElement[XQUERY_NCNAME_TOKEN(39:43)]('name')
-                                                            XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(43:43)]
+                                                   XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:43)]
+                                                      XQueryPathExprImpl[XQUERY_PATH_EXPR(0:43)]
+                                                         XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:43)]
+                                                            XQueryAxisStepImpl[XQUERY_AXIS_STEP(0:43)]
+                                                               XQueryForwardStepImpl[XQUERY_FORWARD_STEP(0:43)]
+                                                                  XQueryForwardAxisImpl[XQUERY_FORWARD_AXIS(0:7)]
+                                                                     LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_SELF(0:4)]('self')
+                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
+                                                                     LeafPsiElement[XQUERY_AXIS_SEPARATOR_TOKEN(5:7)]('::')
+                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+                                                                  XQueryNodeTestImpl[XQUERY_NODE_TEST(8:43)]
+                                                                     XQueryNameTestImpl[XQUERY_NAME_TEST(8:43)]
+                                                                        XQueryWildcardImpl[XQUERY_WILDCARD(8:43)]
+                                                                           XQueryURIQualifiedNameImpl[XQUERY_URI_QUALIFIED_NAME(8:43)]
+                                                                              XQueryBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(8:39)]
+                                                                                 LeafPsiElement[XQUERY_BRACED_URI_LITERAL_START_TOKEN(8:10)]('Q{')
+                                                                                 LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(10:38)]('http://www.example.com/test#')
+                                                                                 LeafPsiElement[XQUERY_BRACED_URI_LITERAL_END_TOKEN(38:39)]('}')
+                                                                              LeafPsiElement[XQUERY_NCNAME_TOKEN(39:43)]('name')
+                                                               XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(43:43)]

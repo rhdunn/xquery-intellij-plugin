@@ -15,13 +15,14 @@ FileElement[FILE(0:11)]
                                           XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:11)]
                                              XQueryCastExprImpl[XQUERY_CAST_EXPR(0:11)]
                                                 XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:11)]
-                                                   XQueryPathExprImpl[XQUERY_PATH_EXPR(0:11)]
-                                                      XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:11)]
-                                                         XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:11)]
-                                                            XQueryOrderedExprImpl[XQUERY_ORDERED_EXPR(0:11)]
-                                                               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_ORDERED(0:7)]('ordered')
-                                                               PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-                                                               LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(8:9)]('{')
-                                                               PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
-                                                               PsiErrorElementImpl[ERROR_ELEMENT(10:10)]('XPST0003: Missing expression.')
-                                                               LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(10:11)]('}')
+                                                   XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:11)]
+                                                      XQueryPathExprImpl[XQUERY_PATH_EXPR(0:11)]
+                                                         XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:11)]
+                                                            XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:11)]
+                                                               XQueryOrderedExprImpl[XQUERY_ORDERED_EXPR(0:11)]
+                                                                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_ORDERED(0:7)]('ordered')
+                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+                                                                  LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(8:9)]('{')
+                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
+                                                                  PsiErrorElementImpl[ERROR_ELEMENT(10:10)]('XPST0003: Missing expression.')
+                                                                  LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(10:11)]('}')

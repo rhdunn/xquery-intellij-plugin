@@ -15,14 +15,15 @@ FileElement[FILE(0:8)]
                                           XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:8)]
                                              XQueryCastExprImpl[XQUERY_CAST_EXPR(0:8)]
                                                 XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:8)]
-                                                   XQueryPathExprImpl[XQUERY_PATH_EXPR(0:8)]
-                                                      XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:8)]
-                                                         XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:8)]
-                                                            XQueryConstructorImpl[XQUERY_CONSTRUCTOR(0:8)]
-                                                               XQueryCompTextConstructorImpl[XQUERY_COMP_TEXT_CONSTRUCTOR(0:8)]
-                                                                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_TEXT(0:4)]('text')
-                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
-                                                                  LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(5:6)]('{')
-                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
-                                                                  PsiErrorElementImpl[ERROR_ELEMENT(7:7)]('XPST0003: Missing expression.')
-                                                                  LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(7:8)]('}')
+                                                   XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:8)]
+                                                      XQueryPathExprImpl[XQUERY_PATH_EXPR(0:8)]
+                                                         XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:8)]
+                                                            XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:8)]
+                                                               XQueryConstructorImpl[XQUERY_CONSTRUCTOR(0:8)]
+                                                                  XQueryCompTextConstructorImpl[XQUERY_COMP_TEXT_CONSTRUCTOR(0:8)]
+                                                                     LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_TEXT(0:4)]('text')
+                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
+                                                                     LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(5:6)]('{')
+                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
+                                                                     PsiErrorElementImpl[ERROR_ELEMENT(7:7)]('XPST0003: Missing expression.')
+                                                                     LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(7:8)]('}')

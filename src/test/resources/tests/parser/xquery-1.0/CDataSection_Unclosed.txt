@@ -15,12 +15,13 @@ FileElement[FILE(0:15)]
                                           XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:15)]
                                              XQueryCastExprImpl[XQUERY_CAST_EXPR(0:15)]
                                                 XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:15)]
-                                                   XQueryPathExprImpl[XQUERY_PATH_EXPR(0:15)]
-                                                      XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:15)]
-                                                         XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:15)]
-                                                            XQueryConstructorImpl[XQUERY_CONSTRUCTOR(0:15)]
-                                                               XQueryCDataSectionImpl[XQUERY_CDATA_SECTION(0:15)]
-                                                                  PsiErrorElementImpl[ERROR_ELEMENT(0:9)]('XPST0003: CDATA sections must be placed within element tags.')
-                                                                     LeafPsiElement[XQUERY_CDATA_SECTION_START_TAG_TOKEN(0:9)]('<![CDATA[')
-                                                                  LeafPsiElement[XQUERY_CDATA_SECTION_TOKEN(9:15)](' Test ')
-                                                               PsiErrorElementImpl[ERROR_ELEMENT(15:15)]('XPST0003: Unclosed CDATA section.')
+                                                   XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:15)]
+                                                      XQueryPathExprImpl[XQUERY_PATH_EXPR(0:15)]
+                                                         XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:15)]
+                                                            XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:15)]
+                                                               XQueryConstructorImpl[XQUERY_CONSTRUCTOR(0:15)]
+                                                                  XQueryCDataSectionImpl[XQUERY_CDATA_SECTION(0:15)]
+                                                                     PsiErrorElementImpl[ERROR_ELEMENT(0:9)]('XPST0003: CDATA sections must be placed within element tags.')
+                                                                        LeafPsiElement[XQUERY_CDATA_SECTION_START_TAG_TOKEN(0:9)]('<![CDATA[')
+                                                                     LeafPsiElement[XQUERY_CDATA_SECTION_TOKEN(9:15)](' Test ')
+                                                                  PsiErrorElementImpl[ERROR_ELEMENT(15:15)]('XPST0003: Unclosed CDATA section.')

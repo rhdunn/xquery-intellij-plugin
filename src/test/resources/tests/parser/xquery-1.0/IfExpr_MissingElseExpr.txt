@@ -21,12 +21,13 @@ FileElement[FILE(0:20)]
                                                 XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(5:7)]
                                                    XQueryCastExprImpl[XQUERY_CAST_EXPR(5:7)]
                                                       XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(5:7)]
-                                                         XQueryPathExprImpl[XQUERY_PATH_EXPR(5:7)]
-                                                            XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(5:7)]
-                                                               XQueryFilterExprImpl[XQUERY_FILTER_EXPR(5:7)]
-                                                                  XQueryLiteralImpl[XQUERY_LITERAL(5:6)]
-                                                                     XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(5:6)]('1')
-                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
+                                                         XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(5:7)]
+                                                            XQueryPathExprImpl[XQUERY_PATH_EXPR(5:7)]
+                                                               XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(5:7)]
+                                                                  XQueryFilterExprImpl[XQUERY_FILTER_EXPR(5:7)]
+                                                                     XQueryLiteralImpl[XQUERY_LITERAL(5:6)]
+                                                                        XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(5:6)]('1')
+                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
             LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(7:8)](')')
             PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
             LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_THEN(9:13)]('then')
@@ -45,11 +46,12 @@ FileElement[FILE(0:20)]
                                              XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(14:16)]
                                                 XQueryCastExprImpl[XQUERY_CAST_EXPR(14:16)]
                                                    XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(14:16)]
-                                                      XQueryPathExprImpl[XQUERY_PATH_EXPR(14:16)]
-                                                         XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(14:16)]
-                                                            XQueryFilterExprImpl[XQUERY_FILTER_EXPR(14:16)]
-                                                               XQueryLiteralImpl[XQUERY_LITERAL(14:15)]
-                                                                  XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(14:15)]('2')
-                                                               PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
+                                                      XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(14:16)]
+                                                         XQueryPathExprImpl[XQUERY_PATH_EXPR(14:16)]
+                                                            XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(14:16)]
+                                                               XQueryFilterExprImpl[XQUERY_FILTER_EXPR(14:16)]
+                                                                  XQueryLiteralImpl[XQUERY_LITERAL(14:15)]
+                                                                     XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(14:15)]('2')
+                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
             LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_ELSE(16:20)]('else')
             PsiErrorElementImpl[ERROR_ELEMENT(20:20)]('XPST0003: Missing expression.')

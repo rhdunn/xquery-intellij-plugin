@@ -15,12 +15,13 @@ FileElement[FILE(0:8)]
                                           XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:8)]
                                              XQueryCastExprImpl[XQUERY_CAST_EXPR(0:8)]
                                                 XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:8)]
-                                                   XQueryPathExprImpl[XQUERY_PATH_EXPR(0:8)]
-                                                      XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:8)]
-                                                         XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:8)]
-                                                            XQueryVarRefImpl[XQUERY_VAR_REF(0:8)]
-                                                               LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(0:1)]('$')
-                                                               XQueryVarNameImpl[XQUERY_VAR_NAME(1:8)]
-                                                                  LeafPsiElement[XQUERY_NCNAME_TOKEN(1:4)]('one')
-                                                                  LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(4:5)](':')
-                                                                  LeafPsiElement[XQUERY_NCNAME_TOKEN(5:8)]('two')
+                                                   XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:8)]
+                                                      XQueryPathExprImpl[XQUERY_PATH_EXPR(0:8)]
+                                                         XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:8)]
+                                                            XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:8)]
+                                                               XQueryVarRefImpl[XQUERY_VAR_REF(0:8)]
+                                                                  LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(0:1)]('$')
+                                                                  XQueryVarNameImpl[XQUERY_VAR_NAME(1:8)]
+                                                                     LeafPsiElement[XQUERY_NCNAME_TOKEN(1:4)]('one')
+                                                                     LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(4:5)](':')
+                                                                     LeafPsiElement[XQUERY_NCNAME_TOKEN(5:8)]('two')

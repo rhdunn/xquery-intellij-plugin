@@ -15,20 +15,21 @@ FileElement[FILE(0:16)]
                                           XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:16)]
                                              XQueryCastExprImpl[XQUERY_CAST_EXPR(0:16)]
                                                 XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:16)]
-                                                   XQueryPathExprImpl[XQUERY_PATH_EXPR(0:16)]
-                                                      XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:16)]
-                                                         XQueryAxisStepImpl[XQUERY_AXIS_STEP(0:16)]
-                                                            XQueryForwardStepImpl[XQUERY_FORWARD_STEP(0:16)]
-                                                               XQueryForwardAxisImpl[XQUERY_FORWARD_AXIS(0:7)]
-                                                                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_SELF(0:4)]('self')
-                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
-                                                                  LeafPsiElement[XQUERY_AXIS_SEPARATOR_TOKEN(5:7)]('::')
-                                                               PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-                                                               XQueryNodeTestImpl[XQUERY_NODE_TEST(8:16)]
-                                                                  XQueryAnyKindTestImpl[XQUERY_ANY_KIND_TEST(8:16)]
-                                                                     LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NODE(8:12)]('node')
-                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
-                                                                     LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(13:14)]('(')
-                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
-                                                                     LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(15:16)](')')
-                                                            XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(16:16)]
+                                                   XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:16)]
+                                                      XQueryPathExprImpl[XQUERY_PATH_EXPR(0:16)]
+                                                         XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:16)]
+                                                            XQueryAxisStepImpl[XQUERY_AXIS_STEP(0:16)]
+                                                               XQueryForwardStepImpl[XQUERY_FORWARD_STEP(0:16)]
+                                                                  XQueryForwardAxisImpl[XQUERY_FORWARD_AXIS(0:7)]
+                                                                     LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_SELF(0:4)]('self')
+                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
+                                                                     LeafPsiElement[XQUERY_AXIS_SEPARATOR_TOKEN(5:7)]('::')
+                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+                                                                  XQueryNodeTestImpl[XQUERY_NODE_TEST(8:16)]
+                                                                     XQueryAnyKindTestImpl[XQUERY_ANY_KIND_TEST(8:16)]
+                                                                        LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NODE(8:12)]('node')
+                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
+                                                                        LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(13:14)]('(')
+                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
+                                                                        LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(15:16)](')')
+                                                               XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(16:16)]

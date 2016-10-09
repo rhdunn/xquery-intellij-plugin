@@ -22,9 +22,10 @@ FileElement[FILE(0:7)]
                                                    XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(6:7)]
                                                       XQueryCastExprImpl[XQUERY_CAST_EXPR(6:7)]
                                                          XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(6:7)]
-                                                            XQueryPathExprImpl[XQUERY_PATH_EXPR(6:7)]
-                                                               XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(6:7)]
-                                                                  XQueryFilterExprImpl[XQUERY_FILTER_EXPR(6:7)]
-                                                                     XQueryLiteralImpl[XQUERY_LITERAL(6:7)]
-                                                                        XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(6:7)]('2')
+                                                            XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(6:7)]
+                                                               XQueryPathExprImpl[XQUERY_PATH_EXPR(6:7)]
+                                                                  XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(6:7)]
+                                                                     XQueryFilterExprImpl[XQUERY_FILTER_EXPR(6:7)]
+                                                                        XQueryLiteralImpl[XQUERY_LITERAL(6:7)]
+                                                                           XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(6:7)]('2')
                PsiErrorElementImpl[ERROR_ELEMENT(7:7)]('XPST0003: Expected '}'.')

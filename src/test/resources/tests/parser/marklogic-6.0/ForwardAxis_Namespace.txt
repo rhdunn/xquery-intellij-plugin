@@ -15,17 +15,18 @@ FileElement[FILE(0:17)]
                                           XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:17)]
                                              XQueryCastExprImpl[XQUERY_CAST_EXPR(0:17)]
                                                 XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:17)]
-                                                   XQueryPathExprImpl[XQUERY_PATH_EXPR(0:17)]
-                                                      XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:17)]
-                                                         XQueryAxisStepImpl[XQUERY_AXIS_STEP(0:17)]
-                                                            XQueryForwardStepImpl[XQUERY_FORWARD_STEP(0:17)]
-                                                               XQueryForwardAxisImpl[XQUERY_FORWARD_AXIS(0:12)]
-                                                                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NAMESPACE(0:9)]('namespace')
-                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
-                                                                  LeafPsiElement[XQUERY_AXIS_SEPARATOR_TOKEN(10:12)]('::')
-                                                               PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
-                                                               XQueryNodeTestImpl[XQUERY_NODE_TEST(13:17)]
-                                                                  XQueryNameTestImpl[XQUERY_NAME_TEST(13:17)]
-                                                                     XQueryNCNameImpl[XQUERY_NCNAME(13:17)]
-                                                                        LeafPsiElement[XQUERY_NCNAME_TOKEN(13:17)]('para')
-                                                            XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(17:17)]
+                                                   XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:17)]
+                                                      XQueryPathExprImpl[XQUERY_PATH_EXPR(0:17)]
+                                                         XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:17)]
+                                                            XQueryAxisStepImpl[XQUERY_AXIS_STEP(0:17)]
+                                                               XQueryForwardStepImpl[XQUERY_FORWARD_STEP(0:17)]
+                                                                  XQueryForwardAxisImpl[XQUERY_FORWARD_AXIS(0:12)]
+                                                                     LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NAMESPACE(0:9)]('namespace')
+                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
+                                                                     LeafPsiElement[XQUERY_AXIS_SEPARATOR_TOKEN(10:12)]('::')
+                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
+                                                                  XQueryNodeTestImpl[XQUERY_NODE_TEST(13:17)]
+                                                                     XQueryNameTestImpl[XQUERY_NAME_TEST(13:17)]
+                                                                        XQueryNCNameImpl[XQUERY_NCNAME(13:17)]
+                                                                           LeafPsiElement[XQUERY_NCNAME_TOKEN(13:17)]('para')
+                                                               XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(17:17)]

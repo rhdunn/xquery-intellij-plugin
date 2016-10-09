@@ -15,16 +15,17 @@ FileElement[FILE(0:8)]
                                           XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:8)]
                                              XQueryCastExprImpl[XQUERY_CAST_EXPR(0:8)]
                                                 XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:8)]
-                                                   XQueryPathExprImpl[XQUERY_PATH_EXPR(0:8)]
-                                                      XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:8)]
-                                                         XQueryAxisStepImpl[XQUERY_AXIS_STEP(0:8)]
-                                                            XQueryForwardStepImpl[XQUERY_FORWARD_STEP(0:8)]
-                                                               XQueryAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:8)]
-                                                                  XQueryNodeTestImpl[XQUERY_NODE_TEST(0:8)]
-                                                                     XQueryTextTestImpl[XQUERY_TEXT_TEST(0:8)]
-                                                                        LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_TEXT(0:4)]('text')
-                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
-                                                                        LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(5:6)]('(')
-                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
-                                                                        LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(7:8)](')')
-                                                            XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(8:8)]
+                                                   XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:8)]
+                                                      XQueryPathExprImpl[XQUERY_PATH_EXPR(0:8)]
+                                                         XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:8)]
+                                                            XQueryAxisStepImpl[XQUERY_AXIS_STEP(0:8)]
+                                                               XQueryForwardStepImpl[XQUERY_FORWARD_STEP(0:8)]
+                                                                  XQueryAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:8)]
+                                                                     XQueryNodeTestImpl[XQUERY_NODE_TEST(0:8)]
+                                                                        XQueryTextTestImpl[XQUERY_TEXT_TEST(0:8)]
+                                                                           LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_TEXT(0:4)]('text')
+                                                                           PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
+                                                                           LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(5:6)]('(')
+                                                                           PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
+                                                                           LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(7:8)](')')
+                                                               XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(8:8)]

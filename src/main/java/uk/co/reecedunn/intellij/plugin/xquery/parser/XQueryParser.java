@@ -2490,7 +2490,7 @@ class XQueryParser {
     // region Grammar :: Expr :: OrExpr :: ValueExpr
 
     private boolean parseValueExpr() {
-        return parseExtensionExpr() || parseValidateExpr() || parsePathExpr();
+        return parseExtensionExpr() || parseValidateExpr() || parseSimpleMapExpr();
     }
 
     private boolean parseValidateExpr() {
@@ -2595,6 +2595,16 @@ class XQueryParser {
             pragmaMarker.done(XQueryElementType.PRAGMA);
             return true;
         }
+        return false;
+    }
+
+    private boolean parseSimpleMapExpr() {
+        final PsiBuilder.Marker simpleMapExprMarker = mark();
+        if (parsePathExpr()) {
+            simpleMapExprMarker.done(XQueryElementType.SIMPLE_MAP_EXPR);
+            return true;
+        }
+        simpleMapExprMarker.drop();
         return false;
     }
 

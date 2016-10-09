@@ -15,18 +15,19 @@ FileElement[FILE(0:16)]
                                           XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:16)]
                                              XQueryCastExprImpl[XQUERY_CAST_EXPR(0:16)]
                                                 XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:16)]
-                                                   XQueryPathExprImpl[XQUERY_PATH_EXPR(0:16)]
-                                                      XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:16)]
-                                                         XQueryAxisStepImpl[XQUERY_AXIS_STEP(0:16)]
-                                                            XQueryForwardStepImpl[XQUERY_FORWARD_STEP(0:16)]
-                                                               XQueryAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:16)]
-                                                                  XQueryNodeTestImpl[XQUERY_NODE_TEST(0:16)]
-                                                                     MarkLogicNullTestImpl[XQUERY_NULL_TEST(0:16)]
-                                                                        LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NULL_NODE(0:9)]('null-node')
-                                                                        LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(9:10)]('(')
-                                                                        XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(10:15)]
-                                                                           LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(10:11)]('"')
-                                                                           LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(11:14)]('key')
-                                                                           LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(14:15)]('"')
-                                                                        LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(15:16)](')')
-                                                            XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(16:16)]
+                                                   XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:16)]
+                                                      XQueryPathExprImpl[XQUERY_PATH_EXPR(0:16)]
+                                                         XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:16)]
+                                                            XQueryAxisStepImpl[XQUERY_AXIS_STEP(0:16)]
+                                                               XQueryForwardStepImpl[XQUERY_FORWARD_STEP(0:16)]
+                                                                  XQueryAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:16)]
+                                                                     XQueryNodeTestImpl[XQUERY_NODE_TEST(0:16)]
+                                                                        MarkLogicNullTestImpl[XQUERY_NULL_TEST(0:16)]
+                                                                           LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NULL_NODE(0:9)]('null-node')
+                                                                           LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(9:10)]('(')
+                                                                           XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(10:15)]
+                                                                              LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(10:11)]('"')
+                                                                              LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(11:14)]('key')
+                                                                              LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(14:15)]('"')
+                                                                           LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(15:16)](')')
+                                                               XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(16:16)]

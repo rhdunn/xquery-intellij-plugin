@@ -15,14 +15,15 @@ FileElement[FILE(0:7)]
                                           XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:7)]
                                              XQueryCastExprImpl[XQUERY_CAST_EXPR(0:7)]
                                                 XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:7)]
-                                                   XQueryPathExprImpl[XQUERY_PATH_EXPR(0:7)]
-                                                      XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:7)]
-                                                         XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:7)]
-                                                            XQueryConstructorImpl[XQUERY_CONSTRUCTOR(0:7)]
-                                                               XQueryDirElemConstructorImpl[XQUERY_DIR_ELEM_CONSTRUCTOR(0:7)]
-                                                                  LeafPsiElement[XQUERY_OPEN_XML_TAG_TOKEN(0:1)]('<')
-                                                                  XQueryQNameImpl[XQUERY_QNAME(1:5)]
-                                                                     LeafPsiElement[XQUERY_XML_TAG_NCNAME_TOKEN(1:2)]('h')
-                                                                     LeafPsiElement[XQUERY_XML_TAG_QNAME_SEPARATOR_TOKEN(2:3)](':')
-                                                                     LeafPsiElement[XQUERY_XML_TAG_NCNAME_TOKEN(3:5)]('br')
-                                                                  LeafPsiElement[XQUERY_SELF_CLOSING_XML_TAG_TOKEN(5:7)]('/>')
+                                                   XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:7)]
+                                                      XQueryPathExprImpl[XQUERY_PATH_EXPR(0:7)]
+                                                         XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:7)]
+                                                            XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:7)]
+                                                               XQueryConstructorImpl[XQUERY_CONSTRUCTOR(0:7)]
+                                                                  XQueryDirElemConstructorImpl[XQUERY_DIR_ELEM_CONSTRUCTOR(0:7)]
+                                                                     LeafPsiElement[XQUERY_OPEN_XML_TAG_TOKEN(0:1)]('<')
+                                                                     XQueryQNameImpl[XQUERY_QNAME(1:5)]
+                                                                        LeafPsiElement[XQUERY_XML_TAG_NCNAME_TOKEN(1:2)]('h')
+                                                                        LeafPsiElement[XQUERY_XML_TAG_QNAME_SEPARATOR_TOKEN(2:3)](':')
+                                                                        LeafPsiElement[XQUERY_XML_TAG_NCNAME_TOKEN(3:5)]('br')
+                                                                     LeafPsiElement[XQUERY_SELF_CLOSING_XML_TAG_TOKEN(5:7)]('/>')

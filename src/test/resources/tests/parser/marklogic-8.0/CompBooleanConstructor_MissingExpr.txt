@@ -15,14 +15,15 @@ FileElement[FILE(0:16)]
                                           XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:16)]
                                              XQueryCastExprImpl[XQUERY_CAST_EXPR(0:16)]
                                                 XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:16)]
-                                                   XQueryPathExprImpl[XQUERY_PATH_EXPR(0:16)]
-                                                      XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:16)]
-                                                         XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:16)]
-                                                            XQueryConstructorImpl[XQUERY_CONSTRUCTOR(0:16)]
-                                                               MarkLogicCompBooleanConstructorImpl[XQUERY_COMP_BOOLEAN_CONSTRUCTOR(0:16)]
-                                                                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_BOOLEAN_NODE(0:12)]('boolean-node')
-                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
-                                                                  LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(13:14)]('{')
-                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
-                                                                  PsiErrorElementImpl[ERROR_ELEMENT(15:15)]('XPST0003: Missing expression.')
-                                                                  LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(15:16)]('}')
+                                                   XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:16)]
+                                                      XQueryPathExprImpl[XQUERY_PATH_EXPR(0:16)]
+                                                         XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:16)]
+                                                            XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:16)]
+                                                               XQueryConstructorImpl[XQUERY_CONSTRUCTOR(0:16)]
+                                                                  MarkLogicCompBooleanConstructorImpl[XQUERY_COMP_BOOLEAN_CONSTRUCTOR(0:16)]
+                                                                     LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_BOOLEAN_NODE(0:12)]('boolean-node')
+                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
+                                                                     LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(13:14)]('{')
+                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
+                                                                     PsiErrorElementImpl[ERROR_ELEMENT(15:15)]('XPST0003: Missing expression.')
+                                                                     LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(15:16)]('}')
