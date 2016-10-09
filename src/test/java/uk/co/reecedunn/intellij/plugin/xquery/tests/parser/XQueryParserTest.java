@@ -1416,6 +1416,20 @@ public class XQueryParserTest extends ParserTestCase {
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FLWORExpr")
+    public void testFLWORExpr_ClauseOrdering() {
+        final String expected = loadResource("tests/parser/xquery-1.0/FLWORExpr_ClauseOrdering.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/FLWORExpr_ClauseOrdering.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FLWORExpr")
+    public void testFLWORExpr_Nested() {
+        final String expected = loadResource("tests/parser/xquery-1.0/FLWORExpr_Nested.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/FLWORExpr_Nested.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
     // endregion
     // region XQuery 1.0 :: ForClause
 
@@ -1530,6 +1544,14 @@ public class XQueryParserTest extends ParserTestCase {
     public void testForClause_MultipleVarName_MissingVarIndicator() {
         final String expected = loadResource("tests/parser/xquery-1.0/ForClause_MultipleVarName_MissingVarIndicator.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/ForClause_MultipleVarName_MissingVarIndicator.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FLWORExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForClause")
+    public void testForClause_Multiple() {
+        final String expected = loadResource("tests/parser/xquery-1.0/ForClause_Multiple.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/ForClause_Multiple.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
@@ -1668,6 +1690,14 @@ public class XQueryParserTest extends ParserTestCase {
     public void testLetClause_MultipleVarName_MissingVarIndicator() {
         final String expected = loadResource("tests/parser/xquery-1.0/LetClause_MultipleVarName_MissingVarIndicator.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-1.0/LetClause_MultipleVarName_MissingVarIndicator.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FLWORExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForClause")
+    public void testLetClause_Multiple() {
+        final String expected = loadResource("tests/parser/xquery-1.0/LetClause_Multiple.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-1.0/LetClause_Multiple.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
@@ -5533,6 +5563,47 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region XQuery 3.0 :: FLWORExpr
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-FLWORExpr")
+    public void testFLWORExpr_RelaxedOrdering() {
+        final String expected = loadResource("tests/parser/xquery-3.0/FLWORExpr_RelaxedOrdering.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/FLWORExpr_RelaxedOrdering.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-FLWORExpr")
+    public void testFLWORExpr_NestedWithoutReturnClause() {
+        final String expected = loadResource("tests/parser/xquery-3.0/FLWORExpr_NestedWithoutReturnClause.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/FLWORExpr_NestedWithoutReturnClause.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
+    // region XQuery 3.0 :: IntermediateClause
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-IntermediateClause")
+    public void testIntermediateClause_WhereFor() {
+        final String expected = loadResource("tests/parser/xquery-3.0/IntermediateClause_WhereFor.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/IntermediateClause_WhereFor.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-IntermediateClause")
+    public void testIntermediateClause_ForWhereLet() {
+        final String expected = loadResource("tests/parser/xquery-3.0/IntermediateClause_ForWhereLet.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/IntermediateClause_ForWhereLet.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-IntermediateClause")
+    public void testIntermediateClause_ForOrderByLet() {
+        final String expected = loadResource("tests/parser/xquery-3.0/IntermediateClause_ForOrderByLet.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/IntermediateClause_ForOrderByLet.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region XQuery 3.0 :: ForClause
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FLWORExpr")
@@ -5563,6 +5634,26 @@ public class XQueryParserTest extends ParserTestCase {
     public void testLetClause_EQName() {
         final String expected = loadResource("tests/parser/xquery-3.0/LetClause_EQName.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-3.0/LetClause_EQName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
+    // region XQuery 3.0 :: WhereClause
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-WhereClause")
+    public void testWhereClause_Multiple() {
+        final String expected = loadResource("tests/parser/xquery-3.0/WhereClause_Multiple.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/WhereClause_Multiple.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
+    // region XQuery 3.0 :: OrderByClause
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-OrderByClause")
+    public void testOrderByClause_Multiple() {
+        final String expected = loadResource("tests/parser/xquery-3.0/OrderByClause_Multiple.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/OrderByClause_Multiple.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
