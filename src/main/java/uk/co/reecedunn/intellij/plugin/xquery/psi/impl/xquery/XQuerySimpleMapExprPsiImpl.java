@@ -17,11 +17,41 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
+import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySimpleMapExpr;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
+import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 
-public class XQuerySimpleMapExprPsiImpl extends ASTWrapperPsiElement implements XQuerySimpleMapExpr {
+public class XQuerySimpleMapExprPsiImpl extends ASTWrapperPsiElement implements XQuerySimpleMapExpr, XQueryConformanceCheck {
     public XQuerySimpleMapExprPsiImpl(@NotNull ASTNode node) {
         super(node);
+    }
+
+    @Override
+    public boolean conformsTo(ImplementationItem implementation) {
+        if (getConformanceElement() == getFirstChild()) {
+            return true;
+        }
+
+        final XQueryVersion minimalConformance = implementation.getVersion(XQueryConformance.MINIMAL_CONFORMANCE);
+        final XQueryVersion marklogic = implementation.getVersion(XQueryConformance.MARKLOGIC);
+        return (minimalConformance != null && minimalConformance.supportsVersion(XQueryVersion.VERSION_3_0))
+            || (marklogic != null && marklogic.supportsVersion(XQueryVersion.VERSION_6_0));
+    }
+
+    @Override
+    public PsiElement getConformanceElement() {
+        PsiElement element = findChildByType(XQueryTokenType.MAP_OPERATOR);
+        return element == null ? getFirstChild() : element;
+    }
+
+    @Override
+    public String getConformanceErrorMessage() {
+        return XQueryBundle.message("requires.feature.marklogic-xquery.version");
     }
 }

@@ -2601,6 +2601,18 @@ class XQueryParser {
     private boolean parseSimpleMapExpr() {
         final PsiBuilder.Marker simpleMapExprMarker = mark();
         if (parsePathExpr()) {
+            boolean haveErrors = false;
+
+            parseWhiteSpaceAndCommentTokens();
+            while (matchTokenType(XQueryTokenType.MAP_OPERATOR)) {
+                parseWhiteSpaceAndCommentTokens();
+                if (!parsePathExpr() && !haveErrors) {
+                    error(XQueryBundle.message("parser.error.expected", "PathExpr"));
+                    haveErrors = true;
+                }
+                parseWhiteSpaceAndCommentTokens();
+            }
+
             simpleMapExprMarker.done(XQueryElementType.SIMPLE_MAP_EXPR);
             return true;
         }

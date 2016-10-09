@@ -1574,6 +1574,67 @@ public class XQueryPsiTest extends ParserTestCase {
     }
 
     // endregion
+    // region XQuery 3.0 :: SimpleMapExpr
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-SimpleMapExpr")
+    public void testSimpleMapExpr() {
+        final ASTNode node = parseResource("tests/parser/xquery-3.0/SimpleMapExpr.xq");
+
+        XQuerySimpleMapExpr simpleMapExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQuerySimpleMapExpr.class);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)simpleMapExprPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 3.0 or later, or MarkLogic 6.0 or later with XQuery version '1.0-ml'."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.MAP_OPERATOR));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-SimpleMapExpr")
+    public void testSimpleMapExpr_NoMap() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/AbbrevForwardStep.xq");
+
+        XQuerySimpleMapExpr simpleMapExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQuerySimpleMapExpr.class);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)simpleMapExprPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 3.0 or later, or MarkLogic 6.0 or later with XQuery version '1.0-ml'."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryElementType.PATH_EXPR));
+    }
+
+    // endregion
     // region XQuery 3.0 :: ArgumentList
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-ArgumentList")
