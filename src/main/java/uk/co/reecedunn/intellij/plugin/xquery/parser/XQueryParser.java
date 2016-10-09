@@ -1156,15 +1156,9 @@ class XQueryParser {
     private boolean parseFLWORExpr() {
         final PsiBuilder.Marker flworExprMarker = mark();
         if (parseInitialClause()) {
-            while (parseInitialClause()) {
+            while (parseIntermediateClause()) {
                 //
             }
-
-            parseWhiteSpaceAndCommentTokens();
-            parseWhereClause();
-
-            parseWhiteSpaceAndCommentTokens();
-            parseOrderByClause();
 
             parseWhiteSpaceAndCommentTokens();
             if (!parseReturnClause()) {
@@ -1191,6 +1185,16 @@ class XQueryParser {
 
     private boolean parseInitialClause() {
         return parseForClause() || parseLetClause();
+    }
+
+    private boolean parseIntermediateClause() {
+        final PsiBuilder.Marker intermediateClauseMarker = mark();
+        if (parseInitialClause() || parseWhereClause() || parseOrderByClause()) {
+            intermediateClauseMarker.done(XQueryElementType.INTERMEDIATE_CLAUSE);
+            return true;
+        }
+        intermediateClauseMarker.drop();
+        return false;
     }
 
     private boolean parseReturnClause() {
