@@ -1,0 +1,1 @@
+typeswitch($x)case item()|node()return 1 default return 2

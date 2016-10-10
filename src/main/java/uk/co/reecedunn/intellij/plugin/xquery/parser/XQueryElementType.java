@@ -172,6 +172,7 @@ public interface XQueryElementType {
 
     IElementType ATOMIC_OR_UNION_TYPE = new ICompositeElementType("XQUERY_ATOMIC_OR_UNION_TYPE", XQueryAtomicOrUnionTypePsiImpl.class);
     IElementType SIMPLE_TYPE_NAME = new ICompositeElementType("XQUERY_SIMPLE_TYPE_NAME", XQuerySimpleTypeNamePsiImpl.class);
+    IElementType SEQUENCE_TYPE_UNION = new ICompositeElementType("XQUERY_SEQUENCE_TYPE_UNION", XQuerySequenceTypeUnionPsiImpl.class);
 
     IElementType FUNCTION_TEST = new ICompositeElementType("XQUERY_FUNCTION_TEST", XQueryFunctionTestPsiImpl.class);
     IElementType ANY_FUNCTION_TEST = new ICompositeElementType("XQUERY_ANY_FUNCTION_TEST", XQueryAnyFunctionTestPsiImpl.class);

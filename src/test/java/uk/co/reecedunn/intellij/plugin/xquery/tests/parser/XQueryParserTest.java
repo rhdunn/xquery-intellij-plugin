@@ -5688,6 +5688,30 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region XQuery 3.0 :: CaseClause + SequenceTypeUnion
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-SequenceTypeUnion")
+    public void testSequenceTypeUnion() {
+        final String expected = loadResource("tests/parser/xquery-3.0/SequenceTypeUnion.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/SequenceTypeUnion.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-SequenceTypeUnion")
+    public void testSequenceTypeUnion_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-3.0/SequenceTypeUnion_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/SequenceTypeUnion_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-SequenceTypeUnion")
+    public void testSequenceTypeUnion_MissingSequenceType() {
+        final String expected = loadResource("tests/parser/xquery-3.0/SequenceTypeUnion_MissingSequenceType.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/SequenceTypeUnion_MissingSequenceType.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region XQuery 3.0 :: TryClause + TryTargetExpr + TryCatchExpr
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-TryCatchExpr")
