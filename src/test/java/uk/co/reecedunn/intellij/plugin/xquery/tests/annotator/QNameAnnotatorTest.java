@@ -191,12 +191,12 @@ public class QNameAnnotatorTest extends AnnotatorTestCase {
     }
 
     // endregion
-    // region xmlns
+    // region DirAttributeList
 
     public void testDirAttributeList_XmlnsAttribute() {
         final ASTNode node = parseResource("tests/psi/xquery-1.0/DirAttributeList_XmlnsAttribute.xq");
         final List<Annotation> annotations = annotateTree(node, new QNameAnnotator());
-        assertThat(annotations.size(), is(4));
+        assertThat(annotations.size(), is(6));
 
         assertThat(annotations.get(0).getSeverity(), is(HighlightSeverity.INFORMATION));
         assertThat(annotations.get(0).getStartOffset(), is(1));
@@ -210,21 +210,35 @@ public class QNameAnnotatorTest extends AnnotatorTestCase {
         assertThat(annotations.get(1).getEndOffset(), is(2));
         assertThat(annotations.get(1).getMessage(), is(nullValue()));
         assertThat(annotations.get(1).getEnforcedTextAttributes(), is(nullValue()));
-        assertThat(annotations.get(1).getTextAttributes(), is(SyntaxHighlighter.NS_PREFIX));
+        assertThat(annotations.get(1).getTextAttributes(), is(SyntaxHighlighter.XML_TAG));
 
         assertThat(annotations.get(2).getSeverity(), is(HighlightSeverity.INFORMATION));
-        assertThat(annotations.get(2).getStartOffset(), is(11));
-        assertThat(annotations.get(2).getEndOffset(), is(12));
+        assertThat(annotations.get(2).getStartOffset(), is(1));
+        assertThat(annotations.get(2).getEndOffset(), is(2));
         assertThat(annotations.get(2).getMessage(), is(nullValue()));
-        assertThat(annotations.get(2).getEnforcedTextAttributes(), is(TextAttributes.ERASE_MARKER));
-        assertThat(annotations.get(2).getTextAttributes(), is(HighlighterColors.NO_HIGHLIGHTING));
+        assertThat(annotations.get(2).getEnforcedTextAttributes(), is(nullValue()));
+        assertThat(annotations.get(2).getTextAttributes(), is(SyntaxHighlighter.NS_PREFIX));
 
         assertThat(annotations.get(3).getSeverity(), is(HighlightSeverity.INFORMATION));
         assertThat(annotations.get(3).getStartOffset(), is(11));
         assertThat(annotations.get(3).getEndOffset(), is(12));
         assertThat(annotations.get(3).getMessage(), is(nullValue()));
-        assertThat(annotations.get(3).getEnforcedTextAttributes(), is(nullValue()));
-        assertThat(annotations.get(3).getTextAttributes(), is(SyntaxHighlighter.NS_PREFIX));
+        assertThat(annotations.get(3).getEnforcedTextAttributes(), is(TextAttributes.ERASE_MARKER));
+        assertThat(annotations.get(3).getTextAttributes(), is(HighlighterColors.NO_HIGHLIGHTING));
+
+        assertThat(annotations.get(4).getSeverity(), is(HighlightSeverity.INFORMATION));
+        assertThat(annotations.get(4).getStartOffset(), is(11));
+        assertThat(annotations.get(4).getEndOffset(), is(12));
+        assertThat(annotations.get(4).getMessage(), is(nullValue()));
+        assertThat(annotations.get(4).getEnforcedTextAttributes(), is(nullValue()));
+        assertThat(annotations.get(4).getTextAttributes(), is(SyntaxHighlighter.XML_TAG));
+
+        assertThat(annotations.get(5).getSeverity(), is(HighlightSeverity.INFORMATION));
+        assertThat(annotations.get(5).getStartOffset(), is(11));
+        assertThat(annotations.get(5).getEndOffset(), is(12));
+        assertThat(annotations.get(5).getMessage(), is(nullValue()));
+        assertThat(annotations.get(5).getEnforcedTextAttributes(), is(nullValue()));
+        assertThat(annotations.get(5).getTextAttributes(), is(SyntaxHighlighter.NS_PREFIX));
     }
 
     // endregion

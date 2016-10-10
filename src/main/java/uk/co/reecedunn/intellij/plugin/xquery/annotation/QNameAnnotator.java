@@ -22,9 +22,7 @@ import com.intellij.lang.annotation.HighlightSeverity;
 import com.intellij.openapi.editor.markup.TextAttributes;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotation;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryBracedURILiteral;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.SyntaxHighlighter;
 
@@ -41,6 +39,9 @@ public class QNameAnnotator implements Annotator {
                 xmlns = true;
             } else {
                 holder.createInfoAnnotation(prefix, null).setEnforcedTextAttributes(TextAttributes.ERASE_MARKER);
+                if ((element.getParent() instanceof XQueryDirAttributeList) || (element.getParent() instanceof XQueryDirElemConstructor)) {
+                    holder.createInfoAnnotation(prefix, null).setTextAttributes(SyntaxHighlighter.XML_TAG);
+                }
                 holder.createInfoAnnotation(prefix, null).setTextAttributes(SyntaxHighlighter.NS_PREFIX);
             }
         }
@@ -49,6 +50,9 @@ public class QNameAnnotator implements Annotator {
         if (localname != null) {
             if (xmlns) {
                 holder.createInfoAnnotation(localname, null).setEnforcedTextAttributes(TextAttributes.ERASE_MARKER);
+                if (element.getParent() instanceof XQueryDirAttributeList) {
+                    holder.createInfoAnnotation(localname, null).setTextAttributes(SyntaxHighlighter.XML_TAG);
+                }
                 holder.createInfoAnnotation(localname, null).setTextAttributes(SyntaxHighlighter.NS_PREFIX);
             } else if (qname.getParent() instanceof XQueryAnnotation) {
                 holder.createInfoAnnotation(localname, null).setEnforcedTextAttributes(TextAttributes.ERASE_MARKER);
