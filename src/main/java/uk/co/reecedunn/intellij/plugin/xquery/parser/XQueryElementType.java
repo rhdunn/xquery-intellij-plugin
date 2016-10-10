@@ -190,6 +190,8 @@ public interface XQueryElementType {
 
     IElementType FOR_BINDING = new ICompositeElementType("XQUERY_FOR_BINDING", XQueryForBindingPsiImpl.class);
     IElementType LET_BINDING = new ICompositeElementType("XQUERY_LET_BINDING", XQueryLetBindingPsiImpl.class);
+
+    IElementType ALLOWING_EMPTY = new ICompositeElementType("XQUERY_ALLOWING_EMPTY", XQueryAllowingEmptyPsiImpl.class);
     IElementType INTERMEDIATE_CLAUSE = new ICompositeElementType("XQUERY_INTERMEDIATE_CLAUSE", XQueryIntermediateClausePsiImpl.class);
     IElementType RETURN_CLAUSE = new ICompositeElementType("XQUERY_RETURN_CLAUSE", XQueryReturnClausePsiImpl.class);
 

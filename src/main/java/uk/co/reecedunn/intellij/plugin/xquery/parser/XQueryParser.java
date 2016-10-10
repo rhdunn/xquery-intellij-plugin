@@ -1255,14 +1255,21 @@ class XQueryParser {
             boolean haveTypeDeclaration = parseTypeDeclaration();
 
             parseWhiteSpaceAndCommentTokens();
+            boolean haveAllowingEmpty = parseAllowingEmpty();
+
+            parseWhiteSpaceAndCommentTokens();
             boolean havePositionalVar = parsePositionalVar();
 
             parseWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.K_IN) && !haveErrors) {
-                if (haveTypeDeclaration && !havePositionalVar) {
+                if (havePositionalVar) {
+                    error(XQueryBundle.message("parser.error.expected-keyword", "in"));
+                } else if (haveAllowingEmpty) {
                     error(XQueryBundle.message("parser.error.expected-keyword", "at, in"));
+                } else if (haveTypeDeclaration) {
+                    error(XQueryBundle.message("parser.error.expected-keyword", "allowing, at, in"));
                 } else {
-                    error(XQueryBundle.message("parser.error.expected-keyword", havePositionalVar ? "in" : "as, at, in"));
+                    error(XQueryBundle.message("parser.error.expected-keyword", "allowing, as, at, in"));
                 }
                 haveErrors = true;
             }
@@ -1276,6 +1283,20 @@ class XQueryParser {
             return true;
         }
         forBindingMarker.drop();
+        return false;
+    }
+
+    private boolean parseAllowingEmpty() {
+        final PsiBuilder.Marker allowingEmptyMarker = matchTokenTypeWithMarker(XQueryTokenType.K_ALLOWING);
+        if (allowingEmptyMarker != null) {
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_EMPTY)) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "empty"));
+            }
+
+            allowingEmptyMarker.done(XQueryElementType.ALLOWING_EMPTY);
+            return true;
+        }
         return false;
     }
 
