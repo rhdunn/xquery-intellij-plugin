@@ -367,6 +367,30 @@ public class XQueryPsiTest extends ParserTestCase {
                 is(XQueryTokenType.K_IF));
     }
 
+    public void testFunctionDecl_MissingFunctionName() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/FunctionDecl_MissingFunctionName.xq");
+
+        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryAnnotatedDecl.class);
+        XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildrenByClass(annotatedDeclPsi, XQueryFunctionDecl.class).get(0);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck) functionDeclPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: Reserved keyword used as a function name."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_FUNCTION));
+    }
+
     // endregion
     // region XQuery 1.0 :: ValidateExpr
 

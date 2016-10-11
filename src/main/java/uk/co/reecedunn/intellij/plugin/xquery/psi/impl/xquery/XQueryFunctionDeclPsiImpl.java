@@ -37,7 +37,12 @@ public class XQueryFunctionDeclPsiImpl extends ASTWrapperPsiElement implements X
 
     @Override
     public boolean conformsTo(ImplementationItem implementation) {
-        IElementType type = getConformanceElement().getNode().getElementType();
+        PsiElement element = getConformanceElement();
+        if (element == getFirstChild()) {
+            return true;
+        }
+
+        IElementType type = element.getNode().getElementType();
         if (type instanceof IXQueryKeywordOrNCNameType) {
             switch (((IXQueryKeywordOrNCNameType)type).getKeywordType()) {
                 case KEYWORD:
@@ -58,11 +63,12 @@ public class XQueryFunctionDeclPsiImpl extends ASTWrapperPsiElement implements X
         return true;
     }
 
-    @SuppressWarnings("ConstantConditions")
     @Override
     public PsiElement getConformanceElement() {
         PsiElement name = findChildByClass(XQueryEQName.class);
-        if (name.getNode().getElementType() == XQueryElementType.NCNAME) {
+        if (name == null) {
+            return getFirstChild();
+        } else if (name.getNode().getElementType() == XQueryElementType.NCNAME) {
             return name.getFirstChild();
         }
         return name;
