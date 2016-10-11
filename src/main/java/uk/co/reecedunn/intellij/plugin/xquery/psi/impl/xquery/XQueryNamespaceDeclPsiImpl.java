@@ -17,11 +17,29 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
+import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryNCName;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryNamespaceDecl;
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceProvider;
 
-public class XQueryNamespaceDeclPsiImpl extends ASTWrapperPsiElement implements XQueryNamespaceDecl {
+public class XQueryNamespaceDeclPsiImpl extends ASTWrapperPsiElement implements XQueryNamespaceDecl, XQueryNamespaceProvider {
     public XQueryNamespaceDeclPsiImpl(@NotNull ASTNode node) {
         super(node);
+    }
+
+    @Override
+    public PsiElement resolveNamespace(CharSequence prefix) {
+        XQueryNCName name = findChildByType(XQueryElementType.NCNAME);
+        if (name == null) {
+            return null;
+        }
+
+        if (name.getLocalName().getText().equals(prefix)) {
+            PsiElement element = findChildByType(XQueryElementType.URI_LITERAL);
+            return element == null ? this : element;
+        }
+        return null;
     }
 }

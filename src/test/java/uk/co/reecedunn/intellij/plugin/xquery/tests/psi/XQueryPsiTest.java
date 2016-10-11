@@ -23,6 +23,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.PsiNavigation;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceProvider;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.Specification;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase;
 
@@ -266,6 +267,50 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
                 is(XQueryTokenType.K_XQUERY));
+    }
+
+    // endregion
+    // region XQuery 1.0 :: NamespaceDecl
+
+    public void testNamespaceDecl() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/NamespaceDecl.xq");
+
+        XQueryNamespaceDecl namespaceDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryNamespaceDecl.class);
+        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)namespaceDeclPsi;
+
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
+
+        assertThat(provider.resolveNamespace("test"), is(notNullValue()));
+        assertThat(provider.resolveNamespace("test"), is(instanceOf(XQueryUriLiteral.class)));
+        assertThat(((XQueryUriLiteral)provider.resolveNamespace("test")).getStringValue(), is("http://www.example.org/test"));
+    }
+
+    public void testNamespaceDecl_MissingNCName() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/NamespaceDecl_MissingNCName.xq");
+
+        XQueryNamespaceDecl namespaceDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryNamespaceDecl.class);
+        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)namespaceDeclPsi;
+
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
+        assertThat(provider.resolveNamespace("test"), is(nullValue()));
+    }
+
+    public void testNamespaceDecl_MissingUri() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/NamespaceDecl_MissingUri.xq");
+
+        XQueryNamespaceDecl namespaceDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryNamespaceDecl.class);
+        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)namespaceDeclPsi;
+
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
+
+        assertThat(provider.resolveNamespace("test"), is(notNullValue()));
+        assertThat(provider.resolveNamespace("test"), is(instanceOf(XQueryNamespaceDecl.class)));
     }
 
     // endregion
