@@ -17,11 +17,28 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
+import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceProvider;
 
-public class XQueryPrologPsiImpl extends ASTWrapperPsiElement implements XQueryProlog {
+public class XQueryPrologPsiImpl extends ASTWrapperPsiElement implements XQueryProlog, XQueryNamespaceProvider {
     public XQueryPrologPsiImpl(@NotNull ASTNode node) {
         super(node);
+    }
+
+    @Override
+    public PsiElement resolveNamespace(CharSequence prefix) {
+        PsiElement element = getLastChild();
+        while (element != null) {
+            if (element instanceof XQueryNamespaceProvider) {
+                PsiElement resolved = ((XQueryNamespaceProvider)element).resolveNamespace(prefix);
+                if (resolved != null) {
+                    return resolved;
+                }
+            }
+            element = element.getPrevSibling();
+        }
+        return null;
     }
 }

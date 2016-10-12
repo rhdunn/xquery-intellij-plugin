@@ -270,6 +270,36 @@ public class XQueryPsiTest extends ParserTestCase {
     }
 
     // endregion
+    // region XQuery 1.0 :: Prolog
+
+    public void testProlog_NoNamespaceProviders() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/VarDecl.xq");
+
+        XQueryProlog prologPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryProlog.class);
+        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)prologPsi;
+
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
+        assertThat(provider.resolveNamespace("test"), is(nullValue()));
+    }
+
+    public void testProlog_NamespaceDecl() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/NamespaceDecl.xq");
+
+        XQueryProlog prologPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryProlog.class);
+        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)prologPsi;
+
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
+
+        assertThat(provider.resolveNamespace("test"), is(notNullValue()));
+        assertThat(provider.resolveNamespace("test"), is(instanceOf(XQueryUriLiteral.class)));
+        assertThat(((XQueryUriLiteral)provider.resolveNamespace("test")).getStringValue(), is("http://www.example.org/test"));
+    }
+
+    // endregion
     // region XQuery 1.0 :: NamespaceDecl
 
     public void testNamespaceDecl() {
