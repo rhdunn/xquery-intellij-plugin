@@ -361,6 +361,41 @@ public class XQueryPsiTest extends ParserTestCase {
     }
 
     // endregion
+    // region XQuery 1.0 :: ModuleImport
+
+    public void testModuleImport() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/ModuleImport.xq");
+
+        XQueryModuleImport moduleImportPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryModuleImport.class);
+        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)moduleImportPsi;
+
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
+        assertThat(provider.resolveNamespace("test"), is(nullValue()));
+    }
+
+    public void testModuleImport_WithNamespace() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/ModuleImport_WithNamespace.xq");
+
+        XQueryModuleImport moduleImportPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryModuleImport.class);
+        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)moduleImportPsi;
+
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
+
+        XQueryNamespace ns = provider.resolveNamespace("test");
+        assertThat(ns, is(notNullValue()));
+
+        assertThat(ns.getPrefix(), is(instanceOf(LeafPsiElement.class)));
+        assertThat(ns.getPrefix().getText(), is("test"));
+
+        assertThat(ns.getUri(), is(instanceOf(XQueryUriLiteral.class)));
+        assertThat(((XQueryUriLiteral)ns.getUri()).getStringValue(), is("http://www.example.com/test"));
+    }
+
+    // endregion
     // region XQuery 1.0 :: NamespaceDecl
 
     public void testNamespaceDecl() {
