@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.psi;
 
 import com.intellij.lang.ASTNode;
+import com.intellij.psi.impl.source.tree.LeafPsiElement;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Implementations;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
@@ -298,8 +299,8 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryNamespace ns = provider.resolveNamespace("test");
         assertThat(ns, is(notNullValue()));
 
-        assertThat(ns.getPrefix(), is(instanceOf(XQueryNamespaceDecl.class)));
-        assertThat(ns.getPrefix().getText(), is("declare namespace test = \"http://www.example.org/test\" "));
+        assertThat(ns.getPrefix(), is(instanceOf(LeafPsiElement.class)));
+        assertThat(ns.getPrefix().getText(), is("test"));
 
         assertThat(ns.getUri(), is(instanceOf(XQueryUriLiteral.class)));
         assertThat(((XQueryUriLiteral)ns.getUri()).getStringValue(), is("http://www.example.org/test"));
@@ -321,8 +322,8 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryNamespace ns = provider.resolveNamespace("test");
         assertThat(ns, is(notNullValue()));
 
-        assertThat(ns.getPrefix(), is(instanceOf(XQueryNamespaceDecl.class)));
-        assertThat(ns.getPrefix().getText(), is("declare namespace test = \"http://www.example.org/test\" "));
+        assertThat(ns.getPrefix(), is(instanceOf(LeafPsiElement.class)));
+        assertThat(ns.getPrefix().getText(), is("test"));
 
         assertThat(ns.getUri(), is(instanceOf(XQueryUriLiteral.class)));
         assertThat(((XQueryUriLiteral)ns.getUri()).getStringValue(), is("http://www.example.org/test"));
@@ -353,8 +354,8 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryNamespace ns = provider.resolveNamespace("test");
         assertThat(ns, is(notNullValue()));
 
-        assertThat(ns.getPrefix(), is(instanceOf(XQueryNamespaceDecl.class)));
-        assertThat(ns.getPrefix().getText(), is("declare namespace test ="));
+        assertThat(ns.getPrefix(), is(instanceOf(LeafPsiElement.class)));
+        assertThat(ns.getPrefix().getText(), is("test"));
 
         assertThat(ns.getUri(), is(nullValue()));
     }
