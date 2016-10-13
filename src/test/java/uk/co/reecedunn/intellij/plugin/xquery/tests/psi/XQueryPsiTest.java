@@ -23,6 +23,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.PsiNavigation;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceProvider;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.Specification;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase;
@@ -294,9 +295,14 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(provider.resolveNamespace("abc"), is(nullValue()));
         assertThat(provider.resolveNamespace("testing"), is(nullValue()));
 
-        assertThat(provider.resolveNamespace("test"), is(notNullValue()));
-        assertThat(provider.resolveNamespace("test"), is(instanceOf(XQueryUriLiteral.class)));
-        assertThat(((XQueryUriLiteral)provider.resolveNamespace("test")).getStringValue(), is("http://www.example.org/test"));
+        XQueryNamespace ns = provider.resolveNamespace("test");
+        assertThat(ns, is(notNullValue()));
+
+        assertThat(ns.getPrefix(), is(instanceOf(XQueryNamespaceDecl.class)));
+        assertThat(ns.getPrefix().getText(), is("declare namespace test = \"http://www.example.org/test\" "));
+
+        assertThat(ns.getUri(), is(instanceOf(XQueryUriLiteral.class)));
+        assertThat(((XQueryUriLiteral)ns.getUri()).getStringValue(), is("http://www.example.org/test"));
     }
 
     // endregion
@@ -312,9 +318,14 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(provider.resolveNamespace("abc"), is(nullValue()));
         assertThat(provider.resolveNamespace("testing"), is(nullValue()));
 
-        assertThat(provider.resolveNamespace("test"), is(notNullValue()));
-        assertThat(provider.resolveNamespace("test"), is(instanceOf(XQueryUriLiteral.class)));
-        assertThat(((XQueryUriLiteral)provider.resolveNamespace("test")).getStringValue(), is("http://www.example.org/test"));
+        XQueryNamespace ns = provider.resolveNamespace("test");
+        assertThat(ns, is(notNullValue()));
+
+        assertThat(ns.getPrefix(), is(instanceOf(XQueryNamespaceDecl.class)));
+        assertThat(ns.getPrefix().getText(), is("declare namespace test = \"http://www.example.org/test\" "));
+
+        assertThat(ns.getUri(), is(instanceOf(XQueryUriLiteral.class)));
+        assertThat(((XQueryUriLiteral)ns.getUri()).getStringValue(), is("http://www.example.org/test"));
     }
 
     public void testNamespaceDecl_MissingNCName() {
@@ -339,8 +350,13 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(provider.resolveNamespace("abc"), is(nullValue()));
         assertThat(provider.resolveNamespace("testing"), is(nullValue()));
 
-        assertThat(provider.resolveNamespace("test"), is(notNullValue()));
-        assertThat(provider.resolveNamespace("test"), is(instanceOf(XQueryNamespaceDecl.class)));
+        XQueryNamespace ns = provider.resolveNamespace("test");
+        assertThat(ns, is(notNullValue()));
+
+        assertThat(ns.getPrefix(), is(instanceOf(XQueryNamespaceDecl.class)));
+        assertThat(ns.getPrefix().getText(), is("declare namespace test ="));
+
+        assertThat(ns.getUri(), is(nullValue()));
     }
 
     // endregion

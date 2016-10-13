@@ -15,16 +15,30 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.psi;
 
+import com.intellij.psi.PsiElement;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public interface XQueryNamespaceProvider {
+public class XQueryNamespace {
+    private PsiElement mPrefix;
+    private PsiElement mUri;
+
     /**
-     * Gets the URI associated with the namespace prefix.
+     * Creates a namespace object.
      *
-     * @param prefix The namespace prefix to resolve.
-     *
-     * @return The namespace associated with the namespace prefix, or null if the prefix is not supported.
+     * @param prefix The <code>NCName</code> or <code>QName</code> PSI node that specifies the namespace prefix.
+     * @param uri The <code>URILiteral</code> or <code>URIExpr</code> PSI node that specifies the namespace URI.
      */
-    @Nullable
-    XQueryNamespace resolveNamespace(CharSequence prefix);
+    public XQueryNamespace(@NotNull PsiElement prefix, @Nullable PsiElement uri) {
+        mPrefix = prefix;
+        mUri = uri;
+    }
+
+    public PsiElement getPrefix() {
+        return mPrefix;
+    }
+
+    public PsiElement getUri() {
+        return mUri;
+    }
 }

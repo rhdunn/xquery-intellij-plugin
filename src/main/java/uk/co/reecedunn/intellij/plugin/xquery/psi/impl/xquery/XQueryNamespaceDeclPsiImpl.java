@@ -22,6 +22,7 @@ import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryNCName;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryNamespaceDecl;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceProvider;
 
 public class XQueryNamespaceDeclPsiImpl extends ASTWrapperPsiElement implements XQueryNamespaceDecl, XQueryNamespaceProvider {
@@ -30,7 +31,7 @@ public class XQueryNamespaceDeclPsiImpl extends ASTWrapperPsiElement implements 
     }
 
     @Override
-    public PsiElement resolveNamespace(CharSequence prefix) {
+    public XQueryNamespace resolveNamespace(CharSequence prefix) {
         XQueryNCName name = findChildByType(XQueryElementType.NCNAME);
         if (name == null) {
             return null;
@@ -38,7 +39,7 @@ public class XQueryNamespaceDeclPsiImpl extends ASTWrapperPsiElement implements 
 
         if (name.getLocalName().getText().equals(prefix)) {
             PsiElement element = findChildByType(XQueryElementType.URI_LITERAL);
-            return element == null ? this : element;
+            return new XQueryNamespace(this, element);
         }
         return null;
     }

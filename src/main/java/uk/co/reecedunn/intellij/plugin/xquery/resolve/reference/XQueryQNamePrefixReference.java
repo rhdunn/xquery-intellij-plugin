@@ -4,6 +4,7 @@ import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceProvider;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryQNamePsiImpl;
 
@@ -31,9 +32,9 @@ public class XQueryQNamePrefixReference extends PsiReferenceBase<XQueryQNamePsiI
     private PsiElement resolvePrefix(PsiElement element) {
         while (element != null) {
             if (element instanceof XQueryNamespaceProvider) {
-                PsiElement resolved = ((XQueryNamespaceProvider) element).resolveNamespace(mPrefix);
+                XQueryNamespace resolved = ((XQueryNamespaceProvider) element).resolveNamespace(mPrefix);
                 if (resolved != null) {
-                    return element;
+                    return resolved.getPrefix();
                 }
             }
 
