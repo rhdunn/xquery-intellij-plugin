@@ -361,6 +361,65 @@ public class XQueryPsiTest extends ParserTestCase {
     }
 
     // endregion
+    // region XQuery 1.0 :: SchemaImport
+
+    public void testSchemaImport() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/SchemaImport.xq");
+
+        XQuerySchemaImport schemaImportPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQuerySchemaImport.class);
+        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)schemaImportPsi;
+
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
+        assertThat(provider.resolveNamespace("test"), is(nullValue()));
+    }
+
+    public void testSchemaImport_WithSchemaPrefix() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/SchemaPrefix.xq");
+
+        XQuerySchemaImport schemaImportPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQuerySchemaImport.class);
+        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)schemaImportPsi;
+
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
+
+        XQueryNamespace ns = provider.resolveNamespace("test");
+        assertThat(ns, is(notNullValue()));
+
+        assertThat(ns.getPrefix(), is(instanceOf(LeafPsiElement.class)));
+        assertThat(ns.getPrefix().getText(), is("test"));
+
+        assertThat(ns.getUri(), is(instanceOf(XQueryUriLiteral.class)));
+        assertThat(((XQueryUriLiteral)ns.getUri()).getStringValue(), is("http://www.example.com/test"));
+    }
+
+    public void testSchemaImport_WithSchemaPrefix_MissingNCName() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/SchemaPrefix_MissingNCName.xq");
+
+        XQuerySchemaImport schemaImportPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQuerySchemaImport.class);
+        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)schemaImportPsi;
+
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
+        assertThat(provider.resolveNamespace("test"), is(nullValue()));
+    }
+
+    public void testSchemaImport_WithSchemaPrefix_Default() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/SchemaPrefix_Default.xq");
+
+        XQuerySchemaImport schemaImportPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQuerySchemaImport.class);
+        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)schemaImportPsi;
+
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
+        assertThat(provider.resolveNamespace("test"), is(nullValue()));
+    }
+
+    // endregion
     // region XQuery 1.0 :: ModuleImport
 
     public void testModuleImport() {
