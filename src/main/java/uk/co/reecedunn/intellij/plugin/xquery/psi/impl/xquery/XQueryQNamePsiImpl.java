@@ -17,12 +17,15 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
+import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiReference;
 import com.intellij.psi.tree.TokenSet;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryQName;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.INCNameType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
+import uk.co.reecedunn.intellij.plugin.xquery.resolve.reference.XQueryQNamePrefixReference;
 
 public class XQueryQNamePsiImpl extends ASTWrapperPsiElement implements XQueryQName {
     private static TokenSet QNAME_SEPARATORS = TokenSet.create(
@@ -32,6 +35,12 @@ public class XQueryQNamePsiImpl extends ASTWrapperPsiElement implements XQueryQN
 
     public XQueryQNamePsiImpl(@NotNull ASTNode node) {
         super(node);
+    }
+
+    @Override
+    public PsiReference getReference() {
+        TextRange range = getFirstChild().getTextRange();
+        return new XQueryQNamePrefixReference(this, new TextRange(0, range.getLength()), getFirstChild().getText());
     }
 
     @Override
