@@ -4,14 +4,14 @@ import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceProvider;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryQNamePsiImpl;
 
-public class XQueryQNamePrefixReference extends PsiReferenceBase<XQueryQNamePsiImpl> {
+public class XQueryEQNamePrefixReference extends PsiReferenceBase<XQueryEQName> {
     private CharSequence mPrefix;
 
-    public XQueryQNamePrefixReference(XQueryQNamePsiImpl element, TextRange range, CharSequence prefix) {
+    public XQueryEQNamePrefixReference(XQueryEQName element, TextRange range, CharSequence prefix) {
         super(element, range);
         mPrefix = prefix;
     }

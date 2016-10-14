@@ -20,7 +20,6 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiReference;
 import com.intellij.psi.impl.source.tree.LeafPsiElement;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*;
-import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.PsiNavigation;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.Specification;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase;
@@ -56,9 +55,8 @@ public class XQueryReferenceTest extends ParserTestCase {
     // endregion
     // region XQuery 1.0 :: QName
 
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ModuleDecl")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
-    public void testQName_ModuleDecl() {
+    public void testQName() {
         final ASTNode node = parseResource("tests/resolve/xquery-1.0/ModuleDecl.xq");
 
         XQueryLibraryModule modulePsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryLibraryModule.class);
@@ -78,6 +76,69 @@ public class XQueryReferenceTest extends ParserTestCase {
         assertThat(resolved, is(instanceOf(LeafPsiElement.class)));
         assertThat(resolved.getText(), is("test"));
         assertThat(resolved.getParent().getParent(), is(instanceOf(XQueryModuleDecl.class)));
+    }
+
+    // endregion
+    // region XQuery 3.0 :: EQName
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-EQName")
+    public void testEQName_NCName() {
+        final ASTNode node = parseResource("tests/resolve/xquery-1.0/FunctionDecl_WithNCNameReturnType.xq");
+
+        XQueryLibraryModule modulePsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryLibraryModule.class);
+        XQueryProlog prologPsi = PsiNavigation.findChildrenByClass(modulePsi, XQueryProlog.class).get(0);
+        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findChildrenByClass(prologPsi, XQueryAnnotatedDecl.class).get(0);
+        XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildrenByClass(annotatedDeclPsi, XQueryFunctionDecl.class).get(0);
+        XQuerySequenceType sequenceTypePsi = PsiNavigation.findChildrenByClass(functionDeclPsi, XQuerySequenceType.class).get(0);
+        assertThat(sequenceTypePsi, is(notNullValue()));
+
+        XQueryEQName eqname = PsiNavigation.findFirstChildByClass(sequenceTypePsi, XQueryEQName.class);
+        assertThat(eqname, is(notNullValue()));
+
+        PsiReference ref = eqname.getReference();
+        assertThat(ref, is(nullValue()));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-EQName")
+    public void testEQName_QName() {
+        final ASTNode node = parseResource("tests/resolve/xquery-1.0/FunctionDecl_WithQNameReturnType.xq");
+
+        XQueryLibraryModule modulePsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryLibraryModule.class);
+        XQueryProlog prologPsi = PsiNavigation.findChildrenByClass(modulePsi, XQueryProlog.class).get(0);
+        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findChildrenByClass(prologPsi, XQueryAnnotatedDecl.class).get(0);
+        XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildrenByClass(annotatedDeclPsi, XQueryFunctionDecl.class).get(0);
+        XQuerySequenceType sequenceTypePsi = PsiNavigation.findChildrenByClass(functionDeclPsi, XQuerySequenceType.class).get(0);
+        assertThat(sequenceTypePsi, is(notNullValue()));
+
+        XQueryEQName eqname = PsiNavigation.findFirstChildByClass(sequenceTypePsi, XQueryEQName.class);
+        assertThat(eqname, is(notNullValue()));
+
+        PsiReference ref = eqname.getReference();
+        assertThat(ref.getCanonicalText(), is("xs"));
+        assertThat(ref.getVariants().length, is(0));
+
+        PsiElement resolved = ref.resolve();
+        assertThat(resolved, is(instanceOf(LeafPsiElement.class)));
+        assertThat(resolved.getText(), is("xs"));
+        assertThat(resolved.getParent().getParent(), is(instanceOf(XQueryNamespaceDecl.class)));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-EQName")
+    public void testEQName_URIQualifiedName() {
+        final ASTNode node = parseResource("tests/resolve/xquery-1.0/FunctionDecl_WithURIQualifiedNameReturnType.xq");
+
+        XQueryLibraryModule modulePsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryLibraryModule.class);
+        XQueryProlog prologPsi = PsiNavigation.findChildrenByClass(modulePsi, XQueryProlog.class).get(0);
+        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findChildrenByClass(prologPsi, XQueryAnnotatedDecl.class).get(0);
+        XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildrenByClass(annotatedDeclPsi, XQueryFunctionDecl.class).get(0);
+        XQuerySequenceType sequenceTypePsi = PsiNavigation.findChildrenByClass(functionDeclPsi, XQuerySequenceType.class).get(0);
+        assertThat(sequenceTypePsi, is(notNullValue()));
+
+        XQueryEQName eqname = PsiNavigation.findFirstChildByClass(sequenceTypePsi, XQueryEQName.class);
+        assertThat(eqname, is(notNullValue()));
+
+        PsiReference ref = eqname.getReference();
+        assertThat(ref, is(nullValue()));
     }
 
     // endregion

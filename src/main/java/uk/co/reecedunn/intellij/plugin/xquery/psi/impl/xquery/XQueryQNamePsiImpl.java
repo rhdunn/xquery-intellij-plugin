@@ -25,7 +25,7 @@ import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryQName;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.INCNameType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
-import uk.co.reecedunn.intellij.plugin.xquery.resolve.reference.XQueryQNamePrefixReference;
+import uk.co.reecedunn.intellij.plugin.xquery.resolve.reference.XQueryEQNamePrefixReference;
 
 public class XQueryQNamePsiImpl extends ASTWrapperPsiElement implements XQueryQName {
     private static TokenSet QNAME_SEPARATORS = TokenSet.create(
@@ -40,7 +40,7 @@ public class XQueryQNamePsiImpl extends ASTWrapperPsiElement implements XQueryQN
     @Override
     public PsiReference getReference() {
         TextRange range = getFirstChild().getTextRange();
-        return new XQueryQNamePrefixReference(this, new TextRange(0, range.getLength()), getFirstChild().getText());
+        return new XQueryEQNamePrefixReference(this, new TextRange(0, range.getLength()), getFirstChild().getText());
     }
 
     @Override

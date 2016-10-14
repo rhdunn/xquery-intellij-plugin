@@ -17,16 +17,31 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
+import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiReference;
 import org.jetbrains.annotations.NotNull;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryBracedURILiteral;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.INCNameType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
+import uk.co.reecedunn.intellij.plugin.xquery.resolve.reference.XQueryEQNamePrefixReference;
 
 public class XQueryEQNamePsiImpl extends ASTWrapperPsiElement implements XQueryEQName {
     public XQueryEQNamePsiImpl(@NotNull ASTNode node) {
         super(node);
+    }
+
+    @Override
+    public PsiReference getReference() {
+        PsiElement prefix = getPrefix();
+        if (prefix == null || prefix instanceof XQueryBracedURILiteral) {
+            return null;
+        }
+
+        TextRange range = prefix.getTextRange();
+        return new XQueryEQNamePrefixReference(this, new TextRange(0, range.getLength()), getFirstChild().getText());
     }
 
     @Override
