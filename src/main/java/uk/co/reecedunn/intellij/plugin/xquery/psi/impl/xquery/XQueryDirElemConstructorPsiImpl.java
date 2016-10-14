@@ -17,11 +17,23 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
+import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor;
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceProvider;
 
-public class XQueryDirElemConstructorPsiImpl extends ASTWrapperPsiElement implements XQueryDirElemConstructor {
+public class XQueryDirElemConstructorPsiImpl extends ASTWrapperPsiElement implements XQueryDirElemConstructor, XQueryNamespaceProvider {
     public XQueryDirElemConstructorPsiImpl(@NotNull ASTNode node) {
         super(node);
+    }
+
+    @Nullable
+    @Override
+    public XQueryNamespace resolveNamespace(CharSequence prefix) {
+        PsiElement element = findChildByType(XQueryElementType.DIR_ATTRIBUTE_LIST);
+        return element == null ? null : ((XQueryNamespaceProvider)element).resolveNamespace(prefix);
     }
 }
