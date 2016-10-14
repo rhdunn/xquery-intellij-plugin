@@ -831,6 +831,83 @@ public class XQueryPsiTest extends ParserTestCase {
     }
 
     // endregion
+    // region XQuery 1.0 :: DirAttributeList
+
+    public void testDirAttributeList() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/DirAttributeList.xq");
+
+        XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryDirElemConstructor.class);
+        XQueryDirAttributeList dirAttributeListPsi = PsiNavigation.findChildrenByClass(dirElemConstructorPsi, XQueryDirAttributeList.class).get(0);
+        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)dirAttributeListPsi;
+
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
+        assertThat(provider.resolveNamespace("a"), is(nullValue()));
+    }
+
+    public void testDirAttributeList_XmlNamespace() {
+        final ASTNode node = parseResource("tests/psi/xquery-1.0/DirAttributeList_XmlnsAttribute.xq");
+
+        XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryDirElemConstructor.class);
+        XQueryDirAttributeList dirAttributeListPsi = PsiNavigation.findChildrenByClass(dirElemConstructorPsi, XQueryDirAttributeList.class).get(0);
+        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)dirAttributeListPsi;
+
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
+
+        XQueryNamespace ns = provider.resolveNamespace("a");
+        assertThat(ns, is(notNullValue()));
+
+        assertThat(ns.getPrefix(), is(instanceOf(LeafPsiElement.class)));
+        assertThat(ns.getPrefix().getText(), is("a"));
+
+        assertThat(ns.getUri(), is(instanceOf(XQueryDirAttributeValue.class)));
+        assertThat(ns.getUri().getText(), is("\"http://www.example.com/a\""));
+    }
+
+    public void testDirAttributeList_XmlNamespace_MissingValue() {
+        final ASTNode node = parseResource("tests/psi/xquery-1.0/DirAttributeList_XmlnsAttribute_MissingValue.xq");
+
+        XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryDirElemConstructor.class);
+        XQueryDirAttributeList dirAttributeListPsi = PsiNavigation.findChildrenByClass(dirElemConstructorPsi, XQueryDirAttributeList.class).get(0);
+        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)dirAttributeListPsi;
+
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
+
+        XQueryNamespace ns = provider.resolveNamespace("a");
+        assertThat(ns, is(notNullValue()));
+
+        assertThat(ns.getPrefix(), is(instanceOf(LeafPsiElement.class)));
+        assertThat(ns.getPrefix().getText(), is("a"));
+
+        assertThat(ns.getUri(), is(nullValue()));
+    }
+
+    public void testDirAttributeList_XmlNamespace_MissingMiddleValue() {
+        final ASTNode node = parseResource("tests/psi/xquery-1.0/DirAttributeList_XmlnsAttribute_MissingMiddleValue.xq");
+
+        XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryDirElemConstructor.class);
+        XQueryDirAttributeList dirAttributeListPsi = PsiNavigation.findChildrenByClass(dirElemConstructorPsi, XQueryDirAttributeList.class).get(0);
+        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)dirAttributeListPsi;
+
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
+
+        XQueryNamespace ns = provider.resolveNamespace("a");
+        assertThat(ns, is(notNullValue()));
+
+        assertThat(ns.getPrefix(), is(instanceOf(LeafPsiElement.class)));
+        assertThat(ns.getPrefix().getText(), is("a"));
+
+        assertThat(ns.getUri(), is(nullValue()));
+    }
+
+    // endregion
     // region XQuery 1.0 :: AnyKindTest
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AnyKindTest")
