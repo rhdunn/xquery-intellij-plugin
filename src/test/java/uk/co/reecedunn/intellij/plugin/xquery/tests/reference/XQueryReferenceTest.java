@@ -18,7 +18,9 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.reference;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiReference;
+import com.intellij.psi.impl.source.tree.LeafPsiElement;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*;
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.PsiNavigation;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.Specification;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase;
@@ -49,6 +51,33 @@ public class XQueryReferenceTest extends ParserTestCase {
 
         PsiElement resolved = httpUriRef.resolve();
         assertThat(resolved, is(nullValue()));
+    }
+
+    // endregion
+    // region XQuery 1.0 :: QName
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ModuleDecl")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
+    public void testQName_ModuleDecl() {
+        final ASTNode node = parseResource("tests/resolve/xquery-1.0/ModuleDecl.xq");
+
+        XQueryLibraryModule modulePsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryLibraryModule.class);
+        XQueryProlog prologPsi = PsiNavigation.findChildrenByClass(modulePsi, XQueryProlog.class).get(0);
+        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findFirstChildByClass(prologPsi, XQueryAnnotatedDecl.class);
+        XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildrenByClass(annotatedDeclPsi, XQueryFunctionDecl.class).get(0);
+        assertThat(functionDeclPsi, is(notNullValue()));
+
+        XQueryQName qname = PsiNavigation.findChildrenByClass(functionDeclPsi, XQueryQName.class).get(0);
+        assertThat(qname, is(notNullValue()));
+
+        PsiReference ref = qname.getReference();
+        assertThat(ref.getCanonicalText(), is("test"));
+        assertThat(ref.getVariants().length, is(0));
+
+        PsiElement resolved = ref.resolve();
+        assertThat(resolved, is(instanceOf(LeafPsiElement.class)));
+        assertThat(resolved.getText(), is("test"));
+        assertThat(resolved.getParent().getParent(), is(instanceOf(XQueryModuleDecl.class)));
     }
 
     // endregion
