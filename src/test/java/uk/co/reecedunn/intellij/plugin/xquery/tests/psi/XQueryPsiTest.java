@@ -2237,6 +2237,19 @@ public class XQueryPsiTest extends ParserTestCase {
 
     // endregion
     // region XQueryModuleProvider
+    // region Module
+
+    public void testModule_ModuleProvider() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/ModuleDecl.xq");
+
+        XQueryModule modulePsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryModule.class);
+        XQueryProlog prologPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryProlog.class);
+
+        XQueryModuleProvider provider = (XQueryModuleProvider)modulePsi;
+        assertThat(provider.getReferencedProlog(), is(prologPsi));
+    }
+
+    // endregion
     // region ModuleDecl
 
     public void testModuleDecl_ModuleProvider() {
@@ -2432,6 +2445,30 @@ public class XQueryPsiTest extends ParserTestCase {
 
         assertThat(ns.getDeclaration(), is(instanceOf(XQueryDirAttributeList.class)));
         assertThat(ns.getDeclaration(), is(dirAttributeListPsi));
+    }
+
+    // endregion
+    // region Module
+
+    public void testModule() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/ModuleDecl.xq");
+
+        XQueryModule modulePsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryModule.class);
+        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)modulePsi;
+
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
+        assertThat(provider.resolveNamespace("test"), is(nullValue()));
+
+        XQueryNamespace ns = provider.resolveNamespace("local");
+        assertThat(ns, is(notNullValue()));
+
+        assertThat(ns.getPrefix(), is(nullValue()));
+        assertThat(ns.getUri(), is(nullValue()));
+
+        assertThat(ns.getDeclaration(), is(instanceOf(XQueryModule.class)));
+        assertThat(ns.getDeclaration(), is(modulePsi));
     }
 
     // endregion

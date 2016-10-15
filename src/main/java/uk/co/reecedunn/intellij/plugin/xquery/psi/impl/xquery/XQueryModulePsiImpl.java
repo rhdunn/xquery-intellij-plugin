@@ -18,10 +18,31 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.PsiNavigation;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryModuleProvider;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceProvider;
 
-public class XQueryModulePsiImpl extends ASTWrapperPsiElement implements XQueryModule {
+public class XQueryModulePsiImpl extends ASTWrapperPsiElement implements XQueryModule, XQueryNamespaceProvider, XQueryModuleProvider {
     public XQueryModulePsiImpl(@NotNull ASTNode node) {
         super(node);
+    }
+
+    @Nullable
+    @Override
+    public XQueryNamespace resolveNamespace(CharSequence prefix) {
+        if (prefix != null && prefix.equals("local")) {
+            return new XQueryNamespace(null, null, this);
+        }
+        return null;
+    }
+
+    @Nullable
+    @Override
+    public XQueryProlog getReferencedProlog() {
+        return PsiNavigation.findChildByClass(this, XQueryProlog.class);
     }
 }

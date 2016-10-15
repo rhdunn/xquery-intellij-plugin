@@ -31,7 +31,7 @@ public class XQueryNamespace {
      * @param uri The <code>URILiteral</code> or <code>URIExpr</code> PSI node that specifies the namespace URI.
      * @param declaration The element on which this namespace is declared.
      */
-    public XQueryNamespace(@NotNull PsiElement prefix, @Nullable PsiElement uri, @NotNull PsiElement declaration) {
+    public XQueryNamespace(@Nullable PsiElement prefix, @Nullable PsiElement uri, @NotNull PsiElement declaration) {
         mPrefix = prefix;
         mUri = uri;
         mDeclaration = declaration;
