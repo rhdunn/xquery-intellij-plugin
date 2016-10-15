@@ -60,11 +60,9 @@ public class XQueryEQNamePsiImpl extends ASTWrapperPsiElement implements XQueryE
         IElementType parent = getParent().getNode().getElementType();
         if (parent == XQueryElementType.FUNCTION_CALL) {
             int eqnameStart = getTextOffset();
-            TextRange prefixRange = prefix.getTextRange();
-            TextRange localNameRange = getLocalName().getTextRange();
             return new PsiReference[] {
-                new XQueryEQNamePrefixReference(this, new TextRange(0, prefixRange.getLength())),
-                new XQueryFunctionNameReference(this, new TextRange(localNameRange.getStartOffset() - eqnameStart, localNameRange.getEndOffset() - eqnameStart))
+                new XQueryEQNamePrefixReference(this, prefix.getTextRange().shiftRight(-eqnameStart)),
+                new XQueryFunctionNameReference(this, getLocalName().getTextRange().shiftRight(-eqnameStart))
             };
         }
 
