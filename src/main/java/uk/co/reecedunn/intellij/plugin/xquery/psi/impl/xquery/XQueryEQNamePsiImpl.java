@@ -20,6 +20,7 @@ import com.intellij.lang.ASTNode;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiReference;
+import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.tree.TokenSet;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryBracedURILiteral;
@@ -30,6 +31,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceProvider;
 import uk.co.reecedunn.intellij.plugin.xquery.resolve.reference.XQueryEQNamePrefixReference;
+import uk.co.reecedunn.intellij.plugin.xquery.resolve.reference.XQueryFunctionNameReference;
 
 public class XQueryEQNamePsiImpl extends ASTWrapperPsiElement implements XQueryEQName {
     private static TokenSet QNAME_SEPARATORS = TokenSet.create(
@@ -53,6 +55,17 @@ public class XQueryEQNamePsiImpl extends ASTWrapperPsiElement implements XQueryE
         PsiElement prefix = getPrefix();
         if (prefix == null || prefix instanceof XQueryBracedURILiteral) {
             return PsiReference.EMPTY_ARRAY;
+        }
+
+        IElementType parent = getParent().getNode().getElementType();
+        if (parent == XQueryElementType.FUNCTION_CALL) {
+            int eqnameStart = getTextOffset();
+            TextRange prefixRange = prefix.getTextRange();
+            TextRange localNameRange = getLocalName().getTextRange();
+            return new PsiReference[] {
+                new XQueryEQNamePrefixReference(this, new TextRange(0, prefixRange.getLength())),
+                new XQueryFunctionNameReference(this, new TextRange(localNameRange.getStartOffset() - eqnameStart, localNameRange.getEndOffset() - eqnameStart))
+            };
         }
 
         TextRange range = prefix.getTextRange();
