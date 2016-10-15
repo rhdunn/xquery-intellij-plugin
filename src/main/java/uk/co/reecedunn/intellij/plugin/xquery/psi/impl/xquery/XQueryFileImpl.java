@@ -29,8 +29,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.PsiNavigation;
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings;
 
-import java.util.List;
-
 public class XQueryFileImpl extends PsiFileBase implements XQueryFile {
     public XQueryFileImpl(@NotNull FileViewProvider provider) {
         super(provider, XQuery.INSTANCE);
@@ -45,7 +43,7 @@ public class XQueryFileImpl extends PsiFileBase implements XQueryFile {
     public XQueryVersion getXQueryVersion() {
         XQueryModule module = PsiNavigation.findChildByClass(this, XQueryModule.class);
         if (module != null) {
-            XQueryVersionDecl versionDecl = PsiNavigation.findFirstChildByClass(module, XQueryVersionDecl.class);
+            XQueryVersionDecl versionDecl = PsiNavigation.findDirectDescendantByClass(module, XQueryVersionDecl.class);
             if (versionDecl != null) {
                 XQueryStringLiteral version = versionDecl.getVersion();
                 if (version != null) {

@@ -37,7 +37,7 @@ public class PsiNavigation {
     }
 
     @SuppressWarnings("unchecked")
-    public static <T> T findFirstChildByClass(PsiElement element, Class<T> child) {
+    public static <T> T findDirectDescendantByClass(PsiElement element, Class<T> child) {
         while (element != null && !child.isInstance(element)) {
             element = element.getFirstChild();
         }

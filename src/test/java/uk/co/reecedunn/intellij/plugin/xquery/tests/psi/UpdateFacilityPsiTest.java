@@ -35,7 +35,7 @@ public class UpdateFacilityPsiTest extends ParserTestCase {
     public void testCompatibilityAnnotation_FunctionDecl() {
         final ASTNode node = parseResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating.xq");
 
-        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryAnnotatedDecl.class);
+        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryAnnotatedDecl.class);
         UpdateFacilityCompatibilityAnnotation compatibilityAnnotationPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, UpdateFacilityCompatibilityAnnotation.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)compatibilityAnnotationPsi;
 
@@ -57,7 +57,7 @@ public class UpdateFacilityPsiTest extends ParserTestCase {
     public void testCompatibilityAnnotation_VarDecl() {
         final ASTNode node = parseResource("tests/parser/xquery-update-3.0/CompatibilityAnnotation_VarDecl.xq");
 
-        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryAnnotatedDecl.class);
+        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryAnnotatedDecl.class);
         UpdateFacilityCompatibilityAnnotation compatibilityAnnotationPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, UpdateFacilityCompatibilityAnnotation.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)compatibilityAnnotationPsi;
 
@@ -82,7 +82,7 @@ public class UpdateFacilityPsiTest extends ParserTestCase {
     public void testDeleteExpr() {
         final ASTNode node = parseResource("tests/parser/xquery-update-1.0/DeleteExpr_Node.xq");
 
-        UpdateFacilityDeleteExpr deleteExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), UpdateFacilityDeleteExpr.class);
+        UpdateFacilityDeleteExpr deleteExprPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), UpdateFacilityDeleteExpr.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)deleteExprPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -106,7 +106,7 @@ public class UpdateFacilityPsiTest extends ParserTestCase {
     public void testFunctionDecl_Updating() {
         final ASTNode node = parseResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating.xq");
 
-        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryAnnotatedDecl.class);
+        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryAnnotatedDecl.class);
         UpdateFacilityCompatibilityAnnotation compatibilityAnnotationPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, UpdateFacilityCompatibilityAnnotation.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)compatibilityAnnotationPsi;
 
@@ -131,7 +131,7 @@ public class UpdateFacilityPsiTest extends ParserTestCase {
     public void testInsertExpr() {
         final ASTNode node = parseResource("tests/parser/xquery-update-1.0/InsertExpr_Node.xq");
 
-        UpdateFacilityInsertExpr insertExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), UpdateFacilityInsertExpr.class);
+        UpdateFacilityInsertExpr insertExprPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), UpdateFacilityInsertExpr.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)insertExprPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -155,7 +155,7 @@ public class UpdateFacilityPsiTest extends ParserTestCase {
     public void testRenameExpr() {
         final ASTNode node = parseResource("tests/parser/xquery-update-1.0/RenameExpr.xq");
 
-        UpdateFacilityRenameExpr renameExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), UpdateFacilityRenameExpr.class);
+        UpdateFacilityRenameExpr renameExprPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), UpdateFacilityRenameExpr.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)renameExprPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -179,7 +179,7 @@ public class UpdateFacilityPsiTest extends ParserTestCase {
     public void testReplaceExpr() {
         final ASTNode node = parseResource("tests/parser/xquery-update-1.0/ReplaceExpr.xq");
 
-        UpdateFacilityReplaceExpr replaceExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), UpdateFacilityReplaceExpr.class);
+        UpdateFacilityReplaceExpr replaceExprPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), UpdateFacilityReplaceExpr.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)replaceExprPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -203,7 +203,7 @@ public class UpdateFacilityPsiTest extends ParserTestCase {
     public void testRevalidationDecl() {
         final ASTNode node = parseResource("tests/parser/xquery-update-1.0/RevalidationDecl.xq");
 
-        UpdateFacilityRevalidationDecl revalidationDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), UpdateFacilityRevalidationDecl.class);
+        UpdateFacilityRevalidationDecl revalidationDeclPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), UpdateFacilityRevalidationDecl.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)revalidationDeclPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -227,7 +227,7 @@ public class UpdateFacilityPsiTest extends ParserTestCase {
     public void testTransformExpr() {
         final ASTNode node = parseResource("tests/parser/xquery-update-1.0/TransformExpr.xq");
 
-        UpdateFacilityTransformExpr transformExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), UpdateFacilityTransformExpr.class);
+        UpdateFacilityTransformExpr transformExprPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), UpdateFacilityTransformExpr.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)transformExprPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
