@@ -76,6 +76,17 @@ public class XQueryReferenceTest extends ParserTestCase {
         assertThat(resolved, is(instanceOf(LeafPsiElement.class)));
         assertThat(resolved.getText(), is("test"));
         assertThat(resolved.getParent().getParent(), is(instanceOf(XQueryModuleDecl.class)));
+
+        PsiReference[] refs = qname.getReferences();
+        assertThat(refs.length, is(1));
+
+        assertThat(refs[0].getCanonicalText(), is("test"));
+        assertThat(refs[0].getVariants().length, is(0));
+
+        resolved = refs[0].resolve();
+        assertThat(resolved, is(instanceOf(LeafPsiElement.class)));
+        assertThat(resolved.getText(), is("test"));
+        assertThat(resolved.getParent().getParent(), is(instanceOf(XQueryModuleDecl.class)));
     }
 
     // endregion
@@ -97,6 +108,9 @@ public class XQueryReferenceTest extends ParserTestCase {
 
         PsiReference ref = eqname.getReference();
         assertThat(ref, is(nullValue()));
+
+        PsiReference[] refs = eqname.getReferences();
+        assertThat(refs.length, is(0));
     }
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-EQName")
@@ -121,6 +135,17 @@ public class XQueryReferenceTest extends ParserTestCase {
         assertThat(resolved, is(instanceOf(LeafPsiElement.class)));
         assertThat(resolved.getText(), is("xs"));
         assertThat(resolved.getParent().getParent(), is(instanceOf(XQueryNamespaceDecl.class)));
+
+        PsiReference[] refs = eqname.getReferences();
+        assertThat(refs.length, is(1));
+
+        assertThat(refs[0].getCanonicalText(), is("xs"));
+        assertThat(refs[0].getVariants().length, is(0));
+
+        resolved = refs[0].resolve();
+        assertThat(resolved, is(instanceOf(LeafPsiElement.class)));
+        assertThat(resolved.getText(), is("xs"));
+        assertThat(resolved.getParent().getParent(), is(instanceOf(XQueryNamespaceDecl.class)));
     }
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-EQName")
@@ -139,6 +164,9 @@ public class XQueryReferenceTest extends ParserTestCase {
 
         PsiReference ref = eqname.getReference();
         assertThat(ref, is(nullValue()));
+
+        PsiReference[] refs = eqname.getReferences();
+        assertThat(refs.length, is(0));
     }
 
     // endregion

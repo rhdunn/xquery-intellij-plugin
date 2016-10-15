@@ -43,13 +43,22 @@ public class XQueryEQNamePsiImpl extends ASTWrapperPsiElement implements XQueryE
 
     @Override
     public PsiReference getReference() {
+        PsiReference[] references = getReferences();
+        return references.length == 0 ? null : references[0];
+    }
+
+    @Override
+    @SuppressWarnings("NullableProblems") // jacoco Code Coverage reports an unchecked branch when @NotNull is used.
+    public PsiReference[] getReferences() {
         PsiElement prefix = getPrefix();
         if (prefix == null || prefix instanceof XQueryBracedURILiteral) {
-            return null;
+            return PsiReference.EMPTY_ARRAY;
         }
 
         TextRange range = prefix.getTextRange();
-        return new XQueryEQNamePrefixReference(this, new TextRange(0, range.getLength()));
+        return new PsiReference[] {
+            new XQueryEQNamePrefixReference(this, new TextRange(0, range.getLength()))
+        };
     }
 
     @Override
