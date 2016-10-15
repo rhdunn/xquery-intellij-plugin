@@ -42,7 +42,7 @@ public class XQuerySchemaImportPsiImpl extends ASTWrapperPsiElement implements X
         while (name != null) {
             if (name instanceof XQueryNCName && ((XQueryNCName)name).getLocalName().getText().equals(prefix)) {
                 PsiElement element = findChildByType(XQueryElementType.URI_LITERAL);
-                return new XQueryNamespace(((XQueryNCName)name).getLocalName(), element);
+                return new XQueryNamespace(((XQueryNCName)name).getLocalName(), element, this);
             }
             name = name.getNextSibling();
         }

@@ -22,16 +22,19 @@ import org.jetbrains.annotations.Nullable;
 public class XQueryNamespace {
     private PsiElement mPrefix;
     private PsiElement mUri;
+    private PsiElement mDeclaration;
 
     /**
      * Creates a namespace object.
      *
      * @param prefix The <code>NCName</code> or <code>QName</code> PSI node that specifies the namespace prefix.
      * @param uri The <code>URILiteral</code> or <code>URIExpr</code> PSI node that specifies the namespace URI.
+     * @param declaration The element on which this namespace is declared.
      */
-    public XQueryNamespace(@NotNull PsiElement prefix, @Nullable PsiElement uri) {
+    public XQueryNamespace(@NotNull PsiElement prefix, @Nullable PsiElement uri, @NotNull PsiElement declaration) {
         mPrefix = prefix;
         mUri = uri;
+        mDeclaration = declaration;
     }
 
     public PsiElement getPrefix() {
@@ -40,5 +43,9 @@ public class XQueryNamespace {
 
     public PsiElement getUri() {
         return mUri;
+    }
+
+    public PsiElement getDeclaration() {
+        return mDeclaration;
     }
 }

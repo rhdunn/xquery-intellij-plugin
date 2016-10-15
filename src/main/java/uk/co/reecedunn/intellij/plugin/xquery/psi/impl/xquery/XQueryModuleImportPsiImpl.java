@@ -39,7 +39,7 @@ public class XQueryModuleImportPsiImpl extends ASTWrapperPsiElement implements X
 
         if (name.getLocalName().getText().equals(prefix)) {
             PsiElement element = findChildByType(XQueryElementType.URI_LITERAL);
-            return new XQueryNamespace(name.getLocalName(), element);
+            return new XQueryNamespace(name.getLocalName(), element, this);
         }
         return null;
     }

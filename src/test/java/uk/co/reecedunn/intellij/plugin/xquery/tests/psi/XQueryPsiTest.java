@@ -2274,6 +2274,9 @@ public class XQueryPsiTest extends ParserTestCase {
 
         assertThat(ns.getUri(), is(instanceOf(XQueryDirAttributeValue.class)));
         assertThat(ns.getUri().getText(), is("\"http://www.example.com/a\""));
+
+        assertThat(ns.getDeclaration(), is(instanceOf(XQueryDirAttributeList.class)));
+        assertThat(ns.getDeclaration(), is(dirAttributeListPsi));
     }
 
     public void testDirAttributeList_XmlNamespace_MissingValue() {
@@ -2294,6 +2297,9 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(ns.getPrefix().getText(), is("a"));
 
         assertThat(ns.getUri(), is(nullValue()));
+
+        assertThat(ns.getDeclaration(), is(instanceOf(XQueryDirAttributeList.class)));
+        assertThat(ns.getDeclaration(), is(dirAttributeListPsi));
     }
 
     public void testDirAttributeList_XmlNamespace_MissingMiddleValue() {
@@ -2314,6 +2320,9 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(ns.getPrefix().getText(), is("a"));
 
         assertThat(ns.getUri(), is(nullValue()));
+
+        assertThat(ns.getDeclaration(), is(instanceOf(XQueryDirAttributeList.class)));
+        assertThat(ns.getDeclaration(), is(dirAttributeListPsi));
     }
 
     // endregion
@@ -2347,6 +2356,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/psi/xquery-1.0/DirAttributeList_XmlnsAttribute.xq");
 
         XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryDirElemConstructor.class);
+        XQueryDirAttributeList dirAttributeListPsi = PsiNavigation.findChildrenByClass(dirElemConstructorPsi, XQueryDirAttributeList.class).get(0);
         XQueryNamespaceProvider provider = (XQueryNamespaceProvider)dirElemConstructorPsi;
 
         assertThat(provider.resolveNamespace(null), is(nullValue()));
@@ -2361,12 +2371,16 @@ public class XQueryPsiTest extends ParserTestCase {
 
         assertThat(ns.getUri(), is(instanceOf(XQueryDirAttributeValue.class)));
         assertThat(ns.getUri().getText(), is("\"http://www.example.com/a\""));
+
+        assertThat(ns.getDeclaration(), is(instanceOf(XQueryDirAttributeList.class)));
+        assertThat(ns.getDeclaration(), is(dirAttributeListPsi));
     }
 
     public void testDirElemConstructor_XmlNamespace_MissingValue() {
         final ASTNode node = parseResource("tests/psi/xquery-1.0/DirAttributeList_XmlnsAttribute_MissingValue.xq");
 
         XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryDirElemConstructor.class);
+        XQueryDirAttributeList dirAttributeListPsi = PsiNavigation.findChildrenByClass(dirElemConstructorPsi, XQueryDirAttributeList.class).get(0);
         XQueryNamespaceProvider provider = (XQueryNamespaceProvider)dirElemConstructorPsi;
 
         assertThat(provider.resolveNamespace(null), is(nullValue()));
@@ -2380,12 +2394,16 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(ns.getPrefix().getText(), is("a"));
 
         assertThat(ns.getUri(), is(nullValue()));
+
+        assertThat(ns.getDeclaration(), is(instanceOf(XQueryDirAttributeList.class)));
+        assertThat(ns.getDeclaration(), is(dirAttributeListPsi));
     }
 
     public void testDirElemConstructor_XmlNamespace_MissingMiddleValue() {
         final ASTNode node = parseResource("tests/psi/xquery-1.0/DirAttributeList_XmlnsAttribute_MissingMiddleValue.xq");
 
         XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryDirElemConstructor.class);
+        XQueryDirAttributeList dirAttributeListPsi = PsiNavigation.findChildrenByClass(dirElemConstructorPsi, XQueryDirAttributeList.class).get(0);
         XQueryNamespaceProvider provider = (XQueryNamespaceProvider)dirElemConstructorPsi;
 
         assertThat(provider.resolveNamespace(null), is(nullValue()));
@@ -2399,6 +2417,9 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(ns.getPrefix().getText(), is("a"));
 
         assertThat(ns.getUri(), is(nullValue()));
+
+        assertThat(ns.getDeclaration(), is(instanceOf(XQueryDirAttributeList.class)));
+        assertThat(ns.getDeclaration(), is(dirAttributeListPsi));
     }
 
     // endregion
@@ -2422,6 +2443,9 @@ public class XQueryPsiTest extends ParserTestCase {
 
         assertThat(ns.getUri(), is(instanceOf(XQueryUriLiteral.class)));
         assertThat(((XQueryUriLiteral)ns.getUri()).getStringValue(), is("http://www.example.com/test"));
+
+        assertThat(ns.getDeclaration(), is(instanceOf(XQueryModuleDecl.class)));
+        assertThat(ns.getDeclaration(), is(moduleDeclPsi));
     }
 
     public void testModuleDecl_MissingNamespaceName() {
@@ -2453,6 +2477,9 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(ns.getPrefix().getText(), is("one"));
 
         assertThat(ns.getUri(), is(nullValue()));
+
+        assertThat(ns.getDeclaration(), is(instanceOf(XQueryModuleDecl.class)));
+        assertThat(ns.getDeclaration(), is(moduleDeclPsi));
     }
 
     // endregion
@@ -2488,6 +2515,9 @@ public class XQueryPsiTest extends ParserTestCase {
 
         assertThat(ns.getUri(), is(instanceOf(XQueryUriLiteral.class)));
         assertThat(((XQueryUriLiteral)ns.getUri()).getStringValue(), is("http://www.example.com/test"));
+
+        assertThat(ns.getDeclaration(), is(instanceOf(XQueryModuleImport.class)));
+        assertThat(ns.getDeclaration(), is(moduleImportPsi));
     }
 
     // endregion
@@ -2511,6 +2541,9 @@ public class XQueryPsiTest extends ParserTestCase {
 
         assertThat(ns.getUri(), is(instanceOf(XQueryUriLiteral.class)));
         assertThat(((XQueryUriLiteral)ns.getUri()).getStringValue(), is("http://www.example.org/test"));
+
+        assertThat(ns.getDeclaration(), is(instanceOf(XQueryNamespaceDecl.class)));
+        assertThat(ns.getDeclaration(), is(namespaceDeclPsi));
     }
 
     public void testNamespaceDecl_MissingNCName() {
@@ -2542,6 +2575,9 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(ns.getPrefix().getText(), is("test"));
 
         assertThat(ns.getUri(), is(nullValue()));
+
+        assertThat(ns.getDeclaration(), is(instanceOf(XQueryNamespaceDecl.class)));
+        assertThat(ns.getDeclaration(), is(namespaceDeclPsi));
     }
 
     // endregion
@@ -2563,6 +2599,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/parser/xquery-1.0/NamespaceDecl.xq");
 
         XQueryProlog prologPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryProlog.class);
+        XQueryNamespaceDecl namespaceDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryNamespaceDecl.class);
         XQueryNamespaceProvider provider = (XQueryNamespaceProvider)prologPsi;
 
         assertThat(provider.resolveNamespace(null), is(nullValue()));
@@ -2577,6 +2614,9 @@ public class XQueryPsiTest extends ParserTestCase {
 
         assertThat(ns.getUri(), is(instanceOf(XQueryUriLiteral.class)));
         assertThat(((XQueryUriLiteral)ns.getUri()).getStringValue(), is("http://www.example.org/test"));
+
+        assertThat(ns.getDeclaration(), is(instanceOf(XQueryNamespaceDecl.class)));
+        assertThat(ns.getDeclaration(), is(namespaceDeclPsi));
     }
 
     // endregion
@@ -2612,6 +2652,9 @@ public class XQueryPsiTest extends ParserTestCase {
 
         assertThat(ns.getUri(), is(instanceOf(XQueryUriLiteral.class)));
         assertThat(((XQueryUriLiteral)ns.getUri()).getStringValue(), is("http://www.example.com/test"));
+
+        assertThat(ns.getDeclaration(), is(instanceOf(XQuerySchemaImport.class)));
+        assertThat(ns.getDeclaration(), is(schemaImportPsi));
     }
 
     public void testSchemaImport_WithSchemaPrefix_MissingNCName() {
