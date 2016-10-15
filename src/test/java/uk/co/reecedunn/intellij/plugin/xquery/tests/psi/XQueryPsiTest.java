@@ -40,8 +40,8 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/parser/xquery-3.0/AllowingEmpty.xq");
 
         XQueryForClause forClausePsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryForClause.class);
-        XQueryForBinding forBindingPsi = PsiNavigation.findChildrenByClass(forClausePsi, XQueryForBinding.class).get(0);
-        XQueryAllowingEmpty allowingEmptyPsi = PsiNavigation.findChildrenByClass(forBindingPsi, XQueryAllowingEmpty.class).get(0);
+        XQueryForBinding forBindingPsi = PsiNavigation.findChildByClass(forClausePsi, XQueryForBinding.class);
+        XQueryAllowingEmpty allowingEmptyPsi = PsiNavigation.findChildByClass(forBindingPsi, XQueryAllowingEmpty.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)allowingEmptyPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -73,7 +73,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/parser/xquery-3.0/Annotation.xq");
 
         XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryAnnotatedDecl.class);
-        XQueryAnnotation annotationPsi = PsiNavigation.findChildrenByClass(annotatedDeclPsi, XQueryAnnotation.class).get(0);
+        XQueryAnnotation annotationPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryAnnotation.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)annotationPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -103,9 +103,9 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/parser/xquery-3.0/AnyFunctionTest.xq");
 
         XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryAnnotatedDecl.class);
-        XQueryVarDecl varDeclPsi = PsiNavigation.findChildrenByClass(annotatedDeclPsi, XQueryVarDecl.class).get(0);
-        XQueryTypeDeclaration typeDeclarationPsi = PsiNavigation.findChildrenByClass(varDeclPsi, XQueryTypeDeclaration.class).get(0);
-        XQuerySequenceType sequenceTypePsi = PsiNavigation.findChildrenByClass(typeDeclarationPsi, XQuerySequenceType.class).get(0);
+        XQueryVarDecl varDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryVarDecl.class);
+        XQueryTypeDeclaration typeDeclarationPsi = PsiNavigation.findChildByClass(varDeclPsi, XQueryTypeDeclaration.class);
+        XQuerySequenceType sequenceTypePsi = PsiNavigation.findChildByClass(typeDeclarationPsi, XQuerySequenceType.class);
         XQueryAnyFunctionTest anyFunctionTestPsi = PsiNavigation.findFirstChildByClass(sequenceTypePsi, XQueryAnyFunctionTest.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)anyFunctionTestPsi;
 
@@ -138,9 +138,9 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/parser/xquery-1.0/AnyKindTest.xq");
 
         XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryAnnotatedDecl.class);
-        XQueryVarDecl varDeclPsi = PsiNavigation.findChildrenByClass(annotatedDeclPsi, XQueryVarDecl.class).get(0);
-        XQueryTypeDeclaration typeDeclarationPsi = PsiNavigation.findChildrenByClass(varDeclPsi, XQueryTypeDeclaration.class).get(0);
-        XQuerySequenceType sequenceTypePsi = PsiNavigation.findChildrenByClass(typeDeclarationPsi, XQuerySequenceType.class).get(0);
+        XQueryVarDecl varDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryVarDecl.class);
+        XQueryTypeDeclaration typeDeclarationPsi = PsiNavigation.findChildByClass(varDeclPsi, XQueryTypeDeclaration.class);
+        XQuerySequenceType sequenceTypePsi = PsiNavigation.findChildByClass(typeDeclarationPsi, XQuerySequenceType.class);
         XQueryAnyKindTest anyKindTestPsi = PsiNavigation.findFirstChildByClass(sequenceTypePsi, XQueryAnyKindTest.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)anyKindTestPsi;
 
@@ -169,7 +169,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/parser/xquery-1.0/FunctionCall.xq");
 
         XQueryFunctionCall functionCallPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFunctionCall.class);
-        XQueryArgumentList argumentListPsi = PsiNavigation.findChildrenByClass(functionCallPsi, XQueryArgumentList.class).get(0);
+        XQueryArgumentList argumentListPsi = PsiNavigation.findChildByClass(functionCallPsi, XQueryArgumentList.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)argumentListPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
@@ -198,7 +198,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/parser/xquery-3.0/PostfixExpr_ArgumentList.xq");
 
         XQueryPostfixExpr postfixExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryPostfixExpr.class);
-        XQueryArgumentList argumentListPsi = PsiNavigation.findChildrenByClass(postfixExprPsi, XQueryArgumentList.class).get(0);
+        XQueryArgumentList argumentListPsi = PsiNavigation.findChildByClass(postfixExprPsi, XQueryArgumentList.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)argumentListPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -230,8 +230,8 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/parser/xquery-3.0/ArgumentPlaceholder.xq");
 
         XQueryFunctionCall functionCallPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFunctionCall.class);
-        XQueryArgumentList argumentListPsi = PsiNavigation.findChildrenByClass(functionCallPsi, XQueryArgumentList.class).get(0);
-        XQueryArgument argumentPsi = PsiNavigation.findChildrenByClass(argumentListPsi, XQueryArgument.class).get(0);
+        XQueryArgumentList argumentListPsi = PsiNavigation.findChildByClass(functionCallPsi, XQueryArgumentList.class);
+        XQueryArgument argumentPsi = PsiNavigation.findChildByClass(argumentListPsi, XQueryArgument.class);
         XQueryArgumentPlaceholder argumentPlaceholderPsi = PsiNavigation.findFirstChildByClass(argumentPsi, XQueryArgumentPlaceholder.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)argumentPlaceholderPsi;
 
@@ -264,7 +264,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/parser/xquery-3.0/BracedURILiteral.xq");
 
         XQueryOptionDecl optionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryOptionDecl.class);
-        XQueryURIQualifiedName qnamePsi = PsiNavigation.findChildrenByClass(optionDeclPsi, XQueryURIQualifiedName.class).get(0);
+        XQueryURIQualifiedName qnamePsi = PsiNavigation.findChildByClass(optionDeclPsi, XQueryURIQualifiedName.class);
         XQueryBracedURILiteral bracedURILiteralPsi = PsiNavigation.findFirstChildByClass(qnamePsi, XQueryBracedURILiteral.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)bracedURILiteralPsi;
 
@@ -295,7 +295,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/parser/xquery-3.0/CatchClause.xq");
 
         XQueryTryCatchExpr tryCatchExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryTryCatchExpr.class);
-        XQueryCatchClause catchClausePsi = PsiNavigation.findChildrenByClass(tryCatchExprPsi, XQueryCatchClause.class).get(0);
+        XQueryCatchClause catchClausePsi = PsiNavigation.findChildByClass(tryCatchExprPsi, XQueryCatchClause.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)catchClausePsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
@@ -496,7 +496,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/parser/xquery-1.0/FunctionDecl.xq");
 
         XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryAnnotatedDecl.class);
-        XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildrenByClass(annotatedDeclPsi, XQueryFunctionDecl.class).get(0);
+        XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryFunctionDecl.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)functionDeclPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
@@ -520,7 +520,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/psi/xquery-1.0/FunctionDecl_NCName.xq");
 
         XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryAnnotatedDecl.class);
-        XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildrenByClass(annotatedDeclPsi, XQueryFunctionDecl.class).get(0);
+        XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryFunctionDecl.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)functionDeclPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
@@ -544,7 +544,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/psi/xquery-1.0/FunctionDecl_Keyword.xq");
 
         XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryAnnotatedDecl.class);
-        XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildrenByClass(annotatedDeclPsi, XQueryFunctionDecl.class).get(0);
+        XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryFunctionDecl.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)functionDeclPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
@@ -568,7 +568,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/psi/xquery-1.0/FunctionDecl_ReservedKeyword.xq");
 
         XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryAnnotatedDecl.class);
-        XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildrenByClass(annotatedDeclPsi, XQueryFunctionDecl.class).get(0);
+        XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryFunctionDecl.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)functionDeclPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -592,7 +592,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/parser/xquery-1.0/FunctionDecl_MissingFunctionName.xq");
 
         XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryAnnotatedDecl.class);
-        XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildrenByClass(annotatedDeclPsi, XQueryFunctionDecl.class).get(0);
+        XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryFunctionDecl.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck) functionDeclPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
@@ -616,7 +616,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/psi/xquery-3.0/FunctionDecl_ReservedKeyword_Function.xq");
 
         XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryAnnotatedDecl.class);
-        XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildrenByClass(annotatedDeclPsi, XQueryFunctionDecl.class).get(0);
+        XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryFunctionDecl.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)functionDeclPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
@@ -644,7 +644,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/psi/xquery-3.0/FunctionDecl_ReservedKeyword_Switch.xq");
 
         XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryAnnotatedDecl.class);
-        XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildrenByClass(annotatedDeclPsi, XQueryFunctionDecl.class).get(0);
+        XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryFunctionDecl.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)functionDeclPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
@@ -672,7 +672,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/psi/xquery-3.0/FunctionDecl_ReservedKeyword_NamespaceNode.xq");
 
         XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryAnnotatedDecl.class);
-        XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildrenByClass(annotatedDeclPsi, XQueryFunctionDecl.class).get(0);
+        XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryFunctionDecl.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)functionDeclPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
@@ -1641,9 +1641,9 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/parser/xquery-3.0/ParenthesizedItemType.xq");
 
         XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryAnnotatedDecl.class);
-        XQueryVarDecl varDeclPsi = PsiNavigation.findChildrenByClass(annotatedDeclPsi, XQueryVarDecl.class).get(0);
-        XQueryTypeDeclaration typeDeclarationPsi = PsiNavigation.findChildrenByClass(varDeclPsi, XQueryTypeDeclaration.class).get(0);
-        XQuerySequenceType sequenceTypePsi = PsiNavigation.findChildrenByClass(typeDeclarationPsi, XQuerySequenceType.class).get(0);
+        XQueryVarDecl varDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryVarDecl.class);
+        XQueryTypeDeclaration typeDeclarationPsi = PsiNavigation.findChildByClass(varDeclPsi, XQueryTypeDeclaration.class);
+        XQuerySequenceType sequenceTypePsi = PsiNavigation.findChildByClass(typeDeclarationPsi, XQuerySequenceType.class);
         XQueryParenthesizedItemType parenthesizedItemTypePsi = PsiNavigation.findFirstChildByClass(sequenceTypePsi, XQueryParenthesizedItemType.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)parenthesizedItemTypePsi;
 
@@ -1676,8 +1676,8 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/parser/xquery-3.0/SequenceTypeUnion.xq");
 
         XQueryTypeswitchExpr typeswitchExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryTypeswitchExpr.class);
-        XQueryCaseClause caseClausePsi = PsiNavigation.findChildrenByClass(typeswitchExprPsi, XQueryCaseClause.class).get(0);
-        XQuerySequenceTypeUnion sequenceTypeUnionPsi = PsiNavigation.findChildrenByClass(caseClausePsi, XQuerySequenceTypeUnion.class).get(0);
+        XQueryCaseClause caseClausePsi = PsiNavigation.findChildByClass(typeswitchExprPsi, XQueryCaseClause.class);
+        XQuerySequenceTypeUnion sequenceTypeUnionPsi = PsiNavigation.findChildByClass(caseClausePsi, XQuerySequenceTypeUnion.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)sequenceTypeUnionPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -1706,8 +1706,8 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/parser/xquery-1.0/TypeswitchExpr.xq");
 
         XQueryTypeswitchExpr typeswitchExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryTypeswitchExpr.class);
-        XQueryCaseClause caseClausePsi = PsiNavigation.findChildrenByClass(typeswitchExprPsi, XQueryCaseClause.class).get(0);
-        XQuerySequenceTypeUnion sequenceTypeUnionPsi = PsiNavigation.findChildrenByClass(caseClausePsi, XQuerySequenceTypeUnion.class).get(0);
+        XQueryCaseClause caseClausePsi = PsiNavigation.findChildByClass(typeswitchExprPsi, XQueryCaseClause.class);
+        XQuerySequenceTypeUnion sequenceTypeUnionPsi = PsiNavigation.findChildByClass(caseClausePsi, XQuerySequenceTypeUnion.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)sequenceTypeUnionPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
@@ -1857,9 +1857,9 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/parser/xquery-1.0/TextTest.xq");
 
         XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryAnnotatedDecl.class);
-        XQueryVarDecl varDeclPsi = PsiNavigation.findChildrenByClass(annotatedDeclPsi, XQueryVarDecl.class).get(0);
-        XQueryTypeDeclaration typeDeclarationPsi = PsiNavigation.findChildrenByClass(varDeclPsi, XQueryTypeDeclaration.class).get(0);
-        XQuerySequenceType sequenceTypePsi = PsiNavigation.findChildrenByClass(typeDeclarationPsi, XQuerySequenceType.class).get(0);
+        XQueryVarDecl varDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryVarDecl.class);
+        XQueryTypeDeclaration typeDeclarationPsi = PsiNavigation.findChildByClass(varDeclPsi, XQueryTypeDeclaration.class);
+        XQuerySequenceType sequenceTypePsi = PsiNavigation.findChildByClass(typeDeclarationPsi, XQuerySequenceType.class);
         XQueryTextTest textTestPsi = PsiNavigation.findFirstChildByClass(sequenceTypePsi, XQueryTextTest.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)textTestPsi;
 
@@ -1917,9 +1917,9 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/parser/xquery-3.0/TypedFunctionTest.xq");
 
         XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryAnnotatedDecl.class);
-        XQueryVarDecl varDeclPsi = PsiNavigation.findChildrenByClass(annotatedDeclPsi, XQueryVarDecl.class).get(0);
-        XQueryTypeDeclaration typeDeclarationPsi = PsiNavigation.findChildrenByClass(varDeclPsi, XQueryTypeDeclaration.class).get(0);
-        XQuerySequenceType sequenceTypePsi = PsiNavigation.findChildrenByClass(typeDeclarationPsi, XQuerySequenceType.class).get(0);
+        XQueryVarDecl varDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryVarDecl.class);
+        XQueryTypeDeclaration typeDeclarationPsi = PsiNavigation.findChildByClass(varDeclPsi, XQueryTypeDeclaration.class);
+        XQuerySequenceType sequenceTypePsi = PsiNavigation.findChildByClass(typeDeclarationPsi, XQuerySequenceType.class);
         XQueryTypedFunctionTest typedFunctionTestPsi = PsiNavigation.findFirstChildByClass(sequenceTypePsi, XQueryTypedFunctionTest.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)typedFunctionTestPsi;
 
@@ -2001,7 +2001,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/psi/xquery-3.0/SimpleTypeName_QName.xq");
 
         XQueryCastExpr castExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryCastExpr.class);
-        XQuerySingleType singleTypePsi = PsiNavigation.findChildrenByClass(castExprPsi, XQuerySingleType.class).get(0);
+        XQuerySingleType singleTypePsi = PsiNavigation.findChildByClass(castExprPsi, XQuerySingleType.class);
         XQuerySimpleTypeName simpleTypeNamePsi = PsiNavigation.findFirstChildByClass(singleTypePsi, XQuerySimpleTypeName.class);
         XQueryEQName eqnamePsi = (XQueryEQName)simpleTypeNamePsi;
 
@@ -2019,7 +2019,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/psi/xquery-3.0/SimpleTypeName_QName_KeywordLocalPart.xq");
 
         XQueryCastExpr castExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryCastExpr.class);
-        XQuerySingleType singleTypePsi = PsiNavigation.findChildrenByClass(castExprPsi, XQuerySingleType.class).get(0);
+        XQuerySingleType singleTypePsi = PsiNavigation.findChildByClass(castExprPsi, XQuerySingleType.class);
         XQuerySimpleTypeName simpleTypeNamePsi = PsiNavigation.findFirstChildByClass(singleTypePsi, XQuerySimpleTypeName.class);
         XQueryEQName eqnamePsi = (XQueryEQName)simpleTypeNamePsi;
 
@@ -2037,7 +2037,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/psi/xquery-3.0/SimpleTypeName_QName_MissingLocalPart.xq");
 
         XQueryCastExpr castExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryCastExpr.class);
-        XQuerySingleType singleTypePsi = PsiNavigation.findChildrenByClass(castExprPsi, XQuerySingleType.class).get(0);
+        XQuerySingleType singleTypePsi = PsiNavigation.findChildByClass(castExprPsi, XQuerySingleType.class);
         XQuerySimpleTypeName simpleTypeNamePsi = PsiNavigation.findFirstChildByClass(singleTypePsi, XQuerySimpleTypeName.class);
         XQueryEQName eqnamePsi = (XQueryEQName)simpleTypeNamePsi;
 
@@ -2053,7 +2053,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/psi/xquery-3.0/SimpleTypeName_QName_KeywordPrefixPart.xq");
 
         XQueryCastExpr castExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryCastExpr.class);
-        XQuerySingleType singleTypePsi = PsiNavigation.findChildrenByClass(castExprPsi, XQuerySingleType.class).get(0);
+        XQuerySingleType singleTypePsi = PsiNavigation.findChildByClass(castExprPsi, XQuerySingleType.class);
         XQuerySimpleTypeName simpleTypeNamePsi = PsiNavigation.findFirstChildByClass(singleTypePsi, XQuerySimpleTypeName.class);
         XQueryEQName eqnamePsi = (XQueryEQName)simpleTypeNamePsi;
 
@@ -2071,7 +2071,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/psi/xquery-3.0/SimpleTypeName_NCName.xq");
 
         XQueryCastExpr castExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryCastExpr.class);
-        XQuerySingleType singleTypePsi = PsiNavigation.findChildrenByClass(castExprPsi, XQuerySingleType.class).get(0);
+        XQuerySingleType singleTypePsi = PsiNavigation.findChildByClass(castExprPsi, XQuerySingleType.class);
         XQuerySimpleTypeName simpleTypeNamePsi = PsiNavigation.findFirstChildByClass(singleTypePsi, XQuerySimpleTypeName.class);
         XQueryEQName eqnamePsi = (XQueryEQName)simpleTypeNamePsi;
 
@@ -2087,7 +2087,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/psi/xquery-3.0/SimpleTypeName_URIQualifiedName.xq");
 
         XQueryCastExpr castExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryCastExpr.class);
-        XQuerySingleType singleTypePsi = PsiNavigation.findChildrenByClass(castExprPsi, XQuerySingleType.class).get(0);
+        XQuerySingleType singleTypePsi = PsiNavigation.findChildByClass(castExprPsi, XQuerySingleType.class);
         XQuerySimpleTypeName simpleTypeNamePsi = PsiNavigation.findFirstChildByClass(singleTypePsi, XQuerySimpleTypeName.class);
         XQueryEQName eqnamePsi = (XQueryEQName)simpleTypeNamePsi;
 
@@ -2107,7 +2107,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/parser/xquery-1.0/NCName_Keyword.xq");
 
         XQueryOptionDecl optionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryOptionDecl.class);
-        XQueryEQName eqnamePsi = PsiNavigation.findChildrenByClass(optionDeclPsi, XQueryEQName.class).get(0);
+        XQueryEQName eqnamePsi = PsiNavigation.findChildByClass(optionDeclPsi, XQueryEQName.class);
 
         assertThat(eqnamePsi.getPrefix(), is(nullValue()));
 
@@ -2123,7 +2123,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/parser/xquery-1.0/QName.xq");
 
         XQueryOptionDecl optionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryOptionDecl.class);
-        XQueryEQName eqnamePsi = PsiNavigation.findChildrenByClass(optionDeclPsi, XQueryEQName.class).get(0);
+        XQueryEQName eqnamePsi = PsiNavigation.findChildByClass(optionDeclPsi, XQueryEQName.class);
 
         assertThat(eqnamePsi.getPrefix(), is(notNullValue()));
         assertThat(eqnamePsi.getPrefix().getNode().getElementType(), is(XQueryTokenType.NCNAME));
@@ -2138,7 +2138,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/parser/xquery-1.0/QName_KeywordLocalPart.xq");
 
         XQueryOptionDecl optionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryOptionDecl.class);
-        XQueryEQName eqnamePsi = PsiNavigation.findChildrenByClass(optionDeclPsi, XQueryEQName.class).get(0);
+        XQueryEQName eqnamePsi = PsiNavigation.findChildByClass(optionDeclPsi, XQueryEQName.class);
 
         assertThat(eqnamePsi.getPrefix(), is(notNullValue()));
         assertThat(eqnamePsi.getPrefix().getNode().getElementType(), is(XQueryTokenType.NCNAME));
@@ -2153,7 +2153,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/parser/xquery-1.0/QName_MissingLocalPart.xq");
 
         XQueryOptionDecl optionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryOptionDecl.class);
-        XQueryEQName eqnamePsi = PsiNavigation.findChildrenByClass(optionDeclPsi, XQueryEQName.class).get(0);
+        XQueryEQName eqnamePsi = PsiNavigation.findChildByClass(optionDeclPsi, XQueryEQName.class);
 
         assertThat(eqnamePsi.getPrefix(), is(notNullValue()));
         assertThat(eqnamePsi.getPrefix().getNode().getElementType(), is(XQueryTokenType.NCNAME));
@@ -2166,7 +2166,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/parser/xquery-1.0/QName_KeywordPrefixPart.xq");
 
         XQueryOptionDecl optionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryOptionDecl.class);
-        XQueryEQName eqnamePsi = PsiNavigation.findChildrenByClass(optionDeclPsi, XQueryEQName.class).get(0);
+        XQueryEQName eqnamePsi = PsiNavigation.findChildByClass(optionDeclPsi, XQueryEQName.class);
 
         assertThat(eqnamePsi.getPrefix(), is(notNullValue()));
         assertThat(eqnamePsi.getPrefix().getNode().getElementType(), is(XQueryTokenType.K_ORDER));
@@ -2181,7 +2181,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/parser/xquery-1.0/DirElemConstructor.xq");
 
         XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryDirElemConstructor.class);
-        XQueryEQName eqnamePsi = PsiNavigation.findChildrenByClass(dirElemConstructorPsi, XQueryEQName.class).get(0);
+        XQueryEQName eqnamePsi = PsiNavigation.findChildByClass(dirElemConstructorPsi, XQueryEQName.class);
 
         assertThat(eqnamePsi.getPrefix(), is(notNullValue()));
         assertThat(eqnamePsi.getPrefix().getNode().getElementType(), is(XQueryTokenType.XML_TAG_NCNAME));
@@ -2196,8 +2196,8 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/parser/xquery-1.0/DirAttributeList.xq");
 
         XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryDirElemConstructor.class);
-        XQueryDirAttributeList dirAttributeListPsi = PsiNavigation.findChildrenByClass(dirElemConstructorPsi, XQueryDirAttributeList.class).get(0);
-        XQueryEQName eqnamePsi = PsiNavigation.findChildrenByClass(dirAttributeListPsi, XQueryEQName.class).get(0);
+        XQueryDirAttributeList dirAttributeListPsi = PsiNavigation.findChildByClass(dirElemConstructorPsi, XQueryDirAttributeList.class);
+        XQueryEQName eqnamePsi = PsiNavigation.findChildByClass(dirAttributeListPsi, XQueryEQName.class);
 
         assertThat(eqnamePsi.getPrefix(), is(notNullValue()));
         assertThat(eqnamePsi.getPrefix().getNode().getElementType(), is(XQueryTokenType.XML_ATTRIBUTE_NCNAME));
@@ -2246,7 +2246,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/parser/xquery-1.0/DirAttributeList.xq");
 
         XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryDirElemConstructor.class);
-        XQueryDirAttributeList dirAttributeListPsi = PsiNavigation.findChildrenByClass(dirElemConstructorPsi, XQueryDirAttributeList.class).get(0);
+        XQueryDirAttributeList dirAttributeListPsi = PsiNavigation.findChildByClass(dirElemConstructorPsi, XQueryDirAttributeList.class);
         XQueryNamespaceProvider provider = (XQueryNamespaceProvider)dirAttributeListPsi;
 
         assertThat(provider.resolveNamespace(null), is(nullValue()));
@@ -2259,7 +2259,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/psi/xquery-1.0/DirAttributeList_XmlnsAttribute.xq");
 
         XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryDirElemConstructor.class);
-        XQueryDirAttributeList dirAttributeListPsi = PsiNavigation.findChildrenByClass(dirElemConstructorPsi, XQueryDirAttributeList.class).get(0);
+        XQueryDirAttributeList dirAttributeListPsi = PsiNavigation.findChildByClass(dirElemConstructorPsi, XQueryDirAttributeList.class);
         XQueryNamespaceProvider provider = (XQueryNamespaceProvider)dirAttributeListPsi;
 
         assertThat(provider.resolveNamespace(null), is(nullValue()));
@@ -2283,7 +2283,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/psi/xquery-1.0/DirAttributeList_XmlnsAttribute_MissingValue.xq");
 
         XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryDirElemConstructor.class);
-        XQueryDirAttributeList dirAttributeListPsi = PsiNavigation.findChildrenByClass(dirElemConstructorPsi, XQueryDirAttributeList.class).get(0);
+        XQueryDirAttributeList dirAttributeListPsi = PsiNavigation.findChildByClass(dirElemConstructorPsi, XQueryDirAttributeList.class);
         XQueryNamespaceProvider provider = (XQueryNamespaceProvider)dirAttributeListPsi;
 
         assertThat(provider.resolveNamespace(null), is(nullValue()));
@@ -2306,7 +2306,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/psi/xquery-1.0/DirAttributeList_XmlnsAttribute_MissingMiddleValue.xq");
 
         XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryDirElemConstructor.class);
-        XQueryDirAttributeList dirAttributeListPsi = PsiNavigation.findChildrenByClass(dirElemConstructorPsi, XQueryDirAttributeList.class).get(0);
+        XQueryDirAttributeList dirAttributeListPsi = PsiNavigation.findChildByClass(dirElemConstructorPsi, XQueryDirAttributeList.class);
         XQueryNamespaceProvider provider = (XQueryNamespaceProvider)dirAttributeListPsi;
 
         assertThat(provider.resolveNamespace(null), is(nullValue()));
@@ -2356,7 +2356,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/psi/xquery-1.0/DirAttributeList_XmlnsAttribute.xq");
 
         XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryDirElemConstructor.class);
-        XQueryDirAttributeList dirAttributeListPsi = PsiNavigation.findChildrenByClass(dirElemConstructorPsi, XQueryDirAttributeList.class).get(0);
+        XQueryDirAttributeList dirAttributeListPsi = PsiNavigation.findChildByClass(dirElemConstructorPsi, XQueryDirAttributeList.class);
         XQueryNamespaceProvider provider = (XQueryNamespaceProvider)dirElemConstructorPsi;
 
         assertThat(provider.resolveNamespace(null), is(nullValue()));
@@ -2380,7 +2380,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/psi/xquery-1.0/DirAttributeList_XmlnsAttribute_MissingValue.xq");
 
         XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryDirElemConstructor.class);
-        XQueryDirAttributeList dirAttributeListPsi = PsiNavigation.findChildrenByClass(dirElemConstructorPsi, XQueryDirAttributeList.class).get(0);
+        XQueryDirAttributeList dirAttributeListPsi = PsiNavigation.findChildByClass(dirElemConstructorPsi, XQueryDirAttributeList.class);
         XQueryNamespaceProvider provider = (XQueryNamespaceProvider)dirElemConstructorPsi;
 
         assertThat(provider.resolveNamespace(null), is(nullValue()));
@@ -2403,7 +2403,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/psi/xquery-1.0/DirAttributeList_XmlnsAttribute_MissingMiddleValue.xq");
 
         XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryDirElemConstructor.class);
-        XQueryDirAttributeList dirAttributeListPsi = PsiNavigation.findChildrenByClass(dirElemConstructorPsi, XQueryDirAttributeList.class).get(0);
+        XQueryDirAttributeList dirAttributeListPsi = PsiNavigation.findChildByClass(dirElemConstructorPsi, XQueryDirAttributeList.class);
         XQueryNamespaceProvider provider = (XQueryNamespaceProvider)dirElemConstructorPsi;
 
         assertThat(provider.resolveNamespace(null), is(nullValue()));
@@ -2708,7 +2708,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/parser/xquery-3.0/BracedURILiteral.xq");
 
         XQueryOptionDecl optionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryOptionDecl.class);
-        XQueryURIQualifiedName qnamePsi = PsiNavigation.findChildrenByClass(optionDeclPsi, XQueryURIQualifiedName.class).get(0);
+        XQueryURIQualifiedName qnamePsi = PsiNavigation.findChildByClass(optionDeclPsi, XQueryURIQualifiedName.class);
 
         assertThat(qnamePsi.getPrefix(), is(notNullValue()));
         assertThat(qnamePsi.getPrefix().getNode().getElementType(), is(XQueryElementType.BRACED_URI_LITERAL));
@@ -2751,7 +2751,7 @@ public class XQueryPsiTest extends ParserTestCase {
         getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
         final ASTNode node = parseResource("tests/psi/xquery-1.0/VersionDecl_CommentBeforeDecl.xq");
 
-        XQueryModule modulePsi = PsiNavigation.findChildrenByClass(node.getPsi(), XQueryModule.class).get(0);
+        XQueryModule modulePsi = PsiNavigation.findChildByClass(node.getPsi(), XQueryModule.class);
         XQueryVersionDecl versionDeclPsi = PsiNavigation.findFirstChildByClass(modulePsi, XQueryVersionDecl.class);
         assertThat(versionDeclPsi.getVersion(), is(notNullValue()));
         assertThat(versionDeclPsi.getVersion().getStringValue(), is("1.0"));

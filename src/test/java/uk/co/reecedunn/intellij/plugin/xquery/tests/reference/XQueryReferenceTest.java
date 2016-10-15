@@ -60,12 +60,12 @@ public class XQueryReferenceTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/resolve/xquery-1.0/ModuleDecl.xq");
 
         XQueryLibraryModule modulePsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryLibraryModule.class);
-        XQueryProlog prologPsi = PsiNavigation.findChildrenByClass(modulePsi, XQueryProlog.class).get(0);
+        XQueryProlog prologPsi = PsiNavigation.findChildByClass(modulePsi, XQueryProlog.class);
         XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findFirstChildByClass(prologPsi, XQueryAnnotatedDecl.class);
-        XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildrenByClass(annotatedDeclPsi, XQueryFunctionDecl.class).get(0);
+        XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryFunctionDecl.class);
         assertThat(functionDeclPsi, is(notNullValue()));
 
-        XQueryQName qname = PsiNavigation.findChildrenByClass(functionDeclPsi, XQueryQName.class).get(0);
+        XQueryQName qname = PsiNavigation.findChildByClass(functionDeclPsi, XQueryQName.class);
         assertThat(qname, is(notNullValue()));
 
         PsiReference ref = qname.getReference();
@@ -97,10 +97,10 @@ public class XQueryReferenceTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/resolve/xquery-1.0/FunctionDecl_WithNCNameReturnType.xq");
 
         XQueryLibraryModule modulePsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryLibraryModule.class);
-        XQueryProlog prologPsi = PsiNavigation.findChildrenByClass(modulePsi, XQueryProlog.class).get(0);
-        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findChildrenByClass(prologPsi, XQueryAnnotatedDecl.class).get(0);
-        XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildrenByClass(annotatedDeclPsi, XQueryFunctionDecl.class).get(0);
-        XQuerySequenceType sequenceTypePsi = PsiNavigation.findChildrenByClass(functionDeclPsi, XQuerySequenceType.class).get(0);
+        XQueryProlog prologPsi = PsiNavigation.findChildByClass(modulePsi, XQueryProlog.class);
+        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findChildByClass(prologPsi, XQueryAnnotatedDecl.class);
+        XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryFunctionDecl.class);
+        XQuerySequenceType sequenceTypePsi = PsiNavigation.findChildByClass(functionDeclPsi, XQuerySequenceType.class);
         assertThat(sequenceTypePsi, is(notNullValue()));
 
         XQueryEQName eqname = PsiNavigation.findFirstChildByClass(sequenceTypePsi, XQueryEQName.class);
@@ -118,10 +118,10 @@ public class XQueryReferenceTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/resolve/xquery-1.0/FunctionDecl_WithQNameReturnType.xq");
 
         XQueryLibraryModule modulePsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryLibraryModule.class);
-        XQueryProlog prologPsi = PsiNavigation.findChildrenByClass(modulePsi, XQueryProlog.class).get(0);
-        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findChildrenByClass(prologPsi, XQueryAnnotatedDecl.class).get(0);
-        XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildrenByClass(annotatedDeclPsi, XQueryFunctionDecl.class).get(0);
-        XQuerySequenceType sequenceTypePsi = PsiNavigation.findChildrenByClass(functionDeclPsi, XQuerySequenceType.class).get(0);
+        XQueryProlog prologPsi = PsiNavigation.findChildByClass(modulePsi, XQueryProlog.class);
+        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findChildByClass(prologPsi, XQueryAnnotatedDecl.class);
+        XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryFunctionDecl.class);
+        XQuerySequenceType sequenceTypePsi = PsiNavigation.findChildByClass(functionDeclPsi, XQuerySequenceType.class);
         assertThat(sequenceTypePsi, is(notNullValue()));
 
         XQueryEQName eqname = PsiNavigation.findFirstChildByClass(sequenceTypePsi, XQueryEQName.class);
@@ -153,10 +153,10 @@ public class XQueryReferenceTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/resolve/xquery-1.0/FunctionDecl_WithURIQualifiedNameReturnType.xq");
 
         XQueryLibraryModule modulePsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryLibraryModule.class);
-        XQueryProlog prologPsi = PsiNavigation.findChildrenByClass(modulePsi, XQueryProlog.class).get(0);
-        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findChildrenByClass(prologPsi, XQueryAnnotatedDecl.class).get(0);
-        XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildrenByClass(annotatedDeclPsi, XQueryFunctionDecl.class).get(0);
-        XQuerySequenceType sequenceTypePsi = PsiNavigation.findChildrenByClass(functionDeclPsi, XQuerySequenceType.class).get(0);
+        XQueryProlog prologPsi = PsiNavigation.findChildByClass(modulePsi, XQueryProlog.class);
+        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findChildByClass(prologPsi, XQueryAnnotatedDecl.class);
+        XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryFunctionDecl.class);
+        XQuerySequenceType sequenceTypePsi = PsiNavigation.findChildByClass(functionDeclPsi, XQuerySequenceType.class);
         assertThat(sequenceTypePsi, is(notNullValue()));
 
         XQueryEQName eqname = PsiNavigation.findFirstChildByClass(sequenceTypePsi, XQueryEQName.class);

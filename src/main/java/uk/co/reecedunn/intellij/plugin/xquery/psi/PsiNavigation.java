@@ -45,6 +45,15 @@ public class PsiNavigation {
     }
 
     @SuppressWarnings("unchecked")
+    public static <T> T findChildByClass(PsiElement element, Class<T> child) {
+        element = element.getFirstChild();
+        while (element != null && !child.isInstance(element)) {
+            element = element.getNextSibling();
+        }
+        return (T)element;
+    }
+
+    @SuppressWarnings("unchecked")
     public static <T> List<T> findChildrenByClass(PsiElement element, Class<T> child) {
         List<T> children = new ArrayList<>();
         element = element.getFirstChild();

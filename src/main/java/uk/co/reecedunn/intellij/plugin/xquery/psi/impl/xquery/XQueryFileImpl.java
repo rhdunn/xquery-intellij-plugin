@@ -43,9 +43,9 @@ public class XQueryFileImpl extends PsiFileBase implements XQueryFile {
     }
 
     public XQueryVersion getXQueryVersion() {
-        List<XQueryModule> modules = PsiNavigation.findChildrenByClass(this, XQueryModule.class);
-        if (!modules.isEmpty()) {
-            XQueryVersionDecl versionDecl = PsiNavigation.findFirstChildByClass(modules.get(0), XQueryVersionDecl.class);
+        XQueryModule module = PsiNavigation.findChildByClass(this, XQueryModule.class);
+        if (module != null) {
+            XQueryVersionDecl versionDecl = PsiNavigation.findFirstChildByClass(module, XQueryVersionDecl.class);
             if (versionDecl != null) {
                 XQueryStringLiteral version = versionDecl.getVersion();
                 if (version != null) {

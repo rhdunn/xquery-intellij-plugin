@@ -28,18 +28,17 @@ public class XQueryFunctionNameReference extends PsiReferenceBase<XQueryEQName> 
             CharSequence localName = getElement().getLocalName().getText();
 
             PsiElement file = PsiNavigation.findParentByClass(ns.getDeclaration(), XQueryFile.class);
-            PsiElement module = PsiNavigation.findChildrenByClass(file, XQueryModule.class).get(0);
-            PsiElement prolog = PsiNavigation.findChildrenByClass(module, XQueryProlog.class).get(0);
+            PsiElement module = PsiNavigation.findChildByClass(file, XQueryModule.class);
+            PsiElement prolog = PsiNavigation.findChildByClass(module, XQueryProlog.class);
             PsiElement annotation = prolog.getFirstChild();
             while (annotation != null) {
                 if (annotation instanceof XQueryAnnotatedDecl) {
-                    List<XQueryFunctionDecl> functionDecls = PsiNavigation.findChildrenByClass(annotation, XQueryFunctionDecl.class);
-                    if (functionDecls.size() == 1) {
-                        XQueryFunctionDecl functionDecl = functionDecls.get(0);
-                        List<XQueryEQName> functionName = PsiNavigation.findChildrenByClass(functionDecl, XQueryEQName.class);
-                        if (functionName.size() != 0 && functionName.get(0).getLocalName().getText().equals(localName)) {
+                    XQueryFunctionDecl functionDecl = PsiNavigation.findChildByClass(annotation, XQueryFunctionDecl.class);
+                    if (functionDecl != null) {
+                        XQueryEQName functionName = PsiNavigation.findChildByClass(functionDecl, XQueryEQName.class);
+                        if (functionName != null && functionName.getLocalName().getText().equals(localName)) {
                             // TODO: Check function arity.
-                            return functionName.get(0);
+                            return functionName;
                         }
                     }
                 }
