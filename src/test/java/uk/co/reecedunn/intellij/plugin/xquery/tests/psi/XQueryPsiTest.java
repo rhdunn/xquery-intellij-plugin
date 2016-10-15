@@ -1994,6 +1994,7 @@ public class XQueryPsiTest extends ParserTestCase {
     // endregion
     // endregion
     // region XQueryEQName
+    // region EQName
 
     @SuppressWarnings("RedundantCast")
     public void testEQName_QName() {
@@ -2099,6 +2100,115 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(eqnamePsi.getLocalName().getText(), is("double"));
     }
 
+    // endregion
+    // region NCName
+
+    public void testNCName() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/NCName_Keyword.xq");
+
+        XQueryOptionDecl optionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryOptionDecl.class);
+        XQueryEQName eqnamePsi = PsiNavigation.findChildrenByClass(optionDeclPsi, XQueryEQName.class).get(0);
+
+        assertThat(eqnamePsi.getPrefix(), is(nullValue()));
+
+        assertThat(eqnamePsi.getLocalName(), is(notNullValue()));
+        assertThat(eqnamePsi.getLocalName().getNode().getElementType(), is(XQueryTokenType.K_COLLATION));
+        assertThat(eqnamePsi.getLocalName().getText(), is("collation"));
+    }
+
+    // endregion
+    // region QName
+
+    public void testQName() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/QName.xq");
+
+        XQueryOptionDecl optionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryOptionDecl.class);
+        XQueryEQName eqnamePsi = PsiNavigation.findChildrenByClass(optionDeclPsi, XQueryEQName.class).get(0);
+
+        assertThat(eqnamePsi.getPrefix(), is(notNullValue()));
+        assertThat(eqnamePsi.getPrefix().getNode().getElementType(), is(XQueryTokenType.NCNAME));
+        assertThat(eqnamePsi.getPrefix().getText(), is("one"));
+
+        assertThat(eqnamePsi.getLocalName(), is(notNullValue()));
+        assertThat(eqnamePsi.getLocalName().getNode().getElementType(), is(XQueryTokenType.NCNAME));
+        assertThat(eqnamePsi.getLocalName().getText(), is("two"));
+    }
+
+    public void testQName_KeywordLocalPart() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/QName_KeywordLocalPart.xq");
+
+        XQueryOptionDecl optionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryOptionDecl.class);
+        XQueryEQName eqnamePsi = PsiNavigation.findChildrenByClass(optionDeclPsi, XQueryEQName.class).get(0);
+
+        assertThat(eqnamePsi.getPrefix(), is(notNullValue()));
+        assertThat(eqnamePsi.getPrefix().getNode().getElementType(), is(XQueryTokenType.NCNAME));
+        assertThat(eqnamePsi.getPrefix().getText(), is("sort"));
+
+        assertThat(eqnamePsi.getLocalName(), is(notNullValue()));
+        assertThat(eqnamePsi.getLocalName().getNode().getElementType(), is(XQueryTokenType.K_LEAST));
+        assertThat(eqnamePsi.getLocalName().getText(), is("least"));
+    }
+
+    public void testQName_MissingLocalPart() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/QName_MissingLocalPart.xq");
+
+        XQueryOptionDecl optionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryOptionDecl.class);
+        XQueryEQName eqnamePsi = PsiNavigation.findChildrenByClass(optionDeclPsi, XQueryEQName.class).get(0);
+
+        assertThat(eqnamePsi.getPrefix(), is(notNullValue()));
+        assertThat(eqnamePsi.getPrefix().getNode().getElementType(), is(XQueryTokenType.NCNAME));
+        assertThat(eqnamePsi.getPrefix().getText(), is("one"));
+
+        assertThat(eqnamePsi.getLocalName(), is(nullValue()));
+    }
+
+    public void testQName_KeywordPrefixPart() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/QName_KeywordPrefixPart.xq");
+
+        XQueryOptionDecl optionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryOptionDecl.class);
+        XQueryEQName eqnamePsi = PsiNavigation.findChildrenByClass(optionDeclPsi, XQueryEQName.class).get(0);
+
+        assertThat(eqnamePsi.getPrefix(), is(notNullValue()));
+        assertThat(eqnamePsi.getPrefix().getNode().getElementType(), is(XQueryTokenType.K_ORDER));
+        assertThat(eqnamePsi.getPrefix().getText(), is("order"));
+
+        assertThat(eqnamePsi.getLocalName(), is(notNullValue()));
+        assertThat(eqnamePsi.getLocalName().getNode().getElementType(), is(XQueryTokenType.NCNAME));
+        assertThat(eqnamePsi.getLocalName().getText(), is("two"));
+    }
+
+    public void testQName_DirElemConstructor() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/DirElemConstructor.xq");
+
+        XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryDirElemConstructor.class);
+        XQueryEQName eqnamePsi = PsiNavigation.findChildrenByClass(dirElemConstructorPsi, XQueryEQName.class).get(0);
+
+        assertThat(eqnamePsi.getPrefix(), is(notNullValue()));
+        assertThat(eqnamePsi.getPrefix().getNode().getElementType(), is(XQueryTokenType.XML_TAG_NCNAME));
+        assertThat(eqnamePsi.getPrefix().getText(), is("a"));
+
+        assertThat(eqnamePsi.getLocalName(), is(notNullValue()));
+        assertThat(eqnamePsi.getLocalName().getNode().getElementType(), is(XQueryTokenType.XML_TAG_NCNAME));
+        assertThat(eqnamePsi.getLocalName().getText(), is("b"));
+    }
+
+    public void testQName_DirAttributeList() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/DirAttributeList.xq");
+
+        XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryDirElemConstructor.class);
+        XQueryDirAttributeList dirAttributeListPsi = PsiNavigation.findChildrenByClass(dirElemConstructorPsi, XQueryDirAttributeList.class).get(0);
+        XQueryEQName eqnamePsi = PsiNavigation.findChildrenByClass(dirAttributeListPsi, XQueryEQName.class).get(0);
+
+        assertThat(eqnamePsi.getPrefix(), is(notNullValue()));
+        assertThat(eqnamePsi.getPrefix().getNode().getElementType(), is(XQueryTokenType.XML_ATTRIBUTE_NCNAME));
+        assertThat(eqnamePsi.getPrefix().getText(), is("xml"));
+
+        assertThat(eqnamePsi.getLocalName(), is(notNullValue()));
+        assertThat(eqnamePsi.getLocalName().getNode().getElementType(), is(XQueryTokenType.XML_ATTRIBUTE_NCNAME));
+        assertThat(eqnamePsi.getLocalName().getText(), is("id"));
+    }
+
+    // endregion
     // endregion
     // region XQueryFile
 
@@ -2529,114 +2639,6 @@ public class XQueryPsiTest extends ParserTestCase {
     }
 
     // endregion
-    // endregion
-    // region XQueryNCName
-
-    public void testNCName() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/NCName_Keyword.xq");
-
-        XQueryOptionDecl optionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryOptionDecl.class);
-        XQueryNCName ncnamePsi = PsiNavigation.findChildrenByClass(optionDeclPsi, XQueryNCName.class).get(0);
-
-        assertThat(ncnamePsi.getPrefix(), is(nullValue()));
-
-        assertThat(ncnamePsi.getLocalName(), is(notNullValue()));
-        assertThat(ncnamePsi.getLocalName().getNode().getElementType(), is(XQueryTokenType.K_COLLATION));
-        assertThat(ncnamePsi.getLocalName().getText(), is("collation"));
-    }
-
-    // endregion
-    // region XQueryQName
-
-    public void testQName() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/QName.xq");
-
-        XQueryOptionDecl optionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryOptionDecl.class);
-        XQueryQName qnamePsi = PsiNavigation.findChildrenByClass(optionDeclPsi, XQueryQName.class).get(0);
-
-        assertThat(qnamePsi.getPrefix(), is(notNullValue()));
-        assertThat(qnamePsi.getPrefix().getNode().getElementType(), is(XQueryTokenType.NCNAME));
-        assertThat(qnamePsi.getPrefix().getText(), is("one"));
-
-        assertThat(qnamePsi.getLocalName(), is(notNullValue()));
-        assertThat(qnamePsi.getLocalName().getNode().getElementType(), is(XQueryTokenType.NCNAME));
-        assertThat(qnamePsi.getLocalName().getText(), is("two"));
-    }
-
-    public void testQName_KeywordLocalPart() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/QName_KeywordLocalPart.xq");
-
-        XQueryOptionDecl optionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryOptionDecl.class);
-        XQueryQName qnamePsi = PsiNavigation.findChildrenByClass(optionDeclPsi, XQueryQName.class).get(0);
-
-        assertThat(qnamePsi.getPrefix(), is(notNullValue()));
-        assertThat(qnamePsi.getPrefix().getNode().getElementType(), is(XQueryTokenType.NCNAME));
-        assertThat(qnamePsi.getPrefix().getText(), is("sort"));
-
-        assertThat(qnamePsi.getLocalName(), is(notNullValue()));
-        assertThat(qnamePsi.getLocalName().getNode().getElementType(), is(XQueryTokenType.K_LEAST));
-        assertThat(qnamePsi.getLocalName().getText(), is("least"));
-    }
-
-    public void testQName_MissingLocalPart() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/QName_MissingLocalPart.xq");
-
-        XQueryOptionDecl optionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryOptionDecl.class);
-        XQueryQName qnamePsi = PsiNavigation.findChildrenByClass(optionDeclPsi, XQueryQName.class).get(0);
-
-        assertThat(qnamePsi.getPrefix(), is(notNullValue()));
-        assertThat(qnamePsi.getPrefix().getNode().getElementType(), is(XQueryTokenType.NCNAME));
-        assertThat(qnamePsi.getPrefix().getText(), is("one"));
-
-        assertThat(qnamePsi.getLocalName(), is(nullValue()));
-    }
-
-    public void testQName_KeywordPrefixPart() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/QName_KeywordPrefixPart.xq");
-
-        XQueryOptionDecl optionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryOptionDecl.class);
-        XQueryQName qnamePsi = PsiNavigation.findChildrenByClass(optionDeclPsi, XQueryQName.class).get(0);
-
-        assertThat(qnamePsi.getPrefix(), is(notNullValue()));
-        assertThat(qnamePsi.getPrefix().getNode().getElementType(), is(XQueryTokenType.K_ORDER));
-        assertThat(qnamePsi.getPrefix().getText(), is("order"));
-
-        assertThat(qnamePsi.getLocalName(), is(notNullValue()));
-        assertThat(qnamePsi.getLocalName().getNode().getElementType(), is(XQueryTokenType.NCNAME));
-        assertThat(qnamePsi.getLocalName().getText(), is("two"));
-    }
-
-    public void testQName_DirElemConstructor() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/DirElemConstructor.xq");
-
-        XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryDirElemConstructor.class);
-        XQueryQName qnamePsi = PsiNavigation.findChildrenByClass(dirElemConstructorPsi, XQueryQName.class).get(0);
-
-        assertThat(qnamePsi.getPrefix(), is(notNullValue()));
-        assertThat(qnamePsi.getPrefix().getNode().getElementType(), is(XQueryTokenType.XML_TAG_NCNAME));
-        assertThat(qnamePsi.getPrefix().getText(), is("a"));
-
-        assertThat(qnamePsi.getLocalName(), is(notNullValue()));
-        assertThat(qnamePsi.getLocalName().getNode().getElementType(), is(XQueryTokenType.XML_TAG_NCNAME));
-        assertThat(qnamePsi.getLocalName().getText(), is("b"));
-    }
-
-    public void testQName_DirAttributeList() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/DirAttributeList.xq");
-
-        XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryDirElemConstructor.class);
-        XQueryDirAttributeList dirAttributeListPsi = PsiNavigation.findChildrenByClass(dirElemConstructorPsi, XQueryDirAttributeList.class).get(0);
-        XQueryQName qnamePsi = PsiNavigation.findChildrenByClass(dirAttributeListPsi, XQueryQName.class).get(0);
-
-        assertThat(qnamePsi.getPrefix(), is(notNullValue()));
-        assertThat(qnamePsi.getPrefix().getNode().getElementType(), is(XQueryTokenType.XML_ATTRIBUTE_NCNAME));
-        assertThat(qnamePsi.getPrefix().getText(), is("xml"));
-
-        assertThat(qnamePsi.getLocalName(), is(notNullValue()));
-        assertThat(qnamePsi.getLocalName().getNode().getElementType(), is(XQueryTokenType.XML_ATTRIBUTE_NCNAME));
-        assertThat(qnamePsi.getLocalName().getText(), is("id"));
-    }
-
     // endregion
     // region XQueryStringLiteral
 
