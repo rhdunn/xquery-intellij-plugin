@@ -22,10 +22,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.Implementations;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.PsiNavigation;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceProvider;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.*;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase;
 
 import static org.hamcrest.CoreMatchers.*;
@@ -2238,6 +2235,21 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_3_1));
     }
 
+    // endregion
+    // region XQueryModuleProvider
+    // region ModuleDecl
+
+    public void testModuleDecl_ModuleProvider() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/ModuleDecl.xq");
+
+        XQueryModuleDecl moduleDeclPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryModuleDecl.class);
+        XQueryProlog prologPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryProlog.class);
+
+        XQueryModuleProvider provider = (XQueryModuleProvider)moduleDeclPsi;
+        assertThat(provider.getReferencedProlog(), is(prologPsi));
+    }
+
+    // endregion
     // endregion
     // region XQueryNamespaceProvider
     // region DirAttributeList
