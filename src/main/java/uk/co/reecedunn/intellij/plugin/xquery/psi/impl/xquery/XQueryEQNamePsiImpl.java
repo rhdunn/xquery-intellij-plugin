@@ -20,6 +20,7 @@ import com.intellij.lang.ASTNode;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiReference;
+import com.intellij.psi.tree.TokenSet;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryBracedURILiteral;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
@@ -29,6 +30,11 @@ import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.resolve.reference.XQueryEQNamePrefixReference;
 
 public class XQueryEQNamePsiImpl extends ASTWrapperPsiElement implements XQueryEQName {
+    private static TokenSet QNAME_SEPARATORS = TokenSet.create(
+        XQueryTokenType.QNAME_SEPARATOR,
+        XQueryTokenType.XML_TAG_QNAME_SEPARATOR,
+        XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR);
+
     public XQueryEQNamePsiImpl(@NotNull ASTNode node) {
         super(node);
     }
@@ -55,7 +61,7 @@ public class XQueryEQNamePsiImpl extends ASTWrapperPsiElement implements XQueryE
         while (element != null) {
             if (element.getNode().getElementType() instanceof INCNameType) {
                 match = element;
-            } else if (element.getNode().getElementType() == XQueryTokenType.QNAME_SEPARATOR) {
+            } else if (QNAME_SEPARATORS.contains(element.getNode().getElementType())) {
                 return match;
             }
             element = element.getNextSibling();
@@ -65,7 +71,7 @@ public class XQueryEQNamePsiImpl extends ASTWrapperPsiElement implements XQueryE
 
     @Override
     public PsiElement getLocalName() {
-        PsiElement element = findChildByType(XQueryTokenType.QNAME_SEPARATOR);
+        PsiElement element = findChildByType(QNAME_SEPARATORS);
         if (element == null) { // NCName | URIQualifiedName
             element = getFirstChild();
             if (element.getNode().getElementType() == XQueryElementType.URI_QUALIFIED_NAME) {

@@ -15,57 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
-import com.intellij.openapi.util.TextRange;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiReference;
-import com.intellij.psi.tree.TokenSet;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryQName;
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.INCNameType;
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
-import uk.co.reecedunn.intellij.plugin.xquery.resolve.reference.XQueryEQNamePrefixReference;
 
-public class XQueryQNamePsiImpl extends ASTWrapperPsiElement implements XQueryQName {
-    private static TokenSet QNAME_SEPARATORS = TokenSet.create(
-        XQueryTokenType.QNAME_SEPARATOR,
-        XQueryTokenType.XML_TAG_QNAME_SEPARATOR,
-        XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR);
-
+public class XQueryQNamePsiImpl extends XQueryEQNamePsiImpl implements XQueryQName {
     public XQueryQNamePsiImpl(@NotNull ASTNode node) {
         super(node);
-    }
-
-    @Override
-    public PsiReference getReference() {
-        TextRange range = getFirstChild().getTextRange();
-        return new XQueryEQNamePrefixReference(this, new TextRange(0, range.getLength()), getFirstChild().getText());
-    }
-
-    @Override
-    public PsiElement getPrefix() {
-        PsiElement element = getFirstChild();
-        while (element != null) {
-            if (element.getNode().getElementType() instanceof INCNameType) {
-                return element;
-            } else if (QNAME_SEPARATORS.contains(element.getNode().getElementType())) {
-                return null;
-            }
-            element = element.getNextSibling();
-        }
-        return null;
-    }
-
-    @Override
-    public PsiElement getLocalName() {
-        PsiElement element = findChildByType(QNAME_SEPARATORS);
-        while (element != null) {
-            if (element.getNode().getElementType() instanceof INCNameType) {
-                return element;
-            }
-            element = element.getNextSibling();
-        }
-        return null;
     }
 }
