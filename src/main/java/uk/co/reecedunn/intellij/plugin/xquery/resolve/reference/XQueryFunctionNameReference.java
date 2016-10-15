@@ -7,6 +7,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.PsiNavigation;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryModuleProvider;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace;
 
 import java.util.List;
@@ -24,12 +25,14 @@ public class XQueryFunctionNameReference extends PsiReferenceBase<XQueryEQName> 
             return null;
         }
 
-        if (ns.getDeclaration() instanceof XQueryModuleDecl) {
-            CharSequence localName = getElement().getLocalName().getText();
+        if (ns.getDeclaration() instanceof XQueryModuleProvider) {
+            XQueryModuleProvider provider = (XQueryModuleProvider)ns.getDeclaration();
+            PsiElement prolog = provider.getReferencedProlog();
+            if (prolog == null) {
+                return null;
+            }
 
-            PsiElement file = PsiNavigation.findParentByClass(ns.getDeclaration(), XQueryFile.class);
-            PsiElement module = PsiNavigation.findChildByClass(file, XQueryModule.class);
-            PsiElement prolog = PsiNavigation.findChildByClass(module, XQueryProlog.class);
+            CharSequence localName = getElement().getLocalName().getText();
             PsiElement annotation = prolog.getFirstChild();
             while (annotation != null) {
                 if (annotation instanceof XQueryAnnotatedDecl) {
