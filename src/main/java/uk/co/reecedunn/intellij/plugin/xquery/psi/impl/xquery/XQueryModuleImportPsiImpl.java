@@ -19,13 +19,15 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModuleImport;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryNCName;
+import org.jetbrains.annotations.Nullable;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.PsiNavigation;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryModuleProvider;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceProvider;
 
-public class XQueryModuleImportPsiImpl extends ASTWrapperPsiElement implements XQueryModuleImport, XQueryNamespaceProvider {
+public class XQueryModuleImportPsiImpl extends ASTWrapperPsiElement implements XQueryModuleImport, XQueryNamespaceProvider, XQueryModuleProvider {
     public XQueryModuleImportPsiImpl(@NotNull ASTNode node) {
         super(node);
     }
@@ -41,6 +43,26 @@ public class XQueryModuleImportPsiImpl extends ASTWrapperPsiElement implements X
             PsiElement element = findChildByType(XQueryElementType.URI_LITERAL);
             return new XQueryNamespace(name.getLocalName(), element, this);
         }
+        return null;
+    }
+
+    @SuppressWarnings("ConstantConditions")
+    @Nullable
+    @Override
+    public XQueryProlog getReferencedProlog() {
+        PsiElement uri = getFirstChild();
+        while (uri != null) {
+            if (uri instanceof XQueryUriLiteral) {
+                PsiElement file = uri.getReference().resolve();
+                if (file instanceof XQueryFile) {
+                    PsiElement module = PsiNavigation.findChildByClass(file, XQueryModule.class);
+                    return PsiNavigation.findChildByClass(module, XQueryProlog.class);
+                }
+            }
+
+            uri = uri.getNextSibling();
+        }
+
         return null;
     }
 }
