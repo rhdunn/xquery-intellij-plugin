@@ -27,11 +27,7 @@ public class XQueryFunctionNameReference extends PsiReferenceBase<XQueryEQName> 
         if (ns.getDeclaration() instanceof XQueryModuleDecl) {
             CharSequence localName = getElement().getLocalName().getText();
 
-            PsiElement file = ns.getDeclaration();
-            while (!(file instanceof XQueryFile)) {
-                file = file.getParent();
-            }
-
+            PsiElement file = PsiNavigation.findParentByClass(ns.getDeclaration(), XQueryFile.class);
             PsiElement module = PsiNavigation.findChildrenByClass(file, XQueryModule.class).get(0);
             PsiElement prolog = PsiNavigation.findChildrenByClass(module, XQueryProlog.class).get(0);
             PsiElement annotation = prolog.getFirstChild();
