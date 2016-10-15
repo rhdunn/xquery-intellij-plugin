@@ -22,7 +22,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.Implementations;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.PsiNavigation;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
-import uk.co.reecedunn.intellij.plugin.xquery.tests.Specification;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase;
 
 import static org.hamcrest.CoreMatchers.*;
@@ -30,9 +29,80 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 @SuppressWarnings("ConstantConditions")
 public class UpdateFacilityPsiTest extends ParserTestCase {
-    // region Update Facility 1.0 :: FunctionDecl
+    // region XQueryConformanceCheck
+    // region CompatibilityAnnotation
 
-    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-FunctionDecl")
+    public void testCompatibilityAnnotation_FunctionDecl() {
+        final ASTNode node = parseResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating.xq");
+
+        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryAnnotatedDecl.class);
+        UpdateFacilityCompatibilityAnnotation compatibilityAnnotationPsi = PsiNavigation.findChildrenByClass(annotatedDeclPsi, UpdateFacilityCompatibilityAnnotation.class).get(0);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)compatibilityAnnotationPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires Update Facility 1.0 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_UPDATING));
+    }
+
+    public void testCompatibilityAnnotation_VarDecl() {
+        final ASTNode node = parseResource("tests/parser/xquery-update-3.0/CompatibilityAnnotation_VarDecl.xq");
+
+        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryAnnotatedDecl.class);
+        UpdateFacilityCompatibilityAnnotation compatibilityAnnotationPsi = PsiNavigation.findChildrenByClass(annotatedDeclPsi, UpdateFacilityCompatibilityAnnotation.class).get(0);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)compatibilityAnnotationPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires Update Facility 3.0 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_UPDATING));
+    }
+
+    // endregion
+    // region DeleteExpr
+
+    public void testDeleteExpr() {
+        final ASTNode node = parseResource("tests/parser/xquery-update-1.0/DeleteExpr_Node.xq");
+
+        UpdateFacilityDeleteExpr deleteExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), UpdateFacilityDeleteExpr.class);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)deleteExprPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires Update Facility 1.0 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_DELETE));
+    }
+
+    // endregion
+    // region FunctionDecl
+
     public void testFunctionDecl_Updating() {
         final ASTNode node = parseResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating.xq");
 
@@ -56,34 +126,8 @@ public class UpdateFacilityPsiTest extends ParserTestCase {
     }
 
     // endregion
-    // region Update Facility 1.0 :: RevalidationDecl
+    // region InsertExpr
 
-    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-RevalidationDecl")
-    public void testRevalidationDecl() {
-        final ASTNode node = parseResource("tests/parser/xquery-update-1.0/RevalidationDecl.xq");
-
-        UpdateFacilityRevalidationDecl revalidationDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), UpdateFacilityRevalidationDecl.class);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)revalidationDeclPsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires Update Facility 1.0 or later."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.K_REVALIDATION));
-    }
-
-    // endregion
-    // region Update Facility 1.0 :: InsertExpr
-
-    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-InsertExpr")
     public void testInsertExpr() {
         final ASTNode node = parseResource("tests/parser/xquery-update-1.0/InsertExpr_Node.xq");
 
@@ -106,59 +150,8 @@ public class UpdateFacilityPsiTest extends ParserTestCase {
     }
 
     // endregion
-    // region Update Facility 1.0 :: DeleteExpr
+    // region RenameExpr
 
-    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-DeleteExpr")
-    public void testDeleteExpr() {
-        final ASTNode node = parseResource("tests/parser/xquery-update-1.0/DeleteExpr_Node.xq");
-
-        UpdateFacilityDeleteExpr deleteExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), UpdateFacilityDeleteExpr.class);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)deleteExprPsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires Update Facility 1.0 or later."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.K_DELETE));
-    }
-
-    // endregion
-    // region Update Facility 1.0 :: ReplaceExpr
-
-    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-ReplaceExpr")
-    public void testReplaceExpr() {
-        final ASTNode node = parseResource("tests/parser/xquery-update-1.0/ReplaceExpr.xq");
-
-        UpdateFacilityReplaceExpr replaceExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), UpdateFacilityReplaceExpr.class);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)replaceExprPsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires Update Facility 1.0 or later."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.K_REPLACE));
-    }
-
-    // endregion
-    // region Update Facility 1.0 :: RenameExpr
-
-    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-RenameExpr")
     public void testRenameExpr() {
         final ASTNode node = parseResource("tests/parser/xquery-update-1.0/RenameExpr.xq");
 
@@ -181,9 +174,56 @@ public class UpdateFacilityPsiTest extends ParserTestCase {
     }
 
     // endregion
-    // region Update Facility 1.0 :: TransformExpr
+    // region ReplaceExpr
 
-    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-TransformExpr")
+    public void testReplaceExpr() {
+        final ASTNode node = parseResource("tests/parser/xquery-update-1.0/ReplaceExpr.xq");
+
+        UpdateFacilityReplaceExpr replaceExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), UpdateFacilityReplaceExpr.class);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)replaceExprPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires Update Facility 1.0 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_REPLACE));
+    }
+
+    // endregion
+    // region RevalidationDecl
+
+    public void testRevalidationDecl() {
+        final ASTNode node = parseResource("tests/parser/xquery-update-1.0/RevalidationDecl.xq");
+
+        UpdateFacilityRevalidationDecl revalidationDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), UpdateFacilityRevalidationDecl.class);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)revalidationDeclPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires Update Facility 1.0 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_REVALIDATION));
+    }
+
+    // endregion
+    // region TransformExpr
+
     public void testTransformExpr() {
         final ASTNode node = parseResource("tests/parser/xquery-update-1.0/TransformExpr.xq");
 
@@ -206,53 +246,5 @@ public class UpdateFacilityPsiTest extends ParserTestCase {
     }
 
     // endregion
-    // region Update Facility 3.0 :: CompatibilityAnnotation
-
-    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2015/WD-xquery-update-30-20150219/#prod-xquery30-CompatibilityAnnotation")
-    public void testCompatibilityAnnotation_FunctionDecl() {
-        final ASTNode node = parseResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating.xq");
-
-        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryAnnotatedDecl.class);
-        UpdateFacilityCompatibilityAnnotation compatibilityAnnotationPsi = PsiNavigation.findChildrenByClass(annotatedDeclPsi, UpdateFacilityCompatibilityAnnotation.class).get(0);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)compatibilityAnnotationPsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires Update Facility 1.0 or later."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.K_UPDATING));
-    }
-
-    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2015/WD-xquery-update-30-20150219/#prod-xquery30-CompatibilityAnnotation")
-    public void testCompatibilityAnnotation_VarDecl() {
-        final ASTNode node = parseResource("tests/parser/xquery-update-3.0/CompatibilityAnnotation_VarDecl.xq");
-
-        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryAnnotatedDecl.class);
-        UpdateFacilityCompatibilityAnnotation compatibilityAnnotationPsi = PsiNavigation.findChildrenByClass(annotatedDeclPsi, UpdateFacilityCompatibilityAnnotation.class).get(0);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)compatibilityAnnotationPsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires Update Facility 3.0 or later."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.K_UPDATING));
-    }
-
     // endregion
 }

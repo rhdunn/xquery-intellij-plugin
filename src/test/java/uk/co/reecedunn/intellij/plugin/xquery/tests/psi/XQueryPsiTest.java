@@ -26,7 +26,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.PsiNavigation;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceProvider;
-import uk.co.reecedunn.intellij.plugin.xquery.tests.Specification;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase;
 
 import static org.hamcrest.CoreMatchers.*;
@@ -34,72 +33,299 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 @SuppressWarnings("ConstantConditions")
 public class XQueryPsiTest extends ParserTestCase {
-    // region File
+    // region XQueryConformanceCheck
+    // region AllowingEmpty
 
-    public void testFile_Empty() {
-        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
-        final ASTNode node = parseText("");
+    public void testAllowingEmpty() {
+        final ASTNode node = parseResource("tests/parser/xquery-3.0/AllowingEmpty.xq");
 
-        assertThat(node.getElementType(), is(XQueryElementType.FILE));
+        XQueryForClause forClausePsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryForClause.class);
+        XQueryForBinding forBindingPsi = PsiNavigation.findChildrenByClass(forClausePsi, XQueryForBinding.class).get(0);
+        XQueryAllowingEmpty allowingEmptyPsi = PsiNavigation.findChildrenByClass(forBindingPsi, XQueryAllowingEmpty.class).get(0);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)allowingEmptyPsi;
 
-        XQueryFile file = (XQueryFile)node.getPsi();
-        assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_3_0));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
 
-        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_1);
-        assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_3_1));
-    }
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(false));
 
-    public void testFile() {
-        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/IntegerLiteral.xq");
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 3.0 or later."));
 
-        assertThat(node.getElementType(), is(XQueryElementType.FILE));
-
-        XQueryFile file = (XQueryFile)node.getPsi();
-        assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_3_0));
-
-        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_1);
-        assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_3_1));
-    }
-
-    // endregion
-    // region XQuery 1.0 :: StringLiteral
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
-    public void testStringLiteral() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/StringLiteral.xq");
-
-        XQueryStringLiteral stringLiteralPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryStringLiteral.class);
-        assertThat(stringLiteralPsi, is(notNullValue()));
-        assertThat(stringLiteralPsi.getStringValue(), is("One Two"));
-    }
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
-    public void testStringLiteral_Empty() {
-        final ASTNode node = parseResource("tests/psi/xquery-1.0/StringLiteral_Empty.xq");
-
-        XQueryStringLiteral stringLiteralPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryStringLiteral.class);
-        assertThat(stringLiteralPsi, is(notNullValue()));
-        assertThat(stringLiteralPsi.getStringValue(), is(nullValue()));
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_ALLOWING));
     }
 
     // endregion
-    // region XQuery 1.0 :: VersionDecl
+    // region Annotation
 
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VersionDecl")
-    public void testVersionDecl() {
-        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/VersionDecl.xq");
+    public void testAnnotation() {
+        final ASTNode node = parseResource("tests/parser/xquery-3.0/Annotation.xq");
 
-        XQueryVersionDecl versionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryVersionDecl.class);
-        assertThat(versionDeclPsi.getVersion(), is(notNullValue()));
-        assertThat(versionDeclPsi.getVersion().getStringValue(), is("1.0"));
-        assertThat(versionDeclPsi.getEncoding(), is(nullValue()));
+        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryAnnotatedDecl.class);
+        XQueryAnnotation annotationPsi = PsiNavigation.findChildrenByClass(annotatedDeclPsi, XQueryAnnotation.class).get(0);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)annotationPsi;
 
-        XQueryFile file = (XQueryFile)node.getPsi();
-        assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_1_0));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
 
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)versionDeclPsi;
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 3.0 or later, or MarkLogic 6.0 or later with XQuery version '1.0-ml'."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.ANNOTATION_INDICATOR));
+    }
+
+    // endregion
+    // region AnyFunctionTest
+
+    public void testAnyFunctionTest() {
+        final ASTNode node = parseResource("tests/parser/xquery-3.0/AnyFunctionTest.xq");
+
+        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryAnnotatedDecl.class);
+        XQueryVarDecl varDeclPsi = PsiNavigation.findChildrenByClass(annotatedDeclPsi, XQueryVarDecl.class).get(0);
+        XQueryTypeDeclaration typeDeclarationPsi = PsiNavigation.findChildrenByClass(varDeclPsi, XQueryTypeDeclaration.class).get(0);
+        XQuerySequenceType sequenceTypePsi = PsiNavigation.findChildrenByClass(typeDeclarationPsi, XQuerySequenceType.class).get(0);
+        XQueryAnyFunctionTest anyFunctionTestPsi = PsiNavigation.findFirstChildByClass(sequenceTypePsi, XQueryAnyFunctionTest.class);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)anyFunctionTestPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 3.0 or later, or MarkLogic 6.0 or later with XQuery version '1.0-ml'."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_FUNCTION));
+    }
+
+    // endregion
+    // region AnyKindTest
+
+    public void testAnyKindTest() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/AnyKindTest.xq");
+
+        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryAnnotatedDecl.class);
+        XQueryVarDecl varDeclPsi = PsiNavigation.findChildrenByClass(annotatedDeclPsi, XQueryVarDecl.class).get(0);
+        XQueryTypeDeclaration typeDeclarationPsi = PsiNavigation.findChildrenByClass(varDeclPsi, XQueryTypeDeclaration.class).get(0);
+        XQuerySequenceType sequenceTypePsi = PsiNavigation.findChildrenByClass(typeDeclarationPsi, XQuerySequenceType.class).get(0);
+        XQueryAnyKindTest anyKindTestPsi = PsiNavigation.findFirstChildByClass(sequenceTypePsi, XQueryAnyKindTest.class);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)anyKindTestPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires MarkLogic 8.0 or later with XQuery version '1.0-ml'."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_NODE));
+    }
+
+    // endregion
+    // region ArgumentList
+
+    public void testArgumentList_FunctionCall() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/FunctionCall.xq");
+
+        XQueryFunctionCall functionCallPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFunctionCall.class);
+        XQueryArgumentList argumentListPsi = PsiNavigation.findChildrenByClass(functionCallPsi, XQueryArgumentList.class).get(0);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)argumentListPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 3.0 or later, or MarkLogic 6.0 or later with XQuery version '1.0-ml'."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.PARENTHESIS_OPEN));
+    }
+
+    public void testArgumentList_PostfixExpr() {
+        final ASTNode node = parseResource("tests/parser/xquery-3.0/PostfixExpr_ArgumentList.xq");
+
+        XQueryPostfixExpr postfixExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryPostfixExpr.class);
+        XQueryArgumentList argumentListPsi = PsiNavigation.findChildrenByClass(postfixExprPsi, XQueryArgumentList.class).get(0);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)argumentListPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 3.0 or later, or MarkLogic 6.0 or later with XQuery version '1.0-ml'."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.PARENTHESIS_OPEN));
+    }
+
+    // endregion
+    // region ArgumentPlaceholder
+
+    public void testArgumentPlaceholder() {
+        final ASTNode node = parseResource("tests/parser/xquery-3.0/ArgumentPlaceholder.xq");
+
+        XQueryFunctionCall functionCallPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFunctionCall.class);
+        XQueryArgumentList argumentListPsi = PsiNavigation.findChildrenByClass(functionCallPsi, XQueryArgumentList.class).get(0);
+        XQueryArgument argumentPsi = PsiNavigation.findChildrenByClass(argumentListPsi, XQueryArgument.class).get(0);
+        XQueryArgumentPlaceholder argumentPlaceholderPsi = PsiNavigation.findFirstChildByClass(argumentPsi, XQueryArgumentPlaceholder.class);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)argumentPlaceholderPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 3.0 or later, or MarkLogic 6.0 or later with XQuery version '1.0-ml'."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.OPTIONAL));
+    }
+
+    // endregion
+    // region BracedURILiteral
+
+    public void testBracedURILiteral() {
+        final ASTNode node = parseResource("tests/parser/xquery-3.0/BracedURILiteral.xq");
+
+        XQueryOptionDecl optionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryOptionDecl.class);
+        XQueryURIQualifiedName qnamePsi = PsiNavigation.findChildrenByClass(optionDeclPsi, XQueryURIQualifiedName.class).get(0);
+        XQueryBracedURILiteral bracedURILiteralPsi = PsiNavigation.findFirstChildByClass(qnamePsi, XQueryBracedURILiteral.class);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)bracedURILiteralPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 3.0 or later, or MarkLogic 6.0 or later with XQuery version '1.0-ml'."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.BRACED_URI_LITERAL_START));
+    }
+
+    // endregion
+    // region CatchClause
+
+    public void testCatchClause() {
+        final ASTNode node = parseResource("tests/parser/xquery-3.0/CatchClause.xq");
+
+        XQueryTryCatchExpr tryCatchExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryTryCatchExpr.class);
+        XQueryCatchClause catchClausePsi = PsiNavigation.findChildrenByClass(tryCatchExprPsi, XQueryCatchClause.class).get(0);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)catchClausePsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires MarkLogic 6.0 or later with XQuery version '1.0-ml'."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_CATCH));
+    }
+
+    // endregion
+    // region ForwardAxis
+
+    public void testForwardAxis_Attribute() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/ForwardAxis_Attribute.xq");
+
+        XQueryForwardAxis forwardAxisPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryForwardAxis.class);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)forwardAxisPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
@@ -109,24 +335,14 @@ public class XQueryPsiTest extends ParserTestCase {
 
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.K_XQUERY));
+                is(XQueryTokenType.K_ATTRIBUTE));
     }
 
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VersionDecl")
-    public void testVersionDecl_CommentBeforeDecl() {
-        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
-        final ASTNode node = parseResource("tests/psi/xquery-1.0/VersionDecl_CommentBeforeDecl.xq");
+    public void testForwardAxis_Child() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/ForwardAxis_Child.xq");
 
-        XQueryModule modulePsi = PsiNavigation.findChildrenByClass(node.getPsi(), XQueryModule.class).get(0);
-        XQueryVersionDecl versionDeclPsi = PsiNavigation.findFirstChildByClass(modulePsi, XQueryVersionDecl.class);
-        assertThat(versionDeclPsi.getVersion(), is(notNullValue()));
-        assertThat(versionDeclPsi.getVersion().getStringValue(), is("1.0"));
-        assertThat(versionDeclPsi.getEncoding(), is(nullValue()));
-
-        XQueryFile file = (XQueryFile)node.getPsi();
-        assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_1_0));
-
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)versionDeclPsi;
+        XQueryForwardAxis forwardAxisPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryForwardAxis.class);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)forwardAxisPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
@@ -136,23 +352,14 @@ public class XQueryPsiTest extends ParserTestCase {
 
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.K_XQUERY));
+                is(XQueryTokenType.K_CHILD));
     }
 
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VersionDecl")
-    public void testVersionDecl_EmptyVersion() {
-        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
-        final ASTNode node = parseResource("tests/psi/xquery-1.0/VersionDecl_EmptyVersion.xq");
+    public void testForwardAxis_Descendant() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/ForwardAxis_Descendant.xq");
 
-        XQueryVersionDecl versionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryVersionDecl.class);
-        assertThat(versionDeclPsi.getVersion(), is(notNullValue()));
-        assertThat(versionDeclPsi.getVersion().getStringValue(), is(nullValue()));
-        assertThat(versionDeclPsi.getEncoding(), is(nullValue()));
-
-        XQueryFile file = (XQueryFile)node.getPsi();
-        assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_3_0));
-
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)versionDeclPsi;
+        XQueryForwardAxis forwardAxisPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryForwardAxis.class);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)forwardAxisPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
@@ -162,24 +369,14 @@ public class XQueryPsiTest extends ParserTestCase {
 
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.K_XQUERY));
+                is(XQueryTokenType.K_DESCENDANT));
     }
 
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VersionDecl")
-    public void testVersionDecl_WithEncoding() {
-        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/VersionDecl_WithEncoding.xq");
+    public void testForwardAxis_DescendantOrSelf() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/ForwardAxis_DescendantOrSelf.xq");
 
-        XQueryVersionDecl versionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryVersionDecl.class);
-        assertThat(versionDeclPsi.getVersion(), is(notNullValue()));
-        assertThat(versionDeclPsi.getVersion().getStringValue(), is("1.0"));
-        assertThat(versionDeclPsi.getEncoding(), is(notNullValue()));
-        assertThat(versionDeclPsi.getEncoding().getStringValue(), is("latin1"));
-
-        XQueryFile file = (XQueryFile)node.getPsi();
-        assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_1_0));
-
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)versionDeclPsi;
+        XQueryForwardAxis forwardAxisPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryForwardAxis.class);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)forwardAxisPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
@@ -189,24 +386,14 @@ public class XQueryPsiTest extends ParserTestCase {
 
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.K_XQUERY));
+                is(XQueryTokenType.K_DESCENDANT_OR_SELF));
     }
 
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VersionDecl")
-    public void testVersionDecl_WithEncoding_CommentsAsWhitespace() {
-        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
-        final ASTNode node = parseResource("tests/psi/xquery-1.0/VersionDecl_WithEncoding_CommentsAsWhitespace.xq");
+    public void testForwardAxis_Following() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/ForwardAxis_Following.xq");
 
-        XQueryVersionDecl versionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryVersionDecl.class);
-        assertThat(versionDeclPsi.getVersion(), is(notNullValue()));
-        assertThat(versionDeclPsi.getVersion().getStringValue(), is("1.0"));
-        assertThat(versionDeclPsi.getEncoding(), is(notNullValue()));
-        assertThat(versionDeclPsi.getEncoding().getStringValue(), is("latin1"));
-
-        XQueryFile file = (XQueryFile)node.getPsi();
-        assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_1_0));
-
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)versionDeclPsi;
+        XQueryForwardAxis forwardAxisPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryForwardAxis.class);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)forwardAxisPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
@@ -216,24 +403,14 @@ public class XQueryPsiTest extends ParserTestCase {
 
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.K_XQUERY));
+                is(XQueryTokenType.K_FOLLOWING));
     }
 
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VersionDecl")
-    public void testVersionDecl_WithEmptyEncoding() {
-        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
-        final ASTNode node = parseResource("tests/psi/xquery-1.0/VersionDecl_WithEncoding_EmptyEncoding.xq");
+    public void testForwardAxis_FollowingSibling() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/ForwardAxis_FollowingSibling.xq");
 
-        XQueryVersionDecl versionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryVersionDecl.class);
-        assertThat(versionDeclPsi.getVersion(), is(notNullValue()));
-        assertThat(versionDeclPsi.getVersion().getStringValue(), is("1.0"));
-        assertThat(versionDeclPsi.getEncoding(), is(notNullValue()));
-        assertThat(versionDeclPsi.getEncoding().getStringValue(), is(nullValue()));
-
-        XQueryFile file = (XQueryFile)node.getPsi();
-        assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_1_0));
-
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)versionDeclPsi;
+        XQueryForwardAxis forwardAxisPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryForwardAxis.class);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)forwardAxisPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
@@ -243,22 +420,14 @@ public class XQueryPsiTest extends ParserTestCase {
 
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.K_XQUERY));
+                is(XQueryTokenType.K_FOLLOWING_SIBLING));
     }
 
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VersionDecl")
-    public void testVersionDecl_NoVersion() {
-        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
-        final ASTNode node = parseResource("tests/psi/xquery-1.0/VersionDecl_NoVersion.xq");
+    public void testForwardAxis_Self() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/ForwardAxis_Self.xq");
 
-        XQueryVersionDecl versionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryVersionDecl.class);
-        assertThat(versionDeclPsi.getVersion(), is(nullValue()));
-        assertThat(versionDeclPsi.getEncoding(), is(nullValue()));
-
-        XQueryFile file = (XQueryFile)node.getPsi();
-        assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_3_0));
-
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)versionDeclPsi;
+        XQueryForwardAxis forwardAxisPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryForwardAxis.class);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)forwardAxisPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
@@ -268,248 +437,60 @@ public class XQueryPsiTest extends ParserTestCase {
 
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.K_XQUERY));
+                is(XQueryTokenType.K_SELF));
     }
 
     // endregion
-    // region XQuery 1.0 :: ModuleDecl
+    // region FunctionCall
 
-    public void testModuleDecl() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/ModuleDecl.xq");
+    public void testFunctionCall_NCName() {
+        final ASTNode node = parseResource("tests/psi/xquery-1.0/FunctionCall_NCName.xq");
 
-        XQueryModuleDecl moduleDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryModuleDecl.class);
-        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)moduleDeclPsi;
+        XQueryFunctionCall functionCallPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFunctionCall.class);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)functionCallPsi;
 
-        assertThat(provider.resolveNamespace(null), is(nullValue()));
-        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
-        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
 
-        XQueryNamespace ns = provider.resolveNamespace("test");
-        assertThat(ns, is(notNullValue()));
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This function name conflicts with MarkLogic JSON KindTest keywords."));
 
-        assertThat(ns.getPrefix(), is(instanceOf(LeafPsiElement.class)));
-        assertThat(ns.getPrefix().getText(), is("test"));
-
-        assertThat(ns.getUri(), is(instanceOf(XQueryUriLiteral.class)));
-        assertThat(((XQueryUriLiteral)ns.getUri()).getStringValue(), is("http://www.example.com/test"));
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryElementType.NCNAME));
     }
 
-    public void testModuleDecl_MissingNamespaceName() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/ModuleDecl_MissingNamespaceName.xq");
+    public void testFunctionCall_KeywordNCName() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/FunctionCall_KeywordNCNames_XQuery10.xq");
 
-        XQueryModuleDecl moduleDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryModuleDecl.class);
-        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)moduleDeclPsi;
+        XQueryFunctionCall functionCallPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFunctionCall.class);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)functionCallPsi;
 
-        assertThat(provider.resolveNamespace(null), is(nullValue()));
-        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
-        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
-        assertThat(provider.resolveNamespace("test"), is(nullValue()));
-    }
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
 
-    public void testModulesDecl_MissingNamespaceUri() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/ModuleDecl_MissingNamespaceUri.xq");
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This function name conflicts with MarkLogic JSON KindTest keywords."));
 
-        XQueryModuleDecl moduleDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryModuleDecl.class);
-        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)moduleDeclPsi;
-
-        assertThat(provider.resolveNamespace(null), is(nullValue()));
-        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
-        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
-
-        XQueryNamespace ns = provider.resolveNamespace("one");
-        assertThat(ns, is(notNullValue()));
-
-        assertThat(ns.getPrefix(), is(instanceOf(LeafPsiElement.class)));
-        assertThat(ns.getPrefix().getText(), is("one"));
-
-        assertThat(ns.getUri(), is(nullValue()));
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryElementType.NCNAME));
     }
 
     // endregion
-    // region XQuery 1.0 :: Prolog
-
-    public void testProlog_NoNamespaceProviders() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/VarDecl.xq");
-
-        XQueryProlog prologPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryProlog.class);
-        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)prologPsi;
-
-        assertThat(provider.resolveNamespace(null), is(nullValue()));
-        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
-        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
-        assertThat(provider.resolveNamespace("test"), is(nullValue()));
-    }
-
-    public void testProlog_NamespaceDecl() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/NamespaceDecl.xq");
-
-        XQueryProlog prologPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryProlog.class);
-        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)prologPsi;
-
-        assertThat(provider.resolveNamespace(null), is(nullValue()));
-        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
-        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
-
-        XQueryNamespace ns = provider.resolveNamespace("test");
-        assertThat(ns, is(notNullValue()));
-
-        assertThat(ns.getPrefix(), is(instanceOf(LeafPsiElement.class)));
-        assertThat(ns.getPrefix().getText(), is("test"));
-
-        assertThat(ns.getUri(), is(instanceOf(XQueryUriLiteral.class)));
-        assertThat(((XQueryUriLiteral)ns.getUri()).getStringValue(), is("http://www.example.org/test"));
-    }
-
-    // endregion
-    // region XQuery 1.0 :: SchemaImport
-
-    public void testSchemaImport() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/SchemaImport.xq");
-
-        XQuerySchemaImport schemaImportPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQuerySchemaImport.class);
-        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)schemaImportPsi;
-
-        assertThat(provider.resolveNamespace(null), is(nullValue()));
-        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
-        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
-        assertThat(provider.resolveNamespace("test"), is(nullValue()));
-    }
-
-    public void testSchemaImport_WithSchemaPrefix() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/SchemaPrefix.xq");
-
-        XQuerySchemaImport schemaImportPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQuerySchemaImport.class);
-        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)schemaImportPsi;
-
-        assertThat(provider.resolveNamespace(null), is(nullValue()));
-        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
-        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
-
-        XQueryNamespace ns = provider.resolveNamespace("test");
-        assertThat(ns, is(notNullValue()));
-
-        assertThat(ns.getPrefix(), is(instanceOf(LeafPsiElement.class)));
-        assertThat(ns.getPrefix().getText(), is("test"));
-
-        assertThat(ns.getUri(), is(instanceOf(XQueryUriLiteral.class)));
-        assertThat(((XQueryUriLiteral)ns.getUri()).getStringValue(), is("http://www.example.com/test"));
-    }
-
-    public void testSchemaImport_WithSchemaPrefix_MissingNCName() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/SchemaPrefix_MissingNCName.xq");
-
-        XQuerySchemaImport schemaImportPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQuerySchemaImport.class);
-        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)schemaImportPsi;
-
-        assertThat(provider.resolveNamespace(null), is(nullValue()));
-        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
-        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
-        assertThat(provider.resolveNamespace("test"), is(nullValue()));
-    }
-
-    public void testSchemaImport_WithSchemaPrefix_Default() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/SchemaPrefix_Default.xq");
-
-        XQuerySchemaImport schemaImportPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQuerySchemaImport.class);
-        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)schemaImportPsi;
-
-        assertThat(provider.resolveNamespace(null), is(nullValue()));
-        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
-        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
-        assertThat(provider.resolveNamespace("test"), is(nullValue()));
-    }
-
-    // endregion
-    // region XQuery 1.0 :: ModuleImport
-
-    public void testModuleImport() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/ModuleImport.xq");
-
-        XQueryModuleImport moduleImportPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryModuleImport.class);
-        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)moduleImportPsi;
-
-        assertThat(provider.resolveNamespace(null), is(nullValue()));
-        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
-        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
-        assertThat(provider.resolveNamespace("test"), is(nullValue()));
-    }
-
-    public void testModuleImport_WithNamespace() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/ModuleImport_WithNamespace.xq");
-
-        XQueryModuleImport moduleImportPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryModuleImport.class);
-        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)moduleImportPsi;
-
-        assertThat(provider.resolveNamespace(null), is(nullValue()));
-        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
-        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
-
-        XQueryNamespace ns = provider.resolveNamespace("test");
-        assertThat(ns, is(notNullValue()));
-
-        assertThat(ns.getPrefix(), is(instanceOf(LeafPsiElement.class)));
-        assertThat(ns.getPrefix().getText(), is("test"));
-
-        assertThat(ns.getUri(), is(instanceOf(XQueryUriLiteral.class)));
-        assertThat(((XQueryUriLiteral)ns.getUri()).getStringValue(), is("http://www.example.com/test"));
-    }
-
-    // endregion
-    // region XQuery 1.0 :: NamespaceDecl
-
-    public void testNamespaceDecl() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/NamespaceDecl.xq");
-
-        XQueryNamespaceDecl namespaceDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryNamespaceDecl.class);
-        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)namespaceDeclPsi;
-
-        assertThat(provider.resolveNamespace(null), is(nullValue()));
-        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
-        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
-
-        XQueryNamespace ns = provider.resolveNamespace("test");
-        assertThat(ns, is(notNullValue()));
-
-        assertThat(ns.getPrefix(), is(instanceOf(LeafPsiElement.class)));
-        assertThat(ns.getPrefix().getText(), is("test"));
-
-        assertThat(ns.getUri(), is(instanceOf(XQueryUriLiteral.class)));
-        assertThat(((XQueryUriLiteral)ns.getUri()).getStringValue(), is("http://www.example.org/test"));
-    }
-
-    public void testNamespaceDecl_MissingNCName() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/NamespaceDecl_MissingNCName.xq");
-
-        XQueryNamespaceDecl namespaceDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryNamespaceDecl.class);
-        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)namespaceDeclPsi;
-
-        assertThat(provider.resolveNamespace(null), is(nullValue()));
-        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
-        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
-        assertThat(provider.resolveNamespace("test"), is(nullValue()));
-    }
-
-    public void testNamespaceDecl_MissingUri() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/NamespaceDecl_MissingUri.xq");
-
-        XQueryNamespaceDecl namespaceDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryNamespaceDecl.class);
-        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)namespaceDeclPsi;
-
-        assertThat(provider.resolveNamespace(null), is(nullValue()));
-        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
-        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
-
-        XQueryNamespace ns = provider.resolveNamespace("test");
-        assertThat(ns, is(notNullValue()));
-
-        assertThat(ns.getPrefix(), is(instanceOf(LeafPsiElement.class)));
-        assertThat(ns.getPrefix().getText(), is("test"));
-
-        assertThat(ns.getUri(), is(nullValue()));
-    }
-
-    // endregion
-    // region XQuery 1.0 :: FunctionDecl
+    // region FunctionDecl
 
     public void testFunctionDecl_QName() {
         final ASTNode node = parseResource("tests/parser/xquery-1.0/FunctionDecl.xq");
@@ -631,1635 +612,6 @@ public class XQueryPsiTest extends ParserTestCase {
                 is(XQueryTokenType.K_FUNCTION));
     }
 
-    // endregion
-    // region XQuery 1.0 :: ValidateExpr
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ValidateExpr")
-    public void testValidateExpr() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/ValidateExpr.xq");
-
-        XQueryValidateExpr validateExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryValidateExpr.class);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)validateExprPsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires XQuery 1.0 or later."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.K_VALIDATE));
-    }
-
-    // endregion
-    // region XQuery 1.0 :: ForwardAxis
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardAxis")
-    public void testForwardAxis_Attribute() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/ForwardAxis_Attribute.xq");
-
-        XQueryForwardAxis forwardAxisPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryForwardAxis.class);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)forwardAxisPsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires XQuery 1.0 or later."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.K_ATTRIBUTE));
-    }
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardAxis")
-    public void testForwardAxis_Child() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/ForwardAxis_Child.xq");
-
-        XQueryForwardAxis forwardAxisPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryForwardAxis.class);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)forwardAxisPsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires XQuery 1.0 or later."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.K_CHILD));
-    }
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardAxis")
-    public void testForwardAxis_Descendant() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/ForwardAxis_Descendant.xq");
-
-        XQueryForwardAxis forwardAxisPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryForwardAxis.class);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)forwardAxisPsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires XQuery 1.0 or later."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.K_DESCENDANT));
-    }
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardAxis")
-    public void testForwardAxis_DescendantOrSelf() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/ForwardAxis_DescendantOrSelf.xq");
-
-        XQueryForwardAxis forwardAxisPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryForwardAxis.class);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)forwardAxisPsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires XQuery 1.0 or later."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.K_DESCENDANT_OR_SELF));
-    }
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardAxis")
-    public void testForwardAxis_Following() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/ForwardAxis_Following.xq");
-
-        XQueryForwardAxis forwardAxisPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryForwardAxis.class);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)forwardAxisPsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires XQuery 1.0 or later."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.K_FOLLOWING));
-    }
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardAxis")
-    public void testForwardAxis_FollowingSibling() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/ForwardAxis_FollowingSibling.xq");
-
-        XQueryForwardAxis forwardAxisPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryForwardAxis.class);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)forwardAxisPsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires XQuery 1.0 or later."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.K_FOLLOWING_SIBLING));
-    }
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ForwardAxis")
-    public void testForwardAxis_Self() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/ForwardAxis_Self.xq");
-
-        XQueryForwardAxis forwardAxisPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryForwardAxis.class);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)forwardAxisPsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires XQuery 1.0 or later."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.K_SELF));
-    }
-
-    // endregion
-    // region XQuery 1.0 :: FunctionCall
-
-    public void testFunctionCall_NCName() {
-        final ASTNode node = parseResource("tests/psi/xquery-1.0/FunctionCall_NCName.xq");
-
-        XQueryFunctionCall functionCallPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFunctionCall.class);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)functionCallPsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This function name conflicts with MarkLogic JSON KindTest keywords."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryElementType.NCNAME));
-    }
-
-    public void testFunctionCall_KeywordNCName() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/FunctionCall_KeywordNCNames_XQuery10.xq");
-
-        XQueryFunctionCall functionCallPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFunctionCall.class);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)functionCallPsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This function name conflicts with MarkLogic JSON KindTest keywords."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryElementType.NCNAME));
-    }
-
-    // endregion
-    // region XQuery 1.0 :: DirElemConstructor
-
-    public void testDirElemConstructor() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/DirElemConstructor.xq");
-
-        XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryDirElemConstructor.class);
-        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)dirElemConstructorPsi;
-
-        assertThat(provider.resolveNamespace(null), is(nullValue()));
-        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
-        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
-        assertThat(provider.resolveNamespace("a"), is(nullValue()));
-    }
-
-    public void testDirElemConstructor_AttributeList() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/DirAttributeList.xq");
-
-        XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryDirElemConstructor.class);
-        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)dirElemConstructorPsi;
-
-        assertThat(provider.resolveNamespace(null), is(nullValue()));
-        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
-        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
-        assertThat(provider.resolveNamespace("a"), is(nullValue()));
-    }
-
-    public void testDirElemConstructor_XmlNamespace() {
-        final ASTNode node = parseResource("tests/psi/xquery-1.0/DirAttributeList_XmlnsAttribute.xq");
-
-        XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryDirElemConstructor.class);
-        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)dirElemConstructorPsi;
-
-        assertThat(provider.resolveNamespace(null), is(nullValue()));
-        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
-        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
-
-        XQueryNamespace ns = provider.resolveNamespace("a");
-        assertThat(ns, is(notNullValue()));
-
-        assertThat(ns.getPrefix(), is(instanceOf(LeafPsiElement.class)));
-        assertThat(ns.getPrefix().getText(), is("a"));
-
-        assertThat(ns.getUri(), is(instanceOf(XQueryDirAttributeValue.class)));
-        assertThat(ns.getUri().getText(), is("\"http://www.example.com/a\""));
-    }
-
-    public void testDirElemConstructor_XmlNamespace_MissingValue() {
-        final ASTNode node = parseResource("tests/psi/xquery-1.0/DirAttributeList_XmlnsAttribute_MissingValue.xq");
-
-        XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryDirElemConstructor.class);
-        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)dirElemConstructorPsi;
-
-        assertThat(provider.resolveNamespace(null), is(nullValue()));
-        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
-        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
-
-        XQueryNamespace ns = provider.resolveNamespace("a");
-        assertThat(ns, is(notNullValue()));
-
-        assertThat(ns.getPrefix(), is(instanceOf(LeafPsiElement.class)));
-        assertThat(ns.getPrefix().getText(), is("a"));
-
-        assertThat(ns.getUri(), is(nullValue()));
-    }
-
-    public void testDirElemConstructor_XmlNamespace_MissingMiddleValue() {
-        final ASTNode node = parseResource("tests/psi/xquery-1.0/DirAttributeList_XmlnsAttribute_MissingMiddleValue.xq");
-
-        XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryDirElemConstructor.class);
-        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)dirElemConstructorPsi;
-
-        assertThat(provider.resolveNamespace(null), is(nullValue()));
-        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
-        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
-
-        XQueryNamespace ns = provider.resolveNamespace("a");
-        assertThat(ns, is(notNullValue()));
-
-        assertThat(ns.getPrefix(), is(instanceOf(LeafPsiElement.class)));
-        assertThat(ns.getPrefix().getText(), is("a"));
-
-        assertThat(ns.getUri(), is(nullValue()));
-    }
-
-    // endregion
-    // region XQuery 1.0 :: DirAttributeList
-
-    public void testDirAttributeList() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/DirAttributeList.xq");
-
-        XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryDirElemConstructor.class);
-        XQueryDirAttributeList dirAttributeListPsi = PsiNavigation.findChildrenByClass(dirElemConstructorPsi, XQueryDirAttributeList.class).get(0);
-        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)dirAttributeListPsi;
-
-        assertThat(provider.resolveNamespace(null), is(nullValue()));
-        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
-        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
-        assertThat(provider.resolveNamespace("a"), is(nullValue()));
-    }
-
-    public void testDirAttributeList_XmlNamespace() {
-        final ASTNode node = parseResource("tests/psi/xquery-1.0/DirAttributeList_XmlnsAttribute.xq");
-
-        XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryDirElemConstructor.class);
-        XQueryDirAttributeList dirAttributeListPsi = PsiNavigation.findChildrenByClass(dirElemConstructorPsi, XQueryDirAttributeList.class).get(0);
-        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)dirAttributeListPsi;
-
-        assertThat(provider.resolveNamespace(null), is(nullValue()));
-        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
-        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
-
-        XQueryNamespace ns = provider.resolveNamespace("a");
-        assertThat(ns, is(notNullValue()));
-
-        assertThat(ns.getPrefix(), is(instanceOf(LeafPsiElement.class)));
-        assertThat(ns.getPrefix().getText(), is("a"));
-
-        assertThat(ns.getUri(), is(instanceOf(XQueryDirAttributeValue.class)));
-        assertThat(ns.getUri().getText(), is("\"http://www.example.com/a\""));
-    }
-
-    public void testDirAttributeList_XmlNamespace_MissingValue() {
-        final ASTNode node = parseResource("tests/psi/xquery-1.0/DirAttributeList_XmlnsAttribute_MissingValue.xq");
-
-        XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryDirElemConstructor.class);
-        XQueryDirAttributeList dirAttributeListPsi = PsiNavigation.findChildrenByClass(dirElemConstructorPsi, XQueryDirAttributeList.class).get(0);
-        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)dirAttributeListPsi;
-
-        assertThat(provider.resolveNamespace(null), is(nullValue()));
-        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
-        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
-
-        XQueryNamespace ns = provider.resolveNamespace("a");
-        assertThat(ns, is(notNullValue()));
-
-        assertThat(ns.getPrefix(), is(instanceOf(LeafPsiElement.class)));
-        assertThat(ns.getPrefix().getText(), is("a"));
-
-        assertThat(ns.getUri(), is(nullValue()));
-    }
-
-    public void testDirAttributeList_XmlNamespace_MissingMiddleValue() {
-        final ASTNode node = parseResource("tests/psi/xquery-1.0/DirAttributeList_XmlnsAttribute_MissingMiddleValue.xq");
-
-        XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryDirElemConstructor.class);
-        XQueryDirAttributeList dirAttributeListPsi = PsiNavigation.findChildrenByClass(dirElemConstructorPsi, XQueryDirAttributeList.class).get(0);
-        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)dirAttributeListPsi;
-
-        assertThat(provider.resolveNamespace(null), is(nullValue()));
-        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
-        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
-
-        XQueryNamespace ns = provider.resolveNamespace("a");
-        assertThat(ns, is(notNullValue()));
-
-        assertThat(ns.getPrefix(), is(instanceOf(LeafPsiElement.class)));
-        assertThat(ns.getPrefix().getText(), is("a"));
-
-        assertThat(ns.getUri(), is(nullValue()));
-    }
-
-    // endregion
-    // region XQuery 1.0 :: AnyKindTest
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AnyKindTest")
-    public void testAnyKindTest() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/AnyKindTest.xq");
-
-        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryAnnotatedDecl.class);
-        XQueryVarDecl varDeclPsi = PsiNavigation.findChildrenByClass(annotatedDeclPsi, XQueryVarDecl.class).get(0);
-        XQueryTypeDeclaration typeDeclarationPsi = PsiNavigation.findChildrenByClass(varDeclPsi, XQueryTypeDeclaration.class).get(0);
-        XQuerySequenceType sequenceTypePsi = PsiNavigation.findChildrenByClass(typeDeclarationPsi, XQuerySequenceType.class).get(0);
-        XQueryAnyKindTest anyKindTestPsi = PsiNavigation.findFirstChildByClass(sequenceTypePsi, XQueryAnyKindTest.class);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)anyKindTestPsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires MarkLogic 8.0 or later with XQuery version '1.0-ml'."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.K_NODE));
-    }
-
-    // endregion
-    // region XQuery 1.0 :: TextTest
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-TextTest")
-    public void testTextTest() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/TextTest.xq");
-
-        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryAnnotatedDecl.class);
-        XQueryVarDecl varDeclPsi = PsiNavigation.findChildrenByClass(annotatedDeclPsi, XQueryVarDecl.class).get(0);
-        XQueryTypeDeclaration typeDeclarationPsi = PsiNavigation.findChildrenByClass(varDeclPsi, XQueryTypeDeclaration.class).get(0);
-        XQuerySequenceType sequenceTypePsi = PsiNavigation.findChildrenByClass(typeDeclarationPsi, XQuerySequenceType.class).get(0);
-        XQueryTextTest textTestPsi = PsiNavigation.findFirstChildByClass(sequenceTypePsi, XQueryTextTest.class);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)textTestPsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires MarkLogic 8.0 or later with XQuery version '1.0-ml'."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.K_TEXT));
-    }
-
-    // endregion
-    // region XQuery 1.0 :: QName
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
-    public void testQName() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/QName.xq");
-
-        XQueryOptionDecl optionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryOptionDecl.class);
-        XQueryQName qnamePsi = PsiNavigation.findChildrenByClass(optionDeclPsi, XQueryQName.class).get(0);
-
-        assertThat(qnamePsi.getPrefix(), is(notNullValue()));
-        assertThat(qnamePsi.getPrefix().getNode().getElementType(), is(XQueryTokenType.NCNAME));
-        assertThat(qnamePsi.getPrefix().getText(), is("one"));
-
-        assertThat(qnamePsi.getLocalName(), is(notNullValue()));
-        assertThat(qnamePsi.getLocalName().getNode().getElementType(), is(XQueryTokenType.NCNAME));
-        assertThat(qnamePsi.getLocalName().getText(), is("two"));
-    }
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
-    public void testQName_KeywordLocalPart() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/QName_KeywordLocalPart.xq");
-
-        XQueryOptionDecl optionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryOptionDecl.class);
-        XQueryQName qnamePsi = PsiNavigation.findChildrenByClass(optionDeclPsi, XQueryQName.class).get(0);
-
-        assertThat(qnamePsi.getPrefix(), is(notNullValue()));
-        assertThat(qnamePsi.getPrefix().getNode().getElementType(), is(XQueryTokenType.NCNAME));
-        assertThat(qnamePsi.getPrefix().getText(), is("sort"));
-
-        assertThat(qnamePsi.getLocalName(), is(notNullValue()));
-        assertThat(qnamePsi.getLocalName().getNode().getElementType(), is(XQueryTokenType.K_LEAST));
-        assertThat(qnamePsi.getLocalName().getText(), is("least"));
-    }
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
-    public void testQName_MissingLocalPart() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/QName_MissingLocalPart.xq");
-
-        XQueryOptionDecl optionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryOptionDecl.class);
-        XQueryQName qnamePsi = PsiNavigation.findChildrenByClass(optionDeclPsi, XQueryQName.class).get(0);
-
-        assertThat(qnamePsi.getPrefix(), is(notNullValue()));
-        assertThat(qnamePsi.getPrefix().getNode().getElementType(), is(XQueryTokenType.NCNAME));
-        assertThat(qnamePsi.getPrefix().getText(), is("one"));
-
-        assertThat(qnamePsi.getLocalName(), is(nullValue()));
-    }
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
-    public void testQName_KeywordPrefixPart() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/QName_KeywordPrefixPart.xq");
-
-        XQueryOptionDecl optionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryOptionDecl.class);
-        XQueryQName qnamePsi = PsiNavigation.findChildrenByClass(optionDeclPsi, XQueryQName.class).get(0);
-
-        assertThat(qnamePsi.getPrefix(), is(notNullValue()));
-        assertThat(qnamePsi.getPrefix().getNode().getElementType(), is(XQueryTokenType.K_ORDER));
-        assertThat(qnamePsi.getPrefix().getText(), is("order"));
-
-        assertThat(qnamePsi.getLocalName(), is(notNullValue()));
-        assertThat(qnamePsi.getLocalName().getNode().getElementType(), is(XQueryTokenType.NCNAME));
-        assertThat(qnamePsi.getLocalName().getText(), is("two"));
-    }
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
-    public void testQName_DirElemConstructor() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/DirElemConstructor.xq");
-
-        XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryDirElemConstructor.class);
-        XQueryQName qnamePsi = PsiNavigation.findChildrenByClass(dirElemConstructorPsi, XQueryQName.class).get(0);
-
-        assertThat(qnamePsi.getPrefix(), is(notNullValue()));
-        assertThat(qnamePsi.getPrefix().getNode().getElementType(), is(XQueryTokenType.XML_TAG_NCNAME));
-        assertThat(qnamePsi.getPrefix().getText(), is("a"));
-
-        assertThat(qnamePsi.getLocalName(), is(notNullValue()));
-        assertThat(qnamePsi.getLocalName().getNode().getElementType(), is(XQueryTokenType.XML_TAG_NCNAME));
-        assertThat(qnamePsi.getLocalName().getText(), is("b"));
-    }
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
-    public void testQName_DirAttributeList() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/DirAttributeList.xq");
-
-        XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryDirElemConstructor.class);
-        XQueryDirAttributeList dirAttributeListPsi = PsiNavigation.findChildrenByClass(dirElemConstructorPsi, XQueryDirAttributeList.class).get(0);
-        XQueryQName qnamePsi = PsiNavigation.findChildrenByClass(dirAttributeListPsi, XQueryQName.class).get(0);
-
-        assertThat(qnamePsi.getPrefix(), is(notNullValue()));
-        assertThat(qnamePsi.getPrefix().getNode().getElementType(), is(XQueryTokenType.XML_ATTRIBUTE_NCNAME));
-        assertThat(qnamePsi.getPrefix().getText(), is("xml"));
-
-        assertThat(qnamePsi.getLocalName(), is(notNullValue()));
-        assertThat(qnamePsi.getLocalName().getNode().getElementType(), is(XQueryTokenType.XML_ATTRIBUTE_NCNAME));
-        assertThat(qnamePsi.getLocalName().getText(), is("id"));
-    }
-
-    // endregion
-    // region XQuery 1.0 :: NCName
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-NCName")
-    public void testNCName() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/NCName_Keyword.xq");
-
-        XQueryOptionDecl optionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryOptionDecl.class);
-        XQueryNCName ncnamePsi = PsiNavigation.findChildrenByClass(optionDeclPsi, XQueryNCName.class).get(0);
-
-        assertThat(ncnamePsi.getPrefix(), is(nullValue()));
-
-        assertThat(ncnamePsi.getLocalName(), is(notNullValue()));
-        assertThat(ncnamePsi.getLocalName().getNode().getElementType(), is(XQueryTokenType.K_COLLATION));
-        assertThat(ncnamePsi.getLocalName().getText(), is("collation"));
-    }
-
-    // endregion
-    // region XQuery 3.0 :: VersionDecl
-
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-VersionDecl")
-    public void testVersionDecl_EncodingOnly() {
-        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
-        final ASTNode node = parseResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly.xq");
-
-        XQueryVersionDecl versionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryVersionDecl.class);
-        assertThat(versionDeclPsi.getVersion(), is(nullValue()));
-        assertThat(versionDeclPsi.getEncoding(), is(notNullValue()));
-        assertThat(versionDeclPsi.getEncoding().getStringValue(), is("latin1"));
-
-        XQueryFile file = (XQueryFile)node.getPsi();
-        assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_3_0));
-
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)versionDeclPsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires XQuery 3.0 or later."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.K_ENCODING));
-    }
-
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-VersionDecl")
-    public void testVersionDecl_EncodingOnly_EmptyEncoding() {
-        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
-        final ASTNode node = parseResource("tests/psi/xquery-3.0/VersionDecl_EncodingOnly_EmptyEncoding.xq");
-
-        XQueryVersionDecl versionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryVersionDecl.class);
-        assertThat(versionDeclPsi.getVersion(), is(nullValue()));
-        assertThat(versionDeclPsi.getEncoding(), is(notNullValue()));
-        assertThat(versionDeclPsi.getEncoding().getStringValue(), is(nullValue()));
-
-        XQueryFile file = (XQueryFile)node.getPsi();
-        assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_3_0));
-
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)versionDeclPsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires XQuery 3.0 or later."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.K_ENCODING));
-    }
-
-    // endregion
-    // region XQuery 3.0 :: ForClause (IntermediateClause)
-
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-ForClause")
-    public void testForClause_FirstIntermediateClause() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/ForClause_Multiple.xq");
-
-        XQueryFLWORExpr flworExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFLWORExpr.class);
-        // prev == null
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0).getFirstChild(),
-                   instanceOf(XQueryForClause.class));
-
-        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires XQuery 3.0 or later."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.K_FOR));
-    }
-
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-ForClause")
-    public void testForClause_AfterForIntermediateClause() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/ForClause_Multiple.xq");
-
-        XQueryFLWORExpr flworExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFLWORExpr.class);
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0).getFirstChild(),
-                instanceOf(XQueryForClause.class));
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1).getFirstChild(),
-                instanceOf(XQueryForClause.class));
-
-        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires XQuery 3.0 or later."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.K_FOR));
-    }
-
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-ForClause")
-    public void testForClause_AfterLetIntermediateClause() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/FLWORExpr_ClauseOrdering.xq");
-
-        XQueryFLWORExpr flworExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFLWORExpr.class);
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0).getFirstChild(),
-                instanceOf(XQueryLetClause.class));
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1).getFirstChild(),
-                instanceOf(XQueryForClause.class));
-
-        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires XQuery 3.0 or later."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.K_FOR));
-    }
-
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-ForClause")
-    public void testForClause_AfterWhereIntermediateClause() {
-        final ASTNode node = parseResource("tests/parser/xquery-3.0/IntermediateClause_WhereFor.xq");
-
-        XQueryFLWORExpr flworExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFLWORExpr.class);
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0).getFirstChild(),
-                instanceOf(XQueryWhereClause.class));
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1).getFirstChild(),
-                instanceOf(XQueryForClause.class));
-
-        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(false));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires XQuery 3.0 or later."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.K_FOR));
-    }
-
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-ForClause")
-    public void testForClause_AfterOrderByIntermediateClause() {
-        final ASTNode node = parseResource("tests/parser/xquery-3.0/FLWORExpr_NestedWithoutReturnClause.xq");
-
-        XQueryFLWORExpr flworExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFLWORExpr.class);
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(2).getFirstChild(),
-                instanceOf(XQueryOrderByClause.class));
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(3).getFirstChild(),
-                instanceOf(XQueryForClause.class));
-
-        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(3);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(false));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires XQuery 3.0 or later."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.K_FOR));
-    }
-
-    // endregion
-    // region XQuery 3.0 :: LetClause (IntermediateClause)
-
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-LetClause")
-    public void testLetClause_FirstIntermediateClause() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/LetClause_Multiple.xq");
-
-        XQueryFLWORExpr flworExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFLWORExpr.class);
-        // prev == null
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0).getFirstChild(),
-                instanceOf(XQueryLetClause.class));
-
-        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires XQuery 3.0 or later."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.K_LET));
-    }
-
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-LetClause")
-    public void testLetClause_AfterForIntermediateClause() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/FLWORExpr_ClauseOrdering.xq");
-
-        XQueryFLWORExpr flworExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFLWORExpr.class);
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1).getFirstChild(),
-                instanceOf(XQueryForClause.class));
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(2).getFirstChild(),
-                instanceOf(XQueryLetClause.class));
-
-        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(2);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires XQuery 3.0 or later."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.K_LET));
-    }
-
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-LetClause")
-    public void testLetClause_AfterLetIntermediateClause() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/LetClause_Multiple.xq");
-
-        XQueryFLWORExpr flworExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFLWORExpr.class);
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0).getFirstChild(),
-                instanceOf(XQueryLetClause.class));
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1).getFirstChild(),
-                instanceOf(XQueryLetClause.class));
-
-        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires XQuery 3.0 or later."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.K_LET));
-    }
-
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-LetClause")
-    public void testLetClause_AfterWhereIntermediateClause() {
-        final ASTNode node = parseResource("tests/parser/xquery-3.0/IntermediateClause_ForWhereLet.xq");
-
-        XQueryFLWORExpr flworExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFLWORExpr.class);
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1).getFirstChild(),
-                instanceOf(XQueryWhereClause.class));
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(2).getFirstChild(),
-                instanceOf(XQueryLetClause.class));
-
-        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(2);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(false));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires XQuery 3.0 or later."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.K_LET));
-    }
-
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-LetClause")
-    public void testLetClause_AfterOrderByIntermediateClause() {
-        final ASTNode node = parseResource("tests/parser/xquery-3.0/IntermediateClause_ForOrderByLet.xq");
-
-        XQueryFLWORExpr flworExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFLWORExpr.class);
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1).getFirstChild(),
-                instanceOf(XQueryOrderByClause.class));
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(2).getFirstChild(),
-                instanceOf(XQueryLetClause.class));
-
-        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(2);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(false));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires XQuery 3.0 or later."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.K_LET));
-    }
-
-    // endregion
-    // region XQuery 3.0 :: WhereClause (IntermediateClause)
-
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-WhereClause")
-    public void testWhereClause_FirstIntermediateClause() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/WhereClause_ForClause.xq");
-
-        XQueryFLWORExpr flworExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFLWORExpr.class);
-        // prev == null
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0).getFirstChild(),
-                instanceOf(XQueryWhereClause.class));
-
-        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires XQuery 3.0 or later."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.K_WHERE));
-    }
-
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-WhereClause")
-    public void testWhereClause_AfterForIntermediateClause() {
-        final ASTNode node = parseResource("tests/parser/xquery-3.0/IntermediateClause_ForWhereLet.xq");
-
-        XQueryFLWORExpr flworExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFLWORExpr.class);
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0).getFirstChild(),
-                instanceOf(XQueryForClause.class));
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1).getFirstChild(),
-                instanceOf(XQueryWhereClause.class));
-
-        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires XQuery 3.0 or later."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.K_WHERE));
-    }
-
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-WhereClause")
-    public void testWhereClause_AfterLetIntermediateClause() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/FLWORExpr_ClauseOrdering.xq");
-
-        XQueryFLWORExpr flworExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFLWORExpr.class);
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(2).getFirstChild(),
-                instanceOf(XQueryLetClause.class));
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(3).getFirstChild(),
-                instanceOf(XQueryWhereClause.class));
-
-        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(3);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires XQuery 3.0 or later."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.K_WHERE));
-    }
-
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-WhereClause")
-    public void testWhereClause_AfterWhereIntermediateClause() {
-        final ASTNode node = parseResource("tests/parser/xquery-3.0/WhereClause_Multiple.xq");
-
-        XQueryFLWORExpr flworExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFLWORExpr.class);
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0).getFirstChild(),
-                instanceOf(XQueryWhereClause.class));
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1).getFirstChild(),
-                instanceOf(XQueryWhereClause.class));
-
-        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(false));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires XQuery 3.0 or later."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.K_WHERE));
-    }
-
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-WhereClause")
-    public void testWhereClause_AfterOrderByIntermediateClause() {
-        final ASTNode node = parseResource("tests/parser/xquery-3.0/FLWORExpr_RelaxedOrdering.xq");
-
-        XQueryFLWORExpr flworExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFLWORExpr.class);
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1).getFirstChild(),
-                instanceOf(XQueryOrderByClause.class));
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(2).getFirstChild(),
-                instanceOf(XQueryWhereClause.class));
-
-        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(2);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(false));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires XQuery 3.0 or later."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.K_WHERE));
-    }
-
-    // endregion
-    // region XQuery 3.0 :: OrderByClause (IntermediateClause)
-
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-OrderByClause")
-    public void testOrderByClause_FirstIntermediateClause() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/OrderByClause_ForClause.xq");
-
-        XQueryFLWORExpr flworExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFLWORExpr.class);
-        // prev == null
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0).getFirstChild(),
-                instanceOf(XQueryOrderByClause.class));
-
-        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires XQuery 3.0 or later."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.K_ORDER));
-    }
-
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-OrderByClause")
-    public void testOrderByClause_AfterForIntermediateClause() {
-        final ASTNode node = parseResource("tests/parser/xquery-3.0/IntermediateClause_ForOrderByLet.xq");
-
-        XQueryFLWORExpr flworExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFLWORExpr.class);
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0).getFirstChild(),
-                instanceOf(XQueryForClause.class));
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1).getFirstChild(),
-                instanceOf(XQueryOrderByClause.class));
-
-        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires XQuery 3.0 or later."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.K_ORDER));
-    }
-
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-OrderByClause")
-    public void testOrderByClause_AfterLetIntermediateClause() {
-        final ASTNode node = parseResource("tests/parser/xquery-3.0/FLWORExpr_RelaxedOrdering.xq");
-
-        XQueryFLWORExpr flworExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFLWORExpr.class);
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0).getFirstChild(),
-                instanceOf(XQueryLetClause.class));
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1).getFirstChild(),
-                instanceOf(XQueryOrderByClause.class));
-
-        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires XQuery 3.0 or later."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.K_ORDER));
-    }
-
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-OrderByClause")
-    public void testOrderByClause_AfterWhereIntermediateClause() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/FLWORExpr_ClauseOrdering.xq");
-
-        XQueryFLWORExpr flworExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFLWORExpr.class);
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(3).getFirstChild(),
-                instanceOf(XQueryWhereClause.class));
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(4).getFirstChild(),
-                instanceOf(XQueryOrderByClause.class));
-
-        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(4);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires XQuery 3.0 or later."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.K_ORDER));
-    }
-
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-OrderByClause")
-    public void testOrderByClause_AfterOrderByIntermediateClause() {
-        final ASTNode node = parseResource("tests/parser/xquery-3.0/OrderByClause_Multiple.xq");
-
-        XQueryFLWORExpr flworExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFLWORExpr.class);
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0).getFirstChild(),
-                instanceOf(XQueryOrderByClause.class));
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1).getFirstChild(),
-                instanceOf(XQueryOrderByClause.class));
-
-        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(false));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires XQuery 3.0 or later."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.K_ORDER));
-    }
-
-    // endregion
-    // region XQuery 3.0 :: AllowingEmpty
-
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-AllowingEmpty")
-    public void testAllowingEmpty() {
-        final ASTNode node = parseResource("tests/parser/xquery-3.0/AllowingEmpty.xq");
-
-        XQueryForClause forClausePsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryForClause.class);
-        XQueryForBinding forBindingPsi = PsiNavigation.findChildrenByClass(forClausePsi, XQueryForBinding.class).get(0);
-        XQueryAllowingEmpty allowingEmptyPsi = PsiNavigation.findChildrenByClass(forBindingPsi, XQueryAllowingEmpty.class).get(0);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)allowingEmptyPsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(false));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires XQuery 3.0 or later."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.K_ALLOWING));
-    }
-
-    // endregion
-    // region XQuery 3.0 :: SequenceTypeUnion
-
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-SequenceTypeUnion")
-    public void testSequenceTypeUnion() {
-        final ASTNode node = parseResource("tests/parser/xquery-3.0/SequenceTypeUnion.xq");
-
-        XQueryTypeswitchExpr typeswitchExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryTypeswitchExpr.class);
-        XQueryCaseClause caseClausePsi = PsiNavigation.findChildrenByClass(typeswitchExprPsi, XQueryCaseClause.class).get(0);
-        XQuerySequenceTypeUnion sequenceTypeUnionPsi = PsiNavigation.findChildrenByClass(caseClausePsi, XQuerySequenceTypeUnion.class).get(0);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)sequenceTypeUnionPsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires XQuery 3.0 or later, or MarkLogic 6.0 or later with XQuery version '1.0-ml'."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.UNION));
-    }
-
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-StringConcatExpr")
-    public void testSequenceTypeUnion_NoUnion() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/TypeswitchExpr.xq");
-
-        XQueryTypeswitchExpr typeswitchExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryTypeswitchExpr.class);
-        XQueryCaseClause caseClausePsi = PsiNavigation.findChildrenByClass(typeswitchExprPsi, XQueryCaseClause.class).get(0);
-        XQuerySequenceTypeUnion sequenceTypeUnionPsi = PsiNavigation.findChildrenByClass(caseClausePsi, XQuerySequenceTypeUnion.class).get(0);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)sequenceTypeUnionPsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires XQuery 3.0 or later, or MarkLogic 6.0 or later with XQuery version '1.0-ml'."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryElementType.SEQUENCE_TYPE));
-    }
-
-    // endregion
-    // region XQuery 3.0 :: StringConcatExpr
-
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-StringConcatExpr")
-    public void testStringConcatExpr() {
-        final ASTNode node = parseResource("tests/parser/xquery-3.0/StringConcatExpr.xq");
-
-        XQueryStringConcatExpr stringConcatExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryStringConcatExpr.class);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)stringConcatExprPsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires XQuery 3.0 or later, or MarkLogic 6.0 or later with XQuery version '1.0-ml'."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.CONCATENATION));
-    }
-
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-StringConcatExpr")
-    public void testStringConcatExpr_NoConcatenation() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/AbbrevForwardStep.xq");
-
-        XQueryStringConcatExpr stringConcatExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryStringConcatExpr.class);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)stringConcatExprPsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires XQuery 3.0 or later, or MarkLogic 6.0 or later with XQuery version '1.0-ml'."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryElementType.RANGE_EXPR));
-    }
-
-    // endregion
-    // region XQuery 3.0 :: SimpleMapExpr
-
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-SimpleMapExpr")
-    public void testSimpleMapExpr() {
-        final ASTNode node = parseResource("tests/parser/xquery-3.0/SimpleMapExpr.xq");
-
-        XQuerySimpleMapExpr simpleMapExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQuerySimpleMapExpr.class);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)simpleMapExprPsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires XQuery 3.0 or later, or MarkLogic 6.0 or later with XQuery version '1.0-ml'."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.MAP_OPERATOR));
-    }
-
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-SimpleMapExpr")
-    public void testSimpleMapExpr_NoMap() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/AbbrevForwardStep.xq");
-
-        XQuerySimpleMapExpr simpleMapExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQuerySimpleMapExpr.class);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)simpleMapExprPsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires XQuery 3.0 or later, or MarkLogic 6.0 or later with XQuery version '1.0-ml'."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryElementType.PATH_EXPR));
-    }
-
-    // endregion
-    // region XQuery 3.0 :: ArgumentList
-
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-ArgumentList")
-    public void testArgumentList_FunctionCall() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/FunctionCall.xq");
-
-        XQueryFunctionCall functionCallPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFunctionCall.class);
-        XQueryArgumentList argumentListPsi = PsiNavigation.findChildrenByClass(functionCallPsi, XQueryArgumentList.class).get(0);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)argumentListPsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires XQuery 3.0 or later, or MarkLogic 6.0 or later with XQuery version '1.0-ml'."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.PARENTHESIS_OPEN));
-    }
-
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-ArgumentList")
-    public void testArgumentList_PostfixExpr() {
-        final ASTNode node = parseResource("tests/parser/xquery-3.0/PostfixExpr_ArgumentList.xq");
-
-        XQueryPostfixExpr postfixExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryPostfixExpr.class);
-        XQueryArgumentList argumentListPsi = PsiNavigation.findChildrenByClass(postfixExprPsi, XQueryArgumentList.class).get(0);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)argumentListPsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires XQuery 3.0 or later, or MarkLogic 6.0 or later with XQuery version '1.0-ml'."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.PARENTHESIS_OPEN));
-    }
-
-    // endregion
-    // region XQuery 3.0 :: ArgumentPlaceholder
-
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-ArgumentPlaceholder")
-    public void testArgumentPlaceholder() {
-        final ASTNode node = parseResource("tests/parser/xquery-3.0/ArgumentPlaceholder.xq");
-
-        XQueryFunctionCall functionCallPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFunctionCall.class);
-        XQueryArgumentList argumentListPsi = PsiNavigation.findChildrenByClass(functionCallPsi, XQueryArgumentList.class).get(0);
-        XQueryArgument argumentPsi = PsiNavigation.findChildrenByClass(argumentListPsi, XQueryArgument.class).get(0);
-        XQueryArgumentPlaceholder argumentPlaceholderPsi = PsiNavigation.findFirstChildByClass(argumentPsi, XQueryArgumentPlaceholder.class);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)argumentPlaceholderPsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires XQuery 3.0 or later, or MarkLogic 6.0 or later with XQuery version '1.0-ml'."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.OPTIONAL));
-    }
-
-    // endregion
-    // region XQuery 3.0 :: FunctionDecl
-
     public void testFunctionDecl_ReservedKeyword_Function() {
         final ASTNode node = parseResource("tests/psi/xquery-3.0/FunctionDecl_ReservedKeyword_Function.xq");
 
@@ -2345,19 +697,20 @@ public class XQueryPsiTest extends ParserTestCase {
     }
 
     // endregion
-    // region XQuery 3.0 :: ValidateExpr
+    // region InlineFunctionExpr
 
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-ValidateExpr")
-    public void testValidateExpr_Type() {
-        final ASTNode node = parseResource("tests/parser/xquery-3.0/ValidateExpr_Type.xq");
+    public void testInlineFunctionExpr() {
+        final ASTNode node = parseResource("tests/parser/xquery-3.0/InlineFunctionExpr.xq");
 
-        XQueryValidateExpr validateExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryValidateExpr.class);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)validateExprPsi;
+        XQueryInlineFunctionExpr inlineFunctionExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryInlineFunctionExpr.class);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)inlineFunctionExprPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
@@ -2371,85 +724,21 @@ public class XQueryPsiTest extends ParserTestCase {
 
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.K_TYPE));
+                is(XQueryTokenType.K_FUNCTION));
     }
 
-    // endregion
-    // region XQuery 3.0 :: Annotation
+    public void testInlineFunctionExpr_AnnotationOnly() {
+        final ASTNode node = parseResource("tests/parser/xquery-3.0/InlineFunctionExpr_Annotation_MissingFunctionKeyword.xq");
 
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-ValidateExpr")
-    public void testAnnotation() {
-        final ASTNode node = parseResource("tests/parser/xquery-3.0/Annotation.xq");
-
-        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryAnnotatedDecl.class);
-        XQueryAnnotation annotationPsi = PsiNavigation.findChildrenByClass(annotatedDeclPsi, XQueryAnnotation.class).get(0);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)annotationPsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires XQuery 3.0 or later, or MarkLogic 6.0 or later with XQuery version '1.0-ml'."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.ANNOTATION_INDICATOR));
-    }
-
-    // endregion
-    // region XQuery 3.0 :: TryClause
-
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-TryClause")
-    public void testTryClause() {
-        final ASTNode node = parseResource("tests/parser/xquery-3.0/CatchClause.xq");
-
-        XQueryTryClause tryClausePsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryTryClause.class);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)tryClausePsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires XQuery 3.0 or later, or MarkLogic 6.0 or later with XQuery version '1.0-ml'."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.K_TRY));
-    }
-
-    // endregion
-    // region XQuery 3.0 :: CatchClause
-
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-TryClause")
-    public void testCatchClause() {
-        final ASTNode node = parseResource("tests/parser/xquery-3.0/CatchClause.xq");
-
-        XQueryTryCatchExpr tryCatchExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryTryCatchExpr.class);
-        XQueryCatchClause catchClausePsi = PsiNavigation.findChildrenByClass(tryCatchExprPsi, XQueryCatchClause.class).get(0);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)catchClausePsi;
+        XQueryInlineFunctionExpr inlineFunctionExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryInlineFunctionExpr.class);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)inlineFunctionExprPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
@@ -2459,15 +748,703 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
 
         assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires MarkLogic 6.0 or later with XQuery version '1.0-ml'."));
+                is("XPST0003: This expression requires XQuery 3.0 or later, or MarkLogic 6.0 or later with XQuery version '1.0-ml'."));
 
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.K_CATCH));
+                is(XQueryElementType.ANNOTATION));
     }
 
     // endregion
-    // region XQuery 3.0 :: NamedFunctionRef
+    // region IntermediateClause (ForClause)
+
+    public void testForClause_FirstIntermediateClause() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/ForClause_Multiple.xq");
+
+        XQueryFLWORExpr flworExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFLWORExpr.class);
+        // prev == null
+        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0).getFirstChild(),
+                instanceOf(XQueryForClause.class));
+
+        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 3.0 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_FOR));
+    }
+
+    public void testForClause_AfterForIntermediateClause() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/ForClause_Multiple.xq");
+
+        XQueryFLWORExpr flworExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFLWORExpr.class);
+        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0).getFirstChild(),
+                instanceOf(XQueryForClause.class));
+        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1).getFirstChild(),
+                instanceOf(XQueryForClause.class));
+
+        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 3.0 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_FOR));
+    }
+
+    public void testForClause_AfterLetIntermediateClause() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/FLWORExpr_ClauseOrdering.xq");
+
+        XQueryFLWORExpr flworExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFLWORExpr.class);
+        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0).getFirstChild(),
+                instanceOf(XQueryLetClause.class));
+        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1).getFirstChild(),
+                instanceOf(XQueryForClause.class));
+
+        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 3.0 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_FOR));
+    }
+
+    public void testForClause_AfterWhereIntermediateClause() {
+        final ASTNode node = parseResource("tests/parser/xquery-3.0/IntermediateClause_WhereFor.xq");
+
+        XQueryFLWORExpr flworExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFLWORExpr.class);
+        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0).getFirstChild(),
+                instanceOf(XQueryWhereClause.class));
+        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1).getFirstChild(),
+                instanceOf(XQueryForClause.class));
+
+        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(false));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 3.0 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_FOR));
+    }
+
+    public void testForClause_AfterOrderByIntermediateClause() {
+        final ASTNode node = parseResource("tests/parser/xquery-3.0/FLWORExpr_NestedWithoutReturnClause.xq");
+
+        XQueryFLWORExpr flworExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFLWORExpr.class);
+        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(2).getFirstChild(),
+                instanceOf(XQueryOrderByClause.class));
+        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(3).getFirstChild(),
+                instanceOf(XQueryForClause.class));
+
+        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(3);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(false));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 3.0 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_FOR));
+    }
+
+    // endregion
+    // region IntermediateClause (LetClause)
+
+    public void testLetClause_FirstIntermediateClause() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/LetClause_Multiple.xq");
+
+        XQueryFLWORExpr flworExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFLWORExpr.class);
+        // prev == null
+        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0).getFirstChild(),
+                instanceOf(XQueryLetClause.class));
+
+        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 3.0 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_LET));
+    }
+
+    public void testLetClause_AfterForIntermediateClause() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/FLWORExpr_ClauseOrdering.xq");
+
+        XQueryFLWORExpr flworExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFLWORExpr.class);
+        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1).getFirstChild(),
+                instanceOf(XQueryForClause.class));
+        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(2).getFirstChild(),
+                instanceOf(XQueryLetClause.class));
+
+        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(2);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 3.0 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_LET));
+    }
+
+    public void testLetClause_AfterLetIntermediateClause() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/LetClause_Multiple.xq");
+
+        XQueryFLWORExpr flworExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFLWORExpr.class);
+        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0).getFirstChild(),
+                instanceOf(XQueryLetClause.class));
+        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1).getFirstChild(),
+                instanceOf(XQueryLetClause.class));
+
+        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 3.0 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_LET));
+    }
+
+    public void testLetClause_AfterWhereIntermediateClause() {
+        final ASTNode node = parseResource("tests/parser/xquery-3.0/IntermediateClause_ForWhereLet.xq");
+
+        XQueryFLWORExpr flworExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFLWORExpr.class);
+        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1).getFirstChild(),
+                instanceOf(XQueryWhereClause.class));
+        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(2).getFirstChild(),
+                instanceOf(XQueryLetClause.class));
+
+        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(2);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(false));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 3.0 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_LET));
+    }
+
+    public void testLetClause_AfterOrderByIntermediateClause() {
+        final ASTNode node = parseResource("tests/parser/xquery-3.0/IntermediateClause_ForOrderByLet.xq");
+
+        XQueryFLWORExpr flworExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFLWORExpr.class);
+        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1).getFirstChild(),
+                instanceOf(XQueryOrderByClause.class));
+        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(2).getFirstChild(),
+                instanceOf(XQueryLetClause.class));
+
+        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(2);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(false));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 3.0 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_LET));
+    }
+
+    // endregion
+    // region IntermediateClause (OrderByClause)
+
+    public void testOrderByClause_FirstIntermediateClause() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/OrderByClause_ForClause.xq");
+
+        XQueryFLWORExpr flworExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFLWORExpr.class);
+        // prev == null
+        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0).getFirstChild(),
+                instanceOf(XQueryOrderByClause.class));
+
+        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 3.0 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_ORDER));
+    }
+
+    public void testOrderByClause_AfterForIntermediateClause() {
+        final ASTNode node = parseResource("tests/parser/xquery-3.0/IntermediateClause_ForOrderByLet.xq");
+
+        XQueryFLWORExpr flworExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFLWORExpr.class);
+        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0).getFirstChild(),
+                instanceOf(XQueryForClause.class));
+        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1).getFirstChild(),
+                instanceOf(XQueryOrderByClause.class));
+
+        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 3.0 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_ORDER));
+    }
+
+    public void testOrderByClause_AfterLetIntermediateClause() {
+        final ASTNode node = parseResource("tests/parser/xquery-3.0/FLWORExpr_RelaxedOrdering.xq");
+
+        XQueryFLWORExpr flworExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFLWORExpr.class);
+        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0).getFirstChild(),
+                instanceOf(XQueryLetClause.class));
+        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1).getFirstChild(),
+                instanceOf(XQueryOrderByClause.class));
+
+        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 3.0 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_ORDER));
+    }
+
+    public void testOrderByClause_AfterWhereIntermediateClause() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/FLWORExpr_ClauseOrdering.xq");
+
+        XQueryFLWORExpr flworExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFLWORExpr.class);
+        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(3).getFirstChild(),
+                instanceOf(XQueryWhereClause.class));
+        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(4).getFirstChild(),
+                instanceOf(XQueryOrderByClause.class));
+
+        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(4);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 3.0 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_ORDER));
+    }
+
+    public void testOrderByClause_AfterOrderByIntermediateClause() {
+        final ASTNode node = parseResource("tests/parser/xquery-3.0/OrderByClause_Multiple.xq");
+
+        XQueryFLWORExpr flworExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFLWORExpr.class);
+        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0).getFirstChild(),
+                instanceOf(XQueryOrderByClause.class));
+        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1).getFirstChild(),
+                instanceOf(XQueryOrderByClause.class));
+
+        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(false));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 3.0 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_ORDER));
+    }
+
+    // endregion
+    // region IntermediateClause (WhereClause)
+
+    public void testWhereClause_FirstIntermediateClause() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/WhereClause_ForClause.xq");
+
+        XQueryFLWORExpr flworExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFLWORExpr.class);
+        // prev == null
+        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0).getFirstChild(),
+                instanceOf(XQueryWhereClause.class));
+
+        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 3.0 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_WHERE));
+    }
+
+    public void testWhereClause_AfterForIntermediateClause() {
+        final ASTNode node = parseResource("tests/parser/xquery-3.0/IntermediateClause_ForWhereLet.xq");
+
+        XQueryFLWORExpr flworExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFLWORExpr.class);
+        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0).getFirstChild(),
+                instanceOf(XQueryForClause.class));
+        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1).getFirstChild(),
+                instanceOf(XQueryWhereClause.class));
+
+        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 3.0 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_WHERE));
+    }
+
+    public void testWhereClause_AfterLetIntermediateClause() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/FLWORExpr_ClauseOrdering.xq");
+
+        XQueryFLWORExpr flworExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFLWORExpr.class);
+        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(2).getFirstChild(),
+                instanceOf(XQueryLetClause.class));
+        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(3).getFirstChild(),
+                instanceOf(XQueryWhereClause.class));
+
+        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(3);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 3.0 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_WHERE));
+    }
+
+    public void testWhereClause_AfterWhereIntermediateClause() {
+        final ASTNode node = parseResource("tests/parser/xquery-3.0/WhereClause_Multiple.xq");
+
+        XQueryFLWORExpr flworExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFLWORExpr.class);
+        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0).getFirstChild(),
+                instanceOf(XQueryWhereClause.class));
+        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1).getFirstChild(),
+                instanceOf(XQueryWhereClause.class));
+
+        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(false));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 3.0 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_WHERE));
+    }
+
+    public void testWhereClause_AfterOrderByIntermediateClause() {
+        final ASTNode node = parseResource("tests/parser/xquery-3.0/FLWORExpr_RelaxedOrdering.xq");
+
+        XQueryFLWORExpr flworExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryFLWORExpr.class);
+        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1).getFirstChild(),
+                instanceOf(XQueryOrderByClause.class));
+        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(2).getFirstChild(),
+                instanceOf(XQueryWhereClause.class));
+
+        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(2);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(false));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 3.0 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_WHERE));
+    }
+
+    // endregion
+    // region NamedFunctionRef
 
     public void testNamedFunctionRef_QName() {
         final ASTNode node = parseResource("tests/psi/xquery-3.0/NamedFunctionRef_QName.xq");
@@ -2658,140 +1635,8 @@ public class XQueryPsiTest extends ParserTestCase {
     }
 
     // endregion
-    // region XQuery 3.0 :: InlineFunctionExpr
+    // region ParenthesizedItemType
 
-    public void testInlineFunctionExpr() {
-        final ASTNode node = parseResource("tests/parser/xquery-3.0/InlineFunctionExpr.xq");
-
-        XQueryInlineFunctionExpr inlineFunctionExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryInlineFunctionExpr.class);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)inlineFunctionExprPsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires XQuery 3.0 or later, or MarkLogic 6.0 or later with XQuery version '1.0-ml'."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.K_FUNCTION));
-    }
-
-    public void testInlineFunctionExpr_AnnotationOnly() {
-        final ASTNode node = parseResource("tests/parser/xquery-3.0/InlineFunctionExpr_Annotation_MissingFunctionKeyword.xq");
-
-        XQueryInlineFunctionExpr inlineFunctionExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryInlineFunctionExpr.class);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)inlineFunctionExprPsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires XQuery 3.0 or later, or MarkLogic 6.0 or later with XQuery version '1.0-ml'."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryElementType.ANNOTATION));
-    }
-
-    // endregion
-    // region XQuery 3.0 :: AnyFunctionTest
-
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-AnyFunctionTest")
-    public void testAnyFunctionTest() {
-        final ASTNode node = parseResource("tests/parser/xquery-3.0/AnyFunctionTest.xq");
-
-        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryAnnotatedDecl.class);
-        XQueryVarDecl varDeclPsi = PsiNavigation.findChildrenByClass(annotatedDeclPsi, XQueryVarDecl.class).get(0);
-        XQueryTypeDeclaration typeDeclarationPsi = PsiNavigation.findChildrenByClass(varDeclPsi, XQueryTypeDeclaration.class).get(0);
-        XQuerySequenceType sequenceTypePsi = PsiNavigation.findChildrenByClass(typeDeclarationPsi, XQuerySequenceType.class).get(0);
-        XQueryAnyFunctionTest anyFunctionTestPsi = PsiNavigation.findFirstChildByClass(sequenceTypePsi, XQueryAnyFunctionTest.class);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)anyFunctionTestPsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires XQuery 3.0 or later, or MarkLogic 6.0 or later with XQuery version '1.0-ml'."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.K_FUNCTION));
-    }
-
-    // endregion
-    // region XQuery 3.0 :: TypedFunctionTest
-
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-TypedFunctionTest")
-    public void testTypedFunctionTest() {
-        final ASTNode node = parseResource("tests/parser/xquery-3.0/TypedFunctionTest.xq");
-
-        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryAnnotatedDecl.class);
-        XQueryVarDecl varDeclPsi = PsiNavigation.findChildrenByClass(annotatedDeclPsi, XQueryVarDecl.class).get(0);
-        XQueryTypeDeclaration typeDeclarationPsi = PsiNavigation.findChildrenByClass(varDeclPsi, XQueryTypeDeclaration.class).get(0);
-        XQuerySequenceType sequenceTypePsi = PsiNavigation.findChildrenByClass(typeDeclarationPsi, XQuerySequenceType.class).get(0);
-        XQueryTypedFunctionTest typedFunctionTestPsi = PsiNavigation.findFirstChildByClass(sequenceTypePsi, XQueryTypedFunctionTest.class);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)typedFunctionTestPsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires XQuery 3.0 or later, or MarkLogic 6.0 or later with XQuery version '1.0-ml'."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.K_FUNCTION));
-    }
-
-    // endregion
-    // region XQuery 3.0 :: ParenthesizedItemType
-
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-ParenthesizedItemType")
     public void testParenthesizedItemType() {
         final ASTNode node = parseResource("tests/parser/xquery-3.0/ParenthesizedItemType.xq");
 
@@ -2825,148 +1670,225 @@ public class XQueryPsiTest extends ParserTestCase {
     }
 
     // endregion
-    // region XQuery 1.0 :: EQName
+    // region SequenceTypeUnion
 
-    @SuppressWarnings("RedundantCast")
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-EQName")
-    public void testEQName_QName() {
-        final ASTNode node = parseResource("tests/psi/xquery-3.0/SimpleTypeName_QName.xq");
+    public void testSequenceTypeUnion() {
+        final ASTNode node = parseResource("tests/parser/xquery-3.0/SequenceTypeUnion.xq");
 
-        XQueryCastExpr castExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryCastExpr.class);
-        XQuerySingleType singleTypePsi = PsiNavigation.findChildrenByClass(castExprPsi, XQuerySingleType.class).get(0);
-        XQuerySimpleTypeName simpleTypeNamePsi = PsiNavigation.findFirstChildByClass(singleTypePsi, XQuerySimpleTypeName.class);
-        XQueryEQName eqnamePsi = (XQueryEQName)simpleTypeNamePsi;
+        XQueryTypeswitchExpr typeswitchExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryTypeswitchExpr.class);
+        XQueryCaseClause caseClausePsi = PsiNavigation.findChildrenByClass(typeswitchExprPsi, XQueryCaseClause.class).get(0);
+        XQuerySequenceTypeUnion sequenceTypeUnionPsi = PsiNavigation.findChildrenByClass(caseClausePsi, XQuerySequenceTypeUnion.class).get(0);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)sequenceTypeUnionPsi;
 
-        assertThat(eqnamePsi.getPrefix(), is(notNullValue()));
-        assertThat(eqnamePsi.getPrefix().getNode().getElementType(), is(XQueryTokenType.NCNAME));
-        assertThat(eqnamePsi.getPrefix().getText(), is("xs"));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
 
-        assertThat(eqnamePsi.getLocalName(), is(notNullValue()));
-        assertThat(eqnamePsi.getLocalName().getNode().getElementType(), is(XQueryTokenType.NCNAME));
-        assertThat(eqnamePsi.getLocalName().getText(), is("double"));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 3.0 or later, or MarkLogic 6.0 or later with XQuery version '1.0-ml'."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.UNION));
     }
 
-    @SuppressWarnings("RedundantCast")
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-EQName")
-    public void testEQName_KeywordLocalPart() {
-        final ASTNode node = parseResource("tests/psi/xquery-3.0/SimpleTypeName_QName_KeywordLocalPart.xq");
+    public void testSequenceTypeUnion_NoUnion() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/TypeswitchExpr.xq");
 
-        XQueryCastExpr castExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryCastExpr.class);
-        XQuerySingleType singleTypePsi = PsiNavigation.findChildrenByClass(castExprPsi, XQuerySingleType.class).get(0);
-        XQuerySimpleTypeName simpleTypeNamePsi = PsiNavigation.findFirstChildByClass(singleTypePsi, XQuerySimpleTypeName.class);
-        XQueryEQName eqnamePsi = (XQueryEQName)simpleTypeNamePsi;
+        XQueryTypeswitchExpr typeswitchExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryTypeswitchExpr.class);
+        XQueryCaseClause caseClausePsi = PsiNavigation.findChildrenByClass(typeswitchExprPsi, XQueryCaseClause.class).get(0);
+        XQuerySequenceTypeUnion sequenceTypeUnionPsi = PsiNavigation.findChildrenByClass(caseClausePsi, XQuerySequenceTypeUnion.class).get(0);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)sequenceTypeUnionPsi;
 
-        assertThat(eqnamePsi.getPrefix(), is(notNullValue()));
-        assertThat(eqnamePsi.getPrefix().getNode().getElementType(), is(XQueryTokenType.NCNAME));
-        assertThat(eqnamePsi.getPrefix().getText(), is("sort"));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
 
-        assertThat(eqnamePsi.getLocalName(), is(notNullValue()));
-        assertThat(eqnamePsi.getLocalName().getNode().getElementType(), is(XQueryTokenType.K_LEAST));
-        assertThat(eqnamePsi.getLocalName().getText(), is("least"));
-    }
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
 
-    @SuppressWarnings("RedundantCast")
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-EQName")
-    public void testEQName_MissingLocalPart() {
-        final ASTNode node = parseResource("tests/psi/xquery-3.0/SimpleTypeName_QName_MissingLocalPart.xq");
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 3.0 or later, or MarkLogic 6.0 or later with XQuery version '1.0-ml'."));
 
-        XQueryCastExpr castExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryCastExpr.class);
-        XQuerySingleType singleTypePsi = PsiNavigation.findChildrenByClass(castExprPsi, XQuerySingleType.class).get(0);
-        XQuerySimpleTypeName simpleTypeNamePsi = PsiNavigation.findFirstChildByClass(singleTypePsi, XQuerySimpleTypeName.class);
-        XQueryEQName eqnamePsi = (XQueryEQName)simpleTypeNamePsi;
-
-        assertThat(eqnamePsi.getPrefix(), is(notNullValue()));
-        assertThat(eqnamePsi.getPrefix().getNode().getElementType(), is(XQueryTokenType.NCNAME));
-        assertThat(eqnamePsi.getPrefix().getText(), is("xs"));
-
-        assertThat(eqnamePsi.getLocalName(), is(nullValue()));
-    }
-
-    @SuppressWarnings("RedundantCast")
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-EQName")
-    public void testEQName_KeywordPrefixPart() {
-        final ASTNode node = parseResource("tests/psi/xquery-3.0/SimpleTypeName_QName_KeywordPrefixPart.xq");
-
-        XQueryCastExpr castExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryCastExpr.class);
-        XQuerySingleType singleTypePsi = PsiNavigation.findChildrenByClass(castExprPsi, XQuerySingleType.class).get(0);
-        XQuerySimpleTypeName simpleTypeNamePsi = PsiNavigation.findFirstChildByClass(singleTypePsi, XQuerySimpleTypeName.class);
-        XQueryEQName eqnamePsi = (XQueryEQName)simpleTypeNamePsi;
-
-        assertThat(eqnamePsi.getPrefix(), is(notNullValue()));
-        assertThat(eqnamePsi.getPrefix().getNode().getElementType(), is(XQueryTokenType.K_ORDER));
-        assertThat(eqnamePsi.getPrefix().getText(), is("order"));
-
-        assertThat(eqnamePsi.getLocalName(), is(notNullValue()));
-        assertThat(eqnamePsi.getLocalName().getNode().getElementType(), is(XQueryTokenType.NCNAME));
-        assertThat(eqnamePsi.getLocalName().getText(), is("column"));
-    }
-
-    @SuppressWarnings("RedundantCast")
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-EQName")
-    public void testEQName_NCName() {
-        final ASTNode node = parseResource("tests/psi/xquery-3.0/SimpleTypeName_NCName.xq");
-
-        XQueryCastExpr castExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryCastExpr.class);
-        XQuerySingleType singleTypePsi = PsiNavigation.findChildrenByClass(castExprPsi, XQuerySingleType.class).get(0);
-        XQuerySimpleTypeName simpleTypeNamePsi = PsiNavigation.findFirstChildByClass(singleTypePsi, XQuerySimpleTypeName.class);
-        XQueryEQName eqnamePsi = (XQueryEQName)simpleTypeNamePsi;
-
-        assertThat(eqnamePsi.getPrefix(), is(nullValue()));
-
-        assertThat(eqnamePsi.getLocalName(), is(notNullValue()));
-        assertThat(eqnamePsi.getLocalName().getNode().getElementType(), is(XQueryTokenType.NCNAME));
-        assertThat(eqnamePsi.getLocalName().getText(), is("double"));
-    }
-
-    @SuppressWarnings("RedundantCast")
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-EQName")
-    public void testEQName_URIQualifiedName() {
-        final ASTNode node = parseResource("tests/psi/xquery-3.0/SimpleTypeName_URIQualifiedName.xq");
-
-        XQueryCastExpr castExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryCastExpr.class);
-        XQuerySingleType singleTypePsi = PsiNavigation.findChildrenByClass(castExprPsi, XQuerySingleType.class).get(0);
-        XQuerySimpleTypeName simpleTypeNamePsi = PsiNavigation.findFirstChildByClass(singleTypePsi, XQuerySimpleTypeName.class);
-        XQueryEQName eqnamePsi = (XQueryEQName)simpleTypeNamePsi;
-
-        assertThat(eqnamePsi.getPrefix(), is(notNullValue()));
-        assertThat(eqnamePsi.getPrefix().getNode().getElementType(), is(XQueryElementType.BRACED_URI_LITERAL));
-        assertThat(eqnamePsi.getPrefix().getText(), is("Q{http://www.w3.org/2001/XMLSchema}"));
-
-        assertThat(eqnamePsi.getLocalName(), is(notNullValue()));
-        assertThat(eqnamePsi.getLocalName().getNode().getElementType(), is(XQueryTokenType.NCNAME));
-        assertThat(eqnamePsi.getLocalName().getText(), is("double"));
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryElementType.SEQUENCE_TYPE));
     }
 
     // endregion
-    // region XQuery 3.0 :: URIQualifiedName
+    // region SimpleMapExpr
 
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-URIQualifiedName")
-    public void testURIQualifiedName() {
-        final ASTNode node = parseResource("tests/parser/xquery-3.0/BracedURILiteral.xq");
+    public void testSimpleMapExpr() {
+        final ASTNode node = parseResource("tests/parser/xquery-3.0/SimpleMapExpr.xq");
 
-        XQueryOptionDecl optionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryOptionDecl.class);
-        XQueryURIQualifiedName qnamePsi = PsiNavigation.findChildrenByClass(optionDeclPsi, XQueryURIQualifiedName.class).get(0);
+        XQuerySimpleMapExpr simpleMapExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQuerySimpleMapExpr.class);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)simpleMapExprPsi;
 
-        assertThat(qnamePsi.getPrefix(), is(notNullValue()));
-        assertThat(qnamePsi.getPrefix().getNode().getElementType(), is(XQueryElementType.BRACED_URI_LITERAL));
-        assertThat(qnamePsi.getPrefix().getText(), is("Q{one{two}"));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
 
-        assertThat(qnamePsi.getLocalName(), is(notNullValue()));
-        assertThat(qnamePsi.getLocalName().getNode().getElementType(), is(XQueryTokenType.NCNAME));
-        assertThat(qnamePsi.getLocalName().getText(), is("three"));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 3.0 or later, or MarkLogic 6.0 or later with XQuery version '1.0-ml'."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.MAP_OPERATOR));
+    }
+
+    public void testSimpleMapExpr_NoMap() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/AbbrevForwardStep.xq");
+
+        XQuerySimpleMapExpr simpleMapExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQuerySimpleMapExpr.class);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)simpleMapExprPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 3.0 or later, or MarkLogic 6.0 or later with XQuery version '1.0-ml'."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryElementType.PATH_EXPR));
     }
 
     // endregion
-    // region XQuery 3.0 :: BracedURILiteral
+    // region StringConcatExpr
 
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-BracedURILiteral")
-    public void testBracedURILiteral() {
-        final ASTNode node = parseResource("tests/parser/xquery-3.0/BracedURILiteral.xq");
+    public void testStringConcatExpr() {
+        final ASTNode node = parseResource("tests/parser/xquery-3.0/StringConcatExpr.xq");
 
-        XQueryOptionDecl optionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryOptionDecl.class);
-        XQueryURIQualifiedName qnamePsi = PsiNavigation.findChildrenByClass(optionDeclPsi, XQueryURIQualifiedName.class).get(0);
-        XQueryBracedURILiteral bracedURILiteralPsi = PsiNavigation.findFirstChildByClass(qnamePsi, XQueryBracedURILiteral.class);
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)bracedURILiteralPsi;
+        XQueryStringConcatExpr stringConcatExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryStringConcatExpr.class);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)stringConcatExprPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 3.0 or later, or MarkLogic 6.0 or later with XQuery version '1.0-ml'."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.CONCATENATION));
+    }
+
+    public void testStringConcatExpr_NoConcatenation() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/AbbrevForwardStep.xq");
+
+        XQueryStringConcatExpr stringConcatExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryStringConcatExpr.class);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)stringConcatExprPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 3.0 or later, or MarkLogic 6.0 or later with XQuery version '1.0-ml'."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryElementType.RANGE_EXPR));
+    }
+
+    // endregion
+    // region TextTest
+
+    public void testTextTest() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/TextTest.xq");
+
+        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryAnnotatedDecl.class);
+        XQueryVarDecl varDeclPsi = PsiNavigation.findChildrenByClass(annotatedDeclPsi, XQueryVarDecl.class).get(0);
+        XQueryTypeDeclaration typeDeclarationPsi = PsiNavigation.findChildrenByClass(varDeclPsi, XQueryTypeDeclaration.class).get(0);
+        XQuerySequenceType sequenceTypePsi = PsiNavigation.findChildrenByClass(typeDeclarationPsi, XQuerySequenceType.class).get(0);
+        XQueryTextTest textTestPsi = PsiNavigation.findFirstChildByClass(sequenceTypePsi, XQueryTextTest.class);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)textTestPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires MarkLogic 8.0 or later with XQuery version '1.0-ml'."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_TEXT));
+    }
+
+    // endregion
+    // region TryClause
+
+    public void testTryClause() {
+        final ASTNode node = parseResource("tests/parser/xquery-3.0/CatchClause.xq");
+
+        XQueryTryClause tryClausePsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryTryClause.class);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)tryClausePsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
@@ -2985,7 +1907,1006 @@ public class XQueryPsiTest extends ParserTestCase {
 
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.BRACED_URI_LITERAL_START));
+                is(XQueryTokenType.K_TRY));
+    }
+
+    // endregion
+    // region TypedFunctionTest
+
+    public void testTypedFunctionTest() {
+        final ASTNode node = parseResource("tests/parser/xquery-3.0/TypedFunctionTest.xq");
+
+        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryAnnotatedDecl.class);
+        XQueryVarDecl varDeclPsi = PsiNavigation.findChildrenByClass(annotatedDeclPsi, XQueryVarDecl.class).get(0);
+        XQueryTypeDeclaration typeDeclarationPsi = PsiNavigation.findChildrenByClass(varDeclPsi, XQueryTypeDeclaration.class).get(0);
+        XQuerySequenceType sequenceTypePsi = PsiNavigation.findChildrenByClass(typeDeclarationPsi, XQuerySequenceType.class).get(0);
+        XQueryTypedFunctionTest typedFunctionTestPsi = PsiNavigation.findFirstChildByClass(sequenceTypePsi, XQueryTypedFunctionTest.class);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)typedFunctionTestPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 3.0 or later, or MarkLogic 6.0 or later with XQuery version '1.0-ml'."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_FUNCTION));
+    }
+
+    // endregion
+    // region ValidateExpr
+
+    public void testValidateExpr() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/ValidateExpr.xq");
+
+        XQueryValidateExpr validateExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryValidateExpr.class);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)validateExprPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 1.0 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_VALIDATE));
+    }
+
+    public void testValidateExpr_Type() {
+        final ASTNode node = parseResource("tests/parser/xquery-3.0/ValidateExpr_Type.xq");
+
+        XQueryValidateExpr validateExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryValidateExpr.class);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)validateExprPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 3.0 or later, or MarkLogic 6.0 or later with XQuery version '1.0-ml'."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_TYPE));
+    }
+
+    // endregion
+    // endregion
+    // region XQueryEQName
+
+    @SuppressWarnings("RedundantCast")
+    public void testEQName_QName() {
+        final ASTNode node = parseResource("tests/psi/xquery-3.0/SimpleTypeName_QName.xq");
+
+        XQueryCastExpr castExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryCastExpr.class);
+        XQuerySingleType singleTypePsi = PsiNavigation.findChildrenByClass(castExprPsi, XQuerySingleType.class).get(0);
+        XQuerySimpleTypeName simpleTypeNamePsi = PsiNavigation.findFirstChildByClass(singleTypePsi, XQuerySimpleTypeName.class);
+        XQueryEQName eqnamePsi = (XQueryEQName)simpleTypeNamePsi;
+
+        assertThat(eqnamePsi.getPrefix(), is(notNullValue()));
+        assertThat(eqnamePsi.getPrefix().getNode().getElementType(), is(XQueryTokenType.NCNAME));
+        assertThat(eqnamePsi.getPrefix().getText(), is("xs"));
+
+        assertThat(eqnamePsi.getLocalName(), is(notNullValue()));
+        assertThat(eqnamePsi.getLocalName().getNode().getElementType(), is(XQueryTokenType.NCNAME));
+        assertThat(eqnamePsi.getLocalName().getText(), is("double"));
+    }
+
+    @SuppressWarnings("RedundantCast")
+    public void testEQName_KeywordLocalPart() {
+        final ASTNode node = parseResource("tests/psi/xquery-3.0/SimpleTypeName_QName_KeywordLocalPart.xq");
+
+        XQueryCastExpr castExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryCastExpr.class);
+        XQuerySingleType singleTypePsi = PsiNavigation.findChildrenByClass(castExprPsi, XQuerySingleType.class).get(0);
+        XQuerySimpleTypeName simpleTypeNamePsi = PsiNavigation.findFirstChildByClass(singleTypePsi, XQuerySimpleTypeName.class);
+        XQueryEQName eqnamePsi = (XQueryEQName)simpleTypeNamePsi;
+
+        assertThat(eqnamePsi.getPrefix(), is(notNullValue()));
+        assertThat(eqnamePsi.getPrefix().getNode().getElementType(), is(XQueryTokenType.NCNAME));
+        assertThat(eqnamePsi.getPrefix().getText(), is("sort"));
+
+        assertThat(eqnamePsi.getLocalName(), is(notNullValue()));
+        assertThat(eqnamePsi.getLocalName().getNode().getElementType(), is(XQueryTokenType.K_LEAST));
+        assertThat(eqnamePsi.getLocalName().getText(), is("least"));
+    }
+
+    @SuppressWarnings("RedundantCast")
+    public void testEQName_MissingLocalPart() {
+        final ASTNode node = parseResource("tests/psi/xquery-3.0/SimpleTypeName_QName_MissingLocalPart.xq");
+
+        XQueryCastExpr castExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryCastExpr.class);
+        XQuerySingleType singleTypePsi = PsiNavigation.findChildrenByClass(castExprPsi, XQuerySingleType.class).get(0);
+        XQuerySimpleTypeName simpleTypeNamePsi = PsiNavigation.findFirstChildByClass(singleTypePsi, XQuerySimpleTypeName.class);
+        XQueryEQName eqnamePsi = (XQueryEQName)simpleTypeNamePsi;
+
+        assertThat(eqnamePsi.getPrefix(), is(notNullValue()));
+        assertThat(eqnamePsi.getPrefix().getNode().getElementType(), is(XQueryTokenType.NCNAME));
+        assertThat(eqnamePsi.getPrefix().getText(), is("xs"));
+
+        assertThat(eqnamePsi.getLocalName(), is(nullValue()));
+    }
+
+    @SuppressWarnings("RedundantCast")
+    public void testEQName_KeywordPrefixPart() {
+        final ASTNode node = parseResource("tests/psi/xquery-3.0/SimpleTypeName_QName_KeywordPrefixPart.xq");
+
+        XQueryCastExpr castExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryCastExpr.class);
+        XQuerySingleType singleTypePsi = PsiNavigation.findChildrenByClass(castExprPsi, XQuerySingleType.class).get(0);
+        XQuerySimpleTypeName simpleTypeNamePsi = PsiNavigation.findFirstChildByClass(singleTypePsi, XQuerySimpleTypeName.class);
+        XQueryEQName eqnamePsi = (XQueryEQName)simpleTypeNamePsi;
+
+        assertThat(eqnamePsi.getPrefix(), is(notNullValue()));
+        assertThat(eqnamePsi.getPrefix().getNode().getElementType(), is(XQueryTokenType.K_ORDER));
+        assertThat(eqnamePsi.getPrefix().getText(), is("order"));
+
+        assertThat(eqnamePsi.getLocalName(), is(notNullValue()));
+        assertThat(eqnamePsi.getLocalName().getNode().getElementType(), is(XQueryTokenType.NCNAME));
+        assertThat(eqnamePsi.getLocalName().getText(), is("column"));
+    }
+
+    @SuppressWarnings("RedundantCast")
+    public void testEQName_NCName() {
+        final ASTNode node = parseResource("tests/psi/xquery-3.0/SimpleTypeName_NCName.xq");
+
+        XQueryCastExpr castExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryCastExpr.class);
+        XQuerySingleType singleTypePsi = PsiNavigation.findChildrenByClass(castExprPsi, XQuerySingleType.class).get(0);
+        XQuerySimpleTypeName simpleTypeNamePsi = PsiNavigation.findFirstChildByClass(singleTypePsi, XQuerySimpleTypeName.class);
+        XQueryEQName eqnamePsi = (XQueryEQName)simpleTypeNamePsi;
+
+        assertThat(eqnamePsi.getPrefix(), is(nullValue()));
+
+        assertThat(eqnamePsi.getLocalName(), is(notNullValue()));
+        assertThat(eqnamePsi.getLocalName().getNode().getElementType(), is(XQueryTokenType.NCNAME));
+        assertThat(eqnamePsi.getLocalName().getText(), is("double"));
+    }
+
+    @SuppressWarnings("RedundantCast")
+    public void testEQName_URIQualifiedName() {
+        final ASTNode node = parseResource("tests/psi/xquery-3.0/SimpleTypeName_URIQualifiedName.xq");
+
+        XQueryCastExpr castExprPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryCastExpr.class);
+        XQuerySingleType singleTypePsi = PsiNavigation.findChildrenByClass(castExprPsi, XQuerySingleType.class).get(0);
+        XQuerySimpleTypeName simpleTypeNamePsi = PsiNavigation.findFirstChildByClass(singleTypePsi, XQuerySimpleTypeName.class);
+        XQueryEQName eqnamePsi = (XQueryEQName)simpleTypeNamePsi;
+
+        assertThat(eqnamePsi.getPrefix(), is(notNullValue()));
+        assertThat(eqnamePsi.getPrefix().getNode().getElementType(), is(XQueryElementType.BRACED_URI_LITERAL));
+        assertThat(eqnamePsi.getPrefix().getText(), is("Q{http://www.w3.org/2001/XMLSchema}"));
+
+        assertThat(eqnamePsi.getLocalName(), is(notNullValue()));
+        assertThat(eqnamePsi.getLocalName().getNode().getElementType(), is(XQueryTokenType.NCNAME));
+        assertThat(eqnamePsi.getLocalName().getText(), is("double"));
+    }
+
+    // endregion
+    // region XQueryFile
+
+    public void testFile_Empty() {
+        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
+        final ASTNode node = parseText("");
+
+        assertThat(node.getElementType(), is(XQueryElementType.FILE));
+
+        XQueryFile file = (XQueryFile)node.getPsi();
+        assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_3_0));
+
+        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_1);
+        assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_3_1));
+    }
+
+    public void testFile() {
+        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/IntegerLiteral.xq");
+
+        assertThat(node.getElementType(), is(XQueryElementType.FILE));
+
+        XQueryFile file = (XQueryFile)node.getPsi();
+        assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_3_0));
+
+        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_1);
+        assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_3_1));
+    }
+
+    // endregion
+    // region XQueryNamespaceProvider
+    // region DirAttributeList
+
+    public void testDirAttributeList() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/DirAttributeList.xq");
+
+        XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryDirElemConstructor.class);
+        XQueryDirAttributeList dirAttributeListPsi = PsiNavigation.findChildrenByClass(dirElemConstructorPsi, XQueryDirAttributeList.class).get(0);
+        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)dirAttributeListPsi;
+
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
+        assertThat(provider.resolveNamespace("a"), is(nullValue()));
+    }
+
+    public void testDirAttributeList_XmlNamespace() {
+        final ASTNode node = parseResource("tests/psi/xquery-1.0/DirAttributeList_XmlnsAttribute.xq");
+
+        XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryDirElemConstructor.class);
+        XQueryDirAttributeList dirAttributeListPsi = PsiNavigation.findChildrenByClass(dirElemConstructorPsi, XQueryDirAttributeList.class).get(0);
+        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)dirAttributeListPsi;
+
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
+
+        XQueryNamespace ns = provider.resolveNamespace("a");
+        assertThat(ns, is(notNullValue()));
+
+        assertThat(ns.getPrefix(), is(instanceOf(LeafPsiElement.class)));
+        assertThat(ns.getPrefix().getText(), is("a"));
+
+        assertThat(ns.getUri(), is(instanceOf(XQueryDirAttributeValue.class)));
+        assertThat(ns.getUri().getText(), is("\"http://www.example.com/a\""));
+    }
+
+    public void testDirAttributeList_XmlNamespace_MissingValue() {
+        final ASTNode node = parseResource("tests/psi/xquery-1.0/DirAttributeList_XmlnsAttribute_MissingValue.xq");
+
+        XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryDirElemConstructor.class);
+        XQueryDirAttributeList dirAttributeListPsi = PsiNavigation.findChildrenByClass(dirElemConstructorPsi, XQueryDirAttributeList.class).get(0);
+        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)dirAttributeListPsi;
+
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
+
+        XQueryNamespace ns = provider.resolveNamespace("a");
+        assertThat(ns, is(notNullValue()));
+
+        assertThat(ns.getPrefix(), is(instanceOf(LeafPsiElement.class)));
+        assertThat(ns.getPrefix().getText(), is("a"));
+
+        assertThat(ns.getUri(), is(nullValue()));
+    }
+
+    public void testDirAttributeList_XmlNamespace_MissingMiddleValue() {
+        final ASTNode node = parseResource("tests/psi/xquery-1.0/DirAttributeList_XmlnsAttribute_MissingMiddleValue.xq");
+
+        XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryDirElemConstructor.class);
+        XQueryDirAttributeList dirAttributeListPsi = PsiNavigation.findChildrenByClass(dirElemConstructorPsi, XQueryDirAttributeList.class).get(0);
+        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)dirAttributeListPsi;
+
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
+
+        XQueryNamespace ns = provider.resolveNamespace("a");
+        assertThat(ns, is(notNullValue()));
+
+        assertThat(ns.getPrefix(), is(instanceOf(LeafPsiElement.class)));
+        assertThat(ns.getPrefix().getText(), is("a"));
+
+        assertThat(ns.getUri(), is(nullValue()));
+    }
+
+    // endregion
+    // region DirElemConstructor
+
+    public void testDirElemConstructor() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/DirElemConstructor.xq");
+
+        XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryDirElemConstructor.class);
+        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)dirElemConstructorPsi;
+
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
+        assertThat(provider.resolveNamespace("a"), is(nullValue()));
+    }
+
+    public void testDirElemConstructor_AttributeList() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/DirAttributeList.xq");
+
+        XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryDirElemConstructor.class);
+        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)dirElemConstructorPsi;
+
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
+        assertThat(provider.resolveNamespace("a"), is(nullValue()));
+    }
+
+    public void testDirElemConstructor_XmlNamespace() {
+        final ASTNode node = parseResource("tests/psi/xquery-1.0/DirAttributeList_XmlnsAttribute.xq");
+
+        XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryDirElemConstructor.class);
+        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)dirElemConstructorPsi;
+
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
+
+        XQueryNamespace ns = provider.resolveNamespace("a");
+        assertThat(ns, is(notNullValue()));
+
+        assertThat(ns.getPrefix(), is(instanceOf(LeafPsiElement.class)));
+        assertThat(ns.getPrefix().getText(), is("a"));
+
+        assertThat(ns.getUri(), is(instanceOf(XQueryDirAttributeValue.class)));
+        assertThat(ns.getUri().getText(), is("\"http://www.example.com/a\""));
+    }
+
+    public void testDirElemConstructor_XmlNamespace_MissingValue() {
+        final ASTNode node = parseResource("tests/psi/xquery-1.0/DirAttributeList_XmlnsAttribute_MissingValue.xq");
+
+        XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryDirElemConstructor.class);
+        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)dirElemConstructorPsi;
+
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
+
+        XQueryNamespace ns = provider.resolveNamespace("a");
+        assertThat(ns, is(notNullValue()));
+
+        assertThat(ns.getPrefix(), is(instanceOf(LeafPsiElement.class)));
+        assertThat(ns.getPrefix().getText(), is("a"));
+
+        assertThat(ns.getUri(), is(nullValue()));
+    }
+
+    public void testDirElemConstructor_XmlNamespace_MissingMiddleValue() {
+        final ASTNode node = parseResource("tests/psi/xquery-1.0/DirAttributeList_XmlnsAttribute_MissingMiddleValue.xq");
+
+        XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryDirElemConstructor.class);
+        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)dirElemConstructorPsi;
+
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
+
+        XQueryNamespace ns = provider.resolveNamespace("a");
+        assertThat(ns, is(notNullValue()));
+
+        assertThat(ns.getPrefix(), is(instanceOf(LeafPsiElement.class)));
+        assertThat(ns.getPrefix().getText(), is("a"));
+
+        assertThat(ns.getUri(), is(nullValue()));
+    }
+
+    // endregion
+    // region ModuleDecl
+
+    public void testModuleDecl() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/ModuleDecl.xq");
+
+        XQueryModuleDecl moduleDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryModuleDecl.class);
+        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)moduleDeclPsi;
+
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
+
+        XQueryNamespace ns = provider.resolveNamespace("test");
+        assertThat(ns, is(notNullValue()));
+
+        assertThat(ns.getPrefix(), is(instanceOf(LeafPsiElement.class)));
+        assertThat(ns.getPrefix().getText(), is("test"));
+
+        assertThat(ns.getUri(), is(instanceOf(XQueryUriLiteral.class)));
+        assertThat(((XQueryUriLiteral)ns.getUri()).getStringValue(), is("http://www.example.com/test"));
+    }
+
+    public void testModuleDecl_MissingNamespaceName() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/ModuleDecl_MissingNamespaceName.xq");
+
+        XQueryModuleDecl moduleDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryModuleDecl.class);
+        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)moduleDeclPsi;
+
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
+        assertThat(provider.resolveNamespace("test"), is(nullValue()));
+    }
+
+    public void testModulesDecl_MissingNamespaceUri() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/ModuleDecl_MissingNamespaceUri.xq");
+
+        XQueryModuleDecl moduleDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryModuleDecl.class);
+        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)moduleDeclPsi;
+
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
+
+        XQueryNamespace ns = provider.resolveNamespace("one");
+        assertThat(ns, is(notNullValue()));
+
+        assertThat(ns.getPrefix(), is(instanceOf(LeafPsiElement.class)));
+        assertThat(ns.getPrefix().getText(), is("one"));
+
+        assertThat(ns.getUri(), is(nullValue()));
+    }
+
+    // endregion
+    // region ModuleImport
+
+    public void testModuleImport() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/ModuleImport.xq");
+
+        XQueryModuleImport moduleImportPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryModuleImport.class);
+        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)moduleImportPsi;
+
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
+        assertThat(provider.resolveNamespace("test"), is(nullValue()));
+    }
+
+    public void testModuleImport_WithNamespace() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/ModuleImport_WithNamespace.xq");
+
+        XQueryModuleImport moduleImportPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryModuleImport.class);
+        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)moduleImportPsi;
+
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
+
+        XQueryNamespace ns = provider.resolveNamespace("test");
+        assertThat(ns, is(notNullValue()));
+
+        assertThat(ns.getPrefix(), is(instanceOf(LeafPsiElement.class)));
+        assertThat(ns.getPrefix().getText(), is("test"));
+
+        assertThat(ns.getUri(), is(instanceOf(XQueryUriLiteral.class)));
+        assertThat(((XQueryUriLiteral)ns.getUri()).getStringValue(), is("http://www.example.com/test"));
+    }
+
+    // endregion
+    // region NamespaceDecl
+
+    public void testNamespaceDecl() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/NamespaceDecl.xq");
+
+        XQueryNamespaceDecl namespaceDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryNamespaceDecl.class);
+        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)namespaceDeclPsi;
+
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
+
+        XQueryNamespace ns = provider.resolveNamespace("test");
+        assertThat(ns, is(notNullValue()));
+
+        assertThat(ns.getPrefix(), is(instanceOf(LeafPsiElement.class)));
+        assertThat(ns.getPrefix().getText(), is("test"));
+
+        assertThat(ns.getUri(), is(instanceOf(XQueryUriLiteral.class)));
+        assertThat(((XQueryUriLiteral)ns.getUri()).getStringValue(), is("http://www.example.org/test"));
+    }
+
+    public void testNamespaceDecl_MissingNCName() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/NamespaceDecl_MissingNCName.xq");
+
+        XQueryNamespaceDecl namespaceDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryNamespaceDecl.class);
+        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)namespaceDeclPsi;
+
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
+        assertThat(provider.resolveNamespace("test"), is(nullValue()));
+    }
+
+    public void testNamespaceDecl_MissingUri() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/NamespaceDecl_MissingUri.xq");
+
+        XQueryNamespaceDecl namespaceDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryNamespaceDecl.class);
+        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)namespaceDeclPsi;
+
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
+
+        XQueryNamespace ns = provider.resolveNamespace("test");
+        assertThat(ns, is(notNullValue()));
+
+        assertThat(ns.getPrefix(), is(instanceOf(LeafPsiElement.class)));
+        assertThat(ns.getPrefix().getText(), is("test"));
+
+        assertThat(ns.getUri(), is(nullValue()));
+    }
+
+    // endregion
+    // region Prolog
+
+    public void testProlog_NoNamespaceProviders() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/VarDecl.xq");
+
+        XQueryProlog prologPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryProlog.class);
+        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)prologPsi;
+
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
+        assertThat(provider.resolveNamespace("test"), is(nullValue()));
+    }
+
+    public void testProlog_NamespaceDecl() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/NamespaceDecl.xq");
+
+        XQueryProlog prologPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryProlog.class);
+        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)prologPsi;
+
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
+
+        XQueryNamespace ns = provider.resolveNamespace("test");
+        assertThat(ns, is(notNullValue()));
+
+        assertThat(ns.getPrefix(), is(instanceOf(LeafPsiElement.class)));
+        assertThat(ns.getPrefix().getText(), is("test"));
+
+        assertThat(ns.getUri(), is(instanceOf(XQueryUriLiteral.class)));
+        assertThat(((XQueryUriLiteral)ns.getUri()).getStringValue(), is("http://www.example.org/test"));
+    }
+
+    // endregion
+    // region SchemaImport
+
+    public void testSchemaImport() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/SchemaImport.xq");
+
+        XQuerySchemaImport schemaImportPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQuerySchemaImport.class);
+        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)schemaImportPsi;
+
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
+        assertThat(provider.resolveNamespace("test"), is(nullValue()));
+    }
+
+    public void testSchemaImport_WithSchemaPrefix() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/SchemaPrefix.xq");
+
+        XQuerySchemaImport schemaImportPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQuerySchemaImport.class);
+        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)schemaImportPsi;
+
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
+
+        XQueryNamespace ns = provider.resolveNamespace("test");
+        assertThat(ns, is(notNullValue()));
+
+        assertThat(ns.getPrefix(), is(instanceOf(LeafPsiElement.class)));
+        assertThat(ns.getPrefix().getText(), is("test"));
+
+        assertThat(ns.getUri(), is(instanceOf(XQueryUriLiteral.class)));
+        assertThat(((XQueryUriLiteral)ns.getUri()).getStringValue(), is("http://www.example.com/test"));
+    }
+
+    public void testSchemaImport_WithSchemaPrefix_MissingNCName() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/SchemaPrefix_MissingNCName.xq");
+
+        XQuerySchemaImport schemaImportPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQuerySchemaImport.class);
+        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)schemaImportPsi;
+
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
+        assertThat(provider.resolveNamespace("test"), is(nullValue()));
+    }
+
+    public void testSchemaImport_WithSchemaPrefix_Default() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/SchemaPrefix_Default.xq");
+
+        XQuerySchemaImport schemaImportPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQuerySchemaImport.class);
+        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)schemaImportPsi;
+
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
+        assertThat(provider.resolveNamespace("test"), is(nullValue()));
+    }
+
+    // endregion
+    // endregion
+    // region XQueryNCName
+
+    public void testNCName() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/NCName_Keyword.xq");
+
+        XQueryOptionDecl optionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryOptionDecl.class);
+        XQueryNCName ncnamePsi = PsiNavigation.findChildrenByClass(optionDeclPsi, XQueryNCName.class).get(0);
+
+        assertThat(ncnamePsi.getPrefix(), is(nullValue()));
+
+        assertThat(ncnamePsi.getLocalName(), is(notNullValue()));
+        assertThat(ncnamePsi.getLocalName().getNode().getElementType(), is(XQueryTokenType.K_COLLATION));
+        assertThat(ncnamePsi.getLocalName().getText(), is("collation"));
+    }
+
+    // endregion
+    // region XQueryQName
+
+    public void testQName() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/QName.xq");
+
+        XQueryOptionDecl optionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryOptionDecl.class);
+        XQueryQName qnamePsi = PsiNavigation.findChildrenByClass(optionDeclPsi, XQueryQName.class).get(0);
+
+        assertThat(qnamePsi.getPrefix(), is(notNullValue()));
+        assertThat(qnamePsi.getPrefix().getNode().getElementType(), is(XQueryTokenType.NCNAME));
+        assertThat(qnamePsi.getPrefix().getText(), is("one"));
+
+        assertThat(qnamePsi.getLocalName(), is(notNullValue()));
+        assertThat(qnamePsi.getLocalName().getNode().getElementType(), is(XQueryTokenType.NCNAME));
+        assertThat(qnamePsi.getLocalName().getText(), is("two"));
+    }
+
+    public void testQName_KeywordLocalPart() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/QName_KeywordLocalPart.xq");
+
+        XQueryOptionDecl optionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryOptionDecl.class);
+        XQueryQName qnamePsi = PsiNavigation.findChildrenByClass(optionDeclPsi, XQueryQName.class).get(0);
+
+        assertThat(qnamePsi.getPrefix(), is(notNullValue()));
+        assertThat(qnamePsi.getPrefix().getNode().getElementType(), is(XQueryTokenType.NCNAME));
+        assertThat(qnamePsi.getPrefix().getText(), is("sort"));
+
+        assertThat(qnamePsi.getLocalName(), is(notNullValue()));
+        assertThat(qnamePsi.getLocalName().getNode().getElementType(), is(XQueryTokenType.K_LEAST));
+        assertThat(qnamePsi.getLocalName().getText(), is("least"));
+    }
+
+    public void testQName_MissingLocalPart() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/QName_MissingLocalPart.xq");
+
+        XQueryOptionDecl optionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryOptionDecl.class);
+        XQueryQName qnamePsi = PsiNavigation.findChildrenByClass(optionDeclPsi, XQueryQName.class).get(0);
+
+        assertThat(qnamePsi.getPrefix(), is(notNullValue()));
+        assertThat(qnamePsi.getPrefix().getNode().getElementType(), is(XQueryTokenType.NCNAME));
+        assertThat(qnamePsi.getPrefix().getText(), is("one"));
+
+        assertThat(qnamePsi.getLocalName(), is(nullValue()));
+    }
+
+    public void testQName_KeywordPrefixPart() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/QName_KeywordPrefixPart.xq");
+
+        XQueryOptionDecl optionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryOptionDecl.class);
+        XQueryQName qnamePsi = PsiNavigation.findChildrenByClass(optionDeclPsi, XQueryQName.class).get(0);
+
+        assertThat(qnamePsi.getPrefix(), is(notNullValue()));
+        assertThat(qnamePsi.getPrefix().getNode().getElementType(), is(XQueryTokenType.K_ORDER));
+        assertThat(qnamePsi.getPrefix().getText(), is("order"));
+
+        assertThat(qnamePsi.getLocalName(), is(notNullValue()));
+        assertThat(qnamePsi.getLocalName().getNode().getElementType(), is(XQueryTokenType.NCNAME));
+        assertThat(qnamePsi.getLocalName().getText(), is("two"));
+    }
+
+    public void testQName_DirElemConstructor() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/DirElemConstructor.xq");
+
+        XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryDirElemConstructor.class);
+        XQueryQName qnamePsi = PsiNavigation.findChildrenByClass(dirElemConstructorPsi, XQueryQName.class).get(0);
+
+        assertThat(qnamePsi.getPrefix(), is(notNullValue()));
+        assertThat(qnamePsi.getPrefix().getNode().getElementType(), is(XQueryTokenType.XML_TAG_NCNAME));
+        assertThat(qnamePsi.getPrefix().getText(), is("a"));
+
+        assertThat(qnamePsi.getLocalName(), is(notNullValue()));
+        assertThat(qnamePsi.getLocalName().getNode().getElementType(), is(XQueryTokenType.XML_TAG_NCNAME));
+        assertThat(qnamePsi.getLocalName().getText(), is("b"));
+    }
+
+    public void testQName_DirAttributeList() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/DirAttributeList.xq");
+
+        XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryDirElemConstructor.class);
+        XQueryDirAttributeList dirAttributeListPsi = PsiNavigation.findChildrenByClass(dirElemConstructorPsi, XQueryDirAttributeList.class).get(0);
+        XQueryQName qnamePsi = PsiNavigation.findChildrenByClass(dirAttributeListPsi, XQueryQName.class).get(0);
+
+        assertThat(qnamePsi.getPrefix(), is(notNullValue()));
+        assertThat(qnamePsi.getPrefix().getNode().getElementType(), is(XQueryTokenType.XML_ATTRIBUTE_NCNAME));
+        assertThat(qnamePsi.getPrefix().getText(), is("xml"));
+
+        assertThat(qnamePsi.getLocalName(), is(notNullValue()));
+        assertThat(qnamePsi.getLocalName().getNode().getElementType(), is(XQueryTokenType.XML_ATTRIBUTE_NCNAME));
+        assertThat(qnamePsi.getLocalName().getText(), is("id"));
+    }
+
+    // endregion
+    // region XQueryStringLiteral
+
+    public void testStringLiteral() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/StringLiteral.xq");
+
+        XQueryStringLiteral stringLiteralPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryStringLiteral.class);
+        assertThat(stringLiteralPsi, is(notNullValue()));
+        assertThat(stringLiteralPsi.getStringValue(), is("One Two"));
+    }
+
+    public void testStringLiteral_Empty() {
+        final ASTNode node = parseResource("tests/psi/xquery-1.0/StringLiteral_Empty.xq");
+
+        XQueryStringLiteral stringLiteralPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryStringLiteral.class);
+        assertThat(stringLiteralPsi, is(notNullValue()));
+        assertThat(stringLiteralPsi.getStringValue(), is(nullValue()));
+    }
+
+    // endregion
+    // region XQueryURIQualifiedName
+
+    public void testURIQualifiedName() {
+        final ASTNode node = parseResource("tests/parser/xquery-3.0/BracedURILiteral.xq");
+
+        XQueryOptionDecl optionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryOptionDecl.class);
+        XQueryURIQualifiedName qnamePsi = PsiNavigation.findChildrenByClass(optionDeclPsi, XQueryURIQualifiedName.class).get(0);
+
+        assertThat(qnamePsi.getPrefix(), is(notNullValue()));
+        assertThat(qnamePsi.getPrefix().getNode().getElementType(), is(XQueryElementType.BRACED_URI_LITERAL));
+        assertThat(qnamePsi.getPrefix().getText(), is("Q{one{two}"));
+
+        assertThat(qnamePsi.getLocalName(), is(notNullValue()));
+        assertThat(qnamePsi.getLocalName().getNode().getElementType(), is(XQueryTokenType.NCNAME));
+        assertThat(qnamePsi.getLocalName().getText(), is("three"));
+    }
+
+    // endregion
+    // region XQueryVersionDecl
+
+    public void testVersionDecl() {
+        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/VersionDecl.xq");
+
+        XQueryVersionDecl versionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryVersionDecl.class);
+        assertThat(versionDeclPsi.getVersion(), is(notNullValue()));
+        assertThat(versionDeclPsi.getVersion().getStringValue(), is("1.0"));
+        assertThat(versionDeclPsi.getEncoding(), is(nullValue()));
+
+        XQueryFile file = (XQueryFile)node.getPsi();
+        assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_1_0));
+
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)versionDeclPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 1.0 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_XQUERY));
+    }
+
+    public void testVersionDecl_CommentBeforeDecl() {
+        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
+        final ASTNode node = parseResource("tests/psi/xquery-1.0/VersionDecl_CommentBeforeDecl.xq");
+
+        XQueryModule modulePsi = PsiNavigation.findChildrenByClass(node.getPsi(), XQueryModule.class).get(0);
+        XQueryVersionDecl versionDeclPsi = PsiNavigation.findFirstChildByClass(modulePsi, XQueryVersionDecl.class);
+        assertThat(versionDeclPsi.getVersion(), is(notNullValue()));
+        assertThat(versionDeclPsi.getVersion().getStringValue(), is("1.0"));
+        assertThat(versionDeclPsi.getEncoding(), is(nullValue()));
+
+        XQueryFile file = (XQueryFile)node.getPsi();
+        assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_1_0));
+
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)versionDeclPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 1.0 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_XQUERY));
+    }
+
+    public void testVersionDecl_EmptyVersion() {
+        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
+        final ASTNode node = parseResource("tests/psi/xquery-1.0/VersionDecl_EmptyVersion.xq");
+
+        XQueryVersionDecl versionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryVersionDecl.class);
+        assertThat(versionDeclPsi.getVersion(), is(notNullValue()));
+        assertThat(versionDeclPsi.getVersion().getStringValue(), is(nullValue()));
+        assertThat(versionDeclPsi.getEncoding(), is(nullValue()));
+
+        XQueryFile file = (XQueryFile)node.getPsi();
+        assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_3_0));
+
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)versionDeclPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 1.0 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_XQUERY));
+    }
+
+    public void testVersionDecl_WithEncoding() {
+        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/VersionDecl_WithEncoding.xq");
+
+        XQueryVersionDecl versionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryVersionDecl.class);
+        assertThat(versionDeclPsi.getVersion(), is(notNullValue()));
+        assertThat(versionDeclPsi.getVersion().getStringValue(), is("1.0"));
+        assertThat(versionDeclPsi.getEncoding(), is(notNullValue()));
+        assertThat(versionDeclPsi.getEncoding().getStringValue(), is("latin1"));
+
+        XQueryFile file = (XQueryFile)node.getPsi();
+        assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_1_0));
+
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)versionDeclPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 1.0 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_XQUERY));
+    }
+
+    public void testVersionDecl_WithEncoding_CommentsAsWhitespace() {
+        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
+        final ASTNode node = parseResource("tests/psi/xquery-1.0/VersionDecl_WithEncoding_CommentsAsWhitespace.xq");
+
+        XQueryVersionDecl versionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryVersionDecl.class);
+        assertThat(versionDeclPsi.getVersion(), is(notNullValue()));
+        assertThat(versionDeclPsi.getVersion().getStringValue(), is("1.0"));
+        assertThat(versionDeclPsi.getEncoding(), is(notNullValue()));
+        assertThat(versionDeclPsi.getEncoding().getStringValue(), is("latin1"));
+
+        XQueryFile file = (XQueryFile)node.getPsi();
+        assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_1_0));
+
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)versionDeclPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 1.0 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_XQUERY));
+    }
+
+    public void testVersionDecl_WithEmptyEncoding() {
+        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
+        final ASTNode node = parseResource("tests/psi/xquery-1.0/VersionDecl_WithEncoding_EmptyEncoding.xq");
+
+        XQueryVersionDecl versionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryVersionDecl.class);
+        assertThat(versionDeclPsi.getVersion(), is(notNullValue()));
+        assertThat(versionDeclPsi.getVersion().getStringValue(), is("1.0"));
+        assertThat(versionDeclPsi.getEncoding(), is(notNullValue()));
+        assertThat(versionDeclPsi.getEncoding().getStringValue(), is(nullValue()));
+
+        XQueryFile file = (XQueryFile)node.getPsi();
+        assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_1_0));
+
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)versionDeclPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 1.0 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_XQUERY));
+    }
+
+    public void testVersionDecl_NoVersion() {
+        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
+        final ASTNode node = parseResource("tests/psi/xquery-1.0/VersionDecl_NoVersion.xq");
+
+        XQueryVersionDecl versionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryVersionDecl.class);
+        assertThat(versionDeclPsi.getVersion(), is(nullValue()));
+        assertThat(versionDeclPsi.getEncoding(), is(nullValue()));
+
+        XQueryFile file = (XQueryFile)node.getPsi();
+        assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_3_0));
+
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)versionDeclPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 1.0 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_XQUERY));
+    }
+
+    public void testVersionDecl_EncodingOnly() {
+        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
+        final ASTNode node = parseResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly.xq");
+
+        XQueryVersionDecl versionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryVersionDecl.class);
+        assertThat(versionDeclPsi.getVersion(), is(nullValue()));
+        assertThat(versionDeclPsi.getEncoding(), is(notNullValue()));
+        assertThat(versionDeclPsi.getEncoding().getStringValue(), is("latin1"));
+
+        XQueryFile file = (XQueryFile)node.getPsi();
+        assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_3_0));
+
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)versionDeclPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 3.0 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_ENCODING));
+    }
+
+    public void testVersionDecl_EncodingOnly_EmptyEncoding() {
+        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
+        final ASTNode node = parseResource("tests/psi/xquery-3.0/VersionDecl_EncodingOnly_EmptyEncoding.xq");
+
+        XQueryVersionDecl versionDeclPsi = PsiNavigation.findFirstChildByClass(node.getPsi(), XQueryVersionDecl.class);
+        assertThat(versionDeclPsi.getVersion(), is(nullValue()));
+        assertThat(versionDeclPsi.getEncoding(), is(notNullValue()));
+        assertThat(versionDeclPsi.getEncoding().getStringValue(), is(nullValue()));
+
+        XQueryFile file = (XQueryFile)node.getPsi();
+        assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_3_0));
+
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)versionDeclPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 3.0 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_ENCODING));
     }
 
     // endregion
