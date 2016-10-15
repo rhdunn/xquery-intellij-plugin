@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
 import com.intellij.psi.PsiElement;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace;
 
 /**
  * An XQuery 3.0 <code>EQName</code> node in the XQuery AST.
@@ -31,4 +32,6 @@ public interface XQueryEQName extends PsiElement {
     PsiElement getPrefix();
 
     PsiElement getLocalName();
+
+    XQueryNamespace resolvePrefixNamespace();
 }

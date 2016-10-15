@@ -27,6 +27,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.INCNameType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceProvider;
 import uk.co.reecedunn.intellij.plugin.xquery.resolve.reference.XQueryEQNamePrefixReference;
 
 public class XQueryEQNamePsiImpl extends ASTWrapperPsiElement implements XQueryEQName {
@@ -47,7 +49,7 @@ public class XQueryEQNamePsiImpl extends ASTWrapperPsiElement implements XQueryE
         }
 
         TextRange range = prefix.getTextRange();
-        return new XQueryEQNamePrefixReference(this, new TextRange(0, range.getLength()), getFirstChild().getText());
+        return new XQueryEQNamePrefixReference(this, new TextRange(0, range.getLength()));
     }
 
     @Override
@@ -91,6 +93,31 @@ public class XQueryEQNamePsiImpl extends ASTWrapperPsiElement implements XQueryE
                 }
                 element = element.getNextSibling();
             }
+        }
+        return null;
+    }
+
+    @Override
+    public XQueryNamespace resolvePrefixNamespace() {
+        PsiElement element = getPrefix();
+        if (element instanceof XQueryBracedURILiteral) {
+            return null;
+        }
+
+        CharSequence prefix = element.getText();
+        while (element != null) {
+            if (element instanceof XQueryNamespaceProvider) {
+                XQueryNamespace resolved = ((XQueryNamespaceProvider) element).resolveNamespace(prefix);
+                if (resolved != null) {
+                    return resolved;
+                }
+            }
+
+            PsiElement next = element.getPrevSibling();
+            if (next == null) {
+                next = element.getParent();
+            }
+            element = next;
         }
         return null;
     }

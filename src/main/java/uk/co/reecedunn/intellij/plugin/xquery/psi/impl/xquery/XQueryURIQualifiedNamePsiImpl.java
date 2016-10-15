@@ -22,6 +22,7 @@ import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryURIQualifiedName;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.INCNameType;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace;
 
 public class XQueryURIQualifiedNamePsiImpl extends ASTWrapperPsiElement implements XQueryURIQualifiedName {
     public XQueryURIQualifiedNamePsiImpl(@NotNull ASTNode node) {
@@ -42,6 +43,10 @@ public class XQueryURIQualifiedNamePsiImpl extends ASTWrapperPsiElement implemen
             }
             element = element.getNextSibling();
         }
+        return null;
+    }
+
+    public XQueryNamespace resolvePrefixNamespace() {
         return null;
     }
 }
