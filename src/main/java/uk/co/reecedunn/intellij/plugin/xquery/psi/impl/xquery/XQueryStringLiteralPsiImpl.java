@@ -26,7 +26,7 @@ public class XQueryStringLiteralPsiImpl extends ASTWrapperPsiElement implements 
         super(node);
     }
 
-    public CharSequence getStringValue() {
+    public CharSequence getAtomicValue() {
         ASTNode value = findChildByType(XQueryTokenType.STRING_LITERAL_CONTENTS);
         if (value == null) {
             return null;

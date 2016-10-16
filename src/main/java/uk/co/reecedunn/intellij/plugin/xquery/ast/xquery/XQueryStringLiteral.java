@@ -31,5 +31,5 @@ public interface XQueryStringLiteral extends PsiElement {
      *
      * @return The first item in the string that is not an escaped character nor entity reference.
      */
-    CharSequence getStringValue();
+    CharSequence getAtomicValue();
 }

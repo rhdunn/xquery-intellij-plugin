@@ -17,7 +17,7 @@ public class XQueryUriLiteralReference extends PsiReferenceBase<XQueryUriLiteral
     @Override
     public PsiElement resolve() {
         PsiElement element = getElement();
-        final String path = ((XQueryStringLiteral)element).getStringValue().toString();
+        final String path = ((XQueryStringLiteral)element).getAtomicValue().toString();
         if (path.contains("://")) {
             return null;
         }
