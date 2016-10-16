@@ -20,6 +20,7 @@ import com.intellij.lang.impl.PsiBuilderImpl;
 import com.intellij.lexer.Lexer;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.CharsetToolkit;
+import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.*;
 import com.intellij.psi.impl.source.tree.CompositeElement;
 import com.intellij.psi.impl.source.tree.FileElement;
@@ -86,18 +87,18 @@ public abstract class ParserTestCase extends ParsingTestCase {
         return viewProvider;
     }
 
-    private void buildPsi(@NotNull ParserDefinition parserDefinition, ASTNode node, String text) {
+    private void buildPsi(@NotNull ParserDefinition parserDefinition, ASTNode node, LightVirtualFile file) {
         if (node instanceof CompositeElement) {
             CompositeElement element = (CompositeElement)node;
             if (node instanceof FileElement) {
-                element.setPsi(createFile("testcase.xqy", text));
+                element.setPsi(createFile(file));
             } else if (!(node instanceof PsiErrorElement)) {
                 element.setPsi(parserDefinition.createElement(node));
             }
         }
 
         for (ASTNode child : node.getChildren(null)) {
-            buildPsi(parserDefinition, child, text);
+            buildPsi(parserDefinition, child, file);
         }
     }
 
@@ -154,10 +155,11 @@ public abstract class ParserTestCase extends ParsingTestCase {
         TokenSet whitespaces = parserDefinition.getWhitespaceTokens();
         TokenSet comments = parserDefinition.getCommentTokens();
         Lexer lexer = parserDefinition.createLexer(myProject);
+        LightVirtualFile file = createVirtualFile("testcase.xqy", text);
 
         PsiBuilder builder = new PsiBuilderImpl(myProject, null, whitespaces, comments, lexer, null, text, null, null);
         ASTNode node = parserDefinition.createParser(myProject).parse(parserDefinition.getFileNodeType(), builder);
-        buildPsi(parserDefinition, node, text);
+        buildPsi(parserDefinition, node, file);
         return node;
     }
 
