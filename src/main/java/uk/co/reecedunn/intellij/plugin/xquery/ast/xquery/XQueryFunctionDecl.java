@@ -21,4 +21,5 @@ import com.intellij.psi.PsiElement;
  * An XQuery 1.0 <code>FunctionDecl</code> node in the XQuery AST.
  */
 public interface XQueryFunctionDecl extends PsiElement {
+    int getArity();
 }

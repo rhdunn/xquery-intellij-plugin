@@ -22,11 +22,13 @@ import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryParamList;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.PsiNavigation;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 
@@ -77,5 +79,11 @@ public class XQueryFunctionDeclPsiImpl extends ASTWrapperPsiElement implements X
     @Override
     public String getConformanceErrorMessage() {
         return XQueryBundle.message("requires.error.reserved-keyword-as-function-name");
+    }
+
+    @Override
+    public int getArity() {
+        XQueryParamList params = PsiNavigation.findChildByClass(this, XQueryParamList.class);
+        return params == null ? 0 : params.getArity();
     }
 }

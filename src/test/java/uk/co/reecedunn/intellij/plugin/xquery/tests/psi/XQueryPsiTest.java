@@ -2293,6 +2293,27 @@ public class XQueryPsiTest extends ParserTestCase {
     }
 
     // endregion
+    // region XQueryFunctionDecl
+
+    public void testFunctionDecl() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/FunctionDecl.xq");
+
+        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryAnnotatedDecl.class);
+        XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryFunctionDecl.class);
+        assertThat(functionDeclPsi, is(notNullValue()));
+        assertThat(functionDeclPsi.getArity(), is(0));
+    }
+
+    public void testFunctionDecl_ParamList() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/ParamList.xq");
+
+        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryAnnotatedDecl.class);
+        XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryFunctionDecl.class);
+        assertThat(functionDeclPsi, is(notNullValue()));
+        assertThat(functionDeclPsi.getArity(), is(2));
+    }
+
+    // endregion
     // region XQueryIntegerLiteral
 
     public void testIntegerLiteral() {
