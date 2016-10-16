@@ -21,4 +21,5 @@ import com.intellij.psi.PsiElement;
  * An XQuery 3.0 <code>ArgumentList</code> node in the XQuery AST.
  */
 public interface XQueryArgumentList extends PsiElement {
+    int getArity();
 }

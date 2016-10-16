@@ -30,6 +30,36 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 @SuppressWarnings("ConstantConditions")
 public class XQueryPsiTest extends ParserTestCase {
+    // region XQueryArgumentList
+
+    public void testArgumentList() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/FunctionCall_MultipleParam.xq");
+
+        XQueryFunctionCall functionCallPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryFunctionCall.class);
+        XQueryArgumentList argumentListPsi = PsiNavigation.findChildByClass(functionCallPsi, XQueryArgumentList.class);
+        assertThat(argumentListPsi, is(notNullValue()));
+        assertThat(argumentListPsi.getArity(), is(2));
+    }
+
+    public void testArgumentList_Empty() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/FunctionCall.xq");
+
+        XQueryFunctionCall functionCallPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryFunctionCall.class);
+        XQueryArgumentList argumentListPsi = PsiNavigation.findChildByClass(functionCallPsi, XQueryArgumentList.class);
+        assertThat(argumentListPsi, is(notNullValue()));
+        assertThat(argumentListPsi.getArity(), is(0));
+    }
+
+    public void testArgumentList_ArgumentPlaceholder() {
+        final ASTNode node = parseResource("tests/parser/xquery-3.0/ArgumentPlaceholder.xq");
+
+        XQueryFunctionCall functionCallPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryFunctionCall.class);
+        XQueryArgumentList argumentListPsi = PsiNavigation.findChildByClass(functionCallPsi, XQueryArgumentList.class);
+        assertThat(argumentListPsi, is(notNullValue()));
+        assertThat(argumentListPsi.getArity(), is(1));
+    }
+
+    // endregion
     // region XQueryConformanceCheck
     // region AllowingEmpty
 

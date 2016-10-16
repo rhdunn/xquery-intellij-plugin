@@ -18,16 +18,22 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.tree.TokenSet;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryArgumentList;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPostfixExpr;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 
 public class XQueryArgumentListPsiImpl extends ASTWrapperPsiElement implements XQueryArgumentList, XQueryConformanceCheck {
+    private static final TokenSet ARGUMENTS = TokenSet.create(
+        XQueryElementType.ARGUMENT,
+        XQueryElementType.ARGUMENT_PLACEHOLDER);
+
     public XQueryArgumentListPsiImpl(@NotNull ASTNode node) {
         super(node);
     }
@@ -52,5 +58,18 @@ public class XQueryArgumentListPsiImpl extends ASTWrapperPsiElement implements X
     @Override
     public String getConformanceErrorMessage() {
         return XQueryBundle.message("requires.feature.marklogic-xquery.version");
+    }
+
+    @Override
+    public int getArity() {
+        int arity = 0;
+        PsiElement element = getFirstChild();
+        while (element != null) {
+            if (ARGUMENTS.contains(element.getNode().getElementType())) {
+                ++arity;
+            }
+            element = element.getNextSibling();
+        }
+        return arity;
     }
 }
