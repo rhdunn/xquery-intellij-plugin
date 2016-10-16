@@ -35,6 +35,10 @@ public class XQueryIntermediateClausePsiImpl extends ASTWrapperPsiElement implem
     }
 
     private XQueryVersion getRequiredXQueryVersion() {
+        if (getFirstChild().getNode().getElementType() == XQueryElementType.COUNT_CLAUSE) {
+            return XQueryVersion.VERSION_3_0;
+        }
+
         PsiElement prevElement = getPrevSibling();
         IElementType prev = (prevElement instanceof XQueryInitialClause) ? null : prevElement.getFirstChild().getNode().getElementType();
         if (prev == XQueryElementType.WHERE_CLAUSE) {

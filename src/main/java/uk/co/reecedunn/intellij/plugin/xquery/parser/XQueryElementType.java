@@ -193,6 +193,7 @@ public interface XQueryElementType {
 
     IElementType ALLOWING_EMPTY = new ICompositeElementType("XQUERY_ALLOWING_EMPTY", XQueryAllowingEmptyPsiImpl.class);
     IElementType INTERMEDIATE_CLAUSE = new ICompositeElementType("XQUERY_INTERMEDIATE_CLAUSE", XQueryIntermediateClausePsiImpl.class);
+    IElementType COUNT_CLAUSE = new ICompositeElementType("XQUERY_COUNT_CLAUSE", XQueryCountClausePsiImpl.class);
     IElementType RETURN_CLAUSE = new ICompositeElementType("XQUERY_RETURN_CLAUSE", XQueryReturnClausePsiImpl.class);
 
     IElementType STRING_CONCAT_EXPR = new ICompositeElementType("XQUERY_STRING_CONCAT_EXPR", XQueryStringConcatExprPsiImpl.class);

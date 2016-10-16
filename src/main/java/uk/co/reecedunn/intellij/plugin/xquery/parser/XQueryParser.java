@@ -1189,7 +1189,7 @@ class XQueryParser {
 
     private boolean parseIntermediateClause() {
         final PsiBuilder.Marker intermediateClauseMarker = mark();
-        if (parseInitialClause() || parseWhereClause() || parseOrderByClause()) {
+        if (parseInitialClause() || parseWhereClause() || parseOrderByClause() || parseCountClause()) {
             intermediateClauseMarker.done(XQueryElementType.INTERMEDIATE_CLAUSE);
             return true;
         }
@@ -1383,6 +1383,28 @@ class XQueryParser {
             return true;
         }
         letBindingMarker.drop();
+        return false;
+    }
+
+    private boolean parseCountClause() {
+        final PsiBuilder.Marker countClauseMarker = matchTokenTypeWithMarker(XQueryTokenType.K_COUNT);
+        if (countClauseMarker != null) {
+            boolean haveErrors = false;
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.VARIABLE_INDICATOR)) {
+                error(XQueryBundle.message("parser.error.expected", "$"));
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseQName(XQueryElementType.VAR_NAME) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-qname"));
+            }
+
+            countClauseMarker.done(XQueryElementType.COUNT_CLAUSE);
+            return true;
+        }
         return false;
     }
 

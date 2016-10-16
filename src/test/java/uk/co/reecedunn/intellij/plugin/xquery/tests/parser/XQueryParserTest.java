@@ -5668,6 +5668,37 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region XQuery 3.0 :: CountClause
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-CountClause")
+    public void testCountClause() {
+        final String expected = loadResource("tests/parser/xquery-3.0/CountClause.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/CountClause.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-CountClause")
+    public void testCountClause_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-3.0/CountClause_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/CountClause_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-CountClause")
+    public void testCountClause_MissingVariableIndicator() {
+        final String expected = loadResource("tests/parser/xquery-3.0/CountClause_MissingVariableIndicator.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/CountClause_MissingVariableIndicator.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-CountClause")
+    public void testCountClause_MissingVarName() {
+        final String expected = loadResource("tests/parser/xquery-3.0/CountClause_MissingVarName.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/CountClause_MissingVarName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region XQuery 3.0 :: WhereClause
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-WhereClause")
