@@ -24,4 +24,9 @@ public class XQueryIntegerLiteralImpl extends LeafPsiElement implements XQueryIn
     public XQueryIntegerLiteralImpl(@NotNull IElementType type, @NotNull CharSequence text) {
         super(type, text);
     }
+
+    @Override
+    public int getAtomicValue() {
+        return Integer.parseInt(getText());
+    }
 }

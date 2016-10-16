@@ -2236,6 +2236,17 @@ public class XQueryPsiTest extends ParserTestCase {
     }
 
     // endregion
+    // region XQueryIntegerLiteral
+
+    public void testIntegerLiteral() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/IntegerLiteral.xq");
+
+        XQueryIntegerLiteral integerLiteralPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryIntegerLiteral.class);
+        assertThat(integerLiteralPsi, is(notNullValue()));
+        assertThat(integerLiteralPsi.getAtomicValue(), is(1234));
+    }
+
+    // endregion
     // region XQueryModuleProvider
     // region Module
 
