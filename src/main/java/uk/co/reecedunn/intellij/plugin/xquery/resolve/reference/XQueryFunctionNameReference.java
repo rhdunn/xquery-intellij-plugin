@@ -32,6 +32,14 @@ public class XQueryFunctionNameReference extends PsiReferenceBase<XQueryEQName> 
                 return null;
             }
 
+            PsiElement parent = getElement().getParent();
+            int arity = 0;
+            if (parent instanceof XQueryFunctionCall) {
+                arity = ((XQueryFunctionCall)parent).getArity();
+            } else if (parent instanceof XQueryNamedFunctionRef) {
+                arity = ((XQueryNamedFunctionRef)parent).getArity();
+            }
+
             CharSequence localName = getElement().getLocalName().getText();
             PsiElement annotation = prolog.getFirstChild();
             while (annotation != null) {
@@ -40,8 +48,9 @@ public class XQueryFunctionNameReference extends PsiReferenceBase<XQueryEQName> 
                     if (functionDecl != null) {
                         XQueryEQName functionName = PsiNavigation.findChildByClass(functionDecl, XQueryEQName.class);
                         if (functionName != null && functionName.getLocalName().getText().equals(localName)) {
-                            // TODO: Check function arity.
-                            return functionName;
+                            if (functionDecl.getArity() == arity) {
+                                return functionName;
+                            }
                         }
                     }
                 }
