@@ -16,7 +16,8 @@
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
 /**
- * An XQuery 1.0 <code>FunctionCallExpr</code> node in the XQuery AST.
+ * An XQuery 1.0 <code>FunctionCall</code> node in the XQuery AST.
  */
 public interface XQueryFunctionCall extends XQueryPrimaryExpr {
+    int getArity();
 }

@@ -20,12 +20,14 @@ import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryArgumentList;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionCall;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.PsiNavigation;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 
@@ -63,5 +65,11 @@ public class XQueryFunctionCallPsiImpl extends ASTWrapperPsiElement implements X
     @Override
     public String getConformanceErrorMessage() {
         return XQueryBundle.message("requires.error.marklogic-json-keyword-as-function-name", XQueryVersion.VERSION_8_0);
+    }
+
+    @Override
+    public int getArity() {
+        XQueryArgumentList arguments = PsiNavigation.findChildByClass(this, XQueryArgumentList.class);
+        return arguments.getArity();
     }
 }

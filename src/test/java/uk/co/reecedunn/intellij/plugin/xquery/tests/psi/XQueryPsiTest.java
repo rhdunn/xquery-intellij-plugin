@@ -2266,6 +2266,33 @@ public class XQueryPsiTest extends ParserTestCase {
     }
 
     // endregion
+    // region XQueryFunctionCall
+
+    public void testFunctionCall() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/FunctionCall_MultipleParam.xq");
+
+        XQueryFunctionCall functionCallPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryFunctionCall.class);
+        assertThat(functionCallPsi, is(notNullValue()));
+        assertThat(functionCallPsi.getArity(), is(2));
+    }
+
+    public void testFunctionCall_Empty() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/FunctionCall.xq");
+
+        XQueryFunctionCall functionCallPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryFunctionCall.class);
+        assertThat(functionCallPsi, is(notNullValue()));
+        assertThat(functionCallPsi.getArity(), is(0));
+    }
+
+    public void testFunctionCall_ArgumentPlaceholder() {
+        final ASTNode node = parseResource("tests/parser/xquery-3.0/ArgumentPlaceholder.xq");
+
+        XQueryFunctionCall functionCallPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryFunctionCall.class);
+        assertThat(functionCallPsi, is(notNullValue()));
+        assertThat(functionCallPsi.getArity(), is(1));
+    }
+
+    // endregion
     // region XQueryIntegerLiteral
 
     public void testIntegerLiteral() {
