@@ -58,7 +58,8 @@ public class XQueryEQNamePsiImpl extends ASTWrapperPsiElement implements XQueryE
         }
 
         IElementType parent = getParent().getNode().getElementType();
-        if (parent == XQueryElementType.FUNCTION_CALL) {
+        if (parent == XQueryElementType.FUNCTION_CALL ||
+            parent == XQueryElementType.NAMED_FUNCTION_REF) {
             int eqnameStart = getTextOffset();
             return new PsiReference[] {
                 new XQueryEQNamePrefixReference(this, prefix.getTextRange().shiftRight(-eqnameStart)),
