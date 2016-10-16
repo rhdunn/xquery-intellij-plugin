@@ -17,11 +17,26 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
+import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryParamList;
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 
 public class XQueryParamListPsiImpl extends ASTWrapperPsiElement implements XQueryParamList {
     public XQueryParamListPsiImpl(@NotNull ASTNode node) {
         super(node);
+    }
+
+    @Override
+    public int getArity() {
+        int arity = 0;
+        PsiElement element = getFirstChild();
+        while (element != null) {
+            if (element.getNode().getElementType() == XQueryElementType.PARAM) {
+                ++arity;
+            }
+            element = element.getNextSibling();
+        }
+        return arity;
     }
 }

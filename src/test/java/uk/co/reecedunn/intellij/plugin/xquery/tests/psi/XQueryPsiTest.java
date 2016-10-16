@@ -2819,6 +2819,19 @@ public class XQueryPsiTest extends ParserTestCase {
 
     // endregion
     // endregion
+    // region XQueryParamList
+
+    public void testParamList() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/ParamList.xq");
+
+        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryAnnotatedDecl.class);
+        XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryFunctionDecl.class);
+        XQueryParamList paramListPsi = PsiNavigation.findChildByClass(functionDeclPsi, XQueryParamList.class);
+        assertThat(paramListPsi, is(notNullValue()));
+        assertThat(paramListPsi.getArity(), is(2));
+    }
+
+    // endregion
     // region XQueryStringLiteral
 
     public void testStringLiteral() {

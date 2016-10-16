@@ -21,4 +21,5 @@ import com.intellij.psi.PsiElement;
  * An XQuery 1.0 <code>ParamList</code> node in the XQuery AST.
  */
 public interface XQueryParamList extends PsiElement {
+    int getArity();
 }
