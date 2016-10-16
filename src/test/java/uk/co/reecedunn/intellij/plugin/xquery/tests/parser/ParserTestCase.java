@@ -20,7 +20,6 @@ import com.intellij.lang.impl.PsiBuilderImpl;
 import com.intellij.lexer.Lexer;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.CharsetToolkit;
-import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.*;
 import com.intellij.psi.impl.source.tree.CompositeElement;
 import com.intellij.psi.impl.source.tree.FileElement;
@@ -148,23 +147,28 @@ public abstract class ParserTestCase extends ParsingTestCase {
     }
 
     @NotNull
-    protected ASTNode parseText(@NotNull String text) {
+    private ASTNode parseFile(@NotNull LightVirtualFile file) {
         initializeSettings(getSettings());
 
         ParserDefinition parserDefinition = new XQueryParserDefinition();
         TokenSet whitespaces = parserDefinition.getWhitespaceTokens();
         TokenSet comments = parserDefinition.getCommentTokens();
         Lexer lexer = parserDefinition.createLexer(myProject);
-        LightVirtualFile file = createVirtualFile("testcase.xqy", text);
 
-        PsiBuilder builder = new PsiBuilderImpl(myProject, null, whitespaces, comments, lexer, null, text, null, null);
+        PsiBuilder builder = new PsiBuilderImpl(myProject, null, whitespaces, comments, lexer, null, file.getContent(), null, null);
         ASTNode node = parserDefinition.createParser(myProject).parse(parserDefinition.getFileNodeType(), builder);
         buildPsi(parserDefinition, node, file);
         return node;
     }
 
-    protected @NotNull ASTNode parseResource(String resource) {
-        return parseText(loadResource(resource));
+    @NotNull
+    protected ASTNode parseText(@NotNull String text) {
+        return parseFile(createVirtualFile("testcase.xqy", text));
+    }
+
+    @NotNull
+    protected ASTNode parseResource(String resource) {
+        return parseFile(createVirtualFile(resource, loadResource(resource)));
     }
 
     // endregion
