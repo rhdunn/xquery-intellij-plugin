@@ -2275,6 +2275,25 @@ public class XQueryPsiTest extends ParserTestCase {
 
     // endregion
     // endregion
+    // region XQueryNamedFunctionRef
+
+    public void testNamedFunctionRef() {
+        final ASTNode node = parseResource("tests/parser/xquery-3.0/NamedFunctionRef.xq");
+
+        XQueryNamedFunctionRef namedFunctionRefPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryNamedFunctionRef.class);
+        assertThat(namedFunctionRefPsi, is(notNullValue()));
+        assertThat(namedFunctionRefPsi.getArity(), is(3));
+    }
+
+    public void testNamedFunctionRef_MissingArity() {
+        final ASTNode node = parseResource("tests/parser/xquery-3.0/NamedFunctionRef_MissingArity.xq");
+
+        XQueryNamedFunctionRef namedFunctionRefPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryNamedFunctionRef.class);
+        assertThat(namedFunctionRefPsi, is(notNullValue()));
+        assertThat(namedFunctionRefPsi.getArity(), is(0));
+    }
+
+    // endregion
     // region XQueryNamespaceProvider
     // region DirAttributeList
 

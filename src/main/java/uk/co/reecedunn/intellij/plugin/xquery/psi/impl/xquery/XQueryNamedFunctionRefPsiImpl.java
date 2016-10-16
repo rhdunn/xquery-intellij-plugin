@@ -21,6 +21,7 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryIntegerLiteral;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryNamedFunctionRef;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
@@ -28,6 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.PsiNavigation;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 
@@ -98,5 +100,11 @@ public class XQueryNamedFunctionRefPsiImpl extends ASTWrapperPsiElement implemen
             }
         }
         return XQueryBundle.message("requires.feature.marklogic-xquery.version");
+    }
+
+    @Override
+    public int getArity() {
+        XQueryIntegerLiteral arity = PsiNavigation.findChildByClass(this, XQueryIntegerLiteral.class);
+        return arity == null ? 0 : arity.getAtomicValue();
     }
 }

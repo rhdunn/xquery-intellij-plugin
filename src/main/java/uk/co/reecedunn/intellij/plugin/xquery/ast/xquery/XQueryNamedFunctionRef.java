@@ -19,4 +19,5 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
  * An XQuery 3.0 <code>NamedFunctionRef</code> node in the XQuery AST.
  */
 public interface XQueryNamedFunctionRef extends XQueryFunctionItemExpr {
+    int getArity();
 }
