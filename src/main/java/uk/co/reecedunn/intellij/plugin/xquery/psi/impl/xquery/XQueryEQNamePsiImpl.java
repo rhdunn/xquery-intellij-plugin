@@ -50,14 +50,17 @@ public class XQueryEQNamePsiImpl extends ASTWrapperPsiElement implements XQueryE
         }
 
         XQueryEQName rhs = (XQueryEQName)other;
-        if (!getLocalName().getText().equals(rhs.getLocalName().getText())) {
-            return false;
-        }
 
-        PsiElement lhsPrefix = getPrefix();
-        PsiElement rhsPrefix = rhs.getPrefix();
-        return (lhsPrefix == null && rhsPrefix == null) ||
-               (lhsPrefix != null && lhsPrefix.getText().equals(rhsPrefix.getText()));
+        PsiElement lhsLocalName = getLocalName();
+        PsiElement rhsLocalName = rhs.getLocalName();
+        if ((lhsLocalName == null && rhsLocalName == null) ||
+            (lhsLocalName != null && lhsLocalName.getText().equals(rhsLocalName.getText()))) {
+            PsiElement lhsPrefix = getPrefix();
+            PsiElement rhsPrefix = rhs.getPrefix();
+            return (lhsPrefix == null && rhsPrefix == null) ||
+                   (lhsPrefix != null && lhsPrefix.getText().equals(rhsPrefix.getText()));
+        }
+        return false;
     }
 
     @Override
