@@ -2961,6 +2961,31 @@ public class XQueryPsiTest extends ParserTestCase {
     }
 
     // endregion
+    // region XQueryVariableProvider
+    // region VarDecl
+
+    public void testVarDecl() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/VarDecl.xq");
+
+        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryAnnotatedDecl.class);
+        XQueryVarDecl varDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryVarDecl.class);
+        XQueryEQName varNamePsi = PsiNavigation.findChildByClass(varDeclPsi, XQueryEQName.class);
+        XQueryVariableProvider provider = (XQueryVariableProvider)varDeclPsi;
+
+        assertThat(provider.resolveValiable(null), is(nullValue()));
+
+        XQueryVariable variable = provider.resolveValiable(varNamePsi);
+        assertThat(variable, is(notNullValue()));
+
+        assertThat(variable.getVariable(), is(instanceOf(XQueryEQName.class)));
+        assertThat(variable.getVariable(), is(varNamePsi));
+
+        assertThat(variable.getDeclaration(), is(instanceOf(XQueryVarDecl.class)));
+        assertThat(variable.getDeclaration(), is(varDeclPsi));
+    }
+
+    // endregion
+    // endregion
     // region XQueryVersionDecl
 
     public void testVersionDecl() {

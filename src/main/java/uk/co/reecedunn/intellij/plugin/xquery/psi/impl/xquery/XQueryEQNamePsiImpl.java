@@ -44,6 +44,23 @@ public class XQueryEQNamePsiImpl extends ASTWrapperPsiElement implements XQueryE
     }
 
     @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof XQueryEQName)) {
+            return false;
+        }
+
+        XQueryEQName rhs = (XQueryEQName)other;
+        if (!getLocalName().getText().equals(rhs.getLocalName().getText())) {
+            return false;
+        }
+
+        PsiElement lhsPrefix = getPrefix();
+        PsiElement rhsPrefix = rhs.getPrefix();
+        return (lhsPrefix == null && rhsPrefix == null) ||
+               (lhsPrefix != null && lhsPrefix.getText().equals(rhsPrefix.getText()));
+    }
+
+    @Override
     public PsiReference getReference() {
         PsiReference[] references = getReferences();
         return references.length == 0 ? null : references[0];
