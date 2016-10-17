@@ -4089,6 +4089,7 @@ class XQueryParser {
             || parsePITest()
             || parseCommentTest()
             || parseTextTest()
+            || parseNamespaceNodeTest()
             || parseAnyKindTest()
             || parseBinaryTest()
             || parseJsonKindTest() != ParseStatus.NOT_MATCHED;
@@ -4184,6 +4185,26 @@ class XQueryParser {
             }
 
             commentTestMarker.done(XQueryElementType.COMMENT_TEST);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseNamespaceNodeTest() {
+        final PsiBuilder.Marker namespaceTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_NAMESPACE_NODE);
+        if (namespaceTestMarker != null) {
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_OPEN)) {
+                namespaceTestMarker.rollbackTo();
+                return false;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE)) {
+                error(XQueryBundle.message("parser.error.expected", ")"));
+            }
+
+            namespaceTestMarker.done(XQueryElementType.NAMESPACE_NODE_TEST);
             return true;
         }
         return false;

@@ -1698,6 +1698,41 @@ public class XQueryPsiTest extends ParserTestCase {
     }
 
     // endregion
+    // region NamespaceNodeTest
+
+    public void testNamespaceNodeTest() {
+        final ASTNode node = parseResource("tests/parser/xquery-3.0/NamespaceNodeTest.xq");
+
+        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryAnnotatedDecl.class);
+        XQueryVarDecl varDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryVarDecl.class);
+        XQueryTypeDeclaration typeDeclarationPsi = PsiNavigation.findChildByClass(varDeclPsi, XQueryTypeDeclaration.class);
+        XQuerySequenceType sequenceTypePsi = PsiNavigation.findChildByClass(typeDeclarationPsi, XQuerySequenceType.class);
+        XQueryNamespaceNodeTest namespaceNodeTestPsi = PsiNavigation.findDirectDescendantByClass(sequenceTypePsi, XQueryNamespaceNodeTest.class);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)namespaceNodeTestPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(false));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 3.0 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_NAMESPACE_NODE));
+    }
+
+    // endregion
     // region ParenthesizedItemType
 
     public void testParenthesizedItemType() {
