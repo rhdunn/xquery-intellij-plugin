@@ -916,13 +916,13 @@ class XQueryParser {
             parseWhiteSpaceAndCommentTokens();
             if (matchTokenType(XQueryTokenType.ASSIGN_EQUAL)) {
                 parseWhiteSpaceAndCommentTokens();
-                if (!parseExprSingle() && !haveErrors) {
+                if (!parseExprSingle(XQueryElementType.VAR_VALUE) && !haveErrors) {
                     error(XQueryBundle.message("parser.error.expected-expression"));
                 }
             } else if (matchTokenType(XQueryTokenType.K_EXTERNAL)) {
             } else {
                 error(XQueryBundle.message("parser.error.expected-variable-value"));
-                parseExprSingle();
+                parseExprSingle(XQueryElementType.VAR_VALUE);
             }
 
             parseWhiteSpaceAndCommentTokens();
@@ -1133,10 +1133,29 @@ class XQueryParser {
     }
 
     private boolean parseExprSingle() {
-        return parseExprSingle(null);
+        return parseExprSingleImpl(null);
     }
 
     private boolean parseExprSingle(IElementType type) {
+        return parseExprSingle(type, null);
+    }
+
+    private boolean parseExprSingle(IElementType type, IElementType parentType) {
+        if (type == null) {
+            return parseExprSingleImpl(parentType);
+        }
+
+        final PsiBuilder.Marker exprSingleMarker = mark();
+        if (parseExprSingleImpl(parentType)) {
+            exprSingleMarker.done(type);
+            return true;
+        }
+
+        exprSingleMarker.drop();
+        return false;
+    }
+
+    private boolean parseExprSingleImpl(IElementType parentType) {
         return parseFLWORExpr()
             || parseQuantifiedExpr()
             || parseTypeswitchExpr()
@@ -1147,7 +1166,7 @@ class XQueryParser {
             || parseRenameExpr()
             || parseReplaceExpr()
             || parseTransformExpr()
-            || parseOrExpr(type);
+            || parseOrExpr(parentType);
     }
 
     // endregion
@@ -1959,7 +1978,7 @@ class XQueryParser {
 
     private boolean parseSourceExpr() {
         final PsiBuilder.Marker sourceExprMarker = mark();
-        if (parseExprSingle(XQueryElementType.SOURCE_EXPR)) {
+        if (parseExprSingle(null, XQueryElementType.SOURCE_EXPR)) {
             sourceExprMarker.done(XQueryElementType.SOURCE_EXPR);
             return true;
         }
@@ -2007,7 +2026,7 @@ class XQueryParser {
 
     private boolean parseTargetExpr(IElementType type) {
         final PsiBuilder.Marker targetExprMarker = mark();
-        if (parseExprSingle(type)) {
+        if (parseExprSingle(null, type)) {
             targetExprMarker.done(XQueryElementType.TARGET_EXPR);
             return true;
         }
