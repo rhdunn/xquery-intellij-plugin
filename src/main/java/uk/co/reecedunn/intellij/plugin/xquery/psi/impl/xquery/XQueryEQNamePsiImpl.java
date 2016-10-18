@@ -32,6 +32,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceProvider;
 import uk.co.reecedunn.intellij.plugin.xquery.resolve.reference.XQueryEQNamePrefixReference;
 import uk.co.reecedunn.intellij.plugin.xquery.resolve.reference.XQueryFunctionNameReference;
+import uk.co.reecedunn.intellij.plugin.xquery.resolve.reference.XQueryVariableNameReference;
 
 public class XQueryEQNamePsiImpl extends ASTWrapperPsiElement implements XQueryEQName {
     private static TokenSet QNAME_SEPARATORS = TokenSet.create(
@@ -85,6 +86,21 @@ public class XQueryEQNamePsiImpl extends ASTWrapperPsiElement implements XQueryE
                 new XQueryEQNamePrefixReference(this, prefix.getTextRange().shiftRight(-eqnameStart)),
                 new XQueryFunctionNameReference(this, getLocalName().getTextRange().shiftRight(-eqnameStart))
             };
+        } else {
+            PsiElement previous = getPrevSibling();
+            while (previous != null && (
+                   previous.getNode().getElementType() == XQueryElementType.COMMENT ||
+                   previous.getNode().getElementType() == XQueryTokenType.WHITE_SPACE)) {
+                previous = previous.getPrevSibling();
+            }
+
+            if (previous != null && previous.getNode().getElementType() == XQueryTokenType.VARIABLE_INDICATOR) {
+                int eqnameStart = getTextOffset();
+                return new PsiReference[] {
+                    new XQueryEQNamePrefixReference(this, prefix.getTextRange().shiftRight(-eqnameStart)),
+                    new XQueryVariableNameReference(this, getLocalName().getTextRange().shiftRight(-eqnameStart))
+                };
+            }
         }
 
         TextRange range = prefix.getTextRange();
