@@ -2997,6 +2997,45 @@ public class XQueryPsiTest extends ParserTestCase {
     }
 
     // endregion
+    // region Prolog
+
+    public void testProlog_VarDecl() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/VarDecl.xq");
+
+        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryAnnotatedDecl.class);
+        XQueryVarDecl varDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryVarDecl.class);
+        XQueryEQName varNamePsi = PsiNavigation.findChildByClass(varDeclPsi, XQueryEQName.class);
+
+        XQueryProlog prologPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryProlog.class);
+        XQueryVariableProvider provider = (XQueryVariableProvider)prologPsi;
+
+        assertThat(provider.resolveValiable(null), is(nullValue()));
+
+        XQueryVariable variable = provider.resolveValiable(varNamePsi);
+        assertThat(variable, is(notNullValue()));
+
+        assertThat(variable.getVariable(), is(instanceOf(XQueryEQName.class)));
+        assertThat(variable.getVariable(), is(varNamePsi));
+
+        assertThat(variable.getDeclaration(), is(instanceOf(XQueryVarDecl.class)));
+        assertThat(variable.getDeclaration(), is(varDeclPsi));
+    }
+
+    public void testProlog_FunctionDecl() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/FunctionDecl.xq");
+
+        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryAnnotatedDecl.class);
+        XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryFunctionDecl.class);
+        XQueryEQName functionNamePsi = PsiNavigation.findChildByClass(functionDeclPsi, XQueryEQName.class);
+
+        XQueryProlog prologPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryProlog.class);
+        XQueryVariableProvider provider = (XQueryVariableProvider)prologPsi;
+
+        assertThat(provider.resolveValiable(null), is(nullValue()));
+        assertThat(provider.resolveValiable(functionNamePsi), is(nullValue()));
+    }
+
+    // endregion
     // region VarDecl
 
     public void testVarDecl() {

@@ -19,11 +19,15 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceProvider;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableProvider;
 
-public class XQueryPrologPsiImpl extends ASTWrapperPsiElement implements XQueryProlog, XQueryNamespaceProvider {
+public class XQueryPrologPsiImpl extends ASTWrapperPsiElement implements XQueryProlog, XQueryNamespaceProvider, XQueryVariableProvider {
     public XQueryPrologPsiImpl(@NotNull ASTNode node) {
         super(node);
     }
@@ -34,6 +38,22 @@ public class XQueryPrologPsiImpl extends ASTWrapperPsiElement implements XQueryP
         while (element != null) {
             if (element instanceof XQueryNamespaceProvider) {
                 XQueryNamespace resolved = ((XQueryNamespaceProvider)element).resolveNamespace(prefix);
+                if (resolved != null) {
+                    return resolved;
+                }
+            }
+            element = element.getPrevSibling();
+        }
+        return null;
+    }
+
+    @Nullable
+    @Override
+    public XQueryVariable resolveValiable(XQueryEQName name) {
+        PsiElement element = getLastChild();
+        while (element != null) {
+            if (element instanceof XQueryVariableProvider) {
+                XQueryVariable resolved = ((XQueryVariableProvider)element).resolveValiable(name);
                 if (resolved != null) {
                     return resolved;
                 }
