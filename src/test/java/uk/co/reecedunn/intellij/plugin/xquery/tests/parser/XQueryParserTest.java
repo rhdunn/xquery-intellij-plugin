@@ -6114,7 +6114,7 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     // endregion
-    // region XQuery 3.0 :: CompElemConstructor + ContentExpr
+    // region XQuery 3.0 :: CompElemConstructor
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-CompElemConstructor")
     public void testCompElemConstructor_EQName() {
@@ -6124,12 +6124,78 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     // endregion
-    // region XQuery 3.0 :: CompAttrConstructor + ContentExpr
+    // region XQuery 3.0 :: CompAttrConstructor
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-CompAttrConstructor")
     public void testCompAttrConstructor_EQName() {
         final String expected = loadResource("tests/parser/xquery-3.0/CompAttrConstructor_EQName.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-3.0/CompAttrConstructor_EQName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
+    // region XQuery 3.0 :: CompNamespaceConstructor
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-CompNamespaceConstructor")
+    public void testCompNamespaceConstructor() {
+        final String expected = loadResource("tests/parser/xquery-3.0/CompNamespaceConstructor.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/CompNamespaceConstructor.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-CompNamespaceConstructor")
+    public void testCompNamespaceConstructor_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-3.0/CompNamespaceConstructor_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/CompNamespaceConstructor_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-CompNamespaceConstructor")
+    public void testCompNamespaceConstructor_MissingURIExpr() {
+        final String expected = loadResource("tests/parser/xquery-3.0/CompNamespaceConstructor_MissingURIExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/CompNamespaceConstructor_MissingURIExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-CompNamespaceConstructor")
+    public void testCompNamespaceConstructor_MissingClosingBrace() {
+        final String expected = loadResource("tests/parser/xquery-3.0/CompNamespaceConstructor_MissingClosingBrace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/CompNamespaceConstructor_MissingClosingBrace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-CompNamespaceConstructor")
+    public void testCompNamespaceConstructor_PrefixExpr() {
+        final String expected = loadResource("tests/parser/xquery-3.0/CompNamespaceConstructor_PrefixExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/CompNamespaceConstructor_PrefixExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-CompNamespaceConstructor")
+    public void testCompNamespaceConstructor_PrefixExpr_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-3.0/CompNamespaceConstructor_PrefixExpr_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/CompNamespaceConstructor_PrefixExpr_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-CompNamespaceConstructor")
+    public void testCompNamespaceConstructor_PrefixExpr_MissingPrefixExpr() {
+        final String expected = loadResource("tests/parser/xquery-3.0/CompNamespaceConstructor_PrefixExpr_MissingPrefixExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/CompNamespaceConstructor_PrefixExpr_MissingPrefixExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-CompNamespaceConstructor")
+    public void testCompNamespaceConstructor_PrefixExpr_MissingClosingPrefixExprBrace() {
+        final String expected = loadResource("tests/parser/xquery-3.0/CompNamespaceConstructor_PrefixExpr_MissingClosingPrefixExprBrace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/CompNamespaceConstructor_PrefixExpr_MissingClosingPrefixExprBrace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-CompNamespaceConstructor")
+    public void testCompNamespaceConstructor_PrefixExpr_MissingURIExpr() {
+        final String expected = loadResource("tests/parser/xquery-3.0/CompNamespaceConstructor_PrefixExpr_MissingURIExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/CompNamespaceConstructor_PrefixExpr_MissingURIExpr.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 

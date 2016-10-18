@@ -210,6 +210,8 @@ public interface XQueryElementType {
     IElementType ARGUMENT = new ICompositeElementType("XQUERY_ARGUMENT", XQueryArgumentPsiImpl.class);
     IElementType ARGUMENT_PLACEHOLDER = new ICompositeElementType("XQUERY_ARGUMENT_PLACEHOLDER", XQueryArgumentPlaceholderPsiImpl.class);
 
+    IElementType COMP_NAMESPACE_CONSTRUCTOR = new ICompositeElementType("XQUERY_COMP_NAMESPACE_CONSTRUCTOR", XQueryCompNamespaceConstructorPsiImpl.class);
+
     // endregion
     // region Update Facility 1.0
 
