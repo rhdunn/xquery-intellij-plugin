@@ -20,7 +20,7 @@ FileElement[FILE(0:129)]
                LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_VARIABLE(52:60)]('variable')
                PsiWhiteSpaceImpl[WHITE_SPACE(60:61)](' ')
                LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(61:62)]('$')
-               XQueryNCNameImpl[XQUERY_NCNAME(62:64)]
+               XQueryVarNameImpl[XQUERY_VAR_NAME(62:64)]
                   LeafPsiElement[XQUERY_NCNAME_TOKEN(62:63)]('x')
                   PsiWhiteSpaceImpl[WHITE_SPACE(63:64)](' ')
                LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(64:72)]('external')

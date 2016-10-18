@@ -18,7 +18,6 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
-import com.intellij.psi.tree.TokenSet;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
@@ -28,10 +27,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableProvider;
 
 public class XQueryVarDeclPsiImpl extends ASTWrapperPsiElement implements XQueryVarDecl, XQueryVariableProvider {
-    public static final TokenSet VAR_NAME = TokenSet.create(
-        XQueryElementType.NCNAME,
-        XQueryElementType.QNAME);
-
     public XQueryVarDeclPsiImpl(@NotNull ASTNode node) {
         super(node);
     }
@@ -39,7 +34,7 @@ public class XQueryVarDeclPsiImpl extends ASTWrapperPsiElement implements XQuery
     @Nullable
     @Override
     public XQueryVariable resolveValiable(XQueryEQName name) {
-        PsiElement varName = findChildByType(VAR_NAME);
+        PsiElement varName = findChildByType(XQueryElementType.VAR_NAME);
         if (varName != null && varName.equals(name)) {
             return new XQueryVariable(varName, this);
         }
