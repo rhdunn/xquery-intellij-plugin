@@ -15,8 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
+import com.intellij.psi.PsiElement;
+
 /**
  * An XQuery 3.0 <code>VarValue</code> node in the XQuery AST.
  */
-public interface XQueryVarValue extends XQueryExprSingle {
+public interface XQueryVarValue extends PsiElement {
 }
