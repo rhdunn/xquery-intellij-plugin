@@ -22,13 +22,49 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVarDecl;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableProvider;
+import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 
-public class XQueryVarDeclPsiImpl extends ASTWrapperPsiElement implements XQueryVarDecl, XQueryVariableProvider {
+public class XQueryVarDeclPsiImpl extends ASTWrapperPsiElement implements XQueryVarDecl, XQueryConformanceCheck, XQueryVariableProvider {
     public XQueryVarDeclPsiImpl(@NotNull ASTNode node) {
         super(node);
+    }
+
+    @Override
+    public boolean conformsTo(ImplementationItem implementation) {
+        if (getConformanceElement() == getFirstChild()) {
+            return true;
+        }
+
+        final XQueryVersion minimalConformance = implementation.getVersion(XQueryConformance.MINIMAL_CONFORMANCE);
+        final XQueryVersion marklogic = implementation.getVersion(XQueryConformance.MARKLOGIC);
+        return (minimalConformance != null && minimalConformance.supportsVersion(XQueryVersion.VERSION_3_0))
+            || (marklogic != null && marklogic.supportsVersion(XQueryVersion.VERSION_6_0));
+    }
+
+    @Override
+    public PsiElement getConformanceElement() {
+        PsiElement element = findChildByType(XQueryTokenType.ASSIGN_EQUAL);
+        PsiElement previous = element == null ? null : element.getPrevSibling();
+        while (previous != null && (
+               previous.getNode().getElementType() == XQueryElementType.COMMENT ||
+               previous.getNode().getElementType() == XQueryTokenType.WHITE_SPACE)) {
+            previous = previous.getPrevSibling();
+        }
+
+        return (previous == null || previous.getNode().getElementType() != XQueryTokenType.K_EXTERNAL) ? getFirstChild() : element;
+    }
+
+    @Override
+    public String getConformanceErrorMessage() {
+        return XQueryBundle.message("requires.feature.marklogic-xquery.version");
     }
 
     @Nullable

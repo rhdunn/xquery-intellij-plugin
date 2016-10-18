@@ -920,6 +920,13 @@ class XQueryParser {
                     error(XQueryBundle.message("parser.error.expected-expression"));
                 }
             } else if (matchTokenType(XQueryTokenType.K_EXTERNAL)) {
+                parseWhiteSpaceAndCommentTokens();
+                if (matchTokenType(XQueryTokenType.ASSIGN_EQUAL)) {
+                    parseWhiteSpaceAndCommentTokens();
+                    if (!parseExprSingle(XQueryElementType.VAR_DEFAULT_VALUE) && !haveErrors) {
+                        error(XQueryBundle.message("parser.error.expected-expression"));
+                    }
+                }
             } else {
                 error(XQueryBundle.message("parser.error.expected-variable-value"));
                 parseExprSingle(XQueryElementType.VAR_VALUE);

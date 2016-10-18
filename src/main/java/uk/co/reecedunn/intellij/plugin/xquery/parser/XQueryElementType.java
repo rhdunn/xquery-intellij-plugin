@@ -170,6 +170,7 @@ public interface XQueryElementType {
 
     IElementType FUNCTION_BODY = new ICompositeElementType("XQUERY_FUNCTION_BODY", XQueryFunctionBodyPsiImpl.class);
     IElementType VAR_VALUE = new ICompositeElementType("XQUERY_VAR_VALUE", XQueryVarValuePsiImpl.class);
+    IElementType VAR_DEFAULT_VALUE = new ICompositeElementType("XQUERY_VAR_DEFAULT_VALUE", XQueryVarDefaultValuePsiImpl.class);
 
     IElementType ATOMIC_OR_UNION_TYPE = new ICompositeElementType("XQUERY_ATOMIC_OR_UNION_TYPE", XQueryAtomicOrUnionTypePsiImpl.class);
     IElementType SIMPLE_TYPE_NAME = new ICompositeElementType("XQUERY_SIMPLE_TYPE_NAME", XQuerySimpleTypeNamePsiImpl.class);
