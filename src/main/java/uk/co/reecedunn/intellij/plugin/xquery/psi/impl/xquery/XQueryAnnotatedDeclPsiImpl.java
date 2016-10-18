@@ -18,10 +18,22 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableProvider;
 
-public class XQueryAnnotatedDeclPsiImpl extends ASTWrapperPsiElement implements XQueryAnnotatedDecl {
+public class XQueryAnnotatedDeclPsiImpl extends ASTWrapperPsiElement implements XQueryAnnotatedDecl, XQueryVariableProvider {
     public XQueryAnnotatedDeclPsiImpl(@NotNull ASTNode node) {
         super(node);
+    }
+
+    @Nullable
+    @Override
+    public XQueryVariable resolveValiable(XQueryEQName name) {
+        XQueryVariableProvider varDecl = findChildByType(XQueryElementType.VAR_DECL);
+        return varDecl == null ? null : varDecl.resolveValiable(name);
     }
 }
