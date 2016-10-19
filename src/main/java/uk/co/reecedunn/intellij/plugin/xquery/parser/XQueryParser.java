@@ -3640,7 +3640,7 @@ class XQueryParser {
             boolean haveErrors = false;
 
             parseWhiteSpaceAndCommentTokens();
-            if (!parseQName(XQueryElementType.NCNAME)) {
+            if (!parseQName(XQueryElementType.PREFIX)) {
                 if (!matchTokenType(XQueryTokenType.BLOCK_OPEN)) {
                     namespaceMarker.rollbackTo();
                     return false;
@@ -4715,7 +4715,7 @@ class XQueryParser {
             if (getTokenType() == XQueryTokenType.QNAME_SEPARATOR ||
                 getTokenType() == XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR ||
                 getTokenType() == XQueryTokenType.XML_TAG_QNAME_SEPARATOR) {
-                if (type == XQueryElementType.NCNAME) {
+                if ((type == XQueryElementType.NCNAME) || (type == XQueryElementType.PREFIX)) {
                     final PsiBuilder.Marker errorMarker = mark();
                     advanceLexer();
                     errorMarker.error(XQueryBundle.message("parser.error.expected-ncname-not-qname"));
@@ -4758,14 +4758,15 @@ class XQueryParser {
                 if (type == XQueryElementType.WILDCARD) {
                     qnameMarker.done(isWildcard ? XQueryElementType.WILDCARD : XQueryElementType.QNAME);
                 } else {
-                    qnameMarker.done(type == XQueryElementType.NCNAME ? XQueryElementType.QNAME : type);
+                    qnameMarker.done((type == XQueryElementType.NCNAME) || (type == XQueryElementType.PREFIX) ? XQueryElementType.QNAME : type);
                 }
                 return true;
             } else {
+                IElementType ncname = (type == XQueryElementType.PREFIX) ? XQueryElementType.PREFIX : XQueryElementType.NCNAME;
                 if (type == XQueryElementType.WILDCARD) {
-                    qnameMarker.done(isWildcard ? XQueryElementType.WILDCARD : XQueryElementType.NCNAME);
+                    qnameMarker.done(isWildcard ? XQueryElementType.WILDCARD : ncname);
                 } else {
-                    qnameMarker.done(type == XQueryElementType.QNAME ? XQueryElementType.NCNAME : type);
+                    qnameMarker.done(type == XQueryElementType.QNAME ? ncname : type);
                 }
             }
             return true;
