@@ -23,7 +23,7 @@ FileElement[FILE(0:23)]
                                                                   XQueryCompNamespaceConstructorImpl[XQUERY_COMP_NAMESPACE_CONSTRUCTOR(0:23)]
                                                                      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NAMESPACE(0:9)]('namespace')
                                                                      LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(9:10)]('{')
-                                                                     XQueryExprImpl[XQUERY_EXPR(10:14)]
+                                                                     XQueryPrefixExprImpl[XQUERY_PREFIX_EXPR(10:14)]
                                                                         XQueryOrExprImpl[XQUERY_OR_EXPR(10:14)]
                                                                            XQueryAndExprImpl[XQUERY_AND_EXPR(10:14)]
                                                                               XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(10:14)]

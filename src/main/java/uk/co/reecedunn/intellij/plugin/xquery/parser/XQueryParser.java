@@ -3647,7 +3647,7 @@ class XQueryParser {
                 }
 
                 parseWhiteSpaceAndCommentTokens();
-                if (!parseExpr(XQueryElementType.EXPR)) {
+                if (!parseExpr(XQueryElementType.PREFIX_EXPR)) {
                     error(XQueryBundle.message("parser.error.expected-expression"));
                     haveErrors = true;
                 }
