@@ -30,7 +30,7 @@ FileElement[FILE(0:24)]
                                                                      PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
                                                                      LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(14:15)]('{')
                                                                      PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
-                                                                     XQueryExprImpl[XQUERY_EXPR(16:23)]
+                                                                     XQueryUriExprImpl[XQUERY_URI_EXPR(16:23)]
                                                                         XQueryOrExprImpl[XQUERY_OR_EXPR(16:23)]
                                                                            XQueryAndExprImpl[XQUERY_AND_EXPR(16:23)]
                                                                               XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(16:23)]

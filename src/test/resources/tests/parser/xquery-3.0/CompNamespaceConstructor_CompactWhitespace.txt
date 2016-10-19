@@ -26,7 +26,7 @@ FileElement[FILE(0:20)]
                                                                      XQueryPrefixImpl[XQUERY_PREFIX(10:12)]
                                                                         LeafPsiElement[XQUERY_NCNAME_TOKEN(10:12)]('ns')
                                                                      LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(12:13)]('{')
-                                                                     XQueryExprImpl[XQUERY_EXPR(13:19)]
+                                                                     XQueryUriExprImpl[XQUERY_URI_EXPR(13:19)]
                                                                         XQueryOrExprImpl[XQUERY_OR_EXPR(13:19)]
                                                                            XQueryAndExprImpl[XQUERY_AND_EXPR(13:19)]
                                                                               XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(13:19)]

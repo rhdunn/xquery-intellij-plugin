@@ -213,6 +213,7 @@ public interface XQueryElementType {
     IElementType COMP_NAMESPACE_CONSTRUCTOR = new ICompositeElementType("XQUERY_COMP_NAMESPACE_CONSTRUCTOR", XQueryCompNamespaceConstructorPsiImpl.class);
     IElementType PREFIX = new ICompositeElementType("XQUERY_PREFIX", XQueryPrefixPsiImpl.class);
     IElementType PREFIX_EXPR = new ICompositeElementType("XQUERY_PREFIX_EXPR", XQueryPrefixExprPsiImpl.class);
+    IElementType URI_EXPR = new ICompositeElementType("XQUERY_URI_EXPR", XQueryUriExprPsiImpl.class);
 
     // endregion
     // region Update Facility 1.0
