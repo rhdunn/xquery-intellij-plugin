@@ -5776,6 +5776,13 @@ public class XQueryParserTest extends ParserTestCase {
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-SwitchExpr")
+    public void testSwitchExpr_MissingCaseClause() {
+        final String expected = loadResource("tests/parser/xquery-3.0/SwitchExpr_MissingCaseClause.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/SwitchExpr_MissingCaseClause.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-QuantifiedExpr")
     public void testSwitchExpr_MissingDefaultKeyword() {
         final String expected = loadResource("tests/parser/xquery-3.0/SwitchExpr_MissingDefaultKeyword.txt");
@@ -5794,6 +5801,44 @@ public class XQueryParserTest extends ParserTestCase {
     public void testSwitchExpr_MissingReturnExpr() {
         final String expected = loadResource("tests/parser/xquery-3.0/SwitchExpr_MissingReturnExpr.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-3.0/SwitchExpr_MissingReturnExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
+    // region XQuery 3.0 :: SwitchCaseClause
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-SwitchCaseClause")
+    public void testSwitchCaseClause() {
+        final String expected = loadResource("tests/parser/xquery-3.0/SwitchExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/SwitchExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-SwitchCaseClause")
+    public void testSwitchCaseClause_MissingCaseOperand() {
+        final String expected = loadResource("tests/parser/xquery-3.0/SwitchCaseClause_MissingCaseOperand.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/SwitchCaseClause_MissingCaseOperand.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-SwitchCaseClause")
+    public void testSwitchCaseClause_MissingReturnKeyword() {
+        final String expected = loadResource("tests/parser/xquery-3.0/SwitchCaseClause_MissingReturnKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/SwitchCaseClause_MissingReturnKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-SwitchCaseClause")
+    public void testSwitchCaseClause_MissingReturnExpr() {
+        final String expected = loadResource("tests/parser/xquery-3.0/SwitchCaseClause_MissingReturnExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/SwitchCaseClause_MissingReturnExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-SwitchCaseClause")
+    public void testSwitchCaseClause_MultipleCases() {
+        final String expected = loadResource("tests/parser/xquery-3.0/SwitchCaseClause_MultipleCases.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/SwitchCaseClause_MultipleCases.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 

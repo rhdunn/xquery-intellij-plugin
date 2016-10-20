@@ -1,1 +1,1 @@
-switch ( ) default return 3
+switch ( ) case 1 return 2 default return 3

@@ -1643,7 +1643,10 @@ class XQueryParser {
 
             parseWhiteSpaceAndCommentTokens();
             boolean matched = false;
-            // TODO: SwitchCaseClause+
+            while (parseSwitchCaseClause()) {
+                matched = true;
+                parseWhiteSpaceAndCommentTokens();
+            }
             if (!matched) {
                 error(XQueryBundle.message("parser.error.expected", "SwitchCaseClause"));
             }
@@ -1668,6 +1671,41 @@ class XQueryParser {
             switchExprMarker.done(XQueryElementType.SWITCH_EXPR);
             return true;
         }
+        return false;
+    }
+
+    private boolean parseSwitchCaseClause() {
+        final PsiBuilder.Marker switchCaseClauseMarker = mark();
+
+        boolean haveErrors = false;
+        boolean haveCase = false;
+        while (matchTokenType(XQueryTokenType.K_CASE)) {
+            haveCase = true;
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseExprSingle()) {
+                error(XQueryBundle.message("parser.error.expected-expression"));
+                haveErrors = true;
+            }
+            parseWhiteSpaceAndCommentTokens();
+        }
+
+        if (haveCase) {
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_RETURN) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "return"));
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseExprSingle() && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-expression"));
+            }
+
+            switchCaseClauseMarker.done(XQueryElementType.SWITCH_CASE_CLAUSE);
+            return true;
+        }
+
+        switchCaseClauseMarker.drop();
         return false;
     }
 
