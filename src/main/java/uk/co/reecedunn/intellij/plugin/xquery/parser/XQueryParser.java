@@ -1581,11 +1581,11 @@ class XQueryParser {
                 }
 
                 parseWhiteSpaceAndCommentTokens();
-                parseTypeDeclaration();
+                boolean haveTypeDeclaration = parseTypeDeclaration();
 
                 parseWhiteSpaceAndCommentTokens();
                 if (!matchTokenType(XQueryTokenType.K_IN) && !haveErrors) {
-                    error(XQueryBundle.message("parser.error.expected-keyword", "in"));
+                    error(XQueryBundle.message("parser.error.expected-keyword", haveTypeDeclaration ? "in" : "as, in"));
                     haveErrors = true;
                 }
 
