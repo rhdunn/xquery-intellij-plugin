@@ -1,0 +1,1 @@
+switch ( ) default return 3

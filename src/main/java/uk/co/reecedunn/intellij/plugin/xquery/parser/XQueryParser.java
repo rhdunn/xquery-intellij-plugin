@@ -1165,6 +1165,7 @@ class XQueryParser {
     private boolean parseExprSingleImpl(IElementType parentType) {
         return parseFLWORExpr()
             || parseQuantifiedExpr()
+            || parseSwitchExpr()
             || parseTypeswitchExpr()
             || parseIfExpr()
             || parseTryCatchExpr()
@@ -1609,6 +1610,62 @@ class XQueryParser {
             }
 
             quantifiedExprMarker.done(XQueryElementType.QUANTIFIED_EXPR);
+            return true;
+        }
+        return false;
+    }
+
+    // endregion
+    // region Grammar :: Expr :: SwitchExpr
+
+    private boolean parseSwitchExpr() {
+        final PsiBuilder.Marker switchExprMarker = matchTokenTypeWithMarker(XQueryTokenType.K_SWITCH);
+        if (switchExprMarker != null) {
+            boolean haveErrors = false;
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_OPEN)) {
+                switchExprMarker.rollbackTo();
+                return false;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseExpr(XQueryElementType.EXPR)) {
+                error(XQueryBundle.message("parser.error.expected-expression"));
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", ")"));
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            boolean matched = false;
+            // TODO: SwitchCaseClause+
+            if (!matched) {
+                error(XQueryBundle.message("parser.error.expected", "SwitchCaseClause"));
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_DEFAULT) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "case, default"));
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_RETURN) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "return"));
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseExprSingle() && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-expression"));
+            }
+
+            switchExprMarker.done(XQueryElementType.SWITCH_EXPR);
             return true;
         }
         return false;

@@ -5746,6 +5746,58 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region XQuery 3.0 :: SwitchExpr
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-SwitchExpr")
+    public void testSwitchExpr() {
+        final String expected = loadResource("tests/parser/xquery-3.0/SwitchExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/SwitchExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-QuantifiedExpr")
+    public void testSwitchExpr_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-3.0/SwitchExpr_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/SwitchExpr_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-QuantifiedExpr")
+    public void testSwitchExpr_MissingExpr() {
+        final String expected = loadResource("tests/parser/xquery-3.0/SwitchExpr_MissingExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/SwitchExpr_MissingExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-QuantifiedExpr")
+    public void testSwitchExpr_MissingClosingParenthesis() {
+        final String expected = loadResource("tests/parser/xquery-3.0/SwitchExpr_MissingClosingParenthesis.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/SwitchExpr_MissingClosingParenthesis.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-QuantifiedExpr")
+    public void testSwitchExpr_MissingDefaultKeyword() {
+        final String expected = loadResource("tests/parser/xquery-3.0/SwitchExpr_MissingDefaultKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/SwitchExpr_MissingDefaultKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-QuantifiedExpr")
+    public void testSwitchExpr_MissingReturnKeyword() {
+        final String expected = loadResource("tests/parser/xquery-3.0/SwitchExpr_MissingReturnKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/SwitchExpr_MissingReturnKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-QuantifiedExpr")
+    public void testSwitchExpr_MissingReturnExpr() {
+        final String expected = loadResource("tests/parser/xquery-3.0/SwitchExpr_MissingReturnExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/SwitchExpr_MissingReturnExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region XQuery 3.0 :: TypeswitchExpr
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-TypeswitchExpr")

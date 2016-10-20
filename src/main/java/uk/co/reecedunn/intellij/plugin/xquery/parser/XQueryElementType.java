@@ -186,6 +186,8 @@ public interface XQueryElementType {
     IElementType ANNOTATED_DECL = new ICompositeElementType("XQUERY_ANNOTATED_DECL", XQueryAnnotatedDeclPsiImpl.class);
     IElementType ANNOTATION = new ICompositeElementType("XQUERY_ANNOTATION", XQueryAnnotationPsiImpl.class);
 
+    IElementType SWITCH_EXPR = new ICompositeElementType("XQUERY_SWITCH_EXPR", XQuerySwitchExprPsiImpl.class);
+
     IElementType TRY_CATCH_EXPR = new ICompositeElementType("XQUERY_TRY_CATCH_EXPR", XQueryTryCatchExprPsiImpl.class);
     IElementType TRY_CLAUSE = new ICompositeElementType("XQUERY_TRY_CLAUSE", XQueryTryClausePsiImpl.class);
     IElementType TRY_TARGET_EXPR = new ICompositeElementType("XQUERY_TRY_TARGET_EXPR", XQueryTryTargetExprPsiImpl.class);
