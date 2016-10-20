@@ -1682,7 +1682,7 @@ class XQueryParser {
         while (matchTokenType(XQueryTokenType.K_CASE)) {
             haveCase = true;
             parseWhiteSpaceAndCommentTokens();
-            if (!parseExprSingle()) {
+            if (!parseSwitchCaseOperand()) {
                 error(XQueryBundle.message("parser.error.expected-expression"));
                 haveErrors = true;
             }
@@ -1706,6 +1706,16 @@ class XQueryParser {
         }
 
         switchCaseClauseMarker.drop();
+        return false;
+    }
+
+    private boolean parseSwitchCaseOperand() {
+        final PsiBuilder.Marker switchCaseOperandMarker = mark();
+        if (parseExprSingle()) {
+            switchCaseOperandMarker.done(XQueryElementType.SWITCH_CASE_OPERAND);
+            return true;
+        }
+        switchCaseOperandMarker.drop();
         return false;
     }
 
