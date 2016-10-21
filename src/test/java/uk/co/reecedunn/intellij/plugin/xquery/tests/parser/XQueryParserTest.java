@@ -5496,6 +5496,27 @@ public class XQueryParserTest extends ParserTestCase {
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-DecimalFormatDecl")
+    public void testDecimalFormatDecl_Property_AllProperties() {
+        final String expected = loadResource("tests/parser/xquery-3.0/DecimalFormatDecl_Property_AllProperties.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/DecimalFormatDecl_Property_AllProperties.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-DecimalFormatDecl")
+    public void testDecimalFormatDecl_Property_MissingEquals() {
+        final String expected = loadResource("tests/parser/xquery-3.0/DecimalFormatDecl_Property_MissingEquals.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/DecimalFormatDecl_Property_MissingEquals.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-DecimalFormatDecl")
+    public void testDecimalFormatDecl_Property_MissingStringLiteral() {
+        final String expected = loadResource("tests/parser/xquery-3.0/DecimalFormatDecl_Property_MissingStringLiteral.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/DecimalFormatDecl_Property_MissingStringLiteral.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
     // endregion
     // region XQuery 3.0 :: AnnotatedDecl + Annotation
 

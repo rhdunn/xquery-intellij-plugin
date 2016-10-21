@@ -726,18 +726,54 @@ class XQueryParser {
                 errorMarker.error(XQueryBundle.message("parser.error.expected-prolog-body"));
             }
 
+            boolean haveErrors = false;
             if (!isDefault) {
                 parseWhiteSpaceAndCommentTokens();
                 if (!parseEQName(XQueryElementType.EQNAME)) {
                     error(XQueryBundle.message("parser.error.expected-eqname"));
+                    haveErrors = true;
                 }
             }
 
-            // TODO: (DFPropertyName "=" StringLiteral)*
+            while (parseDFPropertyName()) {
+                parseWhiteSpaceAndCommentTokens();
+                if (!matchTokenType(XQueryTokenType.EQUAL) && !haveErrors) {
+                    error(XQueryBundle.message("parser.error.expected", "="));
+                    haveErrors = true;
+                }
+
+                parseWhiteSpaceAndCommentTokens();
+                if (!parseStringLiteral(XQueryElementType.STRING_LITERAL) && !haveErrors) {
+                    error(XQueryBundle.message("parser.error.expected-property-value-string"));
+                    haveErrors = true;
+                }
+
+                parseWhiteSpaceAndCommentTokens();
+            }
 
             parseWhiteSpaceAndCommentTokens();
             return true;
         }
+        return false;
+    }
+
+    private boolean parseDFPropertyName() {
+        final PsiBuilder.Marker dfPropertyNameMarker = mark();
+        if (matchTokenType(XQueryTokenType.K_DECIMAL_SEPARATOR) ||
+            matchTokenType(XQueryTokenType.K_GROUPING_SEPARATOR) ||
+            matchTokenType(XQueryTokenType.K_INFINITY) ||
+            matchTokenType(XQueryTokenType.K_MINUS_SIGN) ||
+            matchTokenType(XQueryTokenType.K_NAN) ||
+            matchTokenType(XQueryTokenType.K_PERCENT) ||
+            matchTokenType(XQueryTokenType.K_PER_MILLE) ||
+            matchTokenType(XQueryTokenType.K_ZERO_DIGIT) ||
+            matchTokenType(XQueryTokenType.K_DIGIT) ||
+            matchTokenType(XQueryTokenType.K_PATTERN_SEPARATOR)) {
+
+            dfPropertyNameMarker.done(XQueryElementType.DF_PROPERTY_NAME);
+            return true;
+        }
+        dfPropertyNameMarker.drop();
         return false;
     }
 

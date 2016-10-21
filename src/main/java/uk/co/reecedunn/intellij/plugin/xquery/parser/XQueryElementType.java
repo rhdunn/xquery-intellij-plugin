@@ -170,6 +170,7 @@ public interface XQueryElementType {
     IElementType URI_QUALIFIED_NAME = new ICompositeElementType("XQUERY_URI_QUALIFIED_NAME", XQueryURIQualifiedNamePsiImpl.class);
 
     IElementType DECIMAL_FORMAT_DECL = new ICompositeElementType("XQUERY_DECIMAL_FORMAT_DECL", XQueryDecimalFormatDeclPsiImpl.class);
+    IElementType DF_PROPERTY_NAME = new ICompositeElementType("XQUERY_DF_PROPERTY_NAME", XQueryDFPropertyNamePsiImpl.class);
 
     IElementType FUNCTION_BODY = new ICompositeElementType("XQUERY_FUNCTION_BODY", XQueryFunctionBodyPsiImpl.class);
     IElementType VAR_VALUE = new ICompositeElementType("XQUERY_VAR_VALUE", XQueryVarValuePsiImpl.class);
