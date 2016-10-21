@@ -165,8 +165,11 @@ public interface XQueryElementType {
     // endregion
     // region XQuery 3.0
 
+    IElementType EQNAME = new ICompositeElementType("XQUERY_EQNAME", XQueryEQNamePsiImpl.class);
     IElementType BRACED_URI_LITERAL = new ICompositeElementType("XQUERY_BRACED_URI_LITERAL", XQueryBracedURILiteralPsiImpl.class);
     IElementType URI_QUALIFIED_NAME = new ICompositeElementType("XQUERY_URI_QUALIFIED_NAME", XQueryURIQualifiedNamePsiImpl.class);
+
+    IElementType DECIMAL_FORMAT_DECL = new ICompositeElementType("XQUERY_DECIMAL_FORMAT_DECL", XQueryDecimalFormatDeclPsiImpl.class);
 
     IElementType FUNCTION_BODY = new ICompositeElementType("XQUERY_FUNCTION_BODY", XQueryFunctionBodyPsiImpl.class);
     IElementType VAR_VALUE = new ICompositeElementType("XQUERY_VAR_VALUE", XQueryVarValuePsiImpl.class);

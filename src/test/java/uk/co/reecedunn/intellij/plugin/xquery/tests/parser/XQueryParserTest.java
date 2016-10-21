@@ -5466,6 +5466,37 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region XQuery 3.0 :: DecimalFormatDecl
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-DecimalFormatDecl")
+    public void testDecimalFormatDecl() {
+        final String expected = loadResource("tests/parser/xquery-3.0/DecimalFormatDecl.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/DecimalFormatDecl.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-DecimalFormatDecl")
+    public void testDecimalFormatDecl_EQName() {
+        final String expected = loadResource("tests/parser/xquery-3.0/DecimalFormatDecl_EQName.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/DecimalFormatDecl_EQName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-DecimalFormatDecl")
+    public void testDecimalFormatDecl_MissingEQName() {
+        final String expected = loadResource("tests/parser/xquery-3.0/DecimalFormatDecl_MissingEQName.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/DecimalFormatDecl_MissingEQName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-DecimalFormatDecl")
+    public void testDecimalFormatDecl_Default() {
+        final String expected = loadResource("tests/parser/xquery-3.0/DecimalFormatDecl_Default.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/DecimalFormatDecl_Default.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region XQuery 3.0 :: AnnotatedDecl + Annotation
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-AnnotatedDecl")

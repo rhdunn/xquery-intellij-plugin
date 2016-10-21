@@ -403,6 +403,8 @@ class XQueryParser {
                 declMarker.done(XQueryElementType.CONSTRUCTION_DECL);
             } else if (parseCopyNamespacesDecl(state)) {
                 declMarker.done(XQueryElementType.COPY_NAMESPACES_DECL);
+            } else if (parseDecimalFormatDecl(state, false)) {
+                declMarker.done(XQueryElementType.DECIMAL_FORMAT_DECL);
             } else if (parseDefaultDecl(declMarker, state)) {
             } else if (parseNamespaceDecl(state)) {
                 declMarker.done(XQueryElementType.NAMESPACE_DECL);
@@ -566,6 +568,8 @@ class XQueryParser {
                 defaultDeclMarker.done(XQueryElementType.EMPTY_ORDER_DECL);
             } else if (parseDefaultCollationDecl()) {
                 defaultDeclMarker.done(XQueryElementType.DEFAULT_COLLATION_DECL);
+            } else if (parseDecimalFormatDecl(state, true)) {
+                defaultDeclMarker.done(XQueryElementType.DECIMAL_FORMAT_DECL);
             } else {
                 error(XQueryBundle.message("parser.error.expected-keyword", "collation, element, function, order"));
                 parseUnknownDecl();
@@ -706,6 +710,30 @@ class XQueryParser {
             if (!matchTokenType(XQueryTokenType.K_INHERIT) && !matchTokenType(XQueryTokenType.K_NO_INHERIT) && !haveErrors) {
                 error(XQueryBundle.message("parser.error.expected-keyword", "inherit, no-inherit"));
             }
+
+            parseWhiteSpaceAndCommentTokens();
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseDecimalFormatDecl(PrologDeclState state, boolean isDefault) {
+        final PsiBuilder.Marker errorMarker = matchTokenTypeWithMarker(XQueryTokenType.K_DECIMAL_FORMAT);
+        if (errorMarker != null) {
+            if (state == PrologDeclState.HEADER_STATEMENT) {
+                errorMarker.drop();
+            } else {
+                errorMarker.error(XQueryBundle.message("parser.error.expected-prolog-body"));
+            }
+
+            if (!isDefault) {
+                parseWhiteSpaceAndCommentTokens();
+                if (!parseEQName(XQueryElementType.EQNAME)) {
+                    error(XQueryBundle.message("parser.error.expected-eqname"));
+                }
+            }
+
+            // TODO: (DFPropertyName "=" StringLiteral)*
 
             parseWhiteSpaceAndCommentTokens();
             return true;

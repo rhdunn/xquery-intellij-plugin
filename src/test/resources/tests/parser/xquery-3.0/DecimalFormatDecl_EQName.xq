@@ -1,0 +1,1 @@
+declare decimal-format Q{http://www.example.com/test#}format ;
