@@ -168,16 +168,16 @@ public class XQueryProjectSettingsConfigurableTest extends ParserTestCase {
         assertThat(getSelectedItem(component, "Implementation").toString(), is("W3C"));
         assertThat(getSelectedItem(component, "DialectForXQuery1.0").toString(), is("XQuery"));
 
-        setSelectedItem(component, "Implementation", Implementations.getItemById("saxon"));
-        assertThat(getSelectedItem(component, "Implementation").toString(), is("Saxonica"));
+        setSelectedItem(component, "Implementation", Implementations.getItemById("saxon/EE"));
+        assertThat(getSelectedItem(component, "Implementation").toString(), is("Saxon Enterprise Edition"));
         assertThat(getSelectedItem(component, "DialectForXQuery1.0").toString(), is("XQuery"));
 
-        setSelectedItem(component, "ImplementationVersion", Implementations.getItemById("saxon/EE"));
-        assertThat(getSelectedItem(component, "Implementation").toString(), is("Saxonica"));
+        setSelectedItem(component, "ImplementationVersion", Implementations.getItemById("saxon/EE/v9.7"));
+        assertThat(getSelectedItem(component, "Implementation").toString(), is("Saxon Enterprise Edition"));
         assertThat(getSelectedItem(component, "DialectForXQuery1.0").toString(), is("XQuery"));
 
-        setSelectedItem(component, "DialectForXQuery1.0", Implementations.getItemById("saxon/EE/1.0-update"));
-        assertThat(getSelectedItem(component, "Implementation").toString(), is("Saxonica"));
+        setSelectedItem(component, "DialectForXQuery1.0", Implementations.getItemById("saxon/EE/v9.7/1.0-update"));
+        assertThat(getSelectedItem(component, "Implementation").toString(), is("Saxon Enterprise Edition"));
         assertThat(getSelectedItem(component, "DialectForXQuery1.0").toString(), is("XQuery Update Facility 1.0"));
 
         setSelectedItem(component, "Implementation", Implementations.getItemById("w3c"));
