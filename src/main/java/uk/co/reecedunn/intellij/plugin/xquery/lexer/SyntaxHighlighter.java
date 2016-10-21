@@ -75,8 +75,6 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
             return NUMBER_KEYS;
         } else if (type == XQueryTokenType.STRING_LITERAL_START ||
                    type == XQueryTokenType.STRING_LITERAL_CONTENTS ||
-                   type == XQueryTokenType.PARTIAL_ENTITY_REFERENCE ||
-                   type == XQueryTokenType.EMPTY_ENTITY_REFERENCE ||
                    type == XQueryTokenType.STRING_LITERAL_END ||
                    type == XQueryTokenType.BRACED_URI_LITERAL_START ||
                    type == XQueryTokenType.BRACED_URI_LITERAL_END) {
@@ -84,6 +82,8 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
         } else if (type == XQueryTokenType.ESCAPED_CHARACTER) {
             return ESCAPED_CHARACTER_KEYS;
         } else if (type == XQueryTokenType.PREDEFINED_ENTITY_REFERENCE ||
+                   type == XQueryTokenType.PARTIAL_ENTITY_REFERENCE ||
+                   type == XQueryTokenType.EMPTY_ENTITY_REFERENCE ||
                    type == XQueryTokenType.CHARACTER_REFERENCE) {
             return ENTITY_REFERENCE_KEYS;
         } else if (type == XQueryTokenType.BAD_CHARACTER) {
