@@ -74,6 +74,13 @@ public class UpdateFacilityParserTest extends ParserTestCase {
     }
 
     @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-RevalidationDecl")
+    public void testRevalidationDecl_MissingRevalidationKeyword() {
+        final String expected = loadResource("tests/parser/xquery-update-1.0/RevalidationDecl_MissingRevalidationKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-update-1.0/RevalidationDecl_MissingRevalidationKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-RevalidationDecl")
     public void testRevalidationDecl_MissingSemicolon() {
         final String expected = loadResource("tests/parser/xquery-update-1.0/RevalidationDecl_MissingSemicolon.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-update-1.0/RevalidationDecl_MissingSemicolon.xq");

@@ -1,0 +1,1 @@
+declare strict ; declare lax ; declare skip ;

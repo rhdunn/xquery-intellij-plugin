@@ -4,7 +4,7 @@ FileElement[FILE(0:20)]
          XQueryUnknownDeclImpl[XQUERY_UNKNOWN_DECL(0:19)]
             LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-            PsiErrorElementImpl[ERROR_ELEMENT(8:8)]('XPST0003: Expected keyword: base-uri, boundary-space, construction, copy-namespaces, default, function, namespace, option, ordering, variable.')
+            PsiErrorElementImpl[ERROR_ELEMENT(8:8)]('XPST0003: Expected keyword: base-uri, boundary-space, construction, copy-namespaces, default, function, namespace, option, ordering, revalidation, variable.')
             LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(8:9)]('$')
             PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
             LeafPsiElement[XQUERY_NCNAME_TOKEN(10:13)]('one')
