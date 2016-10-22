@@ -402,6 +402,91 @@ class XQueryParser {
         return PrologDeclState.NOT_MATCHED;
     }
 
+    private boolean parseDefaultDecl(PsiBuilder.Marker defaultDeclMarker, PrologDeclState state) {
+        final PsiBuilder.Marker errorMarker = matchTokenTypeWithMarker(XQueryTokenType.K_DEFAULT);
+        if (errorMarker != null) {
+            if (state == PrologDeclState.HEADER_STATEMENT) {
+                errorMarker.drop();
+            } else {
+                errorMarker.error(XQueryBundle.message("parser.error.expected-prolog-body"));
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (parseDefaultNamespaceDecl()) {
+                defaultDeclMarker.done(XQueryElementType.DEFAULT_NAMESPACE_DECL);
+            } else if (parseEmptyOrderDecl()) {
+                defaultDeclMarker.done(XQueryElementType.EMPTY_ORDER_DECL);
+            } else if (parseDefaultCollationDecl()) {
+                defaultDeclMarker.done(XQueryElementType.DEFAULT_COLLATION_DECL);
+            } else if (parseDecimalFormatDecl(state, true)) {
+                defaultDeclMarker.done(XQueryElementType.DECIMAL_FORMAT_DECL);
+            } else {
+                error(XQueryBundle.message("parser.error.expected-keyword", "collation, element, function, order"));
+                parseUnknownDecl();
+                defaultDeclMarker.done(XQueryElementType.UNKNOWN_DECL);
+            }
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseUnknownDecl() {
+        while (true) {
+            if (parseWhiteSpaceAndCommentTokens()) continue;
+            if (matchTokenType(XQueryTokenType.NCNAME)) continue;
+            if (parseStringLiteral(XQueryElementType.STRING_LITERAL)) continue;
+
+            if (matchTokenType(XQueryTokenType.EQUAL)) continue;
+            if (matchTokenType(XQueryTokenType.COMMA)) continue;
+            if (matchTokenType(XQueryTokenType.VARIABLE_INDICATOR)) continue;
+            if (matchTokenType(XQueryTokenType.ASSIGN_EQUAL)) continue;
+            if (matchTokenType(XQueryTokenType.QNAME_SEPARATOR)) continue;
+            if (matchTokenType(XQueryTokenType.PARENTHESIS_OPEN)) continue;
+            if (matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE)) continue;
+
+            if (matchTokenType(XQueryTokenType.K_COLLATION)) continue;
+            if (matchTokenType(XQueryTokenType.K_ELEMENT)) continue;
+            if (matchTokenType(XQueryTokenType.K_EMPTY)) continue;
+            if (matchTokenType(XQueryTokenType.K_EXTERNAL)) continue;
+            if (matchTokenType(XQueryTokenType.K_FUNCTION)) continue;
+            if (matchTokenType(XQueryTokenType.K_GREATEST)) continue;
+            if (matchTokenType(XQueryTokenType.K_INHERIT)) continue;
+            if (matchTokenType(XQueryTokenType.K_LEAST)) continue;
+            if (matchTokenType(XQueryTokenType.K_NAMESPACE)) continue;
+            if (matchTokenType(XQueryTokenType.K_NO_INHERIT)) continue;
+            if (matchTokenType(XQueryTokenType.K_NO_PRESERVE)) continue;
+            if (matchTokenType(XQueryTokenType.K_ORDER)) continue;
+            if (matchTokenType(XQueryTokenType.K_ORDERED)) continue;
+            if (matchTokenType(XQueryTokenType.K_PRESERVE)) continue;
+            if (matchTokenType(XQueryTokenType.K_STRIP)) continue;
+            if (matchTokenType(XQueryTokenType.K_UNORDERED)) continue;
+
+            if (parseExprSingle()) continue;
+            return true;
+        }
+    }
+
+    private boolean parseDefaultNamespaceDecl() {
+        if (matchTokenType(XQueryTokenType.K_ELEMENT) || matchTokenType(XQueryTokenType.K_FUNCTION)) {
+            boolean haveErrors = false;
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_NAMESPACE)) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "namespace"));
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseStringLiteral(XQueryElementType.URI_LITERAL) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-uri-string"));
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            return true;
+        }
+        return false;
+    }
+
     private boolean parseNamespaceDecl(PrologDeclState state) {
         final PsiBuilder.Marker errorMarker = matchTokenTypeWithMarker(XQueryTokenType.K_NAMESPACE);
         if (errorMarker != null) {
@@ -436,6 +521,9 @@ class XQueryParser {
         return false;
     }
 
+    // endregion
+    // region Grammar :: Prolog :: Header :: Setter
+
     private boolean parseBoundarySpaceDecl(PrologDeclState state) {
         final PsiBuilder.Marker errorMarker = matchTokenTypeWithMarker(XQueryTokenType.K_BOUNDARY_SPACE);
         if (errorMarker != null) {
@@ -456,8 +544,21 @@ class XQueryParser {
         return false;
     }
 
-    private boolean parseDefaultDecl(PsiBuilder.Marker defaultDeclMarker, PrologDeclState state) {
-        final PsiBuilder.Marker errorMarker = matchTokenTypeWithMarker(XQueryTokenType.K_DEFAULT);
+    private boolean parseDefaultCollationDecl() {
+        if (matchTokenType(XQueryTokenType.K_COLLATION)) {
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseStringLiteral(XQueryElementType.URI_LITERAL)) {
+                error(XQueryBundle.message("parser.error.expected-uri-string"));
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseBaseURIDecl(PrologDeclState state) {
+        final PsiBuilder.Marker errorMarker = matchTokenTypeWithMarker(XQueryTokenType.K_BASE_URI);
         if (errorMarker != null) {
             if (state == PrologDeclState.HEADER_STATEMENT) {
                 errorMarker.drop();
@@ -466,37 +567,28 @@ class XQueryParser {
             }
 
             parseWhiteSpaceAndCommentTokens();
-            if (parseDefaultNamespaceDecl()) {
-                defaultDeclMarker.done(XQueryElementType.DEFAULT_NAMESPACE_DECL);
-            } else if (parseEmptyOrderDecl()) {
-                defaultDeclMarker.done(XQueryElementType.EMPTY_ORDER_DECL);
-            } else if (parseDefaultCollationDecl()) {
-                defaultDeclMarker.done(XQueryElementType.DEFAULT_COLLATION_DECL);
-            } else if (parseDecimalFormatDecl(state, true)) {
-                defaultDeclMarker.done(XQueryElementType.DECIMAL_FORMAT_DECL);
-            } else {
-                error(XQueryBundle.message("parser.error.expected-keyword", "collation, element, function, order"));
-                parseUnknownDecl();
-                defaultDeclMarker.done(XQueryElementType.UNKNOWN_DECL);
+            if (!parseStringLiteral(XQueryElementType.URI_LITERAL)) {
+                error(XQueryBundle.message("parser.error.expected-uri-string"));
             }
+
+            parseWhiteSpaceAndCommentTokens();
             return true;
         }
         return false;
     }
 
-    private boolean parseDefaultNamespaceDecl() {
-        if (matchTokenType(XQueryTokenType.K_ELEMENT) || matchTokenType(XQueryTokenType.K_FUNCTION)) {
-            boolean haveErrors = false;
-
-            parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.K_NAMESPACE)) {
-                error(XQueryBundle.message("parser.error.expected-keyword", "namespace"));
-                haveErrors = true;
+    private boolean parseConstructionDecl(PrologDeclState state) {
+        final PsiBuilder.Marker errorMarker = matchTokenTypeWithMarker(XQueryTokenType.K_CONSTRUCTION);
+        if (errorMarker != null) {
+            if (state == PrologDeclState.HEADER_STATEMENT) {
+                errorMarker.drop();
+            } else {
+                errorMarker.error(XQueryBundle.message("parser.error.expected-prolog-body"));
             }
 
             parseWhiteSpaceAndCommentTokens();
-            if (!parseStringLiteral(XQueryElementType.URI_LITERAL) && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected-uri-string"));
+            if (!matchTokenType(XQueryTokenType.K_PRESERVE) && !matchTokenType(XQueryTokenType.K_STRIP)) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "preserve, strip"));
             }
 
             parseWhiteSpaceAndCommentTokens();
@@ -643,109 +735,20 @@ class XQueryParser {
     private boolean parseDFPropertyName() {
         final PsiBuilder.Marker dfPropertyNameMarker = mark();
         if (matchTokenType(XQueryTokenType.K_DECIMAL_SEPARATOR) ||
-            matchTokenType(XQueryTokenType.K_GROUPING_SEPARATOR) ||
-            matchTokenType(XQueryTokenType.K_INFINITY) ||
-            matchTokenType(XQueryTokenType.K_MINUS_SIGN) ||
-            matchTokenType(XQueryTokenType.K_NAN) ||
-            matchTokenType(XQueryTokenType.K_PERCENT) ||
-            matchTokenType(XQueryTokenType.K_PER_MILLE) ||
-            matchTokenType(XQueryTokenType.K_ZERO_DIGIT) ||
-            matchTokenType(XQueryTokenType.K_DIGIT) ||
-            matchTokenType(XQueryTokenType.K_PATTERN_SEPARATOR)) {
+                matchTokenType(XQueryTokenType.K_GROUPING_SEPARATOR) ||
+                matchTokenType(XQueryTokenType.K_INFINITY) ||
+                matchTokenType(XQueryTokenType.K_MINUS_SIGN) ||
+                matchTokenType(XQueryTokenType.K_NAN) ||
+                matchTokenType(XQueryTokenType.K_PERCENT) ||
+                matchTokenType(XQueryTokenType.K_PER_MILLE) ||
+                matchTokenType(XQueryTokenType.K_ZERO_DIGIT) ||
+                matchTokenType(XQueryTokenType.K_DIGIT) ||
+                matchTokenType(XQueryTokenType.K_PATTERN_SEPARATOR)) {
 
             dfPropertyNameMarker.done(XQueryElementType.DF_PROPERTY_NAME);
             return true;
         }
         dfPropertyNameMarker.drop();
-        return false;
-    }
-
-    private boolean parseDefaultCollationDecl() {
-        if (matchTokenType(XQueryTokenType.K_COLLATION)) {
-            parseWhiteSpaceAndCommentTokens();
-            if (!parseStringLiteral(XQueryElementType.URI_LITERAL)) {
-                error(XQueryBundle.message("parser.error.expected-uri-string"));
-            }
-
-            parseWhiteSpaceAndCommentTokens();
-            return true;
-        }
-        return false;
-    }
-
-    private boolean parseBaseURIDecl(PrologDeclState state) {
-        final PsiBuilder.Marker errorMarker = matchTokenTypeWithMarker(XQueryTokenType.K_BASE_URI);
-        if (errorMarker != null) {
-            if (state == PrologDeclState.HEADER_STATEMENT) {
-                errorMarker.drop();
-            } else {
-                errorMarker.error(XQueryBundle.message("parser.error.expected-prolog-body"));
-            }
-
-            parseWhiteSpaceAndCommentTokens();
-            if (!parseStringLiteral(XQueryElementType.URI_LITERAL)) {
-                error(XQueryBundle.message("parser.error.expected-uri-string"));
-            }
-
-            parseWhiteSpaceAndCommentTokens();
-            return true;
-        }
-        return false;
-    }
-
-    private boolean parseUnknownDecl() {
-        while (true) {
-            if (parseWhiteSpaceAndCommentTokens()) continue;
-            if (matchTokenType(XQueryTokenType.NCNAME)) continue;
-            if (parseStringLiteral(XQueryElementType.STRING_LITERAL)) continue;
-
-            if (matchTokenType(XQueryTokenType.EQUAL)) continue;
-            if (matchTokenType(XQueryTokenType.COMMA)) continue;
-            if (matchTokenType(XQueryTokenType.VARIABLE_INDICATOR)) continue;
-            if (matchTokenType(XQueryTokenType.ASSIGN_EQUAL)) continue;
-            if (matchTokenType(XQueryTokenType.QNAME_SEPARATOR)) continue;
-            if (matchTokenType(XQueryTokenType.PARENTHESIS_OPEN)) continue;
-            if (matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE)) continue;
-
-            if (matchTokenType(XQueryTokenType.K_COLLATION)) continue;
-            if (matchTokenType(XQueryTokenType.K_ELEMENT)) continue;
-            if (matchTokenType(XQueryTokenType.K_EMPTY)) continue;
-            if (matchTokenType(XQueryTokenType.K_EXTERNAL)) continue;
-            if (matchTokenType(XQueryTokenType.K_FUNCTION)) continue;
-            if (matchTokenType(XQueryTokenType.K_GREATEST)) continue;
-            if (matchTokenType(XQueryTokenType.K_INHERIT)) continue;
-            if (matchTokenType(XQueryTokenType.K_LEAST)) continue;
-            if (matchTokenType(XQueryTokenType.K_NAMESPACE)) continue;
-            if (matchTokenType(XQueryTokenType.K_NO_INHERIT)) continue;
-            if (matchTokenType(XQueryTokenType.K_NO_PRESERVE)) continue;
-            if (matchTokenType(XQueryTokenType.K_ORDER)) continue;
-            if (matchTokenType(XQueryTokenType.K_ORDERED)) continue;
-            if (matchTokenType(XQueryTokenType.K_PRESERVE)) continue;
-            if (matchTokenType(XQueryTokenType.K_STRIP)) continue;
-            if (matchTokenType(XQueryTokenType.K_UNORDERED)) continue;
-
-            if (parseExprSingle()) continue;
-            return true;
-        }
-    }
-
-    private boolean parseConstructionDecl(PrologDeclState state) {
-        final PsiBuilder.Marker errorMarker = matchTokenTypeWithMarker(XQueryTokenType.K_CONSTRUCTION);
-        if (errorMarker != null) {
-            if (state == PrologDeclState.HEADER_STATEMENT) {
-                errorMarker.drop();
-            } else {
-                errorMarker.error(XQueryBundle.message("parser.error.expected-prolog-body"));
-            }
-
-            parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.K_PRESERVE) && !matchTokenType(XQueryTokenType.K_STRIP)) {
-                error(XQueryBundle.message("parser.error.expected-keyword", "preserve, strip"));
-            }
-
-            parseWhiteSpaceAndCommentTokens();
-            return true;
-        }
         return false;
     }
 
