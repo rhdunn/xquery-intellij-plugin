@@ -392,7 +392,7 @@ class XQueryParser {
                 declMarker.done(XQueryElementType.CONTEXT_ITEM_DECL);
                 return PrologDeclState.BODY_STATEMENT;
             } else {
-                error(XQueryBundle.message("parser.error.expected-keyword", "base-uri, boundary-space, construction, copy-namespaces, decimal-format, default, function, namespace, option, ordering, revalidation, variable"));
+                error(XQueryBundle.message("parser.error.expected-keyword", "base-uri, boundary-space, construction, context, copy-namespaces, decimal-format, default, function, namespace, option, ordering, revalidation, variable"));
                 parseUnknownDecl();
                 declMarker.done(XQueryElementType.UNKNOWN_DECL);
                 return PrologDeclState.UNKNOWN_STATEMENT;
@@ -451,6 +451,7 @@ class XQueryParser {
             if (matchTokenType(XQueryTokenType.K_FUNCTION)) continue;
             if (matchTokenType(XQueryTokenType.K_GREATEST)) continue;
             if (matchTokenType(XQueryTokenType.K_INHERIT)) continue;
+            if (matchTokenType(XQueryTokenType.K_ITEM)) continue;
             if (matchTokenType(XQueryTokenType.K_LAX)) continue;
             if (matchTokenType(XQueryTokenType.K_LEAST)) continue;
             if (matchTokenType(XQueryTokenType.K_NAMESPACE)) continue;

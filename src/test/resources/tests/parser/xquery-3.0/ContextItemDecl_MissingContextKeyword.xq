@@ -1,0 +1,1 @@
+declare item := 2 ;

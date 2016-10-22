@@ -5598,6 +5598,13 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-ContextItemDecl")
+    public void testContextItemDecl_MissingContextKeyword() {
+        final String expected = loadResource("tests/parser/xquery-3.0/ContextItemDecl_MissingContextKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/ContextItemDecl_MissingContextKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-ContextItemDecl")
     public void testContextItemDecl_MissingSemicolon() {
         final String expected = loadResource("tests/parser/xquery-3.0/ContextItemDecl_MissingSemicolon.txt");
         final ASTNode actual = parseResource("tests/parser/xquery-3.0/ContextItemDecl_MissingSemicolon.xq");
