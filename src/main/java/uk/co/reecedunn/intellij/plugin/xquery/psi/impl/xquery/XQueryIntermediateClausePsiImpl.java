@@ -35,14 +35,14 @@ public class XQueryIntermediateClausePsiImpl extends ASTWrapperPsiElement implem
     }
 
     private XQueryVersion getRequiredXQueryVersion() {
-        if (getFirstChild().getNode().getElementType() == XQueryElementType.COUNT_CLAUSE) {
+        IElementType current = getFirstChild().getNode().getElementType();
+        if (current == XQueryElementType.COUNT_CLAUSE || current == XQueryElementType.GROUP_BY_CLAUSE) {
             return XQueryVersion.VERSION_3_0;
         }
 
         PsiElement prevElement = getPrevSibling();
         IElementType prev = (prevElement instanceof XQueryInitialClause) ? null : prevElement.getFirstChild().getNode().getElementType();
         if (prev == XQueryElementType.WHERE_CLAUSE) {
-            IElementType current = getFirstChild().getNode().getElementType();
             return (current == XQueryElementType.ORDER_BY_CLAUSE) ? XQueryVersion.VERSION_1_0 : XQueryVersion.VERSION_3_0;
         } else if (prev == XQueryElementType.ORDER_BY_CLAUSE) {
             return XQueryVersion.VERSION_3_0;

@@ -5872,6 +5872,37 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region XQuery 3.0 :: GroupByClause
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-GroupByClause")
+    public void testGroupByClause() {
+        final String expected = loadResource("tests/parser/xquery-3.0/GroupByClause.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/GroupByClause.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-GroupByClause")
+    public void testGroupByClause_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-3.0/GroupByClause_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/GroupByClause_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-GroupByClause")
+    public void testGroupByClause_MissingByKeyword() {
+        final String expected = loadResource("tests/parser/xquery-3.0/GroupByClause_MissingByKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/GroupByClause_MissingByKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-GroupByClause")
+    public void testGroupByClause_MissingGroupingSpecList() {
+        final String expected = loadResource("tests/parser/xquery-3.0/GroupByClause_MissingGroupingSpecList.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/GroupByClause_MissingGroupingSpecList.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region XQuery 3.0 :: OrderByClause
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-OrderByClause")

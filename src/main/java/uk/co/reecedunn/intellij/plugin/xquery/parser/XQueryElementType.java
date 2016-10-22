@@ -209,6 +209,8 @@ public interface XQueryElementType {
     IElementType COUNT_CLAUSE = new ICompositeElementType("XQUERY_COUNT_CLAUSE", XQueryCountClausePsiImpl.class);
     IElementType RETURN_CLAUSE = new ICompositeElementType("XQUERY_RETURN_CLAUSE", XQueryReturnClausePsiImpl.class);
 
+    IElementType GROUP_BY_CLAUSE = new ICompositeElementType("XQUERY_GROUP_BY_CLAUSE", XQueryGroupByClausePsiImpl.class);
+
     IElementType STRING_CONCAT_EXPR = new ICompositeElementType("XQUERY_STRING_CONCAT_EXPR", XQueryStringConcatExprPsiImpl.class);
     IElementType SIMPLE_MAP_EXPR = new ICompositeElementType("XQUERY_SIMPLE_MAP_EXPR", XQuerySimpleMapExprPsiImpl.class);
 

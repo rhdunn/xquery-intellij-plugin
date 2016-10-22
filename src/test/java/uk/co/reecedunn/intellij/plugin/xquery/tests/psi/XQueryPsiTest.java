@@ -1596,6 +1596,42 @@ public class XQueryPsiTest extends ParserTestCase {
     }
 
     // endregion
+    // region IntermediateClause (GroupByClause)
+
+    public void testGroupByClause() {
+        final ASTNode node = parseResource("tests/parser/xquery-3.0/GroupByClause.xq");
+
+        XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryFLWORExpr.class);
+        // prev == null
+        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0).getFirstChild(),
+                instanceOf(XQueryGroupByClause.class));
+
+        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0);
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(false));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 3.0 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_GROUP));
+    }
+
+    // endregion
     // region NamedFunctionRef
 
     public void testNamedFunctionRef_QName() {

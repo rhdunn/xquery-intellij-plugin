@@ -1341,7 +1341,7 @@ class XQueryParser {
 
     private boolean parseIntermediateClause() {
         final PsiBuilder.Marker intermediateClauseMarker = mark();
-        if (parseInitialClause() || parseWhereClause() || parseOrderByClause() || parseCountClause()) {
+        if (parseInitialClause() || parseWhereClause() || parseOrderByClause() || parseCountClause() || parseGroupByClause()) {
             intermediateClauseMarker.done(XQueryElementType.INTERMEDIATE_CLAUSE);
             return true;
         }
@@ -1581,6 +1581,31 @@ class XQueryParser {
             }
 
             whereClauseMarker.done(XQueryElementType.WHERE_CLAUSE);
+            return true;
+        }
+        return false;
+    }
+
+    // endregion
+    // region Grammar :: Expr :: FLWORExpr :: GroupByClause
+
+    private boolean parseGroupByClause() {
+        final PsiBuilder.Marker groupByClauseMarker = matchTokenTypeWithMarker(XQueryTokenType.K_GROUP);
+        if (groupByClauseMarker != null) {
+            boolean haveErrors = false;
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_BY)) {
+                error(XQueryBundle.message("parser.error.expected", "by"));
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseExprSingle() && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", "GroupingSpecList"));
+            }
+
+            groupByClauseMarker.done(XQueryElementType.GROUP_BY_CLAUSE);
             return true;
         }
         return false;
