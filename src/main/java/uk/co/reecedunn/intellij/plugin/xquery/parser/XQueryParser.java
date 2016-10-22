@@ -418,6 +418,9 @@ class XQueryParser {
             } else if (parseAnnotatedDecl()) {
                 declMarker.done(XQueryElementType.ANNOTATED_DECL);
                 return PrologDeclState.BODY_STATEMENT;
+            } else if (parseContextItemDecl()) {
+                declMarker.done(XQueryElementType.CONTEXT_ITEM_DECL);
+                return PrologDeclState.BODY_STATEMENT;
             } else {
                 error(XQueryBundle.message("parser.error.expected-keyword", "base-uri, boundary-space, construction, copy-namespaces, default, function, namespace, option, ordering, variable"));
                 parseUnknownDecl();
@@ -427,6 +430,50 @@ class XQueryParser {
             return PrologDeclState.HEADER_STATEMENT;
         }
         return PrologDeclState.NOT_MATCHED;
+    }
+
+    private boolean parseContextItemDecl() {
+        if (matchTokenType(XQueryTokenType.K_CONTEXT)) {
+            boolean haveErrors = false;
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_ITEM)) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "item"));
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (matchTokenType(XQueryTokenType.K_AS)) {
+                parseWhiteSpaceAndCommentTokens();
+                if (!parseItemType()) {
+                    error(XQueryBundle.message("parser.error.expected", "ItemType"));
+                    haveErrors = true;
+                }
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (matchTokenType(XQueryTokenType.ASSIGN_EQUAL)) {
+                parseWhiteSpaceAndCommentTokens();
+                if (!parseExprSingle(XQueryElementType.VAR_VALUE) && !haveErrors) {
+                    error(XQueryBundle.message("parser.error.expected-expression"));
+                }
+            } else if (matchTokenType(XQueryTokenType.K_EXTERNAL)) {
+                parseWhiteSpaceAndCommentTokens();
+                if (matchTokenType(XQueryTokenType.ASSIGN_EQUAL)) {
+                    parseWhiteSpaceAndCommentTokens();
+                    if (!parseExprSingle(XQueryElementType.VAR_DEFAULT_VALUE) && !haveErrors) {
+                        error(XQueryBundle.message("parser.error.expected-expression"));
+                    }
+                }
+            } else {
+                error(XQueryBundle.message("parser.error.expected-variable-value"));
+                parseExprSingle(XQueryElementType.VAR_VALUE);
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            return true;
+        }
+        return false;
     }
 
     private boolean parseAnnotatedDecl() {
