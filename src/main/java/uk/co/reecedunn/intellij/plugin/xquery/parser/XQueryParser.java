@@ -1613,11 +1613,11 @@ class XQueryParser {
 
     private boolean parseGroupingSpecList() {
         final PsiBuilder.Marker groupingSpecListMarker = mark();
-        if (parseGroupingVariable()) {
+        if (parseGroupingSpec()) {
             parseWhiteSpaceAndCommentTokens();
             while (matchTokenType(XQueryTokenType.COMMA)) {
                 parseWhiteSpaceAndCommentTokens();
-                if (!parseGroupingVariable()) {
+                if (!parseGroupingSpec()) {
                     error(XQueryBundle.message("parser.error.expected", "GroupingSpec"));
                 }
 
@@ -1625,6 +1625,46 @@ class XQueryParser {
             }
 
             groupingSpecListMarker.done(XQueryElementType.GROUPING_SPEC_LIST);
+            return true;
+        }
+        groupingSpecListMarker.drop();
+        return false;
+    }
+
+    private boolean parseGroupingSpec() {
+        final PsiBuilder.Marker groupingSpecListMarker = mark();
+        if (parseGroupingVariable()) {
+            boolean haveErrors = false;
+
+            parseWhiteSpaceAndCommentTokens();
+            if (parseTypeDeclaration()) {
+                parseWhiteSpaceAndCommentTokens();
+                if (!matchTokenType(XQueryTokenType.ASSIGN_EQUAL)) {
+                    error(XQueryBundle.message("parser.error.expected", ":="));
+                    haveErrors = true;
+                }
+
+                parseWhiteSpaceAndCommentTokens();
+                if (!parseExprSingle() && !haveErrors) {
+                    error(XQueryBundle.message("parser.error.expected-expression"));
+                    haveErrors = true;
+                }
+            } else if (matchTokenType(XQueryTokenType.ASSIGN_EQUAL)) {
+                parseWhiteSpaceAndCommentTokens();
+                if (!parseExprSingle()) {
+                    error(XQueryBundle.message("parser.error.expected-expression"));
+                    haveErrors = true;
+                }
+            }
+
+            if (matchTokenType(XQueryTokenType.K_COLLATION)) {
+                parseWhiteSpaceAndCommentTokens();
+                if (!parseStringLiteral(XQueryElementType.URI_LITERAL) && !haveErrors) {
+                    error(XQueryBundle.message("parser.error.expected-expression"));
+                }
+            }
+
+            groupingSpecListMarker.done(XQueryElementType.GROUPING_SPEC);
             return true;
         }
         groupingSpecListMarker.drop();

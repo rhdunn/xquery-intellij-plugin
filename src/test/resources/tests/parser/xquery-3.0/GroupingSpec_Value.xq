@@ -1,0 +1,1 @@
+for $ x in $ y group by $ x := 2 return $ x

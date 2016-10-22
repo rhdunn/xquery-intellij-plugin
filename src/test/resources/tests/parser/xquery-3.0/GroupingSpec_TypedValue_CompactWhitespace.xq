@@ -1,0 +1,1 @@
+for$x in$y group by$x as xs:integer:=2 return$x

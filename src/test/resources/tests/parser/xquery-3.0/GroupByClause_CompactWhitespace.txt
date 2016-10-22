@@ -39,11 +39,12 @@ FileElement[FILE(0:30)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
                   LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_BY(17:19)]('by')
                   XQueryGroupingSpecListImpl[XQUERY_GROUPING_SPEC_LIST(19:22)]
-                     XQueryGroupingVariableImpl[XQUERY_GROUPING_VARIABLE(19:22)]
-                        LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(19:20)]('$')
-                        XQueryVarNameImpl[XQUERY_VAR_NAME(20:22)]
-                           LeafPsiElement[XQUERY_NCNAME_TOKEN(20:21)]('x')
-                           PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
+                     XQueryGroupingSpecImpl[XQUERY_GROUPING_SPEC(19:22)]
+                        XQueryGroupingVariableImpl[XQUERY_GROUPING_VARIABLE(19:22)]
+                           LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(19:20)]('$')
+                           XQueryVarNameImpl[XQUERY_VAR_NAME(20:22)]
+                              LeafPsiElement[XQUERY_NCNAME_TOKEN(20:21)]('x')
+                              PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
             XQueryReturnClauseImpl[XQUERY_RETURN_CLAUSE(22:30)]
                LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_RETURN(22:28)]('return')
                XQueryOrExprImpl[XQUERY_OR_EXPR(28:30)]

@@ -5927,6 +5927,86 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region XQuery 3.0 :: GroupingSpec
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-GroupingSpec")
+    public void testGroupingSpec() {
+        final String expected = loadResource("tests/parser/xquery-3.0/GroupByClause.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/GroupByClause.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-GroupingSpec")
+    public void testGroupingSpec_Value() {
+        final String expected = loadResource("tests/parser/xquery-3.0/GroupingSpec_Value.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/GroupingSpec_Value.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-GroupingSpec")
+    public void testGroupingSpec_Value_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-3.0/GroupingSpec_Value_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/GroupingSpec_Value_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-GroupingSpec")
+    public void testGroupingSpec_Value_MissingValue() {
+        final String expected = loadResource("tests/parser/xquery-3.0/GroupingSpec_Value_MissingValue.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/GroupingSpec_Value_MissingValue.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-GroupingSpec")
+    public void testGroupingSpec_TypedValue() {
+        final String expected = loadResource("tests/parser/xquery-3.0/GroupingSpec_TypedValue.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/GroupingSpec_TypedValue.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-GroupingSpec")
+    public void testGroupingSpec_TypedValue_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-3.0/GroupingSpec_TypedValue_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/GroupingSpec_TypedValue_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-GroupingSpec")
+    public void testGroupingSpec_TypedValue_MissingAssignment() {
+        final String expected = loadResource("tests/parser/xquery-3.0/GroupingSpec_TypedValue_MissingAssignment.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/GroupingSpec_TypedValue_MissingAssignment.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-GroupingSpec")
+    public void testGroupingSpec_TypedValue_MissingValue() {
+        final String expected = loadResource("tests/parser/xquery-3.0/GroupingSpec_TypedValue_MissingValue.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/GroupingSpec_TypedValue_MissingValue.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-GroupingSpec")
+    public void testGroupingSpec_Collation() {
+        final String expected = loadResource("tests/parser/xquery-3.0/GroupingSpec_Collation.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/GroupingSpec_Collation.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-GroupingSpec")
+    public void testGroupingSpec_Collation_MissingUriLiteral() {
+        final String expected = loadResource("tests/parser/xquery-3.0/GroupingSpec_Collation_MissingUriLiteral.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/GroupingSpec_Collation_MissingUriLiteral.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-GroupingSpec")
+    public void testGroupingSpec_ValueAndCollation() {
+        final String expected = loadResource("tests/parser/xquery-3.0/GroupingSpec_ValueAndCollation.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/GroupingSpec_ValueAndCollation.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region XQuery 3.0 :: OrderByClause
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-OrderByClause")

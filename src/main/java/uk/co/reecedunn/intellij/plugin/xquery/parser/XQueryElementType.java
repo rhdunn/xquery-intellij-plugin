@@ -211,6 +211,7 @@ public interface XQueryElementType {
 
     IElementType GROUP_BY_CLAUSE = new ICompositeElementType("XQUERY_GROUP_BY_CLAUSE", XQueryGroupByClausePsiImpl.class);
     IElementType GROUPING_SPEC_LIST = new ICompositeElementType("XQUERY_GROUPING_SPEC_LIST", XQueryGroupingSpecListPsiImpl.class);
+    IElementType GROUPING_SPEC = new ICompositeElementType("XQUERY_GROUPING_SPEC", XQueryGroupingSpecPsiImpl.class);
     IElementType GROUPING_VARIABLE = new ICompositeElementType("XQUERY_GROUPING_VARIABLE", XQueryGroupingVariablePsiImpl.class);
 
     IElementType STRING_CONCAT_EXPR = new ICompositeElementType("XQUERY_STRING_CONCAT_EXPR", XQueryStringConcatExprPsiImpl.class);
