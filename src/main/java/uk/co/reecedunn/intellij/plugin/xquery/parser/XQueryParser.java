@@ -361,36 +361,6 @@ class XQueryParser {
         }
     }
 
-    private PrologDeclState parseImport(PrologDeclState state) {
-        final PsiBuilder.Marker importMarker = mark();
-        final PsiBuilder.Marker errorMarker = mark();
-        if (matchTokenType(XQueryTokenType.K_IMPORT)) {
-            if (state == PrologDeclState.HEADER_STATEMENT) {
-                errorMarker.drop();
-            } else {
-                errorMarker.error(XQueryBundle.message("parser.error.expected-prolog-body"));
-            }
-
-            parseWhiteSpaceAndCommentTokens();
-            if (parseSchemaImport()) {
-                importMarker.done(XQueryElementType.SCHEMA_IMPORT);
-            } else if (parseStylesheetImport()) {
-                importMarker.done(XQueryElementType.STYLESHEET_IMPORT);
-            } else if (parseModuleImport()) {
-                importMarker.done(XQueryElementType.MODULE_IMPORT);
-            } else {
-                error(XQueryBundle.message("parser.error.expected-keyword", "schema, stylesheet, module"));
-                importMarker.done(XQueryElementType.IMPORT);
-                return PrologDeclState.UNKNOWN_STATEMENT;
-            }
-            return PrologDeclState.HEADER_STATEMENT;
-        }
-
-        errorMarker.drop();
-        importMarker.drop();
-        return PrologDeclState.NOT_MATCHED;
-    }
-
     private PrologDeclState parseDecl(PrologDeclState state) {
         final PsiBuilder.Marker declMarker = matchTokenTypeWithMarker(XQueryTokenType.K_DECLARE);
         if (declMarker != null) {
@@ -759,6 +729,59 @@ class XQueryParser {
         }
     }
 
+    private boolean parseConstructionDecl(PrologDeclState state) {
+        final PsiBuilder.Marker errorMarker = matchTokenTypeWithMarker(XQueryTokenType.K_CONSTRUCTION);
+        if (errorMarker != null) {
+            if (state == PrologDeclState.HEADER_STATEMENT) {
+                errorMarker.drop();
+            } else {
+                errorMarker.error(XQueryBundle.message("parser.error.expected-prolog-body"));
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_PRESERVE) && !matchTokenType(XQueryTokenType.K_STRIP)) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "preserve, strip"));
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            return true;
+        }
+        return false;
+    }
+
+    // endregion
+    // region Grammar :: Prolog :: Header :: Import
+
+    private PrologDeclState parseImport(PrologDeclState state) {
+        final PsiBuilder.Marker importMarker = mark();
+        final PsiBuilder.Marker errorMarker = mark();
+        if (matchTokenType(XQueryTokenType.K_IMPORT)) {
+            if (state == PrologDeclState.HEADER_STATEMENT) {
+                errorMarker.drop();
+            } else {
+                errorMarker.error(XQueryBundle.message("parser.error.expected-prolog-body"));
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (parseSchemaImport()) {
+                importMarker.done(XQueryElementType.SCHEMA_IMPORT);
+            } else if (parseStylesheetImport()) {
+                importMarker.done(XQueryElementType.STYLESHEET_IMPORT);
+            } else if (parseModuleImport()) {
+                importMarker.done(XQueryElementType.MODULE_IMPORT);
+            } else {
+                error(XQueryBundle.message("parser.error.expected-keyword", "schema, stylesheet, module"));
+                importMarker.done(XQueryElementType.IMPORT);
+                return PrologDeclState.UNKNOWN_STATEMENT;
+            }
+            return PrologDeclState.HEADER_STATEMENT;
+        }
+
+        errorMarker.drop();
+        importMarker.drop();
+        return PrologDeclState.NOT_MATCHED;
+    }
+
     private boolean parseSchemaImport() {
         if (getTokenType() == XQueryTokenType.K_SCHEMA) {
             advanceLexer();
@@ -828,6 +851,28 @@ class XQueryParser {
         return haveErrors;
     }
 
+    private boolean parseStylesheetImport() {
+        if (getTokenType() == XQueryTokenType.K_STYLESHEET) {
+            boolean haveErrors = false;
+            advanceLexer();
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_AT)) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "at"));
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseStringLiteral(XQueryElementType.URI_LITERAL) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-uri-string"));
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            return true;
+        }
+        return false;
+    }
+
     private boolean parseModuleImport() {
         if (getTokenType() == XQueryTokenType.K_MODULE) {
             boolean haveErrors = false;
@@ -866,48 +911,6 @@ class XQueryParser {
                     parseWhiteSpaceAndCommentTokens();
                 } while (matchTokenType(XQueryTokenType.COMMA));
             }
-            return true;
-        }
-        return false;
-    }
-
-    private boolean parseConstructionDecl(PrologDeclState state) {
-        final PsiBuilder.Marker errorMarker = matchTokenTypeWithMarker(XQueryTokenType.K_CONSTRUCTION);
-        if (errorMarker != null) {
-            if (state == PrologDeclState.HEADER_STATEMENT) {
-                errorMarker.drop();
-            } else {
-                errorMarker.error(XQueryBundle.message("parser.error.expected-prolog-body"));
-            }
-
-            parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.K_PRESERVE) && !matchTokenType(XQueryTokenType.K_STRIP)) {
-                error(XQueryBundle.message("parser.error.expected-keyword", "preserve, strip"));
-            }
-
-            parseWhiteSpaceAndCommentTokens();
-            return true;
-        }
-        return false;
-    }
-
-    private boolean parseStylesheetImport() {
-        if (getTokenType() == XQueryTokenType.K_STYLESHEET) {
-            boolean haveErrors = false;
-            advanceLexer();
-
-            parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.K_AT)) {
-                error(XQueryBundle.message("parser.error.expected-keyword", "at"));
-                haveErrors = true;
-            }
-
-            parseWhiteSpaceAndCommentTokens();
-            if (!parseStringLiteral(XQueryElementType.URI_LITERAL) && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected-uri-string"));
-            }
-
-            parseWhiteSpaceAndCommentTokens();
             return true;
         }
         return false;
