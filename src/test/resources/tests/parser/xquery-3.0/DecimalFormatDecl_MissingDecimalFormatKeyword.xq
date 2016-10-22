@@ -1,0 +1,1 @@
+declare test decimal-separator = "." grouping-separator = "#" infinity = "INF" minus-sign = "-" NaN = "NaN" percent = "%" per-mille = "," zero-digit = "0" digit = "1" pattern-separator = "|" ;
