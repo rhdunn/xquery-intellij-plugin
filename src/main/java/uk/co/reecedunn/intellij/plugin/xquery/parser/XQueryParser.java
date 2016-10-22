@@ -1601,11 +1601,25 @@ class XQueryParser {
             }
 
             parseWhiteSpaceAndCommentTokens();
-            if (!parseExprSingle() && !haveErrors) {
+            if (!parseGroupingVariable() && !haveErrors) {
                 error(XQueryBundle.message("parser.error.expected", "GroupingSpecList"));
             }
 
             groupByClauseMarker.done(XQueryElementType.GROUP_BY_CLAUSE);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseGroupingVariable() {
+        final PsiBuilder.Marker groupingVariableMarker = matchTokenTypeWithMarker(XQueryTokenType.VARIABLE_INDICATOR);
+        if (groupingVariableMarker != null) {
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseEQName(XQueryElementType.VAR_NAME)) {
+                error(XQueryBundle.message("parser.error.expected-eqname"));
+            }
+
+            groupingVariableMarker.done(XQueryElementType.GROUPING_VARIABLE);
             return true;
         }
         return false;

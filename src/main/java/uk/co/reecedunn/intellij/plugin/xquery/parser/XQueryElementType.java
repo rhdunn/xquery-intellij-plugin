@@ -210,6 +210,7 @@ public interface XQueryElementType {
     IElementType RETURN_CLAUSE = new ICompositeElementType("XQUERY_RETURN_CLAUSE", XQueryReturnClausePsiImpl.class);
 
     IElementType GROUP_BY_CLAUSE = new ICompositeElementType("XQUERY_GROUP_BY_CLAUSE", XQueryGroupByClausePsiImpl.class);
+    IElementType GROUPING_VARIABLE = new ICompositeElementType("XQUERY_GROUPING_VARIABLE", XQueryGroupingVariablePsiImpl.class);
 
     IElementType STRING_CONCAT_EXPR = new ICompositeElementType("XQUERY_STRING_CONCAT_EXPR", XQueryStringConcatExprPsiImpl.class);
     IElementType SIMPLE_MAP_EXPR = new ICompositeElementType("XQUERY_SIMPLE_MAP_EXPR", XQuerySimpleMapExprPsiImpl.class);
