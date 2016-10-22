@@ -1359,6 +1359,9 @@ class XQueryParser {
         return false;
     }
 
+    // endregion
+    // region Grammar :: Expr :: FLWORExpr :: ForClause
+
     private boolean parseForClause() {
         final PsiBuilder.Marker forClauseMarker = mark();
         if (matchTokenType(XQueryTokenType.K_FOR)) {
@@ -1469,6 +1472,9 @@ class XQueryParser {
         return false;
     }
 
+    // endregion
+    // region Grammar :: Expr :: FLWORExpr :: LetClause
+
     private boolean parseLetClause() {
         final PsiBuilder.Marker letClauseMarker = mark();
         if (matchTokenType(XQueryTokenType.K_LET)) {
@@ -1533,6 +1539,9 @@ class XQueryParser {
         return false;
     }
 
+    // endregion
+    // region Grammar :: Expr :: FLWORExpr :: CountClause
+
     private boolean parseCountClause() {
         final PsiBuilder.Marker countClauseMarker = matchTokenTypeWithMarker(XQueryTokenType.K_COUNT);
         if (countClauseMarker != null) {
@@ -1555,6 +1564,9 @@ class XQueryParser {
         return false;
     }
 
+    // endregion
+    // region Grammar :: Expr :: FLWORExpr :: WhereClause
+
     private boolean parseWhereClause() {
         final PsiBuilder.Marker whereClauseMarker = matchTokenTypeWithMarker(XQueryTokenType.K_WHERE);
         if (whereClauseMarker != null) {
@@ -1568,6 +1580,9 @@ class XQueryParser {
         }
         return false;
     }
+
+    // endregion
+    // region Grammar :: Expr :: FLWORExpr :: OrderByClause
 
     private boolean parseOrderByClause() {
         final PsiBuilder.Marker orderByClauseMarker = mark();
