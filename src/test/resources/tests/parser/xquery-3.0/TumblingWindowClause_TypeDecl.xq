@@ -1,0 +1,1 @@
+for tumbling window $ x as xs:integer in $ y start when true ( ) return $ x

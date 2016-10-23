@@ -1336,7 +1336,7 @@ class XQueryParser {
     }
 
     private boolean parseInitialClause() {
-        return parseForClause() || parseLetClause();
+        return parseForOrWindowClause() || parseLetClause();
     }
 
     private boolean parseIntermediateClause() {
@@ -1364,28 +1364,38 @@ class XQueryParser {
         return false;
     }
 
-    // endregion
-    // region Grammar :: Expr :: FLWORExpr :: ForClause
-
-    private boolean parseForClause() {
-        final PsiBuilder.Marker forClauseMarker = mark();
-        if (matchTokenType(XQueryTokenType.K_FOR)) {
-            boolean isFirst = true;
-            do {
-                parseWhiteSpaceAndCommentTokens();
-                if (!parseForBinding(isFirst) && isFirst) {
-                    forClauseMarker.rollbackTo();
-                    return false;
-                }
-
-                isFirst = false;
-                parseWhiteSpaceAndCommentTokens();
-            } while (matchTokenType(XQueryTokenType.COMMA));
+    private boolean parseForOrWindowClause() {
+        final PsiBuilder.Marker forClauseMarker = matchTokenTypeWithMarker(XQueryTokenType.K_FOR);
+        if (forClauseMarker != null) {
+            parseWhiteSpaceAndCommentTokens();
+            if (parseForClause()) {
+                //
+            } else if (parseTumblingWindowClause()) {
+                //
+            } else {
+                forClauseMarker.rollbackTo();
+                return false;
+            }
 
             forClauseMarker.done(XQueryElementType.FOR_CLAUSE);
             return true;
         }
-        forClauseMarker.drop();
+        return false;
+    }
+
+    // endregion
+    // region Grammar :: Expr :: FLWORExpr :: ForClause
+
+    private boolean parseForClause() {
+        if (parseForBinding(true)) {
+            parseWhiteSpaceAndCommentTokens();
+            while (matchTokenType(XQueryTokenType.COMMA)) {
+                parseWhiteSpaceAndCommentTokens();
+                parseForBinding(false);
+                parseWhiteSpaceAndCommentTokens();
+            }
+            return true;
+        }
         return false;
     }
 
@@ -1394,7 +1404,7 @@ class XQueryParser {
 
         boolean haveErrors = false;
         boolean matched = matchTokenType(XQueryTokenType.VARIABLE_INDICATOR);
-        if (!matched) {
+        if (!matched && !isFirst) {
             error(XQueryBundle.message("parser.error.expected", "$"));
             haveErrors = true;
         }
@@ -1541,6 +1551,74 @@ class XQueryParser {
             return true;
         }
         letBindingMarker.drop();
+        return false;
+    }
+
+    // endregion
+    // region Grammar :: Expr :: FLWORExpr :: WindowClause
+
+    private boolean parseTumblingWindowClause() {
+        final PsiBuilder.Marker tumblingWindowClauseMarker = matchTokenTypeWithMarker(XQueryTokenType.K_TUMBLING);
+        if (tumblingWindowClauseMarker != null) {
+            boolean haveErrors = false;
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_WINDOW)) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "window"));
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.VARIABLE_INDICATOR) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", "$"));
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseEQName(XQueryElementType.VAR_NAME) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-eqname"));
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            boolean haveTypeDeclaration = parseTypeDeclaration();
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_IN) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-keyword", haveTypeDeclaration ? "in" : "as, in"));
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseExprSingle() && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-expression"));
+                haveErrors = true;
+            }
+
+            // TODO: WindowStartCondition
+            parseWhiteSpaceAndCommentTokens();
+            if (matchTokenType(XQueryTokenType.K_START)) {
+                // TODO: WindowVars
+
+                parseWhiteSpaceAndCommentTokens();
+                if (!matchTokenType(XQueryTokenType.K_WHEN) && !haveErrors) {
+                    error(XQueryBundle.message("parser.error.expected-keyword", "when"));
+                    haveErrors = true;
+                }
+
+                parseWhiteSpaceAndCommentTokens();
+                if (!parseExprSingle() && !haveErrors) {
+                    error(XQueryBundle.message("parser.error.expected-expression"));
+                }
+            } else if (!haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", "WindowStartCondition"));
+            }
+
+            // TODO: WindowEndCondition?
+
+            tumblingWindowClauseMarker.done(XQueryElementType.TUMBLING_WINDOW_CLAUSE);
+            return true;
+        }
         return false;
     }
 
