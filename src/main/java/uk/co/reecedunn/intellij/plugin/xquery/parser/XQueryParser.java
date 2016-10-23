@@ -1594,28 +1594,38 @@ class XQueryParser {
                 haveErrors = true;
             }
 
-            // TODO: WindowStartCondition
             parseWhiteSpaceAndCommentTokens();
-            if (matchTokenType(XQueryTokenType.K_START)) {
-                // TODO: WindowVars
-
-                parseWhiteSpaceAndCommentTokens();
-                if (!matchTokenType(XQueryTokenType.K_WHEN) && !haveErrors) {
-                    error(XQueryBundle.message("parser.error.expected-keyword", "when"));
-                    haveErrors = true;
-                }
-
-                parseWhiteSpaceAndCommentTokens();
-                if (!parseExprSingle() && !haveErrors) {
-                    error(XQueryBundle.message("parser.error.expected-expression"));
-                }
-            } else if (!haveErrors) {
+            if (!parseWindowStartCondition() && !haveErrors) {
                 error(XQueryBundle.message("parser.error.expected", "WindowStartCondition"));
             }
 
             // TODO: WindowEndCondition?
 
             tumblingWindowClauseMarker.done(XQueryElementType.TUMBLING_WINDOW_CLAUSE);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseWindowStartCondition() {
+        final PsiBuilder.Marker windowStartConditionMarker = matchTokenTypeWithMarker(XQueryTokenType.K_START);
+        if (windowStartConditionMarker != null) {
+            boolean haveErrors = false;
+
+            // TODO: WindowVars
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_WHEN)) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "when"));
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseExprSingle() && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-expression"));
+            }
+
+            windowStartConditionMarker.done(XQueryElementType.WINDOW_START_CONDITION);
             return true;
         }
         return false;

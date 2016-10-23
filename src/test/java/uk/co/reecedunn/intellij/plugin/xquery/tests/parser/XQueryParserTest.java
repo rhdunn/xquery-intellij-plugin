@@ -5904,6 +5904,30 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region XQuery 3.0 :: WindowStartCondition
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-WindowStartCondition")
+    public void testWindowStartCondition() {
+        final String expected = loadResource("tests/parser/xquery-3.0/TumblingWindowClause.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/TumblingWindowClause.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-WindowStartCondition")
+    public void testWindowStartCondition_MissingWhenKeyword() {
+        final String expected = loadResource("tests/parser/xquery-3.0/WindowStartCondition_MissingWhenKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/WindowStartCondition_MissingWhenKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-WindowStartCondition")
+    public void testWindowStartCondition_MissingExpr() {
+        final String expected = loadResource("tests/parser/xquery-3.0/WindowStartCondition_MissingExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/WindowStartCondition_MissingExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region XQuery 3.0 :: CountClause
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-CountClause")
