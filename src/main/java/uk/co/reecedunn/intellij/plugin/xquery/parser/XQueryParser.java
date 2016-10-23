@@ -1369,16 +1369,15 @@ class XQueryParser {
         if (forClauseMarker != null) {
             parseWhiteSpaceAndCommentTokens();
             if (parseForClause()) {
-                //
+                forClauseMarker.done(XQueryElementType.FOR_CLAUSE);
+                return true;
             } else if (parseTumblingWindowClause()) {
-                //
+                forClauseMarker.done(XQueryElementType.WINDOW_CLAUSE);
+                return true;
             } else {
                 forClauseMarker.rollbackTo();
                 return false;
             }
-
-            forClauseMarker.done(XQueryElementType.FOR_CLAUSE);
-            return true;
         }
         return false;
     }

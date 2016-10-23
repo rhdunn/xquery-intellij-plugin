@@ -2,7 +2,7 @@ FileElement[FILE(0:72)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:72)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:72)]
          XQueryFLWORExprImpl[XQUERY_FLWOR_EXPR(0:72)]
-            XQueryForClauseImpl[XQUERY_FOR_CLAUSE(0:62)]
+            XQueryWindowClauseImpl[XQUERY_WINDOW_CLAUSE(0:62)]
                LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_FOR(0:3)]('for')
                PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
                XQueryTumblingWindowClauseImpl[XQUERY_TUMBLING_WINDOW_CLAUSE(4:62)]

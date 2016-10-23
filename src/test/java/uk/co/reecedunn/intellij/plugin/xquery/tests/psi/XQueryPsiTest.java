@@ -877,8 +877,8 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testTumblingWindowClause() {
         final ASTNode node = parseResource("tests/parser/xquery-3.0/TumblingWindowClause.xq");
 
-        XQueryForClause forClausePsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryForClause.class);
-        XQueryTumblingWindowClause tumblingWindowClausePsi = PsiNavigation.findChildrenByClass(forClausePsi, XQueryTumblingWindowClause.class).get(0);
+        XQueryWindowClause windowClausePsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryWindowClause.class);
+        XQueryTumblingWindowClause tumblingWindowClausePsi = PsiNavigation.findChildrenByClass(windowClausePsi, XQueryTumblingWindowClause.class).get(0);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)tumblingWindowClausePsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
