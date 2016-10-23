@@ -5928,6 +5928,44 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region XQuery 3.0 :: WindowEndCondition
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-WindowEndCondition")
+    public void testWindowEndCondition() {
+        final String expected = loadResource("tests/parser/xquery-3.0/WindowEndCondition.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/WindowEndCondition.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-WindowEndCondition")
+    public void testWindowEndCondition_MissingWhenKeyword() {
+        final String expected = loadResource("tests/parser/xquery-3.0/WindowEndCondition_MissingWhenKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/WindowEndCondition_MissingWhenKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-WindowEndCondition")
+    public void testWindowEndCondition_MissingExpr() {
+        final String expected = loadResource("tests/parser/xquery-3.0/WindowEndCondition_MissingExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/WindowEndCondition_MissingExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-WindowEndCondition")
+    public void testWindowEndCondition_Only() {
+        final String expected = loadResource("tests/parser/xquery-3.0/WindowEndCondition_Only.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/WindowEndCondition_Only.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-WindowEndCondition")
+    public void testWindowEndCondition_Only_MissingEndKeyword() {
+        final String expected = loadResource("tests/parser/xquery-3.0/WindowEndCondition_Only_MissingEndKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/WindowEndCondition_Only_MissingEndKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region XQuery 3.0 :: WindowVars
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-WindowVars")

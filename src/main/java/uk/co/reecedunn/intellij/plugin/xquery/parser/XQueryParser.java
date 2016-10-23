@@ -1599,7 +1599,8 @@ class XQueryParser {
                 error(XQueryBundle.message("parser.error.expected", "WindowStartCondition"));
             }
 
-            // TODO: WindowEndCondition?
+            parseWhiteSpaceAndCommentTokens();
+            parseWindowEndCondition();
 
             tumblingWindowClauseMarker.done(XQueryElementType.TUMBLING_WINDOW_CLAUSE);
             return true;
@@ -1627,6 +1628,42 @@ class XQueryParser {
             }
 
             windowStartConditionMarker.done(XQueryElementType.WINDOW_START_CONDITION);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseWindowEndCondition() {
+        boolean haveErrors = false;
+
+        PsiBuilder.Marker windowEndConditionMarker = matchTokenTypeWithMarker(XQueryTokenType.K_END);
+        if (windowEndConditionMarker == null) {
+            windowEndConditionMarker = matchTokenTypeWithMarker(XQueryTokenType.K_ONLY);
+            if (windowEndConditionMarker != null) {
+                parseWhiteSpaceAndCommentTokens();
+                if (!matchTokenType(XQueryTokenType.K_END)) {
+                    error(XQueryBundle.message("parser.error.expected-keyword", "end"));
+                    haveErrors = true;
+                }
+            }
+        }
+
+        if (windowEndConditionMarker != null) {
+            parseWhiteSpaceAndCommentTokens();
+            parseWindowVars();
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_WHEN) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "when"));
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseExprSingle() && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-expression"));
+            }
+
+            windowEndConditionMarker.done(XQueryElementType.WINDOW_END_CONDITION);
             return true;
         }
         return false;

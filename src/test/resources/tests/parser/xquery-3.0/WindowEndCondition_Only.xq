@@ -1,0 +1,1 @@
+for tumbling window $ x in $ y start when true ( ) only end when false ( ) return $ x
