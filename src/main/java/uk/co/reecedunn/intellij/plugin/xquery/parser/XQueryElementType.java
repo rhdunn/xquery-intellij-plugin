@@ -215,6 +215,7 @@ public interface XQueryElementType {
     IElementType WINDOW_VARS = new ICompositeElementType("XQUERY_WINDOW_VARS", XQueryWindowVarsPsiImpl.class);
     IElementType CURRENT_ITEM = new ICompositeElementType("XQUERY_CURRENT_ITEM", XQueryCurrentItemPsiImpl.class);
     IElementType PREVIOUS_ITEM = new ICompositeElementType("XQUERY_PREVIOUS_ITEM", XQueryPreviousItemPsiImpl.class);
+    IElementType NEXT_ITEM = new ICompositeElementType("XQUERY_NEXT_ITEM", XQueryNextItemPsiImpl.class);
 
     IElementType GROUP_BY_CLAUSE = new ICompositeElementType("XQUERY_GROUP_BY_CLAUSE", XQueryGroupByClausePsiImpl.class);
     IElementType GROUPING_SPEC_LIST = new ICompositeElementType("XQUERY_GROUPING_SPEC_LIST", XQueryGroupingSpecListPsiImpl.class);

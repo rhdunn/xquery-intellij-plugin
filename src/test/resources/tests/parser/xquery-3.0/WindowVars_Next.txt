@@ -49,7 +49,7 @@ FileElement[FILE(0:70)]
                         PsiWhiteSpaceImpl[WHITE_SPACE(41:42)](' ')
                         LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(42:43)]('$')
                         PsiWhiteSpaceImpl[WHITE_SPACE(43:44)](' ')
-                        XQueryEQNameImpl[XQUERY_EQNAME(44:46)]
+                        XQueryNextItemImpl[XQUERY_NEXT_ITEM(44:46)]
                            LeafPsiElement[XQUERY_NCNAME_TOKEN(44:45)]('a')
                            PsiWhiteSpaceImpl[WHITE_SPACE(45:46)](' ')
                      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_WHEN(46:50)]('when')
