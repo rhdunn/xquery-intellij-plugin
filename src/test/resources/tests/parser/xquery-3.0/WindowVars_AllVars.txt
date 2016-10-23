@@ -47,7 +47,7 @@ FileElement[FILE(0:94)]
                      XQueryWindowVarsImpl[XQUERY_WINDOW_VARS(37:70)]
                         LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(37:38)]('$')
                         PsiWhiteSpaceImpl[WHITE_SPACE(38:39)](' ')
-                        XQueryEQNameImpl[XQUERY_EQNAME(39:41)]
+                        XQueryCurrentItemImpl[XQUERY_CURRENT_ITEM(39:41)]
                            LeafPsiElement[XQUERY_NCNAME_TOKEN(39:40)]('a')
                            PsiWhiteSpaceImpl[WHITE_SPACE(40:41)](' ')
                         XQueryPositionalVarImpl[XQUERY_POSITIONAL_VAR(41:48)]

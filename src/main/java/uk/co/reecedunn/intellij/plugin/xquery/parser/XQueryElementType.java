@@ -213,6 +213,7 @@ public interface XQueryElementType {
     IElementType TUMBLING_WINDOW_CLAUSE = new ICompositeElementType("XQUERY_TUMBLING_WINDOW_CLAUSE", XQueryTumblingWindowClausePsiImpl.class);
     IElementType WINDOW_START_CONDITION = new ICompositeElementType("XQUERY_WINDOW_START_CONDITION", XQueryWindowStartConditionPsiImpl.class);
     IElementType WINDOW_VARS = new ICompositeElementType("XQUERY_WINDOW_VARS", XQueryWindowVarsPsiImpl.class);
+    IElementType CURRENT_ITEM = new ICompositeElementType("XQUERY_CURRENT_ITEM", XQueryCurrentItemPsiImpl.class);
 
     IElementType GROUP_BY_CLAUSE = new ICompositeElementType("XQUERY_GROUP_BY_CLAUSE", XQueryGroupByClausePsiImpl.class);
     IElementType GROUPING_SPEC_LIST = new ICompositeElementType("XQUERY_GROUPING_SPEC_LIST", XQueryGroupingSpecListPsiImpl.class);

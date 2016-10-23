@@ -1639,7 +1639,7 @@ class XQueryParser {
         parseWhiteSpaceAndCommentTokens();
         if (matchTokenType(XQueryTokenType.VARIABLE_INDICATOR)) {
             parseWhiteSpaceAndCommentTokens();
-            if (!parseEQName(XQueryElementType.EQNAME)) { // TODO: CurrentItem
+            if (!parseEQName(XQueryElementType.CURRENT_ITEM)) {
                 error(XQueryBundle.message("parser.error.expected-eqname"));
                 haveErrors = true;
             }
