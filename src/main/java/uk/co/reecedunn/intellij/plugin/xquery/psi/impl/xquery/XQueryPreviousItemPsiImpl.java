@@ -13,10 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
+package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
 
-/**
- * An XQuery 3.0 <code>CurrentItem</code> node in the XQuery AST.
- */
-public interface XQueryCurrentItem extends XQueryEQName {
+import com.intellij.lang.ASTNode;
+import org.jetbrains.annotations.NotNull;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPreviousItem;
+
+public class XQueryPreviousItemPsiImpl extends XQueryEQNamePsiImpl implements XQueryPreviousItem {
+    public XQueryPreviousItemPsiImpl(@NotNull ASTNode node) {
+        super(node);
+    }
 }

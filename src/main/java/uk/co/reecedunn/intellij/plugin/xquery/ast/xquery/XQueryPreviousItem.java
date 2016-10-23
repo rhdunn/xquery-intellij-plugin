@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
 /**
- * An XQuery 3.0 <code>CurrentItem</code> node in the XQuery AST.
+ * An XQuery 3.0 <code>PreviousItem</code> node in the XQuery AST.
  */
-public interface XQueryCurrentItem extends XQueryEQName {
+public interface XQueryPreviousItem extends XQueryEQName {
 }

@@ -48,7 +48,7 @@ FileElement[FILE(0:72)]
                         LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_PREVIOUS(37:45)]('previous')
                         PsiWhiteSpaceImpl[WHITE_SPACE(45:46)](' ')
                         PsiErrorElementImpl[ERROR_ELEMENT(46:46)]('XPST0003: Expected '$'.')
-                        XQueryEQNameImpl[XQUERY_EQNAME(46:48)]
+                        XQueryPreviousItemImpl[XQUERY_PREVIOUS_ITEM(46:48)]
                            LeafPsiElement[XQUERY_NCNAME_TOKEN(46:47)]('a')
                            PsiWhiteSpaceImpl[WHITE_SPACE(47:48)](' ')
                      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_WHEN(48:52)]('when')

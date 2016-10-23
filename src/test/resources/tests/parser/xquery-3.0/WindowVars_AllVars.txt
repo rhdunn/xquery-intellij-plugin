@@ -62,7 +62,7 @@ FileElement[FILE(0:94)]
                         PsiWhiteSpaceImpl[WHITE_SPACE(56:57)](' ')
                         LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(57:58)]('$')
                         PsiWhiteSpaceImpl[WHITE_SPACE(58:59)](' ')
-                        XQueryEQNameImpl[XQUERY_EQNAME(59:61)]
+                        XQueryPreviousItemImpl[XQUERY_PREVIOUS_ITEM(59:61)]
                            LeafPsiElement[XQUERY_NCNAME_TOKEN(59:60)]('c')
                            PsiWhiteSpaceImpl[WHITE_SPACE(60:61)](' ')
                         LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NEXT(61:65)]('next')
