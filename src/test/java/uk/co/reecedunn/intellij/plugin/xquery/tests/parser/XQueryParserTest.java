@@ -5928,6 +5928,86 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region XQuery 3.0 :: WindowVars
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-WindowVars")
+    public void testWindowVars_Empty() {
+        final String expected = loadResource("tests/parser/xquery-3.0/TumblingWindowClause.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/TumblingWindowClause.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-WindowVars")
+    public void testWindowVars_Current() {
+        final String expected = loadResource("tests/parser/xquery-3.0/WindowVars_Current.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/WindowVars_Current.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-WindowVars")
+    public void testWindowVars_Current_MissingVarName() {
+        final String expected = loadResource("tests/parser/xquery-3.0/WindowVars_Current_MissingVarName.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/WindowVars_Current_MissingVarName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-WindowVars")
+    public void testWindowVars_Position() {
+        final String expected = loadResource("tests/parser/xquery-3.0/WindowVars_Position.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/WindowVars_Position.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-WindowVars")
+    public void testWindowVars_Previous() {
+        final String expected = loadResource("tests/parser/xquery-3.0/WindowVars_Previous.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/WindowVars_Previous.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-WindowVars")
+    public void testWindowVars_Previous_MissingVarIndicator() {
+        final String expected = loadResource("tests/parser/xquery-3.0/WindowVars_Previous_MissingVarIndicator.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/WindowVars_Previous_MissingVarIndicator.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-WindowVars")
+    public void testWindowVars_Previous_MissingVarName() {
+        final String expected = loadResource("tests/parser/xquery-3.0/WindowVars_Previous_MissingVarName.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/WindowVars_Previous_MissingVarName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-WindowVars")
+    public void testWindowVars_Next() {
+        final String expected = loadResource("tests/parser/xquery-3.0/WindowVars_Next.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/WindowVars_Next.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-WindowVars")
+    public void testWindowVars_Next_MissingVarIndicator() {
+        final String expected = loadResource("tests/parser/xquery-3.0/WindowVars_Next_MissingVarIndicator.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/WindowVars_Next_MissingVarIndicator.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-WindowVars")
+    public void testWindowVars_Next_MissingVarName() {
+        final String expected = loadResource("tests/parser/xquery-3.0/WindowVars_Next_MissingVarName.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/WindowVars_Next_MissingVarName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-WindowVars")
+    public void testWindowVars_AllVars() {
+        final String expected = loadResource("tests/parser/xquery-3.0/WindowVars_AllVars.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/WindowVars_AllVars.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region XQuery 3.0 :: CountClause
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-CountClause")

@@ -1,0 +1,1 @@
+for tumbling window $ x in $ y start $ a at $ b previous $ c next $ d when true ( ) return $ x

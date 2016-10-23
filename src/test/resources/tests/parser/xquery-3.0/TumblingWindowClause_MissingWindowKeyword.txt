@@ -43,6 +43,7 @@ FileElement[FILE(0:54)]
                   XQueryWindowStartConditionImpl[XQUERY_WINDOW_START_CONDITION(24:44)]
                      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_START(24:29)]('start')
                      PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
+                     XQueryWindowVarsImpl[XQUERY_WINDOW_VARS(30:30)]
                      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_WHEN(30:34)]('when')
                      PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
                      XQueryOrExprImpl[XQUERY_OR_EXPR(35:44)]

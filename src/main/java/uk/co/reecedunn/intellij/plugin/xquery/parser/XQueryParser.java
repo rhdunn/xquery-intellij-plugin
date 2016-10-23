@@ -1612,7 +1612,8 @@ class XQueryParser {
         if (windowStartConditionMarker != null) {
             boolean haveErrors = false;
 
-            // TODO: WindowVars
+            parseWhiteSpaceAndCommentTokens();
+            parseWindowVars();
 
             parseWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.K_WHEN)) {
@@ -1629,6 +1630,55 @@ class XQueryParser {
             return true;
         }
         return false;
+    }
+
+    private boolean parseWindowVars() {
+        final PsiBuilder.Marker windowVarsMarker = mark();
+        boolean haveErrors = false;
+
+        parseWhiteSpaceAndCommentTokens();
+        if (matchTokenType(XQueryTokenType.VARIABLE_INDICATOR)) {
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseEQName(XQueryElementType.EQNAME)) { // TODO: CurrentItem
+                error(XQueryBundle.message("parser.error.expected-eqname"));
+                haveErrors = true;
+            }
+        }
+
+        parseWhiteSpaceAndCommentTokens();
+        parsePositionalVar();
+
+        parseWhiteSpaceAndCommentTokens();
+        if (matchTokenType(XQueryTokenType.K_PREVIOUS)) {
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.VARIABLE_INDICATOR) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", "$"));
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseEQName(XQueryElementType.EQNAME) && !haveErrors) { // TODO: PreviousItem
+                error(XQueryBundle.message("parser.error.expected-eqname"));
+                haveErrors = true;
+            }
+        }
+
+        parseWhiteSpaceAndCommentTokens();
+        if (matchTokenType(XQueryTokenType.K_NEXT)) {
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.VARIABLE_INDICATOR) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", "$"));
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseEQName(XQueryElementType.EQNAME) && !haveErrors) { // TODO: NextItem
+                error(XQueryBundle.message("parser.error.expected-eqname"));
+            }
+        }
+
+        windowVarsMarker.done(XQueryElementType.WINDOW_VARS);
+        return true;
     }
 
     // endregion
