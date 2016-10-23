@@ -1,0 +1,1 @@
+for sliding window $ x as xs:integer $ y start when true ( ) end when false ( ) return $ x

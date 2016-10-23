@@ -5904,6 +5904,86 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region XQuery 3.0 :: SlidingWindowClause
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-SlidingWindowClause")
+    public void testSlidingWindowClause() {
+        final String expected = loadResource("tests/parser/xquery-3.0/SlidingWindowClause.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/SlidingWindowClause.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-SlidingWindowClause")
+    public void testSlidingWindowClause_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-3.0/SlidingWindowClause_CompactWhitespace.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/SlidingWindowClause_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-SlidingWindowClause")
+    public void testSlidingWindowClause_MissingWindowKeyword() {
+        final String expected = loadResource("tests/parser/xquery-3.0/SlidingWindowClause_MissingWindowKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/SlidingWindowClause_MissingWindowKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-SlidingWindowClause")
+    public void testSlidingWindowClause_MissingVarIndicator() {
+        final String expected = loadResource("tests/parser/xquery-3.0/SlidingWindowClause_MissingVarIndicator.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/SlidingWindowClause_MissingVarIndicator.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-SlidingWindowClause")
+    public void testSlidingWindowClause_MissingVarName() {
+        final String expected = loadResource("tests/parser/xquery-3.0/SlidingWindowClause_MissingVarName.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/SlidingWindowClause_MissingVarName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-SlidingWindowClause")
+    public void testSlidingWindowClause_MissingInKeyword() {
+        final String expected = loadResource("tests/parser/xquery-3.0/SlidingWindowClause_MissingInKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/SlidingWindowClause_MissingInKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-SlidingWindowClause")
+    public void testSlidingWindowClause_MissingExpr() {
+        final String expected = loadResource("tests/parser/xquery-3.0/SlidingWindowClause_MissingExpr.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/SlidingWindowClause_MissingExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-SlidingWindowClause")
+    public void testSlidingWindowClause_MissingStartCondition() {
+        final String expected = loadResource("tests/parser/xquery-3.0/SlidingWindowClause_MissingStartCondition.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/SlidingWindowClause_MissingStartCondition.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-SlidingWindowClause")
+    public void testSlidingWindowClause_MissingEndCondition() {
+        final String expected = loadResource("tests/parser/xquery-3.0/SlidingWindowClause_MissingEndCondition.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/SlidingWindowClause_MissingEndCondition.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-SlidingWindowClause")
+    public void testSlidingWindowClause_TypeDecl() {
+        final String expected = loadResource("tests/parser/xquery-3.0/SlidingWindowClause_TypeDecl.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/SlidingWindowClause_TypeDecl.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-SlidingWindowClause")
+    public void testSlidingWindowClause_TypeDecl_MissingInKeyword() {
+        final String expected = loadResource("tests/parser/xquery-3.0/SlidingWindowClause_TypeDecl_MissingInKeyword.txt");
+        final ASTNode actual = parseResource("tests/parser/xquery-3.0/SlidingWindowClause_TypeDecl_MissingInKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region XQuery 3.0 :: WindowStartCondition
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-WindowStartCondition")

@@ -18,7 +18,7 @@ PhpStorm, WebStorm, PyCharm, RubyMine, AppCode, CLion, Rider, Android Studio
 
 _Supported IntelliJ Versions:_ 2016.1 - 2016.2
 
-_Supported XQuery Versions:_ XQuery 1.0
+_Supported XQuery Versions:_ 1.0, 3.0
 
 _Supported XQuery Extensions:_ Update Facility 1.0
 
@@ -28,8 +28,12 @@ _Supported XQuery Implementations:_ MarkLogic, Saxonica, W3C Specifications
 
 ### Language Support
 
-Standard conforming XQuery 1.0 syntax highlighter and parser with file encoding
-detection.
+Standard conforming XQuery syntax highlighter and parser with file encoding
+detection. Supports:
+
+*  XQuery 1.0 and 3.0 core language;
+*  XQuery Update Facility 1.0 extension;
+*  MarkLogic 6.0 to 8.0 vendor extensions.
 
 ![Syntax Highlighting](images/syntax-highlighting.png)
 

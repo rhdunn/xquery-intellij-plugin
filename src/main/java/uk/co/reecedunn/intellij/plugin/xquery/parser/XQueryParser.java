@@ -28,7 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
  *
  * This parser supports:
  *    -  XQuery 1.0
- *    -  XQuery 3.0 (Partial Support)
+ *    -  XQuery 3.0
  *    -  Update Facility 1.0
  *    -  MarkLogic 1.0-ml Extensions for MarkLogic 6.0
  *    -  MarkLogic 1.0-ml Extensions for MarkLogic 8.0
@@ -1371,7 +1371,7 @@ class XQueryParser {
             if (parseForClause()) {
                 forClauseMarker.done(XQueryElementType.FOR_CLAUSE);
                 return true;
-            } else if (parseTumblingWindowClause()) {
+            } else if (parseTumblingWindowClause() || parseSlidingWindowClause()) {
                 forClauseMarker.done(XQueryElementType.WINDOW_CLAUSE);
                 return true;
             } else {
@@ -1603,6 +1603,61 @@ class XQueryParser {
             parseWindowEndCondition();
 
             tumblingWindowClauseMarker.done(XQueryElementType.TUMBLING_WINDOW_CLAUSE);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseSlidingWindowClause() {
+        final PsiBuilder.Marker slidingWindowClauseMarker = matchTokenTypeWithMarker(XQueryTokenType.K_SLIDING);
+        if (slidingWindowClauseMarker != null) {
+            boolean haveErrors = false;
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_WINDOW)) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "window"));
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.VARIABLE_INDICATOR) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", "$"));
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseEQName(XQueryElementType.VAR_NAME) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-eqname"));
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            boolean haveTypeDeclaration = parseTypeDeclaration();
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_IN) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-keyword", haveTypeDeclaration ? "in" : "as, in"));
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseExprSingle() && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-expression"));
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseWindowStartCondition() && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", "WindowStartCondition"));
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseWindowEndCondition() && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", "WindowEndCondition"));
+            }
+
+            slidingWindowClauseMarker.done(XQueryElementType.SLIDING_WINDOW_CLAUSE);
             return true;
         }
         return false;
