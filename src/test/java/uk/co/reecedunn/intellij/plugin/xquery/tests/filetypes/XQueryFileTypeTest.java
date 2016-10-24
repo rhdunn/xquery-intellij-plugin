@@ -57,7 +57,6 @@ public class XQueryFileTypeTest extends ParsingTestCase {
         assertThat(fileType.getName(), is("XQuery"));
         assertThat(fileType.getDescription(), is("XQuery Language Support"));
         assertThat(fileType.getDefaultExtension(), is("xqy"));
-        assertThat(fileType.getIcon(), is(notNullValue()));
     }
 
     public void testDefaultEncoding() {

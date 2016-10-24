@@ -26,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
+import com.intellij.openapi.application.ApplicationInfo;
 
 import javax.swing.*;
 import java.nio.charset.Charset;
@@ -72,6 +73,8 @@ public class XQueryFileType extends LanguageFileType {
     }
 
     private static final Icon FILETYPE_ICON = IconLoader.getIcon("/icons/xquery.png");
+    private static final Icon FILETYPE_ICON_163 = IconLoader.getIcon("/icons/xquery-163.png");
+
     private static final XQueryLexer sEncodingLexer = new XQueryLexer();
 
     // xq;xqy;xquery -- standard defined extensions
@@ -106,6 +109,10 @@ public class XQueryFileType extends LanguageFileType {
 
     @Override
     public Icon getIcon() {
+        if (ApplicationInfo.getInstance().getBuild().getBaselineVersion() >= 163) {
+            return FILETYPE_ICON_163;
+        }
+
         return FILETYPE_ICON;
     }
 
