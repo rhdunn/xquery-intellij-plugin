@@ -19,6 +19,7 @@ import com.intellij.lexer.LexerBase;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.EmptyStackException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
@@ -1128,10 +1129,10 @@ public class XQueryLexer extends LexerBase {
     @Override
     public final void advance() {
         mTokenRange.flush();
-        if (mStates.isEmpty()) {
-            mState = STATE_DEFAULT;
-        } else {
+        try {
             mState = mStates.peek();
+        } catch (EmptyStackException e) {
+            mState = STATE_DEFAULT;
         }
         switch (mState) {
             case STATE_DEFAULT:
