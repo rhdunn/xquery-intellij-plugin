@@ -81,11 +81,14 @@ public class XQueryEQNamePsiImpl extends ASTWrapperPsiElement implements XQueryE
         IElementType parent = getParent().getNode().getElementType();
         if (parent == XQueryElementType.FUNCTION_CALL ||
             parent == XQueryElementType.NAMED_FUNCTION_REF) {
-            int eqnameStart = getTextOffset();
-            return new PsiReference[] {
-                new XQueryEQNamePrefixReference(this, prefix.getTextRange().shiftRight(-eqnameStart)),
-                new XQueryFunctionNameReference(this, getLocalName().getTextRange().shiftRight(-eqnameStart))
-            };
+            PsiElement localName = getLocalName();
+            if (localName != null) {
+                int eqnameStart = getTextOffset();
+                return new PsiReference[]{
+                    new XQueryEQNamePrefixReference(this, prefix.getTextRange().shiftRight(-eqnameStart)),
+                    new XQueryFunctionNameReference(this, getLocalName().getTextRange().shiftRight(-eqnameStart))
+                };
+            }
         } else {
             PsiElement previous = getPrevSibling();
             while (previous != null && (
@@ -95,11 +98,14 @@ public class XQueryEQNamePsiImpl extends ASTWrapperPsiElement implements XQueryE
             }
 
             if (previous != null && previous.getNode().getElementType() == XQueryTokenType.VARIABLE_INDICATOR) {
-                int eqnameStart = getTextOffset();
-                return new PsiReference[] {
-                    new XQueryEQNamePrefixReference(this, prefix.getTextRange().shiftRight(-eqnameStart)),
-                    new XQueryVariableNameReference(this, getLocalName().getTextRange().shiftRight(-eqnameStart))
-                };
+                PsiElement localName = getLocalName();
+                if (localName != null) {
+                    int eqnameStart = getTextOffset();
+                    return new PsiReference[]{
+                        new XQueryEQNamePrefixReference(this, prefix.getTextRange().shiftRight(-eqnameStart)),
+                        new XQueryVariableNameReference(this, getLocalName().getTextRange().shiftRight(-eqnameStart))
+                    };
+                }
             }
         }
 
