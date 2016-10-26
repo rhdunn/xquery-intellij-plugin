@@ -66,4 +66,15 @@ public class XQueryWordsScannerTest extends TestCase {
     }
 
     // endregion
+    // region DoubleLiteral
+
+    public void testDoubleLiteral() {
+        final String testCase = "3e5 2e8";
+        List<Pair<WordOccurrence.Kind, CharSequence>> occurrences = scanWords(testCase);
+        assertThat(occurrences.size(), is(2));
+        match(occurrences.get(0), WordOccurrence.Kind.CODE, "3e5");
+        match(occurrences.get(1), WordOccurrence.Kind.CODE, "2e8");
+    }
+
+    // endregion
 }
