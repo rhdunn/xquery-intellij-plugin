@@ -35,11 +35,9 @@ public class XQueryWordsScannerTest extends TestCase {
         return occurrences.getWordOccurrrences();
     }
 
-    private void match(WordOccurrence occurrence, WordOccurrence.Kind kind, CharSequence text, int start, int end) {
+    private void match(WordOccurrence occurrence, WordOccurrence.Kind kind, CharSequence text) {
         assertThat(occurrence.getKind(), is(kind));
-        assertThat(occurrence.getBaseText(), is(text));
-        assertThat(occurrence.getStart(), is(start));
-        assertThat(occurrence.getEnd(), is(end));
+        assertThat(occurrence.getBaseText().subSequence(occurrence.getStart(), occurrence.getEnd()), is(text));
     }
 
     // endregion
@@ -49,7 +47,7 @@ public class XQueryWordsScannerTest extends TestCase {
         final String testCase = "1234";
         List<WordOccurrence> occurrences = scanWords(testCase);
         assertThat(occurrences.size(), is(1));
-        match(occurrences.get(0), WordOccurrence.Kind.CODE, testCase, 0, 4);
+        match(occurrences.get(0), WordOccurrence.Kind.CODE, "1234");
     }
 
     // endregion
