@@ -119,4 +119,16 @@ public class XQueryWordsScannerTest extends TestCase {
     }
 
     // endregion
+    // region NCName
+
+    public void testNCName() {
+        final String testCase = "Lorem ipsum dolor";
+        List<Pair<WordOccurrence.Kind, CharSequence>> occurrences = scanWords(testCase);
+        assertThat(occurrences.size(), is(3));
+        match(occurrences.get(0), WordOccurrence.Kind.CODE, "Lorem");
+        match(occurrences.get(1), WordOccurrence.Kind.CODE, "ipsum");
+        match(occurrences.get(2), WordOccurrence.Kind.CODE, "dolor");
+    }
+
+    // endregion
 }
