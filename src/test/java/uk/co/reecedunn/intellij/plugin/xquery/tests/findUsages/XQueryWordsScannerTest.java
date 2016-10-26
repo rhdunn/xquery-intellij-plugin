@@ -42,7 +42,7 @@ public class XQueryWordsScannerTest extends TestCase {
     }
 
     // endregion
-    // region IntegerLiteral
+    // region Code :: IntegerLiteral
 
     public void testIntegerLiteral() {
         final String testCase = "1234 56789";
@@ -53,7 +53,7 @@ public class XQueryWordsScannerTest extends TestCase {
     }
 
     // endregion
-    // region DecimalLiteral
+    // region Code :: DecimalLiteral
 
     public void testDecimalLiteral() {
         final String testCase = "1.25 2.4";
@@ -66,7 +66,7 @@ public class XQueryWordsScannerTest extends TestCase {
     }
 
     // endregion
-    // region DoubleLiteral
+    // region Code :: DoubleLiteral
 
     public void testDoubleLiteral() {
         final String testCase = "3e5 2e8";
@@ -77,43 +77,7 @@ public class XQueryWordsScannerTest extends TestCase {
     }
 
     // endregion
-    // region StringLiteral
-
-    public void testStringLiteral() {
-        final String testCase = "\"Lorem ipsum dolor\"";
-        List<Pair<WordOccurrence.Kind, CharSequence>> occurrences = scanWords(testCase);
-        assertThat(occurrences.size(), is(3));
-        match(occurrences.get(0), WordOccurrence.Kind.LITERALS, "Lorem");
-        match(occurrences.get(1), WordOccurrence.Kind.LITERALS, "ipsum");
-        match(occurrences.get(2), WordOccurrence.Kind.LITERALS, "dolor");
-    }
-
-    // endregion
-    // region Comment
-
-    public void testXQueryComment() {
-        final String testCase = "(: Lorem ipsum dolor :)";
-        List<Pair<WordOccurrence.Kind, CharSequence>> occurrences = scanWords(testCase);
-        assertThat(occurrences.size(), is(3));
-        match(occurrences.get(0), WordOccurrence.Kind.COMMENTS, "Lorem");
-        match(occurrences.get(1), WordOccurrence.Kind.COMMENTS, "ipsum");
-        match(occurrences.get(2), WordOccurrence.Kind.COMMENTS, "dolor");
-    }
-
-    // endregion
-    // region XML Comment
-
-    public void testXmlComment() {
-        final String testCase = "<!-- Lorem ipsum dolor -->";
-        List<Pair<WordOccurrence.Kind, CharSequence>> occurrences = scanWords(testCase);
-        assertThat(occurrences.size(), is(3));
-        match(occurrences.get(0), WordOccurrence.Kind.COMMENTS, "Lorem");
-        match(occurrences.get(1), WordOccurrence.Kind.COMMENTS, "ipsum");
-        match(occurrences.get(2), WordOccurrence.Kind.COMMENTS, "dolor");
-    }
-
-    // endregion
-    // region Keywords
+    // region Code :: Keywords
 
     public void testKeywords() {
         final String testCase = "for $item in $nodes return $item";
@@ -131,7 +95,7 @@ public class XQueryWordsScannerTest extends TestCase {
     }
 
     // endregion
-    // region NCName
+    // region Code :: NCName
 
     public void testNCName() {
         final String testCase = "Lorem ipsum dolor";
@@ -140,6 +104,42 @@ public class XQueryWordsScannerTest extends TestCase {
         match(occurrences.get(0), WordOccurrence.Kind.CODE, "Lorem");
         match(occurrences.get(1), WordOccurrence.Kind.CODE, "ipsum");
         match(occurrences.get(2), WordOccurrence.Kind.CODE, "dolor");
+    }
+
+    // endregion
+    // region Comments :: XQuery Comment
+
+    public void testXQueryComment() {
+        final String testCase = "(: Lorem ipsum dolor :)";
+        List<Pair<WordOccurrence.Kind, CharSequence>> occurrences = scanWords(testCase);
+        assertThat(occurrences.size(), is(3));
+        match(occurrences.get(0), WordOccurrence.Kind.COMMENTS, "Lorem");
+        match(occurrences.get(1), WordOccurrence.Kind.COMMENTS, "ipsum");
+        match(occurrences.get(2), WordOccurrence.Kind.COMMENTS, "dolor");
+    }
+
+    // endregion
+    // region Comments :: XML Comment
+
+    public void testXmlComment() {
+        final String testCase = "<!-- Lorem ipsum dolor -->";
+        List<Pair<WordOccurrence.Kind, CharSequence>> occurrences = scanWords(testCase);
+        assertThat(occurrences.size(), is(3));
+        match(occurrences.get(0), WordOccurrence.Kind.COMMENTS, "Lorem");
+        match(occurrences.get(1), WordOccurrence.Kind.COMMENTS, "ipsum");
+        match(occurrences.get(2), WordOccurrence.Kind.COMMENTS, "dolor");
+    }
+
+    // endregion
+    // region Literals :: StringLiteral
+
+    public void testStringLiteral() {
+        final String testCase = "\"Lorem ipsum dolor\"";
+        List<Pair<WordOccurrence.Kind, CharSequence>> occurrences = scanWords(testCase);
+        assertThat(occurrences.size(), is(3));
+        match(occurrences.get(0), WordOccurrence.Kind.LITERALS, "Lorem");
+        match(occurrences.get(1), WordOccurrence.Kind.LITERALS, "ipsum");
+        match(occurrences.get(2), WordOccurrence.Kind.LITERALS, "dolor");
     }
 
     // endregion
