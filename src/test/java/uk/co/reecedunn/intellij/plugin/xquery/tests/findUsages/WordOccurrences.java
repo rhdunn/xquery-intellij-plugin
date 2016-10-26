@@ -13,15 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.findUsages;
+package uk.co.reecedunn.intellij.plugin.xquery.tests.findUsages;
 
-import com.intellij.lang.cacheBuilder.DefaultWordsScanner;
-import com.intellij.psi.tree.TokenSet;
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer;
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
+import com.intellij.lang.cacheBuilder.WordOccurrence;
+import com.intellij.util.Processor;
 
-public class XQueryWordsScanner extends DefaultWordsScanner {
-    public XQueryWordsScanner() {
-        super(new XQueryLexer(), TokenSet.EMPTY, XQueryTokenType.COMMENT_TOKENS, XQueryTokenType.STRING_LITERAL_TOKENS);
+import java.util.ArrayList;
+import java.util.List;
+
+public class WordOccurrences implements Processor<WordOccurrence> {
+    private List<WordOccurrence> mWordOccurrences = new ArrayList<>();
+
+    public List<WordOccurrence> getWordOccurrrences() {
+        return mWordOccurrences;
+    }
+
+    @Override
+    public boolean process(WordOccurrence wordOccurrence) {
+        mWordOccurrences.add(wordOccurrence);
+        return true;
     }
 }
