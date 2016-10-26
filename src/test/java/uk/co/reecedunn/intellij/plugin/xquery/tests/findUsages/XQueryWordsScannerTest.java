@@ -58,11 +58,9 @@ public class XQueryWordsScannerTest extends TestCase {
     public void testDecimalLiteral() {
         final String testCase = "1.25 2.4";
         List<Pair<WordOccurrence.Kind, CharSequence>> occurrences = scanWords(testCase);
-        assertThat(occurrences.size(), is(4));
-        match(occurrences.get(0), WordOccurrence.Kind.CODE, "1");
-        match(occurrences.get(1), WordOccurrence.Kind.CODE, "25");
-        match(occurrences.get(2), WordOccurrence.Kind.CODE, "2");
-        match(occurrences.get(3), WordOccurrence.Kind.CODE, "4");
+        assertThat(occurrences.size(), is(2));
+        match(occurrences.get(0), WordOccurrence.Kind.CODE, "1.25");
+        match(occurrences.get(1), WordOccurrence.Kind.CODE, "2.4");
     }
 
     // endregion
@@ -82,16 +80,13 @@ public class XQueryWordsScannerTest extends TestCase {
     public void testKeywords() {
         final String testCase = "for $item in $nodes return $item";
         List<Pair<WordOccurrence.Kind, CharSequence>> occurrences = scanWords(testCase);
-        assertThat(occurrences.size(), is(9));
+        assertThat(occurrences.size(), is(6));
         match(occurrences.get(0), WordOccurrence.Kind.CODE, "for");
-        match(occurrences.get(1), WordOccurrence.Kind.CODE, "$");
-        match(occurrences.get(2), WordOccurrence.Kind.CODE, "item");
-        match(occurrences.get(3), WordOccurrence.Kind.CODE, "in");
-        match(occurrences.get(4), WordOccurrence.Kind.CODE, "$");
-        match(occurrences.get(5), WordOccurrence.Kind.CODE, "nodes");
-        match(occurrences.get(6), WordOccurrence.Kind.CODE, "return");
-        match(occurrences.get(7), WordOccurrence.Kind.CODE, "$");
-        match(occurrences.get(8), WordOccurrence.Kind.CODE, "item");
+        match(occurrences.get(1), WordOccurrence.Kind.CODE, "item");
+        match(occurrences.get(2), WordOccurrence.Kind.CODE, "in");
+        match(occurrences.get(3), WordOccurrence.Kind.CODE, "nodes");
+        match(occurrences.get(4), WordOccurrence.Kind.CODE, "return");
+        match(occurrences.get(5), WordOccurrence.Kind.CODE, "item");
     }
 
     // endregion
