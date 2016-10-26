@@ -53,4 +53,17 @@ public class XQueryWordsScannerTest extends TestCase {
     }
 
     // endregion
+    // region DecimalLiteral
+
+    public void testDecimalLiteral() {
+        final String testCase = "1.25 2.4";
+        List<Pair<WordOccurrence.Kind, CharSequence>> occurrences = scanWords(testCase);
+        assertThat(occurrences.size(), is(4));
+        match(occurrences.get(0), WordOccurrence.Kind.CODE, "1");
+        match(occurrences.get(1), WordOccurrence.Kind.CODE, "25");
+        match(occurrences.get(2), WordOccurrence.Kind.CODE, "2");
+        match(occurrences.get(3), WordOccurrence.Kind.CODE, "4");
+    }
+
+    // endregion
 }
