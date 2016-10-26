@@ -143,4 +143,18 @@ public class XQueryWordsScannerTest extends TestCase {
     }
 
     // endregion
+    // region Literals :: DirAttributeValue
+
+    public void testDirAttributeValue() {
+        final String testCase = "<test value=\"Lorem ipsum dolor\"/>";
+        List<Pair<WordOccurrence.Kind, CharSequence>> occurrences = scanWords(testCase);
+        assertThat(occurrences.size(), is(5));
+        match(occurrences.get(0), WordOccurrence.Kind.CODE, "test");
+        match(occurrences.get(1), WordOccurrence.Kind.CODE, "value");
+        match(occurrences.get(2), WordOccurrence.Kind.LITERALS, "Lorem");
+        match(occurrences.get(3), WordOccurrence.Kind.LITERALS, "ipsum");
+        match(occurrences.get(4), WordOccurrence.Kind.LITERALS, "dolor");
+    }
+
+    // endregion
 }

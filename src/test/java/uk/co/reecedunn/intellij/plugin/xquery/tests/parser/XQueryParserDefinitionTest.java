@@ -65,8 +65,9 @@ public class XQueryParserDefinitionTest extends ParserTestCase {
     public void testStringLiteralElements() {
         ParserDefinition parserDefinition = new XQueryParserDefinition();
         TokenSet tokens = parserDefinition.getStringLiteralElements();
-        assertThat(tokens.getTypes().length, is(1));
+        assertThat(tokens.getTypes().length, is(2));
         assertThat(tokens.contains(XQueryTokenType.STRING_LITERAL_CONTENTS), is(true));
+        assertThat(tokens.contains(XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS), is(true));
     }
 
     @SuppressWarnings("ThrowableResultOfMethodCallIgnored")
