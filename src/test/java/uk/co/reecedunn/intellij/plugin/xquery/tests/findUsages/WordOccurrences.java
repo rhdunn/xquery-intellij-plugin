@@ -16,21 +16,25 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.findUsages;
 
 import com.intellij.lang.cacheBuilder.WordOccurrence;
+import com.intellij.openapi.util.Pair;
 import com.intellij.util.Processor;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class WordOccurrences implements Processor<WordOccurrence> {
-    private List<WordOccurrence> mWordOccurrences = new ArrayList<>();
+    private List<Pair<WordOccurrence.Kind, CharSequence>> mWordOccurrences = new ArrayList<>();
 
-    public List<WordOccurrence> getWordOccurrrences() {
+    public List<Pair<WordOccurrence.Kind, CharSequence>> getWordOccurrrences() {
         return mWordOccurrences;
     }
 
     @Override
-    public boolean process(WordOccurrence wordOccurrence) {
-        mWordOccurrences.add(wordOccurrence);
+    public boolean process(WordOccurrence occurrence) {
+        Pair<WordOccurrence.Kind, CharSequence> value = new Pair<>(
+            occurrence.getKind(),
+            occurrence.getBaseText().subSequence(occurrence.getStart(), occurrence.getEnd()));
+        mWordOccurrences.add(value);
         return true;
     }
 }

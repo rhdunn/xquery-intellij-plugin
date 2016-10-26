@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.findUsages;
 
 import com.intellij.lang.cacheBuilder.WordOccurrence;
 import com.intellij.lang.cacheBuilder.WordsScanner;
+import com.intellij.openapi.util.Pair;
 import junit.framework.TestCase;
 import uk.co.reecedunn.intellij.plugin.xquery.findUsages.XQueryWordsScanner;
 
@@ -28,16 +29,16 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class XQueryWordsScannerTest extends TestCase {
     // region Test Helpers
 
-    private List<WordOccurrence> scanWords(CharSequence text) {
+    private List<Pair<WordOccurrence.Kind, CharSequence>> scanWords(CharSequence text) {
         WordsScanner scanner = new XQueryWordsScanner();
         WordOccurrences occurrences = new WordOccurrences();
         scanner.processWords(text, occurrences);
         return occurrences.getWordOccurrrences();
     }
 
-    private void match(WordOccurrence occurrence, WordOccurrence.Kind kind, CharSequence text) {
-        assertThat(occurrence.getKind(), is(kind));
-        assertThat(occurrence.getBaseText().subSequence(occurrence.getStart(), occurrence.getEnd()), is(text));
+    private void match(Pair<WordOccurrence.Kind, CharSequence> occurrence, WordOccurrence.Kind kind, CharSequence text) {
+        assertThat(occurrence.getFirst(), is(kind));
+        assertThat(occurrence.getSecond(), is(text));
     }
 
     // endregion
@@ -45,7 +46,7 @@ public class XQueryWordsScannerTest extends TestCase {
 
     public void testIntegerLiteral() {
         final String testCase = "1234";
-        List<WordOccurrence> occurrences = scanWords(testCase);
+        List<Pair<WordOccurrence.Kind, CharSequence>> occurrences = scanWords(testCase);
         assertThat(occurrences.size(), is(1));
         match(occurrences.get(0), WordOccurrence.Kind.CODE, "1234");
     }
