@@ -101,4 +101,22 @@ public class XQueryWordsScannerTest extends TestCase {
     }
 
     // endregion
+    // region Keywords
+
+    public void testKeywords() {
+        final String testCase = "for $item in $nodes return $item";
+        List<Pair<WordOccurrence.Kind, CharSequence>> occurrences = scanWords(testCase);
+        assertThat(occurrences.size(), is(9));
+        match(occurrences.get(0), WordOccurrence.Kind.CODE, "for");
+        match(occurrences.get(1), WordOccurrence.Kind.CODE, "$");
+        match(occurrences.get(2), WordOccurrence.Kind.CODE, "item");
+        match(occurrences.get(3), WordOccurrence.Kind.CODE, "in");
+        match(occurrences.get(4), WordOccurrence.Kind.CODE, "$");
+        match(occurrences.get(5), WordOccurrence.Kind.CODE, "nodes");
+        match(occurrences.get(6), WordOccurrence.Kind.CODE, "return");
+        match(occurrences.get(7), WordOccurrence.Kind.CODE, "$");
+        match(occurrences.get(8), WordOccurrence.Kind.CODE, "item");
+    }
+
+    // endregion
 }
