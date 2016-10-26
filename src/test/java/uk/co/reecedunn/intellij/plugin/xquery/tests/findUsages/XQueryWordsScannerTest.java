@@ -101,6 +101,27 @@ public class XQueryWordsScannerTest extends TestCase {
         match(occurrences.get(2), WordOccurrence.Kind.CODE, "dolor");
     }
 
+    public void testNCName_SpecialCharacters() {
+        final String testCase = "a2b a-b a.b a\u00B7b";
+        List<Pair<WordOccurrence.Kind, CharSequence>> occurrences = scanWords(testCase);
+        assertThat(occurrences.size(), is(4));
+        match(occurrences.get(0), WordOccurrence.Kind.CODE, "a2b");
+        match(occurrences.get(1), WordOccurrence.Kind.CODE, "a-b");
+        match(occurrences.get(2), WordOccurrence.Kind.CODE, "a.b");
+        match(occurrences.get(3), WordOccurrence.Kind.CODE, "a\u00B7b");
+    }
+
+    public void testNCName_SpecialCharactersAtStart() {
+        final String testCase = "2ab -ab .ab \u00B7ab";
+        List<Pair<WordOccurrence.Kind, CharSequence>> occurrences = scanWords(testCase);
+        assertThat(occurrences.size(), is(5));
+        match(occurrences.get(0), WordOccurrence.Kind.CODE, "2");
+        match(occurrences.get(1), WordOccurrence.Kind.CODE, "ab");
+        match(occurrences.get(2), WordOccurrence.Kind.CODE, "ab");
+        match(occurrences.get(3), WordOccurrence.Kind.CODE, "ab");
+        match(occurrences.get(4), WordOccurrence.Kind.CODE, "ab");
+    }
+
     // endregion
     // region Comments :: XQuery Comment
 

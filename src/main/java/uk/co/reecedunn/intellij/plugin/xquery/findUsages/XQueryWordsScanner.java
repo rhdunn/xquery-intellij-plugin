@@ -68,6 +68,12 @@ public class XQueryWordsScanner implements WordsScanner {
                     return processor.process(mOccurrence);
                 }
                 return true;
+            case CharacterClass.DIGIT:
+            case CharacterClass.DOT:
+            case CharacterClass.HYPHEN_MINUS:
+            case CharacterClass.NAME_CHAR:
+                mRange.match();
+                break;
             default:
                 if (inWord) {
                     mOccurrence.init(mRange.getBufferSequence(), mRange.getStart(), mRange.getEnd(), kind);
