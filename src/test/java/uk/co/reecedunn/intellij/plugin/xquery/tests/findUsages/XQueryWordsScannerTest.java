@@ -45,10 +45,11 @@ public class XQueryWordsScannerTest extends TestCase {
     // region IntegerLiteral
 
     public void testIntegerLiteral() {
-        final String testCase = "1234";
+        final String testCase = "1234 56789";
         List<Pair<WordOccurrence.Kind, CharSequence>> occurrences = scanWords(testCase);
-        assertThat(occurrences.size(), is(1));
+        assertThat(occurrences.size(), is(2));
         match(occurrences.get(0), WordOccurrence.Kind.CODE, "1234");
+        match(occurrences.get(1), WordOccurrence.Kind.CODE, "56789");
     }
 
     // endregion
