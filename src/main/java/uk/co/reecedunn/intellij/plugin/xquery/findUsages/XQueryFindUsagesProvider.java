@@ -16,24 +16,18 @@
 package uk.co.reecedunn.intellij.plugin.xquery.findUsages;
 
 import com.intellij.lang.HelpID;
-import com.intellij.lang.cacheBuilder.DefaultWordsScanner;
 import com.intellij.lang.cacheBuilder.WordsScanner;
 import com.intellij.lang.findUsages.FindUsagesProvider;
-import com.intellij.lexer.Lexer;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiNamedElement;
-import com.intellij.psi.tree.TokenSet;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer;
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 
 public class XQueryFindUsagesProvider implements FindUsagesProvider {
     @Nullable
     @Override
     public WordsScanner getWordsScanner() {
-        Lexer lexer = new XQueryLexer();
-        return new DefaultWordsScanner(lexer, TokenSet.EMPTY, XQueryTokenType.COMMENT_TOKENS, XQueryTokenType.STRING_LITERAL_TOKENS);
+        return new XQueryWordsScanner();
     }
 
     @Override
