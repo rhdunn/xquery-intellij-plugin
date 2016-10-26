@@ -276,14 +276,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_XQUERY = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_XQUERY");
     IXQueryKeywordOrNCNameType K_ZERO_DIGIT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ZERO_DIGIT"); // XQuery 3.0
 
-    TokenSet STRING_LITERAL_TOKENS = TokenSet.create(
-        STRING_LITERAL_START,
-        STRING_LITERAL_CONTENTS,
-        STRING_LITERAL_END,
-        ESCAPED_CHARACTER,
-        CHARACTER_REFERENCE,
-        PREDEFINED_ENTITY_REFERENCE,
-        PARTIAL_ENTITY_REFERENCE);
+    TokenSet STRING_LITERAL_TOKENS = TokenSet.create(STRING_LITERAL_CONTENTS);
 
     TokenSet COMMENT_TOKENS = TokenSet.create(COMMENT, XML_COMMENT);
 }
