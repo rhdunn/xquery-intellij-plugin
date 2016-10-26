@@ -77,4 +77,16 @@ public class XQueryWordsScannerTest extends TestCase {
     }
 
     // endregion
+    // region StringLiteral
+
+    public void testStringLiteral() {
+        final String testCase = "\"Lorem ipsum dolor\"";
+        List<Pair<WordOccurrence.Kind, CharSequence>> occurrences = scanWords(testCase);
+        assertThat(occurrences.size(), is(3));
+        match(occurrences.get(0), WordOccurrence.Kind.LITERALS, "Lorem");
+        match(occurrences.get(1), WordOccurrence.Kind.LITERALS, "ipsum");
+        match(occurrences.get(2), WordOccurrence.Kind.LITERALS, "dolor");
+    }
+
+    // endregion
 }
