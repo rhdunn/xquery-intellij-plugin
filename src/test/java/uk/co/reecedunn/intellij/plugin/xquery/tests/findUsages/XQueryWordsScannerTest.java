@@ -91,8 +91,20 @@ public class XQueryWordsScannerTest extends TestCase {
     // endregion
     // region Comment
 
-    public void testComment() {
+    public void testXQueryComment() {
         final String testCase = "(: Lorem ipsum dolor :)";
+        List<Pair<WordOccurrence.Kind, CharSequence>> occurrences = scanWords(testCase);
+        assertThat(occurrences.size(), is(3));
+        match(occurrences.get(0), WordOccurrence.Kind.COMMENTS, "Lorem");
+        match(occurrences.get(1), WordOccurrence.Kind.COMMENTS, "ipsum");
+        match(occurrences.get(2), WordOccurrence.Kind.COMMENTS, "dolor");
+    }
+
+    // endregion
+    // region XML Comment
+
+    public void testXmlComment() {
+        final String testCase = "<!-- Lorem ipsum dolor -->";
         List<Pair<WordOccurrence.Kind, CharSequence>> occurrences = scanWords(testCase);
         assertThat(occurrences.size(), is(3));
         match(occurrences.get(0), WordOccurrence.Kind.COMMENTS, "Lorem");
