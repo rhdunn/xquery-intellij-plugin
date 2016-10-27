@@ -16,11 +16,25 @@
 package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
 
 import com.intellij.lang.ASTNode;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiNamedElement;
+import com.intellij.util.IncorrectOperationException;
+import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryNCName;
 
-public class XQueryNCNamePsiImpl extends XQueryEQNamePsiImpl implements XQueryNCName {
+public class XQueryNCNamePsiImpl extends XQueryEQNamePsiImpl implements XQueryNCName, PsiNamedElement {
     public XQueryNCNamePsiImpl(@NotNull ASTNode node) {
         super(node);
+    }
+
+    @Override
+    public String getName() {
+        return getFirstChild().getText();
+    }
+
+    @Override
+    public PsiElement setName(@NonNls @NotNull String name) throws IncorrectOperationException {
+        return this;
     }
 }
