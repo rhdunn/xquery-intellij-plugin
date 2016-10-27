@@ -24,7 +24,7 @@ public class ByteSequence implements CharSequence {
         this(data, 0, data.length);
     }
 
-    public ByteSequence(byte[] data, int offset, int length) {
+    private ByteSequence(byte[] data, int offset, int length) {
         mData = data;
         mOffset = offset;
         mLength = length;
