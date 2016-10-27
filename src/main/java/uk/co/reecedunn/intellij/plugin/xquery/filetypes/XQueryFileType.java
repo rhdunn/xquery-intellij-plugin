@@ -35,43 +35,6 @@ import java.nio.charset.UnsupportedCharsetException;
 public class XQueryFileType extends LanguageFileType {
     private static final Charset UTF_8 = Charset.forName("UTF-8");
 
-    private class ByteSequence implements CharSequence {
-        private final byte[] mData;
-        private final int mOffset;
-        private final int mLength;
-
-        public ByteSequence(byte[] data) {
-            this(data, 0, data.length);
-        }
-
-        public ByteSequence(byte[] data, int offset, int length) {
-            mData = data;
-            mOffset = offset;
-            mLength = length;
-        }
-
-        @Override
-        public int length() {
-            return mLength;
-        }
-
-        @Override
-        public char charAt(int index) {
-            return (char)(mData[mOffset + index] & 0xFF);
-        }
-
-        @Override
-        public CharSequence subSequence(int start, int end) {
-            return new ByteSequence(mData, start, end - start);
-        }
-
-        @Override
-        @SuppressWarnings("NullableProblems") // jacoco Code Coverage reports an unchecked branch when @NotNull is used.
-        public String toString() {
-            return new String(mData, mOffset, mLength);
-        }
-    }
-
     private static final Icon FILETYPE_ICON = IconLoader.getIcon("/icons/xquery.png");
     private static final Icon FILETYPE_ICON_163 = IconLoader.getIcon("/icons/xquery-163.png");
 
