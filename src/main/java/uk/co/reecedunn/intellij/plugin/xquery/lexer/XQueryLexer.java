@@ -41,8 +41,10 @@ public class XQueryLexer extends LexerBase {
     }
 
     private void popState() {
-        if (!mStates.empty()) {
+        try {
             mStates.pop();
+        } catch (EmptyStackException e) {
+            //
         }
     }
 
