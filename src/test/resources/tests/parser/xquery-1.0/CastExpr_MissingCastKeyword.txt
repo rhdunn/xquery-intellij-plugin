@@ -27,6 +27,8 @@ FileElement[FILE(0:15)]
                                           PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
                                           XQuerySingleTypeImpl[XQUERY_SINGLE_TYPE(6:15)]
                                              XQuerySimpleTypeNameImpl[XQUERY_SIMPLE_TYPE_NAME(6:15)]
-                                                LeafPsiElement[XQUERY_NCNAME_TOKEN(6:8)]('xs')
+                                                XQueryNCNameImpl[XQUERY_NCNAME(6:8)]
+                                                   LeafPsiElement[XQUERY_NCNAME_TOKEN(6:8)]('xs')
                                                 LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(8:9)](':')
-                                                LeafPsiElement[XQUERY_NCNAME_TOKEN(9:15)]('double')
+                                                XQueryNCNameImpl[XQUERY_NCNAME(9:15)]
+                                                   LeafPsiElement[XQUERY_NCNAME_TOKEN(9:15)]('double')

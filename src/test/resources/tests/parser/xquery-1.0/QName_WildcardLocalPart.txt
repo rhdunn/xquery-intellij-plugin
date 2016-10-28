@@ -7,7 +7,8 @@ FileElement[FILE(0:29)]
             LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_OPTION(8:14)]('option')
             PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
             XQueryQNameImpl[XQUERY_QNAME(15:21)]
-               LeafPsiElement[XQUERY_NCNAME_TOKEN(15:19)]('sort')
+               XQueryNCNameImpl[XQUERY_NCNAME(15:19)]
+                  LeafPsiElement[XQUERY_NCNAME_TOKEN(15:19)]('sort')
                LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(19:20)](':')
                PsiErrorElementImpl[ERROR_ELEMENT(20:21)]('XPST0003: Wildcard local name after ':' in qualified name.')
                   LeafPsiElement[XQUERY_STAR_TOKEN(20:21)]('*')

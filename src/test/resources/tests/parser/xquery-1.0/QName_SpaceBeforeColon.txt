@@ -7,11 +7,13 @@ FileElement[FILE(0:31)]
             LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_OPTION(8:14)]('option')
             PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
             XQueryQNameImpl[XQUERY_QNAME(15:23)]
-               LeafPsiElement[XQUERY_NCNAME_TOKEN(15:18)]('one')
+               XQueryNCNameImpl[XQUERY_NCNAME(15:18)]
+                  LeafPsiElement[XQUERY_NCNAME_TOKEN(15:18)]('one')
                PsiErrorElementImpl[ERROR_ELEMENT(18:19)]('XPST0003: Whitespace is not allowed before ':' in a qualified name.')
                   PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
                LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(19:20)](':')
-               LeafPsiElement[XQUERY_NCNAME_TOKEN(20:23)]('two')
+               XQueryNCNameImpl[XQUERY_NCNAME(20:23)]
+                  LeafPsiElement[XQUERY_NCNAME_TOKEN(20:23)]('two')
             PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
             XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(24:30)]
                LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(24:25)]('"')

@@ -23,9 +23,9 @@ FileElement[FILE(0:27)]
                                                                   XQueryAnnotationImpl[XQUERY_ANNOTATION(0:9)]
                                                                      LeafPsiElement[XQUERY_ANNOTATION_INDICATOR_TOKEN(0:1)]('%')
                                                                      PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
-                                                                     XQueryNCNameImpl[XQUERY_NCNAME(2:9)]
+                                                                     XQueryNCNameImpl[XQUERY_NCNAME(2:8)]
                                                                         LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_PUBLIC(2:8)]('public')
-                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
+                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
                                                                   LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_FUNCTION(9:17)]('function')
                                                                   PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
                                                                   LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(18:19)]('(')

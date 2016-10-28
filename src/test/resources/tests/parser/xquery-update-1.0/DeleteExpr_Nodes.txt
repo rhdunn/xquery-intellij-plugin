@@ -29,4 +29,5 @@ FileElement[FILE(0:16)]
                                                                         LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(13:14)]('$')
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
                                                                         XQueryVarNameImpl[XQUERY_VAR_NAME(15:16)]
-                                                                           LeafPsiElement[XQUERY_NCNAME_TOKEN(15:16)]('x')
+                                                                           XQueryNCNameImpl[XQUERY_NCNAME(15:16)]
+                                                                              LeafPsiElement[XQUERY_NCNAME_TOKEN(15:16)]('x')

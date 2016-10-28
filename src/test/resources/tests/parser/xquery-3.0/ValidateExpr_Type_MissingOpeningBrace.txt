@@ -21,9 +21,11 @@ FileElement[FILE(0:33)]
                                                       LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_TYPE(9:13)]('type')
                                                       PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
                                                       XQueryTypeNameImpl[XQUERY_TYPE_NAME(14:24)]
-                                                         LeafPsiElement[XQUERY_NCNAME_TOKEN(14:16)]('xs')
+                                                         XQueryNCNameImpl[XQUERY_NCNAME(14:16)]
+                                                            LeafPsiElement[XQUERY_NCNAME_TOKEN(14:16)]('xs')
                                                          LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(16:17)](':')
-                                                         LeafPsiElement[XQUERY_NCNAME_TOKEN(17:24)]('boolean')
+                                                         XQueryNCNameImpl[XQUERY_NCNAME(17:24)]
+                                                            LeafPsiElement[XQUERY_NCNAME_TOKEN(17:24)]('boolean')
                                                       PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
                                                       PsiErrorElementImpl[ERROR_ELEMENT(25:25)]('XPST0003: Expected '{'.')
                                                       XQueryExprImpl[XQUERY_EXPR(25:32)]

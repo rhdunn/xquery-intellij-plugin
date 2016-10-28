@@ -124,7 +124,7 @@ public class XQueryEQNamePsiImpl extends ASTWrapperPsiElement implements XQueryE
 
         PsiElement match = null;
         while (element != null) {
-            if (element.getNode().getElementType() instanceof INCNameType) {
+            if (element.getNode().getElementType() == XQueryElementType.NCNAME) {
                 match = element;
             } else if (QNAME_SEPARATORS.contains(element.getNode().getElementType())) {
                 return match;
@@ -144,14 +144,15 @@ public class XQueryEQNamePsiImpl extends ASTWrapperPsiElement implements XQueryE
             }
 
             while (element != null) {
-                if (element.getNode().getElementType() instanceof INCNameType) {
+                if (element.getNode().getElementType() instanceof INCNameType ||
+                    element.getNode().getElementType() == XQueryElementType.NCNAME) {
                     return element;
                 }
                 element = element.getNextSibling();
             }
         } else { // QName
             while (element != null) {
-                if (element.getNode().getElementType() instanceof INCNameType) {
+                if (element.getNode().getElementType() == XQueryElementType.NCNAME) {
                     return element;
                 }
                 element = element.getNextSibling();

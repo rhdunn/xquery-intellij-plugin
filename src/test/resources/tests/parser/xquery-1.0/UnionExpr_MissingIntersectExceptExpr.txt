@@ -23,9 +23,9 @@ FileElement[FILE(0:13)]
                                                                   XQueryAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:2)]
                                                                      XQueryNodeTestImpl[XQUERY_NODE_TEST(0:2)]
                                                                         XQueryNameTestImpl[XQUERY_NAME_TEST(0:2)]
-                                                                           XQueryNCNameImpl[XQUERY_NCNAME(0:2)]
+                                                                           XQueryNCNameImpl[XQUERY_NCNAME(0:1)]
                                                                               LeafPsiElement[XQUERY_NCNAME_TOKEN(0:1)]('a')
-                                                                              PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+                                                                           PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
                                                                XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(2:2)]
                                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_UNION(2:7)]('union')
                                  PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
@@ -54,9 +54,9 @@ FileElement[FILE(0:13)]
                                                                   XQueryAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(10:12)]
                                                                      XQueryNodeTestImpl[XQUERY_NODE_TEST(10:12)]
                                                                         XQueryNameTestImpl[XQUERY_NAME_TEST(10:12)]
-                                                                           XQueryNCNameImpl[XQUERY_NCNAME(10:12)]
+                                                                           XQueryNCNameImpl[XQUERY_NCNAME(10:11)]
                                                                               LeafPsiElement[XQUERY_NCNAME_TOKEN(10:11)]('a')
-                                                                              PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
+                                                                           PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
                                                                XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(12:12)]
                                  LeafPsiElement[XQUERY_UNION_TOKEN(12:13)]('|')
                                  PsiErrorElementImpl[ERROR_ELEMENT(13:13)]('XPST0003: Expected 'IntersectExceptExpr'.')

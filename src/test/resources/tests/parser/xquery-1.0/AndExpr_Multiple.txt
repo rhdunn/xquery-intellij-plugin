@@ -23,9 +23,9 @@ FileElement[FILE(0:13)]
                                                                   XQueryAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:2)]
                                                                      XQueryNodeTestImpl[XQUERY_NODE_TEST(0:2)]
                                                                         XQueryNameTestImpl[XQUERY_NAME_TEST(0:2)]
-                                                                           XQueryNCNameImpl[XQUERY_NCNAME(0:2)]
+                                                                           XQueryNCNameImpl[XQUERY_NCNAME(0:1)]
                                                                               LeafPsiElement[XQUERY_NCNAME_TOKEN(0:1)]('a')
-                                                                              PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+                                                                           PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
                                                                XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(2:2)]
                LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_AND(2:5)]('and')
                PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
@@ -49,9 +49,9 @@ FileElement[FILE(0:13)]
                                                                   XQueryAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(6:8)]
                                                                      XQueryNodeTestImpl[XQUERY_NODE_TEST(6:8)]
                                                                         XQueryNameTestImpl[XQUERY_NAME_TEST(6:8)]
-                                                                           XQueryNCNameImpl[XQUERY_NCNAME(6:8)]
+                                                                           XQueryNCNameImpl[XQUERY_NCNAME(6:7)]
                                                                               LeafPsiElement[XQUERY_NCNAME_TOKEN(6:7)]('b')
-                                                                              PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+                                                                           PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
                                                                XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(8:8)]
                LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_AND(8:11)]('and')
                PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')

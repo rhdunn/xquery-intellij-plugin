@@ -23,7 +23,9 @@ FileElement[FILE(0:4)]
                                                                   XQueryDirElemConstructorImpl[XQUERY_DIR_ELEM_CONSTRUCTOR(0:4)]
                                                                      LeafPsiElement[XQUERY_OPEN_XML_TAG_TOKEN(0:1)]('<')
                                                                      XQueryQNameImpl[XQUERY_QNAME(1:4)]
-                                                                        LeafPsiElement[XQUERY_XML_TAG_NCNAME_TOKEN(1:2)]('a')
+                                                                        XQueryNCNameImpl[XQUERY_NCNAME(1:2)]
+                                                                           LeafPsiElement[XQUERY_XML_TAG_NCNAME_TOKEN(1:2)]('a')
                                                                         LeafPsiElement[XQUERY_XML_TAG_QNAME_SEPARATOR_TOKEN(2:3)](':')
-                                                                        LeafPsiElement[XQUERY_XML_TAG_NCNAME_TOKEN(3:4)]('b')
+                                                                        XQueryNCNameImpl[XQUERY_NCNAME(3:4)]
+                                                                           LeafPsiElement[XQUERY_XML_TAG_NCNAME_TOKEN(3:4)]('b')
                                                                      PsiErrorElementImpl[ERROR_ELEMENT(4:4)]('XPST0003: Expected '>', '/>' or attribute name.')

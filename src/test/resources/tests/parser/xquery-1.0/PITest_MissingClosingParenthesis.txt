@@ -10,7 +10,8 @@ FileElement[FILE(0:61)]
                LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(17:18)]('$')
                PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
                XQueryVarNameImpl[XQUERY_VAR_NAME(19:23)]
-                  LeafPsiElement[XQUERY_NCNAME_TOKEN(19:22)]('one')
+                  XQueryNCNameImpl[XQUERY_NCNAME(19:22)]
+                     LeafPsiElement[XQUERY_NCNAME_TOKEN(19:22)]('one')
                   PsiWhiteSpaceImpl[WHITE_SPACE(22:23)](' ')
                XQueryTypeDeclarationImpl[XQUERY_TYPE_DECLARATION(23:60)]
                   LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_AS(23:25)]('as')
@@ -22,9 +23,9 @@ FileElement[FILE(0:61)]
                            PsiWhiteSpaceImpl[WHITE_SPACE(48:49)](' ')
                            LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(49:50)]('(')
                            PsiWhiteSpaceImpl[WHITE_SPACE(50:51)](' ')
-                           XQueryNCNameImpl[XQUERY_NCNAME(51:60)]
+                           XQueryNCNameImpl[XQUERY_NCNAME(51:59)]
                               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(51:59)]('external')
-                              PsiWhiteSpaceImpl[WHITE_SPACE(59:60)](' ')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(59:60)](' ')
                            PsiErrorElementImpl[ERROR_ELEMENT(60:60)]('XPST0003: Expected ')'.')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(60:61)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(61:61)]('XPST0003: Missing query body.')

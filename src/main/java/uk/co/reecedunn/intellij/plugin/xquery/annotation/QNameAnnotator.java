@@ -30,6 +30,8 @@ public class QNameAnnotator implements Annotator {
     @Override
     public void annotate(@NotNull PsiElement element, @NotNull AnnotationHolder holder) {
         if (!(element instanceof XQueryEQName)) return;
+        if (element.getParent() instanceof XQueryEQName) return;
+
         XQueryEQName qname = (XQueryEQName)element;
 
         boolean xmlns = false;
@@ -60,6 +62,11 @@ public class QNameAnnotator implements Annotator {
             } else if (localname.getNode().getElementType() instanceof IXQueryKeywordOrNCNameType) {
                 holder.createInfoAnnotation(localname, null).setEnforcedTextAttributes(TextAttributes.ERASE_MARKER);
                 holder.createInfoAnnotation(localname, null).setTextAttributes(SyntaxHighlighter.IDENTIFIER);
+            } else if (localname instanceof XQueryNCName) {
+                if (((XQueryNCName)localname).getLocalName().getNode().getElementType() instanceof IXQueryKeywordOrNCNameType) {
+                    holder.createInfoAnnotation(localname, null).setEnforcedTextAttributes(TextAttributes.ERASE_MARKER);
+                    holder.createInfoAnnotation(localname, null).setTextAttributes(SyntaxHighlighter.IDENTIFIER);
+                }
             }
         }
     }

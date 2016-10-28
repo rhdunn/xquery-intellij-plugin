@@ -21,9 +21,11 @@ FileElement[FILE(0:15)]
                                                             XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:15)]
                                                                XQueryFunctionCallImpl[XQUERY_FUNCTION_CALL(0:15)]
                                                                   XQueryQNameImpl[XQUERY_QNAME(0:8)]
-                                                                     LeafPsiElement[XQUERY_NCNAME_TOKEN(0:4)]('math')
+                                                                     XQueryNCNameImpl[XQUERY_NCNAME(0:4)]
+                                                                        LeafPsiElement[XQUERY_NCNAME_TOKEN(0:4)]('math')
                                                                      LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(4:5)](':')
-                                                                     LeafPsiElement[XQUERY_NCNAME_TOKEN(5:8)]('pow')
+                                                                     XQueryNCNameImpl[XQUERY_NCNAME(5:8)]
+                                                                        LeafPsiElement[XQUERY_NCNAME_TOKEN(5:8)]('pow')
                                                                   PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
                                                                   XQueryArgumentListImpl[XQUERY_ARGUMENT_LIST(9:15)]
                                                                      LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(9:10)]('(')

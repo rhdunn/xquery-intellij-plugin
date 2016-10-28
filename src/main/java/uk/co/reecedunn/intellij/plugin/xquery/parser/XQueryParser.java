@@ -5270,10 +5270,16 @@ class XQueryParser {
         final PsiBuilder.Marker qnameMarker = mark();
         boolean isWildcard = getTokenType() == XQueryTokenType.STAR;
         if (getTokenType() instanceof INCNameType || isWildcard) {
-            if (isWildcard && type != XQueryElementType.WILDCARD) {
-                error(XQueryBundle.message("parser.error.unexpected-wildcard"));
+            if (isWildcard) {
+                if (type != XQueryElementType.WILDCARD) {
+                    error(XQueryBundle.message("parser.error.unexpected-wildcard"));
+                }
+                advanceLexer();
+            } else {
+                final PsiBuilder.Marker ncnameMarker = mark();
+                advanceLexer();
+                ncnameMarker.done(XQueryElementType.NCNAME);
             }
-            advanceLexer();
 
             final PsiBuilder.Marker beforeMarker = mark();
             if (parseWhiteSpaceAndCommentTokens() && (
@@ -5306,7 +5312,9 @@ class XQueryParser {
                 if (getTokenType() == XQueryTokenType.STRING_LITERAL_START) {
                     error(XQueryBundle.message("parser.error.qname.missing-local-name"));
                 } else if (getTokenType() instanceof INCNameType) {
+                    final PsiBuilder.Marker ncnameMarker = mark();
                     advanceLexer();
+                    ncnameMarker.done(XQueryElementType.NCNAME);
                 } else if (getTokenType() == XQueryTokenType.STAR) {
                     if (type == XQueryElementType.WILDCARD) {
                         if (isWildcard) {
@@ -5337,7 +5345,15 @@ class XQueryParser {
             } else {
                 IElementType ncname = (type == XQueryElementType.PREFIX) ? XQueryElementType.PREFIX : XQueryElementType.NCNAME;
                 if (type == XQueryElementType.WILDCARD) {
-                    qnameMarker.done(isWildcard ? XQueryElementType.WILDCARD : ncname);
+                    if (isWildcard) {
+                        qnameMarker.done(XQueryElementType.WILDCARD);
+                    } else if (ncname == XQueryElementType.NCNAME) {
+                        qnameMarker.drop(); // NCName is annotated in the above logic, so don't create nested NCName elements.
+                    } else {
+                        qnameMarker.done(ncname);
+                    }
+                } else if ((type == XQueryElementType.QNAME && ncname == XQueryElementType.NCNAME) || type == XQueryElementType.NCNAME) {
+                    qnameMarker.drop(); // NCName is annotated in the above logic, so don't create nested NCName elements.
                 } else {
                     qnameMarker.done(type == XQueryElementType.QNAME ? ncname : type);
                 }

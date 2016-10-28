@@ -29,6 +29,8 @@ FileElement[FILE(0:24)]
                                        XQuerySequenceTypeImpl[XQUERY_SEQUENCE_TYPE(15:24)]
                                           XQueryItemTypeImpl[XQUERY_ITEM_TYPE(15:24)]
                                              XQueryAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(15:24)]
-                                                LeafPsiElement[XQUERY_NCNAME_TOKEN(15:17)]('xs')
+                                                XQueryNCNameImpl[XQUERY_NCNAME(15:17)]
+                                                   LeafPsiElement[XQUERY_NCNAME_TOKEN(15:17)]('xs')
                                                 LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(17:18)](':')
-                                                LeafPsiElement[XQUERY_NCNAME_TOKEN(18:24)]('double')
+                                                XQueryNCNameImpl[XQUERY_NCNAME(18:24)]
+                                                   LeafPsiElement[XQUERY_NCNAME_TOKEN(18:24)]('double')

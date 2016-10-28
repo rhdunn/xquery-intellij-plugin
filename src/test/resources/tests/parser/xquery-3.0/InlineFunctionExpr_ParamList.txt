@@ -27,9 +27,9 @@ FileElement[FILE(0:21)]
                                                                   XQueryParamListImpl[XQUERY_PARAM_LIST(11:14)]
                                                                      XQueryParamImpl[XQUERY_PARAM(11:14)]
                                                                         LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(11:12)]('$')
-                                                                        XQueryNCNameImpl[XQUERY_NCNAME(12:14)]
+                                                                        XQueryNCNameImpl[XQUERY_NCNAME(12:13)]
                                                                            LeafPsiElement[XQUERY_NCNAME_TOKEN(12:13)]('a')
-                                                                           PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
+                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
                                                                   LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(14:15)](')')
                                                                   PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
                                                                   XQueryFunctionBodyImpl[XQUERY_FUNCTION_BODY(16:21)]

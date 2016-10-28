@@ -6,9 +6,9 @@ FileElement[FILE(0:38)]
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
             LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_OPTION(8:14)]('option')
             PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
-            XQueryNCNameImpl[XQUERY_NCNAME(15:25)]
+            XQueryNCNameImpl[XQUERY_NCNAME(15:24)]
                LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_COLLATION(15:24)]('collation')
-               PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
+            PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
             XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(25:36)]
                LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(25:26)]('"')
                LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(26:35)]('Test Case')
