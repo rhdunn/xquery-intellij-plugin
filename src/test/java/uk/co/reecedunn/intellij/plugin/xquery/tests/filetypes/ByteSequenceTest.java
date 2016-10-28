@@ -20,13 +20,14 @@ import uk.co.reecedunn.intellij.plugin.xquery.filetypes.ByteSequence;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.expectThrows;
 
 @SuppressWarnings("SameParameterValue")
 public class ByteSequenceTest extends TestCase {
     public void testConstruction() {
         byte[] data = { 0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39 };
-
         CharSequence b = new ByteSequence(data);
+
         assertThat(b.length(), is(10));
         assertThat(b.toString(), is("0123456789"));
 
@@ -36,13 +37,38 @@ public class ByteSequenceTest extends TestCase {
 
     public void testSubSequence() {
         byte[] data = { 0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39 };
-
         CharSequence b = new ByteSequence(data);
         CharSequence c = b.subSequence(2, 8);
+
         assertThat(c.length(), is(6));
         assertThat(c.toString(), is("234567"));
 
         assertThat(c.charAt(0), is('2'));
         assertThat(c.charAt(5), is('7'));
+    }
+
+    @SuppressWarnings("ThrowableResultOfMethodCallIgnored")
+    public void testCharAt_OutOfBounds() {
+        byte[] data = { 0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39 };
+        CharSequence b = new ByteSequence(data);
+
+        IndexOutOfBoundsException e1 = expectThrows(IndexOutOfBoundsException.class, () -> b.charAt(-1));
+        assertThat(e1.getMessage(), is("-1"));
+
+        IndexOutOfBoundsException e2 = expectThrows(IndexOutOfBoundsException.class, () -> b.charAt(10));
+        assertThat(e2.getMessage(), is("10"));
+    }
+
+    @SuppressWarnings("ThrowableResultOfMethodCallIgnored")
+    public void testCharAt_SubSequence_OutOfBounds() {
+        byte[] data = { 0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39 };
+        CharSequence b = new ByteSequence(data);
+        CharSequence c = b.subSequence(2, 8);
+
+        IndexOutOfBoundsException e1 = expectThrows(IndexOutOfBoundsException.class, () -> c.charAt(-1));
+        assertThat(e1.getMessage(), is("-1"));
+
+        IndexOutOfBoundsException e2 = expectThrows(IndexOutOfBoundsException.class, () -> c.charAt(6));
+        assertThat(e2.getMessage(), is("6"));
     }
 }

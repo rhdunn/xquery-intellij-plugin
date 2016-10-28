@@ -37,6 +37,10 @@ public class ByteSequence implements CharSequence {
 
     @Override
     public char charAt(int index) {
+        if (index < 0 || index >= mLength) {
+            throw new IndexOutOfBoundsException(String.valueOf(index));
+        }
+
         return (char)(mData[mOffset + index] & 0xFF);
     }
 
