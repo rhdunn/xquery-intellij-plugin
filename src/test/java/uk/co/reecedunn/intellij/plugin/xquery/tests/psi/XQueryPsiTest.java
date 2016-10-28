@@ -2502,7 +2502,7 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(eqnamePsi.getPrefix().getText(), is("Q{http://www.w3.org/2001/XMLSchema}"));
 
         assertThat(eqnamePsi.getLocalName(), is(notNullValue()));
-        assertThat(eqnamePsi.getLocalName().getNode().getElementType(), is(XQueryTokenType.NCNAME));
+        assertThat(eqnamePsi.getLocalName().getNode().getElementType(), is(XQueryElementType.NCNAME));
         assertThat(eqnamePsi.getLocalName().getText(), is("double"));
     }
 
@@ -3264,7 +3264,7 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(qnamePsi.getPrefix().getText(), is("Q{one{two}"));
 
         assertThat(qnamePsi.getLocalName(), is(notNullValue()));
-        assertThat(qnamePsi.getLocalName().getNode().getElementType(), is(XQueryTokenType.NCNAME));
+        assertThat(qnamePsi.getLocalName().getNode().getElementType(), is(XQueryElementType.NCNAME));
         assertThat(qnamePsi.getLocalName().getText(), is("three"));
     }
 

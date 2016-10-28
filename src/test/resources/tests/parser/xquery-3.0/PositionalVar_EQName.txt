@@ -22,7 +22,8 @@ FileElement[FILE(0:66)]
                               LeafPsiElement[XQUERY_BRACED_URI_LITERAL_START_TOKEN(13:15)]('Q{')
                               LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(15:43)]('http://www.example.com/test#')
                               LeafPsiElement[XQUERY_BRACED_URI_LITERAL_END_TOKEN(43:44)]('}')
-                           LeafPsiElement[XQUERY_NCNAME_TOKEN(44:48)]('name')
+                           XQueryNCNameImpl[XQUERY_NCNAME(44:48)]
+                              LeafPsiElement[XQUERY_NCNAME_TOKEN(44:48)]('name')
                   PsiWhiteSpaceImpl[WHITE_SPACE(48:49)](' ')
                   LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_IN(49:51)]('in')
                   PsiWhiteSpaceImpl[WHITE_SPACE(51:52)](' ')

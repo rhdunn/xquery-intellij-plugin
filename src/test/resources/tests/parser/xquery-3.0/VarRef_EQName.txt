@@ -28,4 +28,5 @@ FileElement[FILE(0:37)]
                                                                            LeafPsiElement[XQUERY_BRACED_URI_LITERAL_START_TOKEN(2:4)]('Q{')
                                                                            LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(4:32)]('http://www.example.com/test#')
                                                                            LeafPsiElement[XQUERY_BRACED_URI_LITERAL_END_TOKEN(32:33)]('}')
-                                                                        LeafPsiElement[XQUERY_NCNAME_TOKEN(33:37)]('name')
+                                                                        XQueryNCNameImpl[XQUERY_NCNAME(33:37)]
+                                                                           LeafPsiElement[XQUERY_NCNAME_TOKEN(33:37)]('name')

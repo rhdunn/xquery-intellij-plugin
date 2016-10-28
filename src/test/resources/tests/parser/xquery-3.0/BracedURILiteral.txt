@@ -13,7 +13,8 @@ FileElement[FILE(0:38)]
                   LeafPsiElement[BAD_CHARACTER(20:21)]('{')
                   LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(21:24)]('two')
                   LeafPsiElement[XQUERY_BRACED_URI_LITERAL_END_TOKEN(24:25)]('}')
-               LeafPsiElement[XQUERY_NCNAME_TOKEN(25:30)]('three')
+               XQueryNCNameImpl[XQUERY_NCNAME(25:30)]
+                  LeafPsiElement[XQUERY_NCNAME_TOKEN(25:30)]('three')
             PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')
             XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(31:37)]
                LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(31:32)]('"')
