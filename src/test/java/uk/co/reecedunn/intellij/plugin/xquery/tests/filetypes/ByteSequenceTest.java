@@ -45,6 +45,9 @@ public class ByteSequenceTest extends TestCase {
 
         assertThat(c.charAt(0), is('2'));
         assertThat(c.charAt(5), is('7'));
+
+        assertThat(b.subSequence(10, 10).length(), is(0));
+        assertThat(b.subSequence(10, 10).toString(), is(""));
     }
 
     public void testSubSubSequence() {
@@ -58,6 +61,24 @@ public class ByteSequenceTest extends TestCase {
 
         assertThat(d.charAt(0), is('4'));
         assertThat(d.charAt(2), is('6'));
+    }
+
+    @SuppressWarnings("ThrowableResultOfMethodCallIgnored")
+    public void testSubSequence_OutOfBounds() {
+        byte[] data = { 0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39 };
+        CharSequence b = new ByteSequence(data);
+
+        IndexOutOfBoundsException e1 = expectThrows(IndexOutOfBoundsException.class, () -> b.subSequence(-1, 0));
+        assertThat(e1.getMessage(), is("-1"));
+
+        IndexOutOfBoundsException e2 = expectThrows(IndexOutOfBoundsException.class, () -> b.subSequence(11, 11));
+        assertThat(e2.getMessage(), is("11"));
+
+        IndexOutOfBoundsException e3 = expectThrows(IndexOutOfBoundsException.class, () -> b.subSequence(0, 11));
+        assertThat(e3.getMessage(), is("11"));
+
+        IndexOutOfBoundsException e4 = expectThrows(IndexOutOfBoundsException.class, () -> b.subSequence(6, 4));
+        assertThat(e4.getMessage(), is("-2"));
     }
 
     @SuppressWarnings("ThrowableResultOfMethodCallIgnored")

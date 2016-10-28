@@ -46,7 +46,16 @@ public class ByteSequence implements CharSequence {
 
     @Override
     public CharSequence subSequence(int start, int end) {
-        return new ByteSequence(mData, mOffset + start, end - start);
+        if (start < 0 || start > mLength) {
+            throw new IndexOutOfBoundsException(String.valueOf(start));
+        }
+
+        int length = end - start;
+        if (length < 0 || length > mLength) {
+            throw new IndexOutOfBoundsException(String.valueOf(length));
+        }
+
+        return new ByteSequence(mData, mOffset + start, length);
     }
 
     @Override
