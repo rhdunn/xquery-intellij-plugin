@@ -46,7 +46,7 @@ public class ByteSequence implements CharSequence {
 
     @Override
     public CharSequence subSequence(int start, int end) {
-        return new ByteSequence(mData, start, end - start);
+        return new ByteSequence(mData, mOffset + start, end - start);
     }
 
     @Override

@@ -47,6 +47,19 @@ public class ByteSequenceTest extends TestCase {
         assertThat(c.charAt(5), is('7'));
     }
 
+    public void testSubSubSequence() {
+        byte[] data = { 0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39 };
+        CharSequence b = new ByteSequence(data);
+        CharSequence c = b.subSequence(2, 8);
+        CharSequence d = c.subSequence(2, 5);
+
+        assertThat(d.length(), is(3));
+        assertThat(d.toString(), is("456"));
+
+        assertThat(d.charAt(0), is('4'));
+        assertThat(d.charAt(2), is('6'));
+    }
+
     @SuppressWarnings("ThrowableResultOfMethodCallIgnored")
     public void testCharAt_OutOfBounds() {
         byte[] data = { 0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39 };
