@@ -50,8 +50,12 @@ public class ByteSequence implements CharSequence {
             throw new IndexOutOfBoundsException(String.valueOf(start));
         }
 
+        if (end > mLength) {
+            throw new IndexOutOfBoundsException(String.valueOf(end));
+        }
+
         int length = end - start;
-        if (length < 0 || length > mLength) {
+        if (length < 0) {
             throw new IndexOutOfBoundsException(String.valueOf(length));
         }
 

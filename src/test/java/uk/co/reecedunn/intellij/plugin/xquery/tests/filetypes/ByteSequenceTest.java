@@ -77,6 +77,9 @@ public class ByteSequenceTest extends TestCase {
         IndexOutOfBoundsException e3 = expectThrows(IndexOutOfBoundsException.class, () -> b.subSequence(0, 11));
         assertThat(e3.getMessage(), is("11"));
 
+        IndexOutOfBoundsException e5 = expectThrows(IndexOutOfBoundsException.class, () -> b.subSequence(1, 11));
+        assertThat(e5.getMessage(), is("11"));
+
         IndexOutOfBoundsException e4 = expectThrows(IndexOutOfBoundsException.class, () -> b.subSequence(6, 4));
         assertThat(e4.getMessage(), is("-2"));
     }
