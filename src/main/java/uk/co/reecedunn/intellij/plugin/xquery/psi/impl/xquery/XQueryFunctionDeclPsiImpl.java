@@ -20,6 +20,7 @@ import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryParamList;
@@ -30,9 +31,11 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.PsiNavigation;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableProvider;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 
-public class XQueryFunctionDeclPsiImpl extends ASTWrapperPsiElement implements XQueryFunctionDecl, XQueryConformanceCheck {
+public class XQueryFunctionDeclPsiImpl extends ASTWrapperPsiElement implements XQueryFunctionDecl, XQueryConformanceCheck, XQueryVariableProvider {
     public XQueryFunctionDeclPsiImpl(@NotNull ASTNode node) {
         super(node);
     }
@@ -85,5 +88,12 @@ public class XQueryFunctionDeclPsiImpl extends ASTWrapperPsiElement implements X
     public int getArity() {
         XQueryParamList params = PsiNavigation.findChildByClass(this, XQueryParamList.class);
         return params == null ? 0 : params.getArity();
+    }
+
+    @Nullable
+    @Override
+    public XQueryVariable resolveVariable(XQueryEQName name) {
+        PsiElement element = findChildByType(XQueryElementType.PARAM_LIST);
+        return element == null ? null : ((XQueryVariableProvider)element).resolveVariable(name);
     }
 }
