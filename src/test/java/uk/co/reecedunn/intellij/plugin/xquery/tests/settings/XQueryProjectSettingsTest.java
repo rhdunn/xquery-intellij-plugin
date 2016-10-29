@@ -45,7 +45,7 @@ public class XQueryProjectSettingsTest extends TestCase {
 
         assertThat(settings.getImplementationItem().getID(), is("w3c"));
         assertThat(settings.getImplementationVersionItem().getID(), is("w3c/spec"));
-        assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_0_9_MARKLOGIC).getID(), is("marklogic/v8/0.9-ml"));
+        assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_0_9_MARKLOGIC).getID(), is(nullValue()));
         assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_1_0_MARKLOGIC).getID(), is("marklogic/v8/1.0-ml"));
         assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_1_0).getID(), is("w3c/1.0"));
         assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_3_0).getID(), is("w3c/3.0"));
@@ -75,18 +75,18 @@ public class XQueryProjectSettingsTest extends TestCase {
         assertThat(settings.getImplementation(), is("marklogic"));
         assertThat(settings.getImplementationVersion(), is("marklogic/v6"));
         assertThat(settings.getXQueryVersion(), is(XQueryVersion.VERSION_0_9_MARKLOGIC));
-        assertThat(settings.getXQuery10Dialect(), is("marklogic/v6/0.9-ml"));
-        assertThat(settings.getXQuery30Dialect(), is("marklogic/v6/0.9-ml"));
-        assertThat(settings.getXQuery31Dialect(), is("marklogic/v6/0.9-ml"));
+        assertThat(settings.getXQuery10Dialect(), is("marklogic/v6/1.0"));
+        assertThat(settings.getXQuery30Dialect(), is("marklogic/v6/1.0"));
+        assertThat(settings.getXQuery31Dialect(), is("marklogic/v6/1.0"));
 
         // Setting via the bean properties updates the transient properties.
         assertThat(settings.getImplementationItem().getID(), is("marklogic"));
         assertThat(settings.getImplementationVersionItem().getID(), is("marklogic/v6"));
-        assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_0_9_MARKLOGIC).getID(), is("marklogic/v6/0.9-ml"));
+        assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_0_9_MARKLOGIC).getID(), is(nullValue()));
         assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_1_0_MARKLOGIC).getID(), is("marklogic/v6/1.0-ml"));
-        assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_1_0).getID(), is("marklogic/v6/0.9-ml"));
-        assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_3_0).getID(), is("marklogic/v6/0.9-ml"));
-        assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_3_1).getID(), is("marklogic/v6/0.9-ml"));
+        assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_1_0).getID(), is("marklogic/v6/1.0"));
+        assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_3_0).getID(), is("marklogic/v6/1.0"));
+        assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_3_1).getID(), is("marklogic/v6/1.0"));
     }
 
     public void testExportedFiles() {
@@ -119,18 +119,18 @@ public class XQueryProjectSettingsTest extends TestCase {
 
         assertThat(settings.getImplementationItem().getID(), is("marklogic"));
         assertThat(settings.getImplementationVersionItem().getID(), is("marklogic/v6"));
-        assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_0_9_MARKLOGIC).getID(), is("marklogic/v6/0.9-ml"));
+        assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_0_9_MARKLOGIC).getID(), is(nullValue()));
         assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_1_0_MARKLOGIC).getID(), is("marklogic/v6/1.0-ml"));
-        assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_1_0).getID(), is("marklogic/v6/0.9-ml"));
-        assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_3_0).getID(), is("marklogic/v6/0.9-ml"));
-        assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_3_1).getID(), is("marklogic/v6/0.9-ml"));
+        assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_1_0).getID(), is("marklogic/v6/1.0"));
+        assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_3_0).getID(), is("marklogic/v6/1.0"));
+        assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_3_1).getID(), is("marklogic/v6/1.0"));
 
         // Setting via the transient properties updates the bean properties.
         assertThat(settings.getImplementation(), is("marklogic"));
         assertThat(settings.getImplementationVersion(), is("marklogic/v6"));
-        assertThat(settings.getXQuery10Dialect(), is("marklogic/v6/0.9-ml"));
-        assertThat(settings.getXQuery30Dialect(), is("marklogic/v6/0.9-ml"));
-        assertThat(settings.getXQuery31Dialect(), is("marklogic/v6/0.9-ml"));
+        assertThat(settings.getXQuery10Dialect(), is("marklogic/v6/1.0"));
+        assertThat(settings.getXQuery30Dialect(), is("marklogic/v6/1.0"));
+        assertThat(settings.getXQuery31Dialect(), is("marklogic/v6/1.0"));
     }
 
     public void testDefaultXQueryDialectForUnsupportedXQueryVersions() {
@@ -141,7 +141,7 @@ public class XQueryProjectSettingsTest extends TestCase {
         settings.setXQuery30Dialect(null);
         settings.setXQuery31Dialect(null);
 
-        assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_0_9_MARKLOGIC).getID(), is("marklogic/v7/0.9-ml"));
+        assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_0_9_MARKLOGIC).getID(), is(nullValue()));
         assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_1_0_MARKLOGIC).getID(), is("marklogic/v7/1.0-ml"));
         assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_1_0).getID(), is("w3c/1.0"));
         assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_3_0).getID(), is("w3c/3.0"));
@@ -153,7 +153,7 @@ public class XQueryProjectSettingsTest extends TestCase {
         settings.setXQuery30Dialect("w3c/3.0");
         settings.setXQuery31Dialect("w3c/3.1");
 
-        assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_0_9_MARKLOGIC).getID(), is("marklogic/v8/0.9-ml"));
+        assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_0_9_MARKLOGIC).getID(), is(nullValue()));
         assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_1_0_MARKLOGIC).getID(), is("marklogic/v8/1.0-ml"));
         assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_1_0).getID(), is("w3c/1.0"));
         assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_3_0).getID(), is("w3c/3.0"));

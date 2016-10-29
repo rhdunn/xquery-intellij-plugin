@@ -148,11 +148,10 @@ public class ImplementationsTest extends TestCase {
 
     public void testVersion() {
         List<ImplementationItem> dialects = Implementations.getItemById("marklogic/v7").getItems(ImplementationItem.IMPLEMENTATION_DIALECT);
-        assertThat(dialects.size(), is(3));
+        assertThat(dialects.size(), is(2));
 
-        assertThat(dialects.get(0).getVersion(XQueryConformance.MINIMAL_CONFORMANCE), is(XQueryVersion.VERSION_0_9_MARKLOGIC));
-        assertThat(dialects.get(1).getVersion(XQueryConformance.MINIMAL_CONFORMANCE), is(XQueryVersion.VERSION_1_0));
-        assertThat(dialects.get(2).getVersion(XQueryConformance.MINIMAL_CONFORMANCE), is(XQueryVersion.VERSION_1_0_MARKLOGIC));
+        assertThat(dialects.get(0).getVersion(XQueryConformance.MINIMAL_CONFORMANCE), is(XQueryVersion.VERSION_1_0));
+        assertThat(dialects.get(1).getVersion(XQueryConformance.MINIMAL_CONFORMANCE), is(XQueryVersion.VERSION_1_0_MARKLOGIC));
 
         assertThat(dialects.get(0).getVersion(XQueryConformance.UPDATE_FACILITY), is(nullValue()));
         assertThat(dialects.get(0).getVersion(XQueryConformance.FULL_TEXT), is(nullValue()));
@@ -161,11 +160,10 @@ public class ImplementationsTest extends TestCase {
 
     public void testSpecification() {
         List<ImplementationItem> dialects = Implementations.getItemById("marklogic/v7").getItems(ImplementationItem.IMPLEMENTATION_DIALECT);
-        assertThat(dialects.size(), is(3));
+        assertThat(dialects.size(), is(2));
 
-        assertThat(dialects.get(0).getSpecification(XQueryConformance.MINIMAL_CONFORMANCE), is("https://www.w3.org/TR/2003/WD-xquery-20030502/"));
+        assertThat(dialects.get(0).getSpecification(XQueryConformance.MINIMAL_CONFORMANCE), is("https://www.w3.org/TR/2010/REC-xquery-20101214/"));
         assertThat(dialects.get(1).getSpecification(XQueryConformance.MINIMAL_CONFORMANCE), is("https://www.w3.org/TR/2010/REC-xquery-20101214/"));
-        assertThat(dialects.get(2).getSpecification(XQueryConformance.MINIMAL_CONFORMANCE), is("https://www.w3.org/TR/2010/REC-xquery-20101214/"));
 
         assertThat(dialects.get(0).getSpecification(XQueryConformance.UPDATE_FACILITY), is(nullValue()));
         assertThat(dialects.get(0).getSpecification(XQueryConformance.FULL_TEXT), is(nullValue()));
