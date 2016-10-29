@@ -3266,6 +3266,30 @@ public class XQueryPsiTest extends ParserTestCase {
     }
 
     // endregion
+    // region PositionalVar
+
+    public void testPositionalVar_VariableProvider() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/PositionalVar.xq");
+
+        XQueryForClause forClausePsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryForClause.class);
+        XQueryForBinding forBindingPsi = PsiNavigation.findChildByClass(forClausePsi, XQueryForBinding.class);
+        XQueryPositionalVar positionalVarPsi = PsiNavigation.findChildByClass(forBindingPsi, XQueryPositionalVar.class);
+        XQueryVarName varNamePsi = PsiNavigation.findChildByClass(positionalVarPsi, XQueryVarName.class);
+        XQueryVariableProvider provider = (XQueryVariableProvider)positionalVarPsi;
+
+        assertThat(provider.resolveVariable(null), is(nullValue()));
+
+        XQueryVariable variable = provider.resolveVariable(varNamePsi);
+        assertThat(variable, is(notNullValue()));
+
+        assertThat(variable.getVariable(), is(instanceOf(XQueryVarName.class)));
+        assertThat(variable.getVariable(), is(varNamePsi));
+
+        assertThat(variable.getDeclaration(), is(instanceOf(XQueryPositionalVar.class)));
+        assertThat(variable.getDeclaration(), is(positionalVarPsi));
+    }
+
+    // endregion
     // region Prolog
 
     public void testProlog_VarDecl() {
