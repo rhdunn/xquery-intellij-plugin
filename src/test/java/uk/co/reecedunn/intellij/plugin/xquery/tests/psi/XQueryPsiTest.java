@@ -3145,6 +3145,29 @@ public class XQueryPsiTest extends ParserTestCase {
     }
 
     // endregion
+    // region ForBinding
+
+    public void testForBinding_VariableProvider() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/ForClause.xq");
+
+        XQueryForClause forClausePsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryForClause.class);
+        XQueryForBinding forBindingPsi = PsiNavigation.findChildByClass(forClausePsi, XQueryForBinding.class);
+        XQueryVarName varNamePsi = PsiNavigation.findChildByClass(forBindingPsi, XQueryVarName.class);
+        XQueryVariableProvider provider = (XQueryVariableProvider)forBindingPsi;
+
+        assertThat(provider.resolveVariable(null), is(nullValue()));
+
+        XQueryVariable variable = provider.resolveVariable(varNamePsi);
+        assertThat(variable, is(notNullValue()));
+
+        assertThat(variable.getVariable(), is(instanceOf(XQueryVarName.class)));
+        assertThat(variable.getVariable(), is(varNamePsi));
+
+        assertThat(variable.getDeclaration(), is(instanceOf(XQueryForBinding.class)));
+        assertThat(variable.getDeclaration(), is(forBindingPsi));
+    }
+
+    // endregion
     // region FunctionDecl
 
     public void testFunctionDecl_VariableProvider() {
