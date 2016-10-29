@@ -21,7 +21,6 @@ import com.intellij.psi.PsiReference;
 import com.intellij.psi.impl.source.tree.LeafPsiElement;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.PsiNavigation;
-import uk.co.reecedunn.intellij.plugin.xquery.tests.Specification;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase;
 
 import java.util.List;
@@ -34,8 +33,6 @@ public class XQueryReferenceTest extends ParserTestCase {
     // region Files
     // region URILiteral
 
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ModuleImport")
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-URILiteral")
     public void testURILiteral_HttpUri() {
         final ASTNode node = parseResource("tests/resolve/xquery-1.0/ModuleImport_URILiteral_SameDirectory.xq");
 
@@ -58,7 +55,6 @@ public class XQueryReferenceTest extends ParserTestCase {
     // region Namespaces
     // region QName
 
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
     public void testQName() {
         final ASTNode node = parseResource("tests/resolve/xquery-1.0/ModuleDecl.xq");
 
@@ -95,7 +91,6 @@ public class XQueryReferenceTest extends ParserTestCase {
     // endregion
     // region EQName
 
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-EQName")
     public void testEQName_NCName() {
         final ASTNode node = parseResource("tests/resolve/xquery-1.0/FunctionDecl_WithNCNameReturnType.xq");
 
@@ -116,7 +111,6 @@ public class XQueryReferenceTest extends ParserTestCase {
         assertThat(refs.length, is(0));
     }
 
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-EQName")
     public void testEQName_QName() {
         final ASTNode node = parseResource("tests/resolve/xquery-1.0/FunctionDecl_WithQNameReturnType.xq");
 
@@ -151,7 +145,6 @@ public class XQueryReferenceTest extends ParserTestCase {
         assertThat(resolved.getParent().getParent(), is(instanceOf(XQueryNamespaceDecl.class)));
     }
 
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-EQName")
     public void testEQName_URIQualifiedName() {
         final ASTNode node = parseResource("tests/resolve/xquery-1.0/FunctionDecl_WithURIQualifiedNameReturnType.xq");
 
