@@ -130,6 +130,7 @@ limitations under the License.
                 <full-axis version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <module version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
             </dialect>
+            <!--
             <dialect id="saxon/PE/v9.7/3.1" name="XQuery" localized="false" default="true">
                 <minimal-conformance version="3.1" specification="https://www.w3.org/TR/2015/CR-xquery-31-20151217/" default="false"/>
                 <higher-order-function version="3.1" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
@@ -137,6 +138,7 @@ limitations under the License.
                 <full-axis version="3.1" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <module version="3.1" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
             </dialect>
+            -->
         </version>
     </implementation>
     <implementation id="saxon/EE" name="xquery.implementation.saxon.enterprise-edition" localized="true" default="false" href="http://www.saxonica.com">
@@ -181,10 +183,10 @@ limitations under the License.
                 <schema-validation version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <update-facility version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="true"/>
             </dialect>
+            <!--
             <dialect id="saxon/EE/v9.7/3.1" name="XQuery" localized="false" default="false">
                 <minimal-conformance version="3.1" specification="https://www.w3.org/TR/2015/CR-xquery-31-20151217/" default="false"/>
                 <higher-order-function version="3.1" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
-                <!-- No static-typing support -->
                 <serialization version="3.1" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <full-axis version="3.1" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <module version="3.1" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
@@ -194,7 +196,6 @@ limitations under the License.
             <dialect id="saxon/EE/v9.7/3.1-update" name="xquery.implementation.xquery-update-10" localized="true" default="true">
                 <minimal-conformance version="3.1" specification="https://www.w3.org/TR/2015/CR-xquery-31-20151217/" default="false"/>
                 <higher-order-function version="3.1" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
-                <!-- No static-typing support -->
                 <serialization version="3.1" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <full-axis version="3.1" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <module version="3.1" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
@@ -202,6 +203,7 @@ limitations under the License.
                 <schema-validation version="3.1" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <update-facility version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="true"/>
             </dialect>
+            -->
         </version>
     </implementation>
     <implementation id="w3c" name="W3C" localized="false" default="true" href="https://www.w3.org/XML/Query/">
@@ -271,6 +273,7 @@ limitations under the License.
                 <schema-validation version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <update-facility version="3.0" specification="https://www.w3.org/TR/2015/WD-xquery-update-30-20150219/" default="true"/>
             </dialect>
+            <!--
             <dialect id="w3c/3.1" name="XQuery" localized="false" default="true">
                 <minimal-conformance version="3.1" specification="https://www.w3.org/TR/2015/CR-xquery-31-20151217/" default="false"/>
                 <higher-order-function version="3.1" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
@@ -300,6 +303,7 @@ limitations under the License.
                 <schema-validation version="3.1" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <update-facility version="3.0" specification="https://www.w3.org/TR/2015/WD-xquery-update-30-20150219/" default="true"/>
             </dialect>
+            -->
         </version>
     </implementation>
 </implementations>
