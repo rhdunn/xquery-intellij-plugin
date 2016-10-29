@@ -3167,6 +3167,43 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(variable.getDeclaration(), is(forBindingPsi));
     }
 
+    public void testForBinding_PositionalVar_VariableProvider() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/PositionalVar.xq");
+
+        XQueryForClause forClausePsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryForClause.class);
+        XQueryForBinding forBindingPsi = PsiNavigation.findChildByClass(forClausePsi, XQueryForBinding.class);
+        XQueryVarName varNamePsi = PsiNavigation.findChildByClass(forBindingPsi, XQueryVarName.class);
+
+        XQueryPositionalVar positionalVarPsi = PsiNavigation.findChildByClass(forBindingPsi, XQueryPositionalVar.class);
+        XQueryVarName posVarNamePsi = PsiNavigation.findChildByClass(positionalVarPsi, XQueryVarName.class);
+
+        XQueryVariableProvider provider = (XQueryVariableProvider)forBindingPsi;
+
+        assertThat(provider.resolveVariable(null), is(nullValue()));
+
+        // bound variable
+
+        XQueryVariable variable = provider.resolveVariable(varNamePsi);
+        assertThat(variable, is(notNullValue()));
+
+        assertThat(variable.getVariable(), is(instanceOf(XQueryVarName.class)));
+        assertThat(variable.getVariable(), is(varNamePsi));
+
+        assertThat(variable.getDeclaration(), is(instanceOf(XQueryForBinding.class)));
+        assertThat(variable.getDeclaration(), is(forBindingPsi));
+
+        // positional variable
+
+        variable = provider.resolveVariable(posVarNamePsi);
+        assertThat(variable, is(notNullValue()));
+
+        assertThat(variable.getVariable(), is(instanceOf(XQueryVarName.class)));
+        assertThat(variable.getVariable(), is(posVarNamePsi));
+
+        assertThat(variable.getDeclaration(), is(instanceOf(XQueryPositionalVar.class)));
+        assertThat(variable.getDeclaration(), is(positionalVarPsi));
+    }
+
     // endregion
     // region ForClause
 
