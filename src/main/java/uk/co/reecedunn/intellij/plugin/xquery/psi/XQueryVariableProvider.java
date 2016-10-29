@@ -20,5 +20,5 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
 
 public interface XQueryVariableProvider {
     @Nullable
-    XQueryVariable resolveValiable(XQueryEQName name);
+    XQueryVariable resolveVariable(XQueryEQName name);
 }

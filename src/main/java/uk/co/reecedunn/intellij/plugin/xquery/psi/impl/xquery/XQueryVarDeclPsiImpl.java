@@ -69,7 +69,7 @@ public class XQueryVarDeclPsiImpl extends ASTWrapperPsiElement implements XQuery
 
     @Nullable
     @Override
-    public XQueryVariable resolveValiable(XQueryEQName name) {
+    public XQueryVariable resolveVariable(XQueryEQName name) {
         PsiElement varName = findChildByType(XQueryElementType.VAR_NAME);
         if (varName != null && varName.equals(name)) {
             return new XQueryVariable(varName, this);

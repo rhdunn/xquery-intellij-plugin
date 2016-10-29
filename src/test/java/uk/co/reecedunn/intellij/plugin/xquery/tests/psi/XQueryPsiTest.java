@@ -3281,9 +3281,9 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryEQName varNamePsi = PsiNavigation.findChildByClass(varDeclPsi, XQueryEQName.class);
         XQueryVariableProvider provider = (XQueryVariableProvider)annotatedDeclPsi;
 
-        assertThat(provider.resolveValiable(null), is(nullValue()));
+        assertThat(provider.resolveVariable(null), is(nullValue()));
 
-        XQueryVariable variable = provider.resolveValiable(varNamePsi);
+        XQueryVariable variable = provider.resolveVariable(varNamePsi);
         assertThat(variable, is(notNullValue()));
 
         assertThat(variable.getVariable(), is(instanceOf(XQueryEQName.class)));
@@ -3301,8 +3301,8 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryEQName functionNamePsi = PsiNavigation.findChildByClass(functionDeclPsi, XQueryEQName.class);
         XQueryVariableProvider provider = (XQueryVariableProvider)annotatedDeclPsi;
 
-        assertThat(provider.resolveValiable(null), is(nullValue()));
-        assertThat(provider.resolveValiable(functionNamePsi), is(nullValue()));
+        assertThat(provider.resolveVariable(null), is(nullValue()));
+        assertThat(provider.resolveVariable(functionNamePsi), is(nullValue()));
     }
 
     // endregion
@@ -3318,9 +3318,9 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryProlog prologPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryProlog.class);
         XQueryVariableProvider provider = (XQueryVariableProvider)prologPsi;
 
-        assertThat(provider.resolveValiable(null), is(nullValue()));
+        assertThat(provider.resolveVariable(null), is(nullValue()));
 
-        XQueryVariable variable = provider.resolveValiable(varNamePsi);
+        XQueryVariable variable = provider.resolveVariable(varNamePsi);
         assertThat(variable, is(notNullValue()));
 
         assertThat(variable.getVariable(), is(instanceOf(XQueryEQName.class)));
@@ -3340,8 +3340,8 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryProlog prologPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryProlog.class);
         XQueryVariableProvider provider = (XQueryVariableProvider)prologPsi;
 
-        assertThat(provider.resolveValiable(null), is(nullValue()));
-        assertThat(provider.resolveValiable(functionNamePsi), is(nullValue()));
+        assertThat(provider.resolveVariable(null), is(nullValue()));
+        assertThat(provider.resolveVariable(functionNamePsi), is(nullValue()));
     }
 
     // endregion
@@ -3355,9 +3355,9 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryEQName varNamePsi = PsiNavigation.findChildByClass(varDeclPsi, XQueryEQName.class);
         XQueryVariableProvider provider = (XQueryVariableProvider)varDeclPsi;
 
-        assertThat(provider.resolveValiable(null), is(nullValue()));
+        assertThat(provider.resolveVariable(null), is(nullValue()));
 
-        XQueryVariable variable = provider.resolveValiable(varNamePsi);
+        XQueryVariable variable = provider.resolveVariable(varNamePsi);
         assertThat(variable, is(notNullValue()));
 
         assertThat(variable.getVariable(), is(instanceOf(XQueryEQName.class)));

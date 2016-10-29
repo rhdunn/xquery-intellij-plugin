@@ -32,8 +32,8 @@ public class XQueryAnnotatedDeclPsiImpl extends ASTWrapperPsiElement implements 
 
     @Nullable
     @Override
-    public XQueryVariable resolveValiable(XQueryEQName name) {
+    public XQueryVariable resolveVariable(XQueryEQName name) {
         XQueryVariableProvider varDecl = findChildByType(XQueryElementType.VAR_DECL);
-        return varDecl == null ? null : varDecl.resolveValiable(name);
+        return varDecl == null ? null : varDecl.resolveVariable(name);
     }
 }

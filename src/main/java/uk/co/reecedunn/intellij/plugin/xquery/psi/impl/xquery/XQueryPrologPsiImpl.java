@@ -49,11 +49,11 @@ public class XQueryPrologPsiImpl extends ASTWrapperPsiElement implements XQueryP
 
     @Nullable
     @Override
-    public XQueryVariable resolveValiable(XQueryEQName name) {
+    public XQueryVariable resolveVariable(XQueryEQName name) {
         PsiElement element = getLastChild();
         while (element != null) {
             if (element instanceof XQueryVariableProvider) {
-                XQueryVariable resolved = ((XQueryVariableProvider)element).resolveValiable(name);
+                XQueryVariable resolved = ((XQueryVariableProvider)element).resolveVariable(name);
                 if (resolved != null) {
                     return resolved;
                 }
