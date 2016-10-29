@@ -167,4 +167,40 @@ public class XQueryReferenceTest extends ParserTestCase {
 
     // endregion
     // endregion
+    // region Variables
+    // region VarDecl
+
+    public void testVarDecl() {
+        final ASTNode node = parseResource("tests/resolve/xquery-1.0/VarDecl_WithCorrespondingVarRef.xq");
+
+        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryAnnotatedDecl.class);
+        XQueryVarDecl varDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryVarDecl.class);
+        XQueryEQName varDeclNamePsi = PsiNavigation.findChildByClass(varDeclPsi, XQueryEQName.class);
+
+        XQueryMainModule mainModulePsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryMainModule.class);
+        XQueryQueryBody queryBodyPsi = PsiNavigation.findChildByClass(mainModulePsi, XQueryQueryBody.class);
+        XQueryVarRef varRefPsi = PsiNavigation.findDirectDescendantByClass(queryBodyPsi, XQueryVarRef.class);
+        XQueryEQName varRefNamePsi = PsiNavigation.findChildByClass(varRefPsi, XQueryEQName.class);
+
+        PsiReference ref = varRefNamePsi.getReference();
+        assertThat(ref.getCanonicalText(), is("value"));
+        assertThat(ref.getVariants().length, is(0));
+
+        PsiElement resolved = ref.resolve();
+        assertThat(resolved, is(instanceOf(XQueryVarName.class)));
+        assertThat(resolved, is(varDeclNamePsi));
+
+        PsiReference[] refs = varRefNamePsi.getReferences();
+        assertThat(refs.length, is(1));
+
+        assertThat(refs[0].getCanonicalText(), is("value"));
+        assertThat(refs[0].getVariants().length, is(0));
+
+        resolved = refs[0].resolve();
+        assertThat(resolved, is(instanceOf(XQueryVarName.class)));
+        assertThat(resolved, is(varDeclNamePsi));
+    }
+
+    // endregion
+    // endregion
 }

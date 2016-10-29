@@ -17,7 +17,6 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
-import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiReference;
 import com.intellij.psi.tree.IElementType;
@@ -73,21 +72,15 @@ public class XQueryEQNamePsiImpl extends ASTWrapperPsiElement implements XQueryE
     @Override
     @SuppressWarnings("NullableProblems") // jacoco Code Coverage reports an unchecked branch when @NotNull is used.
     public PsiReference[] getReferences() {
-        PsiElement prefix = getPrefix();
-        if (prefix == null || prefix instanceof XQueryBracedURILiteral) {
-            return PsiReference.EMPTY_ARRAY;
-        }
+        PsiReference localNameRef = null;
+        int eqnameStart = getTextOffset();
 
         IElementType parent = getParent().getNode().getElementType();
         if (parent == XQueryElementType.FUNCTION_CALL ||
             parent == XQueryElementType.NAMED_FUNCTION_REF) {
             PsiElement localName = getLocalName();
             if (localName != null) {
-                int eqnameStart = getTextOffset();
-                return new PsiReference[]{
-                    new XQueryEQNamePrefixReference(this, prefix.getTextRange().shiftRight(-eqnameStart)),
-                    new XQueryFunctionNameReference(this, getLocalName().getTextRange().shiftRight(-eqnameStart))
-                };
+                localNameRef = new XQueryFunctionNameReference(this, getLocalName().getTextRange().shiftRight(-eqnameStart));
             }
         } else {
             PsiElement previous = getPrevSibling();
@@ -100,19 +93,28 @@ public class XQueryEQNamePsiImpl extends ASTWrapperPsiElement implements XQueryE
             if (previous != null && previous.getNode().getElementType() == XQueryTokenType.VARIABLE_INDICATOR) {
                 PsiElement localName = getLocalName();
                 if (localName != null) {
-                    int eqnameStart = getTextOffset();
-                    return new PsiReference[]{
-                        new XQueryEQNamePrefixReference(this, prefix.getTextRange().shiftRight(-eqnameStart)),
-                        new XQueryVariableNameReference(this, getLocalName().getTextRange().shiftRight(-eqnameStart))
-                    };
+                    localNameRef = new XQueryVariableNameReference(this, getLocalName().getTextRange().shiftRight(-eqnameStart));
                 }
             }
         }
 
-        TextRange range = prefix.getTextRange();
-        return new PsiReference[] {
-            new XQueryEQNamePrefixReference(this, new TextRange(0, range.getLength()))
-        };
+        PsiElement prefix = getPrefix();
+        if (prefix == null || prefix instanceof XQueryBracedURILiteral) { // local name only
+            if (localNameRef == null) {
+                return PsiReference.EMPTY_ARRAY;
+            }
+            return new PsiReference[]{ localNameRef };
+        } else {
+            if (localNameRef == null) {
+                return new PsiReference[]{
+                    new XQueryEQNamePrefixReference(this, prefix.getTextRange().shiftRight(-eqnameStart))
+                };
+            }
+            return new PsiReference[]{
+                new XQueryEQNamePrefixReference(this, prefix.getTextRange().shiftRight(-eqnameStart)),
+                localNameRef
+            };
+        }
     }
 
     @Override
