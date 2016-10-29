@@ -75,7 +75,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
@@ -105,7 +104,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
@@ -138,7 +136,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
@@ -199,9 +196,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
@@ -228,7 +222,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
@@ -260,7 +253,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
@@ -291,7 +283,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
@@ -321,7 +312,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
@@ -350,7 +340,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
@@ -379,7 +368,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
@@ -408,7 +396,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
@@ -729,7 +716,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(false));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
@@ -756,7 +742,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(false));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
@@ -783,7 +768,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(false));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
@@ -812,7 +796,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
@@ -838,9 +821,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
@@ -870,7 +850,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
@@ -900,7 +879,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
@@ -934,7 +912,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
@@ -966,7 +943,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
@@ -998,7 +974,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
@@ -1030,7 +1005,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
@@ -1062,7 +1036,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
@@ -1096,7 +1069,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
@@ -1128,7 +1100,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
@@ -1160,7 +1131,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
@@ -1192,7 +1162,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
@@ -1224,7 +1193,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
@@ -1258,7 +1226,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
@@ -1290,7 +1257,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
@@ -1322,7 +1288,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
@@ -1354,7 +1319,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
@@ -1386,7 +1350,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
@@ -1420,7 +1383,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
@@ -1452,7 +1414,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
@@ -1484,7 +1445,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
@@ -1516,7 +1476,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
@@ -1548,7 +1507,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
@@ -1582,7 +1540,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
@@ -1616,7 +1573,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
@@ -1645,7 +1601,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
@@ -1671,7 +1626,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
@@ -1697,7 +1651,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
@@ -1746,7 +1699,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(false));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
@@ -1772,7 +1724,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(false));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
@@ -1798,7 +1749,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(false));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
@@ -1831,7 +1781,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
@@ -1864,7 +1813,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
@@ -1895,7 +1843,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
@@ -1923,9 +1870,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
@@ -1954,7 +1898,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
@@ -1980,7 +1923,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
@@ -2009,7 +1951,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
@@ -2035,9 +1976,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
@@ -2066,7 +2004,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
@@ -2126,7 +2063,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
@@ -2159,7 +2095,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
@@ -2205,7 +2140,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
@@ -2235,9 +2169,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
@@ -2264,9 +2195,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
@@ -2293,7 +2221,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
@@ -3503,7 +3430,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
 
         assertThat(versioned.getConformanceErrorMessage(),
                 is("XPST0003: This expression requires XQuery 3.0 or later."));
@@ -3530,7 +3456,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
 
         assertThat(versioned.getConformanceErrorMessage(),
                 is("XPST0003: This expression requires XQuery 3.0 or later."));
