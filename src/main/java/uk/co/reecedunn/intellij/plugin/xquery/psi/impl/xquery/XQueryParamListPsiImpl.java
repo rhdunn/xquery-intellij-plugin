@@ -19,10 +19,14 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryParamList;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableProvider;
 
-public class XQueryParamListPsiImpl extends ASTWrapperPsiElement implements XQueryParamList {
+public class XQueryParamListPsiImpl extends ASTWrapperPsiElement implements XQueryParamList, XQueryVariableProvider {
     public XQueryParamListPsiImpl(@NotNull ASTNode node) {
         super(node);
     }
@@ -38,5 +42,21 @@ public class XQueryParamListPsiImpl extends ASTWrapperPsiElement implements XQue
             element = element.getNextSibling();
         }
         return arity;
+    }
+
+    @Nullable
+    @Override
+    public XQueryVariable resolveVariable(XQueryEQName name) {
+        PsiElement element = getFirstChild();
+        while (element != null) {
+            if (element.getNode().getElementType() == XQueryElementType.PARAM) {
+                XQueryVariable variable = ((XQueryVariableProvider)element).resolveVariable(name);
+                if (variable != null) {
+                    return variable;
+                }
+            }
+            element = element.getNextSibling();
+        }
+        return null;
     }
 }

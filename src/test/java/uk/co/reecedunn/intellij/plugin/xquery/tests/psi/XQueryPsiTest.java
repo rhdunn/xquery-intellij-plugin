@@ -3170,6 +3170,31 @@ public class XQueryPsiTest extends ParserTestCase {
     }
 
     // endregion
+    // region ParamList
+
+    public void testParamList_VariableProvider() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/Param.xq");
+
+        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryAnnotatedDecl.class);
+        XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryFunctionDecl.class);
+        XQueryParamList paramListPsi = PsiNavigation.findChildByClass(functionDeclPsi, XQueryParamList.class);
+        XQueryParam paramPsi = PsiNavigation.findChildByClass(paramListPsi, XQueryParam.class);
+        XQueryEQName paramNamePsi = PsiNavigation.findChildByClass(paramPsi, XQueryEQName.class);
+        XQueryVariableProvider provider = (XQueryVariableProvider)paramListPsi;
+
+        assertThat(provider.resolveVariable(null), is(nullValue()));
+
+        XQueryVariable variable = provider.resolveVariable(paramNamePsi);
+        assertThat(variable, is(notNullValue()));
+
+        assertThat(variable.getVariable(), is(instanceOf(XQueryEQName.class)));
+        assertThat(variable.getVariable(), is(paramNamePsi));
+
+        assertThat(variable.getDeclaration(), is(instanceOf(XQueryParam.class)));
+        assertThat(variable.getDeclaration(), is(paramPsi));
+    }
+
+    // endregion
     // region Prolog
 
     public void testProlog_VarDecl() {
