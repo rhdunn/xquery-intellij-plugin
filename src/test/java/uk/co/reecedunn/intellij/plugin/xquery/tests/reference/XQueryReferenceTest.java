@@ -31,7 +31,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 @SuppressWarnings("ConstantConditions")
 public class XQueryReferenceTest extends ParserTestCase {
-    // region XQuery 1.0 :: URILiteral
+    // region Files
+    // region URILiteral
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ModuleImport")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-URILiteral")
@@ -53,7 +54,9 @@ public class XQueryReferenceTest extends ParserTestCase {
     }
 
     // endregion
-    // region XQuery 1.0 :: QName
+    // endregion
+    // region Namespaces
+    // region QName
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
     public void testQName() {
@@ -90,7 +93,7 @@ public class XQueryReferenceTest extends ParserTestCase {
     }
 
     // endregion
-    // region XQuery 3.0 :: EQName
+    // region EQName
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-EQName")
     public void testEQName_NCName() {
@@ -169,5 +172,6 @@ public class XQueryReferenceTest extends ParserTestCase {
         assertThat(refs.length, is(0));
     }
 
+    // endregion
     // endregion
 }
