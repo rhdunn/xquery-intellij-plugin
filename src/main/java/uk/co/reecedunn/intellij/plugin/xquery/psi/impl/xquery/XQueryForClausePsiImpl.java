@@ -17,11 +17,32 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
+import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryForClause;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableProvider;
 
-public class XQueryForClausePsiImpl extends ASTWrapperPsiElement implements XQueryForClause {
+public class XQueryForClausePsiImpl extends ASTWrapperPsiElement implements XQueryForClause, XQueryVariableProvider {
     public XQueryForClausePsiImpl(@NotNull ASTNode node) {
         super(node);
+    }
+
+    @Nullable
+    @Override
+    public XQueryVariable resolveVariable(XQueryEQName name) {
+        PsiElement element = getFirstChild();
+        while (element != null) {
+            if (element instanceof XQueryVariableProvider) {
+                XQueryVariable resolved = ((XQueryVariableProvider)element).resolveVariable(name);
+                if (resolved != null) {
+                    return resolved;
+                }
+            }
+            element = element.getNextSibling();
+        }
+        return null;
     }
 }
