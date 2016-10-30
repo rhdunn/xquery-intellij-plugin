@@ -28,7 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.INCNameType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceProvider;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceResolver;
 import uk.co.reecedunn.intellij.plugin.xquery.resolve.reference.XQueryEQNamePrefixReference;
 import uk.co.reecedunn.intellij.plugin.xquery.resolve.reference.XQueryFunctionNameReference;
 import uk.co.reecedunn.intellij.plugin.xquery.resolve.reference.XQueryVariableNameReference;
@@ -172,8 +172,8 @@ public class XQueryEQNamePsiImpl extends ASTWrapperPsiElement implements XQueryE
 
         CharSequence prefix = element.getText();
         while (element != null) {
-            if (element instanceof XQueryNamespaceProvider) {
-                XQueryNamespace resolved = ((XQueryNamespaceProvider) element).resolveNamespace(prefix);
+            if (element instanceof XQueryNamespaceResolver) {
+                XQueryNamespace resolved = ((XQueryNamespaceResolver) element).resolveNamespace(prefix);
                 if (resolved != null) {
                     return resolved;
                 }

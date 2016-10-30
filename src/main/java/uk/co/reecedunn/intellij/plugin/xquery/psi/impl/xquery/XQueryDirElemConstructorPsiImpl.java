@@ -23,9 +23,9 @@ import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceProvider;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceResolver;
 
-public class XQueryDirElemConstructorPsiImpl extends ASTWrapperPsiElement implements XQueryDirElemConstructor, XQueryNamespaceProvider {
+public class XQueryDirElemConstructorPsiImpl extends ASTWrapperPsiElement implements XQueryDirElemConstructor, XQueryNamespaceResolver {
     public XQueryDirElemConstructorPsiImpl(@NotNull ASTNode node) {
         super(node);
     }
@@ -34,6 +34,6 @@ public class XQueryDirElemConstructorPsiImpl extends ASTWrapperPsiElement implem
     @Override
     public XQueryNamespace resolveNamespace(CharSequence prefix) {
         PsiElement element = findChildByType(XQueryElementType.DIR_ATTRIBUTE_LIST);
-        return element == null ? null : ((XQueryNamespaceProvider)element).resolveNamespace(prefix);
+        return element == null ? null : ((XQueryNamespaceResolver)element).resolveNamespace(prefix);
     }
 }

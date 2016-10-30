@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi;
 
 import org.jetbrains.annotations.Nullable;
 
-public interface XQueryNamespaceProvider {
+public interface XQueryNamespaceResolver {
     /**
      * Gets the URI associated with the namespace prefix.
      *

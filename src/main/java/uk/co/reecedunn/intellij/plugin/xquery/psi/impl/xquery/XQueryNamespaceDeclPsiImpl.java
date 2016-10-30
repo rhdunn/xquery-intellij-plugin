@@ -23,9 +23,9 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryNCName;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryNamespaceDecl;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceProvider;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceResolver;
 
-public class XQueryNamespaceDeclPsiImpl extends ASTWrapperPsiElement implements XQueryNamespaceDecl, XQueryNamespaceProvider {
+public class XQueryNamespaceDeclPsiImpl extends ASTWrapperPsiElement implements XQueryNamespaceDecl, XQueryNamespaceResolver {
     public XQueryNamespaceDeclPsiImpl(@NotNull ASTNode node) {
         super(node);
     }

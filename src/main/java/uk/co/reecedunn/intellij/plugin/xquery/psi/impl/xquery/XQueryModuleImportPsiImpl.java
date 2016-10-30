@@ -25,9 +25,9 @@ import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.PsiNavigation;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryModuleProvider;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceProvider;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceResolver;
 
-public class XQueryModuleImportPsiImpl extends ASTWrapperPsiElement implements XQueryModuleImport, XQueryNamespaceProvider, XQueryModuleProvider {
+public class XQueryModuleImportPsiImpl extends ASTWrapperPsiElement implements XQueryModuleImport, XQueryNamespaceResolver, XQueryModuleProvider {
     public XQueryModuleImportPsiImpl(@NotNull ASTNode node) {
         super(node);
     }

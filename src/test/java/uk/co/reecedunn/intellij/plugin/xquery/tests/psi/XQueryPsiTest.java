@@ -2591,7 +2591,7 @@ public class XQueryPsiTest extends ParserTestCase {
     }
 
     // endregion
-    // region XQueryNamespaceProvider
+    // region XQueryNamespaceResolver
     // region DirAttributeList
 
     public void testDirAttributeList() {
@@ -2599,7 +2599,7 @@ public class XQueryPsiTest extends ParserTestCase {
 
         XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryDirElemConstructor.class);
         XQueryDirAttributeList dirAttributeListPsi = PsiNavigation.findChildByClass(dirElemConstructorPsi, XQueryDirAttributeList.class);
-        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)dirAttributeListPsi;
+        XQueryNamespaceResolver provider = (XQueryNamespaceResolver)dirAttributeListPsi;
 
         assertThat(provider.resolveNamespace(null), is(nullValue()));
         assertThat(provider.resolveNamespace("abc"), is(nullValue()));
@@ -2612,7 +2612,7 @@ public class XQueryPsiTest extends ParserTestCase {
 
         XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryDirElemConstructor.class);
         XQueryDirAttributeList dirAttributeListPsi = PsiNavigation.findChildByClass(dirElemConstructorPsi, XQueryDirAttributeList.class);
-        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)dirAttributeListPsi;
+        XQueryNamespaceResolver provider = (XQueryNamespaceResolver)dirAttributeListPsi;
 
         assertThat(provider.resolveNamespace(null), is(nullValue()));
         assertThat(provider.resolveNamespace("abc"), is(nullValue()));
@@ -2636,7 +2636,7 @@ public class XQueryPsiTest extends ParserTestCase {
 
         XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryDirElemConstructor.class);
         XQueryDirAttributeList dirAttributeListPsi = PsiNavigation.findChildByClass(dirElemConstructorPsi, XQueryDirAttributeList.class);
-        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)dirAttributeListPsi;
+        XQueryNamespaceResolver provider = (XQueryNamespaceResolver)dirAttributeListPsi;
 
         assertThat(provider.resolveNamespace(null), is(nullValue()));
         assertThat(provider.resolveNamespace("abc"), is(nullValue()));
@@ -2659,7 +2659,7 @@ public class XQueryPsiTest extends ParserTestCase {
 
         XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryDirElemConstructor.class);
         XQueryDirAttributeList dirAttributeListPsi = PsiNavigation.findChildByClass(dirElemConstructorPsi, XQueryDirAttributeList.class);
-        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)dirAttributeListPsi;
+        XQueryNamespaceResolver provider = (XQueryNamespaceResolver)dirAttributeListPsi;
 
         assertThat(provider.resolveNamespace(null), is(nullValue()));
         assertThat(provider.resolveNamespace("abc"), is(nullValue()));
@@ -2684,7 +2684,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/parser/xquery-1.0/DirElemConstructor.xq");
 
         XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryDirElemConstructor.class);
-        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)dirElemConstructorPsi;
+        XQueryNamespaceResolver provider = (XQueryNamespaceResolver)dirElemConstructorPsi;
 
         assertThat(provider.resolveNamespace(null), is(nullValue()));
         assertThat(provider.resolveNamespace("abc"), is(nullValue()));
@@ -2696,7 +2696,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/parser/xquery-1.0/DirAttributeList.xq");
 
         XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryDirElemConstructor.class);
-        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)dirElemConstructorPsi;
+        XQueryNamespaceResolver provider = (XQueryNamespaceResolver)dirElemConstructorPsi;
 
         assertThat(provider.resolveNamespace(null), is(nullValue()));
         assertThat(provider.resolveNamespace("abc"), is(nullValue()));
@@ -2709,7 +2709,7 @@ public class XQueryPsiTest extends ParserTestCase {
 
         XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryDirElemConstructor.class);
         XQueryDirAttributeList dirAttributeListPsi = PsiNavigation.findChildByClass(dirElemConstructorPsi, XQueryDirAttributeList.class);
-        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)dirElemConstructorPsi;
+        XQueryNamespaceResolver provider = (XQueryNamespaceResolver)dirElemConstructorPsi;
 
         assertThat(provider.resolveNamespace(null), is(nullValue()));
         assertThat(provider.resolveNamespace("abc"), is(nullValue()));
@@ -2733,7 +2733,7 @@ public class XQueryPsiTest extends ParserTestCase {
 
         XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryDirElemConstructor.class);
         XQueryDirAttributeList dirAttributeListPsi = PsiNavigation.findChildByClass(dirElemConstructorPsi, XQueryDirAttributeList.class);
-        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)dirElemConstructorPsi;
+        XQueryNamespaceResolver provider = (XQueryNamespaceResolver)dirElemConstructorPsi;
 
         assertThat(provider.resolveNamespace(null), is(nullValue()));
         assertThat(provider.resolveNamespace("abc"), is(nullValue()));
@@ -2756,7 +2756,7 @@ public class XQueryPsiTest extends ParserTestCase {
 
         XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryDirElemConstructor.class);
         XQueryDirAttributeList dirAttributeListPsi = PsiNavigation.findChildByClass(dirElemConstructorPsi, XQueryDirAttributeList.class);
-        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)dirElemConstructorPsi;
+        XQueryNamespaceResolver provider = (XQueryNamespaceResolver)dirElemConstructorPsi;
 
         assertThat(provider.resolveNamespace(null), is(nullValue()));
         assertThat(provider.resolveNamespace("abc"), is(nullValue()));
@@ -2781,7 +2781,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/parser/xquery-1.0/ModuleDecl.xq");
 
         XQueryModule modulePsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryModule.class);
-        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)modulePsi;
+        XQueryNamespaceResolver provider = (XQueryNamespaceResolver)modulePsi;
 
         assertThat(provider.resolveNamespace(null), is(nullValue()));
         assertThat(provider.resolveNamespace("abc"), is(nullValue()));
@@ -2805,7 +2805,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/parser/xquery-1.0/ModuleDecl.xq");
 
         XQueryModuleDecl moduleDeclPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryModuleDecl.class);
-        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)moduleDeclPsi;
+        XQueryNamespaceResolver provider = (XQueryNamespaceResolver)moduleDeclPsi;
 
         assertThat(provider.resolveNamespace(null), is(nullValue()));
         assertThat(provider.resolveNamespace("abc"), is(nullValue()));
@@ -2828,7 +2828,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/parser/xquery-1.0/ModuleDecl_MissingNamespaceName.xq");
 
         XQueryModuleDecl moduleDeclPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryModuleDecl.class);
-        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)moduleDeclPsi;
+        XQueryNamespaceResolver provider = (XQueryNamespaceResolver)moduleDeclPsi;
 
         assertThat(provider.resolveNamespace(null), is(nullValue()));
         assertThat(provider.resolveNamespace("abc"), is(nullValue()));
@@ -2840,7 +2840,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/parser/xquery-1.0/ModuleDecl_MissingNamespaceUri.xq");
 
         XQueryModuleDecl moduleDeclPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryModuleDecl.class);
-        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)moduleDeclPsi;
+        XQueryNamespaceResolver provider = (XQueryNamespaceResolver)moduleDeclPsi;
 
         assertThat(provider.resolveNamespace(null), is(nullValue()));
         assertThat(provider.resolveNamespace("abc"), is(nullValue()));
@@ -2865,7 +2865,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/parser/xquery-1.0/ModuleImport.xq");
 
         XQueryModuleImport moduleImportPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryModuleImport.class);
-        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)moduleImportPsi;
+        XQueryNamespaceResolver provider = (XQueryNamespaceResolver)moduleImportPsi;
 
         assertThat(provider.resolveNamespace(null), is(nullValue()));
         assertThat(provider.resolveNamespace("abc"), is(nullValue()));
@@ -2877,7 +2877,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/parser/xquery-1.0/ModuleImport_WithNamespace.xq");
 
         XQueryModuleImport moduleImportPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryModuleImport.class);
-        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)moduleImportPsi;
+        XQueryNamespaceResolver provider = (XQueryNamespaceResolver)moduleImportPsi;
 
         assertThat(provider.resolveNamespace(null), is(nullValue()));
         assertThat(provider.resolveNamespace("abc"), is(nullValue()));
@@ -2903,7 +2903,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/parser/xquery-1.0/NamespaceDecl.xq");
 
         XQueryNamespaceDecl namespaceDeclPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryNamespaceDecl.class);
-        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)namespaceDeclPsi;
+        XQueryNamespaceResolver provider = (XQueryNamespaceResolver)namespaceDeclPsi;
 
         assertThat(provider.resolveNamespace(null), is(nullValue()));
         assertThat(provider.resolveNamespace("abc"), is(nullValue()));
@@ -2926,7 +2926,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/parser/xquery-1.0/NamespaceDecl_MissingNCName.xq");
 
         XQueryNamespaceDecl namespaceDeclPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryNamespaceDecl.class);
-        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)namespaceDeclPsi;
+        XQueryNamespaceResolver provider = (XQueryNamespaceResolver)namespaceDeclPsi;
 
         assertThat(provider.resolveNamespace(null), is(nullValue()));
         assertThat(provider.resolveNamespace("abc"), is(nullValue()));
@@ -2938,7 +2938,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/parser/xquery-1.0/NamespaceDecl_MissingUri.xq");
 
         XQueryNamespaceDecl namespaceDeclPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryNamespaceDecl.class);
-        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)namespaceDeclPsi;
+        XQueryNamespaceResolver provider = (XQueryNamespaceResolver)namespaceDeclPsi;
 
         assertThat(provider.resolveNamespace(null), is(nullValue()));
         assertThat(provider.resolveNamespace("abc"), is(nullValue()));
@@ -2963,7 +2963,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/parser/xquery-1.0/VarDecl.xq");
 
         XQueryProlog prologPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryProlog.class);
-        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)prologPsi;
+        XQueryNamespaceResolver provider = (XQueryNamespaceResolver)prologPsi;
 
         assertThat(provider.resolveNamespace(null), is(nullValue()));
         assertThat(provider.resolveNamespace("abc"), is(nullValue()));
@@ -2976,7 +2976,7 @@ public class XQueryPsiTest extends ParserTestCase {
 
         XQueryProlog prologPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryProlog.class);
         XQueryNamespaceDecl namespaceDeclPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryNamespaceDecl.class);
-        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)prologPsi;
+        XQueryNamespaceResolver provider = (XQueryNamespaceResolver)prologPsi;
 
         assertThat(provider.resolveNamespace(null), is(nullValue()));
         assertThat(provider.resolveNamespace("abc"), is(nullValue()));
@@ -3002,7 +3002,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/parser/xquery-1.0/SchemaImport.xq");
 
         XQuerySchemaImport schemaImportPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQuerySchemaImport.class);
-        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)schemaImportPsi;
+        XQueryNamespaceResolver provider = (XQueryNamespaceResolver)schemaImportPsi;
 
         assertThat(provider.resolveNamespace(null), is(nullValue()));
         assertThat(provider.resolveNamespace("abc"), is(nullValue()));
@@ -3014,7 +3014,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/parser/xquery-1.0/SchemaPrefix.xq");
 
         XQuerySchemaImport schemaImportPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQuerySchemaImport.class);
-        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)schemaImportPsi;
+        XQueryNamespaceResolver provider = (XQueryNamespaceResolver)schemaImportPsi;
 
         assertThat(provider.resolveNamespace(null), is(nullValue()));
         assertThat(provider.resolveNamespace("abc"), is(nullValue()));
@@ -3037,7 +3037,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/parser/xquery-1.0/SchemaPrefix_MissingNCName.xq");
 
         XQuerySchemaImport schemaImportPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQuerySchemaImport.class);
-        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)schemaImportPsi;
+        XQueryNamespaceResolver provider = (XQueryNamespaceResolver)schemaImportPsi;
 
         assertThat(provider.resolveNamespace(null), is(nullValue()));
         assertThat(provider.resolveNamespace("abc"), is(nullValue()));
@@ -3049,7 +3049,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final ASTNode node = parseResource("tests/parser/xquery-1.0/SchemaPrefix_Default.xq");
 
         XQuerySchemaImport schemaImportPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQuerySchemaImport.class);
-        XQueryNamespaceProvider provider = (XQueryNamespaceProvider)schemaImportPsi;
+        XQueryNamespaceResolver provider = (XQueryNamespaceResolver)schemaImportPsi;
 
         assertThat(provider.resolveNamespace(null), is(nullValue()));
         assertThat(provider.resolveNamespace("abc"), is(nullValue()));

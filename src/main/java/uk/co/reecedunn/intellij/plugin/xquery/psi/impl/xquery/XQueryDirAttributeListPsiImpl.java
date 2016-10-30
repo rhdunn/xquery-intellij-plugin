@@ -23,9 +23,9 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttributeList;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryQName;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceProvider;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceResolver;
 
-public class XQueryDirAttributeListPsiImpl extends ASTWrapperPsiElement implements XQueryDirAttributeList, XQueryNamespaceProvider {
+public class XQueryDirAttributeListPsiImpl extends ASTWrapperPsiElement implements XQueryDirAttributeList, XQueryNamespaceResolver {
     public XQueryDirAttributeListPsiImpl(@NotNull ASTNode node) {
         super(node);
     }

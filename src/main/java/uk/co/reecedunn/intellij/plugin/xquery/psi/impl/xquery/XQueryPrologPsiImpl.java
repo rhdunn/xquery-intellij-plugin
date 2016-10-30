@@ -23,11 +23,11 @@ import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceProvider;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceResolver;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver;
 
-public class XQueryPrologPsiImpl extends ASTWrapperPsiElement implements XQueryProlog, XQueryNamespaceProvider, XQueryVariableResolver {
+public class XQueryPrologPsiImpl extends ASTWrapperPsiElement implements XQueryProlog, XQueryNamespaceResolver, XQueryVariableResolver {
     public XQueryPrologPsiImpl(@NotNull ASTNode node) {
         super(node);
     }
@@ -36,8 +36,8 @@ public class XQueryPrologPsiImpl extends ASTWrapperPsiElement implements XQueryP
     public XQueryNamespace resolveNamespace(CharSequence prefix) {
         PsiElement element = getLastChild();
         while (element != null) {
-            if (element instanceof XQueryNamespaceProvider) {
-                XQueryNamespace resolved = ((XQueryNamespaceProvider)element).resolveNamespace(prefix);
+            if (element instanceof XQueryNamespaceResolver) {
+                XQueryNamespace resolved = ((XQueryNamespaceResolver)element).resolveNamespace(prefix);
                 if (resolved != null) {
                     return resolved;
                 }
