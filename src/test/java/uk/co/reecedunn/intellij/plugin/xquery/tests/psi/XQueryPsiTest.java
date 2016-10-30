@@ -3881,6 +3881,28 @@ public class XQueryPsiTest extends ParserTestCase {
     }
 
     // endregion
+    // region TypeswitchExpr
+
+    public void testTypeswitchExpr_Default_VariableProvider() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/TypeswitchExpr_Variable.xq");
+
+        XQueryTypeswitchExpr typeswitchExprPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryTypeswitchExpr.class);
+        XQueryVarName varNamePsi = PsiNavigation.findChildByClass(typeswitchExprPsi, XQueryVarName.class);
+        XQueryVariableResolver provider = (XQueryVariableResolver)typeswitchExprPsi;
+
+        assertThat(provider.resolveVariable(null), is(nullValue()));
+
+        XQueryVariable variable = provider.resolveVariable(varNamePsi);
+        assertThat(variable, is(notNullValue()));
+
+        assertThat(variable.getVariable(), is(instanceOf(XQueryVarName.class)));
+        assertThat(variable.getVariable(), is(varNamePsi));
+
+        assertThat(variable.getDeclaration(), is(instanceOf(XQueryTypeswitchExpr.class)));
+        assertThat(variable.getDeclaration(), is(typeswitchExprPsi));
+    }
+
+    // endregion
     // region VarDecl
 
     public void testVarDecl_VariableProvider() {
