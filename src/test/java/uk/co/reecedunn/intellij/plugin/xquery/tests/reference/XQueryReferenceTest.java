@@ -371,6 +371,41 @@ public class XQueryReferenceTest extends ParserTestCase {
     }
 
     // endregion
+    // region TumblingWindowClause
+
+    public void testTumblingWindowClause() {
+        final ASTNode node = parseResource("tests/parser/xquery-3.0/TumblingWindowClause.xq");
+
+        XQueryWindowClause windowClausePsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryWindowClause.class);
+        XQueryTumblingWindowClause tumblingWindowClausePsi = PsiNavigation.findChildByClass(windowClausePsi, XQueryTumblingWindowClause.class);
+        XQueryVarName varNamePsi = PsiNavigation.findChildByClass(tumblingWindowClausePsi, XQueryVarName.class);
+
+        XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryFLWORExpr.class);
+        XQueryReturnClause returnClausePsi = PsiNavigation.findChildByClass(flworExprPsi, XQueryReturnClause.class);
+        XQueryOrExpr orExprPsi = PsiNavigation.findChildByClass(returnClausePsi, XQueryOrExpr.class);
+        XQueryVarRef varRefPsi = PsiNavigation.findDirectDescendantByClass(orExprPsi, XQueryVarRef.class);
+        XQueryEQName varRefNamePsi = PsiNavigation.findChildByClass(varRefPsi, XQueryEQName.class);
+
+        PsiReference ref = varRefNamePsi.getReference();
+        assertThat(ref.getCanonicalText(), is("x"));
+        assertThat(ref.getVariants().length, is(0));
+
+        PsiElement resolved = ref.resolve();
+        assertThat(resolved, is(instanceOf(XQueryVarName.class)));
+        assertThat(resolved, is(varNamePsi));
+
+        PsiReference[] refs = varRefNamePsi.getReferences();
+        assertThat(refs.length, is(1));
+
+        assertThat(refs[0].getCanonicalText(), is("x"));
+        assertThat(refs[0].getVariants().length, is(0));
+
+        resolved = refs[0].resolve();
+        assertThat(resolved, is(instanceOf(XQueryVarName.class)));
+        assertThat(resolved, is(varNamePsi));
+    }
+
+    // endregion
     // region VarDecl
 
     public void testVarDecl() {
