@@ -17,11 +17,28 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
+import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryGroupingVariable;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVarName;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver;
 
-public class XQueryGroupingVariablePsiImpl extends ASTWrapperPsiElement implements XQueryGroupingVariable {
+public class XQueryGroupingVariablePsiImpl extends ASTWrapperPsiElement implements XQueryGroupingVariable, XQueryVariableResolver {
     public XQueryGroupingVariablePsiImpl(@NotNull ASTNode node) {
         super(node);
+    }
+
+    @Nullable
+    @Override
+    public XQueryVariable resolveVariable(XQueryEQName name) {
+        PsiElement varName = findChildByClass(XQueryVarName.class);
+        if (varName != null && varName.equals(name)) {
+            return new XQueryVariable(varName, this);
+        }
+
+        return null;
     }
 }

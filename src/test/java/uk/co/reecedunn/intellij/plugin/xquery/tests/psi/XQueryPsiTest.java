@@ -3277,6 +3277,33 @@ public class XQueryPsiTest extends ParserTestCase {
     }
 
     // endregion
+    // region GroupingVariable
+
+    public void testGroupingVariable_VariableProvider() {
+        final ASTNode node = parseResource("tests/parser/xquery-3.0/GroupByClause.xq");
+
+        XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryFLWORExpr.class);
+        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildByClass(flworExprPsi, XQueryIntermediateClause.class);
+        XQueryGroupByClause groupByClausePsi = PsiNavigation.findDirectDescendantByClass(intermediateClausePsi, XQueryGroupByClause.class);
+        XQueryGroupingSpecList groupingSpecListPsi = PsiNavigation.findChildByClass(groupByClausePsi, XQueryGroupingSpecList.class);
+        XQueryGroupingSpec groupingSpecPsi = PsiNavigation.findChildByClass(groupingSpecListPsi, XQueryGroupingSpec.class);
+        XQueryGroupingVariable groupingVariablePsi = PsiNavigation.findChildByClass(groupingSpecPsi, XQueryGroupingVariable.class);
+        XQueryVarName varNamePsi = PsiNavigation.findChildByClass(groupingVariablePsi, XQueryVarName.class);
+        XQueryVariableResolver provider = (XQueryVariableResolver)groupingVariablePsi;
+
+        assertThat(provider.resolveVariable(null), is(nullValue()));
+
+        XQueryVariable variable = provider.resolveVariable(varNamePsi);
+        assertThat(variable, is(notNullValue()));
+
+        assertThat(variable.getVariable(), is(instanceOf(XQueryVarName.class)));
+        assertThat(variable.getVariable(), is(varNamePsi));
+
+        assertThat(variable.getDeclaration(), is(instanceOf(XQueryGroupingVariable.class)));
+        assertThat(variable.getDeclaration(), is(groupingVariablePsi));
+    }
+
+    // endregion
     // region IntermediateClause
 
     public void testIntermediateClause_VariableProvider() {
