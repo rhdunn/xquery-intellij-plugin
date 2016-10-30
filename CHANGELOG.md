@@ -1,6 +1,6 @@
 # Change Log
 
-## 0.2 - (In Development)
+## 0.2 - 2016-10-30
 
 1.  Use an inspection -- not the parser -- to check and report constructs from a
     different XQuery version or extension.
