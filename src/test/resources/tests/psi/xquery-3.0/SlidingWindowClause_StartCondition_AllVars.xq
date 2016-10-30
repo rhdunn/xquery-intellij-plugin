@@ -1,0 +1,1 @@
+for sliding window $ x in $ y start $ a at $ b previous $ c next $ d when true ( ) end when false ( ) return $ x

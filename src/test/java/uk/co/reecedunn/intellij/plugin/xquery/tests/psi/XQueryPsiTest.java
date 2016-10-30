@@ -3459,6 +3459,128 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(variable.getDeclaration(), is(slidingWindowClausePsi));
     }
 
+    public void testSlidingWindowClause_WindowEndCondition_VariableProvider() {
+        final ASTNode node = parseResource("tests/psi/xquery-3.0/SlidingWindowClause_EndCondition_AllVars.xq");
+
+        XQueryWindowClause windowClausePsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryWindowClause.class);
+        XQuerySlidingWindowClause slidingWindowClausePsi = PsiNavigation.findChildByClass(windowClausePsi, XQuerySlidingWindowClause.class);
+        XQueryWindowEndCondition windowEndConditionPsi = PsiNavigation.findChildByClass(slidingWindowClausePsi, XQueryWindowEndCondition.class);
+        XQueryWindowVars windowVarsPsi = PsiNavigation.findChildByClass(windowEndConditionPsi, XQueryWindowVars.class);
+        XQueryCurrentItem currentItemPsi = PsiNavigation.findChildByClass(windowVarsPsi, XQueryCurrentItem.class);
+        XQueryPositionalVar positionalVarPsi = PsiNavigation.findChildByClass(windowVarsPsi, XQueryPositionalVar.class);
+        XQueryVarName posVarNamePsi = PsiNavigation.findChildByClass(positionalVarPsi, XQueryVarName.class);
+        XQueryPreviousItem previousItemPsi = PsiNavigation.findChildByClass(windowVarsPsi, XQueryPreviousItem.class);
+        XQueryNextItem nextItemPsi = PsiNavigation.findChildByClass(windowVarsPsi, XQueryNextItem.class);
+        XQueryVariableResolver provider = (XQueryVariableResolver)slidingWindowClausePsi;
+
+        assertThat(provider.resolveVariable(null), is(nullValue()));
+
+        // current
+
+        XQueryVariable variable = provider.resolveVariable(currentItemPsi);
+        assertThat(variable, is(notNullValue()));
+
+        assertThat(variable.getVariable(), is(instanceOf(XQueryCurrentItem.class)));
+        assertThat(variable.getVariable(), is(currentItemPsi));
+
+        assertThat(variable.getDeclaration(), is(instanceOf(XQueryWindowVars.class)));
+        assertThat(variable.getDeclaration(), is(windowVarsPsi));
+
+        // positional
+
+        variable = provider.resolveVariable(posVarNamePsi);
+        assertThat(variable, is(notNullValue()));
+
+        assertThat(variable.getVariable(), is(instanceOf(XQueryVarName.class)));
+        assertThat(variable.getVariable(), is(posVarNamePsi));
+
+        assertThat(variable.getDeclaration(), is(instanceOf(XQueryPositionalVar.class)));
+        assertThat(variable.getDeclaration(), is(positionalVarPsi));
+
+        // previous
+
+        variable = provider.resolveVariable(previousItemPsi);
+        assertThat(variable, is(notNullValue()));
+
+        assertThat(variable.getVariable(), is(instanceOf(XQueryPreviousItem.class)));
+        assertThat(variable.getVariable(), is(previousItemPsi));
+
+        assertThat(variable.getDeclaration(), is(instanceOf(XQueryWindowVars.class)));
+        assertThat(variable.getDeclaration(), is(windowVarsPsi));
+
+        // next
+
+        variable = provider.resolveVariable(nextItemPsi);
+        assertThat(variable, is(notNullValue()));
+
+        assertThat(variable.getVariable(), is(instanceOf(XQueryNextItem.class)));
+        assertThat(variable.getVariable(), is(nextItemPsi));
+
+        assertThat(variable.getDeclaration(), is(instanceOf(XQueryWindowVars.class)));
+        assertThat(variable.getDeclaration(), is(windowVarsPsi));
+    }
+
+    public void testSlidingWindowClause_WindowStartCondition_VariableProvider() {
+        final ASTNode node = parseResource("tests/psi/xquery-3.0/SlidingWindowClause_StartCondition_AllVars.xq");
+
+        XQueryWindowClause windowClausePsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryWindowClause.class);
+        XQuerySlidingWindowClause slidingWindowClausePsi = PsiNavigation.findChildByClass(windowClausePsi, XQuerySlidingWindowClause.class);
+        XQueryWindowStartCondition windowStartConditionPsi = PsiNavigation.findChildByClass(slidingWindowClausePsi, XQueryWindowStartCondition.class);
+        XQueryWindowVars windowVarsPsi = PsiNavigation.findChildByClass(windowStartConditionPsi, XQueryWindowVars.class);
+        XQueryCurrentItem currentItemPsi = PsiNavigation.findChildByClass(windowVarsPsi, XQueryCurrentItem.class);
+        XQueryPositionalVar positionalVarPsi = PsiNavigation.findChildByClass(windowVarsPsi, XQueryPositionalVar.class);
+        XQueryVarName posVarNamePsi = PsiNavigation.findChildByClass(positionalVarPsi, XQueryVarName.class);
+        XQueryPreviousItem previousItemPsi = PsiNavigation.findChildByClass(windowVarsPsi, XQueryPreviousItem.class);
+        XQueryNextItem nextItemPsi = PsiNavigation.findChildByClass(windowVarsPsi, XQueryNextItem.class);
+        XQueryVariableResolver provider = (XQueryVariableResolver)slidingWindowClausePsi;
+
+        assertThat(provider.resolveVariable(null), is(nullValue()));
+
+        // current
+
+        XQueryVariable variable = provider.resolveVariable(currentItemPsi);
+        assertThat(variable, is(notNullValue()));
+
+        assertThat(variable.getVariable(), is(instanceOf(XQueryCurrentItem.class)));
+        assertThat(variable.getVariable(), is(currentItemPsi));
+
+        assertThat(variable.getDeclaration(), is(instanceOf(XQueryWindowVars.class)));
+        assertThat(variable.getDeclaration(), is(windowVarsPsi));
+
+        // positional
+
+        variable = provider.resolveVariable(posVarNamePsi);
+        assertThat(variable, is(notNullValue()));
+
+        assertThat(variable.getVariable(), is(instanceOf(XQueryVarName.class)));
+        assertThat(variable.getVariable(), is(posVarNamePsi));
+
+        assertThat(variable.getDeclaration(), is(instanceOf(XQueryPositionalVar.class)));
+        assertThat(variable.getDeclaration(), is(positionalVarPsi));
+
+        // previous
+
+        variable = provider.resolveVariable(previousItemPsi);
+        assertThat(variable, is(notNullValue()));
+
+        assertThat(variable.getVariable(), is(instanceOf(XQueryPreviousItem.class)));
+        assertThat(variable.getVariable(), is(previousItemPsi));
+
+        assertThat(variable.getDeclaration(), is(instanceOf(XQueryWindowVars.class)));
+        assertThat(variable.getDeclaration(), is(windowVarsPsi));
+
+        // next
+
+        variable = provider.resolveVariable(nextItemPsi);
+        assertThat(variable, is(notNullValue()));
+
+        assertThat(variable.getVariable(), is(instanceOf(XQueryNextItem.class)));
+        assertThat(variable.getVariable(), is(nextItemPsi));
+
+        assertThat(variable.getDeclaration(), is(instanceOf(XQueryWindowVars.class)));
+        assertThat(variable.getDeclaration(), is(windowVarsPsi));
+    }
+
     // endregion
     // region TumblingWindowClause
 
