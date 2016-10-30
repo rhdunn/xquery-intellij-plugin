@@ -25,7 +25,7 @@ public class XQueryFunctionNameReference extends PsiReferenceBase<XQueryEQName> 
 
         if (ns.getDeclaration() instanceof XQueryPrologResolver) {
             XQueryPrologResolver provider = (XQueryPrologResolver)ns.getDeclaration();
-            PsiElement prolog = provider.getReferencedProlog();
+            PsiElement prolog = provider.resolveProlog();
             if (prolog == null) {
                 return null;
             }

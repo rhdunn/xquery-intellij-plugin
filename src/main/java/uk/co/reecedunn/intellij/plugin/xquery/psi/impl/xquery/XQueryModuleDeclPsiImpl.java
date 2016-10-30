@@ -48,7 +48,7 @@ public class XQueryModuleDeclPsiImpl extends ASTWrapperPsiElement implements XQu
 
     @Nullable
     @Override
-    public XQueryProlog getReferencedProlog() {
+    public XQueryProlog resolveProlog() {
         PsiElement file = PsiNavigation.findParentByClass(this, XQueryFile.class);
         PsiElement module = PsiNavigation.findChildByClass(file, XQueryModule.class);
         return PsiNavigation.findChildByClass(module, XQueryProlog.class);

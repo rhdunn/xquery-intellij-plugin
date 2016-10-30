@@ -49,7 +49,7 @@ public class XQueryModuleImportPsiImpl extends ASTWrapperPsiElement implements X
     @SuppressWarnings("ConstantConditions")
     @Nullable
     @Override
-    public XQueryProlog getReferencedProlog() {
+    public XQueryProlog resolveProlog() {
         PsiElement uri = getFirstChild();
         while (uri != null) {
             if (uri instanceof XQueryUriLiteral) {

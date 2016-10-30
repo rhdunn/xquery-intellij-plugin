@@ -2554,7 +2554,7 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryProlog prologPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryProlog.class);
 
         XQueryPrologResolver provider = (XQueryPrologResolver)modulePsi;
-        assertThat(provider.getReferencedProlog(), is(prologPsi));
+        assertThat(provider.resolveProlog(), is(prologPsi));
     }
 
     // endregion
@@ -2567,7 +2567,7 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryProlog prologPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryProlog.class);
 
         XQueryPrologResolver provider = (XQueryPrologResolver)moduleDeclPsi;
-        assertThat(provider.getReferencedProlog(), is(prologPsi));
+        assertThat(provider.resolveProlog(), is(prologPsi));
     }
 
     // endregion
