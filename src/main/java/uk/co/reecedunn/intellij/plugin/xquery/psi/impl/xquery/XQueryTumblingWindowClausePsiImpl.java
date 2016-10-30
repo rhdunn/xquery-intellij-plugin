@@ -22,7 +22,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryTumblingWindowClause;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVarName;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
@@ -55,11 +54,20 @@ public class XQueryTumblingWindowClausePsiImpl extends ASTWrapperPsiElement impl
     @Nullable
     @Override
     public XQueryVariable resolveVariable(XQueryEQName name) {
-        PsiElement varName = findChildByClass(XQueryVarName.class);
-        if (varName != null && varName.equals(name)) {
-            return new XQueryVariable(varName, this);
+        PsiElement element = getFirstChild();
+        while (element != null) {
+            if (element instanceof XQueryVariableResolver) {
+                XQueryVariable resolved = ((XQueryVariableResolver)element).resolveVariable(name);
+                if (resolved != null) {
+                    return resolved;
+                }
+            } else if (element instanceof XQueryEQName) {
+                if (element.equals(name)) {
+                    return new XQueryVariable(element, this);
+                }
+            }
+            element = element.getNextSibling();
         }
-
         return null;
     }
 }
