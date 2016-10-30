@@ -7,10 +7,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.PsiNavigation;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryModuleProvider;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace;
-
-import java.util.List;
 
 public class XQueryFunctionNameReference extends PsiReferenceBase<XQueryEQName> {
     public XQueryFunctionNameReference(XQueryEQName element, TextRange range) {
@@ -25,8 +23,8 @@ public class XQueryFunctionNameReference extends PsiReferenceBase<XQueryEQName> 
             return null;
         }
 
-        if (ns.getDeclaration() instanceof XQueryModuleProvider) {
-            XQueryModuleProvider provider = (XQueryModuleProvider)ns.getDeclaration();
+        if (ns.getDeclaration() instanceof XQueryPrologResolver) {
+            XQueryPrologResolver provider = (XQueryPrologResolver)ns.getDeclaration();
             PsiElement prolog = provider.getReferencedProlog();
             if (prolog == null) {
                 return null;

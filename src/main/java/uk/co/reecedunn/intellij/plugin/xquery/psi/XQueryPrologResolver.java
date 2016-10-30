@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi;
 import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog;
 
-public interface XQueryModuleProvider {
+public interface XQueryPrologResolver {
     @Nullable
     XQueryProlog getReferencedProlog();
 }
