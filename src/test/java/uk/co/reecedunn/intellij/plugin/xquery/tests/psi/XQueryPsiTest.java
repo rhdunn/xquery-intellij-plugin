@@ -3506,6 +3506,49 @@ public class XQueryPsiTest extends ParserTestCase {
     }
 
     // endregion
+    // region WindowClause
+
+    public void testWindowClause_SlidingWindowClause_VariableProvider() {
+        final ASTNode node = parseResource("tests/parser/xquery-3.0/SlidingWindowClause.xq");
+
+        XQueryWindowClause windowClausePsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryWindowClause.class);
+        XQuerySlidingWindowClause slidingWindowClausePsi = PsiNavigation.findChildByClass(windowClausePsi, XQuerySlidingWindowClause.class);
+        XQueryVarName varNamePsi = PsiNavigation.findChildByClass(slidingWindowClausePsi, XQueryVarName.class);
+        XQueryVariableResolver provider = (XQueryVariableResolver)windowClausePsi;
+
+        assertThat(provider.resolveVariable(null), is(nullValue()));
+
+        XQueryVariable variable = provider.resolveVariable(varNamePsi);
+        assertThat(variable, is(notNullValue()));
+
+        assertThat(variable.getVariable(), is(instanceOf(XQueryVarName.class)));
+        assertThat(variable.getVariable(), is(varNamePsi));
+
+        assertThat(variable.getDeclaration(), is(instanceOf(XQuerySlidingWindowClause.class)));
+        assertThat(variable.getDeclaration(), is(slidingWindowClausePsi));
+    }
+
+    public void testWindowClause_TumblingWindowClause_VariableProvider() {
+        final ASTNode node = parseResource("tests/parser/xquery-3.0/TumblingWindowClause.xq");
+
+        XQueryWindowClause windowClausePsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryWindowClause.class);
+        XQueryTumblingWindowClause tumblingWindowClausePsi = PsiNavigation.findChildByClass(windowClausePsi, XQueryTumblingWindowClause.class);
+        XQueryVarName varNamePsi = PsiNavigation.findChildByClass(tumblingWindowClausePsi, XQueryVarName.class);
+        XQueryVariableResolver provider = (XQueryVariableResolver)windowClausePsi;
+
+        assertThat(provider.resolveVariable(null), is(nullValue()));
+
+        XQueryVariable variable = provider.resolveVariable(varNamePsi);
+        assertThat(variable, is(notNullValue()));
+
+        assertThat(variable.getVariable(), is(instanceOf(XQueryVarName.class)));
+        assertThat(variable.getVariable(), is(varNamePsi));
+
+        assertThat(variable.getDeclaration(), is(instanceOf(XQueryTumblingWindowClause.class)));
+        assertThat(variable.getDeclaration(), is(tumblingWindowClausePsi));
+    }
+
+    // endregion
     // endregion
     // region XQueryVersionDecl
 
