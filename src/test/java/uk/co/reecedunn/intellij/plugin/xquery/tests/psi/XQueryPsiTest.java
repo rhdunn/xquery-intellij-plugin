@@ -3145,6 +3145,29 @@ public class XQueryPsiTest extends ParserTestCase {
     }
 
     // endregion
+    // region CaseClause
+
+    public void testCaseClause_VariableProvider() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/CaseClause_Variable.xq");
+
+        XQueryTypeswitchExpr typeswitchExprPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryTypeswitchExpr.class);
+        XQueryCaseClause caseClausePsi = PsiNavigation.findChildByClass(typeswitchExprPsi, XQueryCaseClause.class);
+        XQueryVarName varNamePsi = PsiNavigation.findChildByClass(caseClausePsi, XQueryVarName.class);
+        XQueryVariableResolver provider = (XQueryVariableResolver)caseClausePsi;
+
+        assertThat(provider.resolveVariable(null), is(nullValue()));
+
+        XQueryVariable variable = provider.resolveVariable(varNamePsi);
+        assertThat(variable, is(notNullValue()));
+
+        assertThat(variable.getVariable(), is(instanceOf(XQueryVarName.class)));
+        assertThat(variable.getVariable(), is(varNamePsi));
+
+        assertThat(variable.getDeclaration(), is(instanceOf(XQueryCaseClause.class)));
+        assertThat(variable.getDeclaration(), is(caseClausePsi));
+    }
+
+    // endregion
     // region CountClause
 
     public void testCountClause_VariableProvider() {
