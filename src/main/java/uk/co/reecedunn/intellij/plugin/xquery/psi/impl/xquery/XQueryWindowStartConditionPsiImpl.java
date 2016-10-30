@@ -18,10 +18,21 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryWindowStartCondition;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver;
 
-public class XQueryWindowStartConditionPsiImpl extends ASTWrapperPsiElement implements XQueryWindowStartCondition {
+public class XQueryWindowStartConditionPsiImpl extends ASTWrapperPsiElement implements XQueryWindowStartCondition, XQueryVariableResolver {
     public XQueryWindowStartConditionPsiImpl(@NotNull ASTNode node) {
         super(node);
+    }
+
+    @Nullable
+    @Override
+    public XQueryVariable resolveVariable(XQueryEQName name) {
+        XQueryVariableResolver resolver = findChildByClass(XQueryVariableResolver.class);
+        return resolver == null ? null : resolver.resolveVariable(name);
     }
 }
