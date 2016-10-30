@@ -6,7 +6,7 @@
 - [Features](#features)
   - [Language Support](#language-support)
   - [Warnings and Errors](#warnings-and-errors)
-  - [References and Resolve](#references-and-resolve)
+  - [IntelliJ Integration](#intellij-integration)
 - [License Information](#license-information)
 
 ----------
@@ -52,11 +52,17 @@ to the one configured in the project.
 
 ![Require Different Version](images/require-different-version.png)
 
-## References and Resolve
+## IntelliJ Integration
 
 Resolve URI string literals to the files they reference.
 
 ![Resolve URI Literals](images/resolve-uriliteral.png)
+
+Resolve namespaces, functions and variables to their corresponding declarations.
+
+Other supported IntelliJ features:
+
+1.  Find usages.
 
 ## License Information
 

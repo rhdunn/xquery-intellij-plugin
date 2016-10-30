@@ -16,12 +16,13 @@ Language Support:
 4.  Fix `InstanceofExpr` and `TreatExpr` -- they expect a `SequenceType`, not a
     `SingleType`.
 
-Reference and Resolve Support:
+IntelliJ Integration:
 
 1.  Resolve URILiteral string references.
 2.  Resolve QName prefices to namespace declarations.
 3.  Resolve function usage to the corresponding function declaration.
 4.  Resolve variable usage to the corresponding variable declaration.
+5.  Find usages.
 
 ## 0.1 - 2016-09-10
 
