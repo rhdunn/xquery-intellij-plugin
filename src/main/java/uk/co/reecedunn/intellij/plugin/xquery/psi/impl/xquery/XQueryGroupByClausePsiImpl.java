@@ -18,10 +18,25 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryGroupByClause;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver;
 
-public class XQueryGroupByClausePsiImpl extends ASTWrapperPsiElement implements XQueryGroupByClause {
+public class XQueryGroupByClausePsiImpl extends ASTWrapperPsiElement implements XQueryGroupByClause, XQueryVariableResolver {
     public XQueryGroupByClausePsiImpl(@NotNull ASTNode node) {
         super(node);
+    }
+
+    @Nullable
+    @Override
+    public XQueryVariable resolveVariable(XQueryEQName name) {
+        XQueryVariableResolver var = findChildByClass(XQueryVariableResolver.class);
+        if (var != null) {
+            return var.resolveVariable(name);
+        }
+
+        return null;
     }
 }
