@@ -3253,6 +3253,31 @@ public class XQueryPsiTest extends ParserTestCase {
     }
 
     // endregion
+    // region IntermediateClause
+
+    public void testIntermediateClause_VariableProvider() {
+        final ASTNode node = parseResource("tests/parser/xquery-3.0/IntermediateClause_ForOrderByLet.xq");
+
+        XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryFLWORExpr.class);
+        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildByClass(flworExprPsi, XQueryIntermediateClause.class);
+        XQueryForClause forClausePsi = PsiNavigation.findDirectDescendantByClass(intermediateClausePsi, XQueryForClause.class);
+        XQueryForBinding forBindingPsi = PsiNavigation.findChildByClass(forClausePsi, XQueryForBinding.class);
+        XQueryVarName varNamePsi = PsiNavigation.findChildByClass(forBindingPsi, XQueryVarName.class);
+        XQueryVariableResolver provider = (XQueryVariableResolver)intermediateClausePsi;
+
+        assertThat(provider.resolveVariable(null), is(nullValue()));
+
+        XQueryVariable variable = provider.resolveVariable(varNamePsi);
+        assertThat(variable, is(notNullValue()));
+
+        assertThat(variable.getVariable(), is(instanceOf(XQueryVarName.class)));
+        assertThat(variable.getVariable(), is(varNamePsi));
+
+        assertThat(variable.getDeclaration(), is(instanceOf(XQueryForBinding.class)));
+        assertThat(variable.getDeclaration(), is(forBindingPsi));
+    }
+
+    // endregion
     // region LetBinding
 
     public void testLetBinding_VariableProvider() {
