@@ -203,6 +203,42 @@ public class XQueryReferenceTest extends ParserTestCase {
     }
 
     // endregion
+    // region IntermediateClause
+
+    public void testIntermediateClause() {
+        final ASTNode node = parseResource("tests/resolve/xquery-1.0/IntermediateClause_ReturnInnerForVariable.xq");
+
+        XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryFLWORExpr.class);
+        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildByClass(flworExprPsi, XQueryIntermediateClause.class);
+        XQueryForClause forClausePsi = PsiNavigation.findDirectDescendantByClass(intermediateClausePsi, XQueryForClause.class);
+        XQueryForBinding forBindingPsi = PsiNavigation.findChildByClass(forClausePsi, XQueryForBinding.class);
+        XQueryVarName varNamePsi = PsiNavigation.findChildByClass(forBindingPsi, XQueryVarName.class);
+
+        XQueryReturnClause returnClausePsi = PsiNavigation.findChildByClass(flworExprPsi, XQueryReturnClause.class);
+        XQueryOrExpr orExprPsi = PsiNavigation.findChildByClass(returnClausePsi, XQueryOrExpr.class);
+        XQueryVarRef varRefPsi = PsiNavigation.findDirectDescendantByClass(orExprPsi, XQueryVarRef.class);
+        XQueryEQName varRefNamePsi = PsiNavigation.findChildByClass(varRefPsi, XQueryEQName.class);
+
+        PsiReference ref = varRefNamePsi.getReference();
+        assertThat(ref.getCanonicalText(), is("z"));
+        assertThat(ref.getVariants().length, is(0));
+
+        PsiElement resolved = ref.resolve();
+        assertThat(resolved, is(instanceOf(XQueryVarName.class)));
+        assertThat(resolved, is(varNamePsi));
+
+        PsiReference[] refs = varRefNamePsi.getReferences();
+        assertThat(refs.length, is(1));
+
+        assertThat(refs[0].getCanonicalText(), is("z"));
+        assertThat(refs[0].getVariants().length, is(0));
+
+        resolved = refs[0].resolve();
+        assertThat(resolved, is(instanceOf(XQueryVarName.class)));
+        assertThat(resolved, is(varNamePsi));
+    }
+
+    // endregion
     // region LetBinding
 
     public void testLetBinding() {
