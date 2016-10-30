@@ -3437,6 +3437,29 @@ public class XQueryPsiTest extends ParserTestCase {
     }
 
     // endregion
+    // region SlidingWindowClause
+
+    public void testSlidingWindowClause_VariableProvider() {
+        final ASTNode node = parseResource("tests/parser/xquery-3.0/SlidingWindowClause.xq");
+
+        XQueryWindowClause windowClausePsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryWindowClause.class);
+        XQuerySlidingWindowClause slidingWindowClausePsi = PsiNavigation.findChildByClass(windowClausePsi, XQuerySlidingWindowClause.class);
+        XQueryVarName varNamePsi = PsiNavigation.findChildByClass(slidingWindowClausePsi, XQueryVarName.class);
+        XQueryVariableResolver provider = (XQueryVariableResolver)slidingWindowClausePsi;
+
+        assertThat(provider.resolveVariable(null), is(nullValue()));
+
+        XQueryVariable variable = provider.resolveVariable(varNamePsi);
+        assertThat(variable, is(notNullValue()));
+
+        assertThat(variable.getVariable(), is(instanceOf(XQueryVarName.class)));
+        assertThat(variable.getVariable(), is(varNamePsi));
+
+        assertThat(variable.getDeclaration(), is(instanceOf(XQuerySlidingWindowClause.class)));
+        assertThat(variable.getDeclaration(), is(slidingWindowClausePsi));
+    }
+
+    // endregion
     // region TumblingWindowClause
 
     public void testTumblingWindowClause_VariableProvider() {

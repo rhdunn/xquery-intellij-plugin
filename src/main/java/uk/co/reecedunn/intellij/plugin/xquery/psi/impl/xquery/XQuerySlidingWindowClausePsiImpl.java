@@ -19,14 +19,19 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySlidingWindowClause;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVarName;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 
-public class XQuerySlidingWindowClausePsiImpl extends ASTWrapperPsiElement implements XQuerySlidingWindowClause, XQueryConformanceCheck {
+public class XQuerySlidingWindowClausePsiImpl extends ASTWrapperPsiElement implements XQuerySlidingWindowClause, XQueryConformanceCheck, XQueryVariableResolver {
     public XQuerySlidingWindowClausePsiImpl(@NotNull ASTNode node) {
         super(node);
     }
@@ -45,5 +50,16 @@ public class XQuerySlidingWindowClausePsiImpl extends ASTWrapperPsiElement imple
     @Override
     public String getConformanceErrorMessage() {
         return XQueryBundle.message("requires.feature.minimal-conformance.version", XQueryVersion.VERSION_3_0);
+    }
+
+    @Nullable
+    @Override
+    public XQueryVariable resolveVariable(XQueryEQName name) {
+        PsiElement varName = findChildByClass(XQueryVarName.class);
+        if (varName != null && varName.equals(name)) {
+            return new XQueryVariable(varName, this);
+        }
+
+        return null;
     }
 }
