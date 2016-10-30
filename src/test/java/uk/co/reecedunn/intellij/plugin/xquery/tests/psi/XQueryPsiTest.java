@@ -3145,6 +3145,30 @@ public class XQueryPsiTest extends ParserTestCase {
     }
 
     // endregion
+    // region CountClause
+
+    public void testCountClause_VariableProvider() {
+        final ASTNode node = parseResource("tests/parser/xquery-3.0/CountClause.xq");
+
+        XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryFLWORExpr.class);
+        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildByClass(flworExprPsi, XQueryIntermediateClause.class);
+        XQueryCountClause countClausePsi = PsiNavigation.findDirectDescendantByClass(intermediateClausePsi, XQueryCountClause.class);
+        XQueryVarName varNamePsi = PsiNavigation.findChildByClass(countClausePsi, XQueryVarName.class);
+        XQueryVariableResolver provider = (XQueryVariableResolver)intermediateClausePsi;
+
+        assertThat(provider.resolveVariable(null), is(nullValue()));
+
+        XQueryVariable variable = provider.resolveVariable(varNamePsi);
+        assertThat(variable, is(notNullValue()));
+
+        assertThat(variable.getVariable(), is(instanceOf(XQueryVarName.class)));
+        assertThat(variable.getVariable(), is(varNamePsi));
+
+        assertThat(variable.getDeclaration(), is(instanceOf(XQueryCountClause.class)));
+        assertThat(variable.getDeclaration(), is(countClausePsi));
+    }
+
+    // endregion
     // region ForBinding
 
     public void testForBinding_VariableProvider() {

@@ -17,11 +17,27 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
+import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCountClause;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver;
 
-public class XQueryCountClausePsiImpl extends ASTWrapperPsiElement implements XQueryCountClause {
+public class XQueryCountClausePsiImpl extends ASTWrapperPsiElement implements XQueryCountClause, XQueryVariableResolver {
     public XQueryCountClausePsiImpl(@NotNull ASTNode node) {
         super(node);
+    }
+
+    @Nullable
+    @Override
+    public XQueryVariable resolveVariable(XQueryEQName name) {
+        PsiElement eqname = findChildByClass(XQueryEQName.class);
+        if (eqname != null && eqname.equals(name)) {
+            return new XQueryVariable(eqname, this);
+        }
+
+        return null;
     }
 }
