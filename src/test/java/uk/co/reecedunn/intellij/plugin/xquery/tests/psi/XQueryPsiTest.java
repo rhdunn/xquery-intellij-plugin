@@ -3437,6 +3437,29 @@ public class XQueryPsiTest extends ParserTestCase {
     }
 
     // endregion
+    // region TumblingWindowClause
+
+    public void testTumblingWindowClause_VariableProvider() {
+        final ASTNode node = parseResource("tests/parser/xquery-3.0/TumblingWindowClause.xq");
+
+        XQueryWindowClause windowClausePsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryWindowClause.class);
+        XQueryTumblingWindowClause tumblingWindowClausePsi = PsiNavigation.findChildByClass(windowClausePsi, XQueryTumblingWindowClause.class);
+        XQueryVarName varNamePsi = PsiNavigation.findChildByClass(tumblingWindowClausePsi, XQueryVarName.class);
+        XQueryVariableResolver provider = (XQueryVariableResolver)tumblingWindowClausePsi;
+
+        assertThat(provider.resolveVariable(null), is(nullValue()));
+
+        XQueryVariable variable = provider.resolveVariable(varNamePsi);
+        assertThat(variable, is(notNullValue()));
+
+        assertThat(variable.getVariable(), is(instanceOf(XQueryVarName.class)));
+        assertThat(variable.getVariable(), is(varNamePsi));
+
+        assertThat(variable.getDeclaration(), is(instanceOf(XQueryTumblingWindowClause.class)));
+        assertThat(variable.getDeclaration(), is(tumblingWindowClausePsi));
+    }
+
+    // endregion
     // region VarDecl
 
     public void testVarDecl_VariableProvider() {
