@@ -3276,6 +3276,29 @@ public class XQueryPsiTest extends ParserTestCase {
     }
 
     // endregion
+    // region LetClause
+
+    public void testLetClause_VariableProvider() {
+        final ASTNode node = parseResource("tests/parser/xquery-1.0/LetClause.xq");
+
+        XQueryLetClause letClausePsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryLetClause.class);
+        XQueryLetBinding letBindingPsi = PsiNavigation.findChildByClass(letClausePsi, XQueryLetBinding.class);
+        XQueryVarName varNamePsi = PsiNavigation.findChildByClass(letBindingPsi, XQueryVarName.class);
+        XQueryVariableProvider provider = (XQueryVariableProvider)letClausePsi;
+
+        assertThat(provider.resolveVariable(null), is(nullValue()));
+
+        XQueryVariable variable = provider.resolveVariable(varNamePsi);
+        assertThat(variable, is(notNullValue()));
+
+        assertThat(variable.getVariable(), is(instanceOf(XQueryVarName.class)));
+        assertThat(variable.getVariable(), is(varNamePsi));
+
+        assertThat(variable.getDeclaration(), is(instanceOf(XQueryLetBinding.class)));
+        assertThat(variable.getDeclaration(), is(letBindingPsi));
+    }
+
+    // endregion
     // region Param
 
     public void testParam_VariableProvider() {
