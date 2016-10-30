@@ -24,9 +24,9 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryLetBinding;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVarName;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableProvider;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver;
 
-public class XQueryLetBindingPsiImpl extends ASTWrapperPsiElement implements XQueryLetBinding, XQueryVariableProvider {
+public class XQueryLetBindingPsiImpl extends ASTWrapperPsiElement implements XQueryLetBinding, XQueryVariableResolver {
     public XQueryLetBindingPsiImpl(@NotNull ASTNode node) {
         super(node);
     }

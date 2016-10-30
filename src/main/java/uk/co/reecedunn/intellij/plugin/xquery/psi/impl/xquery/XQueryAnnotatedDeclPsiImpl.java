@@ -23,9 +23,9 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableProvider;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver;
 
-public class XQueryAnnotatedDeclPsiImpl extends ASTWrapperPsiElement implements XQueryAnnotatedDecl, XQueryVariableProvider {
+public class XQueryAnnotatedDeclPsiImpl extends ASTWrapperPsiElement implements XQueryAnnotatedDecl, XQueryVariableResolver {
     public XQueryAnnotatedDeclPsiImpl(@NotNull ASTNode node) {
         super(node);
     }
@@ -33,7 +33,7 @@ public class XQueryAnnotatedDeclPsiImpl extends ASTWrapperPsiElement implements 
     @Nullable
     @Override
     public XQueryVariable resolveVariable(XQueryEQName name) {
-        XQueryVariableProvider varDecl = findChildByType(XQueryElementType.VAR_DECL);
+        XQueryVariableResolver varDecl = findChildByType(XQueryElementType.VAR_DECL);
         return varDecl == null ? null : varDecl.resolveVariable(name);
     }
 }

@@ -23,9 +23,9 @@ import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryParam;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableProvider;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver;
 
-public class XQueryParamPsiImpl extends ASTWrapperPsiElement implements XQueryParam, XQueryVariableProvider {
+public class XQueryParamPsiImpl extends ASTWrapperPsiElement implements XQueryParam, XQueryVariableResolver {
     public XQueryParamPsiImpl(@NotNull ASTNode node) {
         super(node);
     }

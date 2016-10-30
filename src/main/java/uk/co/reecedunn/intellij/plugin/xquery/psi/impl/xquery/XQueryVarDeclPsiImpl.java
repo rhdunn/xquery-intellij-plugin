@@ -29,10 +29,10 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableProvider;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 
-public class XQueryVarDeclPsiImpl extends ASTWrapperPsiElement implements XQueryVarDecl, XQueryConformanceCheck, XQueryVariableProvider {
+public class XQueryVarDeclPsiImpl extends ASTWrapperPsiElement implements XQueryVarDecl, XQueryConformanceCheck, XQueryVariableResolver {
     public XQueryVarDeclPsiImpl(@NotNull ASTNode node) {
         super(node);
     }

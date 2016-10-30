@@ -25,9 +25,9 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryForBinding;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPositionalVar;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVarName;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableProvider;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver;
 
-public class XQueryForBindingPsiImpl extends ASTWrapperPsiElement implements XQueryForBinding, XQueryVariableProvider {
+public class XQueryForBindingPsiImpl extends ASTWrapperPsiElement implements XQueryForBinding, XQueryVariableResolver {
     public XQueryForBindingPsiImpl(@NotNull ASTNode node) {
         super(node);
     }
@@ -42,7 +42,7 @@ public class XQueryForBindingPsiImpl extends ASTWrapperPsiElement implements XQu
 
         PsiElement positionalVar = findChildByClass(XQueryPositionalVar.class);
         if (positionalVar != null) {
-            return ((XQueryVariableProvider)positionalVar).resolveVariable(name);
+            return ((XQueryVariableResolver)positionalVar).resolveVariable(name);
         }
 
         return null;

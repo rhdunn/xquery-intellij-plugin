@@ -23,9 +23,9 @@ import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryForClause;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableProvider;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver;
 
-public class XQueryForClausePsiImpl extends ASTWrapperPsiElement implements XQueryForClause, XQueryVariableProvider {
+public class XQueryForClausePsiImpl extends ASTWrapperPsiElement implements XQueryForClause, XQueryVariableResolver {
     public XQueryForClausePsiImpl(@NotNull ASTNode node) {
         super(node);
     }
@@ -35,8 +35,8 @@ public class XQueryForClausePsiImpl extends ASTWrapperPsiElement implements XQue
     public XQueryVariable resolveVariable(XQueryEQName name) {
         PsiElement element = getFirstChild();
         while (element != null) {
-            if (element instanceof XQueryVariableProvider) {
-                XQueryVariable resolved = ((XQueryVariableProvider)element).resolveVariable(name);
+            if (element instanceof XQueryVariableResolver) {
+                XQueryVariable resolved = ((XQueryVariableResolver)element).resolveVariable(name);
                 if (resolved != null) {
                     return resolved;
                 }

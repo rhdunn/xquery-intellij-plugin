@@ -25,9 +25,9 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceProvider;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableProvider;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver;
 
-public class XQueryPrologPsiImpl extends ASTWrapperPsiElement implements XQueryProlog, XQueryNamespaceProvider, XQueryVariableProvider {
+public class XQueryPrologPsiImpl extends ASTWrapperPsiElement implements XQueryProlog, XQueryNamespaceProvider, XQueryVariableResolver {
     public XQueryPrologPsiImpl(@NotNull ASTNode node) {
         super(node);
     }
@@ -52,8 +52,8 @@ public class XQueryPrologPsiImpl extends ASTWrapperPsiElement implements XQueryP
     public XQueryVariable resolveVariable(XQueryEQName name) {
         PsiElement element = getLastChild();
         while (element != null) {
-            if (element instanceof XQueryVariableProvider) {
-                XQueryVariable resolved = ((XQueryVariableProvider)element).resolveVariable(name);
+            if (element instanceof XQueryVariableResolver) {
+                XQueryVariable resolved = ((XQueryVariableResolver)element).resolveVariable(name);
                 if (resolved != null) {
                     return resolved;
                 }

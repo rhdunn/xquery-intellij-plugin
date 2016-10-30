@@ -24,9 +24,9 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryParamList;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableProvider;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver;
 
-public class XQueryParamListPsiImpl extends ASTWrapperPsiElement implements XQueryParamList, XQueryVariableProvider {
+public class XQueryParamListPsiImpl extends ASTWrapperPsiElement implements XQueryParamList, XQueryVariableResolver {
     public XQueryParamListPsiImpl(@NotNull ASTNode node) {
         super(node);
     }
@@ -50,7 +50,7 @@ public class XQueryParamListPsiImpl extends ASTWrapperPsiElement implements XQue
         PsiElement element = getFirstChild();
         while (element != null) {
             if (element.getNode().getElementType() == XQueryElementType.PARAM) {
-                XQueryVariable variable = ((XQueryVariableProvider)element).resolveVariable(name);
+                XQueryVariable variable = ((XQueryVariableResolver)element).resolveVariable(name);
                 if (variable != null) {
                     return variable;
                 }

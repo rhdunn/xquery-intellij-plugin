@@ -32,10 +32,10 @@ import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.PsiNavigation;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableProvider;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 
-public class XQueryFunctionDeclPsiImpl extends ASTWrapperPsiElement implements XQueryFunctionDecl, XQueryConformanceCheck, XQueryVariableProvider {
+public class XQueryFunctionDeclPsiImpl extends ASTWrapperPsiElement implements XQueryFunctionDecl, XQueryConformanceCheck, XQueryVariableResolver {
     public XQueryFunctionDeclPsiImpl(@NotNull ASTNode node) {
         super(node);
     }
@@ -94,6 +94,6 @@ public class XQueryFunctionDeclPsiImpl extends ASTWrapperPsiElement implements X
     @Override
     public XQueryVariable resolveVariable(XQueryEQName name) {
         PsiElement element = findChildByType(XQueryElementType.PARAM_LIST);
-        return element == null ? null : ((XQueryVariableProvider)element).resolveVariable(name);
+        return element == null ? null : ((XQueryVariableResolver)element).resolveVariable(name);
     }
 }

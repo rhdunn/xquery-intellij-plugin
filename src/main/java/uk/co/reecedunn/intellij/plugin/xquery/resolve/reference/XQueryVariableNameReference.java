@@ -20,8 +20,8 @@ public class XQueryVariableNameReference extends PsiReferenceBase<XQueryEQName> 
 
         PsiElement element = name;
         while (element != null) {
-            if (element instanceof XQueryVariableProvider) {
-                XQueryVariable resolved = ((XQueryVariableProvider)element).resolveVariable(name);
+            if (element instanceof XQueryVariableResolver) {
+                XQueryVariable resolved = ((XQueryVariableResolver)element).resolveVariable(name);
                 if (resolved != null) {
                     return resolved.getVariable();
                 }
