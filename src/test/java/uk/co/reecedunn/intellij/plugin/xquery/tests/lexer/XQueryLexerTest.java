@@ -3497,6 +3497,19 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region XQuery 3.1 :: AnyArrayTest
+
+    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-AnyArrayTest")
+    public void testAnyArrayTest() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "array", XQueryTokenType.K_ARRAY);
+        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN);
+        matchSingleToken(lexer, "*", XQueryTokenType.STAR);
+        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE);
+    }
+
+    // endregion
     // region Update Facility 1.0 :: FunctionDecl
 
     @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-FunctionDecl")
