@@ -174,6 +174,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_EQ = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_EQ");
     IXQueryKeywordOrNCNameType K_EVERY = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_EVERY");
     IXQueryKeywordOrNCNameType K_EXCEPT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_EXCEPT");
+    IXQueryKeywordOrNCNameType K_EXPONENT_SEPARATOR = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_EXPONENT_SEPARATOR"); // XQuery 3.1
     IXQueryKeywordOrNCNameType K_EXTERNAL = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_EXTERNAL");
     IXQueryKeywordOrNCNameType K_FIRST = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_FIRST"); // Update Facility 1.0
     IXQueryKeywordOrNCNameType K_FOLLOWING = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_FOLLOWING");

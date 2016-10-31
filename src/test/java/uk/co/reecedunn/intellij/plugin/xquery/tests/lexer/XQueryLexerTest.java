@@ -3497,6 +3497,26 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region XQuery 3.1 :: DFPropertyName
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-DFPropertyName")
+    public void testDFPropertyName_XQuery31() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "decimal-separator",  XQueryTokenType.K_DECIMAL_SEPARATOR);
+        matchSingleToken(lexer, "grouping-separator", XQueryTokenType.K_GROUPING_SEPARATOR);
+        matchSingleToken(lexer, "infinity",           XQueryTokenType.K_INFINITY);
+        matchSingleToken(lexer, "minus-sign",         XQueryTokenType.K_MINUS_SIGN);
+        matchSingleToken(lexer, "NaN",                XQueryTokenType.K_NAN);
+        matchSingleToken(lexer, "percent",            XQueryTokenType.K_PERCENT);
+        matchSingleToken(lexer, "per-mille",          XQueryTokenType.K_PER_MILLE);
+        matchSingleToken(lexer, "zero-digit",         XQueryTokenType.K_ZERO_DIGIT);
+        matchSingleToken(lexer, "digit",              XQueryTokenType.K_DIGIT);
+        matchSingleToken(lexer, "pattern-separator",  XQueryTokenType.K_PATTERN_SEPARATOR);
+        matchSingleToken(lexer, "exponent-separator", XQueryTokenType.K_EXPONENT_SEPARATOR); // New in XQuery 3.1
+    }
+
+    // endregion
     // region XQuery 3.1 :: ArrowExpr
 
     @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-ArrowExpr")

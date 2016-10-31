@@ -1298,6 +1298,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("eq", XQueryTokenType.K_EQ);
         sKeywords.put("every", XQueryTokenType.K_EVERY);
         sKeywords.put("except", XQueryTokenType.K_EXCEPT);
+        sKeywords.put("exponent-separator", XQueryTokenType.K_EXPONENT_SEPARATOR); // XQuery 3.1
         sKeywords.put("external", XQueryTokenType.K_EXTERNAL);
         sKeywords.put("first", XQueryTokenType.K_FIRST); // Update Facility 1.0
         sKeywords.put("following", XQueryTokenType.K_FOLLOWING);
