@@ -29,6 +29,10 @@ import java.util.function.Function;
  * @param <A> The type of the value being stored in the option.
  */
 public abstract class Option<A> {
+    public <B> Option<B> map(Function<? super A, ? extends B> f) {
+        return isDefined() ? some(f.apply(get())) : none();
+    }
+
     // region Option Interface
 
     /**
