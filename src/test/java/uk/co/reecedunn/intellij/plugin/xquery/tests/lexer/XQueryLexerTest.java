@@ -3510,6 +3510,19 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region XQuery 3.1 :: TypedMapTest
+
+    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-TypedMapTest")
+    public void testTypedMapTest() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "map", XQueryTokenType.K_MAP);
+        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN);
+        matchSingleToken(lexer, ",", XQueryTokenType.COMMA);
+        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE);
+    }
+
+    // endregion
     // region XQuery 3.1 :: AnyArrayTest
 
     @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-AnyArrayTest")
