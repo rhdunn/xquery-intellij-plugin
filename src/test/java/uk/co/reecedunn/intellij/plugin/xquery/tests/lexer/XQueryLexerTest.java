@@ -3497,6 +3497,19 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region XQuery 3.1 :: MapConstructor
+
+    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-MapConstructor")
+    public void testMapConstructor() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "map", XQueryTokenType.K_MAP);
+        matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN);
+        matchSingleToken(lexer, ",", XQueryTokenType.COMMA);
+        matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE);
+    }
+
+    // endregion
     // region XQuery 3.1 :: MapConstructorEntry
 
     @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-MapConstructorEntry")
