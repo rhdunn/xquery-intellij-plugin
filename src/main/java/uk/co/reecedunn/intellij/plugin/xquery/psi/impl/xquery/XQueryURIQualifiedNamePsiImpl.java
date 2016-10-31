@@ -20,7 +20,7 @@ import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryURIQualifiedName;
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.INCNameType;
+import uk.co.reecedunn.intellij.plugin.xquery.functional.Option;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace;
 
@@ -39,7 +39,7 @@ public class XQueryURIQualifiedNamePsiImpl extends ASTWrapperPsiElement implemen
         return findChildByType(XQueryElementType.NCNAME);
     }
 
-    public XQueryNamespace resolvePrefixNamespace() {
-        return null;
+    public Option<XQueryNamespace> resolvePrefixNamespace() {
+        return Option.none();
     }
 }

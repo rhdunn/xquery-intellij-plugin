@@ -15,8 +15,7 @@ public class XQueryEQNamePrefixReference extends PsiReferenceBase<XQueryEQName> 
     @Nullable
     @Override
     public PsiElement resolve() {
-        XQueryNamespace resolved = getElement().resolvePrefixNamespace();
-        return resolved == null ? null : resolved.getPrefix();
+        return getElement().resolvePrefixNamespace().map(XQueryNamespace::getPrefix).get();
     }
 
     @NotNull

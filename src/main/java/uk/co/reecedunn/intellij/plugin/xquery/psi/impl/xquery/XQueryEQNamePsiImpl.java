@@ -165,7 +165,7 @@ public class XQueryEQNamePsiImpl extends ASTWrapperPsiElement implements XQueryE
     }
 
     @Override
-    public XQueryNamespace resolvePrefixNamespace() {
+    public Option<XQueryNamespace> resolvePrefixNamespace() {
         return Option.of(getPrefix()).flatMap((element) -> {
             if (element instanceof XQueryBracedURILiteral) {
                 return Option.none();
@@ -187,6 +187,6 @@ public class XQueryEQNamePsiImpl extends ASTWrapperPsiElement implements XQueryE
                 element = next;
             }
             return Option.none();
-        }).get();
+        });
     }
 }
