@@ -340,7 +340,13 @@ public class XQueryLexer extends LexerBase {
                 break;
             case CharacterClass.EQUAL:
                 mTokenRange.match();
-                mType = XQueryTokenType.EQUAL;
+                c = mTokenRange.getCodePoint();
+                if (c == '>') {
+                    mTokenRange.match();
+                    mType = XQueryTokenType.ARROW;
+                } else {
+                    mType = XQueryTokenType.EQUAL;
+                }
                 break;
             case CharacterClass.CURLY_BRACE_OPEN:
                 mTokenRange.match();
