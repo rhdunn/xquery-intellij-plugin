@@ -3497,6 +3497,16 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region XQuery 3.1 :: Lookup
+
+    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-Lookup")
+    public void testLookup() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "?", XQueryTokenType.OPTIONAL);
+    }
+
+    // endregion
     // region XQuery 3.1 :: KeySpecifier
 
     @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-KeySpecifier")
