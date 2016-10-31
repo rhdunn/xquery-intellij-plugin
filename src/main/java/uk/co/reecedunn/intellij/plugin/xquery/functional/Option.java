@@ -33,6 +33,14 @@ public abstract class Option<A> {
         return isDefined() ? some(f.apply(get())) : none();
     }
 
+    public <B> Option<B> flatMap(Function<? super A, ? extends Option<? extends B>> f) {
+        if (isDefined()) {
+            Option<? extends B> ret = f.apply(get());
+            return ret.isDefined() ? some(ret.get()) : none();
+        }
+        return none();
+    }
+
     // region Option Interface
 
     /**
