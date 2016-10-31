@@ -24,6 +24,7 @@ import com.intellij.psi.tree.TokenSet;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryBracedURILiteral;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
+import uk.co.reecedunn.intellij.plugin.xquery.functional.Option;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.INCNameType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
@@ -165,26 +166,27 @@ public class XQueryEQNamePsiImpl extends ASTWrapperPsiElement implements XQueryE
 
     @Override
     public XQueryNamespace resolvePrefixNamespace() {
-        PsiElement element = getPrefix();
-        if (element instanceof XQueryBracedURILiteral) {
-            return null;
-        }
+        return Option.of(getPrefix()).flatMap((element) -> {
+            if (element instanceof XQueryBracedURILiteral) {
+                return Option.none();
+            }
 
-        CharSequence prefix = element.getText();
-        while (element != null) {
-            if (element instanceof XQueryNamespaceResolver) {
-                XQueryNamespace resolved = ((XQueryNamespaceResolver) element).resolveNamespace(prefix);
-                if (resolved != null) {
-                    return resolved;
+            CharSequence prefix = element.getText();
+            while (element != null) {
+                if (element instanceof XQueryNamespaceResolver) {
+                    XQueryNamespace resolved = ((XQueryNamespaceResolver) element).resolveNamespace(prefix);
+                    if (resolved != null) {
+                        return Option.some(resolved);
+                    }
                 }
-            }
 
-            PsiElement next = element.getPrevSibling();
-            if (next == null) {
-                next = element.getParent();
+                PsiElement next = element.getPrevSibling();
+                if (next == null) {
+                    next = element.getParent();
+                }
+                element = next;
             }
-            element = next;
-        }
-        return null;
+            return Option.none();
+        }).get();
     }
 }
