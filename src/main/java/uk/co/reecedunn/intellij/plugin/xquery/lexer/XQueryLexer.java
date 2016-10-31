@@ -1321,6 +1321,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("least", XQueryTokenType.K_LEAST);
         sKeywords.put("let", XQueryTokenType.K_LET);
         sKeywords.put("lt", XQueryTokenType.K_LT);
+        sKeywords.put("map", XQueryTokenType.K_MAP); // XQuery 3.1
         sKeywords.put("minus-sign", XQueryTokenType.K_MINUS_SIGN); // XQuery 3.0
         sKeywords.put("mod", XQueryTokenType.K_MOD);
         sKeywords.put("modify", XQueryTokenType.K_MODIFY); // Update Facility 1.0

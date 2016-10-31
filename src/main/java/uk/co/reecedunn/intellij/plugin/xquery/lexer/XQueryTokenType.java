@@ -202,6 +202,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_LEAST = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_LEAST");
     IXQueryKeywordOrNCNameType K_LET = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_LET");
     IXQueryKeywordOrNCNameType K_LT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_LT");
+    IXQueryKeywordOrNCNameType K_MAP = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_MAP"); // XQuery 3.1
     IXQueryKeywordOrNCNameType K_MINUS_SIGN = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_MINUS_SIGN"); // XQuery 3.0
     IXQueryKeywordOrNCNameType K_MOD = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_MOD");
     IXQueryKeywordOrNCNameType K_MODIFY = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_MODIFY"); // Update Facility 1.0
