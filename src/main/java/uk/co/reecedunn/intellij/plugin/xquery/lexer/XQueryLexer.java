@@ -390,7 +390,8 @@ public class XQueryLexer extends LexerBase {
                 break;
             case CharacterClass.SQUARE_BRACE_CLOSE:
                 mTokenRange.match();
-                if (mTokenRange.getCodePoint() == ']') {
+                c = mTokenRange.getCodePoint();
+                if (c == ']') {
                     mTokenRange.save();
                     mTokenRange.match();
                     if (mTokenRange.getCodePoint() == '>') {
@@ -399,6 +400,14 @@ public class XQueryLexer extends LexerBase {
                     } else {
                         mTokenRange.restore();
                         mType = XQueryTokenType.SQUARE_CLOSE;
+                    }
+                } else if (c == '`') {
+                    mTokenRange.match();
+                    if (mTokenRange.getCodePoint() == '`') {
+                        mTokenRange.match();
+                        mType = XQueryTokenType.STRING_CONSTRUCTOR_END;
+                    } else {
+                        mType = XQueryTokenType.INVALID;
                     }
                 } else {
                     mType = XQueryTokenType.SQUARE_CLOSE;
@@ -421,6 +430,20 @@ public class XQueryLexer extends LexerBase {
             case CharacterClass.AMPERSAND:
                 mTokenRange.match();
                 mType = XQueryTokenType.ENTITY_REFERENCE_NOT_IN_STRING;
+                break;
+            case CharacterClass.BACK_TICK:
+                mTokenRange.match();
+                if (mTokenRange.getCodePoint() == '`') {
+                    mTokenRange.match();
+                    if (mTokenRange.getCodePoint() == '[') {
+                        mTokenRange.match();
+                        mType = XQueryTokenType.STRING_CONSTRUCTOR_START;
+                    } else {
+                        mType = XQueryTokenType.INVALID;
+                    }
+                } else {
+                    mType = XQueryTokenType.INVALID;
+                }
                 break;
             default:
                 mTokenRange.match();

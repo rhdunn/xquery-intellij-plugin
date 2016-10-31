@@ -3594,6 +3594,22 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region XQuery 3.1 :: StringConstructor
+
+    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-StringConstructor")
+    public void testStringConstructor() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "`",   XQueryTokenType.INVALID);
+        matchSingleToken(lexer, "``",  XQueryTokenType.INVALID);
+        matchSingleToken(lexer, "``[", XQueryTokenType.STRING_CONSTRUCTOR_START);
+
+        matchSingleToken(lexer, "]",   XQueryTokenType.SQUARE_CLOSE);
+        matchSingleToken(lexer, "]`",  XQueryTokenType.INVALID);
+        matchSingleToken(lexer, "]``", XQueryTokenType.STRING_CONSTRUCTOR_END);
+    }
+
+    // endregion
     // region XQuery 3.1 :: UnaryLookup
 
     @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-UnaryLookup")

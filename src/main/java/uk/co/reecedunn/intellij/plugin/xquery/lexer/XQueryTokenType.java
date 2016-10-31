@@ -99,7 +99,6 @@ public interface XQueryTokenType extends TokenType {
     IElementType SEPARATOR = new IElementType("XQUERY_SEPARATOR_TOKEN", XQuery.INSTANCE);
     IElementType PLUS = new IElementType("XQUERY_PLUS_TOKEN", XQuery.INSTANCE);
     IElementType EQUAL = new IElementType("XQUERY_EQUAL_TOKEN", XQuery.INSTANCE);
-    IElementType ARROW = new IElementType("XQUERY_ARROW_TOKEN", XQuery.INSTANCE);
     IElementType BLOCK_OPEN = new IElementType("XQUERY_BLOCK_OPEN_TOKEN", XQuery.INSTANCE);
     IElementType BLOCK_CLOSE = new IElementType("XQUERY_BLOCK_CLOSE_TOKEN", XQuery.INSTANCE);
     IElementType LESS_THAN = new IElementType("XQUERY_LESS_THAN_TOKEN", XQuery.INSTANCE);
@@ -123,6 +122,10 @@ public interface XQueryTokenType extends TokenType {
     IElementType MAP_OPERATOR = new IElementType("XQUERY_MAP_OPERATOR_TOKEN", XQuery.INSTANCE); // XQuery 3.0
     IElementType FUNCTION_REF_OPERATOR = new IElementType("XQUERY_FUNCTION_REF_OPERATOR_TOKEN", XQuery.INSTANCE); // XQuery 3.0
     IElementType ANNOTATION_INDICATOR = new IElementType("XQUERY_ANNOTATION_INDICATOR_TOKEN", XQuery.INSTANCE); // XQuery 3.0
+
+    IElementType ARROW = new IElementType("XQUERY_ARROW_TOKEN", XQuery.INSTANCE); // XQuery 3.1
+    IElementType STRING_CONSTRUCTOR_START = new IElementType("XQUERY_STRING_CONSTRUCTOR_START_TOKEN", XQuery.INSTANCE); // XQuery 3.1
+    IElementType STRING_CONSTRUCTOR_END = new IElementType("XQUERY_STRING_CONSTRUCTOR_END_TOKEN", XQuery.INSTANCE); // XQuery 3.1
 
     IXQueryKeywordOrNCNameType K_AFTER = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_AFTER"); // Update Facility 1.0
     IXQueryKeywordOrNCNameType K_ALLOWING = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ALLOWING"); // XQuery 3.0

@@ -36,7 +36,6 @@ public class CharacterClassTest extends TestCase {
 
         assertThat(CharacterClass.getCharClass('\\'), is(CharacterClass.CHAR));
         assertThat(CharacterClass.getCharClass('^'), is(CharacterClass.CHAR));
-        assertThat(CharacterClass.getCharClass('`'), is(CharacterClass.CHAR));
         assertThat(CharacterClass.getCharClass('~'), is(CharacterClass.CHAR));
 
         // Excludes the surrogate blocks [0xD800-0xDFFF]
@@ -353,5 +352,9 @@ public class CharacterClassTest extends TestCase {
 
     public void testAmpersand() {
         assertThat(CharacterClass.getCharClass('&'), is(CharacterClass.AMPERSAND));
+    }
+
+    public void testBackTick() {
+        assertThat(CharacterClass.getCharClass('`'), is(CharacterClass.BACK_TICK));
     }
 }

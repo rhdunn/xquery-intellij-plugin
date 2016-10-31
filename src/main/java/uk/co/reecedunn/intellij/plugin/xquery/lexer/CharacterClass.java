@@ -55,11 +55,13 @@ public final class CharacterClass {
     public static final int SQUARE_BRACE_CLOSE = 25;
     public static final int PERCENT = 26;
     public static final int AMPERSAND = 27;
+    public static final int BACK_TICK = 28;
 
     private static final int AMP = AMPERSAND;
     private static final int APO = APOSTROPHE;
     private static final int AST = ASTERISK;
     private static final int ATS = AT_SIGN;
+    private static final int BTK = BACK_TICK;
     private static final int CBC = CURLY_BRACE_CLOSE;
     private static final int CBO = CURLY_BRACE_OPEN;
     private static final int CHR = CHAR;
@@ -96,7 +98,7 @@ public final class CharacterClass {
         /* 3x */ DIG, DIG, DIG, DIG, DIG, DIG, DIG, DIG, DIG, DIG, CLN, SMC, LTN, EQL, GTN, QMK,
         /* 4x */ ATS, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC,
         /* 5x */ NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, SBO, CHR, SBC, CHR, NSC,
-        /* 6x */ CHR, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC,
+        /* 6x */ BTK, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC,
         /* 7x */ NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, CBO, VTB, CBC, CHR, INV,
     };
 
