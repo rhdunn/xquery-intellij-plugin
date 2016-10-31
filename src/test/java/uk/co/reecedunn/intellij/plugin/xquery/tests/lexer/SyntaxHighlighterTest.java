@@ -742,8 +742,8 @@ public class SyntaxHighlighterTest extends TestCase {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.DIRECT_DESCENDANTS_PATH).length, is(0));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.ALL_DESCENDANTS_PATH).length, is(0));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.ATTRIBUTE_SELECTOR).length, is(0));
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.PREDICATE_BEGIN).length, is(0));
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.PREDICATE_END).length, is(0));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.SQUARE_OPEN).length, is(0));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.SQUARE_CLOSE).length, is(0));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.PARENT_SELECTOR).length, is(0));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.NODE_BEFORE).length, is(0));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.NODE_AFTER).length, is(0));

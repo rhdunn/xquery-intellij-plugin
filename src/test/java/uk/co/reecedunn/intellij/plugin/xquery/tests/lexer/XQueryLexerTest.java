@@ -964,8 +964,8 @@ public class XQueryLexerTest extends TestCase {
     public void testPredicate() {
         Lexer lexer = new XQueryLexer();
 
-        matchSingleToken(lexer, "[", XQueryTokenType.PREDICATE_BEGIN);
-        matchSingleToken(lexer, "]", XQueryTokenType.PREDICATE_END);
+        matchSingleToken(lexer, "[", XQueryTokenType.SQUARE_OPEN);
+        matchSingleToken(lexer, "]", XQueryTokenType.SQUARE_CLOSE);
     }
 
     // endregion
@@ -1990,11 +1990,11 @@ public class XQueryLexerTest extends TestCase {
         matchSingleToken(lexer, "<![CDATA",  0, XQueryTokenType.INVALID);
         matchSingleToken(lexer, "<![CDATA[", 7, XQueryTokenType.CDATA_SECTION_START_TAG);
 
-        matchSingleToken(lexer, "]",   XQueryTokenType.PREDICATE_END);
+        matchSingleToken(lexer, "]",   XQueryTokenType.SQUARE_CLOSE);
 
         lexer.start("]]");
-        matchToken(lexer, "]", 0, 0, 1, XQueryTokenType.PREDICATE_END);
-        matchToken(lexer, "]", 0, 1, 2, XQueryTokenType.PREDICATE_END);
+        matchToken(lexer, "]", 0, 0, 1, XQueryTokenType.SQUARE_CLOSE);
+        matchToken(lexer, "]", 0, 1, 2, XQueryTokenType.SQUARE_CLOSE);
         matchToken(lexer, "",  0, 2, 2, null);
 
         matchSingleToken(lexer, "]]>", XQueryTokenType.CDATA_SECTION_END_TAG);
@@ -3494,6 +3494,18 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "g2;",  26, 21, 24, XQueryTokenType.STRING_LITERAL_CONTENTS);
         matchToken(lexer, "}",    26, 24, 25, XQueryTokenType.BRACED_URI_LITERAL_END);
         matchToken(lexer, "",      0, 25, 25, null);
+    }
+
+    // endregion
+    // region XQuery 3.1 :: SquareArrayConstructor
+
+    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-SquareArrayConstructor")
+    public void testSquareArrayConstructor() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "[", XQueryTokenType.SQUARE_OPEN);
+        matchSingleToken(lexer, ",", XQueryTokenType.COMMA);
+        matchSingleToken(lexer, "]", XQueryTokenType.SQUARE_CLOSE);
     }
 
     // endregion

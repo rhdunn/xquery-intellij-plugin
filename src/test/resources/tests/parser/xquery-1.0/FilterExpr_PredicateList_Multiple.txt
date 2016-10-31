@@ -30,7 +30,7 @@ FileElement[FILE(0:21)]
                                                                         LeafPsiElement[XQUERY_NCNAME_TOKEN(6:9)]('two')
                                                                PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
                                                                XQueryPredicateImpl[XQUERY_PREDICATE(10:15)]
-                                                                  LeafPsiElement[XQUERY_PREDICATE_BEGIN_TOKEN(10:11)]('[')
+                                                                  LeafPsiElement[XQUERY_SQUARE_OPEN_TOKEN(10:11)]('[')
                                                                   PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
                                                                   XQueryExprImpl[XQUERY_EXPR(12:14)]
                                                                      XQueryOrExprImpl[XQUERY_OR_EXPR(12:14)]
@@ -54,10 +54,10 @@ FileElement[FILE(0:21)]
                                                                                                                            XQueryLiteralImpl[XQUERY_LITERAL(12:13)]
                                                                                                                               XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(12:13)]('3')
                                                                                                                            PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
-                                                                  LeafPsiElement[XQUERY_PREDICATE_END_TOKEN(14:15)](']')
+                                                                  LeafPsiElement[XQUERY_SQUARE_CLOSE_TOKEN(14:15)](']')
                                                                PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
                                                                XQueryPredicateImpl[XQUERY_PREDICATE(16:21)]
-                                                                  LeafPsiElement[XQUERY_PREDICATE_BEGIN_TOKEN(16:17)]('[')
+                                                                  LeafPsiElement[XQUERY_SQUARE_OPEN_TOKEN(16:17)]('[')
                                                                   PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
                                                                   XQueryExprImpl[XQUERY_EXPR(18:20)]
                                                                      XQueryOrExprImpl[XQUERY_OR_EXPR(18:20)]
@@ -81,4 +81,4 @@ FileElement[FILE(0:21)]
                                                                                                                            XQueryLiteralImpl[XQUERY_LITERAL(18:19)]
                                                                                                                               XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(18:19)]('4')
                                                                                                                            PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
-                                                                  LeafPsiElement[XQUERY_PREDICATE_END_TOKEN(20:21)](']')
+                                                                  LeafPsiElement[XQUERY_SQUARE_CLOSE_TOKEN(20:21)](']')

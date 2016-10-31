@@ -25,7 +25,7 @@ FileElement[FILE(0:10)]
                                                                      XQueryNCNameImpl[XQUERY_NCNAME(1:2)]
                                                                         LeafPsiElement[XQUERY_NCNAME_TOKEN(1:2)]('f')
                                                                XQueryPredicateImpl[XQUERY_PREDICATE(2:5)]
-                                                                  LeafPsiElement[XQUERY_PREDICATE_BEGIN_TOKEN(2:3)]('[')
+                                                                  LeafPsiElement[XQUERY_SQUARE_OPEN_TOKEN(2:3)]('[')
                                                                   XQueryExprImpl[XQUERY_EXPR(3:4)]
                                                                      XQueryOrExprImpl[XQUERY_OR_EXPR(3:4)]
                                                                         XQueryAndExprImpl[XQUERY_AND_EXPR(3:4)]
@@ -47,7 +47,7 @@ FileElement[FILE(0:10)]
                                                                                                                         XQueryFilterExprImpl[XQUERY_FILTER_EXPR(3:4)]
                                                                                                                            XQueryLiteralImpl[XQUERY_LITERAL(3:4)]
                                                                                                                               XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(3:4)]('2')
-                                                                  LeafPsiElement[XQUERY_PREDICATE_END_TOKEN(4:5)](']')
+                                                                  LeafPsiElement[XQUERY_SQUARE_CLOSE_TOKEN(4:5)](']')
                                                                XQueryArgumentListImpl[XQUERY_ARGUMENT_LIST(5:10)]
                                                                   LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(5:6)]('(')
                                                                   XQueryArgumentImpl[XQUERY_ARGUMENT(6:7)]

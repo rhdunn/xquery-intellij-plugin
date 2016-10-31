@@ -380,7 +380,7 @@ public class XQueryLexer extends LexerBase {
                 break;
             case CharacterClass.SQUARE_BRACE_OPEN:
                 mTokenRange.match();
-                mType = XQueryTokenType.PREDICATE_BEGIN;
+                mType = XQueryTokenType.SQUARE_OPEN;
                 break;
             case CharacterClass.SQUARE_BRACE_CLOSE:
                 mTokenRange.match();
@@ -392,10 +392,10 @@ public class XQueryLexer extends LexerBase {
                         mType = XQueryTokenType.CDATA_SECTION_END_TAG;
                     } else {
                         mTokenRange.restore();
-                        mType = XQueryTokenType.PREDICATE_END;
+                        mType = XQueryTokenType.SQUARE_CLOSE;
                     }
                 } else {
-                    mType = XQueryTokenType.PREDICATE_END;
+                    mType = XQueryTokenType.SQUARE_CLOSE;
                 }
                 break;
             case CharacterClass.QUESTION_MARK:

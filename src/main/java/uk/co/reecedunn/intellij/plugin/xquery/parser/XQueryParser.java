@@ -3507,7 +3507,7 @@ class XQueryParser {
     }
 
     private boolean parsePredicate() {
-        final PsiBuilder.Marker predicateMarker = matchTokenTypeWithMarker(XQueryTokenType.PREDICATE_BEGIN);
+        final PsiBuilder.Marker predicateMarker = matchTokenTypeWithMarker(XQueryTokenType.SQUARE_OPEN);
         if (predicateMarker != null) {
             boolean haveErrors = false;
             parseWhiteSpaceAndCommentTokens();
@@ -3518,7 +3518,7 @@ class XQueryParser {
             }
 
             parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.PREDICATE_END) && !haveErrors) {
+            if (!matchTokenType(XQueryTokenType.SQUARE_CLOSE) && !haveErrors) {
                 error(XQueryBundle.message("parser.error.expected", "]"));
             }
 

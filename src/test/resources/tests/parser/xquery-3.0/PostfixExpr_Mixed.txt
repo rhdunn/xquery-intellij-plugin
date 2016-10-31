@@ -27,7 +27,7 @@ FileElement[FILE(0:19)]
                                                                         LeafPsiElement[XQUERY_NCNAME_TOKEN(2:3)]('f')
                                                                      PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
                                                                XQueryPredicateImpl[XQUERY_PREDICATE(4:9)]
-                                                                  LeafPsiElement[XQUERY_PREDICATE_BEGIN_TOKEN(4:5)]('[')
+                                                                  LeafPsiElement[XQUERY_SQUARE_OPEN_TOKEN(4:5)]('[')
                                                                   PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
                                                                   XQueryExprImpl[XQUERY_EXPR(6:8)]
                                                                      XQueryOrExprImpl[XQUERY_OR_EXPR(6:8)]
@@ -51,7 +51,7 @@ FileElement[FILE(0:19)]
                                                                                                                            XQueryLiteralImpl[XQUERY_LITERAL(6:7)]
                                                                                                                               XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(6:7)]('2')
                                                                                                                            PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-                                                                  LeafPsiElement[XQUERY_PREDICATE_END_TOKEN(8:9)](']')
+                                                                  LeafPsiElement[XQUERY_SQUARE_CLOSE_TOKEN(8:9)](']')
                                                                PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
                                                                XQueryArgumentListImpl[XQUERY_ARGUMENT_LIST(10:19)]
                                                                   LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(10:11)]('(')

@@ -27,7 +27,7 @@ FileElement[FILE(0:7)]
                                                                               LeafPsiElement[XQUERY_NCNAME_TOKEN(0:4)]('para')
                                                                XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(4:7)]
                                                                   XQueryPredicateImpl[XQUERY_PREDICATE(4:7)]
-                                                                     LeafPsiElement[XQUERY_PREDICATE_BEGIN_TOKEN(4:5)]('[')
+                                                                     LeafPsiElement[XQUERY_SQUARE_OPEN_TOKEN(4:5)]('[')
                                                                      XQueryExprImpl[XQUERY_EXPR(5:6)]
                                                                         XQueryOrExprImpl[XQUERY_OR_EXPR(5:6)]
                                                                            XQueryAndExprImpl[XQUERY_AND_EXPR(5:6)]
@@ -49,4 +49,4 @@ FileElement[FILE(0:7)]
                                                                                                                            XQueryFilterExprImpl[XQUERY_FILTER_EXPR(5:6)]
                                                                                                                               XQueryLiteralImpl[XQUERY_LITERAL(5:6)]
                                                                                                                                  XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(5:6)]('1')
-                                                                     LeafPsiElement[XQUERY_PREDICATE_END_TOKEN(6:7)](']')
+                                                                     LeafPsiElement[XQUERY_SQUARE_CLOSE_TOKEN(6:7)](']')
