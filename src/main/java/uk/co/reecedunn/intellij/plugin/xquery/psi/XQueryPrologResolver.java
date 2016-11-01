@@ -15,10 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.psi;
 
-import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog;
+import uk.co.reecedunn.intellij.plugin.xquery.functional.Option;
 
 public interface XQueryPrologResolver {
-    @Nullable
-    XQueryProlog resolveProlog();
+    Option<XQueryProlog> resolveProlog();
 }

@@ -6,6 +6,7 @@ import com.intellij.psi.PsiReferenceBase;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*;
+import uk.co.reecedunn.intellij.plugin.xquery.functional.Option;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.PsiNavigation;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver;
 
@@ -14,14 +15,13 @@ public class XQueryFunctionNameReference extends PsiReferenceBase<XQueryEQName> 
         super(element, range);
     }
 
-    @Nullable
     @Override
     public PsiElement resolve() {
         return getElement().resolvePrefixNamespace().map((ns) -> {
             if (ns.getDeclaration() instanceof XQueryPrologResolver) {
                 XQueryPrologResolver provider = (XQueryPrologResolver) ns.getDeclaration();
-                PsiElement prolog = provider.resolveProlog();
-                if (prolog == null) {
+                Option<XQueryProlog> prolog = provider.resolveProlog();
+                if (!prolog.isDefined()) {
                     return null;
                 }
 
@@ -34,7 +34,7 @@ public class XQueryFunctionNameReference extends PsiReferenceBase<XQueryEQName> 
                 }
 
                 CharSequence localName = getElement().getLocalName().getText();
-                PsiElement annotation = prolog.getFirstChild();
+                PsiElement annotation = prolog.get().getFirstChild();
                 while (annotation != null) {
                     if (annotation instanceof XQueryAnnotatedDecl) {
                         XQueryFunctionDecl functionDecl = PsiNavigation.findChildByClass(annotation, XQueryFunctionDecl.class);

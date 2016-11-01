@@ -2547,10 +2547,9 @@ public class XQueryPsiTest extends ParserTestCase {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/ModuleDecl.xq");
 
         XQueryModule modulePsi = PsiNavigation.findDirectDescendantByClass(file, XQueryModule.class);
-        XQueryProlog prologPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryProlog.class);
 
         XQueryPrologResolver provider = (XQueryPrologResolver)modulePsi;
-        assertThat(provider.resolveProlog(), is(prologPsi));
+        assertThat(provider.resolveProlog(), is(notDefined()));
     }
 
     // endregion
@@ -2560,10 +2559,9 @@ public class XQueryPsiTest extends ParserTestCase {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/ModuleDecl.xq");
 
         XQueryModuleDecl moduleDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryModuleDecl.class);
-        XQueryProlog prologPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryProlog.class);
 
         XQueryPrologResolver provider = (XQueryPrologResolver)moduleDeclPsi;
-        assertThat(provider.resolveProlog(), is(prologPsi));
+        assertThat(provider.resolveProlog(), is(notDefined()));
     }
 
     // endregion

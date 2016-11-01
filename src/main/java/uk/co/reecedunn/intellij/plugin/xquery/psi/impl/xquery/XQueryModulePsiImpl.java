@@ -41,9 +41,8 @@ public class XQueryModulePsiImpl extends ASTWrapperPsiElement implements XQueryM
         return Option.none();
     }
 
-    @Nullable
     @Override
-    public XQueryProlog resolveProlog() {
-        return PsiNavigation.findChildByClass(this, XQueryProlog.class);
+    public Option<XQueryProlog> resolveProlog() {
+        return Option.of(PsiNavigation.findChildByClass(this, XQueryProlog.class));
     }
 }
