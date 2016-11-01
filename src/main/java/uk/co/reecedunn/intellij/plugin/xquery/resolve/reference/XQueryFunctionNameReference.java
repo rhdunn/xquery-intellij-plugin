@@ -52,7 +52,7 @@ public class XQueryFunctionNameReference extends PsiReferenceBase<XQueryEQName> 
                 }
             }
             return null;
-        }).get();
+        }).getOrElse(null);
     }
 
     @NotNull

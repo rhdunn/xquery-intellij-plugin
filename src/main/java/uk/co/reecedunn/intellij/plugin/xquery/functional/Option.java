@@ -58,6 +58,14 @@ public abstract class Option<A> {
      */
     public abstract A get();
 
+    /**
+     * Returns the value stored within the option.
+     *
+     * @param defaultValue The value to use if the option is not defined.
+     * @return The value held by the option if defined, otherwise the default value.
+     */
+    public abstract A getOrElse(final A defaultValue);
+
     // endregion
     // region Value Constructors
 
@@ -119,6 +127,11 @@ public abstract class Option<A> {
         public Object get() {
             throw new NoSuchElementException();
         }
+
+        @Override
+        public Object getOrElse(Object defaultValue) {
+            return defaultValue;
+        }
     }
 
     private static final class Some<A> extends Option<A> {
@@ -135,6 +148,11 @@ public abstract class Option<A> {
 
         @Override
         public A get() {
+            return mValue;
+        }
+
+        @Override
+        public A getOrElse(A defaultValue) {
             return mValue;
         }
     }
