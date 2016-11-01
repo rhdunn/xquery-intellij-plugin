@@ -23,6 +23,7 @@ import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryLetBinding;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVarName;
+import uk.co.reecedunn.intellij.plugin.xquery.functional.Option;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver;
 
@@ -33,12 +34,11 @@ public class XQueryLetBindingPsiImpl extends ASTWrapperPsiElement implements XQu
 
     @Nullable
     @Override
-    public XQueryVariable resolveVariable(XQueryEQName name) {
+    public Option<XQueryVariable> resolveVariable(XQueryEQName name) {
         PsiElement varName = findChildByClass(XQueryVarName.class);
         if (varName != null && varName.equals(name)) {
-            return new XQueryVariable(varName, this);
+            return Option.some(new XQueryVariable(varName, this));
         }
-
-        return null;
+        return Option.none();
     }
 }

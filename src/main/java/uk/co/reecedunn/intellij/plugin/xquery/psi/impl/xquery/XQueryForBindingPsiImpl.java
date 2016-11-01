@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryForBinding;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPositionalVar;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVarName;
+import uk.co.reecedunn.intellij.plugin.xquery.functional.Option;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver;
 
@@ -34,17 +35,16 @@ public class XQueryForBindingPsiImpl extends ASTWrapperPsiElement implements XQu
 
     @Nullable
     @Override
-    public XQueryVariable resolveVariable(XQueryEQName name) {
+    public Option<XQueryVariable> resolveVariable(XQueryEQName name) {
         PsiElement varName = findChildByClass(XQueryVarName.class);
         if (varName != null && varName.equals(name)) {
-            return new XQueryVariable(varName, this);
+            return Option.some(new XQueryVariable(varName, this));
         }
 
         PsiElement positionalVar = findChildByClass(XQueryPositionalVar.class);
         if (positionalVar != null) {
             return ((XQueryVariableResolver)positionalVar).resolveVariable(name);
         }
-
-        return null;
+        return Option.none();
     }
 }

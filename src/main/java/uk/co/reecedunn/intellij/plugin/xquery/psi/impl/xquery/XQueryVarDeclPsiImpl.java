@@ -22,6 +22,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVarDecl;
+import uk.co.reecedunn.intellij.plugin.xquery.functional.Option;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
@@ -69,12 +70,11 @@ public class XQueryVarDeclPsiImpl extends ASTWrapperPsiElement implements XQuery
 
     @Nullable
     @Override
-    public XQueryVariable resolveVariable(XQueryEQName name) {
+    public Option<XQueryVariable> resolveVariable(XQueryEQName name) {
         PsiElement varName = findChildByType(XQueryElementType.VAR_NAME);
         if (varName != null && varName.equals(name)) {
-            return new XQueryVariable(varName, this);
+            return Option.some(new XQueryVariable(varName, this));
         }
-
-        return null;
+        return Option.none();
     }
 }

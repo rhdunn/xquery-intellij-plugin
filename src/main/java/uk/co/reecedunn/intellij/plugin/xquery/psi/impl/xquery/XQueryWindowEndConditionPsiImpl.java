@@ -21,6 +21,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryWindowEndCondition;
+import uk.co.reecedunn.intellij.plugin.xquery.functional.Option;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver;
 
@@ -31,8 +32,8 @@ public class XQueryWindowEndConditionPsiImpl extends ASTWrapperPsiElement implem
 
     @Nullable
     @Override
-    public XQueryVariable resolveVariable(XQueryEQName name) {
+    public Option<XQueryVariable> resolveVariable(XQueryEQName name) {
         XQueryVariableResolver resolver = findChildByClass(XQueryVariableResolver.class);
-        return resolver == null ? null : resolver.resolveVariable(name);
+        return resolver == null ? Option.none() : resolver.resolveVariable(name);
     }
 }

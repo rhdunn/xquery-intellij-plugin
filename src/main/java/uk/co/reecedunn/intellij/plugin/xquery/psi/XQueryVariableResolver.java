@@ -15,10 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.psi;
 
-import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
+import uk.co.reecedunn.intellij.plugin.xquery.functional.Option;
 
 public interface XQueryVariableResolver {
-    @Nullable
-    XQueryVariable resolveVariable(XQueryEQName name);
+    Option<XQueryVariable> resolveVariable(XQueryEQName name);
 }

@@ -3123,16 +3123,16 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryEQName varNamePsi = PsiNavigation.findChildByClass(varDeclPsi, XQueryEQName.class);
         XQueryVariableResolver provider = (XQueryVariableResolver)annotatedDeclPsi;
 
-        assertThat(provider.resolveVariable(null), is(nullValue()));
+        assertThat(provider.resolveVariable(null), is(notDefined()));
 
-        XQueryVariable variable = provider.resolveVariable(varNamePsi);
-        assertThat(variable, is(notNullValue()));
+        Option<XQueryVariable> variable = provider.resolveVariable(varNamePsi);
+        assertThat(variable, is(defined()));
 
-        assertThat(variable.getVariable(), is(instanceOf(XQueryEQName.class)));
-        assertThat(variable.getVariable(), is(varNamePsi));
+        assertThat(variable.get().getVariable(), is(instanceOf(XQueryEQName.class)));
+        assertThat(variable.get().getVariable(), is(varNamePsi));
 
-        assertThat(variable.getDeclaration(), is(instanceOf(XQueryVarDecl.class)));
-        assertThat(variable.getDeclaration(), is(varDeclPsi));
+        assertThat(variable.get().getDeclaration(), is(instanceOf(XQueryVarDecl.class)));
+        assertThat(variable.get().getDeclaration(), is(varDeclPsi));
     }
 
     public void testAnnotatedDecl_FunctionDecl() {
@@ -3143,8 +3143,8 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryEQName functionNamePsi = PsiNavigation.findChildByClass(functionDeclPsi, XQueryEQName.class);
         XQueryVariableResolver provider = (XQueryVariableResolver)annotatedDeclPsi;
 
-        assertThat(provider.resolveVariable(null), is(nullValue()));
-        assertThat(provider.resolveVariable(functionNamePsi), is(nullValue()));
+        assertThat(provider.resolveVariable(null), is(notDefined()));
+        assertThat(provider.resolveVariable(functionNamePsi), is(notDefined()));
     }
 
     // endregion
@@ -3158,16 +3158,16 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryVarName varNamePsi = PsiNavigation.findChildByClass(caseClausePsi, XQueryVarName.class);
         XQueryVariableResolver provider = (XQueryVariableResolver)caseClausePsi;
 
-        assertThat(provider.resolveVariable(null), is(nullValue()));
+        assertThat(provider.resolveVariable(null), is(notDefined()));
 
-        XQueryVariable variable = provider.resolveVariable(varNamePsi);
-        assertThat(variable, is(notNullValue()));
+        Option<XQueryVariable> variable = provider.resolveVariable(varNamePsi);
+        assertThat(variable, is(defined()));
 
-        assertThat(variable.getVariable(), is(instanceOf(XQueryVarName.class)));
-        assertThat(variable.getVariable(), is(varNamePsi));
+        assertThat(variable.get().getVariable(), is(instanceOf(XQueryVarName.class)));
+        assertThat(variable.get().getVariable(), is(varNamePsi));
 
-        assertThat(variable.getDeclaration(), is(instanceOf(XQueryCaseClause.class)));
-        assertThat(variable.getDeclaration(), is(caseClausePsi));
+        assertThat(variable.get().getDeclaration(), is(instanceOf(XQueryCaseClause.class)));
+        assertThat(variable.get().getDeclaration(), is(caseClausePsi));
     }
 
     // endregion
@@ -3182,16 +3182,16 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryVarName varNamePsi = PsiNavigation.findChildByClass(countClausePsi, XQueryVarName.class);
         XQueryVariableResolver provider = (XQueryVariableResolver)intermediateClausePsi;
 
-        assertThat(provider.resolveVariable(null), is(nullValue()));
+        assertThat(provider.resolveVariable(null), is(notDefined()));
 
-        XQueryVariable variable = provider.resolveVariable(varNamePsi);
-        assertThat(variable, is(notNullValue()));
+        Option<XQueryVariable> variable = provider.resolveVariable(varNamePsi);
+        assertThat(variable, is(defined()));
 
-        assertThat(variable.getVariable(), is(instanceOf(XQueryVarName.class)));
-        assertThat(variable.getVariable(), is(varNamePsi));
+        assertThat(variable.get().getVariable(), is(instanceOf(XQueryVarName.class)));
+        assertThat(variable.get().getVariable(), is(varNamePsi));
 
-        assertThat(variable.getDeclaration(), is(instanceOf(XQueryCountClause.class)));
-        assertThat(variable.getDeclaration(), is(countClausePsi));
+        assertThat(variable.get().getDeclaration(), is(instanceOf(XQueryCountClause.class)));
+        assertThat(variable.get().getDeclaration(), is(countClausePsi));
     }
 
     // endregion
@@ -3205,16 +3205,16 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryVarName varNamePsi = PsiNavigation.findChildByClass(forBindingPsi, XQueryVarName.class);
         XQueryVariableResolver provider = (XQueryVariableResolver)forBindingPsi;
 
-        assertThat(provider.resolveVariable(null), is(nullValue()));
+        assertThat(provider.resolveVariable(null), is(notDefined()));
 
-        XQueryVariable variable = provider.resolveVariable(varNamePsi);
-        assertThat(variable, is(notNullValue()));
+        Option<XQueryVariable> variable = provider.resolveVariable(varNamePsi);
+        assertThat(variable, is(defined()));
 
-        assertThat(variable.getVariable(), is(instanceOf(XQueryVarName.class)));
-        assertThat(variable.getVariable(), is(varNamePsi));
+        assertThat(variable.get().getVariable(), is(instanceOf(XQueryVarName.class)));
+        assertThat(variable.get().getVariable(), is(varNamePsi));
 
-        assertThat(variable.getDeclaration(), is(instanceOf(XQueryForBinding.class)));
-        assertThat(variable.getDeclaration(), is(forBindingPsi));
+        assertThat(variable.get().getDeclaration(), is(instanceOf(XQueryForBinding.class)));
+        assertThat(variable.get().getDeclaration(), is(forBindingPsi));
     }
 
     public void testForBinding_PositionalVar_VariableProvider() {
@@ -3229,29 +3229,29 @@ public class XQueryPsiTest extends ParserTestCase {
 
         XQueryVariableResolver provider = (XQueryVariableResolver)forBindingPsi;
 
-        assertThat(provider.resolveVariable(null), is(nullValue()));
+        assertThat(provider.resolveVariable(null), is(notDefined()));
 
         // bound variable
 
-        XQueryVariable variable = provider.resolveVariable(varNamePsi);
-        assertThat(variable, is(notNullValue()));
+        Option<XQueryVariable> variable = provider.resolveVariable(varNamePsi);
+        assertThat(variable, is(defined()));
 
-        assertThat(variable.getVariable(), is(instanceOf(XQueryVarName.class)));
-        assertThat(variable.getVariable(), is(varNamePsi));
+        assertThat(variable.get().getVariable(), is(instanceOf(XQueryVarName.class)));
+        assertThat(variable.get().getVariable(), is(varNamePsi));
 
-        assertThat(variable.getDeclaration(), is(instanceOf(XQueryForBinding.class)));
-        assertThat(variable.getDeclaration(), is(forBindingPsi));
+        assertThat(variable.get().getDeclaration(), is(instanceOf(XQueryForBinding.class)));
+        assertThat(variable.get().getDeclaration(), is(forBindingPsi));
 
         // positional variable
 
         variable = provider.resolveVariable(posVarNamePsi);
-        assertThat(variable, is(notNullValue()));
+        assertThat(variable, is(defined()));
 
-        assertThat(variable.getVariable(), is(instanceOf(XQueryVarName.class)));
-        assertThat(variable.getVariable(), is(posVarNamePsi));
+        assertThat(variable.get().getVariable(), is(instanceOf(XQueryVarName.class)));
+        assertThat(variable.get().getVariable(), is(posVarNamePsi));
 
-        assertThat(variable.getDeclaration(), is(instanceOf(XQueryPositionalVar.class)));
-        assertThat(variable.getDeclaration(), is(positionalVarPsi));
+        assertThat(variable.get().getDeclaration(), is(instanceOf(XQueryPositionalVar.class)));
+        assertThat(variable.get().getDeclaration(), is(positionalVarPsi));
     }
 
     // endregion
@@ -3265,16 +3265,16 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryVarName varNamePsi = PsiNavigation.findChildByClass(forBindingPsi, XQueryVarName.class);
         XQueryVariableResolver provider = (XQueryVariableResolver)forClausePsi;
 
-        assertThat(provider.resolveVariable(null), is(nullValue()));
+        assertThat(provider.resolveVariable(null), is(notDefined()));
 
-        XQueryVariable variable = provider.resolveVariable(varNamePsi);
-        assertThat(variable, is(notNullValue()));
+        Option<XQueryVariable> variable = provider.resolveVariable(varNamePsi);
+        assertThat(variable, is(defined()));
 
-        assertThat(variable.getVariable(), is(instanceOf(XQueryVarName.class)));
-        assertThat(variable.getVariable(), is(varNamePsi));
+        assertThat(variable.get().getVariable(), is(instanceOf(XQueryVarName.class)));
+        assertThat(variable.get().getVariable(), is(varNamePsi));
 
-        assertThat(variable.getDeclaration(), is(instanceOf(XQueryForBinding.class)));
-        assertThat(variable.getDeclaration(), is(forBindingPsi));
+        assertThat(variable.get().getDeclaration(), is(instanceOf(XQueryForBinding.class)));
+        assertThat(variable.get().getDeclaration(), is(forBindingPsi));
     }
 
     // endregion
@@ -3290,16 +3290,16 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryEQName paramNamePsi = PsiNavigation.findChildByClass(paramPsi, XQueryEQName.class);
         XQueryVariableResolver provider = (XQueryVariableResolver)functionDeclPsi;
 
-        assertThat(provider.resolveVariable(null), is(nullValue()));
+        assertThat(provider.resolveVariable(null), is(notDefined()));
 
-        XQueryVariable variable = provider.resolveVariable(paramNamePsi);
-        assertThat(variable, is(notNullValue()));
+        Option<XQueryVariable> variable = provider.resolveVariable(paramNamePsi);
+        assertThat(variable, is(defined()));
 
-        assertThat(variable.getVariable(), is(instanceOf(XQueryEQName.class)));
-        assertThat(variable.getVariable(), is(paramNamePsi));
+        assertThat(variable.get().getVariable(), is(instanceOf(XQueryEQName.class)));
+        assertThat(variable.get().getVariable(), is(paramNamePsi));
 
-        assertThat(variable.getDeclaration(), is(instanceOf(XQueryParam.class)));
-        assertThat(variable.getDeclaration(), is(paramPsi));
+        assertThat(variable.get().getDeclaration(), is(instanceOf(XQueryParam.class)));
+        assertThat(variable.get().getDeclaration(), is(paramPsi));
     }
 
     // endregion
@@ -3317,16 +3317,16 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryVarName varNamePsi = PsiNavigation.findChildByClass(groupingVariablePsi, XQueryVarName.class);
         XQueryVariableResolver provider = (XQueryVariableResolver)groupByClausePsi;
 
-        assertThat(provider.resolveVariable(null), is(nullValue()));
+        assertThat(provider.resolveVariable(null), is(notDefined()));
 
-        XQueryVariable variable = provider.resolveVariable(varNamePsi);
-        assertThat(variable, is(notNullValue()));
+        Option<XQueryVariable> variable = provider.resolveVariable(varNamePsi);
+        assertThat(variable, is(defined()));
 
-        assertThat(variable.getVariable(), is(instanceOf(XQueryVarName.class)));
-        assertThat(variable.getVariable(), is(varNamePsi));
+        assertThat(variable.get().getVariable(), is(instanceOf(XQueryVarName.class)));
+        assertThat(variable.get().getVariable(), is(varNamePsi));
 
-        assertThat(variable.getDeclaration(), is(instanceOf(XQueryGroupingVariable.class)));
-        assertThat(variable.getDeclaration(), is(groupingVariablePsi));
+        assertThat(variable.get().getDeclaration(), is(instanceOf(XQueryGroupingVariable.class)));
+        assertThat(variable.get().getDeclaration(), is(groupingVariablePsi));
     }
 
     // endregion
@@ -3344,16 +3344,16 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryVarName varNamePsi = PsiNavigation.findChildByClass(groupingVariablePsi, XQueryVarName.class);
         XQueryVariableResolver provider = (XQueryVariableResolver)groupingSpecPsi;
 
-        assertThat(provider.resolveVariable(null), is(nullValue()));
+        assertThat(provider.resolveVariable(null), is(notDefined()));
 
-        XQueryVariable variable = provider.resolveVariable(varNamePsi);
-        assertThat(variable, is(notNullValue()));
+        Option<XQueryVariable> variable = provider.resolveVariable(varNamePsi);
+        assertThat(variable, is(defined()));
 
-        assertThat(variable.getVariable(), is(instanceOf(XQueryVarName.class)));
-        assertThat(variable.getVariable(), is(varNamePsi));
+        assertThat(variable.get().getVariable(), is(instanceOf(XQueryVarName.class)));
+        assertThat(variable.get().getVariable(), is(varNamePsi));
 
-        assertThat(variable.getDeclaration(), is(instanceOf(XQueryGroupingVariable.class)));
-        assertThat(variable.getDeclaration(), is(groupingVariablePsi));
+        assertThat(variable.get().getDeclaration(), is(instanceOf(XQueryGroupingVariable.class)));
+        assertThat(variable.get().getDeclaration(), is(groupingVariablePsi));
     }
 
     // endregion
@@ -3371,16 +3371,16 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryVarName varNamePsi = PsiNavigation.findChildByClass(groupingVariablePsi, XQueryVarName.class);
         XQueryVariableResolver provider = (XQueryVariableResolver)groupingSpecListPsi;
 
-        assertThat(provider.resolveVariable(null), is(nullValue()));
+        assertThat(provider.resolveVariable(null), is(notDefined()));
 
-        XQueryVariable variable = provider.resolveVariable(varNamePsi);
-        assertThat(variable, is(notNullValue()));
+        Option<XQueryVariable> variable = provider.resolveVariable(varNamePsi);
+        assertThat(variable, is(defined()));
 
-        assertThat(variable.getVariable(), is(instanceOf(XQueryVarName.class)));
-        assertThat(variable.getVariable(), is(varNamePsi));
+        assertThat(variable.get().getVariable(), is(instanceOf(XQueryVarName.class)));
+        assertThat(variable.get().getVariable(), is(varNamePsi));
 
-        assertThat(variable.getDeclaration(), is(instanceOf(XQueryGroupingVariable.class)));
-        assertThat(variable.getDeclaration(), is(groupingVariablePsi));
+        assertThat(variable.get().getDeclaration(), is(instanceOf(XQueryGroupingVariable.class)));
+        assertThat(variable.get().getDeclaration(), is(groupingVariablePsi));
     }
 
     // endregion
@@ -3398,16 +3398,16 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryVarName varNamePsi = PsiNavigation.findChildByClass(groupingVariablePsi, XQueryVarName.class);
         XQueryVariableResolver provider = (XQueryVariableResolver)groupingVariablePsi;
 
-        assertThat(provider.resolveVariable(null), is(nullValue()));
+        assertThat(provider.resolveVariable(null), is(notDefined()));
 
-        XQueryVariable variable = provider.resolveVariable(varNamePsi);
-        assertThat(variable, is(notNullValue()));
+        Option<XQueryVariable> variable = provider.resolveVariable(varNamePsi);
+        assertThat(variable, is(defined()));
 
-        assertThat(variable.getVariable(), is(instanceOf(XQueryVarName.class)));
-        assertThat(variable.getVariable(), is(varNamePsi));
+        assertThat(variable.get().getVariable(), is(instanceOf(XQueryVarName.class)));
+        assertThat(variable.get().getVariable(), is(varNamePsi));
 
-        assertThat(variable.getDeclaration(), is(instanceOf(XQueryGroupingVariable.class)));
-        assertThat(variable.getDeclaration(), is(groupingVariablePsi));
+        assertThat(variable.get().getDeclaration(), is(instanceOf(XQueryGroupingVariable.class)));
+        assertThat(variable.get().getDeclaration(), is(groupingVariablePsi));
     }
 
     // endregion
@@ -3423,16 +3423,16 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryVarName varNamePsi = PsiNavigation.findChildByClass(forBindingPsi, XQueryVarName.class);
         XQueryVariableResolver provider = (XQueryVariableResolver)intermediateClausePsi;
 
-        assertThat(provider.resolveVariable(null), is(nullValue()));
+        assertThat(provider.resolveVariable(null), is(notDefined()));
 
-        XQueryVariable variable = provider.resolveVariable(varNamePsi);
-        assertThat(variable, is(notNullValue()));
+        Option<XQueryVariable> variable = provider.resolveVariable(varNamePsi);
+        assertThat(variable, is(defined()));
 
-        assertThat(variable.getVariable(), is(instanceOf(XQueryVarName.class)));
-        assertThat(variable.getVariable(), is(varNamePsi));
+        assertThat(variable.get().getVariable(), is(instanceOf(XQueryVarName.class)));
+        assertThat(variable.get().getVariable(), is(varNamePsi));
 
-        assertThat(variable.getDeclaration(), is(instanceOf(XQueryForBinding.class)));
-        assertThat(variable.getDeclaration(), is(forBindingPsi));
+        assertThat(variable.get().getDeclaration(), is(instanceOf(XQueryForBinding.class)));
+        assertThat(variable.get().getDeclaration(), is(forBindingPsi));
     }
 
     // endregion
@@ -3446,16 +3446,16 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryVarName varNamePsi = PsiNavigation.findChildByClass(letBindingPsi, XQueryVarName.class);
         XQueryVariableResolver provider = (XQueryVariableResolver)letBindingPsi;
 
-        assertThat(provider.resolveVariable(null), is(nullValue()));
+        assertThat(provider.resolveVariable(null), is(notDefined()));
 
-        XQueryVariable variable = provider.resolveVariable(varNamePsi);
-        assertThat(variable, is(notNullValue()));
+        Option<XQueryVariable> variable = provider.resolveVariable(varNamePsi);
+        assertThat(variable, is(defined()));
 
-        assertThat(variable.getVariable(), is(instanceOf(XQueryVarName.class)));
-        assertThat(variable.getVariable(), is(varNamePsi));
+        assertThat(variable.get().getVariable(), is(instanceOf(XQueryVarName.class)));
+        assertThat(variable.get().getVariable(), is(varNamePsi));
 
-        assertThat(variable.getDeclaration(), is(instanceOf(XQueryLetBinding.class)));
-        assertThat(variable.getDeclaration(), is(letBindingPsi));
+        assertThat(variable.get().getDeclaration(), is(instanceOf(XQueryLetBinding.class)));
+        assertThat(variable.get().getDeclaration(), is(letBindingPsi));
     }
 
     // endregion
@@ -3469,16 +3469,16 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryVarName varNamePsi = PsiNavigation.findChildByClass(letBindingPsi, XQueryVarName.class);
         XQueryVariableResolver provider = (XQueryVariableResolver)letClausePsi;
 
-        assertThat(provider.resolveVariable(null), is(nullValue()));
+        assertThat(provider.resolveVariable(null), is(notDefined()));
 
-        XQueryVariable variable = provider.resolveVariable(varNamePsi);
-        assertThat(variable, is(notNullValue()));
+        Option<XQueryVariable> variable = provider.resolveVariable(varNamePsi);
+        assertThat(variable, is(defined()));
 
-        assertThat(variable.getVariable(), is(instanceOf(XQueryVarName.class)));
-        assertThat(variable.getVariable(), is(varNamePsi));
+        assertThat(variable.get().getVariable(), is(instanceOf(XQueryVarName.class)));
+        assertThat(variable.get().getVariable(), is(varNamePsi));
 
-        assertThat(variable.getDeclaration(), is(instanceOf(XQueryLetBinding.class)));
-        assertThat(variable.getDeclaration(), is(letBindingPsi));
+        assertThat(variable.get().getDeclaration(), is(instanceOf(XQueryLetBinding.class)));
+        assertThat(variable.get().getDeclaration(), is(letBindingPsi));
     }
 
     // endregion
@@ -3494,16 +3494,16 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryEQName paramNamePsi = PsiNavigation.findChildByClass(paramPsi, XQueryEQName.class);
         XQueryVariableResolver provider = (XQueryVariableResolver)paramPsi;
 
-        assertThat(provider.resolveVariable(null), is(nullValue()));
+        assertThat(provider.resolveVariable(null), is(notDefined()));
 
-        XQueryVariable variable = provider.resolveVariable(paramNamePsi);
-        assertThat(variable, is(notNullValue()));
+        Option<XQueryVariable> variable = provider.resolveVariable(paramNamePsi);
+        assertThat(variable, is(defined()));
 
-        assertThat(variable.getVariable(), is(instanceOf(XQueryEQName.class)));
-        assertThat(variable.getVariable(), is(paramNamePsi));
+        assertThat(variable.get().getVariable(), is(instanceOf(XQueryEQName.class)));
+        assertThat(variable.get().getVariable(), is(paramNamePsi));
 
-        assertThat(variable.getDeclaration(), is(instanceOf(XQueryParam.class)));
-        assertThat(variable.getDeclaration(), is(paramPsi));
+        assertThat(variable.get().getDeclaration(), is(instanceOf(XQueryParam.class)));
+        assertThat(variable.get().getDeclaration(), is(paramPsi));
     }
 
     // endregion
@@ -3519,16 +3519,16 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryEQName paramNamePsi = PsiNavigation.findChildByClass(paramPsi, XQueryEQName.class);
         XQueryVariableResolver provider = (XQueryVariableResolver)paramListPsi;
 
-        assertThat(provider.resolveVariable(null), is(nullValue()));
+        assertThat(provider.resolveVariable(null), is(notDefined()));
 
-        XQueryVariable variable = provider.resolveVariable(paramNamePsi);
-        assertThat(variable, is(notNullValue()));
+        Option<XQueryVariable> variable = provider.resolveVariable(paramNamePsi);
+        assertThat(variable, is(defined()));
 
-        assertThat(variable.getVariable(), is(instanceOf(XQueryEQName.class)));
-        assertThat(variable.getVariable(), is(paramNamePsi));
+        assertThat(variable.get().getVariable(), is(instanceOf(XQueryEQName.class)));
+        assertThat(variable.get().getVariable(), is(paramNamePsi));
 
-        assertThat(variable.getDeclaration(), is(instanceOf(XQueryParam.class)));
-        assertThat(variable.getDeclaration(), is(paramPsi));
+        assertThat(variable.get().getDeclaration(), is(instanceOf(XQueryParam.class)));
+        assertThat(variable.get().getDeclaration(), is(paramPsi));
     }
 
     // endregion
@@ -3543,16 +3543,16 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryVarName varNamePsi = PsiNavigation.findChildByClass(positionalVarPsi, XQueryVarName.class);
         XQueryVariableResolver provider = (XQueryVariableResolver)positionalVarPsi;
 
-        assertThat(provider.resolveVariable(null), is(nullValue()));
+        assertThat(provider.resolveVariable(null), is(notDefined()));
 
-        XQueryVariable variable = provider.resolveVariable(varNamePsi);
-        assertThat(variable, is(notNullValue()));
+        Option<XQueryVariable> variable = provider.resolveVariable(varNamePsi);
+        assertThat(variable, is(defined()));
 
-        assertThat(variable.getVariable(), is(instanceOf(XQueryVarName.class)));
-        assertThat(variable.getVariable(), is(varNamePsi));
+        assertThat(variable.get().getVariable(), is(instanceOf(XQueryVarName.class)));
+        assertThat(variable.get().getVariable(), is(varNamePsi));
 
-        assertThat(variable.getDeclaration(), is(instanceOf(XQueryPositionalVar.class)));
-        assertThat(variable.getDeclaration(), is(positionalVarPsi));
+        assertThat(variable.get().getDeclaration(), is(instanceOf(XQueryPositionalVar.class)));
+        assertThat(variable.get().getDeclaration(), is(positionalVarPsi));
     }
 
     // endregion
@@ -3568,16 +3568,16 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryProlog prologPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryProlog.class);
         XQueryVariableResolver provider = (XQueryVariableResolver)prologPsi;
 
-        assertThat(provider.resolveVariable(null), is(nullValue()));
+        assertThat(provider.resolveVariable(null), is(notDefined()));
 
-        XQueryVariable variable = provider.resolveVariable(varNamePsi);
-        assertThat(variable, is(notNullValue()));
+        Option<XQueryVariable> variable = provider.resolveVariable(varNamePsi);
+        assertThat(variable, is(defined()));
 
-        assertThat(variable.getVariable(), is(instanceOf(XQueryEQName.class)));
-        assertThat(variable.getVariable(), is(varNamePsi));
+        assertThat(variable.get().getVariable(), is(instanceOf(XQueryEQName.class)));
+        assertThat(variable.get().getVariable(), is(varNamePsi));
 
-        assertThat(variable.getDeclaration(), is(instanceOf(XQueryVarDecl.class)));
-        assertThat(variable.getDeclaration(), is(varDeclPsi));
+        assertThat(variable.get().getDeclaration(), is(instanceOf(XQueryVarDecl.class)));
+        assertThat(variable.get().getDeclaration(), is(varDeclPsi));
     }
 
     public void testProlog_FunctionDecl() {
@@ -3590,8 +3590,8 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryProlog prologPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryProlog.class);
         XQueryVariableResolver provider = (XQueryVariableResolver)prologPsi;
 
-        assertThat(provider.resolveVariable(null), is(nullValue()));
-        assertThat(provider.resolveVariable(functionNamePsi), is(nullValue()));
+        assertThat(provider.resolveVariable(null), is(notDefined()));
+        assertThat(provider.resolveVariable(functionNamePsi), is(notDefined()));
     }
 
     // endregion
@@ -3604,16 +3604,16 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryVarName varNamePsi = PsiNavigation.findChildByClass(quantifiedExprPsi, XQueryVarName.class);
         XQueryVariableResolver provider = (XQueryVariableResolver)quantifiedExprPsi;
 
-        assertThat(provider.resolveVariable(null), is(nullValue()));
+        assertThat(provider.resolveVariable(null), is(notDefined()));
 
-        XQueryVariable variable = provider.resolveVariable(varNamePsi);
-        assertThat(variable, is(notNullValue()));
+        Option<XQueryVariable> variable = provider.resolveVariable(varNamePsi);
+        assertThat(variable, is(defined()));
 
-        assertThat(variable.getVariable(), is(instanceOf(XQueryVarName.class)));
-        assertThat(variable.getVariable(), is(varNamePsi));
+        assertThat(variable.get().getVariable(), is(instanceOf(XQueryVarName.class)));
+        assertThat(variable.get().getVariable(), is(varNamePsi));
 
-        assertThat(variable.getDeclaration(), is(instanceOf(XQueryQuantifiedExpr.class)));
-        assertThat(variable.getDeclaration(), is(quantifiedExprPsi));
+        assertThat(variable.get().getDeclaration(), is(instanceOf(XQueryQuantifiedExpr.class)));
+        assertThat(variable.get().getDeclaration(), is(quantifiedExprPsi));
     }
 
     // endregion
@@ -3627,16 +3627,16 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryVarName varNamePsi = PsiNavigation.findChildByClass(slidingWindowClausePsi, XQueryVarName.class);
         XQueryVariableResolver provider = (XQueryVariableResolver)slidingWindowClausePsi;
 
-        assertThat(provider.resolveVariable(null), is(nullValue()));
+        assertThat(provider.resolveVariable(null), is(notDefined()));
 
-        XQueryVariable variable = provider.resolveVariable(varNamePsi);
-        assertThat(variable, is(notNullValue()));
+        Option<XQueryVariable> variable = provider.resolveVariable(varNamePsi);
+        assertThat(variable, is(defined()));
 
-        assertThat(variable.getVariable(), is(instanceOf(XQueryVarName.class)));
-        assertThat(variable.getVariable(), is(varNamePsi));
+        assertThat(variable.get().getVariable(), is(instanceOf(XQueryVarName.class)));
+        assertThat(variable.get().getVariable(), is(varNamePsi));
 
-        assertThat(variable.getDeclaration(), is(instanceOf(XQuerySlidingWindowClause.class)));
-        assertThat(variable.getDeclaration(), is(slidingWindowClausePsi));
+        assertThat(variable.get().getDeclaration(), is(instanceOf(XQuerySlidingWindowClause.class)));
+        assertThat(variable.get().getDeclaration(), is(slidingWindowClausePsi));
     }
 
     public void testSlidingWindowClause_WindowEndCondition_VariableProvider() {
@@ -3653,51 +3653,51 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryNextItem nextItemPsi = PsiNavigation.findChildByClass(windowVarsPsi, XQueryNextItem.class);
         XQueryVariableResolver provider = (XQueryVariableResolver)slidingWindowClausePsi;
 
-        assertThat(provider.resolveVariable(null), is(nullValue()));
+        assertThat(provider.resolveVariable(null), is(notDefined()));
 
         // current
 
-        XQueryVariable variable = provider.resolveVariable(currentItemPsi);
-        assertThat(variable, is(notNullValue()));
+        Option<XQueryVariable> variable = provider.resolveVariable(currentItemPsi);
+        assertThat(variable, is(defined()));
 
-        assertThat(variable.getVariable(), is(instanceOf(XQueryCurrentItem.class)));
-        assertThat(variable.getVariable(), is(currentItemPsi));
+        assertThat(variable.get().getVariable(), is(instanceOf(XQueryCurrentItem.class)));
+        assertThat(variable.get().getVariable(), is(currentItemPsi));
 
-        assertThat(variable.getDeclaration(), is(instanceOf(XQueryWindowVars.class)));
-        assertThat(variable.getDeclaration(), is(windowVarsPsi));
+        assertThat(variable.get().getDeclaration(), is(instanceOf(XQueryWindowVars.class)));
+        assertThat(variable.get().getDeclaration(), is(windowVarsPsi));
 
         // positional
 
         variable = provider.resolveVariable(posVarNamePsi);
-        assertThat(variable, is(notNullValue()));
+        assertThat(variable, is(defined()));
 
-        assertThat(variable.getVariable(), is(instanceOf(XQueryVarName.class)));
-        assertThat(variable.getVariable(), is(posVarNamePsi));
+        assertThat(variable.get().getVariable(), is(instanceOf(XQueryVarName.class)));
+        assertThat(variable.get().getVariable(), is(posVarNamePsi));
 
-        assertThat(variable.getDeclaration(), is(instanceOf(XQueryPositionalVar.class)));
-        assertThat(variable.getDeclaration(), is(positionalVarPsi));
+        assertThat(variable.get().getDeclaration(), is(instanceOf(XQueryPositionalVar.class)));
+        assertThat(variable.get().getDeclaration(), is(positionalVarPsi));
 
         // previous
 
         variable = provider.resolveVariable(previousItemPsi);
-        assertThat(variable, is(notNullValue()));
+        assertThat(variable, is(defined()));
 
-        assertThat(variable.getVariable(), is(instanceOf(XQueryPreviousItem.class)));
-        assertThat(variable.getVariable(), is(previousItemPsi));
+        assertThat(variable.get().getVariable(), is(instanceOf(XQueryPreviousItem.class)));
+        assertThat(variable.get().getVariable(), is(previousItemPsi));
 
-        assertThat(variable.getDeclaration(), is(instanceOf(XQueryWindowVars.class)));
-        assertThat(variable.getDeclaration(), is(windowVarsPsi));
+        assertThat(variable.get().getDeclaration(), is(instanceOf(XQueryWindowVars.class)));
+        assertThat(variable.get().getDeclaration(), is(windowVarsPsi));
 
         // next
 
         variable = provider.resolveVariable(nextItemPsi);
-        assertThat(variable, is(notNullValue()));
+        assertThat(variable, is(defined()));
 
-        assertThat(variable.getVariable(), is(instanceOf(XQueryNextItem.class)));
-        assertThat(variable.getVariable(), is(nextItemPsi));
+        assertThat(variable.get().getVariable(), is(instanceOf(XQueryNextItem.class)));
+        assertThat(variable.get().getVariable(), is(nextItemPsi));
 
-        assertThat(variable.getDeclaration(), is(instanceOf(XQueryWindowVars.class)));
-        assertThat(variable.getDeclaration(), is(windowVarsPsi));
+        assertThat(variable.get().getDeclaration(), is(instanceOf(XQueryWindowVars.class)));
+        assertThat(variable.get().getDeclaration(), is(windowVarsPsi));
     }
 
     public void testSlidingWindowClause_WindowStartCondition_VariableProvider() {
@@ -3714,51 +3714,51 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryNextItem nextItemPsi = PsiNavigation.findChildByClass(windowVarsPsi, XQueryNextItem.class);
         XQueryVariableResolver provider = (XQueryVariableResolver)slidingWindowClausePsi;
 
-        assertThat(provider.resolveVariable(null), is(nullValue()));
+        assertThat(provider.resolveVariable(null), is(notDefined()));
 
         // current
 
-        XQueryVariable variable = provider.resolveVariable(currentItemPsi);
-        assertThat(variable, is(notNullValue()));
+        Option<XQueryVariable> variable = provider.resolveVariable(currentItemPsi);
+        assertThat(variable, is(defined()));
 
-        assertThat(variable.getVariable(), is(instanceOf(XQueryCurrentItem.class)));
-        assertThat(variable.getVariable(), is(currentItemPsi));
+        assertThat(variable.get().getVariable(), is(instanceOf(XQueryCurrentItem.class)));
+        assertThat(variable.get().getVariable(), is(currentItemPsi));
 
-        assertThat(variable.getDeclaration(), is(instanceOf(XQueryWindowVars.class)));
-        assertThat(variable.getDeclaration(), is(windowVarsPsi));
+        assertThat(variable.get().getDeclaration(), is(instanceOf(XQueryWindowVars.class)));
+        assertThat(variable.get().getDeclaration(), is(windowVarsPsi));
 
         // positional
 
         variable = provider.resolveVariable(posVarNamePsi);
-        assertThat(variable, is(notNullValue()));
+        assertThat(variable, is(defined()));
 
-        assertThat(variable.getVariable(), is(instanceOf(XQueryVarName.class)));
-        assertThat(variable.getVariable(), is(posVarNamePsi));
+        assertThat(variable.get().getVariable(), is(instanceOf(XQueryVarName.class)));
+        assertThat(variable.get().getVariable(), is(posVarNamePsi));
 
-        assertThat(variable.getDeclaration(), is(instanceOf(XQueryPositionalVar.class)));
-        assertThat(variable.getDeclaration(), is(positionalVarPsi));
+        assertThat(variable.get().getDeclaration(), is(instanceOf(XQueryPositionalVar.class)));
+        assertThat(variable.get().getDeclaration(), is(positionalVarPsi));
 
         // previous
 
         variable = provider.resolveVariable(previousItemPsi);
-        assertThat(variable, is(notNullValue()));
+        assertThat(variable, is(defined()));
 
-        assertThat(variable.getVariable(), is(instanceOf(XQueryPreviousItem.class)));
-        assertThat(variable.getVariable(), is(previousItemPsi));
+        assertThat(variable.get().getVariable(), is(instanceOf(XQueryPreviousItem.class)));
+        assertThat(variable.get().getVariable(), is(previousItemPsi));
 
-        assertThat(variable.getDeclaration(), is(instanceOf(XQueryWindowVars.class)));
-        assertThat(variable.getDeclaration(), is(windowVarsPsi));
+        assertThat(variable.get().getDeclaration(), is(instanceOf(XQueryWindowVars.class)));
+        assertThat(variable.get().getDeclaration(), is(windowVarsPsi));
 
         // next
 
         variable = provider.resolveVariable(nextItemPsi);
-        assertThat(variable, is(notNullValue()));
+        assertThat(variable, is(defined()));
 
-        assertThat(variable.getVariable(), is(instanceOf(XQueryNextItem.class)));
-        assertThat(variable.getVariable(), is(nextItemPsi));
+        assertThat(variable.get().getVariable(), is(instanceOf(XQueryNextItem.class)));
+        assertThat(variable.get().getVariable(), is(nextItemPsi));
 
-        assertThat(variable.getDeclaration(), is(instanceOf(XQueryWindowVars.class)));
-        assertThat(variable.getDeclaration(), is(windowVarsPsi));
+        assertThat(variable.get().getDeclaration(), is(instanceOf(XQueryWindowVars.class)));
+        assertThat(variable.get().getDeclaration(), is(windowVarsPsi));
     }
 
     // endregion
@@ -3772,16 +3772,16 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryVarName varNamePsi = PsiNavigation.findChildByClass(tumblingWindowClausePsi, XQueryVarName.class);
         XQueryVariableResolver provider = (XQueryVariableResolver)tumblingWindowClausePsi;
 
-        assertThat(provider.resolveVariable(null), is(nullValue()));
+        assertThat(provider.resolveVariable(null), is(notDefined()));
 
-        XQueryVariable variable = provider.resolveVariable(varNamePsi);
-        assertThat(variable, is(notNullValue()));
+        Option<XQueryVariable> variable = provider.resolveVariable(varNamePsi);
+        assertThat(variable, is(defined()));
 
-        assertThat(variable.getVariable(), is(instanceOf(XQueryVarName.class)));
-        assertThat(variable.getVariable(), is(varNamePsi));
+        assertThat(variable.get().getVariable(), is(instanceOf(XQueryVarName.class)));
+        assertThat(variable.get().getVariable(), is(varNamePsi));
 
-        assertThat(variable.getDeclaration(), is(instanceOf(XQueryTumblingWindowClause.class)));
-        assertThat(variable.getDeclaration(), is(tumblingWindowClausePsi));
+        assertThat(variable.get().getDeclaration(), is(instanceOf(XQueryTumblingWindowClause.class)));
+        assertThat(variable.get().getDeclaration(), is(tumblingWindowClausePsi));
     }
 
     public void testTumblingWindowClause_WindowEndCondition_VariableProvider() {
@@ -3798,51 +3798,51 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryNextItem nextItemPsi = PsiNavigation.findChildByClass(windowVarsPsi, XQueryNextItem.class);
         XQueryVariableResolver provider = (XQueryVariableResolver)tumblingWindowClausePsi;
 
-        assertThat(provider.resolveVariable(null), is(nullValue()));
+        assertThat(provider.resolveVariable(null), is(notDefined()));
 
         // current
 
-        XQueryVariable variable = provider.resolveVariable(currentItemPsi);
-        assertThat(variable, is(notNullValue()));
+        Option<XQueryVariable> variable = provider.resolveVariable(currentItemPsi);
+        assertThat(variable, is(defined()));
 
-        assertThat(variable.getVariable(), is(instanceOf(XQueryCurrentItem.class)));
-        assertThat(variable.getVariable(), is(currentItemPsi));
+        assertThat(variable.get().getVariable(), is(instanceOf(XQueryCurrentItem.class)));
+        assertThat(variable.get().getVariable(), is(currentItemPsi));
 
-        assertThat(variable.getDeclaration(), is(instanceOf(XQueryWindowVars.class)));
-        assertThat(variable.getDeclaration(), is(windowVarsPsi));
+        assertThat(variable.get().getDeclaration(), is(instanceOf(XQueryWindowVars.class)));
+        assertThat(variable.get().getDeclaration(), is(windowVarsPsi));
 
         // positional
 
         variable = provider.resolveVariable(posVarNamePsi);
-        assertThat(variable, is(notNullValue()));
+        assertThat(variable, is(defined()));
 
-        assertThat(variable.getVariable(), is(instanceOf(XQueryVarName.class)));
-        assertThat(variable.getVariable(), is(posVarNamePsi));
+        assertThat(variable.get().getVariable(), is(instanceOf(XQueryVarName.class)));
+        assertThat(variable.get().getVariable(), is(posVarNamePsi));
 
-        assertThat(variable.getDeclaration(), is(instanceOf(XQueryPositionalVar.class)));
-        assertThat(variable.getDeclaration(), is(positionalVarPsi));
+        assertThat(variable.get().getDeclaration(), is(instanceOf(XQueryPositionalVar.class)));
+        assertThat(variable.get().getDeclaration(), is(positionalVarPsi));
 
         // previous
 
         variable = provider.resolveVariable(previousItemPsi);
-        assertThat(variable, is(notNullValue()));
+        assertThat(variable, is(defined()));
 
-        assertThat(variable.getVariable(), is(instanceOf(XQueryPreviousItem.class)));
-        assertThat(variable.getVariable(), is(previousItemPsi));
+        assertThat(variable.get().getVariable(), is(instanceOf(XQueryPreviousItem.class)));
+        assertThat(variable.get().getVariable(), is(previousItemPsi));
 
-        assertThat(variable.getDeclaration(), is(instanceOf(XQueryWindowVars.class)));
-        assertThat(variable.getDeclaration(), is(windowVarsPsi));
+        assertThat(variable.get().getDeclaration(), is(instanceOf(XQueryWindowVars.class)));
+        assertThat(variable.get().getDeclaration(), is(windowVarsPsi));
 
         // next
 
         variable = provider.resolveVariable(nextItemPsi);
-        assertThat(variable, is(notNullValue()));
+        assertThat(variable, is(defined()));
 
-        assertThat(variable.getVariable(), is(instanceOf(XQueryNextItem.class)));
-        assertThat(variable.getVariable(), is(nextItemPsi));
+        assertThat(variable.get().getVariable(), is(instanceOf(XQueryNextItem.class)));
+        assertThat(variable.get().getVariable(), is(nextItemPsi));
 
-        assertThat(variable.getDeclaration(), is(instanceOf(XQueryWindowVars.class)));
-        assertThat(variable.getDeclaration(), is(windowVarsPsi));
+        assertThat(variable.get().getDeclaration(), is(instanceOf(XQueryWindowVars.class)));
+        assertThat(variable.get().getDeclaration(), is(windowVarsPsi));
     }
 
     public void testTumblingWindowClause_WindowStartCondition_VariableProvider() {
@@ -3859,51 +3859,51 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryNextItem nextItemPsi = PsiNavigation.findChildByClass(windowVarsPsi, XQueryNextItem.class);
         XQueryVariableResolver provider = (XQueryVariableResolver)tumblingWindowClausePsi;
 
-        assertThat(provider.resolveVariable(null), is(nullValue()));
+        assertThat(provider.resolveVariable(null), is(notDefined()));
 
         // current
 
-        XQueryVariable variable = provider.resolveVariable(currentItemPsi);
-        assertThat(variable, is(notNullValue()));
+        Option<XQueryVariable> variable = provider.resolveVariable(currentItemPsi);
+        assertThat(variable, is(defined()));
 
-        assertThat(variable.getVariable(), is(instanceOf(XQueryCurrentItem.class)));
-        assertThat(variable.getVariable(), is(currentItemPsi));
+        assertThat(variable.get().getVariable(), is(instanceOf(XQueryCurrentItem.class)));
+        assertThat(variable.get().getVariable(), is(currentItemPsi));
 
-        assertThat(variable.getDeclaration(), is(instanceOf(XQueryWindowVars.class)));
-        assertThat(variable.getDeclaration(), is(windowVarsPsi));
+        assertThat(variable.get().getDeclaration(), is(instanceOf(XQueryWindowVars.class)));
+        assertThat(variable.get().getDeclaration(), is(windowVarsPsi));
 
         // positional
 
         variable = provider.resolveVariable(posVarNamePsi);
-        assertThat(variable, is(notNullValue()));
+        assertThat(variable, is(defined()));
 
-        assertThat(variable.getVariable(), is(instanceOf(XQueryVarName.class)));
-        assertThat(variable.getVariable(), is(posVarNamePsi));
+        assertThat(variable.get().getVariable(), is(instanceOf(XQueryVarName.class)));
+        assertThat(variable.get().getVariable(), is(posVarNamePsi));
 
-        assertThat(variable.getDeclaration(), is(instanceOf(XQueryPositionalVar.class)));
-        assertThat(variable.getDeclaration(), is(positionalVarPsi));
+        assertThat(variable.get().getDeclaration(), is(instanceOf(XQueryPositionalVar.class)));
+        assertThat(variable.get().getDeclaration(), is(positionalVarPsi));
 
         // previous
 
         variable = provider.resolveVariable(previousItemPsi);
-        assertThat(variable, is(notNullValue()));
+        assertThat(variable, is(defined()));
 
-        assertThat(variable.getVariable(), is(instanceOf(XQueryPreviousItem.class)));
-        assertThat(variable.getVariable(), is(previousItemPsi));
+        assertThat(variable.get().getVariable(), is(instanceOf(XQueryPreviousItem.class)));
+        assertThat(variable.get().getVariable(), is(previousItemPsi));
 
-        assertThat(variable.getDeclaration(), is(instanceOf(XQueryWindowVars.class)));
-        assertThat(variable.getDeclaration(), is(windowVarsPsi));
+        assertThat(variable.get().getDeclaration(), is(instanceOf(XQueryWindowVars.class)));
+        assertThat(variable.get().getDeclaration(), is(windowVarsPsi));
 
         // next
 
         variable = provider.resolveVariable(nextItemPsi);
-        assertThat(variable, is(notNullValue()));
+        assertThat(variable, is(defined()));
 
-        assertThat(variable.getVariable(), is(instanceOf(XQueryNextItem.class)));
-        assertThat(variable.getVariable(), is(nextItemPsi));
+        assertThat(variable.get().getVariable(), is(instanceOf(XQueryNextItem.class)));
+        assertThat(variable.get().getVariable(), is(nextItemPsi));
 
-        assertThat(variable.getDeclaration(), is(instanceOf(XQueryWindowVars.class)));
-        assertThat(variable.getDeclaration(), is(windowVarsPsi));
+        assertThat(variable.get().getDeclaration(), is(instanceOf(XQueryWindowVars.class)));
+        assertThat(variable.get().getDeclaration(), is(windowVarsPsi));
     }
 
     // endregion
@@ -3916,16 +3916,16 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryVarName varNamePsi = PsiNavigation.findChildByClass(typeswitchExprPsi, XQueryVarName.class);
         XQueryVariableResolver provider = (XQueryVariableResolver)typeswitchExprPsi;
 
-        assertThat(provider.resolveVariable(null), is(nullValue()));
+        assertThat(provider.resolveVariable(null), is(notDefined()));
 
-        XQueryVariable variable = provider.resolveVariable(varNamePsi);
-        assertThat(variable, is(notNullValue()));
+        Option<XQueryVariable> variable = provider.resolveVariable(varNamePsi);
+        assertThat(variable, is(defined()));
 
-        assertThat(variable.getVariable(), is(instanceOf(XQueryVarName.class)));
-        assertThat(variable.getVariable(), is(varNamePsi));
+        assertThat(variable.get().getVariable(), is(instanceOf(XQueryVarName.class)));
+        assertThat(variable.get().getVariable(), is(varNamePsi));
 
-        assertThat(variable.getDeclaration(), is(instanceOf(XQueryTypeswitchExpr.class)));
-        assertThat(variable.getDeclaration(), is(typeswitchExprPsi));
+        assertThat(variable.get().getDeclaration(), is(instanceOf(XQueryTypeswitchExpr.class)));
+        assertThat(variable.get().getDeclaration(), is(typeswitchExprPsi));
     }
 
     // endregion
@@ -3939,16 +3939,16 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryEQName varNamePsi = PsiNavigation.findChildByClass(varDeclPsi, XQueryEQName.class);
         XQueryVariableResolver provider = (XQueryVariableResolver)varDeclPsi;
 
-        assertThat(provider.resolveVariable(null), is(nullValue()));
+        assertThat(provider.resolveVariable(null), is(notDefined()));
 
-        XQueryVariable variable = provider.resolveVariable(varNamePsi);
-        assertThat(variable, is(notNullValue()));
+        Option<XQueryVariable> variable = provider.resolveVariable(varNamePsi);
+        assertThat(variable, is(defined()));
 
-        assertThat(variable.getVariable(), is(instanceOf(XQueryEQName.class)));
-        assertThat(variable.getVariable(), is(varNamePsi));
+        assertThat(variable.get().getVariable(), is(instanceOf(XQueryEQName.class)));
+        assertThat(variable.get().getVariable(), is(varNamePsi));
 
-        assertThat(variable.getDeclaration(), is(instanceOf(XQueryVarDecl.class)));
-        assertThat(variable.getDeclaration(), is(varDeclPsi));
+        assertThat(variable.get().getDeclaration(), is(instanceOf(XQueryVarDecl.class)));
+        assertThat(variable.get().getDeclaration(), is(varDeclPsi));
     }
 
     // endregion
@@ -3962,16 +3962,16 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryVarName varNamePsi = PsiNavigation.findChildByClass(slidingWindowClausePsi, XQueryVarName.class);
         XQueryVariableResolver provider = (XQueryVariableResolver)windowClausePsi;
 
-        assertThat(provider.resolveVariable(null), is(nullValue()));
+        assertThat(provider.resolveVariable(null), is(notDefined()));
 
-        XQueryVariable variable = provider.resolveVariable(varNamePsi);
-        assertThat(variable, is(notNullValue()));
+        Option<XQueryVariable> variable = provider.resolveVariable(varNamePsi);
+        assertThat(variable, is(defined()));
 
-        assertThat(variable.getVariable(), is(instanceOf(XQueryVarName.class)));
-        assertThat(variable.getVariable(), is(varNamePsi));
+        assertThat(variable.get().getVariable(), is(instanceOf(XQueryVarName.class)));
+        assertThat(variable.get().getVariable(), is(varNamePsi));
 
-        assertThat(variable.getDeclaration(), is(instanceOf(XQuerySlidingWindowClause.class)));
-        assertThat(variable.getDeclaration(), is(slidingWindowClausePsi));
+        assertThat(variable.get().getDeclaration(), is(instanceOf(XQuerySlidingWindowClause.class)));
+        assertThat(variable.get().getDeclaration(), is(slidingWindowClausePsi));
     }
 
     public void testWindowClause_TumblingWindowClause_VariableProvider() {
@@ -3982,16 +3982,16 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryVarName varNamePsi = PsiNavigation.findChildByClass(tumblingWindowClausePsi, XQueryVarName.class);
         XQueryVariableResolver provider = (XQueryVariableResolver)windowClausePsi;
 
-        assertThat(provider.resolveVariable(null), is(nullValue()));
+        assertThat(provider.resolveVariable(null), is(notDefined()));
 
-        XQueryVariable variable = provider.resolveVariable(varNamePsi);
-        assertThat(variable, is(notNullValue()));
+        Option<XQueryVariable> variable = provider.resolveVariable(varNamePsi);
+        assertThat(variable, is(defined()));
 
-        assertThat(variable.getVariable(), is(instanceOf(XQueryVarName.class)));
-        assertThat(variable.getVariable(), is(varNamePsi));
+        assertThat(variable.get().getVariable(), is(instanceOf(XQueryVarName.class)));
+        assertThat(variable.get().getVariable(), is(varNamePsi));
 
-        assertThat(variable.getDeclaration(), is(instanceOf(XQueryTumblingWindowClause.class)));
-        assertThat(variable.getDeclaration(), is(tumblingWindowClausePsi));
+        assertThat(variable.get().getDeclaration(), is(instanceOf(XQueryTumblingWindowClause.class)));
+        assertThat(variable.get().getDeclaration(), is(tumblingWindowClausePsi));
     }
 
     // endregion
@@ -4011,51 +4011,51 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryNextItem nextItemPsi = PsiNavigation.findChildByClass(windowVarsPsi, XQueryNextItem.class);
         XQueryVariableResolver provider = (XQueryVariableResolver)windowEndConditionPsi;
 
-        assertThat(provider.resolveVariable(null), is(nullValue()));
+        assertThat(provider.resolveVariable(null), is(notDefined()));
 
         // current
 
-        XQueryVariable variable = provider.resolveVariable(currentItemPsi);
-        assertThat(variable, is(notNullValue()));
+        Option<XQueryVariable> variable = provider.resolveVariable(currentItemPsi);
+        assertThat(variable, is(defined()));
 
-        assertThat(variable.getVariable(), is(instanceOf(XQueryCurrentItem.class)));
-        assertThat(variable.getVariable(), is(currentItemPsi));
+        assertThat(variable.get().getVariable(), is(instanceOf(XQueryCurrentItem.class)));
+        assertThat(variable.get().getVariable(), is(currentItemPsi));
 
-        assertThat(variable.getDeclaration(), is(instanceOf(XQueryWindowVars.class)));
-        assertThat(variable.getDeclaration(), is(windowVarsPsi));
+        assertThat(variable.get().getDeclaration(), is(instanceOf(XQueryWindowVars.class)));
+        assertThat(variable.get().getDeclaration(), is(windowVarsPsi));
 
         // positional
 
         variable = provider.resolveVariable(posVarNamePsi);
-        assertThat(variable, is(notNullValue()));
+        assertThat(variable, is(defined()));
 
-        assertThat(variable.getVariable(), is(instanceOf(XQueryVarName.class)));
-        assertThat(variable.getVariable(), is(posVarNamePsi));
+        assertThat(variable.get().getVariable(), is(instanceOf(XQueryVarName.class)));
+        assertThat(variable.get().getVariable(), is(posVarNamePsi));
 
-        assertThat(variable.getDeclaration(), is(instanceOf(XQueryPositionalVar.class)));
-        assertThat(variable.getDeclaration(), is(positionalVarPsi));
+        assertThat(variable.get().getDeclaration(), is(instanceOf(XQueryPositionalVar.class)));
+        assertThat(variable.get().getDeclaration(), is(positionalVarPsi));
 
         // previous
 
         variable = provider.resolveVariable(previousItemPsi);
-        assertThat(variable, is(notNullValue()));
+        assertThat(variable, is(defined()));
 
-        assertThat(variable.getVariable(), is(instanceOf(XQueryPreviousItem.class)));
-        assertThat(variable.getVariable(), is(previousItemPsi));
+        assertThat(variable.get().getVariable(), is(instanceOf(XQueryPreviousItem.class)));
+        assertThat(variable.get().getVariable(), is(previousItemPsi));
 
-        assertThat(variable.getDeclaration(), is(instanceOf(XQueryWindowVars.class)));
-        assertThat(variable.getDeclaration(), is(windowVarsPsi));
+        assertThat(variable.get().getDeclaration(), is(instanceOf(XQueryWindowVars.class)));
+        assertThat(variable.get().getDeclaration(), is(windowVarsPsi));
 
         // next
 
         variable = provider.resolveVariable(nextItemPsi);
-        assertThat(variable, is(notNullValue()));
+        assertThat(variable, is(defined()));
 
-        assertThat(variable.getVariable(), is(instanceOf(XQueryNextItem.class)));
-        assertThat(variable.getVariable(), is(nextItemPsi));
+        assertThat(variable.get().getVariable(), is(instanceOf(XQueryNextItem.class)));
+        assertThat(variable.get().getVariable(), is(nextItemPsi));
 
-        assertThat(variable.getDeclaration(), is(instanceOf(XQueryWindowVars.class)));
-        assertThat(variable.getDeclaration(), is(windowVarsPsi));
+        assertThat(variable.get().getDeclaration(), is(instanceOf(XQueryWindowVars.class)));
+        assertThat(variable.get().getDeclaration(), is(windowVarsPsi));
     }
 
     // endregion
@@ -4075,51 +4075,51 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryNextItem nextItemPsi = PsiNavigation.findChildByClass(windowVarsPsi, XQueryNextItem.class);
         XQueryVariableResolver provider = (XQueryVariableResolver)windowStartConditionPsi;
 
-        assertThat(provider.resolveVariable(null), is(nullValue()));
+        assertThat(provider.resolveVariable(null), is(notDefined()));
 
         // current
 
-        XQueryVariable variable = provider.resolveVariable(currentItemPsi);
-        assertThat(variable, is(notNullValue()));
+        Option<XQueryVariable> variable = provider.resolveVariable(currentItemPsi);
+        assertThat(variable, is(defined()));
 
-        assertThat(variable.getVariable(), is(instanceOf(XQueryCurrentItem.class)));
-        assertThat(variable.getVariable(), is(currentItemPsi));
+        assertThat(variable.get().getVariable(), is(instanceOf(XQueryCurrentItem.class)));
+        assertThat(variable.get().getVariable(), is(currentItemPsi));
 
-        assertThat(variable.getDeclaration(), is(instanceOf(XQueryWindowVars.class)));
-        assertThat(variable.getDeclaration(), is(windowVarsPsi));
+        assertThat(variable.get().getDeclaration(), is(instanceOf(XQueryWindowVars.class)));
+        assertThat(variable.get().getDeclaration(), is(windowVarsPsi));
 
         // positional
 
         variable = provider.resolveVariable(posVarNamePsi);
-        assertThat(variable, is(notNullValue()));
+        assertThat(variable, is(defined()));
 
-        assertThat(variable.getVariable(), is(instanceOf(XQueryVarName.class)));
-        assertThat(variable.getVariable(), is(posVarNamePsi));
+        assertThat(variable.get().getVariable(), is(instanceOf(XQueryVarName.class)));
+        assertThat(variable.get().getVariable(), is(posVarNamePsi));
 
-        assertThat(variable.getDeclaration(), is(instanceOf(XQueryPositionalVar.class)));
-        assertThat(variable.getDeclaration(), is(positionalVarPsi));
+        assertThat(variable.get().getDeclaration(), is(instanceOf(XQueryPositionalVar.class)));
+        assertThat(variable.get().getDeclaration(), is(positionalVarPsi));
 
         // previous
 
         variable = provider.resolveVariable(previousItemPsi);
-        assertThat(variable, is(notNullValue()));
+        assertThat(variable, is(defined()));
 
-        assertThat(variable.getVariable(), is(instanceOf(XQueryPreviousItem.class)));
-        assertThat(variable.getVariable(), is(previousItemPsi));
+        assertThat(variable.get().getVariable(), is(instanceOf(XQueryPreviousItem.class)));
+        assertThat(variable.get().getVariable(), is(previousItemPsi));
 
-        assertThat(variable.getDeclaration(), is(instanceOf(XQueryWindowVars.class)));
-        assertThat(variable.getDeclaration(), is(windowVarsPsi));
+        assertThat(variable.get().getDeclaration(), is(instanceOf(XQueryWindowVars.class)));
+        assertThat(variable.get().getDeclaration(), is(windowVarsPsi));
 
         // next
 
         variable = provider.resolveVariable(nextItemPsi);
-        assertThat(variable, is(notNullValue()));
+        assertThat(variable, is(defined()));
 
-        assertThat(variable.getVariable(), is(instanceOf(XQueryNextItem.class)));
-        assertThat(variable.getVariable(), is(nextItemPsi));
+        assertThat(variable.get().getVariable(), is(instanceOf(XQueryNextItem.class)));
+        assertThat(variable.get().getVariable(), is(nextItemPsi));
 
-        assertThat(variable.getDeclaration(), is(instanceOf(XQueryWindowVars.class)));
-        assertThat(variable.getDeclaration(), is(windowVarsPsi));
+        assertThat(variable.get().getDeclaration(), is(instanceOf(XQueryWindowVars.class)));
+        assertThat(variable.get().getDeclaration(), is(windowVarsPsi));
     }
 
     // endregion
@@ -4139,51 +4139,51 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryNextItem nextItemPsi = PsiNavigation.findChildByClass(windowVarsPsi, XQueryNextItem.class);
         XQueryVariableResolver provider = (XQueryVariableResolver)windowVarsPsi;
 
-        assertThat(provider.resolveVariable(null), is(nullValue()));
+        assertThat(provider.resolveVariable(null), is(notDefined()));
 
         // current
 
-        XQueryVariable variable = provider.resolveVariable(currentItemPsi);
-        assertThat(variable, is(notNullValue()));
+        Option<XQueryVariable> variable = provider.resolveVariable(currentItemPsi);
+        assertThat(variable, is(defined()));
 
-        assertThat(variable.getVariable(), is(instanceOf(XQueryCurrentItem.class)));
-        assertThat(variable.getVariable(), is(currentItemPsi));
+        assertThat(variable.get().getVariable(), is(instanceOf(XQueryCurrentItem.class)));
+        assertThat(variable.get().getVariable(), is(currentItemPsi));
 
-        assertThat(variable.getDeclaration(), is(instanceOf(XQueryWindowVars.class)));
-        assertThat(variable.getDeclaration(), is(windowVarsPsi));
+        assertThat(variable.get().getDeclaration(), is(instanceOf(XQueryWindowVars.class)));
+        assertThat(variable.get().getDeclaration(), is(windowVarsPsi));
 
         // positional
 
         variable = provider.resolveVariable(posVarNamePsi);
-        assertThat(variable, is(notNullValue()));
+        assertThat(variable, is(defined()));
 
-        assertThat(variable.getVariable(), is(instanceOf(XQueryVarName.class)));
-        assertThat(variable.getVariable(), is(posVarNamePsi));
+        assertThat(variable.get().getVariable(), is(instanceOf(XQueryVarName.class)));
+        assertThat(variable.get().getVariable(), is(posVarNamePsi));
 
-        assertThat(variable.getDeclaration(), is(instanceOf(XQueryPositionalVar.class)));
-        assertThat(variable.getDeclaration(), is(positionalVarPsi));
+        assertThat(variable.get().getDeclaration(), is(instanceOf(XQueryPositionalVar.class)));
+        assertThat(variable.get().getDeclaration(), is(positionalVarPsi));
 
         // previous
 
         variable = provider.resolveVariable(previousItemPsi);
-        assertThat(variable, is(notNullValue()));
+        assertThat(variable, is(defined()));
 
-        assertThat(variable.getVariable(), is(instanceOf(XQueryPreviousItem.class)));
-        assertThat(variable.getVariable(), is(previousItemPsi));
+        assertThat(variable.get().getVariable(), is(instanceOf(XQueryPreviousItem.class)));
+        assertThat(variable.get().getVariable(), is(previousItemPsi));
 
-        assertThat(variable.getDeclaration(), is(instanceOf(XQueryWindowVars.class)));
-        assertThat(variable.getDeclaration(), is(windowVarsPsi));
+        assertThat(variable.get().getDeclaration(), is(instanceOf(XQueryWindowVars.class)));
+        assertThat(variable.get().getDeclaration(), is(windowVarsPsi));
 
         // next
 
         variable = provider.resolveVariable(nextItemPsi);
-        assertThat(variable, is(notNullValue()));
+        assertThat(variable, is(defined()));
 
-        assertThat(variable.getVariable(), is(instanceOf(XQueryNextItem.class)));
-        assertThat(variable.getVariable(), is(nextItemPsi));
+        assertThat(variable.get().getVariable(), is(instanceOf(XQueryNextItem.class)));
+        assertThat(variable.get().getVariable(), is(nextItemPsi));
 
-        assertThat(variable.getDeclaration(), is(instanceOf(XQueryWindowVars.class)));
-        assertThat(variable.getDeclaration(), is(windowVarsPsi));
+        assertThat(variable.get().getDeclaration(), is(instanceOf(XQueryWindowVars.class)));
+        assertThat(variable.get().getDeclaration(), is(windowVarsPsi));
     }
 
     // endregion

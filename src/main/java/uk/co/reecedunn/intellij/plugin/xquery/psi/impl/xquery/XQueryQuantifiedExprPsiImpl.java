@@ -23,6 +23,7 @@ import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryQuantifiedExpr;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVarName;
+import uk.co.reecedunn.intellij.plugin.xquery.functional.Option;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver;
 
@@ -33,16 +34,16 @@ public class XQueryQuantifiedExprPsiImpl extends ASTWrapperPsiElement implements
 
     @Nullable
     @Override
-    public XQueryVariable resolveVariable(XQueryEQName name) {
+    public Option<XQueryVariable> resolveVariable(XQueryEQName name) {
         PsiElement element = getFirstChild();
         while (element != null) {
             if (element instanceof XQueryVarName) {
                 if (element.equals(name)) {
-                    return new XQueryVariable(element, this);
+                    return Option.some(new XQueryVariable(element, this));
                 }
             }
             element = element.getNextSibling();
         }
-        return null;
+        return Option.none();
     }
 }

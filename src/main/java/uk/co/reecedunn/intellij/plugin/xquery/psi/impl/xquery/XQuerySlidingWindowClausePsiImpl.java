@@ -23,6 +23,7 @@ import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySlidingWindowClause;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVarName;
+import uk.co.reecedunn.intellij.plugin.xquery.functional.Option;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
@@ -54,21 +55,21 @@ public class XQuerySlidingWindowClausePsiImpl extends ASTWrapperPsiElement imple
 
     @Nullable
     @Override
-    public XQueryVariable resolveVariable(XQueryEQName name) {
+    public Option<XQueryVariable> resolveVariable(XQueryEQName name) {
         PsiElement element = getFirstChild();
         while (element != null) {
             if (element instanceof XQueryVariableResolver) {
-                XQueryVariable resolved = ((XQueryVariableResolver)element).resolveVariable(name);
-                if (resolved != null) {
+                Option<XQueryVariable> resolved = ((XQueryVariableResolver)element).resolveVariable(name);
+                if (resolved.isDefined()) {
                     return resolved;
                 }
             } else if (element instanceof XQueryEQName) {
                 if (element.equals(name)) {
-                    return new XQueryVariable(element, this);
+                    return Option.some(new XQueryVariable(element, this));
                 }
             }
             element = element.getNextSibling();
         }
-        return null;
+        return Option.none();
     }
 }

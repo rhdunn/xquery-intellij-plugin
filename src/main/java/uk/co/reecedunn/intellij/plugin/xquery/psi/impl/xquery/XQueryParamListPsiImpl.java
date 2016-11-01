@@ -22,6 +22,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryParamList;
+import uk.co.reecedunn.intellij.plugin.xquery.functional.Option;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver;
@@ -46,17 +47,17 @@ public class XQueryParamListPsiImpl extends ASTWrapperPsiElement implements XQue
 
     @Nullable
     @Override
-    public XQueryVariable resolveVariable(XQueryEQName name) {
+    public Option<XQueryVariable> resolveVariable(XQueryEQName name) {
         PsiElement element = getFirstChild();
         while (element != null) {
             if (element.getNode().getElementType() == XQueryElementType.PARAM) {
-                XQueryVariable variable = ((XQueryVariableResolver)element).resolveVariable(name);
-                if (variable != null) {
+                Option<XQueryVariable> variable = ((XQueryVariableResolver)element).resolveVariable(name);
+                if (variable.isDefined()) {
                     return variable;
                 }
             }
             element = element.getNextSibling();
         }
-        return null;
+        return Option.none();
     }
 }
