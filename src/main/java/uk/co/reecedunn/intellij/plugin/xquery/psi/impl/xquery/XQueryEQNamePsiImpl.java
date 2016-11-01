@@ -174,9 +174,9 @@ public class XQueryEQNamePsiImpl extends ASTWrapperPsiElement implements XQueryE
             CharSequence prefix = element.getText();
             while (element != null) {
                 if (element instanceof XQueryNamespaceResolver) {
-                    XQueryNamespace resolved = ((XQueryNamespaceResolver) element).resolveNamespace(prefix);
-                    if (resolved != null) {
-                        return Option.some(resolved);
+                    Option<XQueryNamespace> resolved = ((XQueryNamespaceResolver) element).resolveNamespace(prefix);
+                    if (resolved.isDefined()) {
+                        return resolved;
                     }
                 }
 

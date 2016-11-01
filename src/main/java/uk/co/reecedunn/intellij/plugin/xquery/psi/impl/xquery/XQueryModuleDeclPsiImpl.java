@@ -21,6 +21,7 @@ import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*;
+import uk.co.reecedunn.intellij.plugin.xquery.functional.Option;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.PsiNavigation;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver;
@@ -33,17 +34,17 @@ public class XQueryModuleDeclPsiImpl extends ASTWrapperPsiElement implements XQu
     }
 
     @Override
-    public XQueryNamespace resolveNamespace(CharSequence prefix) {
+    public Option<XQueryNamespace> resolveNamespace(CharSequence prefix) {
         XQueryNCName name = findChildByType(XQueryElementType.NCNAME);
         if (name == null) {
-            return null;
+            return Option.none();
         }
 
         if (name.getLocalName().getText().equals(prefix)) {
             PsiElement element = findChildByType(XQueryElementType.URI_LITERAL);
-            return new XQueryNamespace(name.getLocalName(), element, this);
+            return Option.some(new XQueryNamespace(name.getLocalName(), element, this));
         }
-        return null;
+        return Option.none();
     }
 
     @Nullable

@@ -22,6 +22,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog;
+import uk.co.reecedunn.intellij.plugin.xquery.functional.Option;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceResolver;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable;
@@ -33,18 +34,18 @@ public class XQueryPrologPsiImpl extends ASTWrapperPsiElement implements XQueryP
     }
 
     @Override
-    public XQueryNamespace resolveNamespace(CharSequence prefix) {
+    public Option<XQueryNamespace> resolveNamespace(CharSequence prefix) {
         PsiElement element = getLastChild();
         while (element != null) {
             if (element instanceof XQueryNamespaceResolver) {
-                XQueryNamespace resolved = ((XQueryNamespaceResolver)element).resolveNamespace(prefix);
-                if (resolved != null) {
+                Option<XQueryNamespace> resolved = ((XQueryNamespaceResolver)element).resolveNamespace(prefix);
+                if (resolved.isDefined()) {
                     return resolved;
                 }
             }
             element = element.getPrevSibling();
         }
-        return null;
+        return Option.none();
     }
 
     @Nullable

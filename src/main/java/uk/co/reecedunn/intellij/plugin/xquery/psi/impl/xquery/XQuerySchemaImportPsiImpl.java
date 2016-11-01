@@ -22,6 +22,7 @@ import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryNCName;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySchemaImport;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySchemaPrefix;
+import uk.co.reecedunn.intellij.plugin.xquery.functional.Option;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceResolver;
@@ -32,20 +33,20 @@ public class XQuerySchemaImportPsiImpl extends ASTWrapperPsiElement implements X
     }
 
     @Override
-    public XQueryNamespace resolveNamespace(CharSequence prefix) {
+    public Option<XQueryNamespace> resolveNamespace(CharSequence prefix) {
         XQuerySchemaPrefix schema = findChildByType(XQueryElementType.SCHEMA_PREFIX);
         if (schema == null) {
-            return null;
+            return Option.none();
         }
 
         PsiElement name = schema.getFirstChild();
         while (name != null) {
             if (name instanceof XQueryNCName && ((XQueryNCName)name).getLocalName().getText().equals(prefix)) {
                 PsiElement element = findChildByType(XQueryElementType.URI_LITERAL);
-                return new XQueryNamespace(((XQueryNCName)name).getLocalName(), element, this);
+                return Option.some(new XQueryNamespace(((XQueryNCName)name).getLocalName(), element, this));
             }
             name = name.getNextSibling();
         }
-        return null;
+        return Option.none();
     }
 }

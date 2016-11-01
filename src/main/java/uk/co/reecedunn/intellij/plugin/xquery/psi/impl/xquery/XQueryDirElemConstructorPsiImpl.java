@@ -21,6 +21,7 @@ import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor;
+import uk.co.reecedunn.intellij.plugin.xquery.functional.Option;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceResolver;
@@ -32,8 +33,8 @@ public class XQueryDirElemConstructorPsiImpl extends ASTWrapperPsiElement implem
 
     @Nullable
     @Override
-    public XQueryNamespace resolveNamespace(CharSequence prefix) {
+    public Option<XQueryNamespace> resolveNamespace(CharSequence prefix) {
         PsiElement element = findChildByType(XQueryElementType.DIR_ATTRIBUTE_LIST);
-        return element == null ? null : ((XQueryNamespaceResolver)element).resolveNamespace(prefix);
+        return element == null ? Option.none() : ((XQueryNamespaceResolver)element).resolveNamespace(prefix);
     }
 }

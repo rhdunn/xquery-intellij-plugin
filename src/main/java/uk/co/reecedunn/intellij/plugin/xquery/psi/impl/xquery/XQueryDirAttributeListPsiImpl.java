@@ -21,6 +21,7 @@ import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttributeList;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryQName;
+import uk.co.reecedunn.intellij.plugin.xquery.functional.Option;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceResolver;
@@ -31,7 +32,7 @@ public class XQueryDirAttributeListPsiImpl extends ASTWrapperPsiElement implemen
     }
 
     @Override
-    public XQueryNamespace resolveNamespace(CharSequence prefix) {
+    public Option<XQueryNamespace> resolveNamespace(CharSequence prefix) {
         PsiElement element = getFirstChild();
         while (element != null) {
             if (element instanceof XQueryQName) {
@@ -42,15 +43,15 @@ public class XQueryDirAttributeListPsiImpl extends ASTWrapperPsiElement implemen
                         if (uri.getNode().getElementType() == XQueryElementType.QNAME) {
                             break;
                         } else if (uri.getNode().getElementType() == XQueryElementType.DIR_ATTRIBUTE_VALUE) {
-                            return new XQueryNamespace(name.getLocalName(), uri, this);
+                            return Option.some(new XQueryNamespace(name.getLocalName(), uri, this));
                         }
                         uri = uri.getNextSibling();
                     }
-                    return new XQueryNamespace(name.getLocalName(), null, this);
+                    return Option.some(new XQueryNamespace(name.getLocalName(), null, this));
                 }
             }
             element = element.getNextSibling();
         }
-        return null;
+        return Option.none();
     }
 }
