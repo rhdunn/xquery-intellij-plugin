@@ -19,7 +19,7 @@ import com.intellij.codeInspection.InspectionManager;
 import com.intellij.codeInspection.LocalInspectionTool;
 import com.intellij.codeInspection.ProblemDescriptor;
 import com.intellij.codeInspection.ex.InspectionManagerEx;
-import com.intellij.psi.*;
+import com.intellij.psi.SmartPointerManager;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.mocks.MockSmartPointerManager;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase;

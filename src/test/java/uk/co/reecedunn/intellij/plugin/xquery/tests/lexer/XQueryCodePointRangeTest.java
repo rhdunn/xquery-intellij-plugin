@@ -18,8 +18,8 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.lexer;
 import junit.framework.TestCase;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryCodePointRange;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.CoreMatchers.*;
 
 public class XQueryCodePointRangeTest extends TestCase {
     public void testEmptyBuffer() {

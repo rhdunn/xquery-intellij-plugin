@@ -15,8 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryExprSingle;
-
 /**
  * An XQuery 1.0 <code>OrExpr</code> node in the XQuery AST.
  */

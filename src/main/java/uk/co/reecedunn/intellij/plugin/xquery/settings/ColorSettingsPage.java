@@ -18,10 +18,9 @@ package uk.co.reecedunn.intellij.plugin.xquery.settings;
 import com.intellij.openapi.editor.colors.TextAttributesKey;
 import com.intellij.openapi.options.colors.AttributesDescriptor;
 import com.intellij.openapi.options.colors.ColorDescriptor;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.SyntaxHighlighter;
+import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 
 import javax.swing.*;
 import java.util.Map;

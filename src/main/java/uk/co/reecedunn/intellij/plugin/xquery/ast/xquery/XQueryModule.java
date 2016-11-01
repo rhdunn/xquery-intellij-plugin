@@ -16,7 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
 import com.intellij.psi.PsiElement;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile;
 
 /**
  * An XQuery 1.0 <code>Module</code> node in the XQuery AST.

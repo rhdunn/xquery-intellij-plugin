@@ -16,9 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.xquery.psi;
 
 import com.intellij.psi.PsiElement;
-import com.intellij.psi.tree.IElementType;
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
-import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 
 import java.util.ArrayList;
 import java.util.List;
