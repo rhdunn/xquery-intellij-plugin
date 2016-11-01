@@ -30,8 +30,8 @@ public class XQueryURIQualifiedNamePsiImpl extends ASTWrapperPsiElement implemen
     }
 
     @Override
-    public PsiElement getPrefix() {
-        return findChildByType(XQueryElementType.BRACED_URI_LITERAL);
+    public Option<PsiElement> getPrefix() {
+        return Option.of(findChildByType(XQueryElementType.BRACED_URI_LITERAL));
     }
 
     @Override

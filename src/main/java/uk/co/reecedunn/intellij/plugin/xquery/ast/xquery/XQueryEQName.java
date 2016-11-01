@@ -30,7 +30,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace;
  * <code>URIQualifiedName</code>.
  */
 public interface XQueryEQName extends PsiElement {
-    PsiElement getPrefix();
+    Option<PsiElement> getPrefix();
 
     PsiElement getLocalName();
 
