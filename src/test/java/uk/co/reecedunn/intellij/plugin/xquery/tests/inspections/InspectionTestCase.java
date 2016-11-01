@@ -40,6 +40,6 @@ public abstract class InspectionTestCase extends ParserTestCase {
     }
 
     public ProblemDescriptor[] inspect(XQueryFile file, LocalInspectionTool inspection) {
-        return inspection.checkFile((PsiFile)file, getInspectionManager(), false);
+        return inspection.checkFile(file, getInspectionManager(), false);
     }
 }

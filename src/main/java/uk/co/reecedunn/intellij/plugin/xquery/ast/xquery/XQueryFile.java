@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
-import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiFile;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 
 /**
@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
  * file implementation. It is included here to keep the interfaces for
  * navigating the parse trees together.
  */
-public interface XQueryFile extends PsiElement {
+public interface XQueryFile extends PsiFile {
     /**
      * Gets the XQuery version of the file.
      *
