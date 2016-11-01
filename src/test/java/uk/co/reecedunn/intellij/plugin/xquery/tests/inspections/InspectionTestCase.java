@@ -19,8 +19,8 @@ import com.intellij.codeInspection.InspectionManager;
 import com.intellij.codeInspection.LocalInspectionTool;
 import com.intellij.codeInspection.ProblemDescriptor;
 import com.intellij.codeInspection.ex.InspectionManagerEx;
-import com.intellij.lang.ASTNode;
 import com.intellij.psi.*;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.mocks.MockSmartPointerManager;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase;
 
@@ -39,7 +39,7 @@ public abstract class InspectionTestCase extends ParserTestCase {
         return (InspectionManagerEx)InspectionManager.getInstance(myProject);
     }
 
-    public ProblemDescriptor[] inspect(ASTNode node, LocalInspectionTool inspection) {
-        return inspection.checkFile((PsiFile)node.getPsi(), getInspectionManager(), false);
+    public ProblemDescriptor[] inspect(XQueryFile file, LocalInspectionTool inspection) {
+        return inspection.checkFile((PsiFile)file, getInspectionManager(), false);
     }
 }

@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.inspections.XPST0003;
 
 import com.intellij.codeInspection.ProblemDescriptor;
 import com.intellij.codeInspection.ProblemHighlightType;
-import com.intellij.lang.ASTNode;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile;
 import uk.co.reecedunn.intellij.plugin.xquery.inspections.XPST0003.UnsupportedConstructInspection;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
@@ -46,9 +46,9 @@ public class UnsupportedConstructInspectionTest extends InspectionTestCase {
     @SuppressWarnings("ConstantConditions")
     public void testXQuery30VersionDeclInXQuery10() {
         getSettings().setXQueryVersion(XQueryVersion.VERSION_1_0);
-        final ASTNode node = parseResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly.xq");
+        final XQueryFile file = parseResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly.xq");
 
-        final ProblemDescriptor[] problems = inspect(node, new UnsupportedConstructInspection());
+        final ProblemDescriptor[] problems = inspect(file, new UnsupportedConstructInspection());
         assertThat(problems, is(notNullValue()));
         assertThat(problems.length, is(1));
 
@@ -60,9 +60,9 @@ public class UnsupportedConstructInspectionTest extends InspectionTestCase {
     @SuppressWarnings("ConstantConditions")
     public void testXQuery30VersionDecl() {
         getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
-        final ASTNode node = parseResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly.xq");
+        final XQueryFile file = parseResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly.xq");
 
-        final ProblemDescriptor[] problems = inspect(node, new UnsupportedConstructInspection());
+        final ProblemDescriptor[] problems = inspect(file, new UnsupportedConstructInspection());
         assertThat(problems, is(notNullValue()));
         assertThat(problems.length, is(0));
     }
@@ -72,9 +72,9 @@ public class UnsupportedConstructInspectionTest extends InspectionTestCase {
 
     public void testUpdateFacility10InsertExprInXQuery10() {
         getSettings().setXQueryVersion(XQueryVersion.VERSION_1_0);
-        final ASTNode node = parseResource("tests/parser/xquery-update-1.0/InsertExpr_Node.xq");
+        final XQueryFile file = parseResource("tests/parser/xquery-update-1.0/InsertExpr_Node.xq");
 
-        final ProblemDescriptor[] problems = inspect(node, new UnsupportedConstructInspection());
+        final ProblemDescriptor[] problems = inspect(file, new UnsupportedConstructInspection());
         assertThat(problems, is(notNullValue()));
         assertThat(problems.length, is(1));
 
@@ -87,9 +87,9 @@ public class UnsupportedConstructInspectionTest extends InspectionTestCase {
         getSettings().setXQueryVersion(XQueryVersion.VERSION_1_0);
         getSettings().setImplementation("w3c");
         getSettings().setXQuery10Dialect("w3c/1.0-update");
-        final ASTNode node = parseResource("tests/parser/xquery-update-1.0/InsertExpr_Node.xq");
+        final XQueryFile file = parseResource("tests/parser/xquery-update-1.0/InsertExpr_Node.xq");
 
-        final ProblemDescriptor[] problems = inspect(node, new UnsupportedConstructInspection());
+        final ProblemDescriptor[] problems = inspect(file, new UnsupportedConstructInspection());
         assertThat(problems, is(notNullValue()));
         assertThat(problems.length, is(0));
     }
@@ -99,9 +99,9 @@ public class UnsupportedConstructInspectionTest extends InspectionTestCase {
 
     public void testMarkLogicForwardAxisInXQuery10() {
         getSettings().setXQueryVersion(XQueryVersion.VERSION_1_0);
-        final ASTNode node = parseResource("tests/parser/marklogic-6.0/ForwardAxis_Namespace.xq");
+        final XQueryFile file = parseResource("tests/parser/marklogic-6.0/ForwardAxis_Namespace.xq");
 
-        final ProblemDescriptor[] problems = inspect(node, new UnsupportedConstructInspection());
+        final ProblemDescriptor[] problems = inspect(file, new UnsupportedConstructInspection());
         assertThat(problems, is(notNullValue()));
         assertThat(problems.length, is(1));
 
@@ -114,9 +114,9 @@ public class UnsupportedConstructInspectionTest extends InspectionTestCase {
         getSettings().setXQueryVersion(XQueryVersion.VERSION_1_0_MARKLOGIC);
         getSettings().setImplementation("marklogic");
         getSettings().setImplementationVersion("marklogic/v6");
-        final ASTNode node = parseResource("tests/parser/marklogic-6.0/ForwardAxis_Namespace.xq");
+        final XQueryFile file = parseResource("tests/parser/marklogic-6.0/ForwardAxis_Namespace.xq");
 
-        final ProblemDescriptor[] problems = inspect(node, new UnsupportedConstructInspection());
+        final ProblemDescriptor[] problems = inspect(file, new UnsupportedConstructInspection());
         assertThat(problems, is(notNullValue()));
         assertThat(problems.length, is(0));
     }

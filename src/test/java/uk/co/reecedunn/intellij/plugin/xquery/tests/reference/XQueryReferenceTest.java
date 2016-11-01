@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.reference;
 
-import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiReference;
 import com.intellij.psi.impl.source.tree.LeafPsiElement;
@@ -34,9 +33,9 @@ public class XQueryReferenceTest extends ParserTestCase {
     // region URILiteral
 
     public void testURILiteral_HttpUri() {
-        final ASTNode node = parseResource("tests/resolve/xquery-1.0/ModuleImport_URILiteral_SameDirectory.xq");
+        final XQueryFile file = parseResource("tests/resolve/xquery-1.0/ModuleImport_URILiteral_SameDirectory.xq");
 
-        XQueryModuleImport moduleImportPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryModuleImport.class);
+        XQueryModuleImport moduleImportPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryModuleImport.class);
         assertThat(moduleImportPsi, is(notNullValue()));
 
         List<XQueryUriLiteral> uriLiterals = PsiNavigation.findChildrenByClass(moduleImportPsi, XQueryUriLiteral.class);
@@ -56,9 +55,9 @@ public class XQueryReferenceTest extends ParserTestCase {
     // region QName
 
     public void testQName() {
-        final ASTNode node = parseResource("tests/resolve/xquery-1.0/ModuleDecl.xq");
+        final XQueryFile file = parseResource("tests/resolve/xquery-1.0/ModuleDecl.xq");
 
-        XQueryLibraryModule modulePsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryLibraryModule.class);
+        XQueryLibraryModule modulePsi = PsiNavigation.findDirectDescendantByClass(file, XQueryLibraryModule.class);
         XQueryProlog prologPsi = PsiNavigation.findChildByClass(modulePsi, XQueryProlog.class);
         XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findDirectDescendantByClass(prologPsi, XQueryAnnotatedDecl.class);
         XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryFunctionDecl.class);
@@ -92,9 +91,9 @@ public class XQueryReferenceTest extends ParserTestCase {
     // region EQName
 
     public void testEQName_NCName() {
-        final ASTNode node = parseResource("tests/resolve/xquery-1.0/FunctionDecl_WithNCNameReturnType.xq");
+        final XQueryFile file = parseResource("tests/resolve/xquery-1.0/FunctionDecl_WithNCNameReturnType.xq");
 
-        XQueryLibraryModule modulePsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryLibraryModule.class);
+        XQueryLibraryModule modulePsi = PsiNavigation.findDirectDescendantByClass(file, XQueryLibraryModule.class);
         XQueryProlog prologPsi = PsiNavigation.findChildByClass(modulePsi, XQueryProlog.class);
         XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findChildByClass(prologPsi, XQueryAnnotatedDecl.class);
         XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryFunctionDecl.class);
@@ -112,9 +111,9 @@ public class XQueryReferenceTest extends ParserTestCase {
     }
 
     public void testEQName_QName() {
-        final ASTNode node = parseResource("tests/resolve/xquery-1.0/FunctionDecl_WithQNameReturnType.xq");
+        final XQueryFile file = parseResource("tests/resolve/xquery-1.0/FunctionDecl_WithQNameReturnType.xq");
 
-        XQueryLibraryModule modulePsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryLibraryModule.class);
+        XQueryLibraryModule modulePsi = PsiNavigation.findDirectDescendantByClass(file, XQueryLibraryModule.class);
         XQueryProlog prologPsi = PsiNavigation.findChildByClass(modulePsi, XQueryProlog.class);
         XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findChildByClass(prologPsi, XQueryAnnotatedDecl.class);
         XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryFunctionDecl.class);
@@ -146,9 +145,9 @@ public class XQueryReferenceTest extends ParserTestCase {
     }
 
     public void testEQName_URIQualifiedName() {
-        final ASTNode node = parseResource("tests/resolve/xquery-1.0/FunctionDecl_WithURIQualifiedNameReturnType.xq");
+        final XQueryFile file = parseResource("tests/resolve/xquery-1.0/FunctionDecl_WithURIQualifiedNameReturnType.xq");
 
-        XQueryLibraryModule modulePsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryLibraryModule.class);
+        XQueryLibraryModule modulePsi = PsiNavigation.findDirectDescendantByClass(file, XQueryLibraryModule.class);
         XQueryProlog prologPsi = PsiNavigation.findChildByClass(modulePsi, XQueryProlog.class);
         XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findChildByClass(prologPsi, XQueryAnnotatedDecl.class);
         XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryFunctionDecl.class);
@@ -171,13 +170,13 @@ public class XQueryReferenceTest extends ParserTestCase {
     // region ForBinding
 
     public void testForBinding() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/ForClause.xq");
+        final XQueryFile file = parseResource("tests/parser/xquery-1.0/ForClause.xq");
 
-        XQueryForClause forClausePsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryForClause.class);
+        XQueryForClause forClausePsi = PsiNavigation.findDirectDescendantByClass(file, XQueryForClause.class);
         XQueryForBinding forBindingPsi = PsiNavigation.findChildByClass(forClausePsi, XQueryForBinding.class);
         XQueryVarName varNamePsi = PsiNavigation.findChildByClass(forBindingPsi, XQueryVarName.class);
 
-        XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryFLWORExpr.class);
+        XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFLWORExpr.class);
         XQueryReturnClause returnClausePsi = PsiNavigation.findChildByClass(flworExprPsi, XQueryReturnClause.class);
         XQueryOrExpr orExprPsi = PsiNavigation.findChildByClass(returnClausePsi, XQueryOrExpr.class);
         XQueryVarRef varRefPsi = PsiNavigation.findDirectDescendantByClass(orExprPsi, XQueryVarRef.class);
@@ -206,9 +205,9 @@ public class XQueryReferenceTest extends ParserTestCase {
     // region IntermediateClause
 
     public void testIntermediateClause() {
-        final ASTNode node = parseResource("tests/resolve/xquery-1.0/IntermediateClause_ReturnInnerForVariable.xq");
+        final XQueryFile file = parseResource("tests/resolve/xquery-1.0/IntermediateClause_ReturnInnerForVariable.xq");
 
-        XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryFLWORExpr.class);
+        XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFLWORExpr.class);
         XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildByClass(flworExprPsi, XQueryIntermediateClause.class);
         XQueryForClause forClausePsi = PsiNavigation.findDirectDescendantByClass(intermediateClausePsi, XQueryForClause.class);
         XQueryForBinding forBindingPsi = PsiNavigation.findChildByClass(forClausePsi, XQueryForBinding.class);
@@ -242,13 +241,13 @@ public class XQueryReferenceTest extends ParserTestCase {
     // region LetBinding
 
     public void testLetBinding() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/LetClause.xq");
+        final XQueryFile file = parseResource("tests/parser/xquery-1.0/LetClause.xq");
 
-        XQueryLetClause letClausePsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryLetClause.class);
+        XQueryLetClause letClausePsi = PsiNavigation.findDirectDescendantByClass(file, XQueryLetClause.class);
         XQueryLetBinding letBindingPsi = PsiNavigation.findChildByClass(letClausePsi, XQueryLetBinding.class);
         XQueryVarName varNamePsi = PsiNavigation.findChildByClass(letBindingPsi, XQueryVarName.class);
 
-        XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryFLWORExpr.class);
+        XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFLWORExpr.class);
         XQueryReturnClause returnClausePsi = PsiNavigation.findChildByClass(flworExprPsi, XQueryReturnClause.class);
         XQueryOrExpr orExprPsi = PsiNavigation.findChildByClass(returnClausePsi, XQueryOrExpr.class);
         XQueryVarRef varRefPsi = PsiNavigation.findDirectDescendantByClass(orExprPsi, XQueryVarRef.class);
@@ -277,9 +276,9 @@ public class XQueryReferenceTest extends ParserTestCase {
     // region Param
 
     public void testParam() {
-        final ASTNode node = parseResource("tests/resolve/xquery-1.0/FunctionDecl_ReturningSpecifiedParam.xq");
+        final XQueryFile file = parseResource("tests/resolve/xquery-1.0/FunctionDecl_ReturningSpecifiedParam.xq");
 
-        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryAnnotatedDecl.class);
+        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryAnnotatedDecl.class);
         XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryFunctionDecl.class);
         XQueryParamList paramListPsi = PsiNavigation.findChildByClass(functionDeclPsi, XQueryParamList.class);
         XQueryParam paramPsi = PsiNavigation.findChildByClass(paramListPsi, XQueryParam.class);
@@ -310,9 +309,9 @@ public class XQueryReferenceTest extends ParserTestCase {
     }
 
     public void testParam_ReferencedFromOutsideTheFunction() {
-        final ASTNode node = parseResource("tests/resolve/xquery-1.0/FunctionDecl_ReturningSpecifiedParam.xq");
+        final XQueryFile file = parseResource("tests/resolve/xquery-1.0/FunctionDecl_ReturningSpecifiedParam.xq");
 
-        XQueryMainModule mainModulePsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryMainModule.class);
+        XQueryMainModule mainModulePsi = PsiNavigation.findDirectDescendantByClass(file, XQueryMainModule.class);
         XQueryQueryBody queryBodyPsi = PsiNavigation.findChildByClass(mainModulePsi, XQueryQueryBody.class);
         XQueryVarRef varRefPsi = PsiNavigation.findDirectDescendantByClass(queryBodyPsi, XQueryVarRef.class);
         XQueryEQName varRefNamePsi = PsiNavigation.findChildByClass(varRefPsi, XQueryEQName.class);
@@ -338,14 +337,14 @@ public class XQueryReferenceTest extends ParserTestCase {
     // region PositionalVar
 
     public void testPositionalVar() {
-        final ASTNode node = parseResource("tests/resolve/xquery-1.0/PositionalVar_ReturnThePosition.xq");
+        final XQueryFile file = parseResource("tests/resolve/xquery-1.0/PositionalVar_ReturnThePosition.xq");
 
-        XQueryForClause forClausePsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryForClause.class);
+        XQueryForClause forClausePsi = PsiNavigation.findDirectDescendantByClass(file, XQueryForClause.class);
         XQueryForBinding forBindingPsi = PsiNavigation.findChildByClass(forClausePsi, XQueryForBinding.class);
         XQueryPositionalVar positionalVarPsi = PsiNavigation.findChildByClass(forBindingPsi, XQueryPositionalVar.class);
         XQueryVarName varNamePsi = PsiNavigation.findChildByClass(positionalVarPsi, XQueryVarName.class);
 
-        XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryFLWORExpr.class);
+        XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFLWORExpr.class);
         XQueryReturnClause returnClausePsi = PsiNavigation.findChildByClass(flworExprPsi, XQueryReturnClause.class);
         XQueryOrExpr orExprPsi = PsiNavigation.findChildByClass(returnClausePsi, XQueryOrExpr.class);
         XQueryVarRef varRefPsi = PsiNavigation.findDirectDescendantByClass(orExprPsi, XQueryVarRef.class);
@@ -374,13 +373,13 @@ public class XQueryReferenceTest extends ParserTestCase {
     // region SlidingWindowClause
 
     public void testSlidingWindowClause() {
-        final ASTNode node = parseResource("tests/parser/xquery-3.0/SlidingWindowClause.xq");
+        final XQueryFile file = parseResource("tests/parser/xquery-3.0/SlidingWindowClause.xq");
 
-        XQueryWindowClause windowClausePsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryWindowClause.class);
+        XQueryWindowClause windowClausePsi = PsiNavigation.findDirectDescendantByClass(file, XQueryWindowClause.class);
         XQuerySlidingWindowClause slidingWindowClausePsi = PsiNavigation.findChildByClass(windowClausePsi, XQuerySlidingWindowClause.class);
         XQueryVarName varNamePsi = PsiNavigation.findChildByClass(slidingWindowClausePsi, XQueryVarName.class);
 
-        XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryFLWORExpr.class);
+        XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFLWORExpr.class);
         XQueryReturnClause returnClausePsi = PsiNavigation.findChildByClass(flworExprPsi, XQueryReturnClause.class);
         XQueryOrExpr orExprPsi = PsiNavigation.findChildByClass(returnClausePsi, XQueryOrExpr.class);
         XQueryVarRef varRefPsi = PsiNavigation.findDirectDescendantByClass(orExprPsi, XQueryVarRef.class);
@@ -409,13 +408,13 @@ public class XQueryReferenceTest extends ParserTestCase {
     // region TumblingWindowClause
 
     public void testTumblingWindowClause() {
-        final ASTNode node = parseResource("tests/parser/xquery-3.0/TumblingWindowClause.xq");
+        final XQueryFile file = parseResource("tests/parser/xquery-3.0/TumblingWindowClause.xq");
 
-        XQueryWindowClause windowClausePsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryWindowClause.class);
+        XQueryWindowClause windowClausePsi = PsiNavigation.findDirectDescendantByClass(file, XQueryWindowClause.class);
         XQueryTumblingWindowClause tumblingWindowClausePsi = PsiNavigation.findChildByClass(windowClausePsi, XQueryTumblingWindowClause.class);
         XQueryVarName varNamePsi = PsiNavigation.findChildByClass(tumblingWindowClausePsi, XQueryVarName.class);
 
-        XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryFLWORExpr.class);
+        XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFLWORExpr.class);
         XQueryReturnClause returnClausePsi = PsiNavigation.findChildByClass(flworExprPsi, XQueryReturnClause.class);
         XQueryOrExpr orExprPsi = PsiNavigation.findChildByClass(returnClausePsi, XQueryOrExpr.class);
         XQueryVarRef varRefPsi = PsiNavigation.findDirectDescendantByClass(orExprPsi, XQueryVarRef.class);
@@ -444,13 +443,13 @@ public class XQueryReferenceTest extends ParserTestCase {
     // region VarDecl
 
     public void testVarDecl() {
-        final ASTNode node = parseResource("tests/resolve/xquery-1.0/VarDecl_WithCorrespondingVarRef.xq");
+        final XQueryFile file = parseResource("tests/resolve/xquery-1.0/VarDecl_WithCorrespondingVarRef.xq");
 
-        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryAnnotatedDecl.class);
+        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryAnnotatedDecl.class);
         XQueryVarDecl varDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryVarDecl.class);
         XQueryEQName varDeclNamePsi = PsiNavigation.findChildByClass(varDeclPsi, XQueryEQName.class);
 
-        XQueryMainModule mainModulePsi = PsiNavigation.findDirectDescendantByClass(node.getPsi(), XQueryMainModule.class);
+        XQueryMainModule mainModulePsi = PsiNavigation.findDirectDescendantByClass(file, XQueryMainModule.class);
         XQueryQueryBody queryBodyPsi = PsiNavigation.findChildByClass(mainModulePsi, XQueryQueryBody.class);
         XQueryVarRef varRefPsi = PsiNavigation.findDirectDescendantByClass(queryBodyPsi, XQueryVarRef.class);
         XQueryEQName varRefNamePsi = PsiNavigation.findChildByClass(varRefPsi, XQueryEQName.class);

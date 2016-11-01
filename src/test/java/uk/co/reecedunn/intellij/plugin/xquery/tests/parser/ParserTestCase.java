@@ -30,6 +30,7 @@ import com.intellij.testFramework.ParsingTestCase;
 import org.apache.xmlbeans.impl.common.IOUtil;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition;
@@ -138,14 +139,14 @@ public abstract class ParserTestCase extends ParsingTestCase {
         }
     }
 
-    String prettyPrintASTNode(ASTNode node) {
+    String prettyPrintASTNode(XQueryFile file) {
         StringBuilder prettyPrinted = new StringBuilder();
-        prettyPrintASTNode(prettyPrinted, node, 0);
+        prettyPrintASTNode(prettyPrinted, file.getNode(), 0);
         return prettyPrinted.toString();
     }
 
     @NotNull
-    private ASTNode parseFile(@NotNull LightVirtualFile file) {
+    private XQueryFile parseFile(@NotNull LightVirtualFile file) {
         initializeSettings(getSettings());
 
         ParserDefinition parserDefinition = new XQueryParserDefinition();
@@ -156,16 +157,16 @@ public abstract class ParserTestCase extends ParsingTestCase {
         PsiBuilder builder = new PsiBuilderImpl(myProject, null, whitespaces, comments, lexer, null, file.getContent(), null, null);
         ASTNode node = parserDefinition.createParser(myProject).parse(parserDefinition.getFileNodeType(), builder);
         buildPsi(parserDefinition, node, file);
-        return node;
+        return (XQueryFile)node.getPsi();
     }
 
     @NotNull
-    protected ASTNode parseText(@NotNull String text) {
+    protected XQueryFile parseText(@NotNull String text) {
         return parseFile(createVirtualFile("testcase.xqy", text));
     }
 
     @NotNull
-    protected ASTNode parseResource(String resource) {
+    protected XQueryFile parseResource(String resource) {
         return parseFile(createVirtualFile(resource, loadResource(resource)));
     }
 
