@@ -26,7 +26,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceResolver;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver;
 
-import static uk.co.reecedunn.intellij.plugin.xquery.functional.PsiTreeWalker.ancestors;
 import static uk.co.reecedunn.intellij.plugin.xquery.functional.PsiTreeWalker.children;
 
 public class XQueryModuleDeclPsiImpl extends ASTWrapperPsiElement implements XQueryModuleDecl, XQueryNamespaceResolver, XQueryPrologResolver {
@@ -49,8 +48,6 @@ public class XQueryModuleDeclPsiImpl extends ASTWrapperPsiElement implements XQu
 
     @Override
     public Option<XQueryProlog> resolveProlog() {
-        return ancestors(this).findFirst(XQueryFile.class).flatMap((file) ->
-               children(file).findFirst(XQueryModule.class).flatMap((module) ->
-               children(module).findFirst(XQueryProlog.class)));
+        return children(this).findFirst(XQueryProlog.class);
     }
 }
