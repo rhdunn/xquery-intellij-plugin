@@ -24,31 +24,34 @@ public class XQueryFunctionNameReference extends PsiReferenceBase<XQueryEQName> 
                     return null;
                 }
 
-                PsiElement parent = getElement().getParent();
-                int arity = 0;
-                if (parent instanceof XQueryFunctionCall) {
-                    arity = ((XQueryFunctionCall) parent).getArity();
-                } else if (parent instanceof XQueryNamedFunctionRef) {
-                    arity = ((XQueryNamedFunctionRef) parent).getArity();
-                }
+                return getElement().getLocalName().map(PsiElement::getText).map((localName) -> {
+                    PsiElement parent = getElement().getParent();
+                    int arity = 0;
+                    if (parent instanceof XQueryFunctionCall) {
+                        arity = ((XQueryFunctionCall) parent).getArity();
+                    } else if (parent instanceof XQueryNamedFunctionRef) {
+                        arity = ((XQueryNamedFunctionRef) parent).getArity();
+                    }
 
-                CharSequence localName = getElement().getLocalNameElement().getText();
-                PsiElement annotation = prolog.get().getFirstChild();
-                while (annotation != null) {
-                    if (annotation instanceof XQueryAnnotatedDecl) {
-                        XQueryFunctionDecl functionDecl = PsiNavigation.findChildByClass(annotation, XQueryFunctionDecl.class);
-                        if (functionDecl != null) {
-                            XQueryEQName functionName = PsiNavigation.findChildByClass(functionDecl, XQueryEQName.class);
-                            if (functionName != null && functionName.getLocalNameElement().getText().equals(localName)) {
-                                if (functionDecl.getArity() == arity) {
-                                    return functionName;
+                    PsiElement annotation = prolog.get().getFirstChild();
+                    while (annotation != null) {
+                        if (annotation instanceof XQueryAnnotatedDecl) {
+                            XQueryFunctionDecl functionDecl = PsiNavigation.findChildByClass(annotation, XQueryFunctionDecl.class);
+                            if (functionDecl != null) {
+                                XQueryEQName functionName = PsiNavigation.findChildByClass(functionDecl, XQueryEQName.class);
+                                Option<PsiElement> functionLocalName = functionName == null ? Option.none() : functionName.getLocalName();
+                                if (functionLocalName.map(PsiElement::getText).map((name) -> name.equals(localName)).getOrElse(false)) {
+                                    if (functionDecl.getArity() == arity) {
+                                        return functionName;
+                                    }
                                 }
                             }
                         }
-                    }
 
-                    annotation = annotation.getNextSibling();
-                }
+                        annotation = annotation.getNextSibling();
+                    }
+                    return null;
+                }).getOrElse(null);
             }
             return null;
         }).getOrElse(null);
