@@ -52,8 +52,8 @@ public class XQueryEQNamePsiImpl extends ASTWrapperPsiElement implements XQueryE
 
         XQueryEQName rhs = (XQueryEQName)other;
 
-        PsiElement lhsLocalName = getLocalNameElement();
-        PsiElement rhsLocalName = rhs.getLocalNameElement();
+        PsiElement lhsLocalName = getLocalName().getOrElse(null);
+        PsiElement rhsLocalName = rhs.getLocalName().getOrElse(null);
         if ((lhsLocalName == null && rhsLocalName == null) ||
             (lhsLocalName != null && rhsLocalName != null && lhsLocalName.getText().equals(rhsLocalName.getText()))) {
             PsiElement lhsPrefix = getPrefix().getOrElse(null);
@@ -73,16 +73,13 @@ public class XQueryEQNamePsiImpl extends ASTWrapperPsiElement implements XQueryE
     @Override
     @SuppressWarnings("NullableProblems") // jacoco Code Coverage reports an unchecked branch when @NotNull is used.
     public PsiReference[] getReferences() {
-        PsiReference localNameRef = null;
+        Option<PsiReference> localNameRef = Option.none();
         int eqnameStart = getTextOffset();
 
         IElementType parent = getParent().getNode().getElementType();
         if (parent == XQueryElementType.FUNCTION_CALL ||
             parent == XQueryElementType.NAMED_FUNCTION_REF) {
-            PsiElement localName = getLocalNameElement();
-            if (localName != null) {
-                localNameRef = new XQueryFunctionNameReference(this, getLocalNameElement().getTextRange().shiftRight(-eqnameStart));
-            }
+            localNameRef = getLocalName().map((localName) -> new XQueryFunctionNameReference(this, localName.getTextRange().shiftRight(-eqnameStart)));
         } else {
             PsiElement previous = getPrevSibling();
             while (previous != null && (
@@ -92,28 +89,25 @@ public class XQueryEQNamePsiImpl extends ASTWrapperPsiElement implements XQueryE
             }
 
             if (previous != null && previous.getNode().getElementType() == XQueryTokenType.VARIABLE_INDICATOR) {
-                PsiElement localName = getLocalNameElement();
-                if (localName != null) {
-                    localNameRef = new XQueryVariableNameReference(this, getLocalNameElement().getTextRange().shiftRight(-eqnameStart));
-                }
+                localNameRef = getLocalName().map((localName) -> new XQueryVariableNameReference(this, localName.getTextRange().shiftRight(-eqnameStart)));
             }
         }
 
         PsiElement prefix = getPrefix().getOrElse(null);
         if (prefix == null || prefix instanceof XQueryBracedURILiteral) { // local name only
-            if (localNameRef == null) {
-                return PsiReference.EMPTY_ARRAY;
+            if (localNameRef.isDefined()) {
+                return new PsiReference[]{ localNameRef.get() };
             }
-            return new PsiReference[]{ localNameRef };
+            return PsiReference.EMPTY_ARRAY;
         } else {
-            if (localNameRef == null) {
+            if (localNameRef.isDefined()) {
                 return new PsiReference[]{
-                    new XQueryEQNamePrefixReference(this, prefix.getTextRange().shiftRight(-eqnameStart))
+                    new XQueryEQNamePrefixReference(this, prefix.getTextRange().shiftRight(-eqnameStart)),
+                    localNameRef.get()
                 };
             }
             return new PsiReference[]{
-                new XQueryEQNamePrefixReference(this, prefix.getTextRange().shiftRight(-eqnameStart)),
-                localNameRef
+                new XQueryEQNamePrefixReference(this, prefix.getTextRange().shiftRight(-eqnameStart))
             };
         }
     }
@@ -138,30 +132,35 @@ public class XQueryEQNamePsiImpl extends ASTWrapperPsiElement implements XQueryE
     }
 
     @Override
-    public PsiElement getLocalNameElement() {
+    public Option<PsiElement> getLocalName() {
         PsiElement element = findChildByType(QNAME_SEPARATORS);
         if (element == null) { // NCName | URIQualifiedName
             element = getFirstChild();
             if (element.getNode().getElementType() == XQueryElementType.URI_QUALIFIED_NAME) {
-                return ((XQueryEQName)element).getLocalNameElement();
+                return ((XQueryEQName)element).getLocalName();
             }
 
             while (element != null) {
                 if (element.getNode().getElementType() instanceof INCNameType ||
                     element.getNode().getElementType() == XQueryElementType.NCNAME) {
-                    return element;
+                    return Option.some(element);
                 }
                 element = element.getNextSibling();
             }
         } else { // QName
             while (element != null) {
                 if (element.getNode().getElementType() == XQueryElementType.NCNAME) {
-                    return element;
+                    return Option.some(element);
                 }
                 element = element.getNextSibling();
             }
         }
-        return null;
+        return Option.none();
+    }
+
+    @Override
+    public PsiElement getLocalNameElement() {
+        return getLocalName().getOrElse(null);
     }
 
     @Override
