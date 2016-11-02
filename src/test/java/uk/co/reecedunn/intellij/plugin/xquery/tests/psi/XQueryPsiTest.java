@@ -28,6 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static uk.co.reecedunn.intellij.plugin.xquery.functional.PsiTreeWalker.children;
 import static uk.co.reecedunn.intellij.plugin.xquery.tests.functional.IsDefined.defined;
 import static uk.co.reecedunn.intellij.plugin.xquery.tests.functional.IsDefined.notDefined;
 
@@ -846,7 +847,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/TumblingWindowClause.xq");
 
         XQueryWindowClause windowClausePsi = PsiNavigation.findDirectDescendantByClass(file, XQueryWindowClause.class);
-        XQueryTumblingWindowClause tumblingWindowClausePsi = PsiNavigation.findChildrenByClass(windowClausePsi, XQueryTumblingWindowClause.class).get(0);
+        XQueryTumblingWindowClause tumblingWindowClausePsi = children(windowClausePsi).findFirst(XQueryTumblingWindowClause.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)tumblingWindowClausePsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -875,7 +876,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/SlidingWindowClause.xq");
 
         XQueryWindowClause windowClausePsi = PsiNavigation.findDirectDescendantByClass(file, XQueryWindowClause.class);
-        XQuerySlidingWindowClause slidingWindowClausePsi = PsiNavigation.findChildrenByClass(windowClausePsi, XQuerySlidingWindowClause.class).get(0);
+        XQuerySlidingWindowClause slidingWindowClausePsi = children(windowClausePsi).findFirst(XQuerySlidingWindowClause.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)slidingWindowClausePsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -905,10 +906,10 @@ public class XQueryPsiTest extends ParserTestCase {
 
         XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFLWORExpr.class);
         // prev == null
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0).getFirstChild(),
+        assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(0).getFirstChild(),
                 instanceOf(XQueryForClause.class));
 
-        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0);
+        XQueryIntermediateClause intermediateClausePsi = children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(0);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
@@ -934,12 +935,12 @@ public class XQueryPsiTest extends ParserTestCase {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/ForClause_Multiple.xq");
 
         XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFLWORExpr.class);
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0).getFirstChild(),
+        assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(0).getFirstChild(),
                 instanceOf(XQueryForClause.class));
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1).getFirstChild(),
+        assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(1).getFirstChild(),
                 instanceOf(XQueryForClause.class));
 
-        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1);
+        XQueryIntermediateClause intermediateClausePsi = children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(1);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
@@ -965,12 +966,12 @@ public class XQueryPsiTest extends ParserTestCase {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/FLWORExpr_ClauseOrdering.xq");
 
         XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFLWORExpr.class);
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0).getFirstChild(),
+        assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(0).getFirstChild(),
                 instanceOf(XQueryLetClause.class));
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1).getFirstChild(),
+        assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(1).getFirstChild(),
                 instanceOf(XQueryForClause.class));
 
-        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1);
+        XQueryIntermediateClause intermediateClausePsi = children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(1);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
@@ -996,12 +997,12 @@ public class XQueryPsiTest extends ParserTestCase {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/IntermediateClause_WhereFor.xq");
 
         XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFLWORExpr.class);
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0).getFirstChild(),
+        assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(0).getFirstChild(),
                 instanceOf(XQueryWhereClause.class));
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1).getFirstChild(),
+        assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(1).getFirstChild(),
                 instanceOf(XQueryForClause.class));
 
-        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1);
+        XQueryIntermediateClause intermediateClausePsi = children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(1);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -1027,12 +1028,12 @@ public class XQueryPsiTest extends ParserTestCase {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/FLWORExpr_NestedWithoutReturnClause.xq");
 
         XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFLWORExpr.class);
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(2).getFirstChild(),
+        assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(2).getFirstChild(),
                 instanceOf(XQueryOrderByClause.class));
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(3).getFirstChild(),
+        assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(3).getFirstChild(),
                 instanceOf(XQueryForClause.class));
 
-        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(3);
+        XQueryIntermediateClause intermediateClausePsi = children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(3);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -1062,10 +1063,10 @@ public class XQueryPsiTest extends ParserTestCase {
 
         XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFLWORExpr.class);
         // prev == null
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0).getFirstChild(),
+        assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(0).getFirstChild(),
                 instanceOf(XQueryLetClause.class));
 
-        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0);
+        XQueryIntermediateClause intermediateClausePsi = children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(0);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
@@ -1091,12 +1092,12 @@ public class XQueryPsiTest extends ParserTestCase {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/FLWORExpr_ClauseOrdering.xq");
 
         XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFLWORExpr.class);
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1).getFirstChild(),
+        assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(1).getFirstChild(),
                 instanceOf(XQueryForClause.class));
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(2).getFirstChild(),
+        assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(2).getFirstChild(),
                 instanceOf(XQueryLetClause.class));
 
-        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(2);
+        XQueryIntermediateClause intermediateClausePsi = children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(2);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
@@ -1122,12 +1123,12 @@ public class XQueryPsiTest extends ParserTestCase {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/LetClause_Multiple.xq");
 
         XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFLWORExpr.class);
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0).getFirstChild(),
+        assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(0).getFirstChild(),
                 instanceOf(XQueryLetClause.class));
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1).getFirstChild(),
+        assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(1).getFirstChild(),
                 instanceOf(XQueryLetClause.class));
 
-        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1);
+        XQueryIntermediateClause intermediateClausePsi = children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(1);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
@@ -1153,12 +1154,12 @@ public class XQueryPsiTest extends ParserTestCase {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/IntermediateClause_ForWhereLet.xq");
 
         XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFLWORExpr.class);
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1).getFirstChild(),
+        assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(1).getFirstChild(),
                 instanceOf(XQueryWhereClause.class));
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(2).getFirstChild(),
+        assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(2).getFirstChild(),
                 instanceOf(XQueryLetClause.class));
 
-        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(2);
+        XQueryIntermediateClause intermediateClausePsi = children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(2);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -1184,12 +1185,12 @@ public class XQueryPsiTest extends ParserTestCase {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/IntermediateClause_ForOrderByLet.xq");
 
         XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFLWORExpr.class);
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1).getFirstChild(),
+        assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(1).getFirstChild(),
                 instanceOf(XQueryOrderByClause.class));
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(2).getFirstChild(),
+        assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(2).getFirstChild(),
                 instanceOf(XQueryLetClause.class));
 
-        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(2);
+        XQueryIntermediateClause intermediateClausePsi = children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(2);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -1219,10 +1220,10 @@ public class XQueryPsiTest extends ParserTestCase {
 
         XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFLWORExpr.class);
         // prev == null
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0).getFirstChild(),
+        assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(0).getFirstChild(),
                 instanceOf(XQueryOrderByClause.class));
 
-        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0);
+        XQueryIntermediateClause intermediateClausePsi = children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(0);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
@@ -1248,12 +1249,12 @@ public class XQueryPsiTest extends ParserTestCase {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/IntermediateClause_ForOrderByLet.xq");
 
         XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFLWORExpr.class);
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0).getFirstChild(),
+        assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(0).getFirstChild(),
                 instanceOf(XQueryForClause.class));
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1).getFirstChild(),
+        assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(1).getFirstChild(),
                 instanceOf(XQueryOrderByClause.class));
 
-        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1);
+        XQueryIntermediateClause intermediateClausePsi = children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(1);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
@@ -1279,12 +1280,12 @@ public class XQueryPsiTest extends ParserTestCase {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/FLWORExpr_RelaxedOrdering.xq");
 
         XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFLWORExpr.class);
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0).getFirstChild(),
+        assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(0).getFirstChild(),
                 instanceOf(XQueryLetClause.class));
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1).getFirstChild(),
+        assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(1).getFirstChild(),
                 instanceOf(XQueryOrderByClause.class));
 
-        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1);
+        XQueryIntermediateClause intermediateClausePsi = children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(1);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
@@ -1310,12 +1311,12 @@ public class XQueryPsiTest extends ParserTestCase {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/FLWORExpr_ClauseOrdering.xq");
 
         XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFLWORExpr.class);
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(3).getFirstChild(),
+        assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(3).getFirstChild(),
                 instanceOf(XQueryWhereClause.class));
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(4).getFirstChild(),
+        assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(4).getFirstChild(),
                 instanceOf(XQueryOrderByClause.class));
 
-        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(4);
+        XQueryIntermediateClause intermediateClausePsi = children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(4);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
@@ -1341,12 +1342,12 @@ public class XQueryPsiTest extends ParserTestCase {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/OrderByClause_Multiple.xq");
 
         XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFLWORExpr.class);
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0).getFirstChild(),
+        assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(0).getFirstChild(),
                 instanceOf(XQueryOrderByClause.class));
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1).getFirstChild(),
+        assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(1).getFirstChild(),
                 instanceOf(XQueryOrderByClause.class));
 
-        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1);
+        XQueryIntermediateClause intermediateClausePsi = children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(1);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -1376,10 +1377,10 @@ public class XQueryPsiTest extends ParserTestCase {
 
         XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFLWORExpr.class);
         // prev == null
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0).getFirstChild(),
+        assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(0).getFirstChild(),
                 instanceOf(XQueryWhereClause.class));
 
-        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0);
+        XQueryIntermediateClause intermediateClausePsi = children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(0);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
@@ -1405,12 +1406,12 @@ public class XQueryPsiTest extends ParserTestCase {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/IntermediateClause_ForWhereLet.xq");
 
         XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFLWORExpr.class);
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0).getFirstChild(),
+        assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(0).getFirstChild(),
                 instanceOf(XQueryForClause.class));
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1).getFirstChild(),
+        assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(1).getFirstChild(),
                 instanceOf(XQueryWhereClause.class));
 
-        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1);
+        XQueryIntermediateClause intermediateClausePsi = children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(1);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
@@ -1436,12 +1437,12 @@ public class XQueryPsiTest extends ParserTestCase {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/FLWORExpr_ClauseOrdering.xq");
 
         XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFLWORExpr.class);
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(2).getFirstChild(),
+        assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(2).getFirstChild(),
                 instanceOf(XQueryLetClause.class));
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(3).getFirstChild(),
+        assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(3).getFirstChild(),
                 instanceOf(XQueryWhereClause.class));
 
-        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(3);
+        XQueryIntermediateClause intermediateClausePsi = children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(3);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
@@ -1467,12 +1468,12 @@ public class XQueryPsiTest extends ParserTestCase {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/WhereClause_Multiple.xq");
 
         XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFLWORExpr.class);
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0).getFirstChild(),
+        assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(0).getFirstChild(),
                 instanceOf(XQueryWhereClause.class));
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1).getFirstChild(),
+        assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(1).getFirstChild(),
                 instanceOf(XQueryWhereClause.class));
 
-        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1);
+        XQueryIntermediateClause intermediateClausePsi = children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(1);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -1498,12 +1499,12 @@ public class XQueryPsiTest extends ParserTestCase {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/FLWORExpr_RelaxedOrdering.xq");
 
         XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFLWORExpr.class);
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(1).getFirstChild(),
+        assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(1).getFirstChild(),
                 instanceOf(XQueryOrderByClause.class));
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(2).getFirstChild(),
+        assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(2).getFirstChild(),
                 instanceOf(XQueryWhereClause.class));
 
-        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(2);
+        XQueryIntermediateClause intermediateClausePsi = children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(2);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -1533,10 +1534,10 @@ public class XQueryPsiTest extends ParserTestCase {
 
         XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFLWORExpr.class);
         // prev == null
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0).getFirstChild(),
+        assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(0).getFirstChild(),
                 instanceOf(XQueryCountClause.class));
 
-        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0);
+        XQueryIntermediateClause intermediateClausePsi = children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(0);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -1566,10 +1567,10 @@ public class XQueryPsiTest extends ParserTestCase {
 
         XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFLWORExpr.class);
         // prev == null
-        assertThat(PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0).getFirstChild(),
+        assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(0).getFirstChild(),
                 instanceOf(XQueryGroupByClause.class));
 
-        XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildrenByClass(flworExprPsi, XQueryIntermediateClause.class).get(0);
+        XQueryIntermediateClause intermediateClausePsi = children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(0);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)intermediateClausePsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));

@@ -17,9 +17,6 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi;
 
 import com.intellij.psi.PsiElement;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class PsiNavigation {
     // The PsiNavigation constructor is not used, but make sure code coverage reports it as covered.
     @SuppressWarnings("unused")
@@ -40,18 +37,5 @@ public class PsiNavigation {
             element = element.getNextSibling();
         }
         return (T)element;
-    }
-
-    @SuppressWarnings("unchecked")
-    public static <T> List<T> findChildrenByClass(PsiElement element, Class<T> child) {
-        List<T> children = new ArrayList<>();
-        element = element.getFirstChild();
-        while (element != null) {
-            if (child.isInstance(element)) {
-                children.add((T)element);
-            }
-            element = element.getNextSibling();
-        }
-        return children;
     }
 }

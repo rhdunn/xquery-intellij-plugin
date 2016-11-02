@@ -26,6 +26,7 @@ import java.util.List;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static uk.co.reecedunn.intellij.plugin.xquery.functional.PsiTreeWalker.children;
 
 @SuppressWarnings("ConstantConditions")
 public class XQueryReferenceTest extends ParserTestCase {
@@ -38,7 +39,7 @@ public class XQueryReferenceTest extends ParserTestCase {
         XQueryModuleImport moduleImportPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryModuleImport.class);
         assertThat(moduleImportPsi, is(notNullValue()));
 
-        List<XQueryUriLiteral> uriLiterals = PsiNavigation.findChildrenByClass(moduleImportPsi, XQueryUriLiteral.class);
+        List<XQueryUriLiteral> uriLiterals = children(moduleImportPsi).toListOf(XQueryUriLiteral.class);
         assertThat(uriLiterals.size(), is(2));
 
         PsiReference httpUriRef = uriLiterals.get(0).getReference();
