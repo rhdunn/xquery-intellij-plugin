@@ -23,10 +23,11 @@ import java.util.function.Predicate;
 public interface Foldable<A> {
     <V> V fold(BiFunction<A, V, V> foldOver, V initialValue);
 
-    default <V> V foldIf(Predicate<A> matcher, BiFunction<A, V, V> foldOver, V initialValue) {
+    @SuppressWarnings("unchecked")
+    default <B extends A, V> V foldIf(Predicate<B> matcher, BiFunction<B, V, V> foldOver, V initialValue) {
         return fold((a, b) -> {
-            if (matcher.test(a)) {
-                return foldOver.apply(a, b);
+            if (matcher.test((B)a)) {
+                return foldOver.apply((B)a, b);
             }
             return b;
         }, initialValue);
@@ -50,5 +51,13 @@ public interface Foldable<A> {
 
     default List<A> toList() {
         return fold((a, c) -> { c.add(a); return c; }, new ArrayList<A>());
+    }
+
+    default <B extends A> List<B> toListOf(Predicate<B> matcher) {
+        return foldIf(matcher, (a, c) -> { c.add(a); return c; }, new ArrayList<B>());
+    }
+
+    default <B extends A> List<B> toListOf(Class<B> c) {
+        return toListOf(c::isInstance);
     }
 }
