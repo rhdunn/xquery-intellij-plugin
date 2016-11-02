@@ -21,7 +21,10 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-public final class PsiTreeWalker {
+public final class PsiTreeWalker implements Each<PsiElement>, Find<PsiElement> {
+    // region Each
+
+    @Override
     public void each(Consumer<PsiElement> consumer) {
         PsiElement element = mElement;
         while (element != null) {
@@ -30,6 +33,10 @@ public final class PsiTreeWalker {
         }
     }
 
+    // endregion
+    // region Find
+
+    @Override
     public Option<PsiElement> findFirst(Predicate<PsiElement> matcher) {
         PsiElement element = mElement;
         while (element != null) {
@@ -51,6 +58,7 @@ public final class PsiTreeWalker {
         }
     }
 
+    // endregion
     // region Value Constructors
 
     public static PsiTreeWalker ancestors(PsiElement element) {
