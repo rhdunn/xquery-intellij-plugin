@@ -166,7 +166,7 @@ public class XQueryEQNamePsiImpl extends ASTWrapperPsiElement implements XQueryE
     @Override
     public XQueryNamespace resolvePrefixNamespace() {
         PsiElement element = getPrefix();
-        if (element instanceof XQueryBracedURILiteral) {
+        if (element == null || element instanceof XQueryBracedURILiteral) {
             return null;
         }
 
