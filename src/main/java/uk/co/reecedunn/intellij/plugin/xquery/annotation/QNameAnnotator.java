@@ -21,6 +21,7 @@ import com.intellij.openapi.editor.markup.TextAttributes;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*;
+import uk.co.reecedunn.intellij.plugin.xquery.functional.Option;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.SyntaxHighlighter;
 
@@ -32,40 +33,43 @@ public class QNameAnnotator implements Annotator {
 
         XQueryEQName qname = (XQueryEQName)element;
 
-        boolean xmlns = false;
+        final boolean xmlns;
         PsiElement prefix = qname.getPrefix().getOrElse(null);
         if (prefix != null && !(prefix instanceof XQueryBracedURILiteral)) {
             if (prefix.getText().equals("xmlns")) {
                 xmlns = true;
             } else {
+                xmlns = false;
                 holder.createInfoAnnotation(prefix, null).setEnforcedTextAttributes(TextAttributes.ERASE_MARKER);
                 if ((element.getParent() instanceof XQueryDirAttributeList) || (element.getParent() instanceof XQueryDirElemConstructor)) {
                     holder.createInfoAnnotation(prefix, null).setTextAttributes(SyntaxHighlighter.XML_TAG);
                 }
                 holder.createInfoAnnotation(prefix, null).setTextAttributes(SyntaxHighlighter.NS_PREFIX);
             }
+        } else {
+            xmlns = false;
         }
 
-        PsiElement localname = qname.getLocalNameElement();
-        if (localname != null) {
+        qname.getLocalName().map((localName) -> {
             if (xmlns) {
-                holder.createInfoAnnotation(localname, null).setEnforcedTextAttributes(TextAttributes.ERASE_MARKER);
+                holder.createInfoAnnotation(localName, null).setEnforcedTextAttributes(TextAttributes.ERASE_MARKER);
                 if (element.getParent() instanceof XQueryDirAttributeList) {
-                    holder.createInfoAnnotation(localname, null).setTextAttributes(SyntaxHighlighter.XML_TAG);
+                    holder.createInfoAnnotation(localName, null).setTextAttributes(SyntaxHighlighter.XML_TAG);
                 }
-                holder.createInfoAnnotation(localname, null).setTextAttributes(SyntaxHighlighter.NS_PREFIX);
+                holder.createInfoAnnotation(localName, null).setTextAttributes(SyntaxHighlighter.NS_PREFIX);
             } else if (qname.getParent() instanceof XQueryAnnotation) {
-                holder.createInfoAnnotation(localname, null).setEnforcedTextAttributes(TextAttributes.ERASE_MARKER);
-                holder.createInfoAnnotation(localname, null).setTextAttributes(SyntaxHighlighter.ANNOTATION);
-            } else if (localname.getNode().getElementType() instanceof IXQueryKeywordOrNCNameType) {
-                holder.createInfoAnnotation(localname, null).setEnforcedTextAttributes(TextAttributes.ERASE_MARKER);
-                holder.createInfoAnnotation(localname, null).setTextAttributes(SyntaxHighlighter.IDENTIFIER);
-            } else if (localname instanceof XQueryNCName) {
-                if (((XQueryNCName)localname).getLocalNameElement().getNode().getElementType() instanceof IXQueryKeywordOrNCNameType) {
-                    holder.createInfoAnnotation(localname, null).setEnforcedTextAttributes(TextAttributes.ERASE_MARKER);
-                    holder.createInfoAnnotation(localname, null).setTextAttributes(SyntaxHighlighter.IDENTIFIER);
+                holder.createInfoAnnotation(localName, null).setEnforcedTextAttributes(TextAttributes.ERASE_MARKER);
+                holder.createInfoAnnotation(localName, null).setTextAttributes(SyntaxHighlighter.ANNOTATION);
+            } else if (localName.getNode().getElementType() instanceof IXQueryKeywordOrNCNameType) {
+                holder.createInfoAnnotation(localName, null).setEnforcedTextAttributes(TextAttributes.ERASE_MARKER);
+                holder.createInfoAnnotation(localName, null).setTextAttributes(SyntaxHighlighter.IDENTIFIER);
+            } else if (localName instanceof XQueryNCName) {
+                if (((XQueryNCName)localName).getLocalName().map((name) -> name.getNode().getElementType()).getOrElse(null) instanceof IXQueryKeywordOrNCNameType) {
+                    holder.createInfoAnnotation(localName, null).setEnforcedTextAttributes(TextAttributes.ERASE_MARKER);
+                    holder.createInfoAnnotation(localName, null).setTextAttributes(SyntaxHighlighter.IDENTIFIER);
                 }
             }
-        }
+            return Option.none();
+        });
     }
 }
