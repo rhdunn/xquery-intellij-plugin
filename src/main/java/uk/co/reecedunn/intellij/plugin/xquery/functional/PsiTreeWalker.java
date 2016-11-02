@@ -17,11 +17,12 @@ package uk.co.reecedunn.intellij.plugin.xquery.functional;
 
 import com.intellij.psi.PsiElement;
 
+import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-public final class PsiTreeWalker implements Each<PsiElement>, Find<PsiElement> {
+public final class PsiTreeWalker implements Each<PsiElement>, Foldable<PsiElement>, Find<PsiElement> {
     // region Each
 
     @Override
@@ -31,6 +32,19 @@ public final class PsiTreeWalker implements Each<PsiElement>, Find<PsiElement> {
             consumer.accept(element);
             element = mNextElementFunction.apply(element);
         }
+    }
+
+    // endregion
+    // region Foldable
+
+    @Override
+    public <V> V fold(BiFunction<PsiElement, V, V> foldOver, V defaultValue) {
+        PsiElement element = mElement;
+        while (element != null) {
+            defaultValue = foldOver.apply(element, defaultValue);
+            element = mNextElementFunction.apply(element);
+        }
+        return defaultValue;
     }
 
     // endregion
