@@ -46,7 +46,7 @@ public class QNameAnnotator implements Annotator {
             }
         }
 
-        PsiElement localname = qname.getLocalName();
+        PsiElement localname = qname.getLocalNameElement();
         if (localname != null) {
             if (xmlns) {
                 holder.createInfoAnnotation(localname, null).setEnforcedTextAttributes(TextAttributes.ERASE_MARKER);
@@ -61,7 +61,7 @@ public class QNameAnnotator implements Annotator {
                 holder.createInfoAnnotation(localname, null).setEnforcedTextAttributes(TextAttributes.ERASE_MARKER);
                 holder.createInfoAnnotation(localname, null).setTextAttributes(SyntaxHighlighter.IDENTIFIER);
             } else if (localname instanceof XQueryNCName) {
-                if (((XQueryNCName)localname).getLocalName().getNode().getElementType() instanceof IXQueryKeywordOrNCNameType) {
+                if (((XQueryNCName)localname).getLocalNameElement().getNode().getElementType() instanceof IXQueryKeywordOrNCNameType) {
                     holder.createInfoAnnotation(localname, null).setEnforcedTextAttributes(TextAttributes.ERASE_MARKER);
                     holder.createInfoAnnotation(localname, null).setTextAttributes(SyntaxHighlighter.IDENTIFIER);
                 }

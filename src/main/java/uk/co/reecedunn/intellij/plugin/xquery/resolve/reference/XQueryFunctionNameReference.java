@@ -4,7 +4,6 @@ import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiReferenceBase;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*;
 import uk.co.reecedunn.intellij.plugin.xquery.functional.Option;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.PsiNavigation;
@@ -33,14 +32,14 @@ public class XQueryFunctionNameReference extends PsiReferenceBase<XQueryEQName> 
                     arity = ((XQueryNamedFunctionRef) parent).getArity();
                 }
 
-                CharSequence localName = getElement().getLocalName().getText();
+                CharSequence localName = getElement().getLocalNameElement().getText();
                 PsiElement annotation = prolog.get().getFirstChild();
                 while (annotation != null) {
                     if (annotation instanceof XQueryAnnotatedDecl) {
                         XQueryFunctionDecl functionDecl = PsiNavigation.findChildByClass(annotation, XQueryFunctionDecl.class);
                         if (functionDecl != null) {
                             XQueryEQName functionName = PsiNavigation.findChildByClass(functionDecl, XQueryEQName.class);
-                            if (functionName != null && functionName.getLocalName().getText().equals(localName)) {
+                            if (functionName != null && functionName.getLocalNameElement().getText().equals(localName)) {
                                 if (functionDecl.getArity() == arity) {
                                     return functionName;
                                 }

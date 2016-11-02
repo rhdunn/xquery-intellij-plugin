@@ -19,7 +19,6 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*;
 import uk.co.reecedunn.intellij.plugin.xquery.functional.Option;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
@@ -40,9 +39,9 @@ public class XQueryModuleDeclPsiImpl extends ASTWrapperPsiElement implements XQu
             return Option.none();
         }
 
-        if (name.getLocalName().getText().equals(prefix)) {
+        if (name.getLocalNameElement().getText().equals(prefix)) {
             PsiElement element = findChildByType(XQueryElementType.URI_LITERAL);
-            return Option.some(new XQueryNamespace(name.getLocalName(), element, this));
+            return Option.some(new XQueryNamespace(name.getLocalNameElement(), element, this));
         }
         return Option.none();
     }

@@ -38,9 +38,9 @@ public class XQueryNamespaceDeclPsiImpl extends ASTWrapperPsiElement implements 
             return Option.none();
         }
 
-        if (name.getLocalName().getText().equals(prefix)) {
+        if (name.getLocalNameElement().getText().equals(prefix)) {
             PsiElement element = findChildByType(XQueryElementType.URI_LITERAL);
-            return Option.some(new XQueryNamespace(name.getLocalName(), element, this));
+            return Option.some(new XQueryNamespace(name.getLocalNameElement(), element, this));
         }
         return Option.none();
     }

@@ -37,17 +37,17 @@ public class XQueryDirAttributeListPsiImpl extends ASTWrapperPsiElement implemen
         while (element != null) {
             if (element instanceof XQueryQName) {
                 XQueryQName name = (XQueryQName) element;
-                if (name.getLocalName().getText().equals(prefix)) {
+                if (name.getLocalNameElement().getText().equals(prefix)) {
                     PsiElement uri = element.getNextSibling();
                     while (uri != null) {
                         if (uri.getNode().getElementType() == XQueryElementType.QNAME) {
                             break;
                         } else if (uri.getNode().getElementType() == XQueryElementType.DIR_ATTRIBUTE_VALUE) {
-                            return Option.some(new XQueryNamespace(name.getLocalName(), uri, this));
+                            return Option.some(new XQueryNamespace(name.getLocalNameElement(), uri, this));
                         }
                         uri = uri.getNextSibling();
                     }
-                    return Option.some(new XQueryNamespace(name.getLocalName(), null, this));
+                    return Option.some(new XQueryNamespace(name.getLocalNameElement(), null, this));
                 }
             }
             element = element.getNextSibling();

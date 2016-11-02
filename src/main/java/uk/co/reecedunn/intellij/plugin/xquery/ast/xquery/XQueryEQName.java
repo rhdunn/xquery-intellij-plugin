@@ -32,7 +32,11 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace;
 public interface XQueryEQName extends PsiElement {
     Option<PsiElement> getPrefix();
 
-    PsiElement getLocalName();
+    PsiElement getLocalNameElement();
+
+    default Option<PsiElement> getLocalName() {
+        return Option.of(getLocalNameElement());
+    }
 
     Option<XQueryNamespace> resolvePrefixNamespace();
 }

@@ -35,7 +35,7 @@ public class XQueryURIQualifiedNamePsiImpl extends ASTWrapperPsiElement implemen
     }
 
     @Override
-    public PsiElement getLocalName() {
+    public PsiElement getLocalNameElement() {
         return findChildByType(XQueryElementType.NCNAME);
     }
 
