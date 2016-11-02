@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.functional;
 
 import java.util.NoSuchElementException;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 /**
  * A value that may (<em>some</em>) or may not (<em>none</em>) exist.
@@ -65,6 +66,14 @@ public abstract class Option<A> {
      * @return The value held by the option if defined, otherwise the default value.
      */
     public abstract A getOrElse(final A defaultValue);
+
+    /**
+     * Provides a computed value to return if the option is not defined.
+     *
+     * @param supplier Compute the value to use if undefined.
+     * @return The computed value.
+     */
+    public abstract Option<A> orElse(Supplier<A> supplier);
 
     // endregion
     // region Value Constructors
@@ -132,6 +141,11 @@ public abstract class Option<A> {
         public Object getOrElse(Object defaultValue) {
             return defaultValue;
         }
+
+        @Override
+        public Option<Object> orElse(Supplier<Object> supplier) {
+            return Option.some(supplier.get());
+        }
     }
 
     private static final class Some<A> extends Option<A> {
@@ -154,6 +168,11 @@ public abstract class Option<A> {
         @Override
         public A getOrElse(A defaultValue) {
             return mValue;
+        }
+
+        @Override
+        public Option<A> orElse(Supplier<A> supplier) {
+            return this;
         }
     }
 
