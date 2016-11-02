@@ -30,7 +30,7 @@ public final class PsiTreeWalker {
         }
     }
 
-    public Option<PsiElement> find(Predicate<PsiElement> matcher) {
+    public Option<PsiElement> findFirst(Predicate<PsiElement> matcher) {
         PsiElement element = mElement;
         while (element != null) {
             if (matcher.test(element)) {
@@ -39,6 +39,16 @@ public final class PsiTreeWalker {
             element = mNextElementFunction.apply(element);
         }
         return Option.none();
+    }
+
+    public void findAll(Predicate<PsiElement> matcher, Consumer<PsiElement> consumer) {
+        PsiElement element = mElement;
+        while (element != null) {
+            if (matcher.test(element)) {
+                consumer.accept(element);
+            }
+            element = mNextElementFunction.apply(element);
+        }
     }
 
     // region Value Constructors
