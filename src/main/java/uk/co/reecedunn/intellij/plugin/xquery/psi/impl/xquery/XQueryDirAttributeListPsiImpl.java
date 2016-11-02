@@ -36,18 +36,25 @@ public class XQueryDirAttributeListPsiImpl extends ASTWrapperPsiElement implemen
         PsiElement element = getFirstChild();
         while (element != null) {
             if (element instanceof XQueryQName) {
-                XQueryQName name = (XQueryQName) element;
-                if (name.getLocalNameElement().getText().equals(prefix)) {
-                    PsiElement uri = element.getNextSibling();
-                    while (uri != null) {
-                        if (uri.getNode().getElementType() == XQueryElementType.QNAME) {
-                            break;
-                        } else if (uri.getNode().getElementType() == XQueryElementType.DIR_ATTRIBUTE_VALUE) {
-                            return Option.some(new XQueryNamespace(name.getLocalNameElement(), uri, this));
+                XQueryQName name = (XQueryQName)element;
+                Option<XQueryNamespace> ns = name.getLocalName().flatMap((localName) -> {
+                    if (localName.getText().equals(prefix)) {
+                        PsiElement uri = name.getNextSibling();
+                        while (uri != null) {
+                            if (uri.getNode().getElementType() == XQueryElementType.QNAME) {
+                                break;
+                            } else if (uri.getNode().getElementType() == XQueryElementType.DIR_ATTRIBUTE_VALUE) {
+                                return Option.some(new XQueryNamespace(localName, uri, this));
+                            }
+                            uri = uri.getNextSibling();
                         }
-                        uri = uri.getNextSibling();
+                        return Option.some(new XQueryNamespace(localName, null, this));
                     }
-                    return Option.some(new XQueryNamespace(name.getLocalNameElement(), null, this));
+                    return Option.none();
+                });
+
+                if (ns.isDefined()) {
+                    return ns;
                 }
             }
             element = element.getNextSibling();
