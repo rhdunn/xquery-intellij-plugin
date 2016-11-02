@@ -159,11 +159,6 @@ public class XQueryEQNamePsiImpl extends ASTWrapperPsiElement implements XQueryE
     }
 
     @Override
-    public PsiElement getLocalNameElement() {
-        return getLocalName().getOrElse(null);
-    }
-
-    @Override
     public Option<XQueryNamespace> resolvePrefixNamespace() {
         return getPrefix().flatMap((element) -> {
             if (element instanceof XQueryBracedURILiteral) {
