@@ -29,6 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static uk.co.reecedunn.intellij.plugin.xquery.functional.PsiTreeWalker.children;
+import static uk.co.reecedunn.intellij.plugin.xquery.functional.PsiTreeWalker.descendants;
 import static uk.co.reecedunn.intellij.plugin.xquery.tests.functional.IsDefined.defined;
 import static uk.co.reecedunn.intellij.plugin.xquery.tests.functional.IsDefined.notDefined;
 
@@ -39,7 +40,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testArgumentList() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/FunctionCall_MultipleParam.xq");
 
-        XQueryFunctionCall functionCallPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFunctionCall.class);
+        XQueryFunctionCall functionCallPsi = descendants(file).findFirst(XQueryFunctionCall.class).get();
         XQueryArgumentList argumentListPsi = PsiNavigation.findChildByClass(functionCallPsi, XQueryArgumentList.class);
         assertThat(argumentListPsi, is(notNullValue()));
         assertThat(argumentListPsi.getArity(), is(2));
@@ -48,7 +49,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testArgumentList_Empty() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/FunctionCall.xq");
 
-        XQueryFunctionCall functionCallPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFunctionCall.class);
+        XQueryFunctionCall functionCallPsi = descendants(file).findFirst(XQueryFunctionCall.class).get();
         XQueryArgumentList argumentListPsi = PsiNavigation.findChildByClass(functionCallPsi, XQueryArgumentList.class);
         assertThat(argumentListPsi, is(notNullValue()));
         assertThat(argumentListPsi.getArity(), is(0));
@@ -57,7 +58,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testArgumentList_ArgumentPlaceholder() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/ArgumentPlaceholder.xq");
 
-        XQueryFunctionCall functionCallPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFunctionCall.class);
+        XQueryFunctionCall functionCallPsi = descendants(file).findFirst(XQueryFunctionCall.class).get();
         XQueryArgumentList argumentListPsi = PsiNavigation.findChildByClass(functionCallPsi, XQueryArgumentList.class);
         assertThat(argumentListPsi, is(notNullValue()));
         assertThat(argumentListPsi.getArity(), is(1));
@@ -70,7 +71,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testAllowingEmpty() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/AllowingEmpty.xq");
 
-        XQueryForClause forClausePsi = PsiNavigation.findDirectDescendantByClass(file, XQueryForClause.class);
+        XQueryForClause forClausePsi = descendants(file).findFirst(XQueryForClause.class).get();
         XQueryForBinding forBindingPsi = PsiNavigation.findChildByClass(forClausePsi, XQueryForBinding.class);
         XQueryAllowingEmpty allowingEmptyPsi = PsiNavigation.findChildByClass(forBindingPsi, XQueryAllowingEmpty.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)allowingEmptyPsi;
@@ -100,7 +101,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testAnnotation() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/Annotation.xq");
 
-        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryAnnotatedDecl.class);
+        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
         XQueryAnnotation annotationPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryAnnotation.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)annotationPsi;
 
@@ -129,11 +130,11 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testAnyFunctionTest() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/AnyFunctionTest.xq");
 
-        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryAnnotatedDecl.class);
+        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
         XQueryVarDecl varDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryVarDecl.class);
         XQueryTypeDeclaration typeDeclarationPsi = PsiNavigation.findChildByClass(varDeclPsi, XQueryTypeDeclaration.class);
         XQuerySequenceType sequenceTypePsi = PsiNavigation.findChildByClass(typeDeclarationPsi, XQuerySequenceType.class);
-        XQueryAnyFunctionTest anyFunctionTestPsi = PsiNavigation.findDirectDescendantByClass(sequenceTypePsi, XQueryAnyFunctionTest.class);
+        XQueryAnyFunctionTest anyFunctionTestPsi = descendants(sequenceTypePsi).findFirst(XQueryAnyFunctionTest.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)anyFunctionTestPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -161,11 +162,11 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testAnyKindTest() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/AnyKindTest.xq");
 
-        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryAnnotatedDecl.class);
+        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
         XQueryVarDecl varDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryVarDecl.class);
         XQueryTypeDeclaration typeDeclarationPsi = PsiNavigation.findChildByClass(varDeclPsi, XQueryTypeDeclaration.class);
         XQuerySequenceType sequenceTypePsi = PsiNavigation.findChildByClass(typeDeclarationPsi, XQuerySequenceType.class);
-        XQueryAnyKindTest anyKindTestPsi = PsiNavigation.findDirectDescendantByClass(sequenceTypePsi, XQueryAnyKindTest.class);
+        XQueryAnyKindTest anyKindTestPsi = descendants(sequenceTypePsi).findFirst(XQueryAnyKindTest.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)anyKindTestPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
@@ -192,7 +193,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testArgumentList_FunctionCall() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/FunctionCall.xq");
 
-        XQueryFunctionCall functionCallPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFunctionCall.class);
+        XQueryFunctionCall functionCallPsi = descendants(file).findFirst(XQueryFunctionCall.class).get();
         XQueryArgumentList argumentListPsi = PsiNavigation.findChildByClass(functionCallPsi, XQueryArgumentList.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)argumentListPsi;
 
@@ -218,7 +219,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testArgumentList_PostfixExpr() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/PostfixExpr_ArgumentList.xq");
 
-        XQueryPostfixExpr postfixExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryPostfixExpr.class);
+        XQueryPostfixExpr postfixExprPsi = descendants(file).findFirst(XQueryPostfixExpr.class).get();
         XQueryArgumentList argumentListPsi = PsiNavigation.findChildByClass(postfixExprPsi, XQueryArgumentList.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)argumentListPsi;
 
@@ -247,10 +248,10 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testArgumentPlaceholder() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/ArgumentPlaceholder.xq");
 
-        XQueryFunctionCall functionCallPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFunctionCall.class);
+        XQueryFunctionCall functionCallPsi = descendants(file).findFirst(XQueryFunctionCall.class).get();
         XQueryArgumentList argumentListPsi = PsiNavigation.findChildByClass(functionCallPsi, XQueryArgumentList.class);
         XQueryArgument argumentPsi = PsiNavigation.findChildByClass(argumentListPsi, XQueryArgument.class);
-        XQueryArgumentPlaceholder argumentPlaceholderPsi = PsiNavigation.findDirectDescendantByClass(argumentPsi, XQueryArgumentPlaceholder.class);
+        XQueryArgumentPlaceholder argumentPlaceholderPsi = descendants(argumentPsi).findFirst(XQueryArgumentPlaceholder.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)argumentPlaceholderPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -278,9 +279,9 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testBracedURILiteral() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/BracedURILiteral.xq");
 
-        XQueryOptionDecl optionDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryOptionDecl.class);
+        XQueryOptionDecl optionDeclPsi = descendants(file).findFirst(XQueryOptionDecl.class).get();
         XQueryURIQualifiedName qnamePsi = PsiNavigation.findChildByClass(optionDeclPsi, XQueryURIQualifiedName.class);
-        XQueryBracedURILiteral bracedURILiteralPsi = PsiNavigation.findDirectDescendantByClass(qnamePsi, XQueryBracedURILiteral.class);
+        XQueryBracedURILiteral bracedURILiteralPsi = descendants(qnamePsi).findFirst(XQueryBracedURILiteral.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)bracedURILiteralPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -308,7 +309,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testCatchClause() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/CatchClause.xq");
 
-        XQueryTryCatchExpr tryCatchExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryTryCatchExpr.class);
+        XQueryTryCatchExpr tryCatchExprPsi = descendants(file).findFirst(XQueryTryCatchExpr.class).get();
         XQueryCatchClause catchClausePsi = PsiNavigation.findChildByClass(tryCatchExprPsi, XQueryCatchClause.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)catchClausePsi;
 
@@ -337,7 +338,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testCompNamespaceConstructor() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/CompNamespaceConstructor.xq");
 
-        XQueryCompNamespaceConstructor compNamespaceConstructorPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryCompNamespaceConstructor.class);
+        XQueryCompNamespaceConstructor compNamespaceConstructorPsi = descendants(file).findFirst(XQueryCompNamespaceConstructor.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)compNamespaceConstructorPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -365,7 +366,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testContextItemDecl() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/ContextItemDecl.xq");
 
-        XQueryContextItemDecl contextItemDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryContextItemDecl.class);
+        XQueryContextItemDecl contextItemDeclPsi = descendants(file).findFirst(XQueryContextItemDecl.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)contextItemDeclPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -393,7 +394,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testDecimalFormatDecl() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/DecimalFormatDecl.xq");
 
-        XQueryDecimalFormatDecl decimalFormatDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryDecimalFormatDecl.class);
+        XQueryDecimalFormatDecl decimalFormatDeclPsi = descendants(file).findFirst(XQueryDecimalFormatDecl.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)decimalFormatDeclPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -421,7 +422,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testForwardAxis_Attribute() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/ForwardAxis_Attribute.xq");
 
-        XQueryForwardAxis forwardAxisPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryForwardAxis.class);
+        XQueryForwardAxis forwardAxisPsi = descendants(file).findFirst(XQueryForwardAxis.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)forwardAxisPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
@@ -438,7 +439,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testForwardAxis_Child() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/ForwardAxis_Child.xq");
 
-        XQueryForwardAxis forwardAxisPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryForwardAxis.class);
+        XQueryForwardAxis forwardAxisPsi = descendants(file).findFirst(XQueryForwardAxis.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)forwardAxisPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
@@ -455,7 +456,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testForwardAxis_Descendant() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/ForwardAxis_Descendant.xq");
 
-        XQueryForwardAxis forwardAxisPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryForwardAxis.class);
+        XQueryForwardAxis forwardAxisPsi = descendants(file).findFirst(XQueryForwardAxis.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)forwardAxisPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
@@ -472,7 +473,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testForwardAxis_DescendantOrSelf() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/ForwardAxis_DescendantOrSelf.xq");
 
-        XQueryForwardAxis forwardAxisPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryForwardAxis.class);
+        XQueryForwardAxis forwardAxisPsi = descendants(file).findFirst(XQueryForwardAxis.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)forwardAxisPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
@@ -489,7 +490,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testForwardAxis_Following() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/ForwardAxis_Following.xq");
 
-        XQueryForwardAxis forwardAxisPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryForwardAxis.class);
+        XQueryForwardAxis forwardAxisPsi = descendants(file).findFirst(XQueryForwardAxis.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)forwardAxisPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
@@ -506,7 +507,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testForwardAxis_FollowingSibling() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/ForwardAxis_FollowingSibling.xq");
 
-        XQueryForwardAxis forwardAxisPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryForwardAxis.class);
+        XQueryForwardAxis forwardAxisPsi = descendants(file).findFirst(XQueryForwardAxis.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)forwardAxisPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
@@ -523,7 +524,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testForwardAxis_Self() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/ForwardAxis_Self.xq");
 
-        XQueryForwardAxis forwardAxisPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryForwardAxis.class);
+        XQueryForwardAxis forwardAxisPsi = descendants(file).findFirst(XQueryForwardAxis.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)forwardAxisPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
@@ -543,7 +544,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testFunctionCall_NCName() {
         final XQueryFile file = parseResource("tests/psi/xquery-1.0/FunctionCall_NCName.xq");
 
-        XQueryFunctionCall functionCallPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFunctionCall.class);
+        XQueryFunctionCall functionCallPsi = descendants(file).findFirst(XQueryFunctionCall.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)functionCallPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
@@ -566,7 +567,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testFunctionCall_KeywordNCName() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/FunctionCall_KeywordNCNames_XQuery10.xq");
 
-        XQueryFunctionCall functionCallPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFunctionCall.class);
+        XQueryFunctionCall functionCallPsi = descendants(file).findFirst(XQueryFunctionCall.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)functionCallPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
@@ -592,7 +593,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testFunctionDecl_QName() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/FunctionDecl.xq");
 
-        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryAnnotatedDecl.class);
+        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
         XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryFunctionDecl.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)functionDeclPsi;
 
@@ -616,7 +617,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testFunctionDecl_NCName() {
         final XQueryFile file = parseResource("tests/psi/xquery-1.0/FunctionDecl_NCName.xq");
 
-        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryAnnotatedDecl.class);
+        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
         XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryFunctionDecl.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)functionDeclPsi;
 
@@ -640,7 +641,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testFunctionDecl_Keyword() {
         final XQueryFile file = parseResource("tests/psi/xquery-1.0/FunctionDecl_Keyword.xq");
 
-        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryAnnotatedDecl.class);
+        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
         XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryFunctionDecl.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)functionDeclPsi;
 
@@ -664,7 +665,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testFunctionDecl_ReservedKeyword() {
         final XQueryFile file = parseResource("tests/psi/xquery-1.0/FunctionDecl_ReservedKeyword.xq");
 
-        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryAnnotatedDecl.class);
+        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
         XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryFunctionDecl.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)functionDeclPsi;
 
@@ -688,7 +689,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testFunctionDecl_MissingFunctionName() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/FunctionDecl_MissingFunctionName.xq");
 
-        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryAnnotatedDecl.class);
+        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
         XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryFunctionDecl.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck) functionDeclPsi;
 
@@ -712,7 +713,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testFunctionDecl_ReservedKeyword_Function() {
         final XQueryFile file = parseResource("tests/psi/xquery-3.0/FunctionDecl_ReservedKeyword_Function.xq");
 
-        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryAnnotatedDecl.class);
+        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
         XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryFunctionDecl.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)functionDeclPsi;
 
@@ -738,7 +739,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testFunctionDecl_ReservedKeyword_Switch() {
         final XQueryFile file = parseResource("tests/psi/xquery-3.0/FunctionDecl_ReservedKeyword_Switch.xq");
 
-        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryAnnotatedDecl.class);
+        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
         XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryFunctionDecl.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)functionDeclPsi;
 
@@ -764,7 +765,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testFunctionDecl_ReservedKeyword_NamespaceNode() {
         final XQueryFile file = parseResource("tests/psi/xquery-3.0/FunctionDecl_ReservedKeyword_NamespaceNode.xq");
 
-        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryAnnotatedDecl.class);
+        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
         XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryFunctionDecl.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)functionDeclPsi;
 
@@ -793,7 +794,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testInlineFunctionExpr() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/InlineFunctionExpr.xq");
 
-        XQueryInlineFunctionExpr inlineFunctionExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryInlineFunctionExpr.class);
+        XQueryInlineFunctionExpr inlineFunctionExprPsi = descendants(file).findFirst(XQueryInlineFunctionExpr.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)inlineFunctionExprPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -818,7 +819,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testInlineFunctionExpr_AnnotationOnly() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/InlineFunctionExpr_Annotation_MissingFunctionKeyword.xq");
 
-        XQueryInlineFunctionExpr inlineFunctionExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryInlineFunctionExpr.class);
+        XQueryInlineFunctionExpr inlineFunctionExprPsi = descendants(file).findFirst(XQueryInlineFunctionExpr.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)inlineFunctionExprPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
@@ -846,7 +847,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testTumblingWindowClause() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/TumblingWindowClause.xq");
 
-        XQueryWindowClause windowClausePsi = PsiNavigation.findDirectDescendantByClass(file, XQueryWindowClause.class);
+        XQueryWindowClause windowClausePsi = descendants(file).findFirst(XQueryWindowClause.class).get();
         XQueryTumblingWindowClause tumblingWindowClausePsi = children(windowClausePsi).findFirst(XQueryTumblingWindowClause.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)tumblingWindowClausePsi;
 
@@ -875,7 +876,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testSlidingWindowClause() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/SlidingWindowClause.xq");
 
-        XQueryWindowClause windowClausePsi = PsiNavigation.findDirectDescendantByClass(file, XQueryWindowClause.class);
+        XQueryWindowClause windowClausePsi = descendants(file).findFirst(XQueryWindowClause.class).get();
         XQuerySlidingWindowClause slidingWindowClausePsi = children(windowClausePsi).findFirst(XQuerySlidingWindowClause.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)slidingWindowClausePsi;
 
@@ -904,7 +905,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testForClause_FirstIntermediateClause() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/ForClause_Multiple.xq");
 
-        XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFLWORExpr.class);
+        XQueryFLWORExpr flworExprPsi = descendants(file).findFirst(XQueryFLWORExpr.class).get();
         // prev == null
         assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(0).getFirstChild(),
                 instanceOf(XQueryForClause.class));
@@ -934,7 +935,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testForClause_AfterForIntermediateClause() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/ForClause_Multiple.xq");
 
-        XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFLWORExpr.class);
+        XQueryFLWORExpr flworExprPsi = descendants(file).findFirst(XQueryFLWORExpr.class).get();
         assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(0).getFirstChild(),
                 instanceOf(XQueryForClause.class));
         assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(1).getFirstChild(),
@@ -965,7 +966,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testForClause_AfterLetIntermediateClause() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/FLWORExpr_ClauseOrdering.xq");
 
-        XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFLWORExpr.class);
+        XQueryFLWORExpr flworExprPsi = descendants(file).findFirst(XQueryFLWORExpr.class).get();
         assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(0).getFirstChild(),
                 instanceOf(XQueryLetClause.class));
         assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(1).getFirstChild(),
@@ -996,7 +997,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testForClause_AfterWhereIntermediateClause() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/IntermediateClause_WhereFor.xq");
 
-        XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFLWORExpr.class);
+        XQueryFLWORExpr flworExprPsi = descendants(file).findFirst(XQueryFLWORExpr.class).get();
         assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(0).getFirstChild(),
                 instanceOf(XQueryWhereClause.class));
         assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(1).getFirstChild(),
@@ -1027,7 +1028,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testForClause_AfterOrderByIntermediateClause() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/FLWORExpr_NestedWithoutReturnClause.xq");
 
-        XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFLWORExpr.class);
+        XQueryFLWORExpr flworExprPsi = descendants(file).findFirst(XQueryFLWORExpr.class).get();
         assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(2).getFirstChild(),
                 instanceOf(XQueryOrderByClause.class));
         assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(3).getFirstChild(),
@@ -1061,7 +1062,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testLetClause_FirstIntermediateClause() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/LetClause_Multiple.xq");
 
-        XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFLWORExpr.class);
+        XQueryFLWORExpr flworExprPsi = descendants(file).findFirst(XQueryFLWORExpr.class).get();
         // prev == null
         assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(0).getFirstChild(),
                 instanceOf(XQueryLetClause.class));
@@ -1091,7 +1092,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testLetClause_AfterForIntermediateClause() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/FLWORExpr_ClauseOrdering.xq");
 
-        XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFLWORExpr.class);
+        XQueryFLWORExpr flworExprPsi = descendants(file).findFirst(XQueryFLWORExpr.class).get();
         assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(1).getFirstChild(),
                 instanceOf(XQueryForClause.class));
         assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(2).getFirstChild(),
@@ -1122,7 +1123,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testLetClause_AfterLetIntermediateClause() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/LetClause_Multiple.xq");
 
-        XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFLWORExpr.class);
+        XQueryFLWORExpr flworExprPsi = descendants(file).findFirst(XQueryFLWORExpr.class).get();
         assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(0).getFirstChild(),
                 instanceOf(XQueryLetClause.class));
         assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(1).getFirstChild(),
@@ -1153,7 +1154,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testLetClause_AfterWhereIntermediateClause() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/IntermediateClause_ForWhereLet.xq");
 
-        XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFLWORExpr.class);
+        XQueryFLWORExpr flworExprPsi = descendants(file).findFirst(XQueryFLWORExpr.class).get();
         assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(1).getFirstChild(),
                 instanceOf(XQueryWhereClause.class));
         assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(2).getFirstChild(),
@@ -1184,7 +1185,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testLetClause_AfterOrderByIntermediateClause() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/IntermediateClause_ForOrderByLet.xq");
 
-        XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFLWORExpr.class);
+        XQueryFLWORExpr flworExprPsi = descendants(file).findFirst(XQueryFLWORExpr.class).get();
         assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(1).getFirstChild(),
                 instanceOf(XQueryOrderByClause.class));
         assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(2).getFirstChild(),
@@ -1218,7 +1219,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testOrderByClause_FirstIntermediateClause() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/OrderByClause_ForClause.xq");
 
-        XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFLWORExpr.class);
+        XQueryFLWORExpr flworExprPsi = descendants(file).findFirst(XQueryFLWORExpr.class).get();
         // prev == null
         assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(0).getFirstChild(),
                 instanceOf(XQueryOrderByClause.class));
@@ -1248,7 +1249,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testOrderByClause_AfterForIntermediateClause() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/IntermediateClause_ForOrderByLet.xq");
 
-        XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFLWORExpr.class);
+        XQueryFLWORExpr flworExprPsi = descendants(file).findFirst(XQueryFLWORExpr.class).get();
         assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(0).getFirstChild(),
                 instanceOf(XQueryForClause.class));
         assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(1).getFirstChild(),
@@ -1279,7 +1280,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testOrderByClause_AfterLetIntermediateClause() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/FLWORExpr_RelaxedOrdering.xq");
 
-        XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFLWORExpr.class);
+        XQueryFLWORExpr flworExprPsi = descendants(file).findFirst(XQueryFLWORExpr.class).get();
         assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(0).getFirstChild(),
                 instanceOf(XQueryLetClause.class));
         assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(1).getFirstChild(),
@@ -1310,7 +1311,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testOrderByClause_AfterWhereIntermediateClause() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/FLWORExpr_ClauseOrdering.xq");
 
-        XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFLWORExpr.class);
+        XQueryFLWORExpr flworExprPsi = descendants(file).findFirst(XQueryFLWORExpr.class).get();
         assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(3).getFirstChild(),
                 instanceOf(XQueryWhereClause.class));
         assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(4).getFirstChild(),
@@ -1341,7 +1342,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testOrderByClause_AfterOrderByIntermediateClause() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/OrderByClause_Multiple.xq");
 
-        XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFLWORExpr.class);
+        XQueryFLWORExpr flworExprPsi = descendants(file).findFirst(XQueryFLWORExpr.class).get();
         assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(0).getFirstChild(),
                 instanceOf(XQueryOrderByClause.class));
         assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(1).getFirstChild(),
@@ -1375,7 +1376,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testWhereClause_FirstIntermediateClause() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/WhereClause_ForClause.xq");
 
-        XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFLWORExpr.class);
+        XQueryFLWORExpr flworExprPsi = descendants(file).findFirst(XQueryFLWORExpr.class).get();
         // prev == null
         assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(0).getFirstChild(),
                 instanceOf(XQueryWhereClause.class));
@@ -1405,7 +1406,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testWhereClause_AfterForIntermediateClause() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/IntermediateClause_ForWhereLet.xq");
 
-        XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFLWORExpr.class);
+        XQueryFLWORExpr flworExprPsi = descendants(file).findFirst(XQueryFLWORExpr.class).get();
         assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(0).getFirstChild(),
                 instanceOf(XQueryForClause.class));
         assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(1).getFirstChild(),
@@ -1436,7 +1437,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testWhereClause_AfterLetIntermediateClause() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/FLWORExpr_ClauseOrdering.xq");
 
-        XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFLWORExpr.class);
+        XQueryFLWORExpr flworExprPsi = descendants(file).findFirst(XQueryFLWORExpr.class).get();
         assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(2).getFirstChild(),
                 instanceOf(XQueryLetClause.class));
         assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(3).getFirstChild(),
@@ -1467,7 +1468,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testWhereClause_AfterWhereIntermediateClause() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/WhereClause_Multiple.xq");
 
-        XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFLWORExpr.class);
+        XQueryFLWORExpr flworExprPsi = descendants(file).findFirst(XQueryFLWORExpr.class).get();
         assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(0).getFirstChild(),
                 instanceOf(XQueryWhereClause.class));
         assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(1).getFirstChild(),
@@ -1498,7 +1499,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testWhereClause_AfterOrderByIntermediateClause() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/FLWORExpr_RelaxedOrdering.xq");
 
-        XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFLWORExpr.class);
+        XQueryFLWORExpr flworExprPsi = descendants(file).findFirst(XQueryFLWORExpr.class).get();
         assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(1).getFirstChild(),
                 instanceOf(XQueryOrderByClause.class));
         assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(2).getFirstChild(),
@@ -1532,7 +1533,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testCountClause() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/CountClause.xq");
 
-        XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFLWORExpr.class);
+        XQueryFLWORExpr flworExprPsi = descendants(file).findFirst(XQueryFLWORExpr.class).get();
         // prev == null
         assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(0).getFirstChild(),
                 instanceOf(XQueryCountClause.class));
@@ -1565,7 +1566,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testGroupByClause() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/GroupByClause.xq");
 
-        XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFLWORExpr.class);
+        XQueryFLWORExpr flworExprPsi = descendants(file).findFirst(XQueryFLWORExpr.class).get();
         // prev == null
         assertThat(children(flworExprPsi).toListOf(XQueryIntermediateClause.class).get(0).getFirstChild(),
                 instanceOf(XQueryGroupByClause.class));
@@ -1598,7 +1599,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testNamedFunctionRef_QName() {
         final XQueryFile file = parseResource("tests/psi/xquery-3.0/NamedFunctionRef_QName.xq");
 
-        XQueryNamedFunctionRef namedFunctionRefPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryNamedFunctionRef.class);
+        XQueryNamedFunctionRef namedFunctionRefPsi = descendants(file).findFirst(XQueryNamedFunctionRef.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)namedFunctionRefPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -1623,7 +1624,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testNamedFunctionRef_NCName() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/NamedFunctionRef.xq");
 
-        XQueryNamedFunctionRef namedFunctionRefPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryNamedFunctionRef.class);
+        XQueryNamedFunctionRef namedFunctionRefPsi = descendants(file).findFirst(XQueryNamedFunctionRef.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)namedFunctionRefPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -1648,7 +1649,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testNamedFunctionRef_Keyword() {
         final XQueryFile file = parseResource("tests/psi/xquery-3.0/NamedFunctionRef_Keyword.xq");
 
-        XQueryNamedFunctionRef namedFunctionRefPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryNamedFunctionRef.class);
+        XQueryNamedFunctionRef namedFunctionRefPsi = descendants(file).findFirst(XQueryNamedFunctionRef.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)namedFunctionRefPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -1673,7 +1674,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testNamedFunctionRef_ReservedKeyword() {
         final XQueryFile file = parseResource("tests/psi/xquery-3.0/NamedFunctionRef_ReservedKeyword.xq");
 
-        XQueryNamedFunctionRef namedFunctionRefPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryNamedFunctionRef.class);
+        XQueryNamedFunctionRef namedFunctionRefPsi = descendants(file).findFirst(XQueryNamedFunctionRef.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)namedFunctionRefPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -1696,7 +1697,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testNamedFunctionRef_ReservedKeyword_Function() {
         final XQueryFile file = parseResource("tests/psi/xquery-3.0/NamedFunctionRef_ReservedKeyword_Function.xq");
 
-        XQueryNamedFunctionRef namedFunctionRefPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryNamedFunctionRef.class);
+        XQueryNamedFunctionRef namedFunctionRefPsi = descendants(file).findFirst(XQueryNamedFunctionRef.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)namedFunctionRefPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
@@ -1721,7 +1722,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testNamedFunctionRef_ReservedKeyword_NamespaceNode() {
         final XQueryFile file = parseResource("tests/psi/xquery-3.0/NamedFunctionRef_ReservedKeyword_NamespaceNode.xq");
 
-        XQueryNamedFunctionRef namedFunctionRefPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryNamedFunctionRef.class);
+        XQueryNamedFunctionRef namedFunctionRefPsi = descendants(file).findFirst(XQueryNamedFunctionRef.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)namedFunctionRefPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
@@ -1746,7 +1747,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testNamedFunctionRef_ReservedKeyword_Switch() {
         final XQueryFile file = parseResource("tests/psi/xquery-3.0/NamedFunctionRef_ReservedKeyword_Switch.xq");
 
-        XQueryNamedFunctionRef namedFunctionRefPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryNamedFunctionRef.class);
+        XQueryNamedFunctionRef namedFunctionRefPsi = descendants(file).findFirst(XQueryNamedFunctionRef.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)namedFunctionRefPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
@@ -1774,11 +1775,11 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testNamespaceNodeTest() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/NamespaceNodeTest.xq");
 
-        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryAnnotatedDecl.class);
+        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
         XQueryVarDecl varDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryVarDecl.class);
         XQueryTypeDeclaration typeDeclarationPsi = PsiNavigation.findChildByClass(varDeclPsi, XQueryTypeDeclaration.class);
         XQuerySequenceType sequenceTypePsi = PsiNavigation.findChildByClass(typeDeclarationPsi, XQuerySequenceType.class);
-        XQueryNamespaceNodeTest namespaceNodeTestPsi = PsiNavigation.findDirectDescendantByClass(sequenceTypePsi, XQueryNamespaceNodeTest.class);
+        XQueryNamespaceNodeTest namespaceNodeTestPsi = descendants(sequenceTypePsi).findFirst(XQueryNamespaceNodeTest.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)namespaceNodeTestPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -1806,11 +1807,11 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testParenthesizedItemType() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/ParenthesizedItemType.xq");
 
-        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryAnnotatedDecl.class);
+        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
         XQueryVarDecl varDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryVarDecl.class);
         XQueryTypeDeclaration typeDeclarationPsi = PsiNavigation.findChildByClass(varDeclPsi, XQueryTypeDeclaration.class);
         XQuerySequenceType sequenceTypePsi = PsiNavigation.findChildByClass(typeDeclarationPsi, XQuerySequenceType.class);
-        XQueryParenthesizedItemType parenthesizedItemTypePsi = PsiNavigation.findDirectDescendantByClass(sequenceTypePsi, XQueryParenthesizedItemType.class);
+        XQueryParenthesizedItemType parenthesizedItemTypePsi = descendants(sequenceTypePsi).findFirst(XQueryParenthesizedItemType.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)parenthesizedItemTypePsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -1838,7 +1839,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testSequenceTypeUnion() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/SequenceTypeUnion.xq");
 
-        XQueryTypeswitchExpr typeswitchExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryTypeswitchExpr.class);
+        XQueryTypeswitchExpr typeswitchExprPsi = descendants(file).findFirst(XQueryTypeswitchExpr.class).get();
         XQueryCaseClause caseClausePsi = PsiNavigation.findChildByClass(typeswitchExprPsi, XQueryCaseClause.class);
         XQuerySequenceTypeUnion sequenceTypeUnionPsi = PsiNavigation.findChildByClass(caseClausePsi, XQuerySequenceTypeUnion.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)sequenceTypeUnionPsi;
@@ -1865,7 +1866,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testSequenceTypeUnion_NoUnion() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/TypeswitchExpr.xq");
 
-        XQueryTypeswitchExpr typeswitchExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryTypeswitchExpr.class);
+        XQueryTypeswitchExpr typeswitchExprPsi = descendants(file).findFirst(XQueryTypeswitchExpr.class).get();
         XQueryCaseClause caseClausePsi = PsiNavigation.findChildByClass(typeswitchExprPsi, XQueryCaseClause.class);
         XQuerySequenceTypeUnion sequenceTypeUnionPsi = PsiNavigation.findChildByClass(caseClausePsi, XQuerySequenceTypeUnion.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)sequenceTypeUnionPsi;
@@ -1895,7 +1896,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testSimpleMapExpr() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/SimpleMapExpr.xq");
 
-        XQuerySimpleMapExpr simpleMapExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQuerySimpleMapExpr.class);
+        XQuerySimpleMapExpr simpleMapExprPsi = descendants(file).findFirst(XQuerySimpleMapExpr.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)simpleMapExprPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -1920,7 +1921,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testSimpleMapExpr_NoMap() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/AbbrevForwardStep.xq");
 
-        XQuerySimpleMapExpr simpleMapExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQuerySimpleMapExpr.class);
+        XQuerySimpleMapExpr simpleMapExprPsi = descendants(file).findFirst(XQuerySimpleMapExpr.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)simpleMapExprPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
@@ -1948,7 +1949,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testStringConcatExpr() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/StringConcatExpr.xq");
 
-        XQueryStringConcatExpr stringConcatExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryStringConcatExpr.class);
+        XQueryStringConcatExpr stringConcatExprPsi = descendants(file).findFirst(XQueryStringConcatExpr.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)stringConcatExprPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -1973,7 +1974,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testStringConcatExpr_NoConcatenation() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/AbbrevForwardStep.xq");
 
-        XQueryStringConcatExpr stringConcatExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryStringConcatExpr.class);
+        XQueryStringConcatExpr stringConcatExprPsi = descendants(file).findFirst(XQueryStringConcatExpr.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)stringConcatExprPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
@@ -2001,7 +2002,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testSwitchExpr() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/SwitchExpr.xq");
 
-        XQuerySwitchExpr switchExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQuerySwitchExpr.class);
+        XQuerySwitchExpr switchExprPsi = descendants(file).findFirst(XQuerySwitchExpr.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)switchExprPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -2029,11 +2030,11 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testTextTest() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/TextTest.xq");
 
-        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryAnnotatedDecl.class);
+        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
         XQueryVarDecl varDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryVarDecl.class);
         XQueryTypeDeclaration typeDeclarationPsi = PsiNavigation.findChildByClass(varDeclPsi, XQueryTypeDeclaration.class);
         XQuerySequenceType sequenceTypePsi = PsiNavigation.findChildByClass(typeDeclarationPsi, XQuerySequenceType.class);
-        XQueryTextTest textTestPsi = PsiNavigation.findDirectDescendantByClass(sequenceTypePsi, XQueryTextTest.class);
+        XQueryTextTest textTestPsi = descendants(sequenceTypePsi).findFirst(XQueryTextTest.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)textTestPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
@@ -2060,7 +2061,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testTryClause() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/CatchClause.xq");
 
-        XQueryTryClause tryClausePsi = PsiNavigation.findDirectDescendantByClass(file, XQueryTryClause.class);
+        XQueryTryClause tryClausePsi = descendants(file).findFirst(XQueryTryClause.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)tryClausePsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -2088,11 +2089,11 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testTypedFunctionTest() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/TypedFunctionTest.xq");
 
-        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryAnnotatedDecl.class);
+        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
         XQueryVarDecl varDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryVarDecl.class);
         XQueryTypeDeclaration typeDeclarationPsi = PsiNavigation.findChildByClass(varDeclPsi, XQueryTypeDeclaration.class);
         XQuerySequenceType sequenceTypePsi = PsiNavigation.findChildByClass(typeDeclarationPsi, XQuerySequenceType.class);
-        XQueryTypedFunctionTest typedFunctionTestPsi = PsiNavigation.findDirectDescendantByClass(sequenceTypePsi, XQueryTypedFunctionTest.class);
+        XQueryTypedFunctionTest typedFunctionTestPsi = descendants(sequenceTypePsi).findFirst(XQueryTypedFunctionTest.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)typedFunctionTestPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -2120,7 +2121,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testValidateExpr() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/ValidateExpr.xq");
 
-        XQueryValidateExpr validateExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryValidateExpr.class);
+        XQueryValidateExpr validateExprPsi = descendants(file).findFirst(XQueryValidateExpr.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)validateExprPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
@@ -2137,7 +2138,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testValidateExpr_Type() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/ValidateExpr_Type.xq");
 
-        XQueryValidateExpr validateExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryValidateExpr.class);
+        XQueryValidateExpr validateExprPsi = descendants(file).findFirst(XQueryValidateExpr.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)validateExprPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -2165,7 +2166,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testVarDecl() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/VarDecl.xq");
 
-        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryAnnotatedDecl.class);
+        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
         XQueryVarDecl varDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryVarDecl.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)varDeclPsi;
 
@@ -2191,7 +2192,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testVarDecl_External() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/VarDecl_External.xq");
 
-        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryAnnotatedDecl.class);
+        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
         XQueryVarDecl varDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryVarDecl.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)varDeclPsi;
 
@@ -2217,7 +2218,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testVarDecl_External_DefaultValue() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/VarDecl_External_DefaultValue.xq");
 
-        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryAnnotatedDecl.class);
+        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
         XQueryVarDecl varDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryVarDecl.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)varDeclPsi;
 
@@ -2249,9 +2250,9 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testEQName_QName() {
         final XQueryFile file = parseResource("tests/psi/xquery-3.0/SimpleTypeName_QName.xq");
 
-        XQueryCastExpr castExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryCastExpr.class);
+        XQueryCastExpr castExprPsi = descendants(file).findFirst(XQueryCastExpr.class).get();
         XQuerySingleType singleTypePsi = PsiNavigation.findChildByClass(castExprPsi, XQuerySingleType.class);
-        XQuerySimpleTypeName simpleTypeNamePsi = PsiNavigation.findDirectDescendantByClass(singleTypePsi, XQuerySimpleTypeName.class);
+        XQuerySimpleTypeName simpleTypeNamePsi = descendants(singleTypePsi).findFirst(XQuerySimpleTypeName.class).get();
         XQueryEQName eqnamePsi = (XQueryEQName)simpleTypeNamePsi;
 
         assertThat(eqnamePsi.getPrefix(), is(defined()));
@@ -2267,9 +2268,9 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testEQName_KeywordLocalPart() {
         final XQueryFile file = parseResource("tests/psi/xquery-3.0/SimpleTypeName_QName_KeywordLocalPart.xq");
 
-        XQueryCastExpr castExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryCastExpr.class);
+        XQueryCastExpr castExprPsi = descendants(file).findFirst(XQueryCastExpr.class).get();
         XQuerySingleType singleTypePsi = PsiNavigation.findChildByClass(castExprPsi, XQuerySingleType.class);
-        XQuerySimpleTypeName simpleTypeNamePsi = PsiNavigation.findDirectDescendantByClass(singleTypePsi, XQuerySimpleTypeName.class);
+        XQuerySimpleTypeName simpleTypeNamePsi = descendants(singleTypePsi).findFirst(XQuerySimpleTypeName.class).get();
         XQueryEQName eqnamePsi = (XQueryEQName)simpleTypeNamePsi;
 
         assertThat(eqnamePsi.getPrefix(), is(defined()));
@@ -2285,9 +2286,9 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testEQName_MissingLocalPart() {
         final XQueryFile file = parseResource("tests/psi/xquery-3.0/SimpleTypeName_QName_MissingLocalPart.xq");
 
-        XQueryCastExpr castExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryCastExpr.class);
+        XQueryCastExpr castExprPsi = descendants(file).findFirst(XQueryCastExpr.class).get();
         XQuerySingleType singleTypePsi = PsiNavigation.findChildByClass(castExprPsi, XQuerySingleType.class);
-        XQuerySimpleTypeName simpleTypeNamePsi = PsiNavigation.findDirectDescendantByClass(singleTypePsi, XQuerySimpleTypeName.class);
+        XQuerySimpleTypeName simpleTypeNamePsi = descendants(singleTypePsi).findFirst(XQuerySimpleTypeName.class).get();
         XQueryEQName eqnamePsi = (XQueryEQName)simpleTypeNamePsi;
 
         assertThat(eqnamePsi.getPrefix(), is(defined()));
@@ -2301,9 +2302,9 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testEQName_KeywordPrefixPart() {
         final XQueryFile file = parseResource("tests/psi/xquery-3.0/SimpleTypeName_QName_KeywordPrefixPart.xq");
 
-        XQueryCastExpr castExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryCastExpr.class);
+        XQueryCastExpr castExprPsi = descendants(file).findFirst(XQueryCastExpr.class).get();
         XQuerySingleType singleTypePsi = PsiNavigation.findChildByClass(castExprPsi, XQuerySingleType.class);
-        XQuerySimpleTypeName simpleTypeNamePsi = PsiNavigation.findDirectDescendantByClass(singleTypePsi, XQuerySimpleTypeName.class);
+        XQuerySimpleTypeName simpleTypeNamePsi = descendants(singleTypePsi).findFirst(XQuerySimpleTypeName.class).get();
         XQueryEQName eqnamePsi = (XQueryEQName)simpleTypeNamePsi;
 
         assertThat(eqnamePsi.getPrefix(), is(defined()));
@@ -2319,9 +2320,9 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testEQName_NCName() {
         final XQueryFile file = parseResource("tests/psi/xquery-3.0/SimpleTypeName_NCName.xq");
 
-        XQueryCastExpr castExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryCastExpr.class);
+        XQueryCastExpr castExprPsi = descendants(file).findFirst(XQueryCastExpr.class).get();
         XQuerySingleType singleTypePsi = PsiNavigation.findChildByClass(castExprPsi, XQuerySingleType.class);
-        XQuerySimpleTypeName simpleTypeNamePsi = PsiNavigation.findDirectDescendantByClass(singleTypePsi, XQuerySimpleTypeName.class);
+        XQuerySimpleTypeName simpleTypeNamePsi = descendants(singleTypePsi).findFirst(XQuerySimpleTypeName.class).get();
         XQueryEQName eqnamePsi = (XQueryEQName)simpleTypeNamePsi;
 
         assertThat(eqnamePsi.getPrefix(), is(notDefined()));
@@ -2335,9 +2336,9 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testEQName_URIQualifiedName() {
         final XQueryFile file = parseResource("tests/psi/xquery-3.0/SimpleTypeName_URIQualifiedName.xq");
 
-        XQueryCastExpr castExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryCastExpr.class);
+        XQueryCastExpr castExprPsi = descendants(file).findFirst(XQueryCastExpr.class).get();
         XQuerySingleType singleTypePsi = PsiNavigation.findChildByClass(castExprPsi, XQuerySingleType.class);
-        XQuerySimpleTypeName simpleTypeNamePsi = PsiNavigation.findDirectDescendantByClass(singleTypePsi, XQuerySimpleTypeName.class);
+        XQuerySimpleTypeName simpleTypeNamePsi = descendants(singleTypePsi).findFirst(XQuerySimpleTypeName.class).get();
         XQueryEQName eqnamePsi = (XQueryEQName)simpleTypeNamePsi;
 
         assertThat(eqnamePsi.getPrefix(), is(defined()));
@@ -2355,7 +2356,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testNCName() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/NCName_Keyword.xq");
 
-        XQueryOptionDecl optionDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryOptionDecl.class);
+        XQueryOptionDecl optionDeclPsi = descendants(file).findFirst(XQueryOptionDecl.class).get();
         XQueryEQName eqnamePsi = PsiNavigation.findChildByClass(optionDeclPsi, XQueryEQName.class);
 
         assertThat(eqnamePsi.getPrefix(), is(notDefined()));
@@ -2371,7 +2372,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testQName() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/QName.xq");
 
-        XQueryOptionDecl optionDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryOptionDecl.class);
+        XQueryOptionDecl optionDeclPsi = descendants(file).findFirst(XQueryOptionDecl.class).get();
         XQueryEQName eqnamePsi = PsiNavigation.findChildByClass(optionDeclPsi, XQueryEQName.class);
 
         assertThat(eqnamePsi.getPrefix(), is(defined()));
@@ -2386,7 +2387,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testQName_KeywordLocalPart() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/QName_KeywordLocalPart.xq");
 
-        XQueryOptionDecl optionDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryOptionDecl.class);
+        XQueryOptionDecl optionDeclPsi = descendants(file).findFirst(XQueryOptionDecl.class).get();
         XQueryEQName eqnamePsi = PsiNavigation.findChildByClass(optionDeclPsi, XQueryEQName.class);
 
         assertThat(eqnamePsi.getPrefix(), is(defined()));
@@ -2401,7 +2402,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testQName_MissingLocalPart() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/QName_MissingLocalPart.xq");
 
-        XQueryOptionDecl optionDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryOptionDecl.class);
+        XQueryOptionDecl optionDeclPsi = descendants(file).findFirst(XQueryOptionDecl.class).get();
         XQueryEQName eqnamePsi = PsiNavigation.findChildByClass(optionDeclPsi, XQueryEQName.class);
 
         assertThat(eqnamePsi.getPrefix(), is(defined()));
@@ -2414,7 +2415,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testQName_KeywordPrefixPart() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/QName_KeywordPrefixPart.xq");
 
-        XQueryOptionDecl optionDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryOptionDecl.class);
+        XQueryOptionDecl optionDeclPsi = descendants(file).findFirst(XQueryOptionDecl.class).get();
         XQueryEQName eqnamePsi = PsiNavigation.findChildByClass(optionDeclPsi, XQueryEQName.class);
 
         assertThat(eqnamePsi.getPrefix(), is(defined()));
@@ -2429,7 +2430,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testQName_DirElemConstructor() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/DirElemConstructor.xq");
 
-        XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryDirElemConstructor.class);
+        XQueryDirElemConstructor dirElemConstructorPsi = descendants(file).findFirst(XQueryDirElemConstructor.class).get();
         XQueryEQName eqnamePsi = PsiNavigation.findChildByClass(dirElemConstructorPsi, XQueryEQName.class);
 
         assertThat(eqnamePsi.getPrefix(), is(defined()));
@@ -2444,7 +2445,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testQName_DirAttributeList() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/DirAttributeList.xq");
 
-        XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryDirElemConstructor.class);
+        XQueryDirElemConstructor dirElemConstructorPsi = descendants(file).findFirst(XQueryDirElemConstructor.class).get();
         XQueryDirAttributeList dirAttributeListPsi = PsiNavigation.findChildByClass(dirElemConstructorPsi, XQueryDirAttributeList.class);
         XQueryEQName eqnamePsi = PsiNavigation.findChildByClass(dirAttributeListPsi, XQueryEQName.class);
 
@@ -2487,7 +2488,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testFunctionCall() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/FunctionCall_MultipleParam.xq");
 
-        XQueryFunctionCall functionCallPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFunctionCall.class);
+        XQueryFunctionCall functionCallPsi = descendants(file).findFirst(XQueryFunctionCall.class).get();
         assertThat(functionCallPsi, is(notNullValue()));
         assertThat(functionCallPsi.getArity(), is(2));
     }
@@ -2495,7 +2496,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testFunctionCall_Empty() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/FunctionCall.xq");
 
-        XQueryFunctionCall functionCallPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFunctionCall.class);
+        XQueryFunctionCall functionCallPsi = descendants(file).findFirst(XQueryFunctionCall.class).get();
         assertThat(functionCallPsi, is(notNullValue()));
         assertThat(functionCallPsi.getArity(), is(0));
     }
@@ -2503,7 +2504,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testFunctionCall_ArgumentPlaceholder() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/ArgumentPlaceholder.xq");
 
-        XQueryFunctionCall functionCallPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFunctionCall.class);
+        XQueryFunctionCall functionCallPsi = descendants(file).findFirst(XQueryFunctionCall.class).get();
         assertThat(functionCallPsi, is(notNullValue()));
         assertThat(functionCallPsi.getArity(), is(1));
     }
@@ -2514,7 +2515,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testFunctionDecl() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/FunctionDecl.xq");
 
-        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryAnnotatedDecl.class);
+        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
         XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryFunctionDecl.class);
         assertThat(functionDeclPsi, is(notNullValue()));
         assertThat(functionDeclPsi.getArity(), is(0));
@@ -2523,7 +2524,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testFunctionDecl_ParamList() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/ParamList.xq");
 
-        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryAnnotatedDecl.class);
+        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
         XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryFunctionDecl.class);
         assertThat(functionDeclPsi, is(notNullValue()));
         assertThat(functionDeclPsi.getArity(), is(2));
@@ -2535,7 +2536,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testIntegerLiteral() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/IntegerLiteral.xq");
 
-        XQueryIntegerLiteral integerLiteralPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryIntegerLiteral.class);
+        XQueryIntegerLiteral integerLiteralPsi = descendants(file).findFirst(XQueryIntegerLiteral.class).get();
         assertThat(integerLiteralPsi, is(notNullValue()));
         assertThat(integerLiteralPsi.getAtomicValue(), is(1234));
     }
@@ -2547,7 +2548,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testModule_ModuleProvider() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/ModuleDecl.xq");
 
-        XQueryModule modulePsi = PsiNavigation.findDirectDescendantByClass(file, XQueryModule.class);
+        XQueryModule modulePsi = descendants(file).findFirst(XQueryModule.class).get();
 
         XQueryPrologResolver provider = (XQueryPrologResolver)modulePsi;
         assertThat(provider.resolveProlog(), is(notDefined()));
@@ -2559,7 +2560,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testModuleDecl_ModuleProvider() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/ModuleDecl.xq");
 
-        XQueryModuleDecl moduleDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryModuleDecl.class);
+        XQueryModuleDecl moduleDeclPsi = descendants(file).findFirst(XQueryModuleDecl.class).get();
 
         XQueryPrologResolver provider = (XQueryPrologResolver)moduleDeclPsi;
         assertThat(provider.resolveProlog(), is(notDefined()));
@@ -2572,7 +2573,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testNamedFunctionRef() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/NamedFunctionRef.xq");
 
-        XQueryNamedFunctionRef namedFunctionRefPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryNamedFunctionRef.class);
+        XQueryNamedFunctionRef namedFunctionRefPsi = descendants(file).findFirst(XQueryNamedFunctionRef.class).get();
         assertThat(namedFunctionRefPsi, is(notNullValue()));
         assertThat(namedFunctionRefPsi.getArity(), is(3));
     }
@@ -2580,7 +2581,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testNamedFunctionRef_MissingArity() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/NamedFunctionRef_MissingArity.xq");
 
-        XQueryNamedFunctionRef namedFunctionRefPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryNamedFunctionRef.class);
+        XQueryNamedFunctionRef namedFunctionRefPsi = descendants(file).findFirst(XQueryNamedFunctionRef.class).get();
         assertThat(namedFunctionRefPsi, is(notNullValue()));
         assertThat(namedFunctionRefPsi.getArity(), is(0));
     }
@@ -2592,7 +2593,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testDirAttributeList() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/DirAttributeList.xq");
 
-        XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryDirElemConstructor.class);
+        XQueryDirElemConstructor dirElemConstructorPsi = descendants(file).findFirst(XQueryDirElemConstructor.class).get();
         XQueryDirAttributeList dirAttributeListPsi = PsiNavigation.findChildByClass(dirElemConstructorPsi, XQueryDirAttributeList.class);
         XQueryNamespaceResolver provider = (XQueryNamespaceResolver)dirAttributeListPsi;
 
@@ -2605,7 +2606,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testDirAttributeList_XmlNamespace() {
         final XQueryFile file = parseResource("tests/psi/xquery-1.0/DirAttributeList_XmlnsAttribute.xq");
 
-        XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryDirElemConstructor.class);
+        XQueryDirElemConstructor dirElemConstructorPsi = descendants(file).findFirst(XQueryDirElemConstructor.class).get();
         XQueryDirAttributeList dirAttributeListPsi = PsiNavigation.findChildByClass(dirElemConstructorPsi, XQueryDirAttributeList.class);
         XQueryNamespaceResolver provider = (XQueryNamespaceResolver)dirAttributeListPsi;
 
@@ -2629,7 +2630,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testDirAttributeList_XmlNamespace_MissingValue() {
         final XQueryFile file = parseResource("tests/psi/xquery-1.0/DirAttributeList_XmlnsAttribute_MissingValue.xq");
 
-        XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryDirElemConstructor.class);
+        XQueryDirElemConstructor dirElemConstructorPsi = descendants(file).findFirst(XQueryDirElemConstructor.class).get();
         XQueryDirAttributeList dirAttributeListPsi = PsiNavigation.findChildByClass(dirElemConstructorPsi, XQueryDirAttributeList.class);
         XQueryNamespaceResolver provider = (XQueryNamespaceResolver)dirAttributeListPsi;
 
@@ -2652,7 +2653,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testDirAttributeList_XmlNamespace_MissingMiddleValue() {
         final XQueryFile file = parseResource("tests/psi/xquery-1.0/DirAttributeList_XmlnsAttribute_MissingMiddleValue.xq");
 
-        XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryDirElemConstructor.class);
+        XQueryDirElemConstructor dirElemConstructorPsi = descendants(file).findFirst(XQueryDirElemConstructor.class).get();
         XQueryDirAttributeList dirAttributeListPsi = PsiNavigation.findChildByClass(dirElemConstructorPsi, XQueryDirAttributeList.class);
         XQueryNamespaceResolver provider = (XQueryNamespaceResolver)dirAttributeListPsi;
 
@@ -2678,7 +2679,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testDirElemConstructor() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/DirElemConstructor.xq");
 
-        XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryDirElemConstructor.class);
+        XQueryDirElemConstructor dirElemConstructorPsi = descendants(file).findFirst(XQueryDirElemConstructor.class).get();
         XQueryNamespaceResolver provider = (XQueryNamespaceResolver)dirElemConstructorPsi;
 
         assertThat(provider.resolveNamespace(null), is(notDefined()));
@@ -2690,7 +2691,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testDirElemConstructor_AttributeList() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/DirAttributeList.xq");
 
-        XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryDirElemConstructor.class);
+        XQueryDirElemConstructor dirElemConstructorPsi = descendants(file).findFirst(XQueryDirElemConstructor.class).get();
         XQueryNamespaceResolver provider = (XQueryNamespaceResolver)dirElemConstructorPsi;
 
         assertThat(provider.resolveNamespace(null), is(notDefined()));
@@ -2702,7 +2703,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testDirElemConstructor_XmlNamespace() {
         final XQueryFile file = parseResource("tests/psi/xquery-1.0/DirAttributeList_XmlnsAttribute.xq");
 
-        XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryDirElemConstructor.class);
+        XQueryDirElemConstructor dirElemConstructorPsi = descendants(file).findFirst(XQueryDirElemConstructor.class).get();
         XQueryDirAttributeList dirAttributeListPsi = PsiNavigation.findChildByClass(dirElemConstructorPsi, XQueryDirAttributeList.class);
         XQueryNamespaceResolver provider = (XQueryNamespaceResolver)dirElemConstructorPsi;
 
@@ -2726,7 +2727,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testDirElemConstructor_XmlNamespace_MissingValue() {
         final XQueryFile file = parseResource("tests/psi/xquery-1.0/DirAttributeList_XmlnsAttribute_MissingValue.xq");
 
-        XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryDirElemConstructor.class);
+        XQueryDirElemConstructor dirElemConstructorPsi = descendants(file).findFirst(XQueryDirElemConstructor.class).get();
         XQueryDirAttributeList dirAttributeListPsi = PsiNavigation.findChildByClass(dirElemConstructorPsi, XQueryDirAttributeList.class);
         XQueryNamespaceResolver provider = (XQueryNamespaceResolver)dirElemConstructorPsi;
 
@@ -2749,7 +2750,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testDirElemConstructor_XmlNamespace_MissingMiddleValue() {
         final XQueryFile file = parseResource("tests/psi/xquery-1.0/DirAttributeList_XmlnsAttribute_MissingMiddleValue.xq");
 
-        XQueryDirElemConstructor dirElemConstructorPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryDirElemConstructor.class);
+        XQueryDirElemConstructor dirElemConstructorPsi = descendants(file).findFirst(XQueryDirElemConstructor.class).get();
         XQueryDirAttributeList dirAttributeListPsi = PsiNavigation.findChildByClass(dirElemConstructorPsi, XQueryDirAttributeList.class);
         XQueryNamespaceResolver provider = (XQueryNamespaceResolver)dirElemConstructorPsi;
 
@@ -2775,7 +2776,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testModule() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/ModuleDecl.xq");
 
-        XQueryModule modulePsi = PsiNavigation.findDirectDescendantByClass(file, XQueryModule.class);
+        XQueryModule modulePsi = descendants(file).findFirst(XQueryModule.class).get();
         XQueryNamespaceResolver provider = (XQueryNamespaceResolver)modulePsi;
 
         assertThat(provider.resolveNamespace(null), is(notDefined()));
@@ -2799,7 +2800,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testModuleDecl() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/ModuleDecl.xq");
 
-        XQueryModuleDecl moduleDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryModuleDecl.class);
+        XQueryModuleDecl moduleDeclPsi = descendants(file).findFirst(XQueryModuleDecl.class).get();
         XQueryNamespaceResolver provider = (XQueryNamespaceResolver)moduleDeclPsi;
 
         assertThat(provider.resolveNamespace(null), is(notDefined()));
@@ -2822,7 +2823,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testModuleDecl_MissingNamespaceName() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/ModuleDecl_MissingNamespaceName.xq");
 
-        XQueryModuleDecl moduleDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryModuleDecl.class);
+        XQueryModuleDecl moduleDeclPsi = descendants(file).findFirst(XQueryModuleDecl.class).get();
         XQueryNamespaceResolver provider = (XQueryNamespaceResolver)moduleDeclPsi;
 
         assertThat(provider.resolveNamespace(null), is(notDefined()));
@@ -2834,7 +2835,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testModulesDecl_MissingNamespaceUri() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/ModuleDecl_MissingNamespaceUri.xq");
 
-        XQueryModuleDecl moduleDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryModuleDecl.class);
+        XQueryModuleDecl moduleDeclPsi = descendants(file).findFirst(XQueryModuleDecl.class).get();
         XQueryNamespaceResolver provider = (XQueryNamespaceResolver)moduleDeclPsi;
 
         assertThat(provider.resolveNamespace(null), is(notDefined()));
@@ -2859,7 +2860,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testModuleImport() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/ModuleImport.xq");
 
-        XQueryModuleImport moduleImportPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryModuleImport.class);
+        XQueryModuleImport moduleImportPsi = descendants(file).findFirst(XQueryModuleImport.class).get();
         XQueryNamespaceResolver provider = (XQueryNamespaceResolver)moduleImportPsi;
 
         assertThat(provider.resolveNamespace(null), is(notDefined()));
@@ -2871,7 +2872,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testModuleImport_WithNamespace() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/ModuleImport_WithNamespace.xq");
 
-        XQueryModuleImport moduleImportPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryModuleImport.class);
+        XQueryModuleImport moduleImportPsi = descendants(file).findFirst(XQueryModuleImport.class).get();
         XQueryNamespaceResolver provider = (XQueryNamespaceResolver)moduleImportPsi;
 
         assertThat(provider.resolveNamespace(null), is(notDefined()));
@@ -2897,7 +2898,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testNamespaceDecl() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/NamespaceDecl.xq");
 
-        XQueryNamespaceDecl namespaceDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryNamespaceDecl.class);
+        XQueryNamespaceDecl namespaceDeclPsi = descendants(file).findFirst(XQueryNamespaceDecl.class).get();
         XQueryNamespaceResolver provider = (XQueryNamespaceResolver)namespaceDeclPsi;
 
         assertThat(provider.resolveNamespace(null), is(notDefined()));
@@ -2920,7 +2921,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testNamespaceDecl_MissingNCName() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/NamespaceDecl_MissingNCName.xq");
 
-        XQueryNamespaceDecl namespaceDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryNamespaceDecl.class);
+        XQueryNamespaceDecl namespaceDeclPsi = descendants(file).findFirst(XQueryNamespaceDecl.class).get();
         XQueryNamespaceResolver provider = (XQueryNamespaceResolver)namespaceDeclPsi;
 
         assertThat(provider.resolveNamespace(null), is(notDefined()));
@@ -2932,7 +2933,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testNamespaceDecl_MissingUri() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/NamespaceDecl_MissingUri.xq");
 
-        XQueryNamespaceDecl namespaceDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryNamespaceDecl.class);
+        XQueryNamespaceDecl namespaceDeclPsi = descendants(file).findFirst(XQueryNamespaceDecl.class).get();
         XQueryNamespaceResolver provider = (XQueryNamespaceResolver)namespaceDeclPsi;
 
         assertThat(provider.resolveNamespace(null), is(notDefined()));
@@ -2957,7 +2958,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testProlog_NoNamespaceProviders() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/VarDecl.xq");
 
-        XQueryProlog prologPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryProlog.class);
+        XQueryProlog prologPsi = descendants(file).findFirst(XQueryProlog.class).get();
         XQueryNamespaceResolver provider = (XQueryNamespaceResolver)prologPsi;
 
         assertThat(provider.resolveNamespace(null), is(notDefined()));
@@ -2969,8 +2970,8 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testProlog_NamespaceDecl() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/NamespaceDecl.xq");
 
-        XQueryProlog prologPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryProlog.class);
-        XQueryNamespaceDecl namespaceDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryNamespaceDecl.class);
+        XQueryProlog prologPsi = descendants(file).findFirst(XQueryProlog.class).get();
+        XQueryNamespaceDecl namespaceDeclPsi = descendants(file).findFirst(XQueryNamespaceDecl.class).get();
         XQueryNamespaceResolver provider = (XQueryNamespaceResolver)prologPsi;
 
         assertThat(provider.resolveNamespace(null), is(notDefined()));
@@ -2996,7 +2997,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testSchemaImport() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/SchemaImport.xq");
 
-        XQuerySchemaImport schemaImportPsi = PsiNavigation.findDirectDescendantByClass(file, XQuerySchemaImport.class);
+        XQuerySchemaImport schemaImportPsi = descendants(file).findFirst(XQuerySchemaImport.class).get();
         XQueryNamespaceResolver provider = (XQueryNamespaceResolver)schemaImportPsi;
 
         assertThat(provider.resolveNamespace(null), is(notDefined()));
@@ -3008,7 +3009,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testSchemaImport_WithSchemaPrefix() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/SchemaPrefix.xq");
 
-        XQuerySchemaImport schemaImportPsi = PsiNavigation.findDirectDescendantByClass(file, XQuerySchemaImport.class);
+        XQuerySchemaImport schemaImportPsi = descendants(file).findFirst(XQuerySchemaImport.class).get();
         XQueryNamespaceResolver provider = (XQueryNamespaceResolver)schemaImportPsi;
 
         assertThat(provider.resolveNamespace(null), is(notDefined()));
@@ -3031,7 +3032,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testSchemaImport_WithSchemaPrefix_MissingNCName() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/SchemaPrefix_MissingNCName.xq");
 
-        XQuerySchemaImport schemaImportPsi = PsiNavigation.findDirectDescendantByClass(file, XQuerySchemaImport.class);
+        XQuerySchemaImport schemaImportPsi = descendants(file).findFirst(XQuerySchemaImport.class).get();
         XQueryNamespaceResolver provider = (XQueryNamespaceResolver)schemaImportPsi;
 
         assertThat(provider.resolveNamespace(null), is(notDefined()));
@@ -3043,7 +3044,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testSchemaImport_WithSchemaPrefix_Default() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/SchemaPrefix_Default.xq");
 
-        XQuerySchemaImport schemaImportPsi = PsiNavigation.findDirectDescendantByClass(file, XQuerySchemaImport.class);
+        XQuerySchemaImport schemaImportPsi = descendants(file).findFirst(XQuerySchemaImport.class).get();
         XQueryNamespaceResolver provider = (XQueryNamespaceResolver)schemaImportPsi;
 
         assertThat(provider.resolveNamespace(null), is(notDefined()));
@@ -3059,7 +3060,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testParamList() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/ParamList.xq");
 
-        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryAnnotatedDecl.class);
+        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
         XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryFunctionDecl.class);
         XQueryParamList paramListPsi = PsiNavigation.findChildByClass(functionDeclPsi, XQueryParamList.class);
         assertThat(paramListPsi, is(notNullValue()));
@@ -3072,7 +3073,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testStringLiteral() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/StringLiteral.xq");
 
-        XQueryStringLiteral stringLiteralPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryStringLiteral.class);
+        XQueryStringLiteral stringLiteralPsi = descendants(file).findFirst(XQueryStringLiteral.class).get();
         assertThat(stringLiteralPsi, is(notNullValue()));
         assertThat(stringLiteralPsi.getAtomicValue(), is("One Two"));
     }
@@ -3080,7 +3081,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testStringLiteral_Empty() {
         final XQueryFile file = parseResource("tests/psi/xquery-1.0/StringLiteral_Empty.xq");
 
-        XQueryStringLiteral stringLiteralPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryStringLiteral.class);
+        XQueryStringLiteral stringLiteralPsi = descendants(file).findFirst(XQueryStringLiteral.class).get();
         assertThat(stringLiteralPsi, is(notNullValue()));
         assertThat(stringLiteralPsi.getAtomicValue(), is(nullValue()));
     }
@@ -3091,7 +3092,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testURIQualifiedName() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/BracedURILiteral.xq");
 
-        XQueryOptionDecl optionDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryOptionDecl.class);
+        XQueryOptionDecl optionDeclPsi = descendants(file).findFirst(XQueryOptionDecl.class).get();
         XQueryURIQualifiedName qnamePsi = PsiNavigation.findChildByClass(optionDeclPsi, XQueryURIQualifiedName.class);
 
         assertThat(qnamePsi.getPrefix(), is(defined()));
@@ -3110,7 +3111,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testAnnotatedDecl_VarDecl() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/VarDecl.xq");
 
-        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryAnnotatedDecl.class);
+        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
         XQueryVarDecl varDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryVarDecl.class);
         XQueryEQName varNamePsi = PsiNavigation.findChildByClass(varDeclPsi, XQueryEQName.class);
         XQueryVariableResolver provider = (XQueryVariableResolver)annotatedDeclPsi;
@@ -3130,7 +3131,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testAnnotatedDecl_FunctionDecl() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/FunctionDecl.xq");
 
-        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryAnnotatedDecl.class);
+        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
         XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryFunctionDecl.class);
         XQueryEQName functionNamePsi = PsiNavigation.findChildByClass(functionDeclPsi, XQueryEQName.class);
         XQueryVariableResolver provider = (XQueryVariableResolver)annotatedDeclPsi;
@@ -3145,7 +3146,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testCaseClause_VariableProvider() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/CaseClause_Variable.xq");
 
-        XQueryTypeswitchExpr typeswitchExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryTypeswitchExpr.class);
+        XQueryTypeswitchExpr typeswitchExprPsi = descendants(file).findFirst(XQueryTypeswitchExpr.class).get();
         XQueryCaseClause caseClausePsi = PsiNavigation.findChildByClass(typeswitchExprPsi, XQueryCaseClause.class);
         XQueryVarName varNamePsi = PsiNavigation.findChildByClass(caseClausePsi, XQueryVarName.class);
         XQueryVariableResolver provider = (XQueryVariableResolver)caseClausePsi;
@@ -3168,9 +3169,9 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testCountClause_VariableProvider() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/CountClause.xq");
 
-        XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFLWORExpr.class);
+        XQueryFLWORExpr flworExprPsi = descendants(file).findFirst(XQueryFLWORExpr.class).get();
         XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildByClass(flworExprPsi, XQueryIntermediateClause.class);
-        XQueryCountClause countClausePsi = PsiNavigation.findDirectDescendantByClass(intermediateClausePsi, XQueryCountClause.class);
+        XQueryCountClause countClausePsi = descendants(intermediateClausePsi).findFirst(XQueryCountClause.class).get();
         XQueryVarName varNamePsi = PsiNavigation.findChildByClass(countClausePsi, XQueryVarName.class);
         XQueryVariableResolver provider = (XQueryVariableResolver)intermediateClausePsi;
 
@@ -3192,7 +3193,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testForBinding_VariableProvider() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/ForClause.xq");
 
-        XQueryForClause forClausePsi = PsiNavigation.findDirectDescendantByClass(file, XQueryForClause.class);
+        XQueryForClause forClausePsi = descendants(file).findFirst(XQueryForClause.class).get();
         XQueryForBinding forBindingPsi = PsiNavigation.findChildByClass(forClausePsi, XQueryForBinding.class);
         XQueryVarName varNamePsi = PsiNavigation.findChildByClass(forBindingPsi, XQueryVarName.class);
         XQueryVariableResolver provider = (XQueryVariableResolver)forBindingPsi;
@@ -3212,7 +3213,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testForBinding_PositionalVar_VariableProvider() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/PositionalVar.xq");
 
-        XQueryForClause forClausePsi = PsiNavigation.findDirectDescendantByClass(file, XQueryForClause.class);
+        XQueryForClause forClausePsi = descendants(file).findFirst(XQueryForClause.class).get();
         XQueryForBinding forBindingPsi = PsiNavigation.findChildByClass(forClausePsi, XQueryForBinding.class);
         XQueryVarName varNamePsi = PsiNavigation.findChildByClass(forBindingPsi, XQueryVarName.class);
 
@@ -3252,7 +3253,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testForClause_VariableProvider() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/ForClause.xq");
 
-        XQueryForClause forClausePsi = PsiNavigation.findDirectDescendantByClass(file, XQueryForClause.class);
+        XQueryForClause forClausePsi = descendants(file).findFirst(XQueryForClause.class).get();
         XQueryForBinding forBindingPsi = PsiNavigation.findChildByClass(forClausePsi, XQueryForBinding.class);
         XQueryVarName varNamePsi = PsiNavigation.findChildByClass(forBindingPsi, XQueryVarName.class);
         XQueryVariableResolver provider = (XQueryVariableResolver)forClausePsi;
@@ -3275,7 +3276,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testFunctionDecl_VariableProvider() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/Param.xq");
 
-        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryAnnotatedDecl.class);
+        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
         XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryFunctionDecl.class);
         XQueryParamList paramListPsi = PsiNavigation.findChildByClass(functionDeclPsi, XQueryParamList.class);
         XQueryParam paramPsi = PsiNavigation.findChildByClass(paramListPsi, XQueryParam.class);
@@ -3300,9 +3301,9 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testGroupByClause_VariableProvider() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/GroupByClause.xq");
 
-        XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFLWORExpr.class);
+        XQueryFLWORExpr flworExprPsi = descendants(file).findFirst(XQueryFLWORExpr.class).get();
         XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildByClass(flworExprPsi, XQueryIntermediateClause.class);
-        XQueryGroupByClause groupByClausePsi = PsiNavigation.findDirectDescendantByClass(intermediateClausePsi, XQueryGroupByClause.class);
+        XQueryGroupByClause groupByClausePsi = descendants(intermediateClausePsi).findFirst(XQueryGroupByClause.class).get();
         XQueryGroupingSpecList groupingSpecListPsi = PsiNavigation.findChildByClass(groupByClausePsi, XQueryGroupingSpecList.class);
         XQueryGroupingSpec groupingSpecPsi = PsiNavigation.findChildByClass(groupingSpecListPsi, XQueryGroupingSpec.class);
         XQueryGroupingVariable groupingVariablePsi = PsiNavigation.findChildByClass(groupingSpecPsi, XQueryGroupingVariable.class);
@@ -3327,9 +3328,9 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testGroupingSpec_VariableProvider() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/GroupByClause.xq");
 
-        XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFLWORExpr.class);
+        XQueryFLWORExpr flworExprPsi = descendants(file).findFirst(XQueryFLWORExpr.class).get();
         XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildByClass(flworExprPsi, XQueryIntermediateClause.class);
-        XQueryGroupByClause groupByClausePsi = PsiNavigation.findDirectDescendantByClass(intermediateClausePsi, XQueryGroupByClause.class);
+        XQueryGroupByClause groupByClausePsi = descendants(intermediateClausePsi).findFirst(XQueryGroupByClause.class).get();
         XQueryGroupingSpecList groupingSpecListPsi = PsiNavigation.findChildByClass(groupByClausePsi, XQueryGroupingSpecList.class);
         XQueryGroupingSpec groupingSpecPsi = PsiNavigation.findChildByClass(groupingSpecListPsi, XQueryGroupingSpec.class);
         XQueryGroupingVariable groupingVariablePsi = PsiNavigation.findChildByClass(groupingSpecPsi, XQueryGroupingVariable.class);
@@ -3354,9 +3355,9 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testGroupingSpecList_VariableProvider() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/GroupByClause.xq");
 
-        XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFLWORExpr.class);
+        XQueryFLWORExpr flworExprPsi = descendants(file).findFirst(XQueryFLWORExpr.class).get();
         XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildByClass(flworExprPsi, XQueryIntermediateClause.class);
-        XQueryGroupByClause groupByClausePsi = PsiNavigation.findDirectDescendantByClass(intermediateClausePsi, XQueryGroupByClause.class);
+        XQueryGroupByClause groupByClausePsi = descendants(intermediateClausePsi).findFirst(XQueryGroupByClause.class).get();
         XQueryGroupingSpecList groupingSpecListPsi = PsiNavigation.findChildByClass(groupByClausePsi, XQueryGroupingSpecList.class);
         XQueryGroupingSpec groupingSpecPsi = PsiNavigation.findChildByClass(groupingSpecListPsi, XQueryGroupingSpec.class);
         XQueryGroupingVariable groupingVariablePsi = PsiNavigation.findChildByClass(groupingSpecPsi, XQueryGroupingVariable.class);
@@ -3381,9 +3382,9 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testGroupingVariable_VariableProvider() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/GroupByClause.xq");
 
-        XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFLWORExpr.class);
+        XQueryFLWORExpr flworExprPsi = descendants(file).findFirst(XQueryFLWORExpr.class).get();
         XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildByClass(flworExprPsi, XQueryIntermediateClause.class);
-        XQueryGroupByClause groupByClausePsi = PsiNavigation.findDirectDescendantByClass(intermediateClausePsi, XQueryGroupByClause.class);
+        XQueryGroupByClause groupByClausePsi = descendants(intermediateClausePsi).findFirst(XQueryGroupByClause.class).get();
         XQueryGroupingSpecList groupingSpecListPsi = PsiNavigation.findChildByClass(groupByClausePsi, XQueryGroupingSpecList.class);
         XQueryGroupingSpec groupingSpecPsi = PsiNavigation.findChildByClass(groupingSpecListPsi, XQueryGroupingSpec.class);
         XQueryGroupingVariable groupingVariablePsi = PsiNavigation.findChildByClass(groupingSpecPsi, XQueryGroupingVariable.class);
@@ -3408,9 +3409,9 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testIntermediateClause_VariableProvider() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/IntermediateClause_ForOrderByLet.xq");
 
-        XQueryFLWORExpr flworExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryFLWORExpr.class);
+        XQueryFLWORExpr flworExprPsi = descendants(file).findFirst(XQueryFLWORExpr.class).get();
         XQueryIntermediateClause intermediateClausePsi = PsiNavigation.findChildByClass(flworExprPsi, XQueryIntermediateClause.class);
-        XQueryForClause forClausePsi = PsiNavigation.findDirectDescendantByClass(intermediateClausePsi, XQueryForClause.class);
+        XQueryForClause forClausePsi = descendants(intermediateClausePsi).findFirst(XQueryForClause.class).get();
         XQueryForBinding forBindingPsi = PsiNavigation.findChildByClass(forClausePsi, XQueryForBinding.class);
         XQueryVarName varNamePsi = PsiNavigation.findChildByClass(forBindingPsi, XQueryVarName.class);
         XQueryVariableResolver provider = (XQueryVariableResolver)intermediateClausePsi;
@@ -3433,7 +3434,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testLetBinding_VariableProvider() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/LetClause.xq");
 
-        XQueryLetClause letClausePsi = PsiNavigation.findDirectDescendantByClass(file, XQueryLetClause.class);
+        XQueryLetClause letClausePsi = descendants(file).findFirst(XQueryLetClause.class).get();
         XQueryLetBinding letBindingPsi = PsiNavigation.findChildByClass(letClausePsi, XQueryLetBinding.class);
         XQueryVarName varNamePsi = PsiNavigation.findChildByClass(letBindingPsi, XQueryVarName.class);
         XQueryVariableResolver provider = (XQueryVariableResolver)letBindingPsi;
@@ -3456,7 +3457,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testLetClause_VariableProvider() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/LetClause.xq");
 
-        XQueryLetClause letClausePsi = PsiNavigation.findDirectDescendantByClass(file, XQueryLetClause.class);
+        XQueryLetClause letClausePsi = descendants(file).findFirst(XQueryLetClause.class).get();
         XQueryLetBinding letBindingPsi = PsiNavigation.findChildByClass(letClausePsi, XQueryLetBinding.class);
         XQueryVarName varNamePsi = PsiNavigation.findChildByClass(letBindingPsi, XQueryVarName.class);
         XQueryVariableResolver provider = (XQueryVariableResolver)letClausePsi;
@@ -3479,7 +3480,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testParam_VariableProvider() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/Param.xq");
 
-        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryAnnotatedDecl.class);
+        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
         XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryFunctionDecl.class);
         XQueryParamList paramListPsi = PsiNavigation.findChildByClass(functionDeclPsi, XQueryParamList.class);
         XQueryParam paramPsi = PsiNavigation.findChildByClass(paramListPsi, XQueryParam.class);
@@ -3504,7 +3505,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testParamList_VariableProvider() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/Param.xq");
 
-        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryAnnotatedDecl.class);
+        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
         XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryFunctionDecl.class);
         XQueryParamList paramListPsi = PsiNavigation.findChildByClass(functionDeclPsi, XQueryParamList.class);
         XQueryParam paramPsi = PsiNavigation.findChildByClass(paramListPsi, XQueryParam.class);
@@ -3529,7 +3530,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testPositionalVar_VariableProvider() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/PositionalVar.xq");
 
-        XQueryForClause forClausePsi = PsiNavigation.findDirectDescendantByClass(file, XQueryForClause.class);
+        XQueryForClause forClausePsi = descendants(file).findFirst(XQueryForClause.class).get();
         XQueryForBinding forBindingPsi = PsiNavigation.findChildByClass(forClausePsi, XQueryForBinding.class);
         XQueryPositionalVar positionalVarPsi = PsiNavigation.findChildByClass(forBindingPsi, XQueryPositionalVar.class);
         XQueryVarName varNamePsi = PsiNavigation.findChildByClass(positionalVarPsi, XQueryVarName.class);
@@ -3553,11 +3554,11 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testProlog_VarDecl() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/VarDecl.xq");
 
-        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryAnnotatedDecl.class);
+        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
         XQueryVarDecl varDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryVarDecl.class);
         XQueryEQName varNamePsi = PsiNavigation.findChildByClass(varDeclPsi, XQueryEQName.class);
 
-        XQueryProlog prologPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryProlog.class);
+        XQueryProlog prologPsi = descendants(file).findFirst(XQueryProlog.class).get();
         XQueryVariableResolver provider = (XQueryVariableResolver)prologPsi;
 
         assertThat(provider.resolveVariable(null), is(notDefined()));
@@ -3575,11 +3576,11 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testProlog_FunctionDecl() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/FunctionDecl.xq");
 
-        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryAnnotatedDecl.class);
+        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
         XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryFunctionDecl.class);
         XQueryEQName functionNamePsi = PsiNavigation.findChildByClass(functionDeclPsi, XQueryEQName.class);
 
-        XQueryProlog prologPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryProlog.class);
+        XQueryProlog prologPsi = descendants(file).findFirst(XQueryProlog.class).get();
         XQueryVariableResolver provider = (XQueryVariableResolver)prologPsi;
 
         assertThat(provider.resolveVariable(null), is(notDefined()));
@@ -3592,7 +3593,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testQuantifiedExpr_VariableProvider() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/QuantifiedExpr.xq");
 
-        XQueryQuantifiedExpr quantifiedExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryQuantifiedExpr.class);
+        XQueryQuantifiedExpr quantifiedExprPsi = descendants(file).findFirst(XQueryQuantifiedExpr.class).get();
         XQueryVarName varNamePsi = PsiNavigation.findChildByClass(quantifiedExprPsi, XQueryVarName.class);
         XQueryVariableResolver provider = (XQueryVariableResolver)quantifiedExprPsi;
 
@@ -3614,7 +3615,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testSlidingWindowClause_VariableProvider() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/SlidingWindowClause.xq");
 
-        XQueryWindowClause windowClausePsi = PsiNavigation.findDirectDescendantByClass(file, XQueryWindowClause.class);
+        XQueryWindowClause windowClausePsi = descendants(file).findFirst(XQueryWindowClause.class).get();
         XQuerySlidingWindowClause slidingWindowClausePsi = PsiNavigation.findChildByClass(windowClausePsi, XQuerySlidingWindowClause.class);
         XQueryVarName varNamePsi = PsiNavigation.findChildByClass(slidingWindowClausePsi, XQueryVarName.class);
         XQueryVariableResolver provider = (XQueryVariableResolver)slidingWindowClausePsi;
@@ -3634,7 +3635,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testSlidingWindowClause_WindowEndCondition_VariableProvider() {
         final XQueryFile file = parseResource("tests/psi/xquery-3.0/SlidingWindowClause_EndCondition_AllVars.xq");
 
-        XQueryWindowClause windowClausePsi = PsiNavigation.findDirectDescendantByClass(file, XQueryWindowClause.class);
+        XQueryWindowClause windowClausePsi = descendants(file).findFirst(XQueryWindowClause.class).get();
         XQuerySlidingWindowClause slidingWindowClausePsi = PsiNavigation.findChildByClass(windowClausePsi, XQuerySlidingWindowClause.class);
         XQueryWindowEndCondition windowEndConditionPsi = PsiNavigation.findChildByClass(slidingWindowClausePsi, XQueryWindowEndCondition.class);
         XQueryWindowVars windowVarsPsi = PsiNavigation.findChildByClass(windowEndConditionPsi, XQueryWindowVars.class);
@@ -3695,7 +3696,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testSlidingWindowClause_WindowStartCondition_VariableProvider() {
         final XQueryFile file = parseResource("tests/psi/xquery-3.0/SlidingWindowClause_StartCondition_AllVars.xq");
 
-        XQueryWindowClause windowClausePsi = PsiNavigation.findDirectDescendantByClass(file, XQueryWindowClause.class);
+        XQueryWindowClause windowClausePsi = descendants(file).findFirst(XQueryWindowClause.class).get();
         XQuerySlidingWindowClause slidingWindowClausePsi = PsiNavigation.findChildByClass(windowClausePsi, XQuerySlidingWindowClause.class);
         XQueryWindowStartCondition windowStartConditionPsi = PsiNavigation.findChildByClass(slidingWindowClausePsi, XQueryWindowStartCondition.class);
         XQueryWindowVars windowVarsPsi = PsiNavigation.findChildByClass(windowStartConditionPsi, XQueryWindowVars.class);
@@ -3759,7 +3760,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testTumblingWindowClause_VariableProvider() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/TumblingWindowClause.xq");
 
-        XQueryWindowClause windowClausePsi = PsiNavigation.findDirectDescendantByClass(file, XQueryWindowClause.class);
+        XQueryWindowClause windowClausePsi = descendants(file).findFirst(XQueryWindowClause.class).get();
         XQueryTumblingWindowClause tumblingWindowClausePsi = PsiNavigation.findChildByClass(windowClausePsi, XQueryTumblingWindowClause.class);
         XQueryVarName varNamePsi = PsiNavigation.findChildByClass(tumblingWindowClausePsi, XQueryVarName.class);
         XQueryVariableResolver provider = (XQueryVariableResolver)tumblingWindowClausePsi;
@@ -3779,7 +3780,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testTumblingWindowClause_WindowEndCondition_VariableProvider() {
         final XQueryFile file = parseResource("tests/psi/xquery-3.0/TumblingWindowClause_EndCondition_AllVars.xq");
 
-        XQueryWindowClause windowClausePsi = PsiNavigation.findDirectDescendantByClass(file, XQueryWindowClause.class);
+        XQueryWindowClause windowClausePsi = descendants(file).findFirst(XQueryWindowClause.class).get();
         XQueryTumblingWindowClause tumblingWindowClausePsi = PsiNavigation.findChildByClass(windowClausePsi, XQueryTumblingWindowClause.class);
         XQueryWindowEndCondition windowEndConditionPsi = PsiNavigation.findChildByClass(tumblingWindowClausePsi, XQueryWindowEndCondition.class);
         XQueryWindowVars windowVarsPsi = PsiNavigation.findChildByClass(windowEndConditionPsi, XQueryWindowVars.class);
@@ -3840,7 +3841,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testTumblingWindowClause_WindowStartCondition_VariableProvider() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/WindowVars_AllVars.xq");
 
-        XQueryWindowClause windowClausePsi = PsiNavigation.findDirectDescendantByClass(file, XQueryWindowClause.class);
+        XQueryWindowClause windowClausePsi = descendants(file).findFirst(XQueryWindowClause.class).get();
         XQueryTumblingWindowClause tumblingWindowClausePsi = PsiNavigation.findChildByClass(windowClausePsi, XQueryTumblingWindowClause.class);
         XQueryWindowStartCondition windowStartConditionPsi = PsiNavigation.findChildByClass(tumblingWindowClausePsi, XQueryWindowStartCondition.class);
         XQueryWindowVars windowVarsPsi = PsiNavigation.findChildByClass(windowStartConditionPsi, XQueryWindowVars.class);
@@ -3904,7 +3905,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testTypeswitchExpr_Default_VariableProvider() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/TypeswitchExpr_Variable.xq");
 
-        XQueryTypeswitchExpr typeswitchExprPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryTypeswitchExpr.class);
+        XQueryTypeswitchExpr typeswitchExprPsi = descendants(file).findFirst(XQueryTypeswitchExpr.class).get();
         XQueryVarName varNamePsi = PsiNavigation.findChildByClass(typeswitchExprPsi, XQueryVarName.class);
         XQueryVariableResolver provider = (XQueryVariableResolver)typeswitchExprPsi;
 
@@ -3926,7 +3927,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testVarDecl_VariableProvider() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/VarDecl.xq");
 
-        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryAnnotatedDecl.class);
+        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
         XQueryVarDecl varDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryVarDecl.class);
         XQueryEQName varNamePsi = PsiNavigation.findChildByClass(varDeclPsi, XQueryEQName.class);
         XQueryVariableResolver provider = (XQueryVariableResolver)varDeclPsi;
@@ -3949,7 +3950,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testWindowClause_SlidingWindowClause_VariableProvider() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/SlidingWindowClause.xq");
 
-        XQueryWindowClause windowClausePsi = PsiNavigation.findDirectDescendantByClass(file, XQueryWindowClause.class);
+        XQueryWindowClause windowClausePsi = descendants(file).findFirst(XQueryWindowClause.class).get();
         XQuerySlidingWindowClause slidingWindowClausePsi = PsiNavigation.findChildByClass(windowClausePsi, XQuerySlidingWindowClause.class);
         XQueryVarName varNamePsi = PsiNavigation.findChildByClass(slidingWindowClausePsi, XQueryVarName.class);
         XQueryVariableResolver provider = (XQueryVariableResolver)windowClausePsi;
@@ -3969,7 +3970,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testWindowClause_TumblingWindowClause_VariableProvider() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/TumblingWindowClause.xq");
 
-        XQueryWindowClause windowClausePsi = PsiNavigation.findDirectDescendantByClass(file, XQueryWindowClause.class);
+        XQueryWindowClause windowClausePsi = descendants(file).findFirst(XQueryWindowClause.class).get();
         XQueryTumblingWindowClause tumblingWindowClausePsi = PsiNavigation.findChildByClass(windowClausePsi, XQueryTumblingWindowClause.class);
         XQueryVarName varNamePsi = PsiNavigation.findChildByClass(tumblingWindowClausePsi, XQueryVarName.class);
         XQueryVariableResolver provider = (XQueryVariableResolver)windowClausePsi;
@@ -3992,7 +3993,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testWindowEndCondition_VariableProvider() {
         final XQueryFile file = parseResource("tests/psi/xquery-3.0/TumblingWindowClause_EndCondition_AllVars.xq");
 
-        XQueryWindowClause windowClausePsi = PsiNavigation.findDirectDescendantByClass(file, XQueryWindowClause.class);
+        XQueryWindowClause windowClausePsi = descendants(file).findFirst(XQueryWindowClause.class).get();
         XQueryTumblingWindowClause tumblingWindowClausePsi = PsiNavigation.findChildByClass(windowClausePsi, XQueryTumblingWindowClause.class);
         XQueryWindowEndCondition windowEndConditionPsi = PsiNavigation.findChildByClass(tumblingWindowClausePsi, XQueryWindowEndCondition.class);
         XQueryWindowVars windowVarsPsi = PsiNavigation.findChildByClass(windowEndConditionPsi, XQueryWindowVars.class);
@@ -4056,7 +4057,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testWindowStartCondition_VariableProvider() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/WindowVars_AllVars.xq");
 
-        XQueryWindowClause windowClausePsi = PsiNavigation.findDirectDescendantByClass(file, XQueryWindowClause.class);
+        XQueryWindowClause windowClausePsi = descendants(file).findFirst(XQueryWindowClause.class).get();
         XQueryTumblingWindowClause tumblingWindowClausePsi = PsiNavigation.findChildByClass(windowClausePsi, XQueryTumblingWindowClause.class);
         XQueryWindowStartCondition windowStartConditionPsi = PsiNavigation.findChildByClass(tumblingWindowClausePsi, XQueryWindowStartCondition.class);
         XQueryWindowVars windowVarsPsi = PsiNavigation.findChildByClass(windowStartConditionPsi, XQueryWindowVars.class);
@@ -4120,7 +4121,7 @@ public class XQueryPsiTest extends ParserTestCase {
     public void testWindowVars_VariableProvider() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/WindowVars_AllVars.xq");
 
-        XQueryWindowClause windowClausePsi = PsiNavigation.findDirectDescendantByClass(file, XQueryWindowClause.class);
+        XQueryWindowClause windowClausePsi = descendants(file).findFirst(XQueryWindowClause.class).get();
         XQueryTumblingWindowClause tumblingWindowClausePsi = PsiNavigation.findChildByClass(windowClausePsi, XQueryTumblingWindowClause.class);
         XQueryWindowStartCondition windowStartConditionPsi = PsiNavigation.findChildByClass(tumblingWindowClausePsi, XQueryWindowStartCondition.class);
         XQueryWindowVars windowVarsPsi = PsiNavigation.findChildByClass(windowStartConditionPsi, XQueryWindowVars.class);
@@ -4186,7 +4187,7 @@ public class XQueryPsiTest extends ParserTestCase {
         getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/VersionDecl.xq");
 
-        XQueryVersionDecl versionDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryVersionDecl.class);
+        XQueryVersionDecl versionDeclPsi = descendants(file).findFirst(XQueryVersionDecl.class).get();
         assertThat(versionDeclPsi.getVersion(), is(notNullValue()));
         assertThat(versionDeclPsi.getVersion().getAtomicValue(), is("1.0"));
         assertThat(versionDeclPsi.getEncoding(), is(nullValue()));
@@ -4211,7 +4212,7 @@ public class XQueryPsiTest extends ParserTestCase {
         final XQueryFile file = parseResource("tests/psi/xquery-1.0/VersionDecl_CommentBeforeDecl.xq");
 
         XQueryModule modulePsi = PsiNavigation.findChildByClass(file, XQueryModule.class);
-        XQueryVersionDecl versionDeclPsi = PsiNavigation.findDirectDescendantByClass(modulePsi, XQueryVersionDecl.class);
+        XQueryVersionDecl versionDeclPsi = descendants(modulePsi).findFirst(XQueryVersionDecl.class).get();
         assertThat(versionDeclPsi.getVersion(), is(notNullValue()));
         assertThat(versionDeclPsi.getVersion().getAtomicValue(), is("1.0"));
         assertThat(versionDeclPsi.getEncoding(), is(nullValue()));
@@ -4235,7 +4236,7 @@ public class XQueryPsiTest extends ParserTestCase {
         getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
         final XQueryFile file = parseResource("tests/psi/xquery-1.0/VersionDecl_EmptyVersion.xq");
 
-        XQueryVersionDecl versionDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryVersionDecl.class);
+        XQueryVersionDecl versionDeclPsi = descendants(file).findFirst(XQueryVersionDecl.class).get();
         assertThat(versionDeclPsi.getVersion(), is(notNullValue()));
         assertThat(versionDeclPsi.getVersion().getAtomicValue(), is(nullValue()));
         assertThat(versionDeclPsi.getEncoding(), is(nullValue()));
@@ -4259,7 +4260,7 @@ public class XQueryPsiTest extends ParserTestCase {
         getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/VersionDecl_WithEncoding.xq");
 
-        XQueryVersionDecl versionDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryVersionDecl.class);
+        XQueryVersionDecl versionDeclPsi = descendants(file).findFirst(XQueryVersionDecl.class).get();
         assertThat(versionDeclPsi.getVersion(), is(notNullValue()));
         assertThat(versionDeclPsi.getVersion().getAtomicValue(), is("1.0"));
         assertThat(versionDeclPsi.getEncoding(), is(notNullValue()));
@@ -4284,7 +4285,7 @@ public class XQueryPsiTest extends ParserTestCase {
         getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
         final XQueryFile file = parseResource("tests/psi/xquery-1.0/VersionDecl_WithEncoding_CommentsAsWhitespace.xq");
 
-        XQueryVersionDecl versionDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryVersionDecl.class);
+        XQueryVersionDecl versionDeclPsi = descendants(file).findFirst(XQueryVersionDecl.class).get();
         assertThat(versionDeclPsi.getVersion(), is(notNullValue()));
         assertThat(versionDeclPsi.getVersion().getAtomicValue(), is("1.0"));
         assertThat(versionDeclPsi.getEncoding(), is(notNullValue()));
@@ -4309,7 +4310,7 @@ public class XQueryPsiTest extends ParserTestCase {
         getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
         final XQueryFile file = parseResource("tests/psi/xquery-1.0/VersionDecl_WithEncoding_EmptyEncoding.xq");
 
-        XQueryVersionDecl versionDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryVersionDecl.class);
+        XQueryVersionDecl versionDeclPsi = descendants(file).findFirst(XQueryVersionDecl.class).get();
         assertThat(versionDeclPsi.getVersion(), is(notNullValue()));
         assertThat(versionDeclPsi.getVersion().getAtomicValue(), is("1.0"));
         assertThat(versionDeclPsi.getEncoding(), is(notNullValue()));
@@ -4334,7 +4335,7 @@ public class XQueryPsiTest extends ParserTestCase {
         getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
         final XQueryFile file = parseResource("tests/psi/xquery-1.0/VersionDecl_NoVersion.xq");
 
-        XQueryVersionDecl versionDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryVersionDecl.class);
+        XQueryVersionDecl versionDeclPsi = descendants(file).findFirst(XQueryVersionDecl.class).get();
         assertThat(versionDeclPsi.getVersion(), is(nullValue()));
         assertThat(versionDeclPsi.getEncoding(), is(nullValue()));
 
@@ -4357,7 +4358,7 @@ public class XQueryPsiTest extends ParserTestCase {
         getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly.xq");
 
-        XQueryVersionDecl versionDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryVersionDecl.class);
+        XQueryVersionDecl versionDeclPsi = descendants(file).findFirst(XQueryVersionDecl.class).get();
         assertThat(versionDeclPsi.getVersion(), is(nullValue()));
         assertThat(versionDeclPsi.getEncoding(), is(notNullValue()));
         assertThat(versionDeclPsi.getEncoding().getAtomicValue(), is("latin1"));
@@ -4382,7 +4383,7 @@ public class XQueryPsiTest extends ParserTestCase {
         getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
         final XQueryFile file = parseResource("tests/psi/xquery-3.0/VersionDecl_EncodingOnly_EmptyEncoding.xq");
 
-        XQueryVersionDecl versionDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryVersionDecl.class);
+        XQueryVersionDecl versionDeclPsi = descendants(file).findFirst(XQueryVersionDecl.class).get();
         assertThat(versionDeclPsi.getVersion(), is(nullValue()));
         assertThat(versionDeclPsi.getEncoding(), is(notNullValue()));
         assertThat(versionDeclPsi.getEncoding().getAtomicValue(), is(nullValue()));

@@ -27,6 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static uk.co.reecedunn.intellij.plugin.xquery.functional.PsiTreeWalker.descendants;
 
 @SuppressWarnings("ConstantConditions")
 public class UpdateFacilityPsiTest extends ParserTestCase {
@@ -36,7 +37,7 @@ public class UpdateFacilityPsiTest extends ParserTestCase {
     public void testCompatibilityAnnotation_FunctionDecl() {
         final XQueryFile file = parseResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating.xq");
 
-        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryAnnotatedDecl.class);
+        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
         UpdateFacilityCompatibilityAnnotation compatibilityAnnotationPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, UpdateFacilityCompatibilityAnnotation.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)compatibilityAnnotationPsi;
 
@@ -55,7 +56,7 @@ public class UpdateFacilityPsiTest extends ParserTestCase {
     public void testCompatibilityAnnotation_VarDecl() {
         final XQueryFile file = parseResource("tests/parser/xquery-update-3.0/CompatibilityAnnotation_VarDecl.xq");
 
-        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryAnnotatedDecl.class);
+        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
         UpdateFacilityCompatibilityAnnotation compatibilityAnnotationPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, UpdateFacilityCompatibilityAnnotation.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)compatibilityAnnotationPsi;
 
@@ -77,7 +78,7 @@ public class UpdateFacilityPsiTest extends ParserTestCase {
     public void testDeleteExpr() {
         final XQueryFile file = parseResource("tests/parser/xquery-update-1.0/DeleteExpr_Node.xq");
 
-        UpdateFacilityDeleteExpr deleteExprPsi = PsiNavigation.findDirectDescendantByClass(file, UpdateFacilityDeleteExpr.class);
+        UpdateFacilityDeleteExpr deleteExprPsi = descendants(file).findFirst(UpdateFacilityDeleteExpr.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)deleteExprPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -98,7 +99,7 @@ public class UpdateFacilityPsiTest extends ParserTestCase {
     public void testFunctionDecl_Updating() {
         final XQueryFile file = parseResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating.xq");
 
-        XQueryAnnotatedDecl annotatedDeclPsi = PsiNavigation.findDirectDescendantByClass(file, XQueryAnnotatedDecl.class);
+        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
         UpdateFacilityCompatibilityAnnotation compatibilityAnnotationPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, UpdateFacilityCompatibilityAnnotation.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)compatibilityAnnotationPsi;
 
@@ -120,7 +121,7 @@ public class UpdateFacilityPsiTest extends ParserTestCase {
     public void testInsertExpr() {
         final XQueryFile file = parseResource("tests/parser/xquery-update-1.0/InsertExpr_Node.xq");
 
-        UpdateFacilityInsertExpr insertExprPsi = PsiNavigation.findDirectDescendantByClass(file, UpdateFacilityInsertExpr.class);
+        UpdateFacilityInsertExpr insertExprPsi = descendants(file).findFirst(UpdateFacilityInsertExpr.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)insertExprPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -141,7 +142,7 @@ public class UpdateFacilityPsiTest extends ParserTestCase {
     public void testRenameExpr() {
         final XQueryFile file = parseResource("tests/parser/xquery-update-1.0/RenameExpr.xq");
 
-        UpdateFacilityRenameExpr renameExprPsi = PsiNavigation.findDirectDescendantByClass(file, UpdateFacilityRenameExpr.class);
+        UpdateFacilityRenameExpr renameExprPsi = descendants(file).findFirst(UpdateFacilityRenameExpr.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)renameExprPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -162,7 +163,7 @@ public class UpdateFacilityPsiTest extends ParserTestCase {
     public void testReplaceExpr() {
         final XQueryFile file = parseResource("tests/parser/xquery-update-1.0/ReplaceExpr.xq");
 
-        UpdateFacilityReplaceExpr replaceExprPsi = PsiNavigation.findDirectDescendantByClass(file, UpdateFacilityReplaceExpr.class);
+        UpdateFacilityReplaceExpr replaceExprPsi = descendants(file).findFirst(UpdateFacilityReplaceExpr.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)replaceExprPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -183,7 +184,7 @@ public class UpdateFacilityPsiTest extends ParserTestCase {
     public void testRevalidationDecl() {
         final XQueryFile file = parseResource("tests/parser/xquery-update-1.0/RevalidationDecl.xq");
 
-        UpdateFacilityRevalidationDecl revalidationDeclPsi = PsiNavigation.findDirectDescendantByClass(file, UpdateFacilityRevalidationDecl.class);
+        UpdateFacilityRevalidationDecl revalidationDeclPsi = descendants(file).findFirst(UpdateFacilityRevalidationDecl.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)revalidationDeclPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -204,7 +205,7 @@ public class UpdateFacilityPsiTest extends ParserTestCase {
     public void testTransformExpr() {
         final XQueryFile file = parseResource("tests/parser/xquery-update-1.0/TransformExpr.xq");
 
-        UpdateFacilityTransformExpr transformExprPsi = PsiNavigation.findDirectDescendantByClass(file, UpdateFacilityTransformExpr.class);
+        UpdateFacilityTransformExpr transformExprPsi = descendants(file).findFirst(UpdateFacilityTransformExpr.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)transformExprPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
