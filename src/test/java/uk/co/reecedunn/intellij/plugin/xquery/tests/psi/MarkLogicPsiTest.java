@@ -20,13 +20,13 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Implementations;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.PsiNavigation;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static uk.co.reecedunn.intellij.plugin.xquery.functional.PsiTreeWalker.children;
 import static uk.co.reecedunn.intellij.plugin.xquery.functional.PsiTreeWalker.descendants;
 
 @SuppressWarnings("ConstantConditions")
@@ -38,9 +38,9 @@ public class MarkLogicPsiTest extends ParserTestCase {
         final XQueryFile file = parseResource("tests/parser/marklogic-8.0/AnyKindTest_KeyName.xq");
 
         XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
-        XQueryVarDecl varDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryVarDecl.class);
-        XQueryTypeDeclaration typeDeclarationPsi = PsiNavigation.findChildByClass(varDeclPsi, XQueryTypeDeclaration.class);
-        XQuerySequenceType sequenceTypePsi = PsiNavigation.findChildByClass(typeDeclarationPsi, XQuerySequenceType.class);
+        XQueryVarDecl varDeclPsi = children(annotatedDeclPsi).findFirst(XQueryVarDecl.class).get();
+        XQueryTypeDeclaration typeDeclarationPsi = children(varDeclPsi).findFirst(XQueryTypeDeclaration.class).get();
+        XQuerySequenceType sequenceTypePsi = children(typeDeclarationPsi).findFirst(XQuerySequenceType.class).get();
         XQueryAnyKindTest anyKindTestPsi = descendants(sequenceTypePsi).findFirst(XQueryAnyKindTest.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)anyKindTestPsi;
 
@@ -66,9 +66,9 @@ public class MarkLogicPsiTest extends ParserTestCase {
         final XQueryFile file = parseResource("tests/parser/marklogic-8.0/AnyKindTest_Wildcard.xq");
 
         XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
-        XQueryVarDecl varDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryVarDecl.class);
-        XQueryTypeDeclaration typeDeclarationPsi = PsiNavigation.findChildByClass(varDeclPsi, XQueryTypeDeclaration.class);
-        XQuerySequenceType sequenceTypePsi = PsiNavigation.findChildByClass(typeDeclarationPsi, XQuerySequenceType.class);
+        XQueryVarDecl varDeclPsi = children(annotatedDeclPsi).findFirst(XQueryVarDecl.class).get();
+        XQueryTypeDeclaration typeDeclarationPsi = children(varDeclPsi).findFirst(XQueryTypeDeclaration.class).get();
+        XQuerySequenceType sequenceTypePsi = children(typeDeclarationPsi).findFirst(XQuerySequenceType.class).get();
         XQueryAnyKindTest anyKindTestPsi = descendants(sequenceTypePsi).findFirst(XQueryAnyKindTest.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)anyKindTestPsi;
 
@@ -97,9 +97,9 @@ public class MarkLogicPsiTest extends ParserTestCase {
         final XQueryFile file = parseResource("tests/parser/marklogic-8.0/ArrayTest.xq");
 
         XQueryAnnotatedDecl annotationDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
-        XQueryVarDecl varDeclPsi = PsiNavigation.findChildByClass(annotationDeclPsi, XQueryVarDecl.class);
-        XQueryTypeDeclaration typeDeclarationPsi = PsiNavigation.findChildByClass(varDeclPsi, XQueryTypeDeclaration.class);
-        XQuerySequenceType sequenceTypePsi = PsiNavigation.findChildByClass(typeDeclarationPsi, XQuerySequenceType.class);
+        XQueryVarDecl varDeclPsi = children(annotationDeclPsi).findFirst(XQueryVarDecl.class).get();
+        XQueryTypeDeclaration typeDeclarationPsi = children(varDeclPsi).findFirst(XQueryTypeDeclaration.class).get();
+        XQuerySequenceType sequenceTypePsi = children(typeDeclarationPsi).findFirst(XQuerySequenceType.class).get();
         MarkLogicArrayTest arrayTestPsi = descendants(sequenceTypePsi).findFirst(MarkLogicArrayTest.class).get();
 
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)arrayTestPsi;
@@ -128,9 +128,9 @@ public class MarkLogicPsiTest extends ParserTestCase {
         final XQueryFile file = parseResource("tests/parser/marklogic-6.0/BinaryTest.xq");
 
         XQueryAnnotatedDecl annotationDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
-        XQueryVarDecl varDeclPsi = PsiNavigation.findChildByClass(annotationDeclPsi, XQueryVarDecl.class);
-        XQueryTypeDeclaration typeDeclarationPsi = PsiNavigation.findChildByClass(varDeclPsi, XQueryTypeDeclaration.class);
-        XQuerySequenceType sequenceTypePsi = PsiNavigation.findChildByClass(typeDeclarationPsi, XQuerySequenceType.class);
+        XQueryVarDecl varDeclPsi = children(annotationDeclPsi).findFirst(XQueryVarDecl.class).get();
+        XQueryTypeDeclaration typeDeclarationPsi = children(varDeclPsi).findFirst(XQueryTypeDeclaration.class).get();
+        XQuerySequenceType sequenceTypePsi = children(typeDeclarationPsi).findFirst(XQuerySequenceType.class).get();
         MarkLogicBinaryTest binaryKindTestPsi = descendants(sequenceTypePsi).findFirst(MarkLogicBinaryTest.class).get();
 
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)binaryKindTestPsi;
@@ -159,9 +159,9 @@ public class MarkLogicPsiTest extends ParserTestCase {
         final XQueryFile file = parseResource("tests/parser/marklogic-8.0/BooleanTest.xq");
 
         XQueryAnnotatedDecl annotationDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
-        XQueryVarDecl varDeclPsi = PsiNavigation.findChildByClass(annotationDeclPsi, XQueryVarDecl.class);
-        XQueryTypeDeclaration typeDeclarationPsi = PsiNavigation.findChildByClass(varDeclPsi, XQueryTypeDeclaration.class);
-        XQuerySequenceType sequenceTypePsi = PsiNavigation.findChildByClass(typeDeclarationPsi, XQuerySequenceType.class);
+        XQueryVarDecl varDeclPsi = children(annotationDeclPsi).findFirst(XQueryVarDecl.class).get();
+        XQueryTypeDeclaration typeDeclarationPsi = children(varDeclPsi).findFirst(XQueryTypeDeclaration.class).get();
+        XQuerySequenceType sequenceTypePsi = children(typeDeclarationPsi).findFirst(XQuerySequenceType.class).get();
         MarkLogicBooleanTest booleanTestPsi = descendants(sequenceTypePsi).findFirst(MarkLogicBooleanTest.class).get();
 
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)booleanTestPsi;
@@ -190,7 +190,7 @@ public class MarkLogicPsiTest extends ParserTestCase {
         final XQueryFile file = parseResource("tests/parser/marklogic-6.0/CatchClause.xq");
 
         XQueryTryCatchExpr tryCatchExprPsi = descendants(file).findFirst(XQueryTryCatchExpr.class).get();
-        XQueryCatchClause catchClausePsi = PsiNavigation.findChildByClass(tryCatchExprPsi, XQueryCatchClause.class);
+        XQueryCatchClause catchClausePsi = children(tryCatchExprPsi).findFirst(XQueryCatchClause.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)catchClausePsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -219,7 +219,7 @@ public class MarkLogicPsiTest extends ParserTestCase {
         final XQueryFile file = parseResource("tests/parser/marklogic-6.0/CompatibilityAnnotation_FunctionDecl.xq");
 
         XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
-        MarkLogicCompatibilityAnnotation compatibilityAnnotationPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, MarkLogicCompatibilityAnnotation.class);
+        MarkLogicCompatibilityAnnotation compatibilityAnnotationPsi = children(annotatedDeclPsi).findFirst(MarkLogicCompatibilityAnnotation.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)compatibilityAnnotationPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -243,7 +243,7 @@ public class MarkLogicPsiTest extends ParserTestCase {
         final XQueryFile file = parseResource("tests/parser/marklogic-6.0/CompatibilityAnnotation_VarDecl.xq");
 
         XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
-        MarkLogicCompatibilityAnnotation compatibilityAnnotationPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, MarkLogicCompatibilityAnnotation.class);
+        MarkLogicCompatibilityAnnotation compatibilityAnnotationPsi = children(annotatedDeclPsi).findFirst(MarkLogicCompatibilityAnnotation.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)compatibilityAnnotationPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -593,7 +593,7 @@ public class MarkLogicPsiTest extends ParserTestCase {
         final XQueryFile file = parseResource("tests/psi/marklogic-8.0/FunctionDecl_ReservedKeyword_ArrayNode.xq");
 
         XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
-        XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryFunctionDecl.class);
+        XQueryFunctionDecl functionDeclPsi = children(annotatedDeclPsi).findFirst(XQueryFunctionDecl.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)functionDeclPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
@@ -619,7 +619,7 @@ public class MarkLogicPsiTest extends ParserTestCase {
         final XQueryFile file = parseResource("tests/psi/marklogic-8.0/FunctionDecl_ReservedKeyword_BooleanNode.xq");
 
         XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
-        XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryFunctionDecl.class);
+        XQueryFunctionDecl functionDeclPsi = children(annotatedDeclPsi).findFirst(XQueryFunctionDecl.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)functionDeclPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
@@ -645,7 +645,7 @@ public class MarkLogicPsiTest extends ParserTestCase {
         final XQueryFile file = parseResource("tests/psi/marklogic-8.0/FunctionDecl_ReservedKeyword_NullNode.xq");
 
         XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
-        XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryFunctionDecl.class);
+        XQueryFunctionDecl functionDeclPsi = children(annotatedDeclPsi).findFirst(XQueryFunctionDecl.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)functionDeclPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
@@ -671,7 +671,7 @@ public class MarkLogicPsiTest extends ParserTestCase {
         final XQueryFile file = parseResource("tests/psi/marklogic-8.0/FunctionDecl_ReservedKeyword_NumberNode.xq");
 
         XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
-        XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryFunctionDecl.class);
+        XQueryFunctionDecl functionDeclPsi = children(annotatedDeclPsi).findFirst(XQueryFunctionDecl.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)functionDeclPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
@@ -697,7 +697,7 @@ public class MarkLogicPsiTest extends ParserTestCase {
         final XQueryFile file = parseResource("tests/psi/marklogic-8.0/FunctionDecl_ReservedKeyword_ObjectNode.xq");
 
         XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
-        XQueryFunctionDecl functionDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryFunctionDecl.class);
+        XQueryFunctionDecl functionDeclPsi = children(annotatedDeclPsi).findFirst(XQueryFunctionDecl.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)functionDeclPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
@@ -726,9 +726,9 @@ public class MarkLogicPsiTest extends ParserTestCase {
         final XQueryFile file = parseResource("tests/parser/marklogic-8.0/NullTest.xq");
 
         XQueryAnnotatedDecl annotationDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
-        XQueryVarDecl varDeclPsi = PsiNavigation.findChildByClass(annotationDeclPsi, XQueryVarDecl.class);
-        XQueryTypeDeclaration typeDeclarationPsi = PsiNavigation.findChildByClass(varDeclPsi, XQueryTypeDeclaration.class);
-        XQuerySequenceType sequenceTypePsi = PsiNavigation.findChildByClass(typeDeclarationPsi, XQuerySequenceType.class);
+        XQueryVarDecl varDeclPsi = children(annotationDeclPsi).findFirst(XQueryVarDecl.class).get();
+        XQueryTypeDeclaration typeDeclarationPsi = children(varDeclPsi).findFirst(XQueryTypeDeclaration.class).get();
+        XQuerySequenceType sequenceTypePsi = children(typeDeclarationPsi).findFirst(XQuerySequenceType.class).get();
         MarkLogicNullTest nullTestPsi = descendants(sequenceTypePsi).findFirst(MarkLogicNullTest.class).get();
 
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)nullTestPsi;
@@ -757,9 +757,9 @@ public class MarkLogicPsiTest extends ParserTestCase {
         final XQueryFile file = parseResource("tests/parser/marklogic-8.0/NumberTest.xq");
 
         XQueryAnnotatedDecl annotationDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
-        XQueryVarDecl varDeclPsi = PsiNavigation.findChildByClass(annotationDeclPsi, XQueryVarDecl.class);
-        XQueryTypeDeclaration typeDeclarationPsi = PsiNavigation.findChildByClass(varDeclPsi, XQueryTypeDeclaration.class);
-        XQuerySequenceType sequenceTypePsi = PsiNavigation.findChildByClass(typeDeclarationPsi, XQuerySequenceType.class);
+        XQueryVarDecl varDeclPsi = children(annotationDeclPsi).findFirst(XQueryVarDecl.class).get();
+        XQueryTypeDeclaration typeDeclarationPsi = children(varDeclPsi).findFirst(XQueryTypeDeclaration.class).get();
+        XQuerySequenceType sequenceTypePsi = children(typeDeclarationPsi).findFirst(XQuerySequenceType.class).get();
         MarkLogicNumberTest numberTestPsi = descendants(sequenceTypePsi).findFirst(MarkLogicNumberTest.class).get();
 
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)numberTestPsi;
@@ -788,9 +788,9 @@ public class MarkLogicPsiTest extends ParserTestCase {
         final XQueryFile file = parseResource("tests/parser/marklogic-8.0/ObjectTest.xq");
 
         XQueryAnnotatedDecl annotationDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
-        XQueryVarDecl varDeclPsi = PsiNavigation.findChildByClass(annotationDeclPsi, XQueryVarDecl.class);
-        XQueryTypeDeclaration typeDeclarationPsi = PsiNavigation.findChildByClass(varDeclPsi, XQueryTypeDeclaration.class);
-        XQuerySequenceType sequenceTypePsi = PsiNavigation.findChildByClass(typeDeclarationPsi, XQuerySequenceType.class);
+        XQueryVarDecl varDeclPsi = children(annotationDeclPsi).findFirst(XQueryVarDecl.class).get();
+        XQueryTypeDeclaration typeDeclarationPsi = children(varDeclPsi).findFirst(XQueryTypeDeclaration.class).get();
+        XQuerySequenceType sequenceTypePsi = children(typeDeclarationPsi).findFirst(XQuerySequenceType.class).get();
         MarkLogicObjectTest objectTestPsi = descendants(sequenceTypePsi).findFirst(MarkLogicObjectTest.class).get();
 
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)objectTestPsi;
@@ -845,9 +845,9 @@ public class MarkLogicPsiTest extends ParserTestCase {
         final XQueryFile file = parseResource("tests/parser/marklogic-8.0/TextTest_KeyName.xq");
 
         XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
-        XQueryVarDecl varDeclPsi = PsiNavigation.findChildByClass(annotatedDeclPsi, XQueryVarDecl.class);
-        XQueryTypeDeclaration typeDeclarationPsi = PsiNavigation.findChildByClass(varDeclPsi, XQueryTypeDeclaration.class);
-        XQuerySequenceType sequenceTypePsi = PsiNavigation.findChildByClass(typeDeclarationPsi, XQuerySequenceType.class);
+        XQueryVarDecl varDeclPsi = children(annotatedDeclPsi).findFirst(XQueryVarDecl.class).get();
+        XQueryTypeDeclaration typeDeclarationPsi = children(varDeclPsi).findFirst(XQueryTypeDeclaration.class).get();
+        XQuerySequenceType sequenceTypePsi = children(typeDeclarationPsi).findFirst(XQuerySequenceType.class).get();
         XQueryTextTest textTestPsi = descendants(sequenceTypePsi).findFirst(XQueryTextTest.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)textTestPsi;
 
@@ -875,7 +875,7 @@ public class MarkLogicPsiTest extends ParserTestCase {
     public void testTransactions() {
         final XQueryFile file = parseResource("tests/parser/marklogic-6.0/Transactions.xq");
 
-        MarkLogicTransactionSeparator transactionSeparatorPsi = PsiNavigation.findChildByClass(file, MarkLogicTransactionSeparator.class);
+        MarkLogicTransactionSeparator transactionSeparatorPsi = children(file).findFirst(MarkLogicTransactionSeparator.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)transactionSeparatorPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));

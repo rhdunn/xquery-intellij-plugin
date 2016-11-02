@@ -6,8 +6,9 @@ import com.intellij.psi.PsiReferenceBase;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*;
 import uk.co.reecedunn.intellij.plugin.xquery.functional.Option;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.PsiNavigation;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver;
+
+import static uk.co.reecedunn.intellij.plugin.xquery.functional.PsiTreeWalker.children;
 
 public class XQueryFunctionNameReference extends PsiReferenceBase<XQueryEQName> {
     public XQueryFunctionNameReference(XQueryEQName element, TextRange range) {
@@ -36,9 +37,9 @@ public class XQueryFunctionNameReference extends PsiReferenceBase<XQueryEQName> 
                     PsiElement annotation = prolog.get().getFirstChild();
                     while (annotation != null) {
                         if (annotation instanceof XQueryAnnotatedDecl) {
-                            XQueryFunctionDecl functionDecl = PsiNavigation.findChildByClass(annotation, XQueryFunctionDecl.class);
+                            XQueryFunctionDecl functionDecl = children(annotation).findFirst(XQueryFunctionDecl.class).getOrElse(null);
                             if (functionDecl != null) {
-                                XQueryEQName functionName = PsiNavigation.findChildByClass(functionDecl, XQueryEQName.class);
+                                XQueryEQName functionName = children(functionDecl).findFirst(XQueryEQName.class).getOrElse(null);
                                 Option<PsiElement> functionLocalName = functionName == null ? Option.none() : functionName.getLocalName();
                                 if (functionLocalName.map(PsiElement::getText).map((name) -> name.equals(localName)).getOrElse(false)) {
                                     if (functionDecl.getArity() == arity) {

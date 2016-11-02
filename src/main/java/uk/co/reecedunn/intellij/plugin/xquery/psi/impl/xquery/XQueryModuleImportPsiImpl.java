@@ -22,10 +22,11 @@ import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*;
 import uk.co.reecedunn.intellij.plugin.xquery.functional.Option;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.PsiNavigation;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceResolver;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver;
+
+import static uk.co.reecedunn.intellij.plugin.xquery.functional.PsiTreeWalker.children;
 
 public class XQueryModuleImportPsiImpl extends ASTWrapperPsiElement implements XQueryModuleImport, XQueryNamespaceResolver, XQueryPrologResolver {
     public XQueryModuleImportPsiImpl(@NotNull ASTNode node) {
@@ -56,8 +57,8 @@ public class XQueryModuleImportPsiImpl extends ASTWrapperPsiElement implements X
             if (uri instanceof XQueryUriLiteral) {
                 PsiElement file = uri.getReference().resolve();
                 if (file instanceof XQueryFile) {
-                    PsiElement module = PsiNavigation.findChildByClass(file, XQueryModule.class);
-                    return Option.of(PsiNavigation.findChildByClass(module, XQueryProlog.class));
+                    PsiElement module = children(file).findFirst(XQueryModule.class).get();
+                    return children(module).findFirst(XQueryProlog.class);
                 }
             }
             uri = uri.getNextSibling();
