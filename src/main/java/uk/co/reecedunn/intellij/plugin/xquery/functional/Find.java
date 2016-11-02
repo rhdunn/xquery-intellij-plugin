@@ -21,5 +21,13 @@ import java.util.function.Predicate;
 public interface Find<A> {
     Option<A> findFirst(Predicate<A> matcher);
 
+    default Option<A> findFirst(Class c) {
+        return findFirst(c::isInstance);
+    }
+
     void findAll(Predicate<A> matcher, Consumer<A> consumer);
+
+    default void findAll(Class c, Consumer<A> consumer) {
+        findAll(c::isInstance, consumer);
+    }
 }
