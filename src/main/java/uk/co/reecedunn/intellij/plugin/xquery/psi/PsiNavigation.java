@@ -26,14 +26,6 @@ public class PsiNavigation {
     private static PsiNavigation INSTANCE = new PsiNavigation();
 
     @SuppressWarnings("unchecked")
-    public static <T> T findParentByClass(PsiElement element, Class<T> parent) {
-        while (element != null && !parent.isInstance(element)) {
-            element = element.getParent();
-        }
-        return (T)element;
-    }
-
-    @SuppressWarnings("unchecked")
     public static <T> T findDirectDescendantByClass(PsiElement element, Class<T> child) {
         while (element != null && !child.isInstance(element)) {
             element = element.getFirstChild();
