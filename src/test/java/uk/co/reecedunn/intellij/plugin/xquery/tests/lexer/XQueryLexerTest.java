@@ -3594,7 +3594,7 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region XQuery 3.1 :: StringConstructor
+    // region XQuery 3.1 :: StringConstructor + StringConstructorContent
 
     @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-StringConstructor")
     public void testStringConstructor() {
@@ -3602,11 +3602,28 @@ public class XQueryLexerTest extends TestCase {
 
         matchSingleToken(lexer, "`",   XQueryTokenType.INVALID);
         matchSingleToken(lexer, "``",  XQueryTokenType.INVALID);
-        matchSingleToken(lexer, "``[", XQueryTokenType.STRING_CONSTRUCTOR_START);
 
         matchSingleToken(lexer, "]",   XQueryTokenType.SQUARE_CLOSE);
         matchSingleToken(lexer, "]`",  XQueryTokenType.INVALID);
         matchSingleToken(lexer, "]``", XQueryTokenType.STRING_CONSTRUCTOR_END);
+
+        lexer.start("``[");
+        matchToken(lexer, "``[",  0, 0, 3, XQueryTokenType.STRING_CONSTRUCTOR_START);
+        matchToken(lexer, "",    27, 3, 3, XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS);
+        matchToken(lexer, "",     6, 3, 3, XQueryTokenType.UNEXPECTED_END_OF_BLOCK);
+        matchToken(lexer, "",     0, 3, 3, null);
+
+        lexer.start("``[One]Two]`");
+        matchToken(lexer, "``[",        0,  0,  3, XQueryTokenType.STRING_CONSTRUCTOR_START);
+        matchToken(lexer, "One]Two]`", 27,  3, 12, XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS);
+        matchToken(lexer, "",           6, 12, 12, XQueryTokenType.UNEXPECTED_END_OF_BLOCK);
+        matchToken(lexer, "",           0, 12, 12, null);
+
+        lexer.start("``[One]Two]``");
+        matchToken(lexer, "``[",      0,  0,  3, XQueryTokenType.STRING_CONSTRUCTOR_START);
+        matchToken(lexer, "One]Two", 27,  3, 10, XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS);
+        matchToken(lexer, "]``",      0, 10, 13, XQueryTokenType.STRING_CONSTRUCTOR_END);
+        matchToken(lexer, "",         0, 13, 13, null);
     }
 
     // endregion

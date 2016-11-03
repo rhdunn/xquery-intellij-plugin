@@ -77,6 +77,7 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
                    type == XQueryTokenType.STRING_LITERAL_CONTENTS ||
                    type == XQueryTokenType.STRING_LITERAL_END ||
                    type == XQueryTokenType.STRING_CONSTRUCTOR_START ||
+                   type == XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS ||
                    type == XQueryTokenType.STRING_CONSTRUCTOR_END ||
                    type == XQueryTokenType.BRACED_URI_LITERAL_START ||
                    type == XQueryTokenType.BRACED_URI_LITERAL_END) {

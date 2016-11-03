@@ -125,6 +125,7 @@ public interface XQueryTokenType extends TokenType {
 
     IElementType ARROW = new IElementType("XQUERY_ARROW_TOKEN", XQuery.INSTANCE); // XQuery 3.1
     IElementType STRING_CONSTRUCTOR_START = new IElementType("XQUERY_STRING_CONSTRUCTOR_START_TOKEN", XQuery.INSTANCE); // XQuery 3.1
+    IElementType STRING_CONSTRUCTOR_CONTENTS = new IElementType("XQUERY_STRING_CONSTRUCTOR_CONTENTS_TOKEN", XQuery.INSTANCE); // XQuery 3.1
     IElementType STRING_CONSTRUCTOR_END = new IElementType("XQUERY_STRING_CONSTRUCTOR_END_TOKEN", XQuery.INSTANCE); // XQuery 3.1
 
     IXQueryKeywordOrNCNameType K_AFTER = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_AFTER"); // Update Facility 1.0
@@ -283,7 +284,19 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_XQUERY = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_XQUERY");
     IXQueryKeywordOrNCNameType K_ZERO_DIGIT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ZERO_DIGIT"); // XQuery 3.0
 
-    TokenSet STRING_LITERAL_TOKENS = TokenSet.create(STRING_LITERAL_CONTENTS, XML_ATTRIBUTE_VALUE_CONTENTS, XML_ELEMENT_CONTENTS);
-    TokenSet COMMENT_TOKENS = TokenSet.create(COMMENT, XML_COMMENT);
-    TokenSet LITERAL_TOKENS = TokenSet.create(INTEGER_LITERAL, DECIMAL_LITERAL, DOUBLE_LITERAL, PARTIAL_DOUBLE_LITERAL_EXPONENT);
+    TokenSet STRING_LITERAL_TOKENS = TokenSet.create(
+        STRING_LITERAL_CONTENTS,
+        STRING_CONSTRUCTOR_CONTENTS,
+        XML_ATTRIBUTE_VALUE_CONTENTS,
+        XML_ELEMENT_CONTENTS);
+
+    TokenSet COMMENT_TOKENS = TokenSet.create(
+        COMMENT,
+        XML_COMMENT);
+
+    TokenSet LITERAL_TOKENS = TokenSet.create(
+        INTEGER_LITERAL,
+        DECIMAL_LITERAL,
+        DOUBLE_LITERAL,
+        PARTIAL_DOUBLE_LITERAL_EXPONENT);
 }

@@ -75,6 +75,7 @@ public class XQueryLexer extends LexerBase {
     private static final int STATE_PROCESSING_INSTRUCTION_CONTENTS_ELEM_CONTENT = 24;
     private static final int STATE_DIR_ATTRIBUTE_LIST = 25;
     private static final int STATE_BRACED_URI_LITERAL = 26;
+    private static final int STATE_STRING_CONSTRUCTOR_CONTENTS = 27;
 
     private void stateDefault(int mState) {
         int c = mTokenRange.getCodePoint();
@@ -438,6 +439,7 @@ public class XQueryLexer extends LexerBase {
                     if (mTokenRange.getCodePoint() == '[') {
                         mTokenRange.match();
                         mType = XQueryTokenType.STRING_CONSTRUCTOR_START;
+                        pushState(STATE_STRING_CONSTRUCTOR_CONTENTS);
                     } else {
                         mType = XQueryTokenType.INVALID;
                     }
@@ -1073,6 +1075,30 @@ public class XQueryLexer extends LexerBase {
         }
     }
 
+    private void stateStringConstructorContents() {
+        int c = mTokenRange.getCodePoint();
+        while (c != XQueryCodePointRange.END_OF_BUFFER) {
+            if (c == ']') {
+                mTokenRange.save();
+                mTokenRange.match();
+                if (mTokenRange.getCodePoint() == '`') {
+                    mTokenRange.match();
+                    if (mTokenRange.getCodePoint() == '`') {
+                        mTokenRange.restore();
+                        popState();
+                        mType = XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS;
+                        return;
+                    }
+                }
+            }
+            mTokenRange.match();
+            c = mTokenRange.getCodePoint();
+        }
+        popState();
+        pushState(STATE_UNEXPECTED_END_OF_BLOCK);
+        mType = XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS;
+    }
+
     // endregion
     // region Helper Functions
 
@@ -1228,6 +1254,9 @@ public class XQueryLexer extends LexerBase {
                 break;
             case STATE_BRACED_URI_LITERAL:
                 stateStringLiteral('}');
+                break;
+            case STATE_STRING_CONSTRUCTOR_CONTENTS:
+                stateStringConstructorContents();
                 break;
             default:
                 throw new AssertionError("Invalid state: " + mState);
