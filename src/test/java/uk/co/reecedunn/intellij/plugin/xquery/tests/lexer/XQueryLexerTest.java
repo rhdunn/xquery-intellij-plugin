@@ -3627,6 +3627,17 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region XQuery 3.1 :: StringConstructorInterpolation
+
+    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-StringConstructorInterpolation")
+    public void testStringConstructorInterpolation() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "`{", XQueryTokenType.STRING_INTERPOLATION_OPEN);
+        matchSingleToken(lexer, "}`", XQueryTokenType.STRING_INTERPOLATION_CLOSE);
+    }
+
+    // endregion
     // region XQuery 3.1 :: UnaryLookup
 
     @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-UnaryLookup")

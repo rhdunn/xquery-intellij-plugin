@@ -356,7 +356,12 @@ public class XQueryLexer extends LexerBase {
                 break;
             case CharacterClass.CURLY_BRACE_CLOSE:
                 mTokenRange.match();
-                mType = XQueryTokenType.BLOCK_CLOSE;
+                if (mTokenRange.getCodePoint() == '`') {
+                    mTokenRange.match();
+                    mType = XQueryTokenType.STRING_INTERPOLATION_CLOSE;
+                } else {
+                    mType = XQueryTokenType.BLOCK_CLOSE;
+                }
                 popState();
                 break;
             case CharacterClass.VERTICAL_BAR:
@@ -434,7 +439,8 @@ public class XQueryLexer extends LexerBase {
                 break;
             case CharacterClass.BACK_TICK:
                 mTokenRange.match();
-                if (mTokenRange.getCodePoint() == '`') {
+                c = mTokenRange.getCodePoint();
+                if (c == '`') {
                     mTokenRange.match();
                     if (mTokenRange.getCodePoint() == '[') {
                         mTokenRange.match();
@@ -443,6 +449,10 @@ public class XQueryLexer extends LexerBase {
                     } else {
                         mType = XQueryTokenType.INVALID;
                     }
+                } else if (c == '{') {
+                    mTokenRange.match();
+                    pushState(mState);
+                    mType = XQueryTokenType.STRING_INTERPOLATION_OPEN;
                 } else {
                     mType = XQueryTokenType.INVALID;
                 }

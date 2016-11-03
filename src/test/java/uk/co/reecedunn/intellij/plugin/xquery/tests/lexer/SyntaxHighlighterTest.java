@@ -736,7 +736,6 @@ public class SyntaxHighlighterTest extends TestCase {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.MINUS).length, is(0));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.DOT).length, is(0));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.EQUAL).length, is(0));
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.ARROW).length, is(0));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.BLOCK_OPEN).length, is(0));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.BLOCK_CLOSE).length, is(0));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.SEPARATOR).length, is(0));
@@ -761,5 +760,9 @@ public class SyntaxHighlighterTest extends TestCase {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.CONCATENATION).length, is(0));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.MAP_OPERATOR).length, is(0));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.FUNCTION_REF_OPERATOR).length, is(0));
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.ARROW).length, is(0));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.STRING_INTERPOLATION_OPEN).length, is(0));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.STRING_INTERPOLATION_CLOSE).length, is(0));
     }
 }
