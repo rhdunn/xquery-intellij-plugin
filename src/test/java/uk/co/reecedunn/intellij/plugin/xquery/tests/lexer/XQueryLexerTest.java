@@ -3635,6 +3635,16 @@ public class XQueryLexerTest extends TestCase {
 
         matchSingleToken(lexer, "`{", XQueryTokenType.STRING_INTERPOLATION_OPEN);
         matchSingleToken(lexer, "}`", XQueryTokenType.STRING_INTERPOLATION_CLOSE);
+
+        lexer.start("``[One`{2}`Three]``");
+        matchToken(lexer, "``[",    0,  0,  3, XQueryTokenType.STRING_CONSTRUCTOR_START);
+        matchToken(lexer, "One",   27,  3,  6, XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS);
+        matchToken(lexer, "`{",    27,  6,  8, XQueryTokenType.STRING_INTERPOLATION_OPEN);
+        matchToken(lexer, "2",     28,  8,  9, XQueryTokenType.INTEGER_LITERAL);
+        matchToken(lexer, "}`",    28,  9, 11, XQueryTokenType.STRING_INTERPOLATION_CLOSE);
+        matchToken(lexer, "Three", 27, 11, 16, XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS);
+        matchToken(lexer, "]``",    0, 16, 19, XQueryTokenType.STRING_CONSTRUCTOR_END);
+        matchToken(lexer, "",       0, 19, 19, null);
     }
 
     // endregion

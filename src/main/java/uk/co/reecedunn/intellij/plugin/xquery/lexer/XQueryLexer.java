@@ -76,6 +76,7 @@ public class XQueryLexer extends LexerBase {
     private static final int STATE_DIR_ATTRIBUTE_LIST = 25;
     private static final int STATE_BRACED_URI_LITERAL = 26;
     private static final int STATE_STRING_CONSTRUCTOR_CONTENTS = 27;
+    private static final int STATE_DEFAULT_STRING_INTERPOLATION = 28;
 
     private void stateDefault(int mState) {
         int c = mTokenRange.getCodePoint();
@@ -1087,6 +1088,18 @@ public class XQueryLexer extends LexerBase {
 
     private void stateStringConstructorContents() {
         int c = mTokenRange.getCodePoint();
+        if (c == '`') {
+            mTokenRange.save();
+            mTokenRange.match();
+            if (mTokenRange.getCodePoint() == '{') {
+                mTokenRange.match();
+                pushState(STATE_DEFAULT_STRING_INTERPOLATION);
+                mType = XQueryTokenType.STRING_INTERPOLATION_OPEN;
+                return;
+            } else {
+                mTokenRange.restore();
+            }
+        }
         while (c != XQueryCodePointRange.END_OF_BUFFER) {
             if (c == ']') {
                 mTokenRange.save();
@@ -1099,6 +1112,14 @@ public class XQueryLexer extends LexerBase {
                         mType = XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS;
                         return;
                     }
+                }
+            } else if (c == '`') {
+                mTokenRange.save();
+                mTokenRange.match();
+                if (mTokenRange.getCodePoint() == '{') {
+                    mTokenRange.restore();
+                    mType = XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS;
+                    return;
                 }
             }
             mTokenRange.match();
@@ -1206,6 +1227,7 @@ public class XQueryLexer extends LexerBase {
             case STATE_DEFAULT_ATTRIBUTE_QUOT:
             case STATE_DEFAULT_ATTRIBUTE_APOSTROPHE:
             case STATE_DEFAULT_ELEM_CONTENT:
+            case STATE_DEFAULT_STRING_INTERPOLATION:
                 stateDefault(mState);
                 break;
             case STATE_STRING_LITERAL_QUOTE:
