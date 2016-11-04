@@ -195,9 +195,10 @@ public class ImplementationsTest extends TestCase {
         ImplementationItem version = implementation.getItems(ImplementationItem.IMPLEMENTATION_VERSION).get(0);
 
         final List<XQueryVersion> xquery = version.getVersions(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryConformance.MINIMAL_CONFORMANCE);
-        assertThat(xquery.size(), is(2));
+        assertThat(xquery.size(), is(3));
         assertThat(xquery.get(0), is(XQueryVersion.VERSION_1_0));
         assertThat(xquery.get(1), is(XQueryVersion.VERSION_3_0));
+        assertThat(xquery.get(2), is(XQueryVersion.VERSION_3_1));
     }
 
     public void testDefaultVersion() {
