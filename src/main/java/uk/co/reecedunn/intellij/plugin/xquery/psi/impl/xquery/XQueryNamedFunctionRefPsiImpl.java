@@ -29,9 +29,10 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.PsiNavigation;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
+
+import static uk.co.reecedunn.intellij.plugin.xquery.functional.PsiTreeWalker.children;
 
 public class XQueryNamedFunctionRefPsiImpl extends ASTWrapperPsiElement implements XQueryNamedFunctionRef, XQueryConformanceCheck {
     public XQueryNamedFunctionRefPsiImpl(@NotNull ASTNode node) {
@@ -104,7 +105,7 @@ public class XQueryNamedFunctionRefPsiImpl extends ASTWrapperPsiElement implemen
 
     @Override
     public int getArity() {
-        XQueryIntegerLiteral arity = PsiNavigation.findChildByClass(this, XQueryIntegerLiteral.class);
+        XQueryIntegerLiteral arity = children(this).findFirst(XQueryIntegerLiteral.class).getOrElse(null);
         return arity == null ? 0 : arity.getAtomicValue();
     }
 }

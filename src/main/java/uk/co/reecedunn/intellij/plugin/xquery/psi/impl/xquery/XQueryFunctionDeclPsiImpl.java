@@ -24,16 +24,18 @@ import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryParamList;
+import uk.co.reecedunn.intellij.plugin.xquery.functional.Option;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.PsiNavigation;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
+
+import static uk.co.reecedunn.intellij.plugin.xquery.functional.PsiTreeWalker.children;
 
 public class XQueryFunctionDeclPsiImpl extends ASTWrapperPsiElement implements XQueryFunctionDecl, XQueryConformanceCheck, XQueryVariableResolver {
     public XQueryFunctionDeclPsiImpl(@NotNull ASTNode node) {
@@ -86,14 +88,14 @@ public class XQueryFunctionDeclPsiImpl extends ASTWrapperPsiElement implements X
 
     @Override
     public int getArity() {
-        XQueryParamList params = PsiNavigation.findChildByClass(this, XQueryParamList.class);
+        XQueryParamList params = children(this).findFirst(XQueryParamList.class).getOrElse(null);
         return params == null ? 0 : params.getArity();
     }
 
     @Nullable
     @Override
-    public XQueryVariable resolveVariable(XQueryEQName name) {
+    public Option<XQueryVariable> resolveVariable(XQueryEQName name) {
         PsiElement element = findChildByType(XQueryElementType.PARAM_LIST);
-        return element == null ? null : ((XQueryVariableResolver)element).resolveVariable(name);
+        return element == null ? Option.none() : ((XQueryVariableResolver)element).resolveVariable(name);
     }
 }

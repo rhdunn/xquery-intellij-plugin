@@ -19,13 +19,14 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*;
+import uk.co.reecedunn.intellij.plugin.xquery.functional.Option;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.PsiNavigation;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceResolver;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver;
+
+import static uk.co.reecedunn.intellij.plugin.xquery.functional.PsiTreeWalker.children;
 
 public class XQueryModuleDeclPsiImpl extends ASTWrapperPsiElement implements XQueryModuleDecl, XQueryNamespaceResolver, XQueryPrologResolver {
     public XQueryModuleDeclPsiImpl(@NotNull ASTNode node) {
@@ -33,24 +34,20 @@ public class XQueryModuleDeclPsiImpl extends ASTWrapperPsiElement implements XQu
     }
 
     @Override
-    public XQueryNamespace resolveNamespace(CharSequence prefix) {
-        XQueryNCName name = findChildByType(XQueryElementType.NCNAME);
-        if (name == null) {
-            return null;
-        }
-
-        if (name.getLocalName().getText().equals(prefix)) {
-            PsiElement element = findChildByType(XQueryElementType.URI_LITERAL);
-            return new XQueryNamespace(name.getLocalName(), element, this);
-        }
-        return null;
+    public Option<XQueryNamespace> resolveNamespace(CharSequence prefix) {
+        return children(this).findFirst(XQueryNCName.class).flatMap((name) ->
+            name.getLocalName().flatMap((localName) -> {
+                if (localName.getText().equals(prefix)) {
+                    PsiElement element = findChildByType(XQueryElementType.URI_LITERAL);
+                    return Option.some(new XQueryNamespace(localName, element, this));
+                }
+                return Option.none();
+            })
+        );
     }
 
-    @Nullable
     @Override
-    public XQueryProlog resolveProlog() {
-        PsiElement file = PsiNavigation.findParentByClass(this, XQueryFile.class);
-        PsiElement module = PsiNavigation.findChildByClass(file, XQueryModule.class);
-        return PsiNavigation.findChildByClass(module, XQueryProlog.class);
+    public Option<XQueryProlog> resolveProlog() {
+        return children(this).findFirst(XQueryProlog.class);
     }
 }

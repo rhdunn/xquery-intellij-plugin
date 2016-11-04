@@ -24,10 +24,13 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryStringLiteral;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVersionDecl;
 import uk.co.reecedunn.intellij.plugin.xquery.filetypes.XQueryFileType;
+import uk.co.reecedunn.intellij.plugin.xquery.functional.Option;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.PsiNavigation;
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings;
+
+import static uk.co.reecedunn.intellij.plugin.xquery.functional.PsiTreeWalker.children;
+import static uk.co.reecedunn.intellij.plugin.xquery.functional.PsiTreeWalker.descendants;
 
 public class XQueryFileImpl extends PsiFileBase implements XQueryFile {
     public XQueryFileImpl(@NotNull FileViewProvider provider) {
@@ -41,21 +44,20 @@ public class XQueryFileImpl extends PsiFileBase implements XQueryFile {
     }
 
     public XQueryVersion getXQueryVersion() {
-        XQueryModule module = PsiNavigation.findChildByClass(this, XQueryModule.class);
-        if (module != null) {
-            XQueryVersionDecl versionDecl = PsiNavigation.findDirectDescendantByClass(module, XQueryVersionDecl.class);
-            if (versionDecl != null) {
+        return children(this).findFirst(XQueryModule.class).flatMap((module) ->
+            descendants(module).findFirst(XQueryVersionDecl.class).flatMap((versionDecl) -> {
                 XQueryStringLiteral version = versionDecl.getVersion();
                 if (version != null) {
                     XQueryVersion xqueryVersion = XQueryVersion.parse(version.getAtomicValue());
                     if (xqueryVersion != null) {
-                        return xqueryVersion;
+                        return Option.some(xqueryVersion);
                     }
                 }
-            }
-        }
-
-        XQueryProjectSettings settings = XQueryProjectSettings.getInstance(getProject());
-        return settings.getXQueryVersion();
+                return Option.none();
+            })
+        ).orElse(() -> {
+            XQueryProjectSettings settings = XQueryProjectSettings.getInstance(getProject());
+            return settings.getXQueryVersion();
+        }).get();
     }
 }

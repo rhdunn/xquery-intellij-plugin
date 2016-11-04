@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
+package uk.co.reecedunn.intellij.plugin.xquery.functional;
 
-/**
- * An XQuery 1.0 <code>QueryBody</code> node in the XQuery AST.
- */
-public interface XQueryQueryBody extends XQueryExpr {
+import java.util.function.Consumer;
+
+public interface Each<A> {
+    void each(Consumer<A> consumer);
 }

@@ -21,10 +21,12 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.PsiNavigation;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver;
+import uk.co.reecedunn.intellij.plugin.xquery.functional.Option;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceResolver;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver;
+
+import static uk.co.reecedunn.intellij.plugin.xquery.functional.PsiTreeWalker.children;
 
 public class XQueryModulePsiImpl extends ASTWrapperPsiElement implements XQueryModule, XQueryNamespaceResolver, XQueryPrologResolver {
     public XQueryModulePsiImpl(@NotNull ASTNode node) {
@@ -33,16 +35,15 @@ public class XQueryModulePsiImpl extends ASTWrapperPsiElement implements XQueryM
 
     @Nullable
     @Override
-    public XQueryNamespace resolveNamespace(CharSequence prefix) {
+    public Option<XQueryNamespace> resolveNamespace(CharSequence prefix) {
         if (prefix != null && prefix.equals("local")) {
-            return new XQueryNamespace(null, null, this);
+            return Option.some(new XQueryNamespace(null, null, this));
         }
-        return null;
+        return Option.none();
     }
 
-    @Nullable
     @Override
-    public XQueryProlog resolveProlog() {
-        return PsiNavigation.findChildByClass(this, XQueryProlog.class);
+    public Option<XQueryProlog> resolveProlog() {
+        return children(this).findFirst(XQueryProlog.class);
     }
 }

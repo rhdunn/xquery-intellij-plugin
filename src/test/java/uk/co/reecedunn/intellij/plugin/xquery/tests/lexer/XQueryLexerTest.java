@@ -18,8 +18,8 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.lexer;
 import com.intellij.lexer.Lexer;
 import com.intellij.psi.tree.IElementType;
 import junit.framework.TestCase;
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer;
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.Specification;
 
 import static org.hamcrest.MatcherAssert.assertThat;

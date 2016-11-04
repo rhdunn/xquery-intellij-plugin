@@ -13,10 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
+package uk.co.reecedunn.intellij.plugin.xquery.functional;
 
-/**
- * An XQuery 1.0 <code>QueryBody</code> node in the XQuery AST.
- */
-public interface XQueryQueryBody extends XQueryExpr {
+import java.util.function.Consumer;
+import java.util.function.Predicate;
+
+public interface Find<A> {
+    <B extends A> Option<B> findFirst(Predicate<B> matcher);
+
+    default <B extends A> Option<B> findFirst(Class<B> c) {
+        return findFirst(c::isInstance);
+    }
+
+    void findAll(Predicate<A> matcher, Consumer<A> consumer);
+
+    default void findAll(Class c, Consumer<A> consumer) {
+        findAll(c::isInstance, consumer);
+    }
 }

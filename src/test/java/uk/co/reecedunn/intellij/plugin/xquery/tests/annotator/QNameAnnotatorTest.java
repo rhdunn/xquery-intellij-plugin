@@ -15,12 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.annotator;
 
-import com.intellij.lang.ASTNode;
 import com.intellij.lang.annotation.Annotation;
 import com.intellij.lang.annotation.HighlightSeverity;
 import com.intellij.openapi.editor.HighlighterColors;
 import com.intellij.openapi.editor.markup.TextAttributes;
 import uk.co.reecedunn.intellij.plugin.xquery.annotation.QNameAnnotator;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.SyntaxHighlighter;
 
 import java.util.List;
@@ -33,14 +33,14 @@ public class QNameAnnotatorTest extends AnnotatorTestCase {
     // region NCName
 
     public void testNCName() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/OptionDecl.xq");
-        final List<Annotation> annotations = annotateTree(node, new QNameAnnotator());
+        final XQueryFile file = parseResource("tests/parser/xquery-1.0/OptionDecl.xq");
+        final List<Annotation> annotations = annotateTree(file, new QNameAnnotator());
         assertThat(annotations.size(), is(0));
     }
 
     public void testNCName_Keyword() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/NCName_Keyword.xq");
-        final List<Annotation> annotations = annotateTree(node, new QNameAnnotator());
+        final XQueryFile file = parseResource("tests/parser/xquery-1.0/NCName_Keyword.xq");
+        final List<Annotation> annotations = annotateTree(file, new QNameAnnotator());
         assertThat(annotations.size(), is(2));
 
         assertThat(annotations.get(0).getSeverity(), is(HighlightSeverity.INFORMATION));
@@ -62,8 +62,8 @@ public class QNameAnnotatorTest extends AnnotatorTestCase {
     // region QName
 
     public void testQName() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/QName.xq");
-        final List<Annotation> annotations = annotateTree(node, new QNameAnnotator());
+        final XQueryFile file = parseResource("tests/parser/xquery-1.0/QName.xq");
+        final List<Annotation> annotations = annotateTree(file, new QNameAnnotator());
         assertThat(annotations.size(), is(2));
 
         assertThat(annotations.get(0).getSeverity(), is(HighlightSeverity.INFORMATION));
@@ -82,8 +82,8 @@ public class QNameAnnotatorTest extends AnnotatorTestCase {
     }
 
     public void testQName_KeywordPrefixPart() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/QName_KeywordPrefixPart.xq");
-        final List<Annotation> annotations = annotateTree(node, new QNameAnnotator());
+        final XQueryFile file = parseResource("tests/parser/xquery-1.0/QName_KeywordPrefixPart.xq");
+        final List<Annotation> annotations = annotateTree(file, new QNameAnnotator());
         assertThat(annotations.size(), is(2));
 
         assertThat(annotations.get(0).getSeverity(), is(HighlightSeverity.INFORMATION));
@@ -102,14 +102,14 @@ public class QNameAnnotatorTest extends AnnotatorTestCase {
     }
 
     public void testQName_MissingPrefixPart() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/QName_MissingPrefixPart.xq");
-        final List<Annotation> annotations = annotateTree(node, new QNameAnnotator());
+        final XQueryFile file = parseResource("tests/parser/xquery-1.0/QName_MissingPrefixPart.xq");
+        final List<Annotation> annotations = annotateTree(file, new QNameAnnotator());
         assertThat(annotations.size(), is(0));
     }
 
     public void testQName_KeywordLocalPart() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/QName_KeywordLocalPart.xq");
-        final List<Annotation> annotations = annotateTree(node, new QNameAnnotator());
+        final XQueryFile file = parseResource("tests/parser/xquery-1.0/QName_KeywordLocalPart.xq");
+        final List<Annotation> annotations = annotateTree(file, new QNameAnnotator());
         assertThat(annotations.size(), is(4));
 
         assertThat(annotations.get(0).getSeverity(), is(HighlightSeverity.INFORMATION));
@@ -142,8 +142,8 @@ public class QNameAnnotatorTest extends AnnotatorTestCase {
     }
 
     public void testQName_MissingLocalPart() {
-        final ASTNode node = parseResource("tests/parser/xquery-1.0/QName_MissingLocalPart.xq");
-        final List<Annotation> annotations = annotateTree(node, new QNameAnnotator());
+        final XQueryFile file = parseResource("tests/parser/xquery-1.0/QName_MissingLocalPart.xq");
+        final List<Annotation> annotations = annotateTree(file, new QNameAnnotator());
         assertThat(annotations.size(), is(2));
 
         assertThat(annotations.get(0).getSeverity(), is(HighlightSeverity.INFORMATION));
@@ -165,14 +165,14 @@ public class QNameAnnotatorTest extends AnnotatorTestCase {
     // region URIQualifiedName
 
     public void testURIQualifiedName() {
-        final ASTNode node = parseResource("tests/parser/xquery-3.0/BracedURILiteral.xq");
-        final List<Annotation> annotations = annotateTree(node, new QNameAnnotator());
+        final XQueryFile file = parseResource("tests/parser/xquery-3.0/BracedURILiteral.xq");
+        final List<Annotation> annotations = annotateTree(file, new QNameAnnotator());
         assertThat(annotations.size(), is(0));
     }
 
     public void testURIQualifiedName_Keyword() {
-        final ASTNode node = parseResource("tests/parser/xquery-3.0/BracedURILiteral_KeywordLocalName.xq");
-        final List<Annotation> annotations = annotateTree(node, new QNameAnnotator());
+        final XQueryFile file = parseResource("tests/parser/xquery-3.0/BracedURILiteral_KeywordLocalName.xq");
+        final List<Annotation> annotations = annotateTree(file, new QNameAnnotator());
         assertThat(annotations.size(), is(2));
 
         assertThat(annotations.get(0).getSeverity(), is(HighlightSeverity.INFORMATION));
@@ -194,8 +194,8 @@ public class QNameAnnotatorTest extends AnnotatorTestCase {
     // region DirAttributeList
 
     public void testDirAttributeList_XmlnsAttribute() {
-        final ASTNode node = parseResource("tests/psi/xquery-1.0/DirAttributeList_XmlnsAttribute.xq");
-        final List<Annotation> annotations = annotateTree(node, new QNameAnnotator());
+        final XQueryFile file = parseResource("tests/psi/xquery-1.0/DirAttributeList_XmlnsAttribute.xq");
+        final List<Annotation> annotations = annotateTree(file, new QNameAnnotator());
         assertThat(annotations.size(), is(6));
 
         assertThat(annotations.get(0).getSeverity(), is(HighlightSeverity.INFORMATION));
@@ -245,8 +245,8 @@ public class QNameAnnotatorTest extends AnnotatorTestCase {
     // region Annotation
 
     public void testAnnotation() {
-        final ASTNode node = parseResource("tests/parser/xquery-3.0/Annotation.xq");
-        final List<Annotation> annotations = annotateTree(node, new QNameAnnotator());
+        final XQueryFile file = parseResource("tests/parser/xquery-3.0/Annotation.xq");
+        final List<Annotation> annotations = annotateTree(file, new QNameAnnotator());
         assertThat(annotations.size(), is(2));
 
         assertThat(annotations.get(0).getSeverity(), is(HighlightSeverity.INFORMATION));
@@ -265,8 +265,8 @@ public class QNameAnnotatorTest extends AnnotatorTestCase {
     }
 
     public void testAnnotation_QName() {
-        final ASTNode node = parseResource("tests/psi/xquery-3.0/Annotation_QName.xq");
-        final List<Annotation> annotations = annotateTree(node, new QNameAnnotator());
+        final XQueryFile file = parseResource("tests/psi/xquery-3.0/Annotation_QName.xq");
+        final List<Annotation> annotations = annotateTree(file, new QNameAnnotator());
         assertThat(annotations.size(), is(4));
 
         assertThat(annotations.get(0).getSeverity(), is(HighlightSeverity.INFORMATION));

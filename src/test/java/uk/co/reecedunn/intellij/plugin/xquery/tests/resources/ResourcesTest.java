@@ -19,9 +19,7 @@ import junit.framework.TestCase;
 import org.w3c.dom.Document;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.Resources;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.CoreMatchers.nullValue;
+import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ResourcesTest extends TestCase {

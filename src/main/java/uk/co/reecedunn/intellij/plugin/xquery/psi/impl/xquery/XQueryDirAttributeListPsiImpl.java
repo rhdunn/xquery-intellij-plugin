@@ -21,6 +21,7 @@ import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttributeList;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryQName;
+import uk.co.reecedunn.intellij.plugin.xquery.functional.Option;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceResolver;
@@ -31,26 +32,33 @@ public class XQueryDirAttributeListPsiImpl extends ASTWrapperPsiElement implemen
     }
 
     @Override
-    public XQueryNamespace resolveNamespace(CharSequence prefix) {
+    public Option<XQueryNamespace> resolveNamespace(CharSequence prefix) {
         PsiElement element = getFirstChild();
         while (element != null) {
             if (element instanceof XQueryQName) {
-                XQueryQName name = (XQueryQName) element;
-                if (name.getLocalName().getText().equals(prefix)) {
-                    PsiElement uri = element.getNextSibling();
-                    while (uri != null) {
-                        if (uri.getNode().getElementType() == XQueryElementType.QNAME) {
-                            break;
-                        } else if (uri.getNode().getElementType() == XQueryElementType.DIR_ATTRIBUTE_VALUE) {
-                            return new XQueryNamespace(name.getLocalName(), uri, this);
+                XQueryQName name = (XQueryQName)element;
+                Option<XQueryNamespace> ns = name.getLocalName().flatMap((localName) -> {
+                    if (localName.getText().equals(prefix)) {
+                        PsiElement uri = name.getNextSibling();
+                        while (uri != null) {
+                            if (uri.getNode().getElementType() == XQueryElementType.QNAME) {
+                                break;
+                            } else if (uri.getNode().getElementType() == XQueryElementType.DIR_ATTRIBUTE_VALUE) {
+                                return Option.some(new XQueryNamespace(localName, uri, this));
+                            }
+                            uri = uri.getNextSibling();
                         }
-                        uri = uri.getNextSibling();
+                        return Option.some(new XQueryNamespace(localName, null, this));
                     }
-                    return new XQueryNamespace(name.getLocalName(), null, this);
+                    return Option.none();
+                });
+
+                if (ns.isDefined()) {
+                    return ns;
                 }
             }
             element = element.getNextSibling();
         }
-        return null;
+        return Option.none();
     }
 }

@@ -24,6 +24,7 @@ import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryInitialClause;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryIntermediateClause;
+import uk.co.reecedunn.intellij.plugin.xquery.functional.Option;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
@@ -72,12 +73,11 @@ public class XQueryIntermediateClausePsiImpl extends ASTWrapperPsiElement implem
 
     @Nullable
     @Override
-    public XQueryVariable resolveVariable(XQueryEQName name) {
+    public Option<XQueryVariable> resolveVariable(XQueryEQName name) {
         PsiElement element = getFirstChild();
         if (element instanceof XQueryVariableResolver) {
             return ((XQueryVariableResolver)element).resolveVariable(name);
         }
-
-        return null;
+        return Option.none();
     }
 }

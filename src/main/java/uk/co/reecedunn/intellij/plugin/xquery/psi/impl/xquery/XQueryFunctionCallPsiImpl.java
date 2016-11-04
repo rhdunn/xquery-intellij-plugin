@@ -27,9 +27,10 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.PsiNavigation;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
+
+import static uk.co.reecedunn.intellij.plugin.xquery.functional.PsiTreeWalker.children;
 
 public class XQueryFunctionCallPsiImpl extends ASTWrapperPsiElement implements XQueryFunctionCall, XQueryConformanceCheck {
     public XQueryFunctionCallPsiImpl(@NotNull ASTNode node) {
@@ -69,7 +70,7 @@ public class XQueryFunctionCallPsiImpl extends ASTWrapperPsiElement implements X
 
     @Override
     public int getArity() {
-        XQueryArgumentList arguments = PsiNavigation.findChildByClass(this, XQueryArgumentList.class);
+        XQueryArgumentList arguments = children(this).findFirst(XQueryArgumentList.class).get();
         return arguments.getArity();
     }
 }

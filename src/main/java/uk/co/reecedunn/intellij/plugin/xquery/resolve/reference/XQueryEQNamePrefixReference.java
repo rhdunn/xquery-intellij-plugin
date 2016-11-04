@@ -1,7 +1,8 @@
 package uk.co.reecedunn.intellij.plugin.xquery.resolve.reference;
 
 import com.intellij.openapi.util.TextRange;
-import com.intellij.psi.*;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiReferenceBase;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
@@ -15,8 +16,7 @@ public class XQueryEQNamePrefixReference extends PsiReferenceBase<XQueryEQName> 
     @Nullable
     @Override
     public PsiElement resolve() {
-        XQueryNamespace resolved = getElement().resolvePrefixNamespace();
-        return resolved == null ? null : resolved.getPrefix();
+        return getElement().resolvePrefixNamespace().map(XQueryNamespace::getPrefix).getOrElse(null);
     }
 
     @NotNull

@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.psi;
 
-import org.jetbrains.annotations.Nullable;
+import uk.co.reecedunn.intellij.plugin.xquery.functional.Option;
 
 public interface XQueryNamespaceResolver {
     /**
@@ -25,6 +25,5 @@ public interface XQueryNamespaceResolver {
      *
      * @return The namespace associated with the namespace prefix, or null if the prefix is not supported.
      */
-    @Nullable
-    XQueryNamespace resolveNamespace(CharSequence prefix);
+    Option<XQueryNamespace> resolveNamespace(CharSequence prefix);
 }

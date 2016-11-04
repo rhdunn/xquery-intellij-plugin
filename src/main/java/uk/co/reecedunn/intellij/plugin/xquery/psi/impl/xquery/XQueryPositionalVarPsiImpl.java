@@ -22,6 +22,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPositionalVar;
+import uk.co.reecedunn.intellij.plugin.xquery.functional.Option;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver;
 
@@ -32,12 +33,11 @@ public class XQueryPositionalVarPsiImpl extends ASTWrapperPsiElement implements 
 
     @Nullable
     @Override
-    public XQueryVariable resolveVariable(XQueryEQName name) {
+    public Option<XQueryVariable> resolveVariable(XQueryEQName name) {
         PsiElement eqname = findChildByClass(XQueryEQName.class);
         if (eqname != null && eqname.equals(name)) {
-            return new XQueryVariable(eqname, this);
+            return Option.some(new XQueryVariable(eqname, this));
         }
-
-        return null;
+        return Option.none();
     }
 }

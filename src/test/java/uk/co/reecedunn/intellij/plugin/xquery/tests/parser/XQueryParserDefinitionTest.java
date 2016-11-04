@@ -23,8 +23,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.filetypes.XQueryFileType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
-import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryPsiParser;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition;
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryPsiParser;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryFileImpl;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.mocks.MockASTNode;
 

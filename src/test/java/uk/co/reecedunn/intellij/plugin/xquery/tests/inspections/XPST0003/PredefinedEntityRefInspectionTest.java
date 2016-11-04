@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.inspections.XPST0003;
 
 import com.intellij.codeInspection.ProblemDescriptor;
 import com.intellij.codeInspection.ProblemHighlightType;
-import com.intellij.lang.ASTNode;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile;
 import uk.co.reecedunn.intellij.plugin.xquery.inspections.XPST0003.PredefinedEntityRefInspection;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.Specification;
@@ -44,9 +44,9 @@ public class PredefinedEntityRefInspectionTest extends InspectionTestCase {
 
     private void checkSupportedEntities(XQueryVersion version, String entities) {
         getSettings().setXQueryVersion(version);
-        final ASTNode node = parseText(entities);
+        final XQueryFile file = parseText(entities);
 
-        final ProblemDescriptor[] problems = inspect(node, new PredefinedEntityRefInspection());
+        final ProblemDescriptor[] problems = inspect(file, new PredefinedEntityRefInspection());
         assertThat(problems, is(notNullValue()));
         assertThat(problems.length, is(0));
     }
@@ -57,9 +57,9 @@ public class PredefinedEntityRefInspectionTest extends InspectionTestCase {
 
     private void checkUnsupportedEntities(XQueryVersion version, String entities, int inspectionCount, String startsWith, String endsWith, ProblemHighlightType type) {
         getSettings().setXQueryVersion(version);
-        final ASTNode node = parseText(entities);
+        final XQueryFile file = parseText(entities);
 
-        final ProblemDescriptor[] problems = inspect(node, new PredefinedEntityRefInspection());
+        final ProblemDescriptor[] problems = inspect(file, new PredefinedEntityRefInspection());
         assertThat(problems, is(notNullValue()));
         assertThat(problems.length, is(inspectionCount));
 

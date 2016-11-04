@@ -5,8 +5,10 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiReferenceBase;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.*;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
+import uk.co.reecedunn.intellij.plugin.xquery.functional.Option;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver;
 
 public class XQueryVariableNameReference extends PsiReferenceBase<XQueryEQName> {
     public XQueryVariableNameReference(XQueryEQName element, TextRange range) {
@@ -21,9 +23,9 @@ public class XQueryVariableNameReference extends PsiReferenceBase<XQueryEQName> 
         PsiElement element = name;
         while (element != null) {
             if (element instanceof XQueryVariableResolver) {
-                XQueryVariable resolved = ((XQueryVariableResolver)element).resolveVariable(name);
-                if (resolved != null) {
-                    return resolved.getVariable();
+                Option<XQueryVariable> resolved = ((XQueryVariableResolver)element).resolveVariable(name);
+                if (resolved.isDefined()) {
+                    return resolved.get().getVariable();
                 }
             }
 
