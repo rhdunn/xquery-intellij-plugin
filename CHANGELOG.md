@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.2.1 - 2016-11-05
+
+1.  Fix a NullPointerException when resolving NCName-based function calls.
+2.  Fix an IndexOutOfBoundsException when the charset detection logic is called
+    from multiple threads (e.g. during indexing).
+
 ## 0.2 - 2016-10-30
 
 1.  Use an inspection -- not the parser -- to check and report constructs from a
