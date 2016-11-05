@@ -17,6 +17,11 @@
       <li>IntelliJ resolve support for URI literals, namespaces, functions and variables.</li>
       <li>IntelliJ find usages support.</li>
     </ul>
+    <p>Release 0.2.1:</p>
+    <ul>
+      <li>Fix a NullPointerException when resolving NCName-based function calls.</li>
+      <li>Fix an IndexOutOfBoundsException when the charset detection logic is called from multiple threads (e.g. during indexing).</li>
+    </ul>
   ]]></change-notes>
 
   <idea-version since-build="161"/>
