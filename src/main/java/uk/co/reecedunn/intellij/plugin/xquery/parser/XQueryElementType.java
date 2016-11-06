@@ -243,6 +243,7 @@ public interface XQueryElementType {
     // region XQuery 3.1
 
     IElementType ARROW_EXPR = new ICompositeElementType("XQUERY_ARROW_EXPR", XQueryArrowExprPsiImpl.class);
+    IElementType ARROW_FUNCTION_SPECIFIER = new ICompositeElementType("XQUERY_ARROW_FUNCTION_SPECIFIER", XQueryArrowFunctionSpecifierPsiImpl.class);
 
     // endregion
     // region Update Facility 1.0

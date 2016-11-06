@@ -7382,4 +7382,28 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region XQuery 3.1 :: ArrowFunctionSpecifier
+
+    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-ArrowFunctionSpecifier")
+    public void testArrowFunctionSpecifier_EQName() {
+        final String expected = loadResource("tests/parser/xquery-3.1/ArrowExpr.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/ArrowExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-ArrowFunctionSpecifier")
+    public void testArrowFunctionSpecifier_VarRef() {
+        final String expected = loadResource("tests/parser/xquery-3.1/ArrowFunctionSpecifier_VarRef.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/ArrowFunctionSpecifier_VarRef.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-ArrowFunctionSpecifier")
+    public void testArrowFunctionSpecifier_ParenthesizedExpr() {
+        final String expected = loadResource("tests/parser/xquery-3.1/ArrowFunctionSpecifier_ParenthesizedExpr.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/ArrowFunctionSpecifier_ParenthesizedExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
 }

@@ -3104,7 +3104,7 @@ class XQueryParser {
             parseWhiteSpaceAndCommentTokens();
             while (matchTokenType(XQueryTokenType.ARROW)) {
                 parseWhiteSpaceAndCommentTokens();
-                if (!parseEQName(XQueryElementType.EQNAME) && !haveErrors) {
+                if (!parseArrowFunctionSpecifier() && !haveErrors) {
                     error(XQueryBundle.message("parser.error.expected", "ArrowFunctionSpecifier"));
                     haveErrors = true;
                 }
@@ -3122,6 +3122,16 @@ class XQueryParser {
             return true;
         }
         arrowExprMarker.drop();
+        return false;
+    }
+
+    private boolean parseArrowFunctionSpecifier() {
+        final PsiBuilder.Marker arrowFunctionSpecifierMarker = mark();
+        if (parseEQName(XQueryElementType.EQNAME) || parseVarRef() || parseParenthesizedExpr()) {
+            arrowFunctionSpecifierMarker.done(XQueryElementType.ARROW_FUNCTION_SPECIFIER);
+            return true;
+        }
+        arrowFunctionSpecifierMarker.drop();
         return false;
     }
 
