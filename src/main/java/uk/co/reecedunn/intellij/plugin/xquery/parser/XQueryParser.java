@@ -3649,23 +3649,10 @@ class XQueryParser {
     private boolean parseUnorderedExpr() {
         final PsiBuilder.Marker unorderedExprMarker = matchTokenTypeWithMarker(XQueryTokenType.K_UNORDERED);
         if (unorderedExprMarker != null) {
-            boolean haveErrors = false;
-
             parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.BLOCK_OPEN)) {
+            if (!parseEnclosedExpr(XQueryElementType.ENCLOSED_EXPR)) {
                 unorderedExprMarker.rollbackTo();
                 return false;
-            }
-
-            parseWhiteSpaceAndCommentTokens();
-            if (!parseExpr(XQueryElementType.EXPR)) {
-                error(XQueryBundle.message("parser.error.expected-expression"));
-                haveErrors = true;
-            }
-
-            parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.BLOCK_CLOSE) && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected", "}"));
             }
 
             unorderedExprMarker.done(XQueryElementType.UNORDERED_EXPR);
