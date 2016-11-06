@@ -3558,13 +3558,6 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-OrderedExpr")
-    public void testOrderedExpr_MissingExpr() {
-        final String expected = loadResource("tests/parser/xquery-1.0/OrderedExpr_MissingExpr.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-1.0/OrderedExpr_MissingExpr.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-OrderedExpr")
     public void testOrderedExpr_MissingClosingBrace() {
         final String expected = loadResource("tests/parser/xquery-1.0/OrderedExpr_MissingClosingBrace.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-1.0/OrderedExpr_MissingClosingBrace.xq");
@@ -7387,6 +7380,16 @@ public class XQueryParserTest extends ParserTestCase {
     public void testArrowFunctionSpecifier_ParenthesizedExpr() {
         final String expected = loadResource("tests/parser/xquery-3.1/ArrowFunctionSpecifier_ParenthesizedExpr.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-3.1/ArrowFunctionSpecifier_ParenthesizedExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
+    // region XQuery 3.1 :: OrderedExpr
+
+    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-OrderedExpr")
+    public void testOrderedExpr_MissingExpr() {
+        final String expected = loadResource("tests/parser/xquery-3.1/OrderedExpr_MissingExpr.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/OrderedExpr_MissingExpr.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
