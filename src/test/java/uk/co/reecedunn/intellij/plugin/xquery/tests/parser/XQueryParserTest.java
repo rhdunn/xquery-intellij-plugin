@@ -2668,13 +2668,6 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ValidateExpr")
-    public void testValidateExpr_MissingExpr() {
-        final String expected = loadResource("tests/parser/xquery-1.0/ValidateExpr_MissingExpr.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-1.0/ValidateExpr_MissingExpr.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ValidateExpr")
     public void testValidateExpr_MissingClosingBrace() {
         final String expected = loadResource("tests/parser/xquery-1.0/ValidateExpr_MissingClosingBrace.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-1.0/ValidateExpr_MissingClosingBrace.xq");
@@ -7349,6 +7342,16 @@ public class XQueryParserTest extends ParserTestCase {
     public void testArrowExpr_MultipleArrows() {
         final String expected = loadResource("tests/parser/xquery-3.1/ArrowExpr_MultipleArrows.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-3.1/ArrowExpr_MultipleArrows.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
+    // region XQuery 3.1 :: ValidateExpr + ValidationMode
+
+    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-ValidateExpr")
+    public void testValidateExpr_MissingExpr() {
+        final String expected = loadResource("tests/parser/xquery-3.1/ValidateExpr_MissingExpr.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/ValidateExpr_MissingExpr.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 

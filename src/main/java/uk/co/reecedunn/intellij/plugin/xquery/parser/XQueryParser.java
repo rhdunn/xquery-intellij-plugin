@@ -3199,8 +3199,6 @@ class XQueryParser {
     private boolean parseValidateExpr() {
         final PsiBuilder.Marker validateExprMarker = matchTokenTypeWithMarker(XQueryTokenType.K_VALIDATE);
         if (validateExprMarker != null) {
-            boolean haveErrors = false;
-
             parseWhiteSpaceAndCommentTokens();
             boolean haveValidationMode = false;
             if (matchTokenType(XQueryTokenType.K_LAX) || matchTokenType(XQueryTokenType.K_STRICT)) {
@@ -3211,30 +3209,13 @@ class XQueryParser {
                 parseWhiteSpaceAndCommentTokens();
                 if (!parseEQName(XQueryElementType.TYPE_NAME)) {
                     error(XQueryBundle.message("parser.error.expected", "TypeName"));
-                    haveErrors = true;
                 }
             }
 
             parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.BLOCK_OPEN)) {
-                if (haveValidationMode) {
-                    error(XQueryBundle.message("parser.error.expected", "{"));
-                    haveErrors = true;
-                } else {
-                    validateExprMarker.rollbackTo();
-                    return false;
-                }
-            }
-
-            parseWhiteSpaceAndCommentTokens();
-            if (!parseExpr(XQueryElementType.EXPR) && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected-expression"));
-                haveErrors = true;
-            }
-
-            parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.BLOCK_CLOSE) && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected", "}"));
+            if (!parseEnclosedExpr(XQueryElementType.ENCLOSED_EXPR, haveValidationMode)) {
+                validateExprMarker.rollbackTo();
+                return false;
             }
 
             validateExprMarker.done(XQueryElementType.VALIDATE_EXPR);
