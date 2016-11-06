@@ -24,7 +24,7 @@ FileElement[FILE(0:11)]
                                                                      XQueryCompCommentConstructorImpl[XQUERY_COMP_COMMENT_CONSTRUCTOR(0:11)]
                                                                         LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_COMMENT(0:7)]('comment')
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-                                                                        LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(8:9)]('{')
-                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
-                                                                        PsiErrorElementImpl[ERROR_ELEMENT(10:10)]('XPST0003: Missing expression.')
-                                                                        LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(10:11)]('}')
+                                                                        XQueryEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(8:11)]
+                                                                           LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(8:9)]('{')
+                                                                           PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
+                                                                           LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(10:11)]('}')
