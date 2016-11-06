@@ -4212,13 +4212,6 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CompDocConstructor")
-    public void testCompDocConstructor_MissingExpr() {
-        final String expected = loadResource("tests/parser/xquery-1.0/CompDocConstructor_MissingExpr.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-1.0/CompDocConstructor_MissingExpr.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CompDocConstructor")
     public void testCompDocConstructor_MissingClosingBrace() {
         final String expected = loadResource("tests/parser/xquery-1.0/CompDocConstructor_MissingClosingBrace.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-1.0/CompDocConstructor_MissingClosingBrace.xq");
@@ -7425,6 +7418,16 @@ public class XQueryParserTest extends ParserTestCase {
     public void testDirElemContent_CommonContent_EnclosedExpr_MissingExpr() {
         final String expected = loadResource("tests/parser/xquery-3.1/DirElemContent_CommonContent_EnclosedExpr_MissingExpr.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-3.1/DirElemContent_CommonContent_EnclosedExpr_MissingExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
+    // region XQuery 3.1 :: CompDocConstructor
+
+    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-CompDocConstructor")
+    public void testCompDocConstructor_MissingExpr() {
+        final String expected = loadResource("tests/parser/xquery-3.1/CompDocConstructor_MissingExpr.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/CompDocConstructor_MissingExpr.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
