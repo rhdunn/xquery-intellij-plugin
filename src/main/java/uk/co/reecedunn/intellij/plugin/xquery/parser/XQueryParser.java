@@ -1223,18 +1223,37 @@ class XQueryParser {
     // region Grammar :: Expr
 
     private boolean parseEnclosedExpr(IElementType type) {
-        final PsiBuilder.Marker enclosedExprMarker = matchTokenTypeWithMarker(XQueryTokenType.BLOCK_OPEN);
+        return parseEnclosedExpr(type, false);
+    }
+
+    private boolean parseEnclosedExpr(IElementType type, boolean allowMissingBlockOpen) {
+        boolean haveErrors = false;
+        boolean haveExpr = false;
+        PsiBuilder.Marker enclosedExprMarker = matchTokenTypeWithMarker(XQueryTokenType.BLOCK_OPEN);
+        if (enclosedExprMarker == null && allowMissingBlockOpen) {
+            error(XQueryBundle.message("parser.error.expected", "{"));
+            enclosedExprMarker = mark();
+            haveErrors = true;
+        } else if (enclosedExprMarker != null) {
+            haveExpr = true;
+        }
+
         if (enclosedExprMarker != null) {
             parseWhiteSpaceAndCommentTokens();
-            parseExpr(XQueryElementType.EXPR);
+            haveExpr |= parseExpr(XQueryElementType.EXPR);
 
             parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.BLOCK_CLOSE)) {
+            if (matchTokenType(XQueryTokenType.BLOCK_CLOSE)) {
+                haveExpr = true;
+            } else if (!haveErrors) {
                 error(XQueryBundle.message("parser.error.expected", "}"));
             }
 
-            enclosedExprMarker.done(type);
-            return true;
+            if (haveExpr) {
+                enclosedExprMarker.done(type);
+                return true;
+            }
+            enclosedExprMarker.drop();
         }
         return false;
     }
@@ -3248,22 +3267,8 @@ class XQueryParser {
             parseWhiteSpaceAndCommentTokens();
         }
         if (matched) {
-            boolean haveErrors = false;
-
             parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.BLOCK_OPEN)) {
-                error(XQueryBundle.message("parser.error.expected", "{"));
-                haveErrors = true;
-            }
-
-            parseWhiteSpaceAndCommentTokens();
-            parseExpr(XQueryElementType.EXPR);
-
-            parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.BLOCK_CLOSE) && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected", "}"));
-            }
-
+            parseEnclosedExpr(XQueryElementType.ENCLOSED_EXPR, true);
             extensionExprMarker.done(XQueryElementType.EXTENSION_EXPR);
             return true;
         }
