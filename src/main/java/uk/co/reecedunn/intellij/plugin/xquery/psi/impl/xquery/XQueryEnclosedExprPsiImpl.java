@@ -17,11 +17,39 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
+import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEnclosedExpr;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
+import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 
-public class XQueryEnclosedExprPsiImpl extends ASTWrapperPsiElement implements XQueryEnclosedExpr {
+public class XQueryEnclosedExprPsiImpl extends ASTWrapperPsiElement implements XQueryEnclosedExpr, XQueryConformanceCheck {
     public XQueryEnclosedExprPsiImpl(@NotNull ASTNode node) {
         super(node);
+    }
+
+    @Override
+    public boolean conformsTo(ImplementationItem implementation) {
+        if (getConformanceElement() != getFirstChild()) {
+            return true;
+        }
+
+        final XQueryVersion minimalConformance = implementation.getVersion(XQueryConformance.MINIMAL_CONFORMANCE);
+        return minimalConformance != null && minimalConformance.supportsVersion(XQueryVersion.VERSION_3_1);
+    }
+
+    @Override
+    public PsiElement getConformanceElement() {
+        PsiElement element = findChildByType(XQueryElementType.EXPR);
+        return element == null ? getFirstChild() : element;
+    }
+
+    @Override
+    public String getConformanceErrorMessage() {
+        return XQueryBundle.message("requires.empty-expression.version", XQueryVersion.VERSION_3_1);
     }
 }

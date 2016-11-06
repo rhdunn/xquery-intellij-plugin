@@ -1225,16 +1225,11 @@ class XQueryParser {
     private boolean parseEnclosedExpr(IElementType type) {
         final PsiBuilder.Marker enclosedExprMarker = matchTokenTypeWithMarker(XQueryTokenType.BLOCK_OPEN);
         if (enclosedExprMarker != null) {
-            boolean haveErrors = false;
             parseWhiteSpaceAndCommentTokens();
-
-            if (!parseExpr(XQueryElementType.EXPR)) {
-                error(XQueryBundle.message("parser.error.expected-expression"));
-                haveErrors = true;
-            }
+            parseExpr(XQueryElementType.EXPR);
 
             parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.BLOCK_CLOSE) && !haveErrors) {
+            if (!matchTokenType(XQueryTokenType.BLOCK_CLOSE)) {
                 error(XQueryBundle.message("parser.error.expected", "}"));
             }
 
