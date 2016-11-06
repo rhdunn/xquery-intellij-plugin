@@ -63,11 +63,12 @@ public final class PsiTreeWalker implements Each<PsiElement>, Foldable<PsiElemen
         return Option.none();
     }
 
-    public void findAll(Predicate<PsiElement> matcher, Consumer<PsiElement> consumer) {
+    @SuppressWarnings("unchecked")
+    public <B extends PsiElement> void findAll(Predicate<PsiElement> matcher, Consumer<B> consumer) {
         PsiElement element = mElement;
         while (element != null) {
             if (matcher.test(element)) {
-                consumer.accept(element);
+                consumer.accept((B)element);
             }
             element = mNextElementFunction.apply(element);
         }

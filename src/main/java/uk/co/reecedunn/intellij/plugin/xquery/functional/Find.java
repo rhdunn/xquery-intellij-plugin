@@ -25,9 +25,9 @@ public interface Find<A> {
         return findFirst(c::isInstance);
     }
 
-    void findAll(Predicate<A> matcher, Consumer<A> consumer);
+    <B extends A> void findAll(Predicate<A> matcher, Consumer<B> consumer);
 
-    default void findAll(Class c, Consumer<A> consumer) {
+    default <B extends A> void findAll(Class<B> c, Consumer<B> consumer) {
         findAll(c::isInstance, consumer);
     }
 }
