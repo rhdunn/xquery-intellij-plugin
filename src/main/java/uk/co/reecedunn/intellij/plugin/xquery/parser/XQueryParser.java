@@ -4213,18 +4213,7 @@ class XQueryParser {
             }
 
             parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.BLOCK_OPEN) && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected", "{"));
-                haveErrors = true;
-            }
-
-            parseWhiteSpaceAndCommentTokens();
-            parseExpr(XQueryElementType.EXPR);
-
-            parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.BLOCK_CLOSE) && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected", "}"));
-            }
+            parseEnclosedExpr(XQueryElementType.ENCLOSED_EXPR);
 
             attributeMarker.done(XQueryElementType.COMP_ATTR_CONSTRUCTOR);
             return true;

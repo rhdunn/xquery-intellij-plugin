@@ -19,6 +19,7 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCompAttrConstructor;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCompPIConstructor;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEnclosedExpr;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
@@ -35,7 +36,8 @@ public class XQueryEnclosedExprPsiImpl extends ASTWrapperPsiElement implements X
 
     private boolean previousVersionSupportsOptionalExpr() {
         PsiElement parent = getParent();
-        return parent instanceof XQueryCompPIConstructor;
+        return parent instanceof XQueryCompPIConstructor ||
+               parent instanceof XQueryCompAttrConstructor;
     }
 
     @Override

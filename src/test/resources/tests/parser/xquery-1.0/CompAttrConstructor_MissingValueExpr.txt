@@ -53,4 +53,3 @@ FileElement[FILE(0:20)]
                                                                                                                                           LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(17:18)]('"')
                                                                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
                                                                         LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(19:20)]('}')
-                                                                        PsiErrorElementImpl[ERROR_ELEMENT(20:20)]('XPST0003: Expected '{'.')
