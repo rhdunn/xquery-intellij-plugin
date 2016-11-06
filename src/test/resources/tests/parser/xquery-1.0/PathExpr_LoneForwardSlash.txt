@@ -14,7 +14,8 @@ FileElement[FILE(0:1)]
                                        XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:1)]
                                           XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:1)]
                                              XQueryCastExprImpl[XQUERY_CAST_EXPR(0:1)]
-                                                XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:1)]
-                                                   XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:1)]
-                                                      XQueryPathExprImpl[XQUERY_PATH_EXPR(0:1)]
-                                                         LeafPsiElement[XQUERY_DIRECT_DESCENDANTS_PATH_TOKEN(0:1)]('/')
+                                                XQueryArrowExprImpl[XQUERY_ARROW_EXPR(0:1)]
+                                                   XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:1)]
+                                                      XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:1)]
+                                                         XQueryPathExprImpl[XQUERY_PATH_EXPR(0:1)]
+                                                            LeafPsiElement[XQUERY_DIRECT_DESCENDANTS_PATH_TOKEN(0:1)]('/')

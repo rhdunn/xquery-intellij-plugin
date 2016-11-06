@@ -29,6 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
  * This parser supports:
  *    -  XQuery 1.0
  *    -  XQuery 3.0
+ *    -  XQuery 3.1 (partial)
  *    -  Update Facility 1.0
  *    -  MarkLogic 1.0-ml Extensions for MarkLogic 6.0
  *    -  MarkLogic 1.0-ml Extensions for MarkLogic 8.0
@@ -749,7 +750,7 @@ class XQueryParser {
             matchTokenType(XQueryTokenType.K_ZERO_DIGIT) ||
             matchTokenType(XQueryTokenType.K_DIGIT) ||
             matchTokenType(XQueryTokenType.K_PATTERN_SEPARATOR) ||
-            matchTokenType(XQueryTokenType.K_EXPONENT_SEPARATOR)) {
+            matchTokenType(XQueryTokenType.K_EXPONENT_SEPARATOR)) { // XQuery 3.1
 
             dfPropertyNameMarker.done(XQueryElementType.DF_PROPERTY_NAME);
             return true;
@@ -3071,7 +3072,7 @@ class XQueryParser {
 
     private boolean parseCastExpr() {
         final PsiBuilder.Marker castExprMarker = mark();
-        if (parseUnaryExpr()) {
+        if (parseArrowExpr()) {
             parseWhiteSpaceAndCommentTokens();
             if (matchTokenType(XQueryTokenType.K_CAST)) {
                 boolean haveErrors = false;
@@ -3092,6 +3093,16 @@ class XQueryParser {
             return true;
         }
         castExprMarker.drop();
+        return false;
+    }
+
+    private boolean parseArrowExpr() {
+        final PsiBuilder.Marker arrowExprMarker = mark();
+        if (parseUnaryExpr()) {
+            arrowExprMarker.done(XQueryElementType.ARROW_EXPR);
+            return true;
+        }
+        arrowExprMarker.drop();
         return false;
     }
 

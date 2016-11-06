@@ -14,15 +14,16 @@ FileElement[FILE(0:5)]
                                        XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:5)]
                                           XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:5)]
                                              XQueryCastExprImpl[XQUERY_CAST_EXPR(0:5)]
-                                                XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:5)]
-                                                   XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:5)]
-                                                      XQueryPathExprImpl[XQUERY_PATH_EXPR(0:5)]
-                                                         XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:5)]
-                                                            XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:5)]
-                                                               XQueryConstructorImpl[XQUERY_CONSTRUCTOR(0:5)]
-                                                                  XQueryDirPIConstructorImpl[XQUERY_DIR_PI_CONSTRUCTOR(0:5)]
-                                                                     LeafPsiElement[XQUERY_PROCESSING_INSTRUCTION_BEGIN_TOKEN(0:2)]('<?')
-                                                                     XQueryNCNameImpl[XQUERY_NCNAME(2:3)]
-                                                                        LeafPsiElement[XQUERY_NCNAME_TOKEN(2:3)]('a')
-                                                                     PsiErrorElementImpl[ERROR_ELEMENT(3:3)]('XPST0003: Processing instruction contents expected.')
-                                                                     LeafPsiElement[XQUERY_PROCESSING_INSTRUCTION_END_TOKEN(3:5)]('?>')
+                                                XQueryArrowExprImpl[XQUERY_ARROW_EXPR(0:5)]
+                                                   XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:5)]
+                                                      XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:5)]
+                                                         XQueryPathExprImpl[XQUERY_PATH_EXPR(0:5)]
+                                                            XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:5)]
+                                                               XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:5)]
+                                                                  XQueryConstructorImpl[XQUERY_CONSTRUCTOR(0:5)]
+                                                                     XQueryDirPIConstructorImpl[XQUERY_DIR_PI_CONSTRUCTOR(0:5)]
+                                                                        LeafPsiElement[XQUERY_PROCESSING_INSTRUCTION_BEGIN_TOKEN(0:2)]('<?')
+                                                                        XQueryNCNameImpl[XQUERY_NCNAME(2:3)]
+                                                                           LeafPsiElement[XQUERY_NCNAME_TOKEN(2:3)]('a')
+                                                                        PsiErrorElementImpl[ERROR_ELEMENT(3:3)]('XPST0003: Processing instruction contents expected.')
+                                                                        LeafPsiElement[XQUERY_PROCESSING_INSTRUCTION_END_TOKEN(3:5)]('?>')

@@ -14,19 +14,20 @@ FileElement[FILE(0:28)]
                                        XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:2)]
                                           XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:2)]
                                              XQueryCastExprImpl[XQUERY_CAST_EXPR(0:2)]
-                                                XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:2)]
-                                                   XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:2)]
-                                                      XQueryPathExprImpl[XQUERY_PATH_EXPR(0:2)]
-                                                         XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:2)]
-                                                            XQueryAxisStepImpl[XQUERY_AXIS_STEP(0:2)]
-                                                               XQueryForwardStepImpl[XQUERY_FORWARD_STEP(0:2)]
-                                                                  XQueryAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:2)]
-                                                                     XQueryNodeTestImpl[XQUERY_NODE_TEST(0:2)]
-                                                                        XQueryNameTestImpl[XQUERY_NAME_TEST(0:2)]
-                                                                           XQueryNCNameImpl[XQUERY_NCNAME(0:1)]
-                                                                              LeafPsiElement[XQUERY_NCNAME_TOKEN(0:1)]('a')
-                                                                           PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
-                                                               XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(2:2)]
+                                                XQueryArrowExprImpl[XQUERY_ARROW_EXPR(0:2)]
+                                                   XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:2)]
+                                                      XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:2)]
+                                                         XQueryPathExprImpl[XQUERY_PATH_EXPR(0:2)]
+                                                            XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:2)]
+                                                               XQueryAxisStepImpl[XQUERY_AXIS_STEP(0:2)]
+                                                                  XQueryForwardStepImpl[XQUERY_FORWARD_STEP(0:2)]
+                                                                     XQueryAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:2)]
+                                                                        XQueryNodeTestImpl[XQUERY_NODE_TEST(0:2)]
+                                                                           XQueryNameTestImpl[XQUERY_NAME_TEST(0:2)]
+                                                                              XQueryNCNameImpl[XQUERY_NCNAME(0:1)]
+                                                                                 LeafPsiElement[XQUERY_NCNAME_TOKEN(0:1)]('a')
+                                                                              PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+                                                                  XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(2:2)]
                               LeafPsiElement[XQUERY_STAR_TOKEN(2:3)]('*')
                               PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
                               PsiErrorElementImpl[ERROR_ELEMENT(4:4)]('XPST0003: Expected 'UnionExpr'.')
@@ -45,19 +46,20 @@ FileElement[FILE(0:28)]
                                        XQueryTreatExprImpl[XQUERY_TREAT_EXPR(6:8)]
                                           XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(6:8)]
                                              XQueryCastExprImpl[XQUERY_CAST_EXPR(6:8)]
-                                                XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(6:8)]
-                                                   XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(6:8)]
-                                                      XQueryPathExprImpl[XQUERY_PATH_EXPR(6:8)]
-                                                         XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(6:8)]
-                                                            XQueryAxisStepImpl[XQUERY_AXIS_STEP(6:8)]
-                                                               XQueryForwardStepImpl[XQUERY_FORWARD_STEP(6:8)]
-                                                                  XQueryAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(6:8)]
-                                                                     XQueryNodeTestImpl[XQUERY_NODE_TEST(6:8)]
-                                                                        XQueryNameTestImpl[XQUERY_NAME_TEST(6:8)]
-                                                                           XQueryNCNameImpl[XQUERY_NCNAME(6:7)]
-                                                                              LeafPsiElement[XQUERY_NCNAME_TOKEN(6:7)]('a')
-                                                                           PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-                                                               XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(8:8)]
+                                                XQueryArrowExprImpl[XQUERY_ARROW_EXPR(6:8)]
+                                                   XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(6:8)]
+                                                      XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(6:8)]
+                                                         XQueryPathExprImpl[XQUERY_PATH_EXPR(6:8)]
+                                                            XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(6:8)]
+                                                               XQueryAxisStepImpl[XQUERY_AXIS_STEP(6:8)]
+                                                                  XQueryForwardStepImpl[XQUERY_FORWARD_STEP(6:8)]
+                                                                     XQueryAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(6:8)]
+                                                                        XQueryNodeTestImpl[XQUERY_NODE_TEST(6:8)]
+                                                                           XQueryNameTestImpl[XQUERY_NAME_TEST(6:8)]
+                                                                              XQueryNCNameImpl[XQUERY_NCNAME(6:7)]
+                                                                                 LeafPsiElement[XQUERY_NCNAME_TOKEN(6:7)]('a')
+                                                                              PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+                                                                  XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(8:8)]
                               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DIV(8:11)]('div')
                               PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
                               PsiErrorElementImpl[ERROR_ELEMENT(12:12)]('XPST0003: Expected 'UnionExpr'.')
@@ -76,19 +78,20 @@ FileElement[FILE(0:28)]
                                        XQueryTreatExprImpl[XQUERY_TREAT_EXPR(14:16)]
                                           XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(14:16)]
                                              XQueryCastExprImpl[XQUERY_CAST_EXPR(14:16)]
-                                                XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(14:16)]
-                                                   XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(14:16)]
-                                                      XQueryPathExprImpl[XQUERY_PATH_EXPR(14:16)]
-                                                         XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(14:16)]
-                                                            XQueryAxisStepImpl[XQUERY_AXIS_STEP(14:16)]
-                                                               XQueryForwardStepImpl[XQUERY_FORWARD_STEP(14:16)]
-                                                                  XQueryAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(14:16)]
-                                                                     XQueryNodeTestImpl[XQUERY_NODE_TEST(14:16)]
-                                                                        XQueryNameTestImpl[XQUERY_NAME_TEST(14:16)]
-                                                                           XQueryNCNameImpl[XQUERY_NCNAME(14:15)]
-                                                                              LeafPsiElement[XQUERY_NCNAME_TOKEN(14:15)]('a')
-                                                                           PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
-                                                               XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(16:16)]
+                                                XQueryArrowExprImpl[XQUERY_ARROW_EXPR(14:16)]
+                                                   XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(14:16)]
+                                                      XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(14:16)]
+                                                         XQueryPathExprImpl[XQUERY_PATH_EXPR(14:16)]
+                                                            XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(14:16)]
+                                                               XQueryAxisStepImpl[XQUERY_AXIS_STEP(14:16)]
+                                                                  XQueryForwardStepImpl[XQUERY_FORWARD_STEP(14:16)]
+                                                                     XQueryAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(14:16)]
+                                                                        XQueryNodeTestImpl[XQUERY_NODE_TEST(14:16)]
+                                                                           XQueryNameTestImpl[XQUERY_NAME_TEST(14:16)]
+                                                                              XQueryNCNameImpl[XQUERY_NCNAME(14:15)]
+                                                                                 LeafPsiElement[XQUERY_NCNAME_TOKEN(14:15)]('a')
+                                                                              PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
+                                                                  XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(16:16)]
                               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_IDIV(16:20)]('idiv')
                               PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
                               PsiErrorElementImpl[ERROR_ELEMENT(21:21)]('XPST0003: Expected 'UnionExpr'.')
@@ -107,18 +110,19 @@ FileElement[FILE(0:28)]
                                        XQueryTreatExprImpl[XQUERY_TREAT_EXPR(23:25)]
                                           XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(23:25)]
                                              XQueryCastExprImpl[XQUERY_CAST_EXPR(23:25)]
-                                                XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(23:25)]
-                                                   XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(23:25)]
-                                                      XQueryPathExprImpl[XQUERY_PATH_EXPR(23:25)]
-                                                         XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(23:25)]
-                                                            XQueryAxisStepImpl[XQUERY_AXIS_STEP(23:25)]
-                                                               XQueryForwardStepImpl[XQUERY_FORWARD_STEP(23:25)]
-                                                                  XQueryAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(23:25)]
-                                                                     XQueryNodeTestImpl[XQUERY_NODE_TEST(23:25)]
-                                                                        XQueryNameTestImpl[XQUERY_NAME_TEST(23:25)]
-                                                                           XQueryNCNameImpl[XQUERY_NCNAME(23:24)]
-                                                                              LeafPsiElement[XQUERY_NCNAME_TOKEN(23:24)]('a')
-                                                                           PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
-                                                               XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(25:25)]
+                                                XQueryArrowExprImpl[XQUERY_ARROW_EXPR(23:25)]
+                                                   XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(23:25)]
+                                                      XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(23:25)]
+                                                         XQueryPathExprImpl[XQUERY_PATH_EXPR(23:25)]
+                                                            XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(23:25)]
+                                                               XQueryAxisStepImpl[XQUERY_AXIS_STEP(23:25)]
+                                                                  XQueryForwardStepImpl[XQUERY_FORWARD_STEP(23:25)]
+                                                                     XQueryAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(23:25)]
+                                                                        XQueryNodeTestImpl[XQUERY_NODE_TEST(23:25)]
+                                                                           XQueryNameTestImpl[XQUERY_NAME_TEST(23:25)]
+                                                                              XQueryNCNameImpl[XQUERY_NCNAME(23:24)]
+                                                                                 LeafPsiElement[XQUERY_NCNAME_TOKEN(23:24)]('a')
+                                                                              PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
+                                                                  XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(25:25)]
                               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_MOD(25:28)]('mod')
                               PsiErrorElementImpl[ERROR_ELEMENT(28:28)]('XPST0003: Expected 'UnionExpr'.')

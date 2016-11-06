@@ -14,14 +14,15 @@ FileElement[FILE(0:39)]
                                        XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:2)]
                                           XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:2)]
                                              XQueryCastExprImpl[XQUERY_CAST_EXPR(0:2)]
-                                                XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:2)]
-                                                   XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:2)]
-                                                      XQueryPathExprImpl[XQUERY_PATH_EXPR(0:2)]
-                                                         XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:2)]
-                                                            XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:2)]
-                                                               XQueryLiteralImpl[XQUERY_LITERAL(0:1)]
-                                                                  XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:1)]('1')
-                                                               PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+                                                XQueryArrowExprImpl[XQUERY_ARROW_EXPR(0:2)]
+                                                   XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:2)]
+                                                      XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:2)]
+                                                         XQueryPathExprImpl[XQUERY_PATH_EXPR(0:2)]
+                                                            XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:2)]
+                                                               XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:2)]
+                                                                  XQueryLiteralImpl[XQUERY_LITERAL(0:1)]
+                                                                     XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:1)]('1')
+                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
                   LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_EQ(2:4)]('eq')
                   PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
                   PsiErrorElementImpl[ERROR_ELEMENT(5:5)]('XPST0003: Expected 'StringConcatExpr'.')
@@ -40,14 +41,15 @@ FileElement[FILE(0:39)]
                                        XQueryTreatExprImpl[XQUERY_TREAT_EXPR(7:9)]
                                           XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(7:9)]
                                              XQueryCastExprImpl[XQUERY_CAST_EXPR(7:9)]
-                                                XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(7:9)]
-                                                   XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(7:9)]
-                                                      XQueryPathExprImpl[XQUERY_PATH_EXPR(7:9)]
-                                                         XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(7:9)]
-                                                            XQueryFilterExprImpl[XQUERY_FILTER_EXPR(7:9)]
-                                                               XQueryLiteralImpl[XQUERY_LITERAL(7:8)]
-                                                                  XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(7:8)]('1')
-                                                               PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
+                                                XQueryArrowExprImpl[XQUERY_ARROW_EXPR(7:9)]
+                                                   XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(7:9)]
+                                                      XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(7:9)]
+                                                         XQueryPathExprImpl[XQUERY_PATH_EXPR(7:9)]
+                                                            XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(7:9)]
+                                                               XQueryFilterExprImpl[XQUERY_FILTER_EXPR(7:9)]
+                                                                  XQueryLiteralImpl[XQUERY_LITERAL(7:8)]
+                                                                     XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(7:8)]('1')
+                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
                   LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NE(9:11)]('ne')
                   PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
                   PsiErrorElementImpl[ERROR_ELEMENT(12:12)]('XPST0003: Expected 'StringConcatExpr'.')
@@ -66,14 +68,15 @@ FileElement[FILE(0:39)]
                                        XQueryTreatExprImpl[XQUERY_TREAT_EXPR(14:16)]
                                           XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(14:16)]
                                              XQueryCastExprImpl[XQUERY_CAST_EXPR(14:16)]
-                                                XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(14:16)]
-                                                   XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(14:16)]
-                                                      XQueryPathExprImpl[XQUERY_PATH_EXPR(14:16)]
-                                                         XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(14:16)]
-                                                            XQueryFilterExprImpl[XQUERY_FILTER_EXPR(14:16)]
-                                                               XQueryLiteralImpl[XQUERY_LITERAL(14:15)]
-                                                                  XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(14:15)]('1')
-                                                               PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
+                                                XQueryArrowExprImpl[XQUERY_ARROW_EXPR(14:16)]
+                                                   XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(14:16)]
+                                                      XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(14:16)]
+                                                         XQueryPathExprImpl[XQUERY_PATH_EXPR(14:16)]
+                                                            XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(14:16)]
+                                                               XQueryFilterExprImpl[XQUERY_FILTER_EXPR(14:16)]
+                                                                  XQueryLiteralImpl[XQUERY_LITERAL(14:15)]
+                                                                     XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(14:15)]('1')
+                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
                   LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_LT(16:18)]('lt')
                   PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
                   PsiErrorElementImpl[ERROR_ELEMENT(19:19)]('XPST0003: Expected 'StringConcatExpr'.')
@@ -92,14 +95,15 @@ FileElement[FILE(0:39)]
                                        XQueryTreatExprImpl[XQUERY_TREAT_EXPR(21:23)]
                                           XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(21:23)]
                                              XQueryCastExprImpl[XQUERY_CAST_EXPR(21:23)]
-                                                XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(21:23)]
-                                                   XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(21:23)]
-                                                      XQueryPathExprImpl[XQUERY_PATH_EXPR(21:23)]
-                                                         XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(21:23)]
-                                                            XQueryFilterExprImpl[XQUERY_FILTER_EXPR(21:23)]
-                                                               XQueryLiteralImpl[XQUERY_LITERAL(21:22)]
-                                                                  XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(21:22)]('1')
-                                                               PsiWhiteSpaceImpl[WHITE_SPACE(22:23)](' ')
+                                                XQueryArrowExprImpl[XQUERY_ARROW_EXPR(21:23)]
+                                                   XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(21:23)]
+                                                      XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(21:23)]
+                                                         XQueryPathExprImpl[XQUERY_PATH_EXPR(21:23)]
+                                                            XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(21:23)]
+                                                               XQueryFilterExprImpl[XQUERY_FILTER_EXPR(21:23)]
+                                                                  XQueryLiteralImpl[XQUERY_LITERAL(21:22)]
+                                                                     XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(21:22)]('1')
+                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(22:23)](' ')
                   LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_LE(23:25)]('le')
                   PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
                   PsiErrorElementImpl[ERROR_ELEMENT(26:26)]('XPST0003: Expected 'StringConcatExpr'.')
@@ -118,14 +122,15 @@ FileElement[FILE(0:39)]
                                        XQueryTreatExprImpl[XQUERY_TREAT_EXPR(28:30)]
                                           XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(28:30)]
                                              XQueryCastExprImpl[XQUERY_CAST_EXPR(28:30)]
-                                                XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(28:30)]
-                                                   XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(28:30)]
-                                                      XQueryPathExprImpl[XQUERY_PATH_EXPR(28:30)]
-                                                         XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(28:30)]
-                                                            XQueryFilterExprImpl[XQUERY_FILTER_EXPR(28:30)]
-                                                               XQueryLiteralImpl[XQUERY_LITERAL(28:29)]
-                                                                  XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(28:29)]('1')
-                                                               PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
+                                                XQueryArrowExprImpl[XQUERY_ARROW_EXPR(28:30)]
+                                                   XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(28:30)]
+                                                      XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(28:30)]
+                                                         XQueryPathExprImpl[XQUERY_PATH_EXPR(28:30)]
+                                                            XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(28:30)]
+                                                               XQueryFilterExprImpl[XQUERY_FILTER_EXPR(28:30)]
+                                                                  XQueryLiteralImpl[XQUERY_LITERAL(28:29)]
+                                                                     XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(28:29)]('1')
+                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
                   LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_GT(30:32)]('gt')
                   PsiWhiteSpaceImpl[WHITE_SPACE(32:33)](' ')
                   PsiErrorElementImpl[ERROR_ELEMENT(33:33)]('XPST0003: Expected 'StringConcatExpr'.')
@@ -144,13 +149,14 @@ FileElement[FILE(0:39)]
                                        XQueryTreatExprImpl[XQUERY_TREAT_EXPR(35:37)]
                                           XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(35:37)]
                                              XQueryCastExprImpl[XQUERY_CAST_EXPR(35:37)]
-                                                XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(35:37)]
-                                                   XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(35:37)]
-                                                      XQueryPathExprImpl[XQUERY_PATH_EXPR(35:37)]
-                                                         XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(35:37)]
-                                                            XQueryFilterExprImpl[XQUERY_FILTER_EXPR(35:37)]
-                                                               XQueryLiteralImpl[XQUERY_LITERAL(35:36)]
-                                                                  XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(35:36)]('1')
-                                                               PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
+                                                XQueryArrowExprImpl[XQUERY_ARROW_EXPR(35:37)]
+                                                   XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(35:37)]
+                                                      XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(35:37)]
+                                                         XQueryPathExprImpl[XQUERY_PATH_EXPR(35:37)]
+                                                            XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(35:37)]
+                                                               XQueryFilterExprImpl[XQUERY_FILTER_EXPR(35:37)]
+                                                                  XQueryLiteralImpl[XQUERY_LITERAL(35:36)]
+                                                                     XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(35:36)]('1')
+                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
                   LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_GE(37:39)]('ge')
                   PsiErrorElementImpl[ERROR_ELEMENT(39:39)]('XPST0003: Expected 'StringConcatExpr'.')

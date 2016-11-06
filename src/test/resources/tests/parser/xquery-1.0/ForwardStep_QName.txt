@@ -14,23 +14,24 @@ FileElement[FILE(0:15)]
                                        XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:15)]
                                           XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:15)]
                                              XQueryCastExprImpl[XQUERY_CAST_EXPR(0:15)]
-                                                XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:15)]
-                                                   XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:15)]
-                                                      XQueryPathExprImpl[XQUERY_PATH_EXPR(0:15)]
-                                                         XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:15)]
-                                                            XQueryAxisStepImpl[XQUERY_AXIS_STEP(0:15)]
-                                                               XQueryForwardStepImpl[XQUERY_FORWARD_STEP(0:15)]
-                                                                  XQueryForwardAxisImpl[XQUERY_FORWARD_AXIS(0:7)]
-                                                                     LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_SELF(0:4)]('self')
-                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
-                                                                     LeafPsiElement[XQUERY_AXIS_SEPARATOR_TOKEN(5:7)]('::')
-                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-                                                                  XQueryNodeTestImpl[XQUERY_NODE_TEST(8:15)]
-                                                                     XQueryNameTestImpl[XQUERY_NAME_TEST(8:15)]
-                                                                        XQueryQNameImpl[XQUERY_QNAME(8:15)]
-                                                                           XQueryNCNameImpl[XQUERY_NCNAME(8:10)]
-                                                                              LeafPsiElement[XQUERY_NCNAME_TOKEN(8:10)]('xh')
-                                                                           LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(10:11)](':')
-                                                                           XQueryNCNameImpl[XQUERY_NCNAME(11:15)]
-                                                                              LeafPsiElement[XQUERY_NCNAME_TOKEN(11:15)]('body')
-                                                               XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(15:15)]
+                                                XQueryArrowExprImpl[XQUERY_ARROW_EXPR(0:15)]
+                                                   XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:15)]
+                                                      XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:15)]
+                                                         XQueryPathExprImpl[XQUERY_PATH_EXPR(0:15)]
+                                                            XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:15)]
+                                                               XQueryAxisStepImpl[XQUERY_AXIS_STEP(0:15)]
+                                                                  XQueryForwardStepImpl[XQUERY_FORWARD_STEP(0:15)]
+                                                                     XQueryForwardAxisImpl[XQUERY_FORWARD_AXIS(0:7)]
+                                                                        LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_SELF(0:4)]('self')
+                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
+                                                                        LeafPsiElement[XQUERY_AXIS_SEPARATOR_TOKEN(5:7)]('::')
+                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+                                                                     XQueryNodeTestImpl[XQUERY_NODE_TEST(8:15)]
+                                                                        XQueryNameTestImpl[XQUERY_NAME_TEST(8:15)]
+                                                                           XQueryQNameImpl[XQUERY_QNAME(8:15)]
+                                                                              XQueryNCNameImpl[XQUERY_NCNAME(8:10)]
+                                                                                 LeafPsiElement[XQUERY_NCNAME_TOKEN(8:10)]('xh')
+                                                                              LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(10:11)](':')
+                                                                              XQueryNCNameImpl[XQUERY_NCNAME(11:15)]
+                                                                                 LeafPsiElement[XQUERY_NCNAME_TOKEN(11:15)]('body')
+                                                                  XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(15:15)]

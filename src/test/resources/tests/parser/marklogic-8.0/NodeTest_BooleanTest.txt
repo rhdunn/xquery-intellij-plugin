@@ -14,16 +14,17 @@ FileElement[FILE(0:14)]
                                        XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:14)]
                                           XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:14)]
                                              XQueryCastExprImpl[XQUERY_CAST_EXPR(0:14)]
-                                                XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:14)]
-                                                   XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:14)]
-                                                      XQueryPathExprImpl[XQUERY_PATH_EXPR(0:14)]
-                                                         XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:14)]
-                                                            XQueryAxisStepImpl[XQUERY_AXIS_STEP(0:14)]
-                                                               XQueryForwardStepImpl[XQUERY_FORWARD_STEP(0:14)]
-                                                                  XQueryAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:14)]
-                                                                     XQueryNodeTestImpl[XQUERY_NODE_TEST(0:14)]
-                                                                        MarkLogicBooleanTestImpl[XQUERY_BOOLEAN_TEST(0:14)]
-                                                                           LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_BOOLEAN_NODE(0:12)]('boolean-node')
-                                                                           LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(12:13)]('(')
-                                                                           LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(13:14)](')')
-                                                               XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(14:14)]
+                                                XQueryArrowExprImpl[XQUERY_ARROW_EXPR(0:14)]
+                                                   XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:14)]
+                                                      XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:14)]
+                                                         XQueryPathExprImpl[XQUERY_PATH_EXPR(0:14)]
+                                                            XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:14)]
+                                                               XQueryAxisStepImpl[XQUERY_AXIS_STEP(0:14)]
+                                                                  XQueryForwardStepImpl[XQUERY_FORWARD_STEP(0:14)]
+                                                                     XQueryAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:14)]
+                                                                        XQueryNodeTestImpl[XQUERY_NODE_TEST(0:14)]
+                                                                           MarkLogicBooleanTestImpl[XQUERY_BOOLEAN_TEST(0:14)]
+                                                                              LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_BOOLEAN_NODE(0:12)]('boolean-node')
+                                                                              LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(12:13)]('(')
+                                                                              LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(13:14)](')')
+                                                                  XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(14:14)]

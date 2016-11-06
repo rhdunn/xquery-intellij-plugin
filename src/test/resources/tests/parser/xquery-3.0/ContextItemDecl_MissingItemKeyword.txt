@@ -23,13 +23,14 @@ FileElement[FILE(0:22)]
                                              XQueryTreatExprImpl[XQUERY_TREAT_EXPR(19:21)]
                                                 XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(19:21)]
                                                    XQueryCastExprImpl[XQUERY_CAST_EXPR(19:21)]
-                                                      XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(19:21)]
-                                                         XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(19:21)]
-                                                            XQueryPathExprImpl[XQUERY_PATH_EXPR(19:21)]
-                                                               XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(19:21)]
-                                                                  XQueryFilterExprImpl[XQUERY_FILTER_EXPR(19:21)]
-                                                                     XQueryLiteralImpl[XQUERY_LITERAL(19:20)]
-                                                                        XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(19:20)]('2')
-                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
+                                                      XQueryArrowExprImpl[XQUERY_ARROW_EXPR(19:21)]
+                                                         XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(19:21)]
+                                                            XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(19:21)]
+                                                               XQueryPathExprImpl[XQUERY_PATH_EXPR(19:21)]
+                                                                  XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(19:21)]
+                                                                     XQueryFilterExprImpl[XQUERY_FILTER_EXPR(19:21)]
+                                                                        XQueryLiteralImpl[XQUERY_LITERAL(19:20)]
+                                                                           XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(19:20)]('2')
+                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(21:22)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(22:22)]('XPST0003: Missing query body.')

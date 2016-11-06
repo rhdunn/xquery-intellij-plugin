@@ -14,10 +14,11 @@ FileElement[FILE(0:5)]
                                        XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:2)]
                                           XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:2)]
                                              XQueryCastExprImpl[XQUERY_CAST_EXPR(0:2)]
-                                                XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:2)]
-                                                   LeafPsiElement[XQUERY_PLUS_TOKEN(0:1)]('+')
-                                                   PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
-                                                   PsiErrorElementImpl[ERROR_ELEMENT(2:2)]('XPST0003: Expected 'ValueExpr'.')
+                                                XQueryArrowExprImpl[XQUERY_ARROW_EXPR(0:2)]
+                                                   XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:2)]
+                                                      LeafPsiElement[XQUERY_PLUS_TOKEN(0:1)]('+')
+                                                      PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+                                                      PsiErrorElementImpl[ERROR_ELEMENT(2:2)]('XPST0003: Expected 'ValueExpr'.')
          LeafPsiElement[XQUERY_COMMA_TOKEN(2:3)](',')
          PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
          XQueryOrExprImpl[XQUERY_OR_EXPR(4:5)]
@@ -33,6 +34,7 @@ FileElement[FILE(0:5)]
                                        XQueryTreatExprImpl[XQUERY_TREAT_EXPR(4:5)]
                                           XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(4:5)]
                                              XQueryCastExprImpl[XQUERY_CAST_EXPR(4:5)]
-                                                XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(4:5)]
-                                                   LeafPsiElement[XQUERY_MINUS_TOKEN(4:5)]('-')
-                                                   PsiErrorElementImpl[ERROR_ELEMENT(5:5)]('XPST0003: Expected 'ValueExpr'.')
+                                                XQueryArrowExprImpl[XQUERY_ARROW_EXPR(4:5)]
+                                                   XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(4:5)]
+                                                      LeafPsiElement[XQUERY_MINUS_TOKEN(4:5)]('-')
+                                                      PsiErrorElementImpl[ERROR_ELEMENT(5:5)]('XPST0003: Expected 'ValueExpr'.')

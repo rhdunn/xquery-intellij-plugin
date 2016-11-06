@@ -240,6 +240,11 @@ public interface XQueryElementType {
     IElementType URI_EXPR = new ICompositeElementType("XQUERY_URI_EXPR", XQueryUriExprPsiImpl.class);
 
     // endregion
+    // region XQuery 3.1
+
+    IElementType ARROW_EXPR = new ICompositeElementType("XQUERY_ARROW_EXPR", XQueryArrowExprPsiImpl.class);
+
+    // endregion
     // region Update Facility 1.0
 
     IElementType REVALIDATION_DECL = new ICompositeElementType("XQUERY_REVALIDATION_DECL", UpdateFacilityRevalidationDeclPsiImpl.class);

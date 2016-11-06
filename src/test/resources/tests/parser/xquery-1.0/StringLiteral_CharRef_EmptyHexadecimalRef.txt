@@ -14,14 +14,15 @@ FileElement[FILE(0:6)]
                                        XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:6)]
                                           XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:6)]
                                              XQueryCastExprImpl[XQUERY_CAST_EXPR(0:6)]
-                                                XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:6)]
-                                                   XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:6)]
-                                                      XQueryPathExprImpl[XQUERY_PATH_EXPR(0:6)]
-                                                         XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:6)]
-                                                            XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:6)]
-                                                               XQueryLiteralImpl[XQUERY_LITERAL(0:6)]
-                                                                  XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:6)]
-                                                                     LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('"')
-                                                                     PsiErrorElementImpl[ERROR_ELEMENT(1:5)]('XPST0003: Entity references must not be empty.')
-                                                                        LeafPsiElement[XQUERY_EMPTY_ENTITY_REFERENCE_TOKEN(1:5)]('&#x;')
-                                                                     LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(5:6)]('"')
+                                                XQueryArrowExprImpl[XQUERY_ARROW_EXPR(0:6)]
+                                                   XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:6)]
+                                                      XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:6)]
+                                                         XQueryPathExprImpl[XQUERY_PATH_EXPR(0:6)]
+                                                            XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:6)]
+                                                               XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:6)]
+                                                                  XQueryLiteralImpl[XQUERY_LITERAL(0:6)]
+                                                                     XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:6)]
+                                                                        LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('"')
+                                                                        PsiErrorElementImpl[ERROR_ELEMENT(1:5)]('XPST0003: Entity references must not be empty.')
+                                                                           LeafPsiElement[XQUERY_EMPTY_ENTITY_REFERENCE_TOKEN(1:5)]('&#x;')
+                                                                        LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(5:6)]('"')

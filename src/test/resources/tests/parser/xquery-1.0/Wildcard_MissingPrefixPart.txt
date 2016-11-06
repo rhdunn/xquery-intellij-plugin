@@ -14,16 +14,17 @@ FileElement[FILE(0:2)]
                                        XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:2)]
                                           XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:2)]
                                              XQueryCastExprImpl[XQUERY_CAST_EXPR(0:2)]
-                                                XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:2)]
-                                                   XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:2)]
-                                                      XQueryPathExprImpl[XQUERY_PATH_EXPR(0:2)]
-                                                         XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:2)]
-                                                            XQueryAxisStepImpl[XQUERY_AXIS_STEP(0:2)]
-                                                               XQueryForwardStepImpl[XQUERY_FORWARD_STEP(0:2)]
-                                                                  XQueryAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:2)]
-                                                                     XQueryNodeTestImpl[XQUERY_NODE_TEST(0:2)]
-                                                                        XQueryNameTestImpl[XQUERY_NAME_TEST(0:2)]
-                                                                           PsiErrorElementImpl[ERROR_ELEMENT(0:2)]('XPST0003: Missing prefix before ':' in qualified name.')
-                                                                              LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(0:1)](':')
-                                                                              LeafPsiElement[XQUERY_STAR_TOKEN(1:2)]('*')
-                                                               XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(2:2)]
+                                                XQueryArrowExprImpl[XQUERY_ARROW_EXPR(0:2)]
+                                                   XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:2)]
+                                                      XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:2)]
+                                                         XQueryPathExprImpl[XQUERY_PATH_EXPR(0:2)]
+                                                            XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:2)]
+                                                               XQueryAxisStepImpl[XQUERY_AXIS_STEP(0:2)]
+                                                                  XQueryForwardStepImpl[XQUERY_FORWARD_STEP(0:2)]
+                                                                     XQueryAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:2)]
+                                                                        XQueryNodeTestImpl[XQUERY_NODE_TEST(0:2)]
+                                                                           XQueryNameTestImpl[XQUERY_NAME_TEST(0:2)]
+                                                                              PsiErrorElementImpl[ERROR_ELEMENT(0:2)]('XPST0003: Missing prefix before ':' in qualified name.')
+                                                                                 LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(0:1)](':')
+                                                                                 LeafPsiElement[XQUERY_STAR_TOKEN(1:2)]('*')
+                                                                  XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(2:2)]
