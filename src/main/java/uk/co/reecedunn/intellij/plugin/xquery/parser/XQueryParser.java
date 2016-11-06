@@ -4247,23 +4247,10 @@ class XQueryParser {
     private boolean parseCompTextConstructor() {
         final PsiBuilder.Marker textMarker = matchTokenTypeWithMarker(XQueryTokenType.K_TEXT);
         if (textMarker != null) {
-            boolean haveErrors = false;
-
             parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.BLOCK_OPEN)) {
+            if (!parseEnclosedExpr(XQueryElementType.ENCLOSED_EXPR)) {
                 textMarker.rollbackTo();
                 return false;
-            }
-
-            parseWhiteSpaceAndCommentTokens();
-            if (!parseExpr(XQueryElementType.EXPR)) {
-                error(XQueryBundle.message("parser.error.expected-expression"));
-                haveErrors = true;
-            }
-
-            parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.BLOCK_CLOSE) && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected", "}"));
             }
 
             textMarker.done(XQueryElementType.COMP_TEXT_CONSTRUCTOR);

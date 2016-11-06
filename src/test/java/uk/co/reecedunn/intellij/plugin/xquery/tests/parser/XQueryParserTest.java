@@ -4368,13 +4368,6 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CompTextConstructor")
-    public void testCompTextConstructor_MissingExpr() {
-        final String expected = loadResource("tests/parser/xquery-1.0/CompTextConstructor_MissingExpr.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-1.0/CompTextConstructor_MissingExpr.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CompTextConstructor")
     public void testCompTextConstructor_MissingClosingBrace() {
         final String expected = loadResource("tests/parser/xquery-1.0/CompTextConstructor_MissingClosingBrace.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-1.0/CompTextConstructor_MissingClosingBrace.xq");
@@ -7428,6 +7421,16 @@ public class XQueryParserTest extends ParserTestCase {
     public void testCompDocConstructor_MissingExpr() {
         final String expected = loadResource("tests/parser/xquery-3.1/CompDocConstructor_MissingExpr.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-3.1/CompDocConstructor_MissingExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
+    // region XQuery 3.1 :: CompTextConstructor
+
+    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-CompTextConstructor")
+    public void testCompTextConstructor_MissingExpr() {
+        final String expected = loadResource("tests/parser/xquery-3.1/CompTextConstructor_MissingExpr.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/CompTextConstructor_MissingExpr.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
