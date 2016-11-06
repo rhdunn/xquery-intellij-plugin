@@ -24,16 +24,16 @@ public interface Foldable<A> {
     <V> V fold(BiFunction<A, V, V> foldOver, V initialValue);
 
     @SuppressWarnings("unchecked")
-    default <B extends A, V> V foldIf(Predicate<B> matcher, BiFunction<B, V, V> foldOver, V initialValue) {
+    default <B extends A, V> V foldIf(Predicate<A> matcher, BiFunction<B, V, V> foldOver, V initialValue) {
         return fold((a, b) -> {
-            if (matcher.test((B)a)) {
+            if (matcher.test(a)) {
                 return foldOver.apply((B)a, b);
             }
             return b;
         }, initialValue);
     }
 
-    default <V> V foldIf(Class c, BiFunction<A, V, V> foldOver, V initialValue) {
+    default <B extends A, V> V foldOf(Class<B> c, BiFunction<B, V, V> foldOver, V initialValue) {
         return foldIf(c::isInstance, foldOver, initialValue);
     }
 
@@ -41,7 +41,7 @@ public interface Foldable<A> {
         return fold((a, value) -> value + 1, 0);
     }
 
-    default int countOf(Predicate<A> matcher) {
+    default int countIf(Predicate<A> matcher) {
         return foldIf(matcher, (a, value) -> value + 1, 0);
     }
 
@@ -53,11 +53,11 @@ public interface Foldable<A> {
         return fold((a, c) -> { c.add(a); return c; }, new ArrayList<A>());
     }
 
-    default <B extends A> List<B> toListOf(Predicate<B> matcher) {
-        return foldIf(matcher, (a, c) -> { c.add(a); return c; }, new ArrayList<B>());
+    default List<A> toListIf(Predicate<A> matcher) {
+        return foldIf(matcher, (a, c) -> { c.add(a); return c; }, new ArrayList<>());
     }
 
     default <B extends A> List<B> toListOf(Class<B> c) {
-        return toListOf(c::isInstance);
+        return foldOf(c, (a, l) -> { l.add(a); return l; }, new ArrayList<>());
     }
 }
