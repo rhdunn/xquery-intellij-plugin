@@ -6519,14 +6519,6 @@ public class XQueryParserTest extends ParserTestCase {
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-TryCatchExpr")
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-CatchClause")
-    public void testCatchClause_MissingExpr() {
-        final String expected = loadResource("tests/parser/xquery-3.0/CatchClause_MissingExpr.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-3.0/CatchClause_MissingExpr.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-TryCatchExpr")
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-CatchClause")
     public void testCatchClause_MissingClosingBrace() {
         final String expected = loadResource("tests/parser/xquery-3.0/CatchClause_MissingClosingBrace.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-3.0/CatchClause_MissingClosingBrace.xq");
@@ -7347,6 +7339,17 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region XQuery 3.1 :: CatchClause + TryCatchExpr
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-TryCatchExpr")
+    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-CatchClause")
+    public void testCatchClause_MissingExpr() {
+        final String expected = loadResource("tests/parser/xquery-3.1/CatchClause_MissingExpr.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/CatchClause_MissingExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region XQuery 3.1 :: ArrowExpr
 
     @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-ArrowExpr")
@@ -7421,7 +7424,7 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     // endregion
-    // region XQuery 1.0 :: DirElemContent + CommonContent + EnclosedExpr
+    // region XQuery 3.1 :: DirElemContent + CommonContent + EnclosedExpr
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirElemContent")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CommonContent")

@@ -2487,29 +2487,13 @@ class XQueryParser {
                 parseWhiteSpaceAndCommentTokens();
                 if (!matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE) && !haveErrors) {
                     error(XQueryBundle.message("parser.error.expected", ")"));
-                    haveErrors = true;
                 }
             } else {
                 error(XQueryBundle.message("parser.error.expected", "CatchErrorList"));
-                haveErrors = true;
             }
 
             parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.BLOCK_OPEN) && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected", "{"));
-                haveErrors = true;
-            }
-
-            parseWhiteSpaceAndCommentTokens();
-            if (!parseExpr(XQueryElementType.EXPR) && !haveErrors && nextType != CatchClauseType.MARK_LOGIC) {
-                error(XQueryBundle.message("parser.error.expected-expression"));
-                haveErrors = true;
-            }
-
-            parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.BLOCK_CLOSE) && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected", "}"));
-            }
+            parseEnclosedExpr(XQueryElementType.ENCLOSED_EXPR, true);
 
             catchClauseMarker.done(XQueryElementType.CATCH_CLAUSE);
             return nextType;
