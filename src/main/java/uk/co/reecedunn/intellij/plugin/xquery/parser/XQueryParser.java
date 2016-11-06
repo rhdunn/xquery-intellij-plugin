@@ -740,15 +740,16 @@ class XQueryParser {
     private boolean parseDFPropertyName() {
         final PsiBuilder.Marker dfPropertyNameMarker = mark();
         if (matchTokenType(XQueryTokenType.K_DECIMAL_SEPARATOR) ||
-                matchTokenType(XQueryTokenType.K_GROUPING_SEPARATOR) ||
-                matchTokenType(XQueryTokenType.K_INFINITY) ||
-                matchTokenType(XQueryTokenType.K_MINUS_SIGN) ||
-                matchTokenType(XQueryTokenType.K_NAN) ||
-                matchTokenType(XQueryTokenType.K_PERCENT) ||
-                matchTokenType(XQueryTokenType.K_PER_MILLE) ||
-                matchTokenType(XQueryTokenType.K_ZERO_DIGIT) ||
-                matchTokenType(XQueryTokenType.K_DIGIT) ||
-                matchTokenType(XQueryTokenType.K_PATTERN_SEPARATOR)) {
+            matchTokenType(XQueryTokenType.K_GROUPING_SEPARATOR) ||
+            matchTokenType(XQueryTokenType.K_INFINITY) ||
+            matchTokenType(XQueryTokenType.K_MINUS_SIGN) ||
+            matchTokenType(XQueryTokenType.K_NAN) ||
+            matchTokenType(XQueryTokenType.K_PERCENT) ||
+            matchTokenType(XQueryTokenType.K_PER_MILLE) ||
+            matchTokenType(XQueryTokenType.K_ZERO_DIGIT) ||
+            matchTokenType(XQueryTokenType.K_DIGIT) ||
+            matchTokenType(XQueryTokenType.K_PATTERN_SEPARATOR) ||
+            matchTokenType(XQueryTokenType.K_EXPONENT_SEPARATOR)) {
 
             dfPropertyNameMarker.done(XQueryElementType.DF_PROPERTY_NAME);
             return true;

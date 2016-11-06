@@ -19,6 +19,7 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDFPropertyName;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDecimalFormatDecl;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
@@ -27,24 +28,33 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 
+import static uk.co.reecedunn.intellij.plugin.xquery.functional.PsiTreeWalker.children;
+
 public class XQueryDecimalFormatDeclPsiImpl extends ASTWrapperPsiElement implements XQueryDecimalFormatDecl, XQueryConformanceCheck {
     public XQueryDecimalFormatDeclPsiImpl(@NotNull ASTNode node) {
         super(node);
     }
 
+    private XQueryVersion getRequiredVersion() {
+        return getConformanceElement() instanceof XQueryDFPropertyName ? XQueryVersion.VERSION_3_1 : XQueryVersion.VERSION_3_0;
+    }
+
     @Override
     public boolean conformsTo(ImplementationItem implementation) {
         final XQueryVersion minimalConformance = implementation.getVersion(XQueryConformance.MINIMAL_CONFORMANCE);
-        return minimalConformance != null && minimalConformance.supportsVersion(XQueryVersion.VERSION_3_0);
+        return minimalConformance != null && minimalConformance.supportsVersion(getRequiredVersion());
     }
 
     @Override
     public PsiElement getConformanceElement() {
-        return findChildByType(XQueryTokenType.K_DECIMAL_FORMAT);
+        return children(this)
+              .findFirst((e) -> e instanceof XQueryDFPropertyName && e.getFirstChild().getNode().getElementType() == XQueryTokenType.K_EXPONENT_SEPARATOR )
+              .orElse(() -> findChildByType(XQueryTokenType.K_DECIMAL_FORMAT))
+              .get();
     }
 
     @Override
     public String getConformanceErrorMessage() {
-        return XQueryBundle.message("requires.feature.minimal-conformance.version", XQueryVersion.VERSION_3_0);
+        return XQueryBundle.message("requires.feature.minimal-conformance.version", getRequiredVersion());
     }
 }

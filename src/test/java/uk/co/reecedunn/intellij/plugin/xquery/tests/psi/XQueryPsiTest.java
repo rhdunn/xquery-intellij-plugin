@@ -429,6 +429,60 @@ public class XQueryPsiTest extends ParserTestCase {
                 is(XQueryTokenType.K_DECIMAL_FORMAT));
     }
 
+    public void testDecimalFormatDecl_XQuery30Properties() {
+        final XQueryFile file = parseResource("tests/parser/xquery-3.0/DecimalFormatDecl_Property_AllProperties.xq");
+
+        XQueryDecimalFormatDecl decimalFormatDeclPsi = descendants(file).findFirst(XQueryDecimalFormatDecl.class).get();
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)decimalFormatDeclPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(false));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 3.0 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_DECIMAL_FORMAT));
+    }
+
+    public void testDecimalFormatDecl_XQuery31Properties() {
+        final XQueryFile file = parseResource("tests/parser/xquery-3.1/DecimalFormatDecl_Property_XQuery31.xq");
+
+        XQueryDecimalFormatDecl decimalFormatDeclPsi = descendants(file).findFirst(XQueryDecimalFormatDecl.class).get();
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)decimalFormatDeclPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(false));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 3.1 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryElementType.DF_PROPERTY_NAME));
+        assertThat(versioned.getConformanceElement().getFirstChild().getNode().getElementType(),
+                is(XQueryTokenType.K_EXPONENT_SEPARATOR));
+    }
+
     // endregion
     // region ForwardAxis
 

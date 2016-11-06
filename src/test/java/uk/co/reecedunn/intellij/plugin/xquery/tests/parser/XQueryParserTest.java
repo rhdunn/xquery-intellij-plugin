@@ -7334,4 +7334,14 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region XQuery 3.0 :: DFPropertyName + DecimalFormatDecl
+
+    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-DFPropertyName")
+    public void testDecimalFormatDecl_Property_XQuery31() {
+        final String expected = loadResource("tests/parser/xquery-3.1/DecimalFormatDecl_Property_XQuery31.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/DecimalFormatDecl_Property_XQuery31.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
 }

@@ -1,0 +1,1 @@
+declare decimal-format test exponent-separator = "e" ;
