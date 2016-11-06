@@ -3099,6 +3099,25 @@ class XQueryParser {
     private boolean parseArrowExpr() {
         final PsiBuilder.Marker arrowExprMarker = mark();
         if (parseUnaryExpr()) {
+            boolean haveErrors = false;
+
+            parseWhiteSpaceAndCommentTokens();
+            while (matchTokenType(XQueryTokenType.ARROW)) {
+                parseWhiteSpaceAndCommentTokens();
+                if (!parseEQName(XQueryElementType.EQNAME) && !haveErrors) {
+                    error(XQueryBundle.message("parser.error.expected", "ArrowFunctionSpecifier"));
+                    haveErrors = true;
+                }
+
+                parseWhiteSpaceAndCommentTokens();
+                if (!parseArgumentList() && !haveErrors) {
+                    error(XQueryBundle.message("parser.error.expected", "ArgumentList"));
+                    haveErrors = true;
+                }
+
+                parseWhiteSpaceAndCommentTokens();
+            }
+
             arrowExprMarker.done(XQueryElementType.ARROW_EXPR);
             return true;
         }

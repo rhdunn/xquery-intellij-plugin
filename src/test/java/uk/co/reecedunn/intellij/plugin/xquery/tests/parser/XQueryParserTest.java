@@ -7334,12 +7334,50 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     // endregion
-    // region XQuery 3.0 :: DFPropertyName + DecimalFormatDecl
+    // region XQuery 3.1 :: DFPropertyName + DecimalFormatDecl
 
     @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-DFPropertyName")
     public void testDecimalFormatDecl_Property_XQuery31() {
         final String expected = loadResource("tests/parser/xquery-3.1/DecimalFormatDecl_Property_XQuery31.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-3.1/DecimalFormatDecl_Property_XQuery31.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
+    // region XQuery 3.1 :: ArrowExpr
+
+    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-ArrowExpr")
+    public void testArrowExpr() {
+        final String expected = loadResource("tests/parser/xquery-3.1/ArrowExpr.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/ArrowExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-ArrowExpr")
+    public void testArrowExpr_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-3.1/ArrowExpr_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/ArrowExpr_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-ArrowExpr")
+    public void testArrowExpr_MissingArgumentList() {
+        final String expected = loadResource("tests/parser/xquery-3.1/ArrowExpr_MissingArgumentList.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/ArrowExpr_MissingArgumentList.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-ArrowExpr")
+    public void testArrowExpr_MissingFunctionSpecifier() {
+        final String expected = loadResource("tests/parser/xquery-3.1/ArrowExpr_MissingFunctionSpecifier.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/ArrowExpr_MissingFunctionSpecifier.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-ArrowExpr")
+    public void testArrowExpr_MultipleArrows() {
+        final String expected = loadResource("tests/parser/xquery-3.1/ArrowExpr_MultipleArrows.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/ArrowExpr_MultipleArrows.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 

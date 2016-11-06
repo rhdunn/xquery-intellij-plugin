@@ -14,7 +14,7 @@ FileElement[FILE(0:52)]
                                        XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:24)]
                                           XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:24)]
                                              XQueryCastExprImpl[XQUERY_CAST_EXPR(0:24)]
-                                                XQueryArrowExprImpl[XQUERY_ARROW_EXPR(0:23)]
+                                                XQueryArrowExprImpl[XQUERY_ARROW_EXPR(0:24)]
                                                    XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:23)]
                                                       XQueryValidateExprImpl[XQUERY_VALIDATE_EXPR(0:23)]
                                                          LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_VALIDATE(0:8)]('validate')
@@ -50,7 +50,7 @@ FileElement[FILE(0:52)]
                                                                                                                            LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(20:21)]('"')
                                                                                                                      PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
                                                          LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(22:23)]('}')
-                                                PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
+                                                   PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
          LeafPsiElement[XQUERY_COMMA_TOKEN(24:25)](',')
          PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
          XQueryOrExprImpl[XQUERY_OR_EXPR(26:52)]
