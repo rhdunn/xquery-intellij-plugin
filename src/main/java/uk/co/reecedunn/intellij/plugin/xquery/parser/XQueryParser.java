@@ -4180,18 +4180,7 @@ class XQueryParser {
             }
 
             parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.BLOCK_OPEN) && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected", "{"));
-                haveErrors = true;
-            }
-
-            parseWhiteSpaceAndCommentTokens();
-            parseExpr(XQueryElementType.CONTENT_EXPR);
-
-            parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.BLOCK_CLOSE) && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected", "}"));
-            }
+            parseEnclosedExpr(XQueryElementType.ENCLOSED_CONTENT_EXPR);
 
             elementMarker.done(XQueryElementType.COMP_ELEM_CONSTRUCTOR);
             return true;

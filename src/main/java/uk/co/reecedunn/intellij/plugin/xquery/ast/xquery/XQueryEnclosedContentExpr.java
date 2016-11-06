@@ -16,7 +16,9 @@
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
 /**
- * An XQuery 1.0 <code>ContextExpr</code> node in the XQuery AST.
+ * An XQuery 3.1 <code>EnclosedContentExpr</code> node in the XQuery AST.
+ *
+ * This is a replacement for the XQuery 1.0 <code>ContentExpr</code>.
  */
-public interface XQueryContentExpr extends XQueryExpr {
+public interface XQueryEnclosedContentExpr extends XQueryEnclosedExpr {
 }

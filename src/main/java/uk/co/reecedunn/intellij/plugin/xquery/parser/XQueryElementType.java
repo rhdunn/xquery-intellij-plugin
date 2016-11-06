@@ -156,7 +156,6 @@ public interface XQueryElementType {
     IElementType DIR_ELEM_CONTENT = new ICompositeElementType("XQUERY_DIR_ELEM_CONTENT", XQueryDirElemContentPsiImpl.class);
     IElementType COMP_DOC_CONSTRUCTOR = new ICompositeElementType("XQUERY_COMP_DOC_CONSTRUCTOR", XQueryCompDocConstructorPsiImpl.class);
     IElementType COMP_ELEM_CONSTRUCTOR = new ICompositeElementType("XQUERY_COMP_ELEM_CONSTRUCTOR", XQueryCompElemConstructorPsiImpl.class);
-    IElementType CONTENT_EXPR = new ICompositeElementType("XQUERY_CONTENT_EXPR", XQueryContentExprPsiImpl.class);
     IElementType COMP_ATTR_CONSTRUCTOR = new ICompositeElementType("XQUERY_COMP_ATTR_CONSTRUCTOR", XQueryCompAttrConstructorPsiImpl.class);
     IElementType COMP_TEXT_CONSTRUCTOR = new ICompositeElementType("XQUERY_COMP_TEXT_CONSTRUCTOR", XQueryCompTextConstructorPsiImpl.class);
     IElementType COMP_COMMENT_CONSTRUCTOR = new ICompositeElementType("XQUERY_COMP_COMMENT_CONSTRUCTOR", XQueryCompCommentConstructorPsiImpl.class);
@@ -244,6 +243,8 @@ public interface XQueryElementType {
 
     IElementType ARROW_EXPR = new ICompositeElementType("XQUERY_ARROW_EXPR", XQueryArrowExprPsiImpl.class);
     IElementType ARROW_FUNCTION_SPECIFIER = new ICompositeElementType("XQUERY_ARROW_FUNCTION_SPECIFIER", XQueryArrowFunctionSpecifierPsiImpl.class);
+
+    IElementType ENCLOSED_CONTENT_EXPR = new ICompositeElementType("XQUERY_ENCLOSED_CONTENT_EXPR", XQueryEnclosedContentExprPsiImpl.class);
 
     // endregion
     // region Update Facility 1.0

@@ -15,13 +15,18 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryContentExpr;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEnclosedContentExpr;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
 
-public class XQueryContentExprPsiImpl extends ASTWrapperPsiElement implements XQueryContentExpr {
-    public XQueryContentExprPsiImpl(@NotNull ASTNode node) {
+public class XQueryEnclosedContentExprPsiImpl extends XQueryEnclosedExprPsiImpl implements XQueryEnclosedContentExpr {
+    public XQueryEnclosedContentExprPsiImpl(@NotNull ASTNode node) {
         super(node);
+    }
+
+    @Override
+    public boolean conformsTo(ImplementationItem implementation) {
+        return true;
     }
 }
