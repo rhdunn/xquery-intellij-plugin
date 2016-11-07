@@ -20,7 +20,7 @@ FileElement[FILE(0:24)]
                                                          XQueryPathExprImpl[XQUERY_PATH_EXPR(0:24)]
                                                             XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:24)]
                                                                XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:24)]
-                                                                  XQueryConstructorImpl[XQUERY_CONSTRUCTOR(0:24)]
+                                                                  XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:24)]
                                                                      XQueryCompNamespaceConstructorImpl[XQUERY_COMP_NAMESPACE_CONSTRUCTOR(0:24)]
                                                                         LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NAMESPACE(0:9)]('namespace')
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')

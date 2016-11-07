@@ -20,7 +20,7 @@ FileElement[FILE(0:17)]
                                                          XQueryPathExprImpl[XQUERY_PATH_EXPR(0:17)]
                                                             XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:17)]
                                                                XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:17)]
-                                                                  XQueryConstructorImpl[XQUERY_CONSTRUCTOR(0:17)]
+                                                                  XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:17)]
                                                                      MarkLogicCompNumberConstructorImpl[XQUERY_COMP_NUMBER_CONSTRUCTOR(0:17)]
                                                                         LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NUMBER_NODE(0:11)]('number-node')
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')

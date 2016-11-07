@@ -20,7 +20,7 @@ FileElement[FILE(0:7)]
                                                          XQueryPathExprImpl[XQUERY_PATH_EXPR(0:7)]
                                                             XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:7)]
                                                                XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:7)]
-                                                                  XQueryConstructorImpl[XQUERY_CONSTRUCTOR(0:7)]
+                                                                  XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:7)]
                                                                      XQueryDirElemConstructorImpl[XQUERY_DIR_ELEM_CONSTRUCTOR(0:7)]
                                                                         LeafPsiElement[XQUERY_OPEN_XML_TAG_TOKEN(0:1)]('<')
                                                                         XQueryQNameImpl[XQUERY_QNAME(1:5)]

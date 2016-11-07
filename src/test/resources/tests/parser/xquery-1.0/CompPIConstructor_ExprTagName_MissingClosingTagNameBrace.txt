@@ -20,7 +20,7 @@ FileElement[FILE(0:43)]
                                                          XQueryPathExprImpl[XQUERY_PATH_EXPR(0:43)]
                                                             XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:43)]
                                                                XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:43)]
-                                                                  XQueryConstructorImpl[XQUERY_CONSTRUCTOR(0:43)]
+                                                                  XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:43)]
                                                                      XQueryCompPIConstructorImpl[XQUERY_COMP_PI_CONSTRUCTOR(0:43)]
                                                                         LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_PROCESSING_INSTRUCTION(0:22)]('processing-instruction')
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(22:23)](' ')

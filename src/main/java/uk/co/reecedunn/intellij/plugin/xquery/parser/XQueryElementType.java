@@ -147,7 +147,6 @@ public interface XQueryElementType {
     IElementType LIBRARY_MODULE = new ICompositeElementType("XQUERY_LIBRARY_MODULE", XQueryLibraryModulePsiImpl.class);
     IElementType MODULE = new ICompositeElementType("XQUERY_MODULE", XQueryModulePsiImpl.class);
 
-    IElementType CONSTRUCTOR = new ICompositeElementType("XQUERY_CONSTRUCTOR", XQueryConstructorPsiImpl.class);
     IElementType DIR_ELEM_CONSTRUCTOR = new ICompositeElementType("XQUERY_DIR_ELEM_CONSTRUCTOR", XQueryDirElemConstructorPsiImpl.class);
     IElementType DIR_ATTRIBUTE_LIST = new ICompositeElementType("XQUERY_DIR_ATTRIBUTE_LIST", XQueryDirAttributeListPsiImpl.class);
     IElementType DIR_ATTRIBUTE_VALUE = new ICompositeElementType("XQUERY_DIR_ATTRIBUTE_VALUE", XQueryDirAttributeValuePsiImpl.class);
@@ -245,6 +244,8 @@ public interface XQueryElementType {
     IElementType ENCLOSED_TRY_TARGET_EXPR = new ICompositeElementType("XQUERY_ENCLOSED_TRY_TARGET_EXPR", XQueryEnclosedTryTargetExprPsiImpl.class);
     IElementType ENCLOSED_URI_EXPR = new ICompositeElementType("XQUERY_ENCLOSED_URI_EXPR", XQueryEnclosedUriExprPsiImpl.class);
     IElementType ENCLOSED_PREFIX_EXPR = new ICompositeElementType("XQUERY_ENCLOSED_PREFIX_EXPR", XQueryEnclosedPrefixExprPsiImpl.class);
+
+    IElementType NODE_CONSTRUCTOR = new ICompositeElementType("XQUERY_NODE_CONSTRUCTOR", XQueryNodeConstructorPsiImpl.class);
 
     // endregion
     // region Update Facility 1.0

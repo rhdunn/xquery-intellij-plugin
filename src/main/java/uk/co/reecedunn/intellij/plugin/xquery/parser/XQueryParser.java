@@ -3532,7 +3532,7 @@ class XQueryParser {
             || parseContextItemExpr()
             || parseOrderedExpr()
             || parseUnorderedExpr()
-            || parseConstructor()
+            || parseNodeConstructor()
             || parseFunctionItemExpr()
             || parseFunctionCall();
     }
@@ -3721,10 +3721,10 @@ class XQueryParser {
         return false;
     }
 
-    private boolean parseConstructor() {
+    private boolean parseNodeConstructor() {
         final PsiBuilder.Marker constructorMarker = mark();
         if (parseDirectConstructor() || parseComputedConstructor()) {
-            constructorMarker.done(XQueryElementType.CONSTRUCTOR);
+            constructorMarker.done(XQueryElementType.NODE_CONSTRUCTOR);
             return true;
         }
 

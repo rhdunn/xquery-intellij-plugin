@@ -16,7 +16,9 @@
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
 /**
- * An XQuery 1.0 <code>Constructor</code> node in the XQuery AST.
+ * An XQuery 1.0 <code>NodeConstructor</code> node in the XQuery AST.
+ *
+ * This is a replacement for the XQuery 1.0 <code>Constructor</code>.
  */
-public interface XQueryConstructor extends XQueryPrimaryExpr {
+public interface XQueryNodeConstructor extends XQueryPrimaryExpr {
 }

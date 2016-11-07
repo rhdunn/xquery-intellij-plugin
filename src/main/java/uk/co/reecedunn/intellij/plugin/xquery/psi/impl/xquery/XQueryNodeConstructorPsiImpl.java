@@ -18,10 +18,10 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryConstructor;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryNodeConstructor;
 
-public class XQueryConstructorPsiImpl extends ASTWrapperPsiElement implements XQueryConstructor {
-    public XQueryConstructorPsiImpl(@NotNull ASTNode node) {
+public class XQueryNodeConstructorPsiImpl extends ASTWrapperPsiElement implements XQueryNodeConstructor {
+    public XQueryNodeConstructorPsiImpl(@NotNull ASTNode node) {
         super(node);
     }
 }

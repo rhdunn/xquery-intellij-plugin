@@ -20,7 +20,7 @@ FileElement[FILE(0:13)]
                                                          XQueryPathExprImpl[XQUERY_PATH_EXPR(0:13)]
                                                             XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:13)]
                                                                XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:13)]
-                                                                  XQueryConstructorImpl[XQUERY_CONSTRUCTOR(0:13)]
+                                                                  XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:13)]
                                                                      XQueryDirCommentConstructorImpl[XQUERY_DIR_COMMENT_CONSTRUCTOR(0:13)]
                                                                         LeafPsiElement[XQUERY_XML_COMMENT_START_TAG_TOKEN(0:4)]('<!--')
                                                                         PsiCommentImpl[XQUERY_XML_COMMENT_TOKEN(4:10)](' Test ')
