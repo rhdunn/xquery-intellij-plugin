@@ -4142,24 +4142,11 @@ class XQueryParser {
     private boolean parseCompNamespaceConstructor() {
         final PsiBuilder.Marker namespaceMarker = matchTokenTypeWithMarker(XQueryTokenType.K_NAMESPACE);
         if (namespaceMarker != null) {
-            boolean haveErrors = false;
-
             parseWhiteSpaceAndCommentTokens();
             if (!parseQName(XQueryElementType.PREFIX)) {
-                if (!matchTokenType(XQueryTokenType.BLOCK_OPEN)) {
+                if (!parseEnclosedExpr(XQueryElementType.ENCLOSED_PREFIX_EXPR)) {
                     namespaceMarker.rollbackTo();
                     return false;
-                }
-
-                parseWhiteSpaceAndCommentTokens();
-                if (!parseExpr(XQueryElementType.PREFIX_EXPR)) {
-                    error(XQueryBundle.message("parser.error.expected-expression"));
-                    haveErrors = true;
-                }
-
-                parseWhiteSpaceAndCommentTokens();
-                if (!matchTokenType(XQueryTokenType.BLOCK_CLOSE) && !haveErrors) {
-                    error(XQueryBundle.message("parser.error.expected", "}"));
                 }
             }
 

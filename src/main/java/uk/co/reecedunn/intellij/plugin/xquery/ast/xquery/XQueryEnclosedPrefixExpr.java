@@ -16,7 +16,9 @@
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
 /**
- * An XQuery 3.0 <code>PrefixExpr</code> node in the XQuery AST.
+ * An XQuery 3.0 <code>EnclosedPrefixExpr</code> node in the XQuery AST.
+ *
+ * This is a replacement for the XQuery 3.0 <code>PrefixExpr</code>.
  */
-public interface XQueryPrefixExpr extends XQueryExpr {
+public interface XQueryEnclosedPrefixExpr extends XQueryEnclosedExpr {
 }

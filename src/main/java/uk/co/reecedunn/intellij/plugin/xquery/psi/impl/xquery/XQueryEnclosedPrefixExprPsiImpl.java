@@ -15,13 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPrefixExpr;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEnclosedPrefixExpr;
 
-public class XQueryPrefixExprPsiImpl extends ASTWrapperPsiElement implements XQueryPrefixExpr {
-    public XQueryPrefixExprPsiImpl(@NotNull ASTNode node) {
+public class XQueryEnclosedPrefixExprPsiImpl extends XQueryEnclosedExprPsiImpl implements XQueryEnclosedPrefixExpr {
+    public XQueryEnclosedPrefixExprPsiImpl(@NotNull ASTNode node) {
         super(node);
     }
 }

@@ -6780,13 +6780,6 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-CompNamespaceConstructor")
-    public void testCompNamespaceConstructor_PrefixExpr_MissingPrefixExpr() {
-        final String expected = loadResource("tests/parser/xquery-3.0/CompNamespaceConstructor_PrefixExpr_MissingPrefixExpr.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-3.0/CompNamespaceConstructor_PrefixExpr_MissingPrefixExpr.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-CompNamespaceConstructor")
     public void testCompNamespaceConstructor_PrefixExpr_MissingClosingPrefixExprBrace() {
         final String expected = loadResource("tests/parser/xquery-3.0/CompNamespaceConstructor_PrefixExpr_MissingClosingPrefixExprBrace.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-3.0/CompNamespaceConstructor_PrefixExpr_MissingClosingPrefixExprBrace.xq");
@@ -7431,6 +7424,13 @@ public class XQueryParserTest extends ParserTestCase {
 
     // endregion
     // region XQuery 3.1 :: CompNamespaceConstructor
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-CompNamespaceConstructor")
+    public void testCompNamespaceConstructor_PrefixExpr_MissingPrefixExpr() {
+        final String expected = loadResource("tests/parser/xquery-3.1/CompNamespaceConstructor_PrefixExpr_MissingPrefixExpr.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/CompNamespaceConstructor_PrefixExpr_MissingPrefixExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
 
     @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-CompNamespaceConstructor")
     public void testCompNamespaceConstructor_MissingURIExpr() {

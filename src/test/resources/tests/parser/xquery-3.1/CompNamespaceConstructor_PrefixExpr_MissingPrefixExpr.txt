@@ -24,10 +24,10 @@ FileElement[FILE(0:24)]
                                                                      XQueryCompNamespaceConstructorImpl[XQUERY_COMP_NAMESPACE_CONSTRUCTOR(0:24)]
                                                                         LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NAMESPACE(0:9)]('namespace')
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
-                                                                        LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(10:11)]('{')
-                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
-                                                                        PsiErrorElementImpl[ERROR_ELEMENT(12:12)]('XPST0003: Missing expression.')
-                                                                        LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(12:13)]('}')
+                                                                        XQueryEnclosedPrefixExprImpl[XQUERY_ENCLOSED_PREFIX_EXPR(10:13)]
+                                                                           LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(10:11)]('{')
+                                                                           PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
+                                                                           LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(12:13)]('}')
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
                                                                         XQueryEnclosedUriExprImpl[XQUERY_ENCLOSED_URI_EXPR(14:24)]
                                                                            LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(14:15)]('{')
