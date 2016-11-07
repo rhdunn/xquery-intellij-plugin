@@ -235,7 +235,6 @@ public interface XQueryElementType {
     IElementType COMP_NAMESPACE_CONSTRUCTOR = new ICompositeElementType("XQUERY_COMP_NAMESPACE_CONSTRUCTOR", XQueryCompNamespaceConstructorPsiImpl.class);
     IElementType PREFIX = new ICompositeElementType("XQUERY_PREFIX", XQueryPrefixPsiImpl.class);
     IElementType PREFIX_EXPR = new ICompositeElementType("XQUERY_PREFIX_EXPR", XQueryPrefixExprPsiImpl.class);
-    IElementType URI_EXPR = new ICompositeElementType("XQUERY_URI_EXPR", XQueryUriExprPsiImpl.class);
 
     // endregion
     // region XQuery 3.1
@@ -245,6 +244,7 @@ public interface XQueryElementType {
 
     IElementType ENCLOSED_CONTENT_EXPR = new ICompositeElementType("XQUERY_ENCLOSED_CONTENT_EXPR", XQueryEnclosedContentExprPsiImpl.class);
     IElementType ENCLOSED_TRY_TARGET_EXPR = new ICompositeElementType("XQUERY_ENCLOSED_TRY_TARGET_EXPR", XQueryEnclosedTryTargetExprPsiImpl.class);
+    IElementType ENCLOSED_URI_EXPR = new ICompositeElementType("XQUERY_ENCLOSED_URI_EXPR", XQueryEnclosedUriExprPsiImpl.class);
 
     // endregion
     // region Update Facility 1.0

@@ -769,63 +769,6 @@ public class XQueryPsiTest extends ParserTestCase {
     }
 
     // endregion
-    // region EnclosedExpr (CompTextConstructor)
-
-    public void testEnclosedExpr_CompTextConstructor() {
-        final XQueryFile file = parseResource("tests/parser/xquery-1.0/CompTextConstructor.xq");
-
-        XQueryCompTextConstructor compTextConstructorPsi = descendants(file).findFirst(XQueryCompTextConstructor.class).get();
-        XQueryEnclosedExpr enclosedExprPsi = children(compTextConstructorPsi).findFirst(XQueryEnclosedExpr.class).get();
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)enclosedExprPsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: Empty enclosed expressions requires XQuery 3.1 or later."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryElementType.EXPR));
-    }
-
-    public void testEnclosedExpr_CompTextConstructor_NoExpr() {
-        final XQueryFile file = parseResource("tests/parser/xquery-3.1/CompTextConstructor_MissingExpr.xq");
-
-        XQueryCompTextConstructor compTextConstructorPsi = descendants(file).findFirst(XQueryCompTextConstructor.class).get();
-        XQueryEnclosedExpr enclosedExprPsi = children(compTextConstructorPsi).findFirst(XQueryEnclosedExpr.class).get();
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)enclosedExprPsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(false));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: Empty enclosed expressions requires XQuery 3.1 or later."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.BLOCK_OPEN));
-    }
-
-    // endregion
     // region EnclosedExpr (CompElemConstructor)
 
     public void testEnclosedExpr_CompElemConstructor() {
@@ -883,6 +826,63 @@ public class XQueryPsiTest extends ParserTestCase {
     }
 
     // endregion
+    // region EnclosedExpr (CompNamespaceConstructor)
+
+    public void testEnclosedExpr_CompNamespaceConstructor() {
+        final XQueryFile file = parseResource("tests/parser/xquery-3.0/CompNamespaceConstructor.xq");
+
+        XQueryCompNamespaceConstructor compNamespaceConstructorPsi = descendants(file).findFirst(XQueryCompNamespaceConstructor.class).get();
+        XQueryEnclosedUriExpr enclosedExprPsi = children(compNamespaceConstructorPsi).findFirst(XQueryEnclosedUriExpr.class).get();
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)enclosedExprPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: Empty enclosed expressions requires XQuery 3.1 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryElementType.EXPR));
+    }
+
+    public void testEnclosedExpr_CompNamespaceConstructor_NoUriExpr() {
+        final XQueryFile file = parseResource("tests/parser/xquery-3.1/CompNamespaceConstructor_MissingURIExpr.xq");
+
+        XQueryCompNamespaceConstructor compNamespaceConstructorPsi = descendants(file).findFirst(XQueryCompNamespaceConstructor.class).get();
+        XQueryEnclosedUriExpr enclosedExprPsi = children(compNamespaceConstructorPsi).findFirst(XQueryEnclosedUriExpr.class).get();
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)enclosedExprPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(false));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: Empty enclosed expressions requires XQuery 3.1 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.BLOCK_OPEN));
+    }
+
+    // endregion
     // region EnclosedExpr (CompPIConstructor)
 
     public void testEnclosedExpr_CompPIConstructor() {
@@ -930,6 +930,63 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: Empty enclosed expressions requires XQuery 3.1 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.BLOCK_OPEN));
+    }
+
+    // endregion
+    // region EnclosedExpr (CompTextConstructor)
+
+    public void testEnclosedExpr_CompTextConstructor() {
+        final XQueryFile file = parseResource("tests/parser/xquery-1.0/CompTextConstructor.xq");
+
+        XQueryCompTextConstructor compTextConstructorPsi = descendants(file).findFirst(XQueryCompTextConstructor.class).get();
+        XQueryEnclosedExpr enclosedExprPsi = children(compTextConstructorPsi).findFirst(XQueryEnclosedExpr.class).get();
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)enclosedExprPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: Empty enclosed expressions requires XQuery 3.1 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryElementType.EXPR));
+    }
+
+    public void testEnclosedExpr_CompTextConstructor_NoExpr() {
+        final XQueryFile file = parseResource("tests/parser/xquery-3.1/CompTextConstructor_MissingExpr.xq");
+
+        XQueryCompTextConstructor compTextConstructorPsi = descendants(file).findFirst(XQueryCompTextConstructor.class).get();
+        XQueryEnclosedExpr enclosedExprPsi = children(compTextConstructorPsi).findFirst(XQueryEnclosedExpr.class).get();
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)enclosedExprPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(false));
 
         assertThat(versioned.getConformanceErrorMessage(),
                 is("XPST0003: Empty enclosed expressions requires XQuery 3.1 or later."));

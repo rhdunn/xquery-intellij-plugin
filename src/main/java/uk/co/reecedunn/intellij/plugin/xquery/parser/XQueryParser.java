@@ -4164,21 +4164,7 @@ class XQueryParser {
             }
 
             parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.BLOCK_OPEN) && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected", "{"));
-                haveErrors = true;
-            }
-
-            parseWhiteSpaceAndCommentTokens();
-            if (!parseExpr(XQueryElementType.URI_EXPR)) {
-                error(XQueryBundle.message("parser.error.expected-expression"));
-                haveErrors = true;
-            }
-
-            parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.BLOCK_CLOSE) && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected", "}"));
-            }
+            parseEnclosedExpr(XQueryElementType.ENCLOSED_URI_EXPR);
 
             namespaceMarker.done(XQueryElementType.COMP_NAMESPACE_CONSTRUCTOR);
             return true;

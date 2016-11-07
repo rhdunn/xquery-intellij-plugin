@@ -16,7 +16,9 @@
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
 /**
- * An XQuery 3.0 <code>URIExpr</code> node in the XQuery AST.
+ * An XQuery 3.1 <code>EnclosedURIExpr</code> node in the XQuery AST.
+ *
+ * This is a replacement for the XQuery 3.0 <code>URIExpr</code>.
  */
-public interface XQueryUriExpr extends XQueryExpr {
+public interface XQueryEnclosedUriExpr extends XQueryExpr {
 }
