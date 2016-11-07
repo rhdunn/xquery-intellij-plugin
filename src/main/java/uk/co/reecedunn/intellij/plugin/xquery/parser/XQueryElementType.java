@@ -196,7 +196,6 @@ public interface XQueryElementType {
 
     IElementType TRY_CATCH_EXPR = new ICompositeElementType("XQUERY_TRY_CATCH_EXPR", XQueryTryCatchExprPsiImpl.class);
     IElementType TRY_CLAUSE = new ICompositeElementType("XQUERY_TRY_CLAUSE", XQueryTryClausePsiImpl.class);
-    IElementType TRY_TARGET_EXPR = new ICompositeElementType("XQUERY_TRY_TARGET_EXPR", XQueryTryTargetExprPsiImpl.class);
     IElementType CATCH_CLAUSE = new ICompositeElementType("XQUERY_CATCH_CLAUSE", XQueryCatchClausePsiImpl.class);
     IElementType CATCH_ERROR_LIST = new ICompositeElementType("XQUERY_CATCH_ERROR_LIST", XQueryCatchErrorListPsiImpl.class);
 
@@ -245,6 +244,7 @@ public interface XQueryElementType {
     IElementType ARROW_FUNCTION_SPECIFIER = new ICompositeElementType("XQUERY_ARROW_FUNCTION_SPECIFIER", XQueryArrowFunctionSpecifierPsiImpl.class);
 
     IElementType ENCLOSED_CONTENT_EXPR = new ICompositeElementType("XQUERY_ENCLOSED_CONTENT_EXPR", XQueryEnclosedContentExprPsiImpl.class);
+    IElementType ENCLOSED_TRY_TARGET_EXPR = new ICompositeElementType("XQUERY_ENCLOSED_TRY_TARGET_EXPR", XQueryEnclosedTryTargetExprPsiImpl.class);
 
     // endregion
     // region Update Facility 1.0

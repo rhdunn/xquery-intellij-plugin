@@ -6426,14 +6426,6 @@ public class XQueryParserTest extends ParserTestCase {
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-TryCatchExpr")
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-TryClause")
-    public void testTryClause_MissingExpr() {
-        final String expected = loadResource("tests/parser/xquery-3.0/TryClause_MissingExpr.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-3.0/TryClause_MissingExpr.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-TryCatchExpr")
-    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-TryClause")
     public void testTryClause_MissingClosingBrace() {
         final String expected = loadResource("tests/parser/xquery-3.0/TryClause_MissingClosingBrace.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-3.0/TryClause_MissingClosingBrace.xq");
@@ -7293,6 +7285,17 @@ public class XQueryParserTest extends ParserTestCase {
     public void testEnclosedExpr_MissingExpr() {
         final String expected = loadResource("tests/parser/xquery-3.1/EnclosedExpr_MissingExpr.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-3.1/EnclosedExpr_MissingExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
+    // region XQuery 3.0 :: TryClause + TryTargetExpr + TryCatchExpr
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-TryCatchExpr")
+    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-TryClause")
+    public void testTryClause_MissingExpr() {
+        final String expected = loadResource("tests/parser/xquery-3.1/TryClause_MissingExpr.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/TryClause_MissingExpr.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 

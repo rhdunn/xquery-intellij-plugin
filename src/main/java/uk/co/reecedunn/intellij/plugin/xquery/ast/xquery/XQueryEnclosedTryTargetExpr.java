@@ -16,7 +16,9 @@
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
 /**
- * An XQuery 1.0 <code>TryTargetExpr</code> node in the XQuery AST.
+ * An XQuery 3.1 <code>EnclosedTryTargetExpr</code> node in the XQuery AST.
+ *
+ * This is a replacement for the XQuery 1.0 <code>TryTargetExpr</code>.
  */
-public interface XQueryTryTargetExpr extends XQueryExpr {
+public interface XQueryEnclosedTryTargetExpr extends XQueryEnclosedExpr {
 }

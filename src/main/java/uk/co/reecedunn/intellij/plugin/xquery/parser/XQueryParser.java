@@ -2430,23 +2430,10 @@ class XQueryParser {
     private boolean parseTryClause() {
         final PsiBuilder.Marker tryClauseMarker = matchTokenTypeWithMarker(XQueryTokenType.K_TRY);
         if (tryClauseMarker != null) {
-            boolean haveErrors = false;
-
             parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.BLOCK_OPEN)) {
+            if (!parseEnclosedExpr(XQueryElementType.ENCLOSED_TRY_TARGET_EXPR)) {
                 tryClauseMarker.rollbackTo();
                 return false;
-            }
-
-            parseWhiteSpaceAndCommentTokens();
-            if (!parseExpr(XQueryElementType.TRY_TARGET_EXPR)) {
-                error(XQueryBundle.message("parser.error.expected-expression"));
-                haveErrors = true;
-            }
-
-            parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.BLOCK_CLOSE) && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected", "}"));
             }
 
             tryClauseMarker.done(XQueryElementType.TRY_CLAUSE);

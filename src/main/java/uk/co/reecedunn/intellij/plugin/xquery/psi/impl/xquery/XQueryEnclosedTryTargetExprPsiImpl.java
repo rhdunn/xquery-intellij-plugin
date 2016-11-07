@@ -15,13 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryTryTargetExpr;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEnclosedTryTargetExpr;
 
-public class XQueryTryTargetExprPsiImpl extends ASTWrapperPsiElement implements XQueryTryTargetExpr {
-    public XQueryTryTargetExprPsiImpl(@NotNull ASTNode node) {
+public class XQueryEnclosedTryTargetExprPsiImpl extends XQueryEnclosedExprPsiImpl implements XQueryEnclosedTryTargetExpr {
+    public XQueryEnclosedTryTargetExprPsiImpl(@NotNull ASTNode node) {
         super(node);
     }
 }
