@@ -122,6 +122,32 @@ public class MarkLogicPsiTest extends ParserTestCase {
     }
 
     // endregion
+    // region BinaryConstructor
+
+    public void testBinaryConstructor() {
+        final XQueryFile file = parseResource("tests/parser/marklogic-6.0/BinaryConstructor.xq");
+
+        MarkLogicBinaryConstructor binaryKindTestPsi = descendants(file).findFirst(MarkLogicBinaryConstructor.class).get();
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)binaryKindTestPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires MarkLogic 6.0 or later with XQuery version '1.0-ml'."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_BINARY));
+    }
+
+    // endregion
     // region BinaryTest
 
     public void testBinaryTest() {
@@ -287,32 +313,6 @@ public class MarkLogicPsiTest extends ParserTestCase {
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
                 is(XQueryTokenType.K_ARRAY_NODE));
-    }
-
-    // endregion
-    // region CompBinaryConstructor
-
-    public void testCompBinaryConstructor() {
-        final XQueryFile file = parseResource("tests/parser/marklogic-6.0/CompBinaryConstructor.xq");
-
-        MarkLogicCompBinaryConstructor binaryKindTestPsi = descendants(file).findFirst(MarkLogicCompBinaryConstructor.class).get();
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)binaryKindTestPsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires MarkLogic 6.0 or later with XQuery version '1.0-ml'."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.K_BINARY));
     }
 
     // endregion

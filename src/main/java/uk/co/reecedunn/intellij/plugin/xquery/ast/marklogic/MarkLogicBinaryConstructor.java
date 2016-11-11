@@ -15,10 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic;
 
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryComputedConstructor;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPrimaryExpr;
 
 /**
- * A MarkLogic <code>CompBinaryConstructor</code> node in the XQuery AST.
+ * A MarkLogic <code>BinaryConstructor</code> node in the XQuery AST.
  */
-public interface MarkLogicCompBinaryConstructor extends XQueryComputedConstructor {
+public interface MarkLogicBinaryConstructor extends XQueryPrimaryExpr {
 }

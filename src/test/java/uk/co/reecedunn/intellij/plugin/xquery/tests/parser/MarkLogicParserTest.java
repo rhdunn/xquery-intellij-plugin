@@ -213,29 +213,29 @@ public class MarkLogicParserTest extends ParserTestCase {
     }
 
     // endregion
-    // region MarkLogic 6.0 :: CompBinaryConstructor
+    // region MarkLogic 6.0 :: BinaryConstructor
 
-    public void testCompBinaryConstructor() {
-        final String expected = loadResource("tests/parser/marklogic-6.0/CompBinaryConstructor.txt");
-        final XQueryFile actual = parseResource("tests/parser/marklogic-6.0/CompBinaryConstructor.xq");
+    public void testBinaryConstructor() {
+        final String expected = loadResource("tests/parser/marklogic-6.0/BinaryConstructor.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-6.0/BinaryConstructor.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    public void testCompBinaryConstructor_CompactWhitespace() {
-        final String expected = loadResource("tests/parser/marklogic-6.0/CompBinaryConstructor_CompactWhitespace.txt");
-        final XQueryFile actual = parseResource("tests/parser/marklogic-6.0/CompBinaryConstructor_CompactWhitespace.xq");
+    public void testBinaryConstructor_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/marklogic-6.0/BinaryConstructor_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-6.0/BinaryConstructor_CompactWhitespace.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    public void testCompBinaryConstructor_NoExpr() {
-        final String expected = loadResource("tests/parser/marklogic-6.0/CompBinaryConstructor_NoExpr.txt");
-        final XQueryFile actual = parseResource("tests/parser/marklogic-6.0/CompBinaryConstructor_NoExpr.xq");
+    public void testBinaryConstructor_NoExpr() {
+        final String expected = loadResource("tests/parser/marklogic-6.0/BinaryConstructor_NoExpr.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-6.0/BinaryConstructor_NoExpr.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    public void testCompBinaryConstructor_MissingClosingBrace() {
-        final String expected = loadResource("tests/parser/marklogic-6.0/CompBinaryConstructor_MissingClosingBrace.txt");
-        final XQueryFile actual = parseResource("tests/parser/marklogic-6.0/CompBinaryConstructor_MissingClosingBrace.xq");
+    public void testBinaryConstructor_MissingClosingBrace() {
+        final String expected = loadResource("tests/parser/marklogic-6.0/BinaryConstructor_MissingClosingBrace.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-6.0/BinaryConstructor_MissingClosingBrace.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 

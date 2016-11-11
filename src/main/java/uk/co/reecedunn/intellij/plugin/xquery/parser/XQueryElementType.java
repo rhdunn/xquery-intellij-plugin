@@ -276,7 +276,7 @@ public interface XQueryElementType {
     IElementType COMPATIBILITY_ANNOTATION_MARKLOGIC = new ICompositeElementType("XQUERY_COMPATIBILITY_ANNOTATION_MARKLOGIC", MarkLogicCompatibilityAnnotationPsiImpl.class);
     IElementType STYLESHEET_IMPORT = new ICompositeElementType("XQUERY_STYLESHEET_IMPORT", MarkLogicStylesheetImportPsiImpl.class);
 
-    IElementType COMP_BINARY_CONSTRUCTOR = new ICompositeElementType("XQUERY_COMP_BINARY_CONSTRUCTOR", MarkLogicCompBinaryConstructorPsiImpl.class);
+    IElementType BINARY_CONSTRUCTOR = new ICompositeElementType("XQUERY_BINARY_CONSTRUCTOR", MarkLogicBinaryConstructorPsiImpl.class);
     IElementType BINARY_TEST = new ICompositeElementType("XQUERY_BINARY_TEST", MarkLogicBinaryTestPsiImpl.class);
 
     // endregion
