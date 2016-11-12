@@ -18,10 +18,10 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.marklogic;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic.MarkLogicObjectKeyValue;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic.MarkLogicMapConstructorEntry;
 
-public class MarkLogicObjectKeyValuePsiImpl extends ASTWrapperPsiElement implements MarkLogicObjectKeyValue {
-    public MarkLogicObjectKeyValuePsiImpl(@NotNull ASTNode node) {
+public class MarkLogicMapConstructorEntryPsiImpl extends ASTWrapperPsiElement implements MarkLogicMapConstructorEntry {
+    public MarkLogicMapConstructorEntryPsiImpl(@NotNull ASTNode node) {
         super(node);
     }
 }

@@ -20,5 +20,5 @@ import com.intellij.psi.PsiElement;
 /**
  * A MarkLogic 8.0 <code>ObjectKeyValue</code> node in the XQuery AST.
  */
-public interface MarkLogicObjectKeyValue extends PsiElement {
+public interface MarkLogicMapConstructorEntry extends PsiElement {
 }

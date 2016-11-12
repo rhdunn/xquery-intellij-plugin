@@ -402,47 +402,47 @@ public class MarkLogicParserTest extends ParserTestCase {
     }
 
     // endregion
-    // region MarkLogic 8.0 :: ObjectKeyValue + MapConstructor
+    // region MarkLogic 8.0 :: MapConstructorEntry + MapConstructor
 
-    public void testObjectKeyValue() {
-        final String expected = loadResource("tests/parser/marklogic-8.0/ObjectKeyValue.txt");
-        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/ObjectKeyValue.xq");
+    public void testMapConstructorEntry() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    public void testObjectKeyValue_CompactWhitespace() {
-        final String expected = loadResource("tests/parser/marklogic-8.0/ObjectKeyValue_CompactWhitespace.txt");
-        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/ObjectKeyValue_CompactWhitespace.xq");
+    public void testMapConstructorEntry_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_CompactWhitespace.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    public void testObjectKeyValue_MissingSeparator() {
-        final String expected = loadResource("tests/parser/marklogic-8.0/ObjectKeyValue_MissingSeparator.txt");
-        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/ObjectKeyValue_MissingSeparator.xq");
+    public void testMapConstructorEntry_MissingSeparator() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_MissingSeparator.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_MissingSeparator.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    public void testObjectKeyValue_MissingValueExpr() {
-        final String expected = loadResource("tests/parser/marklogic-8.0/ObjectKeyValue_MissingValueExpr.txt");
-        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/ObjectKeyValue_MissingValueExpr.xq");
+    public void testMapConstructorEntry_MissingValueExpr() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_MissingValueExpr.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_MissingValueExpr.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    public void testObjectKeyValue_Multiple() {
-        final String expected = loadResource("tests/parser/marklogic-8.0/ObjectKeyValue_Multiple.txt");
-        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/ObjectKeyValue_Multiple.xq");
+    public void testMapConstructorEntry_Multiple() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_Multiple.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_Multiple.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    public void testObjectKeyValue_Multiple_CompactWhitespace() {
-        final String expected = loadResource("tests/parser/marklogic-8.0/ObjectKeyValue_Multiple_CompactWhitespace.txt");
-        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/ObjectKeyValue_Multiple_CompactWhitespace.xq");
+    public void testMapConstructorEntry_Multiple_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_Multiple_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_Multiple_CompactWhitespace.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    public void testObjectKeyValue_Multiple_MissingObjectKeyValue() {
-        final String expected = loadResource("tests/parser/marklogic-8.0/ObjectKeyValue_Multiple_MissingObjectKeyValue.txt");
-        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/ObjectKeyValue_Multiple_MissingObjectKeyValue.xq");
+    public void testMapConstructorEntry_Multiple_MissingObjectKeyValue() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_Multiple_MissingObjectKeyValue.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_Multiple_MissingObjectKeyValue.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 

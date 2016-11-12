@@ -3918,12 +3918,12 @@ class XQueryParser {
             }
 
             parseWhiteSpaceAndCommentTokens();
-            if (parseObjectKeyValue()) {
+            if (parseMapConstructorEntry()) {
                 parseWhiteSpaceAndCommentTokens();
                 while (matchTokenType(XQueryTokenType.COMMA)) {
                     parseWhiteSpaceAndCommentTokens();
-                    if (!parseObjectKeyValue() && !haveErrors) {
-                        error(XQueryBundle.message("parser.error.expected", "ObjectKeyValue"));
+                    if (!parseMapConstructorEntry() && !haveErrors) {
+                        error(XQueryBundle.message("parser.error.expected", "MapConstructor"));
                         haveErrors = true;
                     }
                     parseWhiteSpaceAndCommentTokens();
@@ -3941,7 +3941,7 @@ class XQueryParser {
         return false;
     }
 
-    private boolean parseObjectKeyValue() {
+    private boolean parseMapConstructorEntry() {
         final PsiBuilder.Marker objectKeyValue = mark();
         if (parseExprSingle()) {
             boolean haveError = false;
@@ -3957,7 +3957,7 @@ class XQueryParser {
                 error(XQueryBundle.message("parser.error.expected-expression"));
             }
 
-            objectKeyValue.done(XQueryElementType.OBJECT_KEY_VALUE);
+            objectKeyValue.done(XQueryElementType.MAP_CONSTRUCTOR_ENTRY);
             return true;
         }
         objectKeyValue.drop();
