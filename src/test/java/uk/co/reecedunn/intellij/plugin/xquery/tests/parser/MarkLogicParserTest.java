@@ -306,29 +306,29 @@ public class MarkLogicParserTest extends ParserTestCase {
     }
 
     // endregion
-    // region MarkLogic 8.0 :: CompBooleanConstructor
+    // region MarkLogic 8.0 :: BooleanConstructor
 
-    public void testCompBooleanConstructor() {
-        final String expected = loadResource("tests/parser/marklogic-8.0/CompBooleanConstructor.txt");
-        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/CompBooleanConstructor.xq");
+    public void testBooleanConstructor() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/BooleanConstructor.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/BooleanConstructor.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    public void testCompBooleanConstructor_CompactWhitespace() {
-        final String expected = loadResource("tests/parser/marklogic-8.0/CompBooleanConstructor_CompactWhitespace.txt");
-        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/CompBooleanConstructor_CompactWhitespace.xq");
+    public void testBooleanConstructor_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/BooleanConstructor_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/BooleanConstructor_CompactWhitespace.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    public void testCompBooleanConstructor_MissingExpr() {
-        final String expected = loadResource("tests/parser/marklogic-8.0/CompBooleanConstructor_MissingExpr.txt");
-        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/CompBooleanConstructor_MissingExpr.xq");
+    public void testBooleanConstructor_MissingExpr() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/BooleanConstructor_MissingExpr.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/BooleanConstructor_MissingExpr.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    public void testCompBooleanConstructor_MissingClosingBrace() {
-        final String expected = loadResource("tests/parser/marklogic-8.0/CompBooleanConstructor_MissingClosingBrace.txt");
-        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/CompBooleanConstructor_MissingClosingBrace.xq");
+    public void testBooleanConstructor_MissingClosingBrace() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/BooleanConstructor_MissingClosingBrace.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/BooleanConstructor_MissingClosingBrace.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 

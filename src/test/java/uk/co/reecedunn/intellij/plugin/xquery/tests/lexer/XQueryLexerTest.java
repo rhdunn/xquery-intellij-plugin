@@ -3881,9 +3881,9 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region MarkLogic 6.0 :: CompBinaryConstructor
+    // region MarkLogic 6.0 :: BinaryConstructor
 
-    public void testCompBinaryConstructor() {
+    public void testBinaryConstructor() {
         Lexer lexer = new XQueryLexer();
 
         matchSingleToken(lexer, "binary", XQueryTokenType.K_BINARY);
@@ -3903,9 +3903,9 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region MarkLogic 8.0 :: CompArrayConstructor
+    // region MarkLogic 8.0 :: ArrayConstructor
 
-    public void testCompArrayConstructor() {
+    public void testArrayConstructor() {
         Lexer lexer = new XQueryLexer();
 
         matchSingleToken(lexer, "array-node", XQueryTokenType.K_ARRAY_NODE);
@@ -3915,9 +3915,9 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region MarkLogic 8.0 :: CompBooleanConstructor
+    // region MarkLogic 8.0 :: BooleanConstructor
 
-    public void testCompBooleanConstructor() {
+    public void testBooleanConstructor() {
         Lexer lexer = new XQueryLexer();
 
         matchSingleToken(lexer, "boolean-node", XQueryTokenType.K_BOOLEAN_NODE);

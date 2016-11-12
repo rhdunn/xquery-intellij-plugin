@@ -19,15 +19,15 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic.MarkLogicCompBooleanConstructor;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic.MarkLogicBooleanConstructor;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 
-public class MarkLogicCompBooleanConstructorPsiImpl extends ASTWrapperPsiElement implements MarkLogicCompBooleanConstructor, XQueryConformanceCheck {
-    public MarkLogicCompBooleanConstructorPsiImpl(@NotNull ASTNode node) {
+public class MarkLogicBooleanConstructorPsiImpl extends ASTWrapperPsiElement implements MarkLogicBooleanConstructor, XQueryConformanceCheck {
+    public MarkLogicBooleanConstructorPsiImpl(@NotNull ASTNode node) {
         super(node);
     }
 
