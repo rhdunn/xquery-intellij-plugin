@@ -96,7 +96,7 @@ public class MarkLogicPsiTest extends ParserTestCase {
     public void testArrayConstructor() {
         final XQueryFile file = parseResource("tests/parser/marklogic-8.0/ArrayConstructor.xq");
 
-        MarkLogicArrayConstructor arrayConstructorPsi = descendants(file).findFirst(MarkLogicArrayConstructor.class).get();
+        XQueryArrayConstructor arrayConstructorPsi = descendants(file).findFirst(XQueryArrayConstructor.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)arrayConstructorPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));

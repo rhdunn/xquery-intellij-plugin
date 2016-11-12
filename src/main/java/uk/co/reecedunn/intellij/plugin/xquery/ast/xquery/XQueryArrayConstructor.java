@@ -13,12 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic;
-
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPrimaryExpr;
+package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
 /**
- * A MarkLogic 8.0 <code>ArrayConstructor</code> node in the XQuery AST.
+ * An XQuery 3.1 <code>ArrayConstructor</code> node in the XQuery AST.
  */
-public interface MarkLogicArrayConstructor extends XQueryPrimaryExpr {
+public interface XQueryArrayConstructor extends XQueryPrimaryExpr {
 }
