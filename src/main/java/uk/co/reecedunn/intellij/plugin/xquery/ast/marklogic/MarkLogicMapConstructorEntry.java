@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic;
 import com.intellij.psi.PsiElement;
 
 /**
- * A MarkLogic 8.0 <code>ObjectKeyValue</code> node in the XQuery AST.
+ * A MarkLogic 8.0 <code>MapConstructorEntry</code> node in the XQuery AST.
  */
 public interface MarkLogicMapConstructorEntry extends PsiElement {
 }
