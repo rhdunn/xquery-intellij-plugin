@@ -261,47 +261,47 @@ public class MarkLogicParserTest extends ParserTestCase {
     }
 
     // endregion
-    // region MarkLogic 8.0 :: CompArrayConstructor
+    // region MarkLogic 8.0 :: ArrayConstructor
 
-    public void testCompArrayConstructor() {
-        final String expected = loadResource("tests/parser/marklogic-8.0/CompArrayConstructor.txt");
-        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/CompArrayConstructor.xq");
+    public void testArrayConstructor() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/ArrayConstructor.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/ArrayConstructor.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    public void testCompArrayConstructor_CompactWhitespace() {
-        final String expected = loadResource("tests/parser/marklogic-8.0/CompArrayConstructor_CompactWhitespace.txt");
-        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/CompArrayConstructor_CompactWhitespace.xq");
+    public void testArrayConstructor_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/ArrayConstructor_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/ArrayConstructor_CompactWhitespace.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    public void testCompArrayConstructor_MissingExpr() {
-        final String expected = loadResource("tests/parser/marklogic-8.0/CompArrayConstructor_MissingExpr.txt");
-        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/CompArrayConstructor_MissingExpr.xq");
+    public void testArrayConstructor_MissingExpr() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/ArrayConstructor_MissingExpr.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/ArrayConstructor_MissingExpr.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    public void testCompArrayConstructor_MissingClosingBrace() {
-        final String expected = loadResource("tests/parser/marklogic-8.0/CompArrayConstructor_MissingClosingBrace.txt");
-        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/CompArrayConstructor_MissingClosingBrace.xq");
+    public void testArrayConstructor_MissingClosingBrace() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/ArrayConstructor_MissingClosingBrace.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/ArrayConstructor_MissingClosingBrace.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    public void testCompArrayConstructor_Multiple() {
-        final String expected = loadResource("tests/parser/marklogic-8.0/CompArrayConstructor_Multiple.txt");
-        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/CompArrayConstructor_Multiple.xq");
+    public void testArrayConstructor_Multiple() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/ArrayConstructor_Multiple.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/ArrayConstructor_Multiple.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    public void testCompArrayConstructor_Multiple_CompactWhitespace() {
-        final String expected = loadResource("tests/parser/marklogic-8.0/CompArrayConstructor_Multiple_CompactWhitespace.txt");
-        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/CompArrayConstructor_Multiple_CompactWhitespace.xq");
+    public void testArrayConstructor_Multiple_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/ArrayConstructor_Multiple_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/ArrayConstructor_Multiple_CompactWhitespace.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    public void testCompArrayConstructor_Multiple_MissingExpr() {
-        final String expected = loadResource("tests/parser/marklogic-8.0/CompArrayConstructor_Multiple_MissingExpr.txt");
-        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/CompArrayConstructor_Multiple_MissingExpr.xq");
+    public void testArrayConstructor_Multiple_MissingExpr() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/ArrayConstructor_Multiple_MissingExpr.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/ArrayConstructor_Multiple_MissingExpr.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 

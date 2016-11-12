@@ -3532,9 +3532,10 @@ class XQueryParser {
             || parseContextItemExpr()
             || parseOrderedExpr()
             || parseUnorderedExpr()
-            || parseNodeConstructor()
             || parseFunctionItemExpr()
+            || parseArrayConstructor()
             || parseBinaryConstructor()
+            || parseNodeConstructor()
             || parseFunctionCall();
     }
 
@@ -3822,6 +3823,34 @@ class XQueryParser {
         return false;
     }
 
+    private boolean parseArrayConstructor() {
+        final PsiBuilder.Marker arrayConstructor = matchTokenTypeWithMarker(XQueryTokenType.K_ARRAY_NODE);
+        if (arrayConstructor != null) {
+            boolean haveErrors = false;
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.BLOCK_OPEN)) {
+                arrayConstructor.rollbackTo();
+                return false;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseExpr(XQueryElementType.EXPR)) {
+                error(XQueryBundle.message("parser.error.expected-expression"));
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.BLOCK_CLOSE) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", "}"));
+            }
+
+            arrayConstructor.done(XQueryElementType.ARRAY_CONSTRUCTOR);
+            return true;
+        }
+        return false;
+    }
+
     private boolean parseBinaryConstructor() {
         final PsiBuilder.Marker binaryConstructor = matchTokenTypeWithMarker(XQueryTokenType.K_BINARY);
         if (binaryConstructor != null) {
@@ -4074,7 +4103,6 @@ class XQueryParser {
             || parseCompTextConstructor()
             || parseCompCommentConstructor()
             || parseCompPIConstructor()
-            || parseCompArrayConstructor()
             || parseCompBooleanConstructor()
             || parseCompNullConstructor()
             || parseCompNumberConstructor()
@@ -4240,34 +4268,6 @@ class XQueryParser {
             parseEnclosedExpr(XQueryElementType.ENCLOSED_EXPR);
 
             piMarker.done(XQueryElementType.COMP_PI_CONSTRUCTOR);
-            return true;
-        }
-        return false;
-    }
-
-    private boolean parseCompArrayConstructor() {
-        final PsiBuilder.Marker compArrayConstructor = matchTokenTypeWithMarker(XQueryTokenType.K_ARRAY_NODE);
-        if (compArrayConstructor != null) {
-            boolean haveErrors = false;
-
-            parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.BLOCK_OPEN)) {
-                compArrayConstructor.rollbackTo();
-                return false;
-            }
-
-            parseWhiteSpaceAndCommentTokens();
-            if (!parseExpr(XQueryElementType.EXPR)) {
-                error(XQueryBundle.message("parser.error.expected-expression"));
-                haveErrors = true;
-            }
-
-            parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.BLOCK_CLOSE) && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected", "}"));
-            }
-
-            compArrayConstructor.done(XQueryElementType.COMP_ARRAY_CONSTRUCTOR);
             return true;
         }
         return false;

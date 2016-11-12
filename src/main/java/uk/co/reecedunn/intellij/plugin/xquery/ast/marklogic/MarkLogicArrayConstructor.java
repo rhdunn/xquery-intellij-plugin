@@ -15,10 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic;
 
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryComputedConstructor;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPrimaryExpr;
 
 /**
- * A MarkLogic 8.0 <code>CompArrayConstructor</code> node in the XQuery AST.
+ * A MarkLogic 8.0 <code>ArrayConstructor</code> node in the XQuery AST.
  */
-public interface MarkLogicCompArrayConstructor extends XQueryComputedConstructor {
+public interface MarkLogicArrayConstructor extends XQueryPrimaryExpr {
 }
