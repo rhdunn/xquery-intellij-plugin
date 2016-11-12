@@ -291,7 +291,7 @@ public interface XQueryElementType {
     IElementType NULL_CONSTRUCTOR = new ICompositeElementType("XQUERY_NULL_CONSTRUCTOR", MarkLogicNullConstructorPsiImpl.class);
     IElementType NULL_TEST = new ICompositeElementType("XQUERY_NULL_TEST", MarkLogicNullTestPsiImpl.class);
 
-    IElementType COMP_NUMBER_CONSTRUCTOR = new ICompositeElementType("XQUERY_COMP_NUMBER_CONSTRUCTOR", MarkLogicCompNumberConstructorPsiImpl.class);
+    IElementType NUMBER_CONSTRUCTOR = new ICompositeElementType("XQUERY_NUMBER_CONSTRUCTOR", MarkLogicNumberConstructorPsiImpl.class);
     IElementType NUMBER_TEST = new ICompositeElementType("XQUERY_NUMBER_TEST", MarkLogicNumberTestPsiImpl.class);
 
     IElementType COMP_OBJECT_CONSTRUCTOR = new ICompositeElementType("XQUERY_COMP_OBJECT_CONSTRUCTOR", MarkLogicCompObjectConstructorPsiImpl.class);

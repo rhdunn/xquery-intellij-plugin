@@ -3538,6 +3538,7 @@ class XQueryParser {
             || parseBooleanConstructor()
             || parseNodeConstructor()
             || parseNullConstructor()
+            || parseNumberConstructor()
             || parseFunctionCall();
     }
 
@@ -3924,6 +3925,34 @@ class XQueryParser {
         return false;
     }
 
+    private boolean parseNumberConstructor() {
+        final PsiBuilder.Marker numberConstructor = matchTokenTypeWithMarker(XQueryTokenType.K_NUMBER_NODE);
+        if (numberConstructor != null) {
+            boolean haveErrors = false;
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.BLOCK_OPEN)) {
+                numberConstructor.rollbackTo();
+                return false;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseExpr(XQueryElementType.EXPR)) {
+                error(XQueryBundle.message("parser.error.expected-expression"));
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.BLOCK_CLOSE) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", "}"));
+            }
+
+            numberConstructor.done(XQueryElementType.NUMBER_CONSTRUCTOR);
+            return true;
+        }
+        return false;
+    }
+
     // endregion
     // region Grammar :: Expr :: OrExpr :: DirectConstructor
 
@@ -4153,7 +4182,6 @@ class XQueryParser {
             || parseCompTextConstructor()
             || parseCompCommentConstructor()
             || parseCompPIConstructor()
-            || parseCompNumberConstructor()
             || parseCompObjectConstructor();
     }
 
@@ -4316,34 +4344,6 @@ class XQueryParser {
             parseEnclosedExpr(XQueryElementType.ENCLOSED_EXPR);
 
             piMarker.done(XQueryElementType.COMP_PI_CONSTRUCTOR);
-            return true;
-        }
-        return false;
-    }
-
-    private boolean parseCompNumberConstructor() {
-        final PsiBuilder.Marker compNumberConstructor = matchTokenTypeWithMarker(XQueryTokenType.K_NUMBER_NODE);
-        if (compNumberConstructor != null) {
-            boolean haveErrors = false;
-
-            parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.BLOCK_OPEN)) {
-                compNumberConstructor.rollbackTo();
-                return false;
-            }
-
-            parseWhiteSpaceAndCommentTokens();
-            if (!parseExpr(XQueryElementType.EXPR)) {
-                error(XQueryBundle.message("parser.error.expected-expression"));
-                haveErrors = true;
-            }
-
-            parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.BLOCK_CLOSE) && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected", "}"));
-            }
-
-            compNumberConstructor.done(XQueryElementType.COMP_NUMBER_CONSTRUCTOR);
             return true;
         }
         return false;

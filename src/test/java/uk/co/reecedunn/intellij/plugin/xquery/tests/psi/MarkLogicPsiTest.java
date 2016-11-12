@@ -342,32 +342,6 @@ public class MarkLogicPsiTest extends ParserTestCase {
     }
 
     // endregion
-    // region CompNumberConstructor
-
-    public void testCompNumberConstructor() {
-        final XQueryFile file = parseResource("tests/parser/marklogic-8.0/CompNumberConstructor.xq");
-
-        MarkLogicCompNumberConstructor numberConstructorPsi = descendants(file).findFirst(MarkLogicCompNumberConstructor.class).get();
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)numberConstructorPsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires MarkLogic 8.0 or later with XQuery version '1.0-ml'."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.K_NUMBER_NODE));
-    }
-
-    // endregion
     // region CompObjectConstructor
 
     public void testCompObjectConstructor() {
@@ -807,6 +781,32 @@ public class MarkLogicPsiTest extends ParserTestCase {
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
                 is(XQueryTokenType.K_NULL_NODE));
+    }
+
+    // endregion
+    // region NumberConstructor
+
+    public void testNumberConstructor() {
+        final XQueryFile file = parseResource("tests/parser/marklogic-8.0/NumberConstructor.xq");
+
+        MarkLogicNumberConstructor numberConstructorPsi = descendants(file).findFirst(MarkLogicNumberConstructor.class).get();
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)numberConstructorPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires MarkLogic 8.0 or later with XQuery version '1.0-ml'."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_NUMBER_NODE));
     }
 
     // endregion

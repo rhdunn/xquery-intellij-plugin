@@ -3937,9 +3937,9 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region MarkLogic 8.0 :: CompNumberConstructor
+    // region MarkLogic 8.0 :: NumberConstructor
 
-    public void testCompNumberConstructor() {
+    public void testNumberConstructor() {
         Lexer lexer = new XQueryLexer();
 
         matchSingleToken(lexer, "number-node", XQueryTokenType.K_NUMBER_NODE);

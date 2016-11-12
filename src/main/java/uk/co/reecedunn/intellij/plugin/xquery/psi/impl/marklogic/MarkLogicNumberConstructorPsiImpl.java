@@ -19,15 +19,15 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic.MarkLogicCompNumberConstructor;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic.MarkLogicNumberConstructor;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 
-public class MarkLogicCompNumberConstructorPsiImpl extends ASTWrapperPsiElement implements MarkLogicCompNumberConstructor, XQueryConformanceCheck {
-    public MarkLogicCompNumberConstructorPsiImpl(@NotNull ASTNode node) {
+public class MarkLogicNumberConstructorPsiImpl extends ASTWrapperPsiElement implements MarkLogicNumberConstructor, XQueryConformanceCheck {
+    public MarkLogicNumberConstructorPsiImpl(@NotNull ASTNode node) {
         super(node);
     }
 

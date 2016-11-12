@@ -354,29 +354,29 @@ public class MarkLogicParserTest extends ParserTestCase {
     }
 
     // endregion
-    // region MarkLogic 8.0 :: CompNumberConstructor
+    // region MarkLogic 8.0 :: NumberConstructor
 
-    public void testCompNumberConstructor() {
-        final String expected = loadResource("tests/parser/marklogic-8.0/CompNumberConstructor.txt");
-        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/CompNumberConstructor.xq");
+    public void testNumberConstructor() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/NumberConstructor.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/NumberConstructor.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    public void testCompNumberConstructor_CompactWhitespace() {
-        final String expected = loadResource("tests/parser/marklogic-8.0/CompNumberConstructor_CompactWhitespace.txt");
-        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/CompNumberConstructor_CompactWhitespace.xq");
+    public void testNumberConstructor_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/NumberConstructor_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/NumberConstructor_CompactWhitespace.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    public void testCompNumberConstructor_MissingExpr() {
-        final String expected = loadResource("tests/parser/marklogic-8.0/CompNumberConstructor_MissingExpr.txt");
-        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/CompNumberConstructor_MissingExpr.xq");
+    public void testNumberConstructor_MissingExpr() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/NumberConstructor_MissingExpr.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/NumberConstructor_MissingExpr.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    public void testCompNumberConstructor_MissingClosingBrace() {
-        final String expected = loadResource("tests/parser/marklogic-8.0/CompNumberConstructor_MissingClosingBrace.txt");
-        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/CompNumberConstructor_MissingClosingBrace.xq");
+    public void testNumberConstructor_MissingClosingBrace() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/NumberConstructor_MissingClosingBrace.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/NumberConstructor_MissingClosingBrace.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
