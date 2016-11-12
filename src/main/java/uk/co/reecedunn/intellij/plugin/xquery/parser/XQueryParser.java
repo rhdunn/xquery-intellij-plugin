@@ -3537,6 +3537,7 @@ class XQueryParser {
             || parseBinaryConstructor()
             || parseBooleanConstructor()
             || parseNodeConstructor()
+            || parseNullConstructor()
             || parseFunctionCall();
     }
 
@@ -3903,6 +3904,26 @@ class XQueryParser {
         return false;
     }
 
+    private boolean parseNullConstructor() {
+        final PsiBuilder.Marker nullConstructor = matchTokenTypeWithMarker(XQueryTokenType.K_NULL_NODE);
+        if (nullConstructor != null) {
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.BLOCK_OPEN)) {
+                nullConstructor.rollbackTo();
+                return false;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.BLOCK_CLOSE)) {
+                error(XQueryBundle.message("parser.error.expected", "}"));
+            }
+
+            nullConstructor.done(XQueryElementType.NULL_CONSTRUCTOR);
+            return true;
+        }
+        return false;
+    }
+
     // endregion
     // region Grammar :: Expr :: OrExpr :: DirectConstructor
 
@@ -4132,7 +4153,6 @@ class XQueryParser {
             || parseCompTextConstructor()
             || parseCompCommentConstructor()
             || parseCompPIConstructor()
-            || parseCompNullConstructor()
             || parseCompNumberConstructor()
             || parseCompObjectConstructor();
     }
@@ -4296,26 +4316,6 @@ class XQueryParser {
             parseEnclosedExpr(XQueryElementType.ENCLOSED_EXPR);
 
             piMarker.done(XQueryElementType.COMP_PI_CONSTRUCTOR);
-            return true;
-        }
-        return false;
-    }
-
-    private boolean parseCompNullConstructor() {
-        final PsiBuilder.Marker compNullConstructor = matchTokenTypeWithMarker(XQueryTokenType.K_NULL_NODE);
-        if (compNullConstructor != null) {
-            parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.BLOCK_OPEN)) {
-                compNullConstructor.rollbackTo();
-                return false;
-            }
-
-            parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.BLOCK_CLOSE)) {
-                error(XQueryBundle.message("parser.error.expected", "}"));
-            }
-
-            compNullConstructor.done(XQueryElementType.COMP_NULL_CONSTRUCTOR);
             return true;
         }
         return false;

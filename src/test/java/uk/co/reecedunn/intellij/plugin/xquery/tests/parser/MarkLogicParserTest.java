@@ -333,23 +333,23 @@ public class MarkLogicParserTest extends ParserTestCase {
     }
 
     // endregion
-    // region MarkLogic 8.0 :: CompNullConstructor
+    // region MarkLogic 8.0 :: NullConstructor
 
-    public void testCompNullConstructor() {
-        final String expected = loadResource("tests/parser/marklogic-8.0/CompNullConstructor.txt");
-        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/CompNullConstructor.xq");
+    public void testNullConstructor() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/NullConstructor.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/NullConstructor.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    public void testCompNullConstructor_CompactWhitespace() {
-        final String expected = loadResource("tests/parser/marklogic-8.0/CompNullConstructor_CompactWhitespace.txt");
-        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/CompNullConstructor_CompactWhitespace.xq");
+    public void testNullConstructor_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/NullConstructor_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/NullConstructor_CompactWhitespace.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    public void testCompNullConstructor_MissingClosingBrace() {
-        final String expected = loadResource("tests/parser/marklogic-8.0/CompNullConstructor_MissingClosingBrace.txt");
-        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/CompNullConstructor_MissingClosingBrace.xq");
+    public void testNullConstructor_MissingClosingBrace() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/NullConstructor_MissingClosingBrace.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/NullConstructor_MissingClosingBrace.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 

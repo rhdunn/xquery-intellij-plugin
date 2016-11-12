@@ -20,9 +20,7 @@ FileElement[FILE(0:11)]
                                                          XQueryPathExprImpl[XQUERY_PATH_EXPR(0:11)]
                                                             XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:11)]
                                                                XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:11)]
-                                                                  XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:11)]
-                                                                     MarkLogicCompNullConstructorImpl[XQUERY_COMP_NULL_CONSTRUCTOR(0:11)]
-                                                                        LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NULL_NODE(0:9)]('null-node')
-                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
-                                                                        LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(10:11)]('{')
-                                                                        PsiErrorElementImpl[ERROR_ELEMENT(11:11)]('XPST0003: Expected '}'.')
+                                                                  MarkLogicNullConstructorImpl[XQUERY_NULL_CONSTRUCTOR(0:11)]
+                                                                     LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NULL_NODE(0:9)]('null-node')
+                                                                     LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(9:10)]('{')
+                                                                     LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(10:11)]('}')

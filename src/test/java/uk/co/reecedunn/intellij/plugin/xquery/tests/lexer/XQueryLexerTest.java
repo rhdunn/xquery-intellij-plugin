@@ -3926,9 +3926,9 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region MarkLogic 8.0 :: CompNullConstructor
+    // region MarkLogic 8.0 :: NullConstructor
 
-    public void testCompNullConstructor() {
+    public void testNullConstructor() {
         Lexer lexer = new XQueryLexer();
 
         matchSingleToken(lexer, "null-node", XQueryTokenType.K_NULL_NODE);
