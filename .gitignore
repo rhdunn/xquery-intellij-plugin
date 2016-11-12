@@ -9,3 +9,4 @@ gradlew.bat
 .gradle/
 build/
 classes/
+out/
