@@ -3536,6 +3536,7 @@ class XQueryParser {
             || parseArrayConstructor()
             || parseBinaryConstructor()
             || parseBooleanConstructor()
+            || parseMapConstructor()
             || parseNodeConstructor()
             || parseNullConstructor()
             || parseNumberConstructor()
@@ -3905,6 +3906,64 @@ class XQueryParser {
         return false;
     }
 
+    private boolean parseMapConstructor() {
+        final PsiBuilder.Marker mapConstructor = matchTokenTypeWithMarker(XQueryTokenType.K_OBJECT_NODE);
+        if (mapConstructor != null) {
+            boolean haveErrors = false;
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.BLOCK_OPEN)) {
+                mapConstructor.rollbackTo();
+                return false;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (parseObjectKeyValue()) {
+                parseWhiteSpaceAndCommentTokens();
+                while (matchTokenType(XQueryTokenType.COMMA)) {
+                    parseWhiteSpaceAndCommentTokens();
+                    if (!parseObjectKeyValue() && !haveErrors) {
+                        error(XQueryBundle.message("parser.error.expected", "ObjectKeyValue"));
+                        haveErrors = true;
+                    }
+                    parseWhiteSpaceAndCommentTokens();
+                }
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.BLOCK_CLOSE) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", "}"));
+            }
+
+            mapConstructor.done(XQueryElementType.MAP_CONSTRUCTOR);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseObjectKeyValue() {
+        final PsiBuilder.Marker objectKeyValue = mark();
+        if (parseExprSingle()) {
+            boolean haveError = false;
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.QNAME_SEPARATOR)) {
+                error(XQueryBundle.message("parser.error.expected", ":"));
+                haveError = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseExprSingle() && !haveError) {
+                error(XQueryBundle.message("parser.error.expected-expression"));
+            }
+
+            objectKeyValue.done(XQueryElementType.OBJECT_KEY_VALUE);
+            return true;
+        }
+        objectKeyValue.drop();
+        return false;
+    }
+
     private boolean parseNullConstructor() {
         final PsiBuilder.Marker nullConstructor = matchTokenTypeWithMarker(XQueryTokenType.K_NULL_NODE);
         if (nullConstructor != null) {
@@ -4181,8 +4240,7 @@ class XQueryParser {
             || parseCompNamespaceConstructor()
             || parseCompTextConstructor()
             || parseCompCommentConstructor()
-            || parseCompPIConstructor()
-            || parseCompObjectConstructor();
+            || parseCompPIConstructor();
     }
 
     private boolean parseCompDocConstructor() {
@@ -4346,64 +4404,6 @@ class XQueryParser {
             piMarker.done(XQueryElementType.COMP_PI_CONSTRUCTOR);
             return true;
         }
-        return false;
-    }
-
-    private boolean parseCompObjectConstructor() {
-        final PsiBuilder.Marker compObjectConstructor = matchTokenTypeWithMarker(XQueryTokenType.K_OBJECT_NODE);
-        if (compObjectConstructor != null) {
-            boolean haveErrors = false;
-
-            parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.BLOCK_OPEN)) {
-                compObjectConstructor.rollbackTo();
-                return false;
-            }
-
-            parseWhiteSpaceAndCommentTokens();
-            if (parseObjectKeyValue()) {
-                parseWhiteSpaceAndCommentTokens();
-                while (matchTokenType(XQueryTokenType.COMMA)) {
-                    parseWhiteSpaceAndCommentTokens();
-                    if (!parseObjectKeyValue() && !haveErrors) {
-                        error(XQueryBundle.message("parser.error.expected", "ObjectKeyValue"));
-                        haveErrors = true;
-                    }
-                    parseWhiteSpaceAndCommentTokens();
-                }
-            }
-
-            parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.BLOCK_CLOSE) && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected", "}"));
-            }
-
-            compObjectConstructor.done(XQueryElementType.COMP_OBJECT_CONSTRUCTOR);
-            return true;
-        }
-        return false;
-    }
-
-    private boolean parseObjectKeyValue() {
-        final PsiBuilder.Marker objectKeyValue = mark();
-        if (parseExprSingle()) {
-            boolean haveError = false;
-
-            parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.QNAME_SEPARATOR)) {
-                error(XQueryBundle.message("parser.error.expected", ":"));
-                haveError = true;
-            }
-
-            parseWhiteSpaceAndCommentTokens();
-            if (!parseExprSingle() && !haveError) {
-                error(XQueryBundle.message("parser.error.expected-expression"));
-            }
-
-            objectKeyValue.done(XQueryElementType.OBJECT_KEY_VALUE);
-            return true;
-        }
-        objectKeyValue.drop();
         return false;
     }
 

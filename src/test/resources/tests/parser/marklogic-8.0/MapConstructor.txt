@@ -20,10 +20,9 @@ FileElement[FILE(0:15)]
                                                          XQueryPathExprImpl[XQUERY_PATH_EXPR(0:15)]
                                                             XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:15)]
                                                                XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:15)]
-                                                                  XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:15)]
-                                                                     MarkLogicCompObjectConstructorImpl[XQUERY_COMP_OBJECT_CONSTRUCTOR(0:15)]
-                                                                        LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_OBJECT_NODE(0:11)]('object-node')
-                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
-                                                                        LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(12:13)]('{')
-                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
-                                                                        LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(14:15)]('}')
+                                                                  MarkLogicMapConstructorImpl[XQUERY_MAP_CONSTRUCTOR(0:15)]
+                                                                     LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_OBJECT_NODE(0:11)]('object-node')
+                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
+                                                                     LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(12:13)]('{')
+                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
+                                                                     LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(14:15)]('}')

@@ -20,5 +20,5 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryComputedConstruct
 /**
  * A MarkLogic 8.0 <code>CompObjectConstructor</code> node in the XQuery AST.
  */
-public interface MarkLogicCompObjectConstructor extends XQueryComputedConstructor {
+public interface MarkLogicMapConstructor extends XQueryComputedConstructor {
 }

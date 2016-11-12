@@ -381,28 +381,28 @@ public class MarkLogicParserTest extends ParserTestCase {
     }
 
     // endregion
-    // region MarkLogic 8.0 :: CompObjectConstructor
+    // region MarkLogic 8.0 :: MapConstructor
 
-    public void testCompObjectConstructor() {
-        final String expected = loadResource("tests/parser/marklogic-8.0/CompObjectConstructor.txt");
-        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/CompObjectConstructor.xq");
+    public void testMapConstructor() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/MapConstructor.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/MapConstructor.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    public void testCompObjectConstructor_CompactWhitespace() {
-        final String expected = loadResource("tests/parser/marklogic-8.0/CompObjectConstructor_CompactWhitespace.txt");
-        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/CompObjectConstructor_CompactWhitespace.xq");
+    public void testMapConstructor_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/MapConstructor_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/MapConstructor_CompactWhitespace.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    public void testCompObjectConstructor_MissingClosingBrace() {
-        final String expected = loadResource("tests/parser/marklogic-8.0/CompObjectConstructor_MissingClosingBrace.txt");
-        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/CompObjectConstructor_MissingClosingBrace.xq");
+    public void testMapConstructor_MissingClosingBrace() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/MapConstructor_MissingClosingBrace.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/MapConstructor_MissingClosingBrace.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     // endregion
-    // region MarkLogic 8.0 :: ObjectKeyValue + CompObjectConstructor
+    // region MarkLogic 8.0 :: ObjectKeyValue + MapConstructor
 
     public void testObjectKeyValue() {
         final String expected = loadResource("tests/parser/marklogic-8.0/ObjectKeyValue.txt");

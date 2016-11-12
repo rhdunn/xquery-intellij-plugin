@@ -3948,9 +3948,9 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
-    // region MarkLogic 8.0 :: CompObjectConstructor
+    // region MarkLogic 8.0 :: MapConstructor
 
-    public void testCompObjectConstructor() {
+    public void testMapConstructor_MarkLogic() {
         Lexer lexer = new XQueryLexer();
 
         matchSingleToken(lexer, "object-node", XQueryTokenType.K_OBJECT_NODE);
