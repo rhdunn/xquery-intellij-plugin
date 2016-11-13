@@ -4526,7 +4526,11 @@ class XQueryParser {
 
             itemTypeMarker.done(XQueryElementType.ITEM_TYPE);
             return true;
-        } else if (parseKindTest() || parseFunctionTest() || parseEQName(XQueryElementType.ATOMIC_OR_UNION_TYPE) || parseParenthesizedItemType()) {
+        } else if (parseKindTest() ||
+                   parseFunctionTest() ||
+                   parseMapTest() ||
+                   parseEQName(XQueryElementType.ATOMIC_OR_UNION_TYPE) ||
+                   parseParenthesizedItemType()) {
             itemTypeMarker.done(XQueryElementType.ITEM_TYPE);
             return true;
         }
@@ -4634,6 +4638,34 @@ class XQueryParser {
             }
 
             parenthesizedItemTypeMarker.done(XQueryElementType.PARENTHESIZED_ITEM_TYPE);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseMapTest() {
+        final PsiBuilder.Marker mapTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_MAP);
+        if (mapTestMarker != null) {
+            boolean haveError = false;
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_OPEN)) {
+                mapTestMarker.rollbackTo();
+                return false;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.STAR)) {
+                error(XQueryBundle.message("parser.error.expected", "*"));
+                haveError = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE) && !haveError) {
+                error(XQueryBundle.message("parser.error.expected", ")"));
+            }
+
+            mapTestMarker.done(XQueryElementType.ANY_MAP_TEST);
             return true;
         }
         return false;
@@ -4976,7 +5008,7 @@ class XQueryParser {
         if (status == ParseStatus.NOT_MATCHED) status = parseBooleanTest();
         if (status == ParseStatus.NOT_MATCHED) status = parseNullTest();
         if (status == ParseStatus.NOT_MATCHED) status = parseNumberTest();
-        if (status == ParseStatus.NOT_MATCHED) status = parseMapTest();
+        if (status == ParseStatus.NOT_MATCHED) status = parseMapTest_MarkLogic();
         return status;
     }
 
@@ -5042,7 +5074,7 @@ class XQueryParser {
         return ParseStatus.NOT_MATCHED;
     }
 
-    private ParseStatus parseMapTest() {
+    private ParseStatus parseMapTest_MarkLogic() {
         final PsiBuilder.Marker objectTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_OBJECT_NODE);
         if (objectTestMarker != null) {
             ParseStatus status = ParseStatus.MATCHED;
