@@ -3727,17 +3727,6 @@ class XQueryParser {
         return false;
     }
 
-    private boolean parseNodeConstructor() {
-        final PsiBuilder.Marker constructorMarker = mark();
-        if (parseDirectConstructor() || parseComputedConstructor()) {
-            constructorMarker.done(XQueryElementType.NODE_CONSTRUCTOR);
-            return true;
-        }
-
-        constructorMarker.drop();
-        return false;
-    }
-
     private boolean parseFunctionItemExpr() {
         return parseNamedFunctionRef() || parseInlineFunctionExpr();
     }
@@ -3826,6 +3815,9 @@ class XQueryParser {
         inlineFunctionExprMarker.drop();
         return false;
     }
+
+    // endregion
+    // region Grammar :: Expr :: OrExpr :: PrimaryExpr :: Constructors
 
     private boolean parseArrayConstructor() {
         return parseSquareArrayConstructor() || parseCurlyArrayConstructor();
@@ -4008,6 +4000,17 @@ class XQueryParser {
         return false;
     }
 
+    private boolean parseNodeConstructor() {
+        final PsiBuilder.Marker constructorMarker = mark();
+        if (parseDirectConstructor() || parseComputedConstructor()) {
+            constructorMarker.done(XQueryElementType.NODE_CONSTRUCTOR);
+            return true;
+        }
+
+        constructorMarker.drop();
+        return false;
+    }
+
     private boolean parseNullConstructor() {
         final PsiBuilder.Marker nullConstructor = matchTokenTypeWithMarker(XQueryTokenType.K_NULL_NODE);
         if (nullConstructor != null) {
@@ -4057,7 +4060,7 @@ class XQueryParser {
     }
 
     // endregion
-    // region Grammar :: Expr :: OrExpr :: DirectConstructor
+    // region Grammar :: Expr :: OrExpr :: PrimaryExpr :: NodeConstructor :: DirectConstructor
 
     private boolean parseDirectConstructor() {
         return parseDirElemConstructor()
@@ -4275,7 +4278,7 @@ class XQueryParser {
     }
 
     // endregion
-    // region Grammar :: Expr :: OrExpr :: ComputedConstructor
+    // region Grammar :: Expr :: OrExpr :: PrimaryExpr :: NodeConstructor :: ComputedConstructor
 
     private boolean parseComputedConstructor() {
         return parseCompDocConstructor()
