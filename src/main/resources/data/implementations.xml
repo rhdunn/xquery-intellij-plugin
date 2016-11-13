@@ -271,6 +271,7 @@ limitations under the License.
                 <module version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <schema-import version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <schema-validation version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <saxon version="9.4" specification="http://www.saxonica.com/documentation/index.html#!changes/xquery30/9.3-9.4" default="true"/>
             </dialect>
             <dialect id="saxon/EE/v9.4/3.0-update" name="xquery.implementation.xquery-update-10" localized="true" default="true">
                 <minimal-conformance version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
@@ -282,6 +283,7 @@ limitations under the License.
                 <schema-import version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <schema-validation version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <update-facility version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="true"/>
+                <saxon version="9.4" specification="http://www.saxonica.com/documentation/index.html#!changes/xquery30/9.3-9.4" default="true"/>
             </dialect>
         </version>
         <version id="saxon/EE/v9.5" name="9.5" localized="false" default="false">
@@ -313,6 +315,7 @@ limitations under the License.
                 <module version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <schema-import version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <schema-validation version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <saxon version="9.5" specification="http://www.saxonica.com/documentation/index.html#!changes/xquery30/9.4-9.5" default="true"/>
             </dialect>
             <dialect id="saxon/EE/v9.5/3.0-update" name="xquery.implementation.xquery-update-10" localized="true" default="true">
                 <minimal-conformance version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
@@ -324,6 +327,7 @@ limitations under the License.
                 <schema-import version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <schema-validation version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <update-facility version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="true"/>
+                <saxon version="9.5" specification="http://www.saxonica.com/documentation/index.html#!changes/xquery30/9.4-9.5" default="true"/>
             </dialect>
         </version>
         <version id="saxon/EE/v9.6" name="9.6" localized="false" default="false">
@@ -355,6 +359,7 @@ limitations under the License.
                 <module version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <schema-import version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <schema-validation version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <saxon version="9.6" specification="http://www.saxonica.com/documentation/index.html#!changes/xquery30/9.5-9.6" default="true"/>
             </dialect>
             <dialect id="saxon/EE/v9.6/3.0-update" name="xquery.implementation.xquery-update-10" localized="true" default="true">
                 <minimal-conformance version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
@@ -366,6 +371,7 @@ limitations under the License.
                 <schema-import version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <schema-validation version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <update-facility version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="true"/>
+                <saxon version="9.6" specification="http://www.saxonica.com/documentation/index.html#!changes/xquery30/9.5-9.6" default="true"/>
             </dialect>
         </version>
         <version id="saxon/EE/v9.7" name="9.7" localized="false" default="false">
@@ -418,6 +424,7 @@ limitations under the License.
                 <module version="3.1" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <schema-import version="3.1" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <schema-validation version="3.1" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <saxon version="9.7" specification="http://www.saxonica.com/documentation/index.html#!changes/xquery30/9.6-9.7" default="true"/>
             </dialect>
             <dialect id="saxon/EE/v9.7/3.1-update" name="xquery.implementation.xquery-update-10" localized="true" default="true">
                 <minimal-conformance version="3.1" specification="https://www.w3.org/TR/2015/CR-xquery-31-20151217/" default="false"/>
@@ -429,6 +436,7 @@ limitations under the License.
                 <schema-import version="3.1" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <schema-validation version="3.1" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <update-facility version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="true"/>
+                <saxon version="9.7" specification="http://www.saxonica.com/documentation/index.html#!changes/xquery30/9.6-9.7" default="true"/>
             </dialect>
         </version>
     </implementation>

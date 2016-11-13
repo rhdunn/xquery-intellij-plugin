@@ -19,18 +19,19 @@ import org.jetbrains.annotations.NotNull;
 
 public enum XQueryConformance {
     FULL_AXIS("full-axis"), // XQuery 1.0
+    FULL_TEXT("full-text"), // Full Text 1.0 - 3.0
     HIGHER_ORDER_FUNCTION("higher-order-function"), // XQuery 3.0 - 3.1
+    MARKLOGIC("marklogic"), // MarkLogic 6.0 - 8.0
     MINIMAL_CONFORMANCE("minimal-conformance"), // XQuery 1.0 - 3.1
     MODULE("module"), // XQuery 1.0 - 3.1
+    SAXON("saxon"), // Saxon 9.4 - 9.7
     SCHEMA_IMPORT("schema-import"), // XQuery 1.0; XQuery 3.0 - 3.1 ("Schema Aware")
     SCHEMA_VALIDATION("schema-validation"), // XQuery 1.0; XQuery 3.0 - 3.1 ("Schema Aware")
+    SCRIPTING("scripting"), // Scripting 1.0
     SERIALIZATION("serialization"), // XQuery 1.0 - 3.1
     STATIC_TYPING("static-typing"), // XQuery 1.0 - 3.1
     TYPED_DATA("typed-data"), // XQuery 3.0 - 3.1
-    UPDATE_FACILITY("update-facility"), // Update Facility 1.0 - 3.0
-    FULL_TEXT("full-text"), // Full Text 1.0 - 3.0
-    SCRIPTING("scripting"), // Scripting 1.0
-    MARKLOGIC("marklogic"); // MarkLogic 6.0 - 8.0
+    UPDATE_FACILITY("update-facility"); // Update Facility 1.0 - 3.0
 
     private final String mID;
 
