@@ -681,47 +681,47 @@ public class MarkLogicParserTest extends ParserTestCase {
     }
 
     // endregion
-    // region MarkLogic 8.0 :: ObjectTest
+    // region MarkLogic 8.0 :: MapTest
 
-    public void testObjectTest() {
-        final String expected = loadResource("tests/parser/marklogic-8.0/ObjectTest.txt");
-        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/ObjectTest.xq");
+    public void testMapTest() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/MapTest.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/MapTest.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    public void testObjectTest_CompactWhitespace() {
-        final String expected = loadResource("tests/parser/marklogic-8.0/ObjectTest_CompactWhitespace.txt");
-        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/ObjectTest_CompactWhitespace.xq");
+    public void testMapTest_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/MapTest_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/MapTest_CompactWhitespace.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    public void testObjectTest_MissingClosingParenthesis() {
-        final String expected = loadResource("tests/parser/marklogic-8.0/ObjectTest_MissingClosingParenthesis.txt");
-        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/ObjectTest_MissingClosingParenthesis.xq");
+    public void testMapTest_MissingClosingParenthesis() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/MapTest_MissingClosingParenthesis.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/MapTest_MissingClosingParenthesis.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    public void testObjectTest_KeyName() {
-        final String expected = loadResource("tests/parser/marklogic-8.0/ObjectTest_KeyName.txt");
-        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/ObjectTest_KeyName.xq");
+    public void testMapTest_KeyName() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/MapTest_KeyName.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/MapTest_KeyName.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    public void testObjectTest_KeyName_CompactWhitespace() {
-        final String expected = loadResource("tests/parser/marklogic-8.0/ObjectTest_KeyName_CompactWhitespace.txt");
-        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/ObjectTest_KeyName_CompactWhitespace.xq");
+    public void testMapTest_KeyName_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/MapTest_KeyName_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/MapTest_KeyName_CompactWhitespace.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    public void testObjectTest_Wildcard() {
-        final String expected = loadResource("tests/parser/marklogic-8.0/ObjectTest_Wildcard.txt");
-        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/ObjectTest_Wildcard.xq");
+    public void testMapTest_Wildcard() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/MapTest_Wildcard.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/MapTest_Wildcard.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    public void testObjectTest_Wildcard_CompactWhitespace() {
-        final String expected = loadResource("tests/parser/marklogic-8.0/ObjectTest_Wildcard_CompactWhitespace.txt");
-        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/ObjectTest_Wildcard_CompactWhitespace.xq");
+    public void testMapTest_Wildcard_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/MapTest_Wildcard_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/MapTest_Wildcard_CompactWhitespace.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
@@ -800,21 +800,21 @@ public class MarkLogicParserTest extends ParserTestCase {
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    public void testKindTest_ObjectTest() {
-        final String expected = loadResource("tests/parser/marklogic-8.0/NodeTest_ObjectTest.txt");
-        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/NodeTest_ObjectTest.xq");
+    public void testKindTest_MapTest() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/NodeTest_MapTest.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/NodeTest_MapTest.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    public void testKindTest_ObjectTest_StringLiteral() {
-        final String expected = loadResource("tests/parser/marklogic-8.0/NodeTest_ObjectTest_StringLiteral.txt");
-        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/NodeTest_ObjectTest_StringLiteral.xq");
+    public void testKindTest_MapTest_StringLiteral() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/NodeTest_MapTest_StringLiteral.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/NodeTest_MapTest_StringLiteral.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    public void testKindTest_ObjectTest_FunctionCallLike() {
-        final String expected = loadResource("tests/parser/marklogic-8.0/NodeTest_ObjectTest_FunctionCallLike.txt");
-        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/NodeTest_ObjectTest_FunctionCallLike.xq");
+    public void testKindTest_MapTest_FunctionCallLike() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/NodeTest_MapTest_FunctionCallLike.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/NodeTest_MapTest_FunctionCallLike.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 

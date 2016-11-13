@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryKindTest;
 
 /**
- * A MarkLogic 8.0 <code>ObjectTest</code> node in the XQuery AST.
+ * A MarkLogic 8.0 <code>MapTest</code> node in the XQuery AST.
  */
-public interface MarkLogicObjectTest extends XQueryKindTest {
+public interface MarkLogicMapTest extends XQueryKindTest {
 }

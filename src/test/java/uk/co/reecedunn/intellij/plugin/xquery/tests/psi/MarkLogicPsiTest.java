@@ -545,7 +545,7 @@ public class MarkLogicPsiTest extends ParserTestCase {
     }
 
     public void testFunctionCall_ObjectNode() {
-        final XQueryFile file = parseResource("tests/parser/marklogic-8.0/NodeTest_ObjectTest_FunctionCallLike.xq");
+        final XQueryFile file = parseResource("tests/parser/marklogic-8.0/NodeTest_MapTest_FunctionCallLike.xq");
 
         XQueryFunctionCall functionCallPsi = descendants(file).findFirst(XQueryFunctionCall.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)functionCallPsi;
@@ -770,6 +770,37 @@ public class MarkLogicPsiTest extends ParserTestCase {
     }
 
     // endregion
+    // region MapTest
+
+    public void testMapTest() {
+        final XQueryFile file = parseResource("tests/parser/marklogic-8.0/MapTest.xq");
+
+        XQueryAnnotatedDecl annotationDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
+        XQueryVarDecl varDeclPsi = children(annotationDeclPsi).findFirst(XQueryVarDecl.class).get();
+        XQueryTypeDeclaration typeDeclarationPsi = children(varDeclPsi).findFirst(XQueryTypeDeclaration.class).get();
+        XQuerySequenceType sequenceTypePsi = children(typeDeclarationPsi).findFirst(XQuerySequenceType.class).get();
+        MarkLogicMapTest objectTestPsi = descendants(sequenceTypePsi).findFirst(MarkLogicMapTest.class).get();
+
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)objectTestPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires MarkLogic 8.0 or later with XQuery version '1.0-ml'."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_OBJECT_NODE));
+    }
+
+    // endregion
     // region NullConstructor
 
     public void testNullConstructor() {
@@ -881,37 +912,6 @@ public class MarkLogicPsiTest extends ParserTestCase {
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
                 is(XQueryTokenType.K_NUMBER_NODE));
-    }
-
-    // endregion
-    // region ObjectTest
-
-    public void testObjectTest() {
-        final XQueryFile file = parseResource("tests/parser/marklogic-8.0/ObjectTest.xq");
-
-        XQueryAnnotatedDecl annotationDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
-        XQueryVarDecl varDeclPsi = children(annotationDeclPsi).findFirst(XQueryVarDecl.class).get();
-        XQueryTypeDeclaration typeDeclarationPsi = children(varDeclPsi).findFirst(XQueryTypeDeclaration.class).get();
-        XQuerySequenceType sequenceTypePsi = children(typeDeclarationPsi).findFirst(XQuerySequenceType.class).get();
-        MarkLogicObjectTest objectTestPsi = descendants(sequenceTypePsi).findFirst(MarkLogicObjectTest.class).get();
-
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)objectTestPsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires MarkLogic 8.0 or later with XQuery version '1.0-ml'."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.K_OBJECT_NODE));
     }
 
     // endregion

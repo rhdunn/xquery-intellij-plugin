@@ -301,7 +301,7 @@ public interface XQueryElementType {
     IElementType NUMBER_CONSTRUCTOR = new ICompositeElementType("XQUERY_NUMBER_CONSTRUCTOR", MarkLogicNumberConstructorPsiImpl.class);
     IElementType NUMBER_TEST = new ICompositeElementType("XQUERY_NUMBER_TEST", MarkLogicNumberTestPsiImpl.class);
 
-    IElementType OBJECT_TEST = new ICompositeElementType("XQUERY_OBJECT_TEST", MarkLogicObjectTestPsiImpl.class);
+    IElementType MAP_TEST = new ICompositeElementType("XQUERY_MAP_TEST", MarkLogicMapTestPsiImpl.class);
 
     // endregion
 }
