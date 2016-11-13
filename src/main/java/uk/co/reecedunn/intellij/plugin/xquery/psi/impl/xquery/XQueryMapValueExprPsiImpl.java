@@ -13,10 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
+package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
 
-/**
- * A XQuery 3.1 <code>MapConstructor</code> node in the XQuery AST.
- */
-public interface XQueryMapConstructor extends XQueryPrimaryExpr {
+import com.intellij.extapi.psi.ASTWrapperPsiElement;
+import com.intellij.lang.ASTNode;
+import org.jetbrains.annotations.NotNull;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryMapValueExpr;
+
+public class XQueryMapValueExprPsiImpl extends ASTWrapperPsiElement implements XQueryMapValueExpr {
+    public XQueryMapValueExprPsiImpl(@NotNull ASTNode node) {
+        super(node);
+    }
 }

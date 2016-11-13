@@ -15,8 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
+import com.intellij.psi.PsiElement;
+
 /**
- * A XQuery 3.1 <code>MapConstructor</code> node in the XQuery AST.
+ * An XQuery 3.1 <code>MapKeyExpr</code> node in the XQuery AST.
  */
-public interface XQueryMapConstructor extends XQueryPrimaryExpr {
+public interface XQueryMapValueExpr extends PsiElement {
 }
