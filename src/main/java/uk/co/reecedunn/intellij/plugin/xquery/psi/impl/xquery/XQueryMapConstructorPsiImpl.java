@@ -13,28 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.marklogic;
+package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic.MarkLogicMapConstructor;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryMapConstructor;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 
-public class MarkLogicMapConstructorPsiImpl extends ASTWrapperPsiElement implements MarkLogicMapConstructor, XQueryConformanceCheck {
-    public MarkLogicMapConstructorPsiImpl(@NotNull ASTNode node) {
+public class XQueryMapConstructorPsiImpl extends ASTWrapperPsiElement implements XQueryMapConstructor, XQueryConformanceCheck {
+    public XQueryMapConstructorPsiImpl(@NotNull ASTNode node) {
         super(node);
     }
 
     @Override
     public boolean conformsTo(ImplementationItem implementation) {
-        final XQueryVersion version = implementation.getVersion(XQueryConformance.MARKLOGIC);
-        return version != null && version.supportsVersion(XQueryVersion.VERSION_8_0);
+        if (getConformanceElement().getNode().getElementType() == XQueryTokenType.K_OBJECT_NODE) {
+            final XQueryVersion version = implementation.getVersion(XQueryConformance.MARKLOGIC);
+            return version != null && version.supportsVersion(XQueryVersion.VERSION_8_0);
+        }
+        final XQueryVersion version = implementation.getVersion(XQueryConformance.MINIMAL_CONFORMANCE);
+        return version != null && version.supportsVersion(XQueryVersion.VERSION_3_1);
     }
 
     @Override
@@ -44,6 +49,9 @@ public class MarkLogicMapConstructorPsiImpl extends ASTWrapperPsiElement impleme
 
     @Override
     public String getConformanceErrorMessage() {
-        return XQueryBundle.message("requires.feature.marklogic.version", XQueryVersion.VERSION_8_0);
+        if (getConformanceElement().getNode().getElementType() == XQueryTokenType.K_OBJECT_NODE) {
+            return XQueryBundle.message("requires.feature.marklogic.version", XQueryVersion.VERSION_8_0);
+        }
+        return XQueryBundle.message("requires.feature.minimal-conformance.version", XQueryVersion.VERSION_3_1);
     }
 }

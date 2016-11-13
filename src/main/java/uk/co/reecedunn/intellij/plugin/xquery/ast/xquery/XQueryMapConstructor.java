@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic;
+package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPrimaryExpr;
 
 /**
  * A MarkLogic 8.0 <code>MapConstructor</code> node in the XQuery AST.
  */
-public interface MarkLogicMapConstructor extends XQueryPrimaryExpr {
+public interface XQueryMapConstructor extends XQueryPrimaryExpr {
 }

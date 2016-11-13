@@ -250,6 +250,8 @@ public interface XQueryElementType {
     IElementType SQUARE_ARRAY_CONSTRUCTOR = new ICompositeElementType("XQUERY_SQUARE_ARRAY_CONSTRUCTOR", XQuerySquareArrayConstructorPsiImpl.class);
     IElementType CURLY_ARRAY_CONSTRUCTOR = new ICompositeElementType("XQUERY_CURLY_ARRAY_CONSTRUCTOR", XQueryCurlyArrayConstructorPsiImpl.class);
 
+    IElementType MAP_CONSTRUCTOR = new ICompositeElementType("XQUERY_MAP_CONSTRUCTOR", XQueryMapConstructorPsiImpl.class);
+
     // endregion
     // region Update Facility 1.0
 
@@ -296,7 +298,6 @@ public interface XQueryElementType {
     IElementType NUMBER_CONSTRUCTOR = new ICompositeElementType("XQUERY_NUMBER_CONSTRUCTOR", MarkLogicNumberConstructorPsiImpl.class);
     IElementType NUMBER_TEST = new ICompositeElementType("XQUERY_NUMBER_TEST", MarkLogicNumberTestPsiImpl.class);
 
-    IElementType MAP_CONSTRUCTOR = new ICompositeElementType("XQUERY_MAP_CONSTRUCTOR", MarkLogicMapConstructorPsiImpl.class);
     IElementType MAP_CONSTRUCTOR_ENTRY = new ICompositeElementType("XQUERY_MAP_CONSTRUCTOR_ENTRY", MarkLogicMapConstructorEntryPsiImpl.class);
     IElementType OBJECT_TEST = new ICompositeElementType("XQUERY_OBJECT_TEST", MarkLogicObjectTestPsiImpl.class);
 

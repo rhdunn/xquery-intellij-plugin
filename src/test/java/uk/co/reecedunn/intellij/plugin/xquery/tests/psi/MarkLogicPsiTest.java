@@ -706,7 +706,7 @@ public class MarkLogicPsiTest extends ParserTestCase {
     public void testMapConstructor() {
         final XQueryFile file = parseResource("tests/parser/marklogic-8.0/MapConstructor.xq");
 
-        MarkLogicMapConstructor objectConstructorPsi = descendants(file).findFirst(MarkLogicMapConstructor.class).get();
+        XQueryMapConstructor objectConstructorPsi = descendants(file).findFirst(XQueryMapConstructor.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)objectConstructorPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));

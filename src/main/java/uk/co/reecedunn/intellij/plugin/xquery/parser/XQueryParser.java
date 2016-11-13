@@ -3947,7 +3947,11 @@ class XQueryParser {
     }
 
     private boolean parseMapConstructor() {
-        final PsiBuilder.Marker mapConstructor = matchTokenTypeWithMarker(XQueryTokenType.K_OBJECT_NODE);
+        PsiBuilder.Marker mapConstructor = matchTokenTypeWithMarker(XQueryTokenType.K_MAP);
+        if (mapConstructor == null) {
+            mapConstructor = matchTokenTypeWithMarker(XQueryTokenType.K_OBJECT_NODE);
+        }
+
         if (mapConstructor != null) {
             boolean haveErrors = false;
 
