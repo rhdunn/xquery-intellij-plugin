@@ -247,6 +247,7 @@ public interface XQueryElementType {
 
     IElementType NODE_CONSTRUCTOR = new ICompositeElementType("XQUERY_NODE_CONSTRUCTOR", XQueryNodeConstructorPsiImpl.class);
 
+    IElementType SQUARE_ARRAY_CONSTRUCTOR = new ICompositeElementType("XQUERY_SQUARE_ARRAY_CONSTRUCTOR", XQuerySquareArrayConstructorPsiImpl.class);
     IElementType CURLY_ARRAY_CONSTRUCTOR = new ICompositeElementType("XQUERY_CURLY_ARRAY_CONSTRUCTOR", XQueryCurlyArrayConstructorPsiImpl.class);
 
     // endregion

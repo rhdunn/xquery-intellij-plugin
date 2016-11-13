@@ -3828,7 +3828,37 @@ class XQueryParser {
     }
 
     private boolean parseArrayConstructor() {
-        return parseCurlyArrayConstructor();
+        return parseSquareArrayConstructor() || parseCurlyArrayConstructor();
+    }
+
+    private boolean parseSquareArrayConstructor() {
+        PsiBuilder.Marker arrayConstructor = matchTokenTypeWithMarker(XQueryTokenType.SQUARE_OPEN);
+        if (arrayConstructor != null) {
+            boolean haveErrors = false;
+
+            parseWhiteSpaceAndCommentTokens();
+            if (parseExprSingle()) {
+                parseWhiteSpaceAndCommentTokens();
+                while (matchTokenType(XQueryTokenType.COMMA)) {
+                    parseWhiteSpaceAndCommentTokens();
+                    if (!parseExprSingle() && !haveErrors) {
+                        error(XQueryBundle.message("parser.error.expected-expression"));
+                        haveErrors = true;
+                    }
+
+                    parseWhiteSpaceAndCommentTokens();
+                }
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.SQUARE_CLOSE) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", "]"));
+            }
+
+            arrayConstructor.done(XQueryElementType.SQUARE_ARRAY_CONSTRUCTOR);
+            return true;
+        }
+        return false;
     }
 
     private boolean parseCurlyArrayConstructor() {
