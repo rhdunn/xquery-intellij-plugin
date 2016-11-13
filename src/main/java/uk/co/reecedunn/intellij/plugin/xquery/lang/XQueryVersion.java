@@ -27,7 +27,12 @@ public enum XQueryVersion {
     // MarkLogic Extensions:
     VERSION_6_0("6.0", 6.0),
     VERSION_7_0("7.0", 7.0),
-    VERSION_8_0("8.0", 8.0);
+    VERSION_8_0("8.0", 8.0),
+    // Saxon Extensions:
+    VERSION_9_4("9.4", 9.4),
+    VERSION_9_5("9.5", 9.5),
+    VERSION_9_6("9.6", 9.6),
+    VERSION_9_7("9.7", 9.7);
 
     private final String mID;
     private final double mValue;
@@ -47,6 +52,10 @@ public enum XQueryVersion {
         if ("6.0".equals(value)) return VERSION_6_0;
         if ("7.0".equals(value)) return VERSION_7_0;
         if ("8.0".equals(value)) return VERSION_8_0;
+        if ("9.4".equals(value)) return VERSION_9_4;
+        if ("9.5".equals(value)) return VERSION_9_5;
+        if ("9.6".equals(value)) return VERSION_9_6;
+        if ("9.7".equals(value)) return VERSION_9_7;
         return null;
     }
 
