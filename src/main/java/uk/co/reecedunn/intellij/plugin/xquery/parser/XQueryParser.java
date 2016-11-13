@@ -3987,7 +3987,7 @@ class XQueryParser {
 
     private boolean parseMapConstructorEntry() {
         final PsiBuilder.Marker mapConstructorEntry = mark();
-        if (parseExprSingle()) {
+        if (parseExprSingle(XQueryElementType.MAP_KEY_EXPR)) {
             boolean haveError = false;
 
             parseWhiteSpaceAndCommentTokens();

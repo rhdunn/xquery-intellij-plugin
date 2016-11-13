@@ -252,6 +252,7 @@ public interface XQueryElementType {
 
     IElementType MAP_CONSTRUCTOR = new ICompositeElementType("XQUERY_MAP_CONSTRUCTOR", XQueryMapConstructorPsiImpl.class);
     IElementType MAP_CONSTRUCTOR_ENTRY = new ICompositeElementType("XQUERY_MAP_CONSTRUCTOR_ENTRY", XQueryMapConstructorEntryPsiImpl.class);
+    IElementType MAP_KEY_EXPR = new ICompositeElementType("XQUERY_MAP_KEY_EXPR", XQueryMapKeyExprPsiImpl.class);
 
     // endregion
     // region Update Facility 1.0
