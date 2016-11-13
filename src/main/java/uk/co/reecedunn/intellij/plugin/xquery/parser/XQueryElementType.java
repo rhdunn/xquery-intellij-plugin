@@ -256,6 +256,7 @@ public interface XQueryElementType {
     IElementType MAP_VALUE_EXPR = new ICompositeElementType("XQUERY_MAP_VALUE_EXPR", XQueryMapValueExprPsiImpl.class);
 
     IElementType ANY_MAP_TEST = new ICompositeElementType("XQUERY_ANY_MAP_TEST", XQueryAnyMapTestPsiImpl.class);
+    IElementType TYPED_MAP_TEST = new ICompositeElementType("XQUERY_TYPED_MAP_TEST", XQueryTypedMapTestPsiImpl.class);
 
     // endregion
     // region Update Facility 1.0

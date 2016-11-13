@@ -3465,6 +3465,39 @@ public class XQueryPsiTest extends ParserTestCase {
     }
 
     // endregion
+    // region TypedMapTest
+
+    public void testTypedMapTest() {
+        final XQueryFile file = parseResource("tests/parser/xquery-3.1/TypedMapTest.xq");
+
+        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
+        XQueryVarDecl varDeclPsi = children(annotatedDeclPsi).findFirst(XQueryVarDecl.class).get();
+        XQueryTypeDeclaration typeDeclarationPsi = children(varDeclPsi).findFirst(XQueryTypeDeclaration.class).get();
+        XQuerySequenceType sequenceTypePsi = children(typeDeclarationPsi).findFirst(XQuerySequenceType.class).get();
+        XQueryTypedMapTest typedMapTestPsi = descendants(sequenceTypePsi).findFirst(XQueryTypedMapTest.class).get();
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)typedMapTestPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(false));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 3.1 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_MAP));
+    }
+
+    // endregion
     // region ValidateExpr
 
     public void testValidateExpr() {

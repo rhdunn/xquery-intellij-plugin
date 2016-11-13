@@ -4654,9 +4654,37 @@ class XQueryParser {
                 return false;
             }
 
+            IElementType type;
             parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.STAR)) {
-                error(XQueryBundle.message("parser.error.expected", "*"));
+            if (matchTokenType(XQueryTokenType.STAR)) {
+                type = XQueryElementType.ANY_MAP_TEST;
+            } else if (parseEQName(XQueryElementType.ATOMIC_OR_UNION_TYPE)) {
+                parseWhiteSpaceAndCommentTokens();
+                if (!matchTokenType(XQueryTokenType.COMMA)) {
+                    error(XQueryBundle.message("parser.error.expected", ","));
+                    haveError = true;
+                }
+
+                parseWhiteSpaceAndCommentTokens();
+                if (!parseSequenceType() && !haveError) {
+                    error(XQueryBundle.message("parser.error.expected", "SequenceType"));
+                    haveError = true;
+                }
+
+                type = XQueryElementType.TYPED_MAP_TEST;
+            } else if (getTokenType() == XQueryTokenType.COMMA) {
+                error(XQueryBundle.message("parser.error.expected", "AtomicOrUnionType"));
+                haveError = true;
+
+                matchTokenType(XQueryTokenType.COMMA);
+
+                parseWhiteSpaceAndCommentTokens();
+                parseSequenceType();
+
+                type = XQueryElementType.TYPED_MAP_TEST;
+            } else {
+                error(XQueryBundle.message("parser.error.expected-eqname-or-token", "*"));
+                type = XQueryElementType.ANY_MAP_TEST;
                 haveError = true;
             }
 
@@ -4665,7 +4693,7 @@ class XQueryParser {
                 error(XQueryBundle.message("parser.error.expected", ")"));
             }
 
-            mapTestMarker.done(XQueryElementType.ANY_MAP_TEST);
+            mapTestMarker.done(type);
             return true;
         }
         return false;

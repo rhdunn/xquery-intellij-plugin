@@ -7643,4 +7643,43 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region XQuery 3.1 :: TypedMapTest
+
+    public void testTypedMapTest() {
+        final String expected = loadResource("tests/parser/xquery-3.1/TypedMapTest.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/TypedMapTest.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testTypedMapTest_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-3.1/TypedMapTest_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/TypedMapTest_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testTypedMapTest_MissingAtomicOrUnionType() {
+        final String expected = loadResource("tests/parser/xquery-3.1/TypedMapTest_MissingAtomicOrUnionType.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/TypedMapTest_MissingAtomicOrUnionType.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testTypedMapTest_MissingComma() {
+        final String expected = loadResource("tests/parser/xquery-3.1/TypedMapTest_MissingComma.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/TypedMapTest_MissingComma.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testTypedMapTest_MissingSequenceType() {
+        final String expected = loadResource("tests/parser/xquery-3.1/TypedMapTest_MissingSequenceType.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/TypedMapTest_MissingSequenceType.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testTypedMapTest_MissingClosingBrace() {
+        final String expected = loadResource("tests/parser/xquery-3.1/TypedMapTest_MissingClosingBrace.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/TypedMapTest_MissingClosingBrace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
 }
