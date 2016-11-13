@@ -39,7 +39,9 @@ public class XQueryMapConstructorPsiImpl extends ASTWrapperPsiElement implements
             return version != null && version.supportsVersion(XQueryVersion.VERSION_8_0);
         }
         final XQueryVersion version = implementation.getVersion(XQueryConformance.MINIMAL_CONFORMANCE);
-        return version != null && version.supportsVersion(XQueryVersion.VERSION_3_1);
+        final XQueryVersion saxon = implementation.getVersion(XQueryConformance.SAXON);
+        return (version != null && version.supportsVersion(XQueryVersion.VERSION_3_1)) ||
+               (saxon != null && saxon.supportsVersion(XQueryVersion.VERSION_9_4));
     }
 
     @Override
@@ -52,6 +54,6 @@ public class XQueryMapConstructorPsiImpl extends ASTWrapperPsiElement implements
         if (getConformanceElement().getNode().getElementType() == XQueryTokenType.K_OBJECT_NODE) {
             return XQueryBundle.message("requires.feature.marklogic.version", XQueryVersion.VERSION_8_0);
         }
-        return XQueryBundle.message("requires.feature.minimal-conformance.version", XQueryVersion.VERSION_3_1);
+        return XQueryBundle.message("requires.feature.saxon-xquery.version");
     }
 }

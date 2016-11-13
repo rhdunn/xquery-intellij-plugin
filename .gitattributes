@@ -12,3 +12,5 @@ src/test/resources/tests/parser/xquery-update-1.0/*.txt text eol=lf
 src/test/resources/tests/parser/xquery-update-1.0/*.xq text eol=lf
 src/test/resources/tests/parser/xquery-update-3.0/*.txt text eol=lf
 src/test/resources/tests/parser/xquery-update-3.0/*.xq text eol=lf
+src/test/resources/tests/parser/saxon-9.4/*.txt text eol=lf
+src/test/resources/tests/parser/saxon-9.4/*.xq text eol=lf

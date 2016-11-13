@@ -7481,7 +7481,7 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     // endregion
-    // region MarkLogic 8.0 :: MapConstructorEntry + MapConstructor
+    // region XQuery 3.1 :: MapConstructorEntry + MapConstructor
 
     public void testMapConstructorEntry() {
         final String expected = loadResource("tests/parser/xquery-3.1/MapConstructorEntry.txt");

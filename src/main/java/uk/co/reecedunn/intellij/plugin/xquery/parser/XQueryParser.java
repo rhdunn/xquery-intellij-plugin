@@ -3983,8 +3983,8 @@ class XQueryParser {
             boolean haveError = false;
 
             parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.QNAME_SEPARATOR)) {
-                error(XQueryBundle.message("parser.error.expected", ":"));
+            if (!matchTokenType(XQueryTokenType.QNAME_SEPARATOR) && !matchTokenType(XQueryTokenType.ASSIGN_EQUAL)) {
+                error(XQueryBundle.message("parser.error.expected-map-entry-assign"));
                 haveError = true;
             }
 

@@ -711,6 +711,14 @@ public class MarkLogicPsiTest extends ParserTestCase {
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(false));
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("saxon/EE/v9.4/3.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("saxon/EE/v9.5/3.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("saxon/EE/v9.6/3.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("saxon/EE/v9.7/3.0")), is(false));
+
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
@@ -724,6 +732,41 @@ public class MarkLogicPsiTest extends ParserTestCase {
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
                 is(XQueryTokenType.K_OBJECT_NODE));
+    }
+
+    // endregion
+    // region MapConstructorEntry
+
+    public void testMapConstructorEntry() {
+        final XQueryFile file = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry.xq");
+
+        XQueryMapConstructor mapConstructorPsi = descendants(file).findFirst(XQueryMapConstructor.class).get();
+        XQueryMapConstructorEntry mapConstructorEntryPsi = children(mapConstructorPsi).findFirst(XQueryMapConstructorEntry.class).get();
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)mapConstructorEntryPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("saxon/EE/v9.4/3.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("saxon/EE/v9.5/3.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("saxon/EE/v9.6/3.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("saxon/EE/v9.7/3.0")), is(true));
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: Use ':=' for Saxon 9.4 to 9.6, and ':' for XQuery 3.1 and MarkLogic."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.QNAME_SEPARATOR));
     }
 
     // endregion
