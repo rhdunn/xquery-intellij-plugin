@@ -3986,7 +3986,7 @@ class XQueryParser {
     }
 
     private boolean parseMapConstructorEntry() {
-        final PsiBuilder.Marker objectKeyValue = mark();
+        final PsiBuilder.Marker mapConstructorEntry = mark();
         if (parseExprSingle()) {
             boolean haveError = false;
 
@@ -4001,10 +4001,10 @@ class XQueryParser {
                 error(XQueryBundle.message("parser.error.expected-expression"));
             }
 
-            objectKeyValue.done(XQueryElementType.MAP_CONSTRUCTOR_ENTRY);
+            mapConstructorEntry.done(XQueryElementType.MAP_CONSTRUCTOR_ENTRY);
             return true;
         }
-        objectKeyValue.drop();
+        mapConstructorEntry.drop();
         return false;
     }
 

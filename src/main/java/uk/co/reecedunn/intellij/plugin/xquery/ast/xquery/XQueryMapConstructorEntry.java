@@ -13,15 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.marklogic;
+package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
-import com.intellij.lang.ASTNode;
-import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic.MarkLogicMapConstructorEntry;
+import com.intellij.psi.PsiElement;
 
-public class MarkLogicMapConstructorEntryPsiImpl extends ASTWrapperPsiElement implements MarkLogicMapConstructorEntry {
-    public MarkLogicMapConstructorEntryPsiImpl(@NotNull ASTNode node) {
-        super(node);
-    }
+/**
+ * A MarkLogic 8.0 <code>MapConstructorEntry</code> node in the XQuery AST.
+ */
+public interface XQueryMapConstructorEntry extends PsiElement {
 }

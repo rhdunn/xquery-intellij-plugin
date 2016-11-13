@@ -25,7 +25,7 @@ FileElement[FILE(0:21)]
                                                                      PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
                                                                      LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(12:13)]('{')
                                                                      PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
-                                                                     MarkLogicMapConstructorEntryImpl[XQUERY_MAP_CONSTRUCTOR_ENTRY(14:20)]
+                                                                     XQueryMapConstructorEntryImpl[XQUERY_MAP_CONSTRUCTOR_ENTRY(14:20)]
                                                                         XQueryOrExprImpl[XQUERY_OR_EXPR(14:18)]
                                                                            XQueryAndExprImpl[XQUERY_AND_EXPR(14:18)]
                                                                               XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(14:18)]

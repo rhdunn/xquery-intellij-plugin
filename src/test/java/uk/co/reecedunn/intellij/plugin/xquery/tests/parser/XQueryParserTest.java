@@ -7481,6 +7481,51 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region MarkLogic 8.0 :: MapConstructorEntry + MapConstructor
+
+    public void testMapConstructorEntry() {
+        final String expected = loadResource("tests/parser/xquery-3.1/MapConstructorEntry.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/MapConstructorEntry.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testMapConstructorEntry_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-3.1/MapConstructorEntry_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/MapConstructorEntry_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testMapConstructorEntry_MissingSeparator() {
+        final String expected = loadResource("tests/parser/xquery-3.1/MapConstructorEntry_MissingSeparator.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/MapConstructorEntry_MissingSeparator.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testMapConstructorEntry_MissingValueExpr() {
+        final String expected = loadResource("tests/parser/xquery-3.1/MapConstructorEntry_MissingValueExpr.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/MapConstructorEntry_MissingValueExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testMapConstructorEntry_Multiple() {
+        final String expected = loadResource("tests/parser/xquery-3.1/MapConstructorEntry_Multiple.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/MapConstructorEntry_Multiple.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testMapConstructorEntry_Multiple_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-3.1/MapConstructorEntry_Multiple_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/MapConstructorEntry_Multiple_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testMapConstructorEntry_Multiple_MissingEntry() {
+        final String expected = loadResource("tests/parser/xquery-3.1/MapConstructorEntry_Multiple_MissingEntry.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/MapConstructorEntry_Multiple_MissingEntry.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region XQuery 3.1 :: SquareArrayConstructor
 
     public void testSquareArrayConstructor() {

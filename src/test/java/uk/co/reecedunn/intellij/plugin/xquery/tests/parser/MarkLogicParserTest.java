@@ -440,9 +440,9 @@ public class MarkLogicParserTest extends ParserTestCase {
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    public void testMapConstructorEntry_Multiple_MissingObjectKeyValue() {
-        final String expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_Multiple_MissingObjectKeyValue.txt");
-        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_Multiple_MissingObjectKeyValue.xq");
+    public void testMapConstructorEntry_Multiple_MissingEntry() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_Multiple_MissingEntry.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_Multiple_MissingEntry.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
