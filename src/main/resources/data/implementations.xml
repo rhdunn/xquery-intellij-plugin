@@ -100,6 +100,39 @@ limitations under the License.
         </version>
     </implementation>
     <implementation id="saxon/HE" name="xquery.implementation.saxon.home-edition" localized="true" default="false" href="http://www.saxonica.com">
+        <version id="saxon/HE/v9.4" name="9.4" localized="false" default="true">
+            <dialect id="saxon/HE/v9.4/1.0" name="XQuery" localized="false" default="true">
+                <minimal-conformance version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <!-- No schema-import support -->
+                <!-- No schema-validation support -->
+                <!-- No static-typing support -->
+                <serialization version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <full-axis version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <module version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+            </dialect>
+        </version>
+        <version id="saxon/HE/v9.5" name="9.5" localized="false" default="true">
+            <dialect id="saxon/HE/v9.5/1.0" name="XQuery" localized="false" default="true">
+                <minimal-conformance version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <!-- No schema-import support -->
+                <!-- No schema-validation support -->
+                <!-- No static-typing support -->
+                <serialization version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <full-axis version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <module version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+            </dialect>
+        </version>
+        <version id="saxon/HE/v9.6" name="9.6" localized="false" default="true">
+            <dialect id="saxon/HE/v9.6/1.0" name="XQuery" localized="false" default="true">
+                <minimal-conformance version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <!-- No schema-import support -->
+                <!-- No schema-validation support -->
+                <!-- No static-typing support -->
+                <serialization version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <full-axis version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <module version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+            </dialect>
+        </version>
         <version id="saxon/HE/v9.7" name="9.7" localized="false" default="true">
             <dialect id="saxon/HE/v9.7/1.0" name="XQuery" localized="false" default="true">
                 <minimal-conformance version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
@@ -113,6 +146,69 @@ limitations under the License.
         </version>
     </implementation>
     <implementation id="saxon/PE" name="xquery.implementation.saxon.professional-edition" localized="true" default="false" href="http://www.saxonica.com">
+        <version id="saxon/PE/v9.4" name="9.4" localized="false" default="false">
+            <dialect id="saxon/PE/v9.4/1.0" name="XQuery" localized="false" default="true">
+                <minimal-conformance version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <!-- No schema-import support -->
+                <!-- No schema-validation support -->
+                <!-- No static-typing support -->
+                <serialization version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <full-axis version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <module version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+            </dialect>
+            <dialect id="saxon/PE/v9.4/3.0" name="XQuery" localized="false" default="true">
+                <minimal-conformance version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <!-- No schema-import support -->
+                <!-- No schema-validation support -->
+                <!-- No static-typing support -->
+                <higher-order-function version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <serialization version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <full-axis version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <module version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+            </dialect>
+        </version>
+        <version id="saxon/PE/v9.5" name="9.5" localized="false" default="false">
+            <dialect id="saxon/PE/v9.5/1.0" name="XQuery" localized="false" default="true">
+                <minimal-conformance version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <!-- No schema-import support -->
+                <!-- No schema-validation support -->
+                <!-- No static-typing support -->
+                <serialization version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <full-axis version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <module version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+            </dialect>
+            <dialect id="saxon/PE/v9.5/3.0" name="XQuery" localized="false" default="true">
+                <minimal-conformance version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <!-- No schema-import support -->
+                <!-- No schema-validation support -->
+                <!-- No static-typing support -->
+                <higher-order-function version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <serialization version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <full-axis version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <module version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+            </dialect>
+        </version>
+        <version id="saxon/PE/v9.6" name="9.6" localized="false" default="false">
+            <dialect id="saxon/PE/v9.6/1.0" name="XQuery" localized="false" default="true">
+                <minimal-conformance version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <!-- No schema-import support -->
+                <!-- No schema-validation support -->
+                <!-- No static-typing support -->
+                <serialization version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <full-axis version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <module version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+            </dialect>
+            <dialect id="saxon/PE/v9.6/3.0" name="XQuery" localized="false" default="true">
+                <minimal-conformance version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <!-- No schema-import support -->
+                <!-- No schema-validation support -->
+                <!-- No static-typing support -->
+                <higher-order-function version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <serialization version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <full-axis version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <module version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+            </dialect>
+        </version>
         <version id="saxon/PE/v9.7" name="9.7" localized="false" default="false">
             <dialect id="saxon/PE/v9.7/1.0" name="XQuery" localized="false" default="true">
                 <minimal-conformance version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
@@ -146,6 +242,132 @@ limitations under the License.
         </version>
     </implementation>
     <implementation id="saxon/EE" name="xquery.implementation.saxon.enterprise-edition" localized="true" default="false" href="http://www.saxonica.com">
+        <version id="saxon/EE/v9.4" name="9.4" localized="false" default="false">
+            <dialect id="saxon/EE/v9.4/1.0" name="XQuery" localized="false" default="false">
+                <minimal-conformance version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <schema-import version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <schema-validation version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <!-- No static-typing support -->
+                <serialization version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <full-axis version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <module version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+            </dialect>
+            <dialect id="saxon/EE/v9.4/1.0-update" name="xquery.implementation.xquery-update-10" localized="true" default="true">
+                <minimal-conformance version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <schema-import version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <schema-validation version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <!-- No static-typing support -->
+                <serialization version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <full-axis version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <module version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <update-facility version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="true"/>
+            </dialect>
+            <dialect id="saxon/EE/v9.4/3.0" name="XQuery" localized="false" default="false">
+                <minimal-conformance version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <higher-order-function version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <!-- No static-typing support -->
+                <serialization version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <full-axis version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <module version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <schema-import version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <schema-validation version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+            </dialect>
+            <dialect id="saxon/EE/v9.4/3.0-update" name="xquery.implementation.xquery-update-10" localized="true" default="true">
+                <minimal-conformance version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <higher-order-function version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <!-- No static-typing support -->
+                <serialization version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <full-axis version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <module version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <schema-import version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <schema-validation version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <update-facility version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="true"/>
+            </dialect>
+        </version>
+        <version id="saxon/EE/v9.5" name="9.5" localized="false" default="false">
+            <dialect id="saxon/EE/v9.5/1.0" name="XQuery" localized="false" default="false">
+                <minimal-conformance version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <schema-import version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <schema-validation version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <!-- No static-typing support -->
+                <serialization version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <full-axis version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <module version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+            </dialect>
+            <dialect id="saxon/EE/v9.5/1.0-update" name="xquery.implementation.xquery-update-10" localized="true" default="true">
+                <minimal-conformance version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <schema-import version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <schema-validation version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <!-- No static-typing support -->
+                <serialization version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <full-axis version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <module version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <update-facility version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="true"/>
+            </dialect>
+            <dialect id="saxon/EE/v9.5/3.0" name="XQuery" localized="false" default="false">
+                <minimal-conformance version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <higher-order-function version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <!-- No static-typing support -->
+                <serialization version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <full-axis version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <module version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <schema-import version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <schema-validation version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+            </dialect>
+            <dialect id="saxon/EE/v9.5/3.0-update" name="xquery.implementation.xquery-update-10" localized="true" default="true">
+                <minimal-conformance version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <higher-order-function version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <!-- No static-typing support -->
+                <serialization version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <full-axis version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <module version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <schema-import version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <schema-validation version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <update-facility version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="true"/>
+            </dialect>
+        </version>
+        <version id="saxon/EE/v9.6" name="9.6" localized="false" default="false">
+            <dialect id="saxon/EE/v9.6/1.0" name="XQuery" localized="false" default="false">
+                <minimal-conformance version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <schema-import version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <schema-validation version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <!-- No static-typing support -->
+                <serialization version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <full-axis version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <module version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+            </dialect>
+            <dialect id="saxon/EE/v9.6/1.0-update" name="xquery.implementation.xquery-update-10" localized="true" default="true">
+                <minimal-conformance version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <schema-import version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <schema-validation version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <!-- No static-typing support -->
+                <serialization version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <full-axis version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <module version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <update-facility version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="true"/>
+            </dialect>
+            <dialect id="saxon/EE/v9.6/3.0" name="XQuery" localized="false" default="false">
+                <minimal-conformance version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <higher-order-function version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <!-- No static-typing support -->
+                <serialization version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <full-axis version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <module version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <schema-import version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <schema-validation version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+            </dialect>
+            <dialect id="saxon/EE/v9.6/3.0-update" name="xquery.implementation.xquery-update-10" localized="true" default="true">
+                <minimal-conformance version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <higher-order-function version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <!-- No static-typing support -->
+                <serialization version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <full-axis version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <module version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <schema-import version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <schema-validation version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <update-facility version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="true"/>
+            </dialect>
+        </version>
         <version id="saxon/EE/v9.7" name="9.7" localized="false" default="false">
             <dialect id="saxon/EE/v9.7/1.0" name="XQuery" localized="false" default="false">
                 <minimal-conformance version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
