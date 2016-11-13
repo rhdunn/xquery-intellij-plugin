@@ -7460,4 +7460,49 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region XQuery 3.1 :: CurlyArrayConstructor
+
+    public void testCurlyArrayConstructor() {
+        final String expected = loadResource("tests/parser/xquery-3.1/CurlyArrayConstructor.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/CurlyArrayConstructor.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testCurlyArrayConstructor_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-3.1/CurlyArrayConstructor_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/CurlyArrayConstructor_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testCurlyArrayConstructor_MissingExpr() {
+        final String expected = loadResource("tests/parser/xquery-3.1/CurlyArrayConstructor_MissingExpr.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/CurlyArrayConstructor_MissingExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testCurlyArrayConstructor_MissingClosingBrace() {
+        final String expected = loadResource("tests/parser/xquery-3.1/CurlyArrayConstructor_MissingClosingBrace.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/CurlyArrayConstructor_MissingClosingBrace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testCurlyArrayConstructor_Multiple() {
+        final String expected = loadResource("tests/parser/xquery-3.1/CurlyArrayConstructor_Multiple.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/CurlyArrayConstructor_Multiple.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testCurlyArrayConstructor_Multiple_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-3.1/CurlyArrayConstructor_Multiple_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/CurlyArrayConstructor_Multiple_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testCurlyArrayConstructor_Multiple_MissingExpr() {
+        final String expected = loadResource("tests/parser/xquery-3.1/CurlyArrayConstructor_Multiple_MissingExpr.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/CurlyArrayConstructor_Multiple_MissingExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
 }

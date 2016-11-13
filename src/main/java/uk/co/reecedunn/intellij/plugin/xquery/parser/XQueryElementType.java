@@ -247,6 +247,8 @@ public interface XQueryElementType {
 
     IElementType NODE_CONSTRUCTOR = new ICompositeElementType("XQUERY_NODE_CONSTRUCTOR", XQueryNodeConstructorPsiImpl.class);
 
+    IElementType CURLY_ARRAY_CONSTRUCTOR = new ICompositeElementType("XQUERY_CURLY_ARRAY_CONSTRUCTOR", XQueryCurlyArrayConstructorPsiImpl.class);
+
     // endregion
     // region Update Facility 1.0
 
@@ -282,7 +284,6 @@ public interface XQueryElementType {
     // endregion
     // region MarkLogic 8.0
 
-    IElementType ARRAY_CONSTRUCTOR = new ICompositeElementType("XQUERY_ARRAY_CONSTRUCTOR", MarkLogicArrayConstructorPsiImpl.class);
     IElementType ARRAY_TEST = new ICompositeElementType("XQUERY_ARRAY_TEST", MarkLogicArrayTestPsiImpl.class);
 
     IElementType BOOLEAN_CONSTRUCTOR = new ICompositeElementType("XQUERY_BOOLEAN_CONSTRUCTOR", MarkLogicBooleanConstructorPsiImpl.class);

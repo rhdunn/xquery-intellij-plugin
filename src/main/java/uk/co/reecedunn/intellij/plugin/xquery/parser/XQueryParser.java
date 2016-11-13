@@ -3828,7 +3828,17 @@ class XQueryParser {
     }
 
     private boolean parseArrayConstructor() {
-        final PsiBuilder.Marker arrayConstructor = matchTokenTypeWithMarker(XQueryTokenType.K_ARRAY_NODE);
+        return parseCurlyArrayConstructor();
+    }
+
+    private boolean parseCurlyArrayConstructor() {
+        boolean isMarkLogicExtension = false;
+        PsiBuilder.Marker arrayConstructor = matchTokenTypeWithMarker(XQueryTokenType.K_ARRAY);
+        if (arrayConstructor == null) {
+            isMarkLogicExtension = true;
+            arrayConstructor = matchTokenTypeWithMarker(XQueryTokenType.K_ARRAY_NODE);
+        }
+
         if (arrayConstructor != null) {
             boolean haveErrors = false;
 
@@ -3839,7 +3849,7 @@ class XQueryParser {
             }
 
             parseWhiteSpaceAndCommentTokens();
-            if (!parseExpr(XQueryElementType.EXPR)) {
+            if (!parseExpr(XQueryElementType.EXPR) && isMarkLogicExtension) {
                 error(XQueryBundle.message("parser.error.expected-expression"));
                 haveErrors = true;
             }
@@ -3849,7 +3859,7 @@ class XQueryParser {
                 error(XQueryBundle.message("parser.error.expected", "}"));
             }
 
-            arrayConstructor.done(XQueryElementType.ARRAY_CONSTRUCTOR);
+            arrayConstructor.done(XQueryElementType.CURLY_ARRAY_CONSTRUCTOR);
             return true;
         }
         return false;

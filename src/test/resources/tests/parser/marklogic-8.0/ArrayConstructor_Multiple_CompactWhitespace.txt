@@ -20,7 +20,7 @@ FileElement[FILE(0:17)]
                                                          XQueryPathExprImpl[XQUERY_PATH_EXPR(0:17)]
                                                             XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:17)]
                                                                XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:17)]
-                                                                  MarkLogicArrayConstructorImpl[XQUERY_ARRAY_CONSTRUCTOR(0:17)]
+                                                                  XQueryCurlyArrayConstructorImpl[XQUERY_CURLY_ARRAY_CONSTRUCTOR(0:17)]
                                                                      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_ARRAY_NODE(0:10)]('array-node')
                                                                      LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(10:11)]('{')
                                                                      XQueryExprImpl[XQUERY_EXPR(11:16)]
