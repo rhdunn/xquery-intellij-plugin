@@ -210,6 +210,11 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
 
+        assertThat(versioned.conformsTo(Implementations.getItemById("saxon/EE/v9.4/3.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("saxon/EE/v9.5/3.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("saxon/EE/v9.6/3.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("saxon/EE/v9.7/3.0")), is(true));
+
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
@@ -218,7 +223,7 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(false));
 
         assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires XQuery 3.1 or later."));
+                is("XPST0003: This expression requires XQuery 3.1 or later, or Saxon 9.4 or later."));
 
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
@@ -3482,6 +3487,11 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
 
+        assertThat(versioned.conformsTo(Implementations.getItemById("saxon/EE/v9.4/3.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("saxon/EE/v9.5/3.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("saxon/EE/v9.6/3.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("saxon/EE/v9.7/3.0")), is(true));
+
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
@@ -3490,7 +3500,7 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(false));
 
         assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires XQuery 3.1 or later."));
+                is("XPST0003: This expression requires XQuery 3.1 or later, or Saxon 9.4 or later."));
 
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),

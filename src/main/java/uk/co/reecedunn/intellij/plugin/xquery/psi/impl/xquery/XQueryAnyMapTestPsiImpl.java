@@ -34,7 +34,9 @@ public class XQueryAnyMapTestPsiImpl extends ASTWrapperPsiElement implements XQu
     @Override
     public boolean conformsTo(ImplementationItem implementation) {
         final XQueryVersion version = implementation.getVersion(XQueryConformance.MINIMAL_CONFORMANCE);
-        return version != null && version.supportsVersion(XQueryVersion.VERSION_3_1);
+        final XQueryVersion saxon = implementation.getVersion(XQueryConformance.SAXON);
+        return (version != null && version.supportsVersion(XQueryVersion.VERSION_3_1)) ||
+               (saxon != null && saxon.supportsVersion(XQueryVersion.VERSION_9_4));
     }
 
     @Override
@@ -44,6 +46,6 @@ public class XQueryAnyMapTestPsiImpl extends ASTWrapperPsiElement implements XQu
 
     @Override
     public String getConformanceErrorMessage() {
-        return XQueryBundle.message("requires.feature.minimal-conformance.version", XQueryVersion.VERSION_3_1);
+        return XQueryBundle.message("requires.feature.saxon-xquery.version");
     }
 }
