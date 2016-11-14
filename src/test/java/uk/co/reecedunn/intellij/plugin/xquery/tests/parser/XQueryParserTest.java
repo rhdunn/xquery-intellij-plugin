@@ -7682,4 +7682,31 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region XQuery 3.1 :: AnyArrayTest
+
+    public void testAnyArrayTest() {
+        final String expected = loadResource("tests/parser/xquery-3.1/AnyArrayTest.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/AnyArrayTest.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testAnyArrayTest_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-3.1/AnyArrayTest_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/AnyArrayTest_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testAnyArrayTest_MissingWildcard() {
+        final String expected = loadResource("tests/parser/xquery-3.1/AnyArrayTest_MissingWildcard.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/AnyArrayTest_MissingWildcard.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testAnyArrayTest_MissingClosingParenthesis() {
+        final String expected = loadResource("tests/parser/xquery-3.1/AnyArrayTest_MissingClosingParenthesis.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/AnyArrayTest_MissingClosingParenthesis.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
 }

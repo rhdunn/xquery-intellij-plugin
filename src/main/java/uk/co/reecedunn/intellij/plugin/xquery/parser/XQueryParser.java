@@ -4529,6 +4529,7 @@ class XQueryParser {
         } else if (parseKindTest() ||
                    parseFunctionTest() ||
                    parseMapTest() ||
+                   parseArrayTest() ||
                    parseEQName(XQueryElementType.ATOMIC_OR_UNION_TYPE) ||
                    parseParenthesizedItemType()) {
             itemTypeMarker.done(XQueryElementType.ITEM_TYPE);
@@ -4694,6 +4695,36 @@ class XQueryParser {
             }
 
             mapTestMarker.done(type);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseArrayTest() {
+        final PsiBuilder.Marker arrayTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_ARRAY);
+        if (arrayTestMarker != null) {
+            boolean haveError = false;
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_OPEN)) {
+                arrayTestMarker.rollbackTo();
+                return false;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (matchTokenType(XQueryTokenType.STAR)) {
+                //
+            } else {
+                error(XQueryBundle.message("parser.error.expected", "*"));
+                haveError = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE) && !haveError) {
+                error(XQueryBundle.message("parser.error.expected", ")"));
+            }
+
+            arrayTestMarker.done(XQueryElementType.ANY_ARRAY_TEST);
             return true;
         }
         return false;
@@ -5032,7 +5063,7 @@ class XQueryParser {
     }
 
     private ParseStatus parseJsonKindTest() {
-        ParseStatus status = parseArrayTest();
+        ParseStatus status = parseArrayTest_MarkLogic();
         if (status == ParseStatus.NOT_MATCHED) status = parseBooleanTest();
         if (status == ParseStatus.NOT_MATCHED) status = parseNullTest();
         if (status == ParseStatus.NOT_MATCHED) status = parseNumberTest();
@@ -5040,7 +5071,7 @@ class XQueryParser {
         return status;
     }
 
-    private ParseStatus parseArrayTest() {
+    private ParseStatus parseArrayTest_MarkLogic() {
         final PsiBuilder.Marker arrayTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_ARRAY_NODE);
         if (arrayTestMarker != null) {
             ParseStatus status = ParseStatus.MATCHED;

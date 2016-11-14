@@ -258,6 +258,8 @@ public interface XQueryElementType {
     IElementType ANY_MAP_TEST = new ICompositeElementType("XQUERY_ANY_MAP_TEST", XQueryAnyMapTestPsiImpl.class);
     IElementType TYPED_MAP_TEST = new ICompositeElementType("XQUERY_TYPED_MAP_TEST", XQueryTypedMapTestPsiImpl.class);
 
+    IElementType ANY_ARRAY_TEST = new ICompositeElementType("XQUERY_ANY_ARRAY_TEST", XQueryAnyArrayTestPsiImpl.class);
+
     // endregion
     // region Update Facility 1.0
 
