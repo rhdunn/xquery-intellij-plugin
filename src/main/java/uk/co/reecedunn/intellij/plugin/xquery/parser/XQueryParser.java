@@ -4711,11 +4711,15 @@ class XQueryParser {
                 return false;
             }
 
+            IElementType type;
             parseWhiteSpaceAndCommentTokens();
             if (matchTokenType(XQueryTokenType.STAR)) {
-                //
+                type = XQueryElementType.ANY_ARRAY_TEST;
+            } else if (parseSequenceType()) {
+                type = XQueryElementType.TYPED_ARRAY_TEST;
             } else {
-                error(XQueryBundle.message("parser.error.expected", "*"));
+                error(XQueryBundle.message("parser.error.expected-either", "*", "SequenceType"));
+                type = XQueryElementType.ANY_ARRAY_TEST;
                 haveError = true;
             }
 
@@ -4724,7 +4728,7 @@ class XQueryParser {
                 error(XQueryBundle.message("parser.error.expected", ")"));
             }
 
-            arrayTestMarker.done(XQueryElementType.ANY_ARRAY_TEST);
+            arrayTestMarker.done(type);
             return true;
         }
         return false;

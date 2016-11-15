@@ -7709,4 +7709,31 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region XQuery 3.1 :: TypedArrayTest
+
+    public void testTypedArrayTest() {
+        final String expected = loadResource("tests/parser/xquery-3.1/TypedArrayTest.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/TypedArrayTest.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testTypedArrayTest_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-3.1/TypedArrayTest_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/TypedArrayTest_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testTypedArrayTest_MissingSequenceType() {
+        final String expected = loadResource("tests/parser/xquery-3.1/TypedArrayTest_MissingSequenceType.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/TypedArrayTest_MissingSequenceType.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testTypedArrayTest_MissingClosingBrace() {
+        final String expected = loadResource("tests/parser/xquery-3.1/TypedArrayTest_MissingClosingBrace.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/TypedArrayTest_MissingClosingBrace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
 }
