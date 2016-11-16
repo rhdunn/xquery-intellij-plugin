@@ -3540,6 +3540,7 @@ class XQueryParser {
             || parseNodeConstructor()
             || parseNullConstructor()
             || parseNumberConstructor()
+            || parseUnaryLookup()
             || parseFunctionCall();
     }
 
@@ -3813,6 +3814,22 @@ class XQueryParser {
         }
 
         inlineFunctionExprMarker.drop();
+        return false;
+    }
+
+    private boolean parseUnaryLookup() {
+        final PsiBuilder.Marker unaryLookupMarker = matchTokenTypeWithMarker(XQueryTokenType.OPTIONAL);
+        if (unaryLookupMarker != null) {
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseEQName(XQueryElementType.NCNAME)) {
+                // NOTE: This conflicts with '?' used as an ArgumentPlaceholder, so don't match '?' only as UnaryLookup.
+                unaryLookupMarker.rollbackTo();
+                return false;
+            }
+
+            unaryLookupMarker.done(XQueryElementType.UNARY_LOOKUP);
+            return true;
+        }
         return false;
     }
 

@@ -3574,6 +3574,37 @@ public class XQueryPsiTest extends ParserTestCase {
     }
 
     // endregion
+    // region UnaryLookup
+
+    public void testUnaryLookup() {
+        final XQueryFile file = parseResource("tests/parser/xquery-3.1/UnaryLookup.xq");
+
+        XQuerySimpleMapExpr simpleMapExprPsi = descendants(file).findFirst(XQuerySimpleMapExpr.class).get();
+        XQueryPathExpr pathExprPsi = children(simpleMapExprPsi).toListOf(XQueryPathExpr.class).get(1);
+        XQueryUnaryLookup unaryLookupPsi = descendants(pathExprPsi).findFirst(XQueryUnaryLookup.class).get();
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)unaryLookupPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(false));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 3.1 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.OPTIONAL));
+    }
+
+    // endregion
     // region ValidateExpr
 
     public void testValidateExpr() {

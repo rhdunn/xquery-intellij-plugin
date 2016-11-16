@@ -261,6 +261,8 @@ public interface XQueryElementType {
     IElementType ANY_ARRAY_TEST = new ICompositeElementType("XQUERY_ANY_ARRAY_TEST", XQueryAnyArrayTestPsiImpl.class);
     IElementType TYPED_ARRAY_TEST = new ICompositeElementType("XQUERY_TYPED_ARRAY_TEST", XQueryTypedArrayTestPsiImpl.class);
 
+    IElementType UNARY_LOOKUP = new ICompositeElementType("XQUERY_UNARY_LOOKUP", XQueryUnaryLookupPsiImpl.class);
+
     // endregion
     // region Update Facility 1.0
 
