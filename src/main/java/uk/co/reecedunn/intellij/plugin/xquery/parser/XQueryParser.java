@@ -3821,7 +3821,7 @@ class XQueryParser {
         final PsiBuilder.Marker unaryLookupMarker = matchTokenTypeWithMarker(XQueryTokenType.OPTIONAL);
         if (unaryLookupMarker != null) {
             parseWhiteSpaceAndCommentTokens();
-            if (!parseEQName(XQueryElementType.NCNAME)) {
+            if (!parseKeySpecifier()) {
                 // NOTE: This conflicts with '?' used as an ArgumentPlaceholder, so don't match '?' only as UnaryLookup.
                 unaryLookupMarker.rollbackTo();
                 return false;
@@ -3830,6 +3830,20 @@ class XQueryParser {
             unaryLookupMarker.done(XQueryElementType.UNARY_LOOKUP);
             return true;
         }
+        return false;
+    }
+
+    private boolean parseKeySpecifier() {
+        final PsiBuilder.Marker keySpecifierMarker = mark();
+        if (matchTokenType(XQueryTokenType.STAR) ||
+            matchTokenType(XQueryTokenType.INTEGER_LITERAL) ||
+            parseEQName(XQueryElementType.NCNAME) ||
+            parseParenthesizedExpr()) {
+
+            keySpecifierMarker.done(XQueryElementType.KEY_SPECIFIER);
+            return true;
+        }
+        keySpecifierMarker.drop();
         return false;
     }
 

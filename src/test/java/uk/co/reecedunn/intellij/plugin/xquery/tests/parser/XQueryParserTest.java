@@ -7345,6 +7345,33 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region XQuery 3.1 :: KeySpecifier
+
+    public void testKeySpecifier_NCName() {
+        final String expected = loadResource("tests/parser/xquery-3.1/UnaryLookup.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/UnaryLookup.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testKeySpecifier_IntegerLiteral() {
+        final String expected = loadResource("tests/parser/xquery-3.1/KeySpecifier_IntegerLiteral.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/KeySpecifier_IntegerLiteral.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testKeySpecifier_ParenthesizedExpr() {
+        final String expected = loadResource("tests/parser/xquery-3.1/KeySpecifier_ParenthesizedExpr.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/KeySpecifier_ParenthesizedExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testKeySpecifier_Wildcard() {
+        final String expected = loadResource("tests/parser/xquery-3.1/KeySpecifier_Wildcard.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/KeySpecifier_Wildcard.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region XQuery 3.1 :: ArrowFunctionSpecifier
 
     @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-ArrowFunctionSpecifier")

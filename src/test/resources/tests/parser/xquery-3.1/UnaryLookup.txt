@@ -35,9 +35,10 @@ FileElement[FILE(0:20)]
                                                                   XQueryUnaryLookupImpl[XQUERY_UNARY_LOOKUP(6:12)]
                                                                      LeafPsiElement[XQUERY_OPTIONAL_TOKEN(6:7)]('?')
                                                                      PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-                                                                     XQueryNCNameImpl[XQUERY_NCNAME(8:11)]
-                                                                        LeafPsiElement[XQUERY_NCNAME_TOKEN(8:11)]('key')
-                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
+                                                                     XQueryKeySpecifierImpl[XQUERY_KEY_SPECIFIER(8:12)]
+                                                                        XQueryNCNameImpl[XQUERY_NCNAME(8:11)]
+                                                                           LeafPsiElement[XQUERY_NCNAME_TOKEN(8:11)]('key')
+                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
                   LeafPsiElement[XQUERY_EQUAL_TOKEN(12:13)]('=')
                   PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
                   XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(14:20)]
