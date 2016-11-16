@@ -19,7 +19,7 @@ FileElement[FILE(0:15)]
                                                       XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:15)]
                                                          XQueryPathExprImpl[XQUERY_PATH_EXPR(0:15)]
                                                             XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:15)]
-                                                               XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:15)]
+                                                               XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:15)]
                                                                   XQueryFunctionCallImpl[XQUERY_FUNCTION_CALL(0:15)]
                                                                      XQueryNCNameImpl[XQUERY_NCNAME(0:12)]
                                                                         LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_BOOLEAN_NODE(0:12)]('boolean-node')

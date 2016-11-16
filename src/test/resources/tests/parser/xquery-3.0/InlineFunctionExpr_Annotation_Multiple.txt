@@ -19,7 +19,7 @@ FileElement[FILE(0:34)]
                                                       XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:34)]
                                                          XQueryPathExprImpl[XQUERY_PATH_EXPR(0:34)]
                                                             XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:34)]
-                                                               XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:34)]
+                                                               XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:34)]
                                                                   XQueryInlineFunctionExprImpl[XQUERY_INLINE_FUNCTION_EXPR(0:34)]
                                                                      XQueryAnnotationImpl[XQUERY_ANNOTATION(0:9)]
                                                                         LeafPsiElement[XQUERY_ANNOTATION_INDICATOR_TOKEN(0:1)]('%')
@@ -61,7 +61,7 @@ FileElement[FILE(0:34)]
                                                                                                                         XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(31:33)]
                                                                                                                            XQueryPathExprImpl[XQUERY_PATH_EXPR(31:33)]
                                                                                                                               XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(31:33)]
-                                                                                                                                 XQueryFilterExprImpl[XQUERY_FILTER_EXPR(31:33)]
+                                                                                                                                 XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(31:33)]
                                                                                                                                     XQueryLiteralImpl[XQUERY_LITERAL(31:32)]
                                                                                                                                        XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(31:32)]('2')
                                                                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(32:33)](' ')

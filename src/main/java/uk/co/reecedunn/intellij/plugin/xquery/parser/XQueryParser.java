@@ -3325,7 +3325,7 @@ class XQueryParser {
     // region Grammar :: Expr :: OrExpr :: StepExpr
 
     private boolean parseStepExpr() {
-        return parseFilterExpr() || parseAxisStep();
+        return parsePostfixExpr() || parseAxisStep();
     }
 
     private boolean parseAxisStep() {
@@ -3475,18 +3475,18 @@ class XQueryParser {
         return false;
     }
 
-    private boolean parseFilterExpr() {
-        final PsiBuilder.Marker filterExprMarker = mark();
+    private boolean parsePostfixExpr() {
+        final PsiBuilder.Marker postfixExprMarker = mark();
         if (parsePrimaryExpr()) {
             parseWhiteSpaceAndCommentTokens();
             while (parsePredicate() || parseArgumentList()) {
                 parseWhiteSpaceAndCommentTokens();
             }
 
-            filterExprMarker.done(XQueryElementType.FILTER_EXPR);
+            postfixExprMarker.done(XQueryElementType.POSTFIX_EXPR);
             return true;
         }
-        filterExprMarker.drop();
+        postfixExprMarker.drop();
         return false;
     }
 

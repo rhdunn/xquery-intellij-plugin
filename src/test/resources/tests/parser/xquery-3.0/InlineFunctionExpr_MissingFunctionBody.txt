@@ -19,7 +19,7 @@ FileElement[FILE(0:12)]
                                                       XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:12)]
                                                          XQueryPathExprImpl[XQUERY_PATH_EXPR(0:12)]
                                                             XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:12)]
-                                                               XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:12)]
+                                                               XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:12)]
                                                                   XQueryInlineFunctionExprImpl[XQUERY_INLINE_FUNCTION_EXPR(0:12)]
                                                                      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_FUNCTION(0:8)]('function')
                                                                      PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')

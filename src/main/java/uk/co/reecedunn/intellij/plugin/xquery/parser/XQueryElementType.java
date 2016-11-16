@@ -53,7 +53,6 @@ public interface XQueryElementType {
     IElementType NODE_TEST = new ICompositeElementType("XQUERY_NODE_TEST", XQueryNodeTestPsiImpl.class);
     IElementType NAME_TEST = new ICompositeElementType("XQUERY_NAME_TEST", XQueryNameTestPsiImpl.class);
     IElementType WILDCARD = new ICompositeElementType("XQUERY_WILDCARD", XQueryWildcardPsiImpl.class);
-    IElementType FILTER_EXPR = new ICompositeElementType("XQUERY_FILTER_EXPR", XQueryFilterExprPsiImpl.class);
     IElementType PREDICATE_LIST = new ICompositeElementType("XQUERY_PREDICATE_LIST", XQueryPredicateListPsiImpl.class);
     IElementType PREDICATE = new ICompositeElementType("XQUERY_PREDICATE", XQueryPredicatePsiImpl.class);
 
@@ -236,6 +235,8 @@ public interface XQueryElementType {
 
     // endregion
     // region XQuery 3.1
+
+    IElementType POSTFIX_EXPR = new ICompositeElementType("XQUERY_POSTFIX_EXPR", XQueryPostfixExprPsiImpl.class);
 
     IElementType ARROW_EXPR = new ICompositeElementType("XQUERY_ARROW_EXPR", XQueryArrowExprPsiImpl.class);
     IElementType ARROW_FUNCTION_SPECIFIER = new ICompositeElementType("XQUERY_ARROW_FUNCTION_SPECIFIER", XQueryArrowFunctionSpecifierPsiImpl.class);

@@ -25,7 +25,7 @@ FileElement[FILE(0:43)]
                                                             XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(9:11)]
                                                                XQueryPathExprImpl[XQUERY_PATH_EXPR(9:11)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(9:11)]
-                                                                     XQueryFilterExprImpl[XQUERY_FILTER_EXPR(9:11)]
+                                                                     XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(9:11)]
                                                                         XQueryLiteralImpl[XQUERY_LITERAL(9:10)]
                                                                            XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(9:10)]('2')
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
@@ -53,7 +53,7 @@ FileElement[FILE(0:43)]
                                                                XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(18:20)]
                                                                   XQueryPathExprImpl[XQUERY_PATH_EXPR(18:20)]
                                                                      XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(18:20)]
-                                                                        XQueryFilterExprImpl[XQUERY_FILTER_EXPR(18:20)]
+                                                                        XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(18:20)]
                                                                            XQueryLiteralImpl[XQUERY_LITERAL(18:19)]
                                                                               XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(18:19)]('1')
                                                                            PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
@@ -77,7 +77,7 @@ FileElement[FILE(0:43)]
                                                             XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(27:29)]
                                                                XQueryPathExprImpl[XQUERY_PATH_EXPR(27:29)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(27:29)]
-                                                                     XQueryFilterExprImpl[XQUERY_FILTER_EXPR(27:29)]
+                                                                     XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(27:29)]
                                                                         XQueryLiteralImpl[XQUERY_LITERAL(27:28)]
                                                                            XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(27:28)]('2')
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')

@@ -19,7 +19,7 @@ FileElement[FILE(0:8)]
                                                       XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:8)]
                                                          XQueryPathExprImpl[XQUERY_PATH_EXPR(0:8)]
                                                             XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:8)]
-                                                               XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:8)]
+                                                               XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:8)]
                                                                   XQueryCurlyArrayConstructorImpl[XQUERY_CURLY_ARRAY_CONSTRUCTOR(0:8)]
                                                                      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_ARRAY(0:5)]('array')
                                                                      LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(5:6)]('{')
@@ -42,7 +42,7 @@ FileElement[FILE(0:8)]
                                                                                                                      XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(6:7)]
                                                                                                                         XQueryPathExprImpl[XQUERY_PATH_EXPR(6:7)]
                                                                                                                            XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(6:7)]
-                                                                                                                              XQueryFilterExprImpl[XQUERY_FILTER_EXPR(6:7)]
+                                                                                                                              XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(6:7)]
                                                                                                                                  XQueryLiteralImpl[XQUERY_LITERAL(6:7)]
                                                                                                                                     XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(6:7)]('1')
                                                                      LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(7:8)]('}')

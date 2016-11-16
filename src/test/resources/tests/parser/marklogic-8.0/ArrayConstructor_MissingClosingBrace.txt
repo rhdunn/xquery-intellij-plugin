@@ -19,7 +19,7 @@ FileElement[FILE(0:14)]
                                                       XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:14)]
                                                          XQueryPathExprImpl[XQUERY_PATH_EXPR(0:14)]
                                                             XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:14)]
-                                                               XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:14)]
+                                                               XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:14)]
                                                                   XQueryCurlyArrayConstructorImpl[XQUERY_CURLY_ARRAY_CONSTRUCTOR(0:14)]
                                                                      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_ARRAY_NODE(0:10)]('array-node')
                                                                      PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
@@ -44,7 +44,7 @@ FileElement[FILE(0:14)]
                                                                                                                      XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(13:14)]
                                                                                                                         XQueryPathExprImpl[XQUERY_PATH_EXPR(13:14)]
                                                                                                                            XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(13:14)]
-                                                                                                                              XQueryFilterExprImpl[XQUERY_FILTER_EXPR(13:14)]
+                                                                                                                              XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(13:14)]
                                                                                                                                  XQueryLiteralImpl[XQUERY_LITERAL(13:14)]
                                                                                                                                     XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(13:14)]('1')
                                                                      PsiErrorElementImpl[ERROR_ELEMENT(14:14)]('XPST0003: Expected '}'.')

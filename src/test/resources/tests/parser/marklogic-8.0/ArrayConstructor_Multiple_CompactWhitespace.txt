@@ -19,7 +19,7 @@ FileElement[FILE(0:17)]
                                                       XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:17)]
                                                          XQueryPathExprImpl[XQUERY_PATH_EXPR(0:17)]
                                                             XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:17)]
-                                                               XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:17)]
+                                                               XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:17)]
                                                                   XQueryCurlyArrayConstructorImpl[XQUERY_CURLY_ARRAY_CONSTRUCTOR(0:17)]
                                                                      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_ARRAY_NODE(0:10)]('array-node')
                                                                      LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(10:11)]('{')
@@ -42,7 +42,7 @@ FileElement[FILE(0:17)]
                                                                                                                      XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(11:12)]
                                                                                                                         XQueryPathExprImpl[XQUERY_PATH_EXPR(11:12)]
                                                                                                                            XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(11:12)]
-                                                                                                                              XQueryFilterExprImpl[XQUERY_FILTER_EXPR(11:12)]
+                                                                                                                              XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(11:12)]
                                                                                                                                  XQueryLiteralImpl[XQUERY_LITERAL(11:12)]
                                                                                                                                     XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(11:12)]('1')
                                                                         LeafPsiElement[XQUERY_COMMA_TOKEN(12:13)](',')
@@ -64,7 +64,7 @@ FileElement[FILE(0:17)]
                                                                                                                      XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(13:14)]
                                                                                                                         XQueryPathExprImpl[XQUERY_PATH_EXPR(13:14)]
                                                                                                                            XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(13:14)]
-                                                                                                                              XQueryFilterExprImpl[XQUERY_FILTER_EXPR(13:14)]
+                                                                                                                              XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(13:14)]
                                                                                                                                  XQueryLiteralImpl[XQUERY_LITERAL(13:14)]
                                                                                                                                     XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(13:14)]('2')
                                                                         LeafPsiElement[XQUERY_COMMA_TOKEN(14:15)](',')
@@ -86,7 +86,7 @@ FileElement[FILE(0:17)]
                                                                                                                      XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(15:16)]
                                                                                                                         XQueryPathExprImpl[XQUERY_PATH_EXPR(15:16)]
                                                                                                                            XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(15:16)]
-                                                                                                                              XQueryFilterExprImpl[XQUERY_FILTER_EXPR(15:16)]
+                                                                                                                              XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(15:16)]
                                                                                                                                  XQueryLiteralImpl[XQUERY_LITERAL(15:16)]
                                                                                                                                     XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(15:16)]('3')
                                                                      LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(16:17)]('}')

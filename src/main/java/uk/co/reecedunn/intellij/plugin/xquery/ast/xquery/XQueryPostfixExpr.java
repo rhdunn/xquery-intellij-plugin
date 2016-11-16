@@ -21,5 +21,5 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
  * This is a replacement for the XQuery 1.0 <code>FilterExpr</code> grammar
  * construct.
  */
-public interface XQueryPostfixExpr extends XQueryFilterExpr {
+public interface XQueryPostfixExpr extends XQueryStepExpr {
 }

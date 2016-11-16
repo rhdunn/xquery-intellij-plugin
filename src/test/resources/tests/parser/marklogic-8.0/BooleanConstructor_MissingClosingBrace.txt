@@ -19,7 +19,7 @@ FileElement[FILE(0:21)]
                                                       XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:21)]
                                                          XQueryPathExprImpl[XQUERY_PATH_EXPR(0:21)]
                                                             XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:21)]
-                                                               XQueryFilterExprImpl[XQUERY_FILTER_EXPR(0:21)]
+                                                               XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:21)]
                                                                   MarkLogicBooleanConstructorImpl[XQUERY_BOOLEAN_CONSTRUCTOR(0:21)]
                                                                      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_BOOLEAN_NODE(0:12)]('boolean-node')
                                                                      PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
@@ -44,7 +44,7 @@ FileElement[FILE(0:21)]
                                                                                                                      XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(15:21)]
                                                                                                                         XQueryPathExprImpl[XQUERY_PATH_EXPR(15:21)]
                                                                                                                            XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(15:21)]
-                                                                                                                              XQueryFilterExprImpl[XQUERY_FILTER_EXPR(15:21)]
+                                                                                                                              XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(15:21)]
                                                                                                                                  XQueryLiteralImpl[XQUERY_LITERAL(15:21)]
                                                                                                                                     XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(15:21)]
                                                                                                                                        LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(15:16)]('"')

@@ -31,6 +31,6 @@ FileElement[FILE(0:46)]
                                                       XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(45:46)]
                                                          XQueryPathExprImpl[XQUERY_PATH_EXPR(45:46)]
                                                             XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(45:46)]
-                                                               XQueryFilterExprImpl[XQUERY_FILTER_EXPR(45:46)]
+                                                               XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(45:46)]
                                                                   XQueryLiteralImpl[XQUERY_LITERAL(45:46)]
                                                                      XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(45:46)]('2')
