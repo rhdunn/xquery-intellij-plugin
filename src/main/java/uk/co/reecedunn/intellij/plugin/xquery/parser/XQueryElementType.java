@@ -263,6 +263,7 @@ public interface XQueryElementType {
     IElementType TYPED_ARRAY_TEST = new ICompositeElementType("XQUERY_TYPED_ARRAY_TEST", XQueryTypedArrayTestPsiImpl.class);
 
     IElementType UNARY_LOOKUP = new ICompositeElementType("XQUERY_UNARY_LOOKUP", XQueryUnaryLookupPsiImpl.class);
+    IElementType LOOKUP = new ICompositeElementType("XQUERY_LOOKUP", XQueryLookupPsiImpl.class);
     IElementType KEY_SPECIFIER = new ICompositeElementType("XQUERY_KEY_SPECIFIER", XQueryKeySpecifierPsiImpl.class);
 
     // endregion

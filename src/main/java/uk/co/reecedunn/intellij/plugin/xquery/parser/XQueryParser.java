@@ -3479,7 +3479,7 @@ class XQueryParser {
         final PsiBuilder.Marker postfixExprMarker = mark();
         if (parsePrimaryExpr()) {
             parseWhiteSpaceAndCommentTokens();
-            while (parsePredicate() || parseArgumentList()) {
+            while (parsePredicate() || parseArgumentList() || parseLookup(XQueryElementType.LOOKUP)) {
                 parseWhiteSpaceAndCommentTokens();
             }
 
@@ -3540,7 +3540,7 @@ class XQueryParser {
             || parseNodeConstructor()
             || parseNullConstructor()
             || parseNumberConstructor()
-            || parseUnaryLookup()
+            || parseLookup(XQueryElementType.UNARY_LOOKUP)
             || parseFunctionCall();
     }
 
@@ -3817,17 +3817,21 @@ class XQueryParser {
         return false;
     }
 
-    private boolean parseUnaryLookup() {
-        final PsiBuilder.Marker unaryLookupMarker = matchTokenTypeWithMarker(XQueryTokenType.OPTIONAL);
-        if (unaryLookupMarker != null) {
+    private boolean parseLookup(IElementType type) {
+        final PsiBuilder.Marker lookupMarker = matchTokenTypeWithMarker(XQueryTokenType.OPTIONAL);
+        if (lookupMarker != null) {
             parseWhiteSpaceAndCommentTokens();
             if (!parseKeySpecifier()) {
-                // NOTE: This conflicts with '?' used as an ArgumentPlaceholder, so don't match '?' only as UnaryLookup.
-                unaryLookupMarker.rollbackTo();
-                return false;
+                if (type == XQueryElementType.UNARY_LOOKUP) {
+                    // NOTE: This conflicts with '?' used as an ArgumentPlaceholder, so don't match '?' only as UnaryLookup.
+                    lookupMarker.rollbackTo();
+                    return false;
+                } else {
+                    error(XQueryBundle.message("parser.error.expected", "KeySpecifier"));
+                }
             }
 
-            unaryLookupMarker.done(XQueryElementType.UNARY_LOOKUP);
+            lookupMarker.done(type);
             return true;
         }
         return false;

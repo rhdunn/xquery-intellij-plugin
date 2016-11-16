@@ -7345,6 +7345,27 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region XQuery 3.1 :: Lookup
+
+    public void testLookup() {
+        final String expected = loadResource("tests/parser/xquery-3.1/Lookup.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/Lookup.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testLookup_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-3.1/Lookup_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/Lookup_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testLookup_MissingKeySpecifier() {
+        final String expected = loadResource("tests/parser/xquery-3.1/Lookup_MissingKeySpecifier.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/Lookup_MissingKeySpecifier.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region XQuery 3.1 :: KeySpecifier
 
     public void testKeySpecifier_NCName() {
