@@ -7664,7 +7664,7 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     // endregion
-    // region XQuery 3.1 :: StringConstructor
+    // region XQuery 3.1 :: StringConstructor + StringConstructorContent
 
     public void testStringConstructor() {
         final String expected = loadResource("tests/parser/xquery-3.1/StringConstructor.txt");

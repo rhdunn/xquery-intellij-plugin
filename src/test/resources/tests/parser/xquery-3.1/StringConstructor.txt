@@ -22,5 +22,6 @@ FileElement[FILE(0:19)]
                                                                XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:19)]
                                                                   XQueryStringConstructorImpl[XQUERY_STRING_CONSTRUCTOR(0:19)]
                                                                      LeafPsiElement[XQUERY_STRING_CONSTRUCTOR_START_TOKEN(0:3)]('``[')
-                                                                     LeafPsiElement[XQUERY_STRING_CONSTRUCTOR_CONTENTS_TOKEN(3:16)]('One Two Three')
+                                                                     XQueryStringConstructorContentImpl[XQUERY_STRING_CONSTRUCTOR_CONTENT(3:16)]
+                                                                        LeafPsiElement[XQUERY_STRING_CONSTRUCTOR_CONTENTS_TOKEN(3:16)]('One Two Three')
                                                                      LeafPsiElement[XQUERY_STRING_CONSTRUCTOR_END_TOKEN(16:19)](']``')

@@ -3854,19 +3854,28 @@ class XQueryParser {
 
     private boolean parseStringConstructor() {
         final PsiBuilder.Marker stringConstructorMarker = matchTokenTypeWithMarker(XQueryTokenType.STRING_CONSTRUCTOR_START);
-        while (stringConstructorMarker != null) {
-            if (matchTokenType(XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS)) {
-                //
-            } else if (matchTokenType(XQueryTokenType.STRING_CONSTRUCTOR_END)) {
-                stringConstructorMarker.done(XQueryElementType.STRING_CONSTRUCTOR);
-                return true;
-            } else {
-                stringConstructorMarker.done(XQueryElementType.STRING_CONSTRUCTOR);
+        if (stringConstructorMarker != null) {
+            parseStringConstructorContent();
+
+            if (!matchTokenType(XQueryTokenType.STRING_CONSTRUCTOR_END)) {
                 error(XQueryBundle.message("parser.error.incomplete-string-constructor"));
-                return true;
             }
+
+            stringConstructorMarker.done(XQueryElementType.STRING_CONSTRUCTOR);
+            return true;
         }
         return false;
+    }
+
+    private boolean parseStringConstructorContent() {
+        final PsiBuilder.Marker stringConstructorContentMarker = mark();
+        if (matchTokenType(XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS)) {
+            while (matchTokenType(XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS)) {
+                //
+            }
+        }
+        stringConstructorContentMarker.done(XQueryElementType.STRING_CONSTRUCTOR_CONTENT);
+        return true;
     }
 
     // endregion
