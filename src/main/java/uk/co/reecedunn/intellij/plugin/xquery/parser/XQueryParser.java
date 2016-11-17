@@ -3540,6 +3540,7 @@ class XQueryParser {
             || parseNodeConstructor()
             || parseNullConstructor()
             || parseNumberConstructor()
+            || parseStringConstructor()
             || parseLookup(XQueryElementType.UNARY_LOOKUP)
             || parseFunctionCall();
     }
@@ -3840,14 +3841,31 @@ class XQueryParser {
     private boolean parseKeySpecifier() {
         final PsiBuilder.Marker keySpecifierMarker = mark();
         if (matchTokenType(XQueryTokenType.STAR) ||
-            matchTokenType(XQueryTokenType.INTEGER_LITERAL) ||
-            parseEQName(XQueryElementType.NCNAME) ||
-            parseParenthesizedExpr()) {
+                matchTokenType(XQueryTokenType.INTEGER_LITERAL) ||
+                parseEQName(XQueryElementType.NCNAME) ||
+                parseParenthesizedExpr()) {
 
             keySpecifierMarker.done(XQueryElementType.KEY_SPECIFIER);
             return true;
         }
         keySpecifierMarker.drop();
+        return false;
+    }
+
+    private boolean parseStringConstructor() {
+        final PsiBuilder.Marker stringConstructorMarker = matchTokenTypeWithMarker(XQueryTokenType.STRING_CONSTRUCTOR_START);
+        while (stringConstructorMarker != null) {
+            if (matchTokenType(XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS)) {
+                //
+            } else if (matchTokenType(XQueryTokenType.STRING_CONSTRUCTOR_END)) {
+                stringConstructorMarker.done(XQueryElementType.STRING_CONSTRUCTOR);
+                return true;
+            } else {
+                stringConstructorMarker.done(XQueryElementType.STRING_CONSTRUCTOR);
+                error(XQueryBundle.message("parser.error.incomplete-string-constructor"));
+                return true;
+            }
+        }
         return false;
     }
 

@@ -7664,6 +7664,27 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region XQuery 3.1 :: StringConstructor
+
+    public void testStringConstructor() {
+        final String expected = loadResource("tests/parser/xquery-3.1/StringConstructor.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/StringConstructor.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testStringConstructor_MissingEndOfString() {
+        final String expected = loadResource("tests/parser/xquery-3.1/StringConstructor_MissingEndOfString.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/StringConstructor_MissingEndOfString.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testStringConstructor_Empty() {
+        final String expected = loadResource("tests/parser/xquery-3.1/StringConstructor_Empty.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/StringConstructor_Empty.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region XQuery 3.1 :: UnaryLookup
 
     public void testUnaryLookup() {
