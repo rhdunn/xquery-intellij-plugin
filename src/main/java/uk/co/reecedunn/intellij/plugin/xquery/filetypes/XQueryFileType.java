@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.filetypes;
 
+import com.intellij.lexer.Lexer;
 import com.intellij.openapi.application.ApplicationInfo;
 import com.intellij.openapi.fileTypes.LanguageFileType;
 import com.intellij.openapi.project.Project;
@@ -37,8 +38,6 @@ public class XQueryFileType extends LanguageFileType {
 
     private static final Icon FILETYPE_ICON = IconLoader.getIcon("/icons/xquery.png");
     private static final Icon FILETYPE_ICON_163 = IconLoader.getIcon("/icons/xquery-163.png");
-
-    private static final XQueryLexer sEncodingLexer = new XQueryLexer();
 
     // xq;xqy;xquery -- standard defined extensions
     // xql           -- XQuery Language (main) file [eXist-db]
@@ -80,25 +79,25 @@ public class XQueryFileType extends LanguageFileType {
     }
 
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
-    private boolean matchToken(IElementType type) {
-        boolean match = sEncodingLexer.getTokenType() == type;
-        sEncodingLexer.advance();
+    private boolean matchToken(Lexer lexer, IElementType type) {
+        boolean match = lexer.getTokenType() == type;
+        lexer.advance();
         return match;
     }
 
-    private boolean matchWhiteSpaceOrComment(boolean required) {
+    private boolean matchWhiteSpaceOrComment(Lexer lexer, boolean required) {
         boolean matched = false;
         while (true) {
-            if (sEncodingLexer.getTokenType() == XQueryTokenType.WHITE_SPACE) {
-                sEncodingLexer.advance();
+            if (lexer.getTokenType() == XQueryTokenType.WHITE_SPACE) {
+                lexer.advance();
                 matched = true;
-            } else if (sEncodingLexer.getTokenType() == XQueryTokenType.COMMENT_START_TAG) {
-                sEncodingLexer.advance();
-                if (sEncodingLexer.getTokenType() == XQueryTokenType.COMMENT) {
-                    sEncodingLexer.advance();
+            } else if (lexer.getTokenType() == XQueryTokenType.COMMENT_START_TAG) {
+                lexer.advance();
+                if (lexer.getTokenType() == XQueryTokenType.COMMENT) {
+                    lexer.advance();
                 }
-                if (sEncodingLexer.getTokenType() == XQueryTokenType.COMMENT_END_TAG) {
-                    sEncodingLexer.advance();
+                if (lexer.getTokenType() == XQueryTokenType.COMMENT_END_TAG) {
+                    lexer.advance();
                 }
                 matched = true;
             } else {
@@ -107,33 +106,34 @@ public class XQueryFileType extends LanguageFileType {
         }
     }
 
-    private String matchString(String defaultValue) {
-        if (sEncodingLexer.getTokenType() != XQueryTokenType.STRING_LITERAL_START)
+    private String matchString(Lexer lexer, String defaultValue) {
+        if (lexer.getTokenType() != XQueryTokenType.STRING_LITERAL_START)
             return defaultValue;
-        sEncodingLexer.advance();
-        if (sEncodingLexer.getTokenType() != XQueryTokenType.STRING_LITERAL_CONTENTS)
+        lexer.advance();
+        if (lexer.getTokenType() != XQueryTokenType.STRING_LITERAL_CONTENTS)
             return defaultValue;
-        String match = sEncodingLexer.getTokenText();
-        sEncodingLexer.advance();
-        if (sEncodingLexer.getTokenType() != XQueryTokenType.STRING_LITERAL_END)
+        String match = lexer.getTokenText();
+        lexer.advance();
+        if (lexer.getTokenType() != XQueryTokenType.STRING_LITERAL_END)
             return defaultValue;
-        sEncodingLexer.advance();
+        lexer.advance();
         return match;
     }
 
     private Charset getXQueryEncoding(CharSequence content) {
-        sEncodingLexer.start(content);
-        matchWhiteSpaceOrComment(false);
-        if (!matchToken(XQueryTokenType.K_XQUERY)) return UTF_8;
-        if (!matchWhiteSpaceOrComment(true)) return UTF_8;
-        if (!matchToken(XQueryTokenType.K_VERSION)) return UTF_8;
-        if (!matchWhiteSpaceOrComment(true)) return UTF_8;
-        if (matchString(null) == null) return UTF_8;
-        if (!matchWhiteSpaceOrComment(true)) return UTF_8;
-        if (!matchToken(XQueryTokenType.K_ENCODING)) return UTF_8;
-        if (!matchWhiteSpaceOrComment(true)) return UTF_8;
+        Lexer lexer = new XQueryLexer();
+        lexer.start(content);
+        matchWhiteSpaceOrComment(lexer, false);
+        if (!matchToken(lexer, XQueryTokenType.K_XQUERY)) return UTF_8;
+        if (!matchWhiteSpaceOrComment(lexer, true)) return UTF_8;
+        if (!matchToken(lexer, XQueryTokenType.K_VERSION)) return UTF_8;
+        if (!matchWhiteSpaceOrComment(lexer, true)) return UTF_8;
+        if (matchString(lexer, null) == null) return UTF_8;
+        if (!matchWhiteSpaceOrComment(lexer, true)) return UTF_8;
+        if (!matchToken(lexer, XQueryTokenType.K_ENCODING)) return UTF_8;
+        if (!matchWhiteSpaceOrComment(lexer, true)) return UTF_8;
         try {
-            return Charset.forName(matchString("utf-8"));
+            return Charset.forName(matchString(lexer, "utf-8"));
         } catch (UnsupportedCharsetException e) {
             return UTF_8;
         }
