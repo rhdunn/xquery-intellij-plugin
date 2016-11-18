@@ -59,6 +59,8 @@ Resolve namespaces, functions and variables to their corresponding declarations.
 Other supported IntelliJ features:
 
 1.  Find usages.
+2.  Paired brace matching.
+3.  Commenting code support.
 
 ## License Information
 

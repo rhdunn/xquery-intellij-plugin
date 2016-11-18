@@ -2,7 +2,14 @@
 
 ## 0.3 - (In Progress)
 
+Language Support:
+
 1.  Complete support for XQuery 3.1 constructs.
+
+IntelliJ Integration:
+
+1.  Paired brace matching.
+2.  Commenting code support.
 
 ## 0.2.1 - 2016-11-05
 
