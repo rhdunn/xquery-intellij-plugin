@@ -21,4 +21,5 @@ import com.intellij.psi.PsiElement;
  * An XQuery 3.1 <code>ArrowFunctionSpecifier</code> node in the XQuery AST.
  */
 public interface XQueryArrowFunctionSpecifier extends PsiElement {
+    int getArity();
 }

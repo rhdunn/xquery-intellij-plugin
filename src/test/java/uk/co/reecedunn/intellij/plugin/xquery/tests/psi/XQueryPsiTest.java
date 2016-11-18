@@ -65,6 +65,33 @@ public class XQueryPsiTest extends ParserTestCase {
     }
 
     // endregion
+    // region XQueryArrowFunctionSpecifier
+
+    public void testArrowFunctionSpecifier() {
+        final XQueryFile file = parseResource("tests/psi/xquery-3.1/ArrowExpr_MultipleArguments.xq");
+
+        XQueryArrowExpr arrowExprPsi = descendants(file).findFirst(XQueryArrowExpr.class).get();
+        XQueryArrowFunctionSpecifier arrowFunctionSpecifierPsi = children(arrowExprPsi).findFirst(XQueryArrowFunctionSpecifier.class).get();
+        assertThat(arrowFunctionSpecifierPsi.getArity(), is(4));
+    }
+
+    public void testArrowFunctionSpecifier_Empty() {
+        final XQueryFile file = parseResource("tests/parser/xquery-3.1/ArrowExpr.xq");
+
+        XQueryArrowExpr arrowExprPsi = descendants(file).findFirst(XQueryArrowExpr.class).get();
+        XQueryArrowFunctionSpecifier arrowFunctionSpecifierPsi = children(arrowExprPsi).findFirst(XQueryArrowFunctionSpecifier.class).get();
+        assertThat(arrowFunctionSpecifierPsi.getArity(), is(1));
+    }
+
+    public void testArrowFunctionSpecifier_MissingArgumentList() {
+        final XQueryFile file = parseResource("tests/parser/xquery-3.1/ArrowExpr_MissingArgumentList.xq");
+
+        XQueryArrowExpr arrowExprPsi = descendants(file).findFirst(XQueryArrowExpr.class).get();
+        XQueryArrowFunctionSpecifier arrowFunctionSpecifierPsi = children(arrowExprPsi).findFirst(XQueryArrowFunctionSpecifier.class).get();
+        assertThat(arrowFunctionSpecifierPsi.getArity(), is(1));
+    }
+
+    // endregion
     // region XQueryConformanceCheck
     // region AllowingEmpty
 

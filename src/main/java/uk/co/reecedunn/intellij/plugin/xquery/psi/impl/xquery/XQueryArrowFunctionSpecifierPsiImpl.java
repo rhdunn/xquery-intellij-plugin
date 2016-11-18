@@ -17,11 +17,29 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
+import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryArgumentList;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryArrowFunctionSpecifier;
+import uk.co.reecedunn.intellij.plugin.xquery.functional.Option;
 
 public class XQueryArrowFunctionSpecifierPsiImpl extends ASTWrapperPsiElement implements XQueryArrowFunctionSpecifier {
     public XQueryArrowFunctionSpecifierPsiImpl(@NotNull ASTNode node) {
         super(node);
+    }
+
+    private Option<XQueryArgumentList> getArgumentList() {
+        PsiElement element = getNextSibling();
+        while (element != null) {
+            if (element instanceof XQueryArgumentList) {
+                return Option.some((XQueryArgumentList)element);
+            }
+            element = element.getNextSibling();
+        }
+        return Option.none();
+    }
+
+    public int getArity() {
+        return getArgumentList().map(args -> args.getArity() + 1).getOrElse(1);
     }
 }
