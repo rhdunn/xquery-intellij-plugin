@@ -27,7 +27,7 @@ _Supported XQuery Implementations:_ MarkLogic, Saxonica, W3C Specifications
 Standard conforming XQuery syntax highlighter and parser with file encoding
 detection. Supports:
 
-*  XQuery 1.0 and 3.0 core language;
+*  XQuery 1.0, 3.0 and 3.1 core language;
 *  XQuery Update Facility 1.0 extension;
 *  MarkLogic 6.0 to 8.0 vendor extensions.
 

@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.3 - (In Progress)
+
+1.  Complete support for XQuery 3.1 constructs.
+
 ## 0.2.1 - 2016-11-05
 
 1.  Fix a NullPointerException when resolving NCName-based function calls.
