@@ -29,7 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
  * This parser supports:
  *    -  XQuery 1.0
  *    -  XQuery 3.0
- *    -  XQuery 3.1 (partial)
+ *    -  XQuery 3.1
  *    -  Update Facility 1.0
  *    -  MarkLogic 1.0-ml Extensions for MarkLogic 6.0
  *    -  MarkLogic 1.0-ml Extensions for MarkLogic 8.0
@@ -3870,12 +3870,30 @@ class XQueryParser {
     private boolean parseStringConstructorContent() {
         final PsiBuilder.Marker stringConstructorContentMarker = mark();
         if (matchTokenType(XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS)) {
-            while (matchTokenType(XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS)) {
+            while (matchTokenType(XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS) ||
+                   parseStringConstructorInterpolation()) {
                 //
             }
         }
         stringConstructorContentMarker.done(XQueryElementType.STRING_CONSTRUCTOR_CONTENT);
         return true;
+    }
+
+    private boolean parseStringConstructorInterpolation() {
+        final PsiBuilder.Marker stringConstructorInterpolationMarker = matchTokenTypeWithMarker(XQueryTokenType.STRING_INTERPOLATION_OPEN);
+        if (stringConstructorInterpolationMarker != null) {
+            parseWhiteSpaceAndCommentTokens();
+            parseExpr(XQueryElementType.EXPR);
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.STRING_INTERPOLATION_CLOSE)) {
+                error(XQueryBundle.message("parser.error.expected", "}`"));
+            }
+
+            stringConstructorInterpolationMarker.done(XQueryElementType.STRING_CONSTRUCTOR_INTERPOLATION);
+            return true;
+        }
+        return false;
     }
 
     // endregion

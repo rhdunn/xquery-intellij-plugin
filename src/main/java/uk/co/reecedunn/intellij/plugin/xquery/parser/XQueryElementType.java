@@ -258,6 +258,7 @@ public interface XQueryElementType {
 
     IElementType STRING_CONSTRUCTOR = new ICompositeElementType("XQUERY_STRING_CONSTRUCTOR", XQueryStringConstructorPsiImpl.class);
     IElementType STRING_CONSTRUCTOR_CONTENT = new ICompositeElementType("XQUERY_STRING_CONSTRUCTOR_CONTENT", XQueryStringConstructorContentPsiImpl.class);
+    IElementType STRING_CONSTRUCTOR_INTERPOLATION = new ICompositeElementType("XQUERY_STRING_CONSTRUCTOR_INTERPOLATION", XQueryStringConstructorInterpolationPsiImpl.class);
 
     IElementType ANY_MAP_TEST = new ICompositeElementType("XQUERY_ANY_MAP_TEST", XQueryAnyMapTestPsiImpl.class);
     IElementType TYPED_MAP_TEST = new ICompositeElementType("XQUERY_TYPED_MAP_TEST", XQueryTypedMapTestPsiImpl.class);

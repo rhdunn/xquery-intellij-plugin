@@ -7685,6 +7685,33 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region XQuery 3.1 :: StringConstructorInterpolation
+
+    public void testStringConstructorInterpolation() {
+        final String expected = loadResource("tests/parser/xquery-3.1/StringConstructorInterpolation.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/StringConstructorInterpolation.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testStringConstructorInterpolation_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-3.1/StringConstructorInterpolation_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/StringConstructorInterpolation_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testStringConstructorInterpolation_MissingExpr() {
+        final String expected = loadResource("tests/parser/xquery-3.1/StringConstructorInterpolation_MissingExpr.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/StringConstructorInterpolation_MissingExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testStringConstructorInterpolation_MultipleExpr() {
+        final String expected = loadResource("tests/parser/xquery-3.1/StringConstructorInterpolation_MultipleExpr.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/StringConstructorInterpolation_MultipleExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region XQuery 3.1 :: UnaryLookup
 
     public void testUnaryLookup() {
