@@ -3081,6 +3081,13 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AbbrevForwardStep")
+    public void testAbbrevForwardStep_KeywordNCNames_XQuery31() {
+        final String expected = loadResource("tests/parser/xquery-3.1/AbbrevForwardStep_KeywordNCNames_XQuery31.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/AbbrevForwardStep_KeywordNCNames_XQuery31.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AbbrevForwardStep")
     public void testAbbrevForwardStep_KeywordNCNames_UpdateFacility10() {
         final String expected = loadResource("tests/parser/xquery-update-1.0/AbbrevForwardStep_KeywordNCNames_UpdateFacility10.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-update-1.0/AbbrevForwardStep_KeywordNCNames_UpdateFacility10.xq");
@@ -3665,6 +3672,13 @@ public class XQueryParserTest extends ParserTestCase {
     public void testFunctionCall_KeywordNCNames_XQuery30() {
         final String expected = loadResource("tests/parser/xquery-3.0/FunctionCall_KeywordNCNames_XQuery30.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-3.0/FunctionCall_KeywordNCNames_XQuery30.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FunctionCall")
+    public void testFunctionCall_KeywordNCNames_XQuery31() {
+        final String expected = loadResource("tests/parser/xquery-3.1/FunctionCall_KeywordNCNames_XQuery31.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/FunctionCall_KeywordNCNames_XQuery31.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
