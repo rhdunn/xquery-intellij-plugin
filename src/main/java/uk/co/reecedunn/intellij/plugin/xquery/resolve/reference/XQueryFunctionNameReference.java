@@ -29,9 +29,11 @@ public class XQueryFunctionNameReference extends PsiReferenceBase<XQueryEQName> 
                     PsiElement parent = getElement().getParent();
                     int arity = 0;
                     if (parent instanceof XQueryFunctionCall) {
-                        arity = ((XQueryFunctionCall) parent).getArity();
+                        arity = ((XQueryFunctionCall)parent).getArity();
                     } else if (parent instanceof XQueryNamedFunctionRef) {
-                        arity = ((XQueryNamedFunctionRef) parent).getArity();
+                        arity = ((XQueryNamedFunctionRef)parent).getArity();
+                    } else if (parent instanceof XQueryArrowFunctionSpecifier) {
+                        arity = ((XQueryArrowFunctionSpecifier)parent).getArity();
                     }
 
                     PsiElement annotation = prolog.get().getFirstChild();

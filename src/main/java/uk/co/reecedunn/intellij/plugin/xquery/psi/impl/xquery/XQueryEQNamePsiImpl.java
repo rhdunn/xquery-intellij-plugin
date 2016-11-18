@@ -78,7 +78,8 @@ public class XQueryEQNamePsiImpl extends ASTWrapperPsiElement implements XQueryE
 
         IElementType parent = getParent().getNode().getElementType();
         if (parent == XQueryElementType.FUNCTION_CALL ||
-            parent == XQueryElementType.NAMED_FUNCTION_REF) {
+            parent == XQueryElementType.NAMED_FUNCTION_REF ||
+            parent == XQueryElementType.ARROW_FUNCTION_SPECIFIER) {
             localNameRef = getLocalName().map((localName) -> new XQueryFunctionNameReference(this, localName.getTextRange().shiftRight(-eqnameStart)));
         } else {
             PsiElement previous = getPrevSibling();
