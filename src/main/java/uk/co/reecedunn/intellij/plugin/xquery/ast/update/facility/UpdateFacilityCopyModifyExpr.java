@@ -18,7 +18,9 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryExprSingle;
 
 /**
- * An XQuery Update Facility 1.0 <code>TransformExpr</code> node in the XQuery AST.
+ * An XQuery Update Facility 3.0 <code>CopyModifyExpr</code> node in the XQuery AST.
+ *
+ * This is a renamed XQuery Update Facility 1.0 <code>TransformExpr</code>.
  */
-public interface UpdateFacilityTransformExpr extends XQueryExprSingle {
+public interface UpdateFacilityCopyModifyExpr extends XQueryExprSingle {
 }

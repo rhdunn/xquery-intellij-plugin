@@ -19,15 +19,15 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.UpdateFacilityTransformExpr;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.UpdateFacilityCopyModifyExpr;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 
-public class UpdateFacilityTransformExprPsiImpl extends ASTWrapperPsiElement implements UpdateFacilityTransformExpr, XQueryConformanceCheck {
-    public UpdateFacilityTransformExprPsiImpl(@NotNull ASTNode node) {
+public class UpdateFacilityCopyModifyExprPsiImpl extends ASTWrapperPsiElement implements UpdateFacilityCopyModifyExpr, XQueryConformanceCheck {
+    public UpdateFacilityCopyModifyExprPsiImpl(@NotNull ASTNode node) {
         super(node);
     }
 

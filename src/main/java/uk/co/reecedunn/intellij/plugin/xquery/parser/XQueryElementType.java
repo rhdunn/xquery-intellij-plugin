@@ -279,7 +279,6 @@ public interface XQueryElementType {
     IElementType DELETE_EXPR = new ICompositeElementType("XQUERY_DELETE_EXPR", UpdateFacilityDeleteExprPsiImpl.class);
     IElementType REPLACE_EXPR = new ICompositeElementType("XQUERY_REPLACE_EXPR", UpdateFacilityReplaceExprPsiImpl.class);
     IElementType RENAME_EXPR = new ICompositeElementType("XQUERY_RENAME_EXPR", UpdateFacilityRenameExprPsiImpl.class);
-    IElementType TRANSFORM_EXPR = new ICompositeElementType("XQUERY_TRANSFORM_EXPR", UpdateFacilityTransformExprPsiImpl.class);
 
     IElementType NEW_NAME_EXPR = new ICompositeElementType("XQUERY_NEW_NAME_EXPR", UpdateFacilityNewNameExprPsiImpl.class);
     IElementType SOURCE_EXPR = new ICompositeElementType("XQUERY_SOURCE_EXPR", UpdateFacilitySourceExprPsiImpl.class);
@@ -290,6 +289,8 @@ public interface XQueryElementType {
     // region Update Facility 3.0
 
     IElementType COMPATIBILITY_ANNOTATION = new ICompositeElementType("XQUERY_COMPATIBILITY_ANNOTATION", UpdateFacilityCompatibilityAnnotationPsiImpl.class);
+
+    IElementType COPY_MODIFY_EXPR = new ICompositeElementType("XQUERY_COPY_MODIFY_EXPR", UpdateFacilityCopyModifyExprPsiImpl.class);
 
     // endregion
     // region MarkLogic 6.0

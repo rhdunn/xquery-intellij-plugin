@@ -205,7 +205,7 @@ public class UpdateFacilityPsiTest extends ParserTestCase {
     public void testTransformExpr() {
         final XQueryFile file = parseResource("tests/parser/xquery-update-1.0/TransformExpr.xq");
 
-        UpdateFacilityTransformExpr transformExprPsi = descendants(file).findFirst(UpdateFacilityTransformExpr.class).get();
+        UpdateFacilityCopyModifyExpr transformExprPsi = descendants(file).findFirst(UpdateFacilityCopyModifyExpr.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)transformExprPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));

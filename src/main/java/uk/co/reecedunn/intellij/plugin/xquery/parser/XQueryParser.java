@@ -1314,7 +1314,7 @@ class XQueryParser {
             || parseDeleteExpr()
             || parseRenameExpr()
             || parseReplaceExpr()
-            || parseTransformExpr()
+            || parseCopyModifyExpr()
             || parseOrExpr(parentType);
     }
 
@@ -2726,18 +2726,18 @@ class XQueryParser {
     }
 
     // endregion
-    // region Grammar :: Expr :: TransformExpr
+    // region Grammar :: Expr :: CopyModifyExpr (TransformExpr)
 
-    private boolean parseTransformExpr() {
-        final PsiBuilder.Marker transformExprMarker = matchTokenTypeWithMarker(XQueryTokenType.K_COPY);
-        if (transformExprMarker != null) {
+    private boolean parseCopyModifyExpr() {
+        final PsiBuilder.Marker copyModifyExprMarker = matchTokenTypeWithMarker(XQueryTokenType.K_COPY);
+        if (copyModifyExprMarker != null) {
             boolean haveErrors = false;
             boolean isFirstVarName = true;
             do {
                 parseWhiteSpaceAndCommentTokens();
                 if (!matchTokenType(XQueryTokenType.VARIABLE_INDICATOR) && !haveErrors) {
                     if (isFirstVarName) {
-                        transformExprMarker.rollbackTo();
+                        copyModifyExprMarker.rollbackTo();
                         return false;
                     } else {
                         error(XQueryBundle.message("parser.error.expected", "$"));
@@ -2789,7 +2789,7 @@ class XQueryParser {
                 error(XQueryBundle.message("parser.error.expected-expression"));
             }
 
-            transformExprMarker.done(XQueryElementType.TRANSFORM_EXPR);
+            copyModifyExprMarker.done(XQueryElementType.COPY_MODIFY_EXPR);
             return true;
         }
         return false;

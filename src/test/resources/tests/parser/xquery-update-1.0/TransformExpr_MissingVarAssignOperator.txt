@@ -1,7 +1,7 @@
 FileElement[FILE(0:34)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:34)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:34)]
-         UpdateFacilityTransformExprImpl[XQUERY_TRANSFORM_EXPR(0:34)]
+         UpdateFacilityCopyModifyExprImpl[XQUERY_COPY_MODIFY_EXPR(0:34)]
             LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_COPY(0:4)]('copy')
             PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
             LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(5:6)]('$')
