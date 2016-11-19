@@ -1469,6 +1469,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("text", XQueryTokenType.K_TEXT);
         sKeywords.put("then", XQueryTokenType.K_THEN);
         sKeywords.put("to", XQueryTokenType.K_TO);
+        sKeywords.put("transform", XQueryTokenType.K_TRANSFORM); // Update Facility 3.0
         sKeywords.put("treat", XQueryTokenType.K_TREAT);
         sKeywords.put("try", XQueryTokenType.K_TRY); // XQuery 3.0
         sKeywords.put("tumbling", XQueryTokenType.K_TUMBLING); // XQuery 3.0

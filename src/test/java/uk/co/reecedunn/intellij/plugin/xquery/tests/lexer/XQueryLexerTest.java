@@ -3829,6 +3829,19 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region Update Facility 3.0 :: TransformWithExpr
+
+    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2015/WD-xquery-update-30-20150219/#prod-xquery30-TransformWithExpr")
+    public void testTransformWithExpr() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "transform", XQueryTokenType.K_TRANSFORM);
+        matchSingleToken(lexer, "with", XQueryTokenType.K_WITH);
+        matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN);
+        matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE);
+    }
+
+    // endregion
     // region MarkLogic 6.0 :: TransactionSeparator
 
     public void testTransactionSeparator() {

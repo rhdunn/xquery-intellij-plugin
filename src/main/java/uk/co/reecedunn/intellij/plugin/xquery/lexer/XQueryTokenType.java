@@ -267,6 +267,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_TEXT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TEXT", IXQueryKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME);
     IXQueryKeywordOrNCNameType K_THEN = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_THEN");
     IXQueryKeywordOrNCNameType K_TO = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TO");
+    IXQueryKeywordOrNCNameType K_TRANSFORM = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TRANSFORM"); // Update Facility 3.0
     IXQueryKeywordOrNCNameType K_TREAT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TREAT");
     IXQueryKeywordOrNCNameType K_TRY = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TRY"); // XQuery 3.0
     IXQueryKeywordOrNCNameType K_TUMBLING = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TUMBLING"); // XQuery 3.0
