@@ -3842,6 +3842,20 @@ public class XQueryLexerTest extends TestCase {
     }
 
     // endregion
+    // region Update Facility 3.0 :: UpdatingFunctionCall
+
+    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2015/WD-xquery-update-30-20150219/#prod-xquery30-UpdatingFunctionCall")
+    public void testUpdatingFunctionCall() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "invoke", XQueryTokenType.K_INVOKE);
+        matchSingleToken(lexer, "updating", XQueryTokenType.K_UPDATING);
+        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN);
+        matchSingleToken(lexer, ",", XQueryTokenType.COMMA);
+        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE);
+    }
+
+    // endregion
     // region MarkLogic 6.0 :: TransactionSeparator
 
     public void testTransactionSeparator() {

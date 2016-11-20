@@ -202,6 +202,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_INSTANCE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_INSTANCE");
     IXQueryKeywordOrNCNameType K_INTERSECT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_INTERSECT");
     IXQueryKeywordOrNCNameType K_INTO = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_INTO"); // Update Facility 1.0
+    IXQueryKeywordOrNCNameType K_INVOKE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_INVOKE"); // Update Facility 3.0
     IXQueryKeywordOrNCNameType K_IS = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_IS");
     IXQueryKeywordOrNCNameType K_ITEM = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ITEM", IXQueryKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME);
     IXQueryKeywordOrNCNameType K_LAST = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_LAST"); // Update Facility 1.0

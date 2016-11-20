@@ -1404,6 +1404,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("instance", XQueryTokenType.K_INSTANCE);
         sKeywords.put("intersect", XQueryTokenType.K_INTERSECT);
         sKeywords.put("into", XQueryTokenType.K_INTO); // Update Facility 1.0
+        sKeywords.put("invoke", XQueryTokenType.K_INVOKE); // Update Facility 3.0
         sKeywords.put("is", XQueryTokenType.K_IS);
         sKeywords.put("item", XQueryTokenType.K_ITEM);
         sKeywords.put("last", XQueryTokenType.K_LAST); // Update Facility 1.0
