@@ -5,6 +5,7 @@
 Language Support:
 
 1.  Complete support for XQuery 3.1 constructs.
+2.  Complete support for Update Facility 3.0 extensions.
 
 IntelliJ Integration:
 
