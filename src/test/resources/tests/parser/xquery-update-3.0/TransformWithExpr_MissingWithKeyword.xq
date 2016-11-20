@@ -1,0 +1,1 @@
+$ x transform { rename node . as "test" }

@@ -320,7 +320,7 @@ public class UpdateFacilityParserTest extends ParserTestCase {
     }
 
     // endregion
-    // region Update Facility 1.0 :: TransformExpr
+    // region Update Facility 1.0 :: TransformExpr (CopyModifyExpr)
 
     @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-TransformExpr")
     public void testTransformExpr() {
@@ -442,6 +442,51 @@ public class UpdateFacilityParserTest extends ParserTestCase {
     public void testCompatibilityAnnotation_VarDecl_MissingVariableKeyword() {
         final String expected = loadResource("tests/parser/xquery-update-3.0/CompatibilityAnnotation_VarDecl_MissingVariableKeyword.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-update-3.0/CompatibilityAnnotation_VarDecl_MissingVariableKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
+    // region Update Facility 3.0 :: TransformWithExpr
+
+    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2015/WD-xquery-update-30-20150219/#prod-xquery30-TransformWithExpr")
+    public void testTransformWithExpr() {
+        final String expected = loadResource("tests/parser/xquery-update-3.0/TransformWithExpr.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-update-3.0/TransformWithExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2015/WD-xquery-update-30-20150219/#prod-xquery30-TransformWithExpr")
+    public void testTransformWithExpr_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-update-3.0/TransformWithExpr_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-update-3.0/TransformWithExpr_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2015/WD-xquery-update-30-20150219/#prod-xquery30-TransformWithExpr")
+    public void testTransformWithExpr_MissingWithKeyword() {
+        final String expected = loadResource("tests/parser/xquery-update-3.0/TransformWithExpr_MissingWithKeyword.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-update-3.0/TransformWithExpr_MissingWithKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2015/WD-xquery-update-30-20150219/#prod-xquery30-TransformWithExpr")
+    public void testTransformWithExpr_MissingOpeningBrace() {
+        final String expected = loadResource("tests/parser/xquery-update-3.0/TransformWithExpr_MissingOpeningBrace.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-update-3.0/TransformWithExpr_MissingOpeningBrace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2015/WD-xquery-update-30-20150219/#prod-xquery30-TransformWithExpr")
+    public void testTransformWithExpr_MissingExpr() {
+        final String expected = loadResource("tests/parser/xquery-update-3.0/TransformWithExpr_MissingExpr.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-update-3.0/TransformWithExpr_MissingExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2015/WD-xquery-update-30-20150219/#prod-xquery30-TransformWithExpr")
+    public void testTransformWithExpr_MissingClosingBrace() {
+        final String expected = loadResource("tests/parser/xquery-update-3.0/TransformWithExpr_MissingClosingBrace.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-update-3.0/TransformWithExpr_MissingClosingBrace.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 

@@ -31,6 +31,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
  *    -  XQuery 3.0
  *    -  XQuery 3.1
  *    -  Update Facility 1.0
+ *    -  Update Facility 3.0 (partial)
  *    -  MarkLogic 1.0-ml Extensions for MarkLogic 6.0
  *    -  MarkLogic 1.0-ml Extensions for MarkLogic 8.0
  */
@@ -3057,7 +3058,7 @@ class XQueryParser {
 
     private boolean parseCastExpr() {
         final PsiBuilder.Marker castExprMarker = mark();
-        if (parseArrowExpr()) {
+        if (parseArrowExpr_TransformWithExpr()) {
             parseWhiteSpaceAndCommentTokens();
             if (matchTokenType(XQueryTokenType.K_CAST)) {
                 boolean haveErrors = false;
@@ -3081,32 +3082,85 @@ class XQueryParser {
         return false;
     }
 
-    private boolean parseArrowExpr() {
-        final PsiBuilder.Marker arrowExprMarker = mark();
+    private boolean parseArrowExpr_TransformWithExpr() {
+        // The XQuery 3.1 and Update Facility 3.0 specifications both define
+        // constructs for use between CastExpr and UnaryExpr. This supports
+        // either construct, but does not allow both constructs to be mixed
+        // in the same expression, unless parentheses are used.
+        //
+        // See https://www.w3.org/Bugs/Public/show_bug.cgi?id=30015.
+
+        final PsiBuilder.Marker exprMarker = mark();
         if (parseUnaryExpr()) {
+            parseWhiteSpaceAndCommentTokens();
+            if (parseArrowExpr()) {
+                exprMarker.done(XQueryElementType.ARROW_EXPR);
+            } else if (parseTransformWithExpr()) {
+                exprMarker.done(XQueryElementType.TRANSFORM_WITH_EXPR);
+            } else {
+                exprMarker.done(XQueryElementType.ARROW_EXPR);
+            }
+            return true;
+        }
+        exprMarker.drop();
+        return false;
+    }
+
+    private boolean parseArrowExpr() {
+        boolean haveErrors = false;
+        boolean haveArrowExpr = false;
+
+        parseWhiteSpaceAndCommentTokens();
+        while (matchTokenType(XQueryTokenType.ARROW)) {
+            haveArrowExpr = true;
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseArrowFunctionSpecifier() && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", "ArrowFunctionSpecifier"));
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseArgumentList() && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", "ArgumentList"));
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+        }
+
+        return haveArrowExpr;
+    }
+
+    private boolean parseTransformWithExpr() {
+        if (matchTokenType(XQueryTokenType.K_TRANSFORM)) {
             boolean haveErrors = false;
 
             parseWhiteSpaceAndCommentTokens();
-            while (matchTokenType(XQueryTokenType.ARROW)) {
-                parseWhiteSpaceAndCommentTokens();
-                if (!parseArrowFunctionSpecifier() && !haveErrors) {
-                    error(XQueryBundle.message("parser.error.expected", "ArrowFunctionSpecifier"));
-                    haveErrors = true;
-                }
-
-                parseWhiteSpaceAndCommentTokens();
-                if (!parseArgumentList() && !haveErrors) {
-                    error(XQueryBundle.message("parser.error.expected", "ArgumentList"));
-                    haveErrors = true;
-                }
-
-                parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_WITH)) {
+                haveErrors = true;
+                error(XQueryBundle.message("parser.error.expected-keyword", "with"));
             }
 
-            arrowExprMarker.done(XQueryElementType.ARROW_EXPR);
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.BLOCK_OPEN) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", "{"));
+                return false;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseExpr(XQueryElementType.EXPR)) {
+                error(XQueryBundle.message("parser.error.expected-expression"));
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.BLOCK_CLOSE) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", "}"));
+            }
+
             return true;
         }
-        arrowExprMarker.drop();
         return false;
     }
 
