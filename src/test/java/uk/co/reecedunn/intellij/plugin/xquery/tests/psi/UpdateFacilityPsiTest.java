@@ -272,5 +272,29 @@ public class UpdateFacilityPsiTest extends ParserTestCase {
     }
 
     // endregion
+    // region UpdatingFunctionCall
+
+    public void testUpdatingFunctionCall() {
+        final XQueryFile file = parseResource("tests/parser/xquery-update-3.0/UpdatingFunctionCall.xq");
+
+        UpdateFacilityUpdatingFunctionCall updatingFunctionCallPsi = descendants(file).findFirst(UpdateFacilityUpdatingFunctionCall.class).get();
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)updatingFunctionCallPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires Update Facility 3.0 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_INVOKE));
+    }
+
+    // endregion
     // endregion
 }

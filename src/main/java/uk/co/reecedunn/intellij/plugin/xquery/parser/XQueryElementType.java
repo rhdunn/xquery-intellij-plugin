@@ -291,6 +291,8 @@ public interface XQueryElementType {
     IElementType COMPATIBILITY_ANNOTATION = new ICompositeElementType("XQUERY_COMPATIBILITY_ANNOTATION", UpdateFacilityCompatibilityAnnotationPsiImpl.class);
 
     IElementType COPY_MODIFY_EXPR = new ICompositeElementType("XQUERY_COPY_MODIFY_EXPR", UpdateFacilityCopyModifyExprPsiImpl.class);
+    IElementType UPDATING_FUNCTION_CALL = new ICompositeElementType("XQUERY_UPDATING_FUNCTION_CALL", UpdateFacilityUpdatingFunctionCallPsiImpl.class);
+
     IElementType TRANSFORM_WITH_EXPR = new ICompositeElementType("XQUERY_TRANSFORM_WITH_EXPR", UpdateFacilityTransformWithExprPsiImpl.class);
 
     // endregion

@@ -26,14 +26,19 @@ import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 /**
  * A unified XQuery parser for different XQuery dialects.
  *
- * This parser supports:
- *    -  XQuery 1.0
- *    -  XQuery 3.0
- *    -  XQuery 3.1
- *    -  Update Facility 1.0
- *    -  Update Facility 3.0 (partial)
+ * Supported core language specifications:
+ *    -  XQuery 1.0 Second Edition (W3C Recommendation 14 December 2010)
+ *    -  XQuery 3.0 (W3C Recommendation 08 April 2014)
+ *    -  XQuery 3.1 (W3C Candidate Recommendation 17 December 2015)
+ *
+ * Supported W3C XQuery extensions:
+ *    -  Update Facility 1.0 (W3C Recommendation 17 March 2011)
+ *    -  Update Facility 3.0 (W3C Last Call Working Draft 19 February 2015)
+ *
+ * Supported vendor extensions:
  *    -  MarkLogic 1.0-ml Extensions for MarkLogic 6.0
  *    -  MarkLogic 1.0-ml Extensions for MarkLogic 8.0
+ *    -  Saxon 9.4 MapConstructor and MapTest syntax
  */
 @SuppressWarnings({"SameParameterValue", "StatementWithEmptyBody"})
 class XQueryParser {
@@ -1316,6 +1321,7 @@ class XQueryParser {
             || parseRenameExpr()
             || parseReplaceExpr()
             || parseCopyModifyExpr()
+            || parseUpdatingFunctionCall()
             || parseOrExpr(parentType);
     }
 
@@ -4583,6 +4589,56 @@ class XQueryParser {
             parseEnclosedExpr(XQueryElementType.ENCLOSED_EXPR);
 
             piMarker.done(XQueryElementType.COMP_PI_CONSTRUCTOR);
+            return true;
+        }
+        return false;
+    }
+
+    // endregion
+    // region Grammar :: Expr :: UpdatingFunctionCall
+
+    private boolean parseUpdatingFunctionCall() {
+        final PsiBuilder.Marker updatingFunctionCallMarker = matchTokenTypeWithMarker(XQueryTokenType.K_INVOKE);
+        if (updatingFunctionCallMarker != null) {
+            boolean haveErrors = false;
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_UPDATING)) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "updating"));
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parsePrimaryExpr() && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", "PrimaryExpr"));
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_OPEN) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", "("));
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (parseExprSingle()) {
+                parseWhiteSpaceAndCommentTokens();
+                while (matchTokenType(XQueryTokenType.COMMA)) {
+                    parseWhiteSpaceAndCommentTokens();
+                    if (parseExprSingle() && !haveErrors) {
+                        error(XQueryBundle.message("parser.error.expected-expression"));
+                        haveErrors = true;
+                    }
+                    parseWhiteSpaceAndCommentTokens();
+                }
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", ")"));
+            }
+
+            updatingFunctionCallMarker.done(XQueryElementType.UPDATING_FUNCTION_CALL);
             return true;
         }
         return false;
