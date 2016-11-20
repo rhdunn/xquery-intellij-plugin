@@ -500,6 +500,7 @@ limitations under the License.
                 <schema-validation version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <full-text version="3.0" specification="https://www.w3.org/TR/2015/REC-xpath-full-text-30-20151124/" default="true"/>
             </dialect>
+            -->
             <dialect id="w3c/3.0-update" name="xquery.implementation.xquery-update-30" localized="true" default="false">
                 <minimal-conformance version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <higher-order-function version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
@@ -510,7 +511,6 @@ limitations under the License.
                 <schema-validation version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <update-facility version="3.0" specification="https://www.w3.org/TR/2015/WD-xquery-update-30-20150219/" default="true"/>
             </dialect>
-            -->
             <dialect id="w3c/3.1" name="XQuery" localized="false" default="true">
                 <minimal-conformance version="3.1" specification="https://www.w3.org/TR/2015/CR-xquery-31-20151217/" default="false"/>
                 <higher-order-function version="3.1" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
@@ -531,6 +531,7 @@ limitations under the License.
                 <schema-validation version="3.1" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <full-text version="3.0" specification="https://www.w3.org/TR/2015/REC-xpath-full-text-30-20151124/" default="true"/>
             </dialect>
+            -->
             <dialect id="w3c/3.1-update" name="xquery.implementation.xquery-update-30" localized="true" default="false">
                 <minimal-conformance version="3.1" specification="https://www.w3.org/TR/2015/CR-xquery-31-20151217/" default="false"/>
                 <higher-order-function version="3.1" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
@@ -541,7 +542,6 @@ limitations under the License.
                 <schema-validation version="3.1" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <update-facility version="3.0" specification="https://www.w3.org/TR/2015/WD-xquery-update-30-20150219/" default="true"/>
             </dialect>
-            -->
         </version>
     </implementation>
 </implementations>
