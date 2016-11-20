@@ -4604,14 +4604,25 @@ class XQueryParser {
 
             parseWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.K_UPDATING)) {
+                if (matchTokenType(XQueryTokenType.PARENTHESIS_OPEN)) { // FunctionCall
+                    updatingFunctionCallMarker.rollbackTo();
+                    return false;
+                }
+
                 error(XQueryBundle.message("parser.error.expected-keyword", "updating"));
                 haveErrors = true;
-            }
 
-            parseWhiteSpaceAndCommentTokens();
-            if (!parsePrimaryExpr() && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected", "PrimaryExpr"));
-                haveErrors = true;
+                parseWhiteSpaceAndCommentTokens();
+                if (!parsePrimaryExpr()) { // AbbrevForwardStep
+                    updatingFunctionCallMarker.rollbackTo();
+                    return false;
+                }
+            } else {
+                parseWhiteSpaceAndCommentTokens();
+                if (!parsePrimaryExpr()) {
+                    error(XQueryBundle.message("parser.error.expected", "PrimaryExpr"));
+                    haveErrors = true;
+                }
             }
 
             parseWhiteSpaceAndCommentTokens();
