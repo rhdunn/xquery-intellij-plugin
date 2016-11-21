@@ -4230,6 +4230,8 @@ class XQueryParser {
                     if (!matchTokenType(XQueryTokenType.END_XML_TAG)) {
                         error(XQueryBundle.message("parser.error.expected", ">"));
                     }
+                } else {
+                    error(XQueryBundle.message("parser.error.expected-closing-tag"));
                 }
             } else {
                 error(XQueryBundle.message("parser.error.incomplete-open-tag"));

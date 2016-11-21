@@ -3755,6 +3755,13 @@ public class XQueryParserTest extends ParserTestCase {
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirElemConstructor")
+    public void testDirElemConstructor_MissingClosingTag() {
+        final String expected = loadResource("tests/parser/xquery-1.0/DirElemConstructor_MissingClosingTag.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-1.0/DirElemConstructor_MissingClosingTag.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
     // endregion
     // region XQuery 1.0 :: DirAttributeList + DirAttributeValue + (Quot|Apos)AttrValueContent
 
