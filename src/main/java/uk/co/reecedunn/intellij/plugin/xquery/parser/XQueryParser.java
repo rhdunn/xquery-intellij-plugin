@@ -4142,7 +4142,7 @@ class XQueryParser {
 
     private boolean parseNodeConstructor() {
         final PsiBuilder.Marker constructorMarker = mark();
-        if (parseDirectConstructor() || parseComputedConstructor()) {
+        if (parseDirectConstructor(0) || parseComputedConstructor()) {
             constructorMarker.done(XQueryElementType.NODE_CONSTRUCTOR);
             return true;
         }
@@ -4202,16 +4202,16 @@ class XQueryParser {
     // endregion
     // region Grammar :: Expr :: OrExpr :: PrimaryExpr :: NodeConstructor :: DirectConstructor
 
-    private boolean parseDirectConstructor() {
-        return parseDirElemConstructor()
+    private boolean parseDirectConstructor(int depth) {
+        return parseDirElemConstructor(depth)
             || parseDirCommentConstructor()
             || parseDirPIConstructor()
             || parseCDataSection(null);
     }
 
-    private boolean parseDirElemConstructor() {
-        final PsiBuilder.Marker elementMarker = matchTokenTypeWithMarker(XQueryTokenType.OPEN_XML_TAG);
-        if (elementMarker != null) {
+    private boolean parseDirElemConstructor(int depth) {
+        final PsiBuilder.Marker elementMarker = mark();
+        if (matchTokenType(XQueryTokenType.OPEN_XML_TAG)) {
             // NOTE: The XQueryLexer ensures that OPEN_XML_TAG is followed by an NCNAME/QNAME.
             parseQName(XQueryElementType.QNAME);
 
@@ -4220,7 +4220,7 @@ class XQueryParser {
             if (matchTokenType(XQueryTokenType.SELF_CLOSING_XML_TAG)) {
                 //
             } else if (matchTokenType(XQueryTokenType.END_XML_TAG)) {
-                parseDirElemContent();
+                parseDirElemContent(depth + 1);
 
                 if (matchTokenType(XQueryTokenType.CLOSE_XML_TAG)) {
                     // NOTE: The XQueryLexer ensures that CLOSE_XML_TAG is followed by an NCNAME/QNAME.
@@ -4239,8 +4239,18 @@ class XQueryParser {
 
             elementMarker.done(XQueryElementType.DIR_ELEM_CONSTRUCTOR);
             return true;
+        } else if (depth == 0 && getTokenType() == XQueryTokenType.CLOSE_XML_TAG) {
+            error(XQueryBundle.message("parser.error.unexpected-closing-tag"));
+            matchTokenType(XQueryTokenType.CLOSE_XML_TAG);
+            parseQName(XQueryElementType.QNAME);
+            matchTokenType(XQueryTokenType.WHITE_SPACE);
+            matchTokenType(XQueryTokenType.GREATER_THAN);
+
+            elementMarker.done(XQueryElementType.DIR_ELEM_CONSTRUCTOR);
+            return true;
         }
 
+        elementMarker.drop();
         return false;
     }
 
@@ -4362,7 +4372,7 @@ class XQueryParser {
         return false;
     }
 
-    private boolean parseDirElemContent() {
+    private boolean parseDirElemContent(int depth) {
         final PsiBuilder.Marker elemContentMarker = mark();
         boolean matched = false;
         while (true) {
@@ -4379,7 +4389,7 @@ class XQueryParser {
                 matched = true;
             } else if (parseEnclosedExpr(XQueryElementType.ENCLOSED_EXPR) ||
                        parseCDataSection(XQueryElementType.DIR_ELEM_CONTENT) ||
-                       parseDirectConstructor()) {
+                       parseDirectConstructor(depth)) {
                 matched = true;
             } else {
                 if (matched) {
