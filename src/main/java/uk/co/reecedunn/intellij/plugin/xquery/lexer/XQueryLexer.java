@@ -169,7 +169,12 @@ public class XQueryLexer extends LexerBase {
                 c = mTokenRange.getCodePoint();
                 if (c == ':') {
                     mTokenRange.match();
-                    mType = XQueryTokenType.COMMENT_START_TAG;
+                    if (mTokenRange.getCodePoint() == '~') {
+                        mTokenRange.match();
+                        mType = XQueryTokenType.XQDOC_START_TAG;
+                    } else {
+                        mType = XQueryTokenType.COMMENT_START_TAG;
+                    }
                     pushState(STATE_XQUERY_COMMENT);
                 } else if (c == '#') {
                     mTokenRange.match();
