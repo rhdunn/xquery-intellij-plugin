@@ -77,6 +77,7 @@ public class XQueryLexer extends LexerBase {
     private static final int STATE_BRACED_URI_LITERAL = 26;
     private static final int STATE_STRING_CONSTRUCTOR_CONTENTS = 27;
     private static final int STATE_DEFAULT_STRING_INTERPOLATION = 28;
+    private static final int STATE_XQDOC_COMMENT = 29;
 
     private void stateDefault(int mState) {
         int c = mTokenRange.getCodePoint();
@@ -172,10 +173,11 @@ public class XQueryLexer extends LexerBase {
                     if (mTokenRange.getCodePoint() == '~') {
                         mTokenRange.match();
                         mType = XQueryTokenType.XQDOC_START_TAG;
+                        pushState(STATE_XQDOC_COMMENT);
                     } else {
                         mType = XQueryTokenType.COMMENT_START_TAG;
+                        pushState(STATE_XQUERY_COMMENT);
                     }
-                    pushState(STATE_XQUERY_COMMENT);
                 } else if (c == '#') {
                     mTokenRange.match();
                     mType = XQueryTokenType.PRAGMA_BEGIN;
@@ -1245,6 +1247,7 @@ public class XQueryLexer extends LexerBase {
                 stateDoubleExponent();
                 break;
             case STATE_XQUERY_COMMENT:
+            case STATE_XQDOC_COMMENT:
                 stateXQueryComment();
                 break;
             case STATE_XML_COMMENT:
