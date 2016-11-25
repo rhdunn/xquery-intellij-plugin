@@ -20,6 +20,7 @@ import com.intellij.psi.tree.IFileElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.marklogic.*;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.update.facility.*;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xqdoc.XQDocCommentPsiImpl;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.*;
 
 public interface XQueryElementType {
@@ -321,6 +322,11 @@ public interface XQueryElementType {
     IElementType NUMBER_TEST = new ICompositeElementType("XQUERY_NUMBER_TEST", MarkLogicNumberTestPsiImpl.class);
 
     IElementType MAP_TEST = new ICompositeElementType("XQUERY_MAP_TEST", MarkLogicMapTestPsiImpl.class);
+
+    // endregion
+    // region XQuery 1.0
+
+    IElementType XQDOC_COMMENT = new ICompositeElementType("XQDOC_COMMENT", XQDocCommentPsiImpl.class);
 
     // endregion
 }

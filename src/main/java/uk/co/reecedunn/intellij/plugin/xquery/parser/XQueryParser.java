@@ -5655,8 +5655,7 @@ class XQueryParser {
                     mBuilder.getTokenType() == XQueryTokenType.XML_WHITE_SPACE) {
                 skipped = true;
                 mBuilder.advanceLexer();
-            } else if (mBuilder.getTokenType() == XQueryTokenType.COMMENT_START_TAG ||
-                       mBuilder.getTokenType() == XQueryTokenType.XQDOC_START_TAG) {
+            } else if (mBuilder.getTokenType() == XQueryTokenType.COMMENT_START_TAG) {
                 skipped = true;
                 final PsiBuilder.Marker commentMarker = mark();
                 mBuilder.advanceLexer();
@@ -5667,6 +5666,19 @@ class XQueryParser {
                 } else {
                     mBuilder.advanceLexer(); // XQueryTokenType.UNEXPECTED_END_OF_BLOCK
                     commentMarker.done(XQueryElementType.COMMENT);
+                    mBuilder.error(XQueryBundle.message("parser.error.incomplete-comment"));
+                }
+            } else if (mBuilder.getTokenType() == XQueryTokenType.XQDOC_START_TAG) {
+                skipped = true;
+                final PsiBuilder.Marker commentMarker = mark();
+                mBuilder.advanceLexer();
+                // NOTE: XQueryTokenType.COMMENT is omitted by the PsiBuilder.
+                if (mBuilder.getTokenType() == XQueryTokenType.COMMENT_END_TAG) {
+                    mBuilder.advanceLexer();
+                    commentMarker.done(XQueryElementType.XQDOC_COMMENT);
+                } else {
+                    mBuilder.advanceLexer(); // XQueryTokenType.UNEXPECTED_END_OF_BLOCK
+                    commentMarker.done(XQueryElementType.XQDOC_COMMENT);
                     mBuilder.error(XQueryBundle.message("parser.error.incomplete-comment"));
                 }
             } else if (mBuilder.getTokenType() == XQueryTokenType.COMMENT_END_TAG) {
