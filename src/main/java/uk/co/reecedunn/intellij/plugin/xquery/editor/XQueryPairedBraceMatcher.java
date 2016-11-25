@@ -28,6 +28,7 @@ public class XQueryPairedBraceMatcher implements PairedBraceMatcher {
         new BracePair(XQueryTokenType.BLOCK_OPEN, XQueryTokenType.BLOCK_CLOSE, true), // { ... }
         new BracePair(XQueryTokenType.SQUARE_OPEN, XQueryTokenType.SQUARE_CLOSE, false), // [ ... ]
         new BracePair(XQueryTokenType.PARENTHESIS_OPEN, XQueryTokenType.PARENTHESIS_CLOSE, false), // ( ... )
+        new BracePair(XQueryTokenType.XQDOC_START_TAG, XQueryTokenType.COMMENT_END_TAG, false), // (:~ ... :)
         new BracePair(XQueryTokenType.COMMENT_START_TAG, XQueryTokenType.COMMENT_END_TAG, false), // (: ... :)
         new BracePair(XQueryTokenType.OPEN_XML_TAG, XQueryTokenType.SELF_CLOSING_XML_TAG, false), // < ... />
         new BracePair(XQueryTokenType.OPEN_XML_TAG, XQueryTokenType.END_XML_TAG, false), // < ... >
