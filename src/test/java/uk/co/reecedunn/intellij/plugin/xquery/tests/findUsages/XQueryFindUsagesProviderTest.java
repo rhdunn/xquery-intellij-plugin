@@ -39,7 +39,7 @@ public class XQueryFindUsagesProviderTest extends ParserTestCase {
 
         assertThat(provider.canFindUsagesFor(ncName), is(true));
         assertThat(provider.getHelpId(ncName), is(HelpID.FIND_OTHER_USAGES));
-        assertThat(provider.getType(ncName), is(""));
+        assertThat(provider.getType(ncName), is("Identifier"));
         assertThat(provider.getDescriptiveName(ncName), is("one"));
         assertThat(provider.getNodeText(ncName, true), is("one"));
         assertThat(provider.getNodeText(ncName, false), is("one"));

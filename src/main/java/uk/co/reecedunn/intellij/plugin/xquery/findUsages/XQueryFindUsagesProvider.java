@@ -22,6 +22,7 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiNamedElement;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 
 public class XQueryFindUsagesProvider implements FindUsagesProvider {
     @Nullable
@@ -44,7 +45,8 @@ public class XQueryFindUsagesProvider implements FindUsagesProvider {
     @NotNull
     @Override
     public String getType(@NotNull PsiElement element) {
-        return "";
+        // TODO: Determine the correct identifier type (namespace, function, variable, element, attribute, data type).
+        return XQueryBundle.message("find-usages.identifier");
     }
 
     @NotNull
