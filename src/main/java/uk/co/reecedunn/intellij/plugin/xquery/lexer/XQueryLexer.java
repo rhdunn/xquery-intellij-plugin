@@ -525,6 +525,28 @@ public class XQueryLexer extends LexerBase {
             } else {
                 mTokenRange.restore();
             }
+        } else if (c == '\r' || c == '\n') {
+            mTokenRange.match();
+            if (c == '\r' && mTokenRange.getCodePoint() == '\n') { // Windows line ending
+                mTokenRange.match();
+            }
+
+            c = mTokenRange.getCodePoint();
+            while (c == ' ' || c == '\t') {
+                mTokenRange.match();
+                c = mTokenRange.getCodePoint();
+            }
+
+            if (c == ':') {
+                mTokenRange.save();
+                mTokenRange.match();
+                if (mTokenRange.getCodePoint() == ')') {
+                    mTokenRange.restore();
+                }
+            }
+
+            mType = XQueryTokenType.XQDOC_TRIM;
+            return;
         }
 
         int depth = 1;
@@ -552,6 +574,9 @@ public class XQueryLexer extends LexerBase {
                         return;
                     }
                 }
+            } else if (c == '\r' || c == '\n') {
+                mType = XQueryTokenType.COMMENT;
+                return;
             } else {
                 mTokenRange.match();
             }

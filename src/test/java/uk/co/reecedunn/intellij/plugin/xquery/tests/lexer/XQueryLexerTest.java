@@ -4057,6 +4057,7 @@ public class XQueryLexerTest extends TestCase {
     // endregion
     // region xqDoc :: XQDocComment
 
+    @Specification(name="xqDoc", reference="https://raw.githubusercontent.com/xquery/xquerydoc/master/ebnf/XQDocComments.ebnf")
     public void testXQDocComment() {
         Lexer lexer = new XQueryLexer();
 
@@ -4082,12 +4083,6 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, ":)",     29,  9, 11, XQueryTokenType.COMMENT_END_TAG);
         matchToken(lexer, "",        0, 11, 11, null);
 
-        lexer.start("(:~\nMultiline\nComment\n:)");
-        matchToken(lexer, "(:~",                     0,  0,  3, XQueryTokenType.XQDOC_START_TAG);
-        matchToken(lexer, "\nMultiline\nComment\n", 29,  3, 22, XQueryTokenType.COMMENT);
-        matchToken(lexer, ":)",                     29, 22, 24, XQueryTokenType.COMMENT_END_TAG);
-        matchToken(lexer, "",                        0, 24, 24, null);
-
         lexer.start("(:~ Outer (: Inner :) Outer :)");
         matchToken(lexer, "(:~",                        0,  0,  3, XQueryTokenType.XQDOC_START_TAG);
         matchToken(lexer, " Outer (: Inner :) Outer ", 29,  3, 28, XQueryTokenType.COMMENT);
@@ -4103,6 +4098,74 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, " ",                  0, 28, 29, XQueryTokenType.WHITE_SPACE);
         matchToken(lexer, ":)",                 0, 29, 31, XQueryTokenType.COMMENT_END_TAG);
         matchToken(lexer, "",                   0, 31, 31, null);
+    }
+
+    // endregion
+    // region xqDoc :: Trim
+
+    @Specification(name="xqDoc", reference="https://raw.githubusercontent.com/xquery/xquerydoc/master/ebnf/XQDocComments.ebnf")
+    public void testXQDoc_Trim() {
+        Lexer lexer = new XQueryLexer();
+
+        // Line Ending: Linux
+        lexer.start("(:~\nMultiline\nComment\n\n:)");
+        matchToken(lexer, "(:~",        0,  0,  3, XQueryTokenType.XQDOC_START_TAG);
+        matchToken(lexer, "\n",        29,  3,  4, XQueryTokenType.XQDOC_TRIM);
+        matchToken(lexer, "Multiline", 29,  4, 13, XQueryTokenType.COMMENT);
+        matchToken(lexer, "\n",        29, 13, 14, XQueryTokenType.XQDOC_TRIM);
+        matchToken(lexer, "Comment",   29, 14, 21, XQueryTokenType.COMMENT);
+        matchToken(lexer, "\n",        29, 21, 22, XQueryTokenType.XQDOC_TRIM);
+        matchToken(lexer, "\n",        29, 22, 23, XQueryTokenType.XQDOC_TRIM);
+        matchToken(lexer, ":)",        29, 23, 25, XQueryTokenType.COMMENT_END_TAG);
+        matchToken(lexer, "",           0, 25, 25, null);
+
+        // Line Ending: Mac
+        lexer.start("(:~\rMultiline\rComment\r\r:)");
+        matchToken(lexer, "(:~",        0,  0,  3, XQueryTokenType.XQDOC_START_TAG);
+        matchToken(lexer, "\r",        29,  3,  4, XQueryTokenType.XQDOC_TRIM);
+        matchToken(lexer, "Multiline", 29,  4, 13, XQueryTokenType.COMMENT);
+        matchToken(lexer, "\r",        29, 13, 14, XQueryTokenType.XQDOC_TRIM);
+        matchToken(lexer, "Comment",   29, 14, 21, XQueryTokenType.COMMENT);
+        matchToken(lexer, "\r",        29, 21, 22, XQueryTokenType.XQDOC_TRIM);
+        matchToken(lexer, "\r",        29, 22, 23, XQueryTokenType.XQDOC_TRIM);
+        matchToken(lexer, ":)",        29, 23, 25, XQueryTokenType.COMMENT_END_TAG);
+        matchToken(lexer, "",           0, 25, 25, null);
+
+        // Line Ending: Windows
+        lexer.start("(:~\r\nMultiline\r\nComment\r\n\r\n:)");
+        matchToken(lexer, "(:~",        0,  0,  3, XQueryTokenType.XQDOC_START_TAG);
+        matchToken(lexer, "\r\n",      29,  3,  5, XQueryTokenType.XQDOC_TRIM);
+        matchToken(lexer, "Multiline", 29,  5, 14, XQueryTokenType.COMMENT);
+        matchToken(lexer, "\r\n",      29, 14, 16, XQueryTokenType.XQDOC_TRIM);
+        matchToken(lexer, "Comment",   29, 16, 23, XQueryTokenType.COMMENT);
+        matchToken(lexer, "\r\n",      29, 23, 25, XQueryTokenType.XQDOC_TRIM);
+        matchToken(lexer, "\r\n",      29, 25, 27, XQueryTokenType.XQDOC_TRIM);
+        matchToken(lexer, ":)",        29, 27, 29, XQueryTokenType.COMMENT_END_TAG);
+        matchToken(lexer, "",           0, 29, 29, null);
+
+        // Spacing
+        lexer.start("(:~ \t\n \tMultiline \t\n \tComment \t\n \t:)");
+        matchToken(lexer, "(:~",           0,  0,  3, XQueryTokenType.XQDOC_START_TAG);
+        matchToken(lexer, " \t",          29,  3,  5, XQueryTokenType.COMMENT);
+        matchToken(lexer, "\n \t",        29,  5,  8, XQueryTokenType.XQDOC_TRIM);
+        matchToken(lexer, "Multiline \t", 29,  8, 19, XQueryTokenType.COMMENT);
+        matchToken(lexer, "\n \t",        29, 19, 22, XQueryTokenType.XQDOC_TRIM);
+        matchToken(lexer, "Comment \t",   29, 22, 31, XQueryTokenType.COMMENT);
+        matchToken(lexer, "\n \t",        29, 31, 34, XQueryTokenType.XQDOC_TRIM);
+        matchToken(lexer, ":)",           29, 34, 36, XQueryTokenType.COMMENT_END_TAG);
+        matchToken(lexer, "",              0, 36, 36, null);
+
+        // Spacing with ':'
+        lexer.start("(:~ \t\n \t: \tMultiline \t\n \t: \tComment \t\n \t:)");
+        matchToken(lexer, "(:~",              0,  0,  3, XQueryTokenType.XQDOC_START_TAG);
+        matchToken(lexer, " \t",             29,  3,  5, XQueryTokenType.COMMENT);
+        matchToken(lexer, "\n \t:",          29,  5,  9, XQueryTokenType.XQDOC_TRIM);
+        matchToken(lexer, " \tMultiline \t", 29,  9, 22, XQueryTokenType.COMMENT);
+        matchToken(lexer, "\n \t:",          29, 22, 26, XQueryTokenType.XQDOC_TRIM);
+        matchToken(lexer, " \tComment \t",   29, 26, 37, XQueryTokenType.COMMENT);
+        matchToken(lexer, "\n \t",           29, 37, 40, XQueryTokenType.XQDOC_TRIM);
+        matchToken(lexer, ":)",              29, 40, 42, XQueryTokenType.COMMENT_END_TAG);
+        matchToken(lexer, "",                 0, 42, 42, null);
     }
 
     // endregion

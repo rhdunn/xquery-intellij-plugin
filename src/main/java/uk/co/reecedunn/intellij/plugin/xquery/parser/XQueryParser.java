@@ -5672,12 +5672,17 @@ class XQueryParser {
                 skipped = true;
                 final PsiBuilder.Marker commentMarker = mark();
                 mBuilder.advanceLexer();
-                // NOTE: XQueryTokenType.COMMENT is omitted by the PsiBuilder.
+
+                while (mBuilder.getTokenType() != XQueryTokenType.COMMENT_END_TAG &&
+                       mBuilder.getTokenType() != XQueryTokenType.UNEXPECTED_END_OF_BLOCK) {
+                    mBuilder.advanceLexer();
+                }
+
                 if (mBuilder.getTokenType() == XQueryTokenType.COMMENT_END_TAG) {
                     mBuilder.advanceLexer();
                     commentMarker.done(XQueryElementType.XQDOC_COMMENT);
-                } else {
-                    mBuilder.advanceLexer(); // XQueryTokenType.UNEXPECTED_END_OF_BLOCK
+                } else { // XQueryTokenType.UNEXPECTED_END_OF_BLOCK
+                    mBuilder.advanceLexer();
                     commentMarker.done(XQueryElementType.XQDOC_COMMENT);
                     mBuilder.error(XQueryBundle.message("parser.error.incomplete-comment"));
                 }
