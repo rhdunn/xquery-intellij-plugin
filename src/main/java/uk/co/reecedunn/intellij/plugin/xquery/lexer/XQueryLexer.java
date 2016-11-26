@@ -509,6 +509,56 @@ public class XQueryLexer extends LexerBase {
         popState();
     }
 
+    private void stateXQDocComment() {
+        int c = mTokenRange.getCodePoint();
+        if (c == XQueryCodePointRange.END_OF_BUFFER) {
+            mType = null;
+            return;
+        } else if (c == ':') {
+            mTokenRange.save();
+            mTokenRange.match();
+            if (mTokenRange.getCodePoint() == ')') {
+                mTokenRange.match();
+                mType = XQueryTokenType.COMMENT_END_TAG;
+                popState();
+                return;
+            } else {
+                mTokenRange.restore();
+            }
+        }
+
+        int depth = 1;
+        while (true) {
+            if (c == XQueryCodePointRange.END_OF_BUFFER) {
+                mTokenRange.match();
+                mType = XQueryTokenType.COMMENT;
+                popState();
+                pushState(STATE_UNEXPECTED_END_OF_BLOCK);
+                return;
+            } else if (c == '(') {
+                mTokenRange.match();
+                if (mTokenRange.getCodePoint() == ':') {
+                    mTokenRange.match();
+                    ++depth;
+                }
+            } else if (c == ':') {
+                mTokenRange.save();
+                mTokenRange.match();
+                if (mTokenRange.getCodePoint() == ')') {
+                    mTokenRange.match();
+                    if (--depth == 0) {
+                        mTokenRange.restore();
+                        mType = XQueryTokenType.COMMENT;
+                        return;
+                    }
+                }
+            } else {
+                mTokenRange.match();
+            }
+            c = mTokenRange.getCodePoint();
+        }
+    }
+
     private void stateXQueryComment() {
         int c = mTokenRange.getCodePoint();
         if (c == XQueryCodePointRange.END_OF_BUFFER) {
@@ -1247,8 +1297,10 @@ public class XQueryLexer extends LexerBase {
                 stateDoubleExponent();
                 break;
             case STATE_XQUERY_COMMENT:
-            case STATE_XQDOC_COMMENT:
                 stateXQueryComment();
+                break;
+            case STATE_XQDOC_COMMENT:
+                stateXQDocComment();
                 break;
             case STATE_XML_COMMENT:
             case STATE_XML_COMMENT_ELEM_CONTENT:
