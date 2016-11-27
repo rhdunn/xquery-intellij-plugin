@@ -80,6 +80,7 @@ public class XQueryLexer extends LexerBase {
     private static final int STATE_XQDOC_CONTENTS_START = 29;
     private static final int STATE_XQDOC_TAGGED_CONTENTS = 30;
     private static final int STATE_XQDOC_CONTENTS = 31;
+    private static final int STATE_XQDOC_FINAL_TRIM = 32;
 
     private void stateDefault(int mState) {
         int c = mTokenRange.getCodePoint();
@@ -593,6 +594,7 @@ public class XQueryLexer extends LexerBase {
                     if (--depth == 0) {
                         mTokenRange.restore();
                         mType = XQueryTokenType.COMMENT;
+                        pushState(STATE_XQDOC_FINAL_TRIM);
                         return;
                     }
                 }
@@ -624,6 +626,11 @@ public class XQueryLexer extends LexerBase {
             pushState(STATE_XQDOC_CONTENTS);
             stateXQDocContents();
         }
+    }
+
+    private void stateXQDocFinalTrim() {
+        mType = XQueryTokenType.XQDOC_TRIM;
+        popState();
     }
 
     private void stateXQueryComment() {
@@ -1374,6 +1381,9 @@ public class XQueryLexer extends LexerBase {
                 break;
             case STATE_XQDOC_TAGGED_CONTENTS:
                 stateXQDocTaggedContents();
+                break;
+            case STATE_XQDOC_FINAL_TRIM:
+                stateXQDocFinalTrim();
                 break;
             case STATE_XML_COMMENT:
             case STATE_XML_COMMENT_ELEM_CONTENT:
