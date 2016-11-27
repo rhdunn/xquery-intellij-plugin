@@ -46,4 +46,21 @@ public class XQDocParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region xqDoc :: TaggedContents
+
+    @Specification(name="xqDoc", reference="https://raw.githubusercontent.com/xquery/xquerydoc/master/ebnf/XQDocComments.ebnf")
+    public void testTaggedContents() {
+        final String expected = loadResource("tests/parser/xqdoc/TaggedContents.txt");
+        final XQueryFile actual = parseResource("tests/parser/xqdoc/TaggedContents.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="xqDoc", reference="https://raw.githubusercontent.com/xquery/xquerydoc/master/ebnf/XQDocComments.ebnf")
+    public void testTaggedContents_MissingTagName() {
+        final String expected = loadResource("tests/parser/xqdoc/TaggedContents_MissingTagName.txt");
+        final XQueryFile actual = parseResource("tests/parser/xqdoc/TaggedContents_MissingTagName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
 }

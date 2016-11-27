@@ -328,6 +328,7 @@ public interface XQueryElementType {
 
     IElementType XQDOC_COMMENT = new ICompositeElementType("XQDOC_COMMENT", XQDocCommentPsiImpl.class);
     IElementType XQDOC_CONTENTS = new ICompositeElementType("XQDOC_CONTENTS", XQDocContentsPsiImpl.class);
+    IElementType XQDOC_TAGGED_CONTENTS = new ICompositeElementType("XQDOC_TAGGED_CONTENTS", XQDocTaggedContentsPsiImpl.class);
 
     // endregion
 }

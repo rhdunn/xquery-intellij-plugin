@@ -5651,12 +5651,28 @@ class XQueryParser {
     private boolean parseXQDocContents() {
         final PsiBuilder.Marker commentMarker = mark();
         while (matchTokenType(XQueryTokenType.XQDOC_TRIM) ||
+               matchTokenType(XQueryTokenType.XQDOC_TAG_CONTENTS_START) ||
                matchTokenType(XQueryTokenType.WHITE_SPACE) ||
                errorOnTokenType(XQueryTokenType.UNEXPECTED_END_OF_BLOCK, XQueryBundle.message("parser.error.incomplete-comment"))) {
             //
         }
         commentMarker.done(XQueryElementType.XQDOC_CONTENTS);
         return true;
+    }
+
+    private boolean parseXQDocTaggedContents() {
+        final PsiBuilder.Marker commentMarker = matchTokenTypeWithMarker(XQueryTokenType.XQDOC_TAG_INDICATOR);
+        if (commentMarker != null) {
+            if (!matchTokenType(XQueryTokenType.XQDOC_TAG_NAME)) {
+                error(XQueryBundle.message("parser.error.expected-ncname"));
+            }
+
+            parseXQDocContents();
+
+            commentMarker.done(XQueryElementType.XQDOC_TAGGED_CONTENTS);
+            return true;
+        }
+        return false;
     }
 
     private boolean parseWhiteSpaceAndCommentTokens() {
@@ -5685,18 +5701,15 @@ class XQueryParser {
                 mBuilder.advanceLexer();
 
                 parseXQDocContents();
-
-                while (mBuilder.getTokenType() != XQueryTokenType.COMMENT_END_TAG &&
-                       mBuilder.getTokenType() != null) {
-                    mBuilder.advanceLexer();
+                while (parseXQDocTaggedContents()) {
+                    //
                 }
 
                 if (mBuilder.getTokenType() == XQueryTokenType.COMMENT_END_TAG) {
                     mBuilder.advanceLexer();
-                    commentMarker.done(XQueryElementType.XQDOC_COMMENT);
-                } else { // XQueryTokenType.UNEXPECTED_END_OF_BLOCK
-                    commentMarker.done(XQueryElementType.XQDOC_COMMENT);
                 }
+
+                commentMarker.done(XQueryElementType.XQDOC_COMMENT);
             } else if (mBuilder.getTokenType() == XQueryTokenType.COMMENT_END_TAG) {
                 skipped = true;
                 final PsiBuilder.Marker errorMarker = mark();
