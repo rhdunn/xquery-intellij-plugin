@@ -57,7 +57,7 @@ public class ColorSettingsPageTest extends TestCase {
             lexer.advance();
         }
 
-        assertThat(keys.size(), is(15));
+        assertThat(keys.size(), is(16));
         assertThat(keys.contains(SyntaxHighlighter.COMMENT), is(true));
         assertThat(keys.contains(SyntaxHighlighter.IDENTIFIER), is(true));
         assertThat(keys.contains(SyntaxHighlighter.KEYWORD), is(true));
@@ -67,6 +67,7 @@ public class ColorSettingsPageTest extends TestCase {
         assertThat(keys.contains(SyntaxHighlighter.ESCAPED_CHARACTER), is(true));
         assertThat(keys.contains(SyntaxHighlighter.ENTITY_REFERENCE), is(true));
         assertThat(keys.contains(SyntaxHighlighter.BAD_CHARACTER), is(true));
+        assertThat(keys.contains(SyntaxHighlighter.XQDOC_TAG), is(true));
         assertThat(keys.contains(SyntaxHighlighter.XML_TAG), is(true));
         assertThat(keys.contains(SyntaxHighlighter.XML_TAG_NAME), is(true));
         assertThat(keys.contains(SyntaxHighlighter.XML_ATTRIBUTE_NAME), is(true));
@@ -82,7 +83,7 @@ public class ColorSettingsPageTest extends TestCase {
 
     public void testAttributeDescriptors() {
         ColorSettingsPage settings = new ColorSettingsPage();
-        assertThat(settings.getAttributeDescriptors().length, is(15));
+        assertThat(settings.getAttributeDescriptors().length, is(16));
         assertThat(settings.getAttributeDescriptors()[0].getDisplayName(), is("Invalid Character"));
         assertThat(settings.getAttributeDescriptors()[0].getKey(), is(SyntaxHighlighter.BAD_CHARACTER));
         assertThat(settings.getAttributeDescriptors()[1].getDisplayName(), is("Comment"));
@@ -113,6 +114,8 @@ public class ColorSettingsPageTest extends TestCase {
         assertThat(settings.getAttributeDescriptors()[13].getKey(), is(SyntaxHighlighter.XML_ENTITY_REFERENCE));
         assertThat(settings.getAttributeDescriptors()[14].getDisplayName(), is("Direct XML Construction//Escaped Character"));
         assertThat(settings.getAttributeDescriptors()[14].getKey(), is(SyntaxHighlighter.XML_ESCAPED_CHARACTER));
+        assertThat(settings.getAttributeDescriptors()[15].getDisplayName(), is("xqDoc//Tag"));
+        assertThat(settings.getAttributeDescriptors()[15].getKey(), is(SyntaxHighlighter.XQDOC_TAG));
     }
 
     public void testColorDescriptors() {

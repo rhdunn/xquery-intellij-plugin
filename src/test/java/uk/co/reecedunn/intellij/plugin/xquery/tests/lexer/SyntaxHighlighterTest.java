@@ -625,6 +625,18 @@ public class SyntaxHighlighterTest extends TestCase {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_PRIVATE)[0], is(SyntaxHighlighter.ANNOTATION));
     }
 
+    public void testTokenHighlights_XQDocTag() {
+        SyntaxHighlighter highlighter = new SyntaxHighlighter();
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XQDOC_TAG_INDICATOR).length, is(2));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XQDOC_TAG_INDICATOR)[0], is(SyntaxHighlighter.COMMENT));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XQDOC_TAG_INDICATOR)[1], is(SyntaxHighlighter.XQDOC_TAG));
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XQDOC_TAG_NAME).length, is(2));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XQDOC_TAG_NAME)[0], is(SyntaxHighlighter.COMMENT));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XQDOC_TAG_NAME)[1], is(SyntaxHighlighter.XQDOC_TAG));
+    }
+
     public void testTokenHighlights_XmlTag() {
         SyntaxHighlighter highlighter = new SyntaxHighlighter();
 

@@ -34,6 +34,7 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
     public static final TextAttributesKey NUMBER = TextAttributesKey.createTextAttributesKey("XQUERY_NUMBER", DefaultLanguageHighlighterColors.NUMBER);
     public static final TextAttributesKey STRING = TextAttributesKey.createTextAttributesKey("XQUERY_STRING", DefaultLanguageHighlighterColors.STRING);
     public static final TextAttributesKey NS_PREFIX = TextAttributesKey.createTextAttributesKey("XQUERY_NS_PREFIX", DefaultLanguageHighlighterColors.INSTANCE_FIELD);
+    public static final TextAttributesKey XQDOC_TAG = TextAttributesKey.createTextAttributesKey("XQUERY_XQDOC_TAG", DefaultLanguageHighlighterColors.DOC_COMMENT_TAG);
 
     public static final TextAttributesKey XML_TAG = TextAttributesKey.createTextAttributesKey("XQUERY_XML_TAG", XmlHighlighterColors.XML_TAG);
     public static final TextAttributesKey XML_TAG_NAME = TextAttributesKey.createTextAttributesKey("XQUERY_XML_TAG_NAME", XmlHighlighterColors.XML_TAG_NAME);
@@ -43,7 +44,6 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
     public static final TextAttributesKey XML_ESCAPED_CHARACTER = TextAttributesKey.createTextAttributesKey("XQUERY_XML_ESCAPED_CHARACTER", DefaultLanguageHighlighterColors.VALID_STRING_ESCAPE);
 
     private static final TextAttributesKey[] BAD_CHARACTER_KEYS = pack(BAD_CHARACTER);
-    private static final TextAttributesKey[] COMMENT_KEYS = pack(COMMENT);
     private static final TextAttributesKey[] ENTITY_REFERENCE_KEYS = pack(ENTITY_REFERENCE);
     private static final TextAttributesKey[] ESCAPED_CHARACTER_KEYS = pack(ESCAPED_CHARACTER);
     private static final TextAttributesKey[] IDENTIFIER_KEYS = pack(IDENTIFIER);
@@ -51,6 +51,9 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
     private static final TextAttributesKey[] ANNOTATION_KEYS = pack(ANNOTATION);
     private static final TextAttributesKey[] NUMBER_KEYS = pack(NUMBER);
     private static final TextAttributesKey[] STRING_KEYS = pack(STRING);
+
+    private static final TextAttributesKey[] COMMENT_KEYS = pack(COMMENT);
+    private static final TextAttributesKey[] XQDOC_TAG_KEYS = pack(COMMENT, XQDOC_TAG);
 
     private static final TextAttributesKey[] XML_TAG_KEYS = pack(XML_TAG);
     private static final TextAttributesKey[] XML_TAG_NAME_KEYS = pack(XML_TAG, XML_TAG_NAME);
@@ -132,6 +135,9 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
         } else if (type == XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE ||
                    type == XQueryTokenType.XML_CHARACTER_REFERENCE) {
             return XML_ENTITY_REFERENCE_KEYS;
+        } else if (type == XQueryTokenType.XQDOC_TAG_INDICATOR ||
+                   type == XQueryTokenType.XQDOC_TAG_NAME) {
+            return XQDOC_TAG_KEYS;
         }
         return EMPTY;
     }

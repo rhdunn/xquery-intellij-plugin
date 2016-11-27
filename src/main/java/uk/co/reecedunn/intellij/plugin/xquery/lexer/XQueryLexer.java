@@ -78,6 +78,7 @@ public class XQueryLexer extends LexerBase {
     private static final int STATE_STRING_CONSTRUCTOR_CONTENTS = 27;
     private static final int STATE_DEFAULT_STRING_INTERPOLATION = 28;
     private static final int STATE_XQDOC_COMMENT = 29;
+    private static final int STATE_XQDOC_TAGGED_CONTENTS = 30;
 
     private void stateDefault(int mState) {
         int c = mTokenRange.getCodePoint();
@@ -525,6 +526,11 @@ public class XQueryLexer extends LexerBase {
             } else {
                 mTokenRange.restore();
             }
+        } else if (c == '@') {
+            mTokenRange.match();
+            mType = XQueryTokenType.XQDOC_TAG_INDICATOR;
+            pushState(STATE_XQDOC_TAGGED_CONTENTS);
+            return;
         } else if (c == '\r' || c == '\n') {
             mTokenRange.match();
             if (c == '\r' && mTokenRange.getCodePoint() == '\n') { // Windows line ending
@@ -574,13 +580,29 @@ public class XQueryLexer extends LexerBase {
                         return;
                     }
                 }
-            } else if (c == '\r' || c == '\n') {
+            } else if (c == '\r' || c == '\n' || c == '@') {
                 mType = XQueryTokenType.COMMENT;
                 return;
             } else {
                 mTokenRange.match();
             }
             c = mTokenRange.getCodePoint();
+        }
+    }
+
+    private void stateXQDocTaggedContents() {
+        int c = mTokenRange.getCodePoint();
+        if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9')) {
+            while ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9')) {
+                mTokenRange.match();
+                c = mTokenRange.getCodePoint();
+            }
+
+            mType = XQueryTokenType.XQDOC_TAG_NAME;
+            popState();
+        } else {
+            popState();
+            stateXQDocComment();
         }
     }
 
@@ -1326,6 +1348,9 @@ public class XQueryLexer extends LexerBase {
                 break;
             case STATE_XQDOC_COMMENT:
                 stateXQDocComment();
+                break;
+            case STATE_XQDOC_TAGGED_CONTENTS:
+                stateXQDocTaggedContents();
                 break;
             case STATE_XML_COMMENT:
             case STATE_XML_COMMENT_ELEM_CONTENT:
