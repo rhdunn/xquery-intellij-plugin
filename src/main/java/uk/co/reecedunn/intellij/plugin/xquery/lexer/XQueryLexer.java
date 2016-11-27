@@ -589,7 +589,7 @@ public class XQueryLexer extends LexerBase {
                         return;
                     }
                 }
-            } else if (c == '\r' || c == '\n' || c == '@') {
+            } else if (c == '\r' || c == '\n') {
                 mType = XQueryTokenType.COMMENT;
                 popState();
                 pushState(STATE_XQDOC_CONTENTS_START);

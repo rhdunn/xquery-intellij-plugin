@@ -64,7 +64,7 @@ public class ColorSettingsPage implements com.intellij.openapi.options.colors.Co
             "(: Comment :)\n" +
             "xquery version \"1.0\";\n" +
             "(:~ Documentation\n" +
-            " : @return A value.\n" +
+            " :@return A value.\n" +
             " :)\n" +
             "declare updating function update() external;\n" +
             "let $_ := (1234, \"One \"\" Two &quot; Three\", value)\n" +

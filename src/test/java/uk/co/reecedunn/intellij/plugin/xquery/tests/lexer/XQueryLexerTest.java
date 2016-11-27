@@ -4203,19 +4203,39 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, ":)",    31,  9, 11, XQueryTokenType.COMMENT_END_TAG);
         matchToken(lexer, "",       0, 11, 11, null);
 
-        lexer.start("(:~ @abc one two \n : @def three four :)");
+        lexer.start("(:~@abc one two \n :@def three four :)");
         matchToken(lexer, "(:~",           0,  0,  3, XQueryTokenType.XQDOC_START_TAG);
-        matchToken(lexer, " ",            29,  3,  4, XQueryTokenType.COMMENT);
-        matchToken(lexer, "@",            29,  4,  5, XQueryTokenType.XQDOC_TAG_INDICATOR);
-        matchToken(lexer, "abc",          30,  5,  8, XQueryTokenType.XQDOC_TAG_NAME);
-        matchToken(lexer, " one two ",    31,  8, 17, XQueryTokenType.COMMENT);
-        matchToken(lexer, "\n :",         29, 17, 20, XQueryTokenType.XQDOC_TRIM);
-        matchToken(lexer, " ",            29, 20, 21, XQueryTokenType.COMMENT);
-        matchToken(lexer, "@",            29, 21, 22, XQueryTokenType.XQDOC_TAG_INDICATOR);
-        matchToken(lexer, "def",          30, 22, 25, XQueryTokenType.XQDOC_TAG_NAME);
-        matchToken(lexer, " three four ", 31, 25, 37, XQueryTokenType.COMMENT);
-        matchToken(lexer, ":)",           31, 37, 39, XQueryTokenType.COMMENT_END_TAG);
-        matchToken(lexer, "",              0, 39, 39, null);
+        matchToken(lexer, "@",            29,  3,  4, XQueryTokenType.XQDOC_TAG_INDICATOR);
+        matchToken(lexer, "abc",          30,  4,  7, XQueryTokenType.XQDOC_TAG_NAME);
+        matchToken(lexer, " one two ",    31,  7, 16, XQueryTokenType.COMMENT);
+        matchToken(lexer, "\n :",         29, 16, 19, XQueryTokenType.XQDOC_TRIM);
+        matchToken(lexer, "@",            29, 19, 20, XQueryTokenType.XQDOC_TAG_INDICATOR);
+        matchToken(lexer, "def",          30, 20, 23, XQueryTokenType.XQDOC_TAG_NAME);
+        matchToken(lexer, " three four ", 31, 23, 35, XQueryTokenType.COMMENT);
+        matchToken(lexer, ":)",           31, 35, 37, XQueryTokenType.COMMENT_END_TAG);
+        matchToken(lexer, "",              0, 37, 37, null);
+    }
+
+    @Specification(name="xqDoc", reference="https://raw.githubusercontent.com/xquery/xquerydoc/master/ebnf/XQDocComments.ebnf")
+    public void testXQDoc_TaggedContents_TagIndicatorInMiddleOfContents() {
+        Lexer lexer = new XQueryLexer();
+
+        // NOTE: According to the xqDoc grammar, this should be tokenized with
+        // @two and @four being TaggedContent. However, this is used in the
+        // https://github.com/LeoWoerteler/xq-modules project to indicate email
+        // addresses, and the generated xqdoc extracts this correctly.
+
+        lexer.start("(:~@abc one@two \n :@def three@four :)");
+        matchToken(lexer, "(:~",           0,  0,  3, XQueryTokenType.XQDOC_START_TAG);
+        matchToken(lexer, "@",            29,  3,  4, XQueryTokenType.XQDOC_TAG_INDICATOR);
+        matchToken(lexer, "abc",          30,  4,  7, XQueryTokenType.XQDOC_TAG_NAME);
+        matchToken(lexer, " one@two ",    31,  7, 16, XQueryTokenType.COMMENT);
+        matchToken(lexer, "\n :",         29, 16, 19, XQueryTokenType.XQDOC_TRIM);
+        matchToken(lexer, "@",            29, 19, 20, XQueryTokenType.XQDOC_TAG_INDICATOR);
+        matchToken(lexer, "def",          30, 20, 23, XQueryTokenType.XQDOC_TAG_NAME);
+        matchToken(lexer, " three@four ", 31, 23, 35, XQueryTokenType.COMMENT);
+        matchToken(lexer, ":)",           31, 35, 37, XQueryTokenType.COMMENT_END_TAG);
+        matchToken(lexer, "",              0, 37, 37, null);
     }
 
     // endregion
