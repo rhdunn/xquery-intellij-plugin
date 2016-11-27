@@ -77,8 +77,9 @@ public class XQueryLexer extends LexerBase {
     private static final int STATE_BRACED_URI_LITERAL = 26;
     private static final int STATE_STRING_CONSTRUCTOR_CONTENTS = 27;
     private static final int STATE_DEFAULT_STRING_INTERPOLATION = 28;
-    private static final int STATE_XQDOC_COMMENT = 29;
+    private static final int STATE_XQDOC_CONTENTS_START = 29;
     private static final int STATE_XQDOC_TAGGED_CONTENTS = 30;
+    private static final int STATE_XQDOC_CONTENTS = 31;
 
     private void stateDefault(int mState) {
         int c = mTokenRange.getCodePoint();
@@ -174,7 +175,7 @@ public class XQueryLexer extends LexerBase {
                     if (mTokenRange.getCodePoint() == '~') {
                         mTokenRange.match();
                         mType = XQueryTokenType.XQDOC_START_TAG;
-                        pushState(STATE_XQDOC_COMMENT);
+                        pushState(STATE_XQDOC_CONTENTS_START);
                     } else {
                         mType = XQueryTokenType.COMMENT_START_TAG;
                         pushState(STATE_XQUERY_COMMENT);
@@ -510,28 +511,9 @@ public class XQueryLexer extends LexerBase {
         popState();
     }
 
-    private void stateXQDocComment() {
+    private void stateXQDocContentsStart() {
         int c = mTokenRange.getCodePoint();
-        if (c == XQueryCodePointRange.END_OF_BUFFER) {
-            mType = null;
-            return;
-        } else if (c == ':') {
-            mTokenRange.save();
-            mTokenRange.match();
-            if (mTokenRange.getCodePoint() == ')') {
-                mTokenRange.match();
-                mType = XQueryTokenType.COMMENT_END_TAG;
-                popState();
-                return;
-            } else {
-                mTokenRange.restore();
-            }
-        } else if (c == '@') {
-            mTokenRange.match();
-            mType = XQueryTokenType.XQDOC_TAG_INDICATOR;
-            pushState(STATE_XQDOC_TAGGED_CONTENTS);
-            return;
-        } else if (c == '\r' || c == '\n') {
+        if (c == '\r' || c == '\n') {
             mTokenRange.match();
             if (c == '\r' && mTokenRange.getCodePoint() == '\n') { // Windows line ending
                 mTokenRange.match();
@@ -552,7 +534,34 @@ public class XQueryLexer extends LexerBase {
             }
 
             mType = XQueryTokenType.XQDOC_TRIM;
+        } else if (c == '@') {
+            mTokenRange.match();
+            mType = XQueryTokenType.XQDOC_TAG_INDICATOR;
+            popState();
+            pushState(STATE_XQDOC_TAGGED_CONTENTS);
+        } else {
+            popState();
+            pushState(STATE_XQDOC_CONTENTS);
+            stateXQDocContents();
+        }
+    }
+
+    private void stateXQDocContents() {
+        int c = mTokenRange.getCodePoint();
+        if (c == XQueryCodePointRange.END_OF_BUFFER) {
+            mType = null;
             return;
+        } else if (c == ':') {
+            mTokenRange.save();
+            mTokenRange.match();
+            if (mTokenRange.getCodePoint() == ')') {
+                mTokenRange.match();
+                mType = XQueryTokenType.COMMENT_END_TAG;
+                popState();
+                return;
+            } else {
+                mTokenRange.restore();
+            }
         }
 
         int depth = 1;
@@ -582,6 +591,8 @@ public class XQueryLexer extends LexerBase {
                 }
             } else if (c == '\r' || c == '\n' || c == '@') {
                 mType = XQueryTokenType.COMMENT;
+                popState();
+                pushState(STATE_XQDOC_CONTENTS_START);
                 return;
             } else {
                 mTokenRange.match();
@@ -600,9 +611,11 @@ public class XQueryLexer extends LexerBase {
 
             mType = XQueryTokenType.XQDOC_TAG_NAME;
             popState();
+            pushState(STATE_XQDOC_CONTENTS);
         } else {
             popState();
-            stateXQDocComment();
+            pushState(STATE_XQDOC_CONTENTS);
+            stateXQDocContents();
         }
     }
 
@@ -1346,8 +1359,11 @@ public class XQueryLexer extends LexerBase {
             case STATE_XQUERY_COMMENT:
                 stateXQueryComment();
                 break;
-            case STATE_XQDOC_COMMENT:
-                stateXQDocComment();
+            case STATE_XQDOC_CONTENTS_START:
+                stateXQDocContentsStart();
+                break;
+            case STATE_XQDOC_CONTENTS:
+                stateXQDocContents();
                 break;
             case STATE_XQDOC_TAGGED_CONTENTS:
                 stateXQDocTaggedContents();
