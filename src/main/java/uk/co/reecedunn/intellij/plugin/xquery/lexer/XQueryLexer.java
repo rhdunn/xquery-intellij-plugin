@@ -534,6 +534,13 @@ public class XQueryLexer extends LexerBase {
             }
 
             mType = XQueryTokenType.XQDOC_TRIM;
+        } else if (c == ' ' || c == '\t') {
+            while (c == ' ' || c == '\t') {
+                mTokenRange.match();
+                c = mTokenRange.getCodePoint();
+            }
+
+            mType = XQueryTokenType.WHITE_SPACE;
         } else if (c == '@') {
             mTokenRange.match();
             mType = XQueryTokenType.XQDOC_TAG_INDICATOR;

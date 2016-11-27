@@ -1,9 +1,11 @@
 FileElement[FILE(0:26)]
    XQDocCommentImpl[XQDOC_COMMENT(0:26)]
       LeafPsiElement[XQUERY_XQDOC_START_TAG_TOKEN(0:3)]('(:~')
-      PsiCommentImpl[XQUERY_COMMENT_TOKEN(3:7)](' One')
+      PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
+      PsiCommentImpl[XQUERY_COMMENT_TOKEN(4:7)]('One')
       LeafPsiElement[XQUERY_XQDOC_TRIM_TOKEN(7:10)]('\n :')
-      PsiCommentImpl[XQUERY_COMMENT_TOKEN(10:14)](' Two')
+      PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
+      PsiCommentImpl[XQUERY_COMMENT_TOKEN(11:14)]('Two')
       LeafPsiElement[XQUERY_XQDOC_TRIM_TOKEN(14:18)]('\n   ')
       PsiCommentImpl[XQUERY_COMMENT_TOKEN(18:23)]('Three')
       LeafPsiElement[XQUERY_XQDOC_TRIM_TOKEN(23:24)]('\n')
