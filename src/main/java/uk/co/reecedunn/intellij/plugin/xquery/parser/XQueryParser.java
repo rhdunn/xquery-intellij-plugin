@@ -5648,6 +5648,17 @@ class XQueryParser {
         return false;
     }
 
+    private boolean parseXQDocContents() {
+        final PsiBuilder.Marker commentMarker = mark();
+        while (matchTokenType(XQueryTokenType.XQDOC_TRIM) ||
+               matchTokenType(XQueryTokenType.WHITE_SPACE) ||
+               errorOnTokenType(XQueryTokenType.UNEXPECTED_END_OF_BLOCK, XQueryBundle.message("parser.error.incomplete-comment"))) {
+            //
+        }
+        commentMarker.done(XQueryElementType.XQDOC_CONTENTS);
+        return true;
+    }
+
     private boolean parseWhiteSpaceAndCommentTokens() {
         boolean skipped = false;
         while (true) {
@@ -5673,8 +5684,10 @@ class XQueryParser {
                 final PsiBuilder.Marker commentMarker = mark();
                 mBuilder.advanceLexer();
 
+                parseXQDocContents();
+
                 while (mBuilder.getTokenType() != XQueryTokenType.COMMENT_END_TAG &&
-                       mBuilder.getTokenType() != XQueryTokenType.UNEXPECTED_END_OF_BLOCK) {
+                       mBuilder.getTokenType() != null) {
                     mBuilder.advanceLexer();
                 }
 
@@ -5682,9 +5695,7 @@ class XQueryParser {
                     mBuilder.advanceLexer();
                     commentMarker.done(XQueryElementType.XQDOC_COMMENT);
                 } else { // XQueryTokenType.UNEXPECTED_END_OF_BLOCK
-                    mBuilder.advanceLexer();
                     commentMarker.done(XQueryElementType.XQDOC_COMMENT);
-                    mBuilder.error(XQueryBundle.message("parser.error.incomplete-comment"));
                 }
             } else if (mBuilder.getTokenType() == XQueryTokenType.COMMENT_END_TAG) {
                 skipped = true;

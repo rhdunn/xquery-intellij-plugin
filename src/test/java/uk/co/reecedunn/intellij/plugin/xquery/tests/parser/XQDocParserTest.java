@@ -22,7 +22,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class XQDocParserTest extends ParserTestCase {
-    // region xqDoc :: XQDocComment
+    // region xqDoc :: XQDocComment + Contents
 
     @Specification(name="xqDoc", reference="https://raw.githubusercontent.com/xquery/xquerydoc/master/ebnf/XQDocComments.ebnf")
     public void testXQDocComment() {
