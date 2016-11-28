@@ -5650,14 +5650,18 @@ class XQueryParser {
 
     private boolean parseXQDocContents() {
         final PsiBuilder.Marker commentMarker = mark();
-        while (matchTokenType(XQueryTokenType.XQDOC_TRIM) ||
-               matchTokenType(XQueryTokenType.XQDOC_TAG_CONTENTS_START) ||
-               matchTokenType(XQueryTokenType.WHITE_SPACE) ||
-               errorOnTokenType(XQueryTokenType.UNEXPECTED_END_OF_BLOCK, XQueryBundle.message("parser.error.incomplete-comment"))) {
-            //
+        while (true) {
+            if (errorOnTokenType(XQueryTokenType.UNEXPECTED_END_OF_BLOCK, XQueryBundle.message("parser.error.incomplete-comment"))) {
+                //
+            } else if (getTokenType() == null ||
+                       getTokenType() == XQueryTokenType.COMMENT_END_TAG ||
+                       getTokenType() == XQueryTokenType.XQDOC_TAG_INDICATOR) {
+                commentMarker.done(XQueryElementType.XQDOC_CONTENTS);
+                return true;
+            } else {
+                mBuilder.advanceLexer();
+            }
         }
-        commentMarker.done(XQueryElementType.XQDOC_CONTENTS);
-        return true;
     }
 
     private boolean parseXQDocTaggedContents() {
