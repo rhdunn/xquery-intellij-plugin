@@ -37,6 +37,7 @@ public interface XQueryTokenType extends TokenType {
     IElementType XQDOC_END_XML_TAG = new IElementType("XQUERY_XQDOC_END_XML_TAG_TOKEN", XQuery.INSTANCE);
     IElementType XQDOC_CLOSE_XML_TAG = new IElementType("XQUERY_XQDOC_CLOSE_XML_TAG_TOKEN", XQuery.INSTANCE);
     IElementType XQDOC_SELF_CLOSING_XML_TAG = new IElementType("XQUERY_XQDOC_SELF_CLOSING_XML_TAG_TOKEN", XQuery.INSTANCE);
+    IElementType XQDOC_XML_TAG_NAME = new IElementType("XQUERY_XQDOC_XML_TAG_NAME_TOKEN", XQuery.INSTANCE);
 
     IElementType XML_COMMENT = new IElementType("XQUERY_XML_COMMENT_TOKEN", XQuery.INSTANCE);
     IElementType XML_COMMENT_START_TAG = new IElementType("XQUERY_XML_COMMENT_START_TAG_TOKEN", XQuery.INSTANCE);

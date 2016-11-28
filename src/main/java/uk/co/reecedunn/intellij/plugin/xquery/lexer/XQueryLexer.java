@@ -564,7 +564,7 @@ public class XQueryLexer extends LexerBase {
                 c = mTokenRange.getCodePoint();
             }
 
-            mType = XQueryTokenType.XQDOC_TAG_NAME;
+            mType = XQueryTokenType.XQDOC_XML_TAG_NAME;
         } else if (c == '>') {
             mTokenRange.match();
             mType = XQueryTokenType.XQDOC_END_XML_TAG;
