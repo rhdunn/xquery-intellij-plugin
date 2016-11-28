@@ -35,6 +35,7 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
     public static final TextAttributesKey STRING = TextAttributesKey.createTextAttributesKey("XQUERY_STRING", DefaultLanguageHighlighterColors.STRING);
     public static final TextAttributesKey NS_PREFIX = TextAttributesKey.createTextAttributesKey("XQUERY_NS_PREFIX", DefaultLanguageHighlighterColors.INSTANCE_FIELD);
     public static final TextAttributesKey XQDOC_TAG = TextAttributesKey.createTextAttributesKey("XQUERY_XQDOC_TAG", DefaultLanguageHighlighterColors.DOC_COMMENT_TAG);
+    public static final TextAttributesKey XQDOC_MARKUP = TextAttributesKey.createTextAttributesKey("XQUERY_XQDOC_MARKUP", DefaultLanguageHighlighterColors.DOC_COMMENT_MARKUP);
 
     public static final TextAttributesKey XML_TAG = TextAttributesKey.createTextAttributesKey("XQUERY_XML_TAG", XmlHighlighterColors.XML_TAG);
     public static final TextAttributesKey XML_TAG_NAME = TextAttributesKey.createTextAttributesKey("XQUERY_XML_TAG_NAME", XmlHighlighterColors.XML_TAG_NAME);
@@ -54,6 +55,7 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
 
     private static final TextAttributesKey[] COMMENT_KEYS = pack(COMMENT);
     private static final TextAttributesKey[] XQDOC_TAG_KEYS = pack(COMMENT, XQDOC_TAG);
+    private static final TextAttributesKey[] XQDOC_MARKUP_KEYS = pack(COMMENT, XQDOC_MARKUP);
 
     private static final TextAttributesKey[] XML_TAG_KEYS = pack(XML_TAG);
     private static final TextAttributesKey[] XML_TAG_NAME_KEYS = pack(XML_TAG, XML_TAG_NAME);
@@ -138,6 +140,12 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
         } else if (type == XQueryTokenType.XQDOC_TAG_INDICATOR ||
                    type == XQueryTokenType.XQDOC_TAG_NAME) {
             return XQDOC_TAG_KEYS;
+        } else if (type == XQueryTokenType.XQDOC_OPEN_XML_TAG ||
+                   type == XQueryTokenType.XQDOC_END_XML_TAG ||
+                   type == XQueryTokenType.XQDOC_CLOSE_XML_TAG ||
+                   type == XQueryTokenType.XQDOC_SELF_CLOSING_XML_TAG ||
+                   type == XQueryTokenType.XQDOC_XML_TAG_NAME) {
+            return XQDOC_MARKUP_KEYS;
         }
         return EMPTY;
     }

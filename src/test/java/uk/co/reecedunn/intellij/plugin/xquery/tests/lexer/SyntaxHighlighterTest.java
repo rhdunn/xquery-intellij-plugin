@@ -637,6 +637,30 @@ public class SyntaxHighlighterTest extends TestCase {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.XQDOC_TAG_NAME)[1], is(SyntaxHighlighter.XQDOC_TAG));
     }
 
+    public void testTokenHighlights_XQDocMarkup() {
+        SyntaxHighlighter highlighter = new SyntaxHighlighter();
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XQDOC_OPEN_XML_TAG).length, is(2));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XQDOC_OPEN_XML_TAG)[0], is(SyntaxHighlighter.COMMENT));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XQDOC_OPEN_XML_TAG)[1], is(SyntaxHighlighter.XQDOC_MARKUP));
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XQDOC_END_XML_TAG).length, is(2));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XQDOC_END_XML_TAG)[0], is(SyntaxHighlighter.COMMENT));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XQDOC_END_XML_TAG)[1], is(SyntaxHighlighter.XQDOC_MARKUP));
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XQDOC_CLOSE_XML_TAG).length, is(2));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XQDOC_CLOSE_XML_TAG)[0], is(SyntaxHighlighter.COMMENT));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XQDOC_CLOSE_XML_TAG)[1], is(SyntaxHighlighter.XQDOC_MARKUP));
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XQDOC_SELF_CLOSING_XML_TAG).length, is(2));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XQDOC_SELF_CLOSING_XML_TAG)[0], is(SyntaxHighlighter.COMMENT));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XQDOC_SELF_CLOSING_XML_TAG)[1], is(SyntaxHighlighter.XQDOC_MARKUP));
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XQDOC_XML_TAG_NAME).length, is(2));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XQDOC_XML_TAG_NAME)[0], is(SyntaxHighlighter.COMMENT));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XQDOC_XML_TAG_NAME)[1], is(SyntaxHighlighter.XQDOC_MARKUP));
+    }
+
     public void testTokenHighlights_XmlTag() {
         SyntaxHighlighter highlighter = new SyntaxHighlighter();
 
