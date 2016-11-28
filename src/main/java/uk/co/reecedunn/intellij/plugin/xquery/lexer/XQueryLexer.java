@@ -578,6 +578,13 @@ public class XQueryLexer extends LexerBase {
             } else {
                 mType = XQueryTokenType.INVALID;
             }
+        } else if (c == '\r' || c == '\n' || c == ' ' || c == '\t') {
+            while (c == '\r' || c == '\n' || c == ' ' || c == '\t') {
+                mTokenRange.match();
+                c = mTokenRange.getCodePoint();
+            }
+
+            mType = XQueryTokenType.WHITE_SPACE;
         } else {
             stateXQDocContents();
         }
