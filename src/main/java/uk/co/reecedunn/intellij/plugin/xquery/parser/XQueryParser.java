@@ -1093,15 +1093,8 @@ class XQueryParser {
     }
 
     private boolean parseFunctionDecl(PsiBuilder.Marker functionDeclMarker) {
-        if (getTokenType() == XQueryTokenType.K_FUNCTION) {
+        if (matchTokenType(XQueryTokenType.K_FUNCTION)) {
             boolean haveErrors = false;
-
-            if (getTokenType() == XQueryTokenType.K_FUNCTION) {
-                advanceLexer();
-            } else {
-                error(XQueryBundle.message("parser.error.expected-keyword", "function"));
-                haveErrors = true;
-            }
 
             parseWhiteSpaceAndCommentTokens();
             if (!parseEQName(XQueryElementType.QNAME) && !haveErrors) {
