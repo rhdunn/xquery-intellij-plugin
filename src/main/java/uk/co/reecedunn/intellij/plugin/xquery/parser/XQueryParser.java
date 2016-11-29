@@ -5444,6 +5444,40 @@ class XQueryParser {
     }
 
     // endregion
+    // region Grammar :: xqDoc
+
+    private boolean parseXQDocContents() {
+        final PsiBuilder.Marker commentMarker = mark();
+        while (true) {
+            if (errorOnTokenType(XQueryTokenType.UNEXPECTED_END_OF_BLOCK, XQueryBundle.message("parser.error.incomplete-comment"))) {
+                //
+            } else if (getTokenType() == null ||
+                    getTokenType() == XQueryTokenType.COMMENT_END_TAG ||
+                    getTokenType() == XQueryTokenType.XQDOC_TAG_INDICATOR) {
+                commentMarker.done(XQueryElementType.XQDOC_CONTENTS);
+                return true;
+            } else {
+                mBuilder.advanceLexer();
+            }
+        }
+    }
+
+    private boolean parseXQDocTaggedContents() {
+        final PsiBuilder.Marker commentMarker = matchTokenTypeWithMarker(XQueryTokenType.XQDOC_TAG_INDICATOR);
+        if (commentMarker != null) {
+            if (!matchTokenType(XQueryTokenType.XQDOC_TAG_NAME)) {
+                error(XQueryBundle.message("parser.error.expected-ncname"));
+            }
+
+            parseXQDocContents();
+
+            commentMarker.done(XQueryElementType.XQDOC_TAGGED_CONTENTS);
+            return true;
+        }
+        return false;
+    }
+
+    // endregion
     // region Lexical Structure :: Terminal Symbols
 
     private boolean parseStringLiteral(IElementType type) {
@@ -5645,37 +5679,6 @@ class XQueryParser {
             return true;
         }
         qnameMarker.drop();
-        return false;
-    }
-
-    private boolean parseXQDocContents() {
-        final PsiBuilder.Marker commentMarker = mark();
-        while (true) {
-            if (errorOnTokenType(XQueryTokenType.UNEXPECTED_END_OF_BLOCK, XQueryBundle.message("parser.error.incomplete-comment"))) {
-                //
-            } else if (getTokenType() == null ||
-                       getTokenType() == XQueryTokenType.COMMENT_END_TAG ||
-                       getTokenType() == XQueryTokenType.XQDOC_TAG_INDICATOR) {
-                commentMarker.done(XQueryElementType.XQDOC_CONTENTS);
-                return true;
-            } else {
-                mBuilder.advanceLexer();
-            }
-        }
-    }
-
-    private boolean parseXQDocTaggedContents() {
-        final PsiBuilder.Marker commentMarker = matchTokenTypeWithMarker(XQueryTokenType.XQDOC_TAG_INDICATOR);
-        if (commentMarker != null) {
-            if (!matchTokenType(XQueryTokenType.XQDOC_TAG_NAME)) {
-                error(XQueryBundle.message("parser.error.expected-ncname"));
-            }
-
-            parseXQDocContents();
-
-            commentMarker.done(XQueryElementType.XQDOC_TAGGED_CONTENTS);
-            return true;
-        }
         return false;
     }
 
