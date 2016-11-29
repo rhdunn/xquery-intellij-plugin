@@ -156,7 +156,7 @@ public class XQueryProjectSettings implements PersistentStateComponent<XQueryPro
             case VERSION_0_9_MARKLOGIC:
                 final ImplementationItem default09ml = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryConformance.MINIMAL_CONFORMANCE, version);
                 if (default09ml == ImplementationItem.NULL_ITEM) {
-                    return Implementations.getItemById("marklogic/v8/0.9-ml");
+                    return Implementations.getItemById("marklogic/v8/1.0-ml");
                 }
                 return default09ml;
             case VERSION_1_0_MARKLOGIC:
