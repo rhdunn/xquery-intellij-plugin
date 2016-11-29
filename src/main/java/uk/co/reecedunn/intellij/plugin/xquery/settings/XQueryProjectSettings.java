@@ -143,6 +143,7 @@ public class XQueryProjectSettings implements PersistentStateComponent<XQueryPro
                     return Implementations.getItemById("w3c/1.0");
                 }
                 return XQUERY_1_0_DIALECT;
+            default:
             case VERSION_3_0:
                 if (XQUERY_3_0_DIALECT == ImplementationItem.NULL_ITEM) {
                     return Implementations.getItemById("w3c/3.0");
@@ -165,8 +166,6 @@ public class XQueryProjectSettings implements PersistentStateComponent<XQueryPro
                     return Implementations.getItemById("marklogic/v8/1.0-ml");
                 }
                 return default10ml;
-            default:
-                return ImplementationItem.NULL_ITEM;
         }
     }
 

@@ -50,6 +50,7 @@ public class XQueryProjectSettingsTest extends TestCase {
         assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_1_0).getID(), is("w3c/1.0"));
         assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_3_0).getID(), is("w3c/3.0"));
         assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_3_1).getID(), is("w3c/3.1"));
+        assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_9_4).getID(), is("w3c/3.0"));
     }
 
     public void testGetState() {
@@ -87,6 +88,7 @@ public class XQueryProjectSettingsTest extends TestCase {
         assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_1_0).getID(), is("marklogic/v6/1.0"));
         assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_3_0).getID(), is("marklogic/v6/1.0"));
         assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_3_1).getID(), is("marklogic/v6/1.0"));
+        assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_9_4).getID(), is("marklogic/v6/1.0"));
     }
 
     public void testExportedFiles() {
@@ -124,6 +126,7 @@ public class XQueryProjectSettingsTest extends TestCase {
         assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_1_0).getID(), is("marklogic/v6/1.0"));
         assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_3_0).getID(), is("marklogic/v6/1.0"));
         assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_3_1).getID(), is("marklogic/v6/1.0"));
+        assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_9_4).getID(), is("marklogic/v6/1.0"));
 
         // Setting via the transient properties updates the bean properties.
         assertThat(settings.getImplementation(), is("marklogic"));
@@ -146,6 +149,7 @@ public class XQueryProjectSettingsTest extends TestCase {
         assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_1_0).getID(), is("w3c/1.0"));
         assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_3_0).getID(), is("w3c/3.0"));
         assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_3_1).getID(), is("w3c/3.1"));
+        assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_9_4).getID(), is("w3c/3.0"));
 
         settings.setImplementation("w3c");
         settings.setImplementationVersion("w3c/spec");
@@ -158,6 +162,7 @@ public class XQueryProjectSettingsTest extends TestCase {
         assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_1_0).getID(), is("w3c/1.0"));
         assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_3_0).getID(), is("w3c/3.0"));
         assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_3_1).getID(), is("w3c/3.1"));
+        assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_9_4).getID(), is("w3c/3.0"));
     }
 
     public void testSerialization() {
