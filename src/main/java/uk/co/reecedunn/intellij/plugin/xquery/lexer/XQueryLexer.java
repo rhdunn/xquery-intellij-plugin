@@ -83,6 +83,8 @@ public class XQueryLexer extends LexerBase {
     private static final int STATE_XQDOC_FINAL_TRIM = 32;
     private static final int STATE_XQDOC_TAG_CONTENTS_START = 33;
     private static final int STATE_XQDOC_ELEM_CONSTRUCTOR = 34;
+    private static final int STATE_XQDOC_ATTRIBUTE_VALUE_QUOT = 35;
+    private static final int STATE_XQDOC_ATTRIBUTE_VALUE_APOS = 36;
 
     private void stateDefault(int mState) {
         int c = mTokenRange.getCodePoint();
@@ -585,8 +587,46 @@ public class XQueryLexer extends LexerBase {
             }
 
             mType = XQueryTokenType.WHITE_SPACE;
+        } else if (c == '=') {
+            mTokenRange.match();
+            mType = XQueryTokenType.XQDOC_XML_EQUAL;
+        } else if (c == '"') {
+            mTokenRange.match();
+            mType = XQueryTokenType.XQDOC_XML_ATTRIBUTE_VALUE_START;
+            pushState(STATE_XQDOC_ATTRIBUTE_VALUE_QUOT);
+        } else if (c == '\'') {
+            mTokenRange.match();
+            mType = XQueryTokenType.XQDOC_XML_ATTRIBUTE_VALUE_START;
+            pushState(STATE_XQDOC_ATTRIBUTE_VALUE_APOS);
         } else {
             stateXQDocContents();
+        }
+    }
+
+    private void stateXQDocAttributeValue(char type) {
+        int c = mTokenRange.getCodePoint();
+        if (c == type) {
+            mTokenRange.match();
+            mType = XQueryTokenType.XQDOC_XML_ATTRIBUTE_VALUE_END;
+            popState();
+        } else if (c == XQueryCodePointRange.END_OF_BUFFER) {
+            mType = null;
+        } else {
+            while (true) {
+                switch (c) {
+                    case XQueryCodePointRange.END_OF_BUFFER:
+                        mType = XQueryTokenType.XQDOC_XML_ATTRIBUTE_VALUE_CONTENTS;
+                        return;
+                    default:
+                        if (c == type) {
+                            mType = XQueryTokenType.XQDOC_XML_ATTRIBUTE_VALUE_CONTENTS;
+                            return;
+                        } else {
+                            mTokenRange.match();
+                            c = mTokenRange.getCodePoint();
+                        }
+                }
+            }
         }
     }
 
@@ -1443,6 +1483,12 @@ public class XQueryLexer extends LexerBase {
                 break;
             case STATE_XQDOC_ELEM_CONSTRUCTOR:
                 stateXQDocElemConstructor();
+                break;
+            case STATE_XQDOC_ATTRIBUTE_VALUE_QUOT:
+                stateXQDocAttributeValue('"');
+                break;
+            case STATE_XQDOC_ATTRIBUTE_VALUE_APOS:
+                stateXQDocAttributeValue('\'');
                 break;
             case STATE_XML_COMMENT:
             case STATE_XML_COMMENT_ELEM_CONTENT:

@@ -659,6 +659,22 @@ public class SyntaxHighlighterTest extends TestCase {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.XQDOC_XML_TAG_NAME).length, is(2));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.XQDOC_XML_TAG_NAME)[0], is(SyntaxHighlighter.COMMENT));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.XQDOC_XML_TAG_NAME)[1], is(SyntaxHighlighter.XQDOC_MARKUP));
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XQDOC_XML_EQUAL).length, is(2));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XQDOC_XML_EQUAL)[0], is(SyntaxHighlighter.COMMENT));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XQDOC_XML_EQUAL)[1], is(SyntaxHighlighter.XQDOC_MARKUP));
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XQDOC_XML_ATTRIBUTE_VALUE_START).length, is(2));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XQDOC_XML_ATTRIBUTE_VALUE_START)[0], is(SyntaxHighlighter.COMMENT));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XQDOC_XML_ATTRIBUTE_VALUE_START)[1], is(SyntaxHighlighter.XQDOC_MARKUP));
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XQDOC_XML_ATTRIBUTE_VALUE_END).length, is(2));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XQDOC_XML_ATTRIBUTE_VALUE_END)[0], is(SyntaxHighlighter.COMMENT));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XQDOC_XML_ATTRIBUTE_VALUE_END)[1], is(SyntaxHighlighter.XQDOC_MARKUP));
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XQDOC_XML_ATTRIBUTE_VALUE_CONTENTS).length, is(2));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XQDOC_XML_ATTRIBUTE_VALUE_CONTENTS)[0], is(SyntaxHighlighter.COMMENT));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XQDOC_XML_ATTRIBUTE_VALUE_CONTENTS)[1], is(SyntaxHighlighter.XQDOC_MARKUP));
     }
 
     public void testTokenHighlights_XmlTag() {

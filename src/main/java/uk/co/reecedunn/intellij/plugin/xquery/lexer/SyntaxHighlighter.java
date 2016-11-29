@@ -144,7 +144,11 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
                    type == XQueryTokenType.XQDOC_END_XML_TAG ||
                    type == XQueryTokenType.XQDOC_CLOSE_XML_TAG ||
                    type == XQueryTokenType.XQDOC_SELF_CLOSING_XML_TAG ||
-                   type == XQueryTokenType.XQDOC_XML_TAG_NAME) {
+                   type == XQueryTokenType.XQDOC_XML_TAG_NAME ||
+                   type == XQueryTokenType.XQDOC_XML_EQUAL ||
+                   type == XQueryTokenType.XQDOC_XML_ATTRIBUTE_VALUE_START ||
+                   type == XQueryTokenType.XQDOC_XML_ATTRIBUTE_VALUE_CONTENTS ||
+                   type == XQueryTokenType.XQDOC_XML_ATTRIBUTE_VALUE_END) {
             return XQDOC_MARKUP_KEYS;
         }
         return EMPTY;
