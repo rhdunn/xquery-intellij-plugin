@@ -7,11 +7,13 @@ Language Support:
 1.  Complete support for XQuery 3.1 constructs.
 2.  Complete support for Update Facility 3.0 extensions.
 3.  Improved error reporting on unbalanced XML (`DirElemConstructor` parsing).
+4.  Support for xqDoc documentation comments.
 
 IntelliJ Integration:
 
 1.  Paired brace matching.
 2.  Commenting code support.
+3.  Fixed `VersionDecl` conformance checks on invalid version strings.
 
 ## 0.2.1 - 2016-11-05
 

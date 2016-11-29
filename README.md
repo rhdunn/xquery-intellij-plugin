@@ -29,7 +29,8 @@ detection. Supports:
 
 *  XQuery 1.0, 3.0 and 3.1 core language;
 *  XQuery Update Facility 1.0 and 3.0 extension;
-*  MarkLogic 6.0 to 8.0 vendor extensions.
+*  MarkLogic 6.0 to 8.0 vendor extensions;
+*  xqDoc documentation comments.
 
 ![Syntax Highlighting](images/syntax-highlighting.png)
 
