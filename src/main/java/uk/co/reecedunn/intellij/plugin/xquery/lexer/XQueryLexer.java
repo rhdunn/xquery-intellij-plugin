@@ -599,7 +599,8 @@ public class XQueryLexer extends LexerBase {
             mType = XQueryTokenType.XQDOC_XML_ATTRIBUTE_VALUE_START;
             pushState(STATE_XQDOC_ATTRIBUTE_VALUE_APOS);
         } else {
-            stateXQDocContents();
+            mTokenRange.match();
+            mType = XQueryTokenType.INVALID;
         }
     }
 

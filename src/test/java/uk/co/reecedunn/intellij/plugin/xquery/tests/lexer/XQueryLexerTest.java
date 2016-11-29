@@ -4333,6 +4333,24 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "",       32, 37, 37, XQueryTokenType.XQDOC_TRIM);
         matchToken(lexer, ":)",     31, 37, 39, XQueryTokenType.COMMENT_END_TAG);
         matchToken(lexer, "",        0, 39, 39, null);
+
+        lexer.start("(:~ @abc one <two-three /> four :)");
+        matchToken(lexer, "(:~",     0,  0,  3, XQueryTokenType.XQDOC_START_TAG);
+        matchToken(lexer, " ",      29,  3,  4, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "@",      29,  4,  5, XQueryTokenType.XQDOC_TAG_INDICATOR);
+        matchToken(lexer, "abc",    30,  5,  8, XQueryTokenType.XQDOC_TAG_NAME);
+        matchToken(lexer, "",       33,  8,  8, XQueryTokenType.XQDOC_TAG_CONTENTS_START);
+        matchToken(lexer, " one ",  31,  8, 13, XQueryTokenType.COMMENT);
+        matchToken(lexer, "<",      31, 13, 14, XQueryTokenType.XQDOC_OPEN_XML_TAG);
+        matchToken(lexer, "two",    34, 14, 17, XQueryTokenType.XQDOC_XML_TAG_NAME);
+        matchToken(lexer, "-",      34, 17, 18, XQueryTokenType.INVALID);
+        matchToken(lexer, "three",  34, 18, 23, XQueryTokenType.XQDOC_XML_TAG_NAME);
+        matchToken(lexer, " ",      34, 23, 24, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "/>",     34, 24, 26, XQueryTokenType.XQDOC_SELF_CLOSING_XML_TAG);
+        matchToken(lexer, " four ", 31, 26, 32, XQueryTokenType.COMMENT);
+        matchToken(lexer, "",       32, 32, 32, XQueryTokenType.XQDOC_TRIM);
+        matchToken(lexer, ":)",     31, 32, 34, XQueryTokenType.COMMENT_END_TAG);
+        matchToken(lexer, "",        0, 34, 34, null);
     }
 
     // endregion
