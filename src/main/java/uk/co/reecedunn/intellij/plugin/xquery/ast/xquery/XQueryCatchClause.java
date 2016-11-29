@@ -21,4 +21,5 @@ import com.intellij.psi.PsiElement;
  * An XQuery 1.0 <code>CatchClause</code> node in the XQuery AST.
  */
 public interface XQueryCatchClause extends PsiElement {
+    boolean isMarkLogicExtension();
 }

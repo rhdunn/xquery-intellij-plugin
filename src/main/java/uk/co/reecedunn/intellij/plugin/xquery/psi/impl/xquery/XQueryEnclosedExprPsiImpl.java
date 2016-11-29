@@ -19,10 +19,7 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCompAttrConstructor;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCompPIConstructor;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEnclosedExpr;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryExtensionExpr;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
@@ -35,8 +32,7 @@ public class XQueryEnclosedExprPsiImpl extends ASTWrapperPsiElement implements X
         super(node);
     }
 
-    private boolean previousVersionSupportsOptionalExpr() {
-        PsiElement parent = getParent();
+    private boolean previousVersionSupportsOptionalExpr(PsiElement parent) {
         return parent instanceof XQueryCompPIConstructor ||
                parent instanceof XQueryCompAttrConstructor ||
                parent instanceof XQueryExtensionExpr;
@@ -44,8 +40,16 @@ public class XQueryEnclosedExprPsiImpl extends ASTWrapperPsiElement implements X
 
     @Override
     public boolean conformsTo(ImplementationItem implementation) {
-        if (previousVersionSupportsOptionalExpr() || getConformanceElement() != getFirstChild()) {
+        PsiElement parent = getParent();
+        if (previousVersionSupportsOptionalExpr(parent) || getConformanceElement() != getFirstChild()) {
             return true;
+        }
+
+        if (parent instanceof XQueryCatchClause) {
+            XQueryCatchClause catchClause = (XQueryCatchClause)parent;
+            if (catchClause.isMarkLogicExtension()) {
+                return true;
+            }
         }
 
         final XQueryVersion minimalConformance = implementation.getVersion(XQueryConformance.MINIMAL_CONFORMANCE);
