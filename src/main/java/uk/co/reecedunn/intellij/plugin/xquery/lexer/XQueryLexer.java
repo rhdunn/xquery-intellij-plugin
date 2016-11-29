@@ -85,6 +85,8 @@ public class XQueryLexer extends LexerBase {
     private static final int STATE_XQDOC_ELEM_CONSTRUCTOR = 34;
     private static final int STATE_XQDOC_ATTRIBUTE_VALUE_QUOT = 35;
     private static final int STATE_XQDOC_ATTRIBUTE_VALUE_APOS = 36;
+    private static final int STATE_XQDOC_ELEM_CONTENT = 37;
+    private static final int STATE_XQDOC_ELEM_CONSTRUCTOR_CLOSING = 38;
 
     private void stateDefault(int mState) {
         int c = mTokenRange.getCodePoint();
@@ -558,7 +560,7 @@ public class XQueryLexer extends LexerBase {
         }
     }
 
-    private void stateXQDocElemConstructor() {
+    private void stateXQDocElemConstructor(int state) {
         int c = mTokenRange.getCodePoint();
         if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9')) {
             while ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9')) {
@@ -571,6 +573,9 @@ public class XQueryLexer extends LexerBase {
             mTokenRange.match();
             mType = XQueryTokenType.XQDOC_END_XML_TAG;
             popState();
+            if (state == STATE_XQDOC_ELEM_CONSTRUCTOR) {
+                pushState(STATE_XQDOC_ELEM_CONTENT);
+            }
         } else if (c == '/') {
             mTokenRange.match();
             if (mTokenRange.getCodePoint() == '>') {
@@ -631,6 +636,41 @@ public class XQueryLexer extends LexerBase {
         }
     }
 
+    private void stateXQDocElemContent() {
+        int c = mTokenRange.getCodePoint();
+        if (c == '<') {
+            mTokenRange.match();
+            if (mTokenRange.getCodePoint() == '/') {
+                mTokenRange.match();
+                mType = XQueryTokenType.XQDOC_CLOSE_XML_TAG;
+                popState();
+                pushState(STATE_XQDOC_ELEM_CONSTRUCTOR_CLOSING);
+            } else {
+                mType = XQueryTokenType.XQDOC_OPEN_XML_TAG;
+                popState();
+                pushState(STATE_XQDOC_ELEM_CONSTRUCTOR);
+            }
+        } else if (c == XQueryCodePointRange.END_OF_BUFFER) {
+            mType = null;
+        } else {
+            while (true) {
+                switch (c) {
+                    case XQueryCodePointRange.END_OF_BUFFER:
+                        mType = XQueryTokenType.XQDOC_XML_ELEM_CONTENTS;
+                        return;
+                    default:
+                        if (c == '<') {
+                            mType = XQueryTokenType.XQDOC_XML_ELEM_CONTENTS;
+                            return;
+                        } else {
+                            mTokenRange.match();
+                            c = mTokenRange.getCodePoint();
+                        }
+                }
+            }
+        }
+    }
+
     private void stateXQDocContents() {
         int c = mTokenRange.getCodePoint();
         if (c == XQueryCodePointRange.END_OF_BUFFER) {
@@ -652,10 +692,11 @@ public class XQueryLexer extends LexerBase {
             if (mTokenRange.getCodePoint() == '/') {
                 mTokenRange.match();
                 mType = XQueryTokenType.XQDOC_CLOSE_XML_TAG;
+                pushState(STATE_XQDOC_ELEM_CONSTRUCTOR_CLOSING);
             } else {
                 mType = XQueryTokenType.XQDOC_OPEN_XML_TAG;
+                pushState(STATE_XQDOC_ELEM_CONSTRUCTOR);
             }
-            pushState(STATE_XQDOC_ELEM_CONSTRUCTOR);
             return;
         }
 
@@ -1483,7 +1524,11 @@ public class XQueryLexer extends LexerBase {
                 stateXQDocFinalTrim();
                 break;
             case STATE_XQDOC_ELEM_CONSTRUCTOR:
-                stateXQDocElemConstructor();
+            case STATE_XQDOC_ELEM_CONSTRUCTOR_CLOSING:
+                stateXQDocElemConstructor(mState);
+                break;
+            case STATE_XQDOC_ELEM_CONTENT:
+                stateXQDocElemContent();
                 break;
             case STATE_XQDOC_ATTRIBUTE_VALUE_QUOT:
                 stateXQDocAttributeValue('"');
