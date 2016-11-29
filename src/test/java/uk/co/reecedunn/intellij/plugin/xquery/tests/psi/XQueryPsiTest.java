@@ -5935,6 +5935,30 @@ public class XQueryPsiTest extends ParserTestCase {
                 is(XQueryTokenType.K_XQUERY));
     }
 
+    public void testVersionDecl_UnsupportedVersion() {
+        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
+        final XQueryFile file = parseResource("tests/psi/xquery-1.0/VersionDecl_UnsupportedVersion.xq");
+
+        XQueryVersionDecl versionDeclPsi = descendants(file).findFirst(XQueryVersionDecl.class).get();
+        assertThat(versionDeclPsi.getVersion(), is(notNullValue()));
+        assertThat(versionDeclPsi.getVersion().getAtomicValue(), is("9.4"));
+        assertThat(versionDeclPsi.getEncoding(), is(nullValue()));
+
+        assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_9_4));
+
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)versionDeclPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires XQuery 1.0 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_XQUERY));
+    }
+
     public void testVersionDecl_EncodingOnly() {
         getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly.xq");
