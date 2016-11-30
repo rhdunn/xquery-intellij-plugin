@@ -1,6 +1,6 @@
 # Change Log
 
-## 0.3 - (In Progress)
+## 0.3 - 2016-11-30
 
 Language Support:
 

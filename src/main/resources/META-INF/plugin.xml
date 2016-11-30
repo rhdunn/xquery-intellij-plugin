@@ -10,18 +10,20 @@
   ]]></description>
 
   <change-notes><![CDATA[
-    <p>Release 0.2:</p>
-    <ul>
-      <li>XQuery 3.0 support.</li>
-      <li>MarkLogic extended syntax support.</li>
-      <li>IntelliJ resolve support for URI literals, namespaces, functions and variables.</li>
-      <li>IntelliJ find usages support.</li>
-    </ul>
-    <p>Release 0.2.1:</p>
-    <ul>
-      <li>Fix a NullPointerException when resolving NCName-based function calls.</li>
-      <li>Fix an IndexOutOfBoundsException when the charset detection logic is called from multiple threads (e.g. during indexing).</li>
-    </ul>
+    <h3>Release 0.3:</h3>
+    <h4>Language Support:</h4>
+    <ol>
+      <li>Complete support for XQuery 3.1 constructs.</li>
+      <li>Complete support for Update Facility 3.0 extensions.</li>
+      <li>Improved error reporting on unbalanced XML (<code>DirElemConstructor</code> parsing).</li>
+      <li>Support for xqDoc documentation comments.</li>
+    </ol>
+    <h4>IntelliJ Integration:</h4>
+    <ol>
+      <li>Paired brace matching.</li>
+      <li>Commenting code support.</li>
+      <li>Fixed <code>VersionDecl</code> conformance checks on invalid version strings.</li>
+    </ol>
   ]]></change-notes>
 
   <idea-version since-build="161"/>
