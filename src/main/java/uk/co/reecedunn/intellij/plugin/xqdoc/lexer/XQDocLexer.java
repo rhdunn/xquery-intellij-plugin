@@ -18,20 +18,12 @@ package uk.co.reecedunn.intellij.plugin.xqdoc.lexer;
 import com.intellij.lexer.LexerBase;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.core.lexer.CharacterClass;
 import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRange;
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
-
-import java.util.EmptyStackException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Stack;
 
 public class XQDocLexer extends LexerBase {
     private CodePointRange mTokenRange;
     private int mState;
     private int mNextState;
-    private final Stack<Integer> mStates = new Stack<>();
     private IElementType mType;
 
     public XQDocLexer() {
@@ -39,18 +31,6 @@ public class XQDocLexer extends LexerBase {
     }
 
     // region States
-
-    private void pushState(int state) {
-        mStates.push(state);
-    }
-
-    private void popState() {
-        try {
-            mStates.pop();
-        } catch (EmptyStackException e) {
-            //
-        }
-    }
 
     private static final int STATE_DEFAULT = 0;
     private static final int STATE_CONTENTS = 1;
