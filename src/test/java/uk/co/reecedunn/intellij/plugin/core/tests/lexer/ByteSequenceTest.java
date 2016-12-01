@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.tests.filetypes;
+package uk.co.reecedunn.intellij.plugin.core.tests.lexer;
 
 import junit.framework.TestCase;
-import uk.co.reecedunn.intellij.plugin.xquery.filetypes.ByteSequence;
+import uk.co.reecedunn.intellij.plugin.core.lexer.ByteSequence;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
