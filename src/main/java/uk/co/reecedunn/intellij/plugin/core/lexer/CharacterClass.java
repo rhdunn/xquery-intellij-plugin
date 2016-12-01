@@ -104,7 +104,7 @@ public final class CharacterClass {
 
     public static int getCharClass(int c) {
         if (c < mCharacterClasses.length) { // 0x0000-0x0079
-            if (c == XQueryCodePointRange.END_OF_BUFFER)
+            if (c == CodePointRange.END_OF_BUFFER)
                 return END_OF_BUFFER;
             return mCharacterClasses[c];
         }

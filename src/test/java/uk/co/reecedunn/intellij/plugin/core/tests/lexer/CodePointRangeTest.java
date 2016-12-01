@@ -16,14 +16,14 @@
 package uk.co.reecedunn.intellij.plugin.core.tests.lexer;
 
 import junit.framework.TestCase;
-import uk.co.reecedunn.intellij.plugin.core.lexer.XQueryCodePointRange;
+import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRange;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class XQueryCodePointRangeTest extends TestCase {
+public class CodePointRangeTest extends TestCase {
     public void testEmptyBuffer() {
-        XQueryCodePointRange range = new XQueryCodePointRange();
+        CodePointRange range = new CodePointRange();
 
         CharSequence sequence = "";
         range.start(sequence, 0, 0);
@@ -34,7 +34,7 @@ public class XQueryCodePointRangeTest extends TestCase {
     }
 
     public void testMatchingCodePoints() {
-        XQueryCodePointRange range = new XQueryCodePointRange();
+        CodePointRange range = new CodePointRange();
 
         range.start("a\u1255\uD392", 0, 3);
         assertThat(range.getBufferEnd(), is(3));
@@ -56,16 +56,16 @@ public class XQueryCodePointRangeTest extends TestCase {
         range.match();
         assertThat(range.getStart(), is(0));
         assertThat(range.getEnd(), is(3));
-        assertThat(range.getCodePoint(), is(XQueryCodePointRange.END_OF_BUFFER));
+        assertThat(range.getCodePoint(), is(CodePointRange.END_OF_BUFFER));
 
         range.match();
         assertThat(range.getStart(), is(0));
         assertThat(range.getEnd(), is(3));
-        assertThat(range.getCodePoint(), is(XQueryCodePointRange.END_OF_BUFFER));
+        assertThat(range.getCodePoint(), is(CodePointRange.END_OF_BUFFER));
     }
 
     public void testMatchingIncompleteSurrogatePairs() {
-        XQueryCodePointRange range = new XQueryCodePointRange();
+        CodePointRange range = new CodePointRange();
 
         range.start("\uD802\uD803", 0, 2);
         assertThat(range.getBufferEnd(), is(2));
@@ -82,11 +82,11 @@ public class XQueryCodePointRangeTest extends TestCase {
         range.match();
         assertThat(range.getStart(), is(0));
         assertThat(range.getEnd(), is(2));
-        assertThat(range.getCodePoint(), is(XQueryCodePointRange.END_OF_BUFFER));
+        assertThat(range.getCodePoint(), is(CodePointRange.END_OF_BUFFER));
     }
 
     public void testMatchingSurrogatePairs() {
-        XQueryCodePointRange range = new XQueryCodePointRange();
+        CodePointRange range = new CodePointRange();
 
         range.start("\uD802\uDD07\uD802\uDDA3", 0, 4);
         assertThat(range.getBufferEnd(), is(4));
@@ -103,21 +103,21 @@ public class XQueryCodePointRangeTest extends TestCase {
         range.match();
         assertThat(range.getStart(), is(0));
         assertThat(range.getEnd(), is(4));
-        assertThat(range.getCodePoint(), is(XQueryCodePointRange.END_OF_BUFFER));
+        assertThat(range.getCodePoint(), is(CodePointRange.END_OF_BUFFER));
 
         range.match();
         assertThat(range.getStart(), is(0));
         assertThat(range.getEnd(), is(4));
-        assertThat(range.getCodePoint(), is(XQueryCodePointRange.END_OF_BUFFER));
+        assertThat(range.getCodePoint(), is(CodePointRange.END_OF_BUFFER));
 
         range.match();
         assertThat(range.getStart(), is(0));
         assertThat(range.getEnd(), is(4));
-        assertThat(range.getCodePoint(), is(XQueryCodePointRange.END_OF_BUFFER));
+        assertThat(range.getCodePoint(), is(CodePointRange.END_OF_BUFFER));
     }
 
     public void testFlush() {
-        XQueryCodePointRange range = new XQueryCodePointRange();
+        CodePointRange range = new CodePointRange();
 
         range.start("abcd", 0, 4);
         range.match();
@@ -135,7 +135,7 @@ public class XQueryCodePointRangeTest extends TestCase {
     }
 
     public void testSaveRestore() {
-        XQueryCodePointRange range = new XQueryCodePointRange();
+        CodePointRange range = new CodePointRange();
 
         range.start("abcd", 0, 4);
         range.match();

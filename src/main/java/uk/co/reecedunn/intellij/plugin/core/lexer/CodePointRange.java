@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.core.lexer;
 
 import org.jetbrains.annotations.NotNull;
 
-public class XQueryCodePointRange {
+public class CodePointRange {
     public static final int END_OF_BUFFER = -1;
 
     private CharSequence mBuffer;

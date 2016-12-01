@@ -19,7 +19,7 @@ import com.intellij.lexer.LexerBase;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.core.lexer.CharacterClass;
-import uk.co.reecedunn.intellij.plugin.core.lexer.XQueryCodePointRange;
+import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRange;
 
 import java.util.EmptyStackException;
 import java.util.HashMap;
@@ -27,13 +27,13 @@ import java.util.Map;
 import java.util.Stack;
 
 public class XQueryLexer extends LexerBase {
-    private XQueryCodePointRange mTokenRange;
+    private CodePointRange mTokenRange;
     private int mState;
     private final Stack<Integer> mStates = new Stack<>();
     private IElementType mType;
 
     public XQueryLexer() {
-        mTokenRange = new XQueryCodePointRange();
+        mTokenRange = new CodePointRange();
     }
 
     // region States
@@ -499,10 +499,10 @@ public class XQueryLexer extends LexerBase {
         } else if (c == '{' && type == '}') {
             mTokenRange.match();
             mType = XQueryTokenType.BAD_CHARACTER;
-        } else if (c == XQueryCodePointRange.END_OF_BUFFER) {
+        } else if (c == CodePointRange.END_OF_BUFFER) {
             mType = null;
         } else {
-            while (c != type && c != XQueryCodePointRange.END_OF_BUFFER && c != '&' && !(type == '}' && c == '{')) {
+            while (c != type && c != CodePointRange.END_OF_BUFFER && c != '&' && !(type == '}' && c == '{')) {
                 mTokenRange.match();
                 c = mTokenRange.getCodePoint();
             }
@@ -627,12 +627,12 @@ public class XQueryLexer extends LexerBase {
             mTokenRange.match();
             mType = XQueryTokenType.XQDOC_XML_ATTRIBUTE_VALUE_END;
             popState();
-        } else if (c == XQueryCodePointRange.END_OF_BUFFER) {
+        } else if (c == CodePointRange.END_OF_BUFFER) {
             mType = null;
         } else {
             while (true) {
                 switch (c) {
-                    case XQueryCodePointRange.END_OF_BUFFER:
+                    case CodePointRange.END_OF_BUFFER:
                         mType = XQueryTokenType.XQDOC_XML_ATTRIBUTE_VALUE_CONTENTS;
                         return;
                     default:
@@ -662,12 +662,12 @@ public class XQueryLexer extends LexerBase {
                 popState();
                 pushState(STATE_XQDOC_ELEM_CONSTRUCTOR);
             }
-        } else if (c == XQueryCodePointRange.END_OF_BUFFER) {
+        } else if (c == CodePointRange.END_OF_BUFFER) {
             mType = null;
         } else {
             while (true) {
                 switch (c) {
-                    case XQueryCodePointRange.END_OF_BUFFER:
+                    case CodePointRange.END_OF_BUFFER:
                         mType = XQueryTokenType.XQDOC_XML_ELEM_CONTENTS;
                         return;
                     default:
@@ -685,7 +685,7 @@ public class XQueryLexer extends LexerBase {
 
     private void stateXQDocContents() {
         int c = mTokenRange.getCodePoint();
-        if (c == XQueryCodePointRange.END_OF_BUFFER) {
+        if (c == CodePointRange.END_OF_BUFFER) {
             mType = null;
             return;
         } else if (c == ':') {
@@ -714,7 +714,7 @@ public class XQueryLexer extends LexerBase {
 
         int depth = 1;
         while (true) {
-            if (c == XQueryCodePointRange.END_OF_BUFFER) {
+            if (c == CodePointRange.END_OF_BUFFER) {
                 mTokenRange.match();
                 mType = XQueryTokenType.COMMENT;
                 popState();
@@ -782,7 +782,7 @@ public class XQueryLexer extends LexerBase {
 
     private void stateXQueryComment() {
         int c = mTokenRange.getCodePoint();
-        if (c == XQueryCodePointRange.END_OF_BUFFER) {
+        if (c == CodePointRange.END_OF_BUFFER) {
             mType = null;
             return;
         } else if (c == ':') {
@@ -800,7 +800,7 @@ public class XQueryLexer extends LexerBase {
 
         int depth = 1;
         while (true) {
-            if (c == XQueryCodePointRange.END_OF_BUFFER) {
+            if (c == CodePointRange.END_OF_BUFFER) {
                 mTokenRange.match();
                 mType = XQueryTokenType.COMMENT;
                 popState();
@@ -832,7 +832,7 @@ public class XQueryLexer extends LexerBase {
 
     private void stateXmlComment() {
         int c = mTokenRange.getCodePoint();
-        if (c == XQueryCodePointRange.END_OF_BUFFER) {
+        if (c == CodePointRange.END_OF_BUFFER) {
             mType = null;
             return;
         } else if (c == '-') {
@@ -854,7 +854,7 @@ public class XQueryLexer extends LexerBase {
         }
 
         while (true) {
-            if (c == XQueryCodePointRange.END_OF_BUFFER) {
+            if (c == CodePointRange.END_OF_BUFFER) {
                 mTokenRange.match();
                 mType = XQueryTokenType.XML_COMMENT;
                 popState();
@@ -885,7 +885,7 @@ public class XQueryLexer extends LexerBase {
 
     private void stateCDataSection() {
         int c = mTokenRange.getCodePoint();
-        if (c == XQueryCodePointRange.END_OF_BUFFER) {
+        if (c == CodePointRange.END_OF_BUFFER) {
             mType = null;
             return;
         } else if (c == ']') {
@@ -907,7 +907,7 @@ public class XQueryLexer extends LexerBase {
         }
 
         while (true) {
-            if (c == XQueryCodePointRange.END_OF_BUFFER) {
+            if (c == CodePointRange.END_OF_BUFFER) {
                 mTokenRange.match();
                 mType = XQueryTokenType.CDATA_SECTION;
                 popState();
@@ -1007,7 +1007,7 @@ public class XQueryLexer extends LexerBase {
 
     private void statePragmaContents() {
         int c = mTokenRange.getCodePoint();
-        if (c == XQueryCodePointRange.END_OF_BUFFER) {
+        if (c == CodePointRange.END_OF_BUFFER) {
             mType = null;
             return;
         } else if (c == '#') {
@@ -1024,7 +1024,7 @@ public class XQueryLexer extends LexerBase {
         }
 
         while (true) {
-            if (c == XQueryCodePointRange.END_OF_BUFFER) {
+            if (c == CodePointRange.END_OF_BUFFER) {
                 mTokenRange.match();
                 mType = XQueryTokenType.PRAGMA_CONTENTS;
                 popState();
@@ -1148,12 +1148,12 @@ public class XQueryLexer extends LexerBase {
             mType = XQueryTokenType.BAD_CHARACTER;
         } else if (c == '&') {
             matchEntityReference(type == '"' ? STATE_DIR_ATTRIBUTE_VALUE_QUOTE : STATE_DIR_ATTRIBUTE_VALUE_APOSTROPHE);
-        } else if (c == XQueryCodePointRange.END_OF_BUFFER) {
+        } else if (c == CodePointRange.END_OF_BUFFER) {
             mType = null;
         } else {
             while (true) {
                 switch (c) {
-                    case XQueryCodePointRange.END_OF_BUFFER:
+                    case CodePointRange.END_OF_BUFFER:
                     case '{':
                     case '}':
                     case '<':
@@ -1260,12 +1260,12 @@ public class XQueryLexer extends LexerBase {
             }
         } else if (c == '&') {
             matchEntityReference(STATE_DIR_ELEM_CONTENT);
-        } else if (c == XQueryCodePointRange.END_OF_BUFFER) {
+        } else if (c == CodePointRange.END_OF_BUFFER) {
             mType = null;
         } else {
             while (true) {
                 switch (c) {
-                    case XQueryCodePointRange.END_OF_BUFFER:
+                    case CodePointRange.END_OF_BUFFER:
                     case '{':
                     case '}':
                     case '<':
@@ -1326,7 +1326,7 @@ public class XQueryLexer extends LexerBase {
 
     private void stateProcessingInstructionContents() {
         int c = mTokenRange.getCodePoint();
-        if (c == XQueryCodePointRange.END_OF_BUFFER) {
+        if (c == CodePointRange.END_OF_BUFFER) {
             mType = null;
             return;
         } else if (c == '?') {
@@ -1343,7 +1343,7 @@ public class XQueryLexer extends LexerBase {
         }
 
         while (true) {
-            if (c == XQueryCodePointRange.END_OF_BUFFER) {
+            if (c == CodePointRange.END_OF_BUFFER) {
                 mTokenRange.match();
                 mType = XQueryTokenType.PROCESSING_INSTRUCTION_CONTENTS;
                 popState();
@@ -1378,7 +1378,7 @@ public class XQueryLexer extends LexerBase {
                 mTokenRange.restore();
             }
         }
-        while (c != XQueryCodePointRange.END_OF_BUFFER) {
+        while (c != CodePointRange.END_OF_BUFFER) {
             if (c == ']') {
                 mTokenRange.save();
                 mTokenRange.match();

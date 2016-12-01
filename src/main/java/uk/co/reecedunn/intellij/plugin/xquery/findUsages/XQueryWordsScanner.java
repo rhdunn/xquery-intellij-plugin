@@ -21,14 +21,14 @@ import com.intellij.lexer.Lexer;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.util.Processor;
 import uk.co.reecedunn.intellij.plugin.core.lexer.CharacterClass;
-import uk.co.reecedunn.intellij.plugin.core.lexer.XQueryCodePointRange;
+import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRange;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 
 public class XQueryWordsScanner implements WordsScanner {
     private final Lexer mLexer = new XQueryLexer();
     private final WordOccurrence mOccurrence = new WordOccurrence(null, 0, 0, null);
-    private final XQueryCodePointRange mRange = new XQueryCodePointRange();
+    private final CodePointRange mRange = new CodePointRange();
 
     @Override
     public void processWords(CharSequence fileText, Processor<WordOccurrence> processor) {
