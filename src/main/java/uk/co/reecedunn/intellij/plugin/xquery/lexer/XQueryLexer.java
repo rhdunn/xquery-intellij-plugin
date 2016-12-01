@@ -603,6 +603,16 @@ public class XQueryLexer extends LexerBase {
             mTokenRange.match();
             mType = XQueryTokenType.XQDOC_XML_ATTRIBUTE_VALUE_START;
             pushState(STATE_XQDOC_ATTRIBUTE_VALUE_APOS);
+        } else if (c == ':') {
+            mTokenRange.match();
+            if (mTokenRange.getCodePoint() == ')') {
+                mTokenRange.match();
+                mType = XQueryTokenType.COMMENT_END_TAG;
+                popState();
+                popState();
+            } else {
+                mType = XQueryTokenType.INVALID;
+            }
         } else {
             mTokenRange.match();
             mType = XQueryTokenType.INVALID;

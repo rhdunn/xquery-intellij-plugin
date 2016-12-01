@@ -4353,6 +4353,22 @@ public class XQueryLexerTest extends TestCase {
         matchToken(lexer, "",        0, 34, 34, null);
     }
 
+
+    @Specification(name="xqDoc", reference="https://raw.githubusercontent.com/xquery/xquerydoc/master/ebnf/XQDocComments.ebnf")
+    public void testXQDoc_DirElemConstructor_ClosingComment() {
+        Lexer lexer = new XQueryLexer();
+
+        // Element constructor state:
+        lexer.start("(:~ <one :)");
+        matchToken(lexer, "(:~",      0,  0,  3, XQueryTokenType.XQDOC_START_TAG);
+        matchToken(lexer, " ",       29,  3,  4, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "<",       29,  4,  5, XQueryTokenType.XQDOC_OPEN_XML_TAG);
+        matchToken(lexer, "one",     34,  5,  8, XQueryTokenType.XQDOC_XML_TAG_NAME);
+        matchToken(lexer, " ",       34,  8,  9, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, ":)",      34,  9, 11, XQueryTokenType.COMMENT_END_TAG);
+        matchToken(lexer, "",         0, 11, 11, null);
+    }
+
     // endregion
     // region xqDoc :: DirAttrConstructor
 
