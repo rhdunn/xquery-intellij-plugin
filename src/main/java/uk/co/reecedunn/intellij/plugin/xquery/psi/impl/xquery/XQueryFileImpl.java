@@ -24,13 +24,13 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryStringLiteral;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVersionDecl;
 import uk.co.reecedunn.intellij.plugin.xquery.filetypes.XQueryFileType;
-import uk.co.reecedunn.intellij.plugin.xquery.functional.Option;
+import uk.co.reecedunn.intellij.plugin.core.functional.Option;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings;
 
-import static uk.co.reecedunn.intellij.plugin.xquery.functional.PsiTreeWalker.children;
-import static uk.co.reecedunn.intellij.plugin.xquery.functional.PsiTreeWalker.descendants;
+import static uk.co.reecedunn.intellij.plugin.core.functional.PsiTreeWalker.children;
+import static uk.co.reecedunn.intellij.plugin.core.functional.PsiTreeWalker.descendants;
 
 public class XQueryFileImpl extends PsiFileBase implements XQueryFile {
     public XQueryFileImpl(@NotNull FileViewProvider provider) {

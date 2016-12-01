@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.psi;
 
 import com.intellij.psi.impl.source.tree.LeafPsiElement;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*;
-import uk.co.reecedunn.intellij.plugin.xquery.functional.Option;
+import uk.co.reecedunn.intellij.plugin.core.functional.Option;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Implementations;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
@@ -28,10 +28,10 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static uk.co.reecedunn.intellij.plugin.xquery.functional.PsiTreeWalker.children;
-import static uk.co.reecedunn.intellij.plugin.xquery.functional.PsiTreeWalker.descendants;
-import static uk.co.reecedunn.intellij.plugin.xquery.tests.functional.IsDefined.defined;
-import static uk.co.reecedunn.intellij.plugin.xquery.tests.functional.IsDefined.notDefined;
+import static uk.co.reecedunn.intellij.plugin.core.functional.PsiTreeWalker.children;
+import static uk.co.reecedunn.intellij.plugin.core.functional.PsiTreeWalker.descendants;
+import static uk.co.reecedunn.intellij.plugin.core.tests.functional.IsDefined.defined;
+import static uk.co.reecedunn.intellij.plugin.core.tests.functional.IsDefined.notDefined;
 
 @SuppressWarnings("ConstantConditions")
 public class XQueryPsiTest extends ParserTestCase {

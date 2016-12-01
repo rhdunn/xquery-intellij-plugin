@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.psi;
 
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
-import uk.co.reecedunn.intellij.plugin.xquery.functional.Option;
+import uk.co.reecedunn.intellij.plugin.core.functional.Option;
 
 public interface XQueryVariableResolver {
     Option<XQueryVariable> resolveVariable(XQueryEQName name);

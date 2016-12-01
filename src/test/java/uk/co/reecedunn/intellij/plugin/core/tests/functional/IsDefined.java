@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.tests.functional;
+package uk.co.reecedunn.intellij.plugin.core.tests.functional;
 
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.hamcrest.Factory;
 import org.hamcrest.Matcher;
 import org.hamcrest.core.IsNot;
-import uk.co.reecedunn.intellij.plugin.xquery.functional.Option;
+import uk.co.reecedunn.intellij.plugin.core.functional.Option;
 
 public class IsDefined<T> extends BaseMatcher<T> {
     public boolean matches(Object o) {

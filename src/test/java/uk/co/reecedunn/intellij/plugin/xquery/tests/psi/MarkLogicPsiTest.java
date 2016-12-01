@@ -26,8 +26,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static uk.co.reecedunn.intellij.plugin.xquery.functional.PsiTreeWalker.children;
-import static uk.co.reecedunn.intellij.plugin.xquery.functional.PsiTreeWalker.descendants;
+import static uk.co.reecedunn.intellij.plugin.core.functional.PsiTreeWalker.children;
+import static uk.co.reecedunn.intellij.plugin.core.functional.PsiTreeWalker.descendants;
 
 @SuppressWarnings("ConstantConditions")
 public class MarkLogicPsiTest extends ParserTestCase {

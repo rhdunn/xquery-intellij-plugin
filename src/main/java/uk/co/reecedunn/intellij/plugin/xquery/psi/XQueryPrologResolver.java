@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.psi;
 
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog;
-import uk.co.reecedunn.intellij.plugin.xquery.functional.Option;
+import uk.co.reecedunn.intellij.plugin.core.functional.Option;
 
 public interface XQueryPrologResolver {
     Option<XQueryProlog> resolveProlog();

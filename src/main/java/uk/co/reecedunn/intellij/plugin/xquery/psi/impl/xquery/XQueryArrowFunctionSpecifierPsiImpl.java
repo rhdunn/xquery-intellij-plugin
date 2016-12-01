@@ -21,7 +21,7 @@ import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryArgumentList;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryArrowFunctionSpecifier;
-import uk.co.reecedunn.intellij.plugin.xquery.functional.Option;
+import uk.co.reecedunn.intellij.plugin.core.functional.Option;
 
 public class XQueryArrowFunctionSpecifierPsiImpl extends ASTWrapperPsiElement implements XQueryArrowFunctionSpecifier {
     public XQueryArrowFunctionSpecifierPsiImpl(@NotNull ASTNode node) {

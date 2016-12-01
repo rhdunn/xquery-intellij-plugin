@@ -25,8 +25,8 @@ import java.util.List;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static uk.co.reecedunn.intellij.plugin.xquery.functional.PsiTreeWalker.children;
-import static uk.co.reecedunn.intellij.plugin.xquery.functional.PsiTreeWalker.descendants;
+import static uk.co.reecedunn.intellij.plugin.core.functional.PsiTreeWalker.children;
+import static uk.co.reecedunn.intellij.plugin.core.functional.PsiTreeWalker.descendants;
 
 @SuppressWarnings("ConstantConditions")
 public class XQueryReferenceTest extends ParserTestCase {

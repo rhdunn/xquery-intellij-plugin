@@ -32,7 +32,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 
-import static uk.co.reecedunn.intellij.plugin.xquery.functional.PsiTreeWalker.children;
+import static uk.co.reecedunn.intellij.plugin.core.functional.PsiTreeWalker.children;
 
 public class XQueryNamedFunctionRefPsiImpl extends ASTWrapperPsiElement implements XQueryNamedFunctionRef, XQueryConformanceCheck {
     public XQueryNamedFunctionRefPsiImpl(@NotNull ASTNode node) {

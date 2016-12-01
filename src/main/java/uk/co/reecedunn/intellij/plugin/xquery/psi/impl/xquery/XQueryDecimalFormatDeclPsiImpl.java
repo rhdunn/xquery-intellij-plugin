@@ -28,7 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 
-import static uk.co.reecedunn.intellij.plugin.xquery.functional.PsiTreeWalker.children;
+import static uk.co.reecedunn.intellij.plugin.core.functional.PsiTreeWalker.children;
 
 public class XQueryDecimalFormatDeclPsiImpl extends ASTWrapperPsiElement implements XQueryDecimalFormatDecl, XQueryConformanceCheck {
     public XQueryDecimalFormatDeclPsiImpl(@NotNull ASTNode node) {
