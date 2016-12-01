@@ -13,9 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.lexer;
-
-import uk.co.reecedunn.intellij.plugin.core.lexer.XQueryCodePointRange;
+package uk.co.reecedunn.intellij.plugin.core.lexer;
 
 public final class CharacterClass {
     // The CharacterClass constructor is not used, but make sure code coverage reports it as covered.

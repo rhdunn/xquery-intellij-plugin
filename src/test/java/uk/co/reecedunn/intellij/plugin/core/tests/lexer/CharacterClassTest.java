@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.tests.lexer;
+package uk.co.reecedunn.intellij.plugin.core.tests.lexer;
 
 import junit.framework.TestCase;
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.CharacterClass;
+import uk.co.reecedunn.intellij.plugin.core.lexer.CharacterClass;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.Specification;
 
 import static org.hamcrest.MatcherAssert.assertThat;

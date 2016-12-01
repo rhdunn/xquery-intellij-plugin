@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.lexer;
 import com.intellij.lexer.LexerBase;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
+import uk.co.reecedunn.intellij.plugin.core.lexer.CharacterClass;
 import uk.co.reecedunn.intellij.plugin.core.lexer.XQueryCodePointRange;
 
 import java.util.EmptyStackException;
