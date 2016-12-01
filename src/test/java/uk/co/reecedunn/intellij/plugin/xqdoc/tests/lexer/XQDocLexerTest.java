@@ -57,4 +57,16 @@ public class XQDocLexerTest extends LexerTestCase {
     }
 
     // endregion
+    // region xqDoc :: Contents
+
+    public void testContents() {
+        Lexer lexer = new XQDocLexer();
+
+        lexer.start("~Lorem ipsum dolor.");
+        matchToken(lexer, "~",                  0,  0,  1, XQDocTokenType.XQDOC_COMMENT_MARKER);
+        matchToken(lexer, "Lorem ipsum dolor.", 1,  1, 19, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "",                   0, 19, 19, null);
+    }
+
+    // endregion
 }

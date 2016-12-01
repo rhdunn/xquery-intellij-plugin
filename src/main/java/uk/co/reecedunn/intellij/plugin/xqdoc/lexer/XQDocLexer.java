@@ -30,6 +30,7 @@ import java.util.Stack;
 public class XQDocLexer extends LexerBase {
     private CodePointRange mTokenRange;
     private int mState;
+    private int mNextState;
     private final Stack<Integer> mStates = new Stack<>();
     private IElementType mType;
 
@@ -52,12 +53,18 @@ public class XQDocLexer extends LexerBase {
     }
 
     private static final int STATE_DEFAULT = 0;
+    private static final int STATE_CONTENTS = 1;
 
     private void stateDefault() {
         int c = mTokenRange.getCodePoint();
         switch (c) {
             case CodePointRange.END_OF_BUFFER:
                 mType = null;
+                break;
+            case '~':
+                mTokenRange.match();
+                mType = XQDocTokenType.XQDOC_COMMENT_MARKER;
+                mNextState = STATE_CONTENTS;
                 break;
             default:
                 mTokenRange.seek(mTokenRange.getBufferEnd());
@@ -66,28 +73,32 @@ public class XQDocLexer extends LexerBase {
         }
     }
 
+    private void stateContents() {
+        mTokenRange.seek(mTokenRange.getBufferEnd());
+        mType = XQDocTokenType.CONTENTS;
+        mNextState = STATE_DEFAULT;
+    }
+
     // endregion
     // region Lexer
 
     @Override
     public final void start(@NotNull CharSequence buffer, int startOffset, int endOffset, int initialState) {
         mTokenRange.start(buffer, startOffset, endOffset);
-        mStates.clear();
-        pushState(initialState);
+        mNextState = initialState;
         advance();
     }
 
     @Override
     public final void advance() {
         mTokenRange.flush();
-        try {
-            mState = mStates.peek();
-        } catch (EmptyStackException e) {
-            mState = STATE_DEFAULT;
-        }
+        mState = mNextState;
         switch (mState) {
             case STATE_DEFAULT:
                 stateDefault();
+                break;
+            case STATE_CONTENTS:
+                stateContents();
                 break;
             default:
                 throw new AssertionError("Invalid state: " + mState);

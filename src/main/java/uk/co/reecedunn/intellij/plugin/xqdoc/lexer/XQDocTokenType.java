@@ -23,5 +23,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.INCNameType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType;
 
 public interface XQDocTokenType extends TokenType {
+    IElementType XQDOC_COMMENT_MARKER = new IElementType("XQDOC_COMMENT_MARKER", XQuery.INSTANCE);
+
     IElementType COMMENT_CONTENTS = new IElementType("XQDOC_COMMENT_CONTENTS", XQuery.INSTANCE);
+    IElementType CONTENTS = new IElementType("XQDOC_CONTENTS", XQuery.INSTANCE);
 }
