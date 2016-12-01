@@ -68,6 +68,9 @@ public class SyntaxHighlighterTest extends TestCase {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.XQDOC_XML_ELEM_CONTENTS).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.XQDOC_XML_ELEM_CONTENTS)[0], is(SyntaxHighlighter.COMMENT));
 
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XQDOC_TRIM).length, is(1));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XQDOC_TRIM)[0], is(SyntaxHighlighter.COMMENT));
+
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_COMMENT_START_TAG).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_COMMENT_START_TAG)[0], is(SyntaxHighlighter.COMMENT));
 
@@ -828,7 +831,5 @@ public class SyntaxHighlighterTest extends TestCase {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.ARROW).length, is(0));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.STRING_INTERPOLATION_OPEN).length, is(0));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.STRING_INTERPOLATION_CLOSE).length, is(0));
-
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XQDOC_TRIM).length, is(0));
     }
 }

@@ -102,6 +102,7 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
                    type == XQueryTokenType.COMMENT ||
                    type == XQueryTokenType.COMMENT_END_TAG ||
                    type == XQueryTokenType.XQDOC_START_TAG ||
+                   type == XQueryTokenType.XQDOC_TRIM ||
                    type == XQueryTokenType.XQDOC_XML_ELEM_CONTENTS ||
                    type == XQueryTokenType.XML_COMMENT_END_TAG ||
                    type == XQueryTokenType.XML_COMMENT ||
