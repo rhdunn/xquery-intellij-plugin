@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.lexer;
 
 import com.intellij.lexer.Lexer;
 import com.intellij.psi.tree.IElementType;
-import junit.framework.TestCase;
+import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCase;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.Specification;
@@ -26,36 +26,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.junit.jupiter.api.Assertions.expectThrows;
 
-public class XQueryLexerTest extends TestCase {
-    // region Lexer Test Helpers
-
-    private void matchToken(Lexer lexer, String text, int state, int start, int end, IElementType type) {
-        assertThat(lexer.getTokenText(), is(text));
-        assertThat(lexer.getState(), is(state));
-        assertThat(lexer.getTokenStart(), is(start));
-        assertThat(lexer.getTokenEnd(), is(end));
-        assertThat(lexer.getTokenType(), is(type));
-
-        if (lexer.getTokenType() == null) {
-            assertThat(lexer.getBufferEnd(), is(start));
-            assertThat(lexer.getBufferEnd(), is(end));
-        }
-
-        lexer.advance();
-    }
-
-    private void matchSingleToken(Lexer lexer, String text, int state, IElementType type) {
-        final int length = text.length();
-        lexer.start(text);
-        matchToken(lexer, text, 0,     0,      length, type);
-        matchToken(lexer, "",   state, length, length, null);
-    }
-
-    private void matchSingleToken(Lexer lexer, String text, IElementType type) {
-        matchSingleToken(lexer, text, 0, type);
-    }
-
-    // endregion
+public class XQueryLexerTest extends LexerTestCase {
     // region Lexer :: Invalid State
 
     @SuppressWarnings("ThrowableResultOfMethodCallIgnored")
