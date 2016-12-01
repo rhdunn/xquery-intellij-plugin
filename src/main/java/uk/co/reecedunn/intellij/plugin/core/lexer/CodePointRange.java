@@ -48,6 +48,10 @@ public class CodePointRange {
         }
     }
 
+    public void seek(int position) {
+        mEnd = position;
+    }
+
     public void save() {
         mSaved = mEnd;
     }

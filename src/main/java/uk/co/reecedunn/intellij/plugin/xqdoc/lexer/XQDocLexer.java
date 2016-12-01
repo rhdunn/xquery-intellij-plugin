@@ -54,6 +54,16 @@ public class XQDocLexer extends LexerBase {
     private static final int STATE_DEFAULT = 0;
 
     private void stateDefault() {
+        int c = mTokenRange.getCodePoint();
+        switch (c) {
+            case CodePointRange.END_OF_BUFFER:
+                mType = null;
+                break;
+            default:
+                mTokenRange.seek(mTokenRange.getBufferEnd());
+                mType = XQDocTokenType.COMMENT_CONTENTS;
+                break;
+        }
     }
 
     // endregion

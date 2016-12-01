@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xqdoc.tests.lexer;
 import com.intellij.lexer.Lexer;
 import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCase;
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocLexer;
+import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
@@ -42,6 +43,17 @@ public class XQDocLexerTest extends LexerTestCase {
 
         lexer.start("");
         matchToken(lexer, "", 0, 0, 0, null);
+    }
+
+    // endregion
+    // region xqDoc :: CommentContents
+
+    public void testCommentContents() {
+        Lexer lexer = new XQDocLexer();
+
+        lexer.start("Lorem ipsum dolor.");
+        matchToken(lexer, "Lorem ipsum dolor.", 0,  0, 18, XQDocTokenType.COMMENT_CONTENTS);
+        matchToken(lexer, "",                   0, 18, 18, null);
     }
 
     // endregion
