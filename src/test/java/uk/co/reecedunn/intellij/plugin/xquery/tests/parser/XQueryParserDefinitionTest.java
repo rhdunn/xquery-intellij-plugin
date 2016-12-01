@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryPsiParser;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryFileImpl;
-import uk.co.reecedunn.intellij.plugin.xquery.tests.mocks.MockASTNode;
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.MockASTNode;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
