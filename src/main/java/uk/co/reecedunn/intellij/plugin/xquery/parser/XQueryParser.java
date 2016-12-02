@@ -3987,10 +3987,8 @@ class XQueryParser {
     }
 
     private boolean parseCurlyArrayConstructor() {
-        boolean isMarkLogicExtension = false;
         PsiBuilder.Marker arrayConstructor = matchTokenTypeWithMarker(XQueryTokenType.K_ARRAY);
         if (arrayConstructor == null) {
-            isMarkLogicExtension = true;
             arrayConstructor = matchTokenTypeWithMarker(XQueryTokenType.K_ARRAY_NODE);
         }
 
@@ -4004,13 +4002,10 @@ class XQueryParser {
             }
 
             parseWhiteSpaceAndCommentTokens();
-            if (!parseExpr(XQueryElementType.EXPR) && isMarkLogicExtension) {
-                error(XQueryBundle.message("parser.error.expected-expression"));
-                haveErrors = true;
-            }
+            parseExpr(XQueryElementType.EXPR);
 
             parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.BLOCK_CLOSE) && !haveErrors) {
+            if (!matchTokenType(XQueryTokenType.BLOCK_CLOSE)) {
                 error(XQueryBundle.message("parser.error.expected", "}"));
             }
 

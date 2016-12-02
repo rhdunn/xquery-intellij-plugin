@@ -2,6 +2,10 @@
 
 ## 0.4 - (In Development)
 
+Language Support:
+
+1.  `array-node {}` is valid in MarkLogic 8.0.
+
 ## 0.3 - 2016-11-30
 
 Language Support:
