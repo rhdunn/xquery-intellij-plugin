@@ -65,7 +65,41 @@ public class XQDocLexerTest extends LexerTestCase {
         lexer.start("~Lorem ipsum dolor.");
         matchToken(lexer, "~",                  0,  0,  1, XQDocTokenType.XQDOC_COMMENT_MARKER);
         matchToken(lexer, "Lorem ipsum dolor.", 1,  1, 19, XQDocTokenType.CONTENTS);
-        matchToken(lexer, "",                   0, 19, 19, null);
+        matchToken(lexer, "",                   1, 19, 19, null);
+    }
+
+    // endregion
+    // region xqDoc :: Trim
+
+    public void testTrim() {
+        Lexer lexer = new XQDocLexer();
+
+        lexer.start("~a\nb\nc");
+        matchToken(lexer, "~",  0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER);
+        matchToken(lexer, "a",  1, 1, 2, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "\n", 1, 2, 3, XQDocTokenType.TRIM);
+        matchToken(lexer, "b",  1, 3, 4, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "\n", 1, 4, 5, XQDocTokenType.TRIM);
+        matchToken(lexer, "c",  1, 5, 6, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "",   1, 6, 6, null);
+
+        lexer.start("~a\n \tb\n\t c");
+        matchToken(lexer, "~",     0,  0,  1, XQDocTokenType.XQDOC_COMMENT_MARKER);
+        matchToken(lexer, "a",     1,  1,  2, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "\n \t", 1,  2,  5, XQDocTokenType.TRIM);
+        matchToken(lexer, "b",     1,  5,  6, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "\n\t ", 1,  6,  9, XQDocTokenType.TRIM);
+        matchToken(lexer, "c",     1,  9, 10, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "",      1, 10, 10, null);
+
+        lexer.start("~a\n : b\n\t:\tc");
+        matchToken(lexer, "~",     0,  0,  1, XQDocTokenType.XQDOC_COMMENT_MARKER);
+        matchToken(lexer, "a",     1,  1,  2, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "\n :",  1,  2,  5, XQDocTokenType.TRIM);
+        matchToken(lexer, " b",    1,  5,  7, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "\n\t:", 1,  7, 10, XQDocTokenType.TRIM);
+        matchToken(lexer, "\tc",   1, 10, 12, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "",      1, 12, 12, null);
     }
 
     // endregion

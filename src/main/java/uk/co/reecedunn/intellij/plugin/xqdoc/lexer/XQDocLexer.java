@@ -54,9 +54,38 @@ public class XQDocLexer extends LexerBase {
     }
 
     private void stateContents() {
-        mTokenRange.seek(mTokenRange.getBufferEnd());
-        mType = XQDocTokenType.CONTENTS;
-        mNextState = STATE_DEFAULT;
+        int c = mTokenRange.getCodePoint();
+        switch (c) {
+            case CodePointRange.END_OF_BUFFER:
+                mType = null;
+                break;
+            case '\n': // U+000A
+                mTokenRange.match();
+
+                c = mTokenRange.getCodePoint();
+                while (c == ' ' || c == '\t') { // U+0020 || U+0009
+                    mTokenRange.match();
+                    c = mTokenRange.getCodePoint();
+                }
+
+                if (c == ':') {
+                    mTokenRange.match();
+                }
+
+                mType = XQDocTokenType.TRIM;
+                break;
+            default:
+                while (true) switch (c) {
+                    case CodePointRange.END_OF_BUFFER:
+                    case '\n': // U+000A
+                        mType = XQDocTokenType.CONTENTS;
+                        return;
+                    default:
+                        mTokenRange.match();
+                        c = mTokenRange.getCodePoint();
+                        break;
+                }
+        }
     }
 
     // endregion

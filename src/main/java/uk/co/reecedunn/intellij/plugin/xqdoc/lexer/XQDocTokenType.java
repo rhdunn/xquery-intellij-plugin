@@ -27,4 +27,6 @@ public interface XQDocTokenType extends TokenType {
 
     IElementType COMMENT_CONTENTS = new IElementType("XQDOC_COMMENT_CONTENTS", XQuery.INSTANCE);
     IElementType CONTENTS = new IElementType("XQDOC_CONTENTS", XQuery.INSTANCE);
+
+    IElementType TRIM = new IElementType("XQDOC_TRIM", XQuery.INSTANCE);
 }
