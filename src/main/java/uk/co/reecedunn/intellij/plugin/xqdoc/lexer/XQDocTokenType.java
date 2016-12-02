@@ -29,4 +29,7 @@ public interface XQDocTokenType extends TokenType {
     IElementType CONTENTS = new IElementType("XQDOC_CONTENTS", XQuery.INSTANCE);
 
     IElementType TRIM = new IElementType("XQDOC_TRIM", XQuery.INSTANCE);
+
+    IElementType TAG_MARKER = new IElementType("XQDOC_TAG_MARKER", XQuery.INSTANCE);
+    IElementType TAG = new IElementType("XQDOC_TAG", XQuery.INSTANCE);
 }

@@ -34,6 +34,7 @@ public class XQDocLexer extends LexerBase {
 
     private static final int STATE_DEFAULT = 0;
     private static final int STATE_CONTENTS = 1;
+    private static final int STATE_TAGGED_CONTENTS = 2;
 
     private void stateDefault() {
         int c = mTokenRange.getCodePoint();
@@ -74,10 +75,16 @@ public class XQDocLexer extends LexerBase {
 
                 mType = XQDocTokenType.TRIM;
                 break;
+            case '@':
+                mTokenRange.match();
+                mType = XQDocTokenType.TAG_MARKER;
+                mNextState = STATE_TAGGED_CONTENTS;
+                break;
             default:
                 while (true) switch (c) {
                     case CodePointRange.END_OF_BUFFER:
                     case '\n': // U+000A
+                    case '@':
                         mType = XQDocTokenType.CONTENTS;
                         return;
                     default:
@@ -85,6 +92,20 @@ public class XQDocLexer extends LexerBase {
                         c = mTokenRange.getCodePoint();
                         break;
                 }
+        }
+    }
+
+    private void stateTaggedContents() {
+        int c = mTokenRange.getCodePoint();
+        if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9')) {
+            while ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9')) {
+                mTokenRange.match();
+                c = mTokenRange.getCodePoint();
+            }
+            mType = XQDocTokenType.TAG;
+        } else {
+            stateContents();
+            mNextState = STATE_CONTENTS;
         }
     }
 
@@ -108,6 +129,9 @@ public class XQDocLexer extends LexerBase {
                 break;
             case STATE_CONTENTS:
                 stateContents();
+                break;
+            case STATE_TAGGED_CONTENTS:
+                stateTaggedContents();
                 break;
             default:
                 throw new AssertionError("Invalid state: " + mState);

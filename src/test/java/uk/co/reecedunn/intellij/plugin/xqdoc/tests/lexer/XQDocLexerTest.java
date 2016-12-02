@@ -69,6 +69,48 @@ public class XQDocLexerTest extends LexerTestCase {
     }
 
     // endregion
+    // region xqDoc :: TaggedContents
+
+    public void testTaggedContents() {
+        Lexer lexer = new XQDocLexer();
+
+        lexer.start("~Lorem\n@ipsum dolor.");
+        matchToken(lexer, "~",       0,  0,  1, XQDocTokenType.XQDOC_COMMENT_MARKER);
+        matchToken(lexer, "Lorem",   1,  1,  6, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "\n",      1,  6,  7, XQDocTokenType.TRIM);
+        matchToken(lexer, "@",       1,  7,  8, XQDocTokenType.TAG_MARKER);
+        matchToken(lexer, "ipsum",   2,  8, 13, XQDocTokenType.TAG);
+        matchToken(lexer, " dolor.", 2, 13, 20, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "",        1, 20, 20, null);
+
+        lexer.start("~Lorem\n@IPSUM dolor.");
+        matchToken(lexer, "~",       0,  0,  1, XQDocTokenType.XQDOC_COMMENT_MARKER);
+        matchToken(lexer, "Lorem",   1,  1,  6, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "\n",      1,  6,  7, XQDocTokenType.TRIM);
+        matchToken(lexer, "@",       1,  7,  8, XQDocTokenType.TAG_MARKER);
+        matchToken(lexer, "IPSUM",   2,  8, 13, XQDocTokenType.TAG);
+        matchToken(lexer, " dolor.", 2, 13, 20, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "",        1, 20, 20, null);
+
+        lexer.start("~Lorem\n@12345 dolor.");
+        matchToken(lexer, "~",       0,  0,  1, XQDocTokenType.XQDOC_COMMENT_MARKER);
+        matchToken(lexer, "Lorem",   1,  1,  6, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "\n",      1,  6,  7, XQDocTokenType.TRIM);
+        matchToken(lexer, "@",       1,  7,  8, XQDocTokenType.TAG_MARKER);
+        matchToken(lexer, "12345",   2,  8, 13, XQDocTokenType.TAG);
+        matchToken(lexer, " dolor.", 2, 13, 20, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "",        1, 20, 20, null);
+
+        lexer.start("~Lorem\n@# dolor.");
+        matchToken(lexer, "~",        0,  0,  1, XQDocTokenType.XQDOC_COMMENT_MARKER);
+        matchToken(lexer, "Lorem",    1,  1,  6, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "\n",       1,  6,  7, XQDocTokenType.TRIM);
+        matchToken(lexer, "@",        1,  7,  8, XQDocTokenType.TAG_MARKER);
+        matchToken(lexer, "# dolor.", 2,  8, 16, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "",         1, 16, 16, null);
+    }
+
+    // endregion
     // region xqDoc :: Trim
 
     public void testTrim() {
