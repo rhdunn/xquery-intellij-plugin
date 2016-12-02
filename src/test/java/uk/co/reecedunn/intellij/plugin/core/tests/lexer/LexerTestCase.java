@@ -22,7 +22,7 @@ import junit.framework.TestCase;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
-public class LexerTestCase extends TestCase {
+public abstract class LexerTestCase extends TestCase {
     // region Lexer Test Helpers
 
     protected void matchToken(Lexer lexer, String text, int state, int start, int end, IElementType type) {
