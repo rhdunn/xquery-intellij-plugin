@@ -54,7 +54,7 @@ public class XQueryLexer extends LexerBase {
     private static final int STATE_STRING_LITERAL_QUOTE = 1;
     private static final int STATE_STRING_LITERAL_APOSTROPHE = 2;
     private static final int STATE_DOUBLE_EXPONENT = 3;
-    private static final int STATE_XQUERY_COMMENT = 4;
+    public  static final int STATE_XQUERY_COMMENT = 4;
     private static final int STATE_XML_COMMENT = 5;
     private static final int STATE_UNEXPECTED_END_OF_BLOCK = 6;
     private static final int STATE_CDATA_SECTION = 7;

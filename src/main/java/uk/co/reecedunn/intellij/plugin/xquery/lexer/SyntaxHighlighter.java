@@ -67,7 +67,7 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
     @Override
     @SuppressWarnings("NullableProblems") // jacoco Code Coverage reports an unchecked branch when @NotNull is used.
     public Lexer getHighlightingLexer() {
-        return new XQueryLexer();
+        return new XQueryWithXQDocLexer();
     }
 
     @Override
