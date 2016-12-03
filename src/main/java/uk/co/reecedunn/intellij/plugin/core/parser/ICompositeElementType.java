@@ -13,9 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.parser;
+package uk.co.reecedunn.intellij.plugin.core.parser;
 
 import com.intellij.lang.ASTNode;
+import com.intellij.lang.Language;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NonNls;
@@ -27,8 +28,8 @@ import java.lang.reflect.Constructor;
 public class ICompositeElementType extends IElementType {
     private Constructor<?> mPsiConstructor;
 
-    public ICompositeElementType(@NotNull @NonNls String debugName, Class<?> psiClass) {
-        super(debugName, XQuery.INSTANCE);
+    public ICompositeElementType(@NotNull @NonNls String debugName, Class<?> psiClass, Language language) {
+        super(debugName, language);
         try {
             mPsiConstructor = psiClass.getConstructor(ASTNode.class);
         } catch (NoSuchMethodException e) {

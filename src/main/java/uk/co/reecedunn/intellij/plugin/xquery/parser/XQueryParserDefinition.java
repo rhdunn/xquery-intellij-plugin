@@ -27,6 +27,7 @@ import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.tree.IFileElementType;
 import com.intellij.psi.tree.TokenSet;
 import org.jetbrains.annotations.NotNull;
+import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryFileImpl;
