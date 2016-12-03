@@ -17,17 +17,11 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.parser;
 
 import com.intellij.lang.ASTNode;
 import com.intellij.lang.LanguageASTFactory;
-import com.intellij.lang.ParserDefinition;
-import com.intellij.lang.PsiBuilder;
-import com.intellij.lang.impl.PsiBuilderImpl;
-import com.intellij.lexer.Lexer;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.CharsetToolkit;
 import com.intellij.psi.*;
-import com.intellij.psi.impl.source.tree.CompositeElement;
 import com.intellij.psi.impl.source.tree.FileElement;
 import com.intellij.psi.impl.source.tree.LeafElement;
-import com.intellij.psi.tree.TokenSet;
 import com.intellij.testFramework.LightVirtualFile;
 import com.intellij.testFramework.ParsingTestCase;
 import org.apache.xmlbeans.impl.common.IOUtil;
@@ -88,21 +82,6 @@ public abstract class ParserTestCase extends ParsingTestCase {
         return viewProvider;
     }
 
-    private void buildPsi(@NotNull ParserDefinition parserDefinition, ASTNode node, LightVirtualFile file) {
-        if (node instanceof CompositeElement) {
-            CompositeElement element = (CompositeElement)node;
-            if (node instanceof FileElement) {
-                element.setPsi(createFile(file));
-            } else if (!(node instanceof PsiErrorElement)) {
-                element.setPsi(parserDefinition.createElement(node));
-            }
-        }
-
-        for (ASTNode child : node.getChildren(null)) {
-            buildPsi(parserDefinition, child, file);
-        }
-    }
-
     private void prettyPrintASTNode(@NotNull StringBuilder prettyPrinted, ASTNode node, int depth) {
         for (int i = 0; i != depth; ++i) {
             prettyPrinted.append("   ");
@@ -151,16 +130,7 @@ public abstract class ParserTestCase extends ParsingTestCase {
     @NotNull
     private XQueryFile parseFile(@NotNull LightVirtualFile file) {
         initializeSettings(getSettings());
-
-        ParserDefinition parserDefinition = new XQueryParserDefinition();
-        TokenSet whitespaces = parserDefinition.getWhitespaceTokens();
-        TokenSet comments = parserDefinition.getCommentTokens();
-        Lexer lexer = parserDefinition.createLexer(myProject);
-
-        PsiBuilder builder = new PsiBuilderImpl(myProject, null, whitespaces, comments, lexer, null, file.getContent(), null, null);
-        ASTNode node = parserDefinition.createParser(myProject).parse(parserDefinition.getFileNodeType(), builder);
-        buildPsi(parserDefinition, node, file);
-        return (XQueryFile)node.getPsi();
+        return (XQueryFile)super.createFile(file);
     }
 
     @NotNull
