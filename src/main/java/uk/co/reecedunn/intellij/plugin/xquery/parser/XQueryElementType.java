@@ -21,7 +21,6 @@ import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.marklogic.*;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.update.facility.*;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xqdoc.*;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.*;
 
 public interface XQueryElementType {
@@ -323,13 +322,6 @@ public interface XQueryElementType {
     IElementType NUMBER_TEST = new ICompositeElementType("XQUERY_NUMBER_TEST", MarkLogicNumberTestPsiImpl.class, XQuery.INSTANCE);
 
     IElementType MAP_TEST = new ICompositeElementType("XQUERY_MAP_TEST", MarkLogicMapTestPsiImpl.class, XQuery.INSTANCE);
-
-    // endregion
-    // region xqDoc
-
-    IElementType XQDOC_COMMENT = new ICompositeElementType("XQDOC_COMMENT", XQDocCommentPsiImpl.class, XQuery.INSTANCE);
-    IElementType XQDOC_CONTENTS = new ICompositeElementType("XQDOC_CONTENTS", XQDocContentsPsiImpl.class, XQuery.INSTANCE);
-    IElementType XQDOC_TAGGED_CONTENTS = new ICompositeElementType("XQDOC_TAGGED_CONTENTS", XQDocTaggedContentsPsiImpl.class, XQuery.INSTANCE);
 
     // endregion
 }

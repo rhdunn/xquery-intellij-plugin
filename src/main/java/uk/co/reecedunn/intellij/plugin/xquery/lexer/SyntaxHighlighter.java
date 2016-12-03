@@ -101,9 +101,6 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
         } else if (type == XQueryTokenType.COMMENT_START_TAG ||
                    type == XQueryTokenType.COMMENT ||
                    type == XQueryTokenType.COMMENT_END_TAG ||
-                   type == XQueryTokenType.XQDOC_START_TAG ||
-                   type == XQueryTokenType.XQDOC_TRIM ||
-                   type == XQueryTokenType.XQDOC_XML_ELEM_CONTENTS ||
                    type == XQueryTokenType.XML_COMMENT_END_TAG ||
                    type == XQueryTokenType.XML_COMMENT ||
                    type == XQueryTokenType.XML_COMMENT_START_TAG) {
@@ -139,19 +136,6 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
         } else if (type == XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE ||
                    type == XQueryTokenType.XML_CHARACTER_REFERENCE) {
             return XML_ENTITY_REFERENCE_KEYS;
-        } else if (type == XQueryTokenType.XQDOC_TAG_INDICATOR ||
-                   type == XQueryTokenType.XQDOC_TAG_NAME) {
-            return XQDOC_TAG_KEYS;
-        } else if (type == XQueryTokenType.XQDOC_OPEN_XML_TAG ||
-                   type == XQueryTokenType.XQDOC_END_XML_TAG ||
-                   type == XQueryTokenType.XQDOC_CLOSE_XML_TAG ||
-                   type == XQueryTokenType.XQDOC_SELF_CLOSING_XML_TAG ||
-                   type == XQueryTokenType.XQDOC_XML_TAG_NAME ||
-                   type == XQueryTokenType.XQDOC_XML_EQUAL ||
-                   type == XQueryTokenType.XQDOC_XML_ATTRIBUTE_VALUE_START ||
-                   type == XQueryTokenType.XQDOC_XML_ATTRIBUTE_VALUE_CONTENTS ||
-                   type == XQueryTokenType.XQDOC_XML_ATTRIBUTE_VALUE_END) {
-            return XQDOC_MARKUP_KEYS;
         }
         return EMPTY;
     }
