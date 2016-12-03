@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.lexer;
 import com.intellij.psi.TokenType;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.tree.TokenSet;
+import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 
 public interface XQueryTokenType extends TokenType {
@@ -295,6 +296,8 @@ public interface XQueryTokenType extends TokenType {
         XML_ELEMENT_CONTENTS);
 
     TokenSet COMMENT_TOKENS = TokenSet.create(
+        XQDocTokenType.COMMENT_CONTENTS,
+        XQDocTokenType.CONTENTS,
         COMMENT,
         XML_COMMENT);
 

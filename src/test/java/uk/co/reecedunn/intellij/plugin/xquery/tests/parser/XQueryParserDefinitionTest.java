@@ -19,6 +19,7 @@ import com.intellij.lang.ParserDefinition;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.tree.TokenSet;
 import com.intellij.testFramework.LightVirtualFile;
+import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.filetypes.XQueryFileType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
@@ -57,7 +58,9 @@ public class XQueryParserDefinitionTest extends ParserTestCase {
     public void testCommentTokens() {
         ParserDefinition parserDefinition = new XQueryParserDefinition();
         TokenSet tokens = parserDefinition.getCommentTokens();
-        assertThat(tokens.getTypes().length, is(2));
+        assertThat(tokens.getTypes().length, is(4));
+        assertThat(tokens.contains(XQDocTokenType.COMMENT_CONTENTS), is(true));
+        assertThat(tokens.contains(XQDocTokenType.CONTENTS), is(true));
         assertThat(tokens.contains(XQueryTokenType.COMMENT), is(true));
         assertThat(tokens.contains(XQueryTokenType.XML_COMMENT), is(true));
     }
