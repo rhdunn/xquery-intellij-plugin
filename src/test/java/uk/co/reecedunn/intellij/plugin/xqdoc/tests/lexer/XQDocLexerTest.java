@@ -171,6 +171,21 @@ public class XQDocLexerTest extends LexerTestCase {
         matchToken(lexer, ">",     3, 10, 11, XQDocTokenType.END_XML_TAG);
         matchToken(lexer, "three", 4, 11, 16, XQDocTokenType.XML_ELEMENT_CONTENTS);
         matchToken(lexer, "",      4, 16, 16, null);
+
+        lexer.start("~one <two#>three</two#> four");
+        matchToken(lexer, "~",     0,  0,  1, XQDocTokenType.XQDOC_COMMENT_MARKER);
+        matchToken(lexer, "one ",  1,  1,  5, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "<",     1,  5,  6, XQDocTokenType.OPEN_XML_TAG);
+        matchToken(lexer, "two",   3,  6,  9, XQDocTokenType.XML_TAG);
+        matchToken(lexer, "#",     3,  9, 10, XQDocTokenType.INVALID);
+        matchToken(lexer, ">",     3, 10, 11, XQDocTokenType.END_XML_TAG);
+        matchToken(lexer, "three", 4, 11, 16, XQDocTokenType.XML_ELEMENT_CONTENTS);
+        matchToken(lexer, "</",    4, 16, 18, XQDocTokenType.CLOSE_XML_TAG);
+        matchToken(lexer, "two",   5, 18, 21, XQDocTokenType.XML_TAG);
+        matchToken(lexer, "#",     5, 21, 22, XQDocTokenType.INVALID);
+        matchToken(lexer, ">",     5, 22, 23, XQDocTokenType.END_XML_TAG);
+        matchToken(lexer, " four", 1, 23, 28, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "",      1, 28, 28, null);
     }
 
     public void testDirElemConstructor_SelfClosing() {
@@ -193,6 +208,16 @@ public class XQDocLexerTest extends LexerTestCase {
         matchToken(lexer, "b",  3, 4, 5, XQDocTokenType.XML_TAG);
         matchToken(lexer, "/",  3, 5, 6, XQDocTokenType.INVALID);
         matchToken(lexer, "",   3, 6, 6, null);
+
+        lexer.start("~a <b#/> c");
+        matchToken(lexer, "~",  0,  0,  1, XQDocTokenType.XQDOC_COMMENT_MARKER);
+        matchToken(lexer, "a ", 1,  1,  3, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "<",  1,  3,  4, XQDocTokenType.OPEN_XML_TAG);
+        matchToken(lexer, "b",  3,  4,  5, XQDocTokenType.XML_TAG);
+        matchToken(lexer, "#",  3,  5,  6, XQDocTokenType.INVALID);
+        matchToken(lexer, "/>", 3,  6,  8, XQDocTokenType.SELF_CLOSING_XML_TAG);
+        matchToken(lexer, " c", 1,  8, 10, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "",   1, 10, 10, null);
     }
 
     // endregion
