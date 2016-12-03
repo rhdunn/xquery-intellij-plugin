@@ -290,7 +290,7 @@ public class XQDocLexerTest extends LexerTestCase {
     // endregion
     // region xqDoc :: Trim
 
-    public void testTrim() {
+    public void testTrim_Linux() {
         Lexer lexer = new XQDocLexer();
 
         lexer.start("~a\nb\nc");
@@ -319,6 +319,92 @@ public class XQDocLexerTest extends LexerTestCase {
         matchToken(lexer, "\n\t:", 1,  7, 10, XQDocTokenType.TRIM);
         matchToken(lexer, "\tc",   1, 10, 12, XQDocTokenType.CONTENTS);
         matchToken(lexer, "",      1, 12, 12, null);
+
+        lexer.start("~\n\n");
+        matchToken(lexer, "~",  0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER);
+        matchToken(lexer, "\n", 1, 1, 2, XQDocTokenType.TRIM);
+        matchToken(lexer, "\n", 1, 2, 3, XQDocTokenType.TRIM);
+        matchToken(lexer, "",   1, 3, 3, null);
+    }
+
+    public void testTrim_Mac() {
+        Lexer lexer = new XQDocLexer();
+
+        // The xqDoc grammar does not support Mac line endings ('\r'), but XQuery/XML
+        // line ending normalisation rules do.
+
+        lexer.start("~a\rb\rc");
+        matchToken(lexer, "~",  0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER);
+        matchToken(lexer, "a",  1, 1, 2, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "\r", 1, 2, 3, XQDocTokenType.TRIM);
+        matchToken(lexer, "b",  1, 3, 4, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "\r", 1, 4, 5, XQDocTokenType.TRIM);
+        matchToken(lexer, "c",  1, 5, 6, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "",   1, 6, 6, null);
+
+        lexer.start("~a\r \tb\r\t c");
+        matchToken(lexer, "~",     0,  0,  1, XQDocTokenType.XQDOC_COMMENT_MARKER);
+        matchToken(lexer, "a",     1,  1,  2, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "\r \t", 1,  2,  5, XQDocTokenType.TRIM);
+        matchToken(lexer, "b",     1,  5,  6, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "\r\t ", 1,  6,  9, XQDocTokenType.TRIM);
+        matchToken(lexer, "c",     1,  9, 10, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "",      1, 10, 10, null);
+
+        lexer.start("~a\r : b\r\t:\tc");
+        matchToken(lexer, "~",     0,  0,  1, XQDocTokenType.XQDOC_COMMENT_MARKER);
+        matchToken(lexer, "a",     1,  1,  2, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "\r :",  1,  2,  5, XQDocTokenType.TRIM);
+        matchToken(lexer, " b",    1,  5,  7, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "\r\t:", 1,  7, 10, XQDocTokenType.TRIM);
+        matchToken(lexer, "\tc",   1, 10, 12, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "",      1, 12, 12, null);
+
+        lexer.start("~\r\r");
+        matchToken(lexer, "~",  0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER);
+        matchToken(lexer, "\r", 1, 1, 2, XQDocTokenType.TRIM);
+        matchToken(lexer, "\r", 1, 2, 3, XQDocTokenType.TRIM);
+        matchToken(lexer, "",   1, 3, 3, null);
+    }
+
+    public void testTrim_Windows() {
+        Lexer lexer = new XQDocLexer();
+
+        // The xqDoc grammar does not support Windows line endings ('\r\n'), but XQuery/XML
+        // line ending normalisation rules do.
+
+        lexer.start("~a\r\nb\r\nc");
+        matchToken(lexer, "~",    0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER);
+        matchToken(lexer, "a",    1, 1, 2, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "\r\n", 1, 2, 4, XQDocTokenType.TRIM);
+        matchToken(lexer, "b",    1, 4, 5, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "\r\n", 1, 5, 7, XQDocTokenType.TRIM);
+        matchToken(lexer, "c",    1, 7, 8, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "",     1, 8, 8, null);
+
+        lexer.start("~a\r\n \tb\r\n\t c");
+        matchToken(lexer, "~",       0,  0,  1, XQDocTokenType.XQDOC_COMMENT_MARKER);
+        matchToken(lexer, "a",       1,  1,  2, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "\r\n \t", 1,  2,  6, XQDocTokenType.TRIM);
+        matchToken(lexer, "b",       1,  6,  7, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "\r\n\t ", 1,  7, 11, XQDocTokenType.TRIM);
+        matchToken(lexer, "c",       1, 11, 12, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "",        1, 12, 12, null);
+
+        lexer.start("~a\r\n : b\r\n\t:\tc");
+        matchToken(lexer, "~",       0,  0,  1, XQDocTokenType.XQDOC_COMMENT_MARKER);
+        matchToken(lexer, "a",       1,  1,  2, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "\r\n :",  1,  2,  6, XQDocTokenType.TRIM);
+        matchToken(lexer, " b",      1,  6,  8, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "\r\n\t:", 1,  8, 12, XQDocTokenType.TRIM);
+        matchToken(lexer, "\tc",     1, 12, 14, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "",        1, 14, 14, null);
+
+        lexer.start("~\r\n\r\n");
+        matchToken(lexer, "~",    0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER);
+        matchToken(lexer, "\r\n", 1, 1, 3, XQDocTokenType.TRIM);
+        matchToken(lexer, "\r\n", 1, 3, 5, XQDocTokenType.TRIM);
+        matchToken(lexer, "",     1, 5, 5, null);
     }
 
     // endregion

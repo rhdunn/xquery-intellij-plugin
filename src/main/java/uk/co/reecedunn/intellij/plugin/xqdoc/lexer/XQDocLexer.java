@@ -80,8 +80,12 @@ public class XQDocLexer extends LexerBase {
             case CodePointRange.END_OF_BUFFER:
                 mType = null;
                 break;
+            case '\r': // U+000D
             case '\n': // U+000A
                 mTokenRange.match();
+                if (c == '\r' && mTokenRange.getCodePoint() == '\n') {
+                    mTokenRange.match();
+                }
 
                 c = mTokenRange.getCodePoint();
                 while (c == ' ' || c == '\t') { // U+0020 || U+0009
@@ -109,6 +113,7 @@ public class XQDocLexer extends LexerBase {
                 while (true) switch (c) {
                     case CodePointRange.END_OF_BUFFER:
                     case '\n': // U+000A
+                    case '\r': // U+000D
                     case '@':
                     case '<':
                         mType = XQDocTokenType.CONTENTS;
