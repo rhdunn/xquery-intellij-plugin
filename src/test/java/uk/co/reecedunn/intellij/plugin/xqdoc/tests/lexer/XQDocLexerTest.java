@@ -69,6 +69,31 @@ public class XQDocLexerTest extends LexerTestCase {
     }
 
     // endregion
+    // region xqDoc :: DirElemConstructor
+
+    public void testDirElemConstructor_SelfClosing() {
+        Lexer lexer = new XQDocLexer();
+
+        lexer.start("~a <b /> c");
+        matchToken(lexer, "~",  0,  0,  1, XQDocTokenType.XQDOC_COMMENT_MARKER);
+        matchToken(lexer, "a ", 1,  1,  3, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "<",  1,  3,  4, XQDocTokenType.OPEN_XML_TAG);
+        matchToken(lexer, "b",  3,  4,  5, XQDocTokenType.XML_TAG);
+        matchToken(lexer, " ",  3,  5,  6, XQDocTokenType.WHITE_SPACE);
+        matchToken(lexer, "/>", 3,  6,  8, XQDocTokenType.SELF_CLOSING_XML_TAG);
+        matchToken(lexer, " c", 1,  8, 10, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "",   1, 10, 10, null);
+
+        lexer.start("~a <b/");
+        matchToken(lexer, "~",  0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER);
+        matchToken(lexer, "a ", 1, 1, 3, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "<",  1, 3, 4, XQDocTokenType.OPEN_XML_TAG);
+        matchToken(lexer, "b",  3, 4, 5, XQDocTokenType.XML_TAG);
+        matchToken(lexer, "/",  3, 5, 6, XQDocTokenType.INVALID);
+        matchToken(lexer, "",   3, 6, 6, null);
+    }
+
+    // endregion
     // region xqDoc :: TaggedContents
 
     public void testTaggedContents() {
