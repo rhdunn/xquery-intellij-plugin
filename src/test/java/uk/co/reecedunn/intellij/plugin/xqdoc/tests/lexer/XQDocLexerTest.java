@@ -220,6 +220,31 @@ public class XQDocLexerTest extends LexerTestCase {
         matchToken(lexer, "",   1, 10, 10, null);
     }
 
+    public void testDirElemConstructor_Nested() {
+        Lexer lexer = new XQDocLexer();
+
+        lexer.start("~a<b>c<d>e</d>f</b>g");
+        matchToken(lexer, "~",  0,  0,  1, XQDocTokenType.XQDOC_COMMENT_MARKER);
+        matchToken(lexer, "a",  1,  1,  2, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "<",  1,  2,  3, XQDocTokenType.OPEN_XML_TAG);
+        matchToken(lexer, "b",  3,  3,  4, XQDocTokenType.XML_TAG);
+        matchToken(lexer, ">",  3,  4,  5, XQDocTokenType.END_XML_TAG);
+        matchToken(lexer, "c",  4,  5,  6, XQDocTokenType.XML_ELEMENT_CONTENTS);
+        matchToken(lexer, "<",  4,  6,  7, XQDocTokenType.OPEN_XML_TAG);
+        matchToken(lexer, "d",  3,  7,  8, XQDocTokenType.XML_TAG);
+        matchToken(lexer, ">",  3,  8,  9, XQDocTokenType.END_XML_TAG);
+        matchToken(lexer, "e",  4,  9, 10, XQDocTokenType.XML_ELEMENT_CONTENTS);
+        matchToken(lexer, "</", 4, 10, 12, XQDocTokenType.CLOSE_XML_TAG);
+        matchToken(lexer, "d",  5, 12, 13, XQDocTokenType.XML_TAG);
+        matchToken(lexer, ">",  5, 13, 14, XQDocTokenType.END_XML_TAG);
+        matchToken(lexer, "f",  4, 14, 15, XQDocTokenType.XML_ELEMENT_CONTENTS);
+        matchToken(lexer, "</", 4, 15, 17, XQDocTokenType.CLOSE_XML_TAG);
+        matchToken(lexer, "b",  5, 17, 18, XQDocTokenType.XML_TAG);
+        matchToken(lexer, ">",  5, 18, 19, XQDocTokenType.END_XML_TAG);
+        matchToken(lexer, "g",  1, 19, 20, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "",   1, 20, 20, null);
+    }
+
     // endregion
     // region xqDoc :: TaggedContents
 

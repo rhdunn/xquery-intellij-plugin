@@ -223,6 +223,7 @@ public class XQDocLexer extends LexerBase {
                 break;
             default:
                 mTokenRange.match();
+                c = mTokenRange.getCodePoint();
                 while (true) switch (c) {
                     case CodePointRange.END_OF_BUFFER:
                     case '<':
