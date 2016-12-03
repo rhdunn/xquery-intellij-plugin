@@ -28,7 +28,6 @@ import org.apache.xmlbeans.impl.common.IOUtil;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition;
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings;
@@ -44,7 +43,7 @@ public abstract class ParserTestCase extends ParsingTestCase {
     protected void setUp() throws Exception {
         super.setUp();
         registerApplicationService(XQueryProjectSettings.class, new XQueryProjectSettings());
-        addExplicitExtension(LanguageASTFactory.INSTANCE, XQuery.INSTANCE, new XQueryASTFactory());
+        addExplicitExtension(LanguageASTFactory.INSTANCE, myLanguage, new XQueryASTFactory());
     }
 
     // region Parser Test Helpers
@@ -76,8 +75,8 @@ public abstract class ParserTestCase extends ParsingTestCase {
 
     FileViewProvider getFileViewProvider(@NotNull Project project, LightVirtualFile file, boolean physical) {
         final PsiManager manager = PsiManager.getInstance(project);
-        final FileViewProviderFactory factory = LanguageFileViewProviders.INSTANCE.forLanguage(XQuery.INSTANCE);
-        FileViewProvider viewProvider = factory != null ? factory.createFileViewProvider(file, XQuery.INSTANCE, manager, physical) : null;
+        final FileViewProviderFactory factory = LanguageFileViewProviders.INSTANCE.forLanguage(myLanguage);
+        FileViewProvider viewProvider = factory != null ? factory.createFileViewProvider(file, myLanguage, manager, physical) : null;
         if (viewProvider == null) viewProvider = new SingleRootFileViewProvider(manager, file, physical);
         return viewProvider;
     }
