@@ -51,6 +51,8 @@ public class XQDocLexer extends LexerBase {
     private static final int STATE_CONTENTS = 1;
     private static final int STATE_TAGGED_CONTENTS = 2;
     private static final int STATE_ELEM_CONSTRUCTOR = 3;
+    private static final int STATE_ELEM_CONTENTS = 4;
+    private static final int STATE_ELEM_CONSTRUCTOR_CLOSING = 5;
 
     private void stateDefault() {
         int c = mTokenRange.getCodePoint();
@@ -131,7 +133,7 @@ public class XQDocLexer extends LexerBase {
         }
     }
 
-    private void stateElemConstructor() {
+    private void stateElemConstructor(int state) {
         int c = mTokenRange.getCodePoint();
         switch (c) {
             case CodePointRange.END_OF_BUFFER:
@@ -170,10 +172,51 @@ public class XQDocLexer extends LexerBase {
                     mType = XQDocTokenType.INVALID;
                 }
                 break;
+            case '>':
+                mTokenRange.match();
+                mType = XQDocTokenType.END_XML_TAG;
+                popState();
+                if (state == STATE_ELEM_CONSTRUCTOR) {
+                    pushState(STATE_ELEM_CONTENTS);
+                }
+                break;
             default:
                 mTokenRange.match();
                 mType = XQDocTokenType.INVALID;
                 break;
+        }
+    }
+
+    private void stateElemContents() {
+        int c = mTokenRange.getCodePoint();
+        switch (c) {
+            case CodePointRange.END_OF_BUFFER:
+                mType = null;
+                break;
+            case '<':
+                mTokenRange.match();
+                if (mTokenRange.getCodePoint() == '/') {
+                    mTokenRange.match();
+                    mType = XQDocTokenType.CLOSE_XML_TAG;
+                    popState();
+                    pushState(STATE_ELEM_CONSTRUCTOR_CLOSING);
+                } else {
+                    mType = XQDocTokenType.OPEN_XML_TAG;
+                    pushState(STATE_ELEM_CONSTRUCTOR);
+                }
+                break;
+            default:
+                mTokenRange.match();
+                while (true) switch (c) {
+                    case CodePointRange.END_OF_BUFFER:
+                    case '<':
+                        mType = XQDocTokenType.XML_ELEMENT_CONTENTS;
+                        return;
+                    default:
+                        mTokenRange.match();
+                        c = mTokenRange.getCodePoint();
+                        break;
+                }
         }
     }
 
@@ -206,7 +249,11 @@ public class XQDocLexer extends LexerBase {
                 stateTaggedContents();
                 break;
             case STATE_ELEM_CONSTRUCTOR:
-                stateElemConstructor();
+            case STATE_ELEM_CONSTRUCTOR_CLOSING:
+                stateElemConstructor(mState);
+                break;
+            case STATE_ELEM_CONTENTS:
+                stateElemContents();
                 break;
             default:
                 throw new AssertionError("Invalid state: " + mState);

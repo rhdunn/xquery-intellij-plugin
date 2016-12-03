@@ -71,6 +71,35 @@ public class XQDocLexerTest extends LexerTestCase {
     // endregion
     // region xqDoc :: DirElemConstructor
 
+    public void testDirElemConstructor() {
+        Lexer lexer = new XQDocLexer();
+
+        lexer.start("~one <two >three</two > four");
+        matchToken(lexer, "~",     0,  0,  1, XQDocTokenType.XQDOC_COMMENT_MARKER);
+        matchToken(lexer, "one ",  1,  1,  5, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "<",     1,  5,  6, XQDocTokenType.OPEN_XML_TAG);
+        matchToken(lexer, "two",   3,  6,  9, XQDocTokenType.XML_TAG);
+        matchToken(lexer, " ",     3,  9, 10, XQDocTokenType.WHITE_SPACE);
+        matchToken(lexer, ">",     3, 10, 11, XQDocTokenType.END_XML_TAG);
+        matchToken(lexer, "three", 4, 11, 16, XQDocTokenType.XML_ELEMENT_CONTENTS);
+        matchToken(lexer, "</",    4, 16, 18, XQDocTokenType.CLOSE_XML_TAG);
+        matchToken(lexer, "two",   5, 18, 21, XQDocTokenType.XML_TAG);
+        matchToken(lexer, " ",     5, 21, 22, XQDocTokenType.WHITE_SPACE);
+        matchToken(lexer, ">",     5, 22, 23, XQDocTokenType.END_XML_TAG);
+        matchToken(lexer, " four", 1, 23, 28, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "",      1, 28, 28, null);
+
+        lexer.start("~one <two >three");
+        matchToken(lexer, "~",     0,  0,  1, XQDocTokenType.XQDOC_COMMENT_MARKER);
+        matchToken(lexer, "one ",  1,  1,  5, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "<",     1,  5,  6, XQDocTokenType.OPEN_XML_TAG);
+        matchToken(lexer, "two",   3,  6,  9, XQDocTokenType.XML_TAG);
+        matchToken(lexer, " ",     3,  9, 10, XQDocTokenType.WHITE_SPACE);
+        matchToken(lexer, ">",     3, 10, 11, XQDocTokenType.END_XML_TAG);
+        matchToken(lexer, "three", 4, 11, 16, XQDocTokenType.XML_ELEMENT_CONTENTS);
+        matchToken(lexer, "",      4, 16, 16, null);
+    }
+
     public void testDirElemConstructor_SelfClosing() {
         Lexer lexer = new XQDocLexer();
 
