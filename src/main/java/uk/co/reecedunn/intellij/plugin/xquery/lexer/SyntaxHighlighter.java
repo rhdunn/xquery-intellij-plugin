@@ -22,6 +22,7 @@ import com.intellij.openapi.editor.XmlHighlighterColors;
 import com.intellij.openapi.editor.colors.TextAttributesKey;
 import com.intellij.openapi.fileTypes.SyntaxHighlighterBase;
 import com.intellij.psi.tree.IElementType;
+import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType;
 
 public class SyntaxHighlighter extends SyntaxHighlighterBase {
     public static final TextAttributesKey BAD_CHARACTER = TextAttributesKey.createTextAttributesKey("XQUERY_BAD_CHARACTER", HighlighterColors.BAD_CHARACTER);
@@ -103,7 +104,12 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
                    type == XQueryTokenType.COMMENT_END_TAG ||
                    type == XQueryTokenType.XML_COMMENT_END_TAG ||
                    type == XQueryTokenType.XML_COMMENT ||
-                   type == XQueryTokenType.XML_COMMENT_START_TAG) {
+                   type == XQueryTokenType.XML_COMMENT_START_TAG ||
+                   type == XQDocTokenType.COMMENT_CONTENTS ||
+                   type == XQDocTokenType.XQDOC_COMMENT_MARKER ||
+                   type == XQDocTokenType.CONTENTS ||
+                   type == XQDocTokenType.TRIM ||
+                   type == XQDocTokenType.XML_ELEMENT_CONTENTS) {
             return COMMENT_KEYS;
         } else if (type == XQueryTokenType.K_UPDATING ||
                    type == XQueryTokenType.K_PRIVATE ||
@@ -136,6 +142,20 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
         } else if (type == XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE ||
                    type == XQueryTokenType.XML_CHARACTER_REFERENCE) {
             return XML_ENTITY_REFERENCE_KEYS;
+        } else if (type == XQDocTokenType.TAG_MARKER ||
+                   type == XQDocTokenType.TAG) {
+            return XQDOC_TAG_KEYS;
+        } else if (type == XQDocTokenType.OPEN_XML_TAG ||
+                   type == XQDocTokenType.END_XML_TAG ||
+                   type == XQDocTokenType.CLOSE_XML_TAG ||
+                   type == XQDocTokenType.SELF_CLOSING_XML_TAG ||
+                   type == XQDocTokenType.XML_TAG ||
+                   type == XQDocTokenType.XML_EQUAL ||
+                   type == XQDocTokenType.XML_ATTRIBUTE_VALUE_START ||
+                   type == XQDocTokenType.XML_ATTRIBUTE_VALUE_CONTENTS ||
+                   type == XQDocTokenType.XML_ATTRIBUTE_VALUE_END ||
+                   type == XQDocTokenType.INVALID) {
+            return XQDOC_MARKUP_KEYS;
         }
         return EMPTY;
     }
