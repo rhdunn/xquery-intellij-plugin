@@ -16,8 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.parser;
 
 import com.intellij.lang.LanguageASTFactory;
-import com.intellij.testFramework.LightVirtualFile;
-import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory;
@@ -36,20 +34,7 @@ public abstract class ParserTestCase extends ParsingTestCase<XQueryFile> {
         addExplicitExtension(LanguageASTFactory.INSTANCE, myLanguage, new XQueryASTFactory());
     }
 
-    // region Parser Test Helpers
-
-    void initializeSettings(XQueryProjectSettings settings) {
-    }
-
     protected XQueryProjectSettings getSettings() {
         return XQueryProjectSettings.getInstance(myProject);
     }
-
-    @NotNull
-    public XQueryFile parseFile(@NotNull LightVirtualFile file) {
-        initializeSettings(getSettings());
-        return super.parseFile(file);
-    }
-
-    // endregion
 }
