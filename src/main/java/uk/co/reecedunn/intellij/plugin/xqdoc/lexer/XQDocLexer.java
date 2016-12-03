@@ -20,10 +20,13 @@ import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRange;
 
+import java.util.EmptyStackException;
+import java.util.Stack;
+
 public class XQDocLexer extends LexerBase {
     private CodePointRange mTokenRange;
     private int mState;
-    private int mNextState;
+    private final Stack<Integer> mStates = new Stack<>();
     private IElementType mType;
 
     public XQDocLexer() {
@@ -31,6 +34,18 @@ public class XQDocLexer extends LexerBase {
     }
 
     // region States
+
+    private void pushState(int state) {
+        mStates.push(state);
+    }
+
+    private void popState() {
+        try {
+            mStates.pop();
+        } catch (EmptyStackException e) {
+            //
+        }
+    }
 
     private static final int STATE_DEFAULT = 0;
     private static final int STATE_CONTENTS = 1;
@@ -45,7 +60,7 @@ public class XQDocLexer extends LexerBase {
             case '~':
                 mTokenRange.match();
                 mType = XQDocTokenType.XQDOC_COMMENT_MARKER;
-                mNextState = STATE_CONTENTS;
+                pushState(STATE_CONTENTS);
                 break;
             default:
                 mTokenRange.seek(mTokenRange.getBufferEnd());
@@ -78,7 +93,7 @@ public class XQDocLexer extends LexerBase {
             case '@':
                 mTokenRange.match();
                 mType = XQDocTokenType.TAG_MARKER;
-                mNextState = STATE_TAGGED_CONTENTS;
+                pushState(STATE_TAGGED_CONTENTS);
                 break;
             default:
                 while (true) switch (c) {
@@ -105,7 +120,7 @@ public class XQDocLexer extends LexerBase {
             mType = XQDocTokenType.TAG;
         } else {
             stateContents();
-            mNextState = STATE_CONTENTS;
+            popState();
         }
     }
 
@@ -115,14 +130,18 @@ public class XQDocLexer extends LexerBase {
     @Override
     public final void start(@NotNull CharSequence buffer, int startOffset, int endOffset, int initialState) {
         mTokenRange.start(buffer, startOffset, endOffset);
-        mNextState = initialState;
+        pushState(initialState);
         advance();
     }
 
     @Override
     public final void advance() {
         mTokenRange.flush();
-        mState = mNextState;
+        try {
+            mState = mStates.peek();
+        } catch (EmptyStackException e) {
+            mState = STATE_DEFAULT;
+        }
         switch (mState) {
             case STATE_DEFAULT:
                 stateDefault();
