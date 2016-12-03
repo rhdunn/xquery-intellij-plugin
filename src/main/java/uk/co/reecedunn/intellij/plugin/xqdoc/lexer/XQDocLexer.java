@@ -53,6 +53,8 @@ public class XQDocLexer extends LexerBase {
     private static final int STATE_ELEM_CONSTRUCTOR = 3;
     private static final int STATE_ELEM_CONTENTS = 4;
     private static final int STATE_ELEM_CONSTRUCTOR_CLOSING = 5;
+    private static final int STATE_ATTRIBUTE_VALUE_QUOTE = 6;
+    private static final int STATE_ATTRIBUTE_VALUE_APOS = 7;
 
     private void stateDefault() {
         int c = mTokenRange.getCodePoint();
@@ -162,6 +164,20 @@ public class XQDocLexer extends LexerBase {
                 }
                 mType = XQDocTokenType.WHITE_SPACE;
                 break;
+            case '=':
+                mTokenRange.match();
+                mType = XQDocTokenType.XML_EQUAL;
+                break;
+            case '"':
+                mTokenRange.match();
+                mType = XQDocTokenType.XML_ATTRIBUTE_VALUE_START;
+                pushState(STATE_ATTRIBUTE_VALUE_QUOTE);
+                break;
+            case '\'':
+                mTokenRange.match();
+                mType = XQDocTokenType.XML_ATTRIBUTE_VALUE_START;
+                pushState(STATE_ATTRIBUTE_VALUE_APOS);
+                break;
             case '/':
                 mTokenRange.match();
                 if (mTokenRange.getCodePoint() == '>') {
@@ -220,6 +236,23 @@ public class XQDocLexer extends LexerBase {
         }
     }
 
+    private void stateAttributeValue(int endChar) {
+        int c = mTokenRange.getCodePoint();
+        if (c == CodePointRange.END_OF_BUFFER) {
+            mType = null;
+        } else if (c == endChar) {
+            mTokenRange.match();
+            mType = XQDocTokenType.XML_ATTRIBUTE_VALUE_END;
+            popState();
+        } else {
+            while (c != CodePointRange.END_OF_BUFFER && c != endChar) {
+                mTokenRange.match();
+                c = mTokenRange.getCodePoint();
+            }
+            mType = XQDocTokenType.XML_ATTRIBUTE_VALUE_CONTENTS;
+        }
+    }
+
     // endregion
     // region Lexer
 
@@ -254,6 +287,12 @@ public class XQDocLexer extends LexerBase {
                 break;
             case STATE_ELEM_CONTENTS:
                 stateElemContents();
+                break;
+            case STATE_ATTRIBUTE_VALUE_QUOTE:
+                stateAttributeValue('"');
+                break;
+            case STATE_ATTRIBUTE_VALUE_APOS:
+                stateAttributeValue('\'');
                 break;
             default:
                 throw new AssertionError("Invalid state: " + mState);
