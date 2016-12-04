@@ -55,6 +55,7 @@ public class XQDocLexer extends LexerBase {
     private static final int STATE_ELEM_CONSTRUCTOR_CLOSING = 5;
     private static final int STATE_ATTRIBUTE_VALUE_QUOTE = 6;
     private static final int STATE_ATTRIBUTE_VALUE_APOS = 7;
+    private static final int STATE_TRIM = 8;
 
     private void stateDefault() {
         int c = mTokenRange.getCodePoint();
@@ -80,25 +81,6 @@ public class XQDocLexer extends LexerBase {
             case CodePointRange.END_OF_BUFFER:
                 mType = null;
                 break;
-            case '\r': // U+000D
-            case '\n': // U+000A
-                mTokenRange.match();
-                if (c == '\r' && mTokenRange.getCodePoint() == '\n') {
-                    mTokenRange.match();
-                }
-
-                c = mTokenRange.getCodePoint();
-                while (c == ' ' || c == '\t') { // U+0020 || U+0009
-                    mTokenRange.match();
-                    c = mTokenRange.getCodePoint();
-                }
-
-                if (c == ':') {
-                    mTokenRange.match();
-                }
-
-                mType = XQDocTokenType.TRIM;
-                break;
             case '@':
                 mTokenRange.match();
                 mType = XQDocTokenType.TAG_MARKER;
@@ -109,11 +91,18 @@ public class XQDocLexer extends LexerBase {
                 mType = XQDocTokenType.OPEN_XML_TAG;
                 pushState(STATE_ELEM_CONSTRUCTOR);
                 break;
+            case '\n': // U+000A
+            case '\r': // U+000D
+                pushState(STATE_TRIM);
+                stateTrim();
+                break;
             default:
                 while (true) switch (c) {
-                    case CodePointRange.END_OF_BUFFER:
                     case '\n': // U+000A
                     case '\r': // U+000D
+                        pushState(STATE_TRIM);
+                        // fallthrough
+                    case CodePointRange.END_OF_BUFFER:
                     case '@':
                     case '<':
                         mType = XQDocTokenType.CONTENTS;
@@ -259,6 +248,46 @@ public class XQDocLexer extends LexerBase {
         }
     }
 
+    private void stateTrim() {
+        int c = mTokenRange.getCodePoint();
+        switch (c) {
+            case CodePointRange.END_OF_BUFFER:
+                mType = null;
+                break;
+            case ' ':
+            case '\t':
+                while (c == ' ' || c == '\t') {
+                    mTokenRange.match();
+                    c = mTokenRange.getCodePoint();
+                }
+                mType = XQDocTokenType.WHITE_SPACE;
+                break;
+            case '\r': // U+000D
+            case '\n': // U+000A
+                mTokenRange.match();
+                if (c == '\r' && mTokenRange.getCodePoint() == '\n') {
+                    mTokenRange.match();
+                }
+
+                c = mTokenRange.getCodePoint();
+                while (c == ' ' || c == '\t') { // U+0020 || U+0009
+                    mTokenRange.match();
+                    c = mTokenRange.getCodePoint();
+                }
+
+                if (c == ':') {
+                    mTokenRange.match();
+                }
+
+                mType = XQDocTokenType.TRIM;
+                break;
+            default:
+                popState();
+                advance();
+                break;
+        }
+    }
+
     // endregion
     // region Lexer
 
@@ -299,6 +328,9 @@ public class XQDocLexer extends LexerBase {
                 break;
             case STATE_ATTRIBUTE_VALUE_APOS:
                 stateAttributeValue('\'');
+                break;
+            case STATE_TRIM:
+                stateTrim();
                 break;
             default:
                 throw new AssertionError("Invalid state: " + mState);
