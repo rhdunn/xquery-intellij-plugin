@@ -1,10 +1,11 @@
 xquery version "3.0";
 
 (:~
- : XQuery 1.0 and XPath 2.0 Functions and Operators
+ : XPath and XQuery Functions and Operators
  :
  : @see https://www.w3.org/TR/2007/REC-xpath-functions-20070123/
  : @see https://www.w3.org/TR/2010/REC-xpath-functions-20101214/
+ : @see https://www.w3.org/TR/2014/REC-xpath-functions-30-20140408/
  :)
 module  namespace fn = "http://www.w3.org/2005/xpath-functions";
 declare namespace xs = "http://www.w3.org/2001/XMLSchema";
@@ -17,6 +18,9 @@ declare %since("1.0", "20070123") function fn:adjust-dateTime-to-timezone($arg a
 declare %since("1.0", "20070123") function fn:adjust-dateTime-to-timezone($arg as xs:dateTime?, $timezone as xs:dayTimeDuration?) as xs:dateTime? external;
 declare %since("1.0", "20070123") function fn:adjust-time-to-timezone($arg as xs:time?) as xs:time? external;
 declare %since("1.0", "20070123") function fn:adjust-time-to-timezone($arg as xs:time?, $timezone as xs:dayTimeDuration?) as xs:time? external;
+declare %since("3.0", "20140408") function fn:analyze-string($input as xs:string?, $pattern as xs:string) as element(fn:analyze-string-result) external;
+declare %since("3.0", "20140408") function fn:analyze-string($input as xs:string?, $pattern as xs:string, $flags as xs:string) as element(fn:analyze-string-result) external;
+declare %since("3.0", "20140408") function fn:available-environment-variables() as xs:string* external;
 declare %since("1.0", "20070123") function fn:avg($arg as xs:anyAtomicType*) as xs:anyAtomicType? external;
 declare %since("1.0", "20070123") function fn:base-uri() as xs:anyURI? external;
 declare %since("1.0", "20070123") function fn:base-uri($arg as node()?) as xs:anyURI? external;
@@ -35,6 +39,7 @@ declare %since("1.0", "20070123") function fn:count($arg as item()*) as xs:integ
 declare %since("1.0", "20070123") function fn:current-date() as xs:date external;
 declare %since("1.0", "20070123") function fn:current-dateTime() as xs:dateTime external;
 declare %since("1.0", "20070123") function fn:current-time() as xs:time external;
+declare %since("3.0", "20140408") function fn:data() as xs:anyAtomicType* external;
 declare %since("1.0", "20070123") function fn:data($arg as item()*) as xs:anyAtomicType* external;
 declare %since("1.0", "20070123") function fn:dateTime($arg1 as xs:date?, $arg2 as xs:time?) as xs:dateTime? external;
 declare %since("1.0", "20070123") function fn:day-from-date($arg as xs:date?) as xs:integer? external;
@@ -47,6 +52,7 @@ declare %since("1.0", "20070123") function fn:distinct-values($arg as xs:anyAtom
 declare %since("1.0", "20070123") function fn:distinct-values($arg as xs:anyAtomicType*, $collation as xs:string) as xs:anyAtomicType* external;
 declare %since("1.0", "20070123") function fn:doc($uri as xs:string?) as document-node()? external;
 declare %since("1.0", "20070123") function fn:doc-available($uri as xs:string?) as xs:boolean external;
+declare %since("3.0", "20140408") function fn:document-uri() as xs:anyURI? external;
 declare %since("1.0", "20070123") function fn:document-uri($arg as node()?) as xs:anyURI? external;
 declare %since("1.0", "20101214") function fn:element-with-id($arg as xs:string*) as element()* external;
 declare %since("1.0", "20101214") function fn:element-with-id($arg as xs:string*, $node as node()) as element()* external;
@@ -54,6 +60,7 @@ declare %since("1.0", "20070123") function fn:empty($arg as item()*) as xs:boole
 declare %since("1.0", "20070123") function fn:encode-for-uri($uri-part as xs:string?) as xs:string external;
 declare %since("1.0", "20070123") function fn:ends-with($arg1 as xs:string?, $arg2 as xs:string?) as xs:boolean external;
 declare %since("1.0", "20070123") function fn:ends-with($arg1 as xs:string?, $arg2 as xs:string?, $collation as xs:string) as xs:boolean external;
+declare %since("3.0", "20140408") function fn:environment-variable($name as xs:string) as xs:string? external;
 declare %since("1.0", "20070123") function fn:error() as none external;
 declare %since("1.0", "20070123") function fn:error($error as xs:QName) as none external;
 declare %since("1.0", "20070123") function fn:error($error as xs:QName?, $description as xs:string) as none external;
@@ -62,7 +69,30 @@ declare %since("1.0", "20070123") function fn:escape-html-uri($uri as xs:string?
 declare %since("1.0", "20070123") function fn:exactly-one($arg as item()*) as item() external;
 declare %since("1.0", "20070123") function fn:exists($arg as item()*) as xs:boolean external;
 declare %since("1.0", "20070123") function fn:false() as xs:boolean external;
+declare %since("3.0", "20140408") function fn:filter($seq as item()*, $f as function(item()) as xs:boolean) as item()* external;
 declare %since("1.0", "20070123") function fn:floor($arg as xs:numeric?) as xs:numeric? external;
+declare %since("3.0", "20140408") function fn:fold-left($seq as item()*, $zero as item()*, $f as function(item()*, item()) as item()*) as item()* external;
+declare %since("3.0", "20140408") function fn:fold-right($seq as item()*, $zero as item()*, $f as function(item()*, item()) as item()*) as item()* external;
+declare %since("3.0", "20140408") function fn:for-each($seq as item()*, $f as function(item()) as item()*) as item()* external;
+declare %since("3.0", "20140408") function fn:for-each-pair($seq1 as item()*, $seq2 as item()*, $f as function(item(), item()) as item()*) as item()* external;
+declare %since("3.0", "20140408") function fn:format-date($value as xs:date?, $picture as xs:string) as xs:string? external;
+declare %since("3.0", "20140408") function fn:format-date($value as xs:date?, $picture as xs:string, $language as xs:string?, $calendar as xs:string?, $place as xs:string?) as xs:string? external;
+declare %since("3.0", "20140408") function fn:format-dateTime($value as xs:dateTime?, $picture as xs:string) as xs:string? external;
+declare %since("3.0", "20140408") function fn:format-dateTime($value as xs:dateTime?, $picture as xs:string, $language as xs:string?, $calendar as xs:string?, $place as xs:string?) as xs:string? external;
+declare %since("3.0", "20140408") function fn:format-integer($value as xs:integer?, $picture as xs:string) as xs:string external;
+declare %since("3.0", "20140408") function fn:format-integer($value as xs:integer?, $picture as xs:string, $lang as xs:string?) as xs:string external;
+declare %since("3.0", "20140408") function fn:format-number($value as xs:numeric?, $picture as xs:string) as xs:string external;
+declare %since("3.0", "20140408") function fn:format-number($value as xs:numeric?, $picture as xs:string, $decimal-format-name as xs:string?) as xs:string external;
+declare %since("3.0", "20140408") function fn:format-time($value as xs:time?, $picture as xs:string) as xs:string? external;
+declare %since("3.0", "20140408") function fn:format-time($value as xs:time?, $picture as xs:string, $language as xs:string?, $calendar as xs:string?, $place as xs:string?) as xs:string? external;
+declare %since("3.0", "20140408") function fn:function-arity($func as function(*)) as xs:integer external;
+declare %since("3.0", "20140408") function fn:function-lookup($name as xs:QName, $arity as xs:integer) as function(*)? external;
+declare %since("3.0", "20140408") function fn:function-name($func as function(*)) as xs:QName? external;
+declare %since("3.0", "20140408") function fn:generate-id() as xs:string external;
+declare %since("3.0", "20140408") function fn:generate-id($arg as node()?) as xs:string external;
+declare %since("3.0", "20140408") function fn:has-children() as xs:boolean external;
+declare %since("3.0", "20140408") function fn:has-children($node as node()?) as xs:boolean external;
+declare %since("3.0", "20140408") function fn:head($arg as item()*) as item()? external;
 declare %since("1.0", "20070123") function fn:hours-from-dateTime($arg as xs:dateTime?) as xs:integer? external;
 declare %since("1.0", "20070123") function fn:hours-from-duration($arg as xs:duration?) as xs:integer? external;
 declare %since("1.0", "20070123") function fn:hours-from-time($arg as xs:time?) as xs:integer? external;
@@ -74,6 +104,7 @@ declare %since("1.0", "20070123") function fn:implicit-timezone() as xs:dayTimeD
 declare %since("1.0", "20070123") function fn:in-scope-prefixes($element as element()) as xs:string* external;
 declare %since("1.0", "20070123") function fn:index-of($seqParam as xs:anyAtomicType*, $srchParam as xs:anyAtomicType) as xs:integer* external;
 declare %since("1.0", "20070123") function fn:index-of($seqParam as xs:anyAtomicType*, $srchParam as xs:anyAtomicType, $collation as xs:string) as xs:integer* external;
+declare %since("3.0", "20140408") function fn:innermost($nodes as node()*) as node()* external;
 declare %since("1.0", "20070123") function fn:insert-before($target as item()*, $position as xs:integer, $inserts as item()*) as item()* external;
 declare %since("1.0", "20070123") function fn:iri-to-uri($iri as xs:string?) as xs:string external;
 declare %since("1.0", "20070123") function fn:lang($testlang as xs:string?) as xs:boolean external;
@@ -101,7 +132,9 @@ declare %since("1.0", "20070123") function fn:namespace-uri() as xs:anyURI exter
 declare %since("1.0", "20070123") function fn:namespace-uri($arg as node()?) as xs:anyURI external;
 declare %since("1.0", "20070123") function fn:namespace-uri-for-prefix($prefix as xs:string?, $element as element()) as xs:anyURI? external;
 declare %since("1.0", "20070123") function fn:namespace-uri-from-QName($arg as xs:QName?) as xs:anyURI? external;
+declare %since("3.0", "20140408") function fn:nilled() as xs:boolean external;
 declare %since("1.0", "20070123") function fn:nilled($arg as node()?) as xs:boolean? external;
+declare %since("3.0", "20140408") function fn:node-name() as xs:QName? external;
 declare %since("1.0", "20070123") function fn:node-name($arg as node()?) as xs:QName? external;
 declare %since("1.0", "20070123") function fn:normalize-space() as xs:string external;
 declare %since("1.0", "20070123") function fn:normalize-space($arg as xs:string?) as xs:string external;
@@ -111,6 +144,11 @@ declare %since("1.0", "20070123") function fn:not($arg as item()*) as xs:boolean
 declare %since("1.0", "20070123") function fn:number() as xs:double external;
 declare %since("1.0", "20070123") function fn:number($arg as xs:anyAtomicType?) as xs:double external;
 declare %since("1.0", "20070123") function fn:one-or-more($arg as item()*) as item()+ external;
+declare %since("3.0", "20140408") function fn:outermost($nodes as node()*) as node()* external;
+declare %since("3.0", "20140408") function fn:parse-xml($arg as xs:string?) as document-node(element(*))? external;
+declare %since("3.0", "20140408") function fn:parse-xml-fragment($arg as xs:string?) as document-node()? external;
+declare %since("3.0", "20140408") function fn:path() as xs:string? external;
+declare %since("3.0", "20140408") function fn:path($arg as node()?) as xs:string? external;
 declare %since("1.0", "20070123") function fn:position() as xs:integer external;
 declare %since("1.0", "20070123") function fn:prefix-from-QName($arg as xs:QName?) as xs:NCName? external;
 declare %since("1.0", "20070123") function fn:remove($target as item()*, $position as xs:integer) as item()* external;
@@ -123,16 +161,20 @@ declare %since("1.0", "20070123") function fn:reverse($arg as item()*) as item()
 declare %since("1.0", "20070123") function fn:root() as node() external;
 declare %since("1.0", "20070123") function fn:root($arg as node()?) as node()? external;
 declare %since("1.0", "20070123") function fn:round($arg as xs:numeric?) as xs:numeric? external;
+declare %since("3.0", "20140408") function fn:round($arg as xs:numeric?, $precision as xs:integer) as xs:numeric? external;
 declare %since("1.0", "20070123") function fn:round-half-to-even($arg as xs:numeric?) as xs:numeric? external;
 declare %since("1.0", "20070123") function fn:round-half-to-even($arg as xs:numeric?, $precision as xs:integer) as xs:numeric? external;
 declare %since("1.0", "20070123") function fn:seconds-from-dateTime($arg as xs:dateTime?) as xs:decimal? external;
 declare %since("1.0", "20070123") function fn:seconds-from-duration($arg as xs:duration?) as xs:decimal? external;
 declare %since("1.0", "20070123") function fn:seconds-from-time($arg as xs:time?) as xs:decimal? external;
+declare %since("3.0", "20140408") function fn:serialize($arg as item()*) as xs:string external;
+declare %since("3.0", "20140408") function fn:serialize($arg as item()*, $params as element(output:serialization-parameters)?) as xs:string external;
 declare %since("1.0", "20070123") function fn:starts-with($arg1 as xs:string?, $arg2 as xs:string?) as xs:boolean external;
 declare %since("1.0", "20070123") function fn:starts-with($arg1 as xs:string?, $arg2 as xs:string?, $collation as xs:string) as xs:boolean external;
 declare %since("1.0", "20070123") function fn:static-base-uri() as xs:anyURI? external;
 declare %since("1.0", "20070123") function fn:string() as xs:string external;
 declare %since("1.0", "20070123") function fn:string($arg as item()?) as xs:string external;
+declare %since("3.0", "20140408") function fn:string-join($arg1 as xs:string*) as xs:string external;
 declare %since("1.0", "20070123") function fn:string-join($arg1 as xs:string*, $arg2 as xs:string) as xs:string external;
 declare %since("1.0", "20070123") function fn:string-length() as xs:integer external;
 declare %since("1.0", "20070123") function fn:string-length($arg as xs:string?) as xs:integer external;
@@ -147,6 +189,7 @@ declare %since("1.0", "20070123") function fn:substring-before($arg1 as xs:strin
 declare %since("1.0", "20070123") function fn:substring-before($arg1 as xs:string?, $arg2 as xs:string?, $collation as xs:string) as xs:string external;
 declare %since("1.0", "20070123") function fn:sum($arg as xs:anyAtomicType*) as xs:anyAtomicType external;
 declare %since("1.0", "20070123") function fn:sum($arg as xs:anyAtomicType*, $zero as xs:anyAtomicType?) as xs:anyAtomicType? external;
+declare %since("3.0", "20140408") function fn:tail($arg as item()*) as item()? external;
 declare %since("1.0", "20070123") function fn:timezone-from-date($arg as xs:date?) as xs:dayTimeDuration? external;
 declare %since("1.0", "20070123") function fn:timezone-from-dateTime($arg as xs:dateTime?) as xs:dayTimeDuration? external;
 declare %since("1.0", "20070123") function fn:timezone-from-time($arg as xs:time?) as xs:dayTimeDuration? external;
@@ -156,7 +199,15 @@ declare %since("1.0", "20070123") function fn:trace($value as item()*, $label as
 declare %since("1.0", "20070123") function fn:translate($arg as xs:string?, $mapString as xs:string, $transString as xs:string) as xs:string external;
 declare %since("1.0", "20070123") function fn:true() as xs:boolean external;
 declare %since("1.0", "20070123") function fn:unordered($sourceSeq as item()*) as item()* external;
+declare %since("3.0", "20140408") function fn:unparsed-text($href as xs:string?) as xs:string? external;
+declare %since("3.0", "20140408") function fn:unparsed-text($href as xs:string?, $encoding as xs:string) as xs:string? external;
+declare %since("3.0", "20140408") function fn:unparsed-text-available($href as xs:string?) as xs:string? external;
+declare %since("3.0", "20140408") function fn:unparsed-text-available($href as xs:string?, $encoding as xs:string) as xs:string? external;
+declare %since("3.0", "20140408") function fn:unparsed-text-lines($href as xs:string?) as xs:string? external;
+declare %since("3.0", "20140408") function fn:unparsed-text-lines($href as xs:string?, $encoding as xs:string) as xs:string? external;
 declare %since("1.0", "20070123") function fn:upper-case($arg as xs:string?) as xs:string external;
+declare %since("3.0", "20140408") function fn:uri-collection() as xs:anyURI* external;
+declare %since("3.0", "20140408") function fn:uri-collection($arg as xs:string?) as xs:anyURI* external;
 declare %since("1.0", "20070123") function fn:year-from-date($arg as xs:date?) as xs:integer? external;
 declare %since("1.0", "20070123") function fn:year-from-dateTime($arg as xs:dateTime?) as xs:integer? external;
 declare %since("1.0", "20070123") function fn:years-from-duration($arg as xs:duration?) as xs:integer? external;
