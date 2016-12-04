@@ -48,8 +48,8 @@ public class XQueryLexerWithXQDocTest extends LexerTestCase {
         lexer.start("(:~\n@xqdoc comment:)");
         matchToken(lexer, "(:",       0x00000000|0,  0,  2, XQueryTokenType.COMMENT_START_TAG);
         matchToken(lexer, "~",        0x70000000|0,  2,  3, XQDocTokenType.XQDOC_COMMENT_MARKER);
-        matchToken(lexer, "\n",       0x70000000|1,  3,  4, XQDocTokenType.TRIM);
-        matchToken(lexer, "@",        0x70000000|1,  4,  5, XQDocTokenType.TAG_MARKER);
+        matchToken(lexer, "\n",       0x70000000|8,  3,  4, XQDocTokenType.TRIM);
+        matchToken(lexer, "@",        0x70000000|8,  4,  5, XQDocTokenType.TAG_MARKER);
         matchToken(lexer, "xqdoc",    0x70000000|2,  5, 10, XQDocTokenType.TAG);
         matchToken(lexer, " comment", 0x70000000|2, 10, 18, XQDocTokenType.CONTENTS);
         matchToken(lexer, ":)",       0x00000000|4, 18, 20, XQueryTokenType.COMMENT_END_TAG);

@@ -67,6 +67,7 @@ public class XQDocLexer extends LexerBase {
                 mTokenRange.match();
                 mType = XQDocTokenType.XQDOC_COMMENT_MARKER;
                 pushState(STATE_CONTENTS);
+                pushState(STATE_TRIM);
                 break;
             default:
                 mTokenRange.seek(mTokenRange.getBufferEnd());
@@ -80,11 +81,6 @@ public class XQDocLexer extends LexerBase {
         switch (c) {
             case CodePointRange.END_OF_BUFFER:
                 mType = null;
-                break;
-            case '@':
-                mTokenRange.match();
-                mType = XQDocTokenType.TAG_MARKER;
-                pushState(STATE_TAGGED_CONTENTS);
                 break;
             case '<':
                 mTokenRange.match();
@@ -103,7 +99,6 @@ public class XQDocLexer extends LexerBase {
                         pushState(STATE_TRIM);
                         // fallthrough
                     case CodePointRange.END_OF_BUFFER:
-                    case '@':
                     case '<':
                         mType = XQDocTokenType.CONTENTS;
                         return;
@@ -280,6 +275,12 @@ public class XQDocLexer extends LexerBase {
                 }
 
                 mType = XQDocTokenType.TRIM;
+                break;
+            case '@':
+                mTokenRange.match();
+                mType = XQDocTokenType.TAG_MARKER;
+                popState();
+                pushState(STATE_TAGGED_CONTENTS);
                 break;
             default:
                 popState();

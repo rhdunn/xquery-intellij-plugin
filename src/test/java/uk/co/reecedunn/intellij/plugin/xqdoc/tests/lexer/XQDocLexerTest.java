@@ -255,7 +255,7 @@ public class XQDocLexerTest extends LexerTestCase {
         matchToken(lexer, "~",       0,  0,  1, XQDocTokenType.XQDOC_COMMENT_MARKER);
         matchToken(lexer, "Lorem",   1,  1,  6, XQDocTokenType.CONTENTS);
         matchToken(lexer, "\n",      8,  6,  7, XQDocTokenType.TRIM);
-        matchToken(lexer, "@",       1,  7,  8, XQDocTokenType.TAG_MARKER);
+        matchToken(lexer, "@",       8,  7,  8, XQDocTokenType.TAG_MARKER);
         matchToken(lexer, "ipsum",   2,  8, 13, XQDocTokenType.TAG);
         matchToken(lexer, " dolor.", 2, 13, 20, XQDocTokenType.CONTENTS);
         matchToken(lexer, "",        1, 20, 20, null);
@@ -264,7 +264,7 @@ public class XQDocLexerTest extends LexerTestCase {
         matchToken(lexer, "~",       0,  0,  1, XQDocTokenType.XQDOC_COMMENT_MARKER);
         matchToken(lexer, "Lorem",   1,  1,  6, XQDocTokenType.CONTENTS);
         matchToken(lexer, "\n",      8,  6,  7, XQDocTokenType.TRIM);
-        matchToken(lexer, "@",       1,  7,  8, XQDocTokenType.TAG_MARKER);
+        matchToken(lexer, "@",       8,  7,  8, XQDocTokenType.TAG_MARKER);
         matchToken(lexer, "IPSUM",   2,  8, 13, XQDocTokenType.TAG);
         matchToken(lexer, " dolor.", 2, 13, 20, XQDocTokenType.CONTENTS);
         matchToken(lexer, "",        1, 20, 20, null);
@@ -273,7 +273,7 @@ public class XQDocLexerTest extends LexerTestCase {
         matchToken(lexer, "~",       0,  0,  1, XQDocTokenType.XQDOC_COMMENT_MARKER);
         matchToken(lexer, "Lorem",   1,  1,  6, XQDocTokenType.CONTENTS);
         matchToken(lexer, "\n",      8,  6,  7, XQDocTokenType.TRIM);
-        matchToken(lexer, "@",       1,  7,  8, XQDocTokenType.TAG_MARKER);
+        matchToken(lexer, "@",       8,  7,  8, XQDocTokenType.TAG_MARKER);
         matchToken(lexer, "12345",   2,  8, 13, XQDocTokenType.TAG);
         matchToken(lexer, " dolor.", 2, 13, 20, XQDocTokenType.CONTENTS);
         matchToken(lexer, "",        1, 20, 20, null);
@@ -282,16 +282,29 @@ public class XQDocLexerTest extends LexerTestCase {
         matchToken(lexer, "~",        0,  0,  1, XQDocTokenType.XQDOC_COMMENT_MARKER);
         matchToken(lexer, "Lorem",    1,  1,  6, XQDocTokenType.CONTENTS);
         matchToken(lexer, "\n",       8,  6,  7, XQDocTokenType.TRIM);
-        matchToken(lexer, "@",        1,  7,  8, XQDocTokenType.TAG_MARKER);
+        matchToken(lexer, "@",        8,  7,  8, XQDocTokenType.TAG_MARKER);
         matchToken(lexer, "# dolor.", 2,  8, 16, XQDocTokenType.CONTENTS);
         matchToken(lexer, "",         1, 16, 16, null);
 
         lexer.start("~@lorem ipsum.");
         matchToken(lexer, "~",       0,  0,  1, XQDocTokenType.XQDOC_COMMENT_MARKER);
-        matchToken(lexer, "@",       1,  1,  2, XQDocTokenType.TAG_MARKER);
+        matchToken(lexer, "@",       8,  1,  2, XQDocTokenType.TAG_MARKER);
         matchToken(lexer, "lorem",   2,  2,  7, XQDocTokenType.TAG);
         matchToken(lexer, " ipsum.", 2,  7, 14, XQDocTokenType.CONTENTS);
         matchToken(lexer, "",        1, 14, 14, null);
+    }
+
+    public void testTaggedContents_AtSignInContents() {
+        Lexer lexer = new XQDocLexer();
+
+        lexer.start("~Lorem\n@ipsum ab@cd.");
+        matchToken(lexer, "~",       0,  0,  1, XQDocTokenType.XQDOC_COMMENT_MARKER);
+        matchToken(lexer, "Lorem",   1,  1,  6, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "\n",      8,  6,  7, XQDocTokenType.TRIM);
+        matchToken(lexer, "@",       8,  7,  8, XQDocTokenType.TAG_MARKER);
+        matchToken(lexer, "ipsum",   2,  8, 13, XQDocTokenType.TAG);
+        matchToken(lexer, " ab@cd.", 2, 13, 20, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "",        1, 20, 20, null);
     }
 
     // endregion
@@ -320,7 +333,7 @@ public class XQDocLexerTest extends LexerTestCase {
 
         lexer.start("~\n\n");
         matchToken(lexer, "~",  0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER);
-        matchToken(lexer, "\n", 1, 1, 2, XQDocTokenType.TRIM);
+        matchToken(lexer, "\n", 8, 1, 2, XQDocTokenType.TRIM);
         matchToken(lexer, "\n", 8, 2, 3, XQDocTokenType.TRIM);
         matchToken(lexer, "",   8, 3, 3, null);
     }
@@ -351,7 +364,7 @@ public class XQDocLexerTest extends LexerTestCase {
 
         lexer.start("~\r\r");
         matchToken(lexer, "~",  0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER);
-        matchToken(lexer, "\r", 1, 1, 2, XQDocTokenType.TRIM);
+        matchToken(lexer, "\r", 8, 1, 2, XQDocTokenType.TRIM);
         matchToken(lexer, "\r", 8, 2, 3, XQDocTokenType.TRIM);
         matchToken(lexer, "",   8, 3, 3, null);
     }
@@ -382,7 +395,7 @@ public class XQDocLexerTest extends LexerTestCase {
 
         lexer.start("~\r\n\r\n");
         matchToken(lexer, "~",    0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER);
-        matchToken(lexer, "\r\n", 1, 1, 3, XQDocTokenType.TRIM);
+        matchToken(lexer, "\r\n", 8, 1, 3, XQDocTokenType.TRIM);
         matchToken(lexer, "\r\n", 8, 3, 5, XQDocTokenType.TRIM);
         matchToken(lexer, "",     8, 5, 5, null);
     }
@@ -397,18 +410,18 @@ public class XQDocLexerTest extends LexerTestCase {
 
         lexer.start("~\n : \t@lorem ipsum.");
         matchToken(lexer, "~",       0,  0,  1, XQDocTokenType.XQDOC_COMMENT_MARKER);
-        matchToken(lexer, "\n :",    1,  1,  4, XQDocTokenType.TRIM);
+        matchToken(lexer, "\n :",    8,  1,  4, XQDocTokenType.TRIM);
         matchToken(lexer, " \t",     8,  4,  6, XQDocTokenType.WHITE_SPACE);
-        matchToken(lexer, "@",       1,  6,  7, XQDocTokenType.TAG_MARKER);
+        matchToken(lexer, "@",       8,  6,  7, XQDocTokenType.TAG_MARKER);
         matchToken(lexer, "lorem",   2,  7, 12, XQDocTokenType.TAG);
         matchToken(lexer, " ipsum.", 2, 12, 19, XQDocTokenType.CONTENTS);
         matchToken(lexer, "",        1, 19, 19, null);
 
         lexer.start("~\n :\t @lorem ipsum.");
         matchToken(lexer, "~",       0,  0,  1, XQDocTokenType.XQDOC_COMMENT_MARKER);
-        matchToken(lexer, "\n :",    1,  1,  4, XQDocTokenType.TRIM);
+        matchToken(lexer, "\n :",    8,  1,  4, XQDocTokenType.TRIM);
         matchToken(lexer, "\t ",     8,  4,  6, XQDocTokenType.WHITE_SPACE);
-        matchToken(lexer, "@",       1,  6,  7, XQDocTokenType.TAG_MARKER);
+        matchToken(lexer, "@",       8,  6,  7, XQDocTokenType.TAG_MARKER);
         matchToken(lexer, "lorem",   2,  7, 12, XQDocTokenType.TAG);
         matchToken(lexer, " ipsum.", 2, 12, 19, XQDocTokenType.CONTENTS);
         matchToken(lexer, "",        1, 19, 19, null);
