@@ -9,9 +9,9 @@ xquery version "3.0";
 module  namespace math = "http://www.w3.org/2005/xpath-functions/math";
 declare namespace xs   = "http://www.w3.org/2001/XMLSchema";
 
-declare function math:acos($θ as xs:double?) as xs:double? external; (: §4.8.12 :)
-declare function math:asin($θ as xs:double?) as xs:double? external; (: §4.8.11 :)
-declare function math:atan($θ as xs:double?) as xs:double? external; (: §4.8.13 :)
+declare function math:acos($arg as xs:double?) as xs:double? external; (: §4.8.12 :)
+declare function math:asin($arg as xs:double?) as xs:double? external; (: §4.8.11 :)
+declare function math:atan($arg as xs:double?) as xs:double? external; (: §4.8.13 :)
 declare function math:atan2($y as xs:double, $x as xs:double) as xs:double external; (: §4.8.14 :)
 declare function math:cos($θ as xs:double?) as xs:double? external; (: §4.8.9 :)
 declare function math:exp($arg as xs:double?) as xs:double? external; (: §4.8.2 :)
