@@ -1,10 +1,11 @@
-(: XQuery 1.0 and XPath 2.0 Functions and Operators (Second Edition)
- : W3C Recommendation 14 December 2010
- :
- : Reference: https://www.w3.org/TR/2010/REC-xpath-functions-20101214/
- :)
 xquery version "3.0";
 
+(:~
+ : XQuery 1.0 and XPath 2.0 Functions and Operators (Second Edition)
+ : <em>W3C Recommendation 14 December 2010</em>
+ :
+ : @see https://www.w3.org/TR/2010/REC-xpath-functions-20101214/
+ :)
 module  namespace fn = "http://www.w3.org/2005/xpath-functions";
 declare namespace xs = "http://www.w3.org/2001/XMLSchema";
 

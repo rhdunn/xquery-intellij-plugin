@@ -1,10 +1,11 @@
-(: XPath and XQuery Functions and Operators 3.0
- : W3C Recommendation 08 April 2014
- :
- : Reference: https://www.w3.org/TR/2014/REC-xpath-functions-30-20140408/
- :)
 xquery version "3.0";
 
+(:~
+ : XPath and XQuery Functions and Operators 3.0
+ : <em>W3C Recommendation 08 April 2014</em>
+ :
+ : @see https://www.w3.org/TR/2014/REC-xpath-functions-30-20140408/
+ :)
 module  namespace math = "http://www.w3.org/2005/xpath-functions/math";
 declare namespace xs   = "http://www.w3.org/2001/XMLSchema";
 
