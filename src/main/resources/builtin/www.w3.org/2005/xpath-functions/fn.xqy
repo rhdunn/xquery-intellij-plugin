@@ -2,9 +2,9 @@ xquery version "3.0";
 
 (:~
  : XQuery 1.0 and XPath 2.0 Functions and Operators
- : <em>W3C Recommendation 23 January 2007</em>
  :
  : @see https://www.w3.org/TR/2007/REC-xpath-functions-20070123/
+ : @see https://www.w3.org/TR/2010/REC-xpath-functions-20101214/
  :)
 module  namespace fn = "http://www.w3.org/2005/xpath-functions";
 declare namespace xs = "http://www.w3.org/2001/XMLSchema";
@@ -48,6 +48,8 @@ declare %since("1.0", "20070123") function fn:distinct-values($arg as xs:anyAtom
 declare %since("1.0", "20070123") function fn:doc($uri as xs:string?) as document-node()? external;
 declare %since("1.0", "20070123") function fn:doc-available($uri as xs:string?) as xs:boolean external;
 declare %since("1.0", "20070123") function fn:document-uri($arg as node()?) as xs:anyURI? external;
+declare %since("1.0", "20101214") function fn:element-with-id($arg as xs:string*) as element()* external;
+declare %since("1.0", "20101214") function fn:element-with-id($arg as xs:string*, $node as node()) as element()* external;
 declare %since("1.0", "20070123") function fn:empty($arg as item()*) as xs:boolean external;
 declare %since("1.0", "20070123") function fn:encode-for-uri($uri-part as xs:string?) as xs:string external;
 declare %since("1.0", "20070123") function fn:ends-with($arg1 as xs:string?, $arg2 as xs:string?) as xs:boolean external;
