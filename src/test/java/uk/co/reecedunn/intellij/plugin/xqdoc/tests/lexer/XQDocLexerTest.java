@@ -425,6 +425,20 @@ public class XQDocLexerTest extends LexerTestCase {
         matchToken(lexer, "lorem",   2,  7, 12, XQDocTokenType.TAG);
         matchToken(lexer, " ipsum.", 2, 12, 19, XQDocTokenType.CONTENTS);
         matchToken(lexer, "",        1, 19, 19, null);
+
+        lexer.start("~\n : @lorem ipsum\n : @dolor sed emit");
+        matchToken(lexer, "~",         0,  0,  1, XQDocTokenType.XQDOC_COMMENT_MARKER);
+        matchToken(lexer, "\n :",      8,  1,  4, XQDocTokenType.TRIM);
+        matchToken(lexer, " ",         8,  4,  5, XQDocTokenType.WHITE_SPACE);
+        matchToken(lexer, "@",         8,  5,  6, XQDocTokenType.TAG_MARKER);
+        matchToken(lexer, "lorem",     2,  6, 11, XQDocTokenType.TAG);
+        matchToken(lexer, " ipsum",    2, 11, 17, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "\n :",      8, 17, 20, XQDocTokenType.TRIM);
+        matchToken(lexer, " ",         8, 20, 21, XQDocTokenType.WHITE_SPACE);
+        matchToken(lexer, "@",         8, 21, 22, XQDocTokenType.TAG_MARKER);
+        matchToken(lexer, "dolor",     2, 22, 27, XQDocTokenType.TAG);
+        matchToken(lexer, " sed emit", 2, 27, 36, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "",          1, 36, 36, null);
     }
 
     // endregion

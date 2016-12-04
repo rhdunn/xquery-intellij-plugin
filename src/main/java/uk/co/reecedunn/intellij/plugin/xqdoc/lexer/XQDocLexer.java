@@ -119,8 +119,8 @@ public class XQDocLexer extends LexerBase {
             }
             mType = XQDocTokenType.TAG;
         } else {
-            stateContents();
             popState();
+            stateContents();
         }
     }
 
