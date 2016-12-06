@@ -35,7 +35,9 @@ public class ResourceVirtualFileTest extends TestCase {
         return writer.toString();
     }
 
-    public void testCreatingFileFromFileName() throws IOException {
+    // region File System
+
+    public void testFileSystem_CreatingFileFromFileName() throws IOException {
         VirtualFile file = new ResourceVirtualFile("tests/vfs/test.xq");
         assertThat(file.getName(), is("tests/vfs/test.xq"));
         assertThat(file.isWritable(), is(false));
@@ -44,7 +46,7 @@ public class ResourceVirtualFileTest extends TestCase {
         assertThat(streamToString(file.getInputStream()), is("xquery version \"3.0\"; true()"));
     }
 
-    public void testCreatingFileFromFileNameAndClassLoader() throws IOException {
+    public void testFileSystem_CreatingFileFromFileNameAndClassLoader() throws IOException {
         VirtualFile file = new ResourceVirtualFile(ResourceVirtualFileTest.class.getClassLoader(), "tests/vfs/test.xq");
         assertThat(file.getName(), is("tests/vfs/test.xq"));
         assertThat(file.isWritable(), is(false));
@@ -53,7 +55,7 @@ public class ResourceVirtualFileTest extends TestCase {
         assertThat(streamToString(file.getInputStream()), is("xquery version \"3.0\"; true()"));
     }
 
-    public void testInvalidFilePath() throws IOException {
+    public void testFileSystem_InvalidFilePath() throws IOException {
         VirtualFile file = new ResourceVirtualFile("tests/vfs/test.xqy");
         assertThat(file.getName(), is("tests/vfs/test.xqy"));
         assertThat(file.isWritable(), is(false));
@@ -62,7 +64,7 @@ public class ResourceVirtualFileTest extends TestCase {
         assertThat(file.getInputStream(), is(nullValue()));
     }
 
-    public void testDirectory() throws IOException {
+    public void testFileSystem_Directory() throws IOException {
         VirtualFile file = new ResourceVirtualFile("tests/vfs");
         assertThat(file.getName(), is("tests/vfs"));
         assertThat(file.isWritable(), is(false));
@@ -70,4 +72,6 @@ public class ResourceVirtualFileTest extends TestCase {
         assertThat(file.isValid(), is(true));
         assertThat(file.getInputStream(), is(nullValue()));
     }
+
+    // endregion
 }
