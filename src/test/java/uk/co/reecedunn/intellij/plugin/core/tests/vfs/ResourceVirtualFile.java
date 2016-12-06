@@ -23,14 +23,17 @@ import org.jetbrains.annotations.Nullable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URL;
 
 public class ResourceVirtualFile extends VirtualFile {
     private ClassLoader mLoader;
     private String mResource;
+    private URL mUrl;
 
     public ResourceVirtualFile(ClassLoader loader, String resource) {
         mLoader = loader;
         mResource = resource;
+        mUrl = mLoader.getResource(mResource);
     }
 
     public ResourceVirtualFile(String resource) {
@@ -67,7 +70,7 @@ public class ResourceVirtualFile extends VirtualFile {
 
     @Override
     public boolean isValid() {
-        throw new UnsupportedOperationException();
+        return mUrl != null;
     }
 
     @Override

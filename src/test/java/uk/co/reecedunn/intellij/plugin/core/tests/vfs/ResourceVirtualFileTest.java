@@ -24,6 +24,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
 
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
@@ -38,6 +39,7 @@ public class ResourceVirtualFileTest extends TestCase {
         VirtualFile file = new ResourceVirtualFile("tests/vfs/test.xq");
         assertThat(file.getName(), is("tests/vfs/test.xq"));
         assertThat(file.isWritable(), is(false));
+        assertThat(file.isValid(), is(true));
         assertThat(streamToString(file.getInputStream()), is("xquery version \"3.0\"; true()"));
     }
 
@@ -45,6 +47,15 @@ public class ResourceVirtualFileTest extends TestCase {
         VirtualFile file = new ResourceVirtualFile(ResourceVirtualFileTest.class.getClassLoader(), "tests/vfs/test.xq");
         assertThat(file.getName(), is("tests/vfs/test.xq"));
         assertThat(file.isWritable(), is(false));
+        assertThat(file.isValid(), is(true));
         assertThat(streamToString(file.getInputStream()), is("xquery version \"3.0\"; true()"));
+    }
+
+    public void testInvalidFilePath() throws IOException {
+        VirtualFile file = new ResourceVirtualFile("tests/vfs/test.xqy");
+        assertThat(file.getName(), is("tests/vfs/test.xqy"));
+        assertThat(file.isWritable(), is(false));
+        assertThat(file.isValid(), is(false));
+        assertThat(file.getInputStream(), is(nullValue()));
     }
 }
