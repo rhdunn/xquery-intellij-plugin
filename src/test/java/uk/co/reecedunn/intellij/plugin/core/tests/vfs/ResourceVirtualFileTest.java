@@ -25,6 +25,7 @@ import java.io.InputStreamReader;
 import java.io.StringWriter;
 
 import static org.hamcrest.CoreMatchers.endsWith;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
@@ -46,6 +47,14 @@ public class ResourceVirtualFileTest extends TestCase {
         assertThat(file.isDirectory(), is(false));
         assertThat(file.isValid(), is(true));
         assertThat(streamToString(file.getInputStream()), is("xquery version \"3.0\"; true()"));
+
+        VirtualFile parent = file.getParent();
+        assertThat(parent, is(notNullValue()));
+        assertThat(parent.getName(), is("tests/vfs"));
+        assertThat(parent.isDirectory(), is(true));
+        assertThat(parent.isValid(), is(true));
+
+        assertThat(parent.getParent(), is(notNullValue()));
     }
 
     public void testFileSystem_CreatingFileFromFileNameAndClassLoader() throws IOException {
@@ -56,6 +65,14 @@ public class ResourceVirtualFileTest extends TestCase {
         assertThat(file.isDirectory(), is(false));
         assertThat(file.isValid(), is(true));
         assertThat(streamToString(file.getInputStream()), is("xquery version \"3.0\"; true()"));
+
+        VirtualFile parent = file.getParent();
+        assertThat(parent, is(notNullValue()));
+        assertThat(parent.getName(), is("tests/vfs"));
+        assertThat(parent.isDirectory(), is(true));
+        assertThat(parent.isValid(), is(true));
+
+        assertThat(parent.getParent(), is(notNullValue()));
     }
 
     public void testFileSystem_InvalidFilePath() throws IOException {
@@ -66,6 +83,14 @@ public class ResourceVirtualFileTest extends TestCase {
         assertThat(file.isDirectory(), is(false));
         assertThat(file.isValid(), is(false));
         assertThat(file.getInputStream(), is(nullValue()));
+
+        VirtualFile parent = file.getParent();
+        assertThat(parent, is(notNullValue()));
+        assertThat(parent.getName(), is("tests/vfs"));
+        assertThat(parent.isDirectory(), is(true));
+        assertThat(parent.isValid(), is(true));
+
+        assertThat(parent.getParent(), is(notNullValue()));
     }
 
     public void testFileSystem_Directory() throws IOException {
@@ -76,6 +101,14 @@ public class ResourceVirtualFileTest extends TestCase {
         assertThat(file.isDirectory(), is(true));
         assertThat(file.isValid(), is(true));
         assertThat(file.getInputStream(), is(nullValue()));
+
+        VirtualFile parent = file.getParent();
+        assertThat(parent, is(notNullValue()));
+        assertThat(parent.getName(), is("tests"));
+        assertThat(parent.isDirectory(), is(true));
+        assertThat(parent.isValid(), is(true));
+
+        assertThat(parent.getParent(), is(nullValue()));
     }
 
     // endregion

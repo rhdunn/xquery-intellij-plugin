@@ -84,7 +84,11 @@ public class ResourceVirtualFile extends VirtualFile {
 
     @Override
     public VirtualFile getParent() {
-        throw new UnsupportedOperationException();
+        int idx = mResource.lastIndexOf('/');
+        if (idx == -1) {
+            return null;
+        }
+        return new ResourceVirtualFile(mLoader, mResource.substring(0, idx));
     }
 
     @Override
