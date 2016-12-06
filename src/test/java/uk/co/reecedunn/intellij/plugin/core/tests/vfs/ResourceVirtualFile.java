@@ -93,7 +93,20 @@ public class ResourceVirtualFile extends VirtualFile {
 
     @Override
     public VirtualFile[] getChildren() {
-        throw new UnsupportedOperationException();
+        if (mFile == null) {
+            return null;
+        }
+
+        String[] children = mFile.list();
+        if (children == null) {
+            return null;
+        }
+
+        VirtualFile[] files = new VirtualFile[children.length];
+        for (int i = 0; i != children.length; ++i) {
+            files[i] = new ResourceVirtualFile(mLoader, mResource + "/" + children[i]);
+        }
+        return files;
     }
 
     @NotNull

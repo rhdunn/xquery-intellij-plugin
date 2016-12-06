@@ -55,6 +55,9 @@ public class ResourceVirtualFileTest extends TestCase {
         assertThat(parent.isValid(), is(true));
 
         assertThat(parent.getParent(), is(notNullValue()));
+
+        VirtualFile[] children = file.getChildren();
+        assertThat(children, is(nullValue()));
     }
 
     public void testFileSystem_CreatingFileFromFileNameAndClassLoader() throws IOException {
@@ -73,6 +76,9 @@ public class ResourceVirtualFileTest extends TestCase {
         assertThat(parent.isValid(), is(true));
 
         assertThat(parent.getParent(), is(notNullValue()));
+
+        VirtualFile[] children = file.getChildren();
+        assertThat(children, is(nullValue()));
     }
 
     public void testFileSystem_InvalidFilePath() throws IOException {
@@ -91,6 +97,9 @@ public class ResourceVirtualFileTest extends TestCase {
         assertThat(parent.isValid(), is(true));
 
         assertThat(parent.getParent(), is(notNullValue()));
+
+        VirtualFile[] children = file.getChildren();
+        assertThat(children, is(nullValue()));
     }
 
     public void testFileSystem_Directory() throws IOException {
@@ -109,6 +118,11 @@ public class ResourceVirtualFileTest extends TestCase {
         assertThat(parent.isValid(), is(true));
 
         assertThat(parent.getParent(), is(nullValue()));
+
+        VirtualFile[] children = file.getChildren();
+        assertThat(children, is(notNullValue()));
+        assertThat(children.length, is(1));
+        assertThat(children[0].getName(), is("tests/vfs/test.xq"));
     }
 
     // endregion
