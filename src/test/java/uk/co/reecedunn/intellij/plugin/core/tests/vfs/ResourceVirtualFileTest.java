@@ -37,12 +37,14 @@ public class ResourceVirtualFileTest extends TestCase {
     public void testCreatingFileFromFileName() throws IOException {
         VirtualFile file = new ResourceVirtualFile("tests/vfs/test.xq");
         assertThat(file.getName(), is("tests/vfs/test.xq"));
+        assertThat(file.isWritable(), is(false));
         assertThat(streamToString(file.getInputStream()), is("xquery version \"3.0\"; true()"));
     }
 
     public void testCreatingFileFromFileNameAndClassLoader() throws IOException {
         VirtualFile file = new ResourceVirtualFile(ResourceVirtualFileTest.class.getClassLoader(), "tests/vfs/test.xq");
         assertThat(file.getName(), is("tests/vfs/test.xq"));
+        assertThat(file.isWritable(), is(false));
         assertThat(streamToString(file.getInputStream()), is("xquery version \"3.0\"; true()"));
     }
 }

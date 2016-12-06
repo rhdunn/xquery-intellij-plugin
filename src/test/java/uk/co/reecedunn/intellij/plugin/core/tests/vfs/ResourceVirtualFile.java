@@ -57,7 +57,7 @@ public class ResourceVirtualFile extends VirtualFile {
 
     @Override
     public boolean isWritable() {
-        throw new UnsupportedOperationException();
+        return false;
     }
 
     @Override
