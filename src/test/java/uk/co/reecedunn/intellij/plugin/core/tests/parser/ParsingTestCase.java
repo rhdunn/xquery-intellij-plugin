@@ -29,6 +29,7 @@ import org.apache.xmlbeans.impl.common.IOUtil;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import uk.co.reecedunn.intellij.plugin.core.tests.vfs.ResourceVirtualFile;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -146,6 +147,7 @@ public abstract class ParsingTestCase<File extends PsiFile> extends com.intellij
 
     @Nullable
     public File parseResource(String resource) {
-        return parseFile(createVirtualFile(resource, loadResource(resource)));
+        VirtualFile file = new ResourceVirtualFile(resource);
+        return parseFile(file);
     }
 }
