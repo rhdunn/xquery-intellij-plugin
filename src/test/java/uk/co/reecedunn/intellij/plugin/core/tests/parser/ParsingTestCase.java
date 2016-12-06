@@ -19,6 +19,7 @@ import com.intellij.lang.ASTNode;
 import com.intellij.lang.ParserDefinition;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.CharsetToolkit;
+import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.*;
 import com.intellij.psi.impl.PsiFileFactoryImpl;
 import com.intellij.psi.impl.source.tree.FileElement;
@@ -65,7 +66,7 @@ public abstract class ParsingTestCase<File extends PsiFile> extends com.intellij
     }
 
     @SuppressWarnings("SameParameterValue")
-    public FileViewProvider getFileViewProvider(@NotNull Project project, LightVirtualFile file, boolean physical) {
+    public FileViewProvider getFileViewProvider(@NotNull Project project, VirtualFile file, boolean physical) {
         final PsiManager manager = PsiManager.getInstance(project);
         final FileViewProviderFactory factory = LanguageFileViewProviders.INSTANCE.forLanguage(myLanguage);
         FileViewProvider viewProvider = factory != null ? factory.createFileViewProvider(file, myLanguage, manager, physical) : null;

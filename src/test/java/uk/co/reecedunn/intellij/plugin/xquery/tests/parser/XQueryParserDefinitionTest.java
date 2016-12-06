@@ -16,9 +16,9 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.parser;
 
 import com.intellij.lang.ParserDefinition;
+import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.tree.TokenSet;
-import com.intellij.testFramework.LightVirtualFile;
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.filetypes.XQueryFileType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer;
@@ -86,7 +86,7 @@ public class XQueryParserDefinitionTest extends ParserTestCase {
 
     public void testCreateFile() {
         ParserDefinition parserDefinition = new XQueryParserDefinition();
-        LightVirtualFile file = createVirtualFile("test.xqy", "");
+        VirtualFile file = createVirtualFile("test.xqy", "");
         PsiFile psiFile = parserDefinition.createFile(getFileViewProvider(myProject, file, false));
         assertThat(psiFile.getClass().getName(), is(XQueryFileImpl.class.getName()));
         assertThat(psiFile.getFileType(), is(XQueryFileType.INSTANCE));
