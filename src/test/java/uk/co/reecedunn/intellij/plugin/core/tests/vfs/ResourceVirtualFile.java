@@ -46,38 +46,38 @@ public class ResourceVirtualFile extends VirtualFile {
     @NotNull
     @Override
     public VirtualFileSystem getFileSystem() {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @NotNull
     @Override
     public String getPath() {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public boolean isWritable() {
-        return false;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public boolean isDirectory() {
-        return false;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public boolean isValid() {
-        return false;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public VirtualFile getParent() {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public VirtualFile[] getChildren() {
-        return new VirtualFile[0];
+        throw new UnsupportedOperationException();
     }
 
     @NotNull
@@ -89,21 +89,22 @@ public class ResourceVirtualFile extends VirtualFile {
     @NotNull
     @Override
     public byte[] contentsToByteArray() throws IOException {
-        return new byte[0];
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public long getTimeStamp() {
-        return 0;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public long getLength() {
-        return 0;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void refresh(boolean asynchronous, boolean recursive, @Nullable Runnable postRunnable) {
+        throw new UnsupportedOperationException();
     }
 
     @Override
