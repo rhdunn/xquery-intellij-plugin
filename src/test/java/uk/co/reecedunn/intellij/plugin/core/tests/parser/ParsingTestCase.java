@@ -20,20 +20,30 @@ import com.intellij.lang.ParserDefinition;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.CharsetToolkit;
 import com.intellij.psi.*;
+import com.intellij.psi.impl.PsiFileFactoryImpl;
 import com.intellij.psi.impl.source.tree.FileElement;
 import com.intellij.psi.impl.source.tree.LeafElement;
 import com.intellij.testFramework.LightVirtualFile;
 import org.apache.xmlbeans.impl.common.IOUtil;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
 
 public abstract class ParsingTestCase<File extends PsiFile> extends com.intellij.testFramework.ParsingTestCase {
+    private PsiFileFactoryImpl myFileFactory;
+
     public ParsingTestCase(String fileExt, ParserDefinition... definitions) {
         super("", fileExt, definitions);
+    }
+
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
+        myFileFactory = new PsiFileFactoryImpl(getPsiManager());
     }
 
     public String loadResource(String resource) {
@@ -108,18 +118,18 @@ public abstract class ParsingTestCase<File extends PsiFile> extends com.intellij
         return prettyPrinted.toString();
     }
 
-    @NotNull
+    @Nullable
     @SuppressWarnings("unchecked")
     public File parseFile(@NotNull LightVirtualFile file) {
-        return (File)super.createFile(file);
+        return (File)myFileFactory.trySetupPsiForFile(file, myLanguage, true, false);
     }
 
-    @NotNull
+    @Nullable
     public File parseText(@NotNull String text) {
         return parseFile(createVirtualFile("testcase.xqy", text));
     }
 
-    @NotNull
+    @Nullable
     public File parseResource(String resource) {
         return parseFile(createVirtualFile(resource, loadResource(resource)));
     }
