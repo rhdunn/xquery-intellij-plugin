@@ -30,6 +30,7 @@ import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
@@ -47,23 +48,23 @@ public abstract class ParsingTestCase<File extends PsiFile> extends com.intellij
         myFileFactory = new PsiFileFactoryImpl(getPsiManager());
     }
 
-    public String streamToString(InputStream stream) {
+    public String streamToString(InputStream stream) throws IOException {
         StringWriter writer = new StringWriter();
-        try {
-            IOUtil.copyCompletely(new InputStreamReader(stream), writer);
-        } catch (Exception e) {
-            return null;
-        }
+        IOUtil.copyCompletely(new InputStreamReader(stream), writer);
         return writer.toString();
     }
 
     public String loadResource(String resource) {
         ClassLoader loader = ParsingTestCase.class.getClassLoader();
-        return streamToString(loader.getResourceAsStream(resource));
+        try {
+            return streamToString(loader.getResourceAsStream(resource));
+        } catch (IOException e) {
+            return null;
+        }
     }
 
-    public LightVirtualFile createVirtualFile(@NonNls String name, String text) {
-        LightVirtualFile file = new LightVirtualFile(name, myLanguage, text);
+    public VirtualFile createVirtualFile(@NonNls String name, String text) {
+        VirtualFile file = new LightVirtualFile(name, myLanguage, text);
         file.setCharset(CharsetToolkit.UTF8_CHARSET);
         return file;
     }
@@ -123,14 +124,19 @@ public abstract class ParsingTestCase<File extends PsiFile> extends com.intellij
     }
 
     @Nullable
-    public File parseFile(@NotNull LightVirtualFile file) {
+    public File parseFile(@NotNull VirtualFile file) {
         return parseFile(file, true, false, false);
     }
 
     @Nullable
     @SuppressWarnings({"unchecked", "SameParameterValue"})
-    public File parseFile(@NotNull LightVirtualFile file, boolean eventSystemEnabled, boolean markAsCopy, boolean noSizeLimit) {
-        return (File)myFileFactory.createFileFromText(file.getName(), myLanguage, file.getContent(), eventSystemEnabled, markAsCopy, noSizeLimit, file);
+    public File parseFile(@NotNull VirtualFile file, boolean eventSystemEnabled, boolean markAsCopy, boolean noSizeLimit) {
+        try {
+            String content = streamToString(file.getInputStream());
+            return (File)myFileFactory.createFileFromText(file.getName(), myLanguage, content, eventSystemEnabled, markAsCopy, noSizeLimit, file);
+        } catch (IOException e) {
+            return null;
+        }
     }
 
     @Nullable
