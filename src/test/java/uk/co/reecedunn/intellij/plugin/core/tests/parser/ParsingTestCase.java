@@ -47,16 +47,19 @@ public abstract class ParsingTestCase<File extends PsiFile> extends com.intellij
         myFileFactory = new PsiFileFactoryImpl(getPsiManager());
     }
 
-    public String loadResource(String resource) {
-        ClassLoader loader = ParsingTestCase.class.getClassLoader();
-        InputStream stream = loader.getResourceAsStream(resource);
+    public String streamToString(InputStream stream) {
         StringWriter writer = new StringWriter();
         try {
             IOUtil.copyCompletely(new InputStreamReader(stream), writer);
         } catch (Exception e) {
-            //
+            return null;
         }
         return writer.toString();
+    }
+
+    public String loadResource(String resource) {
+        ClassLoader loader = ParsingTestCase.class.getClassLoader();
+        return streamToString(loader.getResourceAsStream(resource));
     }
 
     public LightVirtualFile createVirtualFile(@NonNls String name, String text) {
