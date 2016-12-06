@@ -64,7 +64,7 @@ public class ResourceVirtualFile extends VirtualFile {
     @NotNull
     @Override
     public String getPath() {
-        throw new UnsupportedOperationException();
+        return mFile != null ? mFile.getPath() : "";
     }
 
     @Override
