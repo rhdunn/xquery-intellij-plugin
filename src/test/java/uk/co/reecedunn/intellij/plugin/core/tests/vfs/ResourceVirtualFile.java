@@ -20,20 +20,29 @@ import com.intellij.openapi.vfs.VirtualFileSystem;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URISyntaxException;
 import java.net.URL;
 
 public class ResourceVirtualFile extends VirtualFile {
     private ClassLoader mLoader;
     private String mResource;
-    private URL mUrl;
+    private File mFile = null;
 
     public ResourceVirtualFile(ClassLoader loader, String resource) {
         mLoader = loader;
         mResource = resource;
-        mUrl = mLoader.getResource(mResource);
+        URL url = mLoader.getResource(mResource);
+        if (url != null && url.getProtocol().equals("file")) {
+            try {
+                mFile = new File(url.toURI());
+            } catch (URISyntaxException e) {
+                //
+            }
+        }
     }
 
     public ResourceVirtualFile(String resource) {
@@ -65,12 +74,12 @@ public class ResourceVirtualFile extends VirtualFile {
 
     @Override
     public boolean isDirectory() {
-        throw new UnsupportedOperationException();
+        return mFile != null && mFile.isDirectory();
     }
 
     @Override
     public boolean isValid() {
-        return mUrl != null;
+        return mFile != null;
     }
 
     @Override
@@ -112,6 +121,6 @@ public class ResourceVirtualFile extends VirtualFile {
 
     @Override
     public InputStream getInputStream() throws IOException {
-        return mLoader.getResourceAsStream(mResource);
+        return isDirectory() ? null : mLoader.getResourceAsStream(mResource);
     }
 }
