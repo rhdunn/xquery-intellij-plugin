@@ -34,7 +34,7 @@ import java.io.InputStreamReader;
 import java.io.StringWriter;
 
 public abstract class ParsingTestCase<File extends PsiFile> extends com.intellij.testFramework.ParsingTestCase {
-    private PsiFileFactoryImpl myFileFactory;
+    private PsiFileFactory myFileFactory;
 
     public ParsingTestCase(String fileExt, ParserDefinition... definitions) {
         super("", fileExt, definitions);
@@ -119,9 +119,14 @@ public abstract class ParsingTestCase<File extends PsiFile> extends com.intellij
     }
 
     @Nullable
-    @SuppressWarnings("unchecked")
     public File parseFile(@NotNull LightVirtualFile file) {
-        return (File)myFileFactory.trySetupPsiForFile(file, myLanguage, true, false);
+        return parseFile(file, true, false, false);
+    }
+
+    @Nullable
+    @SuppressWarnings({"unchecked", "SameParameterValue"})
+    public File parseFile(@NotNull LightVirtualFile file, boolean eventSystemEnabled, boolean markAsCopy, boolean noSizeLimit) {
+        return (File)myFileFactory.createFileFromText(file.getName(), myLanguage, file.getContent(), eventSystemEnabled, markAsCopy, noSizeLimit, file);
     }
 
     @Nullable
