@@ -24,9 +24,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
 
-import static org.hamcrest.CoreMatchers.endsWith;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.CoreMatchers.nullValue;
+import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
@@ -42,7 +40,7 @@ public class ResourceVirtualFileTest extends TestCase {
     public void testFileSystem_CreatingFileFromFileName() throws IOException {
         VirtualFile file = new ResourceVirtualFile("tests/vfs/test.xq");
         assertThat(file.getName(), is("tests/vfs/test.xq"));
-        assertThat(file.getPath(), endsWith("/tests/vfs/test.xq"));
+        assertThat(file.getPath(), anyOf(endsWith("/tests/vfs/test.xq"), endsWith("\\tests\\vfs\\test.xq")));
         assertThat(file.isWritable(), is(false));
         assertThat(file.isDirectory(), is(false));
         assertThat(file.isValid(), is(true));
@@ -63,7 +61,7 @@ public class ResourceVirtualFileTest extends TestCase {
     public void testFileSystem_CreatingFileFromFileNameAndClassLoader() throws IOException {
         VirtualFile file = new ResourceVirtualFile(ResourceVirtualFileTest.class.getClassLoader(), "tests/vfs/test.xq");
         assertThat(file.getName(), is("tests/vfs/test.xq"));
-        assertThat(file.getPath(), endsWith("/tests/vfs/test.xq"));
+        assertThat(file.getPath(), anyOf(endsWith("/tests/vfs/test.xq"), endsWith("\\tests\\vfs\\test.xq")));
         assertThat(file.isWritable(), is(false));
         assertThat(file.isDirectory(), is(false));
         assertThat(file.isValid(), is(true));
@@ -105,7 +103,7 @@ public class ResourceVirtualFileTest extends TestCase {
     public void testFileSystem_Directory() throws IOException {
         VirtualFile file = new ResourceVirtualFile("tests/vfs");
         assertThat(file.getName(), is("tests/vfs"));
-        assertThat(file.getPath(), endsWith("/tests/vfs"));
+        assertThat(file.getPath(), anyOf(endsWith("/tests/vfs"), endsWith("\\tests\\vfs")));
         assertThat(file.isWritable(), is(false));
         assertThat(file.isDirectory(), is(true));
         assertThat(file.isValid(), is(true));
