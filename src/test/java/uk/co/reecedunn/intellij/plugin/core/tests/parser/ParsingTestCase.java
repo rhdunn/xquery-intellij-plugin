@@ -107,7 +107,7 @@ public abstract class ParsingTestCase<File extends PsiFile> extends PlatformLite
         final MockEditorFactory editorFactory = new MockEditorFactory();
         registerComponentInstance(appContainer, EditorFactory.class, editorFactory);
         registerComponentInstance(appContainer, FileDocumentManager.class, new MockFileDocumentManagerImpl(
-                charSequence -> editorFactory.createDocument(charSequence), FileDocumentManagerImpl.HARD_REF_TO_DOCUMENT_KEY));
+                                  editorFactory::createDocument, FileDocumentManagerImpl.HARD_REF_TO_DOCUMENT_KEY));
         registerComponentInstance(appContainer, PsiDocumentManager.class, new MockPsiDocumentManager());
 
         registerApplicationService(PsiBuilderFactory.class, new PsiBuilderFactoryImpl());
