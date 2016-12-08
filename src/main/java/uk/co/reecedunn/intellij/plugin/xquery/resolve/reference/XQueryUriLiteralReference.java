@@ -1,5 +1,6 @@
 package uk.co.reecedunn.intellij.plugin.xquery.resolve.reference;
 
+import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.*;
@@ -21,7 +22,9 @@ public class XQueryUriLiteralReference extends PsiReferenceBase<XQueryUriLiteral
         if (path.contains("://")) {
             return null;
         }
-        return resolveFileByPath(element.getContainingFile().getParent(), path);
+
+        VirtualFile file = element.getContainingFile().getVirtualFile();
+        return resolveFileByPath(file, element.getProject(), path);
     }
 
     @NotNull
@@ -30,16 +33,16 @@ public class XQueryUriLiteralReference extends PsiReferenceBase<XQueryUriLiteral
         return new Object[0];
     }
 
-    private PsiFile resolveFileByPath(PsiDirectory parent, String path) {
+    private PsiFile resolveFileByPath(VirtualFile parent, Project project, String path) {
         if (parent == null) {
             return null;
         }
 
-        VirtualFile file = parent.getVirtualFile().findFileByRelativePath(path);
+        VirtualFile file = parent.findFileByRelativePath(path);
         if (file != null) {
-            return PsiManager.getInstance(parent.getProject()).findFile(file);
+            return PsiManager.getInstance(project).findFile(file);
         }
 
-        return resolveFileByPath(parent.getParentDirectory(), path);
+        return resolveFileByPath(parent.getParent(), project, path);
     }
 }
