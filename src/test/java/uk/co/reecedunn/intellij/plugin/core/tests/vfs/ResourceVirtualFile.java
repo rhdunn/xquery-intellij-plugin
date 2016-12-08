@@ -30,12 +30,24 @@ import java.net.URL;
 public class ResourceVirtualFile extends VirtualFile {
     private ClassLoader mLoader;
     private String mResource;
+    private String mParent;
+    private String mName;
     private File mFile = null;
 
     public ResourceVirtualFile(ClassLoader loader, String resource) {
         mLoader = loader;
         mResource = resource;
-        URL url = mLoader.getResource(mResource);
+
+        int idx = resource.lastIndexOf('/');
+        if (idx == -1) {
+            mParent = null;
+            mName = resource;
+        } else {
+            mParent = resource.substring(0, idx);
+            mName = resource.substring(idx + 1);
+        }
+
+        URL url = mLoader.getResource(resource);
         if (url != null && url.getProtocol().equals("file")) {
             try {
                 mFile = new File(url.toURI());
@@ -52,7 +64,7 @@ public class ResourceVirtualFile extends VirtualFile {
     @NotNull
     @Override
     public String getName() {
-        return mResource;
+        return mName;
     }
 
     @NotNull
@@ -84,11 +96,7 @@ public class ResourceVirtualFile extends VirtualFile {
 
     @Override
     public VirtualFile getParent() {
-        int idx = mResource.lastIndexOf('/');
-        if (idx == -1) {
-            return null;
-        }
-        return new ResourceVirtualFile(mLoader, mResource.substring(0, idx));
+        return mParent == null ? null : new ResourceVirtualFile(mLoader, mParent);
     }
 
     @Override

@@ -39,7 +39,7 @@ public class ResourceVirtualFileTest extends TestCase {
 
     public void testFileSystem_CreatingFileFromFileName() throws IOException {
         VirtualFile file = new ResourceVirtualFile("tests/vfs/test.xq");
-        assertThat(file.getName(), is("tests/vfs/test.xq"));
+        assertThat(file.getName(), is("test.xq"));
         assertThat(file.getPath(), anyOf(endsWith("/tests/vfs/test.xq"), endsWith("\\tests\\vfs\\test.xq")));
         assertThat(file.isWritable(), is(false));
         assertThat(file.isDirectory(), is(false));
@@ -48,7 +48,8 @@ public class ResourceVirtualFileTest extends TestCase {
 
         VirtualFile parent = file.getParent();
         assertThat(parent, is(notNullValue()));
-        assertThat(parent.getName(), is("tests/vfs"));
+        assertThat(parent.getName(), is("vfs"));
+        assertThat(parent.getPath(), anyOf(endsWith("/tests/vfs"), endsWith("\\tests\\vfs")));
         assertThat(parent.isDirectory(), is(true));
         assertThat(parent.isValid(), is(true));
 
@@ -60,7 +61,7 @@ public class ResourceVirtualFileTest extends TestCase {
 
     public void testFileSystem_CreatingFileFromFileNameAndClassLoader() throws IOException {
         VirtualFile file = new ResourceVirtualFile(ResourceVirtualFileTest.class.getClassLoader(), "tests/vfs/test.xq");
-        assertThat(file.getName(), is("tests/vfs/test.xq"));
+        assertThat(file.getName(), is("test.xq"));
         assertThat(file.getPath(), anyOf(endsWith("/tests/vfs/test.xq"), endsWith("\\tests\\vfs\\test.xq")));
         assertThat(file.isWritable(), is(false));
         assertThat(file.isDirectory(), is(false));
@@ -69,7 +70,8 @@ public class ResourceVirtualFileTest extends TestCase {
 
         VirtualFile parent = file.getParent();
         assertThat(parent, is(notNullValue()));
-        assertThat(parent.getName(), is("tests/vfs"));
+        assertThat(parent.getName(), is("vfs"));
+        assertThat(parent.getPath(), anyOf(endsWith("/tests/vfs"), endsWith("\\tests\\vfs")));
         assertThat(parent.isDirectory(), is(true));
         assertThat(parent.isValid(), is(true));
 
@@ -81,7 +83,7 @@ public class ResourceVirtualFileTest extends TestCase {
 
     public void testFileSystem_InvalidFilePath() throws IOException {
         VirtualFile file = new ResourceVirtualFile("tests/vfs/test.xqy");
-        assertThat(file.getName(), is("tests/vfs/test.xqy"));
+        assertThat(file.getName(), is("test.xqy"));
         assertThat(file.getPath(), is(""));
         assertThat(file.isWritable(), is(false));
         assertThat(file.isDirectory(), is(false));
@@ -90,7 +92,8 @@ public class ResourceVirtualFileTest extends TestCase {
 
         VirtualFile parent = file.getParent();
         assertThat(parent, is(notNullValue()));
-        assertThat(parent.getName(), is("tests/vfs"));
+        assertThat(parent.getName(), is("vfs"));
+        assertThat(parent.getPath(), anyOf(endsWith("/tests/vfs"), endsWith("\\tests\\vfs")));
         assertThat(parent.isDirectory(), is(true));
         assertThat(parent.isValid(), is(true));
 
@@ -102,7 +105,7 @@ public class ResourceVirtualFileTest extends TestCase {
 
     public void testFileSystem_Directory() throws IOException {
         VirtualFile file = new ResourceVirtualFile("tests/vfs");
-        assertThat(file.getName(), is("tests/vfs"));
+        assertThat(file.getName(), is("vfs"));
         assertThat(file.getPath(), anyOf(endsWith("/tests/vfs"), endsWith("\\tests\\vfs")));
         assertThat(file.isWritable(), is(false));
         assertThat(file.isDirectory(), is(true));
@@ -120,7 +123,8 @@ public class ResourceVirtualFileTest extends TestCase {
         VirtualFile[] children = file.getChildren();
         assertThat(children, is(notNullValue()));
         assertThat(children.length, is(1));
-        assertThat(children[0].getName(), is("tests/vfs/test.xq"));
+        assertThat(children[0].getName(), is("test.xq"));
+        assertThat(children[0].getPath(), anyOf(endsWith("/tests/vfs/test.xq"), endsWith("\\tests\\vfs\\test.xq")));
     }
 
     // endregion
