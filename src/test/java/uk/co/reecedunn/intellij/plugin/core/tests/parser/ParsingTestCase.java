@@ -238,18 +238,15 @@ public abstract class ParsingTestCase<File extends PsiFile> extends PlatformLite
 
     @Nullable
     @SuppressWarnings("unchecked")
-    public File parseFile(@NotNull VirtualFile file) {
+    public File parseText(@NotNull String text) {
+        VirtualFile file = createVirtualFile("testcase.xqy", text);
         return (File)PsiManager.getInstance(myProject).findFile(file);
     }
 
     @Nullable
-    public File parseText(@NotNull String text) {
-        return parseFile(createVirtualFile("testcase.xqy", text));
-    }
-
-    @Nullable
+    @SuppressWarnings("unchecked")
     public File parseResource(String resource) {
         VirtualFile file = new ResourceVirtualFile(resource);
-        return parseFile(file);
+        return (File)PsiManager.getInstance(myProject).findFile(file);
     }
 }
