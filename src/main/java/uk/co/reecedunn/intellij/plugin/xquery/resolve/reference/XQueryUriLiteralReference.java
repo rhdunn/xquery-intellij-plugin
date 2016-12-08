@@ -4,6 +4,7 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.*;
+import com.intellij.testFramework.LightVirtualFileBase;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryStringLiteral;
@@ -24,6 +25,10 @@ public class XQueryUriLiteralReference extends PsiReferenceBase<XQueryUriLiteral
         }
 
         VirtualFile file = element.getContainingFile().getVirtualFile();
+        if (file instanceof LightVirtualFileBase) {
+            file = ((LightVirtualFileBase)file).getOriginalFile();
+        }
+
         return resolveFileByPath(file, element.getProject(), path);
     }
 
