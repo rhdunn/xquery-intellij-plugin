@@ -37,7 +37,7 @@ import java.io.InputStreamReader;
 import java.io.StringWriter;
 
 public abstract class ParsingTestCase<File extends PsiFile> extends com.intellij.testFramework.ParsingTestCase {
-    private PsiFileFactory myFileFactory;
+    private PsiFileFactory mFileFactory;
 
     public ParsingTestCase(String fileExt, ParserDefinition... definitions) {
         super("", fileExt, definitions);
@@ -46,7 +46,7 @@ public abstract class ParsingTestCase<File extends PsiFile> extends com.intellij
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        myFileFactory = new PsiFileFactoryImpl(getPsiManager());
+        mFileFactory = new PsiFileFactoryImpl(getPsiManager());
     }
 
     public String streamToString(InputStream stream) throws IOException {
@@ -134,7 +134,7 @@ public abstract class ParsingTestCase<File extends PsiFile> extends com.intellij
     public File parseFile(@NotNull VirtualFile file, boolean eventSystemEnabled, boolean markAsCopy, boolean noSizeLimit) {
         try {
             String content = streamToString(file.getInputStream());
-            return (File)myFileFactory.createFileFromText(file.getName(), myLanguage, content, eventSystemEnabled, markAsCopy, noSizeLimit, file);
+            return (File)mFileFactory.createFileFromText(file.getName(), myLanguage, content, eventSystemEnabled, markAsCopy, noSizeLimit, file);
         } catch (IOException e) {
             return null;
         }
