@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2016 Reece H. Dunn
+ * Copyright 2000-2016 JetBrains s.r.o.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,20 +16,48 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.tests.parser;
 
-import com.intellij.lang.ASTNode;
-import com.intellij.lang.ParserDefinition;
+import com.intellij.ide.startup.impl.StartupManagerImpl;
+import com.intellij.lang.*;
+import com.intellij.lang.impl.PsiBuilderFactoryImpl;
+import com.intellij.mock.*;
+import com.intellij.openapi.Disposable;
+import com.intellij.openapi.editor.EditorFactory;
+import com.intellij.openapi.extensions.ExtensionPointName;
+import com.intellij.openapi.extensions.Extensions;
+import com.intellij.openapi.fileEditor.FileDocumentManager;
+import com.intellij.openapi.fileEditor.impl.FileDocumentManagerImpl;
+import com.intellij.openapi.fileTypes.FileTypeFactory;
+import com.intellij.openapi.fileTypes.FileTypeManager;
+import com.intellij.openapi.options.SchemesManagerFactory;
+import com.intellij.openapi.progress.ProgressManager;
+import com.intellij.openapi.progress.impl.ProgressManagerImpl;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.startup.StartupManager;
+import com.intellij.openapi.util.Disposer;
 import com.intellij.openapi.vfs.CharsetToolkit;
 import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.pom.PomModel;
+import com.intellij.pom.core.impl.PomModelImpl;
+import com.intellij.pom.tree.TreeAspect;
 import com.intellij.psi.*;
+import com.intellij.psi.impl.PsiCachedValuesFactory;
 import com.intellij.psi.impl.PsiFileFactoryImpl;
+import com.intellij.psi.impl.source.resolve.reference.ReferenceProvidersRegistry;
+import com.intellij.psi.impl.source.resolve.reference.ReferenceProvidersRegistryImpl;
 import com.intellij.psi.impl.source.tree.FileElement;
 import com.intellij.psi.impl.source.tree.LeafElement;
+import com.intellij.psi.util.CachedValuesManager;
 import com.intellij.testFramework.LightVirtualFile;
+import com.intellij.testFramework.MockSchemesManagerFactory;
+import com.intellij.testFramework.PlatformLiteFixture;
+import com.intellij.util.CachedValuesManagerImpl;
+import com.intellij.util.messages.MessageBus;
 import org.apache.xmlbeans.impl.common.IOUtil;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.picocontainer.*;
+import org.picocontainer.defaults.AbstractComponentAdapter;
 import uk.co.reecedunn.intellij.plugin.core.tests.vfs.ResourceVirtualFile;
 
 import java.io.IOException;
@@ -36,17 +65,118 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
 
-public abstract class ParsingTestCase<File extends PsiFile> extends com.intellij.testFramework.ParsingTestCase {
+// NOTE: The IntelliJ ParsingTextCase implementation does not make it easy to
+// customise the mock implementation, making it difficult to implement some tests.
+public abstract class ParsingTestCase<File extends PsiFile> extends PlatformLiteFixture {
+    private PsiManager mPsiManager;
     private PsiFileFactory mFileFactory;
+    private Language mLanguage;
+    private String mFileExt;
+    private final ParserDefinition[] mDefinitions;
 
     public ParsingTestCase(String fileExt, ParserDefinition... definitions) {
-        super("", fileExt, definitions);
+        mFileExt = fileExt;
+        mDefinitions = definitions;
     }
 
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        mFileFactory = new PsiFileFactoryImpl(getPsiManager());
+
+        // IntelliJ ParsingTestCase setUp
+        initApplication();
+        ComponentAdapter component = getApplication().getPicoContainer().getComponentAdapter(ProgressManager.class.getName());
+        if (component == null) {
+            getApplication().getPicoContainer().registerComponent(new AbstractComponentAdapter(ProgressManager.class.getName(), Object.class) {
+                @Override
+                public Object getComponentInstance(PicoContainer container) throws PicoInitializationException, PicoIntrospectionException {
+                    return new ProgressManagerImpl();
+                }
+
+                @Override
+                public void verify(PicoContainer container) throws PicoIntrospectionException {
+                }
+            });
+        }
+        Extensions.registerAreaClass("IDEA_PROJECT", null);
+        myProject = new MockProjectEx(getTestRootDisposable());
+        mPsiManager = new MockPsiManager(myProject);
+        mFileFactory = new PsiFileFactoryImpl(mPsiManager);
+        MutablePicoContainer appContainer = getApplication().getPicoContainer();
+        registerComponentInstance(appContainer, MessageBus.class, getApplication().getMessageBus());
+        registerComponentInstance(appContainer, SchemesManagerFactory.class, new MockSchemesManagerFactory());
+        final MockEditorFactory editorFactory = new MockEditorFactory();
+        registerComponentInstance(appContainer, EditorFactory.class, editorFactory);
+        registerComponentInstance(appContainer, FileDocumentManager.class, new MockFileDocumentManagerImpl(
+                charSequence -> editorFactory.createDocument(charSequence), FileDocumentManagerImpl.HARD_REF_TO_DOCUMENT_KEY));
+        registerComponentInstance(appContainer, PsiDocumentManager.class, new MockPsiDocumentManager());
+
+        registerApplicationService(PsiBuilderFactory.class, new PsiBuilderFactoryImpl());
+        registerApplicationService(DefaultASTFactory.class, new DefaultASTFactoryImpl());
+        registerApplicationService(ReferenceProvidersRegistry.class, new ReferenceProvidersRegistryImpl());
+        myProject.registerService(CachedValuesManager.class, new CachedValuesManagerImpl(myProject, new PsiCachedValuesFactory(mPsiManager)));
+        myProject.registerService(PsiManager.class, mPsiManager);
+        myProject.registerService(StartupManager.class, new StartupManagerImpl(myProject));
+        registerExtensionPoint(FileTypeFactory.FILE_TYPE_FACTORY_EP, FileTypeFactory.class);
+
+        for (ParserDefinition definition : mDefinitions) {
+            addExplicitExtension(LanguageParserDefinitions.INSTANCE, definition.getFileNodeType().getLanguage(), definition);
+        }
+        if (mDefinitions.length > 0) {
+            configureFromParserDefinition(mDefinitions[0], mFileExt);
+        }
+
+        // That's for reparse routines
+        final PomModelImpl pomModel = new PomModelImpl(myProject);
+        myProject.registerService(PomModel.class, pomModel);
+        new TreeAspect(pomModel);
+    }
+
+    // region IntelliJ ParsingTestCase Methods
+
+    private void configureFromParserDefinition(ParserDefinition definition, String extension) {
+        mLanguage = definition.getFileNodeType().getLanguage();
+        mFileExt = extension;
+        addExplicitExtension(LanguageParserDefinitions.INSTANCE, mLanguage, definition);
+        registerComponentInstance(getApplication().getPicoContainer(), FileTypeManager.class,
+                new MockFileTypeManager(new MockLanguageFileType(mLanguage, mFileExt)));
+    }
+
+    protected <T> void addExplicitExtension(final LanguageExtension<T> instance, final Language language, final T object) {
+        instance.addExplicitExtension(language, object);
+        Disposer.register(myProject, new Disposable() {
+            @Override
+            public void dispose() {
+                instance.removeExplicitExtension(language, object);
+            }
+        });
+    }
+
+    @Override
+    protected <T> void registerExtensionPoint(final ExtensionPointName<T> extensionPointName, Class<T> aClass) {
+        super.registerExtensionPoint(extensionPointName, aClass);
+        Disposer.register(myProject, new Disposable() {
+            @Override
+            public void dispose() {
+                Extensions.getRootArea().unregisterExtensionPoint(extensionPointName.getName());
+            }
+        });
+    }
+
+    protected <T> void registerApplicationService(final Class<T> aClass, T object) {
+        getApplication().registerService(aClass, object);
+        Disposer.register(myProject, new Disposable() {
+            @Override
+            public void dispose() {
+                getApplication().getPicoContainer().unregisterComponent(aClass.getName());
+            }
+        });
+    }
+
+    // endregion
+
+    public Language getLanguage() {
+        return mLanguage;
     }
 
     public String streamToString(InputStream stream) throws IOException {
@@ -65,7 +195,7 @@ public abstract class ParsingTestCase<File extends PsiFile> extends com.intellij
     }
 
     public VirtualFile createVirtualFile(@NonNls String name, String text) {
-        VirtualFile file = new LightVirtualFile(name, myLanguage, text);
+        VirtualFile file = new LightVirtualFile(name, getLanguage(), text);
         file.setCharset(CharsetToolkit.UTF8_CHARSET);
         return file;
     }
@@ -73,8 +203,8 @@ public abstract class ParsingTestCase<File extends PsiFile> extends com.intellij
     @SuppressWarnings("SameParameterValue")
     public FileViewProvider getFileViewProvider(@NotNull Project project, VirtualFile file, boolean physical) {
         final PsiManager manager = PsiManager.getInstance(project);
-        final FileViewProviderFactory factory = LanguageFileViewProviders.INSTANCE.forLanguage(myLanguage);
-        FileViewProvider viewProvider = factory != null ? factory.createFileViewProvider(file, myLanguage, manager, physical) : null;
+        final FileViewProviderFactory factory = LanguageFileViewProviders.INSTANCE.forLanguage(getLanguage());
+        FileViewProvider viewProvider = factory != null ? factory.createFileViewProvider(file, getLanguage(), manager, physical) : null;
         if (viewProvider == null) viewProvider = new SingleRootFileViewProvider(manager, file, physical);
         return viewProvider;
     }
@@ -134,7 +264,7 @@ public abstract class ParsingTestCase<File extends PsiFile> extends com.intellij
     public File parseFile(@NotNull VirtualFile file, boolean eventSystemEnabled, boolean markAsCopy, boolean noSizeLimit) {
         try {
             String content = streamToString(file.getInputStream());
-            return (File)mFileFactory.createFileFromText(file.getName(), myLanguage, content, eventSystemEnabled, markAsCopy, noSizeLimit, file);
+            return (File)mFileFactory.createFileFromText(file.getName(), getLanguage(), content, eventSystemEnabled, markAsCopy, noSizeLimit, file);
         } catch (IOException e) {
             return null;
         }

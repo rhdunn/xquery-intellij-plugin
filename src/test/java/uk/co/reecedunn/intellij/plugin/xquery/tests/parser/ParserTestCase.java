@@ -31,7 +31,7 @@ public abstract class ParserTestCase extends ParsingTestCase<XQueryFile> {
     protected void setUp() throws Exception {
         super.setUp();
         registerApplicationService(XQueryProjectSettings.class, new XQueryProjectSettings());
-        addExplicitExtension(LanguageASTFactory.INSTANCE, myLanguage, new XQueryASTFactory());
+        addExplicitExtension(LanguageASTFactory.INSTANCE, getLanguage(), new XQueryASTFactory());
     }
 
     protected XQueryProjectSettings getSettings() {
