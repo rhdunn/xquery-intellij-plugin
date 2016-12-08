@@ -68,7 +68,6 @@ import java.io.StringWriter;
 // NOTE: The IntelliJ ParsingTextCase implementation does not make it easy to
 // customise the mock implementation, making it difficult to implement some tests.
 public abstract class ParsingTestCase<File extends PsiFile> extends PlatformLiteFixture {
-    private PsiManager mPsiManager;
     private PsiFileFactory mFileFactory;
     private Language mLanguage;
     private String mFileExt;
@@ -100,8 +99,8 @@ public abstract class ParsingTestCase<File extends PsiFile> extends PlatformLite
         }
         Extensions.registerAreaClass("IDEA_PROJECT", null);
         myProject = new MockProjectEx(getTestRootDisposable());
-        mPsiManager = new MockPsiManager(myProject);
-        mFileFactory = new PsiFileFactoryImpl(mPsiManager);
+        final PsiManager psiManager = new MockPsiManager(myProject);
+        mFileFactory = new PsiFileFactoryImpl(psiManager);
         MutablePicoContainer appContainer = getApplication().getPicoContainer();
         registerComponentInstance(appContainer, MessageBus.class, getApplication().getMessageBus());
         registerComponentInstance(appContainer, SchemesManagerFactory.class, new MockSchemesManagerFactory());
@@ -114,8 +113,8 @@ public abstract class ParsingTestCase<File extends PsiFile> extends PlatformLite
         registerApplicationService(PsiBuilderFactory.class, new PsiBuilderFactoryImpl());
         registerApplicationService(DefaultASTFactory.class, new DefaultASTFactoryImpl());
         registerApplicationService(ReferenceProvidersRegistry.class, new ReferenceProvidersRegistryImpl());
-        myProject.registerService(CachedValuesManager.class, new CachedValuesManagerImpl(myProject, new PsiCachedValuesFactory(mPsiManager)));
-        myProject.registerService(PsiManager.class, mPsiManager);
+        myProject.registerService(CachedValuesManager.class, new CachedValuesManagerImpl(myProject, new PsiCachedValuesFactory(psiManager)));
+        myProject.registerService(PsiManager.class, psiManager);
         myProject.registerService(StartupManager.class, new StartupManagerImpl(myProject));
         registerExtensionPoint(FileTypeFactory.FILE_TYPE_FACTORY_EP, FileTypeFactory.class);
 
