@@ -237,19 +237,9 @@ public abstract class ParsingTestCase<File extends PsiFile> extends PlatformLite
     }
 
     @Nullable
+    @SuppressWarnings("unchecked")
     public File parseFile(@NotNull VirtualFile file) {
-        return parseFile(file, true, false, false);
-    }
-
-    @Nullable
-    @SuppressWarnings({"unchecked", "SameParameterValue"})
-    public File parseFile(@NotNull VirtualFile file, boolean eventSystemEnabled, boolean markAsCopy, boolean noSizeLimit) {
-        try {
-            String content = streamToString(file.getInputStream());
-            return (File)mFileFactory.createFileFromText(file.getName(), getLanguage(), content, eventSystemEnabled, markAsCopy, noSizeLimit, file);
-        } catch (IOException e) {
-            return null;
-        }
+        return (File)PsiManager.getInstance(myProject).findFile(file);
     }
 
     @Nullable
