@@ -55,6 +55,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.picocontainer.*;
 import org.picocontainer.defaults.AbstractComponentAdapter;
+import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockPsiManager;
 import uk.co.reecedunn.intellij.plugin.core.tests.vfs.ResourceVirtualFile;
 
 import java.io.IOException;
@@ -111,6 +112,7 @@ public abstract class ParsingTestCase<File extends PsiFile> extends PlatformLite
         registerApplicationService(ReferenceProvidersRegistry.class, new ReferenceProvidersRegistryImpl());
         myProject.registerService(CachedValuesManager.class, new CachedValuesManagerImpl(myProject, new PsiCachedValuesFactory(psiManager)));
         myProject.registerService(PsiManager.class, psiManager);
+        myProject.registerService(PsiFileFactory.class, mFileFactory);
         myProject.registerService(StartupManager.class, new StartupManagerImpl(myProject));
         registerExtensionPoint(FileTypeFactory.FILE_TYPE_FACTORY_EP, FileTypeFactory.class);
 

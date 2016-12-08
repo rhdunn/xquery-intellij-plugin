@@ -64,7 +64,9 @@ public class XQueryReferenceTest extends ParserTestCase {
         assertThat(ref.getVariants().length, is(0));
 
         PsiElement resolved = ref.resolve();
-        assertThat(resolved, is(nullValue()));
+        assertThat(resolved, is(notNullValue()));
+        assertThat(resolved, instanceOf(XQueryFile.class));
+        assertThat(resolved.getContainingFile().getName(), is("test.xq"));
     }
 
     // endregion
