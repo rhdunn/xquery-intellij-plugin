@@ -34,7 +34,7 @@ public class XQueryReferenceTest extends ParserTestCase {
     // region URILiteral
 
     public void testURILiteral_HttpUri() {
-        final XQueryFile file = parseResource("tests/resolve/xquery-1.0/ModuleImport_URILiteral_SameDirectory.xq");
+        final XQueryFile file = parseResource("tests/resolve/files/ModuleImport_URILiteral_SameDirectory.xq");
 
         XQueryModuleImport moduleImportPsi = descendants(file).findFirst(XQueryModuleImport.class).get();
         assertThat(moduleImportPsi, is(notNullValue()));
@@ -51,7 +51,7 @@ public class XQueryReferenceTest extends ParserTestCase {
     }
 
     public void testURILiteral_SameDirectory() {
-        final XQueryFile file = parseResource("tests/resolve/xquery-1.0/ModuleImport_URILiteral_SameDirectory.xq");
+        final XQueryFile file = parseResource("tests/resolve/files/ModuleImport_URILiteral_SameDirectory.xq");
 
         XQueryModuleImport moduleImportPsi = descendants(file).findFirst(XQueryModuleImport.class).get();
         assertThat(moduleImportPsi, is(notNullValue()));
@@ -75,7 +75,7 @@ public class XQueryReferenceTest extends ParserTestCase {
     // region QName
 
     public void testQName() {
-        final XQueryFile file = parseResource("tests/resolve/xquery-1.0/ModuleDecl.xq");
+        final XQueryFile file = parseResource("tests/resolve/namespaces/ModuleDecl.xq");
 
         XQueryLibraryModule modulePsi = descendants(file).findFirst(XQueryLibraryModule.class).get();
         XQueryProlog prologPsi = children(modulePsi).findFirst(XQueryProlog.class).get();
@@ -111,7 +111,7 @@ public class XQueryReferenceTest extends ParserTestCase {
     // region EQName
 
     public void testEQName_NCName() {
-        final XQueryFile file = parseResource("tests/resolve/xquery-1.0/FunctionDecl_WithNCNameReturnType.xq");
+        final XQueryFile file = parseResource("tests/resolve/namespaces/FunctionDecl_WithNCNameReturnType.xq");
 
         XQueryLibraryModule modulePsi = descendants(file).findFirst(XQueryLibraryModule.class).get();
         XQueryProlog prologPsi = children(modulePsi).findFirst(XQueryProlog.class).get();
@@ -131,7 +131,7 @@ public class XQueryReferenceTest extends ParserTestCase {
     }
 
     public void testEQName_QName() {
-        final XQueryFile file = parseResource("tests/resolve/xquery-1.0/FunctionDecl_WithQNameReturnType.xq");
+        final XQueryFile file = parseResource("tests/resolve/namespaces/FunctionDecl_WithQNameReturnType.xq");
 
         XQueryLibraryModule modulePsi = descendants(file).findFirst(XQueryLibraryModule.class).get();
         XQueryProlog prologPsi = children(modulePsi).findFirst(XQueryProlog.class).get();
@@ -165,7 +165,7 @@ public class XQueryReferenceTest extends ParserTestCase {
     }
 
     public void testEQName_URIQualifiedName() {
-        final XQueryFile file = parseResource("tests/resolve/xquery-1.0/FunctionDecl_WithURIQualifiedNameReturnType.xq");
+        final XQueryFile file = parseResource("tests/resolve/namespaces/FunctionDecl_WithURIQualifiedNameReturnType.xq");
 
         XQueryLibraryModule modulePsi = descendants(file).findFirst(XQueryLibraryModule.class).get();
         XQueryProlog prologPsi = children(modulePsi).findFirst(XQueryProlog.class).get();
@@ -225,7 +225,7 @@ public class XQueryReferenceTest extends ParserTestCase {
     // region IntermediateClause
 
     public void testIntermediateClause() {
-        final XQueryFile file = parseResource("tests/resolve/xquery-1.0/IntermediateClause_ReturnInnerForVariable.xq");
+        final XQueryFile file = parseResource("tests/resolve/variables/IntermediateClause_ReturnInnerForVariable.xq");
 
         XQueryFLWORExpr flworExprPsi = descendants(file).findFirst(XQueryFLWORExpr.class).get();
         XQueryIntermediateClause intermediateClausePsi = children(flworExprPsi).findFirst(XQueryIntermediateClause.class).get();
@@ -296,7 +296,7 @@ public class XQueryReferenceTest extends ParserTestCase {
     // region Param
 
     public void testParam() {
-        final XQueryFile file = parseResource("tests/resolve/xquery-1.0/FunctionDecl_ReturningSpecifiedParam.xq");
+        final XQueryFile file = parseResource("tests/resolve/variables/FunctionDecl_ReturningSpecifiedParam.xq");
 
         XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
         XQueryFunctionDecl functionDeclPsi = children(annotatedDeclPsi).findFirst(XQueryFunctionDecl.class).get();
@@ -329,7 +329,7 @@ public class XQueryReferenceTest extends ParserTestCase {
     }
 
     public void testParam_ReferencedFromOutsideTheFunction() {
-        final XQueryFile file = parseResource("tests/resolve/xquery-1.0/FunctionDecl_ReturningSpecifiedParam.xq");
+        final XQueryFile file = parseResource("tests/resolve/variables/FunctionDecl_ReturningSpecifiedParam.xq");
 
         XQueryMainModule mainModulePsi = descendants(file).findFirst(XQueryMainModule.class).get();
         XQueryQueryBody queryBodyPsi = children(mainModulePsi).findFirst(XQueryQueryBody.class).get();
@@ -357,7 +357,7 @@ public class XQueryReferenceTest extends ParserTestCase {
     // region PositionalVar
 
     public void testPositionalVar() {
-        final XQueryFile file = parseResource("tests/resolve/xquery-1.0/PositionalVar_ReturnThePosition.xq");
+        final XQueryFile file = parseResource("tests/resolve/variables/PositionalVar_ReturnThePosition.xq");
 
         XQueryForClause forClausePsi = descendants(file).findFirst(XQueryForClause.class).get();
         XQueryForBinding forBindingPsi = children(forClausePsi).findFirst(XQueryForBinding.class).get();
@@ -463,7 +463,7 @@ public class XQueryReferenceTest extends ParserTestCase {
     // region VarDecl
 
     public void testVarDecl() {
-        final XQueryFile file = parseResource("tests/resolve/xquery-1.0/VarDecl_WithCorrespondingVarRef.xq");
+        final XQueryFile file = parseResource("tests/resolve/variables/VarDecl_WithCorrespondingVarRef.xq");
 
         XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
         XQueryVarDecl varDeclPsi = children(annotatedDeclPsi).findFirst(XQueryVarDecl.class).get();
