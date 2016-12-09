@@ -3913,7 +3913,7 @@ public class XQueryLexerTest extends LexerTestCase {
     }
 
     // endregion
-    // region Scripting Extension 1.0 :: BlockDecls
+    // region Scripting Extension 1.0 :: BlockVarDecl
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-BlockVarDecl")
     public void testBlockVarDecl() {
@@ -3934,6 +3934,17 @@ public class XQueryLexerTest extends LexerTestCase {
 
         matchSingleToken(lexer, "$",  XQueryTokenType.VARIABLE_INDICATOR);
         matchSingleToken(lexer, ":=", XQueryTokenType.ASSIGN_EQUAL);
+    }
+
+    // endregion
+    // region Scripting Extension 1.0 :: ExitExpr
+
+    @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-ExitExpr")
+    public void testExitExpr() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "exit",      XQueryTokenType.K_EXIT);
+        matchSingleToken(lexer, "returning", XQueryTokenType.K_RETURNING);
     }
 
     // endregion

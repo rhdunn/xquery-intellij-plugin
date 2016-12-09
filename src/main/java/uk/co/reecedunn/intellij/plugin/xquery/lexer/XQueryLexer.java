@@ -1386,6 +1386,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("eq", XQueryTokenType.K_EQ);
         sKeywords.put("every", XQueryTokenType.K_EVERY);
         sKeywords.put("except", XQueryTokenType.K_EXCEPT);
+        sKeywords.put("exit", XQueryTokenType.K_EXIT); // Scripting Extension 1.0
         sKeywords.put("exponent-separator", XQueryTokenType.K_EXPONENT_SEPARATOR); // XQuery 3.1
         sKeywords.put("external", XQueryTokenType.K_EXTERNAL);
         sKeywords.put("first", XQueryTokenType.K_FIRST); // Update Facility 1.0
@@ -1456,6 +1457,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("rename", XQueryTokenType.K_RENAME); // Update Facility 1.0
         sKeywords.put("replace", XQueryTokenType.K_REPLACE); // Update Facility 1.0
         sKeywords.put("return", XQueryTokenType.K_RETURN);
+        sKeywords.put("returning", XQueryTokenType.K_RETURNING); // Scripting Extension 1.0
         sKeywords.put("revalidation", XQueryTokenType.K_REVALIDATION); // Update Facility 1.0
         sKeywords.put("satisfies", XQueryTokenType.K_SATISFIES);
         sKeywords.put("schema", XQueryTokenType.K_SCHEMA);
