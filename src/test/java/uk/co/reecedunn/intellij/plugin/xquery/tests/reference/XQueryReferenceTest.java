@@ -69,6 +69,23 @@ public class XQueryReferenceTest extends ParserTestCase {
         assertThat(resolved.getContainingFile().getName(), is("test.xq"));
     }
 
+    public void testURILiteral_Empty() {
+        final XQueryFile file = parseResource("tests/resolve/files/ModuleImport_URILiteral_Empty.xq");
+
+        XQueryModuleImport moduleImportPsi = descendants(file).findFirst(XQueryModuleImport.class).get();
+        assertThat(moduleImportPsi, is(notNullValue()));
+
+        List<XQueryUriLiteral> uriLiterals = children(moduleImportPsi).toListOf(XQueryUriLiteral.class);
+        assertThat(uriLiterals.size(), is(2));
+
+        PsiReference ref = uriLiterals.get(1).getReference();
+        assertThat(ref.getCanonicalText(), is(""));
+        assertThat(ref.getVariants().length, is(0));
+
+        PsiElement resolved = ref.resolve();
+        assertThat(resolved, is(nullValue()));
+    }
+
     // endregion
     // endregion
     // region Namespaces

@@ -18,9 +18,9 @@ public class XQueryUriLiteralReference extends PsiReferenceBase<XQueryUriLiteral
     @Nullable
     @Override
     public PsiElement resolve() {
-        PsiElement element = getElement();
-        final String path = ((XQueryStringLiteral)element).getAtomicValue().toString();
-        if (path.contains("://")) {
+        XQueryStringLiteral element = getElement();
+        final CharSequence path = element.getAtomicValue();
+        if (path == null || path.toString().contains("://")) {
             return null;
         }
 
@@ -29,7 +29,7 @@ public class XQueryUriLiteralReference extends PsiReferenceBase<XQueryUriLiteral
             file = ((LightVirtualFileBase)file).getOriginalFile();
         }
 
-        return resolveFileByPath(file, element.getProject(), path);
+        return resolveFileByPath(file, element.getProject(), path.toString());
     }
 
     @NotNull

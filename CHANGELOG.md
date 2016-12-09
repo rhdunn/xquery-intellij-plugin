@@ -5,6 +5,7 @@
 Language Support:
 
 1.  `array-node {}` is valid in MarkLogic 8.0.
+2.  Don't crash when resolving an empty `URILiteral` in an import statement.
 
 ## 0.3 - 2016-11-30
 
