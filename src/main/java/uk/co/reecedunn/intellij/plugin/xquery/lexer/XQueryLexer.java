@@ -1343,6 +1343,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("array-node", XQueryTokenType.K_ARRAY_NODE); // MarkLogic 8.0
         sKeywords.put("as", XQueryTokenType.K_AS);
         sKeywords.put("ascending", XQueryTokenType.K_ASCENDING);
+        sKeywords.put("assignable", XQueryTokenType.K_ASSIGNABLE); // Scripting Extension 1.0
         sKeywords.put("at", XQueryTokenType.K_AT);
         sKeywords.put("attribute", XQueryTokenType.K_ATTRIBUTE);
         sKeywords.put("base-uri", XQueryTokenType.K_BASE_URI);
@@ -1478,6 +1479,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("tumbling", XQueryTokenType.K_TUMBLING); // XQuery 3.0
         sKeywords.put("type", XQueryTokenType.K_TYPE); // XQuery 3.0
         sKeywords.put("typeswitch", XQueryTokenType.K_TYPESWITCH);
+        sKeywords.put("unassignable", XQueryTokenType.K_UNASSIGNABLE); // Scripting Extension 1.0
         sKeywords.put("union", XQueryTokenType.K_UNION);
         sKeywords.put("unordered", XQueryTokenType.K_UNORDERED);
         sKeywords.put("updating", XQueryTokenType.K_UPDATING); // Update Facility 1.0

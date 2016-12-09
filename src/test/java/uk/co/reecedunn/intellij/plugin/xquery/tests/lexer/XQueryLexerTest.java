@@ -3827,6 +3827,22 @@ public class XQueryLexerTest extends LexerTestCase {
     }
 
     // endregion
+    // region Scripting Extension 1.0 :: VarDecl
+
+    @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-VarDecl")
+    public void testVarDecl_Scripting() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "declare",      XQueryTokenType.K_DECLARE);
+        matchSingleToken(lexer, "unassignable", XQueryTokenType.K_UNASSIGNABLE);
+        matchSingleToken(lexer, "assignable",   XQueryTokenType.K_ASSIGNABLE);
+        matchSingleToken(lexer, "variable",     XQueryTokenType.K_VARIABLE);
+        matchSingleToken(lexer, "$",            XQueryTokenType.VARIABLE_INDICATOR);
+        matchSingleToken(lexer, ":=",           XQueryTokenType.ASSIGN_EQUAL);
+        matchSingleToken(lexer, "external",     XQueryTokenType.K_EXTERNAL);
+    }
+
+    // endregion
     // region MarkLogic 6.0 :: TransactionSeparator
 
     public void testTransactionSeparator() {
