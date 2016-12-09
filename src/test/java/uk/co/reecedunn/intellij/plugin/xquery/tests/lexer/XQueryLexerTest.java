@@ -3892,6 +3892,17 @@ public class XQueryLexerTest extends LexerTestCase {
     }
 
     // endregion
+    // region Scripting Extension 1.0 :: Block
+
+    @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-Block")
+    public void testBlock() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN);
+        matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE);
+    }
+
+    // endregion
     // region MarkLogic 6.0 :: TransactionSeparator
 
     public void testTransactionSeparator() {
