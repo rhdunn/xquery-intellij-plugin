@@ -3926,6 +3926,17 @@ public class XQueryLexerTest extends LexerTestCase {
     }
 
     // endregion
+    // region Scripting Extension 1.0 :: AssignmentExpr
+
+    @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-AssignmentExpr")
+    public void testAssignmentExpr() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "$",  XQueryTokenType.VARIABLE_INDICATOR);
+        matchSingleToken(lexer, ":=", XQueryTokenType.ASSIGN_EQUAL);
+    }
+
+    // endregion
     // region MarkLogic 6.0 :: TransactionSeparator
 
     public void testTransactionSeparator() {
