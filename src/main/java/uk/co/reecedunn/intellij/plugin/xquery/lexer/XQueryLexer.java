@@ -1461,6 +1461,8 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("schema-attribute", XQueryTokenType.K_SCHEMA_ATTRIBUTE);
         sKeywords.put("schema-element", XQueryTokenType.K_SCHEMA_ELEMENT);
         sKeywords.put("self", XQueryTokenType.K_SELF);
+        sKeywords.put("sequential", XQueryTokenType.K_SEQUENTIAL); // Scripting Extension 1.0
+        sKeywords.put("simple", XQueryTokenType.K_SIMPLE); // Scripting Extension 1.0
         sKeywords.put("skip", XQueryTokenType.K_SKIP); // Update Facility 1.0
         sKeywords.put("sliding", XQueryTokenType.K_SLIDING); // XQuery 3.0
         sKeywords.put("some", XQueryTokenType.K_SOME);

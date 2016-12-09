@@ -3830,7 +3830,7 @@ public class XQueryLexerTest extends LexerTestCase {
     // region Scripting Extension 1.0 :: VarDecl
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-VarDecl")
-    public void testVarDecl_Scripting() {
+    public void testVarDecl_Scripting10() {
         Lexer lexer = new XQueryLexer();
 
         matchSingleToken(lexer, "declare",      XQueryTokenType.K_DECLARE);
@@ -3840,6 +3840,25 @@ public class XQueryLexerTest extends LexerTestCase {
         matchSingleToken(lexer, "$",            XQueryTokenType.VARIABLE_INDICATOR);
         matchSingleToken(lexer, ":=",           XQueryTokenType.ASSIGN_EQUAL);
         matchSingleToken(lexer, "external",     XQueryTokenType.K_EXTERNAL);
+    }
+
+    // endregion
+    // region Scripting Extension 1.0 :: FunctionDecl
+
+    @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-FunctionDecl")
+    public void testFunctionDecl_Scripting10() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "declare",  XQueryTokenType.K_DECLARE);
+        matchSingleToken(lexer, "function", XQueryTokenType.K_FUNCTION);
+        matchSingleToken(lexer, "(",        XQueryTokenType.PARENTHESIS_OPEN);
+        matchSingleToken(lexer, ")",        XQueryTokenType.PARENTHESIS_CLOSE);
+        matchSingleToken(lexer, "as",       XQueryTokenType.K_AS);
+        matchSingleToken(lexer, "external", XQueryTokenType.K_EXTERNAL);
+
+        matchSingleToken(lexer, "sequential", XQueryTokenType.K_SEQUENTIAL);
+        matchSingleToken(lexer, "simple",     XQueryTokenType.K_SIMPLE);
+        matchSingleToken(lexer, "updating",   XQueryTokenType.K_UPDATING);
     }
 
     // endregion

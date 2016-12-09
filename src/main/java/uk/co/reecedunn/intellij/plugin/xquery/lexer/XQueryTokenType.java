@@ -258,6 +258,8 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_SCHEMA_ATTRIBUTE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SCHEMA_ATTRIBUTE", IXQueryKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME);
     IXQueryKeywordOrNCNameType K_SCHEMA_ELEMENT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SCHEMA_ELEMENT", IXQueryKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME);
     IXQueryKeywordOrNCNameType K_SELF = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SELF");
+    IXQueryKeywordOrNCNameType K_SEQUENTIAL = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SEQUENTIAL"); // Scripting Extension 1.0
+    IXQueryKeywordOrNCNameType K_SIMPLE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SIMPLE"); // Scripting Extension 1.0
     IXQueryKeywordOrNCNameType K_SKIP = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SKIP"); // Update Facility 1.0
     IXQueryKeywordOrNCNameType K_SLIDING = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SLIDING"); // XQuery 3.0
     IXQueryKeywordOrNCNameType K_SOME = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SOME");
