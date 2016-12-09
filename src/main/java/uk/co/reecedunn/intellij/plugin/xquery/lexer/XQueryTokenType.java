@@ -146,6 +146,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_BASE_URI = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_BASE_URI");
     IXQueryKeywordOrNCNameType K_BEFORE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_BEFORE"); // Update Facility 1.0
     IXQueryKeywordOrNCNameType K_BINARY = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_BINARY"); // MarkLogic 6.0
+    IXQueryKeywordOrNCNameType K_BLOCK = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_BLOCK"); // Scripting Extension 1.0
     IXQueryKeywordOrNCNameType K_BOOLEAN_NODE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_BOOLEAN_NODE", IXQueryKeywordOrNCNameType.KeywordType.MARKLOGIC_RESERVED_FUNCTION_NAME); // MarkLogic 8.0
     IXQueryKeywordOrNCNameType K_BOUNDARY_SPACE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_BOUNDARY_SPACE");
     IXQueryKeywordOrNCNameType K_BY = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_BY");

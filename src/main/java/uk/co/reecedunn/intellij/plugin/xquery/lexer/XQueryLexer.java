@@ -1349,6 +1349,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("base-uri", XQueryTokenType.K_BASE_URI);
         sKeywords.put("before", XQueryTokenType.K_BEFORE); // Update Facility 1.0
         sKeywords.put("binary", XQueryTokenType.K_BINARY); // MarkLogic 6.0
+        sKeywords.put("block", XQueryTokenType.K_BLOCK); // Scripting Extension 1.0
         sKeywords.put("boolean-node", XQueryTokenType.K_BOOLEAN_NODE); // MarkLogic 8.0
         sKeywords.put("boundary-space", XQueryTokenType.K_BOUNDARY_SPACE);
         sKeywords.put("by", XQueryTokenType.K_BY);
