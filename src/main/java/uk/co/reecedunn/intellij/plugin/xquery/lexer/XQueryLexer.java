@@ -1494,6 +1494,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("version", XQueryTokenType.K_VERSION);
         sKeywords.put("when", XQueryTokenType.K_WHEN); // XQuery 3.0
         sKeywords.put("where", XQueryTokenType.K_WHERE);
+        sKeywords.put("while", XQueryTokenType.K_WHILE); // Scripting Extension 1.0
         sKeywords.put("window", XQueryTokenType.K_WINDOW); // XQuery 3.0
         sKeywords.put("with", XQueryTokenType.K_WITH); // Update Facility 1.0
         sKeywords.put("xquery", XQueryTokenType.K_XQUERY);

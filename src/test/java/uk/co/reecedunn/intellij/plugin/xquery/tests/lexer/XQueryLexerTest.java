@@ -3948,6 +3948,18 @@ public class XQueryLexerTest extends LexerTestCase {
     }
 
     // endregion
+    // region Scripting Extension 1.0 :: WhileExpr
+
+    @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-WhileExpr")
+    public void testWhileExpr() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "while", XQueryTokenType.K_WHILE);
+        matchSingleToken(lexer, "(",     XQueryTokenType.PARENTHESIS_OPEN);
+        matchSingleToken(lexer, ")",     XQueryTokenType.PARENTHESIS_CLOSE);
+    }
+
+    // endregion
     // region MarkLogic 6.0 :: TransactionSeparator
 
     public void testTransactionSeparator() {
