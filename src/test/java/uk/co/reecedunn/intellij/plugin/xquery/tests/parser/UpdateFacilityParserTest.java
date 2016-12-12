@@ -24,15 +24,6 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class UpdateFacilityParserTest extends ParserTestCase {
-    // region Initialization
-
-    public void initializeSettings(XQueryProjectSettings settings) {
-        settings.setImplementation("w3c");
-        settings.setXQueryVersion(XQueryVersion.VERSION_1_0);
-        settings.setXQuery10Dialect("w3c/1.0-update");
-    }
-
-    // endregion
     // region Update Facility 1.0 :: FunctionDecl
 
     @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-FunctionDecl")
