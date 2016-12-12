@@ -16,7 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.psi;
 
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingVarDeclAnnotation;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.*;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Implementations;
@@ -36,7 +35,7 @@ public class ScriptingPsiTest extends ParserTestCase {
     // region VarDecl
 
     public void testVarDecl_Assignable() {
-        final XQueryFile file = parseResource("tests/parser/scripting-1.0/VarDecl_Assignable.xq");
+        final XQueryFile file = parseResource("tests/parser/xquery-sx-1.0/VarDecl_Assignable.xq");
 
         XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
         ScriptingVarDeclAnnotation scriptingVarDeclAnnotationPsi = children(annotatedDeclPsi).findFirst(ScriptingVarDeclAnnotation.class).get();
@@ -59,7 +58,7 @@ public class ScriptingPsiTest extends ParserTestCase {
     }
 
     public void testVarDecl_Unassignable() {
-        final XQueryFile file = parseResource("tests/parser/scripting-1.0/VarDecl_Unassignable.xq");
+        final XQueryFile file = parseResource("tests/parser/xquery-sx-1.0/VarDecl_Unassignable.xq");
 
         XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
         ScriptingVarDeclAnnotation scriptingVarDeclAnnotationPsi = children(annotatedDeclPsi).findFirst(ScriptingVarDeclAnnotation.class).get();

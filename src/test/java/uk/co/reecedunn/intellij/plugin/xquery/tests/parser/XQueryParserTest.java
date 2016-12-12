@@ -3106,8 +3106,8 @@ public class XQueryParserTest extends ParserTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AbbrevForwardStep")
     public void testAbbrevForwardStep_KeywordNCNames_Scripting10() {
-        final String expected = loadResource("tests/parser/scripting-1.0/AbbrevForwardStep_KeywordNCNames_Scripting10.txt");
-        final XQueryFile actual = parseResource("tests/parser/scripting-1.0/AbbrevForwardStep_KeywordNCNames_Scripting10.xq");
+        final String expected = loadResource("tests/parser/xquery-sx-1.0/AbbrevForwardStep_KeywordNCNames_Scripting10.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/AbbrevForwardStep_KeywordNCNames_Scripting10.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
@@ -3718,8 +3718,8 @@ public class XQueryParserTest extends ParserTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FunctionCall")
     public void testFunctionCall_KeywordNCNames_Scripting10() {
-        final String expected = loadResource("tests/parser/scripting-1.0/FunctionCall_KeywordNCNames_Scripting10.txt");
-        final XQueryFile actual = parseResource("tests/parser/scripting-1.0/FunctionCall_KeywordNCNames_Scripting10.xq");
+        final String expected = loadResource("tests/parser/xquery-sx-1.0/FunctionCall_KeywordNCNames_Scripting10.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/FunctionCall_KeywordNCNames_Scripting10.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 

@@ -16,8 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.parser;
 
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
-import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.Specification;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -28,15 +26,15 @@ public class ScriptingParserTest extends ParserTestCase {
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-VarDecl")
     public void testVarDecl_Assignable() {
-        final String expected = loadResource("tests/parser/scripting-1.0/VarDecl_Assignable.txt");
-        final XQueryFile actual = parseResource("tests/parser/scripting-1.0/VarDecl_Assignable.xq");
+        final String expected = loadResource("tests/parser/xquery-sx-1.0/VarDecl_Assignable.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/VarDecl_Assignable.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-VarDecl")
     public void testVarDecl_Unassignable() {
-        final String expected = loadResource("tests/parser/scripting-1.0/VarDecl_Unassignable.txt");
-        final XQueryFile actual = parseResource("tests/parser/scripting-1.0/VarDecl_Unassignable.xq");
+        final String expected = loadResource("tests/parser/xquery-sx-1.0/VarDecl_Unassignable.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/VarDecl_Unassignable.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
