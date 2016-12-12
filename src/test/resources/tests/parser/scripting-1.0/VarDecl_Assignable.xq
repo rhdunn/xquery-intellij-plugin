@@ -1,0 +1,1 @@
+declare assignable variable $x external;

@@ -20,6 +20,7 @@ import com.intellij.psi.tree.IFileElementType;
 import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.marklogic.*;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.scripting.*;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.update.facility.*;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.*;
 
@@ -295,6 +296,11 @@ public interface XQueryElementType {
     IElementType UPDATING_FUNCTION_CALL = new ICompositeElementType("XQUERY_UPDATING_FUNCTION_CALL", UpdateFacilityUpdatingFunctionCallPsiImpl.class, XQuery.INSTANCE);
 
     IElementType TRANSFORM_WITH_EXPR = new ICompositeElementType("XQUERY_TRANSFORM_WITH_EXPR", UpdateFacilityTransformWithExprPsiImpl.class, XQuery.INSTANCE);
+
+    // endregion
+    // region Scripting Extension 1.0
+
+    IElementType VAR_DECL_ANNOTATION = new ICompositeElementType("XQUERY_VAR_DECL_ANNOTATION", ScriptingVarDeclAnnotationPsiImpl.class, XQuery.INSTANCE);
 
     // endregion
     // region MarkLogic 6.0

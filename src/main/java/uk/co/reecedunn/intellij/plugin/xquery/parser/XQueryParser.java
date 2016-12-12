@@ -34,6 +34,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
  * Supported W3C XQuery extensions:
  *    -  Update Facility 1.0 (W3C Recommendation 17 March 2011)
  *    -  Update Facility 3.0 (W3C Last Call Working Draft 19 February 2015)
+ *    -  Scripting Extension 1.0 (W3C Working Group Note 18 September 2014) -- Partial Support
  *
  * Supported vendor extensions:
  *    -  MarkLogic 1.0-ml Extensions for MarkLogic 6.0
@@ -1042,6 +1043,10 @@ class XQueryParser {
             return true;
         } else if (matchTokenType(XQueryTokenType.K_PRIVATE)) {
             compatibilityAnnotationMarker.done(XQueryElementType.COMPATIBILITY_ANNOTATION_MARKLOGIC);
+            return true;
+        } else if (matchTokenType(XQueryTokenType.K_UNASSIGNABLE) ||
+                   matchTokenType(XQueryTokenType.K_ASSIGNABLE)) {
+            compatibilityAnnotationMarker.done(XQueryElementType.VAR_DECL_ANNOTATION);
             return true;
         }
         compatibilityAnnotationMarker.drop();

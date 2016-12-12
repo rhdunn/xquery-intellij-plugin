@@ -1,0 +1,1 @@
+declare unassignable variable $x external;

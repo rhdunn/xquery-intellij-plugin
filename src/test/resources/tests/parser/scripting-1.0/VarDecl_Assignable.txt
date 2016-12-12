@@ -1,0 +1,20 @@
+FileElement[FILE(0:40)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:40)]
+      XQueryPrologImpl[XQUERY_PROLOG(0:40)]
+         XQueryAnnotatedDeclImpl[XQUERY_ANNOTATED_DECL(0:39)]
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
+            PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+            ScriptingVarDeclAnnotationImpl[XQUERY_VAR_DECL_ANNOTATION(8:18)]
+               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_ASSIGNABLE(8:18)]('assignable')
+            PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
+            XQueryVarDeclImpl[XQUERY_VAR_DECL(19:39)]
+               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_VARIABLE(19:27)]('variable')
+               PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
+               LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(28:29)]('$')
+               XQueryVarNameImpl[XQUERY_VAR_NAME(29:31)]
+                  XQueryNCNameImpl[XQUERY_NCNAME(29:30)]
+                     LeafPsiElement[XQUERY_NCNAME_TOKEN(29:30)]('x')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')
+               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(31:39)]('external')
+         LeafPsiElement[XQUERY_SEPARATOR_TOKEN(39:40)](';')
+      PsiErrorElementImpl[ERROR_ELEMENT(40:40)]('XPST0003: Missing query body.')
