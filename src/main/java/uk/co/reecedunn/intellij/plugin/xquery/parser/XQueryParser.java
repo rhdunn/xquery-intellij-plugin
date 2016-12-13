@@ -1046,7 +1046,7 @@ class XQueryParser {
             return true;
         } else if (matchTokenType(XQueryTokenType.K_UNASSIGNABLE) ||
                    matchTokenType(XQueryTokenType.K_ASSIGNABLE)) {
-            compatibilityAnnotationMarker.done(XQueryElementType.VAR_DECL_ANNOTATION);
+            compatibilityAnnotationMarker.done(XQueryElementType.COMPATBILITY_ANNOTATION_SCRIPTING);
             return true;
         }
         compatibilityAnnotationMarker.drop();

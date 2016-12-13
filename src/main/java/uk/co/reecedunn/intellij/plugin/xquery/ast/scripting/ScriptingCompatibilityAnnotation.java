@@ -20,5 +20,5 @@ import com.intellij.psi.PsiElement;
 /**
  * An XQuery Scripting Extension 1.0 <code>VarDecl</code> annotation in the XQuery AST.
  */
-public interface ScriptingVarDeclAnnotation extends PsiElement {
+public interface ScriptingCompatibilityAnnotation extends PsiElement {
 }

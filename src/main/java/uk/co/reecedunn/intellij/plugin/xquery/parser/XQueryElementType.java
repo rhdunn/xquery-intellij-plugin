@@ -300,7 +300,7 @@ public interface XQueryElementType {
     // endregion
     // region Scripting Extension 1.0
 
-    IElementType VAR_DECL_ANNOTATION = new ICompositeElementType("XQUERY_VAR_DECL_ANNOTATION", ScriptingVarDeclAnnotationPsiImpl.class, XQuery.INSTANCE);
+    IElementType COMPATBILITY_ANNOTATION_SCRIPTING = new ICompositeElementType("XQUERY_COMPATBILITY_ANNOTATION_SCRIPTING", ScriptingCompatibilityAnnotationPsiImpl.class, XQuery.INSTANCE);
 
     // endregion
     // region MarkLogic 6.0

@@ -4,7 +4,7 @@ FileElement[FILE(0:42)]
          XQueryAnnotatedDeclImpl[XQUERY_ANNOTATED_DECL(0:41)]
             LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-            ScriptingVarDeclAnnotationImpl[XQUERY_VAR_DECL_ANNOTATION(8:20)]
+            ScriptingCompatibilityAnnotationImpl[XQUERY_COMPATBILITY_ANNOTATION_SCRIPTING(8:20)]
                LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_UNASSIGNABLE(8:20)]('unassignable')
             PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
             XQueryVarDeclImpl[XQUERY_VAR_DECL(21:41)]

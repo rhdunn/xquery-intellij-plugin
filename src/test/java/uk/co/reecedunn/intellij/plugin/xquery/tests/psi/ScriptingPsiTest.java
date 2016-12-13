@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.psi;
 
-import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingVarDeclAnnotation;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingCompatibilityAnnotation;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Implementations;
@@ -38,8 +38,8 @@ public class ScriptingPsiTest extends ParserTestCase {
         final XQueryFile file = parseResource("tests/parser/xquery-sx-1.0/VarDecl_Assignable.xq");
 
         XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
-        ScriptingVarDeclAnnotation scriptingVarDeclAnnotationPsi = children(annotatedDeclPsi).findFirst(ScriptingVarDeclAnnotation.class).get();
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)scriptingVarDeclAnnotationPsi;
+        ScriptingCompatibilityAnnotation scriptingCompatibilityAnnotationPsi = children(annotatedDeclPsi).findFirst(ScriptingCompatibilityAnnotation.class).get();
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck) scriptingCompatibilityAnnotationPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
@@ -61,8 +61,8 @@ public class ScriptingPsiTest extends ParserTestCase {
         final XQueryFile file = parseResource("tests/parser/xquery-sx-1.0/VarDecl_Unassignable.xq");
 
         XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
-        ScriptingVarDeclAnnotation scriptingVarDeclAnnotationPsi = children(annotatedDeclPsi).findFirst(ScriptingVarDeclAnnotation.class).get();
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck)scriptingVarDeclAnnotationPsi;
+        ScriptingCompatibilityAnnotation scriptingCompatibilityAnnotationPsi = children(annotatedDeclPsi).findFirst(ScriptingCompatibilityAnnotation.class).get();
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck) scriptingCompatibilityAnnotationPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
