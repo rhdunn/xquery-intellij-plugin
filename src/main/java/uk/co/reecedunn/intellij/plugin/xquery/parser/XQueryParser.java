@@ -1045,7 +1045,9 @@ class XQueryParser {
             compatibilityAnnotationMarker.done(XQueryElementType.COMPATIBILITY_ANNOTATION_MARKLOGIC);
             return true;
         } else if (matchTokenType(XQueryTokenType.K_UNASSIGNABLE) ||
-                   matchTokenType(XQueryTokenType.K_ASSIGNABLE)) {
+                   matchTokenType(XQueryTokenType.K_ASSIGNABLE) ||
+                   matchTokenType(XQueryTokenType.K_SIMPLE) ||
+                   matchTokenType(XQueryTokenType.K_SEQUENTIAL)) {
             compatibilityAnnotationMarker.done(XQueryElementType.COMPATBILITY_ANNOTATION_SCRIPTING);
             return true;
         }

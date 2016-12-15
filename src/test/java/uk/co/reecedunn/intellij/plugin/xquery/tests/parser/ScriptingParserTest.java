@@ -39,4 +39,21 @@ public class ScriptingParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region Scripting Extension 1.0 :: FunctionDecl
+
+    @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-FunctionDecl")
+    public void testFunctionDecl_Simple() {
+        final String expected = loadResource("tests/parser/xquery-sx-1.0/FunctionDecl_Simple.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/FunctionDecl_Simple.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-FunctionDecl")
+    public void testFunctionDecl_Sequential() {
+        final String expected = loadResource("tests/parser/xquery-sx-1.0/FunctionDecl_Sequential.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/FunctionDecl_Sequential.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
 }
