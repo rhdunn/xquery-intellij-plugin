@@ -1142,7 +1142,7 @@ class XQueryParser {
 
             parseWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.K_EXTERNAL) &&
-                !parseEnclosedExpr(XQueryElementType.FUNCTION_BODY, BlockOpenType.REQUIRE) &&
+                !parseEnclosedExpr(XQueryElementType.FUNCTION_BODY, BlockOpen.REQUIRED) &&
                 !haveErrors) {
                 error(XQueryBundle.message("parser.error.expected-enclosed-expression-or-keyword", "external"));
                 parseExpr(XQueryElementType.EXPR);
@@ -1230,16 +1230,16 @@ class XQueryParser {
     // endregion
     // region Grammar :: Expr
 
-    private enum BlockOpenType {
-        REQUIRE,
-        ALLOW_MISSING
-    };
+    private enum BlockOpen {
+        REQUIRED,
+        OPTIONAL
+    }
 
-    private boolean parseEnclosedExpr(IElementType type, BlockOpenType blockOpenType) {
+    private boolean parseEnclosedExpr(IElementType type, BlockOpen blockOpen) {
         boolean haveErrors = false;
         PsiBuilder.Marker enclosedExprMarker = type == null ? null : mark();
         if (!matchTokenType(XQueryTokenType.BLOCK_OPEN)) {
-            if (blockOpenType == BlockOpenType.ALLOW_MISSING) {
+            if (blockOpen == BlockOpen.OPTIONAL) {
                 error(XQueryBundle.message("parser.error.expected", "{"));
                 haveErrors = true;
             } else {
@@ -2444,7 +2444,7 @@ class XQueryParser {
         final PsiBuilder.Marker tryClauseMarker = matchTokenTypeWithMarker(XQueryTokenType.K_TRY);
         if (tryClauseMarker != null) {
             parseWhiteSpaceAndCommentTokens();
-            if (!parseEnclosedExpr(XQueryElementType.ENCLOSED_TRY_TARGET_EXPR, BlockOpenType.REQUIRE)) {
+            if (!parseEnclosedExpr(XQueryElementType.ENCLOSED_TRY_TARGET_EXPR, BlockOpen.REQUIRED)) {
                 tryClauseMarker.rollbackTo();
                 return false;
             }
@@ -2493,7 +2493,7 @@ class XQueryParser {
             }
 
             parseWhiteSpaceAndCommentTokens();
-            parseEnclosedExpr(XQueryElementType.ENCLOSED_EXPR, BlockOpenType.ALLOW_MISSING);
+            parseEnclosedExpr(XQueryElementType.ENCLOSED_EXPR, BlockOpen.OPTIONAL);
 
             catchClauseMarker.done(XQueryElementType.CATCH_CLAUSE);
             return nextType;
@@ -3253,11 +3253,11 @@ class XQueryParser {
         final PsiBuilder.Marker validateExprMarker = matchTokenTypeWithMarker(XQueryTokenType.K_VALIDATE);
         if (validateExprMarker != null) {
             parseWhiteSpaceAndCommentTokens();
-            BlockOpenType blockOpenType = BlockOpenType.REQUIRE;
+            BlockOpen blockOpen = BlockOpen.REQUIRED;
             if (matchTokenType(XQueryTokenType.K_LAX) || matchTokenType(XQueryTokenType.K_STRICT)) {
-                blockOpenType = BlockOpenType.ALLOW_MISSING;
+                blockOpen = BlockOpen.OPTIONAL;
             } else if (matchTokenType(XQueryTokenType.K_AS) || matchTokenType(XQueryTokenType.K_TYPE)) {
-                blockOpenType = BlockOpenType.ALLOW_MISSING;
+                blockOpen = BlockOpen.OPTIONAL;
 
                 parseWhiteSpaceAndCommentTokens();
                 if (!parseEQName(XQueryElementType.TYPE_NAME)) {
@@ -3266,7 +3266,7 @@ class XQueryParser {
             }
 
             parseWhiteSpaceAndCommentTokens();
-            if (!parseEnclosedExpr(XQueryElementType.ENCLOSED_EXPR, blockOpenType)) {
+            if (!parseEnclosedExpr(XQueryElementType.ENCLOSED_EXPR, blockOpen)) {
                 validateExprMarker.rollbackTo();
                 return false;
             }
@@ -3286,7 +3286,7 @@ class XQueryParser {
         }
         if (matched) {
             parseWhiteSpaceAndCommentTokens();
-            parseEnclosedExpr(XQueryElementType.ENCLOSED_EXPR, BlockOpenType.ALLOW_MISSING);
+            parseEnclosedExpr(XQueryElementType.ENCLOSED_EXPR, BlockOpen.OPTIONAL);
             extensionExprMarker.done(XQueryElementType.EXTENSION_EXPR);
             return true;
         }
@@ -3677,7 +3677,7 @@ class XQueryParser {
         final PsiBuilder.Marker orderedExprMarker = matchTokenTypeWithMarker(XQueryTokenType.K_ORDERED);
         if (orderedExprMarker != null) {
             parseWhiteSpaceAndCommentTokens();
-            if (!parseEnclosedExpr(XQueryElementType.ENCLOSED_EXPR, BlockOpenType.REQUIRE)) {
+            if (!parseEnclosedExpr(XQueryElementType.ENCLOSED_EXPR, BlockOpen.REQUIRED)) {
                 orderedExprMarker.rollbackTo();
                 return false;
             }
@@ -3692,7 +3692,7 @@ class XQueryParser {
         final PsiBuilder.Marker unorderedExprMarker = matchTokenTypeWithMarker(XQueryTokenType.K_UNORDERED);
         if (unorderedExprMarker != null) {
             parseWhiteSpaceAndCommentTokens();
-            if (!parseEnclosedExpr(XQueryElementType.ENCLOSED_EXPR, BlockOpenType.REQUIRE)) {
+            if (!parseEnclosedExpr(XQueryElementType.ENCLOSED_EXPR, BlockOpen.REQUIRED)) {
                 unorderedExprMarker.rollbackTo();
                 return false;
             }
@@ -3863,7 +3863,7 @@ class XQueryParser {
             }
 
             parseWhiteSpaceAndCommentTokens();
-            if (!parseEnclosedExpr(XQueryElementType.FUNCTION_BODY, BlockOpenType.REQUIRE) && !haveErrors) {
+            if (!parseEnclosedExpr(XQueryElementType.FUNCTION_BODY, BlockOpen.REQUIRED) && !haveErrors) {
                 error(XQueryBundle.message("parser.error.expected", "{"));
                 parseExpr(XQueryElementType.EXPR);
 
@@ -4007,7 +4007,7 @@ class XQueryParser {
 
         if (arrayConstructor != null) {
             parseWhiteSpaceAndCommentTokens();
-            if (!parseEnclosedExpr(null, BlockOpenType.REQUIRE)) {
+            if (!parseEnclosedExpr(null, BlockOpen.REQUIRED)) {
                 arrayConstructor.rollbackTo();
                 return false;
             }
@@ -4021,7 +4021,7 @@ class XQueryParser {
         final PsiBuilder.Marker binaryConstructor = matchTokenTypeWithMarker(XQueryTokenType.K_BINARY);
         if (binaryConstructor != null) {
             parseWhiteSpaceAndCommentTokens();
-            if (!parseEnclosedExpr(null, BlockOpenType.REQUIRE)) {
+            if (!parseEnclosedExpr(null, BlockOpen.REQUIRED)) {
                 binaryConstructor.rollbackTo();
                 return false;
             }
@@ -4286,7 +4286,7 @@ class XQueryParser {
             } else if (errorOnTokenType(XQueryTokenType.XML_EMPTY_ENTITY_REFERENCE, XQueryBundle.message("parser.error.empty-entity")) ||
                        matchTokenType(XQueryTokenType.BAD_CHARACTER)) {
                 //
-            } else if (parseEnclosedExpr(XQueryElementType.ENCLOSED_EXPR, BlockOpenType.REQUIRE) ||
+            } else if (parseEnclosedExpr(XQueryElementType.ENCLOSED_EXPR, BlockOpen.REQUIRED) ||
                        errorOnTokenType(XQueryTokenType.BLOCK_CLOSE, XQueryBundle.message("parser.error.mismatched-exclosed-expr"))) {
                 //
             } else {
@@ -4368,7 +4368,7 @@ class XQueryParser {
             } else if (matchTokenType(XQueryTokenType.PARTIAL_ENTITY_REFERENCE)) {
                 error(XQueryBundle.message("parser.error.incomplete-entity"));
                 matched = true;
-            } else if (parseEnclosedExpr(XQueryElementType.ENCLOSED_EXPR, BlockOpenType.REQUIRE) ||
+            } else if (parseEnclosedExpr(XQueryElementType.ENCLOSED_EXPR, BlockOpen.REQUIRED) ||
                        parseCDataSection(XQueryElementType.DIR_ELEM_CONTENT) ||
                        parseDirectConstructor(depth)) {
                 matched = true;
@@ -4427,7 +4427,7 @@ class XQueryParser {
         final PsiBuilder.Marker documentMarker = matchTokenTypeWithMarker(XQueryTokenType.K_DOCUMENT);
         if (documentMarker != null) {
             parseWhiteSpaceAndCommentTokens();
-            if (!parseEnclosedExpr(XQueryElementType.ENCLOSED_EXPR, BlockOpenType.REQUIRE)) {
+            if (!parseEnclosedExpr(XQueryElementType.ENCLOSED_EXPR, BlockOpen.REQUIRED)) {
                 documentMarker.rollbackTo();
                 return false;
             }
@@ -4463,7 +4463,7 @@ class XQueryParser {
             }
 
             parseWhiteSpaceAndCommentTokens();
-            parseEnclosedExpr(XQueryElementType.ENCLOSED_CONTENT_EXPR, BlockOpenType.REQUIRE);
+            parseEnclosedExpr(XQueryElementType.ENCLOSED_CONTENT_EXPR, BlockOpen.REQUIRED);
 
             elementMarker.done(XQueryElementType.COMP_ELEM_CONSTRUCTOR);
             return true;
@@ -4496,7 +4496,7 @@ class XQueryParser {
             }
 
             parseWhiteSpaceAndCommentTokens();
-            parseEnclosedExpr(XQueryElementType.ENCLOSED_EXPR, BlockOpenType.REQUIRE);
+            parseEnclosedExpr(XQueryElementType.ENCLOSED_EXPR, BlockOpen.REQUIRED);
 
             attributeMarker.done(XQueryElementType.COMP_ATTR_CONSTRUCTOR);
             return true;
@@ -4509,14 +4509,14 @@ class XQueryParser {
         if (namespaceMarker != null) {
             parseWhiteSpaceAndCommentTokens();
             if (!parseQName(XQueryElementType.PREFIX)) {
-                if (!parseEnclosedExpr(XQueryElementType.ENCLOSED_PREFIX_EXPR, BlockOpenType.REQUIRE)) {
+                if (!parseEnclosedExpr(XQueryElementType.ENCLOSED_PREFIX_EXPR, BlockOpen.REQUIRED)) {
                     namespaceMarker.rollbackTo();
                     return false;
                 }
             }
 
             parseWhiteSpaceAndCommentTokens();
-            parseEnclosedExpr(XQueryElementType.ENCLOSED_URI_EXPR, BlockOpenType.REQUIRE);
+            parseEnclosedExpr(XQueryElementType.ENCLOSED_URI_EXPR, BlockOpen.REQUIRED);
 
             namespaceMarker.done(XQueryElementType.COMP_NAMESPACE_CONSTRUCTOR);
             return true;
@@ -4528,7 +4528,7 @@ class XQueryParser {
         final PsiBuilder.Marker textMarker = matchTokenTypeWithMarker(XQueryTokenType.K_TEXT);
         if (textMarker != null) {
             parseWhiteSpaceAndCommentTokens();
-            if (!parseEnclosedExpr(XQueryElementType.ENCLOSED_EXPR, BlockOpenType.REQUIRE)) {
+            if (!parseEnclosedExpr(XQueryElementType.ENCLOSED_EXPR, BlockOpen.REQUIRED)) {
                 textMarker.rollbackTo();
                 return false;
             }
@@ -4543,7 +4543,7 @@ class XQueryParser {
         final PsiBuilder.Marker commentMarker = matchTokenTypeWithMarker(XQueryTokenType.K_COMMENT);
         if (commentMarker != null) {
             parseWhiteSpaceAndCommentTokens();
-            if (!parseEnclosedExpr(XQueryElementType.ENCLOSED_EXPR, BlockOpenType.REQUIRE)) {
+            if (!parseEnclosedExpr(XQueryElementType.ENCLOSED_EXPR, BlockOpen.REQUIRED)) {
                 commentMarker.rollbackTo();
                 return false;
             }
@@ -4579,7 +4579,7 @@ class XQueryParser {
             }
 
             parseWhiteSpaceAndCommentTokens();
-            parseEnclosedExpr(XQueryElementType.ENCLOSED_EXPR, BlockOpenType.REQUIRE);
+            parseEnclosedExpr(XQueryElementType.ENCLOSED_EXPR, BlockOpen.REQUIRED);
 
             piMarker.done(XQueryElementType.COMP_PI_CONSTRUCTOR);
             return true;
