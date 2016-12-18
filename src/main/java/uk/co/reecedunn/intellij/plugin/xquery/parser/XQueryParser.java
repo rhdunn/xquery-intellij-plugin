@@ -3256,7 +3256,7 @@ class XQueryParser {
             }
 
             parseWhiteSpaceAndCommentTokens();
-            if (!parseEnclosedExpr(XQueryElementType.ENCLOSED_EXPR, blockOpen, BlockExpr.OPTIONAL)) {
+            if (!parseEnclosedExpr(null, blockOpen, BlockExpr.REQUIRED)) {
                 validateExprMarker.rollbackTo();
                 return false;
             }
