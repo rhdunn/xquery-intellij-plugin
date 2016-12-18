@@ -4403,25 +4403,11 @@ class XQueryParser {
     private boolean parseCompElemConstructor() {
         final PsiBuilder.Marker elementMarker = matchTokenTypeWithMarker(XQueryTokenType.K_ELEMENT);
         if (elementMarker != null) {
-            boolean haveErrors = false;
-
             parseWhiteSpaceAndCommentTokens();
-            if (!parseEQName(XQueryElementType.QNAME)) {
-                if (!matchTokenType(XQueryTokenType.BLOCK_OPEN)) {
-                    elementMarker.rollbackTo();
-                    return false;
-                }
-
-                parseWhiteSpaceAndCommentTokens();
-                if (!parseExpr(XQueryElementType.EXPR)) {
-                    error(XQueryBundle.message("parser.error.expected-expression"));
-                    haveErrors = true;
-                }
-
-                parseWhiteSpaceAndCommentTokens();
-                if (!matchTokenType(XQueryTokenType.BLOCK_CLOSE) && !haveErrors) {
-                    error(XQueryBundle.message("parser.error.expected", "}"));
-                }
+            if (!parseEQName(XQueryElementType.QNAME) &&
+                !parseEnclosedExpr(null, BlockOpen.REQUIRED, BlockExpr.REQUIRED)) {
+                elementMarker.rollbackTo();
+                return false;
             }
 
             parseWhiteSpaceAndCommentTokens();
