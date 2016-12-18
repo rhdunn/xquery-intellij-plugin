@@ -35,7 +35,8 @@ public class XQueryEnclosedExprPsiImpl extends ASTWrapperPsiElement implements X
     private boolean previousVersionSupportsOptionalExpr(PsiElement parent) {
         return parent instanceof XQueryCompPIConstructor ||
                parent instanceof XQueryCompAttrConstructor ||
-               parent instanceof XQueryExtensionExpr;
+               parent instanceof XQueryExtensionExpr ||
+               parent instanceof XQueryCurlyArrayConstructor;
     }
 
     @Override
