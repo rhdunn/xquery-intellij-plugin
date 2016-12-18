@@ -3155,32 +3155,13 @@ class XQueryParser {
 
     private boolean parseTransformWithExpr() {
         if (matchTokenType(XQueryTokenType.K_TRANSFORM)) {
-            boolean haveErrors = false;
-
             parseWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.K_WITH)) {
-                haveErrors = true;
                 error(XQueryBundle.message("parser.error.expected-keyword", "with"));
             }
 
             parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.BLOCK_OPEN) && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected", "{"));
-                return false;
-            }
-
-            parseWhiteSpaceAndCommentTokens();
-            if (!parseExpr(XQueryElementType.EXPR)) {
-                error(XQueryBundle.message("parser.error.expected-expression"));
-                haveErrors = true;
-            }
-
-            parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.BLOCK_CLOSE) && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected", "}"));
-            }
-
-            return true;
+            return parseEnclosedExpr(null, BlockOpen.OPTIONAL, BlockExpr.REQUIRED);
         }
         return false;
     }
