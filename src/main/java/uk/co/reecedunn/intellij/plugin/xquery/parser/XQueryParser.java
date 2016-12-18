@@ -3997,7 +3997,7 @@ class XQueryParser {
 
         if (arrayConstructor != null) {
             parseWhiteSpaceAndCommentTokens();
-            if (!parseEnclosedExpr(null, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)) {
+            if (!parseEnclosedExpr(XQueryElementType.ENCLOSED_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)) {
                 arrayConstructor.rollbackTo();
                 return false;
             }
