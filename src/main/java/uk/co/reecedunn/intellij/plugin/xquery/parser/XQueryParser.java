@@ -1228,15 +1228,20 @@ class XQueryParser {
     // endregion
     // region Grammar :: Expr
 
+    private enum BlockOpenType {
+        REQUIRE,
+        ALLOW_MISSING
+    };
+
     private boolean parseEnclosedExpr(IElementType type) {
-        return parseEnclosedExpr(type, false);
+        return parseEnclosedExpr(type, BlockOpenType.REQUIRE);
     }
 
-    private boolean parseEnclosedExpr(IElementType type, boolean allowMissingBlockOpen) {
+    private boolean parseEnclosedExpr(IElementType type, BlockOpenType blockOpenType) {
         boolean haveErrors = false;
         boolean haveExpr = false;
         PsiBuilder.Marker enclosedExprMarker = matchTokenTypeWithMarker(XQueryTokenType.BLOCK_OPEN);
-        if (enclosedExprMarker == null && allowMissingBlockOpen) {
+        if (enclosedExprMarker == null && blockOpenType == BlockOpenType.ALLOW_MISSING) {
             error(XQueryBundle.message("parser.error.expected", "{"));
             enclosedExprMarker = mark();
             haveErrors = true;
@@ -2487,7 +2492,7 @@ class XQueryParser {
             }
 
             parseWhiteSpaceAndCommentTokens();
-            parseEnclosedExpr(XQueryElementType.ENCLOSED_EXPR, true);
+            parseEnclosedExpr(XQueryElementType.ENCLOSED_EXPR, BlockOpenType.ALLOW_MISSING);
 
             catchClauseMarker.done(XQueryElementType.CATCH_CLAUSE);
             return nextType;
@@ -3247,11 +3252,11 @@ class XQueryParser {
         final PsiBuilder.Marker validateExprMarker = matchTokenTypeWithMarker(XQueryTokenType.K_VALIDATE);
         if (validateExprMarker != null) {
             parseWhiteSpaceAndCommentTokens();
-            boolean haveValidationMode = false;
+            BlockOpenType blockOpenType = BlockOpenType.REQUIRE;
             if (matchTokenType(XQueryTokenType.K_LAX) || matchTokenType(XQueryTokenType.K_STRICT)) {
-                haveValidationMode = true;
+                blockOpenType = BlockOpenType.ALLOW_MISSING;
             } else if (matchTokenType(XQueryTokenType.K_AS) || matchTokenType(XQueryTokenType.K_TYPE)) {
-                haveValidationMode = true;
+                blockOpenType = BlockOpenType.ALLOW_MISSING;
 
                 parseWhiteSpaceAndCommentTokens();
                 if (!parseEQName(XQueryElementType.TYPE_NAME)) {
@@ -3260,7 +3265,7 @@ class XQueryParser {
             }
 
             parseWhiteSpaceAndCommentTokens();
-            if (!parseEnclosedExpr(XQueryElementType.ENCLOSED_EXPR, haveValidationMode)) {
+            if (!parseEnclosedExpr(XQueryElementType.ENCLOSED_EXPR, blockOpenType)) {
                 validateExprMarker.rollbackTo();
                 return false;
             }
@@ -3280,7 +3285,7 @@ class XQueryParser {
         }
         if (matched) {
             parseWhiteSpaceAndCommentTokens();
-            parseEnclosedExpr(XQueryElementType.ENCLOSED_EXPR, true);
+            parseEnclosedExpr(XQueryElementType.ENCLOSED_EXPR, BlockOpenType.ALLOW_MISSING);
             extensionExprMarker.done(XQueryElementType.EXTENSION_EXPR);
             return true;
         }
