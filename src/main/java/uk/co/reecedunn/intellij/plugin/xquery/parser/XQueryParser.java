@@ -1237,14 +1237,14 @@ class XQueryParser {
 
     private boolean parseEnclosedExpr(IElementType type, BlockOpenType blockOpenType) {
         boolean haveErrors = false;
-        boolean haveExpr = false;
-        PsiBuilder.Marker enclosedExprMarker = matchTokenTypeWithMarker(XQueryTokenType.BLOCK_OPEN);
-        if (enclosedExprMarker == null && blockOpenType == BlockOpenType.ALLOW_MISSING) {
+        PsiBuilder.Marker enclosedExprMarker = mark();
+        boolean haveExpr = matchTokenType(XQueryTokenType.BLOCK_OPEN);
+        if (!haveExpr && blockOpenType == BlockOpenType.ALLOW_MISSING) {
             error(XQueryBundle.message("parser.error.expected", "{"));
-            enclosedExprMarker = mark();
             haveErrors = true;
-        } else if (enclosedExprMarker != null) {
-            haveExpr = true;
+        } else if (!haveExpr) {
+            enclosedExprMarker.drop();
+            enclosedExprMarker = null;
         }
 
         if (enclosedExprMarker != null) {

@@ -28,8 +28,8 @@ FileElement[FILE(0:33)]
                                                             XQueryNCNameImpl[XQUERY_NCNAME(17:24)]
                                                                LeafPsiElement[XQUERY_NCNAME_TOKEN(17:24)]('boolean')
                                                          PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
-                                                         PsiErrorElementImpl[ERROR_ELEMENT(25:25)]('XPST0003: Expected '{'.')
                                                          XQueryEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(25:33)]
+                                                            PsiErrorElementImpl[ERROR_ELEMENT(25:25)]('XPST0003: Expected '{'.')
                                                             XQueryExprImpl[XQUERY_EXPR(25:32)]
                                                                XQueryOrExprImpl[XQUERY_OR_EXPR(25:32)]
                                                                   XQueryAndExprImpl[XQUERY_AND_EXPR(25:32)]

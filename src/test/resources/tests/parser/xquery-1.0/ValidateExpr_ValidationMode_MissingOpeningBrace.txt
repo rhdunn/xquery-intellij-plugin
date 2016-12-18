@@ -21,8 +21,8 @@ FileElement[FILE(0:48)]
                                                          PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
                                                          LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_LAX(9:12)]('lax')
                                                          PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
-                                                         PsiErrorElementImpl[ERROR_ELEMENT(13:13)]('XPST0003: Expected '{'.')
                                                          XQueryEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(13:21)]
+                                                            PsiErrorElementImpl[ERROR_ELEMENT(13:13)]('XPST0003: Expected '{'.')
                                                             XQueryExprImpl[XQUERY_EXPR(13:20)]
                                                                XQueryOrExprImpl[XQUERY_OR_EXPR(13:20)]
                                                                   XQueryAndExprImpl[XQUERY_AND_EXPR(13:20)]
@@ -73,8 +73,8 @@ FileElement[FILE(0:48)]
                                                          PsiWhiteSpaceImpl[WHITE_SPACE(32:33)](' ')
                                                          LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_STRICT(33:39)]('strict')
                                                          PsiWhiteSpaceImpl[WHITE_SPACE(39:40)](' ')
-                                                         PsiErrorElementImpl[ERROR_ELEMENT(40:40)]('XPST0003: Expected '{'.')
                                                          XQueryEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(40:48)]
+                                                            PsiErrorElementImpl[ERROR_ELEMENT(40:40)]('XPST0003: Expected '{'.')
                                                             XQueryExprImpl[XQUERY_EXPR(40:47)]
                                                                XQueryOrExprImpl[XQUERY_OR_EXPR(40:47)]
                                                                   XQueryAndExprImpl[XQUERY_AND_EXPR(40:47)]
