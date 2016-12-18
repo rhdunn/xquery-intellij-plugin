@@ -4024,25 +4024,11 @@ class XQueryParser {
     private boolean parseBooleanConstructor() {
         final PsiBuilder.Marker booleanConstructor = matchTokenTypeWithMarker(XQueryTokenType.K_BOOLEAN_NODE);
         if (booleanConstructor != null) {
-            boolean haveErrors = false;
-
             parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.BLOCK_OPEN)) {
+            if (!parseEnclosedExpr(null, BlockOpen.REQUIRED, BlockExpr.REQUIRED)) {
                 booleanConstructor.rollbackTo();
                 return false;
             }
-
-            parseWhiteSpaceAndCommentTokens();
-            if (!parseExpr(XQueryElementType.EXPR)) {
-                error(XQueryBundle.message("parser.error.expected-expression"));
-                haveErrors = true;
-            }
-
-            parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.BLOCK_CLOSE) && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected", "}"));
-            }
-
             booleanConstructor.done(XQueryElementType.BOOLEAN_CONSTRUCTOR);
             return true;
         }
