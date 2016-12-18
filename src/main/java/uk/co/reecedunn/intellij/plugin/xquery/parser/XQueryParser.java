@@ -4131,25 +4131,11 @@ class XQueryParser {
     private boolean parseNumberConstructor() {
         final PsiBuilder.Marker numberConstructor = matchTokenTypeWithMarker(XQueryTokenType.K_NUMBER_NODE);
         if (numberConstructor != null) {
-            boolean haveErrors = false;
-
             parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.BLOCK_OPEN)) {
+            if (!parseEnclosedExpr(null, BlockOpen.REQUIRED, BlockExpr.REQUIRED)) {
                 numberConstructor.rollbackTo();
                 return false;
             }
-
-            parseWhiteSpaceAndCommentTokens();
-            if (!parseExpr(XQueryElementType.EXPR)) {
-                error(XQueryBundle.message("parser.error.expected-expression"));
-                haveErrors = true;
-            }
-
-            parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.BLOCK_CLOSE) && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected", "}"));
-            }
-
             numberConstructor.done(XQueryElementType.NUMBER_CONSTRUCTOR);
             return true;
         }
