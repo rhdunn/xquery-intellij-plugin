@@ -1238,18 +1238,19 @@ class XQueryParser {
     private boolean parseEnclosedExpr(IElementType type, BlockOpenType blockOpenType) {
         boolean haveErrors = false;
         PsiBuilder.Marker enclosedExprMarker = mark();
-        boolean haveExpr = matchTokenType(XQueryTokenType.BLOCK_OPEN);
-        if (!haveExpr && blockOpenType == BlockOpenType.ALLOW_MISSING) {
-            error(XQueryBundle.message("parser.error.expected", "{"));
-            haveErrors = true;
-        } else if (!haveExpr) {
-            enclosedExprMarker.drop();
-            enclosedExprMarker = null;
+        if (!matchTokenType(XQueryTokenType.BLOCK_OPEN)) {
+            if (blockOpenType == BlockOpenType.ALLOW_MISSING) {
+                error(XQueryBundle.message("parser.error.expected", "{"));
+                haveErrors = true;
+            } else {
+                enclosedExprMarker.drop();
+                enclosedExprMarker = null;
+            }
         }
 
         if (enclosedExprMarker != null) {
             parseWhiteSpaceAndCommentTokens();
-            haveExpr |= parseExpr(XQueryElementType.EXPR);
+            boolean haveExpr = parseExpr(XQueryElementType.EXPR);
 
             parseWhiteSpaceAndCommentTokens();
             if (matchTokenType(XQueryTokenType.BLOCK_CLOSE)) {
