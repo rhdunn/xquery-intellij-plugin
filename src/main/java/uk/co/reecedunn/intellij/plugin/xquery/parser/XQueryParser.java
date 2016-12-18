@@ -3276,7 +3276,7 @@ class XQueryParser {
         }
         if (matched) {
             parseWhiteSpaceAndCommentTokens();
-            parseEnclosedExpr(XQueryElementType.ENCLOSED_EXPR, BlockOpen.OPTIONAL, BlockExpr.OPTIONAL);
+            parseEnclosedExpr(null, BlockOpen.OPTIONAL, BlockExpr.OPTIONAL);
             extensionExprMarker.done(XQueryElementType.EXTENSION_EXPR);
             return true;
         }
