@@ -323,6 +323,21 @@ public class XQDocLexerTest extends LexerTestCase {
     }
 
     // endregion
+    // region xqDoc :: TaggedContents :: @since
+
+    public void testTaggedContents_Since() {
+        Lexer lexer = new XQDocLexer();
+
+        lexer.start("~\n@since 1.2");
+        matchToken(lexer, "~",       0,  0,  1, XQDocTokenType.XQDOC_COMMENT_MARKER);
+        matchToken(lexer, "\n",      8,  1,  2, XQDocTokenType.TRIM);
+        matchToken(lexer, "@",       8,  2,  3, XQDocTokenType.TAG_MARKER);
+        matchToken(lexer, "since",   2,  3,  8, XQDocTokenType.T_SINCE);
+        matchToken(lexer, " 1.2",    2,  8, 12, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "",        1, 12, 12, null);
+    }
+
+    // endregion
     // region xqDoc :: TaggedContents :: @version
 
     public void testTaggedContents_Version() {
