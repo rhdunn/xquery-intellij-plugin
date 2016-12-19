@@ -323,6 +323,21 @@ public class XQDocLexerTest extends LexerTestCase {
     }
 
     // endregion
+    // region xqDoc :: TaggedContents :: @version
+
+    public void testTaggedContents_Version() {
+        Lexer lexer = new XQDocLexer();
+
+        lexer.start("~\n@version 1.2");
+        matchToken(lexer, "~",         0,  0,  1, XQDocTokenType.XQDOC_COMMENT_MARKER);
+        matchToken(lexer, "\n",        8,  1,  2, XQDocTokenType.TRIM);
+        matchToken(lexer, "@",         8,  2,  3, XQDocTokenType.TAG_MARKER);
+        matchToken(lexer, "version",   2,  3, 10, XQDocTokenType.T_VERSION);
+        matchToken(lexer, " 1.2",      2, 10, 14, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "",          1, 14, 14, null);
+    }
+
+    // endregion
     // region xqDoc :: Trim
 
     public void testTrim_Linux() {
