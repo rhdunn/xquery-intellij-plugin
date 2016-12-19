@@ -143,7 +143,15 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
                    type == XQueryTokenType.XML_CHARACTER_REFERENCE) {
             return XML_ENTITY_REFERENCE_KEYS;
         } else if (type == XQDocTokenType.TAG_MARKER ||
-                   type == XQDocTokenType.TAG) {
+                   type == XQDocTokenType.TAG ||
+                   type == XQDocTokenType.T_AUTHOR ||
+                   type == XQDocTokenType.T_DEPRECATED ||
+                   type == XQDocTokenType.T_ERROR ||
+                   type == XQDocTokenType.T_PARAM ||
+                   type == XQDocTokenType.T_RETURN ||
+                   type == XQDocTokenType.T_SEE ||
+                   type == XQDocTokenType.T_SINCE ||
+                   type == XQDocTokenType.T_VERSION) {
             return XQDOC_TAG_KEYS;
         } else if (type == XQDocTokenType.OPEN_XML_TAG ||
                    type == XQDocTokenType.END_XML_TAG ||

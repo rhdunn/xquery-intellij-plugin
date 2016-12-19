@@ -819,6 +819,38 @@ public class SyntaxHighlighterTest extends TestCase {
         assertThat(highlighter.getTokenHighlights(XQDocTokenType.TAG).length, is(2));
         assertThat(highlighter.getTokenHighlights(XQDocTokenType.TAG)[0], is(SyntaxHighlighter.COMMENT));
         assertThat(highlighter.getTokenHighlights(XQDocTokenType.TAG)[1], is(SyntaxHighlighter.XQDOC_TAG));
+
+        assertThat(highlighter.getTokenHighlights(XQDocTokenType.T_AUTHOR).length, is(2));
+        assertThat(highlighter.getTokenHighlights(XQDocTokenType.T_AUTHOR)[0], is(SyntaxHighlighter.COMMENT));
+        assertThat(highlighter.getTokenHighlights(XQDocTokenType.T_AUTHOR)[1], is(SyntaxHighlighter.XQDOC_TAG));
+
+        assertThat(highlighter.getTokenHighlights(XQDocTokenType.T_DEPRECATED).length, is(2));
+        assertThat(highlighter.getTokenHighlights(XQDocTokenType.T_DEPRECATED)[0], is(SyntaxHighlighter.COMMENT));
+        assertThat(highlighter.getTokenHighlights(XQDocTokenType.T_DEPRECATED)[1], is(SyntaxHighlighter.XQDOC_TAG));
+
+        assertThat(highlighter.getTokenHighlights(XQDocTokenType.T_ERROR).length, is(2));
+        assertThat(highlighter.getTokenHighlights(XQDocTokenType.T_ERROR)[0], is(SyntaxHighlighter.COMMENT));
+        assertThat(highlighter.getTokenHighlights(XQDocTokenType.T_ERROR)[1], is(SyntaxHighlighter.XQDOC_TAG));
+
+        assertThat(highlighter.getTokenHighlights(XQDocTokenType.T_PARAM).length, is(2));
+        assertThat(highlighter.getTokenHighlights(XQDocTokenType.T_PARAM)[0], is(SyntaxHighlighter.COMMENT));
+        assertThat(highlighter.getTokenHighlights(XQDocTokenType.T_PARAM)[1], is(SyntaxHighlighter.XQDOC_TAG));
+
+        assertThat(highlighter.getTokenHighlights(XQDocTokenType.T_RETURN).length, is(2));
+        assertThat(highlighter.getTokenHighlights(XQDocTokenType.T_RETURN)[0], is(SyntaxHighlighter.COMMENT));
+        assertThat(highlighter.getTokenHighlights(XQDocTokenType.T_RETURN)[1], is(SyntaxHighlighter.XQDOC_TAG));
+
+        assertThat(highlighter.getTokenHighlights(XQDocTokenType.T_SEE).length, is(2));
+        assertThat(highlighter.getTokenHighlights(XQDocTokenType.T_SEE)[0], is(SyntaxHighlighter.COMMENT));
+        assertThat(highlighter.getTokenHighlights(XQDocTokenType.T_SEE)[1], is(SyntaxHighlighter.XQDOC_TAG));
+
+        assertThat(highlighter.getTokenHighlights(XQDocTokenType.T_SINCE).length, is(2));
+        assertThat(highlighter.getTokenHighlights(XQDocTokenType.T_SINCE)[0], is(SyntaxHighlighter.COMMENT));
+        assertThat(highlighter.getTokenHighlights(XQDocTokenType.T_SINCE)[1], is(SyntaxHighlighter.XQDOC_TAG));
+
+        assertThat(highlighter.getTokenHighlights(XQDocTokenType.T_VERSION).length, is(2));
+        assertThat(highlighter.getTokenHighlights(XQDocTokenType.T_VERSION)[0], is(SyntaxHighlighter.COMMENT));
+        assertThat(highlighter.getTokenHighlights(XQDocTokenType.T_VERSION)[1], is(SyntaxHighlighter.XQDOC_TAG));
     }
 
     public void testTokenHighlights_XQDocMarker() {
