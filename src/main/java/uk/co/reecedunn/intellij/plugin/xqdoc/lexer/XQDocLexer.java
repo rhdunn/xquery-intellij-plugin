@@ -378,6 +378,7 @@ public class XQDocLexer extends LexerBase {
 
     static {
         sTagNames.put("author", XQDocTokenType.T_AUTHOR);
+        sTagNames.put("deprecated", XQDocTokenType.T_DEPRECATED);
         sTagNames.put("param", XQDocTokenType.T_PARAM);
         sTagNames.put("return", XQDocTokenType.T_RETURN);
         sTagNames.put("see", XQDocTokenType.T_SEE);

@@ -323,6 +323,21 @@ public class XQDocLexerTest extends LexerTestCase {
     }
 
     // endregion
+    // region xqDoc :: TaggedContents :: @deprecated
+
+    public void testTaggedContents_Deprecated() {
+        Lexer lexer = new XQDocLexer();
+
+        lexer.start("~\n@deprecated As of 1.1.");
+        matchToken(lexer, "~",           0,  0,  1, XQDocTokenType.XQDOC_COMMENT_MARKER);
+        matchToken(lexer, "\n",          8,  1,  2, XQDocTokenType.TRIM);
+        matchToken(lexer, "@",           8,  2,  3, XQDocTokenType.TAG_MARKER);
+        matchToken(lexer, "deprecated",  2,  3, 13, XQDocTokenType.T_DEPRECATED);
+        matchToken(lexer, " As of 1.1.", 2, 13, 24, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "",            1, 24, 24, null);
+    }
+
+    // endregion
     // region xqDoc :: TaggedContents :: @param
 
     public void testTaggedContents_Param() {
