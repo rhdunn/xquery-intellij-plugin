@@ -25,6 +25,11 @@ public enum XQueryVersion {
     VERSION_1_0_MARKLOGIC("1.0-ml", 1.0),
     VERSION_3_0("3.0", 3.0),
     VERSION_3_1("3.1", 3.1),
+    // XQuery Specification Versions:
+    VERSION_1_0_20070123("1.0-20070123", 1.0, 20070123), // XQuery 1.0 REC (First Edition)
+    VERSION_1_0_20101214("1.0-20101214", 1.0, 20101214), // XQuery 1.0 REC (Second Edition)
+    VERSION_3_0_20140408("3.0-20140408", 3.0, 20140408), // XQuery 3.0 REC
+    VERSION_3_1_20161213("3.1-20161213", 3.1, 20161213), // XQuery 3.1 CR
     // MarkLogic Versions:
     VERSION_6_0("6.0", 6.0),
     VERSION_7_0("7.0", 7.0),
@@ -37,19 +42,29 @@ public enum XQueryVersion {
 
     private final String mID;
     private final double mValue;
+    private final int mDate;
 
-    XQueryVersion(@NotNull String id, double value) {
+    XQueryVersion(@NotNull String id, double value, int date) {
         mID = id;
         mValue = value;
+        mDate = date;
+    }
+
+    XQueryVersion(@NotNull String id, double value) {
+        this(id, value, 0);
     }
 
     @Nullable
     public static XQueryVersion parse(@Nullable CharSequence value) {
         if ("0.9-ml".equals(value)) return VERSION_0_9_MARKLOGIC;
         if ("1.0".equals(value)) return VERSION_1_0;
+        if ("1.0-20070123".equals(value)) return VERSION_1_0_20070123;
+        if ("1.0-20101214".equals(value)) return VERSION_1_0_20101214;
         if ("1.0-ml".equals(value)) return VERSION_1_0_MARKLOGIC;
         if ("3.0".equals(value)) return VERSION_3_0;
+        if ("3.0-20140408".equals(value)) return VERSION_3_0_20140408;
         if ("3.1".equals(value)) return VERSION_3_1;
+        if ("3.1-20161213".equals(value)) return VERSION_3_1_20161213;
         if ("6.0".equals(value)) return VERSION_6_0;
         if ("7.0".equals(value)) return VERSION_7_0;
         if ("8.0".equals(value)) return VERSION_8_0;
@@ -67,6 +82,10 @@ public enum XQueryVersion {
 
     public double toDouble() {
         return mValue;
+    }
+
+    public int getDate() {
+        return mDate;
     }
 
     public boolean supportsVersion(XQueryVersion version) {
