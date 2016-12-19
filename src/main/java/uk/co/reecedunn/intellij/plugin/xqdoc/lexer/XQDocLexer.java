@@ -21,6 +21,8 @@ import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRange;
 
 import java.util.EmptyStackException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Stack;
 
 public class XQDocLexer extends LexerBase {
@@ -117,7 +119,7 @@ public class XQDocLexer extends LexerBase {
                 mTokenRange.match();
                 c = mTokenRange.getCodePoint();
             }
-            mType = XQDocTokenType.TAG;
+            mType = sTagNames.getOrDefault(getTokenText(), XQDocTokenType.TAG);
         } else {
             popState();
             stateContents();
@@ -367,6 +369,15 @@ public class XQDocLexer extends LexerBase {
     @Override
     public final int getBufferEnd() {
         return mTokenRange.getBufferEnd();
+    }
+
+    // endregion
+    // region Special Tag Names
+
+    private static final Map<String, IElementType> sTagNames = new HashMap<>();
+
+    static {
+        sTagNames.put("author", XQDocTokenType.T_AUTHOR);
     }
 
     // endregion

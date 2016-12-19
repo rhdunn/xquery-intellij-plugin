@@ -308,6 +308,21 @@ public class XQDocLexerTest extends LexerTestCase {
     }
 
     // endregion
+    // region xqDoc :: TaggedContents :: @author
+
+    public void testTaggedContents_Author() {
+        Lexer lexer = new XQDocLexer();
+
+        lexer.start("~\n@author John Doe");
+        matchToken(lexer, "~",         0,  0,  1, XQDocTokenType.XQDOC_COMMENT_MARKER);
+        matchToken(lexer, "\n",        8,  1,  2, XQDocTokenType.TRIM);
+        matchToken(lexer, "@",         8,  2,  3, XQDocTokenType.TAG_MARKER);
+        matchToken(lexer, "author",    2,  3,  9, XQDocTokenType.T_AUTHOR);
+        matchToken(lexer, " John Doe", 2,  9, 18, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "",          1, 18, 18, null);
+    }
+
+    // endregion
     // region xqDoc :: Trim
 
     public void testTrim_Linux() {
