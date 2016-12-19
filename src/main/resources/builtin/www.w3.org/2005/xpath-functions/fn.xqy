@@ -1,4 +1,4 @@
-xquery version "3.0";
+xquery version "3.1";
 
 (:~
  : XPath and XQuery Functions and Operators
@@ -6,6 +6,7 @@ xquery version "3.0";
  : @see https://www.w3.org/TR/2007/REC-xpath-functions-20070123/
  : @see https://www.w3.org/TR/2010/REC-xpath-functions-20101214/
  : @see https://www.w3.org/TR/2014/REC-xpath-functions-30-20140408/
+ : @see https://www.w3.org/TR/2016/CR-xpath-functions-31-20161213/
  :)
 module  namespace fn = "http://www.w3.org/2005/xpath-functions";
 declare namespace xs = "http://www.w3.org/2001/XMLSchema";
@@ -21,6 +22,7 @@ declare %a:since("W3C", "1.0-20070123") function fn:adjust-time-to-timezone($arg
 declare %a:since("W3C", "1.0-20070123") function fn:adjust-time-to-timezone($arg as xs:time?, $timezone as xs:dayTimeDuration?) as xs:time? external;
 declare %a:since("W3C", "3.0-20140408") function fn:analyze-string($input as xs:string?, $pattern as xs:string) as element(fn:analyze-string-result) external;
 declare %a:since("W3C", "3.0-20140408") function fn:analyze-string($input as xs:string?, $pattern as xs:string, $flags as xs:string) as element(fn:analyze-string-result) external;
+declare %a:since("W3C", "3.1-20161213") function fn:apply($function as function(*), $array as array(*)) as item()* external;
 declare %a:since("W3C", "3.0-20140408") function fn:available-environment-variables() as xs:string* external;
 declare %a:since("W3C", "1.0-20070123") function fn:avg($arg as xs:anyAtomicType*) as xs:anyAtomicType? external;
 declare %a:since("W3C", "1.0-20070123") function fn:base-uri() as xs:anyURI? external;
@@ -31,11 +33,15 @@ declare %a:since("W3C", "1.0-20070123") function fn:codepoint-equal($comparand1 
 declare %a:since("W3C", "1.0-20070123") function fn:codepoints-to-string($arg as xs:integer*) as xs:string external;
 declare %a:since("W3C", "1.0-20070123") function fn:collection() as node()* external;
 declare %a:since("W3C", "1.0-20070123") function fn:collection($arg as xs:string?) as node()* external;
+declare %a:since("W3C", "3.1-20161213") function fn:collection-key($key as xs:string) as xs:base64Binary external;
+declare %a:since("W3C", "3.1-20161213") function fn:collection-key($key as xs:string, $collation as xs:string) as xs:base64Binary external;
 declare %a:since("W3C", "1.0-20070123") function fn:compare($comparand1 as xs:string?, $comparand2 as xs:string?) as xs:integer? external;
 declare %a:since("W3C", "1.0-20070123") function fn:compare($comparand1 as xs:string?, $comparand2 as xs:string?, $collation as xs:string) as xs:integer? external;
 declare %a:since("W3C", "1.0-20070123") %a:variadic("xs:anyAtomicType?") function fn:concat($arg1 as xs:anyAtomicType?, $arg2 as xs:anyAtomicType?) as xs:string external;
 declare %a:since("W3C", "1.0-20070123") function fn:contains($arg1 as xs:string?, $arg2 as xs:string?) as xs:boolean external;
 declare %a:since("W3C", "1.0-20070123") function fn:contains($arg1 as xs:string?, $arg2 as xs:string?, $collation as xs:string) as xs:boolean external;
+declare %a:since("W3C", "3.1-20161213") function fn:contains-token($input as xs:string*, $token as xs:string) as xs:boolean external;
+declare %a:since("W3C", "3.1-20161213") function fn:contains-token($input as xs:string*, $token as xs:string, $collation as xs:string) as xs:boolean external;
 declare %a:since("W3C", "1.0-20070123") function fn:count($arg as item()*) as xs:integer external;
 declare %a:since("W3C", "1.0-20070123") function fn:current-date() as xs:date external;
 declare %a:since("W3C", "1.0-20070123") function fn:current-dateTime() as xs:dateTime external;
@@ -49,6 +55,7 @@ declare %a:since("W3C", "1.0-20070123") function fn:days-from-duration($arg as x
 declare %a:since("W3C", "1.0-20070123") function fn:deep-equal($parameter1 as item()*, $parameter2 as item()*) as xs:boolean external;
 declare %a:since("W3C", "1.0-20070123") function fn:deep-equal($parameter1 as item()*, $parameter2 as item()*, $collation as string) as xs:boolean external;
 declare %a:since("W3C", "1.0-20070123") function fn:default-collation() as xs:string external;
+declare %a:since("W3C", "3.1-20161213") function fn:default-language() as xs:language external;
 declare %a:since("W3C", "1.0-20070123") function fn:distinct-values($arg as xs:anyAtomicType*) as xs:anyAtomicType* external;
 declare %a:since("W3C", "1.0-20070123") function fn:distinct-values($arg as xs:anyAtomicType*, $collation as xs:string) as xs:anyAtomicType* external;
 declare %a:since("W3C", "1.0-20070123") function fn:doc($uri as xs:string?) as document-node()? external;
@@ -108,9 +115,15 @@ declare %a:since("W3C", "1.0-20070123") function fn:index-of($seqParam as xs:any
 declare %a:since("W3C", "3.0-20140408") function fn:innermost($nodes as node()*) as node()* external;
 declare %a:since("W3C", "1.0-20070123") function fn:insert-before($target as item()*, $position as xs:integer, $inserts as item()*) as item()* external;
 declare %a:since("W3C", "1.0-20070123") function fn:iri-to-uri($iri as xs:string?) as xs:string external;
+declare %a:since("W3C", "3.1-20161213") function fn:json-doc($href as xs:string?) as item()? external;
+declare %a:since("W3C", "3.1-20161213") function fn:json-doc($href as xs:string?, $options as map(*)) as item()? external;
+declare %a:since("W3C", "3.1-20161213") function fn:json-to-xml($json-text as xs:string?) as document-node()? external;
+declare %a:since("W3C", "3.1-20161213") function fn:json-to-xml($json-text as xs:string?, $options as map(*)) as document-node()? external;
 declare %a:since("W3C", "1.0-20070123") function fn:lang($testlang as xs:string?) as xs:boolean external;
 declare %a:since("W3C", "1.0-20070123") function fn:lang($testlang as xs:string?, $node as node()) as xs:boolean external;
 declare %a:since("W3C", "1.0-20070123") function fn:last() as xs:integer external;
+declare %a:since("W3C", "3.1-20161213") function fn:load-xquery-module($module-uri as xs:string) as map(*) external;
+declare %a:since("W3C", "3.1-20161213") function fn:load-xquery-module($module-uri as xs:string, $options as map(*)) as map(*) external;
 declare %a:since("W3C", "1.0-20070123") function fn:local-name() as xs:string external;
 declare %a:since("W3C", "1.0-20070123") function fn:local-name($arg as node()?) as xs:string external;
 declare %a:since("W3C", "1.0-20070123") function fn:local-name-from-QName($arg as xs:QName?) as xs:NCName? external;
@@ -146,12 +159,17 @@ declare %a:since("W3C", "1.0-20070123") function fn:number() as xs:double extern
 declare %a:since("W3C", "1.0-20070123") function fn:number($arg as xs:anyAtomicType?) as xs:double external;
 declare %a:since("W3C", "1.0-20070123") function fn:one-or-more($arg as item()*) as item()+ external;
 declare %a:since("W3C", "3.0-20140408") function fn:outermost($nodes as node()*) as node()* external;
+declare %a:since("W3C", "3.1-20161213") function fn:parse-ietf-date($value as xs:string?) as xs:dateTime? external;
+declare %a:since("W3C", "3.1-20161213") function fn:parse-json($json-text as xs:string?) as item()? external;
+declare %a:since("W3C", "3.1-20161213") function fn:parse-json($json-text as xs:string?, $options as map(*)) as item()? external;
 declare %a:since("W3C", "3.0-20140408") function fn:parse-xml($arg as xs:string?) as document-node(element(*))? external;
 declare %a:since("W3C", "3.0-20140408") function fn:parse-xml-fragment($arg as xs:string?) as document-node()? external;
 declare %a:since("W3C", "3.0-20140408") function fn:path() as xs:string? external;
 declare %a:since("W3C", "3.0-20140408") function fn:path($arg as node()?) as xs:string? external;
 declare %a:since("W3C", "1.0-20070123") function fn:position() as xs:integer external;
 declare %a:since("W3C", "1.0-20070123") function fn:prefix-from-QName($arg as xs:QName?) as xs:NCName? external;
+declare %a:since("W3C", "3.1-20161213") function fn:random-number-generator() as map(xs:string, item()) external;
+declare %a:since("W3C", "3.1-20161213") function fn:random-number-generator($seed as xs:anyAtomicType?) as map(xs:string, item()) external;
 declare %a:since("W3C", "1.0-20070123") function fn:remove($target as item()*, $position as xs:integer) as item()* external;
 declare %a:since("W3C", "1.0-20070123") function fn:replace($input as xs:string?, $pattern as xs:string, $replacement as xs:string) as xs:string external;
 declare %a:since("W3C", "1.0-20070123") function fn:replace($input as xs:string?, $pattern as xs:string, $replacement as xs:string, $flags as xs:string) as xs:string external;
@@ -169,7 +187,10 @@ declare %a:since("W3C", "1.0-20070123") function fn:seconds-from-dateTime($arg a
 declare %a:since("W3C", "1.0-20070123") function fn:seconds-from-duration($arg as xs:duration?) as xs:decimal? external;
 declare %a:since("W3C", "1.0-20070123") function fn:seconds-from-time($arg as xs:time?) as xs:decimal? external;
 declare %a:since("W3C", "3.0-20140408") function fn:serialize($arg as item()*) as xs:string external;
-declare %a:since("W3C", "3.0-20140408") function fn:serialize($arg as item()*, $params as element(output:serialization-parameters)?) as xs:string external;
+declare %a:since("W3C", "3.0-20140408") function fn:serialize($arg as item()*, $params as item()?) as xs:string external;
+declare %a:since("W3C", "3.1-20161213") function fn:sort($input as item()*) as item()* external;
+declare %a:since("W3C", "3.1-20161213") function fn:sort($input as item()*, $collation as xs:string?) as item()* external;
+declare %a:since("W3C", "3.1-20161213") function fn:sort($input as item()*, $collation as xs:string?, $key as function(item()) as xs:anyAtomicType*) as item()* external;
 declare %a:since("W3C", "1.0-20070123") function fn:starts-with($arg1 as xs:string?, $arg2 as xs:string?) as xs:boolean external;
 declare %a:since("W3C", "1.0-20070123") function fn:starts-with($arg1 as xs:string?, $arg2 as xs:string?, $collation as xs:string) as xs:boolean external;
 declare %a:since("W3C", "1.0-20070123") function fn:static-base-uri() as xs:anyURI? external;
@@ -194,9 +215,12 @@ declare %a:since("W3C", "3.0-20140408") function fn:tail($arg as item()*) as ite
 declare %a:since("W3C", "1.0-20070123") function fn:timezone-from-date($arg as xs:date?) as xs:dayTimeDuration? external;
 declare %a:since("W3C", "1.0-20070123") function fn:timezone-from-dateTime($arg as xs:dateTime?) as xs:dayTimeDuration? external;
 declare %a:since("W3C", "1.0-20070123") function fn:timezone-from-time($arg as xs:time?) as xs:dayTimeDuration? external;
+declare %a:since("W3C", "3.1-20161213") function fn:tokenize($input as xs:string?) as xs:string* external;
 declare %a:since("W3C", "1.0-20070123") function fn:tokenize($input as xs:string?, $pattern as xs:string) as xs:string* external;
 declare %a:since("W3C", "1.0-20070123") function fn:tokenize($input as xs:string?, $pattern as xs:string, $flags as xs:string) as xs:string* external;
+declare %a:since("W3C", "3.1-20161213") function fn:trace($value as item()*) as item()* external;
 declare %a:since("W3C", "1.0-20070123") function fn:trace($value as item()*, $label as xs:string) as item()* external;
+declare %a:since("W3C", "3.1-20161213") function fn:transform($options as map(*)) as map(*) external;
 declare %a:since("W3C", "1.0-20070123") function fn:translate($arg as xs:string?, $mapString as xs:string, $transString as xs:string) as xs:string external;
 declare %a:since("W3C", "1.0-20070123") function fn:true() as xs:boolean external;
 declare %a:since("W3C", "1.0-20070123") function fn:unordered($sourceSeq as item()*) as item()* external;
@@ -209,6 +233,8 @@ declare %a:since("W3C", "3.0-20140408") function fn:unparsed-text-lines($href as
 declare %a:since("W3C", "1.0-20070123") function fn:upper-case($arg as xs:string?) as xs:string external;
 declare %a:since("W3C", "3.0-20140408") function fn:uri-collection() as xs:anyURI* external;
 declare %a:since("W3C", "3.0-20140408") function fn:uri-collection($arg as xs:string?) as xs:anyURI* external;
+declare %a:since("W3C", "3.1-20161213") function fn:xml-to-json($input as node()?) as xs:string? external;
+declare %a:since("W3C", "3.1-20161213") function fn:xml-to-json($input as node()?, $options as map(*)) as xs:string? external;
 declare %a:since("W3C", "1.0-20070123") function fn:year-from-date($arg as xs:date?) as xs:integer? external;
 declare %a:since("W3C", "1.0-20070123") function fn:year-from-dateTime($arg as xs:dateTime?) as xs:integer? external;
 declare %a:since("W3C", "1.0-20070123") function fn:years-from-duration($arg as xs:duration?) as xs:integer? external;
