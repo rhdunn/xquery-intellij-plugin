@@ -30,7 +30,7 @@ dependencies {
 
 intellij {
     def ideaVersion = System.getenv("IDEA_VERSION")
-    version = ideaVersion ? ideaVersion : 'IC-2016.2' // IntelliJ IDEA dependency
+    version = ideaVersion ? ideaVersion : 'IC-2016.3' // IntelliJ IDEA dependency
     println "Building for IntelliJ version: ${version}"
 
     plugins 'coverage'  // Bundled plugin dependencies
