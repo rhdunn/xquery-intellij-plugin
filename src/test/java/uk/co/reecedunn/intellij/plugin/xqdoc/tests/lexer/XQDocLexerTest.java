@@ -338,6 +338,21 @@ public class XQDocLexerTest extends LexerTestCase {
     }
 
     // endregion
+    // region xqDoc :: TaggedContents :: @return
+
+    public void testTaggedContents_Return() {
+        Lexer lexer = new XQDocLexer();
+
+        lexer.start("~\n@return Some value.");
+        matchToken(lexer, "~",            0,  0,  1, XQDocTokenType.XQDOC_COMMENT_MARKER);
+        matchToken(lexer, "\n",           8,  1,  2, XQDocTokenType.TRIM);
+        matchToken(lexer, "@",            8,  2,  3, XQDocTokenType.TAG_MARKER);
+        matchToken(lexer, "return",       2,  3,  9, XQDocTokenType.T_RETURN);
+        matchToken(lexer, " Some value.", 2,  9, 21, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "",             1, 21, 21, null);
+    }
+
+    // endregion
     // region xqDoc :: TaggedContents :: @see
 
     public void testTaggedContents_See() {

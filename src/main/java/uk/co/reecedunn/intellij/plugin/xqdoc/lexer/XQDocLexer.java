@@ -379,6 +379,7 @@ public class XQDocLexer extends LexerBase {
     static {
         sTagNames.put("author", XQDocTokenType.T_AUTHOR);
         sTagNames.put("param", XQDocTokenType.T_PARAM);
+        sTagNames.put("return", XQDocTokenType.T_RETURN);
         sTagNames.put("see", XQDocTokenType.T_SEE);
         sTagNames.put("since", XQDocTokenType.T_SINCE);
         sTagNames.put("version", XQDocTokenType.T_VERSION);
