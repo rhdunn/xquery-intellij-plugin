@@ -29,7 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
  * Supported core language specifications:
  *    -  XQuery 1.0 Second Edition (W3C Recommendation 14 December 2010)
  *    -  XQuery 3.0 (W3C Recommendation 08 April 2014)
- *    -  XQuery 3.1 (W3C Candidate Recommendation 17 December 2015)
+ *    -  XQuery 3.1 (W3C Candidate Recommendation 13 December 2016)
  *
  * Supported W3C XQuery extensions:
  *    -  Update Facility 1.0 (W3C Recommendation 17 March 2011)
