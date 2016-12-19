@@ -31,7 +31,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.lang.MockASTNode;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.expectThrows;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class XQueryParserDefinitionTest extends ParserTestCase {
     public void testLexer() {
@@ -80,7 +80,7 @@ public class XQueryParserDefinitionTest extends ParserTestCase {
         ParserDefinition parserDefinition = new XQueryParserDefinition();
 
         // foreign ASTNode
-        AssertionError e = expectThrows(AssertionError.class, () -> parserDefinition.createElement(new MockASTNode(XQueryTokenType.INTEGER_LITERAL)));
+        AssertionError e = assertThrows(AssertionError.class, () -> parserDefinition.createElement(new MockASTNode(XQueryTokenType.INTEGER_LITERAL)));
         assertThat(e.getMessage(), is("Alien element type [XQUERY_INTEGER_LITERAL_TOKEN]. Can't create XQuery PsiElement for that."));
     }
 

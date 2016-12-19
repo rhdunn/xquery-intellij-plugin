@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.junit.jupiter.api.Assertions.expectThrows;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class XQDocLexerTest extends LexerTestCase {
     // region Lexer :: Invalid State
@@ -31,7 +31,7 @@ public class XQDocLexerTest extends LexerTestCase {
     public void testInvalidState() {
         Lexer lexer = new XQDocLexer();
 
-        AssertionError e = expectThrows(AssertionError.class, () -> lexer.start("123", 0, 3, -1));
+        AssertionError e = assertThrows(AssertionError.class, () -> lexer.start("123", 0, 3, -1));
         assertThat(e.getMessage(), is("Invalid state: -1"));
     }
 

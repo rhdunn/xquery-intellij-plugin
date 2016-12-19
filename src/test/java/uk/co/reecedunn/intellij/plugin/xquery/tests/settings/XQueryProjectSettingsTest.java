@@ -31,7 +31,7 @@ import java.util.List;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.expectThrows;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class XQueryProjectSettingsTest extends TestCase {
     public void testDefaultValues() {
@@ -116,7 +116,7 @@ public class XQueryProjectSettingsTest extends TestCase {
         settings.setDialectForXQueryVersion(XQueryVersion.VERSION_3_0, implementationDialects.get(0));
         settings.setDialectForXQueryVersion(XQueryVersion.VERSION_3_1, implementationDialects.get(0));
 
-        AssertionError e = expectThrows(AssertionError.class, () -> settings.setDialectForXQueryVersion(null, implementationDialects.get(0)));
+        AssertionError e = assertThrows(AssertionError.class, () -> settings.setDialectForXQueryVersion(null, implementationDialects.get(0)));
         assertThat(e.getMessage(), is("Unknown XQuery version: null"));
 
         assertThat(settings.getImplementationItem().getID(), is("marklogic"));

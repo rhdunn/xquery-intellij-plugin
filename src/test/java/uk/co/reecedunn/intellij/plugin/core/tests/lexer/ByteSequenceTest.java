@@ -20,7 +20,7 @@ import uk.co.reecedunn.intellij.plugin.core.lexer.ByteSequence;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.expectThrows;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SuppressWarnings("SameParameterValue")
 public class ByteSequenceTest extends TestCase {
@@ -68,19 +68,19 @@ public class ByteSequenceTest extends TestCase {
         byte[] data = { 0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39 };
         CharSequence b = new ByteSequence(data);
 
-        IndexOutOfBoundsException e1 = expectThrows(IndexOutOfBoundsException.class, () -> b.subSequence(-1, 0));
+        IndexOutOfBoundsException e1 = assertThrows(IndexOutOfBoundsException.class, () -> b.subSequence(-1, 0));
         assertThat(e1.getMessage(), is("-1"));
 
-        IndexOutOfBoundsException e2 = expectThrows(IndexOutOfBoundsException.class, () -> b.subSequence(11, 11));
+        IndexOutOfBoundsException e2 = assertThrows(IndexOutOfBoundsException.class, () -> b.subSequence(11, 11));
         assertThat(e2.getMessage(), is("11"));
 
-        IndexOutOfBoundsException e3 = expectThrows(IndexOutOfBoundsException.class, () -> b.subSequence(0, 11));
+        IndexOutOfBoundsException e3 = assertThrows(IndexOutOfBoundsException.class, () -> b.subSequence(0, 11));
         assertThat(e3.getMessage(), is("11"));
 
-        IndexOutOfBoundsException e5 = expectThrows(IndexOutOfBoundsException.class, () -> b.subSequence(1, 11));
+        IndexOutOfBoundsException e5 = assertThrows(IndexOutOfBoundsException.class, () -> b.subSequence(1, 11));
         assertThat(e5.getMessage(), is("11"));
 
-        IndexOutOfBoundsException e4 = expectThrows(IndexOutOfBoundsException.class, () -> b.subSequence(6, 4));
+        IndexOutOfBoundsException e4 = assertThrows(IndexOutOfBoundsException.class, () -> b.subSequence(6, 4));
         assertThat(e4.getMessage(), is("-2"));
     }
 
@@ -89,10 +89,10 @@ public class ByteSequenceTest extends TestCase {
         byte[] data = { 0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39 };
         CharSequence b = new ByteSequence(data);
 
-        IndexOutOfBoundsException e1 = expectThrows(IndexOutOfBoundsException.class, () -> b.charAt(-1));
+        IndexOutOfBoundsException e1 = assertThrows(IndexOutOfBoundsException.class, () -> b.charAt(-1));
         assertThat(e1.getMessage(), is("-1"));
 
-        IndexOutOfBoundsException e2 = expectThrows(IndexOutOfBoundsException.class, () -> b.charAt(10));
+        IndexOutOfBoundsException e2 = assertThrows(IndexOutOfBoundsException.class, () -> b.charAt(10));
         assertThat(e2.getMessage(), is("10"));
     }
 
@@ -102,10 +102,10 @@ public class ByteSequenceTest extends TestCase {
         CharSequence b = new ByteSequence(data);
         CharSequence c = b.subSequence(2, 8);
 
-        IndexOutOfBoundsException e1 = expectThrows(IndexOutOfBoundsException.class, () -> c.charAt(-1));
+        IndexOutOfBoundsException e1 = assertThrows(IndexOutOfBoundsException.class, () -> c.charAt(-1));
         assertThat(e1.getMessage(), is("-1"));
 
-        IndexOutOfBoundsException e2 = expectThrows(IndexOutOfBoundsException.class, () -> c.charAt(6));
+        IndexOutOfBoundsException e2 = assertThrows(IndexOutOfBoundsException.class, () -> c.charAt(6));
         assertThat(e2.getMessage(), is("6"));
     }
 }

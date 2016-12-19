@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.Specification;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.junit.jupiter.api.Assertions.expectThrows;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class XQueryLexerTest extends LexerTestCase {
     // region Lexer :: Invalid State
@@ -33,7 +33,7 @@ public class XQueryLexerTest extends LexerTestCase {
     public void testInvalidState() {
         Lexer lexer = new XQueryLexer();
 
-        AssertionError e = expectThrows(AssertionError.class, () -> lexer.start("123", 0, 3, -1));
+        AssertionError e = assertThrows(AssertionError.class, () -> lexer.start("123", 0, 3, -1));
         assertThat(e.getMessage(), is("Invalid state: -1"));
     }
 
