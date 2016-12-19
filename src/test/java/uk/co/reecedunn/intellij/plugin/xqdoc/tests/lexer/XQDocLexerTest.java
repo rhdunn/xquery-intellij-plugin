@@ -338,6 +338,21 @@ public class XQDocLexerTest extends LexerTestCase {
     }
 
     // endregion
+    // region xqDoc :: TaggedContents :: @error
+
+    public void testTaggedContents_Error() {
+        Lexer lexer = new XQDocLexer();
+
+        lexer.start("~\n@error The URI does not exist.");
+        matchToken(lexer, "~",                        0,  0,  1, XQDocTokenType.XQDOC_COMMENT_MARKER);
+        matchToken(lexer, "\n",                       8,  1,  2, XQDocTokenType.TRIM);
+        matchToken(lexer, "@",                        8,  2,  3, XQDocTokenType.TAG_MARKER);
+        matchToken(lexer, "error",                    2,  3,  8, XQDocTokenType.T_ERROR);
+        matchToken(lexer, " The URI does not exist.", 2,  8, 32, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "",                         1, 32, 32, null);
+    }
+
+    // endregion
     // region xqDoc :: TaggedContents :: @param
 
     public void testTaggedContents_Param() {
