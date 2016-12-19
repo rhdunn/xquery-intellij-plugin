@@ -323,6 +323,21 @@ public class XQDocLexerTest extends LexerTestCase {
     }
 
     // endregion
+    // region xqDoc :: TaggedContents :: @see
+
+    public void testTaggedContents_See() {
+        Lexer lexer = new XQDocLexer();
+
+        lexer.start("~\n@see http://www.example.com");
+        matchToken(lexer, "~",                       0,  0,  1, XQDocTokenType.XQDOC_COMMENT_MARKER);
+        matchToken(lexer, "\n",                      8,  1,  2, XQDocTokenType.TRIM);
+        matchToken(lexer, "@",                       8,  2,  3, XQDocTokenType.TAG_MARKER);
+        matchToken(lexer, "see",                     2,  3,  6, XQDocTokenType.T_SEE);
+        matchToken(lexer, " http://www.example.com", 2,  6, 29, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "",                        1, 29, 29, null);
+    }
+
+    // endregion
     // region xqDoc :: TaggedContents :: @since
 
     public void testTaggedContents_Since() {
