@@ -24,18 +24,19 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class XQueryVersionTest extends TestCase {
     public void testToString() {
+        // XQuery Versions:
         assertThat(XQueryVersion.VERSION_0_9_MARKLOGIC.toString(), is("0.9-ml"));
         assertThat(XQueryVersion.VERSION_1_0.toString(), is("1.0"));
         assertThat(XQueryVersion.VERSION_1_0_MARKLOGIC.toString(), is("1.0-ml"));
         assertThat(XQueryVersion.VERSION_3_0.toString(), is("3.0"));
         assertThat(XQueryVersion.VERSION_3_1.toString(), is("3.1"));
 
-        // MarkLogic Extensions:
+        // MarkLogic Versions:
         assertThat(XQueryVersion.VERSION_6_0.toString(), is("6.0"));
         assertThat(XQueryVersion.VERSION_7_0.toString(), is("7.0"));
         assertThat(XQueryVersion.VERSION_8_0.toString(), is("8.0"));
 
-        // Saxon Extensions:
+        // Saxon Versions:
         assertThat(XQueryVersion.VERSION_9_4.toString(), is("9.4"));
         assertThat(XQueryVersion.VERSION_9_5.toString(), is("9.5"));
         assertThat(XQueryVersion.VERSION_9_6.toString(), is("9.6"));
@@ -45,24 +46,25 @@ public class XQueryVersionTest extends TestCase {
     public void testParse() {
         assertThat(XQueryVersion.parse(null), is(nullValue()));
 
+        // XQuery Versions:
         assertThat(XQueryVersion.parse("0.9-ml"), is(XQueryVersion.VERSION_0_9_MARKLOGIC));
         assertThat(XQueryVersion.parse("1.0"), is(XQueryVersion.VERSION_1_0));
         assertThat(XQueryVersion.parse("1.0-ml"), is(XQueryVersion.VERSION_1_0_MARKLOGIC));
         assertThat(XQueryVersion.parse("3.0"), is(XQueryVersion.VERSION_3_0));
         assertThat(XQueryVersion.parse("3.1"), is(XQueryVersion.VERSION_3_1));
 
-        // MarkLogic Extensions:
+        // MarkLogic Versions:
         assertThat(XQueryVersion.parse("6.0"), is(XQueryVersion.VERSION_6_0));
         assertThat(XQueryVersion.parse("7.0"), is(XQueryVersion.VERSION_7_0));
         assertThat(XQueryVersion.parse("8.0"), is(XQueryVersion.VERSION_8_0));
 
-        // Saxon Extensions:
+        // Saxon Versions:
         assertThat(XQueryVersion.parse("9.4"), is(XQueryVersion.VERSION_9_4));
         assertThat(XQueryVersion.parse("9.5"), is(XQueryVersion.VERSION_9_5));
         assertThat(XQueryVersion.parse("9.6"), is(XQueryVersion.VERSION_9_6));
         assertThat(XQueryVersion.parse("9.7"), is(XQueryVersion.VERSION_9_7));
 
-        // Unsupported/Unknown Values:
+        // Unsupported/Unknown Versions:
         assertThat(XQueryVersion.parse("0.9"), is(nullValue()));
         assertThat(XQueryVersion.parse("1.0-und"), is(nullValue()));
         assertThat(XQueryVersion.parse("1.1"), is(nullValue()));
@@ -70,18 +72,19 @@ public class XQueryVersionTest extends TestCase {
     }
 
     public void testToDouble() {
+        // XQuery Versions:
         assertThat(XQueryVersion.VERSION_0_9_MARKLOGIC.toDouble(), is(0.9));
         assertThat(XQueryVersion.VERSION_1_0.toDouble(), is(1.0));
         assertThat(XQueryVersion.VERSION_1_0_MARKLOGIC.toDouble(), is(1.0));
         assertThat(XQueryVersion.VERSION_3_0.toDouble(), is(3.0));
         assertThat(XQueryVersion.VERSION_3_1.toDouble(), is(3.1));
 
-        // MarkLogic Extensions:
+        // MarkLogic Versions:
         assertThat(XQueryVersion.VERSION_6_0.toDouble(), is(6.0));
         assertThat(XQueryVersion.VERSION_7_0.toDouble(), is(7.0));
         assertThat(XQueryVersion.VERSION_8_0.toDouble(), is(8.0));
 
-        // Saxon Extensions:
+        // Saxon Versions:
         assertThat(XQueryVersion.VERSION_9_4.toDouble(), is(9.4));
         assertThat(XQueryVersion.VERSION_9_5.toDouble(), is(9.5));
         assertThat(XQueryVersion.VERSION_9_6.toDouble(), is(9.6));
