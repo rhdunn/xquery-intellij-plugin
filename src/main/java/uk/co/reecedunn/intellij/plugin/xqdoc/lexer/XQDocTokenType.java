@@ -34,6 +34,7 @@ public interface XQDocTokenType extends TokenType {
     IElementType TAG = new IElementType("XQDOC_TAG", XQuery.INSTANCE);
 
     IElementType T_AUTHOR = new IElementType("XQDOC_T_AUTHOR", XQuery.INSTANCE);
+    IElementType T_PARAM = new IElementType("XQDOC_T_PARAM", XQuery.INSTANCE);
     IElementType T_SEE = new IElementType("XQDOC_T_SEE", XQuery.INSTANCE);
     IElementType T_SINCE = new IElementType("XQDOC_T_SINCE", XQuery.INSTANCE);
     IElementType T_VERSION = new IElementType("XQDOC_T_VERSION", XQuery.INSTANCE);
