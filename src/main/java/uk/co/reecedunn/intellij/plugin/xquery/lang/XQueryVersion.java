@@ -18,6 +18,9 @@ package uk.co.reecedunn.intellij.plugin.xquery.lang;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public enum XQueryVersion {
     // XQuery Versions:
     VERSION_0_9_MARKLOGIC("0.9-ml", 0.9),
@@ -56,23 +59,7 @@ public enum XQueryVersion {
 
     @Nullable
     public static XQueryVersion parse(@Nullable CharSequence value) {
-        if ("0.9-ml".equals(value)) return VERSION_0_9_MARKLOGIC;
-        if ("1.0".equals(value)) return VERSION_1_0;
-        if ("1.0-20070123".equals(value)) return VERSION_1_0_20070123;
-        if ("1.0-20101214".equals(value)) return VERSION_1_0_20101214;
-        if ("1.0-ml".equals(value)) return VERSION_1_0_MARKLOGIC;
-        if ("3.0".equals(value)) return VERSION_3_0;
-        if ("3.0-20140408".equals(value)) return VERSION_3_0_20140408;
-        if ("3.1".equals(value)) return VERSION_3_1;
-        if ("3.1-20161213".equals(value)) return VERSION_3_1_20161213;
-        if ("6.0".equals(value)) return VERSION_6_0;
-        if ("7.0".equals(value)) return VERSION_7_0;
-        if ("8.0".equals(value)) return VERSION_8_0;
-        if ("9.4".equals(value)) return VERSION_9_4;
-        if ("9.5".equals(value)) return VERSION_9_5;
-        if ("9.6".equals(value)) return VERSION_9_6;
-        if ("9.7".equals(value)) return VERSION_9_7;
-        return null;
+        return sVersions.get(value);
     }
 
     @Override
@@ -90,5 +77,26 @@ public enum XQueryVersion {
 
     public boolean supportsVersion(XQueryVersion version) {
         return version != null && toDouble() >= version.toDouble();
+    }
+
+    private static Map<CharSequence, XQueryVersion> sVersions = new HashMap<>();
+
+    static {
+        sVersions.put("0.9-ml", VERSION_0_9_MARKLOGIC);
+        sVersions.put("1.0", VERSION_1_0);
+        sVersions.put("1.0-20070123", VERSION_1_0_20070123);
+        sVersions.put("1.0-20101214", VERSION_1_0_20101214);
+        sVersions.put("1.0-ml", VERSION_1_0_MARKLOGIC);
+        sVersions.put("3.0", VERSION_3_0);
+        sVersions.put("3.0-20140408", VERSION_3_0_20140408);
+        sVersions.put("3.1", VERSION_3_1);
+        sVersions.put("3.1-20161213", VERSION_3_1_20161213);
+        sVersions.put("6.0", VERSION_6_0);
+        sVersions.put("7.0", VERSION_7_0);
+        sVersions.put("8.0", VERSION_8_0);
+        sVersions.put("9.4", VERSION_9_4);
+        sVersions.put("9.5", VERSION_9_5);
+        sVersions.put("9.6", VERSION_9_6);
+        sVersions.put("9.7", VERSION_9_7);
     }
 }
