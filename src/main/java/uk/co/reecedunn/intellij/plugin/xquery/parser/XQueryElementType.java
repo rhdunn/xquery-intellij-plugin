@@ -302,6 +302,8 @@ public interface XQueryElementType {
 
     IElementType COMPATBILITY_ANNOTATION_SCRIPTING = new ICompositeElementType("XQUERY_COMPATBILITY_ANNOTATION_SCRIPTING", ScriptingCompatibilityAnnotationPsiImpl.class, XQuery.INSTANCE);
 
+    IElementType BLOCK = new ICompositeElementType("XQUERY_BLOCK", ScriptingBlockPsiImpl.class, XQuery.INSTANCE);
+
     // endregion
     // region MarkLogic 6.0
 

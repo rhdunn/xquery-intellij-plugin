@@ -1158,9 +1158,13 @@ class XQueryParser {
                 }
             }
 
+            IElementType bodyType = (firstAnnotation == XQueryTokenType.K_SEQUENTIAL)
+                                  ? XQueryElementType.BLOCK
+                                  : XQueryElementType.FUNCTION_BODY;
+
             parseWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.K_EXTERNAL) &&
-                !parseEnclosedExpr(XQueryElementType.FUNCTION_BODY, BlockOpen.REQUIRED, BlockExpr.OPTIONAL) &&
+                !parseEnclosedExpr(bodyType, BlockOpen.REQUIRED, BlockExpr.OPTIONAL) &&
                 !haveErrors) {
                 error(XQueryBundle.message("parser.error.expected-enclosed-expression-or-keyword", "external"));
                 parseExpr(XQueryElementType.EXPR);
