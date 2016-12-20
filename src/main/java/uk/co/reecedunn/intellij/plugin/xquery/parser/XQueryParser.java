@@ -982,7 +982,7 @@ class XQueryParser {
 
     private boolean parseAnnotatedDecl() {
         boolean haveAnnotations = false;
-        while (parseAnnotation() || parseCompatibilityAnnotationDecl()) {
+        while (parseAnnotation() || parseCompatibilityAnnotationDecl() != null) {
             parseWhiteSpaceAndCommentTokens();
             haveAnnotations = true;
         }
@@ -1036,23 +1036,27 @@ class XQueryParser {
         return false;
     }
 
-    private boolean parseCompatibilityAnnotationDecl() {
+    private IElementType parseCompatibilityAnnotationDecl() {
         final PsiBuilder.Marker compatibilityAnnotationMarker = mark();
-        if (matchTokenType(XQueryTokenType.K_UPDATING)) {
+        IElementType type = getTokenType();
+        if (type == XQueryTokenType.K_UPDATING) {
+            advanceLexer();
             compatibilityAnnotationMarker.done(XQueryElementType.COMPATIBILITY_ANNOTATION);
-            return true;
-        } else if (matchTokenType(XQueryTokenType.K_PRIVATE)) {
+            return type;
+        } else if (type == XQueryTokenType.K_PRIVATE) {
+            advanceLexer();
             compatibilityAnnotationMarker.done(XQueryElementType.COMPATIBILITY_ANNOTATION_MARKLOGIC);
-            return true;
-        } else if (matchTokenType(XQueryTokenType.K_UNASSIGNABLE) ||
-                   matchTokenType(XQueryTokenType.K_ASSIGNABLE) ||
-                   matchTokenType(XQueryTokenType.K_SIMPLE) ||
-                   matchTokenType(XQueryTokenType.K_SEQUENTIAL)) {
+            return type;
+        } else if (type == XQueryTokenType.K_UNASSIGNABLE ||
+                   type == XQueryTokenType.K_ASSIGNABLE ||
+                   type == XQueryTokenType.K_SIMPLE ||
+                   type == XQueryTokenType.K_SEQUENTIAL) {
+            advanceLexer();
             compatibilityAnnotationMarker.done(XQueryElementType.COMPATBILITY_ANNOTATION_SCRIPTING);
-            return true;
+            return type;
         }
         compatibilityAnnotationMarker.drop();
-        return false;
+        return null;
     }
 
     private boolean parseVarDecl() {
