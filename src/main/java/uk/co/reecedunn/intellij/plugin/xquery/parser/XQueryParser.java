@@ -982,16 +982,30 @@ class XQueryParser {
 
     private boolean parseAnnotatedDecl() {
         boolean haveAnnotations = false;
-        while (parseAnnotation() || parseCompatibilityAnnotationDecl() != null) {
-            parseWhiteSpaceAndCommentTokens();
-            haveAnnotations = true;
-        }
+        IElementType firstAnnotation = null;
+        IElementType annotation;
+        do {
+            if (parseAnnotation()) {
+                annotation = XQueryElementType.ANNOTATION;
+            } else {
+                annotation = parseCompatibilityAnnotationDecl();
+            }
+
+            if (firstAnnotation == null) {
+                firstAnnotation = annotation;
+            }
+
+            if (annotation != null) {
+                parseWhiteSpaceAndCommentTokens();
+                haveAnnotations = true;
+            }
+        } while (annotation != null);
 
         final PsiBuilder.Marker declMarker = mark();
         if (parseVarDecl()) {
             declMarker.done(XQueryElementType.VAR_DECL);
             return true;
-        } else if (parseFunctionDecl(declMarker)) {
+        } else if (parseFunctionDecl(declMarker, firstAnnotation)) {
             return true;
         } else if (haveAnnotations) {
             error(XQueryBundle.message("parser.error.expected-keyword", "function, variable"));
@@ -1103,7 +1117,7 @@ class XQueryParser {
         return false;
     }
 
-    private boolean parseFunctionDecl(PsiBuilder.Marker functionDeclMarker) {
+    private boolean parseFunctionDecl(PsiBuilder.Marker functionDeclMarker, IElementType firstAnnotation) {
         if (matchTokenType(XQueryTokenType.K_FUNCTION)) {
             boolean haveErrors = false;
 
