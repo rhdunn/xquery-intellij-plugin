@@ -1250,7 +1250,7 @@ class XQueryParser {
     }
 
     // endregion
-    // region Grammar :: Expr
+    // region Grammar :: EnclosedExpr
 
     private enum BlockOpen {
         REQUIRED,
@@ -1300,6 +1300,9 @@ class XQueryParser {
         }
         return haveExpr;
     }
+
+    // endregion
+    // region Grammar :: Expr
 
     private boolean parseExpr(IElementType type) {
         final PsiBuilder.Marker exprMarker = mark();
