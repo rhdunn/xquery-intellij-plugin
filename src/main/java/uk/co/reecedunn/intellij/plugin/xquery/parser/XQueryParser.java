@@ -1277,6 +1277,11 @@ class XQueryParser {
             }
         }
 
+        if (type == XQueryElementType.BLOCK) {
+            parseWhiteSpaceAndCommentTokens();
+            parseBlockDecls();
+        }
+
         parseWhiteSpaceAndCommentTokens();
         boolean haveExpr = parseExpr(XQueryElementType.EXPR);
         if (!haveExpr && blockExpr == BlockExpr.REQUIRED) {
@@ -1299,6 +1304,13 @@ class XQueryParser {
             enclosedExprMarker.drop();
         }
         return haveExpr;
+    }
+
+    private boolean parseBlockDecls() {
+        final PsiBuilder.Marker blockDeclsMarker = mark();
+        parseWhiteSpaceAndCommentTokens();
+        blockDeclsMarker.done(XQueryElementType.BLOCK_DECLS);
+        return true;
     }
 
     // endregion
