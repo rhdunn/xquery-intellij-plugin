@@ -1311,7 +1311,7 @@ class XQueryParser {
     private boolean parseBlockDecls() {
         final PsiBuilder.Marker blockDeclsMarker = mark();
         parseWhiteSpaceAndCommentTokens();
-        switch (parseBlockVarDecl()) {
+        while (true) switch (parseBlockVarDecl()) {
             case MATCHED:
                 if (!matchTokenType(XQueryTokenType.SEPARATOR)) {
                     error(XQueryBundle.message("parser.error.expected", ";"));
@@ -1326,10 +1326,9 @@ class XQueryParser {
                 parseWhiteSpaceAndCommentTokens();
                 break;
             case NOT_MATCHED:
-                break;
+                blockDeclsMarker.done(XQueryElementType.BLOCK_DECLS);
+                return true;
         }
-        blockDeclsMarker.done(XQueryElementType.BLOCK_DECLS);
-        return true;
     }
 
     private ParseStatus parseBlockVarDecl() {
