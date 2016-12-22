@@ -1311,8 +1311,79 @@ class XQueryParser {
     private boolean parseBlockDecls() {
         final PsiBuilder.Marker blockDeclsMarker = mark();
         parseWhiteSpaceAndCommentTokens();
+        switch (parseBlockVarDecl()) {
+            case MATCHED:
+                if (!matchTokenType(XQueryTokenType.SEPARATOR)) {
+                    error(XQueryBundle.message("parser.error.expected", ";"));
+                    if (getTokenType() == XQueryTokenType.QNAME_SEPARATOR) {
+                        advanceLexer();
+                    }
+                }
+                parseWhiteSpaceAndCommentTokens();
+                break;
+            case MATCHED_WITH_ERRORS:
+                matchTokenType(XQueryTokenType.SEPARATOR);
+                parseWhiteSpaceAndCommentTokens();
+                break;
+            case NOT_MATCHED:
+                break;
+        }
         blockDeclsMarker.done(XQueryElementType.BLOCK_DECLS);
         return true;
+    }
+
+    private ParseStatus parseBlockVarDecl() {
+        final PsiBuilder.Marker blockVarDeclMarker = matchTokenTypeWithMarker(XQueryTokenType.K_DECLARE);
+        if (blockVarDeclMarker != null) {
+            parseWhiteSpaceAndCommentTokens();
+            if (getTokenType() == XQueryTokenType.PARENTHESIS_OPEN ||
+                getTokenType() == XQueryTokenType.QNAME_SEPARATOR) {
+                // 'declare' used as a function name.
+                blockVarDeclMarker.rollbackTo();
+                return ParseStatus.NOT_MATCHED;
+            }
+
+            boolean haveErrors = false;
+            do {
+                parseWhiteSpaceAndCommentTokens();
+                if (!matchTokenType(XQueryTokenType.VARIABLE_INDICATOR)) {
+                    error(XQueryBundle.message("parser.error.expected", "$"));
+                    haveErrors = true;
+                }
+
+                parseWhiteSpaceAndCommentTokens();
+                if (!parseEQName(XQueryElementType.VAR_NAME) && !haveErrors) {
+                    error(XQueryBundle.message("parser.error.expected-eqname"));
+                    haveErrors = true;
+                }
+
+                parseWhiteSpaceAndCommentTokens();
+                boolean haveTypeDeclaration = parseTypeDeclaration();
+
+                parseWhiteSpaceAndCommentTokens();
+                if (matchTokenType(XQueryTokenType.ASSIGN_EQUAL)) {
+                    parseWhiteSpaceAndCommentTokens();
+                    if (!parseExprSingle() && !haveErrors) {
+                        error(XQueryBundle.message("parser.error.expected-expression"));
+                    }
+                    parseWhiteSpaceAndCommentTokens();
+                } else if (getTokenType() != XQueryTokenType.COMMA &&
+                           getTokenType() != XQueryTokenType.SEPARATOR) {
+                    if (haveTypeDeclaration) {
+                        error(XQueryBundle.message("parser.error.expected-variable-assign-scripting"));
+                    } else {
+                        error(XQueryBundle.message("parser.error.expected-variable-assign-scripting-no-type-decl"));
+                    }
+                    parseExprSingle();
+                    parseWhiteSpaceAndCommentTokens();
+                    haveErrors = true;
+                }
+            } while (matchTokenType(XQueryTokenType.COMMA));
+
+            blockVarDeclMarker.done(XQueryElementType.BLOCK_VAR_DECL);
+            return haveErrors ? ParseStatus.MATCHED_WITH_ERRORS : ParseStatus.MATCHED;
+        }
+        return ParseStatus.NOT_MATCHED;
     }
 
     // endregion

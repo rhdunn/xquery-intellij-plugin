@@ -306,6 +306,7 @@ public interface XQueryElementType {
     IElementType BLOCK_BODY = new ICompositeElementType("XQUERY_BLOCK_BODY", ScriptingBlockBodyPsiImpl.class, XQuery.INSTANCE);
 
     IElementType BLOCK_DECLS = new ICompositeElementType("XQUERY_BLOCK_DECLS", ScriptingBlockDeclsPsiImpl.class, XQuery.INSTANCE);
+    IElementType BLOCK_VAR_DECL = new ICompositeElementType("XQUERY_BLOCK_VAR_DECL", ScriptingBlockVarDeclPsiImpl.class, XQuery.INSTANCE);
 
     // endregion
     // region MarkLogic 6.0

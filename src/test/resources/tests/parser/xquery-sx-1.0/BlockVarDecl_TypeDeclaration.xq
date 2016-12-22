@@ -1,0 +1,1 @@
+declare sequential function f ( ) { declare $ x as xs:integer ; ( ) } ;
