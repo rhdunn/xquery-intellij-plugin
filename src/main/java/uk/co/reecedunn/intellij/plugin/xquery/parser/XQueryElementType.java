@@ -303,6 +303,7 @@ public interface XQueryElementType {
     IElementType COMPATBILITY_ANNOTATION_SCRIPTING = new ICompositeElementType("XQUERY_COMPATBILITY_ANNOTATION_SCRIPTING", ScriptingCompatibilityAnnotationPsiImpl.class, XQuery.INSTANCE);
 
     IElementType BLOCK = new ICompositeElementType("XQUERY_BLOCK", ScriptingBlockPsiImpl.class, XQuery.INSTANCE);
+    IElementType BLOCK_BODY = new ICompositeElementType("XQUERY_BLOCK_BODY", ScriptingBlockBodyPsiImpl.class, XQuery.INSTANCE);
 
     IElementType BLOCK_DECLS = new ICompositeElementType("XQUERY_BLOCK_DECLS", ScriptingBlockDeclsPsiImpl.class, XQuery.INSTANCE);
 

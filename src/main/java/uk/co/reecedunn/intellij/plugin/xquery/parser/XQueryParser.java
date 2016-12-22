@@ -1277,13 +1277,15 @@ class XQueryParser {
             }
         }
 
+        IElementType exprType = XQueryElementType.EXPR;
         if (type == XQueryElementType.BLOCK) {
             parseWhiteSpaceAndCommentTokens();
             parseBlockDecls();
+            exprType = XQueryElementType.BLOCK_BODY;
         }
 
         parseWhiteSpaceAndCommentTokens();
-        boolean haveExpr = parseExpr(XQueryElementType.EXPR);
+        boolean haveExpr = parseExpr(exprType);
         if (!haveExpr && blockExpr == BlockExpr.REQUIRED) {
             error(XQueryBundle.message("parser.error.expected-expression"));
             haveErrors = true;

@@ -18,7 +18,7 @@ FileElement[FILE(0:37)]
                ScriptingBlockImpl[XQUERY_BLOCK(32:36)]
                   LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(32:33)]('{')
                   ScriptingBlockDeclsImpl[XQUERY_BLOCK_DECLS(33:33)]
-                  XQueryExprImpl[XQUERY_EXPR(33:35)]
+                  ScriptingBlockBodyImpl[XQUERY_BLOCK_BODY(33:35)]
                      XQueryOrExprImpl[XQUERY_OR_EXPR(33:35)]
                         XQueryAndExprImpl[XQUERY_AND_EXPR(33:35)]
                            XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(33:35)]
