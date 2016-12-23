@@ -254,4 +254,42 @@ public class ScriptingParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region Scripting Extension 1.0 :: AssignmentExpr
+
+    @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-AssignmentExpr")
+    public void testAssignmentExpr() {
+        final String expected = loadResource("tests/parser/xquery-sx-1.0/AssignmentExpr.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/AssignmentExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-AssignmentExpr")
+    public void testAssignmentExpr_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-sx-1.0/AssignmentExpr_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/AssignmentExpr_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-AssignmentExpr")
+    public void testAssignmentExpr_MissingVarName() {
+        final String expected = loadResource("tests/parser/xquery-sx-1.0/AssignmentExpr_MissingVarName.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/AssignmentExpr_MissingVarName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-AssignmentExpr")
+    public void testAssignmentExpr_MissingExpr() {
+        final String expected = loadResource("tests/parser/xquery-sx-1.0/AssignmentExpr_MissingExpr.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/AssignmentExpr_MissingExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-AssignmentExpr")
+    public void testAssignmentExpr_Nested() {
+        final String expected = loadResource("tests/parser/xquery-sx-1.0/AssignmentExpr_Nested.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/AssignmentExpr_Nested.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
 }

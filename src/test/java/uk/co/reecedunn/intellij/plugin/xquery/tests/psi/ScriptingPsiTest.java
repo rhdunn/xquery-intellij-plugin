@@ -33,6 +33,31 @@ import static uk.co.reecedunn.intellij.plugin.core.functional.PsiTreeWalker.desc
 @SuppressWarnings("ConstantConditions")
 public class ScriptingPsiTest extends ParserTestCase {
     // region XQueryConformanceCheck
+    // region AssignmentExpr
+
+    public void testAssignmentExpr() {
+        final XQueryFile file = parseResource("tests/parser/xquery-sx-1.0/AssignmentExpr.xq");
+
+        ScriptingAssignmentExpr assignmentExpr = descendants(file).findFirst(ScriptingAssignmentExpr.class).get();
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)assignmentExpr;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-scripting")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(false));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires Scripting Extension 1.0 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.ASSIGN_EQUAL));
+    }
+
+    // endregion
     // region BlockExpr
 
     public void testBlockExpr() {

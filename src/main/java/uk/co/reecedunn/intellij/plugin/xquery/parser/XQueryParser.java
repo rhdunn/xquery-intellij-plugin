@@ -1447,6 +1447,7 @@ class XQueryParser {
             || parseCopyModifyExpr()
             || parseUpdatingFunctionCall()
             || parseBlockExpr()
+            || parseAssignmentExpr()
             || parseOrExpr(parentType);
     }
 
@@ -2939,6 +2940,38 @@ class XQueryParser {
                 return false;
             }
             blockExprMarker.done(XQueryElementType.BLOCK_EXPR);
+            return true;
+        }
+        return false;
+    }
+
+    // endregion
+    // region Grammar :: Expr :: AssignmentExpr
+
+    private boolean parseAssignmentExpr() {
+        final PsiBuilder.Marker assignmentExprMarker = matchTokenTypeWithMarker(XQueryTokenType.VARIABLE_INDICATOR);
+        if (assignmentExprMarker != null) {
+            boolean haveErrors = false;
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseEQName(XQueryElementType.VAR_NAME)) {
+                error(XQueryBundle.message("parser.error.expected-eqname"));
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.ASSIGN_EQUAL)) {
+                // VarRef construct -- handle in the OrExpr parser for the correct AST.
+                assignmentExprMarker.rollbackTo();
+                return false;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseExprSingle() && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-expression"));
+            }
+
+            assignmentExprMarker.done(XQueryElementType.ASSIGNMENT_EXPR);
             return true;
         }
         return false;
