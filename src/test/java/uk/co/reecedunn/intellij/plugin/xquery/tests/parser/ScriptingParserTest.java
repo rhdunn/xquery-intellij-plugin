@@ -136,6 +136,30 @@ public class ScriptingParserTest extends ParserTestCase {
     }
 
     // endregions
+    // region Scripting Extension 1.0 :: BlockDecls
+
+    @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-FunctionDecl")
+    public void testBlockDecls_Empty() {
+        final String expected = loadResource("tests/parser/xquery-sx-1.0/FunctionDecl_Sequential_Block.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/FunctionDecl_Sequential_Block.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-BlockVarDecl")
+    public void testBlockDecls_Single() {
+        final String expected = loadResource("tests/parser/xquery-sx-1.0/BlockVarDecl.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-BlockVarDecl")
+    public void testBlockDecls_Multiple() {
+        final String expected = loadResource("tests/parser/xquery-sx-1.0/BlockDecls_Multiple.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/BlockDecls_Multiple.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregions
     // region Scripting Extension 1.0 :: BlockVarDecl
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-BlockVarDecl")
@@ -230,28 +254,4 @@ public class ScriptingParserTest extends ParserTestCase {
     }
 
     // endregion
-    // region Scripting Extension 1.0 :: BlockDecls
-
-    @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-FunctionDecl")
-    public void testBlockDecls_Empty() {
-        final String expected = loadResource("tests/parser/xquery-sx-1.0/FunctionDecl_Sequential_Block.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/FunctionDecl_Sequential_Block.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-BlockVarDecl")
-    public void testBlockDecls_Single() {
-        final String expected = loadResource("tests/parser/xquery-sx-1.0/BlockVarDecl.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-BlockVarDecl")
-    public void testBlockDecls_Multiple() {
-        final String expected = loadResource("tests/parser/xquery-sx-1.0/BlockDecls_Multiple.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/BlockDecls_Multiple.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    // endregions
 }
