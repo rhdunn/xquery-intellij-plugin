@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.scripting;
 import com.intellij.psi.PsiElement;
 
 /**
- * An XQuery Scripting Extension 1.0 <code>Block</code> annotation in the XQuery AST.
+ * An XQuery Scripting Extension 1.0 <code>Block</code> node in the XQuery AST.
  */
 public interface ScriptingBlock extends PsiElement {
 }

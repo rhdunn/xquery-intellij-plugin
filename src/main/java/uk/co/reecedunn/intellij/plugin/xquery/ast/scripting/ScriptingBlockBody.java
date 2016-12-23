@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.scripting;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryExpr;
 
 /**
- * An XQuery Scripting Extension 1.0 <code>BlockBody</code> annotation in the XQuery AST.
+ * An XQuery Scripting Extension 1.0 <code>BlockBody</code> node in the XQuery AST.
  */
 public interface ScriptingBlockBody extends XQueryExpr {
 }

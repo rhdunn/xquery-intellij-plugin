@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.scripting;
 import com.intellij.psi.PsiElement;
 
 /**
- * An XQuery Scripting Extension 1.0 <code>BlockDecls</code> annotation in the XQuery AST.
+ * An XQuery Scripting Extension 1.0 <code>BlockDecls</code> node in the XQuery AST.
  */
 public interface ScriptingBlockDecls extends PsiElement {
 }
