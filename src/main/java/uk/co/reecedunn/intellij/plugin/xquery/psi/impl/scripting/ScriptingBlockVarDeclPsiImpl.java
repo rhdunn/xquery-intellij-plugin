@@ -17,11 +17,33 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.scripting;
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
+import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingBlockVarDecl;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
+import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 
-public class ScriptingBlockVarDeclPsiImpl extends ASTWrapperPsiElement implements ScriptingBlockVarDecl {
+public class ScriptingBlockVarDeclPsiImpl extends ASTWrapperPsiElement implements ScriptingBlockVarDecl, XQueryConformanceCheck {
     public ScriptingBlockVarDeclPsiImpl(@NotNull ASTNode node) {
         super(node);
+    }
+
+    @Override
+    public boolean conformsTo(ImplementationItem implementation) {
+        final XQueryVersion version = implementation.getVersion(XQueryConformance.SCRIPTING);
+        return version != null && version.supportsVersion(XQueryVersion.VERSION_1_0);
+    }
+
+    @Override
+    public PsiElement getConformanceElement() {
+        return getFirstChild();
+    }
+
+    @Override
+    public String getConformanceErrorMessage() {
+        return XQueryBundle.message("requires.feature.scripting.version", XQueryVersion.VERSION_1_0);
     }
 }
