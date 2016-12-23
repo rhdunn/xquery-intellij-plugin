@@ -87,55 +87,6 @@ public class ScriptingPsiTest extends ParserTestCase {
     }
 
     // endregion
-    // region VarDecl
-
-    public void testVarDecl_Assignable() {
-        final XQueryFile file = parseResource("tests/parser/xquery-sx-1.0/VarDecl_Assignable.xq");
-
-        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
-        ScriptingCompatibilityAnnotation scriptingCompatibilityAnnotationPsi = children(annotatedDeclPsi).findFirst(ScriptingCompatibilityAnnotation.class).get();
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck) scriptingCompatibilityAnnotationPsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-scripting")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(false));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires Scripting Extension 1.0 or later."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.K_ASSIGNABLE));
-    }
-
-    public void testVarDecl_Unassignable() {
-        final XQueryFile file = parseResource("tests/parser/xquery-sx-1.0/VarDecl_Unassignable.xq");
-
-        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
-        ScriptingCompatibilityAnnotation scriptingCompatibilityAnnotationPsi = children(annotatedDeclPsi).findFirst(ScriptingCompatibilityAnnotation.class).get();
-        XQueryConformanceCheck versioned = (XQueryConformanceCheck) scriptingCompatibilityAnnotationPsi;
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-scripting")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(false));
-
-        assertThat(versioned.getConformanceErrorMessage(),
-                is("XPST0003: This expression requires Scripting Extension 1.0 or later."));
-
-        assertThat(versioned.getConformanceElement(), is(notNullValue()));
-        assertThat(versioned.getConformanceElement().getNode().getElementType(),
-                is(XQueryTokenType.K_UNASSIGNABLE));
-    }
-
-    // endregion
     // region FunctionDecl
 
     public void testFunctionDecl_Simple() {
@@ -182,6 +133,55 @@ public class ScriptingPsiTest extends ParserTestCase {
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
                 is(XQueryTokenType.K_SEQUENTIAL));
+    }
+
+    // endregion
+    // region VarDecl
+
+    public void testVarDecl_Assignable() {
+        final XQueryFile file = parseResource("tests/parser/xquery-sx-1.0/VarDecl_Assignable.xq");
+
+        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
+        ScriptingCompatibilityAnnotation scriptingCompatibilityAnnotationPsi = children(annotatedDeclPsi).findFirst(ScriptingCompatibilityAnnotation.class).get();
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck) scriptingCompatibilityAnnotationPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-scripting")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(false));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires Scripting Extension 1.0 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_ASSIGNABLE));
+    }
+
+    public void testVarDecl_Unassignable() {
+        final XQueryFile file = parseResource("tests/parser/xquery-sx-1.0/VarDecl_Unassignable.xq");
+
+        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
+        ScriptingCompatibilityAnnotation scriptingCompatibilityAnnotationPsi = children(annotatedDeclPsi).findFirst(ScriptingCompatibilityAnnotation.class).get();
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck) scriptingCompatibilityAnnotationPsi;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-scripting")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(false));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires Scripting Extension 1.0 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_UNASSIGNABLE));
     }
 
     // endregion
