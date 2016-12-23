@@ -15,10 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.psi;
 
-import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingBlock;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingBlockDecls;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingBlockVarDecl;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingCompatibilityAnnotation;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.*;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl;
@@ -36,6 +33,31 @@ import static uk.co.reecedunn.intellij.plugin.core.functional.PsiTreeWalker.desc
 @SuppressWarnings("ConstantConditions")
 public class ScriptingPsiTest extends ParserTestCase {
     // region XQueryConformanceCheck
+    // region BlockExpr
+
+    public void testBlockExpr() {
+        final XQueryFile file = parseResource("tests/parser/xquery-sx-1.0/BlockExpr.xq");
+
+        ScriptingBlockExpr blockExpr = descendants(file).findFirst(ScriptingBlockExpr.class).get();
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)blockExpr;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-scripting")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(false));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires Scripting Extension 1.0 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_BLOCK));
+    }
+
+    // endregion
     // region BlockVarDecl
 
     public void testBlockVarDecl() {

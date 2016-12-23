@@ -1446,6 +1446,7 @@ class XQueryParser {
             || parseReplaceExpr()
             || parseCopyModifyExpr()
             || parseUpdatingFunctionCall()
+            || parseBlockExpr()
             || parseOrExpr(parentType);
     }
 
@@ -2921,6 +2922,23 @@ class XQueryParser {
             }
 
             copyModifyExprMarker.done(XQueryElementType.COPY_MODIFY_EXPR);
+            return true;
+        }
+        return false;
+    }
+
+    // endregion
+    // region Grammar :: Expr :: BlockExpr
+
+    private boolean parseBlockExpr() {
+        final PsiBuilder.Marker blockExprMarker = matchTokenTypeWithMarker(XQueryTokenType.K_BLOCK);
+        if (blockExprMarker != null) {
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseEnclosedExprOrBlock(XQueryElementType.BLOCK, BlockOpen.REQUIRED, BlockExpr.REQUIRED)) {
+                blockExprMarker.rollbackTo();
+                return false;
+            }
+            blockExprMarker.done(XQueryElementType.BLOCK_EXPR);
             return true;
         }
         return false;

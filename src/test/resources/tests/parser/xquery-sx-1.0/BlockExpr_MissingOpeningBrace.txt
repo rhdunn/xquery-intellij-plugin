@@ -1,0 +1,33 @@
+FileElement[FILE(0:11)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:10)]
+      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:10)]
+         XQueryOrExprImpl[XQUERY_OR_EXPR(0:10)]
+            XQueryAndExprImpl[XQUERY_AND_EXPR(0:10)]
+               XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:10)]
+                  XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(0:10)]
+                     XQueryRangeExprImpl[XQUERY_RANGE_EXPR(0:10)]
+                        XQueryAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(0:10)]
+                           XQueryMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:10)]
+                              XQueryUnionExprImpl[XQUERY_UNION_EXPR(0:10)]
+                                 XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:10)]
+                                    XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:10)]
+                                       XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:10)]
+                                          XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:10)]
+                                             XQueryCastExprImpl[XQUERY_CAST_EXPR(0:10)]
+                                                XQueryArrowExprImpl[XQUERY_ARROW_EXPR(0:10)]
+                                                   XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:10)]
+                                                      XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:10)]
+                                                         XQueryPathExprImpl[XQUERY_PATH_EXPR(0:10)]
+                                                            XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:10)]
+                                                               XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:10)]
+                                                                  XQueryFunctionCallImpl[XQUERY_FUNCTION_CALL(0:9)]
+                                                                     XQueryNCNameImpl[XQUERY_NCNAME(0:5)]
+                                                                        LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_BLOCK(0:5)]('block')
+                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
+                                                                     XQueryArgumentListImpl[XQUERY_ARGUMENT_LIST(6:9)]
+                                                                        LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(6:7)]('(')
+                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+                                                                        LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(8:9)](')')
+                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
+   PsiErrorElementImpl[ERROR_ELEMENT(10:10)]('XPST0003: Expected end of file.')
+   LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(10:11)]('}')

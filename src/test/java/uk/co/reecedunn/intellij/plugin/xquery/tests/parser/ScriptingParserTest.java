@@ -98,6 +98,44 @@ public class ScriptingParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region Scripting Extension 1.0 :: BlockExpr
+
+    @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-BlockExpr")
+    public void testBlockExpr() {
+        final String expected = loadResource("tests/parser/xquery-sx-1.0/BlockExpr.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/BlockExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-BlockExpr")
+    public void testBlockExpr_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-sx-1.0/BlockExpr_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/BlockExpr_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-BlockExpr")
+    public void testBlockExpr_MissingOpeningBrace() {
+        final String expected = loadResource("tests/parser/xquery-sx-1.0/BlockExpr_MissingOpeningBrace.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/BlockExpr_MissingOpeningBrace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-BlockExpr")
+    public void testBlockExpr_MissingBlockBody() {
+        final String expected = loadResource("tests/parser/xquery-sx-1.0/BlockExpr_MissingBlockBody.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/BlockExpr_MissingBlockBody.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-BlockExpr")
+    public void testBlockExpr_MissingClosingBrace() {
+        final String expected = loadResource("tests/parser/xquery-sx-1.0/BlockExpr_MissingClosingBrace.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/BlockExpr_MissingClosingBrace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregions
     // region Scripting Extension 1.0 :: BlockVarDecl
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-BlockVarDecl")
