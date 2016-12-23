@@ -15,10 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.scripting;
 
-import com.intellij.psi.PsiElement;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryExpr;
 
 /**
  * An XQuery Scripting Extension 1.0 <code>BlockExpr</code> node in the XQuery AST.
  */
-public interface ScriptingBlockExpr extends PsiElement {
+public interface ScriptingBlockExpr extends XQueryExpr {
 }
