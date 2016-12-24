@@ -1,0 +1,1 @@
+while ( true ( ) ) { declare $ x ; ( ) }

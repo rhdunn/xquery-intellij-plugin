@@ -313,6 +313,7 @@ public interface XQueryElementType {
     IElementType EXIT_EXPR = new ICompositeElementType("XQUERY_EXIT_EXPR", ScriptingExitExprPsiImpl.class, XQuery.INSTANCE);
 
     IElementType WHILE_EXPR = new ICompositeElementType("XQUERY_WHILE_EXPR", ScriptingWhileExprPsiImpl.class, XQuery.INSTANCE);
+    IElementType WHILE_BODY = new ICompositeElementType("XQUERY_WHILE_BODY", ScriptingWhileBodyPsiImpl.class, XQuery.INSTANCE);
 
     // endregion
     // region MarkLogic 6.0

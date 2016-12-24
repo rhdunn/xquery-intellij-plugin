@@ -50,7 +50,7 @@ FileElement[FILE(0:26)]
                                                                      XQueryLiteralImpl[XQUERY_LITERAL(12:13)]
                                                                         XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(12:13)]('0')
             LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(13:14)](')')
-            ScriptingBlockImpl[XQUERY_BLOCK(14:26)]
+            ScriptingWhileBodyImpl[XQUERY_WHILE_BODY(14:26)]
                LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(14:15)]('{')
                ScriptingBlockDeclsImpl[XQUERY_BLOCK_DECLS(15:15)]
                ScriptingBlockBodyImpl[XQUERY_BLOCK_BODY(15:25)]

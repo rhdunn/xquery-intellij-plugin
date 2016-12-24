@@ -136,7 +136,7 @@ public class ScriptingParserTest extends ParserTestCase {
     }
 
     // endregions
-    // region Scripting Extension 1.0 :: BlockDecls
+    // region Scripting Extension 1.0 :: BlockDecls (Block)
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-BlockDecls")
     public void testBlockDecls_Empty() {
@@ -156,6 +156,30 @@ public class ScriptingParserTest extends ParserTestCase {
     public void testBlockDecls_Multiple() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/BlockDecls_Multiple.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/BlockDecls_Multiple.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregions
+    // region Scripting Extension 1.0 :: BlockDecls (WhileBody)
+
+    @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-BlockDecls")
+    public void testBlockDecls_WhileBody_Empty() {
+        final String expected = loadResource("tests/parser/xquery-sx-1.0/WhileExpr.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/WhileExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-BlockDecls")
+    public void testBlockDecls_WhileBody_Single() {
+        final String expected = loadResource("tests/parser/xquery-sx-1.0/WhileBody_BlockVarDecl.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/WhileBody_BlockVarDecl.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-BlockDecls")
+    public void testBlockDecls_WhileBody_Multiple() {
+        final String expected = loadResource("tests/parser/xquery-sx-1.0/WhileBody_BlockVarDecl_Multiple.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/WhileBody_BlockVarDecl_Multiple.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 

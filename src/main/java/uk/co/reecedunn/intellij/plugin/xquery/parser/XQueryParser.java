@@ -1279,7 +1279,7 @@ class XQueryParser {
         }
 
         IElementType exprType = XQueryElementType.EXPR;
-        if (type == XQueryElementType.BLOCK) {
+        if (type == XQueryElementType.BLOCK || type == XQueryElementType.WHILE_BODY) {
             parseWhiteSpaceAndCommentTokens();
             parseBlockDecls();
             exprType = XQueryElementType.BLOCK_BODY;
@@ -3042,8 +3042,8 @@ class XQueryParser {
             }
 
             parseWhiteSpaceAndCommentTokens();
-            if (!parseEnclosedExprOrBlock(XQueryElementType.BLOCK, BlockOpen.REQUIRED, BlockExpr.REQUIRED) && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected", "Block"));
+            if (!parseEnclosedExprOrBlock(XQueryElementType.WHILE_BODY, BlockOpen.REQUIRED, BlockExpr.REQUIRED) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", "WhileBody"));
             }
 
             whileExprMarker.done(XQueryElementType.WHILE_EXPR);
