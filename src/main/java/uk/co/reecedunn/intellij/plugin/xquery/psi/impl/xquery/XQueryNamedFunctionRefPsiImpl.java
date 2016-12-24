@@ -48,6 +48,9 @@ public class XQueryNamedFunctionRefPsiImpl extends ASTWrapperPsiElement implemen
                     break;
                 case RESERVED_FUNCTION_NAME:
                     return false;
+                case SCRIPTING10_RESERVED_FUNCTION_NAME:
+                    final XQueryVersion scripting = implementation.getVersion(XQueryConformance.SCRIPTING);
+                    return scripting == null || !scripting.supportsVersion(XQueryVersion.VERSION_1_0);
                 case MARKLOGIC_RESERVED_FUNCTION_NAME:
                     final XQueryVersion marklogicVersion = implementation.getVersion(XQueryConformance.MARKLOGIC);
                     return marklogicVersion == null || !marklogicVersion.supportsVersion(XQueryVersion.VERSION_8_0);
@@ -78,6 +81,7 @@ public class XQueryNamedFunctionRefPsiImpl extends ASTWrapperPsiElement implemen
                     case KEYWORD:
                         break;
                     case RESERVED_FUNCTION_NAME:
+                    case SCRIPTING10_RESERVED_FUNCTION_NAME:
                     case MARKLOGIC_RESERVED_FUNCTION_NAME:
                     case XQUERY30_RESERVED_FUNCTION_NAME:
                         return name;
@@ -95,6 +99,7 @@ public class XQueryNamedFunctionRefPsiImpl extends ASTWrapperPsiElement implemen
                 case KEYWORD:
                     break;
                 case RESERVED_FUNCTION_NAME:
+                case SCRIPTING10_RESERVED_FUNCTION_NAME:
                 case MARKLOGIC_RESERVED_FUNCTION_NAME:
                 case XQUERY30_RESERVED_FUNCTION_NAME:
                     return XQueryBundle.message("requires.error.reserved-keyword-as-function-name");
