@@ -310,6 +310,7 @@ public interface XQueryElementType {
 
     IElementType BLOCK_EXPR = new ICompositeElementType("XQUERY_BLOCK_EXPR", ScriptingBlockExprPsiImpl.class, XQuery.INSTANCE);
     IElementType ASSIGNMENT_EXPR = new ICompositeElementType("XQUERY_ASSIGNMENT_EXPR", ScriptingAssignmentExprPsiImpl.class, XQuery.INSTANCE);
+    IElementType EXIT_EXPR = new ICompositeElementType("XQUERY_EXIT_EXPR", ScriptingExitExprPsiImpl.class, XQuery.INSTANCE);
 
     // endregion
     // region MarkLogic 6.0

@@ -1448,6 +1448,7 @@ class XQueryParser {
             || parseUpdatingFunctionCall()
             || parseBlockExpr()
             || parseAssignmentExpr()
+            || parseExitExpr()
             || parseOrExpr(parentType);
     }
 
@@ -2972,6 +2973,41 @@ class XQueryParser {
             }
 
             assignmentExprMarker.done(XQueryElementType.ASSIGNMENT_EXPR);
+            return true;
+        }
+        return false;
+    }
+
+    // endregion
+    // region Grammar :: Expr :: ExitExpr
+
+    private boolean parseExitExpr() {
+        final PsiBuilder.Marker exitExprMarker = matchTokenTypeWithMarker(XQueryTokenType.K_EXIT);
+        if (exitExprMarker != null) {
+            boolean haveErrors = false;
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_RETURNING)) {
+                if (getTokenType() == XQueryTokenType.PARENTHESIS_OPEN) {
+                    // FunctionCall construct
+                    exitExprMarker.rollbackTo();
+                    return false;
+                }
+                error(XQueryBundle.message("parser.error.expected-keyword", "returning"));
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseExprSingle()) {
+                if (haveErrors) {
+                    // AbbrevForwardStep construct
+                    exitExprMarker.rollbackTo();
+                    return false;
+                }
+                error(XQueryBundle.message("parser.error.expected-expression"));
+            }
+
+            exitExprMarker.done(XQueryElementType.EXIT_EXPR);
             return true;
         }
         return false;

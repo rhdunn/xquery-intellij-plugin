@@ -292,4 +292,35 @@ public class ScriptingParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region Scripting Extension 1.0 :: ExitExpr
+
+    @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-ExitExpr")
+    public void testExitExpr() {
+        final String expected = loadResource("tests/parser/xquery-sx-1.0/ExitExpr.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/ExitExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-ExitExpr")
+    public void testExitExpr_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-sx-1.0/ExitExpr_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/ExitExpr_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-ExitExpr")
+    public void testExitExpr_MissingReturningKeyword() {
+        final String expected = loadResource("tests/parser/xquery-sx-1.0/ExitExpr_MissingReturningKeyword.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/ExitExpr_MissingReturningKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-ExitExpr")
+    public void testExitExpr_MissingExpr() {
+        final String expected = loadResource("tests/parser/xquery-sx-1.0/ExitExpr_MissingExpr.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/ExitExpr_MissingExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
 }
