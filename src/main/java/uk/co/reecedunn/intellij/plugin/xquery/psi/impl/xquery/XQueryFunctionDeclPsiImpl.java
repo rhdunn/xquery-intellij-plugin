@@ -56,6 +56,9 @@ public class XQueryFunctionDeclPsiImpl extends ASTWrapperPsiElement implements X
                     return true;
                 case RESERVED_FUNCTION_NAME:
                     return false;
+                case SCRIPTING10_RESERVED_FUNCTION_NAME:
+                    final XQueryVersion scripting = implementation.getVersion(XQueryConformance.SCRIPTING);
+                    return scripting == null || !scripting.supportsVersion(XQueryVersion.VERSION_1_0);
                 case MARKLOGIC_RESERVED_FUNCTION_NAME:
                     final XQueryVersion marklogicVersion = implementation.getVersion(XQueryConformance.MARKLOGIC);
                     return marklogicVersion == null || !marklogicVersion.supportsVersion(XQueryVersion.VERSION_8_0);
