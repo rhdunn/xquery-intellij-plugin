@@ -335,6 +335,7 @@ class XQueryParser {
                 case NOT_MATCHED:
                     if (parseInvalidConstructs && getTokenType() != null) {
                         if (parseWhiteSpaceAndCommentTokens()) continue;
+                        error(XQueryBundle.message("parser.error.unexpected-token"));
                         if (parseExprSingle()) continue;
                         advanceLexer();
                         continue;

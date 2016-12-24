@@ -61,6 +61,7 @@ FileElement[FILE(0:130)]
          PsiErrorElementImpl[ERROR_ELEMENT(96:96)]('XPST0003: Expected ';'.')
          LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(96:97)]('{')
          PsiWhiteSpaceImpl[WHITE_SPACE(97:98)](' ')
+         PsiErrorElementImpl[ERROR_ELEMENT(98:98)]('XPST0003: Unexpected token.')
          XQueryOrExprImpl[XQUERY_OR_EXPR(98:100)]
             XQueryAndExprImpl[XQUERY_AND_EXPR(98:100)]
                XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(98:100)]
@@ -83,8 +84,10 @@ FileElement[FILE(0:130)]
                                                                   XQueryLiteralImpl[XQUERY_LITERAL(98:99)]
                                                                      XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(98:99)]('2')
                                                                   PsiWhiteSpaceImpl[WHITE_SPACE(99:100)](' ')
+         PsiErrorElementImpl[ERROR_ELEMENT(100:100)]('XPST0003: Unexpected token.')
          LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(100:101)]('}')
          PsiWhiteSpaceImpl[WHITE_SPACE(101:102)](' ')
+         PsiErrorElementImpl[ERROR_ELEMENT(102:102)]('XPST0003: Unexpected token.')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(102:103)](';')
          PsiWhiteSpaceImpl[WHITE_SPACE(103:104)]('\n')
          XQueryAnnotatedDeclImpl[XQUERY_ANNOTATED_DECL(104:129)]
