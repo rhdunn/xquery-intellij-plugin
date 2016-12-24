@@ -1450,6 +1450,7 @@ class XQueryParser {
             || parseBlockExpr()
             || parseAssignmentExpr()
             || parseExitExpr()
+            || parseWhileExpr()
             || parseOrExpr(parentType);
     }
 
@@ -3009,6 +3010,43 @@ class XQueryParser {
             }
 
             exitExprMarker.done(XQueryElementType.EXIT_EXPR);
+            return true;
+        }
+        return false;
+    }
+
+    // endregion
+    // region Grammar :: Expr :: WhileExpr
+
+    private boolean parseWhileExpr() {
+        final PsiBuilder.Marker whileExprMarker = matchTokenTypeWithMarker(XQueryTokenType.K_WHILE);
+        if (whileExprMarker != null) {
+            boolean haveErrors = false;
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_OPEN)) {
+                whileExprMarker.rollbackTo();
+                return false;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseExprSingle()) {
+                error(XQueryBundle.message("parser.error.expected-expression"));
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", ")"));
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseEnclosedExprOrBlock(XQueryElementType.BLOCK, BlockOpen.REQUIRED, BlockExpr.REQUIRED) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", "Block"));
+            }
+
+            whileExprMarker.done(XQueryElementType.WHILE_EXPR);
             return true;
         }
         return false;

@@ -235,5 +235,30 @@ public class ScriptingPsiTest extends ParserTestCase {
     }
 
     // endregion
+    // region WhileExpr
+
+    public void testWhileExpr() {
+        final XQueryFile file = parseResource("tests/parser/xquery-sx-1.0/WhileExpr.xq");
+
+        ScriptingWhileExpr whileExpr = descendants(file).findFirst(ScriptingWhileExpr.class).get();
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)whileExpr;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-scripting")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(false));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires Scripting Extension 1.0 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.K_WHILE));
+    }
+
+    // endregion
     // endregion
 }

@@ -323,4 +323,42 @@ public class ScriptingParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region Scripting Extension 1.0 :: WhileExpr
+
+    @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-WhileExpr")
+    public void testWhileExpr() {
+        final String expected = loadResource("tests/parser/xquery-sx-1.0/WhileExpr.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/WhileExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-WhileExpr")
+    public void testWhileExpr_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-sx-1.0/WhileExpr_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/WhileExpr_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-WhileExpr")
+    public void testWhileExpr_MissingConditionExpr() {
+        final String expected = loadResource("tests/parser/xquery-sx-1.0/WhileExpr_MissingConditionExpr.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/WhileExpr_MissingConditionExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-WhileExpr")
+    public void testWhileExpr_MissingClosingParenthesis() {
+        final String expected = loadResource("tests/parser/xquery-sx-1.0/WhileExpr_MissingClosingParenthesis.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/WhileExpr_MissingClosingParenthesis.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-WhileExpr")
+    public void testWhileExpr_MissingBlock() {
+        final String expected = loadResource("tests/parser/xquery-sx-1.0/WhileExpr_MissingBlock.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/WhileExpr_MissingBlock.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
 }
