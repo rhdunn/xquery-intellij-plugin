@@ -3038,12 +3038,13 @@ class XQueryParser {
             parseWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE) && !haveErrors) {
                 error(XQueryBundle.message("parser.error.expected", ")"));
-                haveErrors = true;
             }
 
             parseWhiteSpaceAndCommentTokens();
-            if (!parseEnclosedExprOrBlock(XQueryElementType.WHILE_BODY, BlockOpen.REQUIRED, BlockExpr.REQUIRED) && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected", "WhileBody"));
+            if (!parseEnclosedExprOrBlock(XQueryElementType.WHILE_BODY, BlockOpen.REQUIRED, BlockExpr.REQUIRED)) {
+                // FunctionCall construct. Check for reserved function name in the FunctionCall PSI class.
+                whileExprMarker.rollbackTo();
+                return false;
             }
 
             whileExprMarker.done(XQueryElementType.WHILE_EXPR);
@@ -3933,6 +3934,7 @@ class XQueryParser {
             IXQueryKeywordOrNCNameType type = (IXQueryKeywordOrNCNameType)getTokenType();
             switch (type.getKeywordType()) {
                 case KEYWORD:
+                case SCRIPTING10_RESERVED_FUNCTION_NAME:
                     break;
                 case RESERVED_FUNCTION_NAME:
                 case XQUERY30_RESERVED_FUNCTION_NAME:

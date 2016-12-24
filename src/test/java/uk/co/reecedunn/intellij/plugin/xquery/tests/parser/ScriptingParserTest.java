@@ -378,9 +378,23 @@ public class ScriptingParserTest extends ParserTestCase {
     }
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-WhileExpr")
-    public void testWhileExpr_MissingBlock() {
-        final String expected = loadResource("tests/parser/xquery-sx-1.0/WhileExpr_MissingBlock.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/WhileExpr_MissingBlock.xq");
+    public void testFunctionCall_WhileKeyword_NoParams() {
+        final String expected = loadResource("tests/parser/xquery-sx-1.0/FunctionCall_WhileKeyword_NoParams.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/FunctionCall_WhileKeyword_NoParams.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-WhileExpr")
+    public void testFunctionCall_WhileKeyword_SingleParam() {
+        final String expected = loadResource("tests/parser/xquery-sx-1.0/FunctionCall_WhileKeyword_SingleParam.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/FunctionCall_WhileKeyword_SingleParam.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-WhileExpr")
+    public void testFunctionCall_WhileKeyword_MultipleParams() {
+        final String expected = loadResource("tests/parser/xquery-sx-1.0/FunctionCall_WhileKeyword_MultipleParams.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/FunctionCall_WhileKeyword_MultipleParams.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 

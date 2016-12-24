@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
+import com.intellij.openapi.util.Pair;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
@@ -37,34 +38,57 @@ public class XQueryFunctionCallPsiImpl extends ASTWrapperPsiElement implements X
         super(node);
     }
 
+    private Pair<PsiElement, IXQueryKeywordOrNCNameType.KeywordType> getLocalName() {
+        final PsiElement name = getFirstChild();
+        if (name.getNode().getElementType() == XQueryElementType.NCNAME) {
+            final PsiElement localname = name.getFirstChild();
+            final IElementType type = localname.getNode().getElementType();
+            if (type instanceof IXQueryKeywordOrNCNameType) {
+                return new Pair<>(localname, ((IXQueryKeywordOrNCNameType)type).getKeywordType());
+            }
+        }
+        return null;
+    }
+
     @Override
     public boolean conformsTo(ImplementationItem implementation) {
-        PsiElement element = getConformanceElement();
-        if (element == getFirstChild()) {
-            return true;
+        final Pair<PsiElement, IXQueryKeywordOrNCNameType.KeywordType> localname = getLocalName();
+        if (localname != null) switch (localname.getSecond()) {
+            case MARKLOGIC_RESERVED_FUNCTION_NAME:
+                final XQueryVersion marklogic = implementation.getVersion(XQueryConformance.MARKLOGIC);
+                return marklogic == null || !marklogic.supportsVersion(XQueryVersion.VERSION_8_0);
+            case SCRIPTING10_RESERVED_FUNCTION_NAME:
+                final XQueryVersion scripting = implementation.getVersion(XQueryConformance.SCRIPTING);
+                return scripting == null || !scripting.supportsVersion(XQueryVersion.VERSION_1_0);
+            default:
+                break;
         }
-
-        final XQueryVersion version = implementation.getVersion(XQueryConformance.MARKLOGIC);
-        return version == null || !version.supportsVersion(XQueryVersion.VERSION_8_0);
+        return true;
     }
 
     @Override
     public PsiElement getConformanceElement() {
-        PsiElement name = getFirstChild();
-        if (name.getNode().getElementType() == XQueryElementType.NCNAME) {
-            PsiElement localname = name.getFirstChild();
-            IElementType type = localname.getNode().getElementType();
-            if (type instanceof IXQueryKeywordOrNCNameType &&
-                ((IXQueryKeywordOrNCNameType)type).getKeywordType() == IXQueryKeywordOrNCNameType.KeywordType.MARKLOGIC_RESERVED_FUNCTION_NAME) {
-                return localname;
-            }
+        final Pair<PsiElement, IXQueryKeywordOrNCNameType.KeywordType> localname = getLocalName();
+        if (localname != null) switch (localname.getSecond()) {
+            case MARKLOGIC_RESERVED_FUNCTION_NAME:
+            case SCRIPTING10_RESERVED_FUNCTION_NAME:
+                return localname.getFirst();
+            default:
+                break;
         }
-
-        return name;
+        return getFirstChild();
     }
 
     @Override
     public String getConformanceErrorMessage() {
+        final Pair<PsiElement, IXQueryKeywordOrNCNameType.KeywordType> localname = getLocalName();
+        if (localname != null) switch (localname.getSecond()) {
+            case SCRIPTING10_RESERVED_FUNCTION_NAME:
+                return XQueryBundle.message("requires.error.scripting-keyword-as-function-name", XQueryVersion.VERSION_1_0);
+            case MARKLOGIC_RESERVED_FUNCTION_NAME:
+            default:
+                break;
+        }
         return XQueryBundle.message("requires.error.marklogic-json-keyword-as-function-name", XQueryVersion.VERSION_8_0);
     }
 
