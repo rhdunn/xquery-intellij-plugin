@@ -300,6 +300,8 @@ public interface XQueryElementType {
     // endregion
     // region Scripting Extension 1.0
 
+    IElementType CONCAT_EXPR = new ICompositeElementType("XQUERY_CONCAT_EXPR", ScriptingConcatExprPsiImpl.class, XQuery.INSTANCE);
+
     IElementType COMPATBILITY_ANNOTATION_SCRIPTING = new ICompositeElementType("XQUERY_COMPATBILITY_ANNOTATION_SCRIPTING", ScriptingCompatibilityAnnotationPsiImpl.class, XQuery.INSTANCE);
 
     IElementType BLOCK = new ICompositeElementType("XQUERY_BLOCK", ScriptingBlockPsiImpl.class, XQuery.INSTANCE);

@@ -1,33 +1,34 @@
 FileElement[FILE(0:22)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:22)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:22)]
-         XQueryOrExprImpl[XQUERY_OR_EXPR(0:22)]
-            XQueryAndExprImpl[XQUERY_AND_EXPR(0:22)]
-               XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:22)]
-                  XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(0:22)]
-                     XQueryRangeExprImpl[XQUERY_RANGE_EXPR(0:22)]
-                        XQueryAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(0:22)]
-                           XQueryMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:22)]
-                              XQueryUnionExprImpl[XQUERY_UNION_EXPR(0:22)]
-                                 XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:22)]
-                                    XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:22)]
-                                       XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:22)]
-                                          XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:22)]
-                                             XQueryCastExprImpl[XQUERY_CAST_EXPR(0:22)]
-                                                XQueryArrowExprImpl[XQUERY_ARROW_EXPR(0:22)]
-                                                   XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:22)]
-                                                      XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:22)]
-                                                         XQueryPathExprImpl[XQUERY_PATH_EXPR(0:22)]
-                                                            XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:22)]
-                                                               XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:22)]
-                                                                  XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:22)]
-                                                                     XQueryDirElemConstructorImpl[XQUERY_DIR_ELEM_CONSTRUCTOR(0:22)]
-                                                                        LeafPsiElement[XQUERY_OPEN_XML_TAG_TOKEN(0:1)]('<')
-                                                                        XQueryNCNameImpl[XQUERY_NCNAME(1:2)]
-                                                                           LeafPsiElement[XQUERY_XML_TAG_NCNAME_TOKEN(1:2)]('a')
-                                                                        LeafPsiElement[XQUERY_END_XML_TAG_TOKEN(2:3)]('>')
-                                                                        XQueryDirElemContentImpl[XQUERY_DIR_ELEM_CONTENT(3:22)]
-                                                                           XQueryCDataSectionImpl[XQUERY_CDATA_SECTION(3:22)]
-                                                                              LeafPsiElement[XQUERY_CDATA_SECTION_START_TAG_TOKEN(3:12)]('<![CDATA[')
-                                                                              LeafPsiElement[XQUERY_CDATA_SECTION_TOKEN(12:22)](' Test </a>')
-                                                                           PsiErrorElementImpl[ERROR_ELEMENT(22:22)]('XPST0003: Unclosed CDATA section.')
+         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:22)]
+            XQueryOrExprImpl[XQUERY_OR_EXPR(0:22)]
+               XQueryAndExprImpl[XQUERY_AND_EXPR(0:22)]
+                  XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:22)]
+                     XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(0:22)]
+                        XQueryRangeExprImpl[XQUERY_RANGE_EXPR(0:22)]
+                           XQueryAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(0:22)]
+                              XQueryMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:22)]
+                                 XQueryUnionExprImpl[XQUERY_UNION_EXPR(0:22)]
+                                    XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:22)]
+                                       XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:22)]
+                                          XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:22)]
+                                             XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:22)]
+                                                XQueryCastExprImpl[XQUERY_CAST_EXPR(0:22)]
+                                                   XQueryArrowExprImpl[XQUERY_ARROW_EXPR(0:22)]
+                                                      XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:22)]
+                                                         XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:22)]
+                                                            XQueryPathExprImpl[XQUERY_PATH_EXPR(0:22)]
+                                                               XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:22)]
+                                                                  XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:22)]
+                                                                     XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:22)]
+                                                                        XQueryDirElemConstructorImpl[XQUERY_DIR_ELEM_CONSTRUCTOR(0:22)]
+                                                                           LeafPsiElement[XQUERY_OPEN_XML_TAG_TOKEN(0:1)]('<')
+                                                                           XQueryNCNameImpl[XQUERY_NCNAME(1:2)]
+                                                                              LeafPsiElement[XQUERY_XML_TAG_NCNAME_TOKEN(1:2)]('a')
+                                                                           LeafPsiElement[XQUERY_END_XML_TAG_TOKEN(2:3)]('>')
+                                                                           XQueryDirElemContentImpl[XQUERY_DIR_ELEM_CONTENT(3:22)]
+                                                                              XQueryCDataSectionImpl[XQUERY_CDATA_SECTION(3:22)]
+                                                                                 LeafPsiElement[XQUERY_CDATA_SECTION_START_TAG_TOKEN(3:12)]('<![CDATA[')
+                                                                                 LeafPsiElement[XQUERY_CDATA_SECTION_TOKEN(12:22)](' Test </a>')
+                                                                              PsiErrorElementImpl[ERROR_ELEMENT(22:22)]('XPST0003: Unclosed CDATA section.')

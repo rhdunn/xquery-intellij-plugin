@@ -1,25 +1,26 @@
 FileElement[FILE(0:12)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:12)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:12)]
-         XQueryOrExprImpl[XQUERY_OR_EXPR(0:12)]
-            XQueryAndExprImpl[XQUERY_AND_EXPR(0:12)]
-               XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:12)]
-                  XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(0:12)]
-                     XQueryRangeExprImpl[XQUERY_RANGE_EXPR(0:12)]
-                        XQueryAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(0:12)]
-                           XQueryMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:12)]
-                              XQueryUnionExprImpl[XQUERY_UNION_EXPR(0:12)]
-                                 XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:12)]
-                                    XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:12)]
-                                       XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:12)]
-                                          XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:12)]
-                                             XQueryCastExprImpl[XQUERY_CAST_EXPR(0:12)]
-                                                XQueryArrowExprImpl[XQUERY_ARROW_EXPR(0:12)]
-                                                   XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:12)]
-                                                      XQueryValidateExprImpl[XQUERY_VALIDATE_EXPR(0:12)]
-                                                         LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_VALIDATE(0:8)]('validate')
-                                                         PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
-                                                         LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(9:10)]('{')
-                                                         PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
-                                                         PsiErrorElementImpl[ERROR_ELEMENT(11:11)]('XPST0003: Missing expression.')
-                                                         LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(11:12)]('}')
+         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:12)]
+            XQueryOrExprImpl[XQUERY_OR_EXPR(0:12)]
+               XQueryAndExprImpl[XQUERY_AND_EXPR(0:12)]
+                  XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:12)]
+                     XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(0:12)]
+                        XQueryRangeExprImpl[XQUERY_RANGE_EXPR(0:12)]
+                           XQueryAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(0:12)]
+                              XQueryMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:12)]
+                                 XQueryUnionExprImpl[XQUERY_UNION_EXPR(0:12)]
+                                    XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:12)]
+                                       XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:12)]
+                                          XQueryTreatExprImpl[XQUERY_TREAT_EXPR(0:12)]
+                                             XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(0:12)]
+                                                XQueryCastExprImpl[XQUERY_CAST_EXPR(0:12)]
+                                                   XQueryArrowExprImpl[XQUERY_ARROW_EXPR(0:12)]
+                                                      XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:12)]
+                                                         XQueryValidateExprImpl[XQUERY_VALIDATE_EXPR(0:12)]
+                                                            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_VALIDATE(0:8)]('validate')
+                                                            PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
+                                                            LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(9:10)]('{')
+                                                            PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
+                                                            PsiErrorElementImpl[ERROR_ELEMENT(11:11)]('XPST0003: Missing expression.')
+                                                            LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(11:12)]('}')

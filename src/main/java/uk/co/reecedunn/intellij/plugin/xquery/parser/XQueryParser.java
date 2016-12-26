@@ -1391,6 +1391,16 @@ class XQueryParser {
 
     private boolean parseExpr(IElementType type) {
         final PsiBuilder.Marker exprMarker = mark();
+        if (parseConcatExpr()) {
+            exprMarker.done(type);
+            return true;
+        }
+        exprMarker.drop();
+        return false;
+    }
+
+    private boolean parseConcatExpr() {
+        final PsiBuilder.Marker exprMarker = mark();
         if (parseExprSingle()) {
             boolean haveErrors = false;
 
@@ -1404,7 +1414,7 @@ class XQueryParser {
 
                 parseWhiteSpaceAndCommentTokens();
             }
-            exprMarker.done(type);
+            exprMarker.done(XQueryElementType.CONCAT_EXPR);
             return true;
         }
         exprMarker.drop();
