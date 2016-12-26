@@ -35,9 +35,9 @@ FileElement[FILE(0:55)]
                                                                      XQueryLiteralImpl[XQUERY_LITERAL(25:26)]
                                                                         XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(25:26)]('2')
                                                                      PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
-   MarkLogicTransactionSeparatorImpl[XQUERY_TRANSACTION_SEPARATOR(27:28)]
+   MarkLogicTransactionSeparatorImpl[XQUERY_TRANSACTION_SEPARATOR(27:29)]
       LeafPsiElement[XQUERY_SEPARATOR_TOKEN(27:28)](';')
-   PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
+      PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(29:55)]
       XQueryVersionDeclImpl[XQUERY_VERSION_DECL(29:53)]
          LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_XQUERY(29:35)]('xquery')

@@ -141,10 +141,16 @@ class XQueryParser {
     // endregion
     // region Grammar :: Modules
 
+    private enum TransactionType {
+        WITH_PROLOG,
+        WITHOUT_PROLOG,
+        NONE
+    };
+
     private boolean parseTransactions() {
         if (parseModule()) {
             parseWhiteSpaceAndCommentTokens();
-            while (parseTransactionSeparator()) {
+            while (parseTransactionSeparator() != TransactionType.NONE) {
                 parseWhiteSpaceAndCommentTokens();
                 if (!parseModule()) { // NOTE: Handles error cases for VersionDecl-only and library modules.
                     error(XQueryBundle.message("parser.error.expected", "MainModule"));
@@ -156,13 +162,27 @@ class XQueryParser {
         return false;
     }
 
-    private boolean parseTransactionSeparator() {
+    private TransactionType parseTransactionSeparator() {
         final PsiBuilder.Marker transactionSeparatorMarker = matchTokenTypeWithMarker(XQueryTokenType.SEPARATOR);
         if (transactionSeparatorMarker != null) {
+            parseWhiteSpaceAndCommentTokens();
+            boolean haveProlog = false;
+            if (getTokenType() == XQueryTokenType.K_XQUERY ||
+                getTokenType() == XQueryTokenType.K_DECLARE ||
+                getTokenType() == XQueryTokenType.K_IMPORT ||
+                getTokenType() == XQueryTokenType.K_MODULE) {
+
+                final PsiBuilder.Marker marker = mark();
+                advanceLexer();
+                parseWhiteSpaceAndCommentTokens();
+                haveProlog = getTokenType() instanceof IXQueryKeywordOrNCNameType;
+                marker.rollbackTo();
+            }
+
             transactionSeparatorMarker.done(XQueryElementType.TRANSACTION_SEPARATOR);
-            return true;
+            return haveProlog ? TransactionType.WITH_PROLOG : TransactionType.WITHOUT_PROLOG;
         }
-        return false;
+        return TransactionType.NONE;
     }
 
     private boolean parseModule() {
@@ -1404,11 +1424,29 @@ class XQueryParser {
         // of the ApplyExpr node and there are no other uses of ApplyExpr.
         if (parseConcatExpr()) {
             parseWhiteSpaceAndCommentTokens();
+
+            final PsiBuilder.Marker marker = mark();
+            if (parseTransactionSeparator() == TransactionType.WITH_PROLOG) {
+                // MarkLogic transaction containing a Prolog/Module statement.
+                marker.rollbackTo();
+                return true;
+            }
+            marker.rollbackTo();
+
             if (matchTokenType(XQueryTokenType.SEPARATOR)) {
                 parseWhiteSpaceAndCommentTokens();
                 boolean haveSeparator = true;
                 while (haveSeparator && parseConcatExpr()) {
                     parseWhiteSpaceAndCommentTokens();
+
+                    final PsiBuilder.Marker marker2 = mark();
+                    if (parseTransactionSeparator() == TransactionType.WITH_PROLOG) {
+                        // MarkLogic transaction containing a Prolog/Module statement.
+                        marker2.rollbackTo();
+                        return true;
+                    }
+                    marker2.rollbackTo();
+
                     if (!matchTokenType(XQueryTokenType.SEPARATOR)) {
                         error(XQueryBundle.message("parser.error.expected", ";"));
                         haveSeparator = false;

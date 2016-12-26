@@ -976,11 +976,8 @@ public class MarkLogicPsiTest extends ParserTestCase {
     // endregion
     // region Transactions + TransactionSeparator
 
-    @Test
-    @Disabled("The expression is being parsed as an ApplyExpr in the Scripting Extensions 1.0 support.")
     public void testTransactions() {
-        /*
-        final XQueryFile file = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_TwoExpr_NoSemicolonAtEnd.xq");
+        final XQueryFile file = parseResource("tests/parser/marklogic-6.0/Transactions_WithVersionDecl.xq");
 
         MarkLogicTransactionSeparator transactionSeparatorPsi = children(file).findFirst(MarkLogicTransactionSeparator.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)transactionSeparatorPsi;
@@ -1000,7 +997,6 @@ public class MarkLogicPsiTest extends ParserTestCase {
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
                 is(XQueryTokenType.SEPARATOR));
-        */
     }
 
     // endregion

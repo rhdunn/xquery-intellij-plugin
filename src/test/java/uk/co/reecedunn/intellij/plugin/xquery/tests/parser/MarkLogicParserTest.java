@@ -15,8 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.parser;
 
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -25,24 +23,34 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class MarkLogicParserTest extends ParserTestCase {
     // region MarkLogic 6.0 :: Transactions + TransactionSeparator
 
-    @Test
-    @Disabled("The VersionDecl is being parsed as a ConcatExpr from the Scripting Extensions 1.0 support.")
     public void testTransactions_WithVersionDecl() {
-        /*
         final String expected = loadResource("tests/parser/marklogic-6.0/Transactions_WithVersionDecl.txt");
         final XQueryFile actual = parseResource("tests/parser/marklogic-6.0/Transactions_WithVersionDecl.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
-        */
     }
 
-    @Test
-    @Disabled("The ModuleDecl is being parsed as a ConcatExpr from the Scripting Extensions 1.0 support.")
     public void testTransactions_LibraryModule() {
-        /*
         final String expected = loadResource("tests/parser/marklogic-6.0/Transactions_LibraryModule.txt");
         final XQueryFile actual = parseResource("tests/parser/marklogic-6.0/Transactions_LibraryModule.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
-        */
+    }
+
+    public void testTransactions_Prolog_ImportStatement() {
+        final String expected = loadResource("tests/parser/marklogic-6.0/Transactions_Prolog_ImportStatement.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-6.0/Transactions_Prolog_ImportStatement.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testTransactions_Prolog_DeclareStatement() {
+        final String expected = loadResource("tests/parser/marklogic-6.0/Transactions_Prolog_DeclareStatement.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-6.0/Transactions_Prolog_DeclareStatement.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testTransactions_AfterApplyExpr() {
+        final String expected = loadResource("tests/parser/marklogic-6.0/Transactions_AfterApplyExpr.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-6.0/Transactions_AfterApplyExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     // endregion
