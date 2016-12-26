@@ -19,14 +19,19 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
+import uk.co.reecedunn.intellij.plugin.core.functional.Option;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingBlockVarDecl;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 
-public class ScriptingBlockVarDeclPsiImpl extends ASTWrapperPsiElement implements ScriptingBlockVarDecl, XQueryConformanceCheck {
+public class ScriptingBlockVarDeclPsiImpl extends ASTWrapperPsiElement implements ScriptingBlockVarDecl, XQueryConformanceCheck, XQueryVariableResolver {
     public ScriptingBlockVarDeclPsiImpl(@NotNull ASTNode node) {
         super(node);
     }
@@ -45,5 +50,14 @@ public class ScriptingBlockVarDeclPsiImpl extends ASTWrapperPsiElement implement
     @Override
     public String getConformanceErrorMessage() {
         return XQueryBundle.message("requires.feature.scripting.version", XQueryVersion.VERSION_1_0);
+    }
+
+    @Override
+    public Option<XQueryVariable> resolveVariable(XQueryEQName name) {
+        PsiElement varName = findChildByType(XQueryElementType.VAR_NAME);
+        if (varName != null && varName.equals(name)) {
+            return Option.some(new XQueryVariable(varName, this));
+        }
+        return Option.none();
     }
 }

@@ -15,22 +15,25 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.psi;
 
+import uk.co.reecedunn.intellij.plugin.core.functional.Option;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.*;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionCall;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Implementations;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase;
 
+import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static uk.co.reecedunn.intellij.plugin.core.functional.PsiTreeWalker.children;
 import static uk.co.reecedunn.intellij.plugin.core.functional.PsiTreeWalker.descendants;
+import static uk.co.reecedunn.intellij.plugin.core.tests.functional.IsDefined.defined;
+import static uk.co.reecedunn.intellij.plugin.core.tests.functional.IsDefined.notDefined;
 
 @SuppressWarnings("ConstantConditions")
 public class ScriptingPsiTest extends ParserTestCase {
@@ -328,6 +331,34 @@ public class ScriptingPsiTest extends ParserTestCase {
         assertThat(versioned.getConformanceElement(), is(notNullValue()));
         assertThat(versioned.getConformanceElement().getNode().getElementType(),
                 is(XQueryTokenType.K_WHILE));
+    }
+
+    // endregion
+    // endregion
+    // region XQueryVariableResolver
+    // region BlockVarDecl
+
+    public void testBlockVarDecl_VariableResolver() {
+        final XQueryFile file = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl.xq");
+
+        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
+        XQueryFunctionDecl functionDeclPsi = children(annotatedDeclPsi).findFirst(XQueryFunctionDecl.class).get();
+        ScriptingBlock blockPsi = children(functionDeclPsi).findFirst(ScriptingBlock.class).get();
+        ScriptingBlockDecls blockDeclsPsi = children(blockPsi).findFirst(ScriptingBlockDecls.class).get();
+        ScriptingBlockVarDecl blockVarDeclPsi = children(blockDeclsPsi).findFirst(ScriptingBlockVarDecl.class).get();
+        XQueryEQName varNamePsi = children(blockVarDeclPsi).findFirst(XQueryEQName.class).get();
+
+        XQueryVariableResolver provider = (XQueryVariableResolver)blockVarDeclPsi;
+        assertThat(provider.resolveVariable(null), is(notDefined()));
+
+        Option<XQueryVariable> variable = provider.resolveVariable(varNamePsi);
+        assertThat(variable, is(defined()));
+
+        assertThat(variable.get().getVariable(), is(instanceOf(XQueryEQName.class)));
+        assertThat(variable.get().getVariable(), is(varNamePsi));
+
+        assertThat(variable.get().getDeclaration(), is(instanceOf(ScriptingBlockVarDecl.class)));
+        assertThat(variable.get().getDeclaration(), is(blockVarDeclPsi));
     }
 
     // endregion
