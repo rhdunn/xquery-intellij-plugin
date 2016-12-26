@@ -15,10 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.scripting;
 
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryExpr;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryExprSingle;
 
 /**
  * An XQuery Scripting Extension 1.0 <code>WhileExpr</code> node in the XQuery AST.
  */
-public interface ScriptingWhileExpr extends XQueryExpr {
+public interface ScriptingWhileExpr extends XQueryExprSingle {
 }

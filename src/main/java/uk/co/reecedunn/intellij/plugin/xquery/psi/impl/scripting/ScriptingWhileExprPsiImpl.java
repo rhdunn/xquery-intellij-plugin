@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.scripting;
 
+import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
@@ -26,7 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryExprPsiImpl;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 
-public class ScriptingWhileExprPsiImpl extends XQueryExprPsiImpl implements ScriptingWhileExpr, XQueryConformanceCheck {
+public class ScriptingWhileExprPsiImpl extends ASTWrapperPsiElement implements ScriptingWhileExpr, XQueryConformanceCheck {
     public ScriptingWhileExprPsiImpl(@NotNull ASTNode node) {
         super(node);
     }
