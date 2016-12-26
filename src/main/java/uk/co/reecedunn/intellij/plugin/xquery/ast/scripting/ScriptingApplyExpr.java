@@ -18,7 +18,10 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.scripting;
 import com.intellij.psi.PsiElement;
 
 /**
- * An XQuery Scripting Extension 1.0 <code>ConcatExpr</code> node in the XQuery AST.
+ * An XQuery Scripting Extension 1.0 <code>ApplyExpr</code> node in the XQuery AST.
+ *
+ * The <code>ApplyExpr</code> node is not stored directly in the AST. Instead, it
+ * is exposed as an instance of the <code>Expr</code> node.
  */
-public interface ScriptingConcatExpr extends PsiElement {
+public interface ScriptingApplyExpr extends PsiElement {
 }
