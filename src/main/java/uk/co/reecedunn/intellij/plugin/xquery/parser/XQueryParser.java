@@ -34,7 +34,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
  * Supported W3C XQuery extensions:
  *    -  Update Facility 1.0 (W3C Recommendation 17 March 2011)
  *    -  Update Facility 3.0 (W3C Last Call Working Draft 19 February 2015)
- *    -  Scripting Extension 1.0 (W3C Working Group Note 18 September 2014) -- Partial Support
+ *    -  Scripting Extension 1.0 (W3C Working Group Note 18 September 2014)
  *
  * Supported vendor extensions:
  *    -  MarkLogic 1.0-ml Extensions for MarkLogic 6.0
@@ -1391,11 +1391,33 @@ class XQueryParser {
 
     private boolean parseExpr(IElementType type) {
         final PsiBuilder.Marker exprMarker = mark();
-        if (parseConcatExpr()) {
+        if (parseApplyExpr()) {
             exprMarker.done(type);
             return true;
         }
         exprMarker.drop();
+        return false;
+    }
+
+    private boolean parseApplyExpr() {
+        // NOTE: No marker is captured here because the Expr node is an instance
+        // of the ApplyExpr node and there are no other uses of ApplyExpr.
+        if (parseConcatExpr()) {
+            parseWhiteSpaceAndCommentTokens();
+            if (matchTokenType(XQueryTokenType.SEPARATOR)) {
+                parseWhiteSpaceAndCommentTokens();
+                boolean haveSeparator = true;
+                while (haveSeparator && parseConcatExpr()) {
+                    parseWhiteSpaceAndCommentTokens();
+                    if (!matchTokenType(XQueryTokenType.SEPARATOR)) {
+                        error(XQueryBundle.message("parser.error.expected", ";"));
+                        haveSeparator = false;
+                    }
+                    parseWhiteSpaceAndCommentTokens();
+                }
+            }
+            return true;
+        }
         return false;
     }
 

@@ -28,7 +28,8 @@ Standard conforming XQuery syntax highlighter and parser with file encoding
 detection. Supports:
 
 *  XQuery 1.0, 3.0 and 3.1 core language;
-*  XQuery Update Facility 1.0 and 3.0 extension;
+*  XQuery Update Facility 1.0 and 3.0;
+*  XQuery Scripting Extension 1.0;
 *  MarkLogic 6.0 to 8.0 vendor extensions;
 *  xqDoc documentation comments.
 

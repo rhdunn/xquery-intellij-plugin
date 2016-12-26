@@ -1,6 +1,6 @@
 FileElement[FILE(0:3)]
-   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:2)]
-      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:2)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:3)]
+      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:3)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:2)]
             XQueryOrExprImpl[XQUERY_OR_EXPR(0:2)]
                XQueryAndExprImpl[XQUERY_AND_EXPR(0:2)]
@@ -24,6 +24,4 @@ FileElement[FILE(0:3)]
                                                                      XQueryLiteralImpl[XQUERY_LITERAL(0:1)]
                                                                         XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:1)]('2')
                                                                      PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
-   MarkLogicTransactionSeparatorImpl[XQUERY_TRANSACTION_SEPARATOR(2:3)]
-      LeafPsiElement[XQUERY_SEPARATOR_TOKEN(2:3)](';')
-   PsiErrorElementImpl[ERROR_ELEMENT(3:3)]('XPST0003: Expected 'MainModule'.')
+         LeafPsiElement[XQUERY_SEPARATOR_TOKEN(2:3)](';')

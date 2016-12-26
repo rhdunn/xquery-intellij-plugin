@@ -6,13 +6,14 @@ Language Support:
 
 1.  `array-node {}` is valid in MarkLogic 8.0.
 2.  Don't crash when resolving an empty `URILiteral` in an import statement.
+3.  Complete support for XQuery Scripting Extensions 1.0.
 
 ## 0.3 - 2016-11-30
 
 Language Support:
 
 1.  Complete support for XQuery 3.1 constructs.
-2.  Complete support for Update Facility 3.0 extensions.
+2.  Complete support for XQuery Update Facility 3.0.
 3.  Improved error reporting on unbalanced XML (`DirElemConstructor` parsing).
 4.  Support for xqDoc documentation comments.
 
@@ -39,7 +40,7 @@ IntelliJ Integration:
 Language Support:
 
 1.  Complete support for XQuery 3.0 constructs.
-2.  Complete support for Update Facility 1.0 extensions.
+2.  Complete support for XQuery Update Facility 1.0.
 3.  Complete support for MarkLogic 1.0-ml extensions in MarkLogic 6.0 and 8.0.
 4.  Fix `InstanceofExpr` and `TreatExpr` -- they expect a `SequenceType`, not a
     `SingleType`.

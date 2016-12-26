@@ -22,6 +22,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionCall;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Implementations;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase;
 
@@ -34,6 +35,75 @@ import static uk.co.reecedunn.intellij.plugin.core.functional.PsiTreeWalker.desc
 @SuppressWarnings("ConstantConditions")
 public class ScriptingPsiTest extends ParserTestCase {
     // region XQueryConformanceCheck
+    // region ApplyExpr
+
+    public void testApplyExpr_Single_NoSemicolon() {
+        final XQueryFile file = parseResource("tests/parser/xquery-1.0/IntegerLiteral.xq");
+
+        ScriptingApplyExpr applyExpr = descendants(file).findFirst(ScriptingApplyExpr.class).get();
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)applyExpr;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-scripting")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires Scripting Extension 1.0 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryElementType.CONCAT_EXPR));
+    }
+
+    public void testApplyExpr_Single_Semicolon() {
+        final XQueryFile file = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_Single_SemicolonAtEnd.xq");
+
+        ScriptingApplyExpr applyExpr = descendants(file).findFirst(ScriptingApplyExpr.class).get();
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)applyExpr;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-scripting")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(false));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires Scripting Extension 1.0 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.SEPARATOR));
+    }
+
+    public void testApplyExpr_Multiple() {
+        final XQueryFile file = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_TwoExpr_SemicolonAtEnd.xq");
+
+        ScriptingApplyExpr applyExpr = descendants(file).findFirst(ScriptingApplyExpr.class).get();
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)applyExpr;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-scripting")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(false));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires Scripting Extension 1.0 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.SEPARATOR));
+    }
+
+    // endregion
     // region AssignmentExpr
 
     public void testAssignmentExpr() {

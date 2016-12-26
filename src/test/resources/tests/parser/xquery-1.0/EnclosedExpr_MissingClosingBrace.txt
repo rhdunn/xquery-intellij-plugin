@@ -1,10 +1,10 @@
 FileElement[FILE(0:39)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:39)]
       XQueryPrologImpl[XQUERY_PROLOG(0:39)]
-         XQueryAnnotatedDeclImpl[XQUERY_ANNOTATED_DECL(0:38)]
+         XQueryAnnotatedDeclImpl[XQUERY_ANNOTATED_DECL(0:39)]
             LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-            XQueryFunctionDeclImpl[XQUERY_FUNCTION_DECL(8:38)]
+            XQueryFunctionDeclImpl[XQUERY_FUNCTION_DECL(8:39)]
                LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_FUNCTION(8:16)]('function')
                PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
                XQueryQNameImpl[XQUERY_QNAME(17:24)]
@@ -18,10 +18,10 @@ FileElement[FILE(0:39)]
                PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
                LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(27:28)](')')
                PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
-               XQueryFunctionBodyImpl[XQUERY_FUNCTION_BODY(29:38)]
+               XQueryFunctionBodyImpl[XQUERY_FUNCTION_BODY(29:39)]
                   LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(29:30)]('{')
                   PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')
-                  XQueryExprImpl[XQUERY_EXPR(31:38)]
+                  XQueryExprImpl[XQUERY_EXPR(31:39)]
                      ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(31:38)]
                         XQueryOrExprImpl[XQUERY_OR_EXPR(31:38)]
                            XQueryAndExprImpl[XQUERY_AND_EXPR(31:38)]
@@ -48,6 +48,5 @@ FileElement[FILE(0:39)]
                                                                                        LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(32:36)]('true')
                                                                                        LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(36:37)]('"')
                                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(37:38)](' ')
-                  PsiErrorElementImpl[ERROR_ELEMENT(38:38)]('XPST0003: Expected '}'.')
-         LeafPsiElement[XQUERY_SEPARATOR_TOKEN(38:39)](';')
-      PsiErrorElementImpl[ERROR_ELEMENT(39:39)]('XPST0003: Missing query body.')
+                     LeafPsiElement[XQUERY_SEPARATOR_TOKEN(38:39)](';')
+                  PsiErrorElementImpl[ERROR_ELEMENT(39:39)]('XPST0003: Expected '}'.')

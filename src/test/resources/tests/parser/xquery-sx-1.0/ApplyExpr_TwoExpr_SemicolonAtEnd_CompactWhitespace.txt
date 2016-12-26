@@ -1,6 +1,6 @@
-FileElement[FILE(0:3)]
-   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:1)]
-      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:1)]
+FileElement[FILE(0:4)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:4)]
+      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:4)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:1)]
             XQueryOrExprImpl[XQUERY_OR_EXPR(0:1)]
                XQueryAndExprImpl[XQUERY_AND_EXPR(0:1)]
@@ -23,10 +23,7 @@ FileElement[FILE(0:3)]
                                                                   XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:1)]
                                                                      XQueryLiteralImpl[XQUERY_LITERAL(0:1)]
                                                                         XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:1)]('2')
-   MarkLogicTransactionSeparatorImpl[XQUERY_TRANSACTION_SEPARATOR(1:2)]
-      LeafPsiElement[XQUERY_SEPARATOR_TOKEN(1:2)](';')
-   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(2:3)]
-      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(2:3)]
+         LeafPsiElement[XQUERY_SEPARATOR_TOKEN(1:2)](';')
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(2:3)]
             XQueryOrExprImpl[XQUERY_OR_EXPR(2:3)]
                XQueryAndExprImpl[XQUERY_AND_EXPR(2:3)]
@@ -49,3 +46,4 @@ FileElement[FILE(0:3)]
                                                                   XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(2:3)]
                                                                      XQueryLiteralImpl[XQUERY_LITERAL(2:3)]
                                                                         XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(2:3)]('3')
+         LeafPsiElement[XQUERY_SEPARATOR_TOKEN(3:4)](';')

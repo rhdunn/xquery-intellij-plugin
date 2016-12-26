@@ -22,6 +22,75 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ScriptingParserTest extends ParserTestCase {
+    // region Scripting Extension 1.0 :: ApplyExpr
+
+    public void testApplyExpr_Single_SemicolonAtEnd() {
+        final String expected = loadResource("tests/parser/xquery-sx-1.0/ApplyExpr_Single_SemicolonAtEnd.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_Single_SemicolonAtEnd.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testApplyExpr_Single_SemicolonAtEnd_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-sx-1.0/ApplyExpr_Single_SemicolonAtEnd_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_Single_SemicolonAtEnd_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testApplyExpr_Single_NoSemicolonAtEnd() {
+        final String expected = loadResource("tests/parser/xquery-1.0/IntegerLiteral.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-1.0/IntegerLiteral.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testApplyExpr_TwoExpr_SemicolonAtEnd() {
+        final String expected = loadResource("tests/parser/xquery-sx-1.0/ApplyExpr_TwoExpr_SemicolonAtEnd.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_TwoExpr_SemicolonAtEnd.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testApplyExpr_TwoExpr_SemicolonAtEnd_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-sx-1.0/ApplyExpr_TwoExpr_SemicolonAtEnd_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_TwoExpr_SemicolonAtEnd_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testApplyExpr_TwoExpr_NoSemicolonAtEnd() {
+        final String expected = loadResource("tests/parser/xquery-sx-1.0/ApplyExpr_TwoExpr_NoSemicolonAtEnd.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_TwoExpr_NoSemicolonAtEnd.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testApplyExpr_Multiple_SemicolonAtEnd() {
+        final String expected = loadResource("tests/parser/xquery-sx-1.0/ApplyExpr_Multiple_SemicolonAtEnd.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_Multiple_SemicolonAtEnd.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testApplyExpr_Multiple_SemicolonAtEnd_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-sx-1.0/ApplyExpr_Multiple_SemicolonAtEnd_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_Multiple_SemicolonAtEnd_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testApplyExpr_Multiple_NoSemicolonAtEnd() {
+        final String expected = loadResource("tests/parser/xquery-sx-1.0/ApplyExpr_Multiple_NoSemicolonAtEnd.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_Multiple_NoSemicolonAtEnd.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testApplyExpr_NoSemicolonBetweenExpr_First() {
+        final String expected = loadResource("tests/parser/xquery-sx-1.0/ApplyExpr_NoSemicolonBetweenExpr_First.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_NoSemicolonBetweenExpr_First.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testApplyExpr_NoSemicolonBetweenExpr_Last() {
+        final String expected = loadResource("tests/parser/xquery-sx-1.0/ApplyExpr_NoSemicolonBetweenExpr_Last.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_NoSemicolonBetweenExpr_Last.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region Scripting Extension 1.0 :: VarDecl
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-VarDecl")
