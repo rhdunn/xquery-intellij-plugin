@@ -120,6 +120,13 @@ public class XQDocLexer extends LexerBase {
                 c = mTokenRange.getCodePoint();
             }
             mType = sTagNames.getOrDefault(getTokenText(), XQDocTokenType.TAG);
+        } else if (c == ' ' || c == '\t') {
+            while (c == ' ' || c == '\t') {
+                mTokenRange.match();
+                c = mTokenRange.getCodePoint();
+            }
+            mType = XQDocTokenType.WHITE_SPACE;
+            popState();
         } else {
             popState();
             stateContents();
@@ -297,6 +304,9 @@ public class XQDocLexer extends LexerBase {
     @Override
     public final void start(@NotNull CharSequence buffer, int startOffset, int endOffset, int initialState) {
         mTokenRange.start(buffer, startOffset, endOffset);
+        if (initialState != STATE_DEFAULT) {
+            pushState(STATE_CONTENTS);
+        }
         pushState(initialState);
         advance();
     }
