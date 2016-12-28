@@ -292,6 +292,12 @@ public class XQDocLexerTest extends LexerTestCase {
         matchToken(lexer, "lorem",   2,  2,  7, XQDocTokenType.TAG);
         matchToken(lexer, " ipsum.", 2,  7, 14, XQDocTokenType.CONTENTS);
         matchToken(lexer, "",        1, 14, 14, null);
+
+        lexer.start("~@ lorem ipsum.");
+        matchToken(lexer, "~",             0,  0,  1, XQDocTokenType.XQDOC_COMMENT_MARKER);
+        matchToken(lexer, "@",             8,  1,  2, XQDocTokenType.TAG_MARKER);
+        matchToken(lexer, " lorem ipsum.", 2,  2, 15, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "",              1, 15, 15, null);
     }
 
     public void testTaggedContents_AtSignInContents() {
