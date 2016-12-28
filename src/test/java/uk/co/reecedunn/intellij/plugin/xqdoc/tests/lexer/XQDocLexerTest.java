@@ -370,17 +370,33 @@ public class XQDocLexerTest extends LexerTestCase {
     // endregion
     // region xqDoc :: TaggedContents :: @param
 
-    public void testTaggedContents_Param() {
+    public void testTaggedContents_Param_VarRef() {
         Lexer lexer = new XQDocLexer();
 
         lexer.start("~\n@param $arg An argument.");
-        matchToken(lexer, "~",                 0,  0,  1, XQDocTokenType.XQDOC_COMMENT_MARKER);
-        matchToken(lexer, "\n",                8,  1,  2, XQDocTokenType.TRIM);
-        matchToken(lexer, "@",                 8,  2,  3, XQDocTokenType.TAG_MARKER);
-        matchToken(lexer, "param",             2,  3,  8, XQDocTokenType.T_PARAM);
-        matchToken(lexer, " ",                 2,  8,  9, XQDocTokenType.WHITE_SPACE);
-        matchToken(lexer, "$arg An argument.", 1,  9, 26, XQDocTokenType.CONTENTS);
-        matchToken(lexer, "",                  1, 26, 26, null);
+        matchToken(lexer, "~",             0,  0,  1, XQDocTokenType.XQDOC_COMMENT_MARKER);
+        matchToken(lexer, "\n",            8,  1,  2, XQDocTokenType.TRIM);
+        matchToken(lexer, "@",             8,  2,  3, XQDocTokenType.TAG_MARKER);
+        matchToken(lexer, "param",         2,  3,  8, XQDocTokenType.T_PARAM);
+        matchToken(lexer, " ",             9,  8,  9, XQDocTokenType.WHITE_SPACE);
+        matchToken(lexer, "$",             9,  9, 10, XQDocTokenType.VARIABLE_INDICATOR);
+        matchToken(lexer, "arg",          10, 10, 13, XQDocTokenType.NCNAME);
+        matchToken(lexer, " ",            10, 13, 14, XQDocTokenType.WHITE_SPACE);
+        matchToken(lexer, "An argument.",  1, 14, 26, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "",              1, 26, 26, null);
+    }
+
+    public void testTaggedContents_Param_ContentsOnly() {
+        Lexer lexer = new XQDocLexer();
+
+        lexer.start("~\n@param - $arg An argument.");
+        matchToken(lexer, "~",                   0,  0,  1, XQDocTokenType.XQDOC_COMMENT_MARKER);
+        matchToken(lexer, "\n",                  8,  1,  2, XQDocTokenType.TRIM);
+        matchToken(lexer, "@",                   8,  2,  3, XQDocTokenType.TAG_MARKER);
+        matchToken(lexer, "param",               2,  3,  8, XQDocTokenType.T_PARAM);
+        matchToken(lexer, " ",                   9,  8,  9, XQDocTokenType.WHITE_SPACE);
+        matchToken(lexer, "- $arg An argument.", 9,  9, 28, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "",                    1, 28, 28, null);
     }
 
     // endregion

@@ -18,7 +18,9 @@ package uk.co.reecedunn.intellij.plugin.xqdoc.lexer;
 import com.intellij.lexer.LexerBase;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
+import uk.co.reecedunn.intellij.plugin.core.lexer.CharacterClass;
 import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRange;
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 
 import java.util.EmptyStackException;
 import java.util.HashMap;
@@ -58,6 +60,8 @@ public class XQDocLexer extends LexerBase {
     private static final int STATE_ATTRIBUTE_VALUE_QUOTE = 6;
     private static final int STATE_ATTRIBUTE_VALUE_APOS = 7;
     private static final int STATE_TRIM = 8;
+    private static final int STATE_PARAM_TAG_CONTENTS_START = 9;
+    private static final int STATE_PARAM_TAG_VARNAME = 10;
 
     private void stateDefault() {
         int c = mTokenRange.getCodePoint();
@@ -120,6 +124,10 @@ public class XQDocLexer extends LexerBase {
                 c = mTokenRange.getCodePoint();
             }
             mType = sTagNames.getOrDefault(getTokenText(), XQDocTokenType.TAG);
+            if (mType == XQDocTokenType.T_PARAM) {
+                popState();
+                pushState(STATE_PARAM_TAG_CONTENTS_START);
+            }
         } else if (c == ' ' || c == '\t') {
             while (c == ' ' || c == '\t') {
                 mTokenRange.match();
@@ -130,6 +138,55 @@ public class XQDocLexer extends LexerBase {
         } else {
             popState();
             stateContents();
+        }
+    }
+
+    private void stateParamTagContentsStart() {
+        int c = mTokenRange.getCodePoint();
+        if (c == ' ' || c == '\t') {
+            while (c == ' ' || c == '\t') {
+                mTokenRange.match();
+                c = mTokenRange.getCodePoint();
+            }
+            mType = XQDocTokenType.WHITE_SPACE;
+        } else if (c == '$') {
+            mTokenRange.match();
+            mType = XQDocTokenType.VARIABLE_INDICATOR;
+            popState();
+            pushState(STATE_PARAM_TAG_VARNAME);
+        } else {
+            popState();
+            stateContents();
+        }
+    }
+
+    private void stateParamTagVarName() {
+        int cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
+        switch (cc) {
+            case CharacterClass.WHITESPACE:
+                mTokenRange.match();
+                while (CharacterClass.getCharClass(mTokenRange.getCodePoint()) == CharacterClass.WHITESPACE)
+                    mTokenRange.match();
+                mType = XQDocTokenType.WHITE_SPACE;
+                popState();
+                break;
+            case CharacterClass.NAME_START_CHAR: // XQuery/XML NCName token rules.
+                mTokenRange.match();
+                cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
+                while (cc == CharacterClass.NAME_START_CHAR ||
+                       cc == CharacterClass.DIGIT ||
+                       cc == CharacterClass.DOT ||
+                       cc == CharacterClass.HYPHEN_MINUS ||
+                       cc == CharacterClass.NAME_CHAR) {
+                    mTokenRange.match();
+                    cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
+                }
+                mType = XQDocTokenType.NCNAME;
+                break;
+            default:
+                popState();
+                stateContents();
+                break;
         }
     }
 
@@ -344,6 +401,12 @@ public class XQDocLexer extends LexerBase {
                 break;
             case STATE_TRIM:
                 stateTrim();
+                break;
+            case STATE_PARAM_TAG_CONTENTS_START:
+                stateParamTagContentsStart();
+                break;
+            case STATE_PARAM_TAG_VARNAME:
+                stateParamTagVarName();
                 break;
             default:
                 throw new AssertionError("Invalid state: " + mState);

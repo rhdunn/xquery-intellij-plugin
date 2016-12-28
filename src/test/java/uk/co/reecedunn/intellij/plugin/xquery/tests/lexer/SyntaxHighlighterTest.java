@@ -853,6 +853,18 @@ public class SyntaxHighlighterTest extends TestCase {
         assertThat(highlighter.getTokenHighlights(XQDocTokenType.T_VERSION)[1], is(SyntaxHighlighter.XQDOC_TAG));
     }
 
+    public void testTokenHighlights_XQDocTagValue() {
+        SyntaxHighlighter highlighter = new SyntaxHighlighter();
+
+        assertThat(highlighter.getTokenHighlights(XQDocTokenType.VARIABLE_INDICATOR).length, is(2));
+        assertThat(highlighter.getTokenHighlights(XQDocTokenType.VARIABLE_INDICATOR)[0], is(SyntaxHighlighter.COMMENT));
+        assertThat(highlighter.getTokenHighlights(XQDocTokenType.VARIABLE_INDICATOR)[1], is(SyntaxHighlighter.XQDOC_TAG_VALUE));
+
+        assertThat(highlighter.getTokenHighlights(XQDocTokenType.NCNAME).length, is(2));
+        assertThat(highlighter.getTokenHighlights(XQDocTokenType.NCNAME)[0], is(SyntaxHighlighter.COMMENT));
+        assertThat(highlighter.getTokenHighlights(XQDocTokenType.NCNAME)[1], is(SyntaxHighlighter.XQDOC_TAG_VALUE));
+    }
+
     public void testTokenHighlights_XQDocMarker() {
         SyntaxHighlighter highlighter = new SyntaxHighlighter();
 

@@ -35,7 +35,9 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
     public static final TextAttributesKey NUMBER = TextAttributesKey.createTextAttributesKey("XQUERY_NUMBER", DefaultLanguageHighlighterColors.NUMBER);
     public static final TextAttributesKey STRING = TextAttributesKey.createTextAttributesKey("XQUERY_STRING", DefaultLanguageHighlighterColors.STRING);
     public static final TextAttributesKey NS_PREFIX = TextAttributesKey.createTextAttributesKey("XQUERY_NS_PREFIX", DefaultLanguageHighlighterColors.INSTANCE_FIELD);
+
     public static final TextAttributesKey XQDOC_TAG = TextAttributesKey.createTextAttributesKey("XQUERY_XQDOC_TAG", DefaultLanguageHighlighterColors.DOC_COMMENT_TAG);
+    public static final TextAttributesKey XQDOC_TAG_VALUE = TextAttributesKey.createTextAttributesKey("XQUERY_XQDOC_TAG_VALUE", DefaultLanguageHighlighterColors.DOC_COMMENT_TAG_VALUE);
     public static final TextAttributesKey XQDOC_MARKUP = TextAttributesKey.createTextAttributesKey("XQUERY_XQDOC_MARKUP", DefaultLanguageHighlighterColors.DOC_COMMENT_MARKUP);
 
     public static final TextAttributesKey XML_TAG = TextAttributesKey.createTextAttributesKey("XQUERY_XML_TAG", XmlHighlighterColors.XML_TAG);
@@ -56,6 +58,7 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
 
     private static final TextAttributesKey[] COMMENT_KEYS = pack(COMMENT);
     private static final TextAttributesKey[] XQDOC_TAG_KEYS = pack(COMMENT, XQDOC_TAG);
+    private static final TextAttributesKey[] XQDOC_TAG_VALUE_KEYS = pack(COMMENT, XQDOC_TAG_VALUE);
     private static final TextAttributesKey[] XQDOC_MARKUP_KEYS = pack(COMMENT, XQDOC_MARKUP);
 
     private static final TextAttributesKey[] XML_TAG_KEYS = pack(XML_TAG);
@@ -153,6 +156,9 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
                    type == XQDocTokenType.T_SINCE ||
                    type == XQDocTokenType.T_VERSION) {
             return XQDOC_TAG_KEYS;
+        } else if (type == XQDocTokenType.VARIABLE_INDICATOR ||
+                   type == XQDocTokenType.NCNAME) {
+            return XQDOC_TAG_VALUE_KEYS;
         } else if (type == XQDocTokenType.OPEN_XML_TAG ||
                    type == XQDocTokenType.END_XML_TAG ||
                    type == XQDocTokenType.CLOSE_XML_TAG ||
