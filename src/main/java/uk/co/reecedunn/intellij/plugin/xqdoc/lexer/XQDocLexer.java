@@ -20,7 +20,6 @@ import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.core.lexer.CharacterClass;
 import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRange;
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 
 import java.util.EmptyStackException;
 import java.util.HashMap;
@@ -64,6 +63,47 @@ public class XQDocLexer extends LexerBase {
             if (cc == CharacterClass.SEMICOLON) {
                 mTokenRange.match();
                 mType = XQDocTokenType.PREDEFINED_ENTITY_REFERENCE;
+            } else {
+                mType = XQDocTokenType.PARTIAL_ENTITY_REFERENCE;
+            }
+        } else if (cc == CharacterClass.HASH) {
+            mTokenRange.match();
+            int c = mTokenRange.getCodePoint();
+            if (c == 'x') {
+                mTokenRange.match();
+                c = mTokenRange.getCodePoint();
+                if (((c >= '0') && (c <= '9')) || ((c >= 'a') && (c <= 'f')) || ((c >= 'A') && (c <= 'F'))) {
+                    while (((c >= '0') && (c <= '9')) || ((c >= 'a') && (c <= 'f')) || ((c >= 'A') && (c <= 'F'))) {
+                        mTokenRange.match();
+                        c = mTokenRange.getCodePoint();
+                    }
+                    if (c == ';') {
+                        mTokenRange.match();
+                        mType = XQDocTokenType.CHARACTER_REFERENCE;
+                    } else {
+                        mType = XQDocTokenType.PARTIAL_ENTITY_REFERENCE;
+                    }
+                } else if (c == ';') {
+                    mTokenRange.match();
+                    mType = XQDocTokenType.EMPTY_ENTITY_REFERENCE;
+                } else {
+                    mType = XQDocTokenType.PARTIAL_ENTITY_REFERENCE;
+                }
+            } else if ((c >= '0') && (c <= '9')) {
+                mTokenRange.match();
+                while ((c >= '0') && (c <= '9')) {
+                    mTokenRange.match();
+                    c = mTokenRange.getCodePoint();
+                }
+                if (c == ';') {
+                    mTokenRange.match();
+                    mType = XQDocTokenType.CHARACTER_REFERENCE;
+                } else {
+                    mType = XQDocTokenType.PARTIAL_ENTITY_REFERENCE;
+                }
+            } else if (c == ';') {
+                mTokenRange.match();
+                mType = XQDocTokenType.EMPTY_ENTITY_REFERENCE;
             } else {
                 mType = XQDocTokenType.PARTIAL_ENTITY_REFERENCE;
             }

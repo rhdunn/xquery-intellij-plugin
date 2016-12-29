@@ -919,5 +919,9 @@ public class SyntaxHighlighterTest extends TestCase {
         assertThat(highlighter.getTokenHighlights(XQDocTokenType.EMPTY_ENTITY_REFERENCE).length, is(2));
         assertThat(highlighter.getTokenHighlights(XQDocTokenType.EMPTY_ENTITY_REFERENCE)[0], is(SyntaxHighlighter.COMMENT));
         assertThat(highlighter.getTokenHighlights(XQDocTokenType.EMPTY_ENTITY_REFERENCE)[1], is(SyntaxHighlighter.XQDOC_MARKUP));
+
+        assertThat(highlighter.getTokenHighlights(XQDocTokenType.CHARACTER_REFERENCE).length, is(2));
+        assertThat(highlighter.getTokenHighlights(XQDocTokenType.CHARACTER_REFERENCE)[0], is(SyntaxHighlighter.COMMENT));
+        assertThat(highlighter.getTokenHighlights(XQDocTokenType.CHARACTER_REFERENCE)[1], is(SyntaxHighlighter.XQDOC_MARKUP));
     }
 }

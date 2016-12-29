@@ -19,7 +19,6 @@ import com.intellij.lexer.Lexer;
 import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCase;
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocLexer;
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType;
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
@@ -102,6 +101,81 @@ public class XQDocLexerTest extends LexerTestCase {
         matchToken(lexer, "~",  0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER);
         matchToken(lexer, "&;", 1, 1, 3, XQDocTokenType.EMPTY_ENTITY_REFERENCE);
         matchToken(lexer, "",   1, 3, 3, null);
+    }
+
+    // endregion
+    // region xqDoc :: Contents + CharRef
+
+    public void testContents_CharRef_Octal() {
+        Lexer lexer = new XQDocLexer();
+
+        lexer.start("~Lorem&#20;ipsum.");
+        matchToken(lexer, "~",      0,  0,  1, XQDocTokenType.XQDOC_COMMENT_MARKER);
+        matchToken(lexer, "Lorem",  1,  1,  6, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "&#20;",  1,  6, 11, XQDocTokenType.CHARACTER_REFERENCE);
+        matchToken(lexer, "ipsum.", 1, 11, 17, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "",       1, 17, 17, null);
+
+        lexer.start("~&#");
+        matchToken(lexer, "~",  0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER);
+        matchToken(lexer, "&#", 1, 1, 3, XQDocTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "",   1, 3, 3, null);
+
+        lexer.start("~&#20");
+        matchToken(lexer, "~",    0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER);
+        matchToken(lexer, "&#20", 1, 1, 5, XQDocTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "",     1, 5, 5, null);
+
+        lexer.start("~&# ");
+        matchToken(lexer, "~",  0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER);
+        matchToken(lexer, "&#", 1, 1, 3, XQDocTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, " ",  1, 3, 4, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "",   1, 4, 4, null);
+
+        lexer.start("~&#;");
+        matchToken(lexer, "~",   0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER);
+        matchToken(lexer, "&#;", 1, 1, 4, XQDocTokenType.EMPTY_ENTITY_REFERENCE);
+        matchToken(lexer, "",    1, 4, 4, null);
+    }
+
+    public void testContents_CharRef_Hexadecimal() {
+        Lexer lexer = new XQDocLexer();
+
+        lexer.start("~One&#x20;&#xae;&#xDC;Two.");
+        matchToken(lexer, "~",      0,  0,  1, XQDocTokenType.XQDOC_COMMENT_MARKER);
+        matchToken(lexer, "One",    1,  1,  4, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "&#x20;", 1,  4, 10, XQDocTokenType.CHARACTER_REFERENCE);
+        matchToken(lexer, "&#xae;", 1, 10, 16, XQDocTokenType.CHARACTER_REFERENCE);
+        matchToken(lexer, "&#xDC;", 1, 16, 22, XQDocTokenType.CHARACTER_REFERENCE);
+        matchToken(lexer, "Two.",   1, 22, 26, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "",       1, 26, 26, null);
+
+        lexer.start("~&#x");
+        matchToken(lexer, "~",   0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER);
+        matchToken(lexer, "&#x", 1, 1, 4, XQDocTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "",    1, 4, 4, null);
+
+        lexer.start("~&#x20");
+        matchToken(lexer, "~",     0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER);
+        matchToken(lexer, "&#x20", 1, 1, 6, XQDocTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "",      1, 6, 6, null);
+
+        lexer.start("~&#x ");
+        matchToken(lexer, "~",   0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER);
+        matchToken(lexer, "&#x", 1, 1, 4, XQDocTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, " ",   1, 4, 5, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "",    1, 5, 5, null);
+
+        lexer.start("~&#x;&#x2G;&#x2g;&#xg2;");
+        matchToken(lexer, "~",    0,  0,  1, XQDocTokenType.XQDOC_COMMENT_MARKER);
+        matchToken(lexer, "&#x;", 1,  1,  5, XQDocTokenType.EMPTY_ENTITY_REFERENCE);
+        matchToken(lexer, "&#x2", 1,  5,  9, XQDocTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "G;",   1,  9, 11, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "&#x2", 1, 11, 15, XQDocTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "g;",   1, 15, 17, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "&#x",  1, 17, 20, XQDocTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "g2;",  1, 20, 23, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "",     1, 23, 23, null);
     }
 
     // endregion
@@ -344,6 +418,71 @@ public class XQDocLexerTest extends LexerTestCase {
         matchToken(lexer, "p",  5,  8,  9, XQDocTokenType.XML_TAG);
         matchToken(lexer, ">",  5,  9, 10, XQDocTokenType.END_XML_TAG);
         matchToken(lexer, "",   1, 10, 10, null);
+    }
+
+    // endregion
+    // region xqDoc :: DirElemConstructor (DirElemContents) + CharRef
+
+    public void testDirElemConstructor_CharRef_Octal() {
+        Lexer lexer = new XQDocLexer();
+
+        lexer.start("Lorem&#20;ipsum.", 0, 16, 4);
+        matchToken(lexer, "Lorem",  4,  0,  5, XQDocTokenType.XML_ELEMENT_CONTENTS);
+        matchToken(lexer, "&#20;",  4,  5, 10, XQDocTokenType.CHARACTER_REFERENCE);
+        matchToken(lexer, "ipsum.", 4, 10, 16, XQDocTokenType.XML_ELEMENT_CONTENTS);
+        matchToken(lexer, "",       4, 16, 16, null);
+
+        lexer.start("&#", 0, 2, 4);
+        matchToken(lexer, "&#", 4, 0, 2, XQDocTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "",   4, 2, 2, null);
+
+        lexer.start("&#20", 0, 4, 4);
+        matchToken(lexer, "&#20", 4, 0, 4, XQDocTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "",     4, 4, 4, null);
+
+        lexer.start("&# ", 0, 3, 4);
+        matchToken(lexer, "&#", 4, 0, 2, XQDocTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, " ",  4, 2, 3, XQDocTokenType.XML_ELEMENT_CONTENTS);
+        matchToken(lexer, "",   4, 3, 3, null);
+
+        lexer.start("&#;", 0, 3, 4);
+        matchToken(lexer, "&#;", 4, 0, 3, XQDocTokenType.EMPTY_ENTITY_REFERENCE);
+        matchToken(lexer, "",    4, 3, 3, null);
+    }
+
+    public void testDirElemConstructor_CharRef_Hexadecimal() {
+        Lexer lexer = new XQDocLexer();
+
+        lexer.start("One&#x20;&#xae;&#xDC;Two.", 0, 25, 4);
+        matchToken(lexer, "One",    4,  0,  3, XQDocTokenType.XML_ELEMENT_CONTENTS);
+        matchToken(lexer, "&#x20;", 4,  3,  9, XQDocTokenType.CHARACTER_REFERENCE);
+        matchToken(lexer, "&#xae;", 4,  9, 15, XQDocTokenType.CHARACTER_REFERENCE);
+        matchToken(lexer, "&#xDC;", 4, 15, 21, XQDocTokenType.CHARACTER_REFERENCE);
+        matchToken(lexer, "Two.",   4, 21, 25, XQDocTokenType.XML_ELEMENT_CONTENTS);
+        matchToken(lexer, "",       4, 25, 25, null);
+
+        lexer.start("&#x", 0, 3, 4);
+        matchToken(lexer, "&#x", 4, 0, 3, XQDocTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "",    4, 3, 3, null);
+
+        lexer.start("&#x20", 0, 5, 4);
+        matchToken(lexer, "&#x20", 4, 0, 5, XQDocTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "",      4, 5, 5, null);
+
+        lexer.start("&#x ", 0, 4, 4);
+        matchToken(lexer, "&#x", 4, 0, 3, XQDocTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, " ",   4, 3, 4, XQDocTokenType.XML_ELEMENT_CONTENTS);
+        matchToken(lexer, "",    4, 4, 4, null);
+
+        lexer.start("&#x;&#x2G;&#x2g;&#xg2;", 0, 22, 4);
+        matchToken(lexer, "&#x;", 4,  0,  4, XQDocTokenType.EMPTY_ENTITY_REFERENCE);
+        matchToken(lexer, "&#x2", 4,  4,  8, XQDocTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "G;",   4,  8, 10, XQDocTokenType.XML_ELEMENT_CONTENTS);
+        matchToken(lexer, "&#x2", 4, 10, 14, XQDocTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "g;",   4, 14, 16, XQDocTokenType.XML_ELEMENT_CONTENTS);
+        matchToken(lexer, "&#x",  4, 16, 19, XQDocTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "g2;",  4, 19, 22, XQDocTokenType.XML_ELEMENT_CONTENTS);
+        matchToken(lexer, "",     4, 22, 22, null);
     }
 
     // endregion

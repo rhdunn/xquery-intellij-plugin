@@ -171,6 +171,7 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
                    type == XQDocTokenType.PREDEFINED_ENTITY_REFERENCE ||
                    type == XQDocTokenType.PARTIAL_ENTITY_REFERENCE ||
                    type == XQDocTokenType.EMPTY_ENTITY_REFERENCE ||
+                   type == XQDocTokenType.CHARACTER_REFERENCE ||
                    type == XQDocTokenType.INVALID) {
             return XQDOC_MARKUP_KEYS;
         }
