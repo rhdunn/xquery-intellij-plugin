@@ -46,7 +46,7 @@ public class XQueryFileTypeTest extends ParsingTestCase {
 
         assertThat(consumer.fileTypes.size(), is(1));
         assertThat(consumer.fileTypes.get(0).first.getClass().getName(), is(XQueryFileType.class.getName()));
-        assertThat(consumer.fileTypes.get(0).second, is("xq;xqy;xquery;xql;xqm;xqws"));
+        assertThat(consumer.fileTypes.get(0).second, is("xq;xqy;xquery;xql;xqm;xqu;xqws"));
         assertThat(consumer.fileMatchers.size(), is(0));
     }
 
