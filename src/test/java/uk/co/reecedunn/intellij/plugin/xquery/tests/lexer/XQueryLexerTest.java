@@ -1646,16 +1646,6 @@ public class XQueryLexerTest extends LexerTestCase {
         matchToken(lexer, ">",    12, 11, 12, XQueryTokenType.END_XML_TAG);
         matchToken(lexer, "",      0, 12, 12, null);
 
-        lexer.start("<a>&</a>");
-        matchToken(lexer, "<",   0, 0, 1, XQueryTokenType.OPEN_XML_TAG);
-        matchToken(lexer, "a",  11, 1, 2, XQueryTokenType.XML_TAG_NCNAME);
-        matchToken(lexer, ">",  11, 2, 3, XQueryTokenType.END_XML_TAG);
-        matchToken(lexer, "&",  17, 3, 4, XQueryTokenType.PARTIAL_ENTITY_REFERENCE);
-        matchToken(lexer, "</", 17, 4, 6, XQueryTokenType.CLOSE_XML_TAG);
-        matchToken(lexer, "a",  12, 6, 7, XQueryTokenType.XML_TAG_NCNAME);
-        matchToken(lexer, ">",  12, 7, 8, XQueryTokenType.END_XML_TAG);
-        matchToken(lexer, "",    0, 8, 8, null);
-
         lexer.start("<a>&");
         matchToken(lexer, "<",   0, 0, 1, XQueryTokenType.OPEN_XML_TAG);
         matchToken(lexer, "a",  11, 1, 2, XQueryTokenType.XML_TAG_NCNAME);

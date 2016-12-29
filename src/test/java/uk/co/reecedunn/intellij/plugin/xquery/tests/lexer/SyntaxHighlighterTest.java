@@ -865,7 +865,7 @@ public class SyntaxHighlighterTest extends TestCase {
         assertThat(highlighter.getTokenHighlights(XQDocTokenType.NCNAME)[1], is(SyntaxHighlighter.XQDOC_TAG_VALUE));
     }
 
-    public void testTokenHighlights_XQDocMarker() {
+    public void testTokenHighlights_XQDocMarkup() {
         SyntaxHighlighter highlighter = new SyntaxHighlighter();
 
         assertThat(highlighter.getTokenHighlights(XQDocTokenType.OPEN_XML_TAG).length, is(2));
@@ -907,5 +907,17 @@ public class SyntaxHighlighterTest extends TestCase {
         assertThat(highlighter.getTokenHighlights(XQDocTokenType.INVALID).length, is(2));
         assertThat(highlighter.getTokenHighlights(XQDocTokenType.INVALID)[0], is(SyntaxHighlighter.COMMENT));
         assertThat(highlighter.getTokenHighlights(XQDocTokenType.INVALID)[1], is(SyntaxHighlighter.XQDOC_MARKUP));
+
+        assertThat(highlighter.getTokenHighlights(XQDocTokenType.PREDEFINED_ENTITY_REFERENCE).length, is(2));
+        assertThat(highlighter.getTokenHighlights(XQDocTokenType.PREDEFINED_ENTITY_REFERENCE)[0], is(SyntaxHighlighter.COMMENT));
+        assertThat(highlighter.getTokenHighlights(XQDocTokenType.PREDEFINED_ENTITY_REFERENCE)[1], is(SyntaxHighlighter.XQDOC_MARKUP));
+
+        assertThat(highlighter.getTokenHighlights(XQDocTokenType.PARTIAL_ENTITY_REFERENCE).length, is(2));
+        assertThat(highlighter.getTokenHighlights(XQDocTokenType.PARTIAL_ENTITY_REFERENCE)[0], is(SyntaxHighlighter.COMMENT));
+        assertThat(highlighter.getTokenHighlights(XQDocTokenType.PARTIAL_ENTITY_REFERENCE)[1], is(SyntaxHighlighter.XQDOC_MARKUP));
+
+        assertThat(highlighter.getTokenHighlights(XQDocTokenType.EMPTY_ENTITY_REFERENCE).length, is(2));
+        assertThat(highlighter.getTokenHighlights(XQDocTokenType.EMPTY_ENTITY_REFERENCE)[0], is(SyntaxHighlighter.COMMENT));
+        assertThat(highlighter.getTokenHighlights(XQDocTokenType.EMPTY_ENTITY_REFERENCE)[1], is(SyntaxHighlighter.XQDOC_MARKUP));
     }
 }

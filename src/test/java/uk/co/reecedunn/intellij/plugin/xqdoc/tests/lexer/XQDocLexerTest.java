@@ -19,6 +19,7 @@ import com.intellij.lexer.Lexer;
 import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCase;
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocLexer;
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType;
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
@@ -66,6 +67,41 @@ public class XQDocLexerTest extends LexerTestCase {
         matchToken(lexer, "~",                  0,  0,  1, XQDocTokenType.XQDOC_COMMENT_MARKER);
         matchToken(lexer, "Lorem ipsum dolor.", 1,  1, 19, XQDocTokenType.CONTENTS);
         matchToken(lexer, "",                   1, 19, 19, null);
+    }
+
+    // endregion
+    // region xqDoc :: Contents + PredefinedEntityRef
+
+    public void testContents_PredefinedEntityRef() {
+        Lexer lexer = new XQDocLexer();
+
+        lexer.start("~Lorem &amp; ipsum.");
+        matchToken(lexer, "~",       0,  0,  1, XQDocTokenType.XQDOC_COMMENT_MARKER);
+        matchToken(lexer, "Lorem ",  1,  1,  7, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "&amp;",   1,  7, 12, XQDocTokenType.PREDEFINED_ENTITY_REFERENCE);
+        matchToken(lexer, " ipsum.", 1, 12, 19, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "",        1, 19, 19, null);
+
+        lexer.start("~&");
+        matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER);
+        matchToken(lexer, "&", 1, 1, 2, XQDocTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "",  1, 2, 2, null);
+
+        lexer.start("~&abc");
+        matchToken(lexer, "~",    0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER);
+        matchToken(lexer, "&abc", 1, 1, 5, XQDocTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "",     1, 5, 5, null);
+
+        lexer.start("~&abc!");
+        matchToken(lexer, "~",    0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER);
+        matchToken(lexer, "&abc", 1, 1, 5, XQDocTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "!",    1, 5, 6, XQDocTokenType.CONTENTS);
+        matchToken(lexer, "",     1, 6, 6, null);
+
+        lexer.start("~&;");
+        matchToken(lexer, "~",  0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER);
+        matchToken(lexer, "&;", 1, 1, 3, XQDocTokenType.EMPTY_ENTITY_REFERENCE);
+        matchToken(lexer, "",   1, 3, 3, null);
     }
 
     // endregion
@@ -243,6 +279,71 @@ public class XQDocLexerTest extends LexerTestCase {
         matchToken(lexer, ">",  5, 18, 19, XQDocTokenType.END_XML_TAG);
         matchToken(lexer, "g",  1, 19, 20, XQDocTokenType.CONTENTS);
         matchToken(lexer, "",   1, 20, 20, null);
+    }
+
+    // endregion
+    // region xqDoc :: DirElemConstructor (DirElemContents) + PredefinedEntityRef
+
+    public void testDirElemConstructor_PredefinedEntityRef() {
+        Lexer lexer = new XQDocLexer();
+
+        lexer.start("~<p>Lorem &amp; ipsum.</p>");
+        matchToken(lexer, "~",       0,  0,  1, XQDocTokenType.XQDOC_COMMENT_MARKER);
+        matchToken(lexer, "<",       1,  1,  2, XQDocTokenType.OPEN_XML_TAG);
+        matchToken(lexer, "p",       3,  2,  3, XQDocTokenType.XML_TAG);
+        matchToken(lexer, ">",       3,  3,  4, XQDocTokenType.END_XML_TAG);
+        matchToken(lexer, "Lorem ",  4,  4, 10, XQDocTokenType.XML_ELEMENT_CONTENTS);
+        matchToken(lexer, "&amp;",   4, 10, 15, XQDocTokenType.PREDEFINED_ENTITY_REFERENCE);
+        matchToken(lexer, " ipsum.", 4, 15, 22, XQDocTokenType.XML_ELEMENT_CONTENTS);
+        matchToken(lexer, "</",      4, 22, 24, XQDocTokenType.CLOSE_XML_TAG);
+        matchToken(lexer, "p",       5, 24, 25, XQDocTokenType.XML_TAG);
+        matchToken(lexer, ">",       5, 25, 26, XQDocTokenType.END_XML_TAG);
+        matchToken(lexer, "",        1, 26, 26, null);
+
+        lexer.start("~<p>&</p>");
+        matchToken(lexer, "~",  0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER);
+        matchToken(lexer, "<",  1, 1, 2, XQDocTokenType.OPEN_XML_TAG);
+        matchToken(lexer, "p",  3, 2, 3, XQDocTokenType.XML_TAG);
+        matchToken(lexer, ">",  3, 3, 4, XQDocTokenType.END_XML_TAG);
+        matchToken(lexer, "&",  4, 4, 5, XQDocTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "</", 4, 5, 7, XQDocTokenType.CLOSE_XML_TAG);
+        matchToken(lexer, "p",  5, 7, 8, XQDocTokenType.XML_TAG);
+        matchToken(lexer, ">",  5, 8, 9, XQDocTokenType.END_XML_TAG);
+        matchToken(lexer, "",   1, 9, 9, null);
+
+        lexer.start("~<p>&abc</p>");
+        matchToken(lexer, "~",    0,  0,  1, XQDocTokenType.XQDOC_COMMENT_MARKER);
+        matchToken(lexer, "<",    1,  1,  2, XQDocTokenType.OPEN_XML_TAG);
+        matchToken(lexer, "p",    3,  2,  3, XQDocTokenType.XML_TAG);
+        matchToken(lexer, ">",    3,  3,  4, XQDocTokenType.END_XML_TAG);
+        matchToken(lexer, "&abc", 4,  4,  8, XQDocTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "</",   4,  8, 10, XQDocTokenType.CLOSE_XML_TAG);
+        matchToken(lexer, "p",    5, 10, 11, XQDocTokenType.XML_TAG);
+        matchToken(lexer, ">",    5, 11, 12, XQDocTokenType.END_XML_TAG);
+        matchToken(lexer, "",     1, 12, 12, null);
+
+        lexer.start("~<p>&abc!</p>");
+        matchToken(lexer, "~",    0,  0,  1, XQDocTokenType.XQDOC_COMMENT_MARKER);
+        matchToken(lexer, "<",    1,  1,  2, XQDocTokenType.OPEN_XML_TAG);
+        matchToken(lexer, "p",    3,  2,  3, XQDocTokenType.XML_TAG);
+        matchToken(lexer, ">",    3,  3,  4, XQDocTokenType.END_XML_TAG);
+        matchToken(lexer, "&abc", 4,  4,  8, XQDocTokenType.PARTIAL_ENTITY_REFERENCE);
+        matchToken(lexer, "!",    4,  8,  9, XQDocTokenType.XML_ELEMENT_CONTENTS);
+        matchToken(lexer, "</",   4,  9, 11, XQDocTokenType.CLOSE_XML_TAG);
+        matchToken(lexer, "p",    5, 11, 12, XQDocTokenType.XML_TAG);
+        matchToken(lexer, ">",    5, 12, 13, XQDocTokenType.END_XML_TAG);
+        matchToken(lexer, "",     1, 13, 13, null);
+
+        lexer.start("~<p>&;</p>");
+        matchToken(lexer, "~",  0,  0,  1, XQDocTokenType.XQDOC_COMMENT_MARKER);
+        matchToken(lexer, "<",  1,  1,  2, XQDocTokenType.OPEN_XML_TAG);
+        matchToken(lexer, "p",  3,  2,  3, XQDocTokenType.XML_TAG);
+        matchToken(lexer, ">",  3,  3,  4, XQDocTokenType.END_XML_TAG);
+        matchToken(lexer, "&;", 4,  4,  6, XQDocTokenType.EMPTY_ENTITY_REFERENCE);
+        matchToken(lexer, "</", 4,  6,  8, XQDocTokenType.CLOSE_XML_TAG);
+        matchToken(lexer, "p",  5,  8,  9, XQDocTokenType.XML_TAG);
+        matchToken(lexer, ">",  5,  9, 10, XQDocTokenType.END_XML_TAG);
+        matchToken(lexer, "",   1, 10, 10, null);
     }
 
     // endregion

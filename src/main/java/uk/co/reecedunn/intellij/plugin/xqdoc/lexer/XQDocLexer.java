@@ -51,6 +51,30 @@ public class XQDocLexer extends LexerBase {
         }
     }
 
+    private void matchEntityReference() {
+        mTokenRange.match();
+        int cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
+        if (cc == CharacterClass.NAME_START_CHAR) {
+            mTokenRange.match();
+            cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
+            while (cc == CharacterClass.NAME_START_CHAR || cc == CharacterClass.DIGIT) {
+                mTokenRange.match();
+                cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
+            }
+            if (cc == CharacterClass.SEMICOLON) {
+                mTokenRange.match();
+                mType = XQDocTokenType.PREDEFINED_ENTITY_REFERENCE;
+            } else {
+                mType = XQDocTokenType.PARTIAL_ENTITY_REFERENCE;
+            }
+        } else if (cc == CharacterClass.SEMICOLON) {
+            mTokenRange.match();
+            mType = XQDocTokenType.EMPTY_ENTITY_REFERENCE;
+        } else {
+            mType = XQDocTokenType.PARTIAL_ENTITY_REFERENCE;
+        }
+    }
+
     private static final int STATE_DEFAULT = 0;
     private static final int STATE_CONTENTS = 1;
     private static final int STATE_TAGGED_CONTENTS = 2;
@@ -98,6 +122,9 @@ public class XQDocLexer extends LexerBase {
                 pushState(STATE_TRIM);
                 stateTrim();
                 break;
+            case '&': // XML PredefinedEntityRef and CharRef
+                matchEntityReference();
+                break;
             default:
                 while (true) switch (c) {
                     case '\n': // U+000A
@@ -106,6 +133,7 @@ public class XQDocLexer extends LexerBase {
                         // fallthrough
                     case CodePointRange.END_OF_BUFFER:
                     case '<':
+                    case '&':
                         mType = XQDocTokenType.CONTENTS;
                         return;
                     default:
@@ -276,12 +304,16 @@ public class XQDocLexer extends LexerBase {
                     pushState(STATE_ELEM_CONSTRUCTOR);
                 }
                 break;
+            case '&': // XML PredefinedEntityRef and CharRef
+                matchEntityReference();
+                break;
             default:
                 mTokenRange.match();
                 c = mTokenRange.getCodePoint();
                 while (true) switch (c) {
                     case CodePointRange.END_OF_BUFFER:
                     case '<':
+                    case '&':
                         mType = XQDocTokenType.XML_ELEMENT_CONTENTS;
                         return;
                     default:

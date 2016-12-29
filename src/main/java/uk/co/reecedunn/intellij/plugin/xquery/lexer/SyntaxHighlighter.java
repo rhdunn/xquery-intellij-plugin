@@ -168,6 +168,9 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
                    type == XQDocTokenType.XML_ATTRIBUTE_VALUE_START ||
                    type == XQDocTokenType.XML_ATTRIBUTE_VALUE_CONTENTS ||
                    type == XQDocTokenType.XML_ATTRIBUTE_VALUE_END ||
+                   type == XQDocTokenType.PREDEFINED_ENTITY_REFERENCE ||
+                   type == XQDocTokenType.PARTIAL_ENTITY_REFERENCE ||
+                   type == XQDocTokenType.EMPTY_ENTITY_REFERENCE ||
                    type == XQDocTokenType.INVALID) {
             return XQDOC_MARKUP_KEYS;
         }
