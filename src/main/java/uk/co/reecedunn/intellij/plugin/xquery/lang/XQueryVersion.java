@@ -40,6 +40,8 @@ public enum XQueryVersion {
     VERSION_6_0("6.0", 6.0), // MarkLogic
     VERSION_7_0("7.0", 7.0), // MarkLogic
     VERSION_8_0("8.0", 8.0), // MarkLogic
+    VERSION_8_4("8.4", 8.4), // BaseX
+    VERSION_8_5("8.5", 8.5), // BaseX
     VERSION_9_4("9.4", 9.4), // Saxon
     VERSION_9_5("9.5", 9.5), // Saxon
     VERSION_9_6("9.6", 9.6), // Saxon
@@ -98,6 +100,8 @@ public enum XQueryVersion {
         sVersions.put("6.0", VERSION_6_0);
         sVersions.put("7.0", VERSION_7_0);
         sVersions.put("8.0", VERSION_8_0);
+        sVersions.put("8.4", VERSION_8_4);
+        sVersions.put("8.5", VERSION_8_5);
         sVersions.put("9.4", VERSION_9_4);
         sVersions.put("9.5", VERSION_9_5);
         sVersions.put("9.6", VERSION_9_6);
