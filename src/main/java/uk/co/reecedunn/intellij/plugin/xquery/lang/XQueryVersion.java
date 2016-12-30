@@ -22,26 +22,30 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum XQueryVersion {
-    // XQuery Versions:
-    VERSION_0_9_MARKLOGIC("0.9-ml", 0.9),
-    VERSION_1_0("1.0", 1.0),
-    VERSION_1_0_MARKLOGIC("1.0-ml", 1.0),
-    VERSION_3_0("3.0", 3.0),
-    VERSION_3_1("3.1", 3.1),
-    // XQuery Specification Versions:
+    // region Specification Versions
+
     VERSION_1_0_20070123("1.0-20070123", 1.0, 20070123), // XQuery 1.0 REC (First Edition)
     VERSION_1_0_20101214("1.0-20101214", 1.0, 20101214), // XQuery 1.0 REC (Second Edition)
     VERSION_3_0_20140408("3.0-20140408", 3.0, 20140408), // XQuery 3.0 REC
     VERSION_3_1_20161213("3.1-20161213", 3.1, 20161213), // XQuery 3.1 CR
-    // MarkLogic Versions:
-    VERSION_6_0("6.0", 6.0),
-    VERSION_7_0("7.0", 7.0),
-    VERSION_8_0("8.0", 8.0),
-    // Saxon Versions:
-    VERSION_9_4("9.4", 9.4),
-    VERSION_9_5("9.5", 9.5),
-    VERSION_9_6("9.6", 9.6),
-    VERSION_9_7("9.7", 9.7);
+
+    // endregion
+    // region Versions
+
+    VERSION_0_9_MARKLOGIC("0.9-ml", 0.9), // XQuery Version
+    VERSION_1_0("1.0", 1.0), // XQuery Version
+    VERSION_1_0_MARKLOGIC("1.0-ml", 1.0), // XQuery Version
+    VERSION_3_0("3.0", 3.0), // XQuery Version
+    VERSION_3_1("3.1", 3.1), // XQuery Version
+    VERSION_6_0("6.0", 6.0), // MarkLogic
+    VERSION_7_0("7.0", 7.0), // MarkLogic
+    VERSION_8_0("8.0", 8.0), // MarkLogic
+    VERSION_9_4("9.4", 9.4), // Saxon
+    VERSION_9_5("9.5", 9.5), // Saxon
+    VERSION_9_6("9.6", 9.6), // Saxon
+    VERSION_9_7("9.7", 9.7); // Saxon
+
+    // endregion
 
     private final String mID;
     private final double mValue;
