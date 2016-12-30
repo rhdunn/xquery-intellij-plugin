@@ -4,9 +4,16 @@
 
 Language Support:
 
-1.  `array-node {}` is valid in MarkLogic 8.0.
-2.  Don't crash when resolving an empty `URILiteral` in an import statement.
-3.  Complete support for XQuery Scripting Extensions 1.0.
+1.  Complete support for XQuery Scripting Extensions 1.0.
+2.  Support highlighting xqDoc parameter names.
+3.  Support highlighting XML `PredefinedEntityRef` and `CharRef` tokens in
+    xqDoc comments.
+
+Bug Fixes:
+
+1.  Don't crash when resolving an empty `URILiteral` in an import statement.
+2.  Fix highlighting `:` at the start of a line in xqDoc comments.
+3.  `array-node {}` is valid in MarkLogic 8.0.
 
 ## 0.3 - 2016-11-30
 
