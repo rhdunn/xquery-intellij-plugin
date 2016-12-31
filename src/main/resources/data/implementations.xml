@@ -16,6 +16,66 @@ limitations under the License.
 -->
 <!--suppress XmlUnboundNsPrefix -->
 <implementations>
+    <implementation id="basex" name="BaseX" localized="false" default="false" href="http://basex.org/">
+        <version id="basex/v8.4" name="8.4" localized="false" default="false">
+            <dialect id="basex/v8.4/1.0" name="XQuery" localized="false" default="false">
+                <minimal-conformance version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <module version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+            </dialect>
+            <dialect id="basex/v8.4/1.0-update" name="xquery.implementation.xquery-update-10" localized="true" default="true">
+                <minimal-conformance version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <module version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <update-facility version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="true"/>
+            </dialect>
+            <dialect id="basex/v8.4/3.0" name="XQuery" localized="false" default="false">
+                <minimal-conformance version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <module version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+            </dialect>
+            <dialect id="basex/v8.4/3.0-update" name="xquery.implementation.xquery-update-10" localized="true" default="true">
+                <minimal-conformance version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <module version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <update-facility version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="true"/>
+            </dialect>
+            <dialect id="basex/v8.4/3.1" name="XQuery" localized="false" default="false">
+                <minimal-conformance version="3.1" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <module version="3.1" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+            </dialect>
+            <dialect id="basex/v8.4/3.1-update" name="xquery.implementation.xquery-update-10" localized="true" default="true">
+                <minimal-conformance version="3.1" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <module version="3.1" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <update-facility version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="true"/>
+            </dialect>
+        </version>
+        <version id="basex/v8.5" name="8.5" localized="false" default="false">
+            <dialect id="basex/v8.5/1.0" name="XQuery" localized="false" default="false">
+                <minimal-conformance version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <module version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+            </dialect>
+            <dialect id="basex/v8.5/1.0-update" name="xquery.implementation.xquery-update-10" localized="true" default="true">
+                <minimal-conformance version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <module version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <update-facility version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="true"/>
+            </dialect>
+            <dialect id="basex/v8.5/3.0" name="XQuery" localized="false" default="false">
+                <minimal-conformance version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <module version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+            </dialect>
+            <dialect id="basex/v8.5/3.0-update" name="xquery.implementation.xquery-update-10" localized="true" default="true">
+                <minimal-conformance version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <module version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <update-facility version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="true"/>
+            </dialect>
+            <dialect id="basex/v8.5/3.1" name="XQuery" localized="false" default="false">
+                <minimal-conformance version="3.1" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <module version="3.1" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+            </dialect>
+            <dialect id="basex/v8.5/3.1-update" name="xquery.implementation.xquery-update-10" localized="true" default="true">
+                <minimal-conformance version="3.1" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <module version="3.1" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
+                <update-facility version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="true"/>
+            </dialect>
+        </version>
+    </implementation>
     <implementation id="marklogic" name="MarkLogic" localized="false" default="false" href="http://www.marklogic.com/">
         <version id="marklogic/v6" name="MarkLogic 6" localized="false" default="false" href="https://docs.marklogic.com/6.0/">
             <!--

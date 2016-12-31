@@ -54,22 +54,25 @@ public class ImplementationsTest extends TestCase {
 
     public void testImplementations() {
         final List<ImplementationItem> implementations = Implementations.getImplementations();
-        assertThat(implementations.size(), is(5));
+        assertThat(implementations.size(), is(6));
 
-        assertThat(implementations.get(0).getID(), is("marklogic"));
-        assertThat(implementations.get(0).toString(), is("MarkLogic"));
+        assertThat(implementations.get(0).getID(), is("basex"));
+        assertThat(implementations.get(0).toString(), is("BaseX"));
 
-        assertThat(implementations.get(1).getID(), is("saxon/HE"));
-        assertThat(implementations.get(1).toString(), is("Saxon Home Edition"));
+        assertThat(implementations.get(1).getID(), is("marklogic"));
+        assertThat(implementations.get(1).toString(), is("MarkLogic"));
 
-        assertThat(implementations.get(2).getID(), is("saxon/PE"));
-        assertThat(implementations.get(2).toString(), is("Saxon Professional Edition"));
+        assertThat(implementations.get(2).getID(), is("saxon/HE"));
+        assertThat(implementations.get(2).toString(), is("Saxon Home Edition"));
 
-        assertThat(implementations.get(3).getID(), is("saxon/EE"));
-        assertThat(implementations.get(3).toString(), is("Saxon Enterprise Edition"));
+        assertThat(implementations.get(3).getID(), is("saxon/PE"));
+        assertThat(implementations.get(3).toString(), is("Saxon Professional Edition"));
 
-        assertThat(implementations.get(4).getID(), is("w3c"));
-        assertThat(implementations.get(4).toString(), is("W3C"));
+        assertThat(implementations.get(4).getID(), is("saxon/EE"));
+        assertThat(implementations.get(4).toString(), is("Saxon Enterprise Edition"));
+
+        assertThat(implementations.get(5).getID(), is("w3c"));
+        assertThat(implementations.get(5).toString(), is("W3C"));
 
         assertThat(implementations.get(0).equals(implementations.get(0)), is(true));
         assertThat(implementations.get(1).equals(implementations.get(0)), is(false));
@@ -121,7 +124,7 @@ public class ImplementationsTest extends TestCase {
     }
 
     public void testDefaultImplementationVersion() {
-        ImplementationItem implementation = Implementations.getImplementations().get(1);
+        ImplementationItem implementation = Implementations.getItemById("saxon/HE");
 
         ImplementationItem version = implementation.getDefaultItem(ImplementationItem.IMPLEMENTATION_VERSION);
         assertThat(version.getID(), is("saxon/HE/v9.4"));
@@ -191,8 +194,7 @@ public class ImplementationsTest extends TestCase {
     }
 
     public void testVersions() {
-        ImplementationItem implementation = Implementations.getImplementations().get(2);
-        ImplementationItem version = implementation.getItems(ImplementationItem.IMPLEMENTATION_VERSION).get(0);
+        ImplementationItem version = Implementations.getItemById("saxon/PE/v9.4");
 
         final List<XQueryVersion> xquery = version.getVersions(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryConformance.MINIMAL_CONFORMANCE);
         assertThat(xquery.size(), is(2));

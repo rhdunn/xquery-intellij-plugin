@@ -59,7 +59,7 @@ public class XQueryProjectSettingsTest extends TestCase {
     }
 
     public void testLoadState() {
-        ImplementationItem implementation = Implementations.getImplementations().get(0);
+        ImplementationItem implementation = Implementations.getItemById("marklogic");
         ImplementationItem implementationVersion = implementation.getItems(ImplementationItem.IMPLEMENTATION_VERSION).get(0);
         List<ImplementationItem> implementationDialects = implementationVersion.getItems(ImplementationItem.IMPLEMENTATION_DIALECT);
 
@@ -105,7 +105,7 @@ public class XQueryProjectSettingsTest extends TestCase {
 
     @SuppressWarnings("ThrowableResultOfMethodCallIgnored")
     public void testTransientProperties() {
-        ImplementationItem implementation = Implementations.getImplementations().get(0);
+        ImplementationItem implementation = Implementations.getItemById("marklogic");
         ImplementationItem implementationVersion = implementation.getItems(ImplementationItem.IMPLEMENTATION_VERSION).get(0);
         List<ImplementationItem> implementationDialects = implementationVersion.getItems(ImplementationItem.IMPLEMENTATION_DIALECT);
 
