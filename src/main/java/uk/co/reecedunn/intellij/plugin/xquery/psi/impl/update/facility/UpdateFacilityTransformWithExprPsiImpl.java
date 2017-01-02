@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016-2017 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,8 +34,10 @@ public class UpdateFacilityTransformWithExprPsiImpl extends ASTWrapperPsiElement
 
     @Override
     public boolean conformsTo(ImplementationItem implementation) {
-        final XQueryVersion version = implementation.getVersion(XQueryConformance.UPDATE_FACILITY);
-        return version != null && version.supportsVersion(XQueryVersion.VERSION_3_0);
+        final XQueryVersion update = implementation.getVersion(XQueryConformance.UPDATE_FACILITY);
+        final XQueryVersion basex = implementation.getVersion(XQueryConformance.BASEX);
+        return (update != null && update.supportsVersion(XQueryVersion.VERSION_3_0))
+            || (basex  != null && basex.supportsVersion(XQueryVersion.VERSION_8_5));
     }
 
     @Override
