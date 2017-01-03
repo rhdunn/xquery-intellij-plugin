@@ -18,22 +18,27 @@ PhpStorm, WebStorm, PyCharm, RubyMine, AppCode, CLion, Rider, Android Studio
 
 _Supported IntelliJ Versions:_ 2016.1 - 2016.3
 
-_Supported XQuery Implementations:_ MarkLogic, Saxonica, W3C Specifications
+_Supported XQuery Implementations:_ BaseX, MarkLogic, Saxonica, W3C Specifications
 
 ## Features
 
 ### Language Support
 
 Standard conforming XQuery syntax highlighter and parser with file encoding
-detection. Supports:
+detection. Supports the following XQuery specifications:
 
 *  XQuery 1.0, 3.0 and 3.1 core language;
 *  XQuery Update Facility 1.0 and 3.0;
-*  XQuery Scripting Extension 1.0;
-*  MarkLogic 6.0 to 8.0 vendor extensions;
-*  xqDoc documentation comments.
+*  XQuery Scripting Extension 1.0.
 
 ![Syntax Highlighting](images/syntax-highlighting.png)
+
+Supports the following XQuery syntax extensions:
+
+*  Saxon 9.4 `map` syntax;
+*  MarkLogic 6.0 to 8.0 vendor extensions.
+
+Support for xqDoc documentation comments.
 
 Control over how XQuery dialects are interpreted.
 
@@ -66,7 +71,7 @@ Other supported IntelliJ features:
 
 ## License Information
 
-Copyright (C) 2016 Reece H. Dunn
+Copyright (C) 2016-2017 Reece H. Dunn
 
 The IntelliJ XQuery Plugin is licensed under the [Apache 2.0](LICENSE)
 license.
