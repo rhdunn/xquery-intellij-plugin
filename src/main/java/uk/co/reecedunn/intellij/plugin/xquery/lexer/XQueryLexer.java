@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016-2017 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -1487,6 +1487,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("unassignable", XQueryTokenType.K_UNASSIGNABLE); // Scripting Extension 1.0
         sKeywords.put("union", XQueryTokenType.K_UNION);
         sKeywords.put("unordered", XQueryTokenType.K_UNORDERED);
+        sKeywords.put("update", XQueryTokenType.K_UPDATE); // BaseX 7.8
         sKeywords.put("updating", XQueryTokenType.K_UPDATING); // Update Facility 1.0
         sKeywords.put("validate", XQueryTokenType.K_VALIDATE);
         sKeywords.put("value", XQueryTokenType.K_VALUE); // Update Facility 1.0

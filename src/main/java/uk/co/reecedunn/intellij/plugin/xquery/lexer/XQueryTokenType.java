@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016-2017 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -284,6 +284,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_UNASSIGNABLE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_UNASSIGNABLE"); // Scripting Extension 1.0
     IXQueryKeywordOrNCNameType K_UNION = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_UNION");
     IXQueryKeywordOrNCNameType K_UNORDERED = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_UNORDERED");
+    IXQueryKeywordOrNCNameType K_UPDATE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_UPDATE"); // BaseX 7.8
     IXQueryKeywordOrNCNameType K_UPDATING = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_UPDATING"); // Update Facility 1.0
     IXQueryKeywordOrNCNameType K_VALIDATE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_VALIDATE");
     IXQueryKeywordOrNCNameType K_VALUE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_VALUE"); // Update Facility 1.0

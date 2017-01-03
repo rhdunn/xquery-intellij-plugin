@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016-2017 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -4146,6 +4146,26 @@ public class XQueryLexerTest extends LexerTestCase {
         matchSingleToken(lexer, "object-node", XQueryTokenType.K_OBJECT_NODE);
         matchSingleToken(lexer, "(",           XQueryTokenType.PARENTHESIS_OPEN);
         matchSingleToken(lexer, ")",           XQueryTokenType.PARENTHESIS_CLOSE);
+    }
+
+    // endregion
+    // region BaseX 7.8 :: UpdateExpr
+
+    public void testUpdateExpr() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "update", XQueryTokenType.K_UPDATE);
+    }
+
+    // endregion
+    // region BaseX 8.5 :: UpdateExpr
+
+    public void testUpdateExpr_BaseX85() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "update", XQueryTokenType.K_UPDATE);
+        matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN);
+        matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE);
     }
 
     // endregion
