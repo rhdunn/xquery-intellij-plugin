@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016-2017 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.tree.IFileElementType;
 import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.basex.BaseXUpdateExprPsiImpl;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.marklogic.*;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.scripting.*;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.update.facility.*;
@@ -343,6 +344,11 @@ public interface XQueryElementType {
     IElementType NUMBER_TEST = new ICompositeElementType("XQUERY_NUMBER_TEST", MarkLogicNumberTestPsiImpl.class, XQuery.INSTANCE);
 
     IElementType MAP_TEST = new ICompositeElementType("XQUERY_MAP_TEST", MarkLogicMapTestPsiImpl.class, XQuery.INSTANCE);
+
+    // endregion
+    // region BaseX 7.8
+
+    IElementType UPDATE_EXPR = new ICompositeElementType("XQUERY_UPDATE_EXPR", BaseXUpdateExprPsiImpl.class, XQuery.INSTANCE);
 
     // endregion
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016-2017 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,6 +40,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
  *    -  MarkLogic 1.0-ml Extensions for MarkLogic 6.0
  *    -  MarkLogic 1.0-ml Extensions for MarkLogic 8.0
  *    -  Saxon 9.4 MapConstructor and MapTest syntax
+ *    -  BaseX 7.8 UpdateExpr extension
  */
 @SuppressWarnings({"SameParameterValue", "StatementWithEmptyBody"})
 class XQueryParser {
@@ -3424,6 +3425,8 @@ class XQueryParser {
                 exprMarker.done(XQueryElementType.ARROW_EXPR);
             } else if (parseTransformWithExpr()) {
                 exprMarker.done(XQueryElementType.TRANSFORM_WITH_EXPR);
+            } else if (parseUpdateExpr()) {
+                exprMarker.done(XQueryElementType.UPDATE_EXPR);
             } else {
                 exprMarker.done(XQueryElementType.ARROW_EXPR);
             }
@@ -3468,6 +3471,17 @@ class XQueryParser {
 
             parseWhiteSpaceAndCommentTokens();
             return parseEnclosedExprOrBlock(null, BlockOpen.OPTIONAL, BlockExpr.REQUIRED);
+        }
+        return false;
+    }
+
+    private boolean parseUpdateExpr() {
+        if (matchTokenType(XQueryTokenType.K_UPDATE)) {
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseExpr(XQueryElementType.EXPR)) {
+                error(XQueryBundle.message("parser.error.expected-expression"));
+            }
+            return true;
         }
         return false;
     }
