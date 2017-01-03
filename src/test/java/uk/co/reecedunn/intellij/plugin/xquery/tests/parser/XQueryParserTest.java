@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016-2017 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -3125,6 +3125,13 @@ public class XQueryParserTest extends ParserTestCase {
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AbbrevForwardStep")
+    public void testAbbrevForwardStep_KeywordNCNames_BaseX78() {
+        final String expected = loadResource("tests/parser/basex-7.8/AbbrevForwardStep_KeywordNCNames_BaseX78.txt");
+        final XQueryFile actual = parseResource("tests/parser/basex-7.8/AbbrevForwardStep_KeywordNCNames_BaseX78.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
     // endregion
     // region XQuery 1.0 :: ReverseStep
 
@@ -3727,6 +3734,13 @@ public class XQueryParserTest extends ParserTestCase {
     public void testFunctionCall_KeywordNCNames_MarkLogic60() {
         final String expected = loadResource("tests/parser/marklogic-6.0/FunctionCall_KeywordNCNames_MarkLogic60.txt");
         final XQueryFile actual = parseResource("tests/parser/marklogic-6.0/FunctionCall_KeywordNCNames_MarkLogic60.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FunctionCall")
+    public void testFunctionCall_KeywordNCNames_BaseX78() {
+        final String expected = loadResource("tests/parser/basex-7.8/FunctionCall_KeywordNCNames_BaseX78.txt");
+        final XQueryFile actual = parseResource("tests/parser/basex-7.8/FunctionCall_KeywordNCNames_BaseX78.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
