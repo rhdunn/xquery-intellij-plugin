@@ -32,21 +32,29 @@ public class BaseXUpdateExprPsiImpl extends ASTWrapperPsiElement implements Base
         super(node);
     }
 
+    XQueryVersion getRequiredVersion() {
+        if (findChildByType(XQueryTokenType.BLOCK_OPEN) != null) {
+            return XQueryVersion.VERSION_8_5;
+        }
+        return XQueryVersion.VERSION_8_4;
+    }
+
     @Override
     public boolean conformsTo(ImplementationItem implementation) {
         final XQueryVersion basex = implementation.getVersion(XQueryConformance.BASEX);
         // NOTE: UpdateExpr was introduced in BaseX 7.8, but this plugin only supports >= 8.4.
-        return basex  != null && basex.supportsVersion(XQueryVersion.VERSION_8_4);
+        return basex  != null && basex.supportsVersion(getRequiredVersion());
     }
 
     @Override
     public PsiElement getConformanceElement() {
-        return findChildByType(XQueryTokenType.K_UPDATE);
+        PsiElement element = findChildByType(XQueryTokenType.BLOCK_OPEN);
+        return element == null ? findChildByType(XQueryTokenType.K_UPDATE) : element;
     }
 
     @Override
     public String getConformanceErrorMessage() {
         // NOTE: UpdateExpr was introduced in BaseX 7.8, but this plugin only supports >= 8.4.
-        return XQueryBundle.message("requires.feature.basex.version", XQueryVersion.VERSION_8_4);
+        return XQueryBundle.message("requires.feature.basex.version", getRequiredVersion());
     }
 }

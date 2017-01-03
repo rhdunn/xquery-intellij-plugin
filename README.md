@@ -35,7 +35,7 @@ detection. Supports the following XQuery specifications:
 
 Supports the following XQuery syntax extensions:
 
-*  BaseX 7.8 `update` syntax;
+*  BaseX 7.8 and 8.5 `update` syntax;
 *  Saxon 9.4 `map` syntax;
 *  MarkLogic 6.0 to 8.0 vendor extensions.
 

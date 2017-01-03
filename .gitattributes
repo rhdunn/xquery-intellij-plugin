@@ -1,5 +1,7 @@
 src/test/resources/tests/parser/basex-7.8/*.txt text eol=lf
 src/test/resources/tests/parser/basex-7.8/*.xq text eol=lf
+src/test/resources/tests/parser/basex-8.5/*.txt text eol=lf
+src/test/resources/tests/parser/basex-8.5/*.xq text eol=lf
 src/test/resources/tests/parser/marklogic-6.0/*.txt text eol=lf
 src/test/resources/tests/parser/marklogic-6.0/*.xq text eol=lf
 src/test/resources/tests/parser/marklogic-8.0/*.txt text eol=lf

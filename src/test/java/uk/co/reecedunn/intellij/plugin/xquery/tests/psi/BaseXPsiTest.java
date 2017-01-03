@@ -68,6 +68,42 @@ public class BaseXPsiTest extends ParserTestCase {
                 is(XQueryTokenType.K_UPDATE));
     }
 
+    public void testUpdateExpr_Block() {
+        final XQueryFile file = parseResource("tests/parser/basex-8.5/UpdateExpr.xq");
+
+        BaseXUpdateExpr updateExpr = descendants(file).findFirst(BaseXUpdateExpr.class).get();
+        XQueryConformanceCheck versioned = (XQueryConformanceCheck)updateExpr;
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-scripting")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(false));
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("basex/v8.4/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("basex/v8.4/1.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("basex/v8.4/3.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("basex/v8.4/3.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("basex/v8.4/3.1")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("basex/v8.4/3.1-update")), is(false));
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("basex/v8.5/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("basex/v8.5/1.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("basex/v8.5/3.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("basex/v8.5/3.0-update")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("basex/v8.5/3.1")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("basex/v8.5/3.1-update")), is(true));
+
+        assertThat(versioned.getConformanceErrorMessage(),
+                is("XPST0003: This expression requires BaseX 8.5 or later."));
+
+        assertThat(versioned.getConformanceElement(), is(notNullValue()));
+        assertThat(versioned.getConformanceElement().getNode().getElementType(),
+                is(XQueryTokenType.BLOCK_OPEN));
+    }
+
     // endregion
     // endregion
 }

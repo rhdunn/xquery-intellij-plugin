@@ -40,7 +40,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
  *    -  MarkLogic 1.0-ml Extensions for MarkLogic 6.0
  *    -  MarkLogic 1.0-ml Extensions for MarkLogic 8.0
  *    -  Saxon 9.4 MapConstructor and MapTest syntax
- *    -  BaseX 7.8 UpdateExpr extension
+ *    -  BaseX 7.8 and 8.5 UpdateExpr extension
  */
 @SuppressWarnings({"SameParameterValue", "StatementWithEmptyBody"})
 class XQueryParser {
@@ -3476,14 +3476,19 @@ class XQueryParser {
     }
 
     private boolean parseUpdateExpr() {
-        if (matchTokenType(XQueryTokenType.K_UPDATE)) {
+        boolean haveUpdateExpr = false;
+        while (matchTokenType(XQueryTokenType.K_UPDATE)) {
+            haveUpdateExpr = true;
+
             parseWhiteSpaceAndCommentTokens();
-            if (!parseExpr(XQueryElementType.EXPR)) {
+            if (getTokenType() == XQueryTokenType.BLOCK_OPEN) {
+                parseEnclosedExprOrBlock(null, BlockOpen.REQUIRED, BlockExpr.REQUIRED);
+            } else if (!parseExpr(XQueryElementType.EXPR)) {
                 error(XQueryBundle.message("parser.error.expected-expression"));
             }
-            return true;
+            parseWhiteSpaceAndCommentTokens();
         }
-        return false;
+        return haveUpdateExpr;
     }
 
     private boolean parseArrowFunctionSpecifier() {

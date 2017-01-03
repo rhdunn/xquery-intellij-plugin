@@ -35,5 +35,38 @@ public class BaseXParserTest extends ParserTestCase {
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
+    public void testUpdateExpr_Multiple() {
+        final String expected = loadResource("tests/parser/basex-7.8/UpdateExpr_Multiple.txt");
+        final XQueryFile actual = parseResource("tests/parser/basex-7.8/UpdateExpr_Multiple.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
+    // region BaseX 8.5 :: UpdateExpr
+
+    public void testUpdateExpr_Block() {
+        final String expected = loadResource("tests/parser/basex-8.5/UpdateExpr.txt");
+        final XQueryFile actual = parseResource("tests/parser/basex-8.5/UpdateExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testUpdateExpr_Block_MissingExpr() {
+        final String expected = loadResource("tests/parser/basex-8.5/UpdateExpr_MissingExpr.txt");
+        final XQueryFile actual = parseResource("tests/parser/basex-8.5/UpdateExpr_MissingExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testUpdateExpr_Block_MissingClosingBrace() {
+        final String expected = loadResource("tests/parser/basex-8.5/UpdateExpr_MissingClosingBrace.txt");
+        final XQueryFile actual = parseResource("tests/parser/basex-8.5/UpdateExpr_MissingClosingBrace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testUpdateExpr_Block_Multiple() {
+        final String expected = loadResource("tests/parser/basex-8.5/UpdateExpr_Multiple.txt");
+        final XQueryFile actual = parseResource("tests/parser/basex-8.5/UpdateExpr_Multiple.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
     // endregion
 }

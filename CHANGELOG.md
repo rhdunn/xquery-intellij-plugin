@@ -8,7 +8,7 @@ Language Support:
 2.  Support highlighting xqDoc parameter names.
 3.  Support highlighting XML `PredefinedEntityRef` and `CharRef` tokens in
     xqDoc comments.
-4.  Support BaseX 7.8 `update` expressions.
+4.  Support BaseX 7.8 and 8.5 `update` expressions.
 
 Bug Fixes:
 
