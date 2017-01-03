@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016-2017 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -114,9 +114,11 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
                    type == XQDocTokenType.TRIM ||
                    type == XQDocTokenType.XML_ELEMENT_CONTENTS) {
             return COMMENT_KEYS;
-        } else if (type == XQueryTokenType.K_UPDATING ||
-                   type == XQueryTokenType.K_PRIVATE ||
+        } else if (type == XQueryTokenType.K_PRIVATE ||
                    type == XQueryTokenType.K_PUBLIC ||
+                   type == XQueryTokenType.K_SIMPLE ||
+                   type == XQueryTokenType.K_SEQUENTIAL ||
+                   type == XQueryTokenType.K_UPDATING ||
                    type == XQueryTokenType.ANNOTATION_INDICATOR) {
             return ANNOTATION_KEYS;
         } else if (type instanceof IXQueryKeywordOrNCNameType) {

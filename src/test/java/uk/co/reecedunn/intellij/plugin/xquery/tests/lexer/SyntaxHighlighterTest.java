@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016-2017 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -543,12 +543,6 @@ public class SyntaxHighlighterTest extends TestCase {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_SELF).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_SELF)[0], is(SyntaxHighlighter.KEYWORD));
 
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_SEQUENTIAL).length, is(1));
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_SEQUENTIAL)[0], is(SyntaxHighlighter.KEYWORD));
-
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_SIMPLE).length, is(1));
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_SIMPLE)[0], is(SyntaxHighlighter.KEYWORD));
-
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_SKIP).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_SKIP)[0], is(SyntaxHighlighter.KEYWORD));
 
@@ -649,14 +643,20 @@ public class SyntaxHighlighterTest extends TestCase {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.ANNOTATION_INDICATOR).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.ANNOTATION_INDICATOR)[0], is(SyntaxHighlighter.ANNOTATION));
 
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_UPDATING).length, is(1));
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_UPDATING)[0], is(SyntaxHighlighter.ANNOTATION));
-
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_PUBLIC).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_PUBLIC)[0], is(SyntaxHighlighter.ANNOTATION));
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_PRIVATE).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_PRIVATE)[0], is(SyntaxHighlighter.ANNOTATION));
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_SEQUENTIAL).length, is(1));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_SEQUENTIAL)[0], is(SyntaxHighlighter.ANNOTATION));
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_SIMPLE).length, is(1));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_SIMPLE)[0], is(SyntaxHighlighter.ANNOTATION));
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_UPDATING).length, is(1));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_UPDATING)[0], is(SyntaxHighlighter.ANNOTATION));
     }
 
     public void testTokenHighlights_XmlTag() {
