@@ -1361,6 +1361,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("collation", XQueryTokenType.K_COLLATION);
         sKeywords.put("comment", XQueryTokenType.K_COMMENT);
         sKeywords.put("construction", XQueryTokenType.K_CONSTRUCTION);
+        sKeywords.put("contains", XQueryTokenType.K_CONTAINS); // Full Text 1.0
         sKeywords.put("context", XQueryTokenType.K_CONTEXT); // XQuery 3.0
         sKeywords.put("copy", XQueryTokenType.K_COPY); // Update Facility 1.0
         sKeywords.put("copy-namespaces", XQueryTokenType.K_COPY_NAMESPACES);

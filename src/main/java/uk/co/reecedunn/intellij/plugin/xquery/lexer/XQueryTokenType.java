@@ -158,6 +158,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_COLLATION = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_COLLATION");
     IXQueryKeywordOrNCNameType K_COMMENT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_COMMENT", IXQueryKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME);
     IXQueryKeywordOrNCNameType K_CONSTRUCTION = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_CONSTRUCTION");
+    IXQueryKeywordOrNCNameType K_CONTAINS = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_CONTAINS"); // Full Text 1.0
     IXQueryKeywordOrNCNameType K_CONTEXT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_CONTEXT"); // XQuery 3.0
     IXQueryKeywordOrNCNameType K_COPY = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_COPY"); // Update Facility 1.0
     IXQueryKeywordOrNCNameType K_COPY_NAMESPACES = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_COPY_NAMESPACES");
