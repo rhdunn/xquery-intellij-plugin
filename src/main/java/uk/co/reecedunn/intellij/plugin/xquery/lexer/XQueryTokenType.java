@@ -293,6 +293,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_VALUE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_VALUE"); // Update Facility 1.0
     IXQueryKeywordOrNCNameType K_VARIABLE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_VARIABLE");
     IXQueryKeywordOrNCNameType K_VERSION = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_VERSION");
+    IXQueryKeywordOrNCNameType K_WEIGHT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_WEIGHT"); // Full Text 1.0
     IXQueryKeywordOrNCNameType K_WHEN = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_WHEN"); // XQuery 3.0
     IXQueryKeywordOrNCNameType K_WHERE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_WHERE");
     IXQueryKeywordOrNCNameType K_WHILE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_WHILE", IXQueryKeywordOrNCNameType.KeywordType.SCRIPTING10_RESERVED_FUNCTION_NAME); // Scripting Extension 1.0

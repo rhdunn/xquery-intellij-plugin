@@ -1496,6 +1496,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("value", XQueryTokenType.K_VALUE); // Update Facility 1.0
         sKeywords.put("variable", XQueryTokenType.K_VARIABLE);
         sKeywords.put("version", XQueryTokenType.K_VERSION);
+        sKeywords.put("weight", XQueryTokenType.K_WEIGHT); // Full Text 1.0
         sKeywords.put("when", XQueryTokenType.K_WHEN); // XQuery 3.0
         sKeywords.put("where", XQueryTokenType.K_WHERE);
         sKeywords.put("while", XQueryTokenType.K_WHILE); // Scripting Extension 1.0
