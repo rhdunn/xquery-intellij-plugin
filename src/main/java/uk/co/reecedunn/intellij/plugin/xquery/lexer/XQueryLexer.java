@@ -1464,6 +1464,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("schema", XQueryTokenType.K_SCHEMA);
         sKeywords.put("schema-attribute", XQueryTokenType.K_SCHEMA_ATTRIBUTE);
         sKeywords.put("schema-element", XQueryTokenType.K_SCHEMA_ELEMENT);
+        sKeywords.put("score", XQueryTokenType.K_SCORE); // Full Text 1.0
         sKeywords.put("self", XQueryTokenType.K_SELF);
         sKeywords.put("sequential", XQueryTokenType.K_SEQUENTIAL); // Scripting Extension 1.0
         sKeywords.put("simple", XQueryTokenType.K_SIMPLE); // Scripting Extension 1.0
