@@ -1393,6 +1393,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("following", XQueryTokenType.K_FOLLOWING);
         sKeywords.put("following-sibling", XQueryTokenType.K_FOLLOWING_SIBLING);
         sKeywords.put("for", XQueryTokenType.K_FOR);
+        sKeywords.put("ft-option", XQueryTokenType.K_FT_OPTION); // Full Text 1.0
         sKeywords.put("function", XQueryTokenType.K_FUNCTION);
         sKeywords.put("ge", XQueryTokenType.K_GE);
         sKeywords.put("greatest", XQueryTokenType.K_GREATEST);
