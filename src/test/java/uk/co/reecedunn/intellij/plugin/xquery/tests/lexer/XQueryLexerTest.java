@@ -4058,6 +4058,17 @@ public class XQueryLexerTest extends LexerTestCase {
     }
 
     // endregion
+    // region Full Text 1.0 :: FTExtensionSelection
+
+    @Specification(name="XQuery Full Text 1.0", reference="https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTExtensionSelection")
+    public void testFTExtensionSelection() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN);
+        matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE);
+    }
+
+    // endregion
     // region MarkLogic 6.0 :: TransactionSeparator
 
     public void testTransactionSeparator() {
