@@ -4069,6 +4069,21 @@ public class XQueryLexerTest extends LexerTestCase {
     }
 
     // endregion
+    // region Full Text 1.0 :: FTAnyallOption
+
+    @Specification(name="XQuery Full Text 1.0", reference="https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTAnyallOption")
+    public void testFTAnyallOption() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "any", XQueryTokenType.K_ANY);
+        matchSingleToken(lexer, "all", XQueryTokenType.K_ALL);
+
+        matchSingleToken(lexer, "word", XQueryTokenType.K_WORD);
+        matchSingleToken(lexer, "words", XQueryTokenType.K_WORDS);
+        matchSingleToken(lexer, "phrase", XQueryTokenType.K_PHRASE);
+    }
+
+    // endregion
     // region MarkLogic 6.0 :: TransactionSeparator
 
     public void testTransactionSeparator() {

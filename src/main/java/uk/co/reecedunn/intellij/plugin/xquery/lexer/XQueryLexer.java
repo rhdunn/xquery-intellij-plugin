@@ -1335,10 +1335,12 @@ public class XQueryLexer extends LexerBase {
 
     static {
         sKeywords.put("after", XQueryTokenType.K_AFTER); // Update Facility 1.0
+        sKeywords.put("all", XQueryTokenType.K_ALL); // Full Text 1.0
         sKeywords.put("allowing", XQueryTokenType.K_ALLOWING); // XQuery 3.0
         sKeywords.put("ancestor", XQueryTokenType.K_ANCESTOR);
         sKeywords.put("ancestor-or-self", XQueryTokenType.K_ANCESTOR_OR_SELF);
         sKeywords.put("and", XQueryTokenType.K_AND);
+        sKeywords.put("any", XQueryTokenType.K_ANY); // Full Text 1.0
         sKeywords.put("array", XQueryTokenType.K_ARRAY); // XQuery 3.1
         sKeywords.put("array-node", XQueryTokenType.K_ARRAY_NODE); // MarkLogic 8.0
         sKeywords.put("as", XQueryTokenType.K_AS);
@@ -1452,6 +1454,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("pattern-separator", XQueryTokenType.K_PATTERN_SEPARATOR); // XQuery 3.0
         sKeywords.put("per-mille", XQueryTokenType.K_PER_MILLE); // XQuery 3.0
         sKeywords.put("percent", XQueryTokenType.K_PERCENT); // XQuery 3.0
+        sKeywords.put("phrase", XQueryTokenType.K_PHRASE); // Full Text 1.0
         sKeywords.put("preceding", XQueryTokenType.K_PRECEDING);
         sKeywords.put("preceding-sibling", XQueryTokenType.K_PRECEDING_SIBLING);
         sKeywords.put("preserve", XQueryTokenType.K_PRESERVE);
@@ -1506,6 +1509,8 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("while", XQueryTokenType.K_WHILE); // Scripting Extension 1.0
         sKeywords.put("window", XQueryTokenType.K_WINDOW); // XQuery 3.0
         sKeywords.put("with", XQueryTokenType.K_WITH); // Update Facility 1.0
+        sKeywords.put("word", XQueryTokenType.K_WORD); // Full Text 1.0
+        sKeywords.put("words", XQueryTokenType.K_WORDS); // Full Text 1.0
         sKeywords.put("xquery", XQueryTokenType.K_XQUERY);
         sKeywords.put("zero-digit", XQueryTokenType.K_ZERO_DIGIT); // XQuery 3.0
     }

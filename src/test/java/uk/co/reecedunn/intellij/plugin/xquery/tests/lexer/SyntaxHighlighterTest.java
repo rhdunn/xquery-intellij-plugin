@@ -171,6 +171,9 @@ public class SyntaxHighlighterTest extends TestCase {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_AFTER).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_AFTER)[0], is(SyntaxHighlighter.KEYWORD));
 
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_ALL).length, is(1));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_ALL)[0], is(SyntaxHighlighter.KEYWORD));
+
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_ALLOWING).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_ALLOWING)[0], is(SyntaxHighlighter.KEYWORD));
 
@@ -182,6 +185,9 @@ public class SyntaxHighlighterTest extends TestCase {
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_AND).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_AND)[0], is(SyntaxHighlighter.KEYWORD));
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_ANY).length, is(1));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_ANY)[0], is(SyntaxHighlighter.KEYWORD));
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_ARRAY).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_ARRAY)[0], is(SyntaxHighlighter.KEYWORD));
@@ -513,6 +519,9 @@ public class SyntaxHighlighterTest extends TestCase {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_PERCENT).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_PERCENT)[0], is(SyntaxHighlighter.KEYWORD));
 
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_PHRASE).length, is(1));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_PHRASE)[0], is(SyntaxHighlighter.KEYWORD));
+
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_PRECEDING).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_PRECEDING)[0], is(SyntaxHighlighter.KEYWORD));
 
@@ -656,6 +665,12 @@ public class SyntaxHighlighterTest extends TestCase {
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_WITH).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_WITH)[0], is(SyntaxHighlighter.KEYWORD));
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_WORD).length, is(1));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_WORD)[0], is(SyntaxHighlighter.KEYWORD));
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_WORDS).length, is(1));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_WORDS)[0], is(SyntaxHighlighter.KEYWORD));
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_XQUERY).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_XQUERY)[0], is(SyntaxHighlighter.KEYWORD));
