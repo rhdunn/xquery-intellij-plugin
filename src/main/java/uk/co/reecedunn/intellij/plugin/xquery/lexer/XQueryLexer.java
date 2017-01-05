@@ -1396,6 +1396,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("for", XQueryTokenType.K_FOR);
         sKeywords.put("ft-option", XQueryTokenType.K_FT_OPTION); // Full Text 1.0
         sKeywords.put("ftand", XQueryTokenType.K_FTAND); // Full Text 1.0
+        sKeywords.put("ftnot", XQueryTokenType.K_FTNOT); // Full Text 1.0
         sKeywords.put("ftor", XQueryTokenType.K_FTOR); // Full Text 1.0
         sKeywords.put("function", XQueryTokenType.K_FUNCTION);
         sKeywords.put("ge", XQueryTokenType.K_GE);
