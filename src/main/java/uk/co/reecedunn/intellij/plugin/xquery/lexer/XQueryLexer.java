@@ -1388,6 +1388,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("end", XQueryTokenType.K_END); // XQuery 3.0
         sKeywords.put("eq", XQueryTokenType.K_EQ);
         sKeywords.put("every", XQueryTokenType.K_EVERY);
+        sKeywords.put("exactly", XQueryTokenType.K_EXACTLY); // Full Text 1.0
         sKeywords.put("except", XQueryTokenType.K_EXCEPT);
         sKeywords.put("exit", XQueryTokenType.K_EXIT); // Scripting Extension 1.0
         sKeywords.put("exponent-separator", XQueryTokenType.K_EXPONENT_SEPARATOR); // XQuery 3.1
@@ -1396,6 +1397,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("following", XQueryTokenType.K_FOLLOWING);
         sKeywords.put("following-sibling", XQueryTokenType.K_FOLLOWING_SIBLING);
         sKeywords.put("for", XQueryTokenType.K_FOR);
+        sKeywords.put("from", XQueryTokenType.K_FROM); // Full Text 1.0
         sKeywords.put("ft-option", XQueryTokenType.K_FT_OPTION); // Full Text 1.0
         sKeywords.put("ftand", XQueryTokenType.K_FTAND); // Full Text 1.0
         sKeywords.put("ftnot", XQueryTokenType.K_FTNOT); // Full Text 1.0
@@ -1430,6 +1432,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("mod", XQueryTokenType.K_MOD);
         sKeywords.put("modify", XQueryTokenType.K_MODIFY); // Update Facility 1.0
         sKeywords.put("module", XQueryTokenType.K_MODULE);
+        sKeywords.put("most", XQueryTokenType.K_MOST); // Full Text 1.0
         sKeywords.put("namespace", XQueryTokenType.K_NAMESPACE);
         sKeywords.put("namespace-node", XQueryTokenType.K_NAMESPACE_NODE); // XQuery 3.0
         sKeywords.put("NaN", XQueryTokenType.K_NAN); // XQuery 3.0

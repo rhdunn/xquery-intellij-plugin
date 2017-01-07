@@ -327,6 +327,9 @@ public class SyntaxHighlighterTest extends TestCase {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_EVERY).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_EVERY)[0], is(SyntaxHighlighter.KEYWORD));
 
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_EXACTLY).length, is(1));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_EXACTLY)[0], is(SyntaxHighlighter.KEYWORD));
+
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_EXCEPT).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_EXCEPT)[0], is(SyntaxHighlighter.KEYWORD));
 
@@ -347,6 +350,9 @@ public class SyntaxHighlighterTest extends TestCase {
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_FOR).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_FOR)[0], is(SyntaxHighlighter.KEYWORD));
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_FROM).length, is(1));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_FROM)[0], is(SyntaxHighlighter.KEYWORD));
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_FT_OPTION).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_FT_OPTION)[0], is(SyntaxHighlighter.KEYWORD));
@@ -446,6 +452,9 @@ public class SyntaxHighlighterTest extends TestCase {
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_MODULE).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_MODULE)[0], is(SyntaxHighlighter.KEYWORD));
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_MOST).length, is(1));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_MOST)[0], is(SyntaxHighlighter.KEYWORD));
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_NAMESPACE).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_NAMESPACE)[0], is(SyntaxHighlighter.KEYWORD));
