@@ -240,6 +240,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_NULL_NODE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NULL_NODE", IXQueryKeywordOrNCNameType.KeywordType.MARKLOGIC_RESERVED_FUNCTION_NAME); // MarkLogic 8.0
     IXQueryKeywordOrNCNameType K_NUMBER_NODE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NUMBER_NODE", IXQueryKeywordOrNCNameType.KeywordType.MARKLOGIC_RESERVED_FUNCTION_NAME); // MarkLogic 8.0
     IXQueryKeywordOrNCNameType K_OBJECT_NODE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_OBJECT_NODE", IXQueryKeywordOrNCNameType.KeywordType.MARKLOGIC_RESERVED_FUNCTION_NAME); // MarkLogic 8.0
+    IXQueryKeywordOrNCNameType K_OCCURS = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_OCCURS"); // Full Text 1.0
     IXQueryKeywordOrNCNameType K_OF = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_OF");
     IXQueryKeywordOrNCNameType K_ONLY = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ONLY"); // XQuery 3.0
     IXQueryKeywordOrNCNameType K_OPTION = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_OPTION");
@@ -284,6 +285,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_SWITCH = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SWITCH", IXQueryKeywordOrNCNameType.KeywordType.XQUERY30_RESERVED_FUNCTION_NAME); // XQuery 3.0
     IXQueryKeywordOrNCNameType K_TEXT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TEXT", IXQueryKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME);
     IXQueryKeywordOrNCNameType K_THEN = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_THEN");
+    IXQueryKeywordOrNCNameType K_TIMES = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TIMES"); // Full Text 1.0
     IXQueryKeywordOrNCNameType K_TO = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TO");
     IXQueryKeywordOrNCNameType K_TRANSFORM = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TRANSFORM"); // Update Facility 3.0
     IXQueryKeywordOrNCNameType K_TREAT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TREAT");

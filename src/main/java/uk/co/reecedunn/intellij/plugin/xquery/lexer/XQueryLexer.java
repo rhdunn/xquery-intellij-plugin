@@ -1443,6 +1443,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("null-node", XQueryTokenType.K_NULL_NODE); // MarkLogic 8.0
         sKeywords.put("number-node", XQueryTokenType.K_NUMBER_NODE); // MarkLogic 8.0
         sKeywords.put("object-node", XQueryTokenType.K_OBJECT_NODE); // MarkLogic 8.0
+        sKeywords.put("occurs", XQueryTokenType.K_OCCURS); // Full Text 1.0
         sKeywords.put("of", XQueryTokenType.K_OF);
         sKeywords.put("only", XQueryTokenType.K_ONLY); // XQuery 3.0
         sKeywords.put("option", XQueryTokenType.K_OPTION);
@@ -1487,6 +1488,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("switch", XQueryTokenType.K_SWITCH); // XQuery 3.0
         sKeywords.put("text", XQueryTokenType.K_TEXT);
         sKeywords.put("then", XQueryTokenType.K_THEN);
+        sKeywords.put("times", XQueryTokenType.K_TIMES); // Full Text 1.0
         sKeywords.put("to", XQueryTokenType.K_TO);
         sKeywords.put("transform", XQueryTokenType.K_TRANSFORM); // Update Facility 3.0
         sKeywords.put("treat", XQueryTokenType.K_TREAT);
