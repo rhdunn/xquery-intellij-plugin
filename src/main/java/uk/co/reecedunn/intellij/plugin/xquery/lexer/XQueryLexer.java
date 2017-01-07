@@ -1455,6 +1455,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("order", XQueryTokenType.K_ORDER);
         sKeywords.put("ordered", XQueryTokenType.K_ORDERED);
         sKeywords.put("ordering", XQueryTokenType.K_ORDERING);
+        sKeywords.put("paragraphs", XQueryTokenType.K_PARAGRAPHS); // Full Text 1.0
         sKeywords.put("parent", XQueryTokenType.K_PARENT);
         sKeywords.put("pattern-separator", XQueryTokenType.K_PATTERN_SEPARATOR); // XQuery 3.0
         sKeywords.put("per-mille", XQueryTokenType.K_PER_MILLE); // XQuery 3.0
@@ -1479,6 +1480,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("schema-element", XQueryTokenType.K_SCHEMA_ELEMENT);
         sKeywords.put("score", XQueryTokenType.K_SCORE); // Full Text 1.0
         sKeywords.put("self", XQueryTokenType.K_SELF);
+        sKeywords.put("sentences", XQueryTokenType.K_SENTENCES); // Full Text 1.0
         sKeywords.put("sequential", XQueryTokenType.K_SEQUENTIAL); // Scripting Extension 1.0
         sKeywords.put("simple", XQueryTokenType.K_SIMPLE); // Scripting Extension 1.0
         sKeywords.put("skip", XQueryTokenType.K_SKIP); // Update Facility 1.0

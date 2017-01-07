@@ -252,6 +252,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_ORDER = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ORDER");
     IXQueryKeywordOrNCNameType K_ORDERED = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ORDERED");
     IXQueryKeywordOrNCNameType K_ORDERING = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ORDERING");
+    IXQueryKeywordOrNCNameType K_PARAGRAPHS = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PARAGRAPHS"); // Full Text 1.0
     IXQueryKeywordOrNCNameType K_PARENT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PARENT");
     IXQueryKeywordOrNCNameType K_PATTERN_SEPARATOR = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PATTERN_SEPARATOR"); // XQuery 3.0
     IXQueryKeywordOrNCNameType K_PER_MILLE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PER_MILLE"); // XQuery 3.0
@@ -276,6 +277,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_SCHEMA_ELEMENT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SCHEMA_ELEMENT", IXQueryKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME);
     IXQueryKeywordOrNCNameType K_SCORE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SCORE"); // Full Text 1.0
     IXQueryKeywordOrNCNameType K_SELF = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SELF");
+    IXQueryKeywordOrNCNameType K_SENTENCES = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SENTENCES"); // Full Text 1.0
     IXQueryKeywordOrNCNameType K_SEQUENTIAL = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SEQUENTIAL"); // Scripting Extension 1.0
     IXQueryKeywordOrNCNameType K_SIMPLE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SIMPLE"); // Scripting Extension 1.0
     IXQueryKeywordOrNCNameType K_SKIP = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SKIP"); // Update Facility 1.0
