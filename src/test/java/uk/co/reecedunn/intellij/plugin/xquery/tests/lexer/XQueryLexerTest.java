@@ -4120,6 +4120,16 @@ public class XQueryLexerTest extends LexerTestCase {
     }
 
     // endregion
+    // region Full Text 1.0 :: FTWindow
+
+    @Specification(name="XQuery Full Text 1.0", reference="https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTWindow")
+    public void testFTWindow() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "window", XQueryTokenType.K_WINDOW);
+    }
+
+    // endregion
     // region MarkLogic 6.0 :: TransactionSeparator
 
     public void testTransactionSeparator() {
