@@ -4152,6 +4152,17 @@ public class XQueryLexerTest extends LexerTestCase {
     }
 
     // endregion
+    // region Full Text 1.0 :: FTScope
+
+    @Specification(name="XQuery Full Text 1.0", reference="https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTScope")
+    public void testFTScope() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "same", XQueryTokenType.K_SAME);
+        matchSingleToken(lexer, "different", XQueryTokenType.K_DIFFERENT);
+    }
+
+    // endregion
     // region MarkLogic 6.0 :: TransactionSeparator
 
     public void testTransactionSeparator() {

@@ -173,6 +173,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_DESCENDANT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DESCENDANT");
     IXQueryKeywordOrNCNameType K_DESCENDANT_OR_SELF = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DESCENDANT_OR_SELF");
     IXQueryKeywordOrNCNameType K_DESCENDING = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DESCENDING");
+    IXQueryKeywordOrNCNameType K_DIFFERENT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DIFFERENT"); // Full Text 1.0
     IXQueryKeywordOrNCNameType K_DIGIT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DIGIT"); // XQuery 3.0
     IXQueryKeywordOrNCNameType K_DISTANCE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DISTANCE"); // Full Text 1.0
     IXQueryKeywordOrNCNameType K_DIV = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DIV");
@@ -271,6 +272,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_RETURN = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_RETURN");
     IXQueryKeywordOrNCNameType K_RETURNING = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_RETURNING"); // Scripting Extension 1.0
     IXQueryKeywordOrNCNameType K_REVALIDATION = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_REVALIDATION"); // Update Facility 1.0
+    IXQueryKeywordOrNCNameType K_SAME = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SAME"); // Full Text 1.0
     IXQueryKeywordOrNCNameType K_SATISFIES = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SATISFIES");
     IXQueryKeywordOrNCNameType K_SCHEMA = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SCHEMA");
     IXQueryKeywordOrNCNameType K_SCHEMA_ATTRIBUTE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SCHEMA_ATTRIBUTE", IXQueryKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME);

@@ -1376,6 +1376,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("descendant", XQueryTokenType.K_DESCENDANT);
         sKeywords.put("descendant-or-self", XQueryTokenType.K_DESCENDANT_OR_SELF);
         sKeywords.put("descending", XQueryTokenType.K_DESCENDING);
+        sKeywords.put("different", XQueryTokenType.K_DIFFERENT); // Full Text 1.0
         sKeywords.put("digit", XQueryTokenType.K_DIGIT); // XQuery 3.0
         sKeywords.put("distance", XQueryTokenType.K_DISTANCE); // Full Text 1.0
         sKeywords.put("div", XQueryTokenType.K_DIV);
@@ -1474,6 +1475,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("return", XQueryTokenType.K_RETURN);
         sKeywords.put("returning", XQueryTokenType.K_RETURNING); // Scripting Extension 1.0
         sKeywords.put("revalidation", XQueryTokenType.K_REVALIDATION); // Update Facility 1.0
+        sKeywords.put("same", XQueryTokenType.K_SAME); // Full Text 1.0
         sKeywords.put("satisfies", XQueryTokenType.K_SATISFIES);
         sKeywords.put("schema", XQueryTokenType.K_SCHEMA);
         sKeywords.put("schema-attribute", XQueryTokenType.K_SCHEMA_ATTRIBUTE);
