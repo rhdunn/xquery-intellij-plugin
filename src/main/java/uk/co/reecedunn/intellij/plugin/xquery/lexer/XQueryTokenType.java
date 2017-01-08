@@ -242,6 +242,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_NAN = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NAN"); // XQuery 3.0
     IXQueryKeywordOrNCNameType K_NE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NE");
     IXQueryKeywordOrNCNameType K_NEXT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NEXT"); // XQuery 3.0
+    IXQueryKeywordOrNCNameType K_NO = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NO"); // Full Text 1.0
     IXQueryKeywordOrNCNameType K_NO_INHERIT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NO_INHERIT");
     IXQueryKeywordOrNCNameType K_NO_PRESERVE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NO_PRESERVE");
     IXQueryKeywordOrNCNameType K_NODE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_NODE", IXQueryKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME);
@@ -295,6 +296,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_SOME = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SOME");
     IXQueryKeywordOrNCNameType K_STABLE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_STABLE");
     IXQueryKeywordOrNCNameType K_START = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_START"); // XQuery 3.0
+    IXQueryKeywordOrNCNameType K_STEMMING = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_STEMMING"); // Full Text 1.0
     IXQueryKeywordOrNCNameType K_STRICT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_STRICT");
     IXQueryKeywordOrNCNameType K_STRIP = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_STRIP");
     IXQueryKeywordOrNCNameType K_STYLESHEET = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_STYLESHEET"); // MarkLogic 6.0

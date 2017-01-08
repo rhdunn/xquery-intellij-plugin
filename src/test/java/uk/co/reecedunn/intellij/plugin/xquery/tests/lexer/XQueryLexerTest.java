@@ -4199,10 +4199,10 @@ public class XQueryLexerTest extends LexerTestCase {
     }
 
     // endregion
-    // region Full Text 1.0 :: FTCaseOptions
+    // region Full Text 1.0 :: FTCaseOption
 
-    @Specification(name="XQuery Full Text 1.0", reference="https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTCaseOptions")
-    public void testFTCaseOptions() {
+    @Specification(name="XQuery Full Text 1.0", reference="https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTCaseOption")
+    public void testFTCaseOption() {
         Lexer lexer = new XQueryLexer();
 
         matchSingleToken(lexer, "case", XQueryTokenType.K_CASE);
@@ -4214,15 +4214,26 @@ public class XQueryLexerTest extends LexerTestCase {
     }
 
     // endregion
-    // region Full Text 1.0 :: FTDiacriticsOptions
+    // region Full Text 1.0 :: FTDiacriticsOption
 
-    @Specification(name="XQuery Full Text 1.0", reference="https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTDiacriticsOptions")
-    public void testFTDiacriticsOptions() {
+    @Specification(name="XQuery Full Text 1.0", reference="https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTDiacriticsOption")
+    public void testFTDiacriticsOption() {
         Lexer lexer = new XQueryLexer();
 
         matchSingleToken(lexer, "diacritics", XQueryTokenType.K_DIACRITICS);
         matchSingleToken(lexer, "sensitive", XQueryTokenType.K_SENSITIVE);
         matchSingleToken(lexer, "insensitive", XQueryTokenType.K_INSENSITIVE);
+    }
+
+    // endregion
+    // region Full Text 1.0 :: FTStemOption
+
+    @Specification(name="XQuery Full Text 1.0", reference="https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTStemOption")
+    public void testFTStemOption() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "no", XQueryTokenType.K_NO);
+        matchSingleToken(lexer, "stemming", XQueryTokenType.K_STEMMING);
     }
 
     // endregion

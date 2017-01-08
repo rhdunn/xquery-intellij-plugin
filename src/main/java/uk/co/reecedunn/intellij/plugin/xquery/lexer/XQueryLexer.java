@@ -1445,6 +1445,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("NaN", XQueryTokenType.K_NAN); // XQuery 3.0
         sKeywords.put("ne", XQueryTokenType.K_NE);
         sKeywords.put("next", XQueryTokenType.K_NEXT); // XQuery 3.0
+        sKeywords.put("no", XQueryTokenType.K_NO); // Full Text 1.0
         sKeywords.put("no-inherit", XQueryTokenType.K_NO_INHERIT);
         sKeywords.put("no-preserve", XQueryTokenType.K_NO_PRESERVE);
         sKeywords.put("node", XQueryTokenType.K_NODE);
@@ -1498,6 +1499,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("some", XQueryTokenType.K_SOME);
         sKeywords.put("stable", XQueryTokenType.K_STABLE);
         sKeywords.put("start", XQueryTokenType.K_START); // XQuery 3.0
+        sKeywords.put("stemming", XQueryTokenType.K_STEMMING); // Full Text 1.0
         sKeywords.put("strict", XQueryTokenType.K_STRICT);
         sKeywords.put("strip", XQueryTokenType.K_STRIP);
         sKeywords.put("stylesheet", XQueryTokenType.K_STYLESHEET); // MarkLogic 6.0
