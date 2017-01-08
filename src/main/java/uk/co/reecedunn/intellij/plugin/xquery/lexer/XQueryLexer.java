@@ -1377,6 +1377,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("descendant", XQueryTokenType.K_DESCENDANT);
         sKeywords.put("descendant-or-self", XQueryTokenType.K_DESCENDANT_OR_SELF);
         sKeywords.put("descending", XQueryTokenType.K_DESCENDING);
+        sKeywords.put("diacritics", XQueryTokenType.K_DIACRITICS); // Full Text 1.0
         sKeywords.put("different", XQueryTokenType.K_DIFFERENT); // Full Text 1.0
         sKeywords.put("digit", XQueryTokenType.K_DIGIT); // XQuery 3.0
         sKeywords.put("distance", XQueryTokenType.K_DISTANCE); // Full Text 1.0

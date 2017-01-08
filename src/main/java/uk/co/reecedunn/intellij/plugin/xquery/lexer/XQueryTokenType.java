@@ -174,6 +174,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_DESCENDANT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DESCENDANT");
     IXQueryKeywordOrNCNameType K_DESCENDANT_OR_SELF = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DESCENDANT_OR_SELF");
     IXQueryKeywordOrNCNameType K_DESCENDING = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DESCENDING");
+    IXQueryKeywordOrNCNameType K_DIACRITICS = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DIACRITICS"); // Full Text 1.0
     IXQueryKeywordOrNCNameType K_DIFFERENT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DIFFERENT"); // Full Text 1.0
     IXQueryKeywordOrNCNameType K_DIGIT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DIGIT"); // XQuery 3.0
     IXQueryKeywordOrNCNameType K_DISTANCE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DISTANCE"); // Full Text 1.0

@@ -4214,6 +4214,18 @@ public class XQueryLexerTest extends LexerTestCase {
     }
 
     // endregion
+    // region Full Text 1.0 :: FTDiacriticsOptions
+
+    @Specification(name="XQuery Full Text 1.0", reference="https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTDiacriticsOptions")
+    public void testFTDiacriticsOptions() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "diacritics", XQueryTokenType.K_DIACRITICS);
+        matchSingleToken(lexer, "sensitive", XQueryTokenType.K_SENSITIVE);
+        matchSingleToken(lexer, "insensitive", XQueryTokenType.K_INSENSITIVE);
+    }
+
+    // endregion
     // region MarkLogic 6.0 :: TransactionSeparator
 
     public void testTransactionSeparator() {
