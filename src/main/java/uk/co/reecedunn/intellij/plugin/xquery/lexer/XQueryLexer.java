@@ -1364,6 +1364,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("comment", XQueryTokenType.K_COMMENT);
         sKeywords.put("construction", XQueryTokenType.K_CONSTRUCTION);
         sKeywords.put("contains", XQueryTokenType.K_CONTAINS); // Full Text 1.0
+        sKeywords.put("content", XQueryTokenType.K_CONTENT); // Full Text 1.0
         sKeywords.put("context", XQueryTokenType.K_CONTEXT); // XQuery 3.0
         sKeywords.put("copy", XQueryTokenType.K_COPY); // Update Facility 1.0
         sKeywords.put("copy-namespaces", XQueryTokenType.K_COPY_NAMESPACES);
@@ -1388,6 +1389,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("empty-sequence", XQueryTokenType.K_EMPTY_SEQUENCE);
         sKeywords.put("encoding", XQueryTokenType.K_ENCODING);
         sKeywords.put("end", XQueryTokenType.K_END); // XQuery 3.0
+        sKeywords.put("entire", XQueryTokenType.K_ENTIRE); // Full Text 1.0
         sKeywords.put("eq", XQueryTokenType.K_EQ);
         sKeywords.put("every", XQueryTokenType.K_EVERY);
         sKeywords.put("exactly", XQueryTokenType.K_EXACTLY); // Full Text 1.0

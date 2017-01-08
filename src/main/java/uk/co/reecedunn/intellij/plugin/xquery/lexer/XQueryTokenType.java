@@ -161,6 +161,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_COMMENT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_COMMENT", IXQueryKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME);
     IXQueryKeywordOrNCNameType K_CONSTRUCTION = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_CONSTRUCTION");
     IXQueryKeywordOrNCNameType K_CONTAINS = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_CONTAINS"); // Full Text 1.0
+    IXQueryKeywordOrNCNameType K_CONTENT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_CONTENT"); // Full Text 1.0
     IXQueryKeywordOrNCNameType K_CONTEXT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_CONTEXT"); // XQuery 3.0
     IXQueryKeywordOrNCNameType K_COPY = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_COPY"); // Update Facility 1.0
     IXQueryKeywordOrNCNameType K_COPY_NAMESPACES = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_COPY_NAMESPACES");
@@ -186,6 +187,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_ENCODING = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ENCODING");
     IXQueryKeywordOrNCNameType K_END = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_END"); // XQuery 3.0
     IXQueryKeywordOrNCNameType K_EQ = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_EQ");
+    IXQueryKeywordOrNCNameType K_ENTIRE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ENTIRE"); // Full Text 1.0
     IXQueryKeywordOrNCNameType K_EVERY = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_EVERY");
     IXQueryKeywordOrNCNameType K_EXACTLY = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_EXACTLY"); // Full Text 1.0
     IXQueryKeywordOrNCNameType K_EXCEPT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_EXCEPT");
