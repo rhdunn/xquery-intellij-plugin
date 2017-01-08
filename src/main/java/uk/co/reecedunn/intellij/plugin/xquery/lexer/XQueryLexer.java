@@ -1513,6 +1513,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("unordered", XQueryTokenType.K_UNORDERED);
         sKeywords.put("update", XQueryTokenType.K_UPDATE); // BaseX 7.8
         sKeywords.put("updating", XQueryTokenType.K_UPDATING); // Update Facility 1.0
+        sKeywords.put("using", XQueryTokenType.K_USING); // Full Text 1.0
         sKeywords.put("validate", XQueryTokenType.K_VALIDATE);
         sKeywords.put("value", XQueryTokenType.K_VALUE); // Update Facility 1.0
         sKeywords.put("variable", XQueryTokenType.K_VARIABLE);

@@ -310,6 +310,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_UNORDERED = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_UNORDERED");
     IXQueryKeywordOrNCNameType K_UPDATE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_UPDATE"); // BaseX 7.8
     IXQueryKeywordOrNCNameType K_UPDATING = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_UPDATING"); // Update Facility 1.0
+    IXQueryKeywordOrNCNameType K_USING = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_USING"); // Full Text 1.0
     IXQueryKeywordOrNCNameType K_VALIDATE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_VALIDATE");
     IXQueryKeywordOrNCNameType K_VALUE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_VALUE"); // Update Facility 1.0
     IXQueryKeywordOrNCNameType K_VARIABLE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_VARIABLE");
