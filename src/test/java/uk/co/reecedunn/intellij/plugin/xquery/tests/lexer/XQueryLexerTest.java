@@ -4199,6 +4199,21 @@ public class XQueryLexerTest extends LexerTestCase {
     }
 
     // endregion
+    // region Full Text 1.0 :: FTCaseOptions
+
+    @Specification(name="XQuery Full Text 1.0", reference="https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTCaseOptions")
+    public void testFTCaseOptions() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "case", XQueryTokenType.K_CASE);
+        matchSingleToken(lexer, "sensitive", XQueryTokenType.K_SENSITIVE);
+        matchSingleToken(lexer, "insensitive", XQueryTokenType.K_INSENSITIVE);
+
+        matchSingleToken(lexer, "lowercase", XQueryTokenType.K_LOWERCASE);
+        matchSingleToken(lexer, "uppercase", XQueryTokenType.K_UPPERCASE);
+    }
+
+    // endregion
     // region MarkLogic 6.0 :: TransactionSeparator
 
     public void testTransactionSeparator() {

@@ -1418,6 +1418,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("in", XQueryTokenType.K_IN);
         sKeywords.put("infinity", XQueryTokenType.K_INFINITY); // XQuery 3.0
         sKeywords.put("inherit", XQueryTokenType.K_INHERIT);
+        sKeywords.put("insensitive", XQueryTokenType.K_INSENSITIVE); // Full Text 1.0
         sKeywords.put("insert", XQueryTokenType.K_INSERT); // Update Facility 1.0
         sKeywords.put("instance", XQueryTokenType.K_INSTANCE);
         sKeywords.put("intersect", XQueryTokenType.K_INTERSECT);
@@ -1430,6 +1431,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("le", XQueryTokenType.K_LE);
         sKeywords.put("least", XQueryTokenType.K_LEAST);
         sKeywords.put("let", XQueryTokenType.K_LET);
+        sKeywords.put("lowercase", XQueryTokenType.K_LOWERCASE); // Full Text 1.0
         sKeywords.put("lt", XQueryTokenType.K_LT);
         sKeywords.put("map", XQueryTokenType.K_MAP); // XQuery 3.1
         sKeywords.put("minus-sign", XQueryTokenType.K_MINUS_SIGN); // XQuery 3.0
@@ -1485,6 +1487,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("schema-element", XQueryTokenType.K_SCHEMA_ELEMENT);
         sKeywords.put("score", XQueryTokenType.K_SCORE); // Full Text 1.0
         sKeywords.put("self", XQueryTokenType.K_SELF);
+        sKeywords.put("sensitive", XQueryTokenType.K_SENSITIVE); // Full Text 1.0
         sKeywords.put("sentence", XQueryTokenType.K_SENTENCE); // Full Text 1.0
         sKeywords.put("sentences", XQueryTokenType.K_SENTENCES); // Full Text 1.0
         sKeywords.put("sequential", XQueryTokenType.K_SEQUENTIAL); // Scripting Extension 1.0
@@ -1513,6 +1516,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("unordered", XQueryTokenType.K_UNORDERED);
         sKeywords.put("update", XQueryTokenType.K_UPDATE); // BaseX 7.8
         sKeywords.put("updating", XQueryTokenType.K_UPDATING); // Update Facility 1.0
+        sKeywords.put("uppercase", XQueryTokenType.K_UPPERCASE); // Full Text 1.0
         sKeywords.put("using", XQueryTokenType.K_USING); // Full Text 1.0
         sKeywords.put("validate", XQueryTokenType.K_VALIDATE);
         sKeywords.put("value", XQueryTokenType.K_VALUE); // Update Facility 1.0

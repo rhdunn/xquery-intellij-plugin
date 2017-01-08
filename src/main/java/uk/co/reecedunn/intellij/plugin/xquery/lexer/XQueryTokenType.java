@@ -215,6 +215,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_IN = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_IN");
     IXQueryKeywordOrNCNameType K_INFINITY = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_INFINITY"); // XQuery 3.0
     IXQueryKeywordOrNCNameType K_INHERIT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_INHERIT");
+    IXQueryKeywordOrNCNameType K_INSENSITIVE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_INSENSITIVE"); // Full Text 1.0
     IXQueryKeywordOrNCNameType K_INSERT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_INSERT"); // Update Facility 1.0
     IXQueryKeywordOrNCNameType K_INSTANCE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_INSTANCE");
     IXQueryKeywordOrNCNameType K_INTERSECT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_INTERSECT");
@@ -227,6 +228,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_LE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_LE");
     IXQueryKeywordOrNCNameType K_LEAST = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_LEAST");
     IXQueryKeywordOrNCNameType K_LET = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_LET");
+    IXQueryKeywordOrNCNameType K_LOWERCASE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_LOWERCASE"); // Full Text 1.0
     IXQueryKeywordOrNCNameType K_LT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_LT");
     IXQueryKeywordOrNCNameType K_MAP = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_MAP"); // XQuery 3.1
     IXQueryKeywordOrNCNameType K_MINUS_SIGN = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_MINUS_SIGN"); // XQuery 3.0
@@ -282,6 +284,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_SCHEMA_ELEMENT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SCHEMA_ELEMENT", IXQueryKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME);
     IXQueryKeywordOrNCNameType K_SCORE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SCORE"); // Full Text 1.0
     IXQueryKeywordOrNCNameType K_SELF = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SELF");
+    IXQueryKeywordOrNCNameType K_SENSITIVE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SENSITIVE"); // Full Text 1.0
     IXQueryKeywordOrNCNameType K_SENTENCE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SENTENCE"); // Full Text 1.0
     IXQueryKeywordOrNCNameType K_SENTENCES = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SENTENCES"); // Full Text 1.0
     IXQueryKeywordOrNCNameType K_SEQUENTIAL = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SEQUENTIAL"); // Scripting Extension 1.0
@@ -310,6 +313,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_UNORDERED = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_UNORDERED");
     IXQueryKeywordOrNCNameType K_UPDATE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_UPDATE"); // BaseX 7.8
     IXQueryKeywordOrNCNameType K_UPDATING = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_UPDATING"); // Update Facility 1.0
+    IXQueryKeywordOrNCNameType K_UPPERCASE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_UPPERCASE"); // Full Text 1.0
     IXQueryKeywordOrNCNameType K_USING = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_USING"); // Full Text 1.0
     IXQueryKeywordOrNCNameType K_VALIDATE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_VALIDATE");
     IXQueryKeywordOrNCNameType K_VALUE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_VALUE"); // Update Facility 1.0
