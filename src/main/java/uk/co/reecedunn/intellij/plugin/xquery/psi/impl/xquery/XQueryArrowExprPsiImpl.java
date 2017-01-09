@@ -39,7 +39,9 @@ public class XQueryArrowExprPsiImpl extends ASTWrapperPsiElement implements XQue
         }
 
         final XQueryVersion minimalConformance = implementation.getVersion(XQueryConformance.MINIMAL_CONFORMANCE);
-        return minimalConformance != null && minimalConformance.supportsVersion(XQueryVersion.VERSION_3_1);
+        final XQueryVersion marklogic = implementation.getVersion(XQueryConformance.MARKLOGIC);
+        return (minimalConformance != null && minimalConformance.supportsVersion(XQueryVersion.VERSION_3_1))
+                || (marklogic != null && marklogic.supportsVersion(XQueryVersion.VERSION_9_0));
     }
 
     @Override
@@ -50,6 +52,6 @@ public class XQueryArrowExprPsiImpl extends ASTWrapperPsiElement implements XQue
 
     @Override
     public String getConformanceErrorMessage() {
-        return XQueryBundle.message("requires.feature.minimal-conformance.version", XQueryVersion.VERSION_3_1);
+        return XQueryBundle.message("requires.feature.marklogic-9-xquery.version");
     }
 }
