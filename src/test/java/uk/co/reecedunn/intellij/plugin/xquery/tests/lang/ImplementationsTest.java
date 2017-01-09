@@ -105,7 +105,7 @@ public class ImplementationsTest extends TestCase {
         ImplementationItem implementation = Implementations.getItemById("marklogic");
 
         final List<ImplementationItem> versions = implementation.getItems(ImplementationItem.IMPLEMENTATION_VERSION);
-        assertThat(versions.size(), is(3));
+        assertThat(versions.size(), is(4));
 
         assertThat(versions.get(0).getID(), is("marklogic/v6"));
         assertThat(versions.get(0).toString(), is("MarkLogic 6"));
@@ -115,6 +115,9 @@ public class ImplementationsTest extends TestCase {
 
         assertThat(versions.get(2).getID(), is("marklogic/v8"));
         assertThat(versions.get(2).toString(), is("MarkLogic 8"));
+
+        assertThat(versions.get(3).getID(), is("marklogic/v9"));
+        assertThat(versions.get(3).toString(), is("MarkLogic 9 (EAP)"));
 
         assertThat(versions.get(0).equals(versions.get(0)), is(true));
         assertThat(versions.get(1).equals(versions.get(0)), is(false));
