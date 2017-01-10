@@ -4237,6 +4237,22 @@ public class XQueryLexerTest extends LexerTestCase {
     }
 
     // endregion
+    // region Full Text 1.0 :: FTThesaurusOption
+
+    @Specification(name="XQuery Full Text 1.0", reference="https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTThesaurusOption")
+    public void testFTThesaurusOption() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "thesaurus", XQueryTokenType.K_THESAURUS);
+        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN);
+        matchSingleToken(lexer, ",", XQueryTokenType.COMMA);
+        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE);
+
+        matchSingleToken(lexer, "no", XQueryTokenType.K_NO);
+        matchSingleToken(lexer, "default", XQueryTokenType.K_DEFAULT);
+    }
+
+    // endregion
     // region MarkLogic 6.0 :: TransactionSeparator
 
     public void testTransactionSeparator() {

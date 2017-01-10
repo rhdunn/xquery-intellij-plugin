@@ -660,6 +660,12 @@ public class SyntaxHighlighterTest extends TestCase {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_TEXT).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_TEXT)[0], is(SyntaxHighlighter.KEYWORD));
 
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_THEN).length, is(1));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_THEN)[0], is(SyntaxHighlighter.KEYWORD));
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_THESAURUS).length, is(1));
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_THESAURUS)[0], is(SyntaxHighlighter.KEYWORD));
+
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_TIMES).length, is(1));
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_TIMES)[0], is(SyntaxHighlighter.KEYWORD));
 

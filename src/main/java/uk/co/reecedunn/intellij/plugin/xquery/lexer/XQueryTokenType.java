@@ -303,6 +303,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_SWITCH = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SWITCH", IXQueryKeywordOrNCNameType.KeywordType.XQUERY30_RESERVED_FUNCTION_NAME); // XQuery 3.0
     IXQueryKeywordOrNCNameType K_TEXT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TEXT", IXQueryKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME);
     IXQueryKeywordOrNCNameType K_THEN = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_THEN");
+    IXQueryKeywordOrNCNameType K_THESAURUS = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_THESAURUS"); // Full Text 1.0
     IXQueryKeywordOrNCNameType K_TIMES = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TIMES"); // Full Text 1.0
     IXQueryKeywordOrNCNameType K_TO = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TO");
     IXQueryKeywordOrNCNameType K_TRANSFORM = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TRANSFORM"); // Update Facility 3.0
