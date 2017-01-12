@@ -1537,6 +1537,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("wildcards", XQueryTokenType.K_WILDCARDS); // Full Text 1.0
         sKeywords.put("window", XQueryTokenType.K_WINDOW); // XQuery 3.0; Full Text 1.0
         sKeywords.put("with", XQueryTokenType.K_WITH); // Update Facility 1.0
+        sKeywords.put("without", XQueryTokenType.K_WITHOUT); // Full Text 1.0
         sKeywords.put("word", XQueryTokenType.K_WORD); // Full Text 1.0
         sKeywords.put("words", XQueryTokenType.K_WORDS); // Full Text 1.0
         sKeywords.put("xquery", XQueryTokenType.K_XQUERY);

@@ -334,6 +334,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_WILDCARDS = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_WILDCARDS"); // Full Text 1.0
     IXQueryKeywordOrNCNameType K_WINDOW = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_WINDOW"); // XQuery 3.0; Full Text 1.0
     IXQueryKeywordOrNCNameType K_WITH = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_WITH"); // Update Facility 1.0
+    IXQueryKeywordOrNCNameType K_WITHOUT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_WITHOUT"); // Full Text 1.0
     IXQueryKeywordOrNCNameType K_WORD = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_WORD"); // Full Text 1.0
     IXQueryKeywordOrNCNameType K_WORDS = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_WORDS"); // Full Text 1.0
     IXQueryKeywordOrNCNameType K_XQUERY = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_XQUERY");
