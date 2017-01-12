@@ -1502,6 +1502,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("stable", XQueryTokenType.K_STABLE);
         sKeywords.put("start", XQueryTokenType.K_START); // XQuery 3.0
         sKeywords.put("stemming", XQueryTokenType.K_STEMMING); // Full Text 1.0
+        sKeywords.put("stop", XQueryTokenType.K_STOP); // Full Text 1.0
         sKeywords.put("strict", XQueryTokenType.K_STRICT);
         sKeywords.put("strip", XQueryTokenType.K_STRIP);
         sKeywords.put("stylesheet", XQueryTokenType.K_STYLESHEET); // MarkLogic 6.0

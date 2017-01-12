@@ -299,6 +299,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_STABLE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_STABLE");
     IXQueryKeywordOrNCNameType K_START = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_START"); // XQuery 3.0
     IXQueryKeywordOrNCNameType K_STEMMING = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_STEMMING"); // Full Text 1.0
+    IXQueryKeywordOrNCNameType K_STOP = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_STOP"); // Full Text 1.0
     IXQueryKeywordOrNCNameType K_STRICT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_STRICT");
     IXQueryKeywordOrNCNameType K_STRIP = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_STRIP");
     IXQueryKeywordOrNCNameType K_STYLESHEET = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_STYLESHEET"); // MarkLogic 6.0
