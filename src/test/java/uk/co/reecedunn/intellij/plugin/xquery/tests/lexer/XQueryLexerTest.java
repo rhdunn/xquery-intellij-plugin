@@ -4309,6 +4309,17 @@ public class XQueryLexerTest extends LexerTestCase {
     }
 
     // endregion
+    // region Full Text 1.0 :: FTStopWordsInclExcl
+
+    @Specification(name="XQuery Full Text 1.0", reference="https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTStopWordsInclExcl")
+    public void testFTStopWordsInclExcl() {
+        Lexer lexer = new XQueryLexer();
+
+        matchSingleToken(lexer, "union", XQueryTokenType.K_UNION);
+        matchSingleToken(lexer, "except", XQueryTokenType.K_EXCEPT);
+    }
+
+    // endregion
     // region MarkLogic 6.0 :: TransactionSeparator
 
     public void testTransactionSeparator() {
