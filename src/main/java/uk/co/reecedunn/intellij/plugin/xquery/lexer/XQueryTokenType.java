@@ -224,6 +224,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_INVOKE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_INVOKE"); // Update Facility 3.0
     IXQueryKeywordOrNCNameType K_IS = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_IS");
     IXQueryKeywordOrNCNameType K_ITEM = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ITEM", IXQueryKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME);
+    IXQueryKeywordOrNCNameType K_LANGUAGE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_LANGUAGE"); // Full Text 1.0
     IXQueryKeywordOrNCNameType K_LAST = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_LAST"); // Update Facility 1.0
     IXQueryKeywordOrNCNameType K_LAX = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_LAX");
     IXQueryKeywordOrNCNameType K_LE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_LE");
