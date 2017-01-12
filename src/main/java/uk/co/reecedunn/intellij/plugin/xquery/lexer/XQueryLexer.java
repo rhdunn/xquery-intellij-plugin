@@ -1432,6 +1432,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("le", XQueryTokenType.K_LE);
         sKeywords.put("least", XQueryTokenType.K_LEAST);
         sKeywords.put("let", XQueryTokenType.K_LET);
+        sKeywords.put("levels", XQueryTokenType.K_LEVELS); // Full Text 1.0
         sKeywords.put("lowercase", XQueryTokenType.K_LOWERCASE); // Full Text 1.0
         sKeywords.put("lt", XQueryTokenType.K_LT);
         sKeywords.put("map", XQueryTokenType.K_MAP); // XQuery 3.1
@@ -1477,6 +1478,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("processing-instruction", XQueryTokenType.K_PROCESSING_INSTRUCTION);
         sKeywords.put("property", XQueryTokenType.K_PROPERTY); // MarkLogic 6.0
         sKeywords.put("public", XQueryTokenType.K_PUBLIC); // XQuery 3.0 (§4.15 -- Annotations)
+        sKeywords.put("relationship", XQueryTokenType.K_RELATIONSHIP); // Full Text 1.0
         sKeywords.put("rename", XQueryTokenType.K_RENAME); // Update Facility 1.0
         sKeywords.put("replace", XQueryTokenType.K_REPLACE); // Update Facility 1.0
         sKeywords.put("return", XQueryTokenType.K_RETURN);

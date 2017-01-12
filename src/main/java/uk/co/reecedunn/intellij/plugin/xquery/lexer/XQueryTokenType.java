@@ -229,6 +229,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_LE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_LE");
     IXQueryKeywordOrNCNameType K_LEAST = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_LEAST");
     IXQueryKeywordOrNCNameType K_LET = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_LET");
+    IXQueryKeywordOrNCNameType K_LEVELS = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_LEVELS"); // Full Text 1.0
     IXQueryKeywordOrNCNameType K_LOWERCASE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_LOWERCASE"); // Full Text 1.0
     IXQueryKeywordOrNCNameType K_LT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_LT");
     IXQueryKeywordOrNCNameType K_MAP = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_MAP"); // XQuery 3.1
@@ -274,6 +275,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_PROCESSING_INSTRUCTION = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PROCESSING_INSTRUCTION", IXQueryKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME);
     IXQueryKeywordOrNCNameType K_PROPERTY = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PROPERTY"); // MarkLogic 6.0
     IXQueryKeywordOrNCNameType K_PUBLIC = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PUBLIC"); // XQuery 3.0 (§4.15 -- Annotations)
+    IXQueryKeywordOrNCNameType K_RELATIONSHIP = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_RELATIONSHIP"); // Full Text 1.0
     IXQueryKeywordOrNCNameType K_RENAME = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_RENAME"); // Update Facility 1.0
     IXQueryKeywordOrNCNameType K_REPLACE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_REPLACE"); // Update Facility 1.0
     IXQueryKeywordOrNCNameType K_RETURN = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_RETURN");
