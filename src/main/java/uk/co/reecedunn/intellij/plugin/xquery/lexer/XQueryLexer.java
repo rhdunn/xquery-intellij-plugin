@@ -321,7 +321,7 @@ public class XQueryLexer extends LexerBase {
                         mType = XQueryTokenType.INVALID;
                     }
                 } else {
-                    if (CharacterClass.getCharClass(mTokenRange.getCodePoint()) == CharacterClass.NAME_START_CHAR) {
+                    if (isDirElement()) {
                         mType = XQueryTokenType.OPEN_XML_TAG;
                         pushState(STATE_DIR_ELEM_CONSTRUCTOR);
                     } else {
@@ -1134,6 +1134,38 @@ public class XQueryLexer extends LexerBase {
 
     // endregion
     // region Helper Functions
+
+    private boolean isDirElement() {
+        int cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
+
+        // The XQuery specification only allows direct elements without a space between the '<' and
+        // the start of the tag name (the DirElementConstructor is declared as ws:explicit).
+        if (cc != CharacterClass.NAME_START_CHAR)
+            return false;
+
+        // Accept characters that form the element and attribute names. This includes the QName
+        // separator and whitespace.
+        mTokenRange.save();
+        while (cc == CharacterClass.NAME_START_CHAR ||
+               cc == CharacterClass.DIGIT ||
+               cc == CharacterClass.DOT ||
+               cc == CharacterClass.HYPHEN_MINUS ||
+               cc == CharacterClass.NAME_CHAR ||
+               cc == CharacterClass.COLON ||
+               cc == CharacterClass.WHITESPACE) {
+            mTokenRange.match();
+            cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
+        }
+        mTokenRange.restore();
+
+        // This is a direct element if the next character could form part of an element:
+        return cc == CharacterClass.GREATER_THAN ||  // End of the element, e.g.: <abc>
+               cc == CharacterClass.EQUAL ||         // Attribute. e.g.: <abc attr="val"/>
+               cc == CharacterClass.FORWARD_SLASH || // Self-closing tag, e.g.: <abc/>
+               cc == CharacterClass.QUOTE ||         // Missing equals, e.g.: <abc attr "val"/>
+               cc == CharacterClass.APOSTROPHE ||    // Missing equals, e.g.: <abc attr 'val'/>
+               cc == CharacterClass.END_OF_BUFFER;   // Unclosed element, e.g.: <abc
+    }
 
     private void matchEntityReference(int state) {
         boolean isAttributeValue = (state == STATE_DIR_ATTRIBUTE_VALUE_QUOTE) || (state == STATE_DIR_ATTRIBUTE_VALUE_APOSTROPHE);

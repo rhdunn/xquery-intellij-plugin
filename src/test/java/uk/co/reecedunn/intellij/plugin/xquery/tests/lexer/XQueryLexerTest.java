@@ -1067,6 +1067,57 @@ public class XQueryLexerTest extends LexerTestCase {
         matchToken(lexer, "",     0, 13, 13, null);
     }
 
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirElemConstructor")
+    public void testDirElemConstructor_IsFunctionNameInExpr() {
+        Lexer lexer = new XQueryLexer();
+
+        lexer.start("1 < fn:abs (");
+        matchToken(lexer, "1",    0,  0,  1, XQueryTokenType.INTEGER_LITERAL);
+        matchToken(lexer, " ",    0,  1,  2, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "<",    0,  2,  3, XQueryTokenType.LESS_THAN);
+        matchToken(lexer, " ",    0,  3,  4, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "fn",   0,  4,  6, XQueryTokenType.NCNAME);
+        matchToken(lexer, ":",    0,  6,  7, XQueryTokenType.QNAME_SEPARATOR);
+        matchToken(lexer, "abs",  0,  7, 10, XQueryTokenType.NCNAME);
+        matchToken(lexer, " ",    0, 10, 11, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "(",    0, 11, 12, XQueryTokenType.PARENTHESIS_OPEN);
+        matchToken(lexer, "",     0, 12, 12, null);
+
+        lexer.start("1 <fn:abs (");
+        matchToken(lexer, "1",    0,  0,  1, XQueryTokenType.INTEGER_LITERAL);
+        matchToken(lexer, " ",    0,  1,  2, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "<",    0,  2,  3, XQueryTokenType.LESS_THAN);
+        matchToken(lexer, "fn",   0,  3,  5, XQueryTokenType.NCNAME);
+        matchToken(lexer, ":",    0,  5,  6, XQueryTokenType.QNAME_SEPARATOR);
+        matchToken(lexer, "abs",  0,  6,  9, XQueryTokenType.NCNAME);
+        matchToken(lexer, " ",    0,  9, 10, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "(",    0, 10, 11, XQueryTokenType.PARENTHESIS_OPEN);
+        matchToken(lexer, "",     0, 11, 11, null);
+
+        lexer.start("1 < fn:abs #");
+        matchToken(lexer, "1",    0,  0,  1, XQueryTokenType.INTEGER_LITERAL);
+        matchToken(lexer, " ",    0,  1,  2, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "<",    0,  2,  3, XQueryTokenType.LESS_THAN);
+        matchToken(lexer, " ",    0,  3,  4, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "fn",   0,  4,  6, XQueryTokenType.NCNAME);
+        matchToken(lexer, ":",    0,  6,  7, XQueryTokenType.QNAME_SEPARATOR);
+        matchToken(lexer, "abs",  0,  7, 10, XQueryTokenType.NCNAME);
+        matchToken(lexer, " ",    0, 10, 11, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "#",    0, 11, 12, XQueryTokenType.FUNCTION_REF_OPERATOR);
+        matchToken(lexer, "",     0, 12, 12, null);
+
+        lexer.start("1 <fn:abs #");
+        matchToken(lexer, "1",    0,  0,  1, XQueryTokenType.INTEGER_LITERAL);
+        matchToken(lexer, " ",    0,  1,  2, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "<",    0,  2,  3, XQueryTokenType.LESS_THAN);
+        matchToken(lexer, "fn",   0,  3,  5, XQueryTokenType.NCNAME);
+        matchToken(lexer, ":",    0,  5,  6, XQueryTokenType.QNAME_SEPARATOR);
+        matchToken(lexer, "abs",  0,  6,  9, XQueryTokenType.NCNAME);
+        matchToken(lexer, " ",    0,  9, 10, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "#",    0, 10, 11, XQueryTokenType.FUNCTION_REF_OPERATOR);
+        matchToken(lexer, "",     0, 11, 11, null);
+    }
+
     // endregion
     // region XQuery 1.0 :: DirAttributeList + DirAttributeValue
 
