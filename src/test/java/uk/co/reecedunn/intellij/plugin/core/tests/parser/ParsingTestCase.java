@@ -58,10 +58,7 @@ import org.picocontainer.defaults.AbstractComponentAdapter;
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockPsiManager;
 import uk.co.reecedunn.intellij.plugin.core.tests.vfs.ResourceVirtualFile;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.StringWriter;
+import java.io.*;
 
 // NOTE: The IntelliJ ParsingTextCase implementation does not make it easy to
 // customise the mock implementation, making it difficult to implement some tests.

@@ -7649,6 +7649,18 @@ public class XQueryParserTest extends ParserTestCase {
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
+    public void testMapConstructorEntry_QName() {
+        final String expected = loadResource("tests/parser/xquery-3.1/MapConstructorEntry_QName.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/MapConstructorEntry_QName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testMapConstructorEntry_QName_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/xquery-3.1/MapConstructorEntry_QName_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/MapConstructorEntry_QName_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
     // endregion
     // region XQuery 3.1 :: SquareArrayConstructor
 

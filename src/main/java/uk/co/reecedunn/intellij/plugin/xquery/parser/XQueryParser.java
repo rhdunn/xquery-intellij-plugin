@@ -2697,11 +2697,11 @@ class XQueryParser {
 
     private boolean parseCatchErrorList() {
         final PsiBuilder.Marker catchErrorListMarker = mark();
-        if (parseNameTest()) {
+        if (parseNameTest(null)) {
             parseWhiteSpaceAndCommentTokens();
             while (matchTokenType(XQueryTokenType.UNION)) {
                 parseWhiteSpaceAndCommentTokens();
-                if (!parseNameTest()) {
+                if (!parseNameTest(null)) {
                     error(XQueryBundle.message("parser.error.expected", "NameTest"));
                 }
                 parseWhiteSpaceAndCommentTokens();
@@ -3328,7 +3328,7 @@ class XQueryParser {
 
     private boolean parseTreatExpr(IElementType type) {
         final PsiBuilder.Marker treatExprMarker = mark();
-        if (parseCastableExpr()) {
+        if (parseCastableExpr(type)) {
             parseWhiteSpaceAndCommentTokens();
             if (matchTokenType(XQueryTokenType.K_TREAT)) {
                 boolean haveErrors = false;
@@ -3358,9 +3358,9 @@ class XQueryParser {
         return false;
     }
 
-    private boolean parseCastableExpr() {
+    private boolean parseCastableExpr(IElementType type) {
         final PsiBuilder.Marker castableExprMarker = mark();
-        if (parseCastExpr()) {
+        if (parseCastExpr(type)) {
             parseWhiteSpaceAndCommentTokens();
             if (matchTokenType(XQueryTokenType.K_CASTABLE)) {
                 boolean haveErrors = false;
@@ -3384,9 +3384,9 @@ class XQueryParser {
         return false;
     }
 
-    private boolean parseCastExpr() {
+    private boolean parseCastExpr(IElementType type) {
         final PsiBuilder.Marker castExprMarker = mark();
-        if (parseArrowExpr_TransformWithExpr()) {
+        if (parseArrowExpr_TransformWithExpr(type)) {
             parseWhiteSpaceAndCommentTokens();
             if (matchTokenType(XQueryTokenType.K_CAST)) {
                 boolean haveErrors = false;
@@ -3410,7 +3410,7 @@ class XQueryParser {
         return false;
     }
 
-    private boolean parseArrowExpr_TransformWithExpr() {
+    private boolean parseArrowExpr_TransformWithExpr(IElementType type) {
         // The XQuery 3.1 and Update Facility 3.0 specifications both define
         // constructs for use between CastExpr and UnaryExpr. This supports
         // either construct, but does not allow both constructs to be mixed
@@ -3419,7 +3419,7 @@ class XQueryParser {
         // See https://www.w3.org/Bugs/Public/show_bug.cgi?id=30015.
 
         final PsiBuilder.Marker exprMarker = mark();
-        if (parseUnaryExpr()) {
+        if (parseUnaryExpr(type)) {
             parseWhiteSpaceAndCommentTokens();
             if (parseArrowExpr()) {
                 exprMarker.done(XQueryElementType.ARROW_EXPR);
@@ -3501,14 +3501,14 @@ class XQueryParser {
         return false;
     }
 
-    private boolean parseUnaryExpr() {
+    private boolean parseUnaryExpr(IElementType type) {
         final PsiBuilder.Marker pathExprMarker = mark();
         boolean matched = false;
         while (matchTokenType(XQueryTokenType.PLUS) || matchTokenType(XQueryTokenType.MINUS)) {
             parseWhiteSpaceAndCommentTokens();
             matched = true;
         }
-        if (parseValueExpr()) {
+        if (parseValueExpr(matched ? null : type)) {
             pathExprMarker.done(XQueryElementType.UNARY_EXPR);
             return true;
         } else if (matched) {
@@ -3560,8 +3560,8 @@ class XQueryParser {
     // endregion
     // region Grammar :: Expr :: OrExpr :: ValueExpr
 
-    private boolean parseValueExpr() {
-        return parseExtensionExpr() || parseValidateExpr() || parseSimpleMapExpr();
+    private boolean parseValueExpr(IElementType type) {
+        return parseExtensionExpr() || parseValidateExpr() || parseSimpleMapExpr(type);
     }
 
     private boolean parseValidateExpr() {
@@ -3636,15 +3636,15 @@ class XQueryParser {
         return false;
     }
 
-    private boolean parseSimpleMapExpr() {
+    private boolean parseSimpleMapExpr(IElementType type) {
         final PsiBuilder.Marker simpleMapExprMarker = mark();
-        if (parsePathExpr()) {
+        if (parsePathExpr(type)) {
             boolean haveErrors = false;
 
             parseWhiteSpaceAndCommentTokens();
             while (matchTokenType(XQueryTokenType.MAP_OPERATOR)) {
                 parseWhiteSpaceAndCommentTokens();
-                if (!parsePathExpr() && !haveErrors) {
+                if (!parsePathExpr(null) && !haveErrors) {
                     error(XQueryBundle.message("parser.error.expected", "PathExpr"));
                     haveErrors = true;
                 }
@@ -3658,23 +3658,23 @@ class XQueryParser {
         return false;
     }
 
-    private boolean parsePathExpr() {
+    private boolean parsePathExpr(IElementType type) {
         final PsiBuilder.Marker pathExprMarker = mark();
         if (matchTokenType(XQueryTokenType.DIRECT_DESCENDANTS_PATH)) {
             parseWhiteSpaceAndCommentTokens();
-            parseRelativePathExpr();
+            parseRelativePathExpr(null);
 
             pathExprMarker.done(XQueryElementType.PATH_EXPR);
             return true;
         } else if (matchTokenType(XQueryTokenType.ALL_DESCENDANTS_PATH)) {
             parseWhiteSpaceAndCommentTokens();
-            if (!parseRelativePathExpr()) {
+            if (!parseRelativePathExpr(null)) {
                 error(XQueryBundle.message("parser.error.expected", "RelativePathExpr"));
             }
 
             pathExprMarker.done(XQueryElementType.PATH_EXPR);
             return true;
-        } else if (parseRelativePathExpr()) {
+        } else if (parseRelativePathExpr(type)) {
             pathExprMarker.done(XQueryElementType.PATH_EXPR);
             return true;
         }
@@ -3682,13 +3682,13 @@ class XQueryParser {
         return false;
     }
 
-    private boolean parseRelativePathExpr() {
+    private boolean parseRelativePathExpr(IElementType type) {
         final PsiBuilder.Marker relativePathExprMarker = mark();
-        if (parseStepExpr()) {
+        if (parseStepExpr(type)) {
             parseWhiteSpaceAndCommentTokens();
             while (matchTokenType(XQueryTokenType.DIRECT_DESCENDANTS_PATH) || matchTokenType(XQueryTokenType.ALL_DESCENDANTS_PATH)) {
                 parseWhiteSpaceAndCommentTokens();
-                if (!parseStepExpr()) {
+                if (!parseStepExpr(null)) {
                     error(XQueryBundle.message("parser.error.expected", "StepExpr"));
                 }
 
@@ -3705,13 +3705,13 @@ class XQueryParser {
     // endregion
     // region Grammar :: Expr :: OrExpr :: StepExpr
 
-    private boolean parseStepExpr() {
-        return parsePostfixExpr() || parseAxisStep();
+    private boolean parseStepExpr(IElementType type) {
+        return parsePostfixExpr() || parseAxisStep(type);
     }
 
-    private boolean parseAxisStep() {
+    private boolean parseAxisStep(IElementType type) {
         final PsiBuilder.Marker axisStepMarker = mark();
-        if (parseReverseStep() || parseForwardStep()) {
+        if (parseReverseStep() || parseForwardStep(type)) {
             parseWhiteSpaceAndCommentTokens();
             parsePredicateList();
 
@@ -3723,17 +3723,17 @@ class XQueryParser {
         return false;
     }
 
-    private boolean parseForwardStep() {
+    private boolean parseForwardStep(IElementType type) {
         final PsiBuilder.Marker forwardStepMarker = mark();
         if (parseForwardAxis()) {
             parseWhiteSpaceAndCommentTokens();
-            if (!parseNodeTest()) {
+            if (!parseNodeTest(null)) {
                 error(XQueryBundle.message("parser.error.expected", "NodeTest"));
             }
 
             forwardStepMarker.done(XQueryElementType.FORWARD_STEP);
             return true;
-        } else if (parseAbbrevForwardStep()) {
+        } else if (parseAbbrevForwardStep(type)) {
             forwardStepMarker.done(XQueryElementType.FORWARD_STEP);
             return true;
         }
@@ -3767,12 +3767,12 @@ class XQueryParser {
         return false;
     }
 
-    private boolean parseAbbrevForwardStep() {
+    private boolean parseAbbrevForwardStep(IElementType type) {
         final PsiBuilder.Marker abbrevForwardStepMarker = mark();
         boolean matched = matchTokenType(XQueryTokenType.ATTRIBUTE_SELECTOR);
 
         parseWhiteSpaceAndCommentTokens();
-        if (parseNodeTest()) {
+        if (parseNodeTest(type)) {
             abbrevForwardStepMarker.done(XQueryElementType.ABBREV_FORWARD_STEP);
             return true;
         } else if (matched) {
@@ -3789,7 +3789,7 @@ class XQueryParser {
         final PsiBuilder.Marker reverseStepMarker = mark();
         if (parseReverseAxis()) {
             parseWhiteSpaceAndCommentTokens();
-            if (!parseNodeTest()) {
+            if (!parseNodeTest(null)) {
                 error(XQueryBundle.message("parser.error.expected", "NodeTest"));
             }
 
@@ -3834,9 +3834,9 @@ class XQueryParser {
         return false;
     }
 
-    private boolean parseNodeTest() {
+    private boolean parseNodeTest(IElementType type) {
         final PsiBuilder.Marker nodeTestMarker = mark();
-        if (parseKindTest() || parseNameTest()) {
+        if (parseKindTest() || parseNameTest(type)) {
             nodeTestMarker.done(XQueryElementType.NODE_TEST);
             return true;
         }
@@ -3845,9 +3845,9 @@ class XQueryParser {
         return false;
     }
 
-    private boolean parseNameTest() {
+    private boolean parseNameTest(IElementType type) {
         final PsiBuilder.Marker nameTestMarker = mark();
-        if (parseEQName(XQueryElementType.WILDCARD)) { // QName | Wildcard
+        if (parseEQName(XQueryElementType.WILDCARD, type == XQueryElementType.MAP_CONSTRUCTOR_ENTRY)) { // QName | Wildcard
             nameTestMarker.done(XQueryElementType.NAME_TEST);
             return true;
         }
@@ -4402,7 +4402,7 @@ class XQueryParser {
 
     private boolean parseMapConstructorEntry() {
         final PsiBuilder.Marker mapConstructorEntry = mark();
-        if (parseExprSingle(XQueryElementType.MAP_KEY_EXPR)) {
+        if (parseExprSingle(XQueryElementType.MAP_KEY_EXPR, XQueryElementType.MAP_CONSTRUCTOR_ENTRY)) {
             boolean haveError = false;
 
             parseWhiteSpaceAndCommentTokens();
@@ -5699,7 +5699,11 @@ class XQueryParser {
     }
 
     private boolean parseEQName(IElementType type) {
-        if (parseQName(type)) {
+        return parseEQName(type, false);
+    }
+
+    private boolean parseEQName(IElementType type, boolean endQNameOnSpace) {
+        if (parseQName(type, endQNameOnSpace)) {
             return true;
         }
 
@@ -5717,6 +5721,10 @@ class XQueryParser {
     }
 
     private boolean parseQName(IElementType type) {
+        return parseQName(type, false);
+    }
+
+    private boolean parseQName(IElementType type, boolean endQNameOnSpace) {
         final PsiBuilder.Marker qnameMarker = mark();
         boolean isWildcard = getTokenType() == XQueryTokenType.STAR;
         if (getTokenType() instanceof INCNameType || isWildcard) {
@@ -5732,11 +5740,26 @@ class XQueryParser {
             }
 
             final PsiBuilder.Marker beforeMarker = mark();
-            if (parseWhiteSpaceAndCommentTokens() && (
-                getTokenType() == XQueryTokenType.QNAME_SEPARATOR ||
-                getTokenType() == XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR ||
-                getTokenType() == XQueryTokenType.XML_TAG_QNAME_SEPARATOR)) {
-                beforeMarker.error(XQueryBundle.message(isWildcard ? "parser.error.wildcard.whitespace-before-local-part" : "parser.error.qname.whitespace-before-local-part"));
+            if (parseWhiteSpaceAndCommentTokens()) {
+                if (endQNameOnSpace) {
+                    beforeMarker.drop();
+                    if (type == XQueryElementType.WILDCARD) {
+                        if (isWildcard) {
+                            qnameMarker.done(XQueryElementType.WILDCARD);
+                        } else {
+                            qnameMarker.drop(); // NCName is annotated in the above logic, so don't create nested NCName elements.
+                        }
+                    } else {
+                        qnameMarker.drop(); // NCName is annotated in the above logic, so don't create nested NCName elements.
+                    }
+                    return true;
+                } else if (getTokenType() == XQueryTokenType.QNAME_SEPARATOR ||
+                    getTokenType() == XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR ||
+                    getTokenType() == XQueryTokenType.XML_TAG_QNAME_SEPARATOR) {
+                    beforeMarker.error(XQueryBundle.message(isWildcard ? "parser.error.wildcard.whitespace-before-local-part" : "parser.error.qname.whitespace-before-local-part"));
+                } else {
+                    beforeMarker.drop();
+                }
             } else {
                 beforeMarker.drop();
             }
