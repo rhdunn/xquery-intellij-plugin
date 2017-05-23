@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016-2017 Reece H. Dunn
  * Copyright 2000-2016 JetBrains s.r.o.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -53,6 +53,8 @@ import org.apache.xmlbeans.impl.common.IOUtil;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.function.Executable;
 import org.picocontainer.*;
 import org.picocontainer.defaults.AbstractComponentAdapter;
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockPsiManager;
@@ -124,6 +126,12 @@ public abstract class ParsingTestCase<File extends PsiFile> extends PlatformLite
         final PomModelImpl pomModel = new PomModelImpl(myProject);
         myProject.registerService(PomModel.class, pomModel);
         new TreeAspect(pomModel);
+    }
+
+    // IntelliJ 2017.1+ UsefulTestCase provides an assertThrows that returns void, but JUnit 5 M3+ returns the exception.
+    @SuppressWarnings("unchecked")
+    protected static <T extends Throwable> T assertThrows(Class<T> expectedType, Executable executable) {
+        return Assertions.assertThrows(expectedType, executable);
     }
 
     // region IntelliJ ParsingTestCase Methods
