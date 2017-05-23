@@ -61,6 +61,8 @@ import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockPsiManager;
 import uk.co.reecedunn.intellij.plugin.core.tests.vfs.ResourceVirtualFile;
 
 import java.io.*;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 // NOTE: The IntelliJ ParsingTextCase implementation does not make it easy to
 // customise the mock implementation, making it difficult to implement some tests.
@@ -114,6 +116,7 @@ public abstract class ParsingTestCase<File extends PsiFile> extends PlatformLite
         myProject.registerService(PsiFileFactory.class, mFileFactory);
         myProject.registerService(StartupManager.class, new StartupManagerImpl(myProject));
         registerExtensionPoint(FileTypeFactory.FILE_TYPE_FACTORY_EP, FileTypeFactory.class);
+        registerExtensionPoint("com.intellij.lang.MetaLanguage", "EP_NAME");
 
         for (ParserDefinition definition : mDefinitions) {
             addExplicitExtension(LanguageParserDefinitions.INSTANCE, definition.getFileNodeType().getLanguage(), definition);
@@ -153,6 +156,17 @@ public abstract class ParsingTestCase<File extends PsiFile> extends PlatformLite
     protected <T> void registerExtensionPoint(final ExtensionPointName<T> extensionPointName, Class<T> aClass) {
         super.registerExtensionPoint(extensionPointName, aClass);
         Disposer.register(myProject, () -> Extensions.getRootArea().unregisterExtensionPoint(extensionPointName.getName()));
+    }
+
+    private void registerExtensionPoint(final String epClassName, final String epField) {
+        try {
+            Class epClass = Class.forName(epClassName);
+            Field epname = epClass.getField(epField);
+            Method register = ParsingTestCase.class.getDeclaredMethod("registerExtensionPoint", ExtensionPointName.class, Class.class);
+            register.invoke(this, epname.get(null), epClass);
+        } catch (Exception e) {
+            // Don't register the extension point, as the associated class is not found.
+        }
     }
 
     protected <T> void registerApplicationService(final Class<T> aClass, T object) {
