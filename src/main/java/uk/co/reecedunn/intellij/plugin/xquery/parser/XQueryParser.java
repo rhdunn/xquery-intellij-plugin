@@ -5767,6 +5767,7 @@ class XQueryParser {
             if (getTokenType() == XQueryTokenType.QNAME_SEPARATOR ||
                 getTokenType() == XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR ||
                 getTokenType() == XQueryTokenType.XML_TAG_QNAME_SEPARATOR) {
+                final PsiBuilder.Marker nameMarker = mark();
                 if ((type == XQueryElementType.NCNAME) || (type == XQueryElementType.PREFIX)) {
                     final PsiBuilder.Marker errorMarker = mark();
                     advanceLexer();
@@ -5777,10 +5778,25 @@ class XQueryParser {
 
                 final PsiBuilder.Marker afterMarker = mark();
                 if (parseWhiteSpaceAndCommentTokens()) {
-                    afterMarker.error(XQueryBundle.message(isWildcard ? "parser.error.wildcard.whitespace-after-local-part" : "parser.error.qname.whitespace-after-local-part"));
+                    if (endQNameOnSpace) {
+                        nameMarker.rollbackTo();
+                        if (type == XQueryElementType.WILDCARD) {
+                            if (isWildcard) {
+                                qnameMarker.done(XQueryElementType.WILDCARD);
+                            } else {
+                                qnameMarker.drop(); // NCName is annotated in the above logic, so don't create nested NCName elements.
+                            }
+                        } else {
+                            qnameMarker.drop(); // NCName is annotated in the above logic, so don't create nested NCName elements.
+                        }
+                        return true;
+                    } else {
+                        afterMarker.error(XQueryBundle.message(isWildcard ? "parser.error.wildcard.whitespace-after-local-part" : "parser.error.qname.whitespace-after-local-part"));
+                    }
                 } else {
                     afterMarker.drop();
                 }
+                nameMarker.drop();
 
                 if (getTokenType() == XQueryTokenType.STRING_LITERAL_START) {
                     error(XQueryBundle.message("parser.error.qname.missing-local-name"));
