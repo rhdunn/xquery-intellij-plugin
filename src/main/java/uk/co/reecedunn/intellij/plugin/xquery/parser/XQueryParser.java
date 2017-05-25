@@ -3493,7 +3493,7 @@ class XQueryParser {
 
     private boolean parseArrowFunctionSpecifier() {
         final PsiBuilder.Marker arrowFunctionSpecifierMarker = mark();
-        if (parseEQName(XQueryElementType.EQNAME) || parseVarRef() || parseParenthesizedExpr()) {
+        if (parseEQName(XQueryElementType.EQNAME) || parseVarRef(null) || parseParenthesizedExpr()) {
             arrowFunctionSpecifierMarker.done(XQueryElementType.ARROW_FUNCTION_SPECIFIER);
             return true;
         }
@@ -3706,7 +3706,7 @@ class XQueryParser {
     // region Grammar :: Expr :: OrExpr :: StepExpr
 
     private boolean parseStepExpr(IElementType type) {
-        return parsePostfixExpr() || parseAxisStep(type);
+        return parsePostfixExpr(type) || parseAxisStep(type);
     }
 
     private boolean parseAxisStep(IElementType type) {
@@ -3856,9 +3856,9 @@ class XQueryParser {
         return false;
     }
 
-    private boolean parsePostfixExpr() {
+    private boolean parsePostfixExpr(IElementType type) {
         final PsiBuilder.Marker postfixExprMarker = mark();
-        if (parsePrimaryExpr()) {
+        if (parsePrimaryExpr(type)) {
             parseWhiteSpaceAndCommentTokens();
             while (parsePredicate() || parseArgumentList() || parseLookup(XQueryElementType.LOOKUP)) {
                 parseWhiteSpaceAndCommentTokens();
@@ -3906,9 +3906,9 @@ class XQueryParser {
     // endregion
     // region Grammar :: Expr :: OrExpr :: PrimaryExpr
 
-    private boolean parsePrimaryExpr() {
+    private boolean parsePrimaryExpr(IElementType type) {
         return parseLiteral()
-            || parseVarRef()
+            || parseVarRef(type)
             || parseParenthesizedExpr()
             || parseContextItemExpr()
             || parseOrderedExpr()
@@ -3947,11 +3947,11 @@ class XQueryParser {
         return false;
     }
 
-    private boolean parseVarRef() {
+    private boolean parseVarRef(IElementType type) {
         final PsiBuilder.Marker varRefMarker = matchTokenTypeWithMarker(XQueryTokenType.VARIABLE_INDICATOR);
         if (varRefMarker != null) {
             parseWhiteSpaceAndCommentTokens();
-            if (!parseEQName(XQueryElementType.VAR_NAME)) {
+            if (!parseEQName(XQueryElementType.VAR_NAME, type == XQueryElementType.MAP_CONSTRUCTOR_ENTRY)) {
                 error(XQueryBundle.message("parser.error.expected-eqname"));
             }
 
@@ -4852,13 +4852,13 @@ class XQueryParser {
                 haveErrors = true;
 
                 parseWhiteSpaceAndCommentTokens();
-                if (!parsePrimaryExpr()) { // AbbrevForwardStep
+                if (!parsePrimaryExpr(null)) { // AbbrevForwardStep
                     updatingFunctionCallMarker.rollbackTo();
                     return false;
                 }
             } else {
                 parseWhiteSpaceAndCommentTokens();
-                if (!parsePrimaryExpr()) {
+                if (!parsePrimaryExpr(null)) {
                     error(XQueryBundle.message("parser.error.expected", "PrimaryExpr"));
                     haveErrors = true;
                 }

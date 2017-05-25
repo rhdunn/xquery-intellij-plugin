@@ -7667,6 +7667,12 @@ public class XQueryParserTest extends ParserTestCase {
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
+    public void testMapConstructorEntry_VarRef_NCName() {
+        final String expected = loadResource("tests/parser/xquery-3.1/MapConstructorEntry_VarRef_NCName.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.1/MapConstructorEntry_VarRef_NCName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
     // endregion
     // region XQuery 3.1 :: SquareArrayConstructor
 
