@@ -39,12 +39,17 @@ public class XQueryMapConstructorEntryPsiImpl extends ASTWrapperPsiElement imple
     public boolean conformsTo(ImplementationItem implementation) {
         final XQueryVersion saxon = implementation.getVersion(XQueryConformance.SAXON);
         boolean isSaxonExtension = saxon != null && saxon.supportsVersion(XQueryVersion.VERSION_9_4) && !saxon.supportsVersion(XQueryVersion.VERSION_9_7);
-        return (getConformanceElement().getNode().getElementType() == XQueryTokenType.ASSIGN_EQUAL) == isSaxonExtension;
+        PsiElement conformanceElement = getConformanceElement();
+        if (conformanceElement == getFirstChild()) {
+            return true;
+        }
+        return (conformanceElement.getNode().getElementType() == XQueryTokenType.ASSIGN_EQUAL) == isSaxonExtension;
     }
 
     @Override
     public PsiElement getConformanceElement() {
-        return findChildByType(ASSIGNMENT);
+        PsiElement element = findChildByType(ASSIGNMENT);
+        return element == null ? getFirstChild() : element;
     }
 
     @Override
