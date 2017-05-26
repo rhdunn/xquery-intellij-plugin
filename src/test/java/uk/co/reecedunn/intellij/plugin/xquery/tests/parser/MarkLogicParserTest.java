@@ -446,6 +446,48 @@ public class MarkLogicParserTest extends ParserTestCase {
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
+    public void testMapConstructorEntry_NCName() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_NCName.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_NCName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testMapConstructorEntry_NCName_WhitespaceAfterColon() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_NCName_WhitespaceAfterColon.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_NCName_WhitespaceAfterColon.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testMapConstructorEntry_NCName_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_NCName_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_NCName_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testMapConstructorEntry_QName_KeyExpr() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_QName_KeyExpr.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_QName_KeyExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testMapConstructorEntry_QName_ValueExpr() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_QName_ValueExpr.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_QName_ValueExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testMapConstructorEntry_QName_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_QName_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_QName_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testMapConstructorEntry_VarRef_NCName() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_VarRef_NCName.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_VarRef_NCName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
     // endregion
     // region MarkLogic 8.0 :: AnyKindTest
 
