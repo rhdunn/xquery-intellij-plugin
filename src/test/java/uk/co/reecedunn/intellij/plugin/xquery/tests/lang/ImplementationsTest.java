@@ -117,7 +117,7 @@ public class ImplementationsTest extends TestCase {
         assertThat(versions.get(2).toString(), is("MarkLogic 8"));
 
         assertThat(versions.get(3).getID(), is("marklogic/v9"));
-        assertThat(versions.get(3).toString(), is("MarkLogic 9 (EAP)"));
+        assertThat(versions.get(3).toString(), is("MarkLogic 9"));
 
         assertThat(versions.get(0).equals(versions.get(0)), is(true));
         assertThat(versions.get(1).equals(versions.get(0)), is(false));

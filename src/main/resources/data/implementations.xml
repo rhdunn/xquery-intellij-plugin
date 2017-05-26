@@ -164,7 +164,7 @@ limitations under the License.
                 <marklogic version="8.0" specification="https://docs.marklogic.com/9.0/guide/xquery/enhanced" default="true"/>
             </dialect>
         </version>
-        <version id="marklogic/v9" name="MarkLogic 9 (EAP)" localized="false" default="true" href="https://docs.marklogic.com/9.0/">
+        <version id="marklogic/v9" name="MarkLogic 9" localized="false" default="true" href="https://docs.marklogic.com/9.0/">
             <!--
             <dialect id="marklogic/v9/0.9-ml" name="XQuery" localized="false" default="true">
                 <minimal-conformance version="0.9-ml" specification="https://www.w3.org/TR/2003/WD-xquery-20030502/" default="false"/>
