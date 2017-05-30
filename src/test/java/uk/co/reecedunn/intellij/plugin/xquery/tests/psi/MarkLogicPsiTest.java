@@ -382,16 +382,16 @@ public class MarkLogicPsiTest extends ParserTestCase {
         XQueryEnclosedExpr enclosedExprPsi = children(catchClausePsi).findFirst(XQueryEnclosedExpr.class).get();
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)enclosedExprPsi;
 
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), is(false));
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
 
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(true));
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), is(true));
 
         assertThat(versioned.getConformanceErrorMessage(),

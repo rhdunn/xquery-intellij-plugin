@@ -42,7 +42,8 @@ public class XQueryEnclosedExprPsiImpl extends ASTWrapperPsiElement implements X
     private boolean marklogicSupportsOptionalExpr(PsiElement parent) {
         return parent instanceof XQueryCompTextConstructor ||
                parent instanceof XQueryDirAttributeValue ||
-               parent instanceof XQueryDirElemContent;
+               parent instanceof XQueryDirElemContent ||
+               parent instanceof XQueryCatchClause;
     }
 
     @Override
@@ -50,13 +51,6 @@ public class XQueryEnclosedExprPsiImpl extends ASTWrapperPsiElement implements X
         PsiElement parent = getParent();
         if (previousVersionSupportsOptionalExpr(parent) || getConformanceElement() != getFirstChild()) {
             return true;
-        }
-
-        if (parent instanceof XQueryCatchClause) {
-            XQueryCatchClause catchClause = (XQueryCatchClause)parent;
-            if (catchClause.isMarkLogicExtension()) {
-                return true;
-            }
         }
 
         final XQueryVersion marklogicConformance = implementation.getVersion(XQueryConformance.MARKLOGIC);
