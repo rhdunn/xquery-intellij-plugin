@@ -18,12 +18,17 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.lexer;
 import com.intellij.lexer.Lexer;
 import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCase;
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType;
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.CombinedLexer;
 
 public class XQueryLexerWithXQDocTest extends LexerTestCase {
+    private Lexer createLexer() {
+        return new CombinedLexer(new XQueryLexer());
+    }
+
     public void testXQueryTokens() {
-        Lexer lexer = new CombinedLexer();
+        Lexer lexer = createLexer();
 
         matchSingleToken(lexer, "xquery",   XQueryTokenType.K_XQUERY);
         matchSingleToken(lexer, "version",  XQueryTokenType.K_VERSION);
@@ -32,7 +37,7 @@ public class XQueryLexerWithXQDocTest extends LexerTestCase {
 
     @SuppressWarnings("PointlessBitwiseExpression")
     public void testXQueryComment() {
-        Lexer lexer = new CombinedLexer();
+        Lexer lexer = createLexer();
 
         lexer.start("(: Test :)");
         matchToken(lexer, "(:",     0x00000000|0,  0,  2, XQueryTokenType.COMMENT_START_TAG);
@@ -43,7 +48,7 @@ public class XQueryLexerWithXQDocTest extends LexerTestCase {
 
     @SuppressWarnings("PointlessBitwiseExpression")
     public void testXQDocComment() {
-        Lexer lexer = new CombinedLexer();
+        Lexer lexer = createLexer();
 
         lexer.start("(:~\n@xqdoc comment:)");
         matchToken(lexer, "(:",      0x00000000|0,  0,  2, XQueryTokenType.COMMENT_START_TAG);
@@ -59,7 +64,7 @@ public class XQueryLexerWithXQDocTest extends LexerTestCase {
 
     @SuppressWarnings("PointlessBitwiseExpression")
     public void testXQueryStateRestore() {
-        Lexer lexer = new CombinedLexer();
+        Lexer lexer = createLexer();
 
         lexer.start("Q{Hello World}", 2, 14, 0x00000000|26);
         matchToken(lexer, "Hello World", 26,  2, 13, XQueryTokenType.STRING_LITERAL_CONTENTS);
@@ -69,7 +74,7 @@ public class XQueryLexerWithXQDocTest extends LexerTestCase {
 
     @SuppressWarnings("PointlessBitwiseExpression")
     public void testXQDocStateRestore() {
-        Lexer lexer = new CombinedLexer();
+        Lexer lexer = createLexer();
 
         lexer.start("(:~\n@xqdoc comment:)", 5, 20, 0x70000000|2);
         matchToken(lexer, "xqdoc",   0x70000000|2,  5, 10, XQDocTokenType.TAG);

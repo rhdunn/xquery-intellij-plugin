@@ -30,8 +30,8 @@ public class CombinedLexer extends LexerBase {
 
     private static final int STATE_LEXER_XQDOC = 0x70000000;
 
-    public CombinedLexer() {
-        mLanguage = new XQueryLexer();
+    public CombinedLexer(Lexer language) {
+        mLanguage = language;
         mXQDoc = new XQDocLexer();
     }
 
