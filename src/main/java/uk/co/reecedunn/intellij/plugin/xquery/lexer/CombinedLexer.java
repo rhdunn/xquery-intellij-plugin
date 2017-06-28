@@ -41,9 +41,9 @@ public class CombinedLexer extends LexerBase {
     public final void start(@NotNull CharSequence buffer, int startOffset, int endOffset, int initialState) {
         mState = initialState & STATE_LEXER_XQDOC;
         if (mState == STATE_LEXER_XQDOC) {
-            mLanguage.start(buffer, startOffset, endOffset, XQueryLexer.STATE_XQUERY_COMMENT);
-            mXQDoc.start(mLanguage.getBufferSequence(), mLanguage.getTokenStart(), mLanguage.getTokenEnd(), initialState & ~STATE_LEXER_XQDOC);
             mActiveLexer = mXQDoc;
+            mLanguage.start(buffer, startOffset, endOffset, XQueryLexer.STATE_XQUERY_COMMENT);
+            mActiveLexer.start(mLanguage.getBufferSequence(), mLanguage.getTokenStart(), mLanguage.getTokenEnd(), initialState & ~STATE_LEXER_XQDOC);
         } else {
             mLanguage.start(buffer, startOffset, endOffset, initialState & ~STATE_LEXER_XQDOC);
             mActiveLexer = mLanguage;
@@ -53,8 +53,8 @@ public class CombinedLexer extends LexerBase {
     @Override
     public void advance() {
         if (mState == STATE_LEXER_XQDOC) {
-            mXQDoc.advance();
-            if (mXQDoc.getTokenType() == null) {
+            mActiveLexer.advance();
+            if (mActiveLexer.getTokenType() == null) {
                 mLanguage.advance();
                 mState = 0;
                 mActiveLexer = mLanguage;
@@ -62,9 +62,9 @@ public class CombinedLexer extends LexerBase {
         } else {
             mLanguage.advance();
             if (mLanguage.getTokenType() == XQueryTokenType.COMMENT) {
-                mXQDoc.start(mLanguage.getBufferSequence(), mLanguage.getTokenStart(), mLanguage.getTokenEnd(), 0);
-                mState = STATE_LEXER_XQDOC;
                 mActiveLexer = mXQDoc;
+                mActiveLexer.start(mLanguage.getBufferSequence(), mLanguage.getTokenStart(), mLanguage.getTokenEnd(), 0);
+                mState = STATE_LEXER_XQDOC;
             }
         }
     }
