@@ -32,7 +32,7 @@ public class SyntaxHighlighterTest extends TestCase {
 
     public void testHighlightingLexer() {
         Lexer lexer = new SyntaxHighlighter().getHighlightingLexer();
-        assertThat(lexer.getClass().getName(), is(XQueryWithXQDocLexer.class.getName()));
+        assertThat(lexer.getClass().getName(), is(CombinedLexer.class.getName()));
     }
 
     public void testTokenHighlights() {

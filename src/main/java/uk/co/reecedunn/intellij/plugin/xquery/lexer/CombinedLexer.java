@@ -22,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocLexer;
 
-public class XQueryWithXQDocLexer extends LexerBase {
+public class CombinedLexer extends LexerBase {
     private final Lexer mLanguage;
     private final Lexer mXQDoc;
     private Lexer mActiveLexer;
@@ -30,7 +30,7 @@ public class XQueryWithXQDocLexer extends LexerBase {
 
     private static final int STATE_LEXER_XQDOC = 0x70000000;
 
-    public XQueryWithXQDocLexer() {
+    public CombinedLexer() {
         mLanguage = new XQueryLexer();
         mXQDoc = new XQDocLexer();
     }
