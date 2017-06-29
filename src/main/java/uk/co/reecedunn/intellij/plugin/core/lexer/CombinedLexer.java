@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.lexer;
+package uk.co.reecedunn.intellij.plugin.core.lexer;
 
 import com.intellij.lexer.Lexer;
 import com.intellij.lexer.LexerBase;

@@ -21,7 +21,7 @@ import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocLexer;
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.CombinedLexer;
+import uk.co.reecedunn.intellij.plugin.core.lexer.CombinedLexer;
 
 public class XQueryLexerWithXQDocTest extends LexerTestCase {
     private Lexer createLexer() {
