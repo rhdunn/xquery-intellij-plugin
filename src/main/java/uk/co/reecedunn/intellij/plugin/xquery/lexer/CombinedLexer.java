@@ -22,9 +22,29 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocLexer;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class CombinedLexer extends LexerBase {
+    class State {
+        final Lexer lexer;
+        final int state;
+        final int parentState;
+        final IElementType transition;
+
+        State(Lexer lexer, int state, int parentState, IElementType transition) {
+            this.lexer = lexer;
+            this.state = state;
+            this.parentState = parentState;
+            this.transition = transition;
+        }
+    }
+
     private final Lexer mLanguage;
-    private final Lexer mXQDoc;
+    private final Map<Integer, State> mStates = new HashMap<>();
+    private final Map<IElementType, State> mTransitions = new HashMap<>();
+    private int mStateMask;
+
     private Lexer mActiveLexer;
     private int mState;
 
@@ -32,20 +52,29 @@ public class CombinedLexer extends LexerBase {
 
     public CombinedLexer(Lexer language) {
         mLanguage = language;
-        mXQDoc = new XQDocLexer();
+        mStateMask = 0;
+        addState(new XQDocLexer(), STATE_LEXER_XQDOC, XQueryLexer.STATE_XQUERY_COMMENT, XQueryTokenType.COMMENT);
+    }
+
+    private void addState(Lexer lexer, int stateId, int parentStateId, IElementType transition) {
+        State state = new State(lexer, stateId, parentStateId, transition);
+        mStates.put(stateId, state);
+        mTransitions.put(transition, state);
+        mStateMask |= stateId;
     }
 
     // region Lexer
 
     @Override
     public final void start(@NotNull CharSequence buffer, int startOffset, int endOffset, int initialState) {
-        mState = initialState & STATE_LEXER_XQDOC;
-        if (mState == STATE_LEXER_XQDOC) {
-            mActiveLexer = mXQDoc;
-            mLanguage.start(buffer, startOffset, endOffset, XQueryLexer.STATE_XQUERY_COMMENT);
-            mActiveLexer.start(mLanguage.getBufferSequence(), mLanguage.getTokenStart(), mLanguage.getTokenEnd(), initialState & ~STATE_LEXER_XQDOC);
+        mState = initialState & mStateMask;
+        State state = mStates.getOrDefault(mState, null);
+        if (state != null) {
+            mActiveLexer = state.lexer;
+            mLanguage.start(buffer, startOffset, endOffset, state.parentState);
+            mActiveLexer.start(mLanguage.getBufferSequence(), mLanguage.getTokenStart(), mLanguage.getTokenEnd(), initialState & ~mStateMask);
         } else {
-            mLanguage.start(buffer, startOffset, endOffset, initialState & ~STATE_LEXER_XQDOC);
+            mLanguage.start(buffer, startOffset, endOffset, initialState & ~mStateMask);
             mActiveLexer = mLanguage;
         }
     }
@@ -61,10 +90,11 @@ public class CombinedLexer extends LexerBase {
             }
         } else {
             mLanguage.advance();
-            if (mLanguage.getTokenType() == XQueryTokenType.COMMENT) {
-                mActiveLexer = mXQDoc;
+            State state = mTransitions.getOrDefault(mLanguage.getTokenType(), null);
+            if (state != null) {
+                mActiveLexer = state.lexer;
                 mActiveLexer.start(mLanguage.getBufferSequence(), mLanguage.getTokenStart(), mLanguage.getTokenEnd(), 0);
-                mState = STATE_LEXER_XQDOC;
+                mState = state.state;
             }
         }
     }
