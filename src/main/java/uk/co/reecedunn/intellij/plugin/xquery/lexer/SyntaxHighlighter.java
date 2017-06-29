@@ -22,6 +22,7 @@ import com.intellij.openapi.editor.XmlHighlighterColors;
 import com.intellij.openapi.editor.colors.TextAttributesKey;
 import com.intellij.openapi.fileTypes.SyntaxHighlighterBase;
 import com.intellij.psi.tree.IElementType;
+import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocLexer;
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType;
 
 public class SyntaxHighlighter extends SyntaxHighlighterBase {
@@ -71,7 +72,9 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
     @Override
     @SuppressWarnings("NullableProblems") // jacoco Code Coverage reports an unchecked branch when @NotNull is used.
     public Lexer getHighlightingLexer() {
-        return new CombinedLexer(new XQueryLexer());
+        CombinedLexer lexer = new CombinedLexer(new XQueryLexer());
+        lexer.addState(new XQDocLexer(), 0x70000000, XQueryLexer.STATE_XQUERY_COMMENT, XQueryTokenType.COMMENT);
+        return lexer;
     }
 
     @Override

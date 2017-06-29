@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.lexer;
 
 import com.intellij.lexer.Lexer;
 import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCase;
+import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocLexer;
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
@@ -24,7 +25,9 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.CombinedLexer;
 
 public class XQueryLexerWithXQDocTest extends LexerTestCase {
     private Lexer createLexer() {
-        return new CombinedLexer(new XQueryLexer());
+        CombinedLexer lexer = new CombinedLexer(new XQueryLexer());
+        lexer.addState(new XQDocLexer(), 0x70000000, XQueryLexer.STATE_XQUERY_COMMENT, XQueryTokenType.COMMENT);
+        return lexer;
     }
 
     public void testXQueryTokens() {

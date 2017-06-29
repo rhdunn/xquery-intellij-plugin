@@ -20,7 +20,6 @@ import com.intellij.lexer.LexerBase;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocLexer;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -48,15 +47,12 @@ public class CombinedLexer extends LexerBase {
     private Lexer mActiveLexer;
     private int mState;
 
-    private static final int STATE_LEXER_XQDOC = 0x70000000;
-
     public CombinedLexer(Lexer language) {
         mLanguage = language;
         mStateMask = 0;
-        addState(new XQDocLexer(), STATE_LEXER_XQDOC, XQueryLexer.STATE_XQUERY_COMMENT, XQueryTokenType.COMMENT);
     }
 
-    private void addState(Lexer lexer, int stateId, int parentStateId, IElementType transition) {
+    public void addState(Lexer lexer, int stateId, int parentStateId, IElementType transition) {
         State state = new State(lexer, stateId, parentStateId, transition);
         mStates.put(stateId, state);
         mTransitions.put(transition, state);
@@ -81,7 +77,7 @@ public class CombinedLexer extends LexerBase {
 
     @Override
     public void advance() {
-        if (mState == STATE_LEXER_XQDOC) {
+        if (mActiveLexer != mLanguage) {
             mActiveLexer.advance();
             if (mActiveLexer.getTokenType() == null) {
                 mLanguage.advance();
