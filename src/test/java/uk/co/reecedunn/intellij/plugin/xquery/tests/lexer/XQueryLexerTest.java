@@ -27,11 +27,15 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class XQueryLexerTest extends LexerTestCase {
+    private Lexer createXQueryLexer() {
+        return new XQueryLexer();
+    }
+
     // region Lexer :: Invalid State
 
     @SuppressWarnings("ThrowableResultOfMethodCallIgnored")
     public void testInvalidState() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         AssertionError e = assertThrows(AssertionError.class, () -> lexer.start("123", 0, 3, -1));
         assertThat(e.getMessage(), is("Invalid state: -1"));
@@ -41,7 +45,7 @@ public class XQueryLexerTest extends LexerTestCase {
     // region Lexer :: Empty Stack In Advance
 
     public void testEmptyStackInAdvance() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         lexer.start("\"Hello World\"");
         lexer.advance();
@@ -59,7 +63,7 @@ public class XQueryLexerTest extends LexerTestCase {
     // region Lexer :: Empty Stack In Pop State
 
     public void testEmptyStackInPopState() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         lexer.start("} } ");
         matchToken(lexer, "}", 0, 0, 1, XQueryTokenType.BLOCK_CLOSE);
@@ -73,7 +77,7 @@ public class XQueryLexerTest extends LexerTestCase {
     // region Lexer :: Empty Buffer
 
     public void testEmptyBuffer() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         lexer.start("");
         matchToken(lexer, "", 0, 0, 0, null);
@@ -83,7 +87,7 @@ public class XQueryLexerTest extends LexerTestCase {
     // region Lexer :: Bad Characters
 
     public void testBadCharacters() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         lexer.start("~\uFFFE\u0000\uFFFF");
         matchToken(lexer, "~",      0, 0, 1, XQueryTokenType.BAD_CHARACTER);
@@ -98,7 +102,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-VersionDecl")
     public void testVersionDecl() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "xquery",   XQueryTokenType.K_XQUERY);
         matchSingleToken(lexer, "version",  XQueryTokenType.K_VERSION);
@@ -110,7 +114,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ModuleDecl")
     public void testModuleDecl() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "module",    XQueryTokenType.K_MODULE);
         matchSingleToken(lexer, "namespace", XQueryTokenType.K_NAMESPACE);
@@ -122,7 +126,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-Separator")
     public void testSeparator() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, ";", XQueryTokenType.SEPARATOR);
     }
@@ -132,7 +136,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-NamespaceDecl")
     public void testNamespaceDecl() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "declare",   XQueryTokenType.K_DECLARE);
         matchSingleToken(lexer, "namespace", XQueryTokenType.K_NAMESPACE);
@@ -144,7 +148,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-BoundarySpaceDecl")
     public void testBoundarySpaceDecl() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "declare",        XQueryTokenType.K_DECLARE);
         matchSingleToken(lexer, "boundary-space", XQueryTokenType.K_BOUNDARY_SPACE);
@@ -157,7 +161,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DefaultNamespaceDecl")
     public void testDefaultNamespaceDecl() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "declare",   XQueryTokenType.K_DECLARE);
         matchSingleToken(lexer, "default",   XQueryTokenType.K_DEFAULT);
@@ -172,7 +176,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-OptionDecl")
     public void testOptionDecl() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "declare", XQueryTokenType.K_DECLARE);
         matchSingleToken(lexer, "option",  XQueryTokenType.K_OPTION);
@@ -183,7 +187,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-OrderingModeDecl")
     public void testOrderingModeDecl() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "declare",   XQueryTokenType.K_DECLARE);
         matchSingleToken(lexer, "ordering",  XQueryTokenType.K_ORDERING);
@@ -196,7 +200,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-EmptyOrderDecl")
     public void testEmptyOrderDecl() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "declare",  XQueryTokenType.K_DECLARE);
         matchSingleToken(lexer, "default",  XQueryTokenType.K_DEFAULT);
@@ -211,7 +215,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-CopyNamespacesDecl")
     public void testCopyNamespacesDecl() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "declare",         XQueryTokenType.K_DECLARE);
         matchSingleToken(lexer, "copy-namespaces", XQueryTokenType.K_COPY_NAMESPACES);
@@ -223,7 +227,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-PreserveMode")
     public void testPreserveMode() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "preserve",    XQueryTokenType.K_PRESERVE);
         matchSingleToken(lexer, "no-preserve", XQueryTokenType.K_NO_PRESERVE);
@@ -234,7 +238,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-InheritMode")
     public void testInheritMode() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "inherit",    XQueryTokenType.K_INHERIT);
         matchSingleToken(lexer, "no-inherit", XQueryTokenType.K_NO_INHERIT);
@@ -245,7 +249,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DefaultCollationDecl")
     public void testDefaultCollationDecl() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "declare",   XQueryTokenType.K_DECLARE);
         matchSingleToken(lexer, "default",   XQueryTokenType.K_DEFAULT);
@@ -257,7 +261,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-BaseURIDecl")
     public void testBaseURIDecl() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "declare",  XQueryTokenType.K_DECLARE);
         matchSingleToken(lexer, "base-uri", XQueryTokenType.K_BASE_URI);
@@ -268,7 +272,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-SchemaImport")
     public void testSchemaImport() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "import", XQueryTokenType.K_IMPORT);
         matchSingleToken(lexer, "schema", XQueryTokenType.K_SCHEMA);
@@ -281,7 +285,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-SchemaPrefix")
     public void testSchemaPrefix() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "namespace", XQueryTokenType.K_NAMESPACE);
         matchSingleToken(lexer, "=",         XQueryTokenType.EQUAL);
@@ -296,7 +300,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ModuleImport")
     public void testModuleImport() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "import",    XQueryTokenType.K_IMPORT);
         matchSingleToken(lexer, "module",    XQueryTokenType.K_MODULE);
@@ -312,7 +316,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-VarDecl")
     public void testVarDecl() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "declare",  XQueryTokenType.K_DECLARE);
         matchSingleToken(lexer, "variable", XQueryTokenType.K_VARIABLE);
@@ -326,7 +330,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ConstructionDecl")
     public void testConstructionDecl() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "declare",      XQueryTokenType.K_DECLARE);
         matchSingleToken(lexer, "construction", XQueryTokenType.K_CONSTRUCTION);
@@ -339,7 +343,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-FunctionDecl")
     public void testFunctionDecl() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "declare",  XQueryTokenType.K_DECLARE);
         matchSingleToken(lexer, "function", XQueryTokenType.K_FUNCTION);
@@ -354,7 +358,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ParamList")
     public void testParamList() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, ",", XQueryTokenType.COMMA);
     }
@@ -364,7 +368,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-Param")
     public void testParam() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "$", XQueryTokenType.VARIABLE_INDICATOR);
     }
@@ -374,7 +378,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-EnclosedExpr")
     public void testEnclosedExpr() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN);
         matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE);
@@ -385,7 +389,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-Expr")
     public void testExpr() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, ",", XQueryTokenType.COMMA);
     }
@@ -395,7 +399,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-FLWORExpr")
     public void testFLWORExpr() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "return", XQueryTokenType.K_RETURN);
     }
@@ -405,7 +409,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ForClause")
     public void testForClause() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "for", XQueryTokenType.K_FOR);
         matchSingleToken(lexer, "$",   XQueryTokenType.VARIABLE_INDICATOR);
@@ -418,7 +422,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-PositionalVar")
     public void testPositionalVar() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "at", XQueryTokenType.K_AT);
         matchSingleToken(lexer, "$",  XQueryTokenType.VARIABLE_INDICATOR);
@@ -429,7 +433,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-LetClause")
     public void testLetClause() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "let", XQueryTokenType.K_LET);
         matchSingleToken(lexer, "$",   XQueryTokenType.VARIABLE_INDICATOR);
@@ -442,7 +446,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-WhereClause")
     public void testWhereClause() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "where", XQueryTokenType.K_WHERE);
     }
@@ -452,7 +456,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-OrderByClause")
     public void testOrderByClause() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "stable", XQueryTokenType.K_STABLE);
         matchSingleToken(lexer, "order",  XQueryTokenType.K_ORDER);
@@ -464,7 +468,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-OrderSpecList")
     public void testOrderSpecList() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, ",", XQueryTokenType.COMMA);
     }
@@ -474,7 +478,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-OrderModifier")
     public void testOrderModifier() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "ascending",  XQueryTokenType.K_ASCENDING);
         matchSingleToken(lexer, "descending", XQueryTokenType.K_DESCENDING);
@@ -491,7 +495,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-QuantifiedExpr")
     public void testQuantifiedExpr() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "some",      XQueryTokenType.K_SOME);
         matchSingleToken(lexer, "every",     XQueryTokenType.K_EVERY);
@@ -506,7 +510,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-TypeswitchExpr")
     public void testTypeswitchExpr() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "typeswitch", XQueryTokenType.K_TYPESWITCH);
         matchSingleToken(lexer, "(",          XQueryTokenType.PARENTHESIS_OPEN);
@@ -521,7 +525,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-CaseClause")
     public void testCaseClause() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "case",   XQueryTokenType.K_CASE);
         matchSingleToken(lexer, "$",      XQueryTokenType.VARIABLE_INDICATOR);
@@ -534,7 +538,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-IfExpr")
     public void testIfExpr() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "if",   XQueryTokenType.K_IF);
         matchSingleToken(lexer, "(",    XQueryTokenType.PARENTHESIS_OPEN);
@@ -548,7 +552,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-OrExpr")
     public void testOrExpr() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "or", XQueryTokenType.K_OR);
     }
@@ -558,7 +562,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-AndExpr")
     public void testAndExpr() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "and", XQueryTokenType.K_AND);
     }
@@ -568,7 +572,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-RangeExpr")
     public void testRangeExpr() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "to", XQueryTokenType.K_TO);
     }
@@ -578,7 +582,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-AdditiveExpr")
     public void testAdditiveExpr() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "+", XQueryTokenType.PLUS);
         matchSingleToken(lexer, "-", XQueryTokenType.MINUS);
@@ -589,7 +593,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-MultiplicativeExpr")
     public void testMultiplicativeExpr() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "*",    XQueryTokenType.STAR);
         matchSingleToken(lexer, "div",  XQueryTokenType.K_DIV);
@@ -602,7 +606,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-UnionExpr")
     public void testUnionExpr() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "union", XQueryTokenType.K_UNION);
         matchSingleToken(lexer, "|",     XQueryTokenType.UNION);
@@ -613,7 +617,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-IntersectExceptExpr")
     public void testIntersectExceptExpr() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "intersect", XQueryTokenType.K_INTERSECT);
         matchSingleToken(lexer, "except",    XQueryTokenType.K_EXCEPT);
@@ -624,7 +628,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-InstanceofExpr")
     public void testInstanceofExpr() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "instance", XQueryTokenType.K_INSTANCE);
         matchSingleToken(lexer, "of",       XQueryTokenType.K_OF);
@@ -635,7 +639,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-TreatExpr")
     public void testTreatExpr() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "treat", XQueryTokenType.K_TREAT);
         matchSingleToken(lexer, "as",    XQueryTokenType.K_AS);
@@ -646,7 +650,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-CastableExpr")
     public void testCastableExpr() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "castable", XQueryTokenType.K_CASTABLE);
         matchSingleToken(lexer, "as",       XQueryTokenType.K_AS);
@@ -657,7 +661,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-CastExpr")
     public void testCastExpr() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "cast", XQueryTokenType.K_CAST);
         matchSingleToken(lexer, "as",   XQueryTokenType.K_AS);
@@ -668,7 +672,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-UnaryExpr")
     public void testUnaryExpr() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "+", XQueryTokenType.PLUS);
         matchSingleToken(lexer, "-", XQueryTokenType.MINUS);
@@ -689,7 +693,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-GeneralComp")
     public void testGeneralComp() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "=",  XQueryTokenType.EQUAL);
         matchSingleToken(lexer, "!=", XQueryTokenType.NOT_EQUAL);
@@ -704,7 +708,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ValueComp")
     public void testValueComp() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "eq", XQueryTokenType.K_EQ);
         matchSingleToken(lexer, "ne", XQueryTokenType.K_NE);
@@ -719,7 +723,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-NodeComp")
     public void testNodeComp() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "is", XQueryTokenType.K_IS);
         matchSingleToken(lexer, "<<", XQueryTokenType.NODE_BEFORE);
@@ -731,7 +735,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ValidateExpr")
     public void testValidateExpr() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "validate", XQueryTokenType.K_VALIDATE);
         matchSingleToken(lexer, "{",        XQueryTokenType.BLOCK_OPEN);
@@ -743,7 +747,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ValidationMode")
     public void testValidationMode() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "lax",    XQueryTokenType.K_LAX);
         matchSingleToken(lexer, "strict", XQueryTokenType.K_STRICT);
@@ -754,7 +758,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ExtensionExpr")
     public void testExtensionExpr() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN);
         matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE);
@@ -766,7 +770,7 @@ public class XQueryLexerTest extends LexerTestCase {
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-Pragma")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-PragmaContents")
     public void testPragma() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "(#", 8, XQueryTokenType.PRAGMA_BEGIN);
         matchSingleToken(lexer, "#)", 0, XQueryTokenType.PRAGMA_END);
@@ -848,7 +852,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-PathExpr")
     public void testPathExpr() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "/",  XQueryTokenType.DIRECT_DESCENDANTS_PATH);
         matchSingleToken(lexer, "//", XQueryTokenType.ALL_DESCENDANTS_PATH);
@@ -859,7 +863,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-RelativePathExpr")
     public void testRelativePathExpr() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "/",  XQueryTokenType.DIRECT_DESCENDANTS_PATH);
         matchSingleToken(lexer, "//", XQueryTokenType.ALL_DESCENDANTS_PATH);
@@ -870,7 +874,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ForwardAxis")
     public void testForwardAxis() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "child",              XQueryTokenType.K_CHILD);
         matchSingleToken(lexer, "descendant",         XQueryTokenType.K_DESCENDANT);
@@ -887,7 +891,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-AbbrevForwardStep")
     public void testAbbrevForwardStep() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "@", XQueryTokenType.ATTRIBUTE_SELECTOR);
     }
@@ -897,7 +901,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ReverseAxis")
     public void testReverseAxis() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "parent",            XQueryTokenType.K_PARENT);
         matchSingleToken(lexer, "ancestor",          XQueryTokenType.K_ANCESTOR);
@@ -912,7 +916,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-AbbrevReverseStep")
     public void testAbbrevReverseStep() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "..", XQueryTokenType.PARENT_SELECTOR);
     }
@@ -922,7 +926,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-Wildcard")
     public void testWildcard() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "*", XQueryTokenType.STAR);
         matchSingleToken(lexer, ":", XQueryTokenType.QNAME_SEPARATOR);
@@ -933,7 +937,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-Predicate")
     public void testPredicate() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "[", XQueryTokenType.SQUARE_OPEN);
         matchSingleToken(lexer, "]", XQueryTokenType.SQUARE_CLOSE);
@@ -944,7 +948,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-VarRef")
     public void testVarRef() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "$", XQueryTokenType.VARIABLE_INDICATOR);
     }
@@ -954,7 +958,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ParenthesizedExpr")
     public void testParenthesizedExpr() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN);
         matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE);
@@ -965,7 +969,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ContextItemExpr")
     public void testContextItemExpr() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, ".", XQueryTokenType.DOT);
     }
@@ -975,7 +979,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-OrderedExpr")
     public void testOrderedExpr() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "ordered", XQueryTokenType.K_ORDERED);
         matchSingleToken(lexer, "{",       XQueryTokenType.BLOCK_OPEN);
@@ -987,7 +991,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-UnorderedExpr")
     public void testUnorderedExpr() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "unordered", XQueryTokenType.K_UNORDERED);
         matchSingleToken(lexer, "{",         XQueryTokenType.BLOCK_OPEN);
@@ -999,7 +1003,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-FunctionCall")
     public void testFunctionCall() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN);
         matchSingleToken(lexer, ",", XQueryTokenType.COMMA);
@@ -1011,7 +1015,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirElemConstructor")
     public void testDirElemConstructor() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "<", XQueryTokenType.LESS_THAN);
         matchSingleToken(lexer, ">", XQueryTokenType.GREATER_THAN);
@@ -1069,7 +1073,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirElemConstructor")
     public void testDirElemConstructor_IsFunctionNameInExpr() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         lexer.start("1 < fn:abs (");
         matchToken(lexer, "1",    0,  0,  1, XQueryTokenType.INTEGER_LITERAL);
@@ -1124,7 +1128,7 @@ public class XQueryLexerTest extends LexerTestCase {
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirAttributeList")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirAttributeValue")
     public void testDirAttributeList() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "=", XQueryTokenType.EQUAL);
 
@@ -1164,7 +1168,7 @@ public class XQueryLexerTest extends LexerTestCase {
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeValue")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QuotAttrValueContent")
     public void testDirAttributeValue_QuotAttrValueContent() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         lexer.start("\"One {2}<& \u3053\u3093\u3070\u3093\u306F.\"", 0, 18, 11);
         matchToken(lexer, "\"",                               11,  0,  1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START);
@@ -1185,7 +1189,7 @@ public class XQueryLexerTest extends LexerTestCase {
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeValue")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AposAttrValueContent")
     public void testDirAttributeValue_AposAttrValueContent() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         lexer.start("'One {2}<& \u3053\u3093\u3070\u3093\u306F.}'", 0, 19, 11);
         matchToken(lexer, "'",                                11,  0,  1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START);
@@ -1207,7 +1211,7 @@ public class XQueryLexerTest extends LexerTestCase {
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeValue")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CommonContent")
     public void testDirAttributeValue_CommonContent() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         lexer.start("\"{{}}\"", 0, 6, 11);
         matchToken(lexer, "\"",           11, 0, 1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START);
@@ -1230,7 +1234,7 @@ public class XQueryLexerTest extends LexerTestCase {
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeValue")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PredefinedEntityRef")
     public void testDirAttributeValue_PredefinedEntityRef() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         // NOTE: The predefined entity reference names are not validated by the lexer, as some
         // XQuery processors support HTML predefined entities. Shifting the name validation to
@@ -1305,7 +1309,7 @@ public class XQueryLexerTest extends LexerTestCase {
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeValue")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-EscapeQuot")
     public void testDirAttributeValue_EscapeQuot() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         lexer.start("\"One\"\"Two\"", 0, 10, 11);
         matchToken(lexer, "\"",   11,  0,  1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START);
@@ -1322,7 +1326,7 @@ public class XQueryLexerTest extends LexerTestCase {
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeValue")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-EscapeApos")
     public void testDirAttributeValue_EscapeApos() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         lexer.start("'One''Two'", 0, 10, 11);
         matchToken(lexer, "'",    11,  0,  1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START);
@@ -1340,7 +1344,7 @@ public class XQueryLexerTest extends LexerTestCase {
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CharRef")
     @Specification(name="XML 1.0 5ed", reference="https://www.w3.org/TR/2008/REC-xml-20081126/#NT-CharRef")
     public void testDirAttributeValue_CharRef_Octal() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         lexer.start("\"One&#20;Two\"", 0, 13, 11);
         matchToken(lexer, "\"",    11,  0,  1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START);
@@ -1392,7 +1396,7 @@ public class XQueryLexerTest extends LexerTestCase {
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CharRef")
     @Specification(name="XML 1.0 5ed", reference="https://www.w3.org/TR/2008/REC-xml-20081126/#NT-CharRef")
     public void testDirAttributeValue_CharRef_Hexadecimal() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         lexer.start("\"One&#x20;&#xae;&#xDC;Two\"", 0, 26, 11);
         matchToken(lexer, "\"",     11,  0,  1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START);
@@ -1456,7 +1460,7 @@ public class XQueryLexerTest extends LexerTestCase {
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirElemContent")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ElementContentChar")
     public void testDirElemContent_ElementContentChar() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         lexer.start("<a>One {2}<& \u3053\u3093\u3070\u3093\u306F.}</a>");
         matchToken(lexer, "<",                                 0,  0,  1, XQueryTokenType.OPEN_XML_TAG);
@@ -1482,7 +1486,7 @@ public class XQueryLexerTest extends LexerTestCase {
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirElemContent")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirElemConstructor")
     public void testDirElemContent_DirElemConstructor() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         lexer.start("<a>One <b>Two</b> Three</a>");
         matchToken(lexer, "<",       0,  0,  1, XQueryTokenType.OPEN_XML_TAG);
@@ -1509,7 +1513,7 @@ public class XQueryLexerTest extends LexerTestCase {
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirElemContent")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirCommentConstructor")
     public void testDirElemContent_DirCommentConstructor() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         lexer.start("<!<!-", 0, 5, 17);
         matchToken(lexer, "<!",       17, 0, 2, XQueryTokenType.INVALID);
@@ -1537,7 +1541,7 @@ public class XQueryLexerTest extends LexerTestCase {
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirElemContent")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-CDataSection")
     public void testDirElemContent_CDataSection() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         lexer.start("<!<![<![C<![CD<![CDA<![CDAT<![CDATA", 0, 35, 17);
         matchToken(lexer, "<!",       17,  0,  2, XQueryTokenType.INVALID);
@@ -1570,7 +1574,7 @@ public class XQueryLexerTest extends LexerTestCase {
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirElemContent")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirPIConstructor")
     public void testDirElemContent_DirPIConstructor() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         lexer.start("<a><?for  6^gkgw~*?g?></a>");
         matchToken(lexer, "<",           0,  0,  1, XQueryTokenType.OPEN_XML_TAG);
@@ -1633,7 +1637,7 @@ public class XQueryLexerTest extends LexerTestCase {
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirElemContent")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CommonContent")
     public void testDirElemContent_CommonContent() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         lexer.start("<a>{{}}</a>");
         matchToken(lexer, "<",   0,  0,  1, XQueryTokenType.OPEN_XML_TAG);
@@ -1653,7 +1657,7 @@ public class XQueryLexerTest extends LexerTestCase {
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirElemContent")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-PredefinedEntityRef")
     public void testDirElemContent_PredefinedEntityRef() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         // NOTE: The predefined entity reference names are not validated by the lexer, as some
         // XQuery processors support HTML predefined entities. Shifting the name validation to
@@ -1729,7 +1733,7 @@ public class XQueryLexerTest extends LexerTestCase {
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CharRef")
     @Specification(name="XML 1.0 5ed", reference="https://www.w3.org/TR/2008/REC-xml-20081126/#NT-CharRef")
     public void testDirElemContent_CharRef_Octal() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         lexer.start("<a>One&#20;Two</a>");
         matchToken(lexer, "<",      0,  0,  1, XQueryTokenType.OPEN_XML_TAG);
@@ -1793,7 +1797,7 @@ public class XQueryLexerTest extends LexerTestCase {
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CharRef")
     @Specification(name="XML 1.0 5ed", reference="https://www.w3.org/TR/2008/REC-xml-20081126/#NT-CharRef")
     public void testDirElemContent_CharRef_Hexadecimal() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         lexer.start("<a>One&#x20;&#xae;&#xDC;Two</a>");
         matchToken(lexer, "<",       0,  0,  1, XQueryTokenType.OPEN_XML_TAG);
@@ -1867,7 +1871,7 @@ public class XQueryLexerTest extends LexerTestCase {
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirCommentConstructor")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirCommentContents")
     public void testDirCommentConstructor() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "<",    0, XQueryTokenType.LESS_THAN);
         matchSingleToken(lexer, "<!",   0, XQueryTokenType.INVALID);
@@ -1922,7 +1926,7 @@ public class XQueryLexerTest extends LexerTestCase {
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirCommentConstructor")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirCommentContents")
     public void testDirCommentConstructor_InitialState() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         lexer.start("<!-- Test", 4, 9, 5);
         matchToken(lexer, " Test", 5, 4, 9, XQueryTokenType.XML_COMMENT);
@@ -1941,7 +1945,7 @@ public class XQueryLexerTest extends LexerTestCase {
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirPIConstructor")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirPIContents")
     public void testDirPIConstructor() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "<?", 21, XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN);
         matchSingleToken(lexer, "?>",  0, XQueryTokenType.PROCESSING_INSTRUCTION_END);
@@ -1990,7 +1994,7 @@ public class XQueryLexerTest extends LexerTestCase {
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CDataSection")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CDataSectionContents")
     public void testCDataSection() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "<",         0, XQueryTokenType.LESS_THAN);
         matchSingleToken(lexer, "<!",        0, XQueryTokenType.INVALID);
@@ -2051,7 +2055,7 @@ public class XQueryLexerTest extends LexerTestCase {
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CDataSection")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CDataSectionContents")
     public void testCDataSection_InitialState() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         lexer.start("<![CDATA[ Test", 9, 14, 7);
         matchToken(lexer, " Test",     7,  9, 14, XQueryTokenType.CDATA_SECTION);
@@ -2069,7 +2073,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-CompDocConstructor")
     public void testCompDocConstructor() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "document", XQueryTokenType.K_DOCUMENT);
         matchSingleToken(lexer, "{",        XQueryTokenType.BLOCK_OPEN);
@@ -2081,7 +2085,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-CompElemConstructor")
     public void testCompElemConstructor() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "element", XQueryTokenType.K_ELEMENT);
         matchSingleToken(lexer, "{",       XQueryTokenType.BLOCK_OPEN);
@@ -2093,7 +2097,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-CompAttrConstructor")
     public void testCompAttrConstructor() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "attribute", XQueryTokenType.K_ATTRIBUTE);
         matchSingleToken(lexer, "{",         XQueryTokenType.BLOCK_OPEN);
@@ -2105,7 +2109,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-CompTextConstructor")
     public void testCompTextConstructor() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "text", XQueryTokenType.K_TEXT);
         matchSingleToken(lexer, "{",    XQueryTokenType.BLOCK_OPEN);
@@ -2117,7 +2121,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-CompCommentConstructor")
     public void testCompCommentConstructor() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "comment", XQueryTokenType.K_COMMENT);
         matchSingleToken(lexer, "{",       XQueryTokenType.BLOCK_OPEN);
@@ -2129,7 +2133,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-CompPIConstructor")
     public void testCompPIConstructor() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "processing-instruction", XQueryTokenType.K_PROCESSING_INSTRUCTION);
         matchSingleToken(lexer, "{",                      XQueryTokenType.BLOCK_OPEN);
@@ -2141,7 +2145,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-TypeDeclaration")
     public void testTypeDeclaration() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "as", XQueryTokenType.K_AS);
     }
@@ -2151,7 +2155,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-SequenceType")
     public void testSequenceType() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "empty-sequence", XQueryTokenType.K_EMPTY_SEQUENCE);
         matchSingleToken(lexer, "(",              XQueryTokenType.PARENTHESIS_OPEN);
@@ -2163,7 +2167,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-OccurrenceIndicator")
     public void testOccurrenceIndicator() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "?", XQueryTokenType.OPTIONAL);
         matchSingleToken(lexer, "*", XQueryTokenType.STAR);
@@ -2175,7 +2179,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ItemType")
     public void testItemType() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "item", XQueryTokenType.K_ITEM);
         matchSingleToken(lexer, "(",    XQueryTokenType.PARENTHESIS_OPEN);
@@ -2187,7 +2191,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-AnyKindTest")
     public void testAnyKindTest() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "node", XQueryTokenType.K_NODE);
         matchSingleToken(lexer, "(",    XQueryTokenType.PARENTHESIS_OPEN);
@@ -2199,7 +2203,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DocumentTest")
     public void testDocumentTest() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "document-node", XQueryTokenType.K_DOCUMENT_NODE);
         matchSingleToken(lexer, "(",             XQueryTokenType.PARENTHESIS_OPEN);
@@ -2211,7 +2215,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-TextTest")
     public void testTextTest() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "text", XQueryTokenType.K_TEXT);
         matchSingleToken(lexer, "(",    XQueryTokenType.PARENTHESIS_OPEN);
@@ -2223,7 +2227,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-CommentTest")
     public void testCommentTest() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "comment", XQueryTokenType.K_COMMENT);
         matchSingleToken(lexer, "(",       XQueryTokenType.PARENTHESIS_OPEN);
@@ -2235,7 +2239,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-PITest")
     public void testPITest() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "processing-instruction", XQueryTokenType.K_PROCESSING_INSTRUCTION);
         matchSingleToken(lexer, "(",                      XQueryTokenType.PARENTHESIS_OPEN);
@@ -2247,7 +2251,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-AttributeTest")
     public void testAttributeTest() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "attribute", XQueryTokenType.K_ATTRIBUTE);
         matchSingleToken(lexer, "(",         XQueryTokenType.PARENTHESIS_OPEN);
@@ -2259,7 +2263,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-AttribNameOrWildcard")
     public void testAttribNameOrWildcard() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "*", XQueryTokenType.STAR);
     }
@@ -2269,7 +2273,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-SchemaAttributeTest")
     public void testSchemaAttributeTest() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "schema-attribute", XQueryTokenType.K_SCHEMA_ATTRIBUTE);
         matchSingleToken(lexer, "(",                XQueryTokenType.PARENTHESIS_OPEN);
@@ -2281,7 +2285,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ElementTest")
     public void testElementTest() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "element", XQueryTokenType.K_ELEMENT);
         matchSingleToken(lexer, "(",       XQueryTokenType.PARENTHESIS_OPEN);
@@ -2294,7 +2298,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ElementNameOrWildcard")
     public void testElementNameOrWildcard() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "*", XQueryTokenType.STAR);
     }
@@ -2304,7 +2308,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-SchemaElementTest")
     public void testSchemaElementTest() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "schema-element", XQueryTokenType.K_SCHEMA_ELEMENT);
         matchSingleToken(lexer, "(",              XQueryTokenType.PARENTHESIS_OPEN);
@@ -2316,7 +2320,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-IntegerLiteral")
     public void testIntegerLiteral() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         lexer.start("1234");
         matchToken(lexer, "1234", 0, 0, 4, XQueryTokenType.INTEGER_LITERAL);
@@ -2328,7 +2332,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DecimalLiteral")
     public void testDecimalLiteral() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         lexer.start("47.");
         matchToken(lexer, "47.", 0, 0, 3, XQueryTokenType.DECIMAL_LITERAL);
@@ -2353,7 +2357,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DoubleLiteral")
     public void testDoubleLiteral() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         lexer.start("3e7 3e+7 3e-7");
         matchToken(lexer, "3e7",  0,  0,  3, XQueryTokenType.DOUBLE_LITERAL);
@@ -2472,7 +2476,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DoubleLiteral")
     public void testDoubleLiteral_InitialState() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         lexer.start("1e", 1, 2, 3);
         matchToken(lexer, "e",  3, 1, 2, XQueryTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT);
@@ -2484,7 +2488,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
     public void testStringLiteral() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         lexer.start("\"");
         matchToken(lexer, "\"", 0, 0, 1, XQueryTokenType.STRING_LITERAL_START);
@@ -2509,7 +2513,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
     public void testStringLiteral_InitialState() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         lexer.start("\"Hello World\"", 1, 13, 1);
         matchToken(lexer, "Hello World", 1,  1, 12, XQueryTokenType.STRING_LITERAL_CONTENTS);
@@ -2528,7 +2532,7 @@ public class XQueryLexerTest extends LexerTestCase {
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PredefinedEntityRef")
     public void testStringLiteral_PredefinedEntityRef() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         // NOTE: The predefined entity reference names are not validated by the lexer, as some
         // XQuery processors support HTML predefined entities. Shifting the name validation to
@@ -2607,7 +2611,7 @@ public class XQueryLexerTest extends LexerTestCase {
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-EscapeQuot")
     public void testStringLiteral_EscapeQuot() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         lexer.start("\"One\"\"Two\"");
         matchToken(lexer, "\"",   0,  0,  1, XQueryTokenType.STRING_LITERAL_START);
@@ -2624,7 +2628,7 @@ public class XQueryLexerTest extends LexerTestCase {
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-StringLiteral")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-EscapeApos")
     public void testStringLiteral_EscapeApos() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         lexer.start("'One''Two'");
         matchToken(lexer, "'",    0,  0,  1, XQueryTokenType.STRING_LITERAL_START);
@@ -2642,7 +2646,7 @@ public class XQueryLexerTest extends LexerTestCase {
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CharRef")
     @Specification(name="XML 1.0 5ed", reference="https://www.w3.org/TR/2008/REC-xml-20081126/#NT-CharRef")
     public void testStringLiteral_CharRef_Octal() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         lexer.start("\"One&#20;Two\"");
         matchToken(lexer, "\"",     0,  0,  1, XQueryTokenType.STRING_LITERAL_START);
@@ -2694,7 +2698,7 @@ public class XQueryLexerTest extends LexerTestCase {
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CharRef")
     @Specification(name="XML 1.0 5ed", reference="https://www.w3.org/TR/2008/REC-xml-20081126/#NT-CharRef")
     public void testStringLiteral_CharRef_Hexadecimal() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         lexer.start("\"One&#x20;&#xae;&#xDC;Two\"");
         matchToken(lexer, "\"",     0,  0,  1, XQueryTokenType.STRING_LITERAL_START);
@@ -2758,7 +2762,7 @@ public class XQueryLexerTest extends LexerTestCase {
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Comment")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CommentContents")
     public void testComment() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "(:", 4, XQueryTokenType.COMMENT_START_TAG);
         matchSingleToken(lexer, ":)", 0, XQueryTokenType.COMMENT_END_TAG);
@@ -2807,7 +2811,7 @@ public class XQueryLexerTest extends LexerTestCase {
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Comment")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CommentContents")
     public void testComment_InitialState() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         lexer.start("(: Test :", 2, 9, 4);
         matchToken(lexer, " Test :", 4, 2, 9, XQueryTokenType.COMMENT);
@@ -2826,7 +2830,7 @@ public class XQueryLexerTest extends LexerTestCase {
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-QName")
     @Specification(name="Namespaces in XML 1.0 3ed", reference="https://www.w3.org/TR/2009/REC-xml-names-20091208/#NT-QName")
     public void testQName() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         lexer.start("one:two");
         matchToken(lexer, "one", 0, 0, 3, XQueryTokenType.NCNAME);
@@ -2841,7 +2845,7 @@ public class XQueryLexerTest extends LexerTestCase {
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-NCName")
     @Specification(name="Namespaces in XML 1.0 3ed", reference="https://www.w3.org/TR/2009/REC-xml-names-20091208/#NT-NCName")
     public void testNCName() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         lexer.start("test x b2b F.G a-b g\u0330d");
         matchToken(lexer, "test",     0,  0,  4, XQueryTokenType.NCNAME);
@@ -2864,7 +2868,7 @@ public class XQueryLexerTest extends LexerTestCase {
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-S")
     @Specification(name="XML 1.0 5ed", reference="https://www.w3.org/TR/2008/REC-xml-20081126/#NT-S")
     public void testS() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         lexer.start(" ");
         matchToken(lexer, " ", 0, 0, 1, XQueryTokenType.WHITE_SPACE);
@@ -2892,7 +2896,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-DecimalFormatDecl")
     public void testDecimalFormatDecl() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "declare",        XQueryTokenType.K_DECLARE);
         matchSingleToken(lexer, "decimal-format", XQueryTokenType.K_DECIMAL_FORMAT);
@@ -2905,7 +2909,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-DFPropertyName")
     public void testDFPropertyName() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "decimal-separator",  XQueryTokenType.K_DECIMAL_SEPARATOR);
         matchSingleToken(lexer, "grouping-separator", XQueryTokenType.K_GROUPING_SEPARATOR);
@@ -2924,7 +2928,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-AnnotationDecl")
     public void testAnnotationDecl() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "declare", XQueryTokenType.K_DECLARE);
     }
@@ -2934,7 +2938,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-Annotation")
     public void testAnnotation() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "%", XQueryTokenType.ANNOTATION_INDICATOR);
         matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN);
@@ -2950,7 +2954,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-ContextItemDecl")
     public void testContextItemDecl() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "declare",  XQueryTokenType.K_DECLARE);
         matchSingleToken(lexer, "context",  XQueryTokenType.K_CONTEXT);
@@ -2965,7 +2969,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-AllowingEmpty")
     public void testAllowingEmpty() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "allowing", XQueryTokenType.K_ALLOWING);
         matchSingleToken(lexer, "empty",    XQueryTokenType.K_EMPTY);
@@ -2976,7 +2980,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-WindowClause")
     public void testWindowClause() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "for", XQueryTokenType.K_FOR);
     }
@@ -2986,7 +2990,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-TumblingWindowClause")
     public void testTumblingWindowClause() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "tumbling", XQueryTokenType.K_TUMBLING);
         matchSingleToken(lexer, "window",   XQueryTokenType.K_WINDOW);
@@ -2999,7 +3003,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-SlidingWindowClause")
     public void testSlidingWindowClause() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "sliding", XQueryTokenType.K_SLIDING);
         matchSingleToken(lexer, "window",  XQueryTokenType.K_WINDOW);
@@ -3012,7 +3016,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-WindowStartCondition")
     public void testWindowStartCondition() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "start", XQueryTokenType.K_START);
         matchSingleToken(lexer, "when",  XQueryTokenType.K_WHEN);
@@ -3023,7 +3027,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-WindowEndCondition")
     public void testWindowEndCondition() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "only", XQueryTokenType.K_ONLY);
         matchSingleToken(lexer, "end",  XQueryTokenType.K_END);
@@ -3035,7 +3039,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-WindowVars")
     public void testWindowVars() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "$",        XQueryTokenType.VARIABLE_INDICATOR);
         matchSingleToken(lexer, "previous", XQueryTokenType.K_PREVIOUS);
@@ -3047,7 +3051,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-CountClause")
     public void testCountClause() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "count", XQueryTokenType.K_COUNT);
         matchSingleToken(lexer, "$",     XQueryTokenType.VARIABLE_INDICATOR);
@@ -3058,7 +3062,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-GroupByClause")
     public void testGroupByClause() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "group", XQueryTokenType.K_GROUP);
         matchSingleToken(lexer, "by",    XQueryTokenType.K_BY);
@@ -3069,7 +3073,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-GroupingSpecList")
     public void testGroupingSpecList() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, ",", XQueryTokenType.COMMA);
     }
@@ -3079,7 +3083,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-GroupingSpec")
     public void testGroupingSpec() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, ":=",        XQueryTokenType.ASSIGN_EQUAL);
         matchSingleToken(lexer, "collation", XQueryTokenType.K_COLLATION);
@@ -3090,7 +3094,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-GroupingVariable")
     public void testGroupingVariable() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "$", XQueryTokenType.VARIABLE_INDICATOR);
     }
@@ -3100,7 +3104,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-ReturnClause")
     public void testReturnClause() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "return", XQueryTokenType.K_RETURN);
     }
@@ -3110,7 +3114,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-SwitchExpr")
     public void testSwitchExpr() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "switch",  XQueryTokenType.K_SWITCH);
         matchSingleToken(lexer, "(",       XQueryTokenType.PARENTHESIS_OPEN);
@@ -3124,7 +3128,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-SwitchCaseClause")
     public void testSwitchCaseClause() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "case",   XQueryTokenType.K_CASE);
         matchSingleToken(lexer, "return", XQueryTokenType.K_RETURN);
@@ -3135,7 +3139,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-SequenceTypeUnion")
     public void testSequenceTypeUnion() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "|", XQueryTokenType.UNION);
     }
@@ -3145,7 +3149,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-TryClause")
     public void testTryClause() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "try", XQueryTokenType.K_TRY);
         matchSingleToken(lexer, "{",   XQueryTokenType.BLOCK_OPEN);
@@ -3157,7 +3161,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-CatchClause")
     public void testCatchClause() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "catch", XQueryTokenType.K_CATCH);
         matchSingleToken(lexer, "{",     XQueryTokenType.BLOCK_OPEN);
@@ -3169,7 +3173,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-CatchErrorList")
     public void testCatchErrorList() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "|", XQueryTokenType.UNION);
     }
@@ -3179,7 +3183,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-StringConcatExpr")
     public void testStringConcatExpr() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "||", XQueryTokenType.CONCATENATION);
     }
@@ -3189,7 +3193,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-ValidateExpr")
     public void testValidateExpr_Type() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "validate", XQueryTokenType.K_VALIDATE);
         matchSingleToken(lexer, "type",     XQueryTokenType.K_TYPE);
@@ -3202,7 +3206,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-SimpleMapExpr")
     public void testSimpleMapExpr() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "!", XQueryTokenType.MAP_OPERATOR);
     }
@@ -3212,7 +3216,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-ArgumentList")
     public void testArgumentList() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN);
         matchSingleToken(lexer, ",", XQueryTokenType.COMMA);
@@ -3224,7 +3228,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-ArgumentPlaceholder")
     public void testArgumentPlaceholder() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "?", XQueryTokenType.OPTIONAL);
     }
@@ -3234,7 +3238,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-CompNamespaceConstructor")
     public void testCompNamespaceConstructor() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "namespace", XQueryTokenType.K_NAMESPACE);
         matchSingleToken(lexer, "{",         XQueryTokenType.BLOCK_OPEN);
@@ -3246,7 +3250,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-NamedFunctionRef")
     public void testNamedFunctionRef() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "#", XQueryTokenType.FUNCTION_REF_OPERATOR);
     }
@@ -3256,7 +3260,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-InlineFunctionExpr")
     public void testInlineFunctionExpr() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "function", XQueryTokenType.K_FUNCTION);
         matchSingleToken(lexer, "(",        XQueryTokenType.PARENTHESIS_OPEN);
@@ -3269,7 +3273,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-NamespaceNodeTest")
     public void testNamespaceNodeTest() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "namespace-node", XQueryTokenType.K_NAMESPACE_NODE);
         matchSingleToken(lexer, "(",              XQueryTokenType.PARENTHESIS_OPEN);
@@ -3281,7 +3285,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-AnyFunctionTest")
     public void testAnyFunctionTest() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "function", XQueryTokenType.K_FUNCTION);
         matchSingleToken(lexer, "(",        XQueryTokenType.PARENTHESIS_OPEN);
@@ -3294,7 +3298,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-TypedFunctionTest")
     public void testTypedFunctionTest() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "function", XQueryTokenType.K_FUNCTION);
         matchSingleToken(lexer, "(",        XQueryTokenType.PARENTHESIS_OPEN);
@@ -3308,7 +3312,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-ParenthesizedItemType")
     public void testParenthesizedItemType() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN);
         matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE);
@@ -3319,7 +3323,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-BracedURILiteral")
     public void testBracedURILiteral() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "Q", XQueryTokenType.NCNAME);
 
@@ -3353,7 +3357,7 @@ public class XQueryLexerTest extends LexerTestCase {
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-BracedURILiteral")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-PredefinedEntityRef")
     public void testBracedURILiteral_PredefinedEntityRef() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         // NOTE: The predefined entity reference names are not validated by the lexer, as some
         // XQuery processors support HTML predefined entities. Shifting the name validation to
@@ -3416,7 +3420,7 @@ public class XQueryLexerTest extends LexerTestCase {
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CharRef")
     @Specification(name="XML 1.0 5ed", reference="https://www.w3.org/TR/2008/REC-xml-20081126/#NT-CharRef")
     public void testBracedURILiteral_CharRef_Octal() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         lexer.start("Q{One&#20;Two}");
         matchToken(lexer, "Q{",     0,  0,  2, XQueryTokenType.BRACED_URI_LITERAL_START);
@@ -3460,7 +3464,7 @@ public class XQueryLexerTest extends LexerTestCase {
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CharRef")
     @Specification(name="XML 1.0 5ed", reference="https://www.w3.org/TR/2008/REC-xml-20081126/#NT-CharRef")
     public void testBracedURILiteral_CharRef_Hexadecimal() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         lexer.start("Q{One&#x20;&#xae;&#xDC;Two}");
         matchToken(lexer, "Q{",      0,  0,  2, XQueryTokenType.BRACED_URI_LITERAL_START);
@@ -3513,7 +3517,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-DFPropertyName")
     public void testDFPropertyName_XQuery31() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "decimal-separator",  XQueryTokenType.K_DECIMAL_SEPARATOR);
         matchSingleToken(lexer, "grouping-separator", XQueryTokenType.K_GROUPING_SEPARATOR);
@@ -3533,7 +3537,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-ArrowExpr")
     public void testArrowExpr() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "=>", XQueryTokenType.ARROW);
     }
@@ -3543,7 +3547,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-Lookup")
     public void testLookup() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "?", XQueryTokenType.OPTIONAL);
     }
@@ -3553,7 +3557,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-KeySpecifier")
     public void testKeySpecifier() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "*", XQueryTokenType.STAR);
     }
@@ -3563,7 +3567,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-MapConstructor")
     public void testMapConstructor() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "map", XQueryTokenType.K_MAP);
         matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN);
@@ -3576,7 +3580,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-MapConstructorEntry")
     public void testMapConstructorEntry() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, ":", XQueryTokenType.QNAME_SEPARATOR);
     }
@@ -3586,7 +3590,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-SquareArrayConstructor")
     public void testSquareArrayConstructor() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "[", XQueryTokenType.SQUARE_OPEN);
         matchSingleToken(lexer, ",", XQueryTokenType.COMMA);
@@ -3598,7 +3602,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-CurlyArrayConstructor")
     public void testCurlyArrayConstructor() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "array", XQueryTokenType.K_ARRAY);
         matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN);
@@ -3610,7 +3614,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-StringConstructor")
     public void testStringConstructor() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "`",   XQueryTokenType.INVALID);
         matchSingleToken(lexer, "``",  XQueryTokenType.INVALID);
@@ -3643,7 +3647,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-StringConstructorInterpolation")
     public void testStringConstructorInterpolation() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "`{", XQueryTokenType.STRING_INTERPOLATION_OPEN);
         matchSingleToken(lexer, "}`", XQueryTokenType.STRING_INTERPOLATION_CLOSE);
@@ -3664,7 +3668,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-UnaryLookup")
     public void testUnaryLookup() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "?", XQueryTokenType.OPTIONAL);
     }
@@ -3674,7 +3678,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-AnyMapTest")
     public void testAnyMapTest() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "map", XQueryTokenType.K_MAP);
         matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN);
@@ -3687,7 +3691,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-TypedMapTest")
     public void testTypedMapTest() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "map", XQueryTokenType.K_MAP);
         matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN);
@@ -3700,7 +3704,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-AnyArrayTest")
     public void testAnyArrayTest() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "array", XQueryTokenType.K_ARRAY);
         matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN);
@@ -3713,7 +3717,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-TypedArrayTest")
     public void testTypedArrayTest() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "array", XQueryTokenType.K_ARRAY);
         matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN);
@@ -3725,7 +3729,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-FunctionDecl")
     public void testFunctionDecl_UpdateFacility10() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "declare",  XQueryTokenType.K_DECLARE);
         matchSingleToken(lexer, "updating", XQueryTokenType.K_UPDATING);
@@ -3741,7 +3745,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-RevalidationDecl")
     public void testRevalidationDecl() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "declare",      XQueryTokenType.K_DECLARE);
         matchSingleToken(lexer, "revalidation", XQueryTokenType.K_REVALIDATION);
@@ -3755,7 +3759,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-InsertExprTargetChoice")
     public void testInsertExprTargetChoice() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "as",     XQueryTokenType.K_AS);
         matchSingleToken(lexer, "first",  XQueryTokenType.K_FIRST);
@@ -3770,7 +3774,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-InsertExpr")
     public void testInsertExpr() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "insert", XQueryTokenType.K_INSERT);
         matchSingleToken(lexer, "node",   XQueryTokenType.K_NODE);
@@ -3782,7 +3786,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-DeleteExpr")
     public void testDeleteExpr() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "delete", XQueryTokenType.K_DELETE);
         matchSingleToken(lexer, "node",   XQueryTokenType.K_NODE);
@@ -3794,7 +3798,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-ReplaceExpr")
     public void testReplaceExpr() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "replace", XQueryTokenType.K_REPLACE);
         matchSingleToken(lexer, "value",   XQueryTokenType.K_VALUE);
@@ -3808,7 +3812,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-RenameExpr")
     public void testRenameExpr() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "rename", XQueryTokenType.K_RENAME);
         matchSingleToken(lexer, "node",   XQueryTokenType.K_NODE);
@@ -3820,7 +3824,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-TransformExpr")
     public void testTransformExpr() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "copy",   XQueryTokenType.K_COPY);
         matchSingleToken(lexer, "$",      XQueryTokenType.VARIABLE_INDICATOR);
@@ -3835,7 +3839,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2015/WD-xquery-update-30-20150219/#prod-xquery30-CompatibilityAnnotation")
     public void testCompatibilityAnnotation() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "updating", XQueryTokenType.K_UPDATING);
     }
@@ -3845,7 +3849,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2015/WD-xquery-update-30-20150219/#prod-xquery30-TransformWithExpr")
     public void testTransformWithExpr() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "transform", XQueryTokenType.K_TRANSFORM);
         matchSingleToken(lexer, "with", XQueryTokenType.K_WITH);
@@ -3858,7 +3862,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2015/WD-xquery-update-30-20150219/#prod-xquery30-UpdatingFunctionCall")
     public void testUpdatingFunctionCall() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "invoke", XQueryTokenType.K_INVOKE);
         matchSingleToken(lexer, "updating", XQueryTokenType.K_UPDATING);
@@ -3872,7 +3876,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-VarDecl")
     public void testVarDecl_Scripting10() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "declare",      XQueryTokenType.K_DECLARE);
         matchSingleToken(lexer, "unassignable", XQueryTokenType.K_UNASSIGNABLE);
@@ -3888,7 +3892,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-FunctionDecl")
     public void testFunctionDecl_Scripting10() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "declare",  XQueryTokenType.K_DECLARE);
         matchSingleToken(lexer, "function", XQueryTokenType.K_FUNCTION);
@@ -3907,7 +3911,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-ApplyExpr")
     public void testApplyExpr() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, ";", XQueryTokenType.SEPARATOR);
     }
@@ -3917,7 +3921,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-ConcatExpr")
     public void testConcatExpr() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, ",", XQueryTokenType.COMMA);
     }
@@ -3927,7 +3931,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-BlockExpr")
     public void testBlockExpr() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "block", XQueryTokenType.K_BLOCK);
     }
@@ -3937,7 +3941,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-Block")
     public void testBlock() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN);
         matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE);
@@ -3948,7 +3952,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-BlockDecls")
     public void testBlockDecls() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, ";", XQueryTokenType.SEPARATOR);
     }
@@ -3958,7 +3962,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-BlockVarDecl")
     public void testBlockVarDecl() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "declare", XQueryTokenType.K_DECLARE);
         matchSingleToken(lexer, "$",       XQueryTokenType.VARIABLE_INDICATOR);
@@ -3971,7 +3975,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-AssignmentExpr")
     public void testAssignmentExpr() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "$",  XQueryTokenType.VARIABLE_INDICATOR);
         matchSingleToken(lexer, ":=", XQueryTokenType.ASSIGN_EQUAL);
@@ -3982,7 +3986,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-ExitExpr")
     public void testExitExpr() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "exit",      XQueryTokenType.K_EXIT);
         matchSingleToken(lexer, "returning", XQueryTokenType.K_RETURNING);
@@ -3993,7 +3997,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-WhileExpr")
     public void testWhileExpr() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "while", XQueryTokenType.K_WHILE);
         matchSingleToken(lexer, "(",     XQueryTokenType.PARENTHESIS_OPEN);
@@ -4005,7 +4009,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Full Text 1.0", reference="https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTOptionDecl")
     public void testFTOptionDecl() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "declare",   XQueryTokenType.K_DECLARE);
         matchSingleToken(lexer, "ft-option", XQueryTokenType.K_FT_OPTION);
@@ -4016,7 +4020,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Full Text 1.0", reference="https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTScoreVar")
     public void testFTScoreVar() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "score", XQueryTokenType.K_SCORE);
         matchSingleToken(lexer, "$", XQueryTokenType.VARIABLE_INDICATOR);
@@ -4027,7 +4031,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Full Text 1.0", reference="https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTContainsExpr")
     public void testFTContainsExpr() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "contains", XQueryTokenType.K_CONTAINS);
         matchSingleToken(lexer, "text", XQueryTokenType.K_TEXT);
@@ -4038,7 +4042,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Full Text 1.0", reference="https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTWeight")
     public void testFTWeight() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "weight", XQueryTokenType.K_WEIGHT);
         matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN);
@@ -4050,7 +4054,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Full Text 1.0", reference="https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTOr")
     public void testFTOr() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "ftor", XQueryTokenType.K_FTOR);
     }
@@ -4060,7 +4064,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Full Text 1.0", reference="https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTAnd")
     public void testFTAnd() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "ftand", XQueryTokenType.K_FTAND);
     }
@@ -4070,7 +4074,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Full Text 1.0", reference="https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTMildNot")
     public void testFTMildNot() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "not", XQueryTokenType.K_NOT);
         matchSingleToken(lexer, "in", XQueryTokenType.K_IN);
@@ -4081,7 +4085,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Full Text 1.0", reference="https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTUnaryNot")
     public void testFTUnaryNot() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "ftnot", XQueryTokenType.K_FTNOT);
     }
@@ -4091,7 +4095,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Full Text 1.0", reference="https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTPrimary")
     public void testFTPrimary() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN);
         matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE);
@@ -4102,7 +4106,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Full Text 1.0", reference="https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTWordsValue")
     public void testFTWordsValue() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN);
         matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE);
@@ -4113,7 +4117,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Full Text 1.0", reference="https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTExtensionSelection")
     public void testFTExtensionSelection() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN);
         matchSingleToken(lexer, "}", XQueryTokenType.BLOCK_CLOSE);
@@ -4124,7 +4128,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Full Text 1.0", reference="https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTAnyallOption")
     public void testFTAnyallOption() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "any", XQueryTokenType.K_ANY);
         matchSingleToken(lexer, "all", XQueryTokenType.K_ALL);
@@ -4139,7 +4143,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Full Text 1.0", reference="https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTTimes")
     public void testFTTimes() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "occurs", XQueryTokenType.K_OCCURS);
         matchSingleToken(lexer, "times", XQueryTokenType.K_TIMES);
@@ -4150,7 +4154,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Full Text 1.0", reference="https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTRange")
     public void testFTRange() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "exactly", XQueryTokenType.K_EXACTLY);
         matchSingleToken(lexer, "at", XQueryTokenType.K_AT);
@@ -4165,7 +4169,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Full Text 1.0", reference="https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTOrder")
     public void testFTOrder() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "ordered", XQueryTokenType.K_ORDERED);
     }
@@ -4175,7 +4179,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Full Text 1.0", reference="https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTWindow")
     public void testFTWindow() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "window", XQueryTokenType.K_WINDOW);
     }
@@ -4185,7 +4189,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Full Text 1.0", reference="https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTDistance")
     public void testFTDistance() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "distance", XQueryTokenType.K_DISTANCE);
     }
@@ -4195,7 +4199,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Full Text 1.0", reference="https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTUnit")
     public void testFTUnit() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "words", XQueryTokenType.K_WORDS);
         matchSingleToken(lexer, "sentences", XQueryTokenType.K_SENTENCES);
@@ -4207,7 +4211,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Full Text 1.0", reference="https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTScope")
     public void testFTScope() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "same", XQueryTokenType.K_SAME);
         matchSingleToken(lexer, "different", XQueryTokenType.K_DIFFERENT);
@@ -4218,7 +4222,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Full Text 1.0", reference="https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTBigUnit")
     public void testFTBigUnit() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "sentence", XQueryTokenType.K_SENTENCE);
         matchSingleToken(lexer, "paragraph", XQueryTokenType.K_PARAGRAPH);
@@ -4229,7 +4233,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Full Text 1.0", reference="https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTContent")
     public void testFTContent() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "at", XQueryTokenType.K_AT);
         matchSingleToken(lexer, "start", XQueryTokenType.K_START);
@@ -4244,7 +4248,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Full Text 1.0", reference="https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTMatchOptions")
     public void testFTMatchOptions() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "using", XQueryTokenType.K_USING);
     }
@@ -4254,7 +4258,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Full Text 1.0", reference="https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTCaseOption")
     public void testFTCaseOption() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "case", XQueryTokenType.K_CASE);
         matchSingleToken(lexer, "sensitive", XQueryTokenType.K_SENSITIVE);
@@ -4269,7 +4273,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Full Text 1.0", reference="https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTDiacriticsOption")
     public void testFTDiacriticsOption() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "diacritics", XQueryTokenType.K_DIACRITICS);
         matchSingleToken(lexer, "sensitive", XQueryTokenType.K_SENSITIVE);
@@ -4281,7 +4285,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Full Text 1.0", reference="https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTStemOption")
     public void testFTStemOption() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "no", XQueryTokenType.K_NO);
         matchSingleToken(lexer, "stemming", XQueryTokenType.K_STEMMING);
@@ -4292,7 +4296,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Full Text 1.0", reference="https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTThesaurusOption")
     public void testFTThesaurusOption() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "thesaurus", XQueryTokenType.K_THESAURUS);
         matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN);
@@ -4308,7 +4312,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Full Text 1.0", reference="https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTThesaurusID")
     public void testFTThesaurusID() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "at", XQueryTokenType.K_AT);
         matchSingleToken(lexer, "relationship", XQueryTokenType.K_RELATIONSHIP);
@@ -4320,7 +4324,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Full Text 1.0", reference="https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTLiteralRange")
     public void testFTLiteralRange() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "exactly", XQueryTokenType.K_EXACTLY);
 
@@ -4337,7 +4341,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Full Text 1.0", reference="https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTStopWordOption")
     public void testFTStopWordOption() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "stop", XQueryTokenType.K_STOP);
         matchSingleToken(lexer, "words", XQueryTokenType.K_WORDS);
@@ -4350,7 +4354,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Full Text 1.0", reference="https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTStopWords")
     public void testFTStopWords() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "at", XQueryTokenType.K_AT);
 
@@ -4364,7 +4368,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Full Text 1.0", reference="https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTStopWordsInclExcl")
     public void testFTStopWordsInclExcl() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "union", XQueryTokenType.K_UNION);
         matchSingleToken(lexer, "except", XQueryTokenType.K_EXCEPT);
@@ -4375,7 +4379,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Full Text 1.0", reference="https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTLanguageOption")
     public void testFTLanguageOption() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "language", XQueryTokenType.K_LANGUAGE);
     }
@@ -4385,7 +4389,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Full Text 1.0", reference="https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTWildCardOption")
     public void testFTWildCardOption() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "no", XQueryTokenType.K_NO);
         matchSingleToken(lexer, "wildcards", XQueryTokenType.K_WILDCARDS);
@@ -4396,7 +4400,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Full Text 1.0", reference="https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTExtensionOption")
     public void testFTExtensionOption() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "option", XQueryTokenType.K_OPTION);
     }
@@ -4406,7 +4410,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery Full Text 1.0", reference="https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/#prod-xquery10-FTIgnoreOption")
     public void testFTIgnoreOption() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "without", XQueryTokenType.K_WITHOUT);
         matchSingleToken(lexer, "content", XQueryTokenType.K_CONTENT);
@@ -4416,7 +4420,7 @@ public class XQueryLexerTest extends LexerTestCase {
     // region MarkLogic 6.0 :: TransactionSeparator
 
     public void testTransactionSeparator() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, ";", XQueryTokenType.SEPARATOR);
     }
@@ -4425,7 +4429,7 @@ public class XQueryLexerTest extends LexerTestCase {
     // region MarkLogic 6.0 :: CompatibilityAnnotation
 
     public void testCompatibilityAnnotation_MarkLogic() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "private", XQueryTokenType.K_PRIVATE);
     }
@@ -4434,7 +4438,7 @@ public class XQueryLexerTest extends LexerTestCase {
     // region MarkLogic 6.0 :: StylesheetImport
 
     public void testStylesheetImport() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "import",     XQueryTokenType.K_IMPORT);
         matchSingleToken(lexer, "stylesheet", XQueryTokenType.K_STYLESHEET);
@@ -4445,7 +4449,7 @@ public class XQueryLexerTest extends LexerTestCase {
     // region MarkLogic 6.0 :: ValidateExpr
 
     public void testValidateExpr_ValidateAs() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "validate", XQueryTokenType.K_VALIDATE);
         matchSingleToken(lexer, "as",       XQueryTokenType.K_AS);
@@ -4457,7 +4461,7 @@ public class XQueryLexerTest extends LexerTestCase {
     // region MarkLogic 6.0 :: ForwardAxis
 
     public void testForwardAxis_MarkLogic() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "namespace", XQueryTokenType.K_NAMESPACE);
         matchSingleToken(lexer, "property",  XQueryTokenType.K_PROPERTY);
@@ -4468,7 +4472,7 @@ public class XQueryLexerTest extends LexerTestCase {
     // region MarkLogic 6.0 :: BinaryConstructor
 
     public void testBinaryConstructor() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "binary", XQueryTokenType.K_BINARY);
         matchSingleToken(lexer, "{",      XQueryTokenType.BLOCK_OPEN);
@@ -4479,7 +4483,7 @@ public class XQueryLexerTest extends LexerTestCase {
     // region MarkLogic 6.0 :: BinaryTest
 
     public void testBinaryTest() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "binary", XQueryTokenType.K_BINARY);
         matchSingleToken(lexer, "(",      XQueryTokenType.PARENTHESIS_OPEN);
@@ -4490,7 +4494,7 @@ public class XQueryLexerTest extends LexerTestCase {
     // region MarkLogic 8.0 :: ArrayConstructor
 
     public void testArrayConstructor() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "array-node", XQueryTokenType.K_ARRAY_NODE);
         matchSingleToken(lexer, "{",          XQueryTokenType.BLOCK_OPEN);
@@ -4502,7 +4506,7 @@ public class XQueryLexerTest extends LexerTestCase {
     // region MarkLogic 8.0 :: BooleanConstructor
 
     public void testBooleanConstructor() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "boolean-node", XQueryTokenType.K_BOOLEAN_NODE);
         matchSingleToken(lexer, "{",            XQueryTokenType.BLOCK_OPEN);
@@ -4513,7 +4517,7 @@ public class XQueryLexerTest extends LexerTestCase {
     // region MarkLogic 8.0 :: NullConstructor
 
     public void testNullConstructor() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "null-node", XQueryTokenType.K_NULL_NODE);
         matchSingleToken(lexer, "{",         XQueryTokenType.BLOCK_OPEN);
@@ -4524,7 +4528,7 @@ public class XQueryLexerTest extends LexerTestCase {
     // region MarkLogic 8.0 :: NumberConstructor
 
     public void testNumberConstructor() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "number-node", XQueryTokenType.K_NUMBER_NODE);
         matchSingleToken(lexer, "{",           XQueryTokenType.BLOCK_OPEN);
@@ -4535,7 +4539,7 @@ public class XQueryLexerTest extends LexerTestCase {
     // region MarkLogic 8.0 :: MapConstructor
 
     public void testMapConstructor_MarkLogic() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "object-node", XQueryTokenType.K_OBJECT_NODE);
         matchSingleToken(lexer, "{",           XQueryTokenType.BLOCK_OPEN);
@@ -4548,7 +4552,7 @@ public class XQueryLexerTest extends LexerTestCase {
     // region MarkLogic 8.0 :: AnyKindTest
 
     public void testAnyKindTest_MarkLogic() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "node", XQueryTokenType.K_NODE);
         matchSingleToken(lexer, "(",    XQueryTokenType.PARENTHESIS_OPEN);
@@ -4560,7 +4564,7 @@ public class XQueryLexerTest extends LexerTestCase {
     // region MarkLogic 8.0 :: ArrayTest
 
     public void testArrayTest() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "array-node", XQueryTokenType.K_ARRAY_NODE);
         matchSingleToken(lexer, "(",          XQueryTokenType.PARENTHESIS_OPEN);
@@ -4571,7 +4575,7 @@ public class XQueryLexerTest extends LexerTestCase {
     // region MarkLogic 8.0 :: BooleanTest
 
     public void testBooleanTest() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "boolean-node", XQueryTokenType.K_BOOLEAN_NODE);
         matchSingleToken(lexer, "(",            XQueryTokenType.PARENTHESIS_OPEN);
@@ -4582,7 +4586,7 @@ public class XQueryLexerTest extends LexerTestCase {
     // region MarkLogic 8.0 :: NullTest
 
     public void testNullTest() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "null-node", XQueryTokenType.K_NULL_NODE);
         matchSingleToken(lexer, "(",         XQueryTokenType.PARENTHESIS_OPEN);
@@ -4593,7 +4597,7 @@ public class XQueryLexerTest extends LexerTestCase {
     // region MarkLogic 8.0 :: NumberTest
 
     public void testNumberTest() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "number-node", XQueryTokenType.K_NUMBER_NODE);
         matchSingleToken(lexer, "(",           XQueryTokenType.PARENTHESIS_OPEN);
@@ -4604,7 +4608,7 @@ public class XQueryLexerTest extends LexerTestCase {
     // region MarkLogic 8.0 :: MapTest
 
     public void testMapTest() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "object-node", XQueryTokenType.K_OBJECT_NODE);
         matchSingleToken(lexer, "(",           XQueryTokenType.PARENTHESIS_OPEN);
@@ -4615,7 +4619,7 @@ public class XQueryLexerTest extends LexerTestCase {
     // region BaseX 7.8 :: UpdateExpr
 
     public void testUpdateExpr() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "update", XQueryTokenType.K_UPDATE);
     }
@@ -4624,7 +4628,7 @@ public class XQueryLexerTest extends LexerTestCase {
     // region BaseX 8.5 :: UpdateExpr
 
     public void testUpdateExpr_BaseX85() {
-        Lexer lexer = new XQueryLexer();
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "update", XQueryTokenType.K_UPDATE);
         matchSingleToken(lexer, "{", XQueryTokenType.BLOCK_OPEN);
