@@ -27,13 +27,21 @@ import java.util.Map;
 import java.util.Stack;
 
 public class XQueryLexer extends LexerBase {
+    public static final int OPTION_PARSE_XML_OPEN_TAG_AS_SINGLE_TOKEN = 1;
+
     private CodePointRange mTokenRange;
     private int mState;
     private final Stack<Integer> mStates = new Stack<>();
     private IElementType mType;
+    private final int mOptions;
 
     public XQueryLexer() {
+        this(0);
+    }
+
+    public XQueryLexer(int options) {
         mTokenRange = new CodePointRange();
+        mOptions = options;
     }
 
     // region States

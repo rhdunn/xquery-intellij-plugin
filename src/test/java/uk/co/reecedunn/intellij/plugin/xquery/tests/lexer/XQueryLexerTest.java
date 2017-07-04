@@ -28,7 +28,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class XQueryLexerTest extends LexerTestCase {
     private Lexer createXQueryLexer() {
-        return new XQueryLexer();
+        return createXQueryLexer(0);
+    }
+
+    private Lexer createXQueryLexer(int options) {
+        return new XQueryLexer(options);
     }
 
     // region Lexer :: Invalid State
