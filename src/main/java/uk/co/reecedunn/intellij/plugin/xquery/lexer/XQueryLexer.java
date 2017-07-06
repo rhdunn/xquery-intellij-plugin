@@ -329,7 +329,9 @@ public class XQueryLexer extends LexerBase {
                         mType = XQueryTokenType.INVALID;
                     }
                 } else {
-                    if (isDirElement()) {
+                    if ((mOptions & OPTION_PARSE_XML_OPEN_TAG_AS_SINGLE_TOKEN) == OPTION_PARSE_XML_OPEN_TAG_AS_SINGLE_TOKEN) {
+                        matchOpenXmlTag();
+                    } else if (isDirElement()) {
                         mType = XQueryTokenType.OPEN_XML_TAG;
                         pushState(STATE_DIR_ELEM_CONSTRUCTOR);
                     } else {
@@ -1173,6 +1175,70 @@ public class XQueryLexer extends LexerBase {
                cc == CharacterClass.QUOTE ||         // Missing equals, e.g.: <abc attr "val"/>
                cc == CharacterClass.APOSTROPHE ||    // Missing equals, e.g.: <abc attr 'val'/>
                cc == CharacterClass.END_OF_BUFFER;   // Unclosed element, e.g.: <abc
+    }
+
+    private boolean matchNCName() {
+        int cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
+        if (cc != CharacterClass.NAME_START_CHAR)
+            return false;
+
+        while (cc == CharacterClass.NAME_START_CHAR ||
+               cc == CharacterClass.DIGIT ||
+               cc == CharacterClass.DOT ||
+               cc == CharacterClass.HYPHEN_MINUS ||
+               cc == CharacterClass.NAME_CHAR) {
+            mTokenRange.match();
+            cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
+        }
+        return true;
+    }
+
+    private boolean matchQName() {
+        if (!matchNCName())
+            return false;
+
+        if (mTokenRange.getCodePoint() == ':') {
+            mTokenRange.match();
+            matchNCName();
+        }
+        return true;
+    }
+
+    private void matchWhiteSpace() {
+        int cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
+        while (cc == CharacterClass.WHITESPACE) {
+            mTokenRange.match();
+            cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
+        }
+    }
+
+    private void matchOpenXmlTag() {
+        if (!matchQName()) {
+            mType = XQueryTokenType.LESS_THAN;
+            return;
+        }
+
+        mType = XQueryTokenType.DIRELEM_OPEN_XML_TAG;
+        matchWhiteSpace();
+
+        switch (CharacterClass.getCharClass(mTokenRange.getCodePoint())) {
+            case CharacterClass.FORWARD_SLASH:
+                mTokenRange.save();
+                mTokenRange.match();
+                if (mTokenRange.getCodePoint() == '>') {
+                    mTokenRange.match();
+                    return;
+                }
+                mType = XQueryTokenType.DIRELEM_MAYBE_OPEN_XML_TAG;
+                mTokenRange.restore();
+                return;
+            case CharacterClass.GREATER_THAN:
+                mTokenRange.match();
+                pushState(STATE_DIR_ELEM_CONTENT);
+                return;
+        }
+
+        pushState(STATE_DIR_ELEM_CONSTRUCTOR);
     }
 
     private void matchEntityReference(int state) {

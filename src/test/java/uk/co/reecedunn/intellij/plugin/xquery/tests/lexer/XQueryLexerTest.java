@@ -1018,6 +1018,47 @@ public class XQueryLexerTest extends LexerTestCase {
     // region XQuery 1.0 :: DirElemConstructor
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirElemConstructor")
+    public void testDirElemConstructor_OpenXmlTagAsSingleToken() {
+        Lexer lexer = createXQueryLexer(XQueryLexer.OPTION_PARSE_XML_OPEN_TAG_AS_SINGLE_TOKEN);
+
+        matchSingleToken(lexer, "<", XQueryTokenType.LESS_THAN);
+        matchSingleToken(lexer, ">", XQueryTokenType.GREATER_THAN);
+
+        matchSingleToken(lexer, "</", XQueryTokenType.CLOSE_XML_TAG);
+        matchSingleToken(lexer, "/>", XQueryTokenType.SELF_CLOSING_XML_TAG);
+
+        lexer.start("<one:two/>");
+        matchToken(lexer, "<one:two/>", 0,  0, 10, XQueryTokenType.DIRELEM_OPEN_XML_TAG);
+        matchToken(lexer, "",           0, 10, 10, null);
+
+        lexer.start("<one:two></one:two  >");
+        matchToken(lexer, "<one:two>",  0,  0,  9, XQueryTokenType.DIRELEM_OPEN_XML_TAG);
+        matchToken(lexer, "</",        17,  9, 11, XQueryTokenType.CLOSE_XML_TAG);
+        matchToken(lexer, "one",       12, 11, 14, XQueryTokenType.XML_TAG_NCNAME);
+        matchToken(lexer, ":",         12, 14, 15, XQueryTokenType.XML_TAG_QNAME_SEPARATOR);
+        matchToken(lexer, "two",       12, 15, 18, XQueryTokenType.XML_TAG_NCNAME);
+        matchToken(lexer, "  ",        12, 18, 20, XQueryTokenType.XML_WHITE_SPACE);
+        matchToken(lexer, ">",         12, 20, 21, XQueryTokenType.END_XML_TAG);
+        matchToken(lexer, "",           0, 21, 21, null);
+
+        lexer.start("<one:two  ></one:two>");
+        matchToken(lexer, "<one:two  >",  0,  0, 11, XQueryTokenType.DIRELEM_OPEN_XML_TAG);
+        matchToken(lexer, "</",          17, 11, 13, XQueryTokenType.CLOSE_XML_TAG);
+        matchToken(lexer, "one",         12, 13, 16, XQueryTokenType.XML_TAG_NCNAME);
+        matchToken(lexer, ":",           12, 16, 17, XQueryTokenType.XML_TAG_QNAME_SEPARATOR);
+        matchToken(lexer, "two",         12, 17, 20, XQueryTokenType.XML_TAG_NCNAME);
+        matchToken(lexer, ">",           12, 20, 21, XQueryTokenType.END_XML_TAG);
+        matchToken(lexer, "",             0, 21, 21, null);
+
+        lexer.start("<one:two//*/>");
+        matchToken(lexer, "<one:two", 0,  0,  8, XQueryTokenType.DIRELEM_MAYBE_OPEN_XML_TAG);
+        matchToken(lexer, "//",       0,  8, 10, XQueryTokenType.ALL_DESCENDANTS_PATH);
+        matchToken(lexer, "*",        0, 10, 11, XQueryTokenType.STAR);
+        matchToken(lexer, "/>",       0, 11, 13, XQueryTokenType.SELF_CLOSING_XML_TAG);
+        matchToken(lexer, "",         0, 13, 13, null);
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirElemConstructor")
     public void testDirElemConstructor() {
         Lexer lexer = createXQueryLexer();
 
