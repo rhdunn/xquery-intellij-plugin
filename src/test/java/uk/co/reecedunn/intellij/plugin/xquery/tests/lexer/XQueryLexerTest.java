@@ -1056,6 +1056,34 @@ public class XQueryLexerTest extends LexerTestCase {
         matchToken(lexer, "*",        0, 10, 11, XQueryTokenType.STAR);
         matchToken(lexer, "/>",       0, 11, 13, XQueryTokenType.SELF_CLOSING_XML_TAG);
         matchToken(lexer, "",         0, 13, 13, null);
+
+        lexer.start("1 < fn:abs (");
+        matchToken(lexer, "1",         0,  0,  1, XQueryTokenType.INTEGER_LITERAL);
+        matchToken(lexer, " ",         0,  1,  2, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "< fn:abs ", 0,  2, 11, XQueryTokenType.DIRELEM_MAYBE_OPEN_XML_TAG);
+        matchToken(lexer, "(",         0, 11, 12, XQueryTokenType.PARENTHESIS_OPEN);
+        matchToken(lexer, "",          0, 12, 12, null);
+
+        lexer.start("1 <fn:abs (");
+        matchToken(lexer, "1",        0,  0,  1, XQueryTokenType.INTEGER_LITERAL);
+        matchToken(lexer, " ",        0,  1,  2, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "<fn:abs ", 0,  2, 10, XQueryTokenType.DIRELEM_MAYBE_OPEN_XML_TAG);
+        matchToken(lexer, "(",        0, 10, 11, XQueryTokenType.PARENTHESIS_OPEN);
+        matchToken(lexer, "",         0, 11, 11, null);
+
+        lexer.start("1 < fn:abs #");
+        matchToken(lexer, "1",         0,  0,  1, XQueryTokenType.INTEGER_LITERAL);
+        matchToken(lexer, " ",         0,  1,  2, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "< fn:abs ", 0,  2, 11, XQueryTokenType.DIRELEM_MAYBE_OPEN_XML_TAG);
+        matchToken(lexer, "#",         0, 11, 12, XQueryTokenType.FUNCTION_REF_OPERATOR);
+        matchToken(lexer, "",          0, 12, 12, null);
+
+        lexer.start("1 <fn:abs #");
+        matchToken(lexer, "1",        0,  0,  1, XQueryTokenType.INTEGER_LITERAL);
+        matchToken(lexer, " ",        0,  1,  2, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "<fn:abs ", 0,  2, 10, XQueryTokenType.DIRELEM_MAYBE_OPEN_XML_TAG);
+        matchToken(lexer, "#",        0, 10, 11, XQueryTokenType.FUNCTION_REF_OPERATOR);
+        matchToken(lexer, "",         0, 11, 11, null);
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirElemConstructor")
@@ -1114,11 +1142,6 @@ public class XQueryLexerTest extends LexerTestCase {
         matchToken(lexer, "*",   11, 10, 11, XQueryTokenType.BAD_CHARACTER);
         matchToken(lexer, "/>",  11, 11, 13, XQueryTokenType.SELF_CLOSING_XML_TAG);
         matchToken(lexer, "",     0, 13, 13, null);
-    }
-
-    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirElemConstructor")
-    public void testDirElemConstructor_IsFunctionNameInExpr() {
-        Lexer lexer = createXQueryLexer();
 
         lexer.start("1 < fn:abs (");
         matchToken(lexer, "1",    0,  0,  1, XQueryTokenType.INTEGER_LITERAL);

@@ -1213,6 +1213,10 @@ public class XQueryLexer extends LexerBase {
     }
 
     private void matchOpenXmlTag() {
+        // Whitespace between the '<' and the NCName/QName is invalid. The lexer
+        // allows this to provide better error reporting in the parser.
+        matchWhiteSpace();
+
         if (!matchQName()) {
             mType = XQueryTokenType.LESS_THAN;
             return;
@@ -1231,14 +1235,15 @@ public class XQueryLexer extends LexerBase {
                 }
                 mType = XQueryTokenType.DIRELEM_MAYBE_OPEN_XML_TAG;
                 mTokenRange.restore();
-                return;
+                break;
             case CharacterClass.GREATER_THAN:
                 mTokenRange.match();
                 pushState(STATE_DIR_ELEM_CONTENT);
-                return;
+                break;
+            default:
+                mType = XQueryTokenType.DIRELEM_MAYBE_OPEN_XML_TAG;
+                break;
         }
-
-        pushState(STATE_DIR_ELEM_CONSTRUCTOR);
     }
 
     private void matchEntityReference(int state) {
