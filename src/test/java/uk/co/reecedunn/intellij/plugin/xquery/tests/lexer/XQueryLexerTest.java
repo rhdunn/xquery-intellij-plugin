@@ -17,6 +17,8 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.lexer;
 
 import com.intellij.lexer.Lexer;
 import com.intellij.psi.tree.IElementType;
+import com.sun.javaws.exceptions.InvalidArgumentException;
+import uk.co.reecedunn.intellij.plugin.core.lexer.CombinedLexer;
 import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCase;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
@@ -27,12 +29,24 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class XQueryLexerTest extends LexerTestCase {
+    private enum LexerMode {
+        Default,
+        OpenXmlTagAsSingleToken,
+    };
+
     private Lexer createXQueryLexer() {
-        return createXQueryLexer(0);
+        return createXQueryLexer(LexerMode.Default);
     }
 
-    private Lexer createXQueryLexer(int options) {
-        return new XQueryLexer(options);
+    private Lexer createXQueryLexer(LexerMode mode) {
+        switch (mode) {
+            case Default:
+                return new XQueryLexer();
+            case OpenXmlTagAsSingleToken:
+                return new XQueryLexer(XQueryLexer.OPTION_PARSE_XML_OPEN_TAG_AS_SINGLE_TOKEN);
+            default:
+                throw new RuntimeException("Unknown LexerMode value.");
+        }
     }
 
     // region Lexer :: Invalid State
@@ -1019,7 +1033,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirElemConstructor")
     public void testDirElemConstructor_OpenXmlTagAsSingleToken() {
-        Lexer lexer = createXQueryLexer(XQueryLexer.OPTION_PARSE_XML_OPEN_TAG_AS_SINGLE_TOKEN);
+        Lexer lexer = createXQueryLexer(LexerMode.OpenXmlTagAsSingleToken);
 
         matchSingleToken(lexer, "<", XQueryTokenType.LESS_THAN);
         matchSingleToken(lexer, ">", XQueryTokenType.GREATER_THAN);
@@ -1256,7 +1270,7 @@ public class XQueryLexerTest extends LexerTestCase {
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirAttributeList")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirAttributeValue")
     public void testDirAttributeList_OpenXmlTagAsSingleToken() {
-        Lexer lexer = createXQueryLexer(XQueryLexer.OPTION_PARSE_XML_OPEN_TAG_AS_SINGLE_TOKEN);
+        Lexer lexer = createXQueryLexer(LexerMode.OpenXmlTagAsSingleToken);
 
         matchSingleToken(lexer, "=", XQueryTokenType.EQUAL);
 
