@@ -88,6 +88,7 @@ public class XQueryLexer extends LexerBase {
     private static final int STATE_STRING_CONSTRUCTOR_CONTENTS = 27;
     private static final int STATE_DEFAULT_STRING_INTERPOLATION = 28;
     public  static final int STATE_MAYBE_DIR_ELEM_CONSTRUCTOR = 29;
+    public  static final int STATE_START_DIR_ELEM_CONSTRUCTOR = 30;
 
     private void stateDefault(int mState) {
         int c = mTokenRange.getCodePoint();
@@ -1145,6 +1146,25 @@ public class XQueryLexer extends LexerBase {
         mType = XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS;
     }
 
+    private void stateStartDirElemConstructor() {
+        switch (CharacterClass.getCharClass(mTokenRange.getCodePoint())) {
+            case CharacterClass.LESS_THAN:
+                mTokenRange.match();
+                mType = XQueryTokenType.OPEN_XML_TAG;
+                if (CharacterClass.getCharClass(mTokenRange.getCodePoint()) != CharacterClass.WHITESPACE) {
+                    popState();
+                    pushState(STATE_DIR_ELEM_CONSTRUCTOR);
+                }
+                break;
+            case CharacterClass.WHITESPACE:
+                mType = XQueryTokenType.XML_WHITE_SPACE;
+                matchWhiteSpace();
+                popState();
+                pushState(STATE_DIR_ELEM_CONSTRUCTOR);
+                break;
+        }
+    }
+
     // endregion
     // region Helper Functions
 
@@ -1409,6 +1429,9 @@ public class XQueryLexer extends LexerBase {
                 break;
             case STATE_STRING_CONSTRUCTOR_CONTENTS:
                 stateStringConstructorContents();
+                break;
+            case STATE_START_DIR_ELEM_CONSTRUCTOR:
+                stateStartDirElemConstructor();
                 break;
             default:
                 throw new AssertionError("Invalid state: " + mState);
