@@ -87,6 +87,7 @@ public class XQueryLexer extends LexerBase {
     private static final int STATE_BRACED_URI_LITERAL = 26;
     private static final int STATE_STRING_CONSTRUCTOR_CONTENTS = 27;
     private static final int STATE_DEFAULT_STRING_INTERPOLATION = 28;
+    public  static final int STATE_MAYBE_DIR_ELEM_CONSTRUCTOR = 29;
 
     private void stateDefault(int mState) {
         int c = mTokenRange.getCodePoint();
@@ -329,7 +330,9 @@ public class XQueryLexer extends LexerBase {
                         mType = XQueryTokenType.INVALID;
                     }
                 } else {
-                    if ((mOptions & OPTION_PARSE_XML_OPEN_TAG_AS_SINGLE_TOKEN) == OPTION_PARSE_XML_OPEN_TAG_AS_SINGLE_TOKEN) {
+                    if (mState == STATE_MAYBE_DIR_ELEM_CONSTRUCTOR) {
+                        mType = XQueryTokenType.LESS_THAN;
+                    } else if ((mOptions & OPTION_PARSE_XML_OPEN_TAG_AS_SINGLE_TOKEN) == OPTION_PARSE_XML_OPEN_TAG_AS_SINGLE_TOKEN) {
                         matchOpenXmlTag();
                     } else if (isDirElement()) {
                         mType = XQueryTokenType.OPEN_XML_TAG;
@@ -1344,6 +1347,7 @@ public class XQueryLexer extends LexerBase {
             case STATE_DEFAULT_ATTRIBUTE_APOSTROPHE:
             case STATE_DEFAULT_ELEM_CONTENT:
             case STATE_DEFAULT_STRING_INTERPOLATION:
+            case STATE_MAYBE_DIR_ELEM_CONSTRUCTOR:
                 stateDefault(mState);
                 break;
             case STATE_STRING_LITERAL_QUOTE:

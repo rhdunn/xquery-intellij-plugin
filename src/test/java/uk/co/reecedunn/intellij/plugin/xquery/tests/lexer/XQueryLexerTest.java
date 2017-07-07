@@ -1087,6 +1087,36 @@ public class XQueryLexerTest extends LexerTestCase {
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirElemConstructor")
+    public void testDirElemConstructor_MaybeDirElem() {
+        Lexer lexer = createXQueryLexer();
+
+        lexer.start("<one:two/>", 0, 10, XQueryLexer.STATE_MAYBE_DIR_ELEM_CONSTRUCTOR);
+        matchToken(lexer, "<",   29,  0,  1, XQueryTokenType.LESS_THAN);
+        matchToken(lexer, "one", 29,  1,  4, XQueryTokenType.NCNAME);
+        matchToken(lexer, ":",   29,  4,  5, XQueryTokenType.QNAME_SEPARATOR);
+        matchToken(lexer, "two", 29,  5,  8, XQueryTokenType.NCNAME);
+        matchToken(lexer, "/>",  29,  8, 10, XQueryTokenType.SELF_CLOSING_XML_TAG);
+        matchToken(lexer, "",    29, 10, 10, null);
+
+        lexer.start("<one:two>", 0, 9, XQueryLexer.STATE_MAYBE_DIR_ELEM_CONSTRUCTOR);
+        matchToken(lexer, "<",   29,  0,  1, XQueryTokenType.LESS_THAN);
+        matchToken(lexer, "one", 29,  1,  4, XQueryTokenType.NCNAME);
+        matchToken(lexer, ":",   29,  4,  5, XQueryTokenType.QNAME_SEPARATOR);
+        matchToken(lexer, "two", 29,  5,  8, XQueryTokenType.NCNAME);
+        matchToken(lexer, ">",   29,  8,  9, XQueryTokenType.GREATER_THAN);
+        matchToken(lexer, "",    29,  9,  9, null);
+
+        lexer.start("<  one:two  ", 0, 12, XQueryLexer.STATE_MAYBE_DIR_ELEM_CONSTRUCTOR);
+        matchToken(lexer, "<",   29,  0,  1, XQueryTokenType.LESS_THAN);
+        matchToken(lexer, "  ",  29,  1,  3, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "one", 29,  3,  6, XQueryTokenType.NCNAME);
+        matchToken(lexer, ":",   29,  6,  7, XQueryTokenType.QNAME_SEPARATOR);
+        matchToken(lexer, "two", 29,  7, 10, XQueryTokenType.NCNAME);
+        matchToken(lexer, "  ",  29, 10, 12, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "",    29, 12, 12, null);
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirElemConstructor")
     public void testDirElemConstructor() {
         Lexer lexer = createXQueryLexer();
 
