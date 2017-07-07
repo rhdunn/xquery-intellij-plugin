@@ -1195,6 +1195,39 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirAttributeList")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirAttributeValue")
+    public void testDirAttributeList_OpenXmlTagAsSingleToken() {
+        Lexer lexer = createXQueryLexer(XQueryLexer.OPTION_PARSE_XML_OPEN_TAG_AS_SINGLE_TOKEN);
+
+        matchSingleToken(lexer, "=", XQueryTokenType.EQUAL);
+
+        lexer.start("<one:two  a:b  =  \"One\"  c:d  =  'Two'  />");
+        matchToken(lexer, "<one:two  ",  0,  0, 10, XQueryTokenType.DIRELEM_OPEN_XML_TAG);
+        matchToken(lexer, "a",          25, 10, 11, XQueryTokenType.XML_ATTRIBUTE_NCNAME);
+        matchToken(lexer, ":",          25, 11, 12, XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR);
+        matchToken(lexer, "b",          25, 12, 13, XQueryTokenType.XML_ATTRIBUTE_NCNAME);
+        matchToken(lexer, "  ",         25, 13, 15, XQueryTokenType.XML_WHITE_SPACE);
+        matchToken(lexer, "=",          25, 15, 16, XQueryTokenType.XML_EQUAL);
+        matchToken(lexer, "  ",         25, 16, 18, XQueryTokenType.XML_WHITE_SPACE);
+        matchToken(lexer, "\"",         25, 18, 19, XQueryTokenType.XML_ATTRIBUTE_VALUE_START);
+        matchToken(lexer, "One",        13, 19, 22, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS);
+        matchToken(lexer, "\"",         13, 22, 23, XQueryTokenType.XML_ATTRIBUTE_VALUE_END);
+        matchToken(lexer, "  ",         25, 23, 25, XQueryTokenType.XML_WHITE_SPACE);
+        matchToken(lexer, "c",          25, 25, 26, XQueryTokenType.XML_ATTRIBUTE_NCNAME);
+        matchToken(lexer, ":",          25, 26, 27, XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR);
+        matchToken(lexer, "d",          25, 27, 28, XQueryTokenType.XML_ATTRIBUTE_NCNAME);
+        matchToken(lexer, "  ",         25, 28, 30, XQueryTokenType.XML_WHITE_SPACE);
+        matchToken(lexer, "=",          25, 30, 31, XQueryTokenType.XML_EQUAL);
+        matchToken(lexer, "  ",         25, 31, 33, XQueryTokenType.XML_WHITE_SPACE);
+        matchToken(lexer, "'",          25, 33, 34, XQueryTokenType.XML_ATTRIBUTE_VALUE_START);
+        matchToken(lexer, "Two",        14, 34, 37, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS);
+        matchToken(lexer, "'",          14, 37, 38, XQueryTokenType.XML_ATTRIBUTE_VALUE_END);
+        matchToken(lexer, "  ",         25, 38, 40, XQueryTokenType.XML_WHITE_SPACE);
+        matchToken(lexer, "/>",         25, 40, 42, XQueryTokenType.SELF_CLOSING_XML_TAG);
+        matchToken(lexer, "",            0, 42, 42, null);
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirAttributeList")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirAttributeValue")
     public void testDirAttributeList() {
         Lexer lexer = createXQueryLexer();
 

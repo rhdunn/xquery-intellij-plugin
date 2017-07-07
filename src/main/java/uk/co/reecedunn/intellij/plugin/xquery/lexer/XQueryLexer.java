@@ -1240,6 +1240,9 @@ public class XQueryLexer extends LexerBase {
                 mTokenRange.match();
                 pushState(STATE_DIR_ELEM_CONTENT);
                 break;
+            case CharacterClass.NAME_START_CHAR:
+                pushState(STATE_DIR_ATTRIBUTE_LIST);
+                break;
             default:
                 mType = XQueryTokenType.DIRELEM_MAYBE_OPEN_XML_TAG;
                 break;
