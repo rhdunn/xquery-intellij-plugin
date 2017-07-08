@@ -3776,6 +3776,13 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirElemConstructor")
+    public void testDirElemConstructor_SpaceBeforeNCName() {
+        final String expected = loadResource("tests/parser/xquery-1.0/DirElemConstructor_SpaceBeforeNCName.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-1.0/DirElemConstructor_SpaceBeforeNCName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirElemConstructor")
     public void testDirElemConstructor_IncompleteOpenTag() {
         final String expected = loadResource("tests/parser/xquery-1.0/DirElemConstructor_IncompleteOpenTag.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-1.0/DirElemConstructor_IncompleteOpenTag.xq");

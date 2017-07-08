@@ -4481,7 +4481,7 @@ class XQueryParser {
     private boolean parseDirElemConstructor(int depth) {
         final PsiBuilder.Marker elementMarker = mark();
         if (matchTokenType(XQueryTokenType.OPEN_XML_TAG)) {
-            // NOTE: The XQueryLexer ensures that OPEN_XML_TAG is followed by an NCNAME/QNAME.
+            errorOnTokenType(XQueryTokenType.XML_WHITE_SPACE, XQueryBundle.message("parser.error.unexpected-whitespace"));
             parseQName(XQueryElementType.QNAME);
 
             parseDirAttributeList();
