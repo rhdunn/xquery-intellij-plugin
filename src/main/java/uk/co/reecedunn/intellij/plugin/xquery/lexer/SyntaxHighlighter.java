@@ -74,7 +74,9 @@ public class SyntaxHighlighter extends SyntaxHighlighterBase {
     @SuppressWarnings("NullableProblems") // jacoco Code Coverage reports an unchecked branch when @NotNull is used.
     public Lexer getHighlightingLexer() {
         CombinedLexer lexer = new CombinedLexer(new XQueryLexer());
-        lexer.addState(new XQDocLexer(), 0x70000000, XQueryLexer.STATE_XQUERY_COMMENT, XQueryTokenType.COMMENT);
+        lexer.addState(new XQueryLexer(), 0x50000000, 0, XQueryLexer.STATE_MAYBE_DIR_ELEM_CONSTRUCTOR, XQueryTokenType.DIRELEM_MAYBE_OPEN_XML_TAG);
+        lexer.addState(new XQueryLexer(), 0x60000000, 0, XQueryLexer.STATE_START_DIR_ELEM_CONSTRUCTOR, XQueryTokenType.DIRELEM_OPEN_XML_TAG);
+        lexer.addState(new XQDocLexer(),  0x70000000, XQueryLexer.STATE_XQUERY_COMMENT, XQueryTokenType.COMMENT);
         return lexer;
     }
 

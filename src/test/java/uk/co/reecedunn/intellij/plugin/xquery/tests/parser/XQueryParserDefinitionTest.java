@@ -19,9 +19,9 @@ import com.intellij.lang.ParserDefinition;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.tree.TokenSet;
+import uk.co.reecedunn.intellij.plugin.core.lexer.CombinedLexer;
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.filetypes.XQueryFileType;
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition;
@@ -35,7 +35,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class XQueryParserDefinitionTest extends ParserTestCase {
     public void testLexer() {
         ParserDefinition parserDefinition = new XQueryParserDefinition();
-        assertThat(parserDefinition.createLexer(myProject).getClass().getName(), is(XQueryLexer.class.getName()));
+        assertThat(parserDefinition.createLexer(myProject).getClass().getName(), is(CombinedLexer.class.getName()));
     }
 
     public void testParser() {

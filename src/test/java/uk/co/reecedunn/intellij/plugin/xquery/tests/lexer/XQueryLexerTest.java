@@ -28,15 +28,14 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class XQueryLexerTest extends LexerTestCase {
     private Lexer createLexer() {
-        Lexer xquery = new XQueryLexer(XQueryLexer.OPTION_PARSE_XML_OPEN_TAG_AS_SINGLE_TOKEN);
-        CombinedLexer lexer = new CombinedLexer(xquery);
+        CombinedLexer lexer = new CombinedLexer(new XQueryLexer());
         lexer.addState(new XQueryLexer(), 0x50000000, 0, XQueryLexer.STATE_MAYBE_DIR_ELEM_CONSTRUCTOR, XQueryTokenType.DIRELEM_MAYBE_OPEN_XML_TAG);
         lexer.addState(new XQueryLexer(), 0x60000000, 0, XQueryLexer.STATE_START_DIR_ELEM_CONSTRUCTOR, XQueryTokenType.DIRELEM_OPEN_XML_TAG);
         return lexer;
     }
 
     private Lexer createXQueryLexer() {
-        return new XQueryLexer(XQueryLexer.OPTION_PARSE_XML_OPEN_TAG_AS_SINGLE_TOKEN);
+        return new XQueryLexer();
     }
 
     // region Lexer :: Invalid State

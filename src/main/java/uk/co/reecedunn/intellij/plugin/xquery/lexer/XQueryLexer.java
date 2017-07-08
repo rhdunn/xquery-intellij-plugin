@@ -27,21 +27,13 @@ import java.util.Map;
 import java.util.Stack;
 
 public class XQueryLexer extends LexerBase {
-    public static final int OPTION_PARSE_XML_OPEN_TAG_AS_SINGLE_TOKEN = 1;
-
     private CodePointRange mTokenRange;
     private int mState;
     private final Stack<Integer> mStates = new Stack<>();
     private IElementType mType;
-    private final int mOptions;
 
     public XQueryLexer() {
-        this(0);
-    }
-
-    public XQueryLexer(int options) {
         mTokenRange = new CodePointRange();
-        mOptions = options;
     }
 
     // region States
@@ -333,13 +325,8 @@ public class XQueryLexer extends LexerBase {
                 } else {
                     if (mState == STATE_MAYBE_DIR_ELEM_CONSTRUCTOR) {
                         mType = XQueryTokenType.LESS_THAN;
-                    } else if ((mOptions & OPTION_PARSE_XML_OPEN_TAG_AS_SINGLE_TOKEN) == OPTION_PARSE_XML_OPEN_TAG_AS_SINGLE_TOKEN) {
-                        matchOpenXmlTag();
-                    } else if (isDirElement()) {
-                        mType = XQueryTokenType.OPEN_XML_TAG;
-                        pushState(STATE_DIR_ELEM_CONSTRUCTOR);
                     } else {
-                        mType = XQueryTokenType.LESS_THAN;
+                        matchOpenXmlTag();
                     }
                 }
                 break;
@@ -1167,38 +1154,6 @@ public class XQueryLexer extends LexerBase {
 
     // endregion
     // region Helper Functions
-
-    private boolean isDirElement() {
-        int cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
-
-        // The XQuery specification only allows direct elements without a space between the '<' and
-        // the start of the tag name (the DirElementConstructor is declared as ws:explicit).
-        if (cc != CharacterClass.NAME_START_CHAR)
-            return false;
-
-        // Accept characters that form the element and attribute names. This includes the QName
-        // separator and whitespace.
-        mTokenRange.save();
-        while (cc == CharacterClass.NAME_START_CHAR ||
-               cc == CharacterClass.DIGIT ||
-               cc == CharacterClass.DOT ||
-               cc == CharacterClass.HYPHEN_MINUS ||
-               cc == CharacterClass.NAME_CHAR ||
-               cc == CharacterClass.COLON ||
-               cc == CharacterClass.WHITESPACE) {
-            mTokenRange.match();
-            cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
-        }
-        mTokenRange.restore();
-
-        // This is a direct element if the next character could form part of an element:
-        return cc == CharacterClass.GREATER_THAN ||  // End of the element, e.g.: <abc>
-               cc == CharacterClass.EQUAL ||         // Attribute. e.g.: <abc attr="val"/>
-               cc == CharacterClass.FORWARD_SLASH || // Self-closing tag, e.g.: <abc/>
-               cc == CharacterClass.QUOTE ||         // Missing equals, e.g.: <abc attr "val"/>
-               cc == CharacterClass.APOSTROPHE ||    // Missing equals, e.g.: <abc attr 'val'/>
-               cc == CharacterClass.END_OF_BUFFER;   // Unclosed element, e.g.: <abc
-    }
 
     private boolean matchNCName() {
         int cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
