@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.lexer;
 
 import com.intellij.lexer.Lexer;
+import uk.co.reecedunn.intellij.plugin.core.lexer.CombinedLexer;
 import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCase;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
@@ -29,6 +30,7 @@ public class XQueryLexerTest extends LexerTestCase {
     private enum LexerMode {
         Default,
         OpenXmlTagAsSingleToken,
+        CombinedLexer,
     };
 
     private Lexer createXQueryLexer() {
@@ -41,6 +43,12 @@ public class XQueryLexerTest extends LexerTestCase {
                 return new XQueryLexer();
             case OpenXmlTagAsSingleToken:
                 return new XQueryLexer(XQueryLexer.OPTION_PARSE_XML_OPEN_TAG_AS_SINGLE_TOKEN);
+            case CombinedLexer:
+                Lexer xquery = new XQueryLexer(XQueryLexer.OPTION_PARSE_XML_OPEN_TAG_AS_SINGLE_TOKEN);
+                CombinedLexer lexer = new CombinedLexer(xquery);
+                lexer.addState(new XQueryLexer(), 0x50000000, 0, XQueryLexer.STATE_MAYBE_DIR_ELEM_CONSTRUCTOR, XQueryTokenType.DIRELEM_MAYBE_OPEN_XML_TAG);
+                lexer.addState(new XQueryLexer(), 0x60000000, 0, XQueryLexer.STATE_START_DIR_ELEM_CONSTRUCTOR, XQueryTokenType.DIRELEM_OPEN_XML_TAG);
+                return lexer;
             default:
                 throw new IllegalArgumentException("Unknown LexerMode value.");
         }
@@ -1159,7 +1167,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirElemConstructor")
     public void testDirElemConstructor() {
-        Lexer lexer = createXQueryLexer();
+        Lexer lexer = createXQueryLexer(LexerMode.CombinedLexer);
 
         matchSingleToken(lexer, "<", XQueryTokenType.LESS_THAN);
         matchSingleToken(lexer, ">", XQueryTokenType.GREATER_THAN);
@@ -1168,97 +1176,96 @@ public class XQueryLexerTest extends LexerTestCase {
         matchSingleToken(lexer, "/>", XQueryTokenType.SELF_CLOSING_XML_TAG);
 
         lexer.start("<one:two/>");
-        matchToken(lexer, "<",    0,  0,  1, XQueryTokenType.OPEN_XML_TAG);
-        matchToken(lexer, "one", 11,  1,  4, XQueryTokenType.XML_TAG_NCNAME);
-        matchToken(lexer, ":",   11,  4,  5, XQueryTokenType.XML_TAG_QNAME_SEPARATOR);
-        matchToken(lexer, "two", 11,  5,  8, XQueryTokenType.XML_TAG_NCNAME);
-        matchToken(lexer, "/>",  11,  8, 10, XQueryTokenType.SELF_CLOSING_XML_TAG);
-        matchToken(lexer, "",     0, 10, 10, null);
+        matchToken(lexer, "<",   0x60000000 | 30,  0,  1, XQueryTokenType.OPEN_XML_TAG);
+        matchToken(lexer, "one", 0x60000000 | 11,  1,  4, XQueryTokenType.XML_TAG_NCNAME);
+        matchToken(lexer, ":",   0x60000000 | 11,  4,  5, XQueryTokenType.XML_TAG_QNAME_SEPARATOR);
+        matchToken(lexer, "two", 0x60000000 | 11,  5,  8, XQueryTokenType.XML_TAG_NCNAME);
+        matchToken(lexer, "/>",  0x60000000 | 11,  8, 10, XQueryTokenType.SELF_CLOSING_XML_TAG);
+        matchToken(lexer, "",                  0, 10, 10, null);
 
         lexer.start("<one:two></one:two  >");
-        matchToken(lexer, "<",    0,  0,  1, XQueryTokenType.OPEN_XML_TAG);
-        matchToken(lexer, "one", 11,  1,  4, XQueryTokenType.XML_TAG_NCNAME);
-        matchToken(lexer, ":",   11,  4,  5, XQueryTokenType.XML_TAG_QNAME_SEPARATOR);
-        matchToken(lexer, "two", 11,  5,  8, XQueryTokenType.XML_TAG_NCNAME);
-        matchToken(lexer, ">",   11,  8,  9, XQueryTokenType.END_XML_TAG);
-        matchToken(lexer, "</",  17,  9, 11, XQueryTokenType.CLOSE_XML_TAG);
-        matchToken(lexer, "one", 12, 11, 14, XQueryTokenType.XML_TAG_NCNAME);
-        matchToken(lexer, ":",   12, 14, 15, XQueryTokenType.XML_TAG_QNAME_SEPARATOR);
-        matchToken(lexer, "two", 12, 15, 18, XQueryTokenType.XML_TAG_NCNAME);
-        matchToken(lexer, "  ",  12, 18, 20, XQueryTokenType.XML_WHITE_SPACE);
-        matchToken(lexer, ">",   12, 20, 21, XQueryTokenType.END_XML_TAG);
-        matchToken(lexer, "",     0, 21, 21, null);
+        matchToken(lexer, "<",   0x60000000 | 30,  0,  1, XQueryTokenType.OPEN_XML_TAG);
+        matchToken(lexer, "one", 0x60000000 | 11,  1,  4, XQueryTokenType.XML_TAG_NCNAME);
+        matchToken(lexer, ":",   0x60000000 | 11,  4,  5, XQueryTokenType.XML_TAG_QNAME_SEPARATOR);
+        matchToken(lexer, "two", 0x60000000 | 11,  5,  8, XQueryTokenType.XML_TAG_NCNAME);
+        matchToken(lexer, ">",   0x60000000 | 11,  8,  9, XQueryTokenType.END_XML_TAG);
+        matchToken(lexer, "</",               17,  9, 11, XQueryTokenType.CLOSE_XML_TAG);
+        matchToken(lexer, "one",              12, 11, 14, XQueryTokenType.XML_TAG_NCNAME);
+        matchToken(lexer, ":",                12, 14, 15, XQueryTokenType.XML_TAG_QNAME_SEPARATOR);
+        matchToken(lexer, "two",              12, 15, 18, XQueryTokenType.XML_TAG_NCNAME);
+        matchToken(lexer, "  ",               12, 18, 20, XQueryTokenType.XML_WHITE_SPACE);
+        matchToken(lexer, ">",                12, 20, 21, XQueryTokenType.END_XML_TAG);
+        matchToken(lexer, "",                  0, 21, 21, null);
 
         lexer.start("<one:two  ></one:two>");
-        matchToken(lexer, "<",    0,  0,  1, XQueryTokenType.OPEN_XML_TAG);
-        matchToken(lexer, "one", 11,  1,  4, XQueryTokenType.XML_TAG_NCNAME);
-        matchToken(lexer, ":",   11,  4,  5, XQueryTokenType.XML_TAG_QNAME_SEPARATOR);
-        matchToken(lexer, "two", 11,  5,  8, XQueryTokenType.XML_TAG_NCNAME);
-        matchToken(lexer, "  ",  11,  8, 10, XQueryTokenType.XML_WHITE_SPACE);
-        matchToken(lexer, ">",   25, 10, 11, XQueryTokenType.END_XML_TAG);
-        matchToken(lexer, "</",  17, 11, 13, XQueryTokenType.CLOSE_XML_TAG);
-        matchToken(lexer, "one", 12, 13, 16, XQueryTokenType.XML_TAG_NCNAME);
-        matchToken(lexer, ":",   12, 16, 17, XQueryTokenType.XML_TAG_QNAME_SEPARATOR);
-        matchToken(lexer, "two", 12, 17, 20, XQueryTokenType.XML_TAG_NCNAME);
-        matchToken(lexer, ">",   12, 20, 21, XQueryTokenType.END_XML_TAG);
-        matchToken(lexer, "",     0, 21, 21, null);
+        matchToken(lexer, "<",   0x60000000 | 30,  0,  1, XQueryTokenType.OPEN_XML_TAG);
+        matchToken(lexer, "one", 0x60000000 | 11,  1,  4, XQueryTokenType.XML_TAG_NCNAME);
+        matchToken(lexer, ":",   0x60000000 | 11,  4,  5, XQueryTokenType.XML_TAG_QNAME_SEPARATOR);
+        matchToken(lexer, "two", 0x60000000 | 11,  5,  8, XQueryTokenType.XML_TAG_NCNAME);
+        matchToken(lexer, "  ",  0x60000000 | 11,  8, 10, XQueryTokenType.XML_WHITE_SPACE);
+        matchToken(lexer, ">",   0x60000000 | 25, 10, 11, XQueryTokenType.END_XML_TAG);
+        matchToken(lexer, "</",               17, 11, 13, XQueryTokenType.CLOSE_XML_TAG);
+        matchToken(lexer, "one",              12, 13, 16, XQueryTokenType.XML_TAG_NCNAME);
+        matchToken(lexer, ":",                12, 16, 17, XQueryTokenType.XML_TAG_QNAME_SEPARATOR);
+        matchToken(lexer, "two",              12, 17, 20, XQueryTokenType.XML_TAG_NCNAME);
+        matchToken(lexer, ">",                12, 20, 21, XQueryTokenType.END_XML_TAG);
+        matchToken(lexer, "",                  0, 21, 21, null);
 
         lexer.start("<one:two//*/>");
-        matchToken(lexer, "<",    0,  0,  1, XQueryTokenType.OPEN_XML_TAG);
-        matchToken(lexer, "one", 11,  1,  4, XQueryTokenType.XML_TAG_NCNAME);
-        matchToken(lexer, ":",   11,  4,  5, XQueryTokenType.XML_TAG_QNAME_SEPARATOR);
-        matchToken(lexer, "two", 11,  5,  8, XQueryTokenType.XML_TAG_NCNAME);
-        matchToken(lexer, "/",   11,  8,  9, XQueryTokenType.INVALID);
-        matchToken(lexer, "/",   11,  9, 10, XQueryTokenType.INVALID);
-        matchToken(lexer, "*",   11, 10, 11, XQueryTokenType.BAD_CHARACTER);
-        matchToken(lexer, "/>",  11, 11, 13, XQueryTokenType.SELF_CLOSING_XML_TAG);
-        matchToken(lexer, "",     0, 13, 13, null);
+        matchToken(lexer, "<",   0x50000000 | 29,  0,  1, XQueryTokenType.LESS_THAN);
+        matchToken(lexer, "one", 0x50000000 | 29,  1,  4, XQueryTokenType.NCNAME);
+        matchToken(lexer, ":",   0x50000000 | 29,  4,  5, XQueryTokenType.QNAME_SEPARATOR);
+        matchToken(lexer, "two", 0x50000000 | 29,  5,  8, XQueryTokenType.NCNAME);
+        matchToken(lexer, "//",                0,  8, 10, XQueryTokenType.ALL_DESCENDANTS_PATH);
+        matchToken(lexer, "*",                 0, 10, 11, XQueryTokenType.STAR);
+        matchToken(lexer, "/>",                0, 11, 13, XQueryTokenType.SELF_CLOSING_XML_TAG);
+        matchToken(lexer, "",                  0, 13, 13, null);
 
         lexer.start("1 < fn:abs (");
-        matchToken(lexer, "1",    0,  0,  1, XQueryTokenType.INTEGER_LITERAL);
-        matchToken(lexer, " ",    0,  1,  2, XQueryTokenType.WHITE_SPACE);
-        matchToken(lexer, "<",    0,  2,  3, XQueryTokenType.LESS_THAN);
-        matchToken(lexer, " ",    0,  3,  4, XQueryTokenType.WHITE_SPACE);
-        matchToken(lexer, "fn",   0,  4,  6, XQueryTokenType.NCNAME);
-        matchToken(lexer, ":",    0,  6,  7, XQueryTokenType.QNAME_SEPARATOR);
-        matchToken(lexer, "abs",  0,  7, 10, XQueryTokenType.NCNAME);
-        matchToken(lexer, " ",    0, 10, 11, XQueryTokenType.WHITE_SPACE);
-        matchToken(lexer, "(",    0, 11, 12, XQueryTokenType.PARENTHESIS_OPEN);
-        matchToken(lexer, "",     0, 12, 12, null);
+        matchToken(lexer, "1",                 0,  0,  1, XQueryTokenType.INTEGER_LITERAL);
+        matchToken(lexer, " ",                 0,  1,  2, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "<",   0x50000000 | 29,  2,  3, XQueryTokenType.LESS_THAN);
+        matchToken(lexer, " ",   0x50000000 | 29,  3,  4, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "fn",  0x50000000 | 29,  4,  6, XQueryTokenType.NCNAME);
+        matchToken(lexer, ":",   0x50000000 | 29,  6,  7, XQueryTokenType.QNAME_SEPARATOR);
+        matchToken(lexer, "abs", 0x50000000 | 29,  7, 10, XQueryTokenType.NCNAME);
+        matchToken(lexer, " ",   0x50000000 | 29, 10, 11, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "(",                 0, 11, 12, XQueryTokenType.PARENTHESIS_OPEN);
+        matchToken(lexer, "",                  0, 12, 12, null);
 
         lexer.start("1 <fn:abs (");
-        matchToken(lexer, "1",    0,  0,  1, XQueryTokenType.INTEGER_LITERAL);
-        matchToken(lexer, " ",    0,  1,  2, XQueryTokenType.WHITE_SPACE);
-        matchToken(lexer, "<",    0,  2,  3, XQueryTokenType.LESS_THAN);
-        matchToken(lexer, "fn",   0,  3,  5, XQueryTokenType.NCNAME);
-        matchToken(lexer, ":",    0,  5,  6, XQueryTokenType.QNAME_SEPARATOR);
-        matchToken(lexer, "abs",  0,  6,  9, XQueryTokenType.NCNAME);
-        matchToken(lexer, " ",    0,  9, 10, XQueryTokenType.WHITE_SPACE);
-        matchToken(lexer, "(",    0, 10, 11, XQueryTokenType.PARENTHESIS_OPEN);
-        matchToken(lexer, "",     0, 11, 11, null);
+        matchToken(lexer, "1",                  0,  0,  1, XQueryTokenType.INTEGER_LITERAL);
+        matchToken(lexer, " ",                  0,  1,  2, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "<",    0x50000000 | 29,  2,  3, XQueryTokenType.LESS_THAN);
+        matchToken(lexer, "fn",   0x50000000 | 29,  3,  5, XQueryTokenType.NCNAME);
+        matchToken(lexer, ":",    0x50000000 | 29,  5,  6, XQueryTokenType.QNAME_SEPARATOR);
+        matchToken(lexer, "abs",  0x50000000 | 29,  6,  9, XQueryTokenType.NCNAME);
+        matchToken(lexer, " ",    0x50000000 | 29,  9, 10, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "(",                  0, 10, 11, XQueryTokenType.PARENTHESIS_OPEN);
+        matchToken(lexer, "",                   0, 11, 11, null);
 
         lexer.start("1 < fn:abs #");
-        matchToken(lexer, "1",    0,  0,  1, XQueryTokenType.INTEGER_LITERAL);
-        matchToken(lexer, " ",    0,  1,  2, XQueryTokenType.WHITE_SPACE);
-        matchToken(lexer, "<",    0,  2,  3, XQueryTokenType.LESS_THAN);
-        matchToken(lexer, " ",    0,  3,  4, XQueryTokenType.WHITE_SPACE);
-        matchToken(lexer, "fn",   0,  4,  6, XQueryTokenType.NCNAME);
-        matchToken(lexer, ":",    0,  6,  7, XQueryTokenType.QNAME_SEPARATOR);
-        matchToken(lexer, "abs",  0,  7, 10, XQueryTokenType.NCNAME);
-        matchToken(lexer, " ",    0, 10, 11, XQueryTokenType.WHITE_SPACE);
-        matchToken(lexer, "#",    0, 11, 12, XQueryTokenType.FUNCTION_REF_OPERATOR);
-        matchToken(lexer, "",     0, 12, 12, null);
+        matchToken(lexer, "1",                  0,  0,  1, XQueryTokenType.INTEGER_LITERAL);
+        matchToken(lexer, " ",                  0,  1,  2, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "<",    0x50000000 | 29,  2,  3, XQueryTokenType.LESS_THAN);
+        matchToken(lexer, " ",    0x50000000 | 29,  3,  4, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "fn",   0x50000000 | 29,  4,  6, XQueryTokenType.NCNAME);
+        matchToken(lexer, ":",    0x50000000 | 29,  6,  7, XQueryTokenType.QNAME_SEPARATOR);
+        matchToken(lexer, "abs",  0x50000000 | 29,  7, 10, XQueryTokenType.NCNAME);
+        matchToken(lexer, " ",    0x50000000 | 29, 10, 11, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "#",                  0, 11, 12, XQueryTokenType.FUNCTION_REF_OPERATOR);
+        matchToken(lexer, "",                   0, 12, 12, null);
 
         lexer.start("1 <fn:abs #");
-        matchToken(lexer, "1",    0,  0,  1, XQueryTokenType.INTEGER_LITERAL);
-        matchToken(lexer, " ",    0,  1,  2, XQueryTokenType.WHITE_SPACE);
-        matchToken(lexer, "<",    0,  2,  3, XQueryTokenType.LESS_THAN);
-        matchToken(lexer, "fn",   0,  3,  5, XQueryTokenType.NCNAME);
-        matchToken(lexer, ":",    0,  5,  6, XQueryTokenType.QNAME_SEPARATOR);
-        matchToken(lexer, "abs",  0,  6,  9, XQueryTokenType.NCNAME);
-        matchToken(lexer, " ",    0,  9, 10, XQueryTokenType.WHITE_SPACE);
-        matchToken(lexer, "#",    0, 10, 11, XQueryTokenType.FUNCTION_REF_OPERATOR);
-        matchToken(lexer, "",     0, 11, 11, null);
+        matchToken(lexer, "1",                  0,  0,  1, XQueryTokenType.INTEGER_LITERAL);
+        matchToken(lexer, " ",                  0,  1,  2, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "<",    0x50000000 | 29,  2,  3, XQueryTokenType.LESS_THAN);
+        matchToken(lexer, "fn",   0x50000000 | 29,  3,  5, XQueryTokenType.NCNAME);
+        matchToken(lexer, ":",    0x50000000 | 29,  5,  6, XQueryTokenType.QNAME_SEPARATOR);
+        matchToken(lexer, "abs",  0x50000000 | 29,  6,  9, XQueryTokenType.NCNAME);
+        matchToken(lexer, " ",    0x50000000 | 29,  9, 10, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "#",                  0, 10, 11, XQueryTokenType.FUNCTION_REF_OPERATOR);
+        matchToken(lexer, "",                   0, 11, 11, null);
     }
 
     // endregion

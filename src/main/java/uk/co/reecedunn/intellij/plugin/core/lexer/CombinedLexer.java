@@ -29,12 +29,14 @@ public class CombinedLexer extends LexerBase {
         final Lexer lexer;
         final int state;
         final int parentState;
+        final int childState;
         final IElementType transition;
 
-        State(Lexer lexer, int state, int parentState, IElementType transition) {
+        State(Lexer lexer, int state, int parentState, int childState, IElementType transition) {
             this.lexer = lexer;
             this.state = state;
             this.parentState = parentState;
+            this.childState = childState;
             this.transition = transition;
         }
     }
@@ -53,7 +55,11 @@ public class CombinedLexer extends LexerBase {
     }
 
     public void addState(Lexer lexer, int stateId, int parentStateId, IElementType transition) {
-        State state = new State(lexer, stateId, parentStateId, transition);
+        addState(lexer, stateId, parentStateId, 0, transition);
+    }
+
+    public void addState(Lexer lexer, int stateId, int parentStateId, int childStateId, IElementType transition) {
+        State state = new State(lexer, stateId, parentStateId, childStateId, transition);
         mStates.put(stateId, state);
         mTransitions.put(transition, state);
         mStateMask |= stateId;
@@ -71,7 +77,14 @@ public class CombinedLexer extends LexerBase {
             mActiveLexer.start(mLanguage.getBufferSequence(), mLanguage.getTokenStart(), mLanguage.getTokenEnd(), initialState & ~mStateMask);
         } else {
             mLanguage.start(buffer, startOffset, endOffset, initialState & ~mStateMask);
-            mActiveLexer = mLanguage;
+            state = mTransitions.getOrDefault(mLanguage.getTokenType(), null);
+            if (state != null) {
+                mActiveLexer = state.lexer;
+                mActiveLexer.start(mLanguage.getBufferSequence(), mLanguage.getTokenStart(), mLanguage.getTokenEnd(), state.childState);
+                mState = state.state;
+            } else {
+                mActiveLexer = mLanguage;
+            }
         }
     }
 
@@ -89,7 +102,7 @@ public class CombinedLexer extends LexerBase {
             State state = mTransitions.getOrDefault(mLanguage.getTokenType(), null);
             if (state != null) {
                 mActiveLexer = state.lexer;
-                mActiveLexer.start(mLanguage.getBufferSequence(), mLanguage.getTokenStart(), mLanguage.getTokenEnd(), 0);
+                mActiveLexer.start(mLanguage.getBufferSequence(), mLanguage.getTokenStart(), mLanguage.getTokenEnd(), state.childState);
                 mState = state.state;
             }
         }
