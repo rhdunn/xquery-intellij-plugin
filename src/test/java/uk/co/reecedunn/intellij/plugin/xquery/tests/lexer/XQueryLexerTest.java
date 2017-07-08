@@ -27,11 +27,6 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class XQueryLexerTest extends LexerTestCase {
-    private enum LexerMode {
-        Default,
-        OpenXmlTagAsSingleToken,
-    };
-
     private Lexer createLexer() {
         Lexer xquery = new XQueryLexer(XQueryLexer.OPTION_PARSE_XML_OPEN_TAG_AS_SINGLE_TOKEN);
         CombinedLexer lexer = new CombinedLexer(xquery);
@@ -40,15 +35,8 @@ public class XQueryLexerTest extends LexerTestCase {
         return lexer;
     }
 
-    private Lexer createXQueryLexer(LexerMode mode) {
-        switch (mode) {
-            case Default:
-                return new XQueryLexer();
-            case OpenXmlTagAsSingleToken:
-                return new XQueryLexer(XQueryLexer.OPTION_PARSE_XML_OPEN_TAG_AS_SINGLE_TOKEN);
-            default:
-                throw new IllegalArgumentException("Unknown LexerMode value.");
-        }
+    private Lexer createXQueryLexer() {
+        return new XQueryLexer(XQueryLexer.OPTION_PARSE_XML_OPEN_TAG_AS_SINGLE_TOKEN);
     }
 
     // region Lexer :: Invalid State
@@ -1035,7 +1023,7 @@ public class XQueryLexerTest extends LexerTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirElemConstructor")
     public void testDirElemConstructor_OpenXmlTagAsSingleToken() {
-        Lexer lexer = createXQueryLexer(LexerMode.OpenXmlTagAsSingleToken);
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "<", XQueryTokenType.LESS_THAN);
         matchSingleToken(lexer, ">", XQueryTokenType.GREATER_THAN);
@@ -1271,7 +1259,7 @@ public class XQueryLexerTest extends LexerTestCase {
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirAttributeList")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirAttributeValue")
     public void testDirAttributeList_OpenXmlTagAsSingleToken() {
-        Lexer lexer = createXQueryLexer(LexerMode.OpenXmlTagAsSingleToken);
+        Lexer lexer = createXQueryLexer();
 
         matchSingleToken(lexer, "=", XQueryTokenType.EQUAL);
 
