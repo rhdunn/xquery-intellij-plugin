@@ -1238,9 +1238,11 @@ public class XQueryLexer extends LexerBase {
     private void matchOpenXmlTag() {
         // Whitespace between the '<' and the NCName/QName is invalid. The lexer
         // allows this to provide better error reporting in the parser.
+        mTokenRange.save();
         matchWhiteSpace();
 
         if (!matchQName()) {
+            mTokenRange.restore();
             mType = XQueryTokenType.LESS_THAN;
             return;
         }
