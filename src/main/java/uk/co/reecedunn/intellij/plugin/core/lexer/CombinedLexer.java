@@ -94,8 +94,15 @@ public class CombinedLexer extends LexerBase {
             mActiveLexer.advance();
             if (mActiveLexer.getTokenType() == null) {
                 mLanguage.advance();
-                mState = 0;
-                mActiveLexer = mLanguage;
+                State state = mTransitions.getOrDefault(mLanguage.getTokenType(), null);
+                if (state != null) {
+                    mActiveLexer = state.lexer;
+                    mActiveLexer.start(mLanguage.getBufferSequence(), mLanguage.getTokenStart(), mLanguage.getTokenEnd(), state.childState);
+                    mState = state.state;
+                } else {
+                    mActiveLexer = mLanguage;
+                    mState = 0;
+                }
             }
         } else {
             mLanguage.advance();
