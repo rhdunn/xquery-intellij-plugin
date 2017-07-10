@@ -265,8 +265,18 @@ public class XQueryLexer extends LexerBase {
                     mTokenRange.match();
                     mType = XQueryTokenType.CLOSE_XML_TAG;
                 } else if (c == '<') {
+                    int position = mTokenRange.getEnd();
                     mTokenRange.match();
-                    mType = XQueryTokenType.NODE_BEFORE;
+                    matchOpenXmlTag();
+                    if (mType == XQueryTokenType.DIRELEM_OPEN_XML_TAG) {
+                        // For when adding a DirElemConstructor before another one -- i.e. <<a/>
+                        mTokenRange.seek(position);
+                        mType = XQueryTokenType.LESS_THAN;
+                    } else {
+                        mTokenRange.seek(position);
+                        mTokenRange.match();
+                        mType = XQueryTokenType.NODE_BEFORE;
+                    }
                 } else if (c == '=') {
                     mTokenRange.match();
                     mType = XQueryTokenType.LESS_THAN_OR_EQUAL;

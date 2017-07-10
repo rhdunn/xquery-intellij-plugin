@@ -1098,6 +1098,21 @@ public class XQueryLexerTest extends LexerTestCase {
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirElemConstructor")
+    public void testDirElemConstructor_OpenXmlTagAsSingleToken_AddingXmlElement() {
+        Lexer lexer = createXQueryLexer();
+
+        lexer.start("<<a/>");
+        matchToken(lexer, "<",    0, 0, 1, XQueryTokenType.LESS_THAN);
+        matchToken(lexer, "<a/>", 0, 1, 5, XQueryTokenType.DIRELEM_OPEN_XML_TAG);
+        matchToken(lexer, "",     0, 5, 5, null);
+
+        lexer.start("<<a");
+        matchToken(lexer, "<<", 0, 0, 2, XQueryTokenType.NODE_BEFORE);
+        matchToken(lexer, "a",  0, 2, 3, XQueryTokenType.NCNAME);
+        matchToken(lexer, "",   0, 3, 3, null);
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirElemConstructor")
     public void testDirElemConstructor_MaybeDirElem() {
         Lexer lexer = createLexer();
 
