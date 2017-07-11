@@ -24,8 +24,8 @@ _Supported XQuery Implementations:_ BaseX, MarkLogic, Saxonica, W3C Specificatio
 
 ### Language Support
 
-Standard conforming XQuery syntax highlighter and parser with file encoding
-detection. Supports the following XQuery specifications:
+A robust, standard conforming XQuery syntax highlighter and parser with file encoding
+detection. It supports the following XQuery specifications:
 
 *  XQuery 1.0, 3.0 and 3.1 core language;
 *  XQuery Update Facility 1.0 and 3.0;
@@ -33,15 +33,15 @@ detection. Supports the following XQuery specifications:
 
 ![Syntax Highlighting](images/syntax-highlighting.png)
 
-Supports the following XQuery syntax extensions:
+It supports the following XQuery syntax extensions:
 
 *  BaseX 7.8 and 8.5 `update` syntax;
 *  Saxon 9.4 `map` syntax;
 *  MarkLogic 6.0 to 8.0 vendor extensions.
 
-Support for xqDoc documentation comments.
+It has support for xqDoc documentation comments.
 
-Control over how XQuery dialects are interpreted.
+The plugin provides control over how XQuery dialects are interpreted.
 
 ![XQuery Settings](images/xquery-settings.png)
 
