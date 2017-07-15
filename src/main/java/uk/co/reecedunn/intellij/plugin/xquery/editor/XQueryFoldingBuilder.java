@@ -32,7 +32,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static uk.co.reecedunn.intellij.plugin.core.functional.PsiTreeWalker.children;
-import static uk.co.reecedunn.intellij.plugin.core.functional.PsiTreeWalker.skipQName;
 
 public class XQueryFoldingBuilder extends FoldingBuilderEx {
     private TextRange getDirElemConstructorRange(PsiElement element) {
@@ -51,7 +50,11 @@ public class XQueryFoldingBuilder extends FoldingBuilderEx {
             start = start.getNextSibling();
         if (start.getNode().getElementType() == XQueryTokenType.XML_WHITE_SPACE)
             start = start.getNextSibling();
-        start = skipQName(start);
+        if (start.getNode().getElementType() == XQueryElementType.NCNAME ||
+            start.getNode().getElementType() == XQueryElementType.QNAME)
+            start = start.getNextSibling();
+        if (start.getNode().getElementType() == XQueryElementType.DIR_ATTRIBUTE_LIST)
+            start = start.getNextSibling();
 
         PsiElement end = element.getLastChild();
         if (end.getNode().getElementType() == XQueryTokenType.CLOSE_XML_TAG ||
@@ -59,7 +62,7 @@ public class XQueryFoldingBuilder extends FoldingBuilderEx {
             end = end.getPrevSibling();
         }
 
-        return new TextRange(start.getTextRange().getEndOffset(), end.getTextRange().getStartOffset());
+        return new TextRange(start.getTextRange().getStartOffset(), end.getTextRange().getStartOffset());
     }
 
     private TextRange getRange(PsiElement element) {

@@ -16,7 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.core.functional;
 
 import com.intellij.psi.PsiElement;
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
@@ -24,33 +23,6 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 public final class PsiTreeWalker implements Each<PsiElement>, Foldable<PsiElement>, Find<PsiElement> {
-    public static PsiElement skipQName(PsiElement element) {
-        if (element.getNode().getElementType() == XQueryTokenType.NCNAME ||
-            element.getNode().getElementType() == XQueryTokenType.XML_ATTRIBUTE_NCNAME)
-            element = element.getNextSibling();
-
-        boolean skippedWhiteSpace = false;
-        if (element.getNode().getElementType() == XQueryTokenType.WHITE_SPACE ||
-            element.getNode().getElementType() == XQueryTokenType.XML_WHITE_SPACE) {
-            element = element.getNextSibling();
-            skippedWhiteSpace = true;
-        }
-
-        if (element.getNode().getElementType() == XQueryTokenType.QNAME_SEPARATOR ||
-            element.getNode().getElementType() == XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR) {
-            element = element.getNextSibling();
-            if (element.getNode().getElementType() == XQueryTokenType.WHITE_SPACE ||
-                element.getNode().getElementType() == XQueryTokenType.XML_WHITE_SPACE)
-                element = element.getNextSibling();
-
-            if (element.getNode().getElementType() == XQueryTokenType.NCNAME ||
-                element.getNode().getElementType() == XQueryTokenType.XML_ATTRIBUTE_NCNAME)
-                element = element.getNextSibling();
-        } else if (skippedWhiteSpace)
-            element = element.getPrevSibling();
-        return element;
-    }
-
     // region Each
 
     @Override
