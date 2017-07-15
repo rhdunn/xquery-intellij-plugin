@@ -18,7 +18,8 @@ Bug Fixes:
 
 IntelliJ Integration:
 
-1.  Support code folding for `EnclosedExpr` and `DirElemConstructor` elements.
+1.  Support code folding for `EnclosedExpr`, `DirElemConstructor` and `Comment`
+    elements.
 
 ## 0.4 - 2017-01-03
 

@@ -26,6 +26,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 @SuppressWarnings("ConstantConditions")
 public class XQueryFoldingTest extends ParserTestCase {
+    // region Unsupported Element
+
     public void testNoFoldingDescriptors() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/BoundarySpaceDecl.xq");
         final XQueryFoldingBuilder builder = new XQueryFoldingBuilder();
@@ -37,6 +39,9 @@ public class XQueryFoldingTest extends ParserTestCase {
         assertThat(builder.getPlaceholderText(file.getNode()), is("..."));
         assertThat(builder.isCollapsedByDefault(file.getNode()), is(false));
     }
+
+    // endregion
+    // region EnclosedExpr
 
     public void testEnclosedExpr() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/EnclosedExpr.xq");
@@ -118,6 +123,9 @@ public class XQueryFoldingTest extends ParserTestCase {
         assertThat(builder.isCollapsedByDefault(descriptors[1].getElement()), is(false));
     }
 
+    // endregion
+    // region DirElemConstructor
+
     public void testDirElemConstructor() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/DirElemConstructor.xq");
         final XQueryFoldingBuilder builder = new XQueryFoldingBuilder();
@@ -166,4 +174,38 @@ public class XQueryFoldingTest extends ParserTestCase {
         assertThat(builder.getPlaceholderText(descriptors[0].getElement()), is("..."));
         assertThat(builder.isCollapsedByDefault(descriptors[0].getElement()), is(false));
     }
+
+    // endregion
+    // region Comment
+
+    public void testComment() {
+        final XQueryFile file = parseResource("tests/parser/xquery-1.0/Comment.xq");
+        final XQueryFoldingBuilder builder = new XQueryFoldingBuilder();
+
+        final FoldingDescriptor[] descriptors = builder.buildFoldRegions(file, getDocument(file), false);
+        assertThat(descriptors, is(notNullValue()));
+        assertThat(descriptors.length, is(0));
+    }
+
+    public void testComment_MultiLine() {
+        final XQueryFile file = parseResource("tests/folding/Comment_MultiLine.xq");
+        final XQueryFoldingBuilder builder = new XQueryFoldingBuilder();
+
+        final FoldingDescriptor[] descriptors = builder.buildFoldRegions(file, getDocument(file), false);
+        assertThat(descriptors, is(notNullValue()));
+        assertThat(descriptors.length, is(1));
+
+        assertThat(descriptors[0].canBeRemovedWhenCollapsed(), is(false));
+        assertThat(descriptors[0].getDependencies(), is(notNullValue()));
+        assertThat(descriptors[0].getDependencies().size(), is(0));
+        assertThat(descriptors[0].getGroup(), is(nullValue()));
+        assertThat(descriptors[0].getElement().getElementType(), is(XQueryElementType.COMMENT));
+        assertThat(descriptors[0].getRange().getStartOffset(), is(0));
+        assertThat(descriptors[0].getRange().getEndOffset(), is(18));
+
+        assertThat(builder.getPlaceholderText(descriptors[0].getElement()), is("(...)"));
+        assertThat(builder.isCollapsedByDefault(descriptors[0].getElement()), is(false));
+    }
+
+    // endregion
 }

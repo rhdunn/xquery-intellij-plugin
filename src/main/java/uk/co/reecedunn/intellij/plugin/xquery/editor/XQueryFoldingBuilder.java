@@ -23,6 +23,7 @@ import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryComment;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEnclosedExpr;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
@@ -81,7 +82,8 @@ public class XQueryFoldingBuilder extends FoldingBuilderEx {
             return null;
         }
 
-        if (element instanceof XQueryEnclosedExpr) {
+        if (element instanceof XQueryEnclosedExpr ||
+            element instanceof XQueryComment) {
             return element.getTextRange();
         } else if (element instanceof XQueryDirElemConstructor) {
             return getDirElemConstructorRange(element);
@@ -113,6 +115,8 @@ public class XQueryFoldingBuilder extends FoldingBuilderEx {
         PsiElement element = node.getPsi();
         if (element instanceof XQueryEnclosedExpr) {
             return "{...}";
+        } else if (element instanceof XQueryComment) {
+            return "(...)";
         }
         return "...";
     }

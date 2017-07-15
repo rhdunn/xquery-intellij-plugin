@@ -66,8 +66,9 @@ Resolve namespaces, functions and variables to their corresponding declarations.
 
 Code folding is supported for the following elements:
 
-*  EnclosedExpr (including function bodies);
-*  DirElemConstructor.
+*  Comment;
+*  DirElemConstructor;
+*  EnclosedExpr (including function bodies).
 
 Other supported IntelliJ features:
 
