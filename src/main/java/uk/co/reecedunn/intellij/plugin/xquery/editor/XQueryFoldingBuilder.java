@@ -35,13 +35,15 @@ import static uk.co.reecedunn.intellij.plugin.core.functional.PsiTreeWalker.chil
 
 public class XQueryFoldingBuilder extends FoldingBuilderEx {
     private TextRange getDirElemConstructorRange(PsiElement element) {
+        boolean hasEnclosedExprOnlyContent = false;
+        boolean hasMultiLineAttributes = false;
+
         ASTNode contents = element.getNode().findChildByType(XQueryElementType.DIR_ELEM_CONTENT);
         if (contents != null) {
             ASTNode first = contents.getFirstChildNode();
             ASTNode last = contents.getLastChildNode();
             if (first == last && first.getElementType() == XQueryElementType.ENCLOSED_EXPR) {
-                // The folding is applied to the EnclosedExpr, not the DirElemConstructor.
-                return null;
+                hasEnclosedExprOnlyContent = true;
             }
         }
 
@@ -53,15 +55,24 @@ public class XQueryFoldingBuilder extends FoldingBuilderEx {
         if (start.getNode().getElementType() == XQueryElementType.NCNAME ||
             start.getNode().getElementType() == XQueryElementType.QNAME)
             start = start.getNextSibling();
-        if (start.getNode().getElementType() == XQueryElementType.DIR_ATTRIBUTE_LIST)
+        if (start.getNode().getElementType() == XQueryTokenType.XML_WHITE_SPACE)
             start = start.getNextSibling();
+        if (start.getNode().getElementType() == XQueryElementType.DIR_ATTRIBUTE_LIST) {
+            hasMultiLineAttributes = start.textContains('\n');
+            if (!hasMultiLineAttributes) {
+                start = start.getNextSibling();
+            }
+        }
 
         PsiElement end = element.getLastChild();
         if (end.getNode().getElementType() == XQueryTokenType.CLOSE_XML_TAG ||
-                end.getNode().getElementType() == XQueryTokenType.SELF_CLOSING_XML_TAG) {
+            end.getNode().getElementType() == XQueryTokenType.SELF_CLOSING_XML_TAG) {
             end = end.getPrevSibling();
         }
 
+        if (hasEnclosedExprOnlyContent && !hasMultiLineAttributes) {
+            return null;
+        }
         return new TextRange(start.getTextRange().getStartOffset(), end.getTextRange().getStartOffset());
     }
 
