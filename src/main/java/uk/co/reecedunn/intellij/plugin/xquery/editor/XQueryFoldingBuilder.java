@@ -26,6 +26,7 @@ import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEnclosedExpr;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +43,16 @@ public class XQueryFoldingBuilder extends FoldingBuilderEx {
         if (element instanceof XQueryEnclosedExpr) {
             return element.getTextRange();
         } else if (element instanceof XQueryDirElemConstructor) {
+            ASTNode contents = element.getNode().findChildByType(XQueryElementType.DIR_ELEM_CONTENT);
+            if (contents != null) {
+                ASTNode first = contents.getFirstChildNode();
+                ASTNode last = contents.getLastChildNode();
+                if (first == last && first.getElementType() == XQueryElementType.ENCLOSED_EXPR) {
+                    // The folding is applied to the EnclosedExpr, not the DirElemConstructor.
+                    return null;
+                }
+            }
+
             PsiElement start = element.getFirstChild();
             if (start.getNode().getElementType() == XQueryTokenType.OPEN_XML_TAG)
                 start = start.getNextSibling();

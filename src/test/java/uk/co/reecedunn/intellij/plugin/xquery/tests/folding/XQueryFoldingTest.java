@@ -67,6 +67,26 @@ public class XQueryFoldingTest extends ParserTestCase {
         assertThat(builder.isCollapsedByDefault(descriptors[0].getElement()), is(false));
     }
 
+    public void testEnclosedExpr_OnlyContentForDirElem() {
+        final XQueryFile file = parseResource("tests/folding/EnclosedExpr_OnlyContentForDirElem.xq");
+        final XQueryFoldingBuilder builder = new XQueryFoldingBuilder();
+
+        final FoldingDescriptor[] descriptors = builder.buildFoldRegions(file, getDocument(file), false);
+        assertThat(descriptors, is(notNullValue()));
+        assertThat(descriptors.length, is(1));
+
+        assertThat(descriptors[0].canBeRemovedWhenCollapsed(), is(false));
+        assertThat(descriptors[0].getDependencies(), is(notNullValue()));
+        assertThat(descriptors[0].getDependencies().size(), is(0));
+        assertThat(descriptors[0].getGroup(), is(nullValue()));
+        assertThat(descriptors[0].getElement().getElementType(), is(XQueryElementType.ENCLOSED_EXPR));
+        assertThat(descriptors[0].getRange().getStartOffset(), is(3));
+        assertThat(descriptors[0].getRange().getEndOffset(), is(10));
+
+        assertThat(builder.getPlaceholderText(descriptors[0].getElement()), is("{...}"));
+        assertThat(builder.isCollapsedByDefault(descriptors[0].getElement()), is(false));
+    }
+
     public void testDirElemConstructor() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/DirElemConstructor.xq");
         final XQueryFoldingBuilder builder = new XQueryFoldingBuilder();
