@@ -19,21 +19,48 @@ import com.intellij.lang.ASTNode;
 import com.intellij.lang.folding.FoldingBuilderEx;
 import com.intellij.lang.folding.FoldingDescriptor;
 import com.intellij.openapi.editor.Document;
+import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEnclosedExpr;
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static uk.co.reecedunn.intellij.plugin.core.functional.PsiTreeWalker.children;
+import static uk.co.reecedunn.intellij.plugin.core.functional.PsiTreeWalker.skipQName;
 
 public class XQueryFoldingBuilder extends FoldingBuilderEx {
+    private TextRange getRange(PsiElement element) {
+        if (element instanceof XQueryEnclosedExpr) {
+            return element.getTextRange();
+        } else if (element instanceof XQueryDirElemConstructor) {
+            PsiElement start = element.getFirstChild();
+            if (start.getNode().getElementType() == XQueryTokenType.OPEN_XML_TAG)
+                start = start.getNextSibling();
+            if (start.getNode().getElementType() == XQueryTokenType.XML_WHITE_SPACE)
+                start = start.getNextSibling();
+            start = skipQName(start);
+
+            PsiElement end = element.getLastChild();
+            if (end.getNode().getElementType() == XQueryTokenType.CLOSE_XML_TAG ||
+                end.getNode().getElementType() == XQueryTokenType.SELF_CLOSING_XML_TAG) {
+                end = end.getPrevSibling();
+            }
+
+            return new TextRange(start.getTextRange().getEndOffset(), end.getTextRange().getStartOffset());
+        }
+        return null;
+    }
+
     private void createFoldRegions(PsiElement element, List<FoldingDescriptor> descriptors) {
         children(element).each((child) -> {
-            if (child instanceof XQueryEnclosedExpr) {
-                descriptors.add(new FoldingDescriptor(child, child.getTextRange()));
+            TextRange range = getRange(child);
+            if (range != null) {
+                descriptors.add(new FoldingDescriptor(child, range));
             }
             createFoldRegions(child, descriptors);
         });
