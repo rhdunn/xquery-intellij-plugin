@@ -2,6 +2,24 @@
 
 ## 0.5 - (In Development)
 
+Language Support:
+
+1.  MarkLogic 9.0 support.
+2.  Interpret `expr <ncname` as part of an expression, not as a
+    `DirElemConstructor` when not followed by an attribute list or closing
+    element tag. XQuery engines support this usage.
+3.  Allow empty `EnclosedExpr` elements in `CompTextConstructor`, `DirAttributeValue`
+    and `DirElemContent` for MarkLogic.
+
+Bug Fixes:
+
+1.  Fix processing NCNames in `map` keys and values separated by spaces.
+2.  Fix a crash when checking conformance of `map` constructs without a `:`.
+
+IntelliJ Integration:
+
+1.  Support code folding for `EnclosedExpr` and `DirElemConstructor` elements.
+
 ## 0.4 - 2017-01-03
 
 Language Support:

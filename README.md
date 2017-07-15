@@ -64,6 +64,11 @@ Resolve URI string literals to the files they reference.
 
 Resolve namespaces, functions and variables to their corresponding declarations.
 
+Code folding is supported for the following elements:
+
+*  EnclosedExpr (including function bodies);
+*  DirElemConstructor.
+
 Other supported IntelliJ features:
 
 1.  Find usages.
