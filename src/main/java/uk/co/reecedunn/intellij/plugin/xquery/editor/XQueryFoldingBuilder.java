@@ -35,6 +35,33 @@ import static uk.co.reecedunn.intellij.plugin.core.functional.PsiTreeWalker.chil
 import static uk.co.reecedunn.intellij.plugin.core.functional.PsiTreeWalker.skipQName;
 
 public class XQueryFoldingBuilder extends FoldingBuilderEx {
+    private TextRange getDirElemConstructorRange(PsiElement element) {
+        ASTNode contents = element.getNode().findChildByType(XQueryElementType.DIR_ELEM_CONTENT);
+        if (contents != null) {
+            ASTNode first = contents.getFirstChildNode();
+            ASTNode last = contents.getLastChildNode();
+            if (first == last && first.getElementType() == XQueryElementType.ENCLOSED_EXPR) {
+                // The folding is applied to the EnclosedExpr, not the DirElemConstructor.
+                return null;
+            }
+        }
+
+        PsiElement start = element.getFirstChild();
+        if (start.getNode().getElementType() == XQueryTokenType.OPEN_XML_TAG)
+            start = start.getNextSibling();
+        if (start.getNode().getElementType() == XQueryTokenType.XML_WHITE_SPACE)
+            start = start.getNextSibling();
+        start = skipQName(start);
+
+        PsiElement end = element.getLastChild();
+        if (end.getNode().getElementType() == XQueryTokenType.CLOSE_XML_TAG ||
+                end.getNode().getElementType() == XQueryTokenType.SELF_CLOSING_XML_TAG) {
+            end = end.getPrevSibling();
+        }
+
+        return new TextRange(start.getTextRange().getEndOffset(), end.getTextRange().getStartOffset());
+    }
+
     private TextRange getRange(PsiElement element) {
         if (!element.textContains('\n')) {
             return null;
@@ -43,30 +70,7 @@ public class XQueryFoldingBuilder extends FoldingBuilderEx {
         if (element instanceof XQueryEnclosedExpr) {
             return element.getTextRange();
         } else if (element instanceof XQueryDirElemConstructor) {
-            ASTNode contents = element.getNode().findChildByType(XQueryElementType.DIR_ELEM_CONTENT);
-            if (contents != null) {
-                ASTNode first = contents.getFirstChildNode();
-                ASTNode last = contents.getLastChildNode();
-                if (first == last && first.getElementType() == XQueryElementType.ENCLOSED_EXPR) {
-                    // The folding is applied to the EnclosedExpr, not the DirElemConstructor.
-                    return null;
-                }
-            }
-
-            PsiElement start = element.getFirstChild();
-            if (start.getNode().getElementType() == XQueryTokenType.OPEN_XML_TAG)
-                start = start.getNextSibling();
-            if (start.getNode().getElementType() == XQueryTokenType.XML_WHITE_SPACE)
-                start = start.getNextSibling();
-            start = skipQName(start);
-
-            PsiElement end = element.getLastChild();
-            if (end.getNode().getElementType() == XQueryTokenType.CLOSE_XML_TAG ||
-                end.getNode().getElementType() == XQueryTokenType.SELF_CLOSING_XML_TAG) {
-                end = end.getPrevSibling();
-            }
-
-            return new TextRange(start.getTextRange().getEndOffset(), end.getTextRange().getStartOffset());
+            return getDirElemConstructorRange(element);
         }
         return null;
     }
