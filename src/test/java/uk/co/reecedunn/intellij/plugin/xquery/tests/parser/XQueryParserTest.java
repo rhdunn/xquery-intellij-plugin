@@ -2294,6 +2294,7 @@ public class XQueryParserTest extends ParserTestCase {
     public void testComparisonExpr_NodeComp_CompactWhitespace() {
         final String expected = loadResource("tests/parser/xquery-1.0/ComparisonExpr_NodeComp_CompactWhitespace.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-1.0/ComparisonExpr_NodeComp_CompactWhitespace.xq");
+        System.out.println(prettyPrintASTNode(actual));
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 

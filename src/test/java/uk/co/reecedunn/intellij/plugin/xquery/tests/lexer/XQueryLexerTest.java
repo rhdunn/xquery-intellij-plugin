@@ -1098,6 +1098,31 @@ public class XQueryLexerTest extends LexerTestCase {
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirElemConstructor")
+    public void testDirElemConstructor_OpenXmlTagAsSingleToken_AddingXmlElement() {
+        Lexer lexer = createXQueryLexer();
+
+        lexer.start("<<a");
+        matchToken(lexer, "<<", 0, 0, 2, XQueryTokenType.NODE_BEFORE);
+        matchToken(lexer, "a",  0, 2, 3, XQueryTokenType.NCNAME);
+        matchToken(lexer, "",   0, 3, 3, null);
+
+        lexer.start("<<a/>");
+        matchToken(lexer, "<",    0, 0, 1, XQueryTokenType.LESS_THAN);
+        matchToken(lexer, "<a/>", 0, 1, 5, XQueryTokenType.DIRELEM_OPEN_XML_TAG);
+        matchToken(lexer, "",     0, 5, 5, null);
+
+        lexer.start("<a<a/>");
+        matchToken(lexer, "<a",   0, 0, 2, XQueryTokenType.DIRELEM_MAYBE_OPEN_XML_TAG);
+        matchToken(lexer, "<a/>", 0, 2, 6, XQueryTokenType.DIRELEM_OPEN_XML_TAG);
+        matchToken(lexer, "",     0, 6, 6, null);
+
+        lexer.start("<a <a/>");
+        matchToken(lexer, "<a ",  0, 0, 3, XQueryTokenType.DIRELEM_MAYBE_OPEN_XML_TAG);
+        matchToken(lexer, "<a/>", 0, 3, 7, XQueryTokenType.DIRELEM_OPEN_XML_TAG);
+        matchToken(lexer, "",     0, 7, 7, null);
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirElemConstructor")
     public void testDirElemConstructor_MaybeDirElem() {
         Lexer lexer = createLexer();
 
@@ -1258,6 +1283,40 @@ public class XQueryLexerTest extends LexerTestCase {
         matchToken(lexer, " ",    0x50000000 | 29,  9, 10, XQueryTokenType.WHITE_SPACE);
         matchToken(lexer, "#",    0, 10, 11, XQueryTokenType.FUNCTION_REF_OPERATOR);
         matchToken(lexer, "",     0, 11, 11, null);
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#doc-xquery-DirElemConstructor")
+    public void testDirElemConstructor_AddingXmlElement() {
+        Lexer lexer = createLexer();
+
+        lexer.start("<<a");
+        matchToken(lexer, "<<", 0, 0, 2, XQueryTokenType.NODE_BEFORE);
+        matchToken(lexer, "a",  0, 2, 3, XQueryTokenType.NCNAME);
+        matchToken(lexer, "",   0, 3, 3, null);
+
+        lexer.start("<<a/>");
+        matchToken(lexer, "<",  0, 0, 1, XQueryTokenType.LESS_THAN);
+        matchToken(lexer, "<",  0x60000000 | 30, 1, 2, XQueryTokenType.OPEN_XML_TAG);
+        matchToken(lexer, "a",  0x60000000 | 11, 2, 3, XQueryTokenType.XML_TAG_NCNAME);
+        matchToken(lexer, "/>", 0x60000000 | 11, 3, 5, XQueryTokenType.SELF_CLOSING_XML_TAG);
+        matchToken(lexer, "",   0, 5, 5, null);
+
+        lexer.start("<a<a/>");
+        matchToken(lexer, "<",  0x50000000 | 29, 0, 1, XQueryTokenType.LESS_THAN);
+        matchToken(lexer, "a",  0x50000000 | 29, 1, 2, XQueryTokenType.NCNAME);
+        matchToken(lexer, "<",  0x60000000 | 30, 2, 3, XQueryTokenType.OPEN_XML_TAG);
+        matchToken(lexer, "a",  0x60000000 | 11, 3, 4, XQueryTokenType.XML_TAG_NCNAME);
+        matchToken(lexer, "/>", 0x60000000 | 11, 4, 6, XQueryTokenType.SELF_CLOSING_XML_TAG);
+        matchToken(lexer, "",   0, 6, 6, null);
+
+        lexer.start("<a <a/>");
+        matchToken(lexer, "<",  0x50000000 | 29, 0, 1, XQueryTokenType.LESS_THAN);
+        matchToken(lexer, "a",  0x50000000 | 29, 1, 2, XQueryTokenType.NCNAME);
+        matchToken(lexer, " ",  0x50000000 | 29, 2, 3, XQueryTokenType.WHITE_SPACE);
+        matchToken(lexer, "<",  0x60000000 | 30, 3, 4, XQueryTokenType.OPEN_XML_TAG);
+        matchToken(lexer, "a",  0x60000000 | 11, 4, 5, XQueryTokenType.XML_TAG_NCNAME);
+        matchToken(lexer, "/>", 0x60000000 | 11, 5, 7, XQueryTokenType.SELF_CLOSING_XML_TAG);
+        matchToken(lexer, "",   0, 7, 7, null);
     }
 
     // endregion

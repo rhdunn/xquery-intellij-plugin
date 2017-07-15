@@ -3176,6 +3176,14 @@ class XQueryParser {
 
             comparisonExprMarker.done(XQueryElementType.COMPARISON_EXPR);
             return true;
+        } else if (errorOnTokenType(XQueryTokenType.LESS_THAN, XQueryBundle.message("parser.error.comparison-no-lhs-or-direlem"))) {
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseStringConcatExpr(type)) {
+                error(XQueryBundle.message("parser.error.expected", "StringConcatExpr"));
+            }
+
+            comparisonExprMarker.done(XQueryElementType.COMPARISON_EXPR);
+            return true;
         }
         comparisonExprMarker.drop();
         return false;
