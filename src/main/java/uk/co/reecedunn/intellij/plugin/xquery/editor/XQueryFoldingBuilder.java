@@ -35,6 +35,10 @@ import static uk.co.reecedunn.intellij.plugin.core.functional.PsiTreeWalker.skip
 
 public class XQueryFoldingBuilder extends FoldingBuilderEx {
     private TextRange getRange(PsiElement element) {
+        if (!element.textContains('\n')) {
+            return null;
+        }
+
         if (element instanceof XQueryEnclosedExpr) {
             return element.getTextRange();
         } else if (element instanceof XQueryDirElemConstructor) {

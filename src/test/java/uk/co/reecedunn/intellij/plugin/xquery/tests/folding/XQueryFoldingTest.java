@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+@SuppressWarnings("ConstantConditions")
 public class XQueryFoldingTest extends ParserTestCase {
     public void testNoFoldingDescriptors() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/BoundarySpaceDecl.xq");
@@ -43,6 +44,15 @@ public class XQueryFoldingTest extends ParserTestCase {
 
         final FoldingDescriptor[] descriptors = builder.buildFoldRegions(file, getDocument(file), false);
         assertThat(descriptors, is(notNullValue()));
+        assertThat(descriptors.length, is(0));
+    }
+
+    public void testEnclosedExpr_MultiLine() {
+        final XQueryFile file = parseResource("tests/folding/EnclosedExpr_MultiLine.xq");
+        final XQueryFoldingBuilder builder = new XQueryFoldingBuilder();
+
+        final FoldingDescriptor[] descriptors = builder.buildFoldRegions(file, getDocument(file), false);
+        assertThat(descriptors, is(notNullValue()));
         assertThat(descriptors.length, is(1));
 
         assertThat(descriptors[0].canBeRemovedWhenCollapsed(), is(false));
@@ -50,7 +60,7 @@ public class XQueryFoldingTest extends ParserTestCase {
         assertThat(descriptors[0].getDependencies().size(), is(0));
         assertThat(descriptors[0].getGroup(), is(nullValue()));
         assertThat(descriptors[0].getElement().getElementType(), is(XQueryElementType.FUNCTION_BODY));
-        assertThat(descriptors[0].getRange().getStartOffset(), is(29));
+        assertThat(descriptors[0].getRange().getStartOffset(), is(27));
         assertThat(descriptors[0].getRange().getEndOffset(), is(39));
 
         assertThat(builder.getPlaceholderText(descriptors[0].getElement()), is("{...}"));
@@ -63,6 +73,15 @@ public class XQueryFoldingTest extends ParserTestCase {
 
         final FoldingDescriptor[] descriptors = builder.buildFoldRegions(file, getDocument(file), false);
         assertThat(descriptors, is(notNullValue()));
+        assertThat(descriptors.length, is(0));
+    }
+
+    public void testDirElemConstructor_MultiLine() {
+        final XQueryFile file = parseResource("tests/folding/DirElemConstructor_MultiLine.xq");
+        final XQueryFoldingBuilder builder = new XQueryFoldingBuilder();
+
+        final FoldingDescriptor[] descriptors = builder.buildFoldRegions(file, getDocument(file), false);
+        assertThat(descriptors, is(notNullValue()));
         assertThat(descriptors.length, is(1));
 
         assertThat(descriptors[0].canBeRemovedWhenCollapsed(), is(false));
@@ -71,7 +90,7 @@ public class XQueryFoldingTest extends ParserTestCase {
         assertThat(descriptors[0].getGroup(), is(nullValue()));
         assertThat(descriptors[0].getElement().getElementType(), is(XQueryElementType.DIR_ELEM_CONSTRUCTOR));
         assertThat(descriptors[0].getRange().getStartOffset(), is(4));
-        assertThat(descriptors[0].getRange().getEndOffset(), is(12));
+        assertThat(descriptors[0].getRange().getEndOffset(), is(21));
 
         assertThat(builder.getPlaceholderText(descriptors[0].getElement()), is("..."));
         assertThat(builder.isCollapsedByDefault(descriptors[0].getElement()), is(false));
