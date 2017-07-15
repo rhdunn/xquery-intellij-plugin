@@ -30,16 +30,30 @@ import java.util.List;
 import static uk.co.reecedunn.intellij.plugin.core.functional.PsiTreeWalker.children;
 
 public class XQueryFoldingBuilder extends FoldingBuilderEx {
+    private void createFoldRegions(PsiElement element, List<FoldingDescriptor> descriptors) {
+        children(element).each((child) -> {
+            if (child instanceof XQueryEnclosedExpr) {
+                descriptors.add(new FoldingDescriptor(child, child.getTextRange()));
+            }
+            createFoldRegions(child, descriptors);
+        });
+    }
+
     @NotNull
     @Override
     public FoldingDescriptor[] buildFoldRegions(@NotNull PsiElement root, @NotNull Document document, boolean quick) {
         List<FoldingDescriptor> descriptors = new ArrayList<>();
+        createFoldRegions(root, descriptors);
         return descriptors.toArray(new FoldingDescriptor[descriptors.size()]);
     }
 
     @Nullable
     @Override
     public String getPlaceholderText(@NotNull ASTNode node) {
+        PsiElement element = node.getPsi();
+        if (element instanceof XQueryEnclosedExpr) {
+            return "{...}";
+        }
         return "...";
     }
 

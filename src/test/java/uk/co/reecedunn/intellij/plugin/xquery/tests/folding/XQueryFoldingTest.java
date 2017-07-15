@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.folding;
 import com.intellij.lang.folding.FoldingDescriptor;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile;
 import uk.co.reecedunn.intellij.plugin.xquery.editor.XQueryFoldingBuilder;
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase;
 
 import static org.hamcrest.CoreMatchers.*;
@@ -34,5 +35,25 @@ public class XQueryFoldingTest extends ParserTestCase {
 
         assertThat(builder.getPlaceholderText(file.getNode()), is("..."));
         assertThat(builder.isCollapsedByDefault(file.getNode()), is(false));
+    }
+
+    public void testEnclosedExpr() {
+        final XQueryFile file = parseResource("tests/parser/xquery-1.0/EnclosedExpr.xq");
+        final XQueryFoldingBuilder builder = new XQueryFoldingBuilder();
+
+        final FoldingDescriptor[] descriptors = builder.buildFoldRegions(file, getDocument(file), false);
+        assertThat(descriptors, is(notNullValue()));
+        assertThat(descriptors.length, is(1));
+
+        assertThat(descriptors[0].canBeRemovedWhenCollapsed(), is(false));
+        assertThat(descriptors[0].getDependencies(), is(notNullValue()));
+        assertThat(descriptors[0].getDependencies().size(), is(0));
+        assertThat(descriptors[0].getGroup(), is(nullValue()));
+        assertThat(descriptors[0].getElement().getElementType(), is(XQueryElementType.FUNCTION_BODY));
+        assertThat(descriptors[0].getRange().getStartOffset(), is(29));
+        assertThat(descriptors[0].getRange().getEndOffset(), is(39));
+
+        assertThat(builder.getPlaceholderText(descriptors[0].getElement()), is("{...}"));
+        assertThat(builder.isCollapsedByDefault(descriptors[0].getElement()), is(false));
     }
 }
