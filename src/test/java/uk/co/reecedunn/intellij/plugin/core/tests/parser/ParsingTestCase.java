@@ -20,6 +20,7 @@ import com.intellij.ide.startup.impl.StartupManagerImpl;
 import com.intellij.lang.*;
 import com.intellij.lang.impl.PsiBuilderFactoryImpl;
 import com.intellij.mock.*;
+import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.EditorFactory;
 import com.intellij.openapi.extensions.ExtensionPointName;
 import com.intellij.openapi.extensions.Extensions;
@@ -57,6 +58,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.function.Executable;
 import org.picocontainer.*;
 import org.picocontainer.defaults.AbstractComponentAdapter;
+import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockPsiDocumentManagerEx;
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockPsiManager;
 import uk.co.reecedunn.intellij.plugin.core.tests.vfs.ResourceVirtualFile;
 
@@ -106,7 +108,7 @@ public abstract class ParsingTestCase<File extends PsiFile> extends PlatformLite
         registerComponentInstance(appContainer, EditorFactory.class, editorFactory);
         registerComponentInstance(appContainer, FileDocumentManager.class, new MockFileDocumentManagerImpl(
                                   editorFactory::createDocument, FileDocumentManagerImpl.HARD_REF_TO_DOCUMENT_KEY));
-        registerComponentInstance(appContainer, PsiDocumentManager.class, new MockPsiDocumentManager());
+        registerComponentInstance(appContainer, PsiDocumentManager.class, new MockPsiDocumentManagerEx());
 
         registerApplicationService(PsiBuilderFactory.class, new PsiBuilderFactoryImpl());
         registerApplicationService(DefaultASTFactory.class, new DefaultASTFactoryImpl());
@@ -267,5 +269,9 @@ public abstract class ParsingTestCase<File extends PsiFile> extends PlatformLite
     public File parseResource(String resource) {
         VirtualFile file = new ResourceVirtualFile(resource);
         return (File)PsiManager.getInstance(myProject).findFile(file);
+    }
+
+    public Document getDocument(PsiFile file) {
+        return PsiDocumentManager.getInstance(myProject).getDocument(file);
     }
 }
