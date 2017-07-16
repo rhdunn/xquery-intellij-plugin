@@ -16,11 +16,24 @@
 package uk.co.reecedunn.intellij.plugin.execution.marklogic.runner;
 
 import com.intellij.execution.process.ProcessHandler;
+import com.marklogic.xcc.Request;
+import com.marklogic.xcc.ResultItem;
+import com.marklogic.xcc.ResultSequence;
+import com.marklogic.xcc.Session;
+import com.marklogic.xcc.exceptions.RequestException;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.OutputStream;
 
 public class MarkLogicProcessHandler extends ProcessHandler {
+    private final Session session;
+    private final Request request;
+
+    public MarkLogicProcessHandler(Session session, Request request) {
+        this.session = session;
+        this.request = request;
+    }
+
     @Override
     protected void destroyProcessImpl() {
     }
@@ -38,5 +51,26 @@ public class MarkLogicProcessHandler extends ProcessHandler {
     @Override
     public OutputStream getProcessInput() {
         return null;
+    }
+
+    @Override
+    public void startNotify() {
+        super.startNotify();
+
+        ResultSequence results;
+        try {
+            results = session.submitRequest(request);
+        } catch (RequestException e) {
+            notifyTextAvailable(e.toString(), null);
+            return;
+        }
+
+        while (results.hasNext()) {
+            ResultItem result = results.next();
+            notifyTextAvailable(result.asString(), null);
+        }
+
+        results.close();
+        notifyProcessDetached();
     }
 }

@@ -20,7 +20,6 @@ import com.intellij.execution.configurations.CommandLineState;
 import com.intellij.execution.process.ProcessHandler;
 import com.intellij.execution.runners.ExecutionEnvironment;
 import com.marklogic.xcc.*;
-import com.marklogic.xcc.exceptions.RequestException;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.execution.marklogic.configuration.MarkLogicRunConfiguration;
 
@@ -34,26 +33,11 @@ public class MarkLogicRunProfileState extends CommandLineState {
     protected ProcessHandler startProcess() throws ExecutionException {
         MarkLogicRunConfiguration configuration = (MarkLogicRunConfiguration)getEnvironment().getRunProfile();
         String query = "1";
-
         ContentSource source = createContentSource(configuration);
         Session session = source.newSession();
         RequestOptions options = session.getDefaultRequestOptions();
         Request request = session.newAdhocQuery(query, options);
-
-        ResultSequence results;
-        try {
-            results = session.submitRequest(request);
-        } catch (RequestException e) {
-            throw new ExecutionException(e);
-        }
-
-        while (results.hasNext()) {
-            ResultItem result = results.next();
-        }
-
-        results.close();
-
-        return new MarkLogicProcessHandler();
+        return new MarkLogicProcessHandler(session, request);
     }
 
     private ContentSource createContentSource(MarkLogicRunConfiguration configuration) {
