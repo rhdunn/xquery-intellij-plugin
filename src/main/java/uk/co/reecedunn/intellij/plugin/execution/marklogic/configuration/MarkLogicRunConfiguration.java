@@ -24,9 +24,11 @@ import com.intellij.openapi.project.Project;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.core.ui.SettingsEditorImpl;
+import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUI;
+import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUIFactory;
 import uk.co.reecedunn.intellij.plugin.execution.marklogic.runner.MarkLogicRunProfileState;
 
-public class MarkLogicRunConfiguration extends RunConfigurationBase {
+public class MarkLogicRunConfiguration extends RunConfigurationBase implements SettingsUIFactory<MarkLogicRunConfiguration> {
     private String serverHost = "localhost";
     private int serverPort = 8000;
     private String userName = "";
@@ -39,7 +41,7 @@ public class MarkLogicRunConfiguration extends RunConfigurationBase {
     @NotNull
     @Override
     public SettingsEditor<? extends RunConfiguration> getConfigurationEditor() {
-        return new SettingsEditorImpl<>(new MarkLogicSettingsUIFactory());
+        return new SettingsEditorImpl<>(this);
     }
 
     @Override
@@ -50,6 +52,11 @@ public class MarkLogicRunConfiguration extends RunConfigurationBase {
     @Override
     public RunProfileState getState(@NotNull Executor executor, @NotNull ExecutionEnvironment environment) throws ExecutionException {
         return new MarkLogicRunProfileState(environment);
+    }
+
+    @Override
+    public SettingsUI<MarkLogicRunConfiguration> createSettingsUI() {
+        return new MarkLogicSettingsUI();
     }
 
     public String getServerHost() {
