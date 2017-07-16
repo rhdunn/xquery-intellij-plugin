@@ -15,53 +15,31 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.settings;
 
-import com.intellij.openapi.options.Configurable;
-import com.intellij.openapi.options.ConfigurationException;
 import com.intellij.openapi.project.Project;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.Nullable;
+import uk.co.reecedunn.intellij.plugin.core.ui.ConfigurableImpl;
 import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUI;
 
-import javax.swing.*;
-
-public class XQueryProjectSettingsConfigurable implements Configurable {
-    private final XQueryProjectSettings mSettings;
-    private SettingsUI<XQueryProjectSettings> mPanel;
-
+public class XQueryProjectSettingsConfigurable extends ConfigurableImpl<XQueryProjectSettings> {
     public XQueryProjectSettingsConfigurable(Project project) {
-        mSettings = XQueryProjectSettings.getInstance(project);
-        mPanel = new XQueryPropertiesUI();
-        mPanel.reset(mSettings);
+        super(XQueryProjectSettings.getInstance(project));
     }
 
+    @Override
     @Nls
     public String getDisplayName() {
         return "XQuery";
     }
 
+    @Override
     @Nullable
     public String getHelpTopic() {
         return null;
     }
 
-    @Nullable
-    public JComponent createComponent() {
-        return mPanel.getPanel();
-    }
-
-    public boolean isModified() {
-        return mPanel.isModified(mSettings);
-    }
-
-    public void apply() throws ConfigurationException {
-        mPanel.apply(mSettings);
-    }
-
-    public void reset() {
-        mPanel.reset(mSettings);
-    }
-
-    public void disposeUIResources() {
-        mPanel = null;
+    @Override
+    public SettingsUI<XQueryProjectSettings> createSettingsUI() {
+        return new XQueryPropertiesUI();
     }
 }
