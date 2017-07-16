@@ -24,11 +24,13 @@ import org.jetbrains.annotations.Nullable;
 import javax.swing.*;
 
 public class XQueryProjectSettingsConfigurable implements Configurable {
+    private final XQueryProjectSettings mSettings;
     private XQueryPropertiesUI mPanel;
 
     public XQueryProjectSettingsConfigurable(Project project) {
-        mPanel = new XQueryPropertiesUI(project);
-        mPanel.reset();
+        mSettings = XQueryProjectSettings.getInstance(project);
+        mPanel = new XQueryPropertiesUI(mSettings);
+        mPanel.reset(mSettings);
     }
 
     @Nls
@@ -51,11 +53,11 @@ public class XQueryProjectSettingsConfigurable implements Configurable {
     }
 
     public void apply() throws ConfigurationException {
-        mPanel.apply();
+        mPanel.apply(mSettings);
     }
 
     public void reset() {
-        mPanel.reset();
+        mPanel.reset(mSettings);
     }
 
     public void disposeUIResources() {

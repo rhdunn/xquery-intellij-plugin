@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.settings;
 
 import com.intellij.openapi.project.Project;
+import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUI;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Implementations;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
@@ -24,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import javax.swing.*;
 
 @SuppressWarnings({"RedundantIfStatement", "SameParameterValue"})
-public class XQueryPropertiesUI {
+public class XQueryPropertiesUI implements SettingsUI<XQueryProjectSettings> {
     private JComboBox<XQueryVersion> mVersion;
     private JComboBox<ImplementationItem> mImplementations;
     private JComboBox<ImplementationItem> mImplementationVersions;
@@ -35,10 +36,11 @@ public class XQueryPropertiesUI {
     private JPanel mPanel;
     private final XQueryProjectSettings mSettings;
 
-    public XQueryPropertiesUI(Project project) {
-        mSettings = XQueryProjectSettings.getInstance(project);
+    public XQueryPropertiesUI(XQueryProjectSettings settings) {
+        mSettings = settings;
     }
 
+    @Override
     public JPanel getPanel() {
         return mPanel;
     }
@@ -136,7 +138,8 @@ public class XQueryPropertiesUI {
         return false;
     }
 
-    public void apply() {
+    @Override
+    public void apply(XQueryProjectSettings settings) {
         mSettings.setImplementationItem((ImplementationItem)mImplementations.getSelectedItem());
         mSettings.setImplementationVersionItem((ImplementationItem)mImplementationVersions.getSelectedItem());
         mSettings.setXQueryVersion((XQueryVersion)mVersion.getSelectedItem());
@@ -145,7 +148,8 @@ public class XQueryPropertiesUI {
         mSettings.setDialectForXQueryVersion(XQueryVersion.VERSION_3_1, (ImplementationItem)mDialectForXQuery3_1.getSelectedItem());
     }
 
-    public void reset() {
+    @Override
+    public void reset(XQueryProjectSettings settings) {
         mImplementations.setSelectedItem(mSettings.getImplementationItem());
         mImplementationVersions.setSelectedItem(mSettings.getImplementationVersionItem());
         mVersion.setSelectedItem(mSettings.getXQueryVersion());
