@@ -22,6 +22,8 @@ import org.jetbrains.annotations.NotNull;
 import javax.swing.*;
 
 public class MarkLogicSettingsEditor extends SettingsEditor<MarkLogicRunConfiguration> {
+    private MarkLogicSettingsUI mPanel;
+
     @Override
     protected void resetEditorFrom(@NotNull MarkLogicRunConfiguration s) {
     }
@@ -33,6 +35,7 @@ public class MarkLogicSettingsEditor extends SettingsEditor<MarkLogicRunConfigur
     @NotNull
     @Override
     protected JComponent createEditor() {
-        return new JPanel();
+        mPanel = new MarkLogicSettingsUI();
+        return mPanel.getPanel();
     }
 }
