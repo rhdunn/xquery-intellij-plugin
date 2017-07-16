@@ -34,4 +34,18 @@ public class MarkLogicSettingsUI {
         mUserName = new JTextField();
         mPassword = new JPasswordField();
     }
+
+    public void reset(MarkLogicRunConfiguration configuration) {
+        mHostName.setText(configuration.getServerHost());
+        mPort.setText(Integer.toString(configuration.getServerPort()));
+        mUserName.setText(configuration.getUserName());
+        mPassword.setText(configuration.getPassword());
+    }
+
+    public void apply(MarkLogicRunConfiguration configuration) {
+        configuration.setServerHost(mHostName.getText());
+        configuration.setServerPort(Integer.parseInt(mPort.getText()));
+        configuration.setUserName(mUserName.getText());
+        configuration.setPassword(String.valueOf(mPassword.getPassword()));
+    }
 }

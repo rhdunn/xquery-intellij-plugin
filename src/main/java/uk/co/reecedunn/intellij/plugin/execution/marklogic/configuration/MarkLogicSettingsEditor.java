@@ -25,11 +25,13 @@ public class MarkLogicSettingsEditor extends SettingsEditor<MarkLogicRunConfigur
     private MarkLogicSettingsUI mPanel;
 
     @Override
-    protected void resetEditorFrom(@NotNull MarkLogicRunConfiguration s) {
+    protected void resetEditorFrom(@NotNull MarkLogicRunConfiguration configuration) {
+        mPanel.reset(configuration);
     }
 
     @Override
-    protected void applyEditorTo(@NotNull MarkLogicRunConfiguration s) throws ConfigurationException {
+    protected void applyEditorTo(@NotNull MarkLogicRunConfiguration configuration) throws ConfigurationException {
+        mPanel.apply(configuration);
     }
 
     @NotNull

@@ -26,6 +26,11 @@ import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.execution.marklogic.runner.MarkLogicRunProfileState;
 
 public class MarkLogicRunConfiguration extends RunConfigurationBase {
+    private String serverHost = "localhost";
+    private int serverPort = 8000;
+    private String userName = "";
+    private String password = "";
+
     MarkLogicRunConfiguration(@NotNull Project project, @NotNull ConfigurationFactory factory, String name) {
         super(project, factory, name);
     }
@@ -47,18 +52,34 @@ public class MarkLogicRunConfiguration extends RunConfigurationBase {
     }
 
     public String getServerHost() {
-        return "localhost";
+        return serverHost;
+    }
+
+    public void setServerHost(String host) {
+        serverHost = host;
     }
 
     public int getServerPort() {
-        return 8000;
+        return serverPort;
+    }
+
+    public void setServerPort(int port) {
+        serverPort = port;
     }
 
     public String getUserName() {
-        return null;
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getPassword() {
-        return null;
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

@@ -40,7 +40,7 @@ public class MarkLogicRunProfileState extends CommandLineState {
     }
 
     private ContentSource createContentSource(MarkLogicRunConfiguration configuration) {
-        if (configuration.getUserName() == null) {
+        if (configuration.getUserName().isEmpty()) {
             return ContentSourceFactory.newContentSource(
                 configuration.getServerHost(),
                 configuration.getServerPort());
