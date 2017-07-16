@@ -30,7 +30,7 @@ public class XQueryProjectSettingsConfigurable implements Configurable {
 
     public XQueryProjectSettingsConfigurable(Project project) {
         mSettings = XQueryProjectSettings.getInstance(project);
-        mPanel = new XQueryPropertiesUI(mSettings);
+        mPanel = new XQueryPropertiesUI();
         mPanel.reset(mSettings);
     }
 

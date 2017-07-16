@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.settings;
 
-import com.intellij.openapi.project.Project;
 import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUI;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Implementations;
@@ -34,10 +33,8 @@ public class XQueryPropertiesUI implements SettingsUI<XQueryProjectSettings> {
     private JComboBox<ImplementationItem> mDialectForXQuery3_1;
 
     private JPanel mPanel;
-    private final XQueryProjectSettings mSettings;
 
-    public XQueryPropertiesUI(XQueryProjectSettings settings) {
-        mSettings = settings;
+    public XQueryPropertiesUI() {
     }
 
     @Override
@@ -130,32 +127,32 @@ public class XQueryPropertiesUI implements SettingsUI<XQueryProjectSettings> {
 
     @Override
     public boolean isModified(XQueryProjectSettings settings) {
-        if (!mImplementations.getSelectedItem().equals(mSettings.getImplementationItem())) return true;
-        if (!mImplementationVersions.getSelectedItem().equals(mSettings.getImplementationVersionItem())) return true;
-        if (!mVersion.getSelectedItem().equals(mSettings.getXQueryVersion())) return true;
-        if (!mDialectForXQuery1_0.getSelectedItem().equals(mSettings.getDialectForXQueryVersion(XQueryVersion.VERSION_1_0))) return true;
-        if (!mDialectForXQuery3_0.getSelectedItem().equals(mSettings.getDialectForXQueryVersion(XQueryVersion.VERSION_3_0))) return true;
-        if (!mDialectForXQuery3_1.getSelectedItem().equals(mSettings.getDialectForXQueryVersion(XQueryVersion.VERSION_3_1))) return true;
+        if (!mImplementations.getSelectedItem().equals(settings.getImplementationItem())) return true;
+        if (!mImplementationVersions.getSelectedItem().equals(settings.getImplementationVersionItem())) return true;
+        if (!mVersion.getSelectedItem().equals(settings.getXQueryVersion())) return true;
+        if (!mDialectForXQuery1_0.getSelectedItem().equals(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_1_0))) return true;
+        if (!mDialectForXQuery3_0.getSelectedItem().equals(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_3_0))) return true;
+        if (!mDialectForXQuery3_1.getSelectedItem().equals(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_3_1))) return true;
         return false;
     }
 
     @Override
     public void apply(XQueryProjectSettings settings) {
-        mSettings.setImplementationItem((ImplementationItem)mImplementations.getSelectedItem());
-        mSettings.setImplementationVersionItem((ImplementationItem)mImplementationVersions.getSelectedItem());
-        mSettings.setXQueryVersion((XQueryVersion)mVersion.getSelectedItem());
-        mSettings.setDialectForXQueryVersion(XQueryVersion.VERSION_1_0, (ImplementationItem)mDialectForXQuery1_0.getSelectedItem());
-        mSettings.setDialectForXQueryVersion(XQueryVersion.VERSION_3_0, (ImplementationItem)mDialectForXQuery3_0.getSelectedItem());
-        mSettings.setDialectForXQueryVersion(XQueryVersion.VERSION_3_1, (ImplementationItem)mDialectForXQuery3_1.getSelectedItem());
+        settings.setImplementationItem((ImplementationItem)mImplementations.getSelectedItem());
+        settings.setImplementationVersionItem((ImplementationItem)mImplementationVersions.getSelectedItem());
+        settings.setXQueryVersion((XQueryVersion)mVersion.getSelectedItem());
+        settings.setDialectForXQueryVersion(XQueryVersion.VERSION_1_0, (ImplementationItem)mDialectForXQuery1_0.getSelectedItem());
+        settings.setDialectForXQueryVersion(XQueryVersion.VERSION_3_0, (ImplementationItem)mDialectForXQuery3_0.getSelectedItem());
+        settings.setDialectForXQueryVersion(XQueryVersion.VERSION_3_1, (ImplementationItem)mDialectForXQuery3_1.getSelectedItem());
     }
 
     @Override
     public void reset(XQueryProjectSettings settings) {
-        mImplementations.setSelectedItem(mSettings.getImplementationItem());
-        mImplementationVersions.setSelectedItem(mSettings.getImplementationVersionItem());
-        mVersion.setSelectedItem(mSettings.getXQueryVersion());
-        mDialectForXQuery1_0.setSelectedItem(mSettings.getDialectForXQueryVersion(XQueryVersion.VERSION_1_0));
-        mDialectForXQuery3_0.setSelectedItem(mSettings.getDialectForXQueryVersion(XQueryVersion.VERSION_3_0));
-        mDialectForXQuery3_1.setSelectedItem(mSettings.getDialectForXQueryVersion(XQueryVersion.VERSION_3_1));
+        mImplementations.setSelectedItem(settings.getImplementationItem());
+        mImplementationVersions.setSelectedItem(settings.getImplementationVersionItem());
+        mVersion.setSelectedItem(settings.getXQueryVersion());
+        mDialectForXQuery1_0.setSelectedItem(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_1_0));
+        mDialectForXQuery3_0.setSelectedItem(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_3_0));
+        mDialectForXQuery3_1.setSelectedItem(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_3_1));
     }
 }
