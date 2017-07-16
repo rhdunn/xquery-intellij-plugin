@@ -45,4 +45,20 @@ public class MarkLogicRunConfiguration extends RunConfigurationBase {
     public RunProfileState getState(@NotNull Executor executor, @NotNull ExecutionEnvironment environment) throws ExecutionException {
         return new MarkLogicRunProfileState(environment);
     }
+
+    public String getServerHost() {
+        return "localhost";
+    }
+
+    public int getServerPort() {
+        return 8000;
+    }
+
+    public String getUserName() {
+        return null;
+    }
+
+    public String getPassword() {
+        return null;
+    }
 }
