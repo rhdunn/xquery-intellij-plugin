@@ -19,26 +19,32 @@ import com.intellij.openapi.options.ConfigurationException;
 import com.intellij.openapi.options.SettingsEditor;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUI;
+import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUIFactory;
 
 import javax.swing.*;
 
 public class MarkLogicSettingsEditor extends SettingsEditor<MarkLogicRunConfiguration> {
-    private SettingsUI<MarkLogicRunConfiguration> mPanel;
+    private SettingsUIFactory<MarkLogicRunConfiguration> mSettingsFactory;
+    private SettingsUI<MarkLogicRunConfiguration> mSettings;
+
+    public MarkLogicSettingsEditor() {
+        mSettingsFactory = new MarkLogicSettingsUIFactory();
+    }
 
     @Override
     protected void resetEditorFrom(@NotNull MarkLogicRunConfiguration configuration) {
-        mPanel.reset(configuration);
+        mSettings.reset(configuration);
     }
 
     @Override
     protected void applyEditorTo(@NotNull MarkLogicRunConfiguration configuration) throws ConfigurationException {
-        mPanel.apply(configuration);
+        mSettings.apply(configuration);
     }
 
     @NotNull
     @Override
     protected JComponent createEditor() {
-        mPanel = new MarkLogicSettingsUI();
-        return mPanel.getPanel();
+        mSettings = mSettingsFactory.createSettingsUI();
+        return mSettings.getPanel();
     }
 }
