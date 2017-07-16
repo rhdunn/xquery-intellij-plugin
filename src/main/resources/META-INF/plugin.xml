@@ -67,6 +67,8 @@
     <projectService serviceInterface="uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings"
                     serviceImplementation="uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings"/>
     <projectConfigurable groupId="language" displayName="XQuery" instance="uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettingsConfigurable"/>
+
+    <configurationType implementation="uk.co.reecedunn.intellij.plugin.execution.marklogic.configuration.MarkLogicConfigurationType"/>
   </extensions>
 
   <application-components>
