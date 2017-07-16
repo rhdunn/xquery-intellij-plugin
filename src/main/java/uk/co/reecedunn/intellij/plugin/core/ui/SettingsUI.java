@@ -20,6 +20,8 @@ import javax.swing.*;
 public interface SettingsUI<Configuration> {
     JPanel getPanel();
 
+    boolean isModified(Configuration configuration);
+
     void reset(Configuration configuration);
 
     void apply(Configuration configuration);

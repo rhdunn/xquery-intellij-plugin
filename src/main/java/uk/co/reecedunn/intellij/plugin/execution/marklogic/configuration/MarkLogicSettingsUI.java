@@ -39,6 +39,11 @@ public class MarkLogicSettingsUI implements SettingsUI<MarkLogicRunConfiguration
     }
 
     @Override
+    public boolean isModified(MarkLogicRunConfiguration configuration) {
+        return true;
+    }
+
+    @Override
     public void reset(MarkLogicRunConfiguration configuration) {
         mHostName.setText(configuration.getServerHost());
         mPort.setText(Integer.toString(configuration.getServerPort()));

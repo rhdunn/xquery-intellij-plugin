@@ -128,7 +128,8 @@ public class XQueryPropertiesUI implements SettingsUI<XQueryProjectSettings> {
         }
     }
 
-    public boolean isModified() {
+    @Override
+    public boolean isModified(XQueryProjectSettings settings) {
         if (!mImplementations.getSelectedItem().equals(mSettings.getImplementationItem())) return true;
         if (!mImplementationVersions.getSelectedItem().equals(mSettings.getImplementationVersionItem())) return true;
         if (!mVersion.getSelectedItem().equals(mSettings.getXQueryVersion())) return true;

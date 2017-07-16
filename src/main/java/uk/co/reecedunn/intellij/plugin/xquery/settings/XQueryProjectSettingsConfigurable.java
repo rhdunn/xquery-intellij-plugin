@@ -20,12 +20,13 @@ import com.intellij.openapi.options.ConfigurationException;
 import com.intellij.openapi.project.Project;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.Nullable;
+import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUI;
 
 import javax.swing.*;
 
 public class XQueryProjectSettingsConfigurable implements Configurable {
     private final XQueryProjectSettings mSettings;
-    private XQueryPropertiesUI mPanel;
+    private SettingsUI<XQueryProjectSettings> mPanel;
 
     public XQueryProjectSettingsConfigurable(Project project) {
         mSettings = XQueryProjectSettings.getInstance(project);
@@ -49,7 +50,7 @@ public class XQueryProjectSettingsConfigurable implements Configurable {
     }
 
     public boolean isModified() {
-        return mPanel.isModified();
+        return mPanel.isModified(mSettings);
     }
 
     public void apply() throws ConfigurationException {
