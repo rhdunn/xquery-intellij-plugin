@@ -18,11 +18,12 @@ package uk.co.reecedunn.intellij.plugin.execution.marklogic.configuration;
 import com.intellij.openapi.options.ConfigurationException;
 import com.intellij.openapi.options.SettingsEditor;
 import org.jetbrains.annotations.NotNull;
+import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUI;
 
 import javax.swing.*;
 
 public class MarkLogicSettingsEditor extends SettingsEditor<MarkLogicRunConfiguration> {
-    private MarkLogicSettingsUI mPanel;
+    private SettingsUI<MarkLogicRunConfiguration> mPanel;
 
     @Override
     protected void resetEditorFrom(@NotNull MarkLogicRunConfiguration configuration) {

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2017 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,18 +15,16 @@
  */
 package uk.co.reecedunn.intellij.plugin.execution.marklogic.configuration;
 
+import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUI;
+
 import javax.swing.*;
 
-public class MarkLogicSettingsUI {
+public class MarkLogicSettingsUI implements SettingsUI<MarkLogicRunConfiguration> {
     private JPanel mPanel;
     private JTextField mHostName;
     private JTextField mPort;
     private JTextField mUserName;
     private JPasswordField mPassword;
-
-    public JPanel getPanel() {
-        return mPanel;
-    }
 
     private void createUIComponents() {
         mHostName = new JTextField();
@@ -35,6 +33,12 @@ public class MarkLogicSettingsUI {
         mPassword = new JPasswordField();
     }
 
+    @Override
+    public JPanel getPanel() {
+        return mPanel;
+    }
+
+    @Override
     public void reset(MarkLogicRunConfiguration configuration) {
         mHostName.setText(configuration.getServerHost());
         mPort.setText(Integer.toString(configuration.getServerPort()));
@@ -42,6 +46,7 @@ public class MarkLogicSettingsUI {
         mPassword.setText(configuration.getPassword());
     }
 
+    @Override
     public void apply(MarkLogicRunConfiguration configuration) {
         configuration.setServerHost(mHostName.getText());
         configuration.setServerPort(Integer.parseInt(mPort.getText()));
