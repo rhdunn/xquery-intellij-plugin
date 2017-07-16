@@ -37,7 +37,7 @@ public class MarkLogicRunProfileState extends CommandLineState {
         Session session = source.newSession();
         RequestOptions options = session.getDefaultRequestOptions();
         Request request = session.newAdhocQuery(query, options);
-        return new MarkLogicProcessHandler(session, request);
+        return new MarkLogicRequestHandler(session, request);
     }
 
     private ContentSource createContentSource(MarkLogicRunConfiguration configuration) {

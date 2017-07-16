@@ -25,11 +25,11 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.OutputStream;
 
-public class MarkLogicProcessHandler extends ProcessHandler {
+public class MarkLogicRequestHandler extends ProcessHandler {
     private final Session session;
     private final Request request;
 
-    public MarkLogicProcessHandler(Session session, Request request) {
+    public MarkLogicRequestHandler(Session session, Request request) {
         this.session = session;
         this.request = request;
     }
