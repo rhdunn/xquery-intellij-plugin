@@ -15,26 +15,23 @@
  */
 package uk.co.reecedunn.intellij.plugin.execution.marklogic.runner;
 
-import com.intellij.execution.DefaultExecutionResult;
 import com.intellij.execution.ExecutionException;
-import com.intellij.execution.ExecutionResult;
-import com.intellij.execution.Executor;
-import com.intellij.execution.configurations.RunProfileState;
+import com.intellij.execution.configurations.CommandLineState;
+import com.intellij.execution.process.ProcessHandler;
 import com.intellij.execution.runners.ExecutionEnvironment;
-import com.intellij.execution.runners.ProgramRunner;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
-public class MarkLogicRunProfileState implements RunProfileState {
+public class MarkLogicRunProfileState extends CommandLineState {
     private ExecutionEnvironment environment;
 
     public MarkLogicRunProfileState(ExecutionEnvironment environment) {
+        super(environment);
         this.environment = environment;
     }
 
-    @Nullable
+    @NotNull
     @Override
-    public ExecutionResult execute(Executor executor, @NotNull ProgramRunner runner) throws ExecutionException {
-        return new DefaultExecutionResult(null, new MarkLogicProcessHandler());
+    protected ProcessHandler startProcess() throws ExecutionException {
+        return new MarkLogicProcessHandler();
     }
 }
