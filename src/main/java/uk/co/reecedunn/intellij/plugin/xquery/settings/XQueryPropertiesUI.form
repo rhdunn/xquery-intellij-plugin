@@ -28,12 +28,6 @@
         </constraints>
         <properties/>
       </component>
-      <component id="35508" class="javax.swing.JComboBox" binding="mImplementations" custom-create="true">
-        <constraints>
-          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties/>
-      </component>
       <component id="94671" class="javax.swing.JLabel">
         <constraints>
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
@@ -102,6 +96,12 @@
           <labelFor value="f1a5f"/>
           <text resource-bundle="messages/XQueryBundle" key="xquery.settings.project.dialect.3.1.label"/>
         </properties>
+      </component>
+      <component id="35508" class="javax.swing.JComboBox" binding="mImplementations" custom-create="true">
+        <constraints>
+          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
       </component>
     </children>
   </grid>

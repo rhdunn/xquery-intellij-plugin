@@ -19,8 +19,19 @@ import javax.swing.*;
 
 public class MarkLogicSettingsUI {
     private JPanel mPanel;
+    private JTextField mHostName;
+    private JTextField mPort;
+    private JTextField mUserName;
+    private JPasswordField mPassword;
 
     public JPanel getPanel() {
         return mPanel;
+    }
+
+    private void createUIComponents() {
+        mHostName = new JTextField();
+        mPort = new JTextField();
+        mUserName = new JTextField();
+        mPassword = new JPasswordField();
     }
 }
