@@ -62,6 +62,7 @@ public class MarkLogicRequestHandler extends ProcessHandler {
             results = session.submitRequest(request);
         } catch (RequestException e) {
             notifyTextAvailable(e.toString(), null);
+            notifyProcessDetached();
             return;
         }
 
