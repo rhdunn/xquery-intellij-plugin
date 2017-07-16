@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.execution.marklogic.runner;
 
+import com.intellij.execution.DefaultExecutionResult;
 import com.intellij.execution.ExecutionException;
 import com.intellij.execution.ExecutionResult;
 import com.intellij.execution.Executor;
@@ -34,6 +35,6 @@ public class MarkLogicRunProfileState implements RunProfileState {
     @Nullable
     @Override
     public ExecutionResult execute(Executor executor, @NotNull ProgramRunner runner) throws ExecutionException {
-        return null;
+        return new DefaultExecutionResult(null, new MarkLogicProcessHandler());
     }
 }
