@@ -51,4 +51,11 @@ public abstract class ConfigurableImpl<Configuration> implements Configurable, S
     public void reset() {
         mSettings.reset(mConfiguration);
     }
+
+    // NOTE: IntelliJ 2016.1 does not provide a default disposeUIResources
+    // implementation, so provide one here.
+    @Override
+    public void disposeUIResources() {
+        mSettings = null;
+    }
 }
