@@ -69,6 +69,7 @@
     <projectConfigurable groupId="language" displayName="XQuery" instance="uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettingsConfigurable"/>
 
     <configurationType implementation="uk.co.reecedunn.intellij.plugin.execution.marklogic.configuration.MarkLogicConfigurationType"/>
+    <programRunner implementation="uk.co.reecedunn.intellij.plugin.execution.marklogic.runner.MarkLogicProgramRunner"/>
   </extensions>
 
   <application-components>
