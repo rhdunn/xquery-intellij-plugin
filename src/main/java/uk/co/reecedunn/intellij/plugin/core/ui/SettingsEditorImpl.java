@@ -16,15 +16,16 @@
 package uk.co.reecedunn.intellij.plugin.core.ui;
 
 import com.intellij.openapi.options.ConfigurationException;
+import com.intellij.openapi.options.SettingsEditor;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 
-public class SettingsEditor<Configuration> extends com.intellij.openapi.options.SettingsEditor<Configuration> {
+public class SettingsEditorImpl<Configuration> extends SettingsEditor<Configuration> {
     private SettingsUIFactory<Configuration> mSettingsFactory;
     private SettingsUI<Configuration> mSettings;
 
-    public SettingsEditor(SettingsUIFactory<Configuration> factory) {
+    public SettingsEditorImpl(SettingsUIFactory<Configuration> factory) {
         mSettingsFactory = factory;
     }
 
