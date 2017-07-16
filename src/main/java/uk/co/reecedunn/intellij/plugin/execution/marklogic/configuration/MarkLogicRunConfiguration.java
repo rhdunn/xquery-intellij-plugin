@@ -33,6 +33,7 @@ public class MarkLogicRunConfiguration extends RunConfigurationBase implements S
     private int serverPort = 8000;
     private String userName = "";
     private String password = "";
+    private String mainModulePath = "";
 
     MarkLogicRunConfiguration(@NotNull Project project, @NotNull ConfigurationFactory factory, String name) {
         super(project, factory, name);
@@ -56,7 +57,7 @@ public class MarkLogicRunConfiguration extends RunConfigurationBase implements S
 
     @Override
     public SettingsUI<MarkLogicRunConfiguration> createSettingsUI() {
-        return new MarkLogicSettingsUI();
+        return new MarkLogicSettingsUI(getProject());
     }
 
     public String getServerHost() {
@@ -89,5 +90,13 @@ public class MarkLogicRunConfiguration extends RunConfigurationBase implements S
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getMainModulePath() {
+        return mainModulePath;
+    }
+
+    public void setMainModulePath(String mainModulePath) {
+        this.mainModulePath = mainModulePath;
     }
 }

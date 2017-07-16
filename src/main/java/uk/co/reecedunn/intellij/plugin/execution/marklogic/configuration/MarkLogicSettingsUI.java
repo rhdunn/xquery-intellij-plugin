@@ -15,22 +15,42 @@
  */
 package uk.co.reecedunn.intellij.plugin.execution.marklogic.configuration;
 
+import com.intellij.openapi.fileChooser.FileTypeDescriptor;
+import com.intellij.openapi.project.Project;
+import com.intellij.openapi.ui.ComponentWithBrowseButton;
 import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUI;
+import uk.co.reecedunn.intellij.plugin.core.ui.TextFieldFileAccessor;
+import uk.co.reecedunn.intellij.plugin.xquery.filetypes.XQueryFileType;
+import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 
 import javax.swing.*;
 
 public class MarkLogicSettingsUI implements SettingsUI<MarkLogicRunConfiguration> {
+    private Project mProject;
     private JPanel mPanel;
+    private ComponentWithBrowseButton<JTextField> mMainModule;
     private JTextField mHostName;
     private JTextField mPort;
     private JTextField mUserName;
     private JPasswordField mPassword;
 
+    public MarkLogicSettingsUI(Project project) {
+        mProject = project;
+    }
+
     private void createUIComponents() {
+        mMainModule = new ComponentWithBrowseButton<>(new JTextField(), null);
         mHostName = new JTextField();
         mPort = new JTextField();
         mUserName = new JTextField();
         mPassword = new JPasswordField();
+
+        mMainModule.addBrowseFolderListener(
+            XQueryBundle.message("browser.choose-main-module"),
+            null,
+            mProject,
+            new FileTypeDescriptor("XQuery", XQueryFileType.EXTENSIONS.split(";")),
+            new TextFieldFileAccessor());
     }
 
     @Override
@@ -45,6 +65,7 @@ public class MarkLogicSettingsUI implements SettingsUI<MarkLogicRunConfiguration
 
     @Override
     public void reset(MarkLogicRunConfiguration configuration) {
+        mMainModule.getChildComponent().setText(configuration.getMainModulePath());
         mHostName.setText(configuration.getServerHost());
         mPort.setText(Integer.toString(configuration.getServerPort()));
         mUserName.setText(configuration.getUserName());
@@ -53,6 +74,7 @@ public class MarkLogicSettingsUI implements SettingsUI<MarkLogicRunConfiguration
 
     @Override
     public void apply(MarkLogicRunConfiguration configuration) {
+        configuration.setMainModulePath(mMainModule.getChildComponent().getText());
         configuration.setServerHost(mHostName.getText());
         configuration.setServerPort(Integer.parseInt(mPort.getText()));
         configuration.setUserName(mUserName.getText());

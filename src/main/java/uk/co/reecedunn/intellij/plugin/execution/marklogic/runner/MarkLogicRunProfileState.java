@@ -19,9 +19,15 @@ import com.intellij.execution.ExecutionException;
 import com.intellij.execution.configurations.CommandLineState;
 import com.intellij.execution.process.ProcessHandler;
 import com.intellij.execution.runners.ExecutionEnvironment;
+import com.intellij.openapi.vfs.VfsUtil;
+import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.openapi.vfs.VirtualFileManager;
 import com.marklogic.xcc.*;
+import org.apache.xmlbeans.impl.common.IOUtil;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.execution.marklogic.configuration.MarkLogicRunConfiguration;
+
+import java.io.*;
 
 public class MarkLogicRunProfileState extends CommandLineState {
     public MarkLogicRunProfileState(ExecutionEnvironment environment) {
@@ -32,11 +38,10 @@ public class MarkLogicRunProfileState extends CommandLineState {
     @Override
     protected ProcessHandler startProcess() throws ExecutionException {
         MarkLogicRunConfiguration configuration = (MarkLogicRunConfiguration)getEnvironment().getRunProfile();
-        String query = "1";
         ContentSource source = createContentSource(configuration);
         Session session = source.newSession();
         RequestOptions options = session.getDefaultRequestOptions();
-        Request request = session.newAdhocQuery(query, options);
+        Request request = session.newAdhocQuery(getQueryFromFile(configuration.getMainModulePath()), options);
         return new MarkLogicRequestHandler(session, request);
     }
 
@@ -52,5 +57,24 @@ public class MarkLogicRunProfileState extends CommandLineState {
             configuration.getServerPort(),
             configuration.getUserName(),
             configuration.getPassword());
+    }
+
+    private String getQueryFromFile(String fileName) {
+        final String url = VfsUtil.pathToUrl(fileName.replace(File.separatorChar, '/'));
+        final VirtualFile file = VirtualFileManager.getInstance().findFileByUrl(url);
+        if (file != null) {
+            try {
+                return streamToString(file.getInputStream());
+            } catch (IOException e) {
+                //
+            }
+        }
+        return null;
+    }
+
+    private String streamToString(InputStream stream) throws IOException {
+        StringWriter writer = new StringWriter();
+        IOUtil.copyCompletely(new InputStreamReader(stream), writer);
+        return writer.toString();
     }
 }
