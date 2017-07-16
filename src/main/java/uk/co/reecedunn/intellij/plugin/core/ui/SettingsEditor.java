@@ -13,31 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.execution.marklogic.configuration;
+package uk.co.reecedunn.intellij.plugin.core.ui;
 
 import com.intellij.openapi.options.ConfigurationException;
-import com.intellij.openapi.options.SettingsEditor;
 import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUI;
-import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUIFactory;
 
 import javax.swing.*;
 
-public class MarkLogicSettingsEditor extends SettingsEditor<MarkLogicRunConfiguration> {
-    private SettingsUIFactory<MarkLogicRunConfiguration> mSettingsFactory;
-    private SettingsUI<MarkLogicRunConfiguration> mSettings;
+public class SettingsEditor<Configuration> extends com.intellij.openapi.options.SettingsEditor<Configuration> {
+    private SettingsUIFactory<Configuration> mSettingsFactory;
+    private SettingsUI<Configuration> mSettings;
 
-    public MarkLogicSettingsEditor() {
-        mSettingsFactory = new MarkLogicSettingsUIFactory();
+    public SettingsEditor(SettingsUIFactory<Configuration> factory) {
+        mSettingsFactory = factory;
     }
 
     @Override
-    protected void resetEditorFrom(@NotNull MarkLogicRunConfiguration configuration) {
+    protected void resetEditorFrom(@NotNull Configuration configuration) {
         mSettings.reset(configuration);
     }
 
     @Override
-    protected void applyEditorTo(@NotNull MarkLogicRunConfiguration configuration) throws ConfigurationException {
+    protected void applyEditorTo(@NotNull Configuration configuration) throws ConfigurationException {
         mSettings.apply(configuration);
     }
 

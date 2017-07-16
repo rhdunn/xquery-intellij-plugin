@@ -19,10 +19,10 @@ import com.intellij.execution.ExecutionException;
 import com.intellij.execution.Executor;
 import com.intellij.execution.configurations.*;
 import com.intellij.execution.runners.ExecutionEnvironment;
-import com.intellij.openapi.options.SettingsEditor;
 import com.intellij.openapi.project.Project;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import uk.co.reecedunn.intellij.plugin.core.ui.SettingsEditor;
 import uk.co.reecedunn.intellij.plugin.execution.marklogic.runner.MarkLogicRunProfileState;
 
 public class MarkLogicRunConfiguration extends RunConfigurationBase {
@@ -37,8 +37,8 @@ public class MarkLogicRunConfiguration extends RunConfigurationBase {
 
     @NotNull
     @Override
-    public SettingsEditor<? extends RunConfiguration> getConfigurationEditor() {
-        return new MarkLogicSettingsEditor();
+    public com.intellij.openapi.options.SettingsEditor<? extends RunConfiguration> getConfigurationEditor() {
+        return new SettingsEditor<>(new MarkLogicSettingsUIFactory());
     }
 
     @Override
