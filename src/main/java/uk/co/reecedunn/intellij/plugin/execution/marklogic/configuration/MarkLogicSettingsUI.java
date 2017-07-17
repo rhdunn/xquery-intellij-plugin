@@ -76,7 +76,11 @@ public class MarkLogicSettingsUI implements SettingsUI<MarkLogicRunConfiguration
     public void apply(MarkLogicRunConfiguration configuration) {
         configuration.setMainModulePath(mMainModule.getChildComponent().getText());
         configuration.setServerHost(mHostName.getText());
-        configuration.setServerPort(Integer.parseInt(mPort.getText()));
+        try {
+            configuration.setServerPort(Integer.parseInt(mPort.getText()));
+        } catch (NumberFormatException e) {
+            //
+        }
         configuration.setUserName(mUserName.getText());
         configuration.setPassword(String.valueOf(mPassword.getPassword()));
     }
