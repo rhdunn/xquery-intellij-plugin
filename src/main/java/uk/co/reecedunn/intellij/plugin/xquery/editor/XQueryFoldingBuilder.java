@@ -94,7 +94,7 @@ public class XQueryFoldingBuilder extends FoldingBuilderEx {
     private void createFoldRegions(PsiElement element, List<FoldingDescriptor> descriptors) {
         children(element).each((child) -> {
             TextRange range = getRange(child);
-            if (range != null) {
+            if (range != null && range.getLength() > 0) {
                 descriptors.add(new FoldingDescriptor(child, range));
             }
             createFoldRegions(child, descriptors);
