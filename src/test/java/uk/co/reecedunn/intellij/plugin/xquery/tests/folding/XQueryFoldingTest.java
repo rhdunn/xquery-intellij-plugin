@@ -135,6 +135,15 @@ public class XQueryFoldingTest extends ParserTestCase {
         assertThat(descriptors.length, is(0));
     }
 
+    public void testDirElemConstructor_Incomplete() {
+        final XQueryFile file = parseResource("tests/folding/DirElemConstructor_Incomplete.xq");
+        final XQueryFoldingBuilder builder = new XQueryFoldingBuilder();
+
+        final FoldingDescriptor[] descriptors = builder.buildFoldRegions(file, getDocument(file), false);
+        assertThat(descriptors, is(notNullValue()));
+        assertThat(descriptors.length, is(0));
+    }
+
     public void testDirElemConstructor_MultiLine() {
         final XQueryFile file = parseResource("tests/folding/DirElemConstructor_MultiLine.xq");
         final XQueryFoldingBuilder builder = new XQueryFoldingBuilder();

@@ -71,7 +71,7 @@ public class XQueryFoldingBuilder extends FoldingBuilderEx {
             end = end.getPrevSibling();
         }
 
-        if (hasEnclosedExprOnlyContent && !hasMultiLineAttributes) {
+        if ((hasEnclosedExprOnlyContent && !hasMultiLineAttributes) || (start == null)) {
             return null;
         }
         return new TextRange(start.getTextRange().getStartOffset(), end.getTextRange().getStartOffset());
