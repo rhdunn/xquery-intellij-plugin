@@ -75,6 +75,7 @@ Other supported IntelliJ features:
 1.  Find usages.
 2.  Paired brace matching.
 3.  Commenting code support.
+4.  MarkLogic run configurations.
 
 ## License Information
 

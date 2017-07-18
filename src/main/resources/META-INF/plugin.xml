@@ -6,23 +6,33 @@
   <vendor email="msclrhd@gmail.com" url="http://reecedunn.co.uk">Reece H. Dunn</vendor>
 
   <description><![CDATA[
-    XQuery Language Support
+    XQuery 1.0, 3.0 and 3.1 language support including Update Facility 1.0
+    and 3.0, and Scripting Extension 1.0. Supports BaseX, MarkLogic and
+    Saxonica XQuery implementations.
   ]]></description>
 
   <change-notes><![CDATA[
-    <h3>Release 0.4:</h3>
+    <h3>Release 0.5:</h3>
     <p>Language Support:</p>
     <ol>
-      <li>Complete support for XQuery Scripting Extensions 1.0.</li>
-      <li>Support highlighting xqDoc parameter names.</li>
-      <li>Support highlighting XML <code>PredefinedEntityRef</code> and <code>CharRef</code> tokens in xqDoc comments.</li>
-      <li>Support BaseX 7.8 and 8.5 `update` expressions.</li>
+      <li>MarkLogic 9.0 support.</li>
+      <li>Interpret <code>expr &lt;ncname</code> as part of an expression, not as a
+          <code>DirElemConstructor</code> when not followed by an attribute list or
+          closing element tag. XQuery engines support this usage.</li>
+      <li>Allow empty <code>EnclosedExpr</code> elements in <code>CompTextConstructor</code>,
+          <code>DirAttributeValue</code> and <code>DirElemContent</code> for MarkLogic.</li>
     </ol>
     <p>Bug Fixes:</p>
     <ol>
-      <li>Don't crash when resolving an empty <code>URILiteral</code> in an import statement.</li>
-      <li>Fix highlighting <code>:</code> at the start of a line in xqDoc comments.</li>
-      <li><code>array-node {}</code> is valid in MarkLogic 8.0.</li>
+      <li>Fix processing NCNames in `map` keys and values separated by spaces.</li>
+      <li>Fix a crash when checking conformance of <code>map</code> constructs without a <code>:</code>.</li>
+    </ol>
+    </ol>
+    <p>IntelliJ Integration:</p>
+    <ol>
+      <li>Support code folding for <code>EnclosedExpr</code>, <code>DirElemConstructor</code>
+          and <code>Comment</code> elements;</li>
+      <li>Initial support for MarkLogic run configurations.</li>
     </ol>
   ]]></change-notes>
 

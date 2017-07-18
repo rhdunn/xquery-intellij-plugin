@@ -1,6 +1,6 @@
 # Change Log
 
-## 0.5 - (In Development)
+## 0.5 - 2017-07-18
 
 Language Support:
 
@@ -19,7 +19,8 @@ Bug Fixes:
 IntelliJ Integration:
 
 1.  Support code folding for `EnclosedExpr`, `DirElemConstructor` and `Comment`
-    elements.
+    elements;
+2.  Initial support for MarkLogic run configurations.
 
 ## 0.4 - 2017-01-03
 
