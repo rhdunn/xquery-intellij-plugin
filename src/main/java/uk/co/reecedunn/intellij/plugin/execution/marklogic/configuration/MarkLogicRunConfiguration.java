@@ -21,6 +21,10 @@ import com.intellij.execution.configurations.*;
 import com.intellij.execution.runners.ExecutionEnvironment;
 import com.intellij.openapi.options.SettingsEditor;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.util.DefaultJDOMExternalizer;
+import com.intellij.openapi.util.InvalidDataException;
+import com.intellij.openapi.util.WriteExternalException;
+import org.jdom.Element;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.core.ui.SettingsEditorImpl;
@@ -29,11 +33,15 @@ import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUIFactory;
 import uk.co.reecedunn.intellij.plugin.execution.marklogic.runner.MarkLogicRunProfileState;
 
 public class MarkLogicRunConfiguration extends RunConfigurationBase implements SettingsUIFactory<MarkLogicRunConfiguration> {
-    private String serverHost = "localhost";
-    private int serverPort = 8000;
-    private String userName = "";
-    private String password = "";
-    private String mainModulePath = "";
+    static class ConfigData {
+        public String serverHost = "localhost";
+        public int serverPort = 8000;
+        public String userName = "";
+        public String password = "";
+        public String mainModulePath = "";
+    }
+
+    private ConfigData data = new ConfigData();
 
     MarkLogicRunConfiguration(@NotNull Project project, @NotNull ConfigurationFactory factory, String name) {
         super(project, factory, name);
@@ -60,43 +68,57 @@ public class MarkLogicRunConfiguration extends RunConfigurationBase implements S
         return new MarkLogicSettingsUI(getProject());
     }
 
+    @SuppressWarnings("deprecation")
+    @Override
+    public void readExternal(Element element) throws InvalidDataException {
+        super.readExternal(element);
+        DefaultJDOMExternalizer.readExternal(data, element);
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public void writeExternal(Element element) throws WriteExternalException {
+        super.writeExternal(element);
+        DefaultJDOMExternalizer.writeExternal(data, element);
+    }
+
     public String getServerHost() {
-        return serverHost;
+        return data.serverHost;
     }
 
     public void setServerHost(String host) {
-        serverHost = host;
+        data.serverHost = host;
     }
 
     public int getServerPort() {
-        return serverPort;
+        return data.serverPort;
     }
 
     public void setServerPort(int port) {
-        serverPort = port;
+        data.serverPort = port;
     }
 
     public String getUserName() {
-        return userName;
+        return data.userName;
     }
 
     public void setUserName(String userName) {
-        this.userName = userName;
+        this.data.userName = userName;
     }
 
     public String getPassword() {
-        return password;
+        return data.password;
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.data.password = password;
     }
 
     public String getMainModulePath() {
-        return mainModulePath;
+        return data.mainModulePath;
     }
 
     public void setMainModulePath(String mainModulePath) {
-        this.mainModulePath = mainModulePath;
+        this.data.mainModulePath = mainModulePath;
     }
 }
