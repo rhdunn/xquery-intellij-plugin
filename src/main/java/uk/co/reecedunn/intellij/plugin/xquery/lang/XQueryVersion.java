@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum XQueryVersion {
-    UNSUPPORTED("unsupported", 0.0),
+    UNSUPPORTED("unsupported", Double.MAX_VALUE),
 
     // region Specification Versions
 
@@ -84,8 +84,8 @@ public enum XQueryVersion {
         return mDate;
     }
 
-    public boolean supportsVersion(XQueryVersion version) {
-        return version != null && toDouble() >= version.toDouble();
+    public boolean supportsVersion(@NotNull XQueryVersion version) {
+        return toDouble() >= version.toDouble();
     }
 
     private static Map<CharSequence, XQueryVersion> sVersions = new HashMap<>();

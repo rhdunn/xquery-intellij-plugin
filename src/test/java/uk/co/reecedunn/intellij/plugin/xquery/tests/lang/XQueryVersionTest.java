@@ -156,21 +156,21 @@ public class XQueryVersionTest extends TestCase {
     }
 
     public void testSupportsVersion() {
-        assertThat(XQueryVersion.VERSION_0_9_MARKLOGIC.supportsVersion(null), is(false));
-        assertThat(XQueryVersion.VERSION_1_0.supportsVersion(null), is(false));
-        assertThat(XQueryVersion.VERSION_1_0_MARKLOGIC.supportsVersion(null), is(false));
-        assertThat(XQueryVersion.VERSION_3_0.supportsVersion(null), is(false));
-        assertThat(XQueryVersion.VERSION_3_1.supportsVersion(null), is(false));
-        assertThat(XQueryVersion.VERSION_6_0.supportsVersion(null), is(false));
-        assertThat(XQueryVersion.VERSION_7_0.supportsVersion(null), is(false));
-        assertThat(XQueryVersion.VERSION_8_0.supportsVersion(null), is(false));
-        assertThat(XQueryVersion.VERSION_8_4.supportsVersion(null), is(false));
-        assertThat(XQueryVersion.VERSION_8_5.supportsVersion(null), is(false));
-        assertThat(XQueryVersion.VERSION_9_0.supportsVersion(null), is(false));
-        assertThat(XQueryVersion.VERSION_9_4.supportsVersion(null), is(false));
-        assertThat(XQueryVersion.VERSION_9_5.supportsVersion(null), is(false));
-        assertThat(XQueryVersion.VERSION_9_6.supportsVersion(null), is(false));
-        assertThat(XQueryVersion.VERSION_9_7.supportsVersion(null), is(false));
+        assertThat(XQueryVersion.VERSION_0_9_MARKLOGIC.supportsVersion(XQueryVersion.UNSUPPORTED), is(false));
+        assertThat(XQueryVersion.VERSION_1_0.supportsVersion(XQueryVersion.UNSUPPORTED), is(false));
+        assertThat(XQueryVersion.VERSION_1_0_MARKLOGIC.supportsVersion(XQueryVersion.UNSUPPORTED), is(false));
+        assertThat(XQueryVersion.VERSION_3_0.supportsVersion(XQueryVersion.UNSUPPORTED), is(false));
+        assertThat(XQueryVersion.VERSION_3_1.supportsVersion(XQueryVersion.UNSUPPORTED), is(false));
+        assertThat(XQueryVersion.VERSION_6_0.supportsVersion(XQueryVersion.UNSUPPORTED), is(false));
+        assertThat(XQueryVersion.VERSION_7_0.supportsVersion(XQueryVersion.UNSUPPORTED), is(false));
+        assertThat(XQueryVersion.VERSION_8_0.supportsVersion(XQueryVersion.UNSUPPORTED), is(false));
+        assertThat(XQueryVersion.VERSION_8_4.supportsVersion(XQueryVersion.UNSUPPORTED), is(false));
+        assertThat(XQueryVersion.VERSION_8_5.supportsVersion(XQueryVersion.UNSUPPORTED), is(false));
+        assertThat(XQueryVersion.VERSION_9_0.supportsVersion(XQueryVersion.UNSUPPORTED), is(false));
+        assertThat(XQueryVersion.VERSION_9_4.supportsVersion(XQueryVersion.UNSUPPORTED), is(false));
+        assertThat(XQueryVersion.VERSION_9_5.supportsVersion(XQueryVersion.UNSUPPORTED), is(false));
+        assertThat(XQueryVersion.VERSION_9_6.supportsVersion(XQueryVersion.UNSUPPORTED), is(false));
+        assertThat(XQueryVersion.VERSION_9_7.supportsVersion(XQueryVersion.UNSUPPORTED), is(false));
 
         assertThat(XQueryVersion.VERSION_0_9_MARKLOGIC.supportsVersion(XQueryVersion.VERSION_0_9_MARKLOGIC), is(true));
         assertThat(XQueryVersion.VERSION_1_0.supportsVersion(XQueryVersion.VERSION_0_9_MARKLOGIC), is(true));
@@ -414,13 +414,13 @@ public class XQueryVersionTest extends TestCase {
     }
 
     public void testSupportsVersion_WithDate() {
-        assertThat(XQueryVersion.VERSION_1_0.supportsVersion(null), is(false));
-        assertThat(XQueryVersion.VERSION_1_0_20070123.supportsVersion(null), is(false));
-        assertThat(XQueryVersion.VERSION_1_0_20101214.supportsVersion(null), is(false));
-        assertThat(XQueryVersion.VERSION_3_0.supportsVersion(null), is(false));
-        assertThat(XQueryVersion.VERSION_3_0_20140408.supportsVersion(null), is(false));
-        assertThat(XQueryVersion.VERSION_3_1.supportsVersion(null), is(false));
-        assertThat(XQueryVersion.VERSION_3_1_20161213.supportsVersion(null), is(false));
+        assertThat(XQueryVersion.VERSION_1_0.supportsVersion(XQueryVersion.UNSUPPORTED), is(false));
+        assertThat(XQueryVersion.VERSION_1_0_20070123.supportsVersion(XQueryVersion.UNSUPPORTED), is(false));
+        assertThat(XQueryVersion.VERSION_1_0_20101214.supportsVersion(XQueryVersion.UNSUPPORTED), is(false));
+        assertThat(XQueryVersion.VERSION_3_0.supportsVersion(XQueryVersion.UNSUPPORTED), is(false));
+        assertThat(XQueryVersion.VERSION_3_0_20140408.supportsVersion(XQueryVersion.UNSUPPORTED), is(false));
+        assertThat(XQueryVersion.VERSION_3_1.supportsVersion(XQueryVersion.UNSUPPORTED), is(false));
+        assertThat(XQueryVersion.VERSION_3_1_20161213.supportsVersion(XQueryVersion.UNSUPPORTED), is(false));
 
         assertThat(XQueryVersion.VERSION_1_0.supportsVersion(XQueryVersion.VERSION_1_0), is(true));
         assertThat(XQueryVersion.VERSION_1_0_20070123.supportsVersion(XQueryVersion.VERSION_1_0), is(true));
