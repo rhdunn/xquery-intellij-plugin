@@ -159,9 +159,9 @@ public class ImplementationsTest extends TestCase {
         assertThat(dialects.get(0).getVersion(XQueryConformance.MINIMAL_CONFORMANCE), is(XQueryVersion.VERSION_1_0));
         assertThat(dialects.get(1).getVersion(XQueryConformance.MINIMAL_CONFORMANCE), is(XQueryVersion.VERSION_1_0_MARKLOGIC));
 
-        assertThat(dialects.get(0).getVersion(XQueryConformance.UPDATE_FACILITY), is(nullValue()));
-        assertThat(dialects.get(0).getVersion(XQueryConformance.FULL_TEXT), is(nullValue()));
-        assertThat(dialects.get(0).getVersion(XQueryConformance.SCRIPTING), is(nullValue()));
+        assertThat(dialects.get(0).getVersion(XQueryConformance.UPDATE_FACILITY), is(XQueryVersion.UNSUPPORTED));
+        assertThat(dialects.get(0).getVersion(XQueryConformance.FULL_TEXT), is(XQueryVersion.UNSUPPORTED));
+        assertThat(dialects.get(0).getVersion(XQueryConformance.SCRIPTING), is(XQueryVersion.UNSUPPORTED));
     }
 
     public void testSpecification() {

@@ -101,6 +101,7 @@ public class ImplementationItem {
         return NULL_ITEM;
     }
 
+    @NotNull
     public XQueryVersion getVersion(XQueryConformance featureName) {
         if (mElement != null) {
             NodeList nodes = mElement.getElementsByTagName(featureName.toString());
@@ -109,7 +110,7 @@ public class ImplementationItem {
                 return XQueryVersion.parse(node.getAttributes().getNamedItem("version").getNodeValue());
             }
         }
-        return null;
+        return XQueryVersion.UNSUPPORTED;
     }
 
     public List<ImplementationItem> getItemsByVersion(String tagName, XQueryConformance featureName, XQueryVersion featureVersion) {
