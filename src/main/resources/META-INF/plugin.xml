@@ -12,27 +12,16 @@
   ]]></description>
 
   <change-notes><![CDATA[
-    <h3>Release 0.5:</h3>
+    <h3>Release 0.6-dev:</h3>
     <p>Language Support:</p>
     <ol>
-      <li>MarkLogic 9.0 support.</li>
-      <li>Interpret <code>expr &lt;ncname</code> as part of an expression, not as a
-          <code>DirElemConstructor</code> when not followed by an attribute list or
-          closing element tag. XQuery engines support this usage.</li>
-      <li>Allow empty <code>EnclosedExpr</code> elements in <code>CompTextConstructor</code>,
-          <code>DirAttributeValue</code> and <code>DirElemContent</code> for MarkLogic.</li>
     </ol>
     <p>Bug Fixes:</p>
     <ol>
-      <li>Fix processing NCNames in `map` keys and values separated by spaces.</li>
-      <li>Fix a crash when checking conformance of <code>map</code> constructs without a <code>:</code>.</li>
     </ol>
     </ol>
     <p>IntelliJ Integration:</p>
     <ol>
-      <li>Support code folding for <code>EnclosedExpr</code>, <code>DirElemConstructor</code>
-          and <code>Comment</code> elements;</li>
-      <li>Initial support for MarkLogic run configurations.</li>
     </ol>
   ]]></change-notes>
 
