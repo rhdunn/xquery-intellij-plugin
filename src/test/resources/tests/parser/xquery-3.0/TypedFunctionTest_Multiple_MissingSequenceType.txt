@@ -37,6 +37,7 @@ FileElement[FILE(0:60)]
                               PsiErrorElementImpl[ERROR_ELEMENT(48:48)]('XPST0003: Expected 'SequenceType'.')
                               LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(48:49)](')')
                               PsiWhiteSpaceImpl[WHITE_SPACE(49:50)](' ')
+                              PsiErrorElementImpl[ERROR_ELEMENT(50:50)]('XPST0003: Expected 'as'.')
                LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(50:58)]('external')
                PsiWhiteSpaceImpl[WHITE_SPACE(58:59)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(59:60)](';')

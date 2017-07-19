@@ -2,6 +2,10 @@
 
 ## 0.6 - (In Development)
 
+Bug Fixes:
+
+1.  Report a parser error when a TypedFunctionTest does not have a return type clause.
+
 IntelliJ Integration:
 
 1.  Support running JavaScript queries from the MarkLogic run configuration.

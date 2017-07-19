@@ -5062,6 +5062,8 @@ class XQueryParser {
                 if (!parseSequenceType() && !haveErrors) {
                     error(XQueryBundle.message("parser.error.expected", "SequenceType"));
                 }
+            } else if (type == XQueryElementType.TYPED_FUNCTION_TEST) {
+                error(XQueryBundle.message("parser.error.expected", "as"));
             }
 
             functionTestMarker.done(type);
