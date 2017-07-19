@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
 import com.intellij.psi.PsiFile;
+import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 
 /**
@@ -34,5 +35,6 @@ public interface XQueryFile extends PsiFile {
      *
      * @return The detected XQuery version.
      */
+    @NotNull
     XQueryVersion getXQueryVersion();
 }

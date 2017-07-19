@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.lang;
 
+import org.jetbrains.annotations.NotNull;
 import org.w3c.dom.*;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 
@@ -159,6 +160,7 @@ public class ImplementationItem {
         return items;
     }
 
+    @NotNull
     public XQueryVersion getDefaultVersion(String tagName, XQueryConformance featureName) {
         if (mElement != null) {
             NodeList nodes = mElement.getElementsByTagName(tagName);
@@ -174,7 +176,7 @@ public class ImplementationItem {
                 }
             }
         }
-        return null;
+        return XQueryVersion.UNSUPPORTED;
     }
 
     public String getSpecification(XQueryConformance featureName) {

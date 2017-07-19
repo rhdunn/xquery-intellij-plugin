@@ -43,6 +43,7 @@ public class XQueryFileImpl extends PsiFileBase implements XQueryFile {
         return XQueryFileType.INSTANCE;
     }
 
+    @NotNull
     public XQueryVersion getXQueryVersion() {
         return children(this).findFirst(XQueryModule.class).flatMap((module) ->
             descendants(module).findFirst(XQueryVersionDecl.class).flatMap((versionDecl) -> {

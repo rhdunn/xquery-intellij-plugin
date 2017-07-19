@@ -103,11 +103,12 @@ public class XQueryProjectSettings implements PersistentStateComponent<XQueryPro
         IMPLEMENTATION_VERSION = Implementations.getItemById(version);
     }
 
+    @NotNull
     public XQueryVersion getXQueryVersion() {
         return XQUERY_VERSION;
     }
 
-    public void setXQueryVersion(XQueryVersion version) {
+    public void setXQueryVersion(@NotNull XQueryVersion version) {
         XQUERY_VERSION = version;
     }
 
