@@ -22,6 +22,7 @@ import com.intellij.execution.runners.ExecutionEnvironment;
 import com.intellij.openapi.vfs.VfsUtil;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.openapi.vfs.VirtualFileManager;
+import com.intellij.util.PathUtil;
 import com.marklogic.xcc.*;
 import org.apache.xmlbeans.impl.common.IOUtil;
 import org.jetbrains.annotations.NotNull;
@@ -40,7 +41,7 @@ public class MarkLogicRunProfileState extends CommandLineState {
         MarkLogicRunConfiguration configuration = (MarkLogicRunConfiguration)getEnvironment().getRunProfile();
         ContentSource source = createContentSource(configuration);
         Session session = source.newSession();
-        RequestOptions options = session.getDefaultRequestOptions();
+        RequestOptions options = createRequestOptions(configuration);
         Request request = session.newAdhocQuery(getQueryFromFile(configuration.getMainModulePath()), options);
         return new MarkLogicRequestHandler(session, request);
     }
@@ -57,6 +58,14 @@ public class MarkLogicRunProfileState extends CommandLineState {
             configuration.getServerPort(),
             configuration.getUserName(),
             configuration.getPassword());
+    }
+
+    private RequestOptions createRequestOptions(MarkLogicRunConfiguration configuration) {
+        final String ext = PathUtil.getFileExtension(configuration.getMainModulePath());
+
+        RequestOptions options = new RequestOptions();
+        options.setQueryLanguage(configuration.getQueryLanguageFromExtension(ext));
+        return options;
     }
 
     private String getQueryFromFile(String fileName) {

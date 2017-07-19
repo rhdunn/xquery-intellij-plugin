@@ -2,6 +2,10 @@
 
 ## 0.6 - (In Development)
 
+IntelliJ Integration:
+
+1.  Support running JavaScript queries from the MarkLogic run configuration.
+
 ## 0.5 - 2017-07-18
 
 Language Support:

@@ -19,9 +19,9 @@
     <p>Bug Fixes:</p>
     <ol>
     </ol>
-    </ol>
     <p>IntelliJ Integration:</p>
     <ol>
+      <li>Support running JavaScript queries from the MarkLogic run configuration.</li>
     </ol>
   ]]></change-notes>
 

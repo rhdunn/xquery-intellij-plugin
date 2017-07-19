@@ -49,7 +49,7 @@ public class MarkLogicSettingsUI implements SettingsUI<MarkLogicRunConfiguration
             XQueryBundle.message("browser.choose-main-module"),
             null,
             mProject,
-            new FileTypeDescriptor("XQuery", XQueryFileType.EXTENSIONS.split(";")),
+            new FileTypeDescriptor("XQuery", MarkLogicRunConfiguration.EXTENSIONS),
             new TextFieldFileAccessor());
     }
 

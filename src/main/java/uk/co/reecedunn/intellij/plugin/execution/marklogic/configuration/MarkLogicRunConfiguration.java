@@ -24,6 +24,7 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.DefaultJDOMExternalizer;
 import com.intellij.openapi.util.InvalidDataException;
 import com.intellij.openapi.util.WriteExternalException;
+import com.intellij.util.ArrayUtil;
 import org.jdom.Element;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -33,12 +34,25 @@ import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUIFactory;
 import uk.co.reecedunn.intellij.plugin.execution.marklogic.runner.MarkLogicRunProfileState;
 
 public class MarkLogicRunConfiguration extends RunConfigurationBase implements SettingsUIFactory<MarkLogicRunConfiguration> {
+    private static final String QUERY_LANGUAGE_JAVASCRIPT = "javascript";
+    private static final String QUERY_LANGUAGE_XQUERY = "xquery";
+
+    public static final String[] EXTENSIONS = new String[]{
+        "xq", "xqy", "xquery", "xql", "xqu",
+        "js",
+    };
+    private static final String[] QUERY_LANGUAGES = new String[]{
+        QUERY_LANGUAGE_XQUERY, QUERY_LANGUAGE_XQUERY, QUERY_LANGUAGE_XQUERY, QUERY_LANGUAGE_XQUERY, QUERY_LANGUAGE_XQUERY,
+        QUERY_LANGUAGE_JAVASCRIPT,
+    };
+
     static class ConfigData {
         public String serverHost = "localhost";
         public int serverPort = 8000;
         public String userName = "";
         public String password = "";
         public String mainModulePath = "";
+        public String queryLanguage = "";
     }
 
     private ConfigData data = new ConfigData();
@@ -118,7 +132,12 @@ public class MarkLogicRunConfiguration extends RunConfigurationBase implements S
         return data.mainModulePath;
     }
 
-    public void setMainModulePath(String mainModulePath) {
+    public void setMainModulePath(@NotNull String mainModulePath) {
         this.data.mainModulePath = mainModulePath;
+    }
+
+    public String getQueryLanguageFromExtension(@Nullable String ext) {
+        int index = ArrayUtil.indexOf(EXTENSIONS, ext);
+        return (index > 0) ? QUERY_LANGUAGES[index] : null;
     }
 }
