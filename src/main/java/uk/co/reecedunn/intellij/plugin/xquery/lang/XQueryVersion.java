@@ -22,6 +22,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum XQueryVersion {
+    UNSUPPORTED("unsupported", 0.0),
+
     // region Specification Versions
 
     VERSION_1_0_20070123("1.0-20070123", 1.0, 20070123), // XQuery 1.0 REC (First Edition)
@@ -64,9 +66,9 @@ public enum XQueryVersion {
         this(id, value, 0);
     }
 
-    @Nullable
+    @NotNull
     public static XQueryVersion parse(@Nullable CharSequence value) {
-        return sVersions.get(value);
+        return sVersions.getOrDefault(value, UNSUPPORTED);
     }
 
     @Override

@@ -55,7 +55,7 @@ public class XQueryVersionTest extends TestCase {
     }
 
     public void testParse() {
-        assertThat(XQueryVersion.parse(null), is(nullValue()));
+        assertThat(XQueryVersion.parse(null), is(XQueryVersion.UNSUPPORTED));
 
         // XQuery Versions:
         assertThat(XQueryVersion.parse("0.9-ml"), is(XQueryVersion.VERSION_0_9_MARKLOGIC));
@@ -87,10 +87,10 @@ public class XQueryVersionTest extends TestCase {
         assertThat(XQueryVersion.parse("9.7"), is(XQueryVersion.VERSION_9_7));
 
         // Unsupported/Unknown Versions:
-        assertThat(XQueryVersion.parse("0.9"), is(nullValue()));
-        assertThat(XQueryVersion.parse("1.0-und"), is(nullValue()));
-        assertThat(XQueryVersion.parse("1.1"), is(nullValue()));
-        assertThat(XQueryVersion.parse("2.0"), is(nullValue()));
+        assertThat(XQueryVersion.parse("0.9"), is(XQueryVersion.UNSUPPORTED));
+        assertThat(XQueryVersion.parse("1.0-und"), is(XQueryVersion.UNSUPPORTED));
+        assertThat(XQueryVersion.parse("1.1"), is(XQueryVersion.UNSUPPORTED));
+        assertThat(XQueryVersion.parse("2.0"), is(XQueryVersion.UNSUPPORTED));
     }
 
     public void testToDouble() {

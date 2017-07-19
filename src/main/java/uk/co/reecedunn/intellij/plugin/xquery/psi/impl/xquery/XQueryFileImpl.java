@@ -49,7 +49,7 @@ public class XQueryFileImpl extends PsiFileBase implements XQueryFile {
                 XQueryStringLiteral version = versionDecl.getVersion();
                 if (version != null) {
                     XQueryVersion xqueryVersion = XQueryVersion.parse(version.getAtomicValue());
-                    if (xqueryVersion != null) {
+                    if (xqueryVersion != XQueryVersion.UNSUPPORTED) {
                         return Option.some(xqueryVersion);
                     }
                 }
