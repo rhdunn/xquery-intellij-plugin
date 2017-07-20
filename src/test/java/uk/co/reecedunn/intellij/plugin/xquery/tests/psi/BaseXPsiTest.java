@@ -44,7 +44,6 @@ public class BaseXPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(false));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("basex/v8.4/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("basex/v8.4/1.0-update")), is(true));
@@ -80,7 +79,6 @@ public class BaseXPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(false));
 
         assertThat(versioned.conformsTo(Implementations.getItemById("basex/v8.4/1.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("basex/v8.4/1.0-update")), is(false));

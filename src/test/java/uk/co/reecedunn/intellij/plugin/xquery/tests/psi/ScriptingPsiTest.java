@@ -52,7 +52,6 @@ public class ScriptingPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
 
         assertThat(versioned.getConformanceErrorMessage(),
                 is("XPST0003: This expression requires Scripting Extension 1.0 or later."));
@@ -74,7 +73,6 @@ public class ScriptingPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(false));
 
         assertThat(versioned.getConformanceErrorMessage(),
                 is("XPST0003: This expression requires Scripting Extension 1.0 or later."));
@@ -96,7 +94,6 @@ public class ScriptingPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(false));
 
         assertThat(versioned.getConformanceErrorMessage(),
                 is("XPST0003: This expression requires Scripting Extension 1.0 or later."));
@@ -121,7 +118,6 @@ public class ScriptingPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(false));
 
         assertThat(versioned.getConformanceErrorMessage(),
                 is("XPST0003: This expression requires Scripting Extension 1.0 or later."));
@@ -146,7 +142,6 @@ public class ScriptingPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(false));
 
         assertThat(versioned.getConformanceErrorMessage(),
                 is("XPST0003: This expression requires Scripting Extension 1.0 or later."));
@@ -175,7 +170,6 @@ public class ScriptingPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(false));
 
         assertThat(versioned.getConformanceErrorMessage(),
                 is("XPST0003: This expression requires Scripting Extension 1.0 or later."));
@@ -200,7 +194,6 @@ public class ScriptingPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(false));
 
         assertThat(versioned.getConformanceErrorMessage(),
                 is("XPST0003: This expression requires Scripting Extension 1.0 or later."));
@@ -226,7 +219,6 @@ public class ScriptingPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(false));
 
         assertThat(versioned.getConformanceErrorMessage(),
                 is("XPST0003: This expression requires Scripting Extension 1.0 or later."));
@@ -249,7 +241,6 @@ public class ScriptingPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(false));
 
         assertThat(versioned.getConformanceErrorMessage(),
                 is("XPST0003: This expression requires Scripting Extension 1.0 or later."));
@@ -275,7 +266,6 @@ public class ScriptingPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(false));
 
         assertThat(versioned.getConformanceErrorMessage(),
                 is("XPST0003: This expression requires Scripting Extension 1.0 or later."));
@@ -298,7 +288,6 @@ public class ScriptingPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(false));
 
         assertThat(versioned.getConformanceErrorMessage(),
                 is("XPST0003: This expression requires Scripting Extension 1.0 or later."));
@@ -323,7 +312,6 @@ public class ScriptingPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(false));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(false));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(false));
 
         assertThat(versioned.getConformanceErrorMessage(),
                 is("XPST0003: This expression requires Scripting Extension 1.0 or later."));

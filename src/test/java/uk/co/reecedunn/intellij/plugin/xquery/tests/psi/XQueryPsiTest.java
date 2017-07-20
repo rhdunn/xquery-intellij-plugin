@@ -1825,7 +1825,6 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), is(true));
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), is(true));
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1-update")), is(true));
 
         assertThat(versioned.getConformanceErrorMessage(),
                 is("XPST0003: Reserved Scripting Extension 1.0 keyword used as a function name."));
