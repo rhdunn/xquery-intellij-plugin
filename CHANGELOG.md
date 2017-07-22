@@ -8,7 +8,7 @@ Bug Fixes:
 
 IntelliJ Integration:
 
-1.  Support running JavaScript queries from the MarkLogic run configuration.
+Moved the MarkLogic run configuration to a separate plugin.
 
 ## 0.5 - 2017-07-18
 

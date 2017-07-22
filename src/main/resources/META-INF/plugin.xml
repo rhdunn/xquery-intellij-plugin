@@ -22,7 +22,7 @@
     </ol>
     <p>IntelliJ Integration:</p>
     <ol>
-      <li>Support running JavaScript queries from the MarkLogic run configuration.</li>
+      <li>Moved the MarkLogic run configuration to a separate plugin.</li>
     </ol>
   ]]></change-notes>
 
@@ -67,9 +67,6 @@
     <projectService serviceInterface="uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings"
                     serviceImplementation="uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings"/>
     <projectConfigurable groupId="language" displayName="XQuery" instance="uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettingsConfigurable"/>
-
-    <configurationType implementation="uk.co.reecedunn.intellij.plugin.execution.marklogic.configuration.MarkLogicConfigurationType"/>
-    <programRunner implementation="uk.co.reecedunn.intellij.plugin.execution.marklogic.runner.MarkLogicProgramRunner"/>
   </extensions>
 
   <application-components>
