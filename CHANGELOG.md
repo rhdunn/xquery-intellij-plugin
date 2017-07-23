@@ -8,7 +8,7 @@ Bug Fixes:
 
 IntelliJ Integration:
 
-Moved the MarkLogic run configuration to a separate plugin.
+1.  Moved the MarkLogic run configuration to a separate plugin.
 
 ## 0.5 - 2017-07-18
 
