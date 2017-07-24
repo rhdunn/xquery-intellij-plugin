@@ -26,7 +26,6 @@ allprojects {
 
 dependencies {
     testCompile 'org.junit.jupiter:junit-jupiter-api:5.0.0-M4'
-    compile 'com.marklogic:marklogic-xcc:9.0.2'
 }
 
 intellij {
