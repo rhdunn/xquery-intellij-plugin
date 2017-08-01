@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.core.functional;
 
 import java.util.NoSuchElementException;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 /**
@@ -40,6 +41,10 @@ public abstract class Option<A> {
             return ret.isDefined() ? some(ret.get()) : none();
         }
         return none();
+    }
+
+    public Option<A> filter(Predicate<? super A> p) {
+        return (isDefined() && p.test(get())) ? this : none();
     }
 
     // region Option Interface

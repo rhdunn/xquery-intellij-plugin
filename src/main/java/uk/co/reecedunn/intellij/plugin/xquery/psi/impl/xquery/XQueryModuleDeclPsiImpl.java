@@ -33,17 +33,18 @@ public class XQueryModuleDeclPsiImpl extends ASTWrapperPsiElement implements XQu
         super(node);
     }
 
-    @Override
-    public Option<XQueryNamespace> resolveNamespace(CharSequence prefix) {
+    public Option<XQueryNamespace> getNamespace() {
         return children(this).findFirst(XQueryNCName.class).flatMap((name) ->
             name.getLocalName().flatMap((localName) -> {
-                if (localName.getText().equals(prefix)) {
-                    PsiElement element = findChildByType(XQueryElementType.URI_LITERAL);
-                    return Option.some(new XQueryNamespace(localName, element, this));
-                }
-                return Option.none();
+                PsiElement element = findChildByType(XQueryElementType.URI_LITERAL);
+                return Option.some(new XQueryNamespace(localName, element, this));
             })
         );
+    }
+
+    @Override
+    public Option<XQueryNamespace> resolveNamespace(CharSequence prefix) {
+        return getNamespace().filter((ns) -> ns.getPrefix().getText().equals(prefix));
     }
 
     @Override
