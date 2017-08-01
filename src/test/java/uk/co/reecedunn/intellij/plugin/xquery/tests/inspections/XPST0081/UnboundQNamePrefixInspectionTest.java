@@ -39,6 +39,7 @@ public class UnboundQNamePrefixInspectionTest extends InspectionTestCase {
     }
 
     // endregion
+    // region Predefined Namespaces
     // region xmlns
 
     public void testXmlns() {
@@ -49,6 +50,18 @@ public class UnboundQNamePrefixInspectionTest extends InspectionTestCase {
         assertThat(problems.length, is(0));
     }
 
+    // endregion
+    // region XQuery
+
+    public void testBuiltinXQuery() {
+        final XQueryFile file = parseResource("tests/inspections/XPST0081/builtin-xquery.xq");
+
+        final ProblemDescriptor[] problems = inspect(file, new UnboundQNamePrefixInspection());
+        assertThat(problems, is(notNullValue()));
+        assertThat(problems.length, is(0));
+    }
+
+    // endregion
     // endregion
     // region Inspection Sources
 

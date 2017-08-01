@@ -64,6 +64,11 @@ public class XQueryModulePsiImpl extends ASTWrapperPsiElement implements XQueryM
             predefinedNamespaces.clear();
 
             Project project = getProject();
+            // XQuery Predefined Namespaces [https://www.w3.org/TR/xquery/#id-basics]
+            createPredefinedNamespace(project, "xml", "http://www.w3.org/XML/1998/namespace");
+            createPredefinedNamespace(project, "xs", "http://www.w3.org/2001/XMLSchema");
+            createPredefinedNamespace(project, "xsi", "http://www.w3.org/2001/XMLSchema-instance");
+            createPredefinedNamespace(project, "fn", "http://www.w3.org/2005/xpath-functions");
             createPredefinedNamespace(project, "local", "http://www.w3.org/2005/xquery-local-functions");
         }
         return predefinedNamespaces;
