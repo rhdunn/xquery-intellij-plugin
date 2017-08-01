@@ -98,6 +98,8 @@ limitations under the License.
                 <serialization version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <full-axis version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <module version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <!-- Predefined Namespaces: http://docs.marklogic.com/6.0/guide/xquery/namespaces -->
+                <namespace prefix="err" uri="http://www.w3.org/2005/xqt-error"/>
             </dialect>
             <dialect id="marklogic/v6/1.0-ml" name="XQuery" localized="false" default="true">
                 <minimal-conformance version="1.0-ml" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
@@ -108,6 +110,23 @@ limitations under the License.
                 <full-axis version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <module version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <marklogic version="6.0" specification="https://docs.marklogic.com/6.0/guide/xquery/enhanced" default="true"/>
+                <!-- Predefined Namespaces: http://docs.marklogic.com/6.0/guide/xquery/namespaces -->
+                <namespace prefix="cts" uri="http://marklogic.com/cts"/>
+                <namespace prefix="dav" uri="DAV:"/>
+                <namespace prefix="dbg" uri="http://marklogic.com/xdmp/dbg"/>
+                <namespace prefix="dir" uri="http://marklogic.com/xdmp/directory"/>
+                <namespace prefix="err" uri="http://www.w3.org/2005/xqt-error"/>
+                <namespace prefix="error" uri="http://marklogic.com/xdmp/error"/>
+                <namespace prefix="lock" uri="http://marklogic.com/xdmp/lock"/>
+                <namespace prefix="map" uri="http://marklogic.com/xdmp/map"/>
+                <namespace prefix="math" uri="http://marklogic.com/xdmp/math"/>
+                <namespace prefix="prof" uri="http://marklogic.com/xdmp/profile"/>
+                <namespace prefix="prop" uri="http://marklogic.com/xdmp/property"/>
+                <namespace prefix="sec" uri="http://marklogic.com/xdmp/security"/>
+                <namespace prefix="spell" uri="http://marklogic.com/xdmp/spell"/>
+                <namespace prefix="xdmp" uri="http://marklogic.com/xdmp"/>
+                <namespace prefix="xqe" uri="http://marklogic.com/xqe"/>
+                <namespace prefix="xqterr" uri="http://www.w3.org/2005/xqt-error"/>
             </dialect>
         </version>
         <version id="marklogic/v7" name="MarkLogic 7" localized="false" default="false" href="https://docs.marklogic.com/7.0/">
@@ -125,6 +144,8 @@ limitations under the License.
                 <serialization version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <full-axis version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <module version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <!-- Predefined Namespaces: http://docs.marklogic.com/7.0/guide/xquery/namespaces -->
+                <namespace prefix="err" uri="http://www.w3.org/2005/xqt-error"/>
             </dialect>
             <dialect id="marklogic/v7/1.0-ml" name="XQuery" localized="false" default="true">
                 <minimal-conformance version="1.0-ml" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
@@ -135,6 +156,24 @@ limitations under the License.
                 <full-axis version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <module version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <marklogic version="7.0" specification="https://docs.marklogic.com/7.0/guide/xquery/enhanced" default="true"/>
+                <!-- Predefined Namespaces: http://docs.marklogic.com/7.0/guide/xquery/namespaces -->
+                <namespace prefix="cts" uri="http://marklogic.com/cts"/>
+                <namespace prefix="dav" uri="DAV:"/>
+                <namespace prefix="dbg" uri="http://marklogic.com/xdmp/dbg"/>
+                <namespace prefix="dir" uri="http://marklogic.com/xdmp/directory"/>
+                <namespace prefix="err" uri="http://www.w3.org/2005/xqt-error"/>
+                <namespace prefix="error" uri="http://marklogic.com/xdmp/error"/>
+                <namespace prefix="lock" uri="http://marklogic.com/xdmp/lock"/>
+                <namespace prefix="map" uri="http://marklogic.com/xdmp/map"/>
+                <namespace prefix="math" uri="http://marklogic.com/xdmp/math"/>
+                <namespace prefix="prof" uri="http://marklogic.com/xdmp/profile"/>
+                <namespace prefix="prop" uri="http://marklogic.com/xdmp/property"/>
+                <namespace prefix="sec" uri="http://marklogic.com/xdmp/security"/>
+                <namespace prefix="sem" uri="http://marklogic.com/semantics"/>
+                <namespace prefix="spell" uri="http://marklogic.com/xdmp/spell"/>
+                <namespace prefix="xdmp" uri="http://marklogic.com/xdmp"/>
+                <namespace prefix="xqe" uri="http://marklogic.com/xqe"/>
+                <namespace prefix="xqterr" uri="http://www.w3.org/2005/xqt-error"/>
             </dialect>
         </version>
         <version id="marklogic/v8" name="MarkLogic 8" localized="false" default="true" href="https://docs.marklogic.com/8.0/">
@@ -152,6 +191,8 @@ limitations under the License.
                 <serialization version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <full-axis version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <module version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <!-- Predefined Namespaces: http://docs.marklogic.com/8.0/guide/xquery/namespaces -->
+                <namespace prefix="err" uri="http://www.w3.org/2005/xqt-error"/>
             </dialect>
             <dialect id="marklogic/v8/1.0-ml" name="XQuery" localized="false" default="true">
                 <minimal-conformance version="1.0-ml" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
@@ -162,6 +203,24 @@ limitations under the License.
                 <full-axis version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <module version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <marklogic version="8.0" specification="https://docs.marklogic.com/9.0/guide/xquery/enhanced" default="true"/>
+                <!-- Predefined Namespaces: http://docs.marklogic.com/8.0/guide/xquery/namespaces -->
+                <namespace prefix="cts" uri="http://marklogic.com/cts"/>
+                <namespace prefix="dav" uri="DAV:"/>
+                <namespace prefix="dbg" uri="http://marklogic.com/xdmp/dbg"/>
+                <namespace prefix="dir" uri="http://marklogic.com/xdmp/directory"/>
+                <namespace prefix="err" uri="http://www.w3.org/2005/xqt-error"/>
+                <namespace prefix="error" uri="http://marklogic.com/xdmp/error"/>
+                <namespace prefix="lock" uri="http://marklogic.com/xdmp/lock"/>
+                <namespace prefix="map" uri="http://marklogic.com/xdmp/map"/>
+                <namespace prefix="math" uri="http://marklogic.com/xdmp/math"/>
+                <namespace prefix="prof" uri="http://marklogic.com/xdmp/profile"/>
+                <namespace prefix="prop" uri="http://marklogic.com/xdmp/property"/>
+                <namespace prefix="sec" uri="http://marklogic.com/xdmp/security"/>
+                <namespace prefix="sem" uri="http://marklogic.com/semantics"/>
+                <namespace prefix="spell" uri="http://marklogic.com/xdmp/spell"/>
+                <namespace prefix="xdmp" uri="http://marklogic.com/xdmp"/>
+                <namespace prefix="xqe" uri="http://marklogic.com/xqe"/>
+                <namespace prefix="xqterr" uri="http://www.w3.org/2005/xqt-error"/>
             </dialect>
         </version>
         <version id="marklogic/v9" name="MarkLogic 9" localized="false" default="true" href="https://docs.marklogic.com/9.0/">
@@ -179,6 +238,8 @@ limitations under the License.
                 <serialization version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <full-axis version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <module version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
+                <!-- Predefined Namespaces: http://docs.marklogic.com/9.0/guide/xquery/namespaces -->
+                <namespace prefix="err" uri="http://www.w3.org/2005/xqt-error"/>
             </dialect>
             <dialect id="marklogic/v9/1.0-ml" name="XQuery" localized="false" default="true">
                 <minimal-conformance version="1.0-ml" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
@@ -189,6 +250,24 @@ limitations under the License.
                 <full-axis version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <module version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <marklogic version="9.0" specification="https://docs.marklogic.com/9.0/guide/xquery/enhanced" default="true"/>
+                <!-- Predefined Namespaces: http://docs.marklogic.com/9.0/guide/xquery/namespaces -->
+                <namespace prefix="cts" uri="http://marklogic.com/cts"/>
+                <namespace prefix="dav" uri="DAV:"/>
+                <namespace prefix="dbg" uri="http://marklogic.com/xdmp/dbg"/>
+                <namespace prefix="dir" uri="http://marklogic.com/xdmp/directory"/>
+                <namespace prefix="err" uri="http://www.w3.org/2005/xqt-error"/>
+                <namespace prefix="error" uri="http://marklogic.com/xdmp/error"/>
+                <namespace prefix="lock" uri="http://marklogic.com/xdmp/lock"/>
+                <namespace prefix="map" uri="http://marklogic.com/xdmp/map"/>
+                <namespace prefix="math" uri="http://marklogic.com/xdmp/math"/>
+                <namespace prefix="prof" uri="http://marklogic.com/xdmp/profile"/>
+                <namespace prefix="prop" uri="http://marklogic.com/xdmp/property"/>
+                <namespace prefix="sec" uri="http://marklogic.com/xdmp/security"/>
+                <namespace prefix="sem" uri="http://marklogic.com/semantics"/>
+                <namespace prefix="spell" uri="http://marklogic.com/xdmp/spell"/>
+                <namespace prefix="xdmp" uri="http://marklogic.com/xdmp"/>
+                <namespace prefix="xqe" uri="http://marklogic.com/xqe"/>
+                <namespace prefix="xqterr" uri="http://www.w3.org/2005/xqt-error"/>
             </dialect>
         </version>
     </implementation>

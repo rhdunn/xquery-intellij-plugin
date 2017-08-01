@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.lang;
 
+import com.intellij.openapi.util.Pair;
 import org.jetbrains.annotations.NotNull;
 import org.w3c.dom.*;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
@@ -25,6 +26,7 @@ import java.util.List;
 public class ImplementationItem {
     public static final String IMPLEMENTATION_VERSION = "version";
     public static final String IMPLEMENTATION_DIALECT = "dialect";
+    public static final String NAMESPACE = "namespace";
 
     public static final ImplementationItem NULL_ITEM = new ImplementationItem();
 
@@ -215,5 +217,16 @@ public class ImplementationItem {
             }
         }
         return NULL_ITEM;
+    }
+
+    public List<Pair<String, String>> getPredefinedNamespaces() {
+        List<Pair<String, String>> namespaces = new ArrayList<>();
+        NodeList nodes = mElement.getElementsByTagName(NAMESPACE);
+        for (int i = 0; i != nodes.getLength(); ++i) {
+            Element e = (Element)nodes.item(i);
+            Pair<String, String> ns = new Pair<>(e.getAttribute("prefix"), e.getAttribute("uri"));
+            namespaces.add(ns);
+        }
+        return namespaces;
     }
 }

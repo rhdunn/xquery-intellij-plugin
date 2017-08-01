@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.util.Pair;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -25,6 +26,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog;
 import uk.co.reecedunn.intellij.plugin.core.functional.Option;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.Implementations;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceResolver;
@@ -61,9 +64,9 @@ public class XQueryModulePsiImpl extends ASTWrapperPsiElement implements XQueryM
 
     private Map<String, XQueryNamespace> getPredefinedNamespaces() {
         XQueryVersion version = ((XQueryFile)getContainingFile()).getXQueryVersion();
-        String id = settings.getDialectForXQueryVersion(version).getID();
-        if (!id.equals(dialectId)) {
-            dialectId = id;
+        ImplementationItem dialect = settings.getDialectForXQueryVersion(version);
+        if (!dialect.getID().equals(dialectId)) {
+            dialectId = dialect.getID();
             predefinedNamespaces.clear();
 
             Project project = getProject();
@@ -81,6 +84,10 @@ public class XQueryModulePsiImpl extends ASTWrapperPsiElement implements XQueryM
                 createPredefinedNamespace(project, "map", "http://www.w3.org/2005/xpath-functions/map");
                 createPredefinedNamespace(project, "array", "http://www.w3.org/2005/xpath-functions/array");
                 createPredefinedNamespace(project, "math", "http://www.w3.org/2005/xpath-functions/math");
+            }
+
+            for (Pair<String, String> ns : dialect.getPredefinedNamespaces()) {
+                createPredefinedNamespace(project, ns.first, ns.second);
             }
         }
         return predefinedNamespaces;
