@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
+import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -27,6 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceResolver;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.TextPsiElementImpl;
+import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,21 +36,20 @@ import java.util.Map;
 import static uk.co.reecedunn.intellij.plugin.core.functional.PsiTreeWalker.children;
 
 public class XQueryModulePsiImpl extends ASTWrapperPsiElement implements XQueryModule, XQueryNamespaceResolver, XQueryPrologResolver {
-    private Map<String, TextPsiElementImpl> strings = new HashMap<>();
+    private Map<String, XQueryNamespace> predefinedNamespaces = new HashMap<>();
+    private XQueryProjectSettings settings;
+    private String dialectId = "";
 
     public XQueryModulePsiImpl(@NotNull ASTNode node) {
         super(node);
+        settings = XQueryProjectSettings.getInstance(getProject());
     }
 
     @Nullable
     @Override
     public Option<XQueryNamespace> resolveNamespace(CharSequence prefix) {
-        if (prefix != null && prefix.equals("local")) {
-            PsiElement prefixElement = getStringElement("local");
-            PsiElement uriElement = getStringElement("http://www.w3.org/2005/xquery-local-functions");
-            return Option.some(new XQueryNamespace(prefixElement, uriElement, this));
-        }
-        return Option.none();
+        XQueryNamespace ns = getPredefinedNamespaces().getOrDefault(prefix != null ? prefix.toString() : null, null);
+        return Option.of(ns);
     }
 
     @Override
@@ -56,12 +57,21 @@ public class XQueryModulePsiImpl extends ASTWrapperPsiElement implements XQueryM
         return children(this).findFirst(XQueryProlog.class);
     }
 
-    private PsiElement getStringElement(String string) {
-        TextPsiElementImpl element = strings.getOrDefault(string, null);
-        if (element == null) {
-            element = new TextPsiElementImpl(getProject(), string);
-            strings.put(string, element);
+    private Map<String, XQueryNamespace> getPredefinedNamespaces() {
+        String id = settings.getDialectForXQueryVersion(settings.getXQueryVersion()).getID();
+        if (!id.equals(dialectId)) {
+            dialectId = id;
+            predefinedNamespaces.clear();
+
+            Project project = getProject();
+            createPredefinedNamespace(project, "local", "http://www.w3.org/2005/xquery-local-functions");
         }
-        return element;
+        return predefinedNamespaces;
+    }
+
+    private void createPredefinedNamespace(Project project, String prefix, String uri) {
+        PsiElement prefixElement = new TextPsiElementImpl(project, prefix);
+        PsiElement uriElement = new TextPsiElementImpl(project, uri);
+        predefinedNamespaces.put(prefix, new XQueryNamespace(prefixElement, uriElement, this));
     }
 }
