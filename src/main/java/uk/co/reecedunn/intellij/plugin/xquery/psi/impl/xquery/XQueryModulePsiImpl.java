@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
+import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule;
@@ -25,10 +26,16 @@ import uk.co.reecedunn.intellij.plugin.core.functional.Option;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceResolver;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.TextPsiElementImpl;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static uk.co.reecedunn.intellij.plugin.core.functional.PsiTreeWalker.children;
 
 public class XQueryModulePsiImpl extends ASTWrapperPsiElement implements XQueryModule, XQueryNamespaceResolver, XQueryPrologResolver {
+    private Map<String, TextPsiElementImpl> strings = new HashMap<>();
+
     public XQueryModulePsiImpl(@NotNull ASTNode node) {
         super(node);
     }
@@ -37,7 +44,9 @@ public class XQueryModulePsiImpl extends ASTWrapperPsiElement implements XQueryM
     @Override
     public Option<XQueryNamespace> resolveNamespace(CharSequence prefix) {
         if (prefix != null && prefix.equals("local")) {
-            return Option.some(new XQueryNamespace(null, null, this));
+            PsiElement prefixElement = getStringElement("local");
+            PsiElement uriElement = getStringElement("http://www.w3.org/2005/xquery-local-functions");
+            return Option.some(new XQueryNamespace(prefixElement, uriElement, this));
         }
         return Option.none();
     }
@@ -45,5 +54,14 @@ public class XQueryModulePsiImpl extends ASTWrapperPsiElement implements XQueryM
     @Override
     public Option<XQueryProlog> resolveProlog() {
         return children(this).findFirst(XQueryProlog.class);
+    }
+
+    private PsiElement getStringElement(String string) {
+        TextPsiElementImpl element = strings.getOrDefault(string, null);
+        if (element == null) {
+            element = new TextPsiElementImpl(getProject(), string);
+            strings.put(string, element);
+        }
+        return element;
     }
 }
