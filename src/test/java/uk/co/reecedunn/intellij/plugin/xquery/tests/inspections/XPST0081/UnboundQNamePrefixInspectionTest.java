@@ -95,6 +95,7 @@ public class UnboundQNamePrefixInspectionTest extends InspectionTestCase {
         assertThat(problems[0].getHighlightType(), is(ProblemHighlightType.GENERIC_ERROR));
         assertThat(problems[0].getDescriptionTemplate(), is("XPST0081: Cannot resolve namespace prefix."));
         assertThat(problems[0].getPsiElement().getNode().getElementType(), is(XQueryElementType.NCNAME));
+        assertThat(problems[0].getPsiElement().getText(), is("xdmp"));
     }
 
     // endregion
@@ -111,6 +112,7 @@ public class UnboundQNamePrefixInspectionTest extends InspectionTestCase {
         assertThat(problems[0].getHighlightType(), is(ProblemHighlightType.GENERIC_ERROR));
         assertThat(problems[0].getDescriptionTemplate(), is("XPST0081: Cannot resolve namespace prefix."));
         assertThat(problems[0].getPsiElement().getNode().getElementType(), is(XQueryElementType.NCNAME));
+        assertThat(problems[0].getPsiElement().getText(), is("x"));
     }
 
     // endregion
@@ -135,6 +137,7 @@ public class UnboundQNamePrefixInspectionTest extends InspectionTestCase {
         assertThat(problems[0].getHighlightType(), is(ProblemHighlightType.GENERIC_ERROR));
         assertThat(problems[0].getDescriptionTemplate(), is("XPST0081: Cannot resolve namespace prefix."));
         assertThat(problems[0].getPsiElement().getNode().getElementType(), is(XQueryElementType.NCNAME));
+        assertThat(problems[0].getPsiElement().getText(), is("x"));
     }
 
     // endregion
