@@ -61,6 +61,14 @@ public class UnboundQNamePrefixInspectionTest extends InspectionTestCase {
         assertThat(problems.length, is(0));
     }
 
+    public void testBuiltinXQuery31() {
+        final XQueryFile file = parseResource("tests/inspections/XPST0081/builtin-xquery-3.1.xq");
+
+        final ProblemDescriptor[] problems = inspect(file, new UnboundQNamePrefixInspection());
+        assertThat(problems, is(notNullValue()));
+        assertThat(problems.length, is(0));
+    }
+
     // endregion
     // endregion
     // region Inspection Sources

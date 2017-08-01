@@ -21,9 +21,11 @@ import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog;
 import uk.co.reecedunn.intellij.plugin.core.functional.Option;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceResolver;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver;
@@ -58,18 +60,28 @@ public class XQueryModulePsiImpl extends ASTWrapperPsiElement implements XQueryM
     }
 
     private Map<String, XQueryNamespace> getPredefinedNamespaces() {
-        String id = settings.getDialectForXQueryVersion(settings.getXQueryVersion()).getID();
+        XQueryVersion version = ((XQueryFile)getContainingFile()).getXQueryVersion();
+        String id = settings.getDialectForXQueryVersion(version).getID();
         if (!id.equals(dialectId)) {
             dialectId = id;
             predefinedNamespaces.clear();
 
             Project project = getProject();
+
             // XQuery Predefined Namespaces [https://www.w3.org/TR/xquery/#id-basics]
             createPredefinedNamespace(project, "xml", "http://www.w3.org/XML/1998/namespace");
             createPredefinedNamespace(project, "xs", "http://www.w3.org/2001/XMLSchema");
             createPredefinedNamespace(project, "xsi", "http://www.w3.org/2001/XMLSchema-instance");
             createPredefinedNamespace(project, "fn", "http://www.w3.org/2005/xpath-functions");
             createPredefinedNamespace(project, "local", "http://www.w3.org/2005/xquery-local-functions");
+
+            if (version.supportsVersion(XQueryVersion.VERSION_3_1)) {
+                // XQuery 3.1 Predefined Namespaces [https://www.w3.org/TR/xquery-31/#id-basics]
+                // NOTE: The math namespace is predefined in XQuery 3.1, not XQuery 3.0!
+                createPredefinedNamespace(project, "map", "http://www.w3.org/2005/xpath-functions/map");
+                createPredefinedNamespace(project, "array", "http://www.w3.org/2005/xpath-functions/array");
+                createPredefinedNamespace(project, "math", "http://www.w3.org/2005/xpath-functions/math");
+            }
         }
         return predefinedNamespaces;
     }
