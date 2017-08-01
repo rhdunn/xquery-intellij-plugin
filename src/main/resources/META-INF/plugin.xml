@@ -20,6 +20,10 @@
     <ol>
       <li>Report a parser error when a TypedFunctionTest does not have a return type clause.</li>
     </ol>
+    <p>Inspections:</p>
+    <ol>
+      <li>XPST0081: Unbound QName prefix.</li>
+    </ol>
     <p>IntelliJ Integration:</p>
     <ol>
       <li>Moved the MarkLogic run configuration to a separate plugin.</li>
@@ -54,15 +58,21 @@
 
     <annotator language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.annotation.QNameAnnotator"/>
 
+    <!-- XPST0003 -->
     <localInspection language="XQuery" shortName="UnsupportedConstruct" bundle="messages.XQueryBundle"
                      key="inspection.XPST0003.unsupported-construct.display-name" hasStaticDescription="true"
                      groupKey="inspection.group.display-name" enabledByDefault="true" level="WARNING"
                      implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.XPST0003.UnsupportedConstructInspection"/>
-
     <localInspection language="XQuery" shortName="PredefinedEntityRef" bundle="messages.XQueryBundle"
                      key="inspection.XPST0003.predefined-entity.display-name" hasStaticDescription="true"
                      groupKey="inspection.group.display-name" enabledByDefault="true" level="ERROR"
                      implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.XPST0003.PredefinedEntityRefInspection"/>
+
+    <!-- XPST0081 -->
+    <localInspection language="XQuery" shortName="UnboundQNamePrefix" bundle="messages.XQueryBundle"
+                     key="inspection.XPST0081.unbound-qname-prefix.display-name" hasStaticDescription="true"
+                     groupKey="inspection.group.display-name" enabledByDefault="true" level="ERROR"
+                     implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.XPST0081.UnboundQNamePrefixInspection"/>
 
     <projectService serviceInterface="uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings"
                     serviceImplementation="uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings"/>

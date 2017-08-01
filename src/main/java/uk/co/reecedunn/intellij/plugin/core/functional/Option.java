@@ -47,6 +47,10 @@ public abstract class Option<A> {
         return (isDefined() && p.test(get())) ? this : none();
     }
 
+    public Option<A> filter(Class<?> c) {
+        return filter(c::isInstance);
+    }
+
     // region Option Interface
 
     /**

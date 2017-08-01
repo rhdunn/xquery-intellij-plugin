@@ -6,6 +6,10 @@ Bug Fixes:
 
 1.  Report a parser error when a TypedFunctionTest does not have a return type clause.
 
+Inspections:
+
+1.  XPST0081: Unbound QName prefix.
+
 IntelliJ Integration:
 
 1.  Moved the MarkLogic run configuration to a separate plugin.
