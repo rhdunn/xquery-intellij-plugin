@@ -52,7 +52,7 @@ public class UnsupportedConstructInspection extends LocalInspectionTool {
     public ProblemDescriptor[] checkFile(@NotNull PsiFile file, @NotNull final InspectionManager manager, final boolean isOnTheFly) {
         if (!(file instanceof XQueryFile)) return null;
 
-        XQueryVersion xqueryVersion = ((XQueryFile)file).getXQueryVersion();
+        XQueryVersion xqueryVersion = ((XQueryFile)file).getXQueryVersion().getVersionOrDefault(file.getProject());
         XQueryProjectSettings settings = XQueryProjectSettings.getInstance(file.getProject());
         ImplementationItem dialect = settings.getDialectForXQueryVersion(xqueryVersion);
 

@@ -63,7 +63,7 @@ public class XQueryModulePsiImpl extends ASTWrapperPsiElement implements XQueryM
     }
 
     private Map<String, XQueryNamespace> getPredefinedNamespaces() {
-        XQueryVersion version = ((XQueryFile)getContainingFile()).getXQueryVersion();
+        XQueryVersion version = ((XQueryFile)getContainingFile()).getXQueryVersion().getVersionOrDefault(getProject());
         ImplementationItem dialect = settings.getDialectForXQueryVersion(version);
         if (!dialect.getID().equals(dialectId)) {
             dialectId = dialect.getID();

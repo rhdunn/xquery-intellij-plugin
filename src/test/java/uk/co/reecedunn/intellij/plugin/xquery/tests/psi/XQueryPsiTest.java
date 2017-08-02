@@ -4102,20 +4102,26 @@ public class XQueryPsiTest extends ParserTestCase {
         getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
         final XQueryFile file = parseText("");
 
-        assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_3_0));
+        assertThat(file.getXQueryVersion().getVersion(), is(XQueryVersion.UNSUPPORTED));
+        assertThat(file.getXQueryVersion().getVersionOrDefault(file.getProject()), is(XQueryVersion.VERSION_3_0));
 
         getSettings().setXQueryVersion(XQueryVersion.VERSION_3_1);
-        assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_3_1));
+
+        assertThat(file.getXQueryVersion().getVersion(), is(XQueryVersion.UNSUPPORTED));
+        assertThat(file.getXQueryVersion().getVersionOrDefault(file.getProject()), is(XQueryVersion.VERSION_3_1));
     }
 
     public void testFile() {
         getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/IntegerLiteral.xq");
 
-        assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_3_0));
+        assertThat(file.getXQueryVersion().getVersion(), is(XQueryVersion.UNSUPPORTED));
+        assertThat(file.getXQueryVersion().getVersionOrDefault(file.getProject()), is(XQueryVersion.VERSION_3_0));
 
         getSettings().setXQueryVersion(XQueryVersion.VERSION_3_1);
-        assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_3_1));
+
+        assertThat(file.getXQueryVersion().getVersion(), is(XQueryVersion.UNSUPPORTED));
+        assertThat(file.getXQueryVersion().getVersionOrDefault(file.getProject()), is(XQueryVersion.VERSION_3_1));
     }
 
     // endregion
@@ -5831,7 +5837,9 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versionDeclPsi.getVersion().getAtomicValue(), is("1.0"));
         assertThat(versionDeclPsi.getEncoding(), is(nullValue()));
 
-        assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_1_0));
+        assertThat(file.getXQueryVersion().getVersion(), is(XQueryVersion.VERSION_1_0));
+        assertThat(file.getXQueryVersion().getVersionOrDefault(file.getProject()), is(XQueryVersion.VERSION_1_0));
+        assertThat(file.getXQueryVersion().getDeclaration(), is(versionDeclPsi.getVersion()));
 
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)versionDeclPsi;
 
@@ -5856,7 +5864,9 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versionDeclPsi.getVersion().getAtomicValue(), is("1.0"));
         assertThat(versionDeclPsi.getEncoding(), is(nullValue()));
 
-        assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_1_0));
+        assertThat(file.getXQueryVersion().getVersion(), is(XQueryVersion.VERSION_1_0));
+        assertThat(file.getXQueryVersion().getVersionOrDefault(file.getProject()), is(XQueryVersion.VERSION_1_0));
+        assertThat(file.getXQueryVersion().getDeclaration(), is(versionDeclPsi.getVersion()));
 
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)versionDeclPsi;
 
@@ -5880,7 +5890,9 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versionDeclPsi.getVersion().getAtomicValue(), is(nullValue()));
         assertThat(versionDeclPsi.getEncoding(), is(nullValue()));
 
-        assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_3_0));
+        assertThat(file.getXQueryVersion().getVersion(), is(XQueryVersion.UNSUPPORTED));
+        assertThat(file.getXQueryVersion().getVersionOrDefault(file.getProject()), is(XQueryVersion.VERSION_3_0));
+        assertThat(file.getXQueryVersion().getDeclaration(), is(versionDeclPsi.getVersion()));
 
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)versionDeclPsi;
 
@@ -5905,7 +5917,9 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versionDeclPsi.getEncoding(), is(notNullValue()));
         assertThat(versionDeclPsi.getEncoding().getAtomicValue(), is("latin1"));
 
-        assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_1_0));
+        assertThat(file.getXQueryVersion().getVersion(), is(XQueryVersion.VERSION_1_0));
+        assertThat(file.getXQueryVersion().getVersionOrDefault(file.getProject()), is(XQueryVersion.VERSION_1_0));
+        assertThat(file.getXQueryVersion().getDeclaration(), is(versionDeclPsi.getVersion()));
 
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)versionDeclPsi;
 
@@ -5930,7 +5944,9 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versionDeclPsi.getEncoding(), is(notNullValue()));
         assertThat(versionDeclPsi.getEncoding().getAtomicValue(), is("latin1"));
 
-        assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_1_0));
+        assertThat(file.getXQueryVersion().getVersion(), is(XQueryVersion.VERSION_1_0));
+        assertThat(file.getXQueryVersion().getVersionOrDefault(file.getProject()), is(XQueryVersion.VERSION_1_0));
+        assertThat(file.getXQueryVersion().getDeclaration(), is(versionDeclPsi.getVersion()));
 
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)versionDeclPsi;
 
@@ -5955,7 +5971,9 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versionDeclPsi.getEncoding(), is(notNullValue()));
         assertThat(versionDeclPsi.getEncoding().getAtomicValue(), is(nullValue()));
 
-        assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_1_0));
+        assertThat(file.getXQueryVersion().getVersion(), is(XQueryVersion.VERSION_1_0));
+        assertThat(file.getXQueryVersion().getVersionOrDefault(file.getProject()), is(XQueryVersion.VERSION_1_0));
+        assertThat(file.getXQueryVersion().getDeclaration(), is(versionDeclPsi.getVersion()));
 
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)versionDeclPsi;
 
@@ -5978,7 +5996,9 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versionDeclPsi.getVersion(), is(nullValue()));
         assertThat(versionDeclPsi.getEncoding(), is(nullValue()));
 
-        assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_3_0));
+        assertThat(file.getXQueryVersion().getVersion(), is(XQueryVersion.UNSUPPORTED));
+        assertThat(file.getXQueryVersion().getVersionOrDefault(file.getProject()), is(XQueryVersion.VERSION_3_0));
+        assertThat(file.getXQueryVersion().getDeclaration(), is(nullValue()));
 
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)versionDeclPsi;
 
@@ -6002,7 +6022,9 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versionDeclPsi.getVersion().getAtomicValue(), is("9.4"));
         assertThat(versionDeclPsi.getEncoding(), is(nullValue()));
 
-        assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_9_4));
+        assertThat(file.getXQueryVersion().getVersion(), is(XQueryVersion.VERSION_9_4));
+        assertThat(file.getXQueryVersion().getVersionOrDefault(file.getProject()), is(XQueryVersion.VERSION_9_4));
+        assertThat(file.getXQueryVersion().getDeclaration(), is(versionDeclPsi.getVersion()));
 
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)versionDeclPsi;
 
@@ -6026,7 +6048,9 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versionDeclPsi.getEncoding(), is(notNullValue()));
         assertThat(versionDeclPsi.getEncoding().getAtomicValue(), is("latin1"));
 
-        assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_3_0));
+        assertThat(file.getXQueryVersion().getVersion(), is(XQueryVersion.UNSUPPORTED));
+        assertThat(file.getXQueryVersion().getVersionOrDefault(file.getProject()), is(XQueryVersion.VERSION_3_0));
+        assertThat(file.getXQueryVersion().getDeclaration(), is(nullValue()));
 
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)versionDeclPsi;
 
@@ -6051,7 +6075,9 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(versionDeclPsi.getEncoding(), is(notNullValue()));
         assertThat(versionDeclPsi.getEncoding().getAtomicValue(), is(nullValue()));
 
-        assertThat(file.getXQueryVersion(), is(XQueryVersion.VERSION_3_0));
+        assertThat(file.getXQueryVersion().getVersion(), is(XQueryVersion.UNSUPPORTED));
+        assertThat(file.getXQueryVersion().getVersionOrDefault(file.getProject()), is(XQueryVersion.VERSION_3_0));
+        assertThat(file.getXQueryVersion().getDeclaration(), is(nullValue()));
 
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)versionDeclPsi;
 

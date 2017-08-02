@@ -15,8 +15,20 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
+import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiFile
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion
+import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings
+
+data class XQueryVersionRef(val declaration: XQueryStringLiteral?, val version: XQueryVersion) {
+    fun getVersionOrDefault(project: Project): XQueryVersion {
+        if (version == XQueryVersion.UNSUPPORTED) {
+            val settings: XQueryProjectSettings = XQueryProjectSettings.getInstance(project)
+            return settings.getXQueryVersion()
+        }
+        return version
+    }
+}
 
 /**
  * An XQuery file.
@@ -34,5 +46,5 @@ interface XQueryFile : PsiFile {
      *
      * @return The detected XQuery version.
      */
-    fun getXQueryVersion(): XQueryVersion
+    fun getXQueryVersion(): XQueryVersionRef
 }

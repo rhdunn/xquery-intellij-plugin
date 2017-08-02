@@ -50,7 +50,7 @@ public class PredefinedEntityRefInspection extends LocalInspectionTool {
     public ProblemDescriptor[] checkFile(@NotNull PsiFile file, @NotNull final InspectionManager manager, final boolean isOnTheFly) {
         if (!(file instanceof XQueryFile)) return null;
 
-        XQueryVersion version = ((XQueryFile)file).getXQueryVersion();
+        XQueryVersion version = ((XQueryFile)file).getXQueryVersion().getVersionOrDefault(file.getProject());
 
         final List<ProblemDescriptor> descriptors = new SmartList<>();
         checkElement(file, version, manager, descriptors, isOnTheFly);
