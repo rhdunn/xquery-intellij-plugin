@@ -41,3 +41,7 @@ fun PsiElement.descendants(): Sequence<PsiElement> {
 fun PsiElement.children(): Sequence<PsiElement> {
     return PsiElementWalker(firstChild, PsiElement::getNextSibling).asSequence()
 }
+
+fun PsiElement.siblings(): Sequence<PsiElement> {
+    return PsiElementWalker(nextSibling, PsiElement::getNextSibling).asSequence()
+}

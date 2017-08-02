@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016-2017 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,6 @@ import com.intellij.psi.PsiElement;
 /**
  * An XQuery 3.1 <code>ArrowFunctionSpecifier</code> node in the XQuery AST.
  */
-public interface XQueryArrowFunctionSpecifier extends PsiElement {
-    int getArity();
+interface XQueryArrowFunctionSpecifier : PsiElement {
+    val arity: Int
 }
