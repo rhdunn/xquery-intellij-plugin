@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016-2017 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
-import com.intellij.psi.PsiFile;
-import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
+import com.intellij.psi.PsiFile
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion
 
 /**
  * An XQuery file.
@@ -26,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
  * file implementation. It is included here to keep the interfaces for
  * navigating the parse trees together.
  */
-public interface XQueryFile extends PsiFile {
+interface XQueryFile : PsiFile {
     /**
      * Gets the XQuery version of the file.
      *
@@ -35,6 +34,5 @@ public interface XQueryFile extends PsiFile {
      *
      * @return The detected XQuery version.
      */
-    @NotNull
-    XQueryVersion getXQueryVersion();
+    fun getXQueryVersion(): XQueryVersion
 }
