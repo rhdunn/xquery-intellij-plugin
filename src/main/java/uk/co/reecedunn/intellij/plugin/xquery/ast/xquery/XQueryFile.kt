@@ -46,5 +46,5 @@ interface XQueryFile : PsiFile {
      *
      * @return The detected XQuery version.
      */
-    fun getXQueryVersion(): XQueryVersionRef
+    val XQueryVersion: XQueryVersionRef
 }

@@ -24,18 +24,18 @@ import uk.co.reecedunn.intellij.plugin.core.extensions.descendants
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.filetypes.XQueryFileType
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion as XQVersion
 
 class XQueryFileImpl(provider: FileViewProvider) : PsiFileBase(provider, XQuery.INSTANCE), XQueryFile {
     override fun getFileType(): FileType {
         return XQueryFileType.INSTANCE
     }
 
-    override fun getXQueryVersion(): XQueryVersionRef {
+    override val XQueryVersion get(): XQueryVersionRef {
         val module: PsiElement? = children().firstOrNull { e -> e is XQueryModule }
         val versionDecl: XQueryVersionDecl? = module?.descendants()?.firstOrNull { e -> e is XQueryVersionDecl } as? XQueryVersionDecl
         val version: XQueryStringLiteral? = versionDecl?.version
-        val xqueryVersion: XQueryVersion = XQueryVersion.parse(version?.atomicValue)
+        val xqueryVersion: XQVersion = XQVersion.parse(version?.atomicValue)
         return XQueryVersionRef(version, xqueryVersion)
     }
 }
