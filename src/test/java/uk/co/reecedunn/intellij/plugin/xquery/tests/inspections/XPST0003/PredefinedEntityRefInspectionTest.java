@@ -31,12 +31,12 @@ public class PredefinedEntityRefInspectionTest extends InspectionTestCase {
 
     public void testDisplayName() {
         PredefinedEntityRefInspection inspection = new PredefinedEntityRefInspection();
-        assertThat(inspection.getDisplayName(), is("Predefined entities"));
+        assertThat(inspection.getDisplayName(), is(notNullValue()));
     }
 
     public void testDescription() {
         PredefinedEntityRefInspection inspection = new PredefinedEntityRefInspection();
-        assertThat(inspection.loadDescription(), is("This inspection checks for invalid predefined entities. These entities would raise XPST0003 errors in the XQuery processor. HTML4 and HTML5 entities are only valid in the MarkLogic 1.0-ml extended syntax."));
+        assertThat(inspection.loadDescription(), is(notNullValue()));
     }
 
     // endregion

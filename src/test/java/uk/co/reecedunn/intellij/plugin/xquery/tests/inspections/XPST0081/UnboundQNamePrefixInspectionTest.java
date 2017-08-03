@@ -31,12 +31,12 @@ public class UnboundQNamePrefixInspectionTest extends InspectionTestCase {
 
     public void testDisplayName() {
         UnboundQNamePrefixInspection inspection = new UnboundQNamePrefixInspection();
-        assertThat(inspection.getDisplayName(), is("Unbound namespace prefix"));
+        assertThat(inspection.getDisplayName(), is(notNullValue()));
     }
 
     public void testDescription() {
         UnboundQNamePrefixInspection inspection = new UnboundQNamePrefixInspection();
-        assertThat(inspection.loadDescription(), is("This inspection checks for QName prefices that do not resolve to namespace declarations in the static context."));
+        assertThat(inspection.loadDescription(), is(notNullValue()));
     }
 
     // endregion

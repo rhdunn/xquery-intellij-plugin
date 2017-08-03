@@ -31,12 +31,12 @@ public class UnsupportedXQueryVersionInspectionTest extends InspectionTestCase {
 
     public void testDisplayName() {
         UnsupportedXQueryVersionInspection inspection = new UnsupportedXQueryVersionInspection();
-        assertThat(inspection.getDisplayName(), is("Unsupported XQuery version"));
+        assertThat(inspection.getDisplayName(), is(notNullValue()));
     }
 
     public void testDescription() {
         UnsupportedXQueryVersionInspection inspection = new UnsupportedXQueryVersionInspection();
-        assertThat(inspection.loadDescription(), is("This inspection checks for XQuery version declarations that specify a version not supported by the selected implementation."));
+        assertThat(inspection.loadDescription(), is(notNullValue()));
     }
 
     // endregion
