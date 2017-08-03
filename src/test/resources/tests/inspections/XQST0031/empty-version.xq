@@ -1,0 +1,2 @@
+xquery version "";
+2

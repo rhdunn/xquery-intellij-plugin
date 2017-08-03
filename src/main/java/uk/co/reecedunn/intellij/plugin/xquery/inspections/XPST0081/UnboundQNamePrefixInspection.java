@@ -36,7 +36,7 @@ import java.util.List;
 
 /** XPST0081 error condition
  *
- * It is a <em>static error</em> in a QName used in a query contains a
+ * It is a <em>static error</em> if a QName used in a query contains a
  * namespace prefix that is not in the <em>statically known namespaces</em>.
  */
 public class UnboundQNamePrefixInspection extends LocalInspectionTool {
