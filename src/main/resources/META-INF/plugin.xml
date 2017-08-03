@@ -61,23 +61,23 @@
     <!-- XPST0003 -->
     <localInspection language="XQuery" shortName="UnsupportedConstruct" bundle="messages.XQueryBundle"
                      key="inspection.XPST0003.unsupported-construct.display-name" hasStaticDescription="true"
-                     groupKey="inspection.group.display-name" enabledByDefault="true" level="WARNING"
+                     groupName="XQuery" enabledByDefault="true" level="WARNING"
                      implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.XPST0003.UnsupportedConstructInspection"/>
     <localInspection language="XQuery" shortName="PredefinedEntityRef" bundle="messages.XQueryBundle"
                      key="inspection.XPST0003.predefined-entity.display-name" hasStaticDescription="true"
-                     groupKey="inspection.group.display-name" enabledByDefault="true" level="ERROR"
+                     groupName="XQuery" enabledByDefault="true" level="ERROR"
                      implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.XPST0003.PredefinedEntityRefInspection"/>
 
     <!-- XQST0031 -->
     <localInspection language="XQuery" shortName="UnsupportedXQueryVersion" bundle="messages.XQueryBundle"
                      key="inspection.XQST0031.unsupported-version.display-name" hasStaticDescription="true"
-                     groupKey="inspection.group.display-name" enabledByDefault="true" level="ERROR"
+                     groupName="XQuery" enabledByDefault="true" level="ERROR"
                      implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.XQST0031.UnsupportedXQueryVersionInspection"/>
 
     <!-- XPST0081 -->
     <localInspection language="XQuery" shortName="UnboundQNamePrefix" bundle="messages.XQueryBundle"
                      key="inspection.XPST0081.unbound-qname-prefix.display-name" hasStaticDescription="true"
-                     groupKey="inspection.group.display-name" enabledByDefault="true" level="ERROR"
+                     groupName="XQuery" enabledByDefault="true" level="ERROR"
                      implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.XPST0081.UnboundQNamePrefixInspection"/>
 
     <projectService serviceInterface="uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings"
