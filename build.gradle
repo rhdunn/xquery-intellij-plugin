@@ -1,6 +1,11 @@
 buildscript {
+    ext.kotlin_version = '1.1.3-2'
     repositories {
         maven { url 'http://dl.bintray.com/jetbrains/intellij-plugin-service' }
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
@@ -9,6 +14,7 @@ plugins {
 }
 
 apply plugin: 'org.jetbrains.intellij'
+apply plugin: 'kotlin'
 
 allprojects {
     apply plugin: 'idea'
@@ -26,6 +32,7 @@ allprojects {
 
 dependencies {
     testCompile 'org.junit.jupiter:junit-jupiter-api:5.0.0-M4'
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
 }
 
 intellij {
@@ -45,3 +52,19 @@ jacocoTestReport {
 }
 
 check.dependsOn jacocoTestReport
+
+repositories {
+    mavenCentral()
+}
+
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
