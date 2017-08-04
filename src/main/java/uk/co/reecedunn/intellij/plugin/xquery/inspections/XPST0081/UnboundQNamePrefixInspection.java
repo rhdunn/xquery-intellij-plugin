@@ -45,10 +45,9 @@ public class UnboundQNamePrefixInspection extends LocalInspectionTool {
         return XQueryBundle.message("inspection.XPST0081.unbound-qname-prefix.display-name");
     }
 
-    @Nullable
     @Override
-    public String getStaticDescription() {
-        return XQueryBundle.message("inspection.XPST0081.unbound-qname-prefix.description");
+    public String getDescriptionFileName() {
+        return getID() + ".html";
     }
 
     @Override

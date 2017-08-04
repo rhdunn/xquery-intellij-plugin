@@ -40,10 +40,9 @@ public class UnsupportedXQueryVersionInspection extends LocalInspectionTool {
         return XQueryBundle.message("inspection.XQST0031.unsupported-version.display-name");
     }
 
-    @Nullable
     @Override
-    public String getStaticDescription() {
-        return XQueryBundle.message("inspection.XQST0031.unsupported-version.description");
+    public String getDescriptionFileName() {
+        return getID() + ".html";
     }
 
     @Override

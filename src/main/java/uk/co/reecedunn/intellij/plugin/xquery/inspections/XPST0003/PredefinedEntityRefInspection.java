@@ -41,10 +41,9 @@ public class PredefinedEntityRefInspection extends LocalInspectionTool {
         return XQueryBundle.message("inspection.XPST0003.predefined-entity.display-name");
     }
 
-    @Nullable
     @Override
-    public String getStaticDescription() {
-        return XQueryBundle.message("inspection.XPST0003.predefined-entity.description");
+    public String getDescriptionFileName() {
+        return getID() + ".html";
     }
 
     public ProblemDescriptor[] checkFile(@NotNull PsiFile file, @NotNull final InspectionManager manager, final boolean isOnTheFly) {
