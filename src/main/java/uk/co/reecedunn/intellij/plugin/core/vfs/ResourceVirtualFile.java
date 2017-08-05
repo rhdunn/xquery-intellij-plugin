@@ -133,7 +133,12 @@ public class ResourceVirtualFile extends VirtualFile {
 
     @Override
     public long getTimeStamp() {
-        throw new UnsupportedOperationException();
+        return mFile.lastModified();
+    }
+
+    @Override
+    public long getModificationStamp() {
+        return 0;
     }
 
     @Override

@@ -50,6 +50,7 @@ public class ResourceVirtualFileTest extends TestCase {
         assertThat(file.getFileSystem(), instanceOf(ResourceVirtualFileSystem.class));
         assertThat(streamToString(file.getInputStream()), is("xquery version \"3.0\"; true()"));
         assertThat(file.contentsToByteArray(), is("xquery version \"3.0\"; true()".getBytes()));
+        assertThat(file.getModificationStamp(), is(0L));
 
         VirtualFile parent = file.getParent();
         assertThat(parent, is(notNullValue()));
@@ -59,6 +60,7 @@ public class ResourceVirtualFileTest extends TestCase {
         assertThat(parent.isValid(), is(true));
         assertThat(parent.getLength(), is(0L));
         assertThat(parent.getFileSystem(), instanceOf(ResourceVirtualFileSystem.class));
+        assertThat(parent.getModificationStamp(), is(0L));
 
         assertThat(parent.getParent(), is(notNullValue()));
 
@@ -76,6 +78,7 @@ public class ResourceVirtualFileTest extends TestCase {
         assertThat(file.getLength(), is(0L));
         assertThat(file.getInputStream(), is(nullValue()));
         assertThat(file.getFileSystem(), instanceOf(ResourceVirtualFileSystem.class));
+        assertThat(file.getModificationStamp(), is(0L));
 
         VirtualFile parent = file.getParent();
         assertThat(parent, is(notNullValue()));
@@ -85,6 +88,7 @@ public class ResourceVirtualFileTest extends TestCase {
         assertThat(parent.isValid(), is(true));
         assertThat(parent.getLength(), is(0L));
         assertThat(parent.getFileSystem(), instanceOf(ResourceVirtualFileSystem.class));
+        assertThat(parent.getModificationStamp(), is(0L));
 
         assertThat(parent.getParent(), is(notNullValue()));
 
@@ -102,6 +106,7 @@ public class ResourceVirtualFileTest extends TestCase {
         assertThat(file.getLength(), is(0L));
         assertThat(file.getInputStream(), is(nullValue()));
         assertThat(file.getFileSystem(), instanceOf(ResourceVirtualFileSystem.class));
+        assertThat(file.getModificationStamp(), is(0L));
 
         VirtualFile parent = file.getParent();
         assertThat(parent, is(notNullValue()));
@@ -110,6 +115,7 @@ public class ResourceVirtualFileTest extends TestCase {
         assertThat(parent.isValid(), is(true));
         assertThat(parent.getLength(), is(28L));
         assertThat(parent.getFileSystem(), instanceOf(ResourceVirtualFileSystem.class));
+        assertThat(parent.getModificationStamp(), is(0L));
 
         assertThat(parent.getParent(), is(nullValue()));
 
