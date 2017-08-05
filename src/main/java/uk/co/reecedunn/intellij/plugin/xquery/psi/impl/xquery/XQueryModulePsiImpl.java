@@ -20,6 +20,7 @@ import com.intellij.lang.ASTNode;
 import com.intellij.openapi.project.Project;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog;
@@ -54,7 +55,7 @@ public class XQueryModulePsiImpl extends ASTWrapperPsiElement implements XQueryM
             staticContext = null;
 
             Project project = getProject();
-            XQueryFile file = (XQueryFile)XQueryUriLiteralReference.resolveResource(dialect.getStaticContext(), project);
+            XQueryFile file = (XQueryFile)ResourceVirtualFile.resolve(dialect.getStaticContext(), project);
             if (file != null) {
                 Option<XQueryModule> module = children(file).findFirst(XQueryModule.class);
                 if (module.isDefined()) {

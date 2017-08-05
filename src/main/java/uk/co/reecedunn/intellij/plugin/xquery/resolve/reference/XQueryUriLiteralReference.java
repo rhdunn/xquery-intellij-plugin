@@ -16,16 +16,6 @@ public class XQueryUriLiteralReference extends PsiReferenceBase<XQueryUriLiteral
         super(element, range);
     }
 
-    public static PsiElement resolveResource(final String path, Project project) {
-        if (path == null || !path.startsWith("res://")) {
-            return null;
-        }
-
-        final String resource = path.replaceFirst("res://", "builtin/");
-        VirtualFile file = ResourceVirtualFile.create(XQueryUriLiteralReference.class, resource);
-        return PsiManager.getInstance(project).findFile(file);
-    }
-
     @Nullable
     @Override
     public PsiElement resolve() {
@@ -37,7 +27,7 @@ public class XQueryUriLiteralReference extends PsiReferenceBase<XQueryUriLiteral
 
         final String path = value.toString();
         if (path.contains("://")) {
-            return resolveResource(path, element.getProject());
+            return ResourceVirtualFile.resolve(path, element.getProject());
         }
 
         VirtualFile file = element.getContainingFile().getVirtualFile();

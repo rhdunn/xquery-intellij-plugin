@@ -15,11 +15,15 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.vfs;
 
+import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.openapi.vfs.VirtualFileSystem;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiManager;
 import org.apache.commons.compress.utils.IOUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import uk.co.reecedunn.intellij.plugin.xquery.resolve.reference.XQueryUriLiteralReference;
 
 import java.io.*;
 import java.net.URISyntaxException;
@@ -34,6 +38,16 @@ public class ResourceVirtualFile extends VirtualFile {
 
     public static ResourceVirtualFile create(Class klass, String resource) {
         return new ResourceVirtualFile(klass.getClassLoader(), resource);
+    }
+
+    public static PsiElement resolve(final String path, Project project) {
+        if (path == null || !path.startsWith("res://")) {
+            return null;
+        }
+
+        final String resource = path.replaceFirst("res://", "builtin/");
+        VirtualFile file = create(ResourceVirtualFile.class, resource);
+        return PsiManager.getInstance(project).findFile(file);
     }
 
     private ResourceVirtualFile(ClassLoader loader, String resource) {
