@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.core.tests.vfs;
 import com.intellij.openapi.vfs.VirtualFile;
 import junit.framework.TestCase;
 import org.apache.xmlbeans.impl.common.IOUtil;
+import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile;
 
 import java.io.IOException;
 import java.io.InputStream;

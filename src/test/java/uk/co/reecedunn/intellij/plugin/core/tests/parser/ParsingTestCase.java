@@ -60,7 +60,7 @@ import org.picocontainer.*;
 import org.picocontainer.defaults.AbstractComponentAdapter;
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockPsiDocumentManagerEx;
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockPsiManager;
-import uk.co.reecedunn.intellij.plugin.core.tests.vfs.ResourceVirtualFile;
+import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile;
 
 import java.io.*;
 import java.lang.reflect.Field;
