@@ -19,6 +19,7 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.openapi.vfs.VirtualFileSystem;
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiManager;
 import org.apache.commons.compress.utils.IOUtils;
 import org.jetbrains.annotations.NotNull;
@@ -40,7 +41,7 @@ public class ResourceVirtualFile extends VirtualFile {
         return new ResourceVirtualFile(klass.getClassLoader(), resource);
     }
 
-    public static PsiElement resolve(final String path, Project project) {
+    public static PsiFile resolve(final String path, Project project) {
         if (path == null || !path.startsWith("res://")) {
             return null;
         }
