@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiFile;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*;
 import uk.co.reecedunn.intellij.plugin.core.functional.Option;
@@ -55,7 +56,7 @@ public class XQueryModuleImportPsiImpl extends ASTWrapperPsiElement implements X
         PsiElement uri = getFirstChild();
         while (uri != null) {
             if (uri instanceof XQueryUriLiteral) {
-                PsiElement file = uri.getReference().resolve();
+                PsiFile file = ((XQueryUriLiteral)uri).resolveUri();
                 if (file instanceof XQueryFile) {
                     PsiElement module = children(file).findFirst(XQueryModule.class).get();
                     return children(module).findFirst(XQueryProlog.class);
