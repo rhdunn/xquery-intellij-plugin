@@ -7,6 +7,7 @@ import com.intellij.psi.*;
 import com.intellij.testFramework.LightVirtualFileBase;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryStringLiteral;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryUriLiteralPsiImpl;
 
@@ -15,13 +16,28 @@ public class XQueryUriLiteralReference extends PsiReferenceBase<XQueryUriLiteral
         super(element, range);
     }
 
+    public static PsiElement resolveResource(final String path, Project project) {
+        if (!path.startsWith("res://")) {
+            return null;
+        }
+
+        final String resource = path.replaceFirst("res://", "builtin/");
+        VirtualFile file = ResourceVirtualFile.create(XQueryUriLiteralReference.class, resource);
+        return PsiManager.getInstance(project).findFile(file);
+    }
+
     @Nullable
     @Override
     public PsiElement resolve() {
         XQueryStringLiteral element = getElement();
-        final CharSequence path = element.getAtomicValue();
-        if (path == null || path.toString().contains("://")) {
+        final CharSequence value = element.getAtomicValue();
+        if (value == null) {
             return null;
+        }
+
+        final String path = value.toString();
+        if (path.contains("://")) {
+            return resolveResource(path, element.getProject());
         }
 
         VirtualFile file = element.getContainingFile().getVirtualFile();
@@ -29,7 +45,7 @@ public class XQueryUriLiteralReference extends PsiReferenceBase<XQueryUriLiteral
             file = ((LightVirtualFileBase)file).getOriginalFile();
         }
 
-        return resolveFileByPath(file, element.getProject(), path.toString());
+        return resolveFileByPath(file, element.getProject(), path);
     }
 
     @NotNull

@@ -18,6 +18,8 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.reference;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiReference;
 import com.intellij.psi.impl.source.tree.LeafPsiElement;
+import com.intellij.testFramework.LightVirtualFile;
+import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase;
 
@@ -67,6 +69,25 @@ public class XQueryReferenceTest extends ParserTestCase {
         assertThat(resolved, is(notNullValue()));
         assertThat(resolved, instanceOf(XQueryFile.class));
         assertThat(resolved.getContainingFile().getName(), is("test.xq"));
+    }
+
+    public void testURILiteral_BuiltinResource() {
+        final XQueryFile file = parseResource("tests/resolve/files/ModuleImport_URILiteral_ResourceFile.xq");
+
+        XQueryModuleImport moduleImportPsi = descendants(file).findFirst(XQueryModuleImport.class).get();
+        assertThat(moduleImportPsi, is(notNullValue()));
+
+        List<XQueryUriLiteral> uriLiterals = children(moduleImportPsi).toListOf(XQueryUriLiteral.class);
+        assertThat(uriLiterals.size(), is(2));
+
+        PsiReference ref = uriLiterals.get(1).getReference();
+        assertThat(ref.getCanonicalText(), is("res://www.w3.org/2005/xpath-functions/array.xqy"));
+        assertThat(ref.getVariants().length, is(0));
+
+        PsiElement resolved = ref.resolve();
+        assertThat(resolved, is(notNullValue()));
+        assertThat(resolved, instanceOf(XQueryFile.class));
+        assertThat(resolved.getContainingFile().getName(), is("array.xqy"));
     }
 
     public void testURILiteral_Empty() {
