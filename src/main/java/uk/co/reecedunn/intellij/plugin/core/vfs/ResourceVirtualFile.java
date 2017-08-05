@@ -20,10 +20,7 @@ import com.intellij.openapi.vfs.VirtualFileSystem;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
 
@@ -70,7 +67,7 @@ public class ResourceVirtualFile extends VirtualFile {
     @NotNull
     @Override
     public VirtualFileSystem getFileSystem() {
-        throw new UnsupportedOperationException();
+        return ResourceVirtualFileSystem.getInstance();
     }
 
     @NotNull

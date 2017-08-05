@@ -19,6 +19,7 @@ import com.intellij.openapi.vfs.VirtualFile;
 import junit.framework.TestCase;
 import org.apache.xmlbeans.impl.common.IOUtil;
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile;
+import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFileSystem;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -46,6 +47,7 @@ public class ResourceVirtualFileTest extends TestCase {
         assertThat(file.isDirectory(), is(false));
         assertThat(file.isValid(), is(true));
         assertThat(file.getLength(), is(28L));
+        assertThat(file.getFileSystem(), instanceOf(ResourceVirtualFileSystem.class));
         assertThat(streamToString(file.getInputStream()), is("xquery version \"3.0\"; true()"));
 
         VirtualFile parent = file.getParent();
@@ -55,6 +57,7 @@ public class ResourceVirtualFileTest extends TestCase {
         assertThat(parent.isDirectory(), is(true));
         assertThat(parent.isValid(), is(true));
         assertThat(parent.getLength(), is(0L));
+        assertThat(parent.getFileSystem(), instanceOf(ResourceVirtualFileSystem.class));
 
         assertThat(parent.getParent(), is(notNullValue()));
 
@@ -71,6 +74,7 @@ public class ResourceVirtualFileTest extends TestCase {
         assertThat(file.isValid(), is(false));
         assertThat(file.getLength(), is(0L));
         assertThat(file.getInputStream(), is(nullValue()));
+        assertThat(file.getFileSystem(), instanceOf(ResourceVirtualFileSystem.class));
 
         VirtualFile parent = file.getParent();
         assertThat(parent, is(notNullValue()));
@@ -79,6 +83,7 @@ public class ResourceVirtualFileTest extends TestCase {
         assertThat(parent.isDirectory(), is(true));
         assertThat(parent.isValid(), is(true));
         assertThat(parent.getLength(), is(0L));
+        assertThat(parent.getFileSystem(), instanceOf(ResourceVirtualFileSystem.class));
 
         assertThat(parent.getParent(), is(notNullValue()));
 
@@ -95,6 +100,7 @@ public class ResourceVirtualFileTest extends TestCase {
         assertThat(file.isValid(), is(true));
         assertThat(file.getLength(), is(0L));
         assertThat(file.getInputStream(), is(nullValue()));
+        assertThat(file.getFileSystem(), instanceOf(ResourceVirtualFileSystem.class));
 
         VirtualFile parent = file.getParent();
         assertThat(parent, is(notNullValue()));
@@ -102,6 +108,7 @@ public class ResourceVirtualFileTest extends TestCase {
         assertThat(parent.isDirectory(), is(true));
         assertThat(parent.isValid(), is(true));
         assertThat(parent.getLength(), is(28L));
+        assertThat(parent.getFileSystem(), instanceOf(ResourceVirtualFileSystem.class));
 
         assertThat(parent.getParent(), is(nullValue()));
 
@@ -111,6 +118,7 @@ public class ResourceVirtualFileTest extends TestCase {
         assertThat(children[0].getName(), is("test.xq"));
         assertThat(children[0].getPath(), anyOf(endsWith("/tests/vfs/test.xq"), endsWith("\\tests\\vfs\\test.xq")));
         assertThat(children[0].getLength(), is(28L));
+        assertThat(children[0].getFileSystem(), instanceOf(ResourceVirtualFileSystem.class));
     }
 
     // endregion
