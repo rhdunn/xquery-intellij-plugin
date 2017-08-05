@@ -49,6 +49,7 @@ public class ResourceVirtualFileTest extends TestCase {
         assertThat(file.getLength(), is(28L));
         assertThat(file.getFileSystem(), instanceOf(ResourceVirtualFileSystem.class));
         assertThat(streamToString(file.getInputStream()), is("xquery version \"3.0\"; true()"));
+        assertThat(file.contentsToByteArray(), is("xquery version \"3.0\"; true()".getBytes()));
 
         VirtualFile parent = file.getParent();
         assertThat(parent, is(notNullValue()));

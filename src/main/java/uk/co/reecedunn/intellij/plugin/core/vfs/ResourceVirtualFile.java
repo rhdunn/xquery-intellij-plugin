@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.core.vfs;
 
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.openapi.vfs.VirtualFileSystem;
+import org.apache.commons.compress.utils.IOUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -123,7 +124,11 @@ public class ResourceVirtualFile extends VirtualFile {
     @NotNull
     @Override
     public byte[] contentsToByteArray() throws IOException {
-        throw new UnsupportedOperationException();
+        InputStream input = getInputStream();
+        if (input == null) {
+            throw new UnsupportedOperationException();
+        }
+        return IOUtils.toByteArray(input);
     }
 
     @Override
