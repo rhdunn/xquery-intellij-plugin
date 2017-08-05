@@ -18,8 +18,6 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.Pair;
-import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile;
@@ -27,22 +25,18 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog;
 import uk.co.reecedunn.intellij.plugin.core.functional.Option;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.Implementations;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceResolver;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.TextPsiElementImpl;
+import uk.co.reecedunn.intellij.plugin.xquery.resolve.reference.XQueryUriLiteralReference;
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import static uk.co.reecedunn.intellij.plugin.core.functional.PsiTreeWalker.children;
 
 public class XQueryModulePsiImpl extends ASTWrapperPsiElement implements XQueryModule, XQueryNamespaceResolver, XQueryPrologResolver {
-    private Map<String, XQueryNamespace> predefinedNamespaces = new HashMap<>();
     private XQueryProjectSettings settings;
+    private XQueryNamespaceResolver staticContext;
     private String dialectId = "";
 
     public XQueryModulePsiImpl(@NotNull ASTNode node) {
@@ -53,49 +47,30 @@ public class XQueryModulePsiImpl extends ASTWrapperPsiElement implements XQueryM
     @Nullable
     @Override
     public Option<XQueryNamespace> resolveNamespace(CharSequence prefix) {
-        XQueryNamespace ns = getPredefinedNamespaces().getOrDefault(prefix != null ? prefix.toString() : null, null);
-        return Option.of(ns);
+        XQueryVersion version = ((XQueryFile)getContainingFile()).getXQueryVersion().getVersionOrDefault(getProject());
+        ImplementationItem dialect = settings.getDialectForXQueryVersion(version);
+        if (!dialect.getID().equals(dialectId)) {
+            dialectId = dialect.getID();
+            staticContext = null;
+
+            Project project = getProject();
+            XQueryFile file = (XQueryFile)XQueryUriLiteralReference.resolveResource(dialect.getStaticContext(), project);
+            if (file != null) {
+                Option<XQueryModule> module = children(file).findFirst(XQueryModule.class);
+                if (module.isDefined()) {
+                    staticContext = (XQueryNamespaceResolver)children(module.get()).findFirst(XQueryProlog.class).getOrElse(null);
+                }
+            }
+        }
+
+        if (staticContext != null) {
+            return staticContext.resolveNamespace(prefix);
+        }
+        return Option.none();
     }
 
     @Override
     public Option<XQueryProlog> resolveProlog() {
         return children(this).findFirst(XQueryProlog.class);
-    }
-
-    private Map<String, XQueryNamespace> getPredefinedNamespaces() {
-        XQueryVersion version = ((XQueryFile)getContainingFile()).getXQueryVersion().getVersionOrDefault(getProject());
-        ImplementationItem dialect = settings.getDialectForXQueryVersion(version);
-        if (!dialect.getID().equals(dialectId)) {
-            dialectId = dialect.getID();
-            predefinedNamespaces.clear();
-
-            Project project = getProject();
-
-            // XQuery Predefined Namespaces [https://www.w3.org/TR/xquery/#id-basics]
-            createPredefinedNamespace(project, "xml", "http://www.w3.org/XML/1998/namespace");
-            createPredefinedNamespace(project, "xs", "http://www.w3.org/2001/XMLSchema");
-            createPredefinedNamespace(project, "xsi", "http://www.w3.org/2001/XMLSchema-instance");
-            createPredefinedNamespace(project, "fn", "http://www.w3.org/2005/xpath-functions");
-            createPredefinedNamespace(project, "local", "http://www.w3.org/2005/xquery-local-functions");
-
-            if (version.supportsVersion(XQueryVersion.VERSION_3_1)) {
-                // XQuery 3.1 Predefined Namespaces [https://www.w3.org/TR/xquery-31/#id-basics]
-                // NOTE: The math namespace is predefined in XQuery 3.1, not XQuery 3.0!
-                createPredefinedNamespace(project, "map", "http://www.w3.org/2005/xpath-functions/map");
-                createPredefinedNamespace(project, "array", "http://www.w3.org/2005/xpath-functions/array");
-                createPredefinedNamespace(project, "math", "http://www.w3.org/2005/xpath-functions/math");
-            }
-
-            for (Pair<String, String> ns : dialect.getPredefinedNamespaces()) {
-                createPredefinedNamespace(project, ns.first, ns.second);
-            }
-        }
-        return predefinedNamespaces;
-    }
-
-    private void createPredefinedNamespace(Project project, String prefix, String uri) {
-        PsiElement prefixElement = new TextPsiElementImpl(project, prefix);
-        PsiElement uriElement = new TextPsiElementImpl(project, uri);
-        predefinedNamespaces.put(prefix, new XQueryNamespace(prefixElement, uriElement, this));
     }
 }

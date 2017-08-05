@@ -26,7 +26,7 @@ import java.util.List;
 public class ImplementationItem {
     public static final String IMPLEMENTATION_VERSION = "version";
     public static final String IMPLEMENTATION_DIALECT = "dialect";
-    public static final String NAMESPACE = "namespace";
+    public static final String STATIC_CONTEXT = "static-context";
 
     public static final ImplementationItem NULL_ITEM = new ImplementationItem();
 
@@ -219,14 +219,12 @@ public class ImplementationItem {
         return NULL_ITEM;
     }
 
-    public List<Pair<String, String>> getPredefinedNamespaces() {
-        List<Pair<String, String>> namespaces = new ArrayList<>();
-        NodeList nodes = mElement.getElementsByTagName(NAMESPACE);
+    public String getStaticContext() {
+        NodeList nodes = mElement.getElementsByTagName(STATIC_CONTEXT);
         for (int i = 0; i != nodes.getLength(); ++i) {
             Element e = (Element)nodes.item(i);
-            Pair<String, String> ns = new Pair<>(e.getAttribute("prefix"), e.getAttribute("uri"));
-            namespaces.add(ns);
+            return e.getAttribute("uri");
         }
-        return namespaces;
+        return null;
     }
 }

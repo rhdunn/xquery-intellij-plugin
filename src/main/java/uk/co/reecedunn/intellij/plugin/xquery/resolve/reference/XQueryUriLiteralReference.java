@@ -17,7 +17,7 @@ public class XQueryUriLiteralReference extends PsiReferenceBase<XQueryUriLiteral
     }
 
     public static PsiElement resolveResource(final String path, Project project) {
-        if (!path.startsWith("res://")) {
+        if (path == null || !path.startsWith("res://")) {
             return null;
         }
 

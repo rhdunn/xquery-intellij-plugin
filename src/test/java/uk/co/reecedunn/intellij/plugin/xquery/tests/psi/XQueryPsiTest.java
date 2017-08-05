@@ -4432,11 +4432,11 @@ public class XQueryPsiTest extends ParserTestCase {
         assertThat(ns.get().getPrefix(), is(notNullValue()));
         assertThat(ns.get().getPrefix().getText(), is("local"));
 
-        assertThat(ns.get().getUri(), is(notNullValue()));
-        assertThat(ns.get().getUri().getText(), is("http://www.w3.org/2005/xquery-local-functions"));
+        assertThat(ns.get().getUri(), is(instanceOf(XQueryUriLiteral.class)));
+        assertThat(((XQueryUriLiteral)ns.get().getUri()).getAtomicValue(),
+                is("http://www.w3.org/2005/xquery-local-functions"));
 
-        assertThat(ns.get().getDeclaration(), is(instanceOf(XQueryModule.class)));
-        assertThat(ns.get().getDeclaration(), is(modulePsi));
+        assertThat(ns.get().getDeclaration(), is(instanceOf(XQueryNamespaceDecl.class)));
     }
 
     // endregion
