@@ -16,7 +16,10 @@
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.tree.IElementType;
 import uk.co.reecedunn.intellij.plugin.core.functional.Option;
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace;
 
 /**
@@ -32,9 +35,30 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace;
 public interface XQueryEQName extends PsiElement {
     enum Type {
         Function,
+        Variable,
+        Unknown,
     }
 
-    Type getType();
+    default Type getType() {
+        IElementType parent = getParent().getNode().getElementType();
+        if (parent == XQueryElementType.FUNCTION_CALL ||
+            parent == XQueryElementType.NAMED_FUNCTION_REF ||
+            parent == XQueryElementType.ARROW_FUNCTION_SPECIFIER) {
+            return Type.Function;
+        } else {
+            PsiElement previous = getPrevSibling();
+            while (previous != null && (
+                   previous.getNode().getElementType() == XQueryElementType.COMMENT ||
+                   previous.getNode().getElementType() == XQueryTokenType.WHITE_SPACE)) {
+                previous = previous.getPrevSibling();
+            }
+
+            if (previous != null && previous.getNode().getElementType() == XQueryTokenType.VARIABLE_INDICATOR) {
+                return Type.Variable;
+            }
+        }
+        return Type.Unknown;
+    }
 
     Option<PsiElement> getPrefix();
 

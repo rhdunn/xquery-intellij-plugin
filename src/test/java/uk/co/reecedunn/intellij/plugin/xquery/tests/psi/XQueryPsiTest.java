@@ -4248,6 +4248,61 @@ public class XQueryPsiTest extends ParserTestCase {
     }
 
     // endregion
+    // region Type :: Variable :: VarDecl
+
+    public void testEQNameType_VarDecl_NCName() {
+        final XQueryFile file = parseResource("tests/resolve/variables/VarDecl_VarRef_NCName.xq");
+
+        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
+        XQueryVarDecl varDeclPsi = children(annotatedDeclPsi).findFirst(XQueryVarDecl.class).get();
+        XQueryEQName name = children(varDeclPsi).findFirst(XQueryEQName.class).get();
+
+        assertThat(name.getPrefix(), is(notDefined()));
+
+        assertThat(name.getLocalName(), is(defined()));
+        assertThat(name.getLocalName().get().getNode().getElementType(), is(XQueryElementType.NCNAME));
+        assertThat(name.getLocalName().get().getText(), is("value"));
+
+        assertThat(name.getType(), is(XQueryEQName.Type.Variable));
+    }
+
+    public void testEQNameType_VarDecl_QName() {
+        final XQueryFile file = parseResource("tests/resolve/variables/VarDecl_VarRef_QName.xq");
+
+        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
+        XQueryVarDecl varDeclPsi = children(annotatedDeclPsi).findFirst(XQueryVarDecl.class).get();
+        XQueryEQName name = children(varDeclPsi).findFirst(XQueryEQName.class).get();
+
+        assertThat(name.getPrefix(), is(defined()));
+        assertThat(name.getPrefix().get().getNode().getElementType(), is(XQueryElementType.NCNAME));
+        assertThat(name.getPrefix().get().getText(), is("local"));
+
+        assertThat(name.getLocalName(), is(defined()));
+        assertThat(name.getLocalName().get().getNode().getElementType(), is(XQueryElementType.NCNAME));
+        assertThat(name.getLocalName().get().getText(), is("value"));
+
+        assertThat(name.getType(), is(XQueryEQName.Type.Variable));
+    }
+
+    public void testEQNameType_VarDecl_EQName() {
+        final XQueryFile file = parseResource("tests/resolve/variables/VarDecl_VarRef_EQName.xq");
+
+        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
+        XQueryVarDecl varDeclPsi = children(annotatedDeclPsi).findFirst(XQueryVarDecl.class).get();
+        XQueryEQName name = children(varDeclPsi).findFirst(XQueryEQName.class).get();
+
+        assertThat(name.getPrefix(), is(defined()));
+        assertThat(name.getPrefix().get().getNode().getElementType(), is(XQueryElementType.BRACED_URI_LITERAL));
+        assertThat(name.getPrefix().get().getText(), is("Q{http://www.w3.org/2005/xquery-local-functions}"));
+
+        assertThat(name.getLocalName(), is(defined()));
+        assertThat(name.getLocalName().get().getNode().getElementType(), is(XQueryElementType.NCNAME));
+        assertThat(name.getLocalName().get().getText(), is("value"));
+
+        assertThat(name.getType(), is(XQueryEQName.Type.Variable));
+    }
+
+    // endregion
     // endregion
     // region XQueryFile
 

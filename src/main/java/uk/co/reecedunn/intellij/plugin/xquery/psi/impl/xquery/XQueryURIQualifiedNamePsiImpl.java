@@ -22,23 +22,13 @@ import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryURIQualifiedName;
 import uk.co.reecedunn.intellij.plugin.core.functional.Option;
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace;
 
 public class XQueryURIQualifiedNamePsiImpl extends ASTWrapperPsiElement implements XQueryURIQualifiedName {
     public XQueryURIQualifiedNamePsiImpl(@NotNull ASTNode node) {
         super(node);
-    }
-
-    @Override
-    public Type getType() {
-        IElementType parent = getParent().getNode().getElementType();
-        if (parent == XQueryElementType.FUNCTION_CALL ||
-            parent == XQueryElementType.NAMED_FUNCTION_REF ||
-            parent == XQueryElementType.ARROW_FUNCTION_SPECIFIER) {
-            return Type.Function;
-        }
-        return null;
     }
 
     @Override

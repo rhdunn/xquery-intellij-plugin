@@ -18,8 +18,6 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.reference;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiReference;
 import com.intellij.psi.impl.source.tree.LeafPsiElement;
-import com.intellij.testFramework.LightVirtualFile;
-import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase;
 
@@ -501,7 +499,7 @@ public class XQueryReferenceTest extends ParserTestCase {
     // region VarDecl
 
     public void testVarDecl() {
-        final XQueryFile file = parseResource("tests/resolve/variables/VarDecl_WithCorrespondingVarRef.xq");
+        final XQueryFile file = parseResource("tests/resolve/variables/VarDecl_VarRef_NCName.xq");
 
         XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
         XQueryVarDecl varDeclPsi = children(annotatedDeclPsi).findFirst(XQueryVarDecl.class).get();
