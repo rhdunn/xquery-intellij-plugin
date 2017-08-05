@@ -143,7 +143,7 @@ public class ResourceVirtualFile extends VirtualFile {
 
     @Override
     public long getLength() {
-        return mFile.length();
+        return (mFile == null || mFile.isDirectory()) ? 0 : mFile.length();
     }
 
     @Override

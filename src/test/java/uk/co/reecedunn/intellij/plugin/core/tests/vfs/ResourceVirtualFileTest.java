@@ -113,7 +113,7 @@ public class ResourceVirtualFileTest extends TestCase {
         assertThat(parent.getName(), is("tests"));
         assertThat(parent.isDirectory(), is(true));
         assertThat(parent.isValid(), is(true));
-        assertThat(parent.getLength(), is(28L));
+        assertThat(parent.getLength(), is(0L));
         assertThat(parent.getFileSystem(), instanceOf(ResourceVirtualFileSystem.class));
         assertThat(parent.getModificationStamp(), is(0L));
 
