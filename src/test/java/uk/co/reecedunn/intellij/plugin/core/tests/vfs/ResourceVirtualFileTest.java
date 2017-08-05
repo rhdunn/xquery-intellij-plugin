@@ -39,12 +39,13 @@ public class ResourceVirtualFileTest extends TestCase {
     // region File System
 
     public void testFileSystem_CreatingFile() throws IOException {
-        VirtualFile file = ResourceVirtualFile.create(ResourceVirtualFileTest.class, "  tests/vfs/test.xq");
+        VirtualFile file = ResourceVirtualFile.create(ResourceVirtualFileTest.class, "tests/vfs/test.xq");
         assertThat(file.getName(), is("test.xq"));
         assertThat(file.getPath(), anyOf(endsWith("/tests/vfs/test.xq"), endsWith("\\tests\\vfs\\test.xq")));
         assertThat(file.isWritable(), is(false));
         assertThat(file.isDirectory(), is(false));
         assertThat(file.isValid(), is(true));
+        assertThat(file.getLength(), is(28L));
         assertThat(streamToString(file.getInputStream()), is("xquery version \"3.0\"; true()"));
 
         VirtualFile parent = file.getParent();
@@ -53,6 +54,7 @@ public class ResourceVirtualFileTest extends TestCase {
         assertThat(parent.getPath(), anyOf(endsWith("/tests/vfs"), endsWith("\\tests\\vfs")));
         assertThat(parent.isDirectory(), is(true));
         assertThat(parent.isValid(), is(true));
+        assertThat(parent.getLength(), is(0L));
 
         assertThat(parent.getParent(), is(notNullValue()));
 
@@ -67,6 +69,7 @@ public class ResourceVirtualFileTest extends TestCase {
         assertThat(file.isWritable(), is(false));
         assertThat(file.isDirectory(), is(false));
         assertThat(file.isValid(), is(false));
+        assertThat(file.getLength(), is(0L));
         assertThat(file.getInputStream(), is(nullValue()));
 
         VirtualFile parent = file.getParent();
@@ -75,6 +78,7 @@ public class ResourceVirtualFileTest extends TestCase {
         assertThat(parent.getPath(), anyOf(endsWith("/tests/vfs"), endsWith("\\tests\\vfs")));
         assertThat(parent.isDirectory(), is(true));
         assertThat(parent.isValid(), is(true));
+        assertThat(parent.getLength(), is(0L));
 
         assertThat(parent.getParent(), is(notNullValue()));
 
@@ -89,6 +93,7 @@ public class ResourceVirtualFileTest extends TestCase {
         assertThat(file.isWritable(), is(false));
         assertThat(file.isDirectory(), is(true));
         assertThat(file.isValid(), is(true));
+        assertThat(file.getLength(), is(0L));
         assertThat(file.getInputStream(), is(nullValue()));
 
         VirtualFile parent = file.getParent();
@@ -96,6 +101,7 @@ public class ResourceVirtualFileTest extends TestCase {
         assertThat(parent.getName(), is("tests"));
         assertThat(parent.isDirectory(), is(true));
         assertThat(parent.isValid(), is(true));
+        assertThat(parent.getLength(), is(28L));
 
         assertThat(parent.getParent(), is(nullValue()));
 
@@ -104,6 +110,7 @@ public class ResourceVirtualFileTest extends TestCase {
         assertThat(children.length, is(1));
         assertThat(children[0].getName(), is("test.xq"));
         assertThat(children[0].getPath(), anyOf(endsWith("/tests/vfs/test.xq"), endsWith("\\tests\\vfs\\test.xq")));
+        assertThat(children[0].getLength(), is(28L));
     }
 
     // endregion

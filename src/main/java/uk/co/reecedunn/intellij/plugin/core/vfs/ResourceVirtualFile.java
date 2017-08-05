@@ -136,7 +136,7 @@ public class ResourceVirtualFile extends VirtualFile {
 
     @Override
     public long getLength() {
-        throw new UnsupportedOperationException();
+        return mFile.length();
     }
 
     @Override
