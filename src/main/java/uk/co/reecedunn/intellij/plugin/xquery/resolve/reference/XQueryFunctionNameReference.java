@@ -20,8 +20,8 @@ public class XQueryFunctionNameReference extends PsiReferenceBase<XQueryEQName> 
         return getElement().resolvePrefixNamespace().map((ns) -> {
             if (ns.getDeclaration() instanceof XQueryPrologResolver) {
                 XQueryPrologResolver provider = (XQueryPrologResolver) ns.getDeclaration();
-                Option<XQueryProlog> prolog = provider.resolveProlog();
-                if (!prolog.isDefined()) {
+                XQueryProlog prolog = provider.resolveProlog();
+                if (prolog == null) {
                     return null;
                 }
 
@@ -36,7 +36,7 @@ public class XQueryFunctionNameReference extends PsiReferenceBase<XQueryEQName> 
                         arity = ((XQueryArrowFunctionSpecifier)parent).getArity();
                     }
 
-                    PsiElement annotation = prolog.get().getFirstChild();
+                    PsiElement annotation = prolog.getFirstChild();
                     while (annotation != null) {
                         if (annotation instanceof XQueryAnnotatedDecl) {
                             XQueryFunctionDecl functionDecl = children(annotation).findFirst(XQueryFunctionDecl.class).getOrElse(null);

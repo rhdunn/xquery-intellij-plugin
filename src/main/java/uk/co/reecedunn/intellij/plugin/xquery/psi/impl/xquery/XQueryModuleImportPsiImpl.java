@@ -50,20 +50,19 @@ public class XQueryModuleImportPsiImpl extends ASTWrapperPsiElement implements X
         });
     }
 
-    @SuppressWarnings("ConstantConditions")
     @Override
-    public Option<XQueryProlog> resolveProlog() {
+    public XQueryProlog resolveProlog() {
         PsiElement uri = getFirstChild();
         while (uri != null) {
             if (uri instanceof XQueryUriLiteral) {
                 PsiFile file = ((XQueryUriLiteral)uri).resolveUri();
                 if (file instanceof XQueryFile) {
                     PsiElement module = children(file).findFirst(XQueryModule.class).get();
-                    return children(module).findFirst(XQueryProlog.class);
+                    return children(module).findFirst(XQueryProlog.class).getOrElse(null);
                 }
             }
             uri = uri.getNextSibling();
         }
-        return Option.none();
+        return null;
     }
 }

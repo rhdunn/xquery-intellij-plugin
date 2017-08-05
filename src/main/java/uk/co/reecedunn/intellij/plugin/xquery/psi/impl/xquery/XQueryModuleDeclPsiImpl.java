@@ -48,7 +48,7 @@ public class XQueryModuleDeclPsiImpl extends ASTWrapperPsiElement implements XQu
     }
 
     @Override
-    public Option<XQueryProlog> resolveProlog() {
-        return children(this).findFirst(XQueryProlog.class);
+    public XQueryProlog resolveProlog() {
+        return children(this).findFirst(XQueryProlog.class).getOrElse(null);
     }
 }

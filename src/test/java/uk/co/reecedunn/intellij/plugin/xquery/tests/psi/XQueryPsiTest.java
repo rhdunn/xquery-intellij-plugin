@@ -4193,7 +4193,7 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryModule modulePsi = descendants(file).findFirst(XQueryModule.class).get();
 
         XQueryPrologResolver provider = (XQueryPrologResolver)modulePsi;
-        assertThat(provider.resolveProlog(), is(notDefined()));
+        assertThat(provider.resolveProlog(), is(nullValue()));
     }
 
     // endregion
@@ -4205,7 +4205,7 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryModuleDecl moduleDeclPsi = descendants(file).findFirst(XQueryModuleDecl.class).get();
 
         XQueryPrologResolver provider = (XQueryPrologResolver)moduleDeclPsi;
-        assertThat(provider.resolveProlog(), is(notDefined()));
+        assertThat(provider.resolveProlog(), is(nullValue()));
     }
 
     // endregion
