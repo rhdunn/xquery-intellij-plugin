@@ -34,7 +34,11 @@ public class ResourceVirtualFile extends VirtualFile {
     private String mName;
     private File mFile = null;
 
-    public ResourceVirtualFile(ClassLoader loader, String resource) {
+    public static ResourceVirtualFile create(Class klass, String resource) {
+        return new ResourceVirtualFile(klass.getClassLoader(), resource);
+    }
+
+    private ResourceVirtualFile(ClassLoader loader, String resource) {
         mLoader = loader;
         mResource = resource;
 
@@ -55,10 +59,6 @@ public class ResourceVirtualFile extends VirtualFile {
                 //
             }
         }
-    }
-
-    public ResourceVirtualFile(String resource) {
-        this(ResourceVirtualFile.class.getClassLoader(), resource);
     }
 
     @NotNull
