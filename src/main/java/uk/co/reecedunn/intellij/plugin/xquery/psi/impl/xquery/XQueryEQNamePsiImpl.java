@@ -71,15 +71,23 @@ public class XQueryEQNamePsiImpl extends ASTWrapperPsiElement implements XQueryE
     }
 
     @Override
+    public Type getType() {
+        IElementType parent = getParent().getNode().getElementType();
+        if (parent == XQueryElementType.FUNCTION_CALL ||
+            parent == XQueryElementType.NAMED_FUNCTION_REF ||
+            parent == XQueryElementType.ARROW_FUNCTION_SPECIFIER) {
+            return Type.Function;
+        }
+        return null;
+    }
+
+    @Override
     @SuppressWarnings("NullableProblems") // jacoco Code Coverage reports an unchecked branch when @NotNull is used.
     public PsiReference[] getReferences() {
         Option<PsiReference> localNameRef = Option.none();
         int eqnameStart = getTextOffset();
 
-        IElementType parent = getParent().getNode().getElementType();
-        if (parent == XQueryElementType.FUNCTION_CALL ||
-            parent == XQueryElementType.NAMED_FUNCTION_REF ||
-            parent == XQueryElementType.ARROW_FUNCTION_SPECIFIER) {
+        if (getType() == Type.Function) {
             localNameRef = getLocalName().map((localName) -> new XQueryFunctionNameReference(this, localName.getTextRange().shiftRight(-eqnameStart)));
         } else {
             PsiElement previous = getPrevSibling();

@@ -4095,6 +4095,159 @@ public class XQueryPsiTest extends ParserTestCase {
     }
 
     // endregion
+    // region Type :: Function :: FunctionCall
+
+    public void testEQNameType_FunctionCall_NCName() {
+        final XQueryFile file = parseResource("tests/resolve/functions/FunctionCall_NCName.xq");
+
+        XQueryEQName name = descendants(file).findFirst(XQueryEQName.class).get();
+
+        assertThat(name.getPrefix(), is(notDefined()));
+
+        assertThat(name.getLocalName(), is(defined()));
+        assertThat(name.getLocalName().get().getNode().getElementType(), is(XQueryTokenType.NCNAME));
+        assertThat(name.getLocalName().get().getText(), is("true"));
+
+        assertThat(name.getType(), is(XQueryEQName.Type.Function));
+    }
+
+    public void testEQNameType_FunctionCall_QName() {
+        final XQueryFile file = parseResource("tests/resolve/functions/FunctionCall_QName.xq");
+
+        XQueryEQName name = descendants(file).findFirst(XQueryEQName.class).get();
+
+        assertThat(name.getPrefix(), is(defined()));
+        assertThat(name.getPrefix().get().getNode().getElementType(), is(XQueryElementType.NCNAME));
+        assertThat(name.getPrefix().get().getText(), is("fn"));
+
+        assertThat(name.getLocalName(), is(defined()));
+        assertThat(name.getLocalName().get().getNode().getElementType(), is(XQueryElementType.NCNAME));
+        assertThat(name.getLocalName().get().getText(), is("true"));
+
+        assertThat(name.getType(), is(XQueryEQName.Type.Function));
+    }
+
+    public void testEQNameType_FunctionCall_EQName() {
+        final XQueryFile file = parseResource("tests/resolve/functions/FunctionCall_EQName.xq");
+
+        XQueryEQName name = descendants(file).findFirst(XQueryEQName.class).get();
+
+        assertThat(name.getPrefix(), is(defined()));
+        assertThat(name.getPrefix().get().getNode().getElementType(), is(XQueryElementType.BRACED_URI_LITERAL));
+        assertThat(name.getPrefix().get().getText(), is("Q{http://www.w3.org/2005/xpath-functions}"));
+
+        assertThat(name.getLocalName(), is(defined()));
+        assertThat(name.getLocalName().get().getNode().getElementType(), is(XQueryElementType.NCNAME));
+        assertThat(name.getLocalName().get().getText(), is("true"));
+
+        assertThat(name.getType(), is(XQueryEQName.Type.Function));
+    }
+
+    // endregion
+    // region Type :: Function :: NamedFunctionRef
+
+    public void testEQNameType_NamedFunctionRef_NCName() {
+        final XQueryFile file = parseResource("tests/resolve/functions/NamedFunctionRef_NCName.xq");
+
+        XQueryEQName name = descendants(file).findFirst(XQueryEQName.class).get();
+
+        assertThat(name.getPrefix(), is(notDefined()));
+
+        assertThat(name.getLocalName(), is(defined()));
+        assertThat(name.getLocalName().get().getNode().getElementType(), is(XQueryTokenType.NCNAME));
+        assertThat(name.getLocalName().get().getText(), is("true"));
+
+        assertThat(name.getType(), is(XQueryEQName.Type.Function));
+    }
+
+    public void testEQNameType_NamedFunctionRef_QName() {
+        final XQueryFile file = parseResource("tests/resolve/functions/NamedFunctionRef_QName.xq");
+
+        XQueryEQName name = descendants(file).findFirst(XQueryEQName.class).get();
+
+        assertThat(name.getPrefix(), is(defined()));
+        assertThat(name.getPrefix().get().getNode().getElementType(), is(XQueryElementType.NCNAME));
+        assertThat(name.getPrefix().get().getText(), is("fn"));
+
+        assertThat(name.getLocalName(), is(defined()));
+        assertThat(name.getLocalName().get().getNode().getElementType(), is(XQueryElementType.NCNAME));
+        assertThat(name.getLocalName().get().getText(), is("true"));
+
+        assertThat(name.getType(), is(XQueryEQName.Type.Function));
+    }
+
+    public void testEQNameType_NamedFunctionRef_EQName() {
+        final XQueryFile file = parseResource("tests/resolve/functions/NamedFunctionRef_EQName.xq");
+
+        XQueryEQName name = descendants(file).findFirst(XQueryEQName.class).get();
+
+        assertThat(name.getPrefix(), is(defined()));
+        assertThat(name.getPrefix().get().getNode().getElementType(), is(XQueryElementType.BRACED_URI_LITERAL));
+        assertThat(name.getPrefix().get().getText(), is("Q{http://www.w3.org/2005/xpath-functions}"));
+
+        assertThat(name.getLocalName(), is(defined()));
+        assertThat(name.getLocalName().get().getNode().getElementType(), is(XQueryElementType.NCNAME));
+        assertThat(name.getLocalName().get().getText(), is("true"));
+
+        assertThat(name.getType(), is(XQueryEQName.Type.Function));
+    }
+
+    // endregion
+    // region Type :: Function :: ArrowFunctionSpecifier
+
+    public void testEQNameType_ArrowFunctionSpecifier_NCName() {
+        final XQueryFile file = parseResource("tests/resolve/functions/ArrowFunctionSpecifier_NCName.xq");
+
+        XQueryArrowExpr arrowExprPsi = descendants(file).findFirst(XQueryArrowExpr.class).get();
+        XQueryArrowFunctionSpecifier arrowFunctionSpecifierPsi = children(arrowExprPsi).findFirst(XQueryArrowFunctionSpecifier.class).get();
+        XQueryEQName name = children(arrowFunctionSpecifierPsi).findFirst(XQueryEQName.class).get();
+
+        assertThat(name.getPrefix(), is(notDefined()));
+
+        assertThat(name.getLocalName(), is(defined()));
+        assertThat(name.getLocalName().get().getNode().getElementType(), is(XQueryElementType.NCNAME));
+        assertThat(name.getLocalName().get().getText(), is("upper-case"));
+
+        assertThat(name.getType(), is(XQueryEQName.Type.Function));
+    }
+
+    public void testEQNameType_ArrowFunctionSpecifier_QName() {
+        final XQueryFile file = parseResource("tests/resolve/functions/ArrowFunctionSpecifier_QName.xq");
+
+        XQueryArrowExpr arrowExprPsi = descendants(file).findFirst(XQueryArrowExpr.class).get();
+        XQueryArrowFunctionSpecifier arrowFunctionSpecifierPsi = children(arrowExprPsi).findFirst(XQueryArrowFunctionSpecifier.class).get();
+        XQueryEQName name = children(arrowFunctionSpecifierPsi).findFirst(XQueryEQName.class).get();
+
+        assertThat(name.getPrefix(), is(defined()));
+        assertThat(name.getPrefix().get().getNode().getElementType(), is(XQueryElementType.NCNAME));
+        assertThat(name.getPrefix().get().getText(), is("fn"));
+
+        assertThat(name.getLocalName(), is(defined()));
+        assertThat(name.getLocalName().get().getNode().getElementType(), is(XQueryElementType.NCNAME));
+        assertThat(name.getLocalName().get().getText(), is("upper-case"));
+
+        assertThat(name.getType(), is(XQueryEQName.Type.Function));
+    }
+
+    public void testEQNameType_ArrowFunctionSpecifier_EQName() {
+        final XQueryFile file = parseResource("tests/resolve/functions/ArrowFunctionSpecifier_EQName.xq");
+
+        XQueryArrowExpr arrowExprPsi = descendants(file).findFirst(XQueryArrowExpr.class).get();
+        XQueryArrowFunctionSpecifier arrowFunctionSpecifierPsi = children(arrowExprPsi).findFirst(XQueryArrowFunctionSpecifier.class).get();
+        XQueryEQName name = children(arrowFunctionSpecifierPsi).findFirst(XQueryEQName.class).get();
+
+        assertThat(name.getPrefix(), is(defined()));
+        assertThat(name.getPrefix().get().getNode().getElementType(), is(XQueryElementType.BRACED_URI_LITERAL));
+        assertThat(name.getPrefix().get().getText(), is("Q{http://www.w3.org/2005/xpath-functions}"));
+
+        assertThat(name.getLocalName(), is(defined()));
+        assertThat(name.getLocalName().get().getNode().getElementType(), is(XQueryElementType.NCNAME));
+        assertThat(name.getLocalName().get().getText(), is("upper-case"));
+
+        assertThat(name.getType(), is(XQueryEQName.Type.Function));
+    }
+
+    // endregion
     // endregion
     // region XQueryFile
 
