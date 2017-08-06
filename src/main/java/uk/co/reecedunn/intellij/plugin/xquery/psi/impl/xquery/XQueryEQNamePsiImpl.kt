@@ -22,6 +22,7 @@ import com.intellij.psi.PsiReference
 import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.core.extensions.children
 import uk.co.reecedunn.intellij.plugin.core.extensions.siblings
+import uk.co.reecedunn.intellij.plugin.core.extensions.walkTree
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryBracedURILiteral
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName
 import uk.co.reecedunn.intellij.plugin.core.functional.Option
@@ -125,22 +126,13 @@ open class XQueryEQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQue
         }
 
         val text = prefix?.text
-
-        var element = prefix
-        while (element != null) {
-            if (element is XQueryNamespaceResolver) {
-                val resolved = (element as XQueryNamespaceResolver).resolveNamespace(text)
-                if (resolved.isDefined) {
-                    return resolved
-                }
+        return Option.of(prefix.walkTree().map { e ->
+            if (e is XQueryNamespaceResolver) {
+                val resolved = e.resolveNamespace(text)
+                if (resolved.isDefined) resolved.get() else null
+            } else {
+                null
             }
-
-            var next: PsiElement? = element.prevSibling
-            if (next == null) {
-                next = element.parent
-            }
-            element = next
-        }
-        return Option.none()
+        }.filterNotNull().firstOrNull())
     }
 }
