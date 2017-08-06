@@ -20,7 +20,6 @@ import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import uk.co.reecedunn.intellij.plugin.core.functional.Option;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryLetClause;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable;
@@ -33,17 +32,17 @@ public class XQueryLetClausePsiImpl extends ASTWrapperPsiElement implements XQue
 
     @Nullable
     @Override
-    public Option<XQueryVariable> resolveVariable(XQueryEQName name) {
+    public XQueryVariable resolveVariable(XQueryEQName name) {
         PsiElement element = getFirstChild();
         while (element != null) {
             if (element instanceof XQueryVariableResolver) {
-                Option<XQueryVariable> resolved = ((XQueryVariableResolver)element).resolveVariable(name);
-                if (resolved.isDefined()) {
+                XQueryVariable resolved = ((XQueryVariableResolver)element).resolveVariable(name);
+                if (resolved != null) {
                     return resolved;
                 }
             }
             element = element.getNextSibling();
         }
-        return Option.none();
+        return null;
     }
 }

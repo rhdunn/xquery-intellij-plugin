@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016-2017 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,6 @@ import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import uk.co.reecedunn.intellij.plugin.core.functional.Option;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryParam;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable;
@@ -33,11 +32,11 @@ public class XQueryParamPsiImpl extends ASTWrapperPsiElement implements XQueryPa
 
     @Nullable
     @Override
-    public Option<XQueryVariable> resolveVariable(XQueryEQName name) {
+    public XQueryVariable resolveVariable(XQueryEQName name) {
         PsiElement paramName = findChildByClass(XQueryEQName.class);
         if (paramName != null && paramName.equals(name)) {
-            return Option.some(new XQueryVariable(paramName, this));
+            return new XQueryVariable(paramName, this);
         }
-        return Option.none();
+        return null;
     }
 }

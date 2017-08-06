@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016-2017 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,6 @@ import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import uk.co.reecedunn.intellij.plugin.core.functional.Option;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCaseClause;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
@@ -34,11 +33,11 @@ public class XQueryCaseClausePsiImpl extends ASTWrapperPsiElement implements XQu
 
     @Nullable
     @Override
-    public Option<XQueryVariable> resolveVariable(XQueryEQName name) {
+    public XQueryVariable resolveVariable(XQueryEQName name) {
         PsiElement element = findChildByType(XQueryElementType.VAR_NAME);
         if (element != null && element.equals(name)) {
-            return Option.some(new XQueryVariable(element, this));
+            return new XQueryVariable(element, this);
         }
-        return Option.none();
+        return null;
     }
 }

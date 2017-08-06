@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016-2017 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,6 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import uk.co.reecedunn.intellij.plugin.core.functional.Option;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryParamList;
@@ -97,8 +96,8 @@ public class XQueryFunctionDeclPsiImpl extends ASTWrapperPsiElement implements X
 
     @Nullable
     @Override
-    public Option<XQueryVariable> resolveVariable(XQueryEQName name) {
+    public XQueryVariable resolveVariable(XQueryEQName name) {
         PsiElement element = findChildByType(XQueryElementType.PARAM_LIST);
-        return element == null ? Option.none() : ((XQueryVariableResolver)element).resolveVariable(name);
+        return element == null ? null : ((XQueryVariableResolver)element).resolveVariable(name);
     }
 }

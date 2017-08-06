@@ -26,12 +26,7 @@ class XQueryVariableNameReference(element: XQueryEQName, range: TextRange) : Psi
     override fun resolve(): PsiElement? {
         val name = element
         return name.walkTree().filterIsInstance<XQueryVariableResolver>().map { e ->
-            val resolved = e.resolveVariable(name)
-            if (resolved.isDefined) {
-                resolved.get().variable
-            } else {
-                null
-            }
+            e.resolveVariable(name)?.variable
         }.filterNotNull().firstOrNull()
     }
 

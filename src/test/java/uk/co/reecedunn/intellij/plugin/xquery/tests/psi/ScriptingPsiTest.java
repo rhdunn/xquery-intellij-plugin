@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.psi;
 
-import uk.co.reecedunn.intellij.plugin.core.functional.Option;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.*;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Implementations;
@@ -26,14 +25,10 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static uk.co.reecedunn.intellij.plugin.core.functional.PsiTreeWalker.children;
 import static uk.co.reecedunn.intellij.plugin.core.functional.PsiTreeWalker.descendants;
-import static uk.co.reecedunn.intellij.plugin.core.tests.functional.IsDefined.defined;
-import static uk.co.reecedunn.intellij.plugin.core.tests.functional.IsDefined.notDefined;
 
 @SuppressWarnings("ConstantConditions")
 public class ScriptingPsiTest extends ParserTestCase {
@@ -337,16 +332,16 @@ public class ScriptingPsiTest extends ParserTestCase {
         XQueryEQName varNamePsi = children(blockVarDeclPsi).findFirst(XQueryEQName.class).get();
 
         XQueryVariableResolver provider = (XQueryVariableResolver)blockVarDeclPsi;
-        assertThat(provider.resolveVariable(null), is(notDefined()));
+        assertThat(provider.resolveVariable(null), is(nullValue()));
 
-        Option<XQueryVariable> variable = provider.resolveVariable(varNamePsi);
-        assertThat(variable, is(defined()));
+        XQueryVariable variable = provider.resolveVariable(varNamePsi);
+        assertThat(variable, is(notNullValue()));
 
-        assertThat(variable.get().getVariable(), is(instanceOf(XQueryEQName.class)));
-        assertThat(variable.get().getVariable(), is(varNamePsi));
+        assertThat(variable.getVariable(), is(instanceOf(XQueryEQName.class)));
+        assertThat(variable.getVariable(), is(varNamePsi));
 
-        assertThat(variable.get().getDeclaration(), is(instanceOf(ScriptingBlockVarDecl.class)));
-        assertThat(variable.get().getDeclaration(), is(blockVarDeclPsi));
+        assertThat(variable.getDeclaration(), is(instanceOf(ScriptingBlockVarDecl.class)));
+        assertThat(variable.getDeclaration(), is(blockVarDeclPsi));
     }
 
     // endregion
