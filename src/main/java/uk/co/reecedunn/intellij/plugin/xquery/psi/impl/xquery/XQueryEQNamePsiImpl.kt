@@ -87,13 +87,13 @@ open class XQueryEQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQue
 
     override val prefix get(): PsiElement? {
         var element: PsiElement? = firstChild
-        if (element?.node?.elementType == XQueryElementType.URI_QUALIFIED_NAME) {
+        if (element?.node?.elementType === XQueryElementType.URI_QUALIFIED_NAME) {
             return (element as XQueryEQName).prefix
         }
 
         var match: PsiElement? = null
         while (element != null) {
-            if (element.node.elementType == XQueryElementType.NCNAME) {
+            if (element.node.elementType === XQueryElementType.NCNAME) {
                 match = element
             } else if (QNAME_SEPARATORS.contains(element.node.elementType)) {
                 return match
@@ -107,18 +107,18 @@ open class XQueryEQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQue
         var element = findChildByType<PsiElement>(QNAME_SEPARATORS)
         if (element == null) { // NCName | URIQualifiedName
             element = firstChild
-            if (element?.node?.elementType == XQueryElementType.URI_QUALIFIED_NAME) {
+            if (element?.node?.elementType === XQueryElementType.URI_QUALIFIED_NAME) {
                 return (element as XQueryEQName).localName
             }
 
             return children().firstOrNull { e ->
                 e.node.elementType is INCNameType ||
-                e.node.elementType == XQueryElementType.NCNAME
+                e.node.elementType === XQueryElementType.NCNAME
             }
         }
 
         // QName
-        return element.siblings().firstOrNull { e -> e.node.elementType == XQueryElementType.NCNAME }
+        return element.siblings().firstOrNull { e -> e.node.elementType === XQueryElementType.NCNAME }
     }
 
     override fun resolvePrefixNamespace(): Sequence<XQueryNamespace> {

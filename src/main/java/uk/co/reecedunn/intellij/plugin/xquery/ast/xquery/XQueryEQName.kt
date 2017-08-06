@@ -39,18 +39,18 @@ interface XQueryEQName: PsiElement {
 
     val type get(): Type {
         val parent = parent.node.elementType
-        if (parent == XQueryElementType.FUNCTION_CALL ||
-            parent == XQueryElementType.NAMED_FUNCTION_REF ||
-            parent == XQueryElementType.ARROW_FUNCTION_SPECIFIER) {
+        if (parent === XQueryElementType.FUNCTION_CALL ||
+            parent === XQueryElementType.NAMED_FUNCTION_REF ||
+            parent === XQueryElementType.ARROW_FUNCTION_SPECIFIER) {
             return Type.Function;
         } else {
             var previous = prevSibling
-            while (previous?.node?.elementType == XQueryElementType.COMMENT ||
-                   previous?.node?.elementType == XQueryTokenType.WHITE_SPACE) {
+            while (previous?.node?.elementType === XQueryElementType.COMMENT ||
+                   previous?.node?.elementType === XQueryTokenType.WHITE_SPACE) {
                 previous = previous.prevSibling
             }
 
-            if (previous?.node?.elementType == XQueryTokenType.VARIABLE_INDICATOR) {
+            if (previous?.node?.elementType === XQueryTokenType.VARIABLE_INDICATOR) {
                 return Type.Variable;
             }
         }
