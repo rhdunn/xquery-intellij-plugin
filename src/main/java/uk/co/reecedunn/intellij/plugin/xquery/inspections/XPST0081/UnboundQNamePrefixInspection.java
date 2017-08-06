@@ -65,7 +65,7 @@ public class UnboundQNamePrefixInspection extends LocalInspectionTool {
                               boolean isOnTheFly) {
         if (element instanceof XQueryEQName) {
             XQueryEQName qname = (XQueryEQName)element;
-            Option<PsiElement> context = qname.getPrefix().filter(XQueryNCName.class);
+            Option<PsiElement> context = Option.of(qname.getPrefix()).filter(XQueryNCName.class);
             if (context.isDefined() && context.get().getText().equals("xmlns")) {
                 return;
             }

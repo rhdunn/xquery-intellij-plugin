@@ -47,9 +47,9 @@ open class XQueryEQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQue
         }
 
         if (localName.getOrElse(null)?.text?.equals(other.localName.getOrElse(null)?.text) == true) {
-            val lhsPrefix = prefix.getOrElse(null)
-            val rhsPrefix = other.prefix.getOrElse(null)
-            return lhsPrefix == null && rhsPrefix == null || lhsPrefix?.text?.equals(rhsPrefix.text) == true
+            val lhsPrefix = prefix
+            val rhsPrefix = other.prefix
+            return lhsPrefix == null && rhsPrefix == null || lhsPrefix?.text?.equals(rhsPrefix?.text) == true
         }
         return false
     }
@@ -67,7 +67,7 @@ open class XQueryEQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQue
             else -> Option.none()
         }
 
-        val prefix = prefix.getOrElse(null)
+        val prefix = prefix
         if (prefix == null || prefix is XQueryBracedURILiteral) { // local name only
             if (localNameRef.isDefined) {
                 return arrayOf(localNameRef.get())
@@ -81,7 +81,7 @@ open class XQueryEQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQue
         }
     }
 
-    override val prefix get(): Option<PsiElement> {
+    override val prefix get(): PsiElement? {
         var element: PsiElement? = firstChild
         if (element?.node?.elementType == XQueryElementType.URI_QUALIFIED_NAME) {
             return (element as XQueryEQName).prefix
@@ -92,11 +92,11 @@ open class XQueryEQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQue
             if (element.node.elementType == XQueryElementType.NCNAME) {
                 match = element
             } else if (QNAME_SEPARATORS.contains(element.node.elementType)) {
-                return Option.of<PsiElement>(match)
+                return match
             }
             element = element.nextSibling
         }
-        return Option.none<PsiElement>()
+        return null
     }
 
     override val localName get(): Option<PsiElement> {
@@ -120,19 +120,19 @@ open class XQueryEQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQue
     }
 
     override fun resolvePrefixNamespace(): Option<XQueryNamespace> {
-        val prefix = prefix.getOrElse(null)
+        val prefix = prefix
         if (prefix is XQueryBracedURILiteral) {
             return Option.none()
         }
 
         val text = prefix?.text
-        return Option.of(prefix.walkTree().map { e ->
+        return Option.of(prefix?.walkTree()?.map { e ->
             if (e is XQueryNamespaceResolver) {
                 val resolved = e.resolveNamespace(text)
                 if (resolved.isDefined) resolved.get() else null
             } else {
                 null
             }
-        }.filterNotNull().firstOrNull())
+        }?.filterNotNull()?.firstOrNull())
     }
 }

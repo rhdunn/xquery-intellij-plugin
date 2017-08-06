@@ -24,8 +24,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace
 
 class XQueryURIQualifiedNamePsiImpl(node: ASTNode): ASTWrapperPsiElement(node), XQueryURIQualifiedName {
-    override val prefix get(): Option<PsiElement> {
-        return Option.of(findChildByType(XQueryElementType.BRACED_URI_LITERAL));
+    override val prefix get(): PsiElement? {
+        return findChildByType(XQueryElementType.BRACED_URI_LITERAL);
     }
 
     override val localName get(): Option<PsiElement> {

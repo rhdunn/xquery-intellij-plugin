@@ -58,7 +58,7 @@ interface XQueryEQName: PsiElement {
         return Type.Unknown;
     }
 
-    val prefix: Option<PsiElement>
+    val prefix: PsiElement?
 
     val localName: Option<PsiElement>
 

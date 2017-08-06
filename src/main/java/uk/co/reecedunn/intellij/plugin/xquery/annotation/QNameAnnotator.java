@@ -34,7 +34,7 @@ public class QNameAnnotator implements Annotator {
         XQueryEQName qname = (XQueryEQName)element;
 
         final boolean xmlns;
-        PsiElement prefix = qname.getPrefix().getOrElse(null);
+        PsiElement prefix = qname.getPrefix();
         if (prefix != null && !(prefix instanceof XQueryBracedURILiteral)) {
             if (prefix.getText().equals("xmlns")) {
                 xmlns = true;

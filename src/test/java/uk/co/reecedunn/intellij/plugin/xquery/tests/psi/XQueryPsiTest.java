@@ -3891,9 +3891,9 @@ public class XQueryPsiTest extends ParserTestCase {
         XQuerySimpleTypeName simpleTypeNamePsi = descendants(singleTypePsi).findFirst(XQuerySimpleTypeName.class).get();
         XQueryEQName eqnamePsi = (XQueryEQName)simpleTypeNamePsi;
 
-        assertThat(eqnamePsi.getPrefix(), is(defined()));
-        assertThat(eqnamePsi.getPrefix().get().getNode().getElementType(), is(XQueryElementType.NCNAME));
-        assertThat(eqnamePsi.getPrefix().get().getText(), is("xs"));
+        assertThat(eqnamePsi.getPrefix(), is(notNullValue()));
+        assertThat(eqnamePsi.getPrefix().getNode().getElementType(), is(XQueryElementType.NCNAME));
+        assertThat(eqnamePsi.getPrefix().getText(), is("xs"));
 
         assertThat(eqnamePsi.getLocalName(), is(defined()));
         assertThat(eqnamePsi.getLocalName().get().getNode().getElementType(), is(XQueryElementType.NCNAME));
@@ -3909,9 +3909,9 @@ public class XQueryPsiTest extends ParserTestCase {
         XQuerySimpleTypeName simpleTypeNamePsi = descendants(singleTypePsi).findFirst(XQuerySimpleTypeName.class).get();
         XQueryEQName eqnamePsi = (XQueryEQName)simpleTypeNamePsi;
 
-        assertThat(eqnamePsi.getPrefix(), is(defined()));
-        assertThat(eqnamePsi.getPrefix().get().getNode().getElementType(), is(XQueryElementType.NCNAME));
-        assertThat(eqnamePsi.getPrefix().get().getText(), is("sort"));
+        assertThat(eqnamePsi.getPrefix(), is(notNullValue()));
+        assertThat(eqnamePsi.getPrefix().getNode().getElementType(), is(XQueryElementType.NCNAME));
+        assertThat(eqnamePsi.getPrefix().getText(), is("sort"));
 
         assertThat(eqnamePsi.getLocalName(), is(defined()));
         assertThat(eqnamePsi.getLocalName().get().getNode().getElementType(), is(XQueryElementType.NCNAME));
@@ -3927,9 +3927,9 @@ public class XQueryPsiTest extends ParserTestCase {
         XQuerySimpleTypeName simpleTypeNamePsi = descendants(singleTypePsi).findFirst(XQuerySimpleTypeName.class).get();
         XQueryEQName eqnamePsi = (XQueryEQName)simpleTypeNamePsi;
 
-        assertThat(eqnamePsi.getPrefix(), is(defined()));
-        assertThat(eqnamePsi.getPrefix().get().getNode().getElementType(), is(XQueryElementType.NCNAME));
-        assertThat(eqnamePsi.getPrefix().get().getText(), is("xs"));
+        assertThat(eqnamePsi.getPrefix(), is(notNullValue()));
+        assertThat(eqnamePsi.getPrefix().getNode().getElementType(), is(XQueryElementType.NCNAME));
+        assertThat(eqnamePsi.getPrefix().getText(), is("xs"));
 
         assertThat(eqnamePsi.getLocalName(), is(notDefined()));
     }
@@ -3943,9 +3943,9 @@ public class XQueryPsiTest extends ParserTestCase {
         XQuerySimpleTypeName simpleTypeNamePsi = descendants(singleTypePsi).findFirst(XQuerySimpleTypeName.class).get();
         XQueryEQName eqnamePsi = (XQueryEQName)simpleTypeNamePsi;
 
-        assertThat(eqnamePsi.getPrefix(), is(defined()));
-        assertThat(eqnamePsi.getPrefix().get().getNode().getElementType(), is(XQueryElementType.NCNAME));
-        assertThat(eqnamePsi.getPrefix().get().getText(), is("order"));
+        assertThat(eqnamePsi.getPrefix(), is(notNullValue()));
+        assertThat(eqnamePsi.getPrefix().getNode().getElementType(), is(XQueryElementType.NCNAME));
+        assertThat(eqnamePsi.getPrefix().getText(), is("order"));
 
         assertThat(eqnamePsi.getLocalName(), is(defined()));
         assertThat(eqnamePsi.getLocalName().get().getNode().getElementType(), is(XQueryElementType.NCNAME));
@@ -3961,7 +3961,7 @@ public class XQueryPsiTest extends ParserTestCase {
         XQuerySimpleTypeName simpleTypeNamePsi = descendants(singleTypePsi).findFirst(XQuerySimpleTypeName.class).get();
         XQueryEQName eqnamePsi = (XQueryEQName)simpleTypeNamePsi;
 
-        assertThat(eqnamePsi.getPrefix(), is(notDefined()));
+        assertThat(eqnamePsi.getPrefix(), is(nullValue()));
 
         assertThat(eqnamePsi.getLocalName(), is(defined()));
         assertThat(eqnamePsi.getLocalName().get().getNode().getElementType(), is(XQueryElementType.NCNAME));
@@ -3977,9 +3977,9 @@ public class XQueryPsiTest extends ParserTestCase {
         XQuerySimpleTypeName simpleTypeNamePsi = descendants(singleTypePsi).findFirst(XQuerySimpleTypeName.class).get();
         XQueryEQName eqnamePsi = (XQueryEQName)simpleTypeNamePsi;
 
-        assertThat(eqnamePsi.getPrefix(), is(defined()));
-        assertThat(eqnamePsi.getPrefix().get().getNode().getElementType(), is(XQueryElementType.BRACED_URI_LITERAL));
-        assertThat(eqnamePsi.getPrefix().get().getText(), is("Q{http://www.w3.org/2001/XMLSchema}"));
+        assertThat(eqnamePsi.getPrefix(), is(notNullValue()));
+        assertThat(eqnamePsi.getPrefix().getNode().getElementType(), is(XQueryElementType.BRACED_URI_LITERAL));
+        assertThat(eqnamePsi.getPrefix().getText(), is("Q{http://www.w3.org/2001/XMLSchema}"));
 
         assertThat(eqnamePsi.getLocalName(), is(defined()));
         assertThat(eqnamePsi.getLocalName().get().getNode().getElementType(), is(XQueryElementType.NCNAME));
@@ -3995,7 +3995,7 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryOptionDecl optionDeclPsi = descendants(file).findFirst(XQueryOptionDecl.class).get();
         XQueryEQName eqnamePsi = children(optionDeclPsi).findFirst(XQueryEQName.class).get();
 
-        assertThat(eqnamePsi.getPrefix(), is(notDefined()));
+        assertThat(eqnamePsi.getPrefix(), is(nullValue()));
 
         assertThat(eqnamePsi.getLocalName(), is(defined()));
         assertThat(eqnamePsi.getLocalName().get().getNode().getElementType(), is(XQueryTokenType.K_COLLATION));
@@ -4011,9 +4011,9 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryOptionDecl optionDeclPsi = descendants(file).findFirst(XQueryOptionDecl.class).get();
         XQueryEQName eqnamePsi = children(optionDeclPsi).findFirst(XQueryEQName.class).get();
 
-        assertThat(eqnamePsi.getPrefix(), is(defined()));
-        assertThat(eqnamePsi.getPrefix().get().getNode().getElementType(), is(XQueryElementType.NCNAME));
-        assertThat(eqnamePsi.getPrefix().get().getText(), is("one"));
+        assertThat(eqnamePsi.getPrefix(), is(notNullValue()));
+        assertThat(eqnamePsi.getPrefix().getNode().getElementType(), is(XQueryElementType.NCNAME));
+        assertThat(eqnamePsi.getPrefix().getText(), is("one"));
 
         assertThat(eqnamePsi.getLocalName(), is(defined()));
         assertThat(eqnamePsi.getLocalName().get().getNode().getElementType(), is(XQueryElementType.NCNAME));
@@ -4026,9 +4026,9 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryOptionDecl optionDeclPsi = descendants(file).findFirst(XQueryOptionDecl.class).get();
         XQueryEQName eqnamePsi = children(optionDeclPsi).findFirst(XQueryEQName.class).get();
 
-        assertThat(eqnamePsi.getPrefix(), is(defined()));
-        assertThat(eqnamePsi.getPrefix().get().getNode().getElementType(), is(XQueryElementType.NCNAME));
-        assertThat(eqnamePsi.getPrefix().get().getText(), is("sort"));
+        assertThat(eqnamePsi.getPrefix(), is(notNullValue()));
+        assertThat(eqnamePsi.getPrefix().getNode().getElementType(), is(XQueryElementType.NCNAME));
+        assertThat(eqnamePsi.getPrefix().getText(), is("sort"));
 
         assertThat(eqnamePsi.getLocalName(), is(defined()));
         assertThat(eqnamePsi.getLocalName().get().getNode().getElementType(), is(XQueryElementType.NCNAME));
@@ -4041,9 +4041,9 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryOptionDecl optionDeclPsi = descendants(file).findFirst(XQueryOptionDecl.class).get();
         XQueryEQName eqnamePsi = children(optionDeclPsi).findFirst(XQueryEQName.class).get();
 
-        assertThat(eqnamePsi.getPrefix(), is(defined()));
-        assertThat(eqnamePsi.getPrefix().get().getNode().getElementType(), is(XQueryElementType.NCNAME));
-        assertThat(eqnamePsi.getPrefix().get().getText(), is("one"));
+        assertThat(eqnamePsi.getPrefix(), is(notNullValue()));
+        assertThat(eqnamePsi.getPrefix().getNode().getElementType(), is(XQueryElementType.NCNAME));
+        assertThat(eqnamePsi.getPrefix().getText(), is("one"));
 
         assertThat(eqnamePsi.getLocalName(), is(notDefined()));
     }
@@ -4054,9 +4054,9 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryOptionDecl optionDeclPsi = descendants(file).findFirst(XQueryOptionDecl.class).get();
         XQueryEQName eqnamePsi = children(optionDeclPsi).findFirst(XQueryEQName.class).get();
 
-        assertThat(eqnamePsi.getPrefix(), is(defined()));
-        assertThat(eqnamePsi.getPrefix().get().getNode().getElementType(), is(XQueryElementType.NCNAME));
-        assertThat(eqnamePsi.getPrefix().get().getText(), is("order"));
+        assertThat(eqnamePsi.getPrefix(), is(notNullValue()));
+        assertThat(eqnamePsi.getPrefix().getNode().getElementType(), is(XQueryElementType.NCNAME));
+        assertThat(eqnamePsi.getPrefix().getText(), is("order"));
 
         assertThat(eqnamePsi.getLocalName(), is(defined()));
         assertThat(eqnamePsi.getLocalName().get().getNode().getElementType(), is(XQueryElementType.NCNAME));
@@ -4069,9 +4069,9 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryDirElemConstructor dirElemConstructorPsi = descendants(file).findFirst(XQueryDirElemConstructor.class).get();
         XQueryEQName eqnamePsi = children(dirElemConstructorPsi).findFirst(XQueryEQName.class).get();
 
-        assertThat(eqnamePsi.getPrefix(), is(defined()));
-        assertThat(eqnamePsi.getPrefix().get().getNode().getElementType(), is(XQueryElementType.NCNAME));
-        assertThat(eqnamePsi.getPrefix().get().getText(), is("a"));
+        assertThat(eqnamePsi.getPrefix(), is(notNullValue()));
+        assertThat(eqnamePsi.getPrefix().getNode().getElementType(), is(XQueryElementType.NCNAME));
+        assertThat(eqnamePsi.getPrefix().getText(), is("a"));
 
         assertThat(eqnamePsi.getLocalName(), is(defined()));
         assertThat(eqnamePsi.getLocalName().get().getNode().getElementType(), is(XQueryElementType.NCNAME));
@@ -4085,9 +4085,9 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryDirAttributeList dirAttributeListPsi = children(dirElemConstructorPsi).findFirst(XQueryDirAttributeList.class).get();
         XQueryEQName eqnamePsi = children(dirAttributeListPsi).findFirst(XQueryEQName.class).get();
 
-        assertThat(eqnamePsi.getPrefix(), is(defined()));
-        assertThat(eqnamePsi.getPrefix().get().getNode().getElementType(), is(XQueryElementType.NCNAME));
-        assertThat(eqnamePsi.getPrefix().get().getText(), is("xml"));
+        assertThat(eqnamePsi.getPrefix(), is(notNullValue()));
+        assertThat(eqnamePsi.getPrefix().getNode().getElementType(), is(XQueryElementType.NCNAME));
+        assertThat(eqnamePsi.getPrefix().getText(), is("xml"));
 
         assertThat(eqnamePsi.getLocalName(), is(defined()));
         assertThat(eqnamePsi.getLocalName().get().getNode().getElementType(), is(XQueryElementType.NCNAME));
@@ -4102,7 +4102,7 @@ public class XQueryPsiTest extends ParserTestCase {
 
         XQueryEQName name = descendants(file).findFirst(XQueryEQName.class).get();
 
-        assertThat(name.getPrefix(), is(notDefined()));
+        assertThat(name.getPrefix(), is(nullValue()));
 
         assertThat(name.getLocalName(), is(defined()));
         assertThat(name.getLocalName().get().getNode().getElementType(), is(XQueryTokenType.NCNAME));
@@ -4116,9 +4116,9 @@ public class XQueryPsiTest extends ParserTestCase {
 
         XQueryEQName name = descendants(file).findFirst(XQueryEQName.class).get();
 
-        assertThat(name.getPrefix(), is(defined()));
-        assertThat(name.getPrefix().get().getNode().getElementType(), is(XQueryElementType.NCNAME));
-        assertThat(name.getPrefix().get().getText(), is("fn"));
+        assertThat(name.getPrefix(), is(notNullValue()));
+        assertThat(name.getPrefix().getNode().getElementType(), is(XQueryElementType.NCNAME));
+        assertThat(name.getPrefix().getText(), is("fn"));
 
         assertThat(name.getLocalName(), is(defined()));
         assertThat(name.getLocalName().get().getNode().getElementType(), is(XQueryElementType.NCNAME));
@@ -4132,9 +4132,9 @@ public class XQueryPsiTest extends ParserTestCase {
 
         XQueryEQName name = descendants(file).findFirst(XQueryEQName.class).get();
 
-        assertThat(name.getPrefix(), is(defined()));
-        assertThat(name.getPrefix().get().getNode().getElementType(), is(XQueryElementType.BRACED_URI_LITERAL));
-        assertThat(name.getPrefix().get().getText(), is("Q{http://www.w3.org/2005/xpath-functions}"));
+        assertThat(name.getPrefix(), is(notNullValue()));
+        assertThat(name.getPrefix().getNode().getElementType(), is(XQueryElementType.BRACED_URI_LITERAL));
+        assertThat(name.getPrefix().getText(), is("Q{http://www.w3.org/2005/xpath-functions}"));
 
         assertThat(name.getLocalName(), is(defined()));
         assertThat(name.getLocalName().get().getNode().getElementType(), is(XQueryElementType.NCNAME));
@@ -4151,7 +4151,7 @@ public class XQueryPsiTest extends ParserTestCase {
 
         XQueryEQName name = descendants(file).findFirst(XQueryEQName.class).get();
 
-        assertThat(name.getPrefix(), is(notDefined()));
+        assertThat(name.getPrefix(), is(nullValue()));
 
         assertThat(name.getLocalName(), is(defined()));
         assertThat(name.getLocalName().get().getNode().getElementType(), is(XQueryTokenType.NCNAME));
@@ -4165,9 +4165,9 @@ public class XQueryPsiTest extends ParserTestCase {
 
         XQueryEQName name = descendants(file).findFirst(XQueryEQName.class).get();
 
-        assertThat(name.getPrefix(), is(defined()));
-        assertThat(name.getPrefix().get().getNode().getElementType(), is(XQueryElementType.NCNAME));
-        assertThat(name.getPrefix().get().getText(), is("fn"));
+        assertThat(name.getPrefix(), is(notNullValue()));
+        assertThat(name.getPrefix().getNode().getElementType(), is(XQueryElementType.NCNAME));
+        assertThat(name.getPrefix().getText(), is("fn"));
 
         assertThat(name.getLocalName(), is(defined()));
         assertThat(name.getLocalName().get().getNode().getElementType(), is(XQueryElementType.NCNAME));
@@ -4181,9 +4181,9 @@ public class XQueryPsiTest extends ParserTestCase {
 
         XQueryEQName name = descendants(file).findFirst(XQueryEQName.class).get();
 
-        assertThat(name.getPrefix(), is(defined()));
-        assertThat(name.getPrefix().get().getNode().getElementType(), is(XQueryElementType.BRACED_URI_LITERAL));
-        assertThat(name.getPrefix().get().getText(), is("Q{http://www.w3.org/2005/xpath-functions}"));
+        assertThat(name.getPrefix(), is(notNullValue()));
+        assertThat(name.getPrefix().getNode().getElementType(), is(XQueryElementType.BRACED_URI_LITERAL));
+        assertThat(name.getPrefix().getText(), is("Q{http://www.w3.org/2005/xpath-functions}"));
 
         assertThat(name.getLocalName(), is(defined()));
         assertThat(name.getLocalName().get().getNode().getElementType(), is(XQueryElementType.NCNAME));
@@ -4202,7 +4202,7 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryArrowFunctionSpecifier arrowFunctionSpecifierPsi = children(arrowExprPsi).findFirst(XQueryArrowFunctionSpecifier.class).get();
         XQueryEQName name = children(arrowFunctionSpecifierPsi).findFirst(XQueryEQName.class).get();
 
-        assertThat(name.getPrefix(), is(notDefined()));
+        assertThat(name.getPrefix(), is(nullValue()));
 
         assertThat(name.getLocalName(), is(defined()));
         assertThat(name.getLocalName().get().getNode().getElementType(), is(XQueryElementType.NCNAME));
@@ -4218,9 +4218,9 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryArrowFunctionSpecifier arrowFunctionSpecifierPsi = children(arrowExprPsi).findFirst(XQueryArrowFunctionSpecifier.class).get();
         XQueryEQName name = children(arrowFunctionSpecifierPsi).findFirst(XQueryEQName.class).get();
 
-        assertThat(name.getPrefix(), is(defined()));
-        assertThat(name.getPrefix().get().getNode().getElementType(), is(XQueryElementType.NCNAME));
-        assertThat(name.getPrefix().get().getText(), is("fn"));
+        assertThat(name.getPrefix(), is(notNullValue()));
+        assertThat(name.getPrefix().getNode().getElementType(), is(XQueryElementType.NCNAME));
+        assertThat(name.getPrefix().getText(), is("fn"));
 
         assertThat(name.getLocalName(), is(defined()));
         assertThat(name.getLocalName().get().getNode().getElementType(), is(XQueryElementType.NCNAME));
@@ -4236,9 +4236,9 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryArrowFunctionSpecifier arrowFunctionSpecifierPsi = children(arrowExprPsi).findFirst(XQueryArrowFunctionSpecifier.class).get();
         XQueryEQName name = children(arrowFunctionSpecifierPsi).findFirst(XQueryEQName.class).get();
 
-        assertThat(name.getPrefix(), is(defined()));
-        assertThat(name.getPrefix().get().getNode().getElementType(), is(XQueryElementType.BRACED_URI_LITERAL));
-        assertThat(name.getPrefix().get().getText(), is("Q{http://www.w3.org/2005/xpath-functions}"));
+        assertThat(name.getPrefix(), is(notNullValue()));
+        assertThat(name.getPrefix().getNode().getElementType(), is(XQueryElementType.BRACED_URI_LITERAL));
+        assertThat(name.getPrefix().getText(), is("Q{http://www.w3.org/2005/xpath-functions}"));
 
         assertThat(name.getLocalName(), is(defined()));
         assertThat(name.getLocalName().get().getNode().getElementType(), is(XQueryElementType.NCNAME));
@@ -4257,7 +4257,7 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryVarDecl varDeclPsi = children(annotatedDeclPsi).findFirst(XQueryVarDecl.class).get();
         XQueryEQName name = children(varDeclPsi).findFirst(XQueryEQName.class).get();
 
-        assertThat(name.getPrefix(), is(notDefined()));
+        assertThat(name.getPrefix(), is(nullValue()));
 
         assertThat(name.getLocalName(), is(defined()));
         assertThat(name.getLocalName().get().getNode().getElementType(), is(XQueryElementType.NCNAME));
@@ -4273,9 +4273,9 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryVarDecl varDeclPsi = children(annotatedDeclPsi).findFirst(XQueryVarDecl.class).get();
         XQueryEQName name = children(varDeclPsi).findFirst(XQueryEQName.class).get();
 
-        assertThat(name.getPrefix(), is(defined()));
-        assertThat(name.getPrefix().get().getNode().getElementType(), is(XQueryElementType.NCNAME));
-        assertThat(name.getPrefix().get().getText(), is("local"));
+        assertThat(name.getPrefix(), is(notNullValue()));
+        assertThat(name.getPrefix().getNode().getElementType(), is(XQueryElementType.NCNAME));
+        assertThat(name.getPrefix().getText(), is("local"));
 
         assertThat(name.getLocalName(), is(defined()));
         assertThat(name.getLocalName().get().getNode().getElementType(), is(XQueryElementType.NCNAME));
@@ -4291,9 +4291,9 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryVarDecl varDeclPsi = children(annotatedDeclPsi).findFirst(XQueryVarDecl.class).get();
         XQueryEQName name = children(varDeclPsi).findFirst(XQueryEQName.class).get();
 
-        assertThat(name.getPrefix(), is(defined()));
-        assertThat(name.getPrefix().get().getNode().getElementType(), is(XQueryElementType.BRACED_URI_LITERAL));
-        assertThat(name.getPrefix().get().getText(), is("Q{http://www.w3.org/2005/xquery-local-functions}"));
+        assertThat(name.getPrefix(), is(notNullValue()));
+        assertThat(name.getPrefix().getNode().getElementType(), is(XQueryElementType.BRACED_URI_LITERAL));
+        assertThat(name.getPrefix().getText(), is("Q{http://www.w3.org/2005/xquery-local-functions}"));
 
         assertThat(name.getLocalName(), is(defined()));
         assertThat(name.getLocalName().get().getNode().getElementType(), is(XQueryElementType.NCNAME));
@@ -4948,9 +4948,9 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryOptionDecl optionDeclPsi = descendants(file).findFirst(XQueryOptionDecl.class).get();
         XQueryURIQualifiedName qnamePsi = children(optionDeclPsi).findFirst(XQueryURIQualifiedName.class).get();
 
-        assertThat(qnamePsi.getPrefix(), is(defined()));
-        assertThat(qnamePsi.getPrefix().get().getNode().getElementType(), is(XQueryElementType.BRACED_URI_LITERAL));
-        assertThat(qnamePsi.getPrefix().get().getText(), is("Q{one{two}"));
+        assertThat(qnamePsi.getPrefix(), is(notNullValue()));
+        assertThat(qnamePsi.getPrefix().getNode().getElementType(), is(XQueryElementType.BRACED_URI_LITERAL));
+        assertThat(qnamePsi.getPrefix().getText(), is("Q{one{two}"));
 
         assertThat(qnamePsi.getLocalName(), is(defined()));
         assertThat(qnamePsi.getLocalName().get().getNode().getElementType(), is(XQueryElementType.NCNAME));
