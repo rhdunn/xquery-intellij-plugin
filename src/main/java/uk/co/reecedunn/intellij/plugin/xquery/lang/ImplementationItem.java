@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.lang;
 
-import com.intellij.openapi.util.Pair;
 import org.jetbrains.annotations.NotNull;
 import org.w3c.dom.*;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;

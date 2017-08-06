@@ -15,8 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
-import com.intellij.psi.PsiElement;
-
 /**
  * An XQuery 3.1 <code>UnaryLookup</code> node in the XQuery AST.
  */

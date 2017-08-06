@@ -15,8 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.scripting;
 
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryExpr;
-
 /**
  * An XQuery Scripting Extension 1.0 <code>WhileBody</code> node in the XQuery AST.
  */

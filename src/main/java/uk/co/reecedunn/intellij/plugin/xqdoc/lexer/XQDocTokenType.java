@@ -17,10 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xqdoc.lexer;
 
 import com.intellij.psi.TokenType;
 import com.intellij.psi.tree.IElementType;
-import com.intellij.psi.tree.TokenSet;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.INCNameType;
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType;
 
 public interface XQDocTokenType extends TokenType {
     IElementType XQDOC_COMMENT_MARKER = new IElementType("XQDOC_COMMENT_MARKER", XQuery.INSTANCE);

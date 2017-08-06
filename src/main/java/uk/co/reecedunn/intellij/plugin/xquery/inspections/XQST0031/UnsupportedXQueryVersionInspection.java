@@ -18,7 +18,6 @@ package uk.co.reecedunn.intellij.plugin.xquery.inspections.XQST0031;
 import com.intellij.codeInspection.*;
 import com.intellij.psi.PsiFile;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVersionRef;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
