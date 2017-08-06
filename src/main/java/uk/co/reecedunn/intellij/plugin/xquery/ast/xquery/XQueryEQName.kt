@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016-2017 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,14 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
+package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.tree.IElementType;
-import uk.co.reecedunn.intellij.plugin.core.functional.Option;
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
-import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace;
+import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.functional.Option
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace
 
 /**
  * An XQuery 3.0 <code>EQName</code> node in the XQuery AST.
@@ -32,37 +31,36 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace;
  * This may be an instance of an <code>NCName</code>, <code>QName</code> or
  * <code>URIQualifiedName</code>.
  */
-public interface XQueryEQName extends PsiElement {
-    enum Type {
+interface XQueryEQName: PsiElement {
+    enum class Type {
         Function,
         Variable,
         Unknown,
     }
 
-    default Type getType() {
-        IElementType parent = getParent().getNode().getElementType();
+    val type get(): Type {
+        val parent = parent.node.elementType
         if (parent == XQueryElementType.FUNCTION_CALL ||
             parent == XQueryElementType.NAMED_FUNCTION_REF ||
             parent == XQueryElementType.ARROW_FUNCTION_SPECIFIER) {
             return Type.Function;
         } else {
-            PsiElement previous = getPrevSibling();
-            while (previous != null && (
-                   previous.getNode().getElementType() == XQueryElementType.COMMENT ||
-                   previous.getNode().getElementType() == XQueryTokenType.WHITE_SPACE)) {
-                previous = previous.getPrevSibling();
+            var previous = prevSibling
+            while (previous?.node?.elementType == XQueryElementType.COMMENT ||
+                   previous?.node?.elementType == XQueryTokenType.WHITE_SPACE) {
+                previous = previous.prevSibling
             }
 
-            if (previous != null && previous.getNode().getElementType() == XQueryTokenType.VARIABLE_INDICATOR) {
+            if (previous?.node?.elementType == XQueryTokenType.VARIABLE_INDICATOR) {
                 return Type.Variable;
             }
         }
         return Type.Unknown;
     }
 
-    Option<PsiElement> getPrefix();
+    val prefix: Option<PsiElement>
 
-    Option<PsiElement> getLocalName();
+    val localName: Option<PsiElement>
 
-    Option<XQueryNamespace> resolvePrefixNamespace();
+    fun resolvePrefixNamespace(): Option<XQueryNamespace>
 }
