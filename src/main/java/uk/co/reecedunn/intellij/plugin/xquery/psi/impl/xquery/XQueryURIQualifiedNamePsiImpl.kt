@@ -18,21 +18,20 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.core.functional.Option
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryURIQualifiedName
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace
 
 class XQueryURIQualifiedNamePsiImpl(node: ASTNode): ASTWrapperPsiElement(node), XQueryURIQualifiedName {
     override val prefix get(): PsiElement? {
-        return findChildByType(XQueryElementType.BRACED_URI_LITERAL);
+        return findChildByType(XQueryElementType.BRACED_URI_LITERAL)
     }
 
     override val localName get(): PsiElement? {
-        return findChildByType(XQueryElementType.NCNAME);
+        return findChildByType(XQueryElementType.NCNAME)
     }
 
-    override fun resolvePrefixNamespace(): Option<XQueryNamespace> {
-        return Option.none();
+    override fun resolvePrefixNamespace(): Sequence<XQueryNamespace> {
+        return emptySequence()
     }
 }

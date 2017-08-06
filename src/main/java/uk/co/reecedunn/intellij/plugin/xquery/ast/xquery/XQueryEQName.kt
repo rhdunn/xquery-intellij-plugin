@@ -16,7 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.core.functional.Option
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace
@@ -62,5 +61,5 @@ interface XQueryEQName: PsiElement {
 
     val localName: PsiElement?
 
-    fun resolvePrefixNamespace(): Option<XQueryNamespace>
+    fun resolvePrefixNamespace(): Sequence<XQueryNamespace>
 }

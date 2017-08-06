@@ -69,7 +69,7 @@ public class UnboundQNamePrefixInspection extends LocalInspectionTool {
             if (context.isDefined() && context.get().getText().equals("xmlns")) {
                 return;
             }
-            if (context.isDefined() && !qname.resolvePrefixNamespace().isDefined()) {
+            if (context.isDefined() && !qname.resolvePrefixNamespace().iterator().hasNext()) {
                 String description = XQueryBundle.message("inspection.XPST0081.unbound-qname-prefix.message");
                 descriptors.add(manager.createProblemDescriptor(context.get(), description, (LocalQuickFix)null, ProblemHighlightType.GENERIC_ERROR, isOnTheFly));
             }
