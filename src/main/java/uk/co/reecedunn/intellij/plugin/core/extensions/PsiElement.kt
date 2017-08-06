@@ -47,7 +47,7 @@ fun PsiElement.siblings(): Sequence<PsiElement> {
 }
 
 fun PsiElement.walkTree(): Sequence<PsiElement> {
-    return PsiElementWalker(nextSibling, { e ->
+    return PsiElementWalker(this, { e ->
         val next: PsiElement? = e.prevSibling
         if (next == null) e.parent else next
     }).asSequence()
