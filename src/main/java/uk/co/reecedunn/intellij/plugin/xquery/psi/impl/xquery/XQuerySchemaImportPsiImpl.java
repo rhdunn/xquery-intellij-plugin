@@ -42,7 +42,7 @@ public class XQuerySchemaImportPsiImpl extends ASTWrapperPsiElement implements X
         PsiElement name = schema.getFirstChild();
         while (name != null) {
             if (name instanceof XQueryNCName) {
-                Option<XQueryNamespace> ns = ((XQueryNCName)name).getLocalName().flatMap((localName) -> {
+                Option<XQueryNamespace> ns = Option.of(((XQueryNCName)name).getLocalName()).flatMap((localName) -> {
                     if (localName.getText().equals(prefix)) {
                         PsiElement element = findChildByType(XQueryElementType.URI_LITERAL);
                         return Option.some(new XQueryNamespace(localName, element, this));

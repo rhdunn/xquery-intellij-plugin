@@ -46,7 +46,7 @@ open class XQueryEQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQue
             return false
         }
 
-        if (localName.getOrElse(null)?.text?.equals(other.localName.getOrElse(null)?.text) == true) {
+        if (localName?.text?.equals(other.localName?.text) == true) {
             val lhsPrefix = prefix
             val rhsPrefix = other.prefix
             return lhsPrefix == null && rhsPrefix == null || lhsPrefix?.text?.equals(rhsPrefix?.text) == true
@@ -61,21 +61,25 @@ open class XQueryEQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQue
 
     override fun getReferences(): Array<PsiReference> {
         val eqnameStart = textOffset
-        val localNameRef: Option<PsiReference> = when (type) {
-            XQueryEQName.Type.Function -> localName.map { localName -> XQueryFunctionNameReference(this, localName.textRange.shiftRight(-eqnameStart)) }
-            XQueryEQName.Type.Variable -> localName.map { localName -> XQueryVariableNameReference(this, localName.textRange.shiftRight(-eqnameStart)) }
-            else -> Option.none()
-        }
+        val localName = localName
+        val localNameRef: PsiReference? =
+            if (localName != null) when (type) {
+                XQueryEQName.Type.Function -> XQueryFunctionNameReference(this, localName.textRange.shiftRight(-eqnameStart))
+                XQueryEQName.Type.Variable -> XQueryVariableNameReference(this, localName.textRange.shiftRight(-eqnameStart))
+                else -> null
+            } else {
+                null
+            }
 
         val prefix = prefix
         if (prefix == null || prefix is XQueryBracedURILiteral) { // local name only
-            if (localNameRef.isDefined) {
-                return arrayOf(localNameRef.get())
+            if (localNameRef != null) {
+                return arrayOf(localNameRef)
             }
             return PsiReference.EMPTY_ARRAY
         } else {
-            if (localNameRef.isDefined) {
-                return arrayOf(XQueryEQNamePrefixReference(this, prefix.textRange.shiftRight(-eqnameStart)), localNameRef.get())
+            if (localNameRef != null) {
+                return arrayOf(XQueryEQNamePrefixReference(this, prefix.textRange.shiftRight(-eqnameStart)), localNameRef)
             }
             return arrayOf(XQueryEQNamePrefixReference(this, prefix.textRange.shiftRight(-eqnameStart)))
         }
@@ -99,7 +103,7 @@ open class XQueryEQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQue
         return null
     }
 
-    override val localName get(): Option<PsiElement> {
+    override val localName get(): PsiElement? {
         var element = findChildByType<PsiElement>(QNAME_SEPARATORS)
         if (element == null) { // NCName | URIQualifiedName
             element = firstChild
@@ -107,16 +111,14 @@ open class XQueryEQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQue
                 return (element as XQueryEQName).localName
             }
 
-            return Option.of(children().firstOrNull { e ->
+            return children().firstOrNull { e ->
                 e.node.elementType is INCNameType ||
                 e.node.elementType == XQueryElementType.NCNAME
-            })
+            }
         }
 
         // QName
-        return Option.of(element.siblings().firstOrNull { e ->
-            e.node.elementType == XQueryElementType.NCNAME
-        })
+        return element.siblings().firstOrNull { e -> e.node.elementType == XQueryElementType.NCNAME }
     }
 
     override fun resolvePrefixNamespace(): Option<XQueryNamespace> {

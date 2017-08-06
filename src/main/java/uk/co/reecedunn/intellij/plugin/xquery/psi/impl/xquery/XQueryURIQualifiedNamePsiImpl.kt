@@ -28,8 +28,8 @@ class XQueryURIQualifiedNamePsiImpl(node: ASTNode): ASTWrapperPsiElement(node), 
         return findChildByType(XQueryElementType.BRACED_URI_LITERAL);
     }
 
-    override val localName get(): Option<PsiElement> {
-        return Option.of(findChildByType(XQueryElementType.NCNAME));
+    override val localName get(): PsiElement? {
+        return findChildByType(XQueryElementType.NCNAME);
     }
 
     override fun resolvePrefixNamespace(): Option<XQueryNamespace> {

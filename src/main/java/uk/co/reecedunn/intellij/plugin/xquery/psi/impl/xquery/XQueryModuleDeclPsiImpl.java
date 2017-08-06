@@ -35,7 +35,7 @@ public class XQueryModuleDeclPsiImpl extends ASTWrapperPsiElement implements XQu
 
     public Option<XQueryNamespace> getNamespace() {
         return children(this).findFirst(XQueryNCName.class).flatMap((name) ->
-            name.getLocalName().flatMap((localName) -> {
+            Option.of(name.getLocalName()).flatMap((localName) -> {
                 PsiElement element = findChildByType(XQueryElementType.URI_LITERAL);
                 return Option.some(new XQueryNamespace(localName, element, this));
             })

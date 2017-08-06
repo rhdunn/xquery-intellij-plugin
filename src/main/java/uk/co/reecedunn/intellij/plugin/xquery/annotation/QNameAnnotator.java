@@ -50,7 +50,8 @@ public class QNameAnnotator implements Annotator {
             xmlns = false;
         }
 
-        qname.getLocalName().map((localName) -> {
+        PsiElement localName = qname.getLocalName();
+        if (localName != null) {
             if (xmlns) {
                 holder.createInfoAnnotation(localName, null).setEnforcedTextAttributes(TextAttributes.ERASE_MARKER);
                 if (element.getParent() instanceof XQueryDirAttributeList) {
@@ -64,12 +65,12 @@ public class QNameAnnotator implements Annotator {
                 holder.createInfoAnnotation(localName, null).setEnforcedTextAttributes(TextAttributes.ERASE_MARKER);
                 holder.createInfoAnnotation(localName, null).setTextAttributes(SyntaxHighlighter.IDENTIFIER);
             } else if (localName instanceof XQueryNCName) {
-                if (((XQueryNCName)localName).getLocalName().map((name) -> name.getNode().getElementType()).getOrElse(null) instanceof IXQueryKeywordOrNCNameType) {
+                PsiElement ncname = ((XQueryNCName)localName).getLocalName();
+                if (ncname != null && ncname.getNode().getElementType() instanceof IXQueryKeywordOrNCNameType) {
                     holder.createInfoAnnotation(localName, null).setEnforcedTextAttributes(TextAttributes.ERASE_MARKER);
                     holder.createInfoAnnotation(localName, null).setTextAttributes(SyntaxHighlighter.IDENTIFIER);
                 }
             }
-            return Option.none();
-        });
+        }
     }
 }

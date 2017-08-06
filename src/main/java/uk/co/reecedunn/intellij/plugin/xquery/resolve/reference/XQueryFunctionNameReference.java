@@ -25,7 +25,7 @@ public class XQueryFunctionNameReference extends PsiReferenceBase<XQueryEQName> 
                     return null;
                 }
 
-                return getElement().getLocalName().map(PsiElement::getText).map((localName) -> {
+                return Option.of(getElement().getLocalName()).map(PsiElement::getText).map((localName) -> {
                     PsiElement parent = getElement().getParent();
                     int arity = 0;
                     if (parent instanceof XQueryFunctionCall) {
@@ -42,7 +42,7 @@ public class XQueryFunctionNameReference extends PsiReferenceBase<XQueryEQName> 
                             XQueryFunctionDecl functionDecl = children(annotation).findFirst(XQueryFunctionDecl.class).getOrElse(null);
                             if (functionDecl != null) {
                                 XQueryEQName functionName = children(functionDecl).findFirst(XQueryEQName.class).getOrElse(null);
-                                Option<PsiElement> functionLocalName = functionName == null ? Option.none() : functionName.getLocalName();
+                                Option<PsiElement> functionLocalName = functionName == null ? Option.none() : Option.of(functionName.getLocalName());
                                 if (functionLocalName.map(PsiElement::getText).map((name) -> name.equals(localName)).getOrElse(false)) {
                                     if (functionDecl.getArity() == arity) {
                                         return functionName;

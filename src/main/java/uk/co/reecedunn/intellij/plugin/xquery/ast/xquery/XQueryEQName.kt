@@ -60,7 +60,7 @@ interface XQueryEQName: PsiElement {
 
     val prefix: PsiElement?
 
-    val localName: Option<PsiElement>
+    val localName: PsiElement?
 
     fun resolvePrefixNamespace(): Option<XQueryNamespace>
 }
