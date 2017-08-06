@@ -32,8 +32,8 @@ class XQueryFileImpl(provider: FileViewProvider) : PsiFileBase(provider, XQuery.
     }
 
     override val XQueryVersion get(): XQueryVersionRef {
-        val module: PsiElement? = children().firstOrNull { e -> e is XQueryModule }
-        val versionDecl: XQueryVersionDecl? = module?.descendants()?.firstOrNull { e -> e is XQueryVersionDecl } as? XQueryVersionDecl
+        val module = children().firstOrNull { e -> e is XQueryModule }
+        val versionDecl = module?.descendants()?.filterIsInstance<XQueryVersionDecl>()?.firstOrNull()
         val version: XQueryStringLiteral? = versionDecl?.version
         val xqueryVersion: XQVersion = XQVersion.parse(version?.atomicValue)
         return XQueryVersionRef(version, xqueryVersion)

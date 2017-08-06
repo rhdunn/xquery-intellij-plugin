@@ -20,17 +20,10 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReferenceBase
 import uk.co.reecedunn.intellij.plugin.core.extensions.children
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
 
 class XQueryFunctionNameReference(element: XQueryEQName, range: TextRange) : PsiReferenceBase<XQueryEQName>(element, range) {
     override fun resolve(): PsiElement? {
-        val prologs: Sequence<XQueryProlog> = element.resolvePrefixNamespace().map { ns ->
-            if (ns.declaration is XQueryPrologResolver) {
-                ns.declaration.resolveProlog()
-            } else {
-                null
-            }
-        }.filterNotNull()
+        val prologs: Sequence<XQueryProlog> = element.resolvePrefixNamespace().filterIsInstance<XQueryProlog>()
 
         val localName = element.localName?.text
         val functions: Sequence<XQueryFunctionDecl> = prologs.flatMap { prolog ->
