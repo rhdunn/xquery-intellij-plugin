@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016-2017 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,10 +33,10 @@ public class XQuerySchemaImportPsiImpl extends ASTWrapperPsiElement implements X
     }
 
     @Override
-    public Option<XQueryNamespace> resolveNamespace(CharSequence prefix) {
+    public XQueryNamespace resolveNamespace(CharSequence prefix) {
         XQuerySchemaPrefix schema = findChildByType(XQueryElementType.SCHEMA_PREFIX);
         if (schema == null) {
-            return Option.none();
+            return null;
         }
 
         PsiElement name = schema.getFirstChild();
@@ -51,11 +51,11 @@ public class XQuerySchemaImportPsiImpl extends ASTWrapperPsiElement implements X
                 });
 
                 if (ns.isDefined()) {
-                    return ns;
+                    return ns.get();
                 }
             }
             name = name.getNextSibling();
         }
-        return Option.none();
+        return null;
     }
 }

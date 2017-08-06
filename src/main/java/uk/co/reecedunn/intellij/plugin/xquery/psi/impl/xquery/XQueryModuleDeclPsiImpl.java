@@ -45,8 +45,8 @@ public class XQueryModuleDeclPsiImpl extends ASTWrapperPsiElement implements XQu
     }
 
     @Override
-    public Option<XQueryNamespace> resolveNamespace(CharSequence prefix) {
-        return getNamespace().filter((ns) -> ns.getPrefix().getText().equals(prefix));
+    public XQueryNamespace resolveNamespace(CharSequence prefix) {
+        return getNamespace().filter((ns) -> ns.getPrefix().getText().equals(prefix)).getOrElse(null);
     }
 
     @Override

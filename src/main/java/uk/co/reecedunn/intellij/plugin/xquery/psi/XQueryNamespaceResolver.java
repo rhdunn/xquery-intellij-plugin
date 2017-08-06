@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016-2017 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.psi;
 
-import uk.co.reecedunn.intellij.plugin.core.functional.Option;
+import org.jetbrains.annotations.Nullable;
 
 public interface XQueryNamespaceResolver {
     /**
@@ -25,5 +25,6 @@ public interface XQueryNamespaceResolver {
      *
      * @return The namespace associated with the namespace prefix, or null if the prefix is not supported.
      */
-    Option<XQueryNamespace> resolveNamespace(CharSequence prefix);
+    @Nullable
+    XQueryNamespace resolveNamespace(@Nullable CharSequence prefix);
 }

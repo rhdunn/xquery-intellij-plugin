@@ -34,18 +34,18 @@ public class XQueryPrologPsiImpl extends ASTWrapperPsiElement implements XQueryP
     }
 
     @Override
-    public Option<XQueryNamespace> resolveNamespace(CharSequence prefix) {
+    public XQueryNamespace resolveNamespace(CharSequence prefix) {
         PsiElement element = getLastChild();
         while (element != null) {
             if (element instanceof XQueryNamespaceResolver) {
-                Option<XQueryNamespace> resolved = ((XQueryNamespaceResolver)element).resolveNamespace(prefix);
-                if (resolved.isDefined()) {
+                XQueryNamespace resolved = ((XQueryNamespaceResolver)element).resolveNamespace(prefix);
+                if (resolved != null) {
                     return resolved;
                 }
             }
             element = element.getPrevSibling();
         }
-        return Option.none();
+        return null;
     }
 
     @Nullable

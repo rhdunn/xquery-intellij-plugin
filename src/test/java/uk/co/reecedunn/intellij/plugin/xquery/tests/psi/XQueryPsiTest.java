@@ -4447,10 +4447,10 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryDirAttributeList dirAttributeListPsi = children(dirElemConstructorPsi).findFirst(XQueryDirAttributeList.class).get();
         XQueryNamespaceResolver provider = (XQueryNamespaceResolver)dirAttributeListPsi;
 
-        assertThat(provider.resolveNamespace(null), is(notDefined()));
-        assertThat(provider.resolveNamespace("abc"), is(notDefined()));
-        assertThat(provider.resolveNamespace("testing"), is(notDefined()));
-        assertThat(provider.resolveNamespace("a"), is(notDefined()));
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
+        assertThat(provider.resolveNamespace("a"), is(nullValue()));
     }
 
     public void testDirAttributeList_XmlNamespace() {
@@ -4460,21 +4460,21 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryDirAttributeList dirAttributeListPsi = children(dirElemConstructorPsi).findFirst(XQueryDirAttributeList.class).get();
         XQueryNamespaceResolver provider = (XQueryNamespaceResolver)dirAttributeListPsi;
 
-        assertThat(provider.resolveNamespace(null), is(notDefined()));
-        assertThat(provider.resolveNamespace("abc"), is(notDefined()));
-        assertThat(provider.resolveNamespace("testing"), is(notDefined()));
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
 
-        Option<XQueryNamespace> ns = provider.resolveNamespace("a");
-        assertThat(ns, is(defined()));
+        XQueryNamespace ns = provider.resolveNamespace("a");
+        assertThat(ns, is(notNullValue()));
 
-        assertThat(ns.get().getPrefix(), is(instanceOf(XQueryNCNamePsiImpl.class)));
-        assertThat(ns.get().getPrefix().getText(), is("a"));
+        assertThat(ns.getPrefix(), is(instanceOf(XQueryNCNamePsiImpl.class)));
+        assertThat(ns.getPrefix().getText(), is("a"));
 
-        assertThat(ns.get().getUri(), is(instanceOf(XQueryDirAttributeValue.class)));
-        assertThat(ns.get().getUri().getText(), is("\"http://www.example.com/a\""));
+        assertThat(ns.getUri(), is(instanceOf(XQueryDirAttributeValue.class)));
+        assertThat(ns.getUri().getText(), is("\"http://www.example.com/a\""));
 
-        assertThat(ns.get().getDeclaration(), is(instanceOf(XQueryDirAttributeList.class)));
-        assertThat(ns.get().getDeclaration(), is(dirAttributeListPsi));
+        assertThat(ns.getDeclaration(), is(instanceOf(XQueryDirAttributeList.class)));
+        assertThat(ns.getDeclaration(), is(dirAttributeListPsi));
     }
 
     public void testDirAttributeList_XmlNamespace_MissingValue() {
@@ -4484,20 +4484,20 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryDirAttributeList dirAttributeListPsi = children(dirElemConstructorPsi).findFirst(XQueryDirAttributeList.class).get();
         XQueryNamespaceResolver provider = (XQueryNamespaceResolver)dirAttributeListPsi;
 
-        assertThat(provider.resolveNamespace(null), is(notDefined()));
-        assertThat(provider.resolveNamespace("abc"), is(notDefined()));
-        assertThat(provider.resolveNamespace("testing"), is(notDefined()));
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
 
-        Option<XQueryNamespace> ns = provider.resolveNamespace("a");
-        assertThat(ns, is(defined()));
+        XQueryNamespace ns = provider.resolveNamespace("a");
+        assertThat(ns, is(notNullValue()));
 
-        assertThat(ns.get().getPrefix(), is(instanceOf(XQueryNCNamePsiImpl.class)));
-        assertThat(ns.get().getPrefix().getText(), is("a"));
+        assertThat(ns.getPrefix(), is(instanceOf(XQueryNCNamePsiImpl.class)));
+        assertThat(ns.getPrefix().getText(), is("a"));
 
-        assertThat(ns.get().getUri(), is(nullValue()));
+        assertThat(ns.getUri(), is(nullValue()));
 
-        assertThat(ns.get().getDeclaration(), is(instanceOf(XQueryDirAttributeList.class)));
-        assertThat(ns.get().getDeclaration(), is(dirAttributeListPsi));
+        assertThat(ns.getDeclaration(), is(instanceOf(XQueryDirAttributeList.class)));
+        assertThat(ns.getDeclaration(), is(dirAttributeListPsi));
     }
 
     public void testDirAttributeList_XmlNamespace_MissingMiddleValue() {
@@ -4507,20 +4507,20 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryDirAttributeList dirAttributeListPsi = children(dirElemConstructorPsi).findFirst(XQueryDirAttributeList.class).get();
         XQueryNamespaceResolver provider = (XQueryNamespaceResolver)dirAttributeListPsi;
 
-        assertThat(provider.resolveNamespace(null), is(notDefined()));
-        assertThat(provider.resolveNamespace("abc"), is(notDefined()));
-        assertThat(provider.resolveNamespace("testing"), is(notDefined()));
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
 
-        Option<XQueryNamespace> ns = provider.resolveNamespace("a");
-        assertThat(ns, is(defined()));
+        XQueryNamespace ns = provider.resolveNamespace("a");
+        assertThat(ns, is(notNullValue()));
 
-        assertThat(ns.get().getPrefix(), is(instanceOf(XQueryNCNamePsiImpl.class)));
-        assertThat(ns.get().getPrefix().getText(), is("a"));
+        assertThat(ns.getPrefix(), is(instanceOf(XQueryNCNamePsiImpl.class)));
+        assertThat(ns.getPrefix().getText(), is("a"));
 
-        assertThat(ns.get().getUri(), is(nullValue()));
+        assertThat(ns.getUri(), is(nullValue()));
 
-        assertThat(ns.get().getDeclaration(), is(instanceOf(XQueryDirAttributeList.class)));
-        assertThat(ns.get().getDeclaration(), is(dirAttributeListPsi));
+        assertThat(ns.getDeclaration(), is(instanceOf(XQueryDirAttributeList.class)));
+        assertThat(ns.getDeclaration(), is(dirAttributeListPsi));
     }
 
     // endregion
@@ -4532,10 +4532,10 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryDirElemConstructor dirElemConstructorPsi = descendants(file).findFirst(XQueryDirElemConstructor.class).get();
         XQueryNamespaceResolver provider = (XQueryNamespaceResolver)dirElemConstructorPsi;
 
-        assertThat(provider.resolveNamespace(null), is(notDefined()));
-        assertThat(provider.resolveNamespace("abc"), is(notDefined()));
-        assertThat(provider.resolveNamespace("testing"), is(notDefined()));
-        assertThat(provider.resolveNamespace("a"), is(notDefined()));
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
+        assertThat(provider.resolveNamespace("a"), is(nullValue()));
     }
 
     public void testDirElemConstructor_AttributeList() {
@@ -4544,10 +4544,10 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryDirElemConstructor dirElemConstructorPsi = descendants(file).findFirst(XQueryDirElemConstructor.class).get();
         XQueryNamespaceResolver provider = (XQueryNamespaceResolver)dirElemConstructorPsi;
 
-        assertThat(provider.resolveNamespace(null), is(notDefined()));
-        assertThat(provider.resolveNamespace("abc"), is(notDefined()));
-        assertThat(provider.resolveNamespace("testing"), is(notDefined()));
-        assertThat(provider.resolveNamespace("a"), is(notDefined()));
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
+        assertThat(provider.resolveNamespace("a"), is(nullValue()));
     }
 
     public void testDirElemConstructor_XmlNamespace() {
@@ -4557,21 +4557,21 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryDirAttributeList dirAttributeListPsi = children(dirElemConstructorPsi).findFirst(XQueryDirAttributeList.class).get();
         XQueryNamespaceResolver provider = (XQueryNamespaceResolver)dirElemConstructorPsi;
 
-        assertThat(provider.resolveNamespace(null), is(notDefined()));
-        assertThat(provider.resolveNamespace("abc"), is(notDefined()));
-        assertThat(provider.resolveNamespace("testing"), is(notDefined()));
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
 
-        Option<XQueryNamespace> ns = provider.resolveNamespace("a");
-        assertThat(ns, is(defined()));
+        XQueryNamespace ns = provider.resolveNamespace("a");
+        assertThat(ns, is(notNullValue()));
 
-        assertThat(ns.get().getPrefix(), is(instanceOf(XQueryNCNamePsiImpl.class)));
-        assertThat(ns.get().getPrefix().getText(), is("a"));
+        assertThat(ns.getPrefix(), is(instanceOf(XQueryNCNamePsiImpl.class)));
+        assertThat(ns.getPrefix().getText(), is("a"));
 
-        assertThat(ns.get().getUri(), is(instanceOf(XQueryDirAttributeValue.class)));
-        assertThat(ns.get().getUri().getText(), is("\"http://www.example.com/a\""));
+        assertThat(ns.getUri(), is(instanceOf(XQueryDirAttributeValue.class)));
+        assertThat(ns.getUri().getText(), is("\"http://www.example.com/a\""));
 
-        assertThat(ns.get().getDeclaration(), is(instanceOf(XQueryDirAttributeList.class)));
-        assertThat(ns.get().getDeclaration(), is(dirAttributeListPsi));
+        assertThat(ns.getDeclaration(), is(instanceOf(XQueryDirAttributeList.class)));
+        assertThat(ns.getDeclaration(), is(dirAttributeListPsi));
     }
 
     public void testDirElemConstructor_XmlNamespace_MissingValue() {
@@ -4581,20 +4581,20 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryDirAttributeList dirAttributeListPsi = children(dirElemConstructorPsi).findFirst(XQueryDirAttributeList.class).get();
         XQueryNamespaceResolver provider = (XQueryNamespaceResolver)dirElemConstructorPsi;
 
-        assertThat(provider.resolveNamespace(null), is(notDefined()));
-        assertThat(provider.resolveNamespace("abc"), is(notDefined()));
-        assertThat(provider.resolveNamespace("testing"), is(notDefined()));
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
 
-        Option<XQueryNamespace> ns = provider.resolveNamespace("a");
-        assertThat(ns, is(defined()));
+        XQueryNamespace ns = provider.resolveNamespace("a");
+        assertThat(ns, is(notNullValue()));
 
-        assertThat(ns.get().getPrefix(), is(instanceOf(XQueryNCNamePsiImpl.class)));
-        assertThat(ns.get().getPrefix().getText(), is("a"));
+        assertThat(ns.getPrefix(), is(instanceOf(XQueryNCNamePsiImpl.class)));
+        assertThat(ns.getPrefix().getText(), is("a"));
 
-        assertThat(ns.get().getUri(), is(nullValue()));
+        assertThat(ns.getUri(), is(nullValue()));
 
-        assertThat(ns.get().getDeclaration(), is(instanceOf(XQueryDirAttributeList.class)));
-        assertThat(ns.get().getDeclaration(), is(dirAttributeListPsi));
+        assertThat(ns.getDeclaration(), is(instanceOf(XQueryDirAttributeList.class)));
+        assertThat(ns.getDeclaration(), is(dirAttributeListPsi));
     }
 
     public void testDirElemConstructor_XmlNamespace_MissingMiddleValue() {
@@ -4604,20 +4604,20 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryDirAttributeList dirAttributeListPsi = children(dirElemConstructorPsi).findFirst(XQueryDirAttributeList.class).get();
         XQueryNamespaceResolver provider = (XQueryNamespaceResolver)dirElemConstructorPsi;
 
-        assertThat(provider.resolveNamespace(null), is(notDefined()));
-        assertThat(provider.resolveNamespace("abc"), is(notDefined()));
-        assertThat(provider.resolveNamespace("testing"), is(notDefined()));
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
 
-        Option<XQueryNamespace> ns = provider.resolveNamespace("a");
-        assertThat(ns, is(defined()));
+        XQueryNamespace ns = provider.resolveNamespace("a");
+        assertThat(ns, is(notNullValue()));
 
-        assertThat(ns.get().getPrefix(), is(instanceOf(XQueryNCNamePsiImpl.class)));
-        assertThat(ns.get().getPrefix().getText(), is("a"));
+        assertThat(ns.getPrefix(), is(instanceOf(XQueryNCNamePsiImpl.class)));
+        assertThat(ns.getPrefix().getText(), is("a"));
 
-        assertThat(ns.get().getUri(), is(nullValue()));
+        assertThat(ns.getUri(), is(nullValue()));
 
-        assertThat(ns.get().getDeclaration(), is(instanceOf(XQueryDirAttributeList.class)));
-        assertThat(ns.get().getDeclaration(), is(dirAttributeListPsi));
+        assertThat(ns.getDeclaration(), is(instanceOf(XQueryDirAttributeList.class)));
+        assertThat(ns.getDeclaration(), is(dirAttributeListPsi));
     }
 
     // endregion
@@ -4629,22 +4629,22 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryModule modulePsi = descendants(file).findFirst(XQueryModule.class).get();
         XQueryNamespaceResolver provider = (XQueryNamespaceResolver)modulePsi;
 
-        assertThat(provider.resolveNamespace(null), is(notDefined()));
-        assertThat(provider.resolveNamespace("abc"), is(notDefined()));
-        assertThat(provider.resolveNamespace("testing"), is(notDefined()));
-        assertThat(provider.resolveNamespace("test"), is(notDefined()));
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
+        assertThat(provider.resolveNamespace("test"), is(nullValue()));
 
-        Option<XQueryNamespace> ns = provider.resolveNamespace("local");
-        assertThat(ns, is(defined()));
+        XQueryNamespace ns = provider.resolveNamespace("local");
+        assertThat(ns, is(notNullValue()));
 
-        assertThat(ns.get().getPrefix(), is(notNullValue()));
-        assertThat(ns.get().getPrefix().getText(), is("local"));
+        assertThat(ns.getPrefix(), is(notNullValue()));
+        assertThat(ns.getPrefix().getText(), is("local"));
 
-        assertThat(ns.get().getUri(), is(instanceOf(XQueryUriLiteral.class)));
-        assertThat(((XQueryUriLiteral)ns.get().getUri()).getAtomicValue(),
+        assertThat(ns.getUri(), is(instanceOf(XQueryUriLiteral.class)));
+        assertThat(((XQueryUriLiteral)ns.getUri()).getAtomicValue(),
                 is("http://www.w3.org/2005/xquery-local-functions"));
 
-        assertThat(ns.get().getDeclaration(), is(instanceOf(XQueryNamespaceDecl.class)));
+        assertThat(ns.getDeclaration(), is(instanceOf(XQueryNamespaceDecl.class)));
     }
 
     // endregion
@@ -4656,21 +4656,21 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryModuleDecl moduleDeclPsi = descendants(file).findFirst(XQueryModuleDecl.class).get();
         XQueryNamespaceResolver provider = (XQueryNamespaceResolver)moduleDeclPsi;
 
-        assertThat(provider.resolveNamespace(null), is(notDefined()));
-        assertThat(provider.resolveNamespace("abc"), is(notDefined()));
-        assertThat(provider.resolveNamespace("testing"), is(notDefined()));
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
 
-        Option<XQueryNamespace> ns = provider.resolveNamespace("test");
-        assertThat(ns, is(defined()));
+        XQueryNamespace ns = provider.resolveNamespace("test");
+        assertThat(ns, is(notNullValue()));
 
-        assertThat(ns.get().getPrefix(), is(instanceOf(LeafPsiElement.class)));
-        assertThat(ns.get().getPrefix().getText(), is("test"));
+        assertThat(ns.getPrefix(), is(instanceOf(LeafPsiElement.class)));
+        assertThat(ns.getPrefix().getText(), is("test"));
 
-        assertThat(ns.get().getUri(), is(instanceOf(XQueryUriLiteral.class)));
-        assertThat(((XQueryUriLiteral)ns.get().getUri()).getAtomicValue(), is("http://www.example.com/test"));
+        assertThat(ns.getUri(), is(instanceOf(XQueryUriLiteral.class)));
+        assertThat(((XQueryUriLiteral)ns.getUri()).getAtomicValue(), is("http://www.example.com/test"));
 
-        assertThat(ns.get().getDeclaration(), is(instanceOf(XQueryModuleDecl.class)));
-        assertThat(ns.get().getDeclaration(), is(moduleDeclPsi));
+        assertThat(ns.getDeclaration(), is(instanceOf(XQueryModuleDecl.class)));
+        assertThat(ns.getDeclaration(), is(moduleDeclPsi));
     }
 
     public void testModuleDecl_MissingNamespaceName() {
@@ -4679,10 +4679,10 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryModuleDecl moduleDeclPsi = descendants(file).findFirst(XQueryModuleDecl.class).get();
         XQueryNamespaceResolver provider = (XQueryNamespaceResolver)moduleDeclPsi;
 
-        assertThat(provider.resolveNamespace(null), is(notDefined()));
-        assertThat(provider.resolveNamespace("abc"), is(notDefined()));
-        assertThat(provider.resolveNamespace("testing"), is(notDefined()));
-        assertThat(provider.resolveNamespace("test"), is(notDefined()));
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
+        assertThat(provider.resolveNamespace("test"), is(nullValue()));
     }
 
     public void testModulesDecl_MissingNamespaceUri() {
@@ -4691,20 +4691,20 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryModuleDecl moduleDeclPsi = descendants(file).findFirst(XQueryModuleDecl.class).get();
         XQueryNamespaceResolver provider = (XQueryNamespaceResolver)moduleDeclPsi;
 
-        assertThat(provider.resolveNamespace(null), is(notDefined()));
-        assertThat(provider.resolveNamespace("abc"), is(notDefined()));
-        assertThat(provider.resolveNamespace("testing"), is(notDefined()));
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
 
-        Option<XQueryNamespace> ns = provider.resolveNamespace("one");
-        assertThat(ns, is(defined()));
+        XQueryNamespace ns = provider.resolveNamespace("one");
+        assertThat(ns, is(notNullValue()));
 
-        assertThat(ns.get().getPrefix(), is(instanceOf(LeafPsiElement.class)));
-        assertThat(ns.get().getPrefix().getText(), is("one"));
+        assertThat(ns.getPrefix(), is(instanceOf(LeafPsiElement.class)));
+        assertThat(ns.getPrefix().getText(), is("one"));
 
-        assertThat(ns.get().getUri(), is(nullValue()));
+        assertThat(ns.getUri(), is(nullValue()));
 
-        assertThat(ns.get().getDeclaration(), is(instanceOf(XQueryModuleDecl.class)));
-        assertThat(ns.get().getDeclaration(), is(moduleDeclPsi));
+        assertThat(ns.getDeclaration(), is(instanceOf(XQueryModuleDecl.class)));
+        assertThat(ns.getDeclaration(), is(moduleDeclPsi));
     }
 
     // endregion
@@ -4716,10 +4716,10 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryModuleImport moduleImportPsi = descendants(file).findFirst(XQueryModuleImport.class).get();
         XQueryNamespaceResolver provider = (XQueryNamespaceResolver)moduleImportPsi;
 
-        assertThat(provider.resolveNamespace(null), is(notDefined()));
-        assertThat(provider.resolveNamespace("abc"), is(notDefined()));
-        assertThat(provider.resolveNamespace("testing"), is(notDefined()));
-        assertThat(provider.resolveNamespace("test"), is(notDefined()));
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
+        assertThat(provider.resolveNamespace("test"), is(nullValue()));
     }
 
     public void testModuleImport_WithNamespace() {
@@ -4728,21 +4728,21 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryModuleImport moduleImportPsi = descendants(file).findFirst(XQueryModuleImport.class).get();
         XQueryNamespaceResolver provider = (XQueryNamespaceResolver)moduleImportPsi;
 
-        assertThat(provider.resolveNamespace(null), is(notDefined()));
-        assertThat(provider.resolveNamespace("abc"), is(notDefined()));
-        assertThat(provider.resolveNamespace("testing"), is(notDefined()));
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
 
-        Option<XQueryNamespace> ns = provider.resolveNamespace("test");
-        assertThat(ns, is(defined()));
+        XQueryNamespace ns = provider.resolveNamespace("test");
+        assertThat(ns, is(notNullValue()));
 
-        assertThat(ns.get().getPrefix(), is(instanceOf(LeafPsiElement.class)));
-        assertThat(ns.get().getPrefix().getText(), is("test"));
+        assertThat(ns.getPrefix(), is(instanceOf(LeafPsiElement.class)));
+        assertThat(ns.getPrefix().getText(), is("test"));
 
-        assertThat(ns.get().getUri(), is(instanceOf(XQueryUriLiteral.class)));
-        assertThat(((XQueryUriLiteral)ns.get().getUri()).getAtomicValue(), is("http://www.example.com/test"));
+        assertThat(ns.getUri(), is(instanceOf(XQueryUriLiteral.class)));
+        assertThat(((XQueryUriLiteral)ns.getUri()).getAtomicValue(), is("http://www.example.com/test"));
 
-        assertThat(ns.get().getDeclaration(), is(instanceOf(XQueryModuleImport.class)));
-        assertThat(ns.get().getDeclaration(), is(moduleImportPsi));
+        assertThat(ns.getDeclaration(), is(instanceOf(XQueryModuleImport.class)));
+        assertThat(ns.getDeclaration(), is(moduleImportPsi));
     }
 
     // endregion
@@ -4754,21 +4754,21 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryNamespaceDecl namespaceDeclPsi = descendants(file).findFirst(XQueryNamespaceDecl.class).get();
         XQueryNamespaceResolver provider = (XQueryNamespaceResolver)namespaceDeclPsi;
 
-        assertThat(provider.resolveNamespace(null), is(notDefined()));
-        assertThat(provider.resolveNamespace("abc"), is(notDefined()));
-        assertThat(provider.resolveNamespace("testing"), is(notDefined()));
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
 
-        Option<XQueryNamespace> ns = provider.resolveNamespace("test");
-        assertThat(ns, is(defined()));
+        XQueryNamespace ns = provider.resolveNamespace("test");
+        assertThat(ns, is(notNullValue()));
 
-        assertThat(ns.get().getPrefix(), is(instanceOf(LeafPsiElement.class)));
-        assertThat(ns.get().getPrefix().getText(), is("test"));
+        assertThat(ns.getPrefix(), is(instanceOf(LeafPsiElement.class)));
+        assertThat(ns.getPrefix().getText(), is("test"));
 
-        assertThat(ns.get().getUri(), is(instanceOf(XQueryUriLiteral.class)));
-        assertThat(((XQueryUriLiteral)ns.get().getUri()).getAtomicValue(), is("http://www.example.org/test"));
+        assertThat(ns.getUri(), is(instanceOf(XQueryUriLiteral.class)));
+        assertThat(((XQueryUriLiteral)ns.getUri()).getAtomicValue(), is("http://www.example.org/test"));
 
-        assertThat(ns.get().getDeclaration(), is(instanceOf(XQueryNamespaceDecl.class)));
-        assertThat(ns.get().getDeclaration(), is(namespaceDeclPsi));
+        assertThat(ns.getDeclaration(), is(instanceOf(XQueryNamespaceDecl.class)));
+        assertThat(ns.getDeclaration(), is(namespaceDeclPsi));
     }
 
     public void testNamespaceDecl_MissingNCName() {
@@ -4777,10 +4777,10 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryNamespaceDecl namespaceDeclPsi = descendants(file).findFirst(XQueryNamespaceDecl.class).get();
         XQueryNamespaceResolver provider = (XQueryNamespaceResolver)namespaceDeclPsi;
 
-        assertThat(provider.resolveNamespace(null), is(notDefined()));
-        assertThat(provider.resolveNamespace("abc"), is(notDefined()));
-        assertThat(provider.resolveNamespace("testing"), is(notDefined()));
-        assertThat(provider.resolveNamespace("test"), is(notDefined()));
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
+        assertThat(provider.resolveNamespace("test"), is(nullValue()));
     }
 
     public void testNamespaceDecl_MissingUri() {
@@ -4789,20 +4789,20 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryNamespaceDecl namespaceDeclPsi = descendants(file).findFirst(XQueryNamespaceDecl.class).get();
         XQueryNamespaceResolver provider = (XQueryNamespaceResolver)namespaceDeclPsi;
 
-        assertThat(provider.resolveNamespace(null), is(notDefined()));
-        assertThat(provider.resolveNamespace("abc"), is(notDefined()));
-        assertThat(provider.resolveNamespace("testing"), is(notDefined()));
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
 
-        Option<XQueryNamespace> ns = provider.resolveNamespace("test");
-        assertThat(ns, is(defined()));
+        XQueryNamespace ns = provider.resolveNamespace("test");
+        assertThat(ns, is(notNullValue()));
 
-        assertThat(ns.get().getPrefix(), is(instanceOf(LeafPsiElement.class)));
-        assertThat(ns.get().getPrefix().getText(), is("test"));
+        assertThat(ns.getPrefix(), is(instanceOf(LeafPsiElement.class)));
+        assertThat(ns.getPrefix().getText(), is("test"));
 
-        assertThat(ns.get().getUri(), is(nullValue()));
+        assertThat(ns.getUri(), is(nullValue()));
 
-        assertThat(ns.get().getDeclaration(), is(instanceOf(XQueryNamespaceDecl.class)));
-        assertThat(ns.get().getDeclaration(), is(namespaceDeclPsi));
+        assertThat(ns.getDeclaration(), is(instanceOf(XQueryNamespaceDecl.class)));
+        assertThat(ns.getDeclaration(), is(namespaceDeclPsi));
     }
 
     // endregion
@@ -4814,10 +4814,10 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryProlog prologPsi = descendants(file).findFirst(XQueryProlog.class).get();
         XQueryNamespaceResolver provider = (XQueryNamespaceResolver)prologPsi;
 
-        assertThat(provider.resolveNamespace(null), is(notDefined()));
-        assertThat(provider.resolveNamespace("abc"), is(notDefined()));
-        assertThat(provider.resolveNamespace("testing"), is(notDefined()));
-        assertThat(provider.resolveNamespace("test"), is(notDefined()));
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
+        assertThat(provider.resolveNamespace("test"), is(nullValue()));
     }
 
     public void testProlog_NamespaceDecl() {
@@ -4827,21 +4827,21 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryNamespaceDecl namespaceDeclPsi = descendants(file).findFirst(XQueryNamespaceDecl.class).get();
         XQueryNamespaceResolver provider = (XQueryNamespaceResolver)prologPsi;
 
-        assertThat(provider.resolveNamespace(null), is(notDefined()));
-        assertThat(provider.resolveNamespace("abc"), is(notDefined()));
-        assertThat(provider.resolveNamespace("testing"), is(notDefined()));
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
 
-        Option<XQueryNamespace> ns = provider.resolveNamespace("test");
-        assertThat(ns, is(defined()));
+        XQueryNamespace ns = provider.resolveNamespace("test");
+        assertThat(ns, is(notNullValue()));
 
-        assertThat(ns.get().getPrefix(), is(instanceOf(LeafPsiElement.class)));
-        assertThat(ns.get().getPrefix().getText(), is("test"));
+        assertThat(ns.getPrefix(), is(instanceOf(LeafPsiElement.class)));
+        assertThat(ns.getPrefix().getText(), is("test"));
 
-        assertThat(ns.get().getUri(), is(instanceOf(XQueryUriLiteral.class)));
-        assertThat(((XQueryUriLiteral)ns.get().getUri()).getAtomicValue(), is("http://www.example.org/test"));
+        assertThat(ns.getUri(), is(instanceOf(XQueryUriLiteral.class)));
+        assertThat(((XQueryUriLiteral)ns.getUri()).getAtomicValue(), is("http://www.example.org/test"));
 
-        assertThat(ns.get().getDeclaration(), is(instanceOf(XQueryNamespaceDecl.class)));
-        assertThat(ns.get().getDeclaration(), is(namespaceDeclPsi));
+        assertThat(ns.getDeclaration(), is(instanceOf(XQueryNamespaceDecl.class)));
+        assertThat(ns.getDeclaration(), is(namespaceDeclPsi));
     }
 
     // endregion
@@ -4853,10 +4853,10 @@ public class XQueryPsiTest extends ParserTestCase {
         XQuerySchemaImport schemaImportPsi = descendants(file).findFirst(XQuerySchemaImport.class).get();
         XQueryNamespaceResolver provider = (XQueryNamespaceResolver)schemaImportPsi;
 
-        assertThat(provider.resolveNamespace(null), is(notDefined()));
-        assertThat(provider.resolveNamespace("abc"), is(notDefined()));
-        assertThat(provider.resolveNamespace("testing"), is(notDefined()));
-        assertThat(provider.resolveNamespace("test"), is(notDefined()));
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
+        assertThat(provider.resolveNamespace("test"), is(nullValue()));
     }
 
     public void testSchemaImport_WithSchemaPrefix() {
@@ -4865,21 +4865,21 @@ public class XQueryPsiTest extends ParserTestCase {
         XQuerySchemaImport schemaImportPsi = descendants(file).findFirst(XQuerySchemaImport.class).get();
         XQueryNamespaceResolver provider = (XQueryNamespaceResolver)schemaImportPsi;
 
-        assertThat(provider.resolveNamespace(null), is(notDefined()));
-        assertThat(provider.resolveNamespace("abc"), is(notDefined()));
-        assertThat(provider.resolveNamespace("testing"), is(notDefined()));
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
 
-        Option<XQueryNamespace> ns = provider.resolveNamespace("test");
-        assertThat(ns, is(defined()));
+        XQueryNamespace ns = provider.resolveNamespace("test");
+        assertThat(ns, is(notNullValue()));
 
-        assertThat(ns.get().getPrefix(), is(instanceOf(LeafPsiElement.class)));
-        assertThat(ns.get().getPrefix().getText(), is("test"));
+        assertThat(ns.getPrefix(), is(instanceOf(LeafPsiElement.class)));
+        assertThat(ns.getPrefix().getText(), is("test"));
 
-        assertThat(ns.get().getUri(), is(instanceOf(XQueryUriLiteral.class)));
-        assertThat(((XQueryUriLiteral)ns.get().getUri()).getAtomicValue(), is("http://www.example.com/test"));
+        assertThat(ns.getUri(), is(instanceOf(XQueryUriLiteral.class)));
+        assertThat(((XQueryUriLiteral)ns.getUri()).getAtomicValue(), is("http://www.example.com/test"));
 
-        assertThat(ns.get().getDeclaration(), is(instanceOf(XQuerySchemaImport.class)));
-        assertThat(ns.get().getDeclaration(), is(schemaImportPsi));
+        assertThat(ns.getDeclaration(), is(instanceOf(XQuerySchemaImport.class)));
+        assertThat(ns.getDeclaration(), is(schemaImportPsi));
     }
 
     public void testSchemaImport_WithSchemaPrefix_MissingNCName() {
@@ -4888,10 +4888,10 @@ public class XQueryPsiTest extends ParserTestCase {
         XQuerySchemaImport schemaImportPsi = descendants(file).findFirst(XQuerySchemaImport.class).get();
         XQueryNamespaceResolver provider = (XQueryNamespaceResolver)schemaImportPsi;
 
-        assertThat(provider.resolveNamespace(null), is(notDefined()));
-        assertThat(provider.resolveNamespace("abc"), is(notDefined()));
-        assertThat(provider.resolveNamespace("testing"), is(notDefined()));
-        assertThat(provider.resolveNamespace("test"), is(notDefined()));
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
+        assertThat(provider.resolveNamespace("test"), is(nullValue()));
     }
 
     public void testSchemaImport_WithSchemaPrefix_Default() {
@@ -4900,10 +4900,10 @@ public class XQueryPsiTest extends ParserTestCase {
         XQuerySchemaImport schemaImportPsi = descendants(file).findFirst(XQuerySchemaImport.class).get();
         XQueryNamespaceResolver provider = (XQueryNamespaceResolver)schemaImportPsi;
 
-        assertThat(provider.resolveNamespace(null), is(notDefined()));
-        assertThat(provider.resolveNamespace("abc"), is(notDefined()));
-        assertThat(provider.resolveNamespace("testing"), is(notDefined()));
-        assertThat(provider.resolveNamespace("test"), is(notDefined()));
+        assertThat(provider.resolveNamespace(null), is(nullValue()));
+        assertThat(provider.resolveNamespace("abc"), is(nullValue()));
+        assertThat(provider.resolveNamespace("testing"), is(nullValue()));
+        assertThat(provider.resolveNamespace("test"), is(nullValue()));
     }
 
     // endregion

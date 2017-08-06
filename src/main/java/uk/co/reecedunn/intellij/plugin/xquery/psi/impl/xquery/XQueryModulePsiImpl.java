@@ -46,7 +46,7 @@ public class XQueryModulePsiImpl extends ASTWrapperPsiElement implements XQueryM
 
     @Nullable
     @Override
-    public Option<XQueryNamespace> resolveNamespace(CharSequence prefix) {
+    public XQueryNamespace resolveNamespace(CharSequence prefix) {
         XQueryVersion version = ((XQueryFile)getContainingFile()).getXQueryVersion().getVersionOrDefault(getProject());
         ImplementationItem dialect = settings.getDialectForXQueryVersion(version);
         if (!dialect.getID().equals(dialectId)) {
@@ -66,7 +66,7 @@ public class XQueryModulePsiImpl extends ASTWrapperPsiElement implements XQueryM
         if (staticContext != null) {
             return staticContext.resolveNamespace(prefix);
         }
-        return Option.none();
+        return null;
     }
 
     @Override

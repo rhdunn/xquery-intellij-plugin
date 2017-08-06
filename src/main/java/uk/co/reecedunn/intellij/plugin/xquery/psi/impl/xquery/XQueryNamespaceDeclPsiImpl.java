@@ -32,10 +32,10 @@ public class XQueryNamespaceDeclPsiImpl extends ASTWrapperPsiElement implements 
     }
 
     @Override
-    public Option<XQueryNamespace> resolveNamespace(CharSequence prefix) {
+    public XQueryNamespace resolveNamespace(CharSequence prefix) {
         XQueryNCName name = findChildByType(XQueryElementType.NCNAME);
         if (name == null) {
-            return Option.none();
+            return null;
         }
 
         return Option.of(name.getLocalName()).flatMap((localName) -> {
@@ -44,6 +44,6 @@ public class XQueryNamespaceDeclPsiImpl extends ASTWrapperPsiElement implements 
                 return Option.some(new XQueryNamespace(localName, element, this));
             }
             return Option.none();
-        });
+        }).getOrElse(null);
     }
 }
