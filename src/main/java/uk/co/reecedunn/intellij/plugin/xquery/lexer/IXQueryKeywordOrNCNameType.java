@@ -39,6 +39,7 @@ public class IXQueryKeywordOrNCNameType extends INCNameType {
         mType = type;
     }
 
+    @NotNull
     public KeywordType getKeywordType() {
         return mType;
     }

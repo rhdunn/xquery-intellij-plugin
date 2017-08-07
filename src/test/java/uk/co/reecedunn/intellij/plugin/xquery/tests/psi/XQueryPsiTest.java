@@ -5133,8 +5133,6 @@ public class XQueryPsiTest extends ParserTestCase {
         XQueryEQName paramNamePsi = children(paramPsi).findFirst(XQueryEQName.class).get();
         XQueryVariableResolver provider = (XQueryVariableResolver)functionDeclPsi;
 
-        assertThat(provider.resolveVariable(null), is(nullValue()));
-
         XQueryVariable variable = provider.resolveVariable(paramNamePsi);
         assertThat(variable, is(notNullValue()));
 
