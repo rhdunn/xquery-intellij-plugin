@@ -20,7 +20,6 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.util.SmartList;
 import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.core.functional.Option;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryNCName;
@@ -59,13 +58,13 @@ public class UnboundQNamePrefixInspection extends LocalInspectionTool {
                               boolean isOnTheFly) {
         if (element instanceof XQueryEQName) {
             XQueryEQName qname = (XQueryEQName)element;
-            Option<PsiElement> context = Option.of(qname.getPrefix()).filter(XQueryNCName.class);
-            if (context.isDefined() && context.get().getText().equals("xmlns")) {
+            PsiElement context = qname.getPrefix();
+            if (!(context instanceof XQueryNCName) || context.getText().equals("xmlns")) {
                 return;
             }
-            if (context.isDefined() && !qname.resolvePrefixNamespace().iterator().hasNext()) {
+            if (!qname.resolvePrefixNamespace().iterator().hasNext()) {
                 String description = XQueryBundle.message("inspection.XPST0081.unbound-qname-prefix.message");
-                descriptors.add(manager.createProblemDescriptor(context.get(), description, (LocalQuickFix)null, ProblemHighlightType.GENERIC_ERROR, isOnTheFly));
+                descriptors.add(manager.createProblemDescriptor(context, description, (LocalQuickFix)null, ProblemHighlightType.GENERIC_ERROR, isOnTheFly));
             }
             return;
         }
