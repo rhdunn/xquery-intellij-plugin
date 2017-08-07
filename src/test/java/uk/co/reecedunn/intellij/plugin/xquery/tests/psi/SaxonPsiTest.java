@@ -35,8 +35,8 @@ public class SaxonPsiTest extends ParserTestCase {
     public void testMapConstructorEntry() {
         final XQueryFile file = parseResource("tests/parser/saxon-9.4/MapConstructorEntry.xq");
 
-        XQueryMapConstructor mapConstructorPsi = descendants(file).findFirst(XQueryMapConstructor.class).get();
-        XQueryMapConstructorEntry mapConstructorEntryPsi = children(mapConstructorPsi).findFirst(XQueryMapConstructorEntry.class).get();
+        XQueryMapConstructor mapConstructorPsi = descendants(file).findFirst(XQueryMapConstructor.class);
+        XQueryMapConstructorEntry mapConstructorEntryPsi = children(mapConstructorPsi).findFirst(XQueryMapConstructorEntry.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)mapConstructorEntryPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));

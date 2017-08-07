@@ -33,9 +33,9 @@ public class XQueryFindUsagesProviderTest extends ParserTestCase {
         final XQueryFindUsagesProvider provider = new XQueryFindUsagesProvider();
 
         XQueryFile file = parseResource("tests/parser/xquery-1.0/VarRef.xq");
-        XQueryVarRef varRef = descendants(file).findFirst(XQueryVarRef.class).get();
-        XQueryVarName varName = children(varRef).findFirst(XQueryVarName.class).get();
-        XQueryNCName ncName = children(varName).findFirst(XQueryNCName.class).get();
+        XQueryVarRef varRef = descendants(file).findFirst(XQueryVarRef.class);
+        XQueryVarName varName = children(varRef).findFirst(XQueryVarName.class);
+        XQueryNCName ncName = children(varName).findFirst(XQueryNCName.class);
 
         assertThat(provider.canFindUsagesFor(ncName), is(true));
         assertThat(provider.getHelpId(ncName), is(HelpID.FIND_OTHER_USAGES));

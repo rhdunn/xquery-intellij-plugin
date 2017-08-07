@@ -38,7 +38,7 @@ public class ScriptingPsiTest extends ParserTestCase {
     public void testApplyExpr_Single_NoSemicolon() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/IntegerLiteral.xq");
 
-        ScriptingApplyExpr applyExpr = descendants(file).findFirst(ScriptingApplyExpr.class).get();
+        ScriptingApplyExpr applyExpr = descendants(file).findFirst(ScriptingApplyExpr.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)applyExpr;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(true));
@@ -59,7 +59,7 @@ public class ScriptingPsiTest extends ParserTestCase {
     public void testApplyExpr_Single_Semicolon() {
         final XQueryFile file = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_Single_SemicolonAtEnd.xq");
 
-        ScriptingApplyExpr applyExpr = descendants(file).findFirst(ScriptingApplyExpr.class).get();
+        ScriptingApplyExpr applyExpr = descendants(file).findFirst(ScriptingApplyExpr.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)applyExpr;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -80,7 +80,7 @@ public class ScriptingPsiTest extends ParserTestCase {
     public void testApplyExpr_Multiple() {
         final XQueryFile file = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_TwoExpr_SemicolonAtEnd.xq");
 
-        ScriptingApplyExpr applyExpr = descendants(file).findFirst(ScriptingApplyExpr.class).get();
+        ScriptingApplyExpr applyExpr = descendants(file).findFirst(ScriptingApplyExpr.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)applyExpr;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -104,7 +104,7 @@ public class ScriptingPsiTest extends ParserTestCase {
     public void testAssignmentExpr() {
         final XQueryFile file = parseResource("tests/parser/xquery-sx-1.0/AssignmentExpr.xq");
 
-        ScriptingAssignmentExpr assignmentExpr = descendants(file).findFirst(ScriptingAssignmentExpr.class).get();
+        ScriptingAssignmentExpr assignmentExpr = descendants(file).findFirst(ScriptingAssignmentExpr.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)assignmentExpr;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -128,7 +128,7 @@ public class ScriptingPsiTest extends ParserTestCase {
     public void testBlockExpr() {
         final XQueryFile file = parseResource("tests/parser/xquery-sx-1.0/BlockExpr.xq");
 
-        ScriptingBlockExpr blockExpr = descendants(file).findFirst(ScriptingBlockExpr.class).get();
+        ScriptingBlockExpr blockExpr = descendants(file).findFirst(ScriptingBlockExpr.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)blockExpr;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -152,11 +152,11 @@ public class ScriptingPsiTest extends ParserTestCase {
     public void testBlockVarDecl() {
         final XQueryFile file = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl.xq");
 
-        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
-        XQueryFunctionDecl functionDeclPsi = children(annotatedDeclPsi).findFirst(XQueryFunctionDecl.class).get();
-        ScriptingBlock blockPsi = children(functionDeclPsi).findFirst(ScriptingBlock.class).get();
-        ScriptingBlockDecls blockDeclsPsi = children(blockPsi).findFirst(ScriptingBlockDecls.class).get();
-        ScriptingBlockVarDecl blockVarDeclPsi = children(blockDeclsPsi).findFirst(ScriptingBlockVarDecl.class).get();
+        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class);
+        XQueryFunctionDecl functionDeclPsi = children(annotatedDeclPsi).findFirst(XQueryFunctionDecl.class);
+        ScriptingBlock blockPsi = children(functionDeclPsi).findFirst(ScriptingBlock.class);
+        ScriptingBlockDecls blockDeclsPsi = children(blockPsi).findFirst(ScriptingBlockDecls.class);
+        ScriptingBlockVarDecl blockVarDeclPsi = children(blockDeclsPsi).findFirst(ScriptingBlockVarDecl.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)blockVarDeclPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -180,7 +180,7 @@ public class ScriptingPsiTest extends ParserTestCase {
     public void testExitExpr() {
         final XQueryFile file = parseResource("tests/parser/xquery-sx-1.0/ExitExpr.xq");
 
-        ScriptingExitExpr exitExpr = descendants(file).findFirst(ScriptingExitExpr.class).get();
+        ScriptingExitExpr exitExpr = descendants(file).findFirst(ScriptingExitExpr.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)exitExpr;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -204,8 +204,8 @@ public class ScriptingPsiTest extends ParserTestCase {
     public void testFunctionDecl_Simple() {
         final XQueryFile file = parseResource("tests/parser/xquery-sx-1.0/FunctionDecl_Simple.xq");
 
-        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
-        ScriptingCompatibilityAnnotation scriptingCompatibilityAnnotationPsi = children(annotatedDeclPsi).findFirst(ScriptingCompatibilityAnnotation.class).get();
+        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class);
+        ScriptingCompatibilityAnnotation scriptingCompatibilityAnnotationPsi = children(annotatedDeclPsi).findFirst(ScriptingCompatibilityAnnotation.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck) scriptingCompatibilityAnnotationPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -226,8 +226,8 @@ public class ScriptingPsiTest extends ParserTestCase {
     public void testFunctionDecl_Sequential() {
         final XQueryFile file = parseResource("tests/parser/xquery-sx-1.0/FunctionDecl_Sequential.xq");
 
-        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
-        ScriptingCompatibilityAnnotation scriptingCompatibilityAnnotationPsi = children(annotatedDeclPsi).findFirst(ScriptingCompatibilityAnnotation.class).get();
+        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class);
+        ScriptingCompatibilityAnnotation scriptingCompatibilityAnnotationPsi = children(annotatedDeclPsi).findFirst(ScriptingCompatibilityAnnotation.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck) scriptingCompatibilityAnnotationPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -251,8 +251,8 @@ public class ScriptingPsiTest extends ParserTestCase {
     public void testVarDecl_Assignable() {
         final XQueryFile file = parseResource("tests/parser/xquery-sx-1.0/VarDecl_Assignable.xq");
 
-        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
-        ScriptingCompatibilityAnnotation scriptingCompatibilityAnnotationPsi = children(annotatedDeclPsi).findFirst(ScriptingCompatibilityAnnotation.class).get();
+        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class);
+        ScriptingCompatibilityAnnotation scriptingCompatibilityAnnotationPsi = children(annotatedDeclPsi).findFirst(ScriptingCompatibilityAnnotation.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck) scriptingCompatibilityAnnotationPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -273,8 +273,8 @@ public class ScriptingPsiTest extends ParserTestCase {
     public void testVarDecl_Unassignable() {
         final XQueryFile file = parseResource("tests/parser/xquery-sx-1.0/VarDecl_Unassignable.xq");
 
-        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
-        ScriptingCompatibilityAnnotation scriptingCompatibilityAnnotationPsi = children(annotatedDeclPsi).findFirst(ScriptingCompatibilityAnnotation.class).get();
+        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class);
+        ScriptingCompatibilityAnnotation scriptingCompatibilityAnnotationPsi = children(annotatedDeclPsi).findFirst(ScriptingCompatibilityAnnotation.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck) scriptingCompatibilityAnnotationPsi;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -298,7 +298,7 @@ public class ScriptingPsiTest extends ParserTestCase {
     public void testWhileExpr() {
         final XQueryFile file = parseResource("tests/parser/xquery-sx-1.0/WhileExpr.xq");
 
-        ScriptingWhileExpr whileExpr = descendants(file).findFirst(ScriptingWhileExpr.class).get();
+        ScriptingWhileExpr whileExpr = descendants(file).findFirst(ScriptingWhileExpr.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)whileExpr;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -324,12 +324,12 @@ public class ScriptingPsiTest extends ParserTestCase {
     public void testBlockVarDecl_VariableResolver() {
         final XQueryFile file = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl.xq");
 
-        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
-        XQueryFunctionDecl functionDeclPsi = children(annotatedDeclPsi).findFirst(XQueryFunctionDecl.class).get();
-        ScriptingBlock blockPsi = children(functionDeclPsi).findFirst(ScriptingBlock.class).get();
-        ScriptingBlockDecls blockDeclsPsi = children(blockPsi).findFirst(ScriptingBlockDecls.class).get();
-        ScriptingBlockVarDecl blockVarDeclPsi = children(blockDeclsPsi).findFirst(ScriptingBlockVarDecl.class).get();
-        XQueryEQName varNamePsi = children(blockVarDeclPsi).findFirst(XQueryEQName.class).get();
+        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class);
+        XQueryFunctionDecl functionDeclPsi = children(annotatedDeclPsi).findFirst(XQueryFunctionDecl.class);
+        ScriptingBlock blockPsi = children(functionDeclPsi).findFirst(ScriptingBlock.class);
+        ScriptingBlockDecls blockDeclsPsi = children(blockPsi).findFirst(ScriptingBlockDecls.class);
+        ScriptingBlockVarDecl blockVarDeclPsi = children(blockDeclsPsi).findFirst(ScriptingBlockVarDecl.class);
+        XQueryEQName varNamePsi = children(blockVarDeclPsi).findFirst(XQueryEQName.class);
 
         XQueryVariableResolver provider = (XQueryVariableResolver)blockVarDeclPsi;
         assertThat(provider.resolveVariable(null), is(nullValue()));

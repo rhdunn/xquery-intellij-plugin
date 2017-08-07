@@ -19,9 +19,9 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 public interface Find<A> {
-    <B extends A> Option<B> findFirst(Predicate<A> matcher);
+    <B extends A> B findFirst(Predicate<A> matcher);
 
-    default <B extends A> Option<B> findFirst(Class<B> c) {
+    default <B extends A> B findFirst(Class<B> c) {
         return findFirst(c::isInstance);
     }
 

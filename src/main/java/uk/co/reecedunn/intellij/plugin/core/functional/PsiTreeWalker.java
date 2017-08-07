@@ -52,15 +52,15 @@ public final class PsiTreeWalker implements Each<PsiElement>, Foldable<PsiElemen
 
     @Override
     @SuppressWarnings("unchecked")
-    public <B extends PsiElement> Option<B> findFirst(Predicate<PsiElement> matcher) {
+    public <B extends PsiElement> B findFirst(Predicate<PsiElement> matcher) {
         PsiElement element = mElement;
         while (element != null) {
             if (matcher.test(element)) {
-                return Option.some((B)element);
+                return (B)element;
             }
             element = mNextElementFunction.apply(element);
         }
-        return Option.none();
+        return null;
     }
 
     @SuppressWarnings("unchecked")

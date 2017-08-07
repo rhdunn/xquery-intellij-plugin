@@ -35,7 +35,7 @@ public class BaseXPsiTest extends ParserTestCase {
     public void testUpdateExpr() {
         final XQueryFile file = parseResource("tests/parser/basex-7.8/UpdateExpr.xq");
 
-        BaseXUpdateExpr updateExpr = descendants(file).findFirst(BaseXUpdateExpr.class).get();
+        BaseXUpdateExpr updateExpr = descendants(file).findFirst(BaseXUpdateExpr.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)updateExpr;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));
@@ -70,7 +70,7 @@ public class BaseXPsiTest extends ParserTestCase {
     public void testUpdateExpr_Block() {
         final XQueryFile file = parseResource("tests/parser/basex-8.5/UpdateExpr.xq");
 
-        BaseXUpdateExpr updateExpr = descendants(file).findFirst(BaseXUpdateExpr.class).get();
+        BaseXUpdateExpr updateExpr = descendants(file).findFirst(BaseXUpdateExpr.class);
         XQueryConformanceCheck versioned = (XQueryConformanceCheck)updateExpr;
 
         assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), is(false));

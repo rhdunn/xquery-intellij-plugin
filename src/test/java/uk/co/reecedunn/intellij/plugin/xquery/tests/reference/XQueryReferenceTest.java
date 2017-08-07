@@ -36,7 +36,7 @@ public class XQueryReferenceTest extends ParserTestCase {
     public void testURILiteral_HttpUri() {
         final XQueryFile file = parseResource("tests/resolve/files/ModuleImport_URILiteral_SameDirectory.xq");
 
-        XQueryModuleImport moduleImportPsi = descendants(file).findFirst(XQueryModuleImport.class).get();
+        XQueryModuleImport moduleImportPsi = descendants(file).findFirst(XQueryModuleImport.class);
         assertThat(moduleImportPsi, is(notNullValue()));
 
         List<XQueryUriLiteral> uriLiterals = children(moduleImportPsi).toListOf(XQueryUriLiteral.class);
@@ -53,7 +53,7 @@ public class XQueryReferenceTest extends ParserTestCase {
     public void testURILiteral_SameDirectory() {
         final XQueryFile file = parseResource("tests/resolve/files/ModuleImport_URILiteral_SameDirectory.xq");
 
-        XQueryModuleImport moduleImportPsi = descendants(file).findFirst(XQueryModuleImport.class).get();
+        XQueryModuleImport moduleImportPsi = descendants(file).findFirst(XQueryModuleImport.class);
         assertThat(moduleImportPsi, is(notNullValue()));
 
         List<XQueryUriLiteral> uriLiterals = children(moduleImportPsi).toListOf(XQueryUriLiteral.class);
@@ -72,7 +72,7 @@ public class XQueryReferenceTest extends ParserTestCase {
     public void testURILiteral_BuiltinResource() {
         final XQueryFile file = parseResource("tests/resolve/files/ModuleImport_URILiteral_ResourceFile.xq");
 
-        XQueryModuleImport moduleImportPsi = descendants(file).findFirst(XQueryModuleImport.class).get();
+        XQueryModuleImport moduleImportPsi = descendants(file).findFirst(XQueryModuleImport.class);
         assertThat(moduleImportPsi, is(notNullValue()));
 
         List<XQueryUriLiteral> uriLiterals = children(moduleImportPsi).toListOf(XQueryUriLiteral.class);
@@ -91,7 +91,7 @@ public class XQueryReferenceTest extends ParserTestCase {
     public void testURILiteral_Empty() {
         final XQueryFile file = parseResource("tests/resolve/files/ModuleImport_URILiteral_Empty.xq");
 
-        XQueryModuleImport moduleImportPsi = descendants(file).findFirst(XQueryModuleImport.class).get();
+        XQueryModuleImport moduleImportPsi = descendants(file).findFirst(XQueryModuleImport.class);
         assertThat(moduleImportPsi, is(notNullValue()));
 
         List<XQueryUriLiteral> uriLiterals = children(moduleImportPsi).toListOf(XQueryUriLiteral.class);
@@ -113,13 +113,13 @@ public class XQueryReferenceTest extends ParserTestCase {
     public void testQName() {
         final XQueryFile file = parseResource("tests/resolve/namespaces/ModuleDecl.xq");
 
-        XQueryLibraryModule modulePsi = descendants(file).findFirst(XQueryLibraryModule.class).get();
-        XQueryProlog prologPsi = children(modulePsi).findFirst(XQueryProlog.class).get();
-        XQueryAnnotatedDecl annotatedDeclPsi = descendants(prologPsi).findFirst(XQueryAnnotatedDecl.class).get();
-        XQueryFunctionDecl functionDeclPsi = children(annotatedDeclPsi).findFirst(XQueryFunctionDecl.class).get();
+        XQueryLibraryModule modulePsi = descendants(file).findFirst(XQueryLibraryModule.class);
+        XQueryProlog prologPsi = children(modulePsi).findFirst(XQueryProlog.class);
+        XQueryAnnotatedDecl annotatedDeclPsi = descendants(prologPsi).findFirst(XQueryAnnotatedDecl.class);
+        XQueryFunctionDecl functionDeclPsi = children(annotatedDeclPsi).findFirst(XQueryFunctionDecl.class);
         assertThat(functionDeclPsi, is(notNullValue()));
 
-        XQueryQName qname = children(functionDeclPsi).findFirst(XQueryQName.class).get();
+        XQueryQName qname = children(functionDeclPsi).findFirst(XQueryQName.class);
         assertThat(qname, is(notNullValue()));
 
         PsiReference ref = qname.getReference();
@@ -149,14 +149,14 @@ public class XQueryReferenceTest extends ParserTestCase {
     public void testEQName_NCName() {
         final XQueryFile file = parseResource("tests/resolve/namespaces/FunctionDecl_WithNCNameReturnType.xq");
 
-        XQueryLibraryModule modulePsi = descendants(file).findFirst(XQueryLibraryModule.class).get();
-        XQueryProlog prologPsi = children(modulePsi).findFirst(XQueryProlog.class).get();
-        XQueryAnnotatedDecl annotatedDeclPsi = children(prologPsi).findFirst(XQueryAnnotatedDecl.class).get();
-        XQueryFunctionDecl functionDeclPsi = children(annotatedDeclPsi).findFirst(XQueryFunctionDecl.class).get();
-        XQuerySequenceType sequenceTypePsi = children(functionDeclPsi).findFirst(XQuerySequenceType.class).get();
+        XQueryLibraryModule modulePsi = descendants(file).findFirst(XQueryLibraryModule.class);
+        XQueryProlog prologPsi = children(modulePsi).findFirst(XQueryProlog.class);
+        XQueryAnnotatedDecl annotatedDeclPsi = children(prologPsi).findFirst(XQueryAnnotatedDecl.class);
+        XQueryFunctionDecl functionDeclPsi = children(annotatedDeclPsi).findFirst(XQueryFunctionDecl.class);
+        XQuerySequenceType sequenceTypePsi = children(functionDeclPsi).findFirst(XQuerySequenceType.class);
         assertThat(sequenceTypePsi, is(notNullValue()));
 
-        XQueryEQName eqname = descendants(sequenceTypePsi).findFirst(XQueryEQName.class).get();
+        XQueryEQName eqname = descendants(sequenceTypePsi).findFirst(XQueryEQName.class);
         assertThat(eqname, is(notNullValue()));
 
         PsiReference ref = eqname.getReference();
@@ -169,14 +169,14 @@ public class XQueryReferenceTest extends ParserTestCase {
     public void testEQName_QName() {
         final XQueryFile file = parseResource("tests/resolve/namespaces/FunctionDecl_WithQNameReturnType.xq");
 
-        XQueryLibraryModule modulePsi = descendants(file).findFirst(XQueryLibraryModule.class).get();
-        XQueryProlog prologPsi = children(modulePsi).findFirst(XQueryProlog.class).get();
-        XQueryAnnotatedDecl annotatedDeclPsi = children(prologPsi).findFirst(XQueryAnnotatedDecl.class).get();
-        XQueryFunctionDecl functionDeclPsi = children(annotatedDeclPsi).findFirst(XQueryFunctionDecl.class).get();
-        XQuerySequenceType sequenceTypePsi = children(functionDeclPsi).findFirst(XQuerySequenceType.class).get();
+        XQueryLibraryModule modulePsi = descendants(file).findFirst(XQueryLibraryModule.class);
+        XQueryProlog prologPsi = children(modulePsi).findFirst(XQueryProlog.class);
+        XQueryAnnotatedDecl annotatedDeclPsi = children(prologPsi).findFirst(XQueryAnnotatedDecl.class);
+        XQueryFunctionDecl functionDeclPsi = children(annotatedDeclPsi).findFirst(XQueryFunctionDecl.class);
+        XQuerySequenceType sequenceTypePsi = children(functionDeclPsi).findFirst(XQuerySequenceType.class);
         assertThat(sequenceTypePsi, is(notNullValue()));
 
-        XQueryEQName eqname = descendants(sequenceTypePsi).findFirst(XQueryEQName.class).get();
+        XQueryEQName eqname = descendants(sequenceTypePsi).findFirst(XQueryEQName.class);
         assertThat(eqname, is(notNullValue()));
 
         PsiReference ref = eqname.getReference();
@@ -203,14 +203,14 @@ public class XQueryReferenceTest extends ParserTestCase {
     public void testEQName_URIQualifiedName() {
         final XQueryFile file = parseResource("tests/resolve/namespaces/FunctionDecl_WithURIQualifiedNameReturnType.xq");
 
-        XQueryLibraryModule modulePsi = descendants(file).findFirst(XQueryLibraryModule.class).get();
-        XQueryProlog prologPsi = children(modulePsi).findFirst(XQueryProlog.class).get();
-        XQueryAnnotatedDecl annotatedDeclPsi = children(prologPsi).findFirst(XQueryAnnotatedDecl.class).get();
-        XQueryFunctionDecl functionDeclPsi = children(annotatedDeclPsi).findFirst(XQueryFunctionDecl.class).get();
-        XQuerySequenceType sequenceTypePsi = children(functionDeclPsi).findFirst(XQuerySequenceType.class).get();
+        XQueryLibraryModule modulePsi = descendants(file).findFirst(XQueryLibraryModule.class);
+        XQueryProlog prologPsi = children(modulePsi).findFirst(XQueryProlog.class);
+        XQueryAnnotatedDecl annotatedDeclPsi = children(prologPsi).findFirst(XQueryAnnotatedDecl.class);
+        XQueryFunctionDecl functionDeclPsi = children(annotatedDeclPsi).findFirst(XQueryFunctionDecl.class);
+        XQuerySequenceType sequenceTypePsi = children(functionDeclPsi).findFirst(XQuerySequenceType.class);
         assertThat(sequenceTypePsi, is(notNullValue()));
 
-        XQueryEQName eqname = descendants(sequenceTypePsi).findFirst(XQueryEQName.class).get();
+        XQueryEQName eqname = descendants(sequenceTypePsi).findFirst(XQueryEQName.class);
         assertThat(eqname, is(notNullValue()));
 
         PsiReference ref = eqname.getReference();
@@ -228,15 +228,15 @@ public class XQueryReferenceTest extends ParserTestCase {
     public void testForBinding() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/ForClause.xq");
 
-        XQueryForClause forClausePsi = descendants(file).findFirst(XQueryForClause.class).get();
-        XQueryForBinding forBindingPsi = children(forClausePsi).findFirst(XQueryForBinding.class).get();
-        XQueryVarName varNamePsi = children(forBindingPsi).findFirst(XQueryVarName.class).get();
+        XQueryForClause forClausePsi = descendants(file).findFirst(XQueryForClause.class);
+        XQueryForBinding forBindingPsi = children(forClausePsi).findFirst(XQueryForBinding.class);
+        XQueryVarName varNamePsi = children(forBindingPsi).findFirst(XQueryVarName.class);
 
-        XQueryFLWORExpr flworExprPsi = descendants(file).findFirst(XQueryFLWORExpr.class).get();
-        XQueryReturnClause returnClausePsi = children(flworExprPsi).findFirst(XQueryReturnClause.class).get();
-        XQueryOrExpr orExprPsi = children(returnClausePsi).findFirst(XQueryOrExpr.class).get();
-        XQueryVarRef varRefPsi = descendants(orExprPsi).findFirst(XQueryVarRef.class).get();
-        XQueryEQName varRefNamePsi = children(varRefPsi).findFirst(XQueryEQName.class).get();
+        XQueryFLWORExpr flworExprPsi = descendants(file).findFirst(XQueryFLWORExpr.class);
+        XQueryReturnClause returnClausePsi = children(flworExprPsi).findFirst(XQueryReturnClause.class);
+        XQueryOrExpr orExprPsi = children(returnClausePsi).findFirst(XQueryOrExpr.class);
+        XQueryVarRef varRefPsi = descendants(orExprPsi).findFirst(XQueryVarRef.class);
+        XQueryEQName varRefNamePsi = children(varRefPsi).findFirst(XQueryEQName.class);
 
         PsiReference ref = varRefNamePsi.getReference();
         assertThat(ref.getCanonicalText(), is("x"));
@@ -263,16 +263,16 @@ public class XQueryReferenceTest extends ParserTestCase {
     public void testIntermediateClause() {
         final XQueryFile file = parseResource("tests/resolve/variables/IntermediateClause_ReturnInnerForVariable.xq");
 
-        XQueryFLWORExpr flworExprPsi = descendants(file).findFirst(XQueryFLWORExpr.class).get();
-        XQueryIntermediateClause intermediateClausePsi = children(flworExprPsi).findFirst(XQueryIntermediateClause.class).get();
-        XQueryForClause forClausePsi = descendants(intermediateClausePsi).findFirst(XQueryForClause.class).get();
-        XQueryForBinding forBindingPsi = children(forClausePsi).findFirst(XQueryForBinding.class).get();
-        XQueryVarName varNamePsi = children(forBindingPsi).findFirst(XQueryVarName.class).get();
+        XQueryFLWORExpr flworExprPsi = descendants(file).findFirst(XQueryFLWORExpr.class);
+        XQueryIntermediateClause intermediateClausePsi = children(flworExprPsi).findFirst(XQueryIntermediateClause.class);
+        XQueryForClause forClausePsi = descendants(intermediateClausePsi).findFirst(XQueryForClause.class);
+        XQueryForBinding forBindingPsi = children(forClausePsi).findFirst(XQueryForBinding.class);
+        XQueryVarName varNamePsi = children(forBindingPsi).findFirst(XQueryVarName.class);
 
-        XQueryReturnClause returnClausePsi = children(flworExprPsi).findFirst(XQueryReturnClause.class).get();
-        XQueryOrExpr orExprPsi = children(returnClausePsi).findFirst(XQueryOrExpr.class).get();
-        XQueryVarRef varRefPsi = descendants(orExprPsi).findFirst(XQueryVarRef.class).get();
-        XQueryEQName varRefNamePsi = children(varRefPsi).findFirst(XQueryEQName.class).get();
+        XQueryReturnClause returnClausePsi = children(flworExprPsi).findFirst(XQueryReturnClause.class);
+        XQueryOrExpr orExprPsi = children(returnClausePsi).findFirst(XQueryOrExpr.class);
+        XQueryVarRef varRefPsi = descendants(orExprPsi).findFirst(XQueryVarRef.class);
+        XQueryEQName varRefNamePsi = children(varRefPsi).findFirst(XQueryEQName.class);
 
         PsiReference ref = varRefNamePsi.getReference();
         assertThat(ref.getCanonicalText(), is("z"));
@@ -299,15 +299,15 @@ public class XQueryReferenceTest extends ParserTestCase {
     public void testLetBinding() {
         final XQueryFile file = parseResource("tests/parser/xquery-1.0/LetClause.xq");
 
-        XQueryLetClause letClausePsi = descendants(file).findFirst(XQueryLetClause.class).get();
-        XQueryLetBinding letBindingPsi = children(letClausePsi).findFirst(XQueryLetBinding.class).get();
-        XQueryVarName varNamePsi = children(letBindingPsi).findFirst(XQueryVarName.class).get();
+        XQueryLetClause letClausePsi = descendants(file).findFirst(XQueryLetClause.class);
+        XQueryLetBinding letBindingPsi = children(letClausePsi).findFirst(XQueryLetBinding.class);
+        XQueryVarName varNamePsi = children(letBindingPsi).findFirst(XQueryVarName.class);
 
-        XQueryFLWORExpr flworExprPsi = descendants(file).findFirst(XQueryFLWORExpr.class).get();
-        XQueryReturnClause returnClausePsi = children(flworExprPsi).findFirst(XQueryReturnClause.class).get();
-        XQueryOrExpr orExprPsi = children(returnClausePsi).findFirst(XQueryOrExpr.class).get();
-        XQueryVarRef varRefPsi = descendants(orExprPsi).findFirst(XQueryVarRef.class).get();
-        XQueryEQName varRefNamePsi = children(varRefPsi).findFirst(XQueryEQName.class).get();
+        XQueryFLWORExpr flworExprPsi = descendants(file).findFirst(XQueryFLWORExpr.class);
+        XQueryReturnClause returnClausePsi = children(flworExprPsi).findFirst(XQueryReturnClause.class);
+        XQueryOrExpr orExprPsi = children(returnClausePsi).findFirst(XQueryOrExpr.class);
+        XQueryVarRef varRefPsi = descendants(orExprPsi).findFirst(XQueryVarRef.class);
+        XQueryEQName varRefNamePsi = children(varRefPsi).findFirst(XQueryEQName.class);
 
         PsiReference ref = varRefNamePsi.getReference();
         assertThat(ref.getCanonicalText(), is("x"));
@@ -334,16 +334,16 @@ public class XQueryReferenceTest extends ParserTestCase {
     public void testParam() {
         final XQueryFile file = parseResource("tests/resolve/variables/FunctionDecl_ReturningSpecifiedParam.xq");
 
-        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
-        XQueryFunctionDecl functionDeclPsi = children(annotatedDeclPsi).findFirst(XQueryFunctionDecl.class).get();
-        XQueryParamList paramListPsi = children(functionDeclPsi).findFirst(XQueryParamList.class).get();
-        XQueryParam paramPsi = children(paramListPsi).findFirst(XQueryParam.class).get();
-        XQueryEQName paramNamePsi = children(paramPsi).findFirst(XQueryEQName.class).get();
+        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class);
+        XQueryFunctionDecl functionDeclPsi = children(annotatedDeclPsi).findFirst(XQueryFunctionDecl.class);
+        XQueryParamList paramListPsi = children(functionDeclPsi).findFirst(XQueryParamList.class);
+        XQueryParam paramPsi = children(paramListPsi).findFirst(XQueryParam.class);
+        XQueryEQName paramNamePsi = children(paramPsi).findFirst(XQueryEQName.class);
 
-        XQueryFunctionBody functionBodyPsi = children(functionDeclPsi).findFirst(XQueryFunctionBody.class).get();
-        XQueryExpr exprPsi = children(functionBodyPsi).findFirst(XQueryExpr.class).get();
-        XQueryVarRef varRefPsi = descendants(exprPsi).findFirst(XQueryVarRef.class).get();
-        XQueryEQName varRefNamePsi = children(varRefPsi).findFirst(XQueryEQName.class).get();
+        XQueryFunctionBody functionBodyPsi = children(functionDeclPsi).findFirst(XQueryFunctionBody.class);
+        XQueryExpr exprPsi = children(functionBodyPsi).findFirst(XQueryExpr.class);
+        XQueryVarRef varRefPsi = descendants(exprPsi).findFirst(XQueryVarRef.class);
+        XQueryEQName varRefNamePsi = children(varRefPsi).findFirst(XQueryEQName.class);
 
         PsiReference ref = varRefNamePsi.getReference();
         assertThat(ref.getCanonicalText(), is("x"));
@@ -367,10 +367,10 @@ public class XQueryReferenceTest extends ParserTestCase {
     public void testParam_ReferencedFromOutsideTheFunction() {
         final XQueryFile file = parseResource("tests/resolve/variables/FunctionDecl_ReturningSpecifiedParam.xq");
 
-        XQueryMainModule mainModulePsi = descendants(file).findFirst(XQueryMainModule.class).get();
-        XQueryQueryBody queryBodyPsi = children(mainModulePsi).findFirst(XQueryQueryBody.class).get();
-        XQueryVarRef varRefPsi = descendants(queryBodyPsi).findFirst(XQueryVarRef.class).get();
-        XQueryEQName varRefNamePsi = children(varRefPsi).findFirst(XQueryEQName.class).get();
+        XQueryMainModule mainModulePsi = descendants(file).findFirst(XQueryMainModule.class);
+        XQueryQueryBody queryBodyPsi = children(mainModulePsi).findFirst(XQueryQueryBody.class);
+        XQueryVarRef varRefPsi = descendants(queryBodyPsi).findFirst(XQueryVarRef.class);
+        XQueryEQName varRefNamePsi = children(varRefPsi).findFirst(XQueryEQName.class);
 
         PsiReference ref = varRefNamePsi.getReference();
         assertThat(ref.getCanonicalText(), is("x"));
@@ -395,16 +395,16 @@ public class XQueryReferenceTest extends ParserTestCase {
     public void testPositionalVar() {
         final XQueryFile file = parseResource("tests/resolve/variables/PositionalVar_ReturnThePosition.xq");
 
-        XQueryForClause forClausePsi = descendants(file).findFirst(XQueryForClause.class).get();
-        XQueryForBinding forBindingPsi = children(forClausePsi).findFirst(XQueryForBinding.class).get();
-        XQueryPositionalVar positionalVarPsi = children(forBindingPsi).findFirst(XQueryPositionalVar.class).get();
-        XQueryVarName varNamePsi = children(positionalVarPsi).findFirst(XQueryVarName.class).get();
+        XQueryForClause forClausePsi = descendants(file).findFirst(XQueryForClause.class);
+        XQueryForBinding forBindingPsi = children(forClausePsi).findFirst(XQueryForBinding.class);
+        XQueryPositionalVar positionalVarPsi = children(forBindingPsi).findFirst(XQueryPositionalVar.class);
+        XQueryVarName varNamePsi = children(positionalVarPsi).findFirst(XQueryVarName.class);
 
-        XQueryFLWORExpr flworExprPsi = descendants(file).findFirst(XQueryFLWORExpr.class).get();
-        XQueryReturnClause returnClausePsi = children(flworExprPsi).findFirst(XQueryReturnClause.class).get();
-        XQueryOrExpr orExprPsi = children(returnClausePsi).findFirst(XQueryOrExpr.class).get();
-        XQueryVarRef varRefPsi = descendants(orExprPsi).findFirst(XQueryVarRef.class).get();
-        XQueryEQName varRefNamePsi = children(varRefPsi).findFirst(XQueryEQName.class).get();
+        XQueryFLWORExpr flworExprPsi = descendants(file).findFirst(XQueryFLWORExpr.class);
+        XQueryReturnClause returnClausePsi = children(flworExprPsi).findFirst(XQueryReturnClause.class);
+        XQueryOrExpr orExprPsi = children(returnClausePsi).findFirst(XQueryOrExpr.class);
+        XQueryVarRef varRefPsi = descendants(orExprPsi).findFirst(XQueryVarRef.class);
+        XQueryEQName varRefNamePsi = children(varRefPsi).findFirst(XQueryEQName.class);
 
         PsiReference ref = varRefNamePsi.getReference();
         assertThat(ref.getCanonicalText(), is("i"));
@@ -431,15 +431,15 @@ public class XQueryReferenceTest extends ParserTestCase {
     public void testSlidingWindowClause() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/SlidingWindowClause.xq");
 
-        XQueryWindowClause windowClausePsi = descendants(file).findFirst(XQueryWindowClause.class).get();
-        XQuerySlidingWindowClause slidingWindowClausePsi = children(windowClausePsi).findFirst(XQuerySlidingWindowClause.class).get();
-        XQueryVarName varNamePsi = children(slidingWindowClausePsi).findFirst(XQueryVarName.class).get();
+        XQueryWindowClause windowClausePsi = descendants(file).findFirst(XQueryWindowClause.class);
+        XQuerySlidingWindowClause slidingWindowClausePsi = children(windowClausePsi).findFirst(XQuerySlidingWindowClause.class);
+        XQueryVarName varNamePsi = children(slidingWindowClausePsi).findFirst(XQueryVarName.class);
 
-        XQueryFLWORExpr flworExprPsi = descendants(file).findFirst(XQueryFLWORExpr.class).get();
-        XQueryReturnClause returnClausePsi = children(flworExprPsi).findFirst(XQueryReturnClause.class).get();
-        XQueryOrExpr orExprPsi = children(returnClausePsi).findFirst(XQueryOrExpr.class).get();
-        XQueryVarRef varRefPsi = descendants(orExprPsi).findFirst(XQueryVarRef.class).get();
-        XQueryEQName varRefNamePsi = children(varRefPsi).findFirst(XQueryEQName.class).get();
+        XQueryFLWORExpr flworExprPsi = descendants(file).findFirst(XQueryFLWORExpr.class);
+        XQueryReturnClause returnClausePsi = children(flworExprPsi).findFirst(XQueryReturnClause.class);
+        XQueryOrExpr orExprPsi = children(returnClausePsi).findFirst(XQueryOrExpr.class);
+        XQueryVarRef varRefPsi = descendants(orExprPsi).findFirst(XQueryVarRef.class);
+        XQueryEQName varRefNamePsi = children(varRefPsi).findFirst(XQueryEQName.class);
 
         PsiReference ref = varRefNamePsi.getReference();
         assertThat(ref.getCanonicalText(), is("x"));
@@ -466,15 +466,15 @@ public class XQueryReferenceTest extends ParserTestCase {
     public void testTumblingWindowClause() {
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/TumblingWindowClause.xq");
 
-        XQueryWindowClause windowClausePsi = descendants(file).findFirst(XQueryWindowClause.class).get();
-        XQueryTumblingWindowClause tumblingWindowClausePsi = children(windowClausePsi).findFirst(XQueryTumblingWindowClause.class).get();
-        XQueryVarName varNamePsi = children(tumblingWindowClausePsi).findFirst(XQueryVarName.class).get();
+        XQueryWindowClause windowClausePsi = descendants(file).findFirst(XQueryWindowClause.class);
+        XQueryTumblingWindowClause tumblingWindowClausePsi = children(windowClausePsi).findFirst(XQueryTumblingWindowClause.class);
+        XQueryVarName varNamePsi = children(tumblingWindowClausePsi).findFirst(XQueryVarName.class);
 
-        XQueryFLWORExpr flworExprPsi = descendants(file).findFirst(XQueryFLWORExpr.class).get();
-        XQueryReturnClause returnClausePsi = children(flworExprPsi).findFirst(XQueryReturnClause.class).get();
-        XQueryOrExpr orExprPsi = children(returnClausePsi).findFirst(XQueryOrExpr.class).get();
-        XQueryVarRef varRefPsi = descendants(orExprPsi).findFirst(XQueryVarRef.class).get();
-        XQueryEQName varRefNamePsi = children(varRefPsi).findFirst(XQueryEQName.class).get();
+        XQueryFLWORExpr flworExprPsi = descendants(file).findFirst(XQueryFLWORExpr.class);
+        XQueryReturnClause returnClausePsi = children(flworExprPsi).findFirst(XQueryReturnClause.class);
+        XQueryOrExpr orExprPsi = children(returnClausePsi).findFirst(XQueryOrExpr.class);
+        XQueryVarRef varRefPsi = descendants(orExprPsi).findFirst(XQueryVarRef.class);
+        XQueryEQName varRefNamePsi = children(varRefPsi).findFirst(XQueryEQName.class);
 
         PsiReference ref = varRefNamePsi.getReference();
         assertThat(ref.getCanonicalText(), is("x"));
@@ -501,14 +501,14 @@ public class XQueryReferenceTest extends ParserTestCase {
     public void testVarDecl() {
         final XQueryFile file = parseResource("tests/resolve/variables/VarDecl_VarRef_NCName.xq");
 
-        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class).get();
-        XQueryVarDecl varDeclPsi = children(annotatedDeclPsi).findFirst(XQueryVarDecl.class).get();
-        XQueryEQName varDeclNamePsi = children(varDeclPsi).findFirst(XQueryEQName.class).get();
+        XQueryAnnotatedDecl annotatedDeclPsi = descendants(file).findFirst(XQueryAnnotatedDecl.class);
+        XQueryVarDecl varDeclPsi = children(annotatedDeclPsi).findFirst(XQueryVarDecl.class);
+        XQueryEQName varDeclNamePsi = children(varDeclPsi).findFirst(XQueryEQName.class);
 
-        XQueryMainModule mainModulePsi = descendants(file).findFirst(XQueryMainModule.class).get();
-        XQueryQueryBody queryBodyPsi = children(mainModulePsi).findFirst(XQueryQueryBody.class).get();
-        XQueryVarRef varRefPsi = descendants(queryBodyPsi).findFirst(XQueryVarRef.class).get();
-        XQueryEQName varRefNamePsi = children(varRefPsi).findFirst(XQueryEQName.class).get();
+        XQueryMainModule mainModulePsi = descendants(file).findFirst(XQueryMainModule.class);
+        XQueryQueryBody queryBodyPsi = children(mainModulePsi).findFirst(XQueryQueryBody.class);
+        XQueryVarRef varRefPsi = descendants(queryBodyPsi).findFirst(XQueryVarRef.class);
+        XQueryEQName varRefNamePsi = children(varRefPsi).findFirst(XQueryEQName.class);
 
         PsiReference ref = varRefNamePsi.getReference();
         assertThat(ref.getCanonicalText(), is("value"));
