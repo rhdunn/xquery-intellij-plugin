@@ -17,8 +17,8 @@ package uk.co.reecedunn.intellij.plugin.core.extensions;
 
 import com.intellij.psi.PsiElement
 
-private class PsiElementWalker(private var node: PsiElement?,
-                               private var walk: (PsiElement) -> PsiElement?) : Iterator<PsiElement> {
+private class PsiElementIterator(private var node: PsiElement?,
+                                 private var walk: (PsiElement) -> PsiElement?) : Iterator<PsiElement> {
     override fun hasNext(): Boolean {
         return node != null
     }
@@ -31,23 +31,23 @@ private class PsiElementWalker(private var node: PsiElement?,
 }
 
 fun PsiElement.ancestors(): Sequence<PsiElement> {
-    return PsiElementWalker(parent, PsiElement::getParent).asSequence()
+    return PsiElementIterator(parent, PsiElement::getParent).asSequence()
 }
 
 fun PsiElement.descendants(): Sequence<PsiElement> {
-    return PsiElementWalker(firstChild, PsiElement::getFirstChild).asSequence()
+    return PsiElementIterator(firstChild, PsiElement::getFirstChild).asSequence()
 }
 
 fun PsiElement.children(): Sequence<PsiElement> {
-    return PsiElementWalker(firstChild, PsiElement::getNextSibling).asSequence()
+    return PsiElementIterator(firstChild, PsiElement::getNextSibling).asSequence()
 }
 
 fun PsiElement.siblings(): Sequence<PsiElement> {
-    return PsiElementWalker(nextSibling, PsiElement::getNextSibling).asSequence()
+    return PsiElementIterator(nextSibling, PsiElement::getNextSibling).asSequence()
 }
 
 fun PsiElement.walkTree(): Sequence<PsiElement> {
-    return PsiElementWalker(this, { e ->
+    return PsiElementIterator(this, { e ->
         val next: PsiElement? = e.prevSibling
         if (next == null) e.parent else next
     }).asSequence()
