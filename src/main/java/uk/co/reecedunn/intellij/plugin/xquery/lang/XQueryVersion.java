@@ -29,7 +29,7 @@ public enum XQueryVersion {
     VERSION_1_0_20070123("1.0-20070123", 1.0, 20070123), // XQuery 1.0 REC (First Edition)
     VERSION_1_0_20101214("1.0-20101214", 1.0, 20101214), // XQuery 1.0 REC (Second Edition)
     VERSION_3_0_20140408("3.0-20140408", 3.0, 20140408), // XQuery 3.0 REC
-    VERSION_3_1_20161213("3.1-20161213", 3.1, 20161213), // XQuery 3.1 CR
+    VERSION_3_1_20170321("3.1-20170321", 3.1, 20170321), // XQuery 3.1 REC
 
     // endregion
     // region Versions
@@ -99,7 +99,7 @@ public enum XQueryVersion {
         sVersions.put("3.0", VERSION_3_0);
         sVersions.put("3.0-20140408", VERSION_3_0_20140408);
         sVersions.put("3.1", VERSION_3_1);
-        sVersions.put("3.1-20161213", VERSION_3_1_20161213);
+        sVersions.put("3.1-20170321", VERSION_3_1_20170321);
         sVersions.put("6.0", VERSION_6_0);
         sVersions.put("7.0", VERSION_7_0);
         sVersions.put("8.0", VERSION_8_0);

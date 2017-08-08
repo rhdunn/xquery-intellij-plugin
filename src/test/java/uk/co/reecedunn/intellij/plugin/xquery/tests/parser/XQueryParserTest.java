@@ -7341,7 +7341,7 @@ public class XQueryParserTest extends ParserTestCase {
     // endregion
     // region XQuery 3.1 :: DFPropertyName + DecimalFormatDecl
 
-    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-DFPropertyName")
+    @Specification(name="XQuery 3.1", reference="https://www.w3.org/TR/2017/REC-xquery-31-20170321/#prod-xquery31-DFPropertyName")
     public void testDecimalFormatDecl_Property_XQuery31() {
         final String expected = loadResource("tests/parser/xquery-3.1/DecimalFormatDecl_Property_XQuery31.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-3.1/DecimalFormatDecl_Property_XQuery31.xq");
@@ -7351,7 +7351,7 @@ public class XQueryParserTest extends ParserTestCase {
     // endregion
     // region XQuery 3.1 :: EnclosedExpr
 
-    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-EnclosedExpr")
+    @Specification(name="XQuery 3.1", reference="https://www.w3.org/TR/2017/REC-xquery-31-20170321/#prod-xquery31-EnclosedExpr")
     public void testEnclosedExpr_MissingExpr() {
         final String expected = loadResource("tests/parser/xquery-3.1/EnclosedExpr_MissingExpr.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-3.1/EnclosedExpr_MissingExpr.xq");
@@ -7362,7 +7362,7 @@ public class XQueryParserTest extends ParserTestCase {
     // region XQuery 3.1 :: TryClause + TryTargetExpr + TryCatchExpr
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-TryCatchExpr")
-    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-TryClause")
+    @Specification(name="XQuery 3.1", reference="https://www.w3.org/TR/2017/REC-xquery-31-20170321/#prod-xquery31-TryClause")
     public void testTryClause_MissingExpr() {
         final String expected = loadResource("tests/parser/xquery-3.1/TryClause_MissingExpr.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-3.1/TryClause_MissingExpr.xq");
@@ -7373,7 +7373,7 @@ public class XQueryParserTest extends ParserTestCase {
     // region XQuery 3.1 :: CatchClause + TryCatchExpr
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-TryCatchExpr")
-    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-CatchClause")
+    @Specification(name="XQuery 3.1", reference="https://www.w3.org/TR/2017/REC-xquery-31-20170321/#prod-xquery31-CatchClause")
     public void testCatchClause_MissingExpr() {
         final String expected = loadResource("tests/parser/xquery-3.1/CatchClause_MissingExpr.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-3.1/CatchClause_MissingExpr.xq");
@@ -7383,35 +7383,35 @@ public class XQueryParserTest extends ParserTestCase {
     // endregion
     // region XQuery 3.1 :: ArrowExpr
 
-    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-ArrowExpr")
+    @Specification(name="XQuery 3.1", reference="https://www.w3.org/TR/2017/REC-xquery-31-20170321/#prod-xquery31-ArrowExpr")
     public void testArrowExpr() {
         final String expected = loadResource("tests/parser/xquery-3.1/ArrowExpr.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-3.1/ArrowExpr.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-ArrowExpr")
+    @Specification(name="XQuery 3.1", reference="https://www.w3.org/TR/2017/REC-xquery-31-20170321/#prod-xquery31-ArrowExpr")
     public void testArrowExpr_CompactWhitespace() {
         final String expected = loadResource("tests/parser/xquery-3.1/ArrowExpr_CompactWhitespace.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-3.1/ArrowExpr_CompactWhitespace.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-ArrowExpr")
+    @Specification(name="XQuery 3.1", reference="https://www.w3.org/TR/2017/REC-xquery-31-20170321/#prod-xquery31-ArrowExpr")
     public void testArrowExpr_MissingArgumentList() {
         final String expected = loadResource("tests/parser/xquery-3.1/ArrowExpr_MissingArgumentList.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-3.1/ArrowExpr_MissingArgumentList.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-ArrowExpr")
+    @Specification(name="XQuery 3.1", reference="https://www.w3.org/TR/2017/REC-xquery-31-20170321/#prod-xquery31-ArrowExpr")
     public void testArrowExpr_MissingFunctionSpecifier() {
         final String expected = loadResource("tests/parser/xquery-3.1/ArrowExpr_MissingFunctionSpecifier.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-3.1/ArrowExpr_MissingFunctionSpecifier.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-ArrowExpr")
+    @Specification(name="XQuery 3.1", reference="https://www.w3.org/TR/2017/REC-xquery-31-20170321/#prod-xquery31-ArrowExpr")
     public void testArrowExpr_MultipleArrows() {
         final String expected = loadResource("tests/parser/xquery-3.1/ArrowExpr_MultipleArrows.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-3.1/ArrowExpr_MultipleArrows.xq");
@@ -7421,7 +7421,7 @@ public class XQueryParserTest extends ParserTestCase {
     // endregion
     // region XQuery 3.1 :: ValidateExpr + ValidationMode
 
-    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-ValidateExpr")
+    @Specification(name="XQuery 3.1", reference="https://www.w3.org/TR/2017/REC-xquery-31-20170321/#prod-xquery31-ValidateExpr")
     public void testValidateExpr_MissingExpr() {
         final String expected = loadResource("tests/parser/xquery-3.1/ValidateExpr_MissingExpr.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-3.1/ValidateExpr_MissingExpr.xq");
@@ -7479,21 +7479,21 @@ public class XQueryParserTest extends ParserTestCase {
     // endregion
     // region XQuery 3.1 :: ArrowFunctionSpecifier
 
-    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-ArrowFunctionSpecifier")
+    @Specification(name="XQuery 3.1", reference="https://www.w3.org/TR/2017/REC-xquery-31-20170321/#prod-xquery31-ArrowFunctionSpecifier")
     public void testArrowFunctionSpecifier_EQName() {
         final String expected = loadResource("tests/parser/xquery-3.1/ArrowExpr.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-3.1/ArrowExpr.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-ArrowFunctionSpecifier")
+    @Specification(name="XQuery 3.1", reference="https://www.w3.org/TR/2017/REC-xquery-31-20170321/#prod-xquery31-ArrowFunctionSpecifier")
     public void testArrowFunctionSpecifier_VarRef() {
         final String expected = loadResource("tests/parser/xquery-3.1/ArrowFunctionSpecifier_VarRef.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-3.1/ArrowFunctionSpecifier_VarRef.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-ArrowFunctionSpecifier")
+    @Specification(name="XQuery 3.1", reference="https://www.w3.org/TR/2017/REC-xquery-31-20170321/#prod-xquery31-ArrowFunctionSpecifier")
     public void testArrowFunctionSpecifier_ParenthesizedExpr() {
         final String expected = loadResource("tests/parser/xquery-3.1/ArrowFunctionSpecifier_ParenthesizedExpr.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-3.1/ArrowFunctionSpecifier_ParenthesizedExpr.xq");
@@ -7503,7 +7503,7 @@ public class XQueryParserTest extends ParserTestCase {
     // endregion
     // region XQuery 3.1 :: OrderedExpr
 
-    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-OrderedExpr")
+    @Specification(name="XQuery 3.1", reference="https://www.w3.org/TR/2017/REC-xquery-31-20170321/#prod-xquery31-OrderedExpr")
     public void testOrderedExpr_MissingExpr() {
         final String expected = loadResource("tests/parser/xquery-3.1/OrderedExpr_MissingExpr.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-3.1/OrderedExpr_MissingExpr.xq");
@@ -7513,7 +7513,7 @@ public class XQueryParserTest extends ParserTestCase {
     // endregion
     // region XQuery 3.1 :: UnorderedExpr
 
-    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-UnorderedExpr")
+    @Specification(name="XQuery 3.1", reference="https://www.w3.org/TR/2017/REC-xquery-31-20170321/#prod-xquery31-UnorderedExpr")
     public void testUnorderedExpr_MissingExpr() {
         final String expected = loadResource("tests/parser/xquery-3.1/UnorderedExpr_MissingExpr.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-3.1/UnorderedExpr_MissingExpr.xq");
@@ -7525,7 +7525,7 @@ public class XQueryParserTest extends ParserTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirAttributeValue")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CommonContent")
-    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-EnclosedExpr")
+    @Specification(name="XQuery 3.1", reference="https://www.w3.org/TR/2017/REC-xquery-31-20170321/#prod-xquery31-EnclosedExpr")
     public void testDirAttributeValue_CommonContent_EnclosedExpr_MissingExpr() {
         final String expected = loadResource("tests/parser/xquery-3.1/DirAttributeValue_CommonContent_EnclosedExpr_MissingExpr.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-3.1/DirAttributeValue_CommonContent_EnclosedExpr_MissingExpr.xq");
@@ -7537,7 +7537,7 @@ public class XQueryParserTest extends ParserTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-DirElemContent")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-CommonContent")
-    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-EnclosedExpr")
+    @Specification(name="XQuery 3.1", reference="https://www.w3.org/TR/2017/REC-xquery-31-20170321/#prod-xquery31-EnclosedExpr")
     public void testDirElemContent_CommonContent_EnclosedExpr_MissingExpr() {
         final String expected = loadResource("tests/parser/xquery-3.1/DirElemContent_CommonContent_EnclosedExpr_MissingExpr.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-3.1/DirElemContent_CommonContent_EnclosedExpr_MissingExpr.xq");
@@ -7547,7 +7547,7 @@ public class XQueryParserTest extends ParserTestCase {
     // endregion
     // region XQuery 3.1 :: CompDocConstructor
 
-    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-CompDocConstructor")
+    @Specification(name="XQuery 3.1", reference="https://www.w3.org/TR/2017/REC-xquery-31-20170321/#prod-xquery31-CompDocConstructor")
     public void testCompDocConstructor_MissingExpr() {
         final String expected = loadResource("tests/parser/xquery-3.1/CompDocConstructor_MissingExpr.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-3.1/CompDocConstructor_MissingExpr.xq");
@@ -7564,7 +7564,7 @@ public class XQueryParserTest extends ParserTestCase {
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-CompNamespaceConstructor")
+    @Specification(name="XQuery 3.1", reference="https://www.w3.org/TR/2017/REC-xquery-31-20170321/#prod-xquery31-CompNamespaceConstructor")
     public void testCompNamespaceConstructor_MissingURIExpr() {
         final String expected = loadResource("tests/parser/xquery-3.1/CompNamespaceConstructor_MissingURIExpr.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-3.1/CompNamespaceConstructor_MissingURIExpr.xq");
@@ -7574,7 +7574,7 @@ public class XQueryParserTest extends ParserTestCase {
     // endregion
     // region XQuery 3.1 :: CompTextConstructor
 
-    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-CompTextConstructor")
+    @Specification(name="XQuery 3.1", reference="https://www.w3.org/TR/2017/REC-xquery-31-20170321/#prod-xquery31-CompTextConstructor")
     public void testCompTextConstructor_MissingExpr() {
         final String expected = loadResource("tests/parser/xquery-3.1/CompTextConstructor_MissingExpr.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-3.1/CompTextConstructor_MissingExpr.xq");
@@ -7584,7 +7584,7 @@ public class XQueryParserTest extends ParserTestCase {
     // endregion
     // region XQuery 3.1 :: CompCommentConstructor
 
-    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-CompCommentConstructor")
+    @Specification(name="XQuery 3.1", reference="https://www.w3.org/TR/2017/REC-xquery-31-20170321/#prod-xquery31-CompCommentConstructor")
     public void testCompCommentConstructor_MissingExpr() {
         final String expected = loadResource("tests/parser/xquery-3.1/CompCommentConstructor_MissingExpr.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-3.1/CompCommentConstructor_MissingExpr.xq");

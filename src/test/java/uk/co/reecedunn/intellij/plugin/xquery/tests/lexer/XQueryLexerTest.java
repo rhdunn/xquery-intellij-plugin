@@ -3765,7 +3765,7 @@ public class XQueryLexerTest extends LexerTestCase {
     // endregion
     // region XQuery 3.1 :: ArrowExpr
 
-    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-ArrowExpr")
+    @Specification(name="XQuery 3.1", reference="https://www.w3.org/TR/2017/REC-xquery-31-20170321/#prod-xquery31-ArrowExpr")
     public void testArrowExpr() {
         Lexer lexer = createLexer();
 
@@ -3775,7 +3775,7 @@ public class XQueryLexerTest extends LexerTestCase {
     // endregion
     // region XQuery 3.1 :: Lookup
 
-    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-Lookup")
+    @Specification(name="XQuery 3.1", reference="https://www.w3.org/TR/2017/REC-xquery-31-20170321/#prod-xquery31-Lookup")
     public void testLookup() {
         Lexer lexer = createLexer();
 
@@ -3785,7 +3785,7 @@ public class XQueryLexerTest extends LexerTestCase {
     // endregion
     // region XQuery 3.1 :: KeySpecifier
 
-    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-KeySpecifier")
+    @Specification(name="XQuery 3.1", reference="https://www.w3.org/TR/2017/REC-xquery-31-20170321/#prod-xquery31-KeySpecifier")
     public void testKeySpecifier() {
         Lexer lexer = createLexer();
 
@@ -3795,7 +3795,7 @@ public class XQueryLexerTest extends LexerTestCase {
     // endregion
     // region XQuery 3.1 :: MapConstructor
 
-    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-MapConstructor")
+    @Specification(name="XQuery 3.1", reference="https://www.w3.org/TR/2017/REC-xquery-31-20170321/#prod-xquery31-MapConstructor")
     public void testMapConstructor() {
         Lexer lexer = createLexer();
 
@@ -3808,7 +3808,7 @@ public class XQueryLexerTest extends LexerTestCase {
     // endregion
     // region XQuery 3.1 :: MapConstructorEntry
 
-    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-MapConstructorEntry")
+    @Specification(name="XQuery 3.1", reference="https://www.w3.org/TR/2017/REC-xquery-31-20170321/#prod-xquery31-MapConstructorEntry")
     public void testMapConstructorEntry() {
         Lexer lexer = createLexer();
 
@@ -3818,7 +3818,7 @@ public class XQueryLexerTest extends LexerTestCase {
     // endregion
     // region XQuery 3.1 :: SquareArrayConstructor
 
-    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-SquareArrayConstructor")
+    @Specification(name="XQuery 3.1", reference="https://www.w3.org/TR/2017/REC-xquery-31-20170321/#prod-xquery31-SquareArrayConstructor")
     public void testSquareArrayConstructor() {
         Lexer lexer = createLexer();
 
@@ -3830,7 +3830,7 @@ public class XQueryLexerTest extends LexerTestCase {
     // endregion
     // region XQuery 3.1 :: CurlyArrayConstructor
 
-    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-CurlyArrayConstructor")
+    @Specification(name="XQuery 3.1", reference="https://www.w3.org/TR/2017/REC-xquery-31-20170321/#prod-xquery31-CurlyArrayConstructor")
     public void testCurlyArrayConstructor() {
         Lexer lexer = createLexer();
 
@@ -3842,7 +3842,7 @@ public class XQueryLexerTest extends LexerTestCase {
     // endregion
     // region XQuery 3.1 :: StringConstructor + StringConstructorContent
 
-    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-StringConstructor")
+    @Specification(name="XQuery 3.1", reference="https://www.w3.org/TR/2017/REC-xquery-31-20170321/#prod-xquery31-StringConstructor")
     public void testStringConstructor() {
         Lexer lexer = createLexer();
 
@@ -3875,7 +3875,7 @@ public class XQueryLexerTest extends LexerTestCase {
     // endregion
     // region XQuery 3.1 :: StringConstructorInterpolation
 
-    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-StringConstructorInterpolation")
+    @Specification(name="XQuery 3.1", reference="https://www.w3.org/TR/2017/REC-xquery-31-20170321/#prod-xquery31-StringConstructorInterpolation")
     public void testStringConstructorInterpolation() {
         Lexer lexer = createLexer();
 
@@ -3896,7 +3896,7 @@ public class XQueryLexerTest extends LexerTestCase {
     // endregion
     // region XQuery 3.1 :: UnaryLookup
 
-    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-UnaryLookup")
+    @Specification(name="XQuery 3.1", reference="https://www.w3.org/TR/2017/REC-xquery-31-20170321/#prod-xquery31-UnaryLookup")
     public void testUnaryLookup() {
         Lexer lexer = createLexer();
 
@@ -3906,7 +3906,7 @@ public class XQueryLexerTest extends LexerTestCase {
     // endregion
     // region XQuery 3.1 :: AnyMapTest
 
-    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-AnyMapTest")
+    @Specification(name="XQuery 3.1", reference="https://www.w3.org/TR/2017/REC-xquery-31-20170321/#prod-xquery31-AnyMapTest")
     public void testAnyMapTest() {
         Lexer lexer = createLexer();
 
@@ -3919,7 +3919,7 @@ public class XQueryLexerTest extends LexerTestCase {
     // endregion
     // region XQuery 3.1 :: TypedMapTest
 
-    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-TypedMapTest")
+    @Specification(name="XQuery 3.1", reference="https://www.w3.org/TR/2017/REC-xquery-31-20170321/#prod-xquery31-TypedMapTest")
     public void testTypedMapTest() {
         Lexer lexer = createLexer();
 
@@ -3932,7 +3932,7 @@ public class XQueryLexerTest extends LexerTestCase {
     // endregion
     // region XQuery 3.1 :: AnyArrayTest
 
-    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-AnyArrayTest")
+    @Specification(name="XQuery 3.1", reference="https://www.w3.org/TR/2017/REC-xquery-31-20170321/#prod-xquery31-AnyArrayTest")
     public void testAnyArrayTest() {
         Lexer lexer = createLexer();
 
@@ -3945,7 +3945,7 @@ public class XQueryLexerTest extends LexerTestCase {
     // endregion
     // region XQuery 3.1 :: TypedArrayTest
 
-    @Specification(name="XQuery 3.1 CR", reference="https://www.w3.org/TR/2015/CR-xquery-31-20151217/#prod-xquery31-TypedArrayTest")
+    @Specification(name="XQuery 3.1", reference="https://www.w3.org/TR/2017/REC-xquery-31-20170321/#prod-xquery31-TypedArrayTest")
     public void testTypedArrayTest() {
         Lexer lexer = createLexer();
 
