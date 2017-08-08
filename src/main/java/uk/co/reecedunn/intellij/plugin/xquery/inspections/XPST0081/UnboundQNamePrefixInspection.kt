@@ -16,16 +16,16 @@
 package uk.co.reecedunn.intellij.plugin.xquery.inspections.XPST0081
 
 import com.intellij.codeInspection.*
-import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.util.SmartList
+import uk.co.reecedunn.intellij.plugin.core.extensions.walkTree
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryNCName
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 
 /** XPST0081 error condition
-
+ *
  * It is a *static error* if a QName used in a query contains a
  * namespace prefix that is not in the *statically known namespaces*.
  */
@@ -40,32 +40,14 @@ class UnboundQNamePrefixInspection : LocalInspectionTool() {
         if (file !is XQueryFile) return null
 
         val descriptors = SmartList<ProblemDescriptor>()
-        checkElement(file, manager, descriptors, isOnTheFly)
-        return descriptors.toTypedArray()
-    }
-
-    private fun checkElement(element: PsiElement?,
-                             manager: InspectionManager,
-                             descriptors: MutableList<ProblemDescriptor>,
-                             isOnTheFly: Boolean) {
-        var element = element
-        if (element is XQueryEQName) {
-            val qname = element
+        file.walkTree().filterIsInstance<XQueryEQName>().forEach { qname ->
             val context = qname.prefix
             if (context !is XQueryNCName || context.text == "xmlns") {
-                return
-            }
-            if (!qname.resolvePrefixNamespace().iterator().hasNext()) {
+            } else if (!qname.resolvePrefixNamespace().iterator().hasNext()) {
                 val description = XQueryBundle.message("inspection.XPST0081.unbound-qname-prefix.message")
                 descriptors.add(manager.createProblemDescriptor(context, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))
             }
-            return
         }
-
-        element = element?.firstChild
-        while (element != null) {
-            checkElement(element, manager, descriptors, isOnTheFly)
-            element = element.nextSibling
-        }
+        return descriptors.toTypedArray()
     }
 }

@@ -16,6 +16,34 @@
 package uk.co.reecedunn.intellij.plugin.core.extensions;
 
 import com.intellij.psi.PsiElement
+import java.util.*
+
+private class PsiElementTreeIterator(private var node: PsiElement?) : Iterator<PsiElement> {
+    private val stack: Stack<PsiElement> = Stack()
+    init {
+        stack.push(node)
+    }
+
+    override fun hasNext(): Boolean {
+        return !stack.isEmpty()
+    }
+
+    override fun next(): PsiElement {
+        val current = stack.pop()
+
+        val right = current?.nextSibling
+        if (right != null) {
+            stack.push(right)
+        }
+
+        val left = current?.firstChild
+        if (left != null) {
+            stack.push(left)
+        }
+
+        return current
+    }
+}
 
 private class PsiElementIterator(private var node: PsiElement?,
                                  private var walk: (PsiElement) -> PsiElement?) : Iterator<PsiElement> {
@@ -60,7 +88,7 @@ fun PsiElement.siblings(): Sequence<PsiElement> {
 
 fun PsiElement.walkTree(): PsiElementReversibleSequence {
     return PsiElementReversibleSequence(this,
-        { element -> throw UnsupportedOperationException() },
+        { element -> PsiElementTreeIterator(element) },
         { element -> PsiElementIterator(element,
             { e ->
                 val next: PsiElement? = e.prevSibling
