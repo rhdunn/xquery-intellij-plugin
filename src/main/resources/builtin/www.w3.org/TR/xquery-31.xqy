@@ -1,4 +1,4 @@
-xquery version "1.0-ml";
+xquery version "1.0";
 
 (: https://www.w3.org/TR/xquery-31/#id-basics :)
 declare namespace xml = "http://www.w3.org/XML/1998/namespace";

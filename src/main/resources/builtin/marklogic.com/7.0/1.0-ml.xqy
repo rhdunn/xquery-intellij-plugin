@@ -1,4 +1,4 @@
-xquery version "1.0-ml";
+xquery version "1.0";
 
 (: http://docs.marklogic.com/7.0/guide/xquery/namespaces :)
 declare namespace cts = "http://marklogic.com/cts";
