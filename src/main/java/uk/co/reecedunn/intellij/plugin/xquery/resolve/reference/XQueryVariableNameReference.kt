@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver
 class XQueryVariableNameReference(element: XQueryEQName, range: TextRange) : PsiReferenceBase<XQueryEQName>(element, range) {
     override fun resolve(): PsiElement? {
         val name = element
-        return name.walkTree().filterIsInstance<XQueryVariableResolver>().map { e ->
+        return name.walkTree().reversed().filterIsInstance<XQueryVariableResolver>().map { e ->
             e.resolveVariable(name)?.variable
         }.filterNotNull().firstOrNull()
     }

@@ -127,7 +127,7 @@ open class XQueryEQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQue
         }
 
         val text = prefix.text
-        return prefix.walkTree().map { e ->
+        return prefix.walkTree().reversed().map { e ->
             if (e is XQueryNamespaceResolver) {
                 e.resolveNamespace(text)
             } else {
