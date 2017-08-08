@@ -4963,8 +4963,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         assertThat(provider.resolveVariable(null), `is`(nullValue()))
 
-        val variable = provider.resolveVariable(varNamePsi)
-        assertThat(variable, `is`(notNullValue()))
+        val variable = provider.resolveVariable(varNamePsi)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryEQName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(varNamePsi))
@@ -4998,8 +4997,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         assertThat(provider.resolveVariable(null), `is`(nullValue()))
 
-        val variable = provider.resolveVariable(varNamePsi)
-        assertThat(variable, `is`(notNullValue()))
+        val variable = provider.resolveVariable(varNamePsi)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryVarName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(varNamePsi))
@@ -5022,8 +5020,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         assertThat(provider.resolveVariable(null), `is`(nullValue()))
 
-        val variable = provider.resolveVariable(varNamePsi)
-        assertThat(variable, `is`(notNullValue()))
+        val variable = provider.resolveVariable(varNamePsi)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryVarName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(varNamePsi))
@@ -5045,8 +5042,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         assertThat(provider.resolveVariable(null), `is`(nullValue()))
 
-        val variable = provider.resolveVariable(varNamePsi)
-        assertThat(variable, `is`(notNullValue()))
+        val variable = provider.resolveVariable(varNamePsi)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryVarName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(varNamePsi))
@@ -5071,8 +5067,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         // bound variable
 
-        var variable = provider.resolveVariable(varNamePsi)
-        assertThat(variable, `is`(notNullValue()))
+        var variable = provider.resolveVariable(varNamePsi)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryVarName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(varNamePsi))
@@ -5082,8 +5077,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         // positional variable
 
-        variable = provider.resolveVariable(posVarNamePsi)
-        assertThat(variable, `is`(notNullValue()))
+        variable = provider.resolveVariable(posVarNamePsi)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryVarName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(posVarNamePsi))
@@ -5105,8 +5099,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         assertThat(provider.resolveVariable(null), `is`(nullValue()))
 
-        val variable = provider.resolveVariable(varNamePsi)
-        assertThat(variable, `is`(notNullValue()))
+        val variable = provider.resolveVariable(varNamePsi)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryVarName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(varNamePsi))
@@ -5128,8 +5121,9 @@ class XQueryPsiTest:ParserTestCase() {
         val paramNamePsi = paramPsi.children().filterIsInstance<XQueryEQName>().first()
         val provider = functionDeclPsi as XQueryVariableResolver
 
-        val variable = provider.resolveVariable(paramNamePsi)
-        assertThat(variable, `is`(notNullValue()))
+        assertThat(provider.resolveVariable(null), `is`(nullValue()))
+
+        val variable = provider.resolveVariable(paramNamePsi)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryEQName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(paramNamePsi))
@@ -5155,8 +5149,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         assertThat(provider.resolveVariable(null), `is`(nullValue()))
 
-        val variable = provider.resolveVariable(varNamePsi)
-        assertThat(variable, `is`(notNullValue()))
+        val variable = provider.resolveVariable(varNamePsi)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryVarName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(varNamePsi))
@@ -5182,8 +5175,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         assertThat(provider.resolveVariable(null), `is`(nullValue()))
 
-        val variable = provider.resolveVariable(varNamePsi)
-        assertThat(variable, `is`(notNullValue()))
+        val variable = provider.resolveVariable(varNamePsi)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryVarName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(varNamePsi))
@@ -5209,8 +5201,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         assertThat(provider.resolveVariable(null), `is`(nullValue()))
 
-        val variable = provider.resolveVariable(varNamePsi)
-        assertThat(variable, `is`(notNullValue()))
+        val variable = provider.resolveVariable(varNamePsi)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryVarName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(varNamePsi))
@@ -5236,8 +5227,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         assertThat(provider.resolveVariable(null), `is`(nullValue()))
 
-        val variable = provider.resolveVariable(varNamePsi)
-        assertThat(variable, `is`(notNullValue()))
+        val variable = provider.resolveVariable(varNamePsi)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryVarName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(varNamePsi))
@@ -5261,8 +5251,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         assertThat(provider.resolveVariable(null), `is`(nullValue()))
 
-        val variable = provider.resolveVariable(varNamePsi)
-        assertThat(variable, `is`(notNullValue()))
+        val variable = provider.resolveVariable(varNamePsi)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryVarName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(varNamePsi))
@@ -5284,8 +5273,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         assertThat(provider.resolveVariable(null), `is`(nullValue()))
 
-        val variable = provider.resolveVariable(varNamePsi)
-        assertThat(variable, `is`(notNullValue()))
+        val variable = provider.resolveVariable(varNamePsi)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryVarName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(varNamePsi))
@@ -5307,8 +5295,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         assertThat(provider.resolveVariable(null), `is`(nullValue()))
 
-        val variable = provider.resolveVariable(varNamePsi)
-        assertThat(variable, `is`(notNullValue()))
+        val variable = provider.resolveVariable(varNamePsi)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryVarName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(varNamePsi))
@@ -5332,8 +5319,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         assertThat(provider.resolveVariable(null), `is`(nullValue()))
 
-        val variable = provider.resolveVariable(paramNamePsi)
-        assertThat(variable, `is`(notNullValue()))
+        val variable = provider.resolveVariable(paramNamePsi)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryEQName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(paramNamePsi))
@@ -5357,8 +5343,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         assertThat(provider.resolveVariable(null), `is`(nullValue()))
 
-        val variable = provider.resolveVariable(paramNamePsi)
-        assertThat(variable, `is`(notNullValue()))
+        val variable = provider.resolveVariable(paramNamePsi)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryEQName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(paramNamePsi))
@@ -5381,8 +5366,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         assertThat(provider.resolveVariable(null), `is`(nullValue()))
 
-        val variable = provider.resolveVariable(varNamePsi)
-        assertThat(variable, `is`(notNullValue()))
+        val variable = provider.resolveVariable(varNamePsi)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryVarName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(varNamePsi))
@@ -5406,8 +5390,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         assertThat(provider.resolveVariable(null), `is`(nullValue()))
 
-        val variable = provider.resolveVariable(varNamePsi)
-        assertThat(variable, `is`(notNullValue()))
+        val variable = provider.resolveVariable(varNamePsi)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryEQName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(varNamePsi))
@@ -5442,8 +5425,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         assertThat(provider.resolveVariable(null), `is`(nullValue()))
 
-        val variable = provider.resolveVariable(varNamePsi)
-        assertThat(variable, `is`(notNullValue()))
+        val variable = provider.resolveVariable(varNamePsi)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryVarName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(varNamePsi))
@@ -5465,8 +5447,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         assertThat(provider.resolveVariable(null), `is`(nullValue()))
 
-        val variable = provider.resolveVariable(varNamePsi)
-        assertThat(variable, `is`(notNullValue()))
+        val variable = provider.resolveVariable(varNamePsi)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryVarName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(varNamePsi))
@@ -5493,8 +5474,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         // current
 
-        var variable = provider.resolveVariable(currentItemPsi)
-        assertThat(variable, `is`(notNullValue()))
+        var variable = provider.resolveVariable(currentItemPsi)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryCurrentItem::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(currentItemPsi))
@@ -5504,8 +5484,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         // positional
 
-        variable = provider.resolveVariable(posVarNamePsi)
-        assertThat(variable, `is`(notNullValue()))
+        variable = provider.resolveVariable(posVarNamePsi)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryVarName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(posVarNamePsi))
@@ -5515,8 +5494,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         // previous
 
-        variable = provider.resolveVariable(previousItemPsi)
-        assertThat(variable, `is`(notNullValue()))
+        variable = provider.resolveVariable(previousItemPsi)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryPreviousItem::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(previousItemPsi))
@@ -5526,8 +5504,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         // next
 
-        variable = provider.resolveVariable(nextItemPsi)
-        assertThat(variable, `is`(notNullValue()))
+        variable = provider.resolveVariable(nextItemPsi)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryNextItem::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(nextItemPsi))
@@ -5554,8 +5531,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         // current
 
-        var variable = provider.resolveVariable(currentItemPsi)
-        assertThat(variable, `is`(notNullValue()))
+        var variable = provider.resolveVariable(currentItemPsi)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryCurrentItem::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(currentItemPsi))
@@ -5565,8 +5541,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         // positional
 
-        variable = provider.resolveVariable(posVarNamePsi)
-        assertThat(variable, `is`(notNullValue()))
+        variable = provider.resolveVariable(posVarNamePsi)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryVarName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(posVarNamePsi))
@@ -5576,8 +5551,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         // previous
 
-        variable = provider.resolveVariable(previousItemPsi)
-        assertThat(variable, `is`(notNullValue()))
+        variable = provider.resolveVariable(previousItemPsi)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryPreviousItem::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(previousItemPsi))
@@ -5587,8 +5561,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         // next
 
-        variable = provider.resolveVariable(nextItemPsi)
-        assertThat(variable, `is`(notNullValue()))
+        variable = provider.resolveVariable(nextItemPsi)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryNextItem::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(nextItemPsi))
@@ -5610,8 +5583,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         assertThat(provider.resolveVariable(null), `is`(nullValue()))
 
-        val variable = provider.resolveVariable(varNamePsi)
-        assertThat(variable, `is`(notNullValue()))
+        val variable = provider.resolveVariable(varNamePsi)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryVarName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(varNamePsi))
@@ -5638,8 +5610,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         // current
 
-        var variable = provider.resolveVariable(currentItemPsi)
-        assertThat(variable, `is`(notNullValue()))
+        var variable = provider.resolveVariable(currentItemPsi)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryCurrentItem::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(currentItemPsi))
@@ -5649,8 +5620,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         // positional
 
-        variable = provider.resolveVariable(posVarNamePsi)
-        assertThat(variable, `is`(notNullValue()))
+        variable = provider.resolveVariable(posVarNamePsi)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryVarName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(posVarNamePsi))
@@ -5660,8 +5630,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         // previous
 
-        variable = provider.resolveVariable(previousItemPsi)
-        assertThat(variable, `is`(notNullValue()))
+        variable = provider.resolveVariable(previousItemPsi)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryPreviousItem::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(previousItemPsi))
@@ -5671,8 +5640,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         // next
 
-        variable = provider.resolveVariable(nextItemPsi)
-        assertThat(variable, `is`(notNullValue()))
+        variable = provider.resolveVariable(nextItemPsi)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryNextItem::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(nextItemPsi))
@@ -5699,8 +5667,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         // current
 
-        var variable = provider.resolveVariable(currentItemPsi)
-        assertThat(variable, `is`(notNullValue()))
+        var variable = provider.resolveVariable(currentItemPsi)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryCurrentItem::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(currentItemPsi))
@@ -5710,8 +5677,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         // positional
 
-        variable = provider.resolveVariable(posVarNamePsi)
-        assertThat(variable, `is`(notNullValue()))
+        variable = provider.resolveVariable(posVarNamePsi)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryVarName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(posVarNamePsi))
@@ -5721,8 +5687,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         // previous
 
-        variable = provider.resolveVariable(previousItemPsi)
-        assertThat(variable, `is`(notNullValue()))
+        variable = provider.resolveVariable(previousItemPsi)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryPreviousItem::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(previousItemPsi))
@@ -5732,8 +5697,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         // next
 
-        variable = provider.resolveVariable(nextItemPsi)
-        assertThat(variable, `is`(notNullValue()))
+        variable = provider.resolveVariable(nextItemPsi)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryNextItem::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(nextItemPsi))
@@ -5754,8 +5718,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         assertThat(provider.resolveVariable(null), `is`(nullValue()))
 
-        val variable = provider.resolveVariable(varNamePsi)
-        assertThat(variable, `is`(notNullValue()))
+        val variable = provider.resolveVariable(varNamePsi)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryVarName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(varNamePsi))
@@ -5777,8 +5740,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         assertThat(provider.resolveVariable(null), `is`(nullValue()))
 
-        val variable = provider.resolveVariable(varNamePsi)
-        assertThat(variable, `is`(notNullValue()))
+        val variable = provider.resolveVariable(varNamePsi)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryEQName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(varNamePsi))
@@ -5800,8 +5762,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         assertThat(provider.resolveVariable(null), `is`(nullValue()))
 
-        val variable = provider.resolveVariable(varNamePsi)
-        assertThat(variable, `is`(notNullValue()))
+        val variable = provider.resolveVariable(varNamePsi)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryVarName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(varNamePsi))
@@ -5820,8 +5781,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         assertThat(provider.resolveVariable(null), `is`(nullValue()))
 
-        val variable = provider.resolveVariable(varNamePsi)
-        assertThat(variable, `is`(notNullValue()))
+        val variable = provider.resolveVariable(varNamePsi)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryVarName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(varNamePsi))
@@ -5851,8 +5811,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         // current
 
-        var variable = provider.resolveVariable(currentItemPsi)
-        assertThat(variable, `is`(notNullValue()))
+        var variable = provider.resolveVariable(currentItemPsi)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryCurrentItem::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(currentItemPsi))
@@ -5862,8 +5821,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         // positional
 
-        variable = provider.resolveVariable(posVarNamePsi)
-        assertThat(variable, `is`(notNullValue()))
+        variable = provider.resolveVariable(posVarNamePsi)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryVarName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(posVarNamePsi))
@@ -5873,8 +5831,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         // previous
 
-        variable = provider.resolveVariable(previousItemPsi)
-        assertThat(variable, `is`(notNullValue()))
+        variable = provider.resolveVariable(previousItemPsi)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryPreviousItem::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(previousItemPsi))
@@ -5884,8 +5841,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         // next
 
-        variable = provider.resolveVariable(nextItemPsi)
-        assertThat(variable, `is`(notNullValue()))
+        variable = provider.resolveVariable(nextItemPsi)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryNextItem::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(nextItemPsi))
@@ -5915,8 +5871,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         // current
 
-        var variable = provider.resolveVariable(currentItemPsi)
-        assertThat(variable, `is`(notNullValue()))
+        var variable = provider.resolveVariable(currentItemPsi)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryCurrentItem::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(currentItemPsi))
@@ -5926,8 +5881,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         // positional
 
-        variable = provider.resolveVariable(posVarNamePsi)
-        assertThat(variable, `is`(notNullValue()))
+        variable = provider.resolveVariable(posVarNamePsi)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryVarName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(posVarNamePsi))
@@ -5937,8 +5891,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         // previous
 
-        variable = provider.resolveVariable(previousItemPsi)
-        assertThat(variable, `is`(notNullValue()))
+        variable = provider.resolveVariable(previousItemPsi)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryPreviousItem::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(previousItemPsi))
@@ -5948,8 +5901,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         // next
 
-        variable = provider.resolveVariable(nextItemPsi)
-        assertThat(variable, `is`(notNullValue()))
+        variable = provider.resolveVariable(nextItemPsi)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryNextItem::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(nextItemPsi))
@@ -5979,8 +5931,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         // current
 
-        var variable = provider.resolveVariable(currentItemPsi)
-        assertThat(variable, `is`(notNullValue()))
+        var variable = provider.resolveVariable(currentItemPsi)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryCurrentItem::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(currentItemPsi))
@@ -5990,8 +5941,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         // positional
 
-        variable = provider.resolveVariable(posVarNamePsi)
-        assertThat(variable, `is`(notNullValue()))
+        variable = provider.resolveVariable(posVarNamePsi)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryVarName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(posVarNamePsi))
@@ -6001,8 +5951,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         // previous
 
-        variable = provider.resolveVariable(previousItemPsi)
-        assertThat(variable, `is`(notNullValue()))
+        variable = provider.resolveVariable(previousItemPsi)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryPreviousItem::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(previousItemPsi))
@@ -6012,8 +5961,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         // next
 
-        variable = provider.resolveVariable(nextItemPsi)
-        assertThat(variable, `is`(notNullValue()))
+        variable = provider.resolveVariable(nextItemPsi)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryNextItem::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(nextItemPsi))

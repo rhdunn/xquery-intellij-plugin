@@ -335,8 +335,7 @@ class ScriptingPsiTest : ParserTestCase() {
         val provider = blockVarDeclPsi as XQueryVariableResolver
         assertThat(provider.resolveVariable(null), `is`(nullValue()))
 
-        val variable = provider.resolveVariable(varNamePsi)
-        assertThat(variable, `is`(notNullValue()))
+        val variable = provider.resolveVariable(varNamePsi)!!
 
         assertThat(variable.variable, `is`(instanceOf(XQueryEQName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(varNamePsi))

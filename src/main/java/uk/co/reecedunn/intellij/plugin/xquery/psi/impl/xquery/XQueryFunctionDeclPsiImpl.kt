@@ -78,7 +78,7 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQu
     override val arity get(): Int =
         children().filterIsInstance<XQueryParamList>().firstOrNull()?.arity ?: 0
 
-    override fun resolveVariable(name: XQueryEQName): XQueryVariable? {
+    override fun resolveVariable(name: XQueryEQName?): XQueryVariable? {
         val element = findChildByType<PsiElement>(XQueryElementType.PARAM_LIST)
         return if (element is XQueryVariableResolver) element.resolveVariable(name) else null
     }
