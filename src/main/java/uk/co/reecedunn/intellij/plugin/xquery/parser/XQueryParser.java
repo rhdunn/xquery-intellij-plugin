@@ -33,7 +33,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
  *
  * Supported W3C XQuery extensions:
  *    -  Update Facility 1.0 (W3C Recommendation 17 March 2011)
- *    -  Update Facility 3.0 (W3C Last Call Working Draft 19 February 2015)
+ *    -  Update Facility 3.0 (W3C Working Group Note 24 January 2017)
  *    -  Scripting Extension 1.0 (W3C Working Group Note 18 September 2014)
  *
  * Supported vendor extensions:

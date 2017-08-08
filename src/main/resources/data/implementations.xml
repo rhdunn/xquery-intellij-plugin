@@ -664,7 +664,7 @@ limitations under the License.
                 <module version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <schema-import version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <schema-validation version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
-                <update-facility version="3.0" specification="https://www.w3.org/TR/2015/WD-xquery-update-30-20150219/" default="true"/>
+                <update-facility version="3.0" specification="https://www.w3.org/TR/2017/NOTE-xquery-update-30-20170124/" default="true"/>
                 <static-context uri="res://www.w3.org/TR/xquery-30.xqy"/>
             </dialect>
             <dialect id="w3c/3.1" name="XQuery" localized="false" default="true">

@@ -415,28 +415,28 @@ public class UpdateFacilityParserTest extends ParserTestCase {
     // endregion
     // region Update Facility 3.0 :: CompatibilityAnnotation
 
-    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2015/WD-xquery-update-30-20150219/#prod-xquery30-CompatibilityAnnotation")
+    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2017/NOTE-xquery-update-30-20170124/#prod-xquery30-CompatibilityAnnotation")
     public void testCompatibilityAnnotation_FunctionDecl() {
         final String expected = loadResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2015/WD-xquery-update-30-20150219/#prod-xquery30-CompatibilityAnnotation")
+    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2017/NOTE-xquery-update-30-20170124/#prod-xquery30-CompatibilityAnnotation")
     public void testCompatibilityAnnotation_FunctionDecl_MissingFunctionKeyword() {
         final String expected = loadResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating_MissingFunctionKeyword.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating_MissingFunctionKeyword.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2015/WD-xquery-update-30-20150219/#prod-xquery30-CompatibilityAnnotation")
+    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2017/NOTE-xquery-update-30-20170124/#prod-xquery30-CompatibilityAnnotation")
     public void testCompatibilityAnnotation_VarDecl() {
         final String expected = loadResource("tests/parser/xquery-update-3.0/CompatibilityAnnotation_VarDecl.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-update-3.0/CompatibilityAnnotation_VarDecl.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2015/WD-xquery-update-30-20150219/#prod-xquery30-CompatibilityAnnotation")
+    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2017/NOTE-xquery-update-30-20170124/#prod-xquery30-CompatibilityAnnotation")
     public void testCompatibilityAnnotation_VarDecl_MissingVariableKeyword() {
         final String expected = loadResource("tests/parser/xquery-update-3.0/CompatibilityAnnotation_VarDecl_MissingVariableKeyword.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-update-3.0/CompatibilityAnnotation_VarDecl_MissingVariableKeyword.xq");
@@ -446,42 +446,42 @@ public class UpdateFacilityParserTest extends ParserTestCase {
     // endregion
     // region Update Facility 3.0 :: TransformWithExpr
 
-    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2015/WD-xquery-update-30-20150219/#prod-xquery30-TransformWithExpr")
+    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2017/NOTE-xquery-update-30-20170124/#prod-xquery30-TransformWithExpr")
     public void testTransformWithExpr() {
         final String expected = loadResource("tests/parser/xquery-update-3.0/TransformWithExpr.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-update-3.0/TransformWithExpr.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2015/WD-xquery-update-30-20150219/#prod-xquery30-TransformWithExpr")
+    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2017/NOTE-xquery-update-30-20170124/#prod-xquery30-TransformWithExpr")
     public void testTransformWithExpr_CompactWhitespace() {
         final String expected = loadResource("tests/parser/xquery-update-3.0/TransformWithExpr_CompactWhitespace.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-update-3.0/TransformWithExpr_CompactWhitespace.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2015/WD-xquery-update-30-20150219/#prod-xquery30-TransformWithExpr")
+    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2017/NOTE-xquery-update-30-20170124/#prod-xquery30-TransformWithExpr")
     public void testTransformWithExpr_MissingWithKeyword() {
         final String expected = loadResource("tests/parser/xquery-update-3.0/TransformWithExpr_MissingWithKeyword.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-update-3.0/TransformWithExpr_MissingWithKeyword.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2015/WD-xquery-update-30-20150219/#prod-xquery30-TransformWithExpr")
+    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2017/NOTE-xquery-update-30-20170124/#prod-xquery30-TransformWithExpr")
     public void testTransformWithExpr_MissingOpeningBrace() {
         final String expected = loadResource("tests/parser/xquery-update-3.0/TransformWithExpr_MissingOpeningBrace.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-update-3.0/TransformWithExpr_MissingOpeningBrace.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2015/WD-xquery-update-30-20150219/#prod-xquery30-TransformWithExpr")
+    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2017/NOTE-xquery-update-30-20170124/#prod-xquery30-TransformWithExpr")
     public void testTransformWithExpr_MissingExpr() {
         final String expected = loadResource("tests/parser/xquery-update-3.0/TransformWithExpr_MissingExpr.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-update-3.0/TransformWithExpr_MissingExpr.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2015/WD-xquery-update-30-20150219/#prod-xquery30-TransformWithExpr")
+    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2017/NOTE-xquery-update-30-20170124/#prod-xquery30-TransformWithExpr")
     public void testTransformWithExpr_MissingClosingBrace() {
         final String expected = loadResource("tests/parser/xquery-update-3.0/TransformWithExpr_MissingClosingBrace.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-update-3.0/TransformWithExpr_MissingClosingBrace.xq");
@@ -491,63 +491,63 @@ public class UpdateFacilityParserTest extends ParserTestCase {
     // endregion
     // region Update Facility 3.0 :: UpdatingFunctionCall
 
-    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2015/WD-xquery-update-30-20150219/#prod-xquery30-UpdatingFunctionCall")
+    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2017/NOTE-xquery-update-30-20170124/#prod-xquery30-UpdatingFunctionCall")
     public void testUpdatingFunctionCall() {
         final String expected = loadResource("tests/parser/xquery-update-3.0/UpdatingFunctionCall.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-update-3.0/UpdatingFunctionCall.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2015/WD-xquery-update-30-20150219/#prod-xquery30-UpdatingFunctionCall")
+    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2017/NOTE-xquery-update-30-20170124/#prod-xquery30-UpdatingFunctionCall")
     public void testUpdatingFunctionCall_CompactWhitespace() {
         final String expected = loadResource("tests/parser/xquery-update-3.0/UpdatingFunctionCall_CompactWhitespace.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-update-3.0/UpdatingFunctionCall_CompactWhitespace.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2015/WD-xquery-update-30-20150219/#prod-xquery30-UpdatingFunctionCall")
+    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2017/NOTE-xquery-update-30-20170124/#prod-xquery30-UpdatingFunctionCall")
     public void testUpdatingFunctionCall_MissingUpdatingKeyword() {
         final String expected = loadResource("tests/parser/xquery-update-3.0/UpdatingFunctionCall_MissingUpdatingKeyword.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-update-3.0/UpdatingFunctionCall_MissingUpdatingKeyword.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2015/WD-xquery-update-30-20150219/#prod-xquery30-UpdatingFunctionCall")
+    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2017/NOTE-xquery-update-30-20170124/#prod-xquery30-UpdatingFunctionCall")
     public void testUpdatingFunctionCall_MissingOpeningParenthesis() {
         final String expected = loadResource("tests/parser/xquery-update-3.0/UpdatingFunctionCall_MissingOpeningParenthesis.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-update-3.0/UpdatingFunctionCall_MissingOpeningParenthesis.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2015/WD-xquery-update-30-20150219/#prod-xquery30-UpdatingFunctionCall")
+    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2017/NOTE-xquery-update-30-20170124/#prod-xquery30-UpdatingFunctionCall")
     public void testUpdatingFunctionCall_MissingPrimaryExpr() {
         final String expected = loadResource("tests/parser/xquery-update-3.0/UpdatingFunctionCall_MissingPrimaryExpr.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-update-3.0/UpdatingFunctionCall_MissingPrimaryExpr.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2015/WD-xquery-update-30-20150219/#prod-xquery30-UpdatingFunctionCall")
+    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2017/NOTE-xquery-update-30-20170124/#prod-xquery30-UpdatingFunctionCall")
     public void testUpdatingFunctionCall_MissingClosingParenthesis() {
         final String expected = loadResource("tests/parser/xquery-update-3.0/UpdatingFunctionCall_MissingClosingParenthesis.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-update-3.0/UpdatingFunctionCall_MissingClosingParenthesis.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2015/WD-xquery-update-30-20150219/#prod-xquery30-UpdatingFunctionCall")
+    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2017/NOTE-xquery-update-30-20170124/#prod-xquery30-UpdatingFunctionCall")
     public void testUpdatingFunctionCall_Arguments_Single() {
         final String expected = loadResource("tests/parser/xquery-update-3.0/UpdatingFunctionCall_Arguments_Single.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-update-3.0/UpdatingFunctionCall_Arguments_Single.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2015/WD-xquery-update-30-20150219/#prod-xquery30-UpdatingFunctionCall")
+    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2017/NOTE-xquery-update-30-20170124/#prod-xquery30-UpdatingFunctionCall")
     public void testUpdatingFunctionCall_Arguments_Multiple() {
         final String expected = loadResource("tests/parser/xquery-update-3.0/UpdatingFunctionCall_Arguments_Multiple.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-update-3.0/UpdatingFunctionCall_Arguments_Multiple.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2015/WD-xquery-update-30-20150219/#prod-xquery30-UpdatingFunctionCall")
+    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2017/NOTE-xquery-update-30-20170124/#prod-xquery30-UpdatingFunctionCall")
     public void testUpdatingFunctionCall_Arguments_Multiple_CompactWhitespace() {
         final String expected = loadResource("tests/parser/xquery-update-3.0/UpdatingFunctionCall_Arguments_Multiple_CompactWhitespace.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-update-3.0/UpdatingFunctionCall_Arguments_Multiple_CompactWhitespace.xq");

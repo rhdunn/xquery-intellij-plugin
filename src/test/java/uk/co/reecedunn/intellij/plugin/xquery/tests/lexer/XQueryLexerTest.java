@@ -4067,7 +4067,7 @@ public class XQueryLexerTest extends LexerTestCase {
     // endregion
     // region Update Facility 3.0 :: CompatibilityAnnotation
 
-    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2015/WD-xquery-update-30-20150219/#prod-xquery30-CompatibilityAnnotation")
+    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2017/NOTE-xquery-update-30-20170124/#prod-xquery30-CompatibilityAnnotation")
     public void testCompatibilityAnnotation() {
         Lexer lexer = createLexer();
 
@@ -4077,7 +4077,7 @@ public class XQueryLexerTest extends LexerTestCase {
     // endregion
     // region Update Facility 3.0 :: TransformWithExpr
 
-    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2015/WD-xquery-update-30-20150219/#prod-xquery30-TransformWithExpr")
+    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2017/NOTE-xquery-update-30-20170124/#prod-xquery30-TransformWithExpr")
     public void testTransformWithExpr() {
         Lexer lexer = createLexer();
 
@@ -4090,7 +4090,7 @@ public class XQueryLexerTest extends LexerTestCase {
     // endregion
     // region Update Facility 3.0 :: UpdatingFunctionCall
 
-    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2015/WD-xquery-update-30-20150219/#prod-xquery30-UpdatingFunctionCall")
+    @Specification(name="XQuery Update Facility 3.0", reference="https://www.w3.org/TR/2017/NOTE-xquery-update-30-20170124/#prod-xquery30-UpdatingFunctionCall")
     public void testUpdatingFunctionCall() {
         Lexer lexer = createLexer();
 
