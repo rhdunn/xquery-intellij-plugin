@@ -30,6 +30,18 @@ private class PsiElementIterator(private var node: PsiElement?,
     }
 }
 
+class PsiElementReversibleSequence(private var node: PsiElement,
+                                   private var start: (PsiElement) -> PsiElement?,
+                                   private var walk: (PsiElement) -> PsiElement?,
+                                   private var rstart: (PsiElement) -> PsiElement?,
+                                   private var rwalk: (PsiElement) -> PsiElement?) : Sequence<PsiElement> {
+    override fun iterator(): Iterator<PsiElement> =
+        PsiElementIterator(start(node), walk)
+
+    fun reversed(): PsiElementReversibleSequence =
+        PsiElementReversibleSequence(node, rstart, rwalk, start, walk)
+}
+
 fun PsiElement.ancestors(): Sequence<PsiElement> {
     return PsiElementIterator(parent, PsiElement::getParent).asSequence()
 }
@@ -38,8 +50,10 @@ fun PsiElement.descendants(): Sequence<PsiElement> {
     return PsiElementIterator(firstChild, PsiElement::getFirstChild).asSequence()
 }
 
-fun PsiElement.children(): Sequence<PsiElement> {
-    return PsiElementIterator(firstChild, PsiElement::getNextSibling).asSequence()
+fun PsiElement.children(): PsiElementReversibleSequence {
+    return PsiElementReversibleSequence(this,
+        PsiElement::getFirstChild, PsiElement::getNextSibling,
+        PsiElement::getLastChild, PsiElement::getPrevSibling)
 }
 
 fun PsiElement.siblings(): Sequence<PsiElement> {
