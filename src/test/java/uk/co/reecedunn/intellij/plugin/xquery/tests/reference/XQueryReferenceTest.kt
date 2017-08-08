@@ -85,6 +85,23 @@ class XQueryReferenceTest : ParserTestCase() {
         assertThat(resolved!!.containingFile.name, `is`("array.xqy"))
     }
 
+    fun testURILiteral_BuiltinResource_NotFound() {
+        val file = parseResource("tests/resolve/files/ModuleImport_URILiteral_ResourceFileNotFound.xq")!!
+
+        val moduleImportPsi = file.descendants().filterIsInstance<XQueryModuleImport>().first()
+        assertThat(moduleImportPsi, `is`(notNullValue()))
+
+        val uriLiterals = moduleImportPsi.children().filterIsInstance<XQueryUriLiteral>().toList()
+        assertThat(uriLiterals.count(), `is`(2))
+
+        val ref = uriLiterals.last().reference
+        assertThat(ref!!.canonicalText, `is`("res://this-resource-does-not-exist.xqy"))
+        assertThat(ref.variants.size, `is`(0))
+
+        val resolved = ref.resolve()
+        assertThat<PsiElement>(resolved, `is`(nullValue()))
+    }
+
     fun testURILiteral_Empty() {
         val file = parseResource("tests/resolve/files/ModuleImport_URILiteral_Empty.xq")!!
 

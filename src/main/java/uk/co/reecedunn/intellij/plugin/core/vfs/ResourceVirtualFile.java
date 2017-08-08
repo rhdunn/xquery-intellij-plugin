@@ -49,7 +49,7 @@ public class ResourceVirtualFile extends VirtualFile {
 
         final String resource = path.replaceFirst("res://", "builtin/");
         VirtualFile file = create(ResourceVirtualFile.class, resource);
-        return PsiManager.getInstance(project).findFile(file);
+        return file.isValid() ? PsiManager.getInstance(project).findFile(file) : null;
     }
 
     private ResourceVirtualFile(ClassLoader loader, String resource) {
