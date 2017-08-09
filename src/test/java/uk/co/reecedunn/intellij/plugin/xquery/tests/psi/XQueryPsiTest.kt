@@ -4387,20 +4387,39 @@ class XQueryPsiTest:ParserTestCase() {
     // region XQueryPrologResolver
     // region Module
 
-    fun testModule_ModuleProvider() {
+    fun testModule_PrologResolver_NoProlog() {
         val file = parseResource("tests/parser/xquery-1.0/ModuleDecl.xq")!!
 
         val provider = file.module as XQueryPrologResolver
         assertThat<XQueryProlog>(provider.prolog, `is`(nullValue()))
     }
 
+    fun testModule_PrologResolver() {
+        val file = parseResource("tests/resolve/namespaces/ModuleDecl.xq")!!
+
+        val provider = file.module as XQueryPrologResolver
+        assertThat<XQueryProlog>(provider.prolog, `is`(notNullValue()))
+
+        val annotation = provider.prolog?.descendants()?.filterIsInstance<XQueryAnnotatedDecl>()?.first()
+        val function = annotation?.children()?.filterIsInstance<XQueryFunctionDecl>()?.first()
+        val functionName = function?.children()?.filterIsInstance<XQueryQName>()?.first()
+        assertThat(functionName?.text, `is`("test:func"))
+    }
+
     // endregion
     // region ModuleDecl
 
-    fun testModuleDecl_ModuleProvider() {
+    fun testModuleDecl_PrologResolver_NoProlog() {
         val file = parseResource("tests/parser/xquery-1.0/ModuleDecl.xq")!!
 
-        val provider = file.module as XQueryPrologResolver
+        val provider = file.descendants().filterIsInstance<XQueryModuleDecl>().first() as XQueryPrologResolver
+        assertThat<XQueryProlog>(provider.prolog, `is`(nullValue()))
+    }
+
+    fun testModuleDecl_PrologResolver() {
+        val file = parseResource("tests/resolve/namespaces/ModuleDecl.xq")!!
+
+        val provider = file.descendants().filterIsInstance<XQueryModuleDecl>().first() as XQueryPrologResolver
         assertThat<XQueryProlog>(provider.prolog, `is`(nullValue()))
     }
 
