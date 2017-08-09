@@ -4420,7 +4420,12 @@ class XQueryPsiTest:ParserTestCase() {
         val file = parseResource("tests/resolve/namespaces/ModuleDecl.xq")!!
 
         val provider = file.descendants().filterIsInstance<XQueryModuleDecl>().first() as XQueryPrologResolver
-        assertThat<XQueryProlog>(provider.prolog, `is`(nullValue()))
+        assertThat<XQueryProlog>(provider.prolog, `is`(notNullValue()))
+
+        val annotation = provider.prolog?.descendants()?.filterIsInstance<XQueryAnnotatedDecl>()?.first()
+        val function = annotation?.children()?.filterIsInstance<XQueryFunctionDecl>()?.first()
+        val functionName = function?.children()?.filterIsInstance<XQueryQName>()?.first()
+        assertThat(functionName?.text, `is`("test:func"))
     }
 
     // endregion

@@ -19,6 +19,7 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.extensions.children
+import uk.co.reecedunn.intellij.plugin.core.extensions.siblings
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModuleDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryNCName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
@@ -41,5 +42,5 @@ class XQueryModuleDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQuer
     }
 
     override val prolog get(): XQueryProlog? =
-        children().filterIsInstance<XQueryProlog>().firstOrNull()
+        siblings().filterIsInstance<XQueryProlog>().firstOrNull()
 }
