@@ -38,13 +38,7 @@ data class XQueryVersionRef(val declaration: XQueryStringLiteral?, val version: 
  * navigating the parse trees together.
  */
 interface XQueryFile : PsiFile {
-    /**
-     * Gets the XQuery version of the file.
-     *
-     * If the file does not specify an XQuery version, this returns the XQuery
-     * version set in the IntelliJ XQuery settings page.
-     *
-     * @return The detected XQuery version.
-     */
     val XQueryVersion: XQueryVersionRef
+
+    val module: XQueryModule?
 }

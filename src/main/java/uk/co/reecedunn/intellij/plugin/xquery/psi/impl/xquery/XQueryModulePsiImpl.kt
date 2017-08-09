@@ -46,10 +46,7 @@ open class XQueryModulePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQue
             val project = project
             val file = ResourceVirtualFile.resolve(dialect.staticContext, project)
             if (file is XQueryFile) {
-                val module = file.children().filterIsInstance<XQueryModule>().firstOrNull()
-                if (module != null) {
-                    staticContext = module.children().filterIsInstance<XQueryProlog>().firstOrNull() as XQueryNamespaceResolver
-                }
+                staticContext = file.module?.children()?.filterIsInstance<XQueryProlog>()?.firstOrNull() as XQueryNamespaceResolver
             }
         }
 
