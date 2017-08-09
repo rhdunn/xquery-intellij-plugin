@@ -23,20 +23,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 
 class XQueryFunctionNameReference(element: XQueryEQName, range: TextRange) : PsiReferenceBase<XQueryEQName>(element, range) {
     override fun resolve(): PsiElement? {
-        val prologs: Sequence<XQueryProlog> = element.resolvePrefixNamespace().filterIsInstance<XQueryProlog>()
-
-        val localName = element.localName?.text
-        val functions: Sequence<XQueryFunctionDecl> = prologs.flatMap { prolog ->
-            prolog.children().filterIsInstance<XQueryAnnotatedDecl>().map { annotation ->
-                val function = annotation.children().filterIsInstance<XQueryFunctionDecl>().firstOrNull()
-                if (function?.text?.equals(localName) == true) {
-                    function
-                } else {
-                    null
-                }
-            }
-        }.filterNotNull()
-
         val parent = element.parent
         val arity = when (parent) {
             is XQueryFunctionCall -> parent.arity
@@ -44,8 +30,7 @@ class XQueryFunctionNameReference(element: XQueryEQName, range: TextRange) : Psi
             is XQueryArrowFunctionSpecifier -> parent.arity
             else -> -1
         }
-
-        return functions.firstOrNull { f -> f.arity == arity }
+        return element.resolveFunctionDecls().firstOrNull { f -> f.arity == arity }
     }
 
     override fun getVariants(): Array<Any> {
