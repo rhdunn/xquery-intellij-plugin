@@ -40,7 +40,6 @@ class XQueryModuleDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQuer
         return if (ns?.prefix?.text == prefix) ns else null
     }
 
-    override fun resolveProlog(): XQueryProlog? {
-        return children().filterIsInstance<XQueryProlog>().firstOrNull()
-    }
+    override val prolog get(): XQueryProlog? =
+        children().filterIsInstance<XQueryProlog>().firstOrNull()
 }

@@ -4390,10 +4390,8 @@ class XQueryPsiTest:ParserTestCase() {
     fun testModule_ModuleProvider() {
         val file = parseResource("tests/parser/xquery-1.0/ModuleDecl.xq")!!
 
-        val modulePsi = file.descendants().filterIsInstance<XQueryModule>().first()
-
-        val provider = modulePsi as XQueryPrologResolver
-        assertThat<XQueryProlog>(provider.resolveProlog(), `is`(nullValue()))
+        val provider = file.module as XQueryPrologResolver
+        assertThat<XQueryProlog>(provider.prolog, `is`(nullValue()))
     }
 
     // endregion
@@ -4402,10 +4400,8 @@ class XQueryPsiTest:ParserTestCase() {
     fun testModuleDecl_ModuleProvider() {
         val file = parseResource("tests/parser/xquery-1.0/ModuleDecl.xq")!!
 
-        val moduleDeclPsi = file.descendants().filterIsInstance<XQueryModuleDecl>().first()
-
-        val provider = moduleDeclPsi as XQueryPrologResolver
-        assertThat<XQueryProlog>(provider.resolveProlog(), `is`(nullValue()))
+        val provider = file.module as XQueryPrologResolver
+        assertThat<XQueryProlog>(provider.prolog, `is`(nullValue()))
     }
 
     // endregion

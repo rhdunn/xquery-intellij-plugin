@@ -46,7 +46,7 @@ open class XQueryModulePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQue
             val project = project
             val file = ResourceVirtualFile.resolve(dialect.staticContext, project)
             if (file is XQueryFile) {
-                staticContext = file.module?.children()?.filterIsInstance<XQueryProlog>()?.firstOrNull() as XQueryNamespaceResolver
+                staticContext = (file.module as? XQueryPrologResolver)?.prolog as XQueryNamespaceResolver
             }
         }
 
@@ -55,9 +55,6 @@ open class XQueryModulePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQue
         }
         return null
     }
-
-    override fun resolveProlog(): XQueryProlog? =
-        prolog
 
     override val prolog get(): XQueryProlog? =
         children().filterIsInstance<XQueryProlog>().firstOrNull()

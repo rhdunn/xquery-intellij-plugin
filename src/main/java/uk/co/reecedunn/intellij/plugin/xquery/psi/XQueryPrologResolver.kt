@@ -18,5 +18,5 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog;
 
 interface XQueryPrologResolver {
-    fun resolveProlog(): XQueryProlog?
+    val prolog: XQueryProlog?
 }
