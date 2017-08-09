@@ -40,8 +40,7 @@ class XQueryModuleImportPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQu
         return children().filterIsInstance<XQueryUriLiteral>().map { uri ->
             val file = uri.resolveUri()
             if (file is XQueryFile) {
-                val module = file.children.filterIsInstance<XQueryModule>().firstOrNull()
-                module?.children()?.filterIsInstance<XQueryProlog>()?.firstOrNull()
+                file.module?.prolog
             } else {
                 null
             }

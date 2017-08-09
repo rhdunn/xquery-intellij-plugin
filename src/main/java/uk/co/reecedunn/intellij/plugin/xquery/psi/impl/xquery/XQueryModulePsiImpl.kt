@@ -56,7 +56,9 @@ open class XQueryModulePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQue
         return null
     }
 
-    override fun resolveProlog(): XQueryProlog? {
-        return children().filterIsInstance<XQueryProlog>().firstOrNull()
-    }
+    override fun resolveProlog(): XQueryProlog? =
+        prolog
+
+    override val prolog get(): XQueryProlog? =
+        children().filterIsInstance<XQueryProlog>().firstOrNull()
 }

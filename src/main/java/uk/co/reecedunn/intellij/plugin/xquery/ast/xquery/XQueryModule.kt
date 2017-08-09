@@ -42,4 +42,6 @@ import com.intellij.psi.PsiElement
  * This is because there is not enough information to know what module type
  * the XQuery file is implementing.
  */
-interface XQueryModule : PsiElement
+interface XQueryModule : PsiElement {
+    val prolog: XQueryProlog?
+}
