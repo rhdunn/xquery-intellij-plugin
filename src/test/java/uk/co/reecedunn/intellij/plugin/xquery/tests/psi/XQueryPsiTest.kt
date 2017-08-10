@@ -4457,6 +4457,18 @@ class XQueryPsiTest:ParserTestCase() {
         assertThat(functionName?.text, `is`("test:func"))
     }
 
+    fun testModuleImport_ResourceFile() {
+        val file = parseResource("tests/resolve/files/ModuleImport_URILiteral_ResourceFile.xq")!!
+
+        val provider = file.descendants().filterIsInstance<XQueryModuleImport>().first() as XQueryPrologResolver
+        assertThat<XQueryProlog>(provider.prolog, `is`(notNullValue()))
+
+        val annotation = provider.prolog?.children()?.filterIsInstance<XQueryAnnotatedDecl>()?.first()
+        val function = annotation?.children()?.filterIsInstance<XQueryFunctionDecl>()?.first()
+        val functionName = function?.children()?.filterIsInstance<XQueryQName>()?.first()
+        assertThat(functionName?.text, `is`("array:append"))
+    }
+
     // endregion
     // endregion
     // region XQueryNamedFunctionRef
