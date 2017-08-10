@@ -4429,6 +4429,35 @@ class XQueryPsiTest:ParserTestCase() {
     }
 
     // endregion
+    // region ModuleImport
+
+    fun testModuleImport_EmptyUri() {
+        val file = parseResource("tests/resolve/files/ModuleImport_URILiteral_Empty.xq")!!
+
+        val provider = file.descendants().filterIsInstance<XQueryModuleImport>().first() as XQueryPrologResolver
+        assertThat<XQueryProlog>(provider.prolog, `is`(nullValue()))
+    }
+
+    fun testModuleImport_LocalPath_NoModule() {
+        val file = parseResource("tests/resolve/files/ModuleImport_URILiteral_SameDirectory.xq")!!
+
+        val provider = file.descendants().filterIsInstance<XQueryModuleImport>().first() as XQueryPrologResolver
+        assertThat<XQueryProlog>(provider.prolog, `is`(nullValue()))
+    }
+
+    fun testModuleImport_LocalPath_Module() {
+        val file = parseResource("tests/resolve/files/ModuleImport_URILiteral_ParentDirectory.xq")!!
+
+        val provider = file.descendants().filterIsInstance<XQueryModuleImport>().first() as XQueryPrologResolver
+        assertThat<XQueryProlog>(provider.prolog, `is`(notNullValue()))
+
+        val annotation = provider.prolog?.descendants()?.filterIsInstance<XQueryAnnotatedDecl>()?.first()
+        val function = annotation?.children()?.filterIsInstance<XQueryFunctionDecl>()?.first()
+        val functionName = function?.children()?.filterIsInstance<XQueryQName>()?.first()
+        assertThat(functionName?.text, `is`("test:func"))
+    }
+
+    // endregion
     // endregion
     // region XQueryNamedFunctionRef
 
