@@ -20,6 +20,7 @@ import uk.co.reecedunn.intellij.plugin.core.extensions.children
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
 
 /**
  * An XQuery 3.0 <code>EQName</code> node in the XQuery AST.
@@ -65,13 +66,15 @@ interface XQueryEQName: PsiElement {
     fun resolvePrefixNamespace(): Sequence<XQueryNamespace>
 
     fun resolveFunctionDecls(): Sequence<XQueryFunctionDecl> {
-        val prologs: Sequence<XQueryProlog> = resolvePrefixNamespace().filterIsInstance<XQueryProlog>()
+        val prologs = resolvePrefixNamespace().map { ns ->
+            (ns.declaration as? XQueryPrologResolver)?.prolog
+        }.filterNotNull()
 
-        val localName = localName?.text
         return prologs.flatMap { prolog ->
             prolog.children().filterIsInstance<XQueryAnnotatedDecl>().map { annotation ->
                 val function = annotation.children().filterIsInstance<XQueryFunctionDecl>().firstOrNull()
-                if (function?.text?.equals(localName) == true) {
+                val functionName = function?.children()?.filterIsInstance<XQueryEQName>()?.firstOrNull()
+                if (functionName?.equals(this) == true) {
                     function
                 } else {
                     null
