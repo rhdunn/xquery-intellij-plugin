@@ -33,10 +33,11 @@ class XQueryUriLiteralPsiImpl(node: ASTNode): XQueryStringLiteralPsiImpl(node), 
         return XQueryUriLiteralReference(this, TextRange(1, range.length - 1))
     }
 
-    override fun resolveUri(): PsiFile? {
+    @Suppress("UNCHECKED_CAST")
+    override fun <T: PsiFile> resolveUri(): T? {
         val path = atomicValue?.toString()
         if (path == null || path.contains("://")) {
-            return ResourceVirtualFile.resolve(path, project)
+            return ResourceVirtualFile.resolve(path, project) as? T
         }
 
         var file = containingFile.virtualFile
@@ -44,7 +45,7 @@ class XQueryUriLiteralPsiImpl(node: ASTNode): XQueryStringLiteralPsiImpl(node), 
             file = file.originalFile
         }
 
-        return resolveFileByPath(file, project, path);
+        return resolveFileByPath(file, project, path) as? T
     }
 
     private fun resolveFileByPath(parent: VirtualFile?, project: Project, path: String): PsiFile? {

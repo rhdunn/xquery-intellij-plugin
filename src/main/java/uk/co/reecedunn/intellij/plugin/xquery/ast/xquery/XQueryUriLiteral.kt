@@ -21,5 +21,5 @@ import com.intellij.psi.PsiFile;
  * An XQuery 1.0 <code>URILiteral</code> node in the XQuery AST.
  */
 interface XQueryUriLiteral: XQueryStringLiteral {
-    fun resolveUri(): PsiFile?
+    fun <T : PsiFile> resolveUri(): T?
 }
