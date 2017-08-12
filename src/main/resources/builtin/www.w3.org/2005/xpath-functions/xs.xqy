@@ -6,7 +6,7 @@ xquery version "3.1";
  : @see https://www.w3.org/TR/2007/REC-xpath-functions-20070123/
  : @see https://www.w3.org/TR/2010/REC-xpath-functions-20101214/
  : @see https://www.w3.org/TR/2014/REC-xpath-functions-30-20140408/
- : @see https://www.w3.org/TR/2016/CR-xpath-functions-31-20170321/
+ : @see https://www.w3.org/TR/2017/REC-xpath-functions-31-20170321/
  :)
 module  namespace xs = "http://www.w3.org/2001/XMLSchema";
 declare namespace a  = "http://reecedunn.co.uk/xquery/annotations";

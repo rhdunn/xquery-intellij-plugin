@@ -20,12 +20,14 @@ limitations under the License.
         <version id="basex/v8.4" name="8.4" localized="false" default="false">
             <dialect id="basex/v8.4/1.0" name="XQuery" localized="false" default="false">
                 <xsd version="1.0-20041028" specification="https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/" default="true"/>
+                <xpath-functions version="1.0-20101214" specification="http://www.w3.org/TR/2010/REC-xpath-functions-20101214/" default="true"/>
                 <minimal-conformance version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <module version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <static-context uri="res://www.w3.org/TR/xquery.xqy"/>
             </dialect>
             <dialect id="basex/v8.4/1.0-update" name="xquery.implementation.xquery-update-10" localized="true" default="true">
                 <xsd version="1.0-20041028" specification="https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/" default="true"/>
+                <xpath-functions version="1.0-20101214" specification="http://www.w3.org/TR/2010/REC-xpath-functions-20101214/" default="true"/>
                 <minimal-conformance version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <module version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <update-facility version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="true"/>
@@ -34,12 +36,14 @@ limitations under the License.
             </dialect>
             <dialect id="basex/v8.4/3.0" name="XQuery" localized="false" default="false">
                 <xsd version="1.1-20120405" specification="https://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/" default="true"/>
+                <xpath-functions version="3.0-20140408" specification="http://www.w3.org/TR/2014/REC-xpath-functions-30-20140408/" default="true"/>
                 <minimal-conformance version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <module version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <static-context uri="res://www.w3.org/TR/xquery-30.xqy"/>
             </dialect>
             <dialect id="basex/v8.4/3.0-update" name="xquery.implementation.xquery-update-10" localized="true" default="true">
                 <xsd version="1.1-20120405" specification="https://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/" default="true"/>
+                <xpath-functions version="3.0-20140408" specification="http://www.w3.org/TR/2014/REC-xpath-functions-30-20140408/" default="true"/>
                 <minimal-conformance version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <module version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <update-facility version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="true"/>
@@ -48,12 +52,14 @@ limitations under the License.
             </dialect>
             <dialect id="basex/v8.4/3.1" name="XQuery" localized="false" default="false">
                 <xsd version="1.1-20120405" specification="https://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/" default="true"/>
+                <xpath-functions version="3.1-20170321" specification="https://www.w3.org/TR/2017/REC-xpath-functions-31-20170321/" default="true"/>
                 <minimal-conformance version="3.1" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <module version="3.1" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <static-context uri="res://www.w3.org/TR/xquery-31.xqy"/>
             </dialect>
             <dialect id="basex/v8.4/3.1-update" name="xquery.implementation.xquery-update-10" localized="true" default="true">
                 <xsd version="1.1-20120405" specification="https://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/" default="true"/>
+                <xpath-functions version="3.1-20170321" specification="https://www.w3.org/TR/2017/REC-xpath-functions-31-20170321/" default="true"/>
                 <minimal-conformance version="3.1" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <module version="3.1" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <update-facility version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="true"/>
@@ -64,12 +70,14 @@ limitations under the License.
         <version id="basex/v8.5" name="8.5" localized="false" default="false">
             <dialect id="basex/v8.5/1.0" name="XQuery" localized="false" default="false">
                 <xsd version="1.0-20041028" specification="https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/" default="true"/>
+                <xpath-functions version="1.0-20101214" specification="http://www.w3.org/TR/2010/REC-xpath-functions-20101214/" default="true"/>
                 <minimal-conformance version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <module version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <static-context uri="res://www.w3.org/TR/xquery.xqy"/>
             </dialect>
             <dialect id="basex/v8.5/1.0-update" name="xquery.implementation.xquery-update-10" localized="true" default="true">
                 <xsd version="1.0-20041028" specification="https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/" default="true"/>
+                <xpath-functions version="1.0-20101214" specification="http://www.w3.org/TR/2010/REC-xpath-functions-20101214/" default="true"/>
                 <minimal-conformance version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <module version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <update-facility version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="true"/>
@@ -78,12 +86,14 @@ limitations under the License.
             </dialect>
             <dialect id="basex/v8.5/3.0" name="XQuery" localized="false" default="false">
                 <xsd version="1.1-20120405" specification="https://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/" default="true"/>
+                <xpath-functions version="3.0-20140408" specification="http://www.w3.org/TR/2014/REC-xpath-functions-30-20140408/" default="true"/>
                 <minimal-conformance version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <module version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <static-context uri="res://www.w3.org/TR/xquery-30.xqy"/>
             </dialect>
             <dialect id="basex/v8.5/3.0-update" name="xquery.implementation.xquery-update-10" localized="true" default="true">
                 <xsd version="1.1-20120405" specification="https://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/" default="true"/>
+                <xpath-functions version="3.0-20140408" specification="http://www.w3.org/TR/2014/REC-xpath-functions-30-20140408/" default="true"/>
                 <minimal-conformance version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <module version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <update-facility version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="true"/>
@@ -92,12 +102,14 @@ limitations under the License.
             </dialect>
             <dialect id="basex/v8.5/3.1" name="XQuery" localized="false" default="false">
                 <xsd version="1.1-20120405" specification="https://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/" default="true"/>
+                <xpath-functions version="3.1-20170321" specification="https://www.w3.org/TR/2017/REC-xpath-functions-31-20170321/" default="true"/>
                 <minimal-conformance version="3.1" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <module version="3.1" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <static-context uri="res://www.w3.org/TR/xquery-31.xqy"/>
             </dialect>
             <dialect id="basex/v8.5/3.1-update" name="xquery.implementation.xquery-update-10" localized="true" default="true">
                 <xsd version="1.1-20120405" specification="https://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/" default="true"/>
+                <xpath-functions version="3.1-20170321" specification="https://www.w3.org/TR/2017/REC-xpath-functions-31-20170321/" default="true"/>
                 <minimal-conformance version="3.1" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <module version="3.1" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <update-facility version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="true"/>
@@ -118,6 +130,7 @@ limitations under the License.
             -->
             <dialect id="marklogic/v6/1.0" name="XQuery" localized="false" default="true">
                 <xsd version="1.0-20041028" specification="https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/" default="true"/>
+                <xpath-functions version="1.0-20101214" specification="http://www.w3.org/TR/2010/REC-xpath-functions-20101214/" default="true"/>
                 <minimal-conformance version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <schema-import version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <schema-validation version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
@@ -129,6 +142,7 @@ limitations under the License.
             </dialect>
             <dialect id="marklogic/v6/1.0-ml" name="XQuery" localized="false" default="true">
                 <xsd version="1.0-20041028" specification="https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/" default="true"/>
+                <xpath-functions version="3.0-20140408" specification="http://www.w3.org/TR/2014/REC-xpath-functions-30-20140408/" default="true"/>
                 <minimal-conformance version="1.0-ml" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <schema-import version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <schema-validation version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
@@ -151,6 +165,7 @@ limitations under the License.
             -->
             <dialect id="marklogic/v7/1.0" name="XQuery" localized="false" default="true">
                 <xsd version="1.0-20041028" specification="https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/" default="true"/>
+                <xpath-functions version="1.0-20101214" specification="http://www.w3.org/TR/2010/REC-xpath-functions-20101214/" default="true"/>
                 <minimal-conformance version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <schema-import version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <schema-validation version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
@@ -162,6 +177,7 @@ limitations under the License.
             </dialect>
             <dialect id="marklogic/v7/1.0-ml" name="XQuery" localized="false" default="true">
                 <xsd version="1.0-20041028" specification="https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/" default="true"/>
+                <xpath-functions version="3.0-20140408" specification="http://www.w3.org/TR/2014/REC-xpath-functions-30-20140408/" default="true"/>
                 <minimal-conformance version="1.0-ml" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <schema-import version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <schema-validation version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
@@ -184,6 +200,7 @@ limitations under the License.
             -->
             <dialect id="marklogic/v8/1.0" name="XQuery" localized="false" default="true">
                 <xsd version="1.0-20041028" specification="https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/" default="true"/>
+                <xpath-functions version="1.0-20101214" specification="http://www.w3.org/TR/2010/REC-xpath-functions-20101214/" default="true"/>
                 <minimal-conformance version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <schema-import version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <schema-validation version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
@@ -195,6 +212,7 @@ limitations under the License.
             </dialect>
             <dialect id="marklogic/v8/1.0-ml" name="XQuery" localized="false" default="true">
                 <xsd version="1.0-20041028" specification="https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/" default="true"/>
+                <xpath-functions version="3.0-20140408" specification="http://www.w3.org/TR/2014/REC-xpath-functions-30-20140408/" default="true"/>
                 <minimal-conformance version="1.0-ml" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <schema-import version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <schema-validation version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
@@ -217,6 +235,7 @@ limitations under the License.
             -->
             <dialect id="marklogic/v9/1.0" name="XQuery" localized="false" default="true">
                 <xsd version="1.0-20041028" specification="https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/" default="true"/>
+                <xpath-functions version="1.0-20101214" specification="http://www.w3.org/TR/2010/REC-xpath-functions-20101214/" default="true"/>
                 <minimal-conformance version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <schema-import version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <schema-validation version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
@@ -228,6 +247,7 @@ limitations under the License.
             </dialect>
             <dialect id="marklogic/v9/1.0-ml" name="XQuery" localized="false" default="true">
                 <xsd version="1.0-20041028" specification="https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/" default="true"/>
+                <xpath-functions version="3.0-20140408" specification="http://www.w3.org/TR/2014/REC-xpath-functions-30-20140408/" default="true"/>
                 <minimal-conformance version="1.0-ml" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <schema-import version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <schema-validation version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
@@ -244,6 +264,7 @@ limitations under the License.
         <version id="saxon/HE/v9.4" name="9.4" localized="false" default="true">
             <dialect id="saxon/HE/v9.4/1.0" name="XQuery" localized="false" default="true">
                 <xsd version="1.0-20041028" specification="https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/" default="true"/>
+                <xpath-functions version="1.0-20101214" specification="http://www.w3.org/TR/2010/REC-xpath-functions-20101214/" default="true"/>
                 <minimal-conformance version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <!-- No schema-import support -->
                 <!-- No schema-validation support -->
@@ -257,6 +278,7 @@ limitations under the License.
         <version id="saxon/HE/v9.5" name="9.5" localized="false" default="true">
             <dialect id="saxon/HE/v9.5/1.0" name="XQuery" localized="false" default="true">
                 <xsd version="1.0-20041028" specification="https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/" default="true"/>
+                <xpath-functions version="1.0-20101214" specification="http://www.w3.org/TR/2010/REC-xpath-functions-20101214/" default="true"/>
                 <minimal-conformance version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <!-- No schema-import support -->
                 <!-- No schema-validation support -->
@@ -270,6 +292,7 @@ limitations under the License.
         <version id="saxon/HE/v9.6" name="9.6" localized="false" default="true">
             <dialect id="saxon/HE/v9.6/1.0" name="XQuery" localized="false" default="true">
                 <xsd version="1.0-20041028" specification="https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/" default="true"/>
+                <xpath-functions version="1.0-20101214" specification="http://www.w3.org/TR/2010/REC-xpath-functions-20101214/" default="true"/>
                 <minimal-conformance version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <!-- No schema-import support -->
                 <!-- No schema-validation support -->
@@ -283,6 +306,7 @@ limitations under the License.
         <version id="saxon/HE/v9.7" name="9.7" localized="false" default="true">
             <dialect id="saxon/HE/v9.7/1.0" name="XQuery" localized="false" default="true">
                 <xsd version="1.0-20041028" specification="https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/" default="true"/>
+                <xpath-functions version="1.0-20101214" specification="http://www.w3.org/TR/2010/REC-xpath-functions-20101214/" default="true"/>
                 <minimal-conformance version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <!-- No schema-import support -->
                 <!-- No schema-validation support -->
@@ -298,6 +322,7 @@ limitations under the License.
         <version id="saxon/PE/v9.4" name="9.4" localized="false" default="false">
             <dialect id="saxon/PE/v9.4/1.0" name="XQuery" localized="false" default="true">
                 <xsd version="1.0-20041028" specification="https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/" default="true"/>
+                <xpath-functions version="1.0-20101214" specification="http://www.w3.org/TR/2010/REC-xpath-functions-20101214/" default="true"/>
                 <minimal-conformance version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <!-- No schema-import support -->
                 <!-- No schema-validation support -->
@@ -309,6 +334,7 @@ limitations under the License.
             </dialect>
             <dialect id="saxon/PE/v9.4/3.0" name="XQuery" localized="false" default="true">
                 <xsd version="1.1-20120405" specification="https://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/" default="true"/>
+                <xpath-functions version="3.0-20140408" specification="http://www.w3.org/TR/2014/REC-xpath-functions-30-20140408/" default="true"/>
                 <minimal-conformance version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <!-- No schema-import support -->
                 <!-- No schema-validation support -->
@@ -323,6 +349,7 @@ limitations under the License.
         <version id="saxon/PE/v9.5" name="9.5" localized="false" default="false">
             <dialect id="saxon/PE/v9.5/1.0" name="XQuery" localized="false" default="true">
                 <xsd version="1.0-20041028" specification="https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/" default="true"/>
+                <xpath-functions version="1.0-20101214" specification="http://www.w3.org/TR/2010/REC-xpath-functions-20101214/" default="true"/>
                 <minimal-conformance version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <!-- No schema-import support -->
                 <!-- No schema-validation support -->
@@ -334,6 +361,7 @@ limitations under the License.
             </dialect>
             <dialect id="saxon/PE/v9.5/3.0" name="XQuery" localized="false" default="true">
                 <xsd version="1.1-20120405" specification="https://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/" default="true"/>
+                <xpath-functions version="3.0-20140408" specification="http://www.w3.org/TR/2014/REC-xpath-functions-30-20140408/" default="true"/>
                 <minimal-conformance version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <!-- No schema-import support -->
                 <!-- No schema-validation support -->
@@ -348,6 +376,7 @@ limitations under the License.
         <version id="saxon/PE/v9.6" name="9.6" localized="false" default="false">
             <dialect id="saxon/PE/v9.6/1.0" name="XQuery" localized="false" default="true">
                 <xsd version="1.0-20041028" specification="https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/" default="true"/>
+                <xpath-functions version="1.0-20101214" specification="http://www.w3.org/TR/2010/REC-xpath-functions-20101214/" default="true"/>
                 <minimal-conformance version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <!-- No schema-import support -->
                 <!-- No schema-validation support -->
@@ -359,6 +388,7 @@ limitations under the License.
             </dialect>
             <dialect id="saxon/PE/v9.6/3.0" name="XQuery" localized="false" default="true">
                 <xsd version="1.1-20120405" specification="https://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/" default="true"/>
+                <xpath-functions version="3.0-20140408" specification="http://www.w3.org/TR/2014/REC-xpath-functions-30-20140408/" default="true"/>
                 <minimal-conformance version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <!-- No schema-import support -->
                 <!-- No schema-validation support -->
@@ -373,6 +403,7 @@ limitations under the License.
         <version id="saxon/PE/v9.7" name="9.7" localized="false" default="false">
             <dialect id="saxon/PE/v9.7/1.0" name="XQuery" localized="false" default="true">
                 <xsd version="1.0-20041028" specification="https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/" default="true"/>
+                <xpath-functions version="1.0-20101214" specification="http://www.w3.org/TR/2010/REC-xpath-functions-20101214/" default="true"/>
                 <minimal-conformance version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <!-- No schema-import support -->
                 <!-- No schema-validation support -->
@@ -384,6 +415,7 @@ limitations under the License.
             </dialect>
             <dialect id="saxon/PE/v9.7/3.0" name="XQuery" localized="false" default="true">
                 <xsd version="1.1-20120405" specification="https://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/" default="true"/>
+                <xpath-functions version="3.0-20140408" specification="http://www.w3.org/TR/2014/REC-xpath-functions-30-20140408/" default="true"/>
                 <minimal-conformance version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <!-- No schema-import support -->
                 <!-- No schema-validation support -->
@@ -396,6 +428,7 @@ limitations under the License.
             </dialect>
             <dialect id="saxon/PE/v9.7/3.1" name="XQuery" localized="false" default="true">
                 <xsd version="1.1-20120405" specification="https://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/" default="true"/>
+                <xpath-functions version="3.1-20170321" specification="https://www.w3.org/TR/2017/REC-xpath-functions-31-20170321/" default="true"/>
                 <minimal-conformance version="3.1" specification="https://www.w3.org/TR/2017/REC-xquery-31-20170321/" default="false"/>
                 <!-- No schema-import support -->
                 <!-- No schema-validation support -->
@@ -412,6 +445,7 @@ limitations under the License.
         <version id="saxon/EE/v9.4" name="9.4" localized="false" default="false">
             <dialect id="saxon/EE/v9.4/1.0" name="XQuery" localized="false" default="false">
                 <xsd version="1.0-20041028" specification="https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/" default="true"/>
+                <xpath-functions version="1.0-20101214" specification="http://www.w3.org/TR/2010/REC-xpath-functions-20101214/" default="true"/>
                 <minimal-conformance version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <schema-import version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <schema-validation version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
@@ -423,6 +457,7 @@ limitations under the License.
             </dialect>
             <dialect id="saxon/EE/v9.4/1.0-update" name="xquery.implementation.xquery-update-10" localized="true" default="true">
                 <xsd version="1.0-20041028" specification="https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/" default="true"/>
+                <xpath-functions version="1.0-20101214" specification="http://www.w3.org/TR/2010/REC-xpath-functions-20101214/" default="true"/>
                 <minimal-conformance version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <schema-import version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <schema-validation version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
@@ -435,6 +470,7 @@ limitations under the License.
             </dialect>
             <dialect id="saxon/EE/v9.4/3.0" name="XQuery" localized="false" default="false">
                 <xsd version="1.1-20120405" specification="https://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/" default="true"/>
+                <xpath-functions version="3.0-20140408" specification="http://www.w3.org/TR/2014/REC-xpath-functions-30-20140408/" default="true"/>
                 <minimal-conformance version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <higher-order-function version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <!-- No static-typing support -->
@@ -448,6 +484,7 @@ limitations under the License.
             </dialect>
             <dialect id="saxon/EE/v9.4/3.0-update" name="xquery.implementation.xquery-update-10" localized="true" default="true">
                 <xsd version="1.1-20120405" specification="https://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/" default="true"/>
+                <xpath-functions version="3.0-20140408" specification="http://www.w3.org/TR/2014/REC-xpath-functions-30-20140408/" default="true"/>
                 <minimal-conformance version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <higher-order-function version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <!-- No static-typing support -->
@@ -464,6 +501,7 @@ limitations under the License.
         <version id="saxon/EE/v9.5" name="9.5" localized="false" default="false">
             <dialect id="saxon/EE/v9.5/1.0" name="XQuery" localized="false" default="false">
                 <xsd version="1.0-20041028" specification="https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/" default="true"/>
+                <xpath-functions version="1.0-20101214" specification="http://www.w3.org/TR/2010/REC-xpath-functions-20101214/" default="true"/>
                 <minimal-conformance version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <schema-import version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <schema-validation version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
@@ -475,6 +513,7 @@ limitations under the License.
             </dialect>
             <dialect id="saxon/EE/v9.5/1.0-update" name="xquery.implementation.xquery-update-10" localized="true" default="true">
                 <xsd version="1.0-20041028" specification="https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/" default="true"/>
+                <xpath-functions version="1.0-20101214" specification="http://www.w3.org/TR/2010/REC-xpath-functions-20101214/" default="true"/>
                 <minimal-conformance version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <schema-import version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <schema-validation version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
@@ -487,6 +526,7 @@ limitations under the License.
             </dialect>
             <dialect id="saxon/EE/v9.5/3.0" name="XQuery" localized="false" default="false">
                 <xsd version="1.1-20120405" specification="https://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/" default="true"/>
+                <xpath-functions version="3.0-20140408" specification="http://www.w3.org/TR/2014/REC-xpath-functions-30-20140408/" default="true"/>
                 <minimal-conformance version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <higher-order-function version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <!-- No static-typing support -->
@@ -500,6 +540,7 @@ limitations under the License.
             </dialect>
             <dialect id="saxon/EE/v9.5/3.0-update" name="xquery.implementation.xquery-update-10" localized="true" default="true">
                 <xsd version="1.1-20120405" specification="https://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/" default="true"/>
+                <xpath-functions version="3.0-20140408" specification="http://www.w3.org/TR/2014/REC-xpath-functions-30-20140408/" default="true"/>
                 <minimal-conformance version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <higher-order-function version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <!-- No static-typing support -->
@@ -516,6 +557,7 @@ limitations under the License.
         <version id="saxon/EE/v9.6" name="9.6" localized="false" default="false">
             <dialect id="saxon/EE/v9.6/1.0" name="XQuery" localized="false" default="false">
                 <xsd version="1.0-20041028" specification="https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/" default="true"/>
+                <xpath-functions version="1.0-20101214" specification="http://www.w3.org/TR/2010/REC-xpath-functions-20101214/" default="true"/>
                 <minimal-conformance version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <schema-import version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <schema-validation version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
@@ -527,6 +569,7 @@ limitations under the License.
             </dialect>
             <dialect id="saxon/EE/v9.6/1.0-update" name="xquery.implementation.xquery-update-10" localized="true" default="true">
                 <xsd version="1.0-20041028" specification="https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/" default="true"/>
+                <xpath-functions version="1.0-20101214" specification="http://www.w3.org/TR/2010/REC-xpath-functions-20101214/" default="true"/>
                 <minimal-conformance version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <schema-import version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <schema-validation version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
@@ -539,6 +582,7 @@ limitations under the License.
             </dialect>
             <dialect id="saxon/EE/v9.6/3.0" name="XQuery" localized="false" default="false">
                 <xsd version="1.1-20120405" specification="https://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/" default="true"/>
+                <xpath-functions version="3.0-20140408" specification="http://www.w3.org/TR/2014/REC-xpath-functions-30-20140408/" default="true"/>
                 <minimal-conformance version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <higher-order-function version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <!-- No static-typing support -->
@@ -552,6 +596,7 @@ limitations under the License.
             </dialect>
             <dialect id="saxon/EE/v9.6/3.0-update" name="xquery.implementation.xquery-update-10" localized="true" default="true">
                 <xsd version="1.1-20120405" specification="https://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/" default="true"/>
+                <xpath-functions version="3.0-20140408" specification="http://www.w3.org/TR/2014/REC-xpath-functions-30-20140408/" default="true"/>
                 <minimal-conformance version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <higher-order-function version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <!-- No static-typing support -->
@@ -568,6 +613,7 @@ limitations under the License.
         <version id="saxon/EE/v9.7" name="9.7" localized="false" default="false">
             <dialect id="saxon/EE/v9.7/1.0" name="XQuery" localized="false" default="false">
                 <xsd version="1.0-20041028" specification="https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/" default="true"/>
+                <xpath-functions version="1.0-20101214" specification="http://www.w3.org/TR/2010/REC-xpath-functions-20101214/" default="true"/>
                 <minimal-conformance version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <schema-import version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <schema-validation version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
@@ -579,6 +625,7 @@ limitations under the License.
             </dialect>
             <dialect id="saxon/EE/v9.7/1.0-update" name="xquery.implementation.xquery-update-10" localized="true" default="true">
                 <xsd version="1.0-20041028" specification="https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/" default="true"/>
+                <xpath-functions version="1.0-20101214" specification="http://www.w3.org/TR/2010/REC-xpath-functions-20101214/" default="true"/>
                 <minimal-conformance version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <schema-import version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <schema-validation version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
@@ -591,6 +638,7 @@ limitations under the License.
             </dialect>
             <dialect id="saxon/EE/v9.7/3.0" name="XQuery" localized="false" default="false">
                 <xsd version="1.1-20120405" specification="https://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/" default="true"/>
+                <xpath-functions version="3.0-20140408" specification="http://www.w3.org/TR/2014/REC-xpath-functions-30-20140408/" default="true"/>
                 <minimal-conformance version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <higher-order-function version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <!-- No static-typing support -->
@@ -604,6 +652,7 @@ limitations under the License.
             </dialect>
             <dialect id="saxon/EE/v9.7/3.0-update" name="xquery.implementation.xquery-update-10" localized="true" default="true">
                 <xsd version="1.1-20120405" specification="https://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/" default="true"/>
+                <xpath-functions version="3.0-20140408" specification="http://www.w3.org/TR/2014/REC-xpath-functions-30-20140408/" default="true"/>
                 <minimal-conformance version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <higher-order-function version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <!-- No static-typing support -->
@@ -618,6 +667,7 @@ limitations under the License.
             </dialect>
             <dialect id="saxon/EE/v9.7/3.1" name="XQuery" localized="false" default="false">
                 <xsd version="1.1-20120405" specification="https://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/" default="true"/>
+                <xpath-functions version="3.1-20170321" specification="https://www.w3.org/TR/2017/REC-xpath-functions-31-20170321/" default="true"/>
                 <minimal-conformance version="3.1" specification="https://www.w3.org/TR/2017/REC-xquery-31-20170321/" default="false"/>
                 <higher-order-function version="3.1" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <!-- No static-typing support -->
@@ -630,6 +680,7 @@ limitations under the License.
             </dialect>
             <dialect id="saxon/EE/v9.7/3.1-update" name="xquery.implementation.xquery-update-10" localized="true" default="true">
                 <xsd version="1.1-20120405" specification="https://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/" default="true"/>
+                <xpath-functions version="3.1-20170321" specification="https://www.w3.org/TR/2017/REC-xpath-functions-31-20170321/" default="true"/>
                 <minimal-conformance version="3.1" specification="https://www.w3.org/TR/2017/REC-xquery-31-20170321/" default="false"/>
                 <higher-order-function version="3.1" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <!-- No static-typing support -->
@@ -647,6 +698,7 @@ limitations under the License.
         <version id="w3c/spec" name="xquery.implementation.specification" localized="true" default="true">
             <dialect id="w3c/1.0" name="XQuery" localized="false" default="true">
                 <xsd version="1.0-20041028" specification="https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/" default="true"/>
+                <xpath-functions version="1.0-20101214" specification="http://www.w3.org/TR/2010/REC-xpath-functions-20101214/" default="true"/>
                 <minimal-conformance version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <schema-import version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <schema-validation version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
@@ -659,6 +711,7 @@ limitations under the License.
             <!--
             <dialect id="w3c/1.0-full-text" name="xquery.implementation.xquery-full-text-10" localized="true" default="false">
                 <xsd version="1.0-20041028" specification="https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/" default="true"/>
+                <xpath-functions version="1.0-20101214" specification="http://www.w3.org/TR/2010/REC-xpath-functions-20101214/" default="true"/>
                 <minimal-conformance version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="false"/>
                 <schema-import version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <schema-validation version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
@@ -671,6 +724,7 @@ limitations under the License.
             -->
             <dialect id="w3c/1.0-scripting" name="xquery.implementation.xquery-scripting-10" localized="true" default="false">
                 <xsd version="1.0-20041028" specification="https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/" default="true"/>
+                <xpath-functions version="1.0-20101214" specification="http://www.w3.org/TR/2010/REC-xpath-functions-20101214/" default="true"/>
                 <minimal-conformance version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="false"/>
                 <schema-import version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <schema-validation version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
@@ -683,6 +737,7 @@ limitations under the License.
             </dialect>
             <dialect id="w3c/1.0-update" name="xquery.implementation.xquery-update-10" localized="true" default="false">
                 <xsd version="1.0-20041028" specification="https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/" default="true"/>
+                <xpath-functions version="1.0-20101214" specification="http://www.w3.org/TR/2010/REC-xpath-functions-20101214/" default="true"/>
                 <minimal-conformance version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <schema-import version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
                 <schema-validation version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
@@ -694,6 +749,7 @@ limitations under the License.
             </dialect>
             <dialect id="w3c/3.0" name="XQuery" localized="false" default="true">
                 <xsd version="1.1-20120405" specification="https://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/" default="true"/>
+                <xpath-functions version="3.0-20140408" specification="http://www.w3.org/TR/2014/REC-xpath-functions-30-20140408/" default="true"/>
                 <minimal-conformance version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <higher-order-function version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <serialization version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
@@ -706,6 +762,7 @@ limitations under the License.
             <!--
             <dialect id="w3c/3.0-full-text" name="xquery.implementation.xquery-full-text-30" localized="true" default="false">
                 <xsd version="1.1-20120405" specification="https://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/" default="true"/>
+                <xpath-functions version="3.0-20140408" specification="http://www.w3.org/TR/2014/REC-xpath-functions-30-20140408/" default="true"/>
                 <minimal-conformance version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <higher-order-function version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <serialization version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
@@ -719,6 +776,7 @@ limitations under the License.
             -->
             <dialect id="w3c/3.0-update" name="xquery.implementation.xquery-update-30" localized="true" default="false">
                 <xsd version="1.1-20120405" specification="https://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/" default="true"/>
+                <xpath-functions version="3.0-20140408" specification="http://www.w3.org/TR/2014/REC-xpath-functions-30-20140408/" default="true"/>
                 <minimal-conformance version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <higher-order-function version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <serialization version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
@@ -731,6 +789,7 @@ limitations under the License.
             </dialect>
             <dialect id="w3c/3.1" name="XQuery" localized="false" default="true">
                 <xsd version="1.1-20120405" specification="https://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/" default="true"/>
+                <xpath-functions version="3.1-20170321" specification="https://www.w3.org/TR/2017/REC-xpath-functions-31-20170321/" default="true"/>
                 <minimal-conformance version="3.1" specification="https://www.w3.org/TR/2017/REC-xquery-31-20170321/" default="false"/>
                 <higher-order-function version="3.1" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
                 <serialization version="3.1" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>

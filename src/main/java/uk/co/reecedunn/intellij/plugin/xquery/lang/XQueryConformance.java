@@ -21,6 +21,7 @@ public enum XQueryConformance {
     // region Specifications
 
     XSD("xsd"), // XML Schema Definition Language (XSD) conformance
+    XPATH_FUNCTIONS("xpath-functions"), // XQuery and XPath Functions and Operators
     MINIMAL_CONFORMANCE("minimal-conformance"), // XQuery 1.0 - 3.1
 
     // endregion
