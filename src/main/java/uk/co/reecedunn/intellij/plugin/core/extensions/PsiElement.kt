@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.core.extensions;
 
 import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiFile
 import java.util.*
 
 private class PsiElementTreeIterator(private var node: PsiElement?) : Iterator<PsiElement> {
@@ -31,8 +32,10 @@ private class PsiElementTreeIterator(private var node: PsiElement?) : Iterator<P
     override fun next(): PsiElement {
         val current = stack.pop()
 
+        // NOTE: A PsiFile can have a nextSibling that points to another PsiFile,
+        // so don't walk into that other file!
         val right = current?.nextSibling
-        if (right != null) {
+        if (right != null && current !is PsiFile) {
             stack.push(right)
         }
 
