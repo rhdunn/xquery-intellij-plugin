@@ -18,7 +18,12 @@ package uk.co.reecedunn.intellij.plugin.xquery.lang;
 import org.jetbrains.annotations.NotNull;
 
 public enum XQueryConformance {
+    // region Specifications
+
+    XSD("xsd"), // XML Schema Definition Language (XSD) conformance
     MINIMAL_CONFORMANCE("minimal-conformance"), // XQuery 1.0 - 3.1
+
+    // endregion
     // region XQuery Optional Features
 
     FULL_AXIS("full-axis"), // XQuery 1.0

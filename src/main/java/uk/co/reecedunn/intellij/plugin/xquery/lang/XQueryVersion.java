@@ -24,7 +24,14 @@ import java.util.Map;
 public enum XQueryVersion {
     UNSUPPORTED("unsupported", -1),
 
-    // region Specification Versions
+    // region XML Schema Definition Language (XSD) Specification Versions
+
+    VERSION_1_0_20010502("1.0-20010502", 1.0, 20010502), // XSD 1.0 Part 2 REC (First Edition)
+    VERSION_1_0_20041028("1.0-20041028", 1.0, 20041028), // XSD 1.0 Part 2 REC (Second Edition)
+    VERSION_1_1_20120405("1.1-20120405", 1.1, 20120405), // XSD 1.1 Part 2 REC
+
+    // endregion
+    // region XQuery Specification Versions
 
     VERSION_1_0_20070123("1.0-20070123", 1.0, 20070123), // XQuery 1.0 REC (First Edition)
     VERSION_1_0_20101214("1.0-20101214", 1.0, 20101214), // XQuery 1.0 REC (Second Edition)
@@ -93,9 +100,12 @@ public enum XQueryVersion {
     static {
         sVersions.put("0.9-ml", VERSION_0_9_MARKLOGIC);
         sVersions.put("1.0", VERSION_1_0);
+        sVersions.put("1.0-20010502", VERSION_1_0_20010502);
+        sVersions.put("1.0-20041028", VERSION_1_0_20041028);
         sVersions.put("1.0-20070123", VERSION_1_0_20070123);
         sVersions.put("1.0-20101214", VERSION_1_0_20101214);
         sVersions.put("1.0-ml", VERSION_1_0_MARKLOGIC);
+        sVersions.put("1.1-20120405", VERSION_1_1_20120405);
         sVersions.put("3.0", VERSION_3_0);
         sVersions.put("3.0-20140408", VERSION_3_0_20140408);
         sVersions.put("3.1", VERSION_3_1);

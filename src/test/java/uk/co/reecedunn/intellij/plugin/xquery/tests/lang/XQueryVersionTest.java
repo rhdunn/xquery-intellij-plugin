@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.lang;
 
 import junit.framework.TestCase;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -52,6 +53,11 @@ public class XQueryVersionTest extends TestCase {
         assertThat(XQueryVersion.VERSION_9_5.toString(), is("9.5"));
         assertThat(XQueryVersion.VERSION_9_6.toString(), is("9.6"));
         assertThat(XQueryVersion.VERSION_9_7.toString(), is("9.7"));
+
+        // XSD Specification Versions:
+        assertThat(XQueryVersion.VERSION_1_0_20010502.toString(), is("1.0-20010502"));
+        assertThat(XQueryVersion.VERSION_1_0_20041028.toString(), is("1.0-20041028"));
+        assertThat(XQueryVersion.VERSION_1_1_20120405.toString(), is("1.1-20120405"));
     }
 
     public void testParse() {
@@ -91,6 +97,11 @@ public class XQueryVersionTest extends TestCase {
         assertThat(XQueryVersion.parse("1.0-und"), is(XQueryVersion.UNSUPPORTED));
         assertThat(XQueryVersion.parse("1.1"), is(XQueryVersion.UNSUPPORTED));
         assertThat(XQueryVersion.parse("2.0"), is(XQueryVersion.UNSUPPORTED));
+
+        // XSD Specification Versions:
+        assertThat(XQueryVersion.parse("1.0-20010502"), is(XQueryVersion.VERSION_1_0_20010502));
+        assertThat(XQueryVersion.parse("1.0-20041028"), is(XQueryVersion.VERSION_1_0_20041028));
+        assertThat(XQueryVersion.parse("1.1-20120405"), is(XQueryVersion.VERSION_1_1_20120405));
     }
 
     public void testToDouble() {
@@ -122,6 +133,11 @@ public class XQueryVersionTest extends TestCase {
         assertThat(XQueryVersion.VERSION_9_5.toDouble(), is(9.5));
         assertThat(XQueryVersion.VERSION_9_6.toDouble(), is(9.6));
         assertThat(XQueryVersion.VERSION_9_7.toDouble(), is(9.7));
+
+        // XSD Specification Versions:
+        assertThat(XQueryVersion.VERSION_1_0_20010502.toDouble(), is(1.0));
+        assertThat(XQueryVersion.VERSION_1_0_20041028.toDouble(), is(1.0));
+        assertThat(XQueryVersion.VERSION_1_1_20120405.toDouble(), is(1.1));
     }
 
     public void testGetDate() {
@@ -153,6 +169,11 @@ public class XQueryVersionTest extends TestCase {
         assertThat(XQueryVersion.VERSION_9_5.getDate(), is(0));
         assertThat(XQueryVersion.VERSION_9_6.getDate(), is(0));
         assertThat(XQueryVersion.VERSION_9_7.getDate(), is(0));
+
+        // XSD Specification Versions:
+        assertThat(XQueryVersion.VERSION_1_0_20010502.getDate(), is(20010502));
+        assertThat(XQueryVersion.VERSION_1_0_20041028.getDate(), is(20041028));
+        assertThat(XQueryVersion.VERSION_1_1_20120405.getDate(), is(20120405));
     }
 
     public void testSupportsVersion() {
