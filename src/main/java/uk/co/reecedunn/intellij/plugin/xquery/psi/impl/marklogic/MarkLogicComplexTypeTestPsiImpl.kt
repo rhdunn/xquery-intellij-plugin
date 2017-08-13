@@ -33,5 +33,5 @@ class MarkLogicComplexTypeTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node
         firstChild
 
     override fun getConformanceErrorMessage(): String =
-            XQueryBundle.message("requires.feature.marklogic.version", XQueryVersion.VERSION_7_0)
+        XQueryBundle.message("requires.feature.marklogic.version", XQueryVersion.VERSION_7_0)
 }

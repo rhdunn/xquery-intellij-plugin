@@ -336,6 +336,7 @@ public interface XQueryElementType {
     IElementType COMPLEX_TYPE_TEST = new ICompositeElementType("XQUERY_COMPLEX_TYPE_TEST", MarkLogicComplexTypeTestPsiImpl.class, XQuery.INSTANCE);
     IElementType ELEMENT_DECL_TEST = new ICompositeElementType("XQUERY_ELEMENT_DECL_TEST", MarkLogicElementDeclTestPsiImpl.class, XQuery.INSTANCE);
     IElementType SCHEMA_COMPONENT_TEST = new ICompositeElementType("XQUERY_SCHEMA_COMPONENT_TEST", MarkLogicSchemaComponentTestPsiImpl.class, XQuery.INSTANCE);
+    IElementType SCHEMA_PARTICLE_TEST = new ICompositeElementType("XQUERY_SCHEMA_PARTICLE_TEST", MarkLogicSchemaParticleTestPsiImpl.class, XQuery.INSTANCE);
 
     // endregion
     // region MarkLogic 8.0

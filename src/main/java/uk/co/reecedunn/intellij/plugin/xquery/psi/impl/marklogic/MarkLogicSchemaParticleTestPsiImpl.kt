@@ -18,14 +18,14 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.marklogic
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic.MarkLogicElementDeclTest
+import uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic.MarkLogicSchemaParticleTest
 import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 
-class MarkLogicElementDeclTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), MarkLogicElementDeclTest, XQueryConformanceCheck {
+class MarkLogicSchemaParticleTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), MarkLogicSchemaParticleTest, XQueryConformanceCheck {
     override fun conformsTo(implementation: ImplementationItem): Boolean =
         implementation.getVersion(XQueryConformance.MARKLOGIC).supportsVersion(XQueryVersion.VERSION_7_0)
 

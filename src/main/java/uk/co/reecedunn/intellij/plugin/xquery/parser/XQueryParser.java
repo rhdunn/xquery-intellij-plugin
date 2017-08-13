@@ -5527,6 +5527,7 @@ class XQueryParser {
         if (status == ParseStatus.NOT_MATCHED) status = parseComplexTypeTest();
         if (status == ParseStatus.NOT_MATCHED) status = parseElementDeclTest();
         if (status == ParseStatus.NOT_MATCHED) status = parseSchemaComponentTest();
+        if (status == ParseStatus.NOT_MATCHED) status = parseSchemaParticleTest();
         if (status == ParseStatus.NOT_MATCHED) status = parseNullTest();
         if (status == ParseStatus.NOT_MATCHED) status = parseNumberTest();
         if (status == ParseStatus.NOT_MATCHED) status = parseMapTest_MarkLogic();
@@ -5682,6 +5683,29 @@ class XQueryParser {
             }
 
             schemaComponentTestMarker.done(XQueryElementType.SCHEMA_COMPONENT_TEST);
+            return status;
+        }
+        return ParseStatus.NOT_MATCHED;
+    }
+
+    private ParseStatus parseSchemaParticleTest() {
+        final PsiBuilder.Marker schemaParticleTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_SCHEMA_PARTICLE);
+        if (schemaParticleTestMarker != null) {
+            ParseStatus status = ParseStatus.MATCHED;
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_OPEN)) {
+                schemaParticleTestMarker.rollbackTo();
+                return ParseStatus.NOT_MATCHED;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE)) {
+                error(XQueryBundle.message("parser.error.expected", ")"));
+                status = ParseStatus.MATCHED_WITH_ERRORS;
+            }
+
+            schemaParticleTestMarker.done(XQueryElementType.SCHEMA_PARTICLE_TEST);
             return status;
         }
         return ParseStatus.NOT_MATCHED;
