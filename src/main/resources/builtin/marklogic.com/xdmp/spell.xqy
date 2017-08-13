@@ -1,12 +1,10 @@
 xquery version "1.0-ml";
-
 (:~
  : MarkLogic spell functions
  :
  : @see https://docs.marklogic.com/spell/spell
  :)
-module  namespace spell = "http://marklogic.com/xdmp/spell";
-declare namespace xs    = "http://www.w3.org/2001/XMLSchema";
+module namespace spell = "http://marklogic.com/xdmp/spell";
 
 import module namespace a = "http://reecedunn.co.uk/xquery/annotations" at "res://reecedunn.co.uk/xquery/annotations.xqy";
 

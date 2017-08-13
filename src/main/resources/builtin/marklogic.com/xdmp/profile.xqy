@@ -1,12 +1,10 @@
 xquery version "1.0-ml";
-
 (:~
  : MarkLogic profiling functions
  :
  : @see https://docs.marklogic.com/prof
  :)
-module  namespace prof = "http://marklogic.com/xdmp/profile";
-declare namespace xs   = "http://www.w3.org/2001/XMLSchema";
+module namespace prof = "http://marklogic.com/xdmp/profile";
 
 import module namespace a = "http://reecedunn.co.uk/xquery/annotations" at "res://reecedunn.co.uk/xquery/annotations.xqy";
 

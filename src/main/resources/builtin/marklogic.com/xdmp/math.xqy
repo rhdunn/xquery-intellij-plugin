@@ -1,12 +1,10 @@
 xquery version "1.0-ml";
-
 (:~
  : MarkLogic math functions
  :
  : @see https://docs.marklogic.com/math
  :)
-module  namespace math = "http://marklogic.com/xdmp/math";
-declare namespace xs   = "http://www.w3.org/2001/XMLSchema";
+module namespace math = "http://marklogic.com/xdmp/math";
 
 import module namespace a = "http://reecedunn.co.uk/xquery/annotations" at "res://reecedunn.co.uk/xquery/annotations.xqy";
 

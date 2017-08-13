@@ -1,12 +1,10 @@
 xquery version "3.1";
-
 (:~
  : XPath and XQuery Functions and Operators: Functions that Operate on Arrays
  :
  : @see https://www.w3.org/TR/2017/REC-xpath-functions-31-20170321/
  :)
-module  namespace array = "http://www.w3.org/2005/xpath-functions/array";
-declare namespace xs    = "http://www.w3.org/2001/XMLSchema";
+module namespace array = "http://www.w3.org/2005/xpath-functions/array";
 
 import module namespace a = "http://reecedunn.co.uk/xquery/annotations" at "res://reecedunn.co.uk/xquery/annotations.xqy";
 

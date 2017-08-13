@@ -1,12 +1,10 @@
 xquery version "1.0-ml";
-
 (:~
  : MarkLogic json functions
  :
  : @see https://docs.marklogic.com/xdmp/json
  :)
-module  namespace json = "http://marklogic.com/xdmp/json";
-declare namespace xs   = "http://www.w3.org/2001/XMLSchema";
+module namespace json = "http://marklogic.com/xdmp/json";
 
 import module namespace a = "http://reecedunn.co.uk/xquery/annotations" at "res://reecedunn.co.uk/xquery/annotations.xqy";
 

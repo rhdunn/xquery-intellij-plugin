@@ -1,5 +1,4 @@
 xquery version "1.0-ml";
-
 (:~
  : MarkLogic cts functions
  :
@@ -15,8 +14,7 @@ xquery version "1.0-ml";
  : @see https://docs.marklogic.com/cts/search-clustering
  : @see https://docs.marklogic.com/cts/temporal
  :)
-module  namespace cts = "http://marklogic.com/xdmp/cts";
-declare namespace xs  = "http://www.w3.org/2001/XMLSchema";
+module namespace cts = "http://marklogic.com/xdmp/cts";
 
 import module namespace a = "http://reecedunn.co.uk/xquery/annotations" at "res://reecedunn.co.uk/xquery/annotations.xqy";
 

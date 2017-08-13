@@ -1,5 +1,4 @@
 xquery version "3.1";
-
 (:~
  : XPath and XQuery Functions and Operators
  :
@@ -8,8 +7,7 @@ xquery version "3.1";
  : @see https://www.w3.org/TR/2014/REC-xpath-functions-30-20140408/
  : @see https://www.w3.org/TR/201/REC-xpath-functions-31-20170321/
  :)
-module  namespace fn = "http://www.w3.org/2005/xpath-functions";
-declare namespace xs = "http://www.w3.org/2001/XMLSchema";
+module namespace fn = "http://www.w3.org/2005/xpath-functions";
 
 import module namespace a = "http://reecedunn.co.uk/xquery/annotations" at "res://reecedunn.co.uk/xquery/annotations.xqy";
 

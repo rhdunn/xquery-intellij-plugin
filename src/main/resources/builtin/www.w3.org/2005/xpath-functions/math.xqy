@@ -1,12 +1,10 @@
 xquery version "3.0";
-
 (:~
  : XPath and XQuery Functions and Operators: Trigonometric and exponential functions
  :
  : @see https://www.w3.org/TR/2017/REC-xpath-functions-31-20170321/#trigonometry
  :)
-module  namespace math = "http://www.w3.org/2005/xpath-functions/math";
-declare namespace xs   = "http://www.w3.org/2001/XMLSchema";
+module namespace math = "http://www.w3.org/2005/xpath-functions/math";
 
 import module namespace a = "http://reecedunn.co.uk/xquery/annotations" at "res://reecedunn.co.uk/xquery/annotations.xqy";
 

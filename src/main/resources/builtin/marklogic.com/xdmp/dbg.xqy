@@ -1,12 +1,10 @@
 xquery version "1.0-ml";
-
 (:~
  : MarkLogic debug functions
  :
  : @see https://docs.marklogic.com/dbg
  :)
-module  namespace dbg = "http://marklogic.com/xdmp/dbg";
-declare namespace xs  = "http://www.w3.org/2001/XMLSchema";
+module namespace dbg = "http://marklogic.com/xdmp/dbg";
 
 import module namespace a = "http://reecedunn.co.uk/xquery/annotations" at "res://reecedunn.co.uk/xquery/annotations.xqy";
 
