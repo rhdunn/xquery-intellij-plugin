@@ -4036,14 +4036,15 @@ class XQueryParser {
                 case RESERVED_FUNCTION_NAME:
                 case XQUERY30_RESERVED_FUNCTION_NAME:
                     return false;
+                case MARKLOGIC70_RESERVED_FUNCTION_NAME:
                 case MARKLOGIC80_RESERVED_FUNCTION_NAME:
-                    // Don't keep the MarkLogic JSON parseTree here as KindTest is not anchored to the correct parent
+                    // Don't keep the MarkLogic Schema/JSON parseTree here as KindTest is not anchored to the correct parent
                     // at this point.
                     final PsiBuilder.Marker testMarker = mark();
-                    ParseStatus status = parseJsonKindTest();
+                    ParseStatus status = parseSchemaOrJsonKindTest();
                     testMarker.rollbackTo();
 
-                    // If this is a valid MarkLogic JSON KindTest, return false here to parse it as a KindTest.
+                    // If this is a valid MarkLogic Schema/JSON KindTest, return false here to parse it as a KindTest.
                     if (status == ParseStatus.MATCHED) {
                         return false;
                     }
@@ -5199,7 +5200,7 @@ class XQueryParser {
             || parseNamespaceNodeTest()
             || parseAnyKindTest()
             || parseBinaryTest()
-            || parseJsonKindTest() != ParseStatus.NOT_MATCHED;
+            || parseSchemaOrJsonKindTest() != ParseStatus.NOT_MATCHED;
     }
 
     private boolean parseAnyKindTest() {
@@ -5496,6 +5497,9 @@ class XQueryParser {
         return false;
     }
 
+    // endregion
+    // region Grammar :: TypeDeclaration :: KindTest :: MarkLogic
+
     private boolean parseBinaryTest() {
         final PsiBuilder.Marker binaryTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_BINARY);
         if (binaryTestMarker != null) {
@@ -5516,8 +5520,9 @@ class XQueryParser {
         return false;
     }
 
-    private ParseStatus parseJsonKindTest() {
+    private ParseStatus parseSchemaOrJsonKindTest() {
         ParseStatus status = parseArrayTest_MarkLogic();
+        if (status == ParseStatus.NOT_MATCHED) status = parseAttributeDeclTest();
         if (status == ParseStatus.NOT_MATCHED) status = parseBooleanTest();
         if (status == ParseStatus.NOT_MATCHED) status = parseNullTest();
         if (status == ParseStatus.NOT_MATCHED) status = parseNumberTest();
@@ -5551,6 +5556,29 @@ class XQueryParser {
             }
 
             arrayTestMarker.done(XQueryElementType.ARRAY_TEST);
+            return status;
+        }
+        return ParseStatus.NOT_MATCHED;
+    }
+
+    private ParseStatus parseAttributeDeclTest() {
+        final PsiBuilder.Marker attributeDeclTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_ATTRIBUTE_DECL);
+        if (attributeDeclTestMarker != null) {
+            ParseStatus status = ParseStatus.MATCHED;
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_OPEN)) {
+                attributeDeclTestMarker.rollbackTo();
+                return ParseStatus.NOT_MATCHED;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE)) {
+                error(XQueryBundle.message("parser.error.expected", ")"));
+                status = ParseStatus.MATCHED_WITH_ERRORS;
+            }
+
+            attributeDeclTestMarker.done(XQueryElementType.ATTRIBUTE_DECL_TEST);
             return status;
         }
         return ParseStatus.NOT_MATCHED;

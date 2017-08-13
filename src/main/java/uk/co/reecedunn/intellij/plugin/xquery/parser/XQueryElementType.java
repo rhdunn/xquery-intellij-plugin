@@ -330,6 +330,11 @@ public interface XQueryElementType {
     IElementType BINARY_TEST = new ICompositeElementType("XQUERY_BINARY_TEST", MarkLogicBinaryTestPsiImpl.class, XQuery.INSTANCE);
 
     // endregion
+    // region MarkLogic 7.0
+
+    IElementType ATTRIBUTE_DECL_TEST = new ICompositeElementType("XQUERY_ATTRIBUTE_DECL_TEST", MarkLogicAttributeDeclTestPsiImpl.class, XQuery.INSTANCE);
+
+    // endregion
     // region MarkLogic 8.0
 
     IElementType ARRAY_TEST = new ICompositeElementType("XQUERY_ARRAY_TEST", MarkLogicArrayTestPsiImpl.class, XQuery.INSTANCE);

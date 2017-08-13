@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016-2017 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -257,6 +257,27 @@ public class MarkLogicParserTest extends ParserTestCase {
     public void testBinaryTest_MissingClosingParenthesis() {
         final String expected = loadResource("tests/parser/marklogic-6.0/BinaryTest_MissingClosingParenthesis.txt");
         final XQueryFile actual = parseResource("tests/parser/marklogic-6.0/BinaryTest_MissingClosingParenthesis.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
+    // region MarkLogic 7.0 :: AttributeDeclTest
+
+    public void testAttributeDeclTest() {
+        final String expected = loadResource("tests/parser/marklogic-7.0/AttributeDeclTest.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-7.0/AttributeDeclTest.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testAttributeDeclTest_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/marklogic-7.0/AttributeDeclTest_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-7.0/AttributeDeclTest_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testAttributeDeclTest_MissingClosingParenthesis() {
+        final String expected = loadResource("tests/parser/marklogic-7.0/AttributeDeclTest_MissingClosingParenthesis.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-7.0/AttributeDeclTest_MissingClosingParenthesis.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 

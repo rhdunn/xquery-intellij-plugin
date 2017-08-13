@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016-2017 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -145,6 +145,37 @@ class MarkLogicPsiTest : ParserTestCase() {
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
                 `is`<IElementType>(XQueryTokenType.K_ARRAY_NODE))
+    }
+
+    // endregion
+    // region AttributeDeclTest
+
+    fun testAttributeDeclTest() {
+        val file = parseResource("tests/parser/marklogic-7.0/AttributeDeclTest.xq")!!
+
+        val annotationDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
+        val varDeclPsi = annotationDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
+        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XQueryTypeDeclaration>().first()
+        val sequenceTypePsi = typeDeclarationPsi.children().filterIsInstance<XQuerySequenceType>().first()
+        val attributeDeclTestPsi = sequenceTypePsi.descendants().filterIsInstance<MarkLogicAttributeDeclTest>().first()
+
+        val versioned = attributeDeclTestPsi as XQueryConformanceCheck
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), `is`(false))
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), `is`(false))
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), `is`(false))
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), `is`(false))
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), `is`(false))
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), `is`(true))
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), `is`(false))
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), `is`(true))
+
+        assertThat(versioned.conformanceErrorMessage,
+                `is`("XPST0003: This expression requires MarkLogic 7.0 or later with XQuery version '1.0-ml'."))
+
+        assertThat(versioned.conformanceElement, `is`(notNullValue()))
+        assertThat(versioned.conformanceElement.node.elementType,
+                `is`<IElementType>(XQueryTokenType.K_ATTRIBUTE_DECL))
     }
 
     // endregion
