@@ -497,6 +497,37 @@ class MarkLogicPsiTest : ParserTestCase() {
     }
 
     // endregion
+    // region SchemaRootTest
+
+    fun testSchemaRootTest() {
+        val file = parseResource("tests/parser/marklogic-7.0/SchemaRootTest.xq")!!
+
+        val annotationDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
+        val varDeclPsi = annotationDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
+        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XQueryTypeDeclaration>().first()
+        val sequenceTypePsi = typeDeclarationPsi.children().filterIsInstance<XQuerySequenceType>().first()
+        val schemaRootTestPsi = sequenceTypePsi.descendants().filterIsInstance<MarkLogicSchemaRootTest>().first()
+
+        val versioned = schemaRootTestPsi as XQueryConformanceCheck
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), `is`(false))
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), `is`(false))
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), `is`(false))
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), `is`(false))
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), `is`(false))
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), `is`(true))
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), `is`(false))
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), `is`(true))
+
+        assertThat(versioned.conformanceErrorMessage,
+                `is`("XPST0003: This expression requires MarkLogic 7.0 or later with XQuery version '1.0-ml'."))
+
+        assertThat(versioned.conformanceElement, `is`(notNullValue()))
+        assertThat(versioned.conformanceElement.node.elementType,
+                `is`<IElementType>(XQueryTokenType.K_SCHEMA_ROOT))
+    }
+
+    // endregion
     // region EnclosedExpr (CatchClause)
 
     fun testEnclosedExpr_CatchClause() {
