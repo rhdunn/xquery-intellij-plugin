@@ -14,7 +14,7 @@ declare %a:since("marklogic", "5.0") function dbg:attached() as xs:unsignedLong*
 declare %a:since("marklogic", "5.0") function dbg:attached($server as xs:unsignedLong) as xs:unsignedLong* external;
 declare %a:since("marklogic", "5.0") function dbg:break($request as xs:unsignedLong) as empty-sequence() external;
 declare %a:since("marklogic", "5.0") function dbg:break($request as xs:unsignedLong, $expression as xs:unsignedLong) as empty-sequence() external;
-declare %a:since("marklogic", "5.0") function dbg:breakpoints($request as xs:unsignedLong) as xs:usngignedLong* external;
+declare %a:since("marklogic", "5.0") function dbg:breakpoints($request as xs:unsignedLong) as xs:unsignedLong* external;
 declare %a:since("marklogic", "5.0") function dbg:clear($request as xs:unsignedLong, $expression as xs:unsignedLong) as empty-sequence() external;
 declare %a:since("marklogic", "5.0") function dbg:connect($server as xs:unsignedLong) as empty-sequence() external;
 declare %a:since("marklogic", "5.0") function dbg:connected() as xs:unsignedLong* external;

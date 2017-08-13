@@ -8,6 +8,7 @@ declare namespace dir = "http://marklogic.com/xdmp/directory";
 declare namespace err = "http://www.w3.org/2005/xqt-error";
 declare namespace error = "http://marklogic.com/xdmp/error";
 import module namespace fn = "http://www.w3.org/2005/xpath-functions" at "res://www.w3.org/2005/xpath-functions/fn.xqy";
+import module namespace json = "http://marklogic.com/xdmp/json" at "res://marklogic.com/xdmp/json.xqy";
 declare namespace local = "http://www.w3.org/2005/xquery-local-functions";
 declare namespace lock = "http://marklogic.com/xdmp/lock";
 import module namespace map = "http://marklogic.com/xdmp/map" at "res://marklogic.com/xdmp/map.xqy";
