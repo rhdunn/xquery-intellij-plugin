@@ -3120,6 +3120,13 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AbbrevForwardStep")
+    public void testAbbrevForwardStep_KeywordNCNames_MarkLogic70() {
+        final String expected = loadResource("tests/parser/marklogic-7.0/AbbrevForwardStep_KeywordNCNames_MarkLogic70.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-7.0/AbbrevForwardStep_KeywordNCNames_MarkLogic70.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-AbbrevForwardStep")
     public void testAbbrevForwardStep_KeywordNCNames_MarkLogic80() {
         final String expected = loadResource("tests/parser/marklogic-8.0/AbbrevForwardStep_KeywordNCNames_MarkLogic80.txt");
         final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/AbbrevForwardStep_KeywordNCNames_MarkLogic80.xq");
