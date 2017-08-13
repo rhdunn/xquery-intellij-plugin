@@ -1,9 +1,9 @@
 xquery version "1.0";
 
 (: http://docs.marklogic.com/6.0/guide/xquery/namespaces :)
-declare namespace cts = "http://marklogic.com/cts";
+import module namespace cts = "http://marklogic.com/cts" at "res://marklogic.com/cts.xqy";
 declare namespace dav = "DAV:";
-declare namespace dbg = "http://marklogic.com/xdmp/dbg";
+import module namespace dbg = "http://marklogic.com/xdmp/dbg" at "res://marklogic.com/xdmp/dbg.xqy";
 declare namespace dir = "http://marklogic.com/xdmp/directory";
 declare namespace err = "http://www.w3.org/2005/xqt-error";
 declare namespace error = "http://marklogic.com/xdmp/error";
@@ -11,11 +11,13 @@ import module namespace fn = "http://www.w3.org/2005/xpath-functions" at "res://
 declare namespace local = "http://www.w3.org/2005/xquery-local-functions";
 declare namespace lock = "http://marklogic.com/xdmp/lock";
 import module namespace map = "http://marklogic.com/xdmp/map" at "res://marklogic.com/xdmp/map.xqy";
-declare namespace math = "http://marklogic.com/xdmp/math";
-declare namespace prof = "http://marklogic.com/xdmp/profile";
+import module namespace math = "http://marklogic.com/xdmp/math" at "res://marklogic.com/xdmp/math.xqy";
+import module namespace math = "http://marklogic.com/xdmp/math" at "res://marklogic.com/xdmp/math.xqy";
+import module namespace prof = "http://marklogic.com/xdmp/profile" at "res://marklogic.com/xdmp/prof.xqy";
 declare namespace prop = "http://marklogic.com/xdmp/property";
 declare namespace sec = "http://marklogic.com/security";
-declare namespace spell = "http://marklogic.com/xdmp/spell";
+import module namespace spell = "http://marklogic.com/xdmp/spell" at "res://marklogic.com/xdmp/spell.xqy";
+import module namespace xdmp = "http://marklogic.com/xdmp" at "res://marklogic.com/xdmp.xqy";
 declare namespace xdmp = "http://marklogic.com/xdmp";
 declare namespace xml = "http://www.w3.org/XML/1998/namespace";
 declare namespace xqe = "http://marklogic.com/xqe";
