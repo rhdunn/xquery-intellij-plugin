@@ -48,7 +48,7 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQu
                     val scripting = implementation.getVersion(XQueryConformance.SCRIPTING)
                     return !scripting.supportsVersion(XQueryVersion.VERSION_1_0)
                 }
-                IXQueryKeywordOrNCNameType.KeywordType.MARKLOGIC_RESERVED_FUNCTION_NAME -> {
+                IXQueryKeywordOrNCNameType.KeywordType.MARKLOGIC80_RESERVED_FUNCTION_NAME -> {
                     val marklogicVersion = implementation.getVersion(XQueryConformance.MARKLOGIC)
                     return !marklogicVersion.supportsVersion(XQueryVersion.VERSION_8_0)
                 }

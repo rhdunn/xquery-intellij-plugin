@@ -47,7 +47,7 @@ class XQueryFunctionCallPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQu
         val localname = localName
         if (localname != null) {
             when (localname.second) {
-                IXQueryKeywordOrNCNameType.KeywordType.MARKLOGIC_RESERVED_FUNCTION_NAME -> {
+                IXQueryKeywordOrNCNameType.KeywordType.MARKLOGIC80_RESERVED_FUNCTION_NAME -> {
                     val marklogic = implementation.getVersion(XQueryConformance.MARKLOGIC)
                     return !marklogic.supportsVersion(XQueryVersion.VERSION_8_0)
                 }
@@ -65,7 +65,7 @@ class XQueryFunctionCallPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQu
         val localname = localName
         if (localname != null) {
             when (localname.second) {
-                IXQueryKeywordOrNCNameType.KeywordType.MARKLOGIC_RESERVED_FUNCTION_NAME,
+                IXQueryKeywordOrNCNameType.KeywordType.MARKLOGIC80_RESERVED_FUNCTION_NAME,
                 IXQueryKeywordOrNCNameType.KeywordType.SCRIPTING10_RESERVED_FUNCTION_NAME ->
                     return localname.first
                 else -> {}

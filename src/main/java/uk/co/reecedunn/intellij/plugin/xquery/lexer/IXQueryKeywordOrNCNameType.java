@@ -26,7 +26,7 @@ public class IXQueryKeywordOrNCNameType extends INCNameType {
         RESERVED_FUNCTION_NAME,
         XQUERY30_RESERVED_FUNCTION_NAME,
         SCRIPTING10_RESERVED_FUNCTION_NAME,
-        MARKLOGIC_RESERVED_FUNCTION_NAME,
+        MARKLOGIC80_RESERVED_FUNCTION_NAME,
     }
 
     public IXQueryKeywordOrNCNameType(@NotNull @NonNls String debugName) {
