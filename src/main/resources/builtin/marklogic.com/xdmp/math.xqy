@@ -8,7 +8,7 @@ module namespace math = "http://marklogic.com/xdmp/math";
 
 import module namespace a = "http://reecedunn.co.uk/xquery/annotations" at "res://reecedunn.co.uk/xquery/annotations.xqy";
 
-declare %a:since("marklogic", "6.0") function math:PI() as xs:double external;
+declare %a:since("marklogic", "6.0") %a:until("marklogic", "7.0", "math:pi#0") function math:PI() as xs:double external;
 declare %a:since("marklogic", "5.0") function math:acos($x as xs:double) as xs:double external;
 declare %a:since("marklogic", "5.0") function math:asin($x as xs:double) as xs:double external;
 declare %a:since("marklogic", "5.0") function math:atan($x as xs:double) as xs:double external;
@@ -40,6 +40,7 @@ declare %a:since("marklogic", "5.0") function math:modf($x as xs:double) (: as (
 declare %a:since("marklogic", "6.0") function math:percent-rank($arg as xs:anyAtomicType*, $value as xs:anyAtomicType) as xs:double? external;
 declare %a:since("marklogic", "6.0") function math:percent-rank($arg as xs:anyAtomicType*, $value as xs:anyAtomicType, $options as xs:string*) as xs:double? external;
 declare %a:since("marklogic", "6.0") function math:percentile($arg as xs:double*, $p as xs:double*) as xs:double* external;
+declare %a:since("marklogic", "7.0") function math:pi() as xs:double external;
 declare %a:since("marklogic", "5.0") function math:pow($x as xs:double, $y as xs:double) as xs:double external;
 declare %a:since("marklogic", "6.0") function math:radians($x as xs:double) as xs:double external;
 declare %a:since("marklogic", "6.0") function math:rank($arg as xs:anyAtomicType*, $arg as xs:anyAtomicType) as xs:integer? external;
