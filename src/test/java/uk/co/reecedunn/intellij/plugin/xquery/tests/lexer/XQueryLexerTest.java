@@ -4787,6 +4787,17 @@ public class XQueryLexerTest extends LexerTestCase {
     }
 
     // endregion
+    // region MarkLogic 7.0 :: SimpleTypeTest
+
+    public void testSimpleTypeTest() {
+        Lexer lexer = createLexer();
+
+        matchSingleToken(lexer, "simple-type", XQueryTokenType.K_SIMPLE_TYPE);
+        matchSingleToken(lexer, "(",           XQueryTokenType.PARENTHESIS_OPEN);
+        matchSingleToken(lexer, ")",           XQueryTokenType.PARENTHESIS_CLOSE);
+    }
+
+    // endregion
     // region MarkLogic 8.0 :: ArrayConstructor
 
     public void testArrayConstructor() {

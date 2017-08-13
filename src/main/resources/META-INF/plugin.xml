@@ -15,6 +15,7 @@
     <h3>Release 0.6-dev:</h3>
     <p>Language Support:</p>
     <ol>
+      <li>MarkLogic 7.0 schema-components `KindType` tests.</li>
     </ol>
     <p>Bug Fixes:</p>
     <ol>

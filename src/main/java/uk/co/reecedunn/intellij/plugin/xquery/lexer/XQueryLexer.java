@@ -1612,6 +1612,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("sentences", XQueryTokenType.K_SENTENCES); // Full Text 1.0
         sKeywords.put("sequential", XQueryTokenType.K_SEQUENTIAL); // Scripting Extension 1.0
         sKeywords.put("simple", XQueryTokenType.K_SIMPLE); // Scripting Extension 1.0
+        sKeywords.put("simple-type", XQueryTokenType.K_SIMPLE_TYPE); // MarkLogic 7.0
         sKeywords.put("skip", XQueryTokenType.K_SKIP); // Update Facility 1.0
         sKeywords.put("sliding", XQueryTokenType.K_SLIDING); // XQuery 3.0
         sKeywords.put("some", XQueryTokenType.K_SOME);

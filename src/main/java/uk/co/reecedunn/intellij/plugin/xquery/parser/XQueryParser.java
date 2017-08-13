@@ -5530,6 +5530,7 @@ class XQueryParser {
         if (status == ParseStatus.NOT_MATCHED) status = parseSchemaParticleTest();
         if (status == ParseStatus.NOT_MATCHED) status = parseSchemaRootTest();
         if (status == ParseStatus.NOT_MATCHED) status = parseSchemaTypeTest();
+        if (status == ParseStatus.NOT_MATCHED) status = parseSimpleTypeTest();
         if (status == ParseStatus.NOT_MATCHED) status = parseNullTest();
         if (status == ParseStatus.NOT_MATCHED) status = parseNumberTest();
         if (status == ParseStatus.NOT_MATCHED) status = parseMapTest_MarkLogic();
@@ -5754,6 +5755,29 @@ class XQueryParser {
             }
 
             schemaTypeTestMarker.done(XQueryElementType.SCHEMA_TYPE_TEST);
+            return status;
+        }
+        return ParseStatus.NOT_MATCHED;
+    }
+
+    private ParseStatus parseSimpleTypeTest() {
+        final PsiBuilder.Marker simpleTypeTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_SIMPLE_TYPE);
+        if (simpleTypeTestMarker != null) {
+            ParseStatus status = ParseStatus.MATCHED;
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_OPEN)) {
+                simpleTypeTestMarker.rollbackTo();
+                return ParseStatus.NOT_MATCHED;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE)) {
+                error(XQueryBundle.message("parser.error.expected", ")"));
+                status = ParseStatus.MATCHED_WITH_ERRORS;
+            }
+
+            simpleTypeTestMarker.done(XQueryElementType.SIMPLE_TYPE_TEST);
             return status;
         }
         return ParseStatus.NOT_MATCHED;

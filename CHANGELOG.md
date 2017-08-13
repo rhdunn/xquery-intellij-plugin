@@ -2,9 +2,13 @@
 
 ## 0.6 - (In Development)
 
+Language Support:
+
+1.  MarkLogic 7.0 schema-components `KindType` tests.
+
 Bug Fixes:
 
-1.  Report a parser error when a TypedFunctionTest does not have a return type clause.
+1.  Report a parser error when a `TypedFunctionTest` does not have a return type clause.
 
 Inspections:
 

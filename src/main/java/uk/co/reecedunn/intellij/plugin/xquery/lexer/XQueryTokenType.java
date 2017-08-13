@@ -304,6 +304,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_SENTENCES = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SENTENCES"); // Full Text 1.0
     IXQueryKeywordOrNCNameType K_SEQUENTIAL = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SEQUENTIAL"); // Scripting Extension 1.0
     IXQueryKeywordOrNCNameType K_SIMPLE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SIMPLE"); // Scripting Extension 1.0
+    IXQueryKeywordOrNCNameType K_SIMPLE_TYPE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SIMPLE_TYPE_NODE", IXQueryKeywordOrNCNameType.KeywordType.MARKLOGIC70_RESERVED_FUNCTION_NAME); // MarkLogic 7.0
     IXQueryKeywordOrNCNameType K_SKIP = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SKIP"); // Update Facility 1.0
     IXQueryKeywordOrNCNameType K_SLIDING = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SLIDING"); // XQuery 3.0
     IXQueryKeywordOrNCNameType K_SOME = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SOME");
