@@ -5525,6 +5525,7 @@ class XQueryParser {
         if (status == ParseStatus.NOT_MATCHED) status = parseAttributeDeclTest();
         if (status == ParseStatus.NOT_MATCHED) status = parseBooleanTest();
         if (status == ParseStatus.NOT_MATCHED) status = parseComplexTypeTest();
+        if (status == ParseStatus.NOT_MATCHED) status = parseElementDeclTest();
         if (status == ParseStatus.NOT_MATCHED) status = parseNullTest();
         if (status == ParseStatus.NOT_MATCHED) status = parseNumberTest();
         if (status == ParseStatus.NOT_MATCHED) status = parseMapTest_MarkLogic();
@@ -5634,6 +5635,29 @@ class XQueryParser {
             }
 
             attributeDeclTestMarker.done(XQueryElementType.COMPLEX_TYPE_TEST);
+            return status;
+        }
+        return ParseStatus.NOT_MATCHED;
+    }
+
+    private ParseStatus parseElementDeclTest() {
+        final PsiBuilder.Marker elementDeclTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_ELEMENT_DECL);
+        if (elementDeclTestMarker != null) {
+            ParseStatus status = ParseStatus.MATCHED;
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_OPEN)) {
+                elementDeclTestMarker.rollbackTo();
+                return ParseStatus.NOT_MATCHED;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE)) {
+                error(XQueryBundle.message("parser.error.expected", ")"));
+                status = ParseStatus.MATCHED_WITH_ERRORS;
+            }
+
+            elementDeclTestMarker.done(XQueryElementType.ELEMENT_DECL_TEST);
             return status;
         }
         return ParseStatus.NOT_MATCHED;
