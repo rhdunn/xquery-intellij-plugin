@@ -17,8 +17,7 @@ declare %a:since("xsd", "1.0-20010502") function xs:IDREF($arg as xs:anyAtomicTy
 declare %a:since("xsd", "1.0-20010502") function xs:NCName($arg as xs:anyAtomicType?) as xs:NCName? external;
 declare %a:since("xsd", "1.0-20010502") function xs:NMTOKEN($arg as xs:anyAtomicType?) as xs:NMTOKEN? external;
 declare %a:since("xsd", "1.0-20010502") function xs:Name($arg as xs:anyAtomicType?) as xs:Name? external;
-(: NOTE: $arg is required in XQuery 1.0 :)
-declare %a:since("xsd", "1.0-20010502") function xs:QName($arg as xs:anyAtomicType?) as xs:QName? external;
+declare %a:since("xsd", "1.0-20010502") function xs:QName($arg (: as [1.0]xs:anyAtomicType [1.1]xs:anyAtomicType? :)) as xs:QName? external;
 
 declare %a:since("xsd", "1.0-20010502") function xs:anyURI($arg as xs:anyAtomicType?) as xs:anyURI? external;
 declare %a:since("xsd", "1.0-20010502") function xs:base64Binary($arg as xs:anyAtomicType?) as xs:base64Binary? external;
