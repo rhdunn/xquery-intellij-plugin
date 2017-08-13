@@ -9,7 +9,8 @@ xquery version "3.1";
  : @see https://www.w3.org/TR/2017/REC-xpath-functions-31-20170321/
  :)
 module  namespace xs = "http://www.w3.org/2001/XMLSchema";
-declare namespace a  = "http://reecedunn.co.uk/xquery/annotations";
+
+import module namespace a = "http://reecedunn.co.uk/xquery/annotations" at "res://reecedunn.co.uk/xquery/annotations.xqy";
 
 declare %a:since("xsd", "1.0-20010502") function xs:ENTITY($arg as xs:anyAtomicType?) as xs:ENTITY? external;
 declare %a:since("xsd", "1.0-20010502") function xs:ID($arg as xs:anyAtomicType?) as xs:ID? external;

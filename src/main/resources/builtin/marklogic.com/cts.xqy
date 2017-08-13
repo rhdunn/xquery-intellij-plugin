@@ -17,7 +17,8 @@ xquery version "1.0-ml";
  :)
 module  namespace cts = "http://marklogic.com/xdmp/cts";
 declare namespace xs  = "http://www.w3.org/2001/XMLSchema";
-declare namespace a   = "http://reecedunn.co.uk/xquery/annotations";
+
+import module namespace a = "http://reecedunn.co.uk/xquery/annotations" at "res://reecedunn.co.uk/xquery/annotations.xqy";
 
 declare %a:since("marklogic", "6.0") function cts:aggregate($native-plugin as xs:string, $aggregate-name as xs:string, $range-indexes as cts:reference*, $argument as item()*) as item()* external;
 declare %a:since("marklogic", "6.0") function cts:aggregate($native-plugin as xs:string, $aggregate-name as xs:string, $range-indexes as cts:reference*, $argument as item()*, $options as xs:string*) as item()* external;

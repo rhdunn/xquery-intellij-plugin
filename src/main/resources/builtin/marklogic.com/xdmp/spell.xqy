@@ -7,7 +7,8 @@ xquery version "1.0-ml";
  :)
 module  namespace spell = "http://marklogic.com/xdmp/spell";
 declare namespace xs    = "http://www.w3.org/2001/XMLSchema";
-declare namespace a     = "http://reecedunn.co.uk/xquery/annotations";
+
+import module namespace a = "http://reecedunn.co.uk/xquery/annotations" at "res://reecedunn.co.uk/xquery/annotations.xqy";
 
 declare %a:since("marklogic", "5.0") function spell:double-metaphone($word as xs:string) as xs:string* external;
 declare %a:since("marklogic", "5.0") function spell:is-correct($uri as xs:string*, $word as xs:string) as xs:boolean external;

@@ -7,7 +7,8 @@ xquery version "1.0-ml";
  :)
 module  namespace prof = "http://marklogic.com/xdmp/profile";
 declare namespace xs   = "http://www.w3.org/2001/XMLSchema";
-declare namespace a    = "http://reecedunn.co.uk/xquery/annotations";
+
+import module namespace a = "http://reecedunn.co.uk/xquery/annotations" at "res://reecedunn.co.uk/xquery/annotations.xqy";
 
 declare %a:since("marklogic", "5.0") function prof:allowed($request-id as xs:unsignedLong) as xs:boolean external;
 declare %a:since("marklogic", "5.0") function prof:disable($request-id as xs:unsignedLong) as empty-sequence() external;

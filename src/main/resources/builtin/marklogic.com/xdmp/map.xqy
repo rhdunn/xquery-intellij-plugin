@@ -7,7 +7,8 @@ xquery version "1.0-ml";
  :)
 module  namespace map = "http://marklogic.com/xdmp/map";
 declare namespace xs  = "http://www.w3.org/2001/XMLSchema";
-declare namespace a   = "http://reecedunn.co.uk/xquery/annotations";
+
+import module namespace a = "http://reecedunn.co.uk/xquery/annotations" at "res://reecedunn.co.uk/xquery/annotations.xqy";
 
 declare %a:since("marklogic", "5.0") function map:clear($map as map:map) as empty-sequence() external;
 declare %a:since("marklogic", "6.0") function map:contains($map as map:map, $key as xs:string) as xs:boolean external;

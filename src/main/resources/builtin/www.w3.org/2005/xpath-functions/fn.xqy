@@ -6,11 +6,12 @@ xquery version "3.1";
  : @see https://www.w3.org/TR/2007/REC-xpath-functions-20070123/
  : @see https://www.w3.org/TR/2010/REC-xpath-functions-20101214/
  : @see https://www.w3.org/TR/2014/REC-xpath-functions-30-20140408/
- : @see https://www.w3.org/TR/2017/REC-xpath-functions-31-20170321/
+ : @see https://www.w3.org/TR/201/REC-xpath-functions-31-20170321/
  :)
 module  namespace fn = "http://www.w3.org/2005/xpath-functions";
 declare namespace xs = "http://www.w3.org/2001/XMLSchema";
-declare namespace a  = "http://reecedunn.co.uk/xquery/annotations";
+
+import module namespace a = "http://reecedunn.co.uk/xquery/annotations" at "res://reecedunn.co.uk/xquery/annotations.xqy";
 
 declare %a:since("xpath-functions", "1.0-20070123") function fn:QName($paramURI as xs:string?, $paramQName as xs:string) as xs:QName external;
 declare %a:since("xpath-functions", "1.0-20070123") function fn:abs($arg as xs:numeric?) as xs:numeric? external;
