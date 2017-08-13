@@ -1456,6 +1456,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("assignable", XQueryTokenType.K_ASSIGNABLE); // Scripting Extension 1.0
         sKeywords.put("at", XQueryTokenType.K_AT);
         sKeywords.put("attribute", XQueryTokenType.K_ATTRIBUTE);
+        sKeywords.put("attribute-decl", XQueryTokenType.K_ATTRIBUTE_DECL); // MarkLogic 7.0
         sKeywords.put("base-uri", XQueryTokenType.K_BASE_URI);
         sKeywords.put("before", XQueryTokenType.K_BEFORE); // Update Facility 1.0
         sKeywords.put("binary", XQueryTokenType.K_BINARY); // MarkLogic 6.0
@@ -1470,6 +1471,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("child", XQueryTokenType.K_CHILD);
         sKeywords.put("collation", XQueryTokenType.K_COLLATION);
         sKeywords.put("comment", XQueryTokenType.K_COMMENT);
+        sKeywords.put("complex-type", XQueryTokenType.K_COMPLEX_TYPE); // MarkLogic 7.0
         sKeywords.put("construction", XQueryTokenType.K_CONSTRUCTION);
         sKeywords.put("contains", XQueryTokenType.K_CONTAINS); // Full Text 1.0
         sKeywords.put("content", XQueryTokenType.K_CONTENT); // Full Text 1.0
@@ -1493,6 +1495,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("document", XQueryTokenType.K_DOCUMENT);
         sKeywords.put("document-node", XQueryTokenType.K_DOCUMENT_NODE);
         sKeywords.put("element", XQueryTokenType.K_ELEMENT);
+        sKeywords.put("element-decl", XQueryTokenType.K_ELEMENT_DECL); // MarkLogic 7.0
         sKeywords.put("else", XQueryTokenType.K_ELSE);
         sKeywords.put("empty", XQueryTokenType.K_EMPTY);
         sKeywords.put("empty-sequence", XQueryTokenType.K_EMPTY_SEQUENCE);
@@ -1597,7 +1600,11 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("satisfies", XQueryTokenType.K_SATISFIES);
         sKeywords.put("schema", XQueryTokenType.K_SCHEMA);
         sKeywords.put("schema-attribute", XQueryTokenType.K_SCHEMA_ATTRIBUTE);
+        sKeywords.put("schema-component", XQueryTokenType.K_SCHEMA_COMPONENT); // MarkLogic 7.0
         sKeywords.put("schema-element", XQueryTokenType.K_SCHEMA_ELEMENT);
+        sKeywords.put("schema-particle", XQueryTokenType.K_SCHEMA_PARTICLE); // MarkLogic 7.0
+        sKeywords.put("schema-root", XQueryTokenType.K_SCHEMA_ROOT); // MarkLogic 7.0
+        sKeywords.put("schema-type", XQueryTokenType.K_SCHEMA_TYPE); // MarkLogic 7.0
         sKeywords.put("score", XQueryTokenType.K_SCORE); // Full Text 1.0
         sKeywords.put("self", XQueryTokenType.K_SELF);
         sKeywords.put("sensitive", XQueryTokenType.K_SENSITIVE); // Full Text 1.0

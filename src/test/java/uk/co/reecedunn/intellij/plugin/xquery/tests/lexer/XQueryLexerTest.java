@@ -4710,14 +4710,80 @@ public class XQueryLexerTest extends LexerTestCase {
     }
 
     // endregion
-    // region MarkLogic 6.0 :: BinaryTest
+    // region MarkLogic 7.0 :: AttributeDeclTest
 
-    public void testBinaryTest() {
+    public void testAttributeDeclTest() {
         Lexer lexer = createLexer();
 
-        matchSingleToken(lexer, "binary", XQueryTokenType.K_BINARY);
-        matchSingleToken(lexer, "(",      XQueryTokenType.PARENTHESIS_OPEN);
-        matchSingleToken(lexer, ")",      XQueryTokenType.PARENTHESIS_CLOSE);
+        matchSingleToken(lexer, "attribute-decl", XQueryTokenType.K_ATTRIBUTE_DECL);
+        matchSingleToken(lexer, "(",              XQueryTokenType.PARENTHESIS_OPEN);
+        matchSingleToken(lexer, ")",              XQueryTokenType.PARENTHESIS_CLOSE);
+    }
+
+    // endregion
+    // region MarkLogic 7.0 :: ComplexTypeTest
+
+    public void testComplexTypeTest() {
+        Lexer lexer = createLexer();
+
+        matchSingleToken(lexer, "complex-type", XQueryTokenType.K_COMPLEX_TYPE);
+        matchSingleToken(lexer, "(",            XQueryTokenType.PARENTHESIS_OPEN);
+        matchSingleToken(lexer, ")",            XQueryTokenType.PARENTHESIS_CLOSE);
+    }
+
+    // endregion
+    // region MarkLogic 7.0 :: ElementDeclTest
+
+    public void testElementDeclTest() {
+        Lexer lexer = createLexer();
+
+        matchSingleToken(lexer, "element-decl", XQueryTokenType.K_ELEMENT_DECL);
+        matchSingleToken(lexer, "(",            XQueryTokenType.PARENTHESIS_OPEN);
+        matchSingleToken(lexer, ")",            XQueryTokenType.PARENTHESIS_CLOSE);
+    }
+
+    // endregion
+    // region MarkLogic 7.0 :: SchemaComponentTest
+
+    public void testSchemaComponentTest() {
+        Lexer lexer = createLexer();
+
+        matchSingleToken(lexer, "schema-component", XQueryTokenType.K_SCHEMA_COMPONENT);
+        matchSingleToken(lexer, "(",                XQueryTokenType.PARENTHESIS_OPEN);
+        matchSingleToken(lexer, ")",                XQueryTokenType.PARENTHESIS_CLOSE);
+    }
+
+    // endregion
+    // region MarkLogic 7.0 :: SchemaParticleTest
+
+    public void testSchemaParticleTest() {
+        Lexer lexer = createLexer();
+
+        matchSingleToken(lexer, "schema-particle", XQueryTokenType.K_SCHEMA_PARTICLE);
+        matchSingleToken(lexer, "(",               XQueryTokenType.PARENTHESIS_OPEN);
+        matchSingleToken(lexer, ")",               XQueryTokenType.PARENTHESIS_CLOSE);
+    }
+
+    // endregion
+    // region MarkLogic 7.0 :: SchemaRootTest
+
+    public void testSchemaRootTest() {
+        Lexer lexer = createLexer();
+
+        matchSingleToken(lexer, "schema-root", XQueryTokenType.K_SCHEMA_ROOT);
+        matchSingleToken(lexer, "(",           XQueryTokenType.PARENTHESIS_OPEN);
+        matchSingleToken(lexer, ")",           XQueryTokenType.PARENTHESIS_CLOSE);
+    }
+
+    // endregion
+    // region MarkLogic 7.0 :: SchemaTypeTest
+
+    public void testSchemaTypeTest() {
+        Lexer lexer = createLexer();
+
+        matchSingleToken(lexer, "schema-type", XQueryTokenType.K_SCHEMA_TYPE);
+        matchSingleToken(lexer, "(",           XQueryTokenType.PARENTHESIS_OPEN);
+        matchSingleToken(lexer, ")",           XQueryTokenType.PARENTHESIS_CLOSE);
     }
 
     // endregion

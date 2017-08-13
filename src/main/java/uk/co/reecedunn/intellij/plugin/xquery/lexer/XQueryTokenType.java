@@ -148,6 +148,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_ASSIGNABLE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ASSIGNABLE"); // Scripting Extension 1.0
     IXQueryKeywordOrNCNameType K_AT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_AT");
     IXQueryKeywordOrNCNameType K_ATTRIBUTE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ATTRIBUTE", IXQueryKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME);
+    IXQueryKeywordOrNCNameType K_ATTRIBUTE_DECL = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ATTRIBUTE_DECL_NODE", IXQueryKeywordOrNCNameType.KeywordType.MARKLOGIC70_RESERVED_FUNCTION_NAME); // MarkLogic 7.0
     IXQueryKeywordOrNCNameType K_BASE_URI = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_BASE_URI");
     IXQueryKeywordOrNCNameType K_BEFORE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_BEFORE"); // Update Facility 1.0
     IXQueryKeywordOrNCNameType K_BINARY = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_BINARY"); // MarkLogic 6.0
@@ -162,6 +163,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_CHILD = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_CHILD");
     IXQueryKeywordOrNCNameType K_COLLATION = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_COLLATION");
     IXQueryKeywordOrNCNameType K_COMMENT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_COMMENT", IXQueryKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME);
+    IXQueryKeywordOrNCNameType K_COMPLEX_TYPE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_COMPLEX_TYPE_NODE", IXQueryKeywordOrNCNameType.KeywordType.MARKLOGIC70_RESERVED_FUNCTION_NAME); // MarkLogic 7.0
     IXQueryKeywordOrNCNameType K_CONSTRUCTION = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_CONSTRUCTION");
     IXQueryKeywordOrNCNameType K_CONTAINS = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_CONTAINS"); // Full Text 1.0
     IXQueryKeywordOrNCNameType K_CONTENT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_CONTENT"); // Full Text 1.0
@@ -185,6 +187,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_DOCUMENT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DOCUMENT");
     IXQueryKeywordOrNCNameType K_DOCUMENT_NODE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_DOCUMENT_NODE", IXQueryKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME);
     IXQueryKeywordOrNCNameType K_ELEMENT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ELEMENT", IXQueryKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME);
+    IXQueryKeywordOrNCNameType K_ELEMENT_DECL = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ELEMENT_DECL_NODE", IXQueryKeywordOrNCNameType.KeywordType.MARKLOGIC70_RESERVED_FUNCTION_NAME); // MarkLogic 7.0
     IXQueryKeywordOrNCNameType K_ELSE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ELSE");
     IXQueryKeywordOrNCNameType K_EMPTY = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_EMPTY");
     IXQueryKeywordOrNCNameType K_EMPTY_SEQUENCE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_EMPTY_SEQUENCE", IXQueryKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME);
@@ -289,7 +292,11 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_SATISFIES = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SATISFIES");
     IXQueryKeywordOrNCNameType K_SCHEMA = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SCHEMA");
     IXQueryKeywordOrNCNameType K_SCHEMA_ATTRIBUTE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SCHEMA_ATTRIBUTE", IXQueryKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME);
+    IXQueryKeywordOrNCNameType K_SCHEMA_COMPONENT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SCHEMA_COMPONENT_NODE", IXQueryKeywordOrNCNameType.KeywordType.MARKLOGIC70_RESERVED_FUNCTION_NAME); // MarkLogic 7.0
     IXQueryKeywordOrNCNameType K_SCHEMA_ELEMENT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SCHEMA_ELEMENT", IXQueryKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME);
+    IXQueryKeywordOrNCNameType K_SCHEMA_PARTICLE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SCHEMA_PARTICLE_NODE", IXQueryKeywordOrNCNameType.KeywordType.MARKLOGIC70_RESERVED_FUNCTION_NAME); // MarkLogic 7.0
+    IXQueryKeywordOrNCNameType K_SCHEMA_ROOT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SCHEMA_ROOT_NODE", IXQueryKeywordOrNCNameType.KeywordType.MARKLOGIC70_RESERVED_FUNCTION_NAME); // MarkLogic 7.0
+    IXQueryKeywordOrNCNameType K_SCHEMA_TYPE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SCHEMA_TYPE_NODE", IXQueryKeywordOrNCNameType.KeywordType.MARKLOGIC70_RESERVED_FUNCTION_NAME); // MarkLogic 7.0
     IXQueryKeywordOrNCNameType K_SCORE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SCORE"); // Full Text 1.0
     IXQueryKeywordOrNCNameType K_SELF = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SELF");
     IXQueryKeywordOrNCNameType K_SENSITIVE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_SENSITIVE"); // Full Text 1.0
