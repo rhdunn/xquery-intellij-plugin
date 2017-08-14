@@ -31,7 +31,7 @@ declare %a:since("marklogic", "5.0") function cts:and-query-options($query as ct
 declare %a:since("marklogic", "5.0") function cts:and-query-queries($query as cts:and-query) as cts:query* external;
 declare %a:since("marklogic", "5.0") function cts:arc-intersection($p1 as cts:point, $p2 as cts:point, $q1 as cts:point, $q2 as cts:point) as cts:point external;
 declare %a:since("marklogic", "5.0") function cts:arc-intersection($p1 as cts:point, $p2 as cts:point, $q1 as cts:point, $q2 as cts:point, $options as xs:string*) as cts:point external;
-declare %a:since("marklogic", "5.0") function cts:avg($arg as xs:anyAtomicType*) as xs:anyAtomicType? external;
+declare %a:since("marklogic", "5.0") %a:deprecated("marklogic", "6.0", "cts:avg-aggregate") function cts:avg($arg as xs:anyAtomicType*) as xs:anyAtomicType? external;
 declare %a:since("marklogic", "6.0") function cts:avg-aggregate($range-index as cts:reference) as xs:anyAtomicType? external;
 declare %a:since("marklogic", "6.0") function cts:avg-aggregate($range-index as cts:reference, $options as xs:string*) as xs:anyAtomicType? external;
 declare %a:since("marklogic", "6.0") function cts:avg-aggregate($range-index as cts:reference, $options as xs:string*, $query as cts:query?) as xs:anyAtomicType? external;
@@ -87,8 +87,8 @@ declare %a:since("marklogic", "6.0") function cts:correlation($value1 as cts:ref
 declare %a:since("marklogic", "6.0") function cts:correlation($value1 as cts:reference, $value2 as cts:reference, $options as xs:string*) as xs:double? external;
 declare %a:since("marklogic", "6.0") function cts:correlation($value1 as cts:reference, $value2 as cts:reference, $options as xs:string*, $query as cts:query?) as xs:double? external;
 declare %a:since("marklogic", "6.0") function cts:correlation($value1 as cts:reference, $value2 as cts:reference, $options as xs:string*, $query as cts:query?, $forest-ids as xs:unsignedLong*) as xs:double? external;
-declare %a:since("marklogic", "5.0") function cts:count($arg as item()*) as xs:integer external;
-declare %a:since("marklogic", "5.0") function cts:count($arg as item()*, $maximum as xs:double) as xs:integer external;
+declare %a:since("marklogic", "5.0") %a:deprecated("marklogic", "6.0", "cts:count-aggregate") function cts:count($arg as item()*) as xs:integer external;
+declare %a:since("marklogic", "5.0") %a:deprecated("marklogic", "6.0", "cts:count-aggregate") function cts:count($arg as item()*, $maximum as xs:double) as xs:integer external;
 declare %a:since("marklogic", "6.0") function cts:count-aggregate($range-index as cts:reference) as xs:integer external;
 declare %a:since("marklogic", "6.0") function cts:count-aggregate($range-index as cts:reference, $options as xs:string*) as xs:integer external;
 declare %a:since("marklogic", "6.0") function cts:count-aggregate($range-index as cts:reference, $options as xs:string*, $query as cts:query?) as xs:integer external;
@@ -535,8 +535,8 @@ declare %a:since("marklogic", "6.0") function cts:stddev-p($range-index as cts:r
 declare %a:since("marklogic", "6.0") function cts:stddev-p($range-index as cts:reference, $options as xs:string*, $query as cts:query?, $forest-ids as xs:unsignedLong*) as xs:double? external;
 declare %a:since("marklogic", "5.0") function cts:stem($text as xs:string) as xs:string* external;
 declare %a:since("marklogic", "5.0") function cts:stem($text as xs:string, $language as xs:string?) as xs:string* external;
-declare %a:since("marklogic", "5.0") function cts:sum($arg as xs:anyAtomicType*) as xs:anyAtomicType? external;
-declare %a:since("marklogic", "5.0") function cts:sum($arg as xs:anyAtomicType*, $zero as xs:anyAtomicType?) as xs:anyAtomicType? external;
+declare %a:since("marklogic", "5.0") %a:deprecated("marklogic", "6.0", "cts:sum-aggregate") function cts:sum($arg as xs:anyAtomicType*) as xs:anyAtomicType? external;
+declare %a:since("marklogic", "5.0") %a:deprecated("marklogic", "6.0", "cts:sum-aggregate") function cts:sum($arg as xs:anyAtomicType*, $zero as xs:anyAtomicType?) as xs:anyAtomicType? external;
 declare %a:since("marklogic", "6.0") function cts:sum-aggregate($range-index as cts:reference) as xs:anyAtomicType? external;
 declare %a:since("marklogic", "6.0") function cts:sum-aggregate($range-index as cts:reference, $options as xs:string*) as xs:anyAtomicType? external;
 declare %a:since("marklogic", "6.0") function cts:sum-aggregate($range-index as cts:reference, $options as xs:string*, $query as cts:query?) as xs:anyAtomicType? external;
