@@ -977,14 +977,16 @@ class XQueryParser {
             }
 
             parseWhiteSpaceAndCommentTokens();
-            if (matchTokenType(XQueryTokenType.ASSIGN_EQUAL)) {
+            if (matchTokenType(XQueryTokenType.ASSIGN_EQUAL) ||
+               (haveErrors = errorOnTokenType(XQueryTokenType.EQUAL, XQueryBundle.message("parser.error.expected-variable-value")))) {
                 parseWhiteSpaceAndCommentTokens();
                 if (!parseExprSingle(XQueryElementType.VAR_VALUE) && !haveErrors) {
                     error(XQueryBundle.message("parser.error.expected-expression"));
                 }
             } else if (matchTokenType(XQueryTokenType.K_EXTERNAL)) {
                 parseWhiteSpaceAndCommentTokens();
-                if (matchTokenType(XQueryTokenType.ASSIGN_EQUAL)) {
+                if (matchTokenType(XQueryTokenType.ASSIGN_EQUAL) ||
+                   (haveErrors = errorOnTokenType(XQueryTokenType.EQUAL, XQueryBundle.message("parser.error.expected-variable-value")))) {
                     parseWhiteSpaceAndCommentTokens();
                     if (!parseExprSingle(XQueryElementType.VAR_DEFAULT_VALUE) && !haveErrors) {
                         error(XQueryBundle.message("parser.error.expected-expression"));
@@ -1384,7 +1386,7 @@ class XQueryParser {
 
                 parseWhiteSpaceAndCommentTokens();
                 if (matchTokenType(XQueryTokenType.ASSIGN_EQUAL) ||
-                    errorOnTokenType(XQueryTokenType.EQUAL, XQueryBundle.message(errorMessage))) {
+                   (haveErrors = errorOnTokenType(XQueryTokenType.EQUAL, XQueryBundle.message(errorMessage)))) {
                     parseWhiteSpaceAndCommentTokens();
                     if (!parseExprSingle() && !haveErrors) {
                         error(XQueryBundle.message("parser.error.expected-expression"));

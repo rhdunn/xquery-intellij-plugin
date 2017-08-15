@@ -5584,6 +5584,13 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-ContextItemDecl")
+    public void testContextItemDecl_Equal() {
+        final String expected = loadResource("tests/parser/xquery-3.0/ContextItemDecl_Equal.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.0/ContextItemDecl_Equal.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-ContextItemDecl")
     public void testContextItemDecl_MissingVarValue() {
         final String expected = loadResource("tests/parser/xquery-3.0/ContextItemDecl_MissingVarValue.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-3.0/ContextItemDecl_MissingVarValue.xq");
@@ -5629,6 +5636,13 @@ public class XQueryParserTest extends ParserTestCase {
     public void testContextItemDecl_External_DefaultValue() {
         final String expected = loadResource("tests/parser/xquery-3.0/ContextItemDecl_External_DefaultValue.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-3.0/ContextItemDecl_External_DefaultValue.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-ContextItemDecl")
+    public void testContextItemDecl_External_DefaultValue_Equal() {
+        final String expected = loadResource("tests/parser/xquery-3.0/ContextItemDecl_External_DefaultValue_Equal.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.0/ContextItemDecl_External_DefaultValue_Equal.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
