@@ -2959,7 +2959,9 @@ class XQueryParser {
                 }
 
                 parseWhiteSpaceAndCommentTokens();
-                if (!matchTokenType(XQueryTokenType.ASSIGN_EQUAL) && !haveErrors) {
+                if (errorOnTokenType(XQueryTokenType.EQUAL, XQueryBundle.message("parser.error.expected", ":="))) {
+                    haveErrors = true;
+                } else if (!matchTokenType(XQueryTokenType.ASSIGN_EQUAL) && !haveErrors) {
                     error(XQueryBundle.message("parser.error.expected", ":="));
                     haveErrors = true;
                 }

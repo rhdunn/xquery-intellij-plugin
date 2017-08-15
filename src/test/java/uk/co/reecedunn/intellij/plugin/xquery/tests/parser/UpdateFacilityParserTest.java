@@ -335,6 +335,13 @@ public class UpdateFacilityParserTest extends ParserTestCase {
     }
 
     @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-TransformExpr")
+    public void testTransformExpr_Equal() {
+        final String expected = loadResource("tests/parser/xquery-update-1.0/TransformExpr_Equal.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-update-1.0/TransformExpr_Equal.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Update Facility 1.0", reference="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/#prod-xquery-TransformExpr")
     public void testTransformExpr_MissingVarName() {
         final String expected = loadResource("tests/parser/xquery-update-1.0/TransformExpr_MissingVarName.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-update-1.0/TransformExpr_MissingVarName.xq");
