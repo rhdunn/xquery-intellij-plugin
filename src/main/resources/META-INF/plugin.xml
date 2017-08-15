@@ -16,10 +16,12 @@
     <p>Language Support:</p>
     <ol>
       <li>MarkLogic 7.0 and 8.0 schema-components `KindType` tests.</li>
+      <li>Recover when `=` is used instead of `:=`.</li>
     </ol>
     <p>Bug Fixes:</p>
     <ol>
       <li>Report a parser error when a TypedFunctionTest does not have a return type clause.</li>
+      <li>Fix resolving functions referenced in the current library module.</li>
     </ol>
     <p>Inspections:</p>
     <ol>
