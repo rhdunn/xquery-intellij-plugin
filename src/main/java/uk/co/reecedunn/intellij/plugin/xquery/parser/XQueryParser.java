@@ -1116,7 +1116,8 @@ class XQueryParser {
             parseTypeDeclaration();
 
             parseWhiteSpaceAndCommentTokens();
-            if (matchTokenType(XQueryTokenType.ASSIGN_EQUAL)) {
+            if (matchTokenType(XQueryTokenType.ASSIGN_EQUAL) ||
+               (haveErrors = errorOnTokenType(XQueryTokenType.EQUAL, XQueryBundle.message("parser.error.expected-variable-value")))) {
                 parseWhiteSpaceAndCommentTokens();
                 if (!parseExprSingle(XQueryElementType.VAR_VALUE) && !haveErrors) {
                     error(XQueryBundle.message("parser.error.expected-expression"));

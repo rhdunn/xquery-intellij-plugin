@@ -1064,6 +1064,13 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VarDecl")
+    public void testVarDecl_Equal() {
+        final String expected = loadResource("tests/parser/xquery-1.0/VarDecl_Equal.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-1.0/VarDecl_Equal.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-VarDecl")
     public void testVarDecl_MissingExprSingle() {
         final String expected = loadResource("tests/parser/xquery-1.0/VarDecl_MissingExprSingle.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-1.0/VarDecl_MissingExprSingle.xq");
