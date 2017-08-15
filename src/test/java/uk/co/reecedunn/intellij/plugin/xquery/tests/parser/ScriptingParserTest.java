@@ -326,6 +326,13 @@ public class ScriptingParserTest extends ParserTestCase {
     }
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-BlockVarDecl")
+    public void testBlockVarDecl_Assignment_Equals() {
+        final String expected = loadResource("tests/parser/xquery-sx-1.0/BlockVarDecl_Assignment_Equals.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl_Assignment_Equals.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-BlockVarDecl")
     public void testBlockVarDecl_Assignment_MissingExpr() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/BlockVarDecl_Assignment_MissingExpr.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl_Assignment_MissingExpr.xq");
