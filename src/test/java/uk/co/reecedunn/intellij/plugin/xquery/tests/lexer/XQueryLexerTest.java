@@ -4798,6 +4798,17 @@ public class XQueryLexerTest extends LexerTestCase {
     }
 
     // endregion
+    // region MarkLogic 8.0 :: SchemaFacetTest
+
+    public void testSchemaFacetTest() {
+        Lexer lexer = createLexer();
+
+        matchSingleToken(lexer, "schema-facet", XQueryTokenType.K_SCHEMA_FACET);
+        matchSingleToken(lexer, "(",            XQueryTokenType.PARENTHESIS_OPEN);
+        matchSingleToken(lexer, ")",            XQueryTokenType.PARENTHESIS_CLOSE);
+    }
+
+    // endregion
     // region MarkLogic 8.0 :: ArrayConstructor
 
     public void testArrayConstructor() {

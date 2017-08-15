@@ -1039,6 +1039,37 @@ class MarkLogicPsiTest : ParserTestCase() {
     }
 
     // endregion
+    // region SchemaFacetTest
+
+    fun testSchemaFacetTest() {
+        val file = parseResource("tests/parser/marklogic-8.0/SchemaFacetTest.xq")!!
+
+        val annotationDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
+        val varDeclPsi = annotationDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
+        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XQueryTypeDeclaration>().first()
+        val sequenceTypePsi = typeDeclarationPsi.children().filterIsInstance<XQuerySequenceType>().first()
+        val schemaFacetTestPsi = sequenceTypePsi.descendants().filterIsInstance<MarkLogicSchemaFacetTest>().first()
+
+        val versioned = schemaFacetTestPsi as XQueryConformanceCheck
+
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), `is`(false))
+        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), `is`(false))
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), `is`(false))
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), `is`(false))
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), `is`(false))
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), `is`(false))
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), `is`(false))
+        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), `is`(true))
+
+        assertThat(versioned.conformanceErrorMessage,
+                `is`("XPST0003: This expression requires MarkLogic 8.0 or later with XQuery version '1.0-ml'."))
+
+        assertThat(versioned.conformanceElement, `is`(notNullValue()))
+        assertThat(versioned.conformanceElement.node.elementType,
+                `is`<IElementType>(XQueryTokenType.K_SCHEMA_FACET))
+    }
+
+    // endregion
     // region SchemaParticleTest
 
     fun testSchemaParticleTest() {

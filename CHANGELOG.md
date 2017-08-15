@@ -4,7 +4,7 @@
 
 Language Support:
 
-1.  MarkLogic 7.0 schema-components `KindType` tests.
+1.  MarkLogic 7.0 and 8.0 schema-components `KindType` tests.
 
 Bug Fixes:
 

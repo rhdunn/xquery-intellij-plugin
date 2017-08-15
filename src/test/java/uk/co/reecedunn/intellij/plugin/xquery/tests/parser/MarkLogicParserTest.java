@@ -429,6 +429,27 @@ public class MarkLogicParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region MarkLogic 8.0 :: SchemaFacetTest
+
+    public void testSchemaFacetTest() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/SchemaFacetTest.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/SchemaFacetTest.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testSchemaFacetTest_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/SchemaFacetTest_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/SchemaFacetTest_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testSchemaFacetTest_MissingClosingParenthesis() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/SchemaFacetTest_MissingClosingParenthesis.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/SchemaFacetTest_MissingClosingParenthesis.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region MarkLogic 8.0 :: ArrayConstructor
 
     public void testArrayConstructor() {

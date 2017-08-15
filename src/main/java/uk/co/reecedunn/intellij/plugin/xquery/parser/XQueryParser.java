@@ -37,8 +37,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
  *    -  Scripting Extension 1.0 (W3C Working Group Note 18 September 2014)
  *
  * Supported vendor extensions:
- *    -  MarkLogic 1.0-ml Extensions for MarkLogic 6.0
- *    -  MarkLogic 1.0-ml Extensions for MarkLogic 8.0
+ *    -  MarkLogic 1.0-ml Extensions for MarkLogic 6.0, 7.0 and 8.0
  *    -  Saxon 9.4 MapConstructor and MapTest syntax
  *    -  BaseX 7.8 and 8.5 UpdateExpr extension
  */
@@ -5527,6 +5526,7 @@ class XQueryParser {
         if (status == ParseStatus.NOT_MATCHED) status = parseComplexTypeTest();
         if (status == ParseStatus.NOT_MATCHED) status = parseElementDeclTest();
         if (status == ParseStatus.NOT_MATCHED) status = parseSchemaComponentTest();
+        if (status == ParseStatus.NOT_MATCHED) status = parseSchemaFacetTest();
         if (status == ParseStatus.NOT_MATCHED) status = parseSchemaParticleTest();
         if (status == ParseStatus.NOT_MATCHED) status = parseSchemaRootTest();
         if (status == ParseStatus.NOT_MATCHED) status = parseSchemaTypeTest();
@@ -5686,6 +5686,29 @@ class XQueryParser {
             }
 
             schemaComponentTestMarker.done(XQueryElementType.SCHEMA_COMPONENT_TEST);
+            return status;
+        }
+        return ParseStatus.NOT_MATCHED;
+    }
+
+    private ParseStatus parseSchemaFacetTest() {
+        final PsiBuilder.Marker schemaFacetTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_SCHEMA_FACET);
+        if (schemaFacetTestMarker != null) {
+            ParseStatus status = ParseStatus.MATCHED;
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_OPEN)) {
+                schemaFacetTestMarker.rollbackTo();
+                return ParseStatus.NOT_MATCHED;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE)) {
+                error(XQueryBundle.message("parser.error.expected", ")"));
+                status = ParseStatus.MATCHED_WITH_ERRORS;
+            }
+
+            schemaFacetTestMarker.done(XQueryElementType.SCHEMA_FACET_TEST);
             return status;
         }
         return ParseStatus.NOT_MATCHED;

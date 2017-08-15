@@ -1602,6 +1602,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("schema-attribute", XQueryTokenType.K_SCHEMA_ATTRIBUTE);
         sKeywords.put("schema-component", XQueryTokenType.K_SCHEMA_COMPONENT); // MarkLogic 7.0
         sKeywords.put("schema-element", XQueryTokenType.K_SCHEMA_ELEMENT);
+        sKeywords.put("schema-facet", XQueryTokenType.K_SCHEMA_FACET); // MarkLogic 8.0
         sKeywords.put("schema-particle", XQueryTokenType.K_SCHEMA_PARTICLE); // MarkLogic 7.0
         sKeywords.put("schema-root", XQueryTokenType.K_SCHEMA_ROOT); // MarkLogic 7.0
         sKeywords.put("schema-type", XQueryTokenType.K_SCHEMA_TYPE); // MarkLogic 7.0

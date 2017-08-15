@@ -344,6 +344,8 @@ public interface XQueryElementType {
     // endregion
     // region MarkLogic 8.0
 
+    IElementType SCHEMA_FACET_TEST = new ICompositeElementType("XQUERY_SCHEMA_FACET_TEST", MarkLogicSchemaFacetTestPsiImpl.class, XQuery.INSTANCE);
+
     IElementType ARRAY_TEST = new ICompositeElementType("XQUERY_ARRAY_TEST", MarkLogicArrayTestPsiImpl.class, XQuery.INSTANCE);
 
     IElementType BOOLEAN_CONSTRUCTOR = new ICompositeElementType("XQUERY_BOOLEAN_CONSTRUCTOR", MarkLogicBooleanConstructorPsiImpl.class, XQuery.INSTANCE);
