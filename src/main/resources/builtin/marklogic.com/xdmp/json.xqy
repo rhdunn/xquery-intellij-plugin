@@ -17,6 +17,7 @@ declare %a:since("marklogic", "6.0") function json:array-resize($array as json:a
 declare %a:since("marklogic", "6.0") function json:array-size($array as json:array?) as xs:unsignedLong? external;
 declare %a:since("marklogic", "6.0") function json:array-values($array as json:array) as item()* external;
 declare %a:since("marklogic", "6.0") function json:array-values($array as json:array, $flatten as xs:boolean?) as item()* external;
+declare %a:since("marklogic", "8.0") function json:null() as empty-sequence() external;
 declare %a:since("marklogic", "6.0") function json:object() as map:map external;
 declare %a:since("marklogic", "6.0") function json:object($map as element(json:object)) as map:map external;
 declare %a:since("marklogic", "6.0") function json:object-define() as json:object external;
