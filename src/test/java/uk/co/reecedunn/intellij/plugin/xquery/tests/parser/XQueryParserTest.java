@@ -1616,6 +1616,14 @@ public class XQueryParserTest extends ParserTestCase {
 
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FLWORExpr")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-LetClause")
+    public void testLetClause_Equal() {
+        final String expected = loadResource("tests/parser/xquery-1.0/LetClause_Equal.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-1.0/LetClause_Equal.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-FLWORExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-LetClause")
     public void testLetClause_MissingVarAssignOperator() {
         final String expected = loadResource("tests/parser/xquery-1.0/LetClause_MissingVarAssignOperator.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-1.0/LetClause_MissingVarAssignOperator.xq");

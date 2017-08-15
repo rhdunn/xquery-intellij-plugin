@@ -1380,9 +1380,9 @@ class XQueryParser {
                 }
 
                 parseWhiteSpaceAndCommentTokens();
-                String errorMessage = parseTypeDeclaration()
-                                    ? "parser.error.expected-variable-assign-scripting"
-                                    : "parser.error.expected-variable-assign-scripting-no-type-decl";
+                final String errorMessage = parseTypeDeclaration()
+                                          ? "parser.error.expected-variable-assign-scripting"
+                                          : "parser.error.expected-variable-assign-scripting-no-type-decl";
 
                 parseWhiteSpaceAndCommentTokens();
                 if (matchTokenType(XQueryTokenType.ASSIGN_EQUAL) ||
@@ -1752,15 +1752,15 @@ class XQueryParser {
             }
 
             parseWhiteSpaceAndCommentTokens();
-            boolean haveTypeDeclaration = parseTypeDeclaration();
+            final String errorMessage = parseTypeDeclaration()
+                                      ? XQueryBundle.message("parser.error.expected", ":=")
+                                      : XQueryBundle.message("parser.error.expected-variable-assign-or-keyword", "as");
 
             parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.ASSIGN_EQUAL) && !haveErrors) {
-                if (haveTypeDeclaration) {
-                    error(XQueryBundle.message("parser.error.expected", ":="));
-                } else {
-                    error(XQueryBundle.message("parser.error.expected-variable-assign-or-keyword", "as"));
-                }
+            if (errorOnTokenType(XQueryTokenType.EQUAL, errorMessage)) {
+                haveErrors = true;
+            } else if (!matchTokenType(XQueryTokenType.ASSIGN_EQUAL) && !haveErrors) {
+                error(errorMessage);
                 haveErrors = true;
             }
 
