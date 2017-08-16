@@ -43,6 +43,9 @@ declare %a:since("marklogic", "7.0") function sem:sparql($sparql as xs:string, $
 declare %a:since("marklogic", "7.0") function sem:sparql($sparql as xs:string, $bindings as map:map?, $options as xs:string*) as item()* external;
 declare %a:since("marklogic", "7.0") function sem:sparql($sparql as xs:string, $bindings as map:map?, $options as xs:string*, $query_or_store (: as [7.0]cts:query? [8.0]sem:store* :)) as item()* external;
 declare %a:since("marklogic", "7.0") %a:until("marklogic", "8.0") function sem:sparql($sparql as xs:string, $bindings as map:map?, $options as xs:string*, $query as cts:query?, $forest-ids as xs:unsignedLong*) as item()* external;
+declare %a:since("marklogic", "9.0") function sem:sparql-plan($sparql as xs:string) as element() external;
+declare %a:since("marklogic", "9.0") function sem:sparql-plan($sparql as xs:string, $bindingNames as xs:string*) as element() external;
+declare %a:since("marklogic", "9.0") function sem:sparql-plan($sparql as xs:string, $bindingNames as xs:string*, $options as xs:string*) as element() external;
 declare %a:since("marklogic", "7.0") %a:until("marklogic", "8.0") function sem:sparql-triples($sparql as xs:string, $dataset as sem:triple*) as item()* external;
 declare %a:since("marklogic", "7.0") %a:until("marklogic", "8.0") function sem:sparql-triples($sparql as xs:string, $dataset as sem:triple*, $bindings as map:map?) as item()* external;
 declare %a:since("marklogic", "7.0") %a:until("marklogic", "8.0") function sem:sparql-triples($sparql as xs:string, $dataset as sem:triple*, $bindings as map:map?, $options as xs:string*) as item()* external;

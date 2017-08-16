@@ -14,9 +14,11 @@ declare %a:since("marklogic", "6.0") function json:array-pop($array as json:arra
 declare %a:since("marklogic", "6.0") function json:array-push($array as json:array, $item as item()*) as empty-sequence() external;
 declare %a:since("marklogic", "6.0") function json:array-resize($array as json:array, $newSize as xs:unsignedLong) as empty-sequence() external;
 declare %a:since("marklogic", "6.0") function json:array-resize($array as json:array, $newSize as xs:unsignedLong, $zero as item()?) as empty-sequence() external;
+declare %a:since("marklogic", "9.0") function json:array-set-javascript-by-ref($array as json:array, $key as xs:boolean) as empty-sequence() external;
 declare %a:since("marklogic", "6.0") function json:array-size($array as json:array?) as xs:unsignedLong? external;
 declare %a:since("marklogic", "6.0") function json:array-values($array as json:array) as item()* external;
 declare %a:since("marklogic", "6.0") function json:array-values($array as json:array, $flatten as xs:boolean?) as item()* external;
+declare %a:since("marklogic", "9.0") function json:array-with($array as json:array, $item as item()*) as json:array external;
 declare %a:since("marklogic", "8.0") function json:null() as empty-sequence() external;
 declare %a:since("marklogic", "6.0") function json:object() as map:map external;
 declare %a:since("marklogic", "6.0") function json:object($map as element(json:object)) as map:map external;

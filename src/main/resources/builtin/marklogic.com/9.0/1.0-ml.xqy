@@ -21,6 +21,7 @@ import module namespace sc = "http://marklogic.com/xdmp/schema-components" at "r
 declare namespace sec = "http://marklogic.com/security";
 import module namespace sem = "http://marklogic.com/xdmp/semantics" at "res://marklogic.com/xdmp/semantics.xqy";
 import module namespace spell = "http://marklogic.com/xdmp/spell" at "res://marklogic.com/xdmp/spell.xqy";
+import module namespace tde = "http://marklogic.com/xdmp/tde" at "res://marklogic.com/xdmp/tde.xqy";
 import module namespace temporal = "http://marklogic.com/xdmp/temporal" at "res://marklogic.com/xdmp/temporal.xqy";
 import module namespace xdmp = "http://marklogic.com/xdmp" at "res://marklogic.com/xdmp.xqy";
 declare namespace xml = "http://www.w3.org/XML/1998/namespace";

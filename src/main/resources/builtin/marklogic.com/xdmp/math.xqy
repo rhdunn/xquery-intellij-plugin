@@ -24,7 +24,7 @@ declare %a:since("marklogic", "6.0") function math:degrees($x as xs:double) as x
 declare %a:since("marklogic", "5.0") function math:exp($x as xs:double) as xs:double external;
 declare %a:since("marklogic", "5.0") function math:fabs($x as xs:double) as xs:double external;
 declare %a:since("marklogic", "5.0") function math:floor($x as xs:double) as xs:double external;
-declare %a:since("marklogic", "5.0") function math:fmod($x as xs:double, $x as xs:double) as xs:double external;
+declare %a:since("marklogic", "5.0") function math:fmod($x as xs:double, $y as xs:double) as xs:double external;
 declare %a:since("marklogic", "5.0") function math:frexp($x as xs:double) (: as (xs:double,xs:integer) :) external;
 declare %a:since("marklogic", "5.0") function math:ldexp($y as xs:double, $i as xs:integer) as xs:double external;
 declare %a:since("marklogic", "6.0") function math:linear-model($arg as json:array*) as math:linear-model? external;
@@ -43,8 +43,8 @@ declare %a:since("marklogic", "6.0") function math:percentile($arg as xs:double*
 declare %a:since("marklogic", "7.0") function math:pi() as xs:double external;
 declare %a:since("marklogic", "5.0") function math:pow($x as xs:double, $y as xs:double) as xs:double external;
 declare %a:since("marklogic", "6.0") function math:radians($x as xs:double) as xs:double external;
-declare %a:since("marklogic", "6.0") function math:rank($arg as xs:anyAtomicType*, $arg as xs:anyAtomicType) as xs:integer? external;
-declare %a:since("marklogic", "6.0") function math:rank($arg as xs:anyAtomicType*, $arg as xs:anyAtomicType, $options as xs:string*) as xs:integer? external;
+declare %a:since("marklogic", "6.0") function math:rank($arg1 as xs:anyAtomicType*, $arg2 as xs:anyAtomicType) as xs:integer? external;
+declare %a:since("marklogic", "6.0") function math:rank($arg1 as xs:anyAtomicType*, $arg2 as xs:anyAtomicType, $options as xs:string*) as xs:integer? external;
 declare %a:since("marklogic", "5.0") function math:sin($x as xs:double) as xs:double external;
 declare %a:since("marklogic", "5.0") function math:sinh($x as xs:double) as xs:double external;
 declare %a:since("marklogic", "5.0") function math:sqrt($x as xs:double) as xs:double external;
