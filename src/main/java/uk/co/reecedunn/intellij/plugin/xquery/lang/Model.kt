@@ -19,7 +19,7 @@ data class Version(val id: String, val name: String, val value: Double) {
     constructor(id: String) : this(id, id, id.toDouble())
 }
 
-data class Product(val id: String, val name: String)
+data class Product(val id: String, val name: String, val implementation: Implementation)
 
 sealed class Implementation(val id: String, val name: String, val vendorUri: String) {
     abstract val versions: List<Version>
@@ -54,12 +54,12 @@ object Saxon : Implementation("saxon", "Saxon", "http://www.saxonica.com") {
         Version("9.8"))
 
     override val products: List<Product> = listOf(
-        Product("HE", "Home Edition"),
-        Product("PE", "Professional Edition"),
-        Product("EE", "Enterprise Edition"),
-        Product("EE-T", "Enterprise Edition (Transformation package)"),
-        Product("EE-Q", "Enterprise Edition (Query package)"),
-        Product("EE-V", "Enterprise Edition (Validation package)"))
+        Product("HE", "Home Edition", this),
+        Product("PE", "Professional Edition", this),
+        Product("EE", "Enterprise Edition", this),
+        Product("EE-T", "Enterprise Edition (Transformation package)", this),
+        Product("EE-Q", "Enterprise Edition (Query package)", this),
+        Product("EE-V", "Enterprise Edition (Validation package)", this))
 }
 
 object W3C : Implementation("w3c", "W3C", "https://www.w3.org/XML/Query/") {
@@ -68,5 +68,5 @@ object W3C : Implementation("w3c", "W3C", "https://www.w3.org/XML/Query/") {
         Version("2ed", "Second Edition", 2.0))
 
     override val products: List<Product> = listOf(
-        Product("rec", "Recommendation"))
+        Product("rec", "Recommendation", this))
 }
