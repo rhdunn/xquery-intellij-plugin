@@ -15,6 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.lang
 
+// region Data Model
+
 data class Version(val id: String, val name: String, val value: Double) {
     constructor(id: String) : this(id, id, id.toDouble())
 }
@@ -41,6 +43,9 @@ sealed class Implementation(val id: String, val name: String, val vendorUri: Str
     abstract val products: List<Product>
 }
 
+// endregion
+// region Implementation :: BaseX
+
 object BaseX : Implementation("basex", "BaseX", "http://www.basex.org/") {
     override val versions: List<Version> = listOf(
         Version("8.4"),
@@ -49,6 +54,9 @@ object BaseX : Implementation("basex", "BaseX", "http://www.basex.org/") {
 
     override val products: List<Product> = listOf()
 }
+
+// endregion
+// region Implementation :: MarkLogic
 
 object MarkLogic : Implementation("marklogic", "MarkLogic", "http://www.marklogic.com/") {
     override val versions: List<Version> = listOf(
@@ -59,6 +67,9 @@ object MarkLogic : Implementation("marklogic", "MarkLogic", "http://www.marklogi
 
     override val products: List<Product> = listOf()
 }
+
+// endregion
+// region Implementation :: Saxon (Saxonica)
 
 private class SaxonProduct(id: String, name: String, implementation: Implementation) : Product(id, name, implementation) {
     override fun supportsFeature(version: Version, feature: XQueryFeature): Boolean = when (feature) {
@@ -90,6 +101,9 @@ object Saxon : Implementation("saxon", "Saxon", "http://www.saxonica.com") {
         SaxonProduct("EE-V", "Enterprise Edition (Validation package)", this))
 }
 
+// endregion
+// region Implementation :: W3C Specifications
+
 private class W3CProduct(id: String, name: String, implementation: Implementation) : Product(id, name, implementation) {
     override fun supportsFeature(version: Version, feature: XQueryFeature): Boolean = true
 }
@@ -102,3 +116,5 @@ object W3C : Implementation("w3c", "W3C", "https://www.w3.org/XML/Query/") {
     override val products: List<Product> = listOf(
         W3CProduct("rec", "Recommendation", this))
 }
+
+// endregion
