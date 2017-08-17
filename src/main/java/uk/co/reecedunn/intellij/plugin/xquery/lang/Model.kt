@@ -19,7 +19,21 @@ data class Version(val id: String, val name: String, val value: Double) {
     constructor(id: String) : this(id, id, id.toDouble())
 }
 
-data class Product(val id: String, val name: String, val implementation: Implementation)
+enum class XQueryFeature {
+    MINIMAL_CONFORMANCE, // XQuery 1.0 - 3.1
+    FULL_AXIS, // XQuery 1.0
+    HIGHER_ORDER_FUNCTION, // XQuery 3.0 - 3.1
+    MODULE, // XQuery 1.0 - 3.1
+    SCHEMA_IMPORT, // XQuery 1.0; XQuery 3.0 - 3.1 ("Schema Aware")
+    SCHEMA_VALIDATION, // XQuery 1.0; XQuery 3.0 - 3.1 ("Schema Aware")
+    SERIALIZATION, // XQuery 1.0 - 3.1
+    STATIC_TYPING, // XQuery 1.0 - 3.1
+    TYPED_DATA, // XQuery 3.0 - 3.1
+}
+
+sealed class Product(val id: String, val name: String, val implementation: Implementation) {
+    abstract fun supportsFeature(version: Version, feature: XQueryFeature): Boolean
+}
 
 sealed class Implementation(val id: String, val name: String, val vendorUri: String) {
     abstract val versions: List<Version>
@@ -46,6 +60,20 @@ object MarkLogic : Implementation("marklogic", "MarkLogic", "http://www.marklogi
     override val products: List<Product> = listOf()
 }
 
+private class SaxonProduct(id: String, name: String, implementation: Implementation) : Product(id, name, implementation) {
+    override fun supportsFeature(version: Version, feature: XQueryFeature): Boolean = when (feature) {
+        // http://www.saxonica.com/products/feature-matrix-9-8.xml:
+        XQueryFeature.MINIMAL_CONFORMANCE, XQueryFeature.FULL_AXIS, XQueryFeature.MODULE, XQueryFeature.SERIALIZATION ->
+            true
+        XQueryFeature.HIGHER_ORDER_FUNCTION ->
+            id != "HE"
+        XQueryFeature.SCHEMA_IMPORT, XQueryFeature.SCHEMA_VALIDATION, XQueryFeature.TYPED_DATA ->
+            id == "EE" || id == "EE-Q"
+        XQueryFeature.STATIC_TYPING ->
+            false
+    }
+}
+
 object Saxon : Implementation("saxon", "Saxon", "http://www.saxonica.com") {
     override val versions: List<Version> = listOf(
         Version("9.5"),
@@ -54,12 +82,16 @@ object Saxon : Implementation("saxon", "Saxon", "http://www.saxonica.com") {
         Version("9.8"))
 
     override val products: List<Product> = listOf(
-        Product("HE", "Home Edition", this),
-        Product("PE", "Professional Edition", this),
-        Product("EE", "Enterprise Edition", this),
-        Product("EE-T", "Enterprise Edition (Transformation package)", this),
-        Product("EE-Q", "Enterprise Edition (Query package)", this),
-        Product("EE-V", "Enterprise Edition (Validation package)", this))
+        SaxonProduct("HE", "Home Edition", this),
+        SaxonProduct("PE", "Professional Edition", this),
+        SaxonProduct("EE", "Enterprise Edition", this),
+        SaxonProduct("EE-T", "Enterprise Edition (Transformation package)", this),
+        SaxonProduct("EE-Q", "Enterprise Edition (Query package)", this),
+        SaxonProduct("EE-V", "Enterprise Edition (Validation package)", this))
+}
+
+private class W3CProduct(id: String, name: String, implementation: Implementation) : Product(id, name, implementation) {
+    override fun supportsFeature(version: Version, feature: XQueryFeature): Boolean = true
 }
 
 object W3C : Implementation("w3c", "W3C", "https://www.w3.org/XML/Query/") {
@@ -68,5 +100,5 @@ object W3C : Implementation("w3c", "W3C", "https://www.w3.org/XML/Query/") {
         Version("2ed", "Second Edition", 2.0))
 
     override val products: List<Product> = listOf(
-        Product("rec", "Recommendation", this))
+        W3CProduct("rec", "Recommendation", this))
 }
