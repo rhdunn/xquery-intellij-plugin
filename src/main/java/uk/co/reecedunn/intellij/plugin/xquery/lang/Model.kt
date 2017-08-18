@@ -55,6 +55,12 @@ object XQuerySpec {
     val REC_1_0_20101214 = Specification("1.0-20101214", 1.0, 20101214, "1.0", "http://www.w3.org/TR/2010/REC-xquery-20101214/")
     val REC_3_0_20140408 = Specification("3.0-20140408", 3.0, 20140408, "3.0", "http://www.w3.org/TR/2014/REC-xquery-20140408/")
     val REC_3_1_20170321 = Specification("3.1-20170321", 3.1, 20170321, "3.1", "http://www.w3.org/TR/2017/REC-xquery-20170321/")
+
+    val MARKLOGIC_0_9     = Specification("0.9-ml",  0.9, 2007,   "0.9-ml", "http://docs.marklogic.com/guide/xquery/dialects#id_65735") // MarkLogic 3.2 (compatibility)
+    val MARKLOGIC_1_0_ML4 = Specification("1.0-ml4", 1.0, 2008,   "1.0-ml", "http://docs.marklogic.com/guide/xquery/dialects#id_63368") // MarkLogic 4.0
+    val MARKLOGIC_1_0_ML7 = Specification("1.0-ml7", 1.0, 201311, "1.0-ml", "http://docs.marklogic.com/guide/xquery/dialects#id_63368") // MarkLogic 7.0
+    val MARKLOGIC_1_0_ML8 = Specification("1.0-ml7", 1.0, 201502, "1.0-ml", "http://docs.marklogic.com/guide/xquery/dialects#id_63368") // MarkLogic 8.0
+    val MARKLOGIC_1_0_ML9 = Specification("1.0-ml7", 1.0, 201705, "1.0-ml", "http://docs.marklogic.com/guide/xquery/dialects#id_63368") // MarkLogic 9.0
 }
 
 // endregion
