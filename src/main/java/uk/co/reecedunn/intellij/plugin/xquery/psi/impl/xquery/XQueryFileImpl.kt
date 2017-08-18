@@ -18,7 +18,6 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
 import com.intellij.extapi.psi.PsiFileBase
 import com.intellij.openapi.fileTypes.FileType
 import com.intellij.psi.FileViewProvider
-import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.extensions.children
 import uk.co.reecedunn.intellij.plugin.core.extensions.descendants
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
@@ -26,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.filetypes.XQueryFileType
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion as XQVersion
 
-class XQueryFileImpl(provider: FileViewProvider) : PsiFileBase(provider, XQuery.INSTANCE), XQueryFile {
+class XQueryFileImpl(provider: FileViewProvider) : PsiFileBase(provider, XQuery), XQueryFile {
     override fun getFileType(): FileType {
         return XQueryFileType.INSTANCE
     }

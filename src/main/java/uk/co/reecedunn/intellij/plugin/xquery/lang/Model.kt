@@ -15,6 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.lang
 
+import com.intellij.lang.Language
+
 // region Data Model
 
 sealed class Version(val id: String, val value: Double)
@@ -50,7 +52,9 @@ sealed class Implementation(val id: String, val name: String, val vendorUri: Str
 // endregion
 // region Specification :: XQuery
 
-object XQuerySpec {
+object XQuery : Language("XQuery", "application/xquery") {
+    override fun isCaseSensitive(): Boolean = true
+
     val REC_1_0_20070123 = Specification("1.0-20070123", 1.0, 20070123, "1.0", "http://www.w3.org/TR/2007/REC-xquery-20070123/")
     val REC_1_0_20101214 = Specification("1.0-20101214", 1.0, 20101214, "1.0", "http://www.w3.org/TR/2010/REC-xquery-20101214/")
     val REC_3_0_20140408 = Specification("3.0-20140408", 3.0, 20140408, "3.0", "http://www.w3.org/TR/2014/REC-xquery-20140408/")
