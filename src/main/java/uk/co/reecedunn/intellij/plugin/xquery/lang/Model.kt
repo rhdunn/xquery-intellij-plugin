@@ -17,7 +17,9 @@ package uk.co.reecedunn.intellij.plugin.xquery.lang
 
 // region Data Model
 
-sealed class Version(val id: String, val name: String, val value: Double)
+sealed class Version(val id: String, val value: Double)
+
+class NamedVersion(id: String, value: Double, val name: String) : Version(id, value)
 
 enum class XQueryFeature {
     MINIMAL_CONFORMANCE, // XQuery 1.0 - 3.1
@@ -35,9 +37,7 @@ sealed class Product(val id: String, val name: String, val implementation: Imple
     abstract fun supportsFeature(version: Version, feature: XQueryFeature): Boolean
 }
 
-private class ProductVersion(id: String, name: String, value: Double) : Version(id, name, value) {
-    constructor(id: String) : this(id, id, id.toDouble())
-}
+private class ProductVersion(id: String) : Version(id, id.toDouble())
 
 sealed class Implementation(val id: String, val name: String, val vendorUri: String) {
     abstract val versions: List<Version>
@@ -122,8 +122,8 @@ private class W3CProduct(id: String, name: String, implementation: Implementatio
 
 object W3C : Implementation("w3c", "W3C", "https://www.w3.org/XML/Query/") {
     override val versions: List<Version> = listOf(
-        ProductVersion("1ed", "First Edition", 1.0),
-        ProductVersion("2ed", "Second Edition", 2.0))
+        NamedVersion("1ed", 1.0, "First Edition"),
+        NamedVersion("2ed", 2.0, "Second Edition"))
 
     override val products: List<Product> = listOf(
         W3CProduct("rec", "Recommendation", this))
