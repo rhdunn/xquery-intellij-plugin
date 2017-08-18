@@ -21,6 +21,8 @@ sealed class Version(val id: String, val value: Double)
 
 class NamedVersion(id: String, value: Double, val name: String) : Version(id, value)
 
+class Specification(id: String, value: Double, date: Int, val label: String, val href: String) : Version(id, value)
+
 enum class XQueryFeature {
     MINIMAL_CONFORMANCE, // XQuery 1.0 - 3.1
     FULL_AXIS, // XQuery 1.0
@@ -43,6 +45,16 @@ sealed class Implementation(val id: String, val name: String, val vendorUri: Str
     abstract val versions: List<Version>
 
     abstract val products: List<Product>
+}
+
+// endregion
+// region Specification :: XQuery
+
+object XQuerySpec {
+    val REC_1_0_20070123 = Specification("1.0-20070123", 1.0, 20070123, "1.0", "http://www.w3.org/TR/2007/REC-xquery-20070123/")
+    val REC_1_0_20101214 = Specification("1.0-20101214", 1.0, 20101214, "1.0", "http://www.w3.org/TR/2010/REC-xquery-20101214/")
+    val REC_3_0_20140408 = Specification("3.0-20140408", 3.0, 20140408, "3.0", "http://www.w3.org/TR/2014/REC-xquery-20140408/")
+    val REC_3_1_20170321 = Specification("3.1-20170321", 3.1, 20170321, "3.1", "http://www.w3.org/TR/2017/REC-xquery-20170321/")
 }
 
 // endregion
