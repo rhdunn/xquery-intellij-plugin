@@ -46,17 +46,26 @@ sealed class Implementation(val id: String, val name: String, val vendorUri: Str
 // endregion
 // region Implementation :: BaseX
 
+private class BaseXProduct(id: String, name: String, implementation: Implementation) : Product(id, name, implementation) {
+    override fun supportsFeature(version: Version, feature: XQueryFeature): Boolean = true
+}
+
 object BaseX : Implementation("basex", "BaseX", "http://www.basex.org/") {
     override val versions: List<Version> = listOf(
         Version("8.4"),
         Version("8.5"),
         Version("8.6"))
 
-    override val products: List<Product> = listOf()
+    override val products: List<Product> = listOf(
+        BaseXProduct("basex", "BaseX", this))
 }
 
 // endregion
 // region Implementation :: MarkLogic
+
+private class MarkLogicProduct(id: String, name: String, implementation: Implementation) : Product(id, name, implementation) {
+    override fun supportsFeature(version: Version, feature: XQueryFeature): Boolean = true
+}
 
 object MarkLogic : Implementation("marklogic", "MarkLogic", "http://www.marklogic.com/") {
     override val versions: List<Version> = listOf(
@@ -65,7 +74,8 @@ object MarkLogic : Implementation("marklogic", "MarkLogic", "http://www.marklogi
         Version("8.0"),
         Version("9.0"))
 
-    override val products: List<Product> = listOf()
+    override val products: List<Product> = listOf(
+        MarkLogicProduct("marklogic", "MarkLogic", this))
 }
 
 // endregion

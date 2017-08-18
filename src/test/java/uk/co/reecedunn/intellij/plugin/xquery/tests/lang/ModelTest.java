@@ -24,6 +24,42 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class ModelTest extends TestCase {
     // region XQuery Conformance / Optional Features
 
+    public void testBaseXProduct_OptionalFeatureSupport() {
+        final Product product = BaseX.INSTANCE.getProducts().get(0);
+        assertThat(product.getId(), is("basex"));
+        assertThat(product.getImplementation().getId(), is("basex"));
+
+        for (Version version : BaseX.INSTANCE.getVersions()) {
+            assertThat(product.supportsFeature(version, XQueryFeature.MINIMAL_CONFORMANCE), is(true));
+            assertThat(product.supportsFeature(version, XQueryFeature.FULL_AXIS), is(true));
+            assertThat(product.supportsFeature(version, XQueryFeature.HIGHER_ORDER_FUNCTION), is(true));
+            assertThat(product.supportsFeature(version, XQueryFeature.MODULE), is(true));
+            assertThat(product.supportsFeature(version, XQueryFeature.SCHEMA_IMPORT), is(true)); // Schema Aware
+            assertThat(product.supportsFeature(version, XQueryFeature.SCHEMA_VALIDATION), is(true)); // Schema Aware
+            assertThat(product.supportsFeature(version, XQueryFeature.STATIC_TYPING), is(true));
+            assertThat(product.supportsFeature(version, XQueryFeature.SERIALIZATION), is(true));
+            assertThat(product.supportsFeature(version, XQueryFeature.TYPED_DATA), is(true));
+        }
+    }
+
+    public void testMarkLogicProduct_OptionalFeatureSupport() {
+        final Product product = MarkLogic.INSTANCE.getProducts().get(0);
+        assertThat(product.getId(), is("marklogic"));
+        assertThat(product.getImplementation().getId(), is("marklogic"));
+
+        for (Version version : MarkLogic.INSTANCE.getVersions()) {
+            assertThat(product.supportsFeature(version, XQueryFeature.MINIMAL_CONFORMANCE), is(true));
+            assertThat(product.supportsFeature(version, XQueryFeature.FULL_AXIS), is(true));
+            assertThat(product.supportsFeature(version, XQueryFeature.HIGHER_ORDER_FUNCTION), is(true));
+            assertThat(product.supportsFeature(version, XQueryFeature.MODULE), is(true));
+            assertThat(product.supportsFeature(version, XQueryFeature.SCHEMA_IMPORT), is(true)); // Schema Aware
+            assertThat(product.supportsFeature(version, XQueryFeature.SCHEMA_VALIDATION), is(true)); // Schema Aware
+            assertThat(product.supportsFeature(version, XQueryFeature.STATIC_TYPING), is(true));
+            assertThat(product.supportsFeature(version, XQueryFeature.SERIALIZATION), is(true));
+            assertThat(product.supportsFeature(version, XQueryFeature.TYPED_DATA), is(true));
+        }
+    }
+
     public void testSaxonProduct_HE_OptionalFeatureSupport() {
         final Product product = Saxon.INSTANCE.getProducts().get(0);
         assertThat(product.getId(), is("HE"));
