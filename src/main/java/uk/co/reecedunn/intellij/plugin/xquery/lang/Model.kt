@@ -17,9 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.lang
 
 // region Data Model
 
-data class Version(val id: String, val name: String, val value: Double) {
-    constructor(id: String) : this(id, id, id.toDouble())
-}
+sealed class Version(val id: String, val name: String, val value: Double)
 
 enum class XQueryFeature {
     MINIMAL_CONFORMANCE, // XQuery 1.0 - 3.1
@@ -37,6 +35,10 @@ sealed class Product(val id: String, val name: String, val implementation: Imple
     abstract fun supportsFeature(version: Version, feature: XQueryFeature): Boolean
 }
 
+private class ProductVersion(id: String, name: String, value: Double) : Version(id, name, value) {
+    constructor(id: String) : this(id, id, id.toDouble())
+}
+
 sealed class Implementation(val id: String, val name: String, val vendorUri: String) {
     abstract val versions: List<Version>
 
@@ -52,9 +54,9 @@ private class BaseXProduct(id: String, name: String, implementation: Implementat
 
 object BaseX : Implementation("basex", "BaseX", "http://www.basex.org/") {
     override val versions: List<Version> = listOf(
-        Version("8.4"),
-        Version("8.5"),
-        Version("8.6"))
+        ProductVersion("8.4"),
+        ProductVersion("8.5"),
+        ProductVersion("8.6"))
 
     override val products: List<Product> = listOf(
         BaseXProduct("basex", "BaseX", this))
@@ -69,10 +71,10 @@ private class MarkLogicProduct(id: String, name: String, implementation: Impleme
 
 object MarkLogic : Implementation("marklogic", "MarkLogic", "http://www.marklogic.com/") {
     override val versions: List<Version> = listOf(
-        Version("6.0"),
-        Version("7.0"),
-        Version("8.0"),
-        Version("9.0"))
+        ProductVersion("6.0"),
+        ProductVersion("7.0"),
+        ProductVersion("8.0"),
+        ProductVersion("9.0"))
 
     override val products: List<Product> = listOf(
         MarkLogicProduct("marklogic", "MarkLogic", this))
@@ -97,10 +99,10 @@ private class SaxonProduct(id: String, name: String, implementation: Implementat
 
 object Saxon : Implementation("saxon", "Saxon", "http://www.saxonica.com") {
     override val versions: List<Version> = listOf(
-        Version("9.5"),
-        Version("9.6"),
-        Version("9.7"),
-        Version("9.8"))
+        ProductVersion("9.5"),
+        ProductVersion("9.6"),
+        ProductVersion("9.7"),
+        ProductVersion("9.8"))
 
     override val products: List<Product> = listOf(
         SaxonProduct("HE", "Home Edition", this),
@@ -120,8 +122,8 @@ private class W3CProduct(id: String, name: String, implementation: Implementatio
 
 object W3C : Implementation("w3c", "W3C", "https://www.w3.org/XML/Query/") {
     override val versions: List<Version> = listOf(
-        Version("1ed", "First Edition", 1.0),
-        Version("2ed", "Second Edition", 2.0))
+        ProductVersion("1ed", "First Edition", 1.0),
+        ProductVersion("2ed", "Second Edition", 2.0))
 
     override val products: List<Product> = listOf(
         W3CProduct("rec", "Recommendation", this))
