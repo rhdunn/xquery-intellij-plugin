@@ -19,11 +19,17 @@ import com.intellij.lang.Language
 
 // region Data Model
 
-sealed class Version(val id: String, val value: Double)
+interface Versioned {
+    val name: String
+}
 
-class NamedVersion(id: String, value: Double, val name: String) : Version(id, value)
+sealed class Version(val id: String, val value: Double, val kind: Versioned)
 
-class Specification(id: String, value: Double, date: Int, val label: String, val href: String) : Version(id, value)
+private class ProductVersion(id: String, kind: Versioned) : Version(id, id.toDouble(), kind)
+
+class NamedVersion(id: String, value: Double, val name: String, kind: Versioned) : Version(id, value, kind)
+
+class Specification(id: String, value: Double, date: Int, val label: String, val href: String, kind: Versioned) : Version(id, value, kind)
 
 enum class XQueryFeature {
     MINIMAL_CONFORMANCE, // XQuery 1.0 - 3.1
@@ -43,9 +49,7 @@ sealed class Product(val id: String, val name: String, val implementation: Imple
     abstract fun conformsTo(productVersion: Version, ref: Version): Boolean
 }
 
-private class ProductVersion(id: String, val implementation: Implementation) : Version(id, id.toDouble())
-
-sealed class Implementation(val id: String, val name: String, val vendorUri: String) {
+sealed class Implementation(val id: String, override val name: String, val vendorUri: String): Versioned {
     abstract val versions: List<Version>
 
     abstract val products: List<Product>
@@ -54,40 +58,39 @@ sealed class Implementation(val id: String, val name: String, val vendorUri: Str
 // endregion
 // region Specification :: XQuery
 
-object XQuery : Language("XQuery", "application/xquery") {
-    // region Language
-
+object XQuery : Language("XQuery", "application/xquery"), Versioned {
     override fun isCaseSensitive(): Boolean = true
 
-    // endregion
+    override val name get(): String = displayName
+
     // region 1.0
 
-    val REC_1_0_20070123 = Specification("1.0-20070123", 1.0, 20070123, "1.0", "https://www.w3.org/TR/2007/REC-xquery-20070123/")
-    val REC_1_0_20101214 = Specification("1.0-20101214", 1.0, 20101214, "1.0", "https://www.w3.org/TR/2010/REC-xquery-20101214/")
+    val REC_1_0_20070123 = Specification("1.0-20070123", 1.0, 20070123, "1.0", "https://www.w3.org/TR/2007/REC-xquery-20070123/", this)
+    val REC_1_0_20101214 = Specification("1.0-20101214", 1.0, 20101214, "1.0", "https://www.w3.org/TR/2010/REC-xquery-20101214/", this)
 
     // endregion
     // region 3.0
 
-    val REC_3_0_20140408 = Specification("3.0-20140408", 3.0, 20140408, "3.0", "https://www.w3.org/TR/2014/REC-xquery-30-20140408/")
+    val REC_3_0_20140408 = Specification("3.0-20140408", 3.0, 20140408, "3.0", "https://www.w3.org/TR/2014/REC-xquery-30-20140408/", this)
 
     // endregion
     // region 3.1
 
-    val CR_3_1_20151217  = Specification("3.1-20151217", 3.1, 20151217, "3.1", "https://www.w3.org/TR/2015/CR-xquery-31-20151217/")
-    val REC_3_1_20170321 = Specification("3.1-20170321", 3.1, 20170321, "3.1", "https://www.w3.org/TR/2017/REC-xquery-31-20170321/")
+    val CR_3_1_20151217  = Specification("3.1-20151217", 3.1, 20151217, "3.1", "https://www.w3.org/TR/2015/CR-xquery-31-20151217/", this)
+    val REC_3_1_20170321 = Specification("3.1-20170321", 3.1, 20170321, "3.1", "https://www.w3.org/TR/2017/REC-xquery-31-20170321/", this)
 
     // endregion
     // region 0.9-ml
 
-    val MARKLOGIC_0_9 = Specification("0.9-ml", 0.9, 2007, "0.9-ml", "http://docs.marklogic.com/guide/xquery/dialects#id_65735") // MarkLogic 3.2 (compatibility)
+    val MARKLOGIC_0_9 = Specification("0.9-ml", 0.9, 2007, "0.9-ml", "http://docs.marklogic.com/guide/xquery/dialects#id_65735", this) // MarkLogic 3.2 (compatibility)
 
     // endregion
     // region 1.0-ml
 
-    val MARKLOGIC_1_0_ML4 = Specification("1.0-ml4", 1.0, 2008,   "1.0-ml", "http://docs.marklogic.com/guide/xquery/dialects#id_63368") // MarkLogic 4.0
-    val MARKLOGIC_1_0_ML7 = Specification("1.0-ml7", 1.0, 201311, "1.0-ml", "http://docs.marklogic.com/guide/xquery/dialects#id_63368") // MarkLogic 7.0
-    val MARKLOGIC_1_0_ML8 = Specification("1.0-ml7", 1.0, 201502, "1.0-ml", "http://docs.marklogic.com/guide/xquery/dialects#id_63368") // MarkLogic 8.0
-    val MARKLOGIC_1_0_ML9 = Specification("1.0-ml7", 1.0, 201705, "1.0-ml", "http://docs.marklogic.com/guide/xquery/dialects#id_63368") // MarkLogic 9.0
+    val MARKLOGIC_1_0_ML4 = Specification("1.0-ml4", 1.0, 2008,   "1.0-ml", "http://docs.marklogic.com/guide/xquery/dialects#id_63368", this) // MarkLogic 4.0
+    val MARKLOGIC_1_0_ML7 = Specification("1.0-ml7", 1.0, 201311, "1.0-ml", "http://docs.marklogic.com/guide/xquery/dialects#id_63368", this) // MarkLogic 7.0
+    val MARKLOGIC_1_0_ML8 = Specification("1.0-ml7", 1.0, 201502, "1.0-ml", "http://docs.marklogic.com/guide/xquery/dialects#id_63368", this) // MarkLogic 8.0
+    val MARKLOGIC_1_0_ML9 = Specification("1.0-ml7", 1.0, 201705, "1.0-ml", "http://docs.marklogic.com/guide/xquery/dialects#id_63368", this) // MarkLogic 9.0
 
     // endregion
 }
@@ -218,8 +221,8 @@ private class W3CProduct(id: String, name: String, implementation: Implementatio
 }
 
 object W3C : Implementation("w3c", "W3C", "https://www.w3.org/XML/Query/") {
-    val FIRST_EDITION: NamedVersion = NamedVersion("1ed", 1.0, "First Edition")
-    val SECOND_EDITION: NamedVersion = NamedVersion("2ed", 2.0, "Second Edition")
+    val FIRST_EDITION: NamedVersion = NamedVersion("1ed", 1.0, "First Edition", this)
+    val SECOND_EDITION: NamedVersion = NamedVersion("2ed", 2.0, "Second Edition", this)
 
     override val versions: List<Version> = listOf(FIRST_EDITION, SECOND_EDITION)
 
