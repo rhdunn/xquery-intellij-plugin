@@ -39,6 +39,8 @@ enum class XQueryFeature {
 
 sealed class Product(val id: String, val name: String, val implementation: Implementation) {
     abstract fun supportsFeature(version: Version, feature: XQueryFeature): Boolean
+
+    abstract fun conformsTo(productVersion: Version, ref: Version): Boolean
 }
 
 private class ProductVersion(id: String) : Version(id, id.toDouble())
@@ -53,18 +55,41 @@ sealed class Implementation(val id: String, val name: String, val vendorUri: Str
 // region Specification :: XQuery
 
 object XQuery : Language("XQuery", "application/xquery") {
+    // region Language
+
     override fun isCaseSensitive(): Boolean = true
 
-    val REC_1_0_20070123 = Specification("1.0-20070123", 1.0, 20070123, "1.0", "http://www.w3.org/TR/2007/REC-xquery-20070123/")
-    val REC_1_0_20101214 = Specification("1.0-20101214", 1.0, 20101214, "1.0", "http://www.w3.org/TR/2010/REC-xquery-20101214/")
-    val REC_3_0_20140408 = Specification("3.0-20140408", 3.0, 20140408, "3.0", "http://www.w3.org/TR/2014/REC-xquery-20140408/")
-    val REC_3_1_20170321 = Specification("3.1-20170321", 3.1, 20170321, "3.1", "http://www.w3.org/TR/2017/REC-xquery-20170321/")
+    // endregion
+    // region 1.0
 
-    val MARKLOGIC_0_9     = Specification("0.9-ml",  0.9, 2007,   "0.9-ml", "http://docs.marklogic.com/guide/xquery/dialects#id_65735") // MarkLogic 3.2 (compatibility)
+    val REC_1_0_20070123 = Specification("1.0-20070123", 1.0, 20070123, "1.0", "https://www.w3.org/TR/2007/REC-xquery-20070123/")
+    val REC_1_0_20101214 = Specification("1.0-20101214", 1.0, 20101214, "1.0", "https://www.w3.org/TR/2010/REC-xquery-20101214/")
+
+    // endregion
+    // region 3.0
+
+    val REC_3_0_20140408 = Specification("3.0-20140408", 3.0, 20140408, "3.0", "https://www.w3.org/TR/2014/REC-xquery-30-20140408/")
+
+    // endregion
+    // region 3.1
+
+    val CR_3_1_20151217  = Specification("3.1-20151217", 3.1, 20151217, "3.1", "https://www.w3.org/TR/2015/CR-xquery-31-20151217/")
+    val REC_3_1_20170321 = Specification("3.1-20170321", 3.1, 20170321, "3.1", "https://www.w3.org/TR/2017/REC-xquery-31-20170321/")
+
+    // endregion
+    // region 0.9-ml
+
+    val MARKLOGIC_0_9 = Specification("0.9-ml", 0.9, 2007, "0.9-ml", "http://docs.marklogic.com/guide/xquery/dialects#id_65735") // MarkLogic 3.2 (compatibility)
+
+    // endregion
+    // region 1.0-ml
+
     val MARKLOGIC_1_0_ML4 = Specification("1.0-ml4", 1.0, 2008,   "1.0-ml", "http://docs.marklogic.com/guide/xquery/dialects#id_63368") // MarkLogic 4.0
     val MARKLOGIC_1_0_ML7 = Specification("1.0-ml7", 1.0, 201311, "1.0-ml", "http://docs.marklogic.com/guide/xquery/dialects#id_63368") // MarkLogic 7.0
     val MARKLOGIC_1_0_ML8 = Specification("1.0-ml7", 1.0, 201502, "1.0-ml", "http://docs.marklogic.com/guide/xquery/dialects#id_63368") // MarkLogic 8.0
     val MARKLOGIC_1_0_ML9 = Specification("1.0-ml7", 1.0, 201705, "1.0-ml", "http://docs.marklogic.com/guide/xquery/dialects#id_63368") // MarkLogic 9.0
+
+    // endregion
 }
 
 // endregion
@@ -72,6 +97,13 @@ object XQuery : Language("XQuery", "application/xquery") {
 
 private class BaseXProduct(id: String, name: String, implementation: Implementation) : Product(id, name, implementation) {
     override fun supportsFeature(version: Version, feature: XQueryFeature): Boolean = true
+
+    override fun conformsTo(productVersion: Version, ref: Version): Boolean = when (ref) {
+        XQuery.REC_3_0_20140408 -> productVersion.value >= 7.7 // Full implementation.
+        XQuery.CR_3_1_20151217  -> productVersion.value <= 8.5
+        XQuery.REC_3_1_20170321 -> productVersion.value >= 8.6
+        else -> false
+    }
 }
 
 object BaseX : Implementation("basex", "BaseX", "http://www.basex.org/") {
@@ -94,6 +126,16 @@ object BaseX : Implementation("basex", "BaseX", "http://www.basex.org/") {
 
 private class MarkLogicProduct(id: String, name: String, implementation: Implementation) : Product(id, name, implementation) {
     override fun supportsFeature(version: Version, feature: XQueryFeature): Boolean = true
+
+    override fun conformsTo(productVersion: Version, ref: Version): Boolean = when (ref) {
+        XQuery.REC_1_0_20070123 -> true
+        XQuery.MARKLOGIC_0_9 -> true
+        XQuery.MARKLOGIC_1_0_ML4 -> productVersion.value <= 6.0
+        XQuery.MARKLOGIC_1_0_ML7 -> productVersion.value == 7.0
+        XQuery.MARKLOGIC_1_0_ML8 -> productVersion.value == 8.0
+        XQuery.MARKLOGIC_1_0_ML9 -> productVersion.value == 9.0
+        else -> false
+    }
 }
 
 object MarkLogic : Implementation("marklogic", "MarkLogic", "http://www.marklogic.com/") {
@@ -128,6 +170,14 @@ private class SaxonProduct(id: String, name: String, implementation: Implementat
         XQueryFeature.STATIC_TYPING ->
             false
     }
+
+    override fun conformsTo(productVersion: Version, ref: Version): Boolean = when (ref) {
+        XQuery.REC_1_0_20070123 -> true
+        XQuery.REC_3_0_20140408 -> productVersion.value >= 9.6 || (productVersion.value >= 9.5 && this !== Saxon.HE)
+        XQuery.CR_3_1_20151217  -> productVersion === Saxon.VERSION_9_7
+        XQuery.REC_3_1_20170321 -> productVersion.value >= 9.8
+        else -> false
+    }
 }
 
 object Saxon : Implementation("saxon", "Saxon", "http://www.saxonica.com") {
@@ -157,6 +207,14 @@ object Saxon : Implementation("saxon", "Saxon", "http://www.saxonica.com") {
 
 private class W3CProduct(id: String, name: String, implementation: Implementation) : Product(id, name, implementation) {
     override fun supportsFeature(version: Version, feature: XQueryFeature): Boolean = true
+
+    override fun conformsTo(productVersion: Version, ref: Version): Boolean = when (ref) {
+        XQuery.REC_1_0_20070123 -> productVersion === W3C.FIRST_EDITION
+        XQuery.REC_1_0_20101214 -> productVersion === W3C.SECOND_EDITION
+        XQuery.REC_3_0_20140408 -> productVersion === W3C.FIRST_EDITION
+        XQuery.REC_3_1_20170321 -> productVersion === W3C.FIRST_EDITION
+        else -> false
+    }
 }
 
 object W3C : Implementation("w3c", "W3C", "https://www.w3.org/XML/Query/") {

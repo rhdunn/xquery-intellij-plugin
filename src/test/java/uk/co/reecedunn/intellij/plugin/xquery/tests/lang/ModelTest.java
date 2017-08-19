@@ -211,4 +211,95 @@ public class ModelTest extends TestCase {
     }
 
     // endregion
+    // region Conforms To
+
+    public void testBaseX_ConformsTo() {
+        for (Product product : BaseX.INSTANCE.getProducts()) {
+            for (Version version : BaseX.INSTANCE.getVersions()) {
+                // region XQuery
+
+                assertThat(product.conformsTo(version, XQuery.INSTANCE.getREC_1_0_20070123()), is(false));
+                assertThat(product.conformsTo(version, XQuery.INSTANCE.getREC_1_0_20101214()), is(false));
+                assertThat(product.conformsTo(version, XQuery.INSTANCE.getREC_3_0_20140408()), is(true));
+                assertThat(product.conformsTo(version, XQuery.INSTANCE.getCR_3_1_20151217()), is(version.getValue() <= 8.5));
+                assertThat(product.conformsTo(version, XQuery.INSTANCE.getREC_3_1_20170321()), is(version.getValue() >= 8.6));
+                assertThat(product.conformsTo(version, XQuery.INSTANCE.getMARKLOGIC_0_9()), is(false));
+                assertThat(product.conformsTo(version, XQuery.INSTANCE.getMARKLOGIC_1_0_ML4()), is(false));
+                assertThat(product.conformsTo(version, XQuery.INSTANCE.getMARKLOGIC_1_0_ML7()), is(false));
+                assertThat(product.conformsTo(version, XQuery.INSTANCE.getMARKLOGIC_1_0_ML8()), is(false));
+                assertThat(product.conformsTo(version, XQuery.INSTANCE.getMARKLOGIC_1_0_ML9()), is(false));
+
+                // endregion
+            }
+        }
+    }
+
+    public void testMarkLogic_ConformsTo() {
+        for (Product product : MarkLogic.INSTANCE.getProducts()) {
+            for (Version version : MarkLogic.INSTANCE.getVersions()) {
+                // region XQuery
+
+                assertThat(product.conformsTo(version, XQuery.INSTANCE.getREC_1_0_20070123()), is(true));
+                assertThat(product.conformsTo(version, XQuery.INSTANCE.getREC_1_0_20101214()), is(false));
+                assertThat(product.conformsTo(version, XQuery.INSTANCE.getREC_3_0_20140408()), is(false));
+                assertThat(product.conformsTo(version, XQuery.INSTANCE.getCR_3_1_20151217()), is(false));
+                assertThat(product.conformsTo(version, XQuery.INSTANCE.getREC_3_1_20170321()), is(false));
+                assertThat(product.conformsTo(version, XQuery.INSTANCE.getMARKLOGIC_0_9()), is(true));
+                assertThat(product.conformsTo(version, XQuery.INSTANCE.getMARKLOGIC_1_0_ML4()), is(version.getValue() <= 6.0));
+                assertThat(product.conformsTo(version, XQuery.INSTANCE.getMARKLOGIC_1_0_ML7()), is(version.getValue() == 7.0));
+                assertThat(product.conformsTo(version, XQuery.INSTANCE.getMARKLOGIC_1_0_ML8()), is(version.getValue() == 8.0));
+                assertThat(product.conformsTo(version, XQuery.INSTANCE.getMARKLOGIC_1_0_ML9()), is(version.getValue() == 9.0));
+
+                // endregion
+            }
+        }
+    }
+
+    public void testSaxon_ConformsTo() {
+        for (Product product : Saxon.INSTANCE.getProducts()) {
+            for (Version version : Saxon.INSTANCE.getVersions()) {
+                // region XQuery
+
+                assertThat(product.conformsTo(version, XQuery.INSTANCE.getREC_1_0_20070123()), is(true));
+                assertThat(product.conformsTo(version, XQuery.INSTANCE.getREC_1_0_20101214()), is(false));
+                if (product.getId().equals("HE")) {
+                    assertThat(product.conformsTo(version, XQuery.INSTANCE.getREC_3_0_20140408()), is(version.getValue() >= 9.6));
+                } else {
+                    assertThat(product.conformsTo(version, XQuery.INSTANCE.getREC_3_0_20140408()), is(version.getValue() >= 9.5));
+                }
+                assertThat(product.conformsTo(version, XQuery.INSTANCE.getCR_3_1_20151217()), is(version.getValue() == 9.7));
+                assertThat(product.conformsTo(version, XQuery.INSTANCE.getREC_3_1_20170321()), is(version.getValue() >= 9.8));
+                assertThat(product.conformsTo(version, XQuery.INSTANCE.getMARKLOGIC_0_9()), is(false));
+                assertThat(product.conformsTo(version, XQuery.INSTANCE.getMARKLOGIC_1_0_ML4()), is(false));
+                assertThat(product.conformsTo(version, XQuery.INSTANCE.getMARKLOGIC_1_0_ML7()), is(false));
+                assertThat(product.conformsTo(version, XQuery.INSTANCE.getMARKLOGIC_1_0_ML8()), is(false));
+                assertThat(product.conformsTo(version, XQuery.INSTANCE.getMARKLOGIC_1_0_ML9()), is(false));
+
+                // endregion
+            }
+        }
+    }
+
+    public void testW3C_ConformsTo() {
+        for (Product product : W3C.INSTANCE.getProducts()) {
+            for (Version version : W3C.INSTANCE.getVersions()) {
+                // region XQuery
+
+                assertThat(product.conformsTo(version, XQuery.INSTANCE.getREC_1_0_20070123()), is(version.getValue() == 1.0));
+                assertThat(product.conformsTo(version, XQuery.INSTANCE.getREC_1_0_20101214()), is(version.getValue() == 2.0));
+                assertThat(product.conformsTo(version, XQuery.INSTANCE.getREC_3_0_20140408()), is(version.getValue() == 1.0));
+                assertThat(product.conformsTo(version, XQuery.INSTANCE.getCR_3_1_20151217()), is(false));
+                assertThat(product.conformsTo(version, XQuery.INSTANCE.getREC_3_1_20170321()), is(version.getValue() == 1.0));
+                assertThat(product.conformsTo(version, XQuery.INSTANCE.getMARKLOGIC_0_9()), is(false));
+                assertThat(product.conformsTo(version, XQuery.INSTANCE.getMARKLOGIC_1_0_ML4()), is(false));
+                assertThat(product.conformsTo(version, XQuery.INSTANCE.getMARKLOGIC_1_0_ML7()), is(false));
+                assertThat(product.conformsTo(version, XQuery.INSTANCE.getMARKLOGIC_1_0_ML8()), is(false));
+                assertThat(product.conformsTo(version, XQuery.INSTANCE.getMARKLOGIC_1_0_ML9()), is(false));
+
+                // endregion
+            }
+        }
+    }
+
+    // endregion
 }
