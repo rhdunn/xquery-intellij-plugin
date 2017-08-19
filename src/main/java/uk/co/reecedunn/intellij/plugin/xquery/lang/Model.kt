@@ -43,7 +43,7 @@ sealed class Product(val id: String, val name: String, val implementation: Imple
     abstract fun conformsTo(productVersion: Version, ref: Version): Boolean
 }
 
-private class ProductVersion(id: String) : Version(id, id.toDouble())
+private class ProductVersion(id: String, val implementation: Implementation) : Version(id, id.toDouble())
 
 sealed class Implementation(val id: String, val name: String, val vendorUri: String) {
     abstract val versions: List<Version>
@@ -107,9 +107,9 @@ private class BaseXProduct(id: String, name: String, implementation: Implementat
 }
 
 object BaseX : Implementation("basex", "BaseX", "http://www.basex.org/") {
-    val VERSION_8_4: Version = ProductVersion("8.4")
-    val VERSION_8_5: Version = ProductVersion("8.5")
-    val VERSION_8_6: Version = ProductVersion("8.6")
+    val VERSION_8_4: Version = ProductVersion("8.4", this)
+    val VERSION_8_5: Version = ProductVersion("8.5", this)
+    val VERSION_8_6: Version = ProductVersion("8.6", this)
 
     override val versions: List<Version> = listOf(
         VERSION_8_4,
@@ -139,10 +139,10 @@ private class MarkLogicProduct(id: String, name: String, implementation: Impleme
 }
 
 object MarkLogic : Implementation("marklogic", "MarkLogic", "http://www.marklogic.com/") {
-    val VERSION_6_0: Version = ProductVersion("6.0")
-    val VERSION_7_0: Version = ProductVersion("7.0")
-    val VERSION_8_0: Version = ProductVersion("8.0")
-    val VERSION_9_0: Version = ProductVersion("9.0")
+    val VERSION_6_0: Version = ProductVersion("6.0", this)
+    val VERSION_7_0: Version = ProductVersion("7.0", this)
+    val VERSION_8_0: Version = ProductVersion("8.0", this)
+    val VERSION_9_0: Version = ProductVersion("9.0", this)
 
     override val versions: List<Version> = listOf(
         VERSION_6_0,
@@ -181,10 +181,10 @@ private class SaxonProduct(id: String, name: String, implementation: Implementat
 }
 
 object Saxon : Implementation("saxon", "Saxon", "http://www.saxonica.com") {
-    val VERSION_9_5: Version = ProductVersion("9.5")
-    val VERSION_9_6: Version = ProductVersion("9.6")
-    val VERSION_9_7: Version = ProductVersion("9.7")
-    val VERSION_9_8: Version = ProductVersion("9.8")
+    val VERSION_9_5: Version = ProductVersion("9.5", this)
+    val VERSION_9_6: Version = ProductVersion("9.6", this)
+    val VERSION_9_7: Version = ProductVersion("9.7", this)
+    val VERSION_9_8: Version = ProductVersion("9.8", this)
 
     override val versions: List<Version> = listOf(
         VERSION_9_5,
