@@ -62,10 +62,6 @@ sealed class Implementation(val id: String, override val name: String, val vendo
 // region Specification :: XQuery
 
 object XQuery : Language("XQuery", "application/xquery"), Versioned {
-    override fun isCaseSensitive(): Boolean = true
-
-    override val name get(): String = displayName
-
     // region 1.0
 
     val REC_1_0_20070123 = Specification("1.0-20070123", 1.0, 20070123, "1.0", "https://www.w3.org/TR/2007/REC-xquery-20070123/", this)
@@ -90,6 +86,10 @@ object XQuery : Language("XQuery", "application/xquery"), Versioned {
 
     // endregion
 
+    override fun isCaseSensitive(): Boolean = true
+
+    override val name get(): String = displayName
+
     override val versions: List<Version> = listOf(
         MARKLOGIC_0_9,
         REC_1_0_20070123,
@@ -98,6 +98,20 @@ object XQuery : Language("XQuery", "application/xquery"), Versioned {
         CR_3_1_20151217,
         REC_3_1_20170321,
         MARKLOGIC_1_0)
+}
+
+// endregion
+// region Specification :: XQuery Update Facility
+
+object UpdateFacility : Versioned {
+    val REC_1_0_20110317  = Specification("1.0-20110317", 1.0, 20110317, "1.0", "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/", this)
+    val NOTE_3_0_20170124 = Specification("3.0-20170124", 3.0, 20170124, "3.0", "https://www.w3.org/TR/2017/NOTE-xquery-update-30-20170124/", this)
+
+    override val name get(): String = "XQuery Update Facility"
+
+    override val versions get(): List<Version> = listOf(
+        REC_1_0_20110317,
+        NOTE_3_0_20170124)
 }
 
 // endregion
@@ -110,6 +124,8 @@ private class BaseXProduct(id: String, name: String, implementation: Implementat
         XQuery.REC_3_0_20140408 -> productVersion.value >= 7.7 // Full implementation.
         XQuery.CR_3_1_20151217  -> productVersion.value <= 8.5
         XQuery.REC_3_1_20170321 -> productVersion.value >= 8.6
+        UpdateFacility.REC_1_0_20110317 -> true
+        UpdateFacility.NOTE_3_0_20170124 -> productVersion.value >= 8.5
         else -> ref.kind === implementation && ref.value <= productVersion.value
     }
 }
@@ -169,9 +185,9 @@ private class SaxonProduct(id: String, name: String, implementation: Implementat
         XQueryFeature.MINIMAL_CONFORMANCE, XQueryFeature.FULL_AXIS, XQueryFeature.MODULE, XQueryFeature.SERIALIZATION ->
             true
         XQueryFeature.HIGHER_ORDER_FUNCTION ->
-            id != "HE"
+            this !== Saxon.HE
         XQueryFeature.SCHEMA_IMPORT, XQueryFeature.SCHEMA_VALIDATION, XQueryFeature.TYPED_DATA ->
-            id == "EE" || id == "EE-Q"
+            this === Saxon.EE || this == Saxon.EE_Q
         XQueryFeature.STATIC_TYPING ->
             false
     }
@@ -181,6 +197,7 @@ private class SaxonProduct(id: String, name: String, implementation: Implementat
         XQuery.REC_3_0_20140408 -> productVersion.value >= 9.6 || (productVersion.value >= 9.5 && this !== Saxon.HE)
         XQuery.CR_3_1_20151217  -> productVersion === Saxon.VERSION_9_7
         XQuery.REC_3_1_20170321 -> productVersion.value >= 9.8
+        UpdateFacility.REC_1_0_20110317 -> this !== Saxon.HE && this !== Saxon.PE
         else -> ref.kind === implementation && ref.value <= productVersion.value
     }
 }
@@ -218,6 +235,7 @@ private class W3CProduct(id: String, name: String, implementation: Implementatio
         XQuery.REC_1_0_20101214 -> productVersion === W3C.SECOND_EDITION
         XQuery.REC_3_0_20140408 -> productVersion === W3C.FIRST_EDITION
         XQuery.REC_3_1_20170321 -> productVersion === W3C.FIRST_EDITION
+        UpdateFacility.REC_1_0_20110317 -> productVersion === W3C.FIRST_EDITION
         else -> false // NOTE: 1ed/2ed conformance is done at the Specification level.
     }
 }
