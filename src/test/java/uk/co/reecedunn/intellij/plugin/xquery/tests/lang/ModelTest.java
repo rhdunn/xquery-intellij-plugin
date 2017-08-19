@@ -235,6 +235,11 @@ public class ModelTest extends TestCase {
                 assertThat(product.conformsTo(version, FullText.INSTANCE.getREC_3_0_20151124()), is(true));
 
                 // endregion
+                // region Specification: XQuery Scripting Extension
+
+                assertThat(product.conformsTo(version, Scripting.INSTANCE.getNOTE_1_0_20140918()), is(false));
+
+                // endregion
                 // region Specification: XQuery Update Facility
 
                 assertThat(product.conformsTo(version, UpdateFacility.INSTANCE.getREC_1_0_20110317()), is(true));
@@ -292,6 +297,11 @@ public class ModelTest extends TestCase {
 
                 assertThat(product.conformsTo(version, FullText.INSTANCE.getREC_1_0_20110317()), is(false));
                 assertThat(product.conformsTo(version, FullText.INSTANCE.getREC_3_0_20151124()), is(false));
+
+                // endregion
+                // region Specification: XQuery Scripting Extension
+
+                assertThat(product.conformsTo(version, Scripting.INSTANCE.getNOTE_1_0_20140918()), is(false));
 
                 // endregion
                 // region Specification: XQuery Update Facility
@@ -357,6 +367,11 @@ public class ModelTest extends TestCase {
                 assertThat(product.conformsTo(version, FullText.INSTANCE.getREC_3_0_20151124()), is(false));
 
                 // endregion
+                // region Specification: XQuery Scripting Extension
+
+                assertThat(product.conformsTo(version, Scripting.INSTANCE.getNOTE_1_0_20140918()), is(false));
+
+                // endregion
                 // region Specification: XQuery Update Facility
 
                 if (product.getId().equals("HE") || product.getId().equals("PE")) {
@@ -418,6 +433,11 @@ public class ModelTest extends TestCase {
 
                 assertThat(product.conformsTo(version, FullText.INSTANCE.getREC_1_0_20110317()), is(version.getValue() == 1.0));
                 assertThat(product.conformsTo(version, FullText.INSTANCE.getREC_3_0_20151124()), is(version.getValue() == 1.0));
+
+                // endregion
+                // region Specification: XQuery Scripting Extension
+
+                assertThat(product.conformsTo(version, Scripting.INSTANCE.getNOTE_1_0_20140918()), is(false));
 
                 // endregion
                 // region Specification: XQuery Update Facility

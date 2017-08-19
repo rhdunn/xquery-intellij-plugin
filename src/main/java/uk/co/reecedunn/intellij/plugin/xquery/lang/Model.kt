@@ -116,6 +116,18 @@ object FullText : Versioned {
 }
 
 // endregion
+// region Specification :: XQuery Scripting Extension
+
+object Scripting : Versioned {
+    val NOTE_1_0_20140918  = Specification("1.0-20140918", 1.0, 20140918, "1.0", "https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/", this)
+
+    override val name get(): String = "XQuery Scripting Extension"
+
+    override val versions get(): List<Version> = listOf(
+        NOTE_1_0_20140918)
+}
+
+// endregion
 // region Specification :: XQuery Update Facility
 
 object UpdateFacility : Versioned {
