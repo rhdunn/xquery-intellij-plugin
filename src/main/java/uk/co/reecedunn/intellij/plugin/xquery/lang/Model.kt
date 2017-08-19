@@ -86,6 +86,18 @@ object XQuery : Language("XQuery", "application/xquery"), Versioned {
     val MARKLOGIC_1_0 = Specification("1.0-ml", 1.0, 2008, "1.0-ml", "http://docs.marklogic.com/guide/xquery/dialects#id_63368", this) // MarkLogic 4.0+
 
     // endregion
+
+    val specifications: List<Specification> = listOf(
+        MARKLOGIC_0_9,
+        REC_1_0_20070123,
+        REC_1_0_20101214,
+        REC_3_0_20140408,
+        CR_3_1_20151217,
+        REC_3_1_20170321,
+        MARKLOGIC_1_0)
+
+    fun versionsFor(product: Product, version: Version): List<Specification> =
+        specifications.filter { spec -> product.conformsTo(version, spec) }
 }
 
 // endregion

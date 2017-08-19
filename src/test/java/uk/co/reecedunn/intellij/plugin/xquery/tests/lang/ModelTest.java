@@ -18,6 +18,8 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.lang;
 import junit.framework.TestCase;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.*;
 
+import java.util.List;
+
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -402,6 +404,85 @@ public class ModelTest extends TestCase {
 
                 // endregion
             }
+        }
+    }
+
+    // endregion
+    // region XQuery Versions
+
+    public void testBaseX_XQueryVersions() {
+        List<Specification> xquery;
+        for (Product product : BaseX.INSTANCE.getProducts()) {
+            for (Version version : BaseX.INSTANCE.getVersions()) {
+                xquery = XQuery.INSTANCE.versionsFor(product, version);
+                assertThat(xquery.size(), is(2));
+                assertThat(xquery.get(0), is(XQuery.INSTANCE.getREC_3_0_20140408()));
+                if (version.getValue() <= 8.5) {
+                    assertThat(xquery.get(1), is(XQuery.INSTANCE.getCR_3_1_20151217()));
+                } else {
+                    assertThat(xquery.get(1), is(XQuery.INSTANCE.getREC_3_1_20170321()));
+                }
+            }
+        }
+    }
+
+    public void testMarkLogic_XQueryVersions() {
+        List<Specification> xquery;
+        for (Product product : MarkLogic.INSTANCE.getProducts()) {
+            for (Version version : MarkLogic.INSTANCE.getVersions()) {
+                xquery = XQuery.INSTANCE.versionsFor(product, version);
+                assertThat(xquery.size(), is(3));
+                assertThat(xquery.get(0), is(XQuery.INSTANCE.getMARKLOGIC_0_9()));
+                assertThat(xquery.get(1), is(XQuery.INSTANCE.getREC_1_0_20070123()));
+                assertThat(xquery.get(2), is(XQuery.INSTANCE.getMARKLOGIC_1_0()));
+            }
+        }
+    }
+
+    public void testSaxon_XQueryVersions() {
+        List<Specification> xquery;
+        for (Product product : Saxon.INSTANCE.getProducts()) {
+            xquery = XQuery.INSTANCE.versionsFor(product, Saxon.INSTANCE.getVERSION_9_5());
+            if (product.getId().equals("HE")) {
+                assertThat(xquery.size(), is(1));
+                assertThat(xquery.get(0), is(XQuery.INSTANCE.getREC_1_0_20070123()));
+            } else {
+                assertThat(xquery.size(), is(2));
+                assertThat(xquery.get(0), is(XQuery.INSTANCE.getREC_1_0_20070123()));
+                assertThat(xquery.get(1), is(XQuery.INSTANCE.getREC_3_0_20140408()));
+            }
+
+            xquery = XQuery.INSTANCE.versionsFor(product, Saxon.INSTANCE.getVERSION_9_6());
+            assertThat(xquery.size(), is(2));
+            assertThat(xquery.get(0), is(XQuery.INSTANCE.getREC_1_0_20070123()));
+            assertThat(xquery.get(1), is(XQuery.INSTANCE.getREC_3_0_20140408()));
+
+            xquery = XQuery.INSTANCE.versionsFor(product, Saxon.INSTANCE.getVERSION_9_7());
+            assertThat(xquery.size(), is(3));
+            assertThat(xquery.get(0), is(XQuery.INSTANCE.getREC_1_0_20070123()));
+            assertThat(xquery.get(1), is(XQuery.INSTANCE.getREC_3_0_20140408()));
+            assertThat(xquery.get(2), is(XQuery.INSTANCE.getCR_3_1_20151217()));
+
+            xquery = XQuery.INSTANCE.versionsFor(product, Saxon.INSTANCE.getVERSION_9_8());
+            assertThat(xquery.size(), is(3));
+            assertThat(xquery.get(0), is(XQuery.INSTANCE.getREC_1_0_20070123()));
+            assertThat(xquery.get(1), is(XQuery.INSTANCE.getREC_3_0_20140408()));
+            assertThat(xquery.get(2), is(XQuery.INSTANCE.getREC_3_1_20170321()));
+        }
+    }
+
+    public void testW3C_XQueryVersions() {
+        List<Specification> xquery;
+        for (Product product : W3C.INSTANCE.getProducts()) {
+            xquery = XQuery.INSTANCE.versionsFor(product, W3C.INSTANCE.getFIRST_EDITION());
+            assertThat(xquery.size(), is(3));
+            assertThat(xquery.get(0), is(XQuery.INSTANCE.getREC_1_0_20070123()));
+            assertThat(xquery.get(1), is(XQuery.INSTANCE.getREC_3_0_20140408()));
+            assertThat(xquery.get(2), is(XQuery.INSTANCE.getREC_3_1_20170321()));
+
+            xquery = XQuery.INSTANCE.versionsFor(product, W3C.INSTANCE.getSECOND_EDITION());
+            assertThat(xquery.size(), is(1));
+            assertThat(xquery.get(0), is(XQuery.INSTANCE.getREC_1_0_20101214()));
         }
     }
 
