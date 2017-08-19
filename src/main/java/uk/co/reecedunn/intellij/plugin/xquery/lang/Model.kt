@@ -105,7 +105,7 @@ private class BaseXProduct(id: String, name: String, implementation: Implementat
         XQuery.REC_3_0_20140408 -> productVersion.value >= 7.7 // Full implementation.
         XQuery.CR_3_1_20151217  -> productVersion.value <= 8.5
         XQuery.REC_3_1_20170321 -> productVersion.value >= 8.6
-        else -> false
+        else -> ref.kind === implementation && ref.value <= productVersion.value
     }
 }
 
@@ -137,7 +137,7 @@ private class MarkLogicProduct(id: String, name: String, implementation: Impleme
         XQuery.MARKLOGIC_1_0_ML7 -> productVersion.value == 7.0
         XQuery.MARKLOGIC_1_0_ML8 -> productVersion.value == 8.0
         XQuery.MARKLOGIC_1_0_ML9 -> productVersion.value == 9.0
-        else -> false
+        else -> ref.kind === implementation && ref.value <= productVersion.value
     }
 }
 
@@ -179,7 +179,7 @@ private class SaxonProduct(id: String, name: String, implementation: Implementat
         XQuery.REC_3_0_20140408 -> productVersion.value >= 9.6 || (productVersion.value >= 9.5 && this !== Saxon.HE)
         XQuery.CR_3_1_20151217  -> productVersion === Saxon.VERSION_9_7
         XQuery.REC_3_1_20170321 -> productVersion.value >= 9.8
-        else -> false
+        else -> ref.kind === implementation && ref.value <= productVersion.value
     }
 }
 
@@ -216,7 +216,7 @@ private class W3CProduct(id: String, name: String, implementation: Implementatio
         XQuery.REC_1_0_20101214 -> productVersion === W3C.SECOND_EDITION
         XQuery.REC_3_0_20140408 -> productVersion === W3C.FIRST_EDITION
         XQuery.REC_3_1_20170321 -> productVersion === W3C.FIRST_EDITION
-        else -> false
+        else -> false // NOTE: 1ed/2ed conformance is done at the Specification level.
     }
 }
 

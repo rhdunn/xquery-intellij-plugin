@@ -216,7 +216,7 @@ public class ModelTest extends TestCase {
     public void testBaseX_ConformsTo() {
         for (Product product : BaseX.INSTANCE.getProducts()) {
             for (Version version : BaseX.INSTANCE.getVersions()) {
-                // region XQuery
+                // region Specification: XQuery
 
                 assertThat(product.conformsTo(version, XQuery.INSTANCE.getREC_1_0_20070123()), is(false));
                 assertThat(product.conformsTo(version, XQuery.INSTANCE.getREC_1_0_20101214()), is(false));
@@ -230,6 +230,35 @@ public class ModelTest extends TestCase {
                 assertThat(product.conformsTo(version, XQuery.INSTANCE.getMARKLOGIC_1_0_ML9()), is(false));
 
                 // endregion
+                // region Implementation: BaseX
+
+                assertThat(product.conformsTo(version, BaseX.INSTANCE.getVERSION_8_4()), is(version.getValue() >= 8.4));
+                assertThat(product.conformsTo(version, BaseX.INSTANCE.getVERSION_8_5()), is(version.getValue() >= 8.5));
+                assertThat(product.conformsTo(version, BaseX.INSTANCE.getVERSION_8_6()), is(version.getValue() >= 8.6));
+
+                // endregion
+                // region Implementation: MarkLogic
+
+                assertThat(product.conformsTo(version, MarkLogic.INSTANCE.getVERSION_6_0()), is(false));
+                assertThat(product.conformsTo(version, MarkLogic.INSTANCE.getVERSION_7_0()), is(false));
+                assertThat(product.conformsTo(version, MarkLogic.INSTANCE.getVERSION_8_0()), is(false));
+                assertThat(product.conformsTo(version, MarkLogic.INSTANCE.getVERSION_9_0()), is(false));
+
+                // endregion
+                // region Implementation: Saxon
+
+                assertThat(product.conformsTo(version, Saxon.INSTANCE.getVERSION_9_5()), is(false));
+                assertThat(product.conformsTo(version, Saxon.INSTANCE.getVERSION_9_6()), is(false));
+                assertThat(product.conformsTo(version, Saxon.INSTANCE.getVERSION_9_7()), is(false));
+                assertThat(product.conformsTo(version, Saxon.INSTANCE.getVERSION_9_8()), is(false));
+
+                // endregion
+                // region Implementation: W3C
+
+                assertThat(product.conformsTo(version, W3C.INSTANCE.getFIRST_EDITION()), is(false));
+                assertThat(product.conformsTo(version, W3C.INSTANCE.getSECOND_EDITION()), is(false));
+
+                // endregion
             }
         }
     }
@@ -237,7 +266,7 @@ public class ModelTest extends TestCase {
     public void testMarkLogic_ConformsTo() {
         for (Product product : MarkLogic.INSTANCE.getProducts()) {
             for (Version version : MarkLogic.INSTANCE.getVersions()) {
-                // region XQuery
+                // region Specification: XQuery
 
                 assertThat(product.conformsTo(version, XQuery.INSTANCE.getREC_1_0_20070123()), is(true));
                 assertThat(product.conformsTo(version, XQuery.INSTANCE.getREC_1_0_20101214()), is(false));
@@ -251,6 +280,35 @@ public class ModelTest extends TestCase {
                 assertThat(product.conformsTo(version, XQuery.INSTANCE.getMARKLOGIC_1_0_ML9()), is(version.getValue() == 9.0));
 
                 // endregion
+                // region Implementation: BaseX
+
+                assertThat(product.conformsTo(version, BaseX.INSTANCE.getVERSION_8_4()), is(false));
+                assertThat(product.conformsTo(version, BaseX.INSTANCE.getVERSION_8_5()), is(false));
+                assertThat(product.conformsTo(version, BaseX.INSTANCE.getVERSION_8_6()), is(false));
+
+                // endregion
+                // region Implementation: MarkLogic
+
+                assertThat(product.conformsTo(version, MarkLogic.INSTANCE.getVERSION_6_0()), is(version.getValue() >= 6.0));
+                assertThat(product.conformsTo(version, MarkLogic.INSTANCE.getVERSION_7_0()), is(version.getValue() >= 7.0));
+                assertThat(product.conformsTo(version, MarkLogic.INSTANCE.getVERSION_8_0()), is(version.getValue() >= 8.0));
+                assertThat(product.conformsTo(version, MarkLogic.INSTANCE.getVERSION_9_0()), is(version.getValue() >= 9.0));
+
+                // endregion
+                // region Implementation: Saxon
+
+                assertThat(product.conformsTo(version, Saxon.INSTANCE.getVERSION_9_5()), is(false));
+                assertThat(product.conformsTo(version, Saxon.INSTANCE.getVERSION_9_6()), is(false));
+                assertThat(product.conformsTo(version, Saxon.INSTANCE.getVERSION_9_7()), is(false));
+                assertThat(product.conformsTo(version, Saxon.INSTANCE.getVERSION_9_8()), is(false));
+
+                // endregion
+                // region Implementation: W3C
+
+                assertThat(product.conformsTo(version, W3C.INSTANCE.getFIRST_EDITION()), is(false));
+                assertThat(product.conformsTo(version, W3C.INSTANCE.getSECOND_EDITION()), is(false));
+
+                // endregion
             }
         }
     }
@@ -258,7 +316,7 @@ public class ModelTest extends TestCase {
     public void testSaxon_ConformsTo() {
         for (Product product : Saxon.INSTANCE.getProducts()) {
             for (Version version : Saxon.INSTANCE.getVersions()) {
-                // region XQuery
+                // region Specification: XQuery
 
                 assertThat(product.conformsTo(version, XQuery.INSTANCE.getREC_1_0_20070123()), is(true));
                 assertThat(product.conformsTo(version, XQuery.INSTANCE.getREC_1_0_20101214()), is(false));
@@ -276,6 +334,35 @@ public class ModelTest extends TestCase {
                 assertThat(product.conformsTo(version, XQuery.INSTANCE.getMARKLOGIC_1_0_ML9()), is(false));
 
                 // endregion
+                // region Implementation: BaseX
+
+                assertThat(product.conformsTo(version, BaseX.INSTANCE.getVERSION_8_4()), is(false));
+                assertThat(product.conformsTo(version, BaseX.INSTANCE.getVERSION_8_5()), is(false));
+                assertThat(product.conformsTo(version, BaseX.INSTANCE.getVERSION_8_6()), is(false));
+
+                // endregion
+                // region Implementation: MarkLogic
+
+                assertThat(product.conformsTo(version, MarkLogic.INSTANCE.getVERSION_6_0()), is(false));
+                assertThat(product.conformsTo(version, MarkLogic.INSTANCE.getVERSION_7_0()), is(false));
+                assertThat(product.conformsTo(version, MarkLogic.INSTANCE.getVERSION_8_0()), is(false));
+                assertThat(product.conformsTo(version, MarkLogic.INSTANCE.getVERSION_9_0()), is(false));
+
+                // endregion
+                // region Implementation: Saxon
+
+                assertThat(product.conformsTo(version, Saxon.INSTANCE.getVERSION_9_5()), is(version.getValue() >= 9.5));
+                assertThat(product.conformsTo(version, Saxon.INSTANCE.getVERSION_9_6()), is(version.getValue() >= 9.6));
+                assertThat(product.conformsTo(version, Saxon.INSTANCE.getVERSION_9_7()), is(version.getValue() >= 9.7));
+                assertThat(product.conformsTo(version, Saxon.INSTANCE.getVERSION_9_8()), is(version.getValue() >= 9.8));
+
+                // endregion
+                // region Implementation: W3C
+
+                assertThat(product.conformsTo(version, W3C.INSTANCE.getFIRST_EDITION()), is(false));
+                assertThat(product.conformsTo(version, W3C.INSTANCE.getSECOND_EDITION()), is(false));
+
+                // endregion
             }
         }
     }
@@ -283,7 +370,7 @@ public class ModelTest extends TestCase {
     public void testW3C_ConformsTo() {
         for (Product product : W3C.INSTANCE.getProducts()) {
             for (Version version : W3C.INSTANCE.getVersions()) {
-                // region XQuery
+                // region Specification: XQuery
 
                 assertThat(product.conformsTo(version, XQuery.INSTANCE.getREC_1_0_20070123()), is(version.getValue() == 1.0));
                 assertThat(product.conformsTo(version, XQuery.INSTANCE.getREC_1_0_20101214()), is(version.getValue() == 2.0));
@@ -295,6 +382,35 @@ public class ModelTest extends TestCase {
                 assertThat(product.conformsTo(version, XQuery.INSTANCE.getMARKLOGIC_1_0_ML7()), is(false));
                 assertThat(product.conformsTo(version, XQuery.INSTANCE.getMARKLOGIC_1_0_ML8()), is(false));
                 assertThat(product.conformsTo(version, XQuery.INSTANCE.getMARKLOGIC_1_0_ML9()), is(false));
+
+                // endregion
+                // region Implementation: BaseX
+
+                assertThat(product.conformsTo(version, BaseX.INSTANCE.getVERSION_8_4()), is(false));
+                assertThat(product.conformsTo(version, BaseX.INSTANCE.getVERSION_8_5()), is(false));
+                assertThat(product.conformsTo(version, BaseX.INSTANCE.getVERSION_8_6()), is(false));
+
+                // endregion
+                // region Implementation: MarkLogic
+
+                assertThat(product.conformsTo(version, MarkLogic.INSTANCE.getVERSION_6_0()), is(false));
+                assertThat(product.conformsTo(version, MarkLogic.INSTANCE.getVERSION_7_0()), is(false));
+                assertThat(product.conformsTo(version, MarkLogic.INSTANCE.getVERSION_8_0()), is(false));
+                assertThat(product.conformsTo(version, MarkLogic.INSTANCE.getVERSION_9_0()), is(false));
+
+                // endregion
+                // region Implementation: Saxon
+
+                assertThat(product.conformsTo(version, Saxon.INSTANCE.getVERSION_9_5()), is(false));
+                assertThat(product.conformsTo(version, Saxon.INSTANCE.getVERSION_9_6()), is(false));
+                assertThat(product.conformsTo(version, Saxon.INSTANCE.getVERSION_9_7()), is(false));
+                assertThat(product.conformsTo(version, Saxon.INSTANCE.getVERSION_9_8()), is(false));
+
+                // endregion
+                // region Implementation: W3C
+
+                assertThat(product.conformsTo(version, W3C.INSTANCE.getFIRST_EDITION()), is(false));
+                assertThat(product.conformsTo(version, W3C.INSTANCE.getSECOND_EDITION()), is(false));
 
                 // endregion
             }
