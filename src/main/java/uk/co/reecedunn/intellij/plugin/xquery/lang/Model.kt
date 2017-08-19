@@ -21,6 +21,11 @@ import com.intellij.lang.Language
 
 interface Versioned {
     val name: String
+
+    val versions: List<Version>
+
+    fun versionsFor(product: Product, version: Version): List<Version> =
+        versions.filter { spec -> product.conformsTo(version, spec) }
 }
 
 sealed class Version(val id: String, val value: Double, val kind: Versioned)
@@ -50,8 +55,6 @@ sealed class Product(val id: String, val name: String, val implementation: Imple
 }
 
 sealed class Implementation(val id: String, override val name: String, val vendorUri: String): Versioned {
-    abstract val versions: List<Version>
-
     abstract val products: List<Product>
 }
 
@@ -87,7 +90,7 @@ object XQuery : Language("XQuery", "application/xquery"), Versioned {
 
     // endregion
 
-    val specifications: List<Specification> = listOf(
+    override val versions: List<Version> = listOf(
         MARKLOGIC_0_9,
         REC_1_0_20070123,
         REC_1_0_20101214,
@@ -95,9 +98,6 @@ object XQuery : Language("XQuery", "application/xquery"), Versioned {
         CR_3_1_20151217,
         REC_3_1_20170321,
         MARKLOGIC_1_0)
-
-    fun versionsFor(product: Product, version: Version): List<Specification> =
-        specifications.filter { spec -> product.conformsTo(version, spec) }
 }
 
 // endregion

@@ -411,7 +411,7 @@ public class ModelTest extends TestCase {
     // region XQuery Versions
 
     public void testBaseX_XQueryVersions() {
-        List<Specification> xquery;
+        List<Version> xquery;
         for (Product product : BaseX.INSTANCE.getProducts()) {
             for (Version version : BaseX.INSTANCE.getVersions()) {
                 xquery = XQuery.INSTANCE.versionsFor(product, version);
@@ -427,7 +427,7 @@ public class ModelTest extends TestCase {
     }
 
     public void testMarkLogic_XQueryVersions() {
-        List<Specification> xquery;
+        List<Version> xquery;
         for (Product product : MarkLogic.INSTANCE.getProducts()) {
             for (Version version : MarkLogic.INSTANCE.getVersions()) {
                 xquery = XQuery.INSTANCE.versionsFor(product, version);
@@ -440,7 +440,7 @@ public class ModelTest extends TestCase {
     }
 
     public void testSaxon_XQueryVersions() {
-        List<Specification> xquery;
+        List<Version> xquery;
         for (Product product : Saxon.INSTANCE.getProducts()) {
             xquery = XQuery.INSTANCE.versionsFor(product, Saxon.INSTANCE.getVERSION_9_5());
             if (product.getId().equals("HE")) {
@@ -472,7 +472,7 @@ public class ModelTest extends TestCase {
     }
 
     public void testW3C_XQueryVersions() {
-        List<Specification> xquery;
+        List<Version> xquery;
         for (Product product : W3C.INSTANCE.getProducts()) {
             xquery = XQuery.INSTANCE.versionsFor(product, W3C.INSTANCE.getFIRST_EDITION());
             assertThat(xquery.size(), is(3));
