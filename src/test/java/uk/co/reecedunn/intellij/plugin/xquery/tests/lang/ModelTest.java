@@ -224,10 +224,7 @@ public class ModelTest extends TestCase {
                 assertThat(product.conformsTo(version, XQuery.INSTANCE.getCR_3_1_20151217()), is(version.getValue() <= 8.5));
                 assertThat(product.conformsTo(version, XQuery.INSTANCE.getREC_3_1_20170321()), is(version.getValue() >= 8.6));
                 assertThat(product.conformsTo(version, XQuery.INSTANCE.getMARKLOGIC_0_9()), is(false));
-                assertThat(product.conformsTo(version, XQuery.INSTANCE.getMARKLOGIC_1_0_ML4()), is(false));
-                assertThat(product.conformsTo(version, XQuery.INSTANCE.getMARKLOGIC_1_0_ML7()), is(false));
-                assertThat(product.conformsTo(version, XQuery.INSTANCE.getMARKLOGIC_1_0_ML8()), is(false));
-                assertThat(product.conformsTo(version, XQuery.INSTANCE.getMARKLOGIC_1_0_ML9()), is(false));
+                assertThat(product.conformsTo(version, XQuery.INSTANCE.getMARKLOGIC_1_0()), is(false));
 
                 // endregion
                 // region Implementation: BaseX
@@ -274,10 +271,7 @@ public class ModelTest extends TestCase {
                 assertThat(product.conformsTo(version, XQuery.INSTANCE.getCR_3_1_20151217()), is(false));
                 assertThat(product.conformsTo(version, XQuery.INSTANCE.getREC_3_1_20170321()), is(false));
                 assertThat(product.conformsTo(version, XQuery.INSTANCE.getMARKLOGIC_0_9()), is(true));
-                assertThat(product.conformsTo(version, XQuery.INSTANCE.getMARKLOGIC_1_0_ML4()), is(version.getValue() <= 6.0));
-                assertThat(product.conformsTo(version, XQuery.INSTANCE.getMARKLOGIC_1_0_ML7()), is(version.getValue() == 7.0));
-                assertThat(product.conformsTo(version, XQuery.INSTANCE.getMARKLOGIC_1_0_ML8()), is(version.getValue() == 8.0));
-                assertThat(product.conformsTo(version, XQuery.INSTANCE.getMARKLOGIC_1_0_ML9()), is(version.getValue() == 9.0));
+                assertThat(product.conformsTo(version, XQuery.INSTANCE.getMARKLOGIC_1_0()), is(true));
 
                 // endregion
                 // region Implementation: BaseX
@@ -328,10 +322,7 @@ public class ModelTest extends TestCase {
                 assertThat(product.conformsTo(version, XQuery.INSTANCE.getCR_3_1_20151217()), is(version.getValue() == 9.7));
                 assertThat(product.conformsTo(version, XQuery.INSTANCE.getREC_3_1_20170321()), is(version.getValue() >= 9.8));
                 assertThat(product.conformsTo(version, XQuery.INSTANCE.getMARKLOGIC_0_9()), is(false));
-                assertThat(product.conformsTo(version, XQuery.INSTANCE.getMARKLOGIC_1_0_ML4()), is(false));
-                assertThat(product.conformsTo(version, XQuery.INSTANCE.getMARKLOGIC_1_0_ML7()), is(false));
-                assertThat(product.conformsTo(version, XQuery.INSTANCE.getMARKLOGIC_1_0_ML8()), is(false));
-                assertThat(product.conformsTo(version, XQuery.INSTANCE.getMARKLOGIC_1_0_ML9()), is(false));
+                assertThat(product.conformsTo(version, XQuery.INSTANCE.getMARKLOGIC_1_0()), is(false));
 
                 // endregion
                 // region Implementation: BaseX
@@ -378,10 +369,7 @@ public class ModelTest extends TestCase {
                 assertThat(product.conformsTo(version, XQuery.INSTANCE.getCR_3_1_20151217()), is(false));
                 assertThat(product.conformsTo(version, XQuery.INSTANCE.getREC_3_1_20170321()), is(version.getValue() == 1.0));
                 assertThat(product.conformsTo(version, XQuery.INSTANCE.getMARKLOGIC_0_9()), is(false));
-                assertThat(product.conformsTo(version, XQuery.INSTANCE.getMARKLOGIC_1_0_ML4()), is(false));
-                assertThat(product.conformsTo(version, XQuery.INSTANCE.getMARKLOGIC_1_0_ML7()), is(false));
-                assertThat(product.conformsTo(version, XQuery.INSTANCE.getMARKLOGIC_1_0_ML8()), is(false));
-                assertThat(product.conformsTo(version, XQuery.INSTANCE.getMARKLOGIC_1_0_ML9()), is(false));
+                assertThat(product.conformsTo(version, XQuery.INSTANCE.getMARKLOGIC_1_0()), is(false));
 
                 // endregion
                 // region Implementation: BaseX

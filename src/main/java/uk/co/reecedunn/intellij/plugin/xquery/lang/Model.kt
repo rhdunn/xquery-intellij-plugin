@@ -80,17 +80,10 @@ object XQuery : Language("XQuery", "application/xquery"), Versioned {
     val REC_3_1_20170321 = Specification("3.1-20170321", 3.1, 20170321, "3.1", "https://www.w3.org/TR/2017/REC-xquery-31-20170321/", this)
 
     // endregion
-    // region 0.9-ml
+    // region MarkLogic XQuery Versions
 
     val MARKLOGIC_0_9 = Specification("0.9-ml", 0.9, 2007, "0.9-ml", "http://docs.marklogic.com/guide/xquery/dialects#id_65735", this) // MarkLogic 3.2 (compatibility)
-
-    // endregion
-    // region 1.0-ml
-
-    val MARKLOGIC_1_0_ML4 = Specification("1.0-ml4", 1.0, 2008,   "1.0-ml", "http://docs.marklogic.com/guide/xquery/dialects#id_63368", this) // MarkLogic 4.0
-    val MARKLOGIC_1_0_ML7 = Specification("1.0-ml7", 1.0, 201311, "1.0-ml", "http://docs.marklogic.com/guide/xquery/dialects#id_63368", this) // MarkLogic 7.0
-    val MARKLOGIC_1_0_ML8 = Specification("1.0-ml7", 1.0, 201502, "1.0-ml", "http://docs.marklogic.com/guide/xquery/dialects#id_63368", this) // MarkLogic 8.0
-    val MARKLOGIC_1_0_ML9 = Specification("1.0-ml7", 1.0, 201705, "1.0-ml", "http://docs.marklogic.com/guide/xquery/dialects#id_63368", this) // MarkLogic 9.0
+    val MARKLOGIC_1_0 = Specification("1.0-ml", 1.0, 2008, "1.0-ml", "http://docs.marklogic.com/guide/xquery/dialects#id_63368", this) // MarkLogic 4.0+
 
     // endregion
 }
@@ -133,10 +126,7 @@ private class MarkLogicProduct(id: String, name: String, implementation: Impleme
     override fun conformsTo(productVersion: Version, ref: Version): Boolean = when (ref) {
         XQuery.REC_1_0_20070123 -> true
         XQuery.MARKLOGIC_0_9 -> true
-        XQuery.MARKLOGIC_1_0_ML4 -> productVersion.value <= 6.0
-        XQuery.MARKLOGIC_1_0_ML7 -> productVersion.value == 7.0
-        XQuery.MARKLOGIC_1_0_ML8 -> productVersion.value == 8.0
-        XQuery.MARKLOGIC_1_0_ML9 -> productVersion.value == 9.0
+        XQuery.MARKLOGIC_1_0 -> true
         else -> ref.kind === implementation && ref.value <= productVersion.value
     }
 }
