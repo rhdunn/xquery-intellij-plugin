@@ -229,6 +229,12 @@ public class ModelTest extends TestCase {
                 assertThat(product.conformsTo(version, XQuery.INSTANCE.getMARKLOGIC_1_0()), is(false));
 
                 // endregion
+                // region Specification: XQuery and XPath Full Text
+
+                assertThat(product.conformsTo(version, FullText.INSTANCE.getREC_1_0_20110317()), is(true));
+                assertThat(product.conformsTo(version, FullText.INSTANCE.getREC_3_0_20151124()), is(true));
+
+                // endregion
                 // region Specification: XQuery Update Facility
 
                 assertThat(product.conformsTo(version, UpdateFacility.INSTANCE.getREC_1_0_20110317()), is(true));
@@ -280,6 +286,12 @@ public class ModelTest extends TestCase {
                 assertThat(product.conformsTo(version, XQuery.INSTANCE.getREC_3_1_20170321()), is(false));
                 assertThat(product.conformsTo(version, XQuery.INSTANCE.getMARKLOGIC_0_9()), is(true));
                 assertThat(product.conformsTo(version, XQuery.INSTANCE.getMARKLOGIC_1_0()), is(true));
+
+                // endregion
+                // region Specification: XQuery and XPath Full Text
+
+                assertThat(product.conformsTo(version, FullText.INSTANCE.getREC_1_0_20110317()), is(false));
+                assertThat(product.conformsTo(version, FullText.INSTANCE.getREC_3_0_20151124()), is(false));
 
                 // endregion
                 // region Specification: XQuery Update Facility
@@ -339,6 +351,12 @@ public class ModelTest extends TestCase {
                 assertThat(product.conformsTo(version, XQuery.INSTANCE.getMARKLOGIC_1_0()), is(false));
 
                 // endregion
+                // region Specification: XQuery and XPath Full Text
+
+                assertThat(product.conformsTo(version, FullText.INSTANCE.getREC_1_0_20110317()), is(false));
+                assertThat(product.conformsTo(version, FullText.INSTANCE.getREC_3_0_20151124()), is(false));
+
+                // endregion
                 // region Specification: XQuery Update Facility
 
                 if (product.getId().equals("HE") || product.getId().equals("PE")) {
@@ -394,6 +412,12 @@ public class ModelTest extends TestCase {
                 assertThat(product.conformsTo(version, XQuery.INSTANCE.getREC_3_1_20170321()), is(version.getValue() == 1.0));
                 assertThat(product.conformsTo(version, XQuery.INSTANCE.getMARKLOGIC_0_9()), is(false));
                 assertThat(product.conformsTo(version, XQuery.INSTANCE.getMARKLOGIC_1_0()), is(false));
+
+                // endregion
+                // region Specification: XQuery and XPath Full Text
+
+                assertThat(product.conformsTo(version, FullText.INSTANCE.getREC_1_0_20110317()), is(version.getValue() == 1.0));
+                assertThat(product.conformsTo(version, FullText.INSTANCE.getREC_3_0_20151124()), is(version.getValue() == 1.0));
 
                 // endregion
                 // region Specification: XQuery Update Facility

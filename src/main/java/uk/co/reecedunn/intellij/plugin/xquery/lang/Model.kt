@@ -101,6 +101,21 @@ object XQuery : Language("XQuery", "application/xquery"), Versioned {
 }
 
 // endregion
+// region Specification :: XQuery and XPath Full Text
+
+object FullText : Versioned {
+    // NOTE: The only changes from 1.0 to 3.0 are to support the changes in grammar from XQuery 1.0 to 3.0.
+    val REC_1_0_20110317  = Specification("1.0-20110317", 1.0, 20110317, "1.0", "https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/", this)
+    val REC_3_0_20151124  = Specification("3.0-20151124", 3.0, 20151124, "3.0", "https://www.w3.org/TR/2015/REC-xpath-full-text-30-20151124/", this)
+
+    override val name get(): String = "XQuery and XPath Full Text"
+
+    override val versions get(): List<Version> = listOf(
+        REC_1_0_20110317,
+        REC_3_0_20151124)
+}
+
+// endregion
 // region Specification :: XQuery Update Facility
 
 object UpdateFacility : Versioned {
@@ -124,6 +139,8 @@ private class BaseXProduct(id: String, name: String, implementation: Implementat
         XQuery.REC_3_0_20140408 -> productVersion.value >= 7.7 // Full implementation.
         XQuery.CR_3_1_20151217  -> productVersion.value <= 8.5
         XQuery.REC_3_1_20170321 -> productVersion.value >= 8.6
+        FullText.REC_1_0_20110317 -> true
+        FullText.REC_3_0_20151124 -> true
         UpdateFacility.REC_1_0_20110317 -> true
         UpdateFacility.NOTE_3_0_20170124 -> productVersion.value >= 8.5
         else -> ref.kind === implementation && ref.value <= productVersion.value
@@ -235,6 +252,8 @@ private class W3CProduct(id: String, name: String, implementation: Implementatio
         XQuery.REC_1_0_20101214 -> productVersion === W3C.SECOND_EDITION
         XQuery.REC_3_0_20140408 -> productVersion === W3C.FIRST_EDITION
         XQuery.REC_3_1_20170321 -> productVersion === W3C.FIRST_EDITION
+        FullText.REC_1_0_20110317 -> productVersion === W3C.FIRST_EDITION
+        FullText.REC_3_0_20151124 -> productVersion === W3C.FIRST_EDITION
         UpdateFacility.REC_1_0_20110317 -> productVersion === W3C.FIRST_EDITION
         else -> false // NOTE: 1ed/2ed conformance is done at the Specification level.
     }
