@@ -20,6 +20,8 @@ import com.intellij.lang.Language
 // region Data Model
 
 interface Versioned {
+    val id: String
+
     val name: String
 
     val versions: List<Version>
@@ -54,7 +56,7 @@ sealed class Product(val id: String, val name: String, val implementation: Imple
     abstract fun conformsTo(productVersion: Version, ref: Version): Boolean
 }
 
-sealed class Implementation(val id: String, override val name: String, val vendorUri: String): Versioned {
+sealed class Implementation(override val id: String, override val name: String, val vendorUri: String): Versioned {
     abstract val products: List<Product>
 }
 
@@ -88,6 +90,8 @@ object XQuery : Language("XQuery", "application/xquery"), Versioned {
 
     override fun isCaseSensitive(): Boolean = true
 
+    override val id get(): String = "xquery"
+
     override val name get(): String = displayName
 
     override val versions: List<Version> = listOf(
@@ -108,6 +112,8 @@ object FullText : Versioned {
     val REC_1_0_20110317  = Specification("1.0-20110317", 1.0, 20110317, "1.0", "https://www.w3.org/TR/2011/REC-xpath-full-text-10-20110317/", this)
     val REC_3_0_20151124  = Specification("3.0-20151124", 3.0, 20151124, "3.0", "https://www.w3.org/TR/2015/REC-xpath-full-text-30-20151124/", this)
 
+    override val id get(): String = "xpath-full-text"
+
     override val name get(): String = "XQuery and XPath Full Text"
 
     override val versions get(): List<Version> = listOf(
@@ -124,6 +130,8 @@ object FunctionsAndOperators : Versioned {
     val REC_3_0_20140408 = Specification("3.0-20140408", 3.0, 20140408, "3.0", "https://www.w3.org/TR/2014/REC-xpath-functions-30-20140408/", this)
     val REC_3_1_20170321 = Specification("3.1-20170321", 3.1, 20170321, "3.1", "https://www.w3.org/TR/2017/REC-xpath-functions-31-20170321/", this)
 
+    override val id get(): String = "xpath-functions"
+
     override val name get(): String = "XQuery and XPath Functions and Operatorss"
 
     override val versions get(): List<Version> = listOf(
@@ -139,6 +147,8 @@ object FunctionsAndOperators : Versioned {
 object Scripting : Versioned {
     val NOTE_1_0_20140918  = Specification("1.0-20140918", 1.0, 20140918, "1.0", "https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/", this)
 
+    override val id get(): String = "xquery-sx"
+
     override val name get(): String = "XQuery Scripting Extension"
 
     override val versions get(): List<Version> = listOf(
@@ -151,6 +161,8 @@ object Scripting : Versioned {
 object UpdateFacility : Versioned {
     val REC_1_0_20110317  = Specification("1.0-20110317", 1.0, 20110317, "1.0", "https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/", this)
     val NOTE_3_0_20170124 = Specification("3.0-20170124", 3.0, 20170124, "3.0", "https://www.w3.org/TR/2017/NOTE-xquery-update-30-20170124/", this)
+
+    override val id get(): String = "xquery-update"
 
     override val name get(): String = "XQuery Update Facility"
 
