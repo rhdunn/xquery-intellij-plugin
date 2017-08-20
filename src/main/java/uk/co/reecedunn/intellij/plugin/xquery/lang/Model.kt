@@ -62,6 +62,8 @@ sealed class Product(val id: String, val name: String, val implementation: Imple
     abstract fun supportsFeature(version: Version, feature: XQueryFeature): Boolean
 
     abstract fun conformsTo(productVersion: Version, ref: Version): Boolean
+
+    abstract fun flavoursForXQueryVersion(productVersion: Version, version: String): List<Versioned>
 }
 
 sealed class Implementation(override val id: String, override val name: String, val vendorUri: String): Versioned {
@@ -222,6 +224,14 @@ private class BaseXProduct(id: String, name: String, implementation: Implementat
         FunctionsAndOperators.REC_3_1_20170321 -> productVersion.value >= 8.6
         else -> ref.kind === implementation && ref.value <= productVersion.value
     }
+
+    val FLAVOURS_XQUERY: List<Versioned> = listOf(BaseX, XQuery, FullText, UpdateFacility)
+    val FLAVOURS_UNSUPPORTED: List<Versioned> = listOf()
+
+    override fun flavoursForXQueryVersion(productVersion: Version, version: String): List<Versioned> = when (version) {
+        "3.0", "3.1" -> FLAVOURS_XQUERY
+        else -> FLAVOURS_UNSUPPORTED
+    }
 }
 
 object BaseX : Implementation("basex", "BaseX", "http://www.basex.org/") {
@@ -260,6 +270,17 @@ private class MarkLogicProduct(id: String, name: String, implementation: Impleme
         FunctionsAndOperators.REC_1_0_20070123 -> true
         FunctionsAndOperators.REC_3_0_20140408 -> true
         else -> ref.kind === implementation && ref.value <= productVersion.value
+    }
+
+    val FLAVOURS_XQUERY: List<Versioned> = listOf(XQuery)
+    val FLAVOURS_MARKLOGIC: List<Versioned> = listOf(MarkLogic)
+    val FLAVOURS_UNSUPPORTED: List<Versioned> = listOf()
+
+    override fun flavoursForXQueryVersion(productVersion: Version, version: String): List<Versioned> = when (version) {
+        "0.9-ml" -> FLAVOURS_MARKLOGIC
+        "1.0" -> FLAVOURS_XQUERY
+        "1.0-ml" -> FLAVOURS_MARKLOGIC
+        else -> FLAVOURS_UNSUPPORTED
     }
 }
 
@@ -312,6 +333,19 @@ private class SaxonProduct(id: String, name: String, implementation: Implementat
         FunctionsAndOperators.REC_3_1_20170321 -> productVersion.value >= 9.8
         else -> ref.kind === implementation && ref.value <= productVersion.value
     }
+
+    val FLAVOURS_XQUERY_1: List<Versioned> = listOf(XQuery, UpdateFacility)
+    val FLAVOURS_XQUERY_3: List<Versioned> = listOf(Saxon, XQuery, UpdateFacility)
+    val FLAVOURS_XQUERY: List<Versioned> = listOf(XQuery)
+    val FLAVOURS_UNSUPPORTED: List<Versioned> = listOf()
+
+    override fun flavoursForXQueryVersion(productVersion: Version, version: String): List<Versioned> = when (version) {
+        "1.0" ->
+            if (this === Saxon.HE || this === Saxon.PE) FLAVOURS_XQUERY else FLAVOURS_XQUERY_1
+        "3.0", "3.1" ->
+            if (this === Saxon.HE || this === Saxon.PE) FLAVOURS_XQUERY else FLAVOURS_XQUERY_3
+        else -> FLAVOURS_UNSUPPORTED
+    }
 }
 
 object Saxon : Implementation("saxon", "Saxon", "http://www.saxonica.com") {
@@ -361,6 +395,18 @@ private class W3CProduct(id: String, name: String, implementation: Implementatio
         FunctionsAndOperators.REC_1_0_20101214 ->
             productVersion === W3C.SECOND_EDITION
         else -> false // NOTE: 1ed/2ed conformance is done at the Specification level.
+    }
+
+    val FLAVOURS_XQUERY_1_0: List<Versioned> = listOf(XQuery, FullText, UpdateFacility)
+    val FLAVOURS_XQUERY_3_0: List<Versioned> = listOf(XQuery, FullText)
+    val FLAVOURS_XQUERY: List<Versioned> = listOf(XQuery)
+    val FLAVOURS_UNSUPPORTED: List<Versioned> = listOf()
+
+    override fun flavoursForXQueryVersion(productVersion: Version, version: String): List<Versioned> = when (version) {
+        "1.0" -> if (productVersion === W3C.FIRST_EDITION) FLAVOURS_XQUERY_1_0 else FLAVOURS_XQUERY
+        "3.0" -> if (productVersion === W3C.FIRST_EDITION) FLAVOURS_XQUERY_3_0 else FLAVOURS_XQUERY
+        "3.1" -> FLAVOURS_XQUERY
+        else -> FLAVOURS_UNSUPPORTED
     }
 }
 

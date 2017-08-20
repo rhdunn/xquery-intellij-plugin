@@ -803,4 +803,145 @@ public class ModelTest extends TestCase {
     }
 
     // endregion
+    // region Product :: Flavours For XQuery Version
+
+    public void testBaseX_FlavoursForXQueryVersion() {
+        List<Versioned> flavours;
+        for (Product product : BaseX.INSTANCE.getProducts()) {
+            for (Version version : BaseX.INSTANCE.getVersions()) {
+                flavours = product.flavoursForXQueryVersion(version, "1.0");
+                assertThat(flavours.size(), is(0));
+
+                flavours = product.flavoursForXQueryVersion(version, "3.0");
+                assertThat(flavours.size(), is(4));
+                assertThat(flavours.get(0), is(BaseX.INSTANCE));
+                assertThat(flavours.get(1), is(XQuery.INSTANCE));
+                assertThat(flavours.get(2), is(FullText.INSTANCE));
+                assertThat(flavours.get(3), is(UpdateFacility.INSTANCE));
+
+                flavours = product.flavoursForXQueryVersion(version, "3.1");
+                assertThat(flavours.size(), is(4));
+                assertThat(flavours.get(0), is(BaseX.INSTANCE));
+                assertThat(flavours.get(1), is(XQuery.INSTANCE));
+                assertThat(flavours.get(2), is(FullText.INSTANCE));
+                assertThat(flavours.get(3), is(UpdateFacility.INSTANCE));
+
+                flavours = product.flavoursForXQueryVersion(version, "0.9-ml");
+                assertThat(flavours.size(), is(0));
+
+                flavours = product.flavoursForXQueryVersion(version, "1.0-ml");
+                assertThat(flavours.size(), is(0));
+            }
+        }
+    }
+
+    public void testMarkLogic_FlavoursForXQueryVersion() {
+        List<Versioned> flavours;
+        for (Product product : MarkLogic.INSTANCE.getProducts()) {
+            for (Version version : MarkLogic.INSTANCE.getVersions()) {
+                flavours = product.flavoursForXQueryVersion(version, "1.0");
+                assertThat(flavours.size(), is(1));
+                assertThat(flavours.get(0), is(XQuery.INSTANCE));
+
+                flavours = product.flavoursForXQueryVersion(version, "3.0");
+                assertThat(flavours.size(), is(0));
+
+                flavours = product.flavoursForXQueryVersion(version, "3.1");
+                assertThat(flavours.size(), is(0));
+
+                flavours = product.flavoursForXQueryVersion(version, "0.9-ml");
+                assertThat(flavours.size(), is(1));
+                assertThat(flavours.get(0), is(MarkLogic.INSTANCE));
+
+                flavours = product.flavoursForXQueryVersion(version, "1.0-ml");
+                assertThat(flavours.size(), is(1));
+                assertThat(flavours.get(0), is(MarkLogic.INSTANCE));
+            }
+        }
+    }
+
+    public void testSaxon_FlavoursForXQueryVersion() {
+        List<Versioned> flavours;
+        for (Product product : Saxon.INSTANCE.getProducts()) {
+            for (Version version : Saxon.INSTANCE.getVersions()) {
+                flavours = product.flavoursForXQueryVersion(version, "1.0");
+                if (product.getId().equals("HE") || product.getId().equals("PE")) {
+                    assertThat(flavours.size(), is(1));
+                    assertThat(flavours.get(0), is(XQuery.INSTANCE));
+                } else {
+                    assertThat(flavours.size(), is(2));
+                    assertThat(flavours.get(0), is(XQuery.INSTANCE));
+                    assertThat(flavours.get(1), is(UpdateFacility.INSTANCE));
+                }
+
+                flavours = product.flavoursForXQueryVersion(version, "3.0");
+                if (product.getId().equals("HE") || product.getId().equals("PE")) {
+                    assertThat(flavours.size(), is(1));
+                    assertThat(flavours.get(0), is(XQuery.INSTANCE));
+                } else {
+                    assertThat(flavours.size(), is(3));
+                    assertThat(flavours.get(0), is(Saxon.INSTANCE));
+                    assertThat(flavours.get(1), is(XQuery.INSTANCE));
+                    assertThat(flavours.get(2), is(UpdateFacility.INSTANCE));
+                }
+
+                flavours = product.flavoursForXQueryVersion(version, "3.1");
+                if (product.getId().equals("HE") || product.getId().equals("PE")) {
+                    assertThat(flavours.size(), is(1));
+                    assertThat(flavours.get(0), is(XQuery.INSTANCE));
+                } else {
+                    assertThat(flavours.size(), is(3));
+                    assertThat(flavours.get(0), is(Saxon.INSTANCE));
+                    assertThat(flavours.get(1), is(XQuery.INSTANCE));
+                    assertThat(flavours.get(2), is(UpdateFacility.INSTANCE));
+                }
+
+                flavours = product.flavoursForXQueryVersion(version, "0.9-ml");
+                assertThat(flavours.size(), is(0));
+
+                flavours = product.flavoursForXQueryVersion(version, "1.0-ml");
+                assertThat(flavours.size(), is(0));
+            }
+        }
+    }
+
+    public void testW3C_FlavoursForXQueryVersion() {
+        List<Versioned> flavours;
+        for (Product product : W3C.INSTANCE.getProducts()) {
+            for (Version version : W3C.INSTANCE.getVersions()) {
+                flavours = product.flavoursForXQueryVersion(version, "1.0");
+                if (version.getValue() == 1.0) {
+                    assertThat(flavours.size(), is(3));
+                    assertThat(flavours.get(0), is(XQuery.INSTANCE));
+                    assertThat(flavours.get(1), is(FullText.INSTANCE));
+                    assertThat(flavours.get(2), is(UpdateFacility.INSTANCE));
+                } else {
+                    assertThat(flavours.size(), is(1));
+                    assertThat(flavours.get(0), is(XQuery.INSTANCE));
+                }
+
+                flavours = product.flavoursForXQueryVersion(version, "3.0");
+                if (version.getValue() == 1.0) {
+                    assertThat(flavours.size(), is(2));
+                    assertThat(flavours.get(0), is(XQuery.INSTANCE));
+                    assertThat(flavours.get(1), is(FullText.INSTANCE));
+                } else {
+                    assertThat(flavours.size(), is(1));
+                    assertThat(flavours.get(0), is(XQuery.INSTANCE));
+                }
+
+                flavours = product.flavoursForXQueryVersion(version, "3.1");
+                assertThat(flavours.size(), is(1));
+                assertThat(flavours.get(0), is(XQuery.INSTANCE));
+
+                flavours = product.flavoursForXQueryVersion(version, "0.9-ml");
+                assertThat(flavours.size(), is(0));
+
+                flavours = product.flavoursForXQueryVersion(version, "1.0-ml");
+                assertThat(flavours.size(), is(0));
+            }
+        }
+    }
+
+    // endregion
 }
