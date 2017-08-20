@@ -24,6 +24,37 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ModelTest extends TestCase {
+    // region Version Display Name
+
+    public void testSpecification_DisplayName() {
+        assertThat(XmlSchema.INSTANCE.getREC_1_0_20041028().toString(), is("XML Schema Definition 1.0"));
+        assertThat(XmlSchema.INSTANCE.getREC_1_1_20120405().toString(), is("XML Schema Definition 1.1"));
+
+        assertThat(XQuery.INSTANCE.getREC_1_0_20070123().toString(), is("XQuery 1.0"));
+        assertThat(XQuery.INSTANCE.getMARKLOGIC_0_9().toString(), is("XQuery 0.9-ml"));
+
+        assertThat(FullText.INSTANCE.getREC_1_0_20110317().toString(), is("XQuery and XPath Full Text 1.0"));
+
+        assertThat(FunctionsAndOperators.INSTANCE.getREC_1_0_20070123().toString(), is("XQuery and XPath Functions and Operators 1.0"));
+
+        assertThat(Scripting.INSTANCE.getNOTE_1_0_20140918().toString(), is("XQuery Scripting Extension 1.0"));
+
+        assertThat(UpdateFacility.INSTANCE.getREC_1_0_20110317().toString(), is("XQuery Update Facility 1.0"));
+    }
+
+    public void testProductVersion_DisplayName() {
+        assertThat(BaseX.INSTANCE.getVERSION_8_5().toString(), is("BaseX 8.5"));
+
+        assertThat(MarkLogic.INSTANCE.getVERSION_7_0().toString(), is("MarkLogic 7.0"));
+
+        assertThat(Saxon.INSTANCE.getVERSION_9_7().toString(), is("Saxon 9.7"));
+    }
+
+    public void testNamedVersion_DisplayName() {
+        assertThat(W3C.INSTANCE.getFIRST_EDITION().toString(), is("W3C First Edition"));
+    }
+
+    // endregion
     // region XQuery Conformance / Optional Features
 
     public void testBaseXProduct_OptionalFeatureSupport() {

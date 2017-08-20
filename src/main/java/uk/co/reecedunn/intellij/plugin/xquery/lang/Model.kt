@@ -32,11 +32,17 @@ interface Versioned {
 
 sealed class Version(val id: String, val value: Double, val kind: Versioned)
 
-private class ProductVersion(id: String, kind: Versioned) : Version(id, id.toDouble(), kind)
+private class ProductVersion(id: String, kind: Versioned) : Version(id, id.toDouble(), kind) {
+    override fun toString(): String = kind.name + " " + id
+}
 
-class NamedVersion(id: String, value: Double, val name: String, kind: Versioned) : Version(id, value, kind)
+class NamedVersion(id: String, value: Double, val name: String, kind: Versioned) : Version(id, value, kind) {
+    override fun toString(): String = kind.name + " " + name
+}
 
-class Specification(id: String, value: Double, date: Int, val label: String, val href: String, kind: Versioned) : Version(id, value, kind)
+class Specification(id: String, value: Double, date: Int, val label: String, val href: String, kind: Versioned) : Version(id, value, kind) {
+    override fun toString(): String = kind.name + " " + label
+}
 
 enum class XQueryFeature {
     MINIMAL_CONFORMANCE, // XQuery 1.0 - 3.1
@@ -69,7 +75,7 @@ object XmlSchema : Versioned {
 
     override val id get(): String = "xmlschema"
 
-    override val name get(): String = "XML Schema Definition Language"
+    override val name get(): String = "XML Schema Definition"
 
     override val versions get(): List<Version> = listOf(
         REC_1_0_20041028,
@@ -148,7 +154,7 @@ object FunctionsAndOperators : Versioned {
 
     override val id get(): String = "xpath-functions"
 
-    override val name get(): String = "XQuery and XPath Functions and Operatorss"
+    override val name get(): String = "XQuery and XPath Functions and Operators"
 
     override val versions get(): List<Version> = listOf(
         REC_1_0_20070123,
