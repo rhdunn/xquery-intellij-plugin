@@ -24,7 +24,7 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ModelTest extends TestCase {
-    // region Version Display Name
+    // region Version :: Display Name (toString)
 
     public void testSpecification_DisplayName() {
         assertThat(XmlSchema.INSTANCE.getREC_1_0_20041028().toString(), is("XML Schema Definition 1.0"));
@@ -55,7 +55,160 @@ public class ModelTest extends TestCase {
     }
 
     // endregion
-    // region XQuery Conformance / Optional Features
+    // region Versioned :: Supports Dialect
+
+    public void testXmlSchema_SupportsDialect() {
+        Versioned versioned = XmlSchema.INSTANCE;
+        assertThat(versioned.supportsDialect(XmlSchema.INSTANCE), is(true));
+        assertThat(versioned.supportsDialect(XQuery.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(FullText.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(FunctionsAndOperators.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(Scripting.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(UpdateFacility.INSTANCE), is(false));
+
+        assertThat(versioned.supportsDialect(BaseX.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(MarkLogic.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(Saxon.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(W3C.INSTANCE), is(false));
+    }
+
+    public void testXQuery_SupportsDialect() {
+        Versioned versioned = XQuery.INSTANCE;
+        assertThat(versioned.supportsDialect(XmlSchema.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(XQuery.INSTANCE), is(true));
+        assertThat(versioned.supportsDialect(FullText.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(FunctionsAndOperators.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(Scripting.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(UpdateFacility.INSTANCE), is(false));
+
+        assertThat(versioned.supportsDialect(BaseX.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(MarkLogic.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(Saxon.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(W3C.INSTANCE), is(false));
+    }
+
+    public void testFullText_SupportsDialect() {
+        Versioned versioned = FullText.INSTANCE;
+        assertThat(versioned.supportsDialect(XmlSchema.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(XQuery.INSTANCE), is(true));
+        assertThat(versioned.supportsDialect(FullText.INSTANCE), is(true));
+        assertThat(versioned.supportsDialect(FunctionsAndOperators.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(Scripting.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(UpdateFacility.INSTANCE), is(false));
+
+        assertThat(versioned.supportsDialect(BaseX.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(MarkLogic.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(Saxon.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(W3C.INSTANCE), is(false));
+    }
+
+    public void testFunctionsAndOperators_SupportsDialect() {
+        Versioned versioned = FunctionsAndOperators.INSTANCE;
+        assertThat(versioned.supportsDialect(XmlSchema.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(XQuery.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(FullText.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(FunctionsAndOperators.INSTANCE), is(true));
+        assertThat(versioned.supportsDialect(Scripting.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(UpdateFacility.INSTANCE), is(false));
+
+        assertThat(versioned.supportsDialect(BaseX.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(MarkLogic.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(Saxon.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(W3C.INSTANCE), is(false));
+    }
+
+    public void testScripting_SupportsDialect() {
+        Versioned versioned = Scripting.INSTANCE;
+        assertThat(versioned.supportsDialect(XmlSchema.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(XQuery.INSTANCE), is(true));
+        assertThat(versioned.supportsDialect(FullText.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(FunctionsAndOperators.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(Scripting.INSTANCE), is(true));
+        assertThat(versioned.supportsDialect(UpdateFacility.INSTANCE), is(true));
+
+        assertThat(versioned.supportsDialect(BaseX.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(MarkLogic.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(Saxon.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(W3C.INSTANCE), is(false));
+    }
+
+    public void testUpdateFacility_SupportsDialect() {
+        Versioned versioned = UpdateFacility.INSTANCE;
+        assertThat(versioned.supportsDialect(XmlSchema.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(XQuery.INSTANCE), is(true));
+        assertThat(versioned.supportsDialect(FullText.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(FunctionsAndOperators.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(Scripting.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(UpdateFacility.INSTANCE), is(true));
+
+        assertThat(versioned.supportsDialect(BaseX.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(MarkLogic.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(Saxon.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(W3C.INSTANCE), is(false));
+    }
+
+    public void testBaseX_SupportsDialect() {
+        Versioned versioned = BaseX.INSTANCE;
+        assertThat(versioned.supportsDialect(XmlSchema.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(XQuery.INSTANCE), is(true));
+        assertThat(versioned.supportsDialect(FullText.INSTANCE), is(true));
+        assertThat(versioned.supportsDialect(FunctionsAndOperators.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(Scripting.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(UpdateFacility.INSTANCE), is(true));
+
+        assertThat(versioned.supportsDialect(BaseX.INSTANCE), is(true));
+        assertThat(versioned.supportsDialect(MarkLogic.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(Saxon.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(W3C.INSTANCE), is(false));
+    }
+
+    public void testMarkLogic_SupportsDialect() {
+        Versioned versioned = MarkLogic.INSTANCE;
+        assertThat(versioned.supportsDialect(XmlSchema.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(XQuery.INSTANCE), is(true));
+        assertThat(versioned.supportsDialect(FullText.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(FunctionsAndOperators.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(Scripting.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(UpdateFacility.INSTANCE), is(false));
+
+        assertThat(versioned.supportsDialect(BaseX.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(MarkLogic.INSTANCE), is(true));
+        assertThat(versioned.supportsDialect(Saxon.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(W3C.INSTANCE), is(false));
+    }
+
+    public void testSaxon_SupportsDialect() {
+        Versioned versioned = Saxon.INSTANCE;
+        assertThat(versioned.supportsDialect(XmlSchema.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(XQuery.INSTANCE), is(true));
+        assertThat(versioned.supportsDialect(FullText.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(FunctionsAndOperators.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(Scripting.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(UpdateFacility.INSTANCE), is(true));
+
+        assertThat(versioned.supportsDialect(BaseX.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(MarkLogic.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(Saxon.INSTANCE), is(true));
+        assertThat(versioned.supportsDialect(W3C.INSTANCE), is(false));
+    }
+
+    public void testW3C_SupportsDialect() {
+        Versioned versioned = W3C.INSTANCE;
+        assertThat(versioned.supportsDialect(XmlSchema.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(XQuery.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(FullText.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(FunctionsAndOperators.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(Scripting.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(UpdateFacility.INSTANCE), is(false));
+
+        assertThat(versioned.supportsDialect(BaseX.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(MarkLogic.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(Saxon.INSTANCE), is(false));
+        assertThat(versioned.supportsDialect(W3C.INSTANCE), is(true));
+    }
+
+    // endregion
+    // region Product :: XQuery Conformance (Minimal Conformance; Optional Features)
 
     public void testBaseXProduct_OptionalFeatureSupport() {
         final Product product = BaseX.INSTANCE.getProducts().get(0);
@@ -244,7 +397,7 @@ public class ModelTest extends TestCase {
     }
 
     // endregion
-    // region Conforms To
+    // region Product :: Conforms To (Specification, Vendor Extension/Implementation)
 
     public void testBaseX_ConformsTo() {
         for (Product product : BaseX.INSTANCE.getProducts()) {
@@ -571,7 +724,7 @@ public class ModelTest extends TestCase {
     }
 
     // endregion
-    // region XQuery Versions
+    // region Product :: XQuery Versions
 
     public void testBaseX_XQueryVersions() {
         List<Version> xquery;

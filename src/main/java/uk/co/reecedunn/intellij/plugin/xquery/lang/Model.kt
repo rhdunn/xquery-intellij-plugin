@@ -28,6 +28,8 @@ interface Versioned {
 
     fun versionsFor(product: Product, version: Version): List<Version> =
         versions.filter { spec -> product.conformsTo(version, spec) }
+
+    fun supportsDialect(dialect: Versioned): Boolean = dialect === this
 }
 
 sealed class Version(val id: String, val value: Double, val kind: Versioned)
@@ -141,6 +143,9 @@ object FullText : Versioned {
     override val versions get(): List<Version> = listOf(
         REC_1_0_20110317,
         REC_3_0_20151124)
+
+    override fun supportsDialect(dialect: Versioned): Boolean =
+        dialect === this || dialect === XQuery
 }
 
 // endregion
@@ -175,6 +180,9 @@ object Scripting : Versioned {
 
     override val versions get(): List<Version> = listOf(
         NOTE_1_0_20140918)
+
+    override fun supportsDialect(dialect: Versioned): Boolean =
+        dialect === this || dialect === UpdateFacility || dialect === XQuery
 }
 
 // endregion
@@ -191,6 +199,9 @@ object UpdateFacility : Versioned {
     override val versions get(): List<Version> = listOf(
         REC_1_0_20110317,
         NOTE_3_0_20170124)
+
+    override fun supportsDialect(dialect: Versioned): Boolean =
+        dialect === this || dialect === XQuery
 }
 
 // endregion
@@ -226,6 +237,12 @@ object BaseX : Implementation("basex", "BaseX", "http://www.basex.org/") {
     val BASEX: Product = BaseXProduct("basex", "BaseX", this)
 
     override val products: List<Product> = listOf(BASEX)
+
+    override fun supportsDialect(dialect: Versioned): Boolean =
+        dialect === this ||
+        dialect === FullText ||
+        dialect === UpdateFacility ||
+        dialect === XQuery
 }
 
 // endregion
@@ -261,6 +278,9 @@ object MarkLogic : Implementation("marklogic", "MarkLogic", "http://www.marklogi
     val MARKLOGIC: Product = MarkLogicProduct("marklogic", "MarkLogic", this)
 
     override val products: List<Product> = listOf(MARKLOGIC)
+
+    override fun supportsDialect(dialect: Versioned): Boolean =
+        dialect === this || dialect === XQuery
 }
 
 // endregion
@@ -314,6 +334,9 @@ object Saxon : Implementation("saxon", "Saxon", "http://www.saxonica.com") {
     val EE_V: Product = SaxonProduct("EE-V", "Enterprise Edition (Validation package)", this)
 
     override val products: List<Product> = listOf(HE, PE, EE, EE_T, EE_Q, EE_V)
+
+    override fun supportsDialect(dialect: Versioned): Boolean =
+        dialect === this || dialect == UpdateFacility || dialect === XQuery
 }
 
 // endregion
