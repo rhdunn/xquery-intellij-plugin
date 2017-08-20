@@ -18,39 +18,15 @@ package uk.co.reecedunn.intellij.plugin.xquery.lang;
 import org.jetbrains.annotations.NotNull;
 
 public enum XQueryConformance {
-    // region Specifications
-
-    XSD("xmlschema"), // XML Schema Definition Language (XSD) conformance
-    XPATH_FUNCTIONS("xpath-functions"), // XQuery and XPath Functions and Operators
     MINIMAL_CONFORMANCE("xquery"), // XQuery 1.0 - 3.1
-
-    // endregion
-    // region XQuery Optional Features
-
-    FULL_AXIS("full-axis"), // XQuery 1.0
-    HIGHER_ORDER_FUNCTION("higher-order-function"), // XQuery 3.0 - 3.1
-    MODULE("module"), // XQuery 1.0 - 3.1
-    SCHEMA_IMPORT("schema-import"), // XQuery 1.0; XQuery 3.0 - 3.1 ("Schema Aware")
-    SCHEMA_VALIDATION("schema-validation"), // XQuery 1.0; XQuery 3.0 - 3.1 ("Schema Aware")
-    SERIALIZATION("serialization"), // XQuery 1.0 - 3.1
-    STATIC_TYPING("static-typing"), // XQuery 1.0 - 3.1
-    TYPED_DATA("typed-data"), // XQuery 3.0 - 3.1
-
-    // endregion
-    // region Vendor Extensions
 
     BASEX("basex"), // BaseX 8.4 - 8.5
     MARKLOGIC("marklogic"), // MarkLogic 6.0 - 8.0
     SAXON("saxon"), // Saxon 9.4 - 9.7
 
-    // endregion
-    // region XQuery Extensions
-
     FULL_TEXT("full-text"), // Full Text 1.0 - 3.0
     SCRIPTING("scripting"), // Scripting 1.0
     UPDATE_FACILITY("update-facility"); // Update Facility 1.0 - 3.0
-
-    // endregion
 
     private final String mID;
 
