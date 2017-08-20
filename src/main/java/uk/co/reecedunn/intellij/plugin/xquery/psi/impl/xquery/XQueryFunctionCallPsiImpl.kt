@@ -22,9 +22,7 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.extensions.children
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryArgumentList
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionCall
-import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion
+import uk.co.reecedunn.intellij.plugin.xquery.lang.*
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck
@@ -48,15 +46,15 @@ class XQueryFunctionCallPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQu
         if (localname != null) {
             when (localname.second) {
                 IXQueryKeywordOrNCNameType.KeywordType.MARKLOGIC70_RESERVED_FUNCTION_NAME -> {
-                    val marklogicVersion = implementation.getVersion(XQueryConformance.MARKLOGIC)
+                    val marklogicVersion = implementation.getVersion(MarkLogic)
                     return !marklogicVersion.supportsVersion(XQueryVersion.VERSION_7_0)
                 }
                 IXQueryKeywordOrNCNameType.KeywordType.MARKLOGIC80_RESERVED_FUNCTION_NAME -> {
-                    val marklogic = implementation.getVersion(XQueryConformance.MARKLOGIC)
+                    val marklogic = implementation.getVersion(MarkLogic)
                     return !marklogic.supportsVersion(XQueryVersion.VERSION_8_0)
                 }
                 IXQueryKeywordOrNCNameType.KeywordType.SCRIPTING10_RESERVED_FUNCTION_NAME -> {
-                    val scripting = implementation.getVersion(XQueryConformance.SCRIPTING)
+                    val scripting = implementation.getVersion(Scripting)
                     return !scripting.supportsVersion(XQueryVersion.VERSION_1_0)
                 }
                 else -> {}

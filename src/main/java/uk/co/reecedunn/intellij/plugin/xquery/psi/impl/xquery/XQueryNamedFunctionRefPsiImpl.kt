@@ -22,9 +22,7 @@ import uk.co.reecedunn.intellij.plugin.core.extensions.children
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryIntegerLiteral
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryNamedFunctionRef
-import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion
+import uk.co.reecedunn.intellij.plugin.xquery.lang.*
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
@@ -39,27 +37,27 @@ class XQueryNamedFunctionRefPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node),
                 IXQueryKeywordOrNCNameType.KeywordType.KEYWORD -> {}
                 IXQueryKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME -> return false
                 IXQueryKeywordOrNCNameType.KeywordType.SCRIPTING10_RESERVED_FUNCTION_NAME -> {
-                    val scripting = implementation.getVersion(XQueryConformance.SCRIPTING)
+                    val scripting = implementation.getVersion(Scripting)
                     return !scripting.supportsVersion(XQueryVersion.VERSION_1_0)
                 }
                 IXQueryKeywordOrNCNameType.KeywordType.MARKLOGIC70_RESERVED_FUNCTION_NAME -> {
-                    val marklogicVersion = implementation.getVersion(XQueryConformance.MARKLOGIC)
+                    val marklogicVersion = implementation.getVersion(MarkLogic)
                     return !marklogicVersion.supportsVersion(XQueryVersion.VERSION_7_0)
                 }
                 IXQueryKeywordOrNCNameType.KeywordType.MARKLOGIC80_RESERVED_FUNCTION_NAME -> {
-                    val marklogicVersion = implementation.getVersion(XQueryConformance.MARKLOGIC)
+                    val marklogicVersion = implementation.getVersion(MarkLogic)
                     return !marklogicVersion.supportsVersion(XQueryVersion.VERSION_8_0)
                 }
                 IXQueryKeywordOrNCNameType.KeywordType.XQUERY30_RESERVED_FUNCTION_NAME -> {
-                    val marklogic = implementation.getVersion(XQueryConformance.MARKLOGIC)
-                    val xquery = implementation.getVersion(XQueryConformance.MINIMAL_CONFORMANCE)
+                    val marklogic = implementation.getVersion(MarkLogic)
+                    val xquery = implementation.getVersion(XQuery)
                     return !xquery.supportsVersion(XQueryVersion.VERSION_3_0) && !marklogic.supportsVersion(XQueryVersion.VERSION_6_0)
                 }
             }
         }
 
-        val minimalConformance = implementation.getVersion(XQueryConformance.MINIMAL_CONFORMANCE)
-        val marklogic = implementation.getVersion(XQueryConformance.MARKLOGIC)
+        val minimalConformance = implementation.getVersion(XQuery)
+        val marklogic = implementation.getVersion(MarkLogic)
         return minimalConformance.supportsVersion(XQueryVersion.VERSION_3_0) || marklogic.supportsVersion(XQueryVersion.VERSION_6_0)
     }
 

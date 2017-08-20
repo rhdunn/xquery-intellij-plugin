@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVersionRef;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings;
@@ -58,7 +58,7 @@ public class UnsupportedXQueryVersionInspection extends LocalInspectionTool {
 
         XQueryProjectSettings settings = XQueryProjectSettings.getInstance(file.getProject());
         ImplementationItem implementation = settings.getImplementationVersionItem();
-        List<ImplementationItem> dialect = implementation.getItemsByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryConformance.MINIMAL_CONFORMANCE, version.getVersion());
+        List<ImplementationItem> dialect = implementation.getItemsByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQuery.INSTANCE, version.getVersion());
         if (dialect.get(0).getID() != null) {
             return ProblemDescriptor.EMPTY_ARRAY;
         }

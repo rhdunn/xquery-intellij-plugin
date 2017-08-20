@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.core.extensions.children
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDFPropertyName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDecimalFormatDecl
 import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck
@@ -33,7 +33,7 @@ class XQueryDecimalFormatDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node)
         if (conformanceElement is XQueryDFPropertyName) XQueryVersion.VERSION_3_1 else XQueryVersion.VERSION_3_0
 
     override fun conformsTo(implementation: ImplementationItem): Boolean =
-        implementation.getVersion(XQueryConformance.MINIMAL_CONFORMANCE).supportsVersion(requiredVersion)
+        implementation.getVersion(XQuery).supportsVersion(requiredVersion)
 
     override fun getConformanceElement(): PsiElement? {
         val element = children().filterIsInstance<XQueryDFPropertyName>().filter { e ->

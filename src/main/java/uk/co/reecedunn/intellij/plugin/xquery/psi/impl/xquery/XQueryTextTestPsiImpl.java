@@ -21,7 +21,7 @@ import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryTextTest;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
@@ -38,7 +38,7 @@ public class XQueryTextTestPsiImpl extends ASTWrapperPsiElement implements XQuer
             return true;
         }
 
-        final XQueryVersion marklogic = implementation.getVersion(XQueryConformance.MARKLOGIC);
+        final XQueryVersion marklogic = implementation.getVersion(MarkLogic.INSTANCE);
         return marklogic != null && marklogic.supportsVersion(XQueryVersion.VERSION_8_0);
     }
 

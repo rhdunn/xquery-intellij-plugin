@@ -20,14 +20,14 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic.MarkLogicSchemaTypeTest
 import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 
 class MarkLogicSchemaTypeTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), MarkLogicSchemaTypeTest, XQueryConformanceCheck {
     override fun conformsTo(implementation: ImplementationItem): Boolean =
-        implementation.getVersion(XQueryConformance.MARKLOGIC).supportsVersion(XQueryVersion.VERSION_7_0)
+        implementation.getVersion(MarkLogic).supportsVersion(XQueryVersion.VERSION_7_0)
 
     override fun getConformanceElement(): PsiElement =
         firstChild

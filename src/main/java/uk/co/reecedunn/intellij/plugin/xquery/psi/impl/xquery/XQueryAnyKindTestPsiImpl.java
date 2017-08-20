@@ -22,7 +22,7 @@ import com.intellij.psi.tree.TokenSet;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnyKindTest;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
@@ -42,7 +42,7 @@ public class XQueryAnyKindTestPsiImpl extends ASTWrapperPsiElement implements XQ
             return true;
         }
 
-        final XQueryVersion marklogic = implementation.getVersion(XQueryConformance.MARKLOGIC);
+        final XQueryVersion marklogic = implementation.getVersion(MarkLogic.INSTANCE);
         return marklogic != null && marklogic.supportsVersion(XQueryVersion.VERSION_8_0);
     }
 

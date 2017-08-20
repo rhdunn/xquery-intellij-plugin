@@ -103,9 +103,9 @@ public class ImplementationItem {
     }
 
     @NotNull
-    public XQueryVersion getVersion(XQueryConformance featureName) {
+    public XQueryVersion getVersion(Versioned featureName) {
         if (mElement != null) {
-            NodeList nodes = mElement.getElementsByTagName(featureName.toString());
+            NodeList nodes = mElement.getElementsByTagName(featureName.getId());
             if (nodes.getLength() != 0) {
                 Node node = nodes.item(0);
                 return XQueryVersion.parse(node.getAttributes().getNamedItem("version").getNodeValue());
@@ -114,7 +114,7 @@ public class ImplementationItem {
         return XQueryVersion.UNSUPPORTED;
     }
 
-    public List<ImplementationItem> getItemsByVersion(String tagName, XQueryConformance featureName, XQueryVersion featureVersion) {
+    public List<ImplementationItem> getItemsByVersion(String tagName, Versioned featureName, XQueryVersion featureVersion) {
         final List<ImplementationItem> items = new ArrayList<>();
         if (mElement != null) {
             NodeList nodes = mElement.getElementsByTagName(tagName);
@@ -131,7 +131,7 @@ public class ImplementationItem {
         return items;
     }
 
-    public ImplementationItem getDefaultItemByVersion(String tagName, XQueryConformance featureName, XQueryVersion featureVersion) {
+    public ImplementationItem getDefaultItemByVersion(String tagName, Versioned featureName, XQueryVersion featureVersion) {
         if (mElement != null) {
             NodeList nodes = mElement.getElementsByTagName(tagName);
             for (int i = 0; i != nodes.getLength(); ++i) {
@@ -147,7 +147,7 @@ public class ImplementationItem {
         return NULL_ITEM;
     }
 
-    public List<XQueryVersion> getVersions(String tagName, XQueryConformance featureName) {
+    public List<XQueryVersion> getVersions(String tagName, Versioned featureName) {
         final List<XQueryVersion> items = new ArrayList<>();
         if (mElement != null) {
             NodeList nodes = mElement.getElementsByTagName(tagName);
@@ -163,13 +163,13 @@ public class ImplementationItem {
     }
 
     @NotNull
-    public XQueryVersion getDefaultVersion(String tagName, XQueryConformance featureName) {
+    public XQueryVersion getDefaultVersion(String tagName, Versioned featureName) {
         if (mElement != null) {
             NodeList nodes = mElement.getElementsByTagName(tagName);
             for (int i = 0; i != nodes.getLength(); ++i) {
                 Element node = (Element)nodes.item(i);
 
-                NodeList versions = node.getElementsByTagName(featureName.toString());
+                NodeList versions = node.getElementsByTagName(featureName.getId());
                 for (int j = 0; j != versions.getLength(); ++j) {
                     Node version = versions.item(j);
                     if (version.getAttributes().getNamedItem("default").getNodeValue().equals("true")) {
@@ -181,9 +181,9 @@ public class ImplementationItem {
         return XQueryVersion.UNSUPPORTED;
     }
 
-    public String getSpecification(XQueryConformance featureName) {
+    public String getSpecification(Versioned featureName) {
         if (mElement != null) {
-            NodeList nodes = mElement.getElementsByTagName(featureName.toString());
+            NodeList nodes = mElement.getElementsByTagName(featureName.getId());
             if (nodes.getLength() != 0) {
                 Node node = nodes.item(0);
                 return node.getAttributes().getNamedItem("specification").getNodeValue();

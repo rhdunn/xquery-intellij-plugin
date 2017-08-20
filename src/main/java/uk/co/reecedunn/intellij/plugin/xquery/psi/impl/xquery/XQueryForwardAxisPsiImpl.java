@@ -22,7 +22,7 @@ import com.intellij.psi.tree.TokenSet;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryForwardAxis;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
@@ -40,7 +40,7 @@ public class XQueryForwardAxisPsiImpl extends ASTWrapperPsiElement implements XQ
         // TODO: full-axis conformance checks
         final ASTNode node = getNode().findChildByType(MARKLOGIC_AXIS);
         if (node != null) {
-            final XQueryVersion version = implementation.getVersion(XQueryConformance.MARKLOGIC);
+            final XQueryVersion version = implementation.getVersion(MarkLogic.INSTANCE);
             return version != null && version.supportsVersion(XQueryVersion.VERSION_6_0);
         }
         return true;

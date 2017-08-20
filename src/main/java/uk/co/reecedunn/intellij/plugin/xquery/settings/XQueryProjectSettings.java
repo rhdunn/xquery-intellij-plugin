@@ -21,10 +21,7 @@ import com.intellij.openapi.project.Project;
 import com.intellij.util.xmlb.XmlSerializerUtil;
 import com.intellij.util.xmlb.annotations.Transient;
 import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.Implementations;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.*;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 
 import java.io.File;
@@ -36,10 +33,10 @@ import java.io.File;
 public class XQueryProjectSettings implements PersistentStateComponent<XQueryProjectSettings>, ExportableComponent {
     private ImplementationItem IMPLEMENTATION = Implementations.getDefaultImplementation();
     private ImplementationItem IMPLEMENTATION_VERSION = IMPLEMENTATION.getDefaultItem(ImplementationItem.IMPLEMENTATION_VERSION);
-    private XQueryVersion XQUERY_VERSION = IMPLEMENTATION_VERSION.getDefaultVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryConformance.MINIMAL_CONFORMANCE);
-    private ImplementationItem XQUERY_1_0_DIALECT = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryConformance.MINIMAL_CONFORMANCE, XQueryVersion.VERSION_1_0);
-    private ImplementationItem XQUERY_3_0_DIALECT = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryConformance.MINIMAL_CONFORMANCE, XQueryVersion.VERSION_3_0);
-    private ImplementationItem XQUERY_3_1_DIALECT = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryConformance.MINIMAL_CONFORMANCE, XQueryVersion.VERSION_3_1);
+    private XQueryVersion XQUERY_VERSION = IMPLEMENTATION_VERSION.getDefaultVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQuery.INSTANCE);
+    private ImplementationItem XQUERY_1_0_DIALECT = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQuery.INSTANCE, XQueryVersion.VERSION_1_0);
+    private ImplementationItem XQUERY_3_0_DIALECT = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQuery.INSTANCE, XQueryVersion.VERSION_3_0);
+    private ImplementationItem XQUERY_3_1_DIALECT = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQuery.INSTANCE, XQueryVersion.VERSION_3_1);
 
     public static XQueryProjectSettings getInstance(@NotNull Project project) {
         return ServiceManager.getService(project, XQueryProjectSettings.class);
@@ -156,13 +153,13 @@ public class XQueryProjectSettings implements PersistentStateComponent<XQueryPro
                 }
                 return XQUERY_3_1_DIALECT;
             case VERSION_0_9_MARKLOGIC:
-                final ImplementationItem default09ml = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryConformance.MINIMAL_CONFORMANCE, version);
+                final ImplementationItem default09ml = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQuery.INSTANCE, version);
                 if (default09ml == ImplementationItem.NULL_ITEM) {
                     return Implementations.getItemById("marklogic/v8/1.0-ml");
                 }
                 return default09ml;
             case VERSION_1_0_MARKLOGIC:
-                final ImplementationItem default10ml = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQueryConformance.MINIMAL_CONFORMANCE, version);
+                final ImplementationItem default10ml = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQuery.INSTANCE, version);
                 if (default10ml == ImplementationItem.NULL_ITEM) {
                     return Implementations.getItemById("marklogic/v8/1.0-ml");
                 }

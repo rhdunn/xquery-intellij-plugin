@@ -21,7 +21,7 @@ import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCatchClause;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
@@ -36,7 +36,7 @@ public class XQueryCatchClausePsiImpl extends ASTWrapperPsiElement implements XQ
     public boolean conformsTo(ImplementationItem implementation) {
         if (isMarkLogicExtension()) {
             // MarkLogic CatchClause
-            final XQueryVersion marklogic = implementation.getVersion(XQueryConformance.MARKLOGIC);
+            final XQueryVersion marklogic = implementation.getVersion(MarkLogic.INSTANCE);
             return marklogic != null && marklogic.supportsVersion(XQueryVersion.VERSION_6_0);
         }
 

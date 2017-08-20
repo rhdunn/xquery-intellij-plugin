@@ -20,9 +20,7 @@ import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnyMapTest;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.*;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 
@@ -33,8 +31,8 @@ public class XQueryAnyMapTestPsiImpl extends ASTWrapperPsiElement implements XQu
 
     @Override
     public boolean conformsTo(ImplementationItem implementation) {
-        final XQueryVersion version = implementation.getVersion(XQueryConformance.MINIMAL_CONFORMANCE);
-        final XQueryVersion saxon = implementation.getVersion(XQueryConformance.SAXON);
+        final XQueryVersion version = implementation.getVersion(XQuery.INSTANCE);
+        final XQueryVersion saxon = implementation.getVersion(Saxon.INSTANCE);
         return (version != null && version.supportsVersion(XQueryVersion.VERSION_3_1)) ||
                (saxon != null && saxon.supportsVersion(XQueryVersion.VERSION_9_4));
     }

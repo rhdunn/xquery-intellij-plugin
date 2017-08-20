@@ -21,9 +21,7 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.tree.TokenSet;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryValidateExpr;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.*;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
@@ -40,8 +38,8 @@ public class XQueryValidateExprPsiImpl extends ASTWrapperPsiElement implements X
         // TODO: schema-validation feature check
         PsiElement element = getConformanceElement();
         if (element != getFirstChild()) {
-            final XQueryVersion minimalConformance = implementation.getVersion(XQueryConformance.MINIMAL_CONFORMANCE);
-            final XQueryVersion marklogic = implementation.getVersion(XQueryConformance.MARKLOGIC);
+            final XQueryVersion minimalConformance = implementation.getVersion(XQuery.INSTANCE);
+            final XQueryVersion marklogic = implementation.getVersion(MarkLogic.INSTANCE);
             if (element.getNode().getElementType() == XQueryTokenType.K_TYPE) {
                 return (minimalConformance != null && minimalConformance.supportsVersion(XQueryVersion.VERSION_3_0))
                     || (marklogic != null && marklogic.supportsVersion(XQueryVersion.VERSION_6_0));

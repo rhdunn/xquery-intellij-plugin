@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryInitialClause;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryIntermediateClause;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
@@ -56,7 +56,7 @@ public class XQueryIntermediateClausePsiImpl extends ASTWrapperPsiElement implem
 
     @Override
     public boolean conformsTo(ImplementationItem implementation) {
-        final XQueryVersion minimalConformance = implementation.getVersion(XQueryConformance.MINIMAL_CONFORMANCE);
+        final XQueryVersion minimalConformance = implementation.getVersion(XQuery.INSTANCE);
         return minimalConformance != null && minimalConformance.supportsVersion(getRequiredXQueryVersion());
     }
 

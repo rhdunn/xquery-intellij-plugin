@@ -22,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingBlockVarDecl;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.Scripting;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
@@ -37,7 +37,7 @@ public class ScriptingBlockVarDeclPsiImpl extends ASTWrapperPsiElement implement
 
     @Override
     public boolean conformsTo(ImplementationItem implementation) {
-        final XQueryVersion version = implementation.getVersion(XQueryConformance.SCRIPTING);
+        final XQueryVersion version = implementation.getVersion(Scripting.INSTANCE);
         return version != null && version.supportsVersion(XQueryVersion.VERSION_1_0);
     }
 

@@ -22,9 +22,7 @@ import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.core.extensions.children
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryArgumentList
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPostfixExpr
-import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion
+import uk.co.reecedunn.intellij.plugin.xquery.lang.*
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
@@ -39,8 +37,8 @@ class XQueryArgumentListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQu
             return true
         }
 
-        val minimalConformance = implementation.getVersion(XQueryConformance.MINIMAL_CONFORMANCE)
-        val marklogic = implementation.getVersion(XQueryConformance.MARKLOGIC)
+        val minimalConformance = implementation.getVersion(XQuery)
+        val marklogic = implementation.getVersion(MarkLogic)
         return minimalConformance.supportsVersion(XQueryVersion.VERSION_3_0) || marklogic.supportsVersion(XQueryVersion.VERSION_6_0)
     }
 

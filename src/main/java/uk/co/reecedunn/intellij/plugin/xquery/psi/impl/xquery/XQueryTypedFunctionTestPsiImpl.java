@@ -20,9 +20,7 @@ import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryTypedFunctionTest;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.*;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 
@@ -33,8 +31,8 @@ public class XQueryTypedFunctionTestPsiImpl extends ASTWrapperPsiElement impleme
 
     @Override
     public boolean conformsTo(ImplementationItem implementation) {
-        final XQueryVersion minimalConformance = implementation.getVersion(XQueryConformance.MINIMAL_CONFORMANCE);
-        final XQueryVersion marklogic = implementation.getVersion(XQueryConformance.MARKLOGIC);
+        final XQueryVersion minimalConformance = implementation.getVersion(XQuery.INSTANCE);
+        final XQueryVersion marklogic = implementation.getVersion(MarkLogic.INSTANCE);
         return (minimalConformance != null && minimalConformance.supportsVersion(XQueryVersion.VERSION_3_0))
             || (marklogic != null && marklogic.supportsVersion(XQueryVersion.VERSION_6_0));
     }

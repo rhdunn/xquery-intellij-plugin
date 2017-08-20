@@ -21,7 +21,7 @@ import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingWhileExpr;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.Scripting;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
@@ -33,7 +33,7 @@ public class ScriptingWhileExprPsiImpl extends ASTWrapperPsiElement implements S
 
     @Override
     public boolean conformsTo(ImplementationItem implementation) {
-        final XQueryVersion version = implementation.getVersion(XQueryConformance.SCRIPTING);
+        final XQueryVersion version = implementation.getVersion(Scripting.INSTANCE);
         return version != null && version.supportsVersion(XQueryVersion.VERSION_1_0);
     }
 

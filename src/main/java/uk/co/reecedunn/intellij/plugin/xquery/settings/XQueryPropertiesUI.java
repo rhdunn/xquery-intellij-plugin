@@ -16,10 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.settings;
 
 import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUI;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.Implementations;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.*;
 
 import javax.swing.*;
 
@@ -42,7 +39,7 @@ public class XQueryPropertiesUI implements SettingsUI<XQueryProjectSettings> {
         return mPanel;
     }
 
-    private void populateVersionComboBox(JComboBox<XQueryVersion> control, ImplementationItem source, XQueryConformance filter) {
+    private void populateVersionComboBox(JComboBox<XQueryVersion> control, ImplementationItem source, Versioned filter) {
         if (source == null) {
             return;
         }
@@ -80,7 +77,7 @@ public class XQueryPropertiesUI implements SettingsUI<XQueryProjectSettings> {
         boolean found = false;
 
         control.removeAllItems();
-        for (ImplementationItem item : source.getItemsByVersion(filter, XQueryConformance.MINIMAL_CONFORMANCE, version)) {
+        for (ImplementationItem item : source.getItemsByVersion(filter, XQuery.INSTANCE, version)) {
             control.addItem(item);
             if (selected != null && item.toString().equals(selected.toString())) {
                 control.setSelectedItem(item);
@@ -88,7 +85,7 @@ public class XQueryPropertiesUI implements SettingsUI<XQueryProjectSettings> {
             }
         }
         if (!found) {
-            control.setSelectedItem(source.getDefaultItemByVersion(filter, XQueryConformance.MINIMAL_CONFORMANCE, version));
+            control.setSelectedItem(source.getDefaultItemByVersion(filter, XQuery.INSTANCE, version));
         }
     }
 
@@ -109,7 +106,7 @@ public class XQueryPropertiesUI implements SettingsUI<XQueryProjectSettings> {
 
         mImplementationVersions.addActionListener(e -> {
             final ImplementationItem version = (ImplementationItem)mImplementationVersions.getSelectedItem();
-            populateVersionComboBox(mVersion, version, XQueryConformance.MINIMAL_CONFORMANCE);
+            populateVersionComboBox(mVersion, version, XQuery.INSTANCE);
             populateComboBox(mDialectForXQuery1_0, version, ImplementationItem.IMPLEMENTATION_DIALECT, XQueryVersion.VERSION_1_0);
             populateComboBox(mDialectForXQuery3_0, version, ImplementationItem.IMPLEMENTATION_DIALECT, XQueryVersion.VERSION_3_0);
             populateComboBox(mDialectForXQuery3_1, version, ImplementationItem.IMPLEMENTATION_DIALECT, XQueryVersion.VERSION_3_1);

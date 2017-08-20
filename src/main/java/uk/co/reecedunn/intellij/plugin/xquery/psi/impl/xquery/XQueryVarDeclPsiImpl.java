@@ -22,9 +22,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVarDecl;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.*;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
@@ -43,8 +41,8 @@ public class XQueryVarDeclPsiImpl extends ASTWrapperPsiElement implements XQuery
             return true;
         }
 
-        final XQueryVersion minimalConformance = implementation.getVersion(XQueryConformance.MINIMAL_CONFORMANCE);
-        final XQueryVersion marklogic = implementation.getVersion(XQueryConformance.MARKLOGIC);
+        final XQueryVersion minimalConformance = implementation.getVersion(XQuery.INSTANCE);
+        final XQueryVersion marklogic = implementation.getVersion(MarkLogic.INSTANCE);
         return (minimalConformance != null && minimalConformance.supportsVersion(XQueryVersion.VERSION_3_0))
             || (marklogic != null && marklogic.supportsVersion(XQueryVersion.VERSION_6_0));
     }

@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.core.extensions.children
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryTumblingWindowClause
 import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable
@@ -31,7 +31,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 
 class XQueryTumblingWindowClausePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryTumblingWindowClause, XQueryConformanceCheck, XQueryVariableResolver {
     override fun conformsTo(implementation: ImplementationItem): Boolean {
-        val minimalConformance = implementation.getVersion(XQueryConformance.MINIMAL_CONFORMANCE)
+        val minimalConformance = implementation.getVersion(XQuery)
         return minimalConformance.supportsVersion(XQueryVersion.VERSION_3_0)
     }
 

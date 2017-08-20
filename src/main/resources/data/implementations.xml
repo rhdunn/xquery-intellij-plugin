@@ -24,7 +24,7 @@ limitations under the License.
             </dialect>
             <dialect id="basex/v8.4/1.0-update" name="xquery.implementation.xquery-update-10" localized="true" default="true">
                 <xquery version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
-                <update-facility version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="true"/>
+                <xquery-update version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="true"/>
                 <basex version="8.4" specification="http://docs.basex.org/wiki/XQuery" default="true"/>
                 <static-context uri="res://www.w3.org/TR/xquery.xqy"/>
             </dialect>
@@ -34,7 +34,7 @@ limitations under the License.
             </dialect>
             <dialect id="basex/v8.4/3.0-update" name="xquery.implementation.xquery-update-10" localized="true" default="true">
                 <xquery version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
-                <update-facility version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="true"/>
+                <xquery-update version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="true"/>
                 <basex version="8.4" specification="http://docs.basex.org/wiki/XQuery" default="true"/>
                 <static-context uri="res://www.w3.org/TR/xquery-30.xqy"/>
             </dialect>
@@ -44,7 +44,7 @@ limitations under the License.
             </dialect>
             <dialect id="basex/v8.4/3.1-update" name="xquery.implementation.xquery-update-10" localized="true" default="true">
                 <xquery version="3.1" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
-                <update-facility version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="true"/>
+                <xquery-update version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="true"/>
                 <basex version="8.4" specification="http://docs.basex.org/wiki/XQuery" default="true"/>
                 <static-context uri="res://www.w3.org/TR/xquery-31.xqy"/>
             </dialect>
@@ -56,7 +56,7 @@ limitations under the License.
             </dialect>
             <dialect id="basex/v8.5/1.0-update" name="xquery.implementation.xquery-update-10" localized="true" default="true">
                 <xquery version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
-                <update-facility version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="true"/>
+                <xquery-update version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="true"/>
                 <basex version="8.5" specification="http://docs.basex.org/wiki/XQuery" default="true"/>
                 <static-context uri="res://www.w3.org/TR/xquery.xqy"/>
             </dialect>
@@ -66,7 +66,7 @@ limitations under the License.
             </dialect>
             <dialect id="basex/v8.5/3.0-update" name="xquery.implementation.xquery-update-10" localized="true" default="true">
                 <xquery version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
-                <update-facility version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="true"/>
+                <xquery-update version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="true"/>
                 <basex version="8.5" specification="http://docs.basex.org/wiki/XQuery" default="true"/>
                 <static-context uri="res://www.w3.org/TR/xquery-30.xqy"/>
             </dialect>
@@ -76,7 +76,7 @@ limitations under the License.
             </dialect>
             <dialect id="basex/v8.5/3.1-update" name="xquery.implementation.xquery-update-10" localized="true" default="true">
                 <xquery version="3.1" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
-                <update-facility version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="true"/>
+                <xquery-update version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="true"/>
                 <basex version="8.5" specification="http://docs.basex.org/wiki/XQuery" default="true"/>
                 <static-context uri="res://www.w3.org/TR/xquery-31.xqy"/>
             </dialect>
@@ -208,7 +208,7 @@ limitations under the License.
             </dialect>
             <dialect id="saxon/EE/v9.4/1.0-update" name="xquery.implementation.xquery-update-10" localized="true" default="true">
                 <xquery version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
-                <update-facility version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="true"/>
+                <xquery-update version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="true"/>
                 <static-context uri="res://www.w3.org/TR/xquery.xqy"/>
             </dialect>
             <dialect id="saxon/EE/v9.4/3.0" name="XQuery" localized="false" default="false">
@@ -218,7 +218,7 @@ limitations under the License.
             </dialect>
             <dialect id="saxon/EE/v9.4/3.0-update" name="xquery.implementation.xquery-update-10" localized="true" default="true">
                 <xquery version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
-                <update-facility version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="true"/>
+                <xquery-update version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="true"/>
                 <saxon version="9.4" specification="http://www.saxonica.com/documentation/index.html#!changes/xquery30/9.3-9.4" default="true"/>
                 <static-context uri="res://www.w3.org/TR/xquery-30.xqy"/>
             </dialect>
@@ -230,7 +230,7 @@ limitations under the License.
             </dialect>
             <dialect id="saxon/EE/v9.5/1.0-update" name="xquery.implementation.xquery-update-10" localized="true" default="true">
                 <xquery version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
-                <update-facility version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="true"/>
+                <xquery-update version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="true"/>
                 <static-context uri="res://www.w3.org/TR/xquery.xqy"/>
             </dialect>
             <dialect id="saxon/EE/v9.5/3.0" name="XQuery" localized="false" default="false">
@@ -240,7 +240,7 @@ limitations under the License.
             </dialect>
             <dialect id="saxon/EE/v9.5/3.0-update" name="xquery.implementation.xquery-update-10" localized="true" default="true">
                 <xquery version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
-                <update-facility version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="true"/>
+                <xquery-update version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="true"/>
                 <saxon version="9.5" specification="http://www.saxonica.com/documentation/index.html#!changes/xquery30/9.4-9.5" default="true"/>
                 <static-context uri="res://www.w3.org/TR/xquery-30.xqy"/>
             </dialect>
@@ -252,7 +252,7 @@ limitations under the License.
             </dialect>
             <dialect id="saxon/EE/v9.6/1.0-update" name="xquery.implementation.xquery-update-10" localized="true" default="true">
                 <xquery version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
-                <update-facility version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="true"/>
+                <xquery-update version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="true"/>
                 <static-context uri="res://www.w3.org/TR/xquery.xqy"/>
             </dialect>
             <dialect id="saxon/EE/v9.6/3.0" name="XQuery" localized="false" default="false">
@@ -262,7 +262,7 @@ limitations under the License.
             </dialect>
             <dialect id="saxon/EE/v9.6/3.0-update" name="xquery.implementation.xquery-update-10" localized="true" default="true">
                 <xquery version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
-                <update-facility version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="true"/>
+                <xquery-update version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="true"/>
                 <saxon version="9.6" specification="http://www.saxonica.com/documentation/index.html#!changes/xquery30/9.5-9.6" default="true"/>
                 <static-context uri="res://www.w3.org/TR/xquery-30.xqy"/>
             </dialect>
@@ -274,7 +274,7 @@ limitations under the License.
             </dialect>
             <dialect id="saxon/EE/v9.7/1.0-update" name="xquery.implementation.xquery-update-10" localized="true" default="true">
                 <xquery version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
-                <update-facility version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="true"/>
+                <xquery-update version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="true"/>
                 <static-context uri="res://www.w3.org/TR/xquery.xqy"/>
             </dialect>
             <dialect id="saxon/EE/v9.7/3.0" name="XQuery" localized="false" default="false">
@@ -284,7 +284,7 @@ limitations under the License.
             </dialect>
             <dialect id="saxon/EE/v9.7/3.0-update" name="xquery.implementation.xquery-update-10" localized="true" default="true">
                 <xquery version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
-                <update-facility version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="true"/>
+                <xquery-update version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="true"/>
                 <saxon version="9.7" specification="http://www.saxonica.com/documentation/index.html#!changes/xquery30/9.6-9.7" default="true"/>
                 <static-context uri="res://www.w3.org/TR/xquery-30.xqy"/>
             </dialect>
@@ -294,7 +294,7 @@ limitations under the License.
             </dialect>
             <dialect id="saxon/EE/v9.7/3.1-update" name="xquery.implementation.xquery-update-10" localized="true" default="true">
                 <xquery version="3.1" specification="https://www.w3.org/TR/2017/REC-xquery-31-20170321/" default="false"/>
-                <update-facility version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="true"/>
+                <xquery-update version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="true"/>
                 <static-context uri="res://www.w3.org/TR/xquery-31.xqy"/>
             </dialect>
         </version>
@@ -307,13 +307,13 @@ limitations under the License.
             </dialect>
             <dialect id="w3c/1.0-scripting" name="xquery.implementation.xquery-scripting-10" localized="true" default="false">
                 <xquery version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="false"/>
-                <update-facility version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="false"/>
-                <scripting version="1.0" specification="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/" default="true"/>
+                <xquery-update version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="false"/>
+                <xquery-sx version="1.0" specification="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/" default="true"/>
                 <static-context uri="res://www.w3.org/TR/xquery.xqy"/>
             </dialect>
             <dialect id="w3c/1.0-update" name="xquery.implementation.xquery-update-10" localized="true" default="false">
                 <xquery version="1.0" specification="https://www.w3.org/TR/2010/REC-xquery-20101214/" default="true"/>
-                <update-facility version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="false"/>
+                <xquery-update version="1.0" specification="https://www.w3.org/TR/2011/REC-xquery-update-10-20110317/" default="false"/>
                 <static-context uri="res://www.w3.org/TR/xquery.xqy"/>
             </dialect>
             <dialect id="w3c/3.0" name="XQuery" localized="false" default="true">
@@ -322,7 +322,7 @@ limitations under the License.
             </dialect>
             <dialect id="w3c/3.0-update" name="xquery.implementation.xquery-update-30" localized="true" default="false">
                 <xquery version="3.0" specification="https://www.w3.org/TR/2014/REC-xquery-30-20140408/" default="true"/>
-                <update-facility version="3.0" specification="https://www.w3.org/TR/2017/NOTE-xquery-update-30-20170124/" default="true"/>
+                <xquery-update version="3.0" specification="https://www.w3.org/TR/2017/NOTE-xquery-update-30-20170124/" default="true"/>
                 <static-context uri="res://www.w3.org/TR/xquery-30.xqy"/>
             </dialect>
             <dialect id="w3c/3.1" name="XQuery" localized="false" default="true">

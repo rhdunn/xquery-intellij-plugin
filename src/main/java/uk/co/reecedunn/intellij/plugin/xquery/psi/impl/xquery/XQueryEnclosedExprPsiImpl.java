@@ -20,9 +20,7 @@ import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.*;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
@@ -53,12 +51,12 @@ public class XQueryEnclosedExprPsiImpl extends ASTWrapperPsiElement implements X
             return true;
         }
 
-        final XQueryVersion marklogicConformance = implementation.getVersion(XQueryConformance.MARKLOGIC);
+        final XQueryVersion marklogicConformance = implementation.getVersion(MarkLogic.INSTANCE);
         if (marklogicSupportsOptionalExpr(parent) && marklogicConformance != null && marklogicConformance.supportsVersion(XQueryVersion.VERSION_6_0)) {
             return true;
         }
 
-        final XQueryVersion minimalConformance = implementation.getVersion(XQueryConformance.MINIMAL_CONFORMANCE);
+        final XQueryVersion minimalConformance = implementation.getVersion(XQuery.INSTANCE);
         return minimalConformance != null && minimalConformance.supportsVersion(XQueryVersion.VERSION_3_1);
     }
 

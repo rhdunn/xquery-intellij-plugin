@@ -20,9 +20,7 @@ import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCurlyArrayConstructor;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.*;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
@@ -35,10 +33,10 @@ public class XQueryCurlyArrayConstructorPsiImpl extends ASTWrapperPsiElement imp
     @Override
     public boolean conformsTo(ImplementationItem implementation) {
         if (getConformanceElement().getNode().getElementType() == XQueryTokenType.K_ARRAY_NODE) {
-            final XQueryVersion version = implementation.getVersion(XQueryConformance.MARKLOGIC);
+            final XQueryVersion version = implementation.getVersion(MarkLogic.INSTANCE);
             return version != null && version.supportsVersion(XQueryVersion.VERSION_8_0);
         }
-        final XQueryVersion version = implementation.getVersion(XQueryConformance.MINIMAL_CONFORMANCE);
+        final XQueryVersion version = implementation.getVersion(XQuery.INSTANCE);
         return version != null && version.supportsVersion(XQueryVersion.VERSION_3_1);
     }
 

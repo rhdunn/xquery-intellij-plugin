@@ -21,7 +21,7 @@ import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingApplyExpr;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryConformance;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.Scripting;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck;
@@ -38,7 +38,7 @@ public class ScriptingApplyExprPsiImpl extends ASTWrapperPsiElement implements S
             return true;
         }
 
-        final XQueryVersion version = implementation.getVersion(XQueryConformance.SCRIPTING);
+        final XQueryVersion version = implementation.getVersion(Scripting.INSTANCE);
         return version != null && version.supportsVersion(XQueryVersion.VERSION_1_0);
     }
 
