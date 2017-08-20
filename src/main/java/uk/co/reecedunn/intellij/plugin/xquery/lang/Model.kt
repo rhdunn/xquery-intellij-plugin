@@ -116,6 +116,24 @@ object FullText : Versioned {
 }
 
 // endregion
+// region Specification :: XQuery and XPath Functions and Operators
+
+object FunctionsAndOperators : Versioned {
+    val REC_1_0_20070123 = Specification("1.0-20070123", 1.0, 20070123, "1.0", "https://www.w3.org/TR/2007/REC-xpath-functions-20070123/", this)
+    val REC_1_0_20101214 = Specification("1.0-20101214", 1.0, 20101214, "1.0", "https://www.w3.org/TR/2010/REC-xpath-functions-20101214/", this)
+    val REC_3_0_20140408 = Specification("3.0-20140408", 3.0, 20140408, "3.0", "https://www.w3.org/TR/2014/REC-xpath-functions-30-20140408/", this)
+    val REC_3_1_20170321 = Specification("3.1-20170321", 3.1, 20170321, "3.1", "https://www.w3.org/TR/2017/REC-xpath-functions-31-20170321/", this)
+
+    override val name get(): String = "XQuery and XPath Functions and Operatorss"
+
+    override val versions get(): List<Version> = listOf(
+        REC_1_0_20070123,
+        REC_1_0_20101214,
+        REC_3_0_20140408,
+        REC_3_1_20170321)
+}
+
+// endregion
 // region Specification :: XQuery Scripting Extension
 
 object Scripting : Versioned {
@@ -155,6 +173,8 @@ private class BaseXProduct(id: String, name: String, implementation: Implementat
         FullText.REC_3_0_20151124 -> true
         UpdateFacility.REC_1_0_20110317 -> true
         UpdateFacility.NOTE_3_0_20170124 -> productVersion.value >= 8.5
+        FunctionsAndOperators.REC_3_0_20140408 -> productVersion.value >= 7.7 // Full implementation.
+        FunctionsAndOperators.REC_3_1_20170321 -> productVersion.value >= 8.6
         else -> ref.kind === implementation && ref.value <= productVersion.value
     }
 }
@@ -184,6 +204,8 @@ private class MarkLogicProduct(id: String, name: String, implementation: Impleme
         XQuery.REC_1_0_20070123 -> true
         XQuery.MARKLOGIC_0_9 -> true
         XQuery.MARKLOGIC_1_0 -> true
+        FunctionsAndOperators.REC_1_0_20070123 -> true
+        FunctionsAndOperators.REC_3_0_20140408 -> true
         else -> ref.kind === implementation && ref.value <= productVersion.value
     }
 }
@@ -227,6 +249,9 @@ private class SaxonProduct(id: String, name: String, implementation: Implementat
         XQuery.CR_3_1_20151217  -> productVersion === Saxon.VERSION_9_7
         XQuery.REC_3_1_20170321 -> productVersion.value >= 9.8
         UpdateFacility.REC_1_0_20110317 -> this !== Saxon.HE && this !== Saxon.PE
+        FunctionsAndOperators.REC_1_0_20070123 -> true
+        FunctionsAndOperators.REC_3_0_20140408 -> productVersion.value >= 9.6 || (productVersion.value >= 9.5 && this !== Saxon.HE)
+        FunctionsAndOperators.REC_3_1_20170321 -> productVersion.value >= 9.8
         else -> ref.kind === implementation && ref.value <= productVersion.value
     }
 }
@@ -260,13 +285,18 @@ private class W3CProduct(id: String, name: String, implementation: Implementatio
     override fun supportsFeature(version: Version, feature: XQueryFeature): Boolean = true
 
     override fun conformsTo(productVersion: Version, ref: Version): Boolean = when (ref) {
-        XQuery.REC_1_0_20070123 -> productVersion === W3C.FIRST_EDITION
-        XQuery.REC_1_0_20101214 -> productVersion === W3C.SECOND_EDITION
-        XQuery.REC_3_0_20140408 -> productVersion === W3C.FIRST_EDITION
-        XQuery.REC_3_1_20170321 -> productVersion === W3C.FIRST_EDITION
-        FullText.REC_1_0_20110317 -> productVersion === W3C.FIRST_EDITION
-        FullText.REC_3_0_20151124 -> productVersion === W3C.FIRST_EDITION
-        UpdateFacility.REC_1_0_20110317 -> productVersion === W3C.FIRST_EDITION
+        XQuery.REC_1_0_20070123, XQuery.REC_3_0_20140408, XQuery.REC_3_1_20170321 ->
+            productVersion === W3C.FIRST_EDITION
+        XQuery.REC_1_0_20101214 ->
+            productVersion === W3C.SECOND_EDITION
+        FullText.REC_1_0_20110317, FullText.REC_3_0_20151124 ->
+            productVersion === W3C.FIRST_EDITION
+        UpdateFacility.REC_1_0_20110317 ->
+            productVersion === W3C.FIRST_EDITION
+        FunctionsAndOperators.REC_1_0_20070123, FunctionsAndOperators.REC_3_0_20140408, FunctionsAndOperators.REC_3_1_20170321 ->
+            productVersion === W3C.FIRST_EDITION
+        FunctionsAndOperators.REC_1_0_20101214 ->
+            productVersion === W3C.SECOND_EDITION
         else -> false // NOTE: 1ed/2ed conformance is done at the Specification level.
     }
 }

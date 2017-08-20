@@ -235,6 +235,14 @@ public class ModelTest extends TestCase {
                 assertThat(product.conformsTo(version, FullText.INSTANCE.getREC_3_0_20151124()), is(true));
 
                 // endregion
+                // region Specification: XQuery and XPath Functions and Operators
+
+                assertThat(product.conformsTo(version, FunctionsAndOperators.INSTANCE.getREC_1_0_20070123()), is(false));
+                assertThat(product.conformsTo(version, FunctionsAndOperators.INSTANCE.getREC_1_0_20101214()), is(false));
+                assertThat(product.conformsTo(version, FunctionsAndOperators.INSTANCE.getREC_3_0_20140408()), is(true));
+                assertThat(product.conformsTo(version, FunctionsAndOperators.INSTANCE.getREC_3_1_20170321()), is(version.getValue() >= 8.6));
+
+                // endregion
                 // region Specification: XQuery Scripting Extension
 
                 assertThat(product.conformsTo(version, Scripting.INSTANCE.getNOTE_1_0_20140918()), is(false));
@@ -297,6 +305,14 @@ public class ModelTest extends TestCase {
 
                 assertThat(product.conformsTo(version, FullText.INSTANCE.getREC_1_0_20110317()), is(false));
                 assertThat(product.conformsTo(version, FullText.INSTANCE.getREC_3_0_20151124()), is(false));
+
+                // endregion
+                // region Specification: XQuery and XPath Functions and Operators
+
+                assertThat(product.conformsTo(version, FunctionsAndOperators.INSTANCE.getREC_1_0_20070123()), is(true));
+                assertThat(product.conformsTo(version, FunctionsAndOperators.INSTANCE.getREC_1_0_20101214()), is(false));
+                assertThat(product.conformsTo(version, FunctionsAndOperators.INSTANCE.getREC_3_0_20140408()), is(true));
+                assertThat(product.conformsTo(version, FunctionsAndOperators.INSTANCE.getREC_3_1_20170321()), is(false));
 
                 // endregion
                 // region Specification: XQuery Scripting Extension
@@ -367,6 +383,18 @@ public class ModelTest extends TestCase {
                 assertThat(product.conformsTo(version, FullText.INSTANCE.getREC_3_0_20151124()), is(false));
 
                 // endregion
+                // region Specification: XQuery and XPath Functions and Operators
+
+                assertThat(product.conformsTo(version, FunctionsAndOperators.INSTANCE.getREC_1_0_20070123()), is(true));
+                assertThat(product.conformsTo(version, FunctionsAndOperators.INSTANCE.getREC_1_0_20101214()), is(false));
+                if (product.getId().equals("HE")) {
+                    assertThat(product.conformsTo(version, FunctionsAndOperators.INSTANCE.getREC_3_0_20140408()), is(version.getValue() >= 9.6));
+                } else {
+                    assertThat(product.conformsTo(version, FunctionsAndOperators.INSTANCE.getREC_3_0_20140408()), is(version.getValue() >= 9.5));
+                }
+                assertThat(product.conformsTo(version, FunctionsAndOperators.INSTANCE.getREC_3_1_20170321()), is(version.getValue() >= 9.8));
+
+                // endregion
                 // region Specification: XQuery Scripting Extension
 
                 assertThat(product.conformsTo(version, Scripting.INSTANCE.getNOTE_1_0_20140918()), is(false));
@@ -433,6 +461,14 @@ public class ModelTest extends TestCase {
 
                 assertThat(product.conformsTo(version, FullText.INSTANCE.getREC_1_0_20110317()), is(version.getValue() == 1.0));
                 assertThat(product.conformsTo(version, FullText.INSTANCE.getREC_3_0_20151124()), is(version.getValue() == 1.0));
+
+                // endregion
+                // region Specification: XQuery and XPath Functions and Operators
+
+                assertThat(product.conformsTo(version, FunctionsAndOperators.INSTANCE.getREC_1_0_20070123()), is(version.getValue() == 1.0));
+                assertThat(product.conformsTo(version, FunctionsAndOperators.INSTANCE.getREC_1_0_20101214()), is(version.getValue() == 2.0));
+                assertThat(product.conformsTo(version, FunctionsAndOperators.INSTANCE.getREC_3_0_20140408()), is(version.getValue() == 1.0));
+                assertThat(product.conformsTo(version, FunctionsAndOperators.INSTANCE.getREC_3_1_20170321()), is(version.getValue() == 1.0));
 
                 // endregion
                 // region Specification: XQuery Scripting Extension
