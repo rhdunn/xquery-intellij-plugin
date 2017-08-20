@@ -61,6 +61,22 @@ sealed class Implementation(override val id: String, override val name: String, 
 }
 
 // endregion
+// region Specification :: XML Schema Definition Language (XSD)
+
+object XmlSchema : Versioned {
+    val REC_1_0_20041028  = Specification("1.0-20041028", 1.0, 20041028, "1.0", "https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/", this)
+    val REC_1_1_20120405  = Specification("1.1-20120405", 1.1, 20120405, "1.1", "https://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/", this)
+
+    override val id get(): String = "xmlschema"
+
+    override val name get(): String = "XML Schema Definition Language"
+
+    override val versions get(): List<Version> = listOf(
+        REC_1_0_20041028,
+        REC_1_1_20120405)
+}
+
+// endregion
 // region Specification :: XQuery
 
 object XQuery : Language("XQuery", "application/xquery"), Versioned {
@@ -178,14 +194,14 @@ private class BaseXProduct(id: String, name: String, implementation: Implementat
     override fun supportsFeature(version: Version, feature: XQueryFeature): Boolean = true
 
     override fun conformsTo(productVersion: Version, ref: Version): Boolean = when (ref) {
+        XmlSchema.REC_1_0_20041028, XmlSchema.REC_1_1_20120405 -> true
         XQuery.REC_3_0_20140408 -> productVersion.value >= 7.7 // Full implementation.
         XQuery.CR_3_1_20151217  -> productVersion.value <= 8.5
         XQuery.REC_3_1_20170321 -> productVersion.value >= 8.6
-        FullText.REC_1_0_20110317 -> true
-        FullText.REC_3_0_20151124 -> true
+        FullText.REC_1_0_20110317, FullText.REC_3_0_20151124 -> true
         UpdateFacility.REC_1_0_20110317 -> true
         UpdateFacility.NOTE_3_0_20170124 -> productVersion.value >= 8.5
-        FunctionsAndOperators.REC_3_0_20140408 -> productVersion.value >= 7.7 // Full implementation.
+        FunctionsAndOperators.REC_3_0_20140408 -> productVersion.value >= 7.7
         FunctionsAndOperators.REC_3_1_20170321 -> productVersion.value >= 8.6
         else -> ref.kind === implementation && ref.value <= productVersion.value
     }
@@ -213,6 +229,8 @@ private class MarkLogicProduct(id: String, name: String, implementation: Impleme
     override fun supportsFeature(version: Version, feature: XQueryFeature): Boolean = true
 
     override fun conformsTo(productVersion: Version, ref: Version): Boolean = when (ref) {
+        XmlSchema.REC_1_0_20041028 -> true
+        XmlSchema.REC_1_1_20120405 -> productVersion.value >= 9.0
         XQuery.REC_1_0_20070123 -> true
         XQuery.MARKLOGIC_0_9 -> true
         XQuery.MARKLOGIC_1_0 -> true
@@ -256,6 +274,8 @@ private class SaxonProduct(id: String, name: String, implementation: Implementat
     }
 
     override fun conformsTo(productVersion: Version, ref: Version): Boolean = when (ref) {
+        XmlSchema.REC_1_0_20041028, XmlSchema.REC_1_1_20120405 ->
+            true
         XQuery.REC_1_0_20070123 -> true
         XQuery.REC_3_0_20140408 -> productVersion.value >= 9.6 || (productVersion.value >= 9.5 && this !== Saxon.HE)
         XQuery.CR_3_1_20151217  -> productVersion === Saxon.VERSION_9_7
@@ -297,6 +317,8 @@ private class W3CProduct(id: String, name: String, implementation: Implementatio
     override fun supportsFeature(version: Version, feature: XQueryFeature): Boolean = true
 
     override fun conformsTo(productVersion: Version, ref: Version): Boolean = when (ref) {
+        XmlSchema.REC_1_0_20041028, XmlSchema.REC_1_1_20120405 ->
+            true
         XQuery.REC_1_0_20070123, XQuery.REC_3_0_20140408, XQuery.REC_3_1_20170321 ->
             productVersion === W3C.FIRST_EDITION
         XQuery.REC_1_0_20101214 ->

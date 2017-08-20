@@ -218,6 +218,12 @@ public class ModelTest extends TestCase {
     public void testBaseX_ConformsTo() {
         for (Product product : BaseX.INSTANCE.getProducts()) {
             for (Version version : BaseX.INSTANCE.getVersions()) {
+                // region Specification: XML Schema Definition Language (XSD)
+
+                assertThat(product.conformsTo(version, XmlSchema.INSTANCE.getREC_1_0_20041028()), is(true));
+                assertThat(product.conformsTo(version, XmlSchema.INSTANCE.getREC_1_1_20120405()), is(true));
+
+                // endregion
                 // region Specification: XQuery
 
                 assertThat(product.conformsTo(version, XQuery.INSTANCE.getREC_1_0_20070123()), is(false));
@@ -290,6 +296,12 @@ public class ModelTest extends TestCase {
     public void testMarkLogic_ConformsTo() {
         for (Product product : MarkLogic.INSTANCE.getProducts()) {
             for (Version version : MarkLogic.INSTANCE.getVersions()) {
+                // region Specification: XML Schema Definition Language (XSD)
+
+                assertThat(product.conformsTo(version, XmlSchema.INSTANCE.getREC_1_0_20041028()), is(true));
+                assertThat(product.conformsTo(version, XmlSchema.INSTANCE.getREC_1_1_20120405()), is(version.getValue() >= 9.0));
+
+                // endregion
                 // region Specification: XQuery
 
                 assertThat(product.conformsTo(version, XQuery.INSTANCE.getREC_1_0_20070123()), is(true));
@@ -362,6 +374,12 @@ public class ModelTest extends TestCase {
     public void testSaxon_ConformsTo() {
         for (Product product : Saxon.INSTANCE.getProducts()) {
             for (Version version : Saxon.INSTANCE.getVersions()) {
+                // region Specification: XML Schema Definition Language (XSD)
+
+                assertThat(product.conformsTo(version, XmlSchema.INSTANCE.getREC_1_0_20041028()), is(true));
+                assertThat(product.conformsTo(version, XmlSchema.INSTANCE.getREC_1_1_20120405()), is(true));
+
+                // endregion
                 // region Specification: XQuery
 
                 assertThat(product.conformsTo(version, XQuery.INSTANCE.getREC_1_0_20070123()), is(true));
@@ -446,6 +464,12 @@ public class ModelTest extends TestCase {
     public void testW3C_ConformsTo() {
         for (Product product : W3C.INSTANCE.getProducts()) {
             for (Version version : W3C.INSTANCE.getVersions()) {
+                // region Specification: XML Schema Definition Language (XSD)
+
+                assertThat(product.conformsTo(version, XmlSchema.INSTANCE.getREC_1_0_20041028()), is(true));
+                assertThat(product.conformsTo(version, XmlSchema.INSTANCE.getREC_1_1_20120405()), is(true));
+
+                // endregion
                 // region Specification: XQuery
 
                 assertThat(product.conformsTo(version, XQuery.INSTANCE.getREC_1_0_20070123()), is(version.getValue() == 1.0));
