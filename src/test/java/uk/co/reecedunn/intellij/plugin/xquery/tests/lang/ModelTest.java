@@ -378,9 +378,9 @@ public class ModelTest extends TestCase {
         }
     }
 
-    public void testW3CProduct_REC_OptionalFeatureSupport() {
+    public void testW3CProduct_SPECIFICATIONS_OptionalFeatureSupport() {
         final Product product = W3C.INSTANCE.getProducts().get(0);
-        assertThat(product.getId(), is("rec"));
+        assertThat(product.getId(), is("spec"));
         assertThat(product.getImplementation().getId(), is("w3c"));
 
         for (Version version : Saxon.INSTANCE.getVersions()) {
@@ -681,13 +681,13 @@ public class ModelTest extends TestCase {
                 // endregion
                 // region Specification: XQuery Scripting Extension
 
-                assertThat(product.conformsTo(version, Scripting.INSTANCE.getNOTE_1_0_20140918()), is(false));
+                assertThat(product.conformsTo(version, Scripting.INSTANCE.getNOTE_1_0_20140918()), is(version.getValue() == 1.0));
 
                 // endregion
                 // region Specification: XQuery Update Facility
 
                 assertThat(product.conformsTo(version, UpdateFacility.INSTANCE.getREC_1_0_20110317()), is(version.getValue() == 1.0));
-                assertThat(product.conformsTo(version, UpdateFacility.INSTANCE.getNOTE_3_0_20170124()), is(false));
+                assertThat(product.conformsTo(version, UpdateFacility.INSTANCE.getNOTE_3_0_20170124()), is(version.getValue() == 1.0));
 
                 // endregion
                 // region Implementation: BaseX
@@ -911,10 +911,11 @@ public class ModelTest extends TestCase {
             for (Version version : W3C.INSTANCE.getVersions()) {
                 flavours = product.flavoursForXQueryVersion(version, "1.0");
                 if (version.getValue() == 1.0) {
-                    assertThat(flavours.size(), is(3));
+                    assertThat(flavours.size(), is(4));
                     assertThat(flavours.get(0), is(XQuery.INSTANCE));
                     assertThat(flavours.get(1), is(FullText.INSTANCE));
                     assertThat(flavours.get(2), is(UpdateFacility.INSTANCE));
+                    assertThat(flavours.get(3), is(Scripting.INSTANCE));
                 } else {
                     assertThat(flavours.size(), is(1));
                     assertThat(flavours.get(0), is(XQuery.INSTANCE));
@@ -922,9 +923,10 @@ public class ModelTest extends TestCase {
 
                 flavours = product.flavoursForXQueryVersion(version, "3.0");
                 if (version.getValue() == 1.0) {
-                    assertThat(flavours.size(), is(2));
+                    assertThat(flavours.size(), is(3));
                     assertThat(flavours.get(0), is(XQuery.INSTANCE));
                     assertThat(flavours.get(1), is(FullText.INSTANCE));
+                    assertThat(flavours.get(2), is(UpdateFacility.INSTANCE));
                 } else {
                     assertThat(flavours.size(), is(1));
                     assertThat(flavours.get(0), is(XQuery.INSTANCE));

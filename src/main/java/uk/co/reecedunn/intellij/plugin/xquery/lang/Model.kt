@@ -388,7 +388,9 @@ private class W3CProduct(id: String, name: String, implementation: Implementatio
             productVersion === W3C.SECOND_EDITION
         FullText.REC_1_0_20110317, FullText.REC_3_0_20151124 ->
             productVersion === W3C.FIRST_EDITION
-        UpdateFacility.REC_1_0_20110317 ->
+        UpdateFacility.REC_1_0_20110317, UpdateFacility.NOTE_3_0_20170124 ->
+            productVersion === W3C.FIRST_EDITION
+        Scripting.NOTE_1_0_20140918 ->
             productVersion === W3C.FIRST_EDITION
         FunctionsAndOperators.REC_1_0_20070123, FunctionsAndOperators.REC_3_0_20140408, FunctionsAndOperators.REC_3_1_20170321 ->
             productVersion === W3C.FIRST_EDITION
@@ -397,8 +399,8 @@ private class W3CProduct(id: String, name: String, implementation: Implementatio
         else -> false // NOTE: 1ed/2ed conformance is done at the Specification level.
     }
 
-    val FLAVOURS_XQUERY_1_0: List<Versioned> = listOf(XQuery, FullText, UpdateFacility)
-    val FLAVOURS_XQUERY_3_0: List<Versioned> = listOf(XQuery, FullText)
+    val FLAVOURS_XQUERY_1_0: List<Versioned> = listOf(XQuery, FullText, UpdateFacility, Scripting)
+    val FLAVOURS_XQUERY_3_0: List<Versioned> = listOf(XQuery, FullText, UpdateFacility)
     val FLAVOURS_XQUERY: List<Versioned> = listOf(XQuery)
     val FLAVOURS_UNSUPPORTED: List<Versioned> = listOf()
 
@@ -416,9 +418,9 @@ object W3C : Implementation("w3c", "W3C", "https://www.w3.org/XML/Query/") {
 
     override val versions: List<Version> = listOf(FIRST_EDITION, SECOND_EDITION)
 
-    val REC: Product = W3CProduct("rec", "Recommendation", this)
+    val SPECIFICATIONS: Product = W3CProduct("spec", "Specifications", this)
 
-    override val products: List<Product> = listOf(REC)
+    override val products: List<Product> = listOf(SPECIFICATIONS)
 }
 
 // endregion
