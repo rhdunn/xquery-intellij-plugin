@@ -63,7 +63,7 @@ class XQueryFunctionCallPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQu
         return true
     }
 
-    override fun getConformanceElement(): PsiElement {
+    override val conformanceElement get(): PsiElement {
         val localname = localName
         if (localname != null) {
             when (localname.second) {
@@ -77,7 +77,7 @@ class XQueryFunctionCallPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQu
         return firstChild
     }
 
-    override fun getConformanceErrorMessage(): String {
+    override val conformanceErrorMessage get(): String {
         val localname = localName
         if (localname != null) {
             when (localname.second) {

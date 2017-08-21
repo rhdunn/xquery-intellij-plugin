@@ -61,7 +61,7 @@ class XQueryNamedFunctionRefPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node),
         return minimalConformance.supportsVersion(XQueryVersion.VERSION_3_0) || marklogic.supportsVersion(XQueryVersion.VERSION_6_0)
     }
 
-    override fun getConformanceElement(): PsiElement {
+    override val conformanceElement get(): PsiElement {
         val name = findChildByClass(XQueryEQName::class.java)
         if (name?.node?.elementType === XQueryElementType.NCNAME) {
             val ncname = name?.firstChild
@@ -76,7 +76,7 @@ class XQueryNamedFunctionRefPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node),
         return findChildByType(XQueryTokenType.FUNCTION_REF_OPERATOR) ?: this
     }
 
-    override fun getConformanceErrorMessage(): String {
+    override val conformanceErrorMessage get(): String {
         val type = conformanceElement.node.elementType
         if (type is IXQueryKeywordOrNCNameType) {
             when (type.keywordType) {

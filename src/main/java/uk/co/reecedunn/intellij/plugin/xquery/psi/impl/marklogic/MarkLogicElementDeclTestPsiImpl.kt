@@ -29,9 +29,9 @@ class MarkLogicElementDeclTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node
     override fun conformsTo(implementation: ImplementationItem): Boolean =
         implementation.getVersion(MarkLogic).supportsVersion(XQueryVersion.VERSION_7_0)
 
-    override fun getConformanceElement(): PsiElement =
+    override val conformanceElement get(): PsiElement =
         firstChild
 
-    override fun getConformanceErrorMessage(): String =
+    override val conformanceErrorMessage get(): String =
         XQueryBundle.message("requires.feature.marklogic.version", XQueryVersion.VERSION_7_0)
 }

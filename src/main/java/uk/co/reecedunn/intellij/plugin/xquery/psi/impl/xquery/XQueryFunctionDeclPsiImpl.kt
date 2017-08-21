@@ -64,7 +64,7 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQu
         return true
     }
 
-    override fun getConformanceElement(): PsiElement {
+    override val conformanceElement get(): PsiElement {
         val name = findChildByClass(XQueryEQName::class.java)
         if (name == null) {
             return firstChild
@@ -74,7 +74,7 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQu
         return name
     }
 
-    override fun getConformanceErrorMessage(): String =
+    override val conformanceErrorMessage get(): String =
         XQueryBundle.message("requires.error.reserved-keyword-as-function-name")
 
     override val arity get(): Int =

@@ -35,13 +35,13 @@ class XQueryDecimalFormatDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node)
     override fun conformsTo(implementation: ImplementationItem): Boolean =
         implementation.getVersion(XQuery).supportsVersion(requiredVersion)
 
-    override fun getConformanceElement(): PsiElement {
+    override val conformanceElement get(): PsiElement {
         val element = children().filterIsInstance<XQueryDFPropertyName>().filter { e ->
             e.firstChild.node.elementType === XQueryTokenType.K_EXPONENT_SEPARATOR
         }.firstOrNull()
         return if (element != null) element else findChildByType<PsiElement>(XQueryTokenType.K_DECIMAL_FORMAT) ?: this
     }
 
-    override fun getConformanceErrorMessage(): String =
+    override val conformanceErrorMessage get(): String =
         XQueryBundle.message("requires.feature.minimal-conformance.version", requiredVersion)
 }

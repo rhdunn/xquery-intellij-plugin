@@ -35,10 +35,10 @@ class XQueryTumblingWindowClausePsiImpl(node: ASTNode) : ASTWrapperPsiElement(no
         return minimalConformance.supportsVersion(XQueryVersion.VERSION_3_0)
     }
 
-    override fun getConformanceElement(): PsiElement =
+    override val conformanceElement get(): PsiElement =
         firstChild
 
-    override fun getConformanceErrorMessage(): String =
+    override val conformanceErrorMessage get(): String =
         XQueryBundle.message("requires.feature.minimal-conformance.version", XQueryVersion.VERSION_3_0)
 
     override fun resolveVariable(name: XQueryEQName?): XQueryVariable? {

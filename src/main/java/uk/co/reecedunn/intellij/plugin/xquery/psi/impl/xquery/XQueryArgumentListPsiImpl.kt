@@ -42,10 +42,10 @@ class XQueryArgumentListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQu
         return minimalConformance.supportsVersion(XQueryVersion.VERSION_3_0) || marklogic.supportsVersion(XQueryVersion.VERSION_6_0)
     }
 
-    override fun getConformanceElement(): PsiElement =
+    override val conformanceElement get(): PsiElement =
         firstChild
 
-    override fun getConformanceErrorMessage(): String =
+    override val conformanceErrorMessage get(): String =
         XQueryBundle.message("requires.feature.marklogic-xquery.version")
 
     override val arity get(): Int =

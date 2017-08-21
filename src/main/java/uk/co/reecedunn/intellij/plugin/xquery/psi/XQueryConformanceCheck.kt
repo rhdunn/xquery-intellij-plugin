@@ -13,28 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi;
+package uk.co.reecedunn.intellij.plugin.xquery.psi
 
-import com.intellij.psi.PsiElement;
-import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
+import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem
 
-public interface XQueryConformanceCheck {
-    boolean conformsTo(@NotNull ImplementationItem implementation);
+interface XQueryConformanceCheck {
+    fun conformsTo(implementation: ImplementationItem): Boolean
 
     /**
      * Gets the element on which to report any conformance errors.
-     *
+
      * @return The element to report errors on.
      */
-    @NotNull
-    PsiElement getConformanceElement();
+    val conformanceElement: PsiElement
 
     /**
      * Gets the message to display on conformance errors.
-     *
+
      * @return The conformance error message.
      */
-    @NotNull
-    String getConformanceErrorMessage();
+    val conformanceErrorMessage: String
 }
