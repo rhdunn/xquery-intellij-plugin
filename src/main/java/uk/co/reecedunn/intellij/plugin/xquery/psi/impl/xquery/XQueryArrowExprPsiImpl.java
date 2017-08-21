@@ -31,7 +31,7 @@ public class XQueryArrowExprPsiImpl extends ASTWrapperPsiElement implements XQue
     }
 
     @Override
-    public boolean conformsTo(ImplementationItem implementation) {
+    public boolean conformsTo(@NotNull ImplementationItem implementation) {
         if (getConformanceElement() == getFirstChild()) {
             return true;
         }
@@ -42,12 +42,14 @@ public class XQueryArrowExprPsiImpl extends ASTWrapperPsiElement implements XQue
                 || (marklogic != null && marklogic.supportsVersion(XQueryVersion.VERSION_9_0));
     }
 
+    @NotNull
     @Override
     public PsiElement getConformanceElement() {
         PsiElement element = findChildByType(XQueryTokenType.ARROW);
         return element == null ? getFirstChild() : element;
     }
 
+    @NotNull
     @Override
     public String getConformanceErrorMessage() {
         return XQueryBundle.message("requires.feature.marklogic-9-xquery.version");

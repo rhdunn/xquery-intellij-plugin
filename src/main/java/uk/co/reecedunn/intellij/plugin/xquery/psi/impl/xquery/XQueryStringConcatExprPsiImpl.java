@@ -31,7 +31,7 @@ public class XQueryStringConcatExprPsiImpl extends ASTWrapperPsiElement implemen
     }
 
     @Override
-    public boolean conformsTo(ImplementationItem implementation) {
+    public boolean conformsTo(@NotNull ImplementationItem implementation) {
         if (findChildByType(XQueryTokenType.CONCATENATION) == null) {
             return true;
         }
@@ -42,12 +42,14 @@ public class XQueryStringConcatExprPsiImpl extends ASTWrapperPsiElement implemen
             || (marklogic != null && marklogic.supportsVersion(XQueryVersion.VERSION_6_0));
     }
 
+    @NotNull
     @Override
     public PsiElement getConformanceElement() {
         PsiElement element = findChildByType(XQueryTokenType.CONCATENATION);
         return element == null ? getFirstChild() : element;
     }
 
+    @NotNull
     @Override
     public String getConformanceErrorMessage() {
         return XQueryBundle.message("requires.feature.marklogic-xquery.version");

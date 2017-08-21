@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016-2017 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,16 +16,18 @@
 package uk.co.reecedunn.intellij.plugin.xquery.psi;
 
 import com.intellij.psi.PsiElement;
+import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
 
 public interface XQueryConformanceCheck {
-    boolean conformsTo(ImplementationItem implementation);
+    boolean conformsTo(@NotNull ImplementationItem implementation);
 
     /**
      * Gets the element on which to report any conformance errors.
      *
      * @return The element to report errors on.
      */
+    @NotNull
     PsiElement getConformanceElement();
 
     /**
@@ -33,5 +35,6 @@ public interface XQueryConformanceCheck {
      *
      * @return The conformance error message.
      */
+    @NotNull
     String getConformanceErrorMessage();
 }

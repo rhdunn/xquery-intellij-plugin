@@ -32,16 +32,18 @@ public class XQueryUnaryLookupPsiImpl extends ASTWrapperPsiElement implements XQ
     }
 
     @Override
-    public boolean conformsTo(ImplementationItem implementation) {
+    public boolean conformsTo(@NotNull ImplementationItem implementation) {
         final XQueryVersion version = implementation.getVersion(XQuery.INSTANCE);
         return version != null && version.supportsVersion(XQueryVersion.VERSION_3_1);
     }
 
+    @NotNull
     @Override
     public PsiElement getConformanceElement() {
         return getFirstChild();
     }
 
+    @NotNull
     @Override
     public String getConformanceErrorMessage() {
         return XQueryBundle.message("requires.feature.minimal-conformance.version", XQueryVersion.VERSION_3_1);

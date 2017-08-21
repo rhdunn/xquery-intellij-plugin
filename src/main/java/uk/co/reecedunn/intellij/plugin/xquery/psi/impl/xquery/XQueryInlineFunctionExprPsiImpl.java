@@ -31,7 +31,7 @@ public class XQueryInlineFunctionExprPsiImpl extends ASTWrapperPsiElement implem
     }
 
     @Override
-    public boolean conformsTo(ImplementationItem implementation) {
+    public boolean conformsTo(@NotNull ImplementationItem implementation) {
         if (findChildByType(XQueryTokenType.K_FUNCTION) == null) {
             return true; // Annotation with a missing 'function' keyword.
         }
@@ -42,12 +42,14 @@ public class XQueryInlineFunctionExprPsiImpl extends ASTWrapperPsiElement implem
             || (marklogic != null && marklogic.supportsVersion(XQueryVersion.VERSION_6_0));
     }
 
+    @NotNull
     @Override
     public PsiElement getConformanceElement() {
         PsiElement element = findChildByType(XQueryTokenType.K_FUNCTION);
         return element == null ? getFirstChild() : element;
     }
 
+    @NotNull
     @Override
     public String getConformanceErrorMessage() {
         return XQueryBundle.message("requires.feature.marklogic-xquery.version");

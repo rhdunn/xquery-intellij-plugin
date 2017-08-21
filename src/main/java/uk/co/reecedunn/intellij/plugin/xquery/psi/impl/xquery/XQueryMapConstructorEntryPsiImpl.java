@@ -36,7 +36,7 @@ public class XQueryMapConstructorEntryPsiImpl extends ASTWrapperPsiElement imple
     }
 
     @Override
-    public boolean conformsTo(ImplementationItem implementation) {
+    public boolean conformsTo(@NotNull ImplementationItem implementation) {
         final XQueryVersion saxon = implementation.getVersion(Saxon.INSTANCE);
         boolean isSaxonExtension = saxon != null && saxon.supportsVersion(XQueryVersion.VERSION_9_4) && !saxon.supportsVersion(XQueryVersion.VERSION_9_7);
         PsiElement conformanceElement = getConformanceElement();
@@ -46,12 +46,14 @@ public class XQueryMapConstructorEntryPsiImpl extends ASTWrapperPsiElement imple
         return (conformanceElement.getNode().getElementType() == XQueryTokenType.ASSIGN_EQUAL) == isSaxonExtension;
     }
 
+    @NotNull
     @Override
     public PsiElement getConformanceElement() {
         PsiElement element = findChildByType(ASSIGNMENT);
         return element == null ? getFirstChild() : element;
     }
 
+    @NotNull
     @Override
     public String getConformanceErrorMessage() {
         return XQueryBundle.message("requires.feature.saxon-map-entry-assign.version");

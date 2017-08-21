@@ -37,7 +37,7 @@ public class XQueryAnyKindTestPsiImpl extends ASTWrapperPsiElement implements XQ
     }
 
     @Override
-    public boolean conformsTo(ImplementationItem implementation) {
+    public boolean conformsTo(@NotNull ImplementationItem implementation) {
         if (getConformanceElement() == getFirstChild()) {
             return true;
         }
@@ -46,12 +46,14 @@ public class XQueryAnyKindTestPsiImpl extends ASTWrapperPsiElement implements XQ
         return marklogic != null && marklogic.supportsVersion(XQueryVersion.VERSION_8_0);
     }
 
+    @NotNull
     @Override
     public PsiElement getConformanceElement() {
         PsiElement marklogic = findChildByType(MARKLOGIC_TOKENS);
         return marklogic == null ? getFirstChild() : marklogic;
     }
 
+    @NotNull
     @Override
     public String getConformanceErrorMessage() {
         return XQueryBundle.message("requires.feature.marklogic.version", XQueryVersion.VERSION_8_0);

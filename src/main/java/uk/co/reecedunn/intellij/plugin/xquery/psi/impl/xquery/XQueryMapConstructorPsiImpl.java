@@ -31,7 +31,7 @@ public class XQueryMapConstructorPsiImpl extends ASTWrapperPsiElement implements
     }
 
     @Override
-    public boolean conformsTo(ImplementationItem implementation) {
+    public boolean conformsTo(@NotNull ImplementationItem implementation) {
         if (getConformanceElement().getNode().getElementType() == XQueryTokenType.K_OBJECT_NODE) {
             final XQueryVersion version = implementation.getVersion(MarkLogic.INSTANCE);
             return version != null && version.supportsVersion(XQueryVersion.VERSION_8_0);
@@ -42,11 +42,13 @@ public class XQueryMapConstructorPsiImpl extends ASTWrapperPsiElement implements
                (saxon != null && saxon.supportsVersion(XQueryVersion.VERSION_9_4));
     }
 
+    @NotNull
     @Override
     public PsiElement getConformanceElement() {
         return getFirstChild();
     }
 
+    @NotNull
     @Override
     public String getConformanceErrorMessage() {
         if (getConformanceElement().getNode().getElementType() == XQueryTokenType.K_OBJECT_NODE) {

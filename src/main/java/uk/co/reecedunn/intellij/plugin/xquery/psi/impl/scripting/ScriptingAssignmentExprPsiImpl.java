@@ -33,16 +33,18 @@ public class ScriptingAssignmentExprPsiImpl extends ASTWrapperPsiElement impleme
     }
 
     @Override
-    public boolean conformsTo(ImplementationItem implementation) {
+    public boolean conformsTo(@NotNull ImplementationItem implementation) {
         final XQueryVersion version = implementation.getVersion(Scripting.INSTANCE);
         return version != null && version.supportsVersion(XQueryVersion.VERSION_1_0);
     }
 
+    @NotNull
     @Override
     public PsiElement getConformanceElement() {
         return findChildByType(XQueryTokenType.ASSIGN_EQUAL);
     }
 
+    @NotNull
     @Override
     public String getConformanceErrorMessage() {
         return XQueryBundle.message("requires.feature.scripting.version", XQueryVersion.VERSION_1_0);

@@ -49,12 +49,13 @@ public class XQueryVersionDeclPsiImpl extends ASTWrapperPsiElement implements XQ
     }
 
     @Override
-    public boolean conformsTo(ImplementationItem implementation) {
+    public boolean conformsTo(@NotNull ImplementationItem implementation) {
         PsiElement element = getConformanceElement();
         final XQueryVersion version = implementation.getVersion(XQuery.INSTANCE);
         return version != null && version.supportsVersion(element == getFirstChild() ? XQueryVersion.VERSION_1_0 : XQueryVersion.VERSION_3_0);
     }
 
+    @NotNull
     @Override
     public PsiElement getConformanceElement() {
         ASTNode encoding = getNode().findChildByType(XQueryTokenType.K_ENCODING);
@@ -70,6 +71,7 @@ public class XQueryVersionDeclPsiImpl extends ASTWrapperPsiElement implements XQ
         return previous.getElementType() == XQueryTokenType.K_XQUERY ? encoding.getPsi() : getFirstChild();
     }
 
+    @NotNull
     @Override
     public String getConformanceErrorMessage() {
         final XQueryVersion version = getConformanceElement() == getFirstChild() ? XQueryVersion.VERSION_1_0 : XQueryVersion.VERSION_3_0;

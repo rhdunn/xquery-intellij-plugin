@@ -31,7 +31,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 
 class XQueryNamedFunctionRefPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryNamedFunctionRef, XQueryConformanceCheck {
     override fun conformsTo(implementation: ImplementationItem): Boolean {
-        val type = conformanceElement?.node?.elementType
+        val type = conformanceElement.node.elementType
         if (type is IXQueryKeywordOrNCNameType) {
             when (type.keywordType) {
                 IXQueryKeywordOrNCNameType.KeywordType.KEYWORD -> {}
@@ -61,7 +61,7 @@ class XQueryNamedFunctionRefPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node),
         return minimalConformance.supportsVersion(XQueryVersion.VERSION_3_0) || marklogic.supportsVersion(XQueryVersion.VERSION_6_0)
     }
 
-    override fun getConformanceElement(): PsiElement? {
+    override fun getConformanceElement(): PsiElement {
         val name = findChildByClass(XQueryEQName::class.java)
         if (name?.node?.elementType === XQueryElementType.NCNAME) {
             val ncname = name?.firstChild
@@ -73,11 +73,11 @@ class XQueryNamedFunctionRefPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node),
                 }
             }
         }
-        return findChildByType(XQueryTokenType.FUNCTION_REF_OPERATOR)
+        return findChildByType(XQueryTokenType.FUNCTION_REF_OPERATOR) ?: this
     }
 
     override fun getConformanceErrorMessage(): String {
-        val type = conformanceElement?.node?.elementType
+        val type = conformanceElement.node.elementType
         if (type is IXQueryKeywordOrNCNameType) {
             when (type.keywordType) {
                 IXQueryKeywordOrNCNameType.KeywordType.KEYWORD -> {}

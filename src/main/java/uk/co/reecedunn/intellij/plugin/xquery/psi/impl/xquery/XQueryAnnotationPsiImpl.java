@@ -31,18 +31,20 @@ public class XQueryAnnotationPsiImpl extends ASTWrapperPsiElement implements XQu
     }
 
     @Override
-    public boolean conformsTo(ImplementationItem implementation) {
+    public boolean conformsTo(@NotNull ImplementationItem implementation) {
         final XQueryVersion minimalConformance = implementation.getVersion(XQuery.INSTANCE);
         final XQueryVersion marklogic = implementation.getVersion(MarkLogic.INSTANCE);
         return (minimalConformance != null && minimalConformance.supportsVersion(XQueryVersion.VERSION_3_0))
             || (marklogic != null && marklogic.supportsVersion(XQueryVersion.VERSION_6_0));
     }
 
+    @NotNull
     @Override
     public PsiElement getConformanceElement() {
         return findChildByType(XQueryTokenType.ANNOTATION_INDICATOR);
     }
 
+    @NotNull
     @Override
     public String getConformanceErrorMessage() {
         return XQueryBundle.message("requires.feature.marklogic-xquery.version");

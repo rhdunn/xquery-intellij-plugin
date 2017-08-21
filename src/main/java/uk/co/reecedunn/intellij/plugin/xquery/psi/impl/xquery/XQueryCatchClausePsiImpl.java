@@ -33,7 +33,7 @@ public class XQueryCatchClausePsiImpl extends ASTWrapperPsiElement implements XQ
     }
 
     @Override
-    public boolean conformsTo(ImplementationItem implementation) {
+    public boolean conformsTo(@NotNull ImplementationItem implementation) {
         if (isMarkLogicExtension()) {
             // MarkLogic CatchClause
             final XQueryVersion marklogic = implementation.getVersion(MarkLogic.INSTANCE);
@@ -44,11 +44,13 @@ public class XQueryCatchClausePsiImpl extends ASTWrapperPsiElement implements XQ
         return true;
     }
 
+    @NotNull
     @Override
     public PsiElement getConformanceElement() {
         return getFirstChild();
     }
 
+    @NotNull
     @Override
     public String getConformanceErrorMessage() {
         return XQueryBundle.message("requires.feature.marklogic.version", XQueryVersion.VERSION_6_0);

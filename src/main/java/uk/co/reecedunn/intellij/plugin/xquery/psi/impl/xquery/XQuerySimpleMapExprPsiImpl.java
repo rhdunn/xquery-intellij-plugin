@@ -31,7 +31,7 @@ public class XQuerySimpleMapExprPsiImpl extends ASTWrapperPsiElement implements 
     }
 
     @Override
-    public boolean conformsTo(ImplementationItem implementation) {
+    public boolean conformsTo(@NotNull ImplementationItem implementation) {
         if (getConformanceElement() == getFirstChild()) {
             return true;
         }
@@ -42,12 +42,14 @@ public class XQuerySimpleMapExprPsiImpl extends ASTWrapperPsiElement implements 
             || (marklogic != null && marklogic.supportsVersion(XQueryVersion.VERSION_6_0));
     }
 
+    @NotNull
     @Override
     public PsiElement getConformanceElement() {
         PsiElement element = findChildByType(XQueryTokenType.MAP_OPERATOR);
         return element == null ? getFirstChild() : element;
     }
 
+    @NotNull
     @Override
     public String getConformanceErrorMessage() {
         return XQueryBundle.message("requires.feature.marklogic-xquery.version");

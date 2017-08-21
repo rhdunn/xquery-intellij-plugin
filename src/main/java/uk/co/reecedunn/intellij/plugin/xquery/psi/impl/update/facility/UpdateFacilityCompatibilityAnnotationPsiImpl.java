@@ -33,7 +33,7 @@ public class UpdateFacilityCompatibilityAnnotationPsiImpl extends ASTWrapperPsiE
     }
 
     @Override
-    public boolean conformsTo(ImplementationItem implementation) {
+    public boolean conformsTo(@NotNull ImplementationItem implementation) {
         final XQueryVersion version = implementation.getVersion(UpdateFacility.INSTANCE);
         if (version != null) {
             final ASTNode varDecl = getParent().getNode().findChildByType(XQueryElementType.VAR_DECL);
@@ -42,11 +42,13 @@ public class UpdateFacilityCompatibilityAnnotationPsiImpl extends ASTWrapperPsiE
         return false;
     }
 
+    @NotNull
     @Override
     public PsiElement getConformanceElement() {
         return getFirstChild();
     }
 
+    @NotNull
     @Override
     public String getConformanceErrorMessage() {
         final ASTNode varDecl = getParent().getNode().findChildByType(XQueryElementType.VAR_DECL);

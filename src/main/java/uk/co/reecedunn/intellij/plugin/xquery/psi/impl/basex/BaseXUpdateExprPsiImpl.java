@@ -40,18 +40,20 @@ public class BaseXUpdateExprPsiImpl extends ASTWrapperPsiElement implements Base
     }
 
     @Override
-    public boolean conformsTo(ImplementationItem implementation) {
+    public boolean conformsTo(@NotNull ImplementationItem implementation) {
         final XQueryVersion basex = implementation.getVersion(BaseX.INSTANCE);
         // NOTE: UpdateExpr was introduced in BaseX 7.8, but this plugin only supports >= 8.4.
         return basex  != null && basex.supportsVersion(getRequiredVersion());
     }
 
+    @NotNull
     @Override
     public PsiElement getConformanceElement() {
         PsiElement element = findChildByType(XQueryTokenType.BLOCK_OPEN);
         return element == null ? findChildByType(XQueryTokenType.K_UPDATE) : element;
     }
 
+    @NotNull
     @Override
     public String getConformanceErrorMessage() {
         // NOTE: UpdateExpr was introduced in BaseX 7.8, but this plugin only supports >= 8.4.

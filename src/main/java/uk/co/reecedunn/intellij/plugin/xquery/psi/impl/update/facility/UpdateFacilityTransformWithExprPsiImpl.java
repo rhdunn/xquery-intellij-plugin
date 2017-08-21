@@ -31,18 +31,20 @@ public class UpdateFacilityTransformWithExprPsiImpl extends ASTWrapperPsiElement
     }
 
     @Override
-    public boolean conformsTo(ImplementationItem implementation) {
+    public boolean conformsTo(@NotNull ImplementationItem implementation) {
         final XQueryVersion update = implementation.getVersion(UpdateFacility.INSTANCE);
         final XQueryVersion basex = implementation.getVersion(BaseX.INSTANCE);
         return (update != null && update.supportsVersion(XQueryVersion.VERSION_3_0))
             || (basex  != null && basex.supportsVersion(XQueryVersion.VERSION_8_5));
     }
 
+    @NotNull
     @Override
     public PsiElement getConformanceElement() {
         return findChildByType(XQueryTokenType.K_TRANSFORM);
     }
 
+    @NotNull
     @Override
     public String getConformanceErrorMessage() {
         return XQueryBundle.message("requires.feature.update-facility.version", XQueryVersion.VERSION_3_0);

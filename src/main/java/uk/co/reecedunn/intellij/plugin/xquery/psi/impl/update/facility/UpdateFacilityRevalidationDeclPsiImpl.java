@@ -33,16 +33,18 @@ public class UpdateFacilityRevalidationDeclPsiImpl extends ASTWrapperPsiElement 
     }
 
     @Override
-    public boolean conformsTo(ImplementationItem implementation) {
+    public boolean conformsTo(@NotNull ImplementationItem implementation) {
         final XQueryVersion version = implementation.getVersion(UpdateFacility.INSTANCE);
         return version != null && version.supportsVersion(XQueryVersion.VERSION_1_0);
     }
 
+    @NotNull
     @Override
     public PsiElement getConformanceElement() {
         return findChildByType(XQueryTokenType.K_REVALIDATION);
     }
 
+    @NotNull
     @Override
     public String getConformanceErrorMessage() {
         return XQueryBundle.message("requires.feature.update-facility.version", XQueryVersion.VERSION_1_0);

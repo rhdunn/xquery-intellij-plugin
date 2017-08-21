@@ -36,7 +36,7 @@ public class XQueryVarDeclPsiImpl extends ASTWrapperPsiElement implements XQuery
     }
 
     @Override
-    public boolean conformsTo(ImplementationItem implementation) {
+    public boolean conformsTo(@NotNull ImplementationItem implementation) {
         if (getConformanceElement() == getFirstChild()) {
             return true;
         }
@@ -47,6 +47,7 @@ public class XQueryVarDeclPsiImpl extends ASTWrapperPsiElement implements XQuery
             || (marklogic != null && marklogic.supportsVersion(XQueryVersion.VERSION_6_0));
     }
 
+    @NotNull
     @Override
     public PsiElement getConformanceElement() {
         PsiElement element = findChildByType(XQueryTokenType.ASSIGN_EQUAL);
@@ -60,6 +61,7 @@ public class XQueryVarDeclPsiImpl extends ASTWrapperPsiElement implements XQuery
         return (previous == null || previous.getNode().getElementType() != XQueryTokenType.K_EXTERNAL) ? getFirstChild() : element;
     }
 
+    @NotNull
     @Override
     public String getConformanceErrorMessage() {
         return XQueryBundle.message("requires.feature.marklogic-xquery.version");

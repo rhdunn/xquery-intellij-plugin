@@ -45,7 +45,7 @@ public class XQueryEnclosedExprPsiImpl extends ASTWrapperPsiElement implements X
     }
 
     @Override
-    public boolean conformsTo(ImplementationItem implementation) {
+    public boolean conformsTo(@NotNull ImplementationItem implementation) {
         PsiElement parent = getParent();
         if (previousVersionSupportsOptionalExpr(parent) || getConformanceElement() != getFirstChild()) {
             return true;
@@ -60,12 +60,14 @@ public class XQueryEnclosedExprPsiImpl extends ASTWrapperPsiElement implements X
         return minimalConformance != null && minimalConformance.supportsVersion(XQueryVersion.VERSION_3_1);
     }
 
+    @NotNull
     @Override
     public PsiElement getConformanceElement() {
         PsiElement element = findChildByType(XQueryElementType.EXPR);
         return element == null ? getFirstChild() : element;
     }
 
+    @NotNull
     @Override
     public String getConformanceErrorMessage() {
         return XQueryBundle.message("requires.empty-expression.version", XQueryVersion.VERSION_3_1);

@@ -32,16 +32,18 @@ public class XQueryNamespaceNodeTestPsiImpl extends ASTWrapperPsiElement impleme
     }
 
     @Override
-    public boolean conformsTo(ImplementationItem implementation) {
+    public boolean conformsTo(@NotNull ImplementationItem implementation) {
         final XQueryVersion minimalConformance = implementation.getVersion(XQuery.INSTANCE);
         return minimalConformance != null && minimalConformance.supportsVersion(XQueryVersion.VERSION_3_0);
     }
 
+    @NotNull
     @Override
     public PsiElement getConformanceElement() {
         return getFirstChild();
     }
 
+    @NotNull
     @Override
     public String getConformanceErrorMessage() {
         return XQueryBundle.message("requires.feature.minimal-conformance.version", XQueryVersion.VERSION_3_0);

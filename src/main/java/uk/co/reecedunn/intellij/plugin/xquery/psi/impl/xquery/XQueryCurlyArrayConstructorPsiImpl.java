@@ -31,7 +31,7 @@ public class XQueryCurlyArrayConstructorPsiImpl extends ASTWrapperPsiElement imp
     }
 
     @Override
-    public boolean conformsTo(ImplementationItem implementation) {
+    public boolean conformsTo(@NotNull ImplementationItem implementation) {
         if (getConformanceElement().getNode().getElementType() == XQueryTokenType.K_ARRAY_NODE) {
             final XQueryVersion version = implementation.getVersion(MarkLogic.INSTANCE);
             return version != null && version.supportsVersion(XQueryVersion.VERSION_8_0);
@@ -40,11 +40,13 @@ public class XQueryCurlyArrayConstructorPsiImpl extends ASTWrapperPsiElement imp
         return version != null && version.supportsVersion(XQueryVersion.VERSION_3_1);
     }
 
+    @NotNull
     @Override
     public PsiElement getConformanceElement() {
         return getFirstChild();
     }
 
+    @NotNull
     @Override
     public String getConformanceErrorMessage() {
         if (getConformanceElement().getNode().getElementType() == XQueryTokenType.K_ARRAY_NODE) {

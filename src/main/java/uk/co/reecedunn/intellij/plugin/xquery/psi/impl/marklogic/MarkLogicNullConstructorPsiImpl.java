@@ -32,16 +32,18 @@ public class MarkLogicNullConstructorPsiImpl extends ASTWrapperPsiElement implem
     }
 
     @Override
-    public boolean conformsTo(ImplementationItem implementation) {
+    public boolean conformsTo(@NotNull ImplementationItem implementation) {
         final XQueryVersion version = implementation.getVersion(MarkLogic.INSTANCE);
         return version != null && version.supportsVersion(XQueryVersion.VERSION_8_0);
     }
 
+    @NotNull
     @Override
     public PsiElement getConformanceElement() {
         return getFirstChild();
     }
 
+    @NotNull
     @Override
     public String getConformanceErrorMessage() {
         return XQueryBundle.message("requires.feature.marklogic.version", XQueryVersion.VERSION_8_0);

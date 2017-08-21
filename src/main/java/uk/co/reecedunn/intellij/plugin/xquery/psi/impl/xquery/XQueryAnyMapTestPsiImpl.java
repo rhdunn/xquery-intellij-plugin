@@ -30,18 +30,20 @@ public class XQueryAnyMapTestPsiImpl extends ASTWrapperPsiElement implements XQu
     }
 
     @Override
-    public boolean conformsTo(ImplementationItem implementation) {
+    public boolean conformsTo(@NotNull ImplementationItem implementation) {
         final XQueryVersion version = implementation.getVersion(XQuery.INSTANCE);
         final XQueryVersion saxon = implementation.getVersion(Saxon.INSTANCE);
         return (version != null && version.supportsVersion(XQueryVersion.VERSION_3_1)) ||
                (saxon != null && saxon.supportsVersion(XQueryVersion.VERSION_9_4));
     }
 
+    @NotNull
     @Override
     public PsiElement getConformanceElement() {
         return getFirstChild();
     }
 
+    @NotNull
     @Override
     public String getConformanceErrorMessage() {
         return XQueryBundle.message("requires.feature.saxon-xquery.version");

@@ -36,7 +36,7 @@ public class XQueryForwardAxisPsiImpl extends ASTWrapperPsiElement implements XQ
     }
 
     @Override
-    public boolean conformsTo(ImplementationItem implementation) {
+    public boolean conformsTo(@NotNull ImplementationItem implementation) {
         // TODO: full-axis conformance checks
         final ASTNode node = getNode().findChildByType(MARKLOGIC_AXIS);
         if (node != null) {
@@ -46,11 +46,13 @@ public class XQueryForwardAxisPsiImpl extends ASTWrapperPsiElement implements XQ
         return true;
     }
 
+    @NotNull
     @Override
     public PsiElement getConformanceElement() {
         return getFirstChild();
     }
 
+    @NotNull
     @Override
     public String getConformanceErrorMessage() {
         // TODO: full-axis conformance checks

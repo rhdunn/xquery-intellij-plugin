@@ -34,7 +34,7 @@ public class XQueryValidateExprPsiImpl extends ASTWrapperPsiElement implements X
     }
 
     @Override
-    public boolean conformsTo(ImplementationItem implementation) {
+    public boolean conformsTo(@NotNull ImplementationItem implementation) {
         // TODO: schema-validation feature check
         PsiElement element = getConformanceElement();
         if (element != getFirstChild()) {
@@ -49,12 +49,14 @@ public class XQueryValidateExprPsiImpl extends ASTWrapperPsiElement implements X
         return true;
     }
 
+    @NotNull
     @Override
     public PsiElement getConformanceElement() {
         PsiElement validateByTypeName = findChildByType(VALIDATE_BY_TYPENAME);
         return validateByTypeName == null ? getFirstChild() : validateByTypeName;
     }
 
+    @NotNull
     @Override
     public String getConformanceErrorMessage() {
         // TODO: schema-validation feature check

@@ -33,7 +33,7 @@ public class ScriptingApplyExprPsiImpl extends ASTWrapperPsiElement implements S
     }
 
     @Override
-    public boolean conformsTo(ImplementationItem implementation) {
+    public boolean conformsTo(@NotNull ImplementationItem implementation) {
         if (getConformanceElement() == getFirstChild()) {
             return true;
         }
@@ -42,12 +42,14 @@ public class ScriptingApplyExprPsiImpl extends ASTWrapperPsiElement implements S
         return version != null && version.supportsVersion(XQueryVersion.VERSION_1_0);
     }
 
+    @NotNull
     @Override
     public PsiElement getConformanceElement() {
         PsiElement element = findChildByType(XQueryTokenType.SEPARATOR);
         return element == null ? getFirstChild() : element;
     }
 
+    @NotNull
     @Override
     public String getConformanceErrorMessage() {
         return XQueryBundle.message("requires.feature.scripting.version", XQueryVersion.VERSION_1_0);

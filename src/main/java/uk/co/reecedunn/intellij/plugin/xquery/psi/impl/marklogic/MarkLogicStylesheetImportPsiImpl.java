@@ -32,16 +32,18 @@ public class MarkLogicStylesheetImportPsiImpl extends ASTWrapperPsiElement imple
     }
 
     @Override
-    public boolean conformsTo(ImplementationItem implementation) {
+    public boolean conformsTo(@NotNull ImplementationItem implementation) {
         final XQueryVersion version = implementation.getVersion(MarkLogic.INSTANCE);
         return version != null && version.supportsVersion(XQueryVersion.VERSION_6_0);
     }
 
+    @NotNull
     @Override
     public PsiElement getConformanceElement() {
         return getFirstChild();
     }
 
+    @NotNull
     @Override
     public String getConformanceErrorMessage() {
         return XQueryBundle.message("requires.feature.marklogic.version", XQueryVersion.VERSION_6_0);

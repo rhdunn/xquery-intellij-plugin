@@ -55,16 +55,18 @@ public class XQueryIntermediateClausePsiImpl extends ASTWrapperPsiElement implem
     }
 
     @Override
-    public boolean conformsTo(ImplementationItem implementation) {
+    public boolean conformsTo(@NotNull ImplementationItem implementation) {
         final XQueryVersion minimalConformance = implementation.getVersion(XQuery.INSTANCE);
         return minimalConformance != null && minimalConformance.supportsVersion(getRequiredXQueryVersion());
     }
 
+    @NotNull
     @Override
     public PsiElement getConformanceElement() {
         return getFirstChild().getFirstChild();
     }
 
+    @NotNull
     @Override
     public String getConformanceErrorMessage() {
         return XQueryBundle.message("requires.feature.minimal-conformance.version", XQueryVersion.VERSION_3_0);

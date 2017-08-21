@@ -26,7 +26,7 @@ public class XQueryEnclosedContentExprPsiImpl extends XQueryEnclosedExprPsiImpl 
     }
 
     @Override
-    public boolean conformsTo(ImplementationItem implementation) {
+    public boolean conformsTo(@NotNull ImplementationItem implementation) {
         return true;
     }
 }
