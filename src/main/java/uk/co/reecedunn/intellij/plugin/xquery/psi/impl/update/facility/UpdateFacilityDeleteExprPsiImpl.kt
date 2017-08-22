@@ -21,11 +21,15 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.UpdateFacilityDeleteExpr
 import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem
 import uk.co.reecedunn.intellij.plugin.xquery.lang.UpdateFacility
+import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck2
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 
-class UpdateFacilityDeleteExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), UpdateFacilityDeleteExpr, XQueryConformanceCheck {
+class UpdateFacilityDeleteExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), UpdateFacilityDeleteExpr, XQueryConformanceCheck, XQueryConformanceCheck2 {
+    override val requiresConformance get(): List<Version> = listOf(UpdateFacility.REC_1_0_20110317)
+
     override fun conformsTo(implementation: ImplementationItem): Boolean =
         implementation.getVersion(UpdateFacility).supportsVersion(XQueryVersion.VERSION_1_0)
 
