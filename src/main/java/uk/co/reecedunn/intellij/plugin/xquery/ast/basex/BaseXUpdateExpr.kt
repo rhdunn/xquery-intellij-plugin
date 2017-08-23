@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.basex;
+package uk.co.reecedunn.intellij.plugin.xquery.ast.basex
 
-import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiElement
 
 /**
- * A BaseX 7.8/8.5 <code>UpdateExpr</code> node in the XQuery AST.
+ * A BaseX 7.8/8.5 `UpdateExpr` node in the XQuery AST.
  */
-public interface BaseXUpdateExpr extends PsiElement {
-}
+interface BaseXUpdateExpr : PsiElement
