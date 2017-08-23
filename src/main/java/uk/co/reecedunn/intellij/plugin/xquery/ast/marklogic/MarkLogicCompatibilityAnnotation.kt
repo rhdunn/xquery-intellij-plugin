@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic;
+package uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic
 
-import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiElement
 
 /**
- * A MarkLogic 6.0 <code>CompatibilityAnnotation</code> node in the XQuery AST.
+ * A MarkLogic 6.0 `CompatibilityAnnotation` node in the XQuery AST.
  */
-public interface MarkLogicCompatibilityAnnotation extends PsiElement {
-}
+interface MarkLogicCompatibilityAnnotation : PsiElement
