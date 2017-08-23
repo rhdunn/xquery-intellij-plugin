@@ -13,15 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.scripting;
+package uk.co.reecedunn.intellij.plugin.xquery.ast.scripting
 
-import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiElement
 
 /**
- * An XQuery Scripting Extension 1.0 <code>ApplyExpr</code> node in the XQuery AST.
+ * An XQuery Scripting Extension 1.0 `ApplyExpr` node in the XQuery AST.
  *
- * The <code>ApplyExpr</code> node is not stored directly in the AST. Instead, it
- * is exposed as an instance of the <code>Expr</code> node.
+ * The `ApplyExpr` node is not stored directly in the AST. Instead, it
+ * is exposed as an instance of the `Expr` node.
  */
-public interface ScriptingApplyExpr extends PsiElement {
-}
+interface ScriptingApplyExpr : PsiElement
