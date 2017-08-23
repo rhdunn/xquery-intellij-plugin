@@ -19,6 +19,22 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 
 interface XQueryConformanceCheck2 {
+    /**
+     * Gets the list of specifications or product versions that this construct conforms to.
+     *
+     * This can be one of the following:
+     *   -  A specification version (e.g. Update Facility 1.0) -- this requires the XQuery
+     *      version matching the specification;
+     *   -  A product version for a vendor extension -- this requires any XQuery version;
+     *   -  A `MarkLogic` product version for MarkLogic vendor extensions -- this requires
+     *      XQuery version `1.0-ml`;
+     *   -  `XQuery.MARKLOGIC_0_9` -- this requires XQuery version `0.9-ml`.
+     *
+     * __NOTE:__ MarkLogic vendor extensions should not use `XQuery.MARKLOGIC_1_0`. They
+     * should use one of the `MarkLogic` versions (e.g. `MarkLogic.VERSION_6_0`). This is
+     * so that these extensions can report the correct MarkLogic version required for that
+     * extension when the `1.0-ml` XQuery version is used.
+     */
     val requiresConformance: List<Version>
 
     /**
