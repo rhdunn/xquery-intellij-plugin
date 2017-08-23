@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.scripting;
+package uk.co.reecedunn.intellij.plugin.xquery.ast.scripting
 
-import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiElement
 
 /**
- * An XQuery Scripting Extension 1.0 <code>BlockVarDecl</code> node in the XQuery AST.
+ * An XQuery Scripting Extension 1.0 `BlockVarDecl` node in the XQuery AST.
  */
-public interface ScriptingBlockVarDecl extends PsiElement {
-}
+interface ScriptingBlockVarDecl : PsiElement
