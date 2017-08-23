@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016-2017 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility;
+package uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility
 
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryExprSingle;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryExprSingle
 
 /**
- * An XQuery Update Facility 1.0 <code>ReplaceExpr</code> node in the XQuery AST.
+ * An XQuery Update Facility 1.0 `ReplaceExpr` node in the XQuery AST.
  */
-public interface UpdateFacilityReplaceExpr extends XQueryExprSingle {
-}
+interface UpdateFacilityReplaceExpr : XQueryExprSingle
