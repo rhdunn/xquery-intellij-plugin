@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016-2017 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic;
+package uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic
 
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryKindTest;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryKindTest
 
 /**
- * A MarkLogic 8.0 <code>ArrayTest</code> node in the XQuery AST.
+ * A MarkLogic 8.0 `ArrayTest` node in the XQuery AST.
  */
-public interface MarkLogicArrayTest extends XQueryKindTest {
-}
+interface MarkLogicArrayTest : XQueryKindTest
