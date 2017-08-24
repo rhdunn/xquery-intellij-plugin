@@ -455,7 +455,7 @@ class ItemId(val id: String) {
                         vendor?.versions?.find { v -> v.id == versionId } ?:
                         vendor?.versions?.find { v -> v.id == versionId + ".0" } // MarkLogic compatibility IDs (e.g. `v9`).
                 } else {
-                    product = null
+                    product = vendor?.products?.find { p -> p.id == parts[1] }
                     version = null
                 }
             }

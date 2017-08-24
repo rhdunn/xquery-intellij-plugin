@@ -1033,5 +1033,67 @@ public class ModelTest extends TestCase {
         assertThat(id.getVersion(), is(nullValue()));
     }
 
+    public void testItemId_Saxon_Products() {
+        ItemId id;
+
+        id = new ItemId("saxon/HE");
+        assertThat(id.getId(), is("saxon/HE"));
+        assertThat(id.getVendor(), is(Saxon.INSTANCE));
+        assertThat(id.getProduct(), is(Saxon.INSTANCE.getHE()));
+        assertThat(id.getVersion(), is(nullValue()));
+
+        id = new ItemId("saxon/PE");
+        assertThat(id.getId(), is("saxon/PE"));
+        assertThat(id.getVendor(), is(Saxon.INSTANCE));
+        assertThat(id.getProduct(), is(Saxon.INSTANCE.getPE()));
+        assertThat(id.getVersion(), is(nullValue()));
+
+        id = new ItemId("saxon/EE");
+        assertThat(id.getId(), is("saxon/EE"));
+        assertThat(id.getVendor(), is(Saxon.INSTANCE));
+        assertThat(id.getProduct(), is(Saxon.INSTANCE.getEE()));
+        assertThat(id.getVersion(), is(nullValue()));
+
+        id = new ItemId("saxon/EE-T");
+        assertThat(id.getId(), is("saxon/EE-T"));
+        assertThat(id.getVendor(), is(Saxon.INSTANCE));
+        assertThat(id.getProduct(), is(Saxon.INSTANCE.getEE_T()));
+        assertThat(id.getVersion(), is(nullValue()));
+
+        id = new ItemId("saxon/EE-Q");
+        assertThat(id.getId(), is("saxon/EE-Q"));
+        assertThat(id.getVendor(), is(Saxon.INSTANCE));
+        assertThat(id.getProduct(), is(Saxon.INSTANCE.getEE_Q()));
+        assertThat(id.getVersion(), is(nullValue()));
+
+        id = new ItemId("saxon/EE-V");
+        assertThat(id.getId(), is("saxon/EE-V"));
+        assertThat(id.getVendor(), is(Saxon.INSTANCE));
+        assertThat(id.getProduct(), is(Saxon.INSTANCE.getEE_V()));
+        assertThat(id.getVersion(), is(nullValue()));
+
+        id = new ItemId("saxon/he");
+        assertThat(id.getId(), is("saxon/he"));
+        assertThat(id.getVendor(), is(Saxon.INSTANCE));
+        assertThat(id.getProduct(), is(nullValue()));
+        assertThat(id.getVersion(), is(nullValue()));
+    }
+
+    public void testItemId_W3C_Products() {
+        ItemId id;
+
+        id = new ItemId("w3c/spec");
+        assertThat(id.getId(), is("w3c/spec"));
+        assertThat(id.getVendor(), is(W3C.INSTANCE));
+        assertThat(id.getProduct(), is(W3C.INSTANCE.getSPECIFICATIONS()));
+        assertThat(id.getVersion(), is(nullValue()));
+
+        id = new ItemId("w3c/SPEC");
+        assertThat(id.getId(), is("w3c/SPEC"));
+        assertThat(id.getVendor(), is(W3C.INSTANCE));
+        assertThat(id.getProduct(), is(nullValue()));
+        assertThat(id.getVersion(), is(nullValue()));
+    }
+
     // endregion
 }
