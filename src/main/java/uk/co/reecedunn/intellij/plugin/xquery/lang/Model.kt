@@ -435,15 +435,32 @@ private fun getImplementation(id: String): Implementation? = when (id) {
 
 class ItemId(val id: String) {
     val vendor: Implementation?
+    val product: Product?
+    val version: Version?
 
     init {
-        val parts = id.split('/')
+        val parts = id.split("/")
         when (parts.size) {
             1 -> {
                 vendor = getImplementation(parts[0])
+                product = null
+                version = null
+            }
+            2 -> {
+                vendor = getImplementation(parts[0])
+                if (parts[1].startsWith("v")) {
+                    val versionId = parts[1].substring(1)
+                    product = vendor?.products?.get(0)
+                    version = vendor?.versions?.find { v -> v.id == versionId }
+                } else {
+                    product = null
+                    version = null
+                }
             }
             else -> {
                 vendor = null
+                product = null
+                version = null
             }
         }
     }

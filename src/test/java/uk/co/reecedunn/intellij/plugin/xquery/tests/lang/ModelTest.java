@@ -954,22 +954,54 @@ public class ModelTest extends TestCase {
         id = new ItemId("basex");
         assertThat(id.getId(), is("basex"));
         assertThat(id.getVendor(), is(BaseX.INSTANCE));
+        assertThat(id.getProduct(), is(nullValue()));
+        assertThat(id.getVersion(), is(nullValue()));
 
         id = new ItemId("marklogic");
         assertThat(id.getId(), is("marklogic"));
         assertThat(id.getVendor(), is(MarkLogic.INSTANCE));
+        assertThat(id.getProduct(), is(nullValue()));
+        assertThat(id.getVersion(), is(nullValue()));
 
         id = new ItemId("saxon");
         assertThat(id.getId(), is("saxon"));
         assertThat(id.getVendor(), is(Saxon.INSTANCE));
+        assertThat(id.getProduct(), is(nullValue()));
+        assertThat(id.getVersion(), is(nullValue()));
 
         id = new ItemId("w3c");
         assertThat(id.getId(), is("w3c"));
         assertThat(id.getVendor(), is(W3C.INSTANCE));
+        assertThat(id.getProduct(), is(nullValue()));
+        assertThat(id.getVersion(), is(nullValue()));
 
         id = new ItemId("loremipsum");
         assertThat(id.getId(), is("loremipsum"));
         assertThat(id.getVendor(), is(nullValue()));
+        assertThat(id.getProduct(), is(nullValue()));
+        assertThat(id.getVersion(), is(nullValue()));
+    }
+
+    public void testItemId_BaseX_Versions() {
+        ItemId id;
+
+        id = new ItemId("basex/v8.4");
+        assertThat(id.getId(), is("basex/v8.4"));
+        assertThat(id.getVendor(), is(BaseX.INSTANCE));
+        assertThat(id.getProduct(), is(BaseX.INSTANCE.getBASEX()));
+        assertThat(id.getVersion(), is(BaseX.INSTANCE.getVERSION_8_4()));
+
+        id = new ItemId("basex/v0.5");
+        assertThat(id.getId(), is("basex/v0.5"));
+        assertThat(id.getVendor(), is(BaseX.INSTANCE));
+        assertThat(id.getProduct(), is(BaseX.INSTANCE.getBASEX()));
+        assertThat(id.getVersion(), is(nullValue()));
+
+        id = new ItemId("basex/8.4");
+        assertThat(id.getId(), is("basex/8.4"));
+        assertThat(id.getVendor(), is(BaseX.INSTANCE));
+        assertThat(id.getProduct(), is(nullValue()));
+        assertThat(id.getVersion(), is(nullValue()));
     }
 
     // endregion
