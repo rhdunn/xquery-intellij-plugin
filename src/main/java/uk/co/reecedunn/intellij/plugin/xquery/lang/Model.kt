@@ -451,7 +451,9 @@ class ItemId(val id: String) {
                 if (parts[1].startsWith("v")) {
                     val versionId = parts[1].substring(1)
                     product = vendor?.products?.get(0)
-                    version = vendor?.versions?.find { v -> v.id == versionId }
+                    version =
+                        vendor?.versions?.find { v -> v.id == versionId } ?:
+                        vendor?.versions?.find { v -> v.id == versionId + ".0" } // MarkLogic compatibility IDs (e.g. `v9`).
                 } else {
                     product = null
                     version = null

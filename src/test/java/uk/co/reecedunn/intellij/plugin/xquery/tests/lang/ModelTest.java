@@ -1004,5 +1004,34 @@ public class ModelTest extends TestCase {
         assertThat(id.getVersion(), is(nullValue()));
     }
 
+    public void testItemId_MarkLogic_Versions() {
+        ItemId id;
+
+        id = new ItemId("marklogic/v8.0");
+        assertThat(id.getId(), is("marklogic/v8.0"));
+        assertThat(id.getVendor(), is(MarkLogic.INSTANCE));
+        assertThat(id.getProduct(), is(MarkLogic.INSTANCE.getMARKLOGIC()));
+        assertThat(id.getVersion(), is(MarkLogic.INSTANCE.getVERSION_8_0()));
+
+        // Compatibility ID
+        id = new ItemId("marklogic/v8");
+        assertThat(id.getId(), is("marklogic/v8"));
+        assertThat(id.getVendor(), is(MarkLogic.INSTANCE));
+        assertThat(id.getProduct(), is(MarkLogic.INSTANCE.getMARKLOGIC()));
+        assertThat(id.getVersion(), is(MarkLogic.INSTANCE.getVERSION_8_0()));
+
+        id = new ItemId("marklogic/v0.8");
+        assertThat(id.getId(), is("marklogic/v0.8"));
+        assertThat(id.getVendor(), is(MarkLogic.INSTANCE));
+        assertThat(id.getProduct(), is(MarkLogic.INSTANCE.getMARKLOGIC()));
+        assertThat(id.getVersion(), is(nullValue()));
+
+        id = new ItemId("marklogic/8.0");
+        assertThat(id.getId(), is("marklogic/8.0"));
+        assertThat(id.getVendor(), is(MarkLogic.INSTANCE));
+        assertThat(id.getProduct(), is(nullValue()));
+        assertThat(id.getVersion(), is(nullValue()));
+    }
+
     // endregion
 }
