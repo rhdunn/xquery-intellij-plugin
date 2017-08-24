@@ -955,31 +955,31 @@ public class ModelTest extends TestCase {
         assertThat(id.getId(), is("basex"));
         assertThat(id.getVendor(), is(BaseX.INSTANCE));
         assertThat(id.getProduct(), is(nullValue()));
-        assertThat(id.getVersion(), is(nullValue()));
+        assertThat(id.getProductVersion(), is(nullValue()));
 
         id = new ItemId("marklogic");
         assertThat(id.getId(), is("marklogic"));
         assertThat(id.getVendor(), is(MarkLogic.INSTANCE));
         assertThat(id.getProduct(), is(nullValue()));
-        assertThat(id.getVersion(), is(nullValue()));
+        assertThat(id.getProductVersion(), is(nullValue()));
 
         id = new ItemId("saxon");
         assertThat(id.getId(), is("saxon"));
         assertThat(id.getVendor(), is(Saxon.INSTANCE));
         assertThat(id.getProduct(), is(nullValue()));
-        assertThat(id.getVersion(), is(nullValue()));
+        assertThat(id.getProductVersion(), is(nullValue()));
 
         id = new ItemId("w3c");
         assertThat(id.getId(), is("w3c"));
         assertThat(id.getVendor(), is(W3C.INSTANCE));
         assertThat(id.getProduct(), is(nullValue()));
-        assertThat(id.getVersion(), is(nullValue()));
+        assertThat(id.getProductVersion(), is(nullValue()));
 
         id = new ItemId("loremipsum");
         assertThat(id.getId(), is("loremipsum"));
         assertThat(id.getVendor(), is(nullValue()));
         assertThat(id.getProduct(), is(nullValue()));
-        assertThat(id.getVersion(), is(nullValue()));
+        assertThat(id.getProductVersion(), is(nullValue()));
     }
 
     public void testItemId_BaseX_Versions() {
@@ -989,19 +989,19 @@ public class ModelTest extends TestCase {
         assertThat(id.getId(), is("basex/v8.4"));
         assertThat(id.getVendor(), is(BaseX.INSTANCE));
         assertThat(id.getProduct(), is(BaseX.INSTANCE.getBASEX()));
-        assertThat(id.getVersion(), is(BaseX.INSTANCE.getVERSION_8_4()));
+        assertThat(id.getProductVersion(), is(BaseX.INSTANCE.getVERSION_8_4()));
 
         id = new ItemId("basex/v0.5");
         assertThat(id.getId(), is("basex/v0.5"));
         assertThat(id.getVendor(), is(BaseX.INSTANCE));
         assertThat(id.getProduct(), is(BaseX.INSTANCE.getBASEX()));
-        assertThat(id.getVersion(), is(nullValue()));
+        assertThat(id.getProductVersion(), is(nullValue()));
 
         id = new ItemId("basex/8.4");
         assertThat(id.getId(), is("basex/8.4"));
         assertThat(id.getVendor(), is(BaseX.INSTANCE));
         assertThat(id.getProduct(), is(nullValue()));
-        assertThat(id.getVersion(), is(nullValue()));
+        assertThat(id.getProductVersion(), is(nullValue()));
     }
 
     public void testItemId_MarkLogic_Versions() {
@@ -1011,26 +1011,26 @@ public class ModelTest extends TestCase {
         assertThat(id.getId(), is("marklogic/v8.0"));
         assertThat(id.getVendor(), is(MarkLogic.INSTANCE));
         assertThat(id.getProduct(), is(MarkLogic.INSTANCE.getMARKLOGIC()));
-        assertThat(id.getVersion(), is(MarkLogic.INSTANCE.getVERSION_8_0()));
+        assertThat(id.getProductVersion(), is(MarkLogic.INSTANCE.getVERSION_8_0()));
 
         // Compatibility ID
         id = new ItemId("marklogic/v8");
         assertThat(id.getId(), is("marklogic/v8"));
         assertThat(id.getVendor(), is(MarkLogic.INSTANCE));
         assertThat(id.getProduct(), is(MarkLogic.INSTANCE.getMARKLOGIC()));
-        assertThat(id.getVersion(), is(MarkLogic.INSTANCE.getVERSION_8_0()));
+        assertThat(id.getProductVersion(), is(MarkLogic.INSTANCE.getVERSION_8_0()));
 
         id = new ItemId("marklogic/v0.8");
         assertThat(id.getId(), is("marklogic/v0.8"));
         assertThat(id.getVendor(), is(MarkLogic.INSTANCE));
         assertThat(id.getProduct(), is(MarkLogic.INSTANCE.getMARKLOGIC()));
-        assertThat(id.getVersion(), is(nullValue()));
+        assertThat(id.getProductVersion(), is(nullValue()));
 
         id = new ItemId("marklogic/8.0");
         assertThat(id.getId(), is("marklogic/8.0"));
         assertThat(id.getVendor(), is(MarkLogic.INSTANCE));
         assertThat(id.getProduct(), is(nullValue()));
-        assertThat(id.getVersion(), is(nullValue()));
+        assertThat(id.getProductVersion(), is(nullValue()));
     }
 
     public void testItemId_Saxon_Products() {
@@ -1040,43 +1040,43 @@ public class ModelTest extends TestCase {
         assertThat(id.getId(), is("saxon/HE"));
         assertThat(id.getVendor(), is(Saxon.INSTANCE));
         assertThat(id.getProduct(), is(Saxon.INSTANCE.getHE()));
-        assertThat(id.getVersion(), is(nullValue()));
+        assertThat(id.getProductVersion(), is(nullValue()));
 
         id = new ItemId("saxon/PE");
         assertThat(id.getId(), is("saxon/PE"));
         assertThat(id.getVendor(), is(Saxon.INSTANCE));
         assertThat(id.getProduct(), is(Saxon.INSTANCE.getPE()));
-        assertThat(id.getVersion(), is(nullValue()));
+        assertThat(id.getProductVersion(), is(nullValue()));
 
         id = new ItemId("saxon/EE");
         assertThat(id.getId(), is("saxon/EE"));
         assertThat(id.getVendor(), is(Saxon.INSTANCE));
         assertThat(id.getProduct(), is(Saxon.INSTANCE.getEE()));
-        assertThat(id.getVersion(), is(nullValue()));
+        assertThat(id.getProductVersion(), is(nullValue()));
 
         id = new ItemId("saxon/EE-T");
         assertThat(id.getId(), is("saxon/EE-T"));
         assertThat(id.getVendor(), is(Saxon.INSTANCE));
         assertThat(id.getProduct(), is(Saxon.INSTANCE.getEE_T()));
-        assertThat(id.getVersion(), is(nullValue()));
+        assertThat(id.getProductVersion(), is(nullValue()));
 
         id = new ItemId("saxon/EE-Q");
         assertThat(id.getId(), is("saxon/EE-Q"));
         assertThat(id.getVendor(), is(Saxon.INSTANCE));
         assertThat(id.getProduct(), is(Saxon.INSTANCE.getEE_Q()));
-        assertThat(id.getVersion(), is(nullValue()));
+        assertThat(id.getProductVersion(), is(nullValue()));
 
         id = new ItemId("saxon/EE-V");
         assertThat(id.getId(), is("saxon/EE-V"));
         assertThat(id.getVendor(), is(Saxon.INSTANCE));
         assertThat(id.getProduct(), is(Saxon.INSTANCE.getEE_V()));
-        assertThat(id.getVersion(), is(nullValue()));
+        assertThat(id.getProductVersion(), is(nullValue()));
 
         id = new ItemId("saxon/he");
         assertThat(id.getId(), is("saxon/he"));
         assertThat(id.getVendor(), is(Saxon.INSTANCE));
         assertThat(id.getProduct(), is(nullValue()));
-        assertThat(id.getVersion(), is(nullValue()));
+        assertThat(id.getProductVersion(), is(nullValue()));
     }
 
     public void testItemId_Saxon_Versions() {
@@ -1086,19 +1086,19 @@ public class ModelTest extends TestCase {
         assertThat(id.getId(), is("saxon/HE/v9.6"));
         assertThat(id.getVendor(), is(Saxon.INSTANCE));
         assertThat(id.getProduct(), is(Saxon.INSTANCE.getHE()));
-        assertThat(id.getVersion(), is(Saxon.INSTANCE.getVERSION_9_6()));
+        assertThat(id.getProductVersion(), is(Saxon.INSTANCE.getVERSION_9_6()));
 
         id = new ItemId("saxon/EE-T/v9.5");
         assertThat(id.getId(), is("saxon/EE-T/v9.5"));
         assertThat(id.getVendor(), is(Saxon.INSTANCE));
         assertThat(id.getProduct(), is(Saxon.INSTANCE.getEE_T()));
-        assertThat(id.getVersion(), is(Saxon.INSTANCE.getVERSION_9_5()));
+        assertThat(id.getProductVersion(), is(Saxon.INSTANCE.getVERSION_9_5()));
 
         id = new ItemId("saxon/HE/9.6");
         assertThat(id.getId(), is("saxon/HE/9.6"));
         assertThat(id.getVendor(), is(Saxon.INSTANCE));
         assertThat(id.getProduct(), is(Saxon.INSTANCE.getHE()));
-        assertThat(id.getVersion(), is(nullValue()));
+        assertThat(id.getProductVersion(), is(nullValue()));
     }
 
     public void testItemId_W3C_Products() {
@@ -1108,13 +1108,13 @@ public class ModelTest extends TestCase {
         assertThat(id.getId(), is("w3c/spec"));
         assertThat(id.getVendor(), is(W3C.INSTANCE));
         assertThat(id.getProduct(), is(W3C.INSTANCE.getSPECIFICATIONS()));
-        assertThat(id.getVersion(), is(nullValue()));
+        assertThat(id.getProductVersion(), is(nullValue()));
 
         id = new ItemId("w3c/SPEC");
         assertThat(id.getId(), is("w3c/SPEC"));
         assertThat(id.getVendor(), is(W3C.INSTANCE));
         assertThat(id.getProduct(), is(nullValue()));
-        assertThat(id.getVersion(), is(nullValue()));
+        assertThat(id.getProductVersion(), is(nullValue()));
     }
 
     // endregion

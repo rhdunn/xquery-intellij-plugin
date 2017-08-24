@@ -428,7 +428,7 @@ object W3C : Implementation("w3c", "W3C", "https://www.w3.org/XML/Query/") {
 class ItemId(val id: String) {
     val vendor: Implementation?
     val product: Product?
-    val version: Version?
+    val productVersion: Version?
 
     init {
         val parts = id.split("/")
@@ -467,6 +467,6 @@ class ItemId(val id: String) {
             }
         }
 
-        this.version = version
+        this.productVersion = version
     }
 }
