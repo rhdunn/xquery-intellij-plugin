@@ -424,3 +424,27 @@ object W3C : Implementation("w3c", "W3C", "https://www.w3.org/XML/Query/") {
 }
 
 // endregion
+
+private fun getImplementation(id: String): Implementation? = when (id) {
+    "basex" -> BaseX
+    "marklogic" -> MarkLogic
+    "saxon" -> Saxon
+    "w3c" -> W3C
+    else -> null
+}
+
+class ItemId(val id: String) {
+    val vendor: Implementation?
+
+    init {
+        val parts = id.split('/')
+        when (parts.size) {
+            1 -> {
+                vendor = getImplementation(parts[0])
+            }
+            else -> {
+                vendor = null
+            }
+        }
+    }
+}

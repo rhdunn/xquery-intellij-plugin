@@ -946,4 +946,31 @@ public class ModelTest extends TestCase {
     }
 
     // endregion
+    // region Item ID
+
+    public void testItemId_VendorOnly() {
+        ItemId id;
+
+        id = new ItemId("basex");
+        assertThat(id.getId(), is("basex"));
+        assertThat(id.getVendor(), is(BaseX.INSTANCE));
+
+        id = new ItemId("marklogic");
+        assertThat(id.getId(), is("marklogic"));
+        assertThat(id.getVendor(), is(MarkLogic.INSTANCE));
+
+        id = new ItemId("saxon");
+        assertThat(id.getId(), is("saxon"));
+        assertThat(id.getVendor(), is(Saxon.INSTANCE));
+
+        id = new ItemId("w3c");
+        assertThat(id.getId(), is("w3c"));
+        assertThat(id.getVendor(), is(W3C.INSTANCE));
+
+        id = new ItemId("loremipsum");
+        assertThat(id.getId(), is("loremipsum"));
+        assertThat(id.getVendor(), is(nullValue()));
+    }
+
+    // endregion
 }
