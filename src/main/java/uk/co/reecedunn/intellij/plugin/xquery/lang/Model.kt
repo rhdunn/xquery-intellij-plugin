@@ -425,14 +425,6 @@ object W3C : Implementation("w3c", "W3C", "https://www.w3.org/XML/Query/") {
 
 // endregion
 
-private fun getImplementation(id: String): Implementation? = when (id) {
-    "basex" -> BaseX
-    "marklogic" -> MarkLogic
-    "saxon" -> Saxon
-    "w3c" -> W3C
-    else -> null
-}
-
 class ItemId(val id: String) {
     val vendor: Implementation?
     val product: Product?
@@ -440,30 +432,33 @@ class ItemId(val id: String) {
 
     init {
         val parts = id.split("/")
-        when (parts.size) {
-            1 -> {
-                vendor = getImplementation(parts[0])
-                product = null
+
+        if (parts.size >= 1) {
+            when (parts[0]) {
+                "basex" -> vendor = BaseX
+                "marklogic" -> vendor = MarkLogic
+                "saxon" -> vendor = Saxon
+                "w3c" -> vendor = W3C
+                else -> vendor = null
+            }
+        } else {
+            vendor = null
+        }
+
+        if (parts.size >= 2 && vendor != null) {
+            if (parts[1].startsWith("v")) {
+                val versionId = parts[1].substring(1)
+                product = vendor.products.get(0)
+                version =
+                    vendor.versions.find { v -> v.id == versionId } ?:
+                    vendor.versions.find { v -> v.id == versionId + ".0" } // MarkLogic compatibility IDs (e.g. `v9`).
+            } else {
+                product = vendor.products.find { p -> p.id == parts[1] }
                 version = null
             }
-            2 -> {
-                vendor = getImplementation(parts[0])
-                if (parts[1].startsWith("v")) {
-                    val versionId = parts[1].substring(1)
-                    product = vendor?.products?.get(0)
-                    version =
-                        vendor?.versions?.find { v -> v.id == versionId } ?:
-                        vendor?.versions?.find { v -> v.id == versionId + ".0" } // MarkLogic compatibility IDs (e.g. `v9`).
-                } else {
-                    product = vendor?.products?.find { p -> p.id == parts[1] }
-                    version = null
-                }
-            }
-            else -> {
-                vendor = null
-                product = null
-                version = null
-            }
+        } else {
+            product = null
+            version = null
         }
     }
 }
