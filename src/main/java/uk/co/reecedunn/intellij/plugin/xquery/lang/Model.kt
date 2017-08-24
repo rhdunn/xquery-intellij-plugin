@@ -445,6 +445,7 @@ class ItemId(val id: String) {
             vendor = null
         }
 
+        var version: Version? = null
         if (parts.size >= 2 && vendor != null) {
             if (parts[1].startsWith("v")) {
                 val versionId = parts[1].substring(1)
@@ -454,11 +455,18 @@ class ItemId(val id: String) {
                     vendor.versions.find { v -> v.id == versionId + ".0" } // MarkLogic compatibility IDs (e.g. `v9`).
             } else {
                 product = vendor.products.find { p -> p.id == parts[1] }
-                version = null
             }
         } else {
             product = null
-            version = null
         }
+
+        if (parts.size >= 3 && vendor != null && product != null) {
+            if (parts[2].startsWith("v")) {
+                val versionId = parts[2].substring(1)
+                version = vendor.versions.find { v -> v.id == versionId }
+            }
+        }
+
+        this.version = version
     }
 }

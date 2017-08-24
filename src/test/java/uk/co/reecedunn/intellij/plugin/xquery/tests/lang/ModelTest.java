@@ -1079,6 +1079,28 @@ public class ModelTest extends TestCase {
         assertThat(id.getVersion(), is(nullValue()));
     }
 
+    public void testItemId_Saxon_Versions() {
+        ItemId id;
+
+        id = new ItemId("saxon/HE/v9.6");
+        assertThat(id.getId(), is("saxon/HE/v9.6"));
+        assertThat(id.getVendor(), is(Saxon.INSTANCE));
+        assertThat(id.getProduct(), is(Saxon.INSTANCE.getHE()));
+        assertThat(id.getVersion(), is(Saxon.INSTANCE.getVERSION_9_6()));
+
+        id = new ItemId("saxon/EE-T/v9.5");
+        assertThat(id.getId(), is("saxon/EE-T/v9.5"));
+        assertThat(id.getVendor(), is(Saxon.INSTANCE));
+        assertThat(id.getProduct(), is(Saxon.INSTANCE.getEE_T()));
+        assertThat(id.getVersion(), is(Saxon.INSTANCE.getVERSION_9_5()));
+
+        id = new ItemId("saxon/HE/9.6");
+        assertThat(id.getId(), is("saxon/HE/9.6"));
+        assertThat(id.getVendor(), is(Saxon.INSTANCE));
+        assertThat(id.getProduct(), is(Saxon.INSTANCE.getHE()));
+        assertThat(id.getVersion(), is(nullValue()));
+    }
+
     public void testItemId_W3C_Products() {
         ItemId id;
 
