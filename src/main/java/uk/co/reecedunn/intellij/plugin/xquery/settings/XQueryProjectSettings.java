@@ -33,6 +33,7 @@ import java.io.File;
 public class XQueryProjectSettings implements PersistentStateComponent<XQueryProjectSettings>, ExportableComponent {
     private ImplementationItem IMPLEMENTATION = Implementations.getDefaultImplementation();
     private ImplementationItem IMPLEMENTATION_VERSION = IMPLEMENTATION.getDefaultItem(ImplementationItem.IMPLEMENTATION_VERSION);
+    private ItemId PRODUCT_VERSION = new ItemId("w3c/spec/v1ed");
     private XQueryVersion XQUERY_VERSION = IMPLEMENTATION_VERSION.getDefaultVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQuery.INSTANCE);
     private ImplementationItem XQUERY_1_0_DIALECT = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQuery.INSTANCE, XQueryVersion.VERSION_1_0);
     private ImplementationItem XQUERY_3_0_DIALECT = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQuery.INSTANCE, XQueryVersion.VERSION_3_0);
@@ -90,6 +91,7 @@ public class XQueryProjectSettings implements PersistentStateComponent<XQueryPro
     @Transient
     public void setImplementationVersionItem(ImplementationItem version) {
         IMPLEMENTATION_VERSION = version;
+        PRODUCT_VERSION = new ItemId(version.getID());
     }
 
     public String getImplementationVersion() {
@@ -98,6 +100,7 @@ public class XQueryProjectSettings implements PersistentStateComponent<XQueryPro
 
     public void setImplementationVersion(String version) {
         IMPLEMENTATION_VERSION = Implementations.getItemById(version);
+        PRODUCT_VERSION = new ItemId(version);
     }
 
     @NotNull
@@ -178,5 +181,20 @@ public class XQueryProjectSettings implements PersistentStateComponent<XQueryPro
         } else {
             throw new AssertionError("Unknown XQuery version: " + version);
         }
+    }
+
+    @Transient
+    public Implementation getVendor() {
+        return PRODUCT_VERSION.getVendor();
+    }
+
+    @Transient
+    public Product getProduct() {
+        return PRODUCT_VERSION.getProduct();
+    }
+
+    @Transient
+    public Version getProductVersion() {
+        return PRODUCT_VERSION.getProductVersion();
     }
 }

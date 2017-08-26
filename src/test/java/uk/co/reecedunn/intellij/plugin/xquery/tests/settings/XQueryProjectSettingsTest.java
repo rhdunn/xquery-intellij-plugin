@@ -20,9 +20,7 @@ import com.intellij.util.xmlb.XmlSerializer;
 import junit.framework.TestCase;
 import org.jdom.Element;
 import org.jdom.output.XMLOutputter;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.Implementations;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.*;
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings;
 
 import java.io.File;
@@ -42,6 +40,10 @@ public class XQueryProjectSettingsTest extends TestCase {
         assertThat(settings.getXQuery10Dialect(), is("w3c/1.0"));
         assertThat(settings.getXQuery30Dialect(), is("w3c/3.0"));
         assertThat(settings.getXQuery31Dialect(), is("w3c/3.1"));
+
+        assertThat(settings.getVendor(), is(W3C.INSTANCE));
+        assertThat(settings.getProduct(), is(W3C.INSTANCE.getSPECIFICATIONS()));
+        assertThat(settings.getProductVersion(), is(W3C.INSTANCE.getFIRST_EDITION()));
 
         assertThat(settings.getImplementationItem().getID(), is("w3c"));
         assertThat(settings.getImplementationVersionItem().getID(), is("w3c/spec"));
@@ -79,6 +81,10 @@ public class XQueryProjectSettingsTest extends TestCase {
         assertThat(settings.getXQuery10Dialect(), is("marklogic/v6/1.0"));
         assertThat(settings.getXQuery30Dialect(), is("marklogic/v6/1.0"));
         assertThat(settings.getXQuery31Dialect(), is("marklogic/v6/1.0"));
+
+        assertThat(settings.getVendor(), is(MarkLogic.INSTANCE));
+        assertThat(settings.getProduct(), is(MarkLogic.INSTANCE.getMARKLOGIC()));
+        assertThat(settings.getProductVersion(), is(MarkLogic.INSTANCE.getVERSION_6_0()));
 
         // Setting via the bean properties updates the transient properties.
         assertThat(settings.getImplementationItem().getID(), is("marklogic"));
@@ -127,6 +133,10 @@ public class XQueryProjectSettingsTest extends TestCase {
         assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_3_0).getID(), is("marklogic/v6/1.0"));
         assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_3_1).getID(), is("marklogic/v6/1.0"));
         assertThat(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_9_4).getID(), is("marklogic/v6/1.0"));
+
+        assertThat(settings.getVendor(), is(MarkLogic.INSTANCE));
+        assertThat(settings.getProduct(), is(MarkLogic.INSTANCE.getMARKLOGIC()));
+        assertThat(settings.getProductVersion(), is(MarkLogic.INSTANCE.getVERSION_6_0()));
 
         // Setting via the transient properties updates the bean properties.
         assertThat(settings.getImplementation(), is("marklogic"));
