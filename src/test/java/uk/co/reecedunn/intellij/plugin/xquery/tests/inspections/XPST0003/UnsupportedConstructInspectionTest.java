@@ -96,31 +96,56 @@ public class UnsupportedConstructInspectionTest extends InspectionTestCase {
         assertThat(problems[0].getPsiElement().getNode().getElementType(), is(XQueryTokenType.K_DELETE));
     }
 
-    // endregion
-    // region Update Facility Conformance (Old)
+    public void testUpdateFacility30_ProductConformsToSpecification() {
+        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
+        getSettings().setImplementationVersion("w3c/spec/v1ed");
 
-    public void testUpdateFacility10InsertExprInXQuery10() {
-        getSettings().setXQueryVersion(XQueryVersion.VERSION_1_0);
-        final XQueryFile file = parseResource("tests/parser/xquery-update-1.0/InsertExpr_Node.xq");
+        final XQueryFile file = parseResource("tests/parser/xquery-update-3.0/UpdatingFunctionCall.xq");
+
+        final ProblemDescriptor[] problems = inspect(file, new UnsupportedConstructInspection());
+        assertThat(problems, is(notNullValue()));
+        assertThat(problems.length, is(0));
+    }
+
+    public void testUpdateFacility30_ProductDoesNotConformToSpecification() {
+        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
+        getSettings().setImplementationVersion("saxon/EE/v9.5"); // Supports Update Facility 1.0, not 3.0
+
+        final XQueryFile file = parseResource("tests/parser/xquery-update-3.0/UpdatingFunctionCall.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new UnsupportedConstructInspection());
         assertThat(problems, is(notNullValue()));
         assertThat(problems.length, is(1));
 
         assertThat(problems[0].getHighlightType(), is(ProblemHighlightType.GENERIC_ERROR_OR_WARNING));
-        assertThat(problems[0].getDescriptionTemplate(), is("XPST0003: This expression requires Update Facility 1.0 or later."));
-        assertThat(problems[0].getPsiElement().getNode().getElementType(), is(XQueryTokenType.K_INSERT));
+        assertThat(problems[0].getDescriptionTemplate(), is("XPST0003: Saxon 9.5 does not support XQuery Update Facility 3.0 constructs."));
+        assertThat(problems[0].getPsiElement().getNode().getElementType(), is(XQueryTokenType.K_INVOKE));
     }
 
-    public void testUpdateFacility10InsertExpr() {
-        getSettings().setXQueryVersion(XQueryVersion.VERSION_1_0);
-        getSettings().setImplementation("w3c");
-        getSettings().setXQuery10Dialect("w3c/1.0-update");
-        final XQueryFile file = parseResource("tests/parser/xquery-update-1.0/InsertExpr_Node.xq");
+    public void testUpdateFacilityBaseX_ProductConformsToSpecification() {
+        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
+        getSettings().setImplementationVersion("basex/v8.6");
+
+        final XQueryFile file = parseResource("tests/parser/xquery-update-3.0/TransformWithExpr.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new UnsupportedConstructInspection());
         assertThat(problems, is(notNullValue()));
         assertThat(problems.length, is(0));
+    }
+
+    public void testUpdateFacilityBaseX_ProductDoesNotConformToSpecification() {
+        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
+        getSettings().setImplementationVersion("saxon/EE/v9.5"); // Supports Update Facility 1.0, not 3.0
+
+        final XQueryFile file = parseResource("tests/parser/xquery-update-3.0/TransformWithExpr.xq");
+
+        final ProblemDescriptor[] problems = inspect(file, new UnsupportedConstructInspection());
+        assertThat(problems, is(notNullValue()));
+        assertThat(problems.length, is(1));
+
+        assertThat(problems[0].getHighlightType(), is(ProblemHighlightType.GENERIC_ERROR_OR_WARNING));
+        assertThat(problems[0].getDescriptionTemplate(), is("XPST0003: Saxon 9.5 does not support XQuery Update Facility 3.0, or BaseX 8.5 constructs."));
+        assertThat(problems[0].getPsiElement().getNode().getElementType(), is(XQueryTokenType.K_TRANSFORM));
     }
 
     // endregion

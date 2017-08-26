@@ -19,19 +19,13 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.UpdateFacilityUpdatingFunctionCall
-import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem
 import uk.co.reecedunn.intellij.plugin.xquery.lang.UpdateFacility
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck
-import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
+import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
-class UpdateFacilityUpdatingFunctionCallPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), UpdateFacilityUpdatingFunctionCall, XQueryConformanceCheck {
-    override fun conformsTo(implementation: ImplementationItem): Boolean =
-        implementation.getVersion(UpdateFacility).supportsVersion(XQueryVersion.VERSION_3_0)
+class UpdateFacilityUpdatingFunctionCallPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), UpdateFacilityUpdatingFunctionCall, XQueryConformance {
+    override val requiresConformance get(): List<Version> = listOf(UpdateFacility.NOTE_3_0_20170124)
 
     override val conformanceElement get(): PsiElement =
         firstChild
-
-    override val conformanceErrorMessage get(): String =
-        XQueryBundle.message("requires.feature.update-facility.version", XQueryVersion.VERSION_3_0)
 }

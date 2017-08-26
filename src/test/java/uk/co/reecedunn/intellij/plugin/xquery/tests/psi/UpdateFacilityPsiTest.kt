@@ -28,6 +28,7 @@ import org.hamcrest.CoreMatchers.notNullValue
 import org.hamcrest.MatcherAssert.assertThat
 import uk.co.reecedunn.intellij.plugin.core.extensions.children
 import uk.co.reecedunn.intellij.plugin.core.extensions.descendants
+import uk.co.reecedunn.intellij.plugin.xquery.lang.BaseX
 import uk.co.reecedunn.intellij.plugin.xquery.lang.UpdateFacility
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
@@ -41,20 +42,13 @@ class UpdateFacilityPsiTest : ParserTestCase() {
 
         val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val compatibilityAnnotationPsi = annotatedDeclPsi.children().filterIsInstance<UpdateFacilityCompatibilityAnnotation>().first()
-        val versioned = compatibilityAnnotationPsi as XQueryConformanceCheck
+        val conformance = compatibilityAnnotationPsi as XQueryConformance
 
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-scripting")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), `is`(false))
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`<Version>(UpdateFacility.REC_1_0_20110317))
 
-        assertThat(versioned.conformanceErrorMessage,
-                `is`("XPST0003: This expression requires Update Facility 1.0 or later."))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
                 `is`<IElementType>(XQueryTokenType.K_UPDATING))
     }
 
@@ -63,20 +57,13 @@ class UpdateFacilityPsiTest : ParserTestCase() {
 
         val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val compatibilityAnnotationPsi = annotatedDeclPsi.children().filterIsInstance<UpdateFacilityCompatibilityAnnotation>().first()
-        val versioned = compatibilityAnnotationPsi as XQueryConformanceCheck
+        val conformance = compatibilityAnnotationPsi as XQueryConformance
 
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-scripting")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), `is`(false))
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`<Version>(UpdateFacility.NOTE_3_0_20170124))
 
-        assertThat(versioned.conformanceErrorMessage,
-                `is`("XPST0003: This expression requires Update Facility 3.0 or later."))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
                 `is`<IElementType>(XQueryTokenType.K_UPDATING))
     }
 
@@ -105,20 +92,13 @@ class UpdateFacilityPsiTest : ParserTestCase() {
 
         val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val compatibilityAnnotationPsi = annotatedDeclPsi.children().filterIsInstance<UpdateFacilityCompatibilityAnnotation>().first()
-        val versioned = compatibilityAnnotationPsi as XQueryConformanceCheck
+        val conformance = compatibilityAnnotationPsi as XQueryConformance
 
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-scripting")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), `is`(false))
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`<Version>(UpdateFacility.REC_1_0_20110317))
 
-        assertThat(versioned.conformanceErrorMessage,
-                `is`("XPST0003: This expression requires Update Facility 1.0 or later."))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
                 `is`<IElementType>(XQueryTokenType.K_UPDATING))
     }
 
@@ -129,20 +109,13 @@ class UpdateFacilityPsiTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-update-1.0/InsertExpr_Node.xq")!!
 
         val insertExprPsi = file.descendants().filterIsInstance<UpdateFacilityInsertExpr>().first()
-        val versioned = insertExprPsi as XQueryConformanceCheck
+        val conformance = insertExprPsi as XQueryConformance
 
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-scripting")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), `is`(false))
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`<Version>(UpdateFacility.REC_1_0_20110317))
 
-        assertThat(versioned.conformanceErrorMessage,
-                `is`("XPST0003: This expression requires Update Facility 1.0 or later."))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
                 `is`<IElementType>(XQueryTokenType.K_INSERT))
     }
 
@@ -153,20 +126,13 @@ class UpdateFacilityPsiTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-update-1.0/RenameExpr.xq")!!
 
         val renameExprPsi = file.descendants().filterIsInstance<UpdateFacilityRenameExpr>().first()
-        val versioned = renameExprPsi as XQueryConformanceCheck
+        val conformance = renameExprPsi as XQueryConformance
 
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-scripting")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), `is`(false))
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`<Version>(UpdateFacility.REC_1_0_20110317))
 
-        assertThat(versioned.conformanceErrorMessage,
-                `is`("XPST0003: This expression requires Update Facility 1.0 or later."))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
                 `is`<IElementType>(XQueryTokenType.K_RENAME))
     }
 
@@ -177,20 +143,13 @@ class UpdateFacilityPsiTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-update-1.0/ReplaceExpr.xq")!!
 
         val replaceExprPsi = file.descendants().filterIsInstance<UpdateFacilityReplaceExpr>().first()
-        val versioned = replaceExprPsi as XQueryConformanceCheck
+        val conformance = replaceExprPsi as XQueryConformance
 
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-scripting")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), `is`(false))
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`<Version>(UpdateFacility.REC_1_0_20110317))
 
-        assertThat(versioned.conformanceErrorMessage,
-                `is`("XPST0003: This expression requires Update Facility 1.0 or later."))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
                 `is`<IElementType>(XQueryTokenType.K_REPLACE))
     }
 
@@ -201,20 +160,13 @@ class UpdateFacilityPsiTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-update-1.0/RevalidationDecl.xq")!!
 
         val revalidationDeclPsi = file.descendants().filterIsInstance<UpdateFacilityRevalidationDecl>().first()
-        val versioned = revalidationDeclPsi as XQueryConformanceCheck
+        val conformance = revalidationDeclPsi as XQueryConformance
 
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-scripting")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), `is`(false))
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`<Version>(UpdateFacility.REC_1_0_20110317))
 
-        assertThat(versioned.conformanceErrorMessage,
-                `is`("XPST0003: This expression requires Update Facility 1.0 or later."))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
                 `is`<IElementType>(XQueryTokenType.K_REVALIDATION))
     }
 
@@ -225,20 +177,13 @@ class UpdateFacilityPsiTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-update-1.0/TransformExpr.xq")!!
 
         val transformExprPsi = file.descendants().filterIsInstance<UpdateFacilityCopyModifyExpr>().first()
-        val versioned = transformExprPsi as XQueryConformanceCheck
+        val conformance = transformExprPsi as XQueryConformance
 
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-scripting")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), `is`(false))
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`<Version>(UpdateFacility.REC_1_0_20110317))
 
-        assertThat(versioned.conformanceErrorMessage,
-                `is`("XPST0003: This expression requires Update Facility 1.0 or later."))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
                 `is`<IElementType>(XQueryTokenType.K_COPY))
     }
 
@@ -249,34 +194,14 @@ class UpdateFacilityPsiTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-update-3.0/TransformWithExpr.xq")!!
 
         val transformWithExprPsi = file.descendants().filterIsInstance<UpdateFacilityTransformWithExpr>().first()
-        val versioned = transformWithExprPsi as XQueryConformanceCheck
+        val conformance = transformWithExprPsi as XQueryConformance
 
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-scripting")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), `is`(false))
+        assertThat(conformance.requiresConformance.size, `is`(2))
+        assertThat(conformance.requiresConformance[0], `is`<Version>(UpdateFacility.NOTE_3_0_20170124))
+        assertThat(conformance.requiresConformance[1], `is`<Version>(BaseX.VERSION_8_5))
 
-        assertThat(versioned.conformsTo(Implementations.getItemById("basex/v8.4/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("basex/v8.4/1.0-update")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("basex/v8.4/3.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("basex/v8.4/3.0-update")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("basex/v8.4/3.1")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("basex/v8.4/3.1-update")), `is`(false))
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("basex/v8.5/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("basex/v8.5/1.0-update")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("basex/v8.5/3.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("basex/v8.5/3.0-update")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("basex/v8.5/3.1")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("basex/v8.5/3.1-update")), `is`(true))
-
-        assertThat(versioned.conformanceErrorMessage,
-                `is`("XPST0003: This expression requires Update Facility 3.0 or later."))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
                 `is`<IElementType>(XQueryTokenType.K_TRANSFORM))
     }
 
@@ -287,34 +212,13 @@ class UpdateFacilityPsiTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-update-3.0/UpdatingFunctionCall.xq")!!
 
         val updatingFunctionCallPsi = file.descendants().filterIsInstance<UpdateFacilityUpdatingFunctionCall>().first()
-        val versioned = updatingFunctionCallPsi as XQueryConformanceCheck
+        val conformance = updatingFunctionCallPsi as XQueryConformance
 
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-scripting")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), `is`(false))
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`<Version>(UpdateFacility.NOTE_3_0_20170124))
 
-        assertThat(versioned.conformsTo(Implementations.getItemById("basex/v8.4/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("basex/v8.4/1.0-update")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("basex/v8.4/3.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("basex/v8.4/3.0-update")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("basex/v8.4/3.1")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("basex/v8.4/3.1-update")), `is`(false))
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("basex/v8.5/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("basex/v8.5/1.0-update")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("basex/v8.5/3.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("basex/v8.5/3.0-update")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("basex/v8.5/3.1")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("basex/v8.5/3.1-update")), `is`(false))
-
-        assertThat(versioned.conformanceErrorMessage,
-                `is`("XPST0003: This expression requires Update Facility 3.0 or later."))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
                 `is`<IElementType>(XQueryTokenType.K_INVOKE))
     }
 

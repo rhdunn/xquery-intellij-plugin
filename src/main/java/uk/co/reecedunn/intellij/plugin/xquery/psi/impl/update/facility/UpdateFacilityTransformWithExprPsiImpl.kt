@@ -21,17 +21,13 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.UpdateFacilityTransformWithExpr
 import uk.co.reecedunn.intellij.plugin.xquery.lang.*
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck
-import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
-class UpdateFacilityTransformWithExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), UpdateFacilityTransformWithExpr, XQueryConformanceCheck {
-    override fun conformsTo(implementation: ImplementationItem): Boolean =
-        implementation.getVersion(UpdateFacility).supportsVersion(XQueryVersion.VERSION_3_0) ||
-        implementation.getVersion(BaseX).supportsVersion(XQueryVersion.VERSION_8_5)
+class UpdateFacilityTransformWithExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), UpdateFacilityTransformWithExpr, XQueryConformance {
+    override val requiresConformance get(): List<Version> = listOf(
+        UpdateFacility.NOTE_3_0_20170124,
+        BaseX.VERSION_8_5)
 
     override val conformanceElement get(): PsiElement =
         findChildByType(XQueryTokenType.K_TRANSFORM) ?: firstChild
-
-    override val conformanceErrorMessage get(): String =
-        XQueryBundle.message("requires.feature.update-facility.version", XQueryVersion.VERSION_3_0)
 }

@@ -19,26 +19,20 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.UpdateFacilityCompatibilityAnnotation
-import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem
 import uk.co.reecedunn.intellij.plugin.xquery.lang.UpdateFacility
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion
+import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck
-import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
-class UpdateFacilityCompatibilityAnnotationPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), UpdateFacilityCompatibilityAnnotation, XQueryConformanceCheck {
-    override fun conformsTo(implementation: ImplementationItem): Boolean {
-        val version = implementation.getVersion(UpdateFacility)
+private val UPDATE_10 = listOf(UpdateFacility.REC_1_0_20110317)
+private val UPDATE_30 = listOf(UpdateFacility.NOTE_3_0_20170124)
+
+class UpdateFacilityCompatibilityAnnotationPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), UpdateFacilityCompatibilityAnnotation, XQueryConformance {
+    override val requiresConformance get(): List<Version> {
         val varDecl = parent.node.findChildByType(XQueryElementType.VAR_DECL)
-        return version.supportsVersion(if (varDecl == null) XQueryVersion.VERSION_1_0 else XQueryVersion.VERSION_3_0)
+        return if (varDecl == null) UPDATE_10 else UPDATE_30
     }
 
     override val conformanceElement get(): PsiElement =
         firstChild
-
-    override val conformanceErrorMessage get(): String {
-        val varDecl = parent.node.findChildByType(XQueryElementType.VAR_DECL)
-        val version = if (varDecl == null) XQueryVersion.VERSION_1_0 else XQueryVersion.VERSION_3_0
-        return XQueryBundle.message("requires.feature.update-facility.version", version)
-    }
 }
