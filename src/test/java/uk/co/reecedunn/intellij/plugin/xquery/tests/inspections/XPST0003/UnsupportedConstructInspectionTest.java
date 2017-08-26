@@ -70,6 +70,35 @@ public class UnsupportedConstructInspectionTest extends InspectionTestCase {
     // endregion
     // region Update Facility Conformance
 
+    public void testUpdateFacility10_ProductConformsToSpecification() {
+        getSettings().setXQueryVersion(XQueryVersion.VERSION_1_0);
+        getSettings().setImplementationVersion("w3c/spec/v1ed");
+
+        final XQueryFile file = parseResource("tests/parser/xquery-update-1.0/DeleteExpr_Node.xq");
+
+        final ProblemDescriptor[] problems = inspect(file, new UnsupportedConstructInspection());
+        assertThat(problems, is(notNullValue()));
+        assertThat(problems.length, is(0));
+    }
+
+    public void testUpdateFacility10_ProductDoesNotConformToSpecification() {
+        getSettings().setXQueryVersion(XQueryVersion.VERSION_1_0);
+        getSettings().setImplementationVersion("marklogic/v7.0");
+
+        final XQueryFile file = parseResource("tests/parser/xquery-update-1.0/DeleteExpr_Node.xq");
+
+        final ProblemDescriptor[] problems = inspect(file, new UnsupportedConstructInspection());
+        assertThat(problems, is(notNullValue()));
+        assertThat(problems.length, is(1));
+
+        assertThat(problems[0].getHighlightType(), is(ProblemHighlightType.GENERIC_ERROR_OR_WARNING));
+        assertThat(problems[0].getDescriptionTemplate(), is("XPST0003: MarkLogic 7.0 does not support XQuery Update Facility 1.0 constructs."));
+        assertThat(problems[0].getPsiElement().getNode().getElementType(), is(XQueryTokenType.K_DELETE));
+    }
+
+    // endregion
+    // region Update Facility Conformance (Old)
+
     public void testUpdateFacility10InsertExprInXQuery10() {
         getSettings().setXQueryVersion(XQueryVersion.VERSION_1_0);
         final XQueryFile file = parseResource("tests/parser/xquery-update-1.0/InsertExpr_Node.xq");

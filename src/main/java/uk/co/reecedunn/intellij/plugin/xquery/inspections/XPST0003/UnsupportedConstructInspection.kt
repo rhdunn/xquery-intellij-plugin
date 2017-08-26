@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016-2017 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,7 @@ import uk.co.reecedunn.intellij.plugin.core.extensions.walkTree
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Specification
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings
@@ -43,8 +44,11 @@ class UnsupportedConstructInspection : LocalInspectionTool() {
     override fun checkFile(file: PsiFile, manager: InspectionManager, isOnTheFly: Boolean): Array<ProblemDescriptor>? {
         if (file !is XQueryFile) return null
 
-        val xqueryVersion = file.XQueryVersion.getVersionOrDefault(file.getProject())
         val settings = XQueryProjectSettings.getInstance(file.getProject())
+        val product = settings.product!!
+        val productVersion = settings.productVersion!!
+
+        val xqueryVersion = file.XQueryVersion.getVersionOrDefault(file.getProject())
         val version = XQuery.versions.find { v -> (v as Specification).label == xqueryVersion.toString() }
         val dialect = settings.getDialectForXQueryVersion(version!!)
 
@@ -53,6 +57,14 @@ class UnsupportedConstructInspection : LocalInspectionTool() {
             if (!versioned.conformsTo(dialect)) {
                 val context = versioned.conformanceElement
                 val description = versioned.conformanceErrorMessage
+                descriptors.add(manager.createProblemDescriptor(context, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR_OR_WARNING, isOnTheFly))
+            }
+        }
+        file.walkTree().filterIsInstance<XQueryConformance>().forEach { versioned ->
+            val required = versioned.requiresConformance
+            if (required.find { version -> product.conformsTo(productVersion, version) } == null) {
+                val context = versioned.conformanceElement
+                val description = XQueryBundle.message("inspection.XPST0003.unsupported-construct.message", productVersion, required.joinToString(", or "))
                 descriptors.add(manager.createProblemDescriptor(context, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR_OR_WARNING, isOnTheFly))
             }
         }

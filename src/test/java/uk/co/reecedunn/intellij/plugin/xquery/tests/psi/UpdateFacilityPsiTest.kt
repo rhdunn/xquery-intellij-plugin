@@ -87,26 +87,14 @@ class UpdateFacilityPsiTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-update-1.0/DeleteExpr_Node.xq")!!
 
         val deleteExprPsi = file.descendants().filterIsInstance<UpdateFacilityDeleteExpr>().first()
-        val versioned = deleteExprPsi as XQueryConformanceCheck
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-scripting")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), `is`(false))
-
-        assertThat(versioned.conformanceErrorMessage,
-                `is`("XPST0003: This expression requires Update Facility 1.0 or later."))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_DELETE))
-
         val conformance = deleteExprPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
         assertThat(conformance.requiresConformance[0], `is`<Version>(UpdateFacility.REC_1_0_20110317))
+
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
+                `is`<IElementType>(XQueryTokenType.K_DELETE))
     }
 
     // endregion
