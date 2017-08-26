@@ -20,14 +20,14 @@ import com.intellij.psi.PsiFile
 import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.core.extensions.walkTree
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck2
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings
 
 /** Checks non-XQuery 1.0 constructs against the selected implementation.
  *
  * Constructs that are not in the base XQuery 1.0 syntax implement the
- * [uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck2]
+ * [uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance]
  * interface to determine if the construct is valid for the given XQuery
  * implementation and associated dialect.
  */
@@ -46,7 +46,7 @@ class UnsupportedConstructInspection2 : LocalInspectionTool() {
         val productVersion = settings.productVersion!!
 
         val descriptors = SmartList<ProblemDescriptor>()
-        file.walkTree().filterIsInstance<XQueryConformanceCheck2>().forEach { versioned ->
+        file.walkTree().filterIsInstance<XQueryConformance>().forEach { versioned ->
             val required = versioned.requiresConformance
             if (required.find { version -> product.conformsTo(productVersion, version) } == null) {
                 val context = versioned.conformanceElement

@@ -30,7 +30,7 @@ import uk.co.reecedunn.intellij.plugin.core.extensions.children
 import uk.co.reecedunn.intellij.plugin.core.extensions.descendants
 import uk.co.reecedunn.intellij.plugin.xquery.lang.UpdateFacility
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck2
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
 class UpdateFacilityPsiTest : ParserTestCase() {
     // region XQueryConformanceCheck
@@ -103,7 +103,7 @@ class UpdateFacilityPsiTest : ParserTestCase() {
         assertThat(versioned.conformanceElement.node.elementType,
                 `is`<IElementType>(XQueryTokenType.K_DELETE))
 
-        val conformance = deleteExprPsi as XQueryConformanceCheck2
+        val conformance = deleteExprPsi as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
         assertThat(conformance.requiresConformance[0], `is`<Version>(UpdateFacility.REC_1_0_20110317))

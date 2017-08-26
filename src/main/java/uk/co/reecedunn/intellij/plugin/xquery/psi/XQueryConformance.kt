@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 
-interface XQueryConformanceCheck2 {
+interface XQueryConformance {
     /**
      * Gets the list of specifications or product versions that this construct conforms to.
      *

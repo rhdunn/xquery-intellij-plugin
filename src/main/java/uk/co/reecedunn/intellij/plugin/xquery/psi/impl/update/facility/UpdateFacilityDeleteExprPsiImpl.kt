@@ -24,10 +24,10 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.UpdateFacility
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck2
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 
-class UpdateFacilityDeleteExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), UpdateFacilityDeleteExpr, XQueryConformanceCheck, XQueryConformanceCheck2 {
+class UpdateFacilityDeleteExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), UpdateFacilityDeleteExpr, XQueryConformanceCheck, XQueryConformance {
     override val requiresConformance get(): List<Version> = listOf(UpdateFacility.REC_1_0_20110317)
 
     override fun conformsTo(implementation: ImplementationItem): Boolean =
