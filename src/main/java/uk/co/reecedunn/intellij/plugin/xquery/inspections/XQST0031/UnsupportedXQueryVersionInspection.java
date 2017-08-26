@@ -56,7 +56,7 @@ public class UnsupportedXQueryVersionInspection extends LocalInspectionTool {
             return ProblemDescriptor.EMPTY_ARRAY;
         }
 
-        XQueryProjectSettings settings = XQueryProjectSettings.getInstance(file.getProject());
+        XQueryProjectSettings settings = XQueryProjectSettings.Companion.getInstance(file.getProject());
         ImplementationItem implementation = settings.getImplementationVersionItem();
         List<ImplementationItem> dialect = implementation.getItemsByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQuery.INSTANCE, version.getVersion());
         if (dialect.get(0).getID() != null) {

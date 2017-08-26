@@ -103,7 +103,7 @@ public class XQueryProjectSettingsConfigurableTest extends ParserTestCase {
         assertThat(configurable.isModified(), is(true));
 
         configurable.apply();
-        XQueryProjectSettings settings = XQueryProjectSettings.getInstance(myProject);
+        XQueryProjectSettings settings = XQueryProjectSettings.Companion.getInstance(myProject);
         assertThat(settings.getImplementation(), is("marklogic"));
         assertThat(settings.getImplementationVersion(), is("marklogic/v8"));
         assertThat(settings.getXQueryVersion(), is(XQueryVersion.VERSION_1_0));

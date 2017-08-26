@@ -122,8 +122,8 @@ public class XQueryProjectSettingsTest extends TestCase {
         settings.setDialectForXQueryVersion(XQueryVersion.VERSION_3_0, implementationDialects.get(0));
         settings.setDialectForXQueryVersion(XQueryVersion.VERSION_3_1, implementationDialects.get(0));
 
-        AssertionError e = assertThrows(AssertionError.class, () -> settings.setDialectForXQueryVersion(null, implementationDialects.get(0)));
-        assertThat(e.getMessage(), is("Unknown XQuery version: null"));
+        AssertionError e = assertThrows(AssertionError.class, () -> settings.setDialectForXQueryVersion(XQueryVersion.VERSION_8_0, implementationDialects.get(0)));
+        assertThat(e.getMessage(), is("Unknown XQuery version: 8.0"));
 
         assertThat(settings.getImplementationItem().getID(), is("marklogic"));
         assertThat(settings.getImplementationVersionItem().getID(), is("marklogic/v6"));

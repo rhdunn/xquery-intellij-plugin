@@ -24,7 +24,7 @@ data class XQueryVersionRef(val declaration: XQueryStringLiteral?, val version: 
     fun getVersionOrDefault(project: Project): XQueryVersion {
         if (version == XQueryVersion.UNSUPPORTED) {
             val settings: XQueryProjectSettings = XQueryProjectSettings.getInstance(project)
-            return settings.getXQueryVersion()
+            return settings.XQueryVersion
         }
         return version
     }

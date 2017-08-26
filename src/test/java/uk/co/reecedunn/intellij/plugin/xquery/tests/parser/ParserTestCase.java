@@ -35,6 +35,6 @@ public abstract class ParserTestCase extends ParsingTestCase<XQueryFile> {
     }
 
     protected XQueryProjectSettings getSettings() {
-        return XQueryProjectSettings.getInstance(myProject);
+        return XQueryProjectSettings.Companion.getInstance(myProject);
     }
 }

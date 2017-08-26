@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUI;
 
 public class XQueryProjectSettingsConfigurable extends ConfigurableImpl<XQueryProjectSettings> {
     public XQueryProjectSettingsConfigurable(Project project) {
-        super(XQueryProjectSettings.getInstance(project));
+        super(XQueryProjectSettings.Companion.getInstance(project));
     }
 
     @Override

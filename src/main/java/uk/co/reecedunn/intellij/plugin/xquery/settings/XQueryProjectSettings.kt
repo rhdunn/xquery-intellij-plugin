@@ -1,0 +1,143 @@
+/*
+ * Copyright (C) 2016-2017 Reece H. Dunn
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package uk.co.reecedunn.intellij.plugin.xquery.settings
+
+import com.intellij.openapi.application.PathManager
+import com.intellij.openapi.components.*
+import com.intellij.openapi.project.Project
+import com.intellij.util.xmlb.XmlSerializerUtil
+import com.intellij.util.xmlb.annotations.Transient
+import uk.co.reecedunn.intellij.plugin.xquery.lang.*
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion as XQVersion
+import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
+
+import java.io.File
+
+@State(name = "XQueryProjectSettings", storages = arrayOf(Storage(StoragePathMacros.WORKSPACE_FILE), Storage("xquery_config.xml")))
+class XQueryProjectSettings : PersistentStateComponent<XQueryProjectSettings>, ExportableComponent {
+    @get:Transient @set:Transient
+    var implementationItem = Implementations.getDefaultImplementation()
+    private var IMPLEMENTATION_VERSION = implementationItem.getDefaultItem(ImplementationItem.IMPLEMENTATION_VERSION)
+    private var PRODUCT_VERSION = ItemId("w3c/spec/v1ed")
+    var XQueryVersion = IMPLEMENTATION_VERSION.getDefaultVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQuery)
+    private var XQUERY_1_0_DIALECT = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQuery, XQVersion.VERSION_1_0)
+    private var XQUERY_3_0_DIALECT = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQuery, XQVersion.VERSION_3_0)
+    private var XQUERY_3_1_DIALECT = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQuery, XQVersion.VERSION_3_1)
+
+    override fun getState(): XQueryProjectSettings? = this
+
+    override fun loadState(state: XQueryProjectSettings) = XmlSerializerUtil.copyBean(state, this)
+
+    override fun getExportFiles(): Array<File> = arrayOf(PathManager.getOptionsFile("xquery_project_settings"))
+
+    override fun getPresentableName(): String = XQueryBundle.message("xquery.settings.project.title")
+
+    var implementation: String
+        get() = implementationItem.id
+        set(implementation) {
+            implementationItem = Implementations.getItemById(implementation)
+        }
+
+    @get:Transient @set:Transient
+    var implementationVersionItem: ImplementationItem
+        get() = IMPLEMENTATION_VERSION
+        set(version) {
+            IMPLEMENTATION_VERSION = version
+            PRODUCT_VERSION = ItemId(version.id)
+        }
+
+    var implementationVersion: String
+        get() = IMPLEMENTATION_VERSION.id
+        set(version) {
+            IMPLEMENTATION_VERSION = Implementations.getItemById(version)
+            PRODUCT_VERSION = ItemId(version)
+        }
+
+    var XQuery10Dialect: String?
+        get() = XQUERY_1_0_DIALECT.id
+        set(dialect) {
+            XQUERY_1_0_DIALECT = Implementations.getItemById(dialect)
+        }
+
+    var XQuery30Dialect: String?
+        get() = XQUERY_3_0_DIALECT.id
+        set(dialect) {
+            XQUERY_3_0_DIALECT = Implementations.getItemById(dialect)
+        }
+
+    var XQuery31Dialect: String?
+        get() = XQUERY_3_1_DIALECT.id
+        set(dialect) {
+            XQUERY_3_1_DIALECT = Implementations.getItemById(dialect)
+        }
+
+    @Transient
+    fun getDialectForXQueryVersion(version: XQVersion): ImplementationItem = when (version) {
+        XQVersion.VERSION_1_0 -> {
+            if (XQUERY_1_0_DIALECT === ImplementationItem.NULL_ITEM) {
+                Implementations.getItemById("w3c/1.0")
+            } else XQUERY_1_0_DIALECT
+        }
+        XQVersion.VERSION_3_1 -> {
+            if (XQUERY_3_1_DIALECT === ImplementationItem.NULL_ITEM) {
+                Implementations.getItemById("w3c/3.1")
+            } else XQUERY_3_1_DIALECT
+        }
+        XQVersion.VERSION_0_9_MARKLOGIC -> {
+            val default09ml = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQuery, version)
+            if (default09ml === ImplementationItem.NULL_ITEM) {
+                Implementations.getItemById("marklogic/v8/1.0-ml")
+            } else default09ml
+        }
+        XQVersion.VERSION_1_0_MARKLOGIC -> {
+            val default10ml = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQuery, version)
+            if (default10ml === ImplementationItem.NULL_ITEM) {
+                Implementations.getItemById("marklogic/v8/1.0-ml")
+            } else default10ml
+        }
+        else -> {
+            if (XQUERY_3_0_DIALECT === ImplementationItem.NULL_ITEM) {
+                Implementations.getItemById("w3c/3.0")
+            } else XQUERY_3_0_DIALECT
+        }
+    }
+
+    @Transient
+    fun setDialectForXQueryVersion(version: XQVersion, dialect: ImplementationItem) = when (version) {
+        XQVersion.VERSION_1_0 -> XQUERY_1_0_DIALECT = dialect
+        XQVersion.VERSION_3_0 -> XQUERY_3_0_DIALECT = dialect
+        XQVersion.VERSION_3_1 -> XQUERY_3_1_DIALECT = dialect
+        else -> throw AssertionError("Unknown XQuery version: " + version)
+    }
+
+    val vendor: Implementation?
+        @Transient
+        get() = PRODUCT_VERSION.vendor
+
+    val product: Product?
+        @Transient
+        get() = PRODUCT_VERSION.product
+
+    val productVersion: Version?
+        @Transient
+        get() = PRODUCT_VERSION.productVersion
+
+    companion object {
+        fun getInstance(project: Project): XQueryProjectSettings {
+            return ServiceManager.getService(project, XQueryProjectSettings::class.java)
+        }
+    }
+}

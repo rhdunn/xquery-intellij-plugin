@@ -4334,26 +4334,26 @@ class XQueryPsiTest:ParserTestCase() {
     // region XQueryFile
 
     fun testFile_Empty() {
-        settings.xQueryVersion = XQueryVersion.VERSION_3_0
+        settings.XQueryVersion = XQueryVersion.VERSION_3_0
         val file = parseText("")!!
 
         assertThat(file.XQueryVersion.version, `is`(XQueryVersion.UNSUPPORTED))
         assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQueryVersion.VERSION_3_0))
 
-        settings.xQueryVersion = XQueryVersion.VERSION_3_1
+        settings.XQueryVersion = XQueryVersion.VERSION_3_1
 
         assertThat(file.XQueryVersion.version, `is`(XQueryVersion.UNSUPPORTED))
         assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQueryVersion.VERSION_3_1))
     }
 
     fun testFile() {
-        settings.xQueryVersion = XQueryVersion.VERSION_3_0
+        settings.XQueryVersion = XQueryVersion.VERSION_3_0
         val file = parseResource("tests/parser/xquery-1.0/IntegerLiteral.xq")!!
 
         assertThat(file.XQueryVersion.version, `is`(XQueryVersion.UNSUPPORTED))
         assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQueryVersion.VERSION_3_0))
 
-        settings.xQueryVersion = XQueryVersion.VERSION_3_1
+        settings.XQueryVersion = XQueryVersion.VERSION_3_1
 
         assertThat(file.XQueryVersion.version, `is`(XQueryVersion.UNSUPPORTED))
         assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQueryVersion.VERSION_3_1))
@@ -6071,7 +6071,7 @@ class XQueryPsiTest:ParserTestCase() {
     // region XQueryVersionDecl
 
     fun testVersionDecl() {
-        settings.xQueryVersion = XQueryVersion.VERSION_3_0
+        settings.XQueryVersion = XQueryVersion.VERSION_3_0
         val file = parseResource("tests/parser/xquery-1.0/VersionDecl.xq")!!
 
         val versionDeclPsi = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
@@ -6097,7 +6097,7 @@ class XQueryPsiTest:ParserTestCase() {
     }
 
     fun testVersionDecl_CommentBeforeDecl() {
-        settings.xQueryVersion = XQueryVersion.VERSION_3_0
+        settings.XQueryVersion = XQueryVersion.VERSION_3_0
         val file = parseResource("tests/psi/xquery-1.0/VersionDecl_CommentBeforeDecl.xq")!!
 
         val versionDeclPsi = file.module!!.descendants().filterIsInstance<XQueryVersionDecl>().first()
@@ -6123,7 +6123,7 @@ class XQueryPsiTest:ParserTestCase() {
     }
 
     fun testVersionDecl_EmptyVersion() {
-        settings.xQueryVersion = XQueryVersion.VERSION_3_0
+        settings.XQueryVersion = XQueryVersion.VERSION_3_0
         val file = parseResource("tests/psi/xquery-1.0/VersionDecl_EmptyVersion.xq")!!
 
         val versionDeclPsi = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
@@ -6149,7 +6149,7 @@ class XQueryPsiTest:ParserTestCase() {
     }
 
     fun testVersionDecl_WithEncoding() {
-        settings.xQueryVersion = XQueryVersion.VERSION_3_0
+        settings.XQueryVersion = XQueryVersion.VERSION_3_0
         val file = parseResource("tests/parser/xquery-1.0/VersionDecl_WithEncoding.xq")!!
 
         val versionDeclPsi = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
@@ -6176,7 +6176,7 @@ class XQueryPsiTest:ParserTestCase() {
     }
 
     fun testVersionDecl_WithEncoding_CommentsAsWhitespace() {
-        settings.xQueryVersion = XQueryVersion.VERSION_3_0
+        settings.XQueryVersion = XQueryVersion.VERSION_3_0
         val file = parseResource("tests/psi/xquery-1.0/VersionDecl_WithEncoding_CommentsAsWhitespace.xq")!!
 
         val versionDeclPsi = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
@@ -6203,7 +6203,7 @@ class XQueryPsiTest:ParserTestCase() {
     }
 
     fun testVersionDecl_WithEmptyEncoding() {
-        settings.xQueryVersion = XQueryVersion.VERSION_3_0
+        settings.XQueryVersion = XQueryVersion.VERSION_3_0
         val file = parseResource("tests/psi/xquery-1.0/VersionDecl_WithEncoding_EmptyEncoding.xq")!!
 
         val versionDeclPsi = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
@@ -6230,7 +6230,7 @@ class XQueryPsiTest:ParserTestCase() {
     }
 
     fun testVersionDecl_NoVersion() {
-        settings.xQueryVersion = XQueryVersion.VERSION_3_0
+        settings.XQueryVersion = XQueryVersion.VERSION_3_0
         val file = parseResource("tests/psi/xquery-1.0/VersionDecl_NoVersion.xq")!!
 
         val versionDeclPsi = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
@@ -6255,7 +6255,7 @@ class XQueryPsiTest:ParserTestCase() {
     }
 
     fun testVersionDecl_UnsupportedVersion() {
-        settings.xQueryVersion = XQueryVersion.VERSION_3_0
+        settings.XQueryVersion = XQueryVersion.VERSION_3_0
         val file = parseResource("tests/psi/xquery-1.0/VersionDecl_UnsupportedVersion.xq")!!
 
         val versionDeclPsi = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
@@ -6281,7 +6281,7 @@ class XQueryPsiTest:ParserTestCase() {
     }
 
     fun testVersionDecl_EncodingOnly() {
-        settings.xQueryVersion = XQueryVersion.VERSION_3_0
+        settings.XQueryVersion = XQueryVersion.VERSION_3_0
         val file = parseResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly.xq")!!
 
         val versionDeclPsi = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
@@ -6308,7 +6308,7 @@ class XQueryPsiTest:ParserTestCase() {
     }
 
     fun testVersionDecl_EncodingOnly_EmptyEncoding() {
-        settings.xQueryVersion = XQueryVersion.VERSION_3_0
+        settings.XQueryVersion = XQueryVersion.VERSION_3_0
         val file = parseResource("tests/psi/xquery-3.0/VersionDecl_EncodingOnly_EmptyEncoding.xq")!!
 
         val versionDeclPsi = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
