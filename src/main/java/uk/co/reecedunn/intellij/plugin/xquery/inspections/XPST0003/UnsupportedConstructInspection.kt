@@ -20,6 +20,8 @@ import com.intellij.psi.PsiFile
 import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.core.extensions.walkTree
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile
+import uk.co.reecedunn.intellij.plugin.xquery.lang.Specification
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings
@@ -43,7 +45,8 @@ class UnsupportedConstructInspection : LocalInspectionTool() {
 
         val xqueryVersion = file.XQueryVersion.getVersionOrDefault(file.getProject())
         val settings = XQueryProjectSettings.getInstance(file.getProject())
-        val dialect = settings.getDialectForXQueryVersion(xqueryVersion)
+        val version = XQuery.versions.find { v -> (v as Specification).label == xqueryVersion.toString() }
+        val dialect = settings.getDialectForXQueryVersion(version!!)
 
         val descriptors = SmartList<ProblemDescriptor>()
         file.walkTree().filterIsInstance<XQueryConformanceCheck>().forEach { versioned ->

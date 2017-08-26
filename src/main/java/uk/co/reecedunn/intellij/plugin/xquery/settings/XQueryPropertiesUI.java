@@ -127,9 +127,9 @@ public class XQueryPropertiesUI implements SettingsUI<XQueryProjectSettings> {
         if (!mImplementations.getSelectedItem().equals(settings.getImplementationItem())) return true;
         if (!mImplementationVersions.getSelectedItem().equals(settings.getImplementationVersionItem())) return true;
         if (!mVersion.getSelectedItem().equals(settings.getXQueryVersion())) return true;
-        if (!mDialectForXQuery1_0.getSelectedItem().equals(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_1_0))) return true;
-        if (!mDialectForXQuery3_0.getSelectedItem().equals(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_3_0))) return true;
-        if (!mDialectForXQuery3_1.getSelectedItem().equals(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_3_1))) return true;
+        if (!mDialectForXQuery1_0.getSelectedItem().equals(settings.getDialectForXQueryVersion(XQuery.INSTANCE.getREC_1_0_20070123()))) return true;
+        if (!mDialectForXQuery3_0.getSelectedItem().equals(settings.getDialectForXQueryVersion(XQuery.INSTANCE.getREC_3_0_20140408()))) return true;
+        if (!mDialectForXQuery3_1.getSelectedItem().equals(settings.getDialectForXQueryVersion(XQuery.INSTANCE.getREC_3_1_20170321()))) return true;
         return false;
     }
 
@@ -148,8 +148,8 @@ public class XQueryPropertiesUI implements SettingsUI<XQueryProjectSettings> {
         mImplementations.setSelectedItem(settings.getImplementationItem());
         mImplementationVersions.setSelectedItem(settings.getImplementationVersionItem());
         mVersion.setSelectedItem(settings.getXQueryVersion());
-        mDialectForXQuery1_0.setSelectedItem(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_1_0));
-        mDialectForXQuery3_0.setSelectedItem(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_3_0));
-        mDialectForXQuery3_1.setSelectedItem(settings.getDialectForXQueryVersion(XQueryVersion.VERSION_3_1));
+        mDialectForXQuery1_0.setSelectedItem(settings.getDialectForXQueryVersion(XQuery.INSTANCE.getREC_1_0_20070123()));
+        mDialectForXQuery3_0.setSelectedItem(settings.getDialectForXQueryVersion(XQuery.INSTANCE.getREC_3_0_20140408()));
+        mDialectForXQuery3_1.setSelectedItem(settings.getDialectForXQueryVersion(XQuery.INSTANCE.getREC_3_1_20170321()));
     }
 }

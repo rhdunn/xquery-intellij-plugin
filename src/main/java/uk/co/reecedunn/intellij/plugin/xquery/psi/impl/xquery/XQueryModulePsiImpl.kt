@@ -22,6 +22,8 @@ import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
+import uk.co.reecedunn.intellij.plugin.xquery.lang.Specification
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceResolver
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
@@ -37,8 +39,9 @@ open class XQueryModulePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQue
     }
 
     override fun resolveNamespace(prefix: CharSequence?): XQueryNamespace? {
-        val version = (containingFile as XQueryFile).XQueryVersion.getVersionOrDefault(project)
-        val dialect = settings.getDialectForXQueryVersion(version)
+        val xqueryVersion = (containingFile as XQueryFile).XQueryVersion.getVersionOrDefault(project)
+        val version = XQuery.versions.find { v -> (v as Specification).label == xqueryVersion.toString() }
+        val dialect = settings.getDialectForXQueryVersion(version!!)
         if (dialect.id != dialectId) {
             dialectId = dialect.id
             staticContext = null

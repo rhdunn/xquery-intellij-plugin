@@ -85,34 +85,35 @@ class XQueryProjectSettings : PersistentStateComponent<XQueryProjectSettings>, E
         }
 
     @Transient
-    fun getDialectForXQueryVersion(version: XQVersion): ImplementationItem = when (version) {
-        XQVersion.VERSION_1_0 -> {
+    fun getDialectForXQueryVersion(version: Version): ImplementationItem = when (version) {
+        XQuery.REC_1_0_20070123, XQuery.REC_1_0_20101214 -> {
             if (XQUERY_1_0_DIALECT === ImplementationItem.NULL_ITEM) {
                 Implementations.getItemById("w3c/1.0")
             } else XQUERY_1_0_DIALECT
         }
-        XQVersion.VERSION_3_1 -> {
-            if (XQUERY_3_1_DIALECT === ImplementationItem.NULL_ITEM) {
-                Implementations.getItemById("w3c/3.1")
-            } else XQUERY_3_1_DIALECT
-        }
-        XQVersion.VERSION_0_9_MARKLOGIC -> {
-            val default09ml = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQuery, version)
-            if (default09ml === ImplementationItem.NULL_ITEM) {
-                Implementations.getItemById("marklogic/v8/1.0-ml")
-            } else default09ml
-        }
-        XQVersion.VERSION_1_0_MARKLOGIC -> {
-            val default10ml = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQuery, version)
-            if (default10ml === ImplementationItem.NULL_ITEM) {
-                Implementations.getItemById("marklogic/v8/1.0-ml")
-            } else default10ml
-        }
-        else -> {
+        XQuery.REC_3_0_20140408 -> {
             if (XQUERY_3_0_DIALECT === ImplementationItem.NULL_ITEM) {
                 Implementations.getItemById("w3c/3.0")
             } else XQUERY_3_0_DIALECT
         }
+        XQuery.CR_3_1_20151217, XQuery.REC_3_1_20170321 -> {
+            if (XQUERY_3_1_DIALECT === ImplementationItem.NULL_ITEM) {
+                Implementations.getItemById("w3c/3.1")
+            } else XQUERY_3_1_DIALECT
+        }
+        XQuery.MARKLOGIC_0_9 -> {
+            val default09ml = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQuery, XQVersion.VERSION_0_9_MARKLOGIC)
+            if (default09ml === ImplementationItem.NULL_ITEM) {
+                Implementations.getItemById("marklogic/v8/1.0-ml")
+            } else default09ml
+        }
+        XQuery.MARKLOGIC_1_0 -> {
+            val default10ml = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQuery, XQVersion.VERSION_1_0_MARKLOGIC)
+            if (default10ml === ImplementationItem.NULL_ITEM) {
+                Implementations.getItemById("marklogic/v8/1.0-ml")
+            } else default10ml
+        }
+        else -> throw AssertionError("Unknown XQuery version: " + version)
     }
 
     @Transient
