@@ -116,12 +116,12 @@ public class XQueryProjectSettingsTest extends TestCase {
         XQueryProjectSettings settings = new XQueryProjectSettings();
         settings.setImplementationItem(implementation);
         settings.setImplementationVersionItem(implementationVersion);
-        settings.setDialectForXQueryVersion(XQueryVersion.VERSION_1_0, implementationDialects.get(0));
-        settings.setDialectForXQueryVersion(XQueryVersion.VERSION_3_0, implementationDialects.get(0));
-        settings.setDialectForXQueryVersion(XQueryVersion.VERSION_3_1, implementationDialects.get(0));
+        settings.setDialectForXQueryVersion(XQuery.INSTANCE.getREC_1_0_20070123(), implementationDialects.get(0));
+        settings.setDialectForXQueryVersion(XQuery.INSTANCE.getREC_3_0_20140408(), implementationDialects.get(0));
+        settings.setDialectForXQueryVersion(XQuery.INSTANCE.getREC_3_1_20170321(), implementationDialects.get(0));
 
-        AssertionError e = assertThrows(AssertionError.class, () -> settings.setDialectForXQueryVersion(XQueryVersion.VERSION_8_0, implementationDialects.get(0)));
-        assertThat(e.getMessage(), is("Unknown XQuery version: 8.0"));
+        AssertionError e = assertThrows(AssertionError.class, () -> settings.setDialectForXQueryVersion(MarkLogic.INSTANCE.getVERSION_8_0(), implementationDialects.get(0)));
+        assertThat(e.getMessage(), is("Unknown XQuery version: MarkLogic 8.0"));
 
         assertThat(settings.getImplementationItem().getID(), is("marklogic"));
         assertThat(settings.getImplementationVersionItem().getID(), is("marklogic/v6"));

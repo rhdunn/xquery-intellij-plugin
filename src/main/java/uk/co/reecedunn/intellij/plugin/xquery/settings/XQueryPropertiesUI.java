@@ -138,9 +138,9 @@ public class XQueryPropertiesUI implements SettingsUI<XQueryProjectSettings> {
         settings.setImplementationItem((ImplementationItem)mImplementations.getSelectedItem());
         settings.setImplementationVersionItem((ImplementationItem)mImplementationVersions.getSelectedItem());
         settings.setXQueryVersion((XQueryVersion)mVersion.getSelectedItem());
-        settings.setDialectForXQueryVersion(XQueryVersion.VERSION_1_0, (ImplementationItem)mDialectForXQuery1_0.getSelectedItem());
-        settings.setDialectForXQueryVersion(XQueryVersion.VERSION_3_0, (ImplementationItem)mDialectForXQuery3_0.getSelectedItem());
-        settings.setDialectForXQueryVersion(XQueryVersion.VERSION_3_1, (ImplementationItem)mDialectForXQuery3_1.getSelectedItem());
+        settings.setDialectForXQueryVersion(XQuery.INSTANCE.getREC_1_0_20070123(), (ImplementationItem)mDialectForXQuery1_0.getSelectedItem());
+        settings.setDialectForXQueryVersion(XQuery.INSTANCE.getREC_3_0_20140408(), (ImplementationItem)mDialectForXQuery3_0.getSelectedItem());
+        settings.setDialectForXQueryVersion(XQuery.INSTANCE.getREC_3_1_20170321(), (ImplementationItem)mDialectForXQuery3_1.getSelectedItem());
     }
 
     @Override

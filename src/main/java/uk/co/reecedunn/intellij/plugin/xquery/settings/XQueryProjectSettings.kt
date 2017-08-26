@@ -117,10 +117,10 @@ class XQueryProjectSettings : PersistentStateComponent<XQueryProjectSettings>, E
     }
 
     @Transient
-    fun setDialectForXQueryVersion(version: XQVersion, dialect: ImplementationItem) = when (version) {
-        XQVersion.VERSION_1_0 -> XQUERY_1_0_DIALECT = dialect
-        XQVersion.VERSION_3_0 -> XQUERY_3_0_DIALECT = dialect
-        XQVersion.VERSION_3_1 -> XQUERY_3_1_DIALECT = dialect
+    fun setDialectForXQueryVersion(version: Version, dialect: ImplementationItem) = when (version) {
+        XQuery.REC_1_0_20070123, XQuery.REC_1_0_20101214 -> XQUERY_1_0_DIALECT = dialect
+        XQuery.REC_3_0_20140408 -> XQUERY_3_0_DIALECT = dialect
+        XQuery.CR_3_1_20151217, XQuery.REC_3_1_20170321 -> XQUERY_3_1_DIALECT = dialect
         else -> throw AssertionError("Unknown XQuery version: " + version)
     }
 
