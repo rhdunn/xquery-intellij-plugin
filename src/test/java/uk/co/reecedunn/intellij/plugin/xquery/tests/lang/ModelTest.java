@@ -1108,13 +1108,41 @@ public class ModelTest extends TestCase {
         assertThat(id.getId(), is("w3c/spec"));
         assertThat(id.getVendor(), is(W3C.INSTANCE));
         assertThat(id.getProduct(), is(W3C.INSTANCE.getSPECIFICATIONS()));
-        assertThat(id.getProductVersion(), is(nullValue()));
+        assertThat(id.getProductVersion(), is(W3C.INSTANCE.getFIRST_EDITION()));
 
         id = new ItemId("w3c/SPEC");
         assertThat(id.getId(), is("w3c/SPEC"));
         assertThat(id.getVendor(), is(W3C.INSTANCE));
         assertThat(id.getProduct(), is(nullValue()));
         assertThat(id.getProductVersion(), is(nullValue()));
+    }
+
+    public void testItemId_W3C_Versions() {
+        ItemId id;
+
+        id = new ItemId("w3c/spec/v1ed");
+        assertThat(id.getId(), is("w3c/spec/v1ed"));
+        assertThat(id.getVendor(), is(W3C.INSTANCE));
+        assertThat(id.getProduct(), is(W3C.INSTANCE.getSPECIFICATIONS()));
+        assertThat(id.getProductVersion(), is(W3C.INSTANCE.getFIRST_EDITION()));
+
+        id = new ItemId("w3c/spec/v2ed");
+        assertThat(id.getId(), is("w3c/spec/v2ed"));
+        assertThat(id.getVendor(), is(W3C.INSTANCE));
+        assertThat(id.getProduct(), is(W3C.INSTANCE.getSPECIFICATIONS()));
+        assertThat(id.getProductVersion(), is(W3C.INSTANCE.getSECOND_EDITION()));
+
+        id = new ItemId("w3c/spec/v2.0");
+        assertThat(id.getId(), is("w3c/spec/v2.0"));
+        assertThat(id.getVendor(), is(W3C.INSTANCE));
+        assertThat(id.getProduct(), is(W3C.INSTANCE.getSPECIFICATIONS()));
+        assertThat(id.getProductVersion(), is(W3C.INSTANCE.getFIRST_EDITION()));
+
+        id = new ItemId("w3c/spec/2.0");
+        assertThat(id.getId(), is("w3c/spec/2.0"));
+        assertThat(id.getVendor(), is(W3C.INSTANCE));
+        assertThat(id.getProduct(), is(W3C.INSTANCE.getSPECIFICATIONS()));
+        assertThat(id.getProductVersion(), is(W3C.INSTANCE.getFIRST_EDITION()));
     }
 
     // endregion

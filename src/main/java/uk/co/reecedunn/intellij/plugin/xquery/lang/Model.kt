@@ -459,7 +459,6 @@ class ItemId(val id: String) {
         } else {
             product = null
         }
-
         if (parts.size >= 3 && vendor != null && product != null) {
             if (parts[2].startsWith("v")) {
                 val versionId = parts[2].substring(1)
@@ -467,6 +466,10 @@ class ItemId(val id: String) {
             }
         }
 
-        this.productVersion = version
+        if (version == null && product === W3C.SPECIFICATIONS) {
+            this.productVersion = W3C.FIRST_EDITION
+        } else {
+            this.productVersion = version
+        }
     }
 }
