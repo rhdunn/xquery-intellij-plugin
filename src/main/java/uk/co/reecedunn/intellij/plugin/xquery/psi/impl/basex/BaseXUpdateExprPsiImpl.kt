@@ -19,31 +19,23 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.basex.BaseXUpdateExpr
-import uk.co.reecedunn.intellij.plugin.xquery.lang.BaseX
-import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion
+import uk.co.reecedunn.intellij.plugin.xquery.lang.*
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck
-import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
-class BaseXUpdateExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), BaseXUpdateExpr, XQueryConformanceCheck {
-    internal val requiredVersion get(): XQueryVersion {
+private val BASEX78: List<Version> = listOf(BaseX.VERSION_7_8)
+private val BASEX85: List<Version> = listOf(BaseX.VERSION_8_5)
+
+class BaseXUpdateExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), BaseXUpdateExpr, XQueryConformance {
+    override val requiresConformance get(): List<Version> {
         if (findChildByType<PsiElement>(XQueryTokenType.BLOCK_OPEN) != null) {
-            return XQueryVersion.VERSION_8_5
+            return BASEX85
         }
-        return XQueryVersion.VERSION_8_4
+        return BASEX78
     }
-
-    override fun conformsTo(implementation: ImplementationItem): Boolean =
-        // NOTE: UpdateExpr was introduced in BaseX 7.8, but this plugin only supports >= 8.4.
-        implementation.getVersion(BaseX).supportsVersion(requiredVersion)
 
     override val conformanceElement get(): PsiElement {
         val element = findChildByType<PsiElement>(XQueryTokenType.BLOCK_OPEN)
         return element ?: findChildByType<PsiElement>(XQueryTokenType.K_UPDATE) ?: firstChild
     }
-
-    override val conformanceErrorMessage get(): String =
-        // NOTE: UpdateExpr was introduced in BaseX 7.8, but this plugin only supports >= 8.4.
-        XQueryBundle.message("requires.feature.basex.version", requiredVersion)
 }

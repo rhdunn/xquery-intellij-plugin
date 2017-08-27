@@ -235,6 +235,7 @@ private class BaseXProduct(id: String, name: String, implementation: Implementat
 }
 
 object BaseX : Implementation("basex", "BaseX", "http://www.basex.org/") {
+    val VERSION_7_8: Version = ProductVersion("7.8", this) // Introduction of the BaseX UpdateExpr.
     val VERSION_8_4: Version = ProductVersion("8.4", this)
     val VERSION_8_5: Version = ProductVersion("8.5", this)
     val VERSION_8_6: Version = ProductVersion("8.6", this)

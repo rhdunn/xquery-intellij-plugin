@@ -178,6 +178,39 @@ public class UnsupportedConstructInspectionTest extends InspectionTestCase {
     }
 
     // endregion
+    // region BaseX Conformance
+
+    public void testBaseX_ProductConformsToSpecification() {
+        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
+        getSettings().setImplementationVersion("basex/v8.5");
+
+        final XQueryFile file = parseResource("tests/parser/basex-7.8/UpdateExpr.xq");
+
+        final ProblemDescriptor[] problems = inspect(file, new UnsupportedConstructInspection());
+        assertThat(problems, is(notNullValue()));
+        assertThat(problems.length, is(0));
+    }
+
+    public void testBaseX_ProductDoesNotConformToSpecification() {
+        getSettings().setXQueryVersion(XQueryVersion.VERSION_1_0);
+        getSettings().setImplementationVersion("marklogic/v7.0");
+
+        final XQueryFile file = parseResource("tests/parser/basex-7.8/UpdateExpr.xq");
+
+        final ProblemDescriptor[] problems = inspect(file, new UnsupportedConstructInspection());
+        assertThat(problems, is(notNullValue()));
+        assertThat(problems.length, is(2));
+
+        assertThat(problems[0].getHighlightType(), is(ProblemHighlightType.GENERIC_ERROR_OR_WARNING));
+        assertThat(problems[0].getDescriptionTemplate(), is("XPST0003: MarkLogic 7.0 does not support BaseX 7.8 constructs."));
+        assertThat(problems[0].getPsiElement().getNode().getElementType(), is(XQueryTokenType.K_UPDATE));
+
+        assertThat(problems[1].getHighlightType(), is(ProblemHighlightType.GENERIC_ERROR_OR_WARNING));
+        assertThat(problems[1].getDescriptionTemplate(), is("XPST0003: MarkLogic 7.0 does not support XQuery Update Facility 1.0 constructs."));
+        assertThat(problems[1].getPsiElement().getNode().getElementType(), is(XQueryTokenType.K_DELETE));
+    }
+
+    // endregion
     // region MarkLogic Conformance
 
     public void testMarkLogic09ml_ProductConformsToSpecification() {
