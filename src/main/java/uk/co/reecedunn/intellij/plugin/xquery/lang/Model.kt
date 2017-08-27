@@ -285,6 +285,7 @@ private class MarkLogicProduct(id: String, name: String, implementation: Impleme
 }
 
 object MarkLogic : Implementation("marklogic", "MarkLogic", "http://www.marklogic.com/") {
+    val VERSION_4_0: Version = ProductVersion("4.0", this) // Introduction of the 1.0-ml syntax.
     val VERSION_6_0: Version = ProductVersion("6.0", this)
     val VERSION_7_0: Version = ProductVersion("7.0", this)
     val VERSION_8_0: Version = ProductVersion("8.0", this)

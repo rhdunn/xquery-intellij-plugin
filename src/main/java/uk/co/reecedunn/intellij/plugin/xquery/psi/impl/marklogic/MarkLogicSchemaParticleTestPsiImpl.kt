@@ -19,19 +19,13 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic.MarkLogicSchemaParticleTest
-import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem
 import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck
-import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
+import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
-class MarkLogicSchemaParticleTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), MarkLogicSchemaParticleTest, XQueryConformanceCheck {
-    override fun conformsTo(implementation: ImplementationItem): Boolean =
-        implementation.getVersion(MarkLogic).supportsVersion(XQueryVersion.VERSION_7_0)
+class MarkLogicSchemaParticleTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), MarkLogicSchemaParticleTest, XQueryConformance {
+    override val requiresConformance get(): List<Version> = listOf(MarkLogic.VERSION_7_0)
 
     override val conformanceElement get(): PsiElement =
         firstChild
-
-    override val conformanceErrorMessage get(): String =
-        XQueryBundle.message("requires.feature.marklogic.version", XQueryVersion.VERSION_7_0)
 }

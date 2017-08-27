@@ -180,28 +180,56 @@ public class UnsupportedConstructInspectionTest extends InspectionTestCase {
     // endregion
     // region MarkLogic Conformance
 
-    public void testMarkLogicForwardAxisInXQuery10() {
-        getSettings().setXQueryVersion(XQueryVersion.VERSION_1_0);
-        final XQueryFile file = parseResource("tests/parser/marklogic-6.0/ForwardAxis_Namespace.xq");
+    public void testMarkLogic09ml_ProductConformsToSpecification() {
+        getSettings().setXQueryVersion(XQueryVersion.VERSION_0_9_MARKLOGIC);
+        getSettings().setImplementationVersion("marklogic/v7.0");
+
+        final XQueryFile file = parseResource("tests/parser/marklogic-6.0/BinaryConstructor.xq");
+
+        final ProblemDescriptor[] problems = inspect(file, new UnsupportedConstructInspection());
+        assertThat(problems, is(notNullValue()));
+        assertThat(problems.length, is(0));
+    }
+
+    public void testMarkLogic09ml_ProductDoesNotConformToSpecification() {
+        getSettings().setXQueryVersion(XQueryVersion.VERSION_0_9_MARKLOGIC);
+        getSettings().setImplementationVersion("saxon/EE/v9.5");
+
+        final XQueryFile file = parseResource("tests/parser/marklogic-6.0/BinaryConstructor.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new UnsupportedConstructInspection());
         assertThat(problems, is(notNullValue()));
         assertThat(problems.length, is(1));
 
         assertThat(problems[0].getHighlightType(), is(ProblemHighlightType.GENERIC_ERROR_OR_WARNING));
-        assertThat(problems[0].getDescriptionTemplate(), is("XPST0003: This expression requires MarkLogic 6.0 or later with XQuery version '1.0-ml'."));
-        assertThat(problems[0].getPsiElement().getNode().getElementType(), is(XQueryTokenType.K_NAMESPACE));
+        assertThat(problems[0].getDescriptionTemplate(), is("XPST0003: Saxon 9.5 does not support MarkLogic 4.0, or XQuery 0.9-ml constructs."));
+        assertThat(problems[0].getPsiElement().getNode().getElementType(), is(XQueryTokenType.K_BINARY));
     }
 
-    public void testMarkLogicForwardAxis() {
+    public void testMarkLogic10ml_ProductConformsToSpecification() {
         getSettings().setXQueryVersion(XQueryVersion.VERSION_1_0_MARKLOGIC);
-        getSettings().setImplementation("marklogic");
-        getSettings().setImplementationVersion("marklogic/v6");
-        final XQueryFile file = parseResource("tests/parser/marklogic-6.0/ForwardAxis_Namespace.xq");
+        getSettings().setImplementationVersion("marklogic/v7.0");
+
+        final XQueryFile file = parseResource("tests/parser/marklogic-7.0/SchemaRootTest.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new UnsupportedConstructInspection());
         assertThat(problems, is(notNullValue()));
         assertThat(problems.length, is(0));
+    }
+
+    public void testMarkLogic10ml_ProductDoesNotConformToSpecification() {
+        getSettings().setXQueryVersion(XQueryVersion.VERSION_1_0_MARKLOGIC);
+        getSettings().setImplementationVersion("saxon/EE/v9.5");
+
+        final XQueryFile file = parseResource("tests/parser/marklogic-7.0/SchemaRootTest.xq");
+
+        final ProblemDescriptor[] problems = inspect(file, new UnsupportedConstructInspection());
+        assertThat(problems, is(notNullValue()));
+        assertThat(problems.length, is(1));
+
+        assertThat(problems[0].getHighlightType(), is(ProblemHighlightType.GENERIC_ERROR_OR_WARNING));
+        assertThat(problems[0].getDescriptionTemplate(), is("XPST0003: Saxon 9.5 does not support MarkLogic 7.0 constructs."));
+        assertThat(problems[0].getPsiElement().getNode().getElementType(), is(XQueryTokenType.K_SCHEMA_ROOT));
     }
 
     // endregion
