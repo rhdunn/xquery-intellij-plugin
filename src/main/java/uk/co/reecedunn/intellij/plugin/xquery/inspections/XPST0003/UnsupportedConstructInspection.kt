@@ -62,7 +62,7 @@ class UnsupportedConstructInspection : LocalInspectionTool() {
         }
         file.walkTree().filterIsInstance<XQueryConformance>().forEach { versioned ->
             val required = versioned.requiresConformance
-            if (required.find { version -> product.conformsTo(productVersion, version) } == null) {
+            if (!required.isEmpty() && required.find { version -> product.conformsTo(productVersion, version) } == null) {
                 val context = versioned.conformanceElement
                 val description = XQueryBundle.message("inspection.XPST0003.unsupported-construct.message", productVersion, required.joinToString(", or "))
                 descriptors.add(manager.createProblemDescriptor(context, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR_OR_WARNING, isOnTheFly))

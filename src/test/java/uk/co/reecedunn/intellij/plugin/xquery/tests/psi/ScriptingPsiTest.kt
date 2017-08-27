@@ -30,6 +30,10 @@ import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
 import uk.co.reecedunn.intellij.plugin.core.extensions.children
 import uk.co.reecedunn.intellij.plugin.core.extensions.descendants
+import uk.co.reecedunn.intellij.plugin.xquery.lang.Scripting
+import uk.co.reecedunn.intellij.plugin.xquery.lang.UpdateFacility
+import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable
 
 class ScriptingPsiTest : ParserTestCase() {
@@ -40,20 +44,12 @@ class ScriptingPsiTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-1.0/IntegerLiteral.xq")!!
 
         val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
-        val versioned = applyExpr as XQueryConformanceCheck
+        val conformance = applyExpr as XQueryConformance
 
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-scripting")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), `is`(true))
+        assertThat(conformance.requiresConformance.size, `is`(0))
 
-        assertThat(versioned.conformanceErrorMessage,
-                `is`("XPST0003: This expression requires Scripting Extension 1.0 or later."))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat<IElementType>(versioned.conformanceElement.node.elementType,
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
                 `is`<IElementType>(XQueryElementType.CONCAT_EXPR))
     }
 
@@ -61,20 +57,13 @@ class ScriptingPsiTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_Single_SemicolonAtEnd.xq")!!
 
         val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
-        val versioned = applyExpr as XQueryConformanceCheck
+        val conformance = applyExpr as XQueryConformance
 
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-scripting")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), `is`(false))
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`<Version>(Scripting.NOTE_1_0_20140918))
 
-        assertThat(versioned.conformanceErrorMessage,
-                `is`("XPST0003: This expression requires Scripting Extension 1.0 or later."))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
                 `is`<IElementType>(XQueryTokenType.SEPARATOR))
     }
 
@@ -82,20 +71,13 @@ class ScriptingPsiTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_TwoExpr_SemicolonAtEnd.xq")!!
 
         val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
-        val versioned = applyExpr as XQueryConformanceCheck
+        val conformance = applyExpr as XQueryConformance
 
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-scripting")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), `is`(false))
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`<Version>(Scripting.NOTE_1_0_20140918))
 
-        assertThat(versioned.conformanceErrorMessage,
-                `is`("XPST0003: This expression requires Scripting Extension 1.0 or later."))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
                 `is`<IElementType>(XQueryTokenType.SEPARATOR))
     }
 
@@ -106,21 +88,14 @@ class ScriptingPsiTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-sx-1.0/AssignmentExpr.xq")!!
 
         val assignmentExpr = file.descendants().filterIsInstance<ScriptingAssignmentExpr>().first()
-        val versioned = assignmentExpr as XQueryConformanceCheck
+        val conformance = assignmentExpr as XQueryConformance
 
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-scripting")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), `is`(false))
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`<Version>(Scripting.NOTE_1_0_20140918))
 
-        assertThat(versioned.conformanceErrorMessage,
-                `is`("XPST0003: This expression requires Scripting Extension 1.0 or later."))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.ASSIGN_EQUAL))
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
+                `is`(XQueryTokenType.ASSIGN_EQUAL))
     }
 
     // endregion
@@ -130,20 +105,13 @@ class ScriptingPsiTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-sx-1.0/BlockExpr.xq")!!
 
         val blockExpr = file.descendants().filterIsInstance<ScriptingBlockExpr>().first()
-        val versioned = blockExpr as XQueryConformanceCheck
+        val conformance = blockExpr as XQueryConformance
 
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-scripting")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), `is`(false))
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`<Version>(Scripting.NOTE_1_0_20140918))
 
-        assertThat(versioned.conformanceErrorMessage,
-                `is`("XPST0003: This expression requires Scripting Extension 1.0 or later."))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
                 `is`<IElementType>(XQueryTokenType.K_BLOCK))
     }
 
@@ -158,20 +126,13 @@ class ScriptingPsiTest : ParserTestCase() {
         val blockPsi = functionDeclPsi.children().filterIsInstance<ScriptingBlock>().first()
         val blockDeclsPsi = blockPsi.children().filterIsInstance<ScriptingBlockDecls>().first()
         val blockVarDeclPsi = blockDeclsPsi.children().filterIsInstance<ScriptingBlockVarDecl>().first()
-        val versioned = blockVarDeclPsi as XQueryConformanceCheck
+        val conformance = blockVarDeclPsi as XQueryConformance
 
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-scripting")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), `is`(false))
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`<Version>(Scripting.NOTE_1_0_20140918))
 
-        assertThat(versioned.conformanceErrorMessage,
-                `is`("XPST0003: This expression requires Scripting Extension 1.0 or later."))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
                 `is`<IElementType>(XQueryTokenType.K_DECLARE))
     }
 
@@ -182,20 +143,13 @@ class ScriptingPsiTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-sx-1.0/ExitExpr.xq")!!
 
         val exitExpr = file.descendants().filterIsInstance<ScriptingExitExpr>().first()
-        val versioned = exitExpr as XQueryConformanceCheck
+        val conformance = exitExpr as XQueryConformance
 
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-scripting")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), `is`(false))
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`<Version>(Scripting.NOTE_1_0_20140918))
 
-        assertThat(versioned.conformanceErrorMessage,
-                `is`("XPST0003: This expression requires Scripting Extension 1.0 or later."))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
                 `is`<IElementType>(XQueryTokenType.K_EXIT))
     }
 
@@ -207,20 +161,13 @@ class ScriptingPsiTest : ParserTestCase() {
 
         val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val scriptingCompatibilityAnnotationPsi = annotatedDeclPsi.children().filterIsInstance<ScriptingCompatibilityAnnotation>().first()
-        val versioned = scriptingCompatibilityAnnotationPsi as XQueryConformanceCheck
+        val conformance = scriptingCompatibilityAnnotationPsi as XQueryConformance
 
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-scripting")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), `is`(false))
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`<Version>(Scripting.NOTE_1_0_20140918))
 
-        assertThat(versioned.conformanceErrorMessage,
-                `is`("XPST0003: This expression requires Scripting Extension 1.0 or later."))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
                 `is`<IElementType>(XQueryTokenType.K_SIMPLE))
     }
 
@@ -229,20 +176,13 @@ class ScriptingPsiTest : ParserTestCase() {
 
         val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val scriptingCompatibilityAnnotationPsi = annotatedDeclPsi.children().filterIsInstance<ScriptingCompatibilityAnnotation>().first()
-        val versioned = scriptingCompatibilityAnnotationPsi as XQueryConformanceCheck
+        val conformance = scriptingCompatibilityAnnotationPsi as XQueryConformance
 
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-scripting")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), `is`(false))
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`<Version>(Scripting.NOTE_1_0_20140918))
 
-        assertThat(versioned.conformanceErrorMessage,
-                `is`("XPST0003: This expression requires Scripting Extension 1.0 or later."))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
                 `is`<IElementType>(XQueryTokenType.K_SEQUENTIAL))
     }
 
@@ -254,20 +194,13 @@ class ScriptingPsiTest : ParserTestCase() {
 
         val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val scriptingCompatibilityAnnotationPsi = annotatedDeclPsi.children().filterIsInstance<ScriptingCompatibilityAnnotation>().first()
-        val versioned = scriptingCompatibilityAnnotationPsi as XQueryConformanceCheck
+        val conformance = scriptingCompatibilityAnnotationPsi as XQueryConformance
 
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-scripting")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), `is`(false))
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`<Version>(Scripting.NOTE_1_0_20140918))
 
-        assertThat(versioned.conformanceErrorMessage,
-                `is`("XPST0003: This expression requires Scripting Extension 1.0 or later."))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
                 `is`<IElementType>(XQueryTokenType.K_ASSIGNABLE))
     }
 
@@ -276,20 +209,13 @@ class ScriptingPsiTest : ParserTestCase() {
 
         val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val scriptingCompatibilityAnnotationPsi = annotatedDeclPsi.children().filterIsInstance<ScriptingCompatibilityAnnotation>().first()
-        val versioned = scriptingCompatibilityAnnotationPsi as XQueryConformanceCheck
+        val conformance = scriptingCompatibilityAnnotationPsi as XQueryConformance
 
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-scripting")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), `is`(false))
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`<Version>(Scripting.NOTE_1_0_20140918))
 
-        assertThat(versioned.conformanceErrorMessage,
-                `is`("XPST0003: This expression requires Scripting Extension 1.0 or later."))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
                 `is`<IElementType>(XQueryTokenType.K_UNASSIGNABLE))
     }
 
@@ -300,20 +226,13 @@ class ScriptingPsiTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-sx-1.0/WhileExpr.xq")!!
 
         val whileExpr = file.descendants().filterIsInstance<ScriptingWhileExpr>().first()
-        val versioned = whileExpr as XQueryConformanceCheck
+        val conformance = whileExpr as XQueryConformance
 
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-scripting")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0-update")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), `is`(false))
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`<Version>(Scripting.NOTE_1_0_20140918))
 
-        assertThat(versioned.conformanceErrorMessage,
-                `is`("XPST0003: This expression requires Scripting Extension 1.0 or later."))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
                 `is`<IElementType>(XQueryTokenType.K_WHILE))
     }
 

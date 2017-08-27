@@ -19,22 +19,13 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingWhileExpr
-import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Scripting
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck
-import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
+import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
-class ScriptingWhileExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), ScriptingWhileExpr, XQueryConformanceCheck {
+class ScriptingWhileExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), ScriptingWhileExpr, XQueryConformance {
+    override val requiresConformance get(): List<Version> = listOf(Scripting.NOTE_1_0_20140918)
 
-    override fun conformsTo(implementation: ImplementationItem): Boolean {
-        val version = implementation.getVersion(Scripting)
-        return version != null && version.supportsVersion(XQueryVersion.VERSION_1_0)
-    }
-
-    override val conformanceElement: PsiElement
-        get() = firstChild
-
-    override val conformanceErrorMessage: String
-        get() = XQueryBundle.message("requires.feature.scripting.version", XQueryVersion.VERSION_1_0)
+    override val conformanceElement get(): PsiElement =
+        firstChild
 }

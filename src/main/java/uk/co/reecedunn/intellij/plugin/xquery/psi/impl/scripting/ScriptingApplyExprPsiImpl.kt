@@ -19,24 +19,21 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingApplyExpr
-import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem
-import uk.co.reecedunn.intellij.plugin.xquery.lang.Scripting
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion
+import uk.co.reecedunn.intellij.plugin.xquery.lang.*
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck
-import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
-open class ScriptingApplyExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), ScriptingApplyExpr, XQueryConformanceCheck {
-    override fun conformsTo(implementation: ImplementationItem): Boolean {
+private val SCRIPTING10 = listOf(Scripting.NOTE_1_0_20140918)
+private val XQUERY = listOf<Version>()
+
+open class ScriptingApplyExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), ScriptingApplyExpr, XQueryConformance {
+    override val requiresConformance get(): List<Version> {
         if (conformanceElement === firstChild) {
-            return true
+            return XQUERY
         }
-        return implementation.getVersion(Scripting).supportsVersion(XQueryVersion.VERSION_1_0)
+        return SCRIPTING10
     }
 
     override val conformanceElement get(): PsiElement =
         findChildByType(XQueryTokenType.SEPARATOR) ?: firstChild
-
-    override val conformanceErrorMessage get(): String =
-        XQueryBundle.message("requires.feature.scripting.version", XQueryVersion.VERSION_1_0)
 }

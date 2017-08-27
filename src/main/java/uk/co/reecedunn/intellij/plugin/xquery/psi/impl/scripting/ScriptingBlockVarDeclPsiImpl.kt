@@ -20,24 +20,18 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingBlockVarDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName
-import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Scripting
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion
+import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver
-import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 
-class ScriptingBlockVarDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), ScriptingBlockVarDecl, XQueryConformanceCheck, XQueryVariableResolver {
-    override fun conformsTo(implementation: ImplementationItem): Boolean =
-        implementation.getVersion(Scripting).supportsVersion(XQueryVersion.VERSION_1_0)
+class ScriptingBlockVarDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), ScriptingBlockVarDecl, XQueryConformance, XQueryVariableResolver {
+    override val requiresConformance get(): List<Version> = listOf(Scripting.NOTE_1_0_20140918)
 
     override val conformanceElement get(): PsiElement =
         firstChild
-
-    override val conformanceErrorMessage get(): String =
-        XQueryBundle.message("requires.feature.scripting.version", XQueryVersion.VERSION_1_0)
 
     override fun resolveVariable(name: XQueryEQName?): XQueryVariable? {
         val varName = findChildByType<PsiElement>(XQueryElementType.VAR_NAME)

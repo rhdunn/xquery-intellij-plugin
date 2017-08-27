@@ -149,6 +149,35 @@ public class UnsupportedConstructInspectionTest extends InspectionTestCase {
     }
 
     // endregion
+    // region Scripting Conformance
+
+    public void testScripting10_ProductConformsToSpecification() {
+        getSettings().setXQueryVersion(XQueryVersion.VERSION_1_0);
+        getSettings().setImplementationVersion("w3c/spec/v1ed");
+
+        final XQueryFile file = parseResource("tests/parser/xquery-sx-1.0/WhileExpr.xq");
+
+        final ProblemDescriptor[] problems = inspect(file, new UnsupportedConstructInspection());
+        assertThat(problems, is(notNullValue()));
+        assertThat(problems.length, is(0));
+    }
+
+    public void testScripting10_ProductDoesNotConformToSpecification() {
+        getSettings().setXQueryVersion(XQueryVersion.VERSION_1_0);
+        getSettings().setImplementationVersion("marklogic/v7.0");
+
+        final XQueryFile file = parseResource("tests/parser/xquery-sx-1.0/BlockExpr.xq");
+
+        final ProblemDescriptor[] problems = inspect(file, new UnsupportedConstructInspection());
+        assertThat(problems, is(notNullValue()));
+        assertThat(problems.length, is(1));
+
+        assertThat(problems[0].getHighlightType(), is(ProblemHighlightType.GENERIC_ERROR_OR_WARNING));
+        assertThat(problems[0].getDescriptionTemplate(), is("XPST0003: MarkLogic 7.0 does not support XQuery Scripting Extension 1.0 constructs."));
+        assertThat(problems[0].getPsiElement().getNode().getElementType(), is(XQueryTokenType.K_BLOCK));
+    }
+
+    // endregion
     // region MarkLogic Conformance
 
     public void testMarkLogicForwardAxisInXQuery10() {
