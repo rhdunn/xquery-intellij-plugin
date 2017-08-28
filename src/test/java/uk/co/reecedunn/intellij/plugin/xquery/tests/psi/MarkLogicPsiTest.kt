@@ -279,9 +279,8 @@ class MarkLogicPsiTest : ParserTestCase() {
         val compatibilityAnnotationPsi = annotatedDeclPsi.children().filterIsInstance<MarkLogicCompatibilityAnnotation>().first()
         val conformance = compatibilityAnnotationPsi as XQueryConformance
 
-        assertThat(conformance.requiresConformance.size, `is`(2))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(MarkLogic.VERSION_4_0))
-        assertThat(conformance.requiresConformance[1], `is`<Version>(XQuery.MARKLOGIC_0_9))
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`<Version>(MarkLogic.VERSION_6_0))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
@@ -295,9 +294,8 @@ class MarkLogicPsiTest : ParserTestCase() {
         val compatibilityAnnotationPsi = annotatedDeclPsi.children().filterIsInstance<MarkLogicCompatibilityAnnotation>().first()
         val conformance = compatibilityAnnotationPsi as XQueryConformance
 
-        assertThat(conformance.requiresConformance.size, `is`(2))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(MarkLogic.VERSION_4_0))
-        assertThat(conformance.requiresConformance[1], `is`<Version>(XQuery.MARKLOGIC_0_9))
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`<Version>(MarkLogic.VERSION_6_0))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
@@ -1006,9 +1004,8 @@ class MarkLogicPsiTest : ParserTestCase() {
         val stylesheetImportPsi = file.descendants().filterIsInstance<MarkLogicStylesheetImport>().first()
         val conformance = stylesheetImportPsi as XQueryConformance
 
-        assertThat(conformance.requiresConformance.size, `is`(2))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(MarkLogic.VERSION_4_0))
-        assertThat(conformance.requiresConformance[1], `is`<Version>(XQuery.MARKLOGIC_0_9))
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`<Version>(MarkLogic.VERSION_6_0))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,

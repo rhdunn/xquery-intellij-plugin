@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
 class MarkLogicCompatibilityAnnotationPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), MarkLogicCompatibilityAnnotation, XQueryConformance {
-    override val requiresConformance get(): List<Version> = listOf(MarkLogic.VERSION_4_0, XQuery.MARKLOGIC_0_9)
+    override val requiresConformance get(): List<Version> = listOf(MarkLogic.VERSION_6_0)
 
     override val conformanceElement get(): PsiElement =
         firstChild
