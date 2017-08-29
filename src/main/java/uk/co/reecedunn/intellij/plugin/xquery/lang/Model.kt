@@ -427,6 +427,17 @@ object W3C : Implementation("w3c", "W3C", "https://www.w3.org/XML/Query/") {
 
 // endregion
 
+val PRODUCTS: List<Product> = listOf(
+    BaseX.BASEX,
+    MarkLogic.MARKLOGIC,
+    Saxon.HE,
+    Saxon.PE,
+    Saxon.EE,
+    Saxon.EE_Q,
+    Saxon.EE_T,
+    Saxon.EE_V,
+    W3C.SPECIFICATIONS)
+
 class ItemId(val id: String) {
     val vendor: Implementation?
     val product: Product?
