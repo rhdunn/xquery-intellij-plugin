@@ -208,6 +208,23 @@ public class ModelTest extends TestCase {
     }
 
     // endregion
+    // region Product :: Display Name (toString)
+
+    public void testProduct_DisplayName() {
+        assertThat(BaseX.INSTANCE.getBASEX().toString(), is("BaseX"));
+        assertThat(MarkLogic.INSTANCE.getMARKLOGIC().toString(), is("MarkLogic"));
+
+        assertThat(Saxon.INSTANCE.getHE().toString(), is("Saxon Home Edition"));
+        assertThat(Saxon.INSTANCE.getPE().toString(), is("Saxon Professional Edition"));
+        assertThat(Saxon.INSTANCE.getEE().toString(), is("Saxon Enterprise Edition"));
+        assertThat(Saxon.INSTANCE.getEE_T().toString(), is("Saxon Enterprise Edition (Transformation package)"));
+        assertThat(Saxon.INSTANCE.getEE_Q().toString(), is("Saxon Enterprise Edition (Query package)"));
+        assertThat(Saxon.INSTANCE.getEE_V().toString(), is("Saxon Enterprise Edition (Validation package)"));
+
+        assertThat(W3C.INSTANCE.getSPECIFICATIONS().toString(), is("W3C Specifications"));
+    }
+
+    // endregion
     // region Product :: XQuery Conformance (Minimal Conformance; Optional Features)
 
     public void testBaseXProduct_OptionalFeatureSupport() {

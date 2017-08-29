@@ -59,6 +59,8 @@ enum class XQueryFeature {
 }
 
 sealed class Product(val id: String, val name: String, val implementation: Implementation) {
+    override fun toString(): String = implementation.name + " " + name
+
     abstract fun supportsFeature(version: Version, feature: XQueryFeature): Boolean
 
     abstract fun conformsTo(productVersion: Version, ref: Version): Boolean
@@ -210,6 +212,8 @@ object UpdateFacility : Versioned {
 // region Implementation :: BaseX
 
 private class BaseXProduct(id: String, name: String, implementation: Implementation) : Product(id, name, implementation) {
+    override fun toString(): String = name
+
     override fun supportsFeature(version: Version, feature: XQueryFeature): Boolean = true
 
     override fun conformsTo(productVersion: Version, ref: Version): Boolean = when (ref) {
@@ -260,6 +264,8 @@ object BaseX : Implementation("basex", "BaseX", "http://www.basex.org/") {
 // region Implementation :: MarkLogic
 
 private class MarkLogicProduct(id: String, name: String, implementation: Implementation) : Product(id, name, implementation) {
+    override fun toString(): String = name
+
     override fun supportsFeature(version: Version, feature: XQueryFeature): Boolean = true
 
     override fun conformsTo(productVersion: Version, ref: Version): Boolean = when (ref) {
