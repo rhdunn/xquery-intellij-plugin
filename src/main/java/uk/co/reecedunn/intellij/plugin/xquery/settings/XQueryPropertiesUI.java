@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.settings;
 
+import com.intellij.openapi.ui.ComboBox;
 import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUI;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.*;
 
@@ -90,12 +91,12 @@ public class XQueryPropertiesUI implements SettingsUI<XQueryProjectSettings> {
     }
 
     private void createUIComponents() {
-        mImplementations = new JComboBox<>();
-        mImplementationVersions = new JComboBox<>();
-        mVersion = new JComboBox<>();
-        mDialectForXQuery1_0 = new JComboBox<>();
-        mDialectForXQuery3_0 = new JComboBox<>();
-        mDialectForXQuery3_1 = new JComboBox<>();
+        mImplementations = new ComboBox<>();
+        mImplementationVersions = new ComboBox<>();
+        mVersion = new ComboBox<>();
+        mDialectForXQuery1_0 = new ComboBox<>();
+        mDialectForXQuery3_0 = new ComboBox<>();
+        mDialectForXQuery3_1 = new ComboBox<>();
 
         mImplementations.setName("Implementation");
         mImplementationVersions.setName("ImplementationVersion");
