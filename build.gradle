@@ -1,5 +1,5 @@
 buildscript {
-    ext.junit_milestone = '-M5' // IntelliJ 2017.2.1
+    ext.junit_milestone = '-RC2' // IntelliJ 2017.2.3
     ext.kotlin_version = '1.1.4-2'
     repositories {
         maven { url 'http://dl.bintray.com/jetbrains/intellij-plugin-service' }
