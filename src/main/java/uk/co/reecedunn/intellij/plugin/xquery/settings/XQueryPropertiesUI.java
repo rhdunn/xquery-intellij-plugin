@@ -20,6 +20,7 @@ import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUI;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.*;
 
 import javax.swing.*;
+import java.util.List;
 
 @SuppressWarnings({"RedundantIfStatement", "SameParameterValue"})
 public class XQueryPropertiesUI implements SettingsUI<XQueryProjectSettings> {
@@ -61,14 +62,6 @@ public class XQueryPropertiesUI implements SettingsUI<XQueryProjectSettings> {
         }
     }
 
-    private void populateComboBox(JComboBox<ImplementationItem> control, ImplementationItem source, String filter) {
-        control.removeAllItems();
-        for (ImplementationItem item : source.getItems(filter)) {
-            control.addItem(item);
-        }
-        control.setSelectedItem(source.getDefaultItem(filter));
-    }
-
     private void populateComboBox(JComboBox<ImplementationItem> control, ImplementationItem source, String filter, XQueryVersion version) {
         if (source == null) {
             return;
@@ -87,6 +80,24 @@ public class XQueryPropertiesUI implements SettingsUI<XQueryProjectSettings> {
         }
         if (!found) {
             control.setSelectedItem(source.getDefaultItemByVersion(filter, XQuery.INSTANCE, version));
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private <T> void populateComboBox(JComboBox<T> control, List<T> items, T defaultItem) {
+        final T selected = (T)control.getSelectedItem();
+        boolean found = false;
+
+        control.removeAllItems();
+        for (T item : items) {
+            control.addItem(item);
+            if (selected != null && item.toString().equals(selected.toString())) {
+                control.setSelectedItem(item);
+                found = true;
+            }
+        }
+        if (!found && !items.isEmpty()) {
+            control.setSelectedItem(defaultItem != null ? defaultItem : items.get(0));
         }
     }
 
@@ -115,7 +126,9 @@ public class XQueryPropertiesUI implements SettingsUI<XQueryProjectSettings> {
 
         mImplementations.addActionListener(e -> {
             final ImplementationItem implementation = (ImplementationItem)mImplementations.getSelectedItem();
-            populateComboBox(mImplementationVersions, implementation, ImplementationItem.IMPLEMENTATION_VERSION);
+            final List<ImplementationItem> items = implementation.getItems(ImplementationItem.IMPLEMENTATION_VERSION);
+            final ImplementationItem defaultItem = implementation.getDefaultItem(ImplementationItem.IMPLEMENTATION_VERSION);
+            populateComboBox(mImplementationVersions, items, defaultItem);
         });
 
         for (ImplementationItem implementation : Implementations.getImplementations()) {
