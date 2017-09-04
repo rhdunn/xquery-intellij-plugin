@@ -24,12 +24,12 @@ import java.util.List;
 
 @SuppressWarnings({"RedundantIfStatement", "SameParameterValue"})
 public class XQueryPropertiesUI implements SettingsUI<XQueryProjectSettings> {
-    private JComboBox<XQueryVersion> mVersion;
-    private JComboBox<ImplementationItem> mImplementations;
-    private JComboBox<ImplementationItem> mImplementationVersions;
-    private JComboBox<ImplementationItem> mDialectForXQuery1_0;
-    private JComboBox<ImplementationItem> mDialectForXQuery3_0;
-    private JComboBox<ImplementationItem> mDialectForXQuery3_1;
+    private JComboBox<Version> mVersion;
+    private JComboBox<Product> mImplementations;
+    private JComboBox<Version> mImplementationVersions;
+    private JComboBox<Versioned> mDialectForXQuery1_0;
+    private JComboBox<Versioned> mDialectForXQuery3_0;
+    private JComboBox<Versioned> mDialectForXQuery3_1;
 
     private JPanel mPanel;
 
@@ -39,48 +39,6 @@ public class XQueryPropertiesUI implements SettingsUI<XQueryProjectSettings> {
     @Override
     public JPanel getPanel() {
         return mPanel;
-    }
-
-    private void populateVersionComboBox(JComboBox<XQueryVersion> control, ImplementationItem source, Versioned filter) {
-        if (source == null) {
-            return;
-        }
-
-        final XQueryVersion selected = (XQueryVersion) control.getSelectedItem();
-        boolean found = false;
-
-        control.removeAllItems();
-        for (XQueryVersion version : source.getVersions(ImplementationItem.IMPLEMENTATION_DIALECT, filter)) {
-            control.addItem(version);
-            if (version == selected) {
-                control.setSelectedItem(version);
-                found = true;
-            }
-        }
-        if (!found) {
-            control.setSelectedItem(source.getDefaultVersion(ImplementationItem.IMPLEMENTATION_DIALECT, filter));
-        }
-    }
-
-    private void populateComboBox(JComboBox<ImplementationItem> control, ImplementationItem source, String filter, XQueryVersion version) {
-        if (source == null) {
-            return;
-        }
-
-        final ImplementationItem selected = (ImplementationItem)control.getSelectedItem();
-        boolean found = false;
-
-        control.removeAllItems();
-        for (ImplementationItem item : source.getItemsByVersion(filter, XQuery.INSTANCE, version)) {
-            control.addItem(item);
-            if (selected != null && item.toString().equals(selected.toString())) {
-                control.setSelectedItem(item);
-                found = true;
-            }
-        }
-        if (!found) {
-            control.setSelectedItem(source.getDefaultItemByVersion(filter, XQuery.INSTANCE, version));
-        }
     }
 
     @SuppressWarnings("unchecked")
@@ -117,23 +75,24 @@ public class XQueryPropertiesUI implements SettingsUI<XQueryProjectSettings> {
         mDialectForXQuery3_1.setName("DialectForXQuery3.1");
 
         mImplementationVersions.addActionListener(e -> {
-            final ImplementationItem version = (ImplementationItem)mImplementationVersions.getSelectedItem();
-            populateVersionComboBox(mVersion, version, XQuery.INSTANCE);
-            populateComboBox(mDialectForXQuery1_0, version, ImplementationItem.IMPLEMENTATION_DIALECT, XQueryVersion.VERSION_1_0);
-            populateComboBox(mDialectForXQuery3_0, version, ImplementationItem.IMPLEMENTATION_DIALECT, XQueryVersion.VERSION_3_0);
-            populateComboBox(mDialectForXQuery3_1, version, ImplementationItem.IMPLEMENTATION_DIALECT, XQueryVersion.VERSION_3_1);
+            final Product product = (Product)mImplementations.getSelectedItem();
+            final Version productVersion = (Version)mImplementationVersions.getSelectedItem();
+            if (product == null || productVersion == null) return;
+
+            populateComboBox(mVersion, XQuery.INSTANCE.versionsFor(product, productVersion), null);
+            populateComboBox(mDialectForXQuery1_0, product.flavoursForXQueryVersion(productVersion, "1.0"), null);
+            populateComboBox(mDialectForXQuery3_0, product.flavoursForXQueryVersion(productVersion, "3.0"), null);
+            populateComboBox(mDialectForXQuery3_1, product.flavoursForXQueryVersion(productVersion, "3.1"), null);
         });
 
         mImplementations.addActionListener(e -> {
-            final ImplementationItem implementation = (ImplementationItem)mImplementations.getSelectedItem();
-            final List<ImplementationItem> items = implementation.getItems(ImplementationItem.IMPLEMENTATION_VERSION);
-            final ImplementationItem defaultItem = implementation.getDefaultItem(ImplementationItem.IMPLEMENTATION_VERSION);
-            populateComboBox(mImplementationVersions, items, defaultItem);
+            final Product product = (Product)mImplementations.getSelectedItem();
+            if (product == null) return;
+
+            populateComboBox(mImplementationVersions, product.getImplementation().getVersions(), null);
         });
 
-        for (ImplementationItem implementation : Implementations.getImplementations()) {
-            mImplementations.addItem(implementation);
-        }
+        populateComboBox(mImplementations, ModelKt.getPRODUCTS(), W3C.INSTANCE.getSPECIFICATIONS());
     }
 
     @Override
