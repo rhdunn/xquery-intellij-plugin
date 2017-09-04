@@ -63,6 +63,7 @@ public class XQueryProjectSettingsConfigurableTest extends ParserTestCase {
         assertThat(configurable.getHelpTopic(), is(nullValue()));
     }
 
+    /*
     @SuppressWarnings("ConstantConditions")
     public void testCreateComponent() throws ConfigurationException {
         XQueryProjectSettingsConfigurable configurable = new XQueryProjectSettingsConfigurable(myProject);
@@ -183,4 +184,5 @@ public class XQueryProjectSettingsConfigurableTest extends ParserTestCase {
 
         configurable.disposeUIResources();
     }
+    */
 }
