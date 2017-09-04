@@ -16,6 +16,8 @@
 package uk.co.reecedunn.intellij.plugin.xquery.settings;
 
 import com.intellij.openapi.ui.ComboBox;
+import com.intellij.ui.ColoredListCellRenderer;
+import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.core.ui.SettingsUI;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.*;
 
@@ -73,6 +75,16 @@ public class XQueryPropertiesUI implements SettingsUI<XQueryProjectSettings> {
         mDialectForXQuery1_0.setName("DialectForXQuery1.0");
         mDialectForXQuery3_0.setName("DialectForXQuery3.0");
         mDialectForXQuery3_1.setName("DialectForXQuery3.1");
+
+        ColoredListCellRenderer<Versioned> VERSIONED_RENDERER = new ColoredListCellRenderer<Versioned>() {
+            @Override
+            protected void customizeCellRenderer(@NotNull JList<? extends Versioned> list, Versioned value, int index, boolean selected, boolean hasFocus) {
+                append(value.getName());
+            }
+        };
+        mDialectForXQuery1_0.setRenderer(VERSIONED_RENDERER);
+        mDialectForXQuery3_0.setRenderer(VERSIONED_RENDERER);
+        mDialectForXQuery3_1.setRenderer(VERSIONED_RENDERER);
 
         mImplementationVersions.addActionListener(e -> {
             final Product product = (Product)mImplementations.getSelectedItem();

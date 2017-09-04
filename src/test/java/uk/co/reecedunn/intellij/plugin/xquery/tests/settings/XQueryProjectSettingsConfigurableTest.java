@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.settings;
 
+import com.intellij.ide.ui.UISettings;
 import com.intellij.openapi.options.ConfigurationException;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Implementations;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
@@ -29,6 +30,12 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class XQueryProjectSettingsConfigurableTest extends ParserTestCase {
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
+        registerApplicationService(UISettings.class, new UISettings());
+    }
+
     private Component getComponentByName(JComponent component, String name) {
         for (Component child : component.getComponents()) {
             if (child.getName() != null && child.getName().equals(name)) {
