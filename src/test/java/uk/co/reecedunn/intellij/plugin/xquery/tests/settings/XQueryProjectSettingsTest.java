@@ -41,7 +41,6 @@ public class XQueryProjectSettingsTest extends TestCase {
         assertThat(settings.getXQuery30Dialect(), is("w3c/3.0"));
         assertThat(settings.getXQuery31Dialect(), is("w3c/3.1"));
 
-        assertThat(settings.getVendor(), is(W3C.INSTANCE));
         assertThat(settings.getProduct(), is(W3C.INSTANCE.getSPECIFICATIONS()));
         assertThat(settings.getProductVersion(), is(W3C.INSTANCE.getFIRST_EDITION()));
 
@@ -80,7 +79,6 @@ public class XQueryProjectSettingsTest extends TestCase {
         assertThat(settings.getXQuery30Dialect(), is("marklogic/v6/1.0"));
         assertThat(settings.getXQuery31Dialect(), is("marklogic/v6/1.0"));
 
-        assertThat(settings.getVendor(), is(MarkLogic.INSTANCE));
         assertThat(settings.getProduct(), is(MarkLogic.INSTANCE.getMARKLOGIC()));
         assertThat(settings.getProductVersion(), is(MarkLogic.INSTANCE.getVERSION_6_0()));
 
@@ -131,7 +129,6 @@ public class XQueryProjectSettingsTest extends TestCase {
         e = assertThrows(AssertionError.class, () -> settings.getDialectForXQueryVersion(Saxon.INSTANCE.getVERSION_9_7()));
         assertThat(e.getMessage(), is("Unknown XQuery version: Saxon 9.7"));
 
-        assertThat(settings.getVendor(), is(MarkLogic.INSTANCE));
         assertThat(settings.getProduct(), is(MarkLogic.INSTANCE.getMARKLOGIC()));
         assertThat(settings.getProductVersion(), is(MarkLogic.INSTANCE.getVERSION_6_0()));
 

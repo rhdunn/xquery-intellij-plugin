@@ -86,10 +86,6 @@ class XQueryProjectSettings : PersistentStateComponent<XQueryProjectSettings>, E
     }
 
     @get:Transient
-    val vendor: Implementation?
-        get() = PRODUCT_VERSION.vendor
-
-    @get:Transient
     val product: Product?
         get() = PRODUCT_VERSION.product
 
