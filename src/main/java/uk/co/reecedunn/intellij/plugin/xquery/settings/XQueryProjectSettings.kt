@@ -31,9 +31,6 @@ class XQueryProjectSettings : PersistentStateComponent<XQueryProjectSettings>, E
     // region Settings
 
     @get:Transient @set:Transient
-    var implementationItem = Implementations.getDefaultImplementation()
-
-    @get:Transient @set:Transient
     var implementationVersionItem: ImplementationItem
         get() = IMPLEMENTATION_VERSION
         set(version) {
@@ -41,7 +38,8 @@ class XQueryProjectSettings : PersistentStateComponent<XQueryProjectSettings>, E
             PRODUCT_VERSION = ItemId(version.id)
         }
 
-    private var IMPLEMENTATION_VERSION = implementationItem.getDefaultItem(ImplementationItem.IMPLEMENTATION_VERSION)
+    private var IMPLEMENTATION = Implementations.getDefaultImplementation()
+    private var IMPLEMENTATION_VERSION = IMPLEMENTATION.getDefaultItem(ImplementationItem.IMPLEMENTATION_VERSION)
     private var PRODUCT_VERSION = ItemId("w3c/spec/v1ed")
     private var XQUERY_1_0_DIALECT = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQuery, XQVersion.VERSION_1_0)
     private var XQUERY_3_0_DIALECT = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQuery, XQVersion.VERSION_3_0)
@@ -103,9 +101,9 @@ class XQueryProjectSettings : PersistentStateComponent<XQueryProjectSettings>, E
     // region Persisted Settings
 
     var implementation: String
-        get() = implementationItem.id
+        get() = IMPLEMENTATION.id
         set(implementation) {
-            implementationItem = Implementations.getItemById(implementation)
+            IMPLEMENTATION = Implementations.getItemById(implementation)
         }
 
     var implementationVersion: String
