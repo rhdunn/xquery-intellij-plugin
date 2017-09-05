@@ -28,28 +28,10 @@ import java.io.File
 
 @State(name = "XQueryProjectSettings", storages = arrayOf(Storage(StoragePathMacros.WORKSPACE_FILE), Storage("xquery_config.xml")))
 class XQueryProjectSettings : PersistentStateComponent<XQueryProjectSettings>, ExportableComponent {
+    // region Settings
+
     @get:Transient @set:Transient
     var implementationItem = Implementations.getDefaultImplementation()
-    private var IMPLEMENTATION_VERSION = implementationItem.getDefaultItem(ImplementationItem.IMPLEMENTATION_VERSION)
-    private var PRODUCT_VERSION = ItemId("w3c/spec/v1ed")
-    var XQueryVersion = IMPLEMENTATION_VERSION.getDefaultVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQuery)
-    private var XQUERY_1_0_DIALECT = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQuery, XQVersion.VERSION_1_0)
-    private var XQUERY_3_0_DIALECT = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQuery, XQVersion.VERSION_3_0)
-    private var XQUERY_3_1_DIALECT = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQuery, XQVersion.VERSION_3_1)
-
-    override fun getState(): XQueryProjectSettings? = this
-
-    override fun loadState(state: XQueryProjectSettings) = XmlSerializerUtil.copyBean(state, this)
-
-    override fun getExportFiles(): Array<File> = arrayOf(PathManager.getOptionsFile("xquery_project_settings"))
-
-    override fun getPresentableName(): String = XQueryBundle.message("xquery.settings.project.title")
-
-    var implementation: String
-        get() = implementationItem.id
-        set(implementation) {
-            implementationItem = Implementations.getItemById(implementation)
-        }
 
     @get:Transient @set:Transient
     var implementationVersionItem: ImplementationItem
@@ -59,30 +41,11 @@ class XQueryProjectSettings : PersistentStateComponent<XQueryProjectSettings>, E
             PRODUCT_VERSION = ItemId(version.id)
         }
 
-    var implementationVersion: String
-        get() = IMPLEMENTATION_VERSION.id
-        set(version) {
-            IMPLEMENTATION_VERSION = Implementations.getItemById(version)
-            PRODUCT_VERSION = ItemId(version)
-        }
-
-    var XQuery10Dialect: String?
-        get() = XQUERY_1_0_DIALECT.id
-        set(dialect) {
-            XQUERY_1_0_DIALECT = Implementations.getItemById(dialect)
-        }
-
-    var XQuery30Dialect: String?
-        get() = XQUERY_3_0_DIALECT.id
-        set(dialect) {
-            XQUERY_3_0_DIALECT = Implementations.getItemById(dialect)
-        }
-
-    var XQuery31Dialect: String?
-        get() = XQUERY_3_1_DIALECT.id
-        set(dialect) {
-            XQUERY_3_1_DIALECT = Implementations.getItemById(dialect)
-        }
+    private var IMPLEMENTATION_VERSION = implementationItem.getDefaultItem(ImplementationItem.IMPLEMENTATION_VERSION)
+    private var PRODUCT_VERSION = ItemId("w3c/spec/v1ed")
+    private var XQUERY_1_0_DIALECT = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQuery, XQVersion.VERSION_1_0)
+    private var XQUERY_3_0_DIALECT = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQuery, XQVersion.VERSION_3_0)
+    private var XQUERY_3_1_DIALECT = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQuery, XQVersion.VERSION_3_1)
 
     @Transient
     fun getDialectForXQueryVersion(version: Version): ImplementationItem = when (version) {
@@ -124,17 +87,69 @@ class XQueryProjectSettings : PersistentStateComponent<XQueryProjectSettings>, E
         else -> throw AssertionError("Unknown XQuery version: " + version)
     }
 
+    @get:Transient
     val vendor: Implementation?
-        @Transient
         get() = PRODUCT_VERSION.vendor
 
+    @get:Transient
     val product: Product?
-        @Transient
         get() = PRODUCT_VERSION.product
 
+    @get:Transient
     val productVersion: Version?
-        @Transient
         get() = PRODUCT_VERSION.productVersion
+
+    // endregion
+    // region Persisted Settings
+
+    var implementation: String
+        get() = implementationItem.id
+        set(implementation) {
+            implementationItem = Implementations.getItemById(implementation)
+        }
+
+    var implementationVersion: String
+        get() = IMPLEMENTATION_VERSION.id
+        set(version) {
+            IMPLEMENTATION_VERSION = Implementations.getItemById(version)
+            PRODUCT_VERSION = ItemId(version)
+        }
+
+    var XQueryVersion = IMPLEMENTATION_VERSION.getDefaultVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQuery)
+
+    var XQuery10Dialect: String?
+        get() = XQUERY_1_0_DIALECT.id
+        set(dialect) {
+            XQUERY_1_0_DIALECT = Implementations.getItemById(dialect)
+        }
+
+    var XQuery30Dialect: String?
+        get() = XQUERY_3_0_DIALECT.id
+        set(dialect) {
+            XQUERY_3_0_DIALECT = Implementations.getItemById(dialect)
+        }
+
+    var XQuery31Dialect: String?
+        get() = XQUERY_3_1_DIALECT.id
+        set(dialect) {
+            XQUERY_3_1_DIALECT = Implementations.getItemById(dialect)
+        }
+
+    // endregion
+    // region PersistentStateComponent
+
+    override fun getState(): XQueryProjectSettings? = this
+
+    override fun loadState(state: XQueryProjectSettings) = XmlSerializerUtil.copyBean(state, this)
+
+    // endregion
+    // region ExportableComponent
+
+    override fun getExportFiles(): Array<File> = arrayOf(PathManager.getOptionsFile("xquery_project_settings"))
+
+    override fun getPresentableName(): String = XQueryBundle.message("xquery.settings.project.title")
+
+    // endregion
 
     companion object {
         fun getInstance(project: Project): XQueryProjectSettings {
