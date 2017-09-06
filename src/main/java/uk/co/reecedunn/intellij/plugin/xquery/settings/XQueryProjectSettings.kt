@@ -35,7 +35,7 @@ class XQueryProjectSettings : PersistentStateComponent<XQueryProjectSettings>, E
         get() = IMPLEMENTATION_VERSION
         set(version) {
             IMPLEMENTATION_VERSION = version
-            PRODUCT_VERSION = ItemId(version.id)
+            PRODUCT_VERSION.id = version.id
         }
 
     private var IMPLEMENTATION = Implementations.getDefaultImplementation()
@@ -106,7 +106,7 @@ class XQueryProjectSettings : PersistentStateComponent<XQueryProjectSettings>, E
         get() = IMPLEMENTATION_VERSION.id
         set(version) {
             IMPLEMENTATION_VERSION = Implementations.getItemById(version)
-            PRODUCT_VERSION = ItemId(version)
+            PRODUCT_VERSION.id = version
         }
 
     var XQueryVersion = IMPLEMENTATION_VERSION.getDefaultVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQuery)

@@ -444,51 +444,75 @@ val PRODUCTS: List<Product> = listOf(
     Saxon.EE_V,
     W3C.SPECIFICATIONS)
 
-class ItemId(val id: String) {
-    val vendor: Implementation?
-    val product: Product?
-    val productVersion: Version?
-
-    init {
-        val parts = id.split("/")
-
-        if (parts.size >= 1) {
-            when (parts[0]) {
-                "basex" -> vendor = BaseX
-                "marklogic" -> vendor = MarkLogic
-                "saxon" -> vendor = Saxon
-                "w3c" -> vendor = W3C
-                else -> vendor = null
-            }
-        } else {
-            vendor = null
-        }
-
-        var version: Version? = null
-        if (parts.size >= 2 && vendor != null) {
-            if (parts[1].startsWith("v")) {
-                val versionId = parts[1].substring(1)
-                product = vendor.products.get(0)
-                version =
-                    vendor.versions.find { v -> v.id == versionId } ?:
-                    vendor.versions.find { v -> v.id == versionId + ".0" } // MarkLogic compatibility IDs (e.g. `v9`).
-            } else {
-                product = vendor.products.find { p -> p.id == parts[1] }
-            }
-        } else {
-            product = null
-        }
-        if (parts.size >= 3 && vendor != null && product != null) {
-            if (parts[2].startsWith("v")) {
-                val versionId = parts[2].substring(1)
-                version = vendor.versions.find { v -> v.id == versionId }
-            }
-        }
-
-        if (version == null && product === W3C.SPECIFICATIONS) {
-            this.productVersion = W3C.FIRST_EDITION
-        } else {
-            this.productVersion = version
-        }
+class ItemId {
+    @Suppress("ConvertSecondaryConstructorToPrimary")
+    constructor(id: String?) {
+        this.id = id
     }
+
+    var vendor: Implementation? = null
+    var product: Product? = null
+    var productVersion: Version? = null
+
+    var id: String?
+        get() = when (vendor) {
+            BaseX, MarkLogic ->
+                if (productVersion == null) {
+                    vendor?.id
+                } else {
+                    "${vendor?.id}/v${productVersion?.id}"
+                }
+            else ->
+                if (productVersion == null) {
+                    if (product == null) {
+                        vendor?.id
+                    } else {
+                        "${vendor?.id}/${product?.id}"
+                    }
+                } else {
+                    "${vendor?.id}/${product?.id}/v${productVersion?.id}"
+                }
+        }
+        set(value) {
+            val parts = value?.split("/") ?: listOf()
+
+            if (parts.size >= 1) {
+                when (parts[0]) {
+                    "basex" -> vendor = BaseX
+                    "marklogic" -> vendor = MarkLogic
+                    "saxon" -> vendor = Saxon
+                    "w3c" -> vendor = W3C
+                    else -> vendor = null
+                }
+            } else {
+                vendor = null
+            }
+
+            var version: Version? = null
+            if (parts.size >= 2 && vendor != null) {
+                if (parts[1].startsWith("v")) {
+                    val versionId = parts[1].substring(1)
+                    product = vendor!!.products.get(0)
+                    version =
+                        vendor!!.versions.find { v -> v.id == versionId } ?:
+                        vendor!!.versions.find { v -> v.id == versionId + ".0" } // MarkLogic compatibility IDs (e.g. `v9`).
+                } else {
+                    product = vendor!!.products.find { p -> p.id == parts[1] }
+                }
+            } else {
+                product = null
+            }
+            if (parts.size >= 3 && vendor != null && product != null) {
+                if (parts[2].startsWith("v")) {
+                    val versionId = parts[2].substring(1)
+                    version = vendor!!.versions.find { v -> v.id == versionId }
+                }
+            }
+
+            if (version == null && product === W3C.SPECIFICATIONS) {
+                this.productVersion = W3C.FIRST_EDITION
+            } else {
+                this.productVersion = version
+            }
+        }
 }
