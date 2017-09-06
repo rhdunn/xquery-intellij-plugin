@@ -35,7 +35,7 @@ public class XQueryProjectSettingsTest extends TestCase {
     public void testDefaultValues() {
         XQueryProjectSettings settings = new XQueryProjectSettings();
         assertThat(settings.getImplementation(), is("w3c"));
-        assertThat(settings.getImplementationVersion(), is("w3c/spec"));
+        assertThat(settings.getImplementationVersion(), is("w3c/spec/v1ed"));
         assertThat(settings.getXQueryVersion(), is(XQueryVersion.VERSION_1_0));
         assertThat(settings.getXQuery10Dialect(), is("w3c/1.0"));
         assertThat(settings.getXQuery30Dialect(), is("w3c/3.0"));
@@ -178,7 +178,7 @@ public class XQueryProjectSettingsTest extends TestCase {
                 + "<option name=\"XQuery31Dialect\" value=\"w3c/3.1\" />"
                 + "<option name=\"XQueryVersion\" value=\"1.0\" />"
                 + "<option name=\"implementation\" value=\"w3c\" />"
-                + "<option name=\"implementationVersion\" value=\"w3c/spec\" />"
+                + "<option name=\"implementationVersion\" value=\"w3c/spec/v1ed\" />"
                 + "</XQueryProjectSettings>";
 
         Element element = XmlSerializer.serialize(settings);

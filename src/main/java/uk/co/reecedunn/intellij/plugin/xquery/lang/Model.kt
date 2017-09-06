@@ -444,6 +444,12 @@ val PRODUCTS: List<Product> = listOf(
     Saxon.EE_V,
     W3C.SPECIFICATIONS)
 
+/**
+ * Supports IDs used in XQueryProjectSettings to refer to XQuery implementations.
+ *
+ * This is designed to preserve the interoperability with the versioning scheme
+ * established in previous versions of the plugin.
+ */
 class VersionedProductId {
     @Suppress("ConvertSecondaryConstructorToPrimary")
     constructor(id: String?) {
@@ -456,11 +462,17 @@ class VersionedProductId {
 
     var id: String?
         get() = when (vendor) {
-            BaseX, MarkLogic ->
+            BaseX ->
                 if (productVersion == null) {
                     vendor?.id
                 } else {
                     "${vendor?.id}/v${productVersion?.id}"
+                }
+            MarkLogic ->
+                if (productVersion == null) {
+                    vendor?.id
+                } else {
+                    "${vendor?.id}/v${productVersion?.id?.replace(".0", "")}"
                 }
             else ->
                 if (productVersion == null) {

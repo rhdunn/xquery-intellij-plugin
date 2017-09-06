@@ -102,8 +102,8 @@ class XQueryProjectSettings : PersistentStateComponent<XQueryProjectSettings>, E
             IMPLEMENTATION = Implementations.getItemById(implementation)
         }
 
-    var implementationVersion: String
-        get() = IMPLEMENTATION_VERSION.id
+    var implementationVersion: String?
+        get() = PRODUCT_VERSION.id
         set(version) {
             IMPLEMENTATION_VERSION = Implementations.getItemById(version)
             PRODUCT_VERSION.id = version

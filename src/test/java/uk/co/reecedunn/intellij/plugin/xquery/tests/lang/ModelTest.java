@@ -1025,14 +1025,14 @@ public class ModelTest extends TestCase {
         VersionedProductId id;
 
         id = new VersionedProductId("marklogic/v8.0");
-        assertThat(id.getId(), is("marklogic/v8.0"));
+        assertThat(id.getId(), is("marklogic/v8"));
         assertThat(id.getVendor(), is(MarkLogic.INSTANCE));
         assertThat(id.getProduct(), is(MarkLogic.INSTANCE.getMARKLOGIC()));
         assertThat(id.getProductVersion(), is(MarkLogic.INSTANCE.getVERSION_8_0()));
 
         // Compatibility ID
         id = new VersionedProductId("marklogic/v8");
-        assertThat(id.getId(), is("marklogic/v8.0"));
+        assertThat(id.getId(), is("marklogic/v8"));
         assertThat(id.getVendor(), is(MarkLogic.INSTANCE));
         assertThat(id.getProduct(), is(MarkLogic.INSTANCE.getMARKLOGIC()));
         assertThat(id.getProductVersion(), is(MarkLogic.INSTANCE.getVERSION_8_0()));
