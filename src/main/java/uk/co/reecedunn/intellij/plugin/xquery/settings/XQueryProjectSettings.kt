@@ -40,7 +40,7 @@ class XQueryProjectSettings : PersistentStateComponent<XQueryProjectSettings>, E
 
     private var IMPLEMENTATION = Implementations.getDefaultImplementation()
     private var IMPLEMENTATION_VERSION = IMPLEMENTATION.getDefaultItem(ImplementationItem.IMPLEMENTATION_VERSION)
-    private var PRODUCT_VERSION = ItemId("w3c/spec/v1ed")
+    private var PRODUCT_VERSION = VersionedProductId("w3c/spec/v1ed")
     private var XQUERY_1_0_DIALECT = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQuery, XQVersion.VERSION_1_0)
     private var XQUERY_3_0_DIALECT = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQuery, XQVersion.VERSION_3_0)
     private var XQUERY_3_1_DIALECT = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQuery, XQVersion.VERSION_3_1)

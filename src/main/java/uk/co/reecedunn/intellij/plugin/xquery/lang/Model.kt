@@ -444,7 +444,7 @@ val PRODUCTS: List<Product> = listOf(
     Saxon.EE_V,
     W3C.SPECIFICATIONS)
 
-class ItemId {
+class VersionedProductId {
     @Suppress("ConvertSecondaryConstructorToPrimary")
     constructor(id: String?) {
         this.id = id
