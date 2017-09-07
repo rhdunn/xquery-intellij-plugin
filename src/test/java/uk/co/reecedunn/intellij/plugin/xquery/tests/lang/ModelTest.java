@@ -963,6 +963,51 @@ public class ModelTest extends TestCase {
     }
 
     // endregion
+    // region XQuery :: Version For XQuery
+
+    public void testBaseX_VersionForXQuery() {
+        for (Product product : BaseX.INSTANCE.getProducts()) {
+            for (Version version : BaseX.INSTANCE.getVersions()) {
+                assertThat(XQuery.INSTANCE.versionForXQuery(product, version, "1.0"),
+                        is(nullValue()));
+                assertThat(XQuery.INSTANCE.versionForXQuery(product, version, "3.0"),
+                        is(XQuery.INSTANCE.getREC_3_0_20140408()));
+                assertThat(XQuery.INSTANCE.versionForXQuery(product, version, "3.1"),
+                        is(version.getValue() <= 8.5 ? XQuery.INSTANCE.getCR_3_1_20151217() : XQuery.INSTANCE.getREC_3_1_20170321()));
+
+                assertThat(XQuery.INSTANCE.versionForXQuery(product, version, "0.9-ml"),
+                        is(nullValue()));
+                assertThat(XQuery.INSTANCE.versionForXQuery(product, version, "1.0-ml"),
+                        is(nullValue()));
+
+                assertThat(XQuery.INSTANCE.versionForXQuery(product, version, "3"),
+                        is(nullValue()));
+            }
+        }
+    }
+
+    public void testMarkLogic_VersionsForXQuery() {
+        for (Product product : MarkLogic.INSTANCE.getProducts()) {
+            for (Version version : MarkLogic.INSTANCE.getVersions()) {
+                assertThat(XQuery.INSTANCE.versionForXQuery(product, version, "1.0"),
+                        is(XQuery.INSTANCE.getREC_1_0_20070123()));
+                assertThat(XQuery.INSTANCE.versionForXQuery(product, version, "3.0"),
+                        is(nullValue()));
+                assertThat(XQuery.INSTANCE.versionForXQuery(product, version, "3.1"),
+                        is(nullValue()));
+
+                assertThat(XQuery.INSTANCE.versionForXQuery(product, version, "0.9-ml"),
+                        is(XQuery.INSTANCE.getMARKLOGIC_0_9()));
+                assertThat(XQuery.INSTANCE.versionForXQuery(product, version, "1.0-ml"),
+                        is(XQuery.INSTANCE.getMARKLOGIC_1_0()));
+
+                assertThat(XQuery.INSTANCE.versionForXQuery(product, version, "3"),
+                        is(nullValue()));
+            }
+        }
+    }
+
+    // endregion
     // region Item ID
 
     public void testItemId_VendorOnly() {

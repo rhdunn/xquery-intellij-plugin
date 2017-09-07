@@ -130,6 +130,25 @@ object XQuery : Language("XQuery", "application/xquery"), Versioned {
         CR_3_1_20151217,
         REC_3_1_20170321,
         MARKLOGIC_1_0)
+
+    private val XQUERY10: List<Specification> = listOf(REC_1_0_20101214, REC_1_0_20070123)
+    private val XQUERY30: List<Specification> = listOf(REC_3_0_20140408)
+    private val XQUERY31: List<Specification> = listOf(REC_3_1_20170321, CR_3_1_20151217)
+    private val XQUERY09_MARKLOGIC: List<Specification> = listOf(MARKLOGIC_0_9)
+    private val XQUERY10_MARKLOGIC: List<Specification> = listOf(MARKLOGIC_1_0)
+    private val XQUERY_UNKNOWN: List<Specification> = listOf()
+
+    private fun versionsForXQuery(xquery: String): List<Specification> = when (xquery) {
+        "0.9-ml" -> XQUERY09_MARKLOGIC
+        "1.0-ml" -> XQUERY10_MARKLOGIC
+        "1.0" -> XQUERY10
+        "3.0" -> XQUERY30
+        "3.1" -> XQUERY31
+        else -> XQUERY_UNKNOWN
+    }
+
+    fun versionForXQuery(product: Product, version: Version, xquery: String): Specification? =
+        versionsForXQuery(xquery).filter { spec -> product.conformsTo(version, spec) }.firstOrNull()
 }
 
 // endregion
