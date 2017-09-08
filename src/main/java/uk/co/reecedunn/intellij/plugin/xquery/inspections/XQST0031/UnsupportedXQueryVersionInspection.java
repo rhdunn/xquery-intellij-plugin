@@ -20,7 +20,7 @@ import com.intellij.psi.PsiFile;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVersionRef;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.Version;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
@@ -57,9 +57,8 @@ public class UnsupportedXQueryVersionInspection extends LocalInspectionTool {
         }
 
         XQueryProjectSettings settings = XQueryProjectSettings.Companion.getInstance(file.getProject());
-        ImplementationItem implementation = settings.getImplementationVersionItem();
-        List<ImplementationItem> dialect = implementation.getItemsByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQuery.INSTANCE, version.getVersion());
-        if (dialect.get(0).getID() != null) {
+        Version xqueryVersion = XQuery.INSTANCE.versionForXQuery(settings.getProduct(), settings.getProductVersion(), version.getVersion().toString());
+        if (xqueryVersion != null) {
             return ProblemDescriptor.EMPTY_ARRAY;
         }
 
