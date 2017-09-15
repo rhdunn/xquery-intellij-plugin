@@ -21,24 +21,19 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCurlyArrayConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.lang.*
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck
-import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
-class XQueryCurlyArrayConstructorPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryCurlyArrayConstructor, XQueryConformanceCheck {
-    override fun conformsTo(implementation: ImplementationItem): Boolean {
+private val XQUERY31: List<Version> = listOf(XQuery.REC_3_1_20170321)
+private val MARKLOGIC80: List<Version> = listOf(MarkLogic.VERSION_8_0)
+
+class XQueryCurlyArrayConstructorPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryCurlyArrayConstructor, XQueryConformance {
+    override val requiresConformance get(): List<Version> {
         if (conformanceElement.node.elementType === XQueryTokenType.K_ARRAY_NODE) {
-            return implementation.getVersion(MarkLogic).supportsVersion(XQueryVersion.VERSION_8_0)
+            return MARKLOGIC80
         }
-        return implementation.getVersion(XQuery).supportsVersion(XQueryVersion.VERSION_3_1)
+        return XQUERY31
     }
 
     override val conformanceElement get(): PsiElement =
         firstChild
-
-    override val conformanceErrorMessage get(): String {
-        if (conformanceElement.node.elementType === XQueryTokenType.K_ARRAY_NODE) {
-            return XQueryBundle.message("requires.feature.marklogic.version", XQueryVersion.VERSION_8_0)
-        }
-        return XQueryBundle.message("requires.feature.minimal-conformance.version", XQueryVersion.VERSION_3_1)
-    }
 }

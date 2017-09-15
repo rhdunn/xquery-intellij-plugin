@@ -18,15 +18,21 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
 import com.intellij.lang.ASTNode;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEnclosedContentExpr;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.Version;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class XQueryEnclosedContentExprPsiImpl extends XQueryEnclosedExprPsiImpl implements XQueryEnclosedContentExpr {
+    private static final List<Version> XQUERY10 = new ArrayList<>();
+
     public XQueryEnclosedContentExprPsiImpl(@NotNull ASTNode node) {
         super(node);
     }
 
+    @NotNull
     @Override
-    public boolean conformsTo(@NotNull ImplementationItem implementation) {
-        return true;
+    public List<Version> getRequiresConformance() {
+        return XQUERY10;
     }
 }

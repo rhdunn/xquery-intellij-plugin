@@ -20,17 +20,11 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnyMapTest
 import uk.co.reecedunn.intellij.plugin.xquery.lang.*
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck
-import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
-class XQueryAnyMapTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryAnyMapTest, XQueryConformanceCheck {
-    override fun conformsTo(implementation: ImplementationItem): Boolean =
-        implementation.getVersion(XQuery).supportsVersion(XQueryVersion.VERSION_3_1) ||
-        implementation.getVersion(Saxon).supportsVersion(XQueryVersion.VERSION_9_4)
+class XQueryAnyMapTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryAnyMapTest, XQueryConformance {
+    override val requiresConformance get(): List<Version> = listOf(XQuery.REC_3_1_20170321, Saxon.VERSION_9_4)
 
     override val conformanceElement get(): PsiElement =
         firstChild
-
-    override val conformanceErrorMessage get(): String =
-        XQueryBundle.message("requires.feature.saxon-xquery.version")
 }

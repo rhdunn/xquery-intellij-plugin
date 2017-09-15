@@ -21,10 +21,13 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.lang.*
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck
-import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
-open class XQueryEnclosedExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryEnclosedExpr, XQueryConformanceCheck {
+private val XQUERY10: List<Version> = listOf()
+private val XQUERY31: List<Version> = listOf(XQuery.REC_3_1_20170321)
+private val MARKLOGIC60: List<Version> = listOf(XQuery.REC_3_1_20170321, MarkLogic.VERSION_6_0)
+
+open class XQueryEnclosedExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryEnclosedExpr, XQueryConformance {
     private fun previousVersionSupportsOptionalExpr(parent: PsiElement): Boolean =
         parent is XQueryCompPIConstructor ||
         parent is XQueryCompAttrConstructor ||
@@ -37,20 +40,17 @@ open class XQueryEnclosedExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node)
         parent is XQueryDirElemContent ||
         parent is XQueryCatchClause
 
-    override fun conformsTo(implementation: ImplementationItem): Boolean {
+    override val requiresConformance get(): List<Version> {
         val parent = parent
         if (previousVersionSupportsOptionalExpr(parent) || conformanceElement !== firstChild) {
-            return true
+            return XQUERY10
         }
-        if (marklogicSupportsOptionalExpr(parent) && implementation.getVersion(MarkLogic).supportsVersion(XQueryVersion.VERSION_6_0)) {
-            return true
+        if (marklogicSupportsOptionalExpr(parent)) {
+            return MARKLOGIC60
         }
-        return implementation.getVersion(XQuery).supportsVersion(XQueryVersion.VERSION_3_1)
+        return XQUERY31
     }
 
     override val conformanceElement get(): PsiElement =
         findChildByType(XQueryElementType.EXPR) ?: firstChild
-
-    override val conformanceErrorMessage get(): String =
-        XQueryBundle.message("requires.empty-expression.version", XQueryVersion.VERSION_3_1)
 }

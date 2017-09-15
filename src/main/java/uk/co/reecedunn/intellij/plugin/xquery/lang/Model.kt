@@ -376,6 +376,7 @@ private class SaxonProduct(id: String, name: String, implementation: Implementat
 }
 
 object Saxon : Implementation("saxon", "Saxon", "http://www.saxonica.com") {
+    val VERSION_9_4: Version = ProductVersion("9.4", this) // Introduction of the `map` vendor extension in XQuery 3.0
     val VERSION_9_5: Version = ProductVersion("9.5", this)
     val VERSION_9_6: Version = ProductVersion("9.6", this)
     val VERSION_9_7: Version = ProductVersion("9.7", this)
