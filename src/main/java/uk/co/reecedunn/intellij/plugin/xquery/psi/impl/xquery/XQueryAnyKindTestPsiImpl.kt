@@ -20,27 +20,24 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnyKindTest
-import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem
-import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion
+import uk.co.reecedunn.intellij.plugin.xquery.lang.*
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck
-import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
 private val MARKLOGIC_TOKENS = TokenSet.create(XQueryElementType.STRING_LITERAL, XQueryTokenType.STAR)
 
-class XQueryAnyKindTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryAnyKindTest, XQueryConformanceCheck {
-    override fun conformsTo(implementation: ImplementationItem): Boolean {
+private val XQUERY10: List<Version> = listOf()
+private val MARKLOGIC80: List<Version> = listOf(MarkLogic.VERSION_8_0)
+
+class XQueryAnyKindTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryAnyKindTest, XQueryConformance {
+    override val requiresConformance get(): List<Version> {
         if (conformanceElement === firstChild) {
-            return true
+            return XQUERY10
         }
-        return implementation.getVersion(MarkLogic).supportsVersion(XQueryVersion.VERSION_8_0)
+        return MARKLOGIC80
     }
 
     override val conformanceElement get(): PsiElement =
         findChildByType(MARKLOGIC_TOKENS) ?: firstChild
-
-    override val conformanceErrorMessage get(): String =
-        XQueryBundle.message("requires.feature.marklogic.version", XQueryVersion.VERSION_8_0)
 }
