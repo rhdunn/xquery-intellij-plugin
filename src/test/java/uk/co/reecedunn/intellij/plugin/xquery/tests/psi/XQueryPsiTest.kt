@@ -2669,6 +2669,49 @@ class XQueryPsiTest:ParserTestCase() {
     }
 
     // endregion
+    // region VersionDecl
+
+    fun testVersionDecl_Conformance() {
+        val file = parseResource("tests/parser/xquery-1.0/VersionDecl.xq")!!
+
+        val versionDeclPsi = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
+        val versioned = versionDeclPsi as XQueryConformance
+
+        assertThat(versioned.requiresConformance.size, `is`(0))
+
+        assertThat(versioned.conformanceElement, `is`(notNullValue()))
+        assertThat(versioned.conformanceElement.node.elementType,
+                `is`<IElementType>(XQueryTokenType.K_XQUERY))
+    }
+
+    fun testVersionDecl_WithEncoding_Conformance() {
+        val file = parseResource("tests/parser/xquery-1.0/VersionDecl_WithEncoding.xq")!!
+
+        val versionDeclPsi = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
+        val versioned = versionDeclPsi as XQueryConformance
+
+        assertThat(versioned.requiresConformance.size, `is`(0))
+
+        assertThat(versioned.conformanceElement, `is`(notNullValue()))
+        assertThat(versioned.conformanceElement.node.elementType,
+                `is`<IElementType>(XQueryTokenType.K_XQUERY))
+    }
+
+    fun testVersionDecl_EncodingOnly_Conformance() {
+        val file = parseResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly.xq")!!
+
+        val versionDeclPsi = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
+        val versioned = versionDeclPsi as XQueryConformance
+
+        assertThat(versioned.requiresConformance.size, `is`(1))
+        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_0_20140408))
+
+        assertThat(versioned.conformanceElement, `is`(notNullValue()))
+        assertThat(versioned.conformanceElement.node.elementType,
+                `is`<IElementType>(XQueryTokenType.K_ENCODING))
+    }
+
+    // endregion
     // endregion
     // region XQueryEQName
     // region EQName
@@ -4875,14 +4918,6 @@ class XQueryPsiTest:ParserTestCase() {
         assertThat(file.XQueryVersion.version, `is`(XQueryVersion.VERSION_1_0))
         assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQueryVersion.VERSION_1_0))
         assertThat<XQueryStringLiteral>(file.XQueryVersion.declaration, `is`<XQueryStringLiteral>(versionDeclPsi.version))
-
-        val versioned = versionDeclPsi as XQueryConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_XQUERY))
     }
 
     fun testVersionDecl_CommentBeforeDecl() {
@@ -4897,14 +4932,6 @@ class XQueryPsiTest:ParserTestCase() {
         assertThat(file.XQueryVersion.version, `is`(XQueryVersion.VERSION_1_0))
         assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQueryVersion.VERSION_1_0))
         assertThat<XQueryStringLiteral>(file.XQueryVersion.declaration, `is`<XQueryStringLiteral>(versionDeclPsi.version))
-
-        val versioned = versionDeclPsi as XQueryConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_XQUERY))
     }
 
     fun testVersionDecl_EmptyVersion() {
@@ -4919,14 +4946,6 @@ class XQueryPsiTest:ParserTestCase() {
         assertThat(file.XQueryVersion.version, `is`(XQueryVersion.UNSUPPORTED))
         assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQueryVersion.VERSION_3_0))
         assertThat<XQueryStringLiteral>(file.XQueryVersion.declaration, `is`<XQueryStringLiteral>(versionDeclPsi.version))
-
-        val versioned = versionDeclPsi as XQueryConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_XQUERY))
     }
 
     fun testVersionDecl_WithEncoding() {
@@ -4942,14 +4961,6 @@ class XQueryPsiTest:ParserTestCase() {
         assertThat(file.XQueryVersion.version, `is`(XQueryVersion.VERSION_1_0))
         assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQueryVersion.VERSION_1_0))
         assertThat<XQueryStringLiteral>(file.XQueryVersion.declaration, `is`<XQueryStringLiteral>(versionDeclPsi.version))
-
-        val versioned = versionDeclPsi as XQueryConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_XQUERY))
     }
 
     fun testVersionDecl_WithEncoding_CommentsAsWhitespace() {
@@ -4965,14 +4976,6 @@ class XQueryPsiTest:ParserTestCase() {
         assertThat(file.XQueryVersion.version, `is`(XQueryVersion.VERSION_1_0))
         assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQueryVersion.VERSION_1_0))
         assertThat<XQueryStringLiteral>(file.XQueryVersion.declaration, `is`<XQueryStringLiteral>(versionDeclPsi.version))
-
-        val versioned = versionDeclPsi as XQueryConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_XQUERY))
     }
 
     fun testVersionDecl_WithEmptyEncoding() {
@@ -4988,14 +4991,6 @@ class XQueryPsiTest:ParserTestCase() {
         assertThat(file.XQueryVersion.version, `is`(XQueryVersion.VERSION_1_0))
         assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQueryVersion.VERSION_1_0))
         assertThat<XQueryStringLiteral>(file.XQueryVersion.declaration, `is`<XQueryStringLiteral>(versionDeclPsi.version))
-
-        val versioned = versionDeclPsi as XQueryConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_XQUERY))
     }
 
     fun testVersionDecl_NoVersion() {
@@ -5009,14 +5004,6 @@ class XQueryPsiTest:ParserTestCase() {
         assertThat(file.XQueryVersion.version, `is`(XQueryVersion.UNSUPPORTED))
         assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQueryVersion.VERSION_3_0))
         assertThat<XQueryStringLiteral>(file.XQueryVersion.declaration, `is`(nullValue()))
-
-        val versioned = versionDeclPsi as XQueryConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_XQUERY))
     }
 
     fun testVersionDecl_UnsupportedVersion() {
@@ -5031,14 +5018,6 @@ class XQueryPsiTest:ParserTestCase() {
         assertThat(file.XQueryVersion.version, `is`(XQueryVersion.VERSION_9_4))
         assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQueryVersion.VERSION_9_4))
         assertThat<XQueryStringLiteral>(file.XQueryVersion.declaration, `is`<XQueryStringLiteral>(versionDeclPsi.version))
-
-        val versioned = versionDeclPsi as XQueryConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_XQUERY))
     }
 
     fun testVersionDecl_EncodingOnly() {
@@ -5053,15 +5032,6 @@ class XQueryPsiTest:ParserTestCase() {
         assertThat(file.XQueryVersion.version, `is`(XQueryVersion.UNSUPPORTED))
         assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQueryVersion.VERSION_3_0))
         assertThat<XQueryStringLiteral>(file.XQueryVersion.declaration, `is`(nullValue()))
-
-        val versioned = versionDeclPsi as XQueryConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_0_20140408))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_ENCODING))
     }
 
     fun testVersionDecl_EncodingOnly_EmptyEncoding() {
@@ -5076,15 +5046,6 @@ class XQueryPsiTest:ParserTestCase() {
         assertThat(file.XQueryVersion.version, `is`(XQueryVersion.UNSUPPORTED))
         assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQueryVersion.VERSION_3_0))
         assertThat<XQueryStringLiteral>(file.XQueryVersion.declaration, `is`(nullValue()))
-
-        val versioned = versionDeclPsi as XQueryConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_0_20140408))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_ENCODING))
     }
 
     // endregion
