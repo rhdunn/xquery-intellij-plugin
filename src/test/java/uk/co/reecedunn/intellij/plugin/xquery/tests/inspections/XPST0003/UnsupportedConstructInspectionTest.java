@@ -50,11 +50,7 @@ public class UnsupportedConstructInspectionTest extends InspectionTestCase {
 
         final ProblemDescriptor[] problems = inspect(file, new UnsupportedConstructInspection());
         assertThat(problems, is(notNullValue()));
-        assertThat(problems.length, is(1));
-
-        assertThat(problems[0].getHighlightType(), is(ProblemHighlightType.GENERIC_ERROR_OR_WARNING));
-        assertThat(problems[0].getDescriptionTemplate(), is("XPST0003: This expression requires XQuery 3.0 or later."));
-        assertThat(problems[0].getPsiElement().getNode().getElementType(), is(XQueryTokenType.K_ENCODING));
+        assertThat(problems.length, is(0));
     }
 
     @SuppressWarnings("ConstantConditions")

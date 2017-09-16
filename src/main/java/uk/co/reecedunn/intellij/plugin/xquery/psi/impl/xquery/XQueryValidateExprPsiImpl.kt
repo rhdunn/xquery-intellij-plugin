@@ -22,33 +22,26 @@ import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryValidateExpr
 import uk.co.reecedunn.intellij.plugin.xquery.lang.*
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck
-import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
 private val VALIDATE_BY_TYPENAME = TokenSet.create(XQueryTokenType.K_AS, XQueryTokenType.K_TYPE)
 
-class XQueryValidateExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryValidateExpr, XQueryConformanceCheck {
-    override fun conformsTo(implementation: ImplementationItem): Boolean {
+private val XQUERY10: List<Version> = listOf()
+private val XQUERY30: List<Version> = listOf(XQuery.REC_3_0_20140408, MarkLogic.VERSION_6_0)
+private val MARKLOGIC60: List<Version> = listOf(MarkLogic.VERSION_6_0)
+
+class XQueryValidateExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryValidateExpr, XQueryConformance {
+    override val requiresConformance get(): List<Version> {
         val element = conformanceElement
         if (element !== firstChild) {
             if (element.node.elementType === XQueryTokenType.K_TYPE) {
-                return implementation.getVersion(XQuery).supportsVersion(XQueryVersion.VERSION_3_0) ||
-                       implementation.getVersion(MarkLogic).supportsVersion(XQueryVersion.VERSION_6_0)
+                return XQUERY30
             }
-            return implementation.getVersion(MarkLogic).supportsVersion(XQueryVersion.VERSION_6_0)
+            return MARKLOGIC60
         }
-        return true
+        return XQUERY10
     }
 
     override val conformanceElement get(): PsiElement =
         findChildByType<PsiElement>(VALIDATE_BY_TYPENAME) ?: firstChild
-
-    override val conformanceErrorMessage get(): String {
-        if (node.findChildByType(XQueryTokenType.K_AS) != null) {
-            return XQueryBundle.message("requires.feature.marklogic.version", XQueryVersion.VERSION_6_0)
-        } else if (node.findChildByType(XQueryTokenType.K_TYPE) != null) {
-            return XQueryBundle.message("requires.feature.marklogic-xquery.version")
-        }
-        return XQueryBundle.message("requires.feature.minimal-conformance.version", XQueryVersion.VERSION_1_0)
-    }
 }

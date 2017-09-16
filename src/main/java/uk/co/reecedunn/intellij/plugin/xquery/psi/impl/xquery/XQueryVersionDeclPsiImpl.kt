@@ -20,29 +20,27 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import com.intellij.psi.impl.source.tree.PsiErrorElementImpl
 import com.intellij.psi.tree.TokenSet
-import uk.co.reecedunn.intellij.plugin.core.extensions.children
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryStringLiteral
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVersionDecl
-import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem
+import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck
-import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
 private val STRINGS = TokenSet.create(XQueryElementType.STRING_LITERAL)
 
-class XQueryVersionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryVersionDecl, XQueryConformanceCheck {
+private val XQUERY10: List<Version> = listOf()
+private val XQUERY30: List<Version> = listOf(XQuery.REC_3_0_20140408)
+
+class XQueryVersionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryVersionDecl, XQueryConformance {
     override val version get(): XQueryStringLiteral? = getStringValueAfterKeyword(XQueryTokenType.K_VERSION)
 
     override val encoding get(): XQueryStringLiteral? = getStringValueAfterKeyword(XQueryTokenType.K_ENCODING)
 
-    override fun conformsTo(implementation: ImplementationItem): Boolean {
-        val version = if (conformanceElement === firstChild) XQueryVersion.VERSION_1_0 else XQueryVersion.VERSION_3_0
-        return implementation.getVersion(XQuery).supportsVersion(version)
-    }
+    override val requiresConformance get(): List<Version> =
+        if (conformanceElement === firstChild) XQUERY10 else XQUERY30
 
     override val conformanceElement get(): PsiElement {
         val encoding = node.findChildByType(XQueryTokenType.K_ENCODING) ?: return firstChild
@@ -53,11 +51,6 @@ class XQueryVersionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQue
         }
 
         return if (previous.elementType === XQueryTokenType.K_XQUERY) encoding.psi else firstChild
-    }
-
-    override val conformanceErrorMessage get(): String {
-        val version = if (conformanceElement === firstChild) XQueryVersion.VERSION_1_0 else XQueryVersion.VERSION_3_0
-        return XQueryBundle.message("requires.feature.minimal-conformance.version", version)
     }
 
     private fun getStringValueAfterKeyword(type: IXQueryKeywordOrNCNameType): XQueryStringLiteral? {

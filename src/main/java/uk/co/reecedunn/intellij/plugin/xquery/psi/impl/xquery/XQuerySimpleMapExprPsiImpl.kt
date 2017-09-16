@@ -21,21 +21,19 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySimpleMapExpr
 import uk.co.reecedunn.intellij.plugin.xquery.lang.*
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck
-import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
-class XQuerySimpleMapExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQuerySimpleMapExpr, XQueryConformanceCheck {
-    override fun conformsTo(implementation: ImplementationItem): Boolean {
+private val XQUERY10: List<Version> = listOf()
+private val XQUERY30: List<Version> = listOf(XQuery.REC_3_0_20140408, MarkLogic.VERSION_6_0)
+
+class XQuerySimpleMapExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQuerySimpleMapExpr, XQueryConformance {
+    override val requiresConformance get(): List<Version> {
         if (conformanceElement === firstChild) {
-            return true
+            return XQUERY10
         }
-        return implementation.getVersion(XQuery).supportsVersion(XQueryVersion.VERSION_3_0) ||
-               implementation.getVersion(MarkLogic).supportsVersion(XQueryVersion.VERSION_6_0)
+        return XQUERY30
     }
 
     override val conformanceElement get(): PsiElement =
         findChildByType(XQueryTokenType.MAP_OPERATOR) ?: firstChild
-
-    override val conformanceErrorMessage get(): String =
-        XQueryBundle.message("requires.feature.marklogic-xquery.version")
 }

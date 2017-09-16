@@ -24,29 +24,25 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryArgumentList
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPostfixExpr
 import uk.co.reecedunn.intellij.plugin.xquery.lang.*
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck
-import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
 private val ARGUMENTS = TokenSet.create(
     XQueryElementType.ARGUMENT,
     XQueryElementType.ARGUMENT_PLACEHOLDER)
 
-class XQueryArgumentListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryArgumentList, XQueryConformanceCheck {
-    override fun conformsTo(implementation: ImplementationItem): Boolean {
-        if (parent !is XQueryPostfixExpr) {
-            return true
-        }
+private val XQUERY10: List<Version> = listOf()
+private val XQUERY30: List<Version> = listOf(XQuery.REC_3_0_20140408, MarkLogic.VERSION_6_0)
 
-        val minimalConformance = implementation.getVersion(XQuery)
-        val marklogic = implementation.getVersion(MarkLogic)
-        return minimalConformance.supportsVersion(XQueryVersion.VERSION_3_0) || marklogic.supportsVersion(XQueryVersion.VERSION_6_0)
+class XQueryArgumentListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryArgumentList, XQueryConformance {
+    override val requiresConformance get(): List<Version> {
+        if (parent !is XQueryPostfixExpr) {
+            return XQUERY10
+        }
+        return XQUERY30
     }
 
     override val conformanceElement get(): PsiElement =
         firstChild
-
-    override val conformanceErrorMessage get(): String =
-        XQueryBundle.message("requires.feature.marklogic-xquery.version")
 
     override val arity get(): Int =
         children().filter { e -> ARGUMENTS.contains(e.node.elementType) }.count()

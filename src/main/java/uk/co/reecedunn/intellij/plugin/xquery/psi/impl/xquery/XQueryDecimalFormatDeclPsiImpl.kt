@@ -21,19 +21,17 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.extensions.children
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDFPropertyName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDecimalFormatDecl
-import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem
+import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck
-import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
-class XQueryDecimalFormatDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryDecimalFormatDecl, XQueryConformanceCheck {
-    private val requiredVersion get(): XQueryVersion =
-        if (conformanceElement is XQueryDFPropertyName) XQueryVersion.VERSION_3_1 else XQueryVersion.VERSION_3_0
+private val XQUERY30: List<Version> = listOf(XQuery.REC_3_0_20140408)
+private val XQUERY31: List<Version> = listOf(XQuery.REC_3_1_20170321)
 
-    override fun conformsTo(implementation: ImplementationItem): Boolean =
-        implementation.getVersion(XQuery).supportsVersion(requiredVersion)
+class XQueryDecimalFormatDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryDecimalFormatDecl, XQueryConformance {
+    override val requiresConformance get(): List<Version> =
+        if (conformanceElement is XQueryDFPropertyName) XQUERY31 else XQUERY30
 
     override val conformanceElement get(): PsiElement {
         val element = children().filterIsInstance<XQueryDFPropertyName>().filter { e ->
@@ -41,7 +39,4 @@ class XQueryDecimalFormatDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node)
         }.firstOrNull()
         return if (element != null) element else findChildByType<PsiElement>(XQueryTokenType.K_DECIMAL_FORMAT) ?: this
     }
-
-    override val conformanceErrorMessage get(): String =
-        XQueryBundle.message("requires.feature.minimal-conformance.version", requiredVersion)
 }

@@ -23,18 +23,19 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVarDecl
 import uk.co.reecedunn.intellij.plugin.xquery.lang.*
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver
-import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 
-class XQueryVarDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryVarDecl, XQueryConformanceCheck, XQueryVariableResolver {
-    override fun conformsTo(implementation: ImplementationItem): Boolean {
+private val XQUERY10: List<Version> = listOf()
+private val XQUERY30: List<Version> = listOf(XQuery.REC_3_0_20140408, MarkLogic.VERSION_6_0)
+
+class XQueryVarDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryVarDecl, XQueryConformance, XQueryVariableResolver {
+    override val requiresConformance get(): List<Version> {
         if (conformanceElement === firstChild) {
-            return true
+            return XQUERY10
         }
-        return implementation.getVersion(XQuery).supportsVersion(XQueryVersion.VERSION_3_0) ||
-               implementation.getVersion(MarkLogic).supportsVersion(XQueryVersion.VERSION_6_0)
+        return XQUERY30
     }
 
     override val conformanceElement get(): PsiElement {
@@ -45,9 +46,6 @@ class XQueryVarDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryVa
         }
         return if (previous == null || previous.node.elementType !== XQueryTokenType.K_EXTERNAL) firstChild else element!!
     }
-
-    override val conformanceErrorMessage get(): String =
-        XQueryBundle.message("requires.feature.marklogic-xquery.version")
 
     override fun resolveVariable(name: XQueryEQName?): XQueryVariable? {
         val varName = findChildByType<PsiElement>(XQueryElementType.VAR_NAME)

@@ -21,17 +21,11 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotation
 import uk.co.reecedunn.intellij.plugin.xquery.lang.*
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck
-import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
-class XQueryAnnotationPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryAnnotation, XQueryConformanceCheck {
-    override fun conformsTo(implementation: ImplementationItem): Boolean =
-        implementation.getVersion(XQuery).supportsVersion(XQueryVersion.VERSION_3_0) ||
-        implementation.getVersion(MarkLogic).supportsVersion(XQueryVersion.VERSION_6_0)
+class XQueryAnnotationPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryAnnotation, XQueryConformance {
+    override val requiresConformance get(): List<Version> = listOf(XQuery.REC_3_0_20140408, MarkLogic.VERSION_6_0)
 
     override val conformanceElement get(): PsiElement =
         findChildByType(XQueryTokenType.ANNOTATION_INDICATOR) ?: firstChild
-
-    override val conformanceErrorMessage get(): String =
-        XQueryBundle.message("requires.feature.marklogic-xquery.version")
 }

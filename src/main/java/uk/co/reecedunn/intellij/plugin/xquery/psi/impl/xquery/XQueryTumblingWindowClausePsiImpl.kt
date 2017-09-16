@@ -21,25 +21,17 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.extensions.children
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryTumblingWindowClause
-import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem
+import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver
-import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 
-class XQueryTumblingWindowClausePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryTumblingWindowClause, XQueryConformanceCheck, XQueryVariableResolver {
-    override fun conformsTo(implementation: ImplementationItem): Boolean {
-        val minimalConformance = implementation.getVersion(XQuery)
-        return minimalConformance.supportsVersion(XQueryVersion.VERSION_3_0)
-    }
+class XQueryTumblingWindowClausePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryTumblingWindowClause, XQueryConformance, XQueryVariableResolver {
+    override val requiresConformance get(): List<Version> = listOf(XQuery.REC_3_0_20140408)
 
     override val conformanceElement get(): PsiElement =
         firstChild
-
-    override val conformanceErrorMessage get(): String =
-        XQueryBundle.message("requires.feature.minimal-conformance.version", XQueryVersion.VERSION_3_0)
 
     override fun resolveVariable(name: XQueryEQName?): XQueryVariable? {
         return children().map { e -> when (e) {

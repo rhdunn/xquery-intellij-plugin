@@ -1018,19 +1018,10 @@ class MarkLogicPsiTest : ParserTestCase() {
         val file = parseResource("tests/parser/marklogic-6.0/ValidateExpr_ValidateAs.xq")!!
 
         val validateExprPsi = file.descendants().filterIsInstance<XQueryValidateExpr>().first()
-        val versioned = validateExprPsi as XQueryConformanceCheck
+        val versioned = validateExprPsi as XQueryConformance
 
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), `is`(true))
-
-        assertThat(versioned.conformanceErrorMessage,
-                `is`("XPST0003: This expression requires MarkLogic 6.0 or later with XQuery version '1.0-ml'."))
+        assertThat(versioned.requiresConformance.size, `is`(1))
+        assertThat(versioned.requiresConformance[0], `is`<Version>(MarkLogic.VERSION_6_0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
