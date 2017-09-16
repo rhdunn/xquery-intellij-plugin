@@ -22,30 +22,25 @@ import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryForwardAxis
 import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem
 import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
+import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck
-import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
-class XQueryForwardAxisPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryForwardAxis, XQueryConformanceCheck {
-    private val MARKLOGIC_AXIS = TokenSet.create(XQueryTokenType.K_NAMESPACE, XQueryTokenType.K_PROPERTY)
+private val MARKLOGIC_AXIS = TokenSet.create(XQueryTokenType.K_NAMESPACE, XQueryTokenType.K_PROPERTY)
 
-    override fun conformsTo(implementation: ImplementationItem): Boolean {
+private val XQUERY10: List<Version> = listOf()
+private val MARKLOGIC60: List<Version> = listOf(MarkLogic.VERSION_6_0)
+
+class XQueryForwardAxisPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryForwardAxis, XQueryConformance {
+    override val requiresConformance get(): List<Version> {
         val node = node.findChildByType(MARKLOGIC_AXIS)
         if (node != null) {
-            return implementation.getVersion(MarkLogic).supportsVersion(XQueryVersion.VERSION_6_0)
+            return MARKLOGIC60
         }
-        return true
+        return XQUERY10
     }
 
     override val conformanceElement get(): PsiElement =
         firstChild
-
-    override val conformanceErrorMessage get(): String {
-        val node = node.findChildByType(MARKLOGIC_AXIS)
-        if (node != null) {
-            return XQueryBundle.message("requires.feature.marklogic.version", XQueryVersion.VERSION_6_0)
-        }
-        return XQueryBundle.message("requires.feature.minimal-conformance.version", XQueryVersion.VERSION_1_0)
-    }
 }

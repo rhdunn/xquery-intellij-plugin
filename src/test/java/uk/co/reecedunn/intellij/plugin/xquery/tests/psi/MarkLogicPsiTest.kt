@@ -346,19 +346,10 @@ class MarkLogicPsiTest : ParserTestCase() {
         val file = parseResource("tests/parser/marklogic-6.0/ForwardAxis_Namespace.xq")!!
 
         val forwardAxisPsi = file.descendants().filterIsInstance<XQueryForwardAxis>().first()
-        val versioned = forwardAxisPsi as XQueryConformanceCheck
+        val versioned = forwardAxisPsi as XQueryConformance
 
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), `is`(true))
-
-        assertThat(versioned.conformanceErrorMessage,
-                `is`("XPST0003: This expression requires MarkLogic 6.0 or later with XQuery version '1.0-ml'."))
+        assertThat(versioned.requiresConformance.size, `is`(1))
+        assertThat(versioned.requiresConformance[0], `is`<Version>(MarkLogic.VERSION_6_0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
@@ -369,19 +360,10 @@ class MarkLogicPsiTest : ParserTestCase() {
         val file = parseResource("tests/parser/marklogic-6.0/ForwardAxis_Property.xq")!!
 
         val forwardAxisPsi = file.descendants().filterIsInstance<XQueryForwardAxis>().first()
-        val versioned = forwardAxisPsi as XQueryConformanceCheck
+        val versioned = forwardAxisPsi as XQueryConformance
 
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), `is`(true))
-
-        assertThat(versioned.conformanceErrorMessage,
-                `is`("XPST0003: This expression requires MarkLogic 6.0 or later with XQuery version '1.0-ml'."))
+        assertThat(versioned.requiresConformance.size, `is`(1))
+        assertThat(versioned.requiresConformance[0], `is`<Version>(MarkLogic.VERSION_6_0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
