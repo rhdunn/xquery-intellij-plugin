@@ -19,26 +19,23 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCatchClause
-import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem
-import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion
+import uk.co.reecedunn.intellij.plugin.xquery.lang.*
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck
-import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
-class XQueryCatchClausePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryCatchClause, XQueryConformanceCheck {
-    override fun conformsTo(implementation: ImplementationItem): Boolean {
+private val XQUERY10: List<Version> = listOf()
+private val MARKLOGIC60: List<Version> = listOf(MarkLogic.VERSION_6_0)
+
+class XQueryCatchClausePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryCatchClause, XQueryConformance {
+    override val requiresConformance get(): List<Version> {
         if (isMarkLogicExtension) { // MarkLogic CatchClause
-            return implementation.getVersion(MarkLogic).supportsVersion(XQueryVersion.VERSION_6_0)
+            return MARKLOGIC60
         }
-        return true // XQuery 3.0 CatchClause -- handled by the TryClause conformance checks.
+        return XQUERY10 // XQuery 3.0 CatchClause -- handled by the TryClause conformance checks.
     }
 
     override val conformanceElement get(): PsiElement =
         firstChild
-
-    override val conformanceErrorMessage get(): String =
-        XQueryBundle.message("requires.feature.marklogic.version", XQueryVersion.VERSION_6_0)
 
     override val isMarkLogicExtension get(): Boolean =
         findChildByType<PsiElement>(XQueryTokenType.PARENTHESIS_OPEN) != null
