@@ -41,8 +41,11 @@ class XQueryMapConstructorEntryPsiImpl(node: ASTNode) : ASTWrapperPsiElement(nod
     }
 
     override val conformanceElement get(): PsiElement =
-        findChildByType(ASSIGNMENT) ?: firstChild
+        separator
 
     override val conformanceErrorMessage get(): String =
         XQueryBundle.message("requires.feature.saxon-map-entry-assign.version")
+
+    override val separator get(): PsiElement =
+        findChildByType(ASSIGNMENT) ?: firstChild
 }

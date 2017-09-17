@@ -641,7 +641,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     // endregion
     // region MapConstructorEntry
 
-    fun testMapConstructorEntry() {
+    fun testMapConstructorEntry_Conformance() {
         val file = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry.xq")!!
 
         val mapConstructorPsi = file.descendants().filterIsInstance<XQueryMapConstructor>().first()
@@ -970,5 +970,18 @@ class MarkLogicPsiTest : ParserTestCase() {
     }
 
     // endregion
+    // endregion
+    // region XQueryMapConstructorEntry
+
+    fun testMapConstructorEntry() {
+        val file = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry.xq")!!
+
+        val mapConstructorPsi = file.descendants().filterIsInstance<XQueryMapConstructor>().first()
+        val mapConstructorEntryPsi = mapConstructorPsi.children().filterIsInstance<XQueryMapConstructorEntry>().first()
+
+        assertThat(mapConstructorEntryPsi.separator.node.elementType,
+                `is`<IElementType>(XQueryTokenType.QNAME_SEPARATOR))
+    }
+
     // endregion
 }

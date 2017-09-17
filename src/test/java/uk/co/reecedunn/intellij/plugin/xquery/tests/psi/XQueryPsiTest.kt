@@ -1936,7 +1936,7 @@ class XQueryPsiTest:ParserTestCase() {
     // endregion
     // region MapConstructorEntry
 
-    fun testMapConstructorEntry() {
+    fun testMapConstructorEntry_Conformance() {
         val file = parseResource("tests/parser/xquery-3.1/MapConstructorEntry.xq")!!
 
         val mapConstructorPsi = file.descendants().filterIsInstance<XQueryMapConstructor>().first()
@@ -1968,7 +1968,7 @@ class XQueryPsiTest:ParserTestCase() {
                 `is`<IElementType>(XQueryTokenType.QNAME_SEPARATOR))
     }
 
-    fun testMapConstructorEntry_NoValueAssignmentOperator() {
+    fun testMapConstructorEntry_NoValueAssignmentOperator_Conformance() {
         val file = parseResource("tests/psi/xquery-3.1/MapConstructorEntry_NoValueAssignmentOperator.xq")!!
 
         val mapConstructorPsi = file.descendants().filterIsInstance<XQueryMapConstructor>().first()
@@ -3171,6 +3171,29 @@ class XQueryPsiTest:ParserTestCase() {
         val integerLiteralPsi = file.descendants().filterIsInstance<XQueryIntegerLiteral>().first()
         assertThat(integerLiteralPsi, `is`(notNullValue()))
         assertThat(integerLiteralPsi.atomicValue, `is`(1234))
+    }
+
+    // endregion
+    // region XQueryMapConstructorEntry
+
+    fun testMapConstructorEntry() {
+        val file = parseResource("tests/parser/xquery-3.1/MapConstructorEntry.xq")!!
+
+        val mapConstructorPsi = file.descendants().filterIsInstance<XQueryMapConstructor>().first()
+        val mapConstructorEntryPsi = mapConstructorPsi.children().filterIsInstance<XQueryMapConstructorEntry>().first()
+
+        assertThat(mapConstructorEntryPsi.separator.node.elementType,
+                `is`<IElementType>(XQueryTokenType.QNAME_SEPARATOR))
+    }
+
+    fun testMapConstructorEntry_NoValueAssignmentOperator() {
+        val file = parseResource("tests/psi/xquery-3.1/MapConstructorEntry_NoValueAssignmentOperator.xq")!!
+
+        val mapConstructorPsi = file.descendants().filterIsInstance<XQueryMapConstructor>().first()
+        val mapConstructorEntryPsi = mapConstructorPsi.children().filterIsInstance<XQueryMapConstructorEntry>().first()
+
+        assertThat(mapConstructorEntryPsi.separator.node.elementType,
+                `is`<IElementType>(XQueryElementType.MAP_KEY_EXPR))
     }
 
     // endregion

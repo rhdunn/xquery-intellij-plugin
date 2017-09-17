@@ -20,4 +20,6 @@ import com.intellij.psi.PsiElement
 /**
  * A XQuery 3.1 `MapConstructorEntry` node in the XQuery AST.
  */
-interface XQueryMapConstructorEntry : PsiElement
+interface XQueryMapConstructorEntry : PsiElement {
+    val separator: PsiElement
+}
