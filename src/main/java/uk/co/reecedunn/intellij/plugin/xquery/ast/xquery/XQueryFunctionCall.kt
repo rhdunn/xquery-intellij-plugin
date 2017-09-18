@@ -19,5 +19,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
  * An XQuery 1.0 `FunctionCall` node in the XQuery AST.
  */
 interface XQueryFunctionCall : XQueryPrimaryExpr {
+    val functionName: XQueryEQName
+
     val arity: Int
 }

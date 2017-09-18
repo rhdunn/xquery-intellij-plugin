@@ -21,6 +21,7 @@ import com.intellij.openapi.util.Pair
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.extensions.children
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryArgumentList
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionCall
 import uk.co.reecedunn.intellij.plugin.xquery.lang.*
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType
@@ -30,7 +31,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 
 class XQueryFunctionCallPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryFunctionCall, XQueryConformanceCheck {
     private val localName get(): Pair<PsiElement, IXQueryKeywordOrNCNameType.KeywordType>? {
-        val name = firstChild
+        val name = functionName
         if (name.node.elementType === XQueryElementType.NCNAME) {
             val localname = name.firstChild
             val type = localname.node.elementType
@@ -88,6 +89,9 @@ class XQueryFunctionCallPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQu
         }
         return XQueryBundle.message("requires.error.marklogic-json-keyword-as-function-name", XQueryVersion.VERSION_8_0)
     }
+
+    override val functionName get(): XQueryEQName =
+        firstChild as XQueryEQName
 
     override val arity get(): Int =
         children().filterIsInstance<XQueryArgumentList>().first().arity

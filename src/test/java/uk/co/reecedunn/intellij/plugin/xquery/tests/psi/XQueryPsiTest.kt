@@ -3123,6 +3123,12 @@ class XQueryPsiTest:ParserTestCase() {
         val functionCallPsi = file.descendants().filterIsInstance<XQueryFunctionCall>().first()
         assertThat(functionCallPsi, `is`(notNullValue()))
         assertThat(functionCallPsi.arity, `is`(2))
+
+        assertThat(functionCallPsi.functionName.prefix?.node?.elementType, `is`(XQueryElementType.NCNAME))
+        assertThat(functionCallPsi.functionName.prefix?.node?.text, `is`("math"))
+
+        assertThat(functionCallPsi.functionName.localName?.node?.elementType, `is`(XQueryElementType.NCNAME))
+        assertThat(functionCallPsi.functionName.localName?.node?.text, `is`("pow"))
     }
 
     fun testFunctionCall_Empty() {
@@ -3131,6 +3137,12 @@ class XQueryPsiTest:ParserTestCase() {
         val functionCallPsi = file.descendants().filterIsInstance<XQueryFunctionCall>().first()
         assertThat(functionCallPsi, `is`(notNullValue()))
         assertThat(functionCallPsi.arity, `is`(0))
+
+        assertThat(functionCallPsi.functionName.prefix?.node?.elementType, `is`(XQueryElementType.NCNAME))
+        assertThat(functionCallPsi.functionName.prefix?.node?.text, `is`("fn"))
+
+        assertThat(functionCallPsi.functionName.localName?.node?.elementType, `is`(XQueryElementType.NCNAME))
+        assertThat(functionCallPsi.functionName.localName?.node?.text, `is`("true"))
     }
 
     fun testFunctionCall_ArgumentPlaceholder() {
@@ -3139,6 +3151,12 @@ class XQueryPsiTest:ParserTestCase() {
         val functionCallPsi = file.descendants().filterIsInstance<XQueryFunctionCall>().first()
         assertThat(functionCallPsi, `is`(notNullValue()))
         assertThat(functionCallPsi.arity, `is`(1))
+
+        assertThat(functionCallPsi.functionName.prefix?.node?.elementType, `is`(XQueryElementType.NCNAME))
+        assertThat(functionCallPsi.functionName.prefix?.node?.text, `is`("math"))
+
+        assertThat(functionCallPsi.functionName.localName?.node?.elementType, `is`(XQueryElementType.NCNAME))
+        assertThat(functionCallPsi.functionName.localName?.node?.text, `is`("sin"))
     }
 
     // endregion
