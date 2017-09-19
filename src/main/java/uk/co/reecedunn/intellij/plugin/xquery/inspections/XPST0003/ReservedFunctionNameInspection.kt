@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.core.extensions.walkTree
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionCall
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
 import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Scripting
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType
@@ -32,8 +33,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings
 
 class ReservedFunctionNameInspection : LocalInspectionTool() {
-    private fun getLocalName(name: XQueryEQName): Pair<PsiElement, IXQueryKeywordOrNCNameType.KeywordType>? {
-        if (name.node.elementType === XQueryElementType.NCNAME) {
+    private fun getLocalName(name: XQueryEQName?): Pair<PsiElement, IXQueryKeywordOrNCNameType.KeywordType>? {
+        if (name != null && name.node.elementType === XQueryElementType.NCNAME) {
             val localname = name.firstChild
             val type = localname.node.elementType
             if (type is IXQueryKeywordOrNCNameType) {
@@ -60,6 +61,7 @@ class ReservedFunctionNameInspection : LocalInspectionTool() {
         file.walkTree().forEach { element ->
             val localname = when {
                 element is XQueryFunctionCall -> getLocalName(element.functionName)
+                element is XQueryFunctionDecl -> getLocalName(element.functionName)
                 else -> null
             }
             when (localname?.second) {

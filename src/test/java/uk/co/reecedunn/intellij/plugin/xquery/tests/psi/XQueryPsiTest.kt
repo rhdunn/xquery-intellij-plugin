@@ -1069,253 +1069,6 @@ class XQueryPsiTest:ParserTestCase() {
     }
 
     // endregion
-    // region FunctionDecl
-
-    fun testFunctionDecl_QName() {
-        val file = parseResource("tests/parser/xquery-1.0/FunctionDecl.xq")!!
-
-        val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val functionDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryFunctionDecl>().first()
-        val versioned = functionDeclPsi as XQueryConformanceCheck
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), `is`(true))
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), `is`(true))
-
-        assertThat(versioned.conformanceErrorMessage,
-                `is`("XPST0003: Reserved keyword used as a function name."))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryElementType.QNAME))
-    }
-
-    fun testFunctionDecl_NCName() {
-        val file = parseResource("tests/psi/xquery-1.0/FunctionDecl_NCName.xq")!!
-
-        val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val functionDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryFunctionDecl>().first()
-        val versioned = functionDeclPsi as XQueryConformanceCheck
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), `is`(true))
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), `is`(true))
-
-        assertThat(versioned.conformanceErrorMessage,
-                `is`("XPST0003: Reserved keyword used as a function name."))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.NCNAME))
-    }
-
-    fun testFunctionDecl_Keyword() {
-        val file = parseResource("tests/psi/xquery-1.0/FunctionDecl_Keyword.xq")!!
-
-        val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val functionDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryFunctionDecl>().first()
-        val versioned = functionDeclPsi as XQueryConformanceCheck
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), `is`(true))
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), `is`(true))
-
-        assertThat(versioned.conformanceErrorMessage,
-                `is`("XPST0003: Reserved keyword used as a function name."))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_WHERE))
-    }
-
-    fun testFunctionDecl_ReservedKeyword() {
-        val file = parseResource("tests/psi/xquery-1.0/FunctionDecl_ReservedKeyword.xq")!!
-
-        val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val functionDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryFunctionDecl>().first()
-        val versioned = functionDeclPsi as XQueryConformanceCheck
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), `is`(false))
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), `is`(false))
-
-        assertThat(versioned.conformanceErrorMessage,
-                `is`("XPST0003: Reserved keyword used as a function name."))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_IF))
-    }
-
-    fun testFunctionDecl_MissingFunctionName() {
-        val file = parseResource("tests/parser/xquery-1.0/FunctionDecl_MissingFunctionName.xq")!!
-
-        val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val functionDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryFunctionDecl>().first()
-        val versioned = functionDeclPsi as XQueryConformanceCheck
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), `is`(true))
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), `is`(true))
-
-        assertThat(versioned.conformanceErrorMessage,
-                `is`("XPST0003: Reserved keyword used as a function name."))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_FUNCTION))
-    }
-
-    fun testFunctionDecl_ReservedKeyword_Function() {
-        val file = parseResource("tests/psi/xquery-3.0/FunctionDecl_ReservedKeyword_Function.xq")!!
-
-        val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val functionDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryFunctionDecl>().first()
-        val versioned = functionDeclPsi as XQueryConformanceCheck
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), `is`(false))
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), `is`(false))
-
-        assertThat(versioned.conformanceErrorMessage,
-                `is`("XPST0003: Reserved keyword used as a function name."))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_FUNCTION))
-    }
-
-    fun testFunctionDecl_ReservedKeyword_Switch() {
-        val file = parseResource("tests/psi/xquery-3.0/FunctionDecl_ReservedKeyword_Switch.xq")!!
-
-        val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val functionDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryFunctionDecl>().first()
-        val versioned = functionDeclPsi as XQueryConformanceCheck
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), `is`(false))
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), `is`(false))
-
-        assertThat(versioned.conformanceErrorMessage,
-                `is`("XPST0003: Reserved keyword used as a function name."))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_SWITCH))
-    }
-
-    fun testFunctionDecl_ReservedKeyword_NamespaceNode() {
-        val file = parseResource("tests/psi/xquery-3.0/FunctionDecl_ReservedKeyword_NamespaceNode.xq")!!
-
-        val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val functionDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryFunctionDecl>().first()
-        val versioned = functionDeclPsi as XQueryConformanceCheck
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), `is`(false))
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), `is`(false))
-
-        assertThat(versioned.conformanceErrorMessage,
-                `is`("XPST0003: Reserved keyword used as a function name."))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_NAMESPACE_NODE))
-    }
-
-    fun testFunctionDecl_ReservedKeyword_While() {
-        val file = parseResource("tests/psi/xquery-sx-1.0/FunctionDecl_ReservedKeyword_While.xq")!!
-
-        val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val functionDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryFunctionDecl>().first()
-        val versioned = functionDeclPsi as XQueryConformanceCheck
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-scripting")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), `is`(true))
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), `is`(true))
-
-        assertThat(versioned.conformanceErrorMessage,
-                `is`("XPST0003: Reserved keyword used as a function name."))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_WHILE))
-    }
-
-    // endregion
     // region InlineFunctionExpr
 
     fun testInlineFunctionExpr() {
@@ -3048,11 +2801,11 @@ class XQueryPsiTest:ParserTestCase() {
         assertThat(functionCallPsi, `is`(notNullValue()))
         assertThat(functionCallPsi.arity, `is`(2))
 
-        assertThat(functionCallPsi.functionName.prefix?.node?.elementType, `is`(XQueryElementType.NCNAME))
-        assertThat(functionCallPsi.functionName.prefix?.node?.text, `is`("math"))
+        assertThat(functionCallPsi.functionName?.prefix?.node?.elementType, `is`(XQueryElementType.NCNAME))
+        assertThat(functionCallPsi.functionName?.prefix?.node?.text, `is`("math"))
 
-        assertThat(functionCallPsi.functionName.localName?.node?.elementType, `is`(XQueryElementType.NCNAME))
-        assertThat(functionCallPsi.functionName.localName?.node?.text, `is`("pow"))
+        assertThat(functionCallPsi.functionName?.localName?.node?.elementType, `is`(XQueryElementType.NCNAME))
+        assertThat(functionCallPsi.functionName?.localName?.node?.text, `is`("pow"))
     }
 
     fun testFunctionCall_Empty() {
@@ -3062,11 +2815,11 @@ class XQueryPsiTest:ParserTestCase() {
         assertThat(functionCallPsi, `is`(notNullValue()))
         assertThat(functionCallPsi.arity, `is`(0))
 
-        assertThat(functionCallPsi.functionName.prefix?.node?.elementType, `is`(XQueryElementType.NCNAME))
-        assertThat(functionCallPsi.functionName.prefix?.node?.text, `is`("fn"))
+        assertThat(functionCallPsi.functionName?.prefix?.node?.elementType, `is`(XQueryElementType.NCNAME))
+        assertThat(functionCallPsi.functionName?.prefix?.node?.text, `is`("fn"))
 
-        assertThat(functionCallPsi.functionName.localName?.node?.elementType, `is`(XQueryElementType.NCNAME))
-        assertThat(functionCallPsi.functionName.localName?.node?.text, `is`("true"))
+        assertThat(functionCallPsi.functionName?.localName?.node?.elementType, `is`(XQueryElementType.NCNAME))
+        assertThat(functionCallPsi.functionName?.localName?.node?.text, `is`("true"))
     }
 
     fun testFunctionCall_ArgumentPlaceholder() {
@@ -3076,11 +2829,11 @@ class XQueryPsiTest:ParserTestCase() {
         assertThat(functionCallPsi, `is`(notNullValue()))
         assertThat(functionCallPsi.arity, `is`(1))
 
-        assertThat(functionCallPsi.functionName.prefix?.node?.elementType, `is`(XQueryElementType.NCNAME))
-        assertThat(functionCallPsi.functionName.prefix?.node?.text, `is`("math"))
+        assertThat(functionCallPsi.functionName?.prefix?.node?.elementType, `is`(XQueryElementType.NCNAME))
+        assertThat(functionCallPsi.functionName?.prefix?.node?.text, `is`("math"))
 
-        assertThat(functionCallPsi.functionName.localName?.node?.elementType, `is`(XQueryElementType.NCNAME))
-        assertThat(functionCallPsi.functionName.localName?.node?.text, `is`("sin"))
+        assertThat(functionCallPsi.functionName?.localName?.node?.elementType, `is`(XQueryElementType.NCNAME))
+        assertThat(functionCallPsi.functionName?.localName?.node?.text, `is`("sin"))
     }
 
     // endregion
@@ -3093,6 +2846,12 @@ class XQueryPsiTest:ParserTestCase() {
         val functionDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryFunctionDecl>().first()
         assertThat(functionDeclPsi, `is`(notNullValue()))
         assertThat(functionDeclPsi.arity, `is`(0))
+
+        assertThat(functionDeclPsi.functionName?.prefix?.node?.elementType, `is`(XQueryElementType.NCNAME))
+        assertThat(functionDeclPsi.functionName?.prefix?.node?.text, `is`("fn"))
+
+        assertThat(functionDeclPsi.functionName?.localName?.node?.elementType, `is`(XQueryElementType.NCNAME))
+        assertThat(functionDeclPsi.functionName?.localName?.node?.text, `is`("true"))
     }
 
     fun testFunctionDecl_ParamList() {
@@ -3102,6 +2861,11 @@ class XQueryPsiTest:ParserTestCase() {
         val functionDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryFunctionDecl>().first()
         assertThat(functionDeclPsi, `is`(notNullValue()))
         assertThat(functionDeclPsi.arity, `is`(2))
+
+        assertThat(functionDeclPsi.functionName?.prefix, `is`(nullValue()))
+
+        assertThat(functionDeclPsi.functionName?.localName?.node?.elementType, `is`(XQueryTokenType.NCNAME))
+        assertThat(functionDeclPsi.functionName?.localName?.node?.text, `is`("test"))
     }
 
     // endregion

@@ -22,60 +22,13 @@ import uk.co.reecedunn.intellij.plugin.core.extensions.children
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryParamList
-import uk.co.reecedunn.intellij.plugin.xquery.lang.*
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver
-import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 
-class XQueryFunctionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryFunctionDecl, XQueryConformanceCheck, XQueryVariableResolver {
-    override fun conformsTo(implementation: ImplementationItem): Boolean {
-        val element = conformanceElement
-        if (element === firstChild) {
-            return true
-        }
-
-        val type = element.node.elementType
-        if (type is IXQueryKeywordOrNCNameType) {
-            when (type.keywordType) {
-                IXQueryKeywordOrNCNameType.KeywordType.KEYWORD -> return true
-                IXQueryKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME -> return false
-                IXQueryKeywordOrNCNameType.KeywordType.SCRIPTING10_RESERVED_FUNCTION_NAME -> {
-                    val scripting = implementation.getVersion(Scripting)
-                    return !scripting.supportsVersion(XQueryVersion.VERSION_1_0)
-                }
-                IXQueryKeywordOrNCNameType.KeywordType.MARKLOGIC70_RESERVED_FUNCTION_NAME -> {
-                    val marklogicVersion = implementation.getVersion(MarkLogic)
-                    return !marklogicVersion.supportsVersion(XQueryVersion.VERSION_7_0)
-                }
-                IXQueryKeywordOrNCNameType.KeywordType.MARKLOGIC80_RESERVED_FUNCTION_NAME -> {
-                    val marklogicVersion = implementation.getVersion(MarkLogic)
-                    return !marklogicVersion.supportsVersion(XQueryVersion.VERSION_8_0)
-                }
-                IXQueryKeywordOrNCNameType.KeywordType.XQUERY30_RESERVED_FUNCTION_NAME -> {
-                    val marklogic = implementation.getVersion(MarkLogic)
-                    val xquery = implementation.getVersion(XQuery)
-                    return !xquery.supportsVersion(XQueryVersion.VERSION_3_0) && !marklogic.supportsVersion(XQueryVersion.VERSION_6_0)
-                }
-            }
-        }
-        return true
-    }
-
-    override val conformanceElement get(): PsiElement {
-        val name = findChildByClass(XQueryEQName::class.java)
-        if (name == null) {
-            return firstChild
-        } else if (name.node.elementType === XQueryElementType.NCNAME) {
-            return name.firstChild
-        }
-        return name
-    }
-
-    override val conformanceErrorMessage get(): String =
-        XQueryBundle.message("requires.error.reserved-keyword-as-function-name")
+class XQueryFunctionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryFunctionDecl, XQueryVariableResolver {
+    override val functionName: XQueryEQName? =
+        findChildByClass(XQueryEQName::class.java)
 
     override val arity get(): Int =
         children().filterIsInstance<XQueryParamList>().firstOrNull()?.arity ?: 0

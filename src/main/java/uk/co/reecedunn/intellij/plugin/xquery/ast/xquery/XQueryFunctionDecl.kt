@@ -21,5 +21,7 @@ import com.intellij.psi.PsiElement
  * An XQuery 1.0 `FunctionDecl` node in the XQuery AST.
  */
 interface XQueryFunctionDecl : PsiElement {
+    val functionName: XQueryEQName?
+
     val arity: Int
 }
