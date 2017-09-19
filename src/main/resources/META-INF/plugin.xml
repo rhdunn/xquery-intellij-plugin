@@ -70,6 +70,10 @@
                      key="inspection.XPST0003.predefined-entity.display-name" hasStaticDescription="true"
                      groupName="XQuery" enabledByDefault="true" level="ERROR"
                      implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.XPST0003.PredefinedEntityRefInspection"/>
+    <localInspection language="XQuery" shortName="ReservedFunctionName" bundle="messages.XQueryBundle"
+                     key="inspection.XPST0003.reserved-function-name.display-name" hasStaticDescription="true"
+                     groupName="XQuery" enabledByDefault="true" level="ERROR"
+                     implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.XPST0003.ReservedFunctionNameInspection"/>
 
     <!-- XQST0017 -->
     <localInspection language="XQuery" shortName="UndefinedFunction" bundle="messages.XQueryBundle"
