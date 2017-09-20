@@ -16,12 +16,12 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.lexer;
 
 import com.intellij.lexer.Lexer;
+import uk.co.reecedunn.intellij.plugin.core.lexer.CombinedLexer;
 import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCase;
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocLexer;
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
-import uk.co.reecedunn.intellij.plugin.core.lexer.CombinedLexer;
 
 public class XQueryLexerWithXQDocTest extends LexerTestCase {
     private Lexer createLexer() {

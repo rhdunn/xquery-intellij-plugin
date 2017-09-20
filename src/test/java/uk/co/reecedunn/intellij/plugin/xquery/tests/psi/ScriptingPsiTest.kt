@@ -17,20 +17,21 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.psi
 
 import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.IElementType
-import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.*
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver
-import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
-
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
 import uk.co.reecedunn.intellij.plugin.core.extensions.children
 import uk.co.reecedunn.intellij.plugin.core.extensions.descendants
+import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.*
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Scripting
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver
+import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 class ScriptingPsiTest : ParserTestCase() {
     // region XQueryConformance

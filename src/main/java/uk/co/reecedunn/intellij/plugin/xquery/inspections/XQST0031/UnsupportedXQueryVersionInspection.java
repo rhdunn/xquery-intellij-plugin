@@ -26,8 +26,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings;
 
-import java.util.List;
-
 /** XPST0081 error condition
  *
  * It is a <em>static error</em> if a VersionDecl specifies a version that is

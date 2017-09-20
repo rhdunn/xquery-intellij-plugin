@@ -16,17 +16,14 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.settings;
 
 import com.intellij.ide.ui.UISettings;
-import com.intellij.openapi.options.ConfigurationException;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.Implementations;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
-import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings;
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettingsConfigurable;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase;
 
 import javax.swing.*;
 import java.awt.*;
 
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class XQueryProjectSettingsConfigurableTest extends ParserTestCase {

@@ -16,11 +16,9 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.lang;
 
 import junit.framework.TestCase;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class XQueryVersionTest extends TestCase {

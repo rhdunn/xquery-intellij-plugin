@@ -19,7 +19,9 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryTypedFunctionTest
-import uk.co.reecedunn.intellij.plugin.xquery.lang.*
+import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
+import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
 class XQueryTypedFunctionTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryTypedFunctionTest, XQueryConformance {

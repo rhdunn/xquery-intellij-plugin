@@ -27,8 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructo
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEnclosedExpr
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
-
-import java.util.ArrayList
+import java.util.*
 
 class XQueryFoldingBuilder : FoldingBuilderEx() {
     private fun getDirElemConstructorRange(element: PsiElement): TextRange? {

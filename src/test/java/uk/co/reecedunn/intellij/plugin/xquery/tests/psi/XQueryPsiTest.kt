@@ -18,18 +18,17 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.psi
 import com.intellij.psi.PsiElement
 import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.psi.tree.IElementType
+import org.hamcrest.CoreMatchers.*
+import org.hamcrest.MatcherAssert.assertThat
+import uk.co.reecedunn.intellij.plugin.core.extensions.children
+import uk.co.reecedunn.intellij.plugin.core.extensions.descendants
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
+import uk.co.reecedunn.intellij.plugin.xquery.lang.*
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryNCNamePsiImpl
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
-
-import org.hamcrest.CoreMatchers.*
-import org.hamcrest.MatcherAssert.assertThat
-import uk.co.reecedunn.intellij.plugin.core.extensions.children
-import uk.co.reecedunn.intellij.plugin.core.extensions.descendants
-import uk.co.reecedunn.intellij.plugin.xquery.lang.*
 
 class XQueryPsiTest:ParserTestCase() {
     // region XQueryArgumentList

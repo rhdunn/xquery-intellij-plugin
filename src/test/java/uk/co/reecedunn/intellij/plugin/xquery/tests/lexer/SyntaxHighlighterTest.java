@@ -19,7 +19,9 @@ import com.intellij.lexer.Lexer;
 import junit.framework.TestCase;
 import uk.co.reecedunn.intellij.plugin.core.lexer.CombinedLexer;
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType;
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.*;
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.SyntaxHighlighter;
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.SyntaxHighlighterFactory;
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;

@@ -16,7 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.parser;
 
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile;
-import uk.co.reecedunn.intellij.plugin.xquery.tests.Specification;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;

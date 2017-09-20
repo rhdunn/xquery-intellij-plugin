@@ -16,17 +16,16 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.psi
 
 import com.intellij.psi.tree.IElementType
-import uk.co.reecedunn.intellij.plugin.xquery.ast.basex.BaseXUpdateExpr
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
-
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.notNullValue
 import org.hamcrest.MatcherAssert.assertThat
 import uk.co.reecedunn.intellij.plugin.core.extensions.descendants
+import uk.co.reecedunn.intellij.plugin.xquery.ast.basex.BaseXUpdateExpr
 import uk.co.reecedunn.intellij.plugin.xquery.lang.BaseX
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
+import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 class BaseXPsiTest : ParserTestCase() {
     // region XQueryConformance

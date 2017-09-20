@@ -20,6 +20,7 @@ import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.tree.TokenSet;
 import uk.co.reecedunn.intellij.plugin.core.lexer.CombinedLexer;
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.MockASTNode;
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.filetypes.XQueryFileType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
@@ -27,7 +28,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryPsiParser;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryFileImpl;
-import uk.co.reecedunn.intellij.plugin.core.tests.lang.MockASTNode;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;

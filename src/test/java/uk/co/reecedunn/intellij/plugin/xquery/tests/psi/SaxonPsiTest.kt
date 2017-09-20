@@ -16,14 +16,14 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.psi
 
 import com.intellij.psi.tree.IElementType
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
-
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
 import uk.co.reecedunn.intellij.plugin.core.extensions.children
 import uk.co.reecedunn.intellij.plugin.core.extensions.descendants
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryMapConstructor
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryMapConstructorEntry
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
+import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 class SaxonPsiTest : ParserTestCase() {
     // region XQueryMapConstructorEntry

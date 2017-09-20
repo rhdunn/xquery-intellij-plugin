@@ -23,8 +23,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPredefinedEntityRef
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
-
-import java.util.HashSet
+import java.util.*
 
 class PredefinedEntityRefInspection : LocalInspectionTool() {
     override fun getDisplayName(): String =

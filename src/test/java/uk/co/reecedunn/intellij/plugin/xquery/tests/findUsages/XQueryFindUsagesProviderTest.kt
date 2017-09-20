@@ -16,16 +16,15 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.findUsages
 
 import com.intellij.lang.HelpID
+import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.MatcherAssert.assertThat
+import uk.co.reecedunn.intellij.plugin.core.extensions.children
+import uk.co.reecedunn.intellij.plugin.core.extensions.descendants
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryNCName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVarName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVarRef
 import uk.co.reecedunn.intellij.plugin.xquery.findUsages.XQueryFindUsagesProvider
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
-
-import org.hamcrest.CoreMatchers.`is`
-import org.hamcrest.MatcherAssert.assertThat
-import uk.co.reecedunn.intellij.plugin.core.extensions.children
-import uk.co.reecedunn.intellij.plugin.core.extensions.descendants
 
 class XQueryFindUsagesProviderTest : ParserTestCase() {
     fun testNCName() {
