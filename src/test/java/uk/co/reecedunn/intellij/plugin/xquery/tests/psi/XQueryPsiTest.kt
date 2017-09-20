@@ -1684,22 +1684,11 @@ class XQueryPsiTest:ParserTestCase() {
         val file = parseResource("tests/psi/xquery-3.0/NamedFunctionRef_QName.xq")!!
 
         val namedFunctionRefPsi = file.descendants().filterIsInstance<XQueryNamedFunctionRef>().first()
-        val versioned = namedFunctionRefPsi as XQueryConformanceCheck
+        val versioned = namedFunctionRefPsi as XQueryConformance
 
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), `is`(true))
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), `is`(true))
-
-        assertThat(versioned.conformanceErrorMessage,
-                `is`("XPST0003: This expression requires XQuery 3.0 or later, or MarkLogic 6.0 or later with XQuery version '1.0-ml'."))
+        assertThat(versioned.requiresConformance.size, `is`(2))
+        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_0_20140408))
+        assertThat(versioned.requiresConformance[1], `is`<Version>(MarkLogic.VERSION_6_0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
@@ -1710,22 +1699,11 @@ class XQueryPsiTest:ParserTestCase() {
         val file = parseResource("tests/parser/xquery-3.0/NamedFunctionRef.xq")!!
 
         val namedFunctionRefPsi = file.descendants().filterIsInstance<XQueryNamedFunctionRef>().first()
-        val versioned = namedFunctionRefPsi as XQueryConformanceCheck
+        val versioned = namedFunctionRefPsi as XQueryConformance
 
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), `is`(true))
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), `is`(true))
-
-        assertThat(versioned.conformanceErrorMessage,
-                `is`("XPST0003: This expression requires XQuery 3.0 or later, or MarkLogic 6.0 or later with XQuery version '1.0-ml'."))
+        assertThat(versioned.requiresConformance.size, `is`(2))
+        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_0_20140408))
+        assertThat(versioned.requiresConformance[1], `is`<Version>(MarkLogic.VERSION_6_0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
@@ -1736,22 +1714,11 @@ class XQueryPsiTest:ParserTestCase() {
         val file = parseResource("tests/psi/xquery-3.0/NamedFunctionRef_Keyword.xq")!!
 
         val namedFunctionRefPsi = file.descendants().filterIsInstance<XQueryNamedFunctionRef>().first()
-        val versioned = namedFunctionRefPsi as XQueryConformanceCheck
+        val versioned = namedFunctionRefPsi as XQueryConformance
 
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), `is`(true))
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), `is`(true))
-
-        assertThat(versioned.conformanceErrorMessage,
-                `is`("XPST0003: This expression requires XQuery 3.0 or later, or MarkLogic 6.0 or later with XQuery version '1.0-ml'."))
+        assertThat(versioned.requiresConformance.size, `is`(2))
+        assertThat(versioned.requiresConformance[0], `is`<Version>(XQuery.REC_3_0_20140408))
+        assertThat(versioned.requiresConformance[1], `is`<Version>(MarkLogic.VERSION_6_0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.node.elementType,
