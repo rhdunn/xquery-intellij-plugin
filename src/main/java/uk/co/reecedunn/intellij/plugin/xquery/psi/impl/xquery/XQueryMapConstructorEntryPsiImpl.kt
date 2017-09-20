@@ -20,32 +20,11 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryMapConstructorEntry
-import uk.co.reecedunn.intellij.plugin.xquery.lang.ImplementationItem
-import uk.co.reecedunn.intellij.plugin.xquery.lang.Saxon
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck
-import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 
 private val ASSIGNMENT = TokenSet.create(XQueryTokenType.QNAME_SEPARATOR, XQueryTokenType.ASSIGN_EQUAL)
 
-class XQueryMapConstructorEntryPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryMapConstructorEntry, XQueryConformanceCheck {
-    override fun conformsTo(implementation: ImplementationItem): Boolean {
-        val conformanceElement = conformanceElement
-        if (conformanceElement === firstChild) {
-            return true
-        }
-        val saxon = implementation.getVersion(Saxon)
-        val isSaxonExtension = saxon.supportsVersion(XQueryVersion.VERSION_9_4) && !saxon.supportsVersion(XQueryVersion.VERSION_9_7)
-        return conformanceElement.node.elementType === XQueryTokenType.ASSIGN_EQUAL == isSaxonExtension
-    }
-
-    override val conformanceElement get(): PsiElement =
-        separator
-
-    override val conformanceErrorMessage get(): String =
-        XQueryBundle.message("requires.feature.saxon-map-entry-assign.version")
-
+class XQueryMapConstructorEntryPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryMapConstructorEntry {
     override val separator get(): PsiElement =
         findChildByType(ASSIGNMENT) ?: firstChild
 }

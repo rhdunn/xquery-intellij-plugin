@@ -388,41 +388,6 @@ class MarkLogicPsiTest : ParserTestCase() {
     }
 
     // endregion
-    // region MapConstructorEntry
-
-    fun testMapConstructorEntry_Conformance() {
-        val file = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry.xq")!!
-
-        val mapConstructorPsi = file.descendants().filterIsInstance<XQueryMapConstructor>().first()
-        val mapConstructorEntryPsi = mapConstructorPsi.children().filterIsInstance<XQueryMapConstructorEntry>().first()
-        val versioned = mapConstructorEntryPsi as XQueryConformanceCheck
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), `is`(true))
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("saxon/EE/v9.4/3.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("saxon/EE/v9.5/3.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("saxon/EE/v9.6/3.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("saxon/EE/v9.7/3.0")), `is`(true))
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), `is`(true))
-
-        assertThat(versioned.conformanceErrorMessage,
-                `is`("XPST0003: Use ':=' for Saxon 9.4 to 9.6, and ':' for XQuery 3.1 and MarkLogic."))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.QNAME_SEPARATOR))
-    }
-
-    // endregion
     // region MapTest
 
     fun testMapTest() {
