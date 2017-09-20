@@ -21,12 +21,10 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.core.extensions.walkTree
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionCall
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Scripting
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
@@ -62,6 +60,7 @@ class ReservedFunctionNameInspection : LocalInspectionTool() {
             val localname = when {
                 element is XQueryFunctionCall -> getLocalName(element.functionName)
                 element is XQueryFunctionDecl -> getLocalName(element.functionName)
+                element is XQueryNamedFunctionRef -> getLocalName(element.functionName)
                 else -> null
             }
             when (localname?.second) {
@@ -83,8 +82,17 @@ class ReservedFunctionNameInspection : LocalInspectionTool() {
                         descriptors.add(manager.createProblemDescriptor(localname.first, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR_OR_WARNING, isOnTheFly))
                     }
                 }
-                // NOTE: RESERVED_FUNCTION_NAME and XQUERY30_RESERVED_FUNCTION_NAME are handled in the XQuery parser.
-                else -> {}
+                IXQueryKeywordOrNCNameType.KeywordType.XQUERY30_RESERVED_FUNCTION_NAME -> {
+                    if (product.conformsTo(productVersion, XQuery.REC_3_0_20140408)) {
+                        val description = XQueryBundle.message("inspection.XPST0003.reserved-function-name.message", XQuery.REC_3_0_20140408)
+                        descriptors.add(manager.createProblemDescriptor(localname.first, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR_OR_WARNING, isOnTheFly))
+                    }
+                }
+                IXQueryKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME -> {
+                    val description = XQueryBundle.message("inspection.XPST0003.reserved-function-name.message", XQuery.REC_1_0_20070123)
+                    descriptors.add(manager.createProblemDescriptor(localname.first, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR_OR_WARNING, isOnTheFly))
+                }
+                IXQueryKeywordOrNCNameType.KeywordType.KEYWORD -> {}
             }
         }
         return descriptors.toTypedArray()

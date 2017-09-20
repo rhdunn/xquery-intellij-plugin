@@ -1758,137 +1758,6 @@ class XQueryPsiTest:ParserTestCase() {
                 `is`<IElementType>(XQueryTokenType.FUNCTION_REF_OPERATOR))
     }
 
-    fun testNamedFunctionRef_ReservedKeyword() {
-        val file = parseResource("tests/psi/xquery-3.0/NamedFunctionRef_ReservedKeyword.xq")!!
-
-        val namedFunctionRefPsi = file.descendants().filterIsInstance<XQueryNamedFunctionRef>().first()
-        val versioned = namedFunctionRefPsi as XQueryConformanceCheck
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), `is`(false))
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), `is`(false))
-
-        assertThat(versioned.conformanceErrorMessage,
-                `is`("XPST0003: Reserved keyword used as a function name."))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_IF))
-    }
-
-    fun testNamedFunctionRef_ReservedKeyword_Function() {
-        val file = parseResource("tests/psi/xquery-3.0/NamedFunctionRef_ReservedKeyword_Function.xq")!!
-
-        val namedFunctionRefPsi = file.descendants().filterIsInstance<XQueryNamedFunctionRef>().first()
-        val versioned = namedFunctionRefPsi as XQueryConformanceCheck
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), `is`(false))
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), `is`(false))
-
-        assertThat(versioned.conformanceErrorMessage,
-                `is`("XPST0003: Reserved keyword used as a function name."))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_FUNCTION))
-    }
-
-    fun testNamedFunctionRef_ReservedKeyword_NamespaceNode() {
-        val file = parseResource("tests/psi/xquery-3.0/NamedFunctionRef_ReservedKeyword_NamespaceNode.xq")!!
-
-        val namedFunctionRefPsi = file.descendants().filterIsInstance<XQueryNamedFunctionRef>().first()
-        val versioned = namedFunctionRefPsi as XQueryConformanceCheck
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), `is`(false))
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), `is`(false))
-
-        assertThat(versioned.conformanceErrorMessage,
-                `is`("XPST0003: Reserved keyword used as a function name."))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_NAMESPACE_NODE))
-    }
-
-    fun testNamedFunctionRef_ReservedKeyword_Switch() {
-        val file = parseResource("tests/psi/xquery-3.0/NamedFunctionRef_ReservedKeyword_Switch.xq")!!
-
-        val namedFunctionRefPsi = file.descendants().filterIsInstance<XQueryNamedFunctionRef>().first()
-        val versioned = namedFunctionRefPsi as XQueryConformanceCheck
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), `is`(false))
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), `is`(false))
-
-        assertThat(versioned.conformanceErrorMessage,
-                `is`("XPST0003: Reserved keyword used as a function name."))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_SWITCH))
-    }
-
-    fun testNamedFunctionRef_ReservedKeyword_While() {
-        val file = parseResource("tests/psi/xquery-sx-1.0/NamedFunctionRef_ReservedKeyword_While.xq")!!
-
-        val namedFunctionRefPsi = file.descendants().filterIsInstance<XQueryNamedFunctionRef>().first()
-        val versioned = namedFunctionRefPsi as XQueryConformanceCheck
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-update")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/1.0-scripting")), `is`(false))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("w3c/3.1")), `is`(true))
-
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v6/1.0-ml")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v7/1.0-ml")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0")), `is`(true))
-        assertThat(versioned.conformsTo(Implementations.getItemById("marklogic/v8/1.0-ml")), `is`(true))
-
-        assertThat(versioned.conformanceErrorMessage,
-                `is`("XPST0003: Reserved keyword used as a function name."))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_WHILE))
-    }
-
     // endregion
     // region NamespaceNodeTest
 
@@ -2998,6 +2867,11 @@ class XQueryPsiTest:ParserTestCase() {
         val namedFunctionRefPsi = file.descendants().filterIsInstance<XQueryNamedFunctionRef>().first()
         assertThat(namedFunctionRefPsi, `is`(notNullValue()))
         assertThat(namedFunctionRefPsi.arity, `is`(3))
+
+        assertThat(namedFunctionRefPsi.functionName?.prefix, `is`(nullValue()))
+
+        assertThat(namedFunctionRefPsi.functionName?.localName?.node?.elementType, `is`(XQueryTokenType.NCNAME))
+        assertThat(namedFunctionRefPsi.functionName?.localName?.node?.text, `is`("true"))
     }
 
     fun testNamedFunctionRef_MissingArity() {
@@ -3006,6 +2880,11 @@ class XQueryPsiTest:ParserTestCase() {
         val namedFunctionRefPsi = file.descendants().filterIsInstance<XQueryNamedFunctionRef>().first()
         assertThat(namedFunctionRefPsi, `is`(notNullValue()))
         assertThat(namedFunctionRefPsi.arity, `is`(0))
+
+        assertThat(namedFunctionRefPsi.functionName?.prefix, `is`(nullValue()))
+
+        assertThat(namedFunctionRefPsi.functionName?.localName?.node?.elementType, `is`(XQueryTokenType.NCNAME))
+        assertThat(namedFunctionRefPsi.functionName?.localName?.node?.text, `is`("true"))
     }
 
     // endregion

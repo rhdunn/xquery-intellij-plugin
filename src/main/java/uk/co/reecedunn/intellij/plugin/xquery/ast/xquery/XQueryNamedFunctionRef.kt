@@ -19,5 +19,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
  * An XQuery 3.0 `NamedFunctionRef` node in the XQuery AST.
  */
 interface XQueryNamedFunctionRef : XQueryFunctionItemExpr {
+    val functionName: XQueryEQName?
+
     val arity: Int
 }

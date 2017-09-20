@@ -182,4 +182,71 @@ public class ReservedFunctionNameInspectionTest extends InspectionTestCase {
 
     // endregion
     // endregion
+    // region NamedFunctionRef
+    // region XQuery 1.0 Reserved Function Names
+
+    @SuppressWarnings("ConstantConditions")
+    public void testNamedFunctionRef_XQuery10ReservedFunctionName() {
+        getSettings().setImplementation("w3c/spec");
+        getSettings().setImplementationVersion("w3c/spec/v1ed");
+        final XQueryFile file = parseResource("tests/psi/xquery-3.0/NamedFunctionRef_ReservedKeyword.xq");
+
+        final ProblemDescriptor[] problems = inspect(file, new ReservedFunctionNameInspection());
+        assertThat(problems, is(notNullValue()));
+        assertThat(problems.length, is(1));
+
+        assertThat(problems[0].getHighlightType(), is(ProblemHighlightType.GENERIC_ERROR_OR_WARNING));
+        assertThat(problems[0].getDescriptionTemplate(), is("XPST0003: Reserved XQuery 1.0 keyword used as a function name."));
+        assertThat(problems[0].getPsiElement().getNode().getElementType(), is(XQueryTokenType.K_IF));
+    }
+
+    // endregion
+    // region XQuery 3.0 Reserved Function Names
+
+    @SuppressWarnings("ConstantConditions")
+    public void testNamedFunctionRef_XQuery30ReservedFunctionName() {
+        getSettings().setImplementation("w3c/spec");
+        getSettings().setImplementationVersion("w3c/spec/v1ed");
+        final XQueryFile file = parseResource("tests/psi/xquery-3.0/NamedFunctionRef_ReservedKeyword_Function.xq");
+
+        final ProblemDescriptor[] problems = inspect(file, new ReservedFunctionNameInspection());
+        assertThat(problems, is(notNullValue()));
+        assertThat(problems.length, is(1));
+
+        assertThat(problems[0].getHighlightType(), is(ProblemHighlightType.GENERIC_ERROR_OR_WARNING));
+        assertThat(problems[0].getDescriptionTemplate(), is("XPST0003: Reserved XQuery 3.0 keyword used as a function name."));
+        assertThat(problems[0].getPsiElement().getNode().getElementType(), is(XQueryTokenType.K_FUNCTION));
+    }
+
+    // endregion
+    // region Scripting 1.0 Reserved Function Names
+
+    @SuppressWarnings("ConstantConditions")
+    public void testNamedFunctionRef_Scripting10ReservedFunctionName_XQuery10() {
+        getSettings().setImplementation("saxon/HE");
+        getSettings().setImplementationVersion("saxon/HE/v9.5");
+        final XQueryFile file = parseResource("tests/psi/xquery-sx-1.0/NamedFunctionRef_ReservedKeyword_While.xq");
+
+        final ProblemDescriptor[] problems = inspect(file, new ReservedFunctionNameInspection());
+        assertThat(problems, is(notNullValue()));
+        assertThat(problems.length, is(0));
+    }
+
+    @SuppressWarnings("ConstantConditions")
+    public void testNamedFunctionRef_Scripting10ReservedFunctionName_W3C() {
+        getSettings().setImplementation("w3c/spec");
+        getSettings().setImplementationVersion("w3c/spec/v1ed");
+        final XQueryFile file = parseResource("tests/psi/xquery-sx-1.0/NamedFunctionRef_ReservedKeyword_While.xq");
+
+        final ProblemDescriptor[] problems = inspect(file, new ReservedFunctionNameInspection());
+        assertThat(problems, is(notNullValue()));
+        assertThat(problems.length, is(1));
+
+        assertThat(problems[0].getHighlightType(), is(ProblemHighlightType.GENERIC_ERROR_OR_WARNING));
+        assertThat(problems[0].getDescriptionTemplate(), is("XPST0003: Reserved XQuery Scripting Extension 1.0 keyword used as a function name."));
+        assertThat(problems[0].getPsiElement().getNode().getElementType(), is(XQueryTokenType.K_WHILE));
+    }
+
+    // endregion
+    // endregion
 }
