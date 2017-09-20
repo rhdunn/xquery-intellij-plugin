@@ -89,7 +89,7 @@ class XQueryPsiTest:ParserTestCase() {
     }
 
     // endregion
-    // region XQueryConformanceCheck
+    // region XQueryConformance
     // region AllowingEmpty
 
     fun testAllowingEmpty() {

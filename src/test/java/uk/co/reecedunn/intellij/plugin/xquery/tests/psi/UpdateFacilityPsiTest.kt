@@ -18,9 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.psi
 import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl
-import uk.co.reecedunn.intellij.plugin.xquery.lang.Implementations
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 import org.hamcrest.CoreMatchers.`is`
@@ -34,7 +32,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
 class UpdateFacilityPsiTest : ParserTestCase() {
-    // region XQueryConformanceCheck
+    // region XQueryConformance
     // region CompatibilityAnnotation
 
     fun testCompatibilityAnnotation_FunctionDecl() {

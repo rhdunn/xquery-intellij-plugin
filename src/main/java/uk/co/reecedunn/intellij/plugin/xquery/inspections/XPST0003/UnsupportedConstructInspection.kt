@@ -20,17 +20,14 @@ import com.intellij.psi.PsiFile
 import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.core.extensions.walkTree
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile
-import uk.co.reecedunn.intellij.plugin.xquery.lang.Specification
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings
 
 /** Checks non-XQuery 1.0 constructs against the selected implementation.
  *
  * Constructs that are not in the base XQuery 1.0 syntax implement the
- * [uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformanceCheck]
+ * [uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance]
  * interface to determine if the construct is valid for the given XQuery
  * implementation and associated dialect.
  */
@@ -48,18 +45,7 @@ class UnsupportedConstructInspection : LocalInspectionTool() {
         val product = settings.product!!
         val productVersion = settings.productVersion!!
 
-        val xqueryVersion = file.XQueryVersion.getVersionOrDefault(file.getProject())
-        val version = XQuery.versions.find { v -> (v as Specification).label == xqueryVersion.toString() }
-        val dialect = settings.getDialectForXQueryVersion(version!!)
-
         val descriptors = SmartList<ProblemDescriptor>()
-        file.walkTree().filterIsInstance<XQueryConformanceCheck>().forEach { versioned ->
-            if (!versioned.conformsTo(dialect)) {
-                val context = versioned.conformanceElement
-                val description = versioned.conformanceErrorMessage
-                descriptors.add(manager.createProblemDescriptor(context, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR_OR_WARNING, isOnTheFly))
-            }
-        }
         file.walkTree().filterIsInstance<XQueryConformance>().forEach { versioned ->
             val required = versioned.requiresConformance
             if (!required.isEmpty() && required.find { version -> product.conformsTo(productVersion, version) } == null) {

@@ -29,7 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
 class BaseXPsiTest : ParserTestCase() {
-    // region XQueryConformanceCheck
+    // region XQueryConformance
     // region UpdateExpr
 
     fun testUpdateExpr() {
