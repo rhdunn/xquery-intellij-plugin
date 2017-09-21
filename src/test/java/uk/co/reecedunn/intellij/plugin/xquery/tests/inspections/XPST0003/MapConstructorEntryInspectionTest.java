@@ -95,11 +95,7 @@ public class MapConstructorEntryInspectionTest extends InspectionTestCase {
 
         final ProblemDescriptor[] problems = inspect(file, new MapConstructorEntryInspection());
         assertThat(problems, is(notNullValue()));
-        assertThat(problems.length, is(1));
-
-        assertThat(problems[0].getHighlightType(), is(ProblemHighlightType.GENERIC_ERROR_OR_WARNING));
-        assertThat(problems[0].getDescriptionTemplate(), is("XPST0003: Expected ':' (XQuery 3.1/MarkLogic) or ':=' (Saxon 9.4-9.6)."));
-        assertThat(problems[0].getPsiElement().getNode().getElementType(), is(XQueryTokenType.ASSIGN_EQUAL));
+        assertThat(problems.length, is(0));
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -111,7 +107,11 @@ public class MapConstructorEntryInspectionTest extends InspectionTestCase {
 
         final ProblemDescriptor[] problems = inspect(file, new MapConstructorEntryInspection());
         assertThat(problems, is(notNullValue()));
-        assertThat(problems.length, is(0));
+        assertThat(problems.length, is(1));
+
+        assertThat(problems[0].getHighlightType(), is(ProblemHighlightType.GENERIC_ERROR_OR_WARNING));
+        assertThat(problems[0].getDescriptionTemplate(), is("XPST0003: Expected ':' (XQuery 3.1/MarkLogic) or ':=' (Saxon 9.4-9.6)."));
+        assertThat(problems[0].getPsiElement().getNode().getElementType(), is(XQueryTokenType.QNAME_SEPARATOR));
     }
 
     @SuppressWarnings("ConstantConditions")

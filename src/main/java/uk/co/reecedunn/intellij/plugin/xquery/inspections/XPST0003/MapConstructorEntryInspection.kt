@@ -21,19 +21,20 @@ import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.core.extensions.walkTree
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryMapConstructorEntry
-import uk.co.reecedunn.intellij.plugin.xquery.lang.*
+import uk.co.reecedunn.intellij.plugin.xquery.lang.Saxon
+import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings
 
 class MapConstructorEntryInspection : LocalInspectionTool() {
-    private fun conformsTo(element: XQueryMapConstructorEntry, implementation: ImplementationItem): Boolean {
+    private fun conformsTo(element: XQueryMapConstructorEntry, productVersion: Version?): Boolean {
         val conformanceElement = element.separator
         if (conformanceElement === element.firstChild) {
             return true
         }
-        val saxon = implementation.getVersion(Saxon)
-        val isSaxonExtension = saxon.supportsVersion(XQueryVersion.VERSION_9_4) && !saxon.supportsVersion(XQueryVersion.VERSION_9_7)
+        val isSaxonExtension =
+            productVersion?.kind === Saxon && productVersion.value >= 9.4 && productVersion.value <= 9.7
         return conformanceElement.node.elementType === XQueryTokenType.ASSIGN_EQUAL == isSaxonExtension
     }
 
@@ -47,14 +48,11 @@ class MapConstructorEntryInspection : LocalInspectionTool() {
         if (file !is XQueryFile) return null
 
         val settings = XQueryProjectSettings.getInstance(file.getProject())
-
-        val xqueryVersion = file.XQueryVersion.getVersionOrDefault(file.getProject())
-        val version = XQuery.versions.find { v -> (v as Specification).label == xqueryVersion.toString() }
-        val dialect = settings.getDialectForXQueryVersion(version!!)
+        val productVersion: Version? = settings.productVersion
 
         val descriptors = SmartList<ProblemDescriptor>()
         file.walkTree().filterIsInstance<XQueryMapConstructorEntry>().forEach { element ->
-            if (!conformsTo(element, dialect)) {
+            if (!conformsTo(element, productVersion)) {
                 val context = element.separator
                 val description = XQueryBundle.message("inspection.XPST0003.map-constructor-entry.message")
                 descriptors.add(manager.createProblemDescriptor(context, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR_OR_WARNING, isOnTheFly))
