@@ -131,14 +131,14 @@ object XQuery : Language("XQuery", "application/xquery"), Versioned {
         REC_3_1_20170321,
         MARKLOGIC_1_0)
 
-    private val XQUERY10: List<Specification> = listOf(REC_1_0_20101214, REC_1_0_20070123)
+    private val XQUERY10: List<Specification> = listOf(REC_1_0_20070123, REC_1_0_20101214)
     private val XQUERY30: List<Specification> = listOf(REC_3_0_20140408)
     private val XQUERY31: List<Specification> = listOf(REC_3_1_20170321, CR_3_1_20151217)
     private val XQUERY09_MARKLOGIC: List<Specification> = listOf(MARKLOGIC_0_9)
     private val XQUERY10_MARKLOGIC: List<Specification> = listOf(MARKLOGIC_1_0)
     private val XQUERY_UNKNOWN: List<Specification> = listOf()
 
-    private fun versionsForXQuery(xquery: String): List<Specification> = when (xquery) {
+    fun versionsForXQuery(xquery: CharSequence?): List<Specification> = when (xquery) {
         "0.9-ml" -> XQUERY09_MARKLOGIC
         "1.0-ml" -> XQUERY10_MARKLOGIC
         "1.0" -> XQUERY10
