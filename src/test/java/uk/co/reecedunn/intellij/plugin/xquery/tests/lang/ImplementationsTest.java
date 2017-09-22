@@ -190,12 +190,6 @@ public class ImplementationsTest extends TestCase {
         assertThat(xquery.get(1), is(XQueryVersion.VERSION_3_0));
     }
 
-    public void testDefaultVersion() {
-        ImplementationItem version = Implementations.getItemById("saxon/EE/v9.7");
-
-        assertThat(version.getDefaultVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQuery.INSTANCE), is(XQueryVersion.VERSION_1_0));
-    }
-
     public void testImplementationDialectForAnUnknownVersion() {
         ImplementationItem version = Implementations.getItemById("saxon/EE/v9.7");
 

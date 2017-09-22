@@ -162,25 +162,6 @@ public class ImplementationItem {
         return items;
     }
 
-    @NotNull
-    public XQueryVersion getDefaultVersion(String tagName, Versioned featureName) {
-        if (mElement != null) {
-            NodeList nodes = mElement.getElementsByTagName(tagName);
-            for (int i = 0; i != nodes.getLength(); ++i) {
-                Element node = (Element)nodes.item(i);
-
-                NodeList versions = node.getElementsByTagName(featureName.getId());
-                for (int j = 0; j != versions.getLength(); ++j) {
-                    Node version = versions.item(j);
-                    if (version.getAttributes().getNamedItem("default").getNodeValue().equals("true")) {
-                        return XQueryVersion.parse(version.getAttributes().getNamedItem("version").getNodeValue());
-                    }
-                }
-            }
-        }
-        return XQueryVersion.UNSUPPORTED;
-    }
-
     public String getSpecification(Versioned featureName) {
         if (mElement != null) {
             NodeList nodes = mElement.getElementsByTagName(featureName.getId());
