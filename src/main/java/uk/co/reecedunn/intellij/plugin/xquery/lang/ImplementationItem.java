@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.lang;
 
-import org.jetbrains.annotations.NotNull;
 import org.w3c.dom.*;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 
@@ -102,16 +101,15 @@ public class ImplementationItem {
         return NULL_ITEM;
     }
 
-    @NotNull
-    private XQueryVersion getVersion(Versioned featureName) {
+    private String getVersion(Versioned featureName) {
         if (mElement != null) {
             NodeList nodes = mElement.getElementsByTagName(featureName.getId());
             if (nodes.getLength() != 0) {
                 Node node = nodes.item(0);
-                return XQueryVersion.parse(node.getAttributes().getNamedItem("version").getNodeValue());
+                return node.getAttributes().getNamedItem("version").getNodeValue();
             }
         }
-        return XQueryVersion.UNSUPPORTED;
+        return null;
     }
 
     public List<ImplementationItem> getItemsByVersion(String tagName, Versioned featureName, Specification version) {
@@ -120,7 +118,7 @@ public class ImplementationItem {
             NodeList nodes = mElement.getElementsByTagName(tagName);
             for (int i = 0; i != nodes.getLength(); ++i) {
                 ImplementationItem item = new ImplementationItem((Element)nodes.item(i));
-                if (version.getLabel().equals(item.getVersion(featureName).toString())) {
+                if (version.getLabel().equals(item.getVersion(featureName))) {
                     items.add(item);
                 }
             }
@@ -138,7 +136,7 @@ public class ImplementationItem {
                 Node node = nodes.item(i);
                 if (node.getAttributes().getNamedItem("default").getNodeValue().equals("true")) {
                     ImplementationItem item = new ImplementationItem((Element)nodes.item(i));
-                    if (version.getLabel().equals(item.getVersion(featureName).toString())) {
+                    if (version.getLabel().equals(item.getVersion(featureName))) {
                         return item;
                     }
                 }
