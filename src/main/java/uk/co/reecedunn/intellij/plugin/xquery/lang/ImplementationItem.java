@@ -103,7 +103,7 @@ public class ImplementationItem {
     }
 
     @NotNull
-    public XQueryVersion getVersion(Versioned featureName) {
+    private XQueryVersion getVersion(Versioned featureName) {
         if (mElement != null) {
             NodeList nodes = mElement.getElementsByTagName(featureName.getId());
             if (nodes.getLength() != 0) {
