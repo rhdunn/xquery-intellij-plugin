@@ -114,13 +114,13 @@ public class ImplementationItem {
         return XQueryVersion.UNSUPPORTED;
     }
 
-    public List<ImplementationItem> getItemsByVersion(String tagName, Versioned featureName, XQueryVersion featureVersion) {
+    public List<ImplementationItem> getItemsByVersion(String tagName, Versioned featureName, Specification version) {
         final List<ImplementationItem> items = new ArrayList<>();
         if (mElement != null) {
             NodeList nodes = mElement.getElementsByTagName(tagName);
             for (int i = 0; i != nodes.getLength(); ++i) {
                 ImplementationItem item = new ImplementationItem((Element)nodes.item(i));
-                if (featureVersion.equals(item.getVersion(featureName))) {
+                if (version.getLabel().equals(item.getVersion(featureName).toString())) {
                     items.add(item);
                 }
             }
