@@ -19,7 +19,7 @@ import com.intellij.codeInspection.ProblemDescriptor;
 import com.intellij.codeInspection.ProblemHighlightType;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile;
 import uk.co.reecedunn.intellij.plugin.xquery.inspections.XPST0003.MapConstructorEntryInspection;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.inspections.InspectionTestCase;
 
@@ -47,7 +47,7 @@ public class MapConstructorEntryInspectionTest extends InspectionTestCase {
     public void testXQuery31_Map_XQuerySeparator() {
         getSettings().setImplementation("w3c/spec");
         getSettings().setImplementationVersion("w3c/spec/v1ed");
-        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_1);
+        getSettings().setXQueryVersion(XQuery.INSTANCE.getREC_3_1_20170321().getLabel());
         final XQueryFile file = parseResource("tests/parser/xquery-3.1/MapConstructorEntry.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new MapConstructorEntryInspection());
@@ -59,7 +59,7 @@ public class MapConstructorEntryInspectionTest extends InspectionTestCase {
     public void testXQuery31_Map_SaxonSeparator() {
         getSettings().setImplementation("w3c/spec");
         getSettings().setImplementationVersion("w3c/spec/v1ed");
-        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_1);
+        getSettings().setXQueryVersion(XQuery.INSTANCE.getREC_3_1_20170321().getLabel());
         final XQueryFile file = parseResource("tests/parser/saxon-9.4/MapConstructorEntry.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new MapConstructorEntryInspection());
@@ -75,7 +75,7 @@ public class MapConstructorEntryInspectionTest extends InspectionTestCase {
     public void testXQuery31_Map_NoValueAssignmentOperator() {
         getSettings().setImplementation("w3c/spec");
         getSettings().setImplementationVersion("w3c/spec/v1ed");
-        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_1);
+        getSettings().setXQueryVersion(XQuery.INSTANCE.getREC_3_1_20170321().getLabel());
         final XQueryFile file = parseResource("tests/psi/xquery-3.1/MapConstructorEntry_NoValueAssignmentOperator.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new MapConstructorEntryInspection());
@@ -90,7 +90,7 @@ public class MapConstructorEntryInspectionTest extends InspectionTestCase {
     public void testSaxon94_Map_SaxonSeparator() {
         getSettings().setImplementation("saxon/EE");
         getSettings().setImplementationVersion("saxon/EE/v9.5");
-        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
+        getSettings().setXQueryVersion(XQuery.INSTANCE.getREC_3_0_20140408().getLabel());
         final XQueryFile file = parseResource("tests/parser/saxon-9.4/MapConstructorEntry.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new MapConstructorEntryInspection());
@@ -102,7 +102,7 @@ public class MapConstructorEntryInspectionTest extends InspectionTestCase {
     public void testSaxon94_Map_XQuerySeparator() {
         getSettings().setImplementation("saxon/EE");
         getSettings().setImplementationVersion("saxon/EE/v9.5");
-        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
+        getSettings().setXQueryVersion(XQuery.INSTANCE.getREC_3_0_20140408().getLabel());
         final XQueryFile file = parseResource("tests/parser/xquery-3.1/MapConstructorEntry.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new MapConstructorEntryInspection());
@@ -118,7 +118,7 @@ public class MapConstructorEntryInspectionTest extends InspectionTestCase {
     public void testSaxon94_Map_NoValueAssignmentOperator() {
         getSettings().setImplementation("saxon/EE");
         getSettings().setImplementationVersion("saxon/EE/v9.5");
-        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
+        getSettings().setXQueryVersion(XQuery.INSTANCE.getREC_3_0_20140408().getLabel());
         final XQueryFile file = parseResource("tests/psi/xquery-3.1/MapConstructorEntry_NoValueAssignmentOperator.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new MapConstructorEntryInspection());

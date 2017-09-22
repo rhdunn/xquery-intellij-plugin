@@ -35,7 +35,7 @@ public class XQueryProjectSettingsTest extends TestCase {
         XQueryProjectSettings settings = new XQueryProjectSettings();
         assertThat(settings.getImplementation(), is("w3c"));
         assertThat(settings.getImplementationVersion(), is("w3c/spec/v1ed"));
-        assertThat(settings.getXQueryVersion(), is(XQueryVersion.VERSION_1_0));
+        assertThat(settings.getXQueryVersion(), is(XQuery.INSTANCE.getREC_1_0_20070123().getLabel()));
         assertThat(settings.getXQuery10Dialect(), is("w3c/1.0"));
         assertThat(settings.getXQuery30Dialect(), is("w3c/3.0"));
         assertThat(settings.getXQuery31Dialect(), is("w3c/3.1"));
@@ -63,7 +63,7 @@ public class XQueryProjectSettingsTest extends TestCase {
         XQueryProjectSettings other = new XQueryProjectSettings();
         other.setImplementation(implementation.getID());
         other.setImplementationVersion(implementationVersion.getID());
-        other.setXQueryVersion(XQueryVersion.VERSION_0_9_MARKLOGIC);
+        other.setXQueryVersion(XQuery.INSTANCE.getMARKLOGIC_0_9().getLabel());
         other.setXQuery10Dialect(implementationDialects.get(0).getID());
         other.setXQuery30Dialect(implementationDialects.get(0).getID());
         other.setXQuery31Dialect(implementationDialects.get(0).getID());
@@ -72,7 +72,7 @@ public class XQueryProjectSettingsTest extends TestCase {
         settings.loadState(other);
         assertThat(settings.getImplementation(), is("marklogic"));
         assertThat(settings.getImplementationVersion(), is("marklogic/v6"));
-        assertThat(settings.getXQueryVersion(), is(XQueryVersion.VERSION_0_9_MARKLOGIC));
+        assertThat(settings.getXQueryVersion(), is(XQuery.INSTANCE.getMARKLOGIC_0_9().getLabel()));
         assertThat(settings.getXQuery10Dialect(), is("marklogic/v6/1.0"));
         assertThat(settings.getXQuery30Dialect(), is("marklogic/v6/1.0"));
         assertThat(settings.getXQuery31Dialect(), is("marklogic/v6/1.0"));

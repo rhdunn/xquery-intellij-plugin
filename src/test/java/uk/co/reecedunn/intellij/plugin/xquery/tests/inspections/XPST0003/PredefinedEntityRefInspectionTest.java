@@ -19,7 +19,7 @@ import com.intellij.codeInspection.ProblemDescriptor;
 import com.intellij.codeInspection.ProblemHighlightType;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile;
 import uk.co.reecedunn.intellij.plugin.xquery.inspections.XPST0003.PredefinedEntityRefInspection;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.Specification;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.inspections.InspectionTestCase;
 
@@ -42,8 +42,16 @@ public class PredefinedEntityRefInspectionTest extends InspectionTestCase {
     // endregion
     // region Helper Functions
 
-    private void checkSupportedEntities(XQueryVersion version, String entities) {
-        getSettings().setXQueryVersion(version);
+    private void checkSupportedEntities(uk.co.reecedunn.intellij.plugin.xquery.lang.Specification version, String entities) {
+        getSettings().setXQueryVersion(version.getLabel());
+        if (version == XQuery.INSTANCE.getMARKLOGIC_0_9() || version == XQuery.INSTANCE.getMARKLOGIC_1_0()) {
+            getSettings().setImplementation("marklogic");
+            getSettings().setImplementationVersion("marklogic/v6");
+        } else {
+            getSettings().setImplementation("w3c/spec");
+            getSettings().setImplementationVersion("w3c/spec/v1ed");
+        }
+
         final XQueryFile file = parseText(entities);
 
         final ProblemDescriptor[] problems = inspect(file, new PredefinedEntityRefInspection());
@@ -51,12 +59,20 @@ public class PredefinedEntityRefInspectionTest extends InspectionTestCase {
         assertThat(problems.length, is(0));
     }
 
-    private void checkUnsupportedEntities(XQueryVersion version, String entities, int inspectionCount, String startsWith, String endsWith) {
+    private void checkUnsupportedEntities(uk.co.reecedunn.intellij.plugin.xquery.lang.Specification version, String entities, int inspectionCount, String startsWith, String endsWith) {
         checkUnsupportedEntities(version, entities, inspectionCount, startsWith, endsWith, ProblemHighlightType.GENERIC_ERROR_OR_WARNING);
     }
 
-    private void checkUnsupportedEntities(XQueryVersion version, String entities, int inspectionCount, String startsWith, String endsWith, ProblemHighlightType type) {
-        getSettings().setXQueryVersion(version);
+    private void checkUnsupportedEntities(uk.co.reecedunn.intellij.plugin.xquery.lang.Specification version, String entities, int inspectionCount, String startsWith, String endsWith, ProblemHighlightType type) {
+        getSettings().setXQueryVersion(version.getLabel());
+        if (version == XQuery.INSTANCE.getMARKLOGIC_0_9() || version == XQuery.INSTANCE.getMARKLOGIC_1_0()) {
+            getSettings().setImplementation("marklogic");
+            getSettings().setImplementationVersion("marklogic/v6");
+        } else {
+            getSettings().setImplementation("w3c/spec");
+            getSettings().setImplementationVersion("w3c/spec/v1ed");
+        }
+
         final XQueryFile file = parseText(entities);
 
         final ProblemDescriptor[] problems = inspect(file, new PredefinedEntityRefInspection());
@@ -77,23 +93,23 @@ public class PredefinedEntityRefInspectionTest extends InspectionTestCase {
             = "\"&lt;&gt;&amp;&quot;&apos;\"";
 
     public void testXMLEntities_XQuery_0_9_ML() {
-        checkSupportedEntities(XQueryVersion.VERSION_0_9_MARKLOGIC, XML_ENTITIES);
+        checkSupportedEntities(XQuery.INSTANCE.getMARKLOGIC_0_9(), XML_ENTITIES);
     }
 
     public void testXMLEntities_XQuery_1_0() {
-        checkSupportedEntities(XQueryVersion.VERSION_1_0, XML_ENTITIES);
+        checkSupportedEntities(XQuery.INSTANCE.getREC_1_0_20070123(), XML_ENTITIES);
     }
 
     public void testXMLEntities_XQuery_1_0_ML() {
-        checkSupportedEntities(XQueryVersion.VERSION_1_0_MARKLOGIC, XML_ENTITIES);
+        checkSupportedEntities(XQuery.INSTANCE.getMARKLOGIC_1_0(), XML_ENTITIES);
     }
 
     public void testXMLEntities_XQuery_3_0() {
-        checkSupportedEntities(XQueryVersion.VERSION_3_0, XML_ENTITIES);
+        checkSupportedEntities(XQuery.INSTANCE.getREC_3_0_20140408(), XML_ENTITIES);
     }
 
     public void testXMLEntities_XQuery_3_1() {
-        checkSupportedEntities(XQueryVersion.VERSION_3_1, XML_ENTITIES);
+        checkSupportedEntities(XQuery.INSTANCE.getREC_3_1_20170321(), XML_ENTITIES);
     }
 
     // endregion
@@ -355,35 +371,35 @@ public class PredefinedEntityRefInspectionTest extends InspectionTestCase {
     @Specification(name="HTML Symbols DTD", reference="http://www.w3.org/TR/xhtml1/DTD/xhtml-symbol.ent")
     @Specification(name="HTML Special DTD", reference="http://www.w3.org/TR/xhtml1/DTD/xhtml-special.ent")
     public void testHTML4Entities_XQuery_0_9_ML() {
-        checkSupportedEntities(XQueryVersion.VERSION_0_9_MARKLOGIC, HTML4_ENTITIES);
+        checkSupportedEntities(XQuery.INSTANCE.getMARKLOGIC_0_9(), HTML4_ENTITIES);
     }
 
     @Specification(name="HTML Latin 1 DTD", reference="http://www.w3.org/TR/xhtml1/DTD/xhtml-lat1.ent")
     @Specification(name="HTML Symbols DTD", reference="http://www.w3.org/TR/xhtml1/DTD/xhtml-symbol.ent")
     @Specification(name="HTML Special DTD", reference="http://www.w3.org/TR/xhtml1/DTD/xhtml-special.ent")
     public void testHTML4Entities_XQuery_1_0() {
-        checkUnsupportedEntities(XQueryVersion.VERSION_1_0, HTML4_ENTITIES, 248, "XPST0003: HTML4 predefined entity '&", ";' is not allowed in this XQuery version.");
+        checkUnsupportedEntities(XQuery.INSTANCE.getREC_1_0_20070123(), HTML4_ENTITIES, 248, "XPST0003: HTML4 predefined entity '&", ";' is not allowed in this XQuery version.");
     }
 
     @Specification(name="HTML Latin 1 DTD", reference="http://www.w3.org/TR/xhtml1/DTD/xhtml-lat1.ent")
     @Specification(name="HTML Symbols DTD", reference="http://www.w3.org/TR/xhtml1/DTD/xhtml-symbol.ent")
     @Specification(name="HTML Special DTD", reference="http://www.w3.org/TR/xhtml1/DTD/xhtml-special.ent")
     public void testHTML4Entities_XQuery_1_0_ML() {
-        checkSupportedEntities(XQueryVersion.VERSION_1_0_MARKLOGIC, HTML4_ENTITIES);
+        checkSupportedEntities(XQuery.INSTANCE.getMARKLOGIC_1_0(), HTML4_ENTITIES);
     }
 
     @Specification(name="HTML Latin 1 DTD", reference="http://www.w3.org/TR/xhtml1/DTD/xhtml-lat1.ent")
     @Specification(name="HTML Symbols DTD", reference="http://www.w3.org/TR/xhtml1/DTD/xhtml-symbol.ent")
     @Specification(name="HTML Special DTD", reference="http://www.w3.org/TR/xhtml1/DTD/xhtml-special.ent")
     public void testHTML4Entities_XQuery_3_0() {
-        checkUnsupportedEntities(XQueryVersion.VERSION_3_0, HTML4_ENTITIES, 248, "XPST0003: HTML4 predefined entity '&", ";' is not allowed in this XQuery version.");
+        checkUnsupportedEntities(XQuery.INSTANCE.getREC_3_0_20140408(), HTML4_ENTITIES, 248, "XPST0003: HTML4 predefined entity '&", ";' is not allowed in this XQuery version.");
     }
 
     @Specification(name="HTML Latin 1 DTD", reference="http://www.w3.org/TR/xhtml1/DTD/xhtml-lat1.ent")
     @Specification(name="HTML Symbols DTD", reference="http://www.w3.org/TR/xhtml1/DTD/xhtml-symbol.ent")
     @Specification(name="HTML Special DTD", reference="http://www.w3.org/TR/xhtml1/DTD/xhtml-special.ent")
     public void testHTML4Entities_XQuery_3_1() {
-        checkUnsupportedEntities(XQueryVersion.VERSION_3_1, HTML4_ENTITIES, 248, "XPST0003: HTML4 predefined entity '&", ";' is not allowed in this XQuery version.");
+        checkUnsupportedEntities(XQuery.INSTANCE.getREC_3_1_20170321(), HTML4_ENTITIES, 248, "XPST0003: HTML4 predefined entity '&", ";' is not allowed in this XQuery version.");
     }
 
     // endregion
@@ -2267,50 +2283,50 @@ public class PredefinedEntityRefInspectionTest extends InspectionTestCase {
 
     @Specification(name="HTML 5", reference="https://www.w3.org/TR/html5/syntax.html#named-character-references")
     public void testHTML5Entities_XQuery_0_9_ML() {
-        checkSupportedEntities(XQueryVersion.VERSION_0_9_MARKLOGIC, HTML5_ENTITIES);
+        checkSupportedEntities(XQuery.INSTANCE.getMARKLOGIC_0_9(), HTML5_ENTITIES);
     }
 
     @Specification(name="HTML 5", reference="https://www.w3.org/TR/html5/syntax.html#named-character-references")
     public void testHTML5Entities_XQuery_1_0() {
-        checkUnsupportedEntities(XQueryVersion.VERSION_1_0, HTML5_ENTITIES, 1872, "XPST0003: HTML5 predefined entity '&", ";' is not allowed in this XQuery version.");
+        checkUnsupportedEntities(XQuery.INSTANCE.getREC_1_0_20070123(), HTML5_ENTITIES, 1872, "XPST0003: HTML5 predefined entity '&", ";' is not allowed in this XQuery version.");
     }
 
     @Specification(name="HTML 5", reference="https://www.w3.org/TR/html5/syntax.html#named-character-references")
     public void testHTML5Entities_XQuery_1_0_ML() {
-        checkSupportedEntities(XQueryVersion.VERSION_1_0_MARKLOGIC, HTML5_ENTITIES);
+        checkSupportedEntities(XQuery.INSTANCE.getMARKLOGIC_1_0(), HTML5_ENTITIES);
     }
 
     @Specification(name="HTML 5", reference="https://www.w3.org/TR/html5/syntax.html#named-character-references")
     public void testHTML5Entities_XQuery_3_0() {
-        checkUnsupportedEntities(XQueryVersion.VERSION_3_0, HTML5_ENTITIES, 1872, "XPST0003: HTML5 predefined entity '&", ";' is not allowed in this XQuery version.");
+        checkUnsupportedEntities(XQuery.INSTANCE.getREC_3_0_20140408(), HTML5_ENTITIES, 1872, "XPST0003: HTML5 predefined entity '&", ";' is not allowed in this XQuery version.");
     }
 
     @Specification(name="HTML 5", reference="https://www.w3.org/TR/html5/syntax.html#named-character-references")
     public void testHTML5Entities_XQuery_3_1() {
-        checkUnsupportedEntities(XQueryVersion.VERSION_3_1, HTML5_ENTITIES, 1872, "XPST0003: HTML5 predefined entity '&", ";' is not allowed in this XQuery version.");
+        checkUnsupportedEntities(XQuery.INSTANCE.getREC_3_1_20170321(), HTML5_ENTITIES, 1872, "XPST0003: HTML5 predefined entity '&", ";' is not allowed in this XQuery version.");
     }
 
     // endregion
     // region Unknown Entities
 
     public void testUnknownEntities_XQuery_0_9_ML() {
-        checkUnsupportedEntities(XQueryVersion.VERSION_0_9_MARKLOGIC, "\"&xyz;&ABC;\"", 2, "XPST0003: Predefined entity '&", ";' is not a known entity name.", ProblemHighlightType.ERROR);
+        checkUnsupportedEntities(XQuery.INSTANCE.getMARKLOGIC_0_9(), "\"&xyz;&ABC;\"", 2, "XPST0003: Predefined entity '&", ";' is not a known entity name.", ProblemHighlightType.ERROR);
     }
 
     public void testUnknownEntities_XQuery_1_0() {
-        checkUnsupportedEntities(XQueryVersion.VERSION_1_0, "\"&xyz;&ABC;\"", 2, "XPST0003: Predefined entity '&", ";' is not a known entity name.", ProblemHighlightType.ERROR);
+        checkUnsupportedEntities(XQuery.INSTANCE.getREC_1_0_20070123(), "\"&xyz;&ABC;\"", 2, "XPST0003: Predefined entity '&", ";' is not a known entity name.", ProblemHighlightType.ERROR);
     }
 
     public void testUnknownEntities_XQuery_1_0_ML() {
-        checkUnsupportedEntities(XQueryVersion.VERSION_1_0_MARKLOGIC, "\"&xyz;&ABC;\"", 2, "XPST0003: Predefined entity '&", ";' is not a known entity name.", ProblemHighlightType.ERROR);
+        checkUnsupportedEntities(XQuery.INSTANCE.getMARKLOGIC_1_0(), "\"&xyz;&ABC;\"", 2, "XPST0003: Predefined entity '&", ";' is not a known entity name.", ProblemHighlightType.ERROR);
     }
 
     public void testUnknownEntities_XQuery_3_0() {
-        checkUnsupportedEntities(XQueryVersion.VERSION_3_0, "\"&xyz;&ABC;\"", 2, "XPST0003: Predefined entity '&", ";' is not a known entity name.", ProblemHighlightType.ERROR);
+        checkUnsupportedEntities(XQuery.INSTANCE.getREC_3_0_20140408(), "\"&xyz;&ABC;\"", 2, "XPST0003: Predefined entity '&", ";' is not a known entity name.", ProblemHighlightType.ERROR);
     }
 
     public void testUnknownEntities_XQuery_3_1() {
-        checkUnsupportedEntities(XQueryVersion.VERSION_3_1, "\"&xyz;&ABC;\"", 2, "XPST0003: Predefined entity '&", ";' is not a known entity name.", ProblemHighlightType.ERROR);
+        checkUnsupportedEntities(XQuery.INSTANCE.getREC_3_1_20170321(), "\"&xyz;&ABC;\"", 2, "XPST0003: Predefined entity '&", ";' is not a known entity name.", ProblemHighlightType.ERROR);
     }
 
     // endregion

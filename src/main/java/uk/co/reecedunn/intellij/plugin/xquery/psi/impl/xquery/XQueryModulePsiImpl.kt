@@ -39,9 +39,8 @@ open class XQueryModulePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQue
     }
 
     override fun resolveNamespace(prefix: CharSequence?): XQueryNamespace? {
-        val xqueryVersion = (containingFile as XQueryFile).XQueryVersion.getVersionOrDefault(project)
-        val version = XQuery.versions.find { v -> (v as Specification).label == xqueryVersion.toString() }
-        val dialect = settings.getDialectForXQueryVersion(version!!)
+        val version: Specification = (containingFile as XQueryFile).XQueryVersion.getVersionOrDefault(project)
+        val dialect = settings.getDialectForXQueryVersion(version)
         if (dialect.id != dialectId) {
             dialectId = dialect.id
             staticContext = null

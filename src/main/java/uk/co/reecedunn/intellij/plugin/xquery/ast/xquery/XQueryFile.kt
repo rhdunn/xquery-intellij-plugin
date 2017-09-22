@@ -17,14 +17,20 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiFile
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion
+import uk.co.reecedunn.intellij.plugin.xquery.lang.Specification
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings
 
-data class XQueryVersionRef(val declaration: XQueryStringLiteral?, val version: XQueryVersion) {
-    fun getVersionOrDefault(project: Project): XQueryVersion {
-        if (version == XQueryVersion.UNSUPPORTED) {
+data class XQueryVersionRef(val declaration: XQueryStringLiteral?, val version: Specification?) {
+    fun getVersionOrDefault(project: Project): Specification {
+        if (version == null) {
             val settings: XQueryProjectSettings = XQueryProjectSettings.getInstance(project)
-            return settings.XQueryVersion
+            val product = settings.product
+            val productVersion = settings.productVersion
+            val xquery = settings.XQueryVersion
+            if (product == null || productVersion == null || xquery == null)
+                return XQuery.REC_1_0_20070123
+            return XQuery.versionForXQuery(product, productVersion, xquery) ?: XQuery.REC_1_0_20070123
         }
         return version
     }

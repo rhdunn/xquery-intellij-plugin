@@ -19,7 +19,7 @@ import com.intellij.codeInspection.ProblemDescriptor;
 import com.intellij.codeInspection.ProblemHighlightType;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile;
 import uk.co.reecedunn.intellij.plugin.xquery.inspections.XPST0003.UnsupportedConstructInspection;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.inspections.InspectionTestCase;
 
@@ -45,7 +45,7 @@ public class UnsupportedConstructInspectionTest extends InspectionTestCase {
 
     @SuppressWarnings("ConstantConditions")
     public void testXQuery30VersionDeclInXQuery10() {
-        getSettings().setXQueryVersion(XQueryVersion.VERSION_1_0);
+        getSettings().setXQueryVersion(XQuery.INSTANCE.getREC_1_0_20070123().getLabel());
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new UnsupportedConstructInspection());
@@ -55,7 +55,7 @@ public class UnsupportedConstructInspectionTest extends InspectionTestCase {
 
     @SuppressWarnings("ConstantConditions")
     public void testXQuery30VersionDecl() {
-        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
+        getSettings().setXQueryVersion(XQuery.INSTANCE.getREC_3_0_20140408().getLabel());
         final XQueryFile file = parseResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new UnsupportedConstructInspection());
@@ -67,7 +67,7 @@ public class UnsupportedConstructInspectionTest extends InspectionTestCase {
     // region Update Facility Conformance
 
     public void testUpdateFacility10_ProductConformsToSpecification() {
-        getSettings().setXQueryVersion(XQueryVersion.VERSION_1_0);
+        getSettings().setXQueryVersion(XQuery.INSTANCE.getREC_1_0_20070123().getLabel());
         getSettings().setImplementationVersion("w3c/spec/v1ed");
 
         final XQueryFile file = parseResource("tests/parser/xquery-update-1.0/DeleteExpr_Node.xq");
@@ -78,7 +78,7 @@ public class UnsupportedConstructInspectionTest extends InspectionTestCase {
     }
 
     public void testUpdateFacility10_ProductDoesNotConformToSpecification() {
-        getSettings().setXQueryVersion(XQueryVersion.VERSION_1_0);
+        getSettings().setXQueryVersion(XQuery.INSTANCE.getREC_1_0_20070123().getLabel());
         getSettings().setImplementationVersion("marklogic/v7.0");
 
         final XQueryFile file = parseResource("tests/parser/xquery-update-1.0/DeleteExpr_Node.xq");
@@ -93,7 +93,7 @@ public class UnsupportedConstructInspectionTest extends InspectionTestCase {
     }
 
     public void testUpdateFacility30_ProductConformsToSpecification() {
-        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
+        getSettings().setXQueryVersion(XQuery.INSTANCE.getREC_3_0_20140408().getLabel());
         getSettings().setImplementationVersion("w3c/spec/v1ed");
 
         final XQueryFile file = parseResource("tests/parser/xquery-update-3.0/UpdatingFunctionCall.xq");
@@ -104,7 +104,7 @@ public class UnsupportedConstructInspectionTest extends InspectionTestCase {
     }
 
     public void testUpdateFacility30_ProductDoesNotConformToSpecification() {
-        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
+        getSettings().setXQueryVersion(XQuery.INSTANCE.getREC_3_0_20140408().getLabel());
         getSettings().setImplementationVersion("saxon/EE/v9.5"); // Supports Update Facility 1.0, not 3.0
 
         final XQueryFile file = parseResource("tests/parser/xquery-update-3.0/UpdatingFunctionCall.xq");
@@ -119,7 +119,7 @@ public class UnsupportedConstructInspectionTest extends InspectionTestCase {
     }
 
     public void testUpdateFacilityBaseX_ProductConformsToSpecification() {
-        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
+        getSettings().setXQueryVersion(XQuery.INSTANCE.getREC_3_0_20140408().getLabel());
         getSettings().setImplementationVersion("basex/v8.6");
 
         final XQueryFile file = parseResource("tests/parser/xquery-update-3.0/TransformWithExpr.xq");
@@ -130,7 +130,7 @@ public class UnsupportedConstructInspectionTest extends InspectionTestCase {
     }
 
     public void testUpdateFacilityBaseX_ProductDoesNotConformToSpecification() {
-        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
+        getSettings().setXQueryVersion(XQuery.INSTANCE.getREC_3_0_20140408().getLabel());
         getSettings().setImplementationVersion("saxon/EE/v9.5"); // Supports Update Facility 1.0, not 3.0
 
         final XQueryFile file = parseResource("tests/parser/xquery-update-3.0/TransformWithExpr.xq");
@@ -148,7 +148,7 @@ public class UnsupportedConstructInspectionTest extends InspectionTestCase {
     // region Scripting Conformance
 
     public void testScripting10_ProductConformsToSpecification() {
-        getSettings().setXQueryVersion(XQueryVersion.VERSION_1_0);
+        getSettings().setXQueryVersion(XQuery.INSTANCE.getREC_1_0_20070123().getLabel());
         getSettings().setImplementationVersion("w3c/spec/v1ed");
 
         final XQueryFile file = parseResource("tests/parser/xquery-sx-1.0/WhileExpr.xq");
@@ -159,7 +159,7 @@ public class UnsupportedConstructInspectionTest extends InspectionTestCase {
     }
 
     public void testScripting10_ProductDoesNotConformToSpecification() {
-        getSettings().setXQueryVersion(XQueryVersion.VERSION_1_0);
+        getSettings().setXQueryVersion(XQuery.INSTANCE.getREC_1_0_20070123().getLabel());
         getSettings().setImplementationVersion("marklogic/v7.0");
 
         final XQueryFile file = parseResource("tests/parser/xquery-sx-1.0/BlockExpr.xq");
@@ -177,7 +177,7 @@ public class UnsupportedConstructInspectionTest extends InspectionTestCase {
     // region BaseX Conformance
 
     public void testBaseX_ProductConformsToSpecification() {
-        getSettings().setXQueryVersion(XQueryVersion.VERSION_3_0);
+        getSettings().setXQueryVersion(XQuery.INSTANCE.getREC_3_0_20140408().getLabel());
         getSettings().setImplementationVersion("basex/v8.5");
 
         final XQueryFile file = parseResource("tests/parser/basex-7.8/UpdateExpr.xq");
@@ -188,7 +188,7 @@ public class UnsupportedConstructInspectionTest extends InspectionTestCase {
     }
 
     public void testBaseX_ProductDoesNotConformToSpecification() {
-        getSettings().setXQueryVersion(XQueryVersion.VERSION_1_0);
+        getSettings().setXQueryVersion(XQuery.INSTANCE.getREC_1_0_20070123().getLabel());
         getSettings().setImplementationVersion("marklogic/v7.0");
 
         final XQueryFile file = parseResource("tests/parser/basex-7.8/UpdateExpr.xq");
@@ -210,7 +210,7 @@ public class UnsupportedConstructInspectionTest extends InspectionTestCase {
     // region MarkLogic Conformance
 
     public void testMarkLogic09ml_ProductConformsToSpecification() {
-        getSettings().setXQueryVersion(XQueryVersion.VERSION_0_9_MARKLOGIC);
+        getSettings().setXQueryVersion(XQuery.INSTANCE.getMARKLOGIC_0_9().getLabel());
         getSettings().setImplementationVersion("marklogic/v7.0");
 
         final XQueryFile file = parseResource("tests/parser/marklogic-6.0/BinaryConstructor.xq");
@@ -221,7 +221,7 @@ public class UnsupportedConstructInspectionTest extends InspectionTestCase {
     }
 
     public void testMarkLogic09ml_ProductDoesNotConformToSpecification() {
-        getSettings().setXQueryVersion(XQueryVersion.VERSION_0_9_MARKLOGIC);
+        getSettings().setXQueryVersion(XQuery.INSTANCE.getMARKLOGIC_0_9().getLabel());
         getSettings().setImplementationVersion("saxon/EE/v9.5");
 
         final XQueryFile file = parseResource("tests/parser/marklogic-6.0/BinaryConstructor.xq");
@@ -236,7 +236,7 @@ public class UnsupportedConstructInspectionTest extends InspectionTestCase {
     }
 
     public void testMarkLogic10ml_ProductConformsToSpecification() {
-        getSettings().setXQueryVersion(XQueryVersion.VERSION_1_0_MARKLOGIC);
+        getSettings().setXQueryVersion(XQuery.INSTANCE.getMARKLOGIC_1_0().getLabel());
         getSettings().setImplementationVersion("marklogic/v7.0");
 
         final XQueryFile file = parseResource("tests/parser/marklogic-7.0/SchemaRootTest.xq");
@@ -247,7 +247,7 @@ public class UnsupportedConstructInspectionTest extends InspectionTestCase {
     }
 
     public void testMarkLogic10ml_ProductDoesNotConformToSpecification() {
-        getSettings().setXQueryVersion(XQueryVersion.VERSION_1_0_MARKLOGIC);
+        getSettings().setXQueryVersion(XQuery.INSTANCE.getMARKLOGIC_1_0().getLabel());
         getSettings().setImplementationVersion("saxon/EE/v9.5");
 
         final XQueryFile file = parseResource("tests/parser/marklogic-7.0/SchemaRootTest.xq");

@@ -22,6 +22,7 @@ import uk.co.reecedunn.intellij.plugin.core.extensions.children
 import uk.co.reecedunn.intellij.plugin.core.extensions.descendants
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.filetypes.XQueryFileType
+import uk.co.reecedunn.intellij.plugin.xquery.lang.Specification
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion as XQVersion
 
@@ -33,8 +34,15 @@ class XQueryFileImpl(provider: FileViewProvider) : PsiFileBase(provider, XQuery)
     override val XQueryVersion get(): XQueryVersionRef {
         val versionDecl = module?.descendants()?.filterIsInstance<XQueryVersionDecl>()?.firstOrNull()
         val version: XQueryStringLiteral? = versionDecl?.version
-        val xqueryVersion: XQVersion = XQVersion.parse(version?.atomicValue)
-        return XQueryVersionRef(version, xqueryVersion)
+        val xquery: Specification? = when (version?.atomicValue) {
+            "0.9-ml" -> XQuery.MARKLOGIC_0_9
+            "1.0" -> XQuery.REC_1_0_20070123
+            "1.0-ml" -> XQuery.MARKLOGIC_1_0
+            "3.0" -> XQuery.REC_3_0_20140408
+            "3.1" -> XQuery.REC_3_1_20170321
+            else -> null
+        }
+        return XQueryVersionRef(version, xquery)
     }
 
     override val module get(): XQueryModule? =

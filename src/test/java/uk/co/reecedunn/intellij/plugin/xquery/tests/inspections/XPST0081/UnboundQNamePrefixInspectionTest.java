@@ -19,7 +19,7 @@ import com.intellij.codeInspection.ProblemDescriptor;
 import com.intellij.codeInspection.ProblemHighlightType;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile;
 import uk.co.reecedunn.intellij.plugin.xquery.inspections.XPST0081.UnboundQNamePrefixInspection;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.inspections.InspectionTestCase;
 
@@ -77,7 +77,7 @@ public class UnboundQNamePrefixInspectionTest extends InspectionTestCase {
     public void testBuiltinMarkLogic() {
         getSettings().setImplementation("marklogic");
         getSettings().setImplementationVersion("marklogic/v8");
-        getSettings().setXQueryVersion(XQueryVersion.VERSION_1_0_MARKLOGIC);
+        getSettings().setXQueryVersion(XQuery.INSTANCE.getMARKLOGIC_1_0().getLabel());
         final XQueryFile file = parseResource("tests/inspections/XPST0081/builtin-marklogic.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new UnboundQNamePrefixInspection());

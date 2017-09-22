@@ -21,7 +21,8 @@ import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.core.extensions.walkTree
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPredefinedEntityRef
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion
+import uk.co.reecedunn.intellij.plugin.xquery.lang.Specification
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 import java.util.*
 
@@ -35,7 +36,7 @@ class PredefinedEntityRefInspection : LocalInspectionTool() {
     override fun checkFile(file: PsiFile, manager: InspectionManager, isOnTheFly: Boolean): Array<ProblemDescriptor>? {
         if (file !is XQueryFile) return null
 
-        val version = file.XQueryVersion.getVersionOrDefault(file.getProject())
+        val version: Specification = file.XQueryVersion.getVersionOrDefault(file.getProject())
 
         val descriptors = SmartList<ProblemDescriptor>()
         file.walkTree().filterIsInstance<XQueryPredefinedEntityRef>().forEach { element ->
@@ -46,13 +47,13 @@ class PredefinedEntityRefInspection : LocalInspectionTool() {
             when (name) {
                 in XML_ENTITIES -> {}
                 in HTML4_ENTITIES -> {
-                    if (version != XQueryVersion.VERSION_0_9_MARKLOGIC && version != XQueryVersion.VERSION_1_0_MARKLOGIC) {
+                    if (version !== XQuery.MARKLOGIC_0_9 && version !== XQuery.MARKLOGIC_1_0) {
                         val description = XQueryBundle.message("annotator.string-literal.html4-entity", entity.toString())
                         descriptors.add(manager.createProblemDescriptor(element, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR_OR_WARNING, isOnTheFly))
                     }
                 }
                 in HTML5_ENTITIES -> {
-                    if (version != XQueryVersion.VERSION_0_9_MARKLOGIC && version != XQueryVersion.VERSION_1_0_MARKLOGIC) {
+                    if (version !== XQuery.MARKLOGIC_0_9 && version !== XQuery.MARKLOGIC_1_0) {
                         val description = XQueryBundle.message("annotator.string-literal.html5-entity", entity.toString())
                         descriptors.add(manager.createProblemDescriptor(element, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR_OR_WARNING, isOnTheFly))
                     }

@@ -100,7 +100,7 @@ class XQueryProjectSettings : PersistentStateComponent<XQueryProjectSettings>, E
             PRODUCT_VERSION.id = version
         }
 
-    var XQueryVersion = IMPLEMENTATION_VERSION.getDefaultVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQuery)
+    var XQueryVersion: String? = "1.0"
 
     var XQuery10Dialect: String?
         get() = XQUERY_1_0_DIALECT.id

@@ -22,7 +22,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVersionRef;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings;
 
@@ -47,7 +46,7 @@ public class UnsupportedXQueryVersionInspection extends LocalInspectionTool {
         if (!(file instanceof XQueryFile)) return null;
 
         XQueryVersionRef version = ((XQueryFile)file).getXQueryVersion();
-        if (version.getVersion() == XQueryVersion.UNSUPPORTED || version.getDeclaration() == null) {
+        if (version.getVersion() == null || version.getDeclaration() == null) {
             if (version.getDeclaration() != null) {
                 return createUnsupportedVersionProblemDescriptors(manager, version, isOnTheFly);
             }
@@ -55,7 +54,7 @@ public class UnsupportedXQueryVersionInspection extends LocalInspectionTool {
         }
 
         XQueryProjectSettings settings = XQueryProjectSettings.Companion.getInstance(file.getProject());
-        Version xqueryVersion = XQuery.INSTANCE.versionForXQuery(settings.getProduct(), settings.getProductVersion(), version.getVersion().toString());
+        Version xqueryVersion = XQuery.INSTANCE.versionForXQuery(settings.getProduct(), settings.getProductVersion(), version.getVersion().getLabel());
         if (xqueryVersion != null) {
             return ProblemDescriptor.EMPTY_ARRAY;
         }
