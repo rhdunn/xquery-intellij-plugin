@@ -131,14 +131,14 @@ public class ImplementationItem {
         return items;
     }
 
-    public ImplementationItem getDefaultItemByVersion(String tagName, Versioned featureName, XQueryVersion featureVersion) {
+    public ImplementationItem getDefaultItemByVersion(String tagName, Versioned featureName, Specification version) {
         if (mElement != null) {
             NodeList nodes = mElement.getElementsByTagName(tagName);
             for (int i = 0; i != nodes.getLength(); ++i) {
                 Node node = nodes.item(i);
                 if (node.getAttributes().getNamedItem("default").getNodeValue().equals("true")) {
                     ImplementationItem item = new ImplementationItem((Element)nodes.item(i));
-                    if (featureVersion.equals(item.getVersion(featureName))) {
+                    if (version.getLabel().equals(item.getVersion(featureName).toString())) {
                         return item;
                     }
                 }

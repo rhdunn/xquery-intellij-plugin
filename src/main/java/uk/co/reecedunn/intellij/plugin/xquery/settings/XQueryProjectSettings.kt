@@ -23,7 +23,6 @@ import com.intellij.util.xmlb.annotations.Transient
 import uk.co.reecedunn.intellij.plugin.xquery.lang.*
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 import java.io.File
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQueryVersion as XQVersion
 
 @State(name = "XQueryProjectSettings", storages = arrayOf(Storage(StoragePathMacros.WORKSPACE_FILE), Storage("xquery_config.xml")))
 class XQueryProjectSettings : PersistentStateComponent<XQueryProjectSettings>, ExportableComponent {
@@ -32,9 +31,9 @@ class XQueryProjectSettings : PersistentStateComponent<XQueryProjectSettings>, E
     private var IMPLEMENTATION = Implementations.getDefaultImplementation()
     private var IMPLEMENTATION_VERSION = IMPLEMENTATION.getDefaultItem(ImplementationItem.IMPLEMENTATION_VERSION)
     private var PRODUCT_VERSION = VersionedProductId("w3c/spec/v1ed")
-    private var XQUERY_1_0_DIALECT = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQuery, XQVersion.VERSION_1_0)
-    private var XQUERY_3_0_DIALECT = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQuery, XQVersion.VERSION_3_0)
-    private var XQUERY_3_1_DIALECT = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQuery, XQVersion.VERSION_3_1)
+    private var XQUERY_1_0_DIALECT = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQuery, XQuery.REC_1_0_20070123)
+    private var XQUERY_3_0_DIALECT = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQuery, XQuery.REC_3_0_20140408)
+    private var XQUERY_3_1_DIALECT = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQuery, XQuery.REC_3_1_20170321)
 
     @Transient
     fun getDialectForXQueryVersion(version: Version): ImplementationItem = when (version) {
@@ -54,13 +53,13 @@ class XQueryProjectSettings : PersistentStateComponent<XQueryProjectSettings>, E
             } else XQUERY_3_1_DIALECT
         }
         XQuery.MARKLOGIC_0_9 -> {
-            val default09ml = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQuery, XQVersion.VERSION_0_9_MARKLOGIC)
+            val default09ml = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQuery, XQuery.MARKLOGIC_0_9)
             if (default09ml === ImplementationItem.NULL_ITEM) {
                 Implementations.getItemById("marklogic/v8/1.0-ml")
             } else default09ml
         }
         XQuery.MARKLOGIC_1_0 -> {
-            val default10ml = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQuery, XQVersion.VERSION_1_0_MARKLOGIC)
+            val default10ml = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQuery, XQuery.MARKLOGIC_1_0)
             if (default10ml === ImplementationItem.NULL_ITEM) {
                 Implementations.getItemById("marklogic/v8/1.0-ml")
             } else default10ml
