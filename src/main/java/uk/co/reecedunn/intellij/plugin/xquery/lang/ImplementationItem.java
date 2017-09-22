@@ -147,21 +147,6 @@ public class ImplementationItem {
         return NULL_ITEM;
     }
 
-    public List<XQueryVersion> getVersions(String tagName, Versioned featureName) {
-        final List<XQueryVersion> items = new ArrayList<>();
-        if (mElement != null) {
-            NodeList nodes = mElement.getElementsByTagName(tagName);
-            for (int i = 0; i != nodes.getLength(); ++i) {
-                ImplementationItem item = new ImplementationItem((Element)nodes.item(i));
-                XQueryVersion version = item.getVersion(featureName);
-                if (!items.contains(version)) {
-                    items.add(version);
-                }
-            }
-        }
-        return items;
-    }
-
     public String getSpecification(Versioned featureName) {
         if (mElement != null) {
             NodeList nodes = mElement.getElementsByTagName(featureName.getId());

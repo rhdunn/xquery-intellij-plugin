@@ -181,15 +181,6 @@ public class ImplementationsTest extends TestCase {
         assertThat(dialect.toString(), is("XQuery Update Facility 1.0"));
     }
 
-    public void testVersions() {
-        ImplementationItem version = Implementations.getItemById("saxon/PE/v9.4");
-
-        final List<XQueryVersion> xquery = version.getVersions(ImplementationItem.IMPLEMENTATION_DIALECT, XQuery.INSTANCE);
-        assertThat(xquery.size(), is(2));
-        assertThat(xquery.get(0), is(XQueryVersion.VERSION_1_0));
-        assertThat(xquery.get(1), is(XQueryVersion.VERSION_3_0));
-    }
-
     public void testImplementationDialectForAnUnknownVersion() {
         ImplementationItem version = Implementations.getItemById("saxon/EE/v9.7");
 
