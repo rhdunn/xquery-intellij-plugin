@@ -22,8 +22,7 @@ import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
-import uk.co.reecedunn.intellij.plugin.xquery.lang.Specification
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.xquery.lang.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceResolver
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
@@ -32,7 +31,9 @@ import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings
 open class XQueryModulePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryModule, XQueryNamespaceResolver, XQueryPrologResolver {
     private val settings: XQueryProjectSettings
     private var staticContext: XQueryNamespaceResolver? = null
-    private var dialectId = ""
+    private var product: Product? = null
+    private var productVersion: Version? = null
+    private var xquery: Specification? = null
 
     init {
         settings = XQueryProjectSettings.getInstance(project)
@@ -40,16 +41,14 @@ open class XQueryModulePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQue
 
     override fun resolveNamespace(prefix: CharSequence?): XQueryNamespace? {
         val version: Specification = (containingFile as XQueryFile).XQueryVersion.getVersionOrDefault(project)
-        val dialect = settings.getDialectForXQueryVersion(version)
-        if (dialect.id != dialectId) {
-            dialectId = dialect.id
-            staticContext = null
+        if (product !== settings.product || productVersion !== settings.productVersion || xquery !== version) {
+            product = settings.product
+            productVersion = settings.productVersion
+            xquery = version
 
-            val project = project
-            val file = ResourceVirtualFile.resolve(dialect.staticContext, project)
-            if (file is XQueryFile) {
-                staticContext = (file.module as? XQueryPrologResolver)?.prolog as XQueryNamespaceResolver
-            }
+            val context = product?.implementation?.staticContext(product, productVersion, xquery)
+            val file = ResourceVirtualFile.resolve(context, project)
+            staticContext = ((file as? XQueryFile)?.module as? XQueryPrologResolver)?.prolog as XQueryNamespaceResolver
         }
 
         if (staticContext != null) {

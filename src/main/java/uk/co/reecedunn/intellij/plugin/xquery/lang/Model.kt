@@ -70,6 +70,8 @@ sealed class Product(val id: String, val name: String, val implementation: Imple
 
 sealed class Implementation(override val id: String, override val name: String, val vendorUri: String): Versioned {
     abstract val products: List<Product>
+
+    abstract fun staticContext(product: Product?, productVersion: Version?, xqueryVersion: Specification?): String?
 }
 
 // endregion
@@ -277,6 +279,16 @@ object BaseX : Implementation("basex", "BaseX", "http://www.basex.org/") {
         dialect === FullText ||
         dialect === UpdateFacility ||
         dialect === XQuery
+
+    override fun staticContext(product: Product?, productVersion: Version?, xqueryVersion: Specification?): String? = when (xqueryVersion) {
+        XQuery.REC_1_0_20070123, XQuery.REC_1_0_20101214 ->
+            "res://www.w3.org/TR/xquery.xqy"
+        XQuery.REC_3_0_20140408 ->
+            "res://www.w3.org/TR/xquery-30.xqy"
+        XQuery.REC_3_1_20170321, XQuery.CR_3_1_20151217 ->
+            "res://www.w3.org/TR/xquery-31.xqy"
+        else -> null
+    }
 }
 
 // endregion
@@ -329,6 +341,17 @@ object MarkLogic : Implementation("marklogic", "MarkLogic", "http://www.marklogi
 
     override fun supportsDialect(dialect: Versioned): Boolean =
         dialect === this || dialect === XQuery
+
+    override fun staticContext(product: Product?, productVersion: Version?, xqueryVersion: Specification?): String? {
+        if (productVersion == null) return null
+        return when (xqueryVersion) {
+            XQuery.REC_1_0_20070123, XQuery.REC_1_0_20101214 ->
+                "res://marklogic.com/${productVersion.value}/1.0.xqy"
+            XQuery.MARKLOGIC_1_0 ->
+                "res://marklogic.com/${productVersion.value}/1.0-ml.xqy"
+            else -> null
+        }
+    }
 }
 
 // endregion
@@ -399,6 +422,16 @@ object Saxon : Implementation("saxon", "Saxon", "http://www.saxonica.com") {
 
     override fun supportsDialect(dialect: Versioned): Boolean =
         dialect === this || dialect == UpdateFacility || dialect === XQuery
+
+    override fun staticContext(product: Product?, productVersion: Version?, xqueryVersion: Specification?): String? = when (xqueryVersion) {
+        XQuery.REC_1_0_20070123, XQuery.REC_1_0_20101214 ->
+            "res://www.w3.org/TR/xquery.xqy"
+        XQuery.REC_3_0_20140408 ->
+            "res://www.w3.org/TR/xquery-30.xqy"
+        XQuery.REC_3_1_20170321, XQuery.CR_3_1_20151217 ->
+            "res://www.w3.org/TR/xquery-31.xqy"
+        else -> null
+    }
 }
 
 // endregion
@@ -449,6 +482,16 @@ object W3C : Implementation("w3c", "W3C", "https://www.w3.org/XML/Query/") {
     val SPECIFICATIONS: Product = W3CProduct("spec", "Specifications", this)
 
     override val products: List<Product> = listOf(SPECIFICATIONS)
+
+    override fun staticContext(product: Product?, productVersion: Version?, xqueryVersion: Specification?): String? = when (xqueryVersion) {
+        XQuery.REC_1_0_20070123, XQuery.REC_1_0_20101214 ->
+            "res://www.w3.org/TR/xquery.xqy"
+        XQuery.REC_3_0_20140408 ->
+            "res://www.w3.org/TR/xquery-30.xqy"
+        XQuery.REC_3_1_20170321, XQuery.CR_3_1_20151217 ->
+            "res://www.w3.org/TR/xquery-31.xqy"
+        else -> null
+    }
 }
 
 // endregion
