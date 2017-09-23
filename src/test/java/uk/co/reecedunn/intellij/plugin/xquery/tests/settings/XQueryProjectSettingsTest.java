@@ -24,7 +24,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.*;
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings;
 
 import java.io.File;
-import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -32,7 +31,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class XQueryProjectSettingsTest extends TestCase {
     public void testDefaultValues() {
         XQueryProjectSettings settings = new XQueryProjectSettings();
-        assertThat(settings.getImplementation(), is("w3c"));
         assertThat(settings.getImplementationVersion(), is("w3c/spec/v1ed"));
         assertThat(settings.getXQueryVersion(), is(XQuery.INSTANCE.getREC_1_0_20070123().getLabel()));
         assertThat(settings.getXQuery10Dialect(), is(XQuery.INSTANCE.getId()));
@@ -53,7 +51,6 @@ public class XQueryProjectSettingsTest extends TestCase {
         ImplementationItem implementationVersion = implementation.getItems(ImplementationItem.IMPLEMENTATION_VERSION).get(0);
 
         XQueryProjectSettings other = new XQueryProjectSettings();
-        other.setImplementation(implementation.getID());
         other.setImplementationVersion(implementationVersion.getID());
         other.setXQueryVersion(XQuery.INSTANCE.getMARKLOGIC_0_9().getLabel());
         other.setXQuery10Dialect(MarkLogic.INSTANCE.getId());
@@ -62,7 +59,6 @@ public class XQueryProjectSettingsTest extends TestCase {
 
         XQueryProjectSettings settings = new XQueryProjectSettings();
         settings.loadState(other);
-        assertThat(settings.getImplementation(), is("marklogic"));
         assertThat(settings.getImplementationVersion(), is("marklogic/v6"));
         assertThat(settings.getXQueryVersion(), is(XQuery.INSTANCE.getMARKLOGIC_0_9().getLabel()));
         assertThat(settings.getXQuery10Dialect(), is(MarkLogic.INSTANCE.getId()));
@@ -91,14 +87,12 @@ public class XQueryProjectSettingsTest extends TestCase {
         ImplementationItem implementationVersion = implementation.getItems(ImplementationItem.IMPLEMENTATION_VERSION).get(0);
 
         XQueryProjectSettings settings = new XQueryProjectSettings();
-        settings.setImplementation(implementation.getID());
         settings.setImplementationVersion(implementationVersion.getID());
 
         assertThat(settings.getProduct(), is(MarkLogic.INSTANCE.getMARKLOGIC()));
         assertThat(settings.getProductVersion(), is(MarkLogic.INSTANCE.getVERSION_6_0()));
 
         // Setting via the transient properties updates the bean properties.
-        assertThat(settings.getImplementation(), is("marklogic"));
         assertThat(settings.getImplementationVersion(), is("marklogic/v6"));
         assertThat(settings.getXQuery10Dialect(), is("xquery"));
         assertThat(settings.getXQuery30Dialect(), is("xquery"));
@@ -107,13 +101,11 @@ public class XQueryProjectSettingsTest extends TestCase {
 
     public void testDefaultXQueryDialectForUnsupportedXQueryVersions() {
         XQueryProjectSettings settings = new XQueryProjectSettings();
-        settings.setImplementation("marklogic");
         settings.setImplementationVersion("marklogic/v7");
         settings.setXQuery10Dialect(null);
         settings.setXQuery30Dialect(null);
         settings.setXQuery31Dialect(null);
 
-        settings.setImplementation("w3c");
         settings.setImplementationVersion("w3c/spec");
         settings.setXQuery10Dialect("w3c/1.0");
         settings.setXQuery30Dialect("w3c/3.0");
@@ -130,7 +122,6 @@ public class XQueryProjectSettingsTest extends TestCase {
                 + "<option name=\"XQuery30Dialect\" value=\"xquery\" />"
                 + "<option name=\"XQuery31Dialect\" value=\"xquery\" />"
                 + "<option name=\"XQueryVersion\" value=\"1.0\" />"
-                + "<option name=\"implementation\" value=\"w3c\" />"
                 + "<option name=\"implementationVersion\" value=\"w3c/spec/v1ed\" />"
                 + "</XQueryProjectSettings>";
 

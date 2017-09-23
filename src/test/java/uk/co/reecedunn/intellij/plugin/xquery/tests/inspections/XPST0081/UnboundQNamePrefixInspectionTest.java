@@ -75,7 +75,6 @@ public class UnboundQNamePrefixInspectionTest extends InspectionTestCase {
     // region MarkLogic
 
     public void testBuiltinMarkLogic() {
-        getSettings().setImplementation("marklogic");
         getSettings().setImplementationVersion("marklogic/v8");
         getSettings().setXQueryVersion(XQuery.INSTANCE.getMARKLOGIC_1_0().getLabel());
         final XQueryFile file = parseResource("tests/inspections/XPST0081/builtin-marklogic.xq");
@@ -86,7 +85,7 @@ public class UnboundQNamePrefixInspectionTest extends InspectionTestCase {
     }
 
     public void testBuiltinMarkLogicNotTargettingMarkLogic() {
-        getSettings().setImplementation("w3c");
+        getSettings().setImplementationVersion("w3c/spec/v1ed");
         final XQueryFile file = parseResource("tests/inspections/XPST0081/builtin-marklogic.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new UnboundQNamePrefixInspection());

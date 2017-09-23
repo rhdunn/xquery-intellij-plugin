@@ -28,7 +28,6 @@ import java.io.File
 class XQueryProjectSettings : PersistentStateComponent<XQueryProjectSettings>, ExportableComponent {
     // region Settings
 
-    private var IMPLEMENTATION = Implementations.getDefaultImplementation()
     private var PRODUCT_VERSION = VersionedProductId("w3c/spec/v1ed")
 
     @get:Transient
@@ -41,12 +40,6 @@ class XQueryProjectSettings : PersistentStateComponent<XQueryProjectSettings>, E
 
     // endregion
     // region Persisted Settings
-
-    var implementation: String
-        get() = IMPLEMENTATION.id
-        set(implementation) {
-            IMPLEMENTATION = Implementations.getItemById(implementation)
-        }
 
     var implementationVersion: String?
         get() = PRODUCT_VERSION.id

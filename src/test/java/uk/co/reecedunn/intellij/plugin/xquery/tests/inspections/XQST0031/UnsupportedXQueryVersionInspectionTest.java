@@ -95,7 +95,6 @@ public class UnsupportedXQueryVersionInspectionTest extends InspectionTestCase {
     // region MarkLogic
 
     public void testSupportedVersion_MarkLogic() {
-        getSettings().setImplementation("marklogic");
         getSettings().setImplementationVersion("marklogic/v8");
 
         final XQueryFile file = parseResource("tests/inspections/XQST0031/xquery-1.0-ml.xq");
@@ -106,7 +105,6 @@ public class UnsupportedXQueryVersionInspectionTest extends InspectionTestCase {
     }
 
     public void testUnsupportedVersion_MarkLogic() {
-        getSettings().setImplementation("marklogic");
         getSettings().setImplementationVersion("marklogic/v8");
 
         final XQueryFile file = parseResource("tests/inspections/XQST0031/xquery-3.0.xq");
@@ -125,7 +123,6 @@ public class UnsupportedXQueryVersionInspectionTest extends InspectionTestCase {
     // region W3C
 
     public void testSupportedVersion_W3C() {
-        getSettings().setImplementation("w3c");
         getSettings().setImplementationVersion("w3c/spec");
 
         final XQueryFile file = parseResource("tests/inspections/XQST0031/xquery-3.0.xq");
@@ -136,7 +133,6 @@ public class UnsupportedXQueryVersionInspectionTest extends InspectionTestCase {
     }
 
     public void testUnsupportedVersion_W3C() {
-        getSettings().setImplementation("w3c");
         getSettings().setImplementationVersion("w3c/spec");
 
         final XQueryFile file = parseResource("tests/inspections/XQST0031/xquery-1.0-ml.xq");

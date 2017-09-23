@@ -45,10 +45,8 @@ public class PredefinedEntityRefInspectionTest extends InspectionTestCase {
     private void checkSupportedEntities(uk.co.reecedunn.intellij.plugin.xquery.lang.Specification version, String entities) {
         getSettings().setXQueryVersion(version.getLabel());
         if (version == XQuery.INSTANCE.getMARKLOGIC_0_9() || version == XQuery.INSTANCE.getMARKLOGIC_1_0()) {
-            getSettings().setImplementation("marklogic");
             getSettings().setImplementationVersion("marklogic/v6");
         } else {
-            getSettings().setImplementation("w3c/spec");
             getSettings().setImplementationVersion("w3c/spec/v1ed");
         }
 
@@ -66,10 +64,8 @@ public class PredefinedEntityRefInspectionTest extends InspectionTestCase {
     private void checkUnsupportedEntities(uk.co.reecedunn.intellij.plugin.xquery.lang.Specification version, String entities, int inspectionCount, String startsWith, String endsWith, ProblemHighlightType type) {
         getSettings().setXQueryVersion(version.getLabel());
         if (version == XQuery.INSTANCE.getMARKLOGIC_0_9() || version == XQuery.INSTANCE.getMARKLOGIC_1_0()) {
-            getSettings().setImplementation("marklogic");
             getSettings().setImplementationVersion("marklogic/v6");
         } else {
-            getSettings().setImplementation("w3c/spec");
             getSettings().setImplementationVersion("w3c/spec/v1ed");
         }
 

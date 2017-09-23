@@ -45,7 +45,6 @@ public class ReservedFunctionNameInspectionTest extends InspectionTestCase {
 
     @SuppressWarnings("ConstantConditions")
     public void testFunctionCall_MarkLogic80ReservedFunctionName_XQuery10() {
-        getSettings().setImplementation("w3c/spec");
         getSettings().setImplementationVersion("w3c/spec/v1ed");
         final XQueryFile file = parseResource("tests/parser/marklogic-8.0/NodeTest_ArrayTest_FunctionCallLike.xq");
 
@@ -56,7 +55,6 @@ public class ReservedFunctionNameInspectionTest extends InspectionTestCase {
 
     @SuppressWarnings("ConstantConditions")
     public void testFunctionCall_MarkLogic80ReservedFunctionName_MarkLogic70() {
-        getSettings().setImplementation("marklogic");
         getSettings().setImplementationVersion("marklogic/v7");
         final XQueryFile file = parseResource("tests/parser/marklogic-8.0/NodeTest_ArrayTest_FunctionCallLike.xq");
 
@@ -67,7 +65,6 @@ public class ReservedFunctionNameInspectionTest extends InspectionTestCase {
 
     @SuppressWarnings("ConstantConditions")
     public void testFunctionCall_MarkLogic80ReservedFunctionName_MarkLogic80() {
-        getSettings().setImplementation("marklogic");
         getSettings().setImplementationVersion("marklogic/v8");
         final XQueryFile file = parseResource("tests/parser/marklogic-8.0/NodeTest_ArrayTest_FunctionCallLike.xq");
 
@@ -85,7 +82,6 @@ public class ReservedFunctionNameInspectionTest extends InspectionTestCase {
 
     @SuppressWarnings("ConstantConditions")
     public void testFunctionCall_Scripting10ReservedFunctionName_XQuery10() {
-        getSettings().setImplementation("saxon/HE");
         getSettings().setImplementationVersion("saxon/HE/v9.5");
         final XQueryFile file = parseResource("tests/parser/xquery-sx-1.0/FunctionCall_WhileKeyword_NoParams.xq");
 
@@ -96,7 +92,6 @@ public class ReservedFunctionNameInspectionTest extends InspectionTestCase {
 
     @SuppressWarnings("ConstantConditions")
     public void testFunctionCall_Scripting10ReservedFunctionName_W3C() {
-        getSettings().setImplementation("w3c/spec");
         getSettings().setImplementationVersion("w3c/spec/v1ed");
         final XQueryFile file = parseResource("tests/parser/xquery-sx-1.0/FunctionCall_WhileKeyword_NoParams.xq");
 
@@ -116,7 +111,6 @@ public class ReservedFunctionNameInspectionTest extends InspectionTestCase {
 
     @SuppressWarnings("ConstantConditions")
     public void testFunctionDecl_MarkLogic80ReservedFunctionName_XQuery10() {
-        getSettings().setImplementation("w3c/spec");
         getSettings().setImplementationVersion("w3c/spec/v1ed");
         final XQueryFile file = parseResource("tests/psi/marklogic-8.0/FunctionDecl_ReservedKeyword_ArrayNode.xq");
 
@@ -127,7 +121,6 @@ public class ReservedFunctionNameInspectionTest extends InspectionTestCase {
 
     @SuppressWarnings("ConstantConditions")
     public void testFunctionDecl_MarkLogic80ReservedFunctionName_MarkLogic70() {
-        getSettings().setImplementation("marklogic");
         getSettings().setImplementationVersion("marklogic/v7");
         final XQueryFile file = parseResource("tests/psi/marklogic-8.0/FunctionDecl_ReservedKeyword_ArrayNode.xq");
 
@@ -138,7 +131,6 @@ public class ReservedFunctionNameInspectionTest extends InspectionTestCase {
 
     @SuppressWarnings("ConstantConditions")
     public void testFunctionDecl_MarkLogic80ReservedFunctionName_MarkLogic80() {
-        getSettings().setImplementation("marklogic");
         getSettings().setImplementationVersion("marklogic/v8");
         final XQueryFile file = parseResource("tests/psi/marklogic-8.0/FunctionDecl_ReservedKeyword_ArrayNode.xq");
 
@@ -156,7 +148,6 @@ public class ReservedFunctionNameInspectionTest extends InspectionTestCase {
 
     @SuppressWarnings("ConstantConditions")
     public void testFunctionDecl_Scripting10ReservedFunctionName_XQuery10() {
-        getSettings().setImplementation("saxon/HE");
         getSettings().setImplementationVersion("saxon/HE/v9.5");
         final XQueryFile file = parseResource("tests/psi/xquery-sx-1.0/FunctionDecl_ReservedKeyword_While.xq");
 
@@ -167,7 +158,6 @@ public class ReservedFunctionNameInspectionTest extends InspectionTestCase {
 
     @SuppressWarnings("ConstantConditions")
     public void testFunctionDecl_Scripting10ReservedFunctionName_W3C() {
-        getSettings().setImplementation("w3c/spec");
         getSettings().setImplementationVersion("w3c/spec/v1ed");
         final XQueryFile file = parseResource("tests/psi/xquery-sx-1.0/FunctionDecl_ReservedKeyword_While.xq");
 
@@ -187,7 +177,6 @@ public class ReservedFunctionNameInspectionTest extends InspectionTestCase {
 
     @SuppressWarnings("ConstantConditions")
     public void testNamedFunctionRef_XQuery10ReservedFunctionName() {
-        getSettings().setImplementation("w3c/spec");
         getSettings().setImplementationVersion("w3c/spec/v1ed");
         final XQueryFile file = parseResource("tests/psi/xquery-3.0/NamedFunctionRef_ReservedKeyword.xq");
 
@@ -205,7 +194,6 @@ public class ReservedFunctionNameInspectionTest extends InspectionTestCase {
 
     @SuppressWarnings("ConstantConditions")
     public void testNamedFunctionRef_XQuery30ReservedFunctionName() {
-        getSettings().setImplementation("w3c/spec");
         getSettings().setImplementationVersion("w3c/spec/v1ed");
         final XQueryFile file = parseResource("tests/psi/xquery-3.0/NamedFunctionRef_ReservedKeyword_Function.xq");
 
@@ -223,7 +211,6 @@ public class ReservedFunctionNameInspectionTest extends InspectionTestCase {
 
     @SuppressWarnings("ConstantConditions")
     public void testNamedFunctionRef_Scripting10ReservedFunctionName_XQuery10() {
-        getSettings().setImplementation("saxon/HE");
         getSettings().setImplementationVersion("saxon/HE/v9.5");
         final XQueryFile file = parseResource("tests/psi/xquery-sx-1.0/NamedFunctionRef_ReservedKeyword_While.xq");
 
@@ -234,7 +221,6 @@ public class ReservedFunctionNameInspectionTest extends InspectionTestCase {
 
     @SuppressWarnings("ConstantConditions")
     public void testNamedFunctionRef_Scripting10ReservedFunctionName_W3C() {
-        getSettings().setImplementation("w3c/spec");
         getSettings().setImplementationVersion("w3c/spec/v1ed");
         final XQueryFile file = parseResource("tests/psi/xquery-sx-1.0/NamedFunctionRef_ReservedKeyword_While.xq");
 
