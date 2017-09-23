@@ -31,9 +31,6 @@ class XQueryProjectSettings : PersistentStateComponent<XQueryProjectSettings>, E
     private var IMPLEMENTATION = Implementations.getDefaultImplementation()
     private var IMPLEMENTATION_VERSION = IMPLEMENTATION.getDefaultItem(ImplementationItem.IMPLEMENTATION_VERSION)
     private var PRODUCT_VERSION = VersionedProductId("w3c/spec/v1ed")
-    private var XQUERY_1_0_DIALECT = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQuery, XQuery.REC_1_0_20070123)
-    private var XQUERY_3_0_DIALECT = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQuery, XQuery.REC_3_0_20140408)
-    private var XQUERY_3_1_DIALECT = IMPLEMENTATION_VERSION.getDefaultItemByVersion(ImplementationItem.IMPLEMENTATION_DIALECT, XQuery, XQuery.REC_3_1_20170321)
 
     @get:Transient
     val product: Product?
@@ -61,23 +58,11 @@ class XQueryProjectSettings : PersistentStateComponent<XQueryProjectSettings>, E
 
     var XQueryVersion: String? = "1.0"
 
-    var XQuery10Dialect: String?
-        get() = XQUERY_1_0_DIALECT.id
-        set(dialect) {
-            XQUERY_1_0_DIALECT = Implementations.getItemById(dialect)
-        }
+    var XQuery10Dialect: String? = "xquery"
 
-    var XQuery30Dialect: String?
-        get() = XQUERY_3_0_DIALECT.id
-        set(dialect) {
-            XQUERY_3_0_DIALECT = Implementations.getItemById(dialect)
-        }
+    var XQuery30Dialect: String? = "xquery"
 
-    var XQuery31Dialect: String?
-        get() = XQUERY_3_1_DIALECT.id
-        set(dialect) {
-            XQUERY_3_1_DIALECT = Implementations.getItemById(dialect)
-        }
+    var XQuery31Dialect: String? = "xquery"
 
     // endregion
     // region PersistentStateComponent
