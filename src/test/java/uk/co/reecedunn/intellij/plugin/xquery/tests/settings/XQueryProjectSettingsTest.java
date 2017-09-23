@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016-2017 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,11 +47,8 @@ public class XQueryProjectSettingsTest extends TestCase {
     }
 
     public void testLoadState() {
-        ImplementationItem implementation = Implementations.getItemById("marklogic");
-        ImplementationItem implementationVersion = implementation.getItems(ImplementationItem.IMPLEMENTATION_VERSION).get(0);
-
         XQueryProjectSettings other = new XQueryProjectSettings();
-        other.setImplementationVersion(implementationVersion.getID());
+        other.setImplementationVersion("marklogic/v6");
         other.setXQueryVersion(XQuery.INSTANCE.getMARKLOGIC_0_9().getLabel());
         other.setXQuery10Dialect(MarkLogic.INSTANCE.getId());
         other.setXQuery30Dialect(MarkLogic.INSTANCE.getId());
@@ -83,11 +80,8 @@ public class XQueryProjectSettingsTest extends TestCase {
 
     @SuppressWarnings("ThrowableResultOfMethodCallIgnored")
     public void testTransientProperties() {
-        ImplementationItem implementation = Implementations.getItemById("marklogic");
-        ImplementationItem implementationVersion = implementation.getItems(ImplementationItem.IMPLEMENTATION_VERSION).get(0);
-
         XQueryProjectSettings settings = new XQueryProjectSettings();
-        settings.setImplementationVersion(implementationVersion.getID());
+        settings.setImplementationVersion("marklogic/v6");
 
         assertThat(settings.getProduct(), is(MarkLogic.INSTANCE.getMARKLOGIC()));
         assertThat(settings.getProductVersion(), is(MarkLogic.INSTANCE.getVERSION_6_0()));
