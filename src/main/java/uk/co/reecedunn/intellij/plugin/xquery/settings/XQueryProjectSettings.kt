@@ -29,7 +29,6 @@ class XQueryProjectSettings : PersistentStateComponent<XQueryProjectSettings>, E
     // region Settings
 
     private var IMPLEMENTATION = Implementations.getDefaultImplementation()
-    private var IMPLEMENTATION_VERSION = IMPLEMENTATION.getDefaultItem(ImplementationItem.IMPLEMENTATION_VERSION)
     private var PRODUCT_VERSION = VersionedProductId("w3c/spec/v1ed")
 
     @get:Transient
@@ -52,7 +51,6 @@ class XQueryProjectSettings : PersistentStateComponent<XQueryProjectSettings>, E
     var implementationVersion: String?
         get() = PRODUCT_VERSION.id
         set(version) {
-            IMPLEMENTATION_VERSION = Implementations.getItemById(version)
             PRODUCT_VERSION.id = version
         }
 
