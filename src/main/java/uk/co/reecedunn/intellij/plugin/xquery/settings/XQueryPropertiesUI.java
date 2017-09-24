@@ -79,7 +79,9 @@ public class XQueryPropertiesUI implements SettingsUI<XQueryProjectSettings> {
         ColoredListCellRenderer<Versioned> VERSIONED_RENDERER = new ColoredListCellRenderer<Versioned>() {
             @Override
             protected void customizeCellRenderer(@NotNull JList<? extends Versioned> list, Versioned value, int index, boolean selected, boolean hasFocus) {
-                append(value.getName());
+                if (value != null) {
+                    append(value.getName());
+                }
             }
         };
         mDialectForXQuery1_0.setRenderer(VERSIONED_RENDERER);
