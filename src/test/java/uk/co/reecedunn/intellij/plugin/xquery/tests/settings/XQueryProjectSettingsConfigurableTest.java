@@ -16,6 +16,9 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.settings;
 
 import com.intellij.ide.ui.UISettings;
+import com.intellij.openapi.options.ConfigurationException;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.W3C;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettingsConfigurable;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase;
 
@@ -23,6 +26,7 @@ import javax.swing.*;
 import java.awt.*;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -67,7 +71,6 @@ public class XQueryProjectSettingsConfigurableTest extends ParserTestCase {
         assertThat(configurable.getHelpTopic(), is(nullValue()));
     }
 
-    /*
     @SuppressWarnings("ConstantConditions")
     public void testCreateComponent() throws ConfigurationException {
         XQueryProjectSettingsConfigurable configurable = new XQueryProjectSettingsConfigurable(myProject);
@@ -81,16 +84,17 @@ public class XQueryProjectSettingsConfigurableTest extends ParserTestCase {
         assertThat(getComponentByName(component, "DialectForXQuery3.0"), is(notNullValue()));
         assertThat(getComponentByName(component, "DialectForXQuery3.1"), is(notNullValue()));
 
-        assertThat(getSelectedItem(component, "Implementation").toString(), is("W3C"));
-        assertThat(getSelectedItem(component, "ImplementationVersion").toString(), is("Specification"));
-        assertThat(getSelectedItem(component, "XQueryVersion"), is(XQueryVersion.VERSION_1_0));
-        assertThat(getSelectedItem(component, "DialectForXQuery1.0").toString(), is("XQuery"));
-        assertThat(getSelectedItem(component, "DialectForXQuery3.0").toString(), is("XQuery"));
-        assertThat(getSelectedItem(component, "DialectForXQuery3.1").toString(), is("XQuery"));
+        assertThat(getSelectedItem(component, "Implementation"), is(W3C.INSTANCE.getSPECIFICATIONS()));
+        assertThat(getSelectedItem(component, "ImplementationVersion"), is(W3C.INSTANCE.getFIRST_EDITION()));
+        assertThat(getSelectedItem(component, "XQueryVersion"), is(XQuery.INSTANCE.getREC_3_0_20140408()));
+        assertThat(getSelectedItem(component, "DialectForXQuery1.0"), is(XQuery.INSTANCE));
+        assertThat(getSelectedItem(component, "DialectForXQuery3.0"), is(XQuery.INSTANCE));
+        assertThat(getSelectedItem(component, "DialectForXQuery3.1"), is(XQuery.INSTANCE));
 
         assertThat(configurable.isModified(), is(false));
     }
 
+    /*
     @SuppressWarnings("ConstantConditions")
     public void testApply() throws ConfigurationException {
         XQueryProjectSettingsConfigurable configurable = new XQueryProjectSettingsConfigurable(myProject);
