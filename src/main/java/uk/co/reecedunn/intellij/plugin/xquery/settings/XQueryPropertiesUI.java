@@ -106,7 +106,7 @@ public class XQueryPropertiesUI implements SettingsUI<XQueryProjectSettings> {
             populateComboBox(mImplementationVersions, product.getImplementation().getVersions(), null);
         });
 
-        populateComboBox(mImplementations, ModelKt.getPRODUCTS(), W3C.INSTANCE.getSPECIFICATIONS());
+        populateComboBox(mImplementations, ImplementationsKt.getPRODUCTS(), W3C.INSTANCE.getSPECIFICATIONS());
     }
 
     @Override
