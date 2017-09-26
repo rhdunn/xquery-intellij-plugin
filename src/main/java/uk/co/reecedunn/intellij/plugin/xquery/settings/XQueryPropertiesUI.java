@@ -109,8 +109,28 @@ public class XQueryPropertiesUI implements SettingsUI<XQueryProjectSettings> {
         populateComboBox(mImplementations, ImplementationsKt.getPRODUCTS(), W3C.INSTANCE.getSPECIFICATIONS());
     }
 
+    @SuppressWarnings("unchecked")
+    private <E> boolean isModified(JComboBox<E> comboBox, E setting) {
+        E value = (E)comboBox.getSelectedItem();
+        if (value == null) return setting != null;
+        return !value.equals(setting);
+    }
+
+    private boolean isModified(JComboBox comboBox, String setting) {
+        Object value = comboBox.getSelectedItem();
+        if (value == null) return setting != null;
+        if (value instanceof Version) return !((Version)value).getId().equals(setting);
+        return !((Versioned)value).getId().equals(setting);
+    }
+
     @Override
     public boolean isModified(XQueryProjectSettings settings) {
+        if (isModified(mImplementations, settings.getProduct())) return true;
+        if (isModified(mImplementationVersions, settings.getProductVersion())) return true;
+        if (isModified(mVersion, settings.getXQueryVersion())) return true;
+        if (isModified(mDialectForXQuery1_0, settings.getXQuery10Dialect())) return true;
+        if (isModified(mDialectForXQuery3_0, settings.getXQuery30Dialect())) return true;
+        if (isModified(mDialectForXQuery3_1, settings.getXQuery31Dialect())) return true;
         return false;
     }
 
