@@ -82,6 +82,12 @@ class VersionedProductId {
         this.id = id
     }
 
+    constructor(product: Product?, productVersion: Version?) {
+        this.vendor = product?.implementation
+        this.product = product
+        this.productVersion = productVersion
+    }
+
     var vendor: Implementation? = null
     var product: Product? = null
     var productVersion: Version? = null

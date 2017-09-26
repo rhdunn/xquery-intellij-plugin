@@ -17,8 +17,10 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.settings;
 
 import com.intellij.ide.ui.UISettings;
 import com.intellij.openapi.options.ConfigurationException;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.W3C;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
+import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings;
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettingsConfigurable;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase;
 
@@ -94,34 +96,34 @@ public class XQueryProjectSettingsConfigurableTest extends ParserTestCase {
         assertThat(configurable.isModified(), is(false));
     }
 
-    /*
     @SuppressWarnings("ConstantConditions")
     public void testApply() throws ConfigurationException {
         XQueryProjectSettingsConfigurable configurable = new XQueryProjectSettingsConfigurable(myProject);
         JComponent component = configurable.createComponent();
 
-        setSelectedItem(component, "Implementation", Implementations.getItemById("marklogic"));
+        setSelectedItem(component, "Implementation", MarkLogic.INSTANCE.getMARKLOGIC());
 
-        assertThat(getSelectedItem(component, "Implementation").toString(), is("MarkLogic"));
-        assertThat(getSelectedItem(component, "ImplementationVersion").toString(), is("MarkLogic 8"));
-        assertThat(getSelectedItem(component, "XQueryVersion"), is(XQueryVersion.VERSION_1_0));
-        assertThat(getSelectedItem(component, "DialectForXQuery1.0").toString(), is("XQuery"));
-        assertThat(getSelectedItem(component, "DialectForXQuery3.0").toString(), is("Not Supported"));
-        assertThat(getSelectedItem(component, "DialectForXQuery3.1").toString(), is("Not Supported"));
+        assertThat(getSelectedItem(component, "Implementation"), is(MarkLogic.INSTANCE.getMARKLOGIC()));
+        assertThat(getSelectedItem(component, "ImplementationVersion"), is(MarkLogic.INSTANCE.getVERSION_6_0()));
+        assertThat(getSelectedItem(component, "XQueryVersion"), is(XQuery.INSTANCE.getMARKLOGIC_0_9()));
+        assertThat(getSelectedItem(component, "DialectForXQuery1.0"), is(XQuery.INSTANCE));
+        assertThat(getSelectedItem(component, "DialectForXQuery3.0"), is(nullValue()));
+        assertThat(getSelectedItem(component, "DialectForXQuery3.1"), is(nullValue()));
 
         assertThat(configurable.isModified(), is(true));
 
         configurable.apply();
         XQueryProjectSettings settings = XQueryProjectSettings.Companion.getInstance(myProject);
-        assertThat(settings.getImplementationVersion(), is("marklogic/v8"));
-        assertThat(settings.getXQueryVersion(), is(XQueryVersion.VERSION_1_0));
-        assertThat(settings.getXQuery10Dialect(), is("marklogic/v8/1.0"));
+        assertThat(settings.getImplementationVersion(), is("marklogic/v6"));
+        assertThat(settings.getXQueryVersion(), is("0.9-ml"));
+        assertThat(settings.getXQuery10Dialect(), is("xquery"));
         assertThat(settings.getXQuery30Dialect(), is(nullValue()));
         assertThat(settings.getXQuery31Dialect(), is(nullValue()));
 
         configurable.disposeUIResources();
     }
 
+    /*
     @SuppressWarnings("ConstantConditions")
     public void testReset() throws ConfigurationException {
         XQueryProjectSettingsConfigurable configurable = new XQueryProjectSettingsConfigurable(myProject);
