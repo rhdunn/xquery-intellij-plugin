@@ -22,7 +22,9 @@ import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
-import uk.co.reecedunn.intellij.plugin.xquery.lang.*
+import uk.co.reecedunn.intellij.plugin.xquery.lang.Product
+import uk.co.reecedunn.intellij.plugin.xquery.lang.Specification
+import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceResolver
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver

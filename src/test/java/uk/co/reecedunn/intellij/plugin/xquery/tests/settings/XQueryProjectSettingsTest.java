@@ -20,7 +20,9 @@ import com.intellij.util.xmlb.XmlSerializer;
 import junit.framework.TestCase;
 import org.jdom.Element;
 import org.jdom.output.XMLOutputter;
-import uk.co.reecedunn.intellij.plugin.xquery.lang.*;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.W3C;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings;
 
 import java.io.File;

@@ -20,7 +20,9 @@ import com.intellij.openapi.components.*
 import com.intellij.openapi.project.Project
 import com.intellij.util.xmlb.XmlSerializerUtil
 import com.intellij.util.xmlb.annotations.Transient
-import uk.co.reecedunn.intellij.plugin.xquery.lang.*
+import uk.co.reecedunn.intellij.plugin.xquery.lang.Product
+import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
+import uk.co.reecedunn.intellij.plugin.xquery.lang.VersionedProductId
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 import java.io.File
 
