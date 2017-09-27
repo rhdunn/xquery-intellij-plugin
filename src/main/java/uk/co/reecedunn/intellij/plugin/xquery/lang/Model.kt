@@ -70,6 +70,19 @@ abstract class Implementation(override val id: String, override val name: String
     abstract fun staticContext(product: Product?, productVersion: Version?, xqueryVersion: Specification?): String?
 }
 
+var DIALECTS: List<Versioned> = listOf(
+    // W3C Standard Dialects
+    XQuery,
+    FullText,
+    UpdateFacility,
+    Scripting,
+    // Vendor Dialects
+    BaseX,
+    MarkLogic,
+    Saxon)
+
+fun dialectById(id: CharSequence?): Versioned? = DIALECTS.firstOrNull { dialect -> dialect.id == id }
+
 /**
  * Supports IDs used in XQueryProjectSettings to refer to XQuery implementations.
  *

@@ -144,19 +144,30 @@ public class XQueryPropertiesUI implements SettingsUI<XQueryProjectSettings> {
         Product product = (Product)mImplementations.getSelectedItem();
         Version productVersion = (ProductVersion)mImplementationVersions.getSelectedItem();
         VersionedProductId version = new VersionedProductId(product, productVersion);
-        Version xqueryVersion = (Version)mVersion.getSelectedItem();
+        Specification xqueryVersion = (Specification)mVersion.getSelectedItem();
         Versioned dialect10 = (Versioned)mDialectForXQuery1_0.getSelectedItem();
         Versioned dialect30 = (Versioned)mDialectForXQuery3_0.getSelectedItem();
         Versioned dialect31 = (Versioned)mDialectForXQuery3_1.getSelectedItem();
 
         settings.setImplementationVersion(version.getId());
-        settings.setXQueryVersion(xqueryVersion == null ? null : xqueryVersion.getId());
+        settings.setXQueryVersion(xqueryVersion == null ? null : xqueryVersion.getLabel());
         settings.setXQuery10Dialect(dialect10 == null ? null : dialect10.getId());
         settings.setXQuery30Dialect(dialect30 == null ? null : dialect30.getId());
         settings.setXQuery31Dialect(dialect31 == null ? null : dialect31.getId());
     }
 
+    private Version getXQueryVersion(CharSequence version) {
+        List<Specification> versions = XQuery.INSTANCE.versionsForXQuery(version);
+        return versions.isEmpty() ? null : versions.get(0);
+    }
+
     @Override
     public void reset(XQueryProjectSettings settings) {
+        mImplementations.setSelectedItem(settings.getProduct());
+        mImplementationVersions.setSelectedItem(settings.getProductVersion());
+        mVersion.setSelectedItem(getXQueryVersion(settings.getXQueryVersion()));
+        mDialectForXQuery1_0.setSelectedItem(ModelKt.dialectById(settings.getXQuery10Dialect()));
+        mDialectForXQuery3_0.setSelectedItem(ModelKt.dialectById(settings.getXQuery30Dialect()));
+        mDialectForXQuery3_1.setSelectedItem(ModelKt.dialectById(settings.getXQuery31Dialect()));
     }
 }

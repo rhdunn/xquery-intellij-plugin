@@ -88,7 +88,7 @@ public class XQueryProjectSettingsConfigurableTest extends ParserTestCase {
 
         assertThat(getSelectedItem(component, "Implementation"), is(W3C.INSTANCE.getSPECIFICATIONS()));
         assertThat(getSelectedItem(component, "ImplementationVersion"), is(W3C.INSTANCE.getFIRST_EDITION()));
-        assertThat(getSelectedItem(component, "XQueryVersion"), is(XQuery.INSTANCE.getREC_3_0_20140408()));
+        assertThat(getSelectedItem(component, "XQueryVersion"), is(XQuery.INSTANCE.getREC_1_0_20070123()));
         assertThat(getSelectedItem(component, "DialectForXQuery1.0"), is(XQuery.INSTANCE));
         assertThat(getSelectedItem(component, "DialectForXQuery3.0"), is(XQuery.INSTANCE));
         assertThat(getSelectedItem(component, "DialectForXQuery3.1"), is(XQuery.INSTANCE));
@@ -105,7 +105,7 @@ public class XQueryProjectSettingsConfigurableTest extends ParserTestCase {
 
         assertThat(getSelectedItem(component, "Implementation"), is(MarkLogic.INSTANCE.getMARKLOGIC()));
         assertThat(getSelectedItem(component, "ImplementationVersion"), is(MarkLogic.INSTANCE.getVERSION_6_0()));
-        assertThat(getSelectedItem(component, "XQueryVersion"), is(XQuery.INSTANCE.getMARKLOGIC_0_9()));
+        assertThat(getSelectedItem(component, "XQueryVersion"), is(XQuery.INSTANCE.getREC_1_0_20070123()));
         assertThat(getSelectedItem(component, "DialectForXQuery1.0"), is(XQuery.INSTANCE));
         assertThat(getSelectedItem(component, "DialectForXQuery3.0"), is(nullValue()));
         assertThat(getSelectedItem(component, "DialectForXQuery3.1"), is(nullValue()));
@@ -115,7 +115,7 @@ public class XQueryProjectSettingsConfigurableTest extends ParserTestCase {
         configurable.apply();
         XQueryProjectSettings settings = XQueryProjectSettings.Companion.getInstance(myProject);
         assertThat(settings.getImplementationVersion(), is("marklogic/v6"));
-        assertThat(settings.getXQueryVersion(), is("0.9-ml"));
+        assertThat(settings.getXQueryVersion(), is("1.0"));
         assertThat(settings.getXQuery10Dialect(), is("xquery"));
         assertThat(settings.getXQuery30Dialect(), is(nullValue()));
         assertThat(settings.getXQuery31Dialect(), is(nullValue()));
@@ -123,75 +123,23 @@ public class XQueryProjectSettingsConfigurableTest extends ParserTestCase {
         configurable.disposeUIResources();
     }
 
-    /*
     @SuppressWarnings("ConstantConditions")
     public void testReset() throws ConfigurationException {
         XQueryProjectSettingsConfigurable configurable = new XQueryProjectSettingsConfigurable(myProject);
         JComponent component = configurable.createComponent();
 
-        setSelectedItem(component, "Implementation", Implementations.getItemById("marklogic"));
+        setSelectedItem(component, "Implementation", MarkLogic.INSTANCE.getMARKLOGIC());
         configurable.reset();
 
-        assertThat(getSelectedItem(component, "Implementation").toString(), is("W3C"));
-        assertThat(getSelectedItem(component, "ImplementationVersion").toString(), is("Specification"));
-        assertThat(getSelectedItem(component, "XQueryVersion"), is(XQueryVersion.VERSION_1_0));
-        assertThat(getSelectedItem(component, "DialectForXQuery1.0").toString(), is("XQuery"));
-        assertThat(getSelectedItem(component, "DialectForXQuery3.0").toString(), is("XQuery"));
-        assertThat(getSelectedItem(component, "DialectForXQuery3.1").toString(), is("XQuery"));
+        assertThat(getSelectedItem(component, "Implementation"), is(W3C.INSTANCE.getSPECIFICATIONS()));
+        assertThat(getSelectedItem(component, "ImplementationVersion"), is(W3C.INSTANCE.getFIRST_EDITION()));
+        assertThat(getSelectedItem(component, "XQueryVersion"), is(XQuery.INSTANCE.getREC_1_0_20070123()));
+        assertThat(getSelectedItem(component, "DialectForXQuery1.0"), is(XQuery.INSTANCE));
+        assertThat(getSelectedItem(component, "DialectForXQuery3.0"), is(XQuery.INSTANCE));
+        assertThat(getSelectedItem(component, "DialectForXQuery3.1"), is(XQuery.INSTANCE));
 
         assertThat(configurable.isModified(), is(false));
 
         configurable.disposeUIResources();
     }
-
-    @SuppressWarnings("ConstantConditions")
-    public void testPreservingXQueryVersionSelection() throws ConfigurationException {
-        XQueryProjectSettingsConfigurable configurable = new XQueryProjectSettingsConfigurable(myProject);
-        JComponent component = configurable.createComponent();
-
-        assertThat(getSelectedItem(component, "Implementation").toString(), is("W3C"));
-        assertThat(getSelectedItem(component, "XQueryVersion"), is(XQueryVersion.VERSION_1_0));
-
-        setSelectedItem(component, "Implementation", Implementations.getItemById("marklogic"));
-        assertThat(getSelectedItem(component, "Implementation").toString(), is("MarkLogic"));
-        assertThat(getSelectedItem(component, "XQueryVersion"), is(XQueryVersion.VERSION_1_0));
-
-        setSelectedItem(component, "XQueryVersion", XQueryVersion.VERSION_1_0);
-        assertThat(getSelectedItem(component, "Implementation").toString(), is("MarkLogic"));
-        assertThat(getSelectedItem(component, "XQueryVersion"), is(XQueryVersion.VERSION_1_0));
-
-        setSelectedItem(component, "Implementation", Implementations.getItemById("w3c"));
-        assertThat(getSelectedItem(component, "Implementation").toString(), is("W3C"));
-        assertThat(getSelectedItem(component, "XQueryVersion"), is(XQueryVersion.VERSION_1_0));
-
-        configurable.disposeUIResources();
-    }
-
-    @SuppressWarnings("ConstantConditions")
-    public void testPreservingXQueryDialectSelection() throws ConfigurationException {
-        XQueryProjectSettingsConfigurable configurable = new XQueryProjectSettingsConfigurable(myProject);
-        JComponent component = configurable.createComponent();
-
-        assertThat(getSelectedItem(component, "Implementation").toString(), is("W3C"));
-        assertThat(getSelectedItem(component, "DialectForXQuery1.0").toString(), is("XQuery"));
-
-        setSelectedItem(component, "Implementation", Implementations.getItemById("saxon/EE"));
-        assertThat(getSelectedItem(component, "Implementation").toString(), is("Saxon Enterprise Edition"));
-        assertThat(getSelectedItem(component, "DialectForXQuery1.0").toString(), is("XQuery"));
-
-        setSelectedItem(component, "ImplementationVersion", Implementations.getItemById("saxon/EE/v9.7"));
-        assertThat(getSelectedItem(component, "Implementation").toString(), is("Saxon Enterprise Edition"));
-        assertThat(getSelectedItem(component, "DialectForXQuery1.0").toString(), is("XQuery"));
-
-        setSelectedItem(component, "DialectForXQuery1.0", Implementations.getItemById("saxon/EE/v9.7/1.0-update"));
-        assertThat(getSelectedItem(component, "Implementation").toString(), is("Saxon Enterprise Edition"));
-        assertThat(getSelectedItem(component, "DialectForXQuery1.0").toString(), is("XQuery Update Facility 1.0"));
-
-        setSelectedItem(component, "Implementation", Implementations.getItemById("w3c"));
-        assertThat(getSelectedItem(component, "Implementation").toString(), is("W3C"));
-        assertThat(getSelectedItem(component, "DialectForXQuery1.0").toString(), is("XQuery Update Facility 1.0"));
-
-        configurable.disposeUIResources();
-    }
-    */
 }
