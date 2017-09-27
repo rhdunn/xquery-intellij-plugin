@@ -116,10 +116,15 @@ public class XQueryPropertiesUI implements SettingsUI<XQueryProjectSettings> {
         return !value.equals(setting);
     }
 
-    private boolean isModified(JComboBox comboBox, String setting) {
+    private boolean isModifiedXQuery(JComboBox<Version> comboBox, String setting) {
         Object value = comboBox.getSelectedItem();
         if (value == null) return setting != null;
-        if (value instanceof Version) return !((Version)value).getId().equals(setting);
+        return !((Specification)value).getLabel().equals(setting);
+    }
+
+    private boolean isModified(JComboBox<Versioned> comboBox, String setting) {
+        Object value = comboBox.getSelectedItem();
+        if (value == null) return setting != null;
         return !((Versioned)value).getId().equals(setting);
     }
 
@@ -127,7 +132,7 @@ public class XQueryPropertiesUI implements SettingsUI<XQueryProjectSettings> {
     public boolean isModified(XQueryProjectSettings settings) {
         if (isModified(mImplementations, settings.getProduct())) return true;
         if (isModified(mImplementationVersions, settings.getProductVersion())) return true;
-        if (isModified(mVersion, settings.getXQueryVersion())) return true;
+        if (isModifiedXQuery(mVersion, settings.getXQueryVersion())) return true;
         if (isModified(mDialectForXQuery1_0, settings.getXQuery10Dialect())) return true;
         if (isModified(mDialectForXQuery3_0, settings.getXQuery30Dialect())) return true;
         if (isModified(mDialectForXQuery3_1, settings.getXQuery31Dialect())) return true;
