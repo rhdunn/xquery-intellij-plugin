@@ -11,9 +11,16 @@ Bug Fixes:
 
 1.  Report a parser error when a `TypedFunctionTest` does not have a return type clause.
 1.  Fix resolving functions referenced in the current library module.
+1.  Fix support for `ProcessCanceledException` thrown when creating PSI nodes.
 
 Inspections:
 
+1.  XPST0003: Saxon/XQuery map key-value separators. This is split out from the unsupported
+    construct inspection.
+1.  XPST0003: Reserved function inspection. This is split out from the unsupported construct
+    inspection.
+1.  XPST0017: Undefined function inspection. This is experimental, as it
+    currently reports many false positives.
 1.  XPST0081: Unbound QName prefix.
 
 IntelliJ Integration:

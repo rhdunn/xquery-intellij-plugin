@@ -8,23 +8,28 @@
   <description><![CDATA[
     XQuery 1.0, 3.0 and 3.1 language support including Update Facility 1.0
     and 3.0, and Scripting Extension 1.0. Supports BaseX, MarkLogic and
-    Saxonica XQuery implementations.
+    Saxonica XQuery implementations, with full support for the MarkLogic
+    1.0-ml vendor extensions.
   ]]></description>
 
   <change-notes><![CDATA[
     <h3>Release 0.6-dev:</h3>
     <p>Language Support:</p>
     <ol>
-      <li>MarkLogic 7.0 and 8.0 schema-components `KindType` tests.</li>
-      <li>Recover when `=` is used instead of `:=`.</li>
+      <li>MarkLogic 7.0 and 8.0 schema-components KindType tests.</li>
+      <li>Recover when <code>=</code> is used instead of <code>:=</code>.</li>
     </ol>
     <p>Bug Fixes:</p>
     <ol>
       <li>Report a parser error when a TypedFunctionTest does not have a return type clause.</li>
       <li>Fix resolving functions referenced in the current library module.</li>
+      <li>Fix support for ProcessCanceledException thrown when creating PSI nodes.</li>
     </ol>
     <p>Inspections:</p>
     <ol>
+      <li>XPST0003: Saxon/XQuery map key-value separators. This is split out from the unsupported construct inspection.</li>
+      <li>XPST0003: Reserved function inspection. This is split out from the unsupported construct inspection.</li>
+      <li>XPST0017: Undefined function inspection. This is experimental, as it currently reports many false positives.</li>
       <li>XPST0081: Unbound QName prefix.</li>
     </ol>
     <p>IntelliJ Integration:</p>
