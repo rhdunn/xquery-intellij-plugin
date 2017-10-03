@@ -122,17 +122,19 @@ open class XQueryEQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQue
 
     override fun resolvePrefixNamespace(): Sequence<XQueryNamespace> {
         val prefix = prefix
-        if (prefix == null || prefix is XQueryBracedURILiteral) {
-            return emptySequence()
-        }
-
-        val text = prefix.text
-        return prefix.walkTree().reversed().map { e ->
-            if (e is XQueryNamespaceResolver) {
-                e.resolveNamespace(text)
-            } else {
-                null
+        return when (prefix) {
+            null -> emptySequence()
+            is XQueryBracedURILiteral -> emptySequence()
+            else -> {
+                val text = prefix.text
+                return prefix.walkTree().reversed().map { e ->
+                    if (e is XQueryNamespaceResolver) {
+                        e.resolveNamespace(text)
+                    } else {
+                        null
+                    }
+                }.filterNotNull()
             }
-        }.filterNotNull()
+        }
     }
 }
