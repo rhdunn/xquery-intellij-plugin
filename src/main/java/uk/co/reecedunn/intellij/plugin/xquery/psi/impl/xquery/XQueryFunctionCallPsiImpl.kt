@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionCall
 
 class XQueryFunctionCallPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryFunctionCall {
     override val functionName get(): XQueryEQName? =
-        firstChild as XQueryEQName
+        firstChild as? XQueryEQName
 
     override val arity get(): Int =
         children().filterIsInstance<XQueryArgumentList>().first().arity

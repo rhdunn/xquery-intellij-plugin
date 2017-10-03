@@ -2607,6 +2607,16 @@ class XQueryPsiTest:ParserTestCase() {
         assertThat(functionCallPsi.functionName?.localName?.node?.text, `is`("sin"))
     }
 
+    fun testFunctionCall_NoFunctionEQName() {
+        val file = parseResource("tests/psi/xquery-1.0/FunctionCall_NoFunctionEQName.xq")!!
+
+        val functionCallPsi = file.descendants().filterIsInstance<XQueryFunctionCall>().first()
+        assertThat(functionCallPsi, `is`(notNullValue()))
+        assertThat(functionCallPsi.arity, `is`(0))
+
+        assertThat(functionCallPsi.functionName, `is`(nullValue()))
+    }
+
     // endregion
     // region XQueryFunctionDecl
 
@@ -2637,6 +2647,17 @@ class XQueryPsiTest:ParserTestCase() {
 
         assertThat(functionDeclPsi.functionName?.localName?.node?.elementType, `is`(XQueryTokenType.NCNAME))
         assertThat(functionDeclPsi.functionName?.localName?.node?.text, `is`("test"))
+    }
+
+    fun testFunctionDecl_NoFunctionEQName() {
+        val file = parseResource("tests/psi/xquery-1.0/FunctionDecl_NoFunctionEQName.xq")!!
+
+        val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
+        val functionDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryFunctionDecl>().first()
+        assertThat(functionDeclPsi, `is`(notNullValue()))
+        assertThat(functionDeclPsi.arity, `is`(0))
+
+        assertThat(functionDeclPsi.functionName, `is`(nullValue()))
     }
 
     // endregion
@@ -2787,6 +2808,16 @@ class XQueryPsiTest:ParserTestCase() {
 
         assertThat(namedFunctionRefPsi.functionName?.localName?.node?.elementType, `is`(XQueryTokenType.NCNAME))
         assertThat(namedFunctionRefPsi.functionName?.localName?.node?.text, `is`("true"))
+    }
+
+    fun testNamedFunctionRef_NoFunctionEQName() {
+        val file = parseResource("tests/psi/xquery-3.0/NamedFunctionRef_NoFunctionEQName.xq")!!
+
+        val namedFunctionRefPsi = file.descendants().filterIsInstance<XQueryNamedFunctionRef>().first()
+        assertThat(namedFunctionRefPsi, `is`(notNullValue()))
+        assertThat(namedFunctionRefPsi.arity, `is`(0))
+
+        assertThat(namedFunctionRefPsi.functionName, `is`(nullValue()))
     }
 
     // endregion
