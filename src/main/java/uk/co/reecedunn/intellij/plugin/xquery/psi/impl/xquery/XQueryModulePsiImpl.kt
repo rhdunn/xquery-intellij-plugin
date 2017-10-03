@@ -32,7 +32,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings
 
 open class XQueryModulePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryModule, XQueryNamespaceResolver, XQueryPrologResolver {
     private val settings: XQueryProjectSettings
-    private var staticContext: XQueryNamespaceResolver? = null
+    private var staticContext: XQueryProlog? = null
     private var product: Product? = null
     private var productVersion: Version? = null
     private var xquery: Specification? = null
@@ -50,11 +50,11 @@ open class XQueryModulePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQue
 
             val context = product?.implementation?.staticContext(product, productVersion, xquery)
             val file = ResourceVirtualFile.resolve(context, project)
-            staticContext = ((file as? XQueryFile)?.module as? XQueryPrologResolver)?.prolog as XQueryNamespaceResolver
+            staticContext = ((file as? XQueryFile)?.module as? XQueryPrologResolver)?.prolog
         }
 
         if (staticContext != null) {
-            return staticContext?.resolveNamespace(prefix)
+            return (staticContext as XQueryNamespaceResolver).resolveNamespace(prefix)
         }
         return null
     }
