@@ -32,16 +32,16 @@ import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings
 
 open class XQueryModulePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryModule, XQueryNamespaceResolver, XQueryPrologResolver {
     private val settings: XQueryProjectSettings
-    private var staticContext: XQueryProlog? = null
-    private var product: Product? = null
-    private var productVersion: Version? = null
-    private var xquery: Specification? = null
-
     init {
         settings = XQueryProjectSettings.getInstance(project)
     }
 
-    override fun resolveNamespace(prefix: CharSequence?): XQueryNamespace? {
+    private var product: Product? = null
+    private var productVersion: Version? = null
+    private var xquery: Specification? = null
+
+    private var staticContextCache: XQueryProlog? = null
+    private val staticContext get(): XQueryProlog? {
         val version: Specification = (containingFile as XQueryFile).XQueryVersion.getVersionOrDefault(project)
         if (product !== settings.product || productVersion !== settings.productVersion || xquery !== version) {
             product = settings.product
@@ -50,14 +50,13 @@ open class XQueryModulePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQue
 
             val context = product?.implementation?.staticContext(product, productVersion, xquery)
             val file = ResourceVirtualFile.resolve(context, project)
-            staticContext = ((file as? XQueryFile)?.module as? XQueryPrologResolver)?.prolog
+            staticContextCache = ((file as? XQueryFile)?.module as? XQueryPrologResolver)?.prolog
         }
-
-        if (staticContext != null) {
-            return (staticContext as XQueryNamespaceResolver).resolveNamespace(prefix)
-        }
-        return null
+        return staticContextCache
     }
+
+    override fun resolveNamespace(prefix: CharSequence?): XQueryNamespace? =
+        (staticContext as? XQueryNamespaceResolver)?.resolveNamespace(prefix)
 
     override val prolog get(): XQueryProlog? =
         children().filterIsInstance<XQueryProlog>().firstOrNull()
