@@ -1432,20 +1432,22 @@ class XQueryParser {
             parseWhiteSpaceAndCommentTokens();
 
             final PsiBuilder.Marker marker = mark();
-            if (parseTransactionSeparator() == TransactionType.WITH_PROLOG) {
-                // MarkLogic transaction containing a Prolog/Module statement.
-                marker.rollbackTo();
-                return true;
-            }
-            marker.rollbackTo();
-
-            if (matchTokenType(XQueryTokenType.SEPARATOR)) {
-                parseWhiteSpaceAndCommentTokens();
-            } else {
-                if (haveConcatExpr) {
-                    error(XQueryBundle.message("parser.error.expected", ";"));
-                }
-                return true;
+            switch (parseTransactionSeparator()) {
+                case WITH_PROLOG:
+                    // MarkLogic transaction containing a Prolog/Module statement.
+                    marker.rollbackTo();
+                    return true;
+                case WITHOUT_PROLOG:
+                    marker.rollbackTo();
+                    matchTokenType(XQueryTokenType.SEPARATOR);
+                    parseWhiteSpaceAndCommentTokens();
+                    break;
+                case NONE:
+                    marker.rollbackTo();
+                    if (haveConcatExpr) {
+                        error(XQueryBundle.message("parser.error.expected", ";"));
+                    }
+                    return true;
             }
 
             haveConcatExpr = true;
