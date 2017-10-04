@@ -1413,7 +1413,7 @@ class XQueryParser {
 
     private boolean parseExpr(IElementType type) {
         final PsiBuilder.Marker exprMarker = mark();
-        if (parseApplyExpr()) {
+        if (parseApplyExpr(type)) {
             exprMarker.done(type);
             return true;
         }
@@ -1421,7 +1421,7 @@ class XQueryParser {
         return false;
     }
 
-    private boolean parseApplyExpr() {
+    private boolean parseApplyExpr(IElementType type) {
         // NOTE: No marker is captured here because the Expr node is an instance
         // of the ApplyExpr node and there are no other uses of ApplyExpr.
         boolean haveConcatExpr = false;
@@ -1438,8 +1438,12 @@ class XQueryParser {
                     marker.rollbackTo();
                     return true;
                 case WITHOUT_PROLOG:
-                    marker.rollbackTo();
-                    matchTokenType(XQueryTokenType.SEPARATOR);
+                    if (type != XQueryElementType.QUERY_BODY) {
+                        marker.rollbackTo();
+                        matchTokenType(XQueryTokenType.SEPARATOR);
+                    } else {
+                        marker.drop();
+                    }
                     parseWhiteSpaceAndCommentTokens();
                     break;
                 case NONE:

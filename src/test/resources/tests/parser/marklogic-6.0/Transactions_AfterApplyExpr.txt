@@ -23,7 +23,8 @@ FileElement[FILE(0:53)]
                                                                   XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:1)]
                                                                      XQueryLiteralImpl[XQUERY_LITERAL(0:1)]
                                                                         XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:1)]('2')
-         LeafPsiElement[XQUERY_SEPARATOR_TOKEN(1:2)](';')
+         MarkLogicTransactionSeparatorImpl[XQUERY_TRANSACTION_SEPARATOR(1:2)]
+            LeafPsiElement[XQUERY_SEPARATOR_TOKEN(1:2)](';')
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(2:4)]
             XQueryOrExprImpl[XQUERY_OR_EXPR(2:4)]
                XQueryAndExprImpl[XQUERY_AND_EXPR(2:4)]

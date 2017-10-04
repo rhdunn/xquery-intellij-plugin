@@ -61,7 +61,7 @@ class ScriptingPsiTest : ParserTestCase() {
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.SEPARATOR))
+                `is`<IElementType>(XQueryElementType.TRANSACTION_SEPARATOR))
     }
 
     fun testApplyExpr_Multiple() {
@@ -75,7 +75,7 @@ class ScriptingPsiTest : ParserTestCase() {
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.SEPARATOR))
+                `is`<IElementType>(XQueryElementType.TRANSACTION_SEPARATOR))
     }
 
     // endregion

@@ -18,14 +18,18 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.scripting
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingApplyExpr
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Scripting
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
 private val SCRIPTING10 = listOf(Scripting.NOTE_1_0_20140918)
 private val XQUERY = listOf<Version>()
+
+private val SEPARATOR_TOKENS = TokenSet.create(XQueryTokenType.SEPARATOR, XQueryElementType.TRANSACTION_SEPARATOR)
 
 open class ScriptingApplyExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), ScriptingApplyExpr, XQueryConformance {
     override val requiresConformance get(): List<Version> {
@@ -36,5 +40,5 @@ open class ScriptingApplyExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node)
     }
 
     override val conformanceElement get(): PsiElement =
-        findChildByType(XQueryTokenType.SEPARATOR) ?: firstChild
+        findChildByType(SEPARATOR_TOKENS) ?: firstChild
 }
