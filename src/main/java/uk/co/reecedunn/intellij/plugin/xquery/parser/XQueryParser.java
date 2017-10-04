@@ -1424,7 +1424,11 @@ class XQueryParser {
     private boolean parseApplyExpr() {
         // NOTE: No marker is captured here because the Expr node is an instance
         // of the ApplyExpr node and there are no other uses of ApplyExpr.
-        if (parseConcatExpr()) {
+        boolean haveConcatExpr = false;
+        while (true) {
+            if (!parseConcatExpr())
+                return haveConcatExpr;
+
             parseWhiteSpaceAndCommentTokens();
 
             final PsiBuilder.Marker marker = mark();
@@ -1437,28 +1441,15 @@ class XQueryParser {
 
             if (matchTokenType(XQueryTokenType.SEPARATOR)) {
                 parseWhiteSpaceAndCommentTokens();
-                boolean haveSeparator = true;
-                while (haveSeparator && parseConcatExpr()) {
-                    parseWhiteSpaceAndCommentTokens();
-
-                    final PsiBuilder.Marker marker2 = mark();
-                    if (parseTransactionSeparator() == TransactionType.WITH_PROLOG) {
-                        // MarkLogic transaction containing a Prolog/Module statement.
-                        marker2.rollbackTo();
-                        return true;
-                    }
-                    marker2.rollbackTo();
-
-                    if (!matchTokenType(XQueryTokenType.SEPARATOR)) {
-                        error(XQueryBundle.message("parser.error.expected", ";"));
-                        haveSeparator = false;
-                    }
-                    parseWhiteSpaceAndCommentTokens();
+            } else {
+                if (haveConcatExpr) {
+                    error(XQueryBundle.message("parser.error.expected", ";"));
                 }
+                return true;
             }
-            return true;
+
+            haveConcatExpr = true;
         }
-        return false;
     }
 
     private boolean parseConcatExpr() {
