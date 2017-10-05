@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryParenthesizedExpr
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Scripting
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
@@ -37,7 +38,7 @@ class ScriptingPsiTest : ParserTestCase() {
     // region XQueryConformance
     // region ApplyExpr
 
-    fun testApplyExpr_Single_NoSemicolon() {
+    fun testApplyExpr_QueryBody_Single_NoSemicolon() {
         val file = parseResource("tests/parser/xquery-1.0/IntegerLiteral.xq")!!
 
         val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
@@ -50,7 +51,7 @@ class ScriptingPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryElementType.CONCAT_EXPR))
     }
 
-    fun testApplyExpr_Single_Semicolon() {
+    fun testApplyExpr_QueryBody_Single_Semicolon() {
         val file = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_Single_SemicolonAtEnd.xq")!!
 
         val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
@@ -64,7 +65,7 @@ class ScriptingPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryElementType.TRANSACTION_SEPARATOR))
     }
 
-    fun testApplyExpr_Multiple() {
+    fun testApplyExpr_QueryBody_Multiple() {
         val file = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_TwoExpr_SemicolonAtEnd.xq")!!
 
         val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
@@ -76,6 +77,50 @@ class ScriptingPsiTest : ParserTestCase() {
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
                 `is`<IElementType>(XQueryElementType.TRANSACTION_SEPARATOR))
+    }
+
+    fun testApplyExpr_Single_NoSemicolon() {
+        val file = parseResource("tests/psi/xquery-sx-1.0/ApplyExpr_NotQueryBody_Single_NoSemicolon.xq")!!
+
+        val parenthesizedExpr = file.descendants().filterIsInstance<XQueryParenthesizedExpr>().first()
+        val applyExpr = parenthesizedExpr.children().filterIsInstance<ScriptingApplyExpr>().first()
+        val conformance = applyExpr as XQueryConformance
+
+        assertThat(conformance.requiresConformance.size, `is`(0))
+
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
+                `is`<IElementType>(XQueryElementType.CONCAT_EXPR))
+    }
+
+    fun testApplyExpr_Single_Semicolon() {
+        val file = parseResource("tests/psi/xquery-sx-1.0/ApplyExpr_NotQueryBody_Single_Semicolon.xq")!!
+
+        val parenthesizedExpr = file.descendants().filterIsInstance<XQueryParenthesizedExpr>().first()
+        val applyExpr = parenthesizedExpr.children().filterIsInstance<ScriptingApplyExpr>().first()
+        val conformance = applyExpr as XQueryConformance
+
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`<Version>(Scripting.NOTE_1_0_20140918))
+
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
+                `is`<IElementType>(XQueryTokenType.SEPARATOR))
+    }
+
+    fun testApplyExpr_Multiple() {
+        val file = parseResource("tests/psi/xquery-sx-1.0/ApplyExpr_NotQueryBody_Multiple.xq")!!
+
+        val parenthesizedExpr = file.descendants().filterIsInstance<XQueryParenthesizedExpr>().first()
+        val applyExpr = parenthesizedExpr.children().filterIsInstance<ScriptingApplyExpr>().first()
+        val conformance = applyExpr as XQueryConformance
+
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`<Version>(Scripting.NOTE_1_0_20140918))
+
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
+                `is`<IElementType>(XQueryTokenType.SEPARATOR))
     }
 
     // endregion
