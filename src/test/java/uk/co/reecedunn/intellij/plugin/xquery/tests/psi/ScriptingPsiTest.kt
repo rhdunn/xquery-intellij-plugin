@@ -57,8 +57,7 @@ class ScriptingPsiTest : ParserTestCase() {
         val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
         val conformance = applyExpr as XQueryConformance
 
-        assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(Scripting.NOTE_1_0_20140918))
+        assertThat(conformance.requiresConformance.size, `is`(0))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
@@ -71,8 +70,7 @@ class ScriptingPsiTest : ParserTestCase() {
         val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
         val conformance = applyExpr as XQueryConformance
 
-        assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(Scripting.NOTE_1_0_20140918))
+        assertThat(conformance.requiresConformance.size, `is`(0))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,

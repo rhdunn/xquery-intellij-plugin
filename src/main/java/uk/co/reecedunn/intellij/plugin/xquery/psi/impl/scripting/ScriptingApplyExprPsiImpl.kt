@@ -33,7 +33,8 @@ private val SEPARATOR_TOKENS = TokenSet.create(XQueryTokenType.SEPARATOR, XQuery
 
 open class ScriptingApplyExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), ScriptingApplyExpr, XQueryConformance {
     override val requiresConformance get(): List<Version> {
-        if (conformanceElement === firstChild) {
+        val element = conformanceElement
+        if (element === firstChild || element.node.elementType === XQueryElementType.TRANSACTION_SEPARATOR) {
             return XQUERY
         }
         return SCRIPTING10
