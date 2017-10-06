@@ -1439,9 +1439,11 @@ class XQueryParser {
                     return true;
                 case WITHOUT_PROLOG:
                     if (type != XQueryElementType.QUERY_BODY) {
+                        // Scripting Extension: Use a Separator as part of the ApplyExpr.
                         marker.rollbackTo();
                         matchTokenType(XQueryTokenType.SEPARATOR);
                     } else {
+                        // Scripting Extension, or MarkLogic Transaction: Keep the MarkLogic TransactionSeparator.
                         marker.drop();
                     }
                     parseWhiteSpaceAndCommentTokens();
@@ -1449,7 +1451,15 @@ class XQueryParser {
                 case NONE:
                     marker.rollbackTo();
                     if (haveConcatExpr) {
-                        error(XQueryBundle.message("parser.error.expected", ";"));
+                        if (type != XQueryElementType.QUERY_BODY) {
+                            // Scripting Extension: The semicolon is required to end a ConcatExpr.
+                            error(XQueryBundle.message("parser.error.expected", ";"));
+                        } else {
+                            // Scripting Extension: The semicolon is required to end a ConcatExpr.
+                            // MarkLogic Transactions: The last expression must not end with a semicolon.
+                            final PsiBuilder.Marker marker2 = mark();
+                            marker2.done(XQueryElementType.TRANSACTION_SEPARATOR);
+                        }
                     }
                     return true;
             }
