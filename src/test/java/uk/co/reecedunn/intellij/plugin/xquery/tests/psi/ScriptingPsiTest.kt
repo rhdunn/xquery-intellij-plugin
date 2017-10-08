@@ -38,45 +38,6 @@ class ScriptingPsiTest : ParserTestCase() {
     // region XQueryConformance
     // region ApplyExpr
 
-    fun testApplyExpr_QueryBody_Single_NoSemicolon() {
-        val file = parseResource("tests/parser/xquery-1.0/IntegerLiteral.xq")!!
-
-        val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
-        val conformance = applyExpr as XQueryConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(0))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryElementType.CONCAT_EXPR))
-    }
-
-    fun testApplyExpr_QueryBody_Single_Semicolon() {
-        val file = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_Single_SemicolonAtEnd.xq")!!
-
-        val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
-        val conformance = applyExpr as XQueryConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(0))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryElementType.TRANSACTION_SEPARATOR))
-    }
-
-    fun testApplyExpr_QueryBody_Multiple() {
-        val file = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_TwoExpr_SemicolonAtEnd.xq")!!
-
-        val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
-        val conformance = applyExpr as XQueryConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(0))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryElementType.TRANSACTION_SEPARATOR))
-    }
-
     fun testApplyExpr_Single_NoSemicolon() {
         val file = parseResource("tests/psi/xquery-sx-1.0/ApplyExpr_NotQueryBody_Single_NoSemicolon.xq")!!
 
@@ -224,6 +185,48 @@ class ScriptingPsiTest : ParserTestCase() {
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
                 `is`<IElementType>(XQueryTokenType.K_SEQUENTIAL))
+    }
+
+    // endregion
+    // region QueryBody (ApplyExpr)
+
+    fun testQueryBody_Single_NoSemicolon() {
+        val file = parseResource("tests/parser/xquery-1.0/IntegerLiteral.xq")!!
+
+        val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
+        val conformance = applyExpr as XQueryConformance
+
+        assertThat(conformance.requiresConformance.size, `is`(0))
+
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
+                `is`<IElementType>(XQueryElementType.CONCAT_EXPR))
+    }
+
+    fun testQueryBody_Single_Semicolon() {
+        val file = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_Single_SemicolonAtEnd.xq")!!
+
+        val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
+        val conformance = applyExpr as XQueryConformance
+
+        assertThat(conformance.requiresConformance.size, `is`(0))
+
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
+                `is`<IElementType>(XQueryElementType.TRANSACTION_SEPARATOR))
+    }
+
+    fun testQueryBody_Multiple() {
+        val file = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_TwoExpr_SemicolonAtEnd.xq")!!
+
+        val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
+        val conformance = applyExpr as XQueryConformance
+
+        assertThat(conformance.requiresConformance.size, `is`(0))
+
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
+                `is`<IElementType>(XQueryElementType.TRANSACTION_SEPARATOR))
     }
 
     // endregion
