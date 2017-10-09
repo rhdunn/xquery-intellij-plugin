@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingApplyExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
+import uk.co.reecedunn.intellij.plugin.xquery.lang.Scripting
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
@@ -664,9 +665,7 @@ class MarkLogicPsiTest : ParserTestCase() {
         val transactionSeparatorPsi = applyExpr.children().filterIsInstance<MarkLogicTransactionSeparator>().first()
         val conformance = transactionSeparatorPsi as XQueryConformance
 
-        assertThat(conformance.requiresConformance.size, `is`(2))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(MarkLogic.VERSION_4_0))
-        assertThat(conformance.requiresConformance[1], `is`<Version>(XQuery.MARKLOGIC_0_9))
+        assertThat(conformance.requiresConformance.size, `is`(0))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
@@ -680,9 +679,10 @@ class MarkLogicPsiTest : ParserTestCase() {
         val transactionSeparatorPsi = applyExpr.children().filterIsInstance<MarkLogicTransactionSeparator>().first()
         val conformance = transactionSeparatorPsi as XQueryConformance
 
-        assertThat(conformance.requiresConformance.size, `is`(2))
+        assertThat(conformance.requiresConformance.size, `is`(3))
         assertThat(conformance.requiresConformance[0], `is`<Version>(MarkLogic.VERSION_4_0))
         assertThat(conformance.requiresConformance[1], `is`<Version>(XQuery.MARKLOGIC_0_9))
+        assertThat(conformance.requiresConformance[2], `is`<Version>(Scripting.NOTE_1_0_20140918))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
@@ -696,9 +696,7 @@ class MarkLogicPsiTest : ParserTestCase() {
         val transactionSeparatorPsi = applyExpr.children().filterIsInstance<MarkLogicTransactionSeparator>().last()
         val conformance = transactionSeparatorPsi as XQueryConformance
 
-        assertThat(conformance.requiresConformance.size, `is`(2))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(MarkLogic.VERSION_4_0))
-        assertThat(conformance.requiresConformance[1], `is`<Version>(XQuery.MARKLOGIC_0_9))
+        assertThat(conformance.requiresConformance.size, `is`(0))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
@@ -712,9 +710,7 @@ class MarkLogicPsiTest : ParserTestCase() {
         val transactionSeparatorPsi = applyExpr.children().filterIsInstance<MarkLogicTransactionSeparator>().last()
         val conformance = transactionSeparatorPsi as XQueryConformance
 
-        assertThat(conformance.requiresConformance.size, `is`(2))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(MarkLogic.VERSION_4_0))
-        assertThat(conformance.requiresConformance[1], `is`<Version>(XQuery.MARKLOGIC_0_9))
+        assertThat(conformance.requiresConformance.size, `is`(0))
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
