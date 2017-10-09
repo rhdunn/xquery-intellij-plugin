@@ -204,7 +204,7 @@ class ScriptingPsiTest : ParserTestCase() {
     }
 
     fun testQueryBody_Single_Semicolon() {
-        val file = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_Single_SemicolonAtEnd.xq")!!
+        val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_Single_SemicolonAtEnd.xq")!!
 
         val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
         val conformance = applyExpr as XQueryConformance
@@ -217,7 +217,7 @@ class ScriptingPsiTest : ParserTestCase() {
     }
 
     fun testQueryBody_Multiple() {
-        val file = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_TwoExpr_SemicolonAtEnd.xq")!!
+        val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_SemicolonAtEnd.xq")!!
 
         val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
         val conformance = applyExpr as XQueryConformance
