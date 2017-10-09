@@ -28,5 +28,5 @@ class MarkLogicTransactionSeparatorPsiImpl(node: ASTNode) : ASTWrapperPsiElement
     override val requiresConformance get(): List<Version> = listOf(MarkLogic.VERSION_4_0, XQuery.MARKLOGIC_0_9)
 
     override val conformanceElement get(): PsiElement =
-        firstChild
+        firstChild ?: this
 }
