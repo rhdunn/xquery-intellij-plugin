@@ -39,7 +39,7 @@ class ScriptingPsiTest : ParserTestCase() {
     // region ApplyExpr
 
     fun testApplyExpr_Single_NoSemicolon() {
-        val file = parseResource("tests/psi/xquery-sx-1.0/ApplyExpr_NotQueryBody_Single_NoSemicolon.xq")!!
+        val file = parseResource("tests/parser/xquery-1.0/ParenthesizedExpr.xq")!!
 
         val parenthesizedExpr = file.descendants().filterIsInstance<XQueryParenthesizedExpr>().first()
         val applyExpr = parenthesizedExpr.children().filterIsInstance<ScriptingApplyExpr>().first()
@@ -53,7 +53,7 @@ class ScriptingPsiTest : ParserTestCase() {
     }
 
     fun testApplyExpr_Single_Semicolon() {
-        val file = parseResource("tests/psi/xquery-sx-1.0/ApplyExpr_NotQueryBody_Single_Semicolon.xq")!!
+        val file = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_Single_SemicolonAtEnd.xq")!!
 
         val parenthesizedExpr = file.descendants().filterIsInstance<XQueryParenthesizedExpr>().first()
         val applyExpr = parenthesizedExpr.children().filterIsInstance<ScriptingApplyExpr>().first()
@@ -68,7 +68,7 @@ class ScriptingPsiTest : ParserTestCase() {
     }
 
     fun testApplyExpr_Multiple() {
-        val file = parseResource("tests/psi/xquery-sx-1.0/ApplyExpr_NotQueryBody_Multiple.xq")!!
+        val file = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_Multiple_SemicolonAtEnd.xq")!!
 
         val parenthesizedExpr = file.descendants().filterIsInstance<XQueryParenthesizedExpr>().first()
         val applyExpr = parenthesizedExpr.children().filterIsInstance<ScriptingApplyExpr>().first()
