@@ -82,6 +82,21 @@ class ScriptingPsiTest : ParserTestCase() {
                 `is`<IElementType>(XQueryTokenType.SEPARATOR))
     }
 
+    fun testApplyExpr_Multiple_NoSemicolonAtEnd() {
+        val file = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_Multiple_NoSemicolonAtEnd.xq")!!
+
+        val parenthesizedExpr = file.descendants().filterIsInstance<XQueryParenthesizedExpr>().first()
+        val applyExpr = parenthesizedExpr.children().filterIsInstance<ScriptingApplyExpr>().last()
+        val conformance = applyExpr as XQueryConformance
+
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`<Version>(Scripting.NOTE_1_0_20140918))
+
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
+                `is`<IElementType>(XQueryTokenType.SEPARATOR))
+    }
+
     // endregion
     // region AssignmentExpr
 
@@ -220,6 +235,19 @@ class ScriptingPsiTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_SemicolonAtEnd.xq")!!
 
         val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
+        val conformance = applyExpr as XQueryConformance
+
+        assertThat(conformance.requiresConformance.size, `is`(0))
+
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
+                `is`<IElementType>(XQueryElementType.TRANSACTION_SEPARATOR))
+    }
+
+    fun testQueryBody_Multiple_NoSemicolonAtEnd() {
+        val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_NoSemicolonAtEnd.xq")!!
+
+        val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().last()
         val conformance = applyExpr as XQueryConformance
 
         assertThat(conformance.requiresConformance.size, `is`(0))
