@@ -20,6 +20,7 @@ import com.intellij.codeInspection.ProblemHighlightType;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile;
 import uk.co.reecedunn.intellij.plugin.xquery.inspections.XPST0003.FinalStatementSemicolonInspection;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.inspections.InspectionTestCase;
 
@@ -141,7 +142,11 @@ public class FinalStatementSemicolonInspectionTest extends InspectionTestCase {
 
         final ProblemDescriptor[] problems = inspect(file, new FinalStatementSemicolonInspection());
         assertThat(problems, is(notNullValue()));
-        assertThat(problems.length, is(0));
+        assertThat(problems.length, is(1));
+
+        assertThat(problems[0].getHighlightType(), is(ProblemHighlightType.GENERIC_ERROR_OR_WARNING));
+        assertThat(problems[0].getDescriptionTemplate(), is("XPST0003: XQuery Scripting Extension 1.0 requires ';' at the end of each statement."));
+        assertThat(problems[0].getPsiElement().getNode().getElementType(), is(XQueryTokenType.INTEGER_LITERAL));
     }
 
     public void testScripting_WithProlog() {

@@ -53,8 +53,8 @@ class FinalStatementSemicolonInspection : LocalInspectionTool() {
                 return
 
             val haveSemicolon = element.firstChild !== null
-            if (haveSemicolon != requiresSemicolon && element.firstChild !== null) {
-                val context = element
+            if (haveSemicolon != requiresSemicolon) {
+                val context = if (element.firstChild === null) file.findElementAt(element.textOffset - 1)!! else element
                 if (requiresSemicolon) {
                     val description = XQueryBundle.message("inspection.XPST0003.final-statement-semicolon.required", Scripting.NOTE_1_0_20140918)
                     descriptors.add(manager.createProblemDescriptor(context, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR_OR_WARNING, isOnTheFly))
