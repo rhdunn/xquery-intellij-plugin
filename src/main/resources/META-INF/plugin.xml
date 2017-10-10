@@ -67,10 +67,14 @@
     <annotator language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.annotation.QNameAnnotator"/>
 
     <!-- XPST0003 -->
-    <localInspection language="XQuery" shortName="UnsupportedConstruct" bundle="messages.XQueryBundle"
-                     key="inspection.XPST0003.unsupported-construct.display-name" hasStaticDescription="true"
-                     groupName="XQuery" enabledByDefault="true" level="WARNING"
-                     implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.XPST0003.UnsupportedConstructInspection"/>
+    <localInspection language="XQuery" shortName="FinalStatementSemicolon" bundle="messages.XQueryBundle"
+                     key="inspection.XPST0003.final-statement-semicolon.display-name" hasStaticDescription="true"
+                     groupName="XQuery" enabledByDefault="true" level="ERROR"
+                     implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.XPST0003.FinalStatementSemicolonInspection"/>
+    <localInspection language="XQuery" shortName="MapConstructorEntry" bundle="messages.XQueryBundle"
+                     key="inspection.XPST0003.map-constructor-entry.display-name" hasStaticDescription="true"
+                     groupName="XQuery" enabledByDefault="true" level="ERROR"
+                     implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.XPST0003.MapConstructorEntryInspection"/>
     <localInspection language="XQuery" shortName="PredefinedEntityRef" bundle="messages.XQueryBundle"
                      key="inspection.XPST0003.predefined-entity.display-name" hasStaticDescription="true"
                      groupName="XQuery" enabledByDefault="true" level="ERROR"
@@ -79,10 +83,10 @@
                      key="inspection.XPST0003.reserved-function-name.display-name" hasStaticDescription="true"
                      groupName="XQuery" enabledByDefault="true" level="ERROR"
                      implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.XPST0003.ReservedFunctionNameInspection"/>
-    <localInspection language="XQuery" shortName="MapConstructorEntry" bundle="messages.XQueryBundle"
-                     key="inspection.XPST0003.map-constructor-entry.display-name" hasStaticDescription="true"
-                     groupName="XQuery" enabledByDefault="true" level="ERROR"
-                     implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.XPST0003.MapConstructorEntryInspection"/>
+    <localInspection language="XQuery" shortName="UnsupportedConstruct" bundle="messages.XQueryBundle"
+                     key="inspection.XPST0003.unsupported-construct.display-name" hasStaticDescription="true"
+                     groupName="XQuery" enabledByDefault="true" level="WARNING"
+                     implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.XPST0003.UnsupportedConstructInspection"/>
 
     <!-- XQST0017 -->
     <localInspection language="XQuery" shortName="UndefinedFunction" bundle="messages.XQueryBundle"
