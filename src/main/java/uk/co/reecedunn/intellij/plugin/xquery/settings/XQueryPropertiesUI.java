@@ -142,7 +142,7 @@ public class XQueryPropertiesUI implements SettingsUI<XQueryProjectSettings> {
     @Override
     public void apply(XQueryProjectSettings settings) {
         Product product = (Product)mImplementations.getSelectedItem();
-        Version productVersion = (ProductVersion)mImplementationVersions.getSelectedItem();
+        Version productVersion = (Version)mImplementationVersions.getSelectedItem();
         VersionedProductId version = new VersionedProductId(product, productVersion);
         Specification xqueryVersion = (Specification)mVersion.getSelectedItem();
         Versioned dialect10 = (Versioned)mDialectForXQuery1_0.getSelectedItem();
