@@ -6,6 +6,8 @@ Language Support:
 
 1.  MarkLogic 7.0 and 8.0 schema-components `KindType` tests.
 1.  Recover when `=` is used instead of `:=`.
+1.  Improved multi-statement expression parsing and error reporting for MarkLogic 6.0, and
+    W3C Scripting XQuery extensions.
 
 Bug Fixes:
 
@@ -15,10 +17,12 @@ Bug Fixes:
 
 Inspections:
 
-1.  XPST0003: Saxon/XQuery map key-value separators. This is split out from the unsupported
-    construct inspection.
+1.  XPST0003: Final statement semicolon inspection for MarkLogic and Scripting Extension
+    syntax differences.
 1.  XPST0003: Reserved function inspection. This is split out from the unsupported construct
     inspection.
+1.  XPST0003: Saxon/XQuery map key-value separators. This is split out from the unsupported
+    construct inspection.
 1.  XPST0017: Undefined function inspection. This is experimental, as it
     currently reports many false positives.
 1.  XPST0081: Unbound QName prefix.
