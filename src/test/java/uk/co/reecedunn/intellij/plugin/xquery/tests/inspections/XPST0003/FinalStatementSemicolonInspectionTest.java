@@ -64,7 +64,7 @@ public class FinalStatementSemicolonInspectionTest extends InspectionTestCase {
         assertThat(problems.length, is(1));
 
         assertThat(problems[0].getHighlightType(), is(ProblemHighlightType.GENERIC_ERROR_OR_WARNING));
-        assertThat(problems[0].getDescriptionTemplate(), is("XPST0003: MarkLogic 6.0 does not allow ';' here."));
+        assertThat(problems[0].getDescriptionTemplate(), is("XPST0003: MarkLogic 6.0 does not allow ';' at the end of the last statement."));
         assertThat(problems[0].getPsiElement().getNode().getElementType(), is(XQueryElementType.TRANSACTION_SEPARATOR));
     }
 
@@ -78,7 +78,7 @@ public class FinalStatementSemicolonInspectionTest extends InspectionTestCase {
         assertThat(problems.length, is(1));
 
         assertThat(problems[0].getHighlightType(), is(ProblemHighlightType.GENERIC_ERROR_OR_WARNING));
-        assertThat(problems[0].getDescriptionTemplate(), is("XPST0003: MarkLogic 6.0 does not allow ';' here."));
+        assertThat(problems[0].getDescriptionTemplate(), is("XPST0003: MarkLogic 6.0 does not allow ';' at the end of the last statement."));
         assertThat(problems[0].getPsiElement().getNode().getElementType(), is(XQueryElementType.TRANSACTION_SEPARATOR));
     }
 
