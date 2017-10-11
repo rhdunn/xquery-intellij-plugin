@@ -29,7 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceResolver
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
 
 class XQueryModuleDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryModuleDecl, XQueryNamespaceResolver, XQueryPrologResolver {
-    val namespace get(): XQueryNamespace? {
+    override val namespace get(): XQueryNamespace? {
         return children().filterIsInstance<XQueryNCName>().map { name -> name.localName }.map { localName ->
             val element = findChildByType<PsiElement>(XQueryElementType.URI_LITERAL)
             XQueryNamespace(localName, element, this)

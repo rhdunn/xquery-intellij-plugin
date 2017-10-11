@@ -16,8 +16,11 @@
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace
 
 /**
  * An XQuery 1.0 `ModuleDecl` node in the XQuery AST.
  */
-interface XQueryModuleDecl : PsiElement
+interface XQueryModuleDecl : PsiElement {
+    val namespace: XQueryNamespace?
+}
