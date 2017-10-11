@@ -2739,6 +2739,34 @@ class XQueryPsiTest:ParserTestCase() {
     }
 
     // endregion
+    // region XQueryModuleImport
+
+    fun testModuleImport() {
+        val file = parseResource("tests/parser/xquery-1.0/ModuleImport.xq")!!
+
+        val moduleImportPsi = file.descendants().filterIsInstance<XQueryModuleImport>().first()
+        val ns = moduleImportPsi.namespace
+        assertThat<XQueryNamespace>(ns, `is`(nullValue()))
+    }
+
+    fun testModuleImport_WithNamespace() {
+        val file = parseResource("tests/parser/xquery-1.0/ModuleImport_WithNamespace.xq")!!
+
+        val moduleImportPsi = file.descendants().filterIsInstance<XQueryModuleImport>().first()
+        val ns = moduleImportPsi.namespace
+        assertThat<XQueryNamespace>(ns, `is`(notNullValue()))
+
+        assertThat(ns!!.prefix, `is`<PsiElement>(instanceOf<PsiElement>(LeafPsiElement::class.java)))
+        assertThat(ns.prefix!!.text, `is`("test"))
+
+        assertThat(ns.uri, `is`<PsiElement>(instanceOf<PsiElement>(XQueryUriLiteral::class.java)))
+        assertThat((ns.uri as XQueryUriLiteral).atomicValue, `is`<CharSequence>("http://www.example.com/test"))
+
+        assertThat(ns.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryModuleImport::class.java)))
+        assertThat(ns.declaration, `is`<PsiElement>(moduleImportPsi))
+    }
+
+    // endregion
     // region XQueryPrologResolver
     // region Module
 
@@ -3138,7 +3166,7 @@ class XQueryPsiTest:ParserTestCase() {
     // endregion
     // region ModuleImport
 
-    fun testModuleImport() {
+    fun testModuleImport_NamespaceResolver() {
         val file = parseResource("tests/parser/xquery-1.0/ModuleImport.xq")!!
 
         val moduleImportPsi = file.descendants().filterIsInstance<XQueryModuleImport>().first()
@@ -3150,7 +3178,7 @@ class XQueryPsiTest:ParserTestCase() {
         assertThat<XQueryNamespace>(provider.resolveNamespace("test"), `is`(nullValue()))
     }
 
-    fun testModuleImport_WithNamespace() {
+    fun testModuleImport_WithNamespace_NamespaceResolver() {
         val file = parseResource("tests/parser/xquery-1.0/ModuleImport_WithNamespace.xq")!!
 
         val moduleImportPsi = file.descendants().filterIsInstance<XQueryModuleImport>().first()

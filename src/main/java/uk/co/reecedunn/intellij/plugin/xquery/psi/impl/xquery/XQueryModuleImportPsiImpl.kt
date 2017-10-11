@@ -26,14 +26,16 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceResolver
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
 
 class XQueryModuleImportPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryModuleImport, XQueryNamespaceResolver, XQueryPrologResolver {
-    override fun resolveNamespace(prefix: CharSequence?): XQueryNamespace? {
-        val name = findChildByType<XQueryNCName>(XQueryElementType.NCNAME) ?: return null
-        val localName = name.localName
-        if (localName?.text == prefix) {
+    override val namespace get(): XQueryNamespace? {
+        return children().filterIsInstance<XQueryNCName>().map { name -> name.localName }.map { localName ->
             val element = findChildByType<PsiElement>(XQueryElementType.URI_LITERAL)
-            return XQueryNamespace(localName, element, this)
-        }
-        return null
+            XQueryNamespace(localName, element, this)
+        }.firstOrNull()
+    }
+
+    override fun resolveNamespace(prefix: CharSequence?): XQueryNamespace? {
+        val ns = namespace
+        return if (ns?.prefix?.text == prefix) ns else null
     }
 
     override val prolog get(): XQueryProlog? {
