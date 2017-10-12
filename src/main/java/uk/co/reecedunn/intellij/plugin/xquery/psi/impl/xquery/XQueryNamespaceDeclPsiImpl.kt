@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.extensions.children
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryNCName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryNamespaceDecl
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
@@ -25,13 +26,15 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceResolver
 
 class XQueryNamespaceDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryNamespaceDecl, XQueryNamespaceResolver {
-    override fun resolveNamespace(prefix: CharSequence?): XQueryNamespace? {
-        val name = findChildByType<XQueryNCName>(XQueryElementType.NCNAME)
-        val localName = name?.localName
-        if (prefix != null && localName?.text == prefix) {
+    override val namespace get(): XQueryNamespace? {
+        return children().filterIsInstance<XQueryNCName>().map { name -> name.localName }.map { localName ->
             val element = findChildByType<PsiElement>(XQueryElementType.URI_LITERAL)
-            return XQueryNamespace(localName, element, this)
-        }
-        return null
+            XQueryNamespace(localName, element, this)
+        }.firstOrNull()
+    }
+
+    override fun resolveNamespace(prefix: CharSequence?): XQueryNamespace? {
+        val ns = namespace
+        return if (ns?.prefix?.text == prefix) ns else null
     }
 }

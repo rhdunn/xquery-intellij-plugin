@@ -2893,6 +2893,50 @@ class XQueryPsiTest:ParserTestCase() {
     }
 
     // endregion
+    // region XQueryNamespaceDecl
+
+    fun testNamespaceDecl() {
+        val file = parseResource("tests/parser/xquery-1.0/NamespaceDecl.xq")!!
+
+        val namespaceDeclPsi = file.descendants().filterIsInstance<XQueryNamespaceDecl>().first()
+        val ns = namespaceDeclPsi.namespace
+        assertThat<XQueryNamespace>(ns, `is`(notNullValue()))
+
+        assertThat(ns!!.prefix, `is`<PsiElement>(instanceOf<PsiElement>(LeafPsiElement::class.java)))
+        assertThat(ns.prefix!!.text, `is`("test"))
+
+        assertThat(ns.uri, `is`<PsiElement>(instanceOf<PsiElement>(XQueryUriLiteral::class.java)))
+        assertThat((ns.uri as XQueryUriLiteral).atomicValue, `is`<CharSequence>("http://www.example.org/test"))
+
+        assertThat(ns.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryNamespaceDecl::class.java)))
+        assertThat(ns.declaration, `is`<PsiElement>(namespaceDeclPsi))
+    }
+
+    fun testNamespaceDecl_MissingNCName() {
+        val file = parseResource("tests/parser/xquery-1.0/NamespaceDecl_MissingNCName.xq")!!
+
+        val namespaceDeclPsi = file.descendants().filterIsInstance<XQueryNamespaceDecl>().first()
+        val ns = namespaceDeclPsi.namespace
+        assertThat<XQueryNamespace>(ns, `is`(nullValue()))
+    }
+
+    fun testNamespaceDecl_MissingUri() {
+        val file = parseResource("tests/parser/xquery-1.0/NamespaceDecl_MissingUri.xq")!!
+
+        val namespaceDeclPsi = file.descendants().filterIsInstance<XQueryNamespaceDecl>().first()
+        val ns = namespaceDeclPsi.namespace
+        assertThat<XQueryNamespace>(ns, `is`(notNullValue()))
+
+        assertThat(ns!!.prefix, `is`<PsiElement>(instanceOf<PsiElement>(LeafPsiElement::class.java)))
+        assertThat(ns.prefix!!.text, `is`("test"))
+
+        assertThat(ns.uri, `is`(nullValue()))
+
+        assertThat(ns.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryNamespaceDecl::class.java)))
+        assertThat(ns.declaration, `is`<PsiElement>(namespaceDeclPsi))
+    }
+
+    // endregion
     // region XQueryNamespaceResolver
     // region DirAttributeList
 
@@ -3204,7 +3248,7 @@ class XQueryPsiTest:ParserTestCase() {
     // endregion
     // region NamespaceDecl
 
-    fun testNamespaceDecl() {
+    fun testNamespaceDecl_NamespaceResolver() {
         val file = parseResource("tests/parser/xquery-1.0/NamespaceDecl.xq")!!
 
         val namespaceDeclPsi = file.descendants().filterIsInstance<XQueryNamespaceDecl>().first()
@@ -3227,7 +3271,7 @@ class XQueryPsiTest:ParserTestCase() {
         assertThat(ns.declaration, `is`<PsiElement>(namespaceDeclPsi))
     }
 
-    fun testNamespaceDecl_MissingNCName() {
+    fun testNamespaceDecl_MissingNCName_NamespaceResolver() {
         val file = parseResource("tests/parser/xquery-1.0/NamespaceDecl_MissingNCName.xq")!!
 
         val namespaceDeclPsi = file.descendants().filterIsInstance<XQueryNamespaceDecl>().first()
@@ -3239,7 +3283,7 @@ class XQueryPsiTest:ParserTestCase() {
         assertThat<XQueryNamespace>(provider.resolveNamespace("test"), `is`(nullValue()))
     }
 
-    fun testNamespaceDecl_MissingUri() {
+    fun testNamespaceDecl_MissingUri_NamespaceResolver() {
         val file = parseResource("tests/parser/xquery-1.0/NamespaceDecl_MissingUri.xq")!!
 
         val namespaceDeclPsi = file.descendants().filterIsInstance<XQueryNamespaceDecl>().first()
