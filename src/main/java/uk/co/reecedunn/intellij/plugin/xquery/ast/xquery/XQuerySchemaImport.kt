@@ -15,7 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace
+
 /**
  * An XQuery 1.0 `SchemaImport` node in the XQuery AST.
  */
-interface XQuerySchemaImport : XQueryImport
+interface XQuerySchemaImport : XQueryImport {
+    val namespace: XQueryNamespace?
+}

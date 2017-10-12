@@ -27,16 +27,16 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceResolver
 
 class XQuerySchemaImportPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQuerySchemaImport, XQueryNamespaceResolver {
-    override fun resolveNamespace(prefix: CharSequence?): XQueryNamespace? {
+    override val namespace get(): XQueryNamespace? {
         val schema = findChildByType<XQuerySchemaPrefix>(XQueryElementType.SCHEMA_PREFIX) ?: return null
-        return schema.children().filterIsInstance<XQueryNCName>().map { name ->
-            val localName = name.localName
-            if (localName?.text == prefix) {
-                val element = findChildByType<PsiElement>(XQueryElementType.URI_LITERAL)
-                XQueryNamespace(localName, element, this)
-            } else {
-                null
-            }
-        }.filterNotNull().firstOrNull()
+        return schema.children().filterIsInstance<XQueryNCName>().map { name -> name.localName }.map { localName ->
+            val element = findChildByType<PsiElement>(XQueryElementType.URI_LITERAL)
+            XQueryNamespace(localName, element, this)
+        }.firstOrNull()
+    }
+
+    override fun resolveNamespace(prefix: CharSequence?): XQueryNamespace? {
+        val ns = namespace
+        return if (ns?.prefix?.text == prefix) ns else null
     }
 }
