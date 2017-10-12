@@ -102,6 +102,12 @@
                      groupName="XQuery" enabledByDefault="true" level="ERROR"
                      implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.XQST0031.UnsupportedXQueryVersionInspection"/>
 
+    <!-- XQST0033 -->
+    <localInspection language="XQuery" shortName="MultipleNamespacePrefix" bundle="messages.XQueryBundle"
+                     key="inspection.XQST0033.multiple-namespace-prefix.display-name" hasStaticDescription="true"
+                     groupName="XQuery" enabledByDefault="true" level="ERROR"
+                     implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.XQST0033.MultipleNamespacePrefixInspection"/>
+
     <!-- XPST0081 -->
     <localInspection language="XQuery" shortName="UnboundQNamePrefix" bundle="messages.XQueryBundle"
                      key="inspection.XPST0081.unbound-qname-prefix.display-name" hasStaticDescription="true"

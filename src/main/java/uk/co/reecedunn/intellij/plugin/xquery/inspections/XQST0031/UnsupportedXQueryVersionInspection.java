@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings;
 
-/** XPST0081 error condition
+/** XQST0081 error condition
  *
  * It is a <em>static error</em> if a VersionDecl specifies a version that is
  * not supported by the implementation.
