@@ -57,7 +57,7 @@ class MultipleNamespacePrefixInspection : LocalInspectionTool() {
             prolog?.children()?.forEach(fun (child) {
                 val ns = when (child) {
                     is XQueryModuleImport -> child.namespace
-                    is XQueryModuleDecl -> child.namespace
+                    is XQueryNamespaceDecl -> child.namespace
                     is XQuerySchemaImport -> child.namespace
                     else -> return
                 }
