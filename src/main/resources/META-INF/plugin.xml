@@ -19,6 +19,7 @@
       <li>MarkLogic 7.0 and 8.0 schema-components KindType tests.</li>
       <li>Recover when <code>=</code> is used instead of <code>:=</code>.</li>
       <li>Improved multi-statement expression parsing and error reporting for MarkLogic 6.0, and W3C Scripting XQuery extensions.</li>
+      <li>Fix tokenizing <code>`{...}`</code> expressions outside XQuery 3.1 string interpolation contexts.</li>
     </ol>
     <p>Bug Fixes:</p>
     <ol>

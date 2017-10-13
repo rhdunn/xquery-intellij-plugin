@@ -8,6 +8,7 @@ Language Support:
 1.  Recover when `=` is used instead of `:=`.
 1.  Improved multi-statement expression parsing and error reporting for MarkLogic 6.0, and
     W3C Scripting XQuery extensions.
+1.  Fix tokenizing `` `{...}` `` expressions outside XQuery 3.1 string interpolation contexts.
 
 Bug Fixes:
 

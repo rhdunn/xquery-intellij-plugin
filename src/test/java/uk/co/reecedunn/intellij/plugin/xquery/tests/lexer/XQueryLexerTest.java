@@ -3876,11 +3876,27 @@ public class XQueryLexerTest extends LexerTestCase {
     // region XQuery 3.1 :: StringConstructorInterpolation
 
     @Specification(name="XQuery 3.1", reference="https://www.w3.org/TR/2017/REC-xquery-31-20170321/#prod-xquery31-StringConstructorInterpolation")
-    public void testStringConstructorInterpolation() {
+    public void testStringConstructorInterpolation_InDirElemContent() {
         Lexer lexer = createLexer();
 
-        matchSingleToken(lexer, "`{", XQueryTokenType.STRING_INTERPOLATION_OPEN);
-        matchSingleToken(lexer, "}`", XQueryTokenType.STRING_INTERPOLATION_CLOSE);
+        lexer.start("<a>`{2}`</a>");
+        matchToken(lexer, "<",     0x60000000 | 30,  0,  1, XQueryTokenType.OPEN_XML_TAG);
+        matchToken(lexer, "a",     0x60000000 | 11,  1,  2, XQueryTokenType.XML_TAG_NCNAME);
+        matchToken(lexer, ">",     0x60000000 | 11,  2,  3, XQueryTokenType.END_XML_TAG);
+        matchToken(lexer, "`",     17,  3,  4, XQueryTokenType.XML_ELEMENT_CONTENTS);
+        matchToken(lexer, "{",     17,  4,  5, XQueryTokenType.BLOCK_OPEN);
+        matchToken(lexer, "2",     18,  5,  6, XQueryTokenType.INTEGER_LITERAL);
+        matchToken(lexer, "}",     18,  6,  7, XQueryTokenType.BLOCK_CLOSE);
+        matchToken(lexer, "`",     17,  7,  8, XQueryTokenType.XML_ELEMENT_CONTENTS);
+        matchToken(lexer, "</",    17,  8, 10, XQueryTokenType.CLOSE_XML_TAG);
+        matchToken(lexer, "a",     12, 10, 11, XQueryTokenType.XML_TAG_NCNAME);
+        matchToken(lexer, ">",     12, 11, 12, XQueryTokenType.END_XML_TAG);
+        matchToken(lexer, "",       0, 12, 12, null);
+    }
+
+    @Specification(name="XQuery 3.1", reference="https://www.w3.org/TR/2017/REC-xquery-31-20170321/#prod-xquery31-StringConstructorInterpolation")
+    public void testStringConstructorInterpolation() {
+        Lexer lexer = createLexer();
 
         lexer.start("``[One`{2}`Three]``");
         matchToken(lexer, "``[",    0,  0,  3, XQueryTokenType.STRING_CONSTRUCTOR_START);

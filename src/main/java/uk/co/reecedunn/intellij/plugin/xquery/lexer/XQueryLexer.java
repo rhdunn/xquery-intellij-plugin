@@ -370,7 +370,7 @@ public class XQueryLexer extends LexerBase {
                 break;
             case CharacterClass.CURLY_BRACE_CLOSE:
                 mTokenRange.match();
-                if (mTokenRange.getCodePoint() == '`') {
+                if (mTokenRange.getCodePoint() == '`' && mState == STATE_DEFAULT_STRING_INTERPOLATION) {
                     mTokenRange.match();
                     mType = XQueryTokenType.STRING_INTERPOLATION_CLOSE;
                 } else {
