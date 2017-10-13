@@ -104,10 +104,10 @@
                      implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.xquery.XQST0031.UnsupportedXQueryVersionInspection"/>
 
     <!-- XQST0033 -->
-    <localInspection language="XQuery" shortName="MultipleNamespacePrefix" bundle="messages.XQueryBundle"
-                     key="inspection.XQST0033.multiple-namespace-prefix.display-name" hasStaticDescription="true"
+    <localInspection language="XQuery" shortName="DuplicateNamespacePrefix" bundle="messages.XQueryBundle"
+                     key="inspection.XQST0033.duplicate-namespace-prefix.display-name" hasStaticDescription="true"
                      groupName="XQuery" enabledByDefault="true" level="ERROR"
-                     implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.xquery.XQST0033.MultipleNamespacePrefixInspection"/>
+                     implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.xquery.XQST0033.DuplicateNamespacePrefixInspection"/>
 
     <!-- XPST0081 -->
     <localInspection language="XQuery" shortName="UnboundQNamePrefix" bundle="messages.XQueryBundle"

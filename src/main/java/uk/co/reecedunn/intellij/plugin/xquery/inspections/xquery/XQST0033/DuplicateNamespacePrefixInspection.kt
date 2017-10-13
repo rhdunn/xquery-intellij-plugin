@@ -30,9 +30,9 @@ import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
  * prefix names in namespace declarations, including the module
  * declaration namespace.
  */
-class MultipleNamespacePrefixInspection : LocalInspectionTool() {
+class DuplicateNamespacePrefixInspection : LocalInspectionTool() {
     override fun getDisplayName(): String =
-        XQueryBundle.message("inspection.XQST0033.multiple-namespace-prefix.display-name")
+        XQueryBundle.message("inspection.XQST0033.duplicate-namespace-prefix.display-name")
 
     override fun getDescriptionFileName(): String? =
         id + ".html"

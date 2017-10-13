@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.inspections.xquery.XQST0033
 import com.intellij.codeInspection.ProblemDescriptor;
 import com.intellij.codeInspection.ProblemHighlightType;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile;
-import uk.co.reecedunn.intellij.plugin.xquery.inspections.xquery.XQST0033.MultipleNamespacePrefixInspection;
+import uk.co.reecedunn.intellij.plugin.xquery.inspections.xquery.XQST0033.DuplicateNamespacePrefixInspection;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.inspections.InspectionTestCase;
 
@@ -26,16 +26,16 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class MultipleNamespacePrefixInspectionTest extends InspectionTestCase {
+public class DuplicateNamespacePrefixInspectionTest extends InspectionTestCase {
     // region Inspection Details
 
     public void testDisplayName() {
-        MultipleNamespacePrefixInspection inspection = new MultipleNamespacePrefixInspection();
+        DuplicateNamespacePrefixInspection inspection = new DuplicateNamespacePrefixInspection();
         assertThat(inspection.getDisplayName(), is(notNullValue()));
     }
 
     public void testDescription() {
-        MultipleNamespacePrefixInspection inspection = new MultipleNamespacePrefixInspection();
+        DuplicateNamespacePrefixInspection inspection = new DuplicateNamespacePrefixInspection();
         assertThat(inspection.loadDescription(), is(notNullValue()));
     }
 
@@ -45,7 +45,7 @@ public class MultipleNamespacePrefixInspectionTest extends InspectionTestCase {
     public void testNoDuplicates() {
         final XQueryFile file = parseResource("tests/inspections/xquery/XQST0033/no-duplicates.xq");
 
-        final ProblemDescriptor[] problems = inspect(file, new MultipleNamespacePrefixInspection());
+        final ProblemDescriptor[] problems = inspect(file, new DuplicateNamespacePrefixInspection());
         assertThat(problems, is(notNullValue()));
         assertThat(problems.length, is(0));
     }
@@ -53,7 +53,7 @@ public class MultipleNamespacePrefixInspectionTest extends InspectionTestCase {
     public void testModuleDecl_ModuleImport() {
         final XQueryFile file = parseResource("tests/inspections/xquery/XQST0033/ModuleDecl-ModuleImport.xq");
 
-        final ProblemDescriptor[] problems = inspect(file, new MultipleNamespacePrefixInspection());
+        final ProblemDescriptor[] problems = inspect(file, new DuplicateNamespacePrefixInspection());
         assertThat(problems, is(notNullValue()));
         assertThat(problems.length, is(1));
 
@@ -66,7 +66,7 @@ public class MultipleNamespacePrefixInspectionTest extends InspectionTestCase {
     public void testModuleImport_NamespaceDecl() {
         final XQueryFile file = parseResource("tests/inspections/xquery/XQST0033/ModuleImport-NamespaceDecl.xq");
 
-        final ProblemDescriptor[] problems = inspect(file, new MultipleNamespacePrefixInspection());
+        final ProblemDescriptor[] problems = inspect(file, new DuplicateNamespacePrefixInspection());
         assertThat(problems, is(notNullValue()));
         assertThat(problems.length, is(1));
 
@@ -79,7 +79,7 @@ public class MultipleNamespacePrefixInspectionTest extends InspectionTestCase {
     public void testNamespaceDecl_SchemaImport() {
         final XQueryFile file = parseResource("tests/inspections/xquery/XQST0033/NamespaceDecl-SchemaImport.xq");
 
-        final ProblemDescriptor[] problems = inspect(file, new MultipleNamespacePrefixInspection());
+        final ProblemDescriptor[] problems = inspect(file, new DuplicateNamespacePrefixInspection());
         assertThat(problems, is(notNullValue()));
         assertThat(problems.length, is(1));
 
@@ -92,7 +92,7 @@ public class MultipleNamespacePrefixInspectionTest extends InspectionTestCase {
     public void testSchemaImport_ModuleImport() {
         final XQueryFile file = parseResource("tests/inspections/xquery/XQST0033/SchemaImport-ModuleImport.xq");
 
-        final ProblemDescriptor[] problems = inspect(file, new MultipleNamespacePrefixInspection());
+        final ProblemDescriptor[] problems = inspect(file, new DuplicateNamespacePrefixInspection());
         assertThat(problems, is(notNullValue()));
         assertThat(problems.length, is(1));
 
