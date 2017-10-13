@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.inspections.XQST0033
+package uk.co.reecedunn.intellij.plugin.xquery.inspections.xquery.XQST0033
 
 import com.intellij.codeInspection.*
 import com.intellij.psi.PsiFile

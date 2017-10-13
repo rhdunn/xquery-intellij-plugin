@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.inspections.XPST0003
+package uk.co.reecedunn.intellij.plugin.xquery.inspections.xpath.XPST0003
 
 import com.intellij.codeInspection.*
 import com.intellij.psi.PsiFile
@@ -23,7 +23,6 @@ import uk.co.reecedunn.intellij.plugin.core.extensions.walkTree
 import uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic.MarkLogicTransactionSeparator
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingConcatExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile
-import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Scripting
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle

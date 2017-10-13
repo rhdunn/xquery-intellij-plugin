@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.tests.inspections.XQST0031;
+package uk.co.reecedunn.intellij.plugin.xquery.tests.inspections.xquery.XQST0031;
 
 import com.intellij.codeInspection.ProblemDescriptor;
 import com.intellij.codeInspection.ProblemHighlightType;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile;
-import uk.co.reecedunn.intellij.plugin.xquery.inspections.XQST0031.UnsupportedXQueryVersionInspection;
+import uk.co.reecedunn.intellij.plugin.xquery.inspections.xquery.XQST0031.UnsupportedXQueryVersionInspection;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.inspections.InspectionTestCase;
 
@@ -43,7 +43,7 @@ public class UnsupportedXQueryVersionInspectionTest extends InspectionTestCase {
     // region Invalid XQuery Versions
 
     public void testNoVersionDecl() {
-        final XQueryFile file = parseResource("tests/inspections/XQST0031/no-versiondecl.xq");
+        final XQueryFile file = parseResource("tests/inspections/xquery/XQST0031/no-versiondecl.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new UnsupportedXQueryVersionInspection());
         assertThat(problems, is(notNullValue()));
@@ -51,7 +51,7 @@ public class UnsupportedXQueryVersionInspectionTest extends InspectionTestCase {
     }
 
     public void testEmptyVersionDecl() {
-        final XQueryFile file = parseResource("tests/inspections/XQST0031/empty-version.xq");
+        final XQueryFile file = parseResource("tests/inspections/xquery/XQST0031/empty-version.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new UnsupportedXQueryVersionInspection());
         assertThat(problems, is(notNullValue()));
@@ -65,7 +65,7 @@ public class UnsupportedXQueryVersionInspectionTest extends InspectionTestCase {
 
     public void testXQueryVersion_UNSUPPORTED() {
         // XQueryVersion.parse("3.99") returns XQueryVersion.UNSUPPORTED
-        final XQueryFile file = parseResource("tests/inspections/XQST0031/xquery-3.99.xq");
+        final XQueryFile file = parseResource("tests/inspections/xquery/XQST0031/xquery-3.99.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new UnsupportedXQueryVersionInspection());
         assertThat(problems, is(notNullValue()));
@@ -79,7 +79,7 @@ public class UnsupportedXQueryVersionInspectionTest extends InspectionTestCase {
 
     public void testUnsupportedVersion() {
         // XQueryVersion.parse("9.7") returns XQueryVersion.VERSION_9_7, but that is not a valid XQuery version.
-        final XQueryFile file = parseResource("tests/inspections/XQST0031/xquery-9.7.xq");
+        final XQueryFile file = parseResource("tests/inspections/xquery/XQST0031/xquery-9.7.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new UnsupportedXQueryVersionInspection());
         assertThat(problems, is(notNullValue()));
@@ -97,7 +97,7 @@ public class UnsupportedXQueryVersionInspectionTest extends InspectionTestCase {
     public void testSupportedVersion_MarkLogic() {
         getSettings().setImplementationVersion("marklogic/v8");
 
-        final XQueryFile file = parseResource("tests/inspections/XQST0031/xquery-1.0-ml.xq");
+        final XQueryFile file = parseResource("tests/inspections/xquery/XQST0031/xquery-1.0-ml.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new UnsupportedXQueryVersionInspection());
         assertThat(problems, is(notNullValue()));
@@ -107,7 +107,7 @@ public class UnsupportedXQueryVersionInspectionTest extends InspectionTestCase {
     public void testUnsupportedVersion_MarkLogic() {
         getSettings().setImplementationVersion("marklogic/v8");
 
-        final XQueryFile file = parseResource("tests/inspections/XQST0031/xquery-3.0.xq");
+        final XQueryFile file = parseResource("tests/inspections/xquery/XQST0031/xquery-3.0.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new UnsupportedXQueryVersionInspection());
         assertThat(problems, is(notNullValue()));
@@ -125,7 +125,7 @@ public class UnsupportedXQueryVersionInspectionTest extends InspectionTestCase {
     public void testSupportedVersion_W3C() {
         getSettings().setImplementationVersion("w3c/spec");
 
-        final XQueryFile file = parseResource("tests/inspections/XQST0031/xquery-3.0.xq");
+        final XQueryFile file = parseResource("tests/inspections/xquery/XQST0031/xquery-3.0.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new UnsupportedXQueryVersionInspection());
         assertThat(problems, is(notNullValue()));
@@ -135,7 +135,7 @@ public class UnsupportedXQueryVersionInspectionTest extends InspectionTestCase {
     public void testUnsupportedVersion_W3C() {
         getSettings().setImplementationVersion("w3c/spec");
 
-        final XQueryFile file = parseResource("tests/inspections/XQST0031/xquery-1.0-ml.xq");
+        final XQueryFile file = parseResource("tests/inspections/xquery/XQST0031/xquery-1.0-ml.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new UnsupportedXQueryVersionInspection());
         assertThat(problems, is(notNullValue()));
