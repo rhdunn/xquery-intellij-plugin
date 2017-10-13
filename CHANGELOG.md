@@ -26,6 +26,7 @@ Inspections:
     construct inspection.
 1.  XPST0017: Undefined function inspection. This is experimental, as it
     currently reports many false positives.
+1.  XQST0033: Duplicate namespace prefix.
 1.  XPST0081: Unbound QName prefix.
 
 IntelliJ Integration:
