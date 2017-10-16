@@ -103,4 +103,28 @@ public class DuplicateNamespacePrefixInspectionTest extends InspectionTestCase {
     }
 
     // endregion
+    // region MarkLogic 6.0
+
+    public void testOtherTransaction_NoDuplicates() {
+        final XQueryFile file = parseResource("tests/inspections/xquery/XQST0033/other-transaction-no-duplicates.xq");
+
+        final ProblemDescriptor[] problems = inspect(file, new DuplicateNamespacePrefixInspection());
+        assertThat(problems, is(notNullValue()));
+        assertThat(problems.length, is(0));
+    }
+
+    public void testOtherTransaction_Duplicates() {
+        final XQueryFile file = parseResource("tests/inspections/xquery/XQST0033/other-transaction-duplicates.xq");
+
+        final ProblemDescriptor[] problems = inspect(file, new DuplicateNamespacePrefixInspection());
+        assertThat(problems, is(notNullValue()));
+        assertThat(problems.length, is(1));
+
+        assertThat(problems[0].getHighlightType(), is(ProblemHighlightType.GENERIC_ERROR));
+        assertThat(problems[0].getDescriptionTemplate(), is("XQST0033: The namespace prefix 'one' has already been defined."));
+        assertThat(problems[0].getPsiElement().getNode().getElementType(), is(XQueryTokenType.NCNAME));
+        assertThat(problems[0].getPsiElement().getText(), is("one"));
+    }
+
+    // endregion
 }
