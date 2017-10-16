@@ -50,7 +50,7 @@ open class XQueryModulePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQue
 
             val context = product?.implementation?.staticContext(product, productVersion, xquery)
             val file = ResourceVirtualFile.resolve(context, project)
-            staticContextCache = ((file as? XQueryFile)?.module as? XQueryPrologResolver)?.prolog
+            staticContextCache = ((file as? XQueryFile)?.modules?.firstOrNull() as? XQueryPrologResolver)?.prolog
         }
         return staticContextCache
     }

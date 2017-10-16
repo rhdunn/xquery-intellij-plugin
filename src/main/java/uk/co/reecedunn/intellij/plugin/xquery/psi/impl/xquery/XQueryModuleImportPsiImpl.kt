@@ -40,7 +40,7 @@ class XQueryModuleImportPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQu
 
     override val prolog get(): XQueryProlog? {
         return children().filterIsInstance<XQueryUriLiteral>().map { uri ->
-            (uri.resolveUri<XQueryFile>()?.module as? XQueryPrologResolver)?.prolog
+            (uri.resolveUri<XQueryFile>()?.modules?.firstOrNull() as? XQueryPrologResolver)?.prolog
         }.filterNotNull().firstOrNull()
     }
 }

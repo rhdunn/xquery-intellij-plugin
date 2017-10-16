@@ -46,5 +46,5 @@ data class XQueryVersionRef(val declaration: XQueryStringLiteral?, val version: 
 interface XQueryFile : PsiFile {
     val XQueryVersion: XQueryVersionRef
 
-    val module: XQueryModule?
+    val modules: Sequence<XQueryModule>
 }

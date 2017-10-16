@@ -31,14 +31,14 @@ class XQueryFileImpl(provider: FileViewProvider) : PsiFileBase(provider, XQuery)
     }
 
     override val XQueryVersion get(): XQueryVersionRef {
-        val versionDecl = module?.descendants()?.filterIsInstance<XQueryVersionDecl>()?.firstOrNull()
+        val versionDecl = modules.firstOrNull()?.descendants()?.filterIsInstance<XQueryVersionDecl>()?.firstOrNull()
         val version: XQueryStringLiteral? = versionDecl?.version
         val xquery: Specification? = XQuery.versionsForXQuery(version?.atomicValue).firstOrNull()
         return XQueryVersionRef(version, xquery)
     }
 
-    override val module get(): XQueryModule? =
-        children().filterIsInstance<XQueryModule>().firstOrNull()
+    override val modules get(): Sequence<XQueryModule> =
+        children().filterIsInstance<XQueryModule>()
 
     override fun toString(): String =
         "XQueryFile(" + containingFile.name + ")"

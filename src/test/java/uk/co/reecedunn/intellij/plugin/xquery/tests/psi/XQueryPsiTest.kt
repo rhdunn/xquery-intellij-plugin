@@ -2773,14 +2773,20 @@ class XQueryPsiTest:ParserTestCase() {
     fun testModule_PrologResolver_NoProlog() {
         val file = parseResource("tests/parser/xquery-1.0/ModuleDecl.xq")!!
 
-        val provider = file.module as XQueryPrologResolver
+        val modules = file.modules.toList()
+        assertThat(modules.size, `is`(1))
+
+        val provider = modules.get(0) as XQueryPrologResolver
         assertThat<XQueryProlog>(provider.prolog, `is`(nullValue()))
     }
 
     fun testModule_PrologResolver() {
         val file = parseResource("tests/resolve/namespaces/ModuleDecl.xq")!!
 
-        val provider = file.module as XQueryPrologResolver
+        val modules = file.modules.toList()
+        assertThat(modules.size, `is`(1))
+
+        val provider = modules.get(0) as XQueryPrologResolver
         assertThat<XQueryProlog>(provider.prolog, `is`(notNullValue()))
 
         val annotation = provider.prolog?.descendants()?.filterIsInstance<XQueryAnnotatedDecl>()?.first()
@@ -4544,7 +4550,7 @@ class XQueryPsiTest:ParserTestCase() {
         settings.XQueryVersion = XQuery.REC_3_0_20140408.label
         val file = parseResource("tests/psi/xquery-1.0/VersionDecl_CommentBeforeDecl.xq")!!
 
-        val versionDeclPsi = file.module!!.descendants().filterIsInstance<XQueryVersionDecl>().first()
+        val versionDeclPsi = file.modules.first().descendants().filterIsInstance<XQueryVersionDecl>().first()
         assertThat<XQueryStringLiteral>(versionDeclPsi.version, `is`(notNullValue()))
         assertThat(versionDeclPsi.version!!.atomicValue, `is`<CharSequence>("1.0"))
         assertThat<XQueryStringLiteral>(versionDeclPsi.encoding, `is`(nullValue()))
