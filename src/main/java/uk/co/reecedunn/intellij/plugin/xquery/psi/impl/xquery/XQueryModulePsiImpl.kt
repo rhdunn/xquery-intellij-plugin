@@ -18,13 +18,13 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.extensions.children
+import uk.co.reecedunn.intellij.plugin.core.extensions.descendants
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Product
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Specification
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceResolver
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
@@ -53,6 +53,13 @@ open class XQueryModulePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQue
             staticContextCache = ((file as? XQueryFile)?.modules?.firstOrNull() as? XQueryPrologResolver)?.prolog
         }
         return staticContextCache
+    }
+
+    override val XQueryVersion get(): XQueryVersionRef {
+        val versionDecl = descendants().filterIsInstance<XQueryVersionDecl>().firstOrNull()
+        val version: XQueryStringLiteral? = versionDecl?.version
+        val xquery: Specification? = XQuery.versionsForXQuery(version?.atomicValue).firstOrNull()
+        return XQueryVersionRef(version, xquery)
     }
 
     override fun resolveNamespace(prefix: CharSequence?): XQueryNamespace? =

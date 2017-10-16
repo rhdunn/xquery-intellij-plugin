@@ -15,7 +15,26 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
+import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.xquery.lang.Specification
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings
+
+data class XQueryVersionRef(val declaration: XQueryStringLiteral?, val version: Specification?) {
+    fun getVersionOrDefault(project: Project): Specification {
+        if (version == null) {
+            val settings: XQueryProjectSettings = XQueryProjectSettings.getInstance(project)
+            val product = settings.product
+            val productVersion = settings.productVersion
+            val xquery = settings.XQueryVersion
+            if (product == null || productVersion == null || xquery == null)
+                return XQuery.REC_1_0_20070123
+            return XQuery.versionForXQuery(product, productVersion, xquery) ?: XQuery.REC_1_0_20070123
+        }
+        return version
+    }
+}
 
 /**
  * An XQuery 1.0 `Module` node in the XQuery AST.
@@ -42,4 +61,6 @@ import com.intellij.psi.PsiElement
  * This is because there is not enough information to know what module type
  * the XQuery file is implementing.
  */
-interface XQueryModule : PsiElement
+interface XQueryModule : PsiElement {
+    val XQueryVersion: XQueryVersionRef
+}
