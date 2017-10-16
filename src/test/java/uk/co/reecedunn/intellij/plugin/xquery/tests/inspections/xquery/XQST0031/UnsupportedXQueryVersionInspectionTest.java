@@ -148,4 +148,52 @@ public class UnsupportedXQueryVersionInspectionTest extends InspectionTestCase {
     }
 
     // endregion
+    // region MarkLogic Transactions
+
+    public void testTransactions_SameVersion_MarkLogic() {
+        getSettings().setImplementationVersion("marklogic/v8");
+
+        final XQueryFile file = parseResource("tests/inspections/xquery/XQST0031/xquery-1.0-ml.xq");
+
+        final ProblemDescriptor[] problems = inspect(file, new UnsupportedXQueryVersionInspection());
+        assertThat(problems, is(notNullValue()));
+        assertThat(problems.length, is(0));
+    }
+
+    public void testTransactions_SameVersion_W3C() {
+        getSettings().setImplementationVersion("w3c/spec");
+
+        final XQueryFile file = parseResource("tests/inspections/xquery/XQST0031/transaction-same-version.xq");
+
+        final ProblemDescriptor[] problems = inspect(file, new UnsupportedXQueryVersionInspection());
+        assertThat(problems, is(notNullValue()));
+        assertThat(problems.length, is(2));
+
+        assertThat(problems[0].getHighlightType(), is(ProblemHighlightType.GENERIC_ERROR));
+        assertThat(problems[0].getDescriptionTemplate(), is("XQST0031: The implementation does not support this XQuery version."));
+        assertThat(problems[0].getPsiElement().getNode().getElementType(), is(XQueryElementType.STRING_LITERAL));
+        assertThat(problems[0].getPsiElement().getText(), is("\"1.0-ml\""));
+
+        assertThat(problems[1].getHighlightType(), is(ProblemHighlightType.GENERIC_ERROR));
+        assertThat(problems[1].getDescriptionTemplate(), is("XQST0031: The implementation does not support this XQuery version."));
+        assertThat(problems[1].getPsiElement().getNode().getElementType(), is(XQueryElementType.STRING_LITERAL));
+        assertThat(problems[1].getPsiElement().getText(), is("\"1.0-ml\""));
+    }
+
+    public void testTransactions_UnsupportedOtherVersion() {
+        getSettings().setImplementationVersion("marklogic/v8");
+
+        final XQueryFile file = parseResource("tests/inspections/xquery/XQST0031/transaction-unsupported-other-version.xq");
+
+        final ProblemDescriptor[] problems = inspect(file, new UnsupportedXQueryVersionInspection());
+        assertThat(problems, is(notNullValue()));
+        assertThat(problems.length, is(1));
+
+        assertThat(problems[0].getHighlightType(), is(ProblemHighlightType.GENERIC_ERROR));
+        assertThat(problems[0].getDescriptionTemplate(), is("XQST0031: The implementation does not support this XQuery version."));
+        assertThat(problems[0].getPsiElement().getNode().getElementType(), is(XQueryElementType.STRING_LITERAL));
+        assertThat(problems[0].getPsiElement().getText(), is("\"0.2\""));
+    }
+
+    // endregion
 }

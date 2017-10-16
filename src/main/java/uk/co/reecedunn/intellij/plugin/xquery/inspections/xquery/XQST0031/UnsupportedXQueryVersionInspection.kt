@@ -18,7 +18,9 @@ package uk.co.reecedunn.intellij.plugin.xquery.inspections.xquery.XQST0031
 import com.intellij.codeInspection.*
 import com.intellij.psi.PsiFile
 import com.intellij.util.SmartList
+import uk.co.reecedunn.intellij.plugin.core.extensions.children
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVersionRef
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
@@ -41,19 +43,19 @@ class UnsupportedXQueryVersionInspection : LocalInspectionTool() {
 
         val settings = XQueryProjectSettings.getInstance(file.getProject())
         val descriptors = SmartList<ProblemDescriptor>()
-
-        val version = file.XQueryVersion
-        if (version.version == null || version.declaration == null) {
-            if (version.declaration != null) {
-                createUnsupportedVersionProblemDescriptors(descriptors, manager, version, isOnTheFly)
-            }
-        } else {
-            val xqueryVersion = XQuery.versionForXQuery(settings.product!!, settings.productVersion!!, version.version.label)
-            if (xqueryVersion == null) {
-                createUnsupportedVersionProblemDescriptors(descriptors, manager, version, isOnTheFly)
+        file.children().filterIsInstance<XQueryModule>().forEach { module ->
+            val version = module.XQueryVersion
+            if (version.version == null || version.declaration == null) {
+                if (version.declaration != null) {
+                    createUnsupportedVersionProblemDescriptors(descriptors, manager, version, isOnTheFly)
+                }
+            } else {
+                val xqueryVersion = XQuery.versionForXQuery(settings.product!!, settings.productVersion!!, version.version.label)
+                if (xqueryVersion == null) {
+                    createUnsupportedVersionProblemDescriptors(descriptors, manager, version, isOnTheFly)
+                }
             }
         }
-
         return descriptors.toTypedArray()
     }
 
