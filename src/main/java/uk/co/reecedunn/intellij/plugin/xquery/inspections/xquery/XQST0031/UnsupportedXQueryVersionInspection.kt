@@ -47,20 +47,17 @@ class UnsupportedXQueryVersionInspection : LocalInspectionTool() {
             val version = module.XQueryVersion
             if (version.version == null || version.declaration == null) {
                 if (version.declaration != null) {
-                    createUnsupportedVersionProblemDescriptors(descriptors, manager, version, isOnTheFly)
+                    val description = XQueryBundle.message("inspection.XQST0031.unsupported-version.message")
+                    descriptors.add(manager.createProblemDescriptor(version.declaration, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))
                 }
             } else {
                 val xqueryVersion = XQuery.versionForXQuery(settings.product!!, settings.productVersion!!, version.version.label)
                 if (xqueryVersion == null) {
-                    createUnsupportedVersionProblemDescriptors(descriptors, manager, version, isOnTheFly)
+                    val description = XQueryBundle.message("inspection.XQST0031.unsupported-version.message")
+                    descriptors.add(manager.createProblemDescriptor(version.declaration, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))
                 }
             }
         }
         return descriptors.toTypedArray()
-    }
-
-    private fun createUnsupportedVersionProblemDescriptors(descriptors: SmartList<ProblemDescriptor>, manager: InspectionManager, version: XQueryVersionRef, isOnTheFly: Boolean) {
-        val description = XQueryBundle.message("inspection.XQST0031.unsupported-version.message")
-        descriptors.add(manager.createProblemDescriptor(version.declaration!!, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))
     }
 }
