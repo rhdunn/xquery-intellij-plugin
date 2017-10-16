@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.inspections.xquery.XQST0031
 
 import com.intellij.codeInspection.*
 import com.intellij.psi.PsiFile
+import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVersionRef
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
@@ -38,24 +39,26 @@ class UnsupportedXQueryVersionInspection : LocalInspectionTool() {
     override fun checkFile(file: PsiFile, manager: InspectionManager, isOnTheFly: Boolean): Array<ProblemDescriptor>? {
         if (file !is XQueryFile) return null
 
+        val settings = XQueryProjectSettings.getInstance(file.getProject())
+        val descriptors = SmartList<ProblemDescriptor>()
+
         val version = file.XQueryVersion
         if (version.version == null || version.declaration == null) {
-            return if (version.declaration != null) {
-                createUnsupportedVersionProblemDescriptors(manager, version, isOnTheFly)
-            } else ProblemDescriptor.EMPTY_ARRAY
+            if (version.declaration != null) {
+                createUnsupportedVersionProblemDescriptors(descriptors, manager, version, isOnTheFly)
+            }
+        } else {
+            val xqueryVersion = XQuery.versionForXQuery(settings.product!!, settings.productVersion!!, version.version.label)
+            if (xqueryVersion == null) {
+                createUnsupportedVersionProblemDescriptors(descriptors, manager, version, isOnTheFly)
+            }
         }
 
-        val settings = XQueryProjectSettings.getInstance(file.getProject())
-        val xqueryVersion = XQuery.versionForXQuery(settings.product!!, settings.productVersion!!, version.version.label)
-        return if (xqueryVersion != null) {
-            ProblemDescriptor.EMPTY_ARRAY
-        } else {
-            createUnsupportedVersionProblemDescriptors(manager, version, isOnTheFly)
-        }
+        return descriptors.toTypedArray()
     }
 
-    private fun createUnsupportedVersionProblemDescriptors(manager: InspectionManager, version: XQueryVersionRef, isOnTheFly: Boolean): Array<ProblemDescriptor> {
+    private fun createUnsupportedVersionProblemDescriptors(descriptors: SmartList<ProblemDescriptor>, manager: InspectionManager, version: XQueryVersionRef, isOnTheFly: Boolean) {
         val description = XQueryBundle.message("inspection.XQST0031.unsupported-version.message")
-        return arrayOf(manager.createProblemDescriptor(version.declaration!!, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))
+        descriptors.add(manager.createProblemDescriptor(version.declaration!!, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))
     }
 }
