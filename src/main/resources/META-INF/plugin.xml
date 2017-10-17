@@ -111,6 +111,12 @@
                      groupName="XQuery" enabledByDefault="true" level="ERROR"
                      implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.xquery.XQST0033.DuplicateNamespacePrefixInspection"/>
 
+    <!-- XQST0047 -->
+    <localInspection language="XQuery" shortName="DuplicateNamespaceUri" bundle="messages.XQueryBundle"
+                     key="inspection.XQST0047.duplicate-namespace-uri.display-name" hasStaticDescription="true"
+                     groupName="XQuery" enabledByDefault="true" level="ERROR"
+                     implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.xquery.XQST0047.DuplicateNamespaceUriInspection"/>
+
     <!-- XPST0081 -->
     <localInspection language="XQuery" shortName="UnboundQNamePrefix" bundle="messages.XQueryBundle"
                      key="inspection.XPST0081.unbound-qname-prefix.display-name" hasStaticDescription="true"
