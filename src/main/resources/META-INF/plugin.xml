@@ -33,6 +33,7 @@
       <li>XPST0003: Reserved function inspection. This is split out from the unsupported construct inspection.</li>
       <li>XPST0003: Saxon/XQuery map key-value separators. This is split out from the unsupported construct inspection.</li>
       <li>XPST0017: Undefined function inspection. This is experimental, as it currently reports many false positives.</li>
+      <li>XQST0031: Extend the inspection to check unsupported XQuery versions in different MarkLogic transactions, and check for XDMP-XQUERYVERSIONSWITCH errors.</li>
       <li>XQST0033: Duplicate namespace prefix.</li>
       <li>XPST0081: Unbound QName prefix.</li>
     </ol>

@@ -21,6 +21,7 @@ import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.core.extensions.children
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
+import uk.co.reecedunn.intellij.plugin.xquery.lang.Specification
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings
@@ -42,8 +43,14 @@ class UnsupportedXQueryVersionInspection : LocalInspectionTool() {
 
         val settings = XQueryProjectSettings.getInstance(file.getProject())
         val descriptors = SmartList<ProblemDescriptor>()
+        var mainVersion: Specification? = null
+        var isFirstVersion = true
         file.children().filterIsInstance<XQueryModule>().forEach(fun (module) {
             val version = module.XQueryVersion
+            if (isFirstVersion) {
+                mainVersion = version.getVersionOrDefault(file.project)
+            }
+
             if (version.version == null && version.declaration == null)
                 return
 
@@ -59,7 +66,15 @@ class UnsupportedXQueryVersionInspection : LocalInspectionTool() {
                 // The XQuery version is not supported by the implementation.
                 val description = XQueryBundle.message("inspection.XQST0031.unsupported-version.message")
                 descriptors.add(manager.createProblemDescriptor(version.declaration!!, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))
+                return
             }
+
+            if (!isFirstVersion && mainVersion != xqueryVersion) {
+                val description = XQueryBundle.message("inspection.XQST0031.unsupported-version.different-version-for-transaction")
+                descriptors.add(manager.createProblemDescriptor(version.declaration!!, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))
+            }
+
+            isFirstVersion = false
         })
         return descriptors.toTypedArray()
     }

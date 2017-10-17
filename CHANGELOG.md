@@ -26,6 +26,8 @@ Inspections:
     construct inspection.
 1.  XPST0017: Undefined function inspection. This is experimental, as it
     currently reports many false positives.
+1.  XQST0031: Extend the inspection to check unsupported XQuery versions in different MarkLogic
+    transactions, and check for `XDMP-XQUERYVERSIONSWITCH` errors.
 1.  XQST0033: Duplicate namespace prefix.
 1.  XPST0081: Unbound QName prefix.
 

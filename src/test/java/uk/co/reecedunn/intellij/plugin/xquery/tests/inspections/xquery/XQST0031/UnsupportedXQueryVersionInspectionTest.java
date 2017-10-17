@@ -195,5 +195,20 @@ public class UnsupportedXQueryVersionInspectionTest extends InspectionTestCase {
         assertThat(problems[0].getPsiElement().getText(), is("\"0.2\""));
     }
 
+    public void testTransactions_DifferentVersions() {
+        getSettings().setImplementationVersion("marklogic/v8");
+
+        final XQueryFile file = parseResource("tests/inspections/xquery/XQST0031/transaction-different-version.xq");
+
+        final ProblemDescriptor[] problems = inspect(file, new UnsupportedXQueryVersionInspection());
+        assertThat(problems, is(notNullValue()));
+        assertThat(problems.length, is(1));
+
+        assertThat(problems[0].getHighlightType(), is(ProblemHighlightType.GENERIC_ERROR));
+        assertThat(problems[0].getDescriptionTemplate(), is("XQST0031: MarkLogic requires that XQuery versions are the same across different transactions."));
+        assertThat(problems[0].getPsiElement().getNode().getElementType(), is(XQueryElementType.STRING_LITERAL));
+        assertThat(problems[0].getPsiElement().getText(), is("\"0.9-ml\""));
+    }
+
     // endregion
 }
