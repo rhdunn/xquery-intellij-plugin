@@ -21,7 +21,6 @@ import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.core.extensions.children
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVersionRef
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings
@@ -43,21 +42,25 @@ class UnsupportedXQueryVersionInspection : LocalInspectionTool() {
 
         val settings = XQueryProjectSettings.getInstance(file.getProject())
         val descriptors = SmartList<ProblemDescriptor>()
-        file.children().filterIsInstance<XQueryModule>().forEach { module ->
+        file.children().filterIsInstance<XQueryModule>().forEach(fun (module) {
             val version = module.XQueryVersion
-            if (version.version == null || version.declaration == null) {
-                if (version.declaration != null) {
-                    val description = XQueryBundle.message("inspection.XQST0031.unsupported-version.message")
-                    descriptors.add(manager.createProblemDescriptor(version.declaration, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))
-                }
-            } else {
-                val xqueryVersion = XQuery.versionForXQuery(settings.product!!, settings.productVersion!!, version.version.label)
-                if (xqueryVersion == null) {
-                    val description = XQueryBundle.message("inspection.XQST0031.unsupported-version.message")
-                    descriptors.add(manager.createProblemDescriptor(version.declaration, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))
-                }
+            if (version.version == null && version.declaration == null)
+                return
+
+            if (version.version == null) {
+                // Unrecognised XQuery version string.
+                val description = XQueryBundle.message("inspection.XQST0031.unsupported-version.message")
+                descriptors.add(manager.createProblemDescriptor(version.declaration!!, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))
+                return
             }
-        }
+
+            val xqueryVersion = XQuery.versionForXQuery(settings.product!!, settings.productVersion!!, version.version.label)
+            if (xqueryVersion == null) {
+                // The XQuery version is not supported by the implementation.
+                val description = XQueryBundle.message("inspection.XQST0031.unsupported-version.message")
+                descriptors.add(manager.createProblemDescriptor(version.declaration!!, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))
+            }
+        })
         return descriptors.toTypedArray()
     }
 }
