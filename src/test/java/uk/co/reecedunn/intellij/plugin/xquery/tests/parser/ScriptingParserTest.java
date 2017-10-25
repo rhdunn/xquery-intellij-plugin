@@ -90,6 +90,18 @@ public class ScriptingParserTest extends ParserTestCase {
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
+    public void testApplyExpr_EmptyStatement() {
+        final String expected = loadResource("tests/parser/xquery-sx-1.0/ApplyExpr_EmptyStatement.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_EmptyStatement.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testApplyExpr_EmptyMiddleStatement() {
+        final String expected = loadResource("tests/parser/xquery-sx-1.0/ApplyExpr_EmptyMiddleStatement.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_EmptyMiddleStatement.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
     // endregion
     // region Scripting Extension 1.0 :: QueryBody (ApplyExpr)
 
@@ -156,6 +168,18 @@ public class ScriptingParserTest extends ParserTestCase {
     public void testQueryBody_NoSemicolonBetweenExpr_Last() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/QueryBody_NoSemicolonBetweenExpr_Last.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/QueryBody_NoSemicolonBetweenExpr_Last.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testQueryBody_EmptyStatement() {
+        final String expected = loadResource("tests/parser/xquery-sx-1.0/QueryBody_EmptyStatement.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/QueryBody_EmptyStatement.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testQueryBody_EmptyMiddleStatement() {
+        final String expected = loadResource("tests/parser/xquery-sx-1.0/QueryBody_EmptyMiddleStatement.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/QueryBody_EmptyMiddleStatement.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 

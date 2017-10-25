@@ -1426,8 +1426,16 @@ class XQueryParser {
         // of the ApplyExpr node and there are no other uses of ApplyExpr.
         boolean haveConcatExpr = false;
         while (true) {
-            if (!parseConcatExpr())
-                return haveConcatExpr;
+            if (!parseConcatExpr()) {
+                parseWhiteSpaceAndCommentTokens();
+                if (errorOnTokenType(XQueryTokenType.SEPARATOR, XQueryBundle.message("parser.error.expected-query-statement", ";"))) {
+                    // Semicolon without a query body -- continue parsing.
+                    parseWhiteSpaceAndCommentTokens();
+                    continue;
+                } else {
+                    return haveConcatExpr;
+                }
+            }
 
             parseWhiteSpaceAndCommentTokens();
 
