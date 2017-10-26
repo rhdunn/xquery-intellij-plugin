@@ -1,10 +1,10 @@
 FileElement[FILE(0:29)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:29)]
       XQueryPrologImpl[XQUERY_PROLOG(0:29)]
-         XQueryAnnotatedDeclImpl[XQUERY_ANNOTATED_DECL(0:29)]
+         XQueryAnnotatedDeclImpl[XQUERY_ANNOTATED_DECL(0:28)]
             LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-            XQueryFunctionDeclImpl[XQUERY_FUNCTION_DECL(8:29)]
+            XQueryFunctionDeclImpl[XQUERY_FUNCTION_DECL(8:28)]
                LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_FUNCTION(8:16)]('function')
                PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
                XQueryQNameImpl[XQUERY_QNAME(17:24)]
@@ -18,6 +18,5 @@ FileElement[FILE(0:29)]
                PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
                LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(27:28)](')')
                PsiErrorElementImpl[ERROR_ELEMENT(28:28)]('XPST0003: Missing enclosed expression start '{' or keyword: external.')
-               PsiErrorElementImpl[ERROR_ELEMENT(28:29)]('XPST0003: Empty query statement before ';'.')
-                  LeafPsiElement[XQUERY_SEPARATOR_TOKEN(28:29)](';')
-         PsiErrorElementImpl[ERROR_ELEMENT(29:29)]('XPST0003: Expected ';'.')
+         LeafPsiElement[XQUERY_SEPARATOR_TOKEN(28:29)](';')
+      PsiErrorElementImpl[ERROR_ELEMENT(29:29)]('XPST0003: Missing query body.')

@@ -1191,7 +1191,7 @@ class XQueryParser {
                 !parseEnclosedExprOrBlock(bodyType, BlockOpen.REQUIRED, BlockExpr.OPTIONAL) &&
                 !haveErrors) {
                 error(XQueryBundle.message("parser.error.expected-enclosed-expression-or-keyword", "external"));
-                parseExpr(XQueryElementType.EXPR);
+                parseExpr(XQueryElementType.EXPR, true);
 
                 parseWhiteSpaceAndCommentTokens();
                 matchTokenType(XQueryTokenType.BLOCK_CLOSE);
@@ -1412,8 +1412,12 @@ class XQueryParser {
     // region Grammar :: Expr
 
     private boolean parseExpr(IElementType type) {
+        return parseExpr(type, false);
+    }
+
+    private boolean parseExpr(IElementType type, boolean functionDeclRecovery) {
         final PsiBuilder.Marker exprMarker = mark();
-        if (parseApplyExpr(type)) {
+        if (parseApplyExpr(type, functionDeclRecovery)) {
             exprMarker.done(type);
             return true;
         }
@@ -1421,19 +1425,20 @@ class XQueryParser {
         return false;
     }
 
-    private boolean parseApplyExpr(IElementType type) {
+    private boolean parseApplyExpr(IElementType type, boolean functionDeclRecovery) {
         // NOTE: No marker is captured here because the Expr node is an instance
         // of the ApplyExpr node and there are no other uses of ApplyExpr.
         boolean haveConcatExpr = false;
         while (true) {
             if (!parseConcatExpr()) {
                 parseWhiteSpaceAndCommentTokens();
-                if (errorOnTokenType(XQueryTokenType.SEPARATOR, XQueryBundle.message("parser.error.expected-query-statement", ";"))) {
+                if (functionDeclRecovery ||
+                   !errorOnTokenType(XQueryTokenType.SEPARATOR, XQueryBundle.message("parser.error.expected-query-statement", ";"))) {
+                    return haveConcatExpr;
+                } else {
                     // Semicolon without a query body -- continue parsing.
                     parseWhiteSpaceAndCommentTokens();
                     continue;
-                } else {
-                    return haveConcatExpr;
                 }
             }
 
