@@ -5005,13 +5005,54 @@ class XQueryParser {
                    parseFunctionTest() ||
                    parseMapTest() ||
                    parseArrayTest() ||
-                   parseEQName(XQueryElementType.ATOMIC_OR_UNION_TYPE) ||
+                   parseAtomicOrUnionType() ||
                    parseParenthesizedItemType()) {
             itemTypeMarker.done(XQueryElementType.ITEM_TYPE);
             return true;
         }
 
         itemTypeMarker.drop();
+        return false;
+    }
+
+    private boolean parseAtomicOrUnionType() {
+        return parseUnionType() || parseEQName(XQueryElementType.ATOMIC_OR_UNION_TYPE);
+    }
+
+    private boolean parseUnionType() {
+        final PsiBuilder.Marker unionTypeMarker = matchTokenTypeWithMarker(XQueryTokenType.K_UNION);
+        if (unionTypeMarker != null) {
+            boolean haveError = false;
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_OPEN)) {
+                unionTypeMarker.rollbackTo();
+                return false;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseEQName(XQueryElementType.QNAME)) {
+                error(XQueryBundle.message("parser.error.expected", "QName"));
+                haveError = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            while (matchTokenType(XQueryTokenType.COMMA)) {
+                parseWhiteSpaceAndCommentTokens();
+                if (!parseEQName(XQueryElementType.QNAME) && !haveError) {
+                    error(XQueryBundle.message("parser.error.expected", "QName"));
+                    haveError = true;
+                }
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE) && !haveError) {
+                error(XQueryBundle.message("parser.error.expected", ")"));
+            }
+
+            unionTypeMarker.done(XQueryElementType.UNION_TYPE);
+            return true;
+        }
         return false;
     }
 
@@ -5136,7 +5177,7 @@ class XQueryParser {
             parseWhiteSpaceAndCommentTokens();
             if (matchTokenType(XQueryTokenType.STAR)) {
                 type = XQueryElementType.ANY_MAP_TEST;
-            } else if (parseEQName(XQueryElementType.ATOMIC_OR_UNION_TYPE)) {
+            } else if (parseAtomicOrUnionType()) {
                 parseWhiteSpaceAndCommentTokens();
                 if (!matchTokenType(XQueryTokenType.COMMA)) {
                     error(XQueryBundle.message("parser.error.expected", ","));

@@ -66,4 +66,37 @@ public class SaxonParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region Saxon 9.8 :: UnionType
+
+    public void testUnionType() {
+        final String expected = loadResource("tests/parser/saxon-9.8/UnionType.txt");
+        final XQueryFile actual = parseResource("tests/parser/saxon-9.8/UnionType.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testUnionType_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/saxon-9.8/UnionType_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/saxon-9.8/UnionType_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testUnionType_MissingClosingParenthesis() {
+        final String expected = loadResource("tests/parser/saxon-9.8/UnionType_MissingClosingParenthesis.txt");
+        final XQueryFile actual = parseResource("tests/parser/saxon-9.8/UnionType_MissingClosingParenthesis.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testUnionType_MissingFirstType() {
+        final String expected = loadResource("tests/parser/saxon-9.8/UnionType_MissingFirstType.txt");
+        final XQueryFile actual = parseResource("tests/parser/saxon-9.8/UnionType_MissingFirstType.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testUnionType_MissingNextType() {
+        final String expected = loadResource("tests/parser/saxon-9.8/UnionType_MissingNextType.txt");
+        final XQueryFile actual = parseResource("tests/parser/saxon-9.8/UnionType_MissingNextType.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
 }

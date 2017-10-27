@@ -21,6 +21,7 @@ import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.basex.BaseXUpdateExprPsiImpl;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.marklogic.*;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.saxon.SaxonUnionTypeImpl;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.scripting.*;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.update.facility.*;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.*;
@@ -363,6 +364,11 @@ public interface XQueryElementType {
     // region BaseX 7.8
 
     IElementType UPDATE_EXPR = new ICompositeElementType("XQUERY_UPDATE_EXPR", BaseXUpdateExprPsiImpl.class, XQuery.INSTANCE);
+
+    // endregion
+    // region Saxon 9.8
+
+    IElementType UNION_TYPE = new ICompositeElementType("XQUERY_UNION_TYPE", SaxonUnionTypeImpl.class, XQuery.INSTANCE);
 
     // endregion
 }

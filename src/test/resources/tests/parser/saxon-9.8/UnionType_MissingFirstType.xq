@@ -1,0 +1,1 @@
+declare variable $ x as union ( , xs:double ) := 1 ;
