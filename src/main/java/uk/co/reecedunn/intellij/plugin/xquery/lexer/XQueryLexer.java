@@ -1634,6 +1634,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("treat", XQueryTokenType.K_TREAT);
         sKeywords.put("try", XQueryTokenType.K_TRY); // XQuery 3.0
         sKeywords.put("tumbling", XQueryTokenType.K_TUMBLING); // XQuery 3.0
+        sKeywords.put("tuple", XQueryTokenType.K_TUPLE); // Saxon 9.8
         sKeywords.put("type", XQueryTokenType.K_TYPE); // XQuery 3.0
         sKeywords.put("typeswitch", XQueryTokenType.K_TYPESWITCH);
         sKeywords.put("unassignable", XQueryTokenType.K_UNASSIGNABLE); // Scripting Extension 1.0

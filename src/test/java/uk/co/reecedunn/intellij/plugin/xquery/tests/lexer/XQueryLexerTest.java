@@ -4983,4 +4983,27 @@ public class XQueryLexerTest extends LexerTestCase {
     }
 
     // endregion
+    // region Saxon 9.8 :: TupleType
+
+    @Specification(name="Saxon 9.8", reference="http://www.saxonica.com/documentation/index.html#!extensions/syntax-extensions/tuple-types")
+    public void testTupleType() {
+        Lexer lexer = createLexer();
+
+        matchSingleToken(lexer, "tuple", XQueryTokenType.K_TUPLE);
+        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN);
+        matchSingleToken(lexer, ",", XQueryTokenType.COMMA);
+        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE);
+    }
+
+    // endregion
+    // region Saxon 9.8 :: TupleTypeField
+
+    @Specification(name="Saxon 9.8", reference="http://www.saxonica.com/documentation/index.html#!extensions/syntax-extensions/tuple-types")
+    public void testTupleTypeField() {
+        Lexer lexer = createLexer();
+
+        matchSingleToken(lexer, ":", XQueryTokenType.QNAME_SEPARATOR);
+    }
+
+    // endregion
 }

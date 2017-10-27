@@ -326,6 +326,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_TREAT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TREAT");
     IXQueryKeywordOrNCNameType K_TRY = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TRY"); // XQuery 3.0
     IXQueryKeywordOrNCNameType K_TUMBLING = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TUMBLING"); // XQuery 3.0
+    IXQueryKeywordOrNCNameType K_TUPLE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TUPLE"); // Saxon 9.8
     IXQueryKeywordOrNCNameType K_TYPE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TYPE"); // XQuery 3.0
     IXQueryKeywordOrNCNameType K_TYPESWITCH = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_TYPESWITCH", IXQueryKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME);
     IXQueryKeywordOrNCNameType K_UNASSIGNABLE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_UNASSIGNABLE"); // Scripting Extension 1.0
