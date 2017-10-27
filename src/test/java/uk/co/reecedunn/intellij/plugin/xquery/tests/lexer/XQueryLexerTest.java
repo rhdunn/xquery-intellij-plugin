@@ -5006,4 +5006,16 @@ public class XQueryLexerTest extends LexerTestCase {
     }
 
     // endregion
+    // region Saxon 9.8 :: TypeDecl
+
+    @Specification(name="Saxon 9.8", reference="http://www.saxonica.com/documentation/index.html#!extensions/syntax-extensions/tuple-types")
+    public void testTypeDecl() {
+        Lexer lexer = createLexer();
+
+        matchSingleToken(lexer, "declare", XQueryTokenType.K_DECLARE);
+        matchSingleToken(lexer, "type", XQueryTokenType.K_TYPE);
+        matchSingleToken(lexer, "=", XQueryTokenType.EQUAL);
+    }
+
+    // endregion
 }
