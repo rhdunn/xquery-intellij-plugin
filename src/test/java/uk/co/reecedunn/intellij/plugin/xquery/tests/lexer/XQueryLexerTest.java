@@ -4970,4 +4970,17 @@ public class XQueryLexerTest extends LexerTestCase {
     }
 
     // endregion
+    // region Saxon 9.8 :: UnionType
+
+    @Specification(name="Saxon 9.8", reference="http://www.saxonica.com/documentation/index.html#!extensions/syntax-extensions/union-types")
+    public void testUnionType() {
+        Lexer lexer = createLexer();
+
+        matchSingleToken(lexer, "union", XQueryTokenType.K_UNION);
+        matchSingleToken(lexer, "(", XQueryTokenType.PARENTHESIS_OPEN);
+        matchSingleToken(lexer, ",", XQueryTokenType.COMMA);
+        matchSingleToken(lexer, ")", XQueryTokenType.PARENTHESIS_CLOSE);
+    }
+
+    // endregion
 }
