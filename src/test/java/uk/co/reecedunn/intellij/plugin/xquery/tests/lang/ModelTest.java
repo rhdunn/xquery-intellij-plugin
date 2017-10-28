@@ -883,19 +883,28 @@ public class ModelTest extends TestCase {
         for (Product product : Saxon.INSTANCE.getProducts()) {
             for (Version version : Saxon.INSTANCE.getVersions()) {
                 flavours = product.flavoursForXQueryVersion(version, "1.0");
-                if (product.getId().equals("HE") || product.getId().equals("PE")) {
+                if (product.getId().equals("HE")) {
                     assertThat(flavours.size(), is(1));
                     assertThat(flavours.get(0), is(XQuery.INSTANCE));
-                } else {
+                } else if (product.getId().equals("PE")) {
                     assertThat(flavours.size(), is(2));
-                    assertThat(flavours.get(0), is(XQuery.INSTANCE));
-                    assertThat(flavours.get(1), is(UpdateFacility.INSTANCE));
+                    assertThat(flavours.get(0), is(Saxon.INSTANCE));
+                    assertThat(flavours.get(1), is(XQuery.INSTANCE));
+                } else {
+                    assertThat(flavours.size(), is(3));
+                    assertThat(flavours.get(0), is(Saxon.INSTANCE));
+                    assertThat(flavours.get(1), is(XQuery.INSTANCE));
+                    assertThat(flavours.get(2), is(UpdateFacility.INSTANCE));
                 }
 
                 flavours = product.flavoursForXQueryVersion(version, "3.0");
-                if (product.getId().equals("HE") || product.getId().equals("PE")) {
+                if (product.getId().equals("HE")) {
                     assertThat(flavours.size(), is(1));
                     assertThat(flavours.get(0), is(XQuery.INSTANCE));
+                } else if (product.getId().equals("PE")) {
+                    assertThat(flavours.size(), is(2));
+                    assertThat(flavours.get(0), is(Saxon.INSTANCE));
+                    assertThat(flavours.get(1), is(XQuery.INSTANCE));
                 } else {
                     assertThat(flavours.size(), is(3));
                     assertThat(flavours.get(0), is(Saxon.INSTANCE));
@@ -904,9 +913,13 @@ public class ModelTest extends TestCase {
                 }
 
                 flavours = product.flavoursForXQueryVersion(version, "3.1");
-                if (product.getId().equals("HE") || product.getId().equals("PE")) {
+                if (product.getId().equals("HE")) {
                     assertThat(flavours.size(), is(1));
                     assertThat(flavours.get(0), is(XQuery.INSTANCE));
+                } else if (product.getId().equals("PE")) {
+                    assertThat(flavours.size(), is(2));
+                    assertThat(flavours.get(0), is(Saxon.INSTANCE));
+                    assertThat(flavours.get(1), is(XQuery.INSTANCE));
                 } else {
                     assertThat(flavours.size(), is(3));
                     assertThat(flavours.get(0), is(Saxon.INSTANCE));

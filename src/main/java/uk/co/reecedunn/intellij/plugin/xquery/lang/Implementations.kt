@@ -169,16 +169,20 @@ private class SaxonProduct(id: String, name: String, implementation: Implementat
         else -> ref.kind === implementation && ref.value <= productVersion.value
     }
 
-    val FLAVOURS_XQUERY_1: List<Versioned> = listOf(XQuery, UpdateFacility)
-    val FLAVOURS_XQUERY_3: List<Versioned> = listOf(Saxon, XQuery, UpdateFacility)
-    val FLAVOURS_XQUERY: List<Versioned> = listOf(XQuery)
+    // UpdateFacility support requires EE (http://www.saxonica.com/products/feature-matrix-9-8.xml)
+    // Saxon extensions require PE or EE (http://www.saxonica.com/documentation/index.html#!extensions/syntax-extensions)
+    val FLAVOURS_EE: List<Versioned> = listOf(Saxon, XQuery, UpdateFacility)
+    val FLAVOURS_PE: List<Versioned> = listOf(Saxon, XQuery)
+    val FLAVOURS_HE: List<Versioned> = listOf(XQuery)
     val FLAVOURS_UNSUPPORTED: List<Versioned> = listOf()
 
     override fun flavoursForXQueryVersion(productVersion: Version, version: String): List<Versioned> = when (version) {
-        "1.0" ->
-            if (this === Saxon.HE || this === Saxon.PE) FLAVOURS_XQUERY else FLAVOURS_XQUERY_1
-        "3.0", "3.1" ->
-            if (this === Saxon.HE || this === Saxon.PE) FLAVOURS_XQUERY else FLAVOURS_XQUERY_3
+        "1.0", "3.0", "3.1" -> when (this) {
+            Saxon.EE, Saxon.EE_Q, Saxon.EE_V, Saxon.EE_T -> FLAVOURS_EE
+            Saxon.PE -> FLAVOURS_PE
+            Saxon.HE -> FLAVOURS_HE
+            else -> FLAVOURS_UNSUPPORTED
+        }
         else -> FLAVOURS_UNSUPPORTED
     }
 }
