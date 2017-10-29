@@ -7,22 +7,22 @@
 
   <description><![CDATA[
     XQuery 1.0, 3.0 and 3.1 language support including Update Facility 1.0
-    and 3.0, and Scripting Extension 1.0. Supports BaseX, MarkLogic and
-    Saxonica XQuery implementations, with full support for the MarkLogic
-    1.0-ml vendor extensions.
+    and 3.0, and Scripting Extension 1.0. Supports the BaseX, MarkLogic and
+    Saxonica XQuery vendor extensions, and MarkLogic 1.0-ml XQuery syntax.
   ]]></description>
 
   <change-notes><![CDATA[
     <h3>Release 0.6-dev:</h3>
     <p>Language Support:</p>
     <ol>
-      <li>MarkLogic 7.0 and 8.0 schema-components KindType tests.</li>
+      <li>MarkLogic 7.0 and 8.0 schema-components <code>KindType</code> tests.</li>
+      <li>Saxon 9.8 <code>tuple</code> and <code>union</code> types.</li>
       <li>Recover when <code>=</code> is used instead of <code>:=</code>.</li>
       <li>Improved multi-statement expression parsing and error reporting for MarkLogic 6.0, and W3C Scripting XQuery extensions.</li>
-      <li>Fix tokenizing <code>`{...}`</code> expressions outside XQuery 3.1 string interpolation contexts.</li>
     </ol>
     <p>Bug Fixes:</p>
     <ol>
+      <li>Fix tokenizing <code>`{...}`</code> expressions outside XQuery 3.1 string interpolation contexts.</li>
       <li>Report a parser error when a TypedFunctionTest does not have a return type clause.</li>
       <li>Fix resolving functions referenced in the current library module.</li>
       <li>Fix support for ProcessCanceledException thrown when creating PSI nodes.</li>

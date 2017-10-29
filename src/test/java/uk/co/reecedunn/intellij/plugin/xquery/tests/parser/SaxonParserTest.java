@@ -120,4 +120,43 @@ public class SaxonParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region Saxon 9.8 :: TupleType :: TupleField
+
+    public void testTupleField() {
+        final String expected = loadResource("tests/parser/saxon-9.8/TupleField.txt");
+        final XQueryFile actual = parseResource("tests/parser/saxon-9.8/TupleField.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testTupleField_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/saxon-9.8/TupleField_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/saxon-9.8/TupleField_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testTupleField_Multiple() {
+        final String expected = loadResource("tests/parser/saxon-9.8/TupleField_Multiple.txt");
+        final XQueryFile actual = parseResource("tests/parser/saxon-9.8/TupleField_Multiple.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testTupleField_Multiple_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/saxon-9.8/TupleField_Multiple_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/saxon-9.8/TupleField_Multiple_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testTupleField_MissingColon() {
+        final String expected = loadResource("tests/parser/saxon-9.8/TupleField_MissingColon.txt");
+        final XQueryFile actual = parseResource("tests/parser/saxon-9.8/TupleField_MissingColon.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testTupleField_MissingSequenceType() {
+        final String expected = loadResource("tests/parser/saxon-9.8/TupleField_MissingSequenceType.txt");
+        final XQueryFile actual = parseResource("tests/parser/saxon-9.8/TupleField_MissingSequenceType.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
 }

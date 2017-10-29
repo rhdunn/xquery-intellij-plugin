@@ -5033,6 +5033,21 @@ class XQueryParser {
             }
 
             parseWhiteSpaceAndCommentTokens();
+            if (!parseTupleField()) {
+                error(XQueryBundle.message("parser.error.expected", "NCName"));
+                haveError = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            while (matchTokenType(XQueryTokenType.COMMA)) {
+                parseWhiteSpaceAndCommentTokens();
+                if (!parseTupleField() && !haveError) {
+                    error(XQueryBundle.message("parser.error.expected", "NCName"));
+                    haveError = true;
+                }
+            }
+
+            parseWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE) && !haveError) {
                 error(XQueryBundle.message("parser.error.expected", ")"));
             }
@@ -5040,6 +5055,29 @@ class XQueryParser {
             tupleTypeMarker.done(XQueryElementType.TUPLE_TYPE);
             return true;
         }
+        return false;
+    }
+
+    private boolean parseTupleField() {
+        final PsiBuilder.Marker tupleFieldMarker = mark();
+        if (parseNCName(XQueryElementType.NCNAME)) {
+            boolean haveError = false;
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.QNAME_SEPARATOR)) {
+                error(XQueryBundle.message("parser.error.expected", ":"));
+                haveError = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseSequenceType() && !haveError) {
+                error(XQueryBundle.message("parser.error.expected", "SequenceType"));
+            }
+
+            tupleFieldMarker.done(XQueryElementType.TUPLE_FIELD);
+            return true;
+        }
+        tupleFieldMarker.drop();
         return false;
     }
 
@@ -6187,6 +6225,16 @@ class XQueryParser {
         }
 
         qnameMarker.drop();
+        return false;
+    }
+
+    private boolean parseNCName(IElementType type) {
+        if (getTokenType() instanceof INCNameType) {
+            final PsiBuilder.Marker ncnameMarker = mark();
+            advanceLexer();
+            ncnameMarker.done(type);
+            return true;
+        }
         return false;
     }
 

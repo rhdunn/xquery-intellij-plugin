@@ -18,14 +18,14 @@ PhpStorm, WebStorm, PyCharm, RubyMine, AppCode, CLion, Rider, Android Studio
 
 _Supported IntelliJ Versions:_ 2017.1 - 2017.2
 
-_Supported XQuery Implementations:_ BaseX, MarkLogic, Saxonica, W3C Specifications
+_Supported XQuery Implementations:_ BaseX, MarkLogic, Saxonica Saxon, W3C Specifications
 
 ## Features
 
 ### Language Support
 
 A robust, standard conforming XQuery syntax highlighter and parser with file encoding
-detection. It supports the following XQuery specifications:
+detection and error recovery. It supports the following XQuery specifications:
 
 *  XQuery 1.0, 3.0 and 3.1 core language;
 *  XQuery Update Facility 1.0 and 3.0;
@@ -36,8 +36,8 @@ detection. It supports the following XQuery specifications:
 It supports the following XQuery syntax extensions:
 
 *  BaseX 7.8 and 8.5 `update` syntax;
-*  Saxon 9.4 `map` syntax;
-*  MarkLogic 6.0 to 8.0 vendor extensions.
+*  Saxon 9.4 `map`, and Saxon 9.8 `tuple` and `union` vendor extensions;
+*  MarkLogic 6.0, 7.0 (schema types) and 8.0 (json types) vendor extensions.
 
 It has support for xqDoc documentation comments.
 
