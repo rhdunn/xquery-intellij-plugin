@@ -20,10 +20,7 @@ import com.intellij.psi.tree.IFileElementType;
 import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.basex.BaseXUpdateExprPsiImpl;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.full.text.FTLanguageOptionPsiImpl;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.full.text.FTMatchOptionsPsiImpl;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.full.text.FTOptionDeclPsiImpl;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.full.text.FTWildCardOptionPsiImpl;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.full.text.*;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.marklogic.*;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.saxon.SaxonTupleFieldImpl;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.saxon.SaxonTupleTypeImpl;
@@ -312,6 +309,7 @@ public interface XQueryElementType {
     IElementType FT_OPTION_DECL = new ICompositeElementType("XQUERY_FT_OPTION_DECL", FTOptionDeclPsiImpl.class, XQuery.INSTANCE);
     IElementType FT_MATCH_OPTIONS = new ICompositeElementType("XQUERY_FT_MATCH_OPTIONS", FTMatchOptionsPsiImpl.class, XQuery.INSTANCE);
     IElementType FT_LANGUAGE_OPTION = new ICompositeElementType("XQUERY_FT_LANGUAGE_OPTION", FTLanguageOptionPsiImpl.class, XQuery.INSTANCE);
+    IElementType FT_STEM_OPTION = new ICompositeElementType("XQUERY_FT_STEM_OPTION", FTStemOptionPsiImpl.class, XQuery.INSTANCE);
     IElementType FT_WILDCARD_OPTION = new ICompositeElementType("XQUERY_FT_WILDCARD_OPTION", FTWildCardOptionPsiImpl.class, XQuery.INSTANCE);
 
     // endregion

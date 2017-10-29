@@ -977,16 +977,12 @@ class XQueryParser {
     private boolean parseFTMatchOptions() {
         final PsiBuilder.Marker matchOptionsMarker = mark();
 
-        boolean haveError = false;
         boolean haveFTMatchOption = false;
         while (matchTokenType(XQueryTokenType.K_USING)) {
             haveFTMatchOption = true;
 
             parseWhiteSpaceAndCommentTokens();
-            if (!parseFTMatchOption() && !haveError) {
-                error(XQueryBundle.message("parser.error.expected-keyword", "language, no, wildcards"));
-                haveError = true;
-            }
+            parseFTMatchOption();
 
             parseWhiteSpaceAndCommentTokens();
         }
@@ -998,11 +994,26 @@ class XQueryParser {
     private boolean parseFTMatchOption() {
         final PsiBuilder.Marker matchOptionMarker = mark();
         if (parseFTLanguageOption(matchOptionMarker) ||
+            parseFTStemOption(matchOptionMarker) ||
             parseFTWildCardOption(matchOptionMarker)) {
-            return true;
+            //
+        } else if (matchTokenType(XQueryTokenType.K_NO)) {
+            parseWhiteSpaceAndCommentTokens();
+            if (matchTokenType(XQueryTokenType.K_STEMMING)) {
+                matchOptionMarker.done(XQueryElementType.FT_STEM_OPTION);
+            } else if (matchTokenType(XQueryTokenType.K_WILDCARDS)) {
+                matchOptionMarker.done(XQueryElementType.FT_WILDCARD_OPTION);
+            } else {
+                error(XQueryBundle.message("parser.error.expected-keyword", "stemming, wildcards"));
+                matchOptionMarker.drop();
+                return false;
+            }
+        } else {
+            error(XQueryBundle.message("parser.error.expected-keyword", "language, no, wildcards"));
+            matchOptionMarker.drop();
+            return false;
         }
-        matchOptionMarker.drop();
-        return false;
+        return true;
     }
 
     private boolean parseFTLanguageOption(@NotNull PsiBuilder.Marker languageOptionMarker) {
@@ -1018,16 +1029,16 @@ class XQueryParser {
         return false;
     }
 
+    private boolean parseFTStemOption(@NotNull PsiBuilder.Marker stemOptionMarker) {
+        if (matchTokenType(XQueryTokenType.K_STEMMING)) {
+            stemOptionMarker.done(XQueryElementType.FT_STEM_OPTION);
+            return true;
+        }
+        return false;
+    }
+
     private boolean parseFTWildCardOption(@NotNull PsiBuilder.Marker wildcardOptionMarker) {
         if (matchTokenType(XQueryTokenType.K_WILDCARDS)) {
-            wildcardOptionMarker.done(XQueryElementType.FT_WILDCARD_OPTION);
-            return true;
-        } else if (matchTokenType(XQueryTokenType.K_NO)) {
-            parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.K_WILDCARDS)) {
-                error(XQueryBundle.message("parser.error.expected-keyword", "wildcards"));
-            }
-
             wildcardOptionMarker.done(XQueryElementType.FT_WILDCARD_OPTION);
             return true;
         }

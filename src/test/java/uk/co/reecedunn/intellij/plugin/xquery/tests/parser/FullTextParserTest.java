@@ -41,6 +41,12 @@ public class FullTextParserTest extends ParserTestCase {
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
+    public void testFTOptionDecl_NoKeywordOnly() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTMatchOptions_NoKeywordOnly.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTMatchOptions_NoKeywordOnly.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
     // endregion
     // region Full Text 1.0 :: FTLanguageOption
 
@@ -59,6 +65,21 @@ public class FullTextParserTest extends ParserTestCase {
     public void testFTLanguageOption_MissingStringLiteral() {
         final String expected = loadResource("tests/parser/full-text-1.0/FTLanguageOption_MissingStringLiteral.txt");
         final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTLanguageOption_MissingStringLiteral.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
+    // region Full Text 1.0 :: FTStemOption
+
+    public void testFTStemOption() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTStemOption.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTStemOption.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTStemOption_NoStemming() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTStemOption_NoStemming.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTStemOption_NoStemming.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
