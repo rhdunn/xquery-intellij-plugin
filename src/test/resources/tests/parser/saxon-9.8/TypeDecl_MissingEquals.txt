@@ -1,0 +1,26 @@
+FileElement[FILE(0:31)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:31)]
+      XQueryPrologImpl[XQUERY_PROLOG(0:31)]
+         SaxonTypeDeclImpl[XQUERY_TYPE_DECL(0:30)]
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
+            PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_TYPE(8:12)]('type')
+            PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
+            XQueryQNameImpl[XQUERY_QNAME(13:18)]
+               XQueryNCNameImpl[XQUERY_NCNAME(13:14)]
+                  LeafPsiElement[XQUERY_NCNAME_TOKEN(13:14)]('a')
+               LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(14:15)](':')
+               XQueryNCNameImpl[XQUERY_NCNAME(15:18)]
+                  LeafPsiElement[XQUERY_NCNAME_TOKEN(15:18)]('int')
+            PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
+            PsiErrorElementImpl[ERROR_ELEMENT(19:19)]('XPST0003: Expected '='.')
+            XQueryItemTypeImpl[XQUERY_ITEM_TYPE(19:29)]
+               XQueryAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(19:29)]
+                  XQueryNCNameImpl[XQUERY_NCNAME(19:21)]
+                     LeafPsiElement[XQUERY_NCNAME_TOKEN(19:21)]('xs')
+                  LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(21:22)](':')
+                  XQueryNCNameImpl[XQUERY_NCNAME(22:29)]
+                     LeafPsiElement[XQUERY_NCNAME_TOKEN(22:29)]('integer')
+            PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
+         LeafPsiElement[XQUERY_SEPARATOR_TOKEN(30:31)](';')
+      PsiErrorElementImpl[ERROR_ELEMENT(31:31)]('XPST0003: Missing query body.')

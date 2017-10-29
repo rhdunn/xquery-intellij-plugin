@@ -1,0 +1,1 @@
+declare type a:int=xs:integer;

@@ -23,6 +23,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.basex.BaseXUpdateExprPsiI
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.marklogic.*;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.saxon.SaxonTupleFieldImpl;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.saxon.SaxonTupleTypeImpl;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.saxon.SaxonTypeDeclImpl;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.saxon.SaxonUnionTypeImpl;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.scripting.*;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.update.facility.*;
@@ -369,6 +370,8 @@ public interface XQueryElementType {
 
     // endregion
     // region Saxon 9.8
+
+    IElementType TYPE_DECL = new ICompositeElementType("XQUERY_TYPE_DECL", SaxonTypeDeclImpl.class, XQuery.INSTANCE);
 
     IElementType TUPLE_TYPE = new ICompositeElementType("XQUERY_TUPLE_TYPE", SaxonTupleTypeImpl.class, XQuery.INSTANCE);
     IElementType TUPLE_FIELD = new ICompositeElementType("XQUERY_TUPLE_FIELD", SaxonTupleFieldImpl.class, XQuery.INSTANCE);

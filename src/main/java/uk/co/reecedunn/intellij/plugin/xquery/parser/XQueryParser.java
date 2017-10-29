@@ -420,8 +420,11 @@ class XQueryParser {
             } else if (parseContextItemDecl()) {
                 declMarker.done(XQueryElementType.CONTEXT_ITEM_DECL);
                 return PrologDeclState.BODY_STATEMENT;
+            } else if (parseTypeDecl()) {
+                declMarker.done(XQueryElementType.TYPE_DECL);
+                return PrologDeclState.BODY_STATEMENT;
             } else {
-                error(XQueryBundle.message("parser.error.expected-keyword", "base-uri, boundary-space, construction, context, copy-namespaces, decimal-format, default, function, namespace, option, ordering, revalidation, variable"));
+                error(XQueryBundle.message("parser.error.expected-keyword", "base-uri, boundary-space, construction, context, copy-namespaces, decimal-format, default, function, namespace, option, ordering, revalidation, type, variable"));
                 parseUnknownDecl();
                 declMarker.done(XQueryElementType.UNKNOWN_DECL);
                 return PrologDeclState.UNKNOWN_STATEMENT;
@@ -1265,6 +1268,34 @@ class XQueryParser {
             parseWhiteSpaceAndCommentTokens();
             if (!parseStringLiteral(XQueryElementType.STRING_LITERAL) && !haveErrors) {
                 error(XQueryBundle.message("parser.error.expected-option-string"));
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseTypeDecl() {
+        if (matchTokenType(XQueryTokenType.K_TYPE)) {
+            boolean haveErrors = false;
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseQName(XQueryElementType.QNAME)) {
+                error(XQueryBundle.message("parser.error.expected-qname"));
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.EQUAL) &&
+                !(haveErrors = errorOnTokenType(XQueryTokenType.ASSIGN_EQUAL, XQueryBundle.message("parser.error.expected", "=")))) {
+                error(XQueryBundle.message("parser.error.expected", "="));
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseItemType() && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", "ItemType"));
             }
 
             parseWhiteSpaceAndCommentTokens();

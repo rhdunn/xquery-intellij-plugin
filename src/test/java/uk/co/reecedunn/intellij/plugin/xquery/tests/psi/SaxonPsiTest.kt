@@ -22,6 +22,7 @@ import org.hamcrest.MatcherAssert.assertThat
 import uk.co.reecedunn.intellij.plugin.core.extensions.children
 import uk.co.reecedunn.intellij.plugin.core.extensions.descendants
 import uk.co.reecedunn.intellij.plugin.xquery.ast.saxon.SaxonTupleType
+import uk.co.reecedunn.intellij.plugin.xquery.ast.saxon.SaxonTypeDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.saxon.SaxonUnionType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Saxon
@@ -50,6 +51,23 @@ class SaxonPsiTest : ParserTestCase() {
         assertThat(conformance.conformanceElement, `is`(CoreMatchers.notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
                 `is`<IElementType>(XQueryTokenType.K_TUPLE))
+    }
+
+    // endregion
+    // region TypeDecl
+
+    fun testTypeDecl() {
+        val file = parseResource("tests/parser/saxon-9.8/TypeDecl.xq")!!
+
+        val typeDeclPsi = file.descendants().filterIsInstance<SaxonTypeDecl>().first()
+        val conformance = typeDeclPsi as XQueryConformance
+
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`<Version>(Saxon.VERSION_9_8))
+
+        assertThat(conformance.conformanceElement, `is`(CoreMatchers.notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
+                `is`<IElementType>(XQueryTokenType.K_TYPE))
     }
 
     // endregion

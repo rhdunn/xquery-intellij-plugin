@@ -66,6 +66,45 @@ public class SaxonParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region Saxon 9.8 :: TypeDecl
+
+    public void testTypeDecl() {
+        final String expected = loadResource("tests/parser/saxon-9.8/TypeDecl.txt");
+        final XQueryFile actual = parseResource("tests/parser/saxon-9.8/TypeDecl.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testTypeDecl_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/saxon-9.8/TypeDecl_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/saxon-9.8/TypeDecl_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testTypeDecl_MissingQName() {
+        final String expected = loadResource("tests/parser/saxon-9.8/TypeDecl_MissingQName.txt");
+        final XQueryFile actual = parseResource("tests/parser/saxon-9.8/TypeDecl_MissingQName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testTypeDecl_MissingEquals() {
+        final String expected = loadResource("tests/parser/saxon-9.8/TypeDecl_MissingEquals.txt");
+        final XQueryFile actual = parseResource("tests/parser/saxon-9.8/TypeDecl_MissingEquals.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testTypeDecl_MissingItemType() {
+        final String expected = loadResource("tests/parser/saxon-9.8/TypeDecl_MissingItemType.txt");
+        final XQueryFile actual = parseResource("tests/parser/saxon-9.8/TypeDecl_MissingItemType.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testTypeDecl_AssignEquals() {
+        final String expected = loadResource("tests/parser/saxon-9.8/TypeDecl_AssignEquals.txt");
+        final XQueryFile actual = parseResource("tests/parser/saxon-9.8/TypeDecl_AssignEquals.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region Saxon 9.8 :: UnionType
 
     public void testUnionType() {

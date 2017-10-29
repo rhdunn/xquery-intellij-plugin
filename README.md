@@ -36,7 +36,8 @@ detection and error recovery. It supports the following XQuery specifications:
 It supports the following XQuery syntax extensions:
 
 *  BaseX 7.8 and 8.5 `update` syntax;
-*  Saxon 9.4 `map`, and Saxon 9.8 `tuple` and `union` vendor extensions;
+*  Saxon 9.4 `map`, and Saxon 9.8 `tuple`, `union`, and `declare type` vendor
+   extensions;
 *  MarkLogic 6.0, 7.0 (schema types) and 8.0 (json types) vendor extensions.
 
 It has support for xqDoc documentation comments.
