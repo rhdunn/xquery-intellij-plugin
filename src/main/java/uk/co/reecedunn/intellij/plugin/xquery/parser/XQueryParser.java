@@ -984,7 +984,7 @@ class XQueryParser {
 
             parseWhiteSpaceAndCommentTokens();
             if (!parseFTMatchOption() && !haveError) {
-                error(XQueryBundle.message("parser.error.expected-keyword", "language"));
+                error(XQueryBundle.message("parser.error.expected-keyword", "language, no, wildcards"));
                 haveError = true;
             }
 
@@ -996,7 +996,8 @@ class XQueryParser {
     }
 
     private boolean parseFTMatchOption() {
-        return parseFTLanguageOption();
+        return parseFTLanguageOption()
+            || parseFTWildCardOption();
     }
 
     private boolean parseFTLanguageOption() {
@@ -1010,6 +1011,24 @@ class XQueryParser {
             languageOptionMarker.done(XQueryElementType.FT_LANGUAGE_OPTION);
             return true;
         }
+        return false;
+    }
+
+    private boolean parseFTWildCardOption() {
+        final PsiBuilder.Marker wildcardOptionMarker = mark();
+        if (matchTokenType(XQueryTokenType.K_WILDCARDS)) {
+            wildcardOptionMarker.done(XQueryElementType.FT_WILDCARD_OPTION);
+            return true;
+        } else if (matchTokenType(XQueryTokenType.K_NO)) {
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_WILDCARDS)) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "wildcards"));
+            }
+
+            wildcardOptionMarker.done(XQueryElementType.FT_WILDCARD_OPTION);
+            return true;
+        }
+        wildcardOptionMarker.drop();
         return false;
     }
 

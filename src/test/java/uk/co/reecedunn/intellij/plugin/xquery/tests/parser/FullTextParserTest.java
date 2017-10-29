@@ -63,4 +63,19 @@ public class FullTextParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region Full Text 1.0 :: FTWildCardOption
+
+    public void testFTWildCardOption() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTWildCardOption.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTWildCardOption.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTWildCardOption_NoWildCards() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTWildCardOption_NoWildCards.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTWildCardOption_NoWildCards.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
 }
