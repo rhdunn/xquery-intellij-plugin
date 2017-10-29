@@ -20,6 +20,7 @@ import com.intellij.psi.tree.IFileElementType;
 import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.basex.BaseXUpdateExprPsiImpl;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.full.text.FTMatchOptionsPsiImpl;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.full.text.FTOptionDeclPsiImpl;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.marklogic.*;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.saxon.SaxonTupleFieldImpl;
@@ -307,6 +308,7 @@ public interface XQueryElementType {
     // region Full Text 1.0
 
     IElementType FT_OPTION_DECL = new ICompositeElementType("XQUERY_FT_OPTION_DECL", FTOptionDeclPsiImpl.class, XQuery.INSTANCE);
+    IElementType FT_MATCH_OPTIONS = new ICompositeElementType("XQUERY_FT_MATCH_OPTIONS_DECL", FTMatchOptionsPsiImpl.class, XQuery.INSTANCE);
 
     // endregion
     // region Scripting Extension 1.0

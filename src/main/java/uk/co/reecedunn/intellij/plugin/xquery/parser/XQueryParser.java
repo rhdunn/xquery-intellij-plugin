@@ -963,12 +963,30 @@ class XQueryParser {
 
     private boolean parseFTOptionDecl() {
         if (matchTokenType(XQueryTokenType.K_FT_OPTION)) {
-            // TODO: FTMatchOptions
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseFTMatchOptions()) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "using"));
+            }
 
             parseWhiteSpaceAndCommentTokens();
             return true;
         }
         return false;
+    }
+
+    private boolean parseFTMatchOptions() {
+        final PsiBuilder.Marker matchOptionsMarker = mark();
+
+        boolean haveFTMatchOption = false;
+        while (matchTokenType(XQueryTokenType.K_USING)) {
+            haveFTMatchOption = true;
+            // TODO: FTMatchOption
+
+            parseWhiteSpaceAndCommentTokens();
+        }
+
+        matchOptionsMarker.done(XQueryElementType.FT_MATCH_OPTIONS);
+        return haveFTMatchOption;
     }
 
     // endregion
