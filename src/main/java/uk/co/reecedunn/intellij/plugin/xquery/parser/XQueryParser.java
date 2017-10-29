@@ -422,7 +422,6 @@ class XQueryParser {
                 return PrologDeclState.BODY_STATEMENT;
             } else if (parseTypeDecl()) {
                 declMarker.done(XQueryElementType.TYPE_DECL);
-                return PrologDeclState.BODY_STATEMENT;
             } else {
                 error(XQueryBundle.message("parser.error.expected-keyword", "base-uri, boundary-space, construction, context, copy-namespaces, decimal-format, default, function, namespace, option, ordering, revalidation, type, variable"));
                 parseUnknownDecl();
