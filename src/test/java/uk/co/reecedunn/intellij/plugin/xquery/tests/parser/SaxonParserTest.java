@@ -99,4 +99,25 @@ public class SaxonParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region Saxon 9.8 :: TupleType
+
+    public void testTupleType() {
+        final String expected = loadResource("tests/parser/saxon-9.8/TupleType.txt");
+        final XQueryFile actual = parseResource("tests/parser/saxon-9.8/TupleType.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testTupleType_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/saxon-9.8/TupleType_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/saxon-9.8/TupleType_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testTupleType_MissingClosingParenthesis() {
+        final String expected = loadResource("tests/parser/saxon-9.8/TupleType_MissingClosingParenthesis.txt");
+        final XQueryFile actual = parseResource("tests/parser/saxon-9.8/TupleType_MissingClosingParenthesis.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
 }

@@ -18,12 +18,13 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.saxon
 import com.intellij.psi.PsiElement
 
 /**
- * A Saxon 9.8 `UnionType` node in the XQuery AST.
+ * A Saxon 9.8 `TupleType` node in the XQuery AST.
  *
  * <pre>
- *    UnionType ::= "union" "(" QName ("," QName)* ")"
+ *    TupleType  ::= "tuple" "(" TupleField ("," TupleField)* ")"
+ *    TupleField ::= NCName ":" SequenceType
  * </pre>
  *
- * Reference: http://www.saxonica.com/documentation/index.html#!extensions/syntax-extensions/union-types
+ * Reference: http://www.saxonica.com/documentation/index.html#!extensions/syntax-extensions/tuple-types
  */
-interface SaxonUnionType : PsiElement
+interface SaxonTupleType : PsiElement

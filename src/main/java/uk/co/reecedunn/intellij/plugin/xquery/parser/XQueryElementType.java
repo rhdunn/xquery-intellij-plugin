@@ -21,6 +21,7 @@ import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.basex.BaseXUpdateExprPsiImpl;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.marklogic.*;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.saxon.SaxonTupleTypeImpl;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.saxon.SaxonUnionTypeImpl;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.scripting.*;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.update.facility.*;
@@ -368,6 +369,7 @@ public interface XQueryElementType {
     // endregion
     // region Saxon 9.8
 
+    IElementType TUPLE_TYPE = new ICompositeElementType("XQUERY_TUPLE_TYPE", SaxonTupleTypeImpl.class, XQuery.INSTANCE);
     IElementType UNION_TYPE = new ICompositeElementType("XQUERY_UNION_TYPE", SaxonUnionTypeImpl.class, XQuery.INSTANCE);
 
     // endregion

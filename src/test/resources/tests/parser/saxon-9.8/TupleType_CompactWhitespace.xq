@@ -1,0 +1,1 @@
+declare variable$x as tuple():=1;

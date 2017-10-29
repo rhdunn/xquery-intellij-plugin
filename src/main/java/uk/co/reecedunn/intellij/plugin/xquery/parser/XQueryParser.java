@@ -5005,6 +5005,8 @@ class XQueryParser {
                    parseFunctionTest() ||
                    parseMapTest() ||
                    parseArrayTest() ||
+                   parseTupleType() ||
+                   parseUnionType() ||
                    parseAtomicOrUnionType() ||
                    parseParenthesizedItemType()) {
             itemTypeMarker.done(XQueryElementType.ITEM_TYPE);
@@ -5016,7 +5018,29 @@ class XQueryParser {
     }
 
     private boolean parseAtomicOrUnionType() {
-        return parseUnionType() || parseEQName(XQueryElementType.ATOMIC_OR_UNION_TYPE);
+        return parseEQName(XQueryElementType.ATOMIC_OR_UNION_TYPE);
+    }
+
+    private boolean parseTupleType() {
+        final PsiBuilder.Marker tupleTypeMarker = matchTokenTypeWithMarker(XQueryTokenType.K_TUPLE);
+        if (tupleTypeMarker != null) {
+            boolean haveError = false;
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_OPEN)) {
+                tupleTypeMarker.rollbackTo();
+                return false;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE) && !haveError) {
+                error(XQueryBundle.message("parser.error.expected", ")"));
+            }
+
+            tupleTypeMarker.done(XQueryElementType.TUPLE_TYPE);
+            return true;
+        }
+        return false;
     }
 
     private boolean parseUnionType() {
