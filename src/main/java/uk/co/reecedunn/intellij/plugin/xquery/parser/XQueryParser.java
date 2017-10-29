@@ -996,13 +996,17 @@ class XQueryParser {
     }
 
     private boolean parseFTMatchOption() {
-        return parseFTLanguageOption()
-            || parseFTWildCardOption();
+        final PsiBuilder.Marker matchOptionMarker = mark();
+        if (parseFTLanguageOption(matchOptionMarker) ||
+            parseFTWildCardOption(matchOptionMarker)) {
+            return true;
+        }
+        matchOptionMarker.drop();
+        return false;
     }
 
-    private boolean parseFTLanguageOption() {
-        final PsiBuilder.Marker languageOptionMarker = matchTokenTypeWithMarker(XQueryTokenType.K_LANGUAGE);
-        if (languageOptionMarker != null) {
+    private boolean parseFTLanguageOption(@NotNull PsiBuilder.Marker languageOptionMarker) {
+        if (matchTokenType(XQueryTokenType.K_LANGUAGE)) {
             parseWhiteSpaceAndCommentTokens();
             if (!parseStringLiteral(XQueryElementType.STRING_LITERAL)) {
                 error(XQueryBundle.message("parser.error.expected", "StringLiteral"));
@@ -1014,8 +1018,7 @@ class XQueryParser {
         return false;
     }
 
-    private boolean parseFTWildCardOption() {
-        final PsiBuilder.Marker wildcardOptionMarker = mark();
+    private boolean parseFTWildCardOption(@NotNull PsiBuilder.Marker wildcardOptionMarker) {
         if (matchTokenType(XQueryTokenType.K_WILDCARDS)) {
             wildcardOptionMarker.done(XQueryElementType.FT_WILDCARD_OPTION);
             return true;
@@ -1028,7 +1031,6 @@ class XQueryParser {
             wildcardOptionMarker.done(XQueryElementType.FT_WILDCARD_OPTION);
             return true;
         }
-        wildcardOptionMarker.drop();
         return false;
     }
 
