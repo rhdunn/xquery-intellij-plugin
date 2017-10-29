@@ -422,8 +422,10 @@ class XQueryParser {
                 return PrologDeclState.BODY_STATEMENT;
             } else if (parseTypeDecl()) {
                 declMarker.done(XQueryElementType.TYPE_DECL);
+            } else if (parseFTOptionDecl()) {
+                declMarker.done(XQueryElementType.FT_OPTION_DECL);
             } else {
-                error(XQueryBundle.message("parser.error.expected-keyword", "base-uri, boundary-space, construction, context, copy-namespaces, decimal-format, default, function, namespace, option, ordering, revalidation, type, variable"));
+                error(XQueryBundle.message("parser.error.expected-keyword", "base-uri, boundary-space, construction, context, copy-namespaces, decimal-format, default, ft-option, function, namespace, option, ordering, revalidation, type, variable"));
                 parseUnknownDecl();
                 declMarker.done(XQueryElementType.UNKNOWN_DECL);
                 return PrologDeclState.UNKNOWN_STATEMENT;
@@ -951,6 +953,19 @@ class XQueryParser {
                     parseWhiteSpaceAndCommentTokens();
                 } while (matchTokenType(XQueryTokenType.COMMA));
             }
+            return true;
+        }
+        return false;
+    }
+
+    // endregion
+    // region Grammar :: Prolog :: Header :: FTOptionDecl
+
+    private boolean parseFTOptionDecl() {
+        if (matchTokenType(XQueryTokenType.K_FT_OPTION)) {
+            // TODO: FTMatchOptions
+
+            parseWhiteSpaceAndCommentTokens();
             return true;
         }
         return false;
