@@ -977,16 +977,40 @@ class XQueryParser {
     private boolean parseFTMatchOptions() {
         final PsiBuilder.Marker matchOptionsMarker = mark();
 
+        boolean haveError = false;
         boolean haveFTMatchOption = false;
         while (matchTokenType(XQueryTokenType.K_USING)) {
             haveFTMatchOption = true;
-            // TODO: FTMatchOption
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseFTMatchOption() && !haveError) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "language"));
+                haveError = true;
+            }
 
             parseWhiteSpaceAndCommentTokens();
         }
 
         matchOptionsMarker.done(XQueryElementType.FT_MATCH_OPTIONS);
         return haveFTMatchOption;
+    }
+
+    private boolean parseFTMatchOption() {
+        return parseFTLanguageOption();
+    }
+
+    private boolean parseFTLanguageOption() {
+        final PsiBuilder.Marker languageOptionMarker = matchTokenTypeWithMarker(XQueryTokenType.K_LANGUAGE);
+        if (languageOptionMarker != null) {
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseStringLiteral(XQueryElementType.STRING_LITERAL)) {
+                error(XQueryBundle.message("parser.error.expected", "StringLiteral"));
+            }
+
+            languageOptionMarker.done(XQueryElementType.FT_LANGUAGE_OPTION);
+            return true;
+        }
+        return false;
     }
 
     // endregion

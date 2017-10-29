@@ -13,11 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.full.text
+package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.full.text
 
-import com.intellij.psi.PsiElement
+import com.intellij.extapi.psi.ASTWrapperPsiElement
+import com.intellij.lang.ASTNode
+import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTLanguageOption
 
-/**
- * An XQuery Full Text 1.0 `FTMatchOptions` node in the XQuery AST.
- */
-interface FTMatchOptions : PsiElement
+class FTLanguageOptionPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), FTLanguageOption
