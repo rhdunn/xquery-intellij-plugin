@@ -165,6 +165,27 @@ public class FullTextParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region Full Text 1.0 :: FTThesaurusOption
+
+    public void testFTThesaurusOption_Default() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTThesaurusOption_Default.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTThesaurusOption_Default.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTThesaurusOption_NoThesaurus() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTThesaurusOption_NoThesaurus.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTThesaurusOption_NoThesaurus.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTThesaurusOption_MissingThesaurusID() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTThesaurusOption_MissingThesaurusID.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTThesaurusOption_MissingThesaurusID.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region Full Text 1.0 :: FTWildCardOption
 
     public void testFTWildCardOption() {

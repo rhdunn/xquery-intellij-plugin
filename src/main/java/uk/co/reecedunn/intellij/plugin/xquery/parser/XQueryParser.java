@@ -998,21 +998,24 @@ class XQueryParser {
             parseFTExtensionOption(matchOptionMarker) ||
             parseFTLanguageOption(matchOptionMarker) ||
             parseFTStemOption(matchOptionMarker) ||
+            parseFTThesaurusOption(matchOptionMarker) ||
             parseFTWildCardOption(matchOptionMarker)) {
             //
         } else if (matchTokenType(XQueryTokenType.K_NO)) {
             parseWhiteSpaceAndCommentTokens();
             if (matchTokenType(XQueryTokenType.K_STEMMING)) {
                 matchOptionMarker.done(XQueryElementType.FT_STEM_OPTION);
+            } else if (matchTokenType(XQueryTokenType.K_THESAURUS)) {
+                matchOptionMarker.done(XQueryElementType.FT_THESAURUS_OPTION);
             } else if (matchTokenType(XQueryTokenType.K_WILDCARDS)) {
                 matchOptionMarker.done(XQueryElementType.FT_WILDCARD_OPTION);
             } else {
-                error(XQueryBundle.message("parser.error.expected-keyword", "stemming, wildcards"));
+                error(XQueryBundle.message("parser.error.expected-keyword", "stemming, thesaurus, wildcards"));
                 matchOptionMarker.drop();
                 return false;
             }
         } else {
-            error(XQueryBundle.message("parser.error.expected-keyword", "case, language, lowercase, no, option, uppercase, wildcards"));
+            error(XQueryBundle.message("parser.error.expected-keyword", "case, language, lowercase, no, option, thesaurus, uppercase, wildcards"));
             matchOptionMarker.drop();
             return false;
         }
@@ -1051,6 +1054,19 @@ class XQueryParser {
     private boolean parseFTStemOption(@NotNull PsiBuilder.Marker stemOptionMarker) {
         if (matchTokenType(XQueryTokenType.K_STEMMING)) {
             stemOptionMarker.done(XQueryElementType.FT_STEM_OPTION);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseFTThesaurusOption(@NotNull PsiBuilder.Marker thesaurusOptionMarker) {
+        if (matchTokenType(XQueryTokenType.K_THESAURUS)) {
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_DEFAULT)) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "default"));
+            }
+
+            thesaurusOptionMarker.done(XQueryElementType.FT_THESAURUS_OPTION);
             return true;
         }
         return false;
