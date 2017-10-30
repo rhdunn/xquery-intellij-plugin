@@ -994,6 +994,7 @@ class XQueryParser {
     private boolean parseFTMatchOption() {
         final PsiBuilder.Marker matchOptionMarker = mark();
         if (parseFTCaseOption(matchOptionMarker) ||
+            parseFTDiacriticsOption(matchOptionMarker) ||
             parseFTLanguageOption(matchOptionMarker) ||
             parseFTStemOption(matchOptionMarker) ||
             parseFTWildCardOption(matchOptionMarker)) {
@@ -1057,6 +1058,19 @@ class XQueryParser {
             }
 
             caseOptionMarker.done(XQueryElementType.FT_CASE_OPTION);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseFTDiacriticsOption(@NotNull PsiBuilder.Marker diacriticsOptionMarker) {
+        if (matchTokenType(XQueryTokenType.K_DIACRITICS)) {
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_SENSITIVE) && !matchTokenType(XQueryTokenType.K_INSENSITIVE)) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "sensitive, insensitive"));
+            }
+
+            diacriticsOptionMarker.done(XQueryElementType.FT_DIACRITICS_OPTION);
             return true;
         }
         return false;

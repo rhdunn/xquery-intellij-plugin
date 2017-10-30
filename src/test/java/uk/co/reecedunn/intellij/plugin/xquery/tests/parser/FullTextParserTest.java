@@ -102,6 +102,27 @@ public class FullTextParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region Full Text 1.0 :: FTDiacriticsOption
+
+    public void testFTDiacriticsOption_Sensitive() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTDiacriticsOption_Sensitive.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTDiacriticsOption_Sensitive.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTDiacriticsOption_Insensitive() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTDiacriticsOption_Insensitive.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTDiacriticsOption_Insensitive.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTDiacriticsOption_MissingSensitivityKeyword() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTDiacriticsOption_MissingSensitivityKeyword.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTDiacriticsOption_MissingSensitivityKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region Full Text 1.0 :: FTStemOption
 
     public void testFTStemOption() {
