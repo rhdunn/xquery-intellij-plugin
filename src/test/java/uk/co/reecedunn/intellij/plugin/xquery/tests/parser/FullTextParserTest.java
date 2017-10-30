@@ -123,6 +123,33 @@ public class FullTextParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region Full Text 1.0 :: FTExtensionOption
+
+    public void testFTExtensionOption() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTExtensionOption.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTExtensionOption.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTExtensionOption_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTExtensionOption_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTExtensionOption_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTExtensionOption_MissingOptionName() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTExtensionOption_MissingOptionName.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTExtensionOption_MissingOptionName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTExtensionOption_MissingOptionValue() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTExtensionOption_MissingOptionValue.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTExtensionOption_MissingOptionValue.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region Full Text 1.0 :: FTStemOption
 
     public void testFTStemOption() {

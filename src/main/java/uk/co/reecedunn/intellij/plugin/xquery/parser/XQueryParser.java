@@ -995,6 +995,7 @@ class XQueryParser {
         final PsiBuilder.Marker matchOptionMarker = mark();
         if (parseFTCaseOption(matchOptionMarker) ||
             parseFTDiacriticsOption(matchOptionMarker) ||
+            parseFTExtensionOption(matchOptionMarker) ||
             parseFTLanguageOption(matchOptionMarker) ||
             parseFTStemOption(matchOptionMarker) ||
             parseFTWildCardOption(matchOptionMarker)) {
@@ -1011,40 +1012,11 @@ class XQueryParser {
                 return false;
             }
         } else {
-            error(XQueryBundle.message("parser.error.expected-keyword", "case, language, lowercase, no, uppercase, wildcards"));
+            error(XQueryBundle.message("parser.error.expected-keyword", "case, language, lowercase, no, option, uppercase, wildcards"));
             matchOptionMarker.drop();
             return false;
         }
         return true;
-    }
-
-    private boolean parseFTLanguageOption(@NotNull PsiBuilder.Marker languageOptionMarker) {
-        if (matchTokenType(XQueryTokenType.K_LANGUAGE)) {
-            parseWhiteSpaceAndCommentTokens();
-            if (!parseStringLiteral(XQueryElementType.STRING_LITERAL)) {
-                error(XQueryBundle.message("parser.error.expected", "StringLiteral"));
-            }
-
-            languageOptionMarker.done(XQueryElementType.FT_LANGUAGE_OPTION);
-            return true;
-        }
-        return false;
-    }
-
-    private boolean parseFTStemOption(@NotNull PsiBuilder.Marker stemOptionMarker) {
-        if (matchTokenType(XQueryTokenType.K_STEMMING)) {
-            stemOptionMarker.done(XQueryElementType.FT_STEM_OPTION);
-            return true;
-        }
-        return false;
-    }
-
-    private boolean parseFTWildCardOption(@NotNull PsiBuilder.Marker wildcardOptionMarker) {
-        if (matchTokenType(XQueryTokenType.K_WILDCARDS)) {
-            wildcardOptionMarker.done(XQueryElementType.FT_WILDCARD_OPTION);
-            return true;
-        }
-        return false;
     }
 
     private boolean parseFTCaseOption(@NotNull PsiBuilder.Marker caseOptionMarker) {
@@ -1071,6 +1043,56 @@ class XQueryParser {
             }
 
             diacriticsOptionMarker.done(XQueryElementType.FT_DIACRITICS_OPTION);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseFTStemOption(@NotNull PsiBuilder.Marker stemOptionMarker) {
+        if (matchTokenType(XQueryTokenType.K_STEMMING)) {
+            stemOptionMarker.done(XQueryElementType.FT_STEM_OPTION);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseFTLanguageOption(@NotNull PsiBuilder.Marker languageOptionMarker) {
+        if (matchTokenType(XQueryTokenType.K_LANGUAGE)) {
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseStringLiteral(XQueryElementType.STRING_LITERAL)) {
+                error(XQueryBundle.message("parser.error.expected", "StringLiteral"));
+            }
+
+            languageOptionMarker.done(XQueryElementType.FT_LANGUAGE_OPTION);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseFTWildCardOption(@NotNull PsiBuilder.Marker wildcardOptionMarker) {
+        if (matchTokenType(XQueryTokenType.K_WILDCARDS)) {
+            wildcardOptionMarker.done(XQueryElementType.FT_WILDCARD_OPTION);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseFTExtensionOption(@NotNull PsiBuilder.Marker extensionOptionMarker) {
+        if (matchTokenType(XQueryTokenType.K_OPTION)) {
+            boolean haveErrors = false;
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseEQName(XQueryElementType.EQNAME)) {
+                error(XQueryBundle.message("parser.error.expected-eqname"));
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseStringLiteral(XQueryElementType.STRING_LITERAL) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", "StringLiteral"));
+            }
+
+            extensionOptionMarker.done(XQueryElementType.FT_EXTENSION_OPTION);
             return true;
         }
         return false;
