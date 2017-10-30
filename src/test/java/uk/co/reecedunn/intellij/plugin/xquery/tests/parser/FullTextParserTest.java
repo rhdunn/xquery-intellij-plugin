@@ -69,6 +69,39 @@ public class FullTextParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region Full Text 1.0 :: FTCaseOption
+
+    public void testFTCaseOption_LowerCase() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTCaseOption_LowerCase.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTCaseOption_LowerCase.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTCaseOption_UpperCase() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTCaseOption_UpperCase.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTCaseOption_UpperCase.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTCaseOption_Case_Sensitive() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTCaseOption_Case_Sensitive.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTCaseOption_Case_Sensitive.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTCaseOption_Case_Insensitive() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTCaseOption_Case_Insensitive.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTCaseOption_Case_Insensitive.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTCaseOption_Case_MissingSensitivityKeyword() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTCaseOption_Case_MissingSensitivityKeyword.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTCaseOption_Case_MissingSensitivityKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region Full Text 1.0 :: FTStemOption
 
     public void testFTStemOption() {

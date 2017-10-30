@@ -993,7 +993,8 @@ class XQueryParser {
 
     private boolean parseFTMatchOption() {
         final PsiBuilder.Marker matchOptionMarker = mark();
-        if (parseFTLanguageOption(matchOptionMarker) ||
+        if (parseFTCaseOption(matchOptionMarker) ||
+            parseFTLanguageOption(matchOptionMarker) ||
             parseFTStemOption(matchOptionMarker) ||
             parseFTWildCardOption(matchOptionMarker)) {
             //
@@ -1009,7 +1010,7 @@ class XQueryParser {
                 return false;
             }
         } else {
-            error(XQueryBundle.message("parser.error.expected-keyword", "language, no, wildcards"));
+            error(XQueryBundle.message("parser.error.expected-keyword", "case, language, lowercase, no, uppercase, wildcards"));
             matchOptionMarker.drop();
             return false;
         }
@@ -1040,6 +1041,22 @@ class XQueryParser {
     private boolean parseFTWildCardOption(@NotNull PsiBuilder.Marker wildcardOptionMarker) {
         if (matchTokenType(XQueryTokenType.K_WILDCARDS)) {
             wildcardOptionMarker.done(XQueryElementType.FT_WILDCARD_OPTION);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseFTCaseOption(@NotNull PsiBuilder.Marker caseOptionMarker) {
+        if (matchTokenType(XQueryTokenType.K_LOWERCASE) || matchTokenType(XQueryTokenType.K_UPPERCASE)) {
+            caseOptionMarker.done(XQueryElementType.FT_CASE_OPTION);
+            return true;
+        } else if (matchTokenType(XQueryTokenType.K_CASE)) {
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_SENSITIVE) && !matchTokenType(XQueryTokenType.K_INSENSITIVE)) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "sensitive, insensitive"));
+            }
+
+            caseOptionMarker.done(XQueryElementType.FT_CASE_OPTION);
             return true;
         }
         return false;
