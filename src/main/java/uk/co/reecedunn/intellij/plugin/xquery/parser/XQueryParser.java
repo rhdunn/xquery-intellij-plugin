@@ -1062,11 +1062,57 @@ class XQueryParser {
     private boolean parseFTThesaurusOption(@NotNull PsiBuilder.Marker thesaurusOptionMarker) {
         if (matchTokenType(XQueryTokenType.K_THESAURUS)) {
             parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.K_DEFAULT)) {
-                error(XQueryBundle.message("parser.error.expected-keyword", "default"));
+            if (matchTokenType(XQueryTokenType.PARENTHESIS_OPEN)) {
+                boolean haveError = false;
+
+                parseWhiteSpaceAndCommentTokens();
+                if (!matchTokenType(XQueryTokenType.K_DEFAULT) && !parseFTThesaurusID()) {
+                    error(XQueryBundle.message("parser.error.expected-keyword", "at, default"));
+                    haveError = true;
+                }
+
+                parseWhiteSpaceAndCommentTokens();
+                while (matchTokenType(XQueryTokenType.COMMA)) {
+                    parseWhiteSpaceAndCommentTokens();
+                    if (!parseFTThesaurusID() && !haveError) {
+                        error(XQueryBundle.message("parser.error.expected-keyword", "at"));
+                        haveError = true;
+                    }
+
+                    parseWhiteSpaceAndCommentTokens();
+                }
+
+                parseWhiteSpaceAndCommentTokens();
+                if (!matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE) && !haveError) {
+                    error(XQueryBundle.message("parser.error.expected-either", ",", ")"));
+                }
+            } else if (!matchTokenType(XQueryTokenType.K_DEFAULT) && !parseFTThesaurusID()) {
+                error(XQueryBundle.message("parser.error.expected-keyword-or-token", "(", "at, default"));
             }
 
             thesaurusOptionMarker.done(XQueryElementType.FT_THESAURUS_OPTION);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseFTThesaurusID() {
+        final PsiBuilder.Marker thesaurusIdMarker = matchTokenTypeWithMarker(XQueryTokenType.K_AT);
+        if (thesaurusIdMarker != null) {
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseStringLiteral(XQueryElementType.URI_LITERAL)) {
+                error(XQueryBundle.message("parser.error.expected", "URILiteral"));
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (matchTokenType(XQueryTokenType.K_RELATIONSHIP)) {
+                parseWhiteSpaceAndCommentTokens();
+                if (!parseStringLiteral(XQueryElementType.STRING_LITERAL)) {
+                    error(XQueryBundle.message("parser.error.expected", "StringLiteral"));
+                }
+            }
+
+            thesaurusIdMarker.done(XQueryElementType.FT_THESAURUS_ID);
             return true;
         }
         return false;

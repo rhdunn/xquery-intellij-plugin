@@ -12,6 +12,6 @@ FileElement[FILE(0:35)]
                FTThesaurusOptionImpl[XQUERY_FT_THESAURUS_OPTION(24:34)]
                   LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_THESAURUS(24:33)]('thesaurus')
                   PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
-                  PsiErrorElementImpl[ERROR_ELEMENT(34:34)]('XPST0003: Expected keyword: default.')
+                  PsiErrorElementImpl[ERROR_ELEMENT(34:34)]('XPST0003: Expected '(', or keyword: at, default.')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(34:35)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(35:35)]('XPST0003: Missing query body.')

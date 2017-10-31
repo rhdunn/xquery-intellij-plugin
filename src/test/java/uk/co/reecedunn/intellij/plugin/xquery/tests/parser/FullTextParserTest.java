@@ -173,6 +173,12 @@ public class FullTextParserTest extends ParserTestCase {
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
+    public void testFTThesaurusOption_ThesaurusID() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTThesaurusID.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTThesaurusID.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
     public void testFTThesaurusOption_NoThesaurus() {
         final String expected = loadResource("tests/parser/full-text-1.0/FTThesaurusOption_NoThesaurus.txt");
         final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTThesaurusOption_NoThesaurus.xq");
@@ -182,6 +188,105 @@ public class FullTextParserTest extends ParserTestCase {
     public void testFTThesaurusOption_MissingThesaurusID() {
         final String expected = loadResource("tests/parser/full-text-1.0/FTThesaurusOption_MissingThesaurusID.txt");
         final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTThesaurusOption_MissingThesaurusID.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTThesaurusOption_Parenthesized_Default() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTThesaurusOption_Parenthesized_Default.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTThesaurusOption_Parenthesized_Default.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTThesaurusOption_Parenthesized_ThesaurusID() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTThesaurusOption_Parenthesized_ThesaurusID.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTThesaurusOption_Parenthesized_ThesaurusID.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTThesaurusOption_Parenthesized_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTThesaurusOption_Parenthesized_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTThesaurusOption_Parenthesized_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTThesaurusOption_Parenthesized_MissingThesaurusID() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTThesaurusOption_Parenthesized_MissingThesaurusID.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTThesaurusOption_Parenthesized_MissingThesaurusID.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTThesaurusOption_Parenthesized_MissingClosingParenthesis() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTThesaurusOption_Parenthesized_MissingClosingParenthesis.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTThesaurusOption_Parenthesized_MissingClosingParenthesis.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTThesaurusOption_Parenthesized_TwoItems() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTThesaurusOption_Parenthesized_TwoItems.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTThesaurusOption_Parenthesized_TwoItems.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTThesaurusOption_Parenthesized_TwoItems_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTThesaurusOption_Parenthesized_TwoItems_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTThesaurusOption_Parenthesized_TwoItems_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTThesaurusOption_Parenthesized_TwoItems_MissingThesaurusID() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTThesaurusOption_Parenthesized_TwoItems_MissingThesaurusID.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTThesaurusOption_Parenthesized_TwoItems_MissingThesaurusID.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTThesaurusOption_Parenthesized_Multiple() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTThesaurusOption_Parenthesized_Multiple.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTThesaurusOption_Parenthesized_Multiple.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTThesaurusOption_Parenthesized_Multiple_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTThesaurusOption_Parenthesized_Multiple_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTThesaurusOption_Parenthesized_Multiple_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
+    // region Full Text 1.0 :: FTThesaurusID (FTThesaurusOption)
+
+    public void testFTThesaurusID() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTThesaurusID.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTThesaurusID.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTThesaurusID_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTThesaurusID_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTThesaurusID_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTThesaurusID_MissingUriLiteral() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTThesaurusID_MissingUriLiteral.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTThesaurusID_MissingUriLiteral.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTThesaurusID_Relationship() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTThesaurusID_Relationship.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTThesaurusID_Relationship.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTThesaurusID_Relationship_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTThesaurusID_Relationship_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTThesaurusID_Relationship_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTThesaurusID_Relationship_MissingStringLiteral() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTThesaurusID_Relationship_MissingStringLiteral.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTThesaurusID_Relationship_MissingStringLiteral.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 

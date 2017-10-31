@@ -1,0 +1,1 @@
+declare ft-option using thesaurus ( default , at "http://www.example.com/de-CH" ) ;

@@ -316,6 +316,8 @@ public interface XQueryElementType {
     IElementType FT_THESAURUS_OPTION = new ICompositeElementType("XQUERY_FT_THESAURUS_OPTION", FTThesaurusOptionPsiImpl.class, XQuery.INSTANCE);
     IElementType FT_WILDCARD_OPTION = new ICompositeElementType("XQUERY_FT_WILDCARD_OPTION", FTWildCardOptionPsiImpl.class, XQuery.INSTANCE);
 
+    IElementType FT_THESAURUS_ID = new ICompositeElementType("XQUERY_FT_THESAURUS_ID", FTThesaurusIDPsiImpl.class, XQuery.INSTANCE);
+
     // endregion
     // region Scripting Extension 1.0
 
