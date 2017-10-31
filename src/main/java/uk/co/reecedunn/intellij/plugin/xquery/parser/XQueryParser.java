@@ -1076,6 +1076,10 @@ class XQueryParser {
                     parseWhiteSpaceAndCommentTokens();
                     if (!parseFTThesaurusID() && !haveError) {
                         error(XQueryBundle.message("parser.error.expected-keyword", "at"));
+
+                        matchTokenType(XQueryTokenType.K_DEFAULT);
+                        parseWhiteSpaceAndCommentTokens();
+
                         haveError = true;
                     }
 
