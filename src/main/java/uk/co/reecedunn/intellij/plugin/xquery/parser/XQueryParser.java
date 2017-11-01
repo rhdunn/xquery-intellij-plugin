@@ -1120,20 +1120,91 @@ class XQueryParser {
     private boolean parseFTThesaurusID() {
         final PsiBuilder.Marker thesaurusIdMarker = matchTokenTypeWithMarker(XQueryTokenType.K_AT);
         if (thesaurusIdMarker != null) {
+            boolean haveError = false;
+
             parseWhiteSpaceAndCommentTokens();
             if (!parseStringLiteral(XQueryElementType.URI_LITERAL)) {
                 error(XQueryBundle.message("parser.error.expected", "URILiteral"));
+                haveError = true;
             }
 
             parseWhiteSpaceAndCommentTokens();
             if (matchTokenType(XQueryTokenType.K_RELATIONSHIP)) {
                 parseWhiteSpaceAndCommentTokens();
-                if (!parseStringLiteral(XQueryElementType.STRING_LITERAL)) {
+                if (!parseStringLiteral(XQueryElementType.STRING_LITERAL) && !haveError) {
                     error(XQueryBundle.message("parser.error.expected", "StringLiteral"));
+                    haveError = true;
+                }
+            }
+
+            if (parseFTLiteralRange()) {
+                parseWhiteSpaceAndCommentTokens();
+                if (!matchTokenType(XQueryTokenType.K_LEVELS) && !haveError) {
+                    error(XQueryBundle.message("parser.error.expected-keyword", "levels"));
                 }
             }
 
             thesaurusIdMarker.done(XQueryElementType.FT_THESAURUS_ID);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseFTLiteralRange() {
+        if (getTokenType() == XQueryTokenType.K_EXACTLY) {
+            final PsiBuilder.Marker literalRangeMarker = mark();
+            advanceLexer();
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.INTEGER_LITERAL)) {
+                error(XQueryBundle.message("parser.error.expected", "IntegerLiteral"));
+            }
+
+            literalRangeMarker.done(XQueryElementType.FT_LITERAL_RANGE);
+            return true;
+        } else if (getTokenType() == XQueryTokenType.K_AT) {
+            final PsiBuilder.Marker literalRangeMarker = mark();
+            advanceLexer();
+
+            boolean haveError = false;
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_LEAST) && !matchTokenType(XQueryTokenType.K_MOST)) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "least, most"));
+                haveError = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.INTEGER_LITERAL) && !haveError) {
+                error(XQueryBundle.message("parser.error.expected", "IntegerLiteral"));
+            }
+
+            literalRangeMarker.done(XQueryElementType.FT_LITERAL_RANGE);
+            return true;
+        } else if (getTokenType() == XQueryTokenType.K_FROM) {
+            final PsiBuilder.Marker literalRangeMarker = mark();
+            advanceLexer();
+
+            boolean haveError = false;
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.INTEGER_LITERAL)) {
+                error(XQueryBundle.message("parser.error.expected", "IntegerLiteral"));
+                haveError = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_TO) && !haveError) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "to"));
+                haveError = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.INTEGER_LITERAL) && !haveError) {
+                error(XQueryBundle.message("parser.error.expected", "IntegerLiteral"));
+            }
+
+            literalRangeMarker.done(XQueryElementType.FT_LITERAL_RANGE);
             return true;
         }
         return false;
