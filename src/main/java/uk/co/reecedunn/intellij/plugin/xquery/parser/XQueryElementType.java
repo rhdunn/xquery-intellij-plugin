@@ -313,6 +313,7 @@ public interface XQueryElementType {
     IElementType FT_EXTENSION_OPTION = new ICompositeElementType("XQUERY_FT_EXTENSION_OPTION", FTExtensionOptionPsiImpl.class, XQuery.INSTANCE);
     IElementType FT_LANGUAGE_OPTION = new ICompositeElementType("XQUERY_FT_LANGUAGE_OPTION", FTLanguageOptionPsiImpl.class, XQuery.INSTANCE);
     IElementType FT_STEM_OPTION = new ICompositeElementType("XQUERY_FT_STEM_OPTION", FTStemOptionPsiImpl.class, XQuery.INSTANCE);
+    IElementType FT_STOP_WORD_OPTION = new ICompositeElementType("XQUERY_FT_STOP_WORD_OPTION", FTStopWordOptionPsiImpl.class, XQuery.INSTANCE);
     IElementType FT_THESAURUS_OPTION = new ICompositeElementType("XQUERY_FT_THESAURUS_OPTION", FTThesaurusOptionPsiImpl.class, XQuery.INSTANCE);
     IElementType FT_WILDCARD_OPTION = new ICompositeElementType("XQUERY_FT_WILDCARD_OPTION", FTWildCardOptionPsiImpl.class, XQuery.INSTANCE);
 

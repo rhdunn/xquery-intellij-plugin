@@ -384,6 +384,39 @@ public class FullTextParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region Full Text 1.0 :: FTStopWordOption
+
+    public void testFTStopWordOption_Default() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTStopWordOption_Default.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTStopWordOption_Default.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTStopWordOption_Default_MissingWordsKeyword() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTStopWordOption_Default_MissingWordsKeyword.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTStopWordOption_Default_MissingWordsKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTStopWordOption_MissingStopWords() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTStopWordOption_MissingStopWords.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTStopWordOption_MissingStopWords.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTStopWordOption_NoStopWords() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTStopWordOption_NoStopWords.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTStopWordOption_NoStopWords.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTStopWordOption_NoStopWords_MissingWordsKeyword() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTStopWordOption_NoStopWords_MissingWordsKeyword.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTStopWordOption_NoStopWords_MissingWordsKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region Full Text 1.0 :: FTLanguageOption
 
     public void testFTLanguageOption() {

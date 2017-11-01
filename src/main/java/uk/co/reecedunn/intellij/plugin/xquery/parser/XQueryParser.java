@@ -998,6 +998,7 @@ class XQueryParser {
             parseFTExtensionOption(matchOptionMarker) ||
             parseFTLanguageOption(matchOptionMarker) ||
             parseFTStemOption(matchOptionMarker) ||
+            parseFTStopWordOption(matchOptionMarker) ||
             parseFTThesaurusOption(matchOptionMarker) ||
             parseFTWildCardOption(matchOptionMarker)) {
             //
@@ -1005,12 +1006,19 @@ class XQueryParser {
             parseWhiteSpaceAndCommentTokens();
             if (matchTokenType(XQueryTokenType.K_STEMMING)) {
                 matchOptionMarker.done(XQueryElementType.FT_STEM_OPTION);
+            } else if (matchTokenType(XQueryTokenType.K_STOP)) {
+                parseWhiteSpaceAndCommentTokens();
+                if (!matchTokenType(XQueryTokenType.K_WORDS)) {
+                    error(XQueryBundle.message("parser.error.expected-keyword", "words"));
+                }
+
+                matchOptionMarker.done(XQueryElementType.FT_STOP_WORD_OPTION);
             } else if (matchTokenType(XQueryTokenType.K_THESAURUS)) {
                 matchOptionMarker.done(XQueryElementType.FT_THESAURUS_OPTION);
             } else if (matchTokenType(XQueryTokenType.K_WILDCARDS)) {
                 matchOptionMarker.done(XQueryElementType.FT_WILDCARD_OPTION);
             } else {
-                error(XQueryBundle.message("parser.error.expected-keyword", "stemming, thesaurus, wildcards"));
+                error(XQueryBundle.message("parser.error.expected-keyword", "stemming, stop, thesaurus, wildcards"));
                 matchOptionMarker.drop();
                 return false;
             }
@@ -1205,6 +1213,24 @@ class XQueryParser {
             }
 
             literalRangeMarker.done(XQueryElementType.FT_LITERAL_RANGE);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseFTStopWordOption(@NotNull PsiBuilder.Marker stopWordOptionMarker) {
+        if (matchTokenType(XQueryTokenType.K_STOP)) {
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_WORDS)) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "words"));
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_DEFAULT)) {
+                error(XQueryBundle.message("parser.error.expected-keyword-or-token", "(", "at, default"));
+            }
+
+            stopWordOptionMarker.done(XQueryElementType.FT_STOP_WORD_OPTION);
             return true;
         }
         return false;
