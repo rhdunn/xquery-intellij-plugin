@@ -1588,7 +1588,7 @@ class XQueryParser {
 
             parseWhiteSpaceAndCommentTokens();
             if (!parseReturnClause()) {
-                error(XQueryBundle.message("parser.error.expected-keyword", "for, let, order, return, stable, where"));
+                error(XQueryBundle.message("parser.error.expected-keyword", "count, for, group, let, order, return, sliding, stable, tumbling, where"));
                 parseWhiteSpaceAndCommentTokens();
                 parseExprSingle();
             }
