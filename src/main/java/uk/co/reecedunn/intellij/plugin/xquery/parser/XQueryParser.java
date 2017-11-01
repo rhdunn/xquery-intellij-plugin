@@ -38,7 +38,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
  *
  * Supported vendor extensions:
  *    -  MarkLogic 1.0-ml Extensions for MarkLogic 6.0, 7.0 and 8.0
- *    -  Saxon 9.4 MapConstructor and MapTest syntax
+ *    -  Saxon 9.4 `map`, and 9.8 `tuple`, `union`, and `declare type` extensions
  *    -  BaseX 7.8 and 8.5 UpdateExpr extension
  */
 @SuppressWarnings({"SameParameterValue", "StatementWithEmptyBody"})
