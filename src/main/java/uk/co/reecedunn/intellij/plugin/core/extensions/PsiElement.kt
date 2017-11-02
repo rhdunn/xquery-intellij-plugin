@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.extensions;
 
+import com.intellij.psi.PsiDirectory
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import java.util.*
@@ -32,11 +33,16 @@ private class PsiElementTreeIterator(private var node: PsiElement?) : Iterator<P
     override fun next(): PsiElement {
         val current = stack.pop()
 
-        // NOTE: A PsiFile can have a nextSibling that points to another PsiFile,
-        // so don't walk into that other file!
-        val right = current?.nextSibling
-        if (right != null && current !is PsiFile) {
-            stack.push(right)
+        // An element (file) with a directory as a parent may be part of a
+        // resource JAR file. This can cause the file to have a different
+        // object location to the child in the parent directory, which will
+        // result in nextSibling logging a "Cannot find element among its
+        // parent' children." error.
+        if (current?.parent !is PsiDirectory) {
+            val right = current?.nextSibling
+            if (right != null) {
+                stack.push(right)
+            }
         }
 
         val left = current?.firstChild
@@ -94,8 +100,14 @@ fun PsiElement.walkTree(): PsiElementReversibleSequence {
         { element -> PsiElementTreeIterator(element) },
         { element -> PsiElementIterator(element,
             { e ->
-                val next: PsiElement? = e.prevSibling
-                if (next == null) e.parent else next
+                val parent = e.parent
+                // An element (file) with a directory as a parent may be part of a
+                // resource JAR file. This can cause the file to have a different
+                // object location to the child in the parent directory, which will
+                // result in prevSibling logging a "Cannot find element among its
+                // parent' children." error.
+                val next = if (parent is PsiDirectory) null else e.prevSibling
+                if (next == null) parent else next
             })
         })
 }
