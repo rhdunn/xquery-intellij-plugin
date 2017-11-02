@@ -10,7 +10,8 @@ module namespace sql = "http://marklogic.com/xdmp/temporal";
 import module namespace a = "http://reecedunn.co.uk/xquery/annotations" at "res://reecedunn.co.uk/xquery/annotations.xqy";
 
 declare %a:since("marklogic", "8.0") %a:until("marklogic", "9.0") function temporal:advance-lsqt($temporal-collection as xs:string) as xs:dateTime external;
-declare %a:since("marklogic", "8.0") function temporal:advance-lsqt($temporal-collection as xs:string, $lag (: as [8.0]xs:unsignedInt [9.0]xs:string :)) as xs:dateTime external;
+declare %a:since("marklogic", "9.0") function temporal:advance-lsqt($temporal-collection as xs:string) as xs:dateTime external;
+declare %a:since("marklogic", "8.0") function temporal:advance-lsqt($temporal-collection as xs:string, $lag as xs:unsignedInt) as xs:dateTime external;
 declare %a:since("marklogic", "8.0") function temporal:document-period($temporal-collection as xs:string, $axis as xs:string, $root as node()) as xs:dateTime* external;
 declare %a:since("marklogic", "9.0") function temporal:document-protect($temporal-collection as xs:string, $uri as xs:string) as empty-sequence() external;
 declare %a:since("marklogic", "9.0") function temporal:document-protect($temporal-collection as xs:string, $uri as xs:string, $options (: as (element()|map:map)? :)) as empty-sequence() external;
