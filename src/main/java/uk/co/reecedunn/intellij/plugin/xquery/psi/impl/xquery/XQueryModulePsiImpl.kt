@@ -21,10 +21,7 @@ import uk.co.reecedunn.intellij.plugin.core.extensions.children
 import uk.co.reecedunn.intellij.plugin.core.extensions.descendants
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
-import uk.co.reecedunn.intellij.plugin.xquery.lang.Product
-import uk.co.reecedunn.intellij.plugin.xquery.lang.Specification
-import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.xquery.lang.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceResolver
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
@@ -48,7 +45,9 @@ open class XQueryModulePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQue
             productVersion = settings.productVersion
             xquery = version
 
-            val context = product?.implementation?.staticContext(product, productVersion, xquery)
+            var context = product?.implementation?.staticContext(product, productVersion, xquery)
+            if (context == null) context = defaultStaticContext(xquery)
+
             val file = ResourceVirtualFile.resolve(context, project)
             staticContextCache = ((file as? XQueryFile)?.modules?.firstOrNull() as? XQueryPrologResolver)?.prolog
         }

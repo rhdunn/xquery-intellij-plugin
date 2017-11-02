@@ -295,3 +295,15 @@ val PRODUCTS: List<Product> = listOf(
     Saxon.EE_T,
     Saxon.EE_V,
     W3C.SPECIFICATIONS)
+
+fun defaultStaticContext(xquery: Specification?): String? = when (xquery) {
+    XQuery.REC_1_0_20070123, XQuery.REC_1_0_20101214 ->
+        W3C.staticContext(W3C.SPECIFICATIONS, W3C.FIRST_EDITION, xquery)
+    XQuery.REC_3_0_20140408 ->
+        W3C.staticContext(W3C.SPECIFICATIONS, W3C.FIRST_EDITION, xquery)
+    XQuery.REC_3_1_20170321, XQuery.CR_3_1_20151217 ->
+        W3C.staticContext(W3C.SPECIFICATIONS, W3C.FIRST_EDITION, xquery)
+    XQuery.MARKLOGIC_1_0, XQuery.MARKLOGIC_0_9 ->
+        MarkLogic.staticContext(MarkLogic.MARKLOGIC, MarkLogic.VERSION_9_0, xquery)
+    else -> null
+}
