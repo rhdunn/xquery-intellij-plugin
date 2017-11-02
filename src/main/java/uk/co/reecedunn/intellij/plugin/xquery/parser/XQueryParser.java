@@ -1226,11 +1226,57 @@ class XQueryParser {
             }
 
             parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.K_DEFAULT)) {
+            if (!matchTokenType(XQueryTokenType.K_DEFAULT) && !parseFTStopWords()) {
                 error(XQueryBundle.message("parser.error.expected-keyword-or-token", "(", "at, default"));
             }
 
             stopWordOptionMarker.done(XQueryElementType.FT_STOP_WORD_OPTION);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseFTStopWords() {
+        if (getTokenType() == XQueryTokenType.K_AT) {
+            final PsiBuilder.Marker stopWordsMarker = mark();
+            advanceLexer();
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseStringLiteral(XQueryElementType.URI_LITERAL)) {
+                error(XQueryBundle.message("parser.error.expected", "URILiteral"));
+            }
+
+            stopWordsMarker.done(XQueryElementType.FT_STOP_WORDS);
+            return true;
+        } else if (getTokenType() == XQueryTokenType.PARENTHESIS_OPEN) {
+            final PsiBuilder.Marker stopWordsMarker = mark();
+            advanceLexer();
+
+            boolean haveError = false;
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseStringLiteral(XQueryElementType.STRING_LITERAL)) {
+                error(XQueryBundle.message("parser.error.expected", "StringLiteral"));
+                haveError = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            while (matchTokenType(XQueryTokenType.COMMA)) {
+                parseWhiteSpaceAndCommentTokens();
+                if (!parseStringLiteral(XQueryElementType.STRING_LITERAL) && !haveError) {
+                    error(XQueryBundle.message("parser.error.expected", "StringLiteral"));
+                    haveError = true;
+                }
+
+                parseWhiteSpaceAndCommentTokens();
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE) && !haveError) {
+                error(XQueryBundle.message("parser.error.expected-either", ",", ")"));
+            }
+
+            stopWordsMarker.done(XQueryElementType.FT_STOP_WORDS);
             return true;
         }
         return false;

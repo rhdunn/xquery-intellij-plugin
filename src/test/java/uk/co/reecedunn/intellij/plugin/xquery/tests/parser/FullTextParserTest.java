@@ -417,6 +417,75 @@ public class FullTextParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region Full Text 1.0 :: FTStopWords (FTStopWordOption)
+
+    public void testFTStopWords_Location() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTStopWords_Location.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTStopWords_Location.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTStopWords_Location_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTStopWords_Location_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTStopWords_Location_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTStopWords_Location_MissingUriLiteral() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTStopWords_Location_MissingUriLiteral.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTStopWords_Location_MissingUriLiteral.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTStopWords_List_MissingStopWord() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTStopWords_List_MissingStopWord.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTStopWords_List_MissingStopWord.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTStopWords_List_Single() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTStopWords_List_Single.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTStopWords_List_Single.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTStopWords_List_Single_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTStopWords_List_Single_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTStopWords_List_Single_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTStopWords_List_TwoWords() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTStopWords_List_TwoWords.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTStopWords_List_TwoWords.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTStopWords_List_TwoWords_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTStopWords_List_TwoWords_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTStopWords_List_TwoWords_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTStopWords_List_TwoWords_MissingStopWord() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTStopWords_List_TwoWords_MissingStopWord.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTStopWords_List_TwoWords_MissingStopWord.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTStopWords_List_Multiple() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTStopWords_List_Multiple.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTStopWords_List_Multiple.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTStopWords_List_Multiple_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTStopWords_List_Multiple_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTStopWords_List_Multiple_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region Full Text 1.0 :: FTLanguageOption
 
     public void testFTLanguageOption() {

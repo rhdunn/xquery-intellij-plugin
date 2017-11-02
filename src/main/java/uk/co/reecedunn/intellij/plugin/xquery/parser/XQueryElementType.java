@@ -320,6 +320,8 @@ public interface XQueryElementType {
     IElementType FT_THESAURUS_ID = new ICompositeElementType("XQUERY_FT_THESAURUS_ID", FTThesaurusIDPsiImpl.class, XQuery.INSTANCE);
     IElementType FT_LITERAL_RANGE = new ICompositeElementType("XQUERY_FT_LITERAL_RANGE", FTLiteralRangePsiImpl.class, XQuery.INSTANCE);
 
+    IElementType FT_STOP_WORDS = new ICompositeElementType("XQUERY_FT_STOP_WORDS", FTStopWordsPsiImpl.class, XQuery.INSTANCE);
+
     // endregion
     // region Scripting Extension 1.0
 

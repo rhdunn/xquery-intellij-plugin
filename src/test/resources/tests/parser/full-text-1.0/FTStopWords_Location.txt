@@ -1,0 +1,26 @@
+FileElement[FILE(0:76)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:76)]
+      XQueryPrologImpl[XQUERY_PROLOG(0:76)]
+         FTOptionDeclImpl[XQUERY_FT_OPTION_DECL(0:75)]
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
+            PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_FT_OPTION(8:17)]('ft-option')
+            PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
+            FTMatchOptionsImpl[XQUERY_FT_MATCH_OPTIONS(18:75)]
+               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_USING(18:23)]('using')
+               PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
+               FTStopWordOptionImpl[XQUERY_FT_STOP_WORD_OPTION(24:74)]
+                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_STOP(24:28)]('stop')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
+                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_WORDS(29:34)]('words')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
+                  FTStopWordsImpl[XQUERY_FT_STOP_WORDS(35:74)]
+                     LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_AT(35:37)]('at')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(37:38)](' ')
+                     XQueryUriLiteralImpl[XQUERY_URI_LITERAL(38:74)]
+                        LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(38:39)]('"')
+                        LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(39:73)]('http://www.example.com/fr/stop.lst')
+                        LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(73:74)]('"')
+               PsiWhiteSpaceImpl[WHITE_SPACE(74:75)](' ')
+         LeafPsiElement[XQUERY_SEPARATOR_TOKEN(75:76)](';')
+      PsiErrorElementImpl[ERROR_ELEMENT(76:76)]('XPST0003: Missing query body.')
