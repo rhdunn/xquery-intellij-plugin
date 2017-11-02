@@ -70,7 +70,8 @@ declare %a:since("marklogic", "5.0") function xdmp:configuration-timestamp() as 
 declare %a:since("marklogic", "5.0") function xdmp:configuration-timestamp($name as xs:string) as xs:unsignedLong? external;
 declare %a:since("marklogic", "9.0") function xdmp:credential($id as xs:unsignedLong) as element(sec:credential) external;
 declare %a:since("marklogic", "9.0") function xdmp:credential-id($credential-name as xs:string) as xs:unsignedLong external;
-declare %a:since("marklogic", "9.0") function xdmp:credentials($uri as [xs:string?]) as element(sec:credential)* external;
+declare %a:since("marklogic", "9.0") function xdmp:credentials() as element(sec:credential)* external;
+declare %a:since("marklogic", "9.0") function xdmp:credentials($uri as xs:string?) as element(sec:credential)* external;
 declare %a:since("marklogic", "5.0") function xdmp:crypt($password as xs:string, $salt as xs:string) as xs:string external;
 declare %a:since("marklogic", "6.0") function xdmp:crypt2($password as xs:string) as xs:string external;
 declare %a:since("marklogic", "5.0") function xdmp:current-last() as xs:integer external;
@@ -456,8 +457,8 @@ declare %a:since("marklogic", "9.0") function xdmp:node-metadata-value($uri as x
 declare %a:since("marklogic", "8.0") function xdmp:node-permissions($node as node()) as item()* external;
 declare %a:since("marklogic", "8.0") function xdmp:node-permissions($node as node(), $output-kind as xs:string) as item()* external;
 declare %a:since("marklogic", "9.0") function xdmp:node-query-rolesets($uri as xs:string, $root as node()) as element(sec:query-rolesets)* external;
-declare %a:since("marklogic", "9.0") function xdmp:node-query-rolesets($uri as xs:string, $root as node(), $insert-options as (element()|map:map)?) as element(sec:query-rolesets)* external;
-declare %a:since("marklogic", "9.0") function xdmp:node-query-rolesets($uri as xs:string, $root as node(), $insert-options as (element()|map:map)?, $options as xs:string*) as element(sec:query-rolesets)* external;
+declare %a:since("marklogic", "9.0") function xdmp:node-query-rolesets($uri as xs:string, $root as node(), $insert-options (: as (element()|map:map)? :)) as element(sec:query-rolesets)* external;
+declare %a:since("marklogic", "9.0") function xdmp:node-query-rolesets($uri as xs:string, $root as node(), $insert-options (: as (element()|map:map)? :), $options as xs:string*) as element(sec:query-rolesets)* external;
 declare %a:since("marklogic", "5.0") function xdmp:node-replace($old as node(), $new as node()) as empty-sequence() external;
 declare %a:since("marklogic", "5.0") function xdmp:node-uri($node as node()) as xs:string? external;
 declare %a:since("marklogic", "5.0") function xdmp:not64($x as xs:unsignedLong) as xs:unsignedLong external;
@@ -648,7 +649,7 @@ declare %a:since("marklogic", "5.0") function xdmp:word-convert($doc as node(), 
 declare %a:since("marklogic", "5.0") function xdmp:x509-certificate-extract($cert as xs:string) as element()? external;
 declare %a:since("marklogic", "9.0") function xdmp:x509-certificate-generate($cert as element(x509:cert)) as xs:string external;
 declare %a:since("marklogic", "9.0") function xdmp:x509-certificate-generate($cert as element(x509:cert), $private-key as xs:string?) as xs:string external;
-declare %a:since("marklogic", "9.0") function xdmp:x509-certificate-generate($cert as element(x509:cert), $private-key as xs:string?, $options as (element()|map:map)?) as xs:string external;
+declare %a:since("marklogic", "9.0") function xdmp:x509-certificate-generate($cert as element(x509:cert), $private-key as xs:string?, $options (: as (element()|map:map)? :)) as xs:string external;
 declare %a:since("marklogic", "9.0") function xdmp:x509-certificate-issuer-name($cert as xs:string) as element()? external;
 declare %a:since("marklogic", "9.0") function xdmp:x509-certificate-subject-name($cert as xs:string) as element()? external;
 declare %a:since("marklogic", "5.0") function xdmp:xa-complete($forestID as xs:unsignedLong, $txn-id as xs:unsignedLong, $commit as xs:boolean, $remember as xs:boolean) as empty-sequence() external;
