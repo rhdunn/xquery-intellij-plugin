@@ -1,0 +1,29 @@
+FileElement[FILE(0:58)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:58)]
+      XQueryPrologImpl[XQUERY_PROLOG(0:58)]
+         FTOptionDeclImpl[XQUERY_FT_OPTION_DECL(0:57)]
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
+            PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_FT_OPTION(8:17)]('ft-option')
+            PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
+            FTMatchOptionsImpl[XQUERY_FT_MATCH_OPTIONS(18:57)]
+               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_USING(18:23)]('using')
+               PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
+               FTStopWordOptionImpl[XQUERY_FT_STOP_WORD_OPTION(24:57)]
+                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_STOP(24:28)]('stop')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
+                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_WORDS(29:34)]('words')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
+                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DEFAULT(35:42)]('default')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(42:43)](' ')
+                  FTStopWordsInclExclImpl[XQUERY_FT_STOP_WORDS_INCL_EXCL(43:57)]
+                     LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_UNION(43:48)]('union')
+                     FTStopWordsImpl[XQUERY_FT_STOP_WORDS(48:57)]
+                        LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(48:49)]('(')
+                        XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(49:56)]
+                           LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(49:50)]('"')
+                           LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(50:55)]('lorem')
+                           LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(55:56)]('"')
+                        LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(56:57)](')')
+         LeafPsiElement[XQUERY_SEPARATOR_TOKEN(57:58)](';')
+      PsiErrorElementImpl[ERROR_ELEMENT(58:58)]('XPST0003: Missing query body.')

@@ -398,6 +398,60 @@ public class FullTextParserTest extends ParserTestCase {
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
+    public void testFTStopWordOption_Default_FTStopWordsInclExcl() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTStopWordsInclExcl_Include.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTStopWordsInclExcl_Include.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTStopWordOption_Default_FTStopWordsInclExcl_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTStopWordsInclExcl_Include_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTStopWordsInclExcl_Include_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTStopWordOption_Default_FTStopWordsInclExcl_Multiple() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTStopWordOption_Default_FTStopWordsInclExcl_Multiple.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTStopWordOption_Default_FTStopWordsInclExcl_Multiple.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTStopWordOption_Default_FTStopWordsInclExcl_Multiple_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTStopWordOption_Default_FTStopWordsInclExcl_Multiple_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTStopWordOption_Default_FTStopWordsInclExcl_Multiple_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTStopWordOption_FTStopWords() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTStopWords_List_Single.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTStopWords_List_Single.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTStopWordOption_FTStopWords_FTStopWordsInclExcl() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTStopWordOption_FTStopWords_FTStopWordsInclExcl.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTStopWordOption_FTStopWords_FTStopWordsInclExcl.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTStopWordOption_FTStopWords_FTStopWordsInclExcl_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTStopWordOption_FTStopWords_FTStopWordsInclExcl_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTStopWordOption_FTStopWords_FTStopWordsInclExcl_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTStopWordOption_FTStopWords_FTStopWordsInclExcl_Multiple() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTStopWordOption_FTStopWords_FTStopWordsInclExcl_Multiple.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTStopWordOption_FTStopWords_FTStopWordsInclExcl_Multiple.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTStopWordOption_FTStopWords_FTStopWordsInclExcl_Multiple_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTStopWordOption_FTStopWords_FTStopWordsInclExcl_Multiple_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTStopWordOption_FTStopWords_FTStopWordsInclExcl_Multiple_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
     public void testFTStopWordOption_MissingStopWords() {
         final String expected = loadResource("tests/parser/full-text-1.0/FTStopWordOption_MissingStopWords.txt");
         final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTStopWordOption_MissingStopWords.xq");
@@ -482,6 +536,39 @@ public class FullTextParserTest extends ParserTestCase {
     public void testFTStopWords_List_Multiple_CompactWhitespace() {
         final String expected = loadResource("tests/parser/full-text-1.0/FTStopWords_List_Multiple_CompactWhitespace.txt");
         final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTStopWords_List_Multiple_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
+    // region Full Text 1.0 :: FTStopWordsInclExcl (FTStopWordOption)
+
+    public void testFTStopWordsInclExcl_Include() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTStopWordsInclExcl_Include.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTStopWordsInclExcl_Include.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTStopWordsInclExcl_Include_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTStopWordsInclExcl_Include_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTStopWordsInclExcl_Include_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTStopWordsInclExcl_Exclude() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTStopWordsInclExcl_Exclude.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTStopWordsInclExcl_Exclude.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTStopWordsInclExcl_Exclude_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTStopWordsInclExcl_Exclude_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTStopWordsInclExcl_Exclude_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTStopWordsInclExcl_MissingStopWords() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTStopWordsInclExcl_MissingStopWords.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTStopWordsInclExcl_MissingStopWords.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 

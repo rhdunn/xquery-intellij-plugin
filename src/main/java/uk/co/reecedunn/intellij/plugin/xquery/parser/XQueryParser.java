@@ -1230,6 +1230,10 @@ class XQueryParser {
                 error(XQueryBundle.message("parser.error.expected-keyword-or-token", "(", "at, default"));
             }
 
+            do {
+                parseWhiteSpaceAndCommentTokens();
+            } while (parseFTStopWordsInclExcl());
+
             stopWordOptionMarker.done(XQueryElementType.FT_STOP_WORD_OPTION);
             return true;
         }
@@ -1277,6 +1281,20 @@ class XQueryParser {
             }
 
             stopWordsMarker.done(XQueryElementType.FT_STOP_WORDS);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseFTStopWordsInclExcl() {
+        final PsiBuilder.Marker stopWordsInclExclMarker = matchTokenTypeWithMarker(XQueryTokenType.K_UNION, XQueryTokenType.K_EXCEPT);
+        if (stopWordsInclExclMarker != null) {
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseFTStopWords()) {
+                error(XQueryBundle.message("parser.error.expected-keyword-or-token", "(", "at"));
+            }
+
+            stopWordsInclExclMarker.done(XQueryElementType.FT_STOP_WORDS_INCL_EXCL);
             return true;
         }
         return false;

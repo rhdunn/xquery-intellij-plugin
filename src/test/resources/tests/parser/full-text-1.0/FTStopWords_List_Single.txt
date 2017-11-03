@@ -9,7 +9,7 @@ FileElement[FILE(0:48)]
             FTMatchOptionsImpl[XQUERY_FT_MATCH_OPTIONS(18:47)]
                LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_USING(18:23)]('using')
                PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
-               FTStopWordOptionImpl[XQUERY_FT_STOP_WORD_OPTION(24:46)]
+               FTStopWordOptionImpl[XQUERY_FT_STOP_WORD_OPTION(24:47)]
                   LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_STOP(24:28)]('stop')
                   PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
                   LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_WORDS(29:34)]('words')
@@ -23,6 +23,6 @@ FileElement[FILE(0:48)]
                         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(43:44)]('"')
                      PsiWhiteSpaceImpl[WHITE_SPACE(44:45)](' ')
                      LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(45:46)](')')
-               PsiWhiteSpaceImpl[WHITE_SPACE(46:47)](' ')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(46:47)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(47:48)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(48:48)]('XPST0003: Missing query body.')
