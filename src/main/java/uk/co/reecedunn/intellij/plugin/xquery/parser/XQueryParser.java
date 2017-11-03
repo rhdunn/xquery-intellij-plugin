@@ -3607,12 +3607,12 @@ class XQueryParser {
 
     private boolean parseComparisonExpr(IElementType type) {
         final PsiBuilder.Marker comparisonExprMarker = mark();
-        if (parseStringConcatExpr(type)) {
+        if (parseFTContainsExpr(type)) {
             parseWhiteSpaceAndCommentTokens();
             if (parseGeneralComp() || parseValueComp() || parseNodeComp()) {
                 parseWhiteSpaceAndCommentTokens();
-                if (!parseStringConcatExpr(type)) {
-                    error(XQueryBundle.message("parser.error.expected", "StringConcatExpr"));
+                if (!parseFTContainsExpr(type)) {
+                    error(XQueryBundle.message("parser.error.expected", "FTContainsExpr"));
                 }
             }
 
@@ -3620,14 +3620,26 @@ class XQueryParser {
             return true;
         } else if (errorOnTokenType(XQueryTokenType.LESS_THAN, XQueryBundle.message("parser.error.comparison-no-lhs-or-direlem"))) {
             parseWhiteSpaceAndCommentTokens();
-            if (!parseStringConcatExpr(type)) {
-                error(XQueryBundle.message("parser.error.expected", "StringConcatExpr"));
+            if (!parseFTContainsExpr(type)) {
+                error(XQueryBundle.message("parser.error.expected", "FTContainsExpr"));
             }
 
             comparisonExprMarker.done(XQueryElementType.COMPARISON_EXPR);
             return true;
         }
         comparisonExprMarker.drop();
+        return false;
+    }
+
+    private boolean parseFTContainsExpr(IElementType type) {
+        final PsiBuilder.Marker containsExprMarker = mark();
+        if (parseStringConcatExpr(type)) {
+            parseWhiteSpaceAndCommentTokens();
+
+            containsExprMarker.done(XQueryElementType.FT_CONTAINS_EXPR);
+            return true;
+        }
+        containsExprMarker.drop();
         return false;
     }
 
