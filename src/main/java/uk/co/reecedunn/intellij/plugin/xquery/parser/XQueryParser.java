@@ -5346,7 +5346,7 @@ class XQueryParser {
 
     private boolean parseFTAnd() {
         final PsiBuilder.Marker andMarker = mark();
-        if (parseStringLiteral(XQueryElementType.STRING_LITERAL)) { // TODO: FTMildNot
+        if (parseFTMildNot()) {
             parseWhiteSpaceAndCommentTokens();
 
             // TODO: ("ftand" FTMildNot)*
@@ -5355,6 +5355,20 @@ class XQueryParser {
             return true;
         }
         andMarker.drop();
+        return false;
+    }
+
+    private boolean parseFTMildNot() {
+        final PsiBuilder.Marker mildNotMarker = mark();
+        if (parseStringLiteral(XQueryElementType.STRING_LITERAL)) { // TODO: FTUnaryNot
+            parseWhiteSpaceAndCommentTokens();
+
+            // TODO: ("not" "in" FTUnaryNot)*
+
+            mildNotMarker.done(XQueryElementType.FT_MILD_NOT);
+            return true;
+        }
+        mildNotMarker.drop();
         return false;
     }
 
