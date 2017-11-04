@@ -17,6 +17,24 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.full.text
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTContainsExpr
+import uk.co.reecedunn.intellij.plugin.xquery.lang.FullText
+import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
-class FTContainsExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), FTContainsExpr
+private val FULL_TEXT: List<Version> = listOf(FullText.REC_1_0_20110317)
+private val XQUERY: List<Version> = listOf()
+
+class FTContainsExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), FTContainsExpr, XQueryConformance {
+    override val requiresConformance get(): List<Version> {
+        return if (conformanceElement.node.elementType == XQueryTokenType.K_CONTAINS)
+            FULL_TEXT
+        else
+            XQUERY
+    }
+
+    override val conformanceElement get(): PsiElement =
+        findChildByType(XQueryTokenType.K_CONTAINS) ?: firstChild
+}

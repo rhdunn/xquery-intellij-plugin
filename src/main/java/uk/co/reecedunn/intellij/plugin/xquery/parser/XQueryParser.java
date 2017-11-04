@@ -3636,6 +3636,23 @@ class XQueryParser {
         if (parseStringConcatExpr(type)) {
             parseWhiteSpaceAndCommentTokens();
 
+            if (matchTokenType(XQueryTokenType.K_CONTAINS)) {
+                boolean haveError = false;
+
+                parseWhiteSpaceAndCommentTokens();
+                if (!matchTokenType(XQueryTokenType.K_TEXT)) {
+                    error(XQueryBundle.message("parser.error.expected-keyword", "text"));
+                    haveError = true;
+                }
+
+                parseWhiteSpaceAndCommentTokens();
+                if (!parseStringLiteral(XQueryElementType.STRING_LITERAL) && !haveError) { // TODO: FTSelection
+                    error(XQueryBundle.message("parser.error.expected", "FTSelection"));
+                }
+
+                // TODO: FTIgnoreOption?
+            }
+
             containsExprMarker.done(XQueryElementType.FT_CONTAINS_EXPR);
             return true;
         }
