@@ -5360,7 +5360,7 @@ class XQueryParser {
 
     private boolean parseFTMildNot() {
         final PsiBuilder.Marker mildNotMarker = mark();
-        if (parseStringLiteral(XQueryElementType.STRING_LITERAL)) { // TODO: FTUnaryNot
+        if (parseFTUnaryNot()) {
             parseWhiteSpaceAndCommentTokens();
 
             // TODO: ("not" "in" FTUnaryNot)*
@@ -5369,6 +5369,19 @@ class XQueryParser {
             return true;
         }
         mildNotMarker.drop();
+        return false;
+    }
+
+    private boolean parseFTUnaryNot() {
+        final PsiBuilder.Marker unaryNotMarker = mark();
+        // TODO: ("ftnot")?
+        if (parseStringLiteral(XQueryElementType.STRING_LITERAL)) { // TODO: FTPrimaryWithOptions
+            parseWhiteSpaceAndCommentTokens();
+
+            unaryNotMarker.done(XQueryElementType.FT_UNARY_NOT);
+            return true;
+        }
+        unaryNotMarker.drop();
         return false;
     }
 
