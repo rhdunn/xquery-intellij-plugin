@@ -3646,7 +3646,7 @@ class XQueryParser {
                 }
 
                 parseWhiteSpaceAndCommentTokens();
-                if (!parseStringLiteral(XQueryElementType.STRING_LITERAL) && !haveError) { // TODO: FTSelection
+                if (!parseFTSelection() && !haveError) {
                     error(XQueryBundle.message("parser.error.expected", "FTSelection"));
                 }
 
@@ -5310,6 +5310,23 @@ class XQueryParser {
             piMarker.done(XQueryElementType.COMP_PI_CONSTRUCTOR);
             return true;
         }
+        return false;
+    }
+
+    // endregion
+    // region Grammar :: Expr :: OrExpr :: FTSelection
+
+    private boolean parseFTSelection() {
+        final PsiBuilder.Marker selectionMarker = mark();
+        if (parseStringLiteral(XQueryElementType.STRING_LITERAL)) { // TODO: FTOr
+            parseWhiteSpaceAndCommentTokens();
+
+            // TODO: FTPosFilter*
+
+            selectionMarker.done(XQueryElementType.FT_SELECTION);
+            return true;
+        }
+        selectionMarker.drop();
         return false;
     }
 

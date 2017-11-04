@@ -33,7 +33,8 @@ FileElement[FILE(0:22)]
                         LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_CONTAINS(6:14)]('contains')
                         PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
                         PsiErrorElementImpl[ERROR_ELEMENT(15:15)]('XPST0003: Expected keyword: text.')
-                        XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(15:22)]
-                           LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(15:16)]('"')
-                           LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(16:21)]('lorem')
-                           LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(21:22)]('"')
+                        FTSelectionImpl[XQUERY_FT_SELECTION(15:22)]
+                           XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(15:22)]
+                              LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(15:16)]('"')
+                              LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(16:21)]('lorem')
+                              LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(21:22)]('"')
