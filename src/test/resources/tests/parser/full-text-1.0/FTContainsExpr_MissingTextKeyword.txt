@@ -38,7 +38,8 @@ FileElement[FILE(0:22)]
                               FTAndImpl[XQUERY_FT_AND(15:22)]
                                  FTMildNotImpl[XQUERY_FT_MILD_NOT(15:22)]
                                     FTUnaryNotImpl[XQUERY_FT_UNARY_NOT(15:22)]
-                                       XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(15:22)]
-                                          LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(15:16)]('"')
-                                          LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(16:21)]('lorem')
-                                          LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(21:22)]('"')
+                                       FTPrimaryWithOptionsImpl[XQUERY_FT_PRIMARY_WITH_OPTIONS(15:22)]
+                                          XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(15:22)]
+                                             LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(15:16)]('"')
+                                             LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(16:21)]('lorem')
+                                             LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(21:22)]('"')
