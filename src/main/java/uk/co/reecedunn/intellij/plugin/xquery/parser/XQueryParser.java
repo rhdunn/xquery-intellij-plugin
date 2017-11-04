@@ -5387,7 +5387,7 @@ class XQueryParser {
 
     private boolean parseFTPrimaryWithOptions() {
         final PsiBuilder.Marker primaryWithOptionsMarker = mark();
-        if (parseStringLiteral(XQueryElementType.STRING_LITERAL)) { // TODO: FTPrimary
+        if (parseFTPrimary()) {
             parseWhiteSpaceAndCommentTokens();
 
             // TODO: FTMatchOptions?
@@ -5397,6 +5397,22 @@ class XQueryParser {
             return true;
         }
         primaryWithOptionsMarker.drop();
+        return false;
+    }
+
+    private boolean parseFTPrimary() {
+        final PsiBuilder.Marker primaryMarker = mark();
+        if (parseStringLiteral(XQueryElementType.STRING_LITERAL)) { // TODO: FTWords
+            parseWhiteSpaceAndCommentTokens();
+
+            // TODO: FTTimes?
+
+            primaryMarker.done(XQueryElementType.FT_PRIMARY);
+            return true;
+        }
+        // TODO: | ("(" FTSelection ")")
+        // TODO: | FTExtensionSelection
+        primaryMarker.drop();
         return false;
     }
 
