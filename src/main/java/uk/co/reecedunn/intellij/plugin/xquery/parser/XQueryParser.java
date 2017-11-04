@@ -5418,7 +5418,7 @@ class XQueryParser {
 
     private boolean parseFTWords() {
         final PsiBuilder.Marker wordsMarker = mark();
-        if (parseStringLiteral(XQueryElementType.STRING_LITERAL)) { // TODO: FTWordsValue
+        if (parseFTWordsValue()) {
             parseWhiteSpaceAndCommentTokens();
 
             // TODO: FTAnyallOption?
@@ -5427,6 +5427,32 @@ class XQueryParser {
             return true;
         }
         wordsMarker.drop();
+        return false;
+    }
+
+    private boolean parseFTWordsValue() {
+        final PsiBuilder.Marker wordsValueMarker = mark();
+        if (parseStringLiteral(XQueryElementType.STRING_LITERAL)) {
+            wordsValueMarker.done(XQueryElementType.FT_WORDS_VALUE);
+            return true;
+        } else if (matchTokenType(XQueryTokenType.BLOCK_OPEN)) {
+            boolean haveErrors = false;
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseExpr(XQueryElementType.EXPR)) {
+                error(XQueryBundle.message("parser.error.expected-expression"));
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.BLOCK_CLOSE) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", "}"));
+            }
+
+            wordsValueMarker.done(XQueryElementType.FT_WORDS_VALUE);
+            return true;
+        }
+        wordsValueMarker.drop();
         return false;
     }
 

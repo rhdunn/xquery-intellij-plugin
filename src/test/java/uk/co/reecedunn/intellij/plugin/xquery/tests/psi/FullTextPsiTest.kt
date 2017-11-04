@@ -64,7 +64,7 @@ class FullTextPsiTest : ParserTestCase() {
     }
 
     fun testFTContainsExpr() {
-        val file = parseResource("tests/parser/full-text-1.0/FTContainsExpr.xq")!!
+        val file = parseResource("tests/parser/full-text-1.0/FTWordsValue.xq")!!
 
         val ftcontainsExprPsi = file.descendants().filterIsInstance<FTContainsExpr>().first()
         val conformance = ftcontainsExprPsi as XQueryConformance

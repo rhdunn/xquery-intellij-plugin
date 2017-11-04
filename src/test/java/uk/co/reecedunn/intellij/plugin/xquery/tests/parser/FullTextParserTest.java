@@ -51,8 +51,8 @@ public class FullTextParserTest extends ParserTestCase {
     // region Full Text 1.0 :: FTContainsExpr
 
     public void testFTContainsExpr() {
-        final String expected = loadResource("tests/parser/full-text-1.0/FTContainsExpr.txt");
-        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTContainsExpr.xq");
+        final String expected = loadResource("tests/parser/full-text-1.0/FTWordsValue.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTWordsValue.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
@@ -65,6 +65,45 @@ public class FullTextParserTest extends ParserTestCase {
     public void testFTContainsExpr_MissingFTSelection() {
         final String expected = loadResource("tests/parser/full-text-1.0/FTContainsExpr_MissingFTSelection.txt");
         final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTContainsExpr_MissingFTSelection.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
+    // region Full Text 1.0 :: FTWordsValue
+
+    public void testFTWordsValue() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTWordsValue.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTWordsValue.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTWordsValue_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTWordsValue_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTWordsValue_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTWordsValue_Expr() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTWordsValue_Expr.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTWordsValue_Expr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTWordsValue_Expr_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTWordsValue_Expr_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTWordsValue_Expr_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTWordsValue_Expr_MissingExpr() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTWordsValue_Expr_MissingExpr.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTWordsValue_Expr_MissingExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTWordsValue_Expr_MissingClosingBrace() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTWordsValue_Expr_MissingClosingBrace.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTWordsValue_Expr_MissingClosingBrace.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
