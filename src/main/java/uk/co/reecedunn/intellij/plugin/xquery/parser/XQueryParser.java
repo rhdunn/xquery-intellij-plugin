@@ -5318,7 +5318,7 @@ class XQueryParser {
 
     private boolean parseFTSelection() {
         final PsiBuilder.Marker selectionMarker = mark();
-        if (parseStringLiteral(XQueryElementType.STRING_LITERAL)) { // TODO: FTOr
+        if (parseFTOr()) {
             parseWhiteSpaceAndCommentTokens();
 
             // TODO: FTPosFilter*
@@ -5327,6 +5327,20 @@ class XQueryParser {
             return true;
         }
         selectionMarker.drop();
+        return false;
+    }
+
+    private boolean parseFTOr() {
+        final PsiBuilder.Marker orMarker = mark();
+        if (parseStringLiteral(XQueryElementType.STRING_LITERAL)) { // TODO: FTAnd
+            parseWhiteSpaceAndCommentTokens();
+
+            // TODO: ("ftor" FTAnd)*
+
+            orMarker.done(XQueryElementType.FT_OR);
+            return true;
+        }
+        orMarker.drop();
         return false;
     }
 

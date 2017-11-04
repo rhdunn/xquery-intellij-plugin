@@ -325,6 +325,7 @@ public interface XQueryElementType {
 
     IElementType FT_CONTAINS_EXPR = new ICompositeElementType("XQUERY_FT_CONTAINS_EXPR", FTContainsExprPsiImpl.class, XQuery.INSTANCE);
     IElementType FT_SELECTION = new ICompositeElementType("XQUERY_FT_SELECTION", FTSelectionPsiImpl.class, XQuery.INSTANCE);
+    IElementType FT_OR = new ICompositeElementType("XQUERY_FT_OR", FTOrPsiImpl.class, XQuery.INSTANCE);
 
     // endregion
     // region Scripting Extension 1.0
