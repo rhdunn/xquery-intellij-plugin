@@ -69,6 +69,51 @@ public class FullTextParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region Full Text 1.0 :: FTPrimary
+
+    public void testFTPrimary_Words() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTWordsValue.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTWordsValue.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTPrimary_WordsTimes() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTRange_AtLeast.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTRange_AtLeast.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTPrimary_Parenthesis() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTPrimary_Parenthesis.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTPrimary_Parenthesis.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTPrimary_Parenthesis_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTPrimary_Parenthesis_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTPrimary_Parenthesis_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTPrimary_Parenthesis_MissingFTSelection() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTPrimary_Parenthesis_MissingFTSelection.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTPrimary_Parenthesis_MissingFTSelection.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTPrimary_Parenthesis_MissingClosingParenthesis() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTPrimary_Parenthesis_MissingClosingParenthesis.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTPrimary_Parenthesis_MissingClosingParenthesis.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTPrimary_ExtensionSelection() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTExtensionSelection.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTExtensionSelection.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region Full Text 1.0 :: FTWordsValue
 
     public void testFTWordsValue() {

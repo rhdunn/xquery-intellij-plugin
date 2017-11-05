@@ -5348,9 +5348,23 @@ class XQueryParser {
 
             primaryMarker.done(XQueryElementType.FT_PRIMARY);
             return true;
-        }
-        // TODO: | ("(" FTSelection ")")
-        else if (parseFTExtensionSelection()) {
+        } else if (matchTokenType(XQueryTokenType.PARENTHESIS_OPEN)) {
+            boolean haveErrors = false;
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseFTSelection()) {
+                error(XQueryBundle.message("parser.error.expected", "FTSelection"));
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", ")"));
+            }
+
+            primaryMarker.done(XQueryElementType.FT_PRIMARY);
+            return true;
+        } else if (parseFTExtensionSelection()) {
             primaryMarker.done(XQueryElementType.FT_PRIMARY);
             return true;
         }
