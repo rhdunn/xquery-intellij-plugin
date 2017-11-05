@@ -449,8 +449,20 @@ public class FullTextParserTest extends ParserTestCase {
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
+    public void testFTThesaurusID_LiteralRange() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTLiteralRange_Exactly.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTLiteralRange_Exactly.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTThesaurusID_LiteralRange_MissingLevelsKeyword() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTThesaurusID_LiteralRange_MissingLevelsKeyword.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTThesaurusID_LiteralRange_MissingLevelsKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
     // endregion
-    // region Full Text 1.0 :: FTThesaurusID + FTLiteralRange (FTThesaurusOption)
+    // region Full Text 1.0 :: FTLiteralRange (FTThesaurusOption)
 
     public void testFTLiteralRange_Exactly() {
         final String expected = loadResource("tests/parser/full-text-1.0/FTLiteralRange_Exactly.txt");
@@ -467,12 +479,6 @@ public class FullTextParserTest extends ParserTestCase {
     public void testFTLiteralRange_Exactly_MissingIntegerLiteral() {
         final String expected = loadResource("tests/parser/full-text-1.0/FTLiteralRange_Exactly_MissingIntegerLiteral.txt");
         final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTLiteralRange_Exactly_MissingIntegerLiteral.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    public void testFTLiteralRange_Exactly_MissingLevelsKeyword() {
-        final String expected = loadResource("tests/parser/full-text-1.0/FTLiteralRange_Exactly_MissingLevelsKeyword.txt");
-        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTLiteralRange_Exactly_MissingLevelsKeyword.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
@@ -500,12 +506,6 @@ public class FullTextParserTest extends ParserTestCase {
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
-    public void testFTLiteralRange_AtLeast_MissingLevelsKeyword() {
-        final String expected = loadResource("tests/parser/full-text-1.0/FTLiteralRange_AtLeast_MissingLevelsKeyword.txt");
-        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTLiteralRange_AtLeast_MissingLevelsKeyword.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
     public void testFTLiteralRange_AtMost() {
         final String expected = loadResource("tests/parser/full-text-1.0/FTLiteralRange_AtMost.txt");
         final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTLiteralRange_AtMost.xq");
@@ -521,12 +521,6 @@ public class FullTextParserTest extends ParserTestCase {
     public void testFTLiteralRange_AtMost_MissingIntegerLiteral() {
         final String expected = loadResource("tests/parser/full-text-1.0/FTLiteralRange_AtMost_MissingIntegerLiteral.txt");
         final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTLiteralRange_AtMost_MissingIntegerLiteral.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    public void testFTLiteralRange_AtMost_MissingLevelsKeyword() {
-        final String expected = loadResource("tests/parser/full-text-1.0/FTLiteralRange_AtMost_MissingLevelsKeyword.txt");
-        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTLiteralRange_AtMost_MissingLevelsKeyword.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
@@ -557,12 +551,6 @@ public class FullTextParserTest extends ParserTestCase {
     public void testFTLiteralRange_FromTo_MissingToLiteral() {
         final String expected = loadResource("tests/parser/full-text-1.0/FTLiteralRange_FromTo_MissingToLiteral.txt");
         final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTLiteralRange_FromTo_MissingToLiteral.xq");
-        assertThat(prettyPrintASTNode(actual), is(expected));
-    }
-
-    public void testFTLiteralRange_FromTo_MissingLevelsKeyword() {
-        final String expected = loadResource("tests/parser/full-text-1.0/FTLiteralRange_FromTo_MissingLevelsKeyword.txt");
-        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTLiteralRange_FromTo_MissingLevelsKeyword.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
