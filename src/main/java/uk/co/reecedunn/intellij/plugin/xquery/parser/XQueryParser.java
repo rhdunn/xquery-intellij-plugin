@@ -5420,8 +5420,7 @@ class XQueryParser {
         final PsiBuilder.Marker wordsMarker = mark();
         if (parseFTWordsValue()) {
             parseWhiteSpaceAndCommentTokens();
-
-            // TODO: FTAnyallOption?
+            parseFTAnyallOption();
 
             wordsMarker.done(XQueryElementType.FT_WORDS);
             return true;
@@ -5453,6 +5452,28 @@ class XQueryParser {
             return true;
         }
         wordsValueMarker.drop();
+        return false;
+    }
+
+    private boolean parseFTAnyallOption() {
+        final PsiBuilder.Marker anyallOptionMarker = mark();
+        if (matchTokenType(XQueryTokenType.K_ANY)) {
+            parseWhiteSpaceAndCommentTokens();
+            matchTokenType(XQueryTokenType.K_WORD);
+
+            anyallOptionMarker.done(XQueryElementType.FT_ANYALL_OPTION);
+            return true;
+        } else if (matchTokenType(XQueryTokenType.K_ALL)) {
+            parseWhiteSpaceAndCommentTokens();
+            matchTokenType(XQueryTokenType.K_WORDS);
+
+            anyallOptionMarker.done(XQueryElementType.FT_ANYALL_OPTION);
+            return true;
+        } else if (matchTokenType(XQueryTokenType.K_PHRASE)) {
+            anyallOptionMarker.done(XQueryElementType.FT_ANYALL_OPTION);
+            return true;
+        }
+        anyallOptionMarker.drop();
         return false;
     }
 

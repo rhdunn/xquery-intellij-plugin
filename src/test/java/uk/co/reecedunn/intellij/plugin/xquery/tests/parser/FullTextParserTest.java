@@ -108,6 +108,39 @@ public class FullTextParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region Full Text 1.0 :: FTAnyallOption
+
+    public void testFTAnyallOption_Any() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTAnyallOption_Any.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTAnyallOption_Any.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTAnyallOption_AnyWord() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTAnyallOption_AnyWord.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTAnyallOption_AnyWord.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTAnyallOption_All() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTAnyallOption_All.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTAnyallOption_All.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTAnyallOption_AllWords() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTAnyallOption_AllWords.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTAnyallOption_AllWords.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTAnyallOption_Phrase() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTAnyallOption_Phrase.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTAnyallOption_Phrase.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region Full Text 1.0 :: FTCaseOption
 
     public void testFTCaseOption_LowerCase() {

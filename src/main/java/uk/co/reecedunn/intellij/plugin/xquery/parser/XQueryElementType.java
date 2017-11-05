@@ -334,6 +334,8 @@ public interface XQueryElementType {
     IElementType FT_WORDS = new ICompositeElementType("XQUERY_FT_WORDS", FTWordsPsiImpl.class, XQuery.INSTANCE);
     IElementType FT_WORDS_VALUE = new ICompositeElementType("XQUERY_FT_WORDS_VALUE", FTWordsValuePsiImpl.class, XQuery.INSTANCE);
 
+    IElementType FT_ANYALL_OPTION = new ICompositeElementType("XQUERY_FT_ANYALL_OPTION", FTAnyallOptionPsiImpl.class, XQuery.INSTANCE);
+
     // endregion
     // region Scripting Extension 1.0
 
