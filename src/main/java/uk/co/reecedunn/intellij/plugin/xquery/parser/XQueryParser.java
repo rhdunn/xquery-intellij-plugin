@@ -5404,8 +5404,7 @@ class XQueryParser {
         final PsiBuilder.Marker primaryMarker = mark();
         if (parseFTWords()) {
             parseWhiteSpaceAndCommentTokens();
-
-            // TODO: FTTimes?
+            parseFTTimes();
 
             primaryMarker.done(XQueryElementType.FT_PRIMARY);
             return true;
@@ -5474,6 +5473,28 @@ class XQueryParser {
             return true;
         }
         anyallOptionMarker.drop();
+        return false;
+    }
+
+    private boolean parseFTTimes() {
+        final PsiBuilder.Marker timesMarker = matchTokenTypeWithMarker(XQueryTokenType.K_OCCURS);
+        if (timesMarker != null) {
+            boolean haveError = false;
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseFTLiteralRange()) { // TODO: FTRange
+                error(XQueryBundle.message("parser.error.expected", "FTRange"));
+                haveError = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_TIMES) && !haveError) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "times"));
+            }
+
+            timesMarker.done(XQueryElementType.FT_TIMES);
+            return true;
+        }
         return false;
     }
 
