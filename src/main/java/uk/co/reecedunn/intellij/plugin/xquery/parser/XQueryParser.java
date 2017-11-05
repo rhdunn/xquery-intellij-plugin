@@ -1145,7 +1145,7 @@ class XQueryParser {
                 }
             }
 
-            if (parseFTLiteralRange()) {
+            if (parseFTRange(XQueryElementType.FT_LITERAL_RANGE)) {
                 parseWhiteSpaceAndCommentTokens();
                 if (!matchTokenType(XQueryTokenType.K_LEVELS) && !haveError) {
                     error(XQueryBundle.message("parser.error.expected-keyword", "levels"));
@@ -1153,66 +1153,6 @@ class XQueryParser {
             }
 
             thesaurusIdMarker.done(XQueryElementType.FT_THESAURUS_ID);
-            return true;
-        }
-        return false;
-    }
-
-    private boolean parseFTLiteralRange() {
-        if (getTokenType() == XQueryTokenType.K_EXACTLY) {
-            final PsiBuilder.Marker literalRangeMarker = mark();
-            advanceLexer();
-
-            parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.INTEGER_LITERAL)) {
-                error(XQueryBundle.message("parser.error.expected", "IntegerLiteral"));
-            }
-
-            literalRangeMarker.done(XQueryElementType.FT_LITERAL_RANGE);
-            return true;
-        } else if (getTokenType() == XQueryTokenType.K_AT) {
-            final PsiBuilder.Marker literalRangeMarker = mark();
-            advanceLexer();
-
-            boolean haveError = false;
-
-            parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.K_LEAST) && !matchTokenType(XQueryTokenType.K_MOST)) {
-                error(XQueryBundle.message("parser.error.expected-keyword", "least, most"));
-                haveError = true;
-            }
-
-            parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.INTEGER_LITERAL) && !haveError) {
-                error(XQueryBundle.message("parser.error.expected", "IntegerLiteral"));
-            }
-
-            literalRangeMarker.done(XQueryElementType.FT_LITERAL_RANGE);
-            return true;
-        } else if (getTokenType() == XQueryTokenType.K_FROM) {
-            final PsiBuilder.Marker literalRangeMarker = mark();
-            advanceLexer();
-
-            boolean haveError = false;
-
-            parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.INTEGER_LITERAL)) {
-                error(XQueryBundle.message("parser.error.expected", "IntegerLiteral"));
-                haveError = true;
-            }
-
-            parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.K_TO) && !haveError) {
-                error(XQueryBundle.message("parser.error.expected-keyword", "to"));
-                haveError = true;
-            }
-
-            parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.INTEGER_LITERAL) && !haveError) {
-                error(XQueryBundle.message("parser.error.expected", "IntegerLiteral"));
-            }
-
-            literalRangeMarker.done(XQueryElementType.FT_LITERAL_RANGE);
             return true;
         }
         return false;
@@ -5482,7 +5422,7 @@ class XQueryParser {
             boolean haveError = false;
 
             parseWhiteSpaceAndCommentTokens();
-            if (!parseFTLiteralRange()) { // TODO: FTRange
+            if (!parseFTRange(XQueryElementType.FT_RANGE)) {
                 error(XQueryBundle.message("parser.error.expected", "FTRange"));
                 haveError = true;
             }
@@ -5493,6 +5433,91 @@ class XQueryParser {
             }
 
             timesMarker.done(XQueryElementType.FT_TIMES);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseFTRange(IElementType type) {
+        if (getTokenType() == XQueryTokenType.K_EXACTLY) {
+            final PsiBuilder.Marker rangeMarker = mark();
+            advanceLexer();
+
+            parseWhiteSpaceAndCommentTokens();
+            if (type == XQueryElementType.FT_LITERAL_RANGE) {
+                if (!matchTokenType(XQueryTokenType.INTEGER_LITERAL)) {
+                    error(XQueryBundle.message("parser.error.expected", "IntegerLiteral"));
+                }
+            } else {
+                if (!parseAdditiveExpr(type)) {
+                    error(XQueryBundle.message("parser.error.expected", "AdditiveExpr"));
+                }
+            }
+
+            rangeMarker.done(type);
+            return true;
+        } else if (getTokenType() == XQueryTokenType.K_AT) {
+            final PsiBuilder.Marker rangeMarker = mark();
+            advanceLexer();
+
+            boolean haveError = false;
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_LEAST) && !matchTokenType(XQueryTokenType.K_MOST)) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "least, most"));
+                haveError = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (type == XQueryElementType.FT_LITERAL_RANGE) {
+                if (!matchTokenType(XQueryTokenType.INTEGER_LITERAL) && !haveError) {
+                    error(XQueryBundle.message("parser.error.expected", "IntegerLiteral"));
+                }
+            } else {
+                if (!parseAdditiveExpr(type) && !haveError) {
+                    error(XQueryBundle.message("parser.error.expected", "AdditiveExpr"));
+                }
+            }
+
+            rangeMarker.done(type);
+            return true;
+        } else if (getTokenType() == XQueryTokenType.K_FROM) {
+            final PsiBuilder.Marker rangeMarker = mark();
+            advanceLexer();
+
+            boolean haveError = false;
+
+            parseWhiteSpaceAndCommentTokens();
+            if (type == XQueryElementType.FT_LITERAL_RANGE) {
+                if (!matchTokenType(XQueryTokenType.INTEGER_LITERAL)) {
+                    error(XQueryBundle.message("parser.error.expected", "IntegerLiteral"));
+                    haveError = true;
+                }
+            } else {
+                if (!parseAdditiveExpr(type)) {
+                    error(XQueryBundle.message("parser.error.expected", "AdditiveExpr"));
+                    haveError = true;
+                }
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_TO) && !haveError) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "to"));
+                haveError = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (type == XQueryElementType.FT_LITERAL_RANGE) {
+                if (!matchTokenType(XQueryTokenType.INTEGER_LITERAL) && !haveError) {
+                    error(XQueryBundle.message("parser.error.expected", "IntegerLiteral"));
+                }
+            } else {
+                if (!parseAdditiveExpr(type) && !haveError) {
+                    error(XQueryBundle.message("parser.error.expected", "AdditiveExpr"));
+                }
+            }
+
+            rangeMarker.done(type);
             return true;
         }
         return false;

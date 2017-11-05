@@ -1,11 +1,11 @@
-FileElement[FILE(0:49)]
-   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:49)]
-      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:49)]
-         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:49)]
-            XQueryOrExprImpl[XQUERY_OR_EXPR(0:49)]
-               XQueryAndExprImpl[XQUERY_AND_EXPR(0:49)]
-                  XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:49)]
-                     FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:49)]
+FileElement[FILE(0:47)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:47)]
+      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:47)]
+         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:47)]
+            XQueryOrExprImpl[XQUERY_OR_EXPR(0:47)]
+               XQueryAndExprImpl[XQUERY_AND_EXPR(0:47)]
+                  XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:47)]
+                     FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:47)]
                         XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(0:6)]
                            XQueryRangeExprImpl[XQUERY_RANGE_EXPR(0:6)]
                               XQueryAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(0:6)]
@@ -34,13 +34,13 @@ FileElement[FILE(0:49)]
                         PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
                         LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
                         PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
-                        FTSelectionImpl[XQUERY_FT_SELECTION(20:49)]
-                           FTOrImpl[XQUERY_FT_OR(20:49)]
-                              FTAndImpl[XQUERY_FT_AND(20:49)]
-                                 FTMildNotImpl[XQUERY_FT_MILD_NOT(20:49)]
-                                    FTUnaryNotImpl[XQUERY_FT_UNARY_NOT(20:49)]
-                                       FTPrimaryWithOptionsImpl[XQUERY_FT_PRIMARY_WITH_OPTIONS(20:49)]
-                                          FTPrimaryImpl[XQUERY_FT_PRIMARY(20:49)]
+                        FTSelectionImpl[XQUERY_FT_SELECTION(20:47)]
+                           FTOrImpl[XQUERY_FT_OR(20:47)]
+                              FTAndImpl[XQUERY_FT_AND(20:47)]
+                                 FTMildNotImpl[XQUERY_FT_MILD_NOT(20:47)]
+                                    FTUnaryNotImpl[XQUERY_FT_UNARY_NOT(20:47)]
+                                       FTPrimaryWithOptionsImpl[XQUERY_FT_PRIMARY_WITH_OPTIONS(20:47)]
+                                          FTPrimaryImpl[XQUERY_FT_PRIMARY(20:47)]
                                              FTWordsImpl[XQUERY_FT_WORDS(20:32)]
                                                 FTWordsValueImpl[XQUERY_FT_WORDS_VALUE(20:31)]
                                                    LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(20:21)]('{')
@@ -76,28 +76,11 @@ FileElement[FILE(0:49)]
                                                                                                                            PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
                                                    LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(30:31)]('}')
                                                 PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
-                                             FTTimesImpl[XQUERY_FT_TIMES(32:49)]
+                                             FTTimesImpl[XQUERY_FT_TIMES(32:47)]
                                                 LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_OCCURS(32:38)]('occurs')
                                                 PsiWhiteSpaceImpl[WHITE_SPACE(38:39)](' ')
-                                                FTRangeImpl[XQUERY_FT_RANGE(39:49)]
+                                                FTRangeImpl[XQUERY_FT_RANGE(39:47)]
                                                    LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_AT(39:41)]('at')
                                                    PsiWhiteSpaceImpl[WHITE_SPACE(41:42)](' ')
                                                    LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_LEAST(42:47)]('least')
-                                                   PsiWhiteSpaceImpl[WHITE_SPACE(47:48)](' ')
-                                                   XQueryAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(48:49)]
-                                                      XQueryMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(48:49)]
-                                                         XQueryUnionExprImpl[XQUERY_UNION_EXPR(48:49)]
-                                                            XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(48:49)]
-                                                               XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(48:49)]
-                                                                  XQueryTreatExprImpl[XQUERY_TREAT_EXPR(48:49)]
-                                                                     XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(48:49)]
-                                                                        XQueryCastExprImpl[XQUERY_CAST_EXPR(48:49)]
-                                                                           XQueryArrowExprImpl[XQUERY_ARROW_EXPR(48:49)]
-                                                                              XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(48:49)]
-                                                                                 XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(48:49)]
-                                                                                    XQueryPathExprImpl[XQUERY_PATH_EXPR(48:49)]
-                                                                                       XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(48:49)]
-                                                                                          XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(48:49)]
-                                                                                             XQueryLiteralImpl[XQUERY_LITERAL(48:49)]
-                                                                                                XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(48:49)]('2')
-                                                PsiErrorElementImpl[ERROR_ELEMENT(49:49)]('XPST0003: Expected keyword: times.')
+                                                   PsiErrorElementImpl[ERROR_ELEMENT(47:47)]('XPST0003: Expected 'AdditiveExpr'.')

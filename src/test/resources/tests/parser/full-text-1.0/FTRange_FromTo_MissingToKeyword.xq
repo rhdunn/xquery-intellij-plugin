@@ -1,0 +1,1 @@
+title contains text { $ value } occurs from 2 4 times

@@ -144,8 +144,8 @@ public class FullTextParserTest extends ParserTestCase {
     // region Full Text 1.0 :: FTTimes
 
     public void testFTTimes() {
-        final String expected = loadResource("tests/parser/full-text-1.0/FTTimes.txt");
-        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTTimes.xq");
+        final String expected = loadResource("tests/parser/full-text-1.0/FTRange_AtLeast.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTRange_AtLeast.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
@@ -158,6 +158,75 @@ public class FullTextParserTest extends ParserTestCase {
     public void testFTTimes_MissingTimesKeyword() {
         final String expected = loadResource("tests/parser/full-text-1.0/FTTimes_MissingTimesKeyword.txt");
         final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTTimes_MissingTimesKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
+    // region Full Text 1.0 :: FTRange
+
+    public void testFTRange_Exactly() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTRange_Exactly.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTRange_Exactly.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTRange_Exactly_MissingAdditiveExpr() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTRange_Exactly_MissingAdditiveExpr.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTRange_Exactly_MissingAdditiveExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTRange_At_MissingQualifier() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTRange_At_MissingQualifier.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTRange_At_MissingQualifier.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTRange_AtLeast() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTRange_AtLeast.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTRange_AtLeast.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTRange_AtLeast_MissingAdditiveExpr() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTRange_AtLeast_MissingAdditiveExpr.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTRange_AtLeast_MissingAdditiveExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTRange_AtMost() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTRange_AtMost.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTRange_AtMost.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTRange_AtMost_MissingAdditiveExpr() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTRange_AtMost_MissingAdditiveExpr.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTRange_AtMost_MissingAdditiveExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTRange_FromTo() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTRange_FromTo.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTRange_FromTo.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTRange_FromTo_MissingFromExpr() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTRange_FromTo_MissingFromExpr.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTRange_FromTo_MissingFromExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTRange_FromTo_MissingToKeyword() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTRange_FromTo_MissingToKeyword.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTRange_FromTo_MissingToKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTRange_FromTo_MissingToExpr() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTRange_FromTo_MissingToExpr.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTRange_FromTo_MissingToExpr.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
