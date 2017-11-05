@@ -334,6 +334,7 @@ public interface XQueryElementType {
     IElementType FT_WORDS = new ICompositeElementType("XQUERY_FT_WORDS", FTWordsPsiImpl.class, XQuery.INSTANCE);
     IElementType FT_WORDS_VALUE = new ICompositeElementType("XQUERY_FT_WORDS_VALUE", FTWordsValuePsiImpl.class, XQuery.INSTANCE);
 
+    IElementType FT_EXTENSION_SELECTION = new ICompositeElementType("XQUERY_FT_EXTENSION_SELECTION", FTExtensionSelectionPsiImpl.class, XQuery.INSTANCE);
     IElementType FT_ANYALL_OPTION = new ICompositeElementType("XQUERY_FT_ANYALL_OPTION", FTAnyallOptionPsiImpl.class, XQuery.INSTANCE);
     IElementType FT_TIMES = new ICompositeElementType("XQUERY_FT_TIMES", FTTimesPsiImpl.class, XQuery.INSTANCE);
     IElementType FT_RANGE = new ICompositeElementType("XQUERY_FT_RANGE", FTRangePsiImpl.class, XQuery.INSTANCE);

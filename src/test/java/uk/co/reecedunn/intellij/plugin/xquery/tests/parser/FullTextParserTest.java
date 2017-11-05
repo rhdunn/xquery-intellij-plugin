@@ -108,6 +108,45 @@ public class FullTextParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region Full Text 1.0 :: FTExtensionSelection
+
+    public void testFTExtensionSelection() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTExtensionSelection.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTExtensionSelection.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTExtensionSelection_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTExtensionSelection_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTExtensionSelection_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTExtensionSelection_MultiplePragmas() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTExtensionSelection_MultiplePragmas.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTExtensionSelection_MultiplePragmas.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTExtensionSelection_MissingOpenBrace() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTExtensionSelection_MissingOpenBrace.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTExtensionSelection_MissingOpenBrace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTExtensionSelection_MissingFTSelection() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTExtensionSelection_MissingFTSelection.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTExtensionSelection_MissingFTSelection.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTExtensionSelection_MissingCloseBrace() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTExtensionSelection_MissingCloseBrace.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTExtensionSelection_MissingCloseBrace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region Full Text 1.0 :: FTAnyallOption
 
     public void testFTAnyallOption_Any() {

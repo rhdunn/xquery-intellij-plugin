@@ -5350,7 +5350,10 @@ class XQueryParser {
             return true;
         }
         // TODO: | ("(" FTSelection ")")
-        // TODO: | FTExtensionSelection
+        else if (parseFTExtensionSelection()) {
+            primaryMarker.done(XQueryElementType.FT_PRIMARY);
+            return true;
+        }
         primaryMarker.drop();
         return false;
     }
@@ -5392,6 +5395,39 @@ class XQueryParser {
         }
         wordsValueMarker.drop();
         return false;
+    }
+
+    private boolean parseFTExtensionSelection() {
+        final PsiBuilder.Marker extensionSelectionMarker = mark();
+        boolean haveError = false;
+
+        boolean havePragma = false;
+        while (parsePragma()) {
+            parseWhiteSpaceAndCommentTokens();
+            havePragma = true;
+        }
+
+        if (!havePragma) {
+            extensionSelectionMarker.drop();
+            return false;
+        }
+
+        parseWhiteSpaceAndCommentTokens();
+        if (!matchTokenType(XQueryTokenType.BLOCK_OPEN)) {
+            error(XQueryBundle.message("parser.error.expected", "{"));
+            haveError = true;
+        }
+
+        parseWhiteSpaceAndCommentTokens();
+        parseFTSelection();
+
+        parseWhiteSpaceAndCommentTokens();
+        if (!matchTokenType(XQueryTokenType.BLOCK_CLOSE) && !haveError) {
+            error(XQueryBundle.message("parser.error.expected", "}"));
+        }
+
+        extensionSelectionMarker.done(XQueryElementType.FT_EXTENSION_SELECTION);
+        return true;
     }
 
     private boolean parseFTAnyallOption() {
