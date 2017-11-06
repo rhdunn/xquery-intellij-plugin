@@ -5331,7 +5331,7 @@ class XQueryParser {
             parseWhiteSpaceAndCommentTokens();
 
             // TODO: FTMatchOptions?
-            // TODO: FTWeight?
+            parseFTWeight();
 
             primaryWithOptionsMarker.done(XQueryElementType.FT_PRIMARY_WITH_OPTIONS);
             return true;
@@ -5568,6 +5568,34 @@ class XQueryParser {
             }
 
             rangeMarker.done(type);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseFTWeight() {
+        final PsiBuilder.Marker weightMarker = matchTokenTypeWithMarker(XQueryTokenType.K_WEIGHT);
+        if (weightMarker != null) {
+            boolean haveError = false;
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.BLOCK_OPEN)) {
+                error(XQueryBundle.message("parser.error.expected", "{"));
+                haveError = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseExpr(XQueryElementType.EXPR) && !haveError) {
+                error(XQueryBundle.message("parser.error.expected-expression"));
+                haveError = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.BLOCK_CLOSE) && !haveError) {
+                error(XQueryBundle.message("parser.error.expected", "}"));
+            }
+
+            weightMarker.done(XQueryElementType.FT_WEIGHT);
             return true;
         }
         return false;

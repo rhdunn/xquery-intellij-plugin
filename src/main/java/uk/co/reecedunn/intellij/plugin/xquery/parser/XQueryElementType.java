@@ -338,6 +338,7 @@ public interface XQueryElementType {
     IElementType FT_ANYALL_OPTION = new ICompositeElementType("XQUERY_FT_ANYALL_OPTION", FTAnyallOptionPsiImpl.class, XQuery.INSTANCE);
     IElementType FT_TIMES = new ICompositeElementType("XQUERY_FT_TIMES", FTTimesPsiImpl.class, XQuery.INSTANCE);
     IElementType FT_RANGE = new ICompositeElementType("XQUERY_FT_RANGE", FTRangePsiImpl.class, XQuery.INSTANCE);
+    IElementType FT_WEIGHT = new ICompositeElementType("XQUERY_FT_WEIGHT", FTWeightPsiImpl.class, XQuery.INSTANCE);
 
     // endregion
     // region Scripting Extension 1.0

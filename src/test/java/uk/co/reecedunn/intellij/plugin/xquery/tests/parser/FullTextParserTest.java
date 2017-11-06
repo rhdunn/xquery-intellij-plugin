@@ -69,6 +69,33 @@ public class FullTextParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region Full Text 1.0 :: FTWeight
+
+    public void testFTWeight() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTWeight.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTWeight.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTWeight_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTWeight_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTWeight_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTWeight_MissingExpr() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTWeight_MissingExpr.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTWeight_MissingExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTWeight_MissingClosingBrace() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTWeight_MissingClosingBrace.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTWeight_MissingClosingBrace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region Full Text 1.0 :: FTPrimary
 
     public void testFTPrimary_Words() {
