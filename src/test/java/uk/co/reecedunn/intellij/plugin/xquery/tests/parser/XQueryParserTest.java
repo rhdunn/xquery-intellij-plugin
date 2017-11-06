@@ -2771,8 +2771,19 @@ public class XQueryParserTest extends ParserTestCase {
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ExtensionExpr")
     @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Pragma")
     public void testPragma_MissingPragmaContents() {
+        // This is invalid according to the XQuery grammar, but is supported by
+        // XQuery implementations.
         final String expected = loadResource("tests/parser/xquery-1.0/Pragma_MissingPragmaContents.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-1.0/Pragma_MissingPragmaContents.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-ExtensionExpr")
+    @Specification(name="XQuery 1.0 2ed", reference="https://www.w3.org/TR/2010/REC-xquery-20101214/#prod-xquery-Pragma")
+    public void testPragma_MissingPragmaContents_CompactWhitespace() {
+        // This is valid according to the XQuery grammar.
+        final String expected = loadResource("tests/parser/xquery-1.0/Pragma_MissingPragmaContents_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-1.0/Pragma_MissingPragmaContents_CompactWhitespace.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 

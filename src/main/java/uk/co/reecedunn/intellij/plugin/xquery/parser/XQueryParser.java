@@ -3684,11 +3684,10 @@ class XQueryParser {
                 haveErrors = true;
             }
 
+            // NOTE: The XQuery grammar requires pragma contents if the EQName
+            // is followed by a space token, but implementations make it optional.
             matchTokenType(XQueryTokenType.WHITE_SPACE);
-            if (!matchTokenType(XQueryTokenType.PRAGMA_CONTENTS) && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected-pragma-contents"));
-                haveErrors = true;
-            }
+            matchTokenType(XQueryTokenType.PRAGMA_CONTENTS);
 
             if (!matchTokenType(XQueryTokenType.PRAGMA_END) && !haveErrors) {
                 error(XQueryBundle.message("parser.error.expected", "#)"));
