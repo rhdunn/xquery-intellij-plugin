@@ -21,9 +21,15 @@ FileElement[FILE(0:66)]
                                                             XQueryPragmaImpl[XQUERY_PRAGMA(0:60)]
                                                                LeafPsiElement[XQUERY_PRAGMA_BEGIN_TOKEN(0:2)]('(#')
                                                                PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
-                                                               XQueryNCNameImpl[XQUERY_NCNAME(3:4)]
-                                                                  LeafPsiElement[XQUERY_NCNAME_TOKEN(3:4)]('Q')
-                                                               LeafPsiElement[XQUERY_PRAGMA_CONTENTS_TOKEN(4:58)]('{http://www.example.com/test#}name Lorem ipsum dolor. ')
+                                                               XQueryURIQualifiedNameImpl[XQUERY_URI_QUALIFIED_NAME(3:38)]
+                                                                  XQueryBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(3:34)]
+                                                                     LeafPsiElement[XQUERY_BRACED_URI_LITERAL_START_TOKEN(3:5)]('Q{')
+                                                                     LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(5:33)]('http://www.example.com/test#')
+                                                                     LeafPsiElement[XQUERY_BRACED_URI_LITERAL_END_TOKEN(33:34)]('}')
+                                                                  XQueryNCNameImpl[XQUERY_NCNAME(34:38)]
+                                                                     LeafPsiElement[XQUERY_NCNAME_TOKEN(34:38)]('name')
+                                                               PsiWhiteSpaceImpl[WHITE_SPACE(38:39)](' ')
+                                                               LeafPsiElement[XQUERY_PRAGMA_CONTENTS_TOKEN(39:58)]('Lorem ipsum dolor. ')
                                                                LeafPsiElement[XQUERY_PRAGMA_END_TOKEN(58:60)]('#)')
                                                             PsiWhiteSpaceImpl[WHITE_SPACE(60:61)](' ')
                                                             LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(61:62)]('{')

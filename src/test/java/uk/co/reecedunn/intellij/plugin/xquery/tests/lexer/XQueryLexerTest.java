@@ -3581,6 +3581,37 @@ public class XQueryLexerTest extends LexerTestCase {
         matchToken(lexer, "",           0, 16, 16, null);
     }
 
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/xquery-30/#doc-xquery30-BracedURILiteral")
+    public void testBracedURILiteral_Pragma() {
+        Lexer lexer = createLexer();
+
+        lexer.start("Q", 0, 1, 8);
+        matchToken(lexer, "Q", 8, 0, 1, XQueryTokenType.NCNAME);
+        matchToken(lexer, "",  9, 1, 1, null);
+
+        lexer.start("Q{", 0, 2, 8);
+        matchToken(lexer, "Q{",  8, 0, 2, XQueryTokenType.BRACED_URI_LITERAL_START);
+        matchToken(lexer, "",   31, 2, 2, null);
+
+        lexer.start("Q{Hello World}", 0, 14, 8);
+        matchToken(lexer, "Q{",           8,  0,  2, XQueryTokenType.BRACED_URI_LITERAL_START);
+        matchToken(lexer, "Hello World", 31,  2, 13, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "}",           31, 13, 14, XQueryTokenType.BRACED_URI_LITERAL_END);
+        matchToken(lexer, "",             9, 14, 14, null);
+
+        // NOTE: "", '', {{ and }} are used as escaped characters in string and attribute literals.
+        lexer.start("Q{A\"\"B''C{{D}}E}", 0, 16, 8);
+        matchToken(lexer, "Q{",         8,  0,  2, XQueryTokenType.BRACED_URI_LITERAL_START);
+        matchToken(lexer, "A\"\"B''C", 31,  2,  9, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "{",         31,  9, 10, XQueryTokenType.BAD_CHARACTER);
+        matchToken(lexer, "{",         31, 10, 11, XQueryTokenType.BAD_CHARACTER);
+        matchToken(lexer, "D",         31, 11, 12, XQueryTokenType.STRING_LITERAL_CONTENTS);
+        matchToken(lexer, "}",         31, 12, 13, XQueryTokenType.BRACED_URI_LITERAL_END);
+        matchToken(lexer, "}E}",        9, 13, 16, XQueryTokenType.PRAGMA_CONTENTS);
+        matchToken(lexer, "",           6, 16, 16, XQueryTokenType.UNEXPECTED_END_OF_BLOCK);
+        matchToken(lexer, "",           0, 16, 16, null);
+    }
+
     // endregion
     // region XQuery 3.0 :: BracedURILiteral + PredefinedEntityRef
 

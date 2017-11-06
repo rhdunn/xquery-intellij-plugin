@@ -14,6 +14,7 @@ Bug Fixes:
 
 1.  Fix tokenizing `` `{...}` `` expressions outside XQuery 3.1 string interpolation contexts.
 1.  Report a parser error when a `TypedFunctionTest` does not have a return type clause.
+1.  Fix parsing pragmas with EQNames.
 1.  Fix resolving functions referenced in the current library module.
 1.  Fix support for `ProcessCanceledException` thrown when creating PSI nodes.
 

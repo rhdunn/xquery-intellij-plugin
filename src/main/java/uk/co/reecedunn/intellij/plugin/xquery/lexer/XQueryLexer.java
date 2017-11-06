@@ -81,6 +81,7 @@ public class XQueryLexer extends LexerBase {
     private static final int STATE_DEFAULT_STRING_INTERPOLATION = 28;
     public  static final int STATE_MAYBE_DIR_ELEM_CONSTRUCTOR = 29;
     public  static final int STATE_START_DIR_ELEM_CONSTRUCTOR = 30;
+    private static final int STATE_BRACED_URI_LITERAL_PRAGMA = 31;
 
     private void stateDefault(int mState) {
         int c = mTokenRange.getCodePoint();
@@ -667,7 +668,8 @@ public class XQueryLexer extends LexerBase {
     }
 
     private void statePragmaPreQName() {
-        int cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
+        int c = mTokenRange.getCodePoint();
+        int cc = CharacterClass.getCharClass(c);
         switch (cc) {
             case CharacterClass.WHITESPACE:
                 mTokenRange.match();
@@ -684,17 +686,25 @@ public class XQueryLexer extends LexerBase {
             case CharacterClass.NAME_START_CHAR:
                 mTokenRange.match();
                 cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
-                while (cc == CharacterClass.NAME_START_CHAR ||
-                       cc == CharacterClass.DIGIT ||
-                       cc == CharacterClass.DOT ||
-                       cc == CharacterClass.HYPHEN_MINUS ||
-                       cc == CharacterClass.NAME_CHAR) {
+                if (c == 'Q' && cc == CharacterClass.CURLY_BRACE_OPEN) {
                     mTokenRange.match();
-                    cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
+                    mType = XQueryTokenType.BRACED_URI_LITERAL_START;
+                    popState();
+                    pushState(STATE_PRAGMA_QNAME);
+                    pushState(STATE_BRACED_URI_LITERAL_PRAGMA);
+                } else {
+                    while (cc == CharacterClass.NAME_START_CHAR ||
+                            cc == CharacterClass.DIGIT ||
+                            cc == CharacterClass.DOT ||
+                            cc == CharacterClass.HYPHEN_MINUS ||
+                            cc == CharacterClass.NAME_CHAR) {
+                        mTokenRange.match();
+                        cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
+                    }
+                    mType = XQueryTokenType.NCNAME;
+                    popState();
+                    pushState(STATE_PRAGMA_QNAME);
                 }
-                mType = XQueryTokenType.NCNAME;
-                popState();
-                pushState(STATE_PRAGMA_QNAME);
                 break;
             default:
                 popState();
@@ -705,7 +715,8 @@ public class XQueryLexer extends LexerBase {
     }
 
     private void statePragmaQName() {
-        int cc = CharacterClass.getCharClass(mTokenRange.getCodePoint());
+        int c = mTokenRange.getCodePoint();
+        int cc = CharacterClass.getCharClass(c);
         switch (cc) {
             case CharacterClass.WHITESPACE:
                 mTokenRange.match();
@@ -1392,6 +1403,7 @@ public class XQueryLexer extends LexerBase {
                 stateProcessingInstructionContents();
                 break;
             case STATE_BRACED_URI_LITERAL:
+            case STATE_BRACED_URI_LITERAL_PRAGMA:
                 stateStringLiteral('}');
                 break;
             case STATE_STRING_CONSTRUCTOR_CONTENTS:

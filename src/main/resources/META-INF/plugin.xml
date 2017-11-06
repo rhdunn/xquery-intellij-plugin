@@ -24,6 +24,7 @@
     <ol>
       <li>Fix tokenizing <code>`{...}`</code> expressions outside XQuery 3.1 string interpolation contexts.</li>
       <li>Report a parser error when a TypedFunctionTest does not have a return type clause.</li>
+      <li>Fix parsing pragmas with EQNames.</li>
       <li>Fix resolving functions referenced in the current library module.</li>
       <li>Fix support for ProcessCanceledException thrown when creating PSI nodes.</li>
     </ol>
