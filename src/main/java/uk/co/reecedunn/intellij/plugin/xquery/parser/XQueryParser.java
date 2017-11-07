@@ -5318,7 +5318,10 @@ class XQueryParser {
 
     private boolean parseFTUnaryNot() {
         final PsiBuilder.Marker unaryNotMarker = mark();
-        // TODO: ("ftnot")?
+
+        matchTokenType(XQueryTokenType.K_FTNOT);
+
+        parseWhiteSpaceAndCommentTokens();
         if (parseFTPrimaryWithOptions()) {
             parseWhiteSpaceAndCommentTokens();
 

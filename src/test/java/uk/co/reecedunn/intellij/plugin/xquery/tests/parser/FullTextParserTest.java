@@ -96,6 +96,15 @@ public class FullTextParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region Full Text 1.0 :: FTUnaryNot
+
+    public void testFTUnaryNot() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTUnaryNot.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTUnaryNot.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region Full Text 1.0 :: FTPrimaryWithOptions
 
     public void testFTPrimaryWithOptions_MatchOptions() {
