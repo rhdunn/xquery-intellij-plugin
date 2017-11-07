@@ -19,10 +19,8 @@ import com.intellij.extapi.psi.PsiFileBase
 import com.intellij.openapi.fileTypes.FileType
 import com.intellij.psi.FileViewProvider
 import uk.co.reecedunn.intellij.plugin.core.extensions.children
-import uk.co.reecedunn.intellij.plugin.core.extensions.descendants
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.filetypes.XQueryFileType
-import uk.co.reecedunn.intellij.plugin.xquery.lang.Specification
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 
 class XQueryFileImpl(provider: FileViewProvider) : PsiFileBase(provider, XQuery), XQueryFile {
