@@ -972,321 +972,6 @@ class XQueryParser {
     }
 
     // endregion
-    // region Grammar :: Prolog :: Header :: FTMatchOptions
-
-    private boolean parseFTMatchOptions() {
-        final PsiBuilder.Marker matchOptionsMarker = mark();
-
-        boolean haveFTMatchOption = false;
-        while (matchTokenType(XQueryTokenType.K_USING)) {
-            haveFTMatchOption = true;
-
-            parseWhiteSpaceAndCommentTokens();
-            parseFTMatchOption();
-
-            parseWhiteSpaceAndCommentTokens();
-        }
-
-        if (haveFTMatchOption) {
-            matchOptionsMarker.done(XQueryElementType.FT_MATCH_OPTIONS);
-        } else {
-            matchOptionsMarker.drop();
-        }
-        return haveFTMatchOption;
-    }
-
-    private boolean parseFTMatchOption() {
-        final PsiBuilder.Marker matchOptionMarker = mark();
-        if (parseFTCaseOption(matchOptionMarker) ||
-            parseFTDiacriticsOption(matchOptionMarker) ||
-            parseFTExtensionOption(matchOptionMarker) ||
-            parseFTLanguageOption(matchOptionMarker) ||
-            parseFTStemOption(matchOptionMarker) ||
-            parseFTStopWordOption(matchOptionMarker) ||
-            parseFTThesaurusOption(matchOptionMarker) ||
-            parseFTWildCardOption(matchOptionMarker)) {
-            //
-        } else if (matchTokenType(XQueryTokenType.K_NO)) {
-            parseWhiteSpaceAndCommentTokens();
-            if (matchTokenType(XQueryTokenType.K_STEMMING)) {
-                matchOptionMarker.done(XQueryElementType.FT_STEM_OPTION);
-            } else if (matchTokenType(XQueryTokenType.K_STOP)) {
-                parseWhiteSpaceAndCommentTokens();
-                if (!matchTokenType(XQueryTokenType.K_WORDS)) {
-                    error(XQueryBundle.message("parser.error.expected-keyword", "words"));
-                }
-
-                matchOptionMarker.done(XQueryElementType.FT_STOP_WORD_OPTION);
-            } else if (matchTokenType(XQueryTokenType.K_THESAURUS)) {
-                matchOptionMarker.done(XQueryElementType.FT_THESAURUS_OPTION);
-            } else if (matchTokenType(XQueryTokenType.K_WILDCARDS)) {
-                matchOptionMarker.done(XQueryElementType.FT_WILDCARD_OPTION);
-            } else {
-                error(XQueryBundle.message("parser.error.expected-keyword", "stemming, stop, thesaurus, wildcards"));
-                matchOptionMarker.drop();
-                return false;
-            }
-        } else {
-            error(XQueryBundle.message("parser.error.expected-keyword", "case, language, lowercase, no, option, thesaurus, uppercase, wildcards"));
-            matchOptionMarker.drop();
-            return false;
-        }
-        return true;
-    }
-
-    private boolean parseFTCaseOption(@NotNull PsiBuilder.Marker caseOptionMarker) {
-        if (matchTokenType(XQueryTokenType.K_LOWERCASE) || matchTokenType(XQueryTokenType.K_UPPERCASE)) {
-            caseOptionMarker.done(XQueryElementType.FT_CASE_OPTION);
-            return true;
-        } else if (matchTokenType(XQueryTokenType.K_CASE)) {
-            parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.K_SENSITIVE) && !matchTokenType(XQueryTokenType.K_INSENSITIVE)) {
-                error(XQueryBundle.message("parser.error.expected-keyword", "sensitive, insensitive"));
-            }
-
-            caseOptionMarker.done(XQueryElementType.FT_CASE_OPTION);
-            return true;
-        }
-        return false;
-    }
-
-    private boolean parseFTDiacriticsOption(@NotNull PsiBuilder.Marker diacriticsOptionMarker) {
-        if (matchTokenType(XQueryTokenType.K_DIACRITICS)) {
-            parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.K_SENSITIVE) && !matchTokenType(XQueryTokenType.K_INSENSITIVE)) {
-                error(XQueryBundle.message("parser.error.expected-keyword", "sensitive, insensitive"));
-            }
-
-            diacriticsOptionMarker.done(XQueryElementType.FT_DIACRITICS_OPTION);
-            return true;
-        }
-        return false;
-    }
-
-    private boolean parseFTStemOption(@NotNull PsiBuilder.Marker stemOptionMarker) {
-        if (matchTokenType(XQueryTokenType.K_STEMMING)) {
-            stemOptionMarker.done(XQueryElementType.FT_STEM_OPTION);
-            return true;
-        }
-        return false;
-    }
-
-    private boolean parseFTThesaurusOption(@NotNull PsiBuilder.Marker thesaurusOptionMarker) {
-        if (matchTokenType(XQueryTokenType.K_THESAURUS)) {
-            boolean haveError = false;
-
-            parseWhiteSpaceAndCommentTokens();
-            boolean hasParenthesis = matchTokenType(XQueryTokenType.PARENTHESIS_OPEN);
-
-            parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.K_DEFAULT) && !parseFTThesaurusID()) {
-                if (hasParenthesis) {
-                    error(XQueryBundle.message("parser.error.expected-keyword", "at, default"));
-                } else {
-                    error(XQueryBundle.message("parser.error.expected-keyword-or-token", "(", "at, default"));
-                }
-                haveError = true;
-            }
-
-            parseWhiteSpaceAndCommentTokens();
-            boolean haveComma;
-            if (hasParenthesis) {
-                haveComma = matchTokenType(XQueryTokenType.COMMA);
-            } else {
-                haveComma = errorOnTokenType(XQueryTokenType.COMMA, XQueryBundle.message("parser.error.full-text.multientry-thesaurus-requires-parenthesis"));
-                haveError |= haveComma;
-            }
-
-            while (haveComma) {
-                parseWhiteSpaceAndCommentTokens();
-                if (!parseFTThesaurusID() && !haveError) {
-                    error(XQueryBundle.message("parser.error.expected-keyword", "at"));
-
-                    matchTokenType(XQueryTokenType.K_DEFAULT);
-                    parseWhiteSpaceAndCommentTokens();
-
-                    haveError = true;
-                }
-
-                parseWhiteSpaceAndCommentTokens();
-                haveComma = matchTokenType(XQueryTokenType.COMMA);
-            }
-
-            parseWhiteSpaceAndCommentTokens();
-            if (hasParenthesis) {
-                if (!matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE) && !haveError) {
-                    error(XQueryBundle.message("parser.error.expected-either", ",", ")"));
-                }
-            } else if (!haveError) {
-                errorOnTokenType(XQueryTokenType.PARENTHESIS_CLOSE, XQueryBundle.message("parser.error.expected-keyword-or-token", ";", "using"));
-            } else {
-                matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE);
-            }
-
-            thesaurusOptionMarker.done(XQueryElementType.FT_THESAURUS_OPTION);
-            return true;
-        }
-        return false;
-    }
-
-    private boolean parseFTThesaurusID() {
-        final PsiBuilder.Marker thesaurusIdMarker = matchTokenTypeWithMarker(XQueryTokenType.K_AT);
-        if (thesaurusIdMarker != null) {
-            boolean haveError = false;
-
-            parseWhiteSpaceAndCommentTokens();
-            if (!parseStringLiteral(XQueryElementType.URI_LITERAL)) {
-                error(XQueryBundle.message("parser.error.expected", "URILiteral"));
-                haveError = true;
-            }
-
-            parseWhiteSpaceAndCommentTokens();
-            if (matchTokenType(XQueryTokenType.K_RELATIONSHIP)) {
-                parseWhiteSpaceAndCommentTokens();
-                if (!parseStringLiteral(XQueryElementType.STRING_LITERAL) && !haveError) {
-                    error(XQueryBundle.message("parser.error.expected", "StringLiteral"));
-                    haveError = true;
-                }
-            }
-
-            if (parseFTRange(XQueryElementType.FT_LITERAL_RANGE)) {
-                parseWhiteSpaceAndCommentTokens();
-                if (!matchTokenType(XQueryTokenType.K_LEVELS) && !haveError) {
-                    error(XQueryBundle.message("parser.error.expected-keyword", "levels"));
-                }
-            }
-
-            thesaurusIdMarker.done(XQueryElementType.FT_THESAURUS_ID);
-            return true;
-        }
-        return false;
-    }
-
-    private boolean parseFTStopWordOption(@NotNull PsiBuilder.Marker stopWordOptionMarker) {
-        if (matchTokenType(XQueryTokenType.K_STOP)) {
-            parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.K_WORDS)) {
-                error(XQueryBundle.message("parser.error.expected-keyword", "words"));
-            }
-
-            parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.K_DEFAULT) && !parseFTStopWords()) {
-                error(XQueryBundle.message("parser.error.expected-keyword-or-token", "(", "at, default"));
-            }
-
-            do {
-                parseWhiteSpaceAndCommentTokens();
-            } while (parseFTStopWordsInclExcl());
-
-            stopWordOptionMarker.done(XQueryElementType.FT_STOP_WORD_OPTION);
-            return true;
-        }
-        return false;
-    }
-
-    private boolean parseFTStopWords() {
-        if (getTokenType() == XQueryTokenType.K_AT) {
-            final PsiBuilder.Marker stopWordsMarker = mark();
-            advanceLexer();
-
-            parseWhiteSpaceAndCommentTokens();
-            if (!parseStringLiteral(XQueryElementType.URI_LITERAL)) {
-                error(XQueryBundle.message("parser.error.expected", "URILiteral"));
-            }
-
-            stopWordsMarker.done(XQueryElementType.FT_STOP_WORDS);
-            return true;
-        } else if (getTokenType() == XQueryTokenType.PARENTHESIS_OPEN) {
-            final PsiBuilder.Marker stopWordsMarker = mark();
-            advanceLexer();
-
-            boolean haveError = false;
-
-            parseWhiteSpaceAndCommentTokens();
-            if (!parseStringLiteral(XQueryElementType.STRING_LITERAL)) {
-                error(XQueryBundle.message("parser.error.expected", "StringLiteral"));
-                haveError = true;
-            }
-
-            parseWhiteSpaceAndCommentTokens();
-            while (matchTokenType(XQueryTokenType.COMMA)) {
-                parseWhiteSpaceAndCommentTokens();
-                if (!parseStringLiteral(XQueryElementType.STRING_LITERAL) && !haveError) {
-                    error(XQueryBundle.message("parser.error.expected", "StringLiteral"));
-                    haveError = true;
-                }
-
-                parseWhiteSpaceAndCommentTokens();
-            }
-
-            parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE) && !haveError) {
-                error(XQueryBundle.message("parser.error.expected-either", ",", ")"));
-            }
-
-            stopWordsMarker.done(XQueryElementType.FT_STOP_WORDS);
-            return true;
-        }
-        return false;
-    }
-
-    private boolean parseFTStopWordsInclExcl() {
-        final PsiBuilder.Marker stopWordsInclExclMarker = matchTokenTypeWithMarker(XQueryTokenType.K_UNION, XQueryTokenType.K_EXCEPT);
-        if (stopWordsInclExclMarker != null) {
-            parseWhiteSpaceAndCommentTokens();
-            if (!parseFTStopWords()) {
-                error(XQueryBundle.message("parser.error.expected-keyword-or-token", "(", "at"));
-            }
-
-            stopWordsInclExclMarker.done(XQueryElementType.FT_STOP_WORDS_INCL_EXCL);
-            return true;
-        }
-        return false;
-    }
-
-    private boolean parseFTLanguageOption(@NotNull PsiBuilder.Marker languageOptionMarker) {
-        if (matchTokenType(XQueryTokenType.K_LANGUAGE)) {
-            parseWhiteSpaceAndCommentTokens();
-            if (!parseStringLiteral(XQueryElementType.STRING_LITERAL)) {
-                error(XQueryBundle.message("parser.error.expected", "StringLiteral"));
-            }
-
-            languageOptionMarker.done(XQueryElementType.FT_LANGUAGE_OPTION);
-            return true;
-        }
-        return false;
-    }
-
-    private boolean parseFTWildCardOption(@NotNull PsiBuilder.Marker wildcardOptionMarker) {
-        if (matchTokenType(XQueryTokenType.K_WILDCARDS)) {
-            wildcardOptionMarker.done(XQueryElementType.FT_WILDCARD_OPTION);
-            return true;
-        }
-        return false;
-    }
-
-    private boolean parseFTExtensionOption(@NotNull PsiBuilder.Marker extensionOptionMarker) {
-        if (matchTokenType(XQueryTokenType.K_OPTION)) {
-            boolean haveErrors = false;
-
-            parseWhiteSpaceAndCommentTokens();
-            if (!parseEQName(XQueryElementType.EQNAME)) {
-                error(XQueryBundle.message("parser.error.expected-eqname"));
-                haveErrors = true;
-            }
-
-            parseWhiteSpaceAndCommentTokens();
-            if (!parseStringLiteral(XQueryElementType.STRING_LITERAL) && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected", "StringLiteral"));
-            }
-
-            extensionOptionMarker.done(XQueryElementType.FT_EXTENSION_OPTION);
-            return true;
-        }
-        return false;
-    }
-
-    // endregion
     // region Grammar :: Prolog :: Body
 
     private boolean parseContextItemDecl() {
@@ -5624,6 +5309,320 @@ class XQueryParser {
         return false;
     }
 
+    // endregion
+    // region Grammar :: Expr :: OrExpr :: FTMatchOptions
+
+    private boolean parseFTMatchOptions() {
+        final PsiBuilder.Marker matchOptionsMarker = mark();
+
+        boolean haveFTMatchOption = false;
+        while (matchTokenType(XQueryTokenType.K_USING)) {
+            haveFTMatchOption = true;
+
+            parseWhiteSpaceAndCommentTokens();
+            parseFTMatchOption();
+
+            parseWhiteSpaceAndCommentTokens();
+        }
+
+        if (haveFTMatchOption) {
+            matchOptionsMarker.done(XQueryElementType.FT_MATCH_OPTIONS);
+        } else {
+            matchOptionsMarker.drop();
+        }
+        return haveFTMatchOption;
+    }
+
+    private boolean parseFTMatchOption() {
+        final PsiBuilder.Marker matchOptionMarker = mark();
+        if (parseFTCaseOption(matchOptionMarker) ||
+                parseFTDiacriticsOption(matchOptionMarker) ||
+                parseFTExtensionOption(matchOptionMarker) ||
+                parseFTLanguageOption(matchOptionMarker) ||
+                parseFTStemOption(matchOptionMarker) ||
+                parseFTStopWordOption(matchOptionMarker) ||
+                parseFTThesaurusOption(matchOptionMarker) ||
+                parseFTWildCardOption(matchOptionMarker)) {
+            //
+        } else if (matchTokenType(XQueryTokenType.K_NO)) {
+            parseWhiteSpaceAndCommentTokens();
+            if (matchTokenType(XQueryTokenType.K_STEMMING)) {
+                matchOptionMarker.done(XQueryElementType.FT_STEM_OPTION);
+            } else if (matchTokenType(XQueryTokenType.K_STOP)) {
+                parseWhiteSpaceAndCommentTokens();
+                if (!matchTokenType(XQueryTokenType.K_WORDS)) {
+                    error(XQueryBundle.message("parser.error.expected-keyword", "words"));
+                }
+
+                matchOptionMarker.done(XQueryElementType.FT_STOP_WORD_OPTION);
+            } else if (matchTokenType(XQueryTokenType.K_THESAURUS)) {
+                matchOptionMarker.done(XQueryElementType.FT_THESAURUS_OPTION);
+            } else if (matchTokenType(XQueryTokenType.K_WILDCARDS)) {
+                matchOptionMarker.done(XQueryElementType.FT_WILDCARD_OPTION);
+            } else {
+                error(XQueryBundle.message("parser.error.expected-keyword", "stemming, stop, thesaurus, wildcards"));
+                matchOptionMarker.drop();
+                return false;
+            }
+        } else {
+            error(XQueryBundle.message("parser.error.expected-keyword", "case, language, lowercase, no, option, thesaurus, uppercase, wildcards"));
+            matchOptionMarker.drop();
+            return false;
+        }
+        return true;
+    }
+
+    private boolean parseFTCaseOption(@NotNull PsiBuilder.Marker caseOptionMarker) {
+        if (matchTokenType(XQueryTokenType.K_LOWERCASE) || matchTokenType(XQueryTokenType.K_UPPERCASE)) {
+            caseOptionMarker.done(XQueryElementType.FT_CASE_OPTION);
+            return true;
+        } else if (matchTokenType(XQueryTokenType.K_CASE)) {
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_SENSITIVE) && !matchTokenType(XQueryTokenType.K_INSENSITIVE)) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "sensitive, insensitive"));
+            }
+
+            caseOptionMarker.done(XQueryElementType.FT_CASE_OPTION);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseFTDiacriticsOption(@NotNull PsiBuilder.Marker diacriticsOptionMarker) {
+        if (matchTokenType(XQueryTokenType.K_DIACRITICS)) {
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_SENSITIVE) && !matchTokenType(XQueryTokenType.K_INSENSITIVE)) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "sensitive, insensitive"));
+            }
+
+            diacriticsOptionMarker.done(XQueryElementType.FT_DIACRITICS_OPTION);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseFTStemOption(@NotNull PsiBuilder.Marker stemOptionMarker) {
+        if (matchTokenType(XQueryTokenType.K_STEMMING)) {
+            stemOptionMarker.done(XQueryElementType.FT_STEM_OPTION);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseFTThesaurusOption(@NotNull PsiBuilder.Marker thesaurusOptionMarker) {
+        if (matchTokenType(XQueryTokenType.K_THESAURUS)) {
+            boolean haveError = false;
+
+            parseWhiteSpaceAndCommentTokens();
+            boolean hasParenthesis = matchTokenType(XQueryTokenType.PARENTHESIS_OPEN);
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_DEFAULT) && !parseFTThesaurusID()) {
+                if (hasParenthesis) {
+                    error(XQueryBundle.message("parser.error.expected-keyword", "at, default"));
+                } else {
+                    error(XQueryBundle.message("parser.error.expected-keyword-or-token", "(", "at, default"));
+                }
+                haveError = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            boolean haveComma;
+            if (hasParenthesis) {
+                haveComma = matchTokenType(XQueryTokenType.COMMA);
+            } else {
+                haveComma = errorOnTokenType(XQueryTokenType.COMMA, XQueryBundle.message("parser.error.full-text.multientry-thesaurus-requires-parenthesis"));
+                haveError |= haveComma;
+            }
+
+            while (haveComma) {
+                parseWhiteSpaceAndCommentTokens();
+                if (!parseFTThesaurusID() && !haveError) {
+                    error(XQueryBundle.message("parser.error.expected-keyword", "at"));
+
+                    matchTokenType(XQueryTokenType.K_DEFAULT);
+                    parseWhiteSpaceAndCommentTokens();
+
+                    haveError = true;
+                }
+
+                parseWhiteSpaceAndCommentTokens();
+                haveComma = matchTokenType(XQueryTokenType.COMMA);
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (hasParenthesis) {
+                if (!matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE) && !haveError) {
+                    error(XQueryBundle.message("parser.error.expected-either", ",", ")"));
+                }
+            } else if (!haveError) {
+                errorOnTokenType(XQueryTokenType.PARENTHESIS_CLOSE, XQueryBundle.message("parser.error.expected-keyword-or-token", ";", "using"));
+            } else {
+                matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE);
+            }
+
+            thesaurusOptionMarker.done(XQueryElementType.FT_THESAURUS_OPTION);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseFTThesaurusID() {
+        final PsiBuilder.Marker thesaurusIdMarker = matchTokenTypeWithMarker(XQueryTokenType.K_AT);
+        if (thesaurusIdMarker != null) {
+            boolean haveError = false;
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseStringLiteral(XQueryElementType.URI_LITERAL)) {
+                error(XQueryBundle.message("parser.error.expected", "URILiteral"));
+                haveError = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (matchTokenType(XQueryTokenType.K_RELATIONSHIP)) {
+                parseWhiteSpaceAndCommentTokens();
+                if (!parseStringLiteral(XQueryElementType.STRING_LITERAL) && !haveError) {
+                    error(XQueryBundle.message("parser.error.expected", "StringLiteral"));
+                    haveError = true;
+                }
+            }
+
+            if (parseFTRange(XQueryElementType.FT_LITERAL_RANGE)) {
+                parseWhiteSpaceAndCommentTokens();
+                if (!matchTokenType(XQueryTokenType.K_LEVELS) && !haveError) {
+                    error(XQueryBundle.message("parser.error.expected-keyword", "levels"));
+                }
+            }
+
+            thesaurusIdMarker.done(XQueryElementType.FT_THESAURUS_ID);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseFTStopWordOption(@NotNull PsiBuilder.Marker stopWordOptionMarker) {
+        if (matchTokenType(XQueryTokenType.K_STOP)) {
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_WORDS)) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "words"));
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_DEFAULT) && !parseFTStopWords()) {
+                error(XQueryBundle.message("parser.error.expected-keyword-or-token", "(", "at, default"));
+            }
+
+            do {
+                parseWhiteSpaceAndCommentTokens();
+            } while (parseFTStopWordsInclExcl());
+
+            stopWordOptionMarker.done(XQueryElementType.FT_STOP_WORD_OPTION);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseFTStopWords() {
+        if (getTokenType() == XQueryTokenType.K_AT) {
+            final PsiBuilder.Marker stopWordsMarker = mark();
+            advanceLexer();
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseStringLiteral(XQueryElementType.URI_LITERAL)) {
+                error(XQueryBundle.message("parser.error.expected", "URILiteral"));
+            }
+
+            stopWordsMarker.done(XQueryElementType.FT_STOP_WORDS);
+            return true;
+        } else if (getTokenType() == XQueryTokenType.PARENTHESIS_OPEN) {
+            final PsiBuilder.Marker stopWordsMarker = mark();
+            advanceLexer();
+
+            boolean haveError = false;
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseStringLiteral(XQueryElementType.STRING_LITERAL)) {
+                error(XQueryBundle.message("parser.error.expected", "StringLiteral"));
+                haveError = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            while (matchTokenType(XQueryTokenType.COMMA)) {
+                parseWhiteSpaceAndCommentTokens();
+                if (!parseStringLiteral(XQueryElementType.STRING_LITERAL) && !haveError) {
+                    error(XQueryBundle.message("parser.error.expected", "StringLiteral"));
+                    haveError = true;
+                }
+
+                parseWhiteSpaceAndCommentTokens();
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.PARENTHESIS_CLOSE) && !haveError) {
+                error(XQueryBundle.message("parser.error.expected-either", ",", ")"));
+            }
+
+            stopWordsMarker.done(XQueryElementType.FT_STOP_WORDS);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseFTStopWordsInclExcl() {
+        final PsiBuilder.Marker stopWordsInclExclMarker = matchTokenTypeWithMarker(XQueryTokenType.K_UNION, XQueryTokenType.K_EXCEPT);
+        if (stopWordsInclExclMarker != null) {
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseFTStopWords()) {
+                error(XQueryBundle.message("parser.error.expected-keyword-or-token", "(", "at"));
+            }
+
+            stopWordsInclExclMarker.done(XQueryElementType.FT_STOP_WORDS_INCL_EXCL);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseFTLanguageOption(@NotNull PsiBuilder.Marker languageOptionMarker) {
+        if (matchTokenType(XQueryTokenType.K_LANGUAGE)) {
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseStringLiteral(XQueryElementType.STRING_LITERAL)) {
+                error(XQueryBundle.message("parser.error.expected", "StringLiteral"));
+            }
+
+            languageOptionMarker.done(XQueryElementType.FT_LANGUAGE_OPTION);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseFTWildCardOption(@NotNull PsiBuilder.Marker wildcardOptionMarker) {
+        if (matchTokenType(XQueryTokenType.K_WILDCARDS)) {
+            wildcardOptionMarker.done(XQueryElementType.FT_WILDCARD_OPTION);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseFTExtensionOption(@NotNull PsiBuilder.Marker extensionOptionMarker) {
+        if (matchTokenType(XQueryTokenType.K_OPTION)) {
+            boolean haveErrors = false;
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseEQName(XQueryElementType.EQNAME)) {
+                error(XQueryBundle.message("parser.error.expected-eqname"));
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseStringLiteral(XQueryElementType.STRING_LITERAL) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected", "StringLiteral"));
+            }
+
+            extensionOptionMarker.done(XQueryElementType.FT_EXTENSION_OPTION);
+            return true;
+        }
+        return false;
+    }
 
     // endregion
     // region Grammar :: Expr :: UpdatingFunctionCall
