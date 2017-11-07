@@ -84,7 +84,7 @@ class XQueryParser {
         MATCHED,
         MATCHED_WITH_ERRORS,
         NOT_MATCHED,
-    };
+    }
 
     private boolean matchTokenType(IElementType type) {
         if (mBuilder.getTokenType() == type) {
@@ -145,7 +145,7 @@ class XQueryParser {
         WITH_PROLOG,
         WITHOUT_PROLOG,
         NONE
-    };
+    }
 
     private boolean parseTransactions() {
         if (parseModule()) {
@@ -339,7 +339,7 @@ class XQueryParser {
         BODY_STATEMENT,
         UNKNOWN_STATEMENT,
         NOT_MATCHED
-    };
+    }
 
     private boolean parseProlog(boolean parseInvalidConstructs) {
         final PsiBuilder.Marker prologMarker = mark();
@@ -2660,7 +2660,7 @@ class XQueryParser {
         NONE,
         XQUERY_30,
         MARK_LOGIC
-    };
+    }
 
     private boolean parseTryCatchExpr() {
         final PsiBuilder.Marker tryExprMarker = mark();

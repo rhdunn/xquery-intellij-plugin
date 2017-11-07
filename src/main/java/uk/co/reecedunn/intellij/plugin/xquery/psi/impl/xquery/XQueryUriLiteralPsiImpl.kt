@@ -50,14 +50,14 @@ class XQueryUriLiteralPsiImpl(node: ASTNode): XQueryStringLiteralPsiImpl(node), 
 
     private fun resolveFileByPath(parent: VirtualFile?, project: Project, path: String): PsiFile? {
         if (parent == null) {
-            return null;
+            return null
         }
 
-        val file = parent.findFileByRelativePath(path);
+        val file = parent.findFileByRelativePath(path)
         if (file != null) {
-            return PsiManager.getInstance(project).findFile(file);
+            return PsiManager.getInstance(project).findFile(file)
         }
 
-        return resolveFileByPath(parent.parent, project, path);
+        return resolveFileByPath(parent.parent, project, path)
     }
 }

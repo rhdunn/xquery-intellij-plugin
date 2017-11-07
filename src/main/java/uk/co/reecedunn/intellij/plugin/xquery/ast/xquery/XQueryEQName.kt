@@ -44,7 +44,7 @@ interface XQueryEQName: PsiElement {
         if (parent === XQueryElementType.FUNCTION_CALL ||
             parent === XQueryElementType.NAMED_FUNCTION_REF ||
             parent === XQueryElementType.ARROW_FUNCTION_SPECIFIER) {
-            return Type.Function;
+            return Type.Function
         } else {
             var previous = prevSibling
             while (previous?.node?.elementType === XQueryElementType.COMMENT ||
@@ -53,10 +53,10 @@ interface XQueryEQName: PsiElement {
             }
 
             if (previous?.node?.elementType === XQueryTokenType.VARIABLE_INDICATOR) {
-                return Type.Variable;
+                return Type.Variable
             }
         }
-        return Type.Unknown;
+        return Type.Unknown
     }
 
     val prefix: PsiElement?
