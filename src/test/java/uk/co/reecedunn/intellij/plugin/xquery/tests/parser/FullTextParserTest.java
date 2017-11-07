@@ -372,6 +372,15 @@ public class FullTextParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region Full Text 1.0 :: FTOrder
+
+    public void testFTOrder() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTOrder.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTOrder.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region Full Text 1.0 :: FTCaseOption
 
     public void testFTCaseOption_LowerCase() {

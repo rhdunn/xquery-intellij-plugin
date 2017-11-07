@@ -5264,8 +5264,7 @@ class XQueryParser {
         final PsiBuilder.Marker selectionMarker = mark();
         if (parseFTOr()) {
             parseWhiteSpaceAndCommentTokens();
-
-            // TODO: FTPosFilter*
+            parseFTPosFilter(); // TODO: FTPosFilter*
 
             selectionMarker.done(XQueryElementType.FT_SELECTION);
             return true;
@@ -5608,6 +5607,23 @@ class XQueryParser {
         }
         return false;
     }
+
+    // endregion
+    // region Grammar :: Expr :: OrExpr :: FTPosFilter
+
+    private boolean parseFTPosFilter() {
+        return parseFTOrder(); // TODO: | FTWindow | FTDistance | FTScope | FTContent
+    }
+
+    private boolean parseFTOrder() {
+        final PsiBuilder.Marker orderMarker = matchTokenTypeWithMarker(XQueryTokenType.K_ORDERED);
+        if (orderMarker != null) {
+            orderMarker.done(XQueryElementType.FT_ORDER);
+            return true;
+        }
+        return false;
+    }
+
 
     // endregion
     // region Grammar :: Expr :: UpdatingFunctionCall
