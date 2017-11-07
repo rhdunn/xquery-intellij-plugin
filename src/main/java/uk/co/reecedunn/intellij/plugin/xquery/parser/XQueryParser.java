@@ -559,6 +559,19 @@ class XQueryParser {
         return false;
     }
 
+    private boolean parseFTOptionDecl() {
+        if (matchTokenType(XQueryTokenType.K_FT_OPTION)) {
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseFTMatchOptions()) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "using"));
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            return true;
+        }
+        return false;
+    }
+
     // endregion
     // region Grammar :: Prolog :: Header :: Setter
 
@@ -959,20 +972,7 @@ class XQueryParser {
     }
 
     // endregion
-    // region Grammar :: Prolog :: Header :: FTOptionDecl
-
-    private boolean parseFTOptionDecl() {
-        if (matchTokenType(XQueryTokenType.K_FT_OPTION)) {
-            parseWhiteSpaceAndCommentTokens();
-            if (!parseFTMatchOptions()) {
-                error(XQueryBundle.message("parser.error.expected-keyword", "using"));
-            }
-
-            parseWhiteSpaceAndCommentTokens();
-            return true;
-        }
-        return false;
-    }
+    // region Grammar :: Prolog :: Header :: FTMatchOptions
 
     private boolean parseFTMatchOptions() {
         final PsiBuilder.Marker matchOptionsMarker = mark();
@@ -987,7 +987,11 @@ class XQueryParser {
             parseWhiteSpaceAndCommentTokens();
         }
 
-        matchOptionsMarker.done(XQueryElementType.FT_MATCH_OPTIONS);
+        if (haveFTMatchOption) {
+            matchOptionsMarker.done(XQueryElementType.FT_MATCH_OPTIONS);
+        } else {
+            matchOptionsMarker.drop();
+        }
         return haveFTMatchOption;
     }
 
@@ -5329,8 +5333,9 @@ class XQueryParser {
         final PsiBuilder.Marker primaryWithOptionsMarker = mark();
         if (parseFTPrimary()) {
             parseWhiteSpaceAndCommentTokens();
+            parseFTMatchOptions();
 
-            // TODO: FTMatchOptions?
+            parseWhiteSpaceAndCommentTokens();
             parseFTWeight();
 
             primaryWithOptionsMarker.done(XQueryElementType.FT_PRIMARY_WITH_OPTIONS);

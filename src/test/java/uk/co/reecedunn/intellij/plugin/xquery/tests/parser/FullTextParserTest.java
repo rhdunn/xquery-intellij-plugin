@@ -96,6 +96,27 @@ public class FullTextParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region Full Text 1.0 :: FTPrimaryWithOptions
+
+    public void testFTPrimaryWithOptions_MatchOptions() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTPrimaryWithOptions_MatchOptions.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTPrimaryWithOptions_MatchOptions.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTPrimaryWithOptions_FTWeight() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTWeight.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTWeight.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTPrimaryWithOptions_MatchOptionsAndWeight() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTPrimaryWithOptions_MatchOptionsAndWeight.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTPrimaryWithOptions_MatchOptionsAndWeight.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region Full Text 1.0 :: FTPrimary
 
     public void testFTPrimary_Words() {
