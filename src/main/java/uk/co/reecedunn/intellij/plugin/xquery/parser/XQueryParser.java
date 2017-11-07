@@ -1119,7 +1119,7 @@ class XQueryParser {
 
             parseWhiteSpaceAndCommentTokens();
             if (matchTokenType(XQueryTokenType.ASSIGN_EQUAL) ||
-               (haveErrors = errorOnTokenType(XQueryTokenType.EQUAL, XQueryBundle.message("parser.error.expected-variable-value")))) {
+               (haveErrors |= errorOnTokenType(XQueryTokenType.EQUAL, XQueryBundle.message("parser.error.expected-variable-value")))) {
                 parseWhiteSpaceAndCommentTokens();
                 if (!parseExprSingle(XQueryElementType.VAR_VALUE) && !haveErrors) {
                     error(XQueryBundle.message("parser.error.expected-expression"));
@@ -1148,7 +1148,7 @@ class XQueryParser {
             boolean haveErrors = false;
 
             parseWhiteSpaceAndCommentTokens();
-            if (!parseEQName(XQueryElementType.QNAME) && !haveErrors) {
+            if (!parseEQName(XQueryElementType.QNAME)) {
                 error(XQueryBundle.message("parser.error.expected-eqname"));
                 haveErrors = true;
             }
