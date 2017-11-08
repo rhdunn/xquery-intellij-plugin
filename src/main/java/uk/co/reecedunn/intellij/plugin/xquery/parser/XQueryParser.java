@@ -4975,9 +4975,16 @@ class XQueryParser {
     private boolean parseFTAnd() {
         final PsiBuilder.Marker andMarker = mark();
         if (parseFTMildNot()) {
-            parseWhiteSpaceAndCommentTokens();
+            boolean haveErrors = false;
 
-            // TODO: ("ftand" FTMildNot)*
+            parseWhiteSpaceAndCommentTokens();
+            while (matchTokenType(XQueryTokenType.K_FTAND)) {
+                parseWhiteSpaceAndCommentTokens();
+                if (!parseFTMildNot() && !haveErrors) {
+                    error(XQueryBundle.message("parser.error.expected", "FTMildNot"));
+                    haveErrors = true;
+                }
+            }
 
             andMarker.done(XQueryElementType.FT_AND);
             return true;

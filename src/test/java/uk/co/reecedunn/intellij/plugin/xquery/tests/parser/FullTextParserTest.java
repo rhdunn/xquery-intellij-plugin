@@ -96,6 +96,39 @@ public class FullTextParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region Full Text 1.0 :: FTAnd
+
+    public void testFTAnd() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTAnd.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTAnd.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTAnd_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTAnd_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTAnd_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTAnd_Multiple() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTAnd_Multiple.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTAnd_Multiple.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTAnd_Multiple_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTAnd_Multiple_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTAnd_Multiple_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTAnd_MissingFTMildNot() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTAnd_MissingFTMildNot.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTAnd_MissingFTMildNot.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region Full Text 1.0 :: FTMildNot
 
     public void testFTMildNot() {
