@@ -69,6 +69,27 @@ public class FullTextParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region Full Text 1.0 :: FTSelection
+
+    public void testFTSelection() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTWordsValue.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTWordsValue.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTSelection_FTPosFilter_Single() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTOrder.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTOrder.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTSelection_FTPosFilter_Multiple() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTSelection_FTPosFilter_Multiple.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTSelection_FTPosFilter_Multiple.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region Full Text 1.0 :: FTWeight
 
     public void testFTWeight() {

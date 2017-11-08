@@ -4948,8 +4948,9 @@ class XQueryParser {
     private boolean parseFTSelection() {
         final PsiBuilder.Marker selectionMarker = mark();
         if (parseFTOr()) {
-            parseWhiteSpaceAndCommentTokens();
-            parseFTPosFilter(); // TODO: FTPosFilter*
+            do {
+                parseWhiteSpaceAndCommentTokens();
+            } while (parseFTPosFilter());
 
             selectionMarker.done(XQueryElementType.FT_SELECTION);
             return true;
