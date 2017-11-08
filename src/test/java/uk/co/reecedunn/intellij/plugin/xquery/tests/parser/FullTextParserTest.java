@@ -96,6 +96,39 @@ public class FullTextParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region Full Text 1.0 :: FTOr
+
+    public void testFTOr() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTOr.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTOr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTOr_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTOr_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTOr_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTOr_Multiple() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTOr_Multiple.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTOr_Multiple.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTOr_Multiple_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTOr_Multiple_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTOr_Multiple_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTOr_MissingFTAnd() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTOr_MissingFTAnd.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTOr_MissingFTAnd.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region Full Text 1.0 :: FTAnd
 
     public void testFTAnd() {

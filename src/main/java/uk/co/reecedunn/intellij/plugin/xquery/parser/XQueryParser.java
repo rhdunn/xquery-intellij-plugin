@@ -4961,9 +4961,16 @@ class XQueryParser {
     private boolean parseFTOr() {
         final PsiBuilder.Marker orMarker = mark();
         if (parseFTAnd()) {
-            parseWhiteSpaceAndCommentTokens();
+            boolean haveErrors = false;
 
-            // TODO: ("ftor" FTAnd)*
+            parseWhiteSpaceAndCommentTokens();
+            while (matchTokenType(XQueryTokenType.K_FTOR)) {
+                parseWhiteSpaceAndCommentTokens();
+                if (!parseFTAnd() && !haveErrors) {
+                    error(XQueryBundle.message("parser.error.expected", "FTAnd"));
+                    haveErrors = true;
+                }
+            }
 
             orMarker.done(XQueryElementType.FT_OR);
             return true;
