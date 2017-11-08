@@ -4989,9 +4989,24 @@ class XQueryParser {
     private boolean parseFTMildNot() {
         final PsiBuilder.Marker mildNotMarker = mark();
         if (parseFTUnaryNot()) {
-            parseWhiteSpaceAndCommentTokens();
+            boolean haveErrors = false;
 
-            // TODO: ("not" "in" FTUnaryNot)*
+            parseWhiteSpaceAndCommentTokens();
+            while (matchTokenType(XQueryTokenType.K_NOT)) {
+                parseWhiteSpaceAndCommentTokens();
+                if (!matchTokenType(XQueryTokenType.K_IN) && !haveErrors) {
+                    error(XQueryBundle.message("parser.error.expected-keyword", "in"));
+                    haveErrors = true;
+                }
+
+                parseWhiteSpaceAndCommentTokens();
+                if (!parseFTUnaryNot() && !haveErrors) {
+                    error(XQueryBundle.message("parser.error.expected", "FTUnaryNot"));
+                    haveErrors = true;
+                }
+
+                parseWhiteSpaceAndCommentTokens();
+            }
 
             mildNotMarker.done(XQueryElementType.FT_MILD_NOT);
             return true;

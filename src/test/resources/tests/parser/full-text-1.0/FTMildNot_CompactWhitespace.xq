@@ -1,0 +1,1 @@
+title contains text"lorem"not in"lorem ipsum dolor"

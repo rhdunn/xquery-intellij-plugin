@@ -96,6 +96,45 @@ public class FullTextParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region Full Text 1.0 :: FTMildNot
+
+    public void testFTMildNot() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTMildNot.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTMildNot.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTMildNot_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTMildNot_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTMildNot_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTMildNot_Multiple() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTMildNot_Multiple.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTMildNot_Multiple.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTMildNot_Multiple_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTMildNot_Multiple_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTMildNot_Multiple_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTMildNot_MissingInKeyword() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTMildNot_MissingInKeyword.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTMildNot_MissingInKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTMildNot_MissingFTUnaryNot() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTMildNot_MissingFTUnaryNot.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTMildNot_MissingFTUnaryNot.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region Full Text 1.0 :: FTUnaryNot
 
     public void testFTUnaryNot() {
