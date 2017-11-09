@@ -342,6 +342,8 @@ public interface XQueryElementType {
 
     IElementType FT_ORDER = new ICompositeElementType("XQUERY_FT_ORDER", FTOrderPsiImpl.class, XQuery.INSTANCE);
 
+    IElementType FT_IGNORE_OPTION = new ICompositeElementType("XQUERY_FT_IGNORE_OPTION", FTIgnoreOptionPsiImpl.class, XQuery.INSTANCE);
+
     // endregion
     // region Scripting Extension 1.0
 

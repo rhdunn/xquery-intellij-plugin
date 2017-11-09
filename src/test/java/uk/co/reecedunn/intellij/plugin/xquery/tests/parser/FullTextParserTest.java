@@ -56,6 +56,12 @@ public class FullTextParserTest extends ParserTestCase {
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
+    public void testFTContainsExpr_FTIgnoreOption() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTIgnoreOption.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTIgnoreOption.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
     public void testFTContainsExpr_MissingTextKeyword() {
         final String expected = loadResource("tests/parser/full-text-1.0/FTContainsExpr_MissingTextKeyword.txt");
         final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTContainsExpr_MissingTextKeyword.xq");
@@ -1079,6 +1085,33 @@ public class FullTextParserTest extends ParserTestCase {
     public void testFTExtensionOption_MissingOptionValue() {
         final String expected = loadResource("tests/parser/full-text-1.0/FTExtensionOption_MissingOptionValue.txt");
         final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTExtensionOption_MissingOptionValue.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
+    // region Full Text 1.0 :: FTIgnoreOption
+
+    public void testFTIgnoreOption() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTIgnoreOption.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTIgnoreOption.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTIgnoreOption_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTIgnoreOption_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTIgnoreOption_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTIgnoreOption_MissingContentKeyword() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTIgnoreOption_MissingContentKeyword.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTIgnoreOption_MissingContentKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTIgnoreOption_MissingUnionExpr() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTIgnoreOption_MissingUnionExpr.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTIgnoreOption_MissingUnionExpr.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 

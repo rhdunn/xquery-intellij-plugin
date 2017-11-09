@@ -3279,13 +3279,36 @@ class XQueryParser {
                     error(XQueryBundle.message("parser.error.expected", "FTSelection"));
                 }
 
-                // TODO: FTIgnoreOption?
+                parseWhiteSpaceAndCommentTokens();
+                parseFTIgnoreOption();
             }
 
             containsExprMarker.done(XQueryElementType.FT_CONTAINS_EXPR);
             return true;
         }
         containsExprMarker.drop();
+        return false;
+    }
+
+    private boolean parseFTIgnoreOption() {
+        final PsiBuilder.Marker ignoreOptionMarker = matchTokenTypeWithMarker(XQueryTokenType.K_WITHOUT);
+        if (ignoreOptionMarker != null) {
+            boolean haveError = false;
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_CONTENT)) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "content"));
+                haveError = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseUnionExpr(XQueryElementType.FT_IGNORE_OPTION) && !haveError) {
+                error(XQueryBundle.message("parser.error.expected", "UnionExpr"));
+            }
+
+            ignoreOptionMarker.done(XQueryElementType.FT_IGNORE_OPTION);
+            return true;
+        }
         return false;
     }
 
