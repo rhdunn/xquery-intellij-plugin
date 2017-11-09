@@ -534,6 +534,27 @@ public class FullTextParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region Full Text 1.0 :: FTDistance
+
+    public void testFTDistance() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTDistance.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTDistance.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTDistance_MissingFTRange() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTDistance_MissingFTRange.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTDistance_MissingFTRange.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTDistance_MissingFTUnit() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTDistance_MissingFTUnit.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTDistance_MissingFTUnit.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region Full Text 1.0 :: FTUnit
 
     public void testFTUnit_Words() {
