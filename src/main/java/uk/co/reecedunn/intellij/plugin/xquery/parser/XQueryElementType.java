@@ -343,6 +343,7 @@ public interface XQueryElementType {
     IElementType FT_ORDER = new ICompositeElementType("XQUERY_FT_ORDER", FTOrderPsiImpl.class, XQuery.INSTANCE);
     IElementType FT_WINDOW = new ICompositeElementType("XQUERY_FT_WINDOW", FTWindowPsiImpl.class, XQuery.INSTANCE);
     IElementType FT_DISTANCE = new ICompositeElementType("XQUERY_FT_DISTANCE", FTDistancePsiImpl.class, XQuery.INSTANCE);
+    IElementType FT_SCOPE = new ICompositeElementType("XQUERY_FT_SCOPE", FTScopePsiImpl.class, XQuery.INSTANCE);
 
     IElementType FT_UNIT = new ICompositeElementType("XQUERY_FT_UNIT", FTUnitPsiImpl.class, XQuery.INSTANCE);
 

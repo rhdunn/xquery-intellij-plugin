@@ -5350,7 +5350,7 @@ class XQueryParser {
     // region Grammar :: Expr :: OrExpr :: FTPosFilter
 
     private boolean parseFTPosFilter() {
-        return parseFTOrder() || parseFTWindow() || parseFTDistance(); // TODO: | FTScope | FTContent
+        return parseFTOrder() || parseFTWindow() || parseFTDistance() || parseFTScope(); // TODO: | FTContent
     }
 
     private boolean parseFTOrder() {
@@ -5401,6 +5401,20 @@ class XQueryParser {
             }
 
             distanceMarker.done(XQueryElementType.FT_DISTANCE);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseFTScope() {
+        final PsiBuilder.Marker scopeMarker = matchTokenTypeWithMarker(XQueryTokenType.K_SAME, XQueryTokenType.K_DIFFERENT);
+        if (scopeMarker != null) {
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_SENTENCE)) { // TODO: FTBigUnit
+                error(XQueryBundle.message("parser.error.expected-keyword", "paragraph, sentence"));
+            }
+
+            scopeMarker.done(XQueryElementType.FT_SCOPE);
             return true;
         }
         return false;

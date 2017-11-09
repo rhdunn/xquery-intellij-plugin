@@ -576,6 +576,33 @@ public class FullTextParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region Full Text 1.0 :: FTScope
+
+    public void testFTScope_Same() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTScope_Same.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTScope_Same.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTScope_Same_MissingFTBigUnit() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTScope_Same_MissingFTBigUnit.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTScope_Same_MissingFTBigUnit.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTScope_Different() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTScope_Different.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTScope_Different.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTScope_Different_MissingFTBigUnit() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTScope_Different_MissingFTBigUnit.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTScope_Different_MissingFTBigUnit.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region Full Text 1.0 :: FTCaseOption
 
     public void testFTCaseOption_LowerCase() {
