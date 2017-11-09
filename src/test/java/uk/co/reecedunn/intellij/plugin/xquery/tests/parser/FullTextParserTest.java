@@ -603,6 +603,21 @@ public class FullTextParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region Full Text 1.0 :: FTBigUnit
+
+    public void testFTBigUnit_Sentence() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTScope_Same.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTScope_Same.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTBigUnit_Paragraph() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTBigUnit_Paragraph.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTBigUnit_Paragraph.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region Full Text 1.0 :: FTCaseOption
 
     public void testFTCaseOption_LowerCase() {

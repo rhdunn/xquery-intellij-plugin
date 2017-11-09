@@ -1,11 +1,11 @@
-FileElement[FILE(0:41)]
-   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:41)]
-      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:41)]
-         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:41)]
-            XQueryOrExprImpl[XQUERY_OR_EXPR(0:41)]
-               XQueryAndExprImpl[XQUERY_AND_EXPR(0:41)]
-                  XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:41)]
-                     FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:41)]
+FileElement[FILE(0:42)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:42)]
+      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:42)]
+         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:42)]
+            XQueryOrExprImpl[XQUERY_OR_EXPR(0:42)]
+               XQueryAndExprImpl[XQUERY_AND_EXPR(0:42)]
+                  XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:42)]
+                     FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:42)]
                         XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(0:6)]
                            XQueryRangeExprImpl[XQUERY_RANGE_EXPR(0:6)]
                               XQueryAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(0:6)]
@@ -34,7 +34,7 @@ FileElement[FILE(0:41)]
                         PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
                         LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
                         PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
-                        FTSelectionImpl[XQUERY_FT_SELECTION(20:41)]
+                        FTSelectionImpl[XQUERY_FT_SELECTION(20:42)]
                            FTOrImpl[XQUERY_FT_OR(20:28)]
                               FTAndImpl[XQUERY_FT_AND(20:28)]
                                  FTMildNotImpl[XQUERY_FT_MILD_NOT(20:28)]
@@ -48,8 +48,8 @@ FileElement[FILE(0:41)]
                                                       LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(21:26)]('lorem')
                                                       LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(26:27)]('"')
                                                 PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
-                           FTScopeImpl[XQUERY_FT_SCOPE(28:41)]
+                           FTScopeImpl[XQUERY_FT_SCOPE(28:42)]
                               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_SAME(28:32)]('same')
                               PsiWhiteSpaceImpl[WHITE_SPACE(32:33)](' ')
-                              FTBigUnitImpl[XQUERY_FT_BIG_UNIT(33:41)]
-                                 LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_SENTENCE(33:41)]('sentence')
+                              FTBigUnitImpl[XQUERY_FT_BIG_UNIT(33:42)]
+                                 LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_PARAGRAPH(33:42)]('paragraph')

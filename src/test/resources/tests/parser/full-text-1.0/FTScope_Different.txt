@@ -51,4 +51,5 @@ FileElement[FILE(0:46)]
                            FTScopeImpl[XQUERY_FT_SCOPE(28:46)]
                               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DIFFERENT(28:37)]('different')
                               PsiWhiteSpaceImpl[WHITE_SPACE(37:38)](' ')
-                              LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_SENTENCE(38:46)]('sentence')
+                              FTBigUnitImpl[XQUERY_FT_BIG_UNIT(38:46)]
+                                 LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_SENTENCE(38:46)]('sentence')

@@ -5410,7 +5410,7 @@ class XQueryParser {
         final PsiBuilder.Marker scopeMarker = matchTokenTypeWithMarker(XQueryTokenType.K_SAME, XQueryTokenType.K_DIFFERENT);
         if (scopeMarker != null) {
             parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.K_SENTENCE)) { // TODO: FTBigUnit
+            if (!parseFTBigUnit()) {
                 error(XQueryBundle.message("parser.error.expected-keyword", "paragraph, sentence"));
             }
 
@@ -5427,6 +5427,17 @@ class XQueryParser {
             final PsiBuilder.Marker marker = mark();
             mBuilder.advanceLexer();
             marker.done(XQueryElementType.FT_UNIT);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseFTBigUnit() {
+        if (getTokenType() == XQueryTokenType.K_SENTENCE ||
+            getTokenType() == XQueryTokenType.K_PARAGRAPH) {
+            final PsiBuilder.Marker marker = mark();
+            mBuilder.advanceLexer();
+            marker.done(XQueryElementType.FT_BIG_UNIT);
             return true;
         }
         return false;

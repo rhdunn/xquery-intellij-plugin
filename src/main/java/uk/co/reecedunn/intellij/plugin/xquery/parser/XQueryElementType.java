@@ -346,6 +346,7 @@ public interface XQueryElementType {
     IElementType FT_SCOPE = new ICompositeElementType("XQUERY_FT_SCOPE", FTScopePsiImpl.class, XQuery.INSTANCE);
 
     IElementType FT_UNIT = new ICompositeElementType("XQUERY_FT_UNIT", FTUnitPsiImpl.class, XQuery.INSTANCE);
+    IElementType FT_BIG_UNIT = new ICompositeElementType("XQUERY_FT_BIG_UNIT", FTBigUnitPsiImpl.class, XQuery.INSTANCE);
 
     IElementType FT_IGNORE_OPTION = new ICompositeElementType("XQUERY_FT_IGNORE_OPTION", FTIgnoreOptionPsiImpl.class, XQuery.INSTANCE);
 
