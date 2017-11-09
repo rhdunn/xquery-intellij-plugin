@@ -1,0 +1,1 @@
+title contains text "lorem" window 5 words

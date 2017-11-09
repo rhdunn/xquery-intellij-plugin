@@ -513,6 +513,27 @@ public class FullTextParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region Full Text 1.0 :: FTWindow + FTUnit
+
+    public void testFTWindow() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTWindow.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTWindow.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTWindow_MissingAdditiveExpr() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTWindow_MissingAdditiveExpr.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTWindow_MissingAdditiveExpr.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTWindow_MissingFTUnit() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTWindow_MissingFTUnit.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTWindow_MissingFTUnit.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region Full Text 1.0 :: FTCaseOption
 
     public void testFTCaseOption_LowerCase() {

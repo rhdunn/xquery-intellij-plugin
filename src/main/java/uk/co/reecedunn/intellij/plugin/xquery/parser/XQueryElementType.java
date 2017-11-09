@@ -341,6 +341,7 @@ public interface XQueryElementType {
     IElementType FT_WEIGHT = new ICompositeElementType("XQUERY_FT_WEIGHT", FTWeightPsiImpl.class, XQuery.INSTANCE);
 
     IElementType FT_ORDER = new ICompositeElementType("XQUERY_FT_ORDER", FTOrderPsiImpl.class, XQuery.INSTANCE);
+    IElementType FT_WINDOW = new ICompositeElementType("XQUERY_FT_WINDOW", FTWindowPsiImpl.class, XQuery.INSTANCE);
 
     IElementType FT_IGNORE_OPTION = new ICompositeElementType("XQUERY_FT_IGNORE_OPTION", FTIgnoreOptionPsiImpl.class, XQuery.INSTANCE);
 

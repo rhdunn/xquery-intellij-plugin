@@ -5350,13 +5350,35 @@ class XQueryParser {
     // region Grammar :: Expr :: OrExpr :: FTPosFilter
 
     private boolean parseFTPosFilter() {
-        return parseFTOrder(); // TODO: | FTWindow | FTDistance | FTScope | FTContent
+        return parseFTOrder() || parseFTWindow(); // TODO: | FTDistance | FTScope | FTContent
     }
 
     private boolean parseFTOrder() {
         final PsiBuilder.Marker orderMarker = matchTokenTypeWithMarker(XQueryTokenType.K_ORDERED);
         if (orderMarker != null) {
             orderMarker.done(XQueryElementType.FT_ORDER);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseFTWindow() {
+        final PsiBuilder.Marker windowMarker = matchTokenTypeWithMarker(XQueryTokenType.K_WINDOW);
+        if (windowMarker != null) {
+            boolean haveError = false;
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseAdditiveExpr(XQueryElementType.FT_WINDOW)) {
+                error(XQueryBundle.message("parser.error.expected", "AdditiveExpr"));
+                haveError = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_WORDS) && !haveError) { // TODO: FTUnit
+                error(XQueryBundle.message("parser.error.expected-keyword", "paragraphs, sentences, words"));
+            }
+
+            windowMarker.done(XQueryElementType.FT_WINDOW);
             return true;
         }
         return false;
