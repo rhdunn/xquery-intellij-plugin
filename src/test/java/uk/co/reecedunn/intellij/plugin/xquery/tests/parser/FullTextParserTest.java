@@ -513,7 +513,7 @@ public class FullTextParserTest extends ParserTestCase {
     }
 
     // endregion
-    // region Full Text 1.0 :: FTWindow + FTUnit
+    // region Full Text 1.0 :: FTWindow
 
     public void testFTWindow() {
         final String expected = loadResource("tests/parser/full-text-1.0/FTWindow.txt");
@@ -530,6 +530,27 @@ public class FullTextParserTest extends ParserTestCase {
     public void testFTWindow_MissingFTUnit() {
         final String expected = loadResource("tests/parser/full-text-1.0/FTWindow_MissingFTUnit.txt");
         final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTWindow_MissingFTUnit.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
+    // region Full Text 1.0 :: FTUnit
+
+    public void testFTUnit_Words() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTWindow.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTWindow.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTUnit_Sentences() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTUnit_Sentences.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTUnit_Sentences.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTUnit_Paragraphs() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTUnit_Paragraphs.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTUnit_Paragraphs.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 

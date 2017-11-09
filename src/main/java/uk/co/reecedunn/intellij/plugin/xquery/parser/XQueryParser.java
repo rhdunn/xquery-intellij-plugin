@@ -5374,11 +5374,23 @@ class XQueryParser {
             }
 
             parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.K_WORDS) && !haveError) { // TODO: FTUnit
+            if (!parseFTUnit() && !haveError) {
                 error(XQueryBundle.message("parser.error.expected-keyword", "paragraphs, sentences, words"));
             }
 
             windowMarker.done(XQueryElementType.FT_WINDOW);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseFTUnit() {
+        if (getTokenType() == XQueryTokenType.K_WORDS ||
+            getTokenType() == XQueryTokenType.K_SENTENCES ||
+            getTokenType() == XQueryTokenType.K_PARAGRAPHS) {
+            final PsiBuilder.Marker marker = mark();
+            mBuilder.advanceLexer();
+            marker.done(XQueryElementType.FT_UNIT);
             return true;
         }
         return false;
