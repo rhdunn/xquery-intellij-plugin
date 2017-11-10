@@ -618,6 +618,39 @@ public class FullTextParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region Full Text 1.0 :: FTContent
+
+    public void testFTContent_AtStart() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTContent_AtStart.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTContent_AtStart.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTContent_AtEnd() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTContent_AtEnd.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTContent_AtEnd.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTContent_At_MissingStartEndKeyword() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTContent_At_MissingStartEndKeyword.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTContent_At_MissingStartEndKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTContent_EntireContent() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTContent_EntireContent.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTContent_EntireContent.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTContent_EntireContent_MissingContentKeyword() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTContent_EntireContent_MissingContentKeyword.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTContent_EntireContent_MissingContentKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region Full Text 1.0 :: FTCaseOption
 
     public void testFTCaseOption_LowerCase() {

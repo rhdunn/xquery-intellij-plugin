@@ -344,6 +344,7 @@ public interface XQueryElementType {
     IElementType FT_WINDOW = new ICompositeElementType("XQUERY_FT_WINDOW", FTWindowPsiImpl.class, XQuery.INSTANCE);
     IElementType FT_DISTANCE = new ICompositeElementType("XQUERY_FT_DISTANCE", FTDistancePsiImpl.class, XQuery.INSTANCE);
     IElementType FT_SCOPE = new ICompositeElementType("XQUERY_FT_SCOPE", FTScopePsiImpl.class, XQuery.INSTANCE);
+    IElementType FT_CONTENT = new ICompositeElementType("XQUERY_FT_CONTENT", FTContentPsiImpl.class, XQuery.INSTANCE);
 
     IElementType FT_UNIT = new ICompositeElementType("XQUERY_FT_UNIT", FTUnitPsiImpl.class, XQuery.INSTANCE);
     IElementType FT_BIG_UNIT = new ICompositeElementType("XQUERY_FT_BIG_UNIT", FTBigUnitPsiImpl.class, XQuery.INSTANCE);

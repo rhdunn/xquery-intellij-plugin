@@ -5350,7 +5350,7 @@ class XQueryParser {
     // region Grammar :: Expr :: OrExpr :: FTPosFilter
 
     private boolean parseFTPosFilter() {
-        return parseFTOrder() || parseFTWindow() || parseFTDistance() || parseFTScope(); // TODO: | FTContent
+        return parseFTOrder() || parseFTWindow() || parseFTDistance() || parseFTScope() || parseFTContent();
     }
 
     private boolean parseFTOrder() {
@@ -5415,6 +5415,33 @@ class XQueryParser {
             }
 
             scopeMarker.done(XQueryElementType.FT_SCOPE);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseFTContent() {
+        if (getTokenType() == XQueryTokenType.K_AT) {
+            final PsiBuilder.Marker contentMarker = mark();
+            advanceLexer();
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_START) && !matchTokenType(XQueryTokenType.K_END)) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "end, start"));
+            }
+
+            contentMarker.done(XQueryElementType.FT_CONTENT);
+            return true;
+        } else if (getTokenType() == XQueryTokenType.K_ENTIRE) {
+            final PsiBuilder.Marker contentMarker = mark();
+            advanceLexer();
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_CONTENT)) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "content"));
+            }
+
+            contentMarker.done(XQueryElementType.FT_CONTENT);
             return true;
         }
         return false;
