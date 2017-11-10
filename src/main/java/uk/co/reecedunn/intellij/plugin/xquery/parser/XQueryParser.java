@@ -1714,15 +1714,20 @@ class XQueryParser {
             boolean havePositionalVar = parsePositionalVar();
 
             parseWhiteSpaceAndCommentTokens();
+            boolean haveScoreVar = parseFTScoreVar();
+
+            parseWhiteSpaceAndCommentTokens();
             if (!matchTokenType(XQueryTokenType.K_IN) && !haveErrors) {
-                if (havePositionalVar) {
+                if (haveScoreVar) {
                     error(XQueryBundle.message("parser.error.expected-keyword", "in"));
+                } else if (havePositionalVar) {
+                    error(XQueryBundle.message("parser.error.expected-keyword", "in, score"));
                 } else if (haveAllowingEmpty) {
-                    error(XQueryBundle.message("parser.error.expected-keyword", "at, in"));
+                    error(XQueryBundle.message("parser.error.expected-keyword", "at, in, score"));
                 } else if (haveTypeDeclaration) {
-                    error(XQueryBundle.message("parser.error.expected-keyword", "allowing, at, in"));
+                    error(XQueryBundle.message("parser.error.expected-keyword", "allowing, at, in, score"));
                 } else {
-                    error(XQueryBundle.message("parser.error.expected-keyword", "allowing, as, at, in"));
+                    error(XQueryBundle.message("parser.error.expected-keyword", "allowing, as, at, in, score"));
                 }
                 haveErrors = true;
             }
@@ -1770,6 +1775,28 @@ class XQueryParser {
             }
 
             positionalVarMarker.done(XQueryElementType.POSITIONAL_VAR);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseFTScoreVar() {
+        final PsiBuilder.Marker scoreVarMarker = matchTokenTypeWithMarker(XQueryTokenType.K_SCORE);
+        if (scoreVarMarker != null) {
+            boolean haveErrors = false;
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.VARIABLE_INDICATOR)) {
+                error(XQueryBundle.message("parser.error.expected", "$"));
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseEQName(XQueryElementType.VAR_NAME) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-eqname"));
+            }
+
+            scoreVarMarker.done(XQueryElementType.FT_SCORE_VAR);
             return true;
         }
         return false;

@@ -323,6 +323,8 @@ public interface XQueryElementType {
     IElementType FT_STOP_WORDS = new ICompositeElementType("XQUERY_FT_STOP_WORDS", FTStopWordsPsiImpl.class, XQuery.INSTANCE);
     IElementType FT_STOP_WORDS_INCL_EXCL = new ICompositeElementType("XQUERY_FT_STOP_WORDS_INCL_EXCL", FTStopWordsInclExclPsiImpl.class, XQuery.INSTANCE);
 
+    IElementType FT_SCORE_VAR = new ICompositeElementType("XQUERY_FT_SCORE_VAR", FTScoreVarPsiImpl.class, XQuery.INSTANCE);
+
     IElementType FT_CONTAINS_EXPR = new ICompositeElementType("XQUERY_FT_CONTAINS_EXPR", FTContainsExprPsiImpl.class, XQuery.INSTANCE);
     IElementType FT_SELECTION = new ICompositeElementType("XQUERY_FT_SELECTION", FTSelectionPsiImpl.class, XQuery.INSTANCE);
     IElementType FT_OR = new ICompositeElementType("XQUERY_FT_OR", FTOrPsiImpl.class, XQuery.INSTANCE);

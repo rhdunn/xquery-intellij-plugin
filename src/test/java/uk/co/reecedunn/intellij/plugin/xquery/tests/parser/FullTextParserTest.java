@@ -48,6 +48,54 @@ public class FullTextParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region Full Text 1.0 :: ForBinding + FTScoreVar
+
+    public void testForBinding_FTScoreVar() {
+        final String expected = loadResource("tests/parser/full-text-1.0/ForBinding_FTScoreVar.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/ForBinding_FTScoreVar.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testForBinding_FTScoreVar_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/full-text-1.0/ForBinding_FTScoreVar_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/ForBinding_FTScoreVar_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testForBinding_FTScoreVar_MissingInKeyword() {
+        final String expected = loadResource("tests/parser/full-text-1.0/ForBinding_FTScoreVar_MissingInKeyword.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/ForBinding_FTScoreVar_MissingInKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
+    // region Full Text 1.0 :: FTScoreVar
+
+    public void testFTScoreVar() {
+        final String expected = loadResource("tests/parser/full-text-1.0/ForBinding_FTScoreVar.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/ForBinding_FTScoreVar.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTScoreVar_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/full-text-1.0/ForBinding_FTScoreVar_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/ForBinding_FTScoreVar_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTScoreVar_MissingVarIndicator() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTScoreVar_MissingVarIndicator.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTScoreVar_MissingVarIndicator.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTScoreVar_MissingVarName() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTScoreVar_MissingVarName.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTScoreVar_MissingVarName.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region Full Text 1.0 :: FTContainsExpr
 
     public void testFTContainsExpr() {

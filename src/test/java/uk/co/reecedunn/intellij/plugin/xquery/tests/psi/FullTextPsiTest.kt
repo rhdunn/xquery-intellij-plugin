@@ -22,6 +22,9 @@ import org.hamcrest.MatcherAssert.assertThat
 import uk.co.reecedunn.intellij.plugin.core.extensions.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTContainsExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTOptionDecl
+import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTScoreVar
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryForBinding
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryForClause
 import uk.co.reecedunn.intellij.plugin.xquery.lang.FullText
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
@@ -31,23 +34,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 class FullTextPsiTest : ParserTestCase() {
     // region XQueryConformance
-    // region FTOptionDecl
-
-    fun testFTOptionDecl() {
-        val file = parseResource("tests/parser/full-text-1.0/FTOptionDecl_MissingFTMatchOptions.xq")!!
-
-        val ftoptionDeclPsi = file.descendants().filterIsInstance<FTOptionDecl>().first()
-        val conformance = ftoptionDeclPsi as XQueryConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`<Version>(FullText.REC_1_0_20110317))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.node.elementType,
-                `is`<IElementType>(XQueryTokenType.K_FT_OPTION))
-    }
-
-    // endregion
     // region FTContainsExpr
 
     fun testFTContainsExpr_NoContainsExpr() {
@@ -75,6 +61,42 @@ class FullTextPsiTest : ParserTestCase() {
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.node.elementType,
                 `is`<IElementType>(XQueryTokenType.K_CONTAINS))
+    }
+
+    // endregion
+    // region FTScoreVar
+
+    fun testFTScoreVar() {
+        val file = parseResource("tests/parser/full-text-1.0/ForBinding_FTScoreVar.xq")!!
+
+        val forClausePsi = file.descendants().filterIsInstance<XQueryForClause>().first()
+        val forBindingPsi = forClausePsi.children().filterIsInstance<XQueryForBinding>().first()
+        val scoreVarPsi = forBindingPsi.children().filterIsInstance<FTScoreVar>().first()
+        val conformance = scoreVarPsi as XQueryConformance
+
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`<Version>(FullText.REC_1_0_20110317))
+
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
+                `is`<IElementType>(XQueryTokenType.K_SCORE))
+    }
+
+    // endregion
+    // region FTOptionDecl
+
+    fun testFTOptionDecl() {
+        val file = parseResource("tests/parser/full-text-1.0/FTOptionDecl_MissingFTMatchOptions.xq")!!
+
+        val ftoptionDeclPsi = file.descendants().filterIsInstance<FTOptionDecl>().first()
+        val conformance = ftoptionDeclPsi as XQueryConformance
+
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`<Version>(FullText.REC_1_0_20110317))
+
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
+                `is`<IElementType>(XQueryTokenType.K_FT_OPTION))
     }
 
     // endregion

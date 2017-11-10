@@ -37,7 +37,7 @@ FileElement[FILE(0:44)]
                            XQueryNCNameImpl[XQUERY_NCNAME(28:29)]
                               LeafPsiElement[XQUERY_NCNAME_TOKEN(28:29)]('i')
                            PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
-                     PsiErrorElementImpl[ERROR_ELEMENT(30:30)]('XPST0003: Expected keyword: in.')
+                     PsiErrorElementImpl[ERROR_ELEMENT(30:30)]('XPST0003: Expected keyword: in, score.')
                      XQueryOrExprImpl[XQUERY_OR_EXPR(30:34)]
                         XQueryAndExprImpl[XQUERY_AND_EXPR(30:34)]
                            XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(30:34)]
