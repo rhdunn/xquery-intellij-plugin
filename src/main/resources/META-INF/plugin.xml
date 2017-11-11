@@ -6,15 +6,17 @@
   <vendor email="msclrhd@gmail.com" url="http://reecedunn.co.uk">Reece H. Dunn</vendor>
 
   <description><![CDATA[
-    XQuery 1.0, 3.0 and 3.1 language support including Update Facility 1.0
-    and 3.0, and Scripting Extension 1.0. Supports the BaseX, MarkLogic and
-    Saxonica XQuery vendor extensions, and MarkLogic 1.0-ml XQuery syntax.
+    XQuery 1.0, 3.0, and 3.1 language support with error recovery and support
+    for: Full Text 1.0, and 3.0; Update Facility 1.0, and 3.0; Scripting
+    Extension 1.0. Supports the BaseX, MarkLogic 6.0 to 8.0, and Saxonica
+    XQuery vendor extensions.
   ]]></description>
 
   <change-notes><![CDATA[
     <h3>Release 0.6-dev:</h3>
     <p>Language Support:</p>
     <ol>
+      <li>Full Text 1.0 and 3.0 support.</li>
       <li>MarkLogic 7.0 and 8.0 schema-components <code>KindType</code> tests.</li>
       <li>Saxon 9.8 <code>tuple</code> and <code>union</code> types, and <code>declare type</code> prolog statements.</li>
       <li>Recover when <code>=</code> is used instead of <code>:=</code>.</li>

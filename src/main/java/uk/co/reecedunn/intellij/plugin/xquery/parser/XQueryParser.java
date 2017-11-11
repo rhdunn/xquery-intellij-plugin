@@ -32,6 +32,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
  *    -  XQuery 3.1 (W3C Recommendation 21 March 2017)
  *
  * Supported W3C XQuery extensions:
+ *    -  Full Text 1.0 (W3C Recommendation 17 March 2011)
+ *    -  Full Text 3.0 (W3C Recommendation 24 November 2015)
  *    -  Update Facility 1.0 (W3C Recommendation 17 March 2011)
  *    -  Update Facility 3.0 (W3C Working Group Note 24 January 2017)
  *    -  Scripting Extension 1.0 (W3C Working Group Note 18 September 2014)

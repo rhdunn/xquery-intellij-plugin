@@ -25,9 +25,10 @@ _Supported XQuery Implementations:_ BaseX, MarkLogic, Saxonica Saxon, W3C Specif
 ### Language Support
 
 A robust, standard conforming XQuery syntax highlighter and parser with file encoding
-detection and error recovery. It supports the following XQuery specifications:
+detection and error recovery. It supports the following W3C specifications:
 
 *  XQuery 1.0, 3.0 and 3.1 core language;
+*  XQuery and XPath Full Text 1.0 and 3.0 for XQuery;
 *  XQuery Update Facility 1.0 and 3.0;
 *  XQuery Scripting Extension 1.0.
 
