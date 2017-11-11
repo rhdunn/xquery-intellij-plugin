@@ -41,7 +41,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle;
  * Supported vendor extensions:
  *    -  MarkLogic 1.0-ml Extensions for MarkLogic 6.0, 7.0 and 8.0
  *    -  Saxon 9.4 `map`, and 9.8 `tuple`, `union`, and `declare type` extensions
- *    -  BaseX 7.8 and 8.5 UpdateExpr extension
+ *    -  BaseX 7.8 and 8.5 UpdateExpr extension; Full Text `fuzzy` option
  */
 @SuppressWarnings({"SameParameterValue", "StatementWithEmptyBody"})
 class XQueryParser {
@@ -5531,13 +5531,14 @@ class XQueryParser {
     private boolean parseFTMatchOption() {
         final PsiBuilder.Marker matchOptionMarker = mark();
         if (parseFTCaseOption(matchOptionMarker) ||
-                parseFTDiacriticsOption(matchOptionMarker) ||
-                parseFTExtensionOption(matchOptionMarker) ||
-                parseFTLanguageOption(matchOptionMarker) ||
-                parseFTStemOption(matchOptionMarker) ||
-                parseFTStopWordOption(matchOptionMarker) ||
-                parseFTThesaurusOption(matchOptionMarker) ||
-                parseFTWildCardOption(matchOptionMarker)) {
+            parseFTDiacriticsOption(matchOptionMarker) ||
+            parseFTExtensionOption(matchOptionMarker) ||
+            parseFTFuzzyOption(matchOptionMarker) ||
+            parseFTLanguageOption(matchOptionMarker) ||
+            parseFTStemOption(matchOptionMarker) ||
+            parseFTStopWordOption(matchOptionMarker) ||
+            parseFTThesaurusOption(matchOptionMarker) ||
+            parseFTWildCardOption(matchOptionMarker)) {
             //
         } else if (matchTokenType(XQueryTokenType.K_NO)) {
             parseWhiteSpaceAndCommentTokens();
@@ -5560,7 +5561,7 @@ class XQueryParser {
                 return false;
             }
         } else {
-            error(XQueryBundle.message("parser.error.expected-keyword", "case, language, lowercase, no, option, thesaurus, uppercase, wildcards"));
+            error(XQueryBundle.message("parser.error.expected-keyword", "case, fuzzy, language, lowercase, no, option, thesaurus, uppercase, wildcards"));
             matchOptionMarker.drop();
             return false;
         }
@@ -5814,6 +5815,14 @@ class XQueryParser {
             }
 
             extensionOptionMarker.done(XQueryElementType.FT_EXTENSION_OPTION);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean parseFTFuzzyOption(@NotNull PsiBuilder.Marker fuzzyOptionMarker) {
+        if (matchTokenType(XQueryTokenType.K_FUZZY)) {
+            fuzzyOptionMarker.done(XQueryElementType.FT_FUZZY_OPTION);
             return true;
         }
         return false;

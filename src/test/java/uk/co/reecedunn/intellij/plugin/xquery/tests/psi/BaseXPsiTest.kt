@@ -19,8 +19,14 @@ import com.intellij.psi.tree.IElementType
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.notNullValue
 import org.hamcrest.MatcherAssert.assertThat
+import uk.co.reecedunn.intellij.plugin.core.extensions.children
 import uk.co.reecedunn.intellij.plugin.core.extensions.descendants
+import uk.co.reecedunn.intellij.plugin.xquery.ast.basex.BaseXFTFuzzyOption
 import uk.co.reecedunn.intellij.plugin.xquery.ast.basex.BaseXUpdateExpr
+import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTContainsExpr
+import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTMatchOptions
+import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTPrimaryWithOptions
+import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTSelection
 import uk.co.reecedunn.intellij.plugin.xquery.lang.BaseX
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
@@ -29,6 +35,27 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 class BaseXPsiTest : ParserTestCase() {
     // region XQueryConformance
+    // region FTFuzzyOption
+
+    fun testFTFuzzyOption() {
+        val file = parseResource("tests/parser/basex-6.1/FTFuzzyOption.xq")!!
+
+        val containsExpr = file.descendants().filterIsInstance<FTContainsExpr>().first()
+        val selection = containsExpr.children().filterIsInstance<FTSelection>().first()
+        val primaryWithOptions = selection.descendants().filterIsInstance<FTPrimaryWithOptions>().first()
+        val matchOptions = primaryWithOptions.children().filterIsInstance<FTMatchOptions>().first()
+        val fuzzyOption = matchOptions.children().filterIsInstance<BaseXFTFuzzyOption>().first()
+        val conformance = fuzzyOption as XQueryConformance
+
+        assertThat(conformance.requiresConformance.size, `is`(1))
+        assertThat(conformance.requiresConformance[0], `is`<Version>(BaseX.VERSION_6_1))
+
+        assertThat(conformance.conformanceElement, `is`(notNullValue()))
+        assertThat(conformance.conformanceElement.node.elementType,
+                `is`<IElementType>(XQueryTokenType.K_FUZZY))
+    }
+
+    // endregion
     // region UpdateExpr
 
     fun testUpdateExpr() {

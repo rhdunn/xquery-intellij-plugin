@@ -211,6 +211,7 @@ public interface XQueryTokenType extends TokenType {
     IXQueryKeywordOrNCNameType K_FTNOT = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_FTNOT"); // Full Text 1.0
     IXQueryKeywordOrNCNameType K_FTOR = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_FTOR"); // Full Text 1.0
     IXQueryKeywordOrNCNameType K_FUNCTION = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_FUNCTION", IXQueryKeywordOrNCNameType.KeywordType.XQUERY30_RESERVED_FUNCTION_NAME);
+    IXQueryKeywordOrNCNameType K_FUZZY = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_FUZZY"); // BaseX 6.1
     IXQueryKeywordOrNCNameType K_GE = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_GE");
     IXQueryKeywordOrNCNameType K_GREATEST = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_GREATEST");
     IXQueryKeywordOrNCNameType K_GROUP = new IXQueryKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_GROUP"); // XQuery 3.0

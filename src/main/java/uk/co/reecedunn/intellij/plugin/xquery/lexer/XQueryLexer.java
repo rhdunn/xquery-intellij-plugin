@@ -1531,6 +1531,7 @@ public class XQueryLexer extends LexerBase {
         sKeywords.put("ftnot", XQueryTokenType.K_FTNOT); // Full Text 1.0
         sKeywords.put("ftor", XQueryTokenType.K_FTOR); // Full Text 1.0
         sKeywords.put("function", XQueryTokenType.K_FUNCTION);
+        sKeywords.put("fuzzy", XQueryTokenType.K_FUZZY); // BaseX 6.1
         sKeywords.put("ge", XQueryTokenType.K_GE);
         sKeywords.put("greatest", XQueryTokenType.K_GREATEST);
         sKeywords.put("group", XQueryTokenType.K_GROUP); // XQuery 3.0

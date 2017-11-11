@@ -19,6 +19,7 @@
       <li>Full Text 1.0 and 3.0 support.</li>
       <li>MarkLogic 7.0 and 8.0 schema-components <code>KindType</code> tests.</li>
       <li>Saxon 9.8 <code>tuple</code> and <code>union</code> types, and <code>declare type</code> prolog statements.</li>
+      <li>BaseX Full Text <code>fuzzy</code> option.</li>
       <li>Recover when <code>=</code> is used instead of <code>:=</code>.</li>
       <li>Improved multi-statement expression parsing and error reporting for MarkLogic 6.0, and W3C Scripting XQuery extensions.</li>
     </ol>

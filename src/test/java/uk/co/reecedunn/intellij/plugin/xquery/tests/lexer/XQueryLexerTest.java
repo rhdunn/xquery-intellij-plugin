@@ -4981,6 +4981,16 @@ public class XQueryLexerTest extends LexerTestCase {
     }
 
     // endregion
+    // region BaseX 6.1 :: FTFuzzyOption
+
+    @Specification(name="BaseX Full-Text", reference="http://docs.basex.org/wiki/Full-Text#Fuzzy_Querying")
+    public void testFTFuzzyOption() {
+        Lexer lexer = createLexer();
+
+        matchSingleToken(lexer, "fuzzy", XQueryTokenType.K_FUZZY);
+    }
+
+    // endregion
     // region BaseX 7.8 :: UpdateExpr
 
     public void testUpdateExpr() {

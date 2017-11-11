@@ -45,25 +45,26 @@ private class BaseXProduct(id: String, name: String, implementation: Implementat
 }
 
 object BaseX : Implementation("basex", "BaseX", "http://www.basex.org/") {
+    val VERSION_6_1: Version = ProductVersion("6.1", this) // Conformance with Update Facility and Full Text.
     val VERSION_7_8: Version = ProductVersion("7.8", this) // Introduction of the BaseX UpdateExpr.
     val VERSION_8_4: Version = ProductVersion("8.4", this)
     val VERSION_8_5: Version = ProductVersion("8.5", this)
     val VERSION_8_6: Version = ProductVersion("8.6", this)
 
     override val versions: List<Version> = listOf(
-            VERSION_8_4,
-            VERSION_8_5,
-            VERSION_8_6)
+        VERSION_8_4,
+        VERSION_8_5,
+        VERSION_8_6)
 
     val BASEX: Product = BaseXProduct("basex", "BaseX", this)
 
     override val products: List<Product> = listOf(BASEX)
 
     override fun supportsDialect(dialect: Versioned): Boolean =
-            dialect === this ||
-                    dialect === FullText ||
-                    dialect === UpdateFacility ||
-                    dialect === XQuery
+        dialect === this ||
+        dialect === FullText ||
+        dialect === UpdateFacility ||
+        dialect === XQuery
 
     override fun staticContext(product: Product?, productVersion: Version?, xqueryVersion: Specification?): String? = when (xqueryVersion) {
         XQuery.REC_1_0_20070123, XQuery.REC_1_0_20101214 ->
@@ -115,17 +116,17 @@ object MarkLogic : Implementation("marklogic", "MarkLogic", "http://www.marklogi
     val VERSION_9_0: Version = ProductVersion("9.0", this)
 
     override val versions: List<Version> = listOf(
-            VERSION_6_0,
-            VERSION_7_0,
-            VERSION_8_0,
-            VERSION_9_0)
+        VERSION_6_0,
+        VERSION_7_0,
+        VERSION_8_0,
+        VERSION_9_0)
 
     val MARKLOGIC: Product = MarkLogicProduct("marklogic", "MarkLogic", this)
 
     override val products: List<Product> = listOf(MARKLOGIC)
 
     override fun supportsDialect(dialect: Versioned): Boolean =
-            dialect === this || dialect === XQuery
+        dialect === this || dialect === XQuery
 
     override fun staticContext(product: Product?, productVersion: Version?, xqueryVersion: Specification?): String? {
         if (productVersion == null) return null
@@ -195,10 +196,10 @@ object Saxon : Implementation("saxon", "Saxon", "http://www.saxonica.com") {
     val VERSION_9_8: Version = ProductVersion("9.8", this)
 
     override val versions: List<Version> = listOf(
-            VERSION_9_5,
-            VERSION_9_6,
-            VERSION_9_7,
-            VERSION_9_8)
+        VERSION_9_5,
+        VERSION_9_6,
+        VERSION_9_7,
+        VERSION_9_8)
 
     val HE: Product = SaxonProduct("HE", "Home Edition", this)
     val PE: Product = SaxonProduct("PE", "Professional Edition", this)
@@ -210,7 +211,7 @@ object Saxon : Implementation("saxon", "Saxon", "http://www.saxonica.com") {
     override val products: List<Product> = listOf(HE, PE, EE, EE_T, EE_Q, EE_V)
 
     override fun supportsDialect(dialect: Versioned): Boolean =
-            dialect === this || dialect == UpdateFacility || dialect === XQuery
+        dialect === this || dialect == UpdateFacility || dialect === XQuery
 
     override fun staticContext(product: Product?, productVersion: Version?, xqueryVersion: Specification?): String? = when (xqueryVersion) {
         XQuery.REC_1_0_20070123, XQuery.REC_1_0_20101214 ->

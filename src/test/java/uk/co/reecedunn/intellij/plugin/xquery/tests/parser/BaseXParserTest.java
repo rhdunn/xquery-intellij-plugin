@@ -21,6 +21,15 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class BaseXParserTest extends ParserTestCase {
+    // region BaseX 6.1 :: FTFuzzyOption
+
+    public void testFTFuzzyOption() {
+        final String expected = loadResource("tests/parser/basex-6.1/FTFuzzyOption.txt");
+        final XQueryFile actual = parseResource("tests/parser/basex-6.1/FTFuzzyOption.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region BaseX 7.8 :: UpdateExpr
 
     public void testUpdateExpr() {

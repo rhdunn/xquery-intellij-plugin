@@ -7,6 +7,7 @@ Language Support:
 1.  Full Text 1.0 and 3.0 support.
 1.  MarkLogic 7.0 and 8.0 schema-components `KindType` tests.
 1.  Saxon 9.8 `tuple` and `union` types, and `declare type` prolog statements.
+1.  BaseX Full Text `fuzzy` option.
 1.  Recover when `=` is used instead of `:=`.
 1.  Improved multi-statement expression parsing and error reporting for MarkLogic 6.0, and
     W3C Scripting XQuery extensions.

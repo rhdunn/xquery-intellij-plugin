@@ -19,6 +19,7 @@ import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.tree.IFileElementType;
 import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.basex.BaseXFTFuzzyOptionPsiImpl;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.basex.BaseXUpdateExprPsiImpl;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.full.text.*;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.marklogic.*;
@@ -415,12 +416,14 @@ public interface XQueryElementType {
     IElementType MAP_TEST = new ICompositeElementType("XQUERY_MAP_TEST", MarkLogicMapTestPsiImpl.class, XQuery.INSTANCE);
 
     // endregion
-    // region BaseX 7.8
+    // region BaseX
+
+    IElementType FT_FUZZY_OPTION = new ICompositeElementType("XQUERY_FT_FUZZY_OPTION", BaseXFTFuzzyOptionPsiImpl.class, XQuery.INSTANCE);
 
     IElementType UPDATE_EXPR = new ICompositeElementType("XQUERY_UPDATE_EXPR", BaseXUpdateExprPsiImpl.class, XQuery.INSTANCE);
 
     // endregion
-    // region Saxon 9.8
+    // region Saxon
 
     IElementType TYPE_DECL = new ICompositeElementType("XQUERY_TYPE_DECL", SaxonTypeDeclImpl.class, XQuery.INSTANCE);
 
