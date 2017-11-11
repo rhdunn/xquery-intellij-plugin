@@ -722,9 +722,21 @@ public class FullTextParserTest extends ParserTestCase {
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
+    public void testFTCaseOption_LowerCase_MissingUsingKeyword() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTCaseOption_LowerCase_MissingUsingKeyword.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTCaseOption_LowerCase_MissingUsingKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
     public void testFTCaseOption_UpperCase() {
         final String expected = loadResource("tests/parser/full-text-1.0/FTCaseOption_UpperCase.txt");
         final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTCaseOption_UpperCase.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTCaseOption_UpperCase_MissingUsingKeyword() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTCaseOption_UpperCase_MissingUsingKeyword.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTCaseOption_UpperCase_MissingUsingKeyword.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
@@ -743,6 +755,12 @@ public class FullTextParserTest extends ParserTestCase {
     public void testFTCaseOption_Case_MissingSensitivityKeyword() {
         final String expected = loadResource("tests/parser/full-text-1.0/FTCaseOption_Case_MissingSensitivityKeyword.txt");
         final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTCaseOption_Case_MissingSensitivityKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTCaseOption_Case_MissingUsingKeyword() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTCaseOption_Case_MissingUsingKeyword.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTCaseOption_Case_MissingUsingKeyword.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
@@ -767,6 +785,12 @@ public class FullTextParserTest extends ParserTestCase {
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
+    public void testFTDiacriticsOption_MissingUsingKeyword() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTDiacriticsOption_MissingUsingKeyword.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTDiacriticsOption_MissingUsingKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
     // endregion
     // region Full Text 1.0 :: FTStemOption
 
@@ -776,9 +800,21 @@ public class FullTextParserTest extends ParserTestCase {
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
+    public void testFTStemOption_MissingUsingKeyword() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTStemOption_MissingUsingKeyword.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTStemOption_MissingUsingKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
     public void testFTStemOption_NoStemming() {
         final String expected = loadResource("tests/parser/full-text-1.0/FTStemOption_NoStemming.txt");
         final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTStemOption_NoStemming.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTStemOption_NoStemming_MissingUsingKeyword() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTStemOption_NoStemming_MissingUsingKeyword.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTStemOption_NoStemming_MissingUsingKeyword.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
@@ -800,6 +836,12 @@ public class FullTextParserTest extends ParserTestCase {
     public void testFTThesaurusOption_NoThesaurus() {
         final String expected = loadResource("tests/parser/full-text-1.0/FTThesaurusOption_NoThesaurus.txt");
         final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTThesaurusOption_NoThesaurus.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTThesaurusOption_NoThesaurus_MissingUsingKeyword() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTThesaurusOption_NoThesaurus_MissingUsingKeyword.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTThesaurusOption_NoThesaurus_MissingUsingKeyword.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
@@ -890,6 +932,12 @@ public class FullTextParserTest extends ParserTestCase {
     public void testFTThesaurusOption_UnexpectedClosingParenthesis() {
         final String expected = loadResource("tests/parser/full-text-1.0/FTThesaurusOption_UnexpectedClosingParenthesis.txt");
         final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTThesaurusOption_UnexpectedClosingParenthesis.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTThesaurusOption_MissingUsingKeyword() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTThesaurusOption_MissingUsingKeyword.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTThesaurusOption_MissingUsingKeyword.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
@@ -1112,6 +1160,12 @@ public class FullTextParserTest extends ParserTestCase {
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
+    public void testFTStopWordOption_MissingUsingKeyword() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTStopWordOption_MissingUsingKeyword.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTStopWordOption_MissingUsingKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
     public void testFTStopWordOption_NoStopWords() {
         final String expected = loadResource("tests/parser/full-text-1.0/FTStopWordOption_NoStopWords.txt");
         final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTStopWordOption_NoStopWords.xq");
@@ -1121,6 +1175,12 @@ public class FullTextParserTest extends ParserTestCase {
     public void testFTStopWordOption_NoStopWords_MissingWordsKeyword() {
         final String expected = loadResource("tests/parser/full-text-1.0/FTStopWordOption_NoStopWords_MissingWordsKeyword.txt");
         final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTStopWordOption_NoStopWords_MissingWordsKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTStopWordOption_NoStopWords_MissingUsingKeyword() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTStopWordOption_NoStopWords_MissingUsingKeyword.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTStopWordOption_NoStopWords_MissingUsingKeyword.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
@@ -1247,6 +1307,12 @@ public class FullTextParserTest extends ParserTestCase {
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
+    public void testFTLanguageOption_MissingUsingKeyword() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTLanguageOption_MissingUsingKeyword.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTLanguageOption_MissingUsingKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
     // endregion
     // region Full Text 1.0 :: FTWildCardOption
 
@@ -1256,9 +1322,21 @@ public class FullTextParserTest extends ParserTestCase {
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
+    public void testFTWildCardOption_MissingUsingKeyword() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTWildCardOption_MissingUsingKeyword.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTWildCardOption_MissingUsingKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
     public void testFTWildCardOption_NoWildCards() {
         final String expected = loadResource("tests/parser/full-text-1.0/FTWildCardOption_NoWildCards.txt");
         final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTWildCardOption_NoWildCards.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTWildCardOption_NoWildCards_MissingUsingKeyword() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTWildCardOption_NoWildCards_MissingUsingKeyword.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTWildCardOption_NoWildCards_MissingUsingKeyword.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
@@ -1286,6 +1364,12 @@ public class FullTextParserTest extends ParserTestCase {
     public void testFTExtensionOption_MissingOptionValue() {
         final String expected = loadResource("tests/parser/full-text-1.0/FTExtensionOption_MissingOptionValue.txt");
         final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTExtensionOption_MissingOptionValue.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testFTExtensionOption_MissingUsingKeyword() {
+        final String expected = loadResource("tests/parser/full-text-1.0/FTExtensionOption_MissingUsingKeyword.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/FTExtensionOption_MissingUsingKeyword.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 

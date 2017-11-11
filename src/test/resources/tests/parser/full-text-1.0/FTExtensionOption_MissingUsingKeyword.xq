@@ -1,0 +1,1 @@
+declare ft-option option test "Test" ;

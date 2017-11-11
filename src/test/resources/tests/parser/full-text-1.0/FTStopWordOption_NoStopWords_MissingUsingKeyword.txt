@@ -1,0 +1,19 @@
+FileElement[FILE(0:33)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:33)]
+      XQueryPrologImpl[XQUERY_PROLOG(0:33)]
+         FTOptionDeclImpl[XQUERY_FT_OPTION_DECL(0:32)]
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
+            PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_FT_OPTION(8:17)]('ft-option')
+            PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
+            FTMatchOptionsImpl[XQUERY_FT_MATCH_OPTIONS(18:32)]
+               PsiErrorElementImpl[ERROR_ELEMENT(18:18)]('XPST0003: Expected keyword: using.')
+               FTStopWordOptionImpl[XQUERY_FT_STOP_WORD_OPTION(18:31)]
+                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NO(18:20)]('no')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
+                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_STOP(21:25)]('stop')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
+                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_WORDS(26:31)]('words')
+               PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
+         LeafPsiElement[XQUERY_SEPARATOR_TOKEN(32:33)](';')
+      PsiErrorElementImpl[ERROR_ELEMENT(33:33)]('XPST0003: Missing query body.')

@@ -29,6 +29,12 @@ public class BaseXParserTest extends ParserTestCase {
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
+    public void testFTFuzzyOption_MissingUsingKeyword() {
+        final String expected = loadResource("tests/parser/basex-6.1/FTFuzzyOption_MissingUsingKeyword.txt");
+        final XQueryFile actual = parseResource("tests/parser/basex-6.1/FTFuzzyOption_MissingUsingKeyword.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
     // endregion
     // region BaseX 7.8 :: UpdateExpr
 

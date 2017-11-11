@@ -5510,22 +5510,42 @@ class XQueryParser {
     private boolean parseFTMatchOptions() {
         final PsiBuilder.Marker matchOptionsMarker = mark();
 
+        boolean haveFTMatchOptions = false;
         boolean haveFTMatchOption = false;
-        while (matchTokenType(XQueryTokenType.K_USING)) {
-            haveFTMatchOption = true;
+        do {
+            if (matchTokenType(XQueryTokenType.K_USING)) {
+                parseWhiteSpaceAndCommentTokens();
+                parseFTMatchOption();
+                haveFTMatchOption = true;
+            } else if (getTokenType() == XQueryTokenType.K_CASE ||
+                       getTokenType() == XQueryTokenType.K_DIACRITICS ||
+                       getTokenType() == XQueryTokenType.K_FUZZY ||
+                       getTokenType() == XQueryTokenType.K_LANGUAGE ||
+                       getTokenType() == XQueryTokenType.K_LOWERCASE ||
+                       getTokenType() == XQueryTokenType.K_NO ||
+                       getTokenType() == XQueryTokenType.K_OPTION ||
+                       getTokenType() == XQueryTokenType.K_STEMMING ||
+                       getTokenType() == XQueryTokenType.K_STOP ||
+                       getTokenType() == XQueryTokenType.K_THESAURUS ||
+                       getTokenType() == XQueryTokenType.K_UPPERCASE ||
+                       getTokenType() == XQueryTokenType.K_WILDCARDS) {
+                error(XQueryBundle.message("parser.error.expected-keyword", "using"));
+                parseFTMatchOption();
+                haveFTMatchOption = true;
+            } else {
+                haveFTMatchOption = false;
+            }
 
             parseWhiteSpaceAndCommentTokens();
-            parseFTMatchOption();
+            haveFTMatchOptions |= haveFTMatchOption;
+        } while (haveFTMatchOption);
 
-            parseWhiteSpaceAndCommentTokens();
-        }
-
-        if (haveFTMatchOption) {
+        if (haveFTMatchOptions) {
             matchOptionsMarker.done(XQueryElementType.FT_MATCH_OPTIONS);
         } else {
             matchOptionsMarker.drop();
         }
-        return haveFTMatchOption;
+        return haveFTMatchOptions;
     }
 
     private boolean parseFTMatchOption() {
@@ -5561,7 +5581,8 @@ class XQueryParser {
                 return false;
             }
         } else {
-            error(XQueryBundle.message("parser.error.expected-keyword", "case, fuzzy, language, lowercase, no, option, thesaurus, uppercase, wildcards"));
+            // NOTE: `fuzzy` is the BaseX FTMatchOption extension.
+            error(XQueryBundle.message("parser.error.expected-keyword-or-token", "FTMatchOption", "fuzzy"));
             matchOptionMarker.drop();
             return false;
         }

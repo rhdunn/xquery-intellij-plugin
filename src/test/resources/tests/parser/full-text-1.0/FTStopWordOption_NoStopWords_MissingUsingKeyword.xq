@@ -1,0 +1,1 @@
+declare ft-option no stop words ;
