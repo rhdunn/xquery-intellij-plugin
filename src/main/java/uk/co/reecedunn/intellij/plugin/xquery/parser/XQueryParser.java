@@ -1831,23 +1831,29 @@ class XQueryParser {
         final PsiBuilder.Marker letBindingMarker = mark();
 
         boolean haveErrors = false;
-        boolean matched = matchTokenType(XQueryTokenType.VARIABLE_INDICATOR);
+        boolean haveVariableIndicator = matchTokenType(XQueryTokenType.VARIABLE_INDICATOR);
+        boolean matched = haveVariableIndicator || parseFTScoreVar();
         if (!matched) {
-            error(XQueryBundle.message("parser.error.expected", "$"));
+            error(XQueryBundle.message("parser.error.expected-keyword-or-token", "$", "score"));
             haveErrors = true;
         }
 
         if (matched || !isFirst) {
-            parseWhiteSpaceAndCommentTokens();
-            if (!parseEQName(XQueryElementType.VAR_NAME)) {
-                error(XQueryBundle.message("parser.error.expected-eqname"));
-                haveErrors = true;
-            }
+            String errorMessage;
+            if (haveVariableIndicator) {
+                parseWhiteSpaceAndCommentTokens();
+                if (!parseEQName(XQueryElementType.VAR_NAME)) {
+                    error(XQueryBundle.message("parser.error.expected-eqname"));
+                    haveErrors = true;
+                }
 
-            parseWhiteSpaceAndCommentTokens();
-            final String errorMessage = parseTypeDeclaration()
-                                      ? XQueryBundle.message("parser.error.expected", ":=")
-                                      : XQueryBundle.message("parser.error.expected-variable-assign-or-keyword", "as");
+                parseWhiteSpaceAndCommentTokens();
+                errorMessage = parseTypeDeclaration()
+                             ? XQueryBundle.message("parser.error.expected", ":=")
+                             : XQueryBundle.message("parser.error.expected-variable-assign-or-keyword", "as");
+            } else {
+                errorMessage = XQueryBundle.message("parser.error.expected", ":=");
+            }
 
             parseWhiteSpaceAndCommentTokens();
             if (errorOnTokenType(XQueryTokenType.EQUAL, errorMessage)) {

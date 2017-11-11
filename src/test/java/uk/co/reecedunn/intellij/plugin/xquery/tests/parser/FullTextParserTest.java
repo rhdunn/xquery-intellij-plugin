@@ -96,6 +96,21 @@ public class FullTextParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region Full Text 1.0 :: LetBinding + FTScoreVar
+
+    public void testLetBinding_FTScoreVar() {
+        final String expected = loadResource("tests/parser/full-text-1.0/LetBinding_FTScoreVar.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/LetBinding_FTScoreVar.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testLetBinding_FTScoreVar_CompactWhitespace() {
+        final String expected = loadResource("tests/parser/full-text-1.0/LetBinding_FTScoreVar_CompactWhitespace.txt");
+        final XQueryFile actual = parseResource("tests/parser/full-text-1.0/LetBinding_FTScoreVar_CompactWhitespace.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
     // region Full Text 1.0 :: FTContainsExpr
 
     public void testFTContainsExpr() {
