@@ -1,0 +1,31 @@
+FileElement[FILE(0:89)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:89)]
+      XQueryPrologImpl[XQUERY_PROLOG(0:89)]
+         FTOptionDeclImpl[XQUERY_FT_OPTION_DECL(0:88)]
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
+            PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_FT_OPTION(8:17)]('ft-option')
+            PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
+            FTMatchOptionsImpl[XQUERY_FT_MATCH_OPTIONS(18:88)]
+               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_USING(18:23)]('using')
+               PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
+               FTThesaurusOptionImpl[XQUERY_FT_THESAURUS_OPTION(24:88)]
+                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_THESAURUS(24:33)]('thesaurus')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
+                  FTThesaurusIDImpl[XQUERY_FT_THESAURUS_ID(34:87)]
+                     LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_AT(34:36)]('at')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
+                     XQueryUriLiteralImpl[XQUERY_URI_LITERAL(37:67)]
+                        LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(37:38)]('"')
+                        LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(38:66)]('http://www.example.com/de-CH')
+                        LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(66:67)]('"')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(67:68)](' ')
+                     LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_RELATIONSHIP(68:80)]('relationship')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(80:81)](' ')
+                     XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(81:87)]
+                        LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(81:82)]('"')
+                        LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(82:86)]('test')
+                        LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(86:87)]('"')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(87:88)](' ')
+         LeafPsiElement[XQUERY_SEPARATOR_TOKEN(88:89)](';')
+      PsiErrorElementImpl[ERROR_ELEMENT(89:89)]('XPST0003: Missing query body.')

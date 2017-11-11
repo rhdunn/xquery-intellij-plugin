@@ -1,0 +1,43 @@
+FileElement[FILE(0:119)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:119)]
+      XQueryPrologImpl[XQUERY_PROLOG(0:119)]
+         FTOptionDeclImpl[XQUERY_FT_OPTION_DECL(0:118)]
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
+            PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_FT_OPTION(8:17)]('ft-option')
+            PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
+            FTMatchOptionsImpl[XQUERY_FT_MATCH_OPTIONS(18:118)]
+               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_USING(18:23)]('using')
+               PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
+               FTThesaurusOptionImpl[XQUERY_FT_THESAURUS_OPTION(24:117)]
+                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_THESAURUS(24:33)]('thesaurus')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
+                  LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(34:35)]('(')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(35:36)](' ')
+                  FTThesaurusIDImpl[XQUERY_FT_THESAURUS_ID(36:70)]
+                     LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_AT(36:38)]('at')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(38:39)](' ')
+                     XQueryUriLiteralImpl[XQUERY_URI_LITERAL(39:69)]
+                        LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(39:40)]('"')
+                        LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(40:68)]('http://www.example.com/de-CH')
+                        LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(68:69)]('"')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(69:70)](' ')
+                  LeafPsiElement[XQUERY_COMMA_TOKEN(70:71)](',')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(71:72)](' ')
+                  PsiErrorElementImpl[ERROR_ELEMENT(72:72)]('XPST0003: Expected keyword: at.')
+                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DEFAULT(72:79)]('default')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(79:80)](' ')
+                  LeafPsiElement[XQUERY_COMMA_TOKEN(80:81)](',')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(81:82)](' ')
+                  FTThesaurusIDImpl[XQUERY_FT_THESAURUS_ID(82:116)]
+                     LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_AT(82:84)]('at')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(84:85)](' ')
+                     XQueryUriLiteralImpl[XQUERY_URI_LITERAL(85:115)]
+                        LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(85:86)]('"')
+                        LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(86:114)]('http://www.example.com/de-DE')
+                        LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(114:115)]('"')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(115:116)](' ')
+                  LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(116:117)](')')
+               PsiWhiteSpaceImpl[WHITE_SPACE(117:118)](' ')
+         LeafPsiElement[XQUERY_SEPARATOR_TOKEN(118:119)](';')
+      PsiErrorElementImpl[ERROR_ELEMENT(119:119)]('XPST0003: Missing query body.')

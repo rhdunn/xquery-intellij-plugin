@@ -1,0 +1,16 @@
+FileElement[FILE(0:28)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:28)]
+      XQueryPrologImpl[XQUERY_PROLOG(0:28)]
+         FTOptionDeclImpl[XQUERY_FT_OPTION_DECL(0:27)]
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
+            PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_FT_OPTION(8:17)]('ft-option')
+            PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
+            FTMatchOptionsImpl[XQUERY_FT_MATCH_OPTIONS(18:27)]
+               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_USING(18:23)]('using')
+               PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
+               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NO(24:26)]('no')
+               PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
+               PsiErrorElementImpl[ERROR_ELEMENT(27:27)]('XPST0003: Expected keyword: stemming, stop, thesaurus, wildcards.')
+         LeafPsiElement[XQUERY_SEPARATOR_TOKEN(27:28)](';')
+      PsiErrorElementImpl[ERROR_ELEMENT(28:28)]('XPST0003: Missing query body.')

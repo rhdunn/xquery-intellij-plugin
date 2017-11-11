@@ -1,0 +1,1 @@
+declare ft-option using thesaurus at "http://www.example.com/de-CH" from to 4 levels ;

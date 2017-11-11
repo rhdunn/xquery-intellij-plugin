@@ -20,6 +20,7 @@ import com.intellij.psi.tree.IFileElementType;
 import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.basex.BaseXUpdateExprPsiImpl;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.full.text.*;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.marklogic.*;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.saxon.SaxonTupleFieldImpl;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.saxon.SaxonTupleTypeImpl;
@@ -301,6 +302,56 @@ public interface XQueryElementType {
     IElementType UPDATING_FUNCTION_CALL = new ICompositeElementType("XQUERY_UPDATING_FUNCTION_CALL", UpdateFacilityUpdatingFunctionCallPsiImpl.class, XQuery.INSTANCE);
 
     IElementType TRANSFORM_WITH_EXPR = new ICompositeElementType("XQUERY_TRANSFORM_WITH_EXPR", UpdateFacilityTransformWithExprPsiImpl.class, XQuery.INSTANCE);
+
+    // endregion
+    // region Full Text 1.0
+
+    IElementType FT_OPTION_DECL = new ICompositeElementType("XQUERY_FT_OPTION_DECL", FTOptionDeclPsiImpl.class, XQuery.INSTANCE);
+    IElementType FT_MATCH_OPTIONS = new ICompositeElementType("XQUERY_FT_MATCH_OPTIONS", FTMatchOptionsPsiImpl.class, XQuery.INSTANCE);
+    IElementType FT_CASE_OPTION = new ICompositeElementType("XQUERY_FT_CASE_OPTION", FTCaseOptionPsiImpl.class, XQuery.INSTANCE);
+    IElementType FT_DIACRITICS_OPTION = new ICompositeElementType("XQUERY_FT_DIACRITICS_OPTION", FTDiacriticsOptionPsiImpl.class, XQuery.INSTANCE);
+    IElementType FT_EXTENSION_OPTION = new ICompositeElementType("XQUERY_FT_EXTENSION_OPTION", FTExtensionOptionPsiImpl.class, XQuery.INSTANCE);
+    IElementType FT_LANGUAGE_OPTION = new ICompositeElementType("XQUERY_FT_LANGUAGE_OPTION", FTLanguageOptionPsiImpl.class, XQuery.INSTANCE);
+    IElementType FT_STEM_OPTION = new ICompositeElementType("XQUERY_FT_STEM_OPTION", FTStemOptionPsiImpl.class, XQuery.INSTANCE);
+    IElementType FT_STOP_WORD_OPTION = new ICompositeElementType("XQUERY_FT_STOP_WORD_OPTION", FTStopWordOptionPsiImpl.class, XQuery.INSTANCE);
+    IElementType FT_THESAURUS_OPTION = new ICompositeElementType("XQUERY_FT_THESAURUS_OPTION", FTThesaurusOptionPsiImpl.class, XQuery.INSTANCE);
+    IElementType FT_WILDCARD_OPTION = new ICompositeElementType("XQUERY_FT_WILDCARD_OPTION", FTWildCardOptionPsiImpl.class, XQuery.INSTANCE);
+
+    IElementType FT_THESAURUS_ID = new ICompositeElementType("XQUERY_FT_THESAURUS_ID", FTThesaurusIDPsiImpl.class, XQuery.INSTANCE);
+    IElementType FT_LITERAL_RANGE = new ICompositeElementType("XQUERY_FT_LITERAL_RANGE", FTLiteralRangePsiImpl.class, XQuery.INSTANCE);
+
+    IElementType FT_STOP_WORDS = new ICompositeElementType("XQUERY_FT_STOP_WORDS", FTStopWordsPsiImpl.class, XQuery.INSTANCE);
+    IElementType FT_STOP_WORDS_INCL_EXCL = new ICompositeElementType("XQUERY_FT_STOP_WORDS_INCL_EXCL", FTStopWordsInclExclPsiImpl.class, XQuery.INSTANCE);
+
+    IElementType FT_SCORE_VAR = new ICompositeElementType("XQUERY_FT_SCORE_VAR", FTScoreVarPsiImpl.class, XQuery.INSTANCE);
+
+    IElementType FT_CONTAINS_EXPR = new ICompositeElementType("XQUERY_FT_CONTAINS_EXPR", FTContainsExprPsiImpl.class, XQuery.INSTANCE);
+    IElementType FT_SELECTION = new ICompositeElementType("XQUERY_FT_SELECTION", FTSelectionPsiImpl.class, XQuery.INSTANCE);
+    IElementType FT_OR = new ICompositeElementType("XQUERY_FT_OR", FTOrPsiImpl.class, XQuery.INSTANCE);
+    IElementType FT_AND = new ICompositeElementType("XQUERY_FT_AND", FTAndPsiImpl.class, XQuery.INSTANCE);
+    IElementType FT_MILD_NOT = new ICompositeElementType("XQUERY_FT_MILD_NOT", FTMildNotPsiImpl.class, XQuery.INSTANCE);
+    IElementType FT_UNARY_NOT = new ICompositeElementType("XQUERY_FT_UNARY_NOT", FTUnaryNotPsiImpl.class, XQuery.INSTANCE);
+    IElementType FT_PRIMARY_WITH_OPTIONS = new ICompositeElementType("XQUERY_FT_PRIMARY_WITH_OPTIONS", FTPrimaryWithOptionsPsiImpl.class, XQuery.INSTANCE);
+    IElementType FT_PRIMARY = new ICompositeElementType("XQUERY_FT_PRIMARY", FTPrimaryPsiImpl.class, XQuery.INSTANCE);
+    IElementType FT_WORDS = new ICompositeElementType("XQUERY_FT_WORDS", FTWordsPsiImpl.class, XQuery.INSTANCE);
+    IElementType FT_WORDS_VALUE = new ICompositeElementType("XQUERY_FT_WORDS_VALUE", FTWordsValuePsiImpl.class, XQuery.INSTANCE);
+
+    IElementType FT_EXTENSION_SELECTION = new ICompositeElementType("XQUERY_FT_EXTENSION_SELECTION", FTExtensionSelectionPsiImpl.class, XQuery.INSTANCE);
+    IElementType FT_ANYALL_OPTION = new ICompositeElementType("XQUERY_FT_ANYALL_OPTION", FTAnyallOptionPsiImpl.class, XQuery.INSTANCE);
+    IElementType FT_TIMES = new ICompositeElementType("XQUERY_FT_TIMES", FTTimesPsiImpl.class, XQuery.INSTANCE);
+    IElementType FT_RANGE = new ICompositeElementType("XQUERY_FT_RANGE", FTRangePsiImpl.class, XQuery.INSTANCE);
+    IElementType FT_WEIGHT = new ICompositeElementType("XQUERY_FT_WEIGHT", FTWeightPsiImpl.class, XQuery.INSTANCE);
+
+    IElementType FT_ORDER = new ICompositeElementType("XQUERY_FT_ORDER", FTOrderPsiImpl.class, XQuery.INSTANCE);
+    IElementType FT_WINDOW = new ICompositeElementType("XQUERY_FT_WINDOW", FTWindowPsiImpl.class, XQuery.INSTANCE);
+    IElementType FT_DISTANCE = new ICompositeElementType("XQUERY_FT_DISTANCE", FTDistancePsiImpl.class, XQuery.INSTANCE);
+    IElementType FT_SCOPE = new ICompositeElementType("XQUERY_FT_SCOPE", FTScopePsiImpl.class, XQuery.INSTANCE);
+    IElementType FT_CONTENT = new ICompositeElementType("XQUERY_FT_CONTENT", FTContentPsiImpl.class, XQuery.INSTANCE);
+
+    IElementType FT_UNIT = new ICompositeElementType("XQUERY_FT_UNIT", FTUnitPsiImpl.class, XQuery.INSTANCE);
+    IElementType FT_BIG_UNIT = new ICompositeElementType("XQUERY_FT_BIG_UNIT", FTBigUnitPsiImpl.class, XQuery.INSTANCE);
+
+    IElementType FT_IGNORE_OPTION = new ICompositeElementType("XQUERY_FT_IGNORE_OPTION", FTIgnoreOptionPsiImpl.class, XQuery.INSTANCE);
 
     // endregion
     // region Scripting Extension 1.0

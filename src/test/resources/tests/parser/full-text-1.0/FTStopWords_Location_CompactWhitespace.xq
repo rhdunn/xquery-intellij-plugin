@@ -1,0 +1,1 @@
+declare ft-option using stop words at"http://www.example.com/fr/stop.lst";

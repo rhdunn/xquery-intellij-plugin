@@ -1,0 +1,21 @@
+FileElement[FILE(0:42)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:42)]
+      XQueryPrologImpl[XQUERY_PROLOG(0:42)]
+         FTOptionDeclImpl[XQUERY_FT_OPTION_DECL(0:41)]
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
+            PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_FT_OPTION(8:17)]('ft-option')
+            PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
+            FTMatchOptionsImpl[XQUERY_FT_MATCH_OPTIONS(18:41)]
+               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_USING(18:23)]('using')
+               PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
+               FTLanguageOptionImpl[XQUERY_FT_LANGUAGE_OPTION(24:40)]
+                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_LANGUAGE(24:32)]('language')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(32:33)](' ')
+                  XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(33:40)]
+                     LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(33:34)]('"')
+                     LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(34:39)]('en-IE')
+                     LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(39:40)]('"')
+               PsiWhiteSpaceImpl[WHITE_SPACE(40:41)](' ')
+         LeafPsiElement[XQUERY_SEPARATOR_TOKEN(41:42)](';')
+      PsiErrorElementImpl[ERROR_ELEMENT(42:42)]('XPST0003: Missing query body.')

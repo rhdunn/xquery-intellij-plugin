@@ -40,27 +40,28 @@ FileElement[FILE(0:59)]
                         XQueryOrExprImpl[XQUERY_OR_EXPR(52:56)]
                            XQueryAndExprImpl[XQUERY_AND_EXPR(52:56)]
                               XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(52:56)]
-                                 XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(52:56)]
-                                    XQueryRangeExprImpl[XQUERY_RANGE_EXPR(52:56)]
-                                       XQueryAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(52:56)]
-                                          XQueryMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(52:56)]
-                                             XQueryUnionExprImpl[XQUERY_UNION_EXPR(52:56)]
-                                                XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(52:56)]
-                                                   XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(52:56)]
-                                                      XQueryTreatExprImpl[XQUERY_TREAT_EXPR(52:56)]
-                                                         XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(52:56)]
-                                                            XQueryCastExprImpl[XQUERY_CAST_EXPR(52:56)]
-                                                               XQueryArrowExprImpl[XQUERY_ARROW_EXPR(52:56)]
-                                                                  XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(52:56)]
-                                                                     XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(52:56)]
-                                                                        XQueryPathExprImpl[XQUERY_PATH_EXPR(52:56)]
-                                                                           XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(52:56)]
-                                                                              XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(52:56)]
-                                                                                 XQueryParenthesizedExprImpl[XQUERY_PARENTHESIZED_EXPR(52:55)]
-                                                                                    LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(52:53)]('(')
-                                                                                    PsiWhiteSpaceImpl[WHITE_SPACE(53:54)](' ')
-                                                                                    LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(54:55)](')')
-                                                                                 PsiWhiteSpaceImpl[WHITE_SPACE(55:56)](' ')
+                                 FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(52:56)]
+                                    XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(52:56)]
+                                       XQueryRangeExprImpl[XQUERY_RANGE_EXPR(52:56)]
+                                          XQueryAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(52:56)]
+                                             XQueryMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(52:56)]
+                                                XQueryUnionExprImpl[XQUERY_UNION_EXPR(52:56)]
+                                                   XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(52:56)]
+                                                      XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(52:56)]
+                                                         XQueryTreatExprImpl[XQUERY_TREAT_EXPR(52:56)]
+                                                            XQueryCastableExprImpl[XQUERY_CASTABLE_EXPR(52:56)]
+                                                               XQueryCastExprImpl[XQUERY_CAST_EXPR(52:56)]
+                                                                  XQueryArrowExprImpl[XQUERY_ARROW_EXPR(52:56)]
+                                                                     XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(52:56)]
+                                                                        XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(52:56)]
+                                                                           XQueryPathExprImpl[XQUERY_PATH_EXPR(52:56)]
+                                                                              XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(52:56)]
+                                                                                 XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(52:56)]
+                                                                                    XQueryParenthesizedExprImpl[XQUERY_PARENTHESIZED_EXPR(52:55)]
+                                                                                       LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(52:53)]('(')
+                                                                                       PsiWhiteSpaceImpl[WHITE_SPACE(53:54)](' ')
+                                                                                       LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(54:55)](')')
+                                                                                    PsiWhiteSpaceImpl[WHITE_SPACE(55:56)](' ')
                   LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(56:57)]('}')
                PsiWhiteSpaceImpl[WHITE_SPACE(57:58)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(58:59)](';')

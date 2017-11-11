@@ -1,0 +1,1 @@
+title contains text "lorem" using no stemming
