@@ -4813,10 +4813,10 @@ class XQueryParser {
         while (true) {
             if (matchTokenType(XQueryTokenType.XML_ELEMENT_CONTENTS) ||
                 matchTokenType(XQueryTokenType.BAD_CHARACTER) ||
-                matchTokenType(XQueryTokenType.BLOCK_CLOSE) ||
                 matchTokenType(XQueryTokenType.PREDEFINED_ENTITY_REFERENCE) ||
                 matchTokenType(XQueryTokenType.CHARACTER_REFERENCE) ||
                 matchTokenType(XQueryTokenType.ESCAPED_CHARACTER) ||
+                errorOnTokenType(XQueryTokenType.BLOCK_CLOSE, XQueryBundle.message("parser.error.mismatched-exclosed-expr")) ||
                 errorOnTokenType(XQueryTokenType.EMPTY_ENTITY_REFERENCE, XQueryBundle.message("parser.error.empty-entity"))) {
                 matched = true;
             } else if (matchTokenType(XQueryTokenType.PARTIAL_ENTITY_REFERENCE)) {
