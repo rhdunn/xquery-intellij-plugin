@@ -20,10 +20,7 @@ import com.intellij.openapi.components.*
 import com.intellij.openapi.project.Project
 import com.intellij.util.xmlb.XmlSerializerUtil
 import com.intellij.util.xmlb.annotations.Transient
-import uk.co.reecedunn.intellij.plugin.xquery.lang.Product
-import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
-import uk.co.reecedunn.intellij.plugin.xquery.lang.VersionedProductId
-import uk.co.reecedunn.intellij.plugin.xquery.lang.W3C
+import uk.co.reecedunn.intellij.plugin.xquery.lang.*
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 import java.io.File
 
@@ -38,8 +35,14 @@ class XQueryProjectSettings : PersistentStateComponent<XQueryProjectSettings>, E
         get() = PRODUCT_VERSION.product ?: W3C.SPECIFICATIONS
 
     @get:Transient
-    val productVersion: Version?
-        get() = PRODUCT_VERSION.productVersion
+    val productVersion: Version
+        get() = PRODUCT_VERSION.productVersion ?: when (product) {
+            BaseX.BASEX -> BaseX.VERSION_8_6
+            MarkLogic.MARKLOGIC -> MarkLogic.VERSION_9_0
+            Saxon.HE, Saxon.PE, Saxon.EE, Saxon.EE_Q, Saxon.EE_T, Saxon.EE_V -> Saxon.VERSION_9_8
+            W3C.SPECIFICATIONS -> W3C.FIRST_EDITION
+            else -> throw RuntimeException("Unknown product: $product")
+        }
 
     // endregion
     // region Persisted Settings

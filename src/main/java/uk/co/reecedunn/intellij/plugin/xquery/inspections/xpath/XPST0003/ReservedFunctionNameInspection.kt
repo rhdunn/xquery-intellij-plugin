@@ -53,7 +53,7 @@ class ReservedFunctionNameInspection : LocalInspectionTool() {
 
         val settings = XQueryProjectSettings.getInstance(file.getProject())
         val product = settings.product
-        val productVersion = settings.productVersion!!
+        val productVersion = settings.productVersion
 
         val descriptors = SmartList<ProblemDescriptor>()
         file.walkTree().forEach { element ->

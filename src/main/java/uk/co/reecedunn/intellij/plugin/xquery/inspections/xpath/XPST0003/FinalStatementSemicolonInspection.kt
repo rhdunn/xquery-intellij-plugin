@@ -40,7 +40,7 @@ class FinalStatementSemicolonInspection : LocalInspectionTool() {
 
         val settings = XQueryProjectSettings.getInstance(file.getProject())
         val product = settings.product
-        val productVersion = settings.productVersion!!
+        val productVersion = settings.productVersion
         val requiresSemicolon = product.conformsTo(productVersion, Scripting.NOTE_1_0_20140918)
 
         val descriptors = SmartList<ProblemDescriptor>()

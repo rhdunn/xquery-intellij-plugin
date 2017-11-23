@@ -48,7 +48,7 @@ class MapConstructorEntryInspection : LocalInspectionTool() {
         if (file !is XQueryFile) return null
 
         val settings = XQueryProjectSettings.getInstance(file.getProject())
-        val productVersion: Version? = settings.productVersion
+        val productVersion: Version = settings.productVersion
 
         val descriptors = SmartList<ProblemDescriptor>()
         file.walkTree().filterIsInstance<XQueryMapConstructorEntry>().forEach { element ->
