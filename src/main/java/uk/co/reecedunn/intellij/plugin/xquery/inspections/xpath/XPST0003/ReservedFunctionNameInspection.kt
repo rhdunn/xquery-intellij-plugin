@@ -52,7 +52,7 @@ class ReservedFunctionNameInspection : LocalInspectionTool() {
         if (file !is XQueryFile) return null
 
         val settings = XQueryProjectSettings.getInstance(file.getProject())
-        val product = settings.product!!
+        val product = settings.product
         val productVersion = settings.productVersion!!
 
         val descriptors = SmartList<ProblemDescriptor>()

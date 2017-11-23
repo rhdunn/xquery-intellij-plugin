@@ -39,7 +39,7 @@ class FinalStatementSemicolonInspection : LocalInspectionTool() {
         if (file !is XQueryFile) return null
 
         val settings = XQueryProjectSettings.getInstance(file.getProject())
-        val product = settings.product!!
+        val product = settings.product
         val productVersion = settings.productVersion!!
         val requiresSemicolon = product.conformsTo(productVersion, Scripting.NOTE_1_0_20140918)
 

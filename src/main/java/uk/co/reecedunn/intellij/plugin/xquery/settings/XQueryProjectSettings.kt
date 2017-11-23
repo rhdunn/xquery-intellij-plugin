@@ -23,6 +23,7 @@ import com.intellij.util.xmlb.annotations.Transient
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Product
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lang.VersionedProductId
+import uk.co.reecedunn.intellij.plugin.xquery.lang.W3C
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 import java.io.File
 
@@ -33,8 +34,8 @@ class XQueryProjectSettings : PersistentStateComponent<XQueryProjectSettings>, E
     private var PRODUCT_VERSION = VersionedProductId("w3c/spec/v1ed")
 
     @get:Transient
-    val product: Product?
-        get() = PRODUCT_VERSION.product
+    val product: Product
+        get() = PRODUCT_VERSION.product ?: W3C.SPECIFICATIONS
 
     @get:Transient
     val productVersion: Version?

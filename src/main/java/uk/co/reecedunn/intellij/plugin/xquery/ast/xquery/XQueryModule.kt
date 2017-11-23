@@ -28,7 +28,7 @@ data class XQueryVersionRef(val declaration: XQueryStringLiteral?, val version: 
             val product = settings.product
             val productVersion = settings.productVersion
             val xquery = settings.XQueryVersion
-            if (product == null || productVersion == null || xquery == null)
+            if (productVersion == null || xquery == null)
                 return XQuery.REC_1_0_20070123
             return XQuery.versionForXQuery(product, productVersion, xquery) ?: XQuery.REC_1_0_20070123
         }
