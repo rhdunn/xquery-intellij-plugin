@@ -35,7 +35,7 @@ allprojects {
 }
 
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     testCompile "org.junit.jupiter:junit-jupiter-api:5.0.0$junit_milestone"
     // See: http://junit.org/junit5/docs/snapshot/user-guide/#running-tests-ide-intellij-idea
     testRuntime("org.junit.platform:junit-platform-launcher:1.0.0$junit_milestone")

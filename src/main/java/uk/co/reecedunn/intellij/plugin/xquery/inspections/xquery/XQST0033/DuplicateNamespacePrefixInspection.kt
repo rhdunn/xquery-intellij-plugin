@@ -66,7 +66,7 @@ class DuplicateNamespacePrefixInspection : LocalInspectionTool() {
                 if (ns == null || prefix == null)
                     return
 
-                val duplicate: XQueryNamespace? = prefices.getOrDefault(prefix, null)
+                val duplicate: XQueryNamespace? = prefices.get(prefix)
                 if (duplicate != null) {
                     val description = XQueryBundle.message("inspection.XQST0033.duplicate-namespace-prefix.message", prefix)
                     descriptors.add(manager.createProblemDescriptor(ns.prefix, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))

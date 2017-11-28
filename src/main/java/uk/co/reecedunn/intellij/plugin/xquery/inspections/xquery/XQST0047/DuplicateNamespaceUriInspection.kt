@@ -51,7 +51,7 @@ class DuplicateNamespaceUriInspection : LocalInspectionTool() {
                 if (ns == null || uri == null)
                     return
 
-                val duplicate: XQueryNamespace? = uris.getOrDefault(uri, null)
+                val duplicate: XQueryNamespace? = uris.get(uri)
                 if (duplicate != null) {
                     val description = XQueryBundle.message("inspection.XQST0047.duplicate-namespace-uri.message", uri)
                     descriptors.add(manager.createProblemDescriptor(ns.uri!!, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))
