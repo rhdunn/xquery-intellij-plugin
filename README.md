@@ -16,7 +16,7 @@ This project provides XQuery support for the IntelliJ IDE.
 _Supported IntelliJ Platforms:_ IntelliJ IDEA Community, IntelliJ IDEA Ultimate,
 PhpStorm, WebStorm, PyCharm, RubyMine, AppCode, CLion, Rider, Android Studio
 
-_Supported IntelliJ Versions:_ 2017.1 - 2017.2
+_Supported IntelliJ Versions:_ 2017.1 - 2017.3
 
 _Supported XQuery Implementations:_ BaseX, MarkLogic, Saxonica Saxon, W3C Specifications
 
