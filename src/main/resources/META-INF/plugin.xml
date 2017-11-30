@@ -13,38 +13,18 @@
   ]]></description>
 
   <change-notes><![CDATA[
-    <h3>Release 1.0:</h3>
+    <h3>Release 1.1-dev:</h3>
     <p>Language Support:</p>
     <ol>
-      <li>Full Text 1.0 and 3.0 support.</li>
-      <li>MarkLogic 7.0 and 8.0 schema-components <code>KindType</code> tests.</li>
-      <li>Saxon 9.8 <code>tuple</code> and <code>union</code> types, and <code>declare type</code> prolog statements.</li>
-      <li>BaseX Full Text <code>fuzzy</code> option.</li>
-      <li>Recover when <code>=</code> is used instead of <code>:=</code>.</li>
-      <li>Improved multi-statement expression parsing and error reporting for MarkLogic 6.0, and W3C Scripting XQuery extensions.</li>
     </ol>
     <p>Bug Fixes:</p>
     <ol>
-      <li>Fix tokenizing <code>`{...}`</code> expressions outside XQuery 3.1 string interpolation contexts.</li>
-      <li>Report a parser error when a TypedFunctionTest does not have a return type clause.</li>
-      <li>Report a parse error when an unpaired <code>}</code> is used in direct element contents.</li>
-      <li>Fix parsing pragmas with EQNames, and optional pragma contents.</li>
-      <li>Fix resolving functions referenced in the current library module.</li>
-      <li>Fix support for ProcessCanceledException thrown when creating PSI nodes.</li>
     </ol>
     <p>Inspections:</p>
     <ol>
-      <li>XPST0003: Final statement semicolon inspection for MarkLogic and Scripting Extension syntax differences.</li>
-      <li>XPST0003: Reserved function inspection. This is split out from the unsupported construct inspection.</li>
-      <li>XPST0003: Saxon/XQuery map key-value separators. This is split out from the unsupported construct inspection.</li>
-      <li>XPST0017: Undefined function inspection. This is experimental, as it currently reports many false positives.</li>
-      <li>XQST0031: Extend the inspection to check unsupported XQuery versions in different MarkLogic transactions, and check for XDMP-XQUERYVERSIONSWITCH errors.</li>
-      <li>XQST0033: Duplicate namespace prefix.</li>
-      <li>XPST0081: Unbound QName prefix.</li>
     </ol>
     <p>IntelliJ Integration:</p>
     <ol>
-      <li>Moved the MarkLogic run configuration to a separate plugin.</li>
     </ol>
   ]]></change-notes>
 
