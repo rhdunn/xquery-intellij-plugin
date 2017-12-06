@@ -25,5 +25,5 @@ import com.intellij.psi.PsiElement;
  * <code>DirectConstructor</code> nodes are stored as instances of the child nodes
  * instead of as distinct nodes themselves.
  */
-interface XQueryDirectConstructor extends PsiElement {
+public interface XQueryDirectConstructor extends PsiElement {
 }
