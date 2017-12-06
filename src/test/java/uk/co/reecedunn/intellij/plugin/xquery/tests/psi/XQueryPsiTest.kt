@@ -2080,6 +2080,67 @@ class XQueryPsiTest:ParserTestCase() {
 
     // endregion
     // endregion
+    // region XQueryDirElemConstructor
+
+    fun testDirElemConstructor() {
+        val file = parseResource("tests/parser/xquery-1.0/DirElemConstructor_CompactWhitespace.xq")!!
+
+        val dirElemConstructorPsi = file.descendants().filterIsInstance<XQueryDirElemConstructor>().first()
+
+        assertThat(dirElemConstructorPsi.isSelfClosing, `is`(false))
+
+        val open = dirElemConstructorPsi.openTag
+        assertThat(open, `is`(notNullValue()))
+        assertThat(open!!.prefix, `is`(notNullValue()))
+        assertThat(open.prefix!!.text, `is`("a"))
+        assertThat(open.localName, `is`(notNullValue()))
+        assertThat(open.localName!!.text, `is`("b"))
+
+        val close = dirElemConstructorPsi.closeTag
+        assertThat(close, `is`(notNullValue()))
+        assertThat(close!!.prefix, `is`(notNullValue()))
+        assertThat(close.prefix!!.text, `is`("a"))
+        assertThat(close.localName, `is`(notNullValue()))
+        assertThat(close.localName!!.text, `is`("b"))
+    }
+
+    fun testDirElemConstructor_SelfClosing() {
+        val file = parseResource("tests/parser/xquery-1.0/DirElemConstructor_SelfClosing_CompactWhitespace.xq")!!
+
+        val dirElemConstructorPsi = file.descendants().filterIsInstance<XQueryDirElemConstructor>().first()
+
+        assertThat(dirElemConstructorPsi.isSelfClosing, `is`(true))
+
+        val open = dirElemConstructorPsi.openTag
+        assertThat(open, `is`(notNullValue()))
+        assertThat(open!!.prefix, `is`(notNullValue()))
+        assertThat(open.prefix!!.text, `is`("h"))
+        assertThat(open.localName, `is`(notNullValue()))
+        assertThat(open.localName!!.text, `is`("br"))
+
+        val close = dirElemConstructorPsi.closeTag
+        assertThat(close, `is`(nullValue()))
+    }
+
+    fun testDirElemConstructor_MissingClosingTag() {
+        val file = parseResource("tests/parser/xquery-1.0/DirElemConstructor_MissingClosingTag.xq")!!
+
+        val dirElemConstructorPsi = file.descendants().filterIsInstance<XQueryDirElemConstructor>().first()
+
+        assertThat(dirElemConstructorPsi.isSelfClosing, `is`(false))
+
+        val open = dirElemConstructorPsi.openTag
+        assertThat(open, `is`(notNullValue()))
+        assertThat(open!!.prefix, `is`(notNullValue()))
+        assertThat(open.prefix!!.text, `is`("a"))
+        assertThat(open.localName, `is`(notNullValue()))
+        assertThat(open.localName!!.text, `is`("b"))
+
+        val close = dirElemConstructorPsi.closeTag
+        assertThat(close, `is`(nullValue()))
+    }
+
+    // endregion
     // region XQueryEQName
     // region EQName
 
@@ -3032,7 +3093,7 @@ class XQueryPsiTest:ParserTestCase() {
     // endregion
     // region DirElemConstructor
 
-    fun testDirElemConstructor() {
+    fun testDirElemConstructor_NamespaceResolver() {
         val file = parseResource("tests/parser/xquery-1.0/DirElemConstructor.xq")!!
 
         val dirElemConstructorPsi = file.descendants().filterIsInstance<XQueryDirElemConstructor>().first()
@@ -3044,7 +3105,7 @@ class XQueryPsiTest:ParserTestCase() {
         assertThat<XQueryNamespace>(provider.resolveNamespace("a"), `is`(nullValue()))
     }
 
-    fun testDirElemConstructor_AttributeList() {
+    fun testDirElemConstructor_AttributeList_NamespaceResolver() {
         val file = parseResource("tests/parser/xquery-1.0/DirAttributeList.xq")!!
 
         val dirElemConstructorPsi = file.descendants().filterIsInstance<XQueryDirElemConstructor>().first()
@@ -3056,7 +3117,7 @@ class XQueryPsiTest:ParserTestCase() {
         assertThat<XQueryNamespace>(provider.resolveNamespace("a"), `is`(nullValue()))
     }
 
-    fun testDirElemConstructor_XmlNamespace() {
+    fun testDirElemConstructor_XmlNamespace_NamespaceResolver() {
         val file = parseResource("tests/psi/xquery-1.0/DirAttributeList_XmlnsAttribute.xq")!!
 
         val dirElemConstructorPsi = file.descendants().filterIsInstance<XQueryDirElemConstructor>().first()
@@ -3080,7 +3141,7 @@ class XQueryPsiTest:ParserTestCase() {
         assertThat(ns.declaration, `is`<PsiElement>(dirAttributeListPsi))
     }
 
-    fun testDirElemConstructor_XmlNamespace_MissingValue() {
+    fun testDirElemConstructor_XmlNamespace_MissingValue_NamespaceResolver() {
         val file = parseResource("tests/psi/xquery-1.0/DirAttributeList_XmlnsAttribute_MissingValue.xq")!!
 
         val dirElemConstructorPsi = file.descendants().filterIsInstance<XQueryDirElemConstructor>().first()
@@ -3103,7 +3164,7 @@ class XQueryPsiTest:ParserTestCase() {
         assertThat(ns.declaration, `is`<PsiElement>(dirAttributeListPsi))
     }
 
-    fun testDirElemConstructor_XmlNamespace_MissingMiddleValue() {
+    fun testDirElemConstructor_XmlNamespace_MissingMiddleValue_NamespaceResolver() {
         val file = parseResource("tests/psi/xquery-1.0/DirAttributeList_XmlnsAttribute_MissingMiddleValue.xq")!!
 
         val dirElemConstructorPsi = file.descendants().filterIsInstance<XQueryDirElemConstructor>().first()

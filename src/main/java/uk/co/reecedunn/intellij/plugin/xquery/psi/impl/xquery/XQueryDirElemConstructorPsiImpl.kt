@@ -19,11 +19,24 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceResolver
 
 class XQueryDirElemConstructorPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryDirElemConstructor, XQueryNamespaceResolver {
+    override val openTag get(): XQueryEQName? =
+        findChildByClass(XQueryEQName::class.java)
+
+    override val closeTag get(): XQueryEQName? {
+        val tag = findChildrenByClass(XQueryEQName::class.java)
+        return if (tag.size == 2) tag[1] else null
+    }
+
+    override val isSelfClosing get(): Boolean =
+        lastChild.node.elementType === XQueryTokenType.SELF_CLOSING_XML_TAG
+
     override fun resolveNamespace(prefix: CharSequence?): XQueryNamespace? {
         val element = findChildByType<PsiElement>(XQueryElementType.DIR_ATTRIBUTE_LIST)
         return (element as? XQueryNamespaceResolver)?.resolveNamespace(prefix)
