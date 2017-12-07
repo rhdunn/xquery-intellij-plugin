@@ -28,6 +28,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.JarURLConnection;
 import java.net.URISyntaxException;
 import java.net.URL;
 
@@ -66,12 +67,17 @@ public class ResourceVirtualFile extends VirtualFile {
         }
 
         URL url = mLoader.getResource(resource);
-        if (url != null && url.getProtocol().equals("file")) {
-            try {
+        if (url == null) return;
+
+        try {
+            if (url.getProtocol().equals("file")) {
                 mFile = new File(url.toURI());
-            } catch (URISyntaxException e) {
-                //
+            } else if (url.getProtocol().equals("jar")) {
+                JarURLConnection connection = (JarURLConnection)url.openConnection();
+                mFile = new File(connection.getJarFileURL().toURI());
             }
+        } catch (URISyntaxException | IOException e) {
+            //
         }
     }
 
