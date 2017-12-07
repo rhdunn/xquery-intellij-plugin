@@ -22,6 +22,7 @@
     </ol>
     <p>Inspections:</p>
     <ol>
+      <li>XQST0118: Mismatched open and close XML tag in direct element constructors.</li>
     </ol>
     <p>IntelliJ Integration:</p>
     <ol>
@@ -107,6 +108,12 @@
                      key="inspection.XPST0081.unbound-qname-prefix.display-name" hasStaticDescription="true"
                      groupName="XQuery" enabledByDefault="true" level="ERROR"
                      implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.xpath.XPST0081.UnboundQNamePrefixInspection"/>
+
+    <!-- XQST0118 -->
+    <localInspection language="XQuery" shortName="MismatchedDirElemTagName" bundle="messages.XQueryBundle"
+                     key="inspection.XQST0118.mismatched-dir-elem-tag-name.display-name" hasStaticDescription="true"
+                     groupName="XQuery" enabledByDefault="true" level="ERROR"
+                     implementationClass="uk.co.reecedunn.intellij.plugin.xquery.inspections.xquery.XQST0118.MismatchedDirElemTagNameInspection"/>
 
     <projectService serviceInterface="uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings"
                     serviceImplementation="uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings"/>

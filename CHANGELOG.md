@@ -2,6 +2,10 @@
 
 ## 1.1 - (In Development)
 
+Inspections:
+
+1.  XQST0118: Mismatched open and close XML tag in direct element constructors.
+
 ## 1.0 - 2017-11-30
 
 Language Support:
