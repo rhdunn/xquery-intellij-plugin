@@ -1,14 +1,19 @@
 buildscript {
     ext.since_from_version = { version ->
-        def since = version =~ /[A-Z]+-20([0-9][0-9])\.([1-3])(\.[0-9]+)?/ // e.g. IC-2017.3
+        def since = version =~ /([A-Z]+-)?20([0-9][0-9])\.([1-3])(\.[0-9]+)?/ // e.g. IC-2017.3, 2017.2.4
         if (since.matches()) {
-            return "${since.group(1)}${since.group(2)}"
+            return "${since.group(2)}${since.group(3)}"
         }
-        return "161"
+        since = version =~ /([A-Z]+-)?([0-9][0-9][0-9])\.[0-9]+?/ // e.g. IU-163.7890, 171.1234
+        if (since.matches()) {
+            return since.group(2)
+        }
+        if (version == "LATEST-EAP-SNAPSHOT") return "173"
+        return "181" // version == "LATEST-TRUNK-SNAPSHOT"
     }
 
     ext.idea_version = System.getenv("IDEA_VERSION") ?: 'IC-2017.3'
-    ext.idea_since_build = ext.since_from_version(ext.idea_version)
+    ext.idea_since_build = System.getenv("IDEA_SINCE_BUILD") ?: ext.since_from_version(ext.idea_version)
     ext.junit_milestone = ''
     ext.kotlin_version = '1.1.4-2'
 
