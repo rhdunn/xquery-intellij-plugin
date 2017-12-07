@@ -3,12 +3,12 @@ sudo: required
 jdk:
   - oraclejdk8
 
-# EAP, Stable, Previous, Old
 env:
+  - IDEA_VERSION=LATEST-TRUNK-SNAPSHOT
   - IDEA_VERSION=LATEST-EAP-SNAPSHOT
-  - IDEA_VERSION=IC-2017.3
-  - IDEA_VERSION=IC-2017.2
-  - IDEA_VERSION=IC-2017.1
+  - IDEA_VERSION=IC-2017.3 # Stable
+  - IDEA_VERSION=IC-2017.2 # Previous
+  - IDEA_VERSION=IC-2017.1 # Old
 
 # Code Coverage
 after_success:
