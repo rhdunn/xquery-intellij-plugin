@@ -47,7 +47,7 @@ The plugin provides control over how XQuery dialects are interpreted.
 
 ![XQuery Settings](images/xquery-settings.png)
 
-## Warnings and Errors
+### Warnings and Errors
 
 Helpful error messages for invalid XQuery constructs.
 
@@ -58,7 +58,7 @@ to the one configured in the project.
 
 ![Require Different Version](images/require-different-version.png)
 
-## IntelliJ Integration
+### IntelliJ Integration
 
 Resolve URI string literals to the files they reference.
 
