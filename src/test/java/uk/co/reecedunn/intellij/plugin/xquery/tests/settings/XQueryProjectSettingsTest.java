@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.settings;
 
-import com.intellij.openapi.application.PathManager;
 import com.intellij.util.xmlb.XmlSerializer;
 import junit.framework.TestCase;
 import org.jdom.Element;
@@ -24,8 +23,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.W3C;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings;
-
-import java.io.File;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -66,18 +63,6 @@ public class XQueryProjectSettingsTest extends TestCase {
 
         assertThat(settings.getProduct(), is(MarkLogic.INSTANCE.getMARKLOGIC()));
         assertThat(settings.getProductVersion(), is(MarkLogic.INSTANCE.getVERSION_6_0()));
-    }
-
-    public void testExportedFiles() {
-        XQueryProjectSettings settings = new XQueryProjectSettings();
-        assertThat(settings.getExportFiles().length, is(1));
-        assertThat(settings.getExportFiles()[0].getParent(), is(new File(PathManager.getOptionsPath()).getAbsolutePath()));
-        assertThat(settings.getExportFiles()[0].getName(), is("xquery_project_settings.xml"));
-    }
-
-    public void testPresentableName() {
-        XQueryProjectSettings settings = new XQueryProjectSettings();
-        assertThat(settings.getPresentableName(), is("XQuery Project Settings"));
     }
 
     @SuppressWarnings("ThrowableResultOfMethodCallIgnored")

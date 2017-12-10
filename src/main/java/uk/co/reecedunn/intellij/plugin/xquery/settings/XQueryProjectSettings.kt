@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 import java.io.File
 
 @State(name = "XQueryProjectSettings", storages = arrayOf(Storage(StoragePathMacros.WORKSPACE_FILE), Storage("xquery_config.xml")))
-class XQueryProjectSettings : PersistentStateComponent<XQueryProjectSettings>, ExportableComponent {
+class XQueryProjectSettings : PersistentStateComponent<XQueryProjectSettings> {
     // region Settings
 
     private var PRODUCT_VERSION = VersionedProductId("w3c/spec/v1ed")
@@ -67,13 +67,6 @@ class XQueryProjectSettings : PersistentStateComponent<XQueryProjectSettings>, E
     override fun getState(): XQueryProjectSettings? = this
 
     override fun loadState(state: XQueryProjectSettings) = XmlSerializerUtil.copyBean(state, this)
-
-    // endregion
-    // region ExportableComponent
-
-    override fun getExportFiles(): Array<File> = arrayOf(PathManager.getOptionsFile("xquery_project_settings"))
-
-    override fun getPresentableName(): String = XQueryBundle.message("xquery.settings.project.title")
 
     // endregion
 
