@@ -6087,6 +6087,7 @@ class XQueryParser {
                     error(XQueryBundle.message("parser.error.expected", "QName"));
                     haveError = true;
                 }
+                parseWhiteSpaceAndCommentTokens();
             }
 
             parseWhiteSpaceAndCommentTokens();

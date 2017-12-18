@@ -137,6 +137,12 @@ public class SaxonParserTest extends ParserTestCase {
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
+    public void testUnionType_Multiple() {
+        final String expected = loadResource("tests/parser/saxon-9.8/UnionType_Multiple.txt");
+        final XQueryFile actual = parseResource("tests/parser/saxon-9.8/UnionType_Multiple.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
     // endregion
     // region Saxon 9.8 :: TupleType
 

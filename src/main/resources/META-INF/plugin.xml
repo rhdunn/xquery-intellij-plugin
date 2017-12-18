@@ -19,6 +19,8 @@
     </ol>
     <p>Bug Fixes:</p>
     <ol>
+      <li>Fix parsing Saxon 9.8 <code>tuple</code> types with whitespace or comments after the item type with an occurrence indicator and before the comma.</li>
+      <li>Fix parsing Saxon 9.8 <code>union</code> types with whitespace or comments after the QName and before the comma.</li>
     </ol>
     <p>Inspections:</p>
     <ol>
