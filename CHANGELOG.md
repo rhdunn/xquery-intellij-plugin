@@ -2,6 +2,10 @@
 
 ## 1.1 - (In Development)
 
+Language Support:
+
+1.  Support using MarkLogic 8.0 `array-node()` tests in `document-node()` tests.
+
 Bug Fixes:
 
 1.  Fix parsing Saxon 9.8 `tuple` types with whitespace or comments after the

@@ -1050,4 +1050,25 @@ public class MarkLogicParserTest extends ParserTestCase {
     }
 
     // endregion
+    // region MarkLogic 8.0 :: DocumentTest + ArrayTest
+
+    public void testDocumentTest_ArrayTest() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/DocumentTest_ArrayTest.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/DocumentTest_ArrayTest.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testDocumentTest_ArrayTest_Wildcard() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/DocumentTest_ArrayTest_Wildcard.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/DocumentTest_ArrayTest_Wildcard.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    public void testDocumentTest_ArrayTest_StringLiteral() {
+        final String expected = loadResource("tests/parser/marklogic-8.0/DocumentTest_ArrayTest_StringLiteral.txt");
+        final XQueryFile actual = parseResource("tests/parser/marklogic-8.0/DocumentTest_ArrayTest_StringLiteral.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    // endregion
 }

@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.parser;
 import com.intellij.lang.PsiBuilder;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.INCNameType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
@@ -6351,7 +6352,9 @@ class XQueryParser {
             }
 
             parseWhiteSpaceAndCommentTokens();
-            if (parseElementTest() || parseSchemaElementTest()) {
+            if (parseElementTest() ||
+                parseSchemaElementTest() ||
+                parseSimpleArrayTest_MarkLogic() != ParseStatus.NOT_MATCHED) {
             }
 
             parseWhiteSpaceAndCommentTokens();
@@ -6651,7 +6654,15 @@ class XQueryParser {
         return status;
     }
 
+    private ParseStatus parseSimpleArrayTest_MarkLogic() {
+        return parseArrayTest_MarkLogic(true);
+    }
+
     private ParseStatus parseArrayTest_MarkLogic() {
+        return parseArrayTest_MarkLogic(false);
+    }
+
+    private ParseStatus parseArrayTest_MarkLogic(boolean isSimple) {
         final PsiBuilder.Marker arrayTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_ARRAY_NODE);
         if (arrayTestMarker != null) {
             ParseStatus status = ParseStatus.MATCHED;
@@ -6663,10 +6674,17 @@ class XQueryParser {
             }
 
             parseWhiteSpaceAndCommentTokens();
-            if (parseStringLiteral(XQueryElementType.STRING_LITERAL)) {
+            if (isSimple && getTokenType() != XQueryTokenType.PARENTHESIS_CLOSE) {
+                error(XQueryBundle.message("parser.error.expected", ")"));
+                status = ParseStatus.MATCHED_WITH_ERRORS;
+
+                // array-node() tests in a document-node test do not allow `StringLiteral` or `*`
+                // tokens, but accept them here to recover when used incorrectly.
+                parseStringLiteral(XQueryElementType.STRING_LITERAL);
+                matchTokenType(XQueryTokenType.STAR);
+            } else if (parseStringLiteral(XQueryElementType.STRING_LITERAL)) {
                 //
-            } else if (getTokenType() != XQueryTokenType.PARENTHESIS_CLOSE) {
-                errorOnTokenType(XQueryTokenType.STAR, XQueryBundle.message("parser.error.expected-either", "StringLiteral", ")"));
+            } else if (errorOnTokenType(XQueryTokenType.STAR, XQueryBundle.message("parser.error.expected-either", "StringLiteral", ")"))) {
                 status = ParseStatus.MATCHED_WITH_ERRORS;
             }
 

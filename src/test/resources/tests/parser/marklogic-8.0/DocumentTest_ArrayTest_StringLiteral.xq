@@ -1,0 +1,1 @@
+declare variable $ one as document-node ( array-node ( "test" ) ) external ;
