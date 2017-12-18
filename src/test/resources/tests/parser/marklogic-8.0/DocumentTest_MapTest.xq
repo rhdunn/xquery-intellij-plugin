@@ -1,0 +1,1 @@
+declare variable $ one as document-node ( object-node ( ) ) external ;

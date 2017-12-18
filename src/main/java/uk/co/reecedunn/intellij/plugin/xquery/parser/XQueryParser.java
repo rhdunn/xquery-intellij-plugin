@@ -6354,7 +6354,8 @@ class XQueryParser {
             parseWhiteSpaceAndCommentTokens();
             if (parseElementTest() ||
                 parseSchemaElementTest() ||
-                parseSimpleArrayTest_MarkLogic() != ParseStatus.NOT_MATCHED) {
+                parseSimpleArrayTest_MarkLogic() != ParseStatus.NOT_MATCHED ||
+                parseSimpleMapTest_MarkLogic() != ParseStatus.NOT_MATCHED) {
             }
 
             parseWhiteSpaceAndCommentTokens();
@@ -6938,7 +6939,15 @@ class XQueryParser {
         return ParseStatus.NOT_MATCHED;
     }
 
+    private ParseStatus parseSimpleMapTest_MarkLogic() {
+        return parseMapTest_MarkLogic(true);
+    }
+
     private ParseStatus parseMapTest_MarkLogic() {
+        return parseMapTest_MarkLogic(false);
+    }
+
+    private ParseStatus parseMapTest_MarkLogic(boolean isSimple) {
         final PsiBuilder.Marker objectTestMarker = matchTokenTypeWithMarker(XQueryTokenType.K_OBJECT_NODE);
         if (objectTestMarker != null) {
             ParseStatus status = ParseStatus.MATCHED;
@@ -6950,10 +6959,17 @@ class XQueryParser {
             }
 
             parseWhiteSpaceAndCommentTokens();
-            if (parseStringLiteral(XQueryElementType.STRING_LITERAL)) {
+            if (isSimple && getTokenType() != XQueryTokenType.PARENTHESIS_CLOSE) {
+                error(XQueryBundle.message("parser.error.expected", ")"));
+                status = ParseStatus.MATCHED_WITH_ERRORS;
+
+                // object-node() tests in a document-node test do not allow `StringLiteral` or `*`
+                // tokens, but accept them here to recover when used incorrectly.
+                parseStringLiteral(XQueryElementType.STRING_LITERAL);
+                matchTokenType(XQueryTokenType.STAR);
+            } else if (parseStringLiteral(XQueryElementType.STRING_LITERAL)) {
                 //
-            } else if (getTokenType() != XQueryTokenType.PARENTHESIS_CLOSE) {
-                errorOnTokenType(XQueryTokenType.STAR, XQueryBundle.message("parser.error.expected-either", "StringLiteral", ")"));
+            } else if (errorOnTokenType(XQueryTokenType.STAR, XQueryBundle.message("parser.error.expected-either", "StringLiteral", ")"))) {
                 status = ParseStatus.MATCHED_WITH_ERRORS;
             }
 

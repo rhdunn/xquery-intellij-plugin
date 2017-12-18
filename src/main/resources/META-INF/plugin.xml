@@ -16,7 +16,7 @@
     <h3>Release 1.1-dev:</h3>
     <p>Language Support:</p>
     <ol>
-      <li>Support using MarkLogic 8.0 <code>array-node()</code> tests in <code>document-node()</code> tests.</li>
+      <li>Support using MarkLogic 8.0 <code>array-node()</code> and <code>object-node()</code> tests in <code>document-node()</code> tests.</li>
     </ol>
     <p>Bug Fixes:</p>
     <ol>

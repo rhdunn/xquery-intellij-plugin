@@ -4,7 +4,7 @@
 
 Language Support:
 
-1.  Support using MarkLogic 8.0 `array-node()` tests in `document-node()` tests.
+1.  Support using MarkLogic 8.0 `array-node()` and `object-node()` tests in `document-node()` tests.
 
 Bug Fixes:
 
