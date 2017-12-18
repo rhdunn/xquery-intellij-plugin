@@ -138,6 +138,7 @@ public class SaxonParserTest extends ParserTestCase {
     }
 
     public void testUnionType_Multiple() {
+        // This is testing handling of whitespace before parsing the next comma.
         final String expected = loadResource("tests/parser/saxon-9.8/UnionType_Multiple.txt");
         final XQueryFile actual = parseResource("tests/parser/saxon-9.8/UnionType_Multiple.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
@@ -192,6 +193,7 @@ public class SaxonParserTest extends ParserTestCase {
     }
 
     public void testTupleField_MultipleWithOccurrenceIndicator() {
+        // This is testing handling of whitespace before parsing the next comma.
         final String expected = loadResource("tests/parser/saxon-9.8/TupleField_MultipleWithOccurrenceIndicator.txt");
         final XQueryFile actual = parseResource("tests/parser/saxon-9.8/TupleField_MultipleWithOccurrenceIndicator.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));

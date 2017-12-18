@@ -1,0 +1,1 @@
+declare variable $ one as function ( xs:string + , xs:float * , xs:double ? ) external ;

@@ -7241,6 +7241,14 @@ public class XQueryParserTest extends ParserTestCase {
     }
 
     @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-TypedFunctionTest")
+    public void testTypedFunctionTest_MultipleWithOccurenceIndicator() {
+        // This is testing handling of whitespace before parsing the next comma.
+        final String expected = loadResource("tests/parser/xquery-3.0/TypedFunctionTest_MultipleWithOccurrenceIndicator.txt");
+        final XQueryFile actual = parseResource("tests/parser/xquery-3.0/TypedFunctionTest_MultipleWithOccurrenceIndicator.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
+    @Specification(name="XQuery 3.0", reference="https://www.w3.org/TR/2014/REC-xquery-30-20140408/#prod-xquery30-TypedFunctionTest")
     public void testTypedFunctionTest_ReturnType() {
         final String expected = loadResource("tests/parser/xquery-3.0/TypedFunctionTest_ReturnType.txt");
         final XQueryFile actual = parseResource("tests/parser/xquery-3.0/TypedFunctionTest_ReturnType.xq");

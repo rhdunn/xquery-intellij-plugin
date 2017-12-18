@@ -6149,6 +6149,7 @@ class XQueryParser {
                         error(XQueryBundle.message("parser.error.expected", "SequenceType"));
                         haveErrors = true;
                     }
+                    parseWhiteSpaceAndCommentTokens();
                 }
             } else {
                 type = XQueryElementType.TYPED_FUNCTION_TEST;
