@@ -52,7 +52,7 @@ declare %a:since("marklogic", "6.0") function math:stddev($arg as xs:double*) as
 declare %a:since("marklogic", "6.0") function math:stddev-p($arg as xs:double*) as xs:double? external;
 declare %a:since("marklogic", "5.0") function math:tan($x as xs:double) as xs:double external;
 declare %a:since("marklogic", "5.0") function math:tanh($x as xs:double) as xs:double external;
-declare %a:since("marklogic", "8.0") function math:trunc($arg as numeric?) as numeric? external;
-declare %a:since("marklogic", "6.0") function math:trunc($arg as numeric?, $n as xs:integer) as numeric? external;
+declare %a:since("marklogic", "8.0") function math:trunc($arg as xs:numeric?) as xs:numeric? external;
+declare %a:since("marklogic", "6.0") function math:trunc($arg as xs:numeric?, $n as xs:integer) as xs:numeric? external;
 declare %a:since("marklogic", "6.0") function math:variance($arg as xs:double*) as xs:double? external;
 declare %a:since("marklogic", "6.0") function math:variance-p($arg as xs:double*) as xs:double? external;
