@@ -1,0 +1,1 @@
+declare variable $ x as tuple ( x : xs:string ? , y : xs:integer * , z : xs:int + ) := 1 ;

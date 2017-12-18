@@ -185,6 +185,12 @@ public class SaxonParserTest extends ParserTestCase {
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
+    public void testTupleField_MultipleWithOccurrenceIndicator() {
+        final String expected = loadResource("tests/parser/saxon-9.8/TupleField_MultipleWithOccurrenceIndicator.txt");
+        final XQueryFile actual = parseResource("tests/parser/saxon-9.8/TupleField_MultipleWithOccurrenceIndicator.xq");
+        assertThat(prettyPrintASTNode(actual), is(expected));
+    }
+
     public void testTupleField_MissingColon() {
         final String expected = loadResource("tests/parser/saxon-9.8/TupleField_MissingColon.txt");
         final XQueryFile actual = parseResource("tests/parser/saxon-9.8/TupleField_MissingColon.xq");

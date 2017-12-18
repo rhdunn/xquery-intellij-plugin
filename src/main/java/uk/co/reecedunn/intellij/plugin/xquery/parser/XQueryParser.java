@@ -6026,6 +6026,7 @@ class XQueryParser {
                     error(XQueryBundle.message("parser.error.expected", "NCName"));
                     haveError = true;
                 }
+                parseWhiteSpaceAndCommentTokens();
             }
 
             parseWhiteSpaceAndCommentTokens();

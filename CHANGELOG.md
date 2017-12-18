@@ -2,6 +2,10 @@
 
 ## 1.1 - (In Development)
 
+Bug Fixes:
+
+1.  Fix parsing Saxon 9.8 `tuple` types with occurrence indicators, and multiple tuple fields.
+
 Inspections:
 
 1.  XQST0118: Mismatched open and close XML tag in direct element constructors.
