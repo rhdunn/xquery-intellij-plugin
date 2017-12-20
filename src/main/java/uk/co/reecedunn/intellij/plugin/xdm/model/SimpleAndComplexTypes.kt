@@ -30,7 +30,16 @@ open class XdmComplexType(typeName: QName): XmlSchemaType(typeName, XsAnyType)
 
 open class XdmSimpleType(typeName: QName, baseType: XmlSchemaType): XmlSchemaType(typeName, baseType)
 
-open class XdmAtomicType(typeName: QName, baseType: XmlSchemaType): XdmSimpleType(typeName, baseType), XdmItem
+open class XdmAtomicType(typeName: QName,
+                         baseType: XmlSchemaType,
+                         val pattern: Regex? = null):
+        XdmSimpleType(typeName, baseType),
+        XdmItem {
+
+    fun matches(value: CharSequence): Boolean =
+        pattern?.matches(value) ?: true
+
+}
 
 open class XdmListType(typeName: QName, val itemType: XdmSimpleType): XdmSimpleType(typeName, XsAnySimpleType)
 

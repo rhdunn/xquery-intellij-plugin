@@ -260,6 +260,18 @@ class AtomicTypes : TestCase() {
         assertThat(XsBoolean.typeName.namespace, `is`("http://www.w3.org/2001/XMLSchema"))
         assertThat(XsBoolean.typeName.localName, `is`("boolean"))
         assertThat(XsBoolean.baseType, `is`(XsAnyAtomicType as XmlSchemaType))
+
+        assertThat(XsBoolean.pattern.toString(), `is`("true|false|[10]"))
+
+        assertThat(XsBoolean.matches("true"), `is`(true))
+        assertThat(XsBoolean.matches("false"), `is`(true))
+
+        assertThat(XsBoolean.matches("1"), `is`(true))
+        assertThat(XsBoolean.matches("0"), `is`(true))
+
+        assertThat(XsBoolean.matches("TRUE"), `is`(false))
+        assertThat(XsBoolean.matches("2"), `is`(false))
+        assertThat(XsBoolean.matches("()"), `is`(false))
     }
 
     fun testXsBase64Binary() {
