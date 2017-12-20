@@ -13,17 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
+package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
-import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiElement
 
 /**
- * An XQuery 1.0 <code>NumericLiteral</code> node in the XQuery AST.
+ * An XQuery 1.0 `NumericLiteral` node in the XQuery AST.
  *
- * Because the child nodes of a <code>NumericLiteral</code> are only referenced
- * from the <code>NumericLiteral</code> node in the grammar, the
- * <code>NumericLiteral</code> nodes are stored as instances of the child nodes
+ * Because the child nodes of a `NumericLiteral` are only referenced
+ * from the `NumericLiteral` node in the grammar, the
+ * `NumericLiteral` nodes are stored as instances of the child nodes
  * instead of as distinct nodes themselves.
  */
-interface XQueryNumericLiteral extends PsiElement {
-}
+interface XQueryNumericLiteral : PsiElement
