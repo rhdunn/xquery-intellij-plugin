@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xdm.tests
 
 import junit.framework.TestCase
 import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.CoreMatchers.nullValue
 import org.hamcrest.MatcherAssert.assertThat
 import uk.co.reecedunn.intellij.plugin.xdm.*
 import uk.co.reecedunn.intellij.plugin.xdm.model.XmlSchemaType
@@ -200,6 +201,13 @@ class AtomicTypes : TestCase() {
         assertThat(XsString.typeName.namespace, `is`("http://www.w3.org/2001/XMLSchema"))
         assertThat(XsString.typeName.localName, `is`("string"))
         assertThat(XsString.baseType, `is`(XsAnyAtomicType as XmlSchemaType))
+
+        assertThat(XsString.pattern, `is`(nullValue()))
+
+        assertThat(XsString.matches("true"), `is`(true))
+        assertThat(XsString.matches("1234"), `is`(true))
+        assertThat(XsString.matches("()"), `is`(true))
+        assertThat(XsString.matches("Lorem ipsum."), `is`(true))
     }
 
     fun testXsNormalizedString() {
