@@ -14,24 +14,33 @@
  * limitations under the License.
  */
 /*
- * XPath and XQuery Type System Part 2: Simple and Complex Types
+ * XPath and XQuery Type System Part 1: Items
  *
  * Reference: https://www.w3.org/TR/xpath-datamodel-31
  * Reference: https://www.w3.org/TR/2012/REC-xmlschema11-1-20120405
  */
 package uk.co.reecedunn.intellij.plugin.xdm.model
 
-import uk.co.reecedunn.intellij.plugin.xdm.XsAnySimpleType
-import uk.co.reecedunn.intellij.plugin.xdm.XsAnyType
+interface XdmItem
 
-open class XmlSchemaType(val typeName: QName, val baseType: XmlSchemaType?)
+interface XdmFunction: XdmItem
 
-open class XdmComplexType(typeName: QName): XmlSchemaType(typeName, XsAnyType)
+interface XdmMap: XdmFunction
 
-open class XdmSimpleType(typeName: QName, baseType: XmlSchemaType): XmlSchemaType(typeName, baseType)
+interface XdmArray: XdmFunction
 
-open class XdmAtomicType(typeName: QName, baseType: XmlSchemaType): XdmSimpleType(typeName, baseType), XdmItem
+interface XdmNode: XdmItem
 
-open class XdmListType(typeName: QName): XdmSimpleType(typeName, XsAnySimpleType)
+interface XdmAttribute: XdmNode
 
-open class XdmUnionType(typeName: QName): XdmSimpleType(typeName, XsAnySimpleType)
+interface XdmComment: XdmNode
+
+interface XdmDocument: XdmNode
+
+interface XdmElement: XdmNode
+
+interface XdmNamespace: XdmNode
+
+interface XdmProcessingInstruction: XdmNode
+
+interface XdmText: XdmNode
