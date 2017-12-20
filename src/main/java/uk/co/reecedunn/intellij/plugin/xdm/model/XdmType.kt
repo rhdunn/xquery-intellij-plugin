@@ -13,34 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/*
- * XPath and XQuery Type System Part 1: Items
- *
- * Reference: https://www.w3.org/TR/xpath-datamodel-31
- * Reference: https://www.w3.org/TR/2012/REC-xmlschema11-1-20120405
- */
 package uk.co.reecedunn.intellij.plugin.xdm.model
 
-interface XdmItem: XdmType
-
-interface XdmFunction: XdmItem
-
-interface XdmMap: XdmFunction
-
-interface XdmArray: XdmFunction
-
-interface XdmNode: XdmItem
-
-interface XdmAttribute: XdmNode
-
-interface XdmComment: XdmNode
-
-interface XdmDocument: XdmNode
-
-interface XdmElement: XdmNode
-
-interface XdmNamespace: XdmNode
-
-interface XdmProcessingInstruction: XdmNode
-
-interface XdmText: XdmNode
+interface XdmType

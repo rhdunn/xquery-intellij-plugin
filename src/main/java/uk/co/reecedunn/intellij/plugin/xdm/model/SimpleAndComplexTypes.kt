@@ -24,7 +24,7 @@ package uk.co.reecedunn.intellij.plugin.xdm.model
 import uk.co.reecedunn.intellij.plugin.xdm.XsAnySimpleType
 import uk.co.reecedunn.intellij.plugin.xdm.XsAnyType
 
-open class XmlSchemaType(val typeName: QName, val baseType: XmlSchemaType?)
+open class XmlSchemaType(val typeName: QName, val baseType: XmlSchemaType?): XdmType
 
 open class XdmComplexType(typeName: QName): XmlSchemaType(typeName, XsAnyType)
 
