@@ -63,17 +63,23 @@ class SimpleAndComplexTypes : TestCase() {
         assertThat(XsIDREFS.typeName.namespace, `is`("http://www.w3.org/2001/XMLSchema"))
         assertThat(XsIDREFS.typeName.localName, `is`("IDREFS"))
         assertThat(XsIDREFS.baseType, `is`(XsAnySimpleType as XmlSchemaType))
+
+        assertThat(XsIDREFS.itemType, `is`(XsIDREF as XdmSimpleType))
     }
 
     fun testXsNMTOKENS() {
         assertThat(XsNMTOKENS.typeName.namespace, `is`("http://www.w3.org/2001/XMLSchema"))
         assertThat(XsNMTOKENS.typeName.localName, `is`("NMTOKENS"))
         assertThat(XsNMTOKENS.baseType, `is`(XsAnySimpleType as XmlSchemaType))
+
+        assertThat(XsNMTOKENS.itemType, `is`(XsNMTOKEN as XdmSimpleType))
     }
 
     fun testXsENTITIES() {
         assertThat(XsENTITIES.typeName.namespace, `is`("http://www.w3.org/2001/XMLSchema"))
         assertThat(XsENTITIES.typeName.localName, `is`("ENTITIES"))
         assertThat(XsENTITIES.baseType, `is`(XsAnySimpleType as XmlSchemaType))
+
+        assertThat(XsENTITIES.itemType, `is`(XsENTITY as XdmSimpleType))
     }
 }

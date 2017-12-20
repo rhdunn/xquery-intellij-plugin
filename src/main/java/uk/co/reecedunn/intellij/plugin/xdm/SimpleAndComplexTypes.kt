@@ -30,9 +30,3 @@ val XsUntyped = XdmComplexType(QName("http://www.w3.org/2001/XMLSchema", "untype
 val XsAnySimpleType = XdmSimpleType(QName("http://www.w3.org/2001/XMLSchema", "anySimpleType"), XsAnyType)
 
 val XsAnyAtomicType = XdmAtomicType(QName("http://www.w3.org/2001/XMLSchema", "anyAtomicType"), XsAnySimpleType)
-
-val XsIDREFS = XdmListType(QName("http://www.w3.org/2001/XMLSchema", "IDREFS"))
-
-val XsNMTOKENS = XdmListType(QName("http://www.w3.org/2001/XMLSchema", "NMTOKENS"))
-
-val XsENTITIES = XdmListType(QName("http://www.w3.org/2001/XMLSchema", "ENTITIES"))
