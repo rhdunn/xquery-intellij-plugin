@@ -15,4 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.model
 
+data class QName(val namespace: String?, val localName: String)
+
 interface XdmType
