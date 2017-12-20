@@ -20,6 +20,7 @@ import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.nullValue
 import org.hamcrest.MatcherAssert.assertThat
 import uk.co.reecedunn.intellij.plugin.xdm.*
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSimpleType
 import uk.co.reecedunn.intellij.plugin.xdm.model.XmlSchemaType
 
 class SimpleAndComplexTypes : TestCase() {
@@ -51,6 +52,11 @@ class SimpleAndComplexTypes : TestCase() {
         assertThat(XsNumeric.typeName.namespace, `is`("http://www.w3.org/2001/XMLSchema"))
         assertThat(XsNumeric.typeName.localName, `is`("numeric"))
         assertThat(XsNumeric.baseType, `is`(XsAnySimpleType as XmlSchemaType))
+
+        assertThat(XsNumeric.unionOf.size, `is`(3))
+        assertThat(XsNumeric.unionOf[0], `is`(XsDouble as XdmSimpleType))
+        assertThat(XsNumeric.unionOf[1], `is`(XsFloat as XdmSimpleType))
+        assertThat(XsNumeric.unionOf[2], `is`(XsDecimal as XdmSimpleType))
     }
 
     fun testXsIDREFS() {

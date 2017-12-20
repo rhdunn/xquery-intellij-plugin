@@ -19,19 +19,9 @@
  * Reference: https://www.w3.org/TR/xpath-datamodel-31
  * Reference: https://www.w3.org/TR/2012/REC-xmlschema11-1-20120405
  */
-package uk.co.reecedunn.intellij.plugin.xdm.model
+package uk.co.reecedunn.intellij.plugin.xdm
 
-import uk.co.reecedunn.intellij.plugin.xdm.XsAnySimpleType
-import uk.co.reecedunn.intellij.plugin.xdm.XsAnyType
+import uk.co.reecedunn.intellij.plugin.xdm.model.*
 
-open class XmlSchemaType(val typeName: QName, val baseType: XmlSchemaType?)
-
-open class XdmComplexType(typeName: QName): XmlSchemaType(typeName, XsAnyType)
-
-open class XdmSimpleType(typeName: QName, baseType: XmlSchemaType): XmlSchemaType(typeName, baseType)
-
-open class XdmAtomicType(typeName: QName, baseType: XmlSchemaType): XdmSimpleType(typeName, baseType), XdmItem
-
-open class XdmListType(typeName: QName): XdmSimpleType(typeName, XsAnySimpleType)
-
-open class XdmUnionType(typeName: QName, val unionOf: Array<XdmSimpleType>): XdmSimpleType(typeName, XsAnySimpleType)
+val XsNumeric = XdmUnionType(QName("http://www.w3.org/2001/XMLSchema", "numeric"),
+    arrayOf(XsDouble, XsFloat, XsDecimal))
