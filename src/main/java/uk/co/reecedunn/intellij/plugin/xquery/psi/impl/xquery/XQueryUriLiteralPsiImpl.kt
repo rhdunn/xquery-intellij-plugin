@@ -24,6 +24,8 @@ import com.intellij.psi.PsiManager
 import com.intellij.psi.PsiReference
 import com.intellij.testFramework.LightVirtualFileBase
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
+import uk.co.reecedunn.intellij.plugin.xdm.XsAnyURI
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryUriLiteral
 import uk.co.reecedunn.intellij.plugin.xquery.resolve.reference.XQueryUriLiteralReference
 
@@ -60,4 +62,6 @@ class XQueryUriLiteralPsiImpl(node: ASTNode): XQueryStringLiteralPsiImpl(node), 
 
         return resolveFileByPath(parent.parent, project, path)
     }
+
+    override val lexicalType get(): XdmType = XsAnyURI
 }

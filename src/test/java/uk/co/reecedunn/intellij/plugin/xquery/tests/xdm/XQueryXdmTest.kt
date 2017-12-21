@@ -17,11 +17,8 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.xdm
 
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
-import uk.co.reecedunn.intellij.plugin.core.extensions.descendants
-import uk.co.reecedunn.intellij.plugin.xdm.XsDecimal
-import uk.co.reecedunn.intellij.plugin.xdm.XsDouble
-import uk.co.reecedunn.intellij.plugin.xdm.XsInteger
-import uk.co.reecedunn.intellij.plugin.xdm.XsString
+import uk.co.reecedunn.intellij.plugin.core.extensions.walkTree
+import uk.co.reecedunn.intellij.plugin.xdm.*
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmAtomicValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
@@ -29,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 class XQueryXdmTest : ParserTestCase() {
     private inline fun <reified T> parseLiteral(xquery: String): XdmAtomicValue {
-        return parseText(xquery)!!.descendants().filterIsInstance<T>().first() as XdmAtomicValue
+        return parseText(xquery)!!.walkTree().filterIsInstance<T>().first() as XdmAtomicValue
     }
 
     // region Atomic Value for Literal Types
@@ -72,6 +69,21 @@ class XQueryXdmTest : ParserTestCase() {
         val literal = parseLiteral<XQueryStringLiteral>("\"Lorem ipsum.")
         assertThat(literal.lexicalRepresentation, `is`("Lorem ipsum."))
         assertThat(literal.lexicalType, `is`(XsString as XdmType))
+    }
+
+    // endregion
+    // region UriLiteral
+
+    fun testUriLiteral() {
+        val literal = parseLiteral<XQueryUriLiteral>("module namespace test = \"http://www.example.com\"")
+        assertThat(literal.lexicalRepresentation, `is`("http://www.example.com"))
+        assertThat(literal.lexicalType, `is`(XsAnyURI as XdmType))
+    }
+
+    fun testUriLiteral_Unclosed() {
+        val literal = parseLiteral<XQueryUriLiteral>("module namespace test = \"http://www.example.com")
+        assertThat(literal.lexicalRepresentation, `is`("http://www.example.com"))
+        assertThat(literal.lexicalType, `is`(XsAnyURI as XdmType))
     }
 
     // endregion
