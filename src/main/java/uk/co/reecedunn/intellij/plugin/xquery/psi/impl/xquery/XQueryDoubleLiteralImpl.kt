@@ -17,8 +17,17 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.psi.tree.IElementType
+import uk.co.reecedunn.intellij.plugin.xdm.XsDouble
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmAtomicValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDoubleLiteral
 
 class XQueryDoubleLiteralImpl(type: IElementType, text: CharSequence):
         LeafPsiElement(type, text),
-        XQueryDoubleLiteral
+        XQueryDoubleLiteral,
+        XdmAtomicValue {
+
+    override val lexicalRepresentation get(): String = text
+
+    override val lexicalType get(): XdmType = XsDouble
+}
