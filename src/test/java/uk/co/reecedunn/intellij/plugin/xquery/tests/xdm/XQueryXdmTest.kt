@@ -21,6 +21,7 @@ import uk.co.reecedunn.intellij.plugin.core.extensions.descendants
 import uk.co.reecedunn.intellij.plugin.xdm.XsDecimal
 import uk.co.reecedunn.intellij.plugin.xdm.XsDouble
 import uk.co.reecedunn.intellij.plugin.xdm.XsInteger
+import uk.co.reecedunn.intellij.plugin.xdm.XsString
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmAtomicValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
@@ -56,6 +57,21 @@ class XQueryXdmTest : ParserTestCase() {
         val literal = parseLiteral<XQueryIntegerLiteral>("123")
         assertThat(literal.lexicalRepresentation, `is`("123"))
         assertThat(literal.lexicalType, `is`(XsInteger as XdmType))
+    }
+
+    // endregion
+    // region StringLiteral
+
+    fun testStringLiteral() {
+        val literal = parseLiteral<XQueryStringLiteral>("\"Lorem ipsum.\"")
+        assertThat(literal.lexicalRepresentation, `is`("Lorem ipsum."))
+        assertThat(literal.lexicalType, `is`(XsString as XdmType))
+    }
+
+    fun testStringLiteral_Unclosed() {
+        val literal = parseLiteral<XQueryStringLiteral>("\"Lorem ipsum.")
+        assertThat(literal.lexicalRepresentation, `is`("Lorem ipsum."))
+        assertThat(literal.lexicalType, `is`(XsString as XdmType))
     }
 
     // endregion
