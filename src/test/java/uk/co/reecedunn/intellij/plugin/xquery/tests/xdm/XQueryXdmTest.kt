@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.xdm
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
 import uk.co.reecedunn.intellij.plugin.core.extensions.descendants
+import uk.co.reecedunn.intellij.plugin.xdm.XsDecimal
 import uk.co.reecedunn.intellij.plugin.xdm.XsInteger
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmAtomicValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmType
@@ -30,6 +31,15 @@ class XQueryXdmTest : ParserTestCase() {
     }
 
     // region Atomic Values
+    // region DecimalLiteral
+
+    fun testDecimalLiteral() {
+        val literal = parseLiteral<XQueryDecimalLiteral>("12.34")
+        assertThat(literal.lexicalRepresentation, `is`("12.34"))
+        assertThat(literal.lexicalType, `is`(XsDecimal as XdmType))
+    }
+
+    // endregion
     // region IntegerLiteral
 
     fun testIntegerLiteral() {
