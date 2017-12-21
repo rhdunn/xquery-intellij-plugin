@@ -17,8 +17,19 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.psi.tree.IElementType
+import uk.co.reecedunn.intellij.plugin.xdm.XsInteger
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmAtomicValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryIntegerLiteral
 
-class XQueryIntegerLiteralImpl(type: IElementType, text: CharSequence) : LeafPsiElement(type, text), XQueryIntegerLiteral {
+class XQueryIntegerLiteralImpl(type: IElementType, text: CharSequence):
+        LeafPsiElement(type, text),
+        XQueryIntegerLiteral,
+        XdmAtomicValue {
+
     override val atomicValue get(): Int = Integer.parseInt(text)
+
+    override val lexicalRepresentation get(): String = text
+
+    override val lexicalType get(): XdmType = XsInteger
 }
