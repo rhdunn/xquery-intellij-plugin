@@ -13,23 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
+package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
-import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiElement
 
 /**
- * An XQuery 1.0 <code>EscapeQuot</code> or <code>EscapeApos</code> node in the XQuery AST.
+ * An XQuery 1.0 `EscapeQuot` or `EscapeApos` node in the XQuery AST.
  *
- * Because the <code>EscapeQuot</code> and <code>EscapeApos</code> nodes are
+ * Because the `EscapeQuot` and `EscapeApos` nodes are
  * escaping a single character in the same manner, they are implemented as
- * instances of <code>EscapeCharacter</code>. This <code>EscapeCharacter</code>
+ * instances of `EscapeCharacter`. This `EscapeCharacter`
  * construct does not exist in the XQuery grammar, but is used for convenience
  * here in implementing the AST.
  *
- * The entity reference nodes (<code>PredefinedEntityRef</code> and
- * <code>CharRef</code>) are not implemented through this interface as they are
+ * The entity reference nodes (`PredefinedEntityRef` and
+ * `CharRef`) are not implemented through this interface as they are
  * providing different functionality where the entity may map to multiple
  * characters.
  */
-public interface XQueryEscapeCharacter extends PsiElement {
-}
+interface XQueryEscapeCharacter : PsiElement
