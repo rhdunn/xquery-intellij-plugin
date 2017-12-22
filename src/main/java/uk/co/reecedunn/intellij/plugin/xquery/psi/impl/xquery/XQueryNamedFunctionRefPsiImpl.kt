@@ -19,6 +19,8 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.extensions.children
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmAtomicValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.toInt
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryIntegerLiteral
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryNamedFunctionRef
@@ -38,5 +40,5 @@ class XQueryNamedFunctionRefPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node),
         findChildByClass(XQueryEQName::class.java)
 
     override val arity get(): Int =
-        children().filterIsInstance<XQueryIntegerLiteral>().firstOrNull()?.atomicValue ?: 0
+        children().filterIsInstance<XdmAtomicValue>().firstOrNull()?.toInt() ?: 0
 }

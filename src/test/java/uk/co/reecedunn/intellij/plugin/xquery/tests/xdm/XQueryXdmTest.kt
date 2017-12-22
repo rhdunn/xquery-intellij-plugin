@@ -21,6 +21,7 @@ import uk.co.reecedunn.intellij.plugin.core.extensions.walkTree
 import uk.co.reecedunn.intellij.plugin.xdm.*
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmAtomicValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmType
+import uk.co.reecedunn.intellij.plugin.xdm.model.toInt
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
@@ -54,6 +55,7 @@ class XQueryXdmTest : ParserTestCase() {
         val literal = parseLiteral<XQueryIntegerLiteral>("123")
         assertThat(literal.lexicalRepresentation, `is`("123"))
         assertThat(literal.lexicalType, `is`(XsInteger as XdmType))
+        assertThat(literal.toInt(), `is`(123))
     }
 
     // endregion

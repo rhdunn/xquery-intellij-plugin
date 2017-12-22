@@ -2723,17 +2723,6 @@ class XQueryPsiTest:ParserTestCase() {
     }
 
     // endregion
-    // region XQueryIntegerLiteral
-
-    fun testIntegerLiteral() {
-        val file = parseResource("tests/parser/xquery-1.0/IntegerLiteral.xq")!!
-
-        val integerLiteralPsi = file.descendants().filterIsInstance<XQueryIntegerLiteral>().first()
-        assertThat(integerLiteralPsi, `is`(notNullValue()))
-        assertThat(integerLiteralPsi.atomicValue, `is`(1234))
-    }
-
-    // endregion
     // region XQueryMapConstructorEntry
 
     fun testMapConstructorEntry() {

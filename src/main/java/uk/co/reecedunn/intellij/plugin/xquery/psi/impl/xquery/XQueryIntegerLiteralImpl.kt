@@ -27,8 +27,6 @@ class XQueryIntegerLiteralImpl(type: IElementType, text: CharSequence):
         XQueryIntegerLiteral,
         XdmAtomicValue {
 
-    override val atomicValue get(): Int = Integer.parseInt(text)
-
     override val lexicalRepresentation get(): String = text
 
     override val lexicalType get(): XdmType = XsInteger

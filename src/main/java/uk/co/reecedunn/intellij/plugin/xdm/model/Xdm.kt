@@ -26,3 +26,7 @@ interface XdmAtomicValue {
 
     val lexicalType: XdmType
 }
+
+fun XdmAtomicValue.toInt(): Int {
+    return lexicalRepresentation.toInt()
+}
