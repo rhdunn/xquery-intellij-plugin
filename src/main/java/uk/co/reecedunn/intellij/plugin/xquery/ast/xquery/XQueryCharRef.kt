@@ -13,15 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
+package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
-import com.intellij.psi.impl.source.tree.LeafPsiElement;
-import com.intellij.psi.tree.IElementType;
-import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCharRef;
+import com.intellij.psi.PsiElement
 
-public class XQueryCharRefImpl extends LeafPsiElement implements XQueryCharRef {
-    public XQueryCharRefImpl(@NotNull IElementType type, @NotNull CharSequence text) {
-        super(type, text);
-    }
-}
+/**
+ * An XQuery 1.0 `CharRef` node in the XQuery AST.
+ */
+interface XQueryCharRef : PsiElement
