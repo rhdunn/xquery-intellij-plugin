@@ -15,7 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.model
 
-data class QName(val namespace: String?, val localName: String)
+data class QName(val namespace: String?, val localName: String) {
+    override fun toString(): String = "Q{${namespace ?: ""}}$localName" // URIQualifiedName
+}
 
 interface XdmType
 
