@@ -19,6 +19,7 @@ import com.intellij.codeInspection.*
 import com.intellij.psi.PsiFile
 import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.core.extensions.*
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmAtomicValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
@@ -46,7 +47,7 @@ class DuplicateNamespaceUriInspection : LocalInspectionTool() {
             val prolog = (module as XQueryPrologResolver).prolog
             prolog?.children()?.filterIsInstance<XQueryModuleImport>()?.forEach(fun (child) {
                 val ns = child.namespace
-                val uri = (ns?.uri as? XQueryStringLiteral)?.atomicValue?.toString()
+                val uri = (ns?.uri as? XdmAtomicValue)?.lexicalRepresentation
 
                 if (ns == null || uri == null)
                     return

@@ -25,11 +25,4 @@ import com.intellij.psi.PsiElement
  * directly in the AST. Instead, it is exposed as an instance of that
  * specialised node.
  */
-interface XQueryStringLiteral : PsiElement {
-    /**
-     * Gets the value of the string when escaped characters nor entity references are expected.
-     *
-     * @return The first item in the string that is not an escaped character nor entity reference.
-     */
-    val atomicValue: CharSequence?
-}
+interface XQueryStringLiteral : PsiElement

@@ -37,8 +37,8 @@ class XQueryUriLiteralPsiImpl(node: ASTNode): XQueryStringLiteralPsiImpl(node), 
 
     @Suppress("UNCHECKED_CAST")
     override fun <T: PsiFile> resolveUri(): T? {
-        val path = atomicValue?.toString()
-        if (path == null || path.contains("://")) {
+        val path = lexicalRepresentation
+        if (path.isEmpty() || path.contains("://")) {
             return ResourceVirtualFile.resolve(path, project) as? T
         }
 

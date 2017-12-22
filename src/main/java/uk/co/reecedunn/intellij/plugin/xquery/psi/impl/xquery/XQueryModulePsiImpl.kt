@@ -20,6 +20,7 @@ import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.extensions.children
 import uk.co.reecedunn.intellij.plugin.core.extensions.descendants
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmAtomicValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.lang.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace
@@ -57,7 +58,7 @@ open class XQueryModulePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQue
     override val XQueryVersion get(): XQueryVersionRef {
         val versionDecl = descendants().filterIsInstance<XQueryVersionDecl>().firstOrNull()
         val version: XQueryStringLiteral? = versionDecl?.version
-        val xquery: Specification? = XQuery.versionsForXQuery(version?.atomicValue).firstOrNull()
+        val xquery: Specification? = XQuery.versionsForXQuery((version as? XdmAtomicValue)?.lexicalRepresentation).firstOrNull()
         return XQueryVersionRef(version, xquery)
     }
 
