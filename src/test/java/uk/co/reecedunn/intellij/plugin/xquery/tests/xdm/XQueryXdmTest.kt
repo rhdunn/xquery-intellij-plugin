@@ -139,5 +139,32 @@ class XQueryXdmTest : ParserTestCase() {
     }
 
     // endregion
+    // region Literal
+
+    fun testLiteral_DoubleLiteral() {
+        val literal = parseLiteral<XQueryLiteral>("1e3")
+        assertThat(literal.lexicalRepresentation, `is`("1e3"))
+        assertThat(literal.lexicalType, `is`(XsDouble as XdmType))
+    }
+
+    fun testLiteral_DecimalLiteral() {
+        val literal = parseLiteral<XQueryLiteral>("12.34")
+        assertThat(literal.lexicalRepresentation, `is`("12.34"))
+        assertThat(literal.lexicalType, `is`(XsDecimal as XdmType))
+    }
+
+    fun testLiteral_IntegerLiteral() {
+        val literal = parseLiteral<XQueryLiteral>("123")
+        assertThat(literal.lexicalRepresentation, `is`("123"))
+        assertThat(literal.lexicalType, `is`(XsInteger as XdmType))
+    }
+
+    fun testLiteral_StringLiteral() {
+        val literal = parseLiteral<XQueryLiteral>("\"Lorem ipsum.\"")
+        assertThat(literal.lexicalRepresentation, `is`("Lorem ipsum."))
+        assertThat(literal.lexicalType, `is`(XsString as XdmType))
+    }
+
+    // endregion
     // endregion
 }

@@ -17,6 +17,16 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmAtomicValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryLiteral
 
-class XQueryLiteralPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryLiteral
+class XQueryLiteralPsiImpl(node: ASTNode):
+        ASTWrapperPsiElement(node),
+        XQueryLiteral,
+        XdmAtomicValue {
+
+    override val lexicalRepresentation: String = (firstChild as XdmAtomicValue).lexicalRepresentation
+
+    override val lexicalType: XdmType = (firstChild as XdmAtomicValue).lexicalType
+}
