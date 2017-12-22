@@ -102,6 +102,7 @@ public final class CharacterClass {
         /* 7x */ NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, CBO, VTB, CBC, CHR, INV,
     };
 
+    // TODO: Classify any non-conforming XML Char value as INVALID, like with xdm.model.XmlChar.
     public static int getCharClass(int c) {
         if (c < mCharacterClasses.length) { // 0x0000-0x0079
             if (c == CodePointRange.END_OF_BUFFER)
