@@ -13,17 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
-
-import com.intellij.psi.PsiElement;
+package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
 /**
- * An XQuery 1.0 <code>StepExpr</code> node in the XQuery AST.
+ * An XQuery 3.0 `PostfixExpr` node in the XQuery AST.
  *
- * Because the child nodes of a <code>StepExpr</code> are only referenced
- * from the <code>StepExpr</code> node in the grammar, the
- * <code>StepExpr</code> nodes are stored as instances of the child nodes
- * instead of as distinct nodes themselves.
+ * This is a replacement for the XQuery 1.0 `FilterExpr` grammar
+ * construct.
  */
-interface XQueryStepExpr extends PsiElement {
-}
+interface XQueryPostfixExpr : XQueryStepExpr
