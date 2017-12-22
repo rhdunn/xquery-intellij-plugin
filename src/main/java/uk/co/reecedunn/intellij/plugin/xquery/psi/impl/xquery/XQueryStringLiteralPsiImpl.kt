@@ -21,6 +21,7 @@ import uk.co.reecedunn.intellij.plugin.core.extensions.children
 import uk.co.reecedunn.intellij.plugin.xdm.XsString
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmAtomicValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmType
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCharRef
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEscapeCharacter
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPredefinedEntityRef
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryStringLiteral
@@ -41,6 +42,8 @@ open class XQueryStringLiteralPsiImpl(node: ASTNode):
                 null
             XQueryTokenType.PREDEFINED_ENTITY_REFERENCE ->
                 (child as XQueryPredefinedEntityRef).entityRef.value
+            XQueryTokenType.CHARACTER_REFERENCE ->
+                (child as XQueryCharRef).codepoint.toString()
             XQueryTokenType.ESCAPED_CHARACTER ->
                 (child as XQueryEscapeCharacter).unescapedValue
             else ->
