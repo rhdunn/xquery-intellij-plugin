@@ -1,0 +1,7 @@
+{
+  "&amp;": { "codepoints": [38], "characters": "\u0026" },
+  "&apos;": { "codepoints": [39], "characters": "\u0027" },
+  "&gt;": { "codepoints": [62], "characters": "\u003E" },
+  "&lt;": { "codepoints": [60], "characters": "\u003C" },
+  "&quot;": { "codepoints": [34], "characters": "\u0022" }
+}

@@ -23,7 +23,7 @@ public class Resources {
     @SuppressWarnings("unused")
     private static Resources INSTANCE = new Resources();
 
-    private static InputStream load(String resource) {
+    public static InputStream load(String resource) {
         ClassLoader loader = Resources.class.getClassLoader();
         return loader.getResourceAsStream(resource);
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016-2017 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,18 +15,36 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
+import com.google.gson.JsonObject
+import com.google.gson.JsonParser
 import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEntityRef
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEntityRefType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPredefinedEntityRef
+import uk.co.reecedunn.intellij.plugin.xquery.resources.Resources
+import java.io.InputStreamReader
 import java.util.HashSet
+
+private fun loadPredefinedEntities(entities: HashMap<String, XQueryEntityRef>, path: String, type: XQueryEntityRefType) {
+    val data = JsonParser().parse(InputStreamReader(Resources.load(path))) as JsonObject
+    data.keySet().forEach { entity -> entities.put(entity, XQueryEntityRef(entity, type)) }
+}
+
+private var ENTITIES: HashMap<String, XQueryEntityRef>? = null
+    get() {
+        if (field == null) {
+            field = HashMap()
+            // Dynamically load the predefined entities on their first use.
+            loadPredefinedEntities(field!!, "predefined-entities/xml.json", XQueryEntityRefType.XML)
+        }
+        return field
+    }
 
 class XQueryPredefinedEntityRefImpl(type: IElementType, text: CharSequence) : LeafPsiElement(type, text), XQueryPredefinedEntityRef {
     override val entityRef get(): XQueryEntityRef {
         val entity = node.chars
-        return when (entity.subSequence(1, entity.length - 1)) {
-            in XML_ENTITIES -> XQueryEntityRef(entity, XQueryEntityRefType.XML)
+        return ENTITIES!!.get(entity) ?: when (entity.subSequence(1, entity.length - 1)) {
             in HTML4_ENTITIES -> XQueryEntityRef(entity, XQueryEntityRefType.HTML4)
             in HTML5_ENTITIES -> XQueryEntityRef(entity, XQueryEntityRefType.HTML5)
             else -> XQueryEntityRef(entity, XQueryEntityRefType.Unknown)
@@ -34,7 +52,6 @@ class XQueryPredefinedEntityRefImpl(type: IElementType, text: CharSequence) : Le
     }
 
     companion object {
-        private val XML_ENTITIES = HashSet<CharSequence>()
         private val HTML4_ENTITIES = HashSet<CharSequence>()
         private val HTML5_ENTITIES = HashSet<CharSequence>()
 
@@ -66,7 +83,6 @@ class XQueryPredefinedEntityRefImpl(type: IElementType, text: CharSequence) : Le
             HTML5_ENTITIES.add("amacr")
             HTML5_ENTITIES.add("amalg")
             HTML5_ENTITIES.add("AMP")
-            XML_ENTITIES.add("amp")
             HTML5_ENTITIES.add("And")
             HTML4_ENTITIES.add("and")
             HTML5_ENTITIES.add("andand")
@@ -100,7 +116,6 @@ class XQueryPredefinedEntityRefImpl(type: IElementType, text: CharSequence) : Le
             HTML5_ENTITIES.add("apE")
             HTML5_ENTITIES.add("ape")
             HTML5_ENTITIES.add("apid")
-            XML_ENTITIES.add("apos")
             HTML5_ENTITIES.add("ApplyFunction")
             HTML5_ENTITIES.add("approx")
             HTML5_ENTITIES.add("approxeq")
@@ -687,7 +702,6 @@ class XQueryPredefinedEntityRefImpl(type: IElementType, text: CharSequence) : Le
             HTML5_ENTITIES.add("gsiml")
             HTML5_ENTITIES.add("GT")
             HTML5_ENTITIES.add("Gt")
-            XML_ENTITIES.add("gt")
             HTML5_ENTITIES.add("gtcc")
             HTML5_ENTITIES.add("gtcir")
             HTML5_ENTITIES.add("gtdot")
@@ -1045,7 +1059,6 @@ class XQueryPredefinedEntityRefImpl(type: IElementType, text: CharSequence) : Le
             HTML5_ENTITIES.add("lstrok")
             HTML5_ENTITIES.add("LT")
             HTML5_ENTITIES.add("Lt")
-            XML_ENTITIES.add("lt")
             HTML5_ENTITIES.add("ltcc")
             HTML5_ENTITIES.add("ltcir")
             HTML5_ENTITIES.add("ltdot")
@@ -1517,7 +1530,6 @@ class XQueryPredefinedEntityRefImpl(type: IElementType, text: CharSequence) : Le
             HTML5_ENTITIES.add("quest")
             HTML5_ENTITIES.add("questeq")
             HTML5_ENTITIES.add("QUOT")
-            XML_ENTITIES.add("quot")
             HTML5_ENTITIES.add("rAarr")
             HTML5_ENTITIES.add("race")
             HTML5_ENTITIES.add("Racute")
