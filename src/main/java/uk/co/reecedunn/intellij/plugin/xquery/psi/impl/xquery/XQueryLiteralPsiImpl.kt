@@ -13,14 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
+package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
-/**
- * An XQuery 1.0 <code>Literal</code> node in the XQuery AST.
- *
- * This is provided as an explicit node type because <code>StringLiteral</code>
- * nodes are used in other parts of the grammar, so not every
- * <code>StringLiteral</code> node is a <code>Literal</code> node.
- */
-public interface XQueryLiteral extends XQueryPrimaryExpr {
-}
+import com.intellij.extapi.psi.ASTWrapperPsiElement
+import com.intellij.lang.ASTNode
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryLiteral
+
+class XQueryLiteralPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryLiteral
