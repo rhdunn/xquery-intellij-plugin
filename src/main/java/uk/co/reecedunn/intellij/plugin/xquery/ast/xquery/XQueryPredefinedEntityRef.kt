@@ -24,7 +24,7 @@ enum class XQueryEntityRefType {
     Unknown
 }
 
-data class XQueryEntityRef(val name: CharSequence, val type: XQueryEntityRefType)
+data class XQueryEntityRef(val name: CharSequence, val value: CharSequence, val type: XQueryEntityRefType)
 
 /**
  * An XQuery 1.0 `PredefinedEntityRef` node in the XQuery AST.

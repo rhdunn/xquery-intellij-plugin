@@ -21,6 +21,7 @@ import uk.co.reecedunn.intellij.plugin.core.extensions.children
 import uk.co.reecedunn.intellij.plugin.xdm.XsString
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmAtomicValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmType
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPredefinedEntityRef
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryStringLiteral
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
@@ -35,9 +36,12 @@ open class XQueryStringLiteralPsiImpl(node: ASTNode):
 
     override val lexicalRepresentation get(): String {
         return children().map { child -> when (child.node.elementType) {
-            XQueryTokenType.STRING_LITERAL_START -> null
-            XQueryTokenType.STRING_LITERAL_END -> null
-            else -> child.text
+            XQueryTokenType.STRING_LITERAL_START, XQueryTokenType.STRING_LITERAL_END ->
+                null
+            XQueryTokenType.PREDEFINED_ENTITY_REFERENCE ->
+                (child as XQueryPredefinedEntityRef).entityRef.value
+            else ->
+                child.text
         }}.filterNotNull().joinToString(separator = "")
     }
 

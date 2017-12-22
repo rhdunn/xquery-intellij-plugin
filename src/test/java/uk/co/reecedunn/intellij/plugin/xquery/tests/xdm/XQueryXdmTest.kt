@@ -71,6 +71,13 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(literal.lexicalType, `is`(XsString as XdmType))
     }
 
+    fun testStringLiteral_PredefinedEntityReference() {
+        // entity reference types: XQuery, HTML4, HTML5, UTF-16 surrogate pair, multi-character entity
+        val literal = parseLiteral<XQueryStringLiteral>("\"&lt;&aacute;&amacr;&Afr;&NotLessLess;\"")
+        assertThat(literal.lexicalRepresentation, `is`("<áā\uD835\uDD04≪\u0338"))
+        assertThat(literal.lexicalType, `is`(XsString as XdmType))
+    }
+
     // endregion
     // region UriLiteral
 
@@ -83,6 +90,13 @@ class XQueryXdmTest : ParserTestCase() {
     fun testUriLiteral_Unclosed() {
         val literal = parseLiteral<XQueryUriLiteral>("module namespace test = \"http://www.example.com")
         assertThat(literal.lexicalRepresentation, `is`("http://www.example.com"))
+        assertThat(literal.lexicalType, `is`(XsAnyURI as XdmType))
+    }
+
+    fun testUriLiteral_PredefinedEntityReference() {
+        // entity reference types: XQuery, HTML4, HTML5, UTF-16 surrogate pair, multi-character entity
+        val literal = parseLiteral<XQueryUriLiteral>("module namespace test = \"&lt;&aacute;&amacr;&Afr;&NotLessLess;\"")
+        assertThat(literal.lexicalRepresentation, `is`("<áā\uD835\uDD04≪\u0338"))
         assertThat(literal.lexicalType, `is`(XsAnyURI as XdmType))
     }
 

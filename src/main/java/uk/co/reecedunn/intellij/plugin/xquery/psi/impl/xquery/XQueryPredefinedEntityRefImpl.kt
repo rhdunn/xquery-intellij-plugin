@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
-import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.psi.tree.IElementType
@@ -26,8 +25,11 @@ import uk.co.reecedunn.intellij.plugin.xquery.resources.Resources
 import java.io.InputStreamReader
 
 private fun loadPredefinedEntities(entities: HashMap<String, XQueryEntityRef>, path: String, type: XQueryEntityRefType) {
-    val data = JsonParser().parse(InputStreamReader(Resources.load(path))) as JsonObject
-    data.keySet().forEach { entity -> entities.putIfAbsent(entity, XQueryEntityRef(entity, type)) }
+    val data = JsonParser().parse(InputStreamReader(Resources.load(path))).asJsonObject
+    data.keySet().forEach { entity ->
+        val chars = data.get(entity).asJsonObject.get("characters").asString
+        entities.putIfAbsent(entity, XQueryEntityRef(entity, chars, type))
+    }
 }
 
 private var ENTITIES: HashMap<String, XQueryEntityRef>? = null
@@ -47,6 +49,6 @@ private var ENTITIES: HashMap<String, XQueryEntityRef>? = null
 class XQueryPredefinedEntityRefImpl(type: IElementType, text: CharSequence) : LeafPsiElement(type, text), XQueryPredefinedEntityRef {
     override val entityRef get(): XQueryEntityRef {
         val entity = node.chars
-        return ENTITIES!!.get(entity) ?: XQueryEntityRef(entity, XQueryEntityRefType.Unknown)
+        return ENTITIES!!.get(entity) ?: XQueryEntityRef(entity, entity, XQueryEntityRefType.Unknown)
     }
 }
