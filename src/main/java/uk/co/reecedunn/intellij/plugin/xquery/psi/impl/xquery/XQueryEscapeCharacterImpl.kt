@@ -19,4 +19,6 @@ import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEscapeCharacter
 
-class XQueryEscapeCharacterImpl(type: IElementType, text: CharSequence) : LeafPsiElement(type, text), XQueryEscapeCharacter
+class XQueryEscapeCharacterImpl(type: IElementType, text: CharSequence) : LeafPsiElement(type, text), XQueryEscapeCharacter {
+    override val unescapedValue: CharSequence = text.subSequence(0, 1)
+}

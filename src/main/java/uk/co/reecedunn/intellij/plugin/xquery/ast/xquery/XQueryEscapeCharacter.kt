@@ -31,4 +31,6 @@ import com.intellij.psi.PsiElement
  * providing different functionality where the entity may map to multiple
  * characters.
  */
-interface XQueryEscapeCharacter : PsiElement
+interface XQueryEscapeCharacter : PsiElement {
+    val unescapedValue: CharSequence
+}

@@ -78,6 +78,18 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(literal.lexicalType, `is`(XsString as XdmType))
     }
 
+    fun testStringLiteral_EscapeApos() {
+        val literal = parseLiteral<XQueryStringLiteral>("'''\"\"'")
+        assertThat(literal.lexicalRepresentation, `is`("'\"\""))
+        assertThat(literal.lexicalType, `is`(XsString as XdmType))
+    }
+
+    fun testStringLiteral_EscapeQuot() {
+        val literal = parseLiteral<XQueryStringLiteral>("\"''\"\"\"")
+        assertThat(literal.lexicalRepresentation, `is`("''\""))
+        assertThat(literal.lexicalType, `is`(XsString as XdmType))
+    }
+
     // endregion
     // region UriLiteral
 
@@ -97,6 +109,18 @@ class XQueryXdmTest : ParserTestCase() {
         // entity reference types: XQuery, HTML4, HTML5, UTF-16 surrogate pair, multi-character entity
         val literal = parseLiteral<XQueryUriLiteral>("module namespace test = \"&lt;&aacute;&amacr;&Afr;&NotLessLess;\"")
         assertThat(literal.lexicalRepresentation, `is`("<áā\uD835\uDD04≪\u0338"))
+        assertThat(literal.lexicalType, `is`(XsAnyURI as XdmType))
+    }
+
+    fun testUriLiteral_EscapeApos() {
+        val literal = parseLiteral<XQueryUriLiteral>("module namespace test = '''\"\"'")
+        assertThat(literal.lexicalRepresentation, `is`("'\"\""))
+        assertThat(literal.lexicalType, `is`(XsAnyURI as XdmType))
+    }
+
+    fun testUriLiteral_EscapeQuot() {
+        val literal = parseLiteral<XQueryUriLiteral>("module namespace test = \"''\"\"\"")
+        assertThat(literal.lexicalRepresentation, `is`("''\""))
         assertThat(literal.lexicalType, `is`(XsAnyURI as XdmType))
     }
 
