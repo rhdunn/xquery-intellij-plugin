@@ -26,9 +26,9 @@ import java.io.InputStreamReader
 
 private fun loadPredefinedEntities(entities: HashMap<String, XQueryEntityRef>, path: String, type: XQueryEntityRefType) {
     val data = JsonParser().parse(InputStreamReader(Resources.load(path))).asJsonObject
-    data.keySet().forEach { entity ->
-        val chars = data.get(entity).asJsonObject.get("characters").asString
-        entities.putIfAbsent(entity, XQueryEntityRef(entity, chars, type))
+    data.entrySet().forEach { entity ->
+        val chars = entity.value.asJsonObject.get("characters").asString
+        entities.putIfAbsent(entity.key, XQueryEntityRef(entity.key, chars, type))
     }
 }
 
