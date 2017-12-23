@@ -21,15 +21,25 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.model
 
+import uk.co.reecedunn.intellij.plugin.xdm.XsUntyped
+
 interface XdmItem: XdmSequenceType
 
-open class XdmFunction: XdmItem
+open class XdmFunction: XdmItem {
+    override val itemType get(): XdmSequenceType = XsUntyped
+    override val lowerBound: XdmSequenceType.Occurs = XdmSequenceType.Occurs.ONE
+    override val upperBound: XdmSequenceType.Occurs = XdmSequenceType.Occurs.ONE
+}
 
 open class XdmMap: XdmFunction()
 
 open class XdmArray: XdmFunction()
 
-open class XdmNode: XdmItem
+open class XdmNode: XdmItem {
+    override val itemType get(): XdmSequenceType = XsUntyped
+    override val lowerBound: XdmSequenceType.Occurs = XdmSequenceType.Occurs.ONE
+    override val upperBound: XdmSequenceType.Occurs = XdmSequenceType.Occurs.ONE
+}
 
 open class XdmAttribute: XdmNode()
 
