@@ -15,10 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.model
 
-interface XdmAtomicValue {
-    val lexicalRepresentation: String
-
+interface XdmExpression {
     val staticType: XdmSequenceType
+}
+
+interface XdmAtomicValue : XdmExpression {
+    val lexicalRepresentation: String
 }
 
 fun XdmAtomicValue.toInt(): Int {
