@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.extensions.children
+import uk.co.reecedunn.intellij.plugin.core.data.CachedProperty
 import uk.co.reecedunn.intellij.plugin.xdm.XsString
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmAtomicValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
@@ -32,8 +33,14 @@ open class XQueryStringLiteralPsiImpl(node: ASTNode):
         XQueryStringLiteral,
         XdmAtomicValue {
 
-    override val lexicalRepresentation get(): String {
-        return children().map { child -> when (child.node.elementType) {
+    override fun subtreeChanged() {
+        super.subtreeChanged()
+        cachedLexicalRepresentation.invalidate()
+    }
+
+    override val lexicalRepresentation get(): String = cachedLexicalRepresentation.get()
+    private val cachedLexicalRepresentation = CachedProperty {
+        children().map { child -> when (child.node.elementType) {
             XQueryTokenType.STRING_LITERAL_START, XQueryTokenType.STRING_LITERAL_END ->
                 null
             XQueryTokenType.PREDEFINED_ENTITY_REFERENCE ->
