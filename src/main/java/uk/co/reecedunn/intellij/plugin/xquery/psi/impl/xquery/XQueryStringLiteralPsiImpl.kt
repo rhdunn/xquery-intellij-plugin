@@ -38,7 +38,7 @@ open class XQueryStringLiteralPsiImpl(node: ASTNode):
         cachedLexicalRepresentation.invalidate()
     }
 
-    override val lexicalRepresentation get(): String = cachedLexicalRepresentation.get()
+    override val lexicalRepresentation get(): String = cachedLexicalRepresentation.get()!!
     private val cachedLexicalRepresentation = CachedProperty {
         children().map { child -> when (child.node.elementType) {
             XQueryTokenType.STRING_LITERAL_START, XQueryTokenType.STRING_LITERAL_END ->

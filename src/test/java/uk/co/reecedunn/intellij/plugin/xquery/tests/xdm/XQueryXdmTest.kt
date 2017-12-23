@@ -21,6 +21,7 @@ import uk.co.reecedunn.intellij.plugin.core.extensions.walkTree
 import uk.co.reecedunn.intellij.plugin.xdm.*
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmAtomicValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSimpleExpression
 import uk.co.reecedunn.intellij.plugin.xdm.model.toInt
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
@@ -28,6 +29,10 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 class XQueryXdmTest : ParserTestCase() {
     private inline fun <reified T> parseLiteral(xquery: String): XdmAtomicValue {
         return parseText(xquery)!!.walkTree().filterIsInstance<T>().first() as XdmAtomicValue
+    }
+
+    private inline fun <reified T> parseSimpleExpression(xquery: String): XdmSimpleExpression {
+        return parseText(xquery)!!.walkTree().filterIsInstance<T>().first() as XdmSimpleExpression
     }
 
     // region Atomic Value for Literal Types
@@ -163,6 +168,31 @@ class XQueryXdmTest : ParserTestCase() {
         val literal = parseLiteral<XQueryLiteral>("\"Lorem ipsum.\"")
         assertThat(literal.lexicalRepresentation, `is`("Lorem ipsum."))
         assertThat(literal.staticType, `is`(XsString as XdmSequenceType))
+    }
+
+    // endregion
+    // endregion
+    // region Simple Expressions
+    // region PostfixExpr
+
+    fun testPostfixExpr_LiteralValue() {
+        val expr = parseSimpleExpression<XQueryPostfixExpr>("1e3")
+        assertThat(expr.constantValue, `is`(notNullValue()))
+        assertThat(expr.constantValue, `is`(instanceOf(String::class.java)))
+        assertThat(expr.constantValue as String, `is`("1e3"))
+        assertThat(expr.staticType, `is`(XsDouble as XdmSequenceType))
+    }
+
+    fun testPostfixExpr_LiteralValue_ComplexExpression() {
+        val expr = parseSimpleExpression<XQueryPostfixExpr>("1?1")
+        assertThat(expr.constantValue, `is`(nullValue())) // Expression is invalid, and cannot be resolved.
+        assertThat(expr.staticType, `is`(XsUntyped as XdmSequenceType))
+    }
+
+    fun testPostfixExpr_NonLiteralValue() {
+        val expr = parseSimpleExpression<XQueryPostfixExpr>("test()")
+        assertThat(expr.constantValue, `is`(nullValue())) // Cannot evaluate non-literal expression.
+        assertThat(expr.staticType, `is`(XsUntyped as XdmSequenceType))
     }
 
     // endregion

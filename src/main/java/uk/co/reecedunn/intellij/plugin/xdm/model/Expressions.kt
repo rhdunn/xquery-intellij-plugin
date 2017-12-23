@@ -19,6 +19,10 @@ interface XdmExpression {
     val staticType: XdmSequenceType
 }
 
+interface XdmSimpleExpression : XdmExpression {
+    val constantValue: Any?
+}
+
 interface XdmAtomicValue : XdmExpression {
     val lexicalRepresentation: String
 }

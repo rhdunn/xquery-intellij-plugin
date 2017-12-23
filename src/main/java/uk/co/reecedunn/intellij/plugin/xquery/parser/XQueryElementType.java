@@ -17,8 +17,10 @@ package uk.co.reecedunn.intellij.plugin.xquery.parser;
 
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.tree.IFileElementType;
+import com.intellij.psi.tree.TokenSet;
 import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.basex.BaseXFTFuzzyOptionPsiImpl;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.basex.BaseXUpdateExprPsiImpl;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.full.text.*;
@@ -433,4 +435,6 @@ public interface XQueryElementType {
     IElementType UNION_TYPE = new ICompositeElementType("XQUERY_UNION_TYPE", SaxonUnionTypeImpl.class, XQuery.INSTANCE);
 
     // endregion
+
+    TokenSet WHITESPACE_OR_COMMENT = TokenSet.create(XQueryTokenType.WHITE_SPACE, XQueryElementType.COMMENT);
 }

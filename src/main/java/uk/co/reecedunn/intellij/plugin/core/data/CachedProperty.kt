@@ -15,19 +15,21 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.data
 
-import java.util.*
-
-class CachedProperty<T>(private val compute: () -> T) {
-    private var cached: Optional<T> = Optional.empty()
+class CachedProperty<T>(private val compute: () -> T?) {
+    // NOTE: Optional<T> does not allow null values to be stored in the optional,
+    // preventing it being used for nullable properties.
+    private var cachedValue: T? = null
+    private var isCached: Boolean = false
 
     fun invalidate() {
-        cached = Optional.empty()
+        isCached = false
     }
 
-    fun get(): T {
-        if (!cached.isPresent) {
-            cached = Optional.of(compute())
+    fun get(): T? {
+        if (!isCached) {
+            cachedValue = compute()
+            isCached = true
         }
-        return cached.get()
+        return cachedValue
     }
 }

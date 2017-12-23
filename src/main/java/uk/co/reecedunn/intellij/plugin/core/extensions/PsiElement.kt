@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.core.extensions
 
 import com.intellij.psi.PsiDirectory
 import com.intellij.psi.PsiElement
+import com.intellij.psi.tree.TokenSet
 import java.util.*
 
 private class PsiElementTreeIterator(private var node: PsiElement?) : Iterator<PsiElement> {
@@ -76,6 +77,18 @@ class PsiElementReversibleSequence(private var node: PsiElement,
         PsiElementReversibleSequence(node, rgen, gen)
 }
 
+private class PsiNotTokenIterator(private val nodes: Iterator<PsiElement>,
+                                  private val tokens: TokenSet) : Iterator<PsiElement?> {
+    override fun hasNext(): Boolean {
+        return nodes.hasNext()
+    }
+
+    override fun next(): PsiElement? {
+        val ret = nodes.next()
+        return if (ret.node.elementType in tokens) null else ret
+    }
+}
+
 fun PsiElement.ancestors(): Sequence<PsiElement> {
     return PsiElementIterator(parent, PsiElement::getParent).asSequence()
 }
@@ -109,4 +122,8 @@ fun PsiElement.walkTree(): PsiElementReversibleSequence {
                 if (next == null) parent else next
             })
         })
+}
+
+fun Sequence<PsiElement>.filterNotToken(tokens: TokenSet): Sequence<PsiElement> {
+    return PsiNotTokenIterator(iterator(), tokens).asSequence().filterNotNull()
 }
