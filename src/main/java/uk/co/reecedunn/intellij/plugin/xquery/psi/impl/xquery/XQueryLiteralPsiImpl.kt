@@ -28,5 +28,5 @@ class XQueryLiteralPsiImpl(node: ASTNode):
 
     override val lexicalRepresentation: String = (firstChild as XdmAtomicValue).lexicalRepresentation
 
-    override val lexicalType: XdmSequenceType = (firstChild as XdmAtomicValue).lexicalType
+    override val staticType: XdmSequenceType = (firstChild as XdmAtomicValue).staticType
 }

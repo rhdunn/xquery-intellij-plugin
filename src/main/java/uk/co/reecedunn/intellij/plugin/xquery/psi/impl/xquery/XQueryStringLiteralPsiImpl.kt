@@ -54,5 +54,5 @@ open class XQueryStringLiteralPsiImpl(node: ASTNode):
         }}.filterNotNull().joinToString(separator = "")
     }
 
-    override val lexicalType get(): XdmSequenceType = XsString
+    override val staticType get(): XdmSequenceType = XsString
 }

@@ -29,5 +29,5 @@ class XQueryIntegerLiteralImpl(type: IElementType, text: CharSequence):
 
     override val lexicalRepresentation get(): String = text
 
-    override val lexicalType get(): XdmSequenceType = XsInteger
+    override val staticType get(): XdmSequenceType = XsInteger
 }

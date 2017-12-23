@@ -29,5 +29,5 @@ class XQueryDecimalLiteralImpl(type: IElementType, text: CharSequence):
 
     override val lexicalRepresentation get(): String = text
 
-    override val lexicalType: XdmSequenceType = XsDecimal
+    override val staticType: XdmSequenceType = XsDecimal
 }

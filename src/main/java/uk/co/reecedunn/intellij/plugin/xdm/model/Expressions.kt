@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xdm.model
 interface XdmAtomicValue {
     val lexicalRepresentation: String
 
-    val lexicalType: XdmSequenceType
+    val staticType: XdmSequenceType
 }
 
 fun XdmAtomicValue.toInt(): Int {

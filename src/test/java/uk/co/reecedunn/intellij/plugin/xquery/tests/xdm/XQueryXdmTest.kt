@@ -36,7 +36,7 @@ class XQueryXdmTest : ParserTestCase() {
     fun testDoubleLiteral() {
         val literal = parseLiteral<XQueryDoubleLiteral>("1e3")
         assertThat(literal.lexicalRepresentation, `is`("1e3"))
-        assertThat(literal.lexicalType, `is`(XsDouble as XdmSequenceType))
+        assertThat(literal.staticType, `is`(XsDouble as XdmSequenceType))
     }
 
     // endregion
@@ -45,7 +45,7 @@ class XQueryXdmTest : ParserTestCase() {
     fun testDecimalLiteral() {
         val literal = parseLiteral<XQueryDecimalLiteral>("12.34")
         assertThat(literal.lexicalRepresentation, `is`("12.34"))
-        assertThat(literal.lexicalType, `is`(XsDecimal as XdmSequenceType))
+        assertThat(literal.staticType, `is`(XsDecimal as XdmSequenceType))
     }
 
     // endregion
@@ -54,7 +54,7 @@ class XQueryXdmTest : ParserTestCase() {
     fun testIntegerLiteral() {
         val literal = parseLiteral<XQueryIntegerLiteral>("123")
         assertThat(literal.lexicalRepresentation, `is`("123"))
-        assertThat(literal.lexicalType, `is`(XsInteger as XdmSequenceType))
+        assertThat(literal.staticType, `is`(XsInteger as XdmSequenceType))
         assertThat(literal.toInt(), `is`(123))
     }
 
@@ -64,38 +64,38 @@ class XQueryXdmTest : ParserTestCase() {
     fun testStringLiteral() {
         val literal = parseLiteral<XQueryStringLiteral>("\"Lorem ipsum.\uFFFF\"")
         assertThat(literal.lexicalRepresentation, `is`("Lorem ipsum.\uFFFF")) // U+FFFF = BAD_CHARACTER token.
-        assertThat(literal.lexicalType, `is`(XsString as XdmSequenceType))
+        assertThat(literal.staticType, `is`(XsString as XdmSequenceType))
     }
 
     fun testStringLiteral_Unclosed() {
         val literal = parseLiteral<XQueryStringLiteral>("\"Lorem ipsum.")
         assertThat(literal.lexicalRepresentation, `is`("Lorem ipsum."))
-        assertThat(literal.lexicalType, `is`(XsString as XdmSequenceType))
+        assertThat(literal.staticType, `is`(XsString as XdmSequenceType))
     }
 
     fun testStringLiteral_PredefinedEntityReference() {
         // entity reference types: XQuery, HTML4, HTML5, UTF-16 surrogate pair, multi-character entity, empty, partial
         val literal = parseLiteral<XQueryStringLiteral>("\"&lt;&aacute;&amacr;&Afr;&NotLessLess;&;&gt\"")
         assertThat(literal.lexicalRepresentation, `is`("<áā\uD835\uDD04≪\u0338&;&gt"))
-        assertThat(literal.lexicalType, `is`(XsString as XdmSequenceType))
+        assertThat(literal.staticType, `is`(XsString as XdmSequenceType))
     }
 
     fun testStringLiteral_CharRef() {
         val literal = parseLiteral<XQueryStringLiteral>("\"&#xA0;&#160;&#x20;\"")
         assertThat(literal.lexicalRepresentation, `is`("\u00A0\u00A0\u0020"))
-        assertThat(literal.lexicalType, `is`(XsString as XdmSequenceType))
+        assertThat(literal.staticType, `is`(XsString as XdmSequenceType))
     }
 
     fun testStringLiteral_EscapeApos() {
         val literal = parseLiteral<XQueryStringLiteral>("'''\"\"'")
         assertThat(literal.lexicalRepresentation, `is`("'\"\""))
-        assertThat(literal.lexicalType, `is`(XsString as XdmSequenceType))
+        assertThat(literal.staticType, `is`(XsString as XdmSequenceType))
     }
 
     fun testStringLiteral_EscapeQuot() {
         val literal = parseLiteral<XQueryStringLiteral>("\"''\"\"\"")
         assertThat(literal.lexicalRepresentation, `is`("''\""))
-        assertThat(literal.lexicalType, `is`(XsString as XdmSequenceType))
+        assertThat(literal.staticType, `is`(XsString as XdmSequenceType))
     }
 
     // endregion
@@ -104,38 +104,38 @@ class XQueryXdmTest : ParserTestCase() {
     fun testUriLiteral() {
         val literal = parseLiteral<XQueryUriLiteral>("module namespace test = \"http://www.example.com\uFFFF\"")
         assertThat(literal.lexicalRepresentation, `is`("http://www.example.com\uFFFF")) // U+FFFF = BAD_CHARACTER token.
-        assertThat(literal.lexicalType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(literal.staticType, `is`(XsAnyURI as XdmSequenceType))
     }
 
     fun testUriLiteral_Unclosed() {
         val literal = parseLiteral<XQueryUriLiteral>("module namespace test = \"http://www.example.com")
         assertThat(literal.lexicalRepresentation, `is`("http://www.example.com"))
-        assertThat(literal.lexicalType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(literal.staticType, `is`(XsAnyURI as XdmSequenceType))
     }
 
     fun testUriLiteral_PredefinedEntityReference() {
         // entity reference types: XQuery, HTML4, HTML5, UTF-16 surrogate pair, multi-character entity, empty, partial
         val literal = parseLiteral<XQueryUriLiteral>("module namespace test = \"&lt;&aacute;&amacr;&Afr;&NotLessLess;&;&gt\"")
         assertThat(literal.lexicalRepresentation, `is`("<áā\uD835\uDD04≪\u0338&;&gt"))
-        assertThat(literal.lexicalType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(literal.staticType, `is`(XsAnyURI as XdmSequenceType))
     }
 
     fun testUriLiteral_CharRef() {
         val literal = parseLiteral<XQueryUriLiteral>("module namespace test = \"&#xA0;&#160;&#x20;\"")
         assertThat(literal.lexicalRepresentation, `is`("\u00A0\u00A0\u0020"))
-        assertThat(literal.lexicalType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(literal.staticType, `is`(XsAnyURI as XdmSequenceType))
     }
 
     fun testUriLiteral_EscapeApos() {
         val literal = parseLiteral<XQueryUriLiteral>("module namespace test = '''\"\"'")
         assertThat(literal.lexicalRepresentation, `is`("'\"\""))
-        assertThat(literal.lexicalType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(literal.staticType, `is`(XsAnyURI as XdmSequenceType))
     }
 
     fun testUriLiteral_EscapeQuot() {
         val literal = parseLiteral<XQueryUriLiteral>("module namespace test = \"''\"\"\"")
         assertThat(literal.lexicalRepresentation, `is`("''\""))
-        assertThat(literal.lexicalType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(literal.staticType, `is`(XsAnyURI as XdmSequenceType))
     }
 
     // endregion
@@ -144,25 +144,25 @@ class XQueryXdmTest : ParserTestCase() {
     fun testLiteral_DoubleLiteral() {
         val literal = parseLiteral<XQueryLiteral>("1e3")
         assertThat(literal.lexicalRepresentation, `is`("1e3"))
-        assertThat(literal.lexicalType, `is`(XsDouble as XdmSequenceType))
+        assertThat(literal.staticType, `is`(XsDouble as XdmSequenceType))
     }
 
     fun testLiteral_DecimalLiteral() {
         val literal = parseLiteral<XQueryLiteral>("12.34")
         assertThat(literal.lexicalRepresentation, `is`("12.34"))
-        assertThat(literal.lexicalType, `is`(XsDecimal as XdmSequenceType))
+        assertThat(literal.staticType, `is`(XsDecimal as XdmSequenceType))
     }
 
     fun testLiteral_IntegerLiteral() {
         val literal = parseLiteral<XQueryLiteral>("123")
         assertThat(literal.lexicalRepresentation, `is`("123"))
-        assertThat(literal.lexicalType, `is`(XsInteger as XdmSequenceType))
+        assertThat(literal.staticType, `is`(XsInteger as XdmSequenceType))
     }
 
     fun testLiteral_StringLiteral() {
         val literal = parseLiteral<XQueryLiteral>("\"Lorem ipsum.\"")
         assertThat(literal.lexicalRepresentation, `is`("Lorem ipsum."))
-        assertThat(literal.lexicalType, `is`(XsString as XdmSequenceType))
+        assertThat(literal.staticType, `is`(XsString as XdmSequenceType))
     }
 
     // endregion

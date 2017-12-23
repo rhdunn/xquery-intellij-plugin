@@ -63,5 +63,5 @@ class XQueryUriLiteralPsiImpl(node: ASTNode): XQueryStringLiteralPsiImpl(node), 
         return resolveFileByPath(parent.parent, project, path)
     }
 
-    override val lexicalType get(): XdmSequenceType = XsAnyURI
+    override val staticType get(): XdmSequenceType = XsAnyURI
 }

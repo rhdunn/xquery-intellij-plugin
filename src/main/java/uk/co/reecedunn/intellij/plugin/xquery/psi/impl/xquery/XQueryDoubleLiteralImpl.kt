@@ -29,5 +29,5 @@ class XQueryDoubleLiteralImpl(type: IElementType, text: CharSequence):
 
     override val lexicalRepresentation get(): String = text
 
-    override val lexicalType get(): XdmSequenceType = XsDouble
+    override val staticType get(): XdmSequenceType = XsDouble
 }
