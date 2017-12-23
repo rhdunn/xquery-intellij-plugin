@@ -13,15 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
+package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
-import com.intellij.lang.ASTNode;
-import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryComment;
+import com.intellij.psi.PsiElement
 
-public class XQueryCommentPsiImpl extends ASTWrapperPsiElement implements XQueryComment {
-    public XQueryCommentPsiImpl(@NotNull ASTNode node) {
-        super(node);
-    }
-}
+/**
+ * An XQuery 1.0 `Comment` node in the XQuery AST containing
+ * `CommentContents`.
+ *
+ * Nested comments are not exposed as inner comments within the AST. They are
+ * folded into the contents of the outermost comment. This is because the
+ * comment nesting is handled within the
+ * [uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer].
+ */
+interface XQueryComment : PsiElement
