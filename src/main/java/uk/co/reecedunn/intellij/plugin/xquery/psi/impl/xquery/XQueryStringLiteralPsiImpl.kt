@@ -20,7 +20,7 @@ import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.extensions.children
 import uk.co.reecedunn.intellij.plugin.xdm.XsString
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmAtomicValue
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmType
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCharRef
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEscapeCharacter
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPredefinedEntityRef
@@ -47,5 +47,5 @@ open class XQueryStringLiteralPsiImpl(node: ASTNode):
         }}.filterNotNull().joinToString(separator = "")
     }
 
-    override val lexicalType get(): XdmType = XsString
+    override val lexicalType get(): XdmSequenceType = XsString
 }

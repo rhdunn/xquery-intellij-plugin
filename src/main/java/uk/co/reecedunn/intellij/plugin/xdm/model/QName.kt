@@ -18,15 +18,3 @@ package uk.co.reecedunn.intellij.plugin.xdm.model
 data class QName(val namespace: String?, val localName: String) {
     override fun toString(): String = "Q{${namespace ?: ""}}$localName" // URIQualifiedName
 }
-
-interface XdmType
-
-interface XdmAtomicValue {
-    val lexicalRepresentation: String
-
-    val lexicalType: XdmType
-}
-
-fun XdmAtomicValue.toInt(): Int {
-    return lexicalRepresentation.toInt()
-}

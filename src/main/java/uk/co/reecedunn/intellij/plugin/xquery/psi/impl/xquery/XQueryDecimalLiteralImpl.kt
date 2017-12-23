@@ -19,7 +19,7 @@ import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.xdm.XsDecimal
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmAtomicValue
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmType
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDecimalLiteral
 
 class XQueryDecimalLiteralImpl(type: IElementType, text: CharSequence):
@@ -29,5 +29,5 @@ class XQueryDecimalLiteralImpl(type: IElementType, text: CharSequence):
 
     override val lexicalRepresentation get(): String = text
 
-    override val lexicalType: XdmType = XsDecimal
+    override val lexicalType: XdmSequenceType = XsDecimal
 }
