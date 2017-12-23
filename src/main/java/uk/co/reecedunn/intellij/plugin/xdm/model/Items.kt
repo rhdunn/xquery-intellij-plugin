@@ -23,24 +23,24 @@ package uk.co.reecedunn.intellij.plugin.xdm.model
 
 interface XdmItem: XdmSequenceType
 
-interface XdmFunction: XdmItem
+open class XdmFunction: XdmItem
 
-interface XdmMap: XdmFunction
+open class XdmMap: XdmFunction()
 
-interface XdmArray: XdmFunction
+open class XdmArray: XdmFunction()
 
-interface XdmNode: XdmItem
+open class XdmNode: XdmItem
 
-interface XdmAttribute: XdmNode
+open class XdmAttribute: XdmNode()
 
-interface XdmComment: XdmNode
+open class XdmComment: XdmNode()
 
-interface XdmDocument: XdmNode
+open class XdmDocument: XdmNode()
 
-interface XdmElement: XdmNode
+open class XdmElement: XdmNode()
 
-interface XdmNamespace: XdmNode
+open class XdmNamespace: XdmNode()
 
-interface XdmProcessingInstruction: XdmNode
+open class XdmProcessingInstruction: XdmNode()
 
-interface XdmText: XdmNode
+open class XdmText: XdmNode()
