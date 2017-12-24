@@ -20,6 +20,7 @@ import com.intellij.lang.annotation.Annotator;
 import com.intellij.openapi.editor.markup.TextAttributes;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.SyntaxHighlighter;
@@ -27,10 +28,10 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.SyntaxHighlighter;
 public class QNameAnnotator implements Annotator {
     @Override
     public void annotate(@NotNull PsiElement element, @NotNull AnnotationHolder holder) {
-        if (!(element instanceof XQueryEQName)) return;
-        if (element.getParent() instanceof XQueryEQName) return;
+        if (!(element instanceof XPathEQName)) return;
+        if (element.getParent() instanceof XPathEQName) return;
 
-        XQueryEQName qname = (XQueryEQName)element;
+        XPathEQName qname = (XPathEQName)element;
 
         final boolean xmlns;
         PsiElement prefix = qname.getPrefix();

@@ -22,6 +22,7 @@ import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType;
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathStringLiteralPsiImpl;
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathLiteralPsiImpl;
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathPostfixExprPsiImpl;
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathEQNamePsiImpl;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.basex.BaseXFTFuzzyOptionPsiImpl;
@@ -176,7 +177,7 @@ public interface XQueryElementType {
     // endregion
     // region XQuery 3.0
 
-    IElementType EQNAME = new ICompositeElementType("XQUERY_EQNAME", XQueryEQNamePsiImpl.class, XQuery.INSTANCE);
+    IElementType EQNAME = new ICompositeElementType("XQUERY_EQNAME", XPathEQNamePsiImpl.class, XQuery.INSTANCE);
     IElementType BRACED_URI_LITERAL = new ICompositeElementType("XQUERY_BRACED_URI_LITERAL", XQueryBracedURILiteralPsiImpl.class, XQuery.INSTANCE);
     IElementType URI_QUALIFIED_NAME = new ICompositeElementType("XQUERY_URI_QUALIFIED_NAME", XQueryURIQualifiedNamePsiImpl.class, XQuery.INSTANCE);
 

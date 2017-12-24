@@ -13,17 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
+package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
 
 /**
- * An XQuery 3.0 <code>EQName</code> node in the XQuery AST.
+ * An XPath 3.0 and XQuery 3.0 <code>EQName</code> node in the XQuery AST.
  *
  * When the <code>EQName</code> node is specialised (such as with
  * <code>VarName</code>), the <code>EQName</code> node is not stored directly
@@ -32,7 +34,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
  * This may be an instance of an <code>NCName</code>, <code>QName</code> or
  * <code>URIQualifiedName</code>.
  */
-interface XQueryEQName: PsiElement {
+interface XPathEQName : PsiElement {
     enum class Type {
         Function,
         Variable,
@@ -73,7 +75,7 @@ interface XQueryEQName: PsiElement {
         return prologs.flatMap { prolog ->
             prolog.children().filterIsInstance<XQueryAnnotatedDecl>().map { annotation ->
                 val function = annotation.children().filterIsInstance<XQueryFunctionDecl>().firstOrNull()
-                val functionName = function?.children()?.filterIsInstance<XQueryEQName>()?.firstOrNull()
+                val functionName = function?.children()?.filterIsInstance<XPathEQName>()?.firstOrNull()
                 if (functionName?.equals(this) == true) {
                     function
                 } else {

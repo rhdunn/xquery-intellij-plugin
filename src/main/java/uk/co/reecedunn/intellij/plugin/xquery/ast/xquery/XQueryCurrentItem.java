@@ -15,8 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName;
+
 /**
  * An XQuery 3.0 <code>CurrentItem</code> node in the XQuery AST.
  */
-public interface XQueryCurrentItem extends XQueryEQName {
+public interface XQueryCurrentItem extends XPathEQName {
 }

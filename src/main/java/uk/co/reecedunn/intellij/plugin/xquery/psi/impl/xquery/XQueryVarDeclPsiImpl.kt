@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVarDecl
 import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
@@ -49,7 +49,7 @@ class XQueryVarDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryVa
         return if (previous == null || previous.node.elementType !== XQueryTokenType.K_EXTERNAL) firstChild else element!!
     }
 
-    override fun resolveVariable(name: XQueryEQName?): XQueryVariable? {
+    override fun resolveVariable(name: XPathEQName?): XQueryVariable? {
         val varName = findChildByType<PsiElement>(XQueryElementType.VAR_NAME)
         if (varName != null && varName == name) {
             return XQueryVariable(varName, this)

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
+package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryBracedURILiteral
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.INCNameType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
@@ -39,9 +39,9 @@ private val QNAME_SEPARATORS = TokenSet.create(
     XQueryTokenType.XML_TAG_QNAME_SEPARATOR,
     XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR)
 
-open class XQueryEQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryEQName {
+open class XPathEQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathEQName {
     override fun equals(other: Any?): Boolean {
-        if (other !is XQueryEQName) {
+        if (other !is XPathEQName) {
             return false
         }
 
@@ -63,8 +63,8 @@ open class XQueryEQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQue
         val localName = localName
         val localNameRef: PsiReference? =
             if (localName != null) when (type) {
-                XQueryEQName.Type.Function -> XQueryFunctionNameReference(this, localName.textRange.shiftRight(-eqnameStart))
-                XQueryEQName.Type.Variable -> XQueryVariableNameReference(this, localName.textRange.shiftRight(-eqnameStart))
+                XPathEQName.Type.Function -> XQueryFunctionNameReference(this, localName.textRange.shiftRight(-eqnameStart))
+                XPathEQName.Type.Variable -> XQueryVariableNameReference(this, localName.textRange.shiftRight(-eqnameStart))
                 else -> null
             } else {
                 null
@@ -87,7 +87,7 @@ open class XQueryEQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQue
     override val prefix get(): PsiElement? {
         var element: PsiElement? = firstChild
         if (element?.node?.elementType === XQueryElementType.URI_QUALIFIED_NAME) {
-            return (element as XQueryEQName).prefix
+            return (element as XPathEQName).prefix
         }
 
         var match: PsiElement? = null
@@ -107,7 +107,7 @@ open class XQueryEQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQue
         if (element == null) { // NCName | URIQualifiedName
             element = firstChild
             if (element?.node?.elementType === XQueryElementType.URI_QUALIFIED_NAME) {
-                return (element as XQueryEQName).localName
+                return (element as XPathEQName).localName
             }
 
             return children().firstOrNull { e ->

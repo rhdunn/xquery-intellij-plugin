@@ -21,7 +21,7 @@ import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCountClause;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver;
 
@@ -32,8 +32,8 @@ public class XQueryCountClausePsiImpl extends ASTWrapperPsiElement implements XQ
 
     @Nullable
     @Override
-    public XQueryVariable resolveVariable(XQueryEQName name) {
-        PsiElement eqname = findChildByClass(XQueryEQName.class);
+    public XQueryVariable resolveVariable(XPathEQName name) {
+        PsiElement eqname = findChildByClass(XPathEQName.class);
         if (eqname != null && eqname.equals(name)) {
             return new XQueryVariable(eqname, this);
         }

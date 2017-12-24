@@ -17,9 +17,10 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
 
 import com.intellij.lang.ASTNode;
 import org.jetbrains.annotations.NotNull;
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathEQNamePsiImpl;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCurrentItem;
 
-public class XQueryCurrentItemPsiImpl extends XQueryEQNamePsiImpl implements XQueryCurrentItem {
+public class XQueryCurrentItemPsiImpl extends XPathEQNamePsiImpl implements XQueryCurrentItem {
     public XQueryCurrentItemPsiImpl(@NotNull ASTNode node) {
         super(node);
     }

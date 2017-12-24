@@ -15,8 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName;
+
 /**
  * An XQuery 3.0 <code>NextItem</code> node in the XQuery AST.
  */
-public interface XQueryNextItem extends XQueryEQName {
+public interface XQueryNextItem extends XPathEQName {
 }

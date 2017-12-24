@@ -21,9 +21,10 @@ import com.intellij.psi.PsiNamedElement;
 import com.intellij.util.IncorrectOperationException;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathEQNamePsiImpl;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryNCName;
 
-public class XQueryNCNamePsiImpl extends XQueryEQNamePsiImpl implements XQueryNCName, PsiNamedElement {
+public class XQueryNCNamePsiImpl extends XPathEQNamePsiImpl implements XQueryNCName, PsiNamedElement {
     public XQueryNCNamePsiImpl(@NotNull ASTNode node) {
         super(node);
     }

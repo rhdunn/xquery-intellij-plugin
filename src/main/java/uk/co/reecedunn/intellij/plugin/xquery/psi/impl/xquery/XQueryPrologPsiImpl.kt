@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceResolver
@@ -32,7 +32,7 @@ class XQueryPrologPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryPro
         }.filterNotNull().firstOrNull()
     }
 
-    override fun resolveVariable(name: XQueryEQName?): XQueryVariable? {
+    override fun resolveVariable(name: XPathEQName?): XQueryVariable? {
         return children().reversed().filterIsInstance<XQueryVariableResolver>().map { resolver ->
             resolver.resolveVariable(name)
         }.filterNotNull().firstOrNull()

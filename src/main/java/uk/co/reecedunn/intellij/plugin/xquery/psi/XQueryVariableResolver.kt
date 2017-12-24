@@ -15,8 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.psi
 
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 
 interface XQueryVariableResolver {
-    fun resolveVariable(name: XQueryEQName?): XQueryVariable?
+    fun resolveVariable(name: XPathEQName?): XQueryVariable?
 }

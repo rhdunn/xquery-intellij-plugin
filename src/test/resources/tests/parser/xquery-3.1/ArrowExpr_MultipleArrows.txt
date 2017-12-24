@@ -32,7 +32,7 @@ FileElement[FILE(0:46)]
                                                          LeafPsiElement[XQUERY_ARROW_TOKEN(4:6)]('=>')
                                                          PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
                                                          XQueryArrowFunctionSpecifierImpl[XQUERY_ARROW_FUNCTION_SPECIFIER(7:18)]
-                                                            XQueryEQNameImpl[XQUERY_EQNAME(7:18)]
+                                                            XPathEQNameImpl[XQUERY_EQNAME(7:18)]
                                                                XQueryNCNameImpl[XQUERY_NCNAME(7:17)]
                                                                   LeafPsiElement[XQUERY_NCNAME_TOKEN(7:17)]('upper-case')
                                                                PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
@@ -44,7 +44,7 @@ FileElement[FILE(0:46)]
                                                          LeafPsiElement[XQUERY_ARROW_TOKEN(22:24)]('=>')
                                                          PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
                                                          XQueryArrowFunctionSpecifierImpl[XQUERY_ARROW_FUNCTION_SPECIFIER(25:43)]
-                                                            XQueryEQNameImpl[XQUERY_EQNAME(25:43)]
+                                                            XPathEQNameImpl[XQUERY_EQNAME(25:43)]
                                                                XQueryNCNameImpl[XQUERY_NCNAME(25:42)]
                                                                   LeafPsiElement[XQUERY_NCNAME_TOKEN(25:42)]('normalize-unicode')
                                                                PsiWhiteSpaceImpl[WHITE_SPACE(42:43)](' ')

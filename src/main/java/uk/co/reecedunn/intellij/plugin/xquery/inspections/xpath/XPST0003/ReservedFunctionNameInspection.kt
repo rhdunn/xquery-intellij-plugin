@@ -21,6 +21,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Scripting
@@ -31,7 +32,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings
 
 class ReservedFunctionNameInspection : LocalInspectionTool() {
-    private fun getLocalName(name: XQueryEQName?): Pair<PsiElement, IXQueryKeywordOrNCNameType.KeywordType>? {
+    private fun getLocalName(name: XPathEQName?): Pair<PsiElement, IXQueryKeywordOrNCNameType.KeywordType>? {
         if (name != null && name.node.elementType === XQueryElementType.NCNAME) {
             val localname = name.firstChild
             val type = localname.node.elementType

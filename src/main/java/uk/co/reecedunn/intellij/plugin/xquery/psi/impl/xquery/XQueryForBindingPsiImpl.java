@@ -20,7 +20,7 @@ import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryForBinding;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPositionalVar;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVarName;
@@ -34,7 +34,7 @@ public class XQueryForBindingPsiImpl extends ASTWrapperPsiElement implements XQu
 
     @Nullable
     @Override
-    public XQueryVariable resolveVariable(XQueryEQName name) {
+    public XQueryVariable resolveVariable(XPathEQName name) {
         PsiElement varName = findChildByClass(XQueryVarName.class);
         if (varName != null && varName.equals(name)) {
             return new XQueryVariable(varName, this);

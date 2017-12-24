@@ -19,7 +19,7 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryParamList
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
@@ -27,13 +27,13 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver
 
 class XQueryFunctionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryFunctionDecl, XQueryVariableResolver {
-    override val functionName: XQueryEQName? =
-        findChildByClass(XQueryEQName::class.java)
+    override val functionName: XPathEQName? =
+        findChildByClass(XPathEQName::class.java)
 
     override val arity get(): Int =
         children().filterIsInstance<XQueryParamList>().firstOrNull()?.arity ?: 0
 
-    override fun resolveVariable(name: XQueryEQName?): XQueryVariable? {
+    override fun resolveVariable(name: XPathEQName?): XQueryVariable? {
         val element = findChildByType<PsiElement>(XQueryElementType.PARAM_LIST)
         return if (element is XQueryVariableResolver) element.resolveVariable(name) else null
     }

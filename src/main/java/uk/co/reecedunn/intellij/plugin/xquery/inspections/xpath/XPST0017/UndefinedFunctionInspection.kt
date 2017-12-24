@@ -19,6 +19,7 @@ import com.intellij.codeInspection.*
 import com.intellij.psi.PsiFile
 import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 
@@ -38,8 +39,8 @@ class UndefinedFunctionInspection : LocalInspectionTool() {
         if (file !is XQueryFile) return null
 
         val descriptors = SmartList<ProblemDescriptor>()
-        file.walkTree().filterIsInstance<XQueryEQName>()
-                       .filter { qname -> qname.type == XQueryEQName.Type.Function }
+        file.walkTree().filterIsInstance<XPathEQName>()
+                       .filter { qname -> qname.type == XPathEQName.Type.Function }
                        .forEach { qname ->
             val declarations = qname.resolveFunctionDecls().toList()
             val context = qname.localName

@@ -18,14 +18,14 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryQuantifiedExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVarName
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver
 
 class XQueryQuantifiedExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryQuantifiedExpr, XQueryVariableResolver {
-    override fun resolveVariable(name: XQueryEQName?): XQueryVariable? {
+    override fun resolveVariable(name: XPathEQName?): XQueryVariable? {
         if (name == null) return null
         return children().filterIsInstance<XQueryVarName>().map { e ->
             XQueryVariable(e, this)

@@ -19,7 +19,7 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingBlockVarDecl
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Scripting
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
@@ -33,7 +33,7 @@ class ScriptingBlockVarDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), 
     override val conformanceElement get(): PsiElement =
         firstChild
 
-    override fun resolveVariable(name: XQueryEQName?): XQueryVariable? {
+    override fun resolveVariable(name: XPathEQName?): XQueryVariable? {
         val varName = findChildByType<PsiElement>(XQueryElementType.VAR_NAME)
         if (varName != null && varName == name) {
             return XQueryVariable(varName, this)

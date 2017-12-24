@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryParenthesizedExpr
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Scripting
@@ -320,14 +320,14 @@ class ScriptingPsiTest : ParserTestCase() {
         val blockPsi = functionDeclPsi.children().filterIsInstance<ScriptingBlock>().first()
         val blockDeclsPsi = blockPsi.children().filterIsInstance<ScriptingBlockDecls>().first()
         val blockVarDeclPsi = blockDeclsPsi.children().filterIsInstance<ScriptingBlockVarDecl>().first()
-        val varNamePsi = blockVarDeclPsi.children().filterIsInstance<XQueryEQName>().first()
+        val varNamePsi = blockVarDeclPsi.children().filterIsInstance<XPathEQName>().first()
 
         val provider = blockVarDeclPsi as XQueryVariableResolver
         assertThat(provider.resolveVariable(null), `is`(nullValue()))
 
         val variable = provider.resolveVariable(varNamePsi)!!
 
-        assertThat(variable.variable, `is`(instanceOf(XQueryEQName::class.java)))
+        assertThat(variable.variable, `is`(instanceOf(XPathEQName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(varNamePsi))
 
         assertThat(variable.declaration, `is`(instanceOf(ScriptingBlockVarDecl::class.java)))

@@ -15,6 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName;
+
 /**
  * An XQuery 1.0 <code>AttributeName</code> node in the XQuery AST.
  *
@@ -23,5 +25,5 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
  * not stored directly in the AST. Instead, it is exposed as an instance of
  * that specialised node.
  */
-public interface XQueryAttributeName extends XQueryEQName {
+public interface XQueryAttributeName extends XPathEQName {
 }

@@ -17,9 +17,10 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
 
 import com.intellij.lang.ASTNode;
 import org.jetbrains.annotations.NotNull;
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathEQNamePsiImpl;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryQName;
 
-public class XQueryQNamePsiImpl extends XQueryEQNamePsiImpl implements XQueryQName {
+public class XQueryQNamePsiImpl extends XPathEQNamePsiImpl implements XQueryQName {
     public XQueryQNamePsiImpl(@NotNull ASTNode node) {
         super(node);
     }

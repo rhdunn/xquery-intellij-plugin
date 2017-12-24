@@ -19,7 +19,7 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryTumblingWindowClause
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
@@ -33,10 +33,10 @@ class XQueryTumblingWindowClausePsiImpl(node: ASTNode) : ASTWrapperPsiElement(no
     override val conformanceElement get(): PsiElement =
         firstChild
 
-    override fun resolveVariable(name: XQueryEQName?): XQueryVariable? {
+    override fun resolveVariable(name: XPathEQName?): XQueryVariable? {
         return children().map { e -> when (e) {
             is XQueryVariableResolver -> e.resolveVariable(name)
-            is XQueryEQName -> if (e == name) XQueryVariable(e, this) else null
+            is XPathEQName -> if (e == name) XQueryVariable(e, this) else null
             else -> null
         }}.filterNotNull().firstOrNull()
     }

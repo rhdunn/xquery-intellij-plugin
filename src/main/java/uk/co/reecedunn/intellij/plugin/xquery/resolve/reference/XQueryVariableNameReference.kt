@@ -19,10 +19,10 @@ import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReferenceBase
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver
 
-class XQueryVariableNameReference(element: XQueryEQName, range: TextRange) : PsiReferenceBase<XQueryEQName>(element, range) {
+class XQueryVariableNameReference(element: XPathEQName, range: TextRange) : PsiReferenceBase<XPathEQName>(element, range) {
     override fun resolve(): PsiElement? {
         val name = element
         return name.walkTree().reversed().filterIsInstance<XQueryVariableResolver>().map { e ->

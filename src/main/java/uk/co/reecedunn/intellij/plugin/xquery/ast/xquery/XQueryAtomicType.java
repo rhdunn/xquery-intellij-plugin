@@ -15,6 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName;
+
 /**
  * An XQuery 1.0 <code>AtomicType</code> node in the XQuery AST.
  *
@@ -22,5 +24,5 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
  * <code>AtomicOrUnionType</code> grammar constructs in XQuery 3.0, so those
  * are used instead.
  */
-public interface XQueryAtomicType extends XQueryEQName {
+public interface XQueryAtomicType extends XPathEQName {
 }

@@ -15,11 +15,13 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
+
 /**
  * An XQuery 3.0 `NamedFunctionRef` node in the XQuery AST.
  */
 interface XQueryNamedFunctionRef : XQueryFunctionItemExpr {
-    val functionName: XQueryEQName?
+    val functionName: XPathEQName?
 
     val arity: Int
 }

@@ -29,7 +29,7 @@ FileElement[FILE(0:16)]
                                                                                  LeafPsiElement[XQUERY_NCNAME_TOKEN(1:2)]('x')
                                                          LeafPsiElement[XQUERY_ARROW_TOKEN(2:4)]('=>')
                                                          XQueryArrowFunctionSpecifierImpl[XQUERY_ARROW_FUNCTION_SPECIFIER(4:14)]
-                                                            XQueryEQNameImpl[XQUERY_EQNAME(4:14)]
+                                                            XPathEQNameImpl[XQUERY_EQNAME(4:14)]
                                                                XQueryNCNameImpl[XQUERY_NCNAME(4:14)]
                                                                   LeafPsiElement[XQUERY_NCNAME_TOKEN(4:14)]('upper-case')
                                                          XQueryArgumentListImpl[XQUERY_ARGUMENT_LIST(14:16)]

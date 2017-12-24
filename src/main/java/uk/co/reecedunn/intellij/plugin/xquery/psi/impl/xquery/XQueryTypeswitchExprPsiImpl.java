@@ -20,7 +20,7 @@ import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName;
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryTypeswitchExpr;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable;
@@ -33,7 +33,7 @@ public class XQueryTypeswitchExprPsiImpl extends ASTWrapperPsiElement implements
 
     @Nullable
     @Override
-    public XQueryVariable resolveVariable(XQueryEQName name) {
+    public XQueryVariable resolveVariable(XPathEQName name) {
         PsiElement element = findChildByType(XQueryElementType.VAR_NAME);
         if (element != null && element.equals(name)) {
             return new XQueryVariable(element, this);

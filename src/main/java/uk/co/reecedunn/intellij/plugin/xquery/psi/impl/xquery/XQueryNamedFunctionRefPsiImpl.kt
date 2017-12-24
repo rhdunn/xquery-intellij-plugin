@@ -21,7 +21,7 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmAtomicValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.toInt
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryNamedFunctionRef
 import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
@@ -35,8 +35,8 @@ class XQueryNamedFunctionRefPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node),
     override val conformanceElement get(): PsiElement =
         findChildByType(XQueryTokenType.FUNCTION_REF_OPERATOR) ?: this
 
-    override val functionName: XQueryEQName? =
-        findChildByClass(XQueryEQName::class.java)
+    override val functionName: XPathEQName? =
+        findChildByClass(XPathEQName::class.java)
 
     override val arity get(): Int =
         children().filterIsInstance<XdmAtomicValue>().firstOrNull()?.toInt() ?: 0

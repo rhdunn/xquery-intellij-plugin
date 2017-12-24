@@ -19,7 +19,7 @@ import com.intellij.codeInspection.*
 import com.intellij.psi.PsiFile
 import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryNCName
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
@@ -40,7 +40,7 @@ class UnboundQNamePrefixInspection : LocalInspectionTool() {
         if (file !is XQueryFile) return null
 
         val descriptors = SmartList<ProblemDescriptor>()
-        file.walkTree().filterIsInstance<XQueryEQName>().forEach { qname ->
+        file.walkTree().filterIsInstance<XPathEQName>().forEach { qname ->
             val context = qname.prefix
             if (context !is XQueryNCName || context.text == "xmlns") {
             } else if (!qname.resolvePrefixNamespace().iterator().hasNext()) {

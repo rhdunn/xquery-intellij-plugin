@@ -15,7 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
+
 /**
  * An XQuery 3.0 `URIQualifiedName` node in the XQuery AST.
  */
-interface XQueryURIQualifiedName: XQueryEQName
+interface XQueryURIQualifiedName: XPathEQName

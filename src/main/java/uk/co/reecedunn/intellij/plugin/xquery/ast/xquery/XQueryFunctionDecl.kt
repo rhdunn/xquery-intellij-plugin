@@ -16,12 +16,13 @@
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 
 /**
  * An XQuery 1.0 `FunctionDecl` node in the XQuery AST.
  */
 interface XQueryFunctionDecl : PsiElement {
-    val functionName: XQueryEQName?
+    val functionName: XPathEQName?
 
     val arity: Int
 }

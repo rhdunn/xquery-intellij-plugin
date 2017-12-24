@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEQName
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryInitialClause
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryIntermediateClause
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
@@ -51,7 +51,7 @@ class XQueryIntermediateClausePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node
     override val conformanceElement get(): PsiElement =
         firstChild.firstChild
 
-    override fun resolveVariable(name: XQueryEQName?): XQueryVariable? {
+    override fun resolveVariable(name: XPathEQName?): XQueryVariable? {
         val element = firstChild
         if (element is XQueryVariableResolver) {
             return element.resolveVariable(name)
