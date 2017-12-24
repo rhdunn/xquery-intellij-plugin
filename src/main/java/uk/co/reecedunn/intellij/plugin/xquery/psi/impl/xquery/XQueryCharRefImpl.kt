@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.psi.tree.IElementType
-import uk.co.reecedunn.intellij.plugin.xdm.model.XmlChar
+import uk.co.reecedunn.intellij.plugin.xdm.datatype.XmlChar
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCharRef
 
 class XQueryCharRefImpl(type: IElementType, text: CharSequence) : LeafPsiElement(type, text), XQueryCharRef {
