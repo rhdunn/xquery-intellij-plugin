@@ -9,7 +9,7 @@ FileElement[FILE(0:142)]
                PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
                XQueryVarNameImpl[XQUERY_VAR_NAME(7:42)]
                   XQueryURIQualifiedNameImpl[XQUERY_URI_QUALIFIED_NAME(7:42)]
-                     XQueryBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(7:38)]
+                     XPathBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(7:38)]
                         LeafPsiElement[XQUERY_BRACED_URI_LITERAL_START_TOKEN(7:9)]('Q{')
                         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(9:37)]('http://www.example.com/test#')
                         LeafPsiElement[XQUERY_BRACED_URI_LITERAL_END_TOKEN(37:38)]('}')
@@ -105,7 +105,7 @@ FileElement[FILE(0:142)]
                PsiWhiteSpaceImpl[WHITE_SPACE(79:80)](' ')
                XQueryVarNameImpl[XQUERY_VAR_NAME(80:115)]
                   XQueryURIQualifiedNameImpl[XQUERY_URI_QUALIFIED_NAME(80:115)]
-                     XQueryBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(80:111)]
+                     XPathBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(80:111)]
                         LeafPsiElement[XQUERY_BRACED_URI_LITERAL_START_TOKEN(80:82)]('Q{')
                         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(82:110)]('http://www.example.com/test#')
                         LeafPsiElement[XQUERY_BRACED_URI_LITERAL_END_TOKEN(110:111)]('}')

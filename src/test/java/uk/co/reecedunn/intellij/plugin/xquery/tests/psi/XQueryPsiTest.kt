@@ -23,10 +23,7 @@ import org.hamcrest.MatcherAssert.assertThat
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmAtomicValue
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPostfixExpr
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQName
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Saxon
@@ -312,7 +309,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         val optionDeclPsi = file.descendants().filterIsInstance<XQueryOptionDecl>().first()
         val qnamePsi = optionDeclPsi.children().filterIsInstance<XQueryURIQualifiedName>().first()
-        val bracedURILiteralPsi = qnamePsi.descendants().filterIsInstance<XQueryBracedURILiteral>().first()
+        val bracedURILiteralPsi = qnamePsi.descendants().filterIsInstance<XPathBracedURILiteral>().first()
         val versioned = bracedURILiteralPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))

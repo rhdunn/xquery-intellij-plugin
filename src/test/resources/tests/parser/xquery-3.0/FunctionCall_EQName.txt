@@ -24,7 +24,7 @@ FileElement[FILE(0:39)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:39)]
                                                                         XQueryFunctionCallImpl[XQUERY_FUNCTION_CALL(0:39)]
                                                                            XQueryURIQualifiedNameImpl[XQUERY_URI_QUALIFIED_NAME(0:35)]
-                                                                              XQueryBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(0:31)]
+                                                                              XPathBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(0:31)]
                                                                                  LeafPsiElement[XQUERY_BRACED_URI_LITERAL_START_TOKEN(0:2)]('Q{')
                                                                                  LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(2:30)]('http://www.example.com/test#')
                                                                                  LeafPsiElement[XQUERY_BRACED_URI_LITERAL_END_TOKEN(30:31)]('}')

@@ -26,7 +26,7 @@ FileElement[FILE(0:84)]
                            XQueryElementNameOrWildcardImpl[XQUERY_ELEMENT_NAME_OR_WILDCARD(36:71)]
                               XQueryElementNameImpl[XQUERY_ELEMENT_NAME(36:71)]
                                  XQueryURIQualifiedNameImpl[XQUERY_URI_QUALIFIED_NAME(36:71)]
-                                    XQueryBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(36:67)]
+                                    XPathBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(36:67)]
                                        LeafPsiElement[XQUERY_BRACED_URI_LITERAL_START_TOKEN(36:38)]('Q{')
                                        LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(38:66)]('http://www.example.com/test#')
                                        LeafPsiElement[XQUERY_BRACED_URI_LITERAL_END_TOKEN(66:67)]('}')

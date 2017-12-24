@@ -8,7 +8,7 @@ FileElement[FILE(0:67)]
                LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_FUNCTION(8:16)]('function')
                PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
                XQueryURIQualifiedNameImpl[XQUERY_URI_QUALIFIED_NAME(17:52)]
-                  XQueryBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(17:48)]
+                  XPathBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(17:48)]
                      LeafPsiElement[XQUERY_BRACED_URI_LITERAL_START_TOKEN(17:19)]('Q{')
                      LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(19:47)]('http://www.example.com/test#')
                      LeafPsiElement[XQUERY_BRACED_URI_LITERAL_END_TOKEN(47:48)]('}')

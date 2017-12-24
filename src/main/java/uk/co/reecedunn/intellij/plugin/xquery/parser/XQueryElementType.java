@@ -175,7 +175,7 @@ public interface XQueryElementType {
     // region XQuery 3.0
 
     IElementType EQNAME = new ICompositeElementType("XQUERY_EQNAME", XPathEQNamePsiImpl.class, XQuery.INSTANCE);
-    IElementType BRACED_URI_LITERAL = new ICompositeElementType("XQUERY_BRACED_URI_LITERAL", XQueryBracedURILiteralPsiImpl.class, XQuery.INSTANCE);
+    IElementType BRACED_URI_LITERAL = new ICompositeElementType("XQUERY_BRACED_URI_LITERAL", XPathBracedURILiteralPsiImpl.class, XQuery.INSTANCE);
     IElementType URI_QUALIFIED_NAME = new ICompositeElementType("XQUERY_URI_QUALIFIED_NAME", XQueryURIQualifiedNamePsiImpl.class, XQuery.INSTANCE);
 
     IElementType DECIMAL_FORMAT_DECL = new ICompositeElementType("XQUERY_DECIMAL_FORMAT_DECL", XQueryDecimalFormatDeclPsiImpl.class, XQuery.INSTANCE);

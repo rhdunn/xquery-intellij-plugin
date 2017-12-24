@@ -23,7 +23,7 @@ import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryBracedURILiteral
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathBracedURILiteral
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.INCNameType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
@@ -71,7 +71,7 @@ open class XPathEQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPath
             }
 
         val prefix = prefix
-        if (prefix == null || prefix is XQueryBracedURILiteral) { // local name only
+        if (prefix == null || prefix is XPathBracedURILiteral) { // local name only
             if (localNameRef != null) {
                 return arrayOf(localNameRef)
             }
@@ -124,7 +124,7 @@ open class XPathEQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPath
         val prefix = prefix
         return when (prefix) {
             null -> emptySequence()
-            is XQueryBracedURILiteral -> emptySequence()
+            is XPathBracedURILiteral -> emptySequence()
             else -> {
                 val text = prefix.text
                 return prefix.walkTree().reversed().map { e ->

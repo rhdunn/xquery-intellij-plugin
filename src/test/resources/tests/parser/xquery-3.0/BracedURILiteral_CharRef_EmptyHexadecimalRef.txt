@@ -7,7 +7,7 @@ FileElement[FILE(0:41)]
             LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_OPTION(8:14)]('option')
             PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
             XQueryURIQualifiedNameImpl[XQUERY_URI_QUALIFIED_NAME(15:33)]
-               XQueryBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(15:28)]
+               XPathBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(15:28)]
                   LeafPsiElement[XQUERY_BRACED_URI_LITERAL_START_TOKEN(15:17)]('Q{')
                   LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(17:20)]('one')
                   PsiErrorElementImpl[ERROR_ELEMENT(20:24)]('XPST0003: Entity references must not be empty.')

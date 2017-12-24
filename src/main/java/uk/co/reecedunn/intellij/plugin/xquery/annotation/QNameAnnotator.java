@@ -22,6 +22,7 @@ import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName;
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName;
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathBracedURILiteral;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.SyntaxHighlighter;
@@ -36,7 +37,7 @@ public class QNameAnnotator implements Annotator {
 
         final boolean xmlns;
         PsiElement prefix = qname.getPrefix();
-        if (prefix != null && !(prefix instanceof XQueryBracedURILiteral)) {
+        if (prefix != null && !(prefix instanceof XPathBracedURILiteral)) {
             if (prefix.getText().equals("xmlns")) {
                 xmlns = true;
             } else {
