@@ -25,5 +25,5 @@ FileElement[FILE(0:4)]
                                                                         XQueryLiteralImpl[XQUERY_LITERAL(0:4)]
                                                                            XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(0:4)]
                                                                               LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)](''')
-                                                                              XQueryEscapeCharacterImpl[XQUERY_ESCAPED_CHARACTER_TOKEN(1:3)]('''')
+                                                                              XPathEscapeCharacterImpl[XQUERY_ESCAPED_CHARACTER_TOKEN(1:3)]('''')
                                                                               LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(3:4)](''')

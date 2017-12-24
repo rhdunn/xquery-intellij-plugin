@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.XsString
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmAtomicValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCharRef
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEscapeCharacter
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEscapeCharacter
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPredefinedEntityRef
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryStringLiteral
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
@@ -48,7 +48,7 @@ open class XQueryStringLiteralPsiImpl(node: ASTNode):
             XQueryTokenType.CHARACTER_REFERENCE ->
                 (child as XQueryCharRef).codepoint.toString()
             XQueryTokenType.ESCAPED_CHARACTER ->
-                (child as XQueryEscapeCharacter).unescapedValue
+                (child as XPathEscapeCharacter).unescapedValue
             else ->
                 child.text
         }}.filterNotNull().joinToString(separator = "")

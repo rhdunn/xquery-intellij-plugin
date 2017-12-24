@@ -26,6 +26,7 @@ import org.jetbrains.annotations.Nullable;
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathIntegerLiteralImpl;
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathDoubleLiteralImpl;
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathDecimalLiteralImpl;
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathEscapeCharacterImpl;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.XQueryDirWhiteSpaceImpl;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.*;
@@ -59,7 +60,7 @@ public class XQueryASTFactory extends ASTFactory {
             return new XQueryCharRefImpl(type, text);
         } else if (type == XQueryTokenType.ESCAPED_CHARACTER ||
                    type == XQueryTokenType.XML_ESCAPED_CHARACTER) {
-            return new XQueryEscapeCharacterImpl(type, text);
+            return new XPathEscapeCharacterImpl(type, text);
         }
 
         return new LeafPsiElement(type, text);

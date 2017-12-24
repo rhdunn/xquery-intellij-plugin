@@ -35,9 +35,9 @@ FileElement[FILE(0:16)]
                                                                                  XQueryDirAttributeValueImpl[XQUERY_DIR_ATTRIBUTE_VALUE(5:14)]
                                                                                     LeafPsiElement[XQUERY_XML_ATTRIBUTE_VALUE_START_TOKEN(5:6)]('"')
                                                                                     LeafPsiElement[XQUERY_XML_ATTRIBUTE_VALUE_CONTENTS_TOKEN(6:7)]('1')
-                                                                                    XQueryEscapeCharacterImpl[XQUERY_XML_ESCAPED_CHARACTER_TOKEN(7:9)]('{{')
+                                                                                    XPathEscapeCharacterImpl[XQUERY_XML_ESCAPED_CHARACTER_TOKEN(7:9)]('{{')
                                                                                     LeafPsiElement[XQUERY_XML_ATTRIBUTE_VALUE_CONTENTS_TOKEN(9:10)]('2')
-                                                                                    XQueryEscapeCharacterImpl[XQUERY_XML_ESCAPED_CHARACTER_TOKEN(10:12)]('}}')
+                                                                                    XPathEscapeCharacterImpl[XQUERY_XML_ESCAPED_CHARACTER_TOKEN(10:12)]('}}')
                                                                                     LeafPsiElement[XQUERY_XML_ATTRIBUTE_VALUE_CONTENTS_TOKEN(12:13)]('3')
                                                                                     LeafPsiElement[XQUERY_XML_ATTRIBUTE_VALUE_END_TOKEN(13:14)]('"')
                                                                               LeafPsiElement[XQUERY_SELF_CLOSING_XML_TAG_TOKEN(14:16)]('/>')

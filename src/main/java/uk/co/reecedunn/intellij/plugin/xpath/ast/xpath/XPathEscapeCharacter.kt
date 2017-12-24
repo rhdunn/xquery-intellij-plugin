@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
+package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
 import com.intellij.psi.PsiElement
 
 /**
- * An XQuery 1.0 `EscapeQuot` or `EscapeApos` node in the XQuery AST.
+ * An XPath 2.0 and XQuery 1.0 `EscapeQuot` or `EscapeApos` node in the XQuery AST.
  *
  * Because the `EscapeQuot` and `EscapeApos` nodes are
  * escaping a single character in the same manner, they are implemented as
@@ -31,6 +31,6 @@ import com.intellij.psi.PsiElement
  * providing different functionality where the entity may map to multiple
  * characters.
  */
-interface XQueryEscapeCharacter : PsiElement {
+interface XPathEscapeCharacter : PsiElement {
     val unescapedValue: CharSequence
 }
