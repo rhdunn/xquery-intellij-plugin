@@ -24,6 +24,7 @@ package uk.co.reecedunn.intellij.plugin.xdm.model
 import uk.co.reecedunn.intellij.plugin.xdm.XsAnySimpleType
 import uk.co.reecedunn.intellij.plugin.xdm.XsAnyType
 import uk.co.reecedunn.intellij.plugin.xdm.XsUntyped
+import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 
 open class XmlSchemaType(val typeName: QName?, val baseType: XmlSchemaType?): XdmSequenceType {
     override fun toString(): String = typeName.toString()

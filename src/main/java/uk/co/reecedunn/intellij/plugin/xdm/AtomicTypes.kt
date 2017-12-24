@@ -21,7 +21,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm
 
-import uk.co.reecedunn.intellij.plugin.xdm.model.QName
+import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmAtomicType
 
 val XsUntypedAtomic = XdmAtomicType(QName("http://www.w3.org/2001/XMLSchema", "untypedAtomic"), XsAnyAtomicType)

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xdm.model
+package uk.co.reecedunn.intellij.plugin.xdm.datatype
 
 data class QName(val namespace: String?, val localName: String) {
     override fun toString(): String = "Q{${namespace ?: ""}}$localName" // URIQualifiedName
