@@ -18,10 +18,8 @@ package uk.co.reecedunn.intellij.plugin.xquery.inspections.xquery.XQST0118
 import com.intellij.codeInspection.*
 import com.intellij.psi.PsiFile
 import com.intellij.util.SmartList
-import uk.co.reecedunn.intellij.plugin.core.extensions.*
+import uk.co.reecedunn.intellij.plugin.core.sequences.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 
 /** XQST0118 error condition

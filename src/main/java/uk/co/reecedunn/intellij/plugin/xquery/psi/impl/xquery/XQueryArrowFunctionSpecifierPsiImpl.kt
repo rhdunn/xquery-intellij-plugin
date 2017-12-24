@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
-import uk.co.reecedunn.intellij.plugin.core.extensions.siblings
+import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryArgumentList
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryArrowFunctionSpecifier
 

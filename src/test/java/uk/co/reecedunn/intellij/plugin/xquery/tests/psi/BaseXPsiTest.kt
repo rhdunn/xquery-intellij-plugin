@@ -19,8 +19,8 @@ import com.intellij.psi.tree.IElementType
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.notNullValue
 import org.hamcrest.MatcherAssert.assertThat
-import uk.co.reecedunn.intellij.plugin.core.extensions.children
-import uk.co.reecedunn.intellij.plugin.core.extensions.descendants
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
 import uk.co.reecedunn.intellij.plugin.xquery.ast.basex.BaseXFTFuzzyOption
 import uk.co.reecedunn.intellij.plugin.xquery.ast.basex.BaseXUpdateExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTContainsExpr

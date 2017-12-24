@@ -18,8 +18,8 @@ package uk.co.reecedunn.intellij.plugin.xquery.inspections.xpath.XPST0003
 import com.intellij.codeInspection.*
 import com.intellij.psi.PsiFile
 import com.intellij.util.SmartList
-import uk.co.reecedunn.intellij.plugin.core.extensions.siblings
-import uk.co.reecedunn.intellij.plugin.core.extensions.walkTree
+import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
+import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic.MarkLogicTransactionSeparator
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingConcatExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile
