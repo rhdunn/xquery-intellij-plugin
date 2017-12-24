@@ -23,4 +23,4 @@ FileElement[FILE(0:12)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:12)]
                                                                      XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:12)]
                                                                         XQueryLiteralImpl[XQUERY_LITERAL(0:12)]
-                                                                           XQueryDoubleLiteralImpl[XQUERY_DOUBLE_LITERAL_TOKEN(0:12)]('2.99792458e8')
+                                                                           XPathDoubleLiteralImpl[XQUERY_DOUBLE_LITERAL_TOKEN(0:12)]('2.99792458e8')

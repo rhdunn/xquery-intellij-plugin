@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016-2017 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,18 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
+package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.xdm.XsDouble
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmAtomicValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDoubleLiteral
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathDoubleLiteral
 
-class XQueryDoubleLiteralImpl(type: IElementType, text: CharSequence):
+class XPathDoubleLiteralImpl(type: IElementType, text: CharSequence):
         LeafPsiElement(type, text),
-        XQueryDoubleLiteral,
+        XPathDoubleLiteral,
         XdmAtomicValue {
 
     override val lexicalRepresentation get(): String = text

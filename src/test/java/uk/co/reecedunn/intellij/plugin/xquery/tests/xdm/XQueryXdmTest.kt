@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSimpleExpression
 import uk.co.reecedunn.intellij.plugin.xdm.model.toInt
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathIntegerLiteral
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathDoubleLiteral
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
@@ -40,7 +41,7 @@ class XQueryXdmTest : ParserTestCase() {
     // region DoubleLiteral
 
     fun testDoubleLiteral() {
-        val literal = parseLiteral<XQueryDoubleLiteral>("1e3")
+        val literal = parseLiteral<XPathDoubleLiteral>("1e3")
         assertThat(literal.lexicalRepresentation, `is`("1e3"))
         assertThat(literal.staticType, `is`(XsDouble as XdmSequenceType))
     }
