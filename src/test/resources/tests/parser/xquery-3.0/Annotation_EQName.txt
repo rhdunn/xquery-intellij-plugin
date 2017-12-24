@@ -7,7 +7,7 @@ FileElement[FILE(0:74)]
             XQueryAnnotationImpl[XQUERY_ANNOTATION(8:46)]
                LeafPsiElement[XQUERY_ANNOTATION_INDICATOR_TOKEN(8:9)]('%')
                PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
-               XQueryURIQualifiedNameImpl[XQUERY_URI_QUALIFIED_NAME(10:45)]
+               XPathURIQualifiedNameImpl[XQUERY_URI_QUALIFIED_NAME(10:45)]
                   XPathBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(10:41)]
                      LeafPsiElement[XQUERY_BRACED_URI_LITERAL_START_TOKEN(10:12)]('Q{')
                      LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(12:40)]('http://www.example.com/test#')

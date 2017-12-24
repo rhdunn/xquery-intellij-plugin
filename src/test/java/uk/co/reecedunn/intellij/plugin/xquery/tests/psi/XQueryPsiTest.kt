@@ -308,7 +308,7 @@ class XQueryPsiTest:ParserTestCase() {
         val file = parseResource("tests/parser/xquery-3.0/BracedURILiteral.xq")!!
 
         val optionDeclPsi = file.descendants().filterIsInstance<XQueryOptionDecl>().first()
-        val qnamePsi = optionDeclPsi.children().filterIsInstance<XQueryURIQualifiedName>().first()
+        val qnamePsi = optionDeclPsi.children().filterIsInstance<XPathURIQualifiedName>().first()
         val bracedURILiteralPsi = qnamePsi.descendants().filterIsInstance<XPathBracedURILiteral>().first()
         val versioned = bracedURILiteralPsi as XQueryConformance
 
@@ -3523,13 +3523,13 @@ class XQueryPsiTest:ParserTestCase() {
     }
 
     // endregion
-    // region XQueryURIQualifiedName
+    // region XPathURIQualifiedName
 
     fun testURIQualifiedName() {
         val file = parseResource("tests/parser/xquery-3.0/BracedURILiteral.xq")!!
 
         val optionDeclPsi = file.descendants().filterIsInstance<XQueryOptionDecl>().first()
-        val qnamePsi = optionDeclPsi.children().filterIsInstance<XQueryURIQualifiedName>().first()
+        val qnamePsi = optionDeclPsi.children().filterIsInstance<XPathURIQualifiedName>().first()
 
         assertThat(qnamePsi.prefix, `is`(notNullValue()))
         assertThat(qnamePsi.prefix!!.node.elementType, `is`<IElementType>(XQueryElementType.BRACED_URI_LITERAL))
