@@ -24,10 +24,10 @@ FileElement[FILE(0:18)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:18)]
                                                                         XQueryFunctionCallImpl[XQUERY_FUNCTION_CALL(0:18)]
                                                                            XQueryQNameImpl[XQUERY_QNAME(0:10)]
-                                                                              XQueryNCNameImpl[XQUERY_NCNAME(0:2)]
+                                                                              XPathNCNameImpl[XQUERY_NCNAME(0:2)]
                                                                                  LeafPsiElement[XQUERY_NCNAME_TOKEN(0:2)]('fn')
                                                                               LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(2:3)](':')
-                                                                              XQueryNCNameImpl[XQUERY_NCNAME(3:10)]
+                                                                              XPathNCNameImpl[XQUERY_NCNAME(3:10)]
                                                                                  LeafPsiElement[XQUERY_NCNAME_TOKEN(3:10)]('boolean')
                                                                            XQueryArgumentListImpl[XQUERY_ARGUMENT_LIST(10:18)]
                                                                               LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(10:11)]('(')

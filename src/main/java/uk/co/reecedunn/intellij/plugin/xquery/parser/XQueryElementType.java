@@ -19,10 +19,7 @@ import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.tree.IFileElementType;
 import com.intellij.psi.tree.TokenSet;
 import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType;
-import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathStringLiteralPsiImpl;
-import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathLiteralPsiImpl;
-import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathPostfixExprPsiImpl;
-import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathEQNamePsiImpl;
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.*;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.basex.BaseXFTFuzzyOptionPsiImpl;
@@ -44,7 +41,7 @@ public interface XQueryElementType {
 
     IElementType CDATA_SECTION = new ICompositeElementType("XQUERY_CDATA_SECTION", XQueryCDataSectionPsiImpl.class, XQuery.INSTANCE);
     IElementType COMMENT = new ICompositeElementType("XQUERY_COMMENT", XQueryCommentPsiImpl.class, XQuery.INSTANCE);
-    IElementType NCNAME = new ICompositeElementType("XQUERY_NCNAME", XQueryNCNamePsiImpl.class, XQuery.INSTANCE);
+    IElementType NCNAME = new ICompositeElementType("XQUERY_NCNAME", XPathNCNamePsiImpl.class, XQuery.INSTANCE);
     IElementType QNAME = new ICompositeElementType("XQUERY_QNAME", XQueryQNamePsiImpl.class, XQuery.INSTANCE);
     IElementType URI_LITERAL = new ICompositeElementType("XQUERY_URI_LITERAL", XQueryUriLiteralPsiImpl.class, XQuery.INSTANCE);
     IElementType VAR_NAME = new ICompositeElementType("XQUERY_VAR_NAME", XQueryVarNamePsiImpl.class, XQuery.INSTANCE);

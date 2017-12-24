@@ -27,7 +27,7 @@ FileElement[FILE(0:23)]
                                                                               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NAMESPACE(0:9)]('namespace')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
                                                                               XQueryPrefixImpl[XQUERY_PREFIX(10:13)]
-                                                                                 XQueryNCNameImpl[XQUERY_NCNAME(10:12)]
+                                                                                 XPathNCNameImpl[XQUERY_NCNAME(10:12)]
                                                                                     LeafPsiElement[XQUERY_NCNAME_TOKEN(10:12)]('ns')
                                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
                                                                               XQueryEnclosedUriExprImpl[XQUERY_ENCLOSED_URI_EXPR(13:23)]

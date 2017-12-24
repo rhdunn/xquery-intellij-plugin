@@ -23,7 +23,7 @@ FileElement[FILE(0:180)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:8)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:8)]
                                                                         XQueryFunctionCallImpl[XQUERY_FUNCTION_CALL(0:7)]
-                                                                           XQueryNCNameImpl[XQUERY_NCNAME(0:5)]
+                                                                           XPathNCNameImpl[XQUERY_NCNAME(0:5)]
                                                                               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_AFTER(0:5)]('after')
                                                                            XQueryArgumentListImpl[XQUERY_ARGUMENT_LIST(5:7)]
                                                                               LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(5:6)]('(')
@@ -52,7 +52,7 @@ FileElement[FILE(0:180)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(10:19)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(10:19)]
                                                                         XQueryFunctionCallImpl[XQUERY_FUNCTION_CALL(10:18)]
-                                                                           XQueryNCNameImpl[XQUERY_NCNAME(10:16)]
+                                                                           XPathNCNameImpl[XQUERY_NCNAME(10:16)]
                                                                               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_BEFORE(10:16)]('before')
                                                                            XQueryArgumentListImpl[XQUERY_ARGUMENT_LIST(16:18)]
                                                                               LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(16:17)]('(')
@@ -81,7 +81,7 @@ FileElement[FILE(0:180)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(21:28)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(21:28)]
                                                                         XQueryFunctionCallImpl[XQUERY_FUNCTION_CALL(21:27)]
-                                                                           XQueryNCNameImpl[XQUERY_NCNAME(21:25)]
+                                                                           XPathNCNameImpl[XQUERY_NCNAME(21:25)]
                                                                               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_COPY(21:25)]('copy')
                                                                            XQueryArgumentListImpl[XQUERY_ARGUMENT_LIST(25:27)]
                                                                               LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(25:26)]('(')
@@ -110,7 +110,7 @@ FileElement[FILE(0:180)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(30:39)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(30:39)]
                                                                         XQueryFunctionCallImpl[XQUERY_FUNCTION_CALL(30:38)]
-                                                                           XQueryNCNameImpl[XQUERY_NCNAME(30:36)]
+                                                                           XPathNCNameImpl[XQUERY_NCNAME(30:36)]
                                                                               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DELETE(30:36)]('delete')
                                                                            XQueryArgumentListImpl[XQUERY_ARGUMENT_LIST(36:38)]
                                                                               LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(36:37)]('(')
@@ -139,7 +139,7 @@ FileElement[FILE(0:180)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(41:49)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(41:49)]
                                                                         XQueryFunctionCallImpl[XQUERY_FUNCTION_CALL(41:48)]
-                                                                           XQueryNCNameImpl[XQUERY_NCNAME(41:46)]
+                                                                           XPathNCNameImpl[XQUERY_NCNAME(41:46)]
                                                                               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_FIRST(41:46)]('first')
                                                                            XQueryArgumentListImpl[XQUERY_ARGUMENT_LIST(46:48)]
                                                                               LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(46:47)]('(')
@@ -168,7 +168,7 @@ FileElement[FILE(0:180)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(51:60)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(51:60)]
                                                                         XQueryFunctionCallImpl[XQUERY_FUNCTION_CALL(51:59)]
-                                                                           XQueryNCNameImpl[XQUERY_NCNAME(51:57)]
+                                                                           XPathNCNameImpl[XQUERY_NCNAME(51:57)]
                                                                               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_INSERT(51:57)]('insert')
                                                                            XQueryArgumentListImpl[XQUERY_ARGUMENT_LIST(57:59)]
                                                                               LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(57:58)]('(')
@@ -197,7 +197,7 @@ FileElement[FILE(0:180)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(62:69)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(62:69)]
                                                                         XQueryFunctionCallImpl[XQUERY_FUNCTION_CALL(62:68)]
-                                                                           XQueryNCNameImpl[XQUERY_NCNAME(62:66)]
+                                                                           XPathNCNameImpl[XQUERY_NCNAME(62:66)]
                                                                               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_INTO(62:66)]('into')
                                                                            XQueryArgumentListImpl[XQUERY_ARGUMENT_LIST(66:68)]
                                                                               LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(66:67)]('(')
@@ -226,7 +226,7 @@ FileElement[FILE(0:180)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(71:78)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(71:78)]
                                                                         XQueryFunctionCallImpl[XQUERY_FUNCTION_CALL(71:77)]
-                                                                           XQueryNCNameImpl[XQUERY_NCNAME(71:75)]
+                                                                           XPathNCNameImpl[XQUERY_NCNAME(71:75)]
                                                                               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_LAST(71:75)]('last')
                                                                            XQueryArgumentListImpl[XQUERY_ARGUMENT_LIST(75:77)]
                                                                               LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(75:76)]('(')
@@ -255,7 +255,7 @@ FileElement[FILE(0:180)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(80:89)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(80:89)]
                                                                         XQueryFunctionCallImpl[XQUERY_FUNCTION_CALL(80:88)]
-                                                                           XQueryNCNameImpl[XQUERY_NCNAME(80:86)]
+                                                                           XPathNCNameImpl[XQUERY_NCNAME(80:86)]
                                                                               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_MODIFY(80:86)]('modify')
                                                                            XQueryArgumentListImpl[XQUERY_ARGUMENT_LIST(86:88)]
                                                                               LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(86:87)]('(')
@@ -284,7 +284,7 @@ FileElement[FILE(0:180)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(91:99)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(91:99)]
                                                                         XQueryFunctionCallImpl[XQUERY_FUNCTION_CALL(91:98)]
-                                                                           XQueryNCNameImpl[XQUERY_NCNAME(91:96)]
+                                                                           XPathNCNameImpl[XQUERY_NCNAME(91:96)]
                                                                               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NODES(91:96)]('nodes')
                                                                            XQueryArgumentListImpl[XQUERY_ARGUMENT_LIST(96:98)]
                                                                               LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(96:97)]('(')
@@ -313,7 +313,7 @@ FileElement[FILE(0:180)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(101:110)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(101:110)]
                                                                         XQueryFunctionCallImpl[XQUERY_FUNCTION_CALL(101:109)]
-                                                                           XQueryNCNameImpl[XQUERY_NCNAME(101:107)]
+                                                                           XPathNCNameImpl[XQUERY_NCNAME(101:107)]
                                                                               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_RENAME(101:107)]('rename')
                                                                            XQueryArgumentListImpl[XQUERY_ARGUMENT_LIST(107:109)]
                                                                               LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(107:108)]('(')
@@ -342,7 +342,7 @@ FileElement[FILE(0:180)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(112:122)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(112:122)]
                                                                         XQueryFunctionCallImpl[XQUERY_FUNCTION_CALL(112:121)]
-                                                                           XQueryNCNameImpl[XQUERY_NCNAME(112:119)]
+                                                                           XPathNCNameImpl[XQUERY_NCNAME(112:119)]
                                                                               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_REPLACE(112:119)]('replace')
                                                                            XQueryArgumentListImpl[XQUERY_ARGUMENT_LIST(119:121)]
                                                                               LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(119:120)]('(')
@@ -371,7 +371,7 @@ FileElement[FILE(0:180)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(124:139)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(124:139)]
                                                                         XQueryFunctionCallImpl[XQUERY_FUNCTION_CALL(124:138)]
-                                                                           XQueryNCNameImpl[XQUERY_NCNAME(124:136)]
+                                                                           XPathNCNameImpl[XQUERY_NCNAME(124:136)]
                                                                               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_REVALIDATION(124:136)]('revalidation')
                                                                            XQueryArgumentListImpl[XQUERY_ARGUMENT_LIST(136:138)]
                                                                               LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(136:137)]('(')
@@ -400,7 +400,7 @@ FileElement[FILE(0:180)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(141:148)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(141:148)]
                                                                         XQueryFunctionCallImpl[XQUERY_FUNCTION_CALL(141:147)]
-                                                                           XQueryNCNameImpl[XQUERY_NCNAME(141:145)]
+                                                                           XPathNCNameImpl[XQUERY_NCNAME(141:145)]
                                                                               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_SKIP(141:145)]('skip')
                                                                            XQueryArgumentListImpl[XQUERY_ARGUMENT_LIST(145:147)]
                                                                               LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(145:146)]('(')
@@ -429,7 +429,7 @@ FileElement[FILE(0:180)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(150:161)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(150:161)]
                                                                         XQueryFunctionCallImpl[XQUERY_FUNCTION_CALL(150:160)]
-                                                                           XQueryNCNameImpl[XQUERY_NCNAME(150:158)]
+                                                                           XPathNCNameImpl[XQUERY_NCNAME(150:158)]
                                                                               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_UPDATING(150:158)]('updating')
                                                                            XQueryArgumentListImpl[XQUERY_ARGUMENT_LIST(158:160)]
                                                                               LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(158:159)]('(')
@@ -458,7 +458,7 @@ FileElement[FILE(0:180)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(163:171)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(163:171)]
                                                                         XQueryFunctionCallImpl[XQUERY_FUNCTION_CALL(163:170)]
-                                                                           XQueryNCNameImpl[XQUERY_NCNAME(163:168)]
+                                                                           XPathNCNameImpl[XQUERY_NCNAME(163:168)]
                                                                               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_VALUE(163:168)]('value')
                                                                            XQueryArgumentListImpl[XQUERY_ARGUMENT_LIST(168:170)]
                                                                               LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(168:169)]('(')
@@ -487,7 +487,7 @@ FileElement[FILE(0:180)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(173:180)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(173:180)]
                                                                         XQueryFunctionCallImpl[XQUERY_FUNCTION_CALL(173:179)]
-                                                                           XQueryNCNameImpl[XQUERY_NCNAME(173:177)]
+                                                                           XPathNCNameImpl[XQUERY_NCNAME(173:177)]
                                                                               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_WITH(173:177)]('with')
                                                                            XQueryArgumentListImpl[XQUERY_ARGUMENT_LIST(177:179)]
                                                                               LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(177:178)]('(')

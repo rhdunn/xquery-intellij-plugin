@@ -19,7 +19,7 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryNCName
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySchemaImport
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySchemaPrefix
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
@@ -29,7 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceResolver
 class XQuerySchemaImportPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQuerySchemaImport, XQueryNamespaceResolver {
     override val namespace get(): XQueryNamespace? {
         val schema = findChildByType<XQuerySchemaPrefix>(XQueryElementType.SCHEMA_PREFIX) ?: return null
-        return schema.children().filterIsInstance<XQueryNCName>().map { name -> name.localName }.map { localName ->
+        return schema.children().filterIsInstance<XPathNCName>().map { name -> name.localName }.map { localName ->
             val element = findChildByType<PsiElement>(XQueryElementType.URI_LITERAL)
             XQueryNamespace(localName, element, this)
         }.firstOrNull()

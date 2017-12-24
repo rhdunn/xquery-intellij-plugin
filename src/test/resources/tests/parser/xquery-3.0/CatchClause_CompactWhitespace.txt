@@ -38,10 +38,10 @@ FileElement[FILE(0:29)]
                   XQueryCatchErrorListImpl[XQUERY_CATCH_ERROR_LIST(12:26)]
                      XQueryNameTestImpl[XQUERY_NAME_TEST(12:26)]
                         XQueryQNameImpl[XQUERY_QNAME(12:26)]
-                           XQueryNCNameImpl[XQUERY_NCNAME(12:17)]
+                           XPathNCNameImpl[XQUERY_NCNAME(12:17)]
                               LeafPsiElement[XQUERY_NCNAME_TOKEN(12:17)]('error')
                            LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(17:18)](':')
-                           XQueryNCNameImpl[XQUERY_NCNAME(18:26)]
+                           XPathNCNameImpl[XQUERY_NCNAME(18:26)]
                               LeafPsiElement[XQUERY_NCNAME_TOKEN(18:26)]('XQST0084')
                   XQueryEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(26:29)]
                      LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(26:27)]('{')

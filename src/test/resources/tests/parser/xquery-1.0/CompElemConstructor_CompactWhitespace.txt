@@ -27,10 +27,10 @@ FileElement[FILE(0:18)]
                                                                               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_ELEMENT(0:7)]('element')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
                                                                               XQueryQNameImpl[XQUERY_QNAME(8:14)]
-                                                                                 XQueryNCNameImpl[XQUERY_NCNAME(8:10)]
+                                                                                 XPathNCNameImpl[XQUERY_NCNAME(8:10)]
                                                                                     LeafPsiElement[XQUERY_NCNAME_TOKEN(8:10)]('xh')
                                                                                  LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(10:11)](':')
-                                                                                 XQueryNCNameImpl[XQUERY_NCNAME(11:14)]
+                                                                                 XPathNCNameImpl[XQUERY_NCNAME(11:14)]
                                                                                     LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DIV(11:14)]('div')
                                                                               XQueryEnclosedContentExprImpl[XQUERY_ENCLOSED_CONTENT_EXPR(14:18)]
                                                                                  LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(14:15)]('{')

@@ -10,7 +10,7 @@ FileElement[FILE(0:44)]
                LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(17:18)]('$')
                PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
                XQueryVarNameImpl[XQUERY_VAR_NAME(19:21)]
-                  XQueryNCNameImpl[XQUERY_NCNAME(19:20)]
+                  XPathNCNameImpl[XQUERY_NCNAME(19:20)]
                      LeafPsiElement[XQUERY_NCNAME_TOKEN(19:20)]('x')
                   PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
                XQueryTypeDeclarationImpl[XQUERY_TYPE_DECLARATION(21:38)]
@@ -24,7 +24,7 @@ FileElement[FILE(0:44)]
                            LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(30:31)]('(')
                            PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
                            SaxonTupleFieldImpl[XQUERY_TUPLE_FIELD(32:36)]
-                              XQueryNCNameImpl[XQUERY_NCNAME(32:33)]
+                              XPathNCNameImpl[XQUERY_NCNAME(32:33)]
                                  LeafPsiElement[XQUERY_NCNAME_TOKEN(32:33)]('a')
                               PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
                               LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(34:35)](':')

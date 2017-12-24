@@ -23,7 +23,7 @@ FileElement[FILE(0:23)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:9)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:9)]
                                                                         XQueryFunctionCallImpl[XQUERY_FUNCTION_CALL(0:8)]
-                                                                           XQueryNCNameImpl[XQUERY_NCNAME(0:6)]
+                                                                           XPathNCNameImpl[XQUERY_NCNAME(0:6)]
                                                                               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_INVOKE(0:6)]('invoke')
                                                                            XQueryArgumentListImpl[XQUERY_ARGUMENT_LIST(6:8)]
                                                                               LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(6:7)]('(')
@@ -52,7 +52,7 @@ FileElement[FILE(0:23)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(11:23)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(11:23)]
                                                                         XQueryFunctionCallImpl[XQUERY_FUNCTION_CALL(11:22)]
-                                                                           XQueryNCNameImpl[XQUERY_NCNAME(11:20)]
+                                                                           XPathNCNameImpl[XQUERY_NCNAME(11:20)]
                                                                               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_TRANSFORM(11:20)]('transform')
                                                                            XQueryArgumentListImpl[XQUERY_ARGUMENT_LIST(20:22)]
                                                                               LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(20:21)]('(')

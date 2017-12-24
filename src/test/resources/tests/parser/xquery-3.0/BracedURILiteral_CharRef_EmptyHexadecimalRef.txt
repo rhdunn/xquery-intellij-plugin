@@ -14,7 +14,7 @@ FileElement[FILE(0:41)]
                      LeafPsiElement[XQUERY_EMPTY_ENTITY_REFERENCE_TOKEN(20:24)]('&#x;')
                   LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(24:27)]('two')
                   LeafPsiElement[XQUERY_BRACED_URI_LITERAL_END_TOKEN(27:28)]('}')
-               XQueryNCNameImpl[XQUERY_NCNAME(28:33)]
+               XPathNCNameImpl[XQUERY_NCNAME(28:33)]
                   LeafPsiElement[XQUERY_NCNAME_TOKEN(28:33)]('three')
             PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
             XPathStringLiteralImpl[XQUERY_STRING_LITERAL(34:40)]

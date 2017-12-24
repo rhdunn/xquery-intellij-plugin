@@ -15,8 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName;
+
 /**
  * An XQuery 3.0 <code>Prefix</code> node in the XQuery AST.
  */
-public interface XQueryPrefix extends XQueryNCName {
+public interface XQueryPrefix extends XPathNCName {
 }

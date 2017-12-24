@@ -21,6 +21,7 @@ import com.intellij.openapi.editor.markup.TextAttributes;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName;
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.SyntaxHighlighter;
@@ -64,8 +65,8 @@ public class QNameAnnotator implements Annotator {
             } else if (localName.getNode().getElementType() instanceof IXQueryKeywordOrNCNameType) {
                 holder.createInfoAnnotation(localName, null).setEnforcedTextAttributes(TextAttributes.ERASE_MARKER);
                 holder.createInfoAnnotation(localName, null).setTextAttributes(SyntaxHighlighter.IDENTIFIER);
-            } else if (localName instanceof XQueryNCName) {
-                PsiElement ncname = ((XQueryNCName)localName).getLocalName();
+            } else if (localName instanceof XPathNCName) {
+                PsiElement ncname = ((XPathNCName)localName).getLocalName();
                 if (ncname != null && ncname.getNode().getElementType() instanceof IXQueryKeywordOrNCNameType) {
                     holder.createInfoAnnotation(localName, null).setEnforcedTextAttributes(TextAttributes.ERASE_MARKER);
                     holder.createInfoAnnotation(localName, null).setTextAttributes(SyntaxHighlighter.IDENTIFIER);

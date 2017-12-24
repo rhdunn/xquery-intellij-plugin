@@ -21,7 +21,7 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModuleDecl
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryNCName
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace
@@ -30,7 +30,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
 
 class XQueryModuleDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryModuleDecl, XQueryNamespaceResolver, XQueryPrologResolver {
     override val namespace get(): XQueryNamespace? {
-        return children().filterIsInstance<XQueryNCName>().map { name -> name.localName }.map { localName ->
+        return children().filterIsInstance<XPathNCName>().map { name -> name.localName }.map { localName ->
             val element = findChildByType<PsiElement>(XQueryElementType.URI_LITERAL)
             XQueryNamespace(localName, element, this)
         }.firstOrNull()

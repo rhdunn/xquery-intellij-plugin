@@ -8,7 +8,7 @@ FileElement[FILE(0:53)]
                LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_VARIABLE(8:16)]('variable')
                LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(16:17)]('$')
                XQueryVarNameImpl[XQUERY_VAR_NAME(17:19)]
-                  XQueryNCNameImpl[XQUERY_NCNAME(17:18)]
+                  XPathNCNameImpl[XQUERY_NCNAME(17:18)]
                      LeafPsiElement[XQUERY_NCNAME_TOKEN(17:18)]('x')
                   PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
                XQueryTypeDeclarationImpl[XQUERY_TYPE_DECLARATION(19:49)]
@@ -20,17 +20,17 @@ FileElement[FILE(0:53)]
                            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_UNION(22:27)]('union')
                            LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(27:28)]('(')
                            XQueryQNameImpl[XQUERY_QNAME(28:38)]
-                              XQueryNCNameImpl[XQUERY_NCNAME(28:30)]
+                              XPathNCNameImpl[XQUERY_NCNAME(28:30)]
                                  LeafPsiElement[XQUERY_NCNAME_TOKEN(28:30)]('xs')
                               LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(30:31)](':')
-                              XQueryNCNameImpl[XQUERY_NCNAME(31:38)]
+                              XPathNCNameImpl[XQUERY_NCNAME(31:38)]
                                  LeafPsiElement[XQUERY_NCNAME_TOKEN(31:38)]('integer')
                            LeafPsiElement[XQUERY_COMMA_TOKEN(38:39)](',')
                            XQueryQNameImpl[XQUERY_QNAME(39:48)]
-                              XQueryNCNameImpl[XQUERY_NCNAME(39:41)]
+                              XPathNCNameImpl[XQUERY_NCNAME(39:41)]
                                  LeafPsiElement[XQUERY_NCNAME_TOKEN(39:41)]('xs')
                               LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(41:42)](':')
-                              XQueryNCNameImpl[XQUERY_NCNAME(42:48)]
+                              XPathNCNameImpl[XQUERY_NCNAME(42:48)]
                                  LeafPsiElement[XQUERY_NCNAME_TOKEN(42:48)]('double')
                            LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(48:49)](')')
                LeafPsiElement[XQUERY_ASSIGN_EQUAL_TOKEN(49:51)](':=')

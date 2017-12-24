@@ -20,7 +20,7 @@ import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryNCName
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVarName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVarRef
 import uk.co.reecedunn.intellij.plugin.xquery.findUsages.XQueryFindUsagesProvider
@@ -33,7 +33,7 @@ class XQueryFindUsagesProviderTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-1.0/VarRef.xq")!!
         val varRef = file.descendants().filterIsInstance<XQueryVarRef>().first()
         val varName = varRef.children().filterIsInstance<XQueryVarName>().first()
-        val ncName = varName.children().filterIsInstance<XQueryNCName>().first()
+        val ncName = varName.children().filterIsInstance<XPathNCName>().first()
 
         assertThat(provider.canFindUsagesFor(ncName), `is`(true))
         assertThat(provider.getHelpId(ncName), `is`(HelpID.FIND_OTHER_USAGES))

@@ -8,7 +8,7 @@ FileElement[FILE(0:64)]
                LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_VARIABLE(8:16)]('variable')
                LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(16:17)]('$')
                XQueryVarNameImpl[XQUERY_VAR_NAME(17:21)]
-                  XQueryNCNameImpl[XQUERY_NCNAME(17:20)]
+                  XPathNCNameImpl[XQUERY_NCNAME(17:20)]
                      LeafPsiElement[XQUERY_NCNAME_TOKEN(17:20)]('one')
                   PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
                XQueryTypeDeclarationImpl[XQUERY_TYPE_DECLARATION(21:55)]
@@ -21,17 +21,17 @@ FileElement[FILE(0:64)]
                            LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(31:32)]('(')
                            XQueryElementNameOrWildcardImpl[XQUERY_ELEMENT_NAME_OR_WILDCARD(32:42)]
                               XQueryElementNameImpl[XQUERY_ELEMENT_NAME(32:42)]
-                                 XQueryNCNameImpl[XQUERY_NCNAME(32:34)]
+                                 XPathNCNameImpl[XQUERY_NCNAME(32:34)]
                                     LeafPsiElement[XQUERY_NCNAME_TOKEN(32:34)]('ns')
                                  LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(34:35)](':')
-                                 XQueryNCNameImpl[XQUERY_NCNAME(35:42)]
+                                 XPathNCNameImpl[XQUERY_NCNAME(35:42)]
                                     LeafPsiElement[XQUERY_NCNAME_TOKEN(35:42)]('enabled')
                            LeafPsiElement[XQUERY_COMMA_TOKEN(42:43)](',')
                            XQueryTypeNameImpl[XQUERY_TYPE_NAME(43:53)]
-                              XQueryNCNameImpl[XQUERY_NCNAME(43:45)]
+                              XPathNCNameImpl[XQUERY_NCNAME(43:45)]
                                  LeafPsiElement[XQUERY_NCNAME_TOKEN(43:45)]('xs')
                               LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(45:46)](':')
-                              XQueryNCNameImpl[XQUERY_NCNAME(46:53)]
+                              XPathNCNameImpl[XQUERY_NCNAME(46:53)]
                                  LeafPsiElement[XQUERY_NCNAME_TOKEN(46:53)]('boolean')
                            LeafPsiElement[XQUERY_OPTIONAL_TOKEN(53:54)]('?')
                            LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(54:55)](')')

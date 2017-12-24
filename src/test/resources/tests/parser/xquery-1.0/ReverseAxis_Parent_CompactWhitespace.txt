@@ -28,6 +28,6 @@ FileElement[FILE(0:12)]
                                                                               LeafPsiElement[XQUERY_AXIS_SEPARATOR_TOKEN(6:8)]('::')
                                                                            XQueryNodeTestImpl[XQUERY_NODE_TEST(8:12)]
                                                                               XQueryNameTestImpl[XQUERY_NAME_TEST(8:12)]
-                                                                                 XQueryNCNameImpl[XQUERY_NCNAME(8:12)]
+                                                                                 XPathNCNameImpl[XQUERY_NCNAME(8:12)]
                                                                                     LeafPsiElement[XQUERY_NCNAME_TOKEN(8:12)]('para')
                                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(12:12)]

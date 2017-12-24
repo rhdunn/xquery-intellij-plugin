@@ -21,7 +21,7 @@ import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryNCName
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 
 /** XPST0081 error condition
@@ -42,7 +42,7 @@ class UnboundQNamePrefixInspection : LocalInspectionTool() {
         val descriptors = SmartList<ProblemDescriptor>()
         file.walkTree().filterIsInstance<XPathEQName>().forEach { qname ->
             val context = qname.prefix
-            if (context !is XQueryNCName || context.text == "xmlns") {
+            if (context !is XPathNCName || context.text == "xmlns") {
             } else if (!qname.resolvePrefixNamespace().iterator().hasNext()) {
                 val description = XQueryBundle.message("inspection.XPST0081.unbound-qname-prefix.message")
                 descriptors.add(manager.createProblemDescriptor(context, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))

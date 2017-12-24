@@ -6,7 +6,7 @@ FileElement[FILE(0:524)]
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
             LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_OPTION(8:14)]('option')
             PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
-            XQueryNCNameImpl[XQUERY_NCNAME(15:19)]
+            XPathNCNameImpl[XQUERY_NCNAME(15:19)]
                LeafPsiElement[XQUERY_NCNAME_TOKEN(15:19)]('test')
             PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
             XPathStringLiteralImpl[XQUERY_STRING_LITERAL(20:31)]
@@ -115,7 +115,7 @@ FileElement[FILE(0:524)]
             PsiErrorElementImpl[ERROR_ELEMENT(357:366)]('XPST0003: Prolog header statements must be placed before 'variable', 'function' and 'option' statements.')
                LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NAMESPACE(357:366)]('namespace')
             PsiWhiteSpaceImpl[WHITE_SPACE(366:367)](' ')
-            XQueryNCNameImpl[XQUERY_NCNAME(367:371)]
+            XPathNCNameImpl[XQUERY_NCNAME(367:371)]
                LeafPsiElement[XQUERY_NCNAME_TOKEN(367:371)]('test')
             PsiWhiteSpaceImpl[WHITE_SPACE(371:372)](' ')
             LeafPsiElement[XQUERY_EQUAL_TOKEN(372:373)]('=')

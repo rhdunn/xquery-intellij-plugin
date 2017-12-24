@@ -23,7 +23,7 @@ FileElement[FILE(0:8)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:8)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:8)]
                                                                         XQueryFunctionCallImpl[XQUERY_FUNCTION_CALL(0:8)]
-                                                                           XQueryNCNameImpl[XQUERY_NCNAME(0:6)]
+                                                                           XPathNCNameImpl[XQUERY_NCNAME(0:6)]
                                                                               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_UPDATE(0:6)]('update')
                                                                            XQueryArgumentListImpl[XQUERY_ARGUMENT_LIST(6:8)]
                                                                               LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(6:7)]('(')

@@ -34,7 +34,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.*
-import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryNCNamePsiImpl
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathNCNamePsiImpl
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 class XQueryPsiTest:ParserTestCase() {
@@ -3027,7 +3027,7 @@ class XQueryPsiTest:ParserTestCase() {
         val ns = provider.resolveNamespace("a")
         assertThat<XQueryNamespace>(ns, `is`(notNullValue()))
 
-        assertThat(ns!!.prefix, `is`<PsiElement>(instanceOf<PsiElement>(XQueryNCNamePsiImpl::class.java)))
+        assertThat(ns!!.prefix, `is`<PsiElement>(instanceOf<PsiElement>(XPathNCNamePsiImpl::class.java)))
         assertThat(ns.prefix!!.text, `is`("a"))
 
         assertThat(ns.uri, `is`<PsiElement>(instanceOf<PsiElement>(XQueryDirAttributeValue::class.java)))
@@ -3051,7 +3051,7 @@ class XQueryPsiTest:ParserTestCase() {
         val ns = provider.resolveNamespace("a")
         assertThat<XQueryNamespace>(ns, `is`(notNullValue()))
 
-        assertThat(ns!!.prefix, `is`<PsiElement>(instanceOf<PsiElement>(XQueryNCNamePsiImpl::class.java)))
+        assertThat(ns!!.prefix, `is`<PsiElement>(instanceOf<PsiElement>(XPathNCNamePsiImpl::class.java)))
         assertThat(ns.prefix!!.text, `is`("a"))
 
         assertThat(ns.uri, `is`(nullValue()))
@@ -3074,7 +3074,7 @@ class XQueryPsiTest:ParserTestCase() {
         val ns = provider.resolveNamespace("a")
         assertThat<XQueryNamespace>(ns, `is`(notNullValue()))
 
-        assertThat(ns!!.prefix, `is`<PsiElement>(instanceOf<PsiElement>(XQueryNCNamePsiImpl::class.java)))
+        assertThat(ns!!.prefix, `is`<PsiElement>(instanceOf<PsiElement>(XPathNCNamePsiImpl::class.java)))
         assertThat(ns.prefix!!.text, `is`("a"))
 
         assertThat(ns.uri, `is`(nullValue()))
@@ -3124,7 +3124,7 @@ class XQueryPsiTest:ParserTestCase() {
         val ns = provider.resolveNamespace("a")
         assertThat<XQueryNamespace>(ns, `is`(notNullValue()))
 
-        assertThat(ns!!.prefix, `is`<PsiElement>(instanceOf<PsiElement>(XQueryNCNamePsiImpl::class.java)))
+        assertThat(ns!!.prefix, `is`<PsiElement>(instanceOf<PsiElement>(XPathNCNamePsiImpl::class.java)))
         assertThat(ns.prefix!!.text, `is`("a"))
 
         assertThat(ns.uri, `is`<PsiElement>(instanceOf<PsiElement>(XQueryDirAttributeValue::class.java)))
@@ -3148,7 +3148,7 @@ class XQueryPsiTest:ParserTestCase() {
         val ns = provider.resolveNamespace("a")
         assertThat<XQueryNamespace>(ns, `is`(notNullValue()))
 
-        assertThat(ns!!.prefix, `is`<PsiElement>(instanceOf<PsiElement>(XQueryNCNamePsiImpl::class.java)))
+        assertThat(ns!!.prefix, `is`<PsiElement>(instanceOf<PsiElement>(XPathNCNamePsiImpl::class.java)))
         assertThat(ns.prefix!!.text, `is`("a"))
 
         assertThat(ns.uri, `is`(nullValue()))
@@ -3171,7 +3171,7 @@ class XQueryPsiTest:ParserTestCase() {
         val ns = provider.resolveNamespace("a")
         assertThat<XQueryNamespace>(ns, `is`(notNullValue()))
 
-        assertThat(ns!!.prefix, `is`<PsiElement>(instanceOf<PsiElement>(XQueryNCNamePsiImpl::class.java)))
+        assertThat(ns!!.prefix, `is`<PsiElement>(instanceOf<PsiElement>(XPathNCNamePsiImpl::class.java)))
         assertThat(ns.prefix!!.text, `is`("a"))
 
         assertThat(ns.uri, `is`(nullValue()))

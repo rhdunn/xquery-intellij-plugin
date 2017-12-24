@@ -36,6 +36,6 @@ FileElement[FILE(0:43)]
                                                                                           LeafPsiElement[XQUERY_BRACED_URI_LITERAL_START_TOKEN(8:10)]('Q{')
                                                                                           LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(10:38)]('http://www.example.com/test#')
                                                                                           LeafPsiElement[XQUERY_BRACED_URI_LITERAL_END_TOKEN(38:39)]('}')
-                                                                                       XQueryNCNameImpl[XQUERY_NCNAME(39:43)]
+                                                                                       XPathNCNameImpl[XQUERY_NCNAME(39:43)]
                                                                                           LeafPsiElement[XQUERY_NCNAME_TOKEN(39:43)]('name')
                                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(43:43)]

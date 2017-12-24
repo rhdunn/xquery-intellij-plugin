@@ -25,8 +25,8 @@ FileElement[FILE(0:8)]
                                                                         XQueryVarRefImpl[XQUERY_VAR_REF(0:8)]
                                                                            LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(0:1)]('$')
                                                                            XQueryVarNameImpl[XQUERY_VAR_NAME(1:8)]
-                                                                              XQueryNCNameImpl[XQUERY_NCNAME(1:4)]
+                                                                              XPathNCNameImpl[XQUERY_NCNAME(1:4)]
                                                                                  LeafPsiElement[XQUERY_NCNAME_TOKEN(1:4)]('one')
                                                                               LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(4:5)](':')
-                                                                              XQueryNCNameImpl[XQUERY_NCNAME(5:8)]
+                                                                              XPathNCNameImpl[XQUERY_NCNAME(5:8)]
                                                                                  LeafPsiElement[XQUERY_NCNAME_TOKEN(5:8)]('two')

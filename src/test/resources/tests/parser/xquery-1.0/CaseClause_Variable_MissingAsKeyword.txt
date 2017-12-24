@@ -33,7 +33,7 @@ FileElement[FILE(0:62)]
                                                                                     LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(13:14)]('$')
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
                                                                                     XQueryVarNameImpl[XQUERY_VAR_NAME(15:17)]
-                                                                                       XQueryNCNameImpl[XQUERY_NCNAME(15:16)]
+                                                                                       XPathNCNameImpl[XQUERY_NCNAME(15:16)]
                                                                                           LeafPsiElement[XQUERY_NCNAME_TOKEN(15:16)]('x')
                                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
                LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(17:18)](')')
@@ -44,7 +44,7 @@ FileElement[FILE(0:62)]
                   LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(24:25)]('$')
                   PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
                   XQueryVarNameImpl[XQUERY_VAR_NAME(26:28)]
-                     XQueryNCNameImpl[XQUERY_NCNAME(26:27)]
+                     XPathNCNameImpl[XQUERY_NCNAME(26:27)]
                         LeafPsiElement[XQUERY_NCNAME_TOKEN(26:27)]('y')
                      PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
                   PsiErrorElementImpl[ERROR_ELEMENT(28:28)]('XPST0003: Expected keyword: as.')

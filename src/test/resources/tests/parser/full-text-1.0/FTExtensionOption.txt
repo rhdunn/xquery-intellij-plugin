@@ -13,7 +13,7 @@ FileElement[FILE(0:44)]
                   LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_OPTION(24:30)]('option')
                   PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')
                   XPathEQNameImpl[XQUERY_EQNAME(31:36)]
-                     XQueryNCNameImpl[XQUERY_NCNAME(31:35)]
+                     XPathNCNameImpl[XQUERY_NCNAME(31:35)]
                         LeafPsiElement[XQUERY_NCNAME_TOKEN(31:35)]('test')
                      PsiWhiteSpaceImpl[WHITE_SPACE(35:36)](' ')
                   XPathStringLiteralImpl[XQUERY_STRING_LITERAL(36:42)]

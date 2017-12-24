@@ -26,7 +26,7 @@ FileElement[FILE(0:24)]
                                                                            XQueryAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:2)]
                                                                               XQueryNodeTestImpl[XQUERY_NODE_TEST(0:2)]
                                                                                  XQueryNameTestImpl[XQUERY_NAME_TEST(0:2)]
-                                                                                    XQueryNCNameImpl[XQUERY_NCNAME(0:1)]
+                                                                                    XPathNCNameImpl[XQUERY_NCNAME(0:1)]
                                                                                        LeafPsiElement[XQUERY_NCNAME_TOKEN(0:1)]('a')
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
                                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(2:2)]
@@ -53,7 +53,7 @@ FileElement[FILE(0:24)]
                                                                            XQueryAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(5:7)]
                                                                               XQueryNodeTestImpl[XQUERY_NODE_TEST(5:7)]
                                                                                  XQueryNameTestImpl[XQUERY_NAME_TEST(5:7)]
-                                                                                    XQueryNCNameImpl[XQUERY_NCNAME(5:6)]
+                                                                                    XPathNCNameImpl[XQUERY_NCNAME(5:6)]
                                                                                        LeafPsiElement[XQUERY_NCNAME_TOKEN(5:6)]('b')
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
                                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(7:7)]
@@ -83,7 +83,7 @@ FileElement[FILE(0:24)]
                                                                            XQueryAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(9:11)]
                                                                               XQueryNodeTestImpl[XQUERY_NODE_TEST(9:11)]
                                                                                  XQueryNameTestImpl[XQUERY_NAME_TEST(9:11)]
-                                                                                    XQueryNCNameImpl[XQUERY_NCNAME(9:10)]
+                                                                                    XPathNCNameImpl[XQUERY_NCNAME(9:10)]
                                                                                        LeafPsiElement[XQUERY_NCNAME_TOKEN(9:10)]('a')
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
                                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(11:11)]
@@ -110,7 +110,7 @@ FileElement[FILE(0:24)]
                                                                            XQueryAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(14:16)]
                                                                               XQueryNodeTestImpl[XQUERY_NODE_TEST(14:16)]
                                                                                  XQueryNameTestImpl[XQUERY_NAME_TEST(14:16)]
-                                                                                    XQueryNCNameImpl[XQUERY_NCNAME(14:15)]
+                                                                                    XPathNCNameImpl[XQUERY_NCNAME(14:15)]
                                                                                        LeafPsiElement[XQUERY_NCNAME_TOKEN(14:15)]('b')
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
                                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(16:16)]
@@ -140,7 +140,7 @@ FileElement[FILE(0:24)]
                                                                            XQueryAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(18:20)]
                                                                               XQueryNodeTestImpl[XQUERY_NODE_TEST(18:20)]
                                                                                  XQueryNameTestImpl[XQUERY_NAME_TEST(18:20)]
-                                                                                    XQueryNCNameImpl[XQUERY_NCNAME(18:19)]
+                                                                                    XPathNCNameImpl[XQUERY_NCNAME(18:19)]
                                                                                        LeafPsiElement[XQUERY_NCNAME_TOKEN(18:19)]('a')
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
                                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(20:20)]
@@ -167,6 +167,6 @@ FileElement[FILE(0:24)]
                                                                            XQueryAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(23:24)]
                                                                               XQueryNodeTestImpl[XQUERY_NODE_TEST(23:24)]
                                                                                  XQueryNameTestImpl[XQUERY_NAME_TEST(23:24)]
-                                                                                    XQueryNCNameImpl[XQUERY_NCNAME(23:24)]
+                                                                                    XPathNCNameImpl[XQUERY_NCNAME(23:24)]
                                                                                        LeafPsiElement[XQUERY_NCNAME_TOKEN(23:24)]('b')
                                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(24:24)]

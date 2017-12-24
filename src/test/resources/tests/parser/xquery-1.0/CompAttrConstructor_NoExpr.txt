@@ -27,10 +27,10 @@ FileElement[FILE(0:20)]
                                                                               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_ATTRIBUTE(0:9)]('attribute')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
                                                                               XQueryQNameImpl[XQUERY_QNAME(10:16)]
-                                                                                 XQueryNCNameImpl[XQUERY_NCNAME(10:13)]
+                                                                                 XPathNCNameImpl[XQUERY_NCNAME(10:13)]
                                                                                     LeafPsiElement[XQUERY_NCNAME_TOKEN(10:13)]('xml')
                                                                                  LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(13:14)](':')
-                                                                                 XQueryNCNameImpl[XQUERY_NCNAME(14:16)]
+                                                                                 XPathNCNameImpl[XQUERY_NCNAME(14:16)]
                                                                                     LeafPsiElement[XQUERY_NCNAME_TOKEN(14:16)]('id')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
                                                                               XQueryEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(17:20)]

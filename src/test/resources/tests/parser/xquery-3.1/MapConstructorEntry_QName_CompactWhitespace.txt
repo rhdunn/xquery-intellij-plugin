@@ -52,10 +52,10 @@ FileElement[FILE(0:12)]
                                                                                                                                                    XQueryNodeTestImpl[XQUERY_NODE_TEST(4:7)]
                                                                                                                                                       XQueryNameTestImpl[XQUERY_NAME_TEST(4:7)]
                                                                                                                                                          XQueryQNameImpl[XQUERY_QNAME(4:7)]
-                                                                                                                                                            XQueryNCNameImpl[XQUERY_NCNAME(4:5)]
+                                                                                                                                                            XPathNCNameImpl[XQUERY_NCNAME(4:5)]
                                                                                                                                                                LeafPsiElement[XQUERY_NCNAME_TOKEN(4:5)]('a')
                                                                                                                                                             LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(5:6)](':')
-                                                                                                                                                            XQueryNCNameImpl[XQUERY_NCNAME(6:7)]
+                                                                                                                                                            XPathNCNameImpl[XQUERY_NCNAME(6:7)]
                                                                                                                                                                LeafPsiElement[XQUERY_NCNAME_TOKEN(6:7)]('b')
                                                                                                                                              XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(7:7)]
                                                                               LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(7:8)](':')
@@ -84,7 +84,7 @@ FileElement[FILE(0:12)]
                                                                                                                                                 XQueryAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(8:11)]
                                                                                                                                                    XQueryNodeTestImpl[XQUERY_NODE_TEST(8:11)]
                                                                                                                                                       XQueryNameTestImpl[XQUERY_NAME_TEST(8:11)]
-                                                                                                                                                         XQueryNCNameImpl[XQUERY_NCNAME(8:11)]
+                                                                                                                                                         XPathNCNameImpl[XQUERY_NCNAME(8:11)]
                                                                                                                                                             LeafPsiElement[XQUERY_NCNAME_TOKEN(8:11)]('one')
                                                                                                                                              XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(11:11)]
                                                                            LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(11:12)]('}')

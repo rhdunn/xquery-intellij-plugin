@@ -7,7 +7,7 @@ FileElement[FILE(0:51)]
             LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECIMAL_FORMAT(8:22)]('decimal-format')
             PsiWhiteSpaceImpl[WHITE_SPACE(22:23)](' ')
             XPathEQNameImpl[XQUERY_EQNAME(23:28)]
-               XQueryNCNameImpl[XQUERY_NCNAME(23:27)]
+               XPathNCNameImpl[XQUERY_NCNAME(23:27)]
                   LeafPsiElement[XQUERY_NCNAME_TOKEN(23:27)]('test')
                PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
             XQueryDFPropertyNameImpl[XQUERY_DF_PROPERTY_NAME(28:45)]

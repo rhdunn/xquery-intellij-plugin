@@ -10,7 +10,7 @@ FileElement[FILE(0:41)]
             XQueryFunctionDeclImpl[XQUERY_FUNCTION_DECL(16:40)]
                LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_FUNCTION(16:24)]('function')
                PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
-               XQueryNCNameImpl[XQUERY_NCNAME(25:29)]
+               XPathNCNameImpl[XQUERY_NCNAME(25:29)]
                   LeafPsiElement[XQUERY_NCNAME_TOKEN(25:29)]('test')
                LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(29:30)]('(')
                LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(30:31)](')')
