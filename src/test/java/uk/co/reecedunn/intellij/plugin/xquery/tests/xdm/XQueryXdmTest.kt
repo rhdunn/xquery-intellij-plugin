@@ -23,6 +23,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.model.XdmAtomicValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSimpleExpression
 import uk.co.reecedunn.intellij.plugin.xdm.model.toInt
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathIntegerLiteral
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
@@ -57,7 +58,7 @@ class XQueryXdmTest : ParserTestCase() {
     // region IntegerLiteral
 
     fun testIntegerLiteral() {
-        val literal = parseLiteral<XQueryIntegerLiteral>("123")
+        val literal = parseLiteral<XPathIntegerLiteral>("123")
         assertThat(literal.lexicalRepresentation, `is`("123"))
         assertThat(literal.staticType, `is`(XsInteger as XdmSequenceType))
         assertThat(literal.toInt(), `is`(123))

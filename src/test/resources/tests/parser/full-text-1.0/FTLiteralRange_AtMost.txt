@@ -25,7 +25,7 @@ FileElement[FILE(0:86)]
                         PsiWhiteSpaceImpl[WHITE_SPACE(70:71)](' ')
                         LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_MOST(71:75)]('most')
                         PsiWhiteSpaceImpl[WHITE_SPACE(75:76)](' ')
-                        XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(76:77)]('2')
+                        XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(76:77)]('2')
                      PsiWhiteSpaceImpl[WHITE_SPACE(77:78)](' ')
                      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_LEVELS(78:84)]('levels')
                   PsiWhiteSpaceImpl[WHITE_SPACE(84:85)](' ')

@@ -66,5 +66,5 @@ FileElement[FILE(0:36)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(35:36)]
                                                                      XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(35:36)]
                                                                         XQueryLiteralImpl[XQUERY_LITERAL(35:36)]
-                                                                           XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(35:36)]('5')
+                                                                           XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(35:36)]('5')
                               PsiErrorElementImpl[ERROR_ELEMENT(36:36)]('XPST0003: Expected keyword: paragraphs, sentences, words.')

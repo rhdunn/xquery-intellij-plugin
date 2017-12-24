@@ -26,7 +26,7 @@ FileElement[FILE(0:86)]
                         PsiErrorElementImpl[ERROR_ELEMENT(73:73)]('XPST0003: Expected 'IntegerLiteral'.')
                         LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_TO(73:75)]('to')
                         PsiWhiteSpaceImpl[WHITE_SPACE(75:76)](' ')
-                        XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(76:77)]('4')
+                        XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(76:77)]('4')
                      PsiWhiteSpaceImpl[WHITE_SPACE(77:78)](' ')
                      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_LEVELS(78:84)]('levels')
                   PsiWhiteSpaceImpl[WHITE_SPACE(84:85)](' ')

@@ -13,7 +13,7 @@ FileElement[FILE(0:70)]
                LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(15:16)]('(')
                PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
                XQueryLiteralImpl[XQUERY_LITERAL(17:18)]
-                  XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(17:18)]('1')
+                  XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(17:18)]('1')
                PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
                LeafPsiElement[XQUERY_COMMA_TOKEN(19:20)](',')
                PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')

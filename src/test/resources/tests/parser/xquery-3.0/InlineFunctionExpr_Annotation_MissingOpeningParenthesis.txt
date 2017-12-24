@@ -60,6 +60,6 @@ FileElement[FILE(0:25)]
                                                                                                                                           XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(22:24)]
                                                                                                                                              XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(22:24)]
                                                                                                                                                 XQueryLiteralImpl[XQUERY_LITERAL(22:23)]
-                                                                                                                                                   XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(22:23)]('2')
+                                                                                                                                                   XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(22:23)]('2')
                                                                                                                                                 PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
                                                                               LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(24:25)]('}')

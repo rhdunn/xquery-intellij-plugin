@@ -9,7 +9,7 @@ FileElement[FILE(0:39)]
                   LeafPsiElement[XQUERY_NCNAME_TOKEN(8:12)]('test')
                LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(12:13)]('(')
                XQueryLiteralImpl[XQUERY_LITERAL(13:14)]
-                  XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(13:14)]('1')
+                  XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(13:14)]('1')
                LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(14:15)](')')
             XQueryFunctionDeclImpl[XQUERY_FUNCTION_DECL(15:38)]
                LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_FUNCTION(15:23)]('function')

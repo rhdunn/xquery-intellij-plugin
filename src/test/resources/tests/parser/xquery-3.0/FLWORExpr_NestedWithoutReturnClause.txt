@@ -128,7 +128,7 @@ FileElement[FILE(0:113)]
                                                                            XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(38:40)]
                                                                               XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(38:40)]
                                                                                  XQueryLiteralImpl[XQUERY_LITERAL(38:39)]
-                                                                                    XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(38:39)]('0')
+                                                                                    XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(38:39)]('0')
                                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(39:40)]('\n')
                XQueryIntermediateClauseImpl[XQUERY_INTERMEDIATE_CLAUSE(40:52)]
                   XQueryOrderByClauseImpl[XQUERY_ORDER_BY_CLAUSE(40:52)]
@@ -291,7 +291,7 @@ FileElement[FILE(0:113)]
                                                                            XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(90:92)]
                                                                               XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(90:92)]
                                                                                  XQueryLiteralImpl[XQUERY_LITERAL(90:91)]
-                                                                                    XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(90:91)]('0')
+                                                                                    XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(90:91)]('0')
                                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(91:92)]('\n')
                XQueryIntermediateClauseImpl[XQUERY_INTERMEDIATE_CLAUSE(92:104)]
                   XQueryOrderByClauseImpl[XQUERY_ORDER_BY_CLAUSE(92:104)]

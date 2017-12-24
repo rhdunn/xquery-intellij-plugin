@@ -13,18 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
+package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.xdm.XsInteger
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmAtomicValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryIntegerLiteral
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathIntegerLiteral
 
-class XQueryIntegerLiteralImpl(type: IElementType, text: CharSequence):
+class XPathIntegerLiteralImpl(type: IElementType, text: CharSequence):
         LeafPsiElement(type, text),
-        XQueryIntegerLiteral,
+        XPathIntegerLiteral,
         XdmAtomicValue {
 
     override val lexicalRepresentation get(): String = text

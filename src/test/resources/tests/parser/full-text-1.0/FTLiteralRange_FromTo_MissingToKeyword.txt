@@ -23,10 +23,10 @@ FileElement[FILE(0:85)]
                      FTLiteralRangeImpl[XQUERY_FT_LITERAL_RANGE(68:76)]
                         LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_FROM(68:72)]('from')
                         PsiWhiteSpaceImpl[WHITE_SPACE(72:73)](' ')
-                        XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(73:74)]('1')
+                        XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(73:74)]('1')
                         PsiWhiteSpaceImpl[WHITE_SPACE(74:75)](' ')
                         PsiErrorElementImpl[ERROR_ELEMENT(75:75)]('XPST0003: Expected keyword: to.')
-                        XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(75:76)]('4')
+                        XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(75:76)]('4')
                      PsiWhiteSpaceImpl[WHITE_SPACE(76:77)](' ')
                      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_LEVELS(77:83)]('levels')
                   PsiWhiteSpaceImpl[WHITE_SPACE(83:84)](' ')

@@ -51,5 +51,5 @@ FileElement[FILE(0:14)]
                                                                                                                                           XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(13:14)]
                                                                                                                                              XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(13:14)]
                                                                                                                                                 XQueryLiteralImpl[XQUERY_LITERAL(13:14)]
-                                                                                                                                                   XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(13:14)]('1')
+                                                                                                                                                   XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(13:14)]('1')
                                                                               PsiErrorElementImpl[ERROR_ELEMENT(14:14)]('XPST0003: Expected '}'.')

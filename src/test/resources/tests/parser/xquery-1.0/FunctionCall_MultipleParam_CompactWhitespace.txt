@@ -53,7 +53,7 @@ FileElement[FILE(0:13)]
                                                                                                                                        XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(9:10)]
                                                                                                                                           XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(9:10)]
                                                                                                                                              XQueryLiteralImpl[XQUERY_LITERAL(9:10)]
-                                                                                                                                                XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(9:10)]('2')
+                                                                                                                                                XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(9:10)]('2')
                                                                               LeafPsiElement[XQUERY_COMMA_TOKEN(10:11)](',')
                                                                               XQueryArgumentImpl[XQUERY_ARGUMENT(11:12)]
                                                                                  XQueryOrExprImpl[XQUERY_OR_EXPR(11:12)]
@@ -77,5 +77,5 @@ FileElement[FILE(0:13)]
                                                                                                                                        XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(11:12)]
                                                                                                                                           XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(11:12)]
                                                                                                                                              XQueryLiteralImpl[XQUERY_LITERAL(11:12)]
-                                                                                                                                                XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(11:12)]('8')
+                                                                                                                                                XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(11:12)]('8')
                                                                               LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(12:13)](')')

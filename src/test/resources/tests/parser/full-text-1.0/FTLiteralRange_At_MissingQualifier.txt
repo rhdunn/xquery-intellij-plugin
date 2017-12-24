@@ -24,7 +24,7 @@ FileElement[FILE(0:81)]
                         LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_AT(68:70)]('at')
                         PsiWhiteSpaceImpl[WHITE_SPACE(70:71)](' ')
                         PsiErrorElementImpl[ERROR_ELEMENT(71:71)]('XPST0003: Expected keyword: least, most.')
-                        XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(71:72)]('2')
+                        XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(71:72)]('2')
                      PsiWhiteSpaceImpl[WHITE_SPACE(72:73)](' ')
                      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_LEVELS(73:79)]('levels')
                   PsiWhiteSpaceImpl[WHITE_SPACE(79:80)](' ')

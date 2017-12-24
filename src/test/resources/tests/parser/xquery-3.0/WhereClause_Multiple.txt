@@ -90,7 +90,7 @@ FileElement[FILE(0:50)]
                                                                            XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(25:27)]
                                                                               XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(25:27)]
                                                                                  XQueryLiteralImpl[XQUERY_LITERAL(25:26)]
-                                                                                    XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(25:26)]('0')
+                                                                                    XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(25:26)]('0')
                                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(26:27)]('\n')
                XQueryIntermediateClauseImpl[XQUERY_INTERMEDIATE_CLAUSE(27:41)]
                   XQueryWhereClauseImpl[XQUERY_WHERE_CLAUSE(27:41)]
@@ -142,7 +142,7 @@ FileElement[FILE(0:50)]
                                                                            XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(39:41)]
                                                                               XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(39:41)]
                                                                                  XQueryLiteralImpl[XQUERY_LITERAL(39:40)]
-                                                                                    XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(39:40)]('0')
+                                                                                    XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(39:40)]('0')
                                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(40:41)]('\n')
                XQueryReturnClauseImpl[XQUERY_RETURN_CLAUSE(41:50)]
                   LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_RETURN(41:47)]('return')

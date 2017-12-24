@@ -23,7 +23,7 @@ FileElement[FILE(0:15)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:3)]
                                                                      XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:3)]
                                                                         XQueryLiteralImpl[XQUERY_LITERAL(0:2)]
-                                                                           XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:2)]('25')
+                                                                           XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:2)]('25')
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
                                              PsiErrorElementImpl[ERROR_ELEMENT(3:3)]('XPST0003: Expected keyword: instance.')
                                              LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_OF(3:5)]('of')

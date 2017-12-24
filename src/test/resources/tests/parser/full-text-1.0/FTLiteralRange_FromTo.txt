@@ -23,11 +23,11 @@ FileElement[FILE(0:88)]
                      FTLiteralRangeImpl[XQUERY_FT_LITERAL_RANGE(68:79)]
                         LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_FROM(68:72)]('from')
                         PsiWhiteSpaceImpl[WHITE_SPACE(72:73)](' ')
-                        XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(73:74)]('1')
+                        XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(73:74)]('1')
                         PsiWhiteSpaceImpl[WHITE_SPACE(74:75)](' ')
                         LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_TO(75:77)]('to')
                         PsiWhiteSpaceImpl[WHITE_SPACE(77:78)](' ')
-                        XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(78:79)]('4')
+                        XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(78:79)]('4')
                      PsiWhiteSpaceImpl[WHITE_SPACE(79:80)](' ')
                      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_LEVELS(80:86)]('levels')
                   PsiWhiteSpaceImpl[WHITE_SPACE(86:87)](' ')

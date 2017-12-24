@@ -23,6 +23,7 @@ import com.intellij.psi.impl.source.tree.PsiCommentImpl;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathIntegerLiteralImpl;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.XQueryDirWhiteSpaceImpl;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.*;
@@ -43,7 +44,7 @@ public class XQueryASTFactory extends ASTFactory {
             type == XQueryTokenType.XML_COMMENT) {
             return new PsiCommentImpl(type, text);
         } else if (type == XQueryTokenType.INTEGER_LITERAL) {
-            return new XQueryIntegerLiteralImpl(type, text);
+            return new XPathIntegerLiteralImpl(type, text);
         } else if (type == XQueryTokenType.DECIMAL_LITERAL) {
             return new XQueryDecimalLiteralImpl(type, text);
         } else if (type == XQueryTokenType.DOUBLE_LITERAL) {

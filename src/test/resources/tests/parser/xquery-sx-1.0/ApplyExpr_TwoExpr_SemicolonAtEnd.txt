@@ -48,7 +48,7 @@ FileElement[FILE(0:11)]
                                                                                                                                        XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(2:4)]
                                                                                                                                           XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(2:4)]
                                                                                                                                              XQueryLiteralImpl[XQUERY_LITERAL(2:3)]
-                                                                                                                                                XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(2:3)]('2')
+                                                                                                                                                XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(2:3)]('2')
                                                                                                                                              PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
                                                                               LeafPsiElement[XQUERY_SEPARATOR_TOKEN(4:5)](';')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
@@ -74,7 +74,7 @@ FileElement[FILE(0:11)]
                                                                                                                                        XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(6:8)]
                                                                                                                                           XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(6:8)]
                                                                                                                                              XQueryLiteralImpl[XQUERY_LITERAL(6:7)]
-                                                                                                                                                XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(6:7)]('3')
+                                                                                                                                                XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(6:7)]('3')
                                                                                                                                              PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
                                                                               LeafPsiElement[XQUERY_SEPARATOR_TOKEN(8:9)](';')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')

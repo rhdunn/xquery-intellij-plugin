@@ -66,7 +66,7 @@ FileElement[FILE(0:46)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(35:37)]
                                                                      XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(35:37)]
                                                                         XQueryLiteralImpl[XQUERY_LITERAL(35:36)]
-                                                                           XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(35:36)]('5')
+                                                                           XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(35:36)]('5')
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
                               FTUnitImpl[XQUERY_FT_UNIT(37:46)]
                                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_SENTENCES(37:46)]('sentences')

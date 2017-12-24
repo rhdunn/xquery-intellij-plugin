@@ -99,6 +99,6 @@ FileElement[FILE(0:55)]
                                                                                        XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(48:50)]
                                                                                           XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(48:50)]
                                                                                              XQueryLiteralImpl[XQUERY_LITERAL(48:49)]
-                                                                                                XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(48:49)]('2')
+                                                                                                XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(48:49)]('2')
                                                                                              PsiWhiteSpaceImpl[WHITE_SPACE(49:50)](' ')
                                                 LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_TIMES(50:55)]('times')

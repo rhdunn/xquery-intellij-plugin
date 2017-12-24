@@ -33,7 +33,7 @@ FileElement[FILE(0:26)]
                                                                      XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(23:25)]
                                                                         XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(23:25)]
                                                                            XQueryLiteralImpl[XQUERY_LITERAL(23:24)]
-                                                                              XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(23:24)]('2')
+                                                                              XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(23:24)]('2')
                                                                            PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(25:26)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(26:26)]('XPST0003: Missing query body.')

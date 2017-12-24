@@ -52,7 +52,7 @@ FileElement[FILE(0:26)]
                                                                                                                                              XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(10:11)]
                                                                                                                                                 XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(10:11)]
                                                                                                                                                    XQueryLiteralImpl[XQUERY_LITERAL(10:11)]
-                                                                                                                                                      XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(10:11)]('2')
+                                                                                                                                                      XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(10:11)]('2')
                                                                                        LeafPsiElement[XQUERY_COMMA_TOKEN(11:12)](',')
                                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
                                                                                        XQueryOrExprImpl[XQUERY_OR_EXPR(13:15)]
@@ -76,7 +76,7 @@ FileElement[FILE(0:26)]
                                                                                                                                              XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(13:15)]
                                                                                                                                                 XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(13:15)]
                                                                                                                                                    XQueryLiteralImpl[XQUERY_LITERAL(13:14)]
-                                                                                                                                                      XQueryIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(13:14)]('2')
+                                                                                                                                                      XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(13:14)]('2')
                                                                                                                                                    PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
                                                                                  LeafPsiElement[XQUERY_STRING_INTERPOLATION_CLOSE_TOKEN(15:17)]('}`')
                                                                               LeafPsiElement[XQUERY_STRING_CONSTRUCTOR_CONTENTS_TOKEN(17:23)](' Three')
