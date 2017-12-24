@@ -22,7 +22,7 @@ FileElement[FILE(0:7)]
                                                                XQueryPathExprImpl[XQUERY_PATH_EXPR(0:7)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:7)]
                                                                      XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:7)]
-                                                                        XQueryLiteralImpl[XQUERY_LITERAL(0:7)]
+                                                                        XPathLiteralImpl[XQUERY_LITERAL(0:7)]
                                                                            XPathStringLiteralImpl[XQUERY_STRING_LITERAL(0:7)]
                                                                               LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('"')
                                                                               LeafPsiElement[XQUERY_PARTIAL_ENTITY_REFERENCE_TOKEN(1:6)]('&quot')

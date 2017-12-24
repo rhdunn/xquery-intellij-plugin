@@ -22,7 +22,7 @@ FileElement[FILE(0:9)]
                                                                XQueryPathExprImpl[XQUERY_PATH_EXPR(0:9)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:9)]
                                                                      XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:9)]
-                                                                        XQueryLiteralImpl[XQUERY_LITERAL(0:9)]
+                                                                        XPathLiteralImpl[XQUERY_LITERAL(0:9)]
                                                                            XPathStringLiteralImpl[XQUERY_STRING_LITERAL(0:9)]
                                                                               LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(0:1)]('"')
                                                                               LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(1:8)]('One Two')

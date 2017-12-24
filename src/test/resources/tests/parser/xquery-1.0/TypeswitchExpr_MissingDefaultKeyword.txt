@@ -72,7 +72,7 @@ FileElement[FILE(0:50)]
                                                                      XQueryPathExprImpl[XQUERY_PATH_EXPR(40:42)]
                                                                         XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(40:42)]
                                                                            XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(40:42)]
-                                                                              XQueryLiteralImpl[XQUERY_LITERAL(40:41)]
+                                                                              XPathLiteralImpl[XQUERY_LITERAL(40:41)]
                                                                                  XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(40:41)]('1')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(41:42)](' ')
                PsiErrorElementImpl[ERROR_ELEMENT(42:42)]('XPST0003: Expected keyword: case, default.')
@@ -98,5 +98,5 @@ FileElement[FILE(0:50)]
                                                                   XQueryPathExprImpl[XQUERY_PATH_EXPR(49:50)]
                                                                      XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(49:50)]
                                                                         XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(49:50)]
-                                                                           XQueryLiteralImpl[XQUERY_LITERAL(49:50)]
+                                                                           XPathLiteralImpl[XQUERY_LITERAL(49:50)]
                                                                               XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(49:50)]('2')

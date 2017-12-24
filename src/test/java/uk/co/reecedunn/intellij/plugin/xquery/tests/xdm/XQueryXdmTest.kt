@@ -23,10 +23,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.model.XdmAtomicValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSimpleExpression
 import uk.co.reecedunn.intellij.plugin.xdm.model.toInt
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathIntegerLiteral
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathDoubleLiteral
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathDecimalLiteral
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
@@ -151,25 +148,25 @@ class XQueryXdmTest : ParserTestCase() {
     // region Literal
 
     fun testLiteral_DoubleLiteral() {
-        val literal = parseLiteral<XQueryLiteral>("1e3")
+        val literal = parseLiteral<XPathLiteral>("1e3")
         assertThat(literal.lexicalRepresentation, `is`("1e3"))
         assertThat(literal.staticType, `is`(XsDouble as XdmSequenceType))
     }
 
     fun testLiteral_DecimalLiteral() {
-        val literal = parseLiteral<XQueryLiteral>("12.34")
+        val literal = parseLiteral<XPathLiteral>("12.34")
         assertThat(literal.lexicalRepresentation, `is`("12.34"))
         assertThat(literal.staticType, `is`(XsDecimal as XdmSequenceType))
     }
 
     fun testLiteral_IntegerLiteral() {
-        val literal = parseLiteral<XQueryLiteral>("123")
+        val literal = parseLiteral<XPathLiteral>("123")
         assertThat(literal.lexicalRepresentation, `is`("123"))
         assertThat(literal.staticType, `is`(XsInteger as XdmSequenceType))
     }
 
     fun testLiteral_StringLiteral() {
-        val literal = parseLiteral<XQueryLiteral>("\"Lorem ipsum.\"")
+        val literal = parseLiteral<XPathLiteral>("\"Lorem ipsum.\"")
         assertThat(literal.lexicalRepresentation, `is`("Lorem ipsum."))
         assertThat(literal.staticType, `is`(XsString as XdmSequenceType))
     }

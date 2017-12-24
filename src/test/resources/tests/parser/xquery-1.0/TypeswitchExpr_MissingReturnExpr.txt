@@ -72,7 +72,7 @@ FileElement[FILE(0:56)]
                                                                      XQueryPathExprImpl[XQUERY_PATH_EXPR(40:42)]
                                                                         XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(40:42)]
                                                                            XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(40:42)]
-                                                                              XQueryLiteralImpl[XQUERY_LITERAL(40:41)]
+                                                                              XPathLiteralImpl[XQUERY_LITERAL(40:41)]
                                                                                  XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(40:41)]('1')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(41:42)](' ')
                LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DEFAULT(42:49)]('default')

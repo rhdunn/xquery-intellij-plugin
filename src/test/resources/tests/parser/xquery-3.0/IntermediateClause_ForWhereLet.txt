@@ -127,7 +127,7 @@ FileElement[FILE(0:62)]
                                                                         XQueryPathExprImpl[XQUERY_PATH_EXPR(38:40)]
                                                                            XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(38:40)]
                                                                               XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(38:40)]
-                                                                                 XQueryLiteralImpl[XQUERY_LITERAL(38:39)]
+                                                                                 XPathLiteralImpl[XQUERY_LITERAL(38:39)]
                                                                                     XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(38:39)]('0')
                                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(39:40)]('\n')
                XQueryIntermediateClauseImpl[XQUERY_INTERMEDIATE_CLAUSE(40:53)]

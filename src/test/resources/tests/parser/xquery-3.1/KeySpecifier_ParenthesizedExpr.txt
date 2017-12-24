@@ -62,7 +62,7 @@ FileElement[FILE(0:24)]
                                                                                                                                           XQueryPathExprImpl[XQUERY_PATH_EXPR(9:14)]
                                                                                                                                              XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(9:14)]
                                                                                                                                                 XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(9:14)]
-                                                                                                                                                   XQueryLiteralImpl[XQUERY_LITERAL(9:14)]
+                                                                                                                                                   XPathLiteralImpl[XQUERY_LITERAL(9:14)]
                                                                                                                                                       XPathStringLiteralImpl[XQUERY_STRING_LITERAL(9:14)]
                                                                                                                                                          LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(9:10)]('"')
                                                                                                                                                          LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(10:13)]('key')
@@ -88,7 +88,7 @@ FileElement[FILE(0:24)]
                                                                XQueryPathExprImpl[XQUERY_PATH_EXPR(18:24)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(18:24)]
                                                                      XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(18:24)]
-                                                                        XQueryLiteralImpl[XQUERY_LITERAL(18:24)]
+                                                                        XPathLiteralImpl[XQUERY_LITERAL(18:24)]
                                                                            XPathStringLiteralImpl[XQUERY_STRING_LITERAL(18:24)]
                                                                               LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(18:19)]('"')
                                                                               LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(19:23)]('test')

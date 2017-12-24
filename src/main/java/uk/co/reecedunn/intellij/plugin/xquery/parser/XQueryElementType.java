@@ -20,6 +20,7 @@ import com.intellij.psi.tree.IFileElementType;
 import com.intellij.psi.tree.TokenSet;
 import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType;
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathStringLiteralPsiImpl;
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathLiteralPsiImpl;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.basex.BaseXFTFuzzyOptionPsiImpl;
@@ -46,7 +47,7 @@ public interface XQueryElementType {
     IElementType URI_LITERAL = new ICompositeElementType("XQUERY_URI_LITERAL", XQueryUriLiteralPsiImpl.class, XQuery.INSTANCE);
     IElementType VAR_NAME = new ICompositeElementType("XQUERY_VAR_NAME", XQueryVarNamePsiImpl.class, XQuery.INSTANCE);
 
-    IElementType LITERAL = new ICompositeElementType("XQUERY_LITERAL", XQueryLiteralPsiImpl.class, XQuery.INSTANCE);
+    IElementType LITERAL = new ICompositeElementType("XQUERY_LITERAL", XPathLiteralPsiImpl.class, XQuery.INSTANCE);
     IElementType STRING_LITERAL = new ICompositeElementType("XQUERY_STRING_LITERAL", XPathStringLiteralPsiImpl.class, XQuery.INSTANCE);
     IElementType VAR_REF = new ICompositeElementType("XQUERY_VAR_REF", XQueryVarRefPsiImpl.class, XQuery.INSTANCE);
     IElementType PARENTHESIZED_EXPR = new ICompositeElementType("XQUERY_PARENTHESIZED_EXPR", XQueryParenthesizedExprPsiImpl.class, XQuery.INSTANCE);

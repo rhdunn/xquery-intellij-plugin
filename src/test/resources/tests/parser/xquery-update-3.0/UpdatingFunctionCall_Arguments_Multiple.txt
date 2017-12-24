@@ -36,7 +36,7 @@ FileElement[FILE(0:36)]
                                                                   XQueryPathExprImpl[XQUERY_PATH_EXPR(25:27)]
                                                                      XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(25:27)]
                                                                         XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(25:27)]
-                                                                           XQueryLiteralImpl[XQUERY_LITERAL(25:26)]
+                                                                           XPathLiteralImpl[XQUERY_LITERAL(25:26)]
                                                                               XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(25:26)]('1')
                                                                            PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
                LeafPsiElement[XQUERY_COMMA_TOKEN(27:28)](',')
@@ -61,7 +61,7 @@ FileElement[FILE(0:36)]
                                                                   XQueryPathExprImpl[XQUERY_PATH_EXPR(29:31)]
                                                                      XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(29:31)]
                                                                         XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(29:31)]
-                                                                           XQueryLiteralImpl[XQUERY_LITERAL(29:30)]
+                                                                           XPathLiteralImpl[XQUERY_LITERAL(29:30)]
                                                                               XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(29:30)]('2')
                                                                            PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')
                PsiErrorElementImpl[ERROR_ELEMENT(31:31)]('XPST0003: Missing expression.')
@@ -87,7 +87,7 @@ FileElement[FILE(0:36)]
                                                                   XQueryPathExprImpl[XQUERY_PATH_EXPR(33:35)]
                                                                      XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(33:35)]
                                                                         XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(33:35)]
-                                                                           XQueryLiteralImpl[XQUERY_LITERAL(33:34)]
+                                                                           XPathLiteralImpl[XQUERY_LITERAL(33:34)]
                                                                               XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(33:34)]('3')
                                                                            PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
                LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(35:36)](')')

@@ -22,7 +22,7 @@ FileElement[FILE(0:46)]
                                                                XQueryPathExprImpl[XQUERY_PATH_EXPR(0:3)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:3)]
                                                                      XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:3)]
-                                                                        XQueryLiteralImpl[XQUERY_LITERAL(0:2)]
+                                                                        XPathLiteralImpl[XQUERY_LITERAL(0:2)]
                                                                            XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:2)]('25')
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
                                                       LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_CAST(3:7)]('cast')

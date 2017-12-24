@@ -31,7 +31,7 @@ FileElement[FILE(0:27)]
                                                                               XQueryPathExprImpl[XQUERY_PATH_EXPR(6:8)]
                                                                                  XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(6:8)]
                                                                                     XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(6:8)]
-                                                                                       XQueryLiteralImpl[XQUERY_LITERAL(6:7)]
+                                                                                       XPathLiteralImpl[XQUERY_LITERAL(6:7)]
                                                                                           XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(6:7)]('2')
                                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
                      LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(8:9)]('}')
@@ -71,7 +71,7 @@ FileElement[FILE(0:27)]
                                                                               XQueryPathExprImpl[XQUERY_PATH_EXPR(24:26)]
                                                                                  XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(24:26)]
                                                                                     XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(24:26)]
-                                                                                       XQueryLiteralImpl[XQUERY_LITERAL(24:25)]
+                                                                                       XPathLiteralImpl[XQUERY_LITERAL(24:25)]
                                                                                           XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(24:25)]('2')
                                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
                      LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(26:27)]('}')

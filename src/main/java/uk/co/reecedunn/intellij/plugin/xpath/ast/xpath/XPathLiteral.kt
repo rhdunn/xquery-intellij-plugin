@@ -13,13 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
+package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
+
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPrimaryExpr
 
 /**
- * An XQuery 1.0 `Literal` node in the XQuery AST.
+ * An XPath 2.0 and XQuery 1.0 `Literal` node in the XQuery AST.
  *
  * This is provided as an explicit node type because `StringLiteral`
  * nodes are used in other parts of the grammar, so not every
  * `StringLiteral` node is a `Literal` node.
  */
-interface XQueryLiteral : XQueryPrimaryExpr
+interface XPathLiteral : XQueryPrimaryExpr

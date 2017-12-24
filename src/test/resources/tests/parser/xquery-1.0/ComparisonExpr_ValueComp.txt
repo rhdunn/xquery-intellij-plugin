@@ -22,7 +22,7 @@ FileElement[FILE(0:51)]
                                                                XQueryPathExprImpl[XQUERY_PATH_EXPR(0:2)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:2)]
                                                                      XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:2)]
-                                                                        XQueryLiteralImpl[XQUERY_LITERAL(0:1)]
+                                                                        XPathLiteralImpl[XQUERY_LITERAL(0:1)]
                                                                            XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:1)]('1')
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
                      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_EQ(2:4)]('eq')
@@ -44,7 +44,7 @@ FileElement[FILE(0:51)]
                                                                XQueryPathExprImpl[XQUERY_PATH_EXPR(5:7)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(5:7)]
                                                                      XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(5:7)]
-                                                                        XQueryLiteralImpl[XQUERY_LITERAL(5:6)]
+                                                                        XPathLiteralImpl[XQUERY_LITERAL(5:6)]
                                                                            XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(5:6)]('2')
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(7:8)](',')
@@ -69,7 +69,7 @@ FileElement[FILE(0:51)]
                                                                XQueryPathExprImpl[XQUERY_PATH_EXPR(9:11)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(9:11)]
                                                                      XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(9:11)]
-                                                                        XQueryLiteralImpl[XQUERY_LITERAL(9:10)]
+                                                                        XPathLiteralImpl[XQUERY_LITERAL(9:10)]
                                                                            XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(9:10)]('1')
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
                      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NE(11:13)]('ne')
@@ -91,7 +91,7 @@ FileElement[FILE(0:51)]
                                                                XQueryPathExprImpl[XQUERY_PATH_EXPR(14:16)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(14:16)]
                                                                      XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(14:16)]
-                                                                        XQueryLiteralImpl[XQUERY_LITERAL(14:15)]
+                                                                        XPathLiteralImpl[XQUERY_LITERAL(14:15)]
                                                                            XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(14:15)]('2')
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(16:17)](',')
@@ -116,7 +116,7 @@ FileElement[FILE(0:51)]
                                                                XQueryPathExprImpl[XQUERY_PATH_EXPR(18:20)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(18:20)]
                                                                      XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(18:20)]
-                                                                        XQueryLiteralImpl[XQUERY_LITERAL(18:19)]
+                                                                        XPathLiteralImpl[XQUERY_LITERAL(18:19)]
                                                                            XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(18:19)]('1')
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
                      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_LT(20:22)]('lt')
@@ -138,7 +138,7 @@ FileElement[FILE(0:51)]
                                                                XQueryPathExprImpl[XQUERY_PATH_EXPR(23:25)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(23:25)]
                                                                      XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(23:25)]
-                                                                        XQueryLiteralImpl[XQUERY_LITERAL(23:24)]
+                                                                        XPathLiteralImpl[XQUERY_LITERAL(23:24)]
                                                                            XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(23:24)]('2')
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(25:26)](',')
@@ -163,7 +163,7 @@ FileElement[FILE(0:51)]
                                                                XQueryPathExprImpl[XQUERY_PATH_EXPR(27:29)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(27:29)]
                                                                      XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(27:29)]
-                                                                        XQueryLiteralImpl[XQUERY_LITERAL(27:28)]
+                                                                        XPathLiteralImpl[XQUERY_LITERAL(27:28)]
                                                                            XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(27:28)]('1')
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
                      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_LE(29:31)]('le')
@@ -185,7 +185,7 @@ FileElement[FILE(0:51)]
                                                                XQueryPathExprImpl[XQUERY_PATH_EXPR(32:34)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(32:34)]
                                                                      XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(32:34)]
-                                                                        XQueryLiteralImpl[XQUERY_LITERAL(32:33)]
+                                                                        XPathLiteralImpl[XQUERY_LITERAL(32:33)]
                                                                            XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(32:33)]('2')
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(34:35)](',')
@@ -210,7 +210,7 @@ FileElement[FILE(0:51)]
                                                                XQueryPathExprImpl[XQUERY_PATH_EXPR(36:38)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(36:38)]
                                                                      XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(36:38)]
-                                                                        XQueryLiteralImpl[XQUERY_LITERAL(36:37)]
+                                                                        XPathLiteralImpl[XQUERY_LITERAL(36:37)]
                                                                            XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(36:37)]('1')
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(37:38)](' ')
                      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_GT(38:40)]('gt')
@@ -232,7 +232,7 @@ FileElement[FILE(0:51)]
                                                                XQueryPathExprImpl[XQUERY_PATH_EXPR(41:43)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(41:43)]
                                                                      XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(41:43)]
-                                                                        XQueryLiteralImpl[XQUERY_LITERAL(41:42)]
+                                                                        XPathLiteralImpl[XQUERY_LITERAL(41:42)]
                                                                            XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(41:42)]('2')
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(42:43)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(43:44)](',')
@@ -257,7 +257,7 @@ FileElement[FILE(0:51)]
                                                                XQueryPathExprImpl[XQUERY_PATH_EXPR(45:47)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(45:47)]
                                                                      XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(45:47)]
-                                                                        XQueryLiteralImpl[XQUERY_LITERAL(45:46)]
+                                                                        XPathLiteralImpl[XQUERY_LITERAL(45:46)]
                                                                            XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(45:46)]('1')
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(46:47)](' ')
                      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_GE(47:49)]('ge')
@@ -279,5 +279,5 @@ FileElement[FILE(0:51)]
                                                                XQueryPathExprImpl[XQUERY_PATH_EXPR(50:51)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(50:51)]
                                                                      XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(50:51)]
-                                                                        XQueryLiteralImpl[XQUERY_LITERAL(50:51)]
+                                                                        XPathLiteralImpl[XQUERY_LITERAL(50:51)]
                                                                            XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(50:51)]('2')

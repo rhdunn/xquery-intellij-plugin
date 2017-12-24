@@ -22,7 +22,7 @@ FileElement[FILE(0:9)]
                                                                XQueryPathExprImpl[XQUERY_PATH_EXPR(0:2)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:2)]
                                                                      XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:2)]
-                                                                        XQueryLiteralImpl[XQUERY_LITERAL(0:1)]
+                                                                        XPathLiteralImpl[XQUERY_LITERAL(0:1)]
                                                                            XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:1)]('2')
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
          MarkLogicTransactionSeparatorImpl[XQUERY_TRANSACTION_SEPARATOR(2:4)]
@@ -49,7 +49,7 @@ FileElement[FILE(0:9)]
                                                                XQueryPathExprImpl[XQUERY_PATH_EXPR(4:6)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(4:6)]
                                                                      XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(4:6)]
-                                                                        XQueryLiteralImpl[XQUERY_LITERAL(4:5)]
+                                                                        XPathLiteralImpl[XQUERY_LITERAL(4:5)]
                                                                            XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(4:5)]('3')
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
          MarkLogicTransactionSeparatorImpl[XQUERY_TRANSACTION_SEPARATOR(6:8)]
@@ -76,6 +76,6 @@ FileElement[FILE(0:9)]
                                                                XQueryPathExprImpl[XQUERY_PATH_EXPR(8:9)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(8:9)]
                                                                      XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(8:9)]
-                                                                        XQueryLiteralImpl[XQUERY_LITERAL(8:9)]
+                                                                        XPathLiteralImpl[XQUERY_LITERAL(8:9)]
                                                                            XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(8:9)]('4')
          MarkLogicTransactionSeparatorImpl[XQUERY_TRANSACTION_SEPARATOR(9:9)]

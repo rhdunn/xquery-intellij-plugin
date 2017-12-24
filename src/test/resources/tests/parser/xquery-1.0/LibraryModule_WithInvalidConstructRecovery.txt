@@ -83,7 +83,7 @@ FileElement[FILE(0:130)]
                                                             XQueryPathExprImpl[XQUERY_PATH_EXPR(98:100)]
                                                                XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(98:100)]
                                                                   XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(98:100)]
-                                                                     XQueryLiteralImpl[XQUERY_LITERAL(98:99)]
+                                                                     XPathLiteralImpl[XQUERY_LITERAL(98:99)]
                                                                         XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(98:99)]('2')
                                                                      PsiWhiteSpaceImpl[WHITE_SPACE(99:100)](' ')
          PsiErrorElementImpl[ERROR_ELEMENT(100:100)]('XPST0003: Unexpected token.')
@@ -126,7 +126,7 @@ FileElement[FILE(0:130)]
                                                                      XQueryPathExprImpl[XQUERY_PATH_EXPR(127:129)]
                                                                         XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(127:129)]
                                                                            XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(127:129)]
-                                                                              XQueryLiteralImpl[XQUERY_LITERAL(127:128)]
+                                                                              XPathLiteralImpl[XQUERY_LITERAL(127:128)]
                                                                                  XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(127:128)]('3')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(128:129)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(129:130)](';')

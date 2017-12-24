@@ -90,7 +90,7 @@ FileElement[FILE(0:54)]
                                                                               XQueryPathExprImpl[XQUERY_PATH_EXPR(42:44)]
                                                                                  XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(42:44)]
                                                                                     XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(42:44)]
-                                                                                       XQueryLiteralImpl[XQUERY_LITERAL(42:43)]
+                                                                                       XPathLiteralImpl[XQUERY_LITERAL(42:43)]
                                                                                           XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(42:43)]('2')
                                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(43:44)](' ')
                XQueryReturnClauseImpl[XQUERY_RETURN_CLAUSE(44:54)]

@@ -63,5 +63,5 @@ FileElement[FILE(0:35)]
                                                                   XQueryPathExprImpl[XQUERY_PATH_EXPR(34:35)]
                                                                      XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(34:35)]
                                                                         XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(34:35)]
-                                                                           XQueryLiteralImpl[XQUERY_LITERAL(34:35)]
+                                                                           XPathLiteralImpl[XQUERY_LITERAL(34:35)]
                                                                               XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(34:35)]('2')
