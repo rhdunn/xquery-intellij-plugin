@@ -23,7 +23,7 @@ FileElement[FILE(0:18)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:18)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:18)]
                                                                         XQueryFunctionCallImpl[XQUERY_FUNCTION_CALL(0:18)]
-                                                                           XQueryQNameImpl[XQUERY_QNAME(0:8)]
+                                                                           XPathQNameImpl[XQUERY_QNAME(0:8)]
                                                                               XPathNCNameImpl[XQUERY_NCNAME(0:4)]
                                                                                  LeafPsiElement[XQUERY_NCNAME_TOKEN(0:4)]('math')
                                                                               LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(4:5)](':')

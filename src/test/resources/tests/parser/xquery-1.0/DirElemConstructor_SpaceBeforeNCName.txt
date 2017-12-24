@@ -27,7 +27,7 @@ FileElement[FILE(0:7)]
                                                                               LeafPsiElement[XQUERY_OPEN_XML_TAG_TOKEN(0:1)]('<')
                                                                               PsiErrorElementImpl[ERROR_ELEMENT(1:2)]('XPST0003: Whitespace is not allowed here.')
                                                                                  XQueryDirWhiteSpaceImpl[XQUERY_XML_WHITE_SPACE_TOKEN(1:2)](' ')
-                                                                              XQueryQNameImpl[XQUERY_QNAME(2:5)]
+                                                                              XPathQNameImpl[XQUERY_QNAME(2:5)]
                                                                                  XPathNCNameImpl[XQUERY_NCNAME(2:3)]
                                                                                     LeafPsiElement[XQUERY_XML_TAG_NCNAME_TOKEN(2:3)]('a')
                                                                                  LeafPsiElement[XQUERY_XML_TAG_QNAME_SEPARATOR_TOKEN(3:4)](':')

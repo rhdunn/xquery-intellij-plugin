@@ -54,7 +54,7 @@
 
     <lang.elementManipulator forClass="uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryUriLiteralPsiImpl"
                              implementationClass="uk.co.reecedunn.intellij.plugin.xquery.resolve.manipulator.XQueryUriLiteralManipulator"/>
-    <lang.elementManipulator forClass="uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryQNamePsiImpl"
+    <lang.elementManipulator forClass="uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathQNamePsiImpl"
                              implementationClass="uk.co.reecedunn.intellij.plugin.xquery.resolve.manipulator.XQueryQNameManipulator"/>
     <lang.elementManipulator forClass="uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathEQNamePsiImpl"
                              implementationClass="uk.co.reecedunn.intellij.plugin.xquery.resolve.manipulator.XQueryEQNameManipulator"/>

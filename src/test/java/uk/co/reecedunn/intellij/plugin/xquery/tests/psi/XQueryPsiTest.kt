@@ -26,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.model.XdmAtomicValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPostfixExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Saxon
@@ -2569,12 +2570,12 @@ class XQueryPsiTest:ParserTestCase() {
         val file = parseResource("tests/resolve/functions/FunctionCall_QName.xq")!!
 
         val fn = file.descendants().filterIsInstance<XQueryFunctionCall>().first()
-        val fnName = fn.children().filterIsInstance<XQueryQName>().first()
+        val fnName = fn.children().filterIsInstance<XPathQName>().first()
 
         val decls = fnName.resolveFunctionDecls().toList()
         assertThat(decls.size, `is`(1))
 
-        val functionName = decls[0].children().filterIsInstance<XQueryQName>().first()
+        val functionName = decls[0].children().filterIsInstance<XPathQName>().first()
         assertThat(functionName.text, `is`("fn:true"))
         assertThat(decls[0].arity, `is`(0))
     }
@@ -2583,16 +2584,16 @@ class XQueryPsiTest:ParserTestCase() {
         val file = parseResource("tests/resolve/functions/FunctionCall_QName_Arity.xq")!!
 
         val fn = file.descendants().filterIsInstance<XQueryFunctionCall>().first()
-        val fnName = fn.children().filterIsInstance<XQueryQName>().first()
+        val fnName = fn.children().filterIsInstance<XPathQName>().first()
 
         val decls = fnName.resolveFunctionDecls().toList()
         assertThat(decls.size, `is`(2))
 
-        var functionName = decls[0].children().filterIsInstance<XQueryQName>().first()
+        var functionName = decls[0].children().filterIsInstance<XPathQName>().first()
         assertThat(functionName.text, `is`("fn:data"))
         assertThat(decls[0].arity, `is`(0))
 
-        functionName = decls[1].children().filterIsInstance<XQueryQName>().first()
+        functionName = decls[1].children().filterIsInstance<XPathQName>().first()
         assertThat(functionName.text, `is`("fn:data"))
         assertThat(decls[1].arity, `is`(1))
     }
@@ -2845,7 +2846,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         val annotation = provider.prolog?.descendants()?.filterIsInstance<XQueryAnnotatedDecl>()?.first()
         val function = annotation?.children()?.filterIsInstance<XQueryFunctionDecl>()?.first()
-        val functionName = function?.children()?.filterIsInstance<XQueryQName>()?.first()
+        val functionName = function?.children()?.filterIsInstance<XPathQName>()?.first()
         assertThat(functionName?.text, `is`("test:func"))
     }
 
@@ -2867,7 +2868,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         val annotation = provider.prolog?.descendants()?.filterIsInstance<XQueryAnnotatedDecl>()?.first()
         val function = annotation?.children()?.filterIsInstance<XQueryFunctionDecl>()?.first()
-        val functionName = function?.children()?.filterIsInstance<XQueryQName>()?.first()
+        val functionName = function?.children()?.filterIsInstance<XPathQName>()?.first()
         assertThat(functionName?.text, `is`("test:func"))
     }
 
@@ -2896,7 +2897,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         val annotation = provider.prolog?.descendants()?.filterIsInstance<XQueryAnnotatedDecl>()?.first()
         val function = annotation?.children()?.filterIsInstance<XQueryFunctionDecl>()?.first()
-        val functionName = function?.children()?.filterIsInstance<XQueryQName>()?.first()
+        val functionName = function?.children()?.filterIsInstance<XPathQName>()?.first()
         assertThat(functionName?.text, `is`("test:func"))
     }
 
@@ -2908,7 +2909,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         val annotation = provider.prolog?.children()?.filterIsInstance<XQueryAnnotatedDecl>()?.first()
         val function = annotation?.children()?.filterIsInstance<XQueryFunctionDecl>()?.first()
-        val functionName = function?.children()?.filterIsInstance<XQueryQName>()?.first()
+        val functionName = function?.children()?.filterIsInstance<XPathQName>()?.first()
         assertThat(functionName?.text, `is`("array:append"))
     }
 

@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
@@ -153,7 +154,7 @@ class XQueryReferenceTest : ParserTestCase() {
         val functionDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryFunctionDecl>().first()
         assertThat(functionDeclPsi, `is`(notNullValue()))
 
-        val qname = functionDeclPsi.children().filterIsInstance<XQueryQName>().first()
+        val qname = functionDeclPsi.children().filterIsInstance<XPathQName>().first()
         assertThat(qname, `is`(notNullValue()))
 
         val ref: PsiReference = qname.reference!!

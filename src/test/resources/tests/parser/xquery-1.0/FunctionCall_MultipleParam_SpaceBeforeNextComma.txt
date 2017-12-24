@@ -23,7 +23,7 @@ FileElement[FILE(0:23)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:23)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:23)]
                                                                         XQueryFunctionCallImpl[XQUERY_FUNCTION_CALL(0:23)]
-                                                                           XQueryQNameImpl[XQUERY_QNAME(0:9)]
+                                                                           XPathQNameImpl[XQUERY_QNAME(0:9)]
                                                                               XPathNCNameImpl[XQUERY_NCNAME(0:2)]
                                                                                  LeafPsiElement[XQUERY_NCNAME_TOKEN(0:2)]('fn')
                                                                               LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(2:3)](':')

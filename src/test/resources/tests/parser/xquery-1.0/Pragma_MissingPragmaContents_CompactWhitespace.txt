@@ -21,7 +21,7 @@ FileElement[FILE(0:15)]
                                                             XQueryExtensionExprImpl[XQUERY_EXTENSION_EXPR(0:15)]
                                                                XQueryPragmaImpl[XQUERY_PRAGMA(0:12)]
                                                                   LeafPsiElement[XQUERY_PRAGMA_BEGIN_TOKEN(0:2)]('(#')
-                                                                  XQueryQNameImpl[XQUERY_QNAME(2:10)]
+                                                                  XPathQNameImpl[XQUERY_QNAME(2:10)]
                                                                      XPathNCNameImpl[XQUERY_NCNAME(2:5)]
                                                                         LeafPsiElement[XQUERY_NCNAME_TOKEN(2:5)]('ext')
                                                                      LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(5:6)](':')

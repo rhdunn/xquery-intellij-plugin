@@ -21,14 +21,14 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttributeList
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttributeValue
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryQName
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQName
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceResolver
 
 class XQueryDirAttributeListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryDirAttributeList, XQueryNamespaceResolver {
     override fun resolveNamespace(prefix: CharSequence?): XQueryNamespace? {
-        return children().filterIsInstance<XQueryQName>().map { name ->
+        return children().filterIsInstance<XPathQName>().map { name ->
             val localName = name.localName
             if (localName?.text == prefix) {
                 val uri = name.siblings().filter { e ->

@@ -32,7 +32,7 @@ FileElement[FILE(0:72)]
                                     LeafPsiElement[XQUERY_NCNAME_TOKEN(41:48)]('enabled')
                            PsiWhiteSpaceImpl[WHITE_SPACE(48:49)](' ')
                            PsiErrorElementImpl[ERROR_ELEMENT(49:49)]('XPST0003: Expected ','.')
-                           XQueryQNameImpl[XQUERY_QNAME(49:59)]
+                           XPathQNameImpl[XQUERY_QNAME(49:59)]
                               XPathNCNameImpl[XQUERY_NCNAME(49:51)]
                                  LeafPsiElement[XQUERY_NCNAME_TOKEN(49:51)]('xs')
                               LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(51:52)](':')

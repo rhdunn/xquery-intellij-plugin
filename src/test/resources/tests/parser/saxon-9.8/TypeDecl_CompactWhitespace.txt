@@ -6,7 +6,7 @@ FileElement[FILE(0:30)]
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
             LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_TYPE(8:12)]('type')
             PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
-            XQueryQNameImpl[XQUERY_QNAME(13:18)]
+            XPathQNameImpl[XQUERY_QNAME(13:18)]
                XPathNCNameImpl[XQUERY_NCNAME(13:14)]
                   LeafPsiElement[XQUERY_NCNAME_TOKEN(13:14)]('a')
                LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(14:15)](':')
