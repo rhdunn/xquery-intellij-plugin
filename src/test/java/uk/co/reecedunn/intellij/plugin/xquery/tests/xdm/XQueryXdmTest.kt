@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2017 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,52 +32,8 @@ class XQueryXdmTest : ParserTestCase() {
         return parseText(xquery)!!.walkTree().filterIsInstance<T>().first() as XdmAtomicValue
     }
 
-    private inline fun <reified T> parseSimpleExpression(xquery: String): XdmSimpleExpression {
-        return parseText(xquery)!!.walkTree().filterIsInstance<T>().first() as XdmSimpleExpression
-    }
-
     // region Atomic Value for Literal Types
-    // region DoubleLiteral
-
-    fun testDoubleLiteral() {
-        val literal = parseLiteral<XPathDoubleLiteral>("1e3")
-        assertThat(literal.lexicalRepresentation, `is`("1e3"))
-        assertThat(literal.staticType, `is`(XsDouble as XdmSequenceType))
-    }
-
-    // endregion
-    // region DecimalLiteral
-
-    fun testDecimalLiteral() {
-        val literal = parseLiteral<XPathDecimalLiteral>("12.34")
-        assertThat(literal.lexicalRepresentation, `is`("12.34"))
-        assertThat(literal.staticType, `is`(XsDecimal as XdmSequenceType))
-    }
-
-    // endregion
-    // region IntegerLiteral
-
-    fun testIntegerLiteral() {
-        val literal = parseLiteral<XPathIntegerLiteral>("123")
-        assertThat(literal.lexicalRepresentation, `is`("123"))
-        assertThat(literal.staticType, `is`(XsInteger as XdmSequenceType))
-        assertThat(literal.toInt(), `is`(123))
-    }
-
-    // endregion
     // region StringLiteral
-
-    fun testStringLiteral() {
-        val literal = parseLiteral<XPathStringLiteral>("\"Lorem ipsum.\uFFFF\"")
-        assertThat(literal.lexicalRepresentation, `is`("Lorem ipsum.\uFFFF")) // U+FFFF = BAD_CHARACTER token.
-        assertThat(literal.staticType, `is`(XsString as XdmSequenceType))
-    }
-
-    fun testStringLiteral_Unclosed() {
-        val literal = parseLiteral<XPathStringLiteral>("\"Lorem ipsum.")
-        assertThat(literal.lexicalRepresentation, `is`("Lorem ipsum."))
-        assertThat(literal.staticType, `is`(XsString as XdmSequenceType))
-    }
 
     fun testStringLiteral_PredefinedEntityReference() {
         // entity reference types: XQuery, HTML4, HTML5, UTF-16 surrogate pair, multi-character entity, empty, partial
@@ -92,32 +48,8 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(literal.staticType, `is`(XsString as XdmSequenceType))
     }
 
-    fun testStringLiteral_EscapeApos() {
-        val literal = parseLiteral<XPathStringLiteral>("'''\"\"'")
-        assertThat(literal.lexicalRepresentation, `is`("'\"\""))
-        assertThat(literal.staticType, `is`(XsString as XdmSequenceType))
-    }
-
-    fun testStringLiteral_EscapeQuot() {
-        val literal = parseLiteral<XPathStringLiteral>("\"''\"\"\"")
-        assertThat(literal.lexicalRepresentation, `is`("''\""))
-        assertThat(literal.staticType, `is`(XsString as XdmSequenceType))
-    }
-
     // endregion
     // region UriLiteral
-
-    fun testUriLiteral() {
-        val literal = parseLiteral<XQueryUriLiteral>("module namespace test = \"http://www.example.com\uFFFF\"")
-        assertThat(literal.lexicalRepresentation, `is`("http://www.example.com\uFFFF")) // U+FFFF = BAD_CHARACTER token.
-        assertThat(literal.staticType, `is`(XsAnyURI as XdmSequenceType))
-    }
-
-    fun testUriLiteral_Unclosed() {
-        val literal = parseLiteral<XQueryUriLiteral>("module namespace test = \"http://www.example.com")
-        assertThat(literal.lexicalRepresentation, `is`("http://www.example.com"))
-        assertThat(literal.staticType, `is`(XsAnyURI as XdmSequenceType))
-    }
 
     fun testUriLiteral_PredefinedEntityReference() {
         // entity reference types: XQuery, HTML4, HTML5, UTF-16 surrogate pair, multi-character entity, empty, partial
@@ -130,70 +62,6 @@ class XQueryXdmTest : ParserTestCase() {
         val literal = parseLiteral<XQueryUriLiteral>("module namespace test = \"&#xA0;&#160;&#x20;\"")
         assertThat(literal.lexicalRepresentation, `is`("\u00A0\u00A0\u0020"))
         assertThat(literal.staticType, `is`(XsAnyURI as XdmSequenceType))
-    }
-
-    fun testUriLiteral_EscapeApos() {
-        val literal = parseLiteral<XQueryUriLiteral>("module namespace test = '''\"\"'")
-        assertThat(literal.lexicalRepresentation, `is`("'\"\""))
-        assertThat(literal.staticType, `is`(XsAnyURI as XdmSequenceType))
-    }
-
-    fun testUriLiteral_EscapeQuot() {
-        val literal = parseLiteral<XQueryUriLiteral>("module namespace test = \"''\"\"\"")
-        assertThat(literal.lexicalRepresentation, `is`("''\""))
-        assertThat(literal.staticType, `is`(XsAnyURI as XdmSequenceType))
-    }
-
-    // endregion
-    // region Literal
-
-    fun testLiteral_DoubleLiteral() {
-        val literal = parseLiteral<XPathLiteral>("1e3")
-        assertThat(literal.lexicalRepresentation, `is`("1e3"))
-        assertThat(literal.staticType, `is`(XsDouble as XdmSequenceType))
-    }
-
-    fun testLiteral_DecimalLiteral() {
-        val literal = parseLiteral<XPathLiteral>("12.34")
-        assertThat(literal.lexicalRepresentation, `is`("12.34"))
-        assertThat(literal.staticType, `is`(XsDecimal as XdmSequenceType))
-    }
-
-    fun testLiteral_IntegerLiteral() {
-        val literal = parseLiteral<XPathLiteral>("123")
-        assertThat(literal.lexicalRepresentation, `is`("123"))
-        assertThat(literal.staticType, `is`(XsInteger as XdmSequenceType))
-    }
-
-    fun testLiteral_StringLiteral() {
-        val literal = parseLiteral<XPathLiteral>("\"Lorem ipsum.\"")
-        assertThat(literal.lexicalRepresentation, `is`("Lorem ipsum."))
-        assertThat(literal.staticType, `is`(XsString as XdmSequenceType))
-    }
-
-    // endregion
-    // endregion
-    // region Simple Expressions
-    // region PostfixExpr
-
-    fun testPostfixExpr_LiteralValue() {
-        val expr = parseSimpleExpression<XPathPostfixExpr>("1e3")
-        assertThat(expr.constantValue, `is`(notNullValue()))
-        assertThat(expr.constantValue, `is`(instanceOf(String::class.java)))
-        assertThat(expr.constantValue as String, `is`("1e3"))
-        assertThat(expr.staticType, `is`(XsDouble as XdmSequenceType))
-    }
-
-    fun testPostfixExpr_LiteralValue_ComplexExpression() {
-        val expr = parseSimpleExpression<XPathPostfixExpr>("1?1")
-        assertThat(expr.constantValue, `is`(nullValue())) // Expression is invalid, and cannot be resolved.
-        assertThat(expr.staticType, `is`(XsUntyped as XdmSequenceType))
-    }
-
-    fun testPostfixExpr_NonLiteralValue() {
-        val expr = parseSimpleExpression<XPathPostfixExpr>("test()")
-        assertThat(expr.constantValue, `is`(nullValue())) // Cannot evaluate non-literal expression.
-        assertThat(expr.staticType, `is`(XsUntyped as XdmSequenceType))
     }
 
     // endregion
