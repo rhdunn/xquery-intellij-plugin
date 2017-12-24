@@ -23,4 +23,4 @@ FileElement[FILE(0:7)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:7)]
                                                                      XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:7)]
                                                                         XQueryLiteralImpl[XQUERY_LITERAL(0:7)]
-                                                                           XQueryDecimalLiteralImpl[XQUERY_DECIMAL_LITERAL_TOKEN(0:7)]('3.14159')
+                                                                           XPathDecimalLiteralImpl[XQUERY_DECIMAL_LITERAL_TOKEN(0:7)]('3.14159')

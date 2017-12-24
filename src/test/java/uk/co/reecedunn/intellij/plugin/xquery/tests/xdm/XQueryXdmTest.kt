@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSimpleExpression
 import uk.co.reecedunn.intellij.plugin.xdm.model.toInt
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathIntegerLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathDoubleLiteral
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathDecimalLiteral
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
@@ -50,7 +51,7 @@ class XQueryXdmTest : ParserTestCase() {
     // region DecimalLiteral
 
     fun testDecimalLiteral() {
-        val literal = parseLiteral<XQueryDecimalLiteral>("12.34")
+        val literal = parseLiteral<XPathDecimalLiteral>("12.34")
         assertThat(literal.lexicalRepresentation, `is`("12.34"))
         assertThat(literal.staticType, `is`(XsDecimal as XdmSequenceType))
     }
