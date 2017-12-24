@@ -19,7 +19,7 @@ FileElement[FILE(0:51)]
                         MarkLogicNumberTestImpl[XQUERY_NUMBER_TEST(24:42)]
                            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NUMBER_NODE(24:35)]('number-node')
                            LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(35:36)]('(')
-                           XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(36:41)]
+                           XPathStringLiteralImpl[XQUERY_STRING_LITERAL(36:41)]
                               LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(36:37)]('"')
                               LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(37:40)]('key')
                               LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(40:41)]('"')

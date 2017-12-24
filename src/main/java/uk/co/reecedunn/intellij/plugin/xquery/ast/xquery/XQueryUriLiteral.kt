@@ -16,10 +16,11 @@
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
 import com.intellij.psi.PsiFile
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 
 /**
  * An XQuery 1.0 <code>URILiteral</code> node in the XQuery AST.
  */
-interface XQueryUriLiteral: XQueryStringLiteral {
+interface XQueryUriLiteral: XPathStringLiteral {
     fun <T : PsiFile> resolveUri(): T?
 }

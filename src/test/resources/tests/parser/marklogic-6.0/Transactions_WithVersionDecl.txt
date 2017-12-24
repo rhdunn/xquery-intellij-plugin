@@ -5,7 +5,7 @@ FileElement[FILE(0:55)]
          PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
          LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_VERSION(7:14)]('version')
          PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
-         XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(15:23)]
+         XPathStringLiteralImpl[XQUERY_STRING_LITERAL(15:23)]
             LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(15:16)]('"')
             LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(16:22)]('1.0-ml')
             LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(22:23)]('"')
@@ -45,7 +45,7 @@ FileElement[FILE(0:55)]
          PsiWhiteSpaceImpl[WHITE_SPACE(35:36)](' ')
          LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_VERSION(36:43)]('version')
          PsiWhiteSpaceImpl[WHITE_SPACE(43:44)](' ')
-         XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(44:52)]
+         XPathStringLiteralImpl[XQUERY_STRING_LITERAL(44:52)]
             LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(44:45)]('"')
             LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(45:51)]('1.0-ml')
             LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(51:52)]('"')

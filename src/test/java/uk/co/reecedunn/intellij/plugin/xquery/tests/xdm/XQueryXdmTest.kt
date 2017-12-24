@@ -26,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.model.toInt
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathIntegerLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathDoubleLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathDecimalLiteral
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
@@ -70,38 +71,38 @@ class XQueryXdmTest : ParserTestCase() {
     // region StringLiteral
 
     fun testStringLiteral() {
-        val literal = parseLiteral<XQueryStringLiteral>("\"Lorem ipsum.\uFFFF\"")
+        val literal = parseLiteral<XPathStringLiteral>("\"Lorem ipsum.\uFFFF\"")
         assertThat(literal.lexicalRepresentation, `is`("Lorem ipsum.\uFFFF")) // U+FFFF = BAD_CHARACTER token.
         assertThat(literal.staticType, `is`(XsString as XdmSequenceType))
     }
 
     fun testStringLiteral_Unclosed() {
-        val literal = parseLiteral<XQueryStringLiteral>("\"Lorem ipsum.")
+        val literal = parseLiteral<XPathStringLiteral>("\"Lorem ipsum.")
         assertThat(literal.lexicalRepresentation, `is`("Lorem ipsum."))
         assertThat(literal.staticType, `is`(XsString as XdmSequenceType))
     }
 
     fun testStringLiteral_PredefinedEntityReference() {
         // entity reference types: XQuery, HTML4, HTML5, UTF-16 surrogate pair, multi-character entity, empty, partial
-        val literal = parseLiteral<XQueryStringLiteral>("\"&lt;&aacute;&amacr;&Afr;&NotLessLess;&;&gt\"")
+        val literal = parseLiteral<XPathStringLiteral>("\"&lt;&aacute;&amacr;&Afr;&NotLessLess;&;&gt\"")
         assertThat(literal.lexicalRepresentation, `is`("<áā\uD835\uDD04≪\u0338&;&gt"))
         assertThat(literal.staticType, `is`(XsString as XdmSequenceType))
     }
 
     fun testStringLiteral_CharRef() {
-        val literal = parseLiteral<XQueryStringLiteral>("\"&#xA0;&#160;&#x20;\"")
+        val literal = parseLiteral<XPathStringLiteral>("\"&#xA0;&#160;&#x20;\"")
         assertThat(literal.lexicalRepresentation, `is`("\u00A0\u00A0\u0020"))
         assertThat(literal.staticType, `is`(XsString as XdmSequenceType))
     }
 
     fun testStringLiteral_EscapeApos() {
-        val literal = parseLiteral<XQueryStringLiteral>("'''\"\"'")
+        val literal = parseLiteral<XPathStringLiteral>("'''\"\"'")
         assertThat(literal.lexicalRepresentation, `is`("'\"\""))
         assertThat(literal.staticType, `is`(XsString as XdmSequenceType))
     }
 
     fun testStringLiteral_EscapeQuot() {
-        val literal = parseLiteral<XQueryStringLiteral>("\"''\"\"\"")
+        val literal = parseLiteral<XPathStringLiteral>("\"''\"\"\"")
         assertThat(literal.lexicalRepresentation, `is`("''\""))
         assertThat(literal.staticType, `is`(XsString as XdmSequenceType))
     }

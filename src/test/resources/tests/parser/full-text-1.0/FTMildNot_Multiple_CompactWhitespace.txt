@@ -42,7 +42,7 @@ FileElement[FILE(0:70)]
                                           FTPrimaryImpl[XQUERY_FT_PRIMARY(19:26)]
                                              FTWordsImpl[XQUERY_FT_WORDS(19:26)]
                                                 FTWordsValueImpl[XQUERY_FT_WORDS_VALUE(19:26)]
-                                                   XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(19:26)]
+                                                   XPathStringLiteralImpl[XQUERY_STRING_LITERAL(19:26)]
                                                       LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(19:20)]('"')
                                                       LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(20:25)]('lorem')
                                                       LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(25:26)]('"')
@@ -54,7 +54,7 @@ FileElement[FILE(0:70)]
                                           FTPrimaryImpl[XQUERY_FT_PRIMARY(32:51)]
                                              FTWordsImpl[XQUERY_FT_WORDS(32:51)]
                                                 FTWordsValueImpl[XQUERY_FT_WORDS_VALUE(32:51)]
-                                                   XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(32:51)]
+                                                   XPathStringLiteralImpl[XQUERY_STRING_LITERAL(32:51)]
                                                       LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(32:33)]('"')
                                                       LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(33:50)]('lorem ipsum dolor')
                                                       LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(50:51)]('"')
@@ -66,7 +66,7 @@ FileElement[FILE(0:70)]
                                           FTPrimaryImpl[XQUERY_FT_PRIMARY(57:70)]
                                              FTWordsImpl[XQUERY_FT_WORDS(57:70)]
                                                 FTWordsValueImpl[XQUERY_FT_WORDS_VALUE(57:70)]
-                                                   XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(57:70)]
+                                                   XPathStringLiteralImpl[XQUERY_STRING_LITERAL(57:70)]
                                                       LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(57:58)]('"')
                                                       LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(58:69)]('lorem ipsum')
                                                       LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(69:70)]('"')

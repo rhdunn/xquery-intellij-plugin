@@ -20,7 +20,7 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import com.intellij.psi.impl.source.tree.PsiErrorElementImpl
 import com.intellij.psi.tree.TokenSet
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryStringLiteral
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVersionDecl
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
@@ -35,9 +35,9 @@ private val XQUERY10: List<Version> = listOf()
 private val XQUERY30: List<Version> = listOf(XQuery.REC_3_0_20140408)
 
 class XQueryVersionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryVersionDecl, XQueryConformance {
-    override val version get(): XQueryStringLiteral? = getStringValueAfterKeyword(XQueryTokenType.K_VERSION)
+    override val version get(): XPathStringLiteral? = getStringValueAfterKeyword(XQueryTokenType.K_VERSION)
 
-    override val encoding get(): XQueryStringLiteral? = getStringValueAfterKeyword(XQueryTokenType.K_ENCODING)
+    override val encoding get(): XPathStringLiteral? = getStringValueAfterKeyword(XQueryTokenType.K_ENCODING)
 
     override val requiresConformance get(): List<Version> =
         if (conformanceElement === firstChild) XQUERY10 else XQUERY30
@@ -53,7 +53,7 @@ class XQueryVersionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQue
         return if (previous.elementType === XQueryTokenType.K_XQUERY) encoding.psi else firstChild
     }
 
-    private fun getStringValueAfterKeyword(type: IXQueryKeywordOrNCNameType): XQueryStringLiteral? {
+    private fun getStringValueAfterKeyword(type: IXQueryKeywordOrNCNameType): XPathStringLiteral? {
         for (child in node.getChildren(STRINGS)) {
             var previous = child.treePrev
             while (previous.elementType === XQueryTokenType.WHITE_SPACE || previous.elementType === XQueryElementType.COMMENT) {
@@ -61,10 +61,10 @@ class XQueryVersionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQue
             }
 
             if (previous.elementType === type) {
-                return child.psi as XQueryStringLiteral
+                return child.psi as XPathStringLiteral
             } else if (previous is PsiErrorElementImpl) {
                 if (previous.firstChildNode.elementType === type) {
-                    return child.psi as XQueryStringLiteral
+                    return child.psi as XPathStringLiteral
                 }
             }
         }

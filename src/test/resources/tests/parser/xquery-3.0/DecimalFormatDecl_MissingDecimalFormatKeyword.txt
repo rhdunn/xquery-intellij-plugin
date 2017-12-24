@@ -12,7 +12,7 @@ FileElement[FILE(0:192)]
             PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')
             LeafPsiElement[XQUERY_EQUAL_TOKEN(31:32)]('=')
             PsiWhiteSpaceImpl[WHITE_SPACE(32:33)](' ')
-            XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(33:36)]
+            XPathStringLiteralImpl[XQUERY_STRING_LITERAL(33:36)]
                LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(33:34)]('"')
                LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(34:35)]('.')
                LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(35:36)]('"')
@@ -22,7 +22,7 @@ FileElement[FILE(0:192)]
             PsiWhiteSpaceImpl[WHITE_SPACE(55:56)](' ')
             LeafPsiElement[XQUERY_EQUAL_TOKEN(56:57)]('=')
             PsiWhiteSpaceImpl[WHITE_SPACE(57:58)](' ')
-            XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(58:61)]
+            XPathStringLiteralImpl[XQUERY_STRING_LITERAL(58:61)]
                LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(58:59)]('"')
                LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(59:60)]('#')
                LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(60:61)]('"')
@@ -32,7 +32,7 @@ FileElement[FILE(0:192)]
             PsiWhiteSpaceImpl[WHITE_SPACE(70:71)](' ')
             LeafPsiElement[XQUERY_EQUAL_TOKEN(71:72)]('=')
             PsiWhiteSpaceImpl[WHITE_SPACE(72:73)](' ')
-            XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(73:78)]
+            XPathStringLiteralImpl[XQUERY_STRING_LITERAL(73:78)]
                LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(73:74)]('"')
                LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(74:77)]('INF')
                LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(77:78)]('"')
@@ -42,7 +42,7 @@ FileElement[FILE(0:192)]
             PsiWhiteSpaceImpl[WHITE_SPACE(89:90)](' ')
             LeafPsiElement[XQUERY_EQUAL_TOKEN(90:91)]('=')
             PsiWhiteSpaceImpl[WHITE_SPACE(91:92)](' ')
-            XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(92:95)]
+            XPathStringLiteralImpl[XQUERY_STRING_LITERAL(92:95)]
                LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(92:93)]('"')
                LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(93:94)]('-')
                LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(94:95)]('"')
@@ -52,7 +52,7 @@ FileElement[FILE(0:192)]
             PsiWhiteSpaceImpl[WHITE_SPACE(99:100)](' ')
             LeafPsiElement[XQUERY_EQUAL_TOKEN(100:101)]('=')
             PsiWhiteSpaceImpl[WHITE_SPACE(101:102)](' ')
-            XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(102:107)]
+            XPathStringLiteralImpl[XQUERY_STRING_LITERAL(102:107)]
                LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(102:103)]('"')
                LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(103:106)]('NaN')
                LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(106:107)]('"')
@@ -62,7 +62,7 @@ FileElement[FILE(0:192)]
             PsiWhiteSpaceImpl[WHITE_SPACE(115:116)](' ')
             LeafPsiElement[XQUERY_EQUAL_TOKEN(116:117)]('=')
             PsiWhiteSpaceImpl[WHITE_SPACE(117:118)](' ')
-            XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(118:121)]
+            XPathStringLiteralImpl[XQUERY_STRING_LITERAL(118:121)]
                LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(118:119)]('"')
                LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(119:120)]('%')
                LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(120:121)]('"')
@@ -72,7 +72,7 @@ FileElement[FILE(0:192)]
             PsiWhiteSpaceImpl[WHITE_SPACE(131:132)](' ')
             LeafPsiElement[XQUERY_EQUAL_TOKEN(132:133)]('=')
             PsiWhiteSpaceImpl[WHITE_SPACE(133:134)](' ')
-            XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(134:137)]
+            XPathStringLiteralImpl[XQUERY_STRING_LITERAL(134:137)]
                LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(134:135)]('"')
                LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(135:136)](',')
                LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(136:137)]('"')
@@ -82,7 +82,7 @@ FileElement[FILE(0:192)]
             PsiWhiteSpaceImpl[WHITE_SPACE(148:149)](' ')
             LeafPsiElement[XQUERY_EQUAL_TOKEN(149:150)]('=')
             PsiWhiteSpaceImpl[WHITE_SPACE(150:151)](' ')
-            XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(151:154)]
+            XPathStringLiteralImpl[XQUERY_STRING_LITERAL(151:154)]
                LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(151:152)]('"')
                LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(152:153)]('0')
                LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(153:154)]('"')
@@ -92,7 +92,7 @@ FileElement[FILE(0:192)]
             PsiWhiteSpaceImpl[WHITE_SPACE(160:161)](' ')
             LeafPsiElement[XQUERY_EQUAL_TOKEN(161:162)]('=')
             PsiWhiteSpaceImpl[WHITE_SPACE(162:163)](' ')
-            XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(163:166)]
+            XPathStringLiteralImpl[XQUERY_STRING_LITERAL(163:166)]
                LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(163:164)]('"')
                LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(164:165)]('1')
                LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(165:166)]('"')
@@ -102,7 +102,7 @@ FileElement[FILE(0:192)]
             PsiWhiteSpaceImpl[WHITE_SPACE(184:185)](' ')
             LeafPsiElement[XQUERY_EQUAL_TOKEN(185:186)]('=')
             PsiWhiteSpaceImpl[WHITE_SPACE(186:187)](' ')
-            XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(187:190)]
+            XPathStringLiteralImpl[XQUERY_STRING_LITERAL(187:190)]
                LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(187:188)]('"')
                LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(188:189)]('|')
                LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(189:190)]('"')

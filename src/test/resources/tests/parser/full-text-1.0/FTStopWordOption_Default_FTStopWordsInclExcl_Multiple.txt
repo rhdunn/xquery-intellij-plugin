@@ -22,7 +22,7 @@ FileElement[FILE(0:81)]
                      FTStopWordsImpl[XQUERY_FT_STOP_WORDS(49:60)]
                         LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(49:50)]('(')
                         PsiWhiteSpaceImpl[WHITE_SPACE(50:51)](' ')
-                        XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(51:58)]
+                        XPathStringLiteralImpl[XQUERY_STRING_LITERAL(51:58)]
                            LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(51:52)]('"')
                            LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(52:57)]('lorem')
                            LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(57:58)]('"')
@@ -35,7 +35,7 @@ FileElement[FILE(0:81)]
                      FTStopWordsImpl[XQUERY_FT_STOP_WORDS(68:79)]
                         LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(68:69)]('(')
                         PsiWhiteSpaceImpl[WHITE_SPACE(69:70)](' ')
-                        XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(70:77)]
+                        XPathStringLiteralImpl[XQUERY_STRING_LITERAL(70:77)]
                            LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(70:71)]('"')
                            LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(71:76)]('ipsum')
                            LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(76:77)]('"')

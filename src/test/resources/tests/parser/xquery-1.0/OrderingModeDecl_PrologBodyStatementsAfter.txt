@@ -46,7 +46,7 @@ FileElement[FILE(0:112)]
             XQueryNCNameImpl[XQUERY_NCNAME(103:104)]
                LeafPsiElement[XQUERY_NCNAME_TOKEN(103:104)]('z')
             PsiWhiteSpaceImpl[WHITE_SPACE(104:105)](' ')
-            XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(105:111)]
+            XPathStringLiteralImpl[XQUERY_STRING_LITERAL(105:111)]
                LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(105:106)]('"')
                LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(106:110)]('test')
                LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(110:111)]('"')

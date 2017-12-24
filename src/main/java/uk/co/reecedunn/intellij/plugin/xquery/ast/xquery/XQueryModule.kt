@@ -17,11 +17,12 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Specification
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings
 
-data class XQueryVersionRef(val declaration: XQueryStringLiteral?, val version: Specification?) {
+data class XQueryVersionRef(val declaration: XPathStringLiteral?, val version: Specification?) {
     fun getVersionOrDefault(project: Project): Specification {
         if (version == null) {
             val settings: XQueryProjectSettings = XQueryProjectSettings.getInstance(project)

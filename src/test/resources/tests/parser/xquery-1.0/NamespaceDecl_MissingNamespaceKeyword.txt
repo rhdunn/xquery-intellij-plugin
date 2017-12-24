@@ -9,7 +9,7 @@ FileElement[FILE(0:46)]
             PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
             LeafPsiElement[XQUERY_EQUAL_TOKEN(13:14)]('=')
             PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
-            XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(15:44)]
+            XPathStringLiteralImpl[XQUERY_STRING_LITERAL(15:44)]
                LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(15:16)]('"')
                LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(16:43)]('http://www.example.org/test')
                LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(43:44)]('"')

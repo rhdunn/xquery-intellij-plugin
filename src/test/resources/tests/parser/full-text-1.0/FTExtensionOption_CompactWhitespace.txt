@@ -15,7 +15,7 @@ FileElement[FILE(0:42)]
                   XQueryEQNameImpl[XQUERY_EQNAME(31:35)]
                      XQueryNCNameImpl[XQUERY_NCNAME(31:35)]
                         LeafPsiElement[XQUERY_NCNAME_TOKEN(31:35)]('test')
-                  XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(35:41)]
+                  XPathStringLiteralImpl[XQUERY_STRING_LITERAL(35:41)]
                      LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(35:36)]('"')
                      LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(36:40)]('Test')
                      LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(40:41)]('"')

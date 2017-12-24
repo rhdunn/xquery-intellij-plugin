@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 
 /**
  * An XQuery 1.0 and 3.0 `VersionDecl` node in the XQuery AST.
@@ -35,7 +36,7 @@ interface XQueryVersionDecl : PsiElement {
      *
      * @return The XQuery version if provided, or `null` otherwise.
      */
-    val version: XQueryStringLiteral?
+    val version: XPathStringLiteral?
 
     /**
      * Gets the character encoding specified in this declaration.
@@ -44,5 +45,5 @@ interface XQueryVersionDecl : PsiElement {
      *
      * @return The character encoding if provided, or `null` otherwise.
      */
-    val encoding: XQueryStringLiteral?
+    val encoding: XPathStringLiteral?
 }

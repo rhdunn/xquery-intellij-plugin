@@ -19,7 +19,7 @@ FileElement[FILE(0:85)]
                         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(37:65)]('http://www.example.com/de-CH')
                         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(65:66)]('"')
                      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_RELATIONSHIP(66:78)]('relationship')
-                     XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(78:84)]
+                     XPathStringLiteralImpl[XQUERY_STRING_LITERAL(78:84)]
                         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(78:79)]('"')
                         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(79:83)]('test')
                         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(83:84)]('"')

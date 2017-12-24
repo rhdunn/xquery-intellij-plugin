@@ -23,6 +23,7 @@ import org.hamcrest.MatcherAssert.assertThat
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmAtomicValue
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Saxon
@@ -4569,13 +4570,13 @@ class XQueryPsiTest:ParserTestCase() {
         val file = parseResource("tests/parser/xquery-1.0/VersionDecl.xq")!!
 
         val versionDeclPsi = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
-        assertThat<XQueryStringLiteral>(versionDeclPsi.version, `is`(notNullValue()))
+        assertThat<XPathStringLiteral>(versionDeclPsi.version, `is`(notNullValue()))
         assertThat((versionDeclPsi.version!! as XdmAtomicValue).lexicalRepresentation, `is`("1.0"))
-        assertThat<XQueryStringLiteral>(versionDeclPsi.encoding, `is`(nullValue()))
+        assertThat<XPathStringLiteral>(versionDeclPsi.encoding, `is`(nullValue()))
 
         assertThat(file.XQueryVersion.version, `is`(XQuery.REC_1_0_20070123))
         assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQuery.REC_1_0_20070123))
-        assertThat<XQueryStringLiteral>(file.XQueryVersion.declaration, `is`<XQueryStringLiteral>(versionDeclPsi.version))
+        assertThat<XPathStringLiteral>(file.XQueryVersion.declaration, `is`<XPathStringLiteral>(versionDeclPsi.version))
     }
 
     fun testVersionDecl_CommentBeforeDecl() {
@@ -4583,13 +4584,13 @@ class XQueryPsiTest:ParserTestCase() {
         val file = parseResource("tests/psi/xquery-1.0/VersionDecl_CommentBeforeDecl.xq")!!
 
         val versionDeclPsi = file.modules.first().descendants().filterIsInstance<XQueryVersionDecl>().first()
-        assertThat<XQueryStringLiteral>(versionDeclPsi.version, `is`(notNullValue()))
+        assertThat<XPathStringLiteral>(versionDeclPsi.version, `is`(notNullValue()))
         assertThat((versionDeclPsi.version!! as XdmAtomicValue).lexicalRepresentation, `is`("1.0"))
-        assertThat<XQueryStringLiteral>(versionDeclPsi.encoding, `is`(nullValue()))
+        assertThat<XPathStringLiteral>(versionDeclPsi.encoding, `is`(nullValue()))
 
         assertThat(file.XQueryVersion.version, `is`(XQuery.REC_1_0_20070123))
         assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQuery.REC_1_0_20070123))
-        assertThat<XQueryStringLiteral>(file.XQueryVersion.declaration, `is`<XQueryStringLiteral>(versionDeclPsi.version))
+        assertThat<XPathStringLiteral>(file.XQueryVersion.declaration, `is`<XPathStringLiteral>(versionDeclPsi.version))
     }
 
     fun testVersionDecl_EmptyVersion() {
@@ -4597,13 +4598,13 @@ class XQueryPsiTest:ParserTestCase() {
         val file = parseResource("tests/psi/xquery-1.0/VersionDecl_EmptyVersion.xq")!!
 
         val versionDeclPsi = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
-        assertThat<XQueryStringLiteral>(versionDeclPsi.version, `is`(notNullValue()))
+        assertThat<XPathStringLiteral>(versionDeclPsi.version, `is`(notNullValue()))
         assertThat((versionDeclPsi.version!! as XdmAtomicValue).lexicalRepresentation, `is`(""))
-        assertThat<XQueryStringLiteral>(versionDeclPsi.encoding, `is`(nullValue()))
+        assertThat<XPathStringLiteral>(versionDeclPsi.encoding, `is`(nullValue()))
 
         assertThat(file.XQueryVersion.version, `is`(nullValue()))
         assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQuery.REC_3_0_20140408))
-        assertThat<XQueryStringLiteral>(file.XQueryVersion.declaration, `is`<XQueryStringLiteral>(versionDeclPsi.version))
+        assertThat<XPathStringLiteral>(file.XQueryVersion.declaration, `is`<XPathStringLiteral>(versionDeclPsi.version))
     }
 
     fun testVersionDecl_WithEncoding() {
@@ -4611,14 +4612,14 @@ class XQueryPsiTest:ParserTestCase() {
         val file = parseResource("tests/parser/xquery-1.0/VersionDecl_WithEncoding.xq")!!
 
         val versionDeclPsi = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
-        assertThat<XQueryStringLiteral>(versionDeclPsi.version, `is`(notNullValue()))
+        assertThat<XPathStringLiteral>(versionDeclPsi.version, `is`(notNullValue()))
         assertThat((versionDeclPsi.version!! as XdmAtomicValue).lexicalRepresentation, `is`("1.0"))
-        assertThat<XQueryStringLiteral>(versionDeclPsi.encoding, `is`(notNullValue()))
+        assertThat<XPathStringLiteral>(versionDeclPsi.encoding, `is`(notNullValue()))
         assertThat((versionDeclPsi.encoding!! as XdmAtomicValue).lexicalRepresentation, `is`("latin1"))
 
         assertThat(file.XQueryVersion.version, `is`(XQuery.REC_1_0_20070123))
         assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQuery.REC_1_0_20070123))
-        assertThat<XQueryStringLiteral>(file.XQueryVersion.declaration, `is`<XQueryStringLiteral>(versionDeclPsi.version))
+        assertThat<XPathStringLiteral>(file.XQueryVersion.declaration, `is`<XPathStringLiteral>(versionDeclPsi.version))
     }
 
     fun testVersionDecl_WithEncoding_CommentsAsWhitespace() {
@@ -4626,14 +4627,14 @@ class XQueryPsiTest:ParserTestCase() {
         val file = parseResource("tests/psi/xquery-1.0/VersionDecl_WithEncoding_CommentsAsWhitespace.xq")!!
 
         val versionDeclPsi = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
-        assertThat<XQueryStringLiteral>(versionDeclPsi.version, `is`(notNullValue()))
+        assertThat<XPathStringLiteral>(versionDeclPsi.version, `is`(notNullValue()))
         assertThat((versionDeclPsi.version!! as XdmAtomicValue).lexicalRepresentation, `is`("1.0"))
-        assertThat<XQueryStringLiteral>(versionDeclPsi.encoding, `is`(notNullValue()))
+        assertThat<XPathStringLiteral>(versionDeclPsi.encoding, `is`(notNullValue()))
         assertThat((versionDeclPsi.encoding!! as XdmAtomicValue).lexicalRepresentation, `is`("latin1"))
 
         assertThat(file.XQueryVersion.version, `is`(XQuery.REC_1_0_20070123))
         assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQuery.REC_1_0_20070123))
-        assertThat<XQueryStringLiteral>(file.XQueryVersion.declaration, `is`<XQueryStringLiteral>(versionDeclPsi.version))
+        assertThat<XPathStringLiteral>(file.XQueryVersion.declaration, `is`<XPathStringLiteral>(versionDeclPsi.version))
     }
 
     fun testVersionDecl_WithEmptyEncoding() {
@@ -4641,14 +4642,14 @@ class XQueryPsiTest:ParserTestCase() {
         val file = parseResource("tests/psi/xquery-1.0/VersionDecl_WithEncoding_EmptyEncoding.xq")!!
 
         val versionDeclPsi = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
-        assertThat<XQueryStringLiteral>(versionDeclPsi.version, `is`(notNullValue()))
+        assertThat<XPathStringLiteral>(versionDeclPsi.version, `is`(notNullValue()))
         assertThat((versionDeclPsi.version!! as XdmAtomicValue).lexicalRepresentation, `is`("1.0"))
-        assertThat<XQueryStringLiteral>(versionDeclPsi.encoding, `is`(notNullValue()))
+        assertThat<XPathStringLiteral>(versionDeclPsi.encoding, `is`(notNullValue()))
         assertThat((versionDeclPsi.encoding!! as XdmAtomicValue).lexicalRepresentation, `is`(""))
 
         assertThat(file.XQueryVersion.version, `is`(XQuery.REC_1_0_20070123))
         assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQuery.REC_1_0_20070123))
-        assertThat<XQueryStringLiteral>(file.XQueryVersion.declaration, `is`<XQueryStringLiteral>(versionDeclPsi.version))
+        assertThat<XPathStringLiteral>(file.XQueryVersion.declaration, `is`<XPathStringLiteral>(versionDeclPsi.version))
     }
 
     fun testVersionDecl_NoVersion() {
@@ -4656,12 +4657,12 @@ class XQueryPsiTest:ParserTestCase() {
         val file = parseResource("tests/psi/xquery-1.0/VersionDecl_NoVersion.xq")!!
 
         val versionDeclPsi = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
-        assertThat<XQueryStringLiteral>(versionDeclPsi.version, `is`(nullValue()))
-        assertThat<XQueryStringLiteral>(versionDeclPsi.encoding, `is`(nullValue()))
+        assertThat<XPathStringLiteral>(versionDeclPsi.version, `is`(nullValue()))
+        assertThat<XPathStringLiteral>(versionDeclPsi.encoding, `is`(nullValue()))
 
         assertThat(file.XQueryVersion.version, `is`(nullValue()))
         assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQuery.REC_3_0_20140408))
-        assertThat<XQueryStringLiteral>(file.XQueryVersion.declaration, `is`(nullValue()))
+        assertThat<XPathStringLiteral>(file.XQueryVersion.declaration, `is`(nullValue()))
     }
 
     fun testVersionDecl_UnsupportedVersion() {
@@ -4669,13 +4670,13 @@ class XQueryPsiTest:ParserTestCase() {
         val file = parseResource("tests/psi/xquery-1.0/VersionDecl_UnsupportedVersion.xq")!!
 
         val versionDeclPsi = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
-        assertThat<XQueryStringLiteral>(versionDeclPsi.version, `is`(notNullValue()))
+        assertThat<XPathStringLiteral>(versionDeclPsi.version, `is`(notNullValue()))
         assertThat((versionDeclPsi.version!! as XdmAtomicValue).lexicalRepresentation, `is`("9.4"))
-        assertThat<XQueryStringLiteral>(versionDeclPsi.encoding, `is`(nullValue()))
+        assertThat<XPathStringLiteral>(versionDeclPsi.encoding, `is`(nullValue()))
 
         assertThat(file.XQueryVersion.version, `is`(nullValue()))
         assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQuery.REC_3_0_20140408))
-        assertThat<XQueryStringLiteral>(file.XQueryVersion.declaration, `is`<XQueryStringLiteral>(versionDeclPsi.version))
+        assertThat<XPathStringLiteral>(file.XQueryVersion.declaration, `is`<XPathStringLiteral>(versionDeclPsi.version))
     }
 
     fun testVersionDecl_EncodingOnly() {
@@ -4683,13 +4684,13 @@ class XQueryPsiTest:ParserTestCase() {
         val file = parseResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly.xq")!!
 
         val versionDeclPsi = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
-        assertThat<XQueryStringLiteral>(versionDeclPsi.version, `is`(nullValue()))
-        assertThat<XQueryStringLiteral>(versionDeclPsi.encoding, `is`(notNullValue()))
+        assertThat<XPathStringLiteral>(versionDeclPsi.version, `is`(nullValue()))
+        assertThat<XPathStringLiteral>(versionDeclPsi.encoding, `is`(notNullValue()))
         assertThat((versionDeclPsi.encoding!! as XdmAtomicValue).lexicalRepresentation, `is`("latin1"))
 
         assertThat(file.XQueryVersion.version, `is`(nullValue()))
         assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQuery.REC_3_0_20140408))
-        assertThat<XQueryStringLiteral>(file.XQueryVersion.declaration, `is`(nullValue()))
+        assertThat<XPathStringLiteral>(file.XQueryVersion.declaration, `is`(nullValue()))
     }
 
     fun testVersionDecl_EncodingOnly_EmptyEncoding() {
@@ -4697,13 +4698,13 @@ class XQueryPsiTest:ParserTestCase() {
         val file = parseResource("tests/psi/xquery-3.0/VersionDecl_EncodingOnly_EmptyEncoding.xq")!!
 
         val versionDeclPsi = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
-        assertThat<XQueryStringLiteral>(versionDeclPsi.version, `is`(nullValue()))
-        assertThat<XQueryStringLiteral>(versionDeclPsi.encoding, `is`(notNullValue()))
+        assertThat<XPathStringLiteral>(versionDeclPsi.version, `is`(nullValue()))
+        assertThat<XPathStringLiteral>(versionDeclPsi.encoding, `is`(notNullValue()))
         assertThat((versionDeclPsi.encoding!! as XdmAtomicValue).lexicalRepresentation, `is`(""))
 
         assertThat(file.XQueryVersion.version, `is`(nullValue()))
         assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQuery.REC_3_0_20140408))
-        assertThat<XQueryStringLiteral>(file.XQueryVersion.declaration, `is`(nullValue()))
+        assertThat<XPathStringLiteral>(file.XQueryVersion.declaration, `is`(nullValue()))
     }
 
     // endregion

@@ -21,6 +21,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmAtomicValue
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.lang.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace
@@ -57,7 +58,7 @@ open class XQueryModulePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQue
 
     override val XQueryVersion get(): XQueryVersionRef {
         val versionDecl = descendants().filterIsInstance<XQueryVersionDecl>().firstOrNull()
-        val version: XQueryStringLiteral? = versionDecl?.version
+        val version: XPathStringLiteral? = versionDecl?.version
         val xquery: Specification? = XQuery.versionsForXQuery((version as? XdmAtomicValue)?.lexicalRepresentation).firstOrNull()
         return XQueryVersionRef(version, xquery)
     }

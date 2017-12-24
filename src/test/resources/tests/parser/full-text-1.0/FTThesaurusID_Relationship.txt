@@ -22,7 +22,7 @@ FileElement[FILE(0:89)]
                      PsiWhiteSpaceImpl[WHITE_SPACE(67:68)](' ')
                      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_RELATIONSHIP(68:80)]('relationship')
                      PsiWhiteSpaceImpl[WHITE_SPACE(80:81)](' ')
-                     XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(81:87)]
+                     XPathStringLiteralImpl[XQUERY_STRING_LITERAL(81:87)]
                         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(81:82)]('"')
                         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(82:86)]('test')
                         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(86:87)]('"')

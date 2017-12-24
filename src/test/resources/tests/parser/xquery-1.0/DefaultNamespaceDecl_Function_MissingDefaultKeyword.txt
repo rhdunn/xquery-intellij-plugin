@@ -11,7 +11,7 @@ FileElement[FILE(0:58)]
                   LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NAMESPACE(17:26)]('namespace')
                PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
                PsiErrorElementImpl[ERROR_ELEMENT(27:27)]('XPST0003: Expected '('.')
-               XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(27:56)]
+               XPathStringLiteralImpl[XQUERY_STRING_LITERAL(27:56)]
                   LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(27:28)]('"')
                   LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(28:55)]('http://www.example.org/test')
                   LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(55:56)]('"')

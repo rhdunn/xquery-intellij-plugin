@@ -9,7 +9,7 @@ FileElement[FILE(0:57)]
             PsiErrorElementImpl[ERROR_ELEMENT(16:16)]('XPST0003: Expected keyword: collation, element, function, order.')
             LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NAMESPACE(16:25)]('namespace')
             PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
-            XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(26:55)]
+            XPathStringLiteralImpl[XQUERY_STRING_LITERAL(26:55)]
                LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(26:27)]('"')
                LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(27:54)]('http://www.example.org/test')
                LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(54:55)]('"')

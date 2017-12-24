@@ -26,10 +26,11 @@ import com.intellij.testFramework.LightVirtualFileBase
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.xdm.XsAnyURI
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathStringLiteralPsiImpl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryUriLiteral
 import uk.co.reecedunn.intellij.plugin.xquery.resolve.reference.XQueryUriLiteralReference
 
-class XQueryUriLiteralPsiImpl(node: ASTNode): XQueryStringLiteralPsiImpl(node), XQueryUriLiteral {
+class XQueryUriLiteralPsiImpl(node: ASTNode): XPathStringLiteralPsiImpl(node), XQueryUriLiteral {
     override fun getReference(): PsiReference {
         val range = textRange
         return XQueryUriLiteralReference(this, TextRange(1, range.length - 1))

@@ -61,7 +61,7 @@ FileElement[FILE(0:45)]
                                                                   FTPrimaryImpl[XQUERY_FT_PRIMARY(36:44)]
                                                                      FTWordsImpl[XQUERY_FT_WORDS(36:44)]
                                                                         FTWordsValueImpl[XQUERY_FT_WORDS_VALUE(36:43)]
-                                                                           XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(36:43)]
+                                                                           XPathStringLiteralImpl[XQUERY_STRING_LITERAL(36:43)]
                                                                               LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(36:37)]('"')
                                                                               LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(37:42)]('lorem')
                                                                               LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(42:43)]('"')

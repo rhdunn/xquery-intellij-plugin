@@ -15,17 +15,17 @@ FileElement[FILE(0:60)]
                   LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_WORDS(29:34)]('words')
                   FTStopWordsImpl[XQUERY_FT_STOP_WORDS(34:59)]
                      LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(34:35)]('(')
-                     XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(35:42)]
+                     XPathStringLiteralImpl[XQUERY_STRING_LITERAL(35:42)]
                         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(35:36)]('"')
                         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(36:41)]('lorem')
                         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(41:42)]('"')
                      LeafPsiElement[XQUERY_COMMA_TOKEN(42:43)](',')
-                     XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(43:50)]
+                     XPathStringLiteralImpl[XQUERY_STRING_LITERAL(43:50)]
                         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(43:44)]('"')
                         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(44:49)]('ipsum')
                         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(49:50)]('"')
                      LeafPsiElement[XQUERY_COMMA_TOKEN(50:51)](',')
-                     XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(51:58)]
+                     XPathStringLiteralImpl[XQUERY_STRING_LITERAL(51:58)]
                         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(51:52)]('"')
                         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(52:57)]('dolor')
                         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(57:58)]('"')
