@@ -20,6 +20,7 @@ import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.data.CachedProperty
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.filterNotToken
+import uk.co.reecedunn.intellij.plugin.core.sequences.withNext
 import uk.co.reecedunn.intellij.plugin.xdm.XsUntyped
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmAtomicValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
@@ -42,11 +43,8 @@ class XQueryPostfixExprPsiImpl(node: ASTNode):
      */
     private val staticEval: CachedProperty<Pair<XdmSequenceType, Any?>?> = CachedProperty {
         val children = children().filterNotToken(XQueryElementType.WHITESPACE_OR_COMMENT).iterator()
-        if (!children.hasNext())
-            null
-        else {
-            val value = children.next() as? XdmAtomicValue
-            if (value == null || children.hasNext())
+        children.withNext { value ->
+            if (value !is XdmAtomicValue || children.hasNext())
                 null
             else // Literal without a Predicate, ArgumentList, or Lookup expression.
                 Pair(value.staticType, value.lexicalRepresentation)
