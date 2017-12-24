@@ -32,7 +32,7 @@ class XQueryXdmTest : ParserTestCase() {
         return parseText(xquery)!!.walkTree().filterIsInstance<T>().first() as XdmAtomicValue
     }
 
-    // region Atomic Value for Literal Types
+    // region Atomic Values
     // region StringLiteral
 
     fun testStringLiteral_PredefinedEntityReference() {
@@ -50,6 +50,30 @@ class XQueryXdmTest : ParserTestCase() {
 
     // endregion
     // region UriLiteral
+
+    fun testUriLiteral() {
+        val literal = parseLiteral<XQueryUriLiteral>("module namespace test = \"http://www.example.com\uFFFF\"")
+        assertThat(literal.lexicalRepresentation, `is`("http://www.example.com\uFFFF")) // U+FFFF = BAD_CHARACTER token.
+        assertThat(literal.staticType, `is`(XsAnyURI as XdmSequenceType))
+    }
+
+    fun testUriLiteral_Unclosed() {
+        val literal = parseLiteral<XQueryUriLiteral>("module namespace test = \"http://www.example.com")
+        assertThat(literal.lexicalRepresentation, `is`("http://www.example.com"))
+        assertThat(literal.staticType, `is`(XsAnyURI as XdmSequenceType))
+    }
+
+    fun testUriLiteral_EscapeApos() {
+        val literal = parseLiteral<XQueryUriLiteral>("module namespace test = '''\"\"'")
+        assertThat(literal.lexicalRepresentation, `is`("'\"\""))
+        assertThat(literal.staticType, `is`(XsAnyURI as XdmSequenceType))
+    }
+
+    fun testUriLiteral_EscapeQuot() {
+        val literal = parseLiteral<XQueryUriLiteral>("module namespace test = \"''\"\"\"")
+        assertThat(literal.lexicalRepresentation, `is`("''\""))
+        assertThat(literal.staticType, `is`(XsAnyURI as XdmSequenceType))
+    }
 
     fun testUriLiteral_PredefinedEntityReference() {
         // entity reference types: XQuery, HTML4, HTML5, UTF-16 surrogate pair, multi-character entity, empty, partial
