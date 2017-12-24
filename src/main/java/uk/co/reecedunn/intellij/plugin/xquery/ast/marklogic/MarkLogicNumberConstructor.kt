@@ -15,9 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic
 
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPrimaryExpr
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPrimaryExpr
 
 /**
  * A MarkLogic 8.0 `NumberConstructor` node in the XQuery AST.
  */
-interface MarkLogicNumberConstructor : XQueryPrimaryExpr
+interface MarkLogicNumberConstructor : XPathPrimaryExpr

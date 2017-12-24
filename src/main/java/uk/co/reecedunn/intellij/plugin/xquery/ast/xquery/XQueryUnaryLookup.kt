@@ -15,7 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPrimaryExpr
+
 /**
  * An XQuery 3.1 `UnaryLookup` node in the XQuery AST.
  */
-interface XQueryUnaryLookup : XQueryPrimaryExpr
+interface XQueryUnaryLookup : XPathPrimaryExpr

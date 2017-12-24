@@ -15,8 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPrimaryExpr;
+
 /**
  * An XQuery 1.0 <code>OrderedExpr</code> node in the XQuery AST.
  */
-public interface XQueryOrderedExpr extends XQueryPrimaryExpr {
+public interface XQueryOrderedExpr extends XPathPrimaryExpr {
 }

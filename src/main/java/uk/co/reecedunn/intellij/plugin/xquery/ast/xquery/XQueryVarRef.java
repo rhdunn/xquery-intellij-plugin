@@ -15,8 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPrimaryExpr;
+
 /**
  * An XQuery 1.0 <code>VarRef</code> node in the XQuery AST.
  */
-public interface XQueryVarRef extends XQueryPrimaryExpr {
+public interface XQueryVarRef extends XPathPrimaryExpr {
 }

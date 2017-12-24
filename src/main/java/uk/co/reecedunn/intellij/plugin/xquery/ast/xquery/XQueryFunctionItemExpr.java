@@ -15,6 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPrimaryExpr;
+
 /**
  * An XQuery 3.0 <code>FunctionItemExpr</code> node in the XQuery AST.
  *
@@ -23,5 +25,5 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
  * <code>FunctionItemExpr</code> nodes are stored as instances of the child nodes
  * instead of as distinct nodes themselves.
  */
-public interface XQueryFunctionItemExpr extends XQueryPrimaryExpr {
+public interface XQueryFunctionItemExpr extends XPathPrimaryExpr {
 }

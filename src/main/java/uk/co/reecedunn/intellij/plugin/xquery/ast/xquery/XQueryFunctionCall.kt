@@ -15,10 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPrimaryExpr
+
 /**
  * An XQuery 1.0 `FunctionCall` node in the XQuery AST.
  */
-interface XQueryFunctionCall : XQueryPrimaryExpr {
+interface XQueryFunctionCall : XPathPrimaryExpr {
     val functionName: XQueryEQName?
 
     val arity: Int

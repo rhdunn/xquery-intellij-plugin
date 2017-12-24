@@ -15,7 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPrimaryExpr
+
 /**
  * A XQuery 3.1 `MapConstructor` node in the XQuery AST.
  */
-interface XQueryMapConstructor : XQueryPrimaryExpr
+interface XQueryMapConstructor : XPathPrimaryExpr

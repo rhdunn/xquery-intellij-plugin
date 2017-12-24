@@ -15,8 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPrimaryExpr;
+
 /**
  * An XQuery 3.1 <code>ArrayConstructor</code> node in the XQuery AST.
  */
-public interface XQueryArrayConstructor extends XQueryPrimaryExpr {
+public interface XQueryArrayConstructor extends XPathPrimaryExpr {
 }

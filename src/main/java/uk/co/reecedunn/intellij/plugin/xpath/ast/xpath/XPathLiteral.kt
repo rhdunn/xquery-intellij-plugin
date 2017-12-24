@@ -15,8 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPrimaryExpr
-
 /**
  * An XPath 2.0 and XQuery 1.0 `Literal` node in the XQuery AST.
  *
@@ -24,4 +22,4 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPrimaryExpr
  * nodes are used in other parts of the grammar, so not every
  * `StringLiteral` node is a `Literal` node.
  */
-interface XPathLiteral : XQueryPrimaryExpr
+interface XPathLiteral : XPathPrimaryExpr

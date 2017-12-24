@@ -15,9 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic
 
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPrimaryExpr
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPrimaryExpr
 
 /**
  * A MarkLogic 8.0 `NullConstructor` node in the XQuery AST.
  */
-interface MarkLogicNullConstructor : XQueryPrimaryExpr
+interface MarkLogicNullConstructor : XPathPrimaryExpr

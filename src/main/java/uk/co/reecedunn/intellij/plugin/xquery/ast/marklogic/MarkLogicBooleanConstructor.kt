@@ -15,9 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic
 
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPrimaryExpr
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPrimaryExpr
 
 /**
  * A MarkLogic 8.0 `BooleanConstructor` node in the XQuery AST.
  */
-interface MarkLogicBooleanConstructor : XQueryPrimaryExpr
+interface MarkLogicBooleanConstructor : XPathPrimaryExpr

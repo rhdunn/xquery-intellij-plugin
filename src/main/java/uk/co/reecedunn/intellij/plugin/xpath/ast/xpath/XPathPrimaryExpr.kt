@@ -13,17 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
+package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
-import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiElement
 
 /**
- * An XQuery 1.0 <code>PrimaryExpr</code> node in the XQuery AST.
+ * An XPath 2.0 and XQuery 1.0 `PrimaryExpr` node in the XQuery AST.
  *
- * Because the child nodes of a <code>PrimaryExpr</code> are only referenced
- * from the <code>PrimaryExpr</code> node in the grammar, the
- * <code>PrimaryExpr</code> nodes are stored as instances of the child nodes
+ * Because the child nodes of a `PrimaryExpr` are only referenced
+ * from the `PrimaryExpr` node in the grammar, the
+ * `PrimaryExpr` nodes are stored as instances of the child nodes
  * instead of as distinct nodes themselves.
  */
-public interface XQueryPrimaryExpr extends PsiElement {
-}
+interface XPathPrimaryExpr : PsiElement

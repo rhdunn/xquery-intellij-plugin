@@ -15,8 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPrimaryExpr;
+
 /**
  * An XQuery 1.0 <code>ParenthesizedExpr</code> node in the XQuery AST.
  */
-public interface XQueryParenthesizedExpr extends XQueryPrimaryExpr {
+public interface XQueryParenthesizedExpr extends XPathPrimaryExpr {
 }
