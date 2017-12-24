@@ -15,7 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNumericLiteral
+
 /**
  * An XQuery 1.0 `IntegerLiteral` node in the XQuery AST.
  */
-interface XQueryIntegerLiteral : XQueryNumericLiteral
+interface XQueryIntegerLiteral : XPathNumericLiteral
