@@ -268,15 +268,7 @@ public abstract class ParsingTestCase<File extends PsiFile> extends PlatformLite
     @SuppressWarnings("unchecked")
     public File parseResource(String resource) {
         VirtualFile file = ResourceVirtualFile.create(ParsingTestCase.class, resource);
-        File ret = (File)PsiManager.getInstance(myProject).findFile(file);
-        try {
-            FileWriter out = new FileWriter("C:\\Projects\\intellij-plugins\\xquery-intellij-plugin\\src\\test\\resources\\" + resource.replace(".xq", ".txt").replaceAll("/", "\\\\"));
-            out.write(prettyPrintASTNode(ret));
-            out.close();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        return ret;
+        return (File)PsiManager.getInstance(myProject).findFile(file);
     }
 
     public Document getDocument(PsiFile file) {

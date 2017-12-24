@@ -34,7 +34,7 @@ FileElement[FILE(0:20)]
                                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(8:8)]
                                                                      LeafPsiElement[XQUERY_DIRECT_DESCENDANTS_PATH_TOKEN(8:9)]('/')
                                                                      PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
-                                                                     XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(10:20)]
+                                                                     XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(10:20)]
                                                                         XQueryFunctionCallImpl[XQUERY_FUNCTION_CALL(10:20)]
                                                                            XQueryNCNameImpl[XQUERY_NCNAME(10:16)]
                                                                               LeafPsiElement[XQUERY_NCNAME_TOKEN(10:16)]('string')

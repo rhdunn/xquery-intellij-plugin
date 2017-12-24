@@ -72,7 +72,7 @@ FileElement[FILE(0:74)]
                                                                   XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(71:73)]
                                                                      XQueryPathExprImpl[XQUERY_PATH_EXPR(71:73)]
                                                                         XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(71:73)]
-                                                                           XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(71:73)]
+                                                                           XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(71:73)]
                                                                               XPathLiteralImpl[XQUERY_LITERAL(71:72)]
                                                                                  XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(71:72)]('1')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(72:73)](' ')

@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmAtomicValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPostfixExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Saxon
@@ -236,7 +237,7 @@ class XQueryPsiTest:ParserTestCase() {
     fun testArgumentList_PostfixExpr() {
         val file = parseResource("tests/parser/xquery-3.0/PostfixExpr_ArgumentList.xq")!!
 
-        val postfixExprPsi = file.descendants().filterIsInstance<XQueryPostfixExpr>().first()
+        val postfixExprPsi = file.descendants().filterIsInstance<XPathPostfixExpr>().first()
         val argumentListPsi = postfixExprPsi.children().filterIsInstance<XQueryArgumentList>().first()
         val versioned = argumentListPsi as XQueryConformance
 
@@ -1584,7 +1585,7 @@ class XQueryPsiTest:ParserTestCase() {
     fun testLookup() {
         val file = parseResource("tests/parser/xquery-3.1/Lookup.xq")!!
 
-        val postfixExprPsi = file.descendants().filterIsInstance<XQueryPostfixExpr>().first()
+        val postfixExprPsi = file.descendants().filterIsInstance<XPathPostfixExpr>().first()
         val lookupPsi = postfixExprPsi.children().filterIsInstance<XQueryLookup>().first()
         val versioned = lookupPsi as XQueryConformance
 

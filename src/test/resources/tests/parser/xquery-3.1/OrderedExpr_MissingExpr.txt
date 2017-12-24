@@ -21,7 +21,7 @@ FileElement[FILE(0:11)]
                                                             XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:11)]
                                                                XQueryPathExprImpl[XQUERY_PATH_EXPR(0:11)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:11)]
-                                                                     XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:11)]
+                                                                     XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:11)]
                                                                         XQueryOrderedExprImpl[XQUERY_ORDERED_EXPR(0:11)]
                                                                            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_ORDERED(0:7)]('ordered')
                                                                            PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')

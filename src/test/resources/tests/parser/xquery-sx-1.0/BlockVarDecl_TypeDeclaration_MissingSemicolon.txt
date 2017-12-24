@@ -62,7 +62,7 @@ FileElement[FILE(0:69)]
                                                                         XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(62:66)]
                                                                            XQueryPathExprImpl[XQUERY_PATH_EXPR(62:66)]
                                                                               XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(62:66)]
-                                                                                 XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(62:66)]
+                                                                                 XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(62:66)]
                                                                                     XQueryParenthesizedExprImpl[XQUERY_PARENTHESIZED_EXPR(62:65)]
                                                                                        LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(62:63)]('(')
                                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(63:64)](' ')

@@ -21,7 +21,7 @@ FileElement[FILE(0:12)]
                                                             XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:12)]
                                                                XQueryPathExprImpl[XQUERY_PATH_EXPR(0:12)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:12)]
-                                                                     XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:12)]
+                                                                     XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:12)]
                                                                         XQueryFunctionCallImpl[XQUERY_FUNCTION_CALL(0:12)]
                                                                            XQueryNCNameImpl[XQUERY_NCNAME(0:9)]
                                                                               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NULL_NODE(0:9)]('null-node')

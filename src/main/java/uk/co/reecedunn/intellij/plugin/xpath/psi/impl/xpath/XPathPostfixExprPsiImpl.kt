@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
+package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
@@ -25,12 +25,12 @@ import uk.co.reecedunn.intellij.plugin.xdm.XsUntyped
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmAtomicValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSimpleExpression
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPostfixExpr
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPostfixExpr
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 
-class XQueryPostfixExprPsiImpl(node: ASTNode):
+class XPathPostfixExprPsiImpl(node: ASTNode):
         ASTWrapperPsiElement(node),
-        XQueryPostfixExpr,
+        XPathPostfixExpr,
         XdmSimpleExpression {
 
     override fun subtreeChanged() {

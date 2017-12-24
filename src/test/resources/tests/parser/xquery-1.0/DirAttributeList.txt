@@ -21,7 +21,7 @@ FileElement[FILE(0:23)]
                                                             XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:23)]
                                                                XQueryPathExprImpl[XQUERY_PATH_EXPR(0:23)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:23)]
-                                                                     XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:23)]
+                                                                     XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:23)]
                                                                         XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:23)]
                                                                            XQueryDirElemConstructorImpl[XQUERY_DIR_ELEM_CONSTRUCTOR(0:23)]
                                                                               LeafPsiElement[XQUERY_OPEN_XML_TAG_TOKEN(0:1)]('<')

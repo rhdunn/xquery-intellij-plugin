@@ -21,7 +21,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryArgumentList
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPostfixExpr
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPostfixExpr
 import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
@@ -37,7 +37,7 @@ private val XQUERY30: List<Version> = listOf(XQuery.REC_3_0_20140408, MarkLogic.
 
 class XQueryArgumentListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryArgumentList, XQueryConformance {
     override val requiresConformance get(): List<Version> {
-        if (parent !is XQueryPostfixExpr) {
+        if (parent !is XPathPostfixExpr) {
             return XQUERY10
         }
         return XQUERY30

@@ -82,7 +82,7 @@ FileElement[FILE(0:130)]
                                                          XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(98:100)]
                                                             XQueryPathExprImpl[XQUERY_PATH_EXPR(98:100)]
                                                                XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(98:100)]
-                                                                  XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(98:100)]
+                                                                  XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(98:100)]
                                                                      XPathLiteralImpl[XQUERY_LITERAL(98:99)]
                                                                         XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(98:99)]('2')
                                                                      PsiWhiteSpaceImpl[WHITE_SPACE(99:100)](' ')
@@ -125,7 +125,7 @@ FileElement[FILE(0:130)]
                                                                   XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(127:129)]
                                                                      XQueryPathExprImpl[XQUERY_PATH_EXPR(127:129)]
                                                                         XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(127:129)]
-                                                                           XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(127:129)]
+                                                                           XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(127:129)]
                                                                               XPathLiteralImpl[XQUERY_LITERAL(127:128)]
                                                                                  XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(127:128)]('3')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(128:129)](' ')

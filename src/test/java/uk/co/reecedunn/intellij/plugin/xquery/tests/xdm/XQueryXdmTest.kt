@@ -177,7 +177,7 @@ class XQueryXdmTest : ParserTestCase() {
     // region PostfixExpr
 
     fun testPostfixExpr_LiteralValue() {
-        val expr = parseSimpleExpression<XQueryPostfixExpr>("1e3")
+        val expr = parseSimpleExpression<XPathPostfixExpr>("1e3")
         assertThat(expr.constantValue, `is`(notNullValue()))
         assertThat(expr.constantValue, `is`(instanceOf(String::class.java)))
         assertThat(expr.constantValue as String, `is`("1e3"))
@@ -185,13 +185,13 @@ class XQueryXdmTest : ParserTestCase() {
     }
 
     fun testPostfixExpr_LiteralValue_ComplexExpression() {
-        val expr = parseSimpleExpression<XQueryPostfixExpr>("1?1")
+        val expr = parseSimpleExpression<XPathPostfixExpr>("1?1")
         assertThat(expr.constantValue, `is`(nullValue())) // Expression is invalid, and cannot be resolved.
         assertThat(expr.staticType, `is`(XsUntyped as XdmSequenceType))
     }
 
     fun testPostfixExpr_NonLiteralValue() {
-        val expr = parseSimpleExpression<XQueryPostfixExpr>("test()")
+        val expr = parseSimpleExpression<XPathPostfixExpr>("test()")
         assertThat(expr.constantValue, `is`(nullValue())) // Cannot evaluate non-literal expression.
         assertThat(expr.staticType, `is`(XsUntyped as XdmSequenceType))
     }

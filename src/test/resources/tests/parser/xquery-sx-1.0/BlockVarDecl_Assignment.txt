@@ -51,7 +51,7 @@ FileElement[FILE(0:62)]
                                                                         XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(51:53)]
                                                                            XQueryPathExprImpl[XQUERY_PATH_EXPR(51:53)]
                                                                               XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(51:53)]
-                                                                                 XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(51:53)]
+                                                                                 XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(51:53)]
                                                                                     XPathLiteralImpl[XQUERY_LITERAL(51:52)]
                                                                                        XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(51:52)]('2')
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(52:53)](' ')
@@ -78,7 +78,7 @@ FileElement[FILE(0:62)]
                                                                         XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(55:59)]
                                                                            XQueryPathExprImpl[XQUERY_PATH_EXPR(55:59)]
                                                                               XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(55:59)]
-                                                                                 XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(55:59)]
+                                                                                 XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(55:59)]
                                                                                     XQueryParenthesizedExprImpl[XQUERY_PARENTHESIZED_EXPR(55:58)]
                                                                                        LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(55:56)]('(')
                                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(56:57)](' ')

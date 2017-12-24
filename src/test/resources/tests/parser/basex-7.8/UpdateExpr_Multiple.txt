@@ -60,7 +60,7 @@ FileElement[FILE(0:48)]
                                                                                                                      XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(26:28)]
                                                                                                                         XQueryPathExprImpl[XQUERY_PATH_EXPR(26:28)]
                                                                                                                            XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(26:28)]
-                                                                                                                              XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(26:28)]
+                                                                                                                              XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(26:28)]
                                                                                                                                  XQueryContextItemExprImpl[XQUERY_CONTEXT_ITEM_EXPR(26:27)]
                                                                                                                                     LeafPsiElement[XQUERY_DOT_TOKEN(26:27)]('.')
                                                                                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
@@ -93,6 +93,6 @@ FileElement[FILE(0:48)]
                                                                                                                                                                               XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(47:48)]
                                                                                                                                                                                  XQueryPathExprImpl[XQUERY_PATH_EXPR(47:48)]
                                                                                                                                                                                     XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(47:48)]
-                                                                                                                                                                                       XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(47:48)]
+                                                                                                                                                                                       XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(47:48)]
                                                                                                                                                                                           XQueryContextItemExprImpl[XQUERY_CONTEXT_ITEM_EXPR(47:48)]
                                                                                                                                                                                              LeafPsiElement[XQUERY_DOT_TOKEN(47:48)]('.')

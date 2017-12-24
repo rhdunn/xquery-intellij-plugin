@@ -34,7 +34,7 @@ FileElement[FILE(0:53)]
                                                                      XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(11:15)]
                                                                         XQueryPathExprImpl[XQUERY_PATH_EXPR(11:15)]
                                                                            XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(11:15)]
-                                                                              XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(11:15)]
+                                                                              XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(11:15)]
                                                                                  XQueryVarRefImpl[XQUERY_VAR_REF(11:15)]
                                                                                     LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(11:12)]('$')
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
@@ -86,7 +86,7 @@ FileElement[FILE(0:53)]
                                                                   XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(50:53)]
                                                                      XQueryPathExprImpl[XQUERY_PATH_EXPR(50:53)]
                                                                         XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(50:53)]
-                                                                           XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(50:53)]
+                                                                           XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(50:53)]
                                                                               XQueryVarRefImpl[XQUERY_VAR_REF(50:53)]
                                                                                  LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(50:51)]('$')
                                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(51:52)](' ')

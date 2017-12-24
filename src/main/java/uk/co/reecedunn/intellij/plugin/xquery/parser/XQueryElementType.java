@@ -21,6 +21,7 @@ import com.intellij.psi.tree.TokenSet;
 import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType;
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathStringLiteralPsiImpl;
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathLiteralPsiImpl;
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathPostfixExprPsiImpl;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.basex.BaseXFTFuzzyOptionPsiImpl;
@@ -249,7 +250,7 @@ public interface XQueryElementType {
     // endregion
     // region XQuery 3.1
 
-    IElementType POSTFIX_EXPR = new ICompositeElementType("XQUERY_POSTFIX_EXPR", XQueryPostfixExprPsiImpl.class, XQuery.INSTANCE);
+    IElementType POSTFIX_EXPR = new ICompositeElementType("XQUERY_POSTFIX_EXPR", XPathPostfixExprPsiImpl.class, XQuery.INSTANCE);
 
     IElementType ARROW_EXPR = new ICompositeElementType("XQUERY_ARROW_EXPR", XQueryArrowExprPsiImpl.class, XQuery.INSTANCE);
     IElementType ARROW_FUNCTION_SPECIFIER = new ICompositeElementType("XQUERY_ARROW_FUNCTION_SPECIFIER", XQueryArrowFunctionSpecifierPsiImpl.class, XQuery.INSTANCE);

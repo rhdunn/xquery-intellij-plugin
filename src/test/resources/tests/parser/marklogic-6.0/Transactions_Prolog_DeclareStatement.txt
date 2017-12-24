@@ -21,7 +21,7 @@ FileElement[FILE(0:31)]
                                                             XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:2)]
                                                                XQueryPathExprImpl[XQUERY_PATH_EXPR(0:2)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:2)]
-                                                                     XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:2)]
+                                                                     XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:2)]
                                                                         XPathLiteralImpl[XQUERY_LITERAL(0:1)]
                                                                            XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:1)]('2')
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(1:2)]('\n')
@@ -63,7 +63,7 @@ FileElement[FILE(0:31)]
                                                                   XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(27:28)]
                                                                      XQueryPathExprImpl[XQUERY_PATH_EXPR(27:28)]
                                                                         XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(27:28)]
-                                                                           XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(27:28)]
+                                                                           XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(27:28)]
                                                                               XPathLiteralImpl[XQUERY_LITERAL(27:28)]
                                                                                  XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(27:28)]('3')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(28:29)](';')
@@ -89,6 +89,6 @@ FileElement[FILE(0:31)]
                                                             XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(30:31)]
                                                                XQueryPathExprImpl[XQUERY_PATH_EXPR(30:31)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(30:31)]
-                                                                     XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(30:31)]
+                                                                     XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(30:31)]
                                                                         XPathLiteralImpl[XQUERY_LITERAL(30:31)]
                                                                            XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(30:31)]('4')

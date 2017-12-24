@@ -21,7 +21,7 @@ FileElement[FILE(0:11)]
                                                             XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:11)]
                                                                XQueryPathExprImpl[XQUERY_PATH_EXPR(0:11)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:11)]
-                                                                     XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:11)]
+                                                                     XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:11)]
                                                                         XPathLiteralImpl[XQUERY_LITERAL(0:11)]
                                                                            XPathDecimalLiteralImpl[XQUERY_DECIMAL_LITERAL_TOKEN(0:10)]('2.99792458')
                                                                            PsiErrorElementImpl[ERROR_ELEMENT(10:11)]('XPST0003: Incomplete double exponent.')

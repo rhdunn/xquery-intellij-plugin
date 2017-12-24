@@ -38,7 +38,7 @@ FileElement[FILE(0:74)]
                                                                      XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(27:31)]
                                                                         XQueryPathExprImpl[XQUERY_PATH_EXPR(27:31)]
                                                                            XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(27:31)]
-                                                                              XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(27:31)]
+                                                                              XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(27:31)]
                                                                                  XQueryVarRefImpl[XQUERY_VAR_REF(27:31)]
                                                                                     LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(27:28)]('$')
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
@@ -79,7 +79,7 @@ FileElement[FILE(0:74)]
                                                                         XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(55:64)]
                                                                            XQueryPathExprImpl[XQUERY_PATH_EXPR(55:64)]
                                                                               XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(55:64)]
-                                                                                 XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(55:64)]
+                                                                                 XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(55:64)]
                                                                                     XQueryFunctionCallImpl[XQUERY_FUNCTION_CALL(55:63)]
                                                                                        XQueryNCNameImpl[XQUERY_NCNAME(55:59)]
                                                                                           LeafPsiElement[XQUERY_NCNAME_TOKEN(55:59)]('true')
@@ -111,7 +111,7 @@ FileElement[FILE(0:74)]
                                                                   XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(71:74)]
                                                                      XQueryPathExprImpl[XQUERY_PATH_EXPR(71:74)]
                                                                         XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(71:74)]
-                                                                           XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(71:74)]
+                                                                           XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(71:74)]
                                                                               XQueryVarRefImpl[XQUERY_VAR_REF(71:74)]
                                                                                  LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(71:72)]('$')
                                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(72:73)](' ')

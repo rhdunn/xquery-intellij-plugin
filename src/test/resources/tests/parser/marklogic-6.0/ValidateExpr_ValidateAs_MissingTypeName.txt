@@ -47,7 +47,7 @@ FileElement[FILE(0:22)]
                                                                                                                      XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(14:21)]
                                                                                                                         XQueryPathExprImpl[XQUERY_PATH_EXPR(14:21)]
                                                                                                                            XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(14:21)]
-                                                                                                                              XQueryPostfixExprImpl[XQUERY_POSTFIX_EXPR(14:21)]
+                                                                                                                              XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(14:21)]
                                                                                                                                  XPathLiteralImpl[XQUERY_LITERAL(14:20)]
                                                                                                                                     XPathStringLiteralImpl[XQUERY_STRING_LITERAL(14:20)]
                                                                                                                                        LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(14:15)]('"')
