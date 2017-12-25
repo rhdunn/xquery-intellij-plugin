@@ -11,7 +11,7 @@ FileElement[FILE(0:41)]
                LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_FUNCTION(19:27)]('function')
                PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
                XPathNCNameImpl[XQUERY_NCNAME(28:29)]
-                  LeafPsiElement[XQUERY_NCNAME_TOKEN(28:29)]('f')
+                  XmlNCNameImpl[XQUERY_NCNAME_TOKEN(28:29)]('f')
                LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(29:30)]('(')
                LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(30:31)](')')
                PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')

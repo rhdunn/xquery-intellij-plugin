@@ -8,7 +8,7 @@ FileElement[FILE(0:30)]
             PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
             XPathQNameImpl[XQUERY_QNAME(15:22)]
                XPathNCNameImpl[XQUERY_NCNAME(15:18)]
-                  LeafPsiElement[XQUERY_NCNAME_TOKEN(15:18)]('one')
+                  XmlNCNameImpl[XQUERY_NCNAME_TOKEN(15:18)]('one')
                LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(18:19)](':')
                PsiErrorElementImpl[ERROR_ELEMENT(19:22)]('XPST0003: Missing local name after ':' in qualified name.')
                   XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(19:22)]('234')

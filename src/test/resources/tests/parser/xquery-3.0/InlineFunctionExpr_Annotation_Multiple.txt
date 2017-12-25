@@ -33,7 +33,7 @@ FileElement[FILE(0:34)]
                                                                               LeafPsiElement[XQUERY_ANNOTATION_INDICATOR_TOKEN(9:10)]('%')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
                                                                               XPathNCNameImpl[XQUERY_NCNAME(11:15)]
-                                                                                 LeafPsiElement[XQUERY_NCNAME_TOKEN(11:15)]('test')
+                                                                                 XmlNCNameImpl[XQUERY_NCNAME_TOKEN(11:15)]('test')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
                                                                            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_FUNCTION(16:24)]('function')
                                                                            PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')

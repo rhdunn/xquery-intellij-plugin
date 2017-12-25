@@ -28,13 +28,13 @@ FileElement[FILE(0:14)]
                                                                               XQueryNodeTestImpl[XQUERY_NODE_TEST(1:5)]
                                                                                  XQueryNameTestImpl[XQUERY_NAME_TEST(1:5)]
                                                                                     XPathNCNameImpl[XQUERY_NCNAME(1:5)]
-                                                                                       LeafPsiElement[XQUERY_NCNAME_TOKEN(1:5)]('test')
+                                                                                       XmlNCNameImpl[XQUERY_NCNAME_TOKEN(1:5)]('test')
                                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(5:5)]
                                                                      LeafPsiElement[XQUERY_DIRECT_DESCENDANTS_PATH_TOKEN(5:6)]('/')
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(6:14)]
                                                                         XQueryFunctionCallImpl[XQUERY_FUNCTION_CALL(6:14)]
                                                                            XPathNCNameImpl[XQUERY_NCNAME(6:12)]
-                                                                              LeafPsiElement[XQUERY_NCNAME_TOKEN(6:12)]('string')
+                                                                              XmlNCNameImpl[XQUERY_NCNAME_TOKEN(6:12)]('string')
                                                                            XQueryArgumentListImpl[XQUERY_ARGUMENT_LIST(12:14)]
                                                                               LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(12:13)]('(')
                                                                               LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(13:14)](')')

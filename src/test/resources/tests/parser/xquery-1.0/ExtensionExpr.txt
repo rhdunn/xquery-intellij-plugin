@@ -24,10 +24,10 @@ FileElement[FILE(0:39)]
                                                                   PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
                                                                   XPathQNameImpl[XQUERY_QNAME(3:11)]
                                                                      XPathNCNameImpl[XQUERY_NCNAME(3:6)]
-                                                                        LeafPsiElement[XQUERY_NCNAME_TOKEN(3:6)]('ext')
+                                                                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(3:6)]('ext')
                                                                      LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(6:7)](':')
                                                                      XPathNCNameImpl[XQUERY_NCNAME(7:11)]
-                                                                        LeafPsiElement[XQUERY_NCNAME_TOKEN(7:11)]('test')
+                                                                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(7:11)]('test')
                                                                   PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
                                                                   LeafPsiElement[XQUERY_PRAGMA_CONTENTS_TOKEN(12:31)]('Lorem ipsum dolor. ')
                                                                   LeafPsiElement[XQUERY_PRAGMA_END_TOKEN(31:33)]('#)')

@@ -14,7 +14,7 @@ FileElement[FILE(0:37)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')
                   XPathEQNameImpl[XQUERY_EQNAME(31:36)]
                      XPathNCNameImpl[XQUERY_NCNAME(31:35)]
-                        LeafPsiElement[XQUERY_NCNAME_TOKEN(31:35)]('test')
+                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(31:35)]('test')
                      PsiWhiteSpaceImpl[WHITE_SPACE(35:36)](' ')
                   PsiErrorElementImpl[ERROR_ELEMENT(36:36)]('XPST0003: Expected 'StringLiteral'.')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(36:37)](';')

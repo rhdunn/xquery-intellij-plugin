@@ -30,7 +30,7 @@ FileElement[FILE(0:58)]
                                                                         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(14:42)]('http://www.example.com/test#')
                                                                         LeafPsiElement[XQUERY_BRACED_URI_LITERAL_END_TOKEN(42:43)]('}')
                                                                      XPathNCNameImpl[XQUERY_NCNAME(43:47)]
-                                                                        LeafPsiElement[XQUERY_NCNAME_TOKEN(43:47)]('name')
+                                                                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(43:47)]('name')
                                                                PsiWhiteSpaceImpl[WHITE_SPACE(47:48)](' ')
                                                                LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(48:49)]('{')
                                                                PsiWhiteSpaceImpl[WHITE_SPACE(49:50)](' ')

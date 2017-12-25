@@ -10,6 +10,6 @@ FileElement[FILE(0:22)]
                   LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(15:16)]('$')
                   XQueryVarNameImpl[XQUERY_VAR_NAME(16:20)]
                      XPathNCNameImpl[XQUERY_NCNAME(16:20)]
-                        LeafPsiElement[XQUERY_NCNAME_TOKEN(16:20)]('test')
+                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(16:20)]('test')
                LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(20:21)]('(')
                LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(21:22)](')')

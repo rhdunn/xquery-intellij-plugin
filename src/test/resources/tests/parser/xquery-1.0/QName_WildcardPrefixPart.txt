@@ -11,7 +11,7 @@ FileElement[FILE(0:28)]
                LeafPsiElement[XQUERY_STAR_TOKEN(15:16)]('*')
                LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(16:17)](':')
                XPathNCNameImpl[XQUERY_NCNAME(17:20)]
-                  LeafPsiElement[XQUERY_NCNAME_TOKEN(17:20)]('two')
+                  XmlNCNameImpl[XQUERY_NCNAME_TOKEN(17:20)]('two')
             PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
             XPathStringLiteralImpl[XQUERY_STRING_LITERAL(21:27)]
                LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(21:22)]('"')

@@ -9,10 +9,10 @@ FileElement[FILE(0:29)]
                PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
                XPathQNameImpl[XQUERY_QNAME(17:24)]
                   XPathNCNameImpl[XQUERY_NCNAME(17:19)]
-                     LeafPsiElement[XQUERY_NCNAME_TOKEN(17:19)]('fn')
+                     XmlNCNameImpl[XQUERY_NCNAME_TOKEN(17:19)]('fn')
                   LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(19:20)](':')
                   XPathNCNameImpl[XQUERY_NCNAME(20:24)]
-                     LeafPsiElement[XQUERY_NCNAME_TOKEN(20:24)]('true')
+                     XmlNCNameImpl[XQUERY_NCNAME_TOKEN(20:24)]('true')
                PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
                LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(25:26)]('(')
                PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')

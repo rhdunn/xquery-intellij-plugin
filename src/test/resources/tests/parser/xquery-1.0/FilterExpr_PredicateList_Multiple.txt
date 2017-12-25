@@ -27,10 +27,10 @@ FileElement[FILE(0:21)]
                                                                            PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
                                                                            XQueryVarNameImpl[XQUERY_VAR_NAME(2:9)]
                                                                               XPathNCNameImpl[XQUERY_NCNAME(2:5)]
-                                                                                 LeafPsiElement[XQUERY_NCNAME_TOKEN(2:5)]('one')
+                                                                                 XmlNCNameImpl[XQUERY_NCNAME_TOKEN(2:5)]('one')
                                                                               LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(5:6)](':')
                                                                               XPathNCNameImpl[XQUERY_NCNAME(6:9)]
-                                                                                 LeafPsiElement[XQUERY_NCNAME_TOKEN(6:9)]('two')
+                                                                                 XmlNCNameImpl[XQUERY_NCNAME_TOKEN(6:9)]('two')
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
                                                                         XQueryPredicateImpl[XQUERY_PREDICATE(10:15)]
                                                                            LeafPsiElement[XQUERY_SQUARE_OPEN_TOKEN(10:11)]('[')

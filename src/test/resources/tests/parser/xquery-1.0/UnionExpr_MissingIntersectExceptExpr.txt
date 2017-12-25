@@ -27,7 +27,7 @@ FileElement[FILE(0:13)]
                                                                               XQueryNodeTestImpl[XQUERY_NODE_TEST(0:2)]
                                                                                  XQueryNameTestImpl[XQUERY_NAME_TEST(0:2)]
                                                                                     XPathNCNameImpl[XQUERY_NCNAME(0:1)]
-                                                                                       LeafPsiElement[XQUERY_NCNAME_TOKEN(0:1)]('a')
+                                                                                       XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:1)]('a')
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
                                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(2:2)]
                                        LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_UNION(2:7)]('union')
@@ -60,7 +60,7 @@ FileElement[FILE(0:13)]
                                                                               XQueryNodeTestImpl[XQUERY_NODE_TEST(10:12)]
                                                                                  XQueryNameTestImpl[XQUERY_NAME_TEST(10:12)]
                                                                                     XPathNCNameImpl[XQUERY_NCNAME(10:11)]
-                                                                                       LeafPsiElement[XQUERY_NCNAME_TOKEN(10:11)]('a')
+                                                                                       XmlNCNameImpl[XQUERY_NCNAME_TOKEN(10:11)]('a')
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
                                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(12:12)]
                                        LeafPsiElement[XQUERY_UNION_TOKEN(12:13)]('|')

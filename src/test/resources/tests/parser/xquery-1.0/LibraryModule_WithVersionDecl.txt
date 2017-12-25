@@ -17,7 +17,7 @@ FileElement[FILE(0:122)]
          LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NAMESPACE(29:38)]('namespace')
          PsiWhiteSpaceImpl[WHITE_SPACE(38:39)](' ')
          XPathNCNameImpl[XQUERY_NCNAME(39:43)]
-            LeafPsiElement[XQUERY_NCNAME_TOKEN(39:43)]('test')
+            XmlNCNameImpl[XQUERY_NCNAME_TOKEN(39:43)]('test')
          PsiWhiteSpaceImpl[WHITE_SPACE(43:44)](' ')
          LeafPsiElement[XQUERY_EQUAL_TOKEN(44:45)]('=')
          PsiWhiteSpaceImpl[WHITE_SPACE(45:46)](' ')

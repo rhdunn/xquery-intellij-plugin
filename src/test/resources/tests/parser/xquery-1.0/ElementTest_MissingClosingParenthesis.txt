@@ -11,7 +11,7 @@ FileElement[FILE(0:57)]
                PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
                XQueryVarNameImpl[XQUERY_VAR_NAME(19:23)]
                   XPathNCNameImpl[XQUERY_NCNAME(19:22)]
-                     LeafPsiElement[XQUERY_NCNAME_TOKEN(19:22)]('one')
+                     XmlNCNameImpl[XQUERY_NCNAME_TOKEN(19:22)]('one')
                   PsiWhiteSpaceImpl[WHITE_SPACE(22:23)](' ')
                XQueryTypeDeclarationImpl[XQUERY_TYPE_DECLARATION(23:47)]
                   LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_AS(23:25)]('as')
@@ -26,10 +26,10 @@ FileElement[FILE(0:57)]
                            XQueryElementNameOrWildcardImpl[XQUERY_ELEMENT_NAME_OR_WILDCARD(36:46)]
                               XQueryElementNameImpl[XQUERY_ELEMENT_NAME(36:46)]
                                  XPathNCNameImpl[XQUERY_NCNAME(36:40)]
-                                    LeafPsiElement[XQUERY_NCNAME_TOKEN(36:40)]('html')
+                                    XmlNCNameImpl[XQUERY_NCNAME_TOKEN(36:40)]('html')
                                  LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(40:41)](':')
                                  XPathNCNameImpl[XQUERY_NCNAME(41:46)]
-                                    LeafPsiElement[XQUERY_NCNAME_TOKEN(41:46)]('class')
+                                    XmlNCNameImpl[XQUERY_NCNAME_TOKEN(41:46)]('class')
                            PsiWhiteSpaceImpl[WHITE_SPACE(46:47)](' ')
                            PsiErrorElementImpl[ERROR_ELEMENT(47:47)]('XPST0003: Expected ')'.')
                LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(47:55)]('external')

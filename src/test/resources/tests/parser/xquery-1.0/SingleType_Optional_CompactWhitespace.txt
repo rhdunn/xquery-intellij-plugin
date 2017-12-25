@@ -32,8 +32,8 @@ FileElement[FILE(0:21)]
                                                       XQuerySingleTypeImpl[XQUERY_SINGLE_TYPE(11:21)]
                                                          XQuerySimpleTypeNameImpl[XQUERY_SIMPLE_TYPE_NAME(11:20)]
                                                             XPathNCNameImpl[XQUERY_NCNAME(11:13)]
-                                                               LeafPsiElement[XQUERY_NCNAME_TOKEN(11:13)]('xs')
+                                                               XmlNCNameImpl[XQUERY_NCNAME_TOKEN(11:13)]('xs')
                                                             LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(13:14)](':')
                                                             XPathNCNameImpl[XQUERY_NCNAME(14:20)]
-                                                               LeafPsiElement[XQUERY_NCNAME_TOKEN(14:20)]('double')
+                                                               XmlNCNameImpl[XQUERY_NCNAME_TOKEN(14:20)]('double')
                                                          LeafPsiElement[XQUERY_OPTIONAL_TOKEN(20:21)]('?')

@@ -6,7 +6,7 @@ FileElement[FILE(0:23)]
          LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NAMESPACE(7:16)]('namespace')
          PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
          XPathNCNameImpl[XQUERY_NCNAME(17:20)]
-            LeafPsiElement[XQUERY_NCNAME_TOKEN(17:20)]('one')
+            XmlNCNameImpl[XQUERY_NCNAME_TOKEN(17:20)]('one')
          PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
          LeafPsiElement[XQUERY_EQUAL_TOKEN(21:22)]('=')
          PsiErrorElementImpl[ERROR_ELEMENT(22:22)]('XPST0003: Missing URI string.')

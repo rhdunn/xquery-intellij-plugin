@@ -9,7 +9,7 @@ FileElement[FILE(0:22)]
                PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
                XQueryVarNameImpl[XQUERY_VAR_NAME(7:9)]
                   XPathNCNameImpl[XQUERY_NCNAME(7:8)]
-                     LeafPsiElement[XQUERY_NCNAME_TOKEN(7:8)]('x')
+                     XmlNCNameImpl[XQUERY_NCNAME_TOKEN(7:8)]('x')
                   PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
                LeafPsiElement[XQUERY_ASSIGN_EQUAL_TOKEN(9:11)](':=')
                PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
@@ -38,7 +38,7 @@ FileElement[FILE(0:22)]
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
                                                                               XQueryVarNameImpl[XQUERY_VAR_NAME(14:16)]
                                                                                  XPathNCNameImpl[XQUERY_NCNAME(14:15)]
-                                                                                    LeafPsiElement[XQUERY_NCNAME_TOKEN(14:15)]('y')
+                                                                                    XmlNCNameImpl[XQUERY_NCNAME_TOKEN(14:15)]('y')
                                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
                LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_MODIFY(16:22)]('modify')
                PsiErrorElementImpl[ERROR_ELEMENT(22:22)]('XPST0003: Missing expression.')

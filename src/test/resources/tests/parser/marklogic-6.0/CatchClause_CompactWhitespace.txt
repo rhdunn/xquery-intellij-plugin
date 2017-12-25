@@ -38,7 +38,7 @@ FileElement[FILE(0:18)]
                   LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(12:13)]('$')
                   XQueryVarNameImpl[XQUERY_VAR_NAME(13:14)]
                      XPathNCNameImpl[XQUERY_NCNAME(13:14)]
-                        LeafPsiElement[XQUERY_NCNAME_TOKEN(13:14)]('e')
+                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(13:14)]('e')
                   LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(14:15)](')')
                   XQueryEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(15:18)]
                      LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(15:16)]('{')

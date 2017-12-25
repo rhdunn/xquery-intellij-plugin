@@ -13,7 +13,7 @@ FileElement[FILE(0:38)]
                LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(26:27)]('$')
                XQueryVarNameImpl[XQUERY_VAR_NAME(27:29)]
                   XPathNCNameImpl[XQUERY_NCNAME(27:28)]
-                     LeafPsiElement[XQUERY_NCNAME_TOKEN(27:28)]('x')
+                     XmlNCNameImpl[XQUERY_NCNAME_TOKEN(27:28)]('x')
                   PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
                LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(29:37)]('external')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(37:38)](';')

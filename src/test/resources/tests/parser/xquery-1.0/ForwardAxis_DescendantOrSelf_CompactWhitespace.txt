@@ -29,5 +29,5 @@ FileElement[FILE(0:24)]
                                                                            XQueryNodeTestImpl[XQUERY_NODE_TEST(20:24)]
                                                                               XQueryNameTestImpl[XQUERY_NAME_TEST(20:24)]
                                                                                  XPathNCNameImpl[XQUERY_NCNAME(20:24)]
-                                                                                    LeafPsiElement[XQUERY_NCNAME_TOKEN(20:24)]('para')
+                                                                                    XmlNCNameImpl[XQUERY_NCNAME_TOKEN(20:24)]('para')
                                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(24:24)]

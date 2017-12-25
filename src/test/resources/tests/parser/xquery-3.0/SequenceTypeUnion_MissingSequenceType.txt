@@ -34,7 +34,7 @@ FileElement[FILE(0:53)]
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
                                                                                     XQueryVarNameImpl[XQUERY_VAR_NAME(15:17)]
                                                                                        XPathNCNameImpl[XQUERY_NCNAME(15:16)]
-                                                                                          LeafPsiElement[XQUERY_NCNAME_TOKEN(15:16)]('x')
+                                                                                          XmlNCNameImpl[XQUERY_NCNAME_TOKEN(15:16)]('x')
                                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
                LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(17:18)](')')
                PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')

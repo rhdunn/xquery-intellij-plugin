@@ -28,7 +28,7 @@ FileElement[FILE(0:22)]
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
                                                                               XPathQNameImpl[XQUERY_QNAME(8:14)]
                                                                                  XPathNCNameImpl[XQUERY_NCNAME(8:10)]
-                                                                                    LeafPsiElement[XQUERY_NCNAME_TOKEN(8:10)]('xh')
+                                                                                    XmlNCNameImpl[XQUERY_NCNAME_TOKEN(8:10)]('xh')
                                                                                  LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(10:11)](':')
                                                                                  XPathNCNameImpl[XQUERY_NCNAME(11:14)]
                                                                                     LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DIV(11:14)]('div')

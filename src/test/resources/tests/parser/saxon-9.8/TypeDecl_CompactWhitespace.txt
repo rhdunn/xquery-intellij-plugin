@@ -8,17 +8,17 @@ FileElement[FILE(0:30)]
             PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
             XPathQNameImpl[XQUERY_QNAME(13:18)]
                XPathNCNameImpl[XQUERY_NCNAME(13:14)]
-                  LeafPsiElement[XQUERY_NCNAME_TOKEN(13:14)]('a')
+                  XmlNCNameImpl[XQUERY_NCNAME_TOKEN(13:14)]('a')
                LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(14:15)](':')
                XPathNCNameImpl[XQUERY_NCNAME(15:18)]
-                  LeafPsiElement[XQUERY_NCNAME_TOKEN(15:18)]('int')
+                  XmlNCNameImpl[XQUERY_NCNAME_TOKEN(15:18)]('int')
             LeafPsiElement[XQUERY_EQUAL_TOKEN(18:19)]('=')
             XQueryItemTypeImpl[XQUERY_ITEM_TYPE(19:29)]
                XQueryAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(19:29)]
                   XPathNCNameImpl[XQUERY_NCNAME(19:21)]
-                     LeafPsiElement[XQUERY_NCNAME_TOKEN(19:21)]('xs')
+                     XmlNCNameImpl[XQUERY_NCNAME_TOKEN(19:21)]('xs')
                   LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(21:22)](':')
                   XPathNCNameImpl[XQUERY_NCNAME(22:29)]
-                     LeafPsiElement[XQUERY_NCNAME_TOKEN(22:29)]('integer')
+                     XmlNCNameImpl[XQUERY_NCNAME_TOKEN(22:29)]('integer')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(29:30)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(30:30)]('XPST0003: Missing query body.')

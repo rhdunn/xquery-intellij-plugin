@@ -10,7 +10,7 @@ FileElement[FILE(0:92)]
                      LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(4:5)]('$')
                      XQueryVarNameImpl[XQUERY_VAR_NAME(5:7)]
                         XPathNCNameImpl[XQUERY_NCNAME(5:6)]
-                           LeafPsiElement[XQUERY_NCNAME_TOKEN(5:6)]('x')
+                           XmlNCNameImpl[XQUERY_NCNAME_TOKEN(5:6)]('x')
                         PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
                      LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_IN(7:9)]('in')
                      PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
@@ -38,7 +38,7 @@ FileElement[FILE(0:92)]
                                                                                     LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(10:11)]('$')
                                                                                     XQueryVarNameImpl[XQUERY_VAR_NAME(11:13)]
                                                                                        XPathNCNameImpl[XQUERY_NCNAME(11:12)]
-                                                                                          LeafPsiElement[XQUERY_NCNAME_TOKEN(11:12)]('y')
+                                                                                          XmlNCNameImpl[XQUERY_NCNAME_TOKEN(11:12)]('y')
                                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(12:13)]('\n')
                XQueryIntermediateClauseImpl[XQUERY_INTERMEDIATE_CLAUSE(13:26)]
                   XQueryLetClauseImpl[XQUERY_LET_CLAUSE(13:26)]
@@ -48,7 +48,7 @@ FileElement[FILE(0:92)]
                         LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(17:18)]('$')
                         XQueryVarNameImpl[XQUERY_VAR_NAME(18:20)]
                            XPathNCNameImpl[XQUERY_NCNAME(18:19)]
-                              LeafPsiElement[XQUERY_NCNAME_TOKEN(18:19)]('a')
+                              XmlNCNameImpl[XQUERY_NCNAME_TOKEN(18:19)]('a')
                            PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
                         LeafPsiElement[XQUERY_ASSIGN_EQUAL_TOKEN(20:22)](':=')
                         PsiWhiteSpaceImpl[WHITE_SPACE(22:23)](' ')
@@ -76,7 +76,7 @@ FileElement[FILE(0:92)]
                                                                                        LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(23:24)]('$')
                                                                                        XQueryVarNameImpl[XQUERY_VAR_NAME(24:26)]
                                                                                           XPathNCNameImpl[XQUERY_NCNAME(24:25)]
-                                                                                             LeafPsiElement[XQUERY_NCNAME_TOKEN(24:25)]('x')
+                                                                                             XmlNCNameImpl[XQUERY_NCNAME_TOKEN(24:25)]('x')
                                                                                           PsiWhiteSpaceImpl[WHITE_SPACE(25:26)]('\n')
                XQueryIntermediateClauseImpl[XQUERY_INTERMEDIATE_CLAUSE(26:39)]
                   XQueryForClauseImpl[XQUERY_FOR_CLAUSE(26:39)]
@@ -86,7 +86,7 @@ FileElement[FILE(0:92)]
                         LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(30:31)]('$')
                         XQueryVarNameImpl[XQUERY_VAR_NAME(31:33)]
                            XPathNCNameImpl[XQUERY_NCNAME(31:32)]
-                              LeafPsiElement[XQUERY_NCNAME_TOKEN(31:32)]('v')
+                              XmlNCNameImpl[XQUERY_NCNAME_TOKEN(31:32)]('v')
                            PsiWhiteSpaceImpl[WHITE_SPACE(32:33)](' ')
                         LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_IN(33:35)]('in')
                         PsiWhiteSpaceImpl[WHITE_SPACE(35:36)](' ')
@@ -114,7 +114,7 @@ FileElement[FILE(0:92)]
                                                                                        LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(36:37)]('$')
                                                                                        XQueryVarNameImpl[XQUERY_VAR_NAME(37:39)]
                                                                                           XPathNCNameImpl[XQUERY_NCNAME(37:38)]
-                                                                                             LeafPsiElement[XQUERY_NCNAME_TOKEN(37:38)]('w')
+                                                                                             XmlNCNameImpl[XQUERY_NCNAME_TOKEN(37:38)]('w')
                                                                                           PsiWhiteSpaceImpl[WHITE_SPACE(38:39)]('\n')
                XQueryIntermediateClauseImpl[XQUERY_INTERMEDIATE_CLAUSE(39:52)]
                   XQueryLetClauseImpl[XQUERY_LET_CLAUSE(39:52)]
@@ -124,7 +124,7 @@ FileElement[FILE(0:92)]
                         LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(43:44)]('$')
                         XQueryVarNameImpl[XQUERY_VAR_NAME(44:46)]
                            XPathNCNameImpl[XQUERY_NCNAME(44:45)]
-                              LeafPsiElement[XQUERY_NCNAME_TOKEN(44:45)]('b')
+                              XmlNCNameImpl[XQUERY_NCNAME_TOKEN(44:45)]('b')
                            PsiWhiteSpaceImpl[WHITE_SPACE(45:46)](' ')
                         LeafPsiElement[XQUERY_ASSIGN_EQUAL_TOKEN(46:48)](':=')
                         PsiWhiteSpaceImpl[WHITE_SPACE(48:49)](' ')
@@ -152,7 +152,7 @@ FileElement[FILE(0:92)]
                                                                                        LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(49:50)]('$')
                                                                                        XQueryVarNameImpl[XQUERY_VAR_NAME(50:52)]
                                                                                           XPathNCNameImpl[XQUERY_NCNAME(50:51)]
-                                                                                             LeafPsiElement[XQUERY_NCNAME_TOKEN(50:51)]('v')
+                                                                                             XmlNCNameImpl[XQUERY_NCNAME_TOKEN(50:51)]('v')
                                                                                           PsiWhiteSpaceImpl[WHITE_SPACE(51:52)]('\n')
                XQueryIntermediateClauseImpl[XQUERY_INTERMEDIATE_CLAUSE(52:67)]
                   XQueryWhereClauseImpl[XQUERY_WHERE_CLAUSE(52:67)]
@@ -182,7 +182,7 @@ FileElement[FILE(0:92)]
                                                                                     LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(58:59)]('$')
                                                                                     XQueryVarNameImpl[XQUERY_VAR_NAME(59:61)]
                                                                                        XPathNCNameImpl[XQUERY_NCNAME(59:60)]
-                                                                                          LeafPsiElement[XQUERY_NCNAME_TOKEN(59:60)]('a')
+                                                                                          XmlNCNameImpl[XQUERY_NCNAME_TOKEN(59:60)]('a')
                                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(60:61)](' ')
                               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_GT(61:63)]('gt')
                               PsiWhiteSpaceImpl[WHITE_SPACE(63:64)](' ')
@@ -207,7 +207,7 @@ FileElement[FILE(0:92)]
                                                                                     LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(64:65)]('$')
                                                                                     XQueryVarNameImpl[XQUERY_VAR_NAME(65:67)]
                                                                                        XPathNCNameImpl[XQUERY_NCNAME(65:66)]
-                                                                                          LeafPsiElement[XQUERY_NCNAME_TOKEN(65:66)]('b')
+                                                                                          XmlNCNameImpl[XQUERY_NCNAME_TOKEN(65:66)]('b')
                                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(66:67)]('\n')
                XQueryIntermediateClauseImpl[XQUERY_INTERMEDIATE_CLAUSE(67:83)]
                   XQueryOrderByClauseImpl[XQUERY_ORDER_BY_CLAUSE(67:83)]
@@ -241,7 +241,7 @@ FileElement[FILE(0:92)]
                                                                                           LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(76:77)]('$')
                                                                                           XQueryVarNameImpl[XQUERY_VAR_NAME(77:78)]
                                                                                              XPathNCNameImpl[XQUERY_NCNAME(77:78)]
-                                                                                                LeafPsiElement[XQUERY_NCNAME_TOKEN(77:78)]('a')
+                                                                                                XmlNCNameImpl[XQUERY_NCNAME_TOKEN(77:78)]('a')
                            XQueryOrderModifierImpl[XQUERY_ORDER_MODIFIER(78:78)]
                         LeafPsiElement[XQUERY_COMMA_TOKEN(78:79)](',')
                         PsiWhiteSpaceImpl[WHITE_SPACE(79:80)](' ')
@@ -270,7 +270,7 @@ FileElement[FILE(0:92)]
                                                                                           LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(80:81)]('$')
                                                                                           XQueryVarNameImpl[XQUERY_VAR_NAME(81:83)]
                                                                                              XPathNCNameImpl[XQUERY_NCNAME(81:82)]
-                                                                                                LeafPsiElement[XQUERY_NCNAME_TOKEN(81:82)]('b')
+                                                                                                XmlNCNameImpl[XQUERY_NCNAME_TOKEN(81:82)]('b')
                                                                                              PsiWhiteSpaceImpl[WHITE_SPACE(82:83)]('\n')
                            XQueryOrderModifierImpl[XQUERY_ORDER_MODIFIER(83:83)]
                XQueryReturnClauseImpl[XQUERY_RETURN_CLAUSE(83:92)]
@@ -300,4 +300,4 @@ FileElement[FILE(0:92)]
                                                                                  LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(90:91)]('$')
                                                                                  XQueryVarNameImpl[XQUERY_VAR_NAME(91:92)]
                                                                                     XPathNCNameImpl[XQUERY_NCNAME(91:92)]
-                                                                                       LeafPsiElement[XQUERY_NCNAME_TOKEN(91:92)]('x')
+                                                                                       XmlNCNameImpl[XQUERY_NCNAME_TOKEN(91:92)]('x')
