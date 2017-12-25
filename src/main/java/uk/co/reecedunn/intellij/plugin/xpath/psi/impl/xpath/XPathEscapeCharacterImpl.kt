@@ -20,5 +20,5 @@ import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEscapeCharacter
 
 class XPathEscapeCharacterImpl(type: IElementType, text: CharSequence) : LeafPsiElement(type, text), XPathEscapeCharacter {
-    override val unescapedValue: CharSequence = text.subSequence(0, 1)
+    override val unescapedValue get(): CharSequence = text.subSequence(0, 1)
 }

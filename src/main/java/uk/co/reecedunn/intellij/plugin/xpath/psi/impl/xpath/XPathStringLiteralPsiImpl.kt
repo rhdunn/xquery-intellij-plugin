@@ -54,5 +54,5 @@ open class XPathStringLiteralPsiImpl(node: ASTNode):
         }}.filterNotNull().joinToString(separator = "")
     }
 
-    override val staticType get(): XdmSequenceType = XsString
+    override val staticType: XdmSequenceType = XsString
 }

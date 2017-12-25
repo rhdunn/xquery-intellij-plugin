@@ -29,5 +29,5 @@ class XPathDoubleLiteralImpl(type: IElementType, text: CharSequence):
 
     override val lexicalRepresentation get(): String = text
 
-    override val staticType get(): XdmSequenceType = XsDouble
+    override val staticType: XdmSequenceType = XsDouble
 }

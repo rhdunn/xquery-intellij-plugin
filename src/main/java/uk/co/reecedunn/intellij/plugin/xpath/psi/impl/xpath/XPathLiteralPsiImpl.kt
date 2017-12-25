@@ -26,7 +26,7 @@ class XPathLiteralPsiImpl(node: ASTNode):
         XPathLiteral,
         XdmAtomicValue {
 
-    override val lexicalRepresentation: String = (firstChild as XdmAtomicValue).lexicalRepresentation
+    override val lexicalRepresentation get(): String = (firstChild as XdmAtomicValue).lexicalRepresentation
 
-    override val staticType: XdmSequenceType = (firstChild as XdmAtomicValue).staticType
+    override val staticType get(): XdmSequenceType = (firstChild as XdmAtomicValue).staticType
 }
