@@ -37,6 +37,21 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     // region Lexical Values
+    // region BracedUriLiteral
+
+    fun testBracedUriLiteral() {
+        val literal = parseLiteral<XPathBracedURILiteral>("Q{http://www.example.com\uFFFF}")
+        assertThat(literal.lexicalRepresentation, `is`("http://www.example.com\uFFFF"))
+        assertThat(literal.staticType, `is`(XsAnyURI as XdmSequenceType))
+    }
+
+    fun testBracedUriLiteral_Unclosed() {
+        val literal = parseLiteral<XPathBracedURILiteral>("Q{http://www.example.com")
+        assertThat(literal.lexicalRepresentation, `is`("http://www.example.com"))
+        assertThat(literal.staticType, `is`(XsAnyURI as XdmSequenceType))
+    }
+
+    // endregion
     // region DecimalLiteral
 
     fun testDecimalLiteral() {

@@ -31,6 +31,22 @@ class XQueryXdmTest : ParserTestCase() {
     }
 
     // region Lexical Values
+    // region BracedUriLiteral
+
+    fun testBracedUriLiteral_PredefinedEntityReference() {
+        // entity reference types: XQuery, HTML4, HTML5, UTF-16 surrogate pair, multi-character entity, empty, partial
+        val literal = parseLiteral<XPathBracedURILiteral>("Q{&lt;&aacute;&amacr;&Afr;&NotLessLess;&;&gt}")
+        assertThat(literal.lexicalRepresentation, `is`("<áā\uD835\uDD04≪̸&;&gt"))
+        assertThat(literal.staticType, `is`(XsAnyURI as XdmSequenceType))
+    }
+
+    fun testBracedUriLiteral_CharRef() {
+        val literal = parseLiteral<XPathBracedURILiteral>("Q{&#xA0;&#160;&#x20;}")
+        assertThat(literal.lexicalRepresentation, `is`("\u00A0\u00A0\u0020"))
+        assertThat(literal.staticType, `is`(XsAnyURI as XdmSequenceType))
+    }
+
+    // endregion
     // region StringLiteral
 
     fun testStringLiteral_PredefinedEntityReference() {
