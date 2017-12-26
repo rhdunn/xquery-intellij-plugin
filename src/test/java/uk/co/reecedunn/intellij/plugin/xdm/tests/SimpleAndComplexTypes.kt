@@ -26,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.model.XmlSchemaType
 
 class SimpleAndComplexTypes : TestCase() {
     fun testXsAnyType() {
+        assertThat(XsAnyType.typeName?.prefix, `is`(nullValue()))
         assertThat(XsAnyType.typeName?.declaration, `is`(nullValue()))
 
         assertThat(XsAnyType.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
@@ -38,6 +39,7 @@ class SimpleAndComplexTypes : TestCase() {
     }
 
     fun testXsUntyped() {
+        assertThat(XsUntyped.typeName?.prefix, `is`(nullValue()))
         assertThat(XsUntyped.typeName?.declaration, `is`(nullValue()))
 
         assertThat(XsUntyped.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
@@ -50,6 +52,7 @@ class SimpleAndComplexTypes : TestCase() {
     }
 
     fun testXsAnySimpleType() {
+        assertThat(XsAnySimpleType.typeName?.prefix, `is`(nullValue()))
         assertThat(XsAnySimpleType.typeName?.declaration, `is`(nullValue()))
 
         assertThat(XsAnySimpleType.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
@@ -62,6 +65,7 @@ class SimpleAndComplexTypes : TestCase() {
     }
 
     fun testXsAnyAtomicType() {
+        assertThat(XsAnyAtomicType.typeName?.prefix, `is`(nullValue()))
         assertThat(XsAnyAtomicType.typeName?.declaration, `is`(nullValue()))
 
         assertThat(XsAnyAtomicType.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
@@ -74,6 +78,7 @@ class SimpleAndComplexTypes : TestCase() {
     }
 
     fun testXsNumeric() {
+        assertThat(XsNumeric.typeName?.prefix, `is`(nullValue()))
         assertThat(XsNumeric.typeName?.declaration, `is`(nullValue()))
 
         assertThat(XsNumeric.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
@@ -91,6 +96,7 @@ class SimpleAndComplexTypes : TestCase() {
     }
 
     fun testXsIDREFS() {
+        assertThat(XsIDREFS.typeName?.prefix, `is`(nullValue()))
         assertThat(XsIDREFS.typeName?.declaration, `is`(nullValue()))
 
         assertThat(XsIDREFS.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
@@ -105,6 +111,7 @@ class SimpleAndComplexTypes : TestCase() {
     }
 
     fun testXsNMTOKENS() {
+        assertThat(XsNMTOKENS.typeName?.prefix, `is`(nullValue()))
         assertThat(XsNMTOKENS.typeName?.declaration, `is`(nullValue()))
 
         assertThat(XsNMTOKENS.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
@@ -119,6 +126,7 @@ class SimpleAndComplexTypes : TestCase() {
     }
 
     fun testXsENTITIES() {
+        assertThat(XsENTITIES.typeName?.prefix, `is`(nullValue()))
         assertThat(XsENTITIES.typeName?.declaration, `is`(nullValue()))
 
         assertThat(XsENTITIES.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))

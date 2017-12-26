@@ -29,13 +29,18 @@ class XdmLiteralValue(override val lexicalRepresentation: String,
     override val staticType get(): XdmSequenceType = cachedStaticType.get()!!
 }
 
-fun createQName(namespace: String?, localName: String): QName {
-    return createQName(
-            namespace?.let { XdmLiteralValue(it, CachedProperty { XsAnyURI }) },
+fun createQName(namespace: String, localName: String): QName {
+    return QName(
+            null,
+            XdmLiteralValue(namespace, CachedProperty { XsAnyURI }),
             XdmLiteralValue(localName, CachedProperty { XsNCName }),
             null)
 }
 
-fun createQName(namespace: XdmAtomicValue?, localName: XdmAtomicValue, declaration: XdmAtomicValue?): QName {
-    return QName(namespace, localName, declaration?.let { WeakReference(it) })
+fun createQName(namespace: XdmAtomicValue, localName: XdmAtomicValue, declaration: XdmAtomicValue): QName {
+    return QName(null, namespace, localName, WeakReference(declaration))
+}
+
+fun createLexicalQName(prefix: XdmAtomicValue?, localName: XdmAtomicValue, declaration: XdmAtomicValue): QName {
+    return QName(prefix, null, localName, WeakReference(declaration))
 }
