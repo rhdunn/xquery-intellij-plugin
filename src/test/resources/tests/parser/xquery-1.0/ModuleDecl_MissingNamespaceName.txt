@@ -1,8 +1,8 @@
 FileElement[FILE(0:17)]
    XQueryLibraryModuleImpl[XQUERY_LIBRARY_MODULE(0:17)]
       XQueryModuleDeclImpl[XQUERY_MODULE_DECL(0:17)]
-         LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_MODULE(0:6)]('module')
+         XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_MODULE(0:6)]('module')
          PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
-         LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NAMESPACE(7:16)]('namespace')
+         XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NAMESPACE(7:16)]('namespace')
          PsiErrorElementImpl[ERROR_ELEMENT(16:16)]('XPST0003: Missing identifier.')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(16:17)](';')

@@ -2,12 +2,12 @@ FileElement[FILE(0:59)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:59)]
       XQueryPrologImpl[XQUERY_PROLOG(0:59)]
          XQuerySchemaImportImpl[XQUERY_SCHEMA_IMPORT(0:58)]
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_IMPORT(0:6)]('import')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_IMPORT(0:6)]('import')
             PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_SCHEMA(7:13)]('schema')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SCHEMA(7:13)]('schema')
             PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
             XQuerySchemaPrefixImpl[XQUERY_SCHEMA_PREFIX(14:29)]
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NAMESPACE(14:23)]('namespace')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NAMESPACE(14:23)]('namespace')
                PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
                XPathNCNameImpl[XQUERY_NCNAME(24:28)]
                   XmlNCNameImpl[XQUERY_NCNAME_TOKEN(24:28)]('test')

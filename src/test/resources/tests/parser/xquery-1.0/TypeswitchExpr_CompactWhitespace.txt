@@ -3,7 +3,7 @@ FileElement[FILE(0:51)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:51)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:51)]
             XQueryTypeswitchExprImpl[XQUERY_TYPESWITCH_EXPR(0:51)]
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_TYPESWITCH(0:10)]('typeswitch')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TYPESWITCH(0:10)]('typeswitch')
                LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(10:11)]('(')
                XQueryExprImpl[XQUERY_EXPR(11:13)]
                   ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(11:13)]
@@ -35,15 +35,15 @@ FileElement[FILE(0:51)]
                LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(13:14)](')')
                PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
                XQueryCaseClauseImpl[XQUERY_CASE_CLAUSE(15:35)]
-                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_CASE(15:19)]('case')
+                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CASE(15:19)]('case')
                   PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
                   XQuerySequenceTypeUnionImpl[XQUERY_SEQUENCE_TYPE_UNION(20:26)]
                      XQuerySequenceTypeImpl[XQUERY_SEQUENCE_TYPE(20:26)]
                         XQueryItemTypeImpl[XQUERY_ITEM_TYPE(20:26)]
-                           LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_ITEM(20:24)]('item')
+                           XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ITEM(20:24)]('item')
                            LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(24:25)]('(')
                            LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(25:26)](')')
-                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_RETURN(26:32)]('return')
+                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_RETURN(26:32)]('return')
                   PsiWhiteSpaceImpl[WHITE_SPACE(32:33)](' ')
                   XQueryOrExprImpl[XQUERY_OR_EXPR(33:35)]
                      XQueryAndExprImpl[XQUERY_AND_EXPR(33:35)]
@@ -68,9 +68,9 @@ FileElement[FILE(0:51)]
                                                                               XPathLiteralImpl[XQUERY_LITERAL(33:34)]
                                                                                  XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(33:34)]('1')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DEFAULT(35:42)]('default')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DEFAULT(35:42)]('default')
                PsiWhiteSpaceImpl[WHITE_SPACE(42:43)](' ')
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_RETURN(43:49)]('return')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_RETURN(43:49)]('return')
                PsiWhiteSpaceImpl[WHITE_SPACE(49:50)](' ')
                XQueryOrExprImpl[XQUERY_OR_EXPR(50:51)]
                   XQueryAndExprImpl[XQUERY_AND_EXPR(50:51)]

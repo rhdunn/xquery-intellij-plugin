@@ -1,9 +1,9 @@
 FileElement[FILE(0:58)]
    XQueryLibraryModuleImpl[XQUERY_LIBRARY_MODULE(0:58)]
       XQueryModuleDeclImpl[XQUERY_MODULE_DECL(0:58)]
-         LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_MODULE(0:6)]('module')
+         XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_MODULE(0:6)]('module')
          PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
-         LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NAMESPACE(7:16)]('namespace')
+         XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NAMESPACE(7:16)]('namespace')
          PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
          XPathQNameImpl[XQUERY_QNAME(17:24)]
             XPathNCNameImpl[XQUERY_NCNAME(17:20)]

@@ -23,7 +23,7 @@ FileElement[FILE(0:8)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:8)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:8)]
                                                                         XQueryCurlyArrayConstructorImpl[XQUERY_CURLY_ARRAY_CONSTRUCTOR(0:8)]
-                                                                           LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_ARRAY(0:5)]('array')
+                                                                           XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ARRAY(0:5)]('array')
                                                                            XQueryEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(5:8)]
                                                                               LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(5:6)]('{')
                                                                               XQueryExprImpl[XQUERY_EXPR(6:7)]

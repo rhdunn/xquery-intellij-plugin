@@ -24,7 +24,7 @@ FileElement[FILE(0:9)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:9)]
                                                                         XQueryFunctionCallImpl[XQUERY_FUNCTION_CALL(0:9)]
                                                                            XPathNCNameImpl[XQUERY_NCNAME(0:5)]
-                                                                              LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_WHILE(0:5)]('while')
+                                                                              XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_WHILE(0:5)]('while')
                                                                            PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
                                                                            XQueryArgumentListImpl[XQUERY_ARGUMENT_LIST(6:9)]
                                                                               LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(6:7)]('(')

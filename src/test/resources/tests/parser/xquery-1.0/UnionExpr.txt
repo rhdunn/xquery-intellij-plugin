@@ -30,7 +30,7 @@ FileElement[FILE(0:17)]
                                                                                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:1)]('a')
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
                                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(2:2)]
-                                       LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_UNION(2:7)]('union')
+                                       XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_UNION(2:7)]('union')
                                        PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
                                        XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(8:10)]
                                           XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(8:10)]

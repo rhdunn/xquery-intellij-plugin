@@ -1,9 +1,9 @@
 FileElement[FILE(0:122)]
    XQueryLibraryModuleImpl[XQUERY_LIBRARY_MODULE(0:122)]
       XQueryVersionDeclImpl[XQUERY_VERSION_DECL(0:21)]
-         LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_XQUERY(0:6)]('xquery')
+         XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_XQUERY(0:6)]('xquery')
          PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
-         LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_VERSION(7:14)]('version')
+         XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VERSION(7:14)]('version')
          PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
          XPathStringLiteralImpl[XQUERY_STRING_LITERAL(15:20)]
             LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(15:16)]('"')
@@ -12,9 +12,9 @@ FileElement[FILE(0:122)]
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(20:21)](';')
       PsiWhiteSpaceImpl[WHITE_SPACE(21:22)]('\n')
       XQueryModuleDeclImpl[XQUERY_MODULE_DECL(22:76)]
-         LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_MODULE(22:28)]('module')
+         XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_MODULE(22:28)]('module')
          PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
-         LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NAMESPACE(29:38)]('namespace')
+         XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NAMESPACE(29:38)]('namespace')
          PsiWhiteSpaceImpl[WHITE_SPACE(38:39)](' ')
          XPathNCNameImpl[XQUERY_NCNAME(39:43)]
             XmlNCNameImpl[XQUERY_NCNAME_TOKEN(39:43)]('test')
@@ -29,9 +29,9 @@ FileElement[FILE(0:122)]
       PsiWhiteSpaceImpl[WHITE_SPACE(76:77)]('\n')
       XQueryPrologImpl[XQUERY_PROLOG(77:122)]
          XQueryModuleImportImpl[XQUERY_MODULE_IMPORT(77:121)]
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_IMPORT(77:83)]('import')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_IMPORT(77:83)]('import')
             PsiWhiteSpaceImpl[WHITE_SPACE(83:84)](' ')
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_MODULE(84:90)]('module')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_MODULE(84:90)]('module')
             PsiWhiteSpaceImpl[WHITE_SPACE(90:91)](' ')
             XQueryUriLiteralImpl[XQUERY_URI_LITERAL(91:121)]
                LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(91:92)]('"')

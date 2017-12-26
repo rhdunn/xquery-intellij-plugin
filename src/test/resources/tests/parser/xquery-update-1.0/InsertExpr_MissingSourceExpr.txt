@@ -3,7 +3,7 @@ FileElement[FILE(0:11)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:11)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:11)]
             UpdateFacilityInsertExprImpl[XQUERY_INSERT_EXPR(0:11)]
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_INSERT(0:6)]('insert')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_INSERT(0:6)]('insert')
                PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NODE(7:11)]('node')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NODE(7:11)]('node')
                PsiErrorElementImpl[ERROR_ELEMENT(11:11)]('XPST0003: Missing expression.')

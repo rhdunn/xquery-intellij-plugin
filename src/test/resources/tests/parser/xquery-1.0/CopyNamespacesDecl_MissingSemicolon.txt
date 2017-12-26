@@ -2,13 +2,13 @@ FileElement[FILE(0:42)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:42)]
       XQueryPrologImpl[XQUERY_PROLOG(0:42)]
          XQueryCopyNamespacesDeclImpl[XQUERY_COPY_NAMESPACES_DECL(0:42)]
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_COPY_NAMESPACES(8:23)]('copy-namespaces')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_COPY_NAMESPACES(8:23)]('copy-namespaces')
             PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_PRESERVE(24:32)]('preserve')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_PRESERVE(24:32)]('preserve')
             PsiWhiteSpaceImpl[WHITE_SPACE(32:33)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(33:34)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_INHERIT(35:42)]('inherit')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_INHERIT(35:42)]('inherit')
          PsiErrorElementImpl[ERROR_ELEMENT(42:42)]('XPST0003: Expected ';'.')

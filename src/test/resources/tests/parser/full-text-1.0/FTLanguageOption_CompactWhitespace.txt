@@ -2,15 +2,15 @@ FileElement[FILE(0:40)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:40)]
       XQueryPrologImpl[XQUERY_PROLOG(0:40)]
          FTOptionDeclImpl[XQUERY_FT_OPTION_DECL(0:39)]
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_FT_OPTION(8:17)]('ft-option')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FT_OPTION(8:17)]('ft-option')
             PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
             FTMatchOptionsImpl[XQUERY_FT_MATCH_OPTIONS(18:39)]
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_USING(18:23)]('using')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_USING(18:23)]('using')
                PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
                FTLanguageOptionImpl[XQUERY_FT_LANGUAGE_OPTION(24:39)]
-                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_LANGUAGE(24:32)]('language')
+                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_LANGUAGE(24:32)]('language')
                   XPathStringLiteralImpl[XQUERY_STRING_LITERAL(32:39)]
                      LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(32:33)]('"')
                      LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(33:38)]('en-IE')

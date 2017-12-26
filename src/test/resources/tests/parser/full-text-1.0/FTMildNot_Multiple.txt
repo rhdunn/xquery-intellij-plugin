@@ -30,9 +30,9 @@ FileElement[FILE(0:75)]
                                                                                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:5)]('title')
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
                                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(6:6)]
-                        LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_CONTAINS(6:14)]('contains')
+                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CONTAINS(6:14)]('contains')
                         PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
-                        LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
+                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
                         PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
                         FTSelectionImpl[XQUERY_FT_SELECTION(20:75)]
                            FTOrImpl[XQUERY_FT_OR(20:75)]
@@ -48,9 +48,9 @@ FileElement[FILE(0:75)]
                                                       LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(21:26)]('lorem')
                                                       LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(26:27)]('"')
                                                 PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
-                                    LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NOT(28:31)]('not')
+                                    XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NOT(28:31)]('not')
                                     PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
-                                    LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_IN(32:34)]('in')
+                                    XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_IN(32:34)]('in')
                                     PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
                                     FTUnaryNotImpl[XQUERY_FT_UNARY_NOT(35:55)]
                                        FTPrimaryWithOptionsImpl[XQUERY_FT_PRIMARY_WITH_OPTIONS(35:55)]
@@ -62,9 +62,9 @@ FileElement[FILE(0:75)]
                                                       LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(36:53)]('lorem ipsum dolor')
                                                       LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(53:54)]('"')
                                                 PsiWhiteSpaceImpl[WHITE_SPACE(54:55)](' ')
-                                    LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NOT(55:58)]('not')
+                                    XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NOT(55:58)]('not')
                                     PsiWhiteSpaceImpl[WHITE_SPACE(58:59)](' ')
-                                    LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_IN(59:61)]('in')
+                                    XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_IN(59:61)]('in')
                                     PsiWhiteSpaceImpl[WHITE_SPACE(61:62)](' ')
                                     FTUnaryNotImpl[XQUERY_FT_UNARY_NOT(62:75)]
                                        FTPrimaryWithOptionsImpl[XQUERY_FT_PRIMARY_WITH_OPTIONS(62:75)]

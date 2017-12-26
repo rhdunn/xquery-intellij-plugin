@@ -19,9 +19,9 @@ FileElement[FILE(0:44)]
                                                       XQueryArrowExprImpl[XQUERY_ARROW_EXPR(0:20)]
                                                          XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:20)]
                                                             XQueryValidateExprImpl[XQUERY_VALIDATE_EXPR(0:20)]
-                                                               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_VALIDATE(0:8)]('validate')
+                                                               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VALIDATE(0:8)]('validate')
                                                                PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
-                                                               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_LAX(9:12)]('lax')
+                                                               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_LAX(9:12)]('lax')
                                                                LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(12:13)]('{')
                                                                XQueryExprImpl[XQUERY_EXPR(13:19)]
                                                                   ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(13:19)]
@@ -69,9 +69,9 @@ FileElement[FILE(0:44)]
                                                       XQueryArrowExprImpl[XQUERY_ARROW_EXPR(21:44)]
                                                          XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(21:44)]
                                                             XQueryValidateExprImpl[XQUERY_VALIDATE_EXPR(21:44)]
-                                                               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_VALIDATE(21:29)]('validate')
+                                                               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VALIDATE(21:29)]('validate')
                                                                PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
-                                                               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_STRICT(30:36)]('strict')
+                                                               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_STRICT(30:36)]('strict')
                                                                LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(36:37)]('{')
                                                                XQueryExprImpl[XQUERY_EXPR(37:43)]
                                                                   ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(37:43)]

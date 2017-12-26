@@ -2,9 +2,9 @@ FileElement[FILE(0:33)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:33)]
       XQueryPrologImpl[XQUERY_PROLOG(0:33)]
          XQueryOptionDeclImpl[XQUERY_OPTION_DECL(0:32)]
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_OPTION(8:14)]('option')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_OPTION(8:14)]('option')
             PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
             XPathURIQualifiedNameImpl[XQUERY_URI_QUALIFIED_NAME(15:25)]
                XPathBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(15:21)]
@@ -12,7 +12,7 @@ FileElement[FILE(0:33)]
                   LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(17:20)]('one')
                   LeafPsiElement[XQUERY_BRACED_URI_LITERAL_END_TOKEN(20:21)]('}')
                XPathNCNameImpl[XQUERY_NCNAME(21:25)]
-                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_CASE(21:25)]('case')
+                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CASE(21:25)]('case')
             PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
             XPathStringLiteralImpl[XQUERY_STRING_LITERAL(26:32)]
                LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(26:27)]('"')

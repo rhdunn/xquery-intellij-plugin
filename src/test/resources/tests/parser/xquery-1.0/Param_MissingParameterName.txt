@@ -2,10 +2,10 @@ FileElement[FILE(0:38)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:38)]
       XQueryPrologImpl[XQUERY_PROLOG(0:38)]
          XQueryAnnotatedDeclImpl[XQUERY_ANNOTATED_DECL(0:37)]
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
             XQueryFunctionDeclImpl[XQUERY_FUNCTION_DECL(8:37)]
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_FUNCTION(8:16)]('function')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FUNCTION(8:16)]('function')
                PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
                XPathNCNameImpl[XQUERY_NCNAME(17:21)]
                   XmlNCNameImpl[XQUERY_NCNAME_TOKEN(17:21)]('test')
@@ -19,7 +19,7 @@ FileElement[FILE(0:38)]
                      PsiErrorElementImpl[ERROR_ELEMENT(26:26)]('XPST0003: Missing qualified name or braced URI qualified name.')
                LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(26:27)](')')
                PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(28:36)]('external')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(28:36)]('external')
                PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(37:38)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(38:38)]('XPST0003: Missing query body.')

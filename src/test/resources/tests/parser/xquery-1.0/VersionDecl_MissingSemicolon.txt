@@ -1,9 +1,9 @@
 FileElement[FILE(0:21)]
    XQueryModuleImpl[XQUERY_MODULE(0:21)]
       XQueryVersionDeclImpl[XQUERY_VERSION_DECL(0:20)]
-         LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_XQUERY(0:6)]('xquery')
+         XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_XQUERY(0:6)]('xquery')
          PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
-         LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_VERSION(7:14)]('version')
+         XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VERSION(7:14)]('version')
          PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
          XPathStringLiteralImpl[XQUERY_STRING_LITERAL(15:20)]
             LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(15:16)]('"')

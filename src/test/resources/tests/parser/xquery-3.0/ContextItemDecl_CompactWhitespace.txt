@@ -2,11 +2,11 @@ FileElement[FILE(0:24)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:24)]
       XQueryPrologImpl[XQUERY_PROLOG(0:24)]
          XQueryContextItemDeclImpl[XQUERY_CONTEXT_ITEM_DECL(0:23)]
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_CONTEXT(8:15)]('context')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CONTEXT(8:15)]('context')
             PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_ITEM(16:20)]('item')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ITEM(16:20)]('item')
             LeafPsiElement[XQUERY_ASSIGN_EQUAL_TOKEN(20:22)](':=')
             XQueryVarValueImpl[XQUERY_VAR_VALUE(22:23)]
                XQueryOrExprImpl[XQUERY_OR_EXPR(22:23)]

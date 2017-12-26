@@ -24,7 +24,7 @@ FileElement[FILE(0:29)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:29)]
                                                                         XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:29)]
                                                                            XQueryCompAttrConstructorImpl[XQUERY_COMP_ATTR_CONSTRUCTOR(0:29)]
-                                                                              LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_ATTRIBUTE(0:9)]('attribute')
+                                                                              XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ATTRIBUTE(0:9)]('attribute')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
                                                                               LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(10:11)]('{')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')

@@ -3,7 +3,7 @@ FileElement[FILE(0:35)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:35)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:35)]
             UpdateFacilityCopyModifyExprImpl[XQUERY_COPY_MODIFY_EXPR(0:35)]
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_COPY(0:4)]('copy')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_COPY(0:4)]('copy')
                LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(4:5)]('$')
                XQueryVarNameImpl[XQUERY_VAR_NAME(5:6)]
                   XPathNCNameImpl[XQUERY_NCNAME(5:6)]
@@ -66,7 +66,7 @@ FileElement[FILE(0:35)]
                                                                                  XPathNCNameImpl[XQUERY_NCNAME(16:17)]
                                                                                     XmlNCNameImpl[XQUERY_NCNAME_TOKEN(16:17)]('w')
                                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_MODIFY(18:24)]('modify')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_MODIFY(18:24)]('modify')
                XQueryOrExprImpl[XQUERY_OR_EXPR(24:27)]
                   XQueryAndExprImpl[XQUERY_AND_EXPR(24:27)]
                      XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(24:27)]
@@ -93,7 +93,7 @@ FileElement[FILE(0:35)]
                                                                                  XPathNCNameImpl[XQUERY_NCNAME(25:26)]
                                                                                     XmlNCNameImpl[XQUERY_NCNAME_TOKEN(25:26)]('x')
                                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_RETURN(27:33)]('return')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_RETURN(27:33)]('return')
                XQueryOrExprImpl[XQUERY_OR_EXPR(33:35)]
                   XQueryAndExprImpl[XQUERY_AND_EXPR(33:35)]
                      XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(33:35)]

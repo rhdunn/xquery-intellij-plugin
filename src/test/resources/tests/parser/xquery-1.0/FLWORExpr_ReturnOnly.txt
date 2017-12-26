@@ -3,7 +3,7 @@ FileElement[FILE(0:8)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:8)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:8)]
             PsiErrorElementImpl[ERROR_ELEMENT(0:6)]('XPST0003: 'return' keyword in non-FLWOR expression.')
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_RETURN(0:6)]('return')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_RETURN(0:6)]('return')
             PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
             XQueryOrExprImpl[XQUERY_OR_EXPR(7:8)]
                XQueryAndExprImpl[XQUERY_AND_EXPR(7:8)]

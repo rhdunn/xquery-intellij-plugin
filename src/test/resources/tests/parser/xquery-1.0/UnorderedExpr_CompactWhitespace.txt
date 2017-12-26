@@ -23,7 +23,7 @@ FileElement[FILE(0:12)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:12)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:12)]
                                                                         XQueryUnorderedExprImpl[XQUERY_UNORDERED_EXPR(0:12)]
-                                                                           LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_UNORDERED(0:9)]('unordered')
+                                                                           XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_UNORDERED(0:9)]('unordered')
                                                                            XQueryEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(9:12)]
                                                                               LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(9:10)]('{')
                                                                               XQueryExprImpl[XQUERY_EXPR(10:11)]

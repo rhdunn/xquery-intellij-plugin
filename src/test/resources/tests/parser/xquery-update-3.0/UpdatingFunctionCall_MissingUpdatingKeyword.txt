@@ -3,7 +3,7 @@ FileElement[FILE(0:17)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:17)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:17)]
             UpdateFacilityUpdatingFunctionCallImpl[XQUERY_UPDATING_FUNCTION_CALL(0:17)]
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_INVOKE(0:6)]('invoke')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_INVOKE(0:6)]('invoke')
                PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
                PsiErrorElementImpl[ERROR_ELEMENT(7:7)]('XPST0003: Expected keyword: updating.')
                XQueryVarRefImpl[XQUERY_VAR_REF(7:14)]

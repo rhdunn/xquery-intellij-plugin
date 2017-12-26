@@ -4,14 +4,14 @@ FileElement[FILE(0:30)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:30)]
             XQueryFLWORExprImpl[XQUERY_FLWOR_EXPR(0:30)]
                XQueryForClauseImpl[XQUERY_FOR_CLAUSE(0:11)]
-                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_FOR(0:3)]('for')
+                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FOR(0:3)]('for')
                   XQueryForBindingImpl[XQUERY_FOR_BINDING(3:11)]
                      LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(3:4)]('$')
                      XQueryVarNameImpl[XQUERY_VAR_NAME(4:6)]
                         XPathNCNameImpl[XQUERY_NCNAME(4:5)]
                            XmlNCNameImpl[XQUERY_NCNAME_TOKEN(4:5)]('x')
                         PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
-                     LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_IN(6:8)]('in')
+                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_IN(6:8)]('in')
                      XQueryOrExprImpl[XQUERY_OR_EXPR(8:11)]
                         XQueryAndExprImpl[XQUERY_AND_EXPR(8:11)]
                            XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(8:11)]
@@ -40,9 +40,9 @@ FileElement[FILE(0:30)]
                                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
                XQueryIntermediateClauseImpl[XQUERY_INTERMEDIATE_CLAUSE(11:22)]
                   XQueryGroupByClauseImpl[XQUERY_GROUP_BY_CLAUSE(11:22)]
-                     LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_GROUP(11:16)]('group')
+                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_GROUP(11:16)]('group')
                      PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
-                     LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_BY(17:19)]('by')
+                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_BY(17:19)]('by')
                      XQueryGroupingSpecListImpl[XQUERY_GROUPING_SPEC_LIST(19:22)]
                         XQueryGroupingSpecImpl[XQUERY_GROUPING_SPEC(19:22)]
                            XQueryGroupingVariableImpl[XQUERY_GROUPING_VARIABLE(19:22)]
@@ -52,7 +52,7 @@ FileElement[FILE(0:30)]
                                     XmlNCNameImpl[XQUERY_NCNAME_TOKEN(20:21)]('x')
                                  PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
                XQueryReturnClauseImpl[XQUERY_RETURN_CLAUSE(22:30)]
-                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_RETURN(22:28)]('return')
+                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_RETURN(22:28)]('return')
                   XQueryOrExprImpl[XQUERY_OR_EXPR(28:30)]
                      XQueryAndExprImpl[XQUERY_AND_EXPR(28:30)]
                         XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(28:30)]

@@ -24,7 +24,7 @@ FileElement[FILE(0:40)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:40)]
                                                                         XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:40)]
                                                                            XQueryCompPIConstructorImpl[XQUERY_COMP_PI_CONSTRUCTOR(0:40)]
-                                                                              LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_PROCESSING_INSTRUCTION(0:22)]('processing-instruction')
+                                                                              XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_PROCESSING_INSTRUCTION(0:22)]('processing-instruction')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(22:23)](' ')
                                                                               LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(23:24)]('{')
                                                                               XQueryExprImpl[XQUERY_EXPR(24:30)]

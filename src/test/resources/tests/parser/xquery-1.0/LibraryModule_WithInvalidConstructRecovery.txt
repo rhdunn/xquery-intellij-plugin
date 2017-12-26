@@ -1,9 +1,9 @@
 FileElement[FILE(0:130)]
    XQueryLibraryModuleImpl[XQUERY_LIBRARY_MODULE(0:130)]
       XQueryModuleDeclImpl[XQUERY_MODULE_DECL(0:54)]
-         LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_MODULE(0:6)]('module')
+         XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_MODULE(0:6)]('module')
          PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
-         LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NAMESPACE(7:16)]('namespace')
+         XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NAMESPACE(7:16)]('namespace')
          PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
          XPathNCNameImpl[XQUERY_NCNAME(17:21)]
             XmlNCNameImpl[XQUERY_NCNAME_TOKEN(17:21)]('test')
@@ -18,10 +18,10 @@ FileElement[FILE(0:130)]
       PsiWhiteSpaceImpl[WHITE_SPACE(54:55)]('\n')
       XQueryPrologImpl[XQUERY_PROLOG(55:130)]
          XQueryAnnotatedDeclImpl[XQUERY_ANNOTATED_DECL(55:96)]
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(55:62)]('declare')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(55:62)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(62:63)](' ')
             XQueryVarDeclImpl[XQUERY_VAR_DECL(63:96)]
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_VARIABLE(63:71)]('variable')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VARIABLE(63:71)]('variable')
                PsiWhiteSpaceImpl[WHITE_SPACE(71:72)](' ')
                LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(72:73)]('$')
                XQueryVarNameImpl[XQUERY_VAR_NAME(73:75)]
@@ -93,10 +93,10 @@ FileElement[FILE(0:130)]
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(102:103)](';')
          PsiWhiteSpaceImpl[WHITE_SPACE(103:104)]('\n')
          XQueryAnnotatedDeclImpl[XQUERY_ANNOTATED_DECL(104:129)]
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(104:111)]('declare')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(104:111)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(111:112)](' ')
             XQueryVarDeclImpl[XQUERY_VAR_DECL(112:129)]
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_VARIABLE(112:120)]('variable')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VARIABLE(112:120)]('variable')
                PsiWhiteSpaceImpl[WHITE_SPACE(120:121)](' ')
                LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(121:122)]('$')
                XQueryVarNameImpl[XQUERY_VAR_NAME(122:124)]

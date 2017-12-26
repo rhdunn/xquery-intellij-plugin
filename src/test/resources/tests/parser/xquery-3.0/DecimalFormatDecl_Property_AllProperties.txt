@@ -2,16 +2,16 @@ FileElement[FILE(0:207)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:207)]
       XQueryPrologImpl[XQUERY_PROLOG(0:207)]
          XQueryDecimalFormatDeclImpl[XQUERY_DECIMAL_FORMAT_DECL(0:206)]
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECIMAL_FORMAT(8:22)]('decimal-format')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECIMAL_FORMAT(8:22)]('decimal-format')
             PsiWhiteSpaceImpl[WHITE_SPACE(22:23)](' ')
             XPathEQNameImpl[XQUERY_EQNAME(23:28)]
                XPathNCNameImpl[XQUERY_NCNAME(23:27)]
                   XmlNCNameImpl[XQUERY_NCNAME_TOKEN(23:27)]('test')
                PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
             XQueryDFPropertyNameImpl[XQUERY_DF_PROPERTY_NAME(28:45)]
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECIMAL_SEPARATOR(28:45)]('decimal-separator')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECIMAL_SEPARATOR(28:45)]('decimal-separator')
             PsiWhiteSpaceImpl[WHITE_SPACE(45:46)](' ')
             LeafPsiElement[XQUERY_EQUAL_TOKEN(46:47)]('=')
             PsiWhiteSpaceImpl[WHITE_SPACE(47:48)](' ')
@@ -21,7 +21,7 @@ FileElement[FILE(0:207)]
                LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(50:51)]('"')
             PsiWhiteSpaceImpl[WHITE_SPACE(51:52)](' ')
             XQueryDFPropertyNameImpl[XQUERY_DF_PROPERTY_NAME(52:70)]
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_GROUPING_SEPARATOR(52:70)]('grouping-separator')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_GROUPING_SEPARATOR(52:70)]('grouping-separator')
             PsiWhiteSpaceImpl[WHITE_SPACE(70:71)](' ')
             LeafPsiElement[XQUERY_EQUAL_TOKEN(71:72)]('=')
             PsiWhiteSpaceImpl[WHITE_SPACE(72:73)](' ')
@@ -31,7 +31,7 @@ FileElement[FILE(0:207)]
                LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(75:76)]('"')
             PsiWhiteSpaceImpl[WHITE_SPACE(76:77)](' ')
             XQueryDFPropertyNameImpl[XQUERY_DF_PROPERTY_NAME(77:85)]
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_INFINITY(77:85)]('infinity')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_INFINITY(77:85)]('infinity')
             PsiWhiteSpaceImpl[WHITE_SPACE(85:86)](' ')
             LeafPsiElement[XQUERY_EQUAL_TOKEN(86:87)]('=')
             PsiWhiteSpaceImpl[WHITE_SPACE(87:88)](' ')
@@ -41,7 +41,7 @@ FileElement[FILE(0:207)]
                LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(92:93)]('"')
             PsiWhiteSpaceImpl[WHITE_SPACE(93:94)](' ')
             XQueryDFPropertyNameImpl[XQUERY_DF_PROPERTY_NAME(94:104)]
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_MINUS_SIGN(94:104)]('minus-sign')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_MINUS_SIGN(94:104)]('minus-sign')
             PsiWhiteSpaceImpl[WHITE_SPACE(104:105)](' ')
             LeafPsiElement[XQUERY_EQUAL_TOKEN(105:106)]('=')
             PsiWhiteSpaceImpl[WHITE_SPACE(106:107)](' ')
@@ -51,7 +51,7 @@ FileElement[FILE(0:207)]
                LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(109:110)]('"')
             PsiWhiteSpaceImpl[WHITE_SPACE(110:111)](' ')
             XQueryDFPropertyNameImpl[XQUERY_DF_PROPERTY_NAME(111:114)]
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NAN(111:114)]('NaN')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NAN(111:114)]('NaN')
             PsiWhiteSpaceImpl[WHITE_SPACE(114:115)](' ')
             LeafPsiElement[XQUERY_EQUAL_TOKEN(115:116)]('=')
             PsiWhiteSpaceImpl[WHITE_SPACE(116:117)](' ')
@@ -61,7 +61,7 @@ FileElement[FILE(0:207)]
                LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(121:122)]('"')
             PsiWhiteSpaceImpl[WHITE_SPACE(122:123)](' ')
             XQueryDFPropertyNameImpl[XQUERY_DF_PROPERTY_NAME(123:130)]
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_PERCENT(123:130)]('percent')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_PERCENT(123:130)]('percent')
             PsiWhiteSpaceImpl[WHITE_SPACE(130:131)](' ')
             LeafPsiElement[XQUERY_EQUAL_TOKEN(131:132)]('=')
             PsiWhiteSpaceImpl[WHITE_SPACE(132:133)](' ')
@@ -71,7 +71,7 @@ FileElement[FILE(0:207)]
                LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(135:136)]('"')
             PsiWhiteSpaceImpl[WHITE_SPACE(136:137)](' ')
             XQueryDFPropertyNameImpl[XQUERY_DF_PROPERTY_NAME(137:146)]
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_PER_MILLE(137:146)]('per-mille')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_PER_MILLE(137:146)]('per-mille')
             PsiWhiteSpaceImpl[WHITE_SPACE(146:147)](' ')
             LeafPsiElement[XQUERY_EQUAL_TOKEN(147:148)]('=')
             PsiWhiteSpaceImpl[WHITE_SPACE(148:149)](' ')
@@ -81,7 +81,7 @@ FileElement[FILE(0:207)]
                LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(151:152)]('"')
             PsiWhiteSpaceImpl[WHITE_SPACE(152:153)](' ')
             XQueryDFPropertyNameImpl[XQUERY_DF_PROPERTY_NAME(153:163)]
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_ZERO_DIGIT(153:163)]('zero-digit')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ZERO_DIGIT(153:163)]('zero-digit')
             PsiWhiteSpaceImpl[WHITE_SPACE(163:164)](' ')
             LeafPsiElement[XQUERY_EQUAL_TOKEN(164:165)]('=')
             PsiWhiteSpaceImpl[WHITE_SPACE(165:166)](' ')
@@ -91,7 +91,7 @@ FileElement[FILE(0:207)]
                LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(168:169)]('"')
             PsiWhiteSpaceImpl[WHITE_SPACE(169:170)](' ')
             XQueryDFPropertyNameImpl[XQUERY_DF_PROPERTY_NAME(170:175)]
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DIGIT(170:175)]('digit')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DIGIT(170:175)]('digit')
             PsiWhiteSpaceImpl[WHITE_SPACE(175:176)](' ')
             LeafPsiElement[XQUERY_EQUAL_TOKEN(176:177)]('=')
             PsiWhiteSpaceImpl[WHITE_SPACE(177:178)](' ')
@@ -101,7 +101,7 @@ FileElement[FILE(0:207)]
                LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(180:181)]('"')
             PsiWhiteSpaceImpl[WHITE_SPACE(181:182)](' ')
             XQueryDFPropertyNameImpl[XQUERY_DF_PROPERTY_NAME(182:199)]
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_PATTERN_SEPARATOR(182:199)]('pattern-separator')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_PATTERN_SEPARATOR(182:199)]('pattern-separator')
             PsiWhiteSpaceImpl[WHITE_SPACE(199:200)](' ')
             LeafPsiElement[XQUERY_EQUAL_TOKEN(200:201)]('=')
             PsiWhiteSpaceImpl[WHITE_SPACE(201:202)](' ')

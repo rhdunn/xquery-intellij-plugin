@@ -24,7 +24,7 @@ FileElement[FILE(0:9)]
                                                                      XQueryAxisStepImpl[XQUERY_AXIS_STEP(0:9)]
                                                                         XQueryReverseStepImpl[XQUERY_REVERSE_STEP(0:9)]
                                                                            XQueryReverseAxisImpl[XQUERY_REVERSE_AXIS(0:9)]
-                                                                              LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_PARENT(0:6)]('parent')
+                                                                              XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_PARENT(0:6)]('parent')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
                                                                               LeafPsiElement[XQUERY_AXIS_SEPARATOR_TOKEN(7:9)]('::')
                                                                            PsiErrorElementImpl[ERROR_ELEMENT(9:9)]('XPST0003: Expected 'NodeTest'.')

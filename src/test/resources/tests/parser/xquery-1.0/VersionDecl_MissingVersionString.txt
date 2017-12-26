@@ -1,9 +1,9 @@
 FileElement[FILE(0:15)]
    XQueryModuleImpl[XQUERY_MODULE(0:15)]
       XQueryVersionDeclImpl[XQUERY_VERSION_DECL(0:15)]
-         LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_XQUERY(0:6)]('xquery')
+         XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_XQUERY(0:6)]('xquery')
          PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
-         LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_VERSION(7:14)]('version')
+         XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VERSION(7:14)]('version')
          PsiErrorElementImpl[ERROR_ELEMENT(14:14)]('XPST0003: Missing version string.')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(14:15)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(15:15)]('XPST0003: Missing library 'module' declaration or main module query body.')

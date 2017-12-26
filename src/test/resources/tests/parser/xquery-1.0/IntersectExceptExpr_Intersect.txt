@@ -30,7 +30,7 @@ FileElement[FILE(0:13)]
                                                                                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:1)]('a')
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
                                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(2:2)]
-                                          LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_INTERSECT(2:11)]('intersect')
+                                          XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_INTERSECT(2:11)]('intersect')
                                           PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
                                           XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(12:13)]
                                              XQueryTreatExprImpl[XQUERY_TREAT_EXPR(12:13)]

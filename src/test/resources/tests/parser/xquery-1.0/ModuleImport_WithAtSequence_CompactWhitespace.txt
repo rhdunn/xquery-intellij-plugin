@@ -2,14 +2,14 @@ FileElement[FILE(0:56)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:56)]
       XQueryPrologImpl[XQUERY_PROLOG(0:56)]
          XQueryModuleImportImpl[XQUERY_MODULE_IMPORT(0:55)]
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_IMPORT(0:6)]('import')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_IMPORT(0:6)]('import')
             PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_MODULE(7:13)]('module')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_MODULE(7:13)]('module')
             XQueryUriLiteralImpl[XQUERY_URI_LITERAL(13:42)]
                LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(13:14)]('"')
                LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(14:41)]('http://www.example.com/test')
                LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(41:42)]('"')
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_AT(42:44)]('at')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AT(42:44)]('at')
             XQueryUriLiteralImpl[XQUERY_URI_LITERAL(44:55)]
                LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(44:45)]('"')
                LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(45:54)]('/test.xqy')

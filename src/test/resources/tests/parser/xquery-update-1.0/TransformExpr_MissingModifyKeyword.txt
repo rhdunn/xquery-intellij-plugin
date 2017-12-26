@@ -3,7 +3,7 @@ FileElement[FILE(0:30)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:30)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:30)]
             UpdateFacilityCopyModifyExprImpl[XQUERY_COPY_MODIFY_EXPR(0:30)]
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_COPY(0:4)]('copy')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_COPY(0:4)]('copy')
                PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
                LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(5:6)]('$')
                PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
@@ -68,7 +68,7 @@ FileElement[FILE(0:30)]
                                                                                  XPathNCNameImpl[XQUERY_NCNAME(18:19)]
                                                                                     XmlNCNameImpl[XQUERY_NCNAME_TOKEN(18:19)]('x')
                                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_RETURN(20:26)]('return')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_RETURN(20:26)]('return')
                PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
                XQueryOrExprImpl[XQUERY_OR_EXPR(27:30)]
                   XQueryAndExprImpl[XQUERY_AND_EXPR(27:30)]

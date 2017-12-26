@@ -30,5 +30,5 @@ FileElement[FILE(0:4)]
                                                                                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:1)]('a')
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
                                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(2:2)]
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_OR(2:4)]('or')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_OR(2:4)]('or')
                PsiErrorElementImpl[ERROR_ELEMENT(4:4)]('XPST0003: Expected 'AndExpr'.')

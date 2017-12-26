@@ -2,14 +2,14 @@ FileElement[FILE(0:38)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:38)]
       XQueryPrologImpl[XQUERY_PROLOG(0:38)]
          FTOptionDeclImpl[XQUERY_FT_OPTION_DECL(0:37)]
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_FT_OPTION(8:17)]('ft-option')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FT_OPTION(8:17)]('ft-option')
             PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
             FTMatchOptionsImpl[XQUERY_FT_MATCH_OPTIONS(18:37)]
                PsiErrorElementImpl[ERROR_ELEMENT(18:18)]('XPST0003: Expected keyword: using.')
                FTExtensionOptionImpl[XQUERY_FT_EXTENSION_OPTION(18:36)]
-                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_OPTION(18:24)]('option')
+                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_OPTION(18:24)]('option')
                   PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
                   XPathEQNameImpl[XQUERY_EQNAME(25:30)]
                      XPathNCNameImpl[XQUERY_NCNAME(25:29)]

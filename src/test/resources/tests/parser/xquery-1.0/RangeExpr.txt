@@ -25,7 +25,7 @@ FileElement[FILE(0:7)]
                                                                         XPathLiteralImpl[XQUERY_LITERAL(0:1)]
                                                                            XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:1)]('1')
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
-                              LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_TO(2:4)]('to')
+                              XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TO(2:4)]('to')
                               PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
                               XQueryAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(5:7)]
                                  XQueryMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(5:7)]

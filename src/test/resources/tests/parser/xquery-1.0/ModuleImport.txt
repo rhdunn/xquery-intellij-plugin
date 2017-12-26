@@ -2,9 +2,9 @@ FileElement[FILE(0:45)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:45)]
       XQueryPrologImpl[XQUERY_PROLOG(0:45)]
          XQueryModuleImportImpl[XQUERY_MODULE_IMPORT(0:44)]
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_IMPORT(0:6)]('import')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_IMPORT(0:6)]('import')
             PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_MODULE(7:13)]('module')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_MODULE(7:13)]('module')
             PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
             XQueryUriLiteralImpl[XQUERY_URI_LITERAL(14:43)]
                LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(14:15)]('"')

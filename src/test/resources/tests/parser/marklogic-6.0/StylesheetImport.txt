@@ -2,11 +2,11 @@ FileElement[FILE(0:33)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:33)]
       XQueryPrologImpl[XQUERY_PROLOG(0:33)]
          MarkLogicStylesheetImportImpl[XQUERY_STYLESHEET_IMPORT(0:32)]
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_IMPORT(0:6)]('import')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_IMPORT(0:6)]('import')
             PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_STYLESHEET(7:17)]('stylesheet')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_STYLESHEET(7:17)]('stylesheet')
             PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_AT(18:20)]('at')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AT(18:20)]('at')
             PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
             XQueryUriLiteralImpl[XQUERY_URI_LITERAL(21:31)]
                LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(21:22)]('"')

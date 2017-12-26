@@ -26,7 +26,7 @@ FileElement[FILE(0:16)]
                                                                            XQueryAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:16)]
                                                                               XQueryNodeTestImpl[XQUERY_NODE_TEST(0:16)]
                                                                                  MarkLogicNullTestImpl[XQUERY_NULL_TEST(0:16)]
-                                                                                    LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NULL_NODE(0:9)]('null-node')
+                                                                                    XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NULL_NODE(0:9)]('null-node')
                                                                                     LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(9:10)]('(')
                                                                                     XPathStringLiteralImpl[XQUERY_STRING_LITERAL(10:15)]
                                                                                        LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(10:11)]('"')

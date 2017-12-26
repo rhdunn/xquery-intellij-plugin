@@ -25,9 +25,9 @@ FileElement[FILE(0:24)]
                                                                         XPathLiteralImpl[XQUERY_LITERAL(0:2)]
                                                                            XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:2)]('25')
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
-                                                   LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_CASTABLE(3:11)]('castable')
+                                                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CASTABLE(3:11)]('castable')
                                                    PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
-                                                   LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_AS(12:14)]('as')
+                                                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(12:14)]('as')
                                                    PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
                                                    XQuerySingleTypeImpl[XQUERY_SINGLE_TYPE(15:24)]
                                                       XQuerySimpleTypeNameImpl[XQUERY_SIMPLE_TYPE_NAME(15:24)]

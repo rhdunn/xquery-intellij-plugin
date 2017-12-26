@@ -3,7 +3,7 @@ FileElement[FILE(0:8)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:8)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:8)]
             ScriptingExitExprImpl[XQUERY_EXIT_EXPR(0:8)]
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_EXIT(0:4)]('exit')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXIT(0:4)]('exit')
                PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
                PsiErrorElementImpl[ERROR_ELEMENT(5:5)]('XPST0003: Expected keyword: returning.')
                XQueryOrExprImpl[XQUERY_OR_EXPR(5:8)]

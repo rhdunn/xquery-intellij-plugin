@@ -2,13 +2,13 @@ FileElement[FILE(0:51)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:51)]
       XQueryPrologImpl[XQUERY_PROLOG(0:51)]
          XQueryAnnotatedDeclImpl[XQUERY_ANNOTATED_DECL(0:50)]
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
             ScriptingCompatibilityAnnotationImpl[XQUERY_COMPATBILITY_ANNOTATION_SCRIPTING(8:18)]
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_SEQUENTIAL(8:18)]('sequential')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SEQUENTIAL(8:18)]('sequential')
             PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
             XQueryFunctionDeclImpl[XQUERY_FUNCTION_DECL(19:50)]
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_FUNCTION(19:27)]('function')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FUNCTION(19:27)]('function')
                PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
                XPathNCNameImpl[XQUERY_NCNAME(28:29)]
                   XmlNCNameImpl[XQUERY_NCNAME_TOKEN(28:29)]('f')
@@ -45,7 +45,7 @@ FileElement[FILE(0:51)]
                                                                                  XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(36:48)]
                                                                                     XQueryFunctionCallImpl[XQUERY_FUNCTION_CALL(36:47)]
                                                                                        XPathNCNameImpl[XQUERY_NCNAME(36:43)]
-                                                                                          LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(36:43)]('declare')
+                                                                                          XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(36:43)]('declare')
                                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(43:44)](' ')
                                                                                        XQueryArgumentListImpl[XQUERY_ARGUMENT_LIST(44:47)]
                                                                                           LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(44:45)]('(')

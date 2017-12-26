@@ -2,20 +2,20 @@ FileElement[FILE(0:76)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:76)]
       XQueryPrologImpl[XQUERY_PROLOG(0:76)]
          FTOptionDeclImpl[XQUERY_FT_OPTION_DECL(0:75)]
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_FT_OPTION(8:17)]('ft-option')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FT_OPTION(8:17)]('ft-option')
             PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
             FTMatchOptionsImpl[XQUERY_FT_MATCH_OPTIONS(18:75)]
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_USING(18:23)]('using')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_USING(18:23)]('using')
                PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
                FTThesaurusOptionImpl[XQUERY_FT_THESAURUS_OPTION(24:75)]
-                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_THESAURUS(24:33)]('thesaurus')
+                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_THESAURUS(24:33)]('thesaurus')
                   LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(33:34)]('(')
-                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DEFAULT(34:41)]('default')
+                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DEFAULT(34:41)]('default')
                   LeafPsiElement[XQUERY_COMMA_TOKEN(41:42)](',')
                   FTThesaurusIDImpl[XQUERY_FT_THESAURUS_ID(42:74)]
-                     LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_AT(42:44)]('at')
+                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AT(42:44)]('at')
                      XQueryUriLiteralImpl[XQUERY_URI_LITERAL(44:74)]
                         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(44:45)]('"')
                         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(45:73)]('http://www.example.com/de-CH')

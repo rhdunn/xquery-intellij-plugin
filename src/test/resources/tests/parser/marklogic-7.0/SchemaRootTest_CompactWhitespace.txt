@@ -2,24 +2,24 @@ FileElement[FILE(0:46)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:46)]
       XQueryPrologImpl[XQUERY_PROLOG(0:46)]
          XQueryAnnotatedDeclImpl[XQUERY_ANNOTATED_DECL(0:45)]
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
             XQueryVarDeclImpl[XQUERY_VAR_DECL(8:45)]
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_VARIABLE(8:16)]('variable')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VARIABLE(8:16)]('variable')
                LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(16:17)]('$')
                XQueryVarNameImpl[XQUERY_VAR_NAME(17:21)]
                   XPathNCNameImpl[XQUERY_NCNAME(17:20)]
                      XmlNCNameImpl[XQUERY_NCNAME_TOKEN(17:20)]('one')
                   PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
                XQueryTypeDeclarationImpl[XQUERY_TYPE_DECLARATION(21:37)]
-                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_AS(21:23)]('as')
+                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(21:23)]('as')
                   PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
                   XQuerySequenceTypeImpl[XQUERY_SEQUENCE_TYPE(24:37)]
                      XQueryItemTypeImpl[XQUERY_ITEM_TYPE(24:37)]
                         MarkLogicSchemaRootTestImpl[XQUERY_SCHEMA_ROOT_TEST(24:37)]
-                           LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_SCHEMA_ROOT_NODE(24:35)]('schema-root')
+                           XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SCHEMA_ROOT_NODE(24:35)]('schema-root')
                            LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(35:36)]('(')
                            LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(36:37)](')')
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(37:45)]('external')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(37:45)]('external')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(45:46)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(46:46)]('XPST0003: Missing query body.')

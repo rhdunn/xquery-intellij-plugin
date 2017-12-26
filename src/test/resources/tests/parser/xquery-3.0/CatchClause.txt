@@ -4,7 +4,7 @@ FileElement[FILE(0:36)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:36)]
             XQueryTryCatchExprImpl[XQUERY_TRY_CATCH_EXPR(0:36)]
                XQueryTryClauseImpl[XQUERY_TRY_CLAUSE(0:9)]
-                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_TRY(0:3)]('try')
+                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TRY(0:3)]('try')
                   PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
                   XQueryEnclosedTryTargetExprImpl[XQUERY_ENCLOSED_TRY_TARGET_EXPR(4:9)]
                      LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(4:5)]('{')
@@ -37,7 +37,7 @@ FileElement[FILE(0:36)]
                      LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(8:9)]('}')
                PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
                XQueryCatchClauseImpl[XQUERY_CATCH_CLAUSE(10:36)]
-                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_CATCH(10:15)]('catch')
+                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CATCH(10:15)]('catch')
                   PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
                   XQueryCatchErrorListImpl[XQUERY_CATCH_ERROR_LIST(16:31)]
                      XQueryNameTestImpl[XQUERY_NAME_TEST(16:30)]

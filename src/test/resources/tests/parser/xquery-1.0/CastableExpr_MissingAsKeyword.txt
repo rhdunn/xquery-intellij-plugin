@@ -25,7 +25,7 @@ FileElement[FILE(0:21)]
                                                                         XPathLiteralImpl[XQUERY_LITERAL(0:2)]
                                                                            XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:2)]('25')
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
-                                                   LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_CASTABLE(3:11)]('castable')
+                                                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CASTABLE(3:11)]('castable')
                                                    PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
                                                    PsiErrorElementImpl[ERROR_ELEMENT(12:12)]('XPST0003: Expected keyword: as.')
                                                    XQuerySingleTypeImpl[XQUERY_SINGLE_TYPE(12:21)]

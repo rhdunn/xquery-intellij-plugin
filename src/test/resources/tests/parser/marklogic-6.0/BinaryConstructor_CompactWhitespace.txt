@@ -23,7 +23,7 @@ FileElement[FILE(0:12)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:12)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:12)]
                                                                         MarkLogicBinaryConstructorImpl[XQUERY_BINARY_CONSTRUCTOR(0:12)]
-                                                                           LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_BINARY(0:6)]('binary')
+                                                                           XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_BINARY(0:6)]('binary')
                                                                            LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(6:7)]('{')
                                                                            XQueryExprImpl[XQUERY_EXPR(7:11)]
                                                                               ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(7:11)]

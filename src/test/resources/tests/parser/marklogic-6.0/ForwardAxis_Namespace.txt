@@ -24,7 +24,7 @@ FileElement[FILE(0:17)]
                                                                      XQueryAxisStepImpl[XQUERY_AXIS_STEP(0:17)]
                                                                         XQueryForwardStepImpl[XQUERY_FORWARD_STEP(0:17)]
                                                                            XQueryForwardAxisImpl[XQUERY_FORWARD_AXIS(0:12)]
-                                                                              LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NAMESPACE(0:9)]('namespace')
+                                                                              XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NAMESPACE(0:9)]('namespace')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
                                                                               LeafPsiElement[XQUERY_AXIS_SEPARATOR_TOKEN(10:12)]('::')
                                                                            PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')

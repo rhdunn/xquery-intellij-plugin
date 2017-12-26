@@ -4,7 +4,7 @@ FileElement[FILE(0:21)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:21)]
             XQueryFLWORExprImpl[XQUERY_FLWOR_EXPR(0:21)]
                XQueryLetClauseImpl[XQUERY_LET_CLAUSE(0:15)]
-                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_LET(0:3)]('let')
+                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_LET(0:3)]('let')
                   PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
                   XQueryLetBindingImpl[XQUERY_LET_BINDING(4:15)]
                      LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(4:5)]('$')
@@ -43,5 +43,5 @@ FileElement[FILE(0:21)]
                                                                                           XmlNCNameImpl[XQUERY_NCNAME_TOKEN(13:14)]('y')
                                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
                XQueryReturnClauseImpl[XQUERY_RETURN_CLAUSE(15:21)]
-                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_RETURN(15:21)]('return')
+                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_RETURN(15:21)]('return')
                   PsiErrorElementImpl[ERROR_ELEMENT(21:21)]('XPST0003: Missing expression.')

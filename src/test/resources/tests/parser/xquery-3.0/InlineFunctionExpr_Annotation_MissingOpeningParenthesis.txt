@@ -27,9 +27,9 @@ FileElement[FILE(0:25)]
                                                                               LeafPsiElement[XQUERY_ANNOTATION_INDICATOR_TOKEN(0:1)]('%')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
                                                                               XPathNCNameImpl[XQUERY_NCNAME(2:8)]
-                                                                                 LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_PUBLIC(2:8)]('public')
+                                                                                 XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_PUBLIC(2:8)]('public')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
-                                                                           LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_FUNCTION(9:17)]('function')
+                                                                           XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FUNCTION(9:17)]('function')
                                                                            PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
                                                                            PsiErrorElementImpl[ERROR_ELEMENT(18:18)]('XPST0003: Expected '('.')
                                                                            LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(18:19)](')')

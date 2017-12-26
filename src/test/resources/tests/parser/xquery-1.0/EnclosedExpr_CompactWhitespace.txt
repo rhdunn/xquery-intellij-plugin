@@ -2,10 +2,10 @@ FileElement[FILE(0:35)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:35)]
       XQueryPrologImpl[XQUERY_PROLOG(0:35)]
          XQueryAnnotatedDeclImpl[XQUERY_ANNOTATED_DECL(0:34)]
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
             XQueryFunctionDeclImpl[XQUERY_FUNCTION_DECL(8:34)]
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_FUNCTION(8:16)]('function')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FUNCTION(8:16)]('function')
                PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
                XPathQNameImpl[XQUERY_QNAME(17:24)]
                   XPathNCNameImpl[XQUERY_NCNAME(17:19)]

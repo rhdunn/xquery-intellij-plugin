@@ -3,11 +3,11 @@ FileElement[FILE(0:29)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:29)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:29)]
             UpdateFacilityReplaceExprImpl[XQUERY_REPLACE_EXPR(0:29)]
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_REPLACE(0:7)]('replace')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_REPLACE(0:7)]('replace')
                PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_VALUE(8:13)]('value')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VALUE(8:13)]('value')
                PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_OF(14:16)]('of')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_OF(14:16)]('of')
                PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
                PsiErrorElementImpl[ERROR_ELEMENT(17:17)]('XPST0003: Expected keyword: node.')
                UpdateFacilityTargetExprImpl[XQUERY_TARGET_EXPR(17:21)]
@@ -38,7 +38,7 @@ FileElement[FILE(0:29)]
                                                                                     XPathNCNameImpl[XQUERY_NCNAME(19:20)]
                                                                                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(19:20)]('x')
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_WITH(21:25)]('with')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_WITH(21:25)]('with')
                PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
                XQueryOrExprImpl[XQUERY_OR_EXPR(26:29)]
                   XQueryAndExprImpl[XQUERY_AND_EXPR(26:29)]

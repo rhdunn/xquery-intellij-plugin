@@ -2,10 +2,10 @@ FileElement[FILE(0:37)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:37)]
       XQueryPrologImpl[XQUERY_PROLOG(0:37)]
          XQueryAnnotatedDeclImpl[XQUERY_ANNOTATED_DECL(0:36)]
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
             XQueryFunctionDeclImpl[XQUERY_FUNCTION_DECL(8:36)]
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_FUNCTION(8:16)]('function')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FUNCTION(8:16)]('function')
                PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
                XPathQNameImpl[XQUERY_QNAME(17:24)]
                   XPathNCNameImpl[XQUERY_NCNAME(17:19)]
@@ -20,7 +20,7 @@ FileElement[FILE(0:37)]
                   XQueryParamImpl[XQUERY_PARAM(27:36)]
                      PsiErrorElementImpl[ERROR_ELEMENT(27:27)]('XPST0003: Expected '$'.')
                      XPathNCNameImpl[XQUERY_NCNAME(27:35)]
-                        LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(27:35)]('external')
+                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(27:35)]('external')
                      PsiWhiteSpaceImpl[WHITE_SPACE(35:36)](' ')
                PsiErrorElementImpl[ERROR_ELEMENT(36:36)]('XPST0003: Expected ')'.')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(36:37)](';')

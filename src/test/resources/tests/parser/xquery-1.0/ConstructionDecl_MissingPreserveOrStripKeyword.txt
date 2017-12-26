@@ -2,9 +2,9 @@ FileElement[FILE(0:21)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:21)]
       XQueryPrologImpl[XQUERY_PROLOG(0:21)]
          XQueryConstructionDeclImpl[XQUERY_CONSTRUCTION_DECL(0:20)]
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_CONSTRUCTION(8:20)]('construction')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CONSTRUCTION(8:20)]('construction')
             PsiErrorElementImpl[ERROR_ELEMENT(20:20)]('XPST0003: Expected keyword: preserve, strip.')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(20:21)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(21:21)]('XPST0003: Missing query body.')

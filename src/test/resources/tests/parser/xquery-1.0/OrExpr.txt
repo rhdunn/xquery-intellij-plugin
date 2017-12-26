@@ -30,7 +30,7 @@ FileElement[FILE(0:6)]
                                                                                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:1)]('a')
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
                                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(2:2)]
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_OR(2:4)]('or')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_OR(2:4)]('or')
                PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
                XQueryAndExprImpl[XQUERY_AND_EXPR(5:6)]
                   XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(5:6)]

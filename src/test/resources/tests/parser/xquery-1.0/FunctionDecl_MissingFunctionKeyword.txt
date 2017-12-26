@@ -2,7 +2,7 @@ FileElement[FILE(0:30)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:30)]
       XQueryPrologImpl[XQUERY_PROLOG(0:30)]
          XQueryUnknownDeclImpl[XQUERY_UNKNOWN_DECL(0:29)]
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
             PsiErrorElementImpl[ERROR_ELEMENT(8:8)]('XPST0003: Expected keyword: base-uri, boundary-space, construction, context, copy-namespaces, decimal-format, default, ft-option, function, namespace, option, ordering, revalidation, type, variable.')
             XmlNCNameImpl[XQUERY_NCNAME_TOKEN(8:10)]('fn')
@@ -13,7 +13,7 @@ FileElement[FILE(0:30)]
             PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
             LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(18:19)](')')
             PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(20:28)]('external')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(20:28)]('external')
             PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(29:30)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(30:30)]('XPST0003: Missing query body.')

@@ -27,7 +27,7 @@ FileElement[FILE(0:123)]
                                                                               XQueryNodeTestImpl[XQUERY_NODE_TEST(0:15)]
                                                                                  XQueryNameTestImpl[XQUERY_NAME_TEST(0:15)]
                                                                                     XPathNCNameImpl[XQUERY_NCNAME(0:14)]
-                                                                                       LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_ATTRIBUTE_DECL_NODE(0:14)]('attribute-decl')
+                                                                                       XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ATTRIBUTE_DECL_NODE(0:14)]('attribute-decl')
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
                                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(15:15)]
             LeafPsiElement[XQUERY_COMMA_TOKEN(15:16)](',')
@@ -57,7 +57,7 @@ FileElement[FILE(0:123)]
                                                                               XQueryNodeTestImpl[XQUERY_NODE_TEST(17:30)]
                                                                                  XQueryNameTestImpl[XQUERY_NAME_TEST(17:30)]
                                                                                     XPathNCNameImpl[XQUERY_NCNAME(17:29)]
-                                                                                       LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_COMPLEX_TYPE_NODE(17:29)]('complex-type')
+                                                                                       XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_COMPLEX_TYPE_NODE(17:29)]('complex-type')
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
                                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(30:30)]
             LeafPsiElement[XQUERY_COMMA_TOKEN(30:31)](',')
@@ -87,7 +87,7 @@ FileElement[FILE(0:123)]
                                                                               XQueryNodeTestImpl[XQUERY_NODE_TEST(32:45)]
                                                                                  XQueryNameTestImpl[XQUERY_NAME_TEST(32:45)]
                                                                                     XPathNCNameImpl[XQUERY_NCNAME(32:44)]
-                                                                                       LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_ELEMENT_DECL_NODE(32:44)]('element-decl')
+                                                                                       XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ELEMENT_DECL_NODE(32:44)]('element-decl')
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(44:45)](' ')
                                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(45:45)]
             LeafPsiElement[XQUERY_COMMA_TOKEN(45:46)](',')
@@ -117,7 +117,7 @@ FileElement[FILE(0:123)]
                                                                               XQueryNodeTestImpl[XQUERY_NODE_TEST(47:64)]
                                                                                  XQueryNameTestImpl[XQUERY_NAME_TEST(47:64)]
                                                                                     XPathNCNameImpl[XQUERY_NCNAME(47:63)]
-                                                                                       LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_SCHEMA_COMPONENT_NODE(47:63)]('schema-component')
+                                                                                       XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SCHEMA_COMPONENT_NODE(47:63)]('schema-component')
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(63:64)](' ')
                                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(64:64)]
             LeafPsiElement[XQUERY_COMMA_TOKEN(64:65)](',')
@@ -147,7 +147,7 @@ FileElement[FILE(0:123)]
                                                                               XQueryNodeTestImpl[XQUERY_NODE_TEST(66:82)]
                                                                                  XQueryNameTestImpl[XQUERY_NAME_TEST(66:82)]
                                                                                     XPathNCNameImpl[XQUERY_NCNAME(66:81)]
-                                                                                       LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_SCHEMA_PARTICLE_NODE(66:81)]('schema-particle')
+                                                                                       XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SCHEMA_PARTICLE_NODE(66:81)]('schema-particle')
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(81:82)](' ')
                                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(82:82)]
             LeafPsiElement[XQUERY_COMMA_TOKEN(82:83)](',')
@@ -177,7 +177,7 @@ FileElement[FILE(0:123)]
                                                                               XQueryNodeTestImpl[XQUERY_NODE_TEST(84:96)]
                                                                                  XQueryNameTestImpl[XQUERY_NAME_TEST(84:96)]
                                                                                     XPathNCNameImpl[XQUERY_NCNAME(84:95)]
-                                                                                       LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_SCHEMA_ROOT_NODE(84:95)]('schema-root')
+                                                                                       XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SCHEMA_ROOT_NODE(84:95)]('schema-root')
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(95:96)](' ')
                                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(96:96)]
             LeafPsiElement[XQUERY_COMMA_TOKEN(96:97)](',')
@@ -207,7 +207,7 @@ FileElement[FILE(0:123)]
                                                                               XQueryNodeTestImpl[XQUERY_NODE_TEST(98:110)]
                                                                                  XQueryNameTestImpl[XQUERY_NAME_TEST(98:110)]
                                                                                     XPathNCNameImpl[XQUERY_NCNAME(98:109)]
-                                                                                       LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_SCHEMA_TYPE_NODE(98:109)]('schema-type')
+                                                                                       XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SCHEMA_TYPE_NODE(98:109)]('schema-type')
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(109:110)](' ')
                                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(110:110)]
             LeafPsiElement[XQUERY_COMMA_TOKEN(110:111)](',')
@@ -237,5 +237,5 @@ FileElement[FILE(0:123)]
                                                                               XQueryNodeTestImpl[XQUERY_NODE_TEST(112:123)]
                                                                                  XQueryNameTestImpl[XQUERY_NAME_TEST(112:123)]
                                                                                     XPathNCNameImpl[XQUERY_NCNAME(112:123)]
-                                                                                       LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_SIMPLE_TYPE_NODE(112:123)]('simple-type')
+                                                                                       XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SIMPLE_TYPE_NODE(112:123)]('simple-type')
                                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(123:123)]

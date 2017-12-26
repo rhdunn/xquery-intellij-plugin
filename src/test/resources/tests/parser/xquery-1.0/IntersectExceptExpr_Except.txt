@@ -30,7 +30,7 @@ FileElement[FILE(0:10)]
                                                                                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:1)]('a')
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
                                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(2:2)]
-                                          LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_EXCEPT(2:8)]('except')
+                                          XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXCEPT(2:8)]('except')
                                           PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
                                           XQueryInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(9:10)]
                                              XQueryTreatExprImpl[XQUERY_TREAT_EXPR(9:10)]

@@ -2,11 +2,11 @@ FileElement[FILE(0:26)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:26)]
       XQueryPrologImpl[XQUERY_PROLOG(0:26)]
          XQueryOrderingModeDeclImpl[XQUERY_ORDERING_MODE_DECL(0:25)]
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_ORDERING(8:16)]('ordering')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ORDERING(8:16)]('ordering')
             PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_ORDERED(17:24)]('ordered')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ORDERED(17:24)]('ordered')
             PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(25:26)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(26:26)]('XPST0003: Missing query body.')

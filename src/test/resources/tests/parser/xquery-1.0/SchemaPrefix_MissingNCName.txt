@@ -2,12 +2,12 @@ FileElement[FILE(0:56)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:56)]
       XQueryPrologImpl[XQUERY_PROLOG(0:56)]
          XQuerySchemaImportImpl[XQUERY_SCHEMA_IMPORT(0:55)]
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_IMPORT(0:6)]('import')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_IMPORT(0:6)]('import')
             PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_SCHEMA(7:13)]('schema')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SCHEMA(7:13)]('schema')
             PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
             XQuerySchemaPrefixImpl[XQUERY_SCHEMA_PREFIX(14:26)]
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NAMESPACE(14:23)]('namespace')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NAMESPACE(14:23)]('namespace')
                PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
                PsiErrorElementImpl[ERROR_ELEMENT(24:24)]('XPST0003: Missing identifier.')
                LeafPsiElement[XQUERY_EQUAL_TOKEN(24:25)]('=')

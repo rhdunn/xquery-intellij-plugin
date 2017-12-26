@@ -29,7 +29,7 @@ FileElement[FILE(0:95)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(38:95)]
                                                                         XQueryFunctionCallImpl[XQUERY_FUNCTION_CALL(38:58)]
                                                                            XPathNCNameImpl[XQUERY_NCNAME(38:56)]
-                                                                              LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_EXPONENT_SEPARATOR(38:56)]('exponent-separator')
+                                                                              XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXPONENT_SEPARATOR(38:56)]('exponent-separator')
                                                                            XQueryArgumentListImpl[XQUERY_ARGUMENT_LIST(56:58)]
                                                                               LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(56:57)]('(')
                                                                               LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(57:58)](')')

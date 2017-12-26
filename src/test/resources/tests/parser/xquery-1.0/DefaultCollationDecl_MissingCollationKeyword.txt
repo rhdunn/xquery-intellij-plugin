@@ -2,9 +2,9 @@ FileElement[FILE(0:50)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:50)]
       XQueryPrologImpl[XQUERY_PROLOG(0:50)]
          XQueryUnknownDeclImpl[XQUERY_UNKNOWN_DECL(0:49)]
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DEFAULT(8:15)]('default')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DEFAULT(8:15)]('default')
             PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
             PsiErrorElementImpl[ERROR_ELEMENT(16:16)]('XPST0003: Expected keyword: collation, element, function, order.')
             XPathStringLiteralImpl[XQUERY_STRING_LITERAL(16:48)]

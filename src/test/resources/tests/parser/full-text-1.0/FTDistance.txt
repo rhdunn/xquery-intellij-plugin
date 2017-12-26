@@ -30,9 +30,9 @@ FileElement[FILE(0:52)]
                                                                                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:5)]('title')
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
                                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(6:6)]
-                        LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_CONTAINS(6:14)]('contains')
+                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CONTAINS(6:14)]('contains')
                         PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
-                        LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
+                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
                         PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
                         FTSelectionImpl[XQUERY_FT_SELECTION(20:52)]
                            FTOrImpl[XQUERY_FT_OR(20:28)]
@@ -49,10 +49,10 @@ FileElement[FILE(0:52)]
                                                       LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(26:27)]('"')
                                                 PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
                            FTDistanceImpl[XQUERY_FT_DISTANCE(28:52)]
-                              LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DISTANCE(28:36)]('distance')
+                              XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DISTANCE(28:36)]('distance')
                               PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
                               FTRangeImpl[XQUERY_FT_RANGE(37:47)]
-                                 LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_EXACTLY(37:44)]('exactly')
+                                 XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXACTLY(37:44)]('exactly')
                                  PsiWhiteSpaceImpl[WHITE_SPACE(44:45)](' ')
                                  XQueryAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(45:47)]
                                     XQueryMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(45:47)]
@@ -72,4 +72,4 @@ FileElement[FILE(0:52)]
                                                                               XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(45:46)]('4')
                                                                            PsiWhiteSpaceImpl[WHITE_SPACE(46:47)](' ')
                               FTUnitImpl[XQUERY_FT_UNIT(47:52)]
-                                 LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_WORDS(47:52)]('words')
+                                 XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_WORDS(47:52)]('words')

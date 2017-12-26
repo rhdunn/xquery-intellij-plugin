@@ -30,9 +30,9 @@ FileElement[FILE(0:33)]
                                                                                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:5)]('title')
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
                                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(6:6)]
-                        LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_CONTAINS(6:14)]('contains')
+                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CONTAINS(6:14)]('contains')
                         PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
-                        LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
+                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
                         PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
                         FTSelectionImpl[XQUERY_FT_SELECTION(20:33)]
                            FTOrImpl[XQUERY_FT_OR(20:33)]
@@ -51,4 +51,4 @@ FileElement[FILE(0:33)]
                                           FTMatchOptionsImpl[XQUERY_FT_MATCH_OPTIONS(28:33)]
                                              PsiErrorElementImpl[ERROR_ELEMENT(28:28)]('XPST0003: Expected keyword: using.')
                                              BaseXFTFuzzyOptionImpl[XQUERY_FT_FUZZY_OPTION(28:33)]
-                                                LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_FUZZY(28:33)]('fuzzy')
+                                                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FUZZY(28:33)]('fuzzy')

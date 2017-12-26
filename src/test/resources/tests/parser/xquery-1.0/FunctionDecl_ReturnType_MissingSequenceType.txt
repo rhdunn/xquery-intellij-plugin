@@ -2,10 +2,10 @@ FileElement[FILE(0:33)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:33)]
       XQueryPrologImpl[XQUERY_PROLOG(0:33)]
          XQueryAnnotatedDeclImpl[XQUERY_ANNOTATED_DECL(0:32)]
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
             XQueryFunctionDeclImpl[XQUERY_FUNCTION_DECL(8:32)]
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_FUNCTION(8:16)]('function')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FUNCTION(8:16)]('function')
                PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
                XPathQNameImpl[XQUERY_QNAME(17:24)]
                   XPathNCNameImpl[XQUERY_NCNAME(17:19)]
@@ -18,7 +18,7 @@ FileElement[FILE(0:33)]
                PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
                LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(27:28)](')')
                PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_AS(29:31)]('as')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(29:31)]('as')
                PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
                PsiErrorElementImpl[ERROR_ELEMENT(32:32)]('XPST0003: Expected 'SequenceType'.')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(32:33)](';')

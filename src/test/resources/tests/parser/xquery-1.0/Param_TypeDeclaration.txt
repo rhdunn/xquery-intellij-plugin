@@ -2,10 +2,10 @@ FileElement[FILE(0:55)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:55)]
       XQueryPrologImpl[XQUERY_PROLOG(0:55)]
          XQueryAnnotatedDeclImpl[XQUERY_ANNOTATED_DECL(0:54)]
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
             XQueryFunctionDeclImpl[XQUERY_FUNCTION_DECL(8:54)]
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_FUNCTION(8:16)]('function')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FUNCTION(8:16)]('function')
                PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
                XPathNCNameImpl[XQUERY_NCNAME(17:21)]
                   XmlNCNameImpl[XQUERY_NCNAME_TOKEN(17:21)]('test')
@@ -20,7 +20,7 @@ FileElement[FILE(0:55)]
                         XmlNCNameImpl[XQUERY_NCNAME_TOKEN(26:29)]('one')
                      PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
                      XQueryTypeDeclarationImpl[XQUERY_TYPE_DECLARATION(30:43)]
-                        LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_AS(30:32)]('as')
+                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(30:32)]('as')
                         PsiWhiteSpaceImpl[WHITE_SPACE(32:33)](' ')
                         XQuerySequenceTypeImpl[XQUERY_SEQUENCE_TYPE(33:43)]
                            XQueryItemTypeImpl[XQUERY_ITEM_TYPE(33:42)]
@@ -33,7 +33,7 @@ FileElement[FILE(0:55)]
                            PsiWhiteSpaceImpl[WHITE_SPACE(42:43)](' ')
                LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(43:44)](')')
                PsiWhiteSpaceImpl[WHITE_SPACE(44:45)](' ')
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(45:53)]('external')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(45:53)]('external')
                PsiWhiteSpaceImpl[WHITE_SPACE(53:54)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(54:55)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(55:55)]('XPST0003: Missing query body.')

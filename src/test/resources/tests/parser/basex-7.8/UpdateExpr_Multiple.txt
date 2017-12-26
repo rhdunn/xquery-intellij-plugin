@@ -28,17 +28,17 @@ FileElement[FILE(0:48)]
                                                                               XQueryNodeTestImpl[XQUERY_NODE_TEST(2:7)]
                                                                                  XQueryNameTestImpl[XQUERY_NAME_TEST(2:7)]
                                                                                     XPathNCNameImpl[XQUERY_NCNAME(2:6)]
-                                                                                       LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_ITEM(2:6)]('item')
+                                                                                       XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ITEM(2:6)]('item')
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
                                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(7:7)]
-                                                         LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_UPDATE(7:13)]('update')
+                                                         XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_UPDATE(7:13)]('update')
                                                          PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
                                                          XQueryExprImpl[XQUERY_EXPR(14:48)]
                                                             ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(14:48)]
                                                                UpdateFacilityDeleteExprImpl[XQUERY_DELETE_EXPR(14:48)]
-                                                                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DELETE(14:20)]('delete')
+                                                                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DELETE(14:20)]('delete')
                                                                   PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
-                                                                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NODE(21:25)]('node')
+                                                                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NODE(21:25)]('node')
                                                                   PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
                                                                   UpdateFacilityTargetExprImpl[XQUERY_TARGET_EXPR(26:48)]
                                                                      XQueryOrExprImpl[XQUERY_OR_EXPR(26:48)]
@@ -64,14 +64,14 @@ FileElement[FILE(0:48)]
                                                                                                                                  XQueryContextItemExprImpl[XQUERY_CONTEXT_ITEM_EXPR(26:27)]
                                                                                                                                     LeafPsiElement[XQUERY_DOT_TOKEN(26:27)]('.')
                                                                                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
-                                                                                                                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_UPDATE(28:34)]('update')
+                                                                                                                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_UPDATE(28:34)]('update')
                                                                                                                   PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
                                                                                                                   XQueryExprImpl[XQUERY_EXPR(35:48)]
                                                                                                                      ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(35:48)]
                                                                                                                         UpdateFacilityDeleteExprImpl[XQUERY_DELETE_EXPR(35:48)]
-                                                                                                                           LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DELETE(35:41)]('delete')
+                                                                                                                           XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DELETE(35:41)]('delete')
                                                                                                                            PsiWhiteSpaceImpl[WHITE_SPACE(41:42)](' ')
-                                                                                                                           LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NODE(42:46)]('node')
+                                                                                                                           XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NODE(42:46)]('node')
                                                                                                                            PsiWhiteSpaceImpl[WHITE_SPACE(46:47)](' ')
                                                                                                                            UpdateFacilityTargetExprImpl[XQUERY_TARGET_EXPR(47:48)]
                                                                                                                               XQueryOrExprImpl[XQUERY_OR_EXPR(47:48)]

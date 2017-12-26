@@ -2,12 +2,12 @@ FileElement[FILE(0:25)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:25)]
       XQueryPrologImpl[XQUERY_PROLOG(0:25)]
          FTOptionDeclImpl[XQUERY_FT_OPTION_DECL(0:24)]
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_FT_OPTION(8:17)]('ft-option')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FT_OPTION(8:17)]('ft-option')
             PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
             FTMatchOptionsImpl[XQUERY_FT_MATCH_OPTIONS(18:24)]
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_USING(18:23)]('using')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_USING(18:23)]('using')
                PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
                PsiErrorElementImpl[ERROR_ELEMENT(24:24)]('XPST0003: Expected 'FTMatchOption', or keyword: fuzzy.')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(24:25)](';')

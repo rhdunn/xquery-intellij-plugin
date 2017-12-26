@@ -23,7 +23,7 @@ FileElement[FILE(0:18)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:18)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:18)]
                                                                         XQueryInlineFunctionExprImpl[XQUERY_INLINE_FUNCTION_EXPR(0:18)]
-                                                                           LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_FUNCTION(0:8)]('function')
+                                                                           XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FUNCTION(0:8)]('function')
                                                                            PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
                                                                            LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(9:10)]('(')
                                                                            PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')

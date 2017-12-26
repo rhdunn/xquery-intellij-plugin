@@ -3,9 +3,9 @@ FileElement[FILE(0:28)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:28)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:28)]
             UpdateFacilityInsertExprImpl[XQUERY_INSERT_EXPR(0:28)]
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_INSERT(0:6)]('insert')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_INSERT(0:6)]('insert')
                PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NODE(7:11)]('node')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NODE(7:11)]('node')
                PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
                UpdateFacilitySourceExprImpl[XQUERY_SOURCE_EXPR(12:16)]
                   XQueryOrExprImpl[XQUERY_OR_EXPR(12:16)]
@@ -36,9 +36,9 @@ FileElement[FILE(0:28)]
                                                                                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(14:15)]('x')
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
                UpdateFacilityInsertExprTargetChoiceImpl[XQUERY_INSERT_EXPR_TARGET_CHOICE(16:25)]
-                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_AS(16:18)]('as')
+                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(16:18)]('as')
                   PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
-                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_FIRST(19:24)]('first')
+                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FIRST(19:24)]('first')
                   PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
                   PsiErrorElementImpl[ERROR_ELEMENT(25:25)]('XPST0003: Expected keyword: into.')
                UpdateFacilityTargetExprImpl[XQUERY_TARGET_EXPR(25:28)]

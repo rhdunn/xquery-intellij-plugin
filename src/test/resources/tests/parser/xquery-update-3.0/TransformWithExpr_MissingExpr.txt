@@ -29,9 +29,9 @@ FileElement[FILE(0:22)]
                                                                               XPathNCNameImpl[XQUERY_NCNAME(2:3)]
                                                                                  XmlNCNameImpl[XQUERY_NCNAME_TOKEN(2:3)]('x')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
-                                                         LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_TRANSFORM(4:13)]('transform')
+                                                         XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TRANSFORM(4:13)]('transform')
                                                          PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
-                                                         LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_WITH(14:18)]('with')
+                                                         XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_WITH(14:18)]('with')
                                                          PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
                                                          LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(19:20)]('{')
                                                          PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')

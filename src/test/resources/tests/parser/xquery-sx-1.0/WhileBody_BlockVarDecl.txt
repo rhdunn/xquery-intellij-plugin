@@ -3,7 +3,7 @@ FileElement[FILE(0:40)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:40)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:40)]
             ScriptingWhileExprImpl[XQUERY_WHILE_EXPR(0:40)]
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_WHILE(0:5)]('while')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_WHILE(0:5)]('while')
                PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
                LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(6:7)]('(')
                PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
@@ -43,7 +43,7 @@ FileElement[FILE(0:40)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
                   ScriptingBlockDeclsImpl[XQUERY_BLOCK_DECLS(21:35)]
                      ScriptingBlockVarDeclImpl[XQUERY_BLOCK_VAR_DECL(21:33)]
-                        LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(21:28)]('declare')
+                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(21:28)]('declare')
                         PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
                         LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(29:30)]('$')
                         PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')

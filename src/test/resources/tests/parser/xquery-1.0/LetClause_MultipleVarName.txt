@@ -4,7 +4,7 @@ FileElement[FILE(0:38)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:38)]
             XQueryFLWORExprImpl[XQUERY_FLWOR_EXPR(0:38)]
                XQueryLetClauseImpl[XQUERY_LET_CLAUSE(0:28)]
-                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_LET(0:3)]('let')
+                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_LET(0:3)]('let')
                   PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
                   XQueryLetBindingImpl[XQUERY_LET_BINDING(4:15)]
                      LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(4:5)]('$')
@@ -81,7 +81,7 @@ FileElement[FILE(0:38)]
                                                                                           XmlNCNameImpl[XQUERY_NCNAME_TOKEN(26:27)]('w')
                                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
                XQueryReturnClauseImpl[XQUERY_RETURN_CLAUSE(28:38)]
-                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_RETURN(28:34)]('return')
+                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_RETURN(28:34)]('return')
                   PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
                   XQueryOrExprImpl[XQUERY_OR_EXPR(35:38)]
                      XQueryAndExprImpl[XQUERY_AND_EXPR(35:38)]

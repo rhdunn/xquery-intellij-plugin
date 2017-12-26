@@ -2,9 +2,9 @@ FileElement[FILE(0:26)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:26)]
       XQueryPrologImpl[XQUERY_PROLOG(0:26)]
          XQueryConstructionDeclImpl[XQUERY_CONSTRUCTION_DECL(0:26)]
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_CONSTRUCTION(8:20)]('construction')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CONSTRUCTION(8:20)]('construction')
             PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_STRIP(21:26)]('strip')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_STRIP(21:26)]('strip')
          PsiErrorElementImpl[ERROR_ELEMENT(26:26)]('XPST0003: Expected ';'.')

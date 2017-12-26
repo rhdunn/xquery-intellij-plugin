@@ -2,9 +2,9 @@ FileElement[FILE(0:27)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:27)]
       XQueryPrologImpl[XQUERY_PROLOG(0:27)]
          SaxonTypeDeclImpl[XQUERY_TYPE_DECL(0:26)]
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_TYPE(8:12)]('type')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TYPE(8:12)]('type')
             PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
             PsiErrorElementImpl[ERROR_ELEMENT(13:13)]('XPST0003: Missing qualified name.')
             LeafPsiElement[XQUERY_EQUAL_TOKEN(13:14)]('=')

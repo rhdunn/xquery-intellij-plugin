@@ -24,7 +24,7 @@ FileElement[FILE(0:14)]
                                                                      XQueryAxisStepImpl[XQUERY_AXIS_STEP(0:14)]
                                                                         XQueryForwardStepImpl[XQUERY_FORWARD_STEP(0:14)]
                                                                            XQueryForwardAxisImpl[XQUERY_FORWARD_AXIS(0:10)]
-                                                                              LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_PROPERTY(0:8)]('property')
+                                                                              XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_PROPERTY(0:8)]('property')
                                                                               LeafPsiElement[XQUERY_AXIS_SEPARATOR_TOKEN(8:10)]('::')
                                                                            XQueryNodeTestImpl[XQUERY_NODE_TEST(10:14)]
                                                                               XQueryNameTestImpl[XQUERY_NAME_TEST(10:14)]

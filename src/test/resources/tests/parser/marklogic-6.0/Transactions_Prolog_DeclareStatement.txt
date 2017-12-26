@@ -31,10 +31,10 @@ FileElement[FILE(0:31)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(4:31)]
       XQueryPrologImpl[XQUERY_PROLOG(4:30)]
          XQueryAnnotatedDeclImpl[XQUERY_ANNOTATED_DECL(4:28)]
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(4:11)]('declare')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(4:11)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
             XQueryVarDeclImpl[XQUERY_VAR_DECL(12:28)]
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_VARIABLE(12:20)]('variable')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VARIABLE(12:20)]('variable')
                PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
                LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(21:22)]('$')
                XQueryVarNameImpl[XQUERY_VAR_NAME(22:24)]

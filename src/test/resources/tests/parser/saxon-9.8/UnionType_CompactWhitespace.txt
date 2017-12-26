@@ -2,22 +2,22 @@ FileElement[FILE(0:53)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:53)]
       XQueryPrologImpl[XQUERY_PROLOG(0:53)]
          XQueryAnnotatedDeclImpl[XQUERY_ANNOTATED_DECL(0:52)]
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
             XQueryVarDeclImpl[XQUERY_VAR_DECL(8:52)]
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_VARIABLE(8:16)]('variable')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VARIABLE(8:16)]('variable')
                LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(16:17)]('$')
                XQueryVarNameImpl[XQUERY_VAR_NAME(17:19)]
                   XPathNCNameImpl[XQUERY_NCNAME(17:18)]
                      XmlNCNameImpl[XQUERY_NCNAME_TOKEN(17:18)]('x')
                   PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
                XQueryTypeDeclarationImpl[XQUERY_TYPE_DECLARATION(19:49)]
-                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_AS(19:21)]('as')
+                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(19:21)]('as')
                   PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
                   XQuerySequenceTypeImpl[XQUERY_SEQUENCE_TYPE(22:49)]
                      XQueryItemTypeImpl[XQUERY_ITEM_TYPE(22:49)]
                         SaxonUnionTypeImpl[XQUERY_UNION_TYPE(22:49)]
-                           LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_UNION(22:27)]('union')
+                           XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_UNION(22:27)]('union')
                            LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(27:28)]('(')
                            XPathQNameImpl[XQUERY_QNAME(28:38)]
                               XPathNCNameImpl[XQUERY_NCNAME(28:30)]

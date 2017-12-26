@@ -2,13 +2,13 @@ FileElement[FILE(0:29)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:29)]
       XQueryPrologImpl[XQUERY_PROLOG(0:29)]
          XQueryOptionDeclImpl[XQUERY_OPTION_DECL(0:28)]
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_OPTION(8:14)]('option')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_OPTION(8:14)]('option')
             PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
             PsiErrorElementImpl[ERROR_ELEMENT(15:21)]('XPST0003: Missing prefix before ':' in qualified name.')
                LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(15:16)](':')
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_LEAST(16:21)]('least')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_LEAST(16:21)]('least')
             PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
             XPathStringLiteralImpl[XQUERY_STRING_LITERAL(22:28)]
                LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(22:23)]('"')

@@ -3,13 +3,13 @@ FileElement[FILE(0:34)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:34)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:34)]
             UpdateFacilityReplaceExprImpl[XQUERY_REPLACE_EXPR(0:34)]
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_REPLACE(0:7)]('replace')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_REPLACE(0:7)]('replace')
                PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_VALUE(8:13)]('value')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VALUE(8:13)]('value')
                PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_OF(14:16)]('of')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_OF(14:16)]('of')
                PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NODE(17:21)]('node')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NODE(17:21)]('node')
                PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
                UpdateFacilityTargetExprImpl[XQUERY_TARGET_EXPR(22:26)]
                   XQueryOrExprImpl[XQUERY_OR_EXPR(22:26)]
@@ -39,7 +39,7 @@ FileElement[FILE(0:34)]
                                                                                     XPathNCNameImpl[XQUERY_NCNAME(24:25)]
                                                                                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(24:25)]('x')
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_WITH(26:30)]('with')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_WITH(26:30)]('with')
                PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')
                XQueryOrExprImpl[XQUERY_OR_EXPR(31:34)]
                   XQueryAndExprImpl[XQUERY_AND_EXPR(31:34)]

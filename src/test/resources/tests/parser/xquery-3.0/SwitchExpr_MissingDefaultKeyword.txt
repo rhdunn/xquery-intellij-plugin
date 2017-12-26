@@ -3,7 +3,7 @@ FileElement[FILE(0:37)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:37)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:37)]
             XQuerySwitchExprImpl[XQUERY_SWITCH_EXPR(0:37)]
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_SWITCH(0:6)]('switch')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SWITCH(0:6)]('switch')
                PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
                LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(7:8)]('(')
                PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
@@ -35,7 +35,7 @@ FileElement[FILE(0:37)]
                LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(11:12)](')')
                PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
                XQuerySwitchCaseClauseImpl[XQUERY_SWITCH_CASE_CLAUSE(13:29)]
-                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_CASE(13:17)]('case')
+                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CASE(13:17)]('case')
                   PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
                   XQuerySwitchCaseClauseImpl[XQUERY_SWITCH_CASE_OPERAND(18:20)]
                      XQueryOrExprImpl[XQUERY_OR_EXPR(18:20)]
@@ -61,7 +61,7 @@ FileElement[FILE(0:37)]
                                                                                  XPathLiteralImpl[XQUERY_LITERAL(18:19)]
                                                                                     XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(18:19)]('1')
                                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
-                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_RETURN(20:26)]('return')
+                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_RETURN(20:26)]('return')
                   PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
                   XQueryOrExprImpl[XQUERY_OR_EXPR(27:29)]
                      XQueryAndExprImpl[XQUERY_AND_EXPR(27:29)]
@@ -87,7 +87,7 @@ FileElement[FILE(0:37)]
                                                                                  XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(27:28)]('2')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
                PsiErrorElementImpl[ERROR_ELEMENT(29:29)]('XPST0003: Expected keyword: case, default.')
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_RETURN(29:35)]('return')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_RETURN(29:35)]('return')
                PsiWhiteSpaceImpl[WHITE_SPACE(35:36)](' ')
                XQueryOrExprImpl[XQUERY_OR_EXPR(36:37)]
                   XQueryAndExprImpl[XQUERY_AND_EXPR(36:37)]

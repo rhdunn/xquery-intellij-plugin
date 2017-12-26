@@ -4,7 +4,7 @@ FileElement[FILE(0:29)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:29)]
             XQueryFLWORExprImpl[XQUERY_FLWOR_EXPR(0:29)]
                XQueryForClauseImpl[XQUERY_FOR_CLAUSE(0:15)]
-                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_FOR(0:3)]('for')
+                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FOR(0:3)]('for')
                   PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
                   XQueryForBindingImpl[XQUERY_FOR_BINDING(4:15)]
                      LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(4:5)]('$')
@@ -13,7 +13,7 @@ FileElement[FILE(0:29)]
                         XPathNCNameImpl[XQUERY_NCNAME(6:7)]
                            XmlNCNameImpl[XQUERY_NCNAME_TOKEN(6:7)]('x')
                         PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-                     LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_IN(8:10)]('in')
+                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_IN(8:10)]('in')
                      PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
                      XQueryOrExprImpl[XQUERY_OR_EXPR(11:15)]
                         XQueryAndExprImpl[XQUERY_AND_EXPR(11:15)]
@@ -44,9 +44,9 @@ FileElement[FILE(0:29)]
                                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
                XQueryIntermediateClauseImpl[XQUERY_INTERMEDIATE_CLAUSE(15:29)]
                   XQueryOrderByClauseImpl[XQUERY_ORDER_BY_CLAUSE(15:29)]
-                     LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_ORDER(15:20)]('order')
+                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ORDER(15:20)]('order')
                      PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
-                     LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_BY(21:23)]('by')
+                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_BY(21:23)]('by')
                      PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
                      XQueryOrderSpecListImpl[XQUERY_ORDER_SPEC_LIST(24:29)]
                         XQueryOrderSpecImpl[XQUERY_ORDER_SPEC(24:28)]

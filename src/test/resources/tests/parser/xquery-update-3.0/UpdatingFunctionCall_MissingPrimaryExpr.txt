@@ -3,9 +3,9 @@ FileElement[FILE(0:19)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:19)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:19)]
             UpdateFacilityUpdatingFunctionCallImpl[XQUERY_UPDATING_FUNCTION_CALL(0:19)]
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_INVOKE(0:6)]('invoke')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_INVOKE(0:6)]('invoke')
                PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_UPDATING(7:15)]('updating')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_UPDATING(7:15)]('updating')
                PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
                XQueryParenthesizedExprImpl[XQUERY_PARENTHESIZED_EXPR(16:19)]
                   LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(16:17)]('(')

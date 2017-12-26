@@ -24,7 +24,7 @@ FileElement[FILE(0:15)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:15)]
                                                                         XQueryFunctionCallImpl[XQUERY_FUNCTION_CALL(0:15)]
                                                                            XPathNCNameImpl[XQUERY_NCNAME(0:12)]
-                                                                              LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_BOOLEAN_NODE(0:12)]('boolean-node')
+                                                                              XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_BOOLEAN_NODE(0:12)]('boolean-node')
                                                                            XQueryArgumentListImpl[XQUERY_ARGUMENT_LIST(12:15)]
                                                                               LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(12:13)]('(')
                                                                               XQueryArgumentImpl[XQUERY_ARGUMENT(13:14)]

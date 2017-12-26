@@ -63,7 +63,7 @@ FileElement[FILE(0:28)]
                                                                                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(6:7)]('a')
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
                                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(8:8)]
-                                    LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DIV(8:11)]('div')
+                                    XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DIV(8:11)]('div')
                                     PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
                                     PsiErrorElementImpl[ERROR_ELEMENT(12:12)]('XPST0003: Expected 'UnionExpr'.')
             LeafPsiElement[XQUERY_COMMA_TOKEN(12:13)](',')
@@ -96,7 +96,7 @@ FileElement[FILE(0:28)]
                                                                                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(14:15)]('a')
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
                                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(16:16)]
-                                    LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_IDIV(16:20)]('idiv')
+                                    XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_IDIV(16:20)]('idiv')
                                     PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
                                     PsiErrorElementImpl[ERROR_ELEMENT(21:21)]('XPST0003: Expected 'UnionExpr'.')
             LeafPsiElement[XQUERY_COMMA_TOKEN(21:22)](',')
@@ -129,5 +129,5 @@ FileElement[FILE(0:28)]
                                                                                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(23:24)]('a')
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
                                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(25:25)]
-                                    LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_MOD(25:28)]('mod')
+                                    XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_MOD(25:28)]('mod')
                                     PsiErrorElementImpl[ERROR_ELEMENT(28:28)]('XPST0003: Expected 'UnionExpr'.')

@@ -2,13 +2,13 @@ FileElement[FILE(0:28)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:28)]
       XQueryPrologImpl[XQUERY_PROLOG(0:28)]
          XQueryEmptyOrderDeclImpl[XQUERY_EMPTY_ORDER_DECL(0:27)]
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DEFAULT(8:15)]('default')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DEFAULT(8:15)]('default')
             PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_ORDER(16:21)]('order')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ORDER(16:21)]('order')
             PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_EMPTY(22:27)]('empty')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EMPTY(22:27)]('empty')
             PsiErrorElementImpl[ERROR_ELEMENT(27:27)]('XPST0003: Expected keyword: greatest, least.')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(27:28)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(28:28)]('XPST0003: Missing query body.')

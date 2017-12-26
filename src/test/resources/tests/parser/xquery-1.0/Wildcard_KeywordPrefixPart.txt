@@ -30,5 +30,5 @@ FileElement[FILE(0:5)]
                                                                                        LeafPsiElement[XQUERY_STAR_TOKEN(0:1)]('*')
                                                                                        LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(1:2)](':')
                                                                                        XPathNCNameImpl[XQUERY_NCNAME(2:5)]
-                                                                                          LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DIV(2:5)]('div')
+                                                                                          XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DIV(2:5)]('div')
                                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(5:5)]

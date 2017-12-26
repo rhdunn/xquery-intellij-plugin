@@ -2,19 +2,19 @@ FileElement[FILE(0:39)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:39)]
       XQueryPrologImpl[XQUERY_PROLOG(0:39)]
          FTOptionDeclImpl[XQUERY_FT_OPTION_DECL(0:38)]
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_FT_OPTION(8:17)]('ft-option')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FT_OPTION(8:17)]('ft-option')
             PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
             FTMatchOptionsImpl[XQUERY_FT_MATCH_OPTIONS(18:38)]
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_USING(18:23)]('using')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_USING(18:23)]('using')
                PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
                FTStopWordOptionImpl[XQUERY_FT_STOP_WORD_OPTION(24:37)]
-                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_NO(24:26)]('no')
+                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NO(24:26)]('no')
                   PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
-                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_STOP(27:31)]('stop')
+                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_STOP(27:31)]('stop')
                   PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
-                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_WORDS(32:37)]('words')
+                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_WORDS(32:37)]('words')
                PsiWhiteSpaceImpl[WHITE_SPACE(37:38)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(38:39)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(39:39)]('XPST0003: Missing query body.')

@@ -5,7 +5,7 @@ FileElement[FILE(0:42)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(4:42)]
             XQueryFLWORExprImpl[XQUERY_FLWOR_EXPR(4:42)]
                XQueryLetClauseImpl[XQUERY_LET_CLAUSE(4:19)]
-                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_LET(4:7)]('let')
+                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_LET(4:7)]('let')
                   PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
                   XQueryLetBindingImpl[XQUERY_LET_BINDING(8:19)]
                      LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(8:9)]('$')
@@ -45,9 +45,9 @@ FileElement[FILE(0:42)]
                                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
                XQueryIntermediateClauseImpl[XQUERY_INTERMEDIATE_CLAUSE(19:32)]
                   XQueryOrderByClauseImpl[XQUERY_ORDER_BY_CLAUSE(19:32)]
-                     LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_ORDER(19:24)]('order')
+                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ORDER(19:24)]('order')
                      PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
-                     LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_BY(25:27)]('by')
+                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_BY(25:27)]('by')
                      PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
                      XQueryOrderSpecListImpl[XQUERY_ORDER_SPEC_LIST(28:32)]
                         XQueryOrderSpecImpl[XQUERY_ORDER_SPEC(28:32)]
@@ -80,7 +80,7 @@ FileElement[FILE(0:42)]
                                                                                              PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
                            XQueryOrderModifierImpl[XQUERY_ORDER_MODIFIER(32:32)]
                XQueryReturnClauseImpl[XQUERY_RETURN_CLAUSE(32:42)]
-                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_RETURN(32:38)]('return')
+                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_RETURN(32:38)]('return')
                   PsiWhiteSpaceImpl[WHITE_SPACE(38:39)](' ')
                   XQueryOrExprImpl[XQUERY_OR_EXPR(39:42)]
                      XQueryAndExprImpl[XQUERY_AND_EXPR(39:42)]

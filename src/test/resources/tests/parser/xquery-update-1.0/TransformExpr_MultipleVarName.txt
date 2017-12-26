@@ -3,7 +3,7 @@ FileElement[FILE(0:50)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:50)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:50)]
             UpdateFacilityCopyModifyExprImpl[XQUERY_COPY_MODIFY_EXPR(0:50)]
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_COPY(0:4)]('copy')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_COPY(0:4)]('copy')
                PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
                LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(5:6)]('$')
                PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
@@ -77,7 +77,7 @@ FileElement[FILE(0:50)]
                                                                                  XPathNCNameImpl[XQUERY_NCNAME(27:28)]
                                                                                     XmlNCNameImpl[XQUERY_NCNAME_TOKEN(27:28)]('w')
                                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_MODIFY(29:35)]('modify')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_MODIFY(29:35)]('modify')
                PsiWhiteSpaceImpl[WHITE_SPACE(35:36)](' ')
                XQueryOrExprImpl[XQUERY_OR_EXPR(36:40)]
                   XQueryAndExprImpl[XQUERY_AND_EXPR(36:40)]
@@ -106,7 +106,7 @@ FileElement[FILE(0:50)]
                                                                                  XPathNCNameImpl[XQUERY_NCNAME(38:39)]
                                                                                     XmlNCNameImpl[XQUERY_NCNAME_TOKEN(38:39)]('x')
                                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(39:40)](' ')
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_RETURN(40:46)]('return')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_RETURN(40:46)]('return')
                PsiWhiteSpaceImpl[WHITE_SPACE(46:47)](' ')
                XQueryOrExprImpl[XQUERY_OR_EXPR(47:50)]
                   XQueryAndExprImpl[XQUERY_AND_EXPR(47:50)]

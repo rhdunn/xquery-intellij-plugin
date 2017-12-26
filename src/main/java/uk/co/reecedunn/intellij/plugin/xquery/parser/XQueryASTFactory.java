@@ -27,6 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathIntegerLiteralI
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathDoubleLiteralImpl;
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathDecimalLiteralImpl;
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathEscapeCharacterImpl;
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.XQueryDirWhiteSpaceImpl;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.XmlNCNameImpl;
@@ -62,8 +63,8 @@ public class XQueryASTFactory extends ASTFactory {
         } else if (type == XQueryTokenType.ESCAPED_CHARACTER ||
                    type == XQueryTokenType.XML_ESCAPED_CHARACTER) {
             return new XPathEscapeCharacterImpl(type, text);
-        } else if (type == XQueryTokenType.NCNAME) {
-            return new XmlNCNameImpl(text);
+        } else if (type == XQueryTokenType.NCNAME || type instanceof IXQueryKeywordOrNCNameType) {
+            return new XmlNCNameImpl(type, text);
         }
 
         return new LeafPsiElement(type, text);

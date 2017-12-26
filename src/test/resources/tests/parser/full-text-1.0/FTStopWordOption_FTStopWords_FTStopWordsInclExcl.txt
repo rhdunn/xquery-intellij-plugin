@@ -2,17 +2,17 @@ FileElement[FILE(0:66)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:66)]
       XQueryPrologImpl[XQUERY_PROLOG(0:66)]
          FTOptionDeclImpl[XQUERY_FT_OPTION_DECL(0:65)]
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_FT_OPTION(8:17)]('ft-option')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FT_OPTION(8:17)]('ft-option')
             PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
             FTMatchOptionsImpl[XQUERY_FT_MATCH_OPTIONS(18:65)]
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_USING(18:23)]('using')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_USING(18:23)]('using')
                PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
                FTStopWordOptionImpl[XQUERY_FT_STOP_WORD_OPTION(24:65)]
-                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_STOP(24:28)]('stop')
+                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_STOP(24:28)]('stop')
                   PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
-                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_WORDS(29:34)]('words')
+                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_WORDS(29:34)]('words')
                   PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
                   FTStopWordsImpl[XQUERY_FT_STOP_WORDS(35:46)]
                      LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(35:36)]('(')
@@ -25,7 +25,7 @@ FileElement[FILE(0:66)]
                      LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(45:46)](')')
                   PsiWhiteSpaceImpl[WHITE_SPACE(46:47)](' ')
                   FTStopWordsInclExclImpl[XQUERY_FT_STOP_WORDS_INCL_EXCL(47:64)]
-                     LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_UNION(47:52)]('union')
+                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_UNION(47:52)]('union')
                      PsiWhiteSpaceImpl[WHITE_SPACE(52:53)](' ')
                      FTStopWordsImpl[XQUERY_FT_STOP_WORDS(53:64)]
                         LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(53:54)]('(')

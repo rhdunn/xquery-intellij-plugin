@@ -30,9 +30,9 @@ FileElement[FILE(0:48)]
                                                                                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:5)]('title')
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
                                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(6:6)]
-                        LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_CONTAINS(6:14)]('contains')
+                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CONTAINS(6:14)]('contains')
                         PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
-                        LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
+                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
                         PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
                         FTSelectionImpl[XQUERY_FT_SELECTION(20:48)]
                            FTOrImpl[XQUERY_FT_OR(20:48)]
@@ -72,15 +72,15 @@ FileElement[FILE(0:48)]
                                                                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
                                                                                                                         XQueryVarNameImpl[XQUERY_VAR_NAME(24:30)]
                                                                                                                            XPathNCNameImpl[XQUERY_NCNAME(24:29)]
-                                                                                                                              LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_VALUE(24:29)]('value')
+                                                                                                                              XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VALUE(24:29)]('value')
                                                                                                                            PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
                                                    LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(30:31)]('}')
                                                 PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
                                              FTTimesImpl[XQUERY_FT_TIMES(32:48)]
-                                                LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_OCCURS(32:38)]('occurs')
+                                                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_OCCURS(32:38)]('occurs')
                                                 PsiWhiteSpaceImpl[WHITE_SPACE(38:39)](' ')
                                                 FTRangeImpl[XQUERY_FT_RANGE(39:48)]
-                                                   LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_FROM(39:43)]('from')
+                                                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FROM(39:43)]('from')
                                                    PsiWhiteSpaceImpl[WHITE_SPACE(43:44)](' ')
                                                    XQueryAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(44:46)]
                                                       XQueryMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(44:46)]
@@ -99,5 +99,5 @@ FileElement[FILE(0:48)]
                                                                                              XPathLiteralImpl[XQUERY_LITERAL(44:45)]
                                                                                                 XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(44:45)]('2')
                                                                                              PsiWhiteSpaceImpl[WHITE_SPACE(45:46)](' ')
-                                                   LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_TO(46:48)]('to')
+                                                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TO(46:48)]('to')
                                                    PsiErrorElementImpl[ERROR_ELEMENT(48:48)]('XPST0003: Expected 'AdditiveExpr'.')

@@ -3,7 +3,7 @@ FileElement[FILE(0:56)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:56)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:56)]
             XQueryTypeswitchExprImpl[XQUERY_TYPESWITCH_EXPR(0:56)]
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_TYPESWITCH(0:10)]('typeswitch')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TYPESWITCH(0:10)]('typeswitch')
                PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
                LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(11:12)]('(')
                PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
@@ -38,18 +38,18 @@ FileElement[FILE(0:56)]
                                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
                PsiErrorElementImpl[ERROR_ELEMENT(17:17)]('XPST0003: Expected ')'.')
                XQueryCaseClauseImpl[XQUERY_CASE_CLAUSE(17:40)]
-                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_CASE(17:21)]('case')
+                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CASE(17:21)]('case')
                   PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
                   XQuerySequenceTypeUnionImpl[XQUERY_SEQUENCE_TYPE_UNION(22:31)]
                      XQuerySequenceTypeImpl[XQUERY_SEQUENCE_TYPE(22:31)]
                         XQueryItemTypeImpl[XQUERY_ITEM_TYPE(22:30)]
-                           LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_ITEM(22:26)]('item')
+                           XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ITEM(22:26)]('item')
                            PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
                            LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(27:28)]('(')
                            PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
                            LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(29:30)](')')
                         PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')
-                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_RETURN(31:37)]('return')
+                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_RETURN(31:37)]('return')
                   PsiWhiteSpaceImpl[WHITE_SPACE(37:38)](' ')
                   XQueryOrExprImpl[XQUERY_OR_EXPR(38:40)]
                      XQueryAndExprImpl[XQUERY_AND_EXPR(38:40)]
@@ -74,9 +74,9 @@ FileElement[FILE(0:56)]
                                                                               XPathLiteralImpl[XQUERY_LITERAL(38:39)]
                                                                                  XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(38:39)]('1')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(39:40)](' ')
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DEFAULT(40:47)]('default')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DEFAULT(40:47)]('default')
                PsiWhiteSpaceImpl[WHITE_SPACE(47:48)](' ')
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_RETURN(48:54)]('return')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_RETURN(48:54)]('return')
                PsiWhiteSpaceImpl[WHITE_SPACE(54:55)](' ')
                XQueryOrExprImpl[XQUERY_OR_EXPR(55:56)]
                   XQueryAndExprImpl[XQUERY_AND_EXPR(55:56)]

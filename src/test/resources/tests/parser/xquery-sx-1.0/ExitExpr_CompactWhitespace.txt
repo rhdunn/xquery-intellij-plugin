@@ -3,9 +3,9 @@ FileElement[FILE(0:16)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:16)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:16)]
             ScriptingExitExprImpl[XQUERY_EXIT_EXPR(0:16)]
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_EXIT(0:4)]('exit')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXIT(0:4)]('exit')
                PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_RETURNING(5:14)]('returning')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_RETURNING(5:14)]('returning')
                XQueryOrExprImpl[XQUERY_OR_EXPR(14:16)]
                   XQueryAndExprImpl[XQUERY_AND_EXPR(14:16)]
                      XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(14:16)]

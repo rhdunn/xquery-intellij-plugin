@@ -82,7 +82,7 @@ FileElement[FILE(0:36)]
                                                                                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(8:9)]('a')
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
                                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(10:10)]
-                                    LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DIV(10:13)]('div')
+                                    XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DIV(10:13)]('div')
                                     PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
                                     XQueryUnionExprImpl[XQUERY_UNION_EXPR(14:16)]
                                        XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(14:16)]
@@ -134,7 +134,7 @@ FileElement[FILE(0:36)]
                                                                                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(18:19)]('a')
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
                                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(20:20)]
-                                    LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_IDIV(20:24)]('idiv')
+                                    XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_IDIV(20:24)]('idiv')
                                     PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
                                     XQueryUnionExprImpl[XQUERY_UNION_EXPR(25:27)]
                                        XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(25:27)]
@@ -186,7 +186,7 @@ FileElement[FILE(0:36)]
                                                                                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(29:30)]('a')
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')
                                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(31:31)]
-                                    LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_MOD(31:34)]('mod')
+                                    XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_MOD(31:34)]('mod')
                                     PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
                                     XQueryUnionExprImpl[XQUERY_UNION_EXPR(35:36)]
                                        XQueryIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(35:36)]

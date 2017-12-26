@@ -19,9 +19,9 @@ FileElement[FILE(0:33)]
                                                       XQueryArrowExprImpl[XQUERY_ARROW_EXPR(0:33)]
                                                          XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:33)]
                                                             XQueryValidateExprImpl[XQUERY_VALIDATE_EXPR(0:33)]
-                                                               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_VALIDATE(0:8)]('validate')
+                                                               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VALIDATE(0:8)]('validate')
                                                                PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
-                                                               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_TYPE(9:13)]('type')
+                                                               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TYPE(9:13)]('type')
                                                                PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
                                                                XQueryTypeNameImpl[XQUERY_TYPE_NAME(14:24)]
                                                                   XPathNCNameImpl[XQUERY_NCNAME(14:16)]

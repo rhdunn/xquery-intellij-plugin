@@ -3,7 +3,7 @@ FileElement[FILE(0:28)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:28)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:28)]
             ScriptingWhileExprImpl[XQUERY_WHILE_EXPR(0:28)]
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_WHILE(0:5)]('while')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_WHILE(0:5)]('while')
                PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
                LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(6:7)]('(')
                PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')

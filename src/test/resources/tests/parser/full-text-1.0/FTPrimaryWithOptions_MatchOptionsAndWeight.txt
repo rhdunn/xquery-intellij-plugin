@@ -30,9 +30,9 @@ FileElement[FILE(0:55)]
                                                                                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:5)]('title')
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
                                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(6:6)]
-                        LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_CONTAINS(6:14)]('contains')
+                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CONTAINS(6:14)]('contains')
                         PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
-                        LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
+                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
                         PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
                         FTSelectionImpl[XQUERY_FT_SELECTION(20:55)]
                            FTOrImpl[XQUERY_FT_OR(20:55)]
@@ -49,13 +49,13 @@ FileElement[FILE(0:55)]
                                                       LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(26:27)]('"')
                                                 PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
                                           FTMatchOptionsImpl[XQUERY_FT_MATCH_OPTIONS(28:43)]
-                                             LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_USING(28:33)]('using')
+                                             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_USING(28:33)]('using')
                                              PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
                                              FTStemOptionImpl[XQUERY_FT_STEM_OPTION(34:42)]
-                                                LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_STEMMING(34:42)]('stemming')
+                                                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_STEMMING(34:42)]('stemming')
                                              PsiWhiteSpaceImpl[WHITE_SPACE(42:43)](' ')
                                           FTWeightImpl[XQUERY_FT_WEIGHT(43:55)]
-                                             LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_WEIGHT(43:49)]('weight')
+                                             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_WEIGHT(43:49)]('weight')
                                              PsiWhiteSpaceImpl[WHITE_SPACE(49:50)](' ')
                                              LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(50:51)]('{')
                                              PsiWhiteSpaceImpl[WHITE_SPACE(51:52)](' ')

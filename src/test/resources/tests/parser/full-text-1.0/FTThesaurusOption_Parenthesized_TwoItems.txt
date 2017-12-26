@@ -2,24 +2,24 @@ FileElement[FILE(0:83)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:83)]
       XQueryPrologImpl[XQUERY_PROLOG(0:83)]
          FTOptionDeclImpl[XQUERY_FT_OPTION_DECL(0:82)]
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-            LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_FT_OPTION(8:17)]('ft-option')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FT_OPTION(8:17)]('ft-option')
             PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
             FTMatchOptionsImpl[XQUERY_FT_MATCH_OPTIONS(18:82)]
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_USING(18:23)]('using')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_USING(18:23)]('using')
                PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
                FTThesaurusOptionImpl[XQUERY_FT_THESAURUS_OPTION(24:81)]
-                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_THESAURUS(24:33)]('thesaurus')
+                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_THESAURUS(24:33)]('thesaurus')
                   PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
                   LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(34:35)]('(')
                   PsiWhiteSpaceImpl[WHITE_SPACE(35:36)](' ')
-                  LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DEFAULT(36:43)]('default')
+                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DEFAULT(36:43)]('default')
                   PsiWhiteSpaceImpl[WHITE_SPACE(43:44)](' ')
                   LeafPsiElement[XQUERY_COMMA_TOKEN(44:45)](',')
                   PsiWhiteSpaceImpl[WHITE_SPACE(45:46)](' ')
                   FTThesaurusIDImpl[XQUERY_FT_THESAURUS_ID(46:80)]
-                     LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_AT(46:48)]('at')
+                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AT(46:48)]('at')
                      PsiWhiteSpaceImpl[WHITE_SPACE(48:49)](' ')
                      XQueryUriLiteralImpl[XQUERY_URI_LITERAL(49:79)]
                         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(49:50)]('"')

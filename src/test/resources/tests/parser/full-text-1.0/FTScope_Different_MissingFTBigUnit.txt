@@ -30,9 +30,9 @@ FileElement[FILE(0:37)]
                                                                                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:5)]('title')
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
                                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(6:6)]
-                        LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_CONTAINS(6:14)]('contains')
+                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CONTAINS(6:14)]('contains')
                         PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
-                        LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
+                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TEXT(15:19)]('text')
                         PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
                         FTSelectionImpl[XQUERY_FT_SELECTION(20:37)]
                            FTOrImpl[XQUERY_FT_OR(20:28)]
@@ -49,5 +49,5 @@ FileElement[FILE(0:37)]
                                                       LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(26:27)]('"')
                                                 PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
                            FTScopeImpl[XQUERY_FT_SCOPE(28:37)]
-                              LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DIFFERENT(28:37)]('different')
+                              XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DIFFERENT(28:37)]('different')
                               PsiErrorElementImpl[ERROR_ELEMENT(37:37)]('XPST0003: Expected keyword: paragraph, sentence.')

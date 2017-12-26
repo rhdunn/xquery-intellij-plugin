@@ -3,7 +3,7 @@ FileElement[FILE(0:18)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:18)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:18)]
             XQueryIfExprImpl[XQUERY_IF_EXPR(0:18)]
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_IF(0:2)]('if')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_IF(0:2)]('if')
                LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(2:3)]('(')
                XQueryExprImpl[XQUERY_EXPR(3:4)]
                   ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(3:4)]
@@ -30,7 +30,7 @@ FileElement[FILE(0:18)]
                                                                                  XPathLiteralImpl[XQUERY_LITERAL(3:4)]
                                                                                     XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(3:4)]('1')
                LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(4:5)](')')
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_THEN(5:9)]('then')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_THEN(5:9)]('then')
                PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
                XQueryOrExprImpl[XQUERY_OR_EXPR(10:12)]
                   XQueryAndExprImpl[XQUERY_AND_EXPR(10:12)]
@@ -55,7 +55,7 @@ FileElement[FILE(0:18)]
                                                                            XPathLiteralImpl[XQUERY_LITERAL(10:11)]
                                                                               XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(10:11)]('2')
                                                                            PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
-               LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_ELSE(12:16)]('else')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ELSE(12:16)]('else')
                PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
                XQueryOrExprImpl[XQUERY_OR_EXPR(17:18)]
                   XQueryAndExprImpl[XQUERY_AND_EXPR(17:18)]

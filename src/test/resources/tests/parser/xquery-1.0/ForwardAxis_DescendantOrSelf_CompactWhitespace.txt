@@ -24,7 +24,7 @@ FileElement[FILE(0:24)]
                                                                      XQueryAxisStepImpl[XQUERY_AXIS_STEP(0:24)]
                                                                         XQueryForwardStepImpl[XQUERY_FORWARD_STEP(0:24)]
                                                                            XQueryForwardAxisImpl[XQUERY_FORWARD_AXIS(0:20)]
-                                                                              LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_DESCENDANT_OR_SELF(0:18)]('descendant-or-self')
+                                                                              XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DESCENDANT_OR_SELF(0:18)]('descendant-or-self')
                                                                               LeafPsiElement[XQUERY_AXIS_SEPARATOR_TOKEN(18:20)]('::')
                                                                            XQueryNodeTestImpl[XQUERY_NODE_TEST(20:24)]
                                                                               XQueryNameTestImpl[XQUERY_NAME_TEST(20:24)]

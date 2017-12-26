@@ -26,7 +26,7 @@ FileElement[FILE(0:11)]
                                                                            XQueryAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:11)]
                                                                               XQueryNodeTestImpl[XQUERY_NODE_TEST(0:11)]
                                                                                  XQueryCommentTestImpl[XQUERY_COMMENT_TEST(0:11)]
-                                                                                    LeafPsiElement[XQUERY_KEYWORD_OR_NCNAME_COMMENT(0:7)]('comment')
+                                                                                    XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_COMMENT(0:7)]('comment')
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
                                                                                     LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(8:9)]('(')
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
