@@ -7086,7 +7086,7 @@ class XQueryParser {
 
         final PsiBuilder.Marker eqnameMarker = mark();
         if (parseURIQualifiedName(type)) {
-            if (type == XQueryElementType.QNAME) {
+            if (type == XQueryElementType.QNAME || type == XQueryElementType.EQNAME) {
                 eqnameMarker.drop();
             } else {
                 eqnameMarker.done(type);
