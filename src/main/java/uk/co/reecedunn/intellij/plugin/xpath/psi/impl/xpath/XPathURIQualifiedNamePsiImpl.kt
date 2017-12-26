@@ -18,11 +18,27 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.data.CachedProperty
+import uk.co.reecedunn.intellij.plugin.xdm.XsQName
+import uk.co.reecedunn.intellij.plugin.xdm.XsUntyped
+import uk.co.reecedunn.intellij.plugin.xdm.createQName
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmConstantExpression
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathURIQualifiedName
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace
 
-class XPathURIQualifiedNamePsiImpl(node: ASTNode): ASTWrapperPsiElement(node), XPathURIQualifiedName {
+class XPathURIQualifiedNamePsiImpl(node: ASTNode):
+        ASTWrapperPsiElement(node),
+        XPathURIQualifiedName,
+        XdmConstantExpression {
+
+    override fun subtreeChanged() {
+        super.subtreeChanged()
+        cachedConstantValue.invalidate()
+    }
+
     override val prefix get(): PsiElement? {
         return findChildByType(XQueryElementType.BRACED_URI_LITERAL)
     }
@@ -33,5 +49,16 @@ class XPathURIQualifiedNamePsiImpl(node: ASTNode): ASTWrapperPsiElement(node), X
 
     override fun resolvePrefixNamespace(): Sequence<XQueryNamespace> {
         return emptySequence()
+    }
+
+    override val staticType get(): XdmSequenceType = constantValue?.let { XsQName } ?: XsUntyped
+
+    override val constantValue get(): Any? = cachedConstantValue.get()
+    private val cachedConstantValue = CachedProperty {
+        val namespace: PsiElement? = findChildByType(XQueryElementType.BRACED_URI_LITERAL)
+        val localName: PsiElement? = findChildByType(XQueryElementType.NCNAME)
+        localName?.let {
+            createQName(namespace as XdmLexicalValue, localName.firstChild as XdmLexicalValue, this)
+        }
     }
 }

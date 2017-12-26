@@ -234,6 +234,69 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     // endregion
+    // region URIQualifiedName
+
+    fun testURIQualifiedName() {
+        val expr = parseSimpleExpression<XPathURIQualifiedName>("Q{http://www.example.com}test")
+        assertThat(expr.constantValue, `is`(instanceOf(QName::class.java)))
+        assertThat(expr.staticType, `is`(XsQName as XdmSequenceType))
+
+        val qname = expr.constantValue as QName
+        assertThat(qname.prefix, `is`(nullValue()))
+        assertThat(qname.declaration?.get(), `is`(expr))
+
+        assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(qname.namespace?.lexicalRepresentation, `is`("http://www.example.com"))
+
+        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.lexicalRepresentation, `is`("test"))
+
+        assertThat(qname.toString(), `is`("Q{http://www.example.com}test"))
+    }
+
+    fun testURIQualifiedName_EmptyNamespace() {
+        val expr = parseSimpleExpression<XPathURIQualifiedName>("Q{}test")
+        assertThat(expr.constantValue, `is`(instanceOf(QName::class.java)))
+        assertThat(expr.staticType, `is`(XsQName as XdmSequenceType))
+
+        val qname = expr.constantValue as QName
+        assertThat(qname.prefix, `is`(nullValue()))
+        assertThat(qname.declaration?.get(), `is`(expr))
+
+        assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(qname.namespace?.lexicalRepresentation, `is`(""))
+
+        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.lexicalRepresentation, `is`("test"))
+
+        assertThat(qname.toString(), `is`("Q{}test"))
+    }
+
+    fun testURIQualifiedName_KeywordLocalName() {
+        val expr = parseSimpleExpression<XPathURIQualifiedName>("Q{http://www.example.com}option")
+        assertThat(expr.constantValue, `is`(instanceOf(QName::class.java)))
+        assertThat(expr.staticType, `is`(XsQName as XdmSequenceType))
+
+        val qname = expr.constantValue as QName
+        assertThat(qname.prefix, `is`(nullValue()))
+        assertThat(qname.declaration?.get(), `is`(expr))
+
+        assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(qname.namespace?.lexicalRepresentation, `is`("http://www.example.com"))
+
+        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.lexicalRepresentation, `is`("option"))
+
+        assertThat(qname.toString(), `is`("Q{http://www.example.com}option"))
+    }
+
+    fun testURIQualifiedName_NoLocalName() {
+        val expr = parseSimpleExpression<XPathURIQualifiedName>("Q{http://www.example.com}")
+        assertThat(expr.constantValue, `is`(nullValue()))
+        assertThat(expr.staticType, `is`(XsUntyped as XdmSequenceType))
+    }
+
+    // endregion
     // endregion
     // region Constant Expressions
     // region PostfixExpr
