@@ -30,7 +30,7 @@ class XQueryXdmTest : ParserTestCase() {
         return parseText(xquery)!!.walkTree().filterIsInstance<T>().first() as XdmLexicalValue
     }
 
-    // region Atomic Values
+    // region Lexical Values
     // region StringLiteral
 
     fun testStringLiteral_PredefinedEntityReference() {

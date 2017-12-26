@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xdm
 
 import uk.co.reecedunn.intellij.plugin.core.data.CachedProperty
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmConstantExpression
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import java.lang.ref.WeakReference
@@ -37,10 +38,10 @@ fun createQName(namespace: String, localName: String): QName {
             null)
 }
 
-fun createQName(namespace: XdmLexicalValue, localName: XdmLexicalValue, declaration: XdmLexicalValue): QName {
+fun createQName(namespace: XdmLexicalValue, localName: XdmLexicalValue, declaration: XdmConstantExpression): QName {
     return QName(null, namespace, localName, WeakReference(declaration))
 }
 
-fun createLexicalQName(prefix: XdmLexicalValue?, localName: XdmLexicalValue, declaration: XdmLexicalValue): QName {
+fun createLexicalQName(prefix: XdmLexicalValue?, localName: XdmLexicalValue, declaration: XdmConstantExpression): QName {
     return QName(prefix, null, localName, WeakReference(declaration))
 }

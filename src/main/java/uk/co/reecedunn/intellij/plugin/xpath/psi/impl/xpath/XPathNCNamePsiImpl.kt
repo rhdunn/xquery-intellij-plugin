@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016-2017 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,9 +20,18 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiNamedElement
 import com.intellij.util.IncorrectOperationException
 import org.jetbrains.annotations.NonNls
+import uk.co.reecedunn.intellij.plugin.xdm.XsQName
+import uk.co.reecedunn.intellij.plugin.xdm.createLexicalQName
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmConstantExpression
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
 
-open class XPathNCNamePsiImpl(node: ASTNode) : XPathEQNamePsiImpl(node), XPathNCName, PsiNamedElement {
+open class XPathNCNamePsiImpl(node: ASTNode) : XPathEQNamePsiImpl(node), XPathNCName, XdmConstantExpression, PsiNamedElement {
+    override val staticType: XdmSequenceType = XsQName
+
+    override val constantValue get(): Any? = createLexicalQName(null, firstChild as XdmLexicalValue, this)
+
     override fun getName(): String? = firstChild.text
 
     @Throws(IncorrectOperationException::class)

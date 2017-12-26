@@ -19,6 +19,7 @@ import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xdm.*
+import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmConstantExpression
@@ -35,7 +36,7 @@ class XPathXdmTest : ParserTestCase() {
         return parseText(xquery)!!.walkTree().filterIsInstance<T>().first() as XdmConstantExpression
     }
 
-    // region Atomic Values
+    // region Lexical Values
     // region DecimalLiteral
 
     fun testDecimalLiteral() {
@@ -119,7 +120,44 @@ class XPathXdmTest : ParserTestCase() {
 
     // endregion
     // endregion
-    // region Simple Expressions
+    // region Lexical and Expanded QNames (Constant Expressions)
+    // region NCName
+
+    fun testNCName() {
+        val expr = parseSimpleExpression<XPathNCName>("test")
+        assertThat(expr.constantValue, `is`(instanceOf(QName::class.java)))
+        assertThat(expr.staticType, `is`(XsQName as XdmSequenceType))
+
+        val qname = expr.constantValue as QName
+        assertThat(qname.prefix, `is`(nullValue()))
+        assertThat(qname.namespace, `is`(nullValue()))
+        assertThat(qname.declaration?.get(), `is`(expr))
+
+        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.lexicalRepresentation, `is`("test"))
+
+        assertThat(qname.toString(), `is`("test"))
+    }
+
+    fun testNCName_Keyword() {
+        val expr = parseSimpleExpression<XPathNCName>("option")
+        assertThat(expr.constantValue, `is`(instanceOf(QName::class.java)))
+        assertThat(expr.staticType, `is`(XsQName as XdmSequenceType))
+
+        val qname = expr.constantValue as QName
+        assertThat(qname.prefix, `is`(nullValue()))
+        assertThat(qname.namespace, `is`(nullValue()))
+        assertThat(qname.declaration?.get(), `is`(expr))
+
+        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.lexicalRepresentation, `is`("option"))
+
+        assertThat(qname.toString(), `is`("option"))
+    }
+
+    // endregion
+    // endregion
+    // region Constant Expressions
     // region PostfixExpr
 
     fun testPostfixExpr_LiteralValue() {
