@@ -19,6 +19,7 @@ import uk.co.reecedunn.intellij.plugin.core.data.CachedProperty
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmAtomicValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
+import java.lang.ref.WeakReference
 
 class XdmLiteralValue(override val lexicalRepresentation: String,
                       private val cachedStaticType: CachedProperty<XdmSequenceType>) : XdmAtomicValue {
@@ -30,10 +31,11 @@ class XdmLiteralValue(override val lexicalRepresentation: String,
 
 fun createQName(namespace: String?, localName: String): QName {
     return createQName(
-            namespace?.let { XdmLiteralValue(namespace, CachedProperty { XsAnyURI }) },
-            XdmLiteralValue(localName, CachedProperty { XsNCName }))
+            namespace?.let { XdmLiteralValue(it, CachedProperty { XsAnyURI }) },
+            XdmLiteralValue(localName, CachedProperty { XsNCName }),
+            null)
 }
 
-fun createQName(namespace: XdmAtomicValue?, localName: XdmAtomicValue): QName {
-    return QName(namespace, localName)
+fun createQName(namespace: XdmAtomicValue?, localName: XdmAtomicValue, declaration: XdmAtomicValue?): QName {
+    return QName(namespace, localName, declaration?.let { WeakReference(it) })
 }

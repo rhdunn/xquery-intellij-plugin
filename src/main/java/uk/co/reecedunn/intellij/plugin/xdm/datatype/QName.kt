@@ -16,9 +16,11 @@
 package uk.co.reecedunn.intellij.plugin.xdm.datatype
 
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmAtomicValue
+import java.lang.ref.WeakReference
 
 data class QName(val namespace: XdmAtomicValue?,
-                 val localName: XdmAtomicValue) {
+                 val localName: XdmAtomicValue,
+                 val declaration: WeakReference<XdmAtomicValue>?) {
 
     override fun toString(): String {
         return namespace?.let { "Q{${it.lexicalRepresentation}}${localName.lexicalRepresentation}" } // URIQualifiedName
