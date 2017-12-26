@@ -18,14 +18,14 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.xdm.XsDouble
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmAtomicValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathDoubleLiteral
 
 class XPathDoubleLiteralImpl(type: IElementType, text: CharSequence):
         LeafPsiElement(type, text),
         XPathDoubleLiteral,
-        XdmAtomicValue {
+        XdmLexicalValue {
 
     override val lexicalRepresentation get(): String = text
 

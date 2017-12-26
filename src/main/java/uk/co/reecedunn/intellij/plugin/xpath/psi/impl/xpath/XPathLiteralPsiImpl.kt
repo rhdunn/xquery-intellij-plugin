@@ -17,16 +17,16 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmAtomicValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathLiteral
 
 class XPathLiteralPsiImpl(node: ASTNode):
         ASTWrapperPsiElement(node),
         XPathLiteral,
-        XdmAtomicValue {
+        XdmLexicalValue {
 
-    override val lexicalRepresentation get(): String = (firstChild as XdmAtomicValue).lexicalRepresentation
+    override val lexicalRepresentation get(): String = (firstChild as XdmLexicalValue).lexicalRepresentation
 
-    override val staticType get(): XdmSequenceType = (firstChild as XdmAtomicValue).staticType
+    override val staticType get(): XdmSequenceType = (firstChild as XdmLexicalValue).staticType
 }

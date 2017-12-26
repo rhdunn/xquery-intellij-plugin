@@ -15,13 +15,13 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.datatype
 
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmAtomicValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
 import java.lang.ref.WeakReference
 
-data class QName(val prefix: XdmAtomicValue?,
-                 val namespace: XdmAtomicValue?,
-                 val localName: XdmAtomicValue,
-                 val declaration: WeakReference<XdmAtomicValue>?) {
+data class QName(val prefix: XdmLexicalValue?,
+                 val namespace: XdmLexicalValue?,
+                 val localName: XdmLexicalValue,
+                 val declaration: WeakReference<XdmLexicalValue>?) {
 
     override fun toString(): String {
         return namespace?.let { "Q{${it.lexicalRepresentation}}${localName.lexicalRepresentation}" } // URIQualifiedName

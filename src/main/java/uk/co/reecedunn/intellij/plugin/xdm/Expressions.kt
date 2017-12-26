@@ -17,12 +17,12 @@ package uk.co.reecedunn.intellij.plugin.xdm
 
 import uk.co.reecedunn.intellij.plugin.core.data.CachedProperty
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmAtomicValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import java.lang.ref.WeakReference
 
 class XdmLiteralValue(override val lexicalRepresentation: String,
-                      private val cachedStaticType: CachedProperty<XdmSequenceType>) : XdmAtomicValue {
+                      private val cachedStaticType: CachedProperty<XdmSequenceType>) : XdmLexicalValue {
 
     // NOTE: The staticType may not be initialized yet (i.e. for QNames), so use
     // CachedProperty to lazy-load the parameter.
@@ -37,10 +37,10 @@ fun createQName(namespace: String, localName: String): QName {
             null)
 }
 
-fun createQName(namespace: XdmAtomicValue, localName: XdmAtomicValue, declaration: XdmAtomicValue): QName {
+fun createQName(namespace: XdmLexicalValue, localName: XdmLexicalValue, declaration: XdmLexicalValue): QName {
     return QName(null, namespace, localName, WeakReference(declaration))
 }
 
-fun createLexicalQName(prefix: XdmAtomicValue?, localName: XdmAtomicValue, declaration: XdmAtomicValue): QName {
+fun createLexicalQName(prefix: XdmLexicalValue?, localName: XdmLexicalValue, declaration: XdmLexicalValue): QName {
     return QName(prefix, null, localName, WeakReference(declaration))
 }

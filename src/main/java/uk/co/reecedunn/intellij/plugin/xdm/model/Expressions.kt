@@ -23,10 +23,10 @@ interface XdmSimpleExpression : XdmExpression {
     val constantValue: Any?
 }
 
-interface XdmAtomicValue : XdmExpression {
+interface XdmLexicalValue : XdmExpression {
     val lexicalRepresentation: String
 }
 
-fun XdmAtomicValue.toInt(): Int {
+fun XdmLexicalValue.toInt(): Int {
     return lexicalRepresentation.toInt()
 }

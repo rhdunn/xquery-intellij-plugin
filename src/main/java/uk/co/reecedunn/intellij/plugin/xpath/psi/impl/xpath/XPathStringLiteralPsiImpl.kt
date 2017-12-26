@@ -20,7 +20,7 @@ import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.data.CachedProperty
 import uk.co.reecedunn.intellij.plugin.xdm.XsString
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmAtomicValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCharRef
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEscapeCharacter
@@ -31,7 +31,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 open class XPathStringLiteralPsiImpl(node: ASTNode):
         ASTWrapperPsiElement(node),
         XPathStringLiteral,
-        XdmAtomicValue {
+        XdmLexicalValue {
 
     override fun subtreeChanged() {
         super.subtreeChanged()

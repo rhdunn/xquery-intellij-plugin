@@ -22,7 +22,7 @@ import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmAtomicValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
@@ -2760,7 +2760,7 @@ class XQueryPsiTest:ParserTestCase() {
         assertThat(ns.prefix!!.text, `is`("test"))
 
         assertThat(ns.uri, `is`<PsiElement>(instanceOf<PsiElement>(XQueryUriLiteral::class.java)))
-        assertThat((ns.uri as XdmAtomicValue).lexicalRepresentation, `is`("http://www.example.com/test"))
+        assertThat((ns.uri as XdmLexicalValue).lexicalRepresentation, `is`("http://www.example.com/test"))
 
         assertThat(ns.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryModuleDecl::class.java)))
         assertThat(ns.declaration, `is`<PsiElement>(moduleDeclPsi))
@@ -2812,7 +2812,7 @@ class XQueryPsiTest:ParserTestCase() {
         assertThat(ns.prefix!!.text, `is`("test"))
 
         assertThat(ns.uri, `is`<PsiElement>(instanceOf<PsiElement>(XQueryUriLiteral::class.java)))
-        assertThat((ns.uri as XdmAtomicValue).lexicalRepresentation, `is`("http://www.example.com/test"))
+        assertThat((ns.uri as XdmLexicalValue).lexicalRepresentation, `is`("http://www.example.com/test"))
 
         assertThat(ns.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryModuleImport::class.java)))
         assertThat(ns.declaration, `is`<PsiElement>(moduleImportPsi))
@@ -2964,7 +2964,7 @@ class XQueryPsiTest:ParserTestCase() {
         assertThat(ns.prefix!!.text, `is`("test"))
 
         assertThat(ns.uri, `is`<PsiElement>(instanceOf<PsiElement>(XQueryUriLiteral::class.java)))
-        assertThat((ns.uri as XdmAtomicValue).lexicalRepresentation, `is`("http://www.example.org/test"))
+        assertThat((ns.uri as XdmLexicalValue).lexicalRepresentation, `is`("http://www.example.org/test"))
 
         assertThat(ns.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryNamespaceDecl::class.java)))
         assertThat(ns.declaration, `is`<PsiElement>(namespaceDeclPsi))
@@ -3199,7 +3199,7 @@ class XQueryPsiTest:ParserTestCase() {
         assertThat(ns.prefix!!.text, `is`("local"))
 
         assertThat(ns.uri, `is`<PsiElement>(instanceOf<PsiElement>(XQueryUriLiteral::class.java)))
-        assertThat((ns.uri as XdmAtomicValue).lexicalRepresentation,
+        assertThat((ns.uri as XdmLexicalValue).lexicalRepresentation,
                 `is`("http://www.w3.org/2005/xquery-local-functions"))
 
         assertThat(ns.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryNamespaceDecl::class.java)))
@@ -3225,7 +3225,7 @@ class XQueryPsiTest:ParserTestCase() {
         assertThat(ns.prefix!!.text, `is`("test"))
 
         assertThat(ns.uri, `is`<PsiElement>(instanceOf<PsiElement>(XQueryUriLiteral::class.java)))
-        assertThat((ns.uri as XdmAtomicValue).lexicalRepresentation, `is`("http://www.example.com/test"))
+        assertThat((ns.uri as XdmLexicalValue).lexicalRepresentation, `is`("http://www.example.com/test"))
 
         assertThat(ns.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryModuleDecl::class.java)))
         assertThat(ns.declaration, `is`<PsiElement>(moduleDeclPsi))
@@ -3297,7 +3297,7 @@ class XQueryPsiTest:ParserTestCase() {
         assertThat(ns.prefix!!.text, `is`("test"))
 
         assertThat(ns.uri, `is`<PsiElement>(instanceOf<PsiElement>(XQueryUriLiteral::class.java)))
-        assertThat((ns.uri as XdmAtomicValue).lexicalRepresentation, `is`("http://www.example.com/test"))
+        assertThat((ns.uri as XdmLexicalValue).lexicalRepresentation, `is`("http://www.example.com/test"))
 
         assertThat(ns.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryModuleImport::class.java)))
         assertThat(ns.declaration, `is`<PsiElement>(moduleImportPsi))
@@ -3323,7 +3323,7 @@ class XQueryPsiTest:ParserTestCase() {
         assertThat(ns.prefix!!.text, `is`("test"))
 
         assertThat(ns.uri, `is`<PsiElement>(instanceOf<PsiElement>(XQueryUriLiteral::class.java)))
-        assertThat((ns.uri as XdmAtomicValue).lexicalRepresentation, `is`("http://www.example.org/test"))
+        assertThat((ns.uri as XdmLexicalValue).lexicalRepresentation, `is`("http://www.example.org/test"))
 
         assertThat(ns.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryNamespaceDecl::class.java)))
         assertThat(ns.declaration, `is`<PsiElement>(namespaceDeclPsi))
@@ -3396,7 +3396,7 @@ class XQueryPsiTest:ParserTestCase() {
         assertThat(ns.prefix!!.text, `is`("test"))
 
         assertThat(ns.uri, `is`<PsiElement>(instanceOf<PsiElement>(XQueryUriLiteral::class.java)))
-        assertThat((ns.uri as XdmAtomicValue).lexicalRepresentation, `is`("http://www.example.org/test"))
+        assertThat((ns.uri as XdmLexicalValue).lexicalRepresentation, `is`("http://www.example.org/test"))
 
         assertThat(ns.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryNamespaceDecl::class.java)))
         assertThat(ns.declaration, `is`<PsiElement>(namespaceDeclPsi))
@@ -3434,7 +3434,7 @@ class XQueryPsiTest:ParserTestCase() {
         assertThat(ns.prefix!!.text, `is`("test"))
 
         assertThat(ns.uri, `is`<PsiElement>(instanceOf<PsiElement>(XQueryUriLiteral::class.java)))
-        assertThat((ns.uri as XdmAtomicValue).lexicalRepresentation, `is`("http://www.example.com/test"))
+        assertThat((ns.uri as XdmLexicalValue).lexicalRepresentation, `is`("http://www.example.com/test"))
 
         assertThat(ns.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQuerySchemaImport::class.java)))
         assertThat(ns.declaration, `is`<PsiElement>(schemaImportPsi))
@@ -3500,7 +3500,7 @@ class XQueryPsiTest:ParserTestCase() {
         assertThat(ns.prefix!!.text, `is`("test"))
 
         assertThat(ns.uri, `is`<PsiElement>(instanceOf<PsiElement>(XQueryUriLiteral::class.java)))
-        assertThat((ns.uri as XdmAtomicValue).lexicalRepresentation, `is`("http://www.example.com/test"))
+        assertThat((ns.uri as XdmLexicalValue).lexicalRepresentation, `is`("http://www.example.com/test"))
 
         assertThat(ns.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQuerySchemaImport::class.java)))
         assertThat(ns.declaration, `is`<PsiElement>(schemaImportPsi))
@@ -4571,7 +4571,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         val versionDeclPsi = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
         assertThat<XPathStringLiteral>(versionDeclPsi.version, `is`(notNullValue()))
-        assertThat((versionDeclPsi.version!! as XdmAtomicValue).lexicalRepresentation, `is`("1.0"))
+        assertThat((versionDeclPsi.version!! as XdmLexicalValue).lexicalRepresentation, `is`("1.0"))
         assertThat<XPathStringLiteral>(versionDeclPsi.encoding, `is`(nullValue()))
 
         assertThat(file.XQueryVersion.version, `is`(XQuery.REC_1_0_20070123))
@@ -4585,7 +4585,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         val versionDeclPsi = file.modules.first().descendants().filterIsInstance<XQueryVersionDecl>().first()
         assertThat<XPathStringLiteral>(versionDeclPsi.version, `is`(notNullValue()))
-        assertThat((versionDeclPsi.version!! as XdmAtomicValue).lexicalRepresentation, `is`("1.0"))
+        assertThat((versionDeclPsi.version!! as XdmLexicalValue).lexicalRepresentation, `is`("1.0"))
         assertThat<XPathStringLiteral>(versionDeclPsi.encoding, `is`(nullValue()))
 
         assertThat(file.XQueryVersion.version, `is`(XQuery.REC_1_0_20070123))
@@ -4599,7 +4599,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         val versionDeclPsi = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
         assertThat<XPathStringLiteral>(versionDeclPsi.version, `is`(notNullValue()))
-        assertThat((versionDeclPsi.version!! as XdmAtomicValue).lexicalRepresentation, `is`(""))
+        assertThat((versionDeclPsi.version!! as XdmLexicalValue).lexicalRepresentation, `is`(""))
         assertThat<XPathStringLiteral>(versionDeclPsi.encoding, `is`(nullValue()))
 
         assertThat(file.XQueryVersion.version, `is`(nullValue()))
@@ -4613,9 +4613,9 @@ class XQueryPsiTest:ParserTestCase() {
 
         val versionDeclPsi = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
         assertThat<XPathStringLiteral>(versionDeclPsi.version, `is`(notNullValue()))
-        assertThat((versionDeclPsi.version!! as XdmAtomicValue).lexicalRepresentation, `is`("1.0"))
+        assertThat((versionDeclPsi.version!! as XdmLexicalValue).lexicalRepresentation, `is`("1.0"))
         assertThat<XPathStringLiteral>(versionDeclPsi.encoding, `is`(notNullValue()))
-        assertThat((versionDeclPsi.encoding!! as XdmAtomicValue).lexicalRepresentation, `is`("latin1"))
+        assertThat((versionDeclPsi.encoding!! as XdmLexicalValue).lexicalRepresentation, `is`("latin1"))
 
         assertThat(file.XQueryVersion.version, `is`(XQuery.REC_1_0_20070123))
         assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQuery.REC_1_0_20070123))
@@ -4628,9 +4628,9 @@ class XQueryPsiTest:ParserTestCase() {
 
         val versionDeclPsi = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
         assertThat<XPathStringLiteral>(versionDeclPsi.version, `is`(notNullValue()))
-        assertThat((versionDeclPsi.version!! as XdmAtomicValue).lexicalRepresentation, `is`("1.0"))
+        assertThat((versionDeclPsi.version!! as XdmLexicalValue).lexicalRepresentation, `is`("1.0"))
         assertThat<XPathStringLiteral>(versionDeclPsi.encoding, `is`(notNullValue()))
-        assertThat((versionDeclPsi.encoding!! as XdmAtomicValue).lexicalRepresentation, `is`("latin1"))
+        assertThat((versionDeclPsi.encoding!! as XdmLexicalValue).lexicalRepresentation, `is`("latin1"))
 
         assertThat(file.XQueryVersion.version, `is`(XQuery.REC_1_0_20070123))
         assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQuery.REC_1_0_20070123))
@@ -4643,9 +4643,9 @@ class XQueryPsiTest:ParserTestCase() {
 
         val versionDeclPsi = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
         assertThat<XPathStringLiteral>(versionDeclPsi.version, `is`(notNullValue()))
-        assertThat((versionDeclPsi.version!! as XdmAtomicValue).lexicalRepresentation, `is`("1.0"))
+        assertThat((versionDeclPsi.version!! as XdmLexicalValue).lexicalRepresentation, `is`("1.0"))
         assertThat<XPathStringLiteral>(versionDeclPsi.encoding, `is`(notNullValue()))
-        assertThat((versionDeclPsi.encoding!! as XdmAtomicValue).lexicalRepresentation, `is`(""))
+        assertThat((versionDeclPsi.encoding!! as XdmLexicalValue).lexicalRepresentation, `is`(""))
 
         assertThat(file.XQueryVersion.version, `is`(XQuery.REC_1_0_20070123))
         assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQuery.REC_1_0_20070123))
@@ -4671,7 +4671,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         val versionDeclPsi = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
         assertThat<XPathStringLiteral>(versionDeclPsi.version, `is`(notNullValue()))
-        assertThat((versionDeclPsi.version!! as XdmAtomicValue).lexicalRepresentation, `is`("9.4"))
+        assertThat((versionDeclPsi.version!! as XdmLexicalValue).lexicalRepresentation, `is`("9.4"))
         assertThat<XPathStringLiteral>(versionDeclPsi.encoding, `is`(nullValue()))
 
         assertThat(file.XQueryVersion.version, `is`(nullValue()))
@@ -4686,7 +4686,7 @@ class XQueryPsiTest:ParserTestCase() {
         val versionDeclPsi = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
         assertThat<XPathStringLiteral>(versionDeclPsi.version, `is`(nullValue()))
         assertThat<XPathStringLiteral>(versionDeclPsi.encoding, `is`(notNullValue()))
-        assertThat((versionDeclPsi.encoding!! as XdmAtomicValue).lexicalRepresentation, `is`("latin1"))
+        assertThat((versionDeclPsi.encoding!! as XdmLexicalValue).lexicalRepresentation, `is`("latin1"))
 
         assertThat(file.XQueryVersion.version, `is`(nullValue()))
         assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQuery.REC_3_0_20140408))
@@ -4700,7 +4700,7 @@ class XQueryPsiTest:ParserTestCase() {
         val versionDeclPsi = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
         assertThat<XPathStringLiteral>(versionDeclPsi.version, `is`(nullValue()))
         assertThat<XPathStringLiteral>(versionDeclPsi.encoding, `is`(notNullValue()))
-        assertThat((versionDeclPsi.encoding!! as XdmAtomicValue).lexicalRepresentation, `is`(""))
+        assertThat((versionDeclPsi.encoding!! as XdmLexicalValue).lexicalRepresentation, `is`(""))
 
         assertThat(file.XQueryVersion.version, `is`(nullValue()))
         assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQuery.REC_3_0_20140408))

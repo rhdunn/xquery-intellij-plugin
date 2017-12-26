@@ -19,17 +19,15 @@ import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xdm.*
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmAtomicValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSimpleExpression
-import uk.co.reecedunn.intellij.plugin.xdm.model.toInt
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 class XQueryXdmTest : ParserTestCase() {
-    private inline fun <reified T> parseLiteral(xquery: String): XdmAtomicValue {
-        return parseText(xquery)!!.walkTree().filterIsInstance<T>().first() as XdmAtomicValue
+    private inline fun <reified T> parseLiteral(xquery: String): XdmLexicalValue {
+        return parseText(xquery)!!.walkTree().filterIsInstance<T>().first() as XdmLexicalValue
     }
 
     // region Atomic Values

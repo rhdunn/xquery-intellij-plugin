@@ -17,13 +17,13 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl
 
 import com.intellij.psi.impl.source.tree.LeafPsiElement
 import uk.co.reecedunn.intellij.plugin.xdm.XsNCName
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmAtomicValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
 class XmlNCNameImpl(text: CharSequence):
         LeafPsiElement(XQueryTokenType.NCNAME, text),
-        XdmAtomicValue {
+        XdmLexicalValue {
 
     override val staticType: XdmSequenceType = XsNCName
 
