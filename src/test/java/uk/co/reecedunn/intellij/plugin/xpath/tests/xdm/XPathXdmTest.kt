@@ -156,6 +156,69 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     // endregion
+    // region QName
+
+    fun testQName() {
+        val expr = parseSimpleExpression<XPathQName>("fn:true")
+        assertThat(expr.constantValue, `is`(instanceOf(QName::class.java)))
+        assertThat(expr.staticType, `is`(XsQName as XdmSequenceType))
+
+        val qname = expr.constantValue as QName
+        assertThat(qname.namespace, `is`(nullValue()))
+        assertThat(qname.declaration?.get(), `is`(expr))
+
+        assertThat(qname.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.prefix?.lexicalRepresentation, `is`("fn"))
+
+        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.lexicalRepresentation, `is`("true"))
+
+        assertThat(qname.toString(), `is`("fn:true"))
+    }
+
+    fun testQName_KeywordPrefix() {
+        val expr = parseSimpleExpression<XPathQName>("option:test")
+        assertThat(expr.constantValue, `is`(instanceOf(QName::class.java)))
+        assertThat(expr.staticType, `is`(XsQName as XdmSequenceType))
+
+        val qname = expr.constantValue as QName
+        assertThat(qname.namespace, `is`(nullValue()))
+        assertThat(qname.declaration?.get(), `is`(expr))
+
+        assertThat(qname.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.prefix?.lexicalRepresentation, `is`("option"))
+
+        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.lexicalRepresentation, `is`("test"))
+
+        assertThat(qname.toString(), `is`("option:test"))
+    }
+
+    fun testQName_KeywordLocalName() {
+        val expr = parseSimpleExpression<XPathQName>("test:case")
+        assertThat(expr.constantValue, `is`(instanceOf(QName::class.java)))
+        assertThat(expr.staticType, `is`(XsQName as XdmSequenceType))
+
+        val qname = expr.constantValue as QName
+        assertThat(qname.namespace, `is`(nullValue()))
+        assertThat(qname.declaration?.get(), `is`(expr))
+
+        assertThat(qname.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.prefix?.lexicalRepresentation, `is`("test"))
+
+        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.lexicalRepresentation, `is`("case"))
+
+        assertThat(qname.toString(), `is`("test:case"))
+    }
+
+    fun testQName_NoLocalName() {
+        val expr = parseSimpleExpression<XPathQName>("xs:")
+        assertThat(expr.constantValue, `is`(nullValue()))
+        assertThat(expr.staticType, `is`(XsUntyped as XdmSequenceType))
+    }
+
+    // endregion
     // endregion
     // region Constant Expressions
     // region PostfixExpr
