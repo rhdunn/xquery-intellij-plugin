@@ -21,13 +21,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm
 
-import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.*
 
-val XsAnyType = XmlSchemaType(QName("http://www.w3.org/2001/XMLSchema", "anyType"), null)
+val XsAnyType = XmlSchemaType(createQName("http://www.w3.org/2001/XMLSchema", "anyType"), null)
 
-val XsUntyped = XdmComplexType(QName("http://www.w3.org/2001/XMLSchema", "untyped"))
+val XsUntyped = XdmComplexType(createQName("http://www.w3.org/2001/XMLSchema", "untyped"))
 
-val XsAnySimpleType = XdmSimpleType(QName("http://www.w3.org/2001/XMLSchema", "anySimpleType"), XsAnyType)
+val XsAnySimpleType = XdmSimpleType(createQName("http://www.w3.org/2001/XMLSchema", "anySimpleType"), XsAnyType)
 
-val XsAnyAtomicType = XdmAtomicType(QName("http://www.w3.org/2001/XMLSchema", "anyAtomicType"), XsAnySimpleType)
+val XsAnyAtomicType = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "anyAtomicType"), XsAnySimpleType)

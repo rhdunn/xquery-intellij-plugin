@@ -15,6 +15,13 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.datatype
 
-data class QName(val namespace: String?, val localName: String) {
-    override fun toString(): String = "Q{${namespace ?: ""}}$localName" // URIQualifiedName
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmAtomicValue
+
+data class QName(val namespace: XdmAtomicValue?,
+                 val localName: XdmAtomicValue) {
+
+    override fun toString(): String {
+        return namespace?.let { "Q{${it.lexicalRepresentation}}${localName.lexicalRepresentation}" } // URIQualifiedName
+            ?: localName.lexicalRepresentation // NCName
+    }
 }

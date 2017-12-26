@@ -21,96 +21,95 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm
 
-import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmAtomicType
 
-val XsUntypedAtomic = XdmAtomicType(QName("http://www.w3.org/2001/XMLSchema", "untypedAtomic"), XsAnyAtomicType)
+val XsUntypedAtomic = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "untypedAtomic"), XsAnyAtomicType)
 
-val XsDateTime = XdmAtomicType(QName("http://www.w3.org/2001/XMLSchema", "dateTime"), XsAnyAtomicType)
+val XsDateTime = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "dateTime"), XsAnyAtomicType)
 
-val XsDateTimeStamp = XdmAtomicType(QName("http://www.w3.org/2001/XMLSchema", "dateTimeStamp"), XsDateTime)
+val XsDateTimeStamp = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "dateTimeStamp"), XsDateTime)
 
-val XsDate = XdmAtomicType(QName("http://www.w3.org/2001/XMLSchema", "date"), XsAnyAtomicType)
+val XsDate = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "date"), XsAnyAtomicType)
 
-val XsTime = XdmAtomicType(QName("http://www.w3.org/2001/XMLSchema", "time"), XsAnyAtomicType)
+val XsTime = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "time"), XsAnyAtomicType)
 
-val XsDuration = XdmAtomicType(QName("http://www.w3.org/2001/XMLSchema", "duration"), XsAnyAtomicType)
+val XsDuration = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "duration"), XsAnyAtomicType)
 
-val XsYearMonthDuration = XdmAtomicType(QName("http://www.w3.org/2001/XMLSchema", "yearMonthDuration"), XsDuration)
+val XsYearMonthDuration = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "yearMonthDuration"), XsDuration)
 
-val XsDayTimeDuration = XdmAtomicType(QName("http://www.w3.org/2001/XMLSchema", "dayTimeDuration"), XsDuration)
+val XsDayTimeDuration = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "dayTimeDuration"), XsDuration)
 
-val XsFloat = XdmAtomicType(QName("http://www.w3.org/2001/XMLSchema", "float"), XsAnyAtomicType)
+val XsFloat = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "float"), XsAnyAtomicType)
 
-val XsDouble = XdmAtomicType(QName("http://www.w3.org/2001/XMLSchema", "double"), XsAnyAtomicType)
+val XsDouble = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "double"), XsAnyAtomicType)
 
-val XsDecimal = XdmAtomicType(QName("http://www.w3.org/2001/XMLSchema", "decimal"), XsAnyAtomicType)
+val XsDecimal = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "decimal"), XsAnyAtomicType)
 
-val XsInteger = XdmAtomicType(QName("http://www.w3.org/2001/XMLSchema", "integer"), XsDecimal)
+val XsInteger = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "integer"), XsDecimal)
 
-val XsNonPositiveInteger = XdmAtomicType(QName("http://www.w3.org/2001/XMLSchema", "nonPositiveInteger"), XsInteger)
+val XsNonPositiveInteger = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "nonPositiveInteger"), XsInteger)
 
-val XsNegativeInteger = XdmAtomicType(QName("http://www.w3.org/2001/XMLSchema", "negativeInteger"), XsNonPositiveInteger)
+val XsNegativeInteger = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "negativeInteger"), XsNonPositiveInteger)
 
-val XsLong = XdmAtomicType(QName("http://www.w3.org/2001/XMLSchema", "long"), XsInteger)
+val XsLong = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "long"), XsInteger)
 
-val XsInt = XdmAtomicType(QName("http://www.w3.org/2001/XMLSchema", "int"), XsLong)
+val XsInt = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "int"), XsLong)
 
-val XsShort = XdmAtomicType(QName("http://www.w3.org/2001/XMLSchema", "short"), XsInt)
+val XsShort = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "short"), XsInt)
 
-val XsByte = XdmAtomicType(QName("http://www.w3.org/2001/XMLSchema", "byte"), XsShort)
+val XsByte = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "byte"), XsShort)
 
-val XsNonNegativeInteger = XdmAtomicType(QName("http://www.w3.org/2001/XMLSchema", "nonNegativeInteger"), XsInteger)
+val XsNonNegativeInteger = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "nonNegativeInteger"), XsInteger)
 
-val XsUnsignedLong = XdmAtomicType(QName("http://www.w3.org/2001/XMLSchema", "unsignedLong"), XsNonNegativeInteger)
+val XsUnsignedLong = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "unsignedLong"), XsNonNegativeInteger)
 
-val XsUnsignedInt = XdmAtomicType(QName("http://www.w3.org/2001/XMLSchema", "unsignedInt"), XsUnsignedLong)
+val XsUnsignedInt = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "unsignedInt"), XsUnsignedLong)
 
-val XsUnsignedShort = XdmAtomicType(QName("http://www.w3.org/2001/XMLSchema", "unsignedShort"), XsUnsignedInt)
+val XsUnsignedShort = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "unsignedShort"), XsUnsignedInt)
 
-val XsUnsignedByte = XdmAtomicType(QName("http://www.w3.org/2001/XMLSchema", "unsignedByte"), XsUnsignedShort)
+val XsUnsignedByte = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "unsignedByte"), XsUnsignedShort)
 
-val XsPositiveInteger = XdmAtomicType(QName("http://www.w3.org/2001/XMLSchema", "positiveInteger"), XsNonNegativeInteger)
+val XsPositiveInteger = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "positiveInteger"), XsNonNegativeInteger)
 
-val XsGYearMonth = XdmAtomicType(QName("http://www.w3.org/2001/XMLSchema", "gYearMonth"), XsAnyAtomicType)
+val XsGYearMonth = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "gYearMonth"), XsAnyAtomicType)
 
-val XsGYear = XdmAtomicType(QName("http://www.w3.org/2001/XMLSchema", "gYear"), XsAnyAtomicType)
+val XsGYear = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "gYear"), XsAnyAtomicType)
 
-val XsGMonthDay = XdmAtomicType(QName("http://www.w3.org/2001/XMLSchema", "gMonthDay"), XsAnyAtomicType)
+val XsGMonthDay = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "gMonthDay"), XsAnyAtomicType)
 
-val XsGDay = XdmAtomicType(QName("http://www.w3.org/2001/XMLSchema", "gDay"), XsAnyAtomicType)
+val XsGDay = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "gDay"), XsAnyAtomicType)
 
-val XsGMonth = XdmAtomicType(QName("http://www.w3.org/2001/XMLSchema", "gMonth"), XsAnyAtomicType)
+val XsGMonth = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "gMonth"), XsAnyAtomicType)
 
-val XsString = XdmAtomicType(QName("http://www.w3.org/2001/XMLSchema", "string"), XsAnyAtomicType)
+val XsString = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "string"), XsAnyAtomicType)
 
-val XsNormalizedString = XdmAtomicType(QName("http://www.w3.org/2001/XMLSchema", "normalizedString"), XsString)
+val XsNormalizedString = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "normalizedString"), XsString)
 
-val XsToken = XdmAtomicType(QName("http://www.w3.org/2001/XMLSchema", "token"), XsNormalizedString)
+val XsToken = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "token"), XsNormalizedString)
 
-val XsLanguage = XdmAtomicType(QName("http://www.w3.org/2001/XMLSchema", "language"), XsToken)
+val XsLanguage = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "language"), XsToken)
 
-val XsNMTOKEN = XdmAtomicType(QName("http://www.w3.org/2001/XMLSchema", "NMTOKEN"), XsToken)
+val XsNMTOKEN = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "NMTOKEN"), XsToken)
 
-val XsName = XdmAtomicType(QName("http://www.w3.org/2001/XMLSchema", "Name"), XsToken)
+val XsName = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "Name"), XsToken)
 
-val XsNCName = XdmAtomicType(QName("http://www.w3.org/2001/XMLSchema", "NCName"), XsName)
+val XsNCName = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "NCName"), XsName)
 
-val XsID = XdmAtomicType(QName("http://www.w3.org/2001/XMLSchema", "ID"), XsNCName)
+val XsID = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "ID"), XsNCName)
 
-val XsIDREF = XdmAtomicType(QName("http://www.w3.org/2001/XMLSchema", "IDREF"), XsNCName)
+val XsIDREF = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "IDREF"), XsNCName)
 
-val XsENTITY = XdmAtomicType(QName("http://www.w3.org/2001/XMLSchema", "ENTITY"), XsNCName)
+val XsENTITY = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "ENTITY"), XsNCName)
 
-val XsBoolean = XdmAtomicType(QName("http://www.w3.org/2001/XMLSchema", "boolean"), XsAnyAtomicType,
+val XsBoolean = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "boolean"), XsAnyAtomicType,
     pattern = "true|false|[10]".toRegex())
 
-val XsBase64Binary = XdmAtomicType(QName("http://www.w3.org/2001/XMLSchema", "base64Binary"), XsAnyAtomicType)
+val XsBase64Binary = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "base64Binary"), XsAnyAtomicType)
 
-val XsHexBinary = XdmAtomicType(QName("http://www.w3.org/2001/XMLSchema", "hexBinary"), XsAnyAtomicType)
+val XsHexBinary = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "hexBinary"), XsAnyAtomicType)
 
-val XsAnyURI = XdmAtomicType(QName("http://www.w3.org/2001/XMLSchema", "anyURI"), XsAnyAtomicType)
+val XsAnyURI = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "anyURI"), XsAnyAtomicType)
 
-val XsQName = XdmAtomicType(QName("http://www.w3.org/2001/XMLSchema", "QName"), XsAnyAtomicType)
+val XsQName = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "QName"), XsAnyAtomicType)
 
-val XsNOTATION = XdmAtomicType(QName("http://www.w3.org/2001/XMLSchema", "NOTATION"), XsAnyAtomicType)
+val XsNOTATION = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "NOTATION"), XsAnyAtomicType)

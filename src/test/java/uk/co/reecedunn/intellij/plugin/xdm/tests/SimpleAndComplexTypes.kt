@@ -26,32 +26,52 @@ import uk.co.reecedunn.intellij.plugin.xdm.model.XmlSchemaType
 
 class SimpleAndComplexTypes : TestCase() {
     fun testXsAnyType() {
-        assertThat(XsAnyType.typeName?.namespace, `is`("http://www.w3.org/2001/XMLSchema"))
-        assertThat(XsAnyType.typeName?.localName, `is`("anyType"))
+        assertThat(XsAnyType.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(XsAnyType.typeName?.namespace?.lexicalRepresentation, `is`("http://www.w3.org/2001/XMLSchema"))
+
+        assertThat(XsAnyType.typeName?.localName?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsAnyType.typeName?.localName?.lexicalRepresentation, `is`("anyType"))
+
         assertThat(XsAnyType.baseType, `is`(nullValue()))
     }
 
     fun testXsUntyped() {
-        assertThat(XsUntyped.typeName?.namespace, `is`("http://www.w3.org/2001/XMLSchema"))
-        assertThat(XsUntyped.typeName?.localName, `is`("untyped"))
+        assertThat(XsUntyped.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(XsUntyped.typeName?.namespace?.lexicalRepresentation, `is`("http://www.w3.org/2001/XMLSchema"))
+
+        assertThat(XsUntyped.typeName?.localName?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsUntyped.typeName?.localName?.lexicalRepresentation, `is`("untyped"))
+
         assertThat(XsUntyped.baseType, `is`(XsAnyType))
     }
 
     fun testXsAnySimpleType() {
-        assertThat(XsAnySimpleType.typeName?.namespace, `is`("http://www.w3.org/2001/XMLSchema"))
-        assertThat(XsAnySimpleType.typeName?.localName, `is`("anySimpleType"))
+        assertThat(XsAnySimpleType.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(XsAnySimpleType.typeName?.namespace?.lexicalRepresentation, `is`("http://www.w3.org/2001/XMLSchema"))
+
+        assertThat(XsAnySimpleType.typeName?.localName?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsAnySimpleType.typeName?.localName?.lexicalRepresentation, `is`("anySimpleType"))
+
         assertThat(XsAnySimpleType.baseType, `is`(XsAnyType))
     }
 
     fun testXsAnyAtomicType() {
-        assertThat(XsAnyAtomicType.typeName?.namespace, `is`("http://www.w3.org/2001/XMLSchema"))
-        assertThat(XsAnyAtomicType.typeName?.localName, `is`("anyAtomicType"))
+        assertThat(XsAnyAtomicType.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(XsAnyAtomicType.typeName?.namespace?.lexicalRepresentation, `is`("http://www.w3.org/2001/XMLSchema"))
+
+        assertThat(XsAnyAtomicType.typeName?.localName?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsAnyAtomicType.typeName?.localName?.lexicalRepresentation, `is`("anyAtomicType"))
+
         assertThat(XsAnyAtomicType.baseType, `is`(XsAnySimpleType as XmlSchemaType))
     }
 
     fun testXsNumeric() {
-        assertThat(XsNumeric.typeName?.namespace, `is`("http://www.w3.org/2001/XMLSchema"))
-        assertThat(XsNumeric.typeName?.localName, `is`("numeric"))
+        assertThat(XsNumeric.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(XsNumeric.typeName?.namespace?.lexicalRepresentation, `is`("http://www.w3.org/2001/XMLSchema"))
+
+        assertThat(XsNumeric.typeName?.localName?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsNumeric.typeName?.localName?.lexicalRepresentation, `is`("numeric"))
+
         assertThat(XsNumeric.baseType, `is`(XsAnySimpleType as XmlSchemaType))
 
         assertThat(XsNumeric.unionOf.size, `is`(3))
@@ -61,24 +81,36 @@ class SimpleAndComplexTypes : TestCase() {
     }
 
     fun testXsIDREFS() {
-        assertThat(XsIDREFS.typeName?.namespace, `is`("http://www.w3.org/2001/XMLSchema"))
-        assertThat(XsIDREFS.typeName?.localName, `is`("IDREFS"))
+        assertThat(XsIDREFS.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(XsIDREFS.typeName?.namespace?.lexicalRepresentation, `is`("http://www.w3.org/2001/XMLSchema"))
+
+        assertThat(XsIDREFS.typeName?.localName?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsIDREFS.typeName?.localName?.lexicalRepresentation, `is`("IDREFS"))
+
         assertThat(XsIDREFS.baseType, `is`(XsAnySimpleType as XmlSchemaType))
 
         assertThat(XsIDREFS.itemType, `is`(XsIDREF as XdmSequenceType))
     }
 
     fun testXsNMTOKENS() {
-        assertThat(XsNMTOKENS.typeName?.namespace, `is`("http://www.w3.org/2001/XMLSchema"))
-        assertThat(XsNMTOKENS.typeName?.localName, `is`("NMTOKENS"))
+        assertThat(XsNMTOKENS.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(XsNMTOKENS.typeName?.namespace?.lexicalRepresentation, `is`("http://www.w3.org/2001/XMLSchema"))
+
+        assertThat(XsNMTOKENS.typeName?.localName?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsNMTOKENS.typeName?.localName?.lexicalRepresentation, `is`("NMTOKENS"))
+
         assertThat(XsNMTOKENS.baseType, `is`(XsAnySimpleType as XmlSchemaType))
 
         assertThat(XsNMTOKENS.itemType, `is`(XsNMTOKEN as XdmSequenceType))
     }
 
     fun testXsENTITIES() {
-        assertThat(XsENTITIES.typeName?.namespace, `is`("http://www.w3.org/2001/XMLSchema"))
-        assertThat(XsENTITIES.typeName?.localName, `is`("ENTITIES"))
+        assertThat(XsENTITIES.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(XsENTITIES.typeName?.namespace?.lexicalRepresentation, `is`("http://www.w3.org/2001/XMLSchema"))
+
+        assertThat(XsENTITIES.typeName?.localName?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(XsENTITIES.typeName?.localName?.lexicalRepresentation, `is`("ENTITIES"))
+
         assertThat(XsENTITIES.baseType, `is`(XsAnySimpleType as XmlSchemaType))
 
         assertThat(XsENTITIES.itemType, `is`(XsENTITY as XdmSequenceType))

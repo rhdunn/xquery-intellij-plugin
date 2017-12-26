@@ -21,14 +21,13 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm
 
-import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.*
 
-val XsIDREFS = XdmListType(QName("http://www.w3.org/2001/XMLSchema", "IDREFS"),
+val XsIDREFS = XdmListType(createQName("http://www.w3.org/2001/XMLSchema", "IDREFS"),
     itemType = XsIDREF)
 
-val XsNMTOKENS = XdmListType(QName("http://www.w3.org/2001/XMLSchema", "NMTOKENS"),
+val XsNMTOKENS = XdmListType(createQName("http://www.w3.org/2001/XMLSchema", "NMTOKENS"),
     itemType = XsNMTOKEN)
 
-val XsENTITIES = XdmListType(QName("http://www.w3.org/2001/XMLSchema", "ENTITIES"),
+val XsENTITIES = XdmListType(createQName("http://www.w3.org/2001/XMLSchema", "ENTITIES"),
     itemType = XsENTITY)
