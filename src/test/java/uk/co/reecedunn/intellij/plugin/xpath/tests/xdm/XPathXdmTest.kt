@@ -21,7 +21,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xdm.*
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSimpleExpression
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmConstantExpression
 import uk.co.reecedunn.intellij.plugin.xdm.model.toInt
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
@@ -31,8 +31,8 @@ class XPathXdmTest : ParserTestCase() {
         return parseText(xquery)!!.walkTree().filterIsInstance<T>().first() as XdmLexicalValue
     }
 
-    private inline fun <reified T> parseSimpleExpression(xquery: String): XdmSimpleExpression {
-        return parseText(xquery)!!.walkTree().filterIsInstance<T>().first() as XdmSimpleExpression
+    private inline fun <reified T> parseSimpleExpression(xquery: String): XdmConstantExpression {
+        return parseText(xquery)!!.walkTree().filterIsInstance<T>().first() as XdmConstantExpression
     }
 
     // region Atomic Values

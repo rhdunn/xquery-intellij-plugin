@@ -24,14 +24,14 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.withNext
 import uk.co.reecedunn.intellij.plugin.xdm.XsUntyped
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSimpleExpression
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmConstantExpression
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPostfixExpr
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 
 class XPathPostfixExprPsiImpl(node: ASTNode):
         ASTWrapperPsiElement(node),
         XPathPostfixExpr,
-        XdmSimpleExpression {
+        XdmConstantExpression {
 
     override fun subtreeChanged() {
         super.subtreeChanged()

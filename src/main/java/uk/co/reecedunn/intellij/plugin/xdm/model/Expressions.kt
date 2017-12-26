@@ -19,12 +19,12 @@ interface XdmExpression {
     val staticType: XdmSequenceType
 }
 
-interface XdmSimpleExpression : XdmExpression {
-    val constantValue: Any?
-}
-
 interface XdmLexicalValue : XdmExpression {
     val lexicalRepresentation: String
+}
+
+interface XdmConstantExpression : XdmExpression {
+    val constantValue: Any?
 }
 
 fun XdmLexicalValue.toInt(): Int {
