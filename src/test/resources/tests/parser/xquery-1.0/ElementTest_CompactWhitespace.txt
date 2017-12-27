@@ -21,11 +21,12 @@ FileElement[FILE(0:52)]
                            LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(31:32)]('(')
                            XQueryElementNameOrWildcardImpl[XQUERY_ELEMENT_NAME_OR_WILDCARD(32:42)]
                               XQueryElementNameImpl[XQUERY_ELEMENT_NAME(32:42)]
-                                 XPathNCNameImpl[XQUERY_NCNAME(32:36)]
-                                    XmlNCNameImpl[XQUERY_NCNAME_TOKEN(32:36)]('html')
-                                 LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(36:37)](':')
-                                 XPathNCNameImpl[XQUERY_NCNAME(37:42)]
-                                    XmlNCNameImpl[XQUERY_NCNAME_TOKEN(37:42)]('class')
+                                 XPathQNameImpl[XQUERY_QNAME(32:42)]
+                                    XPathNCNameImpl[XQUERY_NCNAME(32:36)]
+                                       XmlNCNameImpl[XQUERY_NCNAME_TOKEN(32:36)]('html')
+                                    LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(36:37)](':')
+                                    XPathNCNameImpl[XQUERY_NCNAME(37:42)]
+                                       XmlNCNameImpl[XQUERY_NCNAME_TOKEN(37:42)]('class')
                            LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(42:43)](')')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(43:51)]('external')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(51:52)](';')

@@ -26,11 +26,12 @@ FileElement[FILE(0:21)]
                                                                            LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(0:1)]('$')
                                                                            PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
                                                                            XPathVarNameImpl[XQUERY_VAR_NAME(2:9)]
-                                                                              XPathNCNameImpl[XQUERY_NCNAME(2:5)]
-                                                                                 XmlNCNameImpl[XQUERY_NCNAME_TOKEN(2:5)]('one')
-                                                                              LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(5:6)](':')
-                                                                              XPathNCNameImpl[XQUERY_NCNAME(6:9)]
-                                                                                 XmlNCNameImpl[XQUERY_NCNAME_TOKEN(6:9)]('two')
+                                                                              XPathQNameImpl[XQUERY_QNAME(2:9)]
+                                                                                 XPathNCNameImpl[XQUERY_NCNAME(2:5)]
+                                                                                    XmlNCNameImpl[XQUERY_NCNAME_TOKEN(2:5)]('one')
+                                                                                 LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(5:6)](':')
+                                                                                 XPathNCNameImpl[XQUERY_NCNAME(6:9)]
+                                                                                    XmlNCNameImpl[XQUERY_NCNAME_TOKEN(6:9)]('two')
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
                                                                         XQueryPredicateImpl[XQUERY_PREDICATE(10:15)]
                                                                            LeafPsiElement[XQUERY_SQUARE_OPEN_TOKEN(10:11)]('[')

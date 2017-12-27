@@ -86,7 +86,8 @@ abstract class XPathEQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), X
 
     override val prefix get(): PsiElement? {
         var element: PsiElement? = firstChild
-        if (element?.node?.elementType === XQueryElementType.URI_QUALIFIED_NAME) {
+        if (element?.node?.elementType === XQueryElementType.URI_QUALIFIED_NAME ||
+            element?.node?.elementType === XQueryElementType.QNAME) {
             return (element as XPathEQName).prefix
         }
 
@@ -106,7 +107,8 @@ abstract class XPathEQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), X
         var element = findChildByType<PsiElement>(QNAME_SEPARATORS)
         if (element == null) { // NCName | URIQualifiedName
             element = firstChild
-            if (element?.node?.elementType === XQueryElementType.URI_QUALIFIED_NAME) {
+            if (element?.node?.elementType === XQueryElementType.URI_QUALIFIED_NAME ||
+                element?.node?.elementType === XQueryElementType.QNAME) {
                 return (element as XPathEQName).localName
             }
 

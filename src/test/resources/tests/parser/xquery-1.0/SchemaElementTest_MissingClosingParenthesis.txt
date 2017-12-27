@@ -24,11 +24,12 @@ FileElement[FILE(0:64)]
                            LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(41:42)]('(')
                            PsiWhiteSpaceImpl[WHITE_SPACE(42:43)](' ')
                            XQueryElementDeclarationImpl[XQUERY_ELEMENT_DECLARATION(43:53)]
-                              XPathNCNameImpl[XQUERY_NCNAME(43:45)]
-                                 XmlNCNameImpl[XQUERY_NCNAME_TOKEN(43:45)]('xs')
-                              LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(45:46)](':')
-                              XPathNCNameImpl[XQUERY_NCNAME(46:53)]
-                                 XmlNCNameImpl[XQUERY_NCNAME_TOKEN(46:53)]('boolean')
+                              XPathQNameImpl[XQUERY_QNAME(43:53)]
+                                 XPathNCNameImpl[XQUERY_NCNAME(43:45)]
+                                    XmlNCNameImpl[XQUERY_NCNAME_TOKEN(43:45)]('xs')
+                                 LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(45:46)](':')
+                                 XPathNCNameImpl[XQUERY_NCNAME(46:53)]
+                                    XmlNCNameImpl[XQUERY_NCNAME_TOKEN(46:53)]('boolean')
                            PsiWhiteSpaceImpl[WHITE_SPACE(53:54)](' ')
                            PsiErrorElementImpl[ERROR_ELEMENT(54:54)]('XPST0003: Expected ')'.')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(54:62)]('external')

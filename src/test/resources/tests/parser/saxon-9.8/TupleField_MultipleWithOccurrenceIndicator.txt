@@ -32,11 +32,12 @@ FileElement[FILE(0:90)]
                               XQuerySequenceTypeImpl[XQUERY_SEQUENCE_TYPE(36:47)]
                                  XQueryItemTypeImpl[XQUERY_ITEM_TYPE(36:45)]
                                     XQueryAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(36:45)]
-                                       XPathNCNameImpl[XQUERY_NCNAME(36:38)]
-                                          XmlNCNameImpl[XQUERY_NCNAME_TOKEN(36:38)]('xs')
-                                       LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(38:39)](':')
-                                       XPathNCNameImpl[XQUERY_NCNAME(39:45)]
-                                          XmlNCNameImpl[XQUERY_NCNAME_TOKEN(39:45)]('string')
+                                       XPathQNameImpl[XQUERY_QNAME(36:45)]
+                                          XPathNCNameImpl[XQUERY_NCNAME(36:38)]
+                                             XmlNCNameImpl[XQUERY_NCNAME_TOKEN(36:38)]('xs')
+                                          LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(38:39)](':')
+                                          XPathNCNameImpl[XQUERY_NCNAME(39:45)]
+                                             XmlNCNameImpl[XQUERY_NCNAME_TOKEN(39:45)]('string')
                                  PsiWhiteSpaceImpl[WHITE_SPACE(45:46)](' ')
                                  XQueryOccurrenceIndicatorImpl[XQUERY_OCCURRENCE_INDICATOR(46:47)]
                                     LeafPsiElement[XQUERY_OPTIONAL_TOKEN(46:47)]('?')
@@ -52,11 +53,12 @@ FileElement[FILE(0:90)]
                               XQuerySequenceTypeImpl[XQUERY_SEQUENCE_TYPE(54:66)]
                                  XQueryItemTypeImpl[XQUERY_ITEM_TYPE(54:64)]
                                     XQueryAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(54:64)]
-                                       XPathNCNameImpl[XQUERY_NCNAME(54:56)]
-                                          XmlNCNameImpl[XQUERY_NCNAME_TOKEN(54:56)]('xs')
-                                       LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(56:57)](':')
-                                       XPathNCNameImpl[XQUERY_NCNAME(57:64)]
-                                          XmlNCNameImpl[XQUERY_NCNAME_TOKEN(57:64)]('integer')
+                                       XPathQNameImpl[XQUERY_QNAME(54:64)]
+                                          XPathNCNameImpl[XQUERY_NCNAME(54:56)]
+                                             XmlNCNameImpl[XQUERY_NCNAME_TOKEN(54:56)]('xs')
+                                          LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(56:57)](':')
+                                          XPathNCNameImpl[XQUERY_NCNAME(57:64)]
+                                             XmlNCNameImpl[XQUERY_NCNAME_TOKEN(57:64)]('integer')
                                  PsiWhiteSpaceImpl[WHITE_SPACE(64:65)](' ')
                                  XQueryOccurrenceIndicatorImpl[XQUERY_OCCURRENCE_INDICATOR(65:66)]
                                     LeafPsiElement[XQUERY_STAR_TOKEN(65:66)]('*')
@@ -72,11 +74,12 @@ FileElement[FILE(0:90)]
                               XQuerySequenceTypeImpl[XQUERY_SEQUENCE_TYPE(73:81)]
                                  XQueryItemTypeImpl[XQUERY_ITEM_TYPE(73:79)]
                                     XQueryAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(73:79)]
-                                       XPathNCNameImpl[XQUERY_NCNAME(73:75)]
-                                          XmlNCNameImpl[XQUERY_NCNAME_TOKEN(73:75)]('xs')
-                                       LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(75:76)](':')
-                                       XPathNCNameImpl[XQUERY_NCNAME(76:79)]
-                                          XmlNCNameImpl[XQUERY_NCNAME_TOKEN(76:79)]('int')
+                                       XPathQNameImpl[XQUERY_QNAME(73:79)]
+                                          XPathNCNameImpl[XQUERY_NCNAME(73:75)]
+                                             XmlNCNameImpl[XQUERY_NCNAME_TOKEN(73:75)]('xs')
+                                          LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(75:76)](':')
+                                          XPathNCNameImpl[XQUERY_NCNAME(76:79)]
+                                             XmlNCNameImpl[XQUERY_NCNAME_TOKEN(76:79)]('int')
                                  PsiWhiteSpaceImpl[WHITE_SPACE(79:80)](' ')
                                  XQueryOccurrenceIndicatorImpl[XQUERY_OCCURRENCE_INDICATOR(80:81)]
                                     LeafPsiElement[XQUERY_PLUS_TOKEN(80:81)]('+')

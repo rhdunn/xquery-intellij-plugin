@@ -52,9 +52,10 @@ FileElement[FILE(0:25)]
                                                                                                                                              XQueryVarRefImpl[XQUERY_VAR_REF(14:18)]
                                                                                                                                                 LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(14:15)]('$')
                                                                                                                                                 PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
-                                                                                                                                                XPathNCNameImpl[XQUERY_NCNAME(16:17)]
-                                                                                                                                                   XmlNCNameImpl[XQUERY_NCNAME_TOKEN(16:17)]('a')
-                                                                                                                                                PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
+                                                                                                                                                XPathVarNameImpl[XQUERY_VAR_NAME(16:18)]
+                                                                                                                                                   XPathNCNameImpl[XQUERY_NCNAME(16:17)]
+                                                                                                                                                      XmlNCNameImpl[XQUERY_NCNAME_TOKEN(16:17)]('a')
+                                                                                                                                                   PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
                                                                               LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(18:19)](':')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
                                                                               XQueryMapValueExprImpl[XQUERY_MAP_VALUE_EXPR(20:24)]

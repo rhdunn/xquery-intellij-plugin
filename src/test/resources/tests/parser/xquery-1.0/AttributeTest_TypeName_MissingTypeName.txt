@@ -25,11 +25,12 @@ FileElement[FILE(0:63)]
                            PsiWhiteSpaceImpl[WHITE_SPACE(37:38)](' ')
                            XQueryAttribNameOrWildcardImpl[XQUERY_ATTRIB_NAME_OR_WILDCARD(38:48)]
                               XQueryAttributeNameImpl[XQUERY_ATTRIBUTE_NAME(38:48)]
-                                 XPathNCNameImpl[XQUERY_NCNAME(38:40)]
-                                    XmlNCNameImpl[XQUERY_NCNAME_TOKEN(38:40)]('ns')
-                                 LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(40:41)](':')
-                                 XPathNCNameImpl[XQUERY_NCNAME(41:48)]
-                                    XmlNCNameImpl[XQUERY_NCNAME_TOKEN(41:48)]('enabled')
+                                 XPathQNameImpl[XQUERY_QNAME(38:48)]
+                                    XPathNCNameImpl[XQUERY_NCNAME(38:40)]
+                                       XmlNCNameImpl[XQUERY_NCNAME_TOKEN(38:40)]('ns')
+                                    LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(40:41)](':')
+                                    XPathNCNameImpl[XQUERY_NCNAME(41:48)]
+                                       XmlNCNameImpl[XQUERY_NCNAME_TOKEN(41:48)]('enabled')
                            PsiWhiteSpaceImpl[WHITE_SPACE(48:49)](' ')
                            LeafPsiElement[XQUERY_COMMA_TOKEN(49:50)](',')
                            PsiWhiteSpaceImpl[WHITE_SPACE(50:51)](' ')

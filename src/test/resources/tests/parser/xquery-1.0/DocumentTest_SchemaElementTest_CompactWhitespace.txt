@@ -23,11 +23,12 @@ FileElement[FILE(0:74)]
                               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SCHEMA_ELEMENT(38:52)]('schema-element')
                               LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(52:53)]('(')
                               XQueryElementDeclarationImpl[XQUERY_ELEMENT_DECLARATION(53:63)]
-                                 XPathNCNameImpl[XQUERY_NCNAME(53:55)]
-                                    XmlNCNameImpl[XQUERY_NCNAME_TOKEN(53:55)]('xs')
-                                 LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(55:56)](':')
-                                 XPathNCNameImpl[XQUERY_NCNAME(56:63)]
-                                    XmlNCNameImpl[XQUERY_NCNAME_TOKEN(56:63)]('integer')
+                                 XPathQNameImpl[XQUERY_QNAME(53:63)]
+                                    XPathNCNameImpl[XQUERY_NCNAME(53:55)]
+                                       XmlNCNameImpl[XQUERY_NCNAME_TOKEN(53:55)]('xs')
+                                    LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(55:56)](':')
+                                    XPathNCNameImpl[XQUERY_NCNAME(56:63)]
+                                       XmlNCNameImpl[XQUERY_NCNAME_TOKEN(56:63)]('integer')
                               LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(63:64)](')')
                            LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(64:65)](')')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(65:73)]('external')

@@ -2113,7 +2113,7 @@ class XQueryParser {
             }
 
             parseWhiteSpaceAndCommentTokens();
-            if (!parseQName(XQueryElementType.VAR_NAME) && !haveErrors) {
+            if (!parseEQName(XQueryElementType.VAR_NAME) && !haveErrors) {
                 error(XQueryBundle.message("parser.error.expected-qname"));
             }
 
@@ -4935,7 +4935,7 @@ class XQueryParser {
         final PsiBuilder.Marker namespaceMarker = matchTokenTypeWithMarker(XQueryTokenType.K_NAMESPACE);
         if (namespaceMarker != null) {
             parseWhiteSpaceAndCommentTokens();
-            if (!parseQName(XQueryElementType.PREFIX)) {
+            if (!parseEQName(XQueryElementType.PREFIX)) {
                 if (!parseEnclosedExprOrBlock(XQueryElementType.ENCLOSED_PREFIX_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)) {
                     namespaceMarker.rollbackTo();
                     return false;
@@ -6519,7 +6519,7 @@ class XQueryParser {
             }
 
             parseWhiteSpaceAndCommentTokens();
-            if (!parseQName(XQueryElementType.ATTRIBUTE_DECLARATION)) {
+            if (!parseEQName(XQueryElementType.ATTRIBUTE_DECLARATION)) {
                 error(XQueryBundle.message("parser.error.expected-qname"));
                 haveErrors = true;
             }
@@ -6598,7 +6598,7 @@ class XQueryParser {
             }
 
             parseWhiteSpaceAndCommentTokens();
-            if (!parseQName(XQueryElementType.ELEMENT_DECLARATION)) {
+            if (!parseEQName(XQueryElementType.ELEMENT_DECLARATION)) {
                 error(XQueryBundle.message("parser.error.expected-qname"));
                 haveErrors = true;
             }
@@ -7080,13 +7080,11 @@ class XQueryParser {
     }
 
     private boolean parseEQName(IElementType type, boolean endQNameOnSpace) {
-        if (parseQName(type, endQNameOnSpace)) {
-            return true;
-        }
-
         final PsiBuilder.Marker eqnameMarker = mark();
-        if (parseURIQualifiedName(type)) {
-            if (type == XQueryElementType.QNAME) {
+        if (parseQName(type, endQNameOnSpace) || parseURIQualifiedName(type)) {
+            if (type == XQueryElementType.QNAME ||
+                type == XQueryElementType.NCNAME ||
+                type == XQueryElementType.WILDCARD) {
                 eqnameMarker.drop();
             } else {
                 eqnameMarker.done(type);
@@ -7222,7 +7220,7 @@ class XQueryParser {
                 if (type == XQueryElementType.WILDCARD) {
                     qnameMarker.done(isWildcard ? XQueryElementType.WILDCARD : XQueryElementType.QNAME);
                 } else {
-                    qnameMarker.done((type == XQueryElementType.NCNAME) || (type == XQueryElementType.PREFIX) ? XQueryElementType.QNAME : type);
+                    qnameMarker.done(XQueryElementType.QNAME);
                 }
                 return true;
             } else {
@@ -7233,10 +7231,8 @@ class XQueryParser {
                     } else {
                         qnameMarker.drop(); // NCName is annotated in the above logic, so don't create nested NCName elements.
                     }
-                } else if (type == XQueryElementType.QNAME || type == XQueryElementType.NCNAME) {
-                    qnameMarker.drop(); // NCName is annotated in the above logic, so don't create nested NCName elements.
                 } else {
-                    qnameMarker.done(type);
+                    qnameMarker.drop(); // NCName is annotated in the above logic, so don't create nested NCName elements.
                 }
             }
             return true;
