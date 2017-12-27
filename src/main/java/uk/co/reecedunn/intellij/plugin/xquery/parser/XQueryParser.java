@@ -5826,7 +5826,7 @@ class XQueryParser {
             boolean haveErrors = false;
 
             parseWhiteSpaceAndCommentTokens();
-            if (!parseEQName(XQueryElementType.EQNAME)) {
+            if (!parseEQName(XQueryElementType.QNAME)) {
                 error(XQueryBundle.message("parser.error.expected-eqname"));
                 haveErrors = true;
             }
