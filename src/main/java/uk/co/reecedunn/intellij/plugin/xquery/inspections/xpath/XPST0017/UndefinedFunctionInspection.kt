@@ -20,6 +20,7 @@ import com.intellij.psi.PsiFile
 import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArrowFunctionSpecifier
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 
@@ -56,7 +57,7 @@ class UndefinedFunctionInspection : LocalInspectionTool() {
                 val arity = when (parent) {
                     is XQueryFunctionCall -> parent.arity
                     is XQueryNamedFunctionRef -> parent.arity
-                    is XQueryArrowFunctionSpecifier -> parent.arity
+                    is XPathArrowFunctionSpecifier -> parent.arity
                     else -> -1
                 }
                 if (declarations.firstOrNull { f -> f.arity == arity } == null) {

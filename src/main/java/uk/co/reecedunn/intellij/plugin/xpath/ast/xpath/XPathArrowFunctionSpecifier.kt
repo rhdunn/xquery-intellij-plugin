@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
+package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
 import com.intellij.psi.PsiElement
 
 /**
- * An XQuery 3.1 <code>ArrowFunctionSpecifier</code> node in the XQuery AST.
+ * An XPath 3.1 and XQuery 3.1 <code>ArrowFunctionSpecifier</code> node in the XQuery AST.
  */
-interface XQueryArrowFunctionSpecifier : PsiElement {
+interface XPathArrowFunctionSpecifier : PsiElement {
     val arity: Int
 }

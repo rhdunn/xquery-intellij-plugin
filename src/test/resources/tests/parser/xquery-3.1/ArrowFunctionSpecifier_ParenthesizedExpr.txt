@@ -30,7 +30,7 @@ FileElement[FILE(0:12)]
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
                                                          LeafPsiElement[XQUERY_ARROW_TOKEN(3:5)]('=>')
                                                          PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
-                                                         XQueryArrowFunctionSpecifierImpl[XQUERY_ARROW_FUNCTION_SPECIFIER(6:10)]
+                                                         XPathArrowFunctionSpecifierImpl[XQUERY_ARROW_FUNCTION_SPECIFIER(6:10)]
                                                             XQueryParenthesizedExprImpl[XQUERY_PARENTHESIZED_EXPR(6:10)]
                                                                LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(6:7)]('(')
                                                                XQueryExprImpl[XQUERY_EXPR(7:9)]

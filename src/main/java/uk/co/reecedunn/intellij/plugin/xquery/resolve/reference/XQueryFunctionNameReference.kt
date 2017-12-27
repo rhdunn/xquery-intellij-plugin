@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.resolve.reference
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReferenceBase
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryArrowFunctionSpecifier
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArrowFunctionSpecifier
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionCall
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryNamedFunctionRef
@@ -29,7 +29,7 @@ class XQueryFunctionNameReference(element: XPathEQName, range: TextRange) : PsiR
         val arity = when (parent) {
             is XQueryFunctionCall -> parent.arity
             is XQueryNamedFunctionRef -> parent.arity
-            is XQueryArrowFunctionSpecifier -> parent.arity
+            is XPathArrowFunctionSpecifier -> parent.arity
             else -> -1
         }
         return element.resolveFunctionDecls().firstOrNull { f -> f.arity == arity }

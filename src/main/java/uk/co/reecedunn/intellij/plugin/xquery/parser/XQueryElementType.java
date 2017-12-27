@@ -250,7 +250,7 @@ public interface XQueryElementType {
     IElementType POSTFIX_EXPR = new ICompositeElementType("XQUERY_POSTFIX_EXPR", XPathPostfixExprPsiImpl.class, XQuery.INSTANCE);
 
     IElementType ARROW_EXPR = new ICompositeElementType("XQUERY_ARROW_EXPR", XPathArrowExprPsiImpl.class, XQuery.INSTANCE);
-    IElementType ARROW_FUNCTION_SPECIFIER = new ICompositeElementType("XQUERY_ARROW_FUNCTION_SPECIFIER", XQueryArrowFunctionSpecifierPsiImpl.class, XQuery.INSTANCE);
+    IElementType ARROW_FUNCTION_SPECIFIER = new ICompositeElementType("XQUERY_ARROW_FUNCTION_SPECIFIER", XPathArrowFunctionSpecifierPsiImpl.class, XQuery.INSTANCE);
 
     IElementType ENCLOSED_CONTENT_EXPR = new ICompositeElementType("XQUERY_ENCLOSED_CONTENT_EXPR", XQueryEnclosedContentExprPsiImpl.class, XQuery.INSTANCE);
     IElementType ENCLOSED_TRY_TARGET_EXPR = new ICompositeElementType("XQUERY_ENCLOSED_TRY_TARGET_EXPR", XQueryEnclosedTryTargetExprPsiImpl.class, XQuery.INSTANCE);

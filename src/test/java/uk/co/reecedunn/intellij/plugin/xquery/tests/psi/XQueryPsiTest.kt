@@ -66,13 +66,13 @@ class XQueryPsiTest:ParserTestCase() {
     }
 
     // endregion
-    // region XQueryArrowFunctionSpecifier
+    // region XPathArrowFunctionSpecifier
 
     fun testArrowFunctionSpecifier() {
         val file = parseResource("tests/psi/xquery-3.1/ArrowExpr_MultipleArguments.xq")!!
 
         val arrowExprPsi = file.descendants().filterIsInstance<XPathArrowExpr>().first()
-        val arrowFunctionSpecifierPsi = arrowExprPsi.children().filterIsInstance<XQueryArrowFunctionSpecifier>().first()
+        val arrowFunctionSpecifierPsi = arrowExprPsi.children().filterIsInstance<XPathArrowFunctionSpecifier>().first()
         assertThat(arrowFunctionSpecifierPsi.arity, `is`(4))
     }
 
@@ -80,7 +80,7 @@ class XQueryPsiTest:ParserTestCase() {
         val file = parseResource("tests/parser/xquery-3.1/ArrowExpr.xq")!!
 
         val arrowExprPsi = file.descendants().filterIsInstance<XPathArrowExpr>().first()
-        val arrowFunctionSpecifierPsi = arrowExprPsi.children().filterIsInstance<XQueryArrowFunctionSpecifier>().first()
+        val arrowFunctionSpecifierPsi = arrowExprPsi.children().filterIsInstance<XPathArrowFunctionSpecifier>().first()
         assertThat(arrowFunctionSpecifierPsi.arity, `is`(1))
     }
 
@@ -88,7 +88,7 @@ class XQueryPsiTest:ParserTestCase() {
         val file = parseResource("tests/parser/xquery-3.1/ArrowExpr_MissingArgumentList.xq")!!
 
         val arrowExprPsi = file.descendants().filterIsInstance<XPathArrowExpr>().first()
-        val arrowFunctionSpecifierPsi = arrowExprPsi.children().filterIsInstance<XQueryArrowFunctionSpecifier>().first()
+        val arrowFunctionSpecifierPsi = arrowExprPsi.children().filterIsInstance<XPathArrowFunctionSpecifier>().first()
         assertThat(arrowFunctionSpecifierPsi.arity, `is`(1))
     }
 
@@ -2457,7 +2457,7 @@ class XQueryPsiTest:ParserTestCase() {
         val file = parseResource("tests/resolve/functions/ArrowFunctionSpecifier_NCName.xq")!!
 
         val arrowExprPsi = file.descendants().filterIsInstance<XPathArrowExpr>().first()
-        val arrowFunctionSpecifierPsi = arrowExprPsi.children().filterIsInstance<XQueryArrowFunctionSpecifier>().first()
+        val arrowFunctionSpecifierPsi = arrowExprPsi.children().filterIsInstance<XPathArrowFunctionSpecifier>().first()
         val name = arrowFunctionSpecifierPsi.children().filterIsInstance<XPathEQName>().first()
 
         assertThat(name.prefix, `is`(nullValue()))
@@ -2473,7 +2473,7 @@ class XQueryPsiTest:ParserTestCase() {
         val file = parseResource("tests/resolve/functions/ArrowFunctionSpecifier_QName.xq")!!
 
         val arrowExprPsi = file.descendants().filterIsInstance<XPathArrowExpr>().first()
-        val arrowFunctionSpecifierPsi = arrowExprPsi.children().filterIsInstance<XQueryArrowFunctionSpecifier>().first()
+        val arrowFunctionSpecifierPsi = arrowExprPsi.children().filterIsInstance<XPathArrowFunctionSpecifier>().first()
         val name = arrowFunctionSpecifierPsi.children().filterIsInstance<XPathEQName>().first()
 
         assertThat(name.prefix, `is`(notNullValue()))
@@ -2491,7 +2491,7 @@ class XQueryPsiTest:ParserTestCase() {
         val file = parseResource("tests/resolve/functions/ArrowFunctionSpecifier_EQName.xq")!!
 
         val arrowExprPsi = file.descendants().filterIsInstance<XPathArrowExpr>().first()
-        val arrowFunctionSpecifierPsi = arrowExprPsi.children().filterIsInstance<XQueryArrowFunctionSpecifier>().first()
+        val arrowFunctionSpecifierPsi = arrowExprPsi.children().filterIsInstance<XPathArrowFunctionSpecifier>().first()
         val name = arrowFunctionSpecifierPsi.children().filterIsInstance<XPathEQName>().first()
 
         assertThat(name.prefix, `is`(notNullValue()))

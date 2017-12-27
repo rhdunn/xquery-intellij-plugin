@@ -31,7 +31,7 @@ FileElement[FILE(0:21)]
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
                                                          LeafPsiElement[XQUERY_ARROW_TOKEN(4:6)]('=>')
                                                          PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
-                                                         XQueryArrowFunctionSpecifierImpl[XQUERY_ARROW_FUNCTION_SPECIFIER(7:18)]
+                                                         XPathArrowFunctionSpecifierImpl[XQUERY_ARROW_FUNCTION_SPECIFIER(7:18)]
                                                             XPathNCNameImpl[XQUERY_NCNAME(7:17)]
                                                                XmlNCNameImpl[XQUERY_NCNAME_TOKEN(7:17)]('upper-case')
                                                             PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
