@@ -13,9 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
+package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
+
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryMapTest
 
 /**
- * An XQuery 3.1 `AnyMapTest` node in the XQuery AST.
+ * An XPath 3.1 and XQuery 3.1 `AnyMapTest` node in the XQuery AST.
  */
-interface XQueryAnyMapTest : XQueryMapTest
+interface XPathAnyMapTest : XQueryMapTest
