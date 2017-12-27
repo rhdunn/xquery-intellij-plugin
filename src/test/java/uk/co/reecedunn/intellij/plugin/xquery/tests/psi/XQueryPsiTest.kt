@@ -2463,7 +2463,7 @@ class XQueryPsiTest:ParserTestCase() {
         assertThat(name.prefix, `is`(nullValue()))
 
         assertThat(name.localName, `is`(notNullValue()))
-        assertThat(name.localName!!.node.elementType, `is`<IElementType>(XQueryElementType.NCNAME))
+        assertThat(name.localName!!.node.elementType, `is`<IElementType>(XQueryTokenType.NCNAME))
         assertThat(name.localName!!.text, `is`("upper-case"))
 
         assertThat(name.type, `is`(XPathEQName.Type.Function))

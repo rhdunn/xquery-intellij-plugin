@@ -3660,7 +3660,7 @@ class XQueryParser {
 
     private boolean parseArrowFunctionSpecifier() {
         final PsiBuilder.Marker arrowFunctionSpecifierMarker = mark();
-        if (parseEQName(XQueryElementType.EQNAME) || parseVarRef(null) || parseParenthesizedExpr()) {
+        if (parseEQName(XQueryElementType.QNAME) || parseVarRef(null) || parseParenthesizedExpr()) {
             arrowFunctionSpecifierMarker.done(XQueryElementType.ARROW_FUNCTION_SPECIFIER);
             return true;
         }
