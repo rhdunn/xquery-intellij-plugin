@@ -22,10 +22,7 @@ import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQName
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
@@ -271,7 +268,7 @@ class XQueryReferenceTest : ParserTestCase() {
         val flworExprPsi = file.descendants().filterIsInstance<XQueryFLWORExpr>().first()
         val returnClausePsi = flworExprPsi.children().filterIsInstance<XQueryReturnClause>().first()
         val orExprPsi = returnClausePsi.children().filterIsInstance<XQueryOrExpr>().first()
-        val varRefPsi = orExprPsi.descendants().filterIsInstance<XQueryVarRef>().first()
+        val varRefPsi = orExprPsi.descendants().filterIsInstance<XPathVarRef>().first()
         val varRefNamePsi = varRefPsi.children().filterIsInstance<XPathEQName>().first()
 
         val ref = varRefNamePsi.reference
@@ -307,7 +304,7 @@ class XQueryReferenceTest : ParserTestCase() {
 
         val returnClausePsi = flworExprPsi.children().filterIsInstance<XQueryReturnClause>().first()
         val orExprPsi = returnClausePsi.children().filterIsInstance<XQueryOrExpr>().first()
-        val varRefPsi = orExprPsi.descendants().filterIsInstance<XQueryVarRef>().first()
+        val varRefPsi = orExprPsi.descendants().filterIsInstance<XPathVarRef>().first()
         val varRefNamePsi = varRefPsi.children().filterIsInstance<XPathEQName>().first()
 
         val ref = varRefNamePsi.reference!!
@@ -342,7 +339,7 @@ class XQueryReferenceTest : ParserTestCase() {
         val flworExprPsi = file.descendants().filterIsInstance<XQueryFLWORExpr>().first()
         val returnClausePsi = flworExprPsi.children().filterIsInstance<XQueryReturnClause>().first()
         val orExprPsi = returnClausePsi.children().filterIsInstance<XQueryOrExpr>().first()
-        val varRefPsi = orExprPsi.descendants().filterIsInstance<XQueryVarRef>().first()
+        val varRefPsi = orExprPsi.descendants().filterIsInstance<XPathVarRef>().first()
         val varRefNamePsi = varRefPsi.children().filterIsInstance<XPathEQName>().first()
 
         val ref = varRefNamePsi.reference!!
@@ -378,7 +375,7 @@ class XQueryReferenceTest : ParserTestCase() {
 
         val functionBodyPsi = functionDeclPsi.children().filterIsInstance<XQueryFunctionBody>().first()
         val exprPsi = functionBodyPsi.children().filterIsInstance<XQueryExpr>().first()
-        val varRefPsi = exprPsi.descendants().filterIsInstance<XQueryVarRef>().first()
+        val varRefPsi = exprPsi.descendants().filterIsInstance<XPathVarRef>().first()
         val varRefNamePsi = varRefPsi.children().filterIsInstance<XPathEQName>().first()
 
         val ref = varRefNamePsi.reference!!
@@ -405,7 +402,7 @@ class XQueryReferenceTest : ParserTestCase() {
 
         val mainModulePsi = file.descendants().filterIsInstance<XQueryMainModule>().first()
         val queryBodyPsi = mainModulePsi.children().filterIsInstance<XQueryQueryBody>().first()
-        val varRefPsi = queryBodyPsi.descendants().filterIsInstance<XQueryVarRef>().first()
+        val varRefPsi = queryBodyPsi.descendants().filterIsInstance<XPathVarRef>().first()
         val varRefNamePsi = varRefPsi.children().filterIsInstance<XPathEQName>().first()
 
         val ref = varRefNamePsi.reference!!
@@ -439,7 +436,7 @@ class XQueryReferenceTest : ParserTestCase() {
         val flworExprPsi = file.descendants().filterIsInstance<XQueryFLWORExpr>().first()
         val returnClausePsi = flworExprPsi.children().filterIsInstance<XQueryReturnClause>().first()
         val orExprPsi = returnClausePsi.children().filterIsInstance<XQueryOrExpr>().first()
-        val varRefPsi = orExprPsi.descendants().filterIsInstance<XQueryVarRef>().first()
+        val varRefPsi = orExprPsi.descendants().filterIsInstance<XPathVarRef>().first()
         val varRefNamePsi = varRefPsi.children().filterIsInstance<XPathEQName>().first()
 
         val ref = varRefNamePsi.reference!!
@@ -474,7 +471,7 @@ class XQueryReferenceTest : ParserTestCase() {
         val flworExprPsi = file.descendants().filterIsInstance<XQueryFLWORExpr>().first()
         val returnClausePsi = flworExprPsi.children().filterIsInstance<XQueryReturnClause>().first()
         val orExprPsi = returnClausePsi.children().filterIsInstance<XQueryOrExpr>().first()
-        val varRefPsi = orExprPsi.descendants().filterIsInstance<XQueryVarRef>().first()
+        val varRefPsi = orExprPsi.descendants().filterIsInstance<XPathVarRef>().first()
         val varRefNamePsi = varRefPsi.children().filterIsInstance<XPathEQName>().first()
 
         val ref = varRefNamePsi.reference!!
@@ -509,7 +506,7 @@ class XQueryReferenceTest : ParserTestCase() {
         val flworExprPsi = file.descendants().filterIsInstance<XQueryFLWORExpr>().first()
         val returnClausePsi = flworExprPsi.children().filterIsInstance<XQueryReturnClause>().first()
         val orExprPsi = returnClausePsi.children().filterIsInstance<XQueryOrExpr>().first()
-        val varRefPsi = orExprPsi.descendants().filterIsInstance<XQueryVarRef>().first()
+        val varRefPsi = orExprPsi.descendants().filterIsInstance<XPathVarRef>().first()
         val varRefNamePsi = varRefPsi.children().filterIsInstance<XPathEQName>().first()
 
         val ref = varRefNamePsi.reference!!
@@ -543,7 +540,7 @@ class XQueryReferenceTest : ParserTestCase() {
 
         val mainModulePsi = file.descendants().filterIsInstance<XQueryMainModule>().first()
         val queryBodyPsi = mainModulePsi.children().filterIsInstance<XQueryQueryBody>().first()
-        val varRefPsi = queryBodyPsi.descendants().filterIsInstance<XQueryVarRef>().first()
+        val varRefPsi = queryBodyPsi.descendants().filterIsInstance<XPathVarRef>().first()
         val varRefNamePsi = varRefPsi.children().filterIsInstance<XPathEQName>().first()
 
         val ref = varRefNamePsi.reference!!

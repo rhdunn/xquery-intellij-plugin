@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVarRef
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarRef
 import uk.co.reecedunn.intellij.plugin.xquery.findUsages.XQueryFindUsagesProvider
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
@@ -32,7 +32,7 @@ class XQueryFindUsagesProviderTest : ParserTestCase() {
         val provider = XQueryFindUsagesProvider()
 
         val file = parseResource("tests/parser/xquery-1.0/VarRef.xq")!!
-        val varRef = file.descendants().filterIsInstance<XQueryVarRef>().first()
+        val varRef = file.descendants().filterIsInstance<XPathVarRef>().first()
         val varName = varRef.children().filterIsInstance<XPathVarName>().first()
         val qname = varName.children().filterIsInstance<XPathQName>().first()
         val ncName = qname.children().filterIsInstance<XPathNCName>().first()

@@ -52,7 +52,7 @@ FileElement[FILE(0:93)]
                                                                         XQueryPathExprImpl[XQUERY_PATH_EXPR(40:44)]
                                                                            XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(40:44)]
                                                                               XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(40:44)]
-                                                                                 XQueryVarRefImpl[XQUERY_VAR_REF(40:44)]
+                                                                                 XPathVarRefImpl[XQUERY_VAR_REF(40:44)]
                                                                                     LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(40:41)]('$')
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(41:42)](' ')
                                                                                     XPathVarNameImpl[XQUERY_VAR_NAME(42:44)]
@@ -152,7 +152,7 @@ FileElement[FILE(0:93)]
                                                                      XQueryPathExprImpl[XQUERY_PATH_EXPR(90:93)]
                                                                         XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(90:93)]
                                                                            XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(90:93)]
-                                                                              XQueryVarRefImpl[XQUERY_VAR_REF(90:93)]
+                                                                              XPathVarRefImpl[XQUERY_VAR_REF(90:93)]
                                                                                  LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(90:91)]('$')
                                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(91:92)](' ')
                                                                                  XPathVarNameImpl[XQUERY_VAR_NAME(92:93)]

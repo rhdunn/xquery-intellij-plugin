@@ -38,7 +38,7 @@ FileElement[FILE(0:142)]
                                                                   XQueryPathExprImpl[XQUERY_PATH_EXPR(46:50)]
                                                                      XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(46:50)]
                                                                         XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(46:50)]
-                                                                           XQueryVarRefImpl[XQUERY_VAR_REF(46:50)]
+                                                                           XPathVarRefImpl[XQUERY_VAR_REF(46:50)]
                                                                               LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(46:47)]('$')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(47:48)](' ')
                                                                               XPathVarNameImpl[XQUERY_VAR_NAME(48:50)]
@@ -67,7 +67,7 @@ FileElement[FILE(0:142)]
                                                                   XQueryPathExprImpl[XQUERY_PATH_EXPR(60:64)]
                                                                      XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(60:64)]
                                                                         XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(60:64)]
-                                                                           XQueryVarRefImpl[XQUERY_VAR_REF(60:64)]
+                                                                           XPathVarRefImpl[XQUERY_VAR_REF(60:64)]
                                                                               LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(60:61)]('$')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(61:62)](' ')
                                                                               XPathVarNameImpl[XQUERY_VAR_NAME(62:64)]
@@ -134,7 +134,7 @@ FileElement[FILE(0:142)]
                                                                   XQueryPathExprImpl[XQUERY_PATH_EXPR(119:123)]
                                                                      XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(119:123)]
                                                                         XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(119:123)]
-                                                                           XQueryVarRefImpl[XQUERY_VAR_REF(119:123)]
+                                                                           XPathVarRefImpl[XQUERY_VAR_REF(119:123)]
                                                                               LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(119:120)]('$')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(120:121)](' ')
                                                                               XPathVarNameImpl[XQUERY_VAR_NAME(121:123)]
@@ -163,7 +163,7 @@ FileElement[FILE(0:142)]
                                                                   XQueryPathExprImpl[XQUERY_PATH_EXPR(133:137)]
                                                                      XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(133:137)]
                                                                         XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(133:137)]
-                                                                           XQueryVarRefImpl[XQUERY_VAR_REF(133:137)]
+                                                                           XPathVarRefImpl[XQUERY_VAR_REF(133:137)]
                                                                               LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(133:134)]('$')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(134:135)](' ')
                                                                               XPathVarNameImpl[XQUERY_VAR_NAME(135:137)]
