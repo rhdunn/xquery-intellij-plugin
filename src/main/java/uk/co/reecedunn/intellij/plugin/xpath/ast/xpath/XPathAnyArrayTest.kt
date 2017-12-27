@@ -15,9 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryArrayTest
-
 /**
  * An XPath 3.1 and XQuery 3.1 `AnyArrayTest` node in the XQuery AST.
  */
-interface XPathAnyArrayTest : XQueryArrayTest
+interface XPathAnyArrayTest : XPathArrayTest
