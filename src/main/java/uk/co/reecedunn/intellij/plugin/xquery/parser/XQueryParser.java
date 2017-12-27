@@ -7105,6 +7105,8 @@ class XQueryParser {
         final PsiBuilder.Marker qnameMarker = mark();
         boolean isWildcard = getTokenType() == XQueryTokenType.STAR;
         if (getTokenType() instanceof INCNameType || isWildcard) {
+            // region QNameOrWildcardPrefix := (NCName | "*")
+
             if (isWildcard) {
                 if (type != XQueryElementType.WILDCARD) {
                     error(XQueryBundle.message("parser.error.unexpected-wildcard"));
@@ -7115,6 +7117,9 @@ class XQueryParser {
                 advanceLexer();
                 ncnameMarker.done(XQueryElementType.NCNAME);
             }
+
+            // endregion
+            // region QNameWhitespaceBeforeSeparator := (S | Comment)* -- error: whitespace not allowed before ':'
 
             final PsiBuilder.Marker beforeMarker = mark();
             if (parseWhiteSpaceAndCommentTokens()) {
@@ -7141,9 +7146,13 @@ class XQueryParser {
                 beforeMarker.drop();
             }
 
+            // endregion
+
             if (getTokenType() == XQueryTokenType.QNAME_SEPARATOR ||
                 getTokenType() == XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR ||
                 getTokenType() == XQueryTokenType.XML_TAG_QNAME_SEPARATOR) {
+                // region QNameSeparator := ":"
+
                 final PsiBuilder.Marker nameMarker = mark();
                 if ((type == XQueryElementType.NCNAME) || (type == XQueryElementType.PREFIX)) {
                     final PsiBuilder.Marker errorMarker = mark();
@@ -7152,6 +7161,9 @@ class XQueryParser {
                 } else {
                     advanceLexer();
                 }
+
+                // endregion
+                // region QNameWhitespaceAfterSeparator := (S | Comment)* -- error: whitespace not allowed after ':'
 
                 final PsiBuilder.Marker afterMarker = mark();
                 if (parseWhiteSpaceAndCommentTokens()) {
@@ -7174,6 +7186,9 @@ class XQueryParser {
                     afterMarker.drop();
                 }
                 nameMarker.drop();
+
+                // endregion
+                // region QNameOrWildcardLocalName := (NCName | "*")
 
                 if (getTokenType() == XQueryTokenType.STRING_LITERAL_START) {
                     error(XQueryBundle.message("parser.error.qname.missing-local-name"));
@@ -7201,6 +7216,8 @@ class XQueryParser {
                     advanceLexer();
                     errorMarker.error(XQueryBundle.message("parser.error.qname.missing-local-name"));
                 }
+
+                // endregion
 
                 if (type == XQueryElementType.WILDCARD) {
                     qnameMarker.done(isWildcard ? XQueryElementType.WILDCARD : XQueryElementType.QNAME);
