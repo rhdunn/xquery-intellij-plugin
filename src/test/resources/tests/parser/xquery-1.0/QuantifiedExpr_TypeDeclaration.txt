@@ -16,7 +16,7 @@ FileElement[FILE(0:102)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
                   XQuerySequenceTypeImpl[XQUERY_SEQUENCE_TYPE(12:22)]
                      XQueryItemTypeImpl[XQUERY_ITEM_TYPE(12:21)]
-                        XQueryAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(12:21)]
+                        XPathAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(12:21)]
                            XPathQNameImpl[XQUERY_QNAME(12:21)]
                               XPathNCNameImpl[XQUERY_NCNAME(12:14)]
                                  XmlNCNameImpl[XQUERY_NCNAME_TOKEN(12:14)]('xs')
@@ -122,7 +122,7 @@ FileElement[FILE(0:102)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(64:65)](' ')
                   XQuerySequenceTypeImpl[XQUERY_SEQUENCE_TYPE(65:75)]
                      XQueryItemTypeImpl[XQUERY_ITEM_TYPE(65:74)]
-                        XQueryAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(65:74)]
+                        XPathAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(65:74)]
                            XPathQNameImpl[XQUERY_QNAME(65:74)]
                               XPathNCNameImpl[XQUERY_NCNAME(65:67)]
                                  XmlNCNameImpl[XQUERY_NCNAME_TOKEN(65:67)]('xs')

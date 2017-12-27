@@ -18,7 +18,7 @@ FileElement[FILE(0:72)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
                   XQuerySequenceTypeImpl[XQUERY_SEQUENCE_TYPE(26:62)]
                      XQueryItemTypeImpl[XQUERY_ITEM_TYPE(26:61)]
-                        XQueryAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(26:61)]
+                        XPathAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(26:61)]
                            XPathURIQualifiedNameImpl[XQUERY_URI_QUALIFIED_NAME(26:61)]
                               XPathBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(26:57)]
                                  LeafPsiElement[XQUERY_BRACED_URI_LITERAL_START_TOKEN(26:28)]('Q{')

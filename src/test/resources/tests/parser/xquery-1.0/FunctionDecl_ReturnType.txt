@@ -22,7 +22,7 @@ FileElement[FILE(0:53)]
                PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
                XQuerySequenceTypeImpl[XQUERY_SEQUENCE_TYPE(32:43)]
                   XQueryItemTypeImpl[XQUERY_ITEM_TYPE(32:42)]
-                     XQueryAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(32:42)]
+                     XPathAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(32:42)]
                         XPathQNameImpl[XQUERY_QNAME(32:42)]
                            XPathNCNameImpl[XQUERY_NCNAME(32:34)]
                               XmlNCNameImpl[XQUERY_NCNAME_TOKEN(32:34)]('xs')

@@ -25,7 +25,7 @@ FileElement[FILE(0:44)]
                               LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(29:30)](':')
                               XQuerySequenceTypeImpl[XQUERY_SEQUENCE_TYPE(30:39)]
                                  XQueryItemTypeImpl[XQUERY_ITEM_TYPE(30:39)]
-                                    XQueryAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(30:39)]
+                                    XPathAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(30:39)]
                                        XPathQNameImpl[XQUERY_QNAME(30:39)]
                                           XPathNCNameImpl[XQUERY_NCNAME(30:32)]
                                              XmlNCNameImpl[XQUERY_NCNAME_TOKEN(30:32)]('xs')

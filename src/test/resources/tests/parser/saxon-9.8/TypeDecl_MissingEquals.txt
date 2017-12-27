@@ -15,7 +15,7 @@ FileElement[FILE(0:31)]
             PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
             PsiErrorElementImpl[ERROR_ELEMENT(19:19)]('XPST0003: Expected '='.')
             XQueryItemTypeImpl[XQUERY_ITEM_TYPE(19:29)]
-               XQueryAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(19:29)]
+               XPathAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(19:29)]
                   XPathQNameImpl[XQUERY_QNAME(19:29)]
                      XPathNCNameImpl[XQUERY_NCNAME(19:21)]
                         XmlNCNameImpl[XQUERY_NCNAME_TOKEN(19:21)]('xs')

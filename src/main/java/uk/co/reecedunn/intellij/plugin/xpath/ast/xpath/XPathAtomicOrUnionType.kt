@@ -13,12 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
-
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName;
+package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
 /**
- * An XQuery 3.0 <code>AtomicOrUnionType</code> node in the XQuery AST.
+ * An XPath 3.0 and XQuery 3.0 `AtomicOrUnionType` node in the XQuery AST.
  */
-public interface XQueryAtomicOrUnionType extends XPathEQName {
-}
+interface XPathAtomicOrUnionType : XPathEQName

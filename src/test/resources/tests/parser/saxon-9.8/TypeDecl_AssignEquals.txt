@@ -17,7 +17,7 @@ FileElement[FILE(0:34)]
                LeafPsiElement[XQUERY_ASSIGN_EQUAL_TOKEN(19:21)](':=')
             PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
             XQueryItemTypeImpl[XQUERY_ITEM_TYPE(22:32)]
-               XQueryAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(22:32)]
+               XPathAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(22:32)]
                   XPathQNameImpl[XQUERY_QNAME(22:32)]
                      XPathNCNameImpl[XQUERY_NCNAME(22:24)]
                         XmlNCNameImpl[XQUERY_NCNAME_TOKEN(22:24)]('xs')
