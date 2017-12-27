@@ -40,7 +40,7 @@ FileElement[FILE(0:44)]
                            PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
                      PsiErrorElementImpl[ERROR_ELEMENT(30:30)]('XPST0003: Expected keyword: in, score.')
                      XQueryOrExprImpl[XQUERY_OR_EXPR(30:34)]
-                        XQueryAndExprImpl[XQUERY_AND_EXPR(30:34)]
+                        XPathAndExprImpl[XQUERY_AND_EXPR(30:34)]
                            XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(30:34)]
                               FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(30:34)]
                                  XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(30:34)]
@@ -70,7 +70,7 @@ FileElement[FILE(0:44)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_RETURN(34:40)]('return')
                   PsiWhiteSpaceImpl[WHITE_SPACE(40:41)](' ')
                   XQueryOrExprImpl[XQUERY_OR_EXPR(41:44)]
-                     XQueryAndExprImpl[XQUERY_AND_EXPR(41:44)]
+                     XPathAndExprImpl[XQUERY_AND_EXPR(41:44)]
                         XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(41:44)]
                            FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(41:44)]
                               XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(41:44)]

@@ -3,7 +3,7 @@ FileElement[FILE(0:4)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:4)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:4)]
             XQueryOrExprImpl[XQUERY_OR_EXPR(0:4)]
-               XQueryAndExprImpl[XQUERY_AND_EXPR(0:4)]
+               XPathAndExprImpl[XQUERY_AND_EXPR(0:4)]
                   XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:4)]
                      PsiErrorElementImpl[ERROR_ELEMENT(0:1)]('XPST0003: Comparison without left-hand expression, or incomplete direct element constructor.')
                         LeafPsiElement[XQUERY_LESS_THAN_TOKEN(0:1)]('<')

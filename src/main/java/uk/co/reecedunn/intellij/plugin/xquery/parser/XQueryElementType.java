@@ -86,7 +86,7 @@ public interface XQueryElementType {
     IElementType ADDITIVE_EXPR = new ICompositeElementType("XQUERY_ADDITIVE_EXPR", XPathAdditiveExprPsiImpl.class, XQuery.INSTANCE);
     IElementType RANGE_EXPR = new ICompositeElementType("XQUERY_RANGE_EXPR", XQueryRangeExprPsiImpl.class, XQuery.INSTANCE);
     IElementType COMPARISON_EXPR = new ICompositeElementType("XQUERY_COMPARISON_EXPR", XQueryComparisonExprPsiImpl.class, XQuery.INSTANCE);
-    IElementType AND_EXPR = new ICompositeElementType("XQUERY_AND_EXPR", XQueryAndExprPsiImpl.class, XQuery.INSTANCE);
+    IElementType AND_EXPR = new ICompositeElementType("XQUERY_AND_EXPR", XPathAndExprPsiImpl.class, XQuery.INSTANCE);
     IElementType OR_EXPR = new ICompositeElementType("XQUERY_OR_EXPR", XQueryOrExprPsiImpl.class, XQuery.INSTANCE);
 
     IElementType ORDER_MODIFIER = new ICompositeElementType("XQUERY_ORDER_MODIFIER", XQueryOrderModifierPsiImpl.class, XQuery.INSTANCE);

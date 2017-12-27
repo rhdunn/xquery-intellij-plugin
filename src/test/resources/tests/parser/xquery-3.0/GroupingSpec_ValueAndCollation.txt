@@ -16,7 +16,7 @@ FileElement[FILE(0:58)]
                      XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_IN(8:10)]('in')
                      PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
                      XQueryOrExprImpl[XQUERY_OR_EXPR(11:15)]
-                        XQueryAndExprImpl[XQUERY_AND_EXPR(11:15)]
+                        XPathAndExprImpl[XQUERY_AND_EXPR(11:15)]
                            XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(11:15)]
                               FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(11:15)]
                                  XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(11:15)]
@@ -60,7 +60,7 @@ FileElement[FILE(0:58)]
                            LeafPsiElement[XQUERY_ASSIGN_EQUAL_TOKEN(28:30)](':=')
                            PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')
                            XQueryOrExprImpl[XQUERY_OR_EXPR(31:33)]
-                              XQueryAndExprImpl[XQUERY_AND_EXPR(31:33)]
+                              XPathAndExprImpl[XQUERY_AND_EXPR(31:33)]
                                  XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(31:33)]
                                     FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(31:33)]
                                        XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(31:33)]
@@ -93,7 +93,7 @@ FileElement[FILE(0:58)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_RETURN(48:54)]('return')
                   PsiWhiteSpaceImpl[WHITE_SPACE(54:55)](' ')
                   XQueryOrExprImpl[XQUERY_OR_EXPR(55:58)]
-                     XQueryAndExprImpl[XQUERY_AND_EXPR(55:58)]
+                     XPathAndExprImpl[XQUERY_AND_EXPR(55:58)]
                         XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(55:58)]
                            FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(55:58)]
                               XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(55:58)]

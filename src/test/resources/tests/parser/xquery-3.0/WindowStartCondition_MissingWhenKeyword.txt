@@ -20,7 +20,7 @@ FileElement[FILE(0:56)]
                      XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_IN(24:26)]('in')
                      PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
                      XQueryOrExprImpl[XQUERY_OR_EXPR(27:31)]
-                        XQueryAndExprImpl[XQUERY_AND_EXPR(27:31)]
+                        XPathAndExprImpl[XQUERY_AND_EXPR(27:31)]
                            XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(27:31)]
                               FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(27:31)]
                                  XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(27:31)]
@@ -52,7 +52,7 @@ FileElement[FILE(0:56)]
                         XQueryWindowVarsImpl[XQUERY_WINDOW_VARS(37:37)]
                         PsiErrorElementImpl[ERROR_ELEMENT(37:37)]('XPST0003: Expected keyword: when.')
                         XQueryOrExprImpl[XQUERY_OR_EXPR(37:46)]
-                           XQueryAndExprImpl[XQUERY_AND_EXPR(37:46)]
+                           XPathAndExprImpl[XQUERY_AND_EXPR(37:46)]
                               XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(37:46)]
                                  FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(37:46)]
                                     XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(37:46)]
@@ -84,7 +84,7 @@ FileElement[FILE(0:56)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_RETURN(46:52)]('return')
                   PsiWhiteSpaceImpl[WHITE_SPACE(52:53)](' ')
                   XQueryOrExprImpl[XQUERY_OR_EXPR(53:56)]
-                     XQueryAndExprImpl[XQUERY_AND_EXPR(53:56)]
+                     XPathAndExprImpl[XQUERY_AND_EXPR(53:56)]
                         XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(53:56)]
                            FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(53:56)]
                               XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(53:56)]

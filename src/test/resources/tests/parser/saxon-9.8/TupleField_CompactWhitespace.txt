@@ -36,7 +36,7 @@ FileElement[FILE(0:44)]
                LeafPsiElement[XQUERY_ASSIGN_EQUAL_TOKEN(40:42)](':=')
                XQueryVarValueImpl[XQUERY_VAR_VALUE(42:43)]
                   XQueryOrExprImpl[XQUERY_OR_EXPR(42:43)]
-                     XQueryAndExprImpl[XQUERY_AND_EXPR(42:43)]
+                     XPathAndExprImpl[XQUERY_AND_EXPR(42:43)]
                         XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(42:43)]
                            FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(42:43)]
                               XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(42:43)]

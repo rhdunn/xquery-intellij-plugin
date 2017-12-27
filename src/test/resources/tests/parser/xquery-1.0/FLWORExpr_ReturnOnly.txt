@@ -6,7 +6,7 @@ FileElement[FILE(0:8)]
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_RETURN(0:6)]('return')
             PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
             XQueryOrExprImpl[XQUERY_OR_EXPR(7:8)]
-               XQueryAndExprImpl[XQUERY_AND_EXPR(7:8)]
+               XPathAndExprImpl[XQUERY_AND_EXPR(7:8)]
                   XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(7:8)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(7:8)]
                         XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(7:8)]

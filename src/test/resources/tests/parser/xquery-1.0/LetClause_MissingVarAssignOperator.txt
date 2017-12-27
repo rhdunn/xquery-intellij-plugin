@@ -15,7 +15,7 @@ FileElement[FILE(0:22)]
                         PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
                      PsiErrorElementImpl[ERROR_ELEMENT(8:8)]('XPST0003: Missing variable assignment operator ':=' or keyword: as.')
                      XQueryOrExprImpl[XQUERY_OR_EXPR(8:12)]
-                        XQueryAndExprImpl[XQUERY_AND_EXPR(8:12)]
+                        XPathAndExprImpl[XQUERY_AND_EXPR(8:12)]
                            XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(8:12)]
                               FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(8:12)]
                                  XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(8:12)]
@@ -45,7 +45,7 @@ FileElement[FILE(0:22)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_RETURN(12:18)]('return')
                   PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
                   XQueryOrExprImpl[XQUERY_OR_EXPR(19:22)]
-                     XQueryAndExprImpl[XQUERY_AND_EXPR(19:22)]
+                     XPathAndExprImpl[XQUERY_AND_EXPR(19:22)]
                         XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(19:22)]
                            FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(19:22)]
                               XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(19:22)]

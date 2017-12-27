@@ -32,7 +32,7 @@ FileElement[FILE(0:90)]
                            PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
                      PsiErrorElementImpl[ERROR_ELEMENT(37:37)]('XPST0003: Expected keyword: in.')
                      XQueryOrExprImpl[XQUERY_OR_EXPR(37:41)]
-                        XQueryAndExprImpl[XQUERY_AND_EXPR(37:41)]
+                        XPathAndExprImpl[XQUERY_AND_EXPR(37:41)]
                            XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(37:41)]
                               FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(37:41)]
                                  XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(37:41)]
@@ -65,7 +65,7 @@ FileElement[FILE(0:90)]
                         XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_WHEN(47:51)]('when')
                         PsiWhiteSpaceImpl[WHITE_SPACE(51:52)](' ')
                         XQueryOrExprImpl[XQUERY_OR_EXPR(52:61)]
-                           XQueryAndExprImpl[XQUERY_AND_EXPR(52:61)]
+                           XPathAndExprImpl[XQUERY_AND_EXPR(52:61)]
                               XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(52:61)]
                                  FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(52:61)]
                                     XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(52:61)]
@@ -100,7 +100,7 @@ FileElement[FILE(0:90)]
                         XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_WHEN(65:69)]('when')
                         PsiWhiteSpaceImpl[WHITE_SPACE(69:70)](' ')
                         XQueryOrExprImpl[XQUERY_OR_EXPR(70:80)]
-                           XQueryAndExprImpl[XQUERY_AND_EXPR(70:80)]
+                           XPathAndExprImpl[XQUERY_AND_EXPR(70:80)]
                               XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(70:80)]
                                  FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(70:80)]
                                     XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(70:80)]
@@ -132,7 +132,7 @@ FileElement[FILE(0:90)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_RETURN(80:86)]('return')
                   PsiWhiteSpaceImpl[WHITE_SPACE(86:87)](' ')
                   XQueryOrExprImpl[XQUERY_OR_EXPR(87:90)]
-                     XQueryAndExprImpl[XQUERY_AND_EXPR(87:90)]
+                     XPathAndExprImpl[XQUERY_AND_EXPR(87:90)]
                         XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(87:90)]
                            FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(87:90)]
                               XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(87:90)]

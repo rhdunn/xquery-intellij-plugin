@@ -3,7 +3,7 @@ FileElement[FILE(0:308)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:308)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:308)]
             XQueryOrExprImpl[XQUERY_OR_EXPR(0:9)]
-               XQueryAndExprImpl[XQUERY_AND_EXPR(0:9)]
+               XPathAndExprImpl[XQUERY_AND_EXPR(0:9)]
                   XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:9)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:9)]
                         XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(0:9)]
@@ -33,7 +33,7 @@ FileElement[FILE(0:308)]
             LeafPsiElement[XQUERY_COMMA_TOKEN(9:10)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(10:11)]('\n')
             XQueryOrExprImpl[XQUERY_OR_EXPR(11:17)]
-               XQueryAndExprImpl[XQUERY_AND_EXPR(11:17)]
+               XPathAndExprImpl[XQUERY_AND_EXPR(11:17)]
                   XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(11:17)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(11:17)]
                         XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(11:17)]
@@ -63,7 +63,7 @@ FileElement[FILE(0:308)]
             LeafPsiElement[XQUERY_COMMA_TOKEN(17:18)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(18:19)]('\n')
             XQueryOrExprImpl[XQUERY_OR_EXPR(19:27)]
-               XQueryAndExprImpl[XQUERY_AND_EXPR(19:27)]
+               XPathAndExprImpl[XQUERY_AND_EXPR(19:27)]
                   XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(19:27)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(19:27)]
                         XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(19:27)]
@@ -93,7 +93,7 @@ FileElement[FILE(0:308)]
             LeafPsiElement[XQUERY_COMMA_TOKEN(27:28)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(28:29)]('\n')
             XQueryOrExprImpl[XQUERY_OR_EXPR(29:35)]
-               XQueryAndExprImpl[XQUERY_AND_EXPR(29:35)]
+               XPathAndExprImpl[XQUERY_AND_EXPR(29:35)]
                   XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(29:35)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(29:35)]
                         XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(29:35)]
@@ -123,7 +123,7 @@ FileElement[FILE(0:308)]
             LeafPsiElement[XQUERY_COMMA_TOKEN(35:36)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(36:37)]('\n')
             XQueryOrExprImpl[XQUERY_OR_EXPR(37:52)]
-               XQueryAndExprImpl[XQUERY_AND_EXPR(37:52)]
+               XPathAndExprImpl[XQUERY_AND_EXPR(37:52)]
                   XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(37:52)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(37:52)]
                         XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(37:52)]
@@ -153,7 +153,7 @@ FileElement[FILE(0:308)]
             LeafPsiElement[XQUERY_COMMA_TOKEN(52:53)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(53:54)]('\n')
             XQueryOrExprImpl[XQUERY_OR_EXPR(54:72)]
-               XQueryAndExprImpl[XQUERY_AND_EXPR(54:72)]
+               XPathAndExprImpl[XQUERY_AND_EXPR(54:72)]
                   XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(54:72)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(54:72)]
                         XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(54:72)]
@@ -183,7 +183,7 @@ FileElement[FILE(0:308)]
             LeafPsiElement[XQUERY_COMMA_TOKEN(72:73)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(73:74)]('\n')
             XQueryOrExprImpl[XQUERY_OR_EXPR(74:80)]
-               XQueryAndExprImpl[XQUERY_AND_EXPR(74:80)]
+               XPathAndExprImpl[XQUERY_AND_EXPR(74:80)]
                   XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(74:80)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(74:80)]
                         XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(74:80)]
@@ -213,7 +213,7 @@ FileElement[FILE(0:308)]
             LeafPsiElement[XQUERY_COMMA_TOKEN(80:81)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(81:82)]('\n')
             XQueryOrExprImpl[XQUERY_OR_EXPR(82:86)]
-               XQueryAndExprImpl[XQUERY_AND_EXPR(82:86)]
+               XPathAndExprImpl[XQUERY_AND_EXPR(82:86)]
                   XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(82:86)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(82:86)]
                         XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(82:86)]
@@ -243,7 +243,7 @@ FileElement[FILE(0:308)]
             LeafPsiElement[XQUERY_COMMA_TOKEN(86:87)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(87:88)]('\n')
             XQueryOrExprImpl[XQUERY_OR_EXPR(88:94)]
-               XQueryAndExprImpl[XQUERY_AND_EXPR(88:94)]
+               XPathAndExprImpl[XQUERY_AND_EXPR(88:94)]
                   XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(88:94)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(88:94)]
                         XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(88:94)]
@@ -273,7 +273,7 @@ FileElement[FILE(0:308)]
             LeafPsiElement[XQUERY_COMMA_TOKEN(94:95)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(95:96)]('\n')
             XQueryOrExprImpl[XQUERY_OR_EXPR(96:115)]
-               XQueryAndExprImpl[XQUERY_AND_EXPR(96:115)]
+               XPathAndExprImpl[XQUERY_AND_EXPR(96:115)]
                   XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(96:115)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(96:115)]
                         XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(96:115)]
@@ -303,7 +303,7 @@ FileElement[FILE(0:308)]
             LeafPsiElement[XQUERY_COMMA_TOKEN(115:116)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(116:117)]('\n')
             XQueryOrExprImpl[XQUERY_OR_EXPR(117:126)]
-               XQueryAndExprImpl[XQUERY_AND_EXPR(117:126)]
+               XPathAndExprImpl[XQUERY_AND_EXPR(117:126)]
                   XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(117:126)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(117:126)]
                         XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(117:126)]
@@ -333,7 +333,7 @@ FileElement[FILE(0:308)]
             LeafPsiElement[XQUERY_COMMA_TOKEN(126:127)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(127:128)]('\n')
             XQueryOrExprImpl[XQUERY_OR_EXPR(128:139)]
-               XQueryAndExprImpl[XQUERY_AND_EXPR(128:139)]
+               XPathAndExprImpl[XQUERY_AND_EXPR(128:139)]
                   XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(128:139)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(128:139)]
                         XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(128:139)]
@@ -363,7 +363,7 @@ FileElement[FILE(0:308)]
             LeafPsiElement[XQUERY_COMMA_TOKEN(139:140)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(140:141)]('\n')
             XQueryOrExprImpl[XQUERY_OR_EXPR(141:156)]
-               XQueryAndExprImpl[XQUERY_AND_EXPR(141:156)]
+               XPathAndExprImpl[XQUERY_AND_EXPR(141:156)]
                   XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(141:156)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(141:156)]
                         XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(141:156)]
@@ -393,7 +393,7 @@ FileElement[FILE(0:308)]
             LeafPsiElement[XQUERY_COMMA_TOKEN(156:157)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(157:158)]('\n')
             XQueryOrExprImpl[XQUERY_OR_EXPR(158:162)]
-               XQueryAndExprImpl[XQUERY_AND_EXPR(158:162)]
+               XPathAndExprImpl[XQUERY_AND_EXPR(158:162)]
                   XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(158:162)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(158:162)]
                         XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(158:162)]
@@ -423,7 +423,7 @@ FileElement[FILE(0:308)]
             LeafPsiElement[XQUERY_COMMA_TOKEN(162:163)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(163:164)]('\n')
             XQueryOrExprImpl[XQUERY_OR_EXPR(164:169)]
-               XQueryAndExprImpl[XQUERY_AND_EXPR(164:169)]
+               XPathAndExprImpl[XQUERY_AND_EXPR(164:169)]
                   XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(164:169)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(164:169)]
                         XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(164:169)]
@@ -453,7 +453,7 @@ FileElement[FILE(0:308)]
             LeafPsiElement[XQUERY_COMMA_TOKEN(169:170)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(170:171)]('\n')
             XQueryOrExprImpl[XQUERY_OR_EXPR(171:176)]
-               XQueryAndExprImpl[XQUERY_AND_EXPR(171:176)]
+               XPathAndExprImpl[XQUERY_AND_EXPR(171:176)]
                   XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(171:176)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(171:176)]
                         XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(171:176)]
@@ -483,7 +483,7 @@ FileElement[FILE(0:308)]
             LeafPsiElement[XQUERY_COMMA_TOKEN(176:177)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(177:178)]('\n')
             XQueryOrExprImpl[XQUERY_OR_EXPR(178:196)]
-               XQueryAndExprImpl[XQUERY_AND_EXPR(178:196)]
+               XPathAndExprImpl[XQUERY_AND_EXPR(178:196)]
                   XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(178:196)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(178:196)]
                         XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(178:196)]
@@ -513,7 +513,7 @@ FileElement[FILE(0:308)]
             LeafPsiElement[XQUERY_COMMA_TOKEN(196:197)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(197:198)]('\n')
             XQueryOrExprImpl[XQUERY_OR_EXPR(198:208)]
-               XQueryAndExprImpl[XQUERY_AND_EXPR(198:208)]
+               XPathAndExprImpl[XQUERY_AND_EXPR(198:208)]
                   XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(198:208)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(198:208)]
                         XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(198:208)]
@@ -543,7 +543,7 @@ FileElement[FILE(0:308)]
             LeafPsiElement[XQUERY_COMMA_TOKEN(208:209)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(209:210)]('\n')
             XQueryOrExprImpl[XQUERY_OR_EXPR(210:218)]
-               XQueryAndExprImpl[XQUERY_AND_EXPR(210:218)]
+               XPathAndExprImpl[XQUERY_AND_EXPR(210:218)]
                   XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(210:218)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(210:218)]
                         XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(210:218)]
@@ -573,7 +573,7 @@ FileElement[FILE(0:308)]
             LeafPsiElement[XQUERY_COMMA_TOKEN(218:219)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(219:220)]('\n')
             XQueryOrExprImpl[XQUERY_OR_EXPR(220:229)]
-               XQueryAndExprImpl[XQUERY_AND_EXPR(220:229)]
+               XPathAndExprImpl[XQUERY_AND_EXPR(220:229)]
                   XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(220:229)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(220:229)]
                         XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(220:229)]
@@ -603,7 +603,7 @@ FileElement[FILE(0:308)]
             LeafPsiElement[XQUERY_COMMA_TOKEN(229:230)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(230:231)]('\n')
             XQueryOrExprImpl[XQUERY_OR_EXPR(231:239)]
-               XQueryAndExprImpl[XQUERY_AND_EXPR(231:239)]
+               XPathAndExprImpl[XQUERY_AND_EXPR(231:239)]
                   XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(231:239)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(231:239)]
                         XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(231:239)]
@@ -633,7 +633,7 @@ FileElement[FILE(0:308)]
             LeafPsiElement[XQUERY_COMMA_TOKEN(239:240)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(240:241)]('\n')
             XQueryOrExprImpl[XQUERY_OR_EXPR(241:247)]
-               XQueryAndExprImpl[XQUERY_AND_EXPR(241:247)]
+               XPathAndExprImpl[XQUERY_AND_EXPR(241:247)]
                   XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(241:247)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(241:247)]
                         XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(241:247)]
@@ -663,7 +663,7 @@ FileElement[FILE(0:308)]
             LeafPsiElement[XQUERY_COMMA_TOKEN(247:248)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(248:249)]('\n')
             XQueryOrExprImpl[XQUERY_OR_EXPR(249:256)]
-               XQueryAndExprImpl[XQUERY_AND_EXPR(249:256)]
+               XPathAndExprImpl[XQUERY_AND_EXPR(249:256)]
                   XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(249:256)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(249:256)]
                         XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(249:256)]
@@ -693,7 +693,7 @@ FileElement[FILE(0:308)]
             LeafPsiElement[XQUERY_COMMA_TOKEN(256:257)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(257:258)]('\n')
             XQueryOrExprImpl[XQUERY_OR_EXPR(258:262)]
-               XQueryAndExprImpl[XQUERY_AND_EXPR(258:262)]
+               XPathAndExprImpl[XQUERY_AND_EXPR(258:262)]
                   XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(258:262)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(258:262)]
                         XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(258:262)]
@@ -723,7 +723,7 @@ FileElement[FILE(0:308)]
             LeafPsiElement[XQUERY_COMMA_TOKEN(262:263)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(263:264)]('\n')
             XQueryOrExprImpl[XQUERY_OR_EXPR(264:273)]
-               XQueryAndExprImpl[XQUERY_AND_EXPR(264:273)]
+               XPathAndExprImpl[XQUERY_AND_EXPR(264:273)]
                   XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(264:273)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(264:273)]
                         XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(264:273)]
@@ -753,7 +753,7 @@ FileElement[FILE(0:308)]
             LeafPsiElement[XQUERY_COMMA_TOKEN(273:274)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(274:275)]('\n')
             XQueryOrExprImpl[XQUERY_OR_EXPR(275:280)]
-               XQueryAndExprImpl[XQUERY_AND_EXPR(275:280)]
+               XPathAndExprImpl[XQUERY_AND_EXPR(275:280)]
                   XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(275:280)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(275:280)]
                         XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(275:280)]
@@ -783,7 +783,7 @@ FileElement[FILE(0:308)]
             LeafPsiElement[XQUERY_COMMA_TOKEN(280:281)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(281:282)]('\n')
             XQueryOrExprImpl[XQUERY_OR_EXPR(282:287)]
-               XQueryAndExprImpl[XQUERY_AND_EXPR(282:287)]
+               XPathAndExprImpl[XQUERY_AND_EXPR(282:287)]
                   XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(282:287)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(282:287)]
                         XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(282:287)]
@@ -813,7 +813,7 @@ FileElement[FILE(0:308)]
             LeafPsiElement[XQUERY_COMMA_TOKEN(287:288)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(288:289)]('\n')
             XQueryOrExprImpl[XQUERY_OR_EXPR(289:296)]
-               XQueryAndExprImpl[XQUERY_AND_EXPR(289:296)]
+               XPathAndExprImpl[XQUERY_AND_EXPR(289:296)]
                   XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(289:296)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(289:296)]
                         XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(289:296)]
@@ -843,7 +843,7 @@ FileElement[FILE(0:308)]
             LeafPsiElement[XQUERY_COMMA_TOKEN(296:297)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(297:298)]('\n')
             XQueryOrExprImpl[XQUERY_OR_EXPR(298:308)]
-               XQueryAndExprImpl[XQUERY_AND_EXPR(298:308)]
+               XPathAndExprImpl[XQUERY_AND_EXPR(298:308)]
                   XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(298:308)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(298:308)]
                         XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(298:308)]
