@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.tests.xdm
 
+import com.intellij.psi.PsiElement
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
@@ -294,6 +295,61 @@ class XPathXdmTest : ParserTestCase() {
         val expr = parseSimpleExpression<XPathURIQualifiedName>("Q{http://www.example.com}")
         assertThat(expr.constantValue, `is`(nullValue()))
         assertThat(expr.staticType, `is`(XsUntyped as XdmSequenceType))
+    }
+
+    // endregion
+    // region VarName
+
+    fun testVarName_NCName() {
+        val expr = parseSimpleExpression<XPathVarName>("let \$x := 2 return \$y")
+        val name = (expr as PsiElement).firstChild as XPathNCName
+
+        assertThat(expr.staticType, `is`(XsQName as XdmSequenceType))
+        assertThat(expr.constantValue, `is`(instanceOf(QName::class.java)))
+
+        val qname = expr.constantValue as QName
+        assertThat(qname.prefix, `is`(nullValue()))
+        assertThat(qname.namespace, `is`(nullValue()))
+        assertThat(qname.declaration?.get(), `is`(name as XdmConstantExpression))
+
+        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.lexicalRepresentation, `is`("x"))
+    }
+
+    fun testVarName_QName() {
+        val expr = parseSimpleExpression<XPathVarName>("let \$a:x := 2 return \$a:y")
+        val name = (expr as PsiElement).firstChild as XPathQName
+
+        assertThat(expr.staticType, `is`(XsQName as XdmSequenceType))
+        assertThat(expr.constantValue, `is`(instanceOf(QName::class.java)))
+
+        val qname = expr.constantValue as QName
+        assertThat(qname.namespace, `is`(nullValue()))
+        assertThat(qname.declaration?.get(), `is`(name as XdmConstantExpression))
+
+        assertThat(qname.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.prefix?.lexicalRepresentation, `is`("a"))
+
+        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.lexicalRepresentation, `is`("x"))
+    }
+
+    fun testVarName_URIQualifiedName() {
+        val expr = parseSimpleExpression<XPathVarName>("let \$Q{http://www.example.com}x := 2 return \$Q{http://www.example.com}y")
+        val name = (expr as PsiElement).firstChild as XPathURIQualifiedName
+
+        assertThat(expr.staticType, `is`(XsQName as XdmSequenceType))
+        assertThat(expr.constantValue, `is`(instanceOf(QName::class.java)))
+
+        val qname = expr.constantValue as QName
+        assertThat(qname.prefix, `is`(nullValue()))
+        assertThat(qname.declaration?.get(), `is`(name as XdmConstantExpression))
+
+        assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(qname.namespace?.lexicalRepresentation, `is`("http://www.example.com"))
+
+        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.lexicalRepresentation, `is`("x"))
     }
 
     // endregion
