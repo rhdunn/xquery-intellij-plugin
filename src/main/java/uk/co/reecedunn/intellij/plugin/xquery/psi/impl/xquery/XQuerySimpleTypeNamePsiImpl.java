@@ -17,10 +17,10 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
 
 import com.intellij.lang.ASTNode;
 import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAtomicType;
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAtomicType;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySimpleTypeName;
 
-public class XQuerySimpleTypeNamePsiImpl extends XQueryTypeNamePsiImpl implements XQuerySimpleTypeName, XQueryAtomicType {
+public class XQuerySimpleTypeNamePsiImpl extends XQueryTypeNamePsiImpl implements XQuerySimpleTypeName, XPathAtomicType {
     public XQuerySimpleTypeNamePsiImpl(@NotNull ASTNode node) {
         super(node);
     }

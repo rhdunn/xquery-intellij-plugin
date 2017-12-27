@@ -13,16 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
-
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName;
+package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
 /**
- * An XQuery 1.0 <code>AtomicType</code> node in the XQuery AST.
+ * An XPath 2.0 and XQuery 1.0 `AtomicType` node in the XQuery AST.
  *
- * This is not used directly. It was split into <code>SimpleTypeName</code> and
- * <code>AtomicOrUnionType</code> grammar constructs in XQuery 3.0, so those
- * are used instead.
+ * This is not used directly. It was split into `SimpleTypeName` and
+ * `AtomicOrUnionType` grammar constructs in XPath 3.0 and XQuery 3.0,
+ * so those are used instead.
  */
-public interface XQueryAtomicType extends XPathEQName {
-}
+interface XPathAtomicType : XPathEQName
