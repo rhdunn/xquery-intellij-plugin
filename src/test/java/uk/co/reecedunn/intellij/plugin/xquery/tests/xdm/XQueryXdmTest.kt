@@ -27,7 +27,9 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 class XQueryXdmTest : ParserTestCase() {
     private inline fun <reified T> parseLiteral(xquery: String): XdmLexicalValue {
-        return parseText(xquery)!!.walkTree().filterIsInstance<T>().first() as XdmLexicalValue
+        return parseText(xquery)!!
+                .walkTree().filterIsInstance<T>()
+                .first() as XdmLexicalValue
     }
 
     // region Lexical Values

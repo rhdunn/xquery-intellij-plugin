@@ -30,11 +30,16 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 class XPathXdmTest : ParserTestCase() {
     private inline fun <reified T> parseLiteral(xquery: String): XdmLexicalValue {
-        return parseText(xquery)!!.walkTree().filterIsInstance<T>().first() as XdmLexicalValue
+        return parseText(xquery)!!
+                .walkTree().filterIsInstance<T>()
+                .first() as XdmLexicalValue
     }
 
-    private inline fun <reified T> parseSimpleExpression(xquery: String): XdmConstantExpression {
-        return parseText(xquery)!!.walkTree().filterIsInstance<T>().first() as XdmConstantExpression
+    private inline fun <reified T> parseSimpleExpression(xquery: String): List<XdmConstantExpression> {
+        return parseText(xquery)!!
+                .walkTree().filterIsInstance<T>()
+                .map { type -> type as XdmConstantExpression }
+                .toList()
     }
 
     // region Lexical Values
@@ -140,7 +145,7 @@ class XPathXdmTest : ParserTestCase() {
     // region NCName
 
     fun testNCName() {
-        val expr = parseSimpleExpression<XPathNCName>("test")
+        val expr = parseSimpleExpression<XPathNCName>("test")[0]
         assertThat(expr.constantValue, `is`(instanceOf(QName::class.java)))
         assertThat(expr.staticType, `is`(XsQName as XdmSequenceType))
 
@@ -156,7 +161,7 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     fun testNCName_Keyword() {
-        val expr = parseSimpleExpression<XPathNCName>("option")
+        val expr = parseSimpleExpression<XPathNCName>("option")[0]
         assertThat(expr.constantValue, `is`(instanceOf(QName::class.java)))
         assertThat(expr.staticType, `is`(XsQName as XdmSequenceType))
 
@@ -175,7 +180,7 @@ class XPathXdmTest : ParserTestCase() {
     // region QName
 
     fun testQName() {
-        val expr = parseSimpleExpression<XPathQName>("fn:true")
+        val expr = parseSimpleExpression<XPathQName>("fn:true")[0]
         assertThat(expr.constantValue, `is`(instanceOf(QName::class.java)))
         assertThat(expr.staticType, `is`(XsQName as XdmSequenceType))
 
@@ -193,7 +198,7 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     fun testQName_KeywordPrefix() {
-        val expr = parseSimpleExpression<XPathQName>("option:test")
+        val expr = parseSimpleExpression<XPathQName>("option:test")[0]
         assertThat(expr.constantValue, `is`(instanceOf(QName::class.java)))
         assertThat(expr.staticType, `is`(XsQName as XdmSequenceType))
 
@@ -211,7 +216,7 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     fun testQName_KeywordLocalName() {
-        val expr = parseSimpleExpression<XPathQName>("test:case")
+        val expr = parseSimpleExpression<XPathQName>("test:case")[0]
         assertThat(expr.constantValue, `is`(instanceOf(QName::class.java)))
         assertThat(expr.staticType, `is`(XsQName as XdmSequenceType))
 
@@ -229,7 +234,7 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     fun testQName_NoLocalName() {
-        val expr = parseSimpleExpression<XPathQName>("xs:")
+        val expr = parseSimpleExpression<XPathQName>("xs:")[0]
         assertThat(expr.constantValue, `is`(nullValue()))
         assertThat(expr.staticType, `is`(XsUntyped as XdmSequenceType))
     }
@@ -238,7 +243,7 @@ class XPathXdmTest : ParserTestCase() {
     // region URIQualifiedName
 
     fun testURIQualifiedName() {
-        val expr = parseSimpleExpression<XPathURIQualifiedName>("Q{http://www.example.com}test")
+        val expr = parseSimpleExpression<XPathURIQualifiedName>("Q{http://www.example.com}test")[0]
         assertThat(expr.constantValue, `is`(instanceOf(QName::class.java)))
         assertThat(expr.staticType, `is`(XsQName as XdmSequenceType))
 
@@ -256,7 +261,7 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     fun testURIQualifiedName_EmptyNamespace() {
-        val expr = parseSimpleExpression<XPathURIQualifiedName>("Q{}test")
+        val expr = parseSimpleExpression<XPathURIQualifiedName>("Q{}test")[0]
         assertThat(expr.constantValue, `is`(instanceOf(QName::class.java)))
         assertThat(expr.staticType, `is`(XsQName as XdmSequenceType))
 
@@ -274,7 +279,7 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     fun testURIQualifiedName_KeywordLocalName() {
-        val expr = parseSimpleExpression<XPathURIQualifiedName>("Q{http://www.example.com}option")
+        val expr = parseSimpleExpression<XPathURIQualifiedName>("Q{http://www.example.com}option")[0]
         assertThat(expr.constantValue, `is`(instanceOf(QName::class.java)))
         assertThat(expr.staticType, `is`(XsQName as XdmSequenceType))
 
@@ -292,7 +297,7 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     fun testURIQualifiedName_NoLocalName() {
-        val expr = parseSimpleExpression<XPathURIQualifiedName>("Q{http://www.example.com}")
+        val expr = parseSimpleExpression<XPathURIQualifiedName>("Q{http://www.example.com}")[0]
         assertThat(expr.constantValue, `is`(nullValue()))
         assertThat(expr.staticType, `is`(XsUntyped as XdmSequenceType))
     }
@@ -301,7 +306,7 @@ class XPathXdmTest : ParserTestCase() {
     // region VarName
 
     fun testVarName_NCName() {
-        val expr = parseSimpleExpression<XPathVarName>("let \$x := 2 return \$y")
+        val expr = parseSimpleExpression<XPathVarName>("let \$x := 2 return \$y")[0]
         val name = (expr as PsiElement).firstChild as XPathNCName
 
         assertThat(expr.staticType, `is`(XsQName as XdmSequenceType))
@@ -317,7 +322,7 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     fun testVarName_QName() {
-        val expr = parseSimpleExpression<XPathVarName>("let \$a:x := 2 return \$a:y")
+        val expr = parseSimpleExpression<XPathVarName>("let \$a:x := 2 return \$a:y")[0]
         val name = (expr as PsiElement).firstChild as XPathQName
 
         assertThat(expr.staticType, `is`(XsQName as XdmSequenceType))
@@ -335,7 +340,7 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     fun testVarName_URIQualifiedName() {
-        val expr = parseSimpleExpression<XPathVarName>("let \$Q{http://www.example.com}x := 2 return \$Q{http://www.example.com}y")
+        val expr = parseSimpleExpression<XPathVarName>("let \$Q{http://www.example.com}x := 2 return \$Q{http://www.example.com}y")[0]
         val name = (expr as PsiElement).firstChild as XPathURIQualifiedName
 
         assertThat(expr.staticType, `is`(XsQName as XdmSequenceType))
@@ -358,7 +363,7 @@ class XPathXdmTest : ParserTestCase() {
     // region PostfixExpr
 
     fun testPostfixExpr_LiteralValue() {
-        val expr = parseSimpleExpression<XPathPostfixExpr>("1e3")
+        val expr = parseSimpleExpression<XPathPostfixExpr>("1e3")[0]
         assertThat(expr.constantValue, `is`(notNullValue()))
         assertThat(expr.constantValue, `is`(instanceOf(String::class.java)))
         assertThat(expr.constantValue as String, `is`("1e3"))
@@ -366,13 +371,13 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     fun testPostfixExpr_LiteralValue_ComplexExpression() {
-        val expr = parseSimpleExpression<XPathPostfixExpr>("1?1")
+        val expr = parseSimpleExpression<XPathPostfixExpr>("1?1")[0]
         assertThat(expr.constantValue, `is`(nullValue())) // Expression is invalid, and cannot be resolved.
         assertThat(expr.staticType, `is`(XsUntyped as XdmSequenceType))
     }
 
     fun testPostfixExpr_NonLiteralValue() {
-        val expr = parseSimpleExpression<XPathPostfixExpr>("test()")
+        val expr = parseSimpleExpression<XPathPostfixExpr>("test()")[0]
         assertThat(expr.constantValue, `is`(nullValue())) // Cannot evaluate non-literal expression.
         assertThat(expr.staticType, `is`(XsUntyped as XdmSequenceType))
     }
