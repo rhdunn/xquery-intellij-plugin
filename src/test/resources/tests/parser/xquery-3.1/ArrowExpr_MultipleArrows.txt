@@ -35,7 +35,7 @@ FileElement[FILE(0:46)]
                                                             XPathNCNameImpl[XQUERY_NCNAME(7:17)]
                                                                XmlNCNameImpl[XQUERY_NCNAME_TOKEN(7:17)]('upper-case')
                                                             PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
-                                                         XQueryArgumentListImpl[XQUERY_ARGUMENT_LIST(18:21)]
+                                                         XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(18:21)]
                                                             LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(18:19)]('(')
                                                             PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
                                                             LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(20:21)](')')
@@ -46,7 +46,7 @@ FileElement[FILE(0:46)]
                                                             XPathNCNameImpl[XQUERY_NCNAME(25:42)]
                                                                XmlNCNameImpl[XQUERY_NCNAME_TOKEN(25:42)]('normalize-unicode')
                                                             PsiWhiteSpaceImpl[WHITE_SPACE(42:43)](' ')
-                                                         XQueryArgumentListImpl[XQUERY_ARGUMENT_LIST(43:46)]
+                                                         XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(43:46)]
                                                             LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(43:44)]('(')
                                                             PsiWhiteSpaceImpl[WHITE_SPACE(44:45)](' ')
                                                             LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(45:46)](')')

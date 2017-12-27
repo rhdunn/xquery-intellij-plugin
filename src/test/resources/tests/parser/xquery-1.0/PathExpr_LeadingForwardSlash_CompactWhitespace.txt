@@ -35,6 +35,6 @@ FileElement[FILE(0:14)]
                                                                         XQueryFunctionCallImpl[XQUERY_FUNCTION_CALL(6:14)]
                                                                            XPathNCNameImpl[XQUERY_NCNAME(6:12)]
                                                                               XmlNCNameImpl[XQUERY_NCNAME_TOKEN(6:12)]('string')
-                                                                           XQueryArgumentListImpl[XQUERY_ARGUMENT_LIST(12:14)]
+                                                                           XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(12:14)]
                                                                               LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(12:13)]('(')
                                                                               LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(13:14)](')')

@@ -18,12 +18,12 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryArgumentList
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryArrowFunctionSpecifier
 
 class XQueryArrowFunctionSpecifierPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryArrowFunctionSpecifier {
     override val arity get(): Int {
-        val args: XQueryArgumentList? = siblings().firstOrNull { e -> e is XQueryArgumentList } as? XQueryArgumentList
+        val args: XPathArgumentList? = siblings().firstOrNull { e -> e is XPathArgumentList } as? XPathArgumentList
         return args?.arity?.plus(1) ?: 1
     }
 }

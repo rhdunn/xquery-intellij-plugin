@@ -54,7 +54,7 @@ FileElement[FILE(0:10)]
                                                                                                                                              XPathLiteralImpl[XQUERY_LITERAL(3:4)]
                                                                                                                                                 XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(3:4)]('2')
                                                                            LeafPsiElement[XQUERY_SQUARE_CLOSE_TOKEN(4:5)](']')
-                                                                        XQueryArgumentListImpl[XQUERY_ARGUMENT_LIST(5:10)]
+                                                                        XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(5:10)]
                                                                            LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(5:6)]('(')
                                                                            XPathArgumentImpl[XQUERY_ARGUMENT(6:7)]
                                                                               XQueryOrExprImpl[XQUERY_OR_EXPR(6:7)]

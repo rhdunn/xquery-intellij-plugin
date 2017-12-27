@@ -27,7 +27,7 @@ FileElement[FILE(0:7)]
                                                                            XPathVarNameImpl[XQUERY_VAR_NAME(1:2)]
                                                                               XPathNCNameImpl[XQUERY_NCNAME(1:2)]
                                                                                  XmlNCNameImpl[XQUERY_NCNAME_TOKEN(1:2)]('f')
-                                                                        XQueryArgumentListImpl[XQUERY_ARGUMENT_LIST(2:7)]
+                                                                        XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(2:7)]
                                                                            LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(2:3)]('(')
                                                                            XPathArgumentImpl[XQUERY_ARGUMENT(3:4)]
                                                                               XQueryOrExprImpl[XQUERY_OR_EXPR(3:4)]

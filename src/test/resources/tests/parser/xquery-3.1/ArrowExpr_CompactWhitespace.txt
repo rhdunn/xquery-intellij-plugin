@@ -31,6 +31,6 @@ FileElement[FILE(0:16)]
                                                          XQueryArrowFunctionSpecifierImpl[XQUERY_ARROW_FUNCTION_SPECIFIER(4:14)]
                                                             XPathNCNameImpl[XQUERY_NCNAME(4:14)]
                                                                XmlNCNameImpl[XQUERY_NCNAME_TOKEN(4:14)]('upper-case')
-                                                         XQueryArgumentListImpl[XQUERY_ARGUMENT_LIST(14:16)]
+                                                         XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(14:16)]
                                                             LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(14:15)]('(')
                                                             LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(15:16)](')')

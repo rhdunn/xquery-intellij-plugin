@@ -25,6 +25,6 @@ FileElement[FILE(0:8)]
                                                                         XQueryFunctionCallImpl[XQUERY_FUNCTION_CALL(0:8)]
                                                                            XPathNCNameImpl[XQUERY_NCNAME(0:6)]
                                                                               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_UPDATE(0:6)]('update')
-                                                                           XQueryArgumentListImpl[XQUERY_ARGUMENT_LIST(6:8)]
+                                                                           XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(6:8)]
                                                                               LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(6:7)]('(')
                                                                               LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(7:8)](')')

@@ -107,7 +107,7 @@ FileElement[FILE(0:94)]
                                                                                        XPathNCNameImpl[XQUERY_NCNAME(75:79)]
                                                                                           XmlNCNameImpl[XQUERY_NCNAME_TOKEN(75:79)]('true')
                                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(79:80)](' ')
-                                                                                       XQueryArgumentListImpl[XQUERY_ARGUMENT_LIST(80:83)]
+                                                                                       XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(80:83)]
                                                                                           LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(80:81)]('(')
                                                                                           PsiWhiteSpaceImpl[WHITE_SPACE(81:82)](' ')
                                                                                           LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(82:83)](')')

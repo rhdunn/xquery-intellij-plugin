@@ -76,7 +76,7 @@ FileElement[FILE(0:85)]
                                                                                        XPathNCNameImpl[XQUERY_NCNAME(42:46)]
                                                                                           XmlNCNameImpl[XQUERY_NCNAME_TOKEN(42:46)]('true')
                                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(46:47)](' ')
-                                                                                       XQueryArgumentListImpl[XQUERY_ARGUMENT_LIST(47:50)]
+                                                                                       XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(47:50)]
                                                                                           LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(47:48)]('(')
                                                                                           PsiWhiteSpaceImpl[WHITE_SPACE(48:49)](' ')
                                                                                           LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(49:50)](')')
@@ -113,7 +113,7 @@ FileElement[FILE(0:85)]
                                                                                        XPathNCNameImpl[XQUERY_NCNAME(65:70)]
                                                                                           XmlNCNameImpl[XQUERY_NCNAME_TOKEN(65:70)]('false')
                                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(70:71)](' ')
-                                                                                       XQueryArgumentListImpl[XQUERY_ARGUMENT_LIST(71:74)]
+                                                                                       XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(71:74)]
                                                                                           LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(71:72)]('(')
                                                                                           PsiWhiteSpaceImpl[WHITE_SPACE(72:73)](' ')
                                                                                           LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(73:74)](')')

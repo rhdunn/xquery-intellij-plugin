@@ -30,7 +30,7 @@ FileElement[FILE(0:15)]
                                                                               XPathNCNameImpl[XQUERY_NCNAME(5:8)]
                                                                                  XmlNCNameImpl[XQUERY_NCNAME_TOKEN(5:8)]('pow')
                                                                            PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
-                                                                           XQueryArgumentListImpl[XQUERY_ARGUMENT_LIST(9:15)]
+                                                                           XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(9:15)]
                                                                               LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(9:10)]('(')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
                                                                               XPathArgumentImpl[XQUERY_ARGUMENT(11:12)]

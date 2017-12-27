@@ -36,13 +36,13 @@ import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathNCNamePsiImpl
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 class XQueryPsiTest:ParserTestCase() {
-    // region XQueryArgumentList
+    // region XPathArgumentList
 
     fun testArgumentList() {
         val file = parseResource("tests/parser/xquery-1.0/FunctionCall_MultipleParam.xq")!!
 
         val functionCallPsi = file.descendants().filterIsInstance<XQueryFunctionCall>().first()
-        val argumentListPsi = functionCallPsi.children().filterIsInstance<XQueryArgumentList>().first()
+        val argumentListPsi = functionCallPsi.children().filterIsInstance<XPathArgumentList>().first()
         assertThat(argumentListPsi, `is`(notNullValue()))
         assertThat(argumentListPsi.arity, `is`(2))
     }
@@ -51,7 +51,7 @@ class XQueryPsiTest:ParserTestCase() {
         val file = parseResource("tests/parser/xquery-1.0/FunctionCall.xq")!!
 
         val functionCallPsi = file.descendants().filterIsInstance<XQueryFunctionCall>().first()
-        val argumentListPsi = functionCallPsi.children().filterIsInstance<XQueryArgumentList>().first()
+        val argumentListPsi = functionCallPsi.children().filterIsInstance<XPathArgumentList>().first()
         assertThat(argumentListPsi, `is`(notNullValue()))
         assertThat(argumentListPsi.arity, `is`(0))
     }
@@ -60,7 +60,7 @@ class XQueryPsiTest:ParserTestCase() {
         val file = parseResource("tests/parser/xquery-3.0/ArgumentPlaceholder.xq")!!
 
         val functionCallPsi = file.descendants().filterIsInstance<XQueryFunctionCall>().first()
-        val argumentListPsi = functionCallPsi.children().filterIsInstance<XQueryArgumentList>().first()
+        val argumentListPsi = functionCallPsi.children().filterIsInstance<XPathArgumentList>().first()
         assertThat(argumentListPsi, `is`(notNullValue()))
         assertThat(argumentListPsi.arity, `is`(1))
     }
@@ -223,7 +223,7 @@ class XQueryPsiTest:ParserTestCase() {
         val file = parseResource("tests/parser/xquery-1.0/FunctionCall.xq")!!
 
         val functionCallPsi = file.descendants().filterIsInstance<XQueryFunctionCall>().first()
-        val argumentListPsi = functionCallPsi.children().filterIsInstance<XQueryArgumentList>().first()
+        val argumentListPsi = functionCallPsi.children().filterIsInstance<XPathArgumentList>().first()
         val versioned = argumentListPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
@@ -237,7 +237,7 @@ class XQueryPsiTest:ParserTestCase() {
         val file = parseResource("tests/parser/xquery-3.0/PostfixExpr_ArgumentList.xq")!!
 
         val postfixExprPsi = file.descendants().filterIsInstance<XPathPostfixExpr>().first()
-        val argumentListPsi = postfixExprPsi.children().filterIsInstance<XQueryArgumentList>().first()
+        val argumentListPsi = postfixExprPsi.children().filterIsInstance<XPathArgumentList>().first()
         val versioned = argumentListPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
@@ -256,7 +256,7 @@ class XQueryPsiTest:ParserTestCase() {
         val file = parseResource("tests/parser/xquery-3.0/ArgumentPlaceholder.xq")!!
 
         val functionCallPsi = file.descendants().filterIsInstance<XQueryFunctionCall>().first()
-        val argumentListPsi = functionCallPsi.children().filterIsInstance<XQueryArgumentList>().first()
+        val argumentListPsi = functionCallPsi.children().filterIsInstance<XPathArgumentList>().first()
         val argumentPsi = argumentListPsi.children().filterIsInstance<XPathArgument>().first()
         val argumentPlaceholderPsi = argumentPsi.descendants().filterIsInstance<XQueryArgumentPlaceholder>().first()
         val versioned = argumentPlaceholderPsi as XQueryConformance

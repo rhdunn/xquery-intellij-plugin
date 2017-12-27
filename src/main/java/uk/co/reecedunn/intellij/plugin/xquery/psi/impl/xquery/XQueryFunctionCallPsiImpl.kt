@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryArgumentList
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionCall
 
@@ -27,5 +27,5 @@ class XQueryFunctionCallPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQu
         firstChild as? XPathEQName
 
     override val arity get(): Int =
-        children().filterIsInstance<XQueryArgumentList>().first().arity
+        children().filterIsInstance<XPathArgumentList>().first().arity
 }

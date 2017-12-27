@@ -29,7 +29,7 @@ FileElement[FILE(0:13)]
                                                                               XPathNCNameImpl[XQUERY_NCNAME(2:3)]
                                                                                  XmlNCNameImpl[XQUERY_NCNAME_TOKEN(2:3)]('f')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
-                                                                        XQueryArgumentListImpl[XQUERY_ARGUMENT_LIST(4:13)]
+                                                                        XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(4:13)]
                                                                            LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(4:5)]('(')
                                                                            PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
                                                                            XPathArgumentImpl[XQUERY_ARGUMENT(6:8)]

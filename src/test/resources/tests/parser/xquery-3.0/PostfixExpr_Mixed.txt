@@ -59,7 +59,7 @@ FileElement[FILE(0:19)]
                                                                                                                                              PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
                                                                            LeafPsiElement[XQUERY_SQUARE_CLOSE_TOKEN(8:9)](']')
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
-                                                                        XQueryArgumentListImpl[XQUERY_ARGUMENT_LIST(10:19)]
+                                                                        XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(10:19)]
                                                                            LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(10:11)]('(')
                                                                            PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
                                                                            XPathArgumentImpl[XQUERY_ARGUMENT(12:14)]

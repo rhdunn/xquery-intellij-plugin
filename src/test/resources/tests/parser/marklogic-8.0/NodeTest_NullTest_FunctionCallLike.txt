@@ -25,7 +25,7 @@ FileElement[FILE(0:12)]
                                                                         XQueryFunctionCallImpl[XQUERY_FUNCTION_CALL(0:12)]
                                                                            XPathNCNameImpl[XQUERY_NCNAME(0:9)]
                                                                               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NULL_NODE(0:9)]('null-node')
-                                                                           XQueryArgumentListImpl[XQUERY_ARGUMENT_LIST(9:12)]
+                                                                           XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(9:12)]
                                                                               LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(9:10)]('(')
                                                                               XPathArgumentImpl[XQUERY_ARGUMENT(10:11)]
                                                                                  XQueryOrExprImpl[XQUERY_OR_EXPR(10:11)]

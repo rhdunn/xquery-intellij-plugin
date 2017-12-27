@@ -61,6 +61,6 @@ FileElement[FILE(0:12)]
                                                                                                                                        XPathNCNameImpl[XQUERY_NCNAME(8:9)]
                                                                                                                                           XmlNCNameImpl[XQUERY_NCNAME_TOKEN(8:9)]('y')
                                                                LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(9:10)](')')
-                                                         XQueryArgumentListImpl[XQUERY_ARGUMENT_LIST(10:12)]
+                                                         XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(10:12)]
                                                             LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(10:11)]('(')
                                                             LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(11:12)](')')
