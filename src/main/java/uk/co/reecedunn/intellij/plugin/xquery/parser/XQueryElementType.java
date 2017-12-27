@@ -174,7 +174,6 @@ public interface XQueryElementType {
     // endregion
     // region XQuery 3.0
 
-    IElementType EQNAME = new ICompositeElementType("XQUERY_EQNAME", XPathEQNamePsiImpl.class, XQuery.INSTANCE);
     IElementType BRACED_URI_LITERAL = new ICompositeElementType("XQUERY_BRACED_URI_LITERAL", XPathBracedURILiteralPsiImpl.class, XQuery.INSTANCE);
     IElementType URI_QUALIFIED_NAME = new ICompositeElementType("XQUERY_URI_QUALIFIED_NAME", XPathURIQualifiedNamePsiImpl.class, XQuery.INSTANCE);
 

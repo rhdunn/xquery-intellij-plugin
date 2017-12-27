@@ -39,7 +39,7 @@ private val QNAME_SEPARATORS = TokenSet.create(
     XQueryTokenType.XML_TAG_QNAME_SEPARATOR,
     XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR)
 
-open class XPathEQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathEQName {
+abstract class XPathEQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathEQName {
     override fun equals(other: Any?): Boolean {
         if (other !is XPathEQName) {
             return false
