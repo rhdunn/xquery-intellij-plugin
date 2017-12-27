@@ -61,7 +61,7 @@ public interface XQueryElementType {
     IElementType ABBREV_FORWARD_STEP = new ICompositeElementType("XQUERY_ABBREV_FORWARD_STEP", XPathAbbrevForwardStepPsiImpl.class, XQuery.INSTANCE);
     IElementType REVERSE_STEP = new ICompositeElementType("XQUERY_REVERSE_STEP", XQueryReverseStepPsiImpl.class, XQuery.INSTANCE);
     IElementType REVERSE_AXIS = new ICompositeElementType("XQUERY_REVERSE_AXIS", XQueryReverseAxisPsiImpl.class, XQuery.INSTANCE);
-    IElementType ABBREV_REVERSE_STEP = new ICompositeElementType("XQUERY_ABBREV_REVERSE_STEP", XQueryAbbrevReverseStepPsiImpl.class, XQuery.INSTANCE);
+    IElementType ABBREV_REVERSE_STEP = new ICompositeElementType("XQUERY_ABBREV_REVERSE_STEP", XPathAbbrevReverseStepPsiImpl.class, XQuery.INSTANCE);
     IElementType NODE_TEST = new ICompositeElementType("XQUERY_NODE_TEST", XQueryNodeTestPsiImpl.class, XQuery.INSTANCE);
     IElementType NAME_TEST = new ICompositeElementType("XQUERY_NAME_TEST", XQueryNameTestPsiImpl.class, XQuery.INSTANCE);
     IElementType WILDCARD = new ICompositeElementType("XQUERY_WILDCARD", XQueryWildcardPsiImpl.class, XQuery.INSTANCE);
