@@ -8,7 +8,7 @@ FileElement[FILE(0:27)]
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VARIABLE(8:16)]('variable')
                PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
                PsiErrorElementImpl[ERROR_ELEMENT(17:17)]('XPST0003: Expected '$'.')
-               XQueryVarNameImpl[XQUERY_VAR_NAME(17:21)]
+               XPathVarNameImpl[XQUERY_VAR_NAME(17:21)]
                   XPathNCNameImpl[XQUERY_NCNAME(17:20)]
                      XmlNCNameImpl[XQUERY_NCNAME_TOKEN(17:20)]('one')
                   PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')

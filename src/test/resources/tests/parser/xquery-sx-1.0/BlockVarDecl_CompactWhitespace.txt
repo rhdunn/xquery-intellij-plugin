@@ -20,7 +20,7 @@ FileElement[FILE(0:46)]
                      ScriptingBlockVarDeclImpl[XQUERY_BLOCK_VAR_DECL(32:41)]
                         XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(32:39)]('declare')
                         LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(39:40)]('$')
-                        XQueryVarNameImpl[XQUERY_VAR_NAME(40:41)]
+                        XPathVarNameImpl[XQUERY_VAR_NAME(40:41)]
                            XPathNCNameImpl[XQUERY_NCNAME(40:41)]
                               XmlNCNameImpl[XQUERY_NCNAME_TOKEN(40:41)]('x')
                      LeafPsiElement[XQUERY_SEPARATOR_TOKEN(41:42)](';')

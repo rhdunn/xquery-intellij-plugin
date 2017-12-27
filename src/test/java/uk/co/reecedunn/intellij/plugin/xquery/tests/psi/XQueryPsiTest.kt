@@ -3583,14 +3583,14 @@ class XQueryPsiTest:ParserTestCase() {
 
         val typeswitchExprPsi = file.descendants().filterIsInstance<XQueryTypeswitchExpr>().first()
         val caseClausePsi = typeswitchExprPsi.children().filterIsInstance<XQueryCaseClause>().first()
-        val varNamePsi = caseClausePsi.children().filterIsInstance<XQueryVarName>().first()
+        val varNamePsi = caseClausePsi.children().filterIsInstance<XPathVarName>().first()
         val provider = caseClausePsi as XQueryVariableResolver
 
         assertThat(provider.resolveVariable(null), `is`(nullValue()))
 
         val variable = provider.resolveVariable(varNamePsi)!!
 
-        assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryVarName::class.java)))
+        assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XPathVarName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(varNamePsi))
 
         assertThat(variable.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryCaseClause::class.java)))
@@ -3606,14 +3606,14 @@ class XQueryPsiTest:ParserTestCase() {
         val flworExprPsi = file.descendants().filterIsInstance<XQueryFLWORExpr>().first()
         val intermediateClausePsi = flworExprPsi.children().filterIsInstance<XQueryIntermediateClause>().first()
         val countClausePsi = intermediateClausePsi.descendants().filterIsInstance<XQueryCountClause>().first()
-        val varNamePsi = countClausePsi.children().filterIsInstance<XQueryVarName>().first()
+        val varNamePsi = countClausePsi.children().filterIsInstance<XPathVarName>().first()
         val provider = intermediateClausePsi as XQueryVariableResolver
 
         assertThat(provider.resolveVariable(null), `is`(nullValue()))
 
         val variable = provider.resolveVariable(varNamePsi)!!
 
-        assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryVarName::class.java)))
+        assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XPathVarName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(varNamePsi))
 
         assertThat(variable.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryCountClause::class.java)))
@@ -3628,14 +3628,14 @@ class XQueryPsiTest:ParserTestCase() {
 
         val forClausePsi = file.descendants().filterIsInstance<XQueryForClause>().first()
         val forBindingPsi = forClausePsi.children().filterIsInstance<XQueryForBinding>().first()
-        val varNamePsi = forBindingPsi.children().filterIsInstance<XQueryVarName>().first()
+        val varNamePsi = forBindingPsi.children().filterIsInstance<XPathVarName>().first()
         val provider = forBindingPsi as XQueryVariableResolver
 
         assertThat(provider.resolveVariable(null), `is`(nullValue()))
 
         val variable = provider.resolveVariable(varNamePsi)!!
 
-        assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryVarName::class.java)))
+        assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XPathVarName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(varNamePsi))
 
         assertThat(variable.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryForBinding::class.java)))
@@ -3647,10 +3647,10 @@ class XQueryPsiTest:ParserTestCase() {
 
         val forClausePsi = file.descendants().filterIsInstance<XQueryForClause>().first()
         val forBindingPsi = forClausePsi.children().filterIsInstance<XQueryForBinding>().first()
-        val varNamePsi = forBindingPsi.children().filterIsInstance<XQueryVarName>().first()
+        val varNamePsi = forBindingPsi.children().filterIsInstance<XPathVarName>().first()
 
         val positionalVarPsi = forBindingPsi.children().filterIsInstance<XQueryPositionalVar>().first()
-        val posVarNamePsi = positionalVarPsi.children().filterIsInstance<XQueryVarName>().first()
+        val posVarNamePsi = positionalVarPsi.children().filterIsInstance<XPathVarName>().first()
 
         val provider = forBindingPsi as XQueryVariableResolver
 
@@ -3660,7 +3660,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         var variable = provider.resolveVariable(varNamePsi)!!
 
-        assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryVarName::class.java)))
+        assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XPathVarName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(varNamePsi))
 
         assertThat(variable.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryForBinding::class.java)))
@@ -3670,7 +3670,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         variable = provider.resolveVariable(posVarNamePsi)!!
 
-        assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryVarName::class.java)))
+        assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XPathVarName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(posVarNamePsi))
 
         assertThat(variable.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryPositionalVar::class.java)))
@@ -3685,14 +3685,14 @@ class XQueryPsiTest:ParserTestCase() {
 
         val forClausePsi = file.descendants().filterIsInstance<XQueryForClause>().first()
         val forBindingPsi = forClausePsi.children().filterIsInstance<XQueryForBinding>().first()
-        val varNamePsi = forBindingPsi.children().filterIsInstance<XQueryVarName>().first()
+        val varNamePsi = forBindingPsi.children().filterIsInstance<XPathVarName>().first()
         val provider = forClausePsi as XQueryVariableResolver
 
         assertThat(provider.resolveVariable(null), `is`(nullValue()))
 
         val variable = provider.resolveVariable(varNamePsi)!!
 
-        assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryVarName::class.java)))
+        assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XPathVarName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(varNamePsi))
 
         assertThat(variable.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryForBinding::class.java)))
@@ -3735,14 +3735,14 @@ class XQueryPsiTest:ParserTestCase() {
         val groupingSpecListPsi = groupByClausePsi.children().filterIsInstance<XQueryGroupingSpecList>().first()
         val groupingSpecPsi = groupingSpecListPsi.children().filterIsInstance<XQueryGroupingSpec>().first()
         val groupingVariablePsi = groupingSpecPsi.children().filterIsInstance<XQueryGroupingVariable>().first()
-        val varNamePsi = groupingVariablePsi.children().filterIsInstance<XQueryVarName>().first()
+        val varNamePsi = groupingVariablePsi.children().filterIsInstance<XPathVarName>().first()
         val provider = groupByClausePsi as XQueryVariableResolver
 
         assertThat(provider.resolveVariable(null), `is`(nullValue()))
 
         val variable = provider.resolveVariable(varNamePsi)!!
 
-        assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryVarName::class.java)))
+        assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XPathVarName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(varNamePsi))
 
         assertThat(variable.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryGroupingVariable::class.java)))
@@ -3761,14 +3761,14 @@ class XQueryPsiTest:ParserTestCase() {
         val groupingSpecListPsi = groupByClausePsi.children().filterIsInstance<XQueryGroupingSpecList>().first()
         val groupingSpecPsi = groupingSpecListPsi.children().filterIsInstance<XQueryGroupingSpec>().first()
         val groupingVariablePsi = groupingSpecPsi.children().filterIsInstance<XQueryGroupingVariable>().first()
-        val varNamePsi = groupingVariablePsi.children().filterIsInstance<XQueryVarName>().first()
+        val varNamePsi = groupingVariablePsi.children().filterIsInstance<XPathVarName>().first()
         val provider = groupingSpecPsi as XQueryVariableResolver
 
         assertThat(provider.resolveVariable(null), `is`(nullValue()))
 
         val variable = provider.resolveVariable(varNamePsi)!!
 
-        assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryVarName::class.java)))
+        assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XPathVarName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(varNamePsi))
 
         assertThat(variable.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryGroupingVariable::class.java)))
@@ -3787,14 +3787,14 @@ class XQueryPsiTest:ParserTestCase() {
         val groupingSpecListPsi = groupByClausePsi.children().filterIsInstance<XQueryGroupingSpecList>().first()
         val groupingSpecPsi = groupingSpecListPsi.children().filterIsInstance<XQueryGroupingSpec>().first()
         val groupingVariablePsi = groupingSpecPsi.children().filterIsInstance<XQueryGroupingVariable>().first()
-        val varNamePsi = groupingVariablePsi.children().filterIsInstance<XQueryVarName>().first()
+        val varNamePsi = groupingVariablePsi.children().filterIsInstance<XPathVarName>().first()
         val provider = groupingSpecListPsi as XQueryVariableResolver
 
         assertThat(provider.resolveVariable(null), `is`(nullValue()))
 
         val variable = provider.resolveVariable(varNamePsi)!!
 
-        assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryVarName::class.java)))
+        assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XPathVarName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(varNamePsi))
 
         assertThat(variable.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryGroupingVariable::class.java)))
@@ -3813,14 +3813,14 @@ class XQueryPsiTest:ParserTestCase() {
         val groupingSpecListPsi = groupByClausePsi.children().filterIsInstance<XQueryGroupingSpecList>().first()
         val groupingSpecPsi = groupingSpecListPsi.children().filterIsInstance<XQueryGroupingSpec>().first()
         val groupingVariablePsi = groupingSpecPsi.children().filterIsInstance<XQueryGroupingVariable>().first()
-        val varNamePsi = groupingVariablePsi.children().filterIsInstance<XQueryVarName>().first()
+        val varNamePsi = groupingVariablePsi.children().filterIsInstance<XPathVarName>().first()
         val provider = groupingVariablePsi as XQueryVariableResolver
 
         assertThat(provider.resolveVariable(null), `is`(nullValue()))
 
         val variable = provider.resolveVariable(varNamePsi)!!
 
-        assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryVarName::class.java)))
+        assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XPathVarName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(varNamePsi))
 
         assertThat(variable.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryGroupingVariable::class.java)))
@@ -3837,14 +3837,14 @@ class XQueryPsiTest:ParserTestCase() {
         val intermediateClausePsi = flworExprPsi.children().filterIsInstance<XQueryIntermediateClause>().first()
         val forClausePsi = intermediateClausePsi.descendants().filterIsInstance<XQueryForClause>().first()
         val forBindingPsi = forClausePsi.children().filterIsInstance<XQueryForBinding>().first()
-        val varNamePsi = forBindingPsi.children().filterIsInstance<XQueryVarName>().first()
+        val varNamePsi = forBindingPsi.children().filterIsInstance<XPathVarName>().first()
         val provider = intermediateClausePsi as XQueryVariableResolver
 
         assertThat(provider.resolveVariable(null), `is`(nullValue()))
 
         val variable = provider.resolveVariable(varNamePsi)!!
 
-        assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryVarName::class.java)))
+        assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XPathVarName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(varNamePsi))
 
         assertThat(variable.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryForBinding::class.java)))
@@ -3859,14 +3859,14 @@ class XQueryPsiTest:ParserTestCase() {
 
         val letClausePsi = file.descendants().filterIsInstance<XQueryLetClause>().first()
         val letBindingPsi = letClausePsi.children().filterIsInstance<XQueryLetBinding>().first()
-        val varNamePsi = letBindingPsi.children().filterIsInstance<XQueryVarName>().first()
+        val varNamePsi = letBindingPsi.children().filterIsInstance<XPathVarName>().first()
         val provider = letBindingPsi as XQueryVariableResolver
 
         assertThat(provider.resolveVariable(null), `is`(nullValue()))
 
         val variable = provider.resolveVariable(varNamePsi)!!
 
-        assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryVarName::class.java)))
+        assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XPathVarName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(varNamePsi))
 
         assertThat(variable.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryLetBinding::class.java)))
@@ -3881,14 +3881,14 @@ class XQueryPsiTest:ParserTestCase() {
 
         val letClausePsi = file.descendants().filterIsInstance<XQueryLetClause>().first()
         val letBindingPsi = letClausePsi.children().filterIsInstance<XQueryLetBinding>().first()
-        val varNamePsi = letBindingPsi.children().filterIsInstance<XQueryVarName>().first()
+        val varNamePsi = letBindingPsi.children().filterIsInstance<XPathVarName>().first()
         val provider = letClausePsi as XQueryVariableResolver
 
         assertThat(provider.resolveVariable(null), `is`(nullValue()))
 
         val variable = provider.resolveVariable(varNamePsi)!!
 
-        assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryVarName::class.java)))
+        assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XPathVarName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(varNamePsi))
 
         assertThat(variable.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryLetBinding::class.java)))
@@ -3952,14 +3952,14 @@ class XQueryPsiTest:ParserTestCase() {
         val forClausePsi = file.descendants().filterIsInstance<XQueryForClause>().first()
         val forBindingPsi = forClausePsi.children().filterIsInstance<XQueryForBinding>().first()
         val positionalVarPsi = forBindingPsi.children().filterIsInstance<XQueryPositionalVar>().first()
-        val varNamePsi = positionalVarPsi.children().filterIsInstance<XQueryVarName>().first()
+        val varNamePsi = positionalVarPsi.children().filterIsInstance<XPathVarName>().first()
         val provider = positionalVarPsi as XQueryVariableResolver
 
         assertThat(provider.resolveVariable(null), `is`(nullValue()))
 
         val variable = provider.resolveVariable(varNamePsi)!!
 
-        assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryVarName::class.java)))
+        assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XPathVarName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(varNamePsi))
 
         assertThat(variable.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryPositionalVar::class.java)))
@@ -4011,14 +4011,14 @@ class XQueryPsiTest:ParserTestCase() {
         val file = parseResource("tests/parser/xquery-1.0/QuantifiedExpr.xq")!!
 
         val quantifiedExprPsi = file.descendants().filterIsInstance<XQueryQuantifiedExpr>().first()
-        val varNamePsi = quantifiedExprPsi.children().filterIsInstance<XQueryVarName>().first()
+        val varNamePsi = quantifiedExprPsi.children().filterIsInstance<XPathVarName>().first()
         val provider = quantifiedExprPsi as XQueryVariableResolver
 
         assertThat(provider.resolveVariable(null), `is`(nullValue()))
 
         val variable = provider.resolveVariable(varNamePsi)!!
 
-        assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryVarName::class.java)))
+        assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XPathVarName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(varNamePsi))
 
         assertThat(variable.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryQuantifiedExpr::class.java)))
@@ -4033,14 +4033,14 @@ class XQueryPsiTest:ParserTestCase() {
 
         val windowClausePsi = file.descendants().filterIsInstance<XQueryWindowClause>().first()
         val slidingWindowClausePsi = windowClausePsi.children().filterIsInstance<XQuerySlidingWindowClause>().first()
-        val varNamePsi = slidingWindowClausePsi.children().filterIsInstance<XQueryVarName>().first()
+        val varNamePsi = slidingWindowClausePsi.children().filterIsInstance<XPathVarName>().first()
         val provider = slidingWindowClausePsi as XQueryVariableResolver
 
         assertThat(provider.resolveVariable(null), `is`(nullValue()))
 
         val variable = provider.resolveVariable(varNamePsi)!!
 
-        assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryVarName::class.java)))
+        assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XPathVarName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(varNamePsi))
 
         assertThat(variable.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQuerySlidingWindowClause::class.java)))
@@ -4056,7 +4056,7 @@ class XQueryPsiTest:ParserTestCase() {
         val windowVarsPsi = windowEndConditionPsi.children().filterIsInstance<XQueryWindowVars>().first()
         val currentItemPsi = windowVarsPsi.children().filterIsInstance<XQueryCurrentItem>().first()
         val positionalVarPsi = windowVarsPsi.children().filterIsInstance<XQueryPositionalVar>().first()
-        val posVarNamePsi = positionalVarPsi.children().filterIsInstance<XQueryVarName>().first()
+        val posVarNamePsi = positionalVarPsi.children().filterIsInstance<XPathVarName>().first()
         val previousItemPsi = windowVarsPsi.children().filterIsInstance<XQueryPreviousItem>().first()
         val nextItemPsi = windowVarsPsi.children().filterIsInstance<XQueryNextItem>().first()
         val provider = slidingWindowClausePsi as XQueryVariableResolver
@@ -4077,7 +4077,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         variable = provider.resolveVariable(posVarNamePsi)!!
 
-        assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryVarName::class.java)))
+        assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XPathVarName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(posVarNamePsi))
 
         assertThat(variable.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryPositionalVar::class.java)))
@@ -4113,7 +4113,7 @@ class XQueryPsiTest:ParserTestCase() {
         val windowVarsPsi = windowStartConditionPsi.children().filterIsInstance<XQueryWindowVars>().first()
         val currentItemPsi = windowVarsPsi.children().filterIsInstance<XQueryCurrentItem>().first()
         val positionalVarPsi = windowVarsPsi.children().filterIsInstance<XQueryPositionalVar>().first()
-        val posVarNamePsi = positionalVarPsi.children().filterIsInstance<XQueryVarName>().first()
+        val posVarNamePsi = positionalVarPsi.children().filterIsInstance<XPathVarName>().first()
         val previousItemPsi = windowVarsPsi.children().filterIsInstance<XQueryPreviousItem>().first()
         val nextItemPsi = windowVarsPsi.children().filterIsInstance<XQueryNextItem>().first()
         val provider = slidingWindowClausePsi as XQueryVariableResolver
@@ -4134,7 +4134,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         variable = provider.resolveVariable(posVarNamePsi)!!
 
-        assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryVarName::class.java)))
+        assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XPathVarName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(posVarNamePsi))
 
         assertThat(variable.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryPositionalVar::class.java)))
@@ -4169,14 +4169,14 @@ class XQueryPsiTest:ParserTestCase() {
 
         val windowClausePsi = file.descendants().filterIsInstance<XQueryWindowClause>().first()
         val tumblingWindowClausePsi = windowClausePsi.children().filterIsInstance<XQueryTumblingWindowClause>().first()
-        val varNamePsi = tumblingWindowClausePsi.children().filterIsInstance<XQueryVarName>().first()
+        val varNamePsi = tumblingWindowClausePsi.children().filterIsInstance<XPathVarName>().first()
         val provider = tumblingWindowClausePsi as XQueryVariableResolver
 
         assertThat(provider.resolveVariable(null), `is`(nullValue()))
 
         val variable = provider.resolveVariable(varNamePsi)!!
 
-        assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryVarName::class.java)))
+        assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XPathVarName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(varNamePsi))
 
         assertThat(variable.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryTumblingWindowClause::class.java)))
@@ -4192,7 +4192,7 @@ class XQueryPsiTest:ParserTestCase() {
         val windowVarsPsi = windowEndConditionPsi.children().filterIsInstance<XQueryWindowVars>().first()
         val currentItemPsi = windowVarsPsi.children().filterIsInstance<XQueryCurrentItem>().first()
         val positionalVarPsi = windowVarsPsi.children().filterIsInstance<XQueryPositionalVar>().first()
-        val posVarNamePsi = positionalVarPsi.children().filterIsInstance<XQueryVarName>().first()
+        val posVarNamePsi = positionalVarPsi.children().filterIsInstance<XPathVarName>().first()
         val previousItemPsi = windowVarsPsi.children().filterIsInstance<XQueryPreviousItem>().first()
         val nextItemPsi = windowVarsPsi.children().filterIsInstance<XQueryNextItem>().first()
         val provider = tumblingWindowClausePsi as XQueryVariableResolver
@@ -4213,7 +4213,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         variable = provider.resolveVariable(posVarNamePsi)!!
 
-        assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryVarName::class.java)))
+        assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XPathVarName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(posVarNamePsi))
 
         assertThat(variable.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryPositionalVar::class.java)))
@@ -4249,7 +4249,7 @@ class XQueryPsiTest:ParserTestCase() {
         val windowVarsPsi = windowStartConditionPsi.children().filterIsInstance<XQueryWindowVars>().first()
         val currentItemPsi = windowVarsPsi.children().filterIsInstance<XQueryCurrentItem>().first()
         val positionalVarPsi = windowVarsPsi.children().filterIsInstance<XQueryPositionalVar>().first()
-        val posVarNamePsi = positionalVarPsi.children().filterIsInstance<XQueryVarName>().first()
+        val posVarNamePsi = positionalVarPsi.children().filterIsInstance<XPathVarName>().first()
         val previousItemPsi = windowVarsPsi.children().filterIsInstance<XQueryPreviousItem>().first()
         val nextItemPsi = windowVarsPsi.children().filterIsInstance<XQueryNextItem>().first()
         val provider = tumblingWindowClausePsi as XQueryVariableResolver
@@ -4270,7 +4270,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         variable = provider.resolveVariable(posVarNamePsi)!!
 
-        assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryVarName::class.java)))
+        assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XPathVarName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(posVarNamePsi))
 
         assertThat(variable.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryPositionalVar::class.java)))
@@ -4304,14 +4304,14 @@ class XQueryPsiTest:ParserTestCase() {
         val file = parseResource("tests/parser/xquery-1.0/TypeswitchExpr_Variable.xq")!!
 
         val typeswitchExprPsi = file.descendants().filterIsInstance<XQueryTypeswitchExpr>().first()
-        val varNamePsi = typeswitchExprPsi.children().filterIsInstance<XQueryVarName>().first()
+        val varNamePsi = typeswitchExprPsi.children().filterIsInstance<XPathVarName>().first()
         val provider = typeswitchExprPsi as XQueryVariableResolver
 
         assertThat(provider.resolveVariable(null), `is`(nullValue()))
 
         val variable = provider.resolveVariable(varNamePsi)!!
 
-        assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryVarName::class.java)))
+        assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XPathVarName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(varNamePsi))
 
         assertThat(variable.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryTypeswitchExpr::class.java)))
@@ -4348,14 +4348,14 @@ class XQueryPsiTest:ParserTestCase() {
 
         val windowClausePsi = file.descendants().filterIsInstance<XQueryWindowClause>().first()
         val slidingWindowClausePsi = windowClausePsi.children().filterIsInstance<XQuerySlidingWindowClause>().first()
-        val varNamePsi = slidingWindowClausePsi.children().filterIsInstance<XQueryVarName>().first()
+        val varNamePsi = slidingWindowClausePsi.children().filterIsInstance<XPathVarName>().first()
         val provider = windowClausePsi as XQueryVariableResolver
 
         assertThat(provider.resolveVariable(null), `is`(nullValue()))
 
         val variable = provider.resolveVariable(varNamePsi)!!
 
-        assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryVarName::class.java)))
+        assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XPathVarName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(varNamePsi))
 
         assertThat(variable.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQuerySlidingWindowClause::class.java)))
@@ -4367,14 +4367,14 @@ class XQueryPsiTest:ParserTestCase() {
 
         val windowClausePsi = file.descendants().filterIsInstance<XQueryWindowClause>().first()
         val tumblingWindowClausePsi = windowClausePsi.children().filterIsInstance<XQueryTumblingWindowClause>().first()
-        val varNamePsi = tumblingWindowClausePsi.children().filterIsInstance<XQueryVarName>().first()
+        val varNamePsi = tumblingWindowClausePsi.children().filterIsInstance<XPathVarName>().first()
         val provider = windowClausePsi as XQueryVariableResolver
 
         assertThat(provider.resolveVariable(null), `is`(nullValue()))
 
         val variable = provider.resolveVariable(varNamePsi)!!
 
-        assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryVarName::class.java)))
+        assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XPathVarName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(varNamePsi))
 
         assertThat(variable.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryTumblingWindowClause::class.java)))
@@ -4393,7 +4393,7 @@ class XQueryPsiTest:ParserTestCase() {
         val windowVarsPsi = windowEndConditionPsi.children().filterIsInstance<XQueryWindowVars>().first()
         val currentItemPsi = windowVarsPsi.children().filterIsInstance<XQueryCurrentItem>().first()
         val positionalVarPsi = windowVarsPsi.children().filterIsInstance<XQueryPositionalVar>().first()
-        val posVarNamePsi = positionalVarPsi.children().filterIsInstance<XQueryVarName>().first()
+        val posVarNamePsi = positionalVarPsi.children().filterIsInstance<XPathVarName>().first()
         val previousItemPsi = windowVarsPsi.children().filterIsInstance<XQueryPreviousItem>().first()
         val nextItemPsi = windowVarsPsi.children().filterIsInstance<XQueryNextItem>().first()
         val provider = windowEndConditionPsi as XQueryVariableResolver
@@ -4414,7 +4414,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         variable = provider.resolveVariable(posVarNamePsi)!!
 
-        assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryVarName::class.java)))
+        assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XPathVarName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(posVarNamePsi))
 
         assertThat(variable.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryPositionalVar::class.java)))
@@ -4453,7 +4453,7 @@ class XQueryPsiTest:ParserTestCase() {
         val windowVarsPsi = windowStartConditionPsi.children().filterIsInstance<XQueryWindowVars>().first()
         val currentItemPsi = windowVarsPsi.children().filterIsInstance<XQueryCurrentItem>().first()
         val positionalVarPsi = windowVarsPsi.children().filterIsInstance<XQueryPositionalVar>().first()
-        val posVarNamePsi = positionalVarPsi.children().filterIsInstance<XQueryVarName>().first()
+        val posVarNamePsi = positionalVarPsi.children().filterIsInstance<XPathVarName>().first()
         val previousItemPsi = windowVarsPsi.children().filterIsInstance<XQueryPreviousItem>().first()
         val nextItemPsi = windowVarsPsi.children().filterIsInstance<XQueryNextItem>().first()
         val provider = windowStartConditionPsi as XQueryVariableResolver
@@ -4474,7 +4474,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         variable = provider.resolveVariable(posVarNamePsi)!!
 
-        assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryVarName::class.java)))
+        assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XPathVarName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(posVarNamePsi))
 
         assertThat(variable.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryPositionalVar::class.java)))
@@ -4513,7 +4513,7 @@ class XQueryPsiTest:ParserTestCase() {
         val windowVarsPsi = windowStartConditionPsi.children().filterIsInstance<XQueryWindowVars>().first()
         val currentItemPsi = windowVarsPsi.children().filterIsInstance<XQueryCurrentItem>().first()
         val positionalVarPsi = windowVarsPsi.children().filterIsInstance<XQueryPositionalVar>().first()
-        val posVarNamePsi = positionalVarPsi.children().filterIsInstance<XQueryVarName>().first()
+        val posVarNamePsi = positionalVarPsi.children().filterIsInstance<XPathVarName>().first()
         val previousItemPsi = windowVarsPsi.children().filterIsInstance<XQueryPreviousItem>().first()
         val nextItemPsi = windowVarsPsi.children().filterIsInstance<XQueryNextItem>().first()
         val provider = windowVarsPsi as XQueryVariableResolver
@@ -4534,7 +4534,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         variable = provider.resolveVariable(posVarNamePsi)!!
 
-        assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryVarName::class.java)))
+        assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XPathVarName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(posVarNamePsi))
 
         assertThat(variable.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryPositionalVar::class.java)))

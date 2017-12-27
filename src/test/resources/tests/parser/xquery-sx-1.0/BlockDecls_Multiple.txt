@@ -26,7 +26,7 @@ FileElement[FILE(0:71)]
                         PsiWhiteSpaceImpl[WHITE_SPACE(43:44)](' ')
                         LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(44:45)]('$')
                         PsiWhiteSpaceImpl[WHITE_SPACE(45:46)](' ')
-                        XQueryVarNameImpl[XQUERY_VAR_NAME(46:48)]
+                        XPathVarNameImpl[XQUERY_VAR_NAME(46:48)]
                            XPathNCNameImpl[XQUERY_NCNAME(46:47)]
                               XmlNCNameImpl[XQUERY_NCNAME_TOKEN(46:47)]('x')
                            PsiWhiteSpaceImpl[WHITE_SPACE(47:48)](' ')
@@ -37,7 +37,7 @@ FileElement[FILE(0:71)]
                         PsiWhiteSpaceImpl[WHITE_SPACE(57:58)](' ')
                         LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(58:59)]('$')
                         PsiWhiteSpaceImpl[WHITE_SPACE(59:60)](' ')
-                        XQueryVarNameImpl[XQUERY_VAR_NAME(60:62)]
+                        XPathVarNameImpl[XQUERY_VAR_NAME(60:62)]
                            XPathNCNameImpl[XQUERY_NCNAME(60:61)]
                               XmlNCNameImpl[XQUERY_NCNAME_TOKEN(60:61)]('y')
                            PsiWhiteSpaceImpl[WHITE_SPACE(61:62)](' ')

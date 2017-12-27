@@ -44,7 +44,7 @@ public interface XQueryElementType {
     IElementType NCNAME = new ICompositeElementType("XQUERY_NCNAME", XPathNCNamePsiImpl.class, XQuery.INSTANCE);
     IElementType QNAME = new ICompositeElementType("XQUERY_QNAME", XPathQNamePsiImpl.class, XQuery.INSTANCE);
     IElementType URI_LITERAL = new ICompositeElementType("XQUERY_URI_LITERAL", XQueryUriLiteralPsiImpl.class, XQuery.INSTANCE);
-    IElementType VAR_NAME = new ICompositeElementType("XQUERY_VAR_NAME", XQueryVarNamePsiImpl.class, XQuery.INSTANCE);
+    IElementType VAR_NAME = new ICompositeElementType("XQUERY_VAR_NAME", XPathVarNamePsiImpl.class, XQuery.INSTANCE);
 
     IElementType LITERAL = new ICompositeElementType("XQUERY_LITERAL", XPathLiteralPsiImpl.class, XQuery.INSTANCE);
     IElementType STRING_LITERAL = new ICompositeElementType("XQUERY_STRING_LITERAL", XPathStringLiteralPsiImpl.class, XQuery.INSTANCE);

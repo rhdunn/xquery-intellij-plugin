@@ -9,7 +9,7 @@ FileElement[FILE(0:10)]
                   XQueryLetBindingImpl[XQUERY_LET_BINDING(4:10)]
                      LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(4:5)]('$')
                      PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
-                     XQueryVarNameImpl[XQUERY_VAR_NAME(6:8)]
+                     XPathVarNameImpl[XQUERY_VAR_NAME(6:8)]
                         XPathNCNameImpl[XQUERY_NCNAME(6:7)]
                            XmlNCNameImpl[XQUERY_NCNAME_TOKEN(6:7)]('x')
                         PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
