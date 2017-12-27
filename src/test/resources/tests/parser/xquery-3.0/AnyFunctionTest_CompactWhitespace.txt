@@ -17,7 +17,7 @@ FileElement[FILE(0:44)]
                   XQuerySequenceTypeImpl[XQUERY_SEQUENCE_TYPE(24:35)]
                      XQueryItemTypeImpl[XQUERY_ITEM_TYPE(24:35)]
                         XQueryFunctionTestImpl[XQUERY_FUNCTION_TEST(24:35)]
-                           XQueryAnyFunctionTestImpl[XQUERY_ANY_FUNCTION_TEST(24:35)]
+                           XPathAnyFunctionTestImpl[XQUERY_ANY_FUNCTION_TEST(24:35)]
                               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FUNCTION(24:32)]('function')
                               LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(32:33)]('(')
                               LeafPsiElement[XQUERY_STAR_TOKEN(33:34)]('*')
