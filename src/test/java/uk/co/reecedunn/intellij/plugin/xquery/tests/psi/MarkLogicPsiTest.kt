@@ -21,6 +21,7 @@ import org.hamcrest.MatcherAssert.assertThat
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAnyKindTest
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArrayConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingApplyExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
@@ -79,7 +80,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     fun testArrayConstructor() {
         val file = parseResource("tests/parser/marklogic-8.0/ArrayConstructor.xq")!!
 
-        val arrayConstructorPsi = file.descendants().filterIsInstance<XQueryArrayConstructor>().first()
+        val arrayConstructorPsi = file.descendants().filterIsInstance<XPathArrayConstructor>().first()
         val versioned = arrayConstructorPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))

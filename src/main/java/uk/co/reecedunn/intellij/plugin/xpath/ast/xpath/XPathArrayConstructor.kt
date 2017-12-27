@@ -13,12 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
-
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPrimaryExpr;
+package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
 /**
- * An XQuery 3.1 <code>ArrayConstructor</code> node in the XQuery AST.
+ * An XPath 3.1 and XQuery 3.1 `ArrayConstructor` node in the XQuery AST.
  */
-public interface XQueryArrayConstructor extends XPathPrimaryExpr {
-}
+interface XPathArrayConstructor : XPathPrimaryExpr

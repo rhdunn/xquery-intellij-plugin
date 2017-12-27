@@ -15,7 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArrayConstructor
+
 /**
  * An XQuery 3.1 `SquareArrayConstructor` node in the XQuery AST.
  */
-interface XQuerySquareArrayConstructor : XQueryArrayConstructor
+interface XQuerySquareArrayConstructor : XPathArrayConstructor
