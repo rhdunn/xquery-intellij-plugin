@@ -31,7 +31,7 @@ FileElement[FILE(0:11)]
                                                                                  XmlNCNameImpl[XQUERY_NCNAME_TOKEN(5:8)]('sin')
                                                                            XQueryArgumentListImpl[XQUERY_ARGUMENT_LIST(8:11)]
                                                                               LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(8:9)]('(')
-                                                                              XQueryArgumentImpl[XQUERY_ARGUMENT(9:10)]
+                                                                              XPathArgumentImpl[XQUERY_ARGUMENT(9:10)]
                                                                                  XQueryArgumentPlaceholderImpl[XQUERY_ARGUMENT_PLACEHOLDER(9:10)]
                                                                                     LeafPsiElement[XQUERY_OPTIONAL_TOKEN(9:10)]('?')
                                                                               LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(10:11)](')')

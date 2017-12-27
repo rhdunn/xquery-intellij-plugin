@@ -27,7 +27,7 @@ FileElement[FILE(0:14)]
                                                                               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NUMBER_NODE(0:11)]('number-node')
                                                                            XQueryArgumentListImpl[XQUERY_ARGUMENT_LIST(11:14)]
                                                                               LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(11:12)]('(')
-                                                                              XQueryArgumentImpl[XQUERY_ARGUMENT(12:13)]
+                                                                              XPathArgumentImpl[XQUERY_ARGUMENT(12:13)]
                                                                                  XQueryOrExprImpl[XQUERY_OR_EXPR(12:13)]
                                                                                     XPathAndExprImpl[XQUERY_AND_EXPR(12:13)]
                                                                                        XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(12:13)]

@@ -238,7 +238,7 @@ public interface XQueryElementType {
     IElementType NAMED_FUNCTION_REF = new ICompositeElementType("XQUERY_NAMED_FUNCTION_REF", XQueryNamedFunctionRefPsiImpl.class, XQuery.INSTANCE);
 
     IElementType ARGUMENT_LIST = new ICompositeElementType("XQUERY_ARGUMENT_LIST", XQueryArgumentListPsiImpl.class, XQuery.INSTANCE);
-    IElementType ARGUMENT = new ICompositeElementType("XQUERY_ARGUMENT", XQueryArgumentPsiImpl.class, XQuery.INSTANCE);
+    IElementType ARGUMENT = new ICompositeElementType("XQUERY_ARGUMENT", XPathArgumentPsiImpl.class, XQuery.INSTANCE);
     IElementType ARGUMENT_PLACEHOLDER = new ICompositeElementType("XQUERY_ARGUMENT_PLACEHOLDER", XQueryArgumentPlaceholderPsiImpl.class, XQuery.INSTANCE);
 
     IElementType COMP_NAMESPACE_CONSTRUCTOR = new ICompositeElementType("XQUERY_COMP_NAMESPACE_CONSTRUCTOR", XQueryCompNamespaceConstructorPsiImpl.class, XQuery.INSTANCE);

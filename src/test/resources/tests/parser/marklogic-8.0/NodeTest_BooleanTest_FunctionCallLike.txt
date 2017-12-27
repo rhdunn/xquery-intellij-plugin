@@ -27,7 +27,7 @@ FileElement[FILE(0:15)]
                                                                               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_BOOLEAN_NODE(0:12)]('boolean-node')
                                                                            XQueryArgumentListImpl[XQUERY_ARGUMENT_LIST(12:15)]
                                                                               LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(12:13)]('(')
-                                                                              XQueryArgumentImpl[XQUERY_ARGUMENT(13:14)]
+                                                                              XPathArgumentImpl[XQUERY_ARGUMENT(13:14)]
                                                                                  XQueryOrExprImpl[XQUERY_OR_EXPR(13:14)]
                                                                                     XPathAndExprImpl[XQUERY_AND_EXPR(13:14)]
                                                                                        XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(13:14)]

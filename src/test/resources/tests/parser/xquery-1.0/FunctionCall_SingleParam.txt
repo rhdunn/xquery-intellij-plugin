@@ -33,7 +33,7 @@ FileElement[FILE(0:21)]
                                                                            XQueryArgumentListImpl[XQUERY_ARGUMENT_LIST(11:21)]
                                                                               LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(11:12)]('(')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
-                                                                              XQueryArgumentImpl[XQUERY_ARGUMENT(13:20)]
+                                                                              XPathArgumentImpl[XQUERY_ARGUMENT(13:20)]
                                                                                  XQueryOrExprImpl[XQUERY_OR_EXPR(13:20)]
                                                                                     XPathAndExprImpl[XQUERY_AND_EXPR(13:20)]
                                                                                        XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(13:20)]
