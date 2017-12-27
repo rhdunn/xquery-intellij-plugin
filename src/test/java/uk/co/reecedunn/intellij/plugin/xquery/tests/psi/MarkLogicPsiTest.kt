@@ -20,6 +20,7 @@ import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAnyKindTest
 import uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingApplyExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
@@ -43,7 +44,7 @@ class MarkLogicPsiTest : ParserTestCase() {
         val varDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
         val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XQueryTypeDeclaration>().first()
         val sequenceTypePsi = typeDeclarationPsi.children().filterIsInstance<XQuerySequenceType>().first()
-        val anyKindTestPsi = sequenceTypePsi.descendants().filterIsInstance<XQueryAnyKindTest>().first()
+        val anyKindTestPsi = sequenceTypePsi.descendants().filterIsInstance<XPathAnyKindTest>().first()
         val versioned = anyKindTestPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
@@ -61,7 +62,7 @@ class MarkLogicPsiTest : ParserTestCase() {
         val varDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
         val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XQueryTypeDeclaration>().first()
         val sequenceTypePsi = typeDeclarationPsi.children().filterIsInstance<XQuerySequenceType>().first()
-        val anyKindTestPsi = sequenceTypePsi.descendants().filterIsInstance<XQueryAnyKindTest>().first()
+        val anyKindTestPsi = sequenceTypePsi.descendants().filterIsInstance<XPathAnyKindTest>().first()
         val versioned = anyKindTestPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))

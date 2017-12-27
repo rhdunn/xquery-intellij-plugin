@@ -27,7 +27,7 @@ FileElement[FILE(0:14)]
                                                                               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_PARENT(0:6)]('parent')
                                                                               LeafPsiElement[XQUERY_AXIS_SEPARATOR_TOKEN(6:8)]('::')
                                                                            XQueryNodeTestImpl[XQUERY_NODE_TEST(8:14)]
-                                                                              XQueryAnyKindTestImpl[XQUERY_ANY_KIND_TEST(8:14)]
+                                                                              XPathAnyKindTestImpl[XQUERY_ANY_KIND_TEST(8:14)]
                                                                                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NODE(8:12)]('node')
                                                                                  LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(12:13)]('(')
                                                                                  LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(13:14)](')')

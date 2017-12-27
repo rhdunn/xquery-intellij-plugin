@@ -25,7 +25,7 @@ FileElement[FILE(0:8)]
                                                                         XQueryForwardStepImpl[XQUERY_FORWARD_STEP(0:8)]
                                                                            XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:8)]
                                                                               XQueryNodeTestImpl[XQUERY_NODE_TEST(0:8)]
-                                                                                 XQueryAnyKindTestImpl[XQUERY_ANY_KIND_TEST(0:8)]
+                                                                                 XPathAnyKindTestImpl[XQUERY_ANY_KIND_TEST(0:8)]
                                                                                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NODE(0:4)]('node')
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
                                                                                     LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(5:6)]('(')

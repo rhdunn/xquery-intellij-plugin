@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
+package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.TokenSet
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnyKindTest
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAnyKindTest
 import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
@@ -31,7 +31,7 @@ private val MARKLOGIC_TOKENS = TokenSet.create(XQueryElementType.STRING_LITERAL,
 private val XQUERY10: List<Version> = listOf()
 private val MARKLOGIC80: List<Version> = listOf(MarkLogic.VERSION_8_0)
 
-class XQueryAnyKindTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryAnyKindTest, XQueryConformance {
+class XPathAnyKindTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathAnyKindTest, XQueryConformance {
     override val requiresConformance get(): List<Version> {
         if (conformanceElement === firstChild) {
             return XQUERY10
