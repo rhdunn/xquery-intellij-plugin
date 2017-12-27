@@ -7230,15 +7230,13 @@ class XQueryParser {
                 if (type == XQueryElementType.WILDCARD) {
                     if (isWildcard) {
                         qnameMarker.done(XQueryElementType.WILDCARD);
-                    } else if (ncname == XQueryElementType.NCNAME) {
-                        qnameMarker.drop(); // NCName is annotated in the above logic, so don't create nested NCName elements.
                     } else {
-                        qnameMarker.done(ncname);
+                        qnameMarker.drop(); // NCName is annotated in the above logic, so don't create nested NCName elements.
                     }
-                } else if ((type == XQueryElementType.QNAME && ncname == XQueryElementType.NCNAME) || type == XQueryElementType.NCNAME) {
+                } else if (type == XQueryElementType.QNAME || type == XQueryElementType.NCNAME) {
                     qnameMarker.drop(); // NCName is annotated in the above logic, so don't create nested NCName elements.
                 } else {
-                    qnameMarker.done(type == XQueryElementType.QNAME ? ncname : type);
+                    qnameMarker.done(type);
                 }
             }
             return true;
