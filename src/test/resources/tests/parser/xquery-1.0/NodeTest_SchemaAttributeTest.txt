@@ -23,7 +23,7 @@ FileElement[FILE(0:31)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:31)]
                                                                      XQueryAxisStepImpl[XQUERY_AXIS_STEP(0:31)]
                                                                         XQueryForwardStepImpl[XQUERY_FORWARD_STEP(0:31)]
-                                                                           XQueryAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:31)]
+                                                                           XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:31)]
                                                                               XQueryNodeTestImpl[XQUERY_NODE_TEST(0:31)]
                                                                                  XQuerySchemaAttributeTestImpl[XQUERY_SCHEMA_ATTRIBUTE_TEST(0:31)]
                                                                                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SCHEMA_ATTRIBUTE(0:16)]('schema-attribute')

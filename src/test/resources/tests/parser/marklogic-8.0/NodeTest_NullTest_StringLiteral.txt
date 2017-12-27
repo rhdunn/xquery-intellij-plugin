@@ -23,7 +23,7 @@ FileElement[FILE(0:16)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:16)]
                                                                      XQueryAxisStepImpl[XQUERY_AXIS_STEP(0:16)]
                                                                         XQueryForwardStepImpl[XQUERY_FORWARD_STEP(0:16)]
-                                                                           XQueryAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:16)]
+                                                                           XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:16)]
                                                                               XQueryNodeTestImpl[XQUERY_NODE_TEST(0:16)]
                                                                                  MarkLogicNullTestImpl[XQUERY_NULL_TEST(0:16)]
                                                                                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NULL_NODE(0:9)]('null-node')

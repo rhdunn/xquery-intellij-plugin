@@ -23,7 +23,7 @@ FileElement[FILE(0:19)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:19)]
                                                                      XQueryAxisStepImpl[XQUERY_AXIS_STEP(0:19)]
                                                                         XQueryForwardStepImpl[XQUERY_FORWARD_STEP(0:19)]
-                                                                           XQueryAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:19)]
+                                                                           XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:19)]
                                                                               XQueryNodeTestImpl[XQUERY_NODE_TEST(0:19)]
                                                                                  MarkLogicBooleanTestImpl[XQUERY_BOOLEAN_TEST(0:19)]
                                                                                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_BOOLEAN_NODE(0:12)]('boolean-node')

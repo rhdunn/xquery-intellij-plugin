@@ -23,7 +23,7 @@ FileElement[FILE(0:8)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:8)]
                                                                      XQueryAxisStepImpl[XQUERY_AXIS_STEP(0:8)]
                                                                         XQueryForwardStepImpl[XQUERY_FORWARD_STEP(0:8)]
-                                                                           XQueryAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:8)]
+                                                                           XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:8)]
                                                                               XQueryNodeTestImpl[XQUERY_NODE_TEST(0:8)]
                                                                                  XQueryAnyKindTestImpl[XQUERY_ANY_KIND_TEST(0:8)]
                                                                                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NODE(0:4)]('node')
