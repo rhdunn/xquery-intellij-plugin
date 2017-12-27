@@ -239,7 +239,7 @@ public interface XQueryElementType {
 
     IElementType ARGUMENT_LIST = new ICompositeElementType("XQUERY_ARGUMENT_LIST", XPathArgumentListPsiImpl.class, XQuery.INSTANCE);
     IElementType ARGUMENT = new ICompositeElementType("XQUERY_ARGUMENT", XPathArgumentPsiImpl.class, XQuery.INSTANCE);
-    IElementType ARGUMENT_PLACEHOLDER = new ICompositeElementType("XQUERY_ARGUMENT_PLACEHOLDER", XQueryArgumentPlaceholderPsiImpl.class, XQuery.INSTANCE);
+    IElementType ARGUMENT_PLACEHOLDER = new ICompositeElementType("XQUERY_ARGUMENT_PLACEHOLDER", XPathArgumentPlaceholderPsiImpl.class, XQuery.INSTANCE);
 
     IElementType COMP_NAMESPACE_CONSTRUCTOR = new ICompositeElementType("XQUERY_COMP_NAMESPACE_CONSTRUCTOR", XQueryCompNamespaceConstructorPsiImpl.class, XQuery.INSTANCE);
     IElementType PREFIX = new ICompositeElementType("XQUERY_PREFIX", XQueryPrefixPsiImpl.class, XQuery.INSTANCE);

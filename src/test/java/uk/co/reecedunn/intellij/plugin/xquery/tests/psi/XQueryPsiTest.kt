@@ -258,7 +258,7 @@ class XQueryPsiTest:ParserTestCase() {
         val functionCallPsi = file.descendants().filterIsInstance<XQueryFunctionCall>().first()
         val argumentListPsi = functionCallPsi.children().filterIsInstance<XPathArgumentList>().first()
         val argumentPsi = argumentListPsi.children().filterIsInstance<XPathArgument>().first()
-        val argumentPlaceholderPsi = argumentPsi.descendants().filterIsInstance<XQueryArgumentPlaceholder>().first()
+        val argumentPlaceholderPsi = argumentPsi.descendants().filterIsInstance<XPathArgumentPlaceholder>().first()
         val versioned = argumentPlaceholderPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))

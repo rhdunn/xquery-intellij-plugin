@@ -13,18 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
+package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryArgumentPlaceholder
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentPlaceholder
 import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
-class XQueryArgumentPlaceholderPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryArgumentPlaceholder, XQueryConformance {
+class XPathArgumentPlaceholderPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathArgumentPlaceholder, XQueryConformance {
     override val requiresConformance get(): List<Version> = listOf(XQuery.REC_3_0_20140408, MarkLogic.VERSION_6_0)
 
     override val conformanceElement get(): PsiElement =
