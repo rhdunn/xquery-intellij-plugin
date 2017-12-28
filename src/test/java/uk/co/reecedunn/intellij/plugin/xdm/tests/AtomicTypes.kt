@@ -502,11 +502,6 @@ class AtomicTypes : TestCase() {
 
         assertThat(XsString.pattern, `is`(nullValue()))
 
-        assertThat(XsString.matches("true"), `is`(true))
-        assertThat(XsString.matches("1234"), `is`(true))
-        assertThat(XsString.matches("()"), `is`(true))
-        assertThat(XsString.matches("Lorem ipsum."), `is`(true))
-
         assertThat(createQName("http://www.w3.org/2001/XMLSchema", "string").toXmlSchemaType(),
                 `is`(XsString as XdmSequenceType))
     }
@@ -668,16 +663,6 @@ class AtomicTypes : TestCase() {
         assertThat(XsBoolean.baseType, `is`(XsAnyAtomicType as XmlSchemaType))
 
         assertThat(XsBoolean.pattern.toString(), `is`("true|false|[10]"))
-
-        assertThat(XsBoolean.matches("true"), `is`(true))
-        assertThat(XsBoolean.matches("false"), `is`(true))
-
-        assertThat(XsBoolean.matches("1"), `is`(true))
-        assertThat(XsBoolean.matches("0"), `is`(true))
-
-        assertThat(XsBoolean.matches("TRUE"), `is`(false))
-        assertThat(XsBoolean.matches("2"), `is`(false))
-        assertThat(XsBoolean.matches("()"), `is`(false))
 
         assertThat(createQName("http://www.w3.org/2001/XMLSchema", "boolean").toXmlSchemaType(),
                 `is`(XsBoolean as XdmSequenceType))

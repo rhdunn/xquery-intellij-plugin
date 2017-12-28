@@ -61,11 +61,7 @@ open class XdmAtomicType(typeName: QName,
                          baseType: XmlSchemaType,
                          val pattern: Regex? = null):
         XdmAtomicOrUnionType(typeName, baseType),
-        XdmItem {
-
-    fun matches(value: CharSequence): Boolean =
-        pattern?.matches(value) ?: true
-}
+        XdmItem
 
 /**
  * Represents the `itemType*` occurrence indicator.
