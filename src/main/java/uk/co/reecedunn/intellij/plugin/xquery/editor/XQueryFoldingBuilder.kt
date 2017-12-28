@@ -22,7 +22,7 @@ import com.intellij.openapi.editor.Document
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryComment
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathComment
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEnclosedExpr
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
@@ -76,7 +76,7 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
         }
 
         when (element) {
-            is XQueryEnclosedExpr, is XQueryComment ->
+            is XQueryEnclosedExpr, is XPathComment ->
                 return element.textRange
             is XQueryDirElemConstructor ->
                 return getDirElemConstructorRange(element)
@@ -105,7 +105,7 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
         when (node.psi) {
             is XQueryEnclosedExpr ->
                 return "{...}"
-            is XQueryComment ->
+            is XPathComment ->
                 return "(...)"
             else ->
                 return "..."

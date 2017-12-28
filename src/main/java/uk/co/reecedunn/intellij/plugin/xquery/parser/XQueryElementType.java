@@ -40,7 +40,7 @@ public interface XQueryElementType {
     // region XQuery 1.0
 
     IElementType CDATA_SECTION = new ICompositeElementType("XQUERY_CDATA_SECTION", XQueryCDataSectionPsiImpl.class, XQuery.INSTANCE);
-    IElementType COMMENT = new ICompositeElementType("XQUERY_COMMENT", XQueryCommentPsiImpl.class, XQuery.INSTANCE);
+    IElementType COMMENT = new ICompositeElementType("XQUERY_COMMENT", XPathCommentPsiImpl.class, XQuery.INSTANCE);
     IElementType NCNAME = new ICompositeElementType("XQUERY_NCNAME", XPathNCNamePsiImpl.class, XQuery.INSTANCE);
     IElementType QNAME = new ICompositeElementType("XQUERY_QNAME", XPathQNamePsiImpl.class, XQuery.INSTANCE);
     IElementType URI_LITERAL = new ICompositeElementType("XQUERY_URI_LITERAL", XQueryUriLiteralPsiImpl.class, XQuery.INSTANCE);

@@ -176,7 +176,7 @@ FileElement[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(67:68)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(68:69)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(69:70)]('\n')
-            XQueryCommentImpl[XQUERY_COMMENT(70:111)]
+            XPathCommentImpl[XQUERY_COMMENT(70:111)]
                LeafPsiElement[XQUERY_COMMENT_START_TAG_TOKEN(70:72)]('(:')
                PsiCommentImpl[XQUERY_COMMENT_TOKEN(72:109)](' Reserved Function Name -- attribute ')
                LeafPsiElement[XQUERY_COMMENT_END_TAG_TOKEN(109:111)](':)')
@@ -413,7 +413,7 @@ FileElement[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(203:204)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(204:205)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(205:206)]('\n')
-            XQueryCommentImpl[XQUERY_COMMENT(206:245)]
+            XPathCommentImpl[XQUERY_COMMENT(206:245)]
                LeafPsiElement[XQUERY_COMMENT_START_TAG_TOKEN(206:208)]('(:')
                PsiCommentImpl[XQUERY_COMMENT_TOKEN(208:243)](' Reserved Function Name -- comment ')
                LeafPsiElement[XQUERY_COMMENT_END_TAG_TOKEN(243:245)](':)')
@@ -679,12 +679,12 @@ FileElement[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(378:379)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(379:380)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(380:381)]('\n')
-            XQueryCommentImpl[XQUERY_COMMENT(381:426)]
+            XPathCommentImpl[XQUERY_COMMENT(381:426)]
                LeafPsiElement[XQUERY_COMMENT_START_TAG_TOKEN(381:383)]('(:')
                PsiCommentImpl[XQUERY_COMMENT_TOKEN(383:424)](' Reserved Function Name -- document-node ')
                LeafPsiElement[XQUERY_COMMENT_END_TAG_TOKEN(424:426)](':)')
             PsiWhiteSpaceImpl[WHITE_SPACE(426:427)]('\n')
-            XQueryCommentImpl[XQUERY_COMMENT(427:466)]
+            XPathCommentImpl[XQUERY_COMMENT(427:466)]
                LeafPsiElement[XQUERY_COMMENT_START_TAG_TOKEN(427:429)]('(:')
                PsiCommentImpl[XQUERY_COMMENT_TOKEN(429:464)](' Reserved Function Name -- element ')
                LeafPsiElement[XQUERY_COMMENT_END_TAG_TOKEN(464:466)](':)')
@@ -747,7 +747,7 @@ FileElement[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(483:484)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(484:485)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(485:486)]('\n')
-            XQueryCommentImpl[XQUERY_COMMENT(486:532)]
+            XPathCommentImpl[XQUERY_COMMENT(486:532)]
                LeafPsiElement[XQUERY_COMMENT_START_TAG_TOKEN(486:488)]('(:')
                PsiCommentImpl[XQUERY_COMMENT_TOKEN(488:530)](' Reserved Function Name -- empty-sequence ')
                LeafPsiElement[XQUERY_COMMENT_END_TAG_TOKEN(530:532)](':)')
@@ -984,7 +984,7 @@ FileElement[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(628:629)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(629:630)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(630:631)]('\n')
-            XQueryCommentImpl[XQUERY_COMMENT(631:684)]
+            XPathCommentImpl[XQUERY_COMMENT(631:684)]
                LeafPsiElement[XQUERY_COMMENT_START_TAG_TOKEN(631:633)]('(:')
                PsiCommentImpl[XQUERY_COMMENT_TOKEN(633:682)](' Reserved Function Name (XQuery 3.0) -- function ')
                LeafPsiElement[XQUERY_COMMENT_END_TAG_TOKEN(682:684)](':)')
@@ -1105,7 +1105,7 @@ FileElement[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(718:719)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(719:720)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(720:721)]('\n')
-            XQueryCommentImpl[XQUERY_COMMENT(721:755)]
+            XPathCommentImpl[XQUERY_COMMENT(721:755)]
                LeafPsiElement[XQUERY_COMMENT_START_TAG_TOKEN(721:723)]('(:')
                PsiCommentImpl[XQUERY_COMMENT_TOKEN(723:753)](' Reserved Function Name -- if ')
                LeafPsiElement[XQUERY_COMMENT_END_TAG_TOKEN(753:755)](':)')
@@ -1284,7 +1284,7 @@ FileElement[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(817:818)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(818:819)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(819:820)]('\n')
-            XQueryCommentImpl[XQUERY_COMMENT(820:856)]
+            XPathCommentImpl[XQUERY_COMMENT(820:856)]
                LeafPsiElement[XQUERY_COMMENT_START_TAG_TOKEN(820:822)]('(:')
                PsiCommentImpl[XQUERY_COMMENT_TOKEN(822:854)](' Reserved Function Name -- item ')
                LeafPsiElement[XQUERY_COMMENT_END_TAG_TOKEN(854:856)](':)')
@@ -1608,7 +1608,7 @@ FileElement[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(965:966)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(966:967)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(967:968)]('\n')
-            XQueryCommentImpl[XQUERY_COMMENT(968:1004)]
+            XPathCommentImpl[XQUERY_COMMENT(968:1004)]
                LeafPsiElement[XQUERY_COMMENT_START_TAG_TOKEN(968:970)]('(:')
                PsiCommentImpl[XQUERY_COMMENT_TOKEN(970:1002)](' Reserved Function Name -- node ')
                LeafPsiElement[XQUERY_COMMENT_END_TAG_TOKEN(1002:1004)](':)')
@@ -1903,7 +1903,7 @@ FileElement[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(1122:1123)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(1123:1124)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(1124:1125)]('\n')
-            XQueryCommentImpl[XQUERY_COMMENT(1125:1179)]
+            XPathCommentImpl[XQUERY_COMMENT(1125:1179)]
                LeafPsiElement[XQUERY_COMMENT_START_TAG_TOKEN(1125:1127)]('(:')
                PsiCommentImpl[XQUERY_COMMENT_TOKEN(1127:1177)](' Reserved Function Name -- processing-instruction ')
                LeafPsiElement[XQUERY_COMMENT_END_TAG_TOKEN(1177:1179)](':)')
@@ -1995,12 +1995,12 @@ FileElement[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(1213:1214)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(1214:1215)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(1215:1216)]('\n')
-            XQueryCommentImpl[XQUERY_COMMENT(1216:1264)]
+            XPathCommentImpl[XQUERY_COMMENT(1216:1264)]
                LeafPsiElement[XQUERY_COMMENT_START_TAG_TOKEN(1216:1218)]('(:')
                PsiCommentImpl[XQUERY_COMMENT_TOKEN(1218:1262)](' Reserved Function Name -- schema-attribute ')
                LeafPsiElement[XQUERY_COMMENT_END_TAG_TOKEN(1262:1264)](':)')
             PsiWhiteSpaceImpl[WHITE_SPACE(1264:1265)]('\n')
-            XQueryCommentImpl[XQUERY_COMMENT(1265:1311)]
+            XPathCommentImpl[XQUERY_COMMENT(1265:1311)]
                LeafPsiElement[XQUERY_COMMENT_START_TAG_TOKEN(1265:1267)]('(:')
                PsiCommentImpl[XQUERY_COMMENT_TOKEN(1267:1309)](' Reserved Function Name -- schema-element ')
                LeafPsiElement[XQUERY_COMMENT_END_TAG_TOKEN(1309:1311)](':)')
@@ -2150,7 +2150,7 @@ FileElement[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(1359:1360)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(1360:1361)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(1361:1362)]('\n')
-            XQueryCommentImpl[XQUERY_COMMENT(1362:1398)]
+            XPathCommentImpl[XQUERY_COMMENT(1362:1398)]
                LeafPsiElement[XQUERY_COMMENT_START_TAG_TOKEN(1362:1364)]('(:')
                PsiCommentImpl[XQUERY_COMMENT_TOKEN(1364:1396)](' Reserved Function Name -- text ')
                LeafPsiElement[XQUERY_COMMENT_END_TAG_TOKEN(1396:1398)](':)')
@@ -2242,7 +2242,7 @@ FileElement[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(1422:1423)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(1423:1424)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(1424:1425)]('\n')
-            XQueryCommentImpl[XQUERY_COMMENT(1425:1467)]
+            XPathCommentImpl[XQUERY_COMMENT(1425:1467)]
                LeafPsiElement[XQUERY_COMMENT_START_TAG_TOKEN(1425:1427)]('(:')
                PsiCommentImpl[XQUERY_COMMENT_TOKEN(1427:1465)](' Reserved Function Name -- typeswitch ')
                LeafPsiElement[XQUERY_COMMENT_END_TAG_TOKEN(1465:1467)](':)')

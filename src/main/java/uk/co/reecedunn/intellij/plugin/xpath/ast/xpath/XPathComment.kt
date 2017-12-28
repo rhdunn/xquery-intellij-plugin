@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
+package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
 import com.intellij.psi.PsiElement
 
 /**
- * An XQuery 1.0 `Comment` node in the XQuery AST containing
+ * An XPath 2.0 and XQuery 1.0 `Comment` node in the XQuery AST containing
  * `CommentContents`.
  *
  * Nested comments are not exposed as inner comments within the AST. They are
@@ -26,4 +26,4 @@ import com.intellij.psi.PsiElement
  * comment nesting is handled within the
  * [uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer].
  */
-interface XQueryComment : PsiElement
+interface XPathComment : PsiElement
