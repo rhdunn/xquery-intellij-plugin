@@ -49,9 +49,17 @@ class XdmOptional(override val itemType: XdmSequenceType) : XdmSequenceType {
 }
 
 /**
+ * Represents the `itemType*` occurrence indicator.
+ */
+class XdmOptionalSequence(override val itemType: XdmSequenceType) : XdmSequenceType {
+    override val lowerBound get(): XdmSequenceType.Occurs = XdmSequenceType.Occurs.ZERO
+    override val upperBound get(): XdmSequenceType.Occurs = XdmSequenceType.Occurs.MANY
+}
+
+/**
  * Represents the `itemType+` occurrence indicator.
  */
-class XdmOneOrMore(override val itemType: XdmSequenceType) : XdmSequenceType {
+class XdmSequence(override val itemType: XdmSequenceType) : XdmSequenceType {
     override val lowerBound get(): XdmSequenceType.Occurs = XdmSequenceType.Occurs.ONE
     override val upperBound get(): XdmSequenceType.Occurs = XdmSequenceType.Occurs.MANY
 }

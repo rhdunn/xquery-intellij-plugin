@@ -49,11 +49,6 @@ open class XdmAtomicType(typeName: QName,
     override val upperBound: XdmSequenceType.Occurs = XdmSequenceType.Occurs.ONE
 }
 
-/**
- * Represents the `itemType*` occurrence indicator.
- *
- * This is the default type for a sequence.
- */
 open class XdmListType(typeName: QName?, override val itemType: XdmSequenceType):
         XdmSimpleType(typeName, XsAnySimpleType) {
 
