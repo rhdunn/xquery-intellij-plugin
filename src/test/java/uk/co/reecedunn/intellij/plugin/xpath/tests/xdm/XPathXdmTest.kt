@@ -376,6 +376,103 @@ class XPathXdmTest : ParserTestCase() {
         assertThat(qname.localName.lexicalRepresentation, `is`("test"))
     }
 
+    fun testAtomicOrUnionType_BuiltinAtomicType() {
+        val expr = parse<XPathAtomicOrUnionType>("\$x instance of Q{http://www.w3.org/2001/XMLSchema}boolean")[0] as XdmTypeDeclaration
+        val name = (expr as PsiElement).firstChild as XPathURIQualifiedName
+        assertThat(expr.staticType, `is`(instanceOf(XdmSimpleType::class.java)))
+
+        // NOTE: itemType is not `this`, but is the mapped builtin type object.
+        val type = expr.staticType as XdmSimpleType
+        assertThat(type.itemType, `is`(XsBoolean as XdmSequenceType))
+        assertThat(type.baseType, `is`(XsAnyAtomicType as XdmSequenceType))
+        assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
+        assertThat(type.upperBound, `is`(XdmSequenceType.Occurs.ONE))
+
+        val qname = type.typeName!!
+        assertThat(qname.prefix, `is`(nullValue()))
+        assertThat(qname.declaration?.get(), `is`(name as XdmConstantExpression))
+
+        assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(qname.namespace?.lexicalRepresentation, `is`("http://www.w3.org/2001/XMLSchema"))
+
+        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.lexicalRepresentation, `is`("boolean"))
+    }
+
+    fun testAtomicOrUnionType_BuiltinUnionType() {
+        val expr = parse<XPathAtomicOrUnionType>("\$x instance of Q{http://www.w3.org/2001/XMLSchema}numeric")[0] as XdmTypeDeclaration
+        val name = (expr as PsiElement).firstChild as XPathURIQualifiedName
+        assertThat(expr.staticType, `is`(instanceOf(XdmSimpleType::class.java)))
+
+        // NOTE: itemType is not `this`, but is the mapped builtin type object.
+        val type = expr.staticType as XdmSimpleType
+        assertThat(type.itemType, `is`(XsNumeric as XdmSequenceType))
+        assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
+        assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
+        assertThat(type.upperBound, `is`(XdmSequenceType.Occurs.ONE))
+
+        val qname = type.typeName!!
+        assertThat(qname.prefix, `is`(nullValue()))
+        assertThat(qname.declaration?.get(), `is`(name as XdmConstantExpression))
+
+        assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(qname.namespace?.lexicalRepresentation, `is`("http://www.w3.org/2001/XMLSchema"))
+
+        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.lexicalRepresentation, `is`("numeric"))
+    }
+
+    fun testAtomicOrUnionType_BuiltinListType() {
+        // NOTE: XQuery processors (e.g. BaseX and MarkLogic) allow these in cast expressions,
+        // due to them being referenced in XMLSchema, but report errors elsewhere.
+
+        val expr = parse<XPathAtomicOrUnionType>("\$x instance of Q{http://www.w3.org/2001/XMLSchema}NMTOKENS")[0] as XdmTypeDeclaration
+        val name = (expr as PsiElement).firstChild as XPathURIQualifiedName
+        assertThat(expr.staticType, `is`(instanceOf(XdmSimpleType::class.java)))
+
+        // NOTE: itemType is not `this`, but is the mapped builtin type object.
+        val type = expr.staticType as XdmSimpleType
+        assertThat(type.itemType, `is`(XsNMTOKENS as XdmSequenceType))
+        assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
+        assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ZERO))
+        assertThat(type.upperBound, `is`(XdmSequenceType.Occurs.MANY))
+
+        val qname = type.typeName!!
+        assertThat(qname.prefix, `is`(nullValue()))
+        assertThat(qname.declaration?.get(), `is`(name as XdmConstantExpression))
+
+        assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(qname.namespace?.lexicalRepresentation, `is`("http://www.w3.org/2001/XMLSchema"))
+
+        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.lexicalRepresentation, `is`("NMTOKENS"))
+    }
+
+    fun testAtomicOrUnionType_BuiltinAbstractType() {
+        // NOTE: Errors when using these types are detected and reported elsewhere.
+
+        val expr = parse<XPathAtomicOrUnionType>("\$x instance of Q{http://www.w3.org/2001/XMLSchema}anyType")[0] as XdmTypeDeclaration
+        val name = (expr as PsiElement).firstChild as XPathURIQualifiedName
+        assertThat(expr.staticType, `is`(instanceOf(XdmSimpleType::class.java)))
+
+        // NOTE: itemType is not `this`, but is the mapped builtin type object.
+        val type = expr.staticType as XdmSimpleType
+        assertThat(type.itemType, `is`(XsAnyType as XdmSequenceType))
+        assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
+        assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ZERO))
+        assertThat(type.upperBound, `is`(XdmSequenceType.Occurs.MANY))
+
+        val qname = type.typeName!!
+        assertThat(qname.prefix, `is`(nullValue()))
+        assertThat(qname.declaration?.get(), `is`(name as XdmConstantExpression))
+
+        assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(qname.namespace?.lexicalRepresentation, `is`("http://www.w3.org/2001/XMLSchema"))
+
+        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.lexicalRepresentation, `is`("anyType"))
+    }
+
     // endregion
     // endregion
     // region Variables
