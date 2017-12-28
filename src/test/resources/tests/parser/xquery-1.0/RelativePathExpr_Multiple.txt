@@ -31,7 +31,7 @@ FileElement[FILE(0:26)]
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
                                                                      LeafPsiElement[XQUERY_DIRECT_DESCENDANTS_PATH_TOKEN(7:8)]('/')
                                                                      PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
-                                                                     XQueryAxisStepImpl[XQUERY_AXIS_STEP(9:14)]
+                                                                     XPathAxisStepImpl[XQUERY_AXIS_STEP(9:14)]
                                                                         XQueryForwardStepImpl[XQUERY_FORWARD_STEP(9:13)]
                                                                            XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(9:13)]
                                                                               XQueryNodeTestImpl[XQUERY_NODE_TEST(9:13)]

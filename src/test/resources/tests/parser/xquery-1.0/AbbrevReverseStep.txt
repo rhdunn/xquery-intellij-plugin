@@ -21,7 +21,7 @@ FileElement[FILE(0:2)]
                                                             XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:2)]
                                                                XQueryPathExprImpl[XQUERY_PATH_EXPR(0:2)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:2)]
-                                                                     XQueryAxisStepImpl[XQUERY_AXIS_STEP(0:2)]
+                                                                     XPathAxisStepImpl[XQUERY_AXIS_STEP(0:2)]
                                                                         XQueryReverseStepImpl[XQUERY_REVERSE_STEP(0:2)]
                                                                            XPathAbbrevReverseStepImpl[XQUERY_ABBREV_REVERSE_STEP(0:2)]
                                                                               LeafPsiElement[XQUERY_PARENT_SELECTOR_TOKEN(0:2)]('..')

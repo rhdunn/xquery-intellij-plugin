@@ -21,7 +21,7 @@ FileElement[FILE(0:16)]
                                                             XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:16)]
                                                                XQueryPathExprImpl[XQUERY_PATH_EXPR(0:16)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:16)]
-                                                                     XQueryAxisStepImpl[XQUERY_AXIS_STEP(0:16)]
+                                                                     XPathAxisStepImpl[XQUERY_AXIS_STEP(0:16)]
                                                                         XQueryForwardStepImpl[XQUERY_FORWARD_STEP(0:16)]
                                                                            XQueryForwardAxisImpl[XQUERY_FORWARD_AXIS(0:11)]
                                                                               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_PROPERTY(0:8)]('property')

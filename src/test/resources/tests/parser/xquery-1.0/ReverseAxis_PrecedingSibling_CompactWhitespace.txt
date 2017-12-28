@@ -21,7 +21,7 @@ FileElement[FILE(0:23)]
                                                             XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:23)]
                                                                XQueryPathExprImpl[XQUERY_PATH_EXPR(0:23)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:23)]
-                                                                     XQueryAxisStepImpl[XQUERY_AXIS_STEP(0:23)]
+                                                                     XPathAxisStepImpl[XQUERY_AXIS_STEP(0:23)]
                                                                         XQueryReverseStepImpl[XQUERY_REVERSE_STEP(0:23)]
                                                                            XQueryReverseAxisImpl[XQUERY_REVERSE_AXIS(0:19)]
                                                                               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_PRECEDING_SIBLING(0:17)]('preceding-sibling')

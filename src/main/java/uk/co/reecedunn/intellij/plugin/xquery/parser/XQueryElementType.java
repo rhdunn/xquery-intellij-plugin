@@ -55,7 +55,7 @@ public interface XQueryElementType {
     IElementType UNORDERED_EXPR = new ICompositeElementType("XQUERY_UNORDERED_EXPR", XQueryUnorderedExprPsiImpl.class, XQuery.INSTANCE);
     IElementType FUNCTION_CALL = new ICompositeElementType("XQUERY_FUNCTION_CALL", XQueryFunctionCallPsiImpl.class, XQuery.INSTANCE);
 
-    IElementType AXIS_STEP = new ICompositeElementType("XQUERY_AXIS_STEP", XQueryAxisStepPsiImpl.class, XQuery.INSTANCE);
+    IElementType AXIS_STEP = new ICompositeElementType("XQUERY_AXIS_STEP", XPathAxisStepPsiImpl.class, XQuery.INSTANCE);
     IElementType FORWARD_STEP = new ICompositeElementType("XQUERY_FORWARD_STEP", XQueryForwardStepPsiImpl.class, XQuery.INSTANCE);
     IElementType FORWARD_AXIS = new ICompositeElementType("XQUERY_FORWARD_AXIS", XQueryForwardAxisPsiImpl.class, XQuery.INSTANCE);
     IElementType ABBREV_FORWARD_STEP = new ICompositeElementType("XQUERY_ABBREV_FORWARD_STEP", XPathAbbrevForwardStepPsiImpl.class, XQuery.INSTANCE);
