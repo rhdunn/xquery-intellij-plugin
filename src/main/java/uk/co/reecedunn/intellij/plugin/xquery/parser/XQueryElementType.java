@@ -121,7 +121,7 @@ public interface XQueryElementType {
     IElementType ELEMENT_DECLARATION = new ICompositeElementType("XQUERY_ELEMENT_DECLARATION", XQueryElementDeclarationPsiImpl.class, XQuery.INSTANCE);
     IElementType ATTRIB_NAME_OR_WILDCARD = new ICompositeElementType("XQUERY_ATTRIB_NAME_OR_WILDCARD", XPathAttribNameOrWildcardPsiImpl.class, XQuery.INSTANCE);
     IElementType ATTRIBUTE_NAME = new ICompositeElementType("XQUERY_ATTRIBUTE_NAME", XQueryAttributeNamePsiImpl.class, XQuery.INSTANCE);
-    IElementType ATTRIBUTE_DECLARATION = new ICompositeElementType("XQUERY_ATTRIBUTE_DECLARATION", XQueryAttributeDeclarationPsiImpl.class, XQuery.INSTANCE);
+    IElementType ATTRIBUTE_DECLARATION = new ICompositeElementType("XQUERY_ATTRIBUTE_DECLARATION", XPathAttributeDeclarationPsiImpl.class, XQuery.INSTANCE);
 
     IElementType DOCUMENT_TEST = new ICompositeElementType("XQUERY_DOCUMENT_TEST", XQueryDocumentTestPsiImpl.class, XQuery.INSTANCE);
     IElementType ELEMENT_TEST = new ICompositeElementType("XQUERY_ELEMENT_TEST", XQueryElementTestPsiImpl.class, XQuery.INSTANCE);
