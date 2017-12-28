@@ -2149,7 +2149,7 @@ class XQueryPsiTest:ParserTestCase() {
     fun testEQName_QName() {
         val file = parseResource("tests/psi/xquery-3.0/SimpleTypeName_QName.xq")!!
 
-        val castExprPsi = file.descendants().filterIsInstance<XQueryCastExpr>().first()
+        val castExprPsi = file.descendants().filterIsInstance<XPathCastExpr>().first()
         val singleTypePsi = castExprPsi.children().filterIsInstance<XQuerySingleType>().first()
         val simpleTypeNamePsi = singleTypePsi.descendants().filterIsInstance<XQuerySimpleTypeName>().first()
         val eqnamePsi = simpleTypeNamePsi as XPathEQName
@@ -2166,7 +2166,7 @@ class XQueryPsiTest:ParserTestCase() {
     fun testEQName_KeywordLocalPart() {
         val file = parseResource("tests/psi/xquery-3.0/SimpleTypeName_QName_KeywordLocalPart.xq")!!
 
-        val castExprPsi = file.descendants().filterIsInstance<XQueryCastExpr>().first()
+        val castExprPsi = file.descendants().filterIsInstance<XPathCastExpr>().first()
         val singleTypePsi = castExprPsi.children().filterIsInstance<XQuerySingleType>().first()
         val simpleTypeNamePsi = singleTypePsi.descendants().filterIsInstance<XQuerySimpleTypeName>().first()
         val eqnamePsi = simpleTypeNamePsi as XPathEQName
@@ -2183,7 +2183,7 @@ class XQueryPsiTest:ParserTestCase() {
     fun testEQName_MissingLocalPart() {
         val file = parseResource("tests/psi/xquery-3.0/SimpleTypeName_QName_MissingLocalPart.xq")!!
 
-        val castExprPsi = file.descendants().filterIsInstance<XQueryCastExpr>().first()
+        val castExprPsi = file.descendants().filterIsInstance<XPathCastExpr>().first()
         val singleTypePsi = castExprPsi.children().filterIsInstance<XQuerySingleType>().first()
         val simpleTypeNamePsi = singleTypePsi.descendants().filterIsInstance<XQuerySimpleTypeName>().first()
         val eqnamePsi = simpleTypeNamePsi as XPathEQName
@@ -2198,7 +2198,7 @@ class XQueryPsiTest:ParserTestCase() {
     fun testEQName_KeywordPrefixPart() {
         val file = parseResource("tests/psi/xquery-3.0/SimpleTypeName_QName_KeywordPrefixPart.xq")!!
 
-        val castExprPsi = file.descendants().filterIsInstance<XQueryCastExpr>().first()
+        val castExprPsi = file.descendants().filterIsInstance<XPathCastExpr>().first()
         val singleTypePsi = castExprPsi.children().filterIsInstance<XQuerySingleType>().first()
         val simpleTypeNamePsi = singleTypePsi.descendants().filterIsInstance<XQuerySimpleTypeName>().first()
         val eqnamePsi = simpleTypeNamePsi as XPathEQName
@@ -2215,7 +2215,7 @@ class XQueryPsiTest:ParserTestCase() {
     fun testEQName_NCName() {
         val file = parseResource("tests/psi/xquery-3.0/SimpleTypeName_NCName.xq")!!
 
-        val castExprPsi = file.descendants().filterIsInstance<XQueryCastExpr>().first()
+        val castExprPsi = file.descendants().filterIsInstance<XPathCastExpr>().first()
         val singleTypePsi = castExprPsi.children().filterIsInstance<XQuerySingleType>().first()
         val simpleTypeNamePsi = singleTypePsi.descendants().filterIsInstance<XQuerySimpleTypeName>().first()
         val eqnamePsi = simpleTypeNamePsi as XPathEQName
@@ -2230,7 +2230,7 @@ class XQueryPsiTest:ParserTestCase() {
     fun testEQName_URIQualifiedName() {
         val file = parseResource("tests/psi/xquery-3.0/SimpleTypeName_URIQualifiedName.xq")!!
 
-        val castExprPsi = file.descendants().filterIsInstance<XQueryCastExpr>().first()
+        val castExprPsi = file.descendants().filterIsInstance<XPathCastExpr>().first()
         val singleTypePsi = castExprPsi.children().filterIsInstance<XQuerySingleType>().first()
         val simpleTypeNamePsi = singleTypePsi.descendants().filterIsInstance<XQuerySimpleTypeName>().first()
         val eqnamePsi = simpleTypeNamePsi as XPathEQName
