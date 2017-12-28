@@ -19,7 +19,7 @@ FileElement[FILE(0:45)]
                         XQueryAttributeTestImpl[XQUERY_ATTRIBUTE_TEST(24:36)]
                            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ATTRIBUTE(24:33)]('attribute')
                            LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(33:34)]('(')
-                           XQueryAttribNameOrWildcardImpl[XQUERY_ATTRIB_NAME_OR_WILDCARD(34:35)]
+                           XPathAttribNameOrWildcardImpl[XQUERY_ATTRIB_NAME_OR_WILDCARD(34:35)]
                               LeafPsiElement[XQUERY_STAR_TOKEN(34:35)]('*')
                            LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(35:36)](')')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(36:44)]('external')
