@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
+package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
-/**
- * An XQuery 1.0 <code>AttributeTest</code> node in the XQuery AST.
- */
-public interface XQueryAttributeTest extends XQueryKindTest {
-}
+import com.intellij.extapi.psi.ASTWrapperPsiElement
+import com.intellij.lang.ASTNode
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAttributeTest
+
+class XPathAttributeTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathAttributeTest
