@@ -10,7 +10,7 @@ FileElement[FILE(0:5)]
                LeafPsiElement[XQUERY_ASSIGN_EQUAL_TOKEN(2:4)](':=')
                XQueryOrExprImpl[XQUERY_OR_EXPR(4:5)]
                   XPathAndExprImpl[XQUERY_AND_EXPR(4:5)]
-                     XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(4:5)]
+                     XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(4:5)]
                         FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(4:5)]
                            XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(4:5)]
                               XQueryRangeExprImpl[XQUERY_RANGE_EXPR(4:5)]

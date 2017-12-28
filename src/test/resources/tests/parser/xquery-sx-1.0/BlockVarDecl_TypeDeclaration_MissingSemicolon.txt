@@ -46,7 +46,7 @@ FileElement[FILE(0:69)]
                         PsiErrorElementImpl[ERROR_ELEMENT(62:62)]('XPST0003: Missing ':=' variable assignment, ',' or ';'.')
                         XQueryOrExprImpl[XQUERY_OR_EXPR(62:66)]
                            XPathAndExprImpl[XQUERY_AND_EXPR(62:66)]
-                              XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(62:66)]
+                              XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(62:66)]
                                  FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(62:66)]
                                     XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(62:66)]
                                        XQueryRangeExprImpl[XQUERY_RANGE_EXPR(62:66)]

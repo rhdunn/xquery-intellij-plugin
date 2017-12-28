@@ -22,7 +22,7 @@ FileElement[FILE(0:15)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
                   XQueryOrExprImpl[XQUERY_OR_EXPR(14:15)]
                      XPathAndExprImpl[XQUERY_AND_EXPR(14:15)]
-                        XQueryComparisonExprImpl[XQUERY_COMPARISON_EXPR(14:15)]
+                        XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(14:15)]
                            FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(14:15)]
                               XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(14:15)]
                                  XQueryRangeExprImpl[XQUERY_RANGE_EXPR(14:15)]
