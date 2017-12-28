@@ -18,11 +18,20 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.data.CachedProperty
 import uk.co.reecedunn.intellij.plugin.xdm.XsAnySimpleType
+import uk.co.reecedunn.intellij.plugin.xdm.XsAnyType
 import uk.co.reecedunn.intellij.plugin.xdm.XsUntyped
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAtomicOrUnionType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAtomicType
+
+private class AtomicOrUnionTypeRef(typeName: QName):
+        XdmSimpleType(typeName, XsAnySimpleType) {
+
+    override val itemType get(): XdmSequenceType = this
+    override val lowerBound: XdmSequenceType.Occurs = XdmSequenceType.Occurs.ONE
+    override val upperBound: XdmSequenceType.Occurs = XdmSequenceType.Occurs.ONE
+}
 
 class XPathAtomicOrUnionTypePsiImpl(node: ASTNode):
         XPathEQNamePsiImpl(node),
@@ -38,6 +47,6 @@ class XPathAtomicOrUnionTypePsiImpl(node: ASTNode):
     override val staticType get(): XdmSequenceType = cachedStaticType.get() ?: XsUntyped
     private val cachedStaticType = CachedProperty {
         val qname = (firstChild as XdmConstantExpression).constantValue as? QName
-        qname?.let { XdmAtomicOrUnionType(it, XsAnySimpleType) }
+        qname?.let { AtomicOrUnionTypeRef(it) }
     }
 }

@@ -38,17 +38,9 @@ open class XdmComplexType(typeName: QName): XmlSchemaType(typeName, XsAnyType)
 
 open class XdmSimpleType(typeName: QName?, baseType: XmlSchemaType): XmlSchemaType(typeName, baseType)
 
-/**
- * Represents an XPath 3.0 and XQuery 3.0 `AtomicOrUnionType`.
- *
- * This is not specified in the XDM type hierarchy, but is needed for the
- * `AtomicOrUnionType` grammar production, which excludes `XdmListType`s.
- * It was `AtomicType` in XPath 2.0 and XQuery 1.0, but was changed to
- * `AtomicOrUnionType` in XPath 3.0 and XQuery 3.0.
- *
- * NOTE: The list types are modelled using the `*` occurrence indicator.
- */
-open class XdmAtomicOrUnionType(typeName: QName, baseType: XmlSchemaType):
+open class XdmAtomicType(typeName: QName,
+                         baseType: XmlSchemaType,
+                         val pattern: Regex? = null):
         XdmSimpleType(typeName, baseType),
         XdmItem {
 
@@ -56,12 +48,6 @@ open class XdmAtomicOrUnionType(typeName: QName, baseType: XmlSchemaType):
     override val lowerBound: XdmSequenceType.Occurs = XdmSequenceType.Occurs.ONE
     override val upperBound: XdmSequenceType.Occurs = XdmSequenceType.Occurs.ONE
 }
-
-open class XdmAtomicType(typeName: QName,
-                         baseType: XmlSchemaType,
-                         val pattern: Regex? = null):
-        XdmAtomicOrUnionType(typeName, baseType),
-        XdmItem
 
 /**
  * Represents the `itemType*` occurrence indicator.
@@ -78,4 +64,9 @@ open class XdmListType(typeName: QName?, override val itemType: XdmSequenceType)
 }
 
 open class XdmUnionType(typeName: QName, val unionOf: Array<XdmSimpleType>):
-        XdmAtomicOrUnionType(typeName, XsAnySimpleType)
+        XdmSimpleType(typeName, XsAnySimpleType) {
+
+    override val itemType get(): XdmSequenceType = this
+    override val lowerBound: XdmSequenceType.Occurs = XdmSequenceType.Occurs.ONE
+    override val upperBound: XdmSequenceType.Occurs = XdmSequenceType.Occurs.ONE
+}
