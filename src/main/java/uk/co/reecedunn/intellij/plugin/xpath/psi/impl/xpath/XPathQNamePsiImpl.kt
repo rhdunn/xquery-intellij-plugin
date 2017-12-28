@@ -30,6 +30,11 @@ import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 class XPathQNamePsiImpl(node: ASTNode) : XPathEQNamePsiImpl(node), XPathQName, XdmConstantExpression {
     override val staticType get(): XdmSequenceType = constantValue?.let { XsQName } ?: XsUntyped
 
+    override fun subtreeChanged() {
+        super.subtreeChanged()
+        cachedConstantValue.invalidate()
+    }
+
     override val constantValue get(): Any? = cachedConstantValue.get()
     private val cachedConstantValue = CachedProperty {
         val names: List<PsiElement> = findChildrenByType(XQueryElementType.NCNAME)
