@@ -36,6 +36,9 @@ class SimpleAndComplexTypes : TestCase() {
         assertThat(XsAnyType.typeName?.localName?.lexicalRepresentation, `is`("anyType"))
 
         assertThat(XsAnyType.baseType, `is`(nullValue()))
+
+        assertThat(createQName("http://www.w3.org/2001/XMLSchema", "anyType").toXmlSchemaType(),
+                `is`(XsAnyType as XdmSequenceType))
     }
 
     fun testXsUntyped() {
@@ -49,6 +52,9 @@ class SimpleAndComplexTypes : TestCase() {
         assertThat(XsUntyped.typeName?.localName?.lexicalRepresentation, `is`("untyped"))
 
         assertThat(XsUntyped.baseType, `is`(XsAnyType))
+
+        assertThat(createQName("http://www.w3.org/2001/XMLSchema", "untyped").toXmlSchemaType(),
+                `is`(XsUntyped as XdmSequenceType))
     }
 
     fun testXsAnySimpleType() {
@@ -62,6 +68,9 @@ class SimpleAndComplexTypes : TestCase() {
         assertThat(XsAnySimpleType.typeName?.localName?.lexicalRepresentation, `is`("anySimpleType"))
 
         assertThat(XsAnySimpleType.baseType, `is`(XsAnyType))
+
+        assertThat(createQName("http://www.w3.org/2001/XMLSchema", "anySimpleType").toXmlSchemaType(),
+                `is`(XsAnySimpleType as XdmSequenceType))
     }
 
     fun testXsAnyAtomicType() {
@@ -75,6 +84,9 @@ class SimpleAndComplexTypes : TestCase() {
         assertThat(XsAnyAtomicType.typeName?.localName?.lexicalRepresentation, `is`("anyAtomicType"))
 
         assertThat(XsAnyAtomicType.baseType, `is`(XsAnySimpleType as XmlSchemaType))
+
+        assertThat(createQName("http://www.w3.org/2001/XMLSchema", "anyAtomicType").toXmlSchemaType(),
+                `is`(XsAnyAtomicType as XdmSequenceType))
     }
 
     fun testXsNumeric() {
@@ -93,6 +105,9 @@ class SimpleAndComplexTypes : TestCase() {
         assertThat(XsNumeric.unionOf[0], `is`(XsDouble as XdmSimpleType))
         assertThat(XsNumeric.unionOf[1], `is`(XsFloat as XdmSimpleType))
         assertThat(XsNumeric.unionOf[2], `is`(XsDecimal as XdmSimpleType))
+
+        assertThat(createQName("http://www.w3.org/2001/XMLSchema", "numeric").toXmlSchemaType(),
+                `is`(XsNumeric as XdmSequenceType))
     }
 
     fun testXsIDREFS() {
@@ -108,6 +123,9 @@ class SimpleAndComplexTypes : TestCase() {
         assertThat(XsIDREFS.baseType, `is`(XsAnySimpleType as XmlSchemaType))
 
         assertThat(XsIDREFS.itemType, `is`(XsIDREF as XdmSequenceType))
+
+        assertThat(createQName("http://www.w3.org/2001/XMLSchema", "IDREFS").toXmlSchemaType(),
+                `is`(XsIDREFS as XdmSequenceType))
     }
 
     fun testXsNMTOKENS() {
@@ -123,6 +141,9 @@ class SimpleAndComplexTypes : TestCase() {
         assertThat(XsNMTOKENS.baseType, `is`(XsAnySimpleType as XmlSchemaType))
 
         assertThat(XsNMTOKENS.itemType, `is`(XsNMTOKEN as XdmSequenceType))
+
+        assertThat(createQName("http://www.w3.org/2001/XMLSchema", "NMTOKENS").toXmlSchemaType(),
+                `is`(XsNMTOKENS as XdmSequenceType))
     }
 
     fun testXsENTITIES() {
@@ -138,5 +159,8 @@ class SimpleAndComplexTypes : TestCase() {
         assertThat(XsENTITIES.baseType, `is`(XsAnySimpleType as XmlSchemaType))
 
         assertThat(XsENTITIES.itemType, `is`(XsENTITY as XdmSequenceType))
+
+        assertThat(createQName("http://www.w3.org/2001/XMLSchema", "ENTITIES").toXmlSchemaType(),
+                `is`(XsENTITIES as XdmSequenceType))
     }
 }
