@@ -18,7 +18,7 @@ FileElement[FILE(0:48)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
                   XQuerySequenceTypeImpl[XQUERY_SEQUENCE_TYPE(26:38)]
                      XQueryItemTypeImpl[XQUERY_ITEM_TYPE(26:37)]
-                        XQueryCommentTestImpl[XQUERY_COMMENT_TEST(26:37)]
+                        XPathCommentTestImpl[XQUERY_COMMENT_TEST(26:37)]
                            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_COMMENT(26:33)]('comment')
                            PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
                            LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(34:35)]('(')
