@@ -13,13 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
+package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
-import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiElement
 
 /**
- * An XQuery 1.0 <code>CDataSection</code> node in the XQuery AST with
- * containing <code>CDataSectionContents</code>.
+ * An XQuery 1.0 `CDataSection` node in the XQuery AST containing
+ * `CDataSectionContents`.
  */
-public interface XQueryCDataSection extends PsiElement {
-}
+interface XQueryCDataSection : PsiElement
