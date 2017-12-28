@@ -44,7 +44,7 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     // region Lexical Values
-    // region BracedUriLiteral
+    // region BracedUriLiteral (XdmLexicalValue)
 
     fun testBracedUriLiteral() {
         val literal = parseLiteral<XPathBracedURILiteral>("Q{http://www.example.com\uFFFF}")
@@ -59,7 +59,7 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     // endregion
-    // region DecimalLiteral
+    // region DecimalLiteral (XdmLexicalValue)
 
     fun testDecimalLiteral() {
         val literal = parseLiteral<XPathDecimalLiteral>("12.34")
@@ -68,7 +68,7 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     // endregion
-    // region DoubleLiteral
+    // region DoubleLiteral (XdmLexicalValue)
 
     fun testDoubleLiteral() {
         val literal = parseLiteral<XPathDoubleLiteral>("1e3")
@@ -77,7 +77,7 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     // endregion
-    // region IntegerLiteral
+    // region IntegerLiteral (XdmLexicalValue)
 
     fun testIntegerLiteral() {
         val literal = parseLiteral<XPathIntegerLiteral>("123")
@@ -87,7 +87,7 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     // endregion
-    // region Literal
+    // region Literal (XdmLexicalValue)
 
     fun testLiteral_DoubleLiteral() {
         val literal = parseLiteral<XPathLiteral>("1e3")
@@ -114,7 +114,7 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     // endregion
-    // region StringLiteral
+    // region StringLiteral (XdmLexicalValue)
 
     fun testStringLiteral() {
         val literal = parseLiteral<XPathStringLiteral>("\"Lorem ipsum.\uFFFF\"")
@@ -142,8 +142,8 @@ class XPathXdmTest : ParserTestCase() {
 
     // endregion
     // endregion
-    // region Lexical and Expanded QNames (Constant Expressions)
-    // region NCName
+    // region Lexical and Expanded QNames
+    // region NCName (XdmConstantExpression)
 
     fun testNCName() {
         val expr = parseSimpleExpression<XPathNCName>("test")[0]
@@ -178,7 +178,7 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     // endregion
-    // region QName
+    // region QName (XdmConstantExpression)
 
     fun testQName() {
         val expr = parseSimpleExpression<XPathQName>("fn:true")[0]
@@ -241,7 +241,7 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     // endregion
-    // region URIQualifiedName
+    // region URIQualifiedName (XdmConstantExpression)
 
     fun testURIQualifiedName() {
         val expr = parseSimpleExpression<XPathURIQualifiedName>("Q{http://www.example.com}test")[0]
@@ -304,7 +304,7 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     // endregion
-    // region VarName
+    // region VarName (XdmConstantExpression)
 
     fun testVarName_NCName() {
         val expr = parseSimpleExpression<XPathVarName>("let \$x := 2 return \$y")[0]
@@ -361,7 +361,7 @@ class XPathXdmTest : ParserTestCase() {
     // endregion
     // endregion
     // region Variables
-    // region VarRef (Constant Expression)
+    // region VarRef (XdmConstantExpression)
 
     fun testVarRef_NCName() {
         val expr = parseSimpleExpression<XPathVarRef>("let \$x := 2 return \$y")[0]
@@ -427,7 +427,7 @@ class XPathXdmTest : ParserTestCase() {
     // endregion
     // endregion
     // region Constant Expressions
-    // region PostfixExpr
+    // region PostfixExpr (XdmConstantExpression)
 
     fun testPostfixExpr_LiteralValue() {
         val expr = parseSimpleExpression<XPathPostfixExpr>("1e3")[0]

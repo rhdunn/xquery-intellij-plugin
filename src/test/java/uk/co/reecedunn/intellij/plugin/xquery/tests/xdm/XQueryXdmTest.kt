@@ -33,7 +33,7 @@ class XQueryXdmTest : ParserTestCase() {
     }
 
     // region Lexical Values
-    // region BracedUriLiteral
+    // region BracedUriLiteral (XdmLexicalValue)
 
     fun testBracedUriLiteral_PredefinedEntityReference() {
         // entity reference types: XQuery, HTML4, HTML5, UTF-16 surrogate pair, multi-character entity, empty, partial
@@ -49,7 +49,7 @@ class XQueryXdmTest : ParserTestCase() {
     }
 
     // endregion
-    // region StringLiteral
+    // region StringLiteral (XdmLexicalValue)
 
     fun testStringLiteral_PredefinedEntityReference() {
         // entity reference types: XQuery, HTML4, HTML5, UTF-16 surrogate pair, multi-character entity, empty, partial
@@ -65,7 +65,7 @@ class XQueryXdmTest : ParserTestCase() {
     }
 
     // endregion
-    // region UriLiteral
+    // region UriLiteral (XdmLexicalValue)
 
     fun testUriLiteral() {
         val literal = parseLiteral<XQueryUriLiteral>("module namespace test = \"http://www.example.com\uFFFF\"")
