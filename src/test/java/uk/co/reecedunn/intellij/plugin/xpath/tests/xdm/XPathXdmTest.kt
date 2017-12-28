@@ -22,14 +22,15 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xdm.*
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmConstantExpression
-import uk.co.reecedunn.intellij.plugin.xdm.model.toInt
+import uk.co.reecedunn.intellij.plugin.xdm.model.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 class XPathXdmTest : ParserTestCase() {
+    private inline fun <reified T> parse(xquery: String): List<T> {
+        return parseText(xquery)!!.walkTree().filterIsInstance<T>().toList()
+    }
+
     private inline fun <reified T> parseLiteral(xquery: String): XdmLexicalValue {
         return parseText(xquery)!!
                 .walkTree().filterIsInstance<T>()
@@ -304,6 +305,80 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     // endregion
+    // endregion
+    // region Sequence Types
+    // region AtomicOrUnionType (XdmTypeDeclaration)
+
+    fun testAtomicOrUnionType_NCName() {
+        val expr = parse<XPathAtomicOrUnionType>("\$x instance of test")[0] as XdmTypeDeclaration
+        val name = (expr as PsiElement).firstChild as XPathNCName
+        assertThat(expr.staticType, `is`(instanceOf(XdmSimpleType::class.java)))
+
+        val type = expr.staticType as XdmSimpleType
+        assertThat(type.typeName, `is`(notNullValue()))
+        assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
+        assertThat(type.itemType, `is`(type as XdmSequenceType))
+        assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
+        assertThat(type.upperBound, `is`(XdmSequenceType.Occurs.ONE))
+
+        val qname = type.typeName!!
+        assertThat(qname.prefix, `is`(nullValue()))
+        assertThat(qname.namespace, `is`(nullValue()))
+        assertThat(qname.declaration?.get(), `is`(name as XdmConstantExpression))
+
+        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.lexicalRepresentation, `is`("test"))
+    }
+
+    fun testAtomicOrUnionType_QName() {
+        val expr = parse<XPathAtomicOrUnionType>("\$x instance of a:type")[0] as XdmTypeDeclaration
+        val name = (expr as PsiElement).firstChild as XPathQName
+        assertThat(expr.staticType, `is`(instanceOf(XdmSimpleType::class.java)))
+
+        val type = expr.staticType as XdmSimpleType
+        assertThat(type.typeName, `is`(notNullValue()))
+        assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
+        assertThat(type.itemType, `is`(type as XdmSequenceType))
+        assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
+        assertThat(type.upperBound, `is`(XdmSequenceType.Occurs.ONE))
+
+        val qname = type.typeName!!
+        assertThat(qname.namespace, `is`(nullValue()))
+        assertThat(qname.declaration?.get(), `is`(name as XdmConstantExpression))
+
+        assertThat(qname.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.prefix?.lexicalRepresentation, `is`("a"))
+
+        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.lexicalRepresentation, `is`("type"))
+    }
+
+    fun testAtomicOrUnionType_URIQualifiedName() {
+        val expr = parse<XPathAtomicOrUnionType>("\$x instance of Q{http://www.example.com}test")[0] as XdmTypeDeclaration
+        val name = (expr as PsiElement).firstChild as XPathURIQualifiedName
+        assertThat(expr.staticType, `is`(instanceOf(XdmSimpleType::class.java)))
+
+        val type = expr.staticType as XdmSimpleType
+        assertThat(type.typeName, `is`(notNullValue()))
+        assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
+        assertThat(type.itemType, `is`(type as XdmSequenceType))
+        assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
+        assertThat(type.upperBound, `is`(XdmSequenceType.Occurs.ONE))
+
+        val qname = type.typeName!!
+        assertThat(qname.prefix, `is`(nullValue()))
+        assertThat(qname.declaration?.get(), `is`(name as XdmConstantExpression))
+
+        assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(qname.namespace?.lexicalRepresentation, `is`("http://www.example.com"))
+
+        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.lexicalRepresentation, `is`("test"))
+    }
+
+    // endregion
+    // endregion
+    // region Variables
     // region VarName (XdmConstantExpression)
 
     fun testVarName_NCName() {
@@ -359,8 +434,6 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     // endregion
-    // endregion
-    // region Variables
     // region VarRef (XdmConstantExpression)
 
     fun testVarRef_NCName() {

@@ -38,18 +38,33 @@ open class XdmComplexType(typeName: QName): XmlSchemaType(typeName, XsAnyType)
 
 open class XdmSimpleType(typeName: QName?, baseType: XmlSchemaType): XmlSchemaType(typeName, baseType)
 
-open class XdmAtomicType(typeName: QName,
-                         baseType: XmlSchemaType,
-                         val pattern: Regex? = null):
+/**
+ * Represents an XPath 3.0 and XQuery 3.0 `AtomicOrUnionType`.
+ *
+ * This is not specified in the XDM type hierarchy, but is needed for the
+ * `AtomicOrUnionType` grammar production, which excludes `XdmListType`s.
+ * It was `AtomicType` in XPath 2.0 and XQuery 1.0, but was changed to
+ * `AtomicOrUnionType` in XPath 3.0 and XQuery 3.0.
+ *
+ * NOTE: The list types are modelled using the `*` occurrence indicator.
+ */
+open class XdmAtomicOrUnionType(typeName: QName, baseType: XmlSchemaType):
         XdmSimpleType(typeName, baseType),
         XdmItem {
-
-    fun matches(value: CharSequence): Boolean =
-        pattern?.matches(value) ?: true
 
     override val itemType get(): XdmSequenceType = this
     override val lowerBound: XdmSequenceType.Occurs = XdmSequenceType.Occurs.ONE
     override val upperBound: XdmSequenceType.Occurs = XdmSequenceType.Occurs.ONE
+}
+
+open class XdmAtomicType(typeName: QName,
+                         baseType: XmlSchemaType,
+                         val pattern: Regex? = null):
+        XdmAtomicOrUnionType(typeName, baseType),
+        XdmItem {
+
+    fun matches(value: CharSequence): Boolean =
+        pattern?.matches(value) ?: true
 }
 
 /**
@@ -57,11 +72,14 @@ open class XdmAtomicType(typeName: QName,
  *
  * This is the default type for a sequence.
  */
-open class XdmListType(typeName: QName?, override val itemType: XdmSequenceType): XdmSimpleType(typeName, XsAnySimpleType) {
+open class XdmListType(typeName: QName?, override val itemType: XdmSequenceType):
+        XdmSimpleType(typeName, XsAnySimpleType) {
+
     constructor(itemType: XdmSequenceType): this(null, itemType)
 
     override val lowerBound: XdmSequenceType.Occurs = XdmSequenceType.Occurs.ZERO
     override val upperBound: XdmSequenceType.Occurs = XdmSequenceType.Occurs.MANY
 }
 
-open class XdmUnionType(typeName: QName, val unionOf: Array<XdmSimpleType>): XdmSimpleType(typeName, XsAnySimpleType)
+open class XdmUnionType(typeName: QName, val unionOf: Array<XdmSimpleType>):
+        XdmAtomicOrUnionType(typeName, XsAnySimpleType)

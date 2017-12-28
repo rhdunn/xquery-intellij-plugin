@@ -27,6 +27,8 @@ interface XdmConstantExpression : XdmExpression {
     val constantValue: Any?
 }
 
+interface XdmTypeDeclaration : XdmExpression
+
 fun XdmLexicalValue.toInt(): Int {
     return lexicalRepresentation.toInt()
 }
