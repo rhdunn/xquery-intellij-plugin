@@ -15,9 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAttributeName
-
 /**
  * An XPath 2.0 and XQuery 1.0 `AttributeDeclaration` node in the XQuery AST.
  */
-interface XPathAttributeDeclaration : XQueryAttributeName
+interface XPathAttributeDeclaration : XPathAttributeName

@@ -13,17 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
+package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName;
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 
 /**
- * An XQuery 1.0 <code>AttributeName</code> node in the XQuery AST.
+ * An XPath 2.0 and XQuery 1.0 `AttributeName` node in the XQuery AST.
  *
- * When the <code>AttributeName</code> node is specialised (such as with
- * <code>AttributeDeclaration</code>), the <code>AttributeName</code> node is
+ * When the `AttributeName` node is specialised (such as with
+ * `AttributeDeclaration`), the `AttributeName` node is
  * not stored directly in the AST. Instead, it is exposed as an instance of
  * that specialised node.
  */
-public interface XQueryAttributeName extends XPathEQName {
-}
+interface XPathAttributeName : XPathEQName
