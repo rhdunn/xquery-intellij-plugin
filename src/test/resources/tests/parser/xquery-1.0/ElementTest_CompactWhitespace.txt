@@ -19,7 +19,7 @@ FileElement[FILE(0:52)]
                         XQueryElementTestImpl[XQUERY_ELEMENT_TEST(24:43)]
                            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ELEMENT(24:31)]('element')
                            LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(31:32)]('(')
-                           XQueryElementNameOrWildcardImpl[XQUERY_ELEMENT_NAME_OR_WILDCARD(32:42)]
+                           XPathElementNameOrWildcardImpl[XQUERY_ELEMENT_NAME_OR_WILDCARD(32:42)]
                               XPathElementNameImpl[XQUERY_ELEMENT_NAME(32:42)]
                                  XPathQNameImpl[XQUERY_QNAME(32:42)]
                                     XPathNCNameImpl[XQUERY_NCNAME(32:36)]

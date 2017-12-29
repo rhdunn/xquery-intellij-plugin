@@ -116,7 +116,7 @@ public interface XQueryElementType {
     IElementType PROLOG = new ICompositeElementType("XQUERY_PROLOG", XQueryPrologPsiImpl.class, XQuery.INSTANCE);
 
     IElementType TYPE_NAME = new ICompositeElementType("XQUERY_TYPE_NAME", XQueryTypeNamePsiImpl.class, XQuery.INSTANCE);
-    IElementType ELEMENT_NAME_OR_WILDCARD = new ICompositeElementType("XQUERY_ELEMENT_NAME_OR_WILDCARD", XQueryElementNameOrWildcardPsiImpl.class, XQuery.INSTANCE);
+    IElementType ELEMENT_NAME_OR_WILDCARD = new ICompositeElementType("XQUERY_ELEMENT_NAME_OR_WILDCARD", XPathElementNameOrWildcardPsiImpl.class, XQuery.INSTANCE);
     IElementType ELEMENT_NAME = new ICompositeElementType("XQUERY_ELEMENT_NAME", XPathElementNamePsiImpl.class, XQuery.INSTANCE);
     IElementType ELEMENT_DECLARATION = new ICompositeElementType("XQUERY_ELEMENT_DECLARATION", XPathElementDeclarationPsiImpl.class, XQuery.INSTANCE);
     IElementType ATTRIB_NAME_OR_WILDCARD = new ICompositeElementType("XQUERY_ATTRIB_NAME_OR_WILDCARD", XPathAttribNameOrWildcardPsiImpl.class, XQuery.INSTANCE);
