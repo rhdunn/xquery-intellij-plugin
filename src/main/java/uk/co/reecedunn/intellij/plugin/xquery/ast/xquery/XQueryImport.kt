@@ -13,23 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
+package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
-import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiElement
 
 /**
- * An XQuery 1.0 <code>Import</code> node in the XQuery AST.
+ * An XQuery 1.0 `Import` node in the XQuery AST.
  *
- * Because the child nodes of an <code>Import</code> are only referenced
- * from the <code>Import</code> node in the grammar, the <code>Import</code>
+ * Because the child nodes of an `Import` are only referenced
+ * from the `Import` node in the grammar, the `Import`
  * nodes are stored as instances of the child nodes instead of as distinct
  * nodes themselves.
  *
- * In the case of an invalid <code>Import</code> declaration that has an
- * <code>import</code> keyword that does not form a <code>SchemaImport</code>
- * nor <code>ModuleImport</code>, an <code>Import</code> node is used directly.
+ * In the case of an invalid `Import` declaration that has an
+ * `import` keyword that does not form a `SchemaImport`
+ * nor `ModuleImport`, an `Import` node is used directly.
  * This is because there is not enough information to know what type of import
  * declaration this is.
  */
-public interface XQueryImport extends PsiElement {
-}
+interface XQueryImport : PsiElement
