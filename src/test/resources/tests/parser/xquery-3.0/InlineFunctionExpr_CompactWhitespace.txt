@@ -22,7 +22,7 @@ FileElement[FILE(0:13)]
                                                                XQueryPathExprImpl[XQUERY_PATH_EXPR(0:13)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:13)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:13)]
-                                                                        XQueryInlineFunctionExprImpl[XQUERY_INLINE_FUNCTION_EXPR(0:13)]
+                                                                        XPathInlineFunctionExprImpl[XQUERY_INLINE_FUNCTION_EXPR(0:13)]
                                                                            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FUNCTION(0:8)]('function')
                                                                            LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(8:9)]('(')
                                                                            LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(9:10)](')')

@@ -22,7 +22,7 @@ FileElement[FILE(0:18)]
                                                                XQueryPathExprImpl[XQUERY_PATH_EXPR(0:13)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:13)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:13)]
-                                                                        XQueryInlineFunctionExprImpl[XQUERY_INLINE_FUNCTION_EXPR(0:13)]
+                                                                        XPathInlineFunctionExprImpl[XQUERY_INLINE_FUNCTION_EXPR(0:13)]
                                                                            XQueryAnnotationImpl[XQUERY_ANNOTATION(0:12)]
                                                                               LeafPsiElement[XQUERY_ANNOTATION_INDICATOR_TOKEN(0:1)]('%')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')

@@ -234,7 +234,7 @@ public interface XQueryElementType {
     IElementType STRING_CONCAT_EXPR = new ICompositeElementType("XQUERY_STRING_CONCAT_EXPR", XQueryStringConcatExprPsiImpl.class, XQuery.INSTANCE);
     IElementType SIMPLE_MAP_EXPR = new ICompositeElementType("XQUERY_SIMPLE_MAP_EXPR", XQuerySimpleMapExprPsiImpl.class, XQuery.INSTANCE);
 
-    IElementType INLINE_FUNCTION_EXPR = new ICompositeElementType("XQUERY_INLINE_FUNCTION_EXPR", XQueryInlineFunctionExprPsiImpl.class, XQuery.INSTANCE);
+    IElementType INLINE_FUNCTION_EXPR = new ICompositeElementType("XQUERY_INLINE_FUNCTION_EXPR", XPathInlineFunctionExprPsiImpl.class, XQuery.INSTANCE);
     IElementType NAMED_FUNCTION_REF = new ICompositeElementType("XQUERY_NAMED_FUNCTION_REF", XQueryNamedFunctionRefPsiImpl.class, XQuery.INSTANCE);
 
     IElementType ARGUMENT_LIST = new ICompositeElementType("XQUERY_ARGUMENT_LIST", XPathArgumentListPsiImpl.class, XQuery.INSTANCE);

@@ -1078,7 +1078,7 @@ class XQueryPsiTest:ParserTestCase() {
     fun testInlineFunctionExpr() {
         val file = parseResource("tests/parser/xquery-3.0/InlineFunctionExpr.xq")!!
 
-        val inlineFunctionExprPsi = file.descendants().filterIsInstance<XQueryInlineFunctionExpr>().first()
+        val inlineFunctionExprPsi = file.descendants().filterIsInstance<XPathInlineFunctionExpr>().first()
         val versioned = inlineFunctionExprPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
@@ -1093,7 +1093,7 @@ class XQueryPsiTest:ParserTestCase() {
     fun testInlineFunctionExpr_AnnotationOnly() {
         val file = parseResource("tests/parser/xquery-3.0/InlineFunctionExpr_Annotation_MissingFunctionKeyword.xq")!!
 
-        val inlineFunctionExprPsi = file.descendants().filterIsInstance<XQueryInlineFunctionExpr>().first()
+        val inlineFunctionExprPsi = file.descendants().filterIsInstance<XPathInlineFunctionExpr>().first()
         val versioned = inlineFunctionExprPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
