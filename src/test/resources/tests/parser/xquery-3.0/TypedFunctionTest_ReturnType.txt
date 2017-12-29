@@ -18,7 +18,7 @@ FileElement[FILE(0:70)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
                   XQuerySequenceTypeImpl[XQUERY_SEQUENCE_TYPE(26:60)]
                      XQueryItemTypeImpl[XQUERY_ITEM_TYPE(26:60)]
-                        XQueryFunctionTestImpl[XQUERY_FUNCTION_TEST(26:60)]
+                        XPathFunctionTestImpl[XQUERY_FUNCTION_TEST(26:60)]
                            XQueryTypedFunctionTestImpl[XQUERY_TYPED_FUNCTION_TEST(26:60)]
                               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FUNCTION(26:34)]('function')
                               PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')

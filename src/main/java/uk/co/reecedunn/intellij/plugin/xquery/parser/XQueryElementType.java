@@ -189,7 +189,7 @@ public interface XQueryElementType {
     IElementType SIMPLE_TYPE_NAME = new ICompositeElementType("XQUERY_SIMPLE_TYPE_NAME", XQuerySimpleTypeNamePsiImpl.class, XQuery.INSTANCE);
     IElementType SEQUENCE_TYPE_UNION = new ICompositeElementType("XQUERY_SEQUENCE_TYPE_UNION", XQuerySequenceTypeUnionPsiImpl.class, XQuery.INSTANCE);
 
-    IElementType FUNCTION_TEST = new ICompositeElementType("XQUERY_FUNCTION_TEST", XQueryFunctionTestPsiImpl.class, XQuery.INSTANCE);
+    IElementType FUNCTION_TEST = new ICompositeElementType("XQUERY_FUNCTION_TEST", XPathFunctionTestPsiImpl.class, XQuery.INSTANCE);
     IElementType ANY_FUNCTION_TEST = new ICompositeElementType("XQUERY_ANY_FUNCTION_TEST", XPathAnyFunctionTestPsiImpl.class, XQuery.INSTANCE);
     IElementType TYPED_FUNCTION_TEST = new ICompositeElementType("XQUERY_TYPED_FUNCTION_TEST", XQueryTypedFunctionTestPsiImpl.class, XQuery.INSTANCE);
     IElementType PARENTHESIZED_ITEM_TYPE = new ICompositeElementType("XQUERY_PARENTHESIZED_ITEM_TYPE", XQueryParenthesizedItemTypePsiImpl.class, XQuery.INSTANCE);

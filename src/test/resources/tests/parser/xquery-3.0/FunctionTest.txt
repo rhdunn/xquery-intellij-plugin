@@ -18,7 +18,7 @@ FileElement[FILE(0:61)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
                   XQuerySequenceTypeImpl[XQUERY_SEQUENCE_TYPE(26:51)]
                      XQueryItemTypeImpl[XQUERY_ITEM_TYPE(26:51)]
-                        XQueryFunctionTestImpl[XQUERY_FUNCTION_TEST(26:51)]
+                        XPathFunctionTestImpl[XQUERY_FUNCTION_TEST(26:51)]
                            XQueryAnnotationImpl[XQUERY_ANNOTATION(26:36)]
                               LeafPsiElement[XQUERY_ANNOTATION_INDICATOR_TOKEN(26:27)]('%')
                               PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
