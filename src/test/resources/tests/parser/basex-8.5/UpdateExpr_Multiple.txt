@@ -35,7 +35,7 @@ FileElement[FILE(0:56)]
                                                          PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
                                                          LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(14:15)]('{')
                                                          PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
-                                                         XQueryExprImpl[XQUERY_EXPR(16:30)]
+                                                         XPathExprImpl[XQUERY_EXPR(16:30)]
                                                             ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(16:30)]
                                                                UpdateFacilityDeleteExprImpl[XQUERY_DELETE_EXPR(16:30)]
                                                                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DELETE(16:22)]('delete')
@@ -72,7 +72,7 @@ FileElement[FILE(0:56)]
                                                          PsiWhiteSpaceImpl[WHITE_SPACE(38:39)](' ')
                                                          LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(39:40)]('{')
                                                          PsiWhiteSpaceImpl[WHITE_SPACE(40:41)](' ')
-                                                         XQueryExprImpl[XQUERY_EXPR(41:55)]
+                                                         XPathExprImpl[XQUERY_EXPR(41:55)]
                                                             ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(41:55)]
                                                                UpdateFacilityDeleteExprImpl[XQUERY_DELETE_EXPR(41:55)]
                                                                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DELETE(41:47)]('delete')

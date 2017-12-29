@@ -44,7 +44,7 @@ FileElement[FILE(0:34)]
                                                                            XQueryFunctionBodyImpl[XQUERY_FUNCTION_BODY(29:34)]
                                                                               LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(29:30)]('{')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')
-                                                                              XQueryExprImpl[XQUERY_EXPR(31:33)]
+                                                                              XPathExprImpl[XQUERY_EXPR(31:33)]
                                                                                  ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(31:33)]
                                                                                     XQueryOrExprImpl[XQUERY_OR_EXPR(31:33)]
                                                                                        XPathAndExprImpl[XQUERY_AND_EXPR(31:33)]

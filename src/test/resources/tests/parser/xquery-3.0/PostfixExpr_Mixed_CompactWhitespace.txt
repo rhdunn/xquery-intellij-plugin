@@ -29,7 +29,7 @@ FileElement[FILE(0:10)]
                                                                                  XmlNCNameImpl[XQUERY_NCNAME_TOKEN(1:2)]('f')
                                                                         XQueryPredicateImpl[XQUERY_PREDICATE(2:5)]
                                                                            LeafPsiElement[XQUERY_SQUARE_OPEN_TOKEN(2:3)]('[')
-                                                                           XQueryExprImpl[XQUERY_EXPR(3:4)]
+                                                                           XPathExprImpl[XQUERY_EXPR(3:4)]
                                                                               ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(3:4)]
                                                                                  XQueryOrExprImpl[XQUERY_OR_EXPR(3:4)]
                                                                                     XPathAndExprImpl[XQUERY_AND_EXPR(3:4)]

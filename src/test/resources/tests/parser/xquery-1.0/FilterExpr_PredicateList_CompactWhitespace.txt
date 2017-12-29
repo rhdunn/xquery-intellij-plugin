@@ -33,7 +33,7 @@ FileElement[FILE(0:11)]
                                                                                     XmlNCNameImpl[XQUERY_NCNAME_TOKEN(5:8)]('two')
                                                                         XQueryPredicateImpl[XQUERY_PREDICATE(8:11)]
                                                                            LeafPsiElement[XQUERY_SQUARE_OPEN_TOKEN(8:9)]('[')
-                                                                           XQueryExprImpl[XQUERY_EXPR(9:10)]
+                                                                           XPathExprImpl[XQUERY_EXPR(9:10)]
                                                                               ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(9:10)]
                                                                                  XQueryOrExprImpl[XQUERY_OR_EXPR(9:10)]
                                                                                     XPathAndExprImpl[XQUERY_AND_EXPR(9:10)]

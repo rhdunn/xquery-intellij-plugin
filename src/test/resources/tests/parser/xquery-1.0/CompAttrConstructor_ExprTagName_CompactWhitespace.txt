@@ -26,7 +26,7 @@ FileElement[FILE(0:23)]
                                                                            XQueryCompAttrConstructorImpl[XQUERY_COMP_ATTR_CONSTRUCTOR(0:23)]
                                                                               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ATTRIBUTE(0:9)]('attribute')
                                                                               LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(9:10)]('{')
-                                                                              XQueryExprImpl[XQUERY_EXPR(10:14)]
+                                                                              XPathExprImpl[XQUERY_EXPR(10:14)]
                                                                                  ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(10:14)]
                                                                                     XQueryOrExprImpl[XQUERY_OR_EXPR(10:14)]
                                                                                        XPathAndExprImpl[XQUERY_AND_EXPR(10:14)]
@@ -56,7 +56,7 @@ FileElement[FILE(0:23)]
                                                                               LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(14:15)]('}')
                                                                               XPathEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(15:23)]
                                                                                  LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(15:16)]('{')
-                                                                                 XQueryExprImpl[XQUERY_EXPR(16:22)]
+                                                                                 XPathExprImpl[XQUERY_EXPR(16:22)]
                                                                                     ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(16:22)]
                                                                                        XQueryOrExprImpl[XQUERY_OR_EXPR(16:22)]
                                                                                           XPathAndExprImpl[XQUERY_AND_EXPR(16:22)]

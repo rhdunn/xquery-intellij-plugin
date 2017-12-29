@@ -35,7 +35,7 @@ FileElement[FILE(0:46)]
                                                          PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
                                                          LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(19:20)]('{')
                                                          PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
-                                                         XQueryExprImpl[XQUERY_EXPR(21:45)]
+                                                         XPathExprImpl[XQUERY_EXPR(21:45)]
                                                             ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(21:45)]
                                                                UpdateFacilityRenameExprImpl[XQUERY_RENAME_EXPR(21:45)]
                                                                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_RENAME(21:27)]('rename')

@@ -15,8 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathExpr;
+
 /**
  * An XQuery 1.0 <code>QueryBody</code> node in the XQuery AST.
  */
-public interface XQueryQueryBody extends XQueryExpr {
+public interface XQueryQueryBody extends XPathExpr {
 }

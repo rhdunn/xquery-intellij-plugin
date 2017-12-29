@@ -24,7 +24,7 @@ FileElement[FILE(0:3)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:3)]
                                                                         XQueryParenthesizedExprImpl[XQUERY_PARENTHESIZED_EXPR(0:3)]
                                                                            LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(0:1)]('(')
-                                                                           XQueryExprImpl[XQUERY_EXPR(1:2)]
+                                                                           XPathExprImpl[XQUERY_EXPR(1:2)]
                                                                               ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(1:2)]
                                                                                  XQueryOrExprImpl[XQUERY_OR_EXPR(1:2)]
                                                                                     XPathAndExprImpl[XQUERY_AND_EXPR(1:2)]

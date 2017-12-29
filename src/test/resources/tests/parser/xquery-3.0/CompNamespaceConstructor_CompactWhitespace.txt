@@ -31,7 +31,7 @@ FileElement[FILE(0:20)]
                                                                                     XmlNCNameImpl[XQUERY_NCNAME_TOKEN(10:12)]('ns')
                                                                               XQueryEnclosedUriExprImpl[XQUERY_ENCLOSED_URI_EXPR(12:20)]
                                                                                  LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(12:13)]('{')
-                                                                                 XQueryExprImpl[XQUERY_EXPR(13:19)]
+                                                                                 XPathExprImpl[XQUERY_EXPR(13:19)]
                                                                                     ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(13:19)]
                                                                                        XQueryOrExprImpl[XQUERY_OR_EXPR(13:19)]
                                                                                           XPathAndExprImpl[XQUERY_AND_EXPR(13:19)]

@@ -9,7 +9,7 @@ FileElement[FILE(0:34)]
                   XQueryEnclosedTryTargetExprImpl[XQUERY_ENCLOSED_TRY_TARGET_EXPR(4:9)]
                      LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(4:5)]('{')
                      PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
-                     XQueryExprImpl[XQUERY_EXPR(6:8)]
+                     XPathExprImpl[XQUERY_EXPR(6:8)]
                         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(6:8)]
                            XQueryOrExprImpl[XQUERY_OR_EXPR(6:8)]
                               XPathAndExprImpl[XQUERY_AND_EXPR(6:8)]
@@ -51,7 +51,7 @@ FileElement[FILE(0:34)]
                   XPathEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(31:34)]
                      LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(31:32)]('{')
                      PsiWhiteSpaceImpl[WHITE_SPACE(32:33)](' ')
-                     XQueryExprImpl[XQUERY_EXPR(33:34)]
+                     XPathExprImpl[XQUERY_EXPR(33:34)]
                         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(33:34)]
                            XQueryOrExprImpl[XQUERY_OR_EXPR(33:34)]
                               XPathAndExprImpl[XQUERY_AND_EXPR(33:34)]

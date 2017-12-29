@@ -19,7 +19,7 @@ FileElement[FILE(0:39)]
                LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(27:28)](')')
                PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
                PsiErrorElementImpl[ERROR_ELEMENT(29:29)]('XPST0003: Missing enclosed expression start '{' or keyword: external.')
-               XQueryExprImpl[XQUERY_EXPR(29:36)]
+               XPathExprImpl[XQUERY_EXPR(29:36)]
                   ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(29:36)]
                      XQueryOrExprImpl[XQUERY_OR_EXPR(29:36)]
                         XPathAndExprImpl[XQUERY_AND_EXPR(29:36)]

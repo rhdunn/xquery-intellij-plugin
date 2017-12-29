@@ -15,10 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.scripting;
 
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryExpr;
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathExpr;
 
 /**
  * An XQuery Scripting Extension 1.0 <code>BlockBody</code> node in the XQuery AST.
  */
-public interface ScriptingBlockBody extends XQueryExpr {
+public interface ScriptingBlockBody extends XPathExpr {
 }

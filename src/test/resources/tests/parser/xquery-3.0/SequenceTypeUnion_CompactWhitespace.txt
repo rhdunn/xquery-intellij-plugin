@@ -5,7 +5,7 @@ FileElement[FILE(0:57)]
             XQueryTypeswitchExprImpl[XQUERY_TYPESWITCH_EXPR(0:57)]
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TYPESWITCH(0:10)]('typeswitch')
                LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(10:11)]('(')
-               XQueryExprImpl[XQUERY_EXPR(11:13)]
+               XPathExprImpl[XQUERY_EXPR(11:13)]
                   ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(11:13)]
                      XQueryOrExprImpl[XQUERY_OR_EXPR(11:13)]
                         XPathAndExprImpl[XQUERY_AND_EXPR(11:13)]

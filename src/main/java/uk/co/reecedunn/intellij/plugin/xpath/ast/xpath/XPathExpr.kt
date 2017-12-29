@@ -13,16 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
+package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
-import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingApplyExpr;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingApplyExpr
 
 /**
- * An XQuery 1.0 <code>Expr</code> node in the XQuery AST.
+ * An XPath 2.0 and XQuery 1.0 `Expr` node in the XQuery AST.
  *
- * When the <code>Expr</code> node is specialised (such as with
- * <code>QueryBody</code>), the <code>Expr</code> node is not stored directly
+ * When the `Expr` node is specialised (such as with
+ * `QueryBody`), the `Expr` node is not stored directly
  * in the AST. Instead, it is exposed as an instance of that specialised node.
  */
-public interface XQueryExpr extends ScriptingApplyExpr {
-}
+interface XPathExpr : ScriptingApplyExpr

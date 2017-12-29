@@ -28,7 +28,7 @@ FileElement[FILE(0:43)]
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(22:23)](' ')
                                                                               LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(23:24)]('{')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
-                                                                              XQueryExprImpl[XQUERY_EXPR(25:32)]
+                                                                              XPathExprImpl[XQUERY_EXPR(25:32)]
                                                                                  ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(25:32)]
                                                                                     XQueryOrExprImpl[XQUERY_OR_EXPR(25:32)]
                                                                                        XPathAndExprImpl[XQUERY_AND_EXPR(25:32)]
@@ -60,7 +60,7 @@ FileElement[FILE(0:43)]
                                                                               XPathEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(32:43)]
                                                                                  LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(32:33)]('{')
                                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
-                                                                                 XQueryExprImpl[XQUERY_EXPR(34:42)]
+                                                                                 XPathExprImpl[XQUERY_EXPR(34:42)]
                                                                                     ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(34:42)]
                                                                                        XQueryOrExprImpl[XQUERY_OR_EXPR(34:42)]
                                                                                           XPathAndExprImpl[XQUERY_AND_EXPR(34:42)]

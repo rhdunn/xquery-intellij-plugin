@@ -31,7 +31,7 @@ FileElement[FILE(0:7)]
                                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(4:7)]
                                                                            XQueryPredicateImpl[XQUERY_PREDICATE(4:7)]
                                                                               LeafPsiElement[XQUERY_SQUARE_OPEN_TOKEN(4:5)]('[')
-                                                                              XQueryExprImpl[XQUERY_EXPR(5:6)]
+                                                                              XPathExprImpl[XQUERY_EXPR(5:6)]
                                                                                  ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(5:6)]
                                                                                     XQueryOrExprImpl[XQUERY_OR_EXPR(5:6)]
                                                                                        XPathAndExprImpl[XQUERY_AND_EXPR(5:6)]

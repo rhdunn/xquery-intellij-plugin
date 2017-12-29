@@ -33,7 +33,7 @@ FileElement[FILE(0:12)]
                                                          XPathArrowFunctionSpecifierImpl[XQUERY_ARROW_FUNCTION_SPECIFIER(6:10)]
                                                             XQueryParenthesizedExprImpl[XQUERY_PARENTHESIZED_EXPR(6:10)]
                                                                LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(6:7)]('(')
-                                                               XQueryExprImpl[XQUERY_EXPR(7:9)]
+                                                               XPathExprImpl[XQUERY_EXPR(7:9)]
                                                                   ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(7:9)]
                                                                      XQueryOrExprImpl[XQUERY_OR_EXPR(7:9)]
                                                                         XPathAndExprImpl[XQUERY_AND_EXPR(7:9)]

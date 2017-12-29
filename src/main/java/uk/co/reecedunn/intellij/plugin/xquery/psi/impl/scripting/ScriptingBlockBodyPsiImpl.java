@@ -18,9 +18,9 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.scripting;
 import com.intellij.lang.ASTNode;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingBlockBody;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryExprPsiImpl;
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathExprPsiImpl;
 
-public class ScriptingBlockBodyPsiImpl extends XQueryExprPsiImpl implements ScriptingBlockBody {
+public class ScriptingBlockBodyPsiImpl extends XPathExprPsiImpl implements ScriptingBlockBody {
     public ScriptingBlockBodyPsiImpl(@NotNull ASTNode node) {
         super(node);
     }

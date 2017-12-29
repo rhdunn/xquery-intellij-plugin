@@ -43,7 +43,7 @@ FileElement[FILE(0:27)]
                                              FTWordsImpl[XQUERY_FT_WORDS(19:27)]
                                                 FTWordsValueImpl[XQUERY_FT_WORDS_VALUE(19:27)]
                                                    LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(19:20)]('{')
-                                                   XQueryExprImpl[XQUERY_EXPR(20:26)]
+                                                   XPathExprImpl[XQUERY_EXPR(20:26)]
                                                       ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(20:26)]
                                                          XQueryOrExprImpl[XQUERY_OR_EXPR(20:26)]
                                                             XPathAndExprImpl[XQUERY_AND_EXPR(20:26)]

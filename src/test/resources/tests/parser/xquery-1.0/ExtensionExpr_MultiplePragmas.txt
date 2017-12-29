@@ -47,7 +47,7 @@ FileElement[FILE(0:70)]
                                                                PsiWhiteSpaceImpl[WHITE_SPACE(64:65)](' ')
                                                                LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(65:66)]('{')
                                                                PsiWhiteSpaceImpl[WHITE_SPACE(66:67)](' ')
-                                                               XQueryExprImpl[XQUERY_EXPR(67:69)]
+                                                               XPathExprImpl[XQUERY_EXPR(67:69)]
                                                                   ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(67:69)]
                                                                      XQueryOrExprImpl[XQUERY_OR_EXPR(67:69)]
                                                                         XPathAndExprImpl[XQUERY_AND_EXPR(67:69)]

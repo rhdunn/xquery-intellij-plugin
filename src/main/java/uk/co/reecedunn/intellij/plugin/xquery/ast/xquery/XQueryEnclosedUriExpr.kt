@@ -15,9 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathExpr
+
 /**
  * An XQuery 3.1 `EnclosedURIExpr` node in the XQuery AST.
  *
  * This is a replacement for the XQuery 3.0 `URIExpr`.
  */
-interface XQueryEnclosedUriExpr : XQueryExpr
+interface XQueryEnclosedUriExpr : XPathExpr

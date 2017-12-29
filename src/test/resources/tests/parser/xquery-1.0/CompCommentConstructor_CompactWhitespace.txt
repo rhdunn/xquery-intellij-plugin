@@ -27,7 +27,7 @@ FileElement[FILE(0:15)]
                                                                               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_COMMENT(0:7)]('comment')
                                                                               XPathEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(7:15)]
                                                                                  LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(7:8)]('{')
-                                                                                 XQueryExprImpl[XQUERY_EXPR(8:14)]
+                                                                                 XPathExprImpl[XQUERY_EXPR(8:14)]
                                                                                     ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(8:14)]
                                                                                        XQueryOrExprImpl[XQUERY_OR_EXPR(8:14)]
                                                                                           XPathAndExprImpl[XQUERY_AND_EXPR(8:14)]
