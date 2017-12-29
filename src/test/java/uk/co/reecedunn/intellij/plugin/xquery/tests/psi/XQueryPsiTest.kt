@@ -2597,7 +2597,7 @@ class XQueryPsiTest:ParserTestCase() {
 
     // endregion
     // endregion
-    // region XQueryFile
+    // region XQueryModule
 
     fun testFile_Empty() {
         settings.XQueryVersion = XQuery.REC_3_0_20140408.label

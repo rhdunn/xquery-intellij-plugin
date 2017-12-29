@@ -24,7 +24,7 @@ import com.intellij.psi.PsiFile
  * file implementation. It is included here to keep the interfaces for
  * navigating the parse trees together.
  */
-interface XQueryFile : PsiFile {
+interface XQueryModule : PsiFile {
     val XQueryVersion: XQueryVersionRef
 
     val modules: Sequence<XQueryModuleBase>

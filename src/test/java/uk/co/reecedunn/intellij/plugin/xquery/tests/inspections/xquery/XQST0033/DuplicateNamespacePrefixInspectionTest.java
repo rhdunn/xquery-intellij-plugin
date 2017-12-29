@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.inspections.xquery.XQST0033
 
 import com.intellij.codeInspection.ProblemDescriptor;
 import com.intellij.codeInspection.ProblemHighlightType;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule;
 import uk.co.reecedunn.intellij.plugin.xquery.inspections.xquery.XQST0033.DuplicateNamespacePrefixInspection;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.inspections.InspectionTestCase;
@@ -43,7 +43,7 @@ public class DuplicateNamespacePrefixInspectionTest extends InspectionTestCase {
     // region XQuery 1.0
 
     public void testNoDuplicates() {
-        final XQueryFile file = parseResource("tests/inspections/xquery/XQST0033/no-duplicates.xq");
+        final XQueryModule file = parseResource("tests/inspections/xquery/XQST0033/no-duplicates.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new DuplicateNamespacePrefixInspection());
         assertThat(problems, is(notNullValue()));
@@ -51,7 +51,7 @@ public class DuplicateNamespacePrefixInspectionTest extends InspectionTestCase {
     }
 
     public void testModuleDecl_ModuleImport() {
-        final XQueryFile file = parseResource("tests/inspections/xquery/XQST0033/ModuleDecl-ModuleImport.xq");
+        final XQueryModule file = parseResource("tests/inspections/xquery/XQST0033/ModuleDecl-ModuleImport.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new DuplicateNamespacePrefixInspection());
         assertThat(problems, is(notNullValue()));
@@ -64,7 +64,7 @@ public class DuplicateNamespacePrefixInspectionTest extends InspectionTestCase {
     }
 
     public void testModuleImport_NamespaceDecl() {
-        final XQueryFile file = parseResource("tests/inspections/xquery/XQST0033/ModuleImport-NamespaceDecl.xq");
+        final XQueryModule file = parseResource("tests/inspections/xquery/XQST0033/ModuleImport-NamespaceDecl.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new DuplicateNamespacePrefixInspection());
         assertThat(problems, is(notNullValue()));
@@ -77,7 +77,7 @@ public class DuplicateNamespacePrefixInspectionTest extends InspectionTestCase {
     }
 
     public void testNamespaceDecl_SchemaImport() {
-        final XQueryFile file = parseResource("tests/inspections/xquery/XQST0033/NamespaceDecl-SchemaImport.xq");
+        final XQueryModule file = parseResource("tests/inspections/xquery/XQST0033/NamespaceDecl-SchemaImport.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new DuplicateNamespacePrefixInspection());
         assertThat(problems, is(notNullValue()));
@@ -90,7 +90,7 @@ public class DuplicateNamespacePrefixInspectionTest extends InspectionTestCase {
     }
 
     public void testSchemaImport_ModuleImport() {
-        final XQueryFile file = parseResource("tests/inspections/xquery/XQST0033/SchemaImport-ModuleImport.xq");
+        final XQueryModule file = parseResource("tests/inspections/xquery/XQST0033/SchemaImport-ModuleImport.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new DuplicateNamespacePrefixInspection());
         assertThat(problems, is(notNullValue()));
@@ -106,7 +106,7 @@ public class DuplicateNamespacePrefixInspectionTest extends InspectionTestCase {
     // region MarkLogic 6.0
 
     public void testOtherTransaction_NoDuplicates() {
-        final XQueryFile file = parseResource("tests/inspections/xquery/XQST0033/other-transaction-no-duplicates.xq");
+        final XQueryModule file = parseResource("tests/inspections/xquery/XQST0033/other-transaction-no-duplicates.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new DuplicateNamespacePrefixInspection());
         assertThat(problems, is(notNullValue()));
@@ -114,7 +114,7 @@ public class DuplicateNamespacePrefixInspectionTest extends InspectionTestCase {
     }
 
     public void testOtherTransaction_Duplicates() {
-        final XQueryFile file = parseResource("tests/inspections/xquery/XQST0033/other-transaction-duplicates.xq");
+        final XQueryModule file = parseResource("tests/inspections/xquery/XQST0033/other-transaction-duplicates.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new DuplicateNamespacePrefixInspection());
         assertThat(problems, is(notNullValue()));

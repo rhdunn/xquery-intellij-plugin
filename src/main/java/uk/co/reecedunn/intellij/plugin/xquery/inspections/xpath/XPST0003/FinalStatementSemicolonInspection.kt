@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic.MarkLogicTransactionSeparator
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingConcatExpr
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Scripting
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
@@ -36,7 +36,7 @@ class FinalStatementSemicolonInspection : LocalInspectionTool() {
         id + ".html"
 
     override fun checkFile(file: PsiFile, manager: InspectionManager, isOnTheFly: Boolean): Array<ProblemDescriptor>? {
-        if (file !is XQueryFile) return null
+        if (file !is XQueryModule) return null
 
         val settings = XQueryProjectSettings.getInstance(file.getProject())
         val product = settings.product

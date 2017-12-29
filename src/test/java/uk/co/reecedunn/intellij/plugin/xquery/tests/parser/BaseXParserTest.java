@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.parser;
 
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -25,13 +25,13 @@ public class BaseXParserTest extends ParserTestCase {
 
     public void testFTFuzzyOption() {
         final String expected = loadResource("tests/parser/basex-6.1/FTFuzzyOption.txt");
-        final XQueryFile actual = parseResource("tests/parser/basex-6.1/FTFuzzyOption.xq");
+        final XQueryModule actual = parseResource("tests/parser/basex-6.1/FTFuzzyOption.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testFTFuzzyOption_MissingUsingKeyword() {
         final String expected = loadResource("tests/parser/basex-6.1/FTFuzzyOption_MissingUsingKeyword.txt");
-        final XQueryFile actual = parseResource("tests/parser/basex-6.1/FTFuzzyOption_MissingUsingKeyword.xq");
+        final XQueryModule actual = parseResource("tests/parser/basex-6.1/FTFuzzyOption_MissingUsingKeyword.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
@@ -40,19 +40,19 @@ public class BaseXParserTest extends ParserTestCase {
 
     public void testUpdateExpr() {
         final String expected = loadResource("tests/parser/basex-7.8/UpdateExpr.txt");
-        final XQueryFile actual = parseResource("tests/parser/basex-7.8/UpdateExpr.xq");
+        final XQueryModule actual = parseResource("tests/parser/basex-7.8/UpdateExpr.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testUpdateExpr_MissingExpr() {
         final String expected = loadResource("tests/parser/basex-7.8/UpdateExpr_MissingExpr.txt");
-        final XQueryFile actual = parseResource("tests/parser/basex-7.8/UpdateExpr_MissingExpr.xq");
+        final XQueryModule actual = parseResource("tests/parser/basex-7.8/UpdateExpr_MissingExpr.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testUpdateExpr_Multiple() {
         final String expected = loadResource("tests/parser/basex-7.8/UpdateExpr_Multiple.txt");
-        final XQueryFile actual = parseResource("tests/parser/basex-7.8/UpdateExpr_Multiple.xq");
+        final XQueryModule actual = parseResource("tests/parser/basex-7.8/UpdateExpr_Multiple.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
@@ -61,25 +61,25 @@ public class BaseXParserTest extends ParserTestCase {
 
     public void testUpdateExpr_Block() {
         final String expected = loadResource("tests/parser/basex-8.5/UpdateExpr.txt");
-        final XQueryFile actual = parseResource("tests/parser/basex-8.5/UpdateExpr.xq");
+        final XQueryModule actual = parseResource("tests/parser/basex-8.5/UpdateExpr.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testUpdateExpr_Block_MissingExpr() {
         final String expected = loadResource("tests/parser/basex-8.5/UpdateExpr_MissingExpr.txt");
-        final XQueryFile actual = parseResource("tests/parser/basex-8.5/UpdateExpr_MissingExpr.xq");
+        final XQueryModule actual = parseResource("tests/parser/basex-8.5/UpdateExpr_MissingExpr.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testUpdateExpr_Block_MissingClosingBrace() {
         final String expected = loadResource("tests/parser/basex-8.5/UpdateExpr_MissingClosingBrace.txt");
-        final XQueryFile actual = parseResource("tests/parser/basex-8.5/UpdateExpr_MissingClosingBrace.xq");
+        final XQueryModule actual = parseResource("tests/parser/basex-8.5/UpdateExpr_MissingClosingBrace.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testUpdateExpr_Block_Multiple() {
         final String expected = loadResource("tests/parser/basex-8.5/UpdateExpr_Multiple.txt");
-        final XQueryFile actual = parseResource("tests/parser/basex-8.5/UpdateExpr_Multiple.xq");
+        final XQueryModule actual = parseResource("tests/parser/basex-8.5/UpdateExpr_Multiple.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 

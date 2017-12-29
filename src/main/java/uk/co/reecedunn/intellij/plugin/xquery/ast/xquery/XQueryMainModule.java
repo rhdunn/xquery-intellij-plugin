@@ -29,7 +29,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
  * }</pre>
  *
  * This simplifies the AST tree and makes it easier to reason what the
- * module type is from the {@link XQueryFile} node.
+ * module type is from the {@link XQueryModule} node.
  */
 public interface XQueryMainModule extends XQueryModuleBase {
 }

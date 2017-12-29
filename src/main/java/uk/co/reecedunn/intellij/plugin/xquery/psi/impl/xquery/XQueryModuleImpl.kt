@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.filetypes.XQueryFileType
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 
-class XQueryFileImpl(provider: FileViewProvider) : PsiFileBase(provider, XQuery), XQueryFile {
+class XQueryModuleImpl(provider: FileViewProvider) : PsiFileBase(provider, XQuery), XQueryModule {
     override fun getFileType(): FileType {
         return XQueryFileType.INSTANCE
     }
@@ -35,5 +35,5 @@ class XQueryFileImpl(provider: FileViewProvider) : PsiFileBase(provider, XQuery)
         children().filterIsInstance<XQueryModuleBase>()
 
     override fun toString(): String =
-        "XQueryFile(" + containingFile.name + ")"
+        "XQueryModule(" + containingFile.name + ")"
 }

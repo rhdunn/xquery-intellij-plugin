@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.inspections.xpath.XPST0003;
 
 import com.intellij.codeInspection.ProblemDescriptor;
 import com.intellij.codeInspection.ProblemHighlightType;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule;
 import uk.co.reecedunn.intellij.plugin.xquery.inspections.xpath.XPST0003.MapConstructorEntryInspection;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
@@ -47,7 +47,7 @@ public class MapConstructorEntryInspectionTest extends InspectionTestCase {
     public void testXQuery31_Map_XQuerySeparator() {
         getSettings().setImplementationVersion("w3c/spec/v1ed");
         getSettings().setXQueryVersion(XQuery.INSTANCE.getREC_3_1_20170321().getLabel());
-        final XQueryFile file = parseResource("tests/parser/xquery-3.1/MapConstructorEntry.xq");
+        final XQueryModule file = parseResource("tests/parser/xquery-3.1/MapConstructorEntry.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new MapConstructorEntryInspection());
         assertThat(problems, is(notNullValue()));
@@ -58,7 +58,7 @@ public class MapConstructorEntryInspectionTest extends InspectionTestCase {
     public void testXQuery31_Map_SaxonSeparator() {
         getSettings().setImplementationVersion("w3c/spec/v1ed");
         getSettings().setXQueryVersion(XQuery.INSTANCE.getREC_3_1_20170321().getLabel());
-        final XQueryFile file = parseResource("tests/parser/saxon-9.4/MapConstructorEntry.xq");
+        final XQueryModule file = parseResource("tests/parser/saxon-9.4/MapConstructorEntry.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new MapConstructorEntryInspection());
         assertThat(problems, is(notNullValue()));
@@ -73,7 +73,7 @@ public class MapConstructorEntryInspectionTest extends InspectionTestCase {
     public void testXQuery31_Map_NoValueAssignmentOperator() {
         getSettings().setImplementationVersion("w3c/spec/v1ed");
         getSettings().setXQueryVersion(XQuery.INSTANCE.getREC_3_1_20170321().getLabel());
-        final XQueryFile file = parseResource("tests/psi/xquery-3.1/MapConstructorEntry_NoValueAssignmentOperator.xq");
+        final XQueryModule file = parseResource("tests/psi/xquery-3.1/MapConstructorEntry_NoValueAssignmentOperator.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new MapConstructorEntryInspection());
         assertThat(problems, is(notNullValue()));
@@ -87,7 +87,7 @@ public class MapConstructorEntryInspectionTest extends InspectionTestCase {
     public void testSaxon94_Map_SaxonSeparator() {
         getSettings().setImplementationVersion("saxon/EE/v9.5");
         getSettings().setXQueryVersion(XQuery.INSTANCE.getREC_3_0_20140408().getLabel());
-        final XQueryFile file = parseResource("tests/parser/saxon-9.4/MapConstructorEntry.xq");
+        final XQueryModule file = parseResource("tests/parser/saxon-9.4/MapConstructorEntry.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new MapConstructorEntryInspection());
         assertThat(problems, is(notNullValue()));
@@ -98,7 +98,7 @@ public class MapConstructorEntryInspectionTest extends InspectionTestCase {
     public void testSaxon94_Map_XQuerySeparator() {
         getSettings().setImplementationVersion("saxon/EE/v9.5");
         getSettings().setXQueryVersion(XQuery.INSTANCE.getREC_3_0_20140408().getLabel());
-        final XQueryFile file = parseResource("tests/parser/xquery-3.1/MapConstructorEntry.xq");
+        final XQueryModule file = parseResource("tests/parser/xquery-3.1/MapConstructorEntry.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new MapConstructorEntryInspection());
         assertThat(problems, is(notNullValue()));
@@ -113,7 +113,7 @@ public class MapConstructorEntryInspectionTest extends InspectionTestCase {
     public void testSaxon94_Map_NoValueAssignmentOperator() {
         getSettings().setImplementationVersion("saxon/EE/v9.5");
         getSettings().setXQueryVersion(XQuery.INSTANCE.getREC_3_0_20140408().getLabel());
-        final XQueryFile file = parseResource("tests/psi/xquery-3.1/MapConstructorEntry_NoValueAssignmentOperator.xq");
+        final XQueryModule file = parseResource("tests/psi/xquery-3.1/MapConstructorEntry_NoValueAssignmentOperator.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new MapConstructorEntryInspection());
         assertThat(problems, is(notNullValue()));
@@ -126,7 +126,7 @@ public class MapConstructorEntryInspectionTest extends InspectionTestCase {
     @SuppressWarnings("ConstantConditions")
     public void testMarkLogic80_ObjectNode_MarkLogicSeparator() {
         getSettings().setImplementationVersion("marklogic/v8");
-        final XQueryFile file = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry.xq");
+        final XQueryModule file = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new MapConstructorEntryInspection());
         assertThat(problems, is(notNullValue()));
@@ -136,7 +136,7 @@ public class MapConstructorEntryInspectionTest extends InspectionTestCase {
     @SuppressWarnings("ConstantConditions")
     public void testMarkLogic80_ObjectNode_SaxonSeparator() {
         getSettings().setImplementationVersion("marklogic/v8");
-        final XQueryFile file = parseResource("tests/psi/marklogic-8.0/MapConstructorEntry_SaxonSeparator.xq");
+        final XQueryModule file = parseResource("tests/psi/marklogic-8.0/MapConstructorEntry_SaxonSeparator.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new MapConstructorEntryInspection());
         assertThat(problems, is(notNullValue()));

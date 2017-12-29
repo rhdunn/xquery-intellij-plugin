@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.inspections.xpath.XPST0003;
 
 import com.intellij.codeInspection.ProblemDescriptor;
 import com.intellij.codeInspection.ProblemHighlightType;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule;
 import uk.co.reecedunn.intellij.plugin.xquery.inspections.xpath.XPST0003.FinalStatementSemicolonInspection;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
@@ -46,7 +46,7 @@ public class FinalStatementSemicolonInspectionTest extends InspectionTestCase {
     public void testMarkLogic_Single_NoSemicolon() {
         getSettings().setImplementationVersion("marklogic/v6.0");
         getSettings().setXQueryVersion(XQuery.INSTANCE.getMARKLOGIC_1_0().getLabel());
-        final XQueryFile file = parseResource("tests/parser/xquery-1.0/IntegerLiteral.xq");
+        final XQueryModule file = parseResource("tests/parser/xquery-1.0/IntegerLiteral.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new FinalStatementSemicolonInspection());
         assertThat(problems, is(notNullValue()));
@@ -56,7 +56,7 @@ public class FinalStatementSemicolonInspectionTest extends InspectionTestCase {
     public void testMarkLogic_Single_Semicolon() {
         getSettings().setImplementationVersion("marklogic/v6.0");
         getSettings().setXQueryVersion(XQuery.INSTANCE.getMARKLOGIC_1_0().getLabel());
-        final XQueryFile file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_Single_SemicolonAtEnd.xq");
+        final XQueryModule file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_Single_SemicolonAtEnd.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new FinalStatementSemicolonInspection());
         assertThat(problems, is(notNullValue()));
@@ -66,7 +66,7 @@ public class FinalStatementSemicolonInspectionTest extends InspectionTestCase {
     public void testMarkLogic_Multiple_SemicolonAtEnd() {
         getSettings().setImplementationVersion("marklogic/v6.0");
         getSettings().setXQueryVersion(XQuery.INSTANCE.getMARKLOGIC_1_0().getLabel());
-        final XQueryFile file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_SemicolonAtEnd.xq");
+        final XQueryModule file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_SemicolonAtEnd.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new FinalStatementSemicolonInspection());
         assertThat(problems, is(notNullValue()));
@@ -76,7 +76,7 @@ public class FinalStatementSemicolonInspectionTest extends InspectionTestCase {
     public void testMarkLogic_Multiple_NoSemicolonAtEnd() {
         getSettings().setImplementationVersion("marklogic/v6.0");
         getSettings().setXQueryVersion(XQuery.INSTANCE.getMARKLOGIC_1_0().getLabel());
-        final XQueryFile file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_NoSemicolonAtEnd.xq");
+        final XQueryModule file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_NoSemicolonAtEnd.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new FinalStatementSemicolonInspection());
         assertThat(problems, is(notNullValue()));
@@ -86,7 +86,7 @@ public class FinalStatementSemicolonInspectionTest extends InspectionTestCase {
     public void testMarkLogic_WithProlog() {
         getSettings().setImplementationVersion("marklogic/v6.0");
         getSettings().setXQueryVersion(XQuery.INSTANCE.getMARKLOGIC_1_0().getLabel());
-        final XQueryFile file = parseResource("tests/parser/marklogic-6.0/Transactions_WithVersionDecl.xq");
+        final XQueryModule file = parseResource("tests/parser/marklogic-6.0/Transactions_WithVersionDecl.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new FinalStatementSemicolonInspection());
         assertThat(problems, is(notNullValue()));
@@ -99,7 +99,7 @@ public class FinalStatementSemicolonInspectionTest extends InspectionTestCase {
     public void testScripting_Single_NoSemicolon() {
         getSettings().setImplementationVersion("w3c/spec/v1ed");
         getSettings().setXQueryVersion(XQuery.INSTANCE.getREC_1_0_20070123().getLabel());
-        final XQueryFile file = parseResource("tests/parser/xquery-1.0/IntegerLiteral.xq");
+        final XQueryModule file = parseResource("tests/parser/xquery-1.0/IntegerLiteral.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new FinalStatementSemicolonInspection());
         assertThat(problems, is(notNullValue()));
@@ -109,7 +109,7 @@ public class FinalStatementSemicolonInspectionTest extends InspectionTestCase {
     public void testScripting_Single_Semicolon() {
         getSettings().setImplementationVersion("w3c/spec/v1ed");
         getSettings().setXQueryVersion(XQuery.INSTANCE.getREC_1_0_20070123().getLabel());
-        final XQueryFile file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_Single_SemicolonAtEnd.xq");
+        final XQueryModule file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_Single_SemicolonAtEnd.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new FinalStatementSemicolonInspection());
         assertThat(problems, is(notNullValue()));
@@ -119,7 +119,7 @@ public class FinalStatementSemicolonInspectionTest extends InspectionTestCase {
     public void testScripting_Multiple_SemicolonAtEnd() {
         getSettings().setImplementationVersion("w3c/spec/v1ed");
         getSettings().setXQueryVersion(XQuery.INSTANCE.getREC_1_0_20070123().getLabel());
-        final XQueryFile file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_SemicolonAtEnd.xq");
+        final XQueryModule file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_SemicolonAtEnd.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new FinalStatementSemicolonInspection());
         assertThat(problems, is(notNullValue()));
@@ -129,7 +129,7 @@ public class FinalStatementSemicolonInspectionTest extends InspectionTestCase {
     public void testScripting_Multiple_NoSemicolonAtEnd() {
         getSettings().setImplementationVersion("w3c/spec/v1ed");
         getSettings().setXQueryVersion(XQuery.INSTANCE.getREC_1_0_20070123().getLabel());
-        final XQueryFile file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_NoSemicolonAtEnd.xq");
+        final XQueryModule file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_NoSemicolonAtEnd.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new FinalStatementSemicolonInspection());
         assertThat(problems, is(notNullValue()));
@@ -143,7 +143,7 @@ public class FinalStatementSemicolonInspectionTest extends InspectionTestCase {
     public void testScripting_WithProlog() {
         getSettings().setImplementationVersion("w3c/spec/v1ed");
         getSettings().setXQueryVersion(XQuery.INSTANCE.getREC_1_0_20070123().getLabel());
-        final XQueryFile file = parseResource("tests/parser/marklogic-6.0/Transactions_WithVersionDecl.xq");
+        final XQueryModule file = parseResource("tests/parser/marklogic-6.0/Transactions_WithVersionDecl.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new FinalStatementSemicolonInspection());
         assertThat(problems, is(notNullValue()));

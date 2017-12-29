@@ -31,7 +31,7 @@ import uk.co.reecedunn.intellij.plugin.core.lexer.CombinedLexer;
 import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryFileImpl;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryModuleImpl;
 
 public class XQueryParserDefinition implements ParserDefinition {
     @Override
@@ -84,7 +84,7 @@ public class XQueryParserDefinition implements ParserDefinition {
 
     @Override
     public PsiFile createFile(@NotNull FileViewProvider viewProvider) {
-        return new XQueryFileImpl(viewProvider);
+        return new XQueryModuleImpl(viewProvider);
     }
 
     @Override

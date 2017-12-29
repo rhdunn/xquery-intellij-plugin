@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.parser;
 
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.Specification;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -26,79 +26,79 @@ public class ScriptingParserTest extends ParserTestCase {
 
     public void testApplyExpr_Single_SemicolonAtEnd() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/ApplyExpr_Single_SemicolonAtEnd.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_Single_SemicolonAtEnd.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_Single_SemicolonAtEnd.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testApplyExpr_Single_SemicolonAtEnd_CompactWhitespace() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/ApplyExpr_Single_SemicolonAtEnd_CompactWhitespace.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_Single_SemicolonAtEnd_CompactWhitespace.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_Single_SemicolonAtEnd_CompactWhitespace.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testApplyExpr_Single_NoSemicolonAtEnd() {
         final String expected = loadResource("tests/parser/xquery-1.0/IntegerLiteral.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-1.0/IntegerLiteral.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-1.0/IntegerLiteral.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testApplyExpr_TwoExpr_SemicolonAtEnd() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/ApplyExpr_TwoExpr_SemicolonAtEnd.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_TwoExpr_SemicolonAtEnd.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_TwoExpr_SemicolonAtEnd.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testApplyExpr_TwoExpr_SemicolonAtEnd_CompactWhitespace() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/ApplyExpr_TwoExpr_SemicolonAtEnd_CompactWhitespace.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_TwoExpr_SemicolonAtEnd_CompactWhitespace.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_TwoExpr_SemicolonAtEnd_CompactWhitespace.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testApplyExpr_TwoExpr_NoSemicolonAtEnd() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/ApplyExpr_TwoExpr_NoSemicolonAtEnd.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_TwoExpr_NoSemicolonAtEnd.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_TwoExpr_NoSemicolonAtEnd.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testApplyExpr_Multiple_SemicolonAtEnd() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/ApplyExpr_Multiple_SemicolonAtEnd.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_Multiple_SemicolonAtEnd.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_Multiple_SemicolonAtEnd.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testApplyExpr_Multiple_SemicolonAtEnd_CompactWhitespace() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/ApplyExpr_Multiple_SemicolonAtEnd_CompactWhitespace.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_Multiple_SemicolonAtEnd_CompactWhitespace.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_Multiple_SemicolonAtEnd_CompactWhitespace.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testApplyExpr_Multiple_NoSemicolonAtEnd() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/ApplyExpr_Multiple_NoSemicolonAtEnd.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_Multiple_NoSemicolonAtEnd.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_Multiple_NoSemicolonAtEnd.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testApplyExpr_NoSemicolonBetweenExpr_First() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/ApplyExpr_NoSemicolonBetweenExpr_First.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_NoSemicolonBetweenExpr_First.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_NoSemicolonBetweenExpr_First.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testApplyExpr_NoSemicolonBetweenExpr_Last() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/ApplyExpr_NoSemicolonBetweenExpr_Last.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_NoSemicolonBetweenExpr_Last.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_NoSemicolonBetweenExpr_Last.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testApplyExpr_EmptyStatement() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/ApplyExpr_EmptyStatement.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_EmptyStatement.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_EmptyStatement.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testApplyExpr_EmptyMiddleStatement() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/ApplyExpr_EmptyMiddleStatement.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_EmptyMiddleStatement.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_EmptyMiddleStatement.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
@@ -107,79 +107,79 @@ public class ScriptingParserTest extends ParserTestCase {
 
     public void testQueryBody_Single_SemicolonAtEnd() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/QueryBody_Single_SemicolonAtEnd.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/QueryBody_Single_SemicolonAtEnd.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/QueryBody_Single_SemicolonAtEnd.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testQueryBody_Single_SemicolonAtEnd_CompactWhitespace() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/QueryBody_Single_SemicolonAtEnd_CompactWhitespace.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/QueryBody_Single_SemicolonAtEnd_CompactWhitespace.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/QueryBody_Single_SemicolonAtEnd_CompactWhitespace.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testQueryBody_Single_NoSemicolonAtEnd() {
         final String expected = loadResource("tests/parser/xquery-1.0/IntegerLiteral.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-1.0/IntegerLiteral.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-1.0/IntegerLiteral.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testQueryBody_TwoExpr_SemicolonAtEnd() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_SemicolonAtEnd.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_SemicolonAtEnd.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_SemicolonAtEnd.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testQueryBody_TwoExpr_SemicolonAtEnd_CompactWhitespace() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_SemicolonAtEnd_CompactWhitespace.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_SemicolonAtEnd_CompactWhitespace.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_SemicolonAtEnd_CompactWhitespace.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testQueryBody_TwoExpr_NoSemicolonAtEnd() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_NoSemicolonAtEnd.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_NoSemicolonAtEnd.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_NoSemicolonAtEnd.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testQueryBody_Multiple_SemicolonAtEnd() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/QueryBody_Multiple_SemicolonAtEnd.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/QueryBody_Multiple_SemicolonAtEnd.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/QueryBody_Multiple_SemicolonAtEnd.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testQueryBody_Multiple_SemicolonAtEnd_CompactWhitespace() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/QueryBody_Multiple_SemicolonAtEnd_CompactWhitespace.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/QueryBody_Multiple_SemicolonAtEnd_CompactWhitespace.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/QueryBody_Multiple_SemicolonAtEnd_CompactWhitespace.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testQueryBody_Multiple_NoSemicolonAtEnd() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/QueryBody_Multiple_NoSemicolonAtEnd.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/QueryBody_Multiple_NoSemicolonAtEnd.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/QueryBody_Multiple_NoSemicolonAtEnd.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testQueryBody_NoSemicolonBetweenExpr_First() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/QueryBody_NoSemicolonBetweenExpr_First.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/QueryBody_NoSemicolonBetweenExpr_First.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/QueryBody_NoSemicolonBetweenExpr_First.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testQueryBody_NoSemicolonBetweenExpr_Last() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/QueryBody_NoSemicolonBetweenExpr_Last.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/QueryBody_NoSemicolonBetweenExpr_Last.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/QueryBody_NoSemicolonBetweenExpr_Last.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testQueryBody_EmptyStatement() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/QueryBody_EmptyStatement.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/QueryBody_EmptyStatement.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/QueryBody_EmptyStatement.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     public void testQueryBody_EmptyMiddleStatement() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/QueryBody_EmptyMiddleStatement.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/QueryBody_EmptyMiddleStatement.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/QueryBody_EmptyMiddleStatement.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
@@ -189,14 +189,14 @@ public class ScriptingParserTest extends ParserTestCase {
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-VarDecl")
     public void testVarDecl_Assignable() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/VarDecl_Assignable.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/VarDecl_Assignable.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/VarDecl_Assignable.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-VarDecl")
     public void testVarDecl_Unassignable() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/VarDecl_Unassignable.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/VarDecl_Unassignable.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/VarDecl_Unassignable.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
@@ -206,56 +206,56 @@ public class ScriptingParserTest extends ParserTestCase {
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-FunctionDecl")
     public void testFunctionDecl() {
         final String expected = loadResource("tests/parser/xquery-1.0/FunctionDecl.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-1.0/FunctionDecl.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-1.0/FunctionDecl.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-FunctionDecl")
     public void testFunctionDecl_EnclosedExpr() {
         final String expected = loadResource("tests/parser/xquery-1.0/EnclosedExpr.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-1.0/EnclosedExpr.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-1.0/EnclosedExpr.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-FunctionDecl")
     public void testFunctionDecl_Simple() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/FunctionDecl_Simple.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/FunctionDecl_Simple.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/FunctionDecl_Simple.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-FunctionDecl")
     public void testFunctionDecl_Simple_EnclosedExpr() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/FunctionDecl_Simple_EnclosedExpr.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/FunctionDecl_Simple_EnclosedExpr.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/FunctionDecl_Simple_EnclosedExpr.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-FunctionDecl")
     public void testFunctionDecl_Updating() {
         final String expected = loadResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-FunctionDecl")
     public void testFunctionDecl_Updating_EnclosedExpr() {
         final String expected = loadResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating_EnclosedExpr.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating_EnclosedExpr.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating_EnclosedExpr.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-FunctionDecl")
     public void testFunctionDecl_Sequential() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/FunctionDecl_Sequential.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/FunctionDecl_Sequential.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/FunctionDecl_Sequential.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-FunctionDecl")
     public void testFunctionDecl_Sequential_Block() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/FunctionDecl_Sequential_Block.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/FunctionDecl_Sequential_Block.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/FunctionDecl_Sequential_Block.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
@@ -265,35 +265,35 @@ public class ScriptingParserTest extends ParserTestCase {
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-BlockExpr")
     public void testBlockExpr() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/BlockExpr.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/BlockExpr.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/BlockExpr.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-BlockExpr")
     public void testBlockExpr_CompactWhitespace() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/BlockExpr_CompactWhitespace.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/BlockExpr_CompactWhitespace.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/BlockExpr_CompactWhitespace.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-BlockExpr")
     public void testBlockExpr_MissingOpeningBrace() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/BlockExpr_MissingOpeningBrace.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/BlockExpr_MissingOpeningBrace.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/BlockExpr_MissingOpeningBrace.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-BlockExpr")
     public void testBlockExpr_MissingBlockBody() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/BlockExpr_MissingBlockBody.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/BlockExpr_MissingBlockBody.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/BlockExpr_MissingBlockBody.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-BlockExpr")
     public void testBlockExpr_MissingClosingBrace() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/BlockExpr_MissingClosingBrace.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/BlockExpr_MissingClosingBrace.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/BlockExpr_MissingClosingBrace.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
@@ -303,21 +303,21 @@ public class ScriptingParserTest extends ParserTestCase {
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-BlockDecls")
     public void testBlockDecls_Empty() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/FunctionDecl_Sequential_Block.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/FunctionDecl_Sequential_Block.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/FunctionDecl_Sequential_Block.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-BlockDecls")
     public void testBlockDecls_Single() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/BlockVarDecl.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-BlockDecls")
     public void testBlockDecls_Multiple() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/BlockDecls_Multiple.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/BlockDecls_Multiple.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/BlockDecls_Multiple.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
@@ -327,21 +327,21 @@ public class ScriptingParserTest extends ParserTestCase {
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-BlockDecls")
     public void testBlockDecls_WhileBody_Empty() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/WhileExpr.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/WhileExpr.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/WhileExpr.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-BlockDecls")
     public void testBlockDecls_WhileBody_Single() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/WhileBody_BlockVarDecl.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/WhileBody_BlockVarDecl.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/WhileBody_BlockVarDecl.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-BlockDecls")
     public void testBlockDecls_WhileBody_Multiple() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/WhileBody_BlockVarDecl_Multiple.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/WhileBody_BlockVarDecl_Multiple.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/WhileBody_BlockVarDecl_Multiple.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
@@ -351,98 +351,98 @@ public class ScriptingParserTest extends ParserTestCase {
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-BlockVarDecl")
     public void testBlockVarDecl() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/BlockVarDecl.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-BlockVarDecl")
     public void testBlockVarDecl_CompactWhitespace() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/BlockVarDecl_CompactWhitespace.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl_CompactWhitespace.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl_CompactWhitespace.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-BlockVarDecl")
     public void testBlockVarDecl_MissingVarIndicator() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/BlockVarDecl_MissingVarIndicator.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl_MissingVarIndicator.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl_MissingVarIndicator.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-BlockVarDecl")
     public void testBlockVarDecl_MissingVarName() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/BlockVarDecl_MissingVarName.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl_MissingVarName.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl_MissingVarName.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-BlockVarDecl")
     public void testBlockVarDecl_MissingSemicolon() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/BlockVarDecl_MissingSemicolon.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl_MissingSemicolon.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl_MissingSemicolon.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-BlockVarDecl")
     public void testBlockVarDecl_DeclareAsFunctionCall_NCName() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/BlockVarDecl_DeclareAsFunctionCall_NCName.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl_DeclareAsFunctionCall_NCName.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl_DeclareAsFunctionCall_NCName.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-BlockVarDecl")
     public void testBlockVarDecl_DeclareAsFunctionCall_QNamePrefix() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/BlockVarDecl_DeclareAsFunctionCall_QNamePrefix.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl_DeclareAsFunctionCall_QNamePrefix.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl_DeclareAsFunctionCall_QNamePrefix.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-BlockVarDecl")
     public void testBlockVarDecl_TypeDeclaration() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/BlockVarDecl_TypeDeclaration.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl_TypeDeclaration.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl_TypeDeclaration.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-BlockVarDecl")
     public void testBlockVarDecl_TypeDeclaration_MissingSemicolon() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/BlockVarDecl_TypeDeclaration_MissingSemicolon.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl_TypeDeclaration_MissingSemicolon.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl_TypeDeclaration_MissingSemicolon.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-BlockVarDecl")
     public void testBlockVarDecl_Assignment() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/BlockVarDecl_Assignment.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl_Assignment.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl_Assignment.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-BlockVarDecl")
     public void testBlockVarDecl_Assignment_Equals() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/BlockVarDecl_Assignment_Equals.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl_Assignment_Equals.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl_Assignment_Equals.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-BlockVarDecl")
     public void testBlockVarDecl_Assignment_MissingExpr() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/BlockVarDecl_Assignment_MissingExpr.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl_Assignment_MissingExpr.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl_Assignment_MissingExpr.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-BlockVarDecl")
     public void testBlockVarDecl_MultipleVars() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/BlockVarDecl_MultipleVars.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl_MultipleVars.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl_MultipleVars.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-BlockVarDecl")
     public void testBlockVarDecl_MultipleVars_NothingAfterComma() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/BlockVarDecl_MultipleVars_NothingAfterComma.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl_MultipleVars_NothingAfterComma.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl_MultipleVars_NothingAfterComma.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
@@ -452,35 +452,35 @@ public class ScriptingParserTest extends ParserTestCase {
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-AssignmentExpr")
     public void testAssignmentExpr() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/AssignmentExpr.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/AssignmentExpr.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/AssignmentExpr.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-AssignmentExpr")
     public void testAssignmentExpr_CompactWhitespace() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/AssignmentExpr_CompactWhitespace.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/AssignmentExpr_CompactWhitespace.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/AssignmentExpr_CompactWhitespace.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-AssignmentExpr")
     public void testAssignmentExpr_MissingVarName() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/AssignmentExpr_MissingVarName.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/AssignmentExpr_MissingVarName.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/AssignmentExpr_MissingVarName.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-AssignmentExpr")
     public void testAssignmentExpr_MissingExpr() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/AssignmentExpr_MissingExpr.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/AssignmentExpr_MissingExpr.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/AssignmentExpr_MissingExpr.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-AssignmentExpr")
     public void testAssignmentExpr_Nested() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/AssignmentExpr_Nested.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/AssignmentExpr_Nested.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/AssignmentExpr_Nested.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
@@ -490,28 +490,28 @@ public class ScriptingParserTest extends ParserTestCase {
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-ExitExpr")
     public void testExitExpr() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/ExitExpr.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/ExitExpr.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/ExitExpr.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-ExitExpr")
     public void testExitExpr_CompactWhitespace() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/ExitExpr_CompactWhitespace.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/ExitExpr_CompactWhitespace.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/ExitExpr_CompactWhitespace.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-ExitExpr")
     public void testExitExpr_MissingReturningKeyword() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/ExitExpr_MissingReturningKeyword.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/ExitExpr_MissingReturningKeyword.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/ExitExpr_MissingReturningKeyword.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-ExitExpr")
     public void testExitExpr_MissingExpr() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/ExitExpr_MissingExpr.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/ExitExpr_MissingExpr.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/ExitExpr_MissingExpr.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
@@ -521,49 +521,49 @@ public class ScriptingParserTest extends ParserTestCase {
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-WhileExpr")
     public void testWhileExpr() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/WhileExpr.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/WhileExpr.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/WhileExpr.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-WhileExpr")
     public void testWhileExpr_CompactWhitespace() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/WhileExpr_CompactWhitespace.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/WhileExpr_CompactWhitespace.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/WhileExpr_CompactWhitespace.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-WhileExpr")
     public void testWhileExpr_MissingConditionExpr() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/WhileExpr_MissingConditionExpr.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/WhileExpr_MissingConditionExpr.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/WhileExpr_MissingConditionExpr.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-WhileExpr")
     public void testWhileExpr_MissingClosingParenthesis() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/WhileExpr_MissingClosingParenthesis.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/WhileExpr_MissingClosingParenthesis.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/WhileExpr_MissingClosingParenthesis.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-WhileExpr")
     public void testFunctionCall_WhileKeyword_NoParams() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/FunctionCall_WhileKeyword_NoParams.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/FunctionCall_WhileKeyword_NoParams.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/FunctionCall_WhileKeyword_NoParams.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-WhileExpr")
     public void testFunctionCall_WhileKeyword_SingleParam() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/FunctionCall_WhileKeyword_SingleParam.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/FunctionCall_WhileKeyword_SingleParam.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/FunctionCall_WhileKeyword_SingleParam.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 
     @Specification(name="XQuery Scripting Extension 1.0", reference="https://www.w3.org/TR/2014/NOTE-xquery-sx-10-20140918/#prod-xquery-WhileExpr")
     public void testFunctionCall_WhileKeyword_MultipleParams() {
         final String expected = loadResource("tests/parser/xquery-sx-1.0/FunctionCall_WhileKeyword_MultipleParams.txt");
-        final XQueryFile actual = parseResource("tests/parser/xquery-sx-1.0/FunctionCall_WhileKeyword_MultipleParams.xq");
+        final XQueryModule actual = parseResource("tests/parser/xquery-sx-1.0/FunctionCall_WhileKeyword_MultipleParams.xq");
         assertThat(prettyPrintASTNode(actual), is(expected));
     }
 

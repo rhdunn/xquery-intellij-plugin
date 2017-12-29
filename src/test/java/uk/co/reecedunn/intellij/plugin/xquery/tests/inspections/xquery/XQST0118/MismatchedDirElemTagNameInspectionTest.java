@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.inspections.xquery.XQST0118
 
 import com.intellij.codeInspection.ProblemDescriptor;
 import com.intellij.codeInspection.ProblemHighlightType;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule;
 import uk.co.reecedunn.intellij.plugin.xquery.inspections.xquery.XQST0118.MismatchedDirElemTagNameInspection;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.inspections.InspectionTestCase;
@@ -43,7 +43,7 @@ public class MismatchedDirElemTagNameInspectionTest extends InspectionTestCase {
     // region DirElemConstructor :: NCName
 
     public void testNCName_MatchedTags() {
-        final XQueryFile file = parseResource("tests/inspections/xquery/XQST0118/NCName_MatchedTags.xq");
+        final XQueryModule file = parseResource("tests/inspections/xquery/XQST0118/NCName_MatchedTags.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new MismatchedDirElemTagNameInspection());
         assertThat(problems, is(notNullValue()));
@@ -51,7 +51,7 @@ public class MismatchedDirElemTagNameInspectionTest extends InspectionTestCase {
     }
 
     public void testNCName_SelfClosing() {
-        final XQueryFile file = parseResource("tests/inspections/xquery/XQST0118/NCName_SelfClosing.xq");
+        final XQueryModule file = parseResource("tests/inspections/xquery/XQST0118/NCName_SelfClosing.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new MismatchedDirElemTagNameInspection());
         assertThat(problems, is(notNullValue()));
@@ -59,7 +59,7 @@ public class MismatchedDirElemTagNameInspectionTest extends InspectionTestCase {
     }
 
     public void testNCName_MismatchedTags() {
-        final XQueryFile file = parseResource("tests/inspections/xquery/XQST0118/NCName_MismatchedTags.xq");
+        final XQueryModule file = parseResource("tests/inspections/xquery/XQST0118/NCName_MismatchedTags.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new MismatchedDirElemTagNameInspection());
         assertThat(problems, is(notNullValue()));
@@ -75,7 +75,7 @@ public class MismatchedDirElemTagNameInspectionTest extends InspectionTestCase {
     // region DirElemConstructor :: QName
 
     public void testQName_MatchedPrefixAndLocalName() {
-        final XQueryFile file = parseResource("tests/parser/xquery-1.0/DirElemConstructor_CompactWhitespace.xq");
+        final XQueryModule file = parseResource("tests/parser/xquery-1.0/DirElemConstructor_CompactWhitespace.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new MismatchedDirElemTagNameInspection());
         assertThat(problems, is(notNullValue()));
@@ -83,7 +83,7 @@ public class MismatchedDirElemTagNameInspectionTest extends InspectionTestCase {
     }
 
     public void testQName_SelfClosing() {
-        final XQueryFile file = parseResource("tests/parser/xquery-1.0/DirElemConstructor_SelfClosing.xq");
+        final XQueryModule file = parseResource("tests/parser/xquery-1.0/DirElemConstructor_SelfClosing.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new MismatchedDirElemTagNameInspection());
         assertThat(problems, is(notNullValue()));
@@ -91,7 +91,7 @@ public class MismatchedDirElemTagNameInspectionTest extends InspectionTestCase {
     }
 
     public void testQName_MissingClosingTag() {
-        final XQueryFile file = parseResource("tests/parser/xquery-1.0/DirElemConstructor_MissingClosingTag.xq");
+        final XQueryModule file = parseResource("tests/parser/xquery-1.0/DirElemConstructor_MissingClosingTag.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new MismatchedDirElemTagNameInspection());
         assertThat(problems, is(notNullValue()));
@@ -99,7 +99,7 @@ public class MismatchedDirElemTagNameInspectionTest extends InspectionTestCase {
     }
 
     public void testQName_MismatchedPrefix() {
-        final XQueryFile file = parseResource("tests/inspections/xquery/XQST0118/QName_MismatchedPrefix.xq");
+        final XQueryModule file = parseResource("tests/inspections/xquery/XQST0118/QName_MismatchedPrefix.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new MismatchedDirElemTagNameInspection());
         assertThat(problems, is(notNullValue()));
@@ -112,7 +112,7 @@ public class MismatchedDirElemTagNameInspectionTest extends InspectionTestCase {
     }
 
     public void testQName_MismatchedLocalName() {
-        final XQueryFile file = parseResource("tests/inspections/xquery/XQST0118/QName_MismatchedLocalName.xq");
+        final XQueryModule file = parseResource("tests/inspections/xquery/XQST0118/QName_MismatchedLocalName.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new MismatchedDirElemTagNameInspection());
         assertThat(problems, is(notNullValue()));

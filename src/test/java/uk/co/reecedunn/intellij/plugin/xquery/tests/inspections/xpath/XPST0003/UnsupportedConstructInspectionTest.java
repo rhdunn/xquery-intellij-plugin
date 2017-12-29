@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.inspections.xpath.XPST0003;
 
 import com.intellij.codeInspection.ProblemDescriptor;
 import com.intellij.codeInspection.ProblemHighlightType;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule;
 import uk.co.reecedunn.intellij.plugin.xquery.inspections.xpath.XPST0003.UnsupportedConstructInspection;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
@@ -46,7 +46,7 @@ public class UnsupportedConstructInspectionTest extends InspectionTestCase {
     @SuppressWarnings("ConstantConditions")
     public void testXQuery30VersionDeclInXQuery10() {
         getSettings().setXQueryVersion(XQuery.INSTANCE.getREC_1_0_20070123().getLabel());
-        final XQueryFile file = parseResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly.xq");
+        final XQueryModule file = parseResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new UnsupportedConstructInspection());
         assertThat(problems, is(notNullValue()));
@@ -56,7 +56,7 @@ public class UnsupportedConstructInspectionTest extends InspectionTestCase {
     @SuppressWarnings("ConstantConditions")
     public void testXQuery30VersionDecl() {
         getSettings().setXQueryVersion(XQuery.INSTANCE.getREC_3_0_20140408().getLabel());
-        final XQueryFile file = parseResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly.xq");
+        final XQueryModule file = parseResource("tests/parser/xquery-3.0/VersionDecl_EncodingOnly.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new UnsupportedConstructInspection());
         assertThat(problems, is(notNullValue()));
@@ -70,7 +70,7 @@ public class UnsupportedConstructInspectionTest extends InspectionTestCase {
         getSettings().setXQueryVersion(XQuery.INSTANCE.getREC_1_0_20070123().getLabel());
         getSettings().setImplementationVersion("w3c/spec/v1ed");
 
-        final XQueryFile file = parseResource("tests/parser/xquery-update-1.0/DeleteExpr_Node.xq");
+        final XQueryModule file = parseResource("tests/parser/xquery-update-1.0/DeleteExpr_Node.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new UnsupportedConstructInspection());
         assertThat(problems, is(notNullValue()));
@@ -81,7 +81,7 @@ public class UnsupportedConstructInspectionTest extends InspectionTestCase {
         getSettings().setXQueryVersion(XQuery.INSTANCE.getREC_1_0_20070123().getLabel());
         getSettings().setImplementationVersion("marklogic/v7.0");
 
-        final XQueryFile file = parseResource("tests/parser/xquery-update-1.0/DeleteExpr_Node.xq");
+        final XQueryModule file = parseResource("tests/parser/xquery-update-1.0/DeleteExpr_Node.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new UnsupportedConstructInspection());
         assertThat(problems, is(notNullValue()));
@@ -96,7 +96,7 @@ public class UnsupportedConstructInspectionTest extends InspectionTestCase {
         getSettings().setXQueryVersion(XQuery.INSTANCE.getREC_3_0_20140408().getLabel());
         getSettings().setImplementationVersion("w3c/spec/v1ed");
 
-        final XQueryFile file = parseResource("tests/parser/xquery-update-3.0/UpdatingFunctionCall.xq");
+        final XQueryModule file = parseResource("tests/parser/xquery-update-3.0/UpdatingFunctionCall.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new UnsupportedConstructInspection());
         assertThat(problems, is(notNullValue()));
@@ -107,7 +107,7 @@ public class UnsupportedConstructInspectionTest extends InspectionTestCase {
         getSettings().setXQueryVersion(XQuery.INSTANCE.getREC_3_0_20140408().getLabel());
         getSettings().setImplementationVersion("saxon/EE/v9.5"); // Supports Update Facility 1.0, not 3.0
 
-        final XQueryFile file = parseResource("tests/parser/xquery-update-3.0/UpdatingFunctionCall.xq");
+        final XQueryModule file = parseResource("tests/parser/xquery-update-3.0/UpdatingFunctionCall.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new UnsupportedConstructInspection());
         assertThat(problems, is(notNullValue()));
@@ -122,7 +122,7 @@ public class UnsupportedConstructInspectionTest extends InspectionTestCase {
         getSettings().setXQueryVersion(XQuery.INSTANCE.getREC_3_0_20140408().getLabel());
         getSettings().setImplementationVersion("basex/v8.6");
 
-        final XQueryFile file = parseResource("tests/parser/xquery-update-3.0/TransformWithExpr.xq");
+        final XQueryModule file = parseResource("tests/parser/xquery-update-3.0/TransformWithExpr.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new UnsupportedConstructInspection());
         assertThat(problems, is(notNullValue()));
@@ -133,7 +133,7 @@ public class UnsupportedConstructInspectionTest extends InspectionTestCase {
         getSettings().setXQueryVersion(XQuery.INSTANCE.getREC_3_0_20140408().getLabel());
         getSettings().setImplementationVersion("saxon/EE/v9.5"); // Supports Update Facility 1.0, not 3.0
 
-        final XQueryFile file = parseResource("tests/parser/xquery-update-3.0/TransformWithExpr.xq");
+        final XQueryModule file = parseResource("tests/parser/xquery-update-3.0/TransformWithExpr.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new UnsupportedConstructInspection());
         assertThat(problems, is(notNullValue()));
@@ -151,7 +151,7 @@ public class UnsupportedConstructInspectionTest extends InspectionTestCase {
         getSettings().setXQueryVersion(XQuery.INSTANCE.getREC_1_0_20070123().getLabel());
         getSettings().setImplementationVersion("w3c/spec/v1ed");
 
-        final XQueryFile file = parseResource("tests/parser/xquery-sx-1.0/WhileExpr.xq");
+        final XQueryModule file = parseResource("tests/parser/xquery-sx-1.0/WhileExpr.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new UnsupportedConstructInspection());
         assertThat(problems, is(notNullValue()));
@@ -162,7 +162,7 @@ public class UnsupportedConstructInspectionTest extends InspectionTestCase {
         getSettings().setXQueryVersion(XQuery.INSTANCE.getREC_1_0_20070123().getLabel());
         getSettings().setImplementationVersion("marklogic/v7.0");
 
-        final XQueryFile file = parseResource("tests/parser/xquery-sx-1.0/BlockExpr.xq");
+        final XQueryModule file = parseResource("tests/parser/xquery-sx-1.0/BlockExpr.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new UnsupportedConstructInspection());
         assertThat(problems, is(notNullValue()));
@@ -180,7 +180,7 @@ public class UnsupportedConstructInspectionTest extends InspectionTestCase {
         getSettings().setXQueryVersion(XQuery.INSTANCE.getREC_3_0_20140408().getLabel());
         getSettings().setImplementationVersion("basex/v8.5");
 
-        final XQueryFile file = parseResource("tests/parser/basex-7.8/UpdateExpr.xq");
+        final XQueryModule file = parseResource("tests/parser/basex-7.8/UpdateExpr.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new UnsupportedConstructInspection());
         assertThat(problems, is(notNullValue()));
@@ -191,7 +191,7 @@ public class UnsupportedConstructInspectionTest extends InspectionTestCase {
         getSettings().setXQueryVersion(XQuery.INSTANCE.getREC_1_0_20070123().getLabel());
         getSettings().setImplementationVersion("marklogic/v7.0");
 
-        final XQueryFile file = parseResource("tests/parser/basex-7.8/UpdateExpr.xq");
+        final XQueryModule file = parseResource("tests/parser/basex-7.8/UpdateExpr.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new UnsupportedConstructInspection());
         assertThat(problems, is(notNullValue()));
@@ -213,7 +213,7 @@ public class UnsupportedConstructInspectionTest extends InspectionTestCase {
         getSettings().setXQueryVersion(XQuery.INSTANCE.getMARKLOGIC_0_9().getLabel());
         getSettings().setImplementationVersion("marklogic/v7.0");
 
-        final XQueryFile file = parseResource("tests/parser/marklogic-6.0/BinaryConstructor.xq");
+        final XQueryModule file = parseResource("tests/parser/marklogic-6.0/BinaryConstructor.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new UnsupportedConstructInspection());
         assertThat(problems, is(notNullValue()));
@@ -224,7 +224,7 @@ public class UnsupportedConstructInspectionTest extends InspectionTestCase {
         getSettings().setXQueryVersion(XQuery.INSTANCE.getMARKLOGIC_0_9().getLabel());
         getSettings().setImplementationVersion("saxon/EE/v9.5");
 
-        final XQueryFile file = parseResource("tests/parser/marklogic-6.0/BinaryConstructor.xq");
+        final XQueryModule file = parseResource("tests/parser/marklogic-6.0/BinaryConstructor.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new UnsupportedConstructInspection());
         assertThat(problems, is(notNullValue()));
@@ -239,7 +239,7 @@ public class UnsupportedConstructInspectionTest extends InspectionTestCase {
         getSettings().setXQueryVersion(XQuery.INSTANCE.getMARKLOGIC_1_0().getLabel());
         getSettings().setImplementationVersion("marklogic/v7.0");
 
-        final XQueryFile file = parseResource("tests/parser/marklogic-7.0/SchemaRootTest.xq");
+        final XQueryModule file = parseResource("tests/parser/marklogic-7.0/SchemaRootTest.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new UnsupportedConstructInspection());
         assertThat(problems, is(notNullValue()));
@@ -250,7 +250,7 @@ public class UnsupportedConstructInspectionTest extends InspectionTestCase {
         getSettings().setXQueryVersion(XQuery.INSTANCE.getMARKLOGIC_1_0().getLabel());
         getSettings().setImplementationVersion("saxon/EE/v9.5");
 
-        final XQueryFile file = parseResource("tests/parser/marklogic-7.0/SchemaRootTest.xq");
+        final XQueryModule file = parseResource("tests/parser/marklogic-7.0/SchemaRootTest.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new UnsupportedConstructInspection());
         assertThat(problems, is(notNullValue()));

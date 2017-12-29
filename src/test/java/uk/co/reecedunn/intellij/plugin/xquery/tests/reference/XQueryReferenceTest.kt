@@ -62,7 +62,7 @@ class XQueryReferenceTest : ParserTestCase() {
 
         val resolved = ref.resolve()
         assertThat<PsiElement>(resolved, `is`(notNullValue()))
-        assertThat<PsiElement>(resolved, instanceOf<PsiElement>(XQueryFile::class.java))
+        assertThat<PsiElement>(resolved, instanceOf<PsiElement>(XQueryModule::class.java))
         assertThat(resolved!!.containingFile.name, `is`("test.xq"))
     }
 
@@ -81,7 +81,7 @@ class XQueryReferenceTest : ParserTestCase() {
 
         val resolved = ref.resolve()
         assertThat<PsiElement>(resolved, `is`(notNullValue()))
-        assertThat<PsiElement>(resolved, instanceOf<PsiElement>(XQueryFile::class.java))
+        assertThat<PsiElement>(resolved, instanceOf<PsiElement>(XQueryModule::class.java))
         assertThat(resolved!!.containingFile.name, `is`("ModuleDecl.xq"))
     }
 
@@ -100,7 +100,7 @@ class XQueryReferenceTest : ParserTestCase() {
 
         val resolved = ref.resolve()
         assertThat<PsiElement>(resolved, `is`(notNullValue()))
-        assertThat<PsiElement>(resolved, instanceOf<PsiElement>(XQueryFile::class.java))
+        assertThat<PsiElement>(resolved, instanceOf<PsiElement>(XQueryModule::class.java))
         assertThat(resolved!!.containingFile.name, `is`("array.xqy"))
     }
 

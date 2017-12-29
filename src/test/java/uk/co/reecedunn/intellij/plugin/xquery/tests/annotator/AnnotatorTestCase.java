@@ -22,7 +22,7 @@ import com.intellij.lang.annotation.Annotator;
 import com.intellij.psi.impl.source.tree.CompositeElement;
 import com.intellij.psi.impl.source.tree.LeafPsiElement;
 import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase;
 
 import java.util.List;
@@ -41,7 +41,7 @@ public abstract class AnnotatorTestCase extends ParserTestCase {
         }
     }
 
-    List<Annotation> annotateTree(@NotNull XQueryFile file, @NotNull Annotator annotator) {
+    List<Annotation> annotateTree(@NotNull XQueryModule file, @NotNull Annotator annotator) {
         AnnotationCollector annotationHolder = new AnnotationCollector();
         annotateTree(file.getNode(), annotationHolder, annotator);
         return annotationHolder.annotations;

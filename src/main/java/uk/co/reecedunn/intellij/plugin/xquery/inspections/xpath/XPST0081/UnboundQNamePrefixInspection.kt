@@ -20,7 +20,7 @@ import com.intellij.psi.PsiFile
 import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 
@@ -37,7 +37,7 @@ class UnboundQNamePrefixInspection : LocalInspectionTool() {
         id + ".html"
 
     override fun checkFile(file: PsiFile, manager: InspectionManager, isOnTheFly: Boolean): Array<ProblemDescriptor>? {
-        if (file !is XQueryFile) return null
+        if (file !is XQueryModule) return null
 
         val descriptors = SmartList<ProblemDescriptor>()
         file.walkTree().filterIsInstance<XPathEQName>().forEach { qname ->

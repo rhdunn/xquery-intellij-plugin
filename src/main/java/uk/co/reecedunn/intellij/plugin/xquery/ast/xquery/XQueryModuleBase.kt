@@ -50,7 +50,7 @@ data class XQueryVersionRef(val declaration: XPathStringLiteral?, val version: S
  * </pre>
  *
  * This simplifies the AST tree and makes it easier to reason what the
- * module type is from the [XQueryFile] node.
+ * module type is from the [XQueryModule] node.
  *
  * Because the child nodes of a `Module` are only referenced from
  * the `Module` node in the grammar, the `Module` nodes

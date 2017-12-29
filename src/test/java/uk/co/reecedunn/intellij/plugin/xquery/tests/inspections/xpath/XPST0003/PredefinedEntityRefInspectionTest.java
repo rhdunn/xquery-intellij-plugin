@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.inspections.xpath.XPST0003;
 
 import com.intellij.codeInspection.ProblemDescriptor;
 import com.intellij.codeInspection.ProblemHighlightType;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule;
 import uk.co.reecedunn.intellij.plugin.xquery.inspections.xpath.XPST0003.PredefinedEntityRefInspection;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.Specification;
@@ -50,7 +50,7 @@ public class PredefinedEntityRefInspectionTest extends InspectionTestCase {
             getSettings().setImplementationVersion("w3c/spec/v1ed");
         }
 
-        final XQueryFile file = parseText(entities);
+        final XQueryModule file = parseText(entities);
 
         final ProblemDescriptor[] problems = inspect(file, new PredefinedEntityRefInspection());
         assertThat(problems, is(notNullValue()));
@@ -69,7 +69,7 @@ public class PredefinedEntityRefInspectionTest extends InspectionTestCase {
             getSettings().setImplementationVersion("w3c/spec/v1ed");
         }
 
-        final XQueryFile file = parseText(entities);
+        final XQueryModule file = parseText(entities);
 
         final ProblemDescriptor[] problems = inspect(file, new PredefinedEntityRefInspection());
         assertThat(problems, is(notNullValue()));

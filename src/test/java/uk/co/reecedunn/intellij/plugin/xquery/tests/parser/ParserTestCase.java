@@ -17,13 +17,13 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.parser;
 
 import com.intellij.lang.LanguageASTFactory;
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition;
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings;
 
 @SuppressWarnings("SameParameterValue")
-public abstract class ParserTestCase extends ParsingTestCase<XQueryFile> {
+public abstract class ParserTestCase extends ParsingTestCase<XQueryModule> {
     public ParserTestCase() {
         super("xqy", new XQueryParserDefinition());
     }

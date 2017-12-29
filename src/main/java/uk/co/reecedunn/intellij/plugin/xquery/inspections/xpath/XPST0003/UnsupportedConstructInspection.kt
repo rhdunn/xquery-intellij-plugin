@@ -19,7 +19,7 @@ import com.intellij.codeInspection.*
 import com.intellij.psi.PsiFile
 import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings
@@ -39,7 +39,7 @@ class UnsupportedConstructInspection : LocalInspectionTool() {
         id + ".html"
 
     override fun checkFile(file: PsiFile, manager: InspectionManager, isOnTheFly: Boolean): Array<ProblemDescriptor>? {
-        if (file !is XQueryFile) return null
+        if (file !is XQueryModule) return null
 
         val settings = XQueryProjectSettings.getInstance(file.getProject())
         val product = settings.product

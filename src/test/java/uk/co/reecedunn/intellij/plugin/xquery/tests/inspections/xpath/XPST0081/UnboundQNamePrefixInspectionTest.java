@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.inspections.xpath.XPST0081;
 
 import com.intellij.codeInspection.ProblemDescriptor;
 import com.intellij.codeInspection.ProblemHighlightType;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule;
 import uk.co.reecedunn.intellij.plugin.xquery.inspections.xpath.XPST0081.UnboundQNamePrefixInspection;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
@@ -45,7 +45,7 @@ public class UnboundQNamePrefixInspectionTest extends InspectionTestCase {
     // region xmlns
 
     public void testXmlns() {
-        final XQueryFile file = parseResource("tests/inspections/xpath/XPST0081/xmlns.xq");
+        final XQueryModule file = parseResource("tests/inspections/xpath/XPST0081/xmlns.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new UnboundQNamePrefixInspection());
         assertThat(problems, is(notNullValue()));
@@ -56,7 +56,7 @@ public class UnboundQNamePrefixInspectionTest extends InspectionTestCase {
     // region XQuery
 
     public void testBuiltinXQuery() {
-        final XQueryFile file = parseResource("tests/inspections/xpath/XPST0081/builtin-xquery.xq");
+        final XQueryModule file = parseResource("tests/inspections/xpath/XPST0081/builtin-xquery.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new UnboundQNamePrefixInspection());
         assertThat(problems, is(notNullValue()));
@@ -64,7 +64,7 @@ public class UnboundQNamePrefixInspectionTest extends InspectionTestCase {
     }
 
     public void testBuiltinXQuery31() {
-        final XQueryFile file = parseResource("tests/inspections/xpath/XPST0081/builtin-xquery-3.1.xq");
+        final XQueryModule file = parseResource("tests/inspections/xpath/XPST0081/builtin-xquery-3.1.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new UnboundQNamePrefixInspection());
         assertThat(problems, is(notNullValue()));
@@ -77,7 +77,7 @@ public class UnboundQNamePrefixInspectionTest extends InspectionTestCase {
     public void testBuiltinMarkLogic() {
         getSettings().setImplementationVersion("marklogic/v8");
         getSettings().setXQueryVersion(XQuery.INSTANCE.getMARKLOGIC_1_0().getLabel());
-        final XQueryFile file = parseResource("tests/inspections/xpath/XPST0081/builtin-marklogic.xq");
+        final XQueryModule file = parseResource("tests/inspections/xpath/XPST0081/builtin-marklogic.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new UnboundQNamePrefixInspection());
         assertThat(problems, is(notNullValue()));
@@ -86,7 +86,7 @@ public class UnboundQNamePrefixInspectionTest extends InspectionTestCase {
 
     public void testBuiltinMarkLogicNotTargettingMarkLogic() {
         getSettings().setImplementationVersion("w3c/spec/v1ed");
-        final XQueryFile file = parseResource("tests/inspections/xpath/XPST0081/builtin-marklogic.xq");
+        final XQueryModule file = parseResource("tests/inspections/xpath/XPST0081/builtin-marklogic.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new UnboundQNamePrefixInspection());
         assertThat(problems, is(notNullValue()));
@@ -103,7 +103,7 @@ public class UnboundQNamePrefixInspectionTest extends InspectionTestCase {
     // region Inspection Sources
 
     public void testQName() {
-        final XQueryFile file = parseResource("tests/inspections/xpath/XPST0081/ModuleDecl_QName_UnboundPrefix.xq");
+        final XQueryModule file = parseResource("tests/inspections/xpath/XPST0081/ModuleDecl_QName_UnboundPrefix.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new UnboundQNamePrefixInspection());
         assertThat(problems, is(notNullValue()));
@@ -120,7 +120,7 @@ public class UnboundQNamePrefixInspectionTest extends InspectionTestCase {
     // region ModuleDecl
 
     public void testModuleDecl_BoundPrefix() {
-        final XQueryFile file = parseResource("tests/inspections/xpath/XPST0081/ModuleDecl_QName.xq");
+        final XQueryModule file = parseResource("tests/inspections/xpath/XPST0081/ModuleDecl_QName.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new UnboundQNamePrefixInspection());
         assertThat(problems, is(notNullValue()));
@@ -128,7 +128,7 @@ public class UnboundQNamePrefixInspectionTest extends InspectionTestCase {
     }
 
     public void testModuleDecl_UnboundPrefix() {
-        final XQueryFile file = parseResource("tests/inspections/xpath/XPST0081/ModuleDecl_QName_UnboundPrefix.xq");
+        final XQueryModule file = parseResource("tests/inspections/xpath/XPST0081/ModuleDecl_QName_UnboundPrefix.xq");
 
         final ProblemDescriptor[] problems = inspect(file, new UnboundQNamePrefixInspection());
         assertThat(problems, is(notNullValue()));

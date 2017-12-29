@@ -41,7 +41,7 @@ open class XQueryModuleBasePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), 
 
     private var staticContextCache: XQueryProlog? = null
     private val staticContext get(): XQueryProlog? {
-        val version: Specification = (containingFile as XQueryFile).XQueryVersion.getVersionOrDefault(project)
+        val version: Specification = (containingFile as XQueryModule).XQueryVersion.getVersionOrDefault(project)
         if (product !== settings.product || productVersion !== settings.productVersion || xquery !== version) {
             product = settings.product
             productVersion = settings.productVersion
@@ -51,7 +51,7 @@ open class XQueryModuleBasePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), 
             if (context == null) context = defaultStaticContext(xquery)
 
             val file = ResourceVirtualFile.resolve(context, project)
-            staticContextCache = ((file as? XQueryFile)?.modules?.firstOrNull() as? XQueryPrologResolver)?.prolog
+            staticContextCache = ((file as? XQueryModule)?.modules?.firstOrNull() as? XQueryPrologResolver)?.prolog
         }
         return staticContextCache
     }

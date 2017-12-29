@@ -21,7 +21,7 @@ import com.intellij.codeInspection.ProblemDescriptor;
 import com.intellij.codeInspection.ex.InspectionManagerEx;
 import com.intellij.psi.SmartPointerManager;
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockSmartPointerManager;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase;
 
 @SuppressWarnings("SameParameterValue")
@@ -39,7 +39,7 @@ public abstract class InspectionTestCase extends ParserTestCase {
         return (InspectionManagerEx)InspectionManager.getInstance(myProject);
     }
 
-    public ProblemDescriptor[] inspect(XQueryFile file, LocalInspectionTool inspection) {
+    public ProblemDescriptor[] inspect(XQueryModule file, LocalInspectionTool inspection) {
         return inspection.checkFile(file, getInspectionManager(), false);
     }
 }

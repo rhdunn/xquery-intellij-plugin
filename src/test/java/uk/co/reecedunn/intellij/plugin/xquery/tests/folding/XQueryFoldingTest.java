@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.folding;
 
 import com.intellij.lang.folding.FoldingDescriptor;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule;
 import uk.co.reecedunn.intellij.plugin.xquery.editor.XQueryFoldingBuilder;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase;
@@ -29,7 +29,7 @@ public class XQueryFoldingTest extends ParserTestCase {
     // region Unsupported Element
 
     public void testNoFoldingDescriptors() {
-        final XQueryFile file = parseResource("tests/parser/xquery-1.0/BoundarySpaceDecl.xq");
+        final XQueryModule file = parseResource("tests/parser/xquery-1.0/BoundarySpaceDecl.xq");
         final XQueryFoldingBuilder builder = new XQueryFoldingBuilder();
 
         final FoldingDescriptor[] descriptors = builder.buildFoldRegions(file, getDocument(file), false);
@@ -44,7 +44,7 @@ public class XQueryFoldingTest extends ParserTestCase {
     // region EnclosedExpr
 
     public void testEnclosedExpr() {
-        final XQueryFile file = parseResource("tests/parser/xquery-1.0/EnclosedExpr.xq");
+        final XQueryModule file = parseResource("tests/parser/xquery-1.0/EnclosedExpr.xq");
         final XQueryFoldingBuilder builder = new XQueryFoldingBuilder();
 
         final FoldingDescriptor[] descriptors = builder.buildFoldRegions(file, getDocument(file), false);
@@ -53,7 +53,7 @@ public class XQueryFoldingTest extends ParserTestCase {
     }
 
     public void testEnclosedExpr_MultiLine() {
-        final XQueryFile file = parseResource("tests/folding/EnclosedExpr_MultiLine.xq");
+        final XQueryModule file = parseResource("tests/folding/EnclosedExpr_MultiLine.xq");
         final XQueryFoldingBuilder builder = new XQueryFoldingBuilder();
 
         final FoldingDescriptor[] descriptors = builder.buildFoldRegions(file, getDocument(file), false);
@@ -73,7 +73,7 @@ public class XQueryFoldingTest extends ParserTestCase {
     }
 
     public void testEnclosedExpr_OnlyContentForDirElem() {
-        final XQueryFile file = parseResource("tests/folding/EnclosedExpr_OnlyContentForDirElem.xq");
+        final XQueryModule file = parseResource("tests/folding/EnclosedExpr_OnlyContentForDirElem.xq");
         final XQueryFoldingBuilder builder = new XQueryFoldingBuilder();
 
         final FoldingDescriptor[] descriptors = builder.buildFoldRegions(file, getDocument(file), false);
@@ -93,7 +93,7 @@ public class XQueryFoldingTest extends ParserTestCase {
     }
 
     public void testEnclosedExpr_OnlyContentForDirElem_MultiLineAttributes() {
-        final XQueryFile file = parseResource("tests/folding/EnclosedExpr_OnlyContentForDirElem_MultiLineAttributes.xq");
+        final XQueryModule file = parseResource("tests/folding/EnclosedExpr_OnlyContentForDirElem_MultiLineAttributes.xq");
         final XQueryFoldingBuilder builder = new XQueryFoldingBuilder();
 
         final FoldingDescriptor[] descriptors = builder.buildFoldRegions(file, getDocument(file), false);
@@ -127,7 +127,7 @@ public class XQueryFoldingTest extends ParserTestCase {
     // region DirElemConstructor
 
     public void testDirElemConstructor() {
-        final XQueryFile file = parseResource("tests/parser/xquery-1.0/DirElemConstructor.xq");
+        final XQueryModule file = parseResource("tests/parser/xquery-1.0/DirElemConstructor.xq");
         final XQueryFoldingBuilder builder = new XQueryFoldingBuilder();
 
         final FoldingDescriptor[] descriptors = builder.buildFoldRegions(file, getDocument(file), false);
@@ -136,7 +136,7 @@ public class XQueryFoldingTest extends ParserTestCase {
     }
 
     public void testDirElemConstructor_Incomplete() {
-        final XQueryFile file = parseResource("tests/folding/DirElemConstructor_Incomplete.xq");
+        final XQueryModule file = parseResource("tests/folding/DirElemConstructor_Incomplete.xq");
         final XQueryFoldingBuilder builder = new XQueryFoldingBuilder();
 
         final FoldingDescriptor[] descriptors = builder.buildFoldRegions(file, getDocument(file), false);
@@ -145,7 +145,7 @@ public class XQueryFoldingTest extends ParserTestCase {
     }
 
     public void testDirElemConstructor_IncompleteNamespace() {
-        final XQueryFile file = parseResource("tests/folding/DirElemConstructor_IncompleteNamespace.xq");
+        final XQueryModule file = parseResource("tests/folding/DirElemConstructor_IncompleteNamespace.xq");
         final XQueryFoldingBuilder builder = new XQueryFoldingBuilder();
 
         final FoldingDescriptor[] descriptors = builder.buildFoldRegions(file, getDocument(file), false);
@@ -154,7 +154,7 @@ public class XQueryFoldingTest extends ParserTestCase {
     }
 
     public void testDirElemConstructor_MultiLine() {
-        final XQueryFile file = parseResource("tests/folding/DirElemConstructor_MultiLine.xq");
+        final XQueryModule file = parseResource("tests/folding/DirElemConstructor_MultiLine.xq");
         final XQueryFoldingBuilder builder = new XQueryFoldingBuilder();
 
         final FoldingDescriptor[] descriptors = builder.buildFoldRegions(file, getDocument(file), false);
@@ -174,7 +174,7 @@ public class XQueryFoldingTest extends ParserTestCase {
     }
 
     public void testDirElemConstructor_MultiLineWithAttributes() {
-        final XQueryFile file = parseResource("tests/folding/DirElemConstructor_MultiLineWithAttributes.xq");
+        final XQueryModule file = parseResource("tests/folding/DirElemConstructor_MultiLineWithAttributes.xq");
         final XQueryFoldingBuilder builder = new XQueryFoldingBuilder();
 
         final FoldingDescriptor[] descriptors = builder.buildFoldRegions(file, getDocument(file), false);
@@ -197,7 +197,7 @@ public class XQueryFoldingTest extends ParserTestCase {
     // region Comment
 
     public void testComment() {
-        final XQueryFile file = parseResource("tests/parser/xquery-1.0/Comment.xq");
+        final XQueryModule file = parseResource("tests/parser/xquery-1.0/Comment.xq");
         final XQueryFoldingBuilder builder = new XQueryFoldingBuilder();
 
         final FoldingDescriptor[] descriptors = builder.buildFoldRegions(file, getDocument(file), false);
@@ -206,7 +206,7 @@ public class XQueryFoldingTest extends ParserTestCase {
     }
 
     public void testComment_MultiLine() {
-        final XQueryFile file = parseResource("tests/folding/Comment_MultiLine.xq");
+        final XQueryModule file = parseResource("tests/folding/Comment_MultiLine.xq");
         final XQueryFoldingBuilder builder = new XQueryFoldingBuilder();
 
         final FoldingDescriptor[] descriptors = builder.buildFoldRegions(file, getDocument(file), false);

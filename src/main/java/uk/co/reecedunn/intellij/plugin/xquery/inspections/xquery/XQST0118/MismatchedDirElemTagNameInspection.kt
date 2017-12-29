@@ -35,7 +35,7 @@ class MismatchedDirElemTagNameInspection : LocalInspectionTool() {
         id + ".html"
 
     override fun checkFile(file: PsiFile, manager: InspectionManager, isOnTheFly: Boolean): Array<ProblemDescriptor>? {
-        if (file !is XQueryFile) return null
+        if (file !is XQueryModule) return null
 
         val descriptors = SmartList<ProblemDescriptor>()
         file.walkTree().filterIsInstance<XQueryDirElemConstructor>().forEach { elem ->

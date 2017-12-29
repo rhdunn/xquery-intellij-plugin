@@ -27,7 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryPsiParser;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryFileImpl;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryModuleImpl;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -87,7 +87,7 @@ public class XQueryParserDefinitionTest extends ParserTestCase {
         ParserDefinition parserDefinition = new XQueryParserDefinition();
         VirtualFile file = createVirtualFile("test.xqy", "");
         PsiFile psiFile = parserDefinition.createFile(getFileViewProvider(myProject, file, false));
-        assertThat(psiFile.getClass().getName(), is(XQueryFileImpl.class.getName()));
+        assertThat(psiFile.getClass().getName(), is(XQueryModuleImpl.class.getName()));
         assertThat(psiFile.getFileType(), is(XQueryFileType.INSTANCE));
     }
 

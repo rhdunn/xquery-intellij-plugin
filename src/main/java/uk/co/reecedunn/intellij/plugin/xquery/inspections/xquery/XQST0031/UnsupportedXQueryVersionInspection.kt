@@ -19,7 +19,7 @@ import com.intellij.codeInspection.*
 import com.intellij.psi.PsiFile
 import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModuleBase
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Specification
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
@@ -39,7 +39,7 @@ class UnsupportedXQueryVersionInspection : LocalInspectionTool() {
         id + ".html"
 
     override fun checkFile(file: PsiFile, manager: InspectionManager, isOnTheFly: Boolean): Array<ProblemDescriptor>? {
-        if (file !is XQueryFile) return null
+        if (file !is XQueryModule) return null
 
         val settings = XQueryProjectSettings.getInstance(file.getProject())
         val descriptors = SmartList<ProblemDescriptor>()
