@@ -13,15 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
+package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
-import com.intellij.lang.ASTNode;
-import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryNodeConstructor;
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPrimaryExpr
 
-public class XQueryNodeConstructorPsiImpl extends ASTWrapperPsiElement implements XQueryNodeConstructor {
-    public XQueryNodeConstructorPsiImpl(@NotNull ASTNode node) {
-        super(node);
-    }
-}
+/**
+ * An XQuery 1.0 `NodeConstructor` node in the XQuery AST.
+ *
+ * This is a replacement for the XQuery 1.0 `Constructor`.
+ */
+interface XQueryNodeConstructor : XPathPrimaryExpr
