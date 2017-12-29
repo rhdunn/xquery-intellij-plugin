@@ -15,7 +15,14 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
+import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryLibraryModule
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
 
-class XQueryLibraryModulePsiImpl(node: ASTNode) : XQueryModuleBasePsiImpl(node), XQueryLibraryModule
+class XQueryLibraryModulePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryLibraryModule, XQueryPrologResolver {
+    override val prolog get(): XQueryProlog? =
+        children().filterIsInstance<XQueryProlog>().firstOrNull()
+}
