@@ -13,7 +13,7 @@ XQueryModuleImpl[FILE(0:30)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
                LeafPsiElement[XQUERY_ASSIGN_EQUAL_TOKEN(9:11)](':=')
                PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
-               XQueryOrExprImpl[XQUERY_OR_EXPR(12:16)]
+               XPathOrExprImpl[XQUERY_OR_EXPR(12:16)]
                   XPathAndExprImpl[XQUERY_AND_EXPR(12:16)]
                      XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(12:16)]
                         FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(12:16)]
@@ -41,7 +41,7 @@ XQueryModuleImpl[FILE(0:30)]
                                                                                     XmlNCNameImpl[XQUERY_NCNAME_TOKEN(14:15)]('y')
                                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
                PsiErrorElementImpl[ERROR_ELEMENT(16:16)]('XPST0003: Expected keyword: modify.')
-               XQueryOrExprImpl[XQUERY_OR_EXPR(16:20)]
+               XPathOrExprImpl[XQUERY_OR_EXPR(16:20)]
                   XPathAndExprImpl[XQUERY_AND_EXPR(16:20)]
                      XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(16:20)]
                         FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(16:20)]
@@ -70,7 +70,7 @@ XQueryModuleImpl[FILE(0:30)]
                                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_RETURN(20:26)]('return')
                PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
-               XQueryOrExprImpl[XQUERY_OR_EXPR(27:30)]
+               XPathOrExprImpl[XQUERY_OR_EXPR(27:30)]
                   XPathAndExprImpl[XQUERY_AND_EXPR(27:30)]
                      XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(27:30)]
                         FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(27:30)]

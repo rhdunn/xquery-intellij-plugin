@@ -13,7 +13,7 @@ XQueryModuleImpl[FILE(0:50)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
                LeafPsiElement[XQUERY_ASSIGN_EQUAL_TOKEN(9:11)](':=')
                PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
-               XQueryOrExprImpl[XQUERY_OR_EXPR(12:16)]
+               XPathOrExprImpl[XQUERY_OR_EXPR(12:16)]
                   XPathAndExprImpl[XQUERY_AND_EXPR(12:16)]
                      XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(12:16)]
                         FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(12:16)]
@@ -50,7 +50,7 @@ XQueryModuleImpl[FILE(0:50)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
                LeafPsiElement[XQUERY_ASSIGN_EQUAL_TOKEN(22:24)](':=')
                PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
-               XQueryOrExprImpl[XQUERY_OR_EXPR(25:29)]
+               XPathOrExprImpl[XQUERY_OR_EXPR(25:29)]
                   XPathAndExprImpl[XQUERY_AND_EXPR(25:29)]
                      XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(25:29)]
                         FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(25:29)]
@@ -79,7 +79,7 @@ XQueryModuleImpl[FILE(0:50)]
                                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_MODIFY(29:35)]('modify')
                PsiWhiteSpaceImpl[WHITE_SPACE(35:36)](' ')
-               XQueryOrExprImpl[XQUERY_OR_EXPR(36:40)]
+               XPathOrExprImpl[XQUERY_OR_EXPR(36:40)]
                   XPathAndExprImpl[XQUERY_AND_EXPR(36:40)]
                      XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(36:40)]
                         FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(36:40)]
@@ -108,7 +108,7 @@ XQueryModuleImpl[FILE(0:50)]
                                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(39:40)](' ')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_RETURN(40:46)]('return')
                PsiWhiteSpaceImpl[WHITE_SPACE(46:47)](' ')
-               XQueryOrExprImpl[XQUERY_OR_EXPR(47:50)]
+               XPathOrExprImpl[XQUERY_OR_EXPR(47:50)]
                   XPathAndExprImpl[XQUERY_AND_EXPR(47:50)]
                      XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(47:50)]
                         FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(47:50)]

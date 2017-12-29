@@ -8,7 +8,7 @@ XQueryModuleImpl[FILE(0:28)]
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NODE(7:11)]('node')
                PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
                UpdateFacilitySourceExprImpl[XQUERY_SOURCE_EXPR(12:16)]
-                  XQueryOrExprImpl[XQUERY_OR_EXPR(12:16)]
+                  XPathOrExprImpl[XQUERY_OR_EXPR(12:16)]
                      XPathAndExprImpl[XQUERY_AND_EXPR(12:16)]
                         XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(12:16)]
                            FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(12:16)]
@@ -42,7 +42,7 @@ XQueryModuleImpl[FILE(0:28)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
                   PsiErrorElementImpl[ERROR_ELEMENT(25:25)]('XPST0003: Expected keyword: into.')
                UpdateFacilityTargetExprImpl[XQUERY_TARGET_EXPR(25:28)]
-                  XQueryOrExprImpl[XQUERY_OR_EXPR(25:28)]
+                  XPathOrExprImpl[XQUERY_OR_EXPR(25:28)]
                      XPathAndExprImpl[XQUERY_AND_EXPR(25:28)]
                         XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(25:28)]
                            FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(25:28)]

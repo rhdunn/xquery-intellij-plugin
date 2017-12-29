@@ -15,7 +15,7 @@ XQueryModuleImpl[FILE(0:18)]
                         PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
                      XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_IN(8:10)]('in')
                      PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
-                     XQueryOrExprImpl[XQUERY_OR_EXPR(11:15)]
+                     XPathOrExprImpl[XQUERY_OR_EXPR(11:15)]
                         XPathAndExprImpl[XQUERY_AND_EXPR(11:15)]
                            XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(11:15)]
                               FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(11:15)]
@@ -43,7 +43,7 @@ XQueryModuleImpl[FILE(0:18)]
                                                                                           XmlNCNameImpl[XQUERY_NCNAME_TOKEN(13:14)]('y')
                                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
                PsiErrorElementImpl[ERROR_ELEMENT(15:15)]('XPST0003: Expected keyword: count, for, group, let, order, return, sliding, stable, tumbling, where.')
-               XQueryOrExprImpl[XQUERY_OR_EXPR(15:18)]
+               XPathOrExprImpl[XQUERY_OR_EXPR(15:18)]
                   XPathAndExprImpl[XQUERY_AND_EXPR(15:18)]
                      XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(15:18)]
                         FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(15:18)]

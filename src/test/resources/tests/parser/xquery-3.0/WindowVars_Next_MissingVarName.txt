@@ -19,7 +19,7 @@ XQueryModuleImpl[FILE(0:43)]
                         PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
                      XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_IN(24:26)]('in')
                      PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
-                     XQueryOrExprImpl[XQUERY_OR_EXPR(27:31)]
+                     XPathOrExprImpl[XQUERY_OR_EXPR(27:31)]
                         XPathAndExprImpl[XQUERY_AND_EXPR(27:31)]
                            XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(27:31)]
                               FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(27:31)]

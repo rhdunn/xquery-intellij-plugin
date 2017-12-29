@@ -31,7 +31,7 @@ XQueryModuleImpl[FILE(0:130)]
                LeafPsiElement[XQUERY_ASSIGN_EQUAL_TOKEN(75:77)](':=')
                PsiWhiteSpaceImpl[WHITE_SPACE(77:78)](' ')
                XQueryVarValueImpl[XQUERY_VAR_VALUE(78:96)]
-                  XQueryOrExprImpl[XQUERY_OR_EXPR(78:96)]
+                  XPathOrExprImpl[XQUERY_OR_EXPR(78:96)]
                      XPathAndExprImpl[XQUERY_AND_EXPR(78:96)]
                         XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(78:96)]
                            FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(78:96)]
@@ -63,7 +63,7 @@ XQueryModuleImpl[FILE(0:130)]
          LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(96:97)]('{')
          PsiWhiteSpaceImpl[WHITE_SPACE(97:98)](' ')
          PsiErrorElementImpl[ERROR_ELEMENT(98:98)]('XPST0003: Unexpected token.')
-         XQueryOrExprImpl[XQUERY_OR_EXPR(98:100)]
+         XPathOrExprImpl[XQUERY_OR_EXPR(98:100)]
             XPathAndExprImpl[XQUERY_AND_EXPR(98:100)]
                XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(98:100)]
                   FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(98:100)]
@@ -106,7 +106,7 @@ XQueryModuleImpl[FILE(0:130)]
                LeafPsiElement[XQUERY_ASSIGN_EQUAL_TOKEN(124:126)](':=')
                PsiWhiteSpaceImpl[WHITE_SPACE(126:127)](' ')
                XQueryVarValueImpl[XQUERY_VAR_VALUE(127:129)]
-                  XQueryOrExprImpl[XQUERY_OR_EXPR(127:129)]
+                  XPathOrExprImpl[XQUERY_OR_EXPR(127:129)]
                      XPathAndExprImpl[XQUERY_AND_EXPR(127:129)]
                         XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(127:129)]
                            FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(127:129)]

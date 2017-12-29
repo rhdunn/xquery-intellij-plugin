@@ -62,7 +62,7 @@ XQueryModuleImpl[FILE(0:71)]
                LeafPsiElement[XQUERY_ASSIGN_EQUAL_TOKEN(65:67)](':=')
                PsiWhiteSpaceImpl[WHITE_SPACE(67:68)](' ')
                XQueryVarValueImpl[XQUERY_VAR_VALUE(68:70)]
-                  XQueryOrExprImpl[XQUERY_OR_EXPR(68:70)]
+                  XPathOrExprImpl[XQUERY_OR_EXPR(68:70)]
                      XPathAndExprImpl[XQUERY_AND_EXPR(68:70)]
                         XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(68:70)]
                            FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(68:70)]

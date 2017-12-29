@@ -34,7 +34,7 @@ XQueryModuleImpl[FILE(0:57)]
                      PsiWhiteSpaceImpl[WHITE_SPACE(49:50)](' ')
                   ScriptingBlockBodyImpl[XQUERY_BLOCK_BODY(50:54)]
                      ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(50:54)]
-                        XQueryOrExprImpl[XQUERY_OR_EXPR(50:54)]
+                        XPathOrExprImpl[XQUERY_OR_EXPR(50:54)]
                            XPathAndExprImpl[XQUERY_AND_EXPR(50:54)]
                               XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(50:54)]
                                  FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(50:54)]

@@ -18,7 +18,7 @@ XQueryModuleImpl[FILE(0:31)]
                            PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
                      LeafPsiElement[XQUERY_ASSIGN_EQUAL_TOKEN(14:16)](':=')
                      PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
-                     XQueryOrExprImpl[XQUERY_OR_EXPR(17:21)]
+                     XPathOrExprImpl[XQUERY_OR_EXPR(17:21)]
                         XPathAndExprImpl[XQUERY_AND_EXPR(17:21)]
                            XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(17:21)]
                               FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(17:21)]
@@ -48,7 +48,7 @@ XQueryModuleImpl[FILE(0:31)]
                XQueryReturnClauseImpl[XQUERY_RETURN_CLAUSE(21:31)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_RETURN(21:27)]('return')
                   PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
-                  XQueryOrExprImpl[XQUERY_OR_EXPR(28:31)]
+                  XPathOrExprImpl[XQUERY_OR_EXPR(28:31)]
                      XPathAndExprImpl[XQUERY_AND_EXPR(28:31)]
                         XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(28:31)]
                            FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(28:31)]

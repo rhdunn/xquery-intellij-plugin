@@ -31,7 +31,7 @@ XQueryModuleImpl[FILE(0:55)]
                               XmlNCNameImpl[XQUERY_NCNAME_TOKEN(46:47)]('x')
                            PsiWhiteSpaceImpl[WHITE_SPACE(47:48)](' ')
                         PsiErrorElementImpl[ERROR_ELEMENT(48:48)]('XPST0003: Missing ':=' variable assignment, 'at', ',' or ';'.')
-                        XQueryOrExprImpl[XQUERY_OR_EXPR(48:52)]
+                        XPathOrExprImpl[XQUERY_OR_EXPR(48:52)]
                            XPathAndExprImpl[XQUERY_AND_EXPR(48:52)]
                               XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(48:52)]
                                  FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(48:52)]

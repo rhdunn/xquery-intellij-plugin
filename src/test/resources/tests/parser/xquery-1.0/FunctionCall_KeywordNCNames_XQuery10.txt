@@ -2,7 +2,7 @@ XQueryModuleImpl[FILE(0:1548)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:1548)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:1548)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:1548)]
-            XQueryOrExprImpl[XQUERY_OR_EXPR(0:11)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(0:11)]
                XPathAndExprImpl[XQUERY_AND_EXPR(0:11)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:11)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:11)]
@@ -31,7 +31,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(11:12)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(12:13)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(13:32)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(13:32)]
                XPathAndExprImpl[XQUERY_AND_EXPR(13:32)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(13:32)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(13:32)]
@@ -60,7 +60,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(32:33)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(33:34)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(34:40)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(34:40)]
                XPathAndExprImpl[XQUERY_AND_EXPR(34:40)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(34:40)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(34:40)]
@@ -89,7 +89,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(39:40)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(40:41)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(41:42)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(42:47)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(42:47)]
                XPathAndExprImpl[XQUERY_AND_EXPR(42:47)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(42:47)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(42:47)]
@@ -118,7 +118,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(46:47)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(47:48)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(48:49)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(49:61)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(49:61)]
                XPathAndExprImpl[XQUERY_AND_EXPR(49:61)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(49:61)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(49:61)]
@@ -147,7 +147,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(60:61)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(61:62)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(62:63)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(63:68)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(63:68)]
                XPathAndExprImpl[XQUERY_AND_EXPR(63:68)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(63:68)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(63:68)]
@@ -181,7 +181,7 @@ XQueryModuleImpl[FILE(0:1548)]
                PsiCommentImpl[XQUERY_COMMENT_TOKEN(72:109)](' Reserved Function Name -- attribute ')
                LeafPsiElement[XQUERY_COMMENT_END_TAG_TOKEN(109:111)](':)')
             PsiWhiteSpaceImpl[WHITE_SPACE(111:112)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(112:123)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(112:123)]
                XPathAndExprImpl[XQUERY_AND_EXPR(112:123)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(112:123)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(112:123)]
@@ -210,7 +210,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(122:123)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(123:124)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(124:125)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(125:142)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(125:142)]
                XPathAndExprImpl[XQUERY_AND_EXPR(125:142)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(125:142)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(125:142)]
@@ -239,7 +239,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(141:142)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(142:143)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(143:144)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(144:149)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(144:149)]
                XPathAndExprImpl[XQUERY_AND_EXPR(144:149)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(144:149)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(144:149)]
@@ -268,7 +268,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(148:149)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(149:150)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(150:151)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(151:158)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(151:158)]
                XPathAndExprImpl[XQUERY_AND_EXPR(151:158)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(151:158)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(151:158)]
@@ -297,7 +297,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(157:158)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(158:159)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(159:160)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(160:167)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(160:167)]
                XPathAndExprImpl[XQUERY_AND_EXPR(160:167)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(160:167)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(160:167)]
@@ -326,7 +326,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(166:167)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(167:168)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(168:169)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(169:180)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(169:180)]
                XPathAndExprImpl[XQUERY_AND_EXPR(169:180)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(169:180)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(169:180)]
@@ -355,7 +355,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(179:180)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(180:181)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(181:182)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(182:190)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(182:190)]
                XPathAndExprImpl[XQUERY_AND_EXPR(182:190)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(182:190)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(182:190)]
@@ -384,7 +384,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(189:190)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(190:191)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(191:192)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(192:204)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(192:204)]
                XPathAndExprImpl[XQUERY_AND_EXPR(192:204)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(192:204)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(192:204)]
@@ -418,7 +418,7 @@ XQueryModuleImpl[FILE(0:1548)]
                PsiCommentImpl[XQUERY_COMMENT_TOKEN(208:243)](' Reserved Function Name -- comment ')
                LeafPsiElement[XQUERY_COMMENT_END_TAG_TOKEN(243:245)](':)')
             PsiWhiteSpaceImpl[WHITE_SPACE(245:246)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(246:261)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(246:261)]
                XPathAndExprImpl[XQUERY_AND_EXPR(246:261)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(246:261)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(246:261)]
@@ -447,7 +447,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(260:261)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(261:262)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(262:263)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(263:281)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(263:281)]
                XPathAndExprImpl[XQUERY_AND_EXPR(263:281)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(263:281)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(263:281)]
@@ -476,7 +476,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(280:281)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(281:282)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(282:283)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(283:293)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(283:293)]
                XPathAndExprImpl[XQUERY_AND_EXPR(283:293)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(283:293)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(283:293)]
@@ -505,7 +505,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(292:293)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(293:294)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(294:295)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(295:305)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(295:305)]
                XPathAndExprImpl[XQUERY_AND_EXPR(295:305)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(295:305)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(295:305)]
@@ -534,7 +534,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(304:305)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(305:306)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(306:307)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(307:320)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(307:320)]
                XPathAndExprImpl[XQUERY_AND_EXPR(307:320)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(307:320)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(307:320)]
@@ -563,7 +563,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(319:320)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(320:321)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(321:322)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(322:343)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(322:343)]
                XPathAndExprImpl[XQUERY_AND_EXPR(322:343)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(322:343)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(322:343)]
@@ -592,7 +592,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(342:343)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(343:344)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(344:345)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(345:358)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(345:358)]
                XPathAndExprImpl[XQUERY_AND_EXPR(345:358)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(345:358)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(345:358)]
@@ -621,7 +621,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(357:358)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(358:359)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(359:360)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(360:366)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(360:366)]
                XPathAndExprImpl[XQUERY_AND_EXPR(360:366)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(360:366)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(360:366)]
@@ -650,7 +650,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(365:366)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(366:367)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(367:368)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(368:379)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(368:379)]
                XPathAndExprImpl[XQUERY_AND_EXPR(368:379)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(368:379)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(368:379)]
@@ -689,7 +689,7 @@ XQueryModuleImpl[FILE(0:1548)]
                PsiCommentImpl[XQUERY_COMMENT_TOKEN(429:464)](' Reserved Function Name -- element ')
                LeafPsiElement[XQUERY_COMMENT_END_TAG_TOKEN(464:466)](':)')
             PsiWhiteSpaceImpl[WHITE_SPACE(466:467)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(467:474)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(467:474)]
                XPathAndExprImpl[XQUERY_AND_EXPR(467:474)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(467:474)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(467:474)]
@@ -718,7 +718,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(473:474)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(474:475)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(475:476)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(476:484)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(476:484)]
                XPathAndExprImpl[XQUERY_AND_EXPR(476:484)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(476:484)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(476:484)]
@@ -752,7 +752,7 @@ XQueryModuleImpl[FILE(0:1548)]
                PsiCommentImpl[XQUERY_COMMENT_TOKEN(488:530)](' Reserved Function Name -- empty-sequence ')
                LeafPsiElement[XQUERY_COMMENT_END_TAG_TOKEN(530:532)](':)')
             PsiWhiteSpaceImpl[WHITE_SPACE(532:533)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(533:544)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(533:544)]
                XPathAndExprImpl[XQUERY_AND_EXPR(533:544)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(533:544)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(533:544)]
@@ -781,7 +781,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(543:544)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(544:545)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(545:546)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(546:551)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(546:551)]
                XPathAndExprImpl[XQUERY_AND_EXPR(546:551)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(546:551)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(546:551)]
@@ -810,7 +810,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(550:551)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(551:552)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(552:553)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(553:561)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(553:561)]
                XPathAndExprImpl[XQUERY_AND_EXPR(553:561)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(553:561)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(553:561)]
@@ -839,7 +839,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(560:561)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(561:562)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(562:563)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(563:572)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(563:572)]
                XPathAndExprImpl[XQUERY_AND_EXPR(563:572)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(563:572)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(563:572)]
@@ -868,7 +868,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(571:572)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(572:573)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(573:574)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(574:585)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(574:585)]
                XPathAndExprImpl[XQUERY_AND_EXPR(574:585)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(574:585)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(574:585)]
@@ -897,7 +897,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(584:585)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(585:586)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(586:587)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(587:599)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(587:599)]
                XPathAndExprImpl[XQUERY_AND_EXPR(587:599)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(587:599)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(587:599)]
@@ -926,7 +926,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(598:599)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(599:600)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(600:601)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(601:621)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(601:621)]
                XPathAndExprImpl[XQUERY_AND_EXPR(601:621)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(601:621)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(601:621)]
@@ -955,7 +955,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(620:621)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(621:622)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(622:623)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(623:629)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(623:629)]
                XPathAndExprImpl[XQUERY_AND_EXPR(623:629)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(623:629)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(623:629)]
@@ -989,7 +989,7 @@ XQueryModuleImpl[FILE(0:1548)]
                PsiCommentImpl[XQUERY_COMMENT_TOKEN(633:682)](' Reserved Function Name (XQuery 3.0) -- function ')
                LeafPsiElement[XQUERY_COMMENT_END_TAG_TOKEN(682:684)](':)')
             PsiWhiteSpaceImpl[WHITE_SPACE(684:685)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(685:690)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(685:690)]
                XPathAndExprImpl[XQUERY_AND_EXPR(685:690)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(685:690)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(685:690)]
@@ -1018,7 +1018,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(689:690)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(690:691)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(691:692)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(692:703)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(692:703)]
                XPathAndExprImpl[XQUERY_AND_EXPR(692:703)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(692:703)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(692:703)]
@@ -1047,7 +1047,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(702:703)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(703:704)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(704:705)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(705:710)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(705:710)]
                XPathAndExprImpl[XQUERY_AND_EXPR(705:710)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(705:710)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(705:710)]
@@ -1076,7 +1076,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(709:710)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(710:711)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(711:712)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(712:719)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(712:719)]
                XPathAndExprImpl[XQUERY_AND_EXPR(712:719)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(712:719)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(712:719)]
@@ -1110,7 +1110,7 @@ XQueryModuleImpl[FILE(0:1548)]
                PsiCommentImpl[XQUERY_COMMENT_TOKEN(723:753)](' Reserved Function Name -- if ')
                LeafPsiElement[XQUERY_COMMENT_END_TAG_TOKEN(753:755)](':)')
             PsiWhiteSpaceImpl[WHITE_SPACE(755:756)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(756:765)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(756:765)]
                XPathAndExprImpl[XQUERY_AND_EXPR(756:765)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(756:765)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(756:765)]
@@ -1139,7 +1139,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(764:765)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(765:766)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(766:767)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(767:772)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(767:772)]
                XPathAndExprImpl[XQUERY_AND_EXPR(767:772)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(767:772)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(767:772)]
@@ -1168,7 +1168,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(771:772)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(772:773)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(773:774)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(774:784)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(774:784)]
                XPathAndExprImpl[XQUERY_AND_EXPR(774:784)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(774:784)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(774:784)]
@@ -1197,7 +1197,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(783:784)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(784:785)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(785:786)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(786:797)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(786:797)]
                XPathAndExprImpl[XQUERY_AND_EXPR(786:797)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(786:797)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(786:797)]
@@ -1226,7 +1226,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(796:797)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(797:798)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(798:799)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(799:811)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(799:811)]
                XPathAndExprImpl[XQUERY_AND_EXPR(799:811)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(799:811)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(799:811)]
@@ -1255,7 +1255,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(810:811)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(811:812)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(812:813)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(813:818)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(813:818)]
                XPathAndExprImpl[XQUERY_AND_EXPR(813:818)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(813:818)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(813:818)]
@@ -1289,7 +1289,7 @@ XQueryModuleImpl[FILE(0:1548)]
                PsiCommentImpl[XQUERY_COMMENT_TOKEN(822:854)](' Reserved Function Name -- item ')
                LeafPsiElement[XQUERY_COMMENT_END_TAG_TOKEN(854:856)](':)')
             PsiWhiteSpaceImpl[WHITE_SPACE(856:857)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(857:863)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(857:863)]
                XPathAndExprImpl[XQUERY_AND_EXPR(857:863)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(857:863)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(857:863)]
@@ -1318,7 +1318,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(862:863)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(863:864)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(864:865)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(865:870)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(865:870)]
                XPathAndExprImpl[XQUERY_AND_EXPR(865:870)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(865:870)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(865:870)]
@@ -1347,7 +1347,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(869:870)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(870:871)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(871:872)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(872:880)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(872:880)]
                XPathAndExprImpl[XQUERY_AND_EXPR(872:880)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(872:880)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(872:880)]
@@ -1376,7 +1376,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(879:880)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(880:881)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(881:882)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(882:888)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(882:888)]
                XPathAndExprImpl[XQUERY_AND_EXPR(882:888)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(882:888)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(882:888)]
@@ -1405,7 +1405,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(887:888)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(888:889)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(889:890)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(890:895)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(890:895)]
                XPathAndExprImpl[XQUERY_AND_EXPR(890:895)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(890:895)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(890:895)]
@@ -1434,7 +1434,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(894:895)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(895:896)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(896:897)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(897:903)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(897:903)]
                XPathAndExprImpl[XQUERY_AND_EXPR(897:903)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(897:903)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(897:903)]
@@ -1463,7 +1463,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(902:903)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(903:904)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(904:905)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(905:914)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(905:914)]
                XPathAndExprImpl[XQUERY_AND_EXPR(905:914)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(905:914)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(905:914)]
@@ -1492,7 +1492,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(913:914)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(914:915)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(915:916)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(916:928)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(916:928)]
                XPathAndExprImpl[XQUERY_AND_EXPR(916:928)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(916:928)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(916:928)]
@@ -1521,7 +1521,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(927:928)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(928:929)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(929:930)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(930:935)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(930:935)]
                XPathAndExprImpl[XQUERY_AND_EXPR(930:935)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(930:935)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(930:935)]
@@ -1550,7 +1550,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(934:935)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(935:936)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(936:937)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(937:950)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(937:950)]
                XPathAndExprImpl[XQUERY_AND_EXPR(937:950)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(937:950)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(937:950)]
@@ -1579,7 +1579,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(949:950)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(950:951)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(951:952)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(952:966)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(952:966)]
                XPathAndExprImpl[XQUERY_AND_EXPR(952:966)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(952:966)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(952:966)]
@@ -1613,7 +1613,7 @@ XQueryModuleImpl[FILE(0:1548)]
                PsiCommentImpl[XQUERY_COMMENT_TOKEN(970:1002)](' Reserved Function Name -- node ')
                LeafPsiElement[XQUERY_COMMENT_END_TAG_TOKEN(1002:1004)](':)')
             PsiWhiteSpaceImpl[WHITE_SPACE(1004:1005)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(1005:1010)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(1005:1010)]
                XPathAndExprImpl[XQUERY_AND_EXPR(1005:1010)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(1005:1010)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(1005:1010)]
@@ -1642,7 +1642,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(1009:1010)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(1010:1011)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(1011:1012)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(1012:1021)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(1012:1021)]
                XPathAndExprImpl[XQUERY_AND_EXPR(1012:1021)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(1012:1021)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(1012:1021)]
@@ -1671,7 +1671,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(1020:1021)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(1021:1022)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(1022:1023)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(1023:1028)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(1023:1028)]
                XPathAndExprImpl[XQUERY_AND_EXPR(1023:1028)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(1023:1028)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(1023:1028)]
@@ -1700,7 +1700,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(1027:1028)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(1028:1029)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(1029:1030)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(1030:1038)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(1030:1038)]
                XPathAndExprImpl[XQUERY_AND_EXPR(1030:1038)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(1030:1038)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(1030:1038)]
@@ -1729,7 +1729,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(1037:1038)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(1038:1039)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(1039:1040)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(1040:1050)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(1040:1050)]
                XPathAndExprImpl[XQUERY_AND_EXPR(1040:1050)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(1040:1050)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(1040:1050)]
@@ -1758,7 +1758,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(1049:1050)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(1050:1051)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(1051:1052)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(1052:1063)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(1052:1063)]
                XPathAndExprImpl[XQUERY_AND_EXPR(1052:1063)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(1052:1063)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(1052:1063)]
@@ -1787,7 +1787,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(1062:1063)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(1063:1064)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(1064:1065)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(1065:1074)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(1065:1074)]
                XPathAndExprImpl[XQUERY_AND_EXPR(1065:1074)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(1065:1074)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(1065:1074)]
@@ -1816,7 +1816,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(1073:1074)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(1074:1075)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(1075:1076)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(1076:1088)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(1076:1088)]
                XPathAndExprImpl[XQUERY_AND_EXPR(1076:1088)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(1076:1088)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(1076:1088)]
@@ -1845,7 +1845,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(1087:1088)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(1088:1089)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(1089:1090)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(1090:1110)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(1090:1110)]
                XPathAndExprImpl[XQUERY_AND_EXPR(1090:1110)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(1090:1110)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(1090:1110)]
@@ -1874,7 +1874,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(1109:1110)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(1110:1111)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(1111:1112)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(1112:1123)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(1112:1123)]
                XPathAndExprImpl[XQUERY_AND_EXPR(1112:1123)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(1112:1123)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(1112:1123)]
@@ -1908,7 +1908,7 @@ XQueryModuleImpl[FILE(0:1548)]
                PsiCommentImpl[XQUERY_COMMENT_TOKEN(1127:1177)](' Reserved Function Name -- processing-instruction ')
                LeafPsiElement[XQUERY_COMMENT_END_TAG_TOKEN(1177:1179)](':)')
             PsiWhiteSpaceImpl[WHITE_SPACE(1179:1180)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(1180:1189)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(1180:1189)]
                XPathAndExprImpl[XQUERY_AND_EXPR(1180:1189)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(1180:1189)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(1180:1189)]
@@ -1937,7 +1937,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(1188:1189)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(1189:1190)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(1190:1191)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(1191:1203)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(1191:1203)]
                XPathAndExprImpl[XQUERY_AND_EXPR(1191:1203)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(1191:1203)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(1191:1203)]
@@ -1966,7 +1966,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(1202:1203)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(1203:1204)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(1204:1205)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(1205:1214)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(1205:1214)]
                XPathAndExprImpl[XQUERY_AND_EXPR(1205:1214)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(1205:1214)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(1205:1214)]
@@ -2005,7 +2005,7 @@ XQueryModuleImpl[FILE(0:1548)]
                PsiCommentImpl[XQUERY_COMMENT_TOKEN(1267:1309)](' Reserved Function Name -- schema-element ')
                LeafPsiElement[XQUERY_COMMENT_END_TAG_TOKEN(1309:1311)](':)')
             PsiWhiteSpaceImpl[WHITE_SPACE(1311:1312)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(1312:1319)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(1312:1319)]
                XPathAndExprImpl[XQUERY_AND_EXPR(1312:1319)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(1312:1319)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(1312:1319)]
@@ -2034,7 +2034,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(1318:1319)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(1319:1320)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(1320:1321)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(1321:1328)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(1321:1328)]
                XPathAndExprImpl[XQUERY_AND_EXPR(1321:1328)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(1321:1328)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(1321:1328)]
@@ -2063,7 +2063,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(1327:1328)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(1328:1329)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(1329:1330)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(1330:1339)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(1330:1339)]
                XPathAndExprImpl[XQUERY_AND_EXPR(1330:1339)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(1330:1339)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(1330:1339)]
@@ -2092,7 +2092,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(1338:1339)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(1339:1340)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(1340:1341)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(1341:1350)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(1341:1350)]
                XPathAndExprImpl[XQUERY_AND_EXPR(1341:1350)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(1341:1350)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(1341:1350)]
@@ -2121,7 +2121,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(1349:1350)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(1350:1351)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(1351:1352)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(1352:1360)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(1352:1360)]
                XPathAndExprImpl[XQUERY_AND_EXPR(1352:1360)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(1352:1360)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(1352:1360)]
@@ -2155,7 +2155,7 @@ XQueryModuleImpl[FILE(0:1548)]
                PsiCommentImpl[XQUERY_COMMENT_TOKEN(1364:1396)](' Reserved Function Name -- text ')
                LeafPsiElement[XQUERY_COMMENT_END_TAG_TOKEN(1396:1398)](':)')
             PsiWhiteSpaceImpl[WHITE_SPACE(1398:1399)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(1399:1406)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(1399:1406)]
                XPathAndExprImpl[XQUERY_AND_EXPR(1399:1406)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(1399:1406)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(1399:1406)]
@@ -2184,7 +2184,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(1405:1406)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(1406:1407)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(1407:1408)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(1408:1413)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(1408:1413)]
                XPathAndExprImpl[XQUERY_AND_EXPR(1408:1413)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(1408:1413)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(1408:1413)]
@@ -2213,7 +2213,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(1412:1413)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(1413:1414)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(1414:1415)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(1415:1423)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(1415:1423)]
                XPathAndExprImpl[XQUERY_AND_EXPR(1415:1423)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(1415:1423)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(1415:1423)]
@@ -2247,7 +2247,7 @@ XQueryModuleImpl[FILE(0:1548)]
                PsiCommentImpl[XQUERY_COMMENT_TOKEN(1427:1465)](' Reserved Function Name -- typeswitch ')
                LeafPsiElement[XQUERY_COMMENT_END_TAG_TOKEN(1465:1467)](':)')
             PsiWhiteSpaceImpl[WHITE_SPACE(1467:1468)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(1468:1476)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(1468:1476)]
                XPathAndExprImpl[XQUERY_AND_EXPR(1468:1476)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(1468:1476)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(1468:1476)]
@@ -2276,7 +2276,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(1475:1476)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(1476:1477)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(1477:1478)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(1478:1490)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(1478:1490)]
                XPathAndExprImpl[XQUERY_AND_EXPR(1478:1490)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(1478:1490)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(1478:1490)]
@@ -2305,7 +2305,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(1489:1490)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(1490:1491)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(1491:1492)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(1492:1503)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(1492:1503)]
                XPathAndExprImpl[XQUERY_AND_EXPR(1492:1503)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(1492:1503)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(1492:1503)]
@@ -2334,7 +2334,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(1502:1503)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(1503:1504)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(1504:1505)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(1505:1516)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(1505:1516)]
                XPathAndExprImpl[XQUERY_AND_EXPR(1505:1516)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(1505:1516)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(1505:1516)]
@@ -2363,7 +2363,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(1515:1516)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(1516:1517)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(1517:1518)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(1518:1528)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(1518:1528)]
                XPathAndExprImpl[XQUERY_AND_EXPR(1518:1528)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(1518:1528)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(1518:1528)]
@@ -2392,7 +2392,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(1527:1528)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(1528:1529)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(1529:1530)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(1530:1538)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(1530:1538)]
                XPathAndExprImpl[XQUERY_AND_EXPR(1530:1538)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(1530:1538)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(1530:1538)]
@@ -2421,7 +2421,7 @@ XQueryModuleImpl[FILE(0:1548)]
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(1537:1538)](' ')
             LeafPsiElement[XQUERY_COMMA_TOKEN(1538:1539)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(1539:1540)]('\n')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(1540:1548)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(1540:1548)]
                XPathAndExprImpl[XQUERY_AND_EXPR(1540:1548)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(1540:1548)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(1540:1548)]

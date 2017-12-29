@@ -5,7 +5,7 @@ XQueryModuleImpl[FILE(0:26)]
             ScriptingWhileExprImpl[XQUERY_WHILE_EXPR(0:26)]
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_WHILE(0:5)]('while')
                LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(5:6)]('(')
-               XQueryOrExprImpl[XQUERY_OR_EXPR(6:13)]
+               XPathOrExprImpl[XQUERY_OR_EXPR(6:13)]
                   XPathAndExprImpl[XQUERY_AND_EXPR(6:13)]
                      XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(6:13)]
                         FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(6:9)]
@@ -64,7 +64,7 @@ XQueryModuleImpl[FILE(0:26)]
                               XPathNCNameImpl[XQUERY_NCNAME(16:17)]
                                  XmlNCNameImpl[XQUERY_NCNAME_TOKEN(16:17)]('x')
                            LeafPsiElement[XQUERY_ASSIGN_EQUAL_TOKEN(17:19)](':=')
-                           XQueryOrExprImpl[XQUERY_OR_EXPR(19:25)]
+                           XPathOrExprImpl[XQUERY_OR_EXPR(19:25)]
                               XPathAndExprImpl[XQUERY_AND_EXPR(19:25)]
                                  XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(19:25)]
                                     FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(19:25)]

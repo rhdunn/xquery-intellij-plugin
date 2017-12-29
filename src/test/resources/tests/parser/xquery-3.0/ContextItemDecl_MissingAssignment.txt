@@ -10,7 +10,7 @@ XQueryModuleImpl[FILE(0:24)]
             PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
             PsiErrorElementImpl[ERROR_ELEMENT(21:21)]('XPST0003: Missing ':=' variable assignment or 'external' keyword.')
             XQueryVarValueImpl[XQUERY_VAR_VALUE(21:23)]
-               XQueryOrExprImpl[XQUERY_OR_EXPR(21:23)]
+               XPathOrExprImpl[XQUERY_OR_EXPR(21:23)]
                   XPathAndExprImpl[XQUERY_AND_EXPR(21:23)]
                      XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(21:23)]
                         FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(21:23)]

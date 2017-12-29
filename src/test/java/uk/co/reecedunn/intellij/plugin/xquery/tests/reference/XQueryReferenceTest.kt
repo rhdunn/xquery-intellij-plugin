@@ -267,7 +267,7 @@ class XQueryReferenceTest : ParserTestCase() {
 
         val flworExprPsi = file.descendants().filterIsInstance<XQueryFLWORExpr>().first()
         val returnClausePsi = flworExprPsi.children().filterIsInstance<XQueryReturnClause>().first()
-        val orExprPsi = returnClausePsi.children().filterIsInstance<XQueryOrExpr>().first()
+        val orExprPsi = returnClausePsi.children().filterIsInstance<XPathOrExpr>().first()
         val varRefPsi = orExprPsi.descendants().filterIsInstance<XPathVarRef>().first()
         val varRefNamePsi = varRefPsi.children().filterIsInstance<XPathEQName>().first()
 
@@ -303,7 +303,7 @@ class XQueryReferenceTest : ParserTestCase() {
         val varNamePsi = forBindingPsi.children().filterIsInstance<XPathVarName>().first()
 
         val returnClausePsi = flworExprPsi.children().filterIsInstance<XQueryReturnClause>().first()
-        val orExprPsi = returnClausePsi.children().filterIsInstance<XQueryOrExpr>().first()
+        val orExprPsi = returnClausePsi.children().filterIsInstance<XPathOrExpr>().first()
         val varRefPsi = orExprPsi.descendants().filterIsInstance<XPathVarRef>().first()
         val varRefNamePsi = varRefPsi.children().filterIsInstance<XPathEQName>().first()
 
@@ -338,7 +338,7 @@ class XQueryReferenceTest : ParserTestCase() {
 
         val flworExprPsi = file.descendants().filterIsInstance<XQueryFLWORExpr>().first()
         val returnClausePsi = flworExprPsi.children().filterIsInstance<XQueryReturnClause>().first()
-        val orExprPsi = returnClausePsi.children().filterIsInstance<XQueryOrExpr>().first()
+        val orExprPsi = returnClausePsi.children().filterIsInstance<XPathOrExpr>().first()
         val varRefPsi = orExprPsi.descendants().filterIsInstance<XPathVarRef>().first()
         val varRefNamePsi = varRefPsi.children().filterIsInstance<XPathEQName>().first()
 
@@ -435,7 +435,7 @@ class XQueryReferenceTest : ParserTestCase() {
 
         val flworExprPsi = file.descendants().filterIsInstance<XQueryFLWORExpr>().first()
         val returnClausePsi = flworExprPsi.children().filterIsInstance<XQueryReturnClause>().first()
-        val orExprPsi = returnClausePsi.children().filterIsInstance<XQueryOrExpr>().first()
+        val orExprPsi = returnClausePsi.children().filterIsInstance<XPathOrExpr>().first()
         val varRefPsi = orExprPsi.descendants().filterIsInstance<XPathVarRef>().first()
         val varRefNamePsi = varRefPsi.children().filterIsInstance<XPathEQName>().first()
 
@@ -470,7 +470,7 @@ class XQueryReferenceTest : ParserTestCase() {
 
         val flworExprPsi = file.descendants().filterIsInstance<XQueryFLWORExpr>().first()
         val returnClausePsi = flworExprPsi.children().filterIsInstance<XQueryReturnClause>().first()
-        val orExprPsi = returnClausePsi.children().filterIsInstance<XQueryOrExpr>().first()
+        val orExprPsi = returnClausePsi.children().filterIsInstance<XPathOrExpr>().first()
         val varRefPsi = orExprPsi.descendants().filterIsInstance<XPathVarRef>().first()
         val varRefNamePsi = varRefPsi.children().filterIsInstance<XPathEQName>().first()
 
@@ -505,7 +505,7 @@ class XQueryReferenceTest : ParserTestCase() {
 
         val flworExprPsi = file.descendants().filterIsInstance<XQueryFLWORExpr>().first()
         val returnClausePsi = flworExprPsi.children().filterIsInstance<XQueryReturnClause>().first()
-        val orExprPsi = returnClausePsi.children().filterIsInstance<XQueryOrExpr>().first()
+        val orExprPsi = returnClausePsi.children().filterIsInstance<XPathOrExpr>().first()
         val varRefPsi = orExprPsi.descendants().filterIsInstance<XPathVarRef>().first()
         val varRefNamePsi = varRefPsi.children().filterIsInstance<XPathEQName>().first()
 

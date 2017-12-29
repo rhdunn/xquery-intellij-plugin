@@ -8,7 +8,7 @@ XQueryModuleImpl[FILE(0:5)]
                   XPathNCNameImpl[XQUERY_NCNAME(1:2)]
                      XmlNCNameImpl[XQUERY_NCNAME_TOKEN(1:2)]('x')
                LeafPsiElement[XQUERY_ASSIGN_EQUAL_TOKEN(2:4)](':=')
-               XQueryOrExprImpl[XQUERY_OR_EXPR(4:5)]
+               XPathOrExprImpl[XQUERY_OR_EXPR(4:5)]
                   XPathAndExprImpl[XQUERY_AND_EXPR(4:5)]
                      XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(4:5)]
                         FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(4:5)]

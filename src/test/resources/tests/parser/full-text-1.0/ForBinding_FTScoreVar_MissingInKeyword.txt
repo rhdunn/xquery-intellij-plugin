@@ -23,7 +23,7 @@ XQueryModuleImpl[FILE(0:32)]
                               XmlNCNameImpl[XQUERY_NCNAME_TOKEN(16:17)]('y')
                            PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
                      PsiErrorElementImpl[ERROR_ELEMENT(18:18)]('XPST0003: Expected keyword: in.')
-                     XQueryOrExprImpl[XQUERY_OR_EXPR(18:22)]
+                     XPathOrExprImpl[XQUERY_OR_EXPR(18:22)]
                         XPathAndExprImpl[XQUERY_AND_EXPR(18:22)]
                            XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(18:22)]
                               FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(18:22)]
@@ -53,7 +53,7 @@ XQueryModuleImpl[FILE(0:32)]
                XQueryReturnClauseImpl[XQUERY_RETURN_CLAUSE(22:32)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_RETURN(22:28)]('return')
                   PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
-                  XQueryOrExprImpl[XQUERY_OR_EXPR(29:32)]
+                  XPathOrExprImpl[XQUERY_OR_EXPR(29:32)]
                      XPathAndExprImpl[XQUERY_AND_EXPR(29:32)]
                         XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(29:32)]
                            FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(29:32)]

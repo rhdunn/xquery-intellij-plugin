@@ -8,7 +8,7 @@ XQueryModuleImpl[FILE(0:64)]
                LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(5:6)]('$')
                PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
                PsiErrorElementImpl[ERROR_ELEMENT(7:7)]('XPST0003: Missing qualified name or braced URI qualified name.')
-               XQueryOrExprImpl[XQUERY_OR_EXPR(7:11)]
+               XPathOrExprImpl[XQUERY_OR_EXPR(7:11)]
                   XPathAndExprImpl[XQUERY_AND_EXPR(7:11)]
                      XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(7:11)]
                         FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(7:11)]
@@ -37,7 +37,7 @@ XQueryModuleImpl[FILE(0:64)]
                                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SATISFIES(11:20)]('satisfies')
                PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
-               XQueryOrExprImpl[XQUERY_OR_EXPR(21:31)]
+               XPathOrExprImpl[XQUERY_OR_EXPR(21:31)]
                   XPathAndExprImpl[XQUERY_AND_EXPR(21:31)]
                      XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(21:31)]
                         FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(21:25)]
@@ -94,7 +94,7 @@ XQueryModuleImpl[FILE(0:64)]
                LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(39:40)]('$')
                PsiWhiteSpaceImpl[WHITE_SPACE(40:41)](' ')
                PsiErrorElementImpl[ERROR_ELEMENT(41:41)]('XPST0003: Missing qualified name or braced URI qualified name.')
-               XQueryOrExprImpl[XQUERY_OR_EXPR(41:45)]
+               XPathOrExprImpl[XQUERY_OR_EXPR(41:45)]
                   XPathAndExprImpl[XQUERY_AND_EXPR(41:45)]
                      XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(41:45)]
                         FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(41:45)]
@@ -123,7 +123,7 @@ XQueryModuleImpl[FILE(0:64)]
                                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(44:45)](' ')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SATISFIES(45:54)]('satisfies')
                PsiWhiteSpaceImpl[WHITE_SPACE(54:55)](' ')
-               XQueryOrExprImpl[XQUERY_OR_EXPR(55:64)]
+               XPathOrExprImpl[XQUERY_OR_EXPR(55:64)]
                   XPathAndExprImpl[XQUERY_AND_EXPR(55:64)]
                      XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(55:64)]
                         FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(55:59)]

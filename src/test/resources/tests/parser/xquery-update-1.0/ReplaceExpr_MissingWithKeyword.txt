@@ -8,7 +8,7 @@ XQueryModuleImpl[FILE(0:20)]
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NODE(8:12)]('node')
                PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
                UpdateFacilityTargetExprImpl[XQUERY_TARGET_EXPR(13:17)]
-                  XQueryOrExprImpl[XQUERY_OR_EXPR(13:17)]
+                  XPathOrExprImpl[XQUERY_OR_EXPR(13:17)]
                      XPathAndExprImpl[XQUERY_AND_EXPR(13:17)]
                         XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(13:17)]
                            FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(13:17)]
@@ -36,7 +36,7 @@ XQueryModuleImpl[FILE(0:20)]
                                                                                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(15:16)]('x')
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
                PsiErrorElementImpl[ERROR_ELEMENT(17:17)]('XPST0003: Expected keyword: with.')
-               XQueryOrExprImpl[XQUERY_OR_EXPR(17:20)]
+               XPathOrExprImpl[XQUERY_OR_EXPR(17:20)]
                   XPathAndExprImpl[XQUERY_AND_EXPR(17:20)]
                      XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(17:20)]
                         FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(17:20)]

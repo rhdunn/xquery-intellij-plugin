@@ -8,7 +8,7 @@ XQueryModuleImpl[FILE(0:19)]
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NODE(7:11)]('node')
                PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
                UpdateFacilityTargetExprImpl[XQUERY_TARGET_EXPR(12:16)]
-                  XQueryOrExprImpl[XQUERY_OR_EXPR(12:16)]
+                  XPathOrExprImpl[XQUERY_OR_EXPR(12:16)]
                      XPathAndExprImpl[XQUERY_AND_EXPR(12:16)]
                         XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(12:16)]
                            FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(12:16)]
@@ -37,7 +37,7 @@ XQueryModuleImpl[FILE(0:19)]
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
                PsiErrorElementImpl[ERROR_ELEMENT(16:16)]('XPST0003: Expected keyword: as.')
                UpdateFacilityNewNameExprImpl[XQUERY_NEW_NAME_EXPR(16:19)]
-                  XQueryOrExprImpl[XQUERY_OR_EXPR(16:19)]
+                  XPathOrExprImpl[XQUERY_OR_EXPR(16:19)]
                      XPathAndExprImpl[XQUERY_AND_EXPR(16:19)]
                         XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(16:19)]
                            FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(16:19)]

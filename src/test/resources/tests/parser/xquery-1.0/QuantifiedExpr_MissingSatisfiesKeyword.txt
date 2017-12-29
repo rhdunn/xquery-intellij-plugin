@@ -13,7 +13,7 @@ XQueryModuleImpl[FILE(0:54)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_IN(9:11)]('in')
                PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
-               XQueryOrExprImpl[XQUERY_OR_EXPR(12:16)]
+               XPathOrExprImpl[XQUERY_OR_EXPR(12:16)]
                   XPathAndExprImpl[XQUERY_AND_EXPR(12:16)]
                      XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(12:16)]
                         FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(12:16)]
@@ -41,7 +41,7 @@ XQueryModuleImpl[FILE(0:54)]
                                                                                     XmlNCNameImpl[XQUERY_NCNAME_TOKEN(14:15)]('y')
                                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
                PsiErrorElementImpl[ERROR_ELEMENT(16:16)]('XPST0003: Expected keyword: satisfies.')
-               XQueryOrExprImpl[XQUERY_OR_EXPR(16:26)]
+               XPathOrExprImpl[XQUERY_OR_EXPR(16:26)]
                   XPathAndExprImpl[XQUERY_AND_EXPR(16:26)]
                      XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(16:26)]
                         FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(16:20)]
@@ -103,7 +103,7 @@ XQueryModuleImpl[FILE(0:54)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(37:38)](' ')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_IN(38:40)]('in')
                PsiWhiteSpaceImpl[WHITE_SPACE(40:41)](' ')
-               XQueryOrExprImpl[XQUERY_OR_EXPR(41:45)]
+               XPathOrExprImpl[XQUERY_OR_EXPR(41:45)]
                   XPathAndExprImpl[XQUERY_AND_EXPR(41:45)]
                      XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(41:45)]
                         FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(41:45)]
@@ -131,7 +131,7 @@ XQueryModuleImpl[FILE(0:54)]
                                                                                     XmlNCNameImpl[XQUERY_NCNAME_TOKEN(43:44)]('y')
                                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(44:45)](' ')
                PsiErrorElementImpl[ERROR_ELEMENT(45:45)]('XPST0003: Expected keyword: satisfies.')
-               XQueryOrExprImpl[XQUERY_OR_EXPR(45:54)]
+               XPathOrExprImpl[XQUERY_OR_EXPR(45:54)]
                   XPathAndExprImpl[XQUERY_AND_EXPR(45:54)]
                      XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(45:54)]
                         FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(45:49)]

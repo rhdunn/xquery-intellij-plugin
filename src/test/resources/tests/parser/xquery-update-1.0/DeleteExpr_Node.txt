@@ -8,7 +8,7 @@ XQueryModuleImpl[FILE(0:15)]
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NODE(7:11)]('node')
                PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
                UpdateFacilityTargetExprImpl[XQUERY_TARGET_EXPR(12:15)]
-                  XQueryOrExprImpl[XQUERY_OR_EXPR(12:15)]
+                  XPathOrExprImpl[XQUERY_OR_EXPR(12:15)]
                      XPathAndExprImpl[XQUERY_AND_EXPR(12:15)]
                         XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(12:15)]
                            FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(12:15)]

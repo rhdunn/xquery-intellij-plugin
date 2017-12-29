@@ -26,7 +26,7 @@ XQueryModuleImpl[FILE(0:46)]
                      LeafPsiElement[XQUERY_SEPARATOR_TOKEN(41:42)](';')
                   ScriptingBlockBodyImpl[XQUERY_BLOCK_BODY(42:44)]
                      ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(42:44)]
-                        XQueryOrExprImpl[XQUERY_OR_EXPR(42:44)]
+                        XPathOrExprImpl[XQUERY_OR_EXPR(42:44)]
                            XPathAndExprImpl[XQUERY_AND_EXPR(42:44)]
                               XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(42:44)]
                                  FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(42:44)]

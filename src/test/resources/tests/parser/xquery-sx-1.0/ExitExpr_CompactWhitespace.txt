@@ -6,7 +6,7 @@ XQueryModuleImpl[FILE(0:16)]
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXIT(0:4)]('exit')
                PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_RETURNING(5:14)]('returning')
-               XQueryOrExprImpl[XQUERY_OR_EXPR(14:16)]
+               XPathOrExprImpl[XQUERY_OR_EXPR(14:16)]
                   XPathAndExprImpl[XQUERY_AND_EXPR(14:16)]
                      XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(14:16)]
                         FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(14:16)]

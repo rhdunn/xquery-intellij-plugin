@@ -2,7 +2,7 @@ XQueryModuleImpl[FILE(0:18)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:18)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:18)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:18)]
-            XQueryOrExprImpl[XQUERY_OR_EXPR(0:5)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(0:5)]
                XPathAndExprImpl[XQUERY_AND_EXPR(0:5)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(0:5)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(0:2)]
@@ -35,7 +35,7 @@ XQueryModuleImpl[FILE(0:18)]
                      PsiErrorElementImpl[ERROR_ELEMENT(5:5)]('XPST0003: Expected 'FTContainsExpr'.')
             LeafPsiElement[XQUERY_COMMA_TOKEN(5:6)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(7:12)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(7:12)]
                XPathAndExprImpl[XQUERY_AND_EXPR(7:12)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(7:12)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(7:9)]
@@ -68,7 +68,7 @@ XQueryModuleImpl[FILE(0:18)]
                      PsiErrorElementImpl[ERROR_ELEMENT(12:12)]('XPST0003: Expected 'FTContainsExpr'.')
             LeafPsiElement[XQUERY_COMMA_TOKEN(12:13)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
-            XQueryOrExprImpl[XQUERY_OR_EXPR(14:18)]
+            XPathOrExprImpl[XQUERY_OR_EXPR(14:18)]
                XPathAndExprImpl[XQUERY_AND_EXPR(14:18)]
                   XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(14:18)]
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(14:16)]

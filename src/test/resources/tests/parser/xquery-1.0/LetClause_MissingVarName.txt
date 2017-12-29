@@ -12,7 +12,7 @@ XQueryModuleImpl[FILE(0:23)]
                      PsiErrorElementImpl[ERROR_ELEMENT(6:6)]('XPST0003: Missing qualified name or braced URI qualified name.')
                      LeafPsiElement[XQUERY_ASSIGN_EQUAL_TOKEN(6:8)](':=')
                      PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
-                     XQueryOrExprImpl[XQUERY_OR_EXPR(9:13)]
+                     XPathOrExprImpl[XQUERY_OR_EXPR(9:13)]
                         XPathAndExprImpl[XQUERY_AND_EXPR(9:13)]
                            XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(9:13)]
                               FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(9:13)]
@@ -42,7 +42,7 @@ XQueryModuleImpl[FILE(0:23)]
                XQueryReturnClauseImpl[XQUERY_RETURN_CLAUSE(13:23)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_RETURN(13:19)]('return')
                   PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
-                  XQueryOrExprImpl[XQUERY_OR_EXPR(20:23)]
+                  XPathOrExprImpl[XQUERY_OR_EXPR(20:23)]
                      XPathAndExprImpl[XQUERY_AND_EXPR(20:23)]
                         XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(20:23)]
                            FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(20:23)]

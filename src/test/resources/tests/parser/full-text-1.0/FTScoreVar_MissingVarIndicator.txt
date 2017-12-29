@@ -23,7 +23,7 @@ XQueryModuleImpl[FILE(0:33)]
                            PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
                      XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_IN(16:18)]('in')
                      PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
-                     XQueryOrExprImpl[XQUERY_OR_EXPR(19:23)]
+                     XPathOrExprImpl[XQUERY_OR_EXPR(19:23)]
                         XPathAndExprImpl[XQUERY_AND_EXPR(19:23)]
                            XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(19:23)]
                               FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(19:23)]
@@ -53,7 +53,7 @@ XQueryModuleImpl[FILE(0:33)]
                XQueryReturnClauseImpl[XQUERY_RETURN_CLAUSE(23:33)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_RETURN(23:29)]('return')
                   PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
-                  XQueryOrExprImpl[XQUERY_OR_EXPR(30:33)]
+                  XPathOrExprImpl[XQUERY_OR_EXPR(30:33)]
                      XPathAndExprImpl[XQUERY_AND_EXPR(30:33)]
                         XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(30:33)]
                            FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(30:33)]

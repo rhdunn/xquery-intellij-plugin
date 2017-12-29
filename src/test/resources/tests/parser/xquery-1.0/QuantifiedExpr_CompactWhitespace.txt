@@ -10,7 +10,7 @@ XQueryModuleImpl[FILE(0:60)]
                      XmlNCNameImpl[XQUERY_NCNAME_TOKEN(5:6)]('x')
                   PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_IN(7:9)]('in')
-               XQueryOrExprImpl[XQUERY_OR_EXPR(9:12)]
+               XPathOrExprImpl[XQUERY_OR_EXPR(9:12)]
                   XPathAndExprImpl[XQUERY_AND_EXPR(9:12)]
                      XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(9:12)]
                         FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(9:12)]
@@ -37,7 +37,7 @@ XQueryModuleImpl[FILE(0:60)]
                                                                                     XmlNCNameImpl[XQUERY_NCNAME_TOKEN(10:11)]('y')
                                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SATISFIES(12:21)]('satisfies')
-               XQueryOrExprImpl[XQUERY_OR_EXPR(21:29)]
+               XPathOrExprImpl[XQUERY_OR_EXPR(21:29)]
                   XPathAndExprImpl[XQUERY_AND_EXPR(21:29)]
                      XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(21:29)]
                         FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(21:24)]
@@ -93,7 +93,7 @@ XQueryModuleImpl[FILE(0:60)]
                      XmlNCNameImpl[XQUERY_NCNAME_TOKEN(36:37)]('x')
                   PsiWhiteSpaceImpl[WHITE_SPACE(37:38)](' ')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_IN(38:40)]('in')
-               XQueryOrExprImpl[XQUERY_OR_EXPR(40:43)]
+               XPathOrExprImpl[XQUERY_OR_EXPR(40:43)]
                   XPathAndExprImpl[XQUERY_AND_EXPR(40:43)]
                      XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(40:43)]
                         FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(40:43)]
@@ -120,7 +120,7 @@ XQueryModuleImpl[FILE(0:60)]
                                                                                     XmlNCNameImpl[XQUERY_NCNAME_TOKEN(41:42)]('y')
                                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(42:43)](' ')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SATISFIES(43:52)]('satisfies')
-               XQueryOrExprImpl[XQUERY_OR_EXPR(52:60)]
+               XPathOrExprImpl[XQUERY_OR_EXPR(52:60)]
                   XPathAndExprImpl[XQUERY_AND_EXPR(52:60)]
                      XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(52:60)]
                         FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(52:55)]

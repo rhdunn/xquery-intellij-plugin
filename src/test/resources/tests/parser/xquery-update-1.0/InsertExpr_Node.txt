@@ -8,7 +8,7 @@ XQueryModuleImpl[FILE(0:24)]
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NODE(7:11)]('node')
                PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
                UpdateFacilitySourceExprImpl[XQUERY_SOURCE_EXPR(12:16)]
-                  XQueryOrExprImpl[XQUERY_OR_EXPR(12:16)]
+                  XPathOrExprImpl[XQUERY_OR_EXPR(12:16)]
                      XPathAndExprImpl[XQUERY_AND_EXPR(12:16)]
                         XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(12:16)]
                            FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(12:16)]
@@ -39,7 +39,7 @@ XQueryModuleImpl[FILE(0:24)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_INTO(16:20)]('into')
                PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
                UpdateFacilityTargetExprImpl[XQUERY_TARGET_EXPR(21:24)]
-                  XQueryOrExprImpl[XQUERY_OR_EXPR(21:24)]
+                  XPathOrExprImpl[XQUERY_OR_EXPR(21:24)]
                      XPathAndExprImpl[XQUERY_AND_EXPR(21:24)]
                         XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(21:24)]
                            FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(21:24)]
