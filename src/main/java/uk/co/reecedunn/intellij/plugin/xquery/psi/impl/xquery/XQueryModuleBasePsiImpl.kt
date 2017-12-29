@@ -51,7 +51,8 @@ open class XQueryModuleBasePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), 
             if (context == null) context = defaultStaticContext(xquery)
 
             val file = ResourceVirtualFile.resolve(context, project)
-            staticContextCache = ((file as? XQueryModule)?.modules?.firstOrNull() as? XQueryPrologResolver)?.prolog
+            val module = file.children().filterIsInstance<XQueryMainModule>().firstOrNull()
+            staticContextCache = (module as? XQueryPrologResolver)?.prolog
         }
         return staticContextCache
     }

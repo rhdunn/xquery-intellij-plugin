@@ -2825,7 +2825,7 @@ class XQueryPsiTest:ParserTestCase() {
     fun testModule_PrologResolver_NoProlog() {
         val file = parseResource("tests/parser/xquery-1.0/ModuleDecl.xq")!!
 
-        val modules = file.modules.toList()
+        val modules = file.children().filterIsInstance<XQueryLibraryModule>().toList()
         assertThat(modules.size, `is`(1))
 
         val provider = modules.get(0) as XQueryPrologResolver
@@ -2835,7 +2835,7 @@ class XQueryPsiTest:ParserTestCase() {
     fun testModule_PrologResolver() {
         val file = parseResource("tests/resolve/namespaces/ModuleDecl.xq")!!
 
-        val modules = file.modules.toList()
+        val modules = file.children().filterIsInstance<XQueryLibraryModule>().toList()
         assertThat(modules.size, `is`(1))
 
         val provider = modules.get(0) as XQueryPrologResolver

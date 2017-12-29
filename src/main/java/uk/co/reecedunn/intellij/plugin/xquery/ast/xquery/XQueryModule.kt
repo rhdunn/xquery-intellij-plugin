@@ -28,6 +28,4 @@ interface XQueryModule : PsiFile {
     val XQueryVersion: XQueryVersionRef
 
     val XQueryVersions: Sequence<XQueryVersionRef>
-
-    val modules: Sequence<XQueryModuleBase>
 }

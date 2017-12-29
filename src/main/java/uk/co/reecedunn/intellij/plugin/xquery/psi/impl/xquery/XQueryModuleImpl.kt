@@ -40,8 +40,5 @@ class XQueryModuleImpl(provider: FileViewProvider) : PsiFileBase(provider, XQuer
 
     override val XQueryVersion get(): XQueryVersionRef = XQueryVersions.firstOrNull() ?: XQueryVersionRef(null, null)
 
-    override val modules get(): Sequence<XQueryModuleBase> =
-        children().filterIsInstance<XQueryModuleBase>()
-
     override fun toString(): String = "XQueryModule(" + containingFile.name + ")"
 }
