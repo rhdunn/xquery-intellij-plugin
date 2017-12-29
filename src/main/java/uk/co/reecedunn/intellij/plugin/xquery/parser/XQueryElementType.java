@@ -79,7 +79,7 @@ public interface XQueryElementType {
     IElementType CAST_EXPR = new ICompositeElementType("XQUERY_CAST_EXPR", XPathCastExprPsiImpl.class, XQuery.INSTANCE);
     IElementType CASTABLE_EXPR = new ICompositeElementType("XQUERY_CASTABLE_EXPR", XPathCastableExprPsiImpl.class, XQuery.INSTANCE);
     IElementType TREAT_EXPR = new ICompositeElementType("XQUERY_TREAT_EXPR", XQueryTreatExprPsiImpl.class, XQuery.INSTANCE);
-    IElementType INSTANCEOF_EXPR = new ICompositeElementType("XQUERY_INSTANCEOF_EXPR", XQueryInstanceofExprPsiImpl.class, XQuery.INSTANCE);
+    IElementType INSTANCEOF_EXPR = new ICompositeElementType("XQUERY_INSTANCEOF_EXPR", XPathInstanceofExprPsiImpl.class, XQuery.INSTANCE);
     IElementType INTERSECT_EXCEPT_EXPR = new ICompositeElementType("XQUERY_INTERSECT_EXCEPT_EXPR", XQueryIntersectExceptExprPsiImpl.class, XQuery.INSTANCE);
     IElementType UNION_EXPR = new ICompositeElementType("XQUERY_UNION_EXPR", XQueryUnionExprPsiImpl.class, XQuery.INSTANCE);
     IElementType MULTIPLICATIVE_EXPR = new ICompositeElementType("XQUERY_MULTIPLICATIVE_EXPR", XQueryMultiplicativeExprPsiImpl.class, XQuery.INSTANCE);
