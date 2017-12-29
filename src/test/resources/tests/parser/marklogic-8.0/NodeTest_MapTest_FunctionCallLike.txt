@@ -22,7 +22,7 @@ FileElement[FILE(0:14)]
                                                                XQueryPathExprImpl[XQUERY_PATH_EXPR(0:14)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:14)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:14)]
-                                                                        XQueryFunctionCallImpl[XQUERY_FUNCTION_CALL(0:14)]
+                                                                        XPathFunctionCallImpl[XQUERY_FUNCTION_CALL(0:14)]
                                                                            XPathNCNameImpl[XQUERY_NCNAME(0:11)]
                                                                               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_OBJECT_NODE(0:11)]('object-node')
                                                                            XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(11:14)]

@@ -71,7 +71,7 @@ FileElement[FILE(0:77)]
                                                                            XQueryPathExprImpl[XQUERY_PATH_EXPR(39:48)]
                                                                               XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(39:48)]
                                                                                  XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(39:48)]
-                                                                                    XQueryFunctionCallImpl[XQUERY_FUNCTION_CALL(39:47)]
+                                                                                    XPathFunctionCallImpl[XQUERY_FUNCTION_CALL(39:47)]
                                                                                        XPathNCNameImpl[XQUERY_NCNAME(39:43)]
                                                                                           XmlNCNameImpl[XQUERY_NCNAME_TOKEN(39:43)]('true')
                                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(43:44)](' ')
@@ -106,7 +106,7 @@ FileElement[FILE(0:77)]
                                                                            XQueryPathExprImpl[XQUERY_PATH_EXPR(57:67)]
                                                                               XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(57:67)]
                                                                                  XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(57:67)]
-                                                                                    XQueryFunctionCallImpl[XQUERY_FUNCTION_CALL(57:66)]
+                                                                                    XPathFunctionCallImpl[XQUERY_FUNCTION_CALL(57:66)]
                                                                                        XPathNCNameImpl[XQUERY_NCNAME(57:62)]
                                                                                           XmlNCNameImpl[XQUERY_NCNAME_TOKEN(57:62)]('false')
                                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(62:63)](' ')

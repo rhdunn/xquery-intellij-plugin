@@ -27,7 +27,7 @@ FileElement[FILE(0:95)]
                                                                XQueryPathExprImpl[XQUERY_PATH_EXPR(38:95)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(38:95)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(38:95)]
-                                                                        XQueryFunctionCallImpl[XQUERY_FUNCTION_CALL(38:58)]
+                                                                        XPathFunctionCallImpl[XQUERY_FUNCTION_CALL(38:58)]
                                                                            XPathNCNameImpl[XQUERY_NCNAME(38:56)]
                                                                               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXPONENT_SEPARATOR(38:56)]('exponent-separator')
                                                                            XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(56:58)]

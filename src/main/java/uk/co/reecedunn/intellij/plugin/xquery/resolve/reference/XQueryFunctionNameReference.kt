@@ -20,14 +20,14 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReferenceBase
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArrowFunctionSpecifier
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionCall
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryNamedFunctionRef
 
 class XQueryFunctionNameReference(element: XPathEQName, range: TextRange) : PsiReferenceBase<XPathEQName>(element, range) {
     override fun resolve(): PsiElement? {
         val parent = element.parent
         val arity = when (parent) {
-            is XQueryFunctionCall -> parent.arity
+            is XPathFunctionCall -> parent.arity
             is XQueryNamedFunctionRef -> parent.arity
             is XPathArrowFunctionSpecifier -> parent.arity
             else -> -1

@@ -53,7 +53,7 @@ public interface XQueryElementType {
     IElementType CONTEXT_ITEM_EXPR = new ICompositeElementType("XQUERY_CONTEXT_ITEM_EXPR", XPathContextItemExprPsiImpl.class, XQuery.INSTANCE);
     IElementType ORDERED_EXPR = new ICompositeElementType("XQUERY_ORDERED_EXPR", XQueryOrderedExprPsiImpl.class, XQuery.INSTANCE);
     IElementType UNORDERED_EXPR = new ICompositeElementType("XQUERY_UNORDERED_EXPR", XQueryUnorderedExprPsiImpl.class, XQuery.INSTANCE);
-    IElementType FUNCTION_CALL = new ICompositeElementType("XQUERY_FUNCTION_CALL", XQueryFunctionCallPsiImpl.class, XQuery.INSTANCE);
+    IElementType FUNCTION_CALL = new ICompositeElementType("XQUERY_FUNCTION_CALL", XPathFunctionCallPsiImpl.class, XQuery.INSTANCE);
 
     IElementType AXIS_STEP = new ICompositeElementType("XQUERY_AXIS_STEP", XPathAxisStepPsiImpl.class, XQuery.INSTANCE);
     IElementType FORWARD_STEP = new ICompositeElementType("XQUERY_FORWARD_STEP", XPathForwardStepPsiImpl.class, XQuery.INSTANCE);

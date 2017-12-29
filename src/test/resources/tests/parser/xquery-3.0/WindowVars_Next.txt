@@ -80,7 +80,7 @@ FileElement[FILE(0:70)]
                                                                            XQueryPathExprImpl[XQUERY_PATH_EXPR(51:60)]
                                                                               XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(51:60)]
                                                                                  XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(51:60)]
-                                                                                    XQueryFunctionCallImpl[XQUERY_FUNCTION_CALL(51:59)]
+                                                                                    XPathFunctionCallImpl[XQUERY_FUNCTION_CALL(51:59)]
                                                                                        XPathNCNameImpl[XQUERY_NCNAME(51:55)]
                                                                                           XmlNCNameImpl[XQUERY_NCNAME_TOKEN(51:55)]('true')
                                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(55:56)](' ')

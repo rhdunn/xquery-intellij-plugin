@@ -29,7 +29,7 @@ FileElement[FILE(0:15)]
                                                                                  XmlNCNameImpl[XQUERY_NCNAME_TOKEN(1:5)]('test')
                                                                      LeafPsiElement[XQUERY_ALL_DESCENDANTS_PATH_TOKEN(5:7)]('//')
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(7:15)]
-                                                                        XQueryFunctionCallImpl[XQUERY_FUNCTION_CALL(7:15)]
+                                                                        XPathFunctionCallImpl[XQUERY_FUNCTION_CALL(7:15)]
                                                                            XPathNCNameImpl[XQUERY_NCNAME(7:13)]
                                                                               XmlNCNameImpl[XQUERY_NCNAME_TOKEN(7:13)]('string')
                                                                            XPathArgumentListImpl[XQUERY_ARGUMENT_LIST(13:15)]

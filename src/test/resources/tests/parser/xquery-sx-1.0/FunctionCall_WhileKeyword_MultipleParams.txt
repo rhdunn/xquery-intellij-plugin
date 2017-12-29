@@ -22,7 +22,7 @@ FileElement[FILE(0:15)]
                                                                XQueryPathExprImpl[XQUERY_PATH_EXPR(0:15)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:15)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:15)]
-                                                                        XQueryFunctionCallImpl[XQUERY_FUNCTION_CALL(0:15)]
+                                                                        XPathFunctionCallImpl[XQUERY_FUNCTION_CALL(0:15)]
                                                                            XPathNCNameImpl[XQUERY_NCNAME(0:5)]
                                                                               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_WHILE(0:5)]('while')
                                                                            PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')

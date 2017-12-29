@@ -41,7 +41,7 @@ class XQueryPsiTest:ParserTestCase() {
     fun testArgumentList() {
         val file = parseResource("tests/parser/xquery-1.0/FunctionCall_MultipleParam.xq")!!
 
-        val functionCallPsi = file.descendants().filterIsInstance<XQueryFunctionCall>().first()
+        val functionCallPsi = file.descendants().filterIsInstance<XPathFunctionCall>().first()
         val argumentListPsi = functionCallPsi.children().filterIsInstance<XPathArgumentList>().first()
         assertThat(argumentListPsi, `is`(notNullValue()))
         assertThat(argumentListPsi.arity, `is`(2))
@@ -50,7 +50,7 @@ class XQueryPsiTest:ParserTestCase() {
     fun testArgumentList_Empty() {
         val file = parseResource("tests/parser/xquery-1.0/FunctionCall.xq")!!
 
-        val functionCallPsi = file.descendants().filterIsInstance<XQueryFunctionCall>().first()
+        val functionCallPsi = file.descendants().filterIsInstance<XPathFunctionCall>().first()
         val argumentListPsi = functionCallPsi.children().filterIsInstance<XPathArgumentList>().first()
         assertThat(argumentListPsi, `is`(notNullValue()))
         assertThat(argumentListPsi.arity, `is`(0))
@@ -59,7 +59,7 @@ class XQueryPsiTest:ParserTestCase() {
     fun testArgumentList_ArgumentPlaceholder() {
         val file = parseResource("tests/parser/xquery-3.0/ArgumentPlaceholder.xq")!!
 
-        val functionCallPsi = file.descendants().filterIsInstance<XQueryFunctionCall>().first()
+        val functionCallPsi = file.descendants().filterIsInstance<XPathFunctionCall>().first()
         val argumentListPsi = functionCallPsi.children().filterIsInstance<XPathArgumentList>().first()
         assertThat(argumentListPsi, `is`(notNullValue()))
         assertThat(argumentListPsi.arity, `is`(1))
@@ -222,7 +222,7 @@ class XQueryPsiTest:ParserTestCase() {
     fun testArgumentList_FunctionCall() {
         val file = parseResource("tests/parser/xquery-1.0/FunctionCall.xq")!!
 
-        val functionCallPsi = file.descendants().filterIsInstance<XQueryFunctionCall>().first()
+        val functionCallPsi = file.descendants().filterIsInstance<XPathFunctionCall>().first()
         val argumentListPsi = functionCallPsi.children().filterIsInstance<XPathArgumentList>().first()
         val versioned = argumentListPsi as XQueryConformance
 
@@ -255,7 +255,7 @@ class XQueryPsiTest:ParserTestCase() {
     fun testArgumentPlaceholder() {
         val file = parseResource("tests/parser/xquery-3.0/ArgumentPlaceholder.xq")!!
 
-        val functionCallPsi = file.descendants().filterIsInstance<XQueryFunctionCall>().first()
+        val functionCallPsi = file.descendants().filterIsInstance<XPathFunctionCall>().first()
         val argumentListPsi = functionCallPsi.children().filterIsInstance<XPathArgumentList>().first()
         val argumentPsi = argumentListPsi.children().filterIsInstance<XPathArgument>().first()
         val argumentPlaceholderPsi = argumentPsi.descendants().filterIsInstance<XPathArgumentPlaceholder>().first()
@@ -2566,7 +2566,7 @@ class XQueryPsiTest:ParserTestCase() {
     fun testQName_resolveFunctionDecls_SingleDeclMatch() {
         val file = parseResource("tests/resolve/functions/FunctionCall_QName.xq")!!
 
-        val fn = file.descendants().filterIsInstance<XQueryFunctionCall>().first()
+        val fn = file.descendants().filterIsInstance<XPathFunctionCall>().first()
         val fnName = fn.children().filterIsInstance<XPathQName>().first()
 
         val decls = fnName.resolveFunctionDecls().toList()
@@ -2580,7 +2580,7 @@ class XQueryPsiTest:ParserTestCase() {
     fun testQName_resolveFunctionDecls_MultipleDeclMatch() {
         val file = parseResource("tests/resolve/functions/FunctionCall_QName_Arity.xq")!!
 
-        val fn = file.descendants().filterIsInstance<XQueryFunctionCall>().first()
+        val fn = file.descendants().filterIsInstance<XPathFunctionCall>().first()
         val fnName = fn.children().filterIsInstance<XPathQName>().first()
 
         val decls = fnName.resolveFunctionDecls().toList()
@@ -2626,12 +2626,12 @@ class XQueryPsiTest:ParserTestCase() {
     }
 
     // endregion
-    // region XQueryFunctionCall
+    // region XPathFunctionCall
 
     fun testFunctionCall() {
         val file = parseResource("tests/parser/xquery-1.0/FunctionCall_MultipleParam.xq")!!
 
-        val functionCallPsi = file.descendants().filterIsInstance<XQueryFunctionCall>().first()
+        val functionCallPsi = file.descendants().filterIsInstance<XPathFunctionCall>().first()
         assertThat(functionCallPsi, `is`(notNullValue()))
         assertThat(functionCallPsi.arity, `is`(2))
 
@@ -2645,7 +2645,7 @@ class XQueryPsiTest:ParserTestCase() {
     fun testFunctionCall_Empty() {
         val file = parseResource("tests/parser/xquery-1.0/FunctionCall.xq")!!
 
-        val functionCallPsi = file.descendants().filterIsInstance<XQueryFunctionCall>().first()
+        val functionCallPsi = file.descendants().filterIsInstance<XPathFunctionCall>().first()
         assertThat(functionCallPsi, `is`(notNullValue()))
         assertThat(functionCallPsi.arity, `is`(0))
 
@@ -2659,7 +2659,7 @@ class XQueryPsiTest:ParserTestCase() {
     fun testFunctionCall_ArgumentPlaceholder() {
         val file = parseResource("tests/parser/xquery-3.0/ArgumentPlaceholder.xq")!!
 
-        val functionCallPsi = file.descendants().filterIsInstance<XQueryFunctionCall>().first()
+        val functionCallPsi = file.descendants().filterIsInstance<XPathFunctionCall>().first()
         assertThat(functionCallPsi, `is`(notNullValue()))
         assertThat(functionCallPsi.arity, `is`(1))
 
@@ -2673,7 +2673,7 @@ class XQueryPsiTest:ParserTestCase() {
     fun testFunctionCall_NoFunctionEQName() {
         val file = parseResource("tests/psi/xquery-1.0/FunctionCall_NoFunctionEQName.xq")!!
 
-        val functionCallPsi = file.descendants().filterIsInstance<XQueryFunctionCall>().first()
+        val functionCallPsi = file.descendants().filterIsInstance<XPathFunctionCall>().first()
         assertThat(functionCallPsi, `is`(notNullValue()))
         assertThat(functionCallPsi.arity, `is`(0))
 

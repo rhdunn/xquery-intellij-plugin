@@ -13,19 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
+package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement
-import com.intellij.lang.ASTNode
-import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPrimaryExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionCall
 
-class XQueryFunctionCallPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryFunctionCall {
-    override val functionName get(): XPathEQName? =
-        firstChild as? XPathEQName
+/**
+ * An XPath 2.0 and XQuery 1.0 `FunctionCall` node in the XQuery AST.
+ */
+interface XPathFunctionCall : XPathPrimaryExpr {
+    val functionName: XPathEQName?
 
-    override val arity get(): Int =
-        children().filterIsInstance<XPathArgumentList>().first().arity
+    val arity: Int
 }

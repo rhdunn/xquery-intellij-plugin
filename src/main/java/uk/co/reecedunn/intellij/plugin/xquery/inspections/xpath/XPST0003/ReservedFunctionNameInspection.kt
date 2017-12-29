@@ -22,6 +22,7 @@ import com.intellij.psi.PsiFile
 import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Scripting
@@ -59,7 +60,7 @@ class ReservedFunctionNameInspection : LocalInspectionTool() {
         val descriptors = SmartList<ProblemDescriptor>()
         file.walkTree().forEach { element ->
             val localname = when {
-                element is XQueryFunctionCall -> getLocalName(element.functionName)
+                element is XPathFunctionCall -> getLocalName(element.functionName)
                 element is XQueryFunctionDecl -> getLocalName(element.functionName)
                 element is XQueryNamedFunctionRef -> getLocalName(element.functionName)
                 else -> null
