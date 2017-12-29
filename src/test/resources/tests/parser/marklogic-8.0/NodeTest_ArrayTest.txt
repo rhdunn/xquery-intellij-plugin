@@ -24,7 +24,7 @@ XQueryModuleImpl[FILE(0:12)]
                                                                      XPathAxisStepImpl[XQUERY_AXIS_STEP(0:12)]
                                                                         XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:12)]
                                                                            XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:12)]
-                                                                              XQueryNodeTestImpl[XQUERY_NODE_TEST(0:12)]
+                                                                              XPathNodeTestImpl[XQUERY_NODE_TEST(0:12)]
                                                                                  MarkLogicArrayTestImpl[XQUERY_ARRAY_TEST(0:12)]
                                                                                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ARRAY_NODE(0:10)]('array-node')
                                                                                     LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(10:11)]('(')

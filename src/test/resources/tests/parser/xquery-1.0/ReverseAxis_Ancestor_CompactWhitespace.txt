@@ -26,7 +26,7 @@ XQueryModuleImpl[FILE(0:14)]
                                                                            XQueryReverseAxisImpl[XQUERY_REVERSE_AXIS(0:10)]
                                                                               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ANCESTOR(0:8)]('ancestor')
                                                                               LeafPsiElement[XQUERY_AXIS_SEPARATOR_TOKEN(8:10)]('::')
-                                                                           XQueryNodeTestImpl[XQUERY_NODE_TEST(10:14)]
+                                                                           XPathNodeTestImpl[XQUERY_NODE_TEST(10:14)]
                                                                               XPathNameTestImpl[XQUERY_NAME_TEST(10:14)]
                                                                                  XPathNCNameImpl[XQUERY_NCNAME(10:14)]
                                                                                     XmlNCNameImpl[XQUERY_NCNAME_TOKEN(10:14)]('para')

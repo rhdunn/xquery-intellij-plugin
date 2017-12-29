@@ -24,7 +24,7 @@ XQueryModuleImpl[FILE(0:10)]
                                                                      XPathAxisStepImpl[XQUERY_AXIS_STEP(0:10)]
                                                                         XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:5)]
                                                                            XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:5)]
-                                                                              XQueryNodeTestImpl[XQUERY_NODE_TEST(0:5)]
+                                                                              XPathNodeTestImpl[XQUERY_NODE_TEST(0:5)]
                                                                                  XPathNameTestImpl[XQUERY_NAME_TEST(0:5)]
                                                                                     XPathNCNameImpl[XQUERY_NCNAME(0:4)]
                                                                                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:4)]('para')

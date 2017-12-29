@@ -25,7 +25,7 @@ XQueryModuleImpl[FILE(0:31)]
                                                                      XPathAxisStepImpl[XQUERY_AXIS_STEP(2:7)]
                                                                         XPathForwardStepImpl[XQUERY_FORWARD_STEP(2:7)]
                                                                            XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(2:7)]
-                                                                              XQueryNodeTestImpl[XQUERY_NODE_TEST(2:7)]
+                                                                              XPathNodeTestImpl[XQUERY_NODE_TEST(2:7)]
                                                                                  XPathNameTestImpl[XQUERY_NAME_TEST(2:7)]
                                                                                     XPathNCNameImpl[XQUERY_NCNAME(2:6)]
                                                                                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ITEM(2:6)]('item')

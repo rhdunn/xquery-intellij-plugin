@@ -28,7 +28,7 @@ XQueryModuleImpl[FILE(0:43)]
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
                                                                               LeafPsiElement[XQUERY_AXIS_SEPARATOR_TOKEN(5:7)]('::')
                                                                            PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-                                                                           XQueryNodeTestImpl[XQUERY_NODE_TEST(8:43)]
+                                                                           XPathNodeTestImpl[XQUERY_NODE_TEST(8:43)]
                                                                               XPathNameTestImpl[XQUERY_NAME_TEST(8:43)]
                                                                                  XPathURIQualifiedNameImpl[XQUERY_URI_QUALIFIED_NAME(8:43)]
                                                                                     XPathBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(8:39)]

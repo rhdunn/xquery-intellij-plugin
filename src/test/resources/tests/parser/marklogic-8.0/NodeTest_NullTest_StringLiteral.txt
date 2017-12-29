@@ -24,7 +24,7 @@ XQueryModuleImpl[FILE(0:16)]
                                                                      XPathAxisStepImpl[XQUERY_AXIS_STEP(0:16)]
                                                                         XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:16)]
                                                                            XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:16)]
-                                                                              XQueryNodeTestImpl[XQUERY_NODE_TEST(0:16)]
+                                                                              XPathNodeTestImpl[XQUERY_NODE_TEST(0:16)]
                                                                                  MarkLogicNullTestImpl[XQUERY_NULL_TEST(0:16)]
                                                                                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NULL_NODE(0:9)]('null-node')
                                                                                     LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(9:10)]('(')

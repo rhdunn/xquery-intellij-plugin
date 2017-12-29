@@ -53,7 +53,7 @@ XQueryModuleImpl[FILE(0:130)]
                                                                            XPathAxisStepImpl[XQUERY_AXIS_STEP(78:96)]
                                                                               XPathForwardStepImpl[XQUERY_FORWARD_STEP(78:96)]
                                                                                  XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(78:96)]
-                                                                                    XQueryNodeTestImpl[XQUERY_NODE_TEST(78:96)]
+                                                                                    XPathNodeTestImpl[XQUERY_NODE_TEST(78:96)]
                                                                                        XPathNameTestImpl[XQUERY_NAME_TEST(78:96)]
                                                                                           XPathNCNameImpl[XQUERY_NCNAME(78:95)]
                                                                                              XmlNCNameImpl[XQUERY_NCNAME_TOKEN(78:95)]('unknown_construct')

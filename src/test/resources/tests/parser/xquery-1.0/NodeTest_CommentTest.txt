@@ -24,7 +24,7 @@ XQueryModuleImpl[FILE(0:11)]
                                                                      XPathAxisStepImpl[XQUERY_AXIS_STEP(0:11)]
                                                                         XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:11)]
                                                                            XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:11)]
-                                                                              XQueryNodeTestImpl[XQUERY_NODE_TEST(0:11)]
+                                                                              XPathNodeTestImpl[XQUERY_NODE_TEST(0:11)]
                                                                                  XPathCommentTestImpl[XQUERY_COMMENT_TEST(0:11)]
                                                                                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_COMMENT(0:7)]('comment')
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')

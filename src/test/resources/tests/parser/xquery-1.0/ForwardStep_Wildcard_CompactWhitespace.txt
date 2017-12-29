@@ -26,7 +26,7 @@ XQueryModuleImpl[FILE(0:10)]
                                                                            XPathForwardAxisImpl[XQUERY_FORWARD_AXIS(0:6)]
                                                                               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SELF(0:4)]('self')
                                                                               LeafPsiElement[XQUERY_AXIS_SEPARATOR_TOKEN(4:6)]('::')
-                                                                           XQueryNodeTestImpl[XQUERY_NODE_TEST(6:10)]
+                                                                           XPathNodeTestImpl[XQUERY_NODE_TEST(6:10)]
                                                                               XPathNameTestImpl[XQUERY_NAME_TEST(6:10)]
                                                                                  XQueryWildcardImpl[XQUERY_WILDCARD(6:10)]
                                                                                     XPathNCNameImpl[XQUERY_NCNAME(6:8)]

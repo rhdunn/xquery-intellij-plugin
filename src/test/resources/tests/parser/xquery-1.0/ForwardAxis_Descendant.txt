@@ -28,7 +28,7 @@ XQueryModuleImpl[FILE(0:18)]
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
                                                                               LeafPsiElement[XQUERY_AXIS_SEPARATOR_TOKEN(11:13)]('::')
                                                                            PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
-                                                                           XQueryNodeTestImpl[XQUERY_NODE_TEST(14:18)]
+                                                                           XPathNodeTestImpl[XQUERY_NODE_TEST(14:18)]
                                                                               XPathNameTestImpl[XQUERY_NAME_TEST(14:18)]
                                                                                  XPathNCNameImpl[XQUERY_NCNAME(14:18)]
                                                                                     XmlNCNameImpl[XQUERY_NCNAME_TOKEN(14:18)]('para')
