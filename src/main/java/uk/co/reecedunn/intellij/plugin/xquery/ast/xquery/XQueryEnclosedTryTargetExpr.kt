@@ -13,14 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
+package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEnclosedExpr;
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEnclosedExpr
 
 /**
- * An XQuery 3.1 <code>EnclosedTryTargetExpr</code> node in the XQuery AST.
+ * An XQuery 3.1 `EnclosedTryTargetExpr` node in the XQuery AST.
  *
- * This is a replacement for the XQuery 3.0 <code>TryTargetExpr</code>.
+ * This is a replacement for the XQuery 3.0 `TryTargetExpr`.
  */
-public interface XQueryEnclosedTryTargetExpr extends XPathEnclosedExpr {
-}
+interface XQueryEnclosedTryTargetExpr : XPathEnclosedExpr

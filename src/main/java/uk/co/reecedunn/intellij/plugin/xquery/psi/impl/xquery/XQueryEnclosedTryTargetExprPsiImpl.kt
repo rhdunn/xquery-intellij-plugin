@@ -13,15 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
+package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
-import com.intellij.lang.ASTNode;
-import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathEnclosedExprPsiImpl;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEnclosedTryTargetExpr;
+import com.intellij.lang.ASTNode
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathEnclosedExprPsiImpl
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEnclosedTryTargetExpr
 
-public class XQueryEnclosedTryTargetExprPsiImpl extends XPathEnclosedExprPsiImpl implements XQueryEnclosedTryTargetExpr {
-    public XQueryEnclosedTryTargetExprPsiImpl(@NotNull ASTNode node) {
-        super(node);
-    }
-}
+class XQueryEnclosedTryTargetExprPsiImpl(node: ASTNode) : XPathEnclosedExprPsiImpl(node), XQueryEnclosedTryTargetExpr
