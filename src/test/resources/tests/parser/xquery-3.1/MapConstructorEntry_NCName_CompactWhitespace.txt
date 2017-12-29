@@ -26,7 +26,7 @@ XQueryModuleImpl[FILE(0:10)]
                                                                            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_MAP(0:3)]('map')
                                                                            LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(3:4)]('{')
                                                                            XPathMapConstructorEntryImpl[XQUERY_MAP_CONSTRUCTOR_ENTRY(4:9)]
-                                                                              XQueryMapKeyExprImpl[XQUERY_MAP_KEY_EXPR(4:9)]
+                                                                              XPathMapKeyExprImpl[XQUERY_MAP_KEY_EXPR(4:9)]
                                                                                  XQueryOrExprImpl[XQUERY_OR_EXPR(4:9)]
                                                                                     XPathAndExprImpl[XQUERY_AND_EXPR(4:9)]
                                                                                        XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(4:9)]
