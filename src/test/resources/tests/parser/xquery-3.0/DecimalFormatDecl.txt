@@ -1,4 +1,4 @@
-FileElement[FILE(0:29)]
+XQueryModuleImpl[FILE(0:29)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:29)]
       XQueryPrologImpl[XQUERY_PROLOG(0:29)]
          XQueryDecimalFormatDeclImpl[XQUERY_DECIMAL_FORMAT_DECL(0:28)]

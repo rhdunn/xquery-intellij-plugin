@@ -1,4 +1,4 @@
-FileElement[FILE(0:146)]
+XQueryModuleImpl[FILE(0:146)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:146)]
       XQueryPrologImpl[XQUERY_PROLOG(0:146)]
          XQueryDefaultCollationDeclImpl[XQUERY_DEFAULT_COLLATION_DECL(0:59)]

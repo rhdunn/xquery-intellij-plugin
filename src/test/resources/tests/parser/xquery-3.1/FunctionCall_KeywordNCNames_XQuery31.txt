@@ -1,4 +1,4 @@
-FileElement[FILE(0:95)]
+XQueryModuleImpl[FILE(0:95)]
    XPathCommentImpl[XQUERY_COMMENT(0:37)]
       LeafPsiElement[XQUERY_COMMENT_START_TAG_TOKEN(0:2)]('(:')
       PsiCommentImpl[XQUERY_COMMENT_TOKEN(2:35)](' Reserved Function Name -- array ')

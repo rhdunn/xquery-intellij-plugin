@@ -1,4 +1,4 @@
-FileElement[FILE(0:42)]
+XQueryModuleImpl[FILE(0:42)]
    PsiWhiteSpaceImpl[WHITE_SPACE(0:4)]('    ')
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(4:42)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(4:42)]

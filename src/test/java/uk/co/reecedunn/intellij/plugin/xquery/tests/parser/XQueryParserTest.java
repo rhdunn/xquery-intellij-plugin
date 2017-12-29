@@ -26,7 +26,7 @@ public class XQueryParserTest extends ParserTestCase {
 
     public void testEmptyBuffer() {
         final String expected
-                = "FileElement[FILE(0:0)]\n";
+                = "XQueryModuleImpl[FILE(0:0)]\n";
 
         assertThat(prettyPrintASTNode(parseText("")), is(expected));
     }
@@ -36,7 +36,7 @@ public class XQueryParserTest extends ParserTestCase {
 
     public void testBadCharacters() {
         final String expected
-                = "FileElement[FILE(0:3)]\n"
+                = "XQueryModuleImpl[FILE(0:3)]\n"
                 + "   PsiErrorElementImpl[ERROR_ELEMENT(0:1)]('XPST0003: Unexpected token.')\n"
                 + "      LeafPsiElement[BAD_CHARACTER(0:1)]('~')\n"
                 + "   LeafPsiElement[BAD_CHARACTER(1:2)]('\uFFFE')\n"
@@ -50,7 +50,7 @@ public class XQueryParserTest extends ParserTestCase {
 
     public void testInvalidToken() {
         final String expected
-                = "FileElement[FILE(0:2)]\n"
+                = "XQueryModuleImpl[FILE(0:2)]\n"
                 + "   PsiErrorElementImpl[ERROR_ELEMENT(0:2)]('XPST0003: Unexpected token.')\n"
                 + "      LeafPsiElement[XQUERY_INVALID_TOKEN(0:2)]('<!')\n";
 

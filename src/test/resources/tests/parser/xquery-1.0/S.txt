@@ -1,2 +1,2 @@
-FileElement[FILE(0:4)]
+XQueryModuleImpl[FILE(0:4)]
    PsiWhiteSpaceImpl[WHITE_SPACE(0:4)]('    ')

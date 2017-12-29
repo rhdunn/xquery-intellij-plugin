@@ -1,4 +1,4 @@
-FileElement[FILE(0:131)]
+XQueryModuleImpl[FILE(0:131)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:131)]
       XQueryPrologImpl[XQUERY_PROLOG(0:131)]
          XQuerySchemaImportImpl[XQUERY_SCHEMA_IMPORT(0:44)]

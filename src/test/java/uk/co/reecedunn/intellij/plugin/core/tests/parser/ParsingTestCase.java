@@ -217,12 +217,8 @@ public abstract class ParsingTestCase<File extends PsiFile> extends PlatformLite
             prettyPrinted.append("   ");
         }
 
-        if (node instanceof FileElement) {
-            prettyPrinted.append("FileElement");
-        } else {
-            String[] names = node.getPsi().getClass().getName().split("\\.");
-            prettyPrinted.append(names[names.length - 1].replace("PsiImpl", "Impl"));
-        }
+        String[] names = node.getPsi().getClass().getName().split("\\.");
+        prettyPrinted.append(names[names.length - 1].replace("PsiImpl", "Impl"));
 
         prettyPrinted.append('[');
         prettyPrinted.append(node.getElementType());

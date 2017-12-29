@@ -1,4 +1,4 @@
-FileElement[FILE(0:28)]
+XQueryModuleImpl[FILE(0:28)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:28)]
       XQueryPrologImpl[XQUERY_PROLOG(0:28)]
          XQueryBoundarySpaceDeclImpl[XQUERY_BOUNDARY_SPACE_DECL(0:28)]

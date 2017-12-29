@@ -1,4 +1,4 @@
-FileElement[FILE(0:68)]
+XQueryModuleImpl[FILE(0:68)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:68)]
       XQueryPrologImpl[XQUERY_PROLOG(0:68)]
          FTOptionDeclImpl[XQUERY_FT_OPTION_DECL(0:67)]

@@ -1,4 +1,4 @@
-FileElement[FILE(0:15)]
+XQueryModuleImpl[FILE(0:15)]
    XQueryModuleBaseImpl[XQUERY_MODULE(0:15)]
       XQueryVersionDeclImpl[XQUERY_VERSION_DECL(0:15)]
          XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_XQUERY(0:6)]('xquery')

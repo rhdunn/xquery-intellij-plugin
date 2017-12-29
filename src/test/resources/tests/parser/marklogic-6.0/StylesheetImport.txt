@@ -1,4 +1,4 @@
-FileElement[FILE(0:33)]
+XQueryModuleImpl[FILE(0:33)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:33)]
       XQueryPrologImpl[XQUERY_PROLOG(0:33)]
          MarkLogicStylesheetImportImpl[XQUERY_STYLESHEET_IMPORT(0:32)]

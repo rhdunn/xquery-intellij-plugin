@@ -1,4 +1,4 @@
-FileElement[FILE(0:951)]
+XQueryModuleImpl[FILE(0:951)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:951)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:951)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:951)]
