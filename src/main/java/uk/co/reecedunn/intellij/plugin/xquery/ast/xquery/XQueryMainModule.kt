@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
+package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
-import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiElement
 
 /**
- * An XQuery 1.0 <code>MainModule</code> node in the XQuery AST.
+ * An XQuery 1.0 `MainModule` node in the XQuery AST.
  */
-public interface XQueryMainModule extends PsiElement {
-}
+interface XQueryMainModule : PsiElement
