@@ -36,7 +36,7 @@ XQueryModuleImpl[FILE(0:44)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CATCH(6:11)]('catch')
                   PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
                   XQueryCatchErrorListImpl[XQUERY_CATCH_ERROR_LIST(12:41)]
-                     XQueryNameTestImpl[XQUERY_NAME_TEST(12:26)]
+                     XPathNameTestImpl[XQUERY_NAME_TEST(12:26)]
                         XPathQNameImpl[XQUERY_QNAME(12:26)]
                            XPathNCNameImpl[XQUERY_NCNAME(12:17)]
                               XmlNCNameImpl[XQUERY_NCNAME_TOKEN(12:17)]('error')
@@ -44,7 +44,7 @@ XQueryModuleImpl[FILE(0:44)]
                            XPathNCNameImpl[XQUERY_NCNAME(18:26)]
                               XmlNCNameImpl[XQUERY_NCNAME_TOKEN(18:26)]('XQST0084')
                      LeafPsiElement[XQUERY_UNION_TOKEN(26:27)]('|')
-                     XQueryNameTestImpl[XQUERY_NAME_TEST(27:41)]
+                     XPathNameTestImpl[XQUERY_NAME_TEST(27:41)]
                         XPathQNameImpl[XQUERY_QNAME(27:41)]
                            XPathNCNameImpl[XQUERY_NCNAME(27:32)]
                               XmlNCNameImpl[XQUERY_NCNAME_TOKEN(27:32)]('error')

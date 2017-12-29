@@ -25,7 +25,7 @@ XQueryModuleImpl[FILE(0:9)]
                                                                         XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:7)]
                                                                            XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:7)]
                                                                               XQueryNodeTestImpl[XQUERY_NODE_TEST(0:7)]
-                                                                                 XQueryNameTestImpl[XQUERY_NAME_TEST(0:7)]
+                                                                                 XPathNameTestImpl[XQUERY_NAME_TEST(0:7)]
                                                                                     XPathQNameImpl[XQUERY_QNAME(0:7)]
                                                                                        XPathNCNameImpl[XQUERY_NCNAME(0:2)]
                                                                                           XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:2)]('fn')

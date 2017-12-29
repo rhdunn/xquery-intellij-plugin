@@ -40,7 +40,7 @@ XQueryModuleImpl[FILE(0:53)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CATCH(10:15)]('catch')
                   PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
                   XQueryCatchErrorListImpl[XQUERY_CATCH_ERROR_LIST(16:48)]
-                     XQueryNameTestImpl[XQUERY_NAME_TEST(16:30)]
+                     XPathNameTestImpl[XQUERY_NAME_TEST(16:30)]
                         XPathQNameImpl[XQUERY_QNAME(16:30)]
                            XPathNCNameImpl[XQUERY_NCNAME(16:21)]
                               XmlNCNameImpl[XQUERY_NCNAME_TOKEN(16:21)]('error')
@@ -50,7 +50,7 @@ XQueryModuleImpl[FILE(0:53)]
                      PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')
                      LeafPsiElement[XQUERY_UNION_TOKEN(31:32)]('|')
                      PsiWhiteSpaceImpl[WHITE_SPACE(32:33)](' ')
-                     XQueryNameTestImpl[XQUERY_NAME_TEST(33:47)]
+                     XPathNameTestImpl[XQUERY_NAME_TEST(33:47)]
                         XPathQNameImpl[XQUERY_QNAME(33:47)]
                            XPathNCNameImpl[XQUERY_NCNAME(33:38)]
                               XmlNCNameImpl[XQUERY_NCNAME_TOKEN(33:38)]('error')

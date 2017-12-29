@@ -27,7 +27,7 @@ XQueryModuleImpl[FILE(0:20)]
                                                                         XPathForwardStepImpl[XQUERY_FORWARD_STEP(3:8)]
                                                                            XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(3:8)]
                                                                               XQueryNodeTestImpl[XQUERY_NODE_TEST(3:8)]
-                                                                                 XQueryNameTestImpl[XQUERY_NAME_TEST(3:8)]
+                                                                                 XPathNameTestImpl[XQUERY_NAME_TEST(3:8)]
                                                                                     XPathNCNameImpl[XQUERY_NCNAME(3:7)]
                                                                                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(3:7)]('test')
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')

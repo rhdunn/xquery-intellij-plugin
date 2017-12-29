@@ -27,7 +27,7 @@ XQueryModuleImpl[FILE(0:22)]
                                                                               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ANCESTOR_OR_SELF(0:16)]('ancestor-or-self')
                                                                               LeafPsiElement[XQUERY_AXIS_SEPARATOR_TOKEN(16:18)]('::')
                                                                            XQueryNodeTestImpl[XQUERY_NODE_TEST(18:22)]
-                                                                              XQueryNameTestImpl[XQUERY_NAME_TEST(18:22)]
+                                                                              XPathNameTestImpl[XQUERY_NAME_TEST(18:22)]
                                                                                  XPathNCNameImpl[XQUERY_NCNAME(18:22)]
                                                                                     XmlNCNameImpl[XQUERY_NCNAME_TOKEN(18:22)]('para')
                                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(22:22)]

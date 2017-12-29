@@ -36,7 +36,7 @@ XQueryModuleImpl[FILE(0:29)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CATCH(6:11)]('catch')
                   PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
                   XQueryCatchErrorListImpl[XQUERY_CATCH_ERROR_LIST(12:26)]
-                     XQueryNameTestImpl[XQUERY_NAME_TEST(12:26)]
+                     XPathNameTestImpl[XQUERY_NAME_TEST(12:26)]
                         XPathQNameImpl[XQUERY_QNAME(12:26)]
                            XPathNCNameImpl[XQUERY_NCNAME(12:17)]
                               XmlNCNameImpl[XQUERY_NCNAME_TOKEN(12:17)]('error')

@@ -25,7 +25,7 @@ XQueryModuleImpl[FILE(0:31)]
                                                                         XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:6)]
                                                                            XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:6)]
                                                                               XQueryNodeTestImpl[XQUERY_NODE_TEST(0:6)]
-                                                                                 XQueryNameTestImpl[XQUERY_NAME_TEST(0:6)]
+                                                                                 XPathNameTestImpl[XQUERY_NAME_TEST(0:6)]
                                                                                     XPathNCNameImpl[XQUERY_NCNAME(0:5)]
                                                                                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:5)]('title')
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')

@@ -27,7 +27,7 @@ XQueryModuleImpl[FILE(0:23)]
                                                                               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FOLLOWING_SIBLING(0:17)]('following-sibling')
                                                                               LeafPsiElement[XQUERY_AXIS_SEPARATOR_TOKEN(17:19)]('::')
                                                                            XQueryNodeTestImpl[XQUERY_NODE_TEST(19:23)]
-                                                                              XQueryNameTestImpl[XQUERY_NAME_TEST(19:23)]
+                                                                              XPathNameTestImpl[XQUERY_NAME_TEST(19:23)]
                                                                                  XPathNCNameImpl[XQUERY_NCNAME(19:23)]
                                                                                     XmlNCNameImpl[XQUERY_NCNAME_TOKEN(19:23)]('para')
                                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(23:23)]

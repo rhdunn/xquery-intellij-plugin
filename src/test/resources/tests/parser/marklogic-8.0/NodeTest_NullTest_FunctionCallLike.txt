@@ -51,7 +51,7 @@ XQueryModuleImpl[FILE(0:12)]
                                                                                                                                              XPathForwardStepImpl[XQUERY_FORWARD_STEP(10:11)]
                                                                                                                                                 XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(10:11)]
                                                                                                                                                    XQueryNodeTestImpl[XQUERY_NODE_TEST(10:11)]
-                                                                                                                                                      XQueryNameTestImpl[XQUERY_NAME_TEST(10:11)]
+                                                                                                                                                      XPathNameTestImpl[XQUERY_NAME_TEST(10:11)]
                                                                                                                                                          XQueryWildcardImpl[XQUERY_WILDCARD(10:11)]
                                                                                                                                                             LeafPsiElement[XQUERY_STAR_TOKEN(10:11)]('*')
                                                                                                                                              XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(11:11)]

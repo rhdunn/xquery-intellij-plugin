@@ -27,7 +27,7 @@ XQueryModuleImpl[FILE(0:13)]
                                                                               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SELF(0:4)]('self')
                                                                               LeafPsiElement[XQUERY_AXIS_SEPARATOR_TOKEN(4:6)]('::')
                                                                            XQueryNodeTestImpl[XQUERY_NODE_TEST(6:13)]
-                                                                              XQueryNameTestImpl[XQUERY_NAME_TEST(6:13)]
+                                                                              XPathNameTestImpl[XQUERY_NAME_TEST(6:13)]
                                                                                  XPathQNameImpl[XQUERY_QNAME(6:13)]
                                                                                     XPathNCNameImpl[XQUERY_NCNAME(6:8)]
                                                                                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(6:8)]('xh')

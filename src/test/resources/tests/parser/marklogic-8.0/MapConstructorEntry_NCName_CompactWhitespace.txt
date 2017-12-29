@@ -50,7 +50,7 @@ XQueryModuleImpl[FILE(0:18)]
                                                                                                                                              XPathForwardStepImpl[XQUERY_FORWARD_STEP(12:17)]
                                                                                                                                                 XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(12:17)]
                                                                                                                                                    XQueryNodeTestImpl[XQUERY_NODE_TEST(12:17)]
-                                                                                                                                                      XQueryNameTestImpl[XQUERY_NAME_TEST(12:17)]
+                                                                                                                                                      XPathNameTestImpl[XQUERY_NAME_TEST(12:17)]
                                                                                                                                                          XPathQNameImpl[XQUERY_QNAME(12:17)]
                                                                                                                                                             XPathNCNameImpl[XQUERY_NCNAME(12:13)]
                                                                                                                                                                XmlNCNameImpl[XQUERY_NCNAME_TOKEN(12:13)]('a')

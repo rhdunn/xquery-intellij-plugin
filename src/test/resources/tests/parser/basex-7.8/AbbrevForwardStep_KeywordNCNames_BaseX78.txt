@@ -25,7 +25,7 @@ XQueryModuleImpl[FILE(0:6)]
                                                                         XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:6)]
                                                                            XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:6)]
                                                                               XQueryNodeTestImpl[XQUERY_NODE_TEST(0:6)]
-                                                                                 XQueryNameTestImpl[XQUERY_NAME_TEST(0:6)]
+                                                                                 XPathNameTestImpl[XQUERY_NAME_TEST(0:6)]
                                                                                     XPathNCNameImpl[XQUERY_NCNAME(0:6)]
                                                                                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_UPDATE(0:6)]('update')
                                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(6:6)]
