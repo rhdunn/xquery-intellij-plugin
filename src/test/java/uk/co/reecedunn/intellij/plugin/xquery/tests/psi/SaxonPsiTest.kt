@@ -21,6 +21,7 @@ import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathMapConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.ast.saxon.SaxonTupleType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.saxon.SaxonTypeDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.saxon.SaxonUnionType
@@ -98,7 +99,7 @@ class SaxonPsiTest : ParserTestCase() {
     fun testMapConstructorEntry() {
         val file = parseResource("tests/parser/saxon-9.4/MapConstructorEntry.xq")!!
 
-        val mapConstructorPsi = file.descendants().filterIsInstance<XQueryMapConstructor>().first()
+        val mapConstructorPsi = file.descendants().filterIsInstance<XPathMapConstructor>().first()
         val mapConstructorEntryPsi = mapConstructorPsi.children().filterIsInstance<XQueryMapConstructorEntry>().first()
 
         assertThat(mapConstructorEntryPsi.separator.node.elementType,

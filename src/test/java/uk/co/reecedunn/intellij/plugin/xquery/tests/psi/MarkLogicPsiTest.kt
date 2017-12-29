@@ -20,10 +20,7 @@ import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAnyKindTest
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArrayConstructor
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEnclosedExpr
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathForwardAxis
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingApplyExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
@@ -378,7 +375,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     fun testMapConstructor() {
         val file = parseResource("tests/parser/marklogic-8.0/MapConstructor.xq")!!
 
-        val objectConstructorPsi = file.descendants().filterIsInstance<XQueryMapConstructor>().first()
+        val objectConstructorPsi = file.descendants().filterIsInstance<XPathMapConstructor>().first()
         val versioned = objectConstructorPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
@@ -760,7 +757,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     fun testMapConstructorEntry() {
         val file = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry.xq")!!
 
-        val mapConstructorPsi = file.descendants().filterIsInstance<XQueryMapConstructor>().first()
+        val mapConstructorPsi = file.descendants().filterIsInstance<XPathMapConstructor>().first()
         val mapConstructorEntryPsi = mapConstructorPsi.children().filterIsInstance<XQueryMapConstructorEntry>().first()
 
         assertThat(mapConstructorEntryPsi.separator.node.elementType,

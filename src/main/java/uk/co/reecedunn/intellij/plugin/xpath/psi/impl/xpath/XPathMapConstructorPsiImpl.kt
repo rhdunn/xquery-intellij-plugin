@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
+package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryMapConstructor
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathMapConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Saxon
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
@@ -29,7 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 private val XQUERY31: List<Version> = listOf(XQuery.REC_3_1_20170321, Saxon.VERSION_9_4)
 private val MARKLOGIC80: List<Version> = listOf(MarkLogic.VERSION_8_0)
 
-class XQueryMapConstructorPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryMapConstructor, XQueryConformance {
+class XPathMapConstructorPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathMapConstructor, XQueryConformance {
     override val requiresConformance get(): List<Version> {
         if (conformanceElement.node.elementType === XQueryTokenType.K_OBJECT_NODE) {
             return MARKLOGIC80

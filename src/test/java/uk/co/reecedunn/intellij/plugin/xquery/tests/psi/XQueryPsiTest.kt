@@ -1602,7 +1602,7 @@ class XQueryPsiTest:ParserTestCase() {
     fun testMapConstructor() {
         val file = parseResource("tests/parser/xquery-3.1/MapConstructor.xq")!!
 
-        val objectConstructorPsi = file.descendants().filterIsInstance<XQueryMapConstructor>().first()
+        val objectConstructorPsi = file.descendants().filterIsInstance<XPathMapConstructor>().first()
         val versioned = objectConstructorPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
@@ -2729,7 +2729,7 @@ class XQueryPsiTest:ParserTestCase() {
     fun testMapConstructorEntry() {
         val file = parseResource("tests/parser/xquery-3.1/MapConstructorEntry.xq")!!
 
-        val mapConstructorPsi = file.descendants().filterIsInstance<XQueryMapConstructor>().first()
+        val mapConstructorPsi = file.descendants().filterIsInstance<XPathMapConstructor>().first()
         val mapConstructorEntryPsi = mapConstructorPsi.children().filterIsInstance<XQueryMapConstructorEntry>().first()
 
         assertThat(mapConstructorEntryPsi.separator.node.elementType,
@@ -2739,7 +2739,7 @@ class XQueryPsiTest:ParserTestCase() {
     fun testMapConstructorEntry_NoValueAssignmentOperator() {
         val file = parseResource("tests/psi/xquery-3.1/MapConstructorEntry_NoValueAssignmentOperator.xq")!!
 
-        val mapConstructorPsi = file.descendants().filterIsInstance<XQueryMapConstructor>().first()
+        val mapConstructorPsi = file.descendants().filterIsInstance<XPathMapConstructor>().first()
         val mapConstructorEntryPsi = mapConstructorPsi.children().filterIsInstance<XQueryMapConstructorEntry>().first()
 
         assertThat(mapConstructorEntryPsi.separator.node.elementType,

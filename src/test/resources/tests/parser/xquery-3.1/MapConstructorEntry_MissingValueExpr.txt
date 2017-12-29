@@ -22,7 +22,7 @@ XQueryModuleImpl[FILE(0:13)]
                                                                XQueryPathExprImpl[XQUERY_PATH_EXPR(0:13)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:13)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:13)]
-                                                                        XQueryMapConstructorImpl[XQUERY_MAP_CONSTRUCTOR(0:13)]
+                                                                        XPathMapConstructorImpl[XQUERY_MAP_CONSTRUCTOR(0:13)]
                                                                            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_MAP(0:3)]('map')
                                                                            PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
                                                                            LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(4:5)]('{')
