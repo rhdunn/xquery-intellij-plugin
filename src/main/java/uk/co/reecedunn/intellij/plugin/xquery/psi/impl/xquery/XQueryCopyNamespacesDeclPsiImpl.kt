@@ -13,13 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
+package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
-/**
- * An XQuery 1.0 <code>CopyNamespacesDecl</code> node in the XQuery AST.
- *
- * The <code>PreserveMode</code> and <code>InheritMode</code> grammar constructs
- * are not explicitly generated.
- */
-public interface XQueryCopyNamespacesDecl extends XQuerySetter {
-}
+import com.intellij.extapi.psi.ASTWrapperPsiElement
+import com.intellij.lang.ASTNode
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCopyNamespacesDecl
+
+class XQueryCopyNamespacesDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryCopyNamespacesDecl
