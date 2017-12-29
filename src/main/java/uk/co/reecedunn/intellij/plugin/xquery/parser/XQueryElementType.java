@@ -278,7 +278,7 @@ public interface XQueryElementType {
 
     IElementType UNARY_LOOKUP = new ICompositeElementType("XQUERY_UNARY_LOOKUP", XQueryUnaryLookupPsiImpl.class, XQuery.INSTANCE);
     IElementType LOOKUP = new ICompositeElementType("XQUERY_LOOKUP", XQueryLookupPsiImpl.class, XQuery.INSTANCE);
-    IElementType KEY_SPECIFIER = new ICompositeElementType("XQUERY_KEY_SPECIFIER", XQueryKeySpecifierPsiImpl.class, XQuery.INSTANCE);
+    IElementType KEY_SPECIFIER = new ICompositeElementType("XQUERY_KEY_SPECIFIER", XPathKeySpecifierPsiImpl.class, XQuery.INSTANCE);
 
     // endregion
     // region Update Facility 1.0

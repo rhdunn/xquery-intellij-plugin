@@ -33,7 +33,7 @@ XQueryModuleImpl[FILE(0:14)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(3:7)]
                                                                         XQueryUnaryLookupImpl[XQUERY_UNARY_LOOKUP(3:7)]
                                                                            LeafPsiElement[XQUERY_OPTIONAL_TOKEN(3:4)]('?')
-                                                                           XQueryKeySpecifierImpl[XQUERY_KEY_SPECIFIER(4:7)]
+                                                                           XPathKeySpecifierImpl[XQUERY_KEY_SPECIFIER(4:7)]
                                                                               XPathNCNameImpl[XQUERY_NCNAME(4:7)]
                                                                                  XmlNCNameImpl[XQUERY_NCNAME_TOKEN(4:7)]('key')
                      LeafPsiElement[XQUERY_EQUAL_TOKEN(7:8)]('=')

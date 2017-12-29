@@ -32,7 +32,7 @@ XQueryModuleImpl[FILE(0:18)]
                                                                         XQueryLookupImpl[XQUERY_LOOKUP(4:10)]
                                                                            LeafPsiElement[XQUERY_OPTIONAL_TOKEN(4:5)]('?')
                                                                            PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
-                                                                           XQueryKeySpecifierImpl[XQUERY_KEY_SPECIFIER(6:10)]
+                                                                           XPathKeySpecifierImpl[XQUERY_KEY_SPECIFIER(6:10)]
                                                                               XPathNCNameImpl[XQUERY_NCNAME(6:9)]
                                                                                  XmlNCNameImpl[XQUERY_NCNAME_TOKEN(6:9)]('key')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
