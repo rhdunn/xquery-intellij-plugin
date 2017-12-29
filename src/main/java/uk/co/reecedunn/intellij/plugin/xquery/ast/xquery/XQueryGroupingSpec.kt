@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
+package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
-import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiElement
 
 /**
- * An XQuery 3.0 <code>GroupingSpec</code> node in the XQuery AST.
+ * An XQuery 3.0 `GroupingSpec` node in the XQuery AST.
  */
-public interface XQueryGroupingSpec extends PsiElement {
-}
+interface XQueryGroupingSpec : PsiElement
