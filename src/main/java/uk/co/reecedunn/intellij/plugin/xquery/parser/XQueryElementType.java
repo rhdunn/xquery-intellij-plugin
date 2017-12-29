@@ -181,7 +181,7 @@ public interface XQueryElementType {
     IElementType DF_PROPERTY_NAME = new ICompositeElementType("XQUERY_DF_PROPERTY_NAME", XQueryDFPropertyNamePsiImpl.class, XQuery.INSTANCE);
     IElementType CONTEXT_ITEM_DECL = new ICompositeElementType("XQUERY_CONTEXT_ITEM_DECL", XQueryContextItemDeclPsiImpl.class, XQuery.INSTANCE);
 
-    IElementType FUNCTION_BODY = new ICompositeElementType("XQUERY_FUNCTION_BODY", XQueryFunctionBodyPsiImpl.class, XQuery.INSTANCE);
+    IElementType FUNCTION_BODY = new ICompositeElementType("XQUERY_FUNCTION_BODY", XPathFunctionBodyPsiImpl.class, XQuery.INSTANCE);
     IElementType VAR_VALUE = new ICompositeElementType("XQUERY_VAR_VALUE", XQueryVarValuePsiImpl.class, XQuery.INSTANCE);
     IElementType VAR_DEFAULT_VALUE = new ICompositeElementType("XQUERY_VAR_DEFAULT_VALUE", XQueryVarDefaultValuePsiImpl.class, XQuery.INSTANCE);
 

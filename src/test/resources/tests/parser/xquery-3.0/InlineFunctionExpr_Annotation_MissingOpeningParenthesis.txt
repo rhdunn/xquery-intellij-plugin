@@ -34,7 +34,7 @@ FileElement[FILE(0:25)]
                                                                            PsiErrorElementImpl[ERROR_ELEMENT(18:18)]('XPST0003: Expected '('.')
                                                                            LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(18:19)](')')
                                                                            PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
-                                                                           XQueryFunctionBodyImpl[XQUERY_FUNCTION_BODY(20:25)]
+                                                                           XPathFunctionBodyImpl[XQUERY_FUNCTION_BODY(20:25)]
                                                                               LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(20:21)]('{')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
                                                                               XPathExprImpl[XQUERY_EXPR(22:24)]

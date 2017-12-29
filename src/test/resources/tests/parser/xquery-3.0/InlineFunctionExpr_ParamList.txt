@@ -35,7 +35,7 @@ FileElement[FILE(0:21)]
                                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
                                                                            LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(14:15)](')')
                                                                            PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
-                                                                           XQueryFunctionBodyImpl[XQUERY_FUNCTION_BODY(16:21)]
+                                                                           XPathFunctionBodyImpl[XQUERY_FUNCTION_BODY(16:21)]
                                                                               LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(16:17)]('{')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
                                                                               XPathExprImpl[XQUERY_EXPR(18:20)]

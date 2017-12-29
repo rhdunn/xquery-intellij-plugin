@@ -373,7 +373,7 @@ class XQueryReferenceTest : ParserTestCase() {
         val paramPsi = paramListPsi.children().filterIsInstance<XQueryParam>().first()
         val paramNamePsi = paramPsi.children().filterIsInstance<XPathEQName>().first()
 
-        val functionBodyPsi = functionDeclPsi.children().filterIsInstance<XQueryFunctionBody>().first()
+        val functionBodyPsi = functionDeclPsi.children().filterIsInstance<XPathFunctionBody>().first()
         val exprPsi = functionBodyPsi.children().filterIsInstance<XPathExpr>().first()
         val varRefPsi = exprPsi.descendants().filterIsInstance<XPathVarRef>().first()
         val varRefNamePsi = varRefPsi.children().filterIsInstance<XPathEQName>().first()

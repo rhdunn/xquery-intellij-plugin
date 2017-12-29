@@ -41,7 +41,7 @@ FileElement[FILE(0:32)]
                                                                                        XPathNCNameImpl[XQUERY_NCNAME(19:26)]
                                                                                           XmlNCNameImpl[XQUERY_NCNAME_TOKEN(19:26)]('integer')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
-                                                                           XQueryFunctionBodyImpl[XQUERY_FUNCTION_BODY(27:32)]
+                                                                           XPathFunctionBodyImpl[XQUERY_FUNCTION_BODY(27:32)]
                                                                               LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(27:28)]('{')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
                                                                               XPathExprImpl[XQUERY_EXPR(29:31)]

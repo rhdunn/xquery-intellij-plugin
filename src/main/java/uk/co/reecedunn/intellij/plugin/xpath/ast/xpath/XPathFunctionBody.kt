@@ -13,15 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
+package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
-import com.intellij.lang.ASTNode;
-import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathEnclosedExprPsiImpl;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionBody;
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEnclosedExpr
 
-public class XQueryFunctionBodyPsiImpl extends XPathEnclosedExprPsiImpl implements XQueryFunctionBody {
-    public XQueryFunctionBodyPsiImpl(@NotNull ASTNode node) {
-        super(node);
-    }
-}
+/**
+ * An XPath 3.0 and XQuery 3.0 `FunctionBody` node in the XQuery AST.
+ */
+interface XPathFunctionBody : XPathEnclosedExpr
