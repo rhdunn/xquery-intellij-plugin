@@ -17,11 +17,11 @@ XQueryModuleImpl[FILE(0:51)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(23:25)]('as')
                   PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
                   XQuerySequenceTypeImpl[XQUERY_SEQUENCE_TYPE(26:41)]
-                     XQueryItemTypeImpl[XQUERY_ITEM_TYPE(26:40)]
+                     XPathItemTypeImpl[XQUERY_ITEM_TYPE(26:40)]
                         XQueryParenthesizedItemTypeImpl[XQUERY_PARENTHESIZED_ITEM_TYPE(26:40)]
                            LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(26:27)]('(')
                            PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
-                           XQueryItemTypeImpl[XQUERY_ITEM_TYPE(28:38)]
+                           XPathItemTypeImpl[XQUERY_ITEM_TYPE(28:38)]
                               XPathAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(28:38)]
                                  XPathQNameImpl[XQUERY_QNAME(28:38)]
                                     XPathNCNameImpl[XQUERY_NCNAME(28:30)]

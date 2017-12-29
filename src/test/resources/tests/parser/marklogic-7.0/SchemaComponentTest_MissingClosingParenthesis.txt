@@ -17,7 +17,7 @@ XQueryModuleImpl[FILE(0:55)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(23:25)]('as')
                   PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
                   XQuerySequenceTypeImpl[XQUERY_SEQUENCE_TYPE(26:45)]
-                     XQueryItemTypeImpl[XQUERY_ITEM_TYPE(26:45)]
+                     XPathItemTypeImpl[XQUERY_ITEM_TYPE(26:45)]
                         MarkLogicSchemaComponentTestImpl[XQUERY_SCHEMA_COMPONENT_TEST(26:45)]
                            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SCHEMA_COMPONENT_NODE(26:42)]('schema-component')
                            PsiWhiteSpaceImpl[WHITE_SPACE(42:43)](' ')

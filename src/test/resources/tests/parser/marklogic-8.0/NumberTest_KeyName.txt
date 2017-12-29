@@ -17,7 +17,7 @@ XQueryModuleImpl[FILE(0:58)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(23:25)]('as')
                   PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
                   XQuerySequenceTypeImpl[XQUERY_SEQUENCE_TYPE(26:48)]
-                     XQueryItemTypeImpl[XQUERY_ITEM_TYPE(26:47)]
+                     XPathItemTypeImpl[XQUERY_ITEM_TYPE(26:47)]
                         MarkLogicNumberTestImpl[XQUERY_NUMBER_TEST(26:47)]
                            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NUMBER_NODE(26:37)]('number-node')
                            PsiWhiteSpaceImpl[WHITE_SPACE(37:38)](' ')

@@ -14,7 +14,7 @@ XQueryModuleImpl[FILE(0:52)]
                XQueryTypeDeclarationImpl[XQUERY_TYPE_DECLARATION(21:43)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(21:23)]('as')
                   XQuerySequenceTypeImpl[XQUERY_SEQUENCE_TYPE(23:43)]
-                     XQueryItemTypeImpl[XQUERY_ITEM_TYPE(23:43)]
+                     XPathItemTypeImpl[XQUERY_ITEM_TYPE(23:43)]
                         XPathFunctionTestImpl[XQUERY_FUNCTION_TEST(23:43)]
                            XQueryAnnotationImpl[XQUERY_ANNOTATION(23:32)]
                               LeafPsiElement[XQUERY_ANNOTATION_INDICATOR_TOKEN(23:24)]('%')

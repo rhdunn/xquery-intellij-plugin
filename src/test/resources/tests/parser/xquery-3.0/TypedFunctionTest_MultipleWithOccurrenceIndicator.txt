@@ -17,7 +17,7 @@ XQueryModuleImpl[FILE(0:88)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(23:25)]('as')
                   PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
                   XQuerySequenceTypeImpl[XQUERY_SEQUENCE_TYPE(26:78)]
-                     XQueryItemTypeImpl[XQUERY_ITEM_TYPE(26:78)]
+                     XPathItemTypeImpl[XQUERY_ITEM_TYPE(26:78)]
                         XPathFunctionTestImpl[XQUERY_FUNCTION_TEST(26:78)]
                            XQueryTypedFunctionTestImpl[XQUERY_TYPED_FUNCTION_TEST(26:78)]
                               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FUNCTION(26:34)]('function')
@@ -25,7 +25,7 @@ XQueryModuleImpl[FILE(0:88)]
                               LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(35:36)]('(')
                               PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
                               XQuerySequenceTypeImpl[XQUERY_SEQUENCE_TYPE(37:48)]
-                                 XQueryItemTypeImpl[XQUERY_ITEM_TYPE(37:46)]
+                                 XPathItemTypeImpl[XQUERY_ITEM_TYPE(37:46)]
                                     XPathAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(37:46)]
                                        XPathQNameImpl[XQUERY_QNAME(37:46)]
                                           XPathNCNameImpl[XQUERY_NCNAME(37:39)]
@@ -40,7 +40,7 @@ XQueryModuleImpl[FILE(0:88)]
                               LeafPsiElement[XQUERY_COMMA_TOKEN(49:50)](',')
                               PsiWhiteSpaceImpl[WHITE_SPACE(50:51)](' ')
                               XQuerySequenceTypeImpl[XQUERY_SEQUENCE_TYPE(51:61)]
-                                 XQueryItemTypeImpl[XQUERY_ITEM_TYPE(51:59)]
+                                 XPathItemTypeImpl[XQUERY_ITEM_TYPE(51:59)]
                                     XPathAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(51:59)]
                                        XPathQNameImpl[XQUERY_QNAME(51:59)]
                                           XPathNCNameImpl[XQUERY_NCNAME(51:53)]
@@ -55,7 +55,7 @@ XQueryModuleImpl[FILE(0:88)]
                               LeafPsiElement[XQUERY_COMMA_TOKEN(62:63)](',')
                               PsiWhiteSpaceImpl[WHITE_SPACE(63:64)](' ')
                               XQuerySequenceTypeImpl[XQUERY_SEQUENCE_TYPE(64:75)]
-                                 XQueryItemTypeImpl[XQUERY_ITEM_TYPE(64:73)]
+                                 XPathItemTypeImpl[XQUERY_ITEM_TYPE(64:73)]
                                     XPathAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(64:73)]
                                        XPathQNameImpl[XQUERY_QNAME(64:73)]
                                           XPathNCNameImpl[XQUERY_NCNAME(64:66)]

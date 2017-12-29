@@ -9,7 +9,7 @@ XQueryModuleImpl[FILE(0:27)]
             PsiErrorElementImpl[ERROR_ELEMENT(13:13)]('XPST0003: Missing qualified name.')
             LeafPsiElement[XQUERY_EQUAL_TOKEN(13:14)]('=')
             PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
-            XQueryItemTypeImpl[XQUERY_ITEM_TYPE(15:25)]
+            XPathItemTypeImpl[XQUERY_ITEM_TYPE(15:25)]
                XPathAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(15:25)]
                   XPathQNameImpl[XQUERY_QNAME(15:25)]
                      XPathNCNameImpl[XQUERY_NCNAME(15:17)]

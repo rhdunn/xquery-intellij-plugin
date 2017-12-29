@@ -15,7 +15,7 @@ XQueryModuleImpl[FILE(0:33)]
             PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
             LeafPsiElement[XQUERY_EQUAL_TOKEN(19:20)]('=')
             PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
-            XQueryItemTypeImpl[XQUERY_ITEM_TYPE(21:31)]
+            XPathItemTypeImpl[XQUERY_ITEM_TYPE(21:31)]
                XPathAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(21:31)]
                   XPathQNameImpl[XQUERY_QNAME(21:31)]
                      XPathNCNameImpl[XQUERY_NCNAME(21:23)]

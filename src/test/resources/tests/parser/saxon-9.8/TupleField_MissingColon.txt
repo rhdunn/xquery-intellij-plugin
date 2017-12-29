@@ -17,7 +17,7 @@ XQueryModuleImpl[FILE(0:52)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(21:23)]('as')
                   PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
                   XQuerySequenceTypeImpl[XQUERY_SEQUENCE_TYPE(24:46)]
-                     XQueryItemTypeImpl[XQUERY_ITEM_TYPE(24:45)]
+                     XPathItemTypeImpl[XQUERY_ITEM_TYPE(24:45)]
                         SaxonTupleTypeImpl[XQUERY_TUPLE_TYPE(24:45)]
                            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TUPLE(24:29)]('tuple')
                            PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
@@ -29,7 +29,7 @@ XQueryModuleImpl[FILE(0:52)]
                               PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
                               PsiErrorElementImpl[ERROR_ELEMENT(34:34)]('XPST0003: Expected ':'.')
                               XQuerySequenceTypeImpl[XQUERY_SEQUENCE_TYPE(34:44)]
-                                 XQueryItemTypeImpl[XQUERY_ITEM_TYPE(34:43)]
+                                 XPathItemTypeImpl[XQUERY_ITEM_TYPE(34:43)]
                                     XPathAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(34:43)]
                                        XPathQNameImpl[XQUERY_QNAME(34:43)]
                                           XPathNCNameImpl[XQUERY_NCNAME(34:36)]
