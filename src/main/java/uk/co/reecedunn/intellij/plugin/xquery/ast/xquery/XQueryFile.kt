@@ -27,5 +27,5 @@ import com.intellij.psi.PsiFile
 interface XQueryFile : PsiFile {
     val XQueryVersion: XQueryVersionRef
 
-    val modules: Sequence<XQueryModule>
+    val modules: Sequence<XQueryModuleBase>
 }

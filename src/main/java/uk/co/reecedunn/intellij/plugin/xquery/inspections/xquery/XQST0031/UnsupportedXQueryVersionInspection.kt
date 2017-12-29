@@ -20,7 +20,7 @@ import com.intellij.psi.PsiFile
 import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFile
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModuleBase
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Specification
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
@@ -45,7 +45,7 @@ class UnsupportedXQueryVersionInspection : LocalInspectionTool() {
         val descriptors = SmartList<ProblemDescriptor>()
         var mainVersion: Specification? = null
         var isFirstVersion = true
-        file.children().filterIsInstance<XQueryModule>().forEach(fun (module) {
+        file.children().filterIsInstance<XQueryModuleBase>().forEach(fun (module) {
             val version = module.XQueryVersion
             if (isFirstVersion) {
                 mainVersion = version.getVersionOrDefault(file.project)

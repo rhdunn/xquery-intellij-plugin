@@ -62,6 +62,6 @@ data class XQueryVersionRef(val declaration: XPathStringLiteral?, val version: S
  * This is because there is not enough information to know what module type
  * the XQuery file is implementing.
  */
-interface XQueryModule : PsiElement {
+interface XQueryModuleBase : PsiElement {
     val XQueryVersion: XQueryVersionRef
 }

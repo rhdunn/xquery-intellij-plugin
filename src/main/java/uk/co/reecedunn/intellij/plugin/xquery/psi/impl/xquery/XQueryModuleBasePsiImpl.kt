@@ -29,7 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceResolver
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings
 
-open class XQueryModulePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryModule, XQueryNamespaceResolver, XQueryPrologResolver {
+open class XQueryModuleBasePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryModuleBase, XQueryNamespaceResolver, XQueryPrologResolver {
     private val settings: XQueryProjectSettings
     init {
         settings = XQueryProjectSettings.getInstance(project)

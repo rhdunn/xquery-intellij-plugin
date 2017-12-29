@@ -41,7 +41,7 @@ class DuplicateNamespacePrefixInspection : LocalInspectionTool() {
         if (file !is XQueryFile) return null
 
         val descriptors = SmartList<ProblemDescriptor>()
-        file.children().filterIsInstance<XQueryModule>().forEach { module ->
+        file.children().filterIsInstance<XQueryModuleBase>().forEach { module ->
             val prefices = HashMap<String, XQueryNamespace>()
 
             val moduleDecl = module.children().filterIsInstance<XQueryModuleDecl>().firstOrNull()

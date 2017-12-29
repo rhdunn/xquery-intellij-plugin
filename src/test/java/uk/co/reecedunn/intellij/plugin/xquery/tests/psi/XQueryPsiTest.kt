@@ -3184,7 +3184,7 @@ class XQueryPsiTest:ParserTestCase() {
     fun testModule() {
         val file = parseResource("tests/parser/xquery-1.0/ModuleDecl.xq")!!
 
-        val modulePsi = file.descendants().filterIsInstance<XQueryModule>().first()
+        val modulePsi = file.descendants().filterIsInstance<XQueryModuleBase>().first()
         val provider = modulePsi as XQueryNamespaceResolver
 
         assertThat<XQueryNamespace>(provider.resolveNamespace(null), `is`(nullValue()))

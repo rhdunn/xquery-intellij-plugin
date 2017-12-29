@@ -19,7 +19,7 @@ import com.intellij.lang.ASTNode;
 import org.jetbrains.annotations.NotNull;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryMainModule;
 
-public class XQueryMainModulePsiImpl extends XQueryModulePsiImpl implements XQueryMainModule {
+public class XQueryMainModulePsiImpl extends XQueryModuleBasePsiImpl implements XQueryMainModule {
     public XQueryMainModulePsiImpl(@NotNull ASTNode node) {
         super(node);
     }

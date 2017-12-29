@@ -1,5 +1,5 @@
 FileElement[FILE(0:24)]
-   XQueryModuleImpl[XQUERY_MODULE(0:24)]
+   XQueryModuleBaseImpl[XQUERY_MODULE(0:24)]
       XQueryVersionDeclImpl[XQUERY_VERSION_DECL(0:24)]
          XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_XQUERY(0:6)]('xquery')
          PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')

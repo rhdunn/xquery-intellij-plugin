@@ -156,7 +156,7 @@ public interface XQueryElementType {
     IElementType VERSION_DECL = new ICompositeElementType("XQUERY_VERSION_DECL", XQueryVersionDeclPsiImpl.class, XQuery.INSTANCE);
     IElementType MAIN_MODULE = new ICompositeElementType("XQUERY_MAIN_MODULE", XQueryMainModulePsiImpl.class, XQuery.INSTANCE);
     IElementType LIBRARY_MODULE = new ICompositeElementType("XQUERY_LIBRARY_MODULE", XQueryLibraryModulePsiImpl.class, XQuery.INSTANCE);
-    IElementType MODULE = new ICompositeElementType("XQUERY_MODULE", XQueryModulePsiImpl.class, XQuery.INSTANCE);
+    IElementType MODULE = new ICompositeElementType("XQUERY_MODULE", XQueryModuleBasePsiImpl.class, XQuery.INSTANCE);
 
     IElementType DIR_ELEM_CONSTRUCTOR = new ICompositeElementType("XQUERY_DIR_ELEM_CONSTRUCTOR", XQueryDirElemConstructorPsiImpl.class, XQuery.INSTANCE);
     IElementType DIR_ATTRIBUTE_LIST = new ICompositeElementType("XQUERY_DIR_ATTRIBUTE_LIST", XQueryDirAttributeListPsiImpl.class, XQuery.INSTANCE);
