@@ -102,7 +102,7 @@ public interface XQueryElementType {
     IElementType QUANTIFIED_EXPR = new ICompositeElementType("XQUERY_QUANTIFIED_EXPR", XQueryQuantifiedExprPsiImpl.class, XQuery.INSTANCE);
     IElementType TYPESWITCH_EXPR = new ICompositeElementType("XQUERY_TYPESWITCH_EXPR", XQueryTypeswitchExprPsiImpl.class, XQuery.INSTANCE);
     IElementType CASE_CLAUSE = new ICompositeElementType("XQUERY_CASE_CLAUSE", XQueryCaseClausePsiImpl.class, XQuery.INSTANCE);
-    IElementType IF_EXPR = new ICompositeElementType("XQUERY_IF_EXPR", XQueryIfExprPsiImpl.class, XQuery.INSTANCE);
+    IElementType IF_EXPR = new ICompositeElementType("XQUERY_IF_EXPR", XPathIfExprPsiImpl.class, XQuery.INSTANCE);
 
     IElementType QUERY_BODY = new ICompositeElementType("XQUERY_QUERY_BODY", XQueryQueryBodyPsiImpl.class, XQuery.INSTANCE);
     IElementType EXPR = new ICompositeElementType("XQUERY_EXPR", XPathExprPsiImpl.class, XQuery.INSTANCE);

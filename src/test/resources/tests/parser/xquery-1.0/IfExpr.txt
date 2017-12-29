@@ -2,7 +2,7 @@ FileElement[FILE(0:22)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:22)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:22)]
          ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(0:22)]
-            XQueryIfExprImpl[XQUERY_IF_EXPR(0:22)]
+            XPathIfExprImpl[XQUERY_IF_EXPR(0:22)]
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_IF(0:2)]('if')
                PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
                LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(3:4)]('(')
