@@ -31,11 +31,23 @@ class XQueryModuleImpl(provider: FileViewProvider) : PsiFileBase(provider, XQuer
     override fun getFileType(): FileType = XQueryFileType.INSTANCE
 
     override val XQueryVersions get(): Sequence<XQueryVersionRef> {
-        return children().filterIsInstance<XQueryVersionDecl>().map { versionDecl ->
-            val version: XPathStringLiteral? = versionDecl.version
-            val xquery: Specification? = XQuery.versionsForXQuery((version as? XdmLexicalValue)?.lexicalRepresentation).firstOrNull()
-            XQueryVersionRef(version, xquery)
-        }
+        var isFirst = true
+        return children().map { child -> when (child) {
+            is XQueryVersionDecl -> {
+                isFirst = false
+                val version: XPathStringLiteral? = child.version
+                val xquery: Specification? = XQuery.versionsForXQuery((version as? XdmLexicalValue)?.lexicalRepresentation).firstOrNull()
+                XQueryVersionRef(version, xquery)
+            }
+            is XQueryLibraryModule, is XQueryMainModule -> {
+                if (isFirst) {
+                    isFirst = false
+                    XQueryVersionRef(null, null) // No XQueryVersionDecl for the primary module.
+                } else
+                    null
+            }
+            else -> null
+        }}.filterNotNull()
     }
 
     override val XQueryVersion get(): XQueryVersionRef = XQueryVersions.firstOrNull() ?: XQueryVersionRef(null, null)
