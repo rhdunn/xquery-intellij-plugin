@@ -50,7 +50,7 @@ public interface XQueryElementType {
     IElementType STRING_LITERAL = new ICompositeElementType("XQUERY_STRING_LITERAL", XPathStringLiteralPsiImpl.class, XQuery.INSTANCE);
     IElementType VAR_REF = new ICompositeElementType("XQUERY_VAR_REF", XPathVarRefPsiImpl.class, XQuery.INSTANCE);
     IElementType PARENTHESIZED_EXPR = new ICompositeElementType("XQUERY_PARENTHESIZED_EXPR", XQueryParenthesizedExprPsiImpl.class, XQuery.INSTANCE);
-    IElementType CONTEXT_ITEM_EXPR = new ICompositeElementType("XQUERY_CONTEXT_ITEM_EXPR", XQueryContextItemExprPsiImpl.class, XQuery.INSTANCE);
+    IElementType CONTEXT_ITEM_EXPR = new ICompositeElementType("XQUERY_CONTEXT_ITEM_EXPR", XPathContextItemExprPsiImpl.class, XQuery.INSTANCE);
     IElementType ORDERED_EXPR = new ICompositeElementType("XQUERY_ORDERED_EXPR", XQueryOrderedExprPsiImpl.class, XQuery.INSTANCE);
     IElementType UNORDERED_EXPR = new ICompositeElementType("XQUERY_UNORDERED_EXPR", XQueryUnorderedExprPsiImpl.class, XQuery.INSTANCE);
     IElementType FUNCTION_CALL = new ICompositeElementType("XQUERY_FUNCTION_CALL", XQueryFunctionCallPsiImpl.class, XQuery.INSTANCE);

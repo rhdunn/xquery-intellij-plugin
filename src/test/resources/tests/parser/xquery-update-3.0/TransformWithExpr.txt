@@ -63,7 +63,7 @@ FileElement[FILE(0:46)]
                                                                                                                         XQueryPathExprImpl[XQUERY_PATH_EXPR(33:35)]
                                                                                                                            XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(33:35)]
                                                                                                                               XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(33:35)]
-                                                                                                                                 XQueryContextItemExprImpl[XQUERY_CONTEXT_ITEM_EXPR(33:34)]
+                                                                                                                                 XPathContextItemExprImpl[XQUERY_CONTEXT_ITEM_EXPR(33:34)]
                                                                                                                                     LeafPsiElement[XQUERY_DOT_TOKEN(33:34)]('.')
                                                                                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
                                                                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(35:37)]('as')
