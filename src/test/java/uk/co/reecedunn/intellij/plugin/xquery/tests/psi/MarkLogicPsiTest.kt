@@ -752,13 +752,13 @@ class MarkLogicPsiTest : ParserTestCase() {
 
     // endregion
     // endregion
-    // region XQueryMapConstructorEntry
+    // region XPathMapConstructorEntry
 
     fun testMapConstructorEntry() {
         val file = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry.xq")!!
 
         val mapConstructorPsi = file.descendants().filterIsInstance<XPathMapConstructor>().first()
-        val mapConstructorEntryPsi = mapConstructorPsi.children().filterIsInstance<XQueryMapConstructorEntry>().first()
+        val mapConstructorEntryPsi = mapConstructorPsi.children().filterIsInstance<XPathMapConstructorEntry>().first()
 
         assertThat(mapConstructorEntryPsi.separator.node.elementType,
                 `is`<IElementType>(XQueryTokenType.QNAME_SEPARATOR))

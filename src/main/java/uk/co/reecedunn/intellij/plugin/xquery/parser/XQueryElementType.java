@@ -262,7 +262,7 @@ public interface XQueryElementType {
     IElementType CURLY_ARRAY_CONSTRUCTOR = new ICompositeElementType("XQUERY_CURLY_ARRAY_CONSTRUCTOR", XPathCurlyArrayConstructorPsiImpl.class, XQuery.INSTANCE);
 
     IElementType MAP_CONSTRUCTOR = new ICompositeElementType("XQUERY_MAP_CONSTRUCTOR", XPathMapConstructorPsiImpl.class, XQuery.INSTANCE);
-    IElementType MAP_CONSTRUCTOR_ENTRY = new ICompositeElementType("XQUERY_MAP_CONSTRUCTOR_ENTRY", XQueryMapConstructorEntryPsiImpl.class, XQuery.INSTANCE);
+    IElementType MAP_CONSTRUCTOR_ENTRY = new ICompositeElementType("XQUERY_MAP_CONSTRUCTOR_ENTRY", XPathMapConstructorEntryPsiImpl.class, XQuery.INSTANCE);
     IElementType MAP_KEY_EXPR = new ICompositeElementType("XQUERY_MAP_KEY_EXPR", XQueryMapKeyExprPsiImpl.class, XQuery.INSTANCE);
     IElementType MAP_VALUE_EXPR = new ICompositeElementType("XQUERY_MAP_VALUE_EXPR", XQueryMapValueExprPsiImpl.class, XQuery.INSTANCE);
 

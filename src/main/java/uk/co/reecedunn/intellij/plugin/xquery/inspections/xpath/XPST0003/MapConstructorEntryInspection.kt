@@ -20,7 +20,7 @@ import com.intellij.psi.PsiFile
 import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryMapConstructorEntry
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathMapConstructorEntry
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Saxon
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
@@ -28,7 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings
 
 class MapConstructorEntryInspection : LocalInspectionTool() {
-    private fun conformsTo(element: XQueryMapConstructorEntry, productVersion: Version?): Boolean {
+    private fun conformsTo(element: XPathMapConstructorEntry, productVersion: Version?): Boolean {
         val conformanceElement = element.separator
         if (conformanceElement === element.firstChild) {
             return true
@@ -51,7 +51,7 @@ class MapConstructorEntryInspection : LocalInspectionTool() {
         val productVersion: Version = settings.productVersion
 
         val descriptors = SmartList<ProblemDescriptor>()
-        file.walkTree().filterIsInstance<XQueryMapConstructorEntry>().forEach { element ->
+        file.walkTree().filterIsInstance<XPathMapConstructorEntry>().forEach { element ->
             if (!conformsTo(element, productVersion)) {
                 val context = element.separator
                 val description = XQueryBundle.message("inspection.XPST0003.map-constructor-entry.message")

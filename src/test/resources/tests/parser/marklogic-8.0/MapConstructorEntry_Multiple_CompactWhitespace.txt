@@ -25,7 +25,7 @@ XQueryModuleImpl[FILE(0:32)]
                                                                         XPathMapConstructorImpl[XQUERY_MAP_CONSTRUCTOR(0:32)]
                                                                            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_OBJECT_NODE(0:11)]('object-node')
                                                                            LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(11:12)]('{')
-                                                                           XQueryMapConstructorEntryImpl[XQUERY_MAP_CONSTRUCTOR_ENTRY(12:21)]
+                                                                           XPathMapConstructorEntryImpl[XQUERY_MAP_CONSTRUCTOR_ENTRY(12:21)]
                                                                               XQueryMapKeyExprImpl[XQUERY_MAP_KEY_EXPR(12:15)]
                                                                                  XQueryOrExprImpl[XQUERY_OR_EXPR(12:15)]
                                                                                     XPathAndExprImpl[XQUERY_AND_EXPR(12:15)]
@@ -80,7 +80,7 @@ XQueryModuleImpl[FILE(0:32)]
                                                                                                                                                    LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(17:20)]('one')
                                                                                                                                                    LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(20:21)]('"')
                                                                            LeafPsiElement[XQUERY_COMMA_TOKEN(21:22)](',')
-                                                                           XQueryMapConstructorEntryImpl[XQUERY_MAP_CONSTRUCTOR_ENTRY(22:31)]
+                                                                           XPathMapConstructorEntryImpl[XQUERY_MAP_CONSTRUCTOR_ENTRY(22:31)]
                                                                               XQueryMapKeyExprImpl[XQUERY_MAP_KEY_EXPR(22:25)]
                                                                                  XQueryOrExprImpl[XQUERY_OR_EXPR(22:25)]
                                                                                     XPathAndExprImpl[XQUERY_AND_EXPR(22:25)]

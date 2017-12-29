@@ -27,7 +27,7 @@ XQueryModuleImpl[FILE(0:27)]
                                                                            PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
                                                                            LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(12:13)]('{')
                                                                            PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
-                                                                           XQueryMapConstructorEntryImpl[XQUERY_MAP_CONSTRUCTOR_ENTRY(14:26)]
+                                                                           XPathMapConstructorEntryImpl[XQUERY_MAP_CONSTRUCTOR_ENTRY(14:26)]
                                                                               XQueryMapKeyExprImpl[XQUERY_MAP_KEY_EXPR(14:16)]
                                                                                  XQueryOrExprImpl[XQUERY_OR_EXPR(14:16)]
                                                                                     XPathAndExprImpl[XQUERY_AND_EXPR(14:16)]

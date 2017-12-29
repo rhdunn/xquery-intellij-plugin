@@ -2724,13 +2724,13 @@ class XQueryPsiTest:ParserTestCase() {
     }
 
     // endregion
-    // region XQueryMapConstructorEntry
+    // region XPathMapConstructorEntry
 
     fun testMapConstructorEntry() {
         val file = parseResource("tests/parser/xquery-3.1/MapConstructorEntry.xq")!!
 
         val mapConstructorPsi = file.descendants().filterIsInstance<XPathMapConstructor>().first()
-        val mapConstructorEntryPsi = mapConstructorPsi.children().filterIsInstance<XQueryMapConstructorEntry>().first()
+        val mapConstructorEntryPsi = mapConstructorPsi.children().filterIsInstance<XPathMapConstructorEntry>().first()
 
         assertThat(mapConstructorEntryPsi.separator.node.elementType,
                 `is`<IElementType>(XQueryTokenType.QNAME_SEPARATOR))
@@ -2740,7 +2740,7 @@ class XQueryPsiTest:ParserTestCase() {
         val file = parseResource("tests/psi/xquery-3.1/MapConstructorEntry_NoValueAssignmentOperator.xq")!!
 
         val mapConstructorPsi = file.descendants().filterIsInstance<XPathMapConstructor>().first()
-        val mapConstructorEntryPsi = mapConstructorPsi.children().filterIsInstance<XQueryMapConstructorEntry>().first()
+        val mapConstructorEntryPsi = mapConstructorPsi.children().filterIsInstance<XPathMapConstructorEntry>().first()
 
         assertThat(mapConstructorEntryPsi.separator.node.elementType,
                 `is`<IElementType>(XQueryElementType.MAP_KEY_EXPR))
