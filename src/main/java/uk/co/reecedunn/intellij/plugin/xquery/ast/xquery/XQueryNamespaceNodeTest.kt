@@ -15,7 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathKindTest
+
 /**
  * An XQuery 3.0 `NamespaceNodeTest` node in the XQuery AST.
  */
-interface XQueryNamespaceNodeTest : XQueryKindTest
+interface XQueryNamespaceNodeTest : XPathKindTest

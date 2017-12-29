@@ -15,9 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic
 
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryKindTest
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathKindTest
 
 /**
  * A MarkLogic 7.0 `ComplexTypeTest` node in the XQuery AST.
  */
-interface MarkLogicComplexTypeTest : XQueryKindTest
+interface MarkLogicComplexTypeTest : XPathKindTest

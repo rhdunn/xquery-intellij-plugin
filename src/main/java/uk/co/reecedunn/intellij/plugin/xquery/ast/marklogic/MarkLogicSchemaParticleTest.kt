@@ -15,9 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic
 
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryKindTest
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathKindTest
 
 /**
  * A MarkLogic 7.0 `SchemaParticleTest` node in the XQuery AST.
  */
-interface MarkLogicSchemaParticleTest : XQueryKindTest
+interface MarkLogicSchemaParticleTest : XPathKindTest

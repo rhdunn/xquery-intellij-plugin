@@ -15,9 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic
 
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryKindTest
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathKindTest
 
 /**
  * A MarkLogic `BinaryTest` node in the XQuery AST.
  */
-interface MarkLogicBinaryTest : XQueryKindTest
+interface MarkLogicBinaryTest : XPathKindTest

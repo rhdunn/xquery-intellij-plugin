@@ -15,7 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathKindTest
+
 /**
  * An XQuery 1.0 `TextTest` node in the XQuery AST.
  */
-interface XQueryTextTest : XQueryKindTest
+interface XQueryTextTest : XPathKindTest
