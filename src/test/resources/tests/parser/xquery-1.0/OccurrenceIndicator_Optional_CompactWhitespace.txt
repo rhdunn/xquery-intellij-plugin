@@ -23,7 +23,7 @@ XQueryModuleImpl[FILE(0:44)]
                               LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(26:27)](':')
                               XPathNCNameImpl[XQUERY_NCNAME(27:34)]
                                  XmlNCNameImpl[XQUERY_NCNAME_TOKEN(27:34)]('integer')
-                     XQueryOccurrenceIndicatorImpl[XQUERY_OCCURRENCE_INDICATOR(34:35)]
+                     XPathOccurrenceIndicatorImpl[XQUERY_OCCURRENCE_INDICATOR(34:35)]
                         LeafPsiElement[XQUERY_OPTIONAL_TOKEN(34:35)]('?')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(35:43)]('external')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(43:44)](';')

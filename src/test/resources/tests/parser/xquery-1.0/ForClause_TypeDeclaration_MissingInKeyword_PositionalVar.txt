@@ -26,7 +26,7 @@ XQueryModuleImpl[FILE(0:44)]
                                     XPathNCNameImpl[XQUERY_NCNAME(14:20)]
                                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(14:20)]('string')
                            PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
-                           XQueryOccurrenceIndicatorImpl[XQUERY_OCCURRENCE_INDICATOR(21:22)]
+                           XPathOccurrenceIndicatorImpl[XQUERY_OCCURRENCE_INDICATOR(21:22)]
                               LeafPsiElement[XQUERY_STAR_TOKEN(21:22)]('*')
                      PsiWhiteSpaceImpl[WHITE_SPACE(22:23)](' ')
                      XQueryPositionalVarImpl[XQUERY_POSITIONAL_VAR(23:30)]

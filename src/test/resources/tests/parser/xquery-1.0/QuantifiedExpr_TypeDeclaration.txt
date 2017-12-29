@@ -23,7 +23,7 @@ XQueryModuleImpl[FILE(0:102)]
                               LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(14:15)](':')
                               XPathNCNameImpl[XQUERY_NCNAME(15:21)]
                                  XmlNCNameImpl[XQUERY_NCNAME_TOKEN(15:21)]('string')
-                     XQueryOccurrenceIndicatorImpl[XQUERY_OCCURRENCE_INDICATOR(21:22)]
+                     XPathOccurrenceIndicatorImpl[XQUERY_OCCURRENCE_INDICATOR(21:22)]
                         LeafPsiElement[XQUERY_STAR_TOKEN(21:22)]('*')
                PsiWhiteSpaceImpl[WHITE_SPACE(22:23)](' ')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_IN(23:25)]('in')
@@ -129,7 +129,7 @@ XQueryModuleImpl[FILE(0:102)]
                               LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(67:68)](':')
                               XPathNCNameImpl[XQUERY_NCNAME(68:74)]
                                  XmlNCNameImpl[XQUERY_NCNAME_TOKEN(68:74)]('string')
-                     XQueryOccurrenceIndicatorImpl[XQUERY_OCCURRENCE_INDICATOR(74:75)]
+                     XPathOccurrenceIndicatorImpl[XQUERY_OCCURRENCE_INDICATOR(74:75)]
                         LeafPsiElement[XQUERY_STAR_TOKEN(74:75)]('*')
                PsiWhiteSpaceImpl[WHITE_SPACE(75:76)](' ')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_IN(76:78)]('in')
