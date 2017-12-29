@@ -15,9 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility
 
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryExprSingle
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathExprSingle
 
 /**
  * An XQuery Update Facility 1.0 `InsertExpr` node in the XQuery AST.
  */
-interface UpdateFacilityInsertExpr : XQueryExprSingle
+interface UpdateFacilityInsertExpr : XPathExprSingle

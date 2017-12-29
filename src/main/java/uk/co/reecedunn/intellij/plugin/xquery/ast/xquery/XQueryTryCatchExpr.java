@@ -15,8 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathExprSingle;
+
 /**
  * An XQuery 1.0 <code>TryCatchExpr</code> node in the XQuery AST.
  */
-public interface XQueryTryCatchExpr extends XQueryExprSingle {
+public interface XQueryTryCatchExpr extends XPathExprSingle {
 }

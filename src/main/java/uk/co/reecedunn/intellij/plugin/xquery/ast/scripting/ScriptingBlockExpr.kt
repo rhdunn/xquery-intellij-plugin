@@ -15,9 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.scripting
 
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryExprSingle
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathExprSingle
 
 /**
  * An XQuery Scripting Extension 1.0 `BlockExpr` node in the XQuery AST.
  */
-interface ScriptingBlockExpr : XQueryExprSingle
+interface ScriptingBlockExpr : XPathExprSingle

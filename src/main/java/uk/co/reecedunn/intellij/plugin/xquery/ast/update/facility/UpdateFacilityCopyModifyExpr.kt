@@ -15,11 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility
 
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryExprSingle
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathExprSingle
 
 /**
  * An XQuery Update Facility 3.0 `CopyModifyExpr` node in the XQuery AST.
  *
  * This is a renamed XQuery Update Facility 1.0 `TransformExpr`.
  */
-interface UpdateFacilityCopyModifyExpr : XQueryExprSingle
+interface UpdateFacilityCopyModifyExpr : XPathExprSingle

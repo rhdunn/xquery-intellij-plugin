@@ -15,7 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathExprSingle
+
 /**
  * An XQuery 1.0 `QuantifiedExpr` node in the XQuery AST.
  */
-interface XQueryQuantifiedExpr : XQueryExprSingle
+interface XQueryQuantifiedExpr : XPathExprSingle
