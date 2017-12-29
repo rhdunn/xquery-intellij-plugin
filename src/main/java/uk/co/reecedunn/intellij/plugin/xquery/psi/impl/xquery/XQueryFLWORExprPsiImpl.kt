@@ -13,12 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
+package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathExprSingle;
+import com.intellij.extapi.psi.ASTWrapperPsiElement
+import com.intellij.lang.ASTNode
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFLWORExpr
 
-/**
- * An XQuery 1.0 <code>FLWORExpr</code> node in the XQuery AST.
- */
-public interface XQueryFLWORExpr extends XPathExprSingle {
-}
+class XQueryFLWORExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryFLWORExpr
