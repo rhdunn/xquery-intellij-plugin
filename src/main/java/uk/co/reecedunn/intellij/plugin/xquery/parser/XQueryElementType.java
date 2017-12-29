@@ -124,7 +124,7 @@ public interface XQueryElementType {
     IElementType ATTRIBUTE_DECLARATION = new ICompositeElementType("XQUERY_ATTRIBUTE_DECLARATION", XPathAttributeDeclarationPsiImpl.class, XQuery.INSTANCE);
 
     IElementType DOCUMENT_TEST = new ICompositeElementType("XQUERY_DOCUMENT_TEST", XPathDocumentTestPsiImpl.class, XQuery.INSTANCE);
-    IElementType ELEMENT_TEST = new ICompositeElementType("XQUERY_ELEMENT_TEST", XQueryElementTestPsiImpl.class, XQuery.INSTANCE);
+    IElementType ELEMENT_TEST = new ICompositeElementType("XQUERY_ELEMENT_TEST", XPathElementTestPsiImpl.class, XQuery.INSTANCE);
     IElementType SCHEMA_ELEMENT_TEST = new ICompositeElementType("XQUERY_SCHEMA_ELEMENT_TEST", XQuerySchemaElementTestPsiImpl.class, XQuery.INSTANCE);
     IElementType ATTRIBUTE_TEST = new ICompositeElementType("XQUERY_ATTRIBUTE_TEST", XPathAttributeTestPsiImpl.class, XQuery.INSTANCE);
     IElementType SCHEMA_ATTRIBUTE_TEST = new ICompositeElementType("XQUERY_SCHEMA_ATTRIBUTE_TEST", XQuerySchemaAttributeTestPsiImpl.class, XQuery.INSTANCE);
