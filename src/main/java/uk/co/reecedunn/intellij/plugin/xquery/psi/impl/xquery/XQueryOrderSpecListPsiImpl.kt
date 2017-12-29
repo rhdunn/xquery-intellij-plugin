@@ -13,15 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
+package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
-import com.intellij.lang.ASTNode;
-import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryOrderSpecList;
+import com.intellij.extapi.psi.ASTWrapperPsiElement
+import com.intellij.lang.ASTNode
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryOrderSpecList
 
-public class XQueryOrderSpecListPsiImpl extends ASTWrapperPsiElement implements XQueryOrderSpecList {
-    public XQueryOrderSpecListPsiImpl(@NotNull ASTNode node) {
-        super(node);
-    }
-}
+class XQueryOrderSpecListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryOrderSpecList
