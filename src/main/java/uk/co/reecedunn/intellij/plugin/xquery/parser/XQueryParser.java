@@ -64,7 +64,7 @@ class XQueryParser {
                 haveError = true;
             }
 
-            if (parseTransactions()) {
+            if (parseTransactions(!matched && !haveError)) {
                 matched = true;
                 continue;
             }
@@ -150,12 +150,12 @@ class XQueryParser {
         NONE
     }
 
-    private boolean parseTransactions() {
-        if (parseModule()) {
+    private boolean parseTransactions(boolean isFirst) {
+        if (parseModule(isFirst)) {
             parseWhiteSpaceAndCommentTokens();
             while (parseTransactionSeparator() != TransactionType.NONE) {
                 parseWhiteSpaceAndCommentTokens();
-                if (!parseModule()) { // NOTE: Handles error cases for VersionDecl-only and library modules.
+                if (!parseModule(false)) { // NOTE: Handles error cases for VersionDecl-only and library modules.
                     error(XQueryBundle.message("parser.error.expected", "MainModule"));
                 }
                 parseWhiteSpaceAndCommentTokens();
@@ -188,28 +188,25 @@ class XQueryParser {
         return TransactionType.NONE;
     }
 
-    private boolean parseModule() {
+    private boolean parseModule(boolean isFirst) {
+        boolean hasVersionDeclOrWhitespace;
+        hasVersionDeclOrWhitespace  = parseVersionDecl();
+        hasVersionDeclOrWhitespace |= parseWhiteSpaceAndCommentTokens();
+
         final PsiBuilder.Marker moduleMarker = mark();
-        IElementType type = null;
-        if (parseVersionDecl()) {
-            type = XQueryElementType.MODULE;
-            parseWhiteSpaceAndCommentTokens();
-        }
-
         if (parseLibraryModule()) {
-            type = XQueryElementType.LIBRARY_MODULE;
+            moduleMarker.done(XQueryElementType.LIBRARY_MODULE);
+            return true;
         } else if (parseMainModule()) {
-            type = XQueryElementType.MAIN_MODULE;
-        } else if (type != null) {
-            error(XQueryBundle.message("parser.error.expected-module-type"));
-        }
-
-        if (type != null) {
-            moduleMarker.done(type);
+            moduleMarker.done(XQueryElementType.MAIN_MODULE);
             return true;
         }
+
+        if (isFirst) {
+            error(XQueryBundle.message("parser.error.expected-module-type"));
+        }
         moduleMarker.drop();
-        return false;
+        return hasVersionDeclOrWhitespace;
     }
 
     private boolean parseVersionDecl() {

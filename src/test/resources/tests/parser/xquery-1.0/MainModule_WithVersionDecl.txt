@@ -1,16 +1,16 @@
 XQueryModuleImpl[FILE(0:68)]
-   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:68)]
-      XQueryVersionDeclImpl[XQUERY_VERSION_DECL(0:21)]
-         XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_XQUERY(0:6)]('xquery')
-         PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
-         XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VERSION(7:14)]('version')
-         PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
-         XPathStringLiteralImpl[XQUERY_STRING_LITERAL(15:20)]
-            LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(15:16)]('"')
-            LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(16:19)]('1.0')
-            LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(19:20)]('"')
-         LeafPsiElement[XQUERY_SEPARATOR_TOKEN(20:21)](';')
-      PsiWhiteSpaceImpl[WHITE_SPACE(21:22)]('\n')
+   XQueryVersionDeclImpl[XQUERY_VERSION_DECL(0:21)]
+      XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_XQUERY(0:6)]('xquery')
+      PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
+      XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VERSION(7:14)]('version')
+      PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
+      XPathStringLiteralImpl[XQUERY_STRING_LITERAL(15:20)]
+         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(15:16)]('"')
+         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(16:19)]('1.0')
+         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(19:20)]('"')
+      LeafPsiElement[XQUERY_SEPARATOR_TOKEN(20:21)](';')
+   PsiWhiteSpaceImpl[WHITE_SPACE(21:22)]('\n')
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(22:68)]
       XQueryPrologImpl[XQUERY_PROLOG(22:67)]
          XQueryModuleImportImpl[XQUERY_MODULE_IMPORT(22:65)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_IMPORT(22:28)]('import')

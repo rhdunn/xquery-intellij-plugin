@@ -19,21 +19,29 @@ import com.intellij.extapi.psi.PsiFileBase
 import com.intellij.openapi.fileTypes.FileType
 import com.intellij.psi.FileViewProvider
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.filetypes.XQueryFileType
+import uk.co.reecedunn.intellij.plugin.xquery.lang.Specification
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 
 class XQueryModuleImpl(provider: FileViewProvider) : PsiFileBase(provider, XQuery), XQueryModule {
-    override fun getFileType(): FileType {
-        return XQueryFileType.INSTANCE
+    override fun getFileType(): FileType = XQueryFileType.INSTANCE
+
+    override val XQueryVersions get(): Sequence<XQueryVersionRef> {
+        return children().filterIsInstance<XQueryVersionDecl>().map { versionDecl ->
+            val version: XPathStringLiteral? = versionDecl.version
+            val xquery: Specification? = XQuery.versionsForXQuery((version as? XdmLexicalValue)?.lexicalRepresentation).firstOrNull()
+            XQueryVersionRef(version, xquery)
+        }
     }
 
-    override val XQueryVersion get(): XQueryVersionRef =
-        modules.firstOrNull()?.XQueryVersion ?: XQueryVersionRef(null, null)
+    override val XQueryVersion get(): XQueryVersionRef = XQueryVersions.firstOrNull() ?: XQueryVersionRef(null, null)
 
     override val modules get(): Sequence<XQueryModuleBase> =
         children().filterIsInstance<XQueryModuleBase>()
 
-    override fun toString(): String =
-        "XQueryModule(" + containingFile.name + ")"
+    override fun toString(): String = "XQueryModule(" + containingFile.name + ")"
 }

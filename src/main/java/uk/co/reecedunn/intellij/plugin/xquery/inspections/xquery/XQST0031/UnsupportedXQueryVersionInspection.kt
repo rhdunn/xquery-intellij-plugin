@@ -45,8 +45,7 @@ class UnsupportedXQueryVersionInspection : LocalInspectionTool() {
         val descriptors = SmartList<ProblemDescriptor>()
         var mainVersion: Specification? = null
         var isFirstVersion = true
-        file.children().filterIsInstance<XQueryModuleBase>().forEach(fun (module) {
-            val version = module.XQueryVersion
+        file.XQueryVersions.forEach(fun (version) {
             if (isFirstVersion) {
                 mainVersion = version.getVersionOrDefault(file.project)
             }

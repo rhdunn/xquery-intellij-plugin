@@ -4583,7 +4583,7 @@ class XQueryPsiTest:ParserTestCase() {
         settings.XQueryVersion = XQuery.REC_3_0_20140408.label
         val file = parseResource("tests/psi/xquery-1.0/VersionDecl_CommentBeforeDecl.xq")!!
 
-        val versionDeclPsi = file.modules.first().descendants().filterIsInstance<XQueryVersionDecl>().first()
+        val versionDeclPsi = file.children().filterIsInstance<XQueryVersionDecl>().first()
         assertThat<XPathStringLiteral>(versionDeclPsi.version, `is`(notNullValue()))
         assertThat((versionDeclPsi.version!! as XdmLexicalValue).lexicalRepresentation, `is`("1.0"))
         assertThat<XPathStringLiteral>(versionDeclPsi.encoding, `is`(nullValue()))

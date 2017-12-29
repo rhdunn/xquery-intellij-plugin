@@ -1,14 +1,13 @@
 XQueryModuleImpl[FILE(0:21)]
-   XQueryModuleBaseImpl[XQUERY_MODULE(0:21)]
-      XQueryVersionDeclImpl[XQUERY_VERSION_DECL(0:20)]
-         XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_XQUERY(0:6)]('xquery')
-         PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
-         XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VERSION(7:14)]('version')
-         PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
-         XPathStringLiteralImpl[XQUERY_STRING_LITERAL(15:20)]
-            LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(15:16)]('"')
-            LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(16:19)]('1.0')
-            LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(19:20)]('"')
-      PsiErrorElementImpl[ERROR_ELEMENT(20:20)]('XPST0003: Expected ';'.')
-      LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(20:21)](':')
-      PsiErrorElementImpl[ERROR_ELEMENT(21:21)]('XPST0003: Missing library 'module' declaration or main module query body.')
+   XQueryVersionDeclImpl[XQUERY_VERSION_DECL(0:20)]
+      XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_XQUERY(0:6)]('xquery')
+      PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
+      XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VERSION(7:14)]('version')
+      PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
+      XPathStringLiteralImpl[XQUERY_STRING_LITERAL(15:20)]
+         LeafPsiElement[XQUERY_STRING_LITERAL_START_TOKEN(15:16)]('"')
+         LeafPsiElement[XQUERY_STRING_LITERAL_CONTENTS_TOKEN(16:19)]('1.0')
+         LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(19:20)]('"')
+   PsiErrorElementImpl[ERROR_ELEMENT(20:20)]('XPST0003: Expected ';'.')
+   LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(20:21)](':')
+   PsiErrorElementImpl[ERROR_ELEMENT(21:21)]('XPST0003: Missing library 'module' declaration or main module query body.')

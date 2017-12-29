@@ -37,6 +37,7 @@ public class XQueryParserTest extends ParserTestCase {
     public void testBadCharacters() {
         final String expected
                 = "XQueryModuleImpl[FILE(0:3)]\n"
+                + "   PsiErrorElementImpl[ERROR_ELEMENT(0:0)]('XPST0003: Missing library 'module' declaration or main module query body.')\n"
                 + "   PsiErrorElementImpl[ERROR_ELEMENT(0:1)]('XPST0003: Unexpected token.')\n"
                 + "      LeafPsiElement[BAD_CHARACTER(0:1)]('~')\n"
                 + "   LeafPsiElement[BAD_CHARACTER(1:2)]('\uFFFE')\n"
@@ -51,6 +52,7 @@ public class XQueryParserTest extends ParserTestCase {
     public void testInvalidToken() {
         final String expected
                 = "XQueryModuleImpl[FILE(0:2)]\n"
+                + "   PsiErrorElementImpl[ERROR_ELEMENT(0:0)]('XPST0003: Missing library 'module' declaration or main module query body.')\n"
                 + "   PsiErrorElementImpl[ERROR_ELEMENT(0:2)]('XPST0003: Unexpected token.')\n"
                 + "      LeafPsiElement[XQUERY_INVALID_TOKEN(0:2)]('<!')\n";
 
