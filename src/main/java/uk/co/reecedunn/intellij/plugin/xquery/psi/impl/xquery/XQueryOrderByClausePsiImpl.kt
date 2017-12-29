@@ -13,12 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
+package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
-import com.intellij.psi.PsiElement;
+import com.intellij.extapi.psi.ASTWrapperPsiElement
+import com.intellij.lang.ASTNode
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryOrderByClause
 
-/**
- * An XQuery 1.0 <code>OrderByClause</code> node in the XQuery AST.
- */
-public interface XQueryOrderByClause extends PsiElement {
-}
+class XQueryOrderByClausePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryOrderByClause
