@@ -17,6 +17,5 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathElementDeclaration
-import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryElementNamePsiImpl
 
-class XPathElementDeclarationPsiImpl(node: ASTNode) : XQueryElementNamePsiImpl(node), XPathElementDeclaration
+class XPathElementDeclarationPsiImpl(node: ASTNode) : XPathElementNamePsiImpl(node), XPathElementDeclaration

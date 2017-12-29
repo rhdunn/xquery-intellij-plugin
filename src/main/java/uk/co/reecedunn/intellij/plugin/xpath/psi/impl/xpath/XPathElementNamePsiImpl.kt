@@ -13,17 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
+package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName;
+import com.intellij.lang.ASTNode
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathElementName
 
-/**
- * An XQuery 1.0 <code>ElementName</code> node in the XQuery AST.
- *
- * When the <code>ElementName</code> node is specialised (such as with
- * <code>ElementDeclaration</code>), the <code>ElementName</code> node is
- * not stored directly in the AST. Instead, it is exposed as an instance of
- * that specialised node.
- */
-public interface XQueryElementName extends XPathEQName {
-}
+open class XPathElementNamePsiImpl(node: ASTNode) : XPathEQNamePsiImpl(node), XPathElementName
