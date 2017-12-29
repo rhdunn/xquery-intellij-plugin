@@ -1620,7 +1620,7 @@ class XQueryPsiTest:ParserTestCase() {
     fun testNamedFunctionRef_QName() {
         val file = parseResource("tests/psi/xquery-3.0/NamedFunctionRef_QName.xq")!!
 
-        val namedFunctionRefPsi = file.descendants().filterIsInstance<XQueryNamedFunctionRef>().first()
+        val namedFunctionRefPsi = file.descendants().filterIsInstance<XPathNamedFunctionRef>().first()
         val versioned = namedFunctionRefPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
@@ -1635,7 +1635,7 @@ class XQueryPsiTest:ParserTestCase() {
     fun testNamedFunctionRef_NCName() {
         val file = parseResource("tests/parser/xquery-3.0/NamedFunctionRef.xq")!!
 
-        val namedFunctionRefPsi = file.descendants().filterIsInstance<XQueryNamedFunctionRef>().first()
+        val namedFunctionRefPsi = file.descendants().filterIsInstance<XPathNamedFunctionRef>().first()
         val versioned = namedFunctionRefPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
@@ -1650,7 +1650,7 @@ class XQueryPsiTest:ParserTestCase() {
     fun testNamedFunctionRef_Keyword() {
         val file = parseResource("tests/psi/xquery-3.0/NamedFunctionRef_Keyword.xq")!!
 
-        val namedFunctionRefPsi = file.descendants().filterIsInstance<XQueryNamedFunctionRef>().first()
+        val namedFunctionRefPsi = file.descendants().filterIsInstance<XPathNamedFunctionRef>().first()
         val versioned = namedFunctionRefPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
@@ -2912,12 +2912,12 @@ class XQueryPsiTest:ParserTestCase() {
 
     // endregion
     // endregion
-    // region XQueryNamedFunctionRef
+    // region XPathNamedFunctionRef
 
     fun testNamedFunctionRef() {
         val file = parseResource("tests/parser/xquery-3.0/NamedFunctionRef.xq")!!
 
-        val namedFunctionRefPsi = file.descendants().filterIsInstance<XQueryNamedFunctionRef>().first()
+        val namedFunctionRefPsi = file.descendants().filterIsInstance<XPathNamedFunctionRef>().first()
         assertThat(namedFunctionRefPsi, `is`(notNullValue()))
         assertThat(namedFunctionRefPsi.arity, `is`(3))
 
@@ -2930,7 +2930,7 @@ class XQueryPsiTest:ParserTestCase() {
     fun testNamedFunctionRef_MissingArity() {
         val file = parseResource("tests/parser/xquery-3.0/NamedFunctionRef_MissingArity.xq")!!
 
-        val namedFunctionRefPsi = file.descendants().filterIsInstance<XQueryNamedFunctionRef>().first()
+        val namedFunctionRefPsi = file.descendants().filterIsInstance<XPathNamedFunctionRef>().first()
         assertThat(namedFunctionRefPsi, `is`(notNullValue()))
         assertThat(namedFunctionRefPsi.arity, `is`(0))
 
@@ -2943,7 +2943,7 @@ class XQueryPsiTest:ParserTestCase() {
     fun testNamedFunctionRef_NoFunctionEQName() {
         val file = parseResource("tests/psi/xquery-3.0/NamedFunctionRef_NoFunctionEQName.xq")!!
 
-        val namedFunctionRefPsi = file.descendants().filterIsInstance<XQueryNamedFunctionRef>().first()
+        val namedFunctionRefPsi = file.descendants().filterIsInstance<XPathNamedFunctionRef>().first()
         assertThat(namedFunctionRefPsi, `is`(notNullValue()))
         assertThat(namedFunctionRefPsi.arity, `is`(0))
 

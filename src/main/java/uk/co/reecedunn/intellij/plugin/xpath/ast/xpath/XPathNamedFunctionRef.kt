@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
+package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionItemExpr
 
 /**
- * An XQuery 3.0 `NamedFunctionRef` node in the XQuery AST.
+ * An XPath 3.0 and XQuery 3.0 `NamedFunctionRef` node in the XQuery AST.
  */
-interface XQueryNamedFunctionRef : XPathFunctionItemExpr {
+interface XPathNamedFunctionRef : XPathFunctionItemExpr {
     val functionName: XPathEQName?
 
     val arity: Int

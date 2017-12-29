@@ -22,6 +22,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArrowFunctionSpecifier
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNamedFunctionRef
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 
@@ -57,7 +58,7 @@ class UndefinedFunctionInspection : LocalInspectionTool() {
                 val parent = qname.parent
                 val arity = when (parent) {
                     is XPathFunctionCall -> parent.arity
-                    is XQueryNamedFunctionRef -> parent.arity
+                    is XPathNamedFunctionRef -> parent.arity
                     is XPathArrowFunctionSpecifier -> parent.arity
                     else -> -1
                 }

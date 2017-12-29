@@ -22,7 +22,7 @@ XQueryModuleImpl[FILE(0:8)]
                                                                XQueryPathExprImpl[XQUERY_PATH_EXPR(0:8)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:8)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:8)]
-                                                                        XQueryNamedFunctionRefImpl[XQUERY_NAMED_FUNCTION_REF(0:8)]
+                                                                        XPathNamedFunctionRefImpl[XQUERY_NAMED_FUNCTION_REF(0:8)]
                                                                            XPathNCNameImpl[XQUERY_NCNAME(0:4)]
                                                                               XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:4)]('true')
                                                                            PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
