@@ -41,7 +41,7 @@ class DuplicateNamespacePrefixInspection : LocalInspectionTool() {
         if (file !is XQueryModule) return null
 
         val descriptors = SmartList<ProblemDescriptor>()
-        file.children().filterIsInstance<XQueryModuleBase>().forEach { module ->
+        file.children().forEach { module ->
             val prefices = HashMap<String, XQueryNamespace>()
 
             val moduleDecl = module.children().filterIsInstance<XQueryModuleDecl>().firstOrNull()
@@ -53,7 +53,7 @@ class DuplicateNamespacePrefixInspection : LocalInspectionTool() {
                 }
             }
 
-            val prolog = (module as XQueryPrologResolver).prolog
+            val prolog = (module as? XQueryPrologResolver)?.prolog
             prolog?.children()?.forEach(fun (child) {
                 val ns = when (child) {
                     is XQueryModuleImport -> child.namespace

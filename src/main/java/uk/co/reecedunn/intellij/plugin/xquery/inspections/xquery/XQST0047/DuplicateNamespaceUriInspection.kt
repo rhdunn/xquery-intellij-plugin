@@ -41,10 +41,10 @@ class DuplicateNamespaceUriInspection : LocalInspectionTool() {
         if (file !is XQueryModule) return null
 
         val descriptors = SmartList<ProblemDescriptor>()
-        file.children().filterIsInstance<XQueryModuleBase>().forEach { module ->
+        file.children().forEach { module ->
             val uris = HashMap<String, XQueryNamespace>()
 
-            val prolog = (module as XQueryPrologResolver).prolog
+            val prolog = (module as? XQueryPrologResolver)?.prolog
             prolog?.children()?.filterIsInstance<XQueryModuleImport>()?.forEach(fun (child) {
                 val ns = child.namespace
                 val uri = (ns?.uri as? XdmLexicalValue)?.lexicalRepresentation

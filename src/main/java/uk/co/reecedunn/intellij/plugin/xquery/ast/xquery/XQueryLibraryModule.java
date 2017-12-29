@@ -15,21 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
+import com.intellij.psi.PsiElement;
+
 /**
  * An XQuery 1.0 <code>LibraryModule</code> node in the XQuery AST.
- *
- * This implements a <code>LibraryModule</code> node as an instance of a
- * <code>Module</code> node, which differs from the XQuery grammar, which
- * has the <code>LibraryModule</code> as a child of <code>Module</code>.
- * This has the effect of defining the <code>LibraryModule</code> EBNF as:
- *
- * <pre>{@code
- *     Module        ::= LibraryModule | MainModule
- *     LibraryModule ::= VersionDecl? ModuleDecl Prolog
- * }</pre>
- *
- * This simplifies the AST tree and makes it easier to reason what the
- * module type is from the {@link XQueryModule} node.
  */
-public interface XQueryLibraryModule extends XQueryModuleBase {
+public interface XQueryLibraryModule extends PsiElement {
 }

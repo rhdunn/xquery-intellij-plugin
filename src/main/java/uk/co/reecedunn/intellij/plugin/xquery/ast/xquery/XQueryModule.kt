@@ -15,14 +15,33 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
+import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiFile
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
+import uk.co.reecedunn.intellij.plugin.xquery.lang.Specification
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings
+
+data class XQueryVersionRef(val declaration: XPathStringLiteral?, val version: Specification?) {
+    fun getVersionOrDefault(project: Project): Specification {
+        if (version == null) {
+            val settings: XQueryProjectSettings = XQueryProjectSettings.getInstance(project)
+            val product = settings.product
+            val productVersion = settings.productVersion
+            val xquery = settings.XQueryVersion
+            if (xquery == null)
+                return XQuery.REC_1_0_20070123
+            return XQuery.versionForXQuery(product, productVersion, xquery) ?: XQuery.REC_1_0_20070123
+        }
+        return version
+    }
+}
 
 /**
- * An XQuery file.
+ * An XQuery 1.0 `Module` node in the XQuery AST.
  *
- * This interface is only implemented in the PSI tree as part of the XQuery
- * file implementation. It is included here to keep the interfaces for
- * navigating the parse trees together.
+ * This is used as the IntelliJ file implementation for XQuery files, as it is
+ * the top-level grammar production in the XQuery specifications.
  */
 interface XQueryModule : PsiFile {
     val XQueryVersion: XQueryVersionRef

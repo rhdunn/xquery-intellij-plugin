@@ -29,7 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceResolver
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
 import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings
 
-open class XQueryModuleBasePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryModuleBase, XQueryNamespaceResolver, XQueryPrologResolver {
+open class XQueryModuleBasePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryNamespaceResolver, XQueryPrologResolver {
     private val settings: XQueryProjectSettings
     init {
         settings = XQueryProjectSettings.getInstance(project)
@@ -55,13 +55,6 @@ open class XQueryModuleBasePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), 
             staticContextCache = (module as? XQueryPrologResolver)?.prolog
         }
         return staticContextCache
-    }
-
-    override val XQueryVersion get(): XQueryVersionRef {
-        val versionDecl = descendants().filterIsInstance<XQueryVersionDecl>().firstOrNull()
-        val version: XPathStringLiteral? = versionDecl?.version
-        val xquery: Specification? = XQuery.versionsForXQuery((version as? XdmLexicalValue)?.lexicalRepresentation).firstOrNull()
-        return XQueryVersionRef(version, xquery)
     }
 
     override fun resolveNamespace(prefix: CharSequence?): XQueryNamespace? =

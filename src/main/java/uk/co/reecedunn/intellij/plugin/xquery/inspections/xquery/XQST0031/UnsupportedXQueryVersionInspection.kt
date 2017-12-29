@@ -20,7 +20,6 @@ import com.intellij.psi.PsiFile
 import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModuleBase
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Specification
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
