@@ -13,14 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
+package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
-import com.intellij.lang.ASTNode;
-import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryElementDeclaration;
+import com.intellij.lang.ASTNode
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathElementDeclaration
+import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryElementNamePsiImpl
 
-public class XQueryElementDeclarationPsiImpl extends XQueryElementNamePsiImpl implements XQueryElementDeclaration {
-    public XQueryElementDeclarationPsiImpl(@NotNull ASTNode node) {
-        super(node);
-    }
-}
+class XPathElementDeclarationPsiImpl(node: ASTNode) : XQueryElementNamePsiImpl(node), XPathElementDeclaration

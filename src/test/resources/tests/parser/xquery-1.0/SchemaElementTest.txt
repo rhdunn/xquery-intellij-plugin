@@ -23,7 +23,7 @@ FileElement[FILE(0:66)]
                            PsiWhiteSpaceImpl[WHITE_SPACE(40:41)](' ')
                            LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(41:42)]('(')
                            PsiWhiteSpaceImpl[WHITE_SPACE(42:43)](' ')
-                           XQueryElementDeclarationImpl[XQUERY_ELEMENT_DECLARATION(43:53)]
+                           XPathElementDeclarationImpl[XQUERY_ELEMENT_DECLARATION(43:53)]
                               XPathQNameImpl[XQUERY_QNAME(43:53)]
                                  XPathNCNameImpl[XQUERY_NCNAME(43:45)]
                                     XmlNCNameImpl[XQUERY_NCNAME_TOKEN(43:45)]('xs')
