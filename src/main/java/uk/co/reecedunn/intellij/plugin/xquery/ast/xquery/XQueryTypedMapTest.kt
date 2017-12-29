@@ -15,7 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathMapTest
+
 /**
  * An XQuery 3.1 `TypedMapTest` node in the XQuery AST.
  */
-interface XQueryTypedMapTest : XQueryMapTest
+interface XQueryTypedMapTest : XPathMapTest
