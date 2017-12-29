@@ -11,7 +11,7 @@ XQueryModuleImpl[FILE(0:37)]
                   XmlNCNameImpl[XQUERY_NCNAME_TOKEN(17:21)]('test')
                LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(21:22)]('(')
                XQueryParamListImpl[XQUERY_PARAM_LIST(22:26)]
-                  XQueryParamImpl[XQUERY_PARAM(22:26)]
+                  XPathParamImpl[XQUERY_PARAM(22:26)]
                      LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(22:23)]('$')
                      XPathNCNameImpl[XQUERY_NCNAME(23:26)]
                         XmlNCNameImpl[XQUERY_NCNAME_TOKEN(23:26)]('one')

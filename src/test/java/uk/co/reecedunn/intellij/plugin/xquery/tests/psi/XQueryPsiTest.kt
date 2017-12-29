@@ -3707,7 +3707,7 @@ class XQueryPsiTest:ParserTestCase() {
         val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val functionDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryFunctionDecl>().first()
         val paramListPsi = functionDeclPsi.children().filterIsInstance<XQueryParamList>().first()
-        val paramPsi = paramListPsi.children().filterIsInstance<XQueryParam>().first()
+        val paramPsi = paramListPsi.children().filterIsInstance<XPathParam>().first()
         val paramNamePsi = paramPsi.children().filterIsInstance<XPathEQName>().first()
         val provider = functionDeclPsi as XQueryVariableResolver
 
@@ -3718,7 +3718,7 @@ class XQueryPsiTest:ParserTestCase() {
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XPathEQName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(paramNamePsi))
 
-        assertThat(variable.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryParam::class.java)))
+        assertThat(variable.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XPathParam::class.java)))
         assertThat(variable.declaration, `is`<PsiElement>(paramPsi))
     }
 
@@ -3903,7 +3903,7 @@ class XQueryPsiTest:ParserTestCase() {
         val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val functionDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryFunctionDecl>().first()
         val paramListPsi = functionDeclPsi.children().filterIsInstance<XQueryParamList>().first()
-        val paramPsi = paramListPsi.children().filterIsInstance<XQueryParam>().first()
+        val paramPsi = paramListPsi.children().filterIsInstance<XPathParam>().first()
         val paramNamePsi = paramPsi.children().filterIsInstance<XPathEQName>().first()
         val provider = paramPsi as XQueryVariableResolver
 
@@ -3914,7 +3914,7 @@ class XQueryPsiTest:ParserTestCase() {
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XPathEQName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(paramNamePsi))
 
-        assertThat(variable.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryParam::class.java)))
+        assertThat(variable.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XPathParam::class.java)))
         assertThat(variable.declaration, `is`<PsiElement>(paramPsi))
     }
 
@@ -3927,7 +3927,7 @@ class XQueryPsiTest:ParserTestCase() {
         val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val functionDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryFunctionDecl>().first()
         val paramListPsi = functionDeclPsi.children().filterIsInstance<XQueryParamList>().first()
-        val paramPsi = paramListPsi.children().filterIsInstance<XQueryParam>().first()
+        val paramPsi = paramListPsi.children().filterIsInstance<XPathParam>().first()
         val paramNamePsi = paramPsi.children().filterIsInstance<XPathEQName>().first()
         val provider = paramListPsi as XQueryVariableResolver
 
@@ -3938,7 +3938,7 @@ class XQueryPsiTest:ParserTestCase() {
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XPathEQName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(paramNamePsi))
 
-        assertThat(variable.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryParam::class.java)))
+        assertThat(variable.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XPathParam::class.java)))
         assertThat(variable.declaration, `is`<PsiElement>(paramPsi))
     }
 

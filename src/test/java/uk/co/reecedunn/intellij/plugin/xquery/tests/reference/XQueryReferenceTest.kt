@@ -370,7 +370,7 @@ class XQueryReferenceTest : ParserTestCase() {
         val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val functionDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryFunctionDecl>().first()
         val paramListPsi = functionDeclPsi.children().filterIsInstance<XQueryParamList>().first()
-        val paramPsi = paramListPsi.children().filterIsInstance<XQueryParam>().first()
+        val paramPsi = paramListPsi.children().filterIsInstance<XPathParam>().first()
         val paramNamePsi = paramPsi.children().filterIsInstance<XPathEQName>().first()
 
         val functionBodyPsi = functionDeclPsi.children().filterIsInstance<XPathFunctionBody>().first()

@@ -13,25 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
+package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
-import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParam
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryParamList
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver
 
-class XQueryParamListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryParamList, XQueryVariableResolver {
-    override val arity get(): Int {
-        return children().filterIsInstance<XPathParam>().count()
-    }
-
+class XPathParamPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathParam, XQueryVariableResolver {
     override fun resolveVariable(name: XPathEQName?): XQueryVariable? {
-        return children().filterIsInstance<XQueryVariableResolver>().map { resolver ->
-            resolver.resolveVariable(name)
-        }.filterNotNull().firstOrNull()
+        val paramName = findChildByClass(XPathEQName::class.java)
+        return if (paramName != null && paramName == name) {
+            XQueryVariable(paramName, this)
+        } else null
     }
 }
