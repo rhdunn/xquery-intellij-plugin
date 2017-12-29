@@ -22,7 +22,7 @@ FileElement[FILE(0:16)]
                                                                XQueryPathExprImpl[XQUERY_PATH_EXPR(0:16)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:16)]
                                                                      XPathAxisStepImpl[XQUERY_AXIS_STEP(0:16)]
-                                                                        XQueryForwardStepImpl[XQUERY_FORWARD_STEP(0:16)]
+                                                                        XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:16)]
                                                                            XPathForwardAxisImpl[XQUERY_FORWARD_AXIS(0:12)]
                                                                               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DESCENDANT(0:10)]('descendant')
                                                                               LeafPsiElement[XQUERY_AXIS_SEPARATOR_TOKEN(10:12)]('::')

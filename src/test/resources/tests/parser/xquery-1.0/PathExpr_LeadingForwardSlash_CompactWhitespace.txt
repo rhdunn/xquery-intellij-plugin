@@ -23,7 +23,7 @@ FileElement[FILE(0:14)]
                                                                   LeafPsiElement[XQUERY_DIRECT_DESCENDANTS_PATH_TOKEN(0:1)]('/')
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(1:14)]
                                                                      XPathAxisStepImpl[XQUERY_AXIS_STEP(1:5)]
-                                                                        XQueryForwardStepImpl[XQUERY_FORWARD_STEP(1:5)]
+                                                                        XPathForwardStepImpl[XQUERY_FORWARD_STEP(1:5)]
                                                                            XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(1:5)]
                                                                               XQueryNodeTestImpl[XQUERY_NODE_TEST(1:5)]
                                                                                  XQueryNameTestImpl[XQUERY_NAME_TEST(1:5)]

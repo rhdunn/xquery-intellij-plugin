@@ -22,7 +22,7 @@ FileElement[FILE(0:26)]
                                                                XQueryPathExprImpl[XQUERY_PATH_EXPR(0:26)]
                                                                   XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:26)]
                                                                      XPathAxisStepImpl[XQUERY_AXIS_STEP(0:26)]
-                                                                        XQueryForwardStepImpl[XQUERY_FORWARD_STEP(0:26)]
+                                                                        XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:26)]
                                                                            XPathForwardAxisImpl[XQUERY_FORWARD_AXIS(0:21)]
                                                                               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DESCENDANT_OR_SELF(0:18)]('descendant-or-self')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
