@@ -12,7 +12,7 @@ XQueryModuleImpl[FILE(0:74)]
                PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
                LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(22:23)]('(')
                PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
-               XQueryParamListImpl[XQUERY_PARAM_LIST(24:62)]
+               XPathParamListImpl[XQUERY_PARAM_LIST(24:62)]
                   XPathParamImpl[XQUERY_PARAM(24:62)]
                      LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(24:25)]('$')
                      PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
