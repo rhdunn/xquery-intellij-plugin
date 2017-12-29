@@ -13,15 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
+package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
-import com.intellij.lang.ASTNode;
-import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryOrderingModeDecl;
+import com.intellij.extapi.psi.ASTWrapperPsiElement
+import com.intellij.lang.ASTNode
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryOrderingModeDecl
 
-public class XQueryOrderingModeDeclPsiImpl extends ASTWrapperPsiElement implements XQueryOrderingModeDecl {
-    public XQueryOrderingModeDeclPsiImpl(@NotNull ASTNode node) {
-        super(node);
-    }
-}
+class XQueryOrderingModeDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryOrderingModeDecl
