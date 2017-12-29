@@ -13,15 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
+package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
-import com.intellij.lang.ASTNode;
-import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathEnclosedExprPsiImpl;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEnclosedUriExpr;
-
-public class XQueryEnclosedUriExprPsiImpl extends XPathEnclosedExprPsiImpl implements XQueryEnclosedUriExpr {
-    public XQueryEnclosedUriExprPsiImpl(@NotNull ASTNode node) {
-        super(node);
-    }
-}
+/**
+ * An XQuery 3.1 `EnclosedURIExpr` node in the XQuery AST.
+ *
+ * This is a replacement for the XQuery 3.0 `URIExpr`.
+ */
+interface XQueryEnclosedUriExpr : XQueryExpr
