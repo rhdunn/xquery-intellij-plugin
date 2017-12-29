@@ -1585,7 +1585,7 @@ class XQueryPsiTest:ParserTestCase() {
         val file = parseResource("tests/parser/xquery-3.1/Lookup.xq")!!
 
         val postfixExprPsi = file.descendants().filterIsInstance<XPathPostfixExpr>().first()
-        val lookupPsi = postfixExprPsi.children().filterIsInstance<XQueryLookup>().first()
+        val lookupPsi = postfixExprPsi.children().filterIsInstance<XPathLookup>().first()
         val versioned = lookupPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))

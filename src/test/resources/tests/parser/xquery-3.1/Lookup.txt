@@ -29,7 +29,7 @@ XQueryModuleImpl[FILE(0:18)]
                                                                               XPathNCNameImpl[XQUERY_NCNAME(2:3)]
                                                                                  XmlNCNameImpl[XQUERY_NCNAME_TOKEN(2:3)]('m')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
-                                                                        XQueryLookupImpl[XQUERY_LOOKUP(4:10)]
+                                                                        XPathLookupImpl[XQUERY_LOOKUP(4:10)]
                                                                            LeafPsiElement[XQUERY_OPTIONAL_TOKEN(4:5)]('?')
                                                                            PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
                                                                            XPathKeySpecifierImpl[XQUERY_KEY_SPECIFIER(6:10)]
