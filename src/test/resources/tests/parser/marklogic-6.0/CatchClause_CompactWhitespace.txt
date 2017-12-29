@@ -40,7 +40,7 @@ FileElement[FILE(0:18)]
                      XPathNCNameImpl[XQUERY_NCNAME(13:14)]
                         XmlNCNameImpl[XQUERY_NCNAME_TOKEN(13:14)]('e')
                   LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(14:15)](')')
-                  XQueryEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(15:18)]
+                  XPathEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(15:18)]
                      LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(15:16)]('{')
                      XQueryExprImpl[XQUERY_EXPR(16:17)]
                         ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(16:17)]

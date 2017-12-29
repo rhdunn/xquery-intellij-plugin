@@ -57,7 +57,7 @@ FileElement[FILE(0:27)]
                                                                                                                                                       LeafPsiElement[XQUERY_STRING_LITERAL_END_TOKEN(15:16)]('"')
                                                                                                                                                 PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
                                                                               PsiErrorElementImpl[ERROR_ELEMENT(17:17)]('XPST0003: Expected '}'.')
-                                                                              XQueryEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(17:27)]
+                                                                              XPathEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(17:27)]
                                                                                  LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(17:18)]('{')
                                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
                                                                                  XQueryExprImpl[XQUERY_EXPR(19:26)]

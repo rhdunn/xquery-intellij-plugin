@@ -462,7 +462,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         val tryCatchExprPsi = file.descendants().filterIsInstance<XQueryTryCatchExpr>().first()
         val catchClausePsi = tryCatchExprPsi.children().filterIsInstance<XQueryCatchClause>().first()
-        val enclosedExprPsi = catchClausePsi.children().filterIsInstance<XQueryEnclosedExpr>().first()
+        val enclosedExprPsi = catchClausePsi.children().filterIsInstance<XPathEnclosedExpr>().first()
         val versioned = enclosedExprPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
@@ -477,7 +477,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         val tryCatchExprPsi = file.descendants().filterIsInstance<XQueryTryCatchExpr>().first()
         val catchClausePsi = tryCatchExprPsi.children().filterIsInstance<XQueryCatchClause>().first()
-        val enclosedExprPsi = catchClausePsi.children().filterIsInstance<XQueryEnclosedExpr>().first()
+        val enclosedExprPsi = catchClausePsi.children().filterIsInstance<XPathEnclosedExpr>().first()
         val versioned = enclosedExprPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
@@ -496,7 +496,7 @@ class XQueryPsiTest:ParserTestCase() {
         val file = parseResource("tests/parser/xquery-1.0/CompAttrConstructor.xq")!!
 
         val compAttrConstructorPsi = file.descendants().filterIsInstance<XQueryCompAttrConstructor>().first()
-        val enclosedExprPsi = compAttrConstructorPsi.children().filterIsInstance<XQueryEnclosedExpr>().first()
+        val enclosedExprPsi = compAttrConstructorPsi.children().filterIsInstance<XPathEnclosedExpr>().first()
         val versioned = enclosedExprPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
@@ -510,7 +510,7 @@ class XQueryPsiTest:ParserTestCase() {
         val file = parseResource("tests/parser/xquery-1.0/CompAttrConstructor_NoExpr.xq")!!
 
         val compAttrConstructorPsi = file.descendants().filterIsInstance<XQueryCompAttrConstructor>().first()
-        val enclosedExprPsi = compAttrConstructorPsi.children().filterIsInstance<XQueryEnclosedExpr>().first()
+        val enclosedExprPsi = compAttrConstructorPsi.children().filterIsInstance<XPathEnclosedExpr>().first()
         val versioned = enclosedExprPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
@@ -527,7 +527,7 @@ class XQueryPsiTest:ParserTestCase() {
         val file = parseResource("tests/parser/xquery-1.0/CompCommentConstructor.xq")!!
 
         val compCommentConstructorPsi = file.descendants().filterIsInstance<XQueryCompCommentConstructor>().first()
-        val enclosedExprPsi = compCommentConstructorPsi.children().filterIsInstance<XQueryEnclosedExpr>().first()
+        val enclosedExprPsi = compCommentConstructorPsi.children().filterIsInstance<XPathEnclosedExpr>().first()
         val versioned = enclosedExprPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
@@ -541,7 +541,7 @@ class XQueryPsiTest:ParserTestCase() {
         val file = parseResource("tests/parser/xquery-3.1/CompCommentConstructor_MissingExpr.xq")!!
 
         val compCommentConstructorPsi = file.descendants().filterIsInstance<XQueryCompCommentConstructor>().first()
-        val enclosedExprPsi = compCommentConstructorPsi.children().filterIsInstance<XQueryEnclosedExpr>().first()
+        val enclosedExprPsi = compCommentConstructorPsi.children().filterIsInstance<XPathEnclosedExpr>().first()
         val versioned = enclosedExprPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
@@ -559,7 +559,7 @@ class XQueryPsiTest:ParserTestCase() {
         val file = parseResource("tests/parser/xquery-1.0/CompDocConstructor.xq")!!
 
         val compDocConstructorPsi = file.descendants().filterIsInstance<XQueryCompDocConstructor>().first()
-        val enclosedExprPsi = compDocConstructorPsi.children().filterIsInstance<XQueryEnclosedExpr>().first()
+        val enclosedExprPsi = compDocConstructorPsi.children().filterIsInstance<XPathEnclosedExpr>().first()
         val versioned = enclosedExprPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
@@ -573,7 +573,7 @@ class XQueryPsiTest:ParserTestCase() {
         val file = parseResource("tests/parser/xquery-3.1/CompDocConstructor_MissingExpr.xq")!!
 
         val compDocConstructorPsi = file.descendants().filterIsInstance<XQueryCompDocConstructor>().first()
-        val enclosedExprPsi = compDocConstructorPsi.children().filterIsInstance<XQueryEnclosedExpr>().first()
+        val enclosedExprPsi = compDocConstructorPsi.children().filterIsInstance<XPathEnclosedExpr>().first()
         val versioned = enclosedExprPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
@@ -686,7 +686,7 @@ class XQueryPsiTest:ParserTestCase() {
         val file = parseResource("tests/parser/xquery-1.0/CompPIConstructor.xq")!!
 
         val compPIConstructorPsi = file.descendants().filterIsInstance<XQueryCompPIConstructor>().first()
-        val enclosedExprPsi = compPIConstructorPsi.children().filterIsInstance<XQueryEnclosedExpr>().first()
+        val enclosedExprPsi = compPIConstructorPsi.children().filterIsInstance<XPathEnclosedExpr>().first()
         val versioned = enclosedExprPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
@@ -700,7 +700,7 @@ class XQueryPsiTest:ParserTestCase() {
         val file = parseResource("tests/parser/xquery-1.0/CompPIConstructor_NoExpr.xq")!!
 
         val compPIConstructorPsi = file.descendants().filterIsInstance<XQueryCompPIConstructor>().first()
-        val enclosedExprPsi = compPIConstructorPsi.children().filterIsInstance<XQueryEnclosedExpr>().first()
+        val enclosedExprPsi = compPIConstructorPsi.children().filterIsInstance<XPathEnclosedExpr>().first()
         val versioned = enclosedExprPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
@@ -717,7 +717,7 @@ class XQueryPsiTest:ParserTestCase() {
         val file = parseResource("tests/parser/xquery-1.0/CompTextConstructor.xq")!!
 
         val compTextConstructorPsi = file.descendants().filterIsInstance<XQueryCompTextConstructor>().first()
-        val enclosedExprPsi = compTextConstructorPsi.children().filterIsInstance<XQueryEnclosedExpr>().first()
+        val enclosedExprPsi = compTextConstructorPsi.children().filterIsInstance<XPathEnclosedExpr>().first()
         val versioned = enclosedExprPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
@@ -731,7 +731,7 @@ class XQueryPsiTest:ParserTestCase() {
         val file = parseResource("tests/parser/xquery-3.1/CompTextConstructor_MissingExpr.xq")!!
 
         val compTextConstructorPsi = file.descendants().filterIsInstance<XQueryCompTextConstructor>().first()
-        val enclosedExprPsi = compTextConstructorPsi.children().filterIsInstance<XQueryEnclosedExpr>().first()
+        val enclosedExprPsi = compTextConstructorPsi.children().filterIsInstance<XPathEnclosedExpr>().first()
         val versioned = enclosedExprPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
@@ -750,7 +750,7 @@ class XQueryPsiTest:ParserTestCase() {
         val file = parseResource("tests/parser/xquery-3.1/CurlyArrayConstructor.xq")!!
 
         val curlyArrayConstructor = file.descendants().filterIsInstance<XPathCurlyArrayConstructor>().first()
-        val enclosedExprPsi = curlyArrayConstructor.children().filterIsInstance<XQueryEnclosedExpr>().first()
+        val enclosedExprPsi = curlyArrayConstructor.children().filterIsInstance<XPathEnclosedExpr>().first()
         val versioned = enclosedExprPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
@@ -764,7 +764,7 @@ class XQueryPsiTest:ParserTestCase() {
         val file = parseResource("tests/parser/xquery-3.1/CurlyArrayConstructor_MissingExpr.xq")!!
 
         val curlyArrayConstructor = file.descendants().filterIsInstance<XPathCurlyArrayConstructor>().first()
-        val enclosedExprPsi = curlyArrayConstructor.children().filterIsInstance<XQueryEnclosedExpr>().first()
+        val enclosedExprPsi = curlyArrayConstructor.children().filterIsInstance<XPathEnclosedExpr>().first()
         val versioned = enclosedExprPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
@@ -783,7 +783,7 @@ class XQueryPsiTest:ParserTestCase() {
         val dirElemConstructorPsi = file.descendants().filterIsInstance<XQueryDirElemConstructor>().first()
         val dirAttributeListPsi = dirElemConstructorPsi.children().filterIsInstance<XQueryDirAttributeList>().first()
         val dirAttributeValuePsi = dirAttributeListPsi.children().filterIsInstance<XQueryDirAttributeValue>().first()
-        val enclosedExprPsi = dirAttributeValuePsi.children().filterIsInstance<XQueryEnclosedExpr>().first()
+        val enclosedExprPsi = dirAttributeValuePsi.children().filterIsInstance<XPathEnclosedExpr>().first()
         val versioned = enclosedExprPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
@@ -799,7 +799,7 @@ class XQueryPsiTest:ParserTestCase() {
         val dirElemConstructorPsi = file.descendants().filterIsInstance<XQueryDirElemConstructor>().first()
         val dirAttributeListPsi = dirElemConstructorPsi.children().filterIsInstance<XQueryDirAttributeList>().first()
         val dirAttributeValuePsi = dirAttributeListPsi.children().filterIsInstance<XQueryDirAttributeValue>().first()
-        val enclosedExprPsi = dirAttributeValuePsi.children().filterIsInstance<XQueryEnclosedExpr>().first()
+        val enclosedExprPsi = dirAttributeValuePsi.children().filterIsInstance<XPathEnclosedExpr>().first()
         val versioned = enclosedExprPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
@@ -819,7 +819,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         val dirElemConstructorPsi = file.descendants().filterIsInstance<XQueryDirElemConstructor>().first()
         val dirElemContentPsi = dirElemConstructorPsi.children().filterIsInstance<XQueryDirElemContent>().first()
-        val enclosedExprPsi = dirElemContentPsi.children().filterIsInstance<XQueryEnclosedExpr>().first()
+        val enclosedExprPsi = dirElemContentPsi.children().filterIsInstance<XPathEnclosedExpr>().first()
         val versioned = enclosedExprPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
@@ -834,7 +834,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         val dirElemConstructorPsi = file.descendants().filterIsInstance<XQueryDirElemConstructor>().first()
         val dirElemContentPsi = dirElemConstructorPsi.children().filterIsInstance<XQueryDirElemContent>().first()
-        val enclosedExprPsi = dirElemContentPsi.children().filterIsInstance<XQueryEnclosedExpr>().first()
+        val enclosedExprPsi = dirElemContentPsi.children().filterIsInstance<XPathEnclosedExpr>().first()
         val versioned = enclosedExprPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
@@ -854,7 +854,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val functionDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryFunctionDecl>().first()
-        val enclosedExprPsi = functionDeclPsi.children().filterIsInstance<XQueryEnclosedExpr>().first()
+        val enclosedExprPsi = functionDeclPsi.children().filterIsInstance<XPathEnclosedExpr>().first()
         val versioned = enclosedExprPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
@@ -869,7 +869,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val functionDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryFunctionDecl>().first()
-        val enclosedExprPsi = functionDeclPsi.children().filterIsInstance<XQueryEnclosedExpr>().first()
+        val enclosedExprPsi = functionDeclPsi.children().filterIsInstance<XPathEnclosedExpr>().first()
         val versioned = enclosedExprPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
@@ -887,7 +887,7 @@ class XQueryPsiTest:ParserTestCase() {
         val file = parseResource("tests/parser/xquery-1.0/OrderedExpr.xq")!!
 
         val orderedExprPsi = file.descendants().filterIsInstance<XQueryOrderedExpr>().first()
-        val enclosedExprPsi = orderedExprPsi.children().filterIsInstance<XQueryEnclosedExpr>().first()
+        val enclosedExprPsi = orderedExprPsi.children().filterIsInstance<XPathEnclosedExpr>().first()
         val versioned = enclosedExprPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
@@ -901,7 +901,7 @@ class XQueryPsiTest:ParserTestCase() {
         val file = parseResource("tests/parser/xquery-3.1/OrderedExpr_MissingExpr.xq")!!
 
         val orderedExprPsi = file.descendants().filterIsInstance<XQueryOrderedExpr>().first()
-        val enclosedExprPsi = orderedExprPsi.children().filterIsInstance<XQueryEnclosedExpr>().first()
+        val enclosedExprPsi = orderedExprPsi.children().filterIsInstance<XPathEnclosedExpr>().first()
         val versioned = enclosedExprPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
@@ -920,7 +920,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         val tryCatchExprPsi = file.descendants().filterIsInstance<XQueryTryCatchExpr>().first()
         val tryClausePsi = tryCatchExprPsi.children().filterIsInstance<XQueryTryClause>().first()
-        val enclosedExprPsi = tryClausePsi.children().filterIsInstance<XQueryEnclosedExpr>().first()
+        val enclosedExprPsi = tryClausePsi.children().filterIsInstance<XPathEnclosedExpr>().first()
         val versioned = enclosedExprPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
@@ -935,7 +935,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         val tryCatchExprPsi = file.descendants().filterIsInstance<XQueryTryCatchExpr>().first()
         val tryClausePsi = tryCatchExprPsi.children().filterIsInstance<XQueryTryClause>().first()
-        val enclosedExprPsi = tryClausePsi.children().filterIsInstance<XQueryEnclosedExpr>().first()
+        val enclosedExprPsi = tryClausePsi.children().filterIsInstance<XPathEnclosedExpr>().first()
         val versioned = enclosedExprPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
@@ -953,7 +953,7 @@ class XQueryPsiTest:ParserTestCase() {
         val file = parseResource("tests/parser/xquery-1.0/UnorderedExpr.xq")!!
 
         val unorderedExprPsi = file.descendants().filterIsInstance<XQueryUnorderedExpr>().first()
-        val enclosedExprPsi = unorderedExprPsi.children().filterIsInstance<XQueryEnclosedExpr>().first()
+        val enclosedExprPsi = unorderedExprPsi.children().filterIsInstance<XPathEnclosedExpr>().first()
         val versioned = enclosedExprPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
@@ -967,7 +967,7 @@ class XQueryPsiTest:ParserTestCase() {
         val file = parseResource("tests/parser/xquery-3.1/UnorderedExpr_MissingExpr.xq")!!
 
         val unorderedExprPsi = file.descendants().filterIsInstance<XQueryUnorderedExpr>().first()
-        val enclosedExprPsi = unorderedExprPsi.children().filterIsInstance<XQueryEnclosedExpr>().first()
+        val enclosedExprPsi = unorderedExprPsi.children().filterIsInstance<XPathEnclosedExpr>().first()
         val versioned = enclosedExprPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))

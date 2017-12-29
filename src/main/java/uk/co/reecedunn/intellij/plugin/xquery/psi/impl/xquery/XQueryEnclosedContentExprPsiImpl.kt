@@ -16,11 +16,12 @@
 package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.lang.ASTNode
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathEnclosedExprPsiImpl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEnclosedContentExpr
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 
 private val XQUERY10 = listOf<Version>()
 
-class XQueryEnclosedContentExprPsiImpl(node: ASTNode) : XQueryEnclosedExprPsiImpl(node), XQueryEnclosedContentExpr {
+class XQueryEnclosedContentExprPsiImpl(node: ASTNode) : XPathEnclosedExprPsiImpl(node), XQueryEnclosedContentExpr {
     override val requiresConformance get(): List<Version> = XQUERY10
 }

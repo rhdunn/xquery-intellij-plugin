@@ -24,7 +24,7 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathComment
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryEnclosedExpr
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEnclosedExpr
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import java.util.*
@@ -76,7 +76,7 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
         }
 
         when (element) {
-            is XQueryEnclosedExpr, is XPathComment ->
+            is XPathEnclosedExpr, is XPathComment ->
                 return element.textRange
             is XQueryDirElemConstructor ->
                 return getDirElemConstructorRange(element)
@@ -103,7 +103,7 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
 
     override fun getPlaceholderText(node: ASTNode): String? {
         when (node.psi) {
-            is XQueryEnclosedExpr ->
+            is XPathEnclosedExpr ->
                 return "{...}"
             is XPathComment ->
                 return "(...)"

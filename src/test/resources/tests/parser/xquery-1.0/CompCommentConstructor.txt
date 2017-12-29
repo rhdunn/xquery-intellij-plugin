@@ -26,7 +26,7 @@ FileElement[FILE(0:18)]
                                                                            XQueryCompCommentConstructorImpl[XQUERY_COMP_COMMENT_CONSTRUCTOR(0:18)]
                                                                               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_COMMENT(0:7)]('comment')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-                                                                              XQueryEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(8:18)]
+                                                                              XPathEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(8:18)]
                                                                                  LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(8:9)]('{')
                                                                                  PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
                                                                                  XQueryExprImpl[XQUERY_EXPR(10:17)]

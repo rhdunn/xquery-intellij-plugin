@@ -15,10 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEnclosedExpr;
+
 /**
  * An XQuery 3.0 <code>EnclosedPrefixExpr</code> node in the XQuery AST.
  *
  * This is a replacement for the XQuery 3.0 <code>PrefixExpr</code>.
  */
-public interface XQueryEnclosedPrefixExpr extends XQueryEnclosedExpr {
+public interface XQueryEnclosedPrefixExpr extends XPathEnclosedExpr {
 }

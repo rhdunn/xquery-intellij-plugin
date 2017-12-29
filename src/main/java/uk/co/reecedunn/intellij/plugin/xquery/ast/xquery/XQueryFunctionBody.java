@@ -15,8 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEnclosedExpr;
+
 /**
  * An XQuery 3.0 <code>FunctionBody</code> node in the XQuery AST.
  */
-public interface XQueryFunctionBody extends XQueryEnclosedExpr {
+public interface XQueryFunctionBody extends XPathEnclosedExpr {
 }

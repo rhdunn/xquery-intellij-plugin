@@ -22,6 +22,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAnyKindTest
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArrayConstructor
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEnclosedExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingApplyExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
@@ -312,7 +313,7 @@ class MarkLogicPsiTest : ParserTestCase() {
 
         val tryCatchExprPsi = file.descendants().filterIsInstance<XQueryTryCatchExpr>().first()
         val catchClausePsi = tryCatchExprPsi.children().filterIsInstance<XQueryCatchClause>().first()
-        val enclosedExprPsi = catchClausePsi.children().filterIsInstance<XQueryEnclosedExpr>().first()
+        val enclosedExprPsi = catchClausePsi.children().filterIsInstance<XPathEnclosedExpr>().first()
         val versioned = enclosedExprPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
@@ -327,7 +328,7 @@ class MarkLogicPsiTest : ParserTestCase() {
 
         val tryCatchExprPsi = file.descendants().filterIsInstance<XQueryTryCatchExpr>().first()
         val catchClausePsi = tryCatchExprPsi.children().filterIsInstance<XQueryCatchClause>().first()
-        val enclosedExprPsi = catchClausePsi.children().filterIsInstance<XQueryEnclosedExpr>().first()
+        val enclosedExprPsi = catchClausePsi.children().filterIsInstance<XPathEnclosedExpr>().first()
         val versioned = enclosedExprPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))

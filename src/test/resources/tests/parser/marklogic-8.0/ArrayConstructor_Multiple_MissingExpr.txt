@@ -25,7 +25,7 @@ FileElement[FILE(0:22)]
                                                                         XPathCurlyArrayConstructorImpl[XQUERY_CURLY_ARRAY_CONSTRUCTOR(0:22)]
                                                                            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ARRAY_NODE(0:10)]('array-node')
                                                                            PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
-                                                                           XQueryEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(11:22)]
+                                                                           XPathEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(11:22)]
                                                                               LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(11:12)]('{')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
                                                                               XQueryExprImpl[XQUERY_EXPR(13:21)]

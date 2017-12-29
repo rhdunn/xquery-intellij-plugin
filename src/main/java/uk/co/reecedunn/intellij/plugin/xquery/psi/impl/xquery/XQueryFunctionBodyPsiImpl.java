@@ -17,9 +17,10 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
 
 import com.intellij.lang.ASTNode;
 import org.jetbrains.annotations.NotNull;
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathEnclosedExprPsiImpl;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionBody;
 
-public class XQueryFunctionBodyPsiImpl extends XQueryEnclosedExprPsiImpl implements XQueryFunctionBody {
+public class XQueryFunctionBodyPsiImpl extends XPathEnclosedExprPsiImpl implements XQueryFunctionBody {
     public XQueryFunctionBodyPsiImpl(@NotNull ASTNode node) {
         super(node);
     }

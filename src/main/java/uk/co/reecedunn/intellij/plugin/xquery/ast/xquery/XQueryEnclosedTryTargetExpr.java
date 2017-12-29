@@ -15,10 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
 
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEnclosedExpr;
+
 /**
  * An XQuery 3.1 <code>EnclosedTryTargetExpr</code> node in the XQuery AST.
  *
  * This is a replacement for the XQuery 3.0 <code>TryTargetExpr</code>.
  */
-public interface XQueryEnclosedTryTargetExpr extends XQueryEnclosedExpr {
+public interface XQueryEnclosedTryTargetExpr extends XPathEnclosedExpr {
 }
