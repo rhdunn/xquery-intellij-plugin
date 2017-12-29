@@ -13,15 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
+package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
-import com.intellij.lang.ASTNode;
-import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDFPropertyName;
+import com.intellij.extapi.psi.ASTWrapperPsiElement
+import com.intellij.lang.ASTNode
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDFPropertyName
 
-public class XQueryDFPropertyNamePsiImpl extends ASTWrapperPsiElement implements XQueryDFPropertyName {
-    public XQueryDFPropertyNamePsiImpl(@NotNull ASTNode node) {
-        super(node);
-    }
-}
+class XQueryDFPropertyNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryDFPropertyName
