@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathCurlyArrayConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
@@ -34,7 +35,7 @@ open class XQueryEnclosedExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node)
         parent is XQueryCompPIConstructor ||
         parent is XQueryCompAttrConstructor ||
         parent is XQueryExtensionExpr ||
-        parent is XQueryCurlyArrayConstructor
+        parent is XPathCurlyArrayConstructor
 
     private fun marklogicSupportsOptionalExpr(parent: PsiElement): Boolean =
         parent is XQueryCompTextConstructor ||

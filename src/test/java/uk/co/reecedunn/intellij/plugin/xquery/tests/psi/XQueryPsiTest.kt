@@ -396,7 +396,7 @@ class XQueryPsiTest:ParserTestCase() {
     fun testCurlyArrayConstructor() {
         val file = parseResource("tests/parser/xquery-3.1/CurlyArrayConstructor.xq")!!
 
-        val curlyArrayConstructorPsi = file.descendants().filterIsInstance<XQueryCurlyArrayConstructor>().first()
+        val curlyArrayConstructorPsi = file.descendants().filterIsInstance<XPathCurlyArrayConstructor>().first()
         val versioned = curlyArrayConstructorPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
@@ -749,7 +749,7 @@ class XQueryPsiTest:ParserTestCase() {
     fun testEnclosedExpr_CurlyArrayConstructor() {
         val file = parseResource("tests/parser/xquery-3.1/CurlyArrayConstructor.xq")!!
 
-        val curlyArrayConstructor = file.descendants().filterIsInstance<XQueryCurlyArrayConstructor>().first()
+        val curlyArrayConstructor = file.descendants().filterIsInstance<XPathCurlyArrayConstructor>().first()
         val enclosedExprPsi = curlyArrayConstructor.children().filterIsInstance<XQueryEnclosedExpr>().first()
         val versioned = enclosedExprPsi as XQueryConformance
 
@@ -763,7 +763,7 @@ class XQueryPsiTest:ParserTestCase() {
     fun testEnclosedExpr_CurlyArrayConstructor_NoExpr() {
         val file = parseResource("tests/parser/xquery-3.1/CurlyArrayConstructor_MissingExpr.xq")!!
 
-        val curlyArrayConstructor = file.descendants().filterIsInstance<XQueryCurlyArrayConstructor>().first()
+        val curlyArrayConstructor = file.descendants().filterIsInstance<XPathCurlyArrayConstructor>().first()
         val enclosedExprPsi = curlyArrayConstructor.children().filterIsInstance<XQueryEnclosedExpr>().first()
         val versioned = enclosedExprPsi as XQueryConformance
 
