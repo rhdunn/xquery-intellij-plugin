@@ -15,7 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionItemExpr
+
 /**
  * An XQuery 3.0 `InlineFunctionExpr` node in the XQuery AST.
  */
-interface XQueryInlineFunctionExpr : XQueryFunctionItemExpr
+interface XQueryInlineFunctionExpr : XPathFunctionItemExpr

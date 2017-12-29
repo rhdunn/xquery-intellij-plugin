@@ -13,17 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
+package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPrimaryExpr;
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPrimaryExpr
 
 /**
- * An XQuery 3.0 <code>FunctionItemExpr</code> node in the XQuery AST.
+ * An XPath 3.0 and XQuery 3.0 `FunctionItemExpr` node in the XQuery AST.
  *
- * Because the child nodes of a <code>FunctionItemExpr</code> are only referenced
- * from the <code>FunctionItemExpr</code> node in the grammar, the
- * <code>FunctionItemExpr</code> nodes are stored as instances of the child nodes
+ * Because the child nodes of a `FunctionItemExpr` are only referenced
+ * from the `FunctionItemExpr` node in the grammar, the
+ * `FunctionItemExpr` nodes are stored as instances of the child nodes
  * instead of as distinct nodes themselves.
  */
-public interface XQueryFunctionItemExpr extends XPathPrimaryExpr {
-}
+interface XPathFunctionItemExpr : XPathPrimaryExpr
