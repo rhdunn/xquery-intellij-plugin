@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryParenthesizedExpr
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParenthesizedExpr
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Scripting
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
@@ -41,7 +41,7 @@ class ScriptingPsiTest : ParserTestCase() {
     fun testApplyExpr_Single_NoSemicolon() {
         val file = parseResource("tests/parser/xquery-1.0/ParenthesizedExpr.xq")!!
 
-        val parenthesizedExpr = file.descendants().filterIsInstance<XQueryParenthesizedExpr>().first()
+        val parenthesizedExpr = file.descendants().filterIsInstance<XPathParenthesizedExpr>().first()
         val applyExpr = parenthesizedExpr.children().filterIsInstance<ScriptingApplyExpr>().first()
         val conformance = applyExpr as XQueryConformance
 
@@ -55,7 +55,7 @@ class ScriptingPsiTest : ParserTestCase() {
     fun testApplyExpr_Single_Semicolon() {
         val file = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_Single_SemicolonAtEnd.xq")!!
 
-        val parenthesizedExpr = file.descendants().filterIsInstance<XQueryParenthesizedExpr>().first()
+        val parenthesizedExpr = file.descendants().filterIsInstance<XPathParenthesizedExpr>().first()
         val applyExpr = parenthesizedExpr.children().filterIsInstance<ScriptingApplyExpr>().first()
         val conformance = applyExpr as XQueryConformance
 
@@ -70,7 +70,7 @@ class ScriptingPsiTest : ParserTestCase() {
     fun testApplyExpr_Multiple() {
         val file = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_Multiple_SemicolonAtEnd.xq")!!
 
-        val parenthesizedExpr = file.descendants().filterIsInstance<XQueryParenthesizedExpr>().first()
+        val parenthesizedExpr = file.descendants().filterIsInstance<XPathParenthesizedExpr>().first()
         val applyExpr = parenthesizedExpr.children().filterIsInstance<ScriptingApplyExpr>().first()
         val conformance = applyExpr as XQueryConformance
 
@@ -85,7 +85,7 @@ class ScriptingPsiTest : ParserTestCase() {
     fun testApplyExpr_Multiple_NoSemicolonAtEnd() {
         val file = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_Multiple_NoSemicolonAtEnd.xq")!!
 
-        val parenthesizedExpr = file.descendants().filterIsInstance<XQueryParenthesizedExpr>().first()
+        val parenthesizedExpr = file.descendants().filterIsInstance<XPathParenthesizedExpr>().first()
         val applyExpr = parenthesizedExpr.children().filterIsInstance<ScriptingApplyExpr>().last()
         val conformance = applyExpr as XQueryConformance
 

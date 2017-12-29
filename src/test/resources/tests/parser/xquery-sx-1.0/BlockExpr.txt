@@ -31,7 +31,7 @@ XQueryModuleImpl[FILE(0:13)]
                                                                            XQueryPathExprImpl[XQUERY_PATH_EXPR(8:12)]
                                                                               XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(8:12)]
                                                                                  XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(8:12)]
-                                                                                    XQueryParenthesizedExprImpl[XQUERY_PARENTHESIZED_EXPR(8:11)]
+                                                                                    XPathParenthesizedExprImpl[XQUERY_PARENTHESIZED_EXPR(8:11)]
                                                                                        LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(8:9)]('(')
                                                                                        PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
                                                                                        LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(10:11)](')')
