@@ -18,48 +18,10 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
-import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
-import uk.co.reecedunn.intellij.plugin.xquery.lang.*
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceResolver
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
-import uk.co.reecedunn.intellij.plugin.xquery.settings.XQueryProjectSettings
 
-open class XQueryModuleBasePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryNamespaceResolver, XQueryPrologResolver {
-    private val settings: XQueryProjectSettings
-    init {
-        settings = XQueryProjectSettings.getInstance(project)
-    }
-
-    private var product: Product? = null
-    private var productVersion: Version? = null
-    private var xquery: Specification? = null
-
-    private var staticContextCache: XQueryProlog? = null
-    private val staticContext get(): XQueryProlog? {
-        val version: Specification = (containingFile as XQueryModule).XQueryVersion.getVersionOrDefault(project)
-        if (product !== settings.product || productVersion !== settings.productVersion || xquery !== version) {
-            product = settings.product
-            productVersion = settings.productVersion
-            xquery = version
-
-            var context = product?.implementation?.staticContext(product, productVersion, xquery)
-            if (context == null) context = defaultStaticContext(xquery)
-
-            val file = ResourceVirtualFile.resolve(context, project)
-            val module = file.children().filterIsInstance<XQueryMainModule>().firstOrNull()
-            staticContextCache = (module as? XQueryPrologResolver)?.prolog
-        }
-        return staticContextCache
-    }
-
-    override fun resolveNamespace(prefix: CharSequence?): XQueryNamespace? =
-        (staticContext as? XQueryNamespaceResolver)?.resolveNamespace(prefix)
-
+open class XQueryModuleBasePsiImpl(node: ASTNode): ASTWrapperPsiElement(node), XQueryPrologResolver {
     override val prolog get(): XQueryProlog? =
         children().filterIsInstance<XQueryProlog>().firstOrNull()
 }
