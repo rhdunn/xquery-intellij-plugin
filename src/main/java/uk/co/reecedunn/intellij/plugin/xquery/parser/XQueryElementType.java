@@ -264,7 +264,7 @@ public interface XQueryElementType {
     IElementType MAP_CONSTRUCTOR = new ICompositeElementType("XQUERY_MAP_CONSTRUCTOR", XPathMapConstructorPsiImpl.class, XQuery.INSTANCE);
     IElementType MAP_CONSTRUCTOR_ENTRY = new ICompositeElementType("XQUERY_MAP_CONSTRUCTOR_ENTRY", XPathMapConstructorEntryPsiImpl.class, XQuery.INSTANCE);
     IElementType MAP_KEY_EXPR = new ICompositeElementType("XQUERY_MAP_KEY_EXPR", XPathMapKeyExprPsiImpl.class, XQuery.INSTANCE);
-    IElementType MAP_VALUE_EXPR = new ICompositeElementType("XQUERY_MAP_VALUE_EXPR", XQueryMapValueExprPsiImpl.class, XQuery.INSTANCE);
+    IElementType MAP_VALUE_EXPR = new ICompositeElementType("XQUERY_MAP_VALUE_EXPR", XPathMapValueExprPsiImpl.class, XQuery.INSTANCE);
 
     IElementType STRING_CONSTRUCTOR = new ICompositeElementType("XQUERY_STRING_CONSTRUCTOR", XQueryStringConstructorPsiImpl.class, XQuery.INSTANCE);
     IElementType STRING_CONSTRUCTOR_CONTENT = new ICompositeElementType("XQUERY_STRING_CONSTRUCTOR_CONTENT", XQueryStringConstructorContentPsiImpl.class, XQuery.INSTANCE);

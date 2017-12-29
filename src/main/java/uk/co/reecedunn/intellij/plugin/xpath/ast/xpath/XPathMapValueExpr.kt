@@ -13,15 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
+package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
-import com.intellij.lang.ASTNode;
-import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryMapValueExpr;
+import com.intellij.psi.PsiElement
 
-public class XQueryMapValueExprPsiImpl extends ASTWrapperPsiElement implements XQueryMapValueExpr {
-    public XQueryMapValueExprPsiImpl(@NotNull ASTNode node) {
-        super(node);
-    }
-}
+/**
+ * An XPath 3.1 and XQuery 3.1 `MapKeyExpr` node in the XQuery AST.
+ */
+interface XPathMapValueExpr : PsiElement

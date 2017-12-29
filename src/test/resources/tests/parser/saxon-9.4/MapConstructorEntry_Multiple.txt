@@ -57,7 +57,7 @@ XQueryModuleImpl[FILE(0:35)]
                                                                                                                                              PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
                                                                               LeafPsiElement[XQUERY_ASSIGN_EQUAL_TOKEN(10:12)](':=')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
-                                                                              XQueryMapValueExprImpl[XQUERY_MAP_VALUE_EXPR(13:19)]
+                                                                              XPathMapValueExprImpl[XQUERY_MAP_VALUE_EXPR(13:19)]
                                                                                  XQueryOrExprImpl[XQUERY_OR_EXPR(13:19)]
                                                                                     XPathAndExprImpl[XQUERY_AND_EXPR(13:19)]
                                                                                        XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(13:19)]
@@ -116,7 +116,7 @@ XQueryModuleImpl[FILE(0:35)]
                                                                                                                                              PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
                                                                               LeafPsiElement[XQUERY_ASSIGN_EQUAL_TOKEN(25:27)](':=')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
-                                                                              XQueryMapValueExprImpl[XQUERY_MAP_VALUE_EXPR(28:34)]
+                                                                              XPathMapValueExprImpl[XQUERY_MAP_VALUE_EXPR(28:34)]
                                                                                  XQueryOrExprImpl[XQUERY_OR_EXPR(28:34)]
                                                                                     XPathAndExprImpl[XQUERY_AND_EXPR(28:34)]
                                                                                        XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(28:34)]

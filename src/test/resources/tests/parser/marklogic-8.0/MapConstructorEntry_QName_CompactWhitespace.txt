@@ -59,7 +59,7 @@ XQueryModuleImpl[FILE(0:20)]
                                                                                                                                                                XmlNCNameImpl[XQUERY_NCNAME_TOKEN(14:15)]('b')
                                                                                                                                              XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(15:15)]
                                                                               LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(15:16)](':')
-                                                                              XQueryMapValueExprImpl[XQUERY_MAP_VALUE_EXPR(16:19)]
+                                                                              XPathMapValueExprImpl[XQUERY_MAP_VALUE_EXPR(16:19)]
                                                                                  XQueryOrExprImpl[XQUERY_OR_EXPR(16:19)]
                                                                                     XPathAndExprImpl[XQUERY_AND_EXPR(16:19)]
                                                                                        XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(16:19)]

@@ -63,7 +63,7 @@ XQueryModuleImpl[FILE(0:17)]
                                                                                                                                              XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(10:10)]
                                                                               LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(10:11)](':')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
-                                                                              XQueryMapValueExprImpl[XQUERY_MAP_VALUE_EXPR(12:16)]
+                                                                              XPathMapValueExprImpl[XQUERY_MAP_VALUE_EXPR(12:16)]
                                                                                  XQueryOrExprImpl[XQUERY_OR_EXPR(12:16)]
                                                                                     XPathAndExprImpl[XQUERY_AND_EXPR(12:16)]
                                                                                        XPathComparisonExprImpl[XQUERY_COMPARISON_EXPR(12:16)]
