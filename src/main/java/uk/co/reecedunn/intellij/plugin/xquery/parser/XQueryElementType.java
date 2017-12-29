@@ -193,7 +193,7 @@ public interface XQueryElementType {
     IElementType TYPED_FUNCTION_TEST = new ICompositeElementType("XQUERY_TYPED_FUNCTION_TEST", XQueryTypedFunctionTestPsiImpl.class, XQuery.INSTANCE);
     IElementType PARENTHESIZED_ITEM_TYPE = new ICompositeElementType("XQUERY_PARENTHESIZED_ITEM_TYPE", XQueryParenthesizedItemTypePsiImpl.class, XQuery.INSTANCE);
 
-    IElementType NAMESPACE_NODE_TEST = new ICompositeElementType("XQUERY_NAMESPACE_NODE_TEST", XQueryNamespaceNodeTestPsiImpl.class, XQuery.INSTANCE);
+    IElementType NAMESPACE_NODE_TEST = new ICompositeElementType("XQUERY_NAMESPACE_NODE_TEST", XPathNamespaceNodeTestPsiImpl.class, XQuery.INSTANCE);
 
     IElementType ANNOTATED_DECL = new ICompositeElementType("XQUERY_ANNOTATED_DECL", XQueryAnnotatedDeclPsiImpl.class, XQuery.INSTANCE);
     IElementType ANNOTATION = new ICompositeElementType("XQUERY_ANNOTATION", XQueryAnnotationPsiImpl.class, XQuery.INSTANCE);

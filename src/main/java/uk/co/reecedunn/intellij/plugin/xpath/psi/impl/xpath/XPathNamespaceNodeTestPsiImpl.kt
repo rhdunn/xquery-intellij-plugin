@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
+package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryNamespaceNodeTest
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNamespaceNodeTest
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
-class XQueryNamespaceNodeTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryNamespaceNodeTest, XQueryConformance {
+class XPathNamespaceNodeTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathNamespaceNodeTest, XQueryConformance {
     override val requiresConformance get(): List<Version> = listOf(XQuery.REC_3_0_20140408)
 
     override val conformanceElement get(): PsiElement =

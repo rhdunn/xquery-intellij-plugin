@@ -16,7 +16,7 @@ XQueryModuleImpl[FILE(0:49)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
                   XQuerySequenceTypeImpl[XQUERY_SEQUENCE_TYPE(24:40)]
                      XPathItemTypeImpl[XQUERY_ITEM_TYPE(24:40)]
-                        XQueryNamespaceNodeTestImpl[XQUERY_NAMESPACE_NODE_TEST(24:40)]
+                        XPathNamespaceNodeTestImpl[XQUERY_NAMESPACE_NODE_TEST(24:40)]
                            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NAMESPACE_NODE(24:38)]('namespace-node')
                            LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(38:39)]('(')
                            LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(39:40)](')')
