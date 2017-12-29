@@ -13,14 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
+package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
-import com.intellij.lang.ASTNode;
-import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryLibraryModule;
+import com.intellij.lang.ASTNode
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryLibraryModule
 
-public class XQueryLibraryModulePsiImpl extends XQueryModuleBasePsiImpl implements XQueryLibraryModule {
-    public XQueryLibraryModulePsiImpl(@NotNull ASTNode node) {
-        super(node);
-    }
-}
+class XQueryLibraryModulePsiImpl(node: ASTNode) : XQueryModuleBasePsiImpl(node), XQueryLibraryModule
