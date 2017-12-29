@@ -57,7 +57,7 @@ public interface XQueryElementType {
 
     IElementType AXIS_STEP = new ICompositeElementType("XQUERY_AXIS_STEP", XPathAxisStepPsiImpl.class, XQuery.INSTANCE);
     IElementType FORWARD_STEP = new ICompositeElementType("XQUERY_FORWARD_STEP", XQueryForwardStepPsiImpl.class, XQuery.INSTANCE);
-    IElementType FORWARD_AXIS = new ICompositeElementType("XQUERY_FORWARD_AXIS", XQueryForwardAxisPsiImpl.class, XQuery.INSTANCE);
+    IElementType FORWARD_AXIS = new ICompositeElementType("XQUERY_FORWARD_AXIS", XPathForwardAxisPsiImpl.class, XQuery.INSTANCE);
     IElementType ABBREV_FORWARD_STEP = new ICompositeElementType("XQUERY_ABBREV_FORWARD_STEP", XPathAbbrevForwardStepPsiImpl.class, XQuery.INSTANCE);
     IElementType REVERSE_STEP = new ICompositeElementType("XQUERY_REVERSE_STEP", XQueryReverseStepPsiImpl.class, XQuery.INSTANCE);
     IElementType REVERSE_AXIS = new ICompositeElementType("XQUERY_REVERSE_AXIS", XQueryReverseAxisPsiImpl.class, XQuery.INSTANCE);

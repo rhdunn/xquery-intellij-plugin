@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
+package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
 import com.intellij.psi.PsiElement
 
 /**
- * An XQuery 1.0 `ForwardAxis` node in the XQuery AST.
+ * An XPath 2.0 and XQuery 1.0 `ForwardAxis` node in the XQuery AST.
  */
-interface XQueryForwardAxis : PsiElement
+interface XPathForwardAxis : PsiElement

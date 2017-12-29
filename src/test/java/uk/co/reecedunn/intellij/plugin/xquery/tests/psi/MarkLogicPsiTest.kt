@@ -23,6 +23,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAnyKindTest
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArrayConstructor
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEnclosedExpr
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathForwardAxis
 import uk.co.reecedunn.intellij.plugin.xquery.ast.marklogic.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingApplyExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
@@ -346,7 +347,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     fun testForwardAxis_Namespace() {
         val file = parseResource("tests/parser/marklogic-6.0/ForwardAxis_Namespace.xq")!!
 
-        val forwardAxisPsi = file.descendants().filterIsInstance<XQueryForwardAxis>().first()
+        val forwardAxisPsi = file.descendants().filterIsInstance<XPathForwardAxis>().first()
         val versioned = forwardAxisPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
@@ -360,7 +361,7 @@ class MarkLogicPsiTest : ParserTestCase() {
     fun testForwardAxis_Property() {
         val file = parseResource("tests/parser/marklogic-6.0/ForwardAxis_Property.xq")!!
 
-        val forwardAxisPsi = file.descendants().filterIsInstance<XQueryForwardAxis>().first()
+        val forwardAxisPsi = file.descendants().filterIsInstance<XPathForwardAxis>().first()
         val versioned = forwardAxisPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))

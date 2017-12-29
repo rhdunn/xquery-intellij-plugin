@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
+package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.TokenSet
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryForwardAxis
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathForwardAxis
 import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
@@ -30,7 +30,7 @@ private val MARKLOGIC_AXIS = TokenSet.create(XQueryTokenType.K_NAMESPACE, XQuery
 private val XQUERY10: List<Version> = listOf()
 private val MARKLOGIC60: List<Version> = listOf(MarkLogic.VERSION_6_0)
 
-class XQueryForwardAxisPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryForwardAxis, XQueryConformance {
+class XPathForwardAxisPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathForwardAxis, XQueryConformance {
     override val requiresConformance get(): List<Version> {
         val node = node.findChildByType(MARKLOGIC_AXIS)
         if (node != null) {
