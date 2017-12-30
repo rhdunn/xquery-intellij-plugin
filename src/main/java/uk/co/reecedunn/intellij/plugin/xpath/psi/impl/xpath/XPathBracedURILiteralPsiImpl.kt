@@ -20,6 +20,7 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.data.Cacheable
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
 import uk.co.reecedunn.intellij.plugin.core.data.`is`
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.XsAnyURI
@@ -44,6 +45,8 @@ class XPathBracedURILiteralPsiImpl(node: ASTNode):
         super.subtreeChanged()
         cachedLexicalRepresentation.invalidate()
     }
+
+    override val cacheable: CachingBehaviour = CachingBehaviour.Cache
 
     override val staticType: XdmSequenceType = XsAnyURI
 

@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.xdm
 
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
+import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xdm.*
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
@@ -38,14 +39,22 @@ class XQueryXdmTest : ParserTestCase() {
     fun testBracedUriLiteral_PredefinedEntityReference() {
         // entity reference types: XQuery, HTML4, HTML5, UTF-16 surrogate pair, multi-character entity, empty, partial
         val literal = parseLiteral<XPathBracedURILiteral>("Q{&lt;&aacute;&amacr;&Afr;&NotLessLess;&;&gt}")
+        assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
+
         assertThat(literal.lexicalRepresentation, `is`("<áā\uD835\uDD04≪̸&;&gt"))
         assertThat(literal.staticType, `is`(XsAnyURI as XdmSequenceType))
+
+        assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     fun testBracedUriLiteral_CharRef() {
         val literal = parseLiteral<XPathBracedURILiteral>("Q{&#xA0;&#160;&#x20;}")
+        assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
+
         assertThat(literal.lexicalRepresentation, `is`("\u00A0\u00A0\u0020"))
         assertThat(literal.staticType, `is`(XsAnyURI as XdmSequenceType))
+
+        assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     // endregion
@@ -54,14 +63,22 @@ class XQueryXdmTest : ParserTestCase() {
     fun testStringLiteral_PredefinedEntityReference() {
         // entity reference types: XQuery, HTML4, HTML5, UTF-16 surrogate pair, multi-character entity, empty, partial
         val literal = parseLiteral<XPathStringLiteral>("\"&lt;&aacute;&amacr;&Afr;&NotLessLess;&;&gt\"")
+        assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
+
         assertThat(literal.lexicalRepresentation, `is`("<áā\uD835\uDD04≪\u0338&;&gt"))
         assertThat(literal.staticType, `is`(XsString as XdmSequenceType))
+
+        assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     fun testStringLiteral_CharRef() {
         val literal = parseLiteral<XPathStringLiteral>("\"&#xA0;&#160;&#x20;\"")
+        assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
+
         assertThat(literal.lexicalRepresentation, `is`("\u00A0\u00A0\u0020"))
         assertThat(literal.staticType, `is`(XsString as XdmSequenceType))
+
+        assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     // endregion
@@ -69,39 +86,63 @@ class XQueryXdmTest : ParserTestCase() {
 
     fun testUriLiteral() {
         val literal = parseLiteral<XQueryUriLiteral>("module namespace test = \"http://www.example.com\uFFFF\"")
+        assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
+
         assertThat(literal.lexicalRepresentation, `is`("http://www.example.com\uFFFF")) // U+FFFF = BAD_CHARACTER token.
         assertThat(literal.staticType, `is`(XsAnyURI as XdmSequenceType))
+
+        assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     fun testUriLiteral_Unclosed() {
         val literal = parseLiteral<XQueryUriLiteral>("module namespace test = \"http://www.example.com")
+        assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
+
         assertThat(literal.lexicalRepresentation, `is`("http://www.example.com"))
         assertThat(literal.staticType, `is`(XsAnyURI as XdmSequenceType))
+
+        assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     fun testUriLiteral_EscapeApos() {
         val literal = parseLiteral<XQueryUriLiteral>("module namespace test = '''\"\"'")
+        assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
+
         assertThat(literal.lexicalRepresentation, `is`("'\"\""))
         assertThat(literal.staticType, `is`(XsAnyURI as XdmSequenceType))
+
+        assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     fun testUriLiteral_EscapeQuot() {
         val literal = parseLiteral<XQueryUriLiteral>("module namespace test = \"''\"\"\"")
+        assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
+
         assertThat(literal.lexicalRepresentation, `is`("''\""))
         assertThat(literal.staticType, `is`(XsAnyURI as XdmSequenceType))
+
+        assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     fun testUriLiteral_PredefinedEntityReference() {
         // entity reference types: XQuery, HTML4, HTML5, UTF-16 surrogate pair, multi-character entity, empty, partial
         val literal = parseLiteral<XQueryUriLiteral>("module namespace test = \"&lt;&aacute;&amacr;&Afr;&NotLessLess;&;&gt\"")
+        assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
+
         assertThat(literal.lexicalRepresentation, `is`("<áā\uD835\uDD04≪\u0338&;&gt"))
         assertThat(literal.staticType, `is`(XsAnyURI as XdmSequenceType))
+
+        assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     fun testUriLiteral_CharRef() {
         val literal = parseLiteral<XQueryUriLiteral>("module namespace test = \"&#xA0;&#160;&#x20;\"")
+        assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
+
         assertThat(literal.lexicalRepresentation, `is`("\u00A0\u00A0\u0020"))
         assertThat(literal.staticType, `is`(XsAnyURI as XdmSequenceType))
+
+        assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     // endregion

@@ -20,6 +20,7 @@ import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.data.Cacheable
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
 import uk.co.reecedunn.intellij.plugin.core.data.`is`
 import uk.co.reecedunn.intellij.plugin.xdm.XsString
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
@@ -40,7 +41,12 @@ open class XPathStringLiteralPsiImpl(node: ASTNode):
         cachedLexicalRepresentation.invalidate()
     }
 
+    override val staticType: XdmSequenceType = XsString
+
+    override val cacheable: CachingBehaviour = CachingBehaviour.Cache
+
     override val lexicalRepresentation get(): String = cachedLexicalRepresentation.get()!!
+
     private val cachedLexicalRepresentation = CacheableProperty {
         children().map { child -> when (child.node.elementType) {
             XQueryTokenType.STRING_LITERAL_START, XQueryTokenType.STRING_LITERAL_END ->
@@ -55,6 +61,4 @@ open class XPathStringLiteralPsiImpl(node: ASTNode):
                 child.text
         }}.filterNotNull().joinToString(separator = "") `is` Cacheable
     }
-
-    override val staticType: XdmSequenceType = XsString
 }

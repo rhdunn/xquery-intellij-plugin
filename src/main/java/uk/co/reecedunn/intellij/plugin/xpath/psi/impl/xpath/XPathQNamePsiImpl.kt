@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
 import uk.co.reecedunn.intellij.plugin.core.data.NotCacheable
 import uk.co.reecedunn.intellij.plugin.core.data.`is`
 import uk.co.reecedunn.intellij.plugin.xdm.XsQName
@@ -30,14 +31,17 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQName
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 
 class XPathQNamePsiImpl(node: ASTNode) : XPathEQNamePsiImpl(node), XPathQName, XdmConstantExpression {
-    override val staticType get(): XdmSequenceType = constantValue?.let { XsQName } ?: XsUntyped
-
     override fun subtreeChanged() {
         super.subtreeChanged()
         cachedConstantValue.invalidate()
     }
 
+    override val cacheable get(): CachingBehaviour = cachedConstantValue.cachingBehaviour
+
+    override val staticType get(): XdmSequenceType = constantValue?.let { XsQName } ?: XsUntyped
+
     override val constantValue get(): Any? = cachedConstantValue.get()
+
     private val cachedConstantValue = CacheableProperty {
         val names: List<PsiElement> = findChildrenByType(XQueryElementType.NCNAME)
         when (names.size) {

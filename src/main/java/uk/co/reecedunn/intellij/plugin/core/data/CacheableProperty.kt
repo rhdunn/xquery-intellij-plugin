@@ -40,7 +40,7 @@ infix fun <T> T?.`is`(cacheable: CachingBehaviour): Pair<T?, CachingBehaviour> {
 class CacheableProperty<out T>(private val compute: () -> Pair<T?, CachingBehaviour>) {
     private var cachedValue: Pair<T?, CachingBehaviour> = Pair(null, CachingBehaviour.Undecided)
 
-    val cachingBehaviour: CachingBehaviour = cachedValue.second
+    val cachingBehaviour get(): CachingBehaviour = cachedValue.second
 
     fun invalidate() {
         cachedValue = Pair(null, CachingBehaviour.Undecided)

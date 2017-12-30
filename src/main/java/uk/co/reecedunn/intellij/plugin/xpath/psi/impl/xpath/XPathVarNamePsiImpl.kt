@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.lang.ASTNode
+import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmConstantExpression
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
@@ -24,6 +25,8 @@ class XPathVarNamePsiImpl(node: ASTNode):
         XPathEQNamePsiImpl(node),
         XPathVarName,
         XdmConstantExpression {
+
+    override val cacheable get(): CachingBehaviour = (firstChild as XdmConstantExpression).cacheable
 
     override val staticType get(): XdmSequenceType = (firstChild as XdmConstantExpression).staticType
 

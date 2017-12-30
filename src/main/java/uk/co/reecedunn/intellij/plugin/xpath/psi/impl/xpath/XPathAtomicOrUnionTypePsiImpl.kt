@@ -16,10 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.lang.ASTNode
-import uk.co.reecedunn.intellij.plugin.core.data.Cacheable
-import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
-import uk.co.reecedunn.intellij.plugin.core.data.NotCacheable
-import uk.co.reecedunn.intellij.plugin.core.data.`is`
+import uk.co.reecedunn.intellij.plugin.core.data.*
 import uk.co.reecedunn.intellij.plugin.xdm.XsAnySimpleType
 import uk.co.reecedunn.intellij.plugin.xdm.XsUntyped
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
@@ -47,6 +44,8 @@ class XPathAtomicOrUnionTypePsiImpl(node: ASTNode):
         super.subtreeChanged()
         cachedStaticType.invalidate()
     }
+
+    override val cacheable get(): CachingBehaviour = cachedStaticType.cachingBehaviour
 
     override val staticType get(): XdmSequenceType = cachedStaticType.get() ?: XsUntyped
     private val cachedStaticType = CacheableProperty {

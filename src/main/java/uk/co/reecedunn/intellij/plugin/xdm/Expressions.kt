@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xdm
 
 import uk.co.reecedunn.intellij.plugin.core.data.Cacheable
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
 import uk.co.reecedunn.intellij.plugin.core.data.`is`
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmConstantExpression
@@ -30,6 +31,8 @@ class XdmLiteralValue(override val lexicalRepresentation: String,
     // NOTE: The staticType may not be initialized yet (i.e. for QNames), so use
     // CacheableProperty to lazy-load the parameter.
     override val staticType get(): XdmSequenceType = cachedStaticType.get()!!
+
+    override val cacheable: CachingBehaviour = CachingBehaviour.Cache
 }
 
 fun createQName(namespace: String, localName: String): QName {

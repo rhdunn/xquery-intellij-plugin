@@ -15,7 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.model
 
+import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
+
 interface XdmExpression {
+    val cacheable: CachingBehaviour
+
     val staticType: XdmSequenceType
 }
 

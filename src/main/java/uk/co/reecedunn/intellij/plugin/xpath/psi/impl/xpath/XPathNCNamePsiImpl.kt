@@ -20,6 +20,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiNamedElement
 import com.intellij.util.IncorrectOperationException
 import org.jetbrains.annotations.NonNls
+import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
 import uk.co.reecedunn.intellij.plugin.xdm.XsQName
 import uk.co.reecedunn.intellij.plugin.xdm.createLexicalQName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmConstantExpression
@@ -28,6 +29,8 @@ import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
 
 open class XPathNCNamePsiImpl(node: ASTNode) : XPathEQNamePsiImpl(node), XPathNCName, XdmConstantExpression, PsiNamedElement {
+    override val cacheable: CachingBehaviour = CachingBehaviour.DoNotCache // Bound to the static context
+
     override val staticType: XdmSequenceType = XsQName
 
     override val constantValue get(): Any? = createLexicalQName(null, firstChild as XdmLexicalValue, this)

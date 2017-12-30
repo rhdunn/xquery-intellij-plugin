@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.psi.tree.IElementType
+import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
 import uk.co.reecedunn.intellij.plugin.xdm.XsInteger
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
@@ -30,4 +31,6 @@ class XPathIntegerLiteralImpl(type: IElementType, text: CharSequence):
     override val lexicalRepresentation get(): String = text
 
     override val staticType: XdmSequenceType = XsInteger
+
+    override val cacheable: CachingBehaviour = CachingBehaviour.Cache
 }

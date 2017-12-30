@@ -19,6 +19,7 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.data.Cacheable
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
 import uk.co.reecedunn.intellij.plugin.core.data.`is`
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.filterNotToken
@@ -52,6 +53,8 @@ class XPathPostfixExprPsiImpl(node: ASTNode):
                 Pair(value.staticType, value.lexicalRepresentation)
         } `is` Cacheable
     }
+
+    override val cacheable get(): CachingBehaviour = staticEval.cachingBehaviour
 
     override val staticType get(): XdmSequenceType = staticEval.get()?.first ?: XsUntyped
 
