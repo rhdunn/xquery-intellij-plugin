@@ -13,12 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
+package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName;
+import com.intellij.lang.ASTNode
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathNCNamePsiImpl
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPrefix
 
-/**
- * An XQuery 3.0 <code>Prefix</code> node in the XQuery AST.
- */
-public interface XQueryPrefix extends XPathNCName {
-}
+class XQueryPrefixPsiImpl(node: ASTNode) : XPathNCNamePsiImpl(node), XQueryPrefix
