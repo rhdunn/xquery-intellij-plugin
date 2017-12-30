@@ -23,7 +23,7 @@ XQueryModuleImpl[FILE(0:58)]
                                                                PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
                                                                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(9:11)]('as')
                                                                PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
-                                                               XQueryTypeNameImpl[XQUERY_TYPE_NAME(12:47)]
+                                                               XPathTypeNameImpl[XQUERY_TYPE_NAME(12:47)]
                                                                   XPathURIQualifiedNameImpl[XQUERY_URI_QUALIFIED_NAME(12:47)]
                                                                      XPathBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(12:43)]
                                                                         LeafPsiElement[XQUERY_BRACED_URI_LITERAL_START_TOKEN(12:14)]('Q{')

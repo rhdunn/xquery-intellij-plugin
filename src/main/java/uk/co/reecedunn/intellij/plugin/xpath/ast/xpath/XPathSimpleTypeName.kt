@@ -15,9 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryTypeName
-
 /**
  * An XPath 3.0 and XQuery 3.0 `SimpleTypeName` node in the XQuery AST.
  */
-interface XPathSimpleTypeName : XQueryTypeName
+interface XPathSimpleTypeName : XPathTypeName

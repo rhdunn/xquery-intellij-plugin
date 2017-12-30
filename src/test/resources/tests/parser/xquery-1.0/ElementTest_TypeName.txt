@@ -34,7 +34,7 @@ XQueryModuleImpl[FILE(0:72)]
                            PsiWhiteSpaceImpl[WHITE_SPACE(46:47)](' ')
                            LeafPsiElement[XQUERY_COMMA_TOKEN(47:48)](',')
                            PsiWhiteSpaceImpl[WHITE_SPACE(48:49)](' ')
-                           XQueryTypeNameImpl[XQUERY_TYPE_NAME(49:59)]
+                           XPathTypeNameImpl[XQUERY_TYPE_NAME(49:59)]
                               XPathQNameImpl[XQUERY_QNAME(49:59)]
                                  XPathNCNameImpl[XQUERY_NCNAME(49:51)]
                                     XmlNCNameImpl[XQUERY_NCNAME_TOKEN(49:51)]('xs')

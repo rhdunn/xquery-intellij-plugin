@@ -18,6 +18,5 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAtomicType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathSimpleTypeName
-import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryTypeNamePsiImpl
 
-class XPathSimpleTypeNamePsiImpl(node: ASTNode) : XQueryTypeNamePsiImpl(node), XPathSimpleTypeName, XPathAtomicType
+class XPathSimpleTypeNamePsiImpl(node: ASTNode) : XPathTypeNamePsiImpl(node), XPathSimpleTypeName, XPathAtomicType

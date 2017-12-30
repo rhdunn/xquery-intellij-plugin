@@ -34,7 +34,7 @@ XQueryModuleImpl[FILE(0:99)]
                            PsiWhiteSpaceImpl[WHITE_SPACE(48:49)](' ')
                            LeafPsiElement[XQUERY_COMMA_TOKEN(49:50)](',')
                            PsiWhiteSpaceImpl[WHITE_SPACE(50:51)](' ')
-                           XQueryTypeNameImpl[XQUERY_TYPE_NAME(51:86)]
+                           XPathTypeNameImpl[XQUERY_TYPE_NAME(51:86)]
                               XPathURIQualifiedNameImpl[XQUERY_URI_QUALIFIED_NAME(51:86)]
                                  XPathBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(51:82)]
                                     LeafPsiElement[XQUERY_BRACED_URI_LITERAL_START_TOKEN(51:53)]('Q{')

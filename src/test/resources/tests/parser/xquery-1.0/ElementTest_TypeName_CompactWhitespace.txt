@@ -28,7 +28,7 @@ XQueryModuleImpl[FILE(0:63)]
                                     XPathNCNameImpl[XQUERY_NCNAME(35:42)]
                                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(35:42)]('enabled')
                            LeafPsiElement[XQUERY_COMMA_TOKEN(42:43)](',')
-                           XQueryTypeNameImpl[XQUERY_TYPE_NAME(43:53)]
+                           XPathTypeNameImpl[XQUERY_TYPE_NAME(43:53)]
                               XPathQNameImpl[XQUERY_QNAME(43:53)]
                                  XPathNCNameImpl[XQUERY_NCNAME(43:45)]
                                     XmlNCNameImpl[XQUERY_NCNAME_TOKEN(43:45)]('xs')
