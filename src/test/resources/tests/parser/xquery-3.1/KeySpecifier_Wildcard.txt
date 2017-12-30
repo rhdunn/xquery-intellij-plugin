@@ -34,7 +34,7 @@ XQueryModuleImpl[FILE(0:18)]
                                                                XPathPathExprImpl[XQUERY_PATH_EXPR(6:10)]
                                                                   XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(6:10)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(6:10)]
-                                                                        XQueryUnaryLookupImpl[XQUERY_UNARY_LOOKUP(6:9)]
+                                                                        XPathUnaryLookupImpl[XQUERY_UNARY_LOOKUP(6:9)]
                                                                            LeafPsiElement[XQUERY_OPTIONAL_TOKEN(6:7)]('?')
                                                                            PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
                                                                            XPathKeySpecifierImpl[XQUERY_KEY_SPECIFIER(8:9)]

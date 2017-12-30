@@ -1948,7 +1948,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         val simpleMapExprPsi = file.descendants().filterIsInstance<XPathSimpleMapExpr>().first()
         val pathExprPsi = simpleMapExprPsi.children().filterIsInstance<XPathPathExpr>().toList()[1]
-        val unaryLookupPsi = pathExprPsi.descendants().filterIsInstance<XQueryUnaryLookup>().first()
+        val unaryLookupPsi = pathExprPsi.descendants().filterIsInstance<XPathUnaryLookup>().first()
         val versioned = unaryLookupPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
