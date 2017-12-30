@@ -8,7 +8,7 @@ XQueryModuleImpl[FILE(0:4)]
                      PsiErrorElementImpl[ERROR_ELEMENT(0:1)]('XPST0003: Comparison without left-hand expression, or incomplete direct element constructor.')
                         LeafPsiElement[XQUERY_LESS_THAN_TOKEN(0:1)]('<')
                      FTContainsExprImpl[XQUERY_FT_CONTAINS_EXPR(1:4)]
-                        XQueryStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(1:4)]
+                        XPathStringConcatExprImpl[XQUERY_STRING_CONCAT_EXPR(1:4)]
                            XPathRangeExprImpl[XQUERY_RANGE_EXPR(1:4)]
                               XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(1:4)]
                                  XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(1:4)]

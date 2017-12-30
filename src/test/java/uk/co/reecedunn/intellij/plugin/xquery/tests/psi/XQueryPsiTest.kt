@@ -1777,7 +1777,7 @@ class XQueryPsiTest:ParserTestCase() {
     fun testStringConcatExpr() {
         val file = parseResource("tests/parser/xquery-3.0/StringConcatExpr.xq")!!
 
-        val stringConcatExprPsi = file.descendants().filterIsInstance<XQueryStringConcatExpr>().first()
+        val stringConcatExprPsi = file.descendants().filterIsInstance<XPathStringConcatExpr>().first()
         val versioned = stringConcatExprPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
@@ -1792,7 +1792,7 @@ class XQueryPsiTest:ParserTestCase() {
     fun testStringConcatExpr_NoConcatenation() {
         val file = parseResource("tests/parser/xquery-1.0/AbbrevForwardStep.xq")!!
 
-        val stringConcatExprPsi = file.descendants().filterIsInstance<XQueryStringConcatExpr>().first()
+        val stringConcatExprPsi = file.descendants().filterIsInstance<XPathStringConcatExpr>().first()
         val versioned = stringConcatExprPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))

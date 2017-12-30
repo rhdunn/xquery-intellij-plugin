@@ -230,7 +230,7 @@ public interface XQueryElementType {
     IElementType GROUPING_SPEC = new ICompositeElementType("XQUERY_GROUPING_SPEC", XQueryGroupingSpecPsiImpl.class, XQuery.INSTANCE);
     IElementType GROUPING_VARIABLE = new ICompositeElementType("XQUERY_GROUPING_VARIABLE", XQueryGroupingVariablePsiImpl.class, XQuery.INSTANCE);
 
-    IElementType STRING_CONCAT_EXPR = new ICompositeElementType("XQUERY_STRING_CONCAT_EXPR", XQueryStringConcatExprPsiImpl.class, XQuery.INSTANCE);
+    IElementType STRING_CONCAT_EXPR = new ICompositeElementType("XQUERY_STRING_CONCAT_EXPR", XPathStringConcatExprPsiImpl.class, XQuery.INSTANCE);
     IElementType SIMPLE_MAP_EXPR = new ICompositeElementType("XQUERY_SIMPLE_MAP_EXPR", XPathSimpleMapExprPsiImpl.class, XQuery.INSTANCE);
 
     IElementType INLINE_FUNCTION_EXPR = new ICompositeElementType("XQUERY_INLINE_FUNCTION_EXPR", XPathInlineFunctionExprPsiImpl.class, XQuery.INSTANCE);
