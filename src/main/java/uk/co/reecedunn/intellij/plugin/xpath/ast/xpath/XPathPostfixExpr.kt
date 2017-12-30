@@ -15,12 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryStepExpr
-
 /**
  * An XPath 3.0 and XQuery 3.0 `PostfixExpr` node in the XQuery AST.
  *
  * This is a replacement for the XPath 2.0 and XQuery 1.0 `FilterExpr`
  * grammar construct.
  */
-interface XPathPostfixExpr : XQueryStepExpr
+interface XPathPostfixExpr : XPathStepExpr
