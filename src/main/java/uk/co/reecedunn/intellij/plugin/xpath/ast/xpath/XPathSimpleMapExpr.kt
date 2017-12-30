@@ -13,9 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
+package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
+
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryValueExpr
 
 /**
- * An XQuery 3.0 `SimpleMapExpr` node in the XQuery AST.
+ * An XPath 3.0 and XQuery 3.0 `SimpleMapExpr` node in the XQuery AST.
  */
-interface XQuerySimpleMapExpr : XQueryValueExpr
+interface XPathSimpleMapExpr : XQueryValueExpr

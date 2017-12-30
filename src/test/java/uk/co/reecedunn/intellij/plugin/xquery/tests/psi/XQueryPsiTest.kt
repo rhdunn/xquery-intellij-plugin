@@ -1746,7 +1746,7 @@ class XQueryPsiTest:ParserTestCase() {
     fun testSimpleMapExpr() {
         val file = parseResource("tests/parser/xquery-3.0/SimpleMapExpr.xq")!!
 
-        val simpleMapExprPsi = file.descendants().filterIsInstance<XQuerySimpleMapExpr>().first()
+        val simpleMapExprPsi = file.descendants().filterIsInstance<XPathSimpleMapExpr>().first()
         val versioned = simpleMapExprPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(2))
@@ -1761,7 +1761,7 @@ class XQueryPsiTest:ParserTestCase() {
     fun testSimpleMapExpr_NoMap() {
         val file = parseResource("tests/parser/xquery-1.0/AbbrevForwardStep.xq")!!
 
-        val simpleMapExprPsi = file.descendants().filterIsInstance<XQuerySimpleMapExpr>().first()
+        val simpleMapExprPsi = file.descendants().filterIsInstance<XPathSimpleMapExpr>().first()
         val versioned = simpleMapExprPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(0))
@@ -1946,7 +1946,7 @@ class XQueryPsiTest:ParserTestCase() {
     fun testUnaryLookup() {
         val file = parseResource("tests/parser/xquery-3.1/UnaryLookup.xq")!!
 
-        val simpleMapExprPsi = file.descendants().filterIsInstance<XQuerySimpleMapExpr>().first()
+        val simpleMapExprPsi = file.descendants().filterIsInstance<XPathSimpleMapExpr>().first()
         val pathExprPsi = simpleMapExprPsi.children().filterIsInstance<XPathPathExpr>().toList()[1]
         val unaryLookupPsi = pathExprPsi.descendants().filterIsInstance<XQueryUnaryLookup>().first()
         val versioned = unaryLookupPsi as XQueryConformance
