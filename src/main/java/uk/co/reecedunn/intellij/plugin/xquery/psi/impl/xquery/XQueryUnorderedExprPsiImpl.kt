@@ -13,12 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
+package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPrimaryExpr;
+import com.intellij.extapi.psi.ASTWrapperPsiElement
+import com.intellij.lang.ASTNode
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryUnorderedExpr
 
-/**
- * An XQuery 1.0 <code>UnorderedExpr</code> node in the XQuery AST.
- */
-public interface XQueryUnorderedExpr extends XPathPrimaryExpr {
-}
+class XQueryUnorderedExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryUnorderedExpr
