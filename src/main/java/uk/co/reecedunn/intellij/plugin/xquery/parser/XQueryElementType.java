@@ -258,7 +258,7 @@ public interface XQueryElementType {
 
     IElementType NODE_CONSTRUCTOR = new ICompositeElementType("XQUERY_NODE_CONSTRUCTOR", XQueryNodeConstructorPsiImpl.class, XQuery.INSTANCE);
 
-    IElementType SQUARE_ARRAY_CONSTRUCTOR = new ICompositeElementType("XQUERY_SQUARE_ARRAY_CONSTRUCTOR", XQuerySquareArrayConstructorPsiImpl.class, XQuery.INSTANCE);
+    IElementType SQUARE_ARRAY_CONSTRUCTOR = new ICompositeElementType("XQUERY_SQUARE_ARRAY_CONSTRUCTOR", XPathSquareArrayConstructorPsiImpl.class, XQuery.INSTANCE);
     IElementType CURLY_ARRAY_CONSTRUCTOR = new ICompositeElementType("XQUERY_CURLY_ARRAY_CONSTRUCTOR", XPathCurlyArrayConstructorPsiImpl.class, XQuery.INSTANCE);
 
     IElementType MAP_CONSTRUCTOR = new ICompositeElementType("XQUERY_MAP_CONSTRUCTOR", XPathMapConstructorPsiImpl.class, XQuery.INSTANCE);

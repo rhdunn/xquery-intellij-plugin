@@ -22,7 +22,7 @@ XQueryModuleImpl[FILE(0:11)]
                                                                XPathPathExprImpl[XQUERY_PATH_EXPR(0:11)]
                                                                   XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:11)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:11)]
-                                                                        XQuerySquareArrayConstructorImpl[XQUERY_SQUARE_ARRAY_CONSTRUCTOR(0:11)]
+                                                                        XPathSquareArrayConstructorImpl[XQUERY_SQUARE_ARRAY_CONSTRUCTOR(0:11)]
                                                                            LeafPsiElement[XQUERY_SQUARE_OPEN_TOKEN(0:1)]('[')
                                                                            PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
                                                                            XPathOrExprImpl[XQUERY_OR_EXPR(2:4)]

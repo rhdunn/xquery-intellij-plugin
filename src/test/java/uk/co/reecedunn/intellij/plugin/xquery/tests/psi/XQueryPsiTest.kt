@@ -379,7 +379,7 @@ class XQueryPsiTest:ParserTestCase() {
     fun testSquareArrayConstructor() {
         val file = parseResource("tests/parser/xquery-3.1/SquareArrayConstructor.xq")!!
 
-        val squareArrayConstructorPsi = file.descendants().filterIsInstance<XQuerySquareArrayConstructor>().first()
+        val squareArrayConstructorPsi = file.descendants().filterIsInstance<XPathSquareArrayConstructor>().first()
         val versioned = squareArrayConstructorPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
