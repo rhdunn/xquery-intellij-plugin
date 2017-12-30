@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
+package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
-import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiElement
 
 /**
- * An XQuery 1.0 <code>Pragma</code> node in the XQuery AST.
+ * An XQuery 1.0 `Pragma` node in the XQuery AST.
  */
-public interface XQueryPragma extends PsiElement {
-}
+interface XQueryPragma : PsiElement
