@@ -26,7 +26,7 @@ XQueryModuleImpl[FILE(0:8)]
                                                                            XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:8)]
                                                                               XPathNodeTestImpl[XQUERY_NODE_TEST(0:8)]
                                                                                  XPathNameTestImpl[XQUERY_NAME_TEST(0:8)]
-                                                                                    XQueryWildcardImpl[XQUERY_WILDCARD(0:8)]
+                                                                                    XPathWildcardImpl[XQUERY_WILDCARD(0:8)]
                                                                                        XPathNCNameImpl[XQUERY_NCNAME(0:6)]
                                                                                           XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_OPTION(0:6)]('option')
                                                                                        LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(6:7)](':')
