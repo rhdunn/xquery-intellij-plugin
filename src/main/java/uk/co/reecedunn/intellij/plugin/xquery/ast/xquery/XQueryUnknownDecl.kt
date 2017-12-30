@@ -13,19 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
+package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
-import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiElement
 
 /**
  * An unknown XQuery declaration node in the XQuery AST.
  *
  * This is not defined in the XQuery grammar. It is an error condition when a
- * <code>declare</code> keyword is not followed by one of the known declaration
+ * `declare` keyword is not followed by one of the known declaration
  * type keywords.
  *
  * The intention behind this is to try and recover declaration parsing into a
  * valid state so that parsing can continue.
  */
-public interface XQueryUnknownDecl extends PsiElement {
-}
+interface XQueryUnknownDecl : PsiElement
