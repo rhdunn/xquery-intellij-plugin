@@ -23,7 +23,7 @@ XQueryModuleImpl[FILE(0:23)]
                                                                   XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:23)]
                                                                      XPathAxisStepImpl[XQUERY_AXIS_STEP(0:23)]
                                                                         XQueryReverseStepImpl[XQUERY_REVERSE_STEP(0:23)]
-                                                                           XQueryReverseAxisImpl[XQUERY_REVERSE_AXIS(0:19)]
+                                                                           XPathReverseAxisImpl[XQUERY_REVERSE_AXIS(0:19)]
                                                                               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_PRECEDING_SIBLING(0:17)]('preceding-sibling')
                                                                               LeafPsiElement[XQUERY_AXIS_SEPARATOR_TOKEN(17:19)]('::')
                                                                            XPathNodeTestImpl[XQUERY_NODE_TEST(19:23)]
