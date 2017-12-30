@@ -31,7 +31,7 @@ XQueryModuleImpl[FILE(0:11)]
                                                                                  LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(4:5)](':')
                                                                                  XPathNCNameImpl[XQUERY_NCNAME(5:8)]
                                                                                     XmlNCNameImpl[XQUERY_NCNAME_TOKEN(5:8)]('two')
-                                                                        XQueryPredicateImpl[XQUERY_PREDICATE(8:11)]
+                                                                        XPathPredicateImpl[XQUERY_PREDICATE(8:11)]
                                                                            LeafPsiElement[XQUERY_SQUARE_OPEN_TOKEN(8:9)]('[')
                                                                            XPathExprImpl[XQUERY_EXPR(9:10)]
                                                                               ScriptingConcatExprImpl[XQUERY_CONCAT_EXPR(9:10)]

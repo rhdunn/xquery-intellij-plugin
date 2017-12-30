@@ -30,7 +30,7 @@ XQueryModuleImpl[FILE(0:10)]
                                                                                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:4)]('para')
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
                                                                         XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(5:10)]
-                                                                           XQueryPredicateImpl[XQUERY_PREDICATE(5:10)]
+                                                                           XPathPredicateImpl[XQUERY_PREDICATE(5:10)]
                                                                               LeafPsiElement[XQUERY_SQUARE_OPEN_TOKEN(5:6)]('[')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
                                                                               XPathExprImpl[XQUERY_EXPR(7:9)]
