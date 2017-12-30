@@ -13,15 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
+package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
-import com.intellij.lang.ASTNode;
-import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryTypeDeclaration;
+import com.intellij.psi.PsiElement
 
-public class XQueryTypeDeclarationPsiImpl extends ASTWrapperPsiElement implements XQueryTypeDeclaration {
-    public XQueryTypeDeclarationPsiImpl(@NotNull ASTNode node) {
-        super(node);
-    }
-}
+/**
+ * An XPath 2.0 and XQuery 1.0 `TypeDeclaration` node in the XQuery AST.
+ */
+interface XPathTypeDeclaration : PsiElement

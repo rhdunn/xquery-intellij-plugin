@@ -134,7 +134,7 @@ public interface XQueryElementType {
     IElementType ANY_KIND_TEST = new ICompositeElementType("XQUERY_ANY_KIND_TEST", XPathAnyKindTestPsiImpl.class, XQuery.INSTANCE);
     IElementType ITEM_TYPE = new ICompositeElementType("XQUERY_ITEM_TYPE", XPathItemTypePsiImpl.class, XQuery.INSTANCE);
     IElementType OCCURRENCE_INDICATOR = new ICompositeElementType("XQUERY_OCCURRENCE_INDICATOR", XPathOccurrenceIndicatorPsiImpl.class, XQuery.INSTANCE);
-    IElementType TYPE_DECLARATION = new ICompositeElementType("XQUERY_TYPE_DECLARATION", XQueryTypeDeclarationPsiImpl.class, XQuery.INSTANCE);
+    IElementType TYPE_DECLARATION = new ICompositeElementType("XQUERY_TYPE_DECLARATION", XPathTypeDeclarationPsiImpl.class, XQuery.INSTANCE);
     IElementType SEQUENCE_TYPE = new ICompositeElementType("XQUERY_SEQUENCE_TYPE", XPathSequenceTypePsiImpl.class, XQuery.INSTANCE);
 
     IElementType PARAM = new ICompositeElementType("XQUERY_PARAM", XPathParamPsiImpl.class, XQuery.INSTANCE);

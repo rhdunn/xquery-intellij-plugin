@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathMapConstructor
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathMapConstructorEntry
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathSequenceType
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathTypeDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.ast.saxon.SaxonTupleType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.saxon.SaxonTypeDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.saxon.SaxonUnionType
@@ -43,7 +44,7 @@ class SaxonPsiTest : ParserTestCase() {
 
         val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val varDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XQueryTypeDeclaration>().first()
+        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XPathTypeDeclaration>().first()
         val sequenceTypePsi = typeDeclarationPsi.children().filterIsInstance<XPathSequenceType>().first()
         val tupleTypePsi = sequenceTypePsi.descendants().filterIsInstance<SaxonTupleType>().first()
         val conformance = tupleTypePsi as XQueryConformance
@@ -81,7 +82,7 @@ class SaxonPsiTest : ParserTestCase() {
 
         val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val varDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XQueryTypeDeclaration>().first()
+        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XPathTypeDeclaration>().first()
         val sequenceTypePsi = typeDeclarationPsi.children().filterIsInstance<XPathSequenceType>().first()
         val unionTypePsi = sequenceTypePsi.descendants().filterIsInstance<SaxonUnionType>().first()
         val conformance = unionTypePsi as XQueryConformance

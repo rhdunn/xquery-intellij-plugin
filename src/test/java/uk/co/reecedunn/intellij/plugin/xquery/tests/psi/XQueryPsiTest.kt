@@ -139,7 +139,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val varDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XQueryTypeDeclaration>().first()
+        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XPathTypeDeclaration>().first()
         val sequenceTypePsi = typeDeclarationPsi.children().filterIsInstance<XPathSequenceType>().first()
         val anyArrayTestPsi = sequenceTypePsi.descendants().filterIsInstance<XPathAnyArrayTest>().first()
         val versioned = anyArrayTestPsi as XQueryConformance
@@ -160,7 +160,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val varDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XQueryTypeDeclaration>().first()
+        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XPathTypeDeclaration>().first()
         val sequenceTypePsi = typeDeclarationPsi.children().filterIsInstance<XPathSequenceType>().first()
         val anyFunctionTestPsi = sequenceTypePsi.descendants().filterIsInstance<XPathAnyFunctionTest>().first()
         val versioned = anyFunctionTestPsi as XQueryConformance
@@ -182,7 +182,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val varDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XQueryTypeDeclaration>().first()
+        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XPathTypeDeclaration>().first()
         val sequenceTypePsi = typeDeclarationPsi.children().filterIsInstance<XPathSequenceType>().first()
         val anyKindTestPsi = sequenceTypePsi.descendants().filterIsInstance<XPathAnyKindTest>().first()
         val versioned = anyKindTestPsi as XQueryConformance
@@ -202,7 +202,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val varDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XQueryTypeDeclaration>().first()
+        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XPathTypeDeclaration>().first()
         val sequenceTypePsi = typeDeclarationPsi.children().filterIsInstance<XPathSequenceType>().first()
         val anyMapTestPsi = sequenceTypePsi.descendants().filterIsInstance<XPathAnyMapTest>().first()
         val versioned = anyMapTestPsi as XQueryConformance
@@ -1670,7 +1670,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val varDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XQueryTypeDeclaration>().first()
+        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XPathTypeDeclaration>().first()
         val sequenceTypePsi = typeDeclarationPsi.children().filterIsInstance<XPathSequenceType>().first()
         val namespaceNodeTestPsi = sequenceTypePsi.descendants().filterIsInstance<XPathNamespaceNodeTest>().first()
         val versioned = namespaceNodeTestPsi as XQueryConformance
@@ -1691,7 +1691,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val varDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XQueryTypeDeclaration>().first()
+        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XPathTypeDeclaration>().first()
         val sequenceTypePsi = typeDeclarationPsi.children().filterIsInstance<XPathSequenceType>().first()
         val parenthesizedItemTypePsi = sequenceTypePsi.descendants().filterIsInstance<XPathParenthesizedItemType>().first()
         val versioned = parenthesizedItemTypePsi as XQueryConformance
@@ -1845,7 +1845,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val varDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XQueryTypeDeclaration>().first()
+        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XPathTypeDeclaration>().first()
         val sequenceTypePsi = typeDeclarationPsi.children().filterIsInstance<XPathSequenceType>().first()
         val textTestPsi = sequenceTypePsi.descendants().filterIsInstance<XPathTextTest>().first()
         val versioned = textTestPsi as XQueryConformance
@@ -1883,7 +1883,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val varDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XQueryTypeDeclaration>().first()
+        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XPathTypeDeclaration>().first()
         val sequenceTypePsi = typeDeclarationPsi.children().filterIsInstance<XPathSequenceType>().first()
         val typedArrayTestPsi = sequenceTypePsi.descendants().filterIsInstance<XPathTypedArrayTest>().first()
         val versioned = typedArrayTestPsi as XQueryConformance
@@ -1904,7 +1904,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val varDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XQueryTypeDeclaration>().first()
+        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XPathTypeDeclaration>().first()
         val sequenceTypePsi = typeDeclarationPsi.children().filterIsInstance<XPathSequenceType>().first()
         val typedFunctionTestPsi = sequenceTypePsi.descendants().filterIsInstance<XQueryTypedFunctionTest>().first()
         val versioned = typedFunctionTestPsi as XQueryConformance
@@ -1926,7 +1926,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
         val varDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XQueryTypeDeclaration>().first()
+        val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XPathTypeDeclaration>().first()
         val sequenceTypePsi = typeDeclarationPsi.children().filterIsInstance<XPathSequenceType>().first()
         val typedMapTestPsi = sequenceTypePsi.descendants().filterIsInstance<XQueryTypedMapTest>().first()
         val versioned = typedMapTestPsi as XQueryConformance
