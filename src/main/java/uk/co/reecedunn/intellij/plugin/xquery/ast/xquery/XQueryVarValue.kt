@@ -13,15 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
+package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
-import com.intellij.lang.ASTNode;
-import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVarValue;
+import com.intellij.psi.PsiElement
 
-public class XQueryVarValuePsiImpl extends ASTWrapperPsiElement implements XQueryVarValue {
-    public XQueryVarValuePsiImpl(@NotNull ASTNode node) {
-        super(node);
-    }
-}
+/**
+ * An XQuery 3.0 `VarValue` node in the XQuery AST.
+ */
+interface XQueryVarValue : PsiElement
