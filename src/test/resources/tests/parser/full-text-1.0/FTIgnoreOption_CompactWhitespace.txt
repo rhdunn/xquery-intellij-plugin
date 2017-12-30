@@ -10,7 +10,7 @@ XQueryModuleImpl[FILE(0:48)]
                            XPathRangeExprImpl[XQUERY_RANGE_EXPR(0:6)]
                               XPathAdditiveExprImpl[XQUERY_ADDITIVE_EXPR(0:6)]
                                  XPathMultiplicativeExprImpl[XQUERY_MULTIPLICATIVE_EXPR(0:6)]
-                                    XQueryUnionExprImpl[XQUERY_UNION_EXPR(0:6)]
+                                    XPathUnionExprImpl[XQUERY_UNION_EXPR(0:6)]
                                        XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(0:6)]
                                           XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(0:6)]
                                              XPathTreatExprImpl[XQUERY_TREAT_EXPR(0:6)]
@@ -50,7 +50,7 @@ XQueryModuleImpl[FILE(0:48)]
                            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_WITHOUT(26:33)]('without')
                            PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
                            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CONTENT(34:41)]('content')
-                           XQueryUnionExprImpl[XQUERY_UNION_EXPR(41:48)]
+                           XPathUnionExprImpl[XQUERY_UNION_EXPR(41:48)]
                               XPathIntersectExceptExprImpl[XQUERY_INTERSECT_EXCEPT_EXPR(41:48)]
                                  XPathInstanceofExprImpl[XQUERY_INSTANCEOF_EXPR(41:48)]
                                     XPathTreatExprImpl[XQUERY_TREAT_EXPR(41:48)]

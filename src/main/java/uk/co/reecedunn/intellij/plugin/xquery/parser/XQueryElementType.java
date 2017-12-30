@@ -81,7 +81,7 @@ public interface XQueryElementType {
     IElementType TREAT_EXPR = new ICompositeElementType("XQUERY_TREAT_EXPR", XPathTreatExprPsiImpl.class, XQuery.INSTANCE);
     IElementType INSTANCEOF_EXPR = new ICompositeElementType("XQUERY_INSTANCEOF_EXPR", XPathInstanceofExprPsiImpl.class, XQuery.INSTANCE);
     IElementType INTERSECT_EXCEPT_EXPR = new ICompositeElementType("XQUERY_INTERSECT_EXCEPT_EXPR", XPathIntersectExceptExprPsiImpl.class, XQuery.INSTANCE);
-    IElementType UNION_EXPR = new ICompositeElementType("XQUERY_UNION_EXPR", XQueryUnionExprPsiImpl.class, XQuery.INSTANCE);
+    IElementType UNION_EXPR = new ICompositeElementType("XQUERY_UNION_EXPR", XPathUnionExprPsiImpl.class, XQuery.INSTANCE);
     IElementType MULTIPLICATIVE_EXPR = new ICompositeElementType("XQUERY_MULTIPLICATIVE_EXPR", XPathMultiplicativeExprPsiImpl.class, XQuery.INSTANCE);
     IElementType ADDITIVE_EXPR = new ICompositeElementType("XQUERY_ADDITIVE_EXPR", XPathAdditiveExprPsiImpl.class, XQuery.INSTANCE);
     IElementType RANGE_EXPR = new ICompositeElementType("XQUERY_RANGE_EXPR", XPathRangeExprPsiImpl.class, XQuery.INSTANCE);
