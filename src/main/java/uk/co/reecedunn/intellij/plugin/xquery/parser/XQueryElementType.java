@@ -274,7 +274,7 @@ public interface XQueryElementType {
     IElementType TYPED_MAP_TEST = new ICompositeElementType("XQUERY_TYPED_MAP_TEST", XQueryTypedMapTestPsiImpl.class, XQuery.INSTANCE);
 
     IElementType ANY_ARRAY_TEST = new ICompositeElementType("XQUERY_ANY_ARRAY_TEST", XPathAnyArrayTestPsiImpl.class, XQuery.INSTANCE);
-    IElementType TYPED_ARRAY_TEST = new ICompositeElementType("XQUERY_TYPED_ARRAY_TEST", XQueryTypedArrayTestPsiImpl.class, XQuery.INSTANCE);
+    IElementType TYPED_ARRAY_TEST = new ICompositeElementType("XQUERY_TYPED_ARRAY_TEST", XPathTypedArrayTestPsiImpl.class, XQuery.INSTANCE);
 
     IElementType UNARY_LOOKUP = new ICompositeElementType("XQUERY_UNARY_LOOKUP", XQueryUnaryLookupPsiImpl.class, XQuery.INSTANCE);
     IElementType LOOKUP = new ICompositeElementType("XQUERY_LOOKUP", XPathLookupPsiImpl.class, XQuery.INSTANCE);

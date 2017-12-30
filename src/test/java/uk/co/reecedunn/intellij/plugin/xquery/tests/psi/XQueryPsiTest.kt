@@ -1885,7 +1885,7 @@ class XQueryPsiTest:ParserTestCase() {
         val varDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
         val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XQueryTypeDeclaration>().first()
         val sequenceTypePsi = typeDeclarationPsi.children().filterIsInstance<XPathSequenceType>().first()
-        val typedArrayTestPsi = sequenceTypePsi.descendants().filterIsInstance<XQueryTypedArrayTest>().first()
+        val typedArrayTestPsi = sequenceTypePsi.descendants().filterIsInstance<XPathTypedArrayTest>().first()
         val versioned = typedArrayTestPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
