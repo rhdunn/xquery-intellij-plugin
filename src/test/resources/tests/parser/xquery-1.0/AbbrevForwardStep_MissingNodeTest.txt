@@ -26,4 +26,4 @@ XQueryModuleImpl[FILE(0:1)]
                                                                            XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:1)]
                                                                               LeafPsiElement[XQUERY_ATTRIBUTE_SELECTOR_TOKEN(0:1)]('@')
                                                                               PsiErrorElementImpl[ERROR_ELEMENT(1:1)]('XPST0003: Expected 'NodeTest'.')
-                                                                        XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(1:1)]
+                                                                        XPathPredicateListImpl[XQUERY_PREDICATE_LIST(1:1)]

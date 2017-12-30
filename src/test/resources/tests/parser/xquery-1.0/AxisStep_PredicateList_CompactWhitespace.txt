@@ -28,7 +28,7 @@ XQueryModuleImpl[FILE(0:7)]
                                                                                  XPathNameTestImpl[XQUERY_NAME_TEST(0:4)]
                                                                                     XPathNCNameImpl[XQUERY_NCNAME(0:4)]
                                                                                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:4)]('para')
-                                                                        XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(4:7)]
+                                                                        XPathPredicateListImpl[XQUERY_PREDICATE_LIST(4:7)]
                                                                            XPathPredicateImpl[XQUERY_PREDICATE(4:7)]
                                                                               LeafPsiElement[XQUERY_SQUARE_OPEN_TOKEN(4:5)]('[')
                                                                               XPathExprImpl[XQUERY_EXPR(5:6)]

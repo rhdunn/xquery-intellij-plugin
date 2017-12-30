@@ -31,4 +31,4 @@ XQueryModuleImpl[FILE(0:12)]
                                                                                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NODE(6:10)]('node')
                                                                                  LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(10:11)]('(')
                                                                                  LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(11:12)](')')
-                                                                        XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(12:12)]
+                                                                        XPathPredicateListImpl[XQUERY_PREDICATE_LIST(12:12)]

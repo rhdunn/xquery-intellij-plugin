@@ -54,5 +54,5 @@ XQueryModuleImpl[FILE(0:14)]
                                                                                                                                                       XPathNameTestImpl[XQUERY_NAME_TEST(12:13)]
                                                                                                                                                          XQueryWildcardImpl[XQUERY_WILDCARD(12:13)]
                                                                                                                                                             LeafPsiElement[XQUERY_STAR_TOKEN(12:13)]('*')
-                                                                                                                                             XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(13:13)]
+                                                                                                                                             XPathPredicateListImpl[XQUERY_PREDICATE_LIST(13:13)]
                                                                               LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(13:14)](')')

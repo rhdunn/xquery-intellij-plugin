@@ -58,7 +58,7 @@ XQueryModuleImpl[FILE(0:130)]
                                                                                           XPathNCNameImpl[XQUERY_NCNAME(78:95)]
                                                                                              XmlNCNameImpl[XQUERY_NCNAME_TOKEN(78:95)]('unknown_construct')
                                                                                           PsiWhiteSpaceImpl[WHITE_SPACE(95:96)](' ')
-                                                                              XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(96:96)]
+                                                                              XPathPredicateListImpl[XQUERY_PREDICATE_LIST(96:96)]
          PsiErrorElementImpl[ERROR_ELEMENT(96:96)]('XPST0003: Expected ';'.')
          LeafPsiElement[XQUERY_BLOCK_OPEN_TOKEN(96:97)]('{')
          PsiWhiteSpaceImpl[WHITE_SPACE(97:98)](' ')

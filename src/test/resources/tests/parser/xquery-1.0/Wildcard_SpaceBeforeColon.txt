@@ -33,4 +33,4 @@ XQueryModuleImpl[FILE(0:7)]
                                                                                        LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(2:3)](':')
                                                                                        XPathNCNameImpl[XQUERY_NCNAME(3:7)]
                                                                                           XmlNCNameImpl[XQUERY_NCNAME_TOKEN(3:7)]('para')
-                                                                        XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(7:7)]
+                                                                        XPathPredicateListImpl[XQUERY_PREDICATE_LIST(7:7)]

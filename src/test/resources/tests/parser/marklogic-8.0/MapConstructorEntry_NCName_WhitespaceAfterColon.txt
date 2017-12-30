@@ -55,7 +55,7 @@ XQueryModuleImpl[FILE(0:22)]
                                                                                                                                                       XPathNameTestImpl[XQUERY_NAME_TEST(14:15)]
                                                                                                                                                          XPathNCNameImpl[XQUERY_NCNAME(14:15)]
                                                                                                                                                             XmlNCNameImpl[XQUERY_NCNAME_TOKEN(14:15)]('a')
-                                                                                                                                             XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(15:15)]
+                                                                                                                                             XPathPredicateListImpl[XQUERY_PREDICATE_LIST(15:15)]
                                                                               LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(15:16)](':')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
                                                                               XPathMapValueExprImpl[XQUERY_MAP_VALUE_EXPR(17:21)]
@@ -86,5 +86,5 @@ XQueryModuleImpl[FILE(0:22)]
                                                                                                                                                          XPathNCNameImpl[XQUERY_NCNAME(17:20)]
                                                                                                                                                             XmlNCNameImpl[XQUERY_NCNAME_TOKEN(17:20)]('one')
                                                                                                                                                          PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
-                                                                                                                                             XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(21:21)]
+                                                                                                                                             XPathPredicateListImpl[XQUERY_PREDICATE_LIST(21:21)]
                                                                            LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(21:22)]('}')

@@ -29,7 +29,7 @@ XQueryModuleImpl[FILE(0:10)]
                                                                                     XPathNCNameImpl[XQUERY_NCNAME(0:4)]
                                                                                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:4)]('para')
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
-                                                                        XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(5:10)]
+                                                                        XPathPredicateListImpl[XQUERY_PREDICATE_LIST(5:10)]
                                                                            XPathPredicateImpl[XQUERY_PREDICATE(5:10)]
                                                                               LeafPsiElement[XQUERY_SQUARE_OPEN_TOKEN(5:6)]('[')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')

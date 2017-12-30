@@ -30,4 +30,4 @@ XQueryModuleImpl[FILE(0:4)]
                                                                                  XPathNameTestImpl[XQUERY_NAME_TEST(2:4)]
                                                                                     XPathNCNameImpl[XQUERY_NCNAME(2:4)]
                                                                                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(2:4)]('id')
-                                                                        XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(4:4)]
+                                                                        XPathPredicateListImpl[XQUERY_PREDICATE_LIST(4:4)]

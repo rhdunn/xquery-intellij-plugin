@@ -29,7 +29,7 @@ XQueryModuleImpl[FILE(0:9)]
                                                                                     XPathNCNameImpl[XQUERY_NCNAME(0:1)]
                                                                                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:1)]('a')
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
-                                                                        XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(2:2)]
+                                                                        XPathPredicateListImpl[XQUERY_PREDICATE_LIST(2:2)]
                                  LeafPsiElement[XQUERY_PLUS_TOKEN(2:3)]('+')
                                  PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
                                  PsiErrorElementImpl[ERROR_ELEMENT(4:4)]('XPST0003: Expected 'MultiplicativeExpr'.')
@@ -62,6 +62,6 @@ XQueryModuleImpl[FILE(0:9)]
                                                                                     XPathNCNameImpl[XQUERY_NCNAME(6:7)]
                                                                                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(6:7)]('a')
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-                                                                        XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(8:8)]
+                                                                        XPathPredicateListImpl[XQUERY_PREDICATE_LIST(8:8)]
                                  LeafPsiElement[XQUERY_MINUS_TOKEN(8:9)]('-')
                                  PsiErrorElementImpl[ERROR_ELEMENT(9:9)]('XPST0003: Expected 'MultiplicativeExpr'.')

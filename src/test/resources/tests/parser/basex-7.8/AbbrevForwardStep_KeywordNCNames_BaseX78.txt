@@ -28,4 +28,4 @@ XQueryModuleImpl[FILE(0:6)]
                                                                                  XPathNameTestImpl[XQUERY_NAME_TEST(0:6)]
                                                                                     XPathNCNameImpl[XQUERY_NCNAME(0:6)]
                                                                                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_UPDATE(0:6)]('update')
-                                                                        XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(6:6)]
+                                                                        XPathPredicateListImpl[XQUERY_PREDICATE_LIST(6:6)]

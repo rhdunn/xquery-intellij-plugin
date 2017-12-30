@@ -29,7 +29,7 @@ XQueryModuleImpl[FILE(0:15)]
                                                                                  XPathNameTestImpl[XQUERY_NAME_TEST(2:6)]
                                                                                     XPathNCNameImpl[XQUERY_NCNAME(2:6)]
                                                                                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(2:6)]('test')
-                                                                        XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(6:6)]
+                                                                        XPathPredicateListImpl[XQUERY_PREDICATE_LIST(6:6)]
                                                                      LeafPsiElement[XQUERY_DIRECT_DESCENDANTS_PATH_TOKEN(6:7)]('/')
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(7:15)]
                                                                         XPathFunctionCallImpl[XQUERY_FUNCTION_CALL(7:15)]

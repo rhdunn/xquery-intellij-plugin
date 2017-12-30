@@ -57,6 +57,6 @@ XQueryModuleImpl[FILE(0:10)]
                                                                                                                                                             LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(5:6)](':')
                                                                                                                                                             XPathNCNameImpl[XQUERY_NCNAME(6:9)]
                                                                                                                                                                XmlNCNameImpl[XQUERY_NCNAME_TOKEN(6:9)]('one')
-                                                                                                                                             XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(9:9)]
+                                                                                                                                             XPathPredicateListImpl[XQUERY_PREDICATE_LIST(9:9)]
                                                                               PsiErrorElementImpl[ERROR_ELEMENT(9:9)]('XPST0003: Expected ':' (XQuery 3.1/MarkLogic) or ':=' (Saxon 9.4-9.6).')
                                                                            LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(9:10)]('}')

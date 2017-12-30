@@ -86,5 +86,5 @@ XQueryModuleImpl[FILE(0:25)]
                                                                                                                                                          XPathNCNameImpl[XQUERY_NCNAME(20:23)]
                                                                                                                                                             XmlNCNameImpl[XQUERY_NCNAME_TOKEN(20:23)]('one')
                                                                                                                                                          PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
-                                                                                                                                             XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(24:24)]
+                                                                                                                                             XPathPredicateListImpl[XQUERY_PREDICATE_LIST(24:24)]
                                                                            LeafPsiElement[XQUERY_BLOCK_CLOSE_TOKEN(24:25)]('}')

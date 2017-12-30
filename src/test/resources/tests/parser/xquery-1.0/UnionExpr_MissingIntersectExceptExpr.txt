@@ -29,7 +29,7 @@ XQueryModuleImpl[FILE(0:13)]
                                                                                     XPathNCNameImpl[XQUERY_NCNAME(0:1)]
                                                                                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(0:1)]('a')
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
-                                                                        XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(2:2)]
+                                                                        XPathPredicateListImpl[XQUERY_PREDICATE_LIST(2:2)]
                                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_UNION(2:7)]('union')
                                        PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
                                        PsiErrorElementImpl[ERROR_ELEMENT(8:8)]('XPST0003: Expected 'IntersectExceptExpr'.')
@@ -62,6 +62,6 @@ XQueryModuleImpl[FILE(0:13)]
                                                                                     XPathNCNameImpl[XQUERY_NCNAME(10:11)]
                                                                                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(10:11)]('a')
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
-                                                                        XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(12:12)]
+                                                                        XPathPredicateListImpl[XQUERY_PREDICATE_LIST(12:12)]
                                        LeafPsiElement[XQUERY_UNION_TOKEN(12:13)]('|')
                                        PsiErrorElementImpl[ERROR_ELEMENT(13:13)]('XPST0003: Expected 'IntersectExceptExpr'.')

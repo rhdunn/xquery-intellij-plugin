@@ -35,4 +35,4 @@ XQueryModuleImpl[FILE(0:12)]
                                                                                        XmlNCNameImpl[XQUERY_NCNAME_TOKEN(8:10)]('xh')
                                                                                     LeafPsiElement[XQUERY_QNAME_SEPARATOR_TOKEN(10:11)](':')
                                                                                     LeafPsiElement[XQUERY_STAR_TOKEN(11:12)]('*')
-                                                                        XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(12:12)]
+                                                                        XPathPredicateListImpl[XQUERY_PREDICATE_LIST(12:12)]

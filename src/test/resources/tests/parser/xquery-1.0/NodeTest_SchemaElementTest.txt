@@ -39,4 +39,4 @@ XQueryModuleImpl[FILE(0:29)]
                                                                                              XmlNCNameImpl[XQUERY_NCNAME_TOKEN(20:27)]('boolean')
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
                                                                                     LeafPsiElement[XQUERY_PARENTHESIS_CLOSE_TOKEN(28:29)](')')
-                                                                        XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(29:29)]
+                                                                        XPathPredicateListImpl[XQUERY_PREDICATE_LIST(29:29)]

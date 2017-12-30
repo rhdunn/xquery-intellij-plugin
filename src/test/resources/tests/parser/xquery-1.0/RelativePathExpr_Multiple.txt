@@ -43,7 +43,7 @@ XQueryModuleImpl[FILE(0:26)]
                                                                                        XPathNCNameImpl[XQUERY_NCNAME(12:13)]
                                                                                           XmlNCNameImpl[XQUERY_NCNAME_TOKEN(12:13)]('p')
                                                                         PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
-                                                                        XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(14:14)]
+                                                                        XPathPredicateListImpl[XQUERY_PREDICATE_LIST(14:14)]
                                                                      LeafPsiElement[XQUERY_DIRECT_DESCENDANTS_PATH_TOKEN(14:15)]('/')
                                                                      PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(16:26)]

@@ -35,4 +35,4 @@ XQueryModuleImpl[FILE(0:8)]
                                                                                           PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
                                                                                        XPathNCNameImpl[XQUERY_NCNAME(4:8)]
                                                                                           XmlNCNameImpl[XQUERY_NCNAME_TOKEN(4:8)]('para')
-                                                                        XQueryPredicateListImpl[XQUERY_PREDICATE_LIST(8:8)]
+                                                                        XPathPredicateListImpl[XQUERY_PREDICATE_LIST(8:8)]
