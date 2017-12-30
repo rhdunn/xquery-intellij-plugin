@@ -13,15 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
+package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
-import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiElement
 
 /**
- * An XQuery 1.0 <code>PathExpr</code> node in the XQuery AST.
+ * An XPath 2.0 and XQuery 1.0 `PathExpr` node in the XQuery AST.
  *
- * In XQuery 1.0 this is a <code>ValueExpr</code>. In XQuery 3.0 this is a
- * child of <code>SimpleMapExpr</code>. The XQuery 3.0 layout is used here.
+ * In XQuery 1.0 this is a `ValueExpr`. In XQuery 3.0 this is a
+ * child of `SimpleMapExpr`. The XQuery 3.0 layout is used here.
  */
-public interface XQueryPathExpr extends PsiElement {
-}
+interface XPathPathExpr : PsiElement

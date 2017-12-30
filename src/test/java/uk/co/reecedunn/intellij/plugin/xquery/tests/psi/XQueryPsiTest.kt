@@ -1947,7 +1947,7 @@ class XQueryPsiTest:ParserTestCase() {
         val file = parseResource("tests/parser/xquery-3.1/UnaryLookup.xq")!!
 
         val simpleMapExprPsi = file.descendants().filterIsInstance<XQuerySimpleMapExpr>().first()
-        val pathExprPsi = simpleMapExprPsi.children().filterIsInstance<XQueryPathExpr>().toList()[1]
+        val pathExprPsi = simpleMapExprPsi.children().filterIsInstance<XPathPathExpr>().toList()[1]
         val unaryLookupPsi = pathExprPsi.descendants().filterIsInstance<XQueryUnaryLookup>().first()
         val versioned = unaryLookupPsi as XQueryConformance
 
