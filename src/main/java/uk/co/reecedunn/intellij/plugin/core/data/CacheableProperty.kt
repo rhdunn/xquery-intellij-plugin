@@ -23,7 +23,11 @@ enum class CachingBehaviour {
     /**
      * The computed property value cannot be cached.
      */
-    DoNotCache
+    DoNotCache,
+    /**
+     * The value has not been calculated yet, so its cacheability cannot be determined.
+     */
+    Undecided
 }
 
 val Cacheable = CachingBehaviour.Cache
@@ -34,10 +38,12 @@ infix fun <T> T?.`is`(cacheable: CachingBehaviour): Pair<T?, CachingBehaviour> {
 }
 
 class CacheableProperty<out T>(private val compute: () -> Pair<T?, CachingBehaviour>) {
-    private var cachedValue: Pair<T?, CachingBehaviour?> = Pair(null, null)
+    private var cachedValue: Pair<T?, CachingBehaviour> = Pair(null, CachingBehaviour.Undecided)
+
+    val cachingBehaviour: CachingBehaviour = cachedValue.second
 
     fun invalidate() {
-        cachedValue = Pair(null, null)
+        cachedValue = Pair(null, CachingBehaviour.Undecided)
     }
 
     fun get(): T? {
