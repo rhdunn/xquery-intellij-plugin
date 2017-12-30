@@ -4009,7 +4009,7 @@ class XQueryPsiTest:ParserTestCase() {
     fun testQuantifiedExpr_VariableProvider() {
         val file = parseResource("tests/parser/xquery-1.0/QuantifiedExpr.xq")!!
 
-        val quantifiedExprPsi = file.descendants().filterIsInstance<XQueryQuantifiedExpr>().first()
+        val quantifiedExprPsi = file.descendants().filterIsInstance<XPathQuantifiedExpr>().first()
         val varNamePsi = quantifiedExprPsi.children().filterIsInstance<XPathVarName>().first()
         val provider = quantifiedExprPsi as XQueryVariableResolver
 
@@ -4020,7 +4020,7 @@ class XQueryPsiTest:ParserTestCase() {
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XPathVarName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(varNamePsi))
 
-        assertThat(variable.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryQuantifiedExpr::class.java)))
+        assertThat(variable.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XPathQuantifiedExpr::class.java)))
         assertThat(variable.declaration, `is`<PsiElement>(quantifiedExprPsi))
     }
 
