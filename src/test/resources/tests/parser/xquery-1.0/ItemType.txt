@@ -16,7 +16,7 @@ XQueryModuleImpl[FILE(0:45)]
                XQueryTypeDeclarationImpl[XQUERY_TYPE_DECLARATION(23:35)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(23:25)]('as')
                   PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
-                  XQuerySequenceTypeImpl[XQUERY_SEQUENCE_TYPE(26:35)]
+                  XPathSequenceTypeImpl[XQUERY_SEQUENCE_TYPE(26:35)]
                      XPathItemTypeImpl[XQUERY_ITEM_TYPE(26:34)]
                         XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ITEM(26:30)]('item')
                         PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')

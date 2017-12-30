@@ -16,7 +16,7 @@ XQueryModuleImpl[FILE(0:50)]
                XQueryTypeDeclarationImpl[XQUERY_TYPE_DECLARATION(23:40)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(23:25)]('as')
                   PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
-                  XQuerySequenceTypeImpl[XQUERY_SEQUENCE_TYPE(26:40)]
+                  XPathSequenceTypeImpl[XQUERY_SEQUENCE_TYPE(26:40)]
                      XPathItemTypeImpl[XQUERY_ITEM_TYPE(26:40)]
                         MarkLogicSchemaTypeTestImpl[XQUERY_SCHEMA_TYPE_TEST(26:40)]
                            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SCHEMA_TYPE_NODE(26:37)]('schema-type')

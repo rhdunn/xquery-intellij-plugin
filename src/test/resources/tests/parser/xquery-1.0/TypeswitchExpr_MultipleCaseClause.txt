@@ -42,7 +42,7 @@ XQueryModuleImpl[FILE(0:81)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CASE(19:23)]('case')
                   PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
                   XQuerySequenceTypeUnionImpl[XQUERY_SEQUENCE_TYPE_UNION(24:33)]
-                     XQuerySequenceTypeImpl[XQUERY_SEQUENCE_TYPE(24:33)]
+                     XPathSequenceTypeImpl[XQUERY_SEQUENCE_TYPE(24:33)]
                         XPathItemTypeImpl[XQUERY_ITEM_TYPE(24:32)]
                            XPathAnyKindTestImpl[XQUERY_ANY_KIND_TEST(24:32)]
                               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NODE(24:28)]('node')
@@ -80,7 +80,7 @@ XQueryModuleImpl[FILE(0:81)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CASE(42:46)]('case')
                   PsiWhiteSpaceImpl[WHITE_SPACE(46:47)](' ')
                   XQuerySequenceTypeUnionImpl[XQUERY_SEQUENCE_TYPE_UNION(47:56)]
-                     XQuerySequenceTypeImpl[XQUERY_SEQUENCE_TYPE(47:56)]
+                     XPathSequenceTypeImpl[XQUERY_SEQUENCE_TYPE(47:56)]
                         XPathItemTypeImpl[XQUERY_ITEM_TYPE(47:55)]
                            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ITEM(47:51)]('item')
                            PsiWhiteSpaceImpl[WHITE_SPACE(51:52)](' ')

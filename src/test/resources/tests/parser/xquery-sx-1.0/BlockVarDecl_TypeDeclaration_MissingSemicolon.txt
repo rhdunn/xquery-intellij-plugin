@@ -33,7 +33,7 @@ XQueryModuleImpl[FILE(0:69)]
                         XQueryTypeDeclarationImpl[XQUERY_TYPE_DECLARATION(48:62)]
                            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(48:50)]('as')
                            PsiWhiteSpaceImpl[WHITE_SPACE(50:51)](' ')
-                           XQuerySequenceTypeImpl[XQUERY_SEQUENCE_TYPE(51:62)]
+                           XPathSequenceTypeImpl[XQUERY_SEQUENCE_TYPE(51:62)]
                               XPathItemTypeImpl[XQUERY_ITEM_TYPE(51:61)]
                                  XPathAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(51:61)]
                                     XPathQNameImpl[XQUERY_QNAME(51:61)]

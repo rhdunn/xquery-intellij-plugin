@@ -14,7 +14,7 @@ XQueryModuleImpl[FILE(0:41)]
                XQueryTypeDeclarationImpl[XQUERY_TYPE_DECLARATION(21:32)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(21:23)]('as')
                   PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
-                  XQuerySequenceTypeImpl[XQUERY_SEQUENCE_TYPE(24:32)]
+                  XPathSequenceTypeImpl[XQUERY_SEQUENCE_TYPE(24:32)]
                      XPathItemTypeImpl[XQUERY_ITEM_TYPE(24:32)]
                         MarkLogicBinaryTestImpl[XQUERY_BINARY_TEST(24:32)]
                            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_BINARY(24:30)]('binary')

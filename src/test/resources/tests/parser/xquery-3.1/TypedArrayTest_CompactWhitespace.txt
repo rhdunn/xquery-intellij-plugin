@@ -14,12 +14,12 @@ XQueryModuleImpl[FILE(0:47)]
                XQueryTypeDeclarationImpl[XQUERY_TYPE_DECLARATION(19:38)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(19:21)]('as')
                   PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
-                  XQuerySequenceTypeImpl[XQUERY_SEQUENCE_TYPE(22:38)]
+                  XPathSequenceTypeImpl[XQUERY_SEQUENCE_TYPE(22:38)]
                      XPathItemTypeImpl[XQUERY_ITEM_TYPE(22:38)]
                         XQueryTypedArrayTestImpl[XQUERY_TYPED_ARRAY_TEST(22:38)]
                            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ARRAY(22:27)]('array')
                            LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(27:28)]('(')
-                           XQuerySequenceTypeImpl[XQUERY_SEQUENCE_TYPE(28:37)]
+                           XPathSequenceTypeImpl[XQUERY_SEQUENCE_TYPE(28:37)]
                               XPathItemTypeImpl[XQUERY_ITEM_TYPE(28:37)]
                                  XPathAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(28:37)]
                                     XPathQNameImpl[XQUERY_QNAME(28:37)]

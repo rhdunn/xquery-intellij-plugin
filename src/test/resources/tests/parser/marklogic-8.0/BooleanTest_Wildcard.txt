@@ -16,7 +16,7 @@ XQueryModuleImpl[FILE(0:55)]
                XQueryTypeDeclarationImpl[XQUERY_TYPE_DECLARATION(23:45)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(23:25)]('as')
                   PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
-                  XQuerySequenceTypeImpl[XQUERY_SEQUENCE_TYPE(26:45)]
+                  XPathSequenceTypeImpl[XQUERY_SEQUENCE_TYPE(26:45)]
                      XPathItemTypeImpl[XQUERY_ITEM_TYPE(26:44)]
                         MarkLogicBooleanTestImpl[XQUERY_BOOLEAN_TEST(26:44)]
                            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_BOOLEAN_NODE(26:38)]('boolean-node')

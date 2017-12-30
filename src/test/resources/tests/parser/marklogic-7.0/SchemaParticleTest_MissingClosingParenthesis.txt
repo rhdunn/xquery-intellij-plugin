@@ -16,7 +16,7 @@ XQueryModuleImpl[FILE(0:54)]
                XQueryTypeDeclarationImpl[XQUERY_TYPE_DECLARATION(23:44)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(23:25)]('as')
                   PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
-                  XQuerySequenceTypeImpl[XQUERY_SEQUENCE_TYPE(26:44)]
+                  XPathSequenceTypeImpl[XQUERY_SEQUENCE_TYPE(26:44)]
                      XPathItemTypeImpl[XQUERY_ITEM_TYPE(26:44)]
                         MarkLogicSchemaParticleTestImpl[XQUERY_SCHEMA_PARTICLE_TEST(26:44)]
                            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SCHEMA_PARTICLE_NODE(26:41)]('schema-particle')

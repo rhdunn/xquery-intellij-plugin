@@ -16,7 +16,7 @@ XQueryModuleImpl[FILE(0:63)]
                XQueryTypeDeclarationImpl[XQUERY_TYPE_DECLARATION(23:53)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(23:25)]('as')
                   PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
-                  XQuerySequenceTypeImpl[XQUERY_SEQUENCE_TYPE(26:53)]
+                  XPathSequenceTypeImpl[XQUERY_SEQUENCE_TYPE(26:53)]
                      XPathItemTypeImpl[XQUERY_ITEM_TYPE(26:53)]
                         XPathFunctionTestImpl[XQUERY_FUNCTION_TEST(26:53)]
                            XPathAnyFunctionTestImpl[XQUERY_ANY_FUNCTION_TEST(26:53)]
@@ -31,7 +31,7 @@ XQueryModuleImpl[FILE(0:63)]
                               PsiErrorElementImpl[ERROR_ELEMENT(41:43)]('XPST0003: Return type specifiers not supported in 'AnyFunctionTest'.')
                                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(41:43)]('as')
                               PsiWhiteSpaceImpl[WHITE_SPACE(43:44)](' ')
-                              XQuerySequenceTypeImpl[XQUERY_SEQUENCE_TYPE(44:53)]
+                              XPathSequenceTypeImpl[XQUERY_SEQUENCE_TYPE(44:53)]
                                  XPathItemTypeImpl[XQUERY_ITEM_TYPE(44:52)]
                                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ITEM(44:48)]('item')
                                     PsiWhiteSpaceImpl[WHITE_SPACE(48:49)](' ')

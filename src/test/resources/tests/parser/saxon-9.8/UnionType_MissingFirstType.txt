@@ -16,7 +16,7 @@ XQueryModuleImpl[FILE(0:52)]
                XQueryTypeDeclarationImpl[XQUERY_TYPE_DECLARATION(21:46)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_AS(21:23)]('as')
                   PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
-                  XQuerySequenceTypeImpl[XQUERY_SEQUENCE_TYPE(24:46)]
+                  XPathSequenceTypeImpl[XQUERY_SEQUENCE_TYPE(24:46)]
                      XPathItemTypeImpl[XQUERY_ITEM_TYPE(24:45)]
                         SaxonUnionTypeImpl[XQUERY_UNION_TYPE(24:45)]
                            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_UNION(24:29)]('union')

@@ -41,7 +41,7 @@ XQueryModuleImpl[FILE(0:56)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CASE(17:21)]('case')
                   PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
                   XQuerySequenceTypeUnionImpl[XQUERY_SEQUENCE_TYPE_UNION(22:31)]
-                     XQuerySequenceTypeImpl[XQUERY_SEQUENCE_TYPE(22:31)]
+                     XPathSequenceTypeImpl[XQUERY_SEQUENCE_TYPE(22:31)]
                         XPathItemTypeImpl[XQUERY_ITEM_TYPE(22:30)]
                            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ITEM(22:26)]('item')
                            PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')

@@ -186,7 +186,7 @@ class XQueryReferenceTest : ParserTestCase() {
         val prologPsi = modulePsi.children().filterIsInstance<XQueryProlog>().first()
         val annotatedDeclPsi = prologPsi.children().filterIsInstance<XQueryAnnotatedDecl>().first()
         val functionDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryFunctionDecl>().first()
-        val sequenceTypePsi = functionDeclPsi.children().filterIsInstance<XQuerySequenceType>().first()
+        val sequenceTypePsi = functionDeclPsi.children().filterIsInstance<XPathSequenceType>().first()
         assertThat(sequenceTypePsi, `is`(notNullValue()))
 
         val eqname = sequenceTypePsi.descendants().filterIsInstance<XPathEQName>().first()
@@ -206,7 +206,7 @@ class XQueryReferenceTest : ParserTestCase() {
         val prologPsi = modulePsi.children().filterIsInstance<XQueryProlog>().first()
         val annotatedDeclPsi = prologPsi.children().filterIsInstance<XQueryAnnotatedDecl>().first()
         val functionDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryFunctionDecl>().first()
-        val sequenceTypePsi = functionDeclPsi.children().filterIsInstance<XQuerySequenceType>().first()
+        val sequenceTypePsi = functionDeclPsi.children().filterIsInstance<XPathSequenceType>().first()
         assertThat(sequenceTypePsi, `is`(notNullValue()))
 
         val eqname = sequenceTypePsi.descendants().filterIsInstance<XPathEQName>().first()
@@ -240,7 +240,7 @@ class XQueryReferenceTest : ParserTestCase() {
         val prologPsi = modulePsi.children().filterIsInstance<XQueryProlog>().first()
         val annotatedDeclPsi = prologPsi.children().filterIsInstance<XQueryAnnotatedDecl>().first()
         val functionDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryFunctionDecl>().first()
-        val sequenceTypePsi = functionDeclPsi.children().filterIsInstance<XQuerySequenceType>().first()
+        val sequenceTypePsi = functionDeclPsi.children().filterIsInstance<XPathSequenceType>().first()
         assertThat(sequenceTypePsi, `is`(notNullValue()))
 
         val eqname = sequenceTypePsi.descendants().filterIsInstance<XPathEQName>().first()
