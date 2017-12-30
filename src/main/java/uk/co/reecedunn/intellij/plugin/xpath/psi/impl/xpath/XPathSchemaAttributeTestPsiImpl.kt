@@ -13,15 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
+package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
-import com.intellij.lang.ASTNode;
-import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySchemaAttributeTest;
+import com.intellij.extapi.psi.ASTWrapperPsiElement
+import com.intellij.lang.ASTNode
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathSchemaAttributeTest
 
-public class XQuerySchemaAttributeTestPsiImpl extends ASTWrapperPsiElement implements XQuerySchemaAttributeTest {
-    public XQuerySchemaAttributeTestPsiImpl(@NotNull ASTNode node) {
-        super(node);
-    }
-}
+class XPathSchemaAttributeTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathSchemaAttributeTest

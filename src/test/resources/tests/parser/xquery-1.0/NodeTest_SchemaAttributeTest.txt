@@ -25,7 +25,7 @@ XQueryModuleImpl[FILE(0:31)]
                                                                         XPathForwardStepImpl[XQUERY_FORWARD_STEP(0:31)]
                                                                            XPathAbbrevForwardStepImpl[XQUERY_ABBREV_FORWARD_STEP(0:31)]
                                                                               XPathNodeTestImpl[XQUERY_NODE_TEST(0:31)]
-                                                                                 XQuerySchemaAttributeTestImpl[XQUERY_SCHEMA_ATTRIBUTE_TEST(0:31)]
+                                                                                 XPathSchemaAttributeTestImpl[XQUERY_SCHEMA_ATTRIBUTE_TEST(0:31)]
                                                                                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SCHEMA_ATTRIBUTE(0:16)]('schema-attribute')
                                                                                     PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
                                                                                     LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(17:18)]('(')
