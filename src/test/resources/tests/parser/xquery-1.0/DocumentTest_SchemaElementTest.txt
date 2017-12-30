@@ -23,7 +23,7 @@ XQueryModuleImpl[FILE(0:84)]
                            PsiWhiteSpaceImpl[WHITE_SPACE(39:40)](' ')
                            LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(40:41)]('(')
                            PsiWhiteSpaceImpl[WHITE_SPACE(41:42)](' ')
-                           XQuerySchemaElementTestImpl[XQUERY_SCHEMA_ELEMENT_TEST(42:71)]
+                           XPathSchemaElementTestImpl[XQUERY_SCHEMA_ELEMENT_TEST(42:71)]
                               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SCHEMA_ELEMENT(42:56)]('schema-element')
                               PsiWhiteSpaceImpl[WHITE_SPACE(56:57)](' ')
                               LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(57:58)]('(')
