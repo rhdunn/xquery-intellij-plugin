@@ -68,7 +68,7 @@ public interface XQueryElementType {
     IElementType PREDICATE_LIST = new ICompositeElementType("XQUERY_PREDICATE_LIST", XPathPredicateListPsiImpl.class, XQuery.INSTANCE);
     IElementType PREDICATE = new ICompositeElementType("XQUERY_PREDICATE", XPathPredicatePsiImpl.class, XQuery.INSTANCE);
 
-    IElementType RELATIVE_PATH_EXPR = new ICompositeElementType("XQUERY_RELATIVE_PATH_EXPR", XQueryRelativePathExprPsiImpl.class, XQuery.INSTANCE);
+    IElementType RELATIVE_PATH_EXPR = new ICompositeElementType("XQUERY_RELATIVE_PATH_EXPR", XPathRelativePathExprPsiImpl.class, XQuery.INSTANCE);
     IElementType PATH_EXPR = new ICompositeElementType("XQUERY_PATH_EXPR", XPathPathExprPsiImpl.class, XQuery.INSTANCE);
     IElementType PRAGMA = new ICompositeElementType("XQUERY_PRAGMA", XQueryPragmaPsiImpl.class, XQuery.INSTANCE);
     IElementType EXTENSION_EXPR = new ICompositeElementType("XQUERY_EXTENSION_EXPR", XQueryExtensionExprPsiImpl.class, XQuery.INSTANCE);

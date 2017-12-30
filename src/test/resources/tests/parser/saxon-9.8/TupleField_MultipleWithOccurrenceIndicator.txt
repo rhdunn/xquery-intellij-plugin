@@ -107,7 +107,7 @@ XQueryModuleImpl[FILE(0:90)]
                                                                XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(87:89)]
                                                                   XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(87:89)]
                                                                      XPathPathExprImpl[XQUERY_PATH_EXPR(87:89)]
-                                                                        XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(87:89)]
+                                                                        XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(87:89)]
                                                                            XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(87:89)]
                                                                               XPathLiteralImpl[XQUERY_LITERAL(87:88)]
                                                                                  XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(87:88)]('1')

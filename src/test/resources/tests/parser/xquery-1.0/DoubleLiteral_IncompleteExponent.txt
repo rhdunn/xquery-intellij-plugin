@@ -20,7 +20,7 @@ XQueryModuleImpl[FILE(0:11)]
                                                          XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:11)]
                                                             XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:11)]
                                                                XPathPathExprImpl[XQUERY_PATH_EXPR(0:11)]
-                                                                  XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:11)]
+                                                                  XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:11)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:11)]
                                                                         XPathLiteralImpl[XQUERY_LITERAL(0:11)]
                                                                            XPathDecimalLiteralImpl[XQUERY_DECIMAL_LITERAL_TOKEN(0:10)]('2.99792458')

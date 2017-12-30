@@ -20,7 +20,7 @@ XQueryModuleImpl[FILE(0:4)]
                                                          XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:4)]
                                                             XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:4)]
                                                                XPathPathExprImpl[XQUERY_PATH_EXPR(0:4)]
-                                                                  XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:4)]
+                                                                  XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:4)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:4)]
                                                                         XPathLiteralImpl[XQUERY_LITERAL(0:4)]
                                                                            XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(0:4)]('1234')

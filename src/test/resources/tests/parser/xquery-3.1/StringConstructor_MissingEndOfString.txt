@@ -20,7 +20,7 @@ XQueryModuleImpl[FILE(0:16)]
                                                          XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:16)]
                                                             XQuerySimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(0:16)]
                                                                XPathPathExprImpl[XQUERY_PATH_EXPR(0:16)]
-                                                                  XQueryRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:16)]
+                                                                  XPathRelativePathExprImpl[XQUERY_RELATIVE_PATH_EXPR(0:16)]
                                                                      XPathPostfixExprImpl[XQUERY_POSTFIX_EXPR(0:16)]
                                                                         XQueryStringConstructorImpl[XQUERY_STRING_CONSTRUCTOR(0:16)]
                                                                            LeafPsiElement[XQUERY_STRING_CONSTRUCTOR_START_TOKEN(0:3)]('``[')
