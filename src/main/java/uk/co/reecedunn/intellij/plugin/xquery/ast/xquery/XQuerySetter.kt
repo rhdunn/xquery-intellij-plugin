@@ -13,17 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
+package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
-import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiElement
 
 /**
- * An XQuery 1.0 <code>Setter</code> node in the XQuery AST.
+ * An XQuery 1.0 `Setter` node in the XQuery AST.
  *
- * Because the child nodes of an <code>Setter</code> are only referenced from
- * the <code>Setter</code> node in the grammar, the <code>Setter</code> nodes
+ * Because the child nodes of an `Setter` are only referenced from
+ * the `Setter` node in the grammar, the `Setter` nodes
  * are stored as instances of the child nodes instead of as distinct nodes
  * themselves.
  */
-public interface XQuerySetter extends PsiElement {
-}
+interface XQuerySetter : PsiElement
