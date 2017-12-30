@@ -34,24 +34,16 @@ infix fun <T> T?.`is`(cacheable: CachingBehaviour): Pair<T?, CachingBehaviour> {
 }
 
 class CacheableProperty<out T>(private val compute: () -> Pair<T?, CachingBehaviour>) {
-    // NOTE: Optional<T> does not allow null values to be stored in the optional,
-    // preventing it being used for nullable properties.
-    private var cachedValue: T? = null
-    private var isCached: Boolean = false
+    private var cachedValue: Pair<T?, CachingBehaviour?> = Pair(null, null)
 
     fun invalidate() {
-        isCached = false
+        cachedValue = Pair(null, null)
     }
 
     fun get(): T? {
-        if (!isCached) {
-            val computed = compute()
-            if (computed.second == CachingBehaviour.Cache) {
-                cachedValue = computed.first
-                isCached = true
-            }
-            return computed.first
+        if (cachedValue.second != CachingBehaviour.Cache) {
+            cachedValue = compute()
         }
-        return cachedValue
+        return cachedValue.first
     }
 }
