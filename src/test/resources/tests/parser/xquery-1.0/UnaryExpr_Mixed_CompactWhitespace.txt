@@ -17,7 +17,7 @@ XQueryModuleImpl[FILE(0:9)]
                                                 XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(0:4)]
                                                    XPathCastExprImpl[XQUERY_CAST_EXPR(0:4)]
                                                       XPathArrowExprImpl[XQUERY_ARROW_EXPR(0:4)]
-                                                         XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(0:4)]
+                                                         XPathUnaryExprImpl[XQUERY_UNARY_EXPR(0:4)]
                                                             LeafPsiElement[XQUERY_PLUS_TOKEN(0:1)]('+')
                                                             LeafPsiElement[XQUERY_MINUS_TOKEN(1:2)]('-')
                                                             XPathSimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(2:4)]
@@ -42,7 +42,7 @@ XQueryModuleImpl[FILE(0:9)]
                                                 XPathCastableExprImpl[XQUERY_CASTABLE_EXPR(5:9)]
                                                    XPathCastExprImpl[XQUERY_CAST_EXPR(5:9)]
                                                       XPathArrowExprImpl[XQUERY_ARROW_EXPR(5:9)]
-                                                         XQueryUnaryExprImpl[XQUERY_UNARY_EXPR(5:9)]
+                                                         XPathUnaryExprImpl[XQUERY_UNARY_EXPR(5:9)]
                                                             LeafPsiElement[XQUERY_MINUS_TOKEN(5:6)]('-')
                                                             LeafPsiElement[XQUERY_PLUS_TOKEN(6:7)]('+')
                                                             XPathSimpleMapExprImpl[XQUERY_SIMPLE_MAP_EXPR(7:9)]
