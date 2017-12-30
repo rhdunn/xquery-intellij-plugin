@@ -18,7 +18,7 @@ XQueryModuleImpl[FILE(0:47)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
                   XPathSequenceTypeImpl[XQUERY_SEQUENCE_TYPE(26:37)]
                      XPathItemTypeImpl[XQUERY_ITEM_TYPE(26:36)]
-                        XQueryTextTestImpl[XQUERY_TEXT_TEST(26:36)]
+                        XPathTextTestImpl[XQUERY_TEXT_TEST(26:36)]
                            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TEXT(26:30)]('text')
                            PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')
                            LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(31:32)]('(')

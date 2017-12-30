@@ -16,7 +16,7 @@ XQueryModuleImpl[FILE(0:40)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
                   XPathSequenceTypeImpl[XQUERY_SEQUENCE_TYPE(24:31)]
                      XPathItemTypeImpl[XQUERY_ITEM_TYPE(24:31)]
-                        XQueryTextTestImpl[XQUERY_TEXT_TEST(24:31)]
+                        XPathTextTestImpl[XQUERY_TEXT_TEST(24:31)]
                            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TEXT(24:28)]('text')
                            LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(28:29)]('(')
                            PsiErrorElementImpl[ERROR_ELEMENT(29:30)]('XPST0003: Expected 'StringLiteral' or ')'.')

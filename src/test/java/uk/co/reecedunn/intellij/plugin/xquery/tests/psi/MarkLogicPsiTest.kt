@@ -636,7 +636,7 @@ class MarkLogicPsiTest : ParserTestCase() {
         val varDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
         val typeDeclarationPsi = varDeclPsi.children().filterIsInstance<XQueryTypeDeclaration>().first()
         val sequenceTypePsi = typeDeclarationPsi.children().filterIsInstance<XPathSequenceType>().first()
-        val textTestPsi = sequenceTypePsi.descendants().filterIsInstance<XQueryTextTest>().first()
+        val textTestPsi = sequenceTypePsi.descendants().filterIsInstance<XPathTextTest>().first()
         val versioned = textTestPsi as XQueryConformance
 
         assertThat(versioned.requiresConformance.size, `is`(1))
