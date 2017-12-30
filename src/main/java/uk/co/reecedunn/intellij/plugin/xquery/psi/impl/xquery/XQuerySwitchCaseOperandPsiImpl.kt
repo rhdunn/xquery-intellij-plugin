@@ -13,12 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery;
+package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
-import com.intellij.psi.PsiElement;
+import com.intellij.extapi.psi.ASTWrapperPsiElement
+import com.intellij.lang.ASTNode
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySwitchCaseOperand
 
-/**
- * An XQuery 3.0 <code>SwitchCaseOperand</code> node in the XQuery AST.
- */
-public interface XQuerySwitchCaseOperand extends PsiElement {
-}
+class XQuerySwitchCaseOperandPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQuerySwitchCaseOperand
