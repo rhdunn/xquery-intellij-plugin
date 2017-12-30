@@ -13,15 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery;
+package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
-import com.intellij.lang.ASTNode;
-import org.jetbrains.annotations.NotNull;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryStringConstructorInterpolation;
+import com.intellij.extapi.psi.ASTWrapperPsiElement
+import com.intellij.lang.ASTNode
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryStringConstructorInterpolation
 
-public class XQueryStringConstructorInterpolationPsiImpl extends ASTWrapperPsiElement implements XQueryStringConstructorInterpolation {
-    public XQueryStringConstructorInterpolationPsiImpl(@NotNull ASTNode node) {
-        super(node);
-    }
-}
+class XQueryStringConstructorInterpolationPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryStringConstructorInterpolation
