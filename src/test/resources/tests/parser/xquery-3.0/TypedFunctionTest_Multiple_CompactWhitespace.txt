@@ -17,7 +17,7 @@ XQueryModuleImpl[FILE(0:56)]
                   XPathSequenceTypeImpl[XQUERY_SEQUENCE_TYPE(24:47)]
                      XPathItemTypeImpl[XQUERY_ITEM_TYPE(24:47)]
                         XPathFunctionTestImpl[XQUERY_FUNCTION_TEST(24:47)]
-                           XQueryTypedFunctionTestImpl[XQUERY_TYPED_FUNCTION_TEST(24:47)]
+                           XPathTypedFunctionTestImpl[XQUERY_TYPED_FUNCTION_TEST(24:47)]
                               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_FUNCTION(24:32)]('function')
                               LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(32:33)]('(')
                               XPathSequenceTypeImpl[XQUERY_SEQUENCE_TYPE(33:39)]
