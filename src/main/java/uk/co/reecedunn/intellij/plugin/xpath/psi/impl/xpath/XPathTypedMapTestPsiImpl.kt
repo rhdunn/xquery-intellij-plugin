@@ -13,18 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
+package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryTypedMapTest
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathTypedMapTest
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Saxon
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 
-class XQueryTypedMapTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryTypedMapTest, XQueryConformance {
+class XPathTypedMapTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathTypedMapTest, XQueryConformance {
     override val requiresConformance get(): List<Version> = listOf(XQuery.REC_3_1_20170321, Saxon.VERSION_9_4)
 
     override val conformanceElement get(): PsiElement =

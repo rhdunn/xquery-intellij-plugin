@@ -16,7 +16,7 @@ XQueryModuleImpl[FILE(0:55)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
                   XPathSequenceTypeImpl[XQUERY_SEQUENCE_TYPE(22:46)]
                      XPathItemTypeImpl[XQUERY_ITEM_TYPE(22:46)]
-                        XQueryTypedMapTestImpl[XQUERY_TYPED_MAP_TEST(22:46)]
+                        XPathTypedMapTestImpl[XQUERY_TYPED_MAP_TEST(22:46)]
                            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_MAP(22:25)]('map')
                            LeafPsiElement[XQUERY_PARENTHESIS_OPEN_TOKEN(25:26)]('(')
                            XPathAtomicOrUnionTypeImpl[XQUERY_ATOMIC_OR_UNION_TYPE(26:35)]
