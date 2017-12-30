@@ -15,9 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryValueExpr
-
 /**
  * An XPath 3.0 and XQuery 3.0 `SimpleMapExpr` node in the XQuery AST.
  */
-interface XPathSimpleMapExpr : XQueryValueExpr
+interface XPathSimpleMapExpr : XPathValueExpr
