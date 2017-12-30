@@ -17,7 +17,9 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.core.data.CachedProperty
+import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import uk.co.reecedunn.intellij.plugin.core.data.NotCacheable
+import uk.co.reecedunn.intellij.plugin.core.data.`is`
 import uk.co.reecedunn.intellij.plugin.xdm.XsQName
 import uk.co.reecedunn.intellij.plugin.xdm.XsUntyped
 import uk.co.reecedunn.intellij.plugin.xdm.createLexicalQName
@@ -36,7 +38,7 @@ class XPathQNamePsiImpl(node: ASTNode) : XPathEQNamePsiImpl(node), XPathQName, X
     }
 
     override val constantValue get(): Any? = cachedConstantValue.get()
-    private val cachedConstantValue = CachedProperty {
+    private val cachedConstantValue = CacheableProperty {
         val names: List<PsiElement> = findChildrenByType(XQueryElementType.NCNAME)
         when (names.size) {
             2 -> createLexicalQName(
@@ -44,6 +46,6 @@ class XPathQNamePsiImpl(node: ASTNode) : XPathEQNamePsiImpl(node), XPathQName, X
                     names[1].firstChild as XdmLexicalValue,
                     this)
             else -> null
-        }
+        } `is` NotCacheable
     }
 }

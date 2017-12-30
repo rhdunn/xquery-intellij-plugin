@@ -17,8 +17,10 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import uk.co.reecedunn.intellij.plugin.core.data.Cacheable
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.core.data.CachedProperty
+import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import uk.co.reecedunn.intellij.plugin.core.data.`is`
 import uk.co.reecedunn.intellij.plugin.xdm.XsString
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
@@ -39,7 +41,7 @@ open class XPathStringLiteralPsiImpl(node: ASTNode):
     }
 
     override val lexicalRepresentation get(): String = cachedLexicalRepresentation.get()!!
-    private val cachedLexicalRepresentation = CachedProperty {
+    private val cachedLexicalRepresentation = CacheableProperty {
         children().map { child -> when (child.node.elementType) {
             XQueryTokenType.STRING_LITERAL_START, XQueryTokenType.STRING_LITERAL_END ->
                 null
@@ -51,7 +53,7 @@ open class XPathStringLiteralPsiImpl(node: ASTNode):
                 (child as XPathEscapeCharacter).unescapedValue
             else ->
                 child.text
-        }}.filterNotNull().joinToString(separator = "")
+        }}.filterNotNull().joinToString(separator = "") `is` Cacheable
     }
 
     override val staticType: XdmSequenceType = XsString

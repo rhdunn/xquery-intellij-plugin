@@ -18,7 +18,9 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.core.data.CachedProperty
+import uk.co.reecedunn.intellij.plugin.core.data.Cacheable
+import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import uk.co.reecedunn.intellij.plugin.core.data.`is`
 import uk.co.reecedunn.intellij.plugin.xdm.XsQName
 import uk.co.reecedunn.intellij.plugin.xdm.XsUntyped
 import uk.co.reecedunn.intellij.plugin.xdm.createQName
@@ -54,11 +56,11 @@ class XPathURIQualifiedNamePsiImpl(node: ASTNode):
     override val staticType get(): XdmSequenceType = constantValue?.let { XsQName } ?: XsUntyped
 
     override val constantValue get(): Any? = cachedConstantValue.get()
-    private val cachedConstantValue = CachedProperty {
+    private val cachedConstantValue = CacheableProperty {
         val namespace: PsiElement? = findChildByType(XQueryElementType.BRACED_URI_LITERAL)
         val localName: PsiElement? = findChildByType(XQueryElementType.NCNAME)
         localName?.let {
             createQName(namespace as XdmLexicalValue, localName.firstChild as XdmLexicalValue, this)
-        }
+        } `is` Cacheable
     }
 }

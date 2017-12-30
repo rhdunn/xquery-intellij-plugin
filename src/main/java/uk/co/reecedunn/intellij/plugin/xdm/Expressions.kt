@@ -15,7 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm
 
-import uk.co.reecedunn.intellij.plugin.core.data.CachedProperty
+import uk.co.reecedunn.intellij.plugin.core.data.Cacheable
+import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import uk.co.reecedunn.intellij.plugin.core.data.`is`
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmConstantExpression
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
@@ -23,18 +25,18 @@ import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import java.lang.ref.WeakReference
 
 class XdmLiteralValue(override val lexicalRepresentation: String,
-                      private val cachedStaticType: CachedProperty<XdmSequenceType>) : XdmLexicalValue {
+                      private val cachedStaticType: CacheableProperty<XdmSequenceType>) : XdmLexicalValue {
 
     // NOTE: The staticType may not be initialized yet (i.e. for QNames), so use
-    // CachedProperty to lazy-load the parameter.
+    // CacheableProperty to lazy-load the parameter.
     override val staticType get(): XdmSequenceType = cachedStaticType.get()!!
 }
 
 fun createQName(namespace: String, localName: String): QName {
     return QName(
             null,
-            XdmLiteralValue(namespace, CachedProperty { XsAnyURI }),
-            XdmLiteralValue(localName, CachedProperty { XsNCName }),
+            XdmLiteralValue(namespace, CacheableProperty { XsAnyURI `is` Cacheable }),
+            XdmLiteralValue(localName, CacheableProperty { XsNCName `is` Cacheable }),
             null)
 }
 

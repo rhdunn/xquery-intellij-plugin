@@ -17,7 +17,9 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
-import uk.co.reecedunn.intellij.plugin.core.data.CachedProperty
+import uk.co.reecedunn.intellij.plugin.core.data.Cacheable
+import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import uk.co.reecedunn.intellij.plugin.core.data.`is`
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.filterNotToken
 import uk.co.reecedunn.intellij.plugin.core.sequences.withNext
@@ -41,14 +43,14 @@ class XPathPostfixExprPsiImpl(node: ASTNode):
     /**
      * Perform static evaluation on the PostfixExpr to determine the static type and value.
      */
-    private val staticEval: CachedProperty<Pair<XdmSequenceType, Any?>?> = CachedProperty {
+    private val staticEval: CacheableProperty<Pair<XdmSequenceType, Any?>?> = CacheableProperty {
         val children = children().filterNotToken(XQueryElementType.WHITESPACE_OR_COMMENT).iterator()
         children.withNext { value ->
             if (value !is XdmLexicalValue || children.hasNext())
                 null
             else // Literal without a Predicate, ArgumentList, or Lookup expression.
                 Pair(value.staticType, value.lexicalRepresentation)
-        }
+        } `is` Cacheable
     }
 
     override val staticType get(): XdmSequenceType = staticEval.get()?.first ?: XsUntyped

@@ -15,7 +15,25 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.data
 
-class CachedProperty<T>(private val compute: () -> T?) {
+enum class CachingBehaviour {
+    /**
+     * The computed property value can be cached.
+     */
+    Cache,
+    /**
+     * The computed property value cannot be cached.
+     */
+    DoNotCache
+}
+
+val Cacheable = CachingBehaviour.Cache
+val NotCacheable = CachingBehaviour.DoNotCache
+
+infix fun <T> T?.`is`(cacheable: CachingBehaviour): Pair<T?, CachingBehaviour> {
+    return Pair(this, cacheable)
+}
+
+class CacheableProperty<out T>(private val compute: () -> Pair<T?, CachingBehaviour>) {
     // NOTE: Optional<T> does not allow null values to be stored in the optional,
     // preventing it being used for nullable properties.
     private var cachedValue: T? = null
@@ -27,8 +45,12 @@ class CachedProperty<T>(private val compute: () -> T?) {
 
     fun get(): T? {
         if (!isCached) {
-            cachedValue = compute()
-            isCached = true
+            val computed = compute()
+            if (computed.second == CachingBehaviour.Cache) {
+                cachedValue = computed.first
+                isCached = true
+            }
+            return computed.first
         }
         return cachedValue
     }

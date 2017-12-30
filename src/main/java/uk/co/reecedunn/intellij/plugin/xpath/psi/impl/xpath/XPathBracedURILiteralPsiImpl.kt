@@ -18,7 +18,9 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.core.data.CachedProperty
+import uk.co.reecedunn.intellij.plugin.core.data.Cacheable
+import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import uk.co.reecedunn.intellij.plugin.core.data.`is`
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.XsAnyURI
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
@@ -46,7 +48,7 @@ class XPathBracedURILiteralPsiImpl(node: ASTNode):
     override val staticType: XdmSequenceType = XsAnyURI
 
     override val lexicalRepresentation get(): String = cachedLexicalRepresentation.get()!!
-    private val cachedLexicalRepresentation = CachedProperty {
+    private val cachedLexicalRepresentation = CacheableProperty {
         children().map { child -> when (child.node.elementType) {
             XQueryTokenType.BRACED_URI_LITERAL_START, XQueryTokenType.BRACED_URI_LITERAL_END ->
                 null
@@ -56,7 +58,7 @@ class XPathBracedURILiteralPsiImpl(node: ASTNode):
                 (child as XQueryCharRef).codepoint.toString()
             else ->
                 child.text
-        }}.filterNotNull().joinToString(separator = "")
+        }}.filterNotNull().joinToString(separator = "") `is` Cacheable
     }
 
     override val requiresConformance get(): List<Version> = listOf(XQuery.REC_3_0_20140408, MarkLogic.VERSION_6_0)
