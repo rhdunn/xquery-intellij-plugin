@@ -29,7 +29,7 @@ XQueryModuleImpl[FILE(0:17)]
                                                       PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
                                                       PsiErrorElementImpl[ERROR_ELEMENT(8:8)]('XPST0003: Expected keyword: as.')
                                                       XQuerySingleTypeImpl[XQUERY_SINGLE_TYPE(8:17)]
-                                                         XQuerySimpleTypeNameImpl[XQUERY_SIMPLE_TYPE_NAME(8:17)]
+                                                         XPathSimpleTypeNameImpl[XQUERY_SIMPLE_TYPE_NAME(8:17)]
                                                             XPathQNameImpl[XQUERY_QNAME(8:17)]
                                                                XPathNCNameImpl[XQUERY_NCNAME(8:10)]
                                                                   XmlNCNameImpl[XQUERY_NCNAME_TOKEN(8:10)]('xs')

@@ -2151,7 +2151,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         val castExprPsi = file.descendants().filterIsInstance<XPathCastExpr>().first()
         val singleTypePsi = castExprPsi.children().filterIsInstance<XQuerySingleType>().first()
-        val simpleTypeNamePsi = singleTypePsi.descendants().filterIsInstance<XQuerySimpleTypeName>().first()
+        val simpleTypeNamePsi = singleTypePsi.descendants().filterIsInstance<XPathSimpleTypeName>().first()
         val eqnamePsi = simpleTypeNamePsi as XPathEQName
 
         assertThat(eqnamePsi.prefix, `is`(notNullValue()))
@@ -2168,7 +2168,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         val castExprPsi = file.descendants().filterIsInstance<XPathCastExpr>().first()
         val singleTypePsi = castExprPsi.children().filterIsInstance<XQuerySingleType>().first()
-        val simpleTypeNamePsi = singleTypePsi.descendants().filterIsInstance<XQuerySimpleTypeName>().first()
+        val simpleTypeNamePsi = singleTypePsi.descendants().filterIsInstance<XPathSimpleTypeName>().first()
         val eqnamePsi = simpleTypeNamePsi as XPathEQName
 
         assertThat(eqnamePsi.prefix, `is`(notNullValue()))
@@ -2185,7 +2185,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         val castExprPsi = file.descendants().filterIsInstance<XPathCastExpr>().first()
         val singleTypePsi = castExprPsi.children().filterIsInstance<XQuerySingleType>().first()
-        val simpleTypeNamePsi = singleTypePsi.descendants().filterIsInstance<XQuerySimpleTypeName>().first()
+        val simpleTypeNamePsi = singleTypePsi.descendants().filterIsInstance<XPathSimpleTypeName>().first()
         val eqnamePsi = simpleTypeNamePsi as XPathEQName
 
         assertThat(eqnamePsi.prefix, `is`(notNullValue()))
@@ -2200,7 +2200,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         val castExprPsi = file.descendants().filterIsInstance<XPathCastExpr>().first()
         val singleTypePsi = castExprPsi.children().filterIsInstance<XQuerySingleType>().first()
-        val simpleTypeNamePsi = singleTypePsi.descendants().filterIsInstance<XQuerySimpleTypeName>().first()
+        val simpleTypeNamePsi = singleTypePsi.descendants().filterIsInstance<XPathSimpleTypeName>().first()
         val eqnamePsi = simpleTypeNamePsi as XPathEQName
 
         assertThat(eqnamePsi.prefix, `is`(notNullValue()))
@@ -2217,7 +2217,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         val castExprPsi = file.descendants().filterIsInstance<XPathCastExpr>().first()
         val singleTypePsi = castExprPsi.children().filterIsInstance<XQuerySingleType>().first()
-        val simpleTypeNamePsi = singleTypePsi.descendants().filterIsInstance<XQuerySimpleTypeName>().first()
+        val simpleTypeNamePsi = singleTypePsi.descendants().filterIsInstance<XPathSimpleTypeName>().first()
         val eqnamePsi = simpleTypeNamePsi as XPathEQName
 
         assertThat(eqnamePsi.prefix, `is`(nullValue()))
@@ -2232,7 +2232,7 @@ class XQueryPsiTest:ParserTestCase() {
 
         val castExprPsi = file.descendants().filterIsInstance<XPathCastExpr>().first()
         val singleTypePsi = castExprPsi.children().filterIsInstance<XQuerySingleType>().first()
-        val simpleTypeNamePsi = singleTypePsi.descendants().filterIsInstance<XQuerySimpleTypeName>().first()
+        val simpleTypeNamePsi = singleTypePsi.descendants().filterIsInstance<XPathSimpleTypeName>().first()
         val eqnamePsi = simpleTypeNamePsi as XPathEQName
 
         assertThat(eqnamePsi.prefix, `is`(notNullValue()))

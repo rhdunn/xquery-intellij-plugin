@@ -185,7 +185,7 @@ public interface XQueryElementType {
     IElementType VAR_DEFAULT_VALUE = new ICompositeElementType("XQUERY_VAR_DEFAULT_VALUE", XQueryVarDefaultValuePsiImpl.class, XQuery.INSTANCE);
 
     IElementType ATOMIC_OR_UNION_TYPE = new ICompositeElementType("XQUERY_ATOMIC_OR_UNION_TYPE", XPathAtomicOrUnionTypePsiImpl.class, XQuery.INSTANCE);
-    IElementType SIMPLE_TYPE_NAME = new ICompositeElementType("XQUERY_SIMPLE_TYPE_NAME", XQuerySimpleTypeNamePsiImpl.class, XQuery.INSTANCE);
+    IElementType SIMPLE_TYPE_NAME = new ICompositeElementType("XQUERY_SIMPLE_TYPE_NAME", XPathSimpleTypeNamePsiImpl.class, XQuery.INSTANCE);
     IElementType SEQUENCE_TYPE_UNION = new ICompositeElementType("XQUERY_SEQUENCE_TYPE_UNION", XQuerySequenceTypeUnionPsiImpl.class, XQuery.INSTANCE);
 
     IElementType FUNCTION_TEST = new ICompositeElementType("XQUERY_FUNCTION_TEST", XPathFunctionTestPsiImpl.class, XQuery.INSTANCE);
