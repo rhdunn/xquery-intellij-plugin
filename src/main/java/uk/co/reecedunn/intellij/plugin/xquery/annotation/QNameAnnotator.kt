@@ -68,8 +68,7 @@ class QNameAnnotator : Annotator {
                 holder.createInfoAnnotation(localName, null).enforcedTextAttributes = TextAttributes.ERASE_MARKER
                 holder.createInfoAnnotation(localName, null).textAttributes = SyntaxHighlighter.IDENTIFIER
             } else if (localName is XPathNCName) {
-                val ncname = localName.localName
-                if (ncname != null && ncname.node.elementType is IXQueryKeywordOrNCNameType) {
+                if (localName.node.elementType is IXQueryKeywordOrNCNameType) {
                     holder.createInfoAnnotation(localName, null).enforcedTextAttributes = TextAttributes.ERASE_MARKER
                     holder.createInfoAnnotation(localName, null).textAttributes = SyntaxHighlighter.IDENTIFIER
                 }
