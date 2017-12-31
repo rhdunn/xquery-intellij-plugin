@@ -30,7 +30,7 @@ XQueryModuleImpl[FILE(0:15)]
                                                                               XQueryDirWhiteSpaceImpl[XQUERY_XML_WHITE_SPACE_TOKEN(2:3)](' ')
                                                                               XQueryDirAttributeListImpl[XQUERY_DIR_ATTRIBUTE_LIST(3:13)]
                                                                                  XPathNCNameImpl[XQUERY_NCNAME(3:4)]
-                                                                                    LeafPsiElement[XQUERY_XML_ATTRIBUTE_NCNAME_TOKEN(3:4)]('b')
+                                                                                    XmlNCNameImpl[XQUERY_XML_ATTRIBUTE_NCNAME_TOKEN(3:4)]('b')
                                                                                  LeafPsiElement[XQUERY_XML_EQUAL_TOKEN(4:5)]('=')
                                                                                  XQueryDirAttributeValueImpl[XQUERY_DIR_ATTRIBUTE_VALUE(5:13)]
                                                                                     LeafPsiElement[XQUERY_XML_ATTRIBUTE_VALUE_START_TOKEN(5:6)]('"')

@@ -35,10 +35,10 @@ XQueryModuleImpl[FILE(0:35)]
                                                                                  XQueryDirWhiteSpaceImpl[XQUERY_XML_WHITE_SPACE_TOKEN(4:5)](' ')
                                                                                  XPathQNameImpl[XQUERY_QNAME(5:11)]
                                                                                     XPathNCNameImpl[XQUERY_NCNAME(5:8)]
-                                                                                       LeafPsiElement[XQUERY_XML_ATTRIBUTE_NCNAME_TOKEN(5:8)]('xml')
+                                                                                       XmlNCNameImpl[XQUERY_XML_ATTRIBUTE_NCNAME_TOKEN(5:8)]('xml')
                                                                                     LeafPsiElement[XQUERY_XML_ATTRIBUTE_QNAME_SEPARATOR_TOKEN(8:9)](':')
                                                                                     XPathNCNameImpl[XQUERY_NCNAME(9:11)]
-                                                                                       LeafPsiElement[XQUERY_XML_ATTRIBUTE_NCNAME_TOKEN(9:11)]('id')
+                                                                                       XmlNCNameImpl[XQUERY_XML_ATTRIBUTE_NCNAME_TOKEN(9:11)]('id')
                                                                                  LeafPsiElement[XQUERY_XML_EQUAL_TOKEN(11:12)]('=')
                                                                                  XQueryDirAttributeValueImpl[XQUERY_DIR_ATTRIBUTE_VALUE(12:18)]
                                                                                     LeafPsiElement[XQUERY_XML_ATTRIBUTE_VALUE_START_TOKEN(12:13)]('"')
@@ -46,7 +46,7 @@ XQueryModuleImpl[FILE(0:35)]
                                                                                     LeafPsiElement[XQUERY_XML_ATTRIBUTE_VALUE_END_TOKEN(17:18)]('"')
                                                                                  XQueryDirWhiteSpaceImpl[XQUERY_XML_WHITE_SPACE_TOKEN(18:19)](' ')
                                                                                  XPathNCNameImpl[XQUERY_NCNAME(19:24)]
-                                                                                    LeafPsiElement[XQUERY_XML_ATTRIBUTE_NCNAME_TOKEN(19:24)]('class')
+                                                                                    XmlNCNameImpl[XQUERY_XML_ATTRIBUTE_NCNAME_TOKEN(19:24)]('class')
                                                                                  LeafPsiElement[XQUERY_XML_EQUAL_TOKEN(24:25)]('=')
                                                                                  XQueryDirAttributeValueImpl[XQUERY_DIR_ATTRIBUTE_VALUE(25:33)]
                                                                                     LeafPsiElement[XQUERY_XML_ATTRIBUTE_VALUE_START_TOKEN(25:26)]('"')
