@@ -42,9 +42,7 @@ open class XdmComplexType(typeName: QName): XmlSchemaType(typeName, XsAnyType)
 
 open class XdmSimpleType(typeName: QName?, baseType: XmlSchemaType): XmlSchemaType(typeName, baseType)
 
-open class XdmAtomicType(typeName: QName,
-                         baseType: XmlSchemaType,
-                         val pattern: Regex? = null):
+open class XdmAtomicType(typeName: QName, baseType: XmlSchemaType):
         XdmSimpleType(typeName, baseType),
         XdmItem {
 

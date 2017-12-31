@@ -10,16 +10,13 @@ it does not provide the facilities to perform dynamic analysis or evaluating
 queries at runtime.
 
 The [XMLSchema](#xmlschema) data types are modelled here as part of the XDM
-type hierarchy. In addition to this, a subset of the XMLSchema facets
-(specifically, the `pattern`, `minInclusive`, and `maxInclusive` facets) are
-provided on the builtin data types to support type conversion checking, as
-defined in the
-[XPath and XQuery Functions and Operators](#functions-and-operators)
+type hierarchy. These builtin data types implement the casting rules as defined
+in the [XPath and XQuery Functions and Operators](#functions-and-operators)
 specification.
 
-__NOTE:__ This implementation does not support any other facets, nor does it
-support querying custom data in XMLSchema definition (`xsd`) files. It is
-only intended to validate builtin XDM/XMLSchema data types.
+__NOTE:__ This implementation does not support any dynamic XMLSchema facets,
+nor does it support querying custom data in XMLSchema definition (`xsd`) files.
+That functionality can be built on top of this, if needed.
 
 This only provides the core data model and its associated API. The actual
 implementation mapping the XPath/XQuery constructs to the data model is done

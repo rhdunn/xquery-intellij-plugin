@@ -101,8 +101,7 @@ val XsIDREF = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "IDR
 
 val XsENTITY = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "ENTITY"), XsNCName)
 
-val XsBoolean = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "boolean"), XsAnyAtomicType,
-    pattern = "true|false|[10]".toRegex())
+val XsBoolean = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "boolean"), XsAnyAtomicType)
 
 val XsBase64Binary = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "base64Binary"), XsAnyAtomicType)
 

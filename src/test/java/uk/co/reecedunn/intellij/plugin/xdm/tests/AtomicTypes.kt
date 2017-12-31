@@ -500,8 +500,6 @@ class AtomicTypes : TestCase() {
 
         assertThat(XsString.baseType, `is`(XsAnyAtomicType as XmlSchemaType))
 
-        assertThat(XsString.pattern, `is`(nullValue()))
-
         assertThat(createQName("http://www.w3.org/2001/XMLSchema", "string").toXmlSchemaType(),
                 `is`(XsString as XdmSequenceType))
     }
@@ -661,8 +659,6 @@ class AtomicTypes : TestCase() {
         assertThat(XsBoolean.typeName?.localName?.lexicalRepresentation, `is`("boolean"))
 
         assertThat(XsBoolean.baseType, `is`(XsAnyAtomicType as XmlSchemaType))
-
-        assertThat(XsBoolean.pattern.toString(), `is`("true|false|[10]"))
 
         assertThat(createQName("http://www.w3.org/2001/XMLSchema", "boolean").toXmlSchemaType(),
                 `is`(XsBoolean as XdmSequenceType))
