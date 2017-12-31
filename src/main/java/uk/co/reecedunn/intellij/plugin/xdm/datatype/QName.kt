@@ -22,11 +22,15 @@ import java.lang.ref.WeakReference
 data class QName(val prefix: XdmLexicalValue?,
                  val namespace: XdmLexicalValue?,
                  val localName: XdmLexicalValue,
-                 val declaration: WeakReference<XdmConstantExpression>?) {
+                 val declaration: WeakReference<XdmConstantExpression>?,
+                 val isLexicalQName: Boolean) {
 
     override fun toString(): String {
-        return namespace?.let { "Q{${it.lexicalRepresentation}}${localName.lexicalRepresentation}" } // URIQualifiedName
-            ?: prefix?.let { "${it.lexicalRepresentation}:${localName.lexicalRepresentation}" } // QName
-            ?: localName.lexicalRepresentation // NCName
+        return if (isLexicalQName) {
+            prefix?.let { "${it.lexicalRepresentation}:${localName.lexicalRepresentation}" } // QName
+                    ?: localName.lexicalRepresentation // NCName
+        } else {
+            "Q{${namespace!!.lexicalRepresentation}}${localName.lexicalRepresentation}" // URIQualifiedName
+        }
     }
 }

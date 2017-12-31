@@ -207,6 +207,7 @@ class XPathXdmTest : ParserTestCase() {
         assertThat(expr.staticType, `is`(XsQName as XdmSequenceType))
 
         val qname = expr.constantValue as QName
+        assertThat(qname.isLexicalQName, `is`(true))
         assertThat(qname.prefix, `is`(nullValue()))
         assertThat(qname.namespace, `is`(nullValue()))
         assertThat(qname.declaration?.get(), `is`(expr))
@@ -227,6 +228,7 @@ class XPathXdmTest : ParserTestCase() {
         assertThat(expr.staticType, `is`(XsQName as XdmSequenceType))
 
         val qname = expr.constantValue as QName
+        assertThat(qname.isLexicalQName, `is`(true))
         assertThat(qname.prefix, `is`(nullValue()))
         assertThat(qname.namespace, `is`(nullValue()))
         assertThat(qname.declaration?.get(), `is`(expr))
@@ -250,6 +252,7 @@ class XPathXdmTest : ParserTestCase() {
         assertThat(expr.staticType, `is`(XsQName as XdmSequenceType))
 
         val qname = expr.constantValue as QName
+        assertThat(qname.isLexicalQName, `is`(true))
         assertThat(qname.namespace, `is`(nullValue()))
         assertThat(qname.declaration?.get(), `is`(expr))
 
@@ -272,6 +275,7 @@ class XPathXdmTest : ParserTestCase() {
         assertThat(expr.staticType, `is`(XsQName as XdmSequenceType))
 
         val qname = expr.constantValue as QName
+        assertThat(qname.isLexicalQName, `is`(true))
         assertThat(qname.namespace, `is`(nullValue()))
         assertThat(qname.declaration?.get(), `is`(expr))
 
@@ -294,6 +298,7 @@ class XPathXdmTest : ParserTestCase() {
         assertThat(expr.staticType, `is`(XsQName as XdmSequenceType))
 
         val qname = expr.constantValue as QName
+        assertThat(qname.isLexicalQName, `is`(true))
         assertThat(qname.namespace, `is`(nullValue()))
         assertThat(qname.declaration?.get(), `is`(expr))
 
@@ -329,6 +334,7 @@ class XPathXdmTest : ParserTestCase() {
         assertThat(expr.staticType, `is`(XsQName as XdmSequenceType))
 
         val qname = expr.constantValue as QName
+        assertThat(qname.isLexicalQName, `is`(false))
         assertThat(qname.prefix, `is`(nullValue()))
         assertThat(qname.declaration?.get(), `is`(expr))
 
@@ -351,6 +357,7 @@ class XPathXdmTest : ParserTestCase() {
         assertThat(expr.staticType, `is`(XsQName as XdmSequenceType))
 
         val qname = expr.constantValue as QName
+        assertThat(qname.isLexicalQName, `is`(false))
         assertThat(qname.prefix, `is`(nullValue()))
         assertThat(qname.declaration?.get(), `is`(expr))
 
@@ -373,6 +380,7 @@ class XPathXdmTest : ParserTestCase() {
         assertThat(expr.staticType, `is`(XsQName as XdmSequenceType))
 
         val qname = expr.constantValue as QName
+        assertThat(qname.isLexicalQName, `is`(false))
         assertThat(qname.prefix, `is`(nullValue()))
         assertThat(qname.declaration?.get(), `is`(expr))
 

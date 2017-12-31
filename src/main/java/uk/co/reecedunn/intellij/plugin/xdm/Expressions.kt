@@ -40,13 +40,14 @@ fun createQName(namespace: String, localName: String): QName {
             null,
             XdmLiteralValue(namespace, CacheableProperty { XsAnyURI `is` Cacheable }),
             XdmLiteralValue(localName, CacheableProperty { XsNCName `is` Cacheable }),
-            null)
+            null,
+            false)
 }
 
 fun createQName(namespace: XdmLexicalValue, localName: XdmLexicalValue, declaration: XdmConstantExpression): QName {
-    return QName(null, namespace, localName, WeakReference(declaration))
+    return QName(null, namespace, localName, WeakReference(declaration), false)
 }
 
 fun createLexicalQName(prefix: XdmLexicalValue?, localName: XdmLexicalValue, declaration: XdmConstantExpression): QName {
-    return QName(prefix, null, localName, WeakReference(declaration))
+    return QName(prefix, null, localName, WeakReference(declaration), true)
 }
