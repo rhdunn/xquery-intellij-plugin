@@ -39,7 +39,19 @@ open class XmlSchemaType(val typeName: QName?, val baseType: XmlSchemaType?): Xd
     }
 
     override fun cast(value: Any?, type: XdmSequenceType): XdmTypeCastResult {
-        TODO("Not implemented.")
+        return when (type) {
+            is XdmAtomicType ->
+                if (type.isPrimitive)
+                    castPrimitive(value, type)
+                else
+                    XdmTypeCastResult(value, XsUntyped) // Not implemented.
+            else ->
+                XdmTypeCastResult(value, XsUntyped) // Not implemented.
+        }
+    }
+
+    open fun castPrimitive(value: Any?, type: XdmSequenceType): XdmTypeCastResult {
+        return XdmTypeCastResult(value, XsUntyped) // Not implemented.
     }
 }
 

@@ -108,7 +108,7 @@ val XsENTITY = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "EN
 object XsBoolean : XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "boolean"), XsAnyAtomicType) {
     // @see https://www.w3.org/TR/xpath-functions/#casting-boolean
     // @see https://www.w3.org/TR/xmlschema11-2/#boolean
-    override fun cast(value: Any?, type: XdmSequenceType): XdmTypeCastResult {
+    override fun castPrimitive(value: Any?, type: XdmSequenceType): XdmTypeCastResult {
         return when (type) {
             XsBoolean ->
                 XdmTypeCastResult(value, type)
