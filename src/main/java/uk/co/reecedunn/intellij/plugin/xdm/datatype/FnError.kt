@@ -24,6 +24,11 @@ import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
  */
 val FOER0000 = createQName("http://www.w3.org/2005/xqt-errors", "FOER0000")
 
+/**
+ * Cannot cast to 'type'.
+ */
+val FORG0001 = createQName("http://www.w3.org/2005/xqt-errors", "FORG0001")
+
 data class FnErrorObject(val code: QName,
                          val description: XdmLexicalValue?,
                          val errorObject: List<XdmExpression>) {

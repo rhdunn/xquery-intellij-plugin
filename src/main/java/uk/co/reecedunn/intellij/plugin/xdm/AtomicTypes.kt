@@ -21,7 +21,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm
 
+import uk.co.reecedunn.intellij.plugin.xdm.datatype.FORG0001
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmAtomicType
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmTypeCastResult
+import java.math.BigInteger
 
 val XsUntypedAtomic = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "untypedAtomic"), XsAnyAtomicType)
 
@@ -101,7 +105,35 @@ val XsIDREF = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "IDR
 
 val XsENTITY = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "ENTITY"), XsNCName)
 
-val XsBoolean = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "boolean"), XsAnyAtomicType)
+object XsBoolean : XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "boolean"), XsAnyAtomicType) {
+    // @see https://www.w3.org/TR/xpath-functions/#casting-boolean
+    // @see https://www.w3.org/TR/xmlschema11-2/#boolean
+    override fun cast(value: Any?, type: XdmSequenceType): XdmTypeCastResult {
+        return when (type) {
+            XsBoolean ->
+                XdmTypeCastResult(value, type)
+            XsString, XsUntypedAtomic -> when (value.toString()) {
+                "0", "false" -> XdmTypeCastResult(false, XsBoolean)
+                "1", "true"  -> XdmTypeCastResult(true,  XsBoolean)
+                else -> createCastError(FORG0001, "fnerror.FORG0001.lexical-representation", this)
+            }
+            XsFloat -> {
+                val v = value as Float
+                XdmTypeCastResult(v != 0.0f && !v.isNaN(), XsBoolean)
+            }
+            XsDouble -> {
+                val v = value as Double
+                XdmTypeCastResult(v != 0.0 && !v.isNaN(), XsBoolean)
+            }
+            XsInteger -> {
+                val v = value as BigInteger
+                XdmTypeCastResult(v != BigInteger.ZERO, XsBoolean)
+            }
+            else ->
+                XdmTypeCastResult(value, XsUntyped)
+        }
+    }
+}
 
 val XsBase64Binary = XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema", "base64Binary"), XsAnyAtomicType)
 

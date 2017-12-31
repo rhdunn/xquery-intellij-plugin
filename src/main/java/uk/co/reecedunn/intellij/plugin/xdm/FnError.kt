@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm
 
+import org.jetbrains.annotations.PropertyKey
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.FnErrorObject
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
@@ -24,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 
 val FnError = XmlSchemaType(createQName("http://www.w3.org/2005/xpath-functions", "error"), XsAnyType)
 
-fun createCastError(code: QName, description: String, type: XdmSequenceType): XdmTypeCastResult {
+fun createCastError(code: QName, @PropertyKey(resourceBundle = "messages.XQueryBundle") description: String, type: XdmSequenceType): XdmTypeCastResult {
     val message = XQueryBundle.message(description, type)
     return XdmTypeCastResult(FnErrorObject(code, createString(message)), FnError)
 }
