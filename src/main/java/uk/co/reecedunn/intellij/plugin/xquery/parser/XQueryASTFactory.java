@@ -64,7 +64,9 @@ public class XQueryASTFactory extends ASTFactory {
         } else if (type == XQueryTokenType.ESCAPED_CHARACTER ||
                    type == XQueryTokenType.XML_ESCAPED_CHARACTER) {
             return new XPathEscapeCharacterImpl(type, text);
-        } else if (type == XQueryTokenType.NCNAME || type instanceof IXQueryKeywordOrNCNameType) {
+        } else if (type == XQueryTokenType.NCNAME ||
+                   type == XQueryTokenType.XML_TAG_NCNAME ||
+                   type instanceof IXQueryKeywordOrNCNameType) {
             return new XmlNCNameImpl(type, text);
         }
 

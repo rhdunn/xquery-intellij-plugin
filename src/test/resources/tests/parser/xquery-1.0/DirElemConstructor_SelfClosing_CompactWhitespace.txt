@@ -27,8 +27,8 @@ XQueryModuleImpl[FILE(0:7)]
                                                                               LeafPsiElement[XQUERY_OPEN_XML_TAG_TOKEN(0:1)]('<')
                                                                               XPathQNameImpl[XQUERY_QNAME(1:5)]
                                                                                  XPathNCNameImpl[XQUERY_NCNAME(1:2)]
-                                                                                    LeafPsiElement[XQUERY_XML_TAG_NCNAME_TOKEN(1:2)]('h')
+                                                                                    XmlNCNameImpl[XQUERY_XML_TAG_NCNAME_TOKEN(1:2)]('h')
                                                                                  LeafPsiElement[XQUERY_XML_TAG_QNAME_SEPARATOR_TOKEN(2:3)](':')
                                                                                  XPathNCNameImpl[XQUERY_NCNAME(3:5)]
-                                                                                    LeafPsiElement[XQUERY_XML_TAG_NCNAME_TOKEN(3:5)]('br')
+                                                                                    XmlNCNameImpl[XQUERY_XML_TAG_NCNAME_TOKEN(3:5)]('br')
                                                                               LeafPsiElement[XQUERY_SELF_CLOSING_XML_TAG_TOKEN(5:7)]('/>')

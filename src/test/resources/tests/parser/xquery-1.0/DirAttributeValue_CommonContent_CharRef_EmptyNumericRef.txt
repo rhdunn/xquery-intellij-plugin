@@ -26,7 +26,7 @@ XQueryModuleImpl[FILE(0:12)]
                                                                            XQueryDirElemConstructorImpl[XQUERY_DIR_ELEM_CONSTRUCTOR(0:12)]
                                                                               LeafPsiElement[XQUERY_OPEN_XML_TAG_TOKEN(0:1)]('<')
                                                                               XPathNCNameImpl[XQUERY_NCNAME(1:2)]
-                                                                                 LeafPsiElement[XQUERY_XML_TAG_NCNAME_TOKEN(1:2)]('a')
+                                                                                 XmlNCNameImpl[XQUERY_XML_TAG_NCNAME_TOKEN(1:2)]('a')
                                                                               XQueryDirWhiteSpaceImpl[XQUERY_XML_WHITE_SPACE_TOKEN(2:3)](' ')
                                                                               XQueryDirAttributeListImpl[XQUERY_DIR_ATTRIBUTE_LIST(3:10)]
                                                                                  XPathNCNameImpl[XQUERY_NCNAME(3:4)]
