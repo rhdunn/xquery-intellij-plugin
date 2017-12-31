@@ -30,7 +30,7 @@ open class XdmFunction: XdmItem {
     override val lowerBound: XdmSequenceType.Occurs = XdmSequenceType.Occurs.ONE
     override val upperBound: XdmSequenceType.Occurs = XdmSequenceType.Occurs.ONE
 
-    override fun cast(value: Any, type: XdmSequenceType): XdmTypeCastResult {
+    override fun cast(value: Any?, type: XdmSequenceType): XdmTypeCastResult {
         TODO("Not implemented.")
     }
 }
@@ -44,7 +44,7 @@ open class XdmNode: XdmItem {
     override val lowerBound: XdmSequenceType.Occurs = XdmSequenceType.Occurs.ONE
     override val upperBound: XdmSequenceType.Occurs = XdmSequenceType.Occurs.ONE
 
-    override fun cast(value: Any, type: XdmSequenceType): XdmTypeCastResult {
+    override fun cast(value: Any?, type: XdmSequenceType): XdmTypeCastResult {
         TODO("Not implemented.")
     }
 }

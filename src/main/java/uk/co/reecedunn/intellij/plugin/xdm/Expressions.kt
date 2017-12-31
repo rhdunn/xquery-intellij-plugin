@@ -23,6 +23,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmConstantExpression
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmTypeCastResult
 import java.lang.ref.WeakReference
 
 private class XdmLiteralValue(override val lexicalRepresentation: String,
@@ -54,4 +55,8 @@ fun createQName(namespace: XdmLexicalValue, localName: XdmLexicalValue, declarat
 
 fun createLexicalQName(prefix: XdmLexicalValue?, localName: XdmLexicalValue, declaration: XdmConstantExpression): QName {
     return QName(prefix, null, localName, WeakReference(declaration), true)
+}
+
+fun XdmSequenceType.cast(expr: XdmConstantExpression): XdmTypeCastResult {
+    return cast(expr.constantValue, expr.staticType)
 }

@@ -33,7 +33,7 @@ open class XmlSchemaType(val typeName: QName?, val baseType: XmlSchemaType?): Xd
     override val lowerBound: XdmSequenceType.Occurs = XdmSequenceType.Occurs.ZERO
     override val upperBound: XdmSequenceType.Occurs = XdmSequenceType.Occurs.MANY
 
-    override fun cast(value: Any, type: XdmSequenceType): XdmTypeCastResult {
+    override fun cast(value: Any?, type: XdmSequenceType): XdmTypeCastResult {
         TODO("Not implemented.")
     }
 }
