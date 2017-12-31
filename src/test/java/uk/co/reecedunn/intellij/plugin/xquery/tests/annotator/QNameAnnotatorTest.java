@@ -144,21 +144,7 @@ public class QNameAnnotatorTest extends AnnotatorTestCase {
     public void testQName_MissingLocalPart() {
         final XQueryModule file = parseResource("tests/parser/xquery-1.0/QName_MissingLocalPart.xq");
         final List<Annotation> annotations = annotateTree(file, new QNameAnnotator());
-        assertThat(annotations.size(), is(2));
-
-        assertThat(annotations.get(0).getSeverity(), is(HighlightSeverity.INFORMATION));
-        assertThat(annotations.get(0).getStartOffset(), is(15));
-        assertThat(annotations.get(0).getEndOffset(), is(18));
-        assertThat(annotations.get(0).getMessage(), is(nullValue()));
-        assertThat(annotations.get(0).getEnforcedTextAttributes(), is(TextAttributes.ERASE_MARKER));
-        assertThat(annotations.get(0).getTextAttributes(), is(HighlighterColors.NO_HIGHLIGHTING));
-
-        assertThat(annotations.get(1).getSeverity(), is(HighlightSeverity.INFORMATION));
-        assertThat(annotations.get(1).getStartOffset(), is(15));
-        assertThat(annotations.get(1).getEndOffset(), is(18));
-        assertThat(annotations.get(1).getMessage(), is(nullValue()));
-        assertThat(annotations.get(1).getEnforcedTextAttributes(), is(nullValue()));
-        assertThat(annotations.get(1).getTextAttributes(), is(SyntaxHighlighter.NS_PREFIX));
+        assertThat(annotations.size(), is(0));
     }
 
     // endregion

@@ -19,6 +19,8 @@ import com.intellij.lang.annotation.AnnotationHolder
 import com.intellij.lang.annotation.Annotator
 import com.intellij.openapi.editor.markup.TextAttributes
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmConstantExpression
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathBracedURILiteral
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
@@ -33,13 +35,14 @@ class QNameAnnotator : Annotator {
         if (element !is XPathEQName) return
         if (element.getParent() is XPathEQName) return
 
+        val qname = (element as XdmConstantExpression).constantValue as? QName
         val xmlns: Boolean
-        val prefix = element.prefix
-        if (prefix != null && prefix !is XPathBracedURILiteral) {
-            if (prefix.text == "xmlns") {
+        if (qname?.prefix != null) {
+            if (qname.prefix.lexicalRepresentation == "xmlns") {
                 xmlns = true
             } else {
                 xmlns = false
+                val prefix = qname.prefix as PsiElement
                 holder.createInfoAnnotation(prefix, null).enforcedTextAttributes = TextAttributes.ERASE_MARKER
                 if (element.getParent() is XQueryDirAttributeList || element.getParent() is XQueryDirElemConstructor) {
                     holder.createInfoAnnotation(prefix, null).textAttributes = SyntaxHighlighter.XML_TAG
@@ -50,8 +53,8 @@ class QNameAnnotator : Annotator {
             xmlns = false
         }
 
-        val localName = element.localName
-        if (localName != null) {
+        if (qname?.localName != null) {
+            val localName = qname.localName as PsiElement
             if (xmlns) {
                 holder.createInfoAnnotation(localName, null).enforcedTextAttributes = TextAttributes.ERASE_MARKER
                 if (element.getParent() is XQueryDirAttributeList) {
