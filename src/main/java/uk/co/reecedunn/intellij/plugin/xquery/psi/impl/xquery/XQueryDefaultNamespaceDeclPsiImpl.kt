@@ -17,6 +17,29 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDefaultNamespaceDecl
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDefaultNamespaceType
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryUriLiteral
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
-class XQueryDefaultNamespaceDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryDefaultNamespaceDecl
+class XQueryDefaultNamespaceDeclPsiImpl(node: ASTNode):
+        ASTWrapperPsiElement(node),
+        XQueryDefaultNamespaceDecl {
+
+    override val type get(): XQueryDefaultNamespaceType {
+        return children().map { child -> when (child.node.elementType) {
+            XQueryTokenType.K_ELEMENT  -> XQueryDefaultNamespaceType.ElementOrType
+            XQueryTokenType.K_FUNCTION -> XQueryDefaultNamespaceType.Function
+            else -> null
+        }}.filterNotNull().first()
+    }
+
+    override val defaultValue get(): XdmLexicalValue? {
+        return children().filterIsInstance<XQueryUriLiteral>().map { uri ->
+            val value = uri as XdmLexicalValue
+            if (value.lexicalRepresentation.isEmpty()) null else value
+        }.filterNotNull().firstOrNull()
+    }
+}

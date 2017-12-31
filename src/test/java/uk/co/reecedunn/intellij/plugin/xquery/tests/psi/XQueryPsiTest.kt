@@ -22,7 +22,9 @@ import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
+import uk.co.reecedunn.intellij.plugin.xdm.XsAnyURI
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
@@ -35,7 +37,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.*
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathNCNamePsiImpl
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
-class XQueryPsiTest:ParserTestCase() {
+class XQueryPsiTest : ParserTestCase() {
     // region XPathArgumentList
 
     fun testArgumentList() {
@@ -2081,6 +2083,43 @@ class XQueryPsiTest:ParserTestCase() {
     }
 
     // endregion
+    // endregion
+    // region XQueryDefaultNamespaceDecl
+
+    fun testDefaultNamespaceDecl_Element() {
+        val file = parseText("declare default element namespace 'http://www.w3.org/1999/xhtml';")!!
+        val decl = file.descendants().filterIsInstance<XQueryDefaultNamespaceDecl>().first()
+
+        assertThat(decl.type, `is`(XQueryDefaultNamespaceType.ElementOrType))
+        assertThat(decl.defaultValue?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(decl.defaultValue?.lexicalRepresentation, `is`("http://www.w3.org/1999/xhtml"))
+    }
+
+    fun testDefaultNamespaceDecl_Function() {
+        val file = parseText("declare default function namespace 'http://www.w3.org/2005/xpath-functions/math';")!!
+        val decl = file.descendants().filterIsInstance<XQueryDefaultNamespaceDecl>().first()
+
+        assertThat(decl.type, `is`(XQueryDefaultNamespaceType.Function))
+        assertThat(decl.defaultValue?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(decl.defaultValue?.lexicalRepresentation, `is`("http://www.w3.org/2005/xpath-functions/math"))
+    }
+
+    fun testDefaultNamespaceDecl_EmptyNamespace() {
+        val file = parseText("declare default element namespace '';")!!
+        val decl = file.descendants().filterIsInstance<XQueryDefaultNamespaceDecl>().first()
+
+        assertThat(decl.type, `is`(XQueryDefaultNamespaceType.ElementOrType))
+        assertThat(decl.defaultValue, `is`(nullValue()))
+    }
+
+    fun testDefaultNamespaceDecl_MissingNamespace() {
+        val file = parseText("declare default element namespace;")!!
+        val decl = file.descendants().filterIsInstance<XQueryDefaultNamespaceDecl>().first()
+
+        assertThat(decl.type, `is`(XQueryDefaultNamespaceType.ElementOrType))
+        assertThat(decl.defaultValue, `is`(nullValue()))
+    }
+
     // endregion
     // region XQueryDirElemConstructor
 
