@@ -21,9 +21,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.model
 
-import uk.co.reecedunn.intellij.plugin.xdm.XsAnySimpleType
-import uk.co.reecedunn.intellij.plugin.xdm.XsAnyType
-import uk.co.reecedunn.intellij.plugin.xdm.XsUntyped
+import uk.co.reecedunn.intellij.plugin.xdm.*
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 
 open class XmlSchemaType(val typeName: QName?, val baseType: XmlSchemaType?): XdmSequenceType {
@@ -32,6 +30,13 @@ open class XmlSchemaType(val typeName: QName?, val baseType: XmlSchemaType?): Xd
     override val itemType get(): XdmSequenceType = XsUntyped
     override val lowerBound: XdmSequenceType.Occurs = XdmSequenceType.Occurs.ZERO
     override val upperBound: XdmSequenceType.Occurs = XdmSequenceType.Occurs.MANY
+
+    val isPrimitive get(): Boolean {
+        return baseType == XsAnyAtomicType || // Includes xs:untypedAtomic (XDM casting rules)
+               this == XsInteger ||           // XDM casting rules
+               this == XsYearMonthDuration || // XDM casting rules
+               this == XsDayTimeDuration      // XDM casting rules
+    }
 
     override fun cast(value: Any?, type: XdmSequenceType): XdmTypeCastResult {
         TODO("Not implemented.")

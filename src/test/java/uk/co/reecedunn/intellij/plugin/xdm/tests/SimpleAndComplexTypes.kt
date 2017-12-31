@@ -36,6 +36,7 @@ class SimpleAndComplexTypes : TestCase() {
         assertThat(XsAnyType.typeName?.localName?.lexicalRepresentation, `is`("anyType"))
 
         assertThat(XsAnyType.baseType, `is`(nullValue()))
+        assertThat(XsAnyType.isPrimitive, `is`(false))
 
         assertThat(createQName("http://www.w3.org/2001/XMLSchema", "anyType").toXmlSchemaType(),
                 `is`(XsAnyType as XdmSequenceType))
@@ -52,6 +53,7 @@ class SimpleAndComplexTypes : TestCase() {
         assertThat(XsUntyped.typeName?.localName?.lexicalRepresentation, `is`("untyped"))
 
         assertThat(XsUntyped.baseType, `is`(XsAnyType))
+        assertThat(XsUntyped.isPrimitive, `is`(false))
 
         assertThat(createQName("http://www.w3.org/2001/XMLSchema", "untyped").toXmlSchemaType(),
                 `is`(XsUntyped as XdmSequenceType))
@@ -68,6 +70,7 @@ class SimpleAndComplexTypes : TestCase() {
         assertThat(XsAnySimpleType.typeName?.localName?.lexicalRepresentation, `is`("anySimpleType"))
 
         assertThat(XsAnySimpleType.baseType, `is`(XsAnyType))
+        assertThat(XsAnySimpleType.isPrimitive, `is`(false))
 
         assertThat(createQName("http://www.w3.org/2001/XMLSchema", "anySimpleType").toXmlSchemaType(),
                 `is`(XsAnySimpleType as XdmSequenceType))
@@ -84,6 +87,7 @@ class SimpleAndComplexTypes : TestCase() {
         assertThat(XsAnyAtomicType.typeName?.localName?.lexicalRepresentation, `is`("anyAtomicType"))
 
         assertThat(XsAnyAtomicType.baseType, `is`(XsAnySimpleType as XmlSchemaType))
+        assertThat(XsAnyAtomicType.isPrimitive, `is`(false))
 
         assertThat(createQName("http://www.w3.org/2001/XMLSchema", "anyAtomicType").toXmlSchemaType(),
                 `is`(XsAnyAtomicType as XdmSequenceType))
@@ -100,6 +104,7 @@ class SimpleAndComplexTypes : TestCase() {
         assertThat(XsNumeric.typeName?.localName?.lexicalRepresentation, `is`("numeric"))
 
         assertThat(XsNumeric.baseType, `is`(XsAnySimpleType as XmlSchemaType))
+        assertThat(XsNumeric.isPrimitive, `is`(false))
 
         assertThat(XsNumeric.unionOf.size, `is`(3))
         assertThat(XsNumeric.unionOf[0], `is`(XsDouble as XdmSimpleType))
@@ -121,6 +126,7 @@ class SimpleAndComplexTypes : TestCase() {
         assertThat(XsIDREFS.typeName?.localName?.lexicalRepresentation, `is`("IDREFS"))
 
         assertThat(XsIDREFS.baseType, `is`(XsAnySimpleType as XmlSchemaType))
+        assertThat(XsIDREFS.isPrimitive, `is`(false))
 
         assertThat(XsIDREFS.itemType, `is`(XsIDREF as XdmSequenceType))
 
@@ -139,6 +145,7 @@ class SimpleAndComplexTypes : TestCase() {
         assertThat(XsNMTOKENS.typeName?.localName?.lexicalRepresentation, `is`("NMTOKENS"))
 
         assertThat(XsNMTOKENS.baseType, `is`(XsAnySimpleType as XmlSchemaType))
+        assertThat(XsNMTOKENS.isPrimitive, `is`(false))
 
         assertThat(XsNMTOKENS.itemType, `is`(XsNMTOKEN as XdmSequenceType))
 
@@ -157,6 +164,7 @@ class SimpleAndComplexTypes : TestCase() {
         assertThat(XsENTITIES.typeName?.localName?.lexicalRepresentation, `is`("ENTITIES"))
 
         assertThat(XsENTITIES.baseType, `is`(XsAnySimpleType as XmlSchemaType))
+        assertThat(XsENTITIES.isPrimitive, `is`(false))
 
         assertThat(XsENTITIES.itemType, `is`(XsENTITY as XdmSequenceType))
 

@@ -35,6 +35,7 @@ class AtomicTypes : TestCase() {
         assertThat(XsUntypedAtomic.typeName?.localName?.lexicalRepresentation, `is`("untypedAtomic"))
 
         assertThat(XsUntypedAtomic.baseType, `is`(XsAnyAtomicType as XmlSchemaType))
+        assertThat(XsUntypedAtomic.isPrimitive, `is`(true)) // XDM casting rules
 
         assertThat(createQName("http://www.w3.org/2001/XMLSchema", "untypedAtomic").toXmlSchemaType(),
                 `is`(XsUntypedAtomic as XdmSequenceType))
@@ -51,6 +52,7 @@ class AtomicTypes : TestCase() {
         assertThat(XsDateTime.typeName?.localName?.lexicalRepresentation, `is`("dateTime"))
 
         assertThat(XsDateTime.baseType, `is`(XsAnyAtomicType as XmlSchemaType))
+        assertThat(XsDateTime.isPrimitive, `is`(true)) // XMLSchema definition
 
         assertThat(createQName("http://www.w3.org/2001/XMLSchema", "dateTime").toXmlSchemaType(),
                 `is`(XsDateTime as XdmSequenceType))
@@ -67,6 +69,7 @@ class AtomicTypes : TestCase() {
         assertThat(XsDateTimeStamp.typeName?.localName?.lexicalRepresentation, `is`("dateTimeStamp"))
 
         assertThat(XsDateTimeStamp.baseType, `is`(XsDateTime as XmlSchemaType))
+        assertThat(XsDateTimeStamp.isPrimitive, `is`(false))
 
         assertThat(createQName("http://www.w3.org/2001/XMLSchema", "dateTimeStamp").toXmlSchemaType(),
                 `is`(XsDateTimeStamp as XdmSequenceType))
@@ -83,6 +86,7 @@ class AtomicTypes : TestCase() {
         assertThat(XsDate.typeName?.localName?.lexicalRepresentation, `is`("date"))
 
         assertThat(XsDate.baseType, `is`(XsAnyAtomicType as XmlSchemaType))
+        assertThat(XsDate.isPrimitive, `is`(true)) // XMLSchema definition
 
         assertThat(createQName("http://www.w3.org/2001/XMLSchema", "date").toXmlSchemaType(),
                 `is`(XsDate as XdmSequenceType))
@@ -99,6 +103,7 @@ class AtomicTypes : TestCase() {
         assertThat(XsTime.typeName?.localName?.lexicalRepresentation, `is`("time"))
 
         assertThat(XsTime.baseType, `is`(XsAnyAtomicType as XmlSchemaType))
+        assertThat(XsTime.isPrimitive, `is`(true)) // XMLSchema definition
 
         assertThat(createQName("http://www.w3.org/2001/XMLSchema", "time").toXmlSchemaType(),
                 `is`(XsTime as XdmSequenceType))
@@ -115,6 +120,7 @@ class AtomicTypes : TestCase() {
         assertThat(XsDuration.typeName?.localName?.lexicalRepresentation, `is`("duration"))
 
         assertThat(XsDuration.baseType, `is`(XsAnyAtomicType as XmlSchemaType))
+        assertThat(XsDuration.isPrimitive, `is`(true)) // XMLSchema definition
 
         assertThat(createQName("http://www.w3.org/2001/XMLSchema", "duration").toXmlSchemaType(),
                 `is`(XsDuration as XdmSequenceType))
@@ -131,6 +137,7 @@ class AtomicTypes : TestCase() {
         assertThat(XsYearMonthDuration.typeName?.localName?.lexicalRepresentation, `is`("yearMonthDuration"))
 
         assertThat(XsYearMonthDuration.baseType, `is`(XsDuration as XmlSchemaType))
+        assertThat(XsYearMonthDuration.isPrimitive, `is`(true)) // XDM casting rules
 
         assertThat(createQName("http://www.w3.org/2001/XMLSchema", "yearMonthDuration").toXmlSchemaType(),
                 `is`(XsYearMonthDuration as XdmSequenceType))
@@ -147,6 +154,7 @@ class AtomicTypes : TestCase() {
         assertThat(XsDayTimeDuration.typeName?.localName?.lexicalRepresentation, `is`("dayTimeDuration"))
 
         assertThat(XsDayTimeDuration.baseType, `is`(XsDuration as XmlSchemaType))
+        assertThat(XsDayTimeDuration.isPrimitive, `is`(true)) // XDM casting rules
 
         assertThat(createQName("http://www.w3.org/2001/XMLSchema", "dayTimeDuration").toXmlSchemaType(),
                 `is`(XsDayTimeDuration as XdmSequenceType))
@@ -163,6 +171,7 @@ class AtomicTypes : TestCase() {
         assertThat(XsFloat.typeName?.localName?.lexicalRepresentation, `is`("float"))
 
         assertThat(XsFloat.baseType, `is`(XsAnyAtomicType as XmlSchemaType))
+        assertThat(XsFloat.isPrimitive, `is`(true)) // XMLSchema definition
 
         assertThat(createQName("http://www.w3.org/2001/XMLSchema", "float").toXmlSchemaType(),
                 `is`(XsFloat as XdmSequenceType))
@@ -179,6 +188,7 @@ class AtomicTypes : TestCase() {
         assertThat(XsDouble.typeName?.localName?.lexicalRepresentation, `is`("double"))
 
         assertThat(XsDouble.baseType, `is`(XsAnyAtomicType as XmlSchemaType))
+        assertThat(XsDouble.isPrimitive, `is`(true)) // XMLSchema definition
 
         assertThat(createQName("http://www.w3.org/2001/XMLSchema", "double").toXmlSchemaType(),
                 `is`(XsDouble as XdmSequenceType))
@@ -195,6 +205,7 @@ class AtomicTypes : TestCase() {
         assertThat(XsDecimal.typeName?.localName?.lexicalRepresentation, `is`("decimal"))
 
         assertThat(XsDecimal.baseType, `is`(XsAnyAtomicType as XmlSchemaType))
+        assertThat(XsDecimal.isPrimitive, `is`(true)) // XMLSchema definition
 
         assertThat(createQName("http://www.w3.org/2001/XMLSchema", "decimal").toXmlSchemaType(),
                 `is`(XsDecimal as XdmSequenceType))
@@ -211,6 +222,7 @@ class AtomicTypes : TestCase() {
         assertThat(XsInteger.typeName?.localName?.lexicalRepresentation, `is`("integer"))
 
         assertThat(XsInteger.baseType, `is`(XsDecimal as XmlSchemaType))
+        assertThat(XsInteger.isPrimitive, `is`(true)) // XDM casting rules
 
         assertThat(createQName("http://www.w3.org/2001/XMLSchema", "integer").toXmlSchemaType(),
                 `is`(XsInteger as XdmSequenceType))
@@ -227,6 +239,7 @@ class AtomicTypes : TestCase() {
         assertThat(XsNonPositiveInteger.typeName?.localName?.lexicalRepresentation, `is`("nonPositiveInteger"))
 
         assertThat(XsNonPositiveInteger.baseType, `is`(XsInteger as XmlSchemaType))
+        assertThat(XsNonPositiveInteger.isPrimitive, `is`(false))
 
         assertThat(createQName("http://www.w3.org/2001/XMLSchema", "nonPositiveInteger").toXmlSchemaType(),
                 `is`(XsNonPositiveInteger as XdmSequenceType))
@@ -243,6 +256,7 @@ class AtomicTypes : TestCase() {
         assertThat(XsNegativeInteger.typeName?.localName?.lexicalRepresentation, `is`("negativeInteger"))
 
         assertThat(XsNegativeInteger.baseType, `is`(XsNonPositiveInteger as XmlSchemaType))
+        assertThat(XsNegativeInteger.isPrimitive, `is`(false))
 
         assertThat(createQName("http://www.w3.org/2001/XMLSchema", "negativeInteger").toXmlSchemaType(),
                 `is`(XsNegativeInteger as XdmSequenceType))
@@ -259,6 +273,7 @@ class AtomicTypes : TestCase() {
         assertThat(XsLong.typeName?.localName?.lexicalRepresentation, `is`("long"))
 
         assertThat(XsLong.baseType, `is`(XsInteger as XmlSchemaType))
+        assertThat(XsLong.isPrimitive, `is`(false))
 
         assertThat(createQName("http://www.w3.org/2001/XMLSchema", "long").toXmlSchemaType(),
                 `is`(XsLong as XdmSequenceType))
@@ -275,6 +290,7 @@ class AtomicTypes : TestCase() {
         assertThat(XsInt.typeName?.localName?.lexicalRepresentation, `is`("int"))
 
         assertThat(XsInt.baseType, `is`(XsLong as XmlSchemaType))
+        assertThat(XsInt.isPrimitive, `is`(false))
 
         assertThat(createQName("http://www.w3.org/2001/XMLSchema", "int").toXmlSchemaType(),
                 `is`(XsInt as XdmSequenceType))
@@ -291,6 +307,7 @@ class AtomicTypes : TestCase() {
         assertThat(XsShort.typeName?.localName?.lexicalRepresentation, `is`("short"))
 
         assertThat(XsShort.baseType, `is`(XsInt as XmlSchemaType))
+        assertThat(XsShort.isPrimitive, `is`(false))
 
         assertThat(createQName("http://www.w3.org/2001/XMLSchema", "short").toXmlSchemaType(),
                 `is`(XsShort as XdmSequenceType))
@@ -307,6 +324,7 @@ class AtomicTypes : TestCase() {
         assertThat(XsByte.typeName?.localName?.lexicalRepresentation, `is`("byte"))
 
         assertThat(XsByte.baseType, `is`(XsShort as XmlSchemaType))
+        assertThat(XsByte.isPrimitive, `is`(false))
 
         assertThat(createQName("http://www.w3.org/2001/XMLSchema", "byte").toXmlSchemaType(),
                 `is`(XsByte as XdmSequenceType))
@@ -323,6 +341,7 @@ class AtomicTypes : TestCase() {
         assertThat(XsNonNegativeInteger.typeName?.localName?.lexicalRepresentation, `is`("nonNegativeInteger"))
 
         assertThat(XsNonNegativeInteger.baseType, `is`(XsInteger as XmlSchemaType))
+        assertThat(XsNonNegativeInteger.isPrimitive, `is`(false))
 
         assertThat(createQName("http://www.w3.org/2001/XMLSchema", "nonNegativeInteger").toXmlSchemaType(),
                 `is`(XsNonNegativeInteger as XdmSequenceType))
@@ -339,6 +358,7 @@ class AtomicTypes : TestCase() {
         assertThat(XsUnsignedLong.typeName?.localName?.lexicalRepresentation, `is`("unsignedLong"))
 
         assertThat(XsUnsignedLong.baseType, `is`(XsNonNegativeInteger as XmlSchemaType))
+        assertThat(XsUnsignedLong.isPrimitive, `is`(false))
 
         assertThat(createQName("http://www.w3.org/2001/XMLSchema", "unsignedLong").toXmlSchemaType(),
                 `is`(XsUnsignedLong as XdmSequenceType))
@@ -355,6 +375,7 @@ class AtomicTypes : TestCase() {
         assertThat(XsUnsignedInt.typeName?.localName?.lexicalRepresentation, `is`("unsignedInt"))
 
         assertThat(XsUnsignedInt.baseType, `is`(XsUnsignedLong as XmlSchemaType))
+        assertThat(XsUnsignedInt.isPrimitive, `is`(false))
 
         assertThat(createQName("http://www.w3.org/2001/XMLSchema", "unsignedInt").toXmlSchemaType(),
                 `is`(XsUnsignedInt as XdmSequenceType))
@@ -371,6 +392,7 @@ class AtomicTypes : TestCase() {
         assertThat(XsUnsignedShort.typeName?.localName?.lexicalRepresentation, `is`("unsignedShort"))
 
         assertThat(XsUnsignedShort.baseType, `is`(XsUnsignedInt as XmlSchemaType))
+        assertThat(XsUnsignedShort.isPrimitive, `is`(false))
 
         assertThat(createQName("http://www.w3.org/2001/XMLSchema", "unsignedShort").toXmlSchemaType(),
                 `is`(XsUnsignedShort as XdmSequenceType))
@@ -387,6 +409,7 @@ class AtomicTypes : TestCase() {
         assertThat(XsUnsignedByte.typeName?.localName?.lexicalRepresentation, `is`("unsignedByte"))
 
         assertThat(XsUnsignedByte.baseType, `is`(XsUnsignedShort as XmlSchemaType))
+        assertThat(XsUnsignedByte.isPrimitive, `is`(false))
 
         assertThat(createQName("http://www.w3.org/2001/XMLSchema", "unsignedByte").toXmlSchemaType(),
                 `is`(XsUnsignedByte as XdmSequenceType))
@@ -403,6 +426,7 @@ class AtomicTypes : TestCase() {
         assertThat(XsPositiveInteger.typeName?.localName?.lexicalRepresentation, `is`("positiveInteger"))
 
         assertThat(XsPositiveInteger.baseType, `is`(XsNonNegativeInteger as XmlSchemaType))
+        assertThat(XsPositiveInteger.isPrimitive, `is`(false))
 
         assertThat(createQName("http://www.w3.org/2001/XMLSchema", "positiveInteger").toXmlSchemaType(),
                 `is`(XsPositiveInteger as XdmSequenceType))
@@ -419,6 +443,7 @@ class AtomicTypes : TestCase() {
         assertThat(XsGYearMonth.typeName?.localName?.lexicalRepresentation, `is`("gYearMonth"))
 
         assertThat(XsGYearMonth.baseType, `is`(XsAnyAtomicType as XmlSchemaType))
+        assertThat(XsGYearMonth.isPrimitive, `is`(true)) // XMLSchema definition
 
         assertThat(createQName("http://www.w3.org/2001/XMLSchema", "gYearMonth").toXmlSchemaType(),
                 `is`(XsGYearMonth as XdmSequenceType))
@@ -435,6 +460,7 @@ class AtomicTypes : TestCase() {
         assertThat(XsGYear.typeName?.localName?.lexicalRepresentation, `is`("gYear"))
 
         assertThat(XsGYear.baseType, `is`(XsAnyAtomicType as XmlSchemaType))
+        assertThat(XsGYear.isPrimitive, `is`(true)) // XMLSchema definition
 
         assertThat(createQName("http://www.w3.org/2001/XMLSchema", "gYear").toXmlSchemaType(),
                 `is`(XsGYear as XdmSequenceType))
@@ -451,6 +477,7 @@ class AtomicTypes : TestCase() {
         assertThat(XsGMonthDay.typeName?.localName?.lexicalRepresentation, `is`("gMonthDay"))
 
         assertThat(XsGMonthDay.baseType, `is`(XsAnyAtomicType as XmlSchemaType))
+        assertThat(XsGMonthDay.isPrimitive, `is`(true)) // XMLSchema definition
 
         assertThat(createQName("http://www.w3.org/2001/XMLSchema", "gMonthDay").toXmlSchemaType(),
                 `is`(XsGMonthDay as XdmSequenceType))
@@ -467,6 +494,7 @@ class AtomicTypes : TestCase() {
         assertThat(XsGDay.typeName?.localName?.lexicalRepresentation, `is`("gDay"))
 
         assertThat(XsGDay.baseType, `is`(XsAnyAtomicType as XmlSchemaType))
+        assertThat(XsGDay.isPrimitive, `is`(true)) // XMLSchema definition
 
         assertThat(createQName("http://www.w3.org/2001/XMLSchema", "gDay").toXmlSchemaType(),
                 `is`(XsGDay as XdmSequenceType))
@@ -483,6 +511,7 @@ class AtomicTypes : TestCase() {
         assertThat(XsGMonth.typeName?.localName?.lexicalRepresentation, `is`("gMonth"))
 
         assertThat(XsGMonth.baseType, `is`(XsAnyAtomicType as XmlSchemaType))
+        assertThat(XsGMonth.isPrimitive, `is`(true)) // XMLSchema definition
 
         assertThat(createQName("http://www.w3.org/2001/XMLSchema", "gMonth").toXmlSchemaType(),
                 `is`(XsGMonth as XdmSequenceType))
@@ -499,6 +528,7 @@ class AtomicTypes : TestCase() {
         assertThat(XsString.typeName?.localName?.lexicalRepresentation, `is`("string"))
 
         assertThat(XsString.baseType, `is`(XsAnyAtomicType as XmlSchemaType))
+        assertThat(XsString.isPrimitive, `is`(true)) // XMLSchema definition
 
         assertThat(createQName("http://www.w3.org/2001/XMLSchema", "string").toXmlSchemaType(),
                 `is`(XsString as XdmSequenceType))
@@ -515,6 +545,7 @@ class AtomicTypes : TestCase() {
         assertThat(XsNormalizedString.typeName?.localName?.lexicalRepresentation, `is`("normalizedString"))
 
         assertThat(XsNormalizedString.baseType, `is`(XsString as XmlSchemaType))
+        assertThat(XsNormalizedString.isPrimitive, `is`(false))
 
         assertThat(createQName("http://www.w3.org/2001/XMLSchema", "normalizedString").toXmlSchemaType(),
                 `is`(XsNormalizedString as XdmSequenceType))
@@ -531,6 +562,7 @@ class AtomicTypes : TestCase() {
         assertThat(XsToken.typeName?.localName?.lexicalRepresentation, `is`("token"))
 
         assertThat(XsToken.baseType, `is`(XsNormalizedString as XmlSchemaType))
+        assertThat(XsToken.isPrimitive, `is`(false))
 
         assertThat(createQName("http://www.w3.org/2001/XMLSchema", "token").toXmlSchemaType(),
                 `is`(XsToken as XdmSequenceType))
@@ -547,6 +579,7 @@ class AtomicTypes : TestCase() {
         assertThat(XsLanguage.typeName?.localName?.lexicalRepresentation, `is`("language"))
 
         assertThat(XsLanguage.baseType, `is`(XsToken as XmlSchemaType))
+        assertThat(XsLanguage.isPrimitive, `is`(false))
 
         assertThat(createQName("http://www.w3.org/2001/XMLSchema", "language").toXmlSchemaType(),
                 `is`(XsLanguage as XdmSequenceType))
@@ -563,6 +596,7 @@ class AtomicTypes : TestCase() {
         assertThat(XsNMTOKEN.typeName?.localName?.lexicalRepresentation, `is`("NMTOKEN"))
 
         assertThat(XsNMTOKEN.baseType, `is`(XsToken as XmlSchemaType))
+        assertThat(XsNMTOKEN.isPrimitive, `is`(false))
 
         assertThat(createQName("http://www.w3.org/2001/XMLSchema", "NMTOKEN").toXmlSchemaType(),
                 `is`(XsNMTOKEN as XdmSequenceType))
@@ -579,6 +613,7 @@ class AtomicTypes : TestCase() {
         assertThat(XsName.typeName?.localName?.lexicalRepresentation, `is`("Name"))
 
         assertThat(XsName.baseType, `is`(XsToken as XmlSchemaType))
+        assertThat(XsName.isPrimitive, `is`(false))
 
         assertThat(createQName("http://www.w3.org/2001/XMLSchema", "Name").toXmlSchemaType(),
                 `is`(XsName as XdmSequenceType))
@@ -595,6 +630,7 @@ class AtomicTypes : TestCase() {
         assertThat(XsNCName.typeName?.localName?.lexicalRepresentation, `is`("NCName"))
 
         assertThat(XsNCName.baseType, `is`(XsName as XmlSchemaType))
+        assertThat(XsNCName.isPrimitive, `is`(false))
 
         assertThat(createQName("http://www.w3.org/2001/XMLSchema", "NCName").toXmlSchemaType(),
                 `is`(XsNCName as XdmSequenceType))
@@ -611,6 +647,7 @@ class AtomicTypes : TestCase() {
         assertThat(XsID.typeName?.localName?.lexicalRepresentation, `is`("ID"))
 
         assertThat(XsID.baseType, `is`(XsNCName as XmlSchemaType))
+        assertThat(XsID.isPrimitive, `is`(false))
 
         assertThat(createQName("http://www.w3.org/2001/XMLSchema", "ID").toXmlSchemaType(),
                 `is`(XsID as XdmSequenceType))
@@ -627,6 +664,7 @@ class AtomicTypes : TestCase() {
         assertThat(XsIDREF.typeName?.localName?.lexicalRepresentation, `is`("IDREF"))
 
         assertThat(XsIDREF.baseType, `is`(XsNCName as XmlSchemaType))
+        assertThat(XsIDREF.isPrimitive, `is`(false))
 
         assertThat(createQName("http://www.w3.org/2001/XMLSchema", "IDREF").toXmlSchemaType(),
                 `is`(XsIDREF as XdmSequenceType))
@@ -643,6 +681,7 @@ class AtomicTypes : TestCase() {
         assertThat(XsENTITY.typeName?.localName?.lexicalRepresentation, `is`("ENTITY"))
 
         assertThat(XsENTITY.baseType, `is`(XsNCName as XmlSchemaType))
+        assertThat(XsENTITY.isPrimitive, `is`(false))
 
         assertThat(createQName("http://www.w3.org/2001/XMLSchema", "ENTITY").toXmlSchemaType(),
                 `is`(XsENTITY as XdmSequenceType))
@@ -659,6 +698,7 @@ class AtomicTypes : TestCase() {
         assertThat(XsBoolean.typeName?.localName?.lexicalRepresentation, `is`("boolean"))
 
         assertThat(XsBoolean.baseType, `is`(XsAnyAtomicType as XmlSchemaType))
+        assertThat(XsBoolean.isPrimitive, `is`(true)) // XMLSchema definition
 
         assertThat(createQName("http://www.w3.org/2001/XMLSchema", "boolean").toXmlSchemaType(),
                 `is`(XsBoolean as XdmSequenceType))
@@ -675,6 +715,7 @@ class AtomicTypes : TestCase() {
         assertThat(XsBase64Binary.typeName?.localName?.lexicalRepresentation, `is`("base64Binary"))
 
         assertThat(XsBase64Binary.baseType, `is`(XsAnyAtomicType as XmlSchemaType))
+        assertThat(XsBase64Binary.isPrimitive, `is`(true)) // XMLSchema definition
 
         assertThat(createQName("http://www.w3.org/2001/XMLSchema", "base64Binary").toXmlSchemaType(),
                 `is`(XsBase64Binary as XdmSequenceType))
@@ -691,6 +732,7 @@ class AtomicTypes : TestCase() {
         assertThat(XsHexBinary.typeName?.localName?.lexicalRepresentation, `is`("hexBinary"))
 
         assertThat(XsHexBinary.baseType, `is`(XsAnyAtomicType as XmlSchemaType))
+        assertThat(XsHexBinary.isPrimitive, `is`(true)) // XMLSchema definition
 
         assertThat(createQName("http://www.w3.org/2001/XMLSchema", "hexBinary").toXmlSchemaType(),
                 `is`(XsHexBinary as XdmSequenceType))
@@ -707,6 +749,7 @@ class AtomicTypes : TestCase() {
         assertThat(XsAnyURI.typeName?.localName?.lexicalRepresentation, `is`("anyURI"))
 
         assertThat(XsAnyURI.baseType, `is`(XsAnyAtomicType as XmlSchemaType))
+        assertThat(XsAnyURI.isPrimitive, `is`(true)) // XMLSchema definition
 
         assertThat(createQName("http://www.w3.org/2001/XMLSchema", "anyURI").toXmlSchemaType(),
                 `is`(XsAnyURI as XdmSequenceType))
@@ -723,6 +766,7 @@ class AtomicTypes : TestCase() {
         assertThat(XsQName.typeName?.localName?.lexicalRepresentation, `is`("QName"))
 
         assertThat(XsQName.baseType, `is`(XsAnyAtomicType as XmlSchemaType))
+        assertThat(XsQName.isPrimitive, `is`(true)) // XMLSchema definition
 
         assertThat(createQName("http://www.w3.org/2001/XMLSchema", "QName").toXmlSchemaType(),
                 `is`(XsQName as XdmSequenceType))
@@ -739,6 +783,7 @@ class AtomicTypes : TestCase() {
         assertThat(XsNOTATION.typeName?.localName?.lexicalRepresentation, `is`("NOTATION"))
 
         assertThat(XsNOTATION.baseType, `is`(XsAnyAtomicType as XmlSchemaType))
+        assertThat(XsNOTATION.isPrimitive, `is`(true)) // XMLSchema definition
 
         assertThat(createQName("http://www.w3.org/2001/XMLSchema", "NOTATION").toXmlSchemaType(),
                 `is`(XsNOTATION as XdmSequenceType))
