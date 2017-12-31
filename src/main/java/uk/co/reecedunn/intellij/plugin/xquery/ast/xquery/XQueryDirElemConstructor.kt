@@ -15,15 +15,15 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
+import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 
 /**
  * An XQuery 1.0 `DirElemConstructor` node in the XQuery AST.
  */
 interface XQueryDirElemConstructor : XQueryDirectConstructor {
-    val openTag: XPathEQName?
+    val openTag: QName?
 
-    val closeTag: XPathEQName?
+    val closeTag: QName?
 
     val isSelfClosing: Boolean
 }

@@ -2133,16 +2133,16 @@ class XQueryPsiTest : ParserTestCase() {
         val open = dirElemConstructorPsi.openTag
         assertThat(open, `is`(notNullValue()))
         assertThat(open!!.prefix, `is`(notNullValue()))
-        assertThat(open.prefix!!.text, `is`("a"))
+        assertThat(open.prefix!!.lexicalRepresentation, `is`("a"))
         assertThat(open.localName, `is`(notNullValue()))
-        assertThat(open.localName!!.text, `is`("b"))
+        assertThat(open.localName!!.lexicalRepresentation, `is`("b"))
 
         val close = dirElemConstructorPsi.closeTag
         assertThat(close, `is`(notNullValue()))
         assertThat(close!!.prefix, `is`(notNullValue()))
-        assertThat(close.prefix!!.text, `is`("a"))
+        assertThat(close.prefix!!.lexicalRepresentation, `is`("a"))
         assertThat(close.localName, `is`(notNullValue()))
-        assertThat(close.localName!!.text, `is`("b"))
+        assertThat(close.localName!!.lexicalRepresentation, `is`("b"))
     }
 
     fun testDirElemConstructor_SelfClosing() {
@@ -2155,9 +2155,9 @@ class XQueryPsiTest : ParserTestCase() {
         val open = dirElemConstructorPsi.openTag
         assertThat(open, `is`(notNullValue()))
         assertThat(open!!.prefix, `is`(notNullValue()))
-        assertThat(open.prefix!!.text, `is`("h"))
+        assertThat(open.prefix!!.lexicalRepresentation, `is`("h"))
         assertThat(open.localName, `is`(notNullValue()))
-        assertThat(open.localName!!.text, `is`("br"))
+        assertThat(open.localName!!.lexicalRepresentation, `is`("br"))
 
         val close = dirElemConstructorPsi.closeTag
         assertThat(close, `is`(nullValue()))
@@ -2173,9 +2173,9 @@ class XQueryPsiTest : ParserTestCase() {
         val open = dirElemConstructorPsi.openTag
         assertThat(open, `is`(notNullValue()))
         assertThat(open!!.prefix, `is`(notNullValue()))
-        assertThat(open.prefix!!.text, `is`("a"))
+        assertThat(open.prefix!!.lexicalRepresentation, `is`("a"))
         assertThat(open.localName, `is`(notNullValue()))
-        assertThat(open.localName!!.text, `is`("b"))
+        assertThat(open.localName!!.lexicalRepresentation, `is`("b"))
 
         val close = dirElemConstructorPsi.closeTag
         assertThat(close, `is`(nullValue()))

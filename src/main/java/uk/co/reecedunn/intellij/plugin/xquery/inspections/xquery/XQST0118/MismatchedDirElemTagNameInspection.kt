@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.inspections.xquery.XQST0118
 
 import com.intellij.codeInspection.*
+import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
@@ -42,16 +43,11 @@ class MismatchedDirElemTagNameInspection : LocalInspectionTool() {
         file.walkTree().filterIsInstance<XQueryDirElemConstructor>().forEach { elem ->
             val closeTag = elem.closeTag ?: return@forEach
             val openTag = elem.openTag!!
-
-            val closeLocalName = closeTag.localName
-            val openLocalName = openTag.localName
-            if ((openTag.prefix?.text != closeTag.prefix?.text || openLocalName?.text != closeLocalName?.text) &&
-                 closeLocalName != null && openLocalName != null) {
-                val closeTagName = closeTag.prefix?.let { "${it.text}:${closeLocalName.text}" } ?: closeLocalName.text
-                val openTagName = openTag.prefix?.let { "${it.text}:${openTag.localName?.text}" } ?: openTag.localName?.text
-
-                val description = XQueryBundle.message("inspection.XQST0118.mismatched-dir-elem-tag-name.message", closeTagName, openTagName)
-                descriptors.add(manager.createProblemDescriptor(closeTag, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))
+            if (openTag.prefix?.lexicalRepresentation != closeTag.prefix?.lexicalRepresentation ||
+                    openTag.localName.lexicalRepresentation != closeTag.localName.lexicalRepresentation) {
+                val description = XQueryBundle.message("inspection.XQST0118.mismatched-dir-elem-tag-name.message", closeTag, openTag)
+                val context = closeTag.declaration?.get()!! as PsiElement
+                descriptors.add(manager.createProblemDescriptor(context, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))
             }
         }
         return descriptors.toTypedArray()
