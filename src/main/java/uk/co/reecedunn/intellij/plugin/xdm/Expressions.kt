@@ -25,8 +25,8 @@ import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import java.lang.ref.WeakReference
 
-class XdmLiteralValue(override val lexicalRepresentation: String,
-                      private val cachedStaticType: CacheableProperty<XdmSequenceType>) : XdmLexicalValue {
+private class XdmLiteralValue(override val lexicalRepresentation: String,
+                              private val cachedStaticType: CacheableProperty<XdmSequenceType>) : XdmLexicalValue {
 
     // NOTE: The staticType may not be initialized yet (i.e. for QNames), so use
     // CacheableProperty to lazy-load the parameter.
