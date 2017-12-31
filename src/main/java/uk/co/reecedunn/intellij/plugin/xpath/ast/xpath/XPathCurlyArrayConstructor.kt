@@ -15,8 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArrayConstructor
-
 /**
  * An XPath 3.1 and XQuery 3.1 `CurlyArrayConstructor` node in the XQuery AST.
  */

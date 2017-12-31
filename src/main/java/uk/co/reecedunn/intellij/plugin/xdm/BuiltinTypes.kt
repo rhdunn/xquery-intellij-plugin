@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xdm
 
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
-import uk.co.reecedunn.intellij.plugin.xdm.model.*
+import uk.co.reecedunn.intellij.plugin.xdm.model.XmlSchemaType
 
 private fun localNameTypeMapOf(vararg x: XmlSchemaType): Map<String, XmlSchemaType> {
     return x.map { type -> type.typeName!!.localName.lexicalRepresentation to type }.toMap()

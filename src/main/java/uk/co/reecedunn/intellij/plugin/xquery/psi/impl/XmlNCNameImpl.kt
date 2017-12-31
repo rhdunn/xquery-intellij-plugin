@@ -21,7 +21,6 @@ import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
 import uk.co.reecedunn.intellij.plugin.xdm.XsNCName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
 class XmlNCNameImpl(type: IElementType, text: CharSequence):
         LeafPsiElement(type, text),

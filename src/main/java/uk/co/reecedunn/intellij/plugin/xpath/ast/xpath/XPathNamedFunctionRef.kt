@@ -15,9 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionItemExpr
-
 /**
  * An XPath 3.0 and XQuery 3.0 `NamedFunctionRef` node in the XQuery AST.
  */

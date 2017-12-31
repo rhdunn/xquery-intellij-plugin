@@ -21,7 +21,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm
 
-import uk.co.reecedunn.intellij.plugin.xdm.model.*
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmListType
 
 val XsIDREFS = XdmListType(createQName("http://www.w3.org/2001/XMLSchema", "IDREFS"),
     itemType = XsIDREF)

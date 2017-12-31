@@ -15,14 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.settings
 
-import com.intellij.openapi.application.PathManager
 import com.intellij.openapi.components.*
 import com.intellij.openapi.project.Project
 import com.intellij.util.xmlb.XmlSerializerUtil
 import com.intellij.util.xmlb.annotations.Transient
 import uk.co.reecedunn.intellij.plugin.xquery.lang.*
-import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
-import java.io.File
 
 @State(name = "XQueryProjectSettings", storages = arrayOf(Storage(StoragePathMacros.WORKSPACE_FILE), Storage("xquery_config.xml")))
 class XQueryProjectSettings : PersistentStateComponent<XQueryProjectSettings> {

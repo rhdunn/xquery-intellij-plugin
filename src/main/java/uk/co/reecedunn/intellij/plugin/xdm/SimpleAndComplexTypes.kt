@@ -21,7 +21,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm
 
-import uk.co.reecedunn.intellij.plugin.xdm.model.*
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmAtomicType
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmComplexType
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSimpleType
+import uk.co.reecedunn.intellij.plugin.xdm.model.XmlSchemaType
 
 val XsAnyType = XmlSchemaType(createQName("http://www.w3.org/2001/XMLSchema", "anyType"), null)
 

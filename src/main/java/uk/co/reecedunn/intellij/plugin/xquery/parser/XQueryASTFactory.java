@@ -23,15 +23,16 @@ import com.intellij.psi.impl.source.tree.PsiCommentImpl;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathIntegerLiteralImpl;
-import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathDoubleLiteralImpl;
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathDecimalLiteralImpl;
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathDoubleLiteralImpl;
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathEscapeCharacterImpl;
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathIntegerLiteralImpl;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.XQueryDirWhiteSpaceImpl;
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.XmlNCNameImpl;
-import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.*;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryCharRefImpl;
+import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryPredefinedEntityRefImpl;
 
 public class XQueryASTFactory extends ASTFactory {
     @Override

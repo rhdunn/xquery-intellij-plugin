@@ -15,8 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathExprSingle
-
 /**
  * An XPath 2.0 and XQuery 1.0 `OrExpr` node in the XQuery AST.
  */

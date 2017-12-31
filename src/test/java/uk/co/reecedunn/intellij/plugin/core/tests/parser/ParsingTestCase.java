@@ -43,7 +43,6 @@ import com.intellij.psi.impl.PsiCachedValuesFactory;
 import com.intellij.psi.impl.PsiFileFactoryImpl;
 import com.intellij.psi.impl.source.resolve.reference.ReferenceProvidersRegistry;
 import com.intellij.psi.impl.source.resolve.reference.ReferenceProvidersRegistryImpl;
-import com.intellij.psi.impl.source.tree.FileElement;
 import com.intellij.psi.impl.source.tree.LeafElement;
 import com.intellij.psi.util.CachedValuesManager;
 import com.intellij.testFramework.LightVirtualFile;
@@ -62,7 +61,10 @@ import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockPsiDocumentManagerEx;
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockPsiManager;
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.StringWriter;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 

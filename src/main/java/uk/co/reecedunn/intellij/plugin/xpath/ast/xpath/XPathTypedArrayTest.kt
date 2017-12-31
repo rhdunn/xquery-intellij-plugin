@@ -15,8 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArrayTest
-
 /**
  * An XPath 3.1 and XQuery 3.1 `TypedArrayTest` node in the XQuery AST.
  */

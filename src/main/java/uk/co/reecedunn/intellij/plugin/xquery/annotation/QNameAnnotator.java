@@ -20,10 +20,12 @@ import com.intellij.lang.annotation.Annotator;
 import com.intellij.openapi.editor.markup.TextAttributes;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathBracedURILiteral;
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName;
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName;
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathBracedURILiteral;
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotation;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttributeList;
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.SyntaxHighlighter;
 

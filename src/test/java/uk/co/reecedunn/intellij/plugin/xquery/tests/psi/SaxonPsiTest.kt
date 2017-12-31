@@ -28,7 +28,8 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathTypeDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.ast.saxon.SaxonTupleType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.saxon.SaxonTypeDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.saxon.SaxonUnionType
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVarDecl
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Saxon
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
