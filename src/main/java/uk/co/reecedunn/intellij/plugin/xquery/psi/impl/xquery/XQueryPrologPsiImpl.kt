@@ -17,15 +17,35 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import uk.co.reecedunn.intellij.plugin.core.data.Cacheable
+import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import uk.co.reecedunn.intellij.plugin.core.data.`is`
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xdm.model.QNameContext
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticContext
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDefaultNamespaceDecl
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDefaultNamespaceType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceResolver
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver
 
-class XQueryPrologPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryProlog, XQueryNamespaceResolver, XQueryVariableResolver {
+class XQueryPrologPsiImpl(node: ASTNode):
+        ASTWrapperPsiElement(node),
+        XQueryProlog,
+        XQueryNamespaceResolver,
+        XQueryVariableResolver,
+        XdmStaticContext {
+
+    override fun subtreeChanged() {
+        super.subtreeChanged()
+        defaultElementOrTypeNamespaceDecl.invalidate()
+        defaultFunctionNamespaceDecl.invalidate()
+    }
+
     override fun resolveNamespace(prefix: CharSequence?): XQueryNamespace? {
         return children().reversed().filterIsInstance<XQueryNamespaceResolver>().map { resolver ->
             resolver.resolveNamespace(prefix)
@@ -36,5 +56,29 @@ class XQueryPrologPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryPro
         return children().reversed().filterIsInstance<XQueryVariableResolver>().map { resolver ->
             resolver.resolveVariable(name)
         }.filterNotNull().firstOrNull()
+    }
+
+    override fun defaultNamespace(context: QNameContext): XdmLexicalValue? {
+        return when (context) {
+            QNameContext.Element,
+            QNameContext.Type ->
+                defaultElementOrTypeNamespaceDecl.get()?.defaultValue
+            QNameContext.Function ->
+                defaultFunctionNamespaceDecl.get()?.defaultValue
+        }
+    }
+
+    private val defaultElementOrTypeNamespaceDecl = CacheableProperty {
+        children().reversed()
+                .filterIsInstance<XQueryDefaultNamespaceDecl>()
+                .filter { decl -> decl.type == XQueryDefaultNamespaceType.ElementOrType }
+                .filterNotNull().firstOrNull() `is` Cacheable
+    }
+
+    private val defaultFunctionNamespaceDecl = CacheableProperty {
+        children().reversed()
+                .filterIsInstance<XQueryDefaultNamespaceDecl>()
+                .filter { decl -> decl.type == XQueryDefaultNamespaceType.Function }
+                .filterNotNull().firstOrNull() `is` Cacheable
     }
 }
