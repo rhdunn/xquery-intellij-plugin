@@ -57,6 +57,10 @@ fun createLexicalQName(prefix: XdmLexicalValue?, localName: XdmLexicalValue, dec
     return QName(prefix, null, localName, WeakReference(declaration), true)
 }
 
+fun XdmSequenceType.cast(expr: XdmLexicalValue): XdmTypeCastResult {
+    return cast(expr.lexicalRepresentation, expr.staticType)
+}
+
 fun XdmSequenceType.cast(expr: XdmConstantExpression): XdmTypeCastResult {
     return cast(expr.constantValue, expr.staticType)
 }
