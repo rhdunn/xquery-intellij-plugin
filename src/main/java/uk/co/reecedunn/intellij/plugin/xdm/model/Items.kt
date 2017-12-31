@@ -31,7 +31,7 @@ open class XdmFunction: XdmItem {
     override val upperBound: XdmSequenceType.Occurs = XdmSequenceType.Occurs.ONE
 
     override fun cast(value: Any?, type: XdmSequenceType): XdmTypeCastResult {
-        TODO("Not implemented.")
+        return XdmTypeCastResult(value, XsUntyped) // Not implemented.
     }
 }
 
@@ -45,7 +45,7 @@ open class XdmNode: XdmItem {
     override val upperBound: XdmSequenceType.Occurs = XdmSequenceType.Occurs.ONE
 
     override fun cast(value: Any?, type: XdmSequenceType): XdmTypeCastResult {
-        TODO("Not implemented.")
+        return XdmTypeCastResult(value, XsUntyped) // Not implemented.
     }
 }
 

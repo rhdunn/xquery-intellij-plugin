@@ -44,7 +44,7 @@ object XdmEmptySequence : XdmSequenceType {
     override val upperBound get(): XdmSequenceType.Occurs = XdmSequenceType.Occurs.ZERO
 
     override fun cast(value: Any?, type: XdmSequenceType): XdmTypeCastResult {
-        TODO("Not implemented.")
+        return XdmTypeCastResult(value, XsUntyped) // Not implemented.
     }
 }
 
@@ -56,7 +56,7 @@ class XdmOptional(override val itemType: XdmSequenceType) : XdmSequenceType {
     override val upperBound get(): XdmSequenceType.Occurs = XdmSequenceType.Occurs.ONE
 
     override fun cast(value: Any?, type: XdmSequenceType): XdmTypeCastResult {
-        TODO("Not implemented.")
+        return XdmTypeCastResult(value, XsUntyped) // Not implemented.
     }
 }
 
@@ -68,7 +68,7 @@ class XdmOptionalSequence(override val itemType: XdmSequenceType) : XdmSequenceT
     override val upperBound get(): XdmSequenceType.Occurs = XdmSequenceType.Occurs.MANY
 
     override fun cast(value: Any?, type: XdmSequenceType): XdmTypeCastResult {
-        TODO("Not implemented.")
+        return XdmTypeCastResult(value, XsUntyped) // Not implemented.
     }
 }
 
@@ -80,6 +80,6 @@ class XdmSequence(override val itemType: XdmSequenceType) : XdmSequenceType {
     override val upperBound get(): XdmSequenceType.Occurs = XdmSequenceType.Occurs.MANY
 
     override fun cast(value: Any?, type: XdmSequenceType): XdmTypeCastResult {
-        TODO("Not implemented.")
+        return XdmTypeCastResult(value, XsUntyped) // Not implemented.
     }
 }
