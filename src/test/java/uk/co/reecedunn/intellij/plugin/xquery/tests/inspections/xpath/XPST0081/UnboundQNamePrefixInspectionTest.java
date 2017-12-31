@@ -20,6 +20,7 @@ import com.intellij.codeInspection.ProblemHighlightType;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule;
 import uk.co.reecedunn.intellij.plugin.xquery.inspections.xpath.XPST0081.UnboundQNamePrefixInspection;
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery;
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.inspections.InspectionTestCase;
 
@@ -94,7 +95,7 @@ public class UnboundQNamePrefixInspectionTest extends InspectionTestCase {
 
         assertThat(problems[0].getHighlightType(), is(ProblemHighlightType.GENERIC_ERROR));
         assertThat(problems[0].getDescriptionTemplate(), is("XPST0081: Cannot resolve namespace prefix."));
-        assertThat(problems[0].getPsiElement().getNode().getElementType(), is(XQueryElementType.NCNAME));
+        assertThat(problems[0].getPsiElement().getNode().getElementType(), is(XQueryTokenType.NCNAME));
         assertThat(problems[0].getPsiElement().getText(), is("xdmp"));
     }
 
@@ -111,7 +112,7 @@ public class UnboundQNamePrefixInspectionTest extends InspectionTestCase {
 
         assertThat(problems[0].getHighlightType(), is(ProblemHighlightType.GENERIC_ERROR));
         assertThat(problems[0].getDescriptionTemplate(), is("XPST0081: Cannot resolve namespace prefix."));
-        assertThat(problems[0].getPsiElement().getNode().getElementType(), is(XQueryElementType.NCNAME));
+        assertThat(problems[0].getPsiElement().getNode().getElementType(), is(XQueryTokenType.NCNAME));
         assertThat(problems[0].getPsiElement().getText(), is("x"));
     }
 
@@ -136,7 +137,7 @@ public class UnboundQNamePrefixInspectionTest extends InspectionTestCase {
 
         assertThat(problems[0].getHighlightType(), is(ProblemHighlightType.GENERIC_ERROR));
         assertThat(problems[0].getDescriptionTemplate(), is("XPST0081: Cannot resolve namespace prefix."));
-        assertThat(problems[0].getPsiElement().getNode().getElementType(), is(XQueryElementType.NCNAME));
+        assertThat(problems[0].getPsiElement().getNode().getElementType(), is(XQueryTokenType.NCNAME));
         assertThat(problems[0].getPsiElement().getText(), is("x"));
     }
 
