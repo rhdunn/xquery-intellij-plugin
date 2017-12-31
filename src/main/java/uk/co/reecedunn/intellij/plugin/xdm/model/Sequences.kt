@@ -17,9 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xdm.model
 
 import uk.co.reecedunn.intellij.plugin.xdm.XsUntyped
 
-class XdmTypeCastResult(val error: Any?, val value: Any?, val type: XdmSequenceType) {
-    constructor(value: Any?, type: XdmSequenceType): this(null, value, type)
-}
+data class XdmTypeCastResult(val value: Any?, val type: XdmSequenceType)
 
 interface XdmSequenceType {
     enum class Occurs(val times: Int) {

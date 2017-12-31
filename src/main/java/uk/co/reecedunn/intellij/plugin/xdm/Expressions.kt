@@ -35,6 +35,10 @@ private class XdmLiteralValue(override val lexicalRepresentation: String,
     override val cacheable: CachingBehaviour = CachingBehaviour.Cache
 }
 
+fun createString(value: String): XdmLexicalValue {
+    return XdmLiteralValue(value, CacheableProperty { XsString `is` Cacheable })
+}
+
 fun createQName(namespace: String, localName: String): QName {
     return QName(
             null,
