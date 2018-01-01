@@ -21,22 +21,19 @@ import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.XsQName
 import uk.co.reecedunn.intellij.plugin.xdm.XsUntyped
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmConstantExpression
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmVariableName
+import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
+import uk.co.reecedunn.intellij.plugin.xdm.model.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarRef
 
 class XPathVarRefPsiImpl(node: ASTNode):
         ASTWrapperPsiElement(node),
         XPathVarRef,
-        XdmConstantExpression {
+        XdmVariableReference {
 
     private val varName get(): XdmVariableName? =
         children().filterIsInstance<XdmVariableName>().firstOrNull()
 
+    override val variableName get(): QName? = varName?.variableName
+
     override val cacheable get(): CachingBehaviour = varName?.cacheable ?: CachingBehaviour.Cache
-
-    override val staticType get(): XdmSequenceType = varName?.variableName?.let { XsQName } ?: XsUntyped
-
-    override val constantValue get(): Any? = varName?.variableName
 }

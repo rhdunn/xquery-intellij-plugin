@@ -1312,18 +1312,17 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     // endregion
-    // region VarRef (XdmConstantExpression)
+    // region VarRef (XdmVariableReference)
 
     fun testVarRef_NCName() {
-        val expr = parseSimpleExpression<XPathVarRef>("let \$x := 2 return \$y")[0]
+        val expr = parse<XPathVarRef>("let \$x := 2 return \$y")[0] as XdmVariableReference
         assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
-        assertThat(expr.staticType, `is`(XsQName as XdmSequenceType))
-        assertThat(expr.constantValue, `is`(instanceOf(QName::class.java)))
+        assertThat(expr.variableName, `is`(notNullValue()))
 
         val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
         val name = varname.firstChild as XPathNCName
 
-        val qname = expr.constantValue as QName
+        val qname = expr.variableName as QName
         assertThat(qname.prefix, `is`(nullValue()))
         assertThat(qname.namespace, `is`(nullValue()))
         assertThat(qname.declaration?.get(), `is`(name as XdmConstantExpression))
@@ -1335,15 +1334,14 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     fun testVarRef_QName() {
-        val expr = parseSimpleExpression<XPathVarRef>("let \$a:x := 2 return \$a:y")[0]
+        val expr = parse<XPathVarRef>("let \$a:x := 2 return \$a:y")[0] as XdmVariableReference
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
-        assertThat(expr.staticType, `is`(XsQName as XdmSequenceType))
-        assertThat(expr.constantValue, `is`(instanceOf(QName::class.java)))
+        assertThat(expr.variableName, `is`(notNullValue()))
 
         val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
         val name = varname.firstChild as XPathQName
 
-        val qname = expr.constantValue as QName
+        val qname = expr.variableName as QName
         assertThat(qname.namespace, `is`(nullValue()))
         assertThat(qname.declaration?.get(), `is`(name as XdmConstantExpression))
 
@@ -1357,15 +1355,14 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     fun testVarRef_URIQualifiedName() {
-        val expr = parseSimpleExpression<XPathVarRef>("let \$Q{http://www.example.com}x := 2 return \$Q{http://www.example.com}y")[0]
+        val expr = parse<XPathVarRef>("let \$Q{http://www.example.com}x := 2 return \$Q{http://www.example.com}y")[0] as XdmVariableReference
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
-        assertThat(expr.staticType, `is`(XsQName as XdmSequenceType))
-        assertThat(expr.constantValue, `is`(instanceOf(QName::class.java)))
+        assertThat(expr.variableName, `is`(notNullValue()))
 
         val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
         val name = varname.firstChild as XPathURIQualifiedName
 
-        val qname = expr.constantValue as QName
+        val qname = expr.variableName as QName
         assertThat(qname.prefix, `is`(nullValue()))
         assertThat(qname.declaration?.get(), `is`(name as XdmConstantExpression))
 
@@ -1379,10 +1376,9 @@ class XPathXdmTest : ParserTestCase() {
     }
 
     fun testVarRef_MissingVarName() {
-        val expr = parseSimpleExpression<XPathVarRef>("let \$x := 2 return \$")[0]
+        val expr = parse<XPathVarRef>("let \$x := 2 return \$")[0] as XdmVariableReference
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
-        assertThat(expr.staticType, `is`(XsUntyped as XdmSequenceType))
-        assertThat(expr.constantValue, `is`(nullValue()))
+        assertThat(expr.variableName, `is`(nullValue()))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }

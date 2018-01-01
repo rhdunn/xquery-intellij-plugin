@@ -40,6 +40,8 @@ interface XdmVariableName {
     val variableName: QName?
 }
 
+interface XdmVariableReference : XdmVariableName
+
 fun XdmLexicalValue.toInt(): Int {
     return lexicalRepresentation.toInt()
 }
