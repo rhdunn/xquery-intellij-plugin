@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Reece H. Dunn
+ * Copyright (C) 2017-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xdm.model
 
 import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
+import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 
 interface XdmExpression {
     val cacheable: CachingBehaviour
@@ -32,6 +33,12 @@ interface XdmConstantExpression : XdmExpression {
 }
 
 interface XdmTypeDeclaration : XdmExpression
+
+interface XdmVariableName {
+    val cacheable: CachingBehaviour
+
+    val variableName: QName?
+}
 
 fun XdmLexicalValue.toInt(): Int {
     return lexicalRepresentation.toInt()

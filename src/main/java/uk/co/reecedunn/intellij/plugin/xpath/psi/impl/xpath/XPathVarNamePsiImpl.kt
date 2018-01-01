@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,18 +17,18 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
+import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmConstantExpression
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmVariableName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
 
 class XPathVarNamePsiImpl(node: ASTNode):
         XPathEQNamePsiImpl(node),
         XPathVarName,
-        XdmConstantExpression {
+        XdmVariableName {
 
     override val cacheable get(): CachingBehaviour = (firstChild as XdmConstantExpression).cacheable
 
-    override val staticType get(): XdmSequenceType = (firstChild as XdmConstantExpression).staticType
-
-    override val constantValue get(): Any? = (firstChild as XdmConstantExpression).constantValue
+    override val variableName get(): QName? = (firstChild as XdmConstantExpression).constantValue as? QName
 }
