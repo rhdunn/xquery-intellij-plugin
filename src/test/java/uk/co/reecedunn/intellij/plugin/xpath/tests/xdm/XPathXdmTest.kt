@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Reece H. Dunn
+ * Copyright (C) 2017-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -577,6 +577,199 @@ class XPathXdmTest : ParserTestCase() {
         // NOTE: Errors when using these types are detected and reported elsewhere.
 
         val expr = parse<XPathAtomicOrUnionType>("\$x instance of Q{http://www.w3.org/2001/XMLSchema}anyType")[0] as XdmTypeDeclaration
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
+
+        val name = (expr as PsiElement).firstChild as XPathURIQualifiedName
+        assertThat(expr.staticType, `is`(instanceOf(XdmSimpleType::class.java)))
+
+        // NOTE: itemType is not `this`, but is the mapped builtin type object.
+        val type = expr.staticType as XdmSimpleType
+        assertThat(type.itemType, `is`(XsAnyType as XdmSequenceType))
+        assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
+        assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ZERO))
+        assertThat(type.upperBound, `is`(XdmSequenceType.Occurs.MANY))
+
+        val qname = type.typeName!!
+        assertThat(qname.prefix, `is`(nullValue()))
+        assertThat(qname.declaration?.get(), `is`(name as XdmConstantExpression))
+
+        assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(qname.namespace?.lexicalRepresentation, `is`("http://www.w3.org/2001/XMLSchema"))
+
+        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.lexicalRepresentation, `is`("anyType"))
+
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+    }
+
+    // endregion
+    // region TypeName (XdmTypeDeclaration)
+
+    fun testTypeName_NCName() {
+        val expr = parse<XPathTypeName>("\$x instance of element(*, test)")[0] as XdmTypeDeclaration
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
+
+        val name = (expr as PsiElement).firstChild as XPathNCName
+        assertThat(expr.staticType, `is`(instanceOf(XdmSimpleType::class.java)))
+
+        val type = expr.staticType as XdmSimpleType
+        assertThat(type.typeName, `is`(notNullValue()))
+        assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
+        assertThat(type.itemType, `is`(type as XdmSequenceType))
+        assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
+        assertThat(type.upperBound, `is`(XdmSequenceType.Occurs.ONE))
+
+        val qname = type.typeName!!
+        assertThat(qname.prefix, `is`(nullValue()))
+        assertThat(qname.namespace, `is`(nullValue()))
+        assertThat(qname.declaration?.get(), `is`(name as XdmConstantExpression))
+
+        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.lexicalRepresentation, `is`("test"))
+
+        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+    }
+
+    fun testTypeName_QName() {
+        val expr = parse<XPathTypeName>("\$x instance of element(*, a:type)")[0] as XdmTypeDeclaration
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
+
+        val name = (expr as PsiElement).firstChild as XPathQName
+        assertThat(expr.staticType, `is`(instanceOf(XdmSimpleType::class.java)))
+
+        val type = expr.staticType as XdmSimpleType
+        assertThat(type.typeName, `is`(notNullValue()))
+        assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
+        assertThat(type.itemType, `is`(type as XdmSequenceType))
+        assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
+        assertThat(type.upperBound, `is`(XdmSequenceType.Occurs.ONE))
+
+        val qname = type.typeName!!
+        assertThat(qname.namespace, `is`(nullValue()))
+        assertThat(qname.declaration?.get(), `is`(name as XdmConstantExpression))
+
+        assertThat(qname.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.prefix?.lexicalRepresentation, `is`("a"))
+
+        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.lexicalRepresentation, `is`("type"))
+
+        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+    }
+
+    fun testTypeName_URIQualifiedName() {
+        val expr = parse<XPathTypeName>("\$x instance of element(*, Q{http://www.example.com}test)")[0] as XdmTypeDeclaration
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
+
+        val name = (expr as PsiElement).firstChild as XPathURIQualifiedName
+        assertThat(expr.staticType, `is`(instanceOf(XdmSimpleType::class.java)))
+
+        val type = expr.staticType as XdmSimpleType
+        assertThat(type.typeName, `is`(notNullValue()))
+        assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
+        assertThat(type.itemType, `is`(type as XdmSequenceType))
+        assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
+        assertThat(type.upperBound, `is`(XdmSequenceType.Occurs.ONE))
+
+        val qname = type.typeName!!
+        assertThat(qname.prefix, `is`(nullValue()))
+        assertThat(qname.declaration?.get(), `is`(name as XdmConstantExpression))
+
+        assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(qname.namespace?.lexicalRepresentation, `is`("http://www.example.com"))
+
+        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.lexicalRepresentation, `is`("test"))
+
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+    }
+
+    fun testTypeName_BuiltinAtomicType() {
+        val expr = parse<XPathTypeName>("\$x instance of element(*, Q{http://www.w3.org/2001/XMLSchema}boolean)")[0] as XdmTypeDeclaration
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
+
+        val name = (expr as PsiElement).firstChild as XPathURIQualifiedName
+        assertThat(expr.staticType, `is`(instanceOf(XdmSimpleType::class.java)))
+
+        // NOTE: itemType is not `this`, but is the mapped builtin type object.
+        val type = expr.staticType as XdmSimpleType
+        assertThat(type.itemType, `is`(XsBoolean as XdmSequenceType))
+        assertThat(type.baseType, `is`(XsAnyAtomicType as XdmSequenceType))
+        assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
+        assertThat(type.upperBound, `is`(XdmSequenceType.Occurs.ONE))
+
+        val qname = type.typeName!!
+        assertThat(qname.prefix, `is`(nullValue()))
+        assertThat(qname.declaration?.get(), `is`(name as XdmConstantExpression))
+
+        assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(qname.namespace?.lexicalRepresentation, `is`("http://www.w3.org/2001/XMLSchema"))
+
+        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.lexicalRepresentation, `is`("boolean"))
+
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+    }
+
+    fun testTypeName_BuiltinUnionType() {
+        val expr = parse<XPathTypeName>("\$x instance of element(*, Q{http://www.w3.org/2001/XMLSchema}numeric)")[0] as XdmTypeDeclaration
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
+
+        val name = (expr as PsiElement).firstChild as XPathURIQualifiedName
+        assertThat(expr.staticType, `is`(instanceOf(XdmSimpleType::class.java)))
+
+        // NOTE: itemType is not `this`, but is the mapped builtin type object.
+        val type = expr.staticType as XdmSimpleType
+        assertThat(type.itemType, `is`(XsNumeric as XdmSequenceType))
+        assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
+        assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ONE))
+        assertThat(type.upperBound, `is`(XdmSequenceType.Occurs.ONE))
+
+        val qname = type.typeName!!
+        assertThat(qname.prefix, `is`(nullValue()))
+        assertThat(qname.declaration?.get(), `is`(name as XdmConstantExpression))
+
+        assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(qname.namespace?.lexicalRepresentation, `is`("http://www.w3.org/2001/XMLSchema"))
+
+        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.lexicalRepresentation, `is`("numeric"))
+
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+    }
+
+    fun testTypeName_BuiltinListType() {
+        // NOTE: XQuery processors (e.g. BaseX and MarkLogic) allow these in cast expressions,
+        // due to them being referenced in XMLSchema, but report errors elsewhere.
+
+        val expr = parse<XPathTypeName>("\$x instance of element(*, Q{http://www.w3.org/2001/XMLSchema}NMTOKENS)")[0] as XdmTypeDeclaration
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
+
+        val name = (expr as PsiElement).firstChild as XPathURIQualifiedName
+        assertThat(expr.staticType, `is`(instanceOf(XdmSimpleType::class.java)))
+
+        // NOTE: itemType is not `this`, but is the mapped builtin type object.
+        val type = expr.staticType as XdmSimpleType
+        assertThat(type.itemType, `is`(XsNMTOKENS as XdmSequenceType))
+        assertThat(type.baseType, `is`(XsAnySimpleType as XdmSequenceType))
+        assertThat(type.lowerBound, `is`(XdmSequenceType.Occurs.ZERO))
+        assertThat(type.upperBound, `is`(XdmSequenceType.Occurs.MANY))
+
+        val qname = type.typeName!!
+        assertThat(qname.prefix, `is`(nullValue()))
+        assertThat(qname.declaration?.get(), `is`(name as XdmConstantExpression))
+
+        assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(qname.namespace?.lexicalRepresentation, `is`("http://www.w3.org/2001/XMLSchema"))
+
+        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.lexicalRepresentation, `is`("NMTOKENS"))
+
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+    }
+
+    fun testTypeName_BuiltinAbstractType() {
+        val expr = parse<XPathTypeName>("\$x instance of element(*, Q{http://www.w3.org/2001/XMLSchema}anyType)")[0] as XdmTypeDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
 
         val name = (expr as PsiElement).firstChild as XPathURIQualifiedName
