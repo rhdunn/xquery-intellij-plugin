@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Reece H. Dunn
+ * Copyright (C) 2017-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -56,7 +56,10 @@ class XdmOptional(override val itemType: XdmSequenceType) : XdmSequenceType {
     override val upperBound get(): XdmSequenceType.Occurs = XdmSequenceType.Occurs.ONE
 
     override fun cast(value: Any?, type: XdmSequenceType): XdmTypeCastResult {
-        return XdmTypeCastResult(value, XsUntyped) // Not implemented.
+        if (type === XdmEmptySequence || type === XsUntyped) {
+            return XdmTypeCastResult(value, type)
+        }
+        return itemType.cast(value, type)
     }
 }
 
