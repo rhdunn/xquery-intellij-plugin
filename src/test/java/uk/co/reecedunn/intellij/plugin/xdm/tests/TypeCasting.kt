@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Reece H. Dunn
+ * Copyright (C) 2017-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,9 +22,11 @@ import org.hamcrest.MatcherAssert.assertThat
 import uk.co.reecedunn.intellij.plugin.xdm.*
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.FORG0001
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.FnErrorObject
+import uk.co.reecedunn.intellij.plugin.xdm.datatype.XPTY0004
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmTypeCastResult
 import java.math.BigInteger
+import java.util.*
 
 class TypeCasting : TestCase() {
     // region xs:boolean :: Primitive Types
@@ -243,6 +245,18 @@ class TypeCasting : TestCase() {
         assertThat((result.value as FnErrorObject).description?.staticType, `is`(XsString as XdmSequenceType))
         assertThat((result.value as FnErrorObject).description?.lexicalRepresentation,
                 `is`("The value does not match the lexical representation for 'Q{http://www.w3.org/2001/XMLSchema}boolean'."))
+    }
+
+    fun testXsBoolean_FromIncompatiblePrimitiveType() {
+        var result: XdmTypeCastResult
+
+        result = XsBoolean.cast(Date(), XsDate)
+        assertThat(result.type, `is`(FnError as XdmSequenceType))
+        assertThat(result.value, `is`(instanceOf(FnErrorObject::class.java)))
+        assertThat((result.value as FnErrorObject).code, `is`(XPTY0004))
+        assertThat((result.value as FnErrorObject).description?.staticType, `is`(XsString as XdmSequenceType))
+        assertThat((result.value as FnErrorObject).description?.lexicalRepresentation,
+                `is`("Incompatible types when casting 'Q{http://www.w3.org/2001/XMLSchema}date' to 'Q{http://www.w3.org/2001/XMLSchema}boolean'."))
     }
 
     // endregion

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Reece H. Dunn
+ * Copyright (C) 2017-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,6 +28,11 @@ val FOER0000 = createQName("http://www.w3.org/2005/xqt-errors", "FOER0000")
  * Cannot cast to 'type'.
  */
 val FORG0001 = createQName("http://www.w3.org/2005/xqt-errors", "FORG0001")
+
+/**
+ * Cannot use 'type' here.
+ */
+val XPTY0004 = createQName("http://www.w3.org/2005/xqt-errors", "XPTY0004")
 
 data class FnErrorObject(val code: QName,
                          val description: XdmLexicalValue?,

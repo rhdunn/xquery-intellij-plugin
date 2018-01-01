@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Reece H. Dunn
+ * Copyright (C) 2017-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,7 @@
 package uk.co.reecedunn.intellij.plugin.xdm
 
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.FORG0001
+import uk.co.reecedunn.intellij.plugin.xdm.datatype.XPTY0004
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmAtomicType
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmTypeCastResult
@@ -129,8 +130,7 @@ object XsBoolean : XdmAtomicType(createQName("http://www.w3.org/2001/XMLSchema",
                 val v = value as BigInteger
                 XdmTypeCastResult(v != BigInteger.ZERO, XsBoolean)
             }
-            else ->
-                XdmTypeCastResult(value, XsUntyped)
+            else -> createCastError(XPTY0004, "fnerror.XPTY0004.incompatible-types", type, this)
         }
     }
 }

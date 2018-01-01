@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Reece H. Dunn
+ * Copyright (C) 2017-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,9 @@ import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 
 val FnError = XmlSchemaType(createQName("http://www.w3.org/2005/xpath-functions", "error"), XsAnyType)
 
-fun createCastError(code: QName, @PropertyKey(resourceBundle = "messages.XQueryBundle") description: String, type: XdmSequenceType): XdmTypeCastResult {
-    val message = XQueryBundle.message(description, type)
+fun createCastError(code: QName,
+                    @PropertyKey(resourceBundle = "messages.XQueryBundle") description: String,
+                    vararg params: Any): XdmTypeCastResult {
+    val message = XQueryBundle.message(description, *params)
     return XdmTypeCastResult(FnErrorObject(code, createString(message)), FnError)
 }
