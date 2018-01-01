@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,24 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
+import uk.co.reecedunn.intellij.plugin.core.psi.contains
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmOptional
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmTypeDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathSingleType
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
-class XPathSingleTypePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathSingleType
+class XPathSingleTypePsiImpl(node: ASTNode):
+        ASTWrapperPsiElement(node),
+        XPathSingleType,
+        XdmTypeDeclaration {
+
+    override val cacheable get(): CachingBehaviour = (firstChild as XdmTypeDeclaration).cacheable
+
+    override val staticType get(): XdmSequenceType {
+        val type = (firstChild as XdmTypeDeclaration).staticType
+        return if (contains(XQueryTokenType.OPTIONAL)) XdmOptional(type) else type
+    }
+}
