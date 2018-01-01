@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,23 +21,22 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiFileFactory;
+import kotlin.text.Charsets;
 import org.apache.xmlbeans.impl.common.IOUtil;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.StringWriter;
+import java.io.*;
+import java.nio.charset.Charset;
 
 public class MockPsiManager extends com.intellij.mock.MockPsiManager {
     public MockPsiManager(@NotNull Project project) {
         super(project);
     }
 
-    private String streamToString(InputStream stream) throws IOException {
-        StringWriter writer = new StringWriter();
-        IOUtil.copyCompletely(new InputStreamReader(stream), writer);
-        return writer.toString();
+    private String streamToString(InputStream stream, Charset charset) throws IOException {
+        ByteArrayOutputStream writer = new ByteArrayOutputStream();
+        IOUtil.copyCompletely(stream, writer);
+        return new String(writer.toByteArray(), charset);
     }
 
     @Override
@@ -48,7 +47,7 @@ public class MockPsiManager extends com.intellij.mock.MockPsiManager {
                 return null;
             }
 
-            String content = streamToString(file.getInputStream());
+            String content = streamToString(file.getInputStream(), file.getCharset());
             return PsiFileFactory.getInstance(getProject()).createFileFromText(file.getName(), language, content, true, false, false, file);
         } catch (IOException e) {
             return null;
