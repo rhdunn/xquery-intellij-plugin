@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
+import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathTypeName
 
-open class XPathTypeNamePsiImpl(node: ASTNode) : XPathEQNamePsiImpl(node), XPathTypeName
+open class XPathTypeNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathTypeName

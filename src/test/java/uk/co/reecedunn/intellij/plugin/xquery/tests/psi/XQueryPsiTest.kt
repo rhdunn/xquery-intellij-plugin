@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -2191,7 +2191,7 @@ class XQueryPsiTest : ParserTestCase() {
         val castExprPsi = file.descendants().filterIsInstance<XPathCastExpr>().first()
         val singleTypePsi = castExprPsi.children().filterIsInstance<XPathSingleType>().first()
         val simpleTypeNamePsi = singleTypePsi.descendants().filterIsInstance<XPathSimpleTypeName>().first()
-        val eqnamePsi = simpleTypeNamePsi as XPathEQName
+        val eqnamePsi = simpleTypeNamePsi.firstChild as XPathEQName
 
         assertThat(eqnamePsi.prefix, `is`(notNullValue()))
         assertThat(eqnamePsi.prefix!!.node.elementType, `is`<IElementType>(XQueryElementType.NCNAME))
@@ -2208,7 +2208,7 @@ class XQueryPsiTest : ParserTestCase() {
         val castExprPsi = file.descendants().filterIsInstance<XPathCastExpr>().first()
         val singleTypePsi = castExprPsi.children().filterIsInstance<XPathSingleType>().first()
         val simpleTypeNamePsi = singleTypePsi.descendants().filterIsInstance<XPathSimpleTypeName>().first()
-        val eqnamePsi = simpleTypeNamePsi as XPathEQName
+        val eqnamePsi = simpleTypeNamePsi.firstChild as XPathEQName
 
         assertThat(eqnamePsi.prefix, `is`(notNullValue()))
         assertThat(eqnamePsi.prefix!!.node.elementType, `is`<IElementType>(XQueryElementType.NCNAME))
@@ -2225,7 +2225,7 @@ class XQueryPsiTest : ParserTestCase() {
         val castExprPsi = file.descendants().filterIsInstance<XPathCastExpr>().first()
         val singleTypePsi = castExprPsi.children().filterIsInstance<XPathSingleType>().first()
         val simpleTypeNamePsi = singleTypePsi.descendants().filterIsInstance<XPathSimpleTypeName>().first()
-        val eqnamePsi = simpleTypeNamePsi as XPathEQName
+        val eqnamePsi = simpleTypeNamePsi.firstChild as XPathEQName
 
         assertThat(eqnamePsi.prefix, `is`(notNullValue()))
         assertThat(eqnamePsi.prefix!!.node.elementType, `is`<IElementType>(XQueryElementType.NCNAME))
@@ -2240,7 +2240,7 @@ class XQueryPsiTest : ParserTestCase() {
         val castExprPsi = file.descendants().filterIsInstance<XPathCastExpr>().first()
         val singleTypePsi = castExprPsi.children().filterIsInstance<XPathSingleType>().first()
         val simpleTypeNamePsi = singleTypePsi.descendants().filterIsInstance<XPathSimpleTypeName>().first()
-        val eqnamePsi = simpleTypeNamePsi as XPathEQName
+        val eqnamePsi = simpleTypeNamePsi.firstChild as XPathEQName
 
         assertThat(eqnamePsi.prefix, `is`(notNullValue()))
         assertThat(eqnamePsi.prefix!!.node.elementType, `is`<IElementType>(XQueryElementType.NCNAME))
@@ -2257,12 +2257,12 @@ class XQueryPsiTest : ParserTestCase() {
         val castExprPsi = file.descendants().filterIsInstance<XPathCastExpr>().first()
         val singleTypePsi = castExprPsi.children().filterIsInstance<XPathSingleType>().first()
         val simpleTypeNamePsi = singleTypePsi.descendants().filterIsInstance<XPathSimpleTypeName>().first()
-        val eqnamePsi = simpleTypeNamePsi as XPathEQName
+        val eqnamePsi = simpleTypeNamePsi.firstChild as XPathEQName
 
         assertThat(eqnamePsi.prefix, `is`(nullValue()))
 
         assertThat(eqnamePsi.localName, `is`(notNullValue()))
-        assertThat(eqnamePsi.localName!!.node.elementType, `is`<IElementType>(XQueryElementType.NCNAME))
+        assertThat(eqnamePsi.localName!!.node.elementType, `is`<IElementType>(XQueryTokenType.NCNAME))
         assertThat(eqnamePsi.localName!!.text, `is`("double"))
     }
 
@@ -2272,7 +2272,7 @@ class XQueryPsiTest : ParserTestCase() {
         val castExprPsi = file.descendants().filterIsInstance<XPathCastExpr>().first()
         val singleTypePsi = castExprPsi.children().filterIsInstance<XPathSingleType>().first()
         val simpleTypeNamePsi = singleTypePsi.descendants().filterIsInstance<XPathSimpleTypeName>().first()
-        val eqnamePsi = simpleTypeNamePsi as XPathEQName
+        val eqnamePsi = simpleTypeNamePsi.firstChild as XPathEQName
 
         assertThat(eqnamePsi.prefix, `is`(notNullValue()))
         assertThat(eqnamePsi.prefix!!.node.elementType, `is`<IElementType>(XQueryElementType.BRACED_URI_LITERAL))
