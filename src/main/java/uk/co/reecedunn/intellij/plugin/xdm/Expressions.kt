@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Reece H. Dunn
+ * Copyright (C) 2017-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,10 +20,7 @@ import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
 import uk.co.reecedunn.intellij.plugin.core.data.`is`
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmConstantExpression
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmTypeCastResult
+import uk.co.reecedunn.intellij.plugin.xdm.model.*
 import java.lang.ref.WeakReference
 
 private class XdmLiteralValue(override val lexicalRepresentation: String,
@@ -34,6 +31,14 @@ private class XdmLiteralValue(override val lexicalRepresentation: String,
     override val staticType get(): XdmSequenceType = cachedStaticType.get()!!
 
     override val cacheable: CachingBehaviour = CachingBehaviour.Cache
+}
+
+class TypeReference(typeName: QName, private val referredType: XmlSchemaType?):
+        XdmSimpleType(typeName, referredType?.baseType ?: XsAnySimpleType) {
+
+    override val itemType get(): XdmSequenceType = referredType ?: this
+    override val lowerBound: XdmSequenceType.Occurs = referredType?.lowerBound ?: XdmSequenceType.Occurs.ONE
+    override val upperBound: XdmSequenceType.Occurs = referredType?.upperBound ?: XdmSequenceType.Occurs.ONE
 }
 
 fun createString(value: String): XdmLexicalValue {
