@@ -17,8 +17,30 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmConstantExpression
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmVariableDeclaration
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPreviousItem
 
 class XQueryPreviousItemPsiImpl(node: ASTNode):
         ASTWrapperPsiElement(node),
-        XQueryPreviousItem
+        XQueryPreviousItem,
+        XdmVariableDeclaration {
+
+    private val varName get(): XdmConstantExpression? =
+        children().filterIsInstance<XPathEQName>().firstOrNull() as? XdmConstantExpression
+
+    override val cacheable get(): CachingBehaviour = varName?.cacheable ?: CachingBehaviour.Cache
+
+    override val variableName get(): QName? = varName?.constantValue as? QName
+
+    // The bound variable type is dependent on the tuple sequence, so cannot be determined statically.
+    override val variableType: XdmSequenceType? = null
+
+    // The bound variable result is dependent on the tuple sequence, so cannot be determined statically.
+    override val variableValue: XdmConstantExpression? = null
+}
