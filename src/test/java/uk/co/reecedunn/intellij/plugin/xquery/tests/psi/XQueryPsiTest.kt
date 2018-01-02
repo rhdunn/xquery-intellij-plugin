@@ -4104,7 +4104,7 @@ class XQueryPsiTest : ParserTestCase() {
 
         // current
 
-        var variable = provider.resolveVariable(currentItemPsi)!!
+        var variable = provider.resolveVariable(currentItemPsi.firstChild as XPathEQName)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryCurrentItem::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(currentItemPsi))
@@ -4161,7 +4161,7 @@ class XQueryPsiTest : ParserTestCase() {
 
         // current
 
-        var variable = provider.resolveVariable(currentItemPsi)!!
+        var variable = provider.resolveVariable(currentItemPsi.firstChild as XPathEQName)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryCurrentItem::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(currentItemPsi))
@@ -4240,7 +4240,7 @@ class XQueryPsiTest : ParserTestCase() {
 
         // current
 
-        var variable = provider.resolveVariable(currentItemPsi)!!
+        var variable = provider.resolveVariable(currentItemPsi.firstChild as XPathEQName)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryCurrentItem::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(currentItemPsi))
@@ -4297,7 +4297,7 @@ class XQueryPsiTest : ParserTestCase() {
 
         // current
 
-        var variable = provider.resolveVariable(currentItemPsi)!!
+        var variable = provider.resolveVariable(currentItemPsi.firstChild as XPathEQName)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryCurrentItem::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(currentItemPsi))
@@ -4442,7 +4442,7 @@ class XQueryPsiTest : ParserTestCase() {
 
         // current
 
-        var variable = provider.resolveVariable(currentItemPsi)!!
+        var variable = provider.resolveVariable(currentItemPsi.firstChild as XPathEQName)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryCurrentItem::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(currentItemPsi))
@@ -4502,7 +4502,7 @@ class XQueryPsiTest : ParserTestCase() {
 
         // current
 
-        var variable = provider.resolveVariable(currentItemPsi)!!
+        var variable = provider.resolveVariable(currentItemPsi.firstChild as XPathEQName)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryCurrentItem::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(currentItemPsi))
@@ -4562,7 +4562,7 @@ class XQueryPsiTest : ParserTestCase() {
 
         // current
 
-        var variable = provider.resolveVariable(currentItemPsi)!!
+        var variable = provider.resolveVariable(currentItemPsi.firstChild as XPathEQName)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryCurrentItem::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(currentItemPsi))
