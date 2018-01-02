@@ -2352,46 +2352,19 @@ class XQueryParser {
     private boolean parseQuantifiedExpr() {
         final PsiBuilder.Marker quantifiedExprMarker = matchTokenTypeWithMarker(XQueryTokenType.K_SOME, XQueryTokenType.K_EVERY);
         if (quantifiedExprMarker != null) {
-            boolean haveErrors = false;
-            boolean isFirstVarName = true;
-            do {
-                parseWhiteSpaceAndCommentTokens();
-                if (!matchTokenType(XQueryTokenType.VARIABLE_INDICATOR) && !haveErrors) {
-                    if (isFirstVarName) {
-                        quantifiedExprMarker.rollbackTo();
-                        return false;
-                    } else {
-                        error(XQueryBundle.message("parser.error.expected", "$"));
-                        haveErrors = true;
-                    }
-                }
-
-                parseWhiteSpaceAndCommentTokens();
-                if (!parseEQName(XQueryElementType.VAR_NAME) && !haveErrors) {
-                    error(XQueryBundle.message("parser.error.expected-eqname"));
-                    haveErrors = true;
-                }
-
-                parseWhiteSpaceAndCommentTokens();
-                boolean haveTypeDeclaration = parseTypeDeclaration();
-
-                parseWhiteSpaceAndCommentTokens();
-                if (!matchTokenType(XQueryTokenType.K_IN) && !haveErrors) {
-                    error(XQueryBundle.message("parser.error.expected-keyword", haveTypeDeclaration ? "in" : "as, in"));
-                    haveErrors = true;
-                }
-
-                parseWhiteSpaceAndCommentTokens();
-                if (!parseExprSingle() && !haveErrors) {
-                    error(XQueryBundle.message("parser.error.expected-expression"));
-                }
-
-                isFirstVarName = false;
-                parseWhiteSpaceAndCommentTokens();
-            } while (matchTokenType(XQueryTokenType.COMMA));
-
             parseWhiteSpaceAndCommentTokens();
-            if (!matchTokenType(XQueryTokenType.K_SATISFIES) && !haveErrors) {
+            if (parseQuantifiedExprBinding(true)) {
+                parseWhiteSpaceAndCommentTokens();
+                while (matchTokenType(XQueryTokenType.COMMA)) {
+                    parseWhiteSpaceAndCommentTokens();
+                    parseQuantifiedExprBinding(false);
+                    parseWhiteSpaceAndCommentTokens();
+                }
+            }
+
+            boolean haveErrors = false;
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_SATISFIES)) {
                 error(XQueryBundle.message("parser.error.expected-keyword", "satisfies"));
                 haveErrors = true;
             }
@@ -2404,6 +2377,44 @@ class XQueryParser {
             quantifiedExprMarker.done(XQueryElementType.QUANTIFIED_EXPR);
             return true;
         }
+        return false;
+    }
+
+    private boolean parseQuantifiedExprBinding(boolean isFirst) {
+        final PsiBuilder.Marker bindingMarker = mark();
+
+        boolean haveErrors = false;
+        boolean matched = matchTokenType(XQueryTokenType.VARIABLE_INDICATOR);
+        if (!matched && !isFirst) {
+            error(XQueryBundle.message("parser.error.expected", "$"));
+            haveErrors = true;
+        }
+
+        if (matched || !isFirst) {
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseEQName(XQueryElementType.VAR_NAME)) {
+                error(XQueryBundle.message("parser.error.expected-eqname"));
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            boolean haveTypeDeclaration = parseTypeDeclaration();
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!matchTokenType(XQueryTokenType.K_IN) && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-keyword", haveTypeDeclaration ? "in" : "as, in"));
+                haveErrors = true;
+            }
+
+            parseWhiteSpaceAndCommentTokens();
+            if (!parseExprSingle() && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-expression"));
+            }
+
+            bindingMarker.done(XQueryElementType.QUANTIFIED_EXPR_BINDING);
+            return true;
+        }
+        bindingMarker.drop();
         return false;
     }
 

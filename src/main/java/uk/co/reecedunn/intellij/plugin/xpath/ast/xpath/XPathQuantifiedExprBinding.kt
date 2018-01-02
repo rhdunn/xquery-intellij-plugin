@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,10 +16,9 @@
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
 /**
- * An XPath 2.0 and XQuery 1.0 `QuantifiedExpr` node in the XQuery AST.
+ * A `QuantifiedExprBinding` node in the XQuery AST.
  *
- * The implemented `QuantifiedExpr` AST differs slightly from the XPath/XQuery
- * definition, as follows:
+ * This is not part of the XPath/XQuery grammar. It is defined as:
  *
  *     QuantifiedExpr        := ("some" | "every") QuantifiedExprBinding ("," QuantifiedExprBinding)* "satisfies" ExprSingle
  *     QuantifiedExprBinding := "$" VarName TypeDeclaration? "in" ExprSingle
@@ -27,4 +26,4 @@ package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
  * This is to mirror the change made to the `for` and `let` statements with
  * `ForBinding` and `LetBinding` respectively.
  */
-interface XPathQuantifiedExpr : XPathExprSingle
+interface XPathQuantifiedExprBinding : XPathExprSingle

@@ -209,6 +209,7 @@ public interface XQueryElementType {
 
     IElementType FOR_BINDING = new ICompositeElementType("XQUERY_FOR_BINDING", XQueryForBindingPsiImpl.class, XQuery.INSTANCE);
     IElementType LET_BINDING = new ICompositeElementType("XQUERY_LET_BINDING", XQueryLetBindingPsiImpl.class, XQuery.INSTANCE);
+    IElementType QUANTIFIED_EXPR_BINDING = new ICompositeElementType("XQUERY_QUANTIFIED_EXPR_BINDING", XPathQuantifiedExprBindingPsiImpl.class, XQuery.INSTANCE);
 
     IElementType ALLOWING_EMPTY = new ICompositeElementType("XQUERY_ALLOWING_EMPTY", XQueryAllowingEmptyPsiImpl.class, XQuery.INSTANCE);
     IElementType INTERMEDIATE_CLAUSE = new ICompositeElementType("XQUERY_INTERMEDIATE_CLAUSE", XQueryIntermediateClausePsiImpl.class, XQuery.INSTANCE);
