@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,8 +18,15 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmConstantExpression
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmVariableDeclaration
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmVariableName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryTumblingWindowClause
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
@@ -27,11 +34,37 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryConformance
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver
 
-class XQueryTumblingWindowClausePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryTumblingWindowClause, XQueryConformance, XQueryVariableResolver {
+class XQueryTumblingWindowClausePsiImpl(node: ASTNode):
+        ASTWrapperPsiElement(node),
+        XQueryTumblingWindowClause,
+        XQueryConformance,
+        XQueryVariableResolver,
+        XdmVariableDeclaration {
+    // region XQueryConformance
+
     override val requiresConformance get(): List<Version> = listOf(XQuery.REC_3_0_20140408)
 
     override val conformanceElement get(): PsiElement =
         firstChild
+
+    // endregion
+    // region XdmVariableDeclaration
+
+    private val varName get(): XdmVariableName? =
+        children().filterIsInstance<XPathVarName>().firstOrNull() as? XdmVariableName
+
+    override val cacheable get(): CachingBehaviour = varName?.cacheable ?: CachingBehaviour.Cache
+
+    override val variableName get(): QName? = varName?.variableName
+
+    // TODO: Locate and use the TypeDeclaration if present.
+    override val variableType: XdmSequenceType? = null
+
+    // The bound variable result is dependent on the sequence, so cannot be determined statically.
+    override val variableValue: XdmConstantExpression? = null
+
+    // endregion
+    // region XQueryVariableResolver
 
     override fun resolveVariable(name: XPathEQName?): XQueryVariable? {
         return children().map { e -> when (e) {
@@ -40,4 +73,6 @@ class XQueryTumblingWindowClausePsiImpl(node: ASTNode) : ASTWrapperPsiElement(no
             else -> null
         }}.filterNotNull().firstOrNull()
     }
+
+    // endregion
 }
