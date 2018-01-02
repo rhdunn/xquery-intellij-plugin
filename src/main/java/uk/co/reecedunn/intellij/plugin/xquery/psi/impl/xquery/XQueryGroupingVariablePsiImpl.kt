@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,13 +17,30 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmVariableDeclaration
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmVariableName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryGroupingVariable
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver
 
-class XQueryGroupingVariablePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryGroupingVariable, XQueryVariableResolver {
+class XQueryGroupingVariablePsiImpl(node: ASTNode):
+        ASTWrapperPsiElement(node),
+        XQueryGroupingVariable,
+        XQueryVariableResolver,
+        XdmVariableName {
+
+    private val varName get(): XdmVariableName? =
+        children().filterIsInstance<XdmVariableName>().firstOrNull()
+
+    override val cacheable get(): CachingBehaviour = varName?.cacheable ?: CachingBehaviour.Cache
+
+    override val variableName get(): QName? = varName?.variableName
+
     override fun resolveVariable(name: XPathEQName?): XQueryVariable? {
         val varName = findChildByClass(XPathVarName::class.java)
         return if (varName != null && varName == name) {

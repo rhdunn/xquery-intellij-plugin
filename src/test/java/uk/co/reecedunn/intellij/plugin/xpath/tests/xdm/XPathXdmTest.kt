@@ -1251,7 +1251,7 @@ class XPathXdmTest : ParserTestCase() {
     // endregion
     // endregion
     // region Variables
-    // region VarName (XdmVariable)
+    // region VarName (XdmVariableName)
 
     fun testVarName_NCName() {
         val expr = parse<XPathVarName>("let \$x := 2 return \$y")[0] as XdmVariableName
