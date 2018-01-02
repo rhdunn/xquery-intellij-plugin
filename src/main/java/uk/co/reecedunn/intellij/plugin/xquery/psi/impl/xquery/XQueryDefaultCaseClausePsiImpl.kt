@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,13 +20,19 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDefaultCaseClause
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryTypeswitchExpr
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver
 
-class XQueryTypeswitchExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryTypeswitchExpr, XQueryVariableResolver {
+class XQueryDefaultCaseClausePsiImpl(node: ASTNode):
+        ASTWrapperPsiElement(node),
+        XQueryDefaultCaseClause,
+        XQueryVariableResolver {
+
     override fun resolveVariable(name: XPathEQName?): XQueryVariable? {
-        return (findChildByClass(XQueryDefaultCaseClause::class.java) as? XQueryVariableResolver)?.resolveVariable(name)
+        val element = findChildByType<PsiElement>(XQueryElementType.VAR_NAME)
+        return if (element != null && element == name) {
+            XQueryVariable(element, this)
+        } else null
     }
 }

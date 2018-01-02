@@ -75,7 +75,8 @@ XQueryModuleImpl[FILE(0:51)]
                                                                               XPathLiteralImpl[XQUERY_LITERAL(40:41)]
                                                                                  XPathIntegerLiteralImpl[XQUERY_INTEGER_LITERAL_TOKEN(40:41)]('1')
                                                                               PsiWhiteSpaceImpl[WHITE_SPACE(41:42)](' ')
-               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DEFAULT(42:49)]('default')
-               PsiWhiteSpaceImpl[WHITE_SPACE(49:50)](' ')
-               LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(50:51)]('$')
-               PsiErrorElementImpl[ERROR_ELEMENT(51:51)]('XPST0003: Missing qualified name or braced URI qualified name.')
+               XQueryDefaultCaseClauseImpl[XQUERY_DEFAULT_CASE_CLAUSE(42:51)]
+                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DEFAULT(42:49)]('default')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(49:50)](' ')
+                  LeafPsiElement[XQUERY_VARIABLE_INDICATOR_TOKEN(50:51)]('$')
+                  PsiErrorElementImpl[ERROR_ELEMENT(51:51)]('XPST0003: Missing qualified name or braced URI qualified name.')

@@ -4343,7 +4343,8 @@ class XQueryPsiTest : ParserTestCase() {
         val file = parseResource("tests/parser/xquery-1.0/TypeswitchExpr_Variable.xq")!!
 
         val typeswitchExprPsi = file.descendants().filterIsInstance<XQueryTypeswitchExpr>().first()
-        val varNamePsi = typeswitchExprPsi.children().filterIsInstance<XPathVarName>().first()
+        val defaultCasePsi = typeswitchExprPsi.children().filterIsInstance<XQueryDefaultCaseClause>().first()
+        val varNamePsi = defaultCasePsi.children().filterIsInstance<XPathVarName>().first()
         val provider = typeswitchExprPsi as XQueryVariableResolver
 
         assertThat(provider.resolveVariable(null), `is`(nullValue()))
@@ -4353,8 +4354,8 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XPathVarName::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(varNamePsi))
 
-        assertThat(variable.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryTypeswitchExpr::class.java)))
-        assertThat(variable.declaration, `is`<PsiElement>(typeswitchExprPsi))
+        assertThat(variable.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryDefaultCaseClause::class.java)))
+        assertThat(variable.declaration, `is`<PsiElement>(defaultCasePsi))
     }
 
     // endregion

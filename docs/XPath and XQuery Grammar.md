@@ -23,6 +23,18 @@ and `LetClause` productions with the addition of the `ForBinding` and
 This change was made to make it easier to implement the variable declaration
 logic, as each `QuantifiedExprBinding` is a single variable declaration.
 
+## Typeswitch Expressions
+
+    TypeswitchExpr    ::=  "typeswitch" "(" Expr ")" CaseClause+ DefaultCaseClause
+    DefaultCaseClause ::=  "default" ("$" VarName)? "return" ExprSingle
+
+The default case expression is factored out here into a separate grammar
+production, similar to the `CaseClause` expression.
+
+This change was made to make it easier to implement the variable declaration
+logic, as each `CaseClause` can expose a variable bound to the typeswitch
+expression that is valid for the scope of the case's return expression.
+
 ## Cast Expressions
 
     CastExpr                 := ArrowTransformUpdateExpr ( "cast" "as" SingleType )?
