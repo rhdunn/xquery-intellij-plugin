@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,15 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmConstantExpression
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmVariableDeclaration
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmVariableName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVarDecl
 import uk.co.reecedunn.intellij.plugin.xquery.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.xquery.lang.Version
@@ -32,7 +40,14 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver
 private val XQUERY10: List<Version> = listOf()
 private val XQUERY30: List<Version> = listOf(XQuery.REC_3_0_20140408, MarkLogic.VERSION_6_0)
 
-class XQueryVarDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryVarDecl, XQueryConformance, XQueryVariableResolver {
+class XQueryVarDeclPsiImpl(node: ASTNode):
+        ASTWrapperPsiElement(node),
+        XQueryVarDecl,
+        XQueryConformance,
+        XQueryVariableResolver,
+        XdmVariableDeclaration {
+    // region XQueryConformance
+
     override val requiresConformance get(): List<Version> {
         if (conformanceElement === firstChild) {
             return XQUERY10
@@ -49,6 +64,25 @@ class XQueryVarDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryVa
         return if (previous == null || previous.node.elementType !== XQueryTokenType.K_EXTERNAL) firstChild else element!!
     }
 
+    // endregion
+    // region XdmVariableDeclaration
+
+    private val varName get(): XdmVariableName? =
+        children().filterIsInstance<XPathVarName>().firstOrNull() as? XdmVariableName
+
+    override val cacheable get(): CachingBehaviour = varName?.cacheable ?: CachingBehaviour.Cache
+
+    override val variableName get(): QName? = varName?.variableName
+
+    // TODO: Locate and use the TypeDeclaration if present.
+    override val variableType: XdmSequenceType? = null
+
+    // TODO: Locate and use the VarValue or VarDefaultValue if present.
+    override val variableValue: XdmConstantExpression? = null
+
+    // endregion
+    // region XQueryVariableResolver
+
     override fun resolveVariable(name: XPathEQName?): XQueryVariable? {
         val varName = findChildByType<PsiElement>(XQueryElementType.VAR_NAME)
         if (varName != null && varName == name) {
@@ -56,4 +90,6 @@ class XQueryVarDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryVa
         }
         return null
     }
+
+    // endregion
 }
