@@ -1251,6 +1251,87 @@ class XPathXdmTest : ParserTestCase() {
     // endregion
     // endregion
     // region Variables
+    // region QuantifiedExprBinding (XdmVariableDeclaration)
+
+    fun testQuantifiedExprBinding_NCName() {
+        val expr = parse<XPathQuantifiedExprBinding>("some \$x in \$y satisfies \$z")[0] as XdmVariableDeclaration
+        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.variableName, `is`(notNullValue()))
+        assertThat(expr.variableType, `is`(nullValue()))
+        assertThat(expr.variableValue, `is`(nullValue()))
+
+        val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
+        val name = varname.firstChild as XPathNCName
+
+        val qname = expr.variableName as QName
+        assertThat(qname.prefix, `is`(nullValue()))
+        assertThat(qname.namespace, `is`(nullValue()))
+        assertThat(qname.declaration?.get(), `is`(name as XdmConstantExpression))
+
+        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.lexicalRepresentation, `is`("x"))
+
+        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+    }
+
+    fun testQuantifiedExprBinding_QName() {
+        val expr = parse<XPathQuantifiedExprBinding>("some \$a:x in \$a:y satisfies \$a:z")[0] as XdmVariableDeclaration
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
+        assertThat(expr.variableName, `is`(notNullValue()))
+        assertThat(expr.variableType, `is`(nullValue()))
+        assertThat(expr.variableValue, `is`(nullValue()))
+
+        val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
+        val name = varname.firstChild as XPathQName
+
+        val qname = expr.variableName as QName
+        assertThat(qname.namespace, `is`(nullValue()))
+        assertThat(qname.declaration?.get(), `is`(name as XdmConstantExpression))
+
+        assertThat(qname.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.prefix?.lexicalRepresentation, `is`("a"))
+
+        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.lexicalRepresentation, `is`("x"))
+
+        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+    }
+
+    fun testQuantifiedExprBinding_URIQualifiedName() {
+        val expr = parse<XPathQuantifiedExprBinding>(
+                "some \$Q{http://www.example.com}x in  \$Q{http://www.example.com}y satisfies \$Q{http://www.example.com}z")[0] as XdmVariableDeclaration
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+        assertThat(expr.variableName, `is`(notNullValue()))
+        assertThat(expr.variableType, `is`(nullValue()))
+        assertThat(expr.variableValue, `is`(nullValue()))
+
+        val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
+        val name = varname.firstChild as XPathURIQualifiedName
+
+        val qname = expr.variableName as QName
+        assertThat(qname.prefix, `is`(nullValue()))
+        assertThat(qname.declaration?.get(), `is`(name as XdmConstantExpression))
+
+        assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(qname.namespace?.lexicalRepresentation, `is`("http://www.example.com"))
+
+        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.lexicalRepresentation, `is`("x"))
+
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+    }
+
+    fun testQuantifiedExprBinding_MissingVarName() {
+        val expr = parse<XPathQuantifiedExprBinding>("some \$")[0] as XdmVariableDeclaration
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+        assertThat(expr.variableName, `is`(nullValue()))
+        assertThat(expr.variableType, `is`(nullValue()))
+        assertThat(expr.variableValue, `is`(nullValue()))
+
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+    }
+
+    // endregion
     // region VarName (XdmVariableName)
 
     fun testVarName_NCName() {
