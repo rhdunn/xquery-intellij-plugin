@@ -20,6 +20,7 @@ import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCurrentItem
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryNextItem
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPreviousItem
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryWindowVars
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable
@@ -29,8 +30,8 @@ class XQueryWindowVarsPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQuer
     override fun resolveVariable(name: XPathEQName?): XQueryVariable? {
         return children().map { e -> when (e) {
             is XQueryVariableResolver -> e.resolveVariable(name)
-            is XPathEQName -> if (e == name) XQueryVariable(e, this) else null
             is XQueryCurrentItem -> if (e.firstChild as XPathEQName == name) XQueryVariable(e, this) else null
+            is XQueryNextItem -> if (e.firstChild as XPathEQName == name) XQueryVariable(e, this) else null
             is XQueryPreviousItem -> if (e.firstChild as XPathEQName == name) XQueryVariable(e, this) else null
             else -> null
         }}.filterNotNull().firstOrNull()
