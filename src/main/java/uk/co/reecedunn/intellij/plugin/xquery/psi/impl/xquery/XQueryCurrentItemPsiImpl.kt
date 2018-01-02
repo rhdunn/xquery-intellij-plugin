@@ -44,4 +44,3 @@ class XQueryCurrentItemPsiImpl(node: ASTNode):
     // The bound variable result is dependent on the tuple sequence, so cannot be determined statically.
     override val variableValue: XdmConstantExpression? = null
 }
-
