@@ -4124,7 +4124,7 @@ class XQueryPsiTest : ParserTestCase() {
 
         // previous
 
-        variable = provider.resolveVariable(previousItemPsi)!!
+        variable = provider.resolveVariable(previousItemPsi.firstChild as XPathEQName)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryPreviousItem::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(previousItemPsi))
@@ -4181,7 +4181,7 @@ class XQueryPsiTest : ParserTestCase() {
 
         // previous
 
-        variable = provider.resolveVariable(previousItemPsi)!!
+        variable = provider.resolveVariable(previousItemPsi.firstChild as XPathEQName)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryPreviousItem::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(previousItemPsi))
@@ -4260,7 +4260,7 @@ class XQueryPsiTest : ParserTestCase() {
 
         // previous
 
-        variable = provider.resolveVariable(previousItemPsi)!!
+        variable = provider.resolveVariable(previousItemPsi.firstChild as XPathEQName)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryPreviousItem::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(previousItemPsi))
@@ -4317,7 +4317,7 @@ class XQueryPsiTest : ParserTestCase() {
 
         // previous
 
-        variable = provider.resolveVariable(previousItemPsi)!!
+        variable = provider.resolveVariable(previousItemPsi.firstChild as XPathEQName)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryPreviousItem::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(previousItemPsi))
@@ -4462,7 +4462,7 @@ class XQueryPsiTest : ParserTestCase() {
 
         // previous
 
-        variable = provider.resolveVariable(previousItemPsi)!!
+        variable = provider.resolveVariable(previousItemPsi.firstChild as XPathEQName)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryPreviousItem::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(previousItemPsi))
@@ -4522,7 +4522,7 @@ class XQueryPsiTest : ParserTestCase() {
 
         // previous
 
-        variable = provider.resolveVariable(previousItemPsi)!!
+        variable = provider.resolveVariable(previousItemPsi.firstChild as XPathEQName)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryPreviousItem::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(previousItemPsi))
@@ -4582,7 +4582,7 @@ class XQueryPsiTest : ParserTestCase() {
 
         // previous
 
-        variable = provider.resolveVariable(previousItemPsi)!!
+        variable = provider.resolveVariable(previousItemPsi.firstChild as XPathEQName)!!
 
         assertThat(variable.variable, `is`<PsiElement>(instanceOf<PsiElement>(XQueryPreviousItem::class.java)))
         assertThat(variable.variable, `is`<PsiElement>(previousItemPsi))

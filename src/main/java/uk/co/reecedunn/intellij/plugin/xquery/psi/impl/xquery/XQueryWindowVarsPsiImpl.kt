@@ -20,6 +20,7 @@ import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCurrentItem
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPreviousItem
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryWindowVars
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver
@@ -30,6 +31,7 @@ class XQueryWindowVarsPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQuer
             is XQueryVariableResolver -> e.resolveVariable(name)
             is XPathEQName -> if (e == name) XQueryVariable(e, this) else null
             is XQueryCurrentItem -> if (e.firstChild as XPathEQName == name) XQueryVariable(e, this) else null
+            is XQueryPreviousItem -> if (e.firstChild as XPathEQName == name) XQueryVariable(e, this) else null
             else -> null
         }}.filterNotNull().firstOrNull()
     }
