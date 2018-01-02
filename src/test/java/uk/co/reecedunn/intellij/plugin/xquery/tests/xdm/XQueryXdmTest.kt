@@ -273,6 +273,89 @@ class XQueryXdmTest : ParserTestCase() {
     // endregion
     // endregion
     // region Variables
+    // region CaseClause (XdmVariableDeclaration)
+
+    fun testCaseClause_NCName() {
+        val expr = parse<XQueryCaseClause>("typeswitch (\$x) case \$y as xs:string return \$z")[0] as XdmVariableDeclaration
+        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.variableName, `is`(notNullValue()))
+        assertThat(expr.variableType, `is`(nullValue()))
+        assertThat(expr.variableValue, `is`(nullValue()))
+
+        val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
+        val name = varname.firstChild as XPathNCName
+
+        val qname = expr.variableName as QName
+        assertThat(qname.prefix, `is`(nullValue()))
+        assertThat(qname.namespace, `is`(nullValue()))
+        assertThat(qname.declaration?.get(), `is`(name as XdmConstantExpression))
+
+        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.lexicalRepresentation, `is`("y"))
+
+        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+    }
+
+    fun testCaseClause_QName() {
+        val expr = parse<XQueryCaseClause>("typeswitch (\$a:x) case \$a:y as xs:string return \$a:z")[0] as XdmVariableDeclaration
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
+        assertThat(expr.variableName, `is`(notNullValue()))
+        assertThat(expr.variableType, `is`(nullValue()))
+        assertThat(expr.variableValue, `is`(nullValue()))
+
+        val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
+        val name = varname.firstChild as XPathQName
+
+        val qname = expr.variableName as QName
+        assertThat(qname.namespace, `is`(nullValue()))
+        assertThat(qname.declaration?.get(), `is`(name as XdmConstantExpression))
+
+        assertThat(qname.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.prefix?.lexicalRepresentation, `is`("a"))
+
+        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.lexicalRepresentation, `is`("y"))
+
+        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+    }
+
+    fun testCaseClause_URIQualifiedName() {
+        val expr = parse<XQueryCaseClause>(
+                "typeswitch (\$Q{http://www.example.com}x) " +
+                "case \$Q{http://www.example.com}y as xs:string " +
+                "return \$Q{http://www.example.com}z")[0] as XdmVariableDeclaration
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+        assertThat(expr.variableName, `is`(notNullValue()))
+        assertThat(expr.variableType, `is`(nullValue()))
+        assertThat(expr.variableValue, `is`(nullValue()))
+
+        val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
+        val name = varname.firstChild as XPathURIQualifiedName
+
+        val qname = expr.variableName as QName
+        assertThat(qname.prefix, `is`(nullValue()))
+        assertThat(qname.declaration?.get(), `is`(name as XdmConstantExpression))
+
+        assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(qname.namespace?.lexicalRepresentation, `is`("http://www.example.com"))
+
+        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.lexicalRepresentation, `is`("y"))
+
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+    }
+
+    fun testCaseClause_NoVarName() {
+        val expr = parse<XQueryCaseClause>("typeswitch (\$x) case xs:string return \$z")[0] as XdmVariableDeclaration
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+        assertThat(expr.variableName, `is`(nullValue()))
+        assertThat(expr.variableType, `is`(nullValue()))
+        assertThat(expr.variableValue, `is`(nullValue()))
+
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+    }
+
+    // endregion
     // region CountClause (XdmVariableDeclaration)
 
     fun testCountClause_NCName() {
