@@ -437,6 +437,92 @@ class XQueryXdmTest : ParserTestCase() {
     }
 
     // endregion
+    // region GroupingSpec (XdmVariableDeclaration)
+
+    fun testGroupingSpec_NCName() {
+        val expr = parse<XQueryGroupingSpec>("for \$x in \$y group by \$z return \$w")[0] as XdmVariableDeclaration
+        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.variableName, `is`(notNullValue()))
+        assertThat(expr.variableType, `is`(nullValue()))
+        assertThat(expr.variableValue, `is`(nullValue()))
+
+        val groupvar = (expr as PsiElement).children().filterIsInstance<XQueryGroupingVariable>().first()
+        val varname = groupvar.children().filterIsInstance<XPathVarName>().first()
+        val name = varname.firstChild as XPathNCName
+
+        val qname = expr.variableName as QName
+        assertThat(qname.prefix, `is`(nullValue()))
+        assertThat(qname.namespace, `is`(nullValue()))
+        assertThat(qname.declaration?.get(), `is`(name as XdmConstantExpression))
+
+        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.lexicalRepresentation, `is`("z"))
+
+        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+    }
+
+    fun testGroupingSpec_QName() {
+        val expr = parse<XQueryGroupingSpec>("for \$a:x in \$a:y group by \$a:z return \$a:w")[0] as XdmVariableDeclaration
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
+        assertThat(expr.variableName, `is`(notNullValue()))
+        assertThat(expr.variableType, `is`(nullValue()))
+        assertThat(expr.variableValue, `is`(nullValue()))
+
+        val groupvar = (expr as PsiElement).children().filterIsInstance<XQueryGroupingVariable>().first()
+        val varname = groupvar.children().filterIsInstance<XPathVarName>().first()
+        val name = varname.firstChild as XPathQName
+
+        val qname = expr.variableName as QName
+        assertThat(qname.namespace, `is`(nullValue()))
+        assertThat(qname.declaration?.get(), `is`(name as XdmConstantExpression))
+
+        assertThat(qname.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.prefix?.lexicalRepresentation, `is`("a"))
+
+        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.lexicalRepresentation, `is`("z"))
+
+        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+    }
+
+    fun testGroupingSpec_URIQualifiedName() {
+        val expr = parse<XQueryGroupingSpec>(
+                "for \$Q{http://www.example.com}x in \$Q{http://www.example.com}y " +
+                "group by \$Q{http://www.example.com}z " +
+                "return \$Q{http://www.example.com}w")[0] as XdmVariableDeclaration
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+        assertThat(expr.variableName, `is`(notNullValue()))
+        assertThat(expr.variableType, `is`(nullValue()))
+        assertThat(expr.variableValue, `is`(nullValue()))
+
+        val groupvar = (expr as PsiElement).children().filterIsInstance<XQueryGroupingVariable>().first()
+        val varname = groupvar.children().filterIsInstance<XPathVarName>().first()
+        val name = varname.firstChild as XPathURIQualifiedName
+
+        val qname = expr.variableName as QName
+        assertThat(qname.prefix, `is`(nullValue()))
+        assertThat(qname.declaration?.get(), `is`(name as XdmConstantExpression))
+
+        assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(qname.namespace?.lexicalRepresentation, `is`("http://www.example.com"))
+
+        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.lexicalRepresentation, `is`("z"))
+
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+    }
+
+    fun testGroupingSpec_MissingVarName() {
+        val expr = parse<XQueryGroupingSpec>("for \$x in \$y group by \$")[0] as XdmVariableDeclaration
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+        assertThat(expr.variableName, `is`(nullValue()))
+        assertThat(expr.variableType, `is`(nullValue()))
+        assertThat(expr.variableValue, `is`(nullValue()))
+
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+    }
+
+    // endregion
     // region GroupingVariable (XdmVariableName)
 
     fun testGroupingVariable_NCName() {
