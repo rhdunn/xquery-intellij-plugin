@@ -273,6 +273,88 @@ class XQueryXdmTest : ParserTestCase() {
     // endregion
     // endregion
     // region Variables
+    // region CountClause (XdmVariableDeclaration)
+
+    fun testCountClause_NCName() {
+        val expr = parse<XQueryCountClause>("for \$x in \$y count \$z return \$w")[0] as XdmVariableDeclaration
+        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+        assertThat(expr.variableName, `is`(notNullValue()))
+        assertThat(expr.variableType, `is`(XsInteger as XdmSequenceType))
+        assertThat(expr.variableValue, `is`(nullValue()))
+
+        val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
+        val name = varname.firstChild as XPathNCName
+
+        val qname = expr.variableName as QName
+        assertThat(qname.prefix, `is`(nullValue()))
+        assertThat(qname.namespace, `is`(nullValue()))
+        assertThat(qname.declaration?.get(), `is`(name as XdmConstantExpression))
+
+        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.lexicalRepresentation, `is`("z"))
+
+        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+    }
+
+    fun testCountClause_QName() {
+        val expr = parse<XQueryCountClause>("for \$a:x in \$a:y count \$a:z return \$a:w")[0] as XdmVariableDeclaration
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Undecided))
+        assertThat(expr.variableName, `is`(notNullValue()))
+        assertThat(expr.variableType, `is`(XsInteger as XdmSequenceType))
+        assertThat(expr.variableValue, `is`(nullValue()))
+
+        val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
+        val name = varname.firstChild as XPathQName
+
+        val qname = expr.variableName as QName
+        assertThat(qname.namespace, `is`(nullValue()))
+        assertThat(qname.declaration?.get(), `is`(name as XdmConstantExpression))
+
+        assertThat(qname.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.prefix?.lexicalRepresentation, `is`("a"))
+
+        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.lexicalRepresentation, `is`("z"))
+
+        assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
+    }
+
+    fun testCountClause_URIQualifiedName() {
+        val expr = parse<XQueryCountClause>(
+                "for \$Q{http://www.example.com}x in \$Q{http://www.example.com}y count \$Q{http://www.example.com}z " +
+                        "return \$Q{http://www.example.com}w")[0] as XdmVariableDeclaration
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+        assertThat(expr.variableName, `is`(notNullValue()))
+        assertThat(expr.variableType, `is`(XsInteger as XdmSequenceType))
+        assertThat(expr.variableValue, `is`(nullValue()))
+
+        val varname = (expr as PsiElement).children().filterIsInstance<XPathVarName>().first()
+        val name = varname.firstChild as XPathURIQualifiedName
+
+        val qname = expr.variableName as QName
+        assertThat(qname.prefix, `is`(nullValue()))
+        assertThat(qname.declaration?.get(), `is`(name as XdmConstantExpression))
+
+        assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(qname.namespace?.lexicalRepresentation, `is`("http://www.example.com"))
+
+        assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(qname.localName.lexicalRepresentation, `is`("z"))
+
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+    }
+
+    fun testCountClause_MissingVarName() {
+        val expr = parse<XQueryCountClause>("for \$x in \$y count \$")[0] as XdmVariableDeclaration
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+        assertThat(expr.variableName, `is`(nullValue()))
+        assertThat(expr.variableType, `is`(XsInteger as XdmSequenceType))
+        assertThat(expr.variableValue, `is`(nullValue()))
+
+        assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+    }
+
+    // endregion
     // region ForBinding (XdmVariableDeclaration)
 
     fun testForBinding_NCName() {
@@ -321,7 +403,7 @@ class XQueryXdmTest : ParserTestCase() {
 
     fun testForBinding_URIQualifiedName() {
         val expr = parse<XQueryForBinding>(
-            "for \$Q{http://www.example.com}x at \$Q{http://www.example.com}y in \$Q{http://www.example.com}z" +
+            "for \$Q{http://www.example.com}x at \$Q{http://www.example.com}y in \$Q{http://www.example.com}z " +
             "return \$Q{http://www.example.com}w")[0] as XdmVariableDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(notNullValue()))
@@ -484,7 +566,7 @@ class XQueryXdmTest : ParserTestCase() {
 
     fun testPositionalVar_URIQualifiedName() {
         val expr = parse<XQueryPositionalVar>(
-                "for \$Q{http://www.example.com}x at \$Q{http://www.example.com}y in \$Q{http://www.example.com}z" +
+                "for \$Q{http://www.example.com}x at \$Q{http://www.example.com}y in \$Q{http://www.example.com}z " +
                         "return \$Q{http://www.example.com}w")[0] as XdmVariableDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(notNullValue()))
@@ -566,7 +648,7 @@ class XQueryXdmTest : ParserTestCase() {
 
     fun testSlidingWindowClause_URIQualifiedName() {
         val expr = parse<XQuerySlidingWindowClause>(
-                "for sliding window \$Q{http://www.example.com}x in \$Q{http://www.example.com}y" +
+                "for sliding window \$Q{http://www.example.com}x in \$Q{http://www.example.com}y " +
                         "return \$Q{http://www.example.com}z")[0] as XdmVariableDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(notNullValue()))
@@ -648,7 +730,7 @@ class XQueryXdmTest : ParserTestCase() {
 
     fun testTumblingWindowClause_URIQualifiedName() {
         val expr = parse<XQueryTumblingWindowClause>(
-                "for tumbling window \$Q{http://www.example.com}x in \$Q{http://www.example.com}y" +
+                "for tumbling window \$Q{http://www.example.com}x in \$Q{http://www.example.com}y " +
                         "return \$Q{http://www.example.com}z")[0] as XdmVariableDeclaration
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.variableName, `is`(notNullValue()))
