@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -3560,7 +3560,7 @@ class XQueryParser {
 
     private boolean parseCastExpr(IElementType type) {
         final PsiBuilder.Marker castExprMarker = mark();
-        if (parseArrowExpr_TransformWithExpr(type)) {
+        if (parseArrowTransformUpdateExpr(type)) {
             parseWhiteSpaceAndCommentTokens();
             if (matchTokenType(XQueryTokenType.K_CAST)) {
                 boolean haveErrors = false;
@@ -3584,14 +3584,7 @@ class XQueryParser {
         return false;
     }
 
-    private boolean parseArrowExpr_TransformWithExpr(IElementType type) {
-        // The XQuery 3.1 and Update Facility 3.0 specifications both define
-        // constructs for use between CastExpr and UnaryExpr. This supports
-        // either construct, but does not allow both constructs to be mixed
-        // in the same expression, unless parentheses are used.
-        //
-        // See https://www.w3.org/Bugs/Public/show_bug.cgi?id=30015.
-
+    private boolean parseArrowTransformUpdateExpr(IElementType type) {
         final PsiBuilder.Marker exprMarker = mark();
         if (parseUnaryExpr(type)) {
             parseWhiteSpaceAndCommentTokens();
