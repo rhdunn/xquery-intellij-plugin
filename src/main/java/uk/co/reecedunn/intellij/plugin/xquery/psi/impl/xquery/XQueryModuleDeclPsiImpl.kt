@@ -17,7 +17,6 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
-import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
@@ -26,15 +25,11 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModuleDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryUriLiteral
-import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceResolver
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
 
 class XQueryModuleDeclPsiImpl(node: ASTNode):
         ASTWrapperPsiElement(node),
         XQueryModuleDecl,
-        XQueryNamespaceResolver,
         XQueryPrologResolver,
         XdmNamespaceDeclaration {
     // region XdmNamespaceDeclaration
@@ -44,17 +39,6 @@ class XQueryModuleDeclPsiImpl(node: ASTNode):
 
     override val namespaceUri get(): XdmLexicalValue? =
         children().filterIsInstance<XQueryUriLiteral>().firstOrNull() as? XdmLexicalValue
-
-    // endregion
-    // region XQueryNamespaceResolver
-
-    override fun resolveNamespace(prefix: CharSequence?): XQueryNamespace? {
-        val ns = children().filterIsInstance<XPathNCName>().map { name -> name.localName }.map { localName ->
-            val element = findChildByType<PsiElement>(XQueryElementType.URI_LITERAL)
-            XQueryNamespace(localName, element, this)
-        }.firstOrNull()
-        return if (ns?.prefix?.text == prefix) ns else null
-    }
 
     // endregion
     // region XQueryPrologResolver

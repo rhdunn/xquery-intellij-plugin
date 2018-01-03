@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +23,7 @@ import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathBracedURILiteral
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.INCNameType
@@ -129,13 +130,16 @@ abstract class XPathEQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), X
             is XPathBracedURILiteral -> emptySequence()
             else -> {
                 val text = prefix.text
-                return prefix.walkTree().reversed().map { e ->
-                    if (e is XQueryNamespaceResolver) {
+                return prefix.walkTree().reversed().map { e -> when (e) {
+                    is XQueryNamespaceResolver ->
                         e.resolveNamespace(text)
-                    } else {
-                        null
-                    }
-                }.filterNotNull()
+                    is XdmNamespaceDeclaration ->
+                        if (e.namespacePrefix?.lexicalRepresentation == text)
+                            XQueryNamespace(e.namespacePrefix as? PsiElement, e.namespaceUri as? PsiElement, e as PsiElement)
+                        else
+                            null
+                    else -> null
+                }}.filterNotNull()
             }
         }
     }

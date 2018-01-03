@@ -3200,66 +3200,6 @@ class XQueryPsiTest : ParserTestCase() {
     }
 
     // endregion
-    // region ModuleDecl
-
-    fun testModuleDecl_NamespaceResolver() {
-        val file = parseResource("tests/parser/xquery-1.0/ModuleDecl.xq")!!
-
-        val moduleDeclPsi = file.descendants().filterIsInstance<XQueryModuleDecl>().first()
-        val provider = moduleDeclPsi as XQueryNamespaceResolver
-
-        assertThat<XQueryNamespace>(provider.resolveNamespace(null), `is`(nullValue()))
-        assertThat<XQueryNamespace>(provider.resolveNamespace("abc"), `is`(nullValue()))
-        assertThat<XQueryNamespace>(provider.resolveNamespace("testing"), `is`(nullValue()))
-
-        val ns = provider.resolveNamespace("test")
-        assertThat<XQueryNamespace>(ns, `is`(notNullValue()))
-
-        assertThat(ns!!.prefix, `is`<PsiElement>(instanceOf<PsiElement>(LeafPsiElement::class.java)))
-        assertThat(ns.prefix!!.text, `is`("test"))
-
-        assertThat(ns.uri, `is`<PsiElement>(instanceOf<PsiElement>(XQueryUriLiteral::class.java)))
-        assertThat((ns.uri as XdmLexicalValue).lexicalRepresentation, `is`("http://www.example.com/test"))
-
-        assertThat(ns.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryModuleDecl::class.java)))
-        assertThat(ns.declaration, `is`<PsiElement>(moduleDeclPsi))
-    }
-
-    fun testModuleDecl_MissingNamespaceName_NamespaceResolver() {
-        val file = parseResource("tests/parser/xquery-1.0/ModuleDecl_MissingNamespaceName.xq")!!
-
-        val moduleDeclPsi = file.descendants().filterIsInstance<XQueryModuleDecl>().first()
-        val provider = moduleDeclPsi as XQueryNamespaceResolver
-
-        assertThat<XQueryNamespace>(provider.resolveNamespace(null), `is`(nullValue()))
-        assertThat<XQueryNamespace>(provider.resolveNamespace("abc"), `is`(nullValue()))
-        assertThat<XQueryNamespace>(provider.resolveNamespace("testing"), `is`(nullValue()))
-        assertThat<XQueryNamespace>(provider.resolveNamespace("test"), `is`(nullValue()))
-    }
-
-    fun testModulesDecl_MissingNamespaceUri_NamespaceResolver() {
-        val file = parseResource("tests/parser/xquery-1.0/ModuleDecl_MissingNamespaceUri.xq")!!
-
-        val moduleDeclPsi = file.descendants().filterIsInstance<XQueryModuleDecl>().first()
-        val provider = moduleDeclPsi as XQueryNamespaceResolver
-
-        assertThat<XQueryNamespace>(provider.resolveNamespace(null), `is`(nullValue()))
-        assertThat<XQueryNamespace>(provider.resolveNamespace("abc"), `is`(nullValue()))
-        assertThat<XQueryNamespace>(provider.resolveNamespace("testing"), `is`(nullValue()))
-
-        val ns = provider.resolveNamespace("one")
-        assertThat<XQueryNamespace>(ns, `is`(notNullValue()))
-
-        assertThat(ns!!.prefix, `is`<PsiElement>(instanceOf<PsiElement>(LeafPsiElement::class.java)))
-        assertThat(ns.prefix!!.text, `is`("one"))
-
-        assertThat(ns.uri, `is`(nullValue()))
-
-        assertThat(ns.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryModuleDecl::class.java)))
-        assertThat(ns.declaration, `is`<PsiElement>(moduleDeclPsi))
-    }
-
-    // endregion
     // region ModuleImport
 
     fun testModuleImport_NamespaceResolver() {
