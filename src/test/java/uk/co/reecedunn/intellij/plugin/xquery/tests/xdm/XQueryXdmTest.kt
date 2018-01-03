@@ -390,6 +390,45 @@ class XQueryXdmTest : ParserTestCase() {
     }
 
     // endregion
+    // region SchemaImport (XdmNamespaceDeclaration)
+
+    fun testSchemaImport() {
+        val expr = parse<XQuerySchemaImport>("import schema namespace test = 'http://www.example.com';")[0] as XdmNamespaceDeclaration
+
+        assertThat(expr.namespacePrefix, `is`(notNullValue()))
+        assertThat(expr.namespacePrefix?.cacheable, `is`(CachingBehaviour.Cache))
+        assertThat(expr.namespacePrefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(expr.namespacePrefix?.lexicalRepresentation, `is`("test"))
+
+        assertThat(expr.namespaceUri, `is`(notNullValue()))
+        assertThat(expr.namespaceUri?.cacheable, `is`(CachingBehaviour.Cache))
+        assertThat(expr.namespaceUri?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(expr.namespaceUri?.lexicalRepresentation, `is`("http://www.example.com"))
+    }
+
+    fun testSchemaImport_NoNamespacePrefix() {
+        val expr = parse<XQuerySchemaImport>("import schema namespace = 'http://www.example.com';")[0] as XdmNamespaceDeclaration
+
+        assertThat(expr.namespacePrefix, `is`(nullValue()))
+
+        assertThat(expr.namespaceUri, `is`(notNullValue()))
+        assertThat(expr.namespaceUri?.cacheable, `is`(CachingBehaviour.Cache))
+        assertThat(expr.namespaceUri?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(expr.namespaceUri?.lexicalRepresentation, `is`("http://www.example.com"))
+    }
+
+    fun testSchemaImport_NoNamespaceUri() {
+        val expr = parse<XQuerySchemaImport>("import schema namespace test = ;")[0] as XdmNamespaceDeclaration
+
+        assertThat(expr.namespacePrefix, `is`(notNullValue()))
+        assertThat(expr.namespacePrefix?.cacheable, `is`(CachingBehaviour.Cache))
+        assertThat(expr.namespacePrefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(expr.namespacePrefix?.lexicalRepresentation, `is`("test"))
+
+        assertThat(expr.namespaceUri, `is`(nullValue()))
+    }
+
+    // endregion
     // endregion
     // region Variables
     // region CaseClause (XdmVariableDeclaration)
