@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,9 +21,7 @@ import uk.co.reecedunn.intellij.plugin.core.data.Cacheable
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.data.`is`
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xdm.model.QNameContext
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmStaticContext
+import uk.co.reecedunn.intellij.plugin.xdm.model.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDefaultNamespaceDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDefaultNamespaceType
@@ -47,9 +45,15 @@ class XQueryPrologPsiImpl(node: ASTNode):
     }
 
     override fun resolveNamespace(prefix: CharSequence?): XQueryNamespace? {
-        return children().reversed().filterIsInstance<XQueryNamespaceResolver>().map { resolver ->
-            resolver.resolveNamespace(prefix)
-        }.filterNotNull().firstOrNull()
+        return children().reversed().map { resolver -> when (resolver) {
+            is XQueryNamespaceResolver -> resolver.resolveNamespace(prefix)
+            is XdmNamespaceDeclaration ->
+                if (resolver.namespacePrefix?.lexicalRepresentation == prefix)
+                    resolver.toNamespace()
+                else
+                    null
+            else -> null
+        }}.filterNotNull().firstOrNull()
     }
 
     override fun resolveVariable(name: XPathEQName?): XQueryVariable? {
