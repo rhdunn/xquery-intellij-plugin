@@ -20,6 +20,7 @@ import com.intellij.psi.PsiFile
 import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xdm.model.toNamespace
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
@@ -57,7 +58,7 @@ class DuplicateNamespacePrefixInspection : LocalInspectionTool() {
             val prolog = (module as? XQueryPrologResolver)?.prolog
             prolog?.children()?.forEach(fun (child) {
                 val ns = when (child) {
-                    is XQueryModuleImport -> child.namespace
+                    is XdmNamespaceDeclaration -> child.toNamespace()
                     is XQueryNamespaceDecl -> child.namespace
                     is XQuerySchemaImport -> child.namespace
                     else -> return

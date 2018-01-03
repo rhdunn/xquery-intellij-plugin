@@ -20,6 +20,8 @@ import com.intellij.psi.PsiFile
 import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xdm.model.toNamespace
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModuleImport
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace
@@ -47,7 +49,7 @@ class DuplicateNamespaceUriInspection : LocalInspectionTool() {
 
             val prolog = (module as? XQueryPrologResolver)?.prolog
             prolog?.children()?.filterIsInstance<XQueryModuleImport>()?.forEach(fun (child) {
-                val ns = child.namespace
+                val ns = (child as? XdmNamespaceDeclaration)?.toNamespace()
                 val uri = (ns?.uri as? XdmLexicalValue)?.lexicalRepresentation
 
                 if (ns == null || uri == null)

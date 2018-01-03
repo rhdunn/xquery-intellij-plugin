@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xdm.model.toNamespace
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathBracedURILiteral
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.INCNameType
@@ -135,7 +136,7 @@ abstract class XPathEQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), X
                         e.resolveNamespace(text)
                     is XdmNamespaceDeclaration ->
                         if (e.namespacePrefix?.lexicalRepresentation == text)
-                            XQueryNamespace(e.namespacePrefix as? PsiElement, e.namespaceUri as? PsiElement, e as PsiElement)
+                            e.toNamespace()
                         else
                             null
                     else -> null
