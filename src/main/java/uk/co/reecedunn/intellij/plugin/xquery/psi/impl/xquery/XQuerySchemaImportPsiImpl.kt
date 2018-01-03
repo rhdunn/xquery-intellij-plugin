@@ -17,15 +17,14 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
-import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xdm.model.toNamespace
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySchemaImport
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySchemaPrefix
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryUriLiteral
-import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceResolver
 
@@ -45,22 +44,15 @@ class XQuerySchemaImportPsiImpl(node: ASTNode):
         children().filterIsInstance<XQueryUriLiteral>().firstOrNull() as? XdmLexicalValue
 
     // endregion
-    // region XQuerySchemaImport
-
-    override val namespace get(): XQueryNamespace? {
-        val schema = findChildByType<XQuerySchemaPrefix>(XQueryElementType.SCHEMA_PREFIX) ?: return null
-        return schema.children().filterIsInstance<XPathNCName>().map { name -> name.localName }.map { localName ->
-            val element = findChildByType<PsiElement>(XQueryElementType.URI_LITERAL)
-            XQueryNamespace(localName, element, this)
-        }.firstOrNull()
-    }
-
-    // endregion
     // region XQueryNamespaceResolver
 
     override fun resolveNamespace(prefix: CharSequence?): XQueryNamespace? {
-        val ns = namespace
-        return if (ns?.prefix?.text == prefix) ns else null
+        return prefix?.let {
+            if (namespacePrefix?.lexicalRepresentation == prefix)
+                this.toNamespace()
+            else
+                null
+        }
     }
 
     // endregion

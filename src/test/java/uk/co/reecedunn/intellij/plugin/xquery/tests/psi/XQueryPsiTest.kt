@@ -3243,50 +3243,6 @@ class XQueryPsiTest : ParserTestCase() {
     }
 
     // endregion
-    // region XQuerySchemaImport
-
-    fun testSchemaImport() {
-        val file = parseResource("tests/parser/xquery-1.0/SchemaImport.xq")!!
-
-        val schemaImportPsi = file.descendants().filterIsInstance<XQuerySchemaImport>().first()
-        val ns = schemaImportPsi.namespace
-        assertThat<XQueryNamespace>(ns, `is`(nullValue()))
-    }
-
-    fun testSchemaImport_WithSchemaPrefix() {
-        val file = parseResource("tests/parser/xquery-1.0/SchemaPrefix.xq")!!
-
-        val schemaImportPsi = file.descendants().filterIsInstance<XQuerySchemaImport>().first()
-        val ns = schemaImportPsi.namespace
-        assertThat<XQueryNamespace>(ns, `is`(notNullValue()))
-
-        assertThat(ns!!.prefix, `is`<PsiElement>(instanceOf<PsiElement>(LeafPsiElement::class.java)))
-        assertThat(ns.prefix!!.text, `is`("test"))
-
-        assertThat(ns.uri, `is`<PsiElement>(instanceOf<PsiElement>(XQueryUriLiteral::class.java)))
-        assertThat((ns.uri as XdmLexicalValue).lexicalRepresentation, `is`("http://www.example.com/test"))
-
-        assertThat(ns.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQuerySchemaImport::class.java)))
-        assertThat(ns.declaration, `is`<PsiElement>(schemaImportPsi))
-    }
-
-    fun testSchemaImport_WithSchemaPrefix_MissingNCName() {
-        val file = parseResource("tests/parser/xquery-1.0/SchemaPrefix_MissingNCName.xq")!!
-
-        val schemaImportPsi = file.descendants().filterIsInstance<XQuerySchemaImport>().first()
-        val ns = schemaImportPsi.namespace
-        assertThat<XQueryNamespace>(ns, `is`(nullValue()))
-    }
-
-    fun testSchemaImport_WithSchemaPrefix_Default() {
-        val file = parseResource("tests/parser/xquery-1.0/SchemaPrefix_Default.xq")!!
-
-        val schemaImportPsi = file.descendants().filterIsInstance<XQuerySchemaImport>().first()
-        val ns = schemaImportPsi.namespace
-        assertThat<XQueryNamespace>(ns, `is`(nullValue()))
-    }
-
-    // endregion
     // region XPathURIQualifiedName
 
     fun testURIQualifiedName() {
