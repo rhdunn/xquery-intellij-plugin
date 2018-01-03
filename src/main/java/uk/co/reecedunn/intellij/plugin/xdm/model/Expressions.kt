@@ -34,6 +34,12 @@ interface XdmConstantExpression : XdmExpression {
 
 interface XdmTypeDeclaration : XdmExpression
 
+interface XdmNamespaceDeclaration {
+    val namespacePrefix: XdmLexicalValue?
+
+    val namespaceUri: XdmLexicalValue?
+}
+
 interface XdmVariableName {
     val cacheable: CachingBehaviour
 
