@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,8 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
@@ -26,7 +28,23 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceResolver
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
 
-class XQueryModuleImportPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryModuleImport, XQueryNamespaceResolver, XQueryPrologResolver {
+class XQueryModuleImportPsiImpl(node: ASTNode):
+        ASTWrapperPsiElement(node),
+        XQueryModuleImport,
+        XQueryNamespaceResolver,
+        XQueryPrologResolver,
+        XdmNamespaceDeclaration {
+    // region XdmNamespaceDeclaration
+
+    override val namespacePrefix get(): XdmLexicalValue? =
+        children().filterIsInstance<XPathNCName>().firstOrNull()?.localName as? XdmLexicalValue
+
+    override val namespaceUri get(): XdmLexicalValue? =
+        children().filterIsInstance<XQueryUriLiteral>().firstOrNull() as? XdmLexicalValue
+
+    // endregion
+    // region XQueryModuleImport
+
     override val namespace get(): XQueryNamespace? {
         return children().filterIsInstance<XPathNCName>().map { name -> name.localName }.map { localName ->
             val element = findChildByType<PsiElement>(XQueryElementType.URI_LITERAL)
@@ -34,10 +52,16 @@ class XQueryModuleImportPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQu
         }.firstOrNull()
     }
 
+    // endregion
+    // region XQueryNamespaceResolver
+
     override fun resolveNamespace(prefix: CharSequence?): XQueryNamespace? {
         val ns = namespace
         return if (ns?.prefix?.text == prefix) ns else null
     }
+
+    // endregion
+    // region XQueryPrologResolver
 
     override val prolog get(): XQueryProlog? {
         return children().filterIsInstance<XQueryUriLiteral>().map { uri ->
@@ -46,4 +70,6 @@ class XQueryModuleImportPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQu
             (library as? XQueryPrologResolver)?.prolog
         }.filterNotNull().firstOrNull()
     }
+
+    // endregion
 }
