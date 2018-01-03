@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Reece H. Dunn
+ * Copyright (C) 2017-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ import com.intellij.codeInspection.*
 import com.intellij.psi.PsiFile
 import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
@@ -42,14 +43,14 @@ class DuplicateNamespacePrefixInspection : LocalInspectionTool() {
 
         val descriptors = SmartList<ProblemDescriptor>()
         file.children().forEach { module ->
-            val prefices = HashMap<String, XQueryNamespace>()
+            val prefices = HashMap<String, XQueryUriLiteral?>()
 
-            val moduleDecl = module.children().filterIsInstance<XQueryModuleDecl>().firstOrNull()
+            val moduleDecl = module.children().filterIsInstance<XQueryModuleDecl>().firstOrNull() as? XdmNamespaceDeclaration
             if (moduleDecl != null) {
-                val ns = moduleDecl.namespace
-                val prefix = ns?.prefix?.text
-                if (ns != null && prefix != null) {
-                    prefices.put(prefix, ns)
+                val prefix = moduleDecl.namespacePrefix?.lexicalRepresentation
+                val uri = moduleDecl.namespaceUri
+                if (prefix != null) {
+                    prefices.put(prefix, uri as XQueryUriLiteral)
                 }
             }
 
@@ -66,13 +67,13 @@ class DuplicateNamespacePrefixInspection : LocalInspectionTool() {
                 if (ns == null || prefix == null)
                     return
 
-                val duplicate: XQueryNamespace? = prefices.get(prefix)
+                val duplicate: XQueryUriLiteral? = prefices.get(prefix)
                 if (duplicate != null) {
                     val description = XQueryBundle.message("inspection.XQST0033.duplicate-namespace-prefix.message", prefix)
                     descriptors.add(manager.createProblemDescriptor(ns.prefix, description, null as LocalQuickFix?, ProblemHighlightType.GENERIC_ERROR, isOnTheFly))
                 }
 
-                prefices.put(prefix, ns)
+                prefices.put(prefix, ns.uri as? XQueryUriLiteral)
             })
         }
         return descriptors.toTypedArray()

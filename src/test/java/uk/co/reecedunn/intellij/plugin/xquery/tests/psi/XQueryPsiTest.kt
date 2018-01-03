@@ -2786,50 +2786,6 @@ class XQueryPsiTest : ParserTestCase() {
     }
 
     // endregion
-    // region XQueryModuleDecl
-
-    fun testModuleDecl() {
-        val file = parseResource("tests/parser/xquery-1.0/ModuleDecl.xq")!!
-
-        val moduleDeclPsi = file.descendants().filterIsInstance<XQueryModuleDecl>().first()
-        val ns = moduleDeclPsi.namespace
-        assertThat<XQueryNamespace>(ns, `is`(notNullValue()))
-
-        assertThat(ns!!.prefix, `is`<PsiElement>(instanceOf<PsiElement>(LeafPsiElement::class.java)))
-        assertThat(ns.prefix!!.text, `is`("test"))
-
-        assertThat(ns.uri, `is`<PsiElement>(instanceOf<PsiElement>(XQueryUriLiteral::class.java)))
-        assertThat((ns.uri as XdmLexicalValue).lexicalRepresentation, `is`("http://www.example.com/test"))
-
-        assertThat(ns.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryModuleDecl::class.java)))
-        assertThat(ns.declaration, `is`<PsiElement>(moduleDeclPsi))
-    }
-
-    fun testModuleDecl_MissingNamespaceName() {
-        val file = parseResource("tests/parser/xquery-1.0/ModuleDecl_MissingNamespaceName.xq")!!
-
-        val moduleDeclPsi = file.descendants().filterIsInstance<XQueryModuleDecl>().first()
-        val ns = moduleDeclPsi.namespace
-        assertThat<XQueryNamespace>(ns, `is`(nullValue()))
-    }
-
-    fun testModulesDecl_MissingNamespaceUri() {
-        val file = parseResource("tests/parser/xquery-1.0/ModuleDecl_MissingNamespaceUri.xq")!!
-
-        val moduleDeclPsi = file.descendants().filterIsInstance<XQueryModuleDecl>().first()
-        val ns = moduleDeclPsi.namespace
-        assertThat<XQueryNamespace>(ns, `is`(notNullValue()))
-
-        assertThat(ns!!.prefix, `is`<PsiElement>(instanceOf<PsiElement>(LeafPsiElement::class.java)))
-        assertThat(ns.prefix!!.text, `is`("one"))
-
-        assertThat(ns.uri, `is`(nullValue()))
-
-        assertThat(ns.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryModuleDecl::class.java)))
-        assertThat(ns.declaration, `is`<PsiElement>(moduleDeclPsi))
-    }
-
-    // endregion
     // region XQueryModuleImport
 
     fun testModuleImport() {
