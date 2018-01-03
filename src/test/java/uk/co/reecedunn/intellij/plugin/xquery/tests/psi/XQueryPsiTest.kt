@@ -3167,68 +3167,6 @@ class XQueryPsiTest : ParserTestCase() {
     }
 
     // endregion
-    // region SchemaImport
-
-    fun testSchemaImport_NamespaceResolver() {
-        val file = parseResource("tests/parser/xquery-1.0/SchemaImport.xq")!!
-
-        val schemaImportPsi = file.descendants().filterIsInstance<XQuerySchemaImport>().first()
-        val provider = schemaImportPsi as XQueryNamespaceResolver
-
-        assertThat<XQueryNamespace>(provider.resolveNamespace(null), `is`(nullValue()))
-        assertThat<XQueryNamespace>(provider.resolveNamespace("abc"), `is`(nullValue()))
-        assertThat<XQueryNamespace>(provider.resolveNamespace("testing"), `is`(nullValue()))
-        assertThat<XQueryNamespace>(provider.resolveNamespace("test"), `is`(nullValue()))
-    }
-
-    fun testSchemaImport_WithSchemaPrefix_NamespaceResolver() {
-        val file = parseResource("tests/parser/xquery-1.0/SchemaPrefix.xq")!!
-
-        val schemaImportPsi = file.descendants().filterIsInstance<XQuerySchemaImport>().first()
-        val provider = schemaImportPsi as XQueryNamespaceResolver
-
-        assertThat<XQueryNamespace>(provider.resolveNamespace(null), `is`(nullValue()))
-        assertThat<XQueryNamespace>(provider.resolveNamespace("abc"), `is`(nullValue()))
-        assertThat<XQueryNamespace>(provider.resolveNamespace("testing"), `is`(nullValue()))
-
-        val ns = provider.resolveNamespace("test")
-        assertThat<XQueryNamespace>(ns, `is`(notNullValue()))
-
-        assertThat(ns!!.prefix, `is`<PsiElement>(instanceOf<PsiElement>(LeafPsiElement::class.java)))
-        assertThat(ns.prefix!!.text, `is`("test"))
-
-        assertThat(ns.uri, `is`<PsiElement>(instanceOf<PsiElement>(XQueryUriLiteral::class.java)))
-        assertThat((ns.uri as XdmLexicalValue).lexicalRepresentation, `is`("http://www.example.com/test"))
-
-        assertThat(ns.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQuerySchemaImport::class.java)))
-        assertThat(ns.declaration, `is`<PsiElement>(schemaImportPsi))
-    }
-
-    fun testSchemaImport_WithSchemaPrefix_MissingNCName_NamespaceResolver() {
-        val file = parseResource("tests/parser/xquery-1.0/SchemaPrefix_MissingNCName.xq")!!
-
-        val schemaImportPsi = file.descendants().filterIsInstance<XQuerySchemaImport>().first()
-        val provider = schemaImportPsi as XQueryNamespaceResolver
-
-        assertThat<XQueryNamespace>(provider.resolveNamespace(null), `is`(nullValue()))
-        assertThat<XQueryNamespace>(provider.resolveNamespace("abc"), `is`(nullValue()))
-        assertThat<XQueryNamespace>(provider.resolveNamespace("testing"), `is`(nullValue()))
-        assertThat<XQueryNamespace>(provider.resolveNamespace("test"), `is`(nullValue()))
-    }
-
-    fun testSchemaImport_WithSchemaPrefix_Default_NamespaceResolver() {
-        val file = parseResource("tests/parser/xquery-1.0/SchemaPrefix_Default.xq")!!
-
-        val schemaImportPsi = file.descendants().filterIsInstance<XQuerySchemaImport>().first()
-        val provider = schemaImportPsi as XQueryNamespaceResolver
-
-        assertThat<XQueryNamespace>(provider.resolveNamespace(null), `is`(nullValue()))
-        assertThat<XQueryNamespace>(provider.resolveNamespace("abc"), `is`(nullValue()))
-        assertThat<XQueryNamespace>(provider.resolveNamespace("testing"), `is`(nullValue()))
-        assertThat<XQueryNamespace>(provider.resolveNamespace("test"), `is`(nullValue()))
-    }
-
-    // endregion
     // endregion
     // region XPathParamList
 

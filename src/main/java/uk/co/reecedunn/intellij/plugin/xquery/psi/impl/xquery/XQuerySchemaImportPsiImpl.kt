@@ -20,18 +20,14 @@ import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmNamespaceDeclaration
-import uk.co.reecedunn.intellij.plugin.xdm.model.toNamespace
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySchemaImport
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySchemaPrefix
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryUriLiteral
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceResolver
 
 class XQuerySchemaImportPsiImpl(node: ASTNode):
         ASTWrapperPsiElement(node),
         XQuerySchemaImport,
-        XQueryNamespaceResolver,
         XdmNamespaceDeclaration {
     // region XdmNamespaceDeclaration
 
@@ -42,18 +38,6 @@ class XQuerySchemaImportPsiImpl(node: ASTNode):
 
     override val namespaceUri get(): XdmLexicalValue? =
         children().filterIsInstance<XQueryUriLiteral>().firstOrNull() as? XdmLexicalValue
-
-    // endregion
-    // region XQueryNamespaceResolver
-
-    override fun resolveNamespace(prefix: CharSequence?): XQueryNamespace? {
-        return prefix?.let {
-            if (namespacePrefix?.lexicalRepresentation == prefix)
-                this.toNamespace()
-            else
-                null
-        }
-    }
 
     // endregion
 }
