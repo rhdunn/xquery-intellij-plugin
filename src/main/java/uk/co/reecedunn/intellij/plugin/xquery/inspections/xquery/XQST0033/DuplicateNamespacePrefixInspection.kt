@@ -59,7 +59,6 @@ class DuplicateNamespacePrefixInspection : LocalInspectionTool() {
             prolog?.children()?.forEach(fun (child) {
                 val ns = when (child) {
                     is XdmNamespaceDeclaration -> child.toNamespace()
-                    is XQueryNamespaceDecl -> child.namespace
                     is XQuerySchemaImport -> child.namespace
                     else -> return
                 }

@@ -42,20 +42,13 @@ class XQueryNamespaceDeclPsiImpl(node: ASTNode):
         children().filterIsInstance<XQueryUriLiteral>().firstOrNull() as? XdmLexicalValue
 
     // endregion
-    // region XQueryNamespaceDecl
-
-    override val namespace get(): XQueryNamespace? {
-        return children().filterIsInstance<XPathNCName>().map { name -> name.localName }.map { localName ->
-            val element = findChildByType<PsiElement>(XQueryElementType.URI_LITERAL)
-            XQueryNamespace(localName, element, this)
-        }.firstOrNull()
-    }
-
-    // endregion
     // region XQueryNamespaceResolver
 
     override fun resolveNamespace(prefix: CharSequence?): XQueryNamespace? {
-        val ns = namespace
+        val ns = children().filterIsInstance<XPathNCName>().map { name -> name.localName }.map { localName ->
+            val element = findChildByType<PsiElement>(XQueryElementType.URI_LITERAL)
+            XQueryNamespace(localName, element, this)
+        }.firstOrNull()
         return if (ns?.prefix?.text == prefix) ns else null
     }
 
