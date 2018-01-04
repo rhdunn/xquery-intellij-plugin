@@ -344,6 +344,45 @@ class XQueryXdmTest : ParserTestCase() {
     // endregion
     // endregion
     // region Namespaces
+    // region DirAttribute (XdmNamespaceDeclaration)
+
+    fun testDirAttribute_Xmlns() {
+        val expr = parse<XQueryDirAttribute>("<a xmlns:b='http://www.example.com'/>")[0] as XdmNamespaceDeclaration
+
+        assertThat(expr.namespacePrefix, `is`(notNullValue()))
+        assertThat(expr.namespacePrefix?.cacheable, `is`(CachingBehaviour.Cache))
+        assertThat(expr.namespacePrefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(expr.namespacePrefix?.lexicalRepresentation, `is`("b"))
+
+        assertThat(expr.namespaceUri, `is`(notNullValue()))
+        assertThat(expr.namespaceUri?.cacheable, `is`(CachingBehaviour.Cache))
+        assertThat(expr.namespaceUri?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(expr.namespaceUri?.lexicalRepresentation, `is`("http://www.example.com"))
+    }
+
+    fun testDirAttribute_Xmlns_NoNamespaceUri() {
+        val expr = parse<XQueryDirAttribute>("<a xmlns:b=>")[0] as XdmNamespaceDeclaration
+
+        assertThat(expr.namespacePrefix, `is`(notNullValue()))
+        assertThat(expr.namespacePrefix?.cacheable, `is`(CachingBehaviour.Cache))
+        assertThat(expr.namespacePrefix?.staticType, `is`(XsNCName as XdmSequenceType))
+        assertThat(expr.namespacePrefix?.lexicalRepresentation, `is`("b"))
+
+        assertThat(expr.namespaceUri, `is`(nullValue()))
+    }
+
+    fun testDirAttribute() {
+        val expr = parse<XQueryDirAttribute>("<a b='http://www.example.com'/>")[0] as XdmNamespaceDeclaration
+
+        assertThat(expr.namespacePrefix, `is`(nullValue()))
+
+        assertThat(expr.namespaceUri, `is`(notNullValue()))
+        assertThat(expr.namespaceUri?.cacheable, `is`(CachingBehaviour.Cache))
+        assertThat(expr.namespaceUri?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(expr.namespaceUri?.lexicalRepresentation, `is`("http://www.example.com"))
+    }
+
+    // endregion
     // region ModuleDecl (XdmNamespaceDeclaration)
 
     fun testModuleDecl() {
