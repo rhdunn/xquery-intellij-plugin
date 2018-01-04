@@ -72,9 +72,8 @@ class XQueryDirAttributePsiImpl(node: ASTNode):
     override val namespaceUri get(): XdmLexicalValue? = cachedNamespaceUri.get()
     private val cachedNamespaceUri = CacheableProperty {
         children().filterIsInstance<XQueryDirAttributeValue>().map { value ->
-            (value as XdmConstantExpression).constantValue?.let {
-                DirAttributeNamespaceUri(it as String)
-            }
+            val uri = value as XdmLexicalValue
+            DirAttributeNamespaceUri(uri.lexicalRepresentation)
         }.firstOrNull() `is` Cacheable
     }
 

@@ -26,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.XsString
 import uk.co.reecedunn.intellij.plugin.xdm.XsUntyped
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmConstantExpression
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEscapeCharacter
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCharRef
@@ -37,18 +38,18 @@ import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 class XQueryDirAttributeValuePsiImpl(node: ASTNode):
         ASTWrapperPsiElement(node),
         XQueryDirAttributeValue,
-        XdmConstantExpression {
+        XdmLexicalValue {
 
     override fun subtreeChanged() {
         super.subtreeChanged()
         cachedAttributeValue.invalidate()
     }
 
-    override val staticType get(): XdmSequenceType = constantValue?.let { XsString } ?: XsUntyped
+    override val staticType get(): XdmSequenceType = cachedAttributeValue.get()?.let { XsString } ?: XsUntyped
 
     override val cacheable: CachingBehaviour = CachingBehaviour.Cache
 
-    override val constantValue get(): Any? = cachedAttributeValue.get()
+    override val lexicalRepresentation get(): String = cachedAttributeValue.get() ?: ""
 
     private val cachedAttributeValue = CacheableProperty {
         if (contains(XQueryElementType.ENCLOSED_EXPR))

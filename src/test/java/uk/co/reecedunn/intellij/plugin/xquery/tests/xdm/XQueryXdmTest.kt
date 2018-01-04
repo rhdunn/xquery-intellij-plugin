@@ -152,75 +152,75 @@ class XQueryXdmTest : ParserTestCase() {
     }
 
     // endregion
-    // region DirAttributeValue (XdmConstantExpression)
+    // region DirAttributeValue (XdmLexicalValue)
 
     fun testDirAttributeValue() {
-        val literal = parse<XQueryDirAttributeValue>("<a b=\"http://www.example.com\uFFFF\"/>")[0] as XdmConstantExpression
+        val literal = parse<XQueryDirAttributeValue>("<a b=\"http://www.example.com\uFFFF\"/>")[0] as XdmLexicalValue
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(literal.staticType, `is`(XsString as XdmSequenceType))
-        assertThat(literal.constantValue as String, `is`("http://www.example.com\uFFFF")) // U+FFFF = BAD_CHARACTER token.
+        assertThat(literal.lexicalRepresentation, `is`("http://www.example.com\uFFFF")) // U+FFFF = BAD_CHARACTER token.
 
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     fun testDirAttributeValue_Unclosed() {
-        val literal = parse<XQueryDirAttributeValue>("<a b=\"http://www.example.com")[0] as XdmConstantExpression
+        val literal = parse<XQueryDirAttributeValue>("<a b=\"http://www.example.com")[0] as XdmLexicalValue
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(literal.staticType, `is`(XsString as XdmSequenceType))
-        assertThat(literal.constantValue as String, `is`("http://www.example.com"))
+        assertThat(literal.lexicalRepresentation, `is`("http://www.example.com"))
 
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     fun testDirAttributeValue_EscapeApos() {
-        val literal = parse<XQueryDirAttributeValue>("<a b='''\"\"{{}}'/>")[0] as XdmConstantExpression
+        val literal = parse<XQueryDirAttributeValue>("<a b='''\"\"{{}}'/>")[0] as XdmLexicalValue
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(literal.staticType, `is`(XsString as XdmSequenceType))
-        assertThat(literal.constantValue as String, `is`("'\"\"{}"))
+        assertThat(literal.lexicalRepresentation, `is`("'\"\"{}"))
 
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     fun testDirAttributeValue_EscapeQuot() {
-        val literal = parse<XQueryDirAttributeValue>("<a b=\"''\"\"{{}}\"/>")[0] as XdmConstantExpression
+        val literal = parse<XQueryDirAttributeValue>("<a b=\"''\"\"{{}}\"/>")[0] as XdmLexicalValue
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(literal.staticType, `is`(XsString as XdmSequenceType))
-        assertThat(literal.constantValue as String, `is`("''\"{}"))
+        assertThat(literal.lexicalRepresentation, `is`("''\"{}"))
 
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     fun testDirAttributeValue_PredefinedEntityReference() {
         // entity reference types: XQuery, HTML4, HTML5, UTF-16 surrogate pair, multi-character entity, empty, partial
-        val literal = parse<XQueryDirAttributeValue>("<a b=\"&lt;&aacute;&amacr;&Afr;&NotLessLess;&;&gt\"/>")[0] as XdmConstantExpression
+        val literal = parse<XQueryDirAttributeValue>("<a b=\"&lt;&aacute;&amacr;&Afr;&NotLessLess;&;&gt\"/>")[0] as XdmLexicalValue
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(literal.staticType, `is`(XsString as XdmSequenceType))
-        assertThat(literal.constantValue as String, `is`("<áā\uD835\uDD04≪\u0338&;&gt"))
+        assertThat(literal.lexicalRepresentation, `is`("<áā\uD835\uDD04≪\u0338&;&gt"))
 
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     fun testDirAttributeValue_CharRef() {
-        val literal = parse<XQueryDirAttributeValue>("<a b=\"&#xA0;&#160;&#x20;\"/>")[0] as XdmConstantExpression
+        val literal = parse<XQueryDirAttributeValue>("<a b=\"&#xA0;&#160;&#x20;\"/>")[0] as XdmLexicalValue
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(literal.staticType, `is`(XsString as XdmSequenceType))
-        assertThat(literal.constantValue as String, `is`("\u00A0\u00A0\u0020"))
+        assertThat(literal.lexicalRepresentation, `is`("\u00A0\u00A0\u0020"))
 
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
     }
 
     fun testDirAttributeValue_EnclosedExpr() {
-        val literal = parse<XQueryDirAttributeValue>("<a b=\"x{\$y}z\"/>")[0] as XdmConstantExpression
+        val literal = parse<XQueryDirAttributeValue>("<a b=\"x{\$y}z\"/>")[0] as XdmLexicalValue
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(literal.staticType, `is`(XsUntyped as XdmSequenceType))
-        assertThat(literal.constantValue, `is`(nullValue()))
+        assertThat(literal.lexicalRepresentation, `is`(""))
 
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
     }
