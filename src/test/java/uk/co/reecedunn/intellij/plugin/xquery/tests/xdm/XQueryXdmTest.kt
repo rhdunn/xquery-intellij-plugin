@@ -378,7 +378,7 @@ class XQueryXdmTest : ParserTestCase() {
 
         assertThat(expr.namespaceUri, `is`(notNullValue()))
         assertThat(expr.namespaceUri?.cacheable, `is`(CachingBehaviour.Cache))
-        assertThat(expr.namespaceUri?.staticType, `is`(XsAnyURI as XdmSequenceType))
+        assertThat(expr.namespaceUri?.staticType, `is`(XsString as XdmSequenceType))
         assertThat(expr.namespaceUri?.lexicalRepresentation, `is`("http://www.example.com"))
     }
 

@@ -19,16 +19,13 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.data.Cacheable
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
-import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
 import uk.co.reecedunn.intellij.plugin.core.data.`is`
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
-import uk.co.reecedunn.intellij.plugin.xdm.XsAnyURI
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmConstantExpression
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmNamespaceDeclaration
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttribute
@@ -36,11 +33,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttributeValue
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceResolver
-
-private class DirAttributeNamespaceUri(override val lexicalRepresentation: String) : XdmLexicalValue {
-    override val staticType: XdmSequenceType = XsAnyURI
-    override val cacheable: CachingBehaviour = CachingBehaviour.Cache
-}
 
 class XQueryDirAttributePsiImpl(node: ASTNode):
         ASTWrapperPsiElement(node),
@@ -72,8 +64,7 @@ class XQueryDirAttributePsiImpl(node: ASTNode):
     override val namespaceUri get(): XdmLexicalValue? = cachedNamespaceUri.get()
     private val cachedNamespaceUri = CacheableProperty {
         children().filterIsInstance<XQueryDirAttributeValue>().map { value ->
-            val uri = value as XdmLexicalValue
-            DirAttributeNamespaceUri(uri.lexicalRepresentation)
+            value as XdmLexicalValue
         }.firstOrNull() `is` Cacheable
     }
 

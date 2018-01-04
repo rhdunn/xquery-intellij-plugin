@@ -23,10 +23,12 @@ import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
 import uk.co.reecedunn.intellij.plugin.core.data.`is`
 import uk.co.reecedunn.intellij.plugin.core.psi.contains
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xdm.XsAnyURI
 import uk.co.reecedunn.intellij.plugin.xdm.XsString
 import uk.co.reecedunn.intellij.plugin.xdm.XsUntyped
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmConstantExpression
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEscapeCharacter
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCharRef
@@ -45,7 +47,11 @@ class XQueryDirAttributeValuePsiImpl(node: ASTNode):
         cachedAttributeValue.invalidate()
     }
 
-    override val staticType get(): XdmSequenceType = cachedAttributeValue.get()?.let { XsString } ?: XsUntyped
+    override val staticType get(): XdmSequenceType {
+        return cachedAttributeValue.get()?.let {
+            (parent as XdmNamespaceDeclaration).namespacePrefix?.let { XsAnyURI } ?: XsString
+        } ?: XsUntyped
+    }
 
     override val cacheable: CachingBehaviour = CachingBehaviour.Cache
 
