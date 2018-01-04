@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,56 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import uk.co.reecedunn.intellij.plugin.core.data.Cacheable
+import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import uk.co.reecedunn.intellij.plugin.core.data.CachingBehaviour
+import uk.co.reecedunn.intellij.plugin.core.data.`is`
+import uk.co.reecedunn.intellij.plugin.core.psi.contains
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xdm.XsString
+import uk.co.reecedunn.intellij.plugin.xdm.XsUntyped
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmConstantExpression
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmSequenceType
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEscapeCharacter
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCharRef
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttributeValue
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPredefinedEntityRef
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 
-class XQueryDirAttributeValuePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryDirAttributeValue
+class XQueryDirAttributeValuePsiImpl(node: ASTNode):
+        ASTWrapperPsiElement(node),
+        XQueryDirAttributeValue,
+        XdmConstantExpression {
+
+    override fun subtreeChanged() {
+        super.subtreeChanged()
+        cachedAttributeValue.invalidate()
+    }
+
+    override val staticType get(): XdmSequenceType = constantValue?.let { XsString } ?: XsUntyped
+
+    override val cacheable: CachingBehaviour = CachingBehaviour.Cache
+
+    override val constantValue get(): Any? = cachedAttributeValue.get()
+
+    private val cachedAttributeValue = CacheableProperty {
+        if (contains(XQueryElementType.ENCLOSED_EXPR))
+            null `is` Cacheable // Cannot evaluate enclosed content expressions statically.
+        else
+            children().map { child ->
+                when (child.node.elementType) {
+                    XQueryTokenType.XML_ATTRIBUTE_VALUE_START, XQueryTokenType.XML_ATTRIBUTE_VALUE_END ->
+                        null
+                    XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE ->
+                        (child as XQueryPredefinedEntityRef).entityRef.value
+                    XQueryTokenType.XML_CHARACTER_REFERENCE ->
+                        (child as XQueryCharRef).codepoint.toString()
+                    XQueryTokenType.XML_ESCAPED_CHARACTER ->
+                        (child as XPathEscapeCharacter).unescapedValue
+                    else ->
+                        child.text
+                }
+            }.filterNotNull().joinToString(separator = "") `is` Cacheable
+    }
+}
