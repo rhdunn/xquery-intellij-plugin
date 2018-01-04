@@ -4699,27 +4699,13 @@ class XQueryParser {
 
     private boolean parseDirAttributeList() {
         final PsiBuilder.Marker attributeListMarker = mark();
-        boolean haveErrors = false;
 
         // NOTE: The XQuery grammar uses whitespace as the token to start the next iteration of the matching loop.
         // Because the parseQName function can consume that whitespace during error handling, the QName tokens are
         // used as the next iteration marker in this implementation.
         boolean parsed = matchTokenType(XQueryTokenType.XML_WHITE_SPACE);
-        while (parseQName(XQueryElementType.QNAME)) {
+        while (parseDirAttribute()) {
             parsed = true;
-
-            matchTokenType(XQueryTokenType.XML_WHITE_SPACE);
-            if (!matchTokenType(XQueryTokenType.XML_EQUAL) && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected", "="));
-                haveErrors = true;
-            }
-
-            matchTokenType(XQueryTokenType.XML_WHITE_SPACE);
-            if (!parseDirAttributeValue() && !haveErrors) {
-                error(XQueryBundle.message("parser.error.expected-attribute-string"));
-                haveErrors = true;
-            }
-
             matchTokenType(XQueryTokenType.XML_WHITE_SPACE);
         }
 
@@ -4729,6 +4715,29 @@ class XQueryParser {
         }
 
         attributeListMarker.drop();
+        return false;
+    }
+
+    private boolean parseDirAttribute() {
+        final PsiBuilder.Marker attributeMarker = mark();
+        if (parseQName(XQueryElementType.QNAME)) {
+            boolean haveErrors = false;
+
+            matchTokenType(XQueryTokenType.XML_WHITE_SPACE);
+            if (!matchTokenType(XQueryTokenType.XML_EQUAL)) {
+                error(XQueryBundle.message("parser.error.expected", "="));
+                haveErrors = true;
+            }
+
+            matchTokenType(XQueryTokenType.XML_WHITE_SPACE);
+            if (!parseDirAttributeValue() && !haveErrors) {
+                error(XQueryBundle.message("parser.error.expected-attribute-string"));
+            }
+
+            attributeMarker.done(XQueryElementType.DIR_ATTRIBUTE);
+            return true;
+        }
+        attributeMarker.drop();
         return false;
     }
 

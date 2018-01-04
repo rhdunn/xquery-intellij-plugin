@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,16 +21,31 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttribute
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttributeList
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttributeValue
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceResolver
 
-class XQueryDirAttributeListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryDirAttributeList, XQueryNamespaceResolver {
+class XQueryDirAttributePsiImpl(node: ASTNode):
+        ASTWrapperPsiElement(node),
+        XQueryDirAttribute,
+        XQueryNamespaceResolver {
     override fun resolveNamespace(prefix: CharSequence?): XQueryNamespace? {
-        return children().filterIsInstance<XQueryDirAttribute>().map { attr ->
-            (attr as XQueryNamespaceResolver).resolveNamespace(prefix)
+        return children().filterIsInstance<XPathQName>().map { name ->
+            val localName = name.localName
+            if (localName?.text == prefix) {
+                val uri = name.siblings().filter { e ->
+                    e.node.elementType === XQueryElementType.QNAME ||
+                    e.node.elementType === XQueryElementType.DIR_ATTRIBUTE_VALUE
+                }.firstOrNull()
+                if (uri is XQueryDirAttributeValue) {
+                    XQueryNamespace(localName, uri, this)
+                } else {
+                    XQueryNamespace(localName, null, this)
+                }
+            } else {
+                null
+            }
         }.filterNotNull().firstOrNull()
     }
 }

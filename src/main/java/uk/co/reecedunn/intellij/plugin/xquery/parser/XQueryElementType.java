@@ -160,6 +160,7 @@ public interface XQueryElementType {
 
     IElementType DIR_ELEM_CONSTRUCTOR = new ICompositeElementType("XQUERY_DIR_ELEM_CONSTRUCTOR", XQueryDirElemConstructorPsiImpl.class, XQuery.INSTANCE);
     IElementType DIR_ATTRIBUTE_LIST = new ICompositeElementType("XQUERY_DIR_ATTRIBUTE_LIST", XQueryDirAttributeListPsiImpl.class, XQuery.INSTANCE);
+    IElementType DIR_ATTRIBUTE = new ICompositeElementType("XQUERY_DIR_ATTRIBUTE", XQueryDirAttributePsiImpl.class, XQuery.INSTANCE);
     IElementType DIR_ATTRIBUTE_VALUE = new ICompositeElementType("XQUERY_DIR_ATTRIBUTE_VALUE", XQueryDirAttributeValuePsiImpl.class, XQuery.INSTANCE);
     IElementType DIR_COMMENT_CONSTRUCTOR = new ICompositeElementType("XQUERY_DIR_COMMENT_CONSTRUCTOR", XQueryDirCommentConstructorPsiImpl.class, XQuery.INSTANCE);
     IElementType DIR_PI_CONSTRUCTOR = new ICompositeElementType("XQUERY_DIR_PI_CONSTRUCTOR", XQueryDirPIConstructorPsiImpl.class, XQuery.INSTANCE);

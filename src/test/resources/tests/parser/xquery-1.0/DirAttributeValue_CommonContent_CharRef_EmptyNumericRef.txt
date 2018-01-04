@@ -29,12 +29,13 @@ XQueryModuleImpl[FILE(0:12)]
                                                                                  XmlNCNameImpl[XQUERY_XML_TAG_NCNAME_TOKEN(1:2)]('a')
                                                                               XQueryDirWhiteSpaceImpl[XQUERY_XML_WHITE_SPACE_TOKEN(2:3)](' ')
                                                                               XQueryDirAttributeListImpl[XQUERY_DIR_ATTRIBUTE_LIST(3:10)]
-                                                                                 XPathNCNameImpl[XQUERY_NCNAME(3:4)]
-                                                                                    XmlNCNameImpl[XQUERY_XML_ATTRIBUTE_NCNAME_TOKEN(3:4)]('b')
-                                                                                 LeafPsiElement[XQUERY_XML_EQUAL_TOKEN(4:5)]('=')
-                                                                                 XQueryDirAttributeValueImpl[XQUERY_DIR_ATTRIBUTE_VALUE(5:10)]
-                                                                                    LeafPsiElement[XQUERY_XML_ATTRIBUTE_VALUE_START_TOKEN(5:6)]('"')
-                                                                                    PsiErrorElementImpl[ERROR_ELEMENT(6:9)]('XPST0003: Entity references must not be empty.')
-                                                                                       LeafPsiElement[XQUERY_XML_EMPTY_ENTITY_REFERENCE_TOKEN(6:9)]('&#;')
-                                                                                    LeafPsiElement[XQUERY_XML_ATTRIBUTE_VALUE_END_TOKEN(9:10)]('"')
+                                                                                 XQueryDirAttributeImpl[XQUERY_DIR_ATTRIBUTE(3:10)]
+                                                                                    XPathNCNameImpl[XQUERY_NCNAME(3:4)]
+                                                                                       XmlNCNameImpl[XQUERY_XML_ATTRIBUTE_NCNAME_TOKEN(3:4)]('b')
+                                                                                    LeafPsiElement[XQUERY_XML_EQUAL_TOKEN(4:5)]('=')
+                                                                                    XQueryDirAttributeValueImpl[XQUERY_DIR_ATTRIBUTE_VALUE(5:10)]
+                                                                                       LeafPsiElement[XQUERY_XML_ATTRIBUTE_VALUE_START_TOKEN(5:6)]('"')
+                                                                                       PsiErrorElementImpl[ERROR_ELEMENT(6:9)]('XPST0003: Entity references must not be empty.')
+                                                                                          LeafPsiElement[XQUERY_XML_EMPTY_ENTITY_REFERENCE_TOKEN(6:9)]('&#;')
+                                                                                       LeafPsiElement[XQUERY_XML_ATTRIBUTE_VALUE_END_TOKEN(9:10)]('"')
                                                                               LeafPsiElement[XQUERY_SELF_CLOSING_XML_TAG_TOKEN(10:12)]('/>')

@@ -8,6 +8,7 @@ to the grammar from what is provided in the various specifications.
 
 - [Quantified Expressions](#quantified-expressions)
 - [Cast Expressions](#cast-expressions)
+- [Direct Element Construction](#direct-element-construction)
 
 ## Quantified Expressions
 
@@ -53,3 +54,16 @@ in ways not convered by those expressions.
 
 __NOTE:__ This plugin does not model the `ArrowTransformUpdateExpr` construct
 in the AST.
+
+## Direct Element Construction
+
+    DirAttributeList ::= (S DirAttribute?)*                /* ws: explicit */
+    DirAttribute     ::= QName S? "=" S? DirAttributeValue /* ws: explicit */
+
+This follows the grammar production pattern used in other constructs like
+`ParamList`.
+
+This change was made to make it easier to implement the namespae declaration
+logic, as each `xmlns`-based `DirAttribute` can expose a namespace to the
+direct element constructor expression that is valid for the scope of the
+element.

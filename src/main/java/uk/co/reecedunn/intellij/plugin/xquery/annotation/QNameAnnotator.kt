@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotation
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttributeList
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.IXQueryKeywordOrNCNameType
@@ -45,7 +46,7 @@ class QNameAnnotator : Annotator {
                 xmlns = false
                 val prefix = qname.prefix as PsiElement
                 holder.createInfoAnnotation(prefix, null).enforcedTextAttributes = TextAttributes.ERASE_MARKER
-                if (element.getParent() is XQueryDirAttributeList || element.getParent() is XQueryDirElemConstructor) {
+                if (element.getParent() is XQueryDirAttribute || element.getParent() is XQueryDirElemConstructor) {
                     holder.createInfoAnnotation(prefix, null).textAttributes = SyntaxHighlighter.XML_TAG
                 }
                 holder.createInfoAnnotation(prefix, null).textAttributes = SyntaxHighlighter.NS_PREFIX
@@ -58,7 +59,7 @@ class QNameAnnotator : Annotator {
             val localName = qname.localName as PsiElement
             if (xmlns) {
                 holder.createInfoAnnotation(localName, null).enforcedTextAttributes = TextAttributes.ERASE_MARKER
-                if (element.getParent() is XQueryDirAttributeList) {
+                if (element.getParent() is XQueryDirAttribute) {
                     holder.createInfoAnnotation(localName, null).textAttributes = SyntaxHighlighter.XML_TAG
                 }
                 holder.createInfoAnnotation(localName, null).textAttributes = SyntaxHighlighter.NS_PREFIX

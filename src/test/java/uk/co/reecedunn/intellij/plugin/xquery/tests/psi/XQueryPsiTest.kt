@@ -784,7 +784,8 @@ class XQueryPsiTest : ParserTestCase() {
 
         val dirElemConstructorPsi = file.descendants().filterIsInstance<XQueryDirElemConstructor>().first()
         val dirAttributeListPsi = dirElemConstructorPsi.children().filterIsInstance<XQueryDirAttributeList>().first()
-        val dirAttributeValuePsi = dirAttributeListPsi.children().filterIsInstance<XQueryDirAttributeValue>().first()
+        val dirAttributePsi = dirAttributeListPsi.children().filterIsInstance<XQueryDirAttribute>().first()
+        val dirAttributeValuePsi = dirAttributePsi.children().filterIsInstance<XQueryDirAttributeValue>().first()
         val enclosedExprPsi = dirAttributeValuePsi.children().filterIsInstance<XPathEnclosedExpr>().first()
         val versioned = enclosedExprPsi as XQueryConformance
 
@@ -800,7 +801,8 @@ class XQueryPsiTest : ParserTestCase() {
 
         val dirElemConstructorPsi = file.descendants().filterIsInstance<XQueryDirElemConstructor>().first()
         val dirAttributeListPsi = dirElemConstructorPsi.children().filterIsInstance<XQueryDirAttributeList>().first()
-        val dirAttributeValuePsi = dirAttributeListPsi.children().filterIsInstance<XQueryDirAttributeValue>().first()
+        val dirAttributePsi = dirAttributeListPsi.children().filterIsInstance<XQueryDirAttribute>().first()
+        val dirAttributeValuePsi = dirAttributePsi.children().filterIsInstance<XQueryDirAttributeValue>().first()
         val enclosedExprPsi = dirAttributeValuePsi.children().filterIsInstance<XPathEnclosedExpr>().first()
         val versioned = enclosedExprPsi as XQueryConformance
 
@@ -2380,7 +2382,8 @@ class XQueryPsiTest : ParserTestCase() {
 
         val dirElemConstructorPsi = file.descendants().filterIsInstance<XQueryDirElemConstructor>().first()
         val dirAttributeListPsi = dirElemConstructorPsi.children().filterIsInstance<XQueryDirAttributeList>().first()
-        val eqnamePsi = dirAttributeListPsi.children().filterIsInstance<XPathEQName>().first()
+        val dirAttributePsi = dirAttributeListPsi.children().filterIsInstance<XQueryDirAttribute>().first()
+        val eqnamePsi = dirAttributePsi.children().filterIsInstance<XPathEQName>().first()
 
         assertThat(eqnamePsi.prefix, `is`(notNullValue()))
         assertThat(eqnamePsi.prefix!!.node.elementType, `is`<IElementType>(XQueryElementType.NCNAME))
@@ -2954,8 +2957,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(ns.uri, `is`<PsiElement>(instanceOf<PsiElement>(XQueryDirAttributeValue::class.java)))
         assertThat(ns.uri!!.text, `is`("\"http://www.example.com/a\""))
 
-        assertThat(ns.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryDirAttributeList::class.java)))
-        assertThat(ns.declaration, `is`<PsiElement>(dirAttributeListPsi))
+        assertThat(ns.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryDirAttribute::class.java)))
     }
 
     fun testDirAttributeList_XmlNamespace_MissingValue() {
@@ -2977,8 +2979,7 @@ class XQueryPsiTest : ParserTestCase() {
 
         assertThat(ns.uri, `is`(nullValue()))
 
-        assertThat(ns.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryDirAttributeList::class.java)))
-        assertThat(ns.declaration, `is`<PsiElement>(dirAttributeListPsi))
+        assertThat(ns.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryDirAttribute::class.java)))
     }
 
     fun testDirAttributeList_XmlNamespace_MissingMiddleValue() {
@@ -3000,8 +3001,7 @@ class XQueryPsiTest : ParserTestCase() {
 
         assertThat(ns.uri, `is`(nullValue()))
 
-        assertThat(ns.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryDirAttributeList::class.java)))
-        assertThat(ns.declaration, `is`<PsiElement>(dirAttributeListPsi))
+        assertThat(ns.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryDirAttribute::class.java)))
     }
 
     // endregion
@@ -3051,8 +3051,7 @@ class XQueryPsiTest : ParserTestCase() {
         assertThat(ns.uri, `is`<PsiElement>(instanceOf<PsiElement>(XQueryDirAttributeValue::class.java)))
         assertThat(ns.uri!!.text, `is`("\"http://www.example.com/a\""))
 
-        assertThat(ns.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryDirAttributeList::class.java)))
-        assertThat(ns.declaration, `is`<PsiElement>(dirAttributeListPsi))
+        assertThat(ns.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryDirAttribute::class.java)))
     }
 
     fun testDirElemConstructor_XmlNamespace_MissingValue_NamespaceResolver() {
@@ -3074,8 +3073,7 @@ class XQueryPsiTest : ParserTestCase() {
 
         assertThat(ns.uri, `is`(nullValue()))
 
-        assertThat(ns.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryDirAttributeList::class.java)))
-        assertThat(ns.declaration, `is`<PsiElement>(dirAttributeListPsi))
+        assertThat(ns.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryDirAttribute::class.java)))
     }
 
     fun testDirElemConstructor_XmlNamespace_MissingMiddleValue_NamespaceResolver() {
@@ -3097,8 +3095,7 @@ class XQueryPsiTest : ParserTestCase() {
 
         assertThat(ns.uri, `is`(nullValue()))
 
-        assertThat(ns.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryDirAttributeList::class.java)))
-        assertThat(ns.declaration, `is`<PsiElement>(dirAttributeListPsi))
+        assertThat(ns.declaration, `is`<PsiElement>(instanceOf<PsiElement>(XQueryDirAttribute::class.java)))
     }
 
     // endregion
