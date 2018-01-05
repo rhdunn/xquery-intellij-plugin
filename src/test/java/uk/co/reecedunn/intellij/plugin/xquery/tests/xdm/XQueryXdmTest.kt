@@ -227,128 +227,6 @@ class XQueryXdmTest : ParserTestCase() {
 
     // endregion
     // endregion
-    // region Static Context :: Default Namespace
-    // region MainModule :: DefaultNamespaceDecl
-
-    fun testMainModule_NoProlog() {
-        val ctx = parse<XQueryMainModule>("<br/>")[0] as XdmStaticContext
-
-        assertThat(ctx.defaultNamespace(QNameContext.Element).count(), `is`(0))
-        assertThat(ctx.defaultNamespace(QNameContext.Function).count(), `is`(0))
-        assertThat(ctx.defaultNamespace(QNameContext.Type).count(), `is`(0))
-    }
-
-    fun testMainModule_NoDefaultNamespaceDecl() {
-        val ctx = parse<XQueryMainModule>("declare function local:test() {}; <br/>")[0] as XdmStaticContext
-
-        assertThat(ctx.defaultNamespace(QNameContext.Element).count(), `is`(0))
-        assertThat(ctx.defaultNamespace(QNameContext.Function).count(), `is`(0))
-        assertThat(ctx.defaultNamespace(QNameContext.Type).count(), `is`(0))
-    }
-
-    fun testMainModule_DefaultNamespaceDecl_Element() {
-        val ctx = parse<XQueryMainModule>("declare default element namespace 'http://www.w3.org/1999/xhtml'; <br/>")[0] as XdmStaticContext
-
-        val element = ctx.defaultNamespace(QNameContext.Element).toList()
-        assertThat(element.size, `is`(1))
-        assertThat(element[0].lexicalRepresentation, `is`("http://www.w3.org/1999/xhtml"))
-        assertThat(element[0].staticType, `is`(XsAnyURI as XdmSequenceType))
-
-        assertThat(ctx.defaultNamespace(QNameContext.Function).count(), `is`(0))
-
-        val type = ctx.defaultNamespace(QNameContext.Type).toList()
-        assertThat(type.size, `is`(1))
-        assertThat(type[0].lexicalRepresentation, `is`("http://www.w3.org/1999/xhtml"))
-        assertThat(type[0].staticType, `is`(XsAnyURI as XdmSequenceType))
-    }
-
-    fun testMainModule_DefaultNamespaceDecl_Element_EmptyNamespace() {
-        val ctx = parse<XQueryMainModule>("declare default element namespace ''; <br/>")[0] as XdmStaticContext
-
-        assertThat(ctx.defaultNamespace(QNameContext.Element).count(), `is`(0))
-        assertThat(ctx.defaultNamespace(QNameContext.Function).count(), `is`(0))
-        assertThat(ctx.defaultNamespace(QNameContext.Type).count(), `is`(0))
-    }
-
-    fun testMainModule_DefaultNamespaceDecl_Function() {
-        val ctx = parse<XQueryMainModule>("declare default function namespace 'http://www.w3.org/2005/xpath-functions/math'; pi()")[0] as XdmStaticContext
-
-        assertThat(ctx.defaultNamespace(QNameContext.Element).count(), `is`(0))
-
-        val function = ctx.defaultNamespace(QNameContext.Function).toList()
-        assertThat(function.size, `is`(1))
-        assertThat(function[0].lexicalRepresentation, `is`("http://www.w3.org/2005/xpath-functions/math"))
-        assertThat(function[0].staticType, `is`(XsAnyURI as XdmSequenceType))
-
-        assertThat(ctx.defaultNamespace(QNameContext.Type).count(), `is`(0))
-    }
-
-    fun testMainModule_DefaultNamespaceDecl_Function_EmptyNamespace() {
-        val ctx = parse<XQueryMainModule>("declare default function namespace ''; pi()")[0] as XdmStaticContext
-
-        assertThat(ctx.defaultNamespace(QNameContext.Element).count(), `is`(0))
-        assertThat(ctx.defaultNamespace(QNameContext.Function).count(), `is`(0))
-        assertThat(ctx.defaultNamespace(QNameContext.Type).count(), `is`(0))
-    }
-
-    // endregion
-    // region Prolog :: DefaultNamespaceDecl
-
-    fun testProlog_NoDefaultNamespaceDecl() {
-        val ctx = parse<XQueryProlog>("declare function local:test() {}; <br/>")[0] as XdmStaticContext
-
-        assertThat(ctx.defaultNamespace(QNameContext.Element).count(), `is`(0))
-        assertThat(ctx.defaultNamespace(QNameContext.Function).count(), `is`(0))
-        assertThat(ctx.defaultNamespace(QNameContext.Type).count(), `is`(0))
-    }
-
-    fun testProlog_DefaultNamespaceDecl_Element() {
-        val ctx = parse<XQueryProlog>("declare default element namespace 'http://www.w3.org/1999/xhtml'; <br/>")[0] as XdmStaticContext
-
-        val element = ctx.defaultNamespace(QNameContext.Element).toList()
-        assertThat(element.size, `is`(1))
-        assertThat(element[0].lexicalRepresentation, `is`("http://www.w3.org/1999/xhtml"))
-        assertThat(element[0].staticType, `is`(XsAnyURI as XdmSequenceType))
-
-        assertThat(ctx.defaultNamespace(QNameContext.Function).count(), `is`(0))
-
-        val type = ctx.defaultNamespace(QNameContext.Type).toList()
-        assertThat(type.size, `is`(1))
-        assertThat(type[0].lexicalRepresentation, `is`("http://www.w3.org/1999/xhtml"))
-        assertThat(type[0].staticType, `is`(XsAnyURI as XdmSequenceType))
-    }
-
-    fun testProlog_DefaultNamespaceDecl_Element_EmptyNamespace() {
-        val ctx = parse<XQueryProlog>("declare default element namespace ''; <br/>")[0] as XdmStaticContext
-
-        assertThat(ctx.defaultNamespace(QNameContext.Element).count(), `is`(0))
-        assertThat(ctx.defaultNamespace(QNameContext.Function).count(), `is`(0))
-        assertThat(ctx.defaultNamespace(QNameContext.Type).count(), `is`(0))
-    }
-
-    fun testProlog_DefaultNamespaceDecl_Function() {
-        val ctx = parse<XQueryProlog>("declare default function namespace 'http://www.w3.org/2005/xpath-functions/math'; pi()")[0] as XdmStaticContext
-
-        assertThat(ctx.defaultNamespace(QNameContext.Element).count(), `is`(0))
-
-        val function = ctx.defaultNamespace(QNameContext.Function).toList()
-        assertThat(function.size, `is`(1))
-        assertThat(function[0].lexicalRepresentation, `is`("http://www.w3.org/2005/xpath-functions/math"))
-        assertThat(function[0].staticType, `is`(XsAnyURI as XdmSequenceType))
-
-        assertThat(ctx.defaultNamespace(QNameContext.Type).count(), `is`(0))
-    }
-
-    fun testProlog_DefaultNamespaceDecl_Function_EmptyNamespace() {
-        val ctx = parse<XQueryProlog>("declare default function namespace ''; pi()")[0] as XdmStaticContext
-
-        assertThat(ctx.defaultNamespace(QNameContext.Element).count(), `is`(0))
-        assertThat(ctx.defaultNamespace(QNameContext.Function).count(), `is`(0))
-        assertThat(ctx.defaultNamespace(QNameContext.Type).count(), `is`(0))
-    }
-
-    // endregion
-    // endregion
     // region Namespaces
     // region DirAttribute (XdmNamespaceDeclaration)
 
@@ -1652,6 +1530,128 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(expr.variableValue, `is`(nullValue()))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
+    }
+
+    // endregion
+    // endregion
+    // region Static Context :: Default Namespace
+    // region MainModule :: DefaultNamespaceDecl
+
+    fun testMainModule_NoProlog() {
+        val ctx = parse<XQueryMainModule>("<br/>")[0] as XdmStaticContext
+
+        assertThat(ctx.defaultNamespace(QNameContext.Element).count(), `is`(0))
+        assertThat(ctx.defaultNamespace(QNameContext.Function).count(), `is`(0))
+        assertThat(ctx.defaultNamespace(QNameContext.Type).count(), `is`(0))
+    }
+
+    fun testMainModule_NoDefaultNamespaceDecl() {
+        val ctx = parse<XQueryMainModule>("declare function local:test() {}; <br/>")[0] as XdmStaticContext
+
+        assertThat(ctx.defaultNamespace(QNameContext.Element).count(), `is`(0))
+        assertThat(ctx.defaultNamespace(QNameContext.Function).count(), `is`(0))
+        assertThat(ctx.defaultNamespace(QNameContext.Type).count(), `is`(0))
+    }
+
+    fun testMainModule_DefaultNamespaceDecl_Element() {
+        val ctx = parse<XQueryMainModule>("declare default element namespace 'http://www.w3.org/1999/xhtml'; <br/>")[0] as XdmStaticContext
+
+        val element = ctx.defaultNamespace(QNameContext.Element).toList()
+        assertThat(element.size, `is`(1))
+        assertThat(element[0].lexicalRepresentation, `is`("http://www.w3.org/1999/xhtml"))
+        assertThat(element[0].staticType, `is`(XsAnyURI as XdmSequenceType))
+
+        assertThat(ctx.defaultNamespace(QNameContext.Function).count(), `is`(0))
+
+        val type = ctx.defaultNamespace(QNameContext.Type).toList()
+        assertThat(type.size, `is`(1))
+        assertThat(type[0].lexicalRepresentation, `is`("http://www.w3.org/1999/xhtml"))
+        assertThat(type[0].staticType, `is`(XsAnyURI as XdmSequenceType))
+    }
+
+    fun testMainModule_DefaultNamespaceDecl_Element_EmptyNamespace() {
+        val ctx = parse<XQueryMainModule>("declare default element namespace ''; <br/>")[0] as XdmStaticContext
+
+        assertThat(ctx.defaultNamespace(QNameContext.Element).count(), `is`(0))
+        assertThat(ctx.defaultNamespace(QNameContext.Function).count(), `is`(0))
+        assertThat(ctx.defaultNamespace(QNameContext.Type).count(), `is`(0))
+    }
+
+    fun testMainModule_DefaultNamespaceDecl_Function() {
+        val ctx = parse<XQueryMainModule>("declare default function namespace 'http://www.w3.org/2005/xpath-functions/math'; pi()")[0] as XdmStaticContext
+
+        assertThat(ctx.defaultNamespace(QNameContext.Element).count(), `is`(0))
+
+        val function = ctx.defaultNamespace(QNameContext.Function).toList()
+        assertThat(function.size, `is`(1))
+        assertThat(function[0].lexicalRepresentation, `is`("http://www.w3.org/2005/xpath-functions/math"))
+        assertThat(function[0].staticType, `is`(XsAnyURI as XdmSequenceType))
+
+        assertThat(ctx.defaultNamespace(QNameContext.Type).count(), `is`(0))
+    }
+
+    fun testMainModule_DefaultNamespaceDecl_Function_EmptyNamespace() {
+        val ctx = parse<XQueryMainModule>("declare default function namespace ''; pi()")[0] as XdmStaticContext
+
+        assertThat(ctx.defaultNamespace(QNameContext.Element).count(), `is`(0))
+        assertThat(ctx.defaultNamespace(QNameContext.Function).count(), `is`(0))
+        assertThat(ctx.defaultNamespace(QNameContext.Type).count(), `is`(0))
+    }
+
+    // endregion
+    // region Prolog :: DefaultNamespaceDecl
+
+    fun testProlog_NoDefaultNamespaceDecl() {
+        val ctx = parse<XQueryProlog>("declare function local:test() {}; <br/>")[0] as XdmStaticContext
+
+        assertThat(ctx.defaultNamespace(QNameContext.Element).count(), `is`(0))
+        assertThat(ctx.defaultNamespace(QNameContext.Function).count(), `is`(0))
+        assertThat(ctx.defaultNamespace(QNameContext.Type).count(), `is`(0))
+    }
+
+    fun testProlog_DefaultNamespaceDecl_Element() {
+        val ctx = parse<XQueryProlog>("declare default element namespace 'http://www.w3.org/1999/xhtml'; <br/>")[0] as XdmStaticContext
+
+        val element = ctx.defaultNamespace(QNameContext.Element).toList()
+        assertThat(element.size, `is`(1))
+        assertThat(element[0].lexicalRepresentation, `is`("http://www.w3.org/1999/xhtml"))
+        assertThat(element[0].staticType, `is`(XsAnyURI as XdmSequenceType))
+
+        assertThat(ctx.defaultNamespace(QNameContext.Function).count(), `is`(0))
+
+        val type = ctx.defaultNamespace(QNameContext.Type).toList()
+        assertThat(type.size, `is`(1))
+        assertThat(type[0].lexicalRepresentation, `is`("http://www.w3.org/1999/xhtml"))
+        assertThat(type[0].staticType, `is`(XsAnyURI as XdmSequenceType))
+    }
+
+    fun testProlog_DefaultNamespaceDecl_Element_EmptyNamespace() {
+        val ctx = parse<XQueryProlog>("declare default element namespace ''; <br/>")[0] as XdmStaticContext
+
+        assertThat(ctx.defaultNamespace(QNameContext.Element).count(), `is`(0))
+        assertThat(ctx.defaultNamespace(QNameContext.Function).count(), `is`(0))
+        assertThat(ctx.defaultNamespace(QNameContext.Type).count(), `is`(0))
+    }
+
+    fun testProlog_DefaultNamespaceDecl_Function() {
+        val ctx = parse<XQueryProlog>("declare default function namespace 'http://www.w3.org/2005/xpath-functions/math'; pi()")[0] as XdmStaticContext
+
+        assertThat(ctx.defaultNamespace(QNameContext.Element).count(), `is`(0))
+
+        val function = ctx.defaultNamespace(QNameContext.Function).toList()
+        assertThat(function.size, `is`(1))
+        assertThat(function[0].lexicalRepresentation, `is`("http://www.w3.org/2005/xpath-functions/math"))
+        assertThat(function[0].staticType, `is`(XsAnyURI as XdmSequenceType))
+
+        assertThat(ctx.defaultNamespace(QNameContext.Type).count(), `is`(0))
+    }
+
+    fun testProlog_DefaultNamespaceDecl_Function_EmptyNamespace() {
+        val ctx = parse<XQueryProlog>("declare default function namespace ''; pi()")[0] as XdmStaticContext
+
+        assertThat(ctx.defaultNamespace(QNameContext.Element).count(), `is`(0))
+        assertThat(ctx.defaultNamespace(QNameContext.Function).count(), `is`(0))
+        assertThat(ctx.defaultNamespace(QNameContext.Type).count(), `is`(0))
     }
 
     // endregion
