@@ -21,23 +21,17 @@ import uk.co.reecedunn.intellij.plugin.core.data.Cacheable
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.data.`is`
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmConstantExpression
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmLexicalValue
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttributeValue
-import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceResolver
 
 class XQueryDirAttributePsiImpl(node: ASTNode):
         ASTWrapperPsiElement(node),
         XQueryDirAttribute,
-        XQueryNamespaceResolver,
         XdmNamespaceDeclaration {
 
     override fun subtreeChanged() {
@@ -66,28 +60,6 @@ class XQueryDirAttributePsiImpl(node: ASTNode):
         children().filterIsInstance<XQueryDirAttributeValue>().map { value ->
             value as XdmLexicalValue
         }.firstOrNull() `is` Cacheable
-    }
-
-    // endregion
-    // region XQueryNamespaceResolver
-
-    override fun resolveNamespace(prefix: CharSequence?): XQueryNamespace? {
-        return children().filterIsInstance<XPathQName>().map { name ->
-            val localName = name.localName
-            if (localName?.text == prefix) {
-                val uri = name.siblings().filter { e ->
-                    e.node.elementType === XQueryElementType.QNAME ||
-                    e.node.elementType === XQueryElementType.DIR_ATTRIBUTE_VALUE
-                }.firstOrNull()
-                if (uri is XQueryDirAttributeValue) {
-                    XQueryNamespace(localName, uri, this)
-                } else {
-                    XQueryNamespace(localName, null, this)
-                }
-            } else {
-                null
-            }
-        }.filterNotNull().firstOrNull()
     }
 
     // endregion

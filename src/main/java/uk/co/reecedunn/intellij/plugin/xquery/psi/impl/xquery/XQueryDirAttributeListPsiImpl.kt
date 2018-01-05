@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,8 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
+import uk.co.reecedunn.intellij.plugin.xdm.model.XdmNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xdm.model.toNamespace
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttributeList
@@ -30,7 +32,11 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceResolver
 class XQueryDirAttributeListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryDirAttributeList, XQueryNamespaceResolver {
     override fun resolveNamespace(prefix: CharSequence?): XQueryNamespace? {
         return children().filterIsInstance<XQueryDirAttribute>().map { attr ->
-            (attr as XQueryNamespaceResolver).resolveNamespace(prefix)
+            val e = attr as XdmNamespaceDeclaration
+            if (prefix != null && e.namespacePrefix?.lexicalRepresentation == prefix)
+                e.toNamespace()
+            else
+                null
         }.filterNotNull().firstOrNull()
     }
 }
