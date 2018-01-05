@@ -160,9 +160,9 @@ class XQueryReferenceTest : ParserTestCase() {
         assertThat(ref.variants.size, `is`(0))
 
         var resolved: PsiElement = ref.resolve()!!
-        assertThat(resolved, `is`(instanceOf<PsiElement>(LeafPsiElement::class.java)))
+        assertThat(resolved, `is`(instanceOf<PsiElement>(XPathNCName::class.java)))
         assertThat(resolved.text, `is`("test"))
-        assertThat(resolved.parent.parent, `is`(instanceOf<PsiElement>(XQueryModuleDecl::class.java)))
+        assertThat(resolved.parent, `is`(instanceOf<PsiElement>(XQueryModuleDecl::class.java)))
 
         val refs = qname.references
         assertThat(refs.size, `is`(1))
@@ -171,9 +171,9 @@ class XQueryReferenceTest : ParserTestCase() {
         assertThat(refs[0].variants.size, `is`(0))
 
         resolved = refs[0].resolve()!!
-        assertThat(resolved, `is`(instanceOf<PsiElement>(LeafPsiElement::class.java)))
+        assertThat(resolved, `is`(instanceOf<PsiElement>(XPathNCName::class.java)))
         assertThat(resolved.text, `is`("test"))
-        assertThat(resolved.parent.parent, `is`(instanceOf<PsiElement>(XQueryModuleDecl::class.java)))
+        assertThat(resolved.parent, `is`(instanceOf<PsiElement>(XQueryModuleDecl::class.java)))
     }
 
     // endregion
@@ -217,9 +217,9 @@ class XQueryReferenceTest : ParserTestCase() {
         assertThat(ref.variants.size, `is`(0))
 
         var resolved: PsiElement = ref.resolve()!!
-        assertThat(resolved, `is`(instanceOf<PsiElement>(LeafPsiElement::class.java)))
+        assertThat(resolved, `is`(instanceOf<PsiElement>(XPathNCName::class.java)))
         assertThat(resolved.text, `is`("xs"))
-        assertThat(resolved.parent.parent, `is`(instanceOf<PsiElement>(XQueryNamespaceDecl::class.java)))
+        assertThat(resolved.parent, `is`(instanceOf<PsiElement>(XQueryNamespaceDecl::class.java)))
 
         val refs = eqname.references
         assertThat(refs.size, `is`(1))
@@ -228,9 +228,9 @@ class XQueryReferenceTest : ParserTestCase() {
         assertThat(refs[0].variants.size, `is`(0))
 
         resolved = refs[0].resolve()!!
-        assertThat(resolved, `is`(instanceOf<PsiElement>(LeafPsiElement::class.java)))
+        assertThat(resolved, `is`(instanceOf<PsiElement>(XPathNCName::class.java)))
         assertThat(resolved.text, `is`("xs"))
-        assertThat(resolved.parent.parent, `is`(instanceOf<PsiElement>(XQueryNamespaceDecl::class.java)))
+        assertThat(resolved.parent, `is`(instanceOf<PsiElement>(XQueryNamespaceDecl::class.java)))
     }
 
     fun testEQName_URIQualifiedName() {

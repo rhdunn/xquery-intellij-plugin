@@ -3153,7 +3153,7 @@ class XQueryPsiTest : ParserTestCase() {
         val ns = provider.resolveNamespace("test")
         assertThat<XQueryNamespace>(ns, `is`(notNullValue()))
 
-        assertThat(ns!!.prefix, `is`<PsiElement>(instanceOf<PsiElement>(LeafPsiElement::class.java)))
+        assertThat(ns!!.prefix, `is`<PsiElement>(instanceOf<PsiElement>(XPathNCName::class.java)))
         assertThat(ns.prefix!!.text, `is`("test"))
 
         assertThat(ns.uri, `is`<PsiElement>(instanceOf<PsiElement>(XQueryUriLiteral::class.java)))

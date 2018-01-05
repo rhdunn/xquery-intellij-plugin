@@ -61,5 +61,5 @@ fun XdmLexicalValue.toInt(): Int {
 }
 
 fun XdmNamespaceDeclaration.toNamespace(): XQueryNamespace {
-    return XQueryNamespace(namespacePrefix as? PsiElement, namespaceUri as? PsiElement, this as PsiElement)
+    return XQueryNamespace((namespacePrefix as? PsiElement)?.parent, namespaceUri as? PsiElement, this as PsiElement)
 }

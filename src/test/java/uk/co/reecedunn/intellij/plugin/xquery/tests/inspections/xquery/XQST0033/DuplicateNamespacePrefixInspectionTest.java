@@ -20,6 +20,7 @@ import com.intellij.codeInspection.ProblemHighlightType;
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule;
 import uk.co.reecedunn.intellij.plugin.xquery.inspections.xquery.XQST0033.DuplicateNamespacePrefixInspection;
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType;
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType;
 import uk.co.reecedunn.intellij.plugin.xquery.tests.inspections.InspectionTestCase;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -59,7 +60,7 @@ public class DuplicateNamespacePrefixInspectionTest extends InspectionTestCase {
 
         assertThat(problems[0].getHighlightType(), is(ProblemHighlightType.GENERIC_ERROR));
         assertThat(problems[0].getDescriptionTemplate(), is("XQST0033: The namespace prefix 'test' has already been defined."));
-        assertThat(problems[0].getPsiElement().getNode().getElementType(), is(XQueryTokenType.NCNAME));
+        assertThat(problems[0].getPsiElement().getNode().getElementType(), is(XQueryElementType.NCNAME));
         assertThat(problems[0].getPsiElement().getText(), is("test"));
     }
 
@@ -72,7 +73,7 @@ public class DuplicateNamespacePrefixInspectionTest extends InspectionTestCase {
 
         assertThat(problems[0].getHighlightType(), is(ProblemHighlightType.GENERIC_ERROR));
         assertThat(problems[0].getDescriptionTemplate(), is("XQST0033: The namespace prefix 'one' has already been defined."));
-        assertThat(problems[0].getPsiElement().getNode().getElementType(), is(XQueryTokenType.NCNAME));
+        assertThat(problems[0].getPsiElement().getNode().getElementType(), is(XQueryElementType.NCNAME));
         assertThat(problems[0].getPsiElement().getText(), is("one"));
     }
 
@@ -85,7 +86,7 @@ public class DuplicateNamespacePrefixInspectionTest extends InspectionTestCase {
 
         assertThat(problems[0].getHighlightType(), is(ProblemHighlightType.GENERIC_ERROR));
         assertThat(problems[0].getDescriptionTemplate(), is("XQST0033: The namespace prefix 'one' has already been defined."));
-        assertThat(problems[0].getPsiElement().getNode().getElementType(), is(XQueryTokenType.NCNAME));
+        assertThat(problems[0].getPsiElement().getNode().getElementType(), is(XQueryElementType.NCNAME));
         assertThat(problems[0].getPsiElement().getText(), is("one"));
     }
 
@@ -98,7 +99,7 @@ public class DuplicateNamespacePrefixInspectionTest extends InspectionTestCase {
 
         assertThat(problems[0].getHighlightType(), is(ProblemHighlightType.GENERIC_ERROR));
         assertThat(problems[0].getDescriptionTemplate(), is("XQST0033: The namespace prefix 'one' has already been defined."));
-        assertThat(problems[0].getPsiElement().getNode().getElementType(), is(XQueryTokenType.NCNAME));
+        assertThat(problems[0].getPsiElement().getNode().getElementType(), is(XQueryElementType.NCNAME));
         assertThat(problems[0].getPsiElement().getText(), is("one"));
     }
 
@@ -122,7 +123,7 @@ public class DuplicateNamespacePrefixInspectionTest extends InspectionTestCase {
 
         assertThat(problems[0].getHighlightType(), is(ProblemHighlightType.GENERIC_ERROR));
         assertThat(problems[0].getDescriptionTemplate(), is("XQST0033: The namespace prefix 'one' has already been defined."));
-        assertThat(problems[0].getPsiElement().getNode().getElementType(), is(XQueryTokenType.NCNAME));
+        assertThat(problems[0].getPsiElement().getNode().getElementType(), is(XQueryElementType.NCNAME));
         assertThat(problems[0].getPsiElement().getText(), is("one"));
     }
 
