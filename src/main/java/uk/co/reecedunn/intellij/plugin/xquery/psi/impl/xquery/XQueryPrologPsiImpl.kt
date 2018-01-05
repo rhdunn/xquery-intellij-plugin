@@ -62,27 +62,27 @@ class XQueryPrologPsiImpl(node: ASTNode):
         }.filterNotNull().firstOrNull()
     }
 
-    override fun defaultNamespace(context: QNameContext): XdmLexicalValue? {
+    override fun defaultNamespace(context: QNameContext): Sequence<XdmLexicalValue> {
         return when (context) {
             QNameContext.Element,
             QNameContext.Type ->
-                defaultElementOrTypeNamespaceDecl.get()?.defaultValue
+                defaultElementOrTypeNamespaceDecl.get()!!.map { decl -> decl.defaultValue!! }
             QNameContext.Function ->
-                defaultFunctionNamespaceDecl.get()?.defaultValue
+                defaultFunctionNamespaceDecl.get()!!.map { decl -> decl.defaultValue!! }
         }
     }
 
     private val defaultElementOrTypeNamespaceDecl = CacheableProperty {
         children().reversed()
                 .filterIsInstance<XQueryDefaultNamespaceDecl>()
-                .filter { decl -> decl.type == XQueryDefaultNamespaceType.ElementOrType }
-                .filterNotNull().firstOrNull() `is` Cacheable
+                .filter { decl -> decl.type == XQueryDefaultNamespaceType.ElementOrType && decl.defaultValue != null }
+                .filterNotNull() `is` Cacheable
     }
 
     private val defaultFunctionNamespaceDecl = CacheableProperty {
         children().reversed()
                 .filterIsInstance<XQueryDefaultNamespaceDecl>()
-                .filter { decl -> decl.type == XQueryDefaultNamespaceType.Function }
-                .filterNotNull().firstOrNull() `is` Cacheable
+                .filter { decl -> decl.type == XQueryDefaultNamespaceType.Function && decl.defaultValue != null }
+                .filterNotNull() `is` Cacheable
     }
 }

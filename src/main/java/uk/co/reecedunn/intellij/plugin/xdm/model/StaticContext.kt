@@ -22,5 +22,5 @@ enum class QNameContext {
 }
 
 interface XdmStaticContext {
-    fun defaultNamespace(context: QNameContext): XdmLexicalValue?
+    fun defaultNamespace(context: QNameContext): Sequence<XdmLexicalValue>
 }

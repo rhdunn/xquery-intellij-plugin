@@ -34,7 +34,7 @@ class XQueryMainModulePsiImpl(node: ASTNode):
     override val prolog get(): XQueryProlog? =
         children().filterIsInstance<XQueryProlog>().firstOrNull()
 
-    override fun defaultNamespace(context: QNameContext): XdmLexicalValue? {
-        return (prolog as? XdmStaticContext)?.defaultNamespace(context)
+    override fun defaultNamespace(context: QNameContext): Sequence<XdmLexicalValue> {
+        return (prolog as? XdmStaticContext)?.defaultNamespace(context) ?: emptySequence()
     }
 }
