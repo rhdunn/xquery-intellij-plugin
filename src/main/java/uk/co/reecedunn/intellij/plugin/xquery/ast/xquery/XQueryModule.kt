@@ -47,4 +47,6 @@ interface XQueryModule : PsiFile {
     val XQueryVersion: XQueryVersionRef
 
     val XQueryVersions: Sequence<XQueryVersionRef>
+
+    val predefinedStaticContext: XQueryProlog?
 }

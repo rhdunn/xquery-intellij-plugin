@@ -42,7 +42,7 @@ class XQueryModuleImpl(provider: FileViewProvider) : PsiFileBase(provider, XQuer
     private var xquery: Specification? = null
 
     private var staticContextCache: XQueryProlog? = null
-    private val staticContext get(): XQueryProlog? {
+    override val predefinedStaticContext get(): XQueryProlog? {
         val version: Specification = XQueryVersion.getVersionOrDefault(project)
         if (product !== settings.product || productVersion !== settings.productVersion || xquery !== version) {
             product = settings.product
@@ -84,7 +84,7 @@ class XQueryModuleImpl(provider: FileViewProvider) : PsiFileBase(provider, XQuer
     override val XQueryVersion get(): XQueryVersionRef = XQueryVersions.firstOrNull() ?: XQueryVersionRef(null, null)
 
     override fun resolveNamespace(prefix: CharSequence?): XQueryNamespace? =
-        (staticContext as? XQueryNamespaceResolver)?.resolveNamespace(prefix)
+        (predefinedStaticContext as? XQueryNamespaceResolver)?.resolveNamespace(prefix)
 
     override fun toString(): String = "XQueryModule(" + containingFile.name + ")"
 }

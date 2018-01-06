@@ -19,10 +19,8 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttribute
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttributeList
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
+import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryPrologResolver
 
 enum class QNameContext {
     Element,
@@ -43,7 +41,9 @@ fun PsiElement.inScopeNamespaces(): Sequence<XdmNamespaceDeclaration> {
                 ?.children()?.filterIsInstance<XQueryDirAttribute>()?.map { attr -> attr as XdmNamespaceDeclaration }
                 ?: emptySequence()
         is XQueryProlog ->
-            node.children().filterIsInstance<XdmNamespaceDeclaration>()
+            node.children().reversed().filterIsInstance<XdmNamespaceDeclaration>()
+        is XQueryModule ->
+            node.predefinedStaticContext?.children()?.reversed()?.filterIsInstance<XdmNamespaceDeclaration>() ?: emptySequence()
         else -> emptySequence()
     }}.filterNotNull().distinct().filter {
         node -> node.namespacePrefix != null && node.namespaceUri != null
