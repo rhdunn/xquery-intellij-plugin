@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Reece H. Dunn
+ * Copyright (C) 2017-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,15 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.model
 
+import com.intellij.lang.ASTNode
+import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttribute
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttributeList
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
+
 enum class QNameContext {
     Element,
     Function,
@@ -23,4 +32,20 @@ enum class QNameContext {
 
 interface XdmStaticContext {
     fun defaultNamespace(context: QNameContext): Sequence<XdmLexicalValue>
+}
+
+fun PsiElement.inScopeNamespaces(): Sequence<XdmNamespaceDeclaration> {
+    return walkTree().reversed().flatMap { node -> when (node) {
+        is XdmNamespaceDeclaration ->
+            sequenceOf(node as XdmNamespaceDeclaration)
+        is XQueryDirElemConstructor ->
+            node.children().filterIsInstance<XQueryDirAttributeList>().firstOrNull()
+                ?.children()?.filterIsInstance<XQueryDirAttribute>()?.map { attr -> attr as XdmNamespaceDeclaration }
+                ?: emptySequence()
+        is XQueryProlog ->
+            node.children().filterIsInstance<XdmNamespaceDeclaration>()
+        else -> emptySequence()
+    }}.filterNotNull().distinct().filter {
+        node -> node.namespacePrefix != null && node.namespaceUri != null
+    }
 }

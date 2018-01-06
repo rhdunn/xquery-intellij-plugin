@@ -1656,4 +1656,153 @@ class XQueryXdmTest : ParserTestCase() {
 
     // endregion
     // endregion
+    // region Static Context :: In-Scope Namespaces
+    // region DirElemConstructor -> DirAttributeList -> DirAttribute
+
+    fun testInScopeNamespaces_DirAttribute_Xmlns() {
+        val element = parse<XPathFunctionCall>("<a xmlns:b='http://www.example.com'>{b:test()}</a>")[0]
+        val namespaces = element.inScopeNamespaces().toList()
+        assertThat(namespaces.size, `is`(1))
+
+        assertThat(namespaces[0].namespacePrefix?.lexicalRepresentation, `is`("b"))
+        assertThat(namespaces[0].namespaceUri?.lexicalRepresentation, `is`("http://www.example.com"))
+    }
+
+    fun testInScopeNamespaces_DirAttribute_Xmlns_NoNamespaceUri() {
+        val element = parse<XPathFunctionCall>("<a xmlns:b=>{b:test()}</a>")[0]
+        val namespaces = element.inScopeNamespaces().toList()
+        assertThat(namespaces.size, `is`(0))
+    }
+
+    fun testInScopeNamespaces_DirAttribute() {
+        val element = parse<XPathFunctionCall>("<a b='http://www.example.com'>{b:test()}</a>")[0]
+        val namespaces = element.inScopeNamespaces().toList()
+        assertThat(namespaces.size, `is`(0))
+    }
+
+    // endregion
+    // region ModuleDecl
+
+    fun testInScopeNamespaces_ModuleDecl() {
+        val element = parse<XQueryFunctionDecl>("module namespace a='http://www.example.com'; declare function a:test() {};")[0]
+        val namespaces = element.inScopeNamespaces().toList()
+        assertThat(namespaces.size, `is`(1))
+
+        assertThat(namespaces[0].namespacePrefix?.lexicalRepresentation, `is`("a"))
+        assertThat(namespaces[0].namespaceUri?.lexicalRepresentation, `is`("http://www.example.com"))
+    }
+
+    fun testInScopeNamespaces_ModuleDecl_NoNamespacePrefix() {
+        val element = parse<XQueryFunctionDecl>("module namespace ='http://www.example.com'; declare function a:test() {};")[0]
+        val namespaces = element.inScopeNamespaces().toList()
+        assertThat(namespaces.size, `is`(0))
+    }
+
+    fun testInScopeNamespaces_ModuleDecl_NoNamespaceUri() {
+        val element = parse<XQueryFunctionDecl>("module namespace a=; declare function a:test() {};")[0]
+        val namespaces = element.inScopeNamespaces().toList()
+        assertThat(namespaces.size, `is`(0))
+    }
+
+    // endregion
+    // region ModuleImport
+
+    fun testInScopeNamespaces_ModuleImport_Prolog() {
+        val element = parse<XQueryFunctionDecl>("import module namespace a='http://www.example.com'; declare function a:test() {};")[0]
+        val namespaces = element.inScopeNamespaces().toList()
+        assertThat(namespaces.size, `is`(1))
+
+        assertThat(namespaces[0].namespacePrefix?.lexicalRepresentation, `is`("a"))
+        assertThat(namespaces[0].namespaceUri?.lexicalRepresentation, `is`("http://www.example.com"))
+    }
+
+    fun testInScopeNamespaces_ModuleImport_MainModule() {
+        val element = parse<XPathFunctionCall>("import module namespace a='http://www.example.com'; a:test();")[0]
+        val namespaces = element.inScopeNamespaces().toList()
+        assertThat(namespaces.size, `is`(1))
+
+        assertThat(namespaces[0].namespacePrefix?.lexicalRepresentation, `is`("a"))
+        assertThat(namespaces[0].namespaceUri?.lexicalRepresentation, `is`("http://www.example.com"))
+    }
+
+    fun testInScopeNamespaces_ModuleImport_NoNamespacePrefix() {
+        val element = parse<XQueryFunctionDecl>("import module namespace ='http://www.example.com'; declare function a:test() {};")[0]
+        val namespaces = element.inScopeNamespaces().toList()
+        assertThat(namespaces.size, `is`(0))
+    }
+
+    fun testInScopeNamespaces_ModuleImport_NoNamespaceUri() {
+        val element = parse<XQueryFunctionDecl>("import module namespace a=; declare function a:test() {};")[0]
+        val namespaces = element.inScopeNamespaces().toList()
+        assertThat(namespaces.size, `is`(0))
+    }
+
+    // endregion
+    // region NamespaceDecl
+
+    fun testInScopeNamespaces_NamespaceDecl_Prolog() {
+        val element = parse<XQueryFunctionDecl>("declare namespace a='http://www.example.com'; declare function a:test() {};")[0]
+        val namespaces = element.inScopeNamespaces().toList()
+        assertThat(namespaces.size, `is`(1))
+
+        assertThat(namespaces[0].namespacePrefix?.lexicalRepresentation, `is`("a"))
+        assertThat(namespaces[0].namespaceUri?.lexicalRepresentation, `is`("http://www.example.com"))
+    }
+
+    fun testInScopeNamespaces_NamespaceDecl_MainModule() {
+        val element = parse<XPathFunctionCall>("declare namespace a='http://www.example.com'; a:test();")[0]
+        val namespaces = element.inScopeNamespaces().toList()
+        assertThat(namespaces.size, `is`(1))
+
+        assertThat(namespaces[0].namespacePrefix?.lexicalRepresentation, `is`("a"))
+        assertThat(namespaces[0].namespaceUri?.lexicalRepresentation, `is`("http://www.example.com"))
+    }
+
+    fun testInScopeNamespaces_NamespaceDecl_NoNamespacePrefix() {
+        val element = parse<XQueryFunctionDecl>("declare namespace ='http://www.example.com'; declare function a:test() {};")[0]
+        val namespaces = element.inScopeNamespaces().toList()
+        assertThat(namespaces.size, `is`(0))
+    }
+
+    fun testInScopeNamespaces_NamespaceDecl_NoNamespaceUri() {
+        val element = parse<XQueryFunctionDecl>("declare namespace a=; declare function a:test() {};")[0]
+        val namespaces = element.inScopeNamespaces().toList()
+        assertThat(namespaces.size, `is`(0))
+    }
+
+    // endregion
+    // region SchemaImport
+
+    fun testInScopeNamespaces_SchemaImport_Prolog() {
+        val element = parse<XQueryFunctionDecl>("import schema namespace a='http://www.example.com'; declare function a:test() {};")[0]
+        val namespaces = element.inScopeNamespaces().toList()
+        assertThat(namespaces.size, `is`(1))
+
+        assertThat(namespaces[0].namespacePrefix?.lexicalRepresentation, `is`("a"))
+        assertThat(namespaces[0].namespaceUri?.lexicalRepresentation, `is`("http://www.example.com"))
+    }
+
+    fun testInScopeNamespaces_SchemaImport_MainModule() {
+        val element = parse<XPathFunctionCall>("import schema namespace a='http://www.example.com'; a:test();")[0]
+        val namespaces = element.inScopeNamespaces().toList()
+        assertThat(namespaces.size, `is`(1))
+
+        assertThat(namespaces[0].namespacePrefix?.lexicalRepresentation, `is`("a"))
+        assertThat(namespaces[0].namespaceUri?.lexicalRepresentation, `is`("http://www.example.com"))
+    }
+
+    fun testInScopeNamespaces_SchemaImport_NoNamespacePrefix() {
+        val element = parse<XQueryFunctionDecl>("import schema namespace ='http://www.example.com'; declare function a:test() {};")[0]
+        val namespaces = element.inScopeNamespaces().toList()
+        assertThat(namespaces.size, `is`(0))
+    }
+
+    fun testInScopeNamespaces_SchemaImport_NoNamespaceUri() {
+        val element = parse<XQueryFunctionDecl>("import schema namespace a=; declare function a:test() {};")[0]
+        val namespaces = element.inScopeNamespaces().toList()
+        assertThat(namespaces.size, `is`(0))
+    }
+
+    // endregion
+    // endregion
 }
