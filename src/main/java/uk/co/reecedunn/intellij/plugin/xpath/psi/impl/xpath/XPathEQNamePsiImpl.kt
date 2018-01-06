@@ -22,8 +22,7 @@ import com.intellij.psi.PsiReference
 import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
-import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
-import uk.co.reecedunn.intellij.plugin.xdm.model.XdmNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xdm.model.inScopeNamespaces
 import uk.co.reecedunn.intellij.plugin.xdm.model.toNamespace
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathBracedURILiteral
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
@@ -31,7 +30,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.INCNameType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceResolver
 import uk.co.reecedunn.intellij.plugin.xquery.resolve.reference.XQueryEQNamePrefixReference
 import uk.co.reecedunn.intellij.plugin.xquery.resolve.reference.XQueryFunctionNameReference
 import uk.co.reecedunn.intellij.plugin.xquery.resolve.reference.XQueryVariableNameReference
@@ -131,16 +129,12 @@ abstract class XPathEQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), X
             is XPathBracedURILiteral -> emptySequence()
             else -> {
                 val text = prefix.text
-                return prefix.walkTree().reversed().map { e -> when (e) {
-                    is XQueryNamespaceResolver ->
-                        e.resolveNamespace(text)
-                    is XdmNamespaceDeclaration ->
-                        if (e.namespacePrefix?.lexicalRepresentation == text)
-                            e.toNamespace()
-                        else
-                            null
-                    else -> null
-                }}.filterNotNull()
+                return inScopeNamespaces().map { ns ->
+                    if (ns.namespacePrefix?.lexicalRepresentation == text)
+                        ns.toNamespace()
+                    else
+                        null
+                }.filterNotNull()
             }
         }
     }

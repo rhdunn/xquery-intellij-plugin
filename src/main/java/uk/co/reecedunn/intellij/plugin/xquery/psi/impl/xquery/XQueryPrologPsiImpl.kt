@@ -26,15 +26,12 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDefaultNamespaceDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDefaultNamespaceType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceResolver
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariable
 import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryVariableResolver
 
 class XQueryPrologPsiImpl(node: ASTNode):
         ASTWrapperPsiElement(node),
         XQueryProlog,
-        XQueryNamespaceResolver,
         XQueryVariableResolver,
         XdmStaticContext {
 
@@ -42,18 +39,6 @@ class XQueryPrologPsiImpl(node: ASTNode):
         super.subtreeChanged()
         defaultElementOrTypeNamespaceDecl.invalidate()
         defaultFunctionNamespaceDecl.invalidate()
-    }
-
-    override fun resolveNamespace(prefix: CharSequence?): XQueryNamespace? {
-        return children().reversed().map { resolver -> when (resolver) {
-            is XQueryNamespaceResolver -> resolver.resolveNamespace(prefix)
-            is XdmNamespaceDeclaration ->
-                if (resolver.namespacePrefix?.lexicalRepresentation == prefix)
-                    resolver.toNamespace()
-                else
-                    null
-            else -> null
-        }}.filterNotNull().firstOrNull()
     }
 
     override fun resolveVariable(name: XPathEQName?): XQueryVariable? {

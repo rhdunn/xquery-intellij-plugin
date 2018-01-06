@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,17 +17,13 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
-import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XdmConstantExpression
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespace
-import uk.co.reecedunn.intellij.plugin.xquery.psi.XQueryNamespaceResolver
 
-class XQueryDirElemConstructorPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryDirElemConstructor, XQueryNamespaceResolver {
+class XQueryDirElemConstructorPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryDirElemConstructor {
     override val openTag get(): QName? =
         (findChildByClass(XPathEQName::class.java) as? XdmConstantExpression)?.constantValue as? QName
 
@@ -38,9 +34,4 @@ class XQueryDirElemConstructorPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node
 
     override val isSelfClosing get(): Boolean =
         lastChild.node.elementType === XQueryTokenType.SELF_CLOSING_XML_TAG
-
-    override fun resolveNamespace(prefix: CharSequence?): XQueryNamespace? {
-        val element = findChildByType<PsiElement>(XQueryElementType.DIR_ATTRIBUTE_LIST)
-        return (element as? XQueryNamespaceResolver)?.resolveNamespace(prefix)
-    }
 }
