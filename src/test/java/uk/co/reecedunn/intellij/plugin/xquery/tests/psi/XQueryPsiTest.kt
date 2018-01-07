@@ -2092,7 +2092,7 @@ class XQueryPsiTest : ParserTestCase() {
 
         assertThat(decl.type, `is`(XQueryDefaultNamespaceType.ElementOrType))
         assertThat(decl.defaultValue?.staticType, `is`(XsAnyURI as XdmSequenceType))
-        assertThat(decl.defaultValue?.staticValue, `is`("http://www.w3.org/1999/xhtml"))
+        assertThat(decl.defaultValue?.staticValue as String, `is`("http://www.w3.org/1999/xhtml"))
     }
 
     fun testDefaultNamespaceDecl_Function() {
@@ -2101,7 +2101,7 @@ class XQueryPsiTest : ParserTestCase() {
 
         assertThat(decl.type, `is`(XQueryDefaultNamespaceType.Function))
         assertThat(decl.defaultValue?.staticType, `is`(XsAnyURI as XdmSequenceType))
-        assertThat(decl.defaultValue?.staticValue, `is`("http://www.w3.org/2005/xpath-functions/math"))
+        assertThat(decl.defaultValue?.staticValue as String, `is`("http://www.w3.org/2005/xpath-functions/math"))
     }
 
     fun testDefaultNamespaceDecl_EmptyNamespace() {
@@ -2133,16 +2133,16 @@ class XQueryPsiTest : ParserTestCase() {
         val open = dirElemConstructorPsi.openTag
         assertThat(open, `is`(notNullValue()))
         assertThat(open!!.prefix, `is`(notNullValue()))
-        assertThat(open.prefix!!.staticValue, `is`("a"))
+        assertThat(open.prefix!!.staticValue as String, `is`("a"))
         assertThat(open.localName, `is`(notNullValue()))
-        assertThat(open.localName!!.staticValue, `is`("b"))
+        assertThat(open.localName!!.staticValue as String, `is`("b"))
 
         val close = dirElemConstructorPsi.closeTag
         assertThat(close, `is`(notNullValue()))
         assertThat(close!!.prefix, `is`(notNullValue()))
-        assertThat(close.prefix!!.staticValue, `is`("a"))
+        assertThat(close.prefix!!.staticValue as String, `is`("a"))
         assertThat(close.localName, `is`(notNullValue()))
-        assertThat(close.localName!!.staticValue, `is`("b"))
+        assertThat(close.localName!!.staticValue as String, `is`("b"))
     }
 
     fun testDirElemConstructor_SelfClosing() {
@@ -2155,9 +2155,9 @@ class XQueryPsiTest : ParserTestCase() {
         val open = dirElemConstructorPsi.openTag
         assertThat(open, `is`(notNullValue()))
         assertThat(open!!.prefix, `is`(notNullValue()))
-        assertThat(open.prefix!!.staticValue, `is`("h"))
+        assertThat(open.prefix!!.staticValue as String, `is`("h"))
         assertThat(open.localName, `is`(notNullValue()))
-        assertThat(open.localName!!.staticValue, `is`("br"))
+        assertThat(open.localName!!.staticValue as String, `is`("br"))
 
         val close = dirElemConstructorPsi.closeTag
         assertThat(close, `is`(nullValue()))
@@ -2173,9 +2173,9 @@ class XQueryPsiTest : ParserTestCase() {
         val open = dirElemConstructorPsi.openTag
         assertThat(open, `is`(notNullValue()))
         assertThat(open!!.prefix, `is`(notNullValue()))
-        assertThat(open.prefix!!.staticValue, `is`("a"))
+        assertThat(open.prefix!!.staticValue as String, `is`("a"))
         assertThat(open.localName, `is`(notNullValue()))
-        assertThat(open.localName!!.staticValue, `is`("b"))
+        assertThat(open.localName!!.staticValue as String, `is`("b"))
 
         val close = dirElemConstructorPsi.closeTag
         assertThat(close, `is`(nullValue()))
@@ -3982,7 +3982,7 @@ class XQueryPsiTest : ParserTestCase() {
 
         val versionDeclPsi = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
         assertThat<XPathStringLiteral>(versionDeclPsi.version, `is`(notNullValue()))
-        assertThat((versionDeclPsi.version!! as XdmLexicalValue).staticValue, `is`("1.0"))
+        assertThat((versionDeclPsi.version!! as XdmLexicalValue).staticValue as String, `is`("1.0"))
         assertThat<XPathStringLiteral>(versionDeclPsi.encoding, `is`(nullValue()))
 
         assertThat(file.XQueryVersion.version, `is`(XQuery.REC_1_0_20070123))
@@ -3996,7 +3996,7 @@ class XQueryPsiTest : ParserTestCase() {
 
         val versionDeclPsi = file.children().filterIsInstance<XQueryVersionDecl>().first()
         assertThat<XPathStringLiteral>(versionDeclPsi.version, `is`(notNullValue()))
-        assertThat((versionDeclPsi.version!! as XdmLexicalValue).staticValue, `is`("1.0"))
+        assertThat((versionDeclPsi.version!! as XdmLexicalValue).staticValue as String, `is`("1.0"))
         assertThat<XPathStringLiteral>(versionDeclPsi.encoding, `is`(nullValue()))
 
         assertThat(file.XQueryVersion.version, `is`(XQuery.REC_1_0_20070123))
@@ -4010,7 +4010,7 @@ class XQueryPsiTest : ParserTestCase() {
 
         val versionDeclPsi = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
         assertThat<XPathStringLiteral>(versionDeclPsi.version, `is`(notNullValue()))
-        assertThat((versionDeclPsi.version!! as XdmLexicalValue).staticValue, `is`(""))
+        assertThat((versionDeclPsi.version!! as XdmLexicalValue).staticValue as String, `is`(""))
         assertThat<XPathStringLiteral>(versionDeclPsi.encoding, `is`(nullValue()))
 
         assertThat(file.XQueryVersion.version, `is`(nullValue()))
@@ -4024,9 +4024,9 @@ class XQueryPsiTest : ParserTestCase() {
 
         val versionDeclPsi = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
         assertThat<XPathStringLiteral>(versionDeclPsi.version, `is`(notNullValue()))
-        assertThat((versionDeclPsi.version!! as XdmLexicalValue).staticValue, `is`("1.0"))
+        assertThat((versionDeclPsi.version!! as XdmLexicalValue).staticValue as String, `is`("1.0"))
         assertThat<XPathStringLiteral>(versionDeclPsi.encoding, `is`(notNullValue()))
-        assertThat((versionDeclPsi.encoding!! as XdmLexicalValue).staticValue, `is`("latin1"))
+        assertThat((versionDeclPsi.encoding!! as XdmLexicalValue).staticValue as String, `is`("latin1"))
 
         assertThat(file.XQueryVersion.version, `is`(XQuery.REC_1_0_20070123))
         assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQuery.REC_1_0_20070123))
@@ -4039,9 +4039,9 @@ class XQueryPsiTest : ParserTestCase() {
 
         val versionDeclPsi = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
         assertThat<XPathStringLiteral>(versionDeclPsi.version, `is`(notNullValue()))
-        assertThat((versionDeclPsi.version!! as XdmLexicalValue).staticValue, `is`("1.0"))
+        assertThat((versionDeclPsi.version!! as XdmLexicalValue).staticValue as String, `is`("1.0"))
         assertThat<XPathStringLiteral>(versionDeclPsi.encoding, `is`(notNullValue()))
-        assertThat((versionDeclPsi.encoding!! as XdmLexicalValue).staticValue, `is`("latin1"))
+        assertThat((versionDeclPsi.encoding!! as XdmLexicalValue).staticValue as String, `is`("latin1"))
 
         assertThat(file.XQueryVersion.version, `is`(XQuery.REC_1_0_20070123))
         assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQuery.REC_1_0_20070123))
@@ -4054,9 +4054,9 @@ class XQueryPsiTest : ParserTestCase() {
 
         val versionDeclPsi = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
         assertThat<XPathStringLiteral>(versionDeclPsi.version, `is`(notNullValue()))
-        assertThat((versionDeclPsi.version!! as XdmLexicalValue).staticValue, `is`("1.0"))
+        assertThat((versionDeclPsi.version!! as XdmLexicalValue).staticValue as String, `is`("1.0"))
         assertThat<XPathStringLiteral>(versionDeclPsi.encoding, `is`(notNullValue()))
-        assertThat((versionDeclPsi.encoding!! as XdmLexicalValue).staticValue, `is`(""))
+        assertThat((versionDeclPsi.encoding!! as XdmLexicalValue).staticValue as String, `is`(""))
 
         assertThat(file.XQueryVersion.version, `is`(XQuery.REC_1_0_20070123))
         assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQuery.REC_1_0_20070123))
@@ -4082,7 +4082,7 @@ class XQueryPsiTest : ParserTestCase() {
 
         val versionDeclPsi = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
         assertThat<XPathStringLiteral>(versionDeclPsi.version, `is`(notNullValue()))
-        assertThat((versionDeclPsi.version!! as XdmLexicalValue).staticValue, `is`("9.4"))
+        assertThat((versionDeclPsi.version!! as XdmLexicalValue).staticValue as String, `is`("9.4"))
         assertThat<XPathStringLiteral>(versionDeclPsi.encoding, `is`(nullValue()))
 
         assertThat(file.XQueryVersion.version, `is`(nullValue()))
@@ -4097,7 +4097,7 @@ class XQueryPsiTest : ParserTestCase() {
         val versionDeclPsi = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
         assertThat<XPathStringLiteral>(versionDeclPsi.version, `is`(nullValue()))
         assertThat<XPathStringLiteral>(versionDeclPsi.encoding, `is`(notNullValue()))
-        assertThat((versionDeclPsi.encoding!! as XdmLexicalValue).staticValue, `is`("latin1"))
+        assertThat((versionDeclPsi.encoding!! as XdmLexicalValue).staticValue as String, `is`("latin1"))
 
         assertThat(file.XQueryVersion.version, `is`(nullValue()))
         assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQuery.REC_3_0_20140408))
@@ -4111,7 +4111,7 @@ class XQueryPsiTest : ParserTestCase() {
         val versionDeclPsi = file.descendants().filterIsInstance<XQueryVersionDecl>().first()
         assertThat<XPathStringLiteral>(versionDeclPsi.version, `is`(nullValue()))
         assertThat<XPathStringLiteral>(versionDeclPsi.encoding, `is`(notNullValue()))
-        assertThat((versionDeclPsi.encoding!! as XdmLexicalValue).staticValue, `is`(""))
+        assertThat((versionDeclPsi.encoding!! as XdmLexicalValue).staticValue as String, `is`(""))
 
         assertThat(file.XQueryVersion.version, `is`(nullValue()))
         assertThat(file.XQueryVersion.getVersionOrDefault(file.project), `is`(XQuery.REC_3_0_20140408))

@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.*
 import java.lang.ref.WeakReference
 
-private class XdmLiteralValue(override val staticValue: String,
+private class XdmLiteralValue(override val staticValue: Any?,
                               private val cachedStaticType: CacheableProperty<XdmSequenceType>) : XdmLexicalValue {
 
     // NOTE: The staticType may not be initialized yet (i.e. for QNames), so use

@@ -50,7 +50,7 @@ class XQueryXdmTest : ParserTestCase() {
         val literal = parseLiteral<XPathBracedURILiteral>("Q{&lt;&aacute;&amacr;&Afr;&NotLessLess;&;&gt}")
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
-        assertThat(literal.staticValue, `is`("<áā\uD835\uDD04≪̸&;&gt"))
+        assertThat(literal.staticValue as String, `is`("<áā\uD835\uDD04≪̸&;&gt"))
         assertThat(literal.staticType, `is`(XsAnyURI as XdmSequenceType))
 
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
@@ -60,7 +60,7 @@ class XQueryXdmTest : ParserTestCase() {
         val literal = parseLiteral<XPathBracedURILiteral>("Q{&#xA0;&#160;&#x20;}")
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
-        assertThat(literal.staticValue, `is`("\u00A0\u00A0\u0020"))
+        assertThat(literal.staticValue as String, `is`("\u00A0\u00A0\u0020"))
         assertThat(literal.staticType, `is`(XsAnyURI as XdmSequenceType))
 
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
@@ -74,7 +74,7 @@ class XQueryXdmTest : ParserTestCase() {
         val literal = parseLiteral<XPathStringLiteral>("\"&lt;&aacute;&amacr;&Afr;&NotLessLess;&;&gt\"")
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
-        assertThat(literal.staticValue, `is`("<áā\uD835\uDD04≪\u0338&;&gt"))
+        assertThat(literal.staticValue as String, `is`("<áā\uD835\uDD04≪\u0338&;&gt"))
         assertThat(literal.staticType, `is`(XsString as XdmSequenceType))
 
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
@@ -84,7 +84,7 @@ class XQueryXdmTest : ParserTestCase() {
         val literal = parseLiteral<XPathStringLiteral>("\"&#xA0;&#160;&#x20;\"")
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
-        assertThat(literal.staticValue, `is`("\u00A0\u00A0\u0020"))
+        assertThat(literal.staticValue as String, `is`("\u00A0\u00A0\u0020"))
         assertThat(literal.staticType, `is`(XsString as XdmSequenceType))
 
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
@@ -97,7 +97,7 @@ class XQueryXdmTest : ParserTestCase() {
         val literal = parseLiteral<XQueryUriLiteral>("module namespace test = \"http://www.example.com\uFFFF\"")
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
-        assertThat(literal.staticValue, `is`("http://www.example.com\uFFFF")) // U+FFFF = BAD_CHARACTER token.
+        assertThat(literal.staticValue as String, `is`("http://www.example.com\uFFFF")) // U+FFFF = BAD_CHARACTER token.
         assertThat(literal.staticType, `is`(XsAnyURI as XdmSequenceType))
 
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
@@ -107,7 +107,7 @@ class XQueryXdmTest : ParserTestCase() {
         val literal = parseLiteral<XQueryUriLiteral>("module namespace test = \"http://www.example.com")
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
-        assertThat(literal.staticValue, `is`("http://www.example.com"))
+        assertThat(literal.staticValue as String, `is`("http://www.example.com"))
         assertThat(literal.staticType, `is`(XsAnyURI as XdmSequenceType))
 
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
@@ -117,7 +117,7 @@ class XQueryXdmTest : ParserTestCase() {
         val literal = parseLiteral<XQueryUriLiteral>("module namespace test = '''\"\"'")
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
-        assertThat(literal.staticValue, `is`("'\"\""))
+        assertThat(literal.staticValue as String, `is`("'\"\""))
         assertThat(literal.staticType, `is`(XsAnyURI as XdmSequenceType))
 
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
@@ -127,7 +127,7 @@ class XQueryXdmTest : ParserTestCase() {
         val literal = parseLiteral<XQueryUriLiteral>("module namespace test = \"''\"\"\"")
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
-        assertThat(literal.staticValue, `is`("''\""))
+        assertThat(literal.staticValue as String, `is`("''\""))
         assertThat(literal.staticType, `is`(XsAnyURI as XdmSequenceType))
 
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
@@ -138,7 +138,7 @@ class XQueryXdmTest : ParserTestCase() {
         val literal = parseLiteral<XQueryUriLiteral>("module namespace test = \"&lt;&aacute;&amacr;&Afr;&NotLessLess;&;&gt\"")
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
-        assertThat(literal.staticValue, `is`("<áā\uD835\uDD04≪\u0338&;&gt"))
+        assertThat(literal.staticValue as String, `is`("<áā\uD835\uDD04≪\u0338&;&gt"))
         assertThat(literal.staticType, `is`(XsAnyURI as XdmSequenceType))
 
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
@@ -148,7 +148,7 @@ class XQueryXdmTest : ParserTestCase() {
         val literal = parseLiteral<XQueryUriLiteral>("module namespace test = \"&#xA0;&#160;&#x20;\"")
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
-        assertThat(literal.staticValue, `is`("\u00A0\u00A0\u0020"))
+        assertThat(literal.staticValue as String, `is`("\u00A0\u00A0\u0020"))
         assertThat(literal.staticType, `is`(XsAnyURI as XdmSequenceType))
 
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
@@ -162,7 +162,7 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(literal.staticType, `is`(XsString as XdmSequenceType))
-        assertThat(literal.staticValue, `is`("http://www.example.com\uFFFF")) // U+FFFF = BAD_CHARACTER token.
+        assertThat(literal.staticValue as String, `is`("http://www.example.com\uFFFF")) // U+FFFF = BAD_CHARACTER token.
 
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
     }
@@ -172,7 +172,7 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(literal.staticType, `is`(XsString as XdmSequenceType))
-        assertThat(literal.staticValue, `is`("http://www.example.com"))
+        assertThat(literal.staticValue as String, `is`("http://www.example.com"))
 
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
     }
@@ -182,7 +182,7 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(literal.staticType, `is`(XsString as XdmSequenceType))
-        assertThat(literal.staticValue, `is`("'\"\"{}"))
+        assertThat(literal.staticValue as String, `is`("'\"\"{}"))
 
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
     }
@@ -192,7 +192,7 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(literal.staticType, `is`(XsString as XdmSequenceType))
-        assertThat(literal.staticValue, `is`("''\"{}"))
+        assertThat(literal.staticValue as String, `is`("''\"{}"))
 
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
     }
@@ -203,7 +203,7 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(literal.staticType, `is`(XsString as XdmSequenceType))
-        assertThat(literal.staticValue, `is`("<áā\uD835\uDD04≪\u0338&;&gt"))
+        assertThat(literal.staticValue as String, `is`("<áā\uD835\uDD04≪\u0338&;&gt"))
 
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
     }
@@ -213,7 +213,7 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(literal.staticType, `is`(XsString as XdmSequenceType))
-        assertThat(literal.staticValue, `is`("\u00A0\u00A0\u0020"))
+        assertThat(literal.staticValue as String, `is`("\u00A0\u00A0\u0020"))
 
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
     }
@@ -223,7 +223,7 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
 
         assertThat(literal.staticType, `is`(XsUntyped as XdmSequenceType))
-        assertThat(literal.staticValue, `is`(""))
+        assertThat(literal.staticValue as String, `is`(""))
 
         assertThat(literal.cacheable, `is`(CachingBehaviour.Cache))
     }
@@ -239,12 +239,12 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(expr.namespacePrefix, `is`(notNullValue()))
         assertThat(expr.namespacePrefix?.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.namespacePrefix?.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(expr.namespacePrefix?.staticValue, `is`("b"))
+        assertThat(expr.namespacePrefix?.staticValue as String, `is`("b"))
 
         assertThat(expr.namespaceUri, `is`(notNullValue()))
         assertThat(expr.namespaceUri?.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.namespaceUri?.staticType, `is`(XsAnyURI as XdmSequenceType))
-        assertThat(expr.namespaceUri?.staticValue, `is`("http://www.example.com"))
+        assertThat(expr.namespaceUri?.staticValue as String, `is`("http://www.example.com"))
     }
 
     fun testDirAttribute_Xmlns_NoNamespaceUri() {
@@ -253,7 +253,7 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(expr.namespacePrefix, `is`(notNullValue()))
         assertThat(expr.namespacePrefix?.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.namespacePrefix?.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(expr.namespacePrefix?.staticValue, `is`("b"))
+        assertThat(expr.namespacePrefix?.staticValue as String, `is`("b"))
 
         assertThat(expr.namespaceUri, `is`(nullValue()))
     }
@@ -266,7 +266,7 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(expr.namespaceUri, `is`(notNullValue()))
         assertThat(expr.namespaceUri?.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.namespaceUri?.staticType, `is`(XsString as XdmSequenceType))
-        assertThat(expr.namespaceUri?.staticValue, `is`("http://www.example.com"))
+        assertThat(expr.namespaceUri?.staticValue as String, `is`("http://www.example.com"))
     }
 
     // endregion
@@ -278,12 +278,12 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(expr.namespacePrefix, `is`(notNullValue()))
         assertThat(expr.namespacePrefix?.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.namespacePrefix?.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(expr.namespacePrefix?.staticValue, `is`("test"))
+        assertThat(expr.namespacePrefix?.staticValue as String, `is`("test"))
 
         assertThat(expr.namespaceUri, `is`(notNullValue()))
         assertThat(expr.namespaceUri?.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.namespaceUri?.staticType, `is`(XsAnyURI as XdmSequenceType))
-        assertThat(expr.namespaceUri?.staticValue, `is`("http://www.example.com"))
+        assertThat(expr.namespaceUri?.staticValue as String, `is`("http://www.example.com"))
     }
 
     fun testModuleDecl_NoNamespacePrefix() {
@@ -294,7 +294,7 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(expr.namespaceUri, `is`(notNullValue()))
         assertThat(expr.namespaceUri?.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.namespaceUri?.staticType, `is`(XsAnyURI as XdmSequenceType))
-        assertThat(expr.namespaceUri?.staticValue, `is`("http://www.example.com"))
+        assertThat(expr.namespaceUri?.staticValue as String, `is`("http://www.example.com"))
     }
 
     fun testModuleDecl_NoNamespaceUri() {
@@ -303,7 +303,7 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(expr.namespacePrefix, `is`(notNullValue()))
         assertThat(expr.namespacePrefix?.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.namespacePrefix?.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(expr.namespacePrefix?.staticValue, `is`("test"))
+        assertThat(expr.namespacePrefix?.staticValue as String, `is`("test"))
 
         assertThat(expr.namespaceUri, `is`(nullValue()))
     }
@@ -317,12 +317,12 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(expr.namespacePrefix, `is`(notNullValue()))
         assertThat(expr.namespacePrefix?.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.namespacePrefix?.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(expr.namespacePrefix?.staticValue, `is`("test"))
+        assertThat(expr.namespacePrefix?.staticValue as String, `is`("test"))
 
         assertThat(expr.namespaceUri, `is`(notNullValue()))
         assertThat(expr.namespaceUri?.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.namespaceUri?.staticType, `is`(XsAnyURI as XdmSequenceType))
-        assertThat(expr.namespaceUri?.staticValue, `is`("http://www.example.com"))
+        assertThat(expr.namespaceUri?.staticValue as String, `is`("http://www.example.com"))
     }
 
     fun testModuleImport_NoNamespacePrefix() {
@@ -333,7 +333,7 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(expr.namespaceUri, `is`(notNullValue()))
         assertThat(expr.namespaceUri?.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.namespaceUri?.staticType, `is`(XsAnyURI as XdmSequenceType))
-        assertThat(expr.namespaceUri?.staticValue, `is`("http://www.example.com"))
+        assertThat(expr.namespaceUri?.staticValue as String, `is`("http://www.example.com"))
     }
 
     fun testModuleImport_NoNamespaceUri() {
@@ -342,7 +342,7 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(expr.namespacePrefix, `is`(notNullValue()))
         assertThat(expr.namespacePrefix?.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.namespacePrefix?.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(expr.namespacePrefix?.staticValue, `is`("test"))
+        assertThat(expr.namespacePrefix?.staticValue as String, `is`("test"))
 
         assertThat(expr.namespaceUri, `is`(nullValue()))
     }
@@ -356,12 +356,12 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(expr.namespacePrefix, `is`(notNullValue()))
         assertThat(expr.namespacePrefix?.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.namespacePrefix?.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(expr.namespacePrefix?.staticValue, `is`("test"))
+        assertThat(expr.namespacePrefix?.staticValue as String, `is`("test"))
 
         assertThat(expr.namespaceUri, `is`(notNullValue()))
         assertThat(expr.namespaceUri?.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.namespaceUri?.staticType, `is`(XsAnyURI as XdmSequenceType))
-        assertThat(expr.namespaceUri?.staticValue, `is`("http://www.example.com"))
+        assertThat(expr.namespaceUri?.staticValue as String, `is`("http://www.example.com"))
     }
 
     fun testNamespaceDecl_NoNamespacePrefix() {
@@ -372,7 +372,7 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(expr.namespaceUri, `is`(notNullValue()))
         assertThat(expr.namespaceUri?.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.namespaceUri?.staticType, `is`(XsAnyURI as XdmSequenceType))
-        assertThat(expr.namespaceUri?.staticValue, `is`("http://www.example.com"))
+        assertThat(expr.namespaceUri?.staticValue as String, `is`("http://www.example.com"))
     }
 
     fun testNamespaceDecl_NoNamespaceUri() {
@@ -381,7 +381,7 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(expr.namespacePrefix, `is`(notNullValue()))
         assertThat(expr.namespacePrefix?.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.namespacePrefix?.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(expr.namespacePrefix?.staticValue, `is`("test"))
+        assertThat(expr.namespacePrefix?.staticValue as String, `is`("test"))
 
         assertThat(expr.namespaceUri, `is`(nullValue()))
     }
@@ -395,12 +395,12 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(expr.namespacePrefix, `is`(notNullValue()))
         assertThat(expr.namespacePrefix?.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.namespacePrefix?.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(expr.namespacePrefix?.staticValue, `is`("test"))
+        assertThat(expr.namespacePrefix?.staticValue as String, `is`("test"))
 
         assertThat(expr.namespaceUri, `is`(notNullValue()))
         assertThat(expr.namespaceUri?.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.namespaceUri?.staticType, `is`(XsAnyURI as XdmSequenceType))
-        assertThat(expr.namespaceUri?.staticValue, `is`("http://www.example.com"))
+        assertThat(expr.namespaceUri?.staticValue as String, `is`("http://www.example.com"))
     }
 
     fun testSchemaImport_NoNamespacePrefix() {
@@ -411,7 +411,7 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(expr.namespaceUri, `is`(notNullValue()))
         assertThat(expr.namespaceUri?.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.namespaceUri?.staticType, `is`(XsAnyURI as XdmSequenceType))
-        assertThat(expr.namespaceUri?.staticValue, `is`("http://www.example.com"))
+        assertThat(expr.namespaceUri?.staticValue as String, `is`("http://www.example.com"))
     }
 
     fun testSchemaImport_NoNamespaceUri() {
@@ -420,7 +420,7 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(expr.namespacePrefix, `is`(notNullValue()))
         assertThat(expr.namespacePrefix?.cacheable, `is`(CachingBehaviour.Cache))
         assertThat(expr.namespacePrefix?.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(expr.namespacePrefix?.staticValue, `is`("test"))
+        assertThat(expr.namespacePrefix?.staticValue as String, `is`("test"))
 
         assertThat(expr.namespaceUri, `is`(nullValue()))
     }
@@ -446,7 +446,7 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
 
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(qname.localName.staticValue, `is`("y"))
+        assertThat(qname.localName.staticValue as String, `is`("y"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
     }
@@ -466,10 +466,10 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
 
         assertThat(qname.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(qname.prefix?.staticValue, `is`("a"))
+        assertThat(qname.prefix?.staticValue as String, `is`("a"))
 
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(qname.localName.staticValue, `is`("y"))
+        assertThat(qname.localName.staticValue as String, `is`("y"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
     }
@@ -492,10 +492,10 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
 
         assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
-        assertThat(qname.namespace?.staticValue, `is`("http://www.example.com"))
+        assertThat(qname.namespace?.staticValue as String, `is`("http://www.example.com"))
 
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(qname.localName.staticValue, `is`("y"))
+        assertThat(qname.localName.staticValue as String, `is`("y"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
@@ -529,7 +529,7 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
 
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(qname.localName.staticValue, `is`("z"))
+        assertThat(qname.localName.staticValue as String, `is`("z"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
     }
@@ -549,10 +549,10 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
 
         assertThat(qname.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(qname.prefix?.staticValue, `is`("a"))
+        assertThat(qname.prefix?.staticValue as String, `is`("a"))
 
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(qname.localName.staticValue, `is`("z"))
+        assertThat(qname.localName.staticValue as String, `is`("z"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
     }
@@ -574,10 +574,10 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
 
         assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
-        assertThat(qname.namespace?.staticValue, `is`("http://www.example.com"))
+        assertThat(qname.namespace?.staticValue as String, `is`("http://www.example.com"))
 
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(qname.localName.staticValue, `is`("z"))
+        assertThat(qname.localName.staticValue as String, `is`("z"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
@@ -610,7 +610,7 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
 
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(qname.localName.staticValue, `is`("w"))
+        assertThat(qname.localName.staticValue as String, `is`("w"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
     }
@@ -629,10 +629,10 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
 
         assertThat(qname.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(qname.prefix?.staticValue, `is`("a"))
+        assertThat(qname.prefix?.staticValue as String, `is`("a"))
 
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(qname.localName.staticValue, `is`("w"))
+        assertThat(qname.localName.staticValue as String, `is`("w"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
     }
@@ -654,10 +654,10 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
 
         assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
-        assertThat(qname.namespace?.staticValue, `is`("http://www.example.com"))
+        assertThat(qname.namespace?.staticValue as String, `is`("http://www.example.com"))
 
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(qname.localName.staticValue, `is`("w"))
+        assertThat(qname.localName.staticValue as String, `is`("w"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
@@ -681,7 +681,7 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
 
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(qname.localName.staticValue, `is`("y"))
+        assertThat(qname.localName.staticValue as String, `is`("y"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
     }
@@ -701,10 +701,10 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
 
         assertThat(qname.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(qname.prefix?.staticValue, `is`("a"))
+        assertThat(qname.prefix?.staticValue as String, `is`("a"))
 
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(qname.localName.staticValue, `is`("y"))
+        assertThat(qname.localName.staticValue as String, `is`("y"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
     }
@@ -727,10 +727,10 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
 
         assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
-        assertThat(qname.namespace?.staticValue, `is`("http://www.example.com"))
+        assertThat(qname.namespace?.staticValue as String, `is`("http://www.example.com"))
 
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(qname.localName.staticValue, `is`("y"))
+        assertThat(qname.localName.staticValue as String, `is`("y"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
@@ -764,7 +764,7 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
 
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(qname.localName.staticValue, `is`("x"))
+        assertThat(qname.localName.staticValue as String, `is`("x"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
     }
@@ -784,10 +784,10 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
 
         assertThat(qname.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(qname.prefix?.staticValue, `is`("a"))
+        assertThat(qname.prefix?.staticValue as String, `is`("a"))
 
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(qname.localName.staticValue, `is`("x"))
+        assertThat(qname.localName.staticValue as String, `is`("x"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
     }
@@ -809,10 +809,10 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
 
         assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
-        assertThat(qname.namespace?.staticValue, `is`("http://www.example.com"))
+        assertThat(qname.namespace?.staticValue as String, `is`("http://www.example.com"))
 
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(qname.localName.staticValue, `is`("x"))
+        assertThat(qname.localName.staticValue as String, `is`("x"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
@@ -847,7 +847,7 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
 
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(qname.localName.staticValue, `is`("z"))
+        assertThat(qname.localName.staticValue as String, `is`("z"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
     }
@@ -868,10 +868,10 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
 
         assertThat(qname.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(qname.prefix?.staticValue, `is`("a"))
+        assertThat(qname.prefix?.staticValue as String, `is`("a"))
 
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(qname.localName.staticValue, `is`("z"))
+        assertThat(qname.localName.staticValue as String, `is`("z"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
     }
@@ -895,10 +895,10 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
 
         assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
-        assertThat(qname.namespace?.staticValue, `is`("http://www.example.com"))
+        assertThat(qname.namespace?.staticValue as String, `is`("http://www.example.com"))
 
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(qname.localName.staticValue, `is`("z"))
+        assertThat(qname.localName.staticValue as String, `is`("z"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
@@ -929,7 +929,7 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
 
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(qname.localName.staticValue, `is`("z"))
+        assertThat(qname.localName.staticValue as String, `is`("z"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
     }
@@ -946,10 +946,10 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
 
         assertThat(qname.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(qname.prefix?.staticValue, `is`("a"))
+        assertThat(qname.prefix?.staticValue as String, `is`("a"))
 
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(qname.localName.staticValue, `is`("z"))
+        assertThat(qname.localName.staticValue as String, `is`("z"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
     }
@@ -969,10 +969,10 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
 
         assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
-        assertThat(qname.namespace?.staticValue, `is`("http://www.example.com"))
+        assertThat(qname.namespace?.staticValue as String, `is`("http://www.example.com"))
 
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(qname.localName.staticValue, `is`("z"))
+        assertThat(qname.localName.staticValue as String, `is`("z"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
@@ -1004,7 +1004,7 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
 
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(qname.localName.staticValue, `is`("x"))
+        assertThat(qname.localName.staticValue as String, `is`("x"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
     }
@@ -1024,10 +1024,10 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
 
         assertThat(qname.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(qname.prefix?.staticValue, `is`("a"))
+        assertThat(qname.prefix?.staticValue as String, `is`("a"))
 
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(qname.localName.staticValue, `is`("x"))
+        assertThat(qname.localName.staticValue as String, `is`("x"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
     }
@@ -1048,10 +1048,10 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
 
         assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
-        assertThat(qname.namespace?.staticValue, `is`("http://www.example.com"))
+        assertThat(qname.namespace?.staticValue as String, `is`("http://www.example.com"))
 
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(qname.localName.staticValue, `is`("x"))
+        assertThat(qname.localName.staticValue as String, `is`("x"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
@@ -1084,7 +1084,7 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
 
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(qname.localName.staticValue, `is`("w"))
+        assertThat(qname.localName.staticValue as String, `is`("w"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
     }
@@ -1104,10 +1104,10 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
 
         assertThat(qname.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(qname.prefix?.staticValue, `is`("a"))
+        assertThat(qname.prefix?.staticValue as String, `is`("a"))
 
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(qname.localName.staticValue, `is`("w"))
+        assertThat(qname.localName.staticValue as String, `is`("w"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
     }
@@ -1129,10 +1129,10 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
 
         assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
-        assertThat(qname.namespace?.staticValue, `is`("http://www.example.com"))
+        assertThat(qname.namespace?.staticValue as String, `is`("http://www.example.com"))
 
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(qname.localName.staticValue, `is`("w"))
+        assertThat(qname.localName.staticValue as String, `is`("w"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
@@ -1156,7 +1156,7 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
 
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(qname.localName.staticValue, `is`("y"))
+        assertThat(qname.localName.staticValue as String, `is`("y"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
     }
@@ -1176,10 +1176,10 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
 
         assertThat(qname.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(qname.prefix?.staticValue, `is`("a"))
+        assertThat(qname.prefix?.staticValue as String, `is`("a"))
 
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(qname.localName.staticValue, `is`("y"))
+        assertThat(qname.localName.staticValue as String, `is`("y"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
     }
@@ -1201,10 +1201,10 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
 
         assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
-        assertThat(qname.namespace?.staticValue, `is`("http://www.example.com"))
+        assertThat(qname.namespace?.staticValue as String, `is`("http://www.example.com"))
 
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(qname.localName.staticValue, `is`("y"))
+        assertThat(qname.localName.staticValue as String, `is`("y"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
@@ -1237,7 +1237,7 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
 
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(qname.localName.staticValue, `is`("w"))
+        assertThat(qname.localName.staticValue as String, `is`("w"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
     }
@@ -1257,10 +1257,10 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
 
         assertThat(qname.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(qname.prefix?.staticValue, `is`("a"))
+        assertThat(qname.prefix?.staticValue as String, `is`("a"))
 
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(qname.localName.staticValue, `is`("w"))
+        assertThat(qname.localName.staticValue as String, `is`("w"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
     }
@@ -1282,10 +1282,10 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
 
         assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
-        assertThat(qname.namespace?.staticValue, `is`("http://www.example.com"))
+        assertThat(qname.namespace?.staticValue as String, `is`("http://www.example.com"))
 
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(qname.localName.staticValue, `is`("w"))
+        assertThat(qname.localName.staticValue as String, `is`("w"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
@@ -1309,7 +1309,7 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
 
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(qname.localName.staticValue, `is`("x"))
+        assertThat(qname.localName.staticValue as String, `is`("x"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
     }
@@ -1329,10 +1329,10 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
 
         assertThat(qname.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(qname.prefix?.staticValue, `is`("a"))
+        assertThat(qname.prefix?.staticValue as String, `is`("a"))
 
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(qname.localName.staticValue, `is`("x"))
+        assertThat(qname.localName.staticValue as String, `is`("x"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
     }
@@ -1354,10 +1354,10 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
 
         assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
-        assertThat(qname.namespace?.staticValue, `is`("http://www.example.com"))
+        assertThat(qname.namespace?.staticValue as String, `is`("http://www.example.com"))
 
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(qname.localName.staticValue, `is`("x"))
+        assertThat(qname.localName.staticValue as String, `is`("x"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
@@ -1391,7 +1391,7 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
 
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(qname.localName.staticValue, `is`("x"))
+        assertThat(qname.localName.staticValue as String, `is`("x"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
     }
@@ -1411,10 +1411,10 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
 
         assertThat(qname.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(qname.prefix?.staticValue, `is`("a"))
+        assertThat(qname.prefix?.staticValue as String, `is`("a"))
 
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(qname.localName.staticValue, `is`("x"))
+        assertThat(qname.localName.staticValue as String, `is`("x"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
     }
@@ -1436,10 +1436,10 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
 
         assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
-        assertThat(qname.namespace?.staticValue, `is`("http://www.example.com"))
+        assertThat(qname.namespace?.staticValue as String, `is`("http://www.example.com"))
 
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(qname.localName.staticValue, `is`("x"))
+        assertThat(qname.localName.staticValue as String, `is`("x"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }
@@ -1473,7 +1473,7 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
 
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(qname.localName.staticValue, `is`("x"))
+        assertThat(qname.localName.staticValue as String, `is`("x"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
     }
@@ -1493,10 +1493,10 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
 
         assertThat(qname.prefix?.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(qname.prefix?.staticValue, `is`("a"))
+        assertThat(qname.prefix?.staticValue as String, `is`("a"))
 
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(qname.localName.staticValue, `is`("x"))
+        assertThat(qname.localName.staticValue as String, `is`("x"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.DoNotCache))
     }
@@ -1517,10 +1517,10 @@ class XQueryXdmTest : ParserTestCase() {
         assertThat(qname.declaration?.get(), `is`(name as XdmStaticValue))
 
         assertThat(qname.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
-        assertThat(qname.namespace?.staticValue, `is`("http://www.example.com"))
+        assertThat(qname.namespace?.staticValue as String, `is`("http://www.example.com"))
 
         assertThat(qname.localName.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(qname.localName.staticValue, `is`("x"))
+        assertThat(qname.localName.staticValue as String, `is`("x"))
 
         assertThat(expr.cacheable, `is`(CachingBehaviour.Cache))
     }

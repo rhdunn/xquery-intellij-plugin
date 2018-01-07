@@ -30,7 +30,7 @@ class XmlNCNameImpl(type: IElementType, text: CharSequence):
 
     override val staticType: XdmSequenceType = XsNCName
 
-    override val staticValue get(): String = text
+    override val staticValue get(): Any? = text
 
     override fun toString(): String = "XmlNCNameImpl"
 }

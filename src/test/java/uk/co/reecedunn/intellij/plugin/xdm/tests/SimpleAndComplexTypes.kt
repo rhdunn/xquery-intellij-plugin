@@ -30,10 +30,10 @@ class SimpleAndComplexTypes : TestCase() {
         assertThat(XsAnyType.typeName?.declaration, `is`(nullValue()))
 
         assertThat(XsAnyType.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
-        assertThat(XsAnyType.typeName?.namespace?.staticValue, `is`("http://www.w3.org/2001/XMLSchema"))
+        assertThat(XsAnyType.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
 
         assertThat(XsAnyType.typeName?.localName?.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(XsAnyType.typeName?.localName?.staticValue, `is`("anyType"))
+        assertThat(XsAnyType.typeName?.localName?.staticValue as String, `is`("anyType"))
 
         assertThat(XsAnyType.baseType, `is`(nullValue()))
         assertThat(XsAnyType.isPrimitive, `is`(false))
@@ -47,10 +47,10 @@ class SimpleAndComplexTypes : TestCase() {
         assertThat(XsUntyped.typeName?.declaration, `is`(nullValue()))
 
         assertThat(XsUntyped.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
-        assertThat(XsUntyped.typeName?.namespace?.staticValue, `is`("http://www.w3.org/2001/XMLSchema"))
+        assertThat(XsUntyped.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
 
         assertThat(XsUntyped.typeName?.localName?.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(XsUntyped.typeName?.localName?.staticValue, `is`("untyped"))
+        assertThat(XsUntyped.typeName?.localName?.staticValue as String, `is`("untyped"))
 
         assertThat(XsUntyped.baseType, `is`(XsAnyType))
         assertThat(XsUntyped.isPrimitive, `is`(false))
@@ -64,10 +64,10 @@ class SimpleAndComplexTypes : TestCase() {
         assertThat(XsAnySimpleType.typeName?.declaration, `is`(nullValue()))
 
         assertThat(XsAnySimpleType.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
-        assertThat(XsAnySimpleType.typeName?.namespace?.staticValue, `is`("http://www.w3.org/2001/XMLSchema"))
+        assertThat(XsAnySimpleType.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
 
         assertThat(XsAnySimpleType.typeName?.localName?.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(XsAnySimpleType.typeName?.localName?.staticValue, `is`("anySimpleType"))
+        assertThat(XsAnySimpleType.typeName?.localName?.staticValue as String, `is`("anySimpleType"))
 
         assertThat(XsAnySimpleType.baseType, `is`(XsAnyType))
         assertThat(XsAnySimpleType.isPrimitive, `is`(false))
@@ -81,10 +81,10 @@ class SimpleAndComplexTypes : TestCase() {
         assertThat(XsAnyAtomicType.typeName?.declaration, `is`(nullValue()))
 
         assertThat(XsAnyAtomicType.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
-        assertThat(XsAnyAtomicType.typeName?.namespace?.staticValue, `is`("http://www.w3.org/2001/XMLSchema"))
+        assertThat(XsAnyAtomicType.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
 
         assertThat(XsAnyAtomicType.typeName?.localName?.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(XsAnyAtomicType.typeName?.localName?.staticValue, `is`("anyAtomicType"))
+        assertThat(XsAnyAtomicType.typeName?.localName?.staticValue as String, `is`("anyAtomicType"))
 
         assertThat(XsAnyAtomicType.baseType, `is`(XsAnySimpleType as XmlSchemaType))
         assertThat(XsAnyAtomicType.isPrimitive, `is`(false))
@@ -98,10 +98,10 @@ class SimpleAndComplexTypes : TestCase() {
         assertThat(XsNumeric.typeName?.declaration, `is`(nullValue()))
 
         assertThat(XsNumeric.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
-        assertThat(XsNumeric.typeName?.namespace?.staticValue, `is`("http://www.w3.org/2001/XMLSchema"))
+        assertThat(XsNumeric.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
 
         assertThat(XsNumeric.typeName?.localName?.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(XsNumeric.typeName?.localName?.staticValue, `is`("numeric"))
+        assertThat(XsNumeric.typeName?.localName?.staticValue as String, `is`("numeric"))
 
         assertThat(XsNumeric.baseType, `is`(XsAnySimpleType as XmlSchemaType))
         assertThat(XsNumeric.isPrimitive, `is`(false))
@@ -120,10 +120,10 @@ class SimpleAndComplexTypes : TestCase() {
         assertThat(XsIDREFS.typeName?.declaration, `is`(nullValue()))
 
         assertThat(XsIDREFS.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
-        assertThat(XsIDREFS.typeName?.namespace?.staticValue, `is`("http://www.w3.org/2001/XMLSchema"))
+        assertThat(XsIDREFS.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
 
         assertThat(XsIDREFS.typeName?.localName?.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(XsIDREFS.typeName?.localName?.staticValue, `is`("IDREFS"))
+        assertThat(XsIDREFS.typeName?.localName?.staticValue as String, `is`("IDREFS"))
 
         assertThat(XsIDREFS.baseType, `is`(XsAnySimpleType as XmlSchemaType))
         assertThat(XsIDREFS.isPrimitive, `is`(false))
@@ -139,10 +139,10 @@ class SimpleAndComplexTypes : TestCase() {
         assertThat(XsNMTOKENS.typeName?.declaration, `is`(nullValue()))
 
         assertThat(XsNMTOKENS.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
-        assertThat(XsNMTOKENS.typeName?.namespace?.staticValue, `is`("http://www.w3.org/2001/XMLSchema"))
+        assertThat(XsNMTOKENS.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
 
         assertThat(XsNMTOKENS.typeName?.localName?.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(XsNMTOKENS.typeName?.localName?.staticValue, `is`("NMTOKENS"))
+        assertThat(XsNMTOKENS.typeName?.localName?.staticValue as String, `is`("NMTOKENS"))
 
         assertThat(XsNMTOKENS.baseType, `is`(XsAnySimpleType as XmlSchemaType))
         assertThat(XsNMTOKENS.isPrimitive, `is`(false))
@@ -158,10 +158,10 @@ class SimpleAndComplexTypes : TestCase() {
         assertThat(XsENTITIES.typeName?.declaration, `is`(nullValue()))
 
         assertThat(XsENTITIES.typeName?.namespace?.staticType, `is`(XsAnyURI as XdmSequenceType))
-        assertThat(XsENTITIES.typeName?.namespace?.staticValue, `is`("http://www.w3.org/2001/XMLSchema"))
+        assertThat(XsENTITIES.typeName?.namespace?.staticValue as String, `is`("http://www.w3.org/2001/XMLSchema"))
 
         assertThat(XsENTITIES.typeName?.localName?.staticType, `is`(XsNCName as XdmSequenceType))
-        assertThat(XsENTITIES.typeName?.localName?.staticValue, `is`("ENTITIES"))
+        assertThat(XsENTITIES.typeName?.localName?.staticValue as String, `is`("ENTITIES"))
 
         assertThat(XsENTITIES.baseType, `is`(XsAnySimpleType as XmlSchemaType))
         assertThat(XsENTITIES.isPrimitive, `is`(false))

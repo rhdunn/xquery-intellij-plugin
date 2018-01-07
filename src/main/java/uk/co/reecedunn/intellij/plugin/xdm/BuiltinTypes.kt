@@ -19,7 +19,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.datatype.QName
 import uk.co.reecedunn.intellij.plugin.xdm.model.XmlSchemaType
 
 private fun localNameTypeMapOf(vararg x: XmlSchemaType): Map<String, XmlSchemaType> {
-    return x.map { type -> type.typeName!!.localName.staticValue to type }.toMap()
+    return x.map { type -> type.typeName!!.localName.staticValue as String to type }.toMap()
 }
 
 private val BUILTIN_XMLSCHEMA_TYPES = localNameTypeMapOf(

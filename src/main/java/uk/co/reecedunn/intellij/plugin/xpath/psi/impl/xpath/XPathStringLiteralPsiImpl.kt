@@ -45,7 +45,7 @@ open class XPathStringLiteralPsiImpl(node: ASTNode):
 
     override val cacheable: CachingBehaviour = CachingBehaviour.Cache
 
-    override val staticValue get(): String = cachedLexicalRepresentation.get()!!
+    override val staticValue get(): Any? = cachedLexicalRepresentation.get()!!
 
     private val cachedLexicalRepresentation = CacheableProperty {
         children().map { child -> when (child.node.elementType) {

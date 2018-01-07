@@ -28,7 +28,7 @@ class XPathIntegerLiteralImpl(type: IElementType, text: CharSequence):
         XPathIntegerLiteral,
         XdmLexicalValue {
 
-    override val staticValue get(): String = text
+    override val staticValue get(): Any? = text
 
     override val staticType: XdmSequenceType = XsInteger
 

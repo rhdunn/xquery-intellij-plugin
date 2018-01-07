@@ -50,7 +50,7 @@ class XPathBracedURILiteralPsiImpl(node: ASTNode):
 
     override val staticType: XdmSequenceType = XsAnyURI
 
-    override val staticValue get(): String = cachedLexicalRepresentation.get()!!
+    override val staticValue get(): Any? = cachedLexicalRepresentation.get()!!
     private val cachedLexicalRepresentation = CacheableProperty {
         children().map { child -> when (child.node.elementType) {
             XQueryTokenType.BRACED_URI_LITERAL_START, XQueryTokenType.BRACED_URI_LITERAL_END ->
